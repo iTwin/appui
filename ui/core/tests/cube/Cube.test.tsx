@@ -3,22 +3,18 @@
  *--------------------------------------------------------------------------------------------*/
 import { mount, shallow } from "enzyme";
 import * as React from "react";
-import { SearchBox } from "../../src/index";
-import TestUtils from "../TestUtils";
+import { Matrix3d } from "@bentley/geometry-core";
+import { Cube } from "../../src/index";
 
-describe("SearchBox", () => {
-
-  before(async () => {
-    await TestUtils.initializeUiCore();
-  });
-
-  describe("<SearchBox />", () => {
+describe("Cube", () => {
+  describe("<Cube />", () => {
     it("should render", () => {
-      mount(<SearchBox onValueChanged={() => { }} />);
+      const r = Matrix3d.createIdentity();
+      mount(<Cube rotMatrix={r} />);
     });
-
     it("renders correctly", () => {
-      shallow(<SearchBox onValueChanged={() => { }} />).should.matchSnapshot();
+      const r = Matrix3d.createIdentity();
+      shallow(<Cube rotMatrix={r} />).should.matchSnapshot();
     });
   });
 });
