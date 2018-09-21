@@ -1,11 +1,11 @@
 {
   "changes": [
     {
-      "comment": "Initial Table cell editing implementation",
+      "comment": "",
       "packageName": "@bentley/ui-framework",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "dan.east@bentley.com"
+  "email": "joe.zbuchalski@bentley.com"
 }
