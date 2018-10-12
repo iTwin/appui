@@ -1,7 +1,7 @@
 {
   "changes": [
     {
-      "comment": "Update copyright headers",
+      "comment": "Initial release",
       "packageName": "@bentley/ui-core",
       "type": "none"
     }

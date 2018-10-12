@@ -1,11 +1,11 @@
 {
   "changes": [
     {
-      "comment": "",
+      "comment": "Initial release",
       "packageName": "@bentley/ui-framework",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "Bill.Goehrig@bentley.com"
+  "email": "Caleb.Shafer@bentley.com"
 }
