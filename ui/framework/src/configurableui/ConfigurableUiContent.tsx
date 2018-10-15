@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) 2018 - present Bentley Systems, Incorporated. All rights reserved.
+* Copyright (c) 2018 Bentley Systems, Incorporated. All rights reserved.
 * Licensed under the MIT License. See LICENSE.md in the project root for license terms.
 *--------------------------------------------------------------------------------------------*/
 /** @module ConfigurableUi */
@@ -12,25 +12,25 @@ import { FrontstageComposer } from "./FrontstageComposer";
 import { ElementTooltip } from "./ElementTooltip";
 import PointerMessage from "../messages/Pointer";
 
-/** Props for [[ConfigurableUIContent]] */
-export interface ConfigurableUIContentProps {
+/** Props for [[ConfigurableUiContent]] */
+export interface ConfigurableUiContentProps {
   placeholder: string;
   appBackstage?: React.ReactNode;
 }
 
 function mapStateToProps(state: any) {
   return {
-    placeholder: state.frameworkState.configurableUIState.placeHolder,
+    placeholder: state.frameworkState.configurableUiState.placeHolder,
   };
 }
 
 const mapDispatch = {
 };
 
-/** The ConfigurableUIContent component is the high order component the pages specified using ConfigurableUi */
-class ConfigurableUIContentClass extends React.Component<ConfigurableUIContentProps> {
+/** The ConfigurableUiContent component is the high order component the pages specified using ConfigurableUi */
+class ConfigurableUiContentClass extends React.Component<ConfigurableUiContentProps> {
 
-  public constructor(props: ConfigurableUIContentProps) {
+  public constructor(props: ConfigurableUiContentProps) {
     super(props);
   }
 
@@ -45,18 +45,16 @@ class ConfigurableUIContentClass extends React.Component<ConfigurableUIContentPr
       overflow: "hidden",
     };
     return (
-      <div className="App" style={{ height: "100%" }} >
-        <div id="wrapper" style={wrapperStyle}>
-          {this.props.appBackstage}
-          <FrontstageComposer style={{ position: "relative", height: "100%" }} />
-          <ModalDialogRenderer />
-          <ElementTooltip />
-          <PointerMessage />
-        </div>
+      <div id="configurableui-wrapper" style={wrapperStyle}>
+        {this.props.appBackstage}
+        <FrontstageComposer style={{ position: "relative", height: "100%" }} />
+        <ModalDialogRenderer />
+        <ElementTooltip />
+        <PointerMessage />
       </div>
     );
   }
 }
 
-/** The ConfigurableUIContent component is the high order component the pages specified using ConfigurableUi */
-export const ConfigurableUIContent = connect(mapStateToProps, mapDispatch)(ConfigurableUIContentClass); // tslint:disable-line:variable-name
+/** The ConfigurableUiContent component is the high order component the pages specified using ConfigurableUi */
+export const ConfigurableUiContent = connect(mapStateToProps, mapDispatch)(ConfigurableUiContentClass); // tslint:disable-line:variable-name

@@ -1,11 +1,11 @@
 {
   "changes": [
     {
-      "comment": "ViewportComponent disposes of its Viewport when it is unmounted.",
+      "comment": "Update copyright headers",
       "packageName": "@bentley/ui-components",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-components",
-  "email": "Paul.Connelly@bentley.com"
+  "email": "Caleb.Shafer@bentley.com"
 }
