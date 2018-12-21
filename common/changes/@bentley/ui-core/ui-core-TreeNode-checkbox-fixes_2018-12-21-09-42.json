@@ -1,7 +1,7 @@
 {
   "changes": [
     {
-      "comment": "Use arrow cursor on tree nodes",
+      "comment": "TreeNode checkbox fixes",
       "packageName": "@bentley/ui-core",
       "type": "none"
     }
