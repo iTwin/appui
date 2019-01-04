@@ -1,11 +1,11 @@
 {
   "changes": [
     {
-      "comment": "TreeNode checkbox fixes",
+      "comment": "",
       "packageName": "@bentley/ui-core",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-core",
-  "email": "grigas.petraitis@bentley.com"
+  "email": "shaun.sewall@bentley.com"
 }
