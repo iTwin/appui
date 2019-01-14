@@ -6,11 +6,11 @@
 
 import * as classnames from "classnames";
 import * as React from "react";
-import { CommonProps, NoChildrenProps } from "../utilities/Props";
-import "./StatusBarText.scss";
+import { CommonProps, NoChildrenProps } from "../../utilities/Props";
+import "./SelectionInfo.scss";
 
-/** Properties of StatusBarText component.  */
-export interface StatusBarTextProps extends CommonProps, NoChildrenProps {
+/** Properties of SelectionInfo component.  */
+export interface SelectionInfoProps extends CommonProps, NoChildrenProps {
   /** Optional icon */
   icon?: React.ReactNode;
   /** Describes if the snap row is active. */
@@ -19,11 +19,11 @@ export interface StatusBarTextProps extends CommonProps, NoChildrenProps {
   label?: string;
 }
 
-/** Generic Text that can be used in StatusBar component. */
-export class StatusBarText extends React.PureComponent<StatusBarTextProps> {
+/** Display the Selection Count that can be used in StatusBar component. */
+export class SelectionInfo extends React.PureComponent<SelectionInfoProps> {
   public render() {
     const combinedClassName = classnames(
-      "nz-footer-text",
+      "nz-footer-selection-info",
       this.props.isInFooterMode && "nz-is-in-footer-mode",
       this.props.className);
 
