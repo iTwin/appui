@@ -2,13 +2,11 @@
 * Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
 * Licensed under the MIT License. See LICENSE.md in the project root for license terms.
 *--------------------------------------------------------------------------------------------*/
-@import "@bentley/ui-core/lib/ui-core/index";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import Demo from "./Demo";
 
-.toolSettingsContainer {
-  font-family: $uicore-font-family;
-  font-size: $uicore-font-size;
-}
-
-span.toolSettings-label-disabled {
-  color: $uicore-gray;
-}
+ReactDOM.render(
+  <Demo />,
+  document.getElementById("demo"),
+);
