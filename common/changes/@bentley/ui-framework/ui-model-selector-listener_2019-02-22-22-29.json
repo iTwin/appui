@@ -1,11 +1,11 @@
 {
   "changes": [
     {
-      "comment": "Change setImmediate to setTimeout. Fixed cube rotation issue.",
+      "comment": "Update ModelSelector when changes are made to ViewState",
       "packageName": "@bentley/ui-framework",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "dan.east@bentley.com"
+  "email": "Allison.Macdonald@bentley.com"
 }
