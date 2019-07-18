@@ -4,10 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 @import "@bentley/ui-core/lib/ui-core/style/themecolors";
 
-$icon-size: 16px;
-
-.uifw-beta-badge {
-  transform: rotate(270deg);
-  width: $icon-size;
-  height: $icon-size;
+.nz-footer-toolAssistance-newDot {
+  height: 5px;
+  width: 5px;
+  background-color: $buic-foreground-success;
+  border-radius: 50%;
+  display: inline-block;
 }

@@ -2,12 +2,17 @@
 * Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
 * Licensed under the MIT License. See LICENSE.md in the project root for license terms.
 *--------------------------------------------------------------------------------------------*/
-@import "@bentley/ui-core/lib/ui-core/style/themecolors";
+import { mount, shallow } from "enzyme";
+import * as React from "react";
 
-$icon-size: 16px;
+import { NewDot } from "../../../ui-ninezone/footer/tool-assistance/NewDot";
 
-.uifw-beta-badge {
-  transform: rotate(270deg);
-  width: $icon-size;
-  height: $icon-size;
-}
+describe("<NewDot />", () => {
+  it("should render", () => {
+    mount(<NewDot />);
+  });
+
+  it("renders correctly", () => {
+    shallow(<NewDot />).should.matchSnapshot();
+  });
+});
