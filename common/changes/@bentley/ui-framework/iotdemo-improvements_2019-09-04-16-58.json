@@ -1,11 +1,11 @@
 {
   "changes": [
     {
-      "comment": "Using Checkbox component in BooleanEditor. Cleaned up cell editor positioning.",
+      "comment": "UiDataProvider class, work on PluginUiProvider",
       "packageName": "@bentley/ui-framework",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "dan.east@bentley.com"
+  "email": "Barry.Bentley@bentley.com"
 }
