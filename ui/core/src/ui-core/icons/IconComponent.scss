@@ -2,10 +2,9 @@
 * Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
 * Licensed under the MIT License. See LICENSE.md in the project root for license terms.
 *--------------------------------------------------------------------------------------------*/
-@import "@bentley/ui-core/lib/ui-core/index";
+@import "./variables";
 
-.components-text-editor {
-  min-width:        100%;
-  height:           100%;
-  margin:           0;
+.core-svg-icon {
+  width:  $uicore-icons-small;
+  height: $uicore-icons-small;
 }
