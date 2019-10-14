@@ -4,11 +4,21 @@
 *--------------------------------------------------------------------------------------------*/
 /** @module Utilities */
 
-import { UiError as Abstract_UiError } from "@bentley/ui-abstract";
-
-/** iModel.js UI UiError class is a subclass of BentleyError. Errors are logged.
- * Deprecated - use UiError in bentley/ui-abstract instead.
- * @public
- * @deprecated - use UiError in bentley/ui-abstract instead
+/** Gets the class name for an object.
+ * @internal
  */
-export const UiError = Abstract_UiError;      // tslint:disable-line: variable-name
+export const getClassName = (obj: any): string => {
+  let className = "";
+
+  if (obj) {
+    if (obj.name)
+      className = obj.name;
+    else {
+      // istanbul ignore else
+      if (obj.constructor && obj.constructor.name)
+        className = obj.constructor.name;
+    }
+  }
+
+  return className;
+};
