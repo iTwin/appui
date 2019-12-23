@@ -2,18 +2,17 @@
 * Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
 * Licensed under the MIT License. See LICENSE.md in the project root for license terms.
 *--------------------------------------------------------------------------------------------*/
-import { mount, shallow } from "enzyme";
-import * as React from "react";
 import * as sinon from "sinon";
 import {
   isActionItem,
   isStageLauncher,
   BackstageItemsManager,
-} from "@bentley/ui-abstract";
-import {
-  useBackstageItems,
-} from "../../ui-framework";
-import { getActionItem, getStageLauncherItem } from "./BackstageComposerItem.test";
+  BackstageItemUtilities,
+} from "../../ui-abstract";
+
+// tslint:disable-next-line: completed-docs
+const getActionItem = () => BackstageItemUtilities.createActionItem("Action", 100, 50, () => { }, "Custom Label", "subtitle", "icon-placeholder");
+const getStageLauncherItem = () => BackstageItemUtilities.createStageLauncher("stageId", 100, 50, "Custom Label", "subtitle", "icon-placeholder");
 
 describe("isActionItem", () => {
   it("should return true for ActionItem", () => {
@@ -57,7 +56,7 @@ describe("BackstageItemsManager", () => {
     it("should set is visible", () => {
       const sut = new BackstageItemsManager();
       sut.items = [
-        getActionItem({ id: "0" }),
+        { ...getActionItem(), id: "0" },
       ];
 
       const spy = sinon.spy();
@@ -80,7 +79,7 @@ describe("BackstageItemsManager", () => {
     it("should not update if item visibility equals new visibility", () => {
       const sut = new BackstageItemsManager();
       sut.items = [
-        getActionItem({ id: "0" }),
+        { ...getActionItem(), id: "0" },
       ];
 
       const spy = sinon.spy();
@@ -95,7 +94,7 @@ describe("BackstageItemsManager", () => {
     it("should set is enabled", () => {
       const sut = new BackstageItemsManager();
       sut.items = [
-        getActionItem({ id: "0" }),
+        { ...getActionItem(), id: "0" },
       ];
 
       const spy = sinon.spy();
@@ -118,7 +117,7 @@ describe("BackstageItemsManager", () => {
     it("should not update if item isEnabled equals new isEnabled", () => {
       const sut = new BackstageItemsManager();
       sut.items = [
-        getActionItem({ id: "0" }),
+        { ...getActionItem(), id: "0" },
       ];
 
       const spy = sinon.spy();
@@ -180,8 +179,8 @@ describe("BackstageItemsManager", () => {
     it("should remove single item", () => {
       const sut = new BackstageItemsManager();
       sut.items = [
-        getActionItem({ id: "a" }),
-        getStageLauncherItem({ id: "b" }),
+        { ...getActionItem(), id: "a" },
+        { ...getStageLauncherItem(), id: "b" },
       ];
 
       const spy = sinon.spy();
@@ -196,8 +195,8 @@ describe("BackstageItemsManager", () => {
     it("should remove multiple items", () => {
       const sut = new BackstageItemsManager();
       sut.items = [
-        getActionItem({ id: "a" }),
-        getStageLauncherItem({ id: "b" }),
+        { ...getActionItem(), id: "a" },
+        { ...getStageLauncherItem(), id: "b" },
       ];
 
       const spy = sinon.spy();
@@ -206,96 +205,6 @@ describe("BackstageItemsManager", () => {
 
       spy.calledOnce.should.true;
       sut.items.length.should.eq(0);
-    });
-  });
-});
-
-describe("useBackstageItems", () => {
-  // tslint:disable-next-line:variable-name
-  const TestHook = (props: { onRender: () => void }) => {
-    props.onRender();
-    return null;
-  };
-
-  it("should return backstage items", () => {
-    const spy = sinon.spy() as sinon.SinonSpy<[ReturnType<typeof useBackstageItems>]>;
-    const manager = new BackstageItemsManager();
-    manager.items = [
-      getActionItem(),
-    ];
-    shallow(<TestHook
-      onRender={() => spy(useBackstageItems(manager))}
-    />);
-
-    spy.calledOnceWithExactly(sinon.match([manager.items[0]])).should.true;
-  });
-
-  it("should add onChanged listener", () => {
-    const manager = new BackstageItemsManager();
-    const spy = sinon.spy(manager.onChanged, "addListener");
-    manager.items = [
-      getActionItem(),
-    ];
-    mount(<TestHook
-      onRender={() => useBackstageItems(manager)}
-    />);
-
-    spy.calledOnce.should.true;
-  });
-
-  it("should update items", () => {
-    const spy = sinon.spy() as sinon.SinonSpy<[ReturnType<typeof useBackstageItems>]>;
-    const manager = new BackstageItemsManager();
-    manager.items = [
-      getActionItem(),
-    ];
-    mount(<TestHook
-      onRender={() => spy(useBackstageItems(manager))}
-    />);
-
-    manager.items = [];
-
-    spy.lastCall.calledWithExactly(sinon.match([])).should.true;
-  });
-
-  it("should remove onChanged listener", () => {
-    const manager = new BackstageItemsManager();
-    const spy = sinon.spy(manager.onChanged, "removeListener");
-    manager.items = [
-      getActionItem(),
-    ];
-    const sut = mount(<TestHook
-      onRender={() => useBackstageItems(manager)}
-    />);
-    sut.unmount();
-
-    spy.calledOnce.should.true;
-  });
-
-  describe("more useBackstageItems", () => {
-    // tslint:disable-next-line:variable-name
-    const TestHook2 = (props: { mrg: BackstageItemsManager, onRender: (mrg: BackstageItemsManager) => void }) => {
-      props.onRender(props.mrg);
-      return null;
-    };
-
-    it("cover changing managers", () => {
-      const manager = new BackstageItemsManager();
-      manager.items = [
-        getActionItem(),
-      ];
-      const sut = mount(<TestHook2 mrg={manager}
-        onRender={(mrg: BackstageItemsManager) => useBackstageItems(mrg)}
-      />);
-
-      const manager2 = new BackstageItemsManager();
-      manager2.items = [
-        getActionItem({ id: "a" }),
-        getStageLauncherItem({ id: "b" }),
-      ];
-      sut.setProps({ mrg: manager2 });
-      sut.update();
-      sut.unmount();
     });
   });
 });
