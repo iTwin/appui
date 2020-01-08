@@ -1,17 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
-* Licensed under the MIT License. See LICENSE.md in the project root for license terms.
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/** @module Popup */
+/** @module AccuDraw */
 
 import * as React from "react";
 
 import { OnNumberCommitFunc, OnCancelFunc } from "@bentley/ui-abstract";
 import { Icon, DivWithOutsideClick, Size, SizeProps } from "@bentley/ui-core";
 
-import { PositionPopup, PositionPopupContent } from "./PositionPopup";
-import { PopupManager, PopupPropsBase } from "./PopupManager";
-import { Calculator } from "../accudraw/Calculator";
+import { PositionPopup, PositionPopupContent } from "../popup/PositionPopup";
+import { PopupManager, PopupPropsBase } from "../popup/PopupManager";
+import { Calculator } from "./Calculator";
 
 /** @alpha */
 export interface CalculatorPopupProps extends PopupPropsBase {

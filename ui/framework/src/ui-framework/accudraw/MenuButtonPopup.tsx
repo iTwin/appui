@@ -1,15 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
-* Licensed under the MIT License. See LICENSE.md in the project root for license terms.
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/** @module Popup */
+/** @module AccuDraw */
 
 import * as React from "react";
 
 import { SizeProps, Size } from "@bentley/ui-core";
 
-import { PopupManager, PopupPropsBase } from "./PopupManager";
-import { MenuButton } from "../accudraw/MenuButton";
+import { PopupManager, PopupPropsBase } from "../popup/PopupManager";
+import { MenuButton } from "./MenuButton";
 
 /** @alpha */
 export interface MenuButtonPopupProps extends PopupPropsBase {
