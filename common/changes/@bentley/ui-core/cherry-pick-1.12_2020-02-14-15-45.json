@@ -1,9 +1,9 @@
 {
   "changes": [
     {
-      "packageName": "@bentley/ui-core",
       "comment": "",
-      "type": "none"
+      "type": "none",
+      "packageName": "@bentley/ui-core"
     }
   ],
   "packageName": "@bentley/ui-core",
