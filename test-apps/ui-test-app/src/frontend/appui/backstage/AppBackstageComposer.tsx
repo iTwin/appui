@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { AccessToken } from "@bentley/imodeljs-clients";
 import { UserProfileBackstageItem, BackstageComposer } from "@bentley/ui-framework";
 import { RootState } from "../..";
+import { AppBackstageItemProvider } from "./AppBackstageItemProvider";
 
 function mapStateToProps(state: RootState) {
   const frameworkState = state.frameworkState;
@@ -23,9 +24,18 @@ interface AppBackstageComposerProps {
 }
 
 export class AppBackstageComposerComponent extends React.PureComponent<AppBackstageComposerProps> {
+  private _backstageItemProvider = new AppBackstageItemProvider();
+
+  private get backstageItemProvider(): AppBackstageItemProvider {
+    if (!this._backstageItemProvider) {
+      this._backstageItemProvider = new AppBackstageItemProvider();
+    }
+    return this._backstageItemProvider;
+  }
+
   public render() {
     return (
-      <BackstageComposer
+      <BackstageComposer items={this.backstageItemProvider.backstageItems}
         header={this.props.accessToken && <UserProfileBackstageItem accessToken={this.props.accessToken} />}
       />
     );

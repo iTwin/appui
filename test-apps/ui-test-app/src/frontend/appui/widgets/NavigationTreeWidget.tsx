@@ -4,9 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp, IModelConnection } from "@bentley/imodeljs-frontend";
-import { usePresentationNodeLoader, useControlledTreeUnifiedSelection } from "@bentley/presentation-components";
+import { usePresentationTreeNodeLoader, useUnifiedSelectionTreeEventHandler } from "@bentley/presentation-components";
 import { ConfigurableCreateInfo, ConfigurableUiManager, WidgetControl } from "@bentley/ui-framework";
-import { ControlledTree, SelectionMode, TreeEventHandler, useVisibleTreeNodes } from "@bentley/ui-components";
+import { ControlledTree, SelectionMode, useVisibleTreeNodes } from "@bentley/ui-components";
 
 export class NavigationTreeWidgetControl extends WidgetControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -95,22 +95,20 @@ interface NavigationTreeProps {
 
 // tslint:disable-next-line: variable-name
 const NavigationTree: React.FC<NavigationTreeProps> = (props: NavigationTreeProps) => {
-  const nodeLoader = usePresentationNodeLoader({
+  const nodeLoader = usePresentationTreeNodeLoader({
     imodel: props.iModelConnection,
-    rulesetId: props.rulesetId,
+    ruleset: props.rulesetId,
     pageSize: 20,
   });
   const modelSource = nodeLoader.modelSource;
-  const eventHandler = React.useMemo(() => new TreeEventHandler({ modelSource, nodeLoader, collapsedChildrenDisposalEnabled: true }), [modelSource, nodeLoader]);
-  const unifiedSelectionEventHandler = useControlledTreeUnifiedSelection(modelSource, eventHandler, nodeLoader.getDataProvider());
+  const eventHandler = useUnifiedSelectionTreeEventHandler({ nodeLoader, collapsedChildrenDisposalEnabled: true });
   const visibleNodes = useVisibleTreeNodes(modelSource);
-
   return (
     <ControlledTree
       visibleNodes={visibleNodes}
       nodeLoader={nodeLoader}
       selectionMode={SelectionMode.Single}
-      treeEvents={unifiedSelectionEventHandler}
+      treeEvents={eventHandler}
     />
   );
 };
