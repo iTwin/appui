@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../presentation/common/Ruleset.schema.json",
+  "$schema": "../../../../presentation/common/Ruleset.schema.json",
   "id": "ui-framework/ModelsHierarchy",
   "rules": [
     {
@@ -27,18 +27,38 @@
       "specifications": [
         {
           "specType": "RelatedInstanceNodes",
-          "relationships": {"schemaName": "BisCore", "classNames": ["SubjectOwnsSubjects"]},
+          "relationships": {
+            "schemaName": "BisCore",
+            "classNames": [
+              "SubjectOwnsSubjects"
+            ]
+          },
           "requiredDirection": "Forward",
-          "relatedClasses": {"schemaName": "BisCore", "classNames": ["Subject"]},
+          "relatedClasses": {
+            "schemaName": "BisCore",
+            "classNames": [
+              "Subject"
+            ]
+          },
           "instanceFilter": "this.CodeValue <> \"Physical\"",
           "groupByClass": false,
           "groupByLabel": false
         },
         {
           "specType": "RelatedInstanceNodes",
-          "relationships": {"schemaName": "BisCore", "classNames": ["SubjectOwnsSubjects"]},
+          "relationships": {
+            "schemaName": "BisCore",
+            "classNames": [
+              "SubjectOwnsSubjects"
+            ]
+          },
           "requiredDirection": "Forward",
-          "relatedClasses": {"schemaName": "BisCore", "classNames": ["Subject"]},
+          "relatedClasses": {
+            "schemaName": "BisCore",
+            "classNames": [
+              "Subject"
+            ]
+          },
           "instanceFilter": "this.CodeValue = \"Physical\"",
           "hideNodesInHierarchy": true,
           "groupByClass": false,
@@ -46,9 +66,19 @@
         },
         {
           "specType": "RelatedInstanceNodes",
-          "relationships": {"schemaName": "BisCore", "classNames": ["SubjectOwnsPartitionElements"]},
+          "relationships": {
+            "schemaName": "BisCore",
+            "classNames": [
+              "SubjectOwnsPartitionElements"
+            ]
+          },
           "requiredDirection": "Forward",
-          "relatedClasses": {"schemaName": "BisCore", "classNames": ["PhysicalPartition"]},
+          "relatedClasses": {
+            "schemaName": "BisCore",
+            "classNames": [
+              "PhysicalPartition"
+            ]
+          },
           "groupByClass": false,
           "groupByLabel": false
         }
