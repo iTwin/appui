@@ -1,6 +1,6 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
-* Licensed under the MIT License. See LICENSE.md in the project root for license terms.
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 
@@ -15,7 +15,7 @@ import { ConfigurableCreateInfo, ConfigurableUiManager, NavigationAidControl } f
 export class CubeExampleNavigationAidControl extends NavigationAidControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
-    this.reactElement = <CubeExampleNavigationAid />;
+    this.reactNode = <CubeExampleNavigationAid />;
   }
 
   public getSize(): string | undefined { return "96px"; }

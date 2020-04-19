@@ -1,21 +1,21 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
-* Licensed under the MIT License. See LICENSE.md in the project root for license terms.
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp, IModelConnection } from "@bentley/imodeljs-frontend";
-import { usePresentationNodeLoader, useControlledTreeUnifiedSelection } from "@bentley/presentation-components";
+import { usePresentationTreeNodeLoader, useUnifiedSelectionTreeEventHandler } from "@bentley/presentation-components";
 import { ConfigurableCreateInfo, ConfigurableUiManager, WidgetControl } from "@bentley/ui-framework";
-import { ControlledTree, SelectionMode, useModelSource, TreeEventHandler, useVisibleTreeNodes } from "@bentley/ui-components";
+import { ControlledTree, SelectionMode, useVisibleTreeNodes } from "@bentley/ui-components";
 
 export class NavigationTreeWidgetControl extends WidgetControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
 
     if (options && options.iModelConnection && options.rulesetId)
-      this.reactElement = <NavigationTreeWidget iModelConnection={options.iModelConnection} rulesetId={options.rulesetId} />;
+      this.reactNode = <NavigationTreeWidget iModelConnection={options.iModelConnection} rulesetId={options.rulesetId} />;
     else
-      this.reactElement = <NavigationTreeWidget />;
+      this.reactNode = <NavigationTreeWidget />;
   }
 }
 
@@ -95,22 +95,20 @@ interface NavigationTreeProps {
 
 // tslint:disable-next-line: variable-name
 const NavigationTree: React.FC<NavigationTreeProps> = (props: NavigationTreeProps) => {
-  const nodeLoader = usePresentationNodeLoader({
+  const nodeLoader = usePresentationTreeNodeLoader({
     imodel: props.iModelConnection,
-    rulesetId: props.rulesetId,
+    ruleset: props.rulesetId,
     pageSize: 20,
   });
-  const modelSource = useModelSource(nodeLoader)!;
-  const eventHandler = React.useMemo(() => new TreeEventHandler({ modelSource, nodeLoader, collapsedChildrenDisposalEnabled: true }), [modelSource, nodeLoader]);
-  const unifiedSelectionEventHandler = useControlledTreeUnifiedSelection(modelSource, eventHandler, nodeLoader.getDataProvider());
+  const modelSource = nodeLoader.modelSource;
+  const eventHandler = useUnifiedSelectionTreeEventHandler({ nodeLoader, collapsedChildrenDisposalEnabled: true });
   const visibleNodes = useVisibleTreeNodes(modelSource);
-
   return (
     <ControlledTree
       visibleNodes={visibleNodes}
       nodeLoader={nodeLoader}
       selectionMode={SelectionMode.Single}
-      treeEvents={unifiedSelectionEventHandler}
+      treeEvents={eventHandler}
     />
   );
 };

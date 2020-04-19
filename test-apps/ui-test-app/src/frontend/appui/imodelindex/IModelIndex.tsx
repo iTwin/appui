@@ -1,12 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
-* Licensed under the MIT License. See LICENSE.md in the project root for license terms.
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Tab, Tabs } from "./Tabs";
 import { IModelConnection, AuthorizedFrontendRequestContext } from "@bentley/imodeljs-frontend";
 import { Id64String } from "@bentley/bentleyjs-core";
-import { IModelHubClient, IModelClient, IModelQuery, VersionQuery, Version } from "@bentley/imodeljs-clients";
+import { IModelHubClient, IModelClient, IModelQuery, VersionQuery, Version } from "@bentley/imodelhub-client";
 import { ModelsTab } from "./ModelsTab";
 import { SheetsTab } from "./SheetsTab";
 import { UiFramework } from "@bentley/ui-framework";
@@ -64,8 +64,8 @@ export class IModelIndex extends React.Component<IModelIndexProps, IModelIndexSt
 
   /* retrieve imodel thumbnail and version information on mount */
   public async componentDidMount() {
-    const projectId = this.props.iModelConnection.iModelToken.contextId!;
-    const iModelId = this.props.iModelConnection.iModelToken.iModelId!;
+    const projectId = this.props.iModelConnection.contextId!;
+    const iModelId = this.props.iModelConnection.iModelId!;
 
     await this.startRetrieveThumbnail(projectId, iModelId);
     await this.startRetrieveIModelInfo();
@@ -99,8 +99,8 @@ export class IModelIndex extends React.Component<IModelIndexProps, IModelIndexSt
   private async startRetrieveIModelInfo() {
     const hubClient: IModelClient = new IModelHubClient();
     const requestContext: AuthorizedFrontendRequestContext = await AuthorizedFrontendRequestContext.create();
-    const contextId = this.props.iModelConnection.iModelToken.contextId!;
-    const iModelId = this.props.iModelConnection.iModelToken.iModelId!;
+    const contextId = this.props.iModelConnection.contextId!;
+    const iModelId = this.props.iModelConnection.iModelId!;
 
     /* get the iModel name */
     const imodels = await hubClient.iModels.get(requestContext, contextId, new IModelQuery().byId(iModelId));
@@ -109,7 +109,7 @@ export class IModelIndex extends React.Component<IModelIndexProps, IModelIndexSt
     const _versions: Version[] = await hubClient.versions.get(requestContext, iModelId, new VersionQuery().top(1));
 
     /* determine if the version is up-to-date */
-    const changeSetId = this.props.iModelConnection.iModelToken.changeSetId!;
+    const changeSetId = this.props.iModelConnection.changeSetId!;
     const _upToDate = (_versions.length > 0 && _versions[0].changeSetId === changeSetId);
 
     /* get the version name */

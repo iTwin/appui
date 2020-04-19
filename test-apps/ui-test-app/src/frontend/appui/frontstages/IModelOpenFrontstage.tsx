@@ -1,6 +1,6 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
-* Licensed under the MIT License. See LICENSE.md in the project root for license terms.
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
@@ -10,15 +10,16 @@ import {
 } from "@bentley/ui-framework";
 import { SampleAppIModelApp } from "../../index";
 import { IModelOpen } from "../imodelopen/IModelOpen";
+import { IModelApp } from "@bentley/imodeljs-frontend";
 
 class IModelOpenControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
 
-    if (SampleAppIModelApp.oidcClient.isAuthorized)
-      this.reactElement = <IModelOpen onIModelSelected={this._onOpenIModel} />;
+    if (IModelApp.authorizationClient && IModelApp.authorizationClient.isAuthorized)
+      this.reactNode = <IModelOpen onIModelSelected={this._onOpenIModel} />;
     else
-      this.reactElement = null;
+      this.reactNode = null;
   }
 
   // called when an imodel has been selected on the IModelOpen

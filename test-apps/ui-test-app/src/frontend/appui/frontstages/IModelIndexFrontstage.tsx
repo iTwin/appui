@@ -1,6 +1,6 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
-* Licensed under the MIT License. See LICENSE.md in the project root for license terms.
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
@@ -10,23 +10,24 @@ import {
 import { IModelIndex } from "../imodelindex/IModelIndex";
 import { SampleAppIModelApp } from "../../index";
 import { Id64String } from "@bentley/bentleyjs-core";
+import { IModelApp } from "@bentley/imodeljs-frontend";
 
 class IModelIndexControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
 
     const iModelConnection = UiFramework.getIModelConnection();
-    if (iModelConnection && SampleAppIModelApp.oidcClient.isAuthorized)
-      this.reactElement = <IModelIndex iModelConnection={iModelConnection} onOpen={this._onOpen} />;
+    if (iModelConnection && IModelApp.authorizationClient && IModelApp.authorizationClient.isAuthorized)
+      this.reactNode = <IModelIndex iModelConnection={iModelConnection} onOpen={this._onOpen} />;
     else
-      this.reactElement = null;
+      this.reactNode = null;
   }
 
   private _onOpen = async (viewIds: Id64String[]) => {
     const iModelConnection = UiFramework.getIModelConnection();
     if (iModelConnection) {
-      const contextId = iModelConnection.iModelToken.contextId!;
-      const iModelId = iModelConnection.iModelToken.iModelId!;
+      const contextId = iModelConnection.contextId!;
+      const iModelId = iModelConnection.iModelId!;
       await SampleAppIModelApp.openIModelAndViews(contextId, iModelId, viewIds);
     }
   }
