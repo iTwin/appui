@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Models Tree: Fix non-geometric models being used when changing subject's display",
+      "comment": "",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "grigas.petraitis@bentley.com"
+  "email": "31107829+calebmshafer@users.noreply.github.com"
 }
