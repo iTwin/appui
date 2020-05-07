@@ -3,36 +3,24 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-
 import { Id64String } from "@bentley/bentleyjs-core";
 import { ViewDefinitionProps } from "@bentley/imodeljs-common";
 import { IModelConnection } from "@bentley/imodeljs-frontend";
-import { FillCentered, Button, ButtonSize, ButtonType, Headline } from "@bentley/ui-core";
+import { Button, ButtonSize, ButtonType, FillCentered, Headline } from "@bentley/ui-core";
 import {
-  UiFramework,
-  FrontstageManager,
-  ContentControl,
-  ConfigurableCreateInfo,
-  FrontstageProvider,
-  FrontstageProps,
-  ContentGroup,
-  Frontstage,
-  CoreTools,
-  ToolWidget,
-  Zone,
-  Widget,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider, ToolWidget,
+  UiFramework, Widget, Zone,
 } from "@bentley/ui-framework";
-
-import { LocalFileSupport } from "../LocalFileSupport";
-import { IModelViewPicker } from "../imodelopen/IModelViewPicker";
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";
+import { IModelViewPicker } from "../imodelopen/IModelViewPicker";
+import { LocalFileSupport } from "../LocalFileSupport";
 
 class LocalFileOpenControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
 
-    this.reactElement = <LocalFilePage onClose={this._handleClose} onViewsSelected={this._handleViewsSelected} />;
+    this.reactNode = <LocalFilePage onClose={this._handleClose} onViewsSelected={this._handleViewsSelected} />;
   }
 
   private _handleClose = () => {
@@ -70,7 +58,7 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
         defaultLayout="SingleContent"
         contentGroup={contentGroup}
         isInFooterMode={false}
-        topLeft={
+        contentManipulationTools={
           <Zone
             widgets={[
               <Widget isFreeform={true} element={<FrontstageToolWidget />} />,

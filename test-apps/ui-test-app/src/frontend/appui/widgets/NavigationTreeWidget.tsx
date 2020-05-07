@@ -4,18 +4,18 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp, IModelConnection } from "@bentley/imodeljs-frontend";
-import { usePresentationNodeLoader, useUnifiedSelectionEventHandler } from "@bentley/presentation-components";
-import { ConfigurableCreateInfo, ConfigurableUiManager, WidgetControl } from "@bentley/ui-framework";
+import { usePresentationTreeNodeLoader, useUnifiedSelectionTreeEventHandler } from "@bentley/presentation-components";
 import { ControlledTree, SelectionMode, useVisibleTreeNodes } from "@bentley/ui-components";
+import { ConfigurableCreateInfo, ConfigurableUiManager, WidgetControl } from "@bentley/ui-framework";
 
 export class NavigationTreeWidgetControl extends WidgetControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
 
     if (options && options.iModelConnection && options.rulesetId)
-      this.reactElement = <NavigationTreeWidget iModelConnection={options.iModelConnection} rulesetId={options.rulesetId} />;
+      this.reactNode = <NavigationTreeWidget iModelConnection={options.iModelConnection} rulesetId={options.rulesetId} />;
     else
-      this.reactElement = <NavigationTreeWidget />;
+      this.reactNode = <NavigationTreeWidget />;
   }
 }
 
@@ -25,10 +25,6 @@ interface NavigationTreeWidgetProps {
 }
 
 class NavigationTreeWidget extends React.Component<NavigationTreeWidgetProps> {
-  constructor(props?: any, context?: any) {
-    super(props, context);
-  }
-
   private renderVariousControls() {
     return (
       <div>
@@ -95,16 +91,14 @@ interface NavigationTreeProps {
 
 // tslint:disable-next-line: variable-name
 const NavigationTree: React.FC<NavigationTreeProps> = (props: NavigationTreeProps) => {
-  const nodeLoader = usePresentationNodeLoader({
+  const nodeLoader = usePresentationTreeNodeLoader({
     imodel: props.iModelConnection,
-    rulesetId: props.rulesetId,
+    ruleset: props.rulesetId,
     pageSize: 20,
   });
   const modelSource = nodeLoader.modelSource;
-  const eventHandler = useUnifiedSelectionEventHandler(modelSource, nodeLoader, true);
-
+  const eventHandler = useUnifiedSelectionTreeEventHandler({ nodeLoader, collapsedChildrenDisposalEnabled: true });
   const visibleNodes = useVisibleTreeNodes(modelSource);
-
   return (
     <ControlledTree
       visibleNodes={visibleNodes}

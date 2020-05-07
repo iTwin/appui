@@ -4,9 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { connect } from "react-redux";
-import { AccessToken } from "@bentley/imodeljs-clients";
-import { UserProfileBackstageItem, BackstageComposer } from "@bentley/ui-framework";
+import { UserInfo } from "@bentley/itwin-client";
+import { BackstageComposer, UserProfileBackstageItem } from "@bentley/ui-framework";
 import { RootState } from "../..";
+import { AppBackstageItemProvider } from "./AppBackstageItemProvider";
 
 function mapStateToProps(state: RootState) {
   const frameworkState = state.frameworkState;
@@ -14,19 +15,28 @@ function mapStateToProps(state: RootState) {
   if (!frameworkState)
     return undefined;
 
-  return { accessToken: frameworkState.sessionState.accessToken };
+  return { userInfo: frameworkState.sessionState.userInfo };
 }
 
 interface AppBackstageComposerProps {
-  /** AccessToken from sign-in */
-  accessToken: AccessToken | undefined;
+  /** UserInfo from sign-in */
+  userInfo: UserInfo | undefined;
 }
 
 export class AppBackstageComposerComponent extends React.PureComponent<AppBackstageComposerProps> {
+  private _backstageItemProvider = new AppBackstageItemProvider();
+
+  private get backstageItemProvider(): AppBackstageItemProvider {
+    if (!this._backstageItemProvider) {
+      this._backstageItemProvider = new AppBackstageItemProvider();
+    }
+    return this._backstageItemProvider;
+  }
+
   public render() {
     return (
-      <BackstageComposer
-        header={this.props.accessToken && <UserProfileBackstageItem accessToken={this.props.accessToken} />}
+      <BackstageComposer items={this.backstageItemProvider.backstageItems}
+        header={this.props.userInfo && <UserProfileBackstageItem userInfo={this.props.userInfo} />}
       />
     );
   }

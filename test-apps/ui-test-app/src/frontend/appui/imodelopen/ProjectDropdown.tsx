@@ -2,12 +2,13 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+import "./ProjectDropdown.scss";
+import classnames from "classnames";
 import * as React from "react";
-import * as classnames from "classnames";
+import { RelativePosition } from "@bentley/ui-abstract";
+import { Popup } from "@bentley/ui-core";
 import { ProjectInfo } from "@bentley/ui-framework";
 import { ProjectDialog } from "./ProjectDialog";
-import { Popup, Position } from "@bentley/ui-core";
-import "./ProjectDropdown.scss";
 
 /** Properties for the [[ProjectDropdown]] component */
 export interface ProjectDropdownProps {
@@ -116,7 +117,7 @@ export class ProjectDropdown extends React.Component<ProjectDropdownProps, Proje
       height: this._itemHeight + "em",
     };
     return (
-      <Popup isOpen={this.state.isDropdownOpen} position={Position.Bottom} onClose={this._handleOnOutsideClick} target={this._target}>
+      <Popup isOpen={this.state.isDropdownOpen} position={RelativePosition.Bottom} onClose={this._handleOnOutsideClick} target={this._target}>
         <div className="pp-dropdown">
           {this.renderProjects()}
           <div className="pp-separator" />

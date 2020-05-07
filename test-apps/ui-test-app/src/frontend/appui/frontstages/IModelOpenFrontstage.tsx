@@ -3,10 +3,9 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { IModelApp } from "@bentley/imodeljs-frontend";
 import {
-  CoreTools, ContentGroup, ContentControl,
-  ConfigurableCreateInfo, FrontstageProvider, FrontstageProps,
-  Frontstage, IModelInfo, UiFramework,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, IModelInfo,
 } from "@bentley/ui-framework";
 import { SampleAppIModelApp } from "../../index";
 import { IModelOpen } from "../imodelopen/IModelOpen";
@@ -15,10 +14,10 @@ class IModelOpenControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
 
-    if (UiFramework.oidcClient && UiFramework.oidcClient.isAuthorized)
-      this.reactElement = <IModelOpen onIModelSelected={this._onOpenIModel} />;
+    if (IModelApp.authorizationClient && IModelApp.authorizationClient.isAuthorized)
+      this.reactNode = <IModelOpen onIModelSelected={this._onOpenIModel} />;
     else
-      this.reactElement = null;
+      this.reactNode = null;
   }
 
   // called when an imodel has been selected on the IModelOpen
