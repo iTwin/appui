@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "Enable pointer events in Toolbar items container.\"",
+      "comment": "Update to latest react-dnd version.",
       "type": "none"
     }
   ],

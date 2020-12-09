@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-core",
-      "comment": "Change warning/success/error colors for labeledInput to themed variables .",
+      "comment": "Lock react-select to 3.1.0 and @types/react-select to 3.0.26 until we can fi",
       "type": "none"
     }
   ],

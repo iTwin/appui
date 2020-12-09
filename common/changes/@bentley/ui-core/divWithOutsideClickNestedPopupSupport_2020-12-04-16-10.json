@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-core",
-      "comment": "By default format slider tooltip with same number of decimal places as step specification.",
+      "comment": "Add nested popup support to components that use HOC withOnOutsideClick.",
       "type": "none"
     }
   ],

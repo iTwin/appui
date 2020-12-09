@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-core",
-      "comment": "Add new NumberInput control to replace NumericInput which wrapped react-numeric-input.",
+      "comment": "Update components that support providing refs via React.forwardRef to work better with document generation.  ",
       "type": "none"
     }
   ],

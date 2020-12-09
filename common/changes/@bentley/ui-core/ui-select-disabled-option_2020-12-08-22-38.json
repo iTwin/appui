@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-core",
-      "comment": "Unified UI typography systems",
+      "comment": "Added disabled support to Select component options",
       "type": "none"
     }
   ],

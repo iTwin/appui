@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-ninezone",
-      "comment": "Cancel requested animation frame in Panel component.",
+      "comment": "Update panel transition to persist content size when collapsing.",
       "type": "none"
     }
   ],

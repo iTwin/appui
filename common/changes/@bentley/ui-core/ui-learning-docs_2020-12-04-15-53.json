@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-core",
-      "comment": "Added 'closeOnWheel' and 'onWheel' Popup props",
+      "comment": "Added support to ExpandableList for updating the active block programmatically",
       "type": "none"
     }
   ],

@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Disable pointer events in overlay of default view overlay.",
+      "comment": "Updated UI Learning docs",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "10091419+GerardasB@users.noreply.github.com"
+  "email": "51122937+DanEastBentley@users.noreply.github.com"
 }

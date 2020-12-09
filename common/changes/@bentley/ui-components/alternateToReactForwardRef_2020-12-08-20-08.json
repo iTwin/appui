@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "Fix issue where entries in ButtonGroup would not properly disable/enable.",
+      "comment": "Update components that support providing refs via React.forwardRef to work better with document generation.",
       "type": "none"
     }
   ],
