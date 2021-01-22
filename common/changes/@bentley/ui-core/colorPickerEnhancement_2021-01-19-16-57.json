@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-core",
-      "comment": "Added disabled support to Select component options",
+      "comment": "Add option to use a 'x-small' webfont icon.",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-core",
-  "email": "51122937+DanEastBentley@users.noreply.github.com"
+  "email": "65047615+bsteinbk@users.noreply.github.com"
 }

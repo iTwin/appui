@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Added partially visible instances support to VisibilityHandler",
+      "comment": "Changed ModelsTree visibility handler behavior to fully change visibility of node if it matches applied filter",
       "type": "none"
     }
   ],
