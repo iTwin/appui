@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "Update components that support providing refs via React.forwardRef to work better with document generation.",
+      "comment": "Add 'showCaret' prop to ColorPickers that show a popup. The caret icon will face up or down depending of popup state.",
       "type": "none"
     }
   ],
