@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "",
+      "comment": "Support for conditionally disabling/hiding keyboard shortcuts",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "66480813+paulius-valiunas@users.noreply.github.com"
+  "email": "51122937+DanEastBentley@users.noreply.github.com"
 }

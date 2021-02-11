@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "WidgetDef show and expand will correctly activate the tab.",
+      "comment": "Added AccuDraw notifications for rotation & compass mode",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "10091419+GerardasB@users.noreply.github.com"
+  "email": "51122937+DanEastBentley@users.noreply.github.com"
 }

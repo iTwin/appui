@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Correctly add and remove widgets provided by UiItemsProviders.\"",
+      "comment": "AccuDraw default keyboard shortcuts",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "10091419+GerardasB@users.noreply.github.com"
+  "email": "51122937+DanEastBentley@users.noreply.github.com"
 }
