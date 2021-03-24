@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-core",
-      "comment": "Support for Focus into Tool Settings",
+      "comment": "Add option to show/hide settings category header text.",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-core",
-  "email": "51122937+DanEastBentley@users.noreply.github.com"
+  "email": "65047615+bsteinbk@users.noreply.github.com"
 }

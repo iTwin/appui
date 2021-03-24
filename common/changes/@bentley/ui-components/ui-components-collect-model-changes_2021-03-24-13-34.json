@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "`MutableTreeModel`: Add `moveNode` method.",
+      "comment": "`TreeModelSource`: Fix `onModelChanged` event sometimes listing same node id multiple times.",
       "type": "none"
     }
   ],

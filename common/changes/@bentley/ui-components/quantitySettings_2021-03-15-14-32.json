@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "Lower coverage to 99.98 to avoid CI breaks.",
+      "comment": "update FormatPanel to ensure state was not set on unmounted component.",
       "type": "none"
     }
   ],
