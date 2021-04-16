@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Publish APIs used bu iTwinViewer.",
+      "comment": "Replace deprecated ViewManager.forEachViewport() with iterator.",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "45079789+NancyMcCallB@users.noreply.github.com"
+  "email": "10091419+GerardasB@users.noreply.github.com"
 }

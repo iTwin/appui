@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Fix compatibility issue when multiple versions of `rxjs` are in use.",
+      "comment": "",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "70327485+roluk@users.noreply.github.com"
+  "email": "22944042+pmconne@users.noreply.github.com"
 }
