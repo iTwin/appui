@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Add ability to maintain tab state even if UiItemsProvider that added the tab is not loaded. This allow preference size to be maintained.",
+      "comment": "Ensure redux stays in sync with FrameworkVersion context and convenience updates that take UI initialization burden off IModelApp.",
       "type": "none"
     }
   ],

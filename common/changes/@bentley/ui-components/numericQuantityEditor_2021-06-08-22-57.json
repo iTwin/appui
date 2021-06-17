@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "Allow style to be passed to weight picker.",
+      "comment": "Add QuantityNumberInput that looks like NumberInput but works with Quantities and active unit system.",
       "type": "none"
     }
   ],

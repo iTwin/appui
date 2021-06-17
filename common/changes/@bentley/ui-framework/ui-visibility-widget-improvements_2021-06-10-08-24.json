@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Export EmphasizeElementProps from common, deprecate from frontend.",
+      "comment": "Models Tree: Add a way to filter the hierarchy by element IDs",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "65233531+bbastings@users.noreply.github.com"
+  "email": "35135765+grigasp@users.noreply.github.com"
 }

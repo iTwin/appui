@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "Publis in-use APIs",
+      "comment": "Clean up timeline and fix test coverage.",
       "type": "none"
     }
   ],

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Add 100ms wait during unit test for open window processing to be triggered.",
+      "comment": "Add ability to provide widgets to zones via UiItemsProvider when using AppUI version 1.",
       "type": "none"
     }
   ],
