@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-core",
-      "comment": "",
+      "comment": "Stop delivering pseudo-localized strings",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-core",
-  "email": "66480813+paulius-valiunas@users.noreply.github.com"
+  "email": "aruniverse@users.noreply.github.com"
 }

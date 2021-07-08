@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Refactor DefaultViewOverlay to be more reliable.",
+      "comment": "Stop delivering pseudo-localized strings",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "45079789+NancyMcCallB@users.noreply.github.com"
+  "email": "aruniverse@users.noreply.github.com"
 }

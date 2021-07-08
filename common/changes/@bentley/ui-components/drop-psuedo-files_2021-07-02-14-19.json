@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "Clean up timeline and fix test coverage.",
+      "comment": "Stop delivering pseudo-localized strings",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-components",
-  "email": "45079789+NancyMcCallB@users.noreply.github.com"
+  "email": "aruniverse@users.noreply.github.com"
 }

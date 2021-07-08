@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "Add QuantityNumberInput that looks like NumberInput but works with Quantities and active unit system.",
+      "comment": "Add window \"beforeunload\" event listener to ensure viewport is dropped from ViewManager.",
       "type": "none"
     }
   ],
