@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-framework",
-      "comment": "Stop delivering pseudo-localized strings",
+      "comment": "Fixed z-index of status messages to be on top of a dialog",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-framework",
-  "email": "aruniverse@users.noreply.github.com"
+  "email": "51122937+DanEastBentley@users.noreply.github.com"
 }

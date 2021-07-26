@@ -2,10 +2,10 @@
   "changes": [
     {
       "packageName": "@bentley/ui-components",
-      "comment": "Stop delivering pseudo-localized strings",
+      "comment": "Incorporating iTwinUI-CSS and iTwinUI-React into iModel.js",
       "type": "none"
     }
   ],
   "packageName": "@bentley/ui-components",
-  "email": "aruniverse@users.noreply.github.com"
+  "email": "51122937+DanEastBentley@users.noreply.github.com"
 }
