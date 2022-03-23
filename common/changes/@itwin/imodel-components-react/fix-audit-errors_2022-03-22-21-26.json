@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/imodel-components-react",
-      "comment": "Add pointer cursor for ColorPicker close button.",
+      "comment": "",
       "type": "none"
     }
   ],

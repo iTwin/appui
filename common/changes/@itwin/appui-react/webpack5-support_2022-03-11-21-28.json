@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Update ToolbarAutoHidePopup context when widgets autohide.",
+      "comment": "use `setTimeout` instead of `setImmediate`",
       "type": "none"
     }
   ],

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/imodel-components-react",
-      "comment": "Required updates based on @itwin/core-quantity format type definition related changes.",
+      "comment": "",
       "type": "none"
     }
   ],

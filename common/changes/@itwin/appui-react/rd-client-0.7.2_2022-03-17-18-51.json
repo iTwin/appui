@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Change initializeNineZoneState to properly handle floating widgets.",
+      "comment": "ListBox component: `onKeyPress` has been deprecated, switch to `onKeyDown`",
       "type": "none"
     }
   ],

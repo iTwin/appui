@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Add data attributes to identify item and its UI provider.",
+      "comment": "Update itwinui-css version",
       "type": "none"
     }
   ],

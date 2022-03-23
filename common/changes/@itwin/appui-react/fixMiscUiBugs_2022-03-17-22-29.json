@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Add FrontstageDef.isWidgetDisplayed() to allow apps to query whether their widget is visible.",
+      "comment": "Fix missing parameter in UiManager.getWidgets call and pass provider to isSupportedStage function.",
       "type": "none"
     }
   ],

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/imodel-components-react",
-      "comment": "Update to latest itwinui-react.",
+      "comment": "Update itwinui-css version",
       "type": "none"
     }
   ],

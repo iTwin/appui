@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Add data attributes to identify item and its UI provider.",
+      "comment": "",
       "type": "none"
     }
   ],

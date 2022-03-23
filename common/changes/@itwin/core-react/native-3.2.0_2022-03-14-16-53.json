@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Add ability to keep Dialog within application window.",
+      "comment": "skip eslint rule for deprecation in Listbox.tsx",
       "type": "none"
     }
   ],

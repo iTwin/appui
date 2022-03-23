@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Fix spelling error in function documentation.",
+      "comment": "Allow initial UI version to be set when UIFramework is initialized.",
       "type": "none"
     }
   ],

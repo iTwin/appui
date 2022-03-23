@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Remove unecessary dependency on itwin/browser-authorization",
+      "comment": "Update itwinui-css version",
       "type": "none"
     }
   ],
