@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "",
+      "comment": "Allow React icons to be used on Wedget tabs, backstage, and status bar items",
       "type": "none"
     }
   ],
