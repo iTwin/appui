@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Deprecated `isInFooterMode` for `FooterIndicator`, should always be considered true.",
+      "comment": "Fix widget duplication in send back action.",
       "type": "none"
     }
   ],
