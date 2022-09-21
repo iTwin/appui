@@ -8,7 +8,6 @@ import * as moq from "typemoq";
 import { IModelRpcProps } from "@itwin/core-common";
 import { IModelApp, IModelConnection, MockRender, ScreenViewport, SelectionSet } from "@itwin/core-frontend";
 import { InstanceKey, RpcRequestsHandler } from "@itwin/presentation-common";
-import { createRandomECInstanceKey, createRandomId, createRandomSelectionScope } from "@itwin/presentation-common/lib/cjs/test";
 import { Presentation, SelectionManager, SelectionScopesManager, SelectionScopesManagerProps } from "@itwin/presentation-frontend";
 import {
   ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventArgs, SyncUiEventDispatcher,
@@ -21,6 +20,7 @@ import {
 } from "../../appui-react/frontstage/FrontstageManager";
 import { TaskActivatedEventArgs, WorkflowActivatedEventArgs, WorkflowManager } from "../../appui-react/workflow/Workflow";
 import TestUtils from "../TestUtils";
+import { createRandomECInstanceKey, createRandomId, createRandomSelectionScope } from "../PresentationTestUtils";
 
 const timeToWaitForUiSyncCallback = 60;
 

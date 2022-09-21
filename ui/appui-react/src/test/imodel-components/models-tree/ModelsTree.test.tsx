@@ -11,9 +11,7 @@ import { SelectionMode, TreeNodeItem } from "@itwin/components-react";
 import { BeEvent } from "@itwin/core-bentley";
 import { IModelConnection, SnapshotConnection } from "@itwin/core-frontend";
 import { KeySet, LabelDefinition, Node, NodeKey, NodePathElement } from "@itwin/presentation-common";
-import { createRandomId, deepEquals } from "@itwin/presentation-common/lib/cjs/test";
 import { PresentationTreeDataProvider } from "@itwin/presentation-components";
-import { mockPresentationManager } from "@itwin/presentation-components/lib/cjs/test";
 import { Presentation, PresentationManager, RulesetVariablesManager, SelectionChangeEvent, SelectionManager } from "@itwin/presentation-frontend";
 import {
   HierarchyBuilder, HierarchyCacheMode, initialize as initializePresentationTesting, terminate as terminatePresentationTesting,
@@ -24,6 +22,7 @@ import { ModelsTreeNodeType, ModelsVisibilityHandler } from "../../../appui-reac
 import { VisibilityChangeListener } from "../../../appui-react/imodel-components/VisibilityTreeEventHandler";
 import TestUtils from "../../TestUtils";
 import { createCategoryNode, createElementClassGroupingNode, createElementNode, createKey, createModelNode, createSubjectNode } from "../Common";
+import { createRandomId, deepEquals, mockPresentationManager } from "../../PresentationTestUtils";
 
 describe("ModelsTree", () => {
 
