@@ -57,6 +57,7 @@ steps:
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), ne(variables['Agent.OS'], 'Linux'))
 
-  - script: node common/scripts/install-run-rush.js docs
-    displayName: rush docs
-    workingDirectory: ${{ parameters.workingDir }}
+  # Docs script are only working locally
+  # - script: node common/scripts/install-run-rush.js docs
+  #   displayName: rush docs
+  #   workingDirectory: ${{ parameters.workingDir }}
