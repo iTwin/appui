@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-  echo "Creates a PR branch to update the master branch of the itwinjs-core repository to use a new version of the @bentley/imodeljs-native package."
+  echo "Creates a PR branch to update the master branch of the appui repository to use a new version of the @bentley/imodeljs-native package."
   echo "Usage: $0 -v VERSION -s SHA"
   echo "  -v VERSION: The semantic version (e.g., 3.2.7) of the @bentley/imodeljs-native package to which to update."
   echo "  -s SHA: The SHA hash of the commit on the imodel02 branch to merge into the PR branch."
@@ -27,10 +27,10 @@ if [[ "$AddonVersion" = "" || "$CommitHash" = "" ]]; then
   exit 1
 fi
 
-# Find repo root and verify it's an itwinjs-core repo.
+# Find repo root and verify it's an appui repo.
 RepoRoot=`git rev-parse --show-toplevel`
 if [[ $? -ne 0 || ! -f "$RepoRoot/core/backend/package.json" ]]; then
-  >&2 echo "This script must be executed from within itwinjs-core repo."
+  >&2 echo "This script must be executed from within appui repo."
   exit 1;
 fi
 
