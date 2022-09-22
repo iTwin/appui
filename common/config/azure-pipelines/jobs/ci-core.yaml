@@ -10,7 +10,7 @@ jobs:
       "Windows_${{ parameters.name }}":
         OS: windows-latest
         platform: Windows_NT
-        name: $(win_pool)
+        name: iModelTechCI
       "Linux_${{ parameters.name }}":
         OS: ubuntu-latest
         platform: Linux
