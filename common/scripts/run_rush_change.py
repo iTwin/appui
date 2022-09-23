@@ -38,7 +38,7 @@ else:
 nodeCommand = ["node", "common/scripts/install-run-rush.js", "change", "-v"] + branchCmd
 print ("Executing: " + " ".join(nodeCommand))
 
-nodeProc = subprocess.Popen(command, stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+nodeProc = subprocess.Popen(nodeCommand, stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
 nodeOut, nodeErr = nodeProc.communicate()
 if (nodeOut):
     print(nodeOut)
