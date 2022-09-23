@@ -1,13 +1,15 @@
 import sys, subprocess
 
-command = ["git", "branch", "-r"]
+command = ["git", "fetch", "--", "origin", "master"]
 print ("Executing: " + " ".join(command))
 
 proc = subprocess.Popen(command, stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
 out, err = proc.communicate()
 if (out):
+    print("Out")
     print(out)
 if (err):
+    print("Err")
     print(err)
 
 srcBranch = sys.argv[1]
