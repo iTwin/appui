@@ -21,6 +21,7 @@ steps:
       workingDirectory: ${{ parameters.workingDir }}
       scriptSource: inline
       script: |
+        import sys, subprocess
         print("Hello world")
 
       arguments: $(Build.SourceBranch) $(Build.Reason) $(System.PullRequest.TargetBranch)
