@@ -16,6 +16,8 @@ steps:
     workingDirectory: ${{ parameters.workingDir }}
   - task: PythonScript@0
     displayName: "rush change -v"
+    timeoutInMinutes: 2
+    retryCountOnTaskFailure: 3
     inputs:
       workingDirectory: ${{ parameters.workingDir }}
       scriptSource: filepath
