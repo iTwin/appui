@@ -39,7 +39,7 @@ nodeCommand = ["node", "common/scripts/install-run-rush.js", "change", "-v"] + b
 print ("Executing: " + " ".join(nodeCommand))
 
 nodeProc = subprocess.Popen(command, stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
-nodeOut, nodeErr = proc.communicate()
+nodeOut, nodeErr = nodeProc.communicate()
 if (nodeOut):
     print(nodeOut)
 if (nodeErr):
