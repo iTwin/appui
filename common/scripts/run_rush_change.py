@@ -35,13 +35,13 @@ else:
     # Uses default head ("origin/master"), if not defined
     branchCmd = []
 
-command = ["node", "common/scripts/install-run-rush.js", "-d", "change", "-v"] + branchCmd
-print ("Executing: " + " ".join(command))
+nodeCommand = ["node", "common/scripts/install-run-rush.js", "change", "-v"] + branchCmd
+print ("Executing: " + " ".join(nodeCommand))
 
-# proc = subprocess.Popen(command, stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
-# out, err = proc.communicate()
-# if (out):
-#     print(out)
-# if (err):
-#     print(err)
+nodeProc = subprocess.Popen(command, stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+nodeOut, nodeErr = proc.communicate()
+if (nodeOut):
+    print(nodeOut)
+if (nodeErr):
+    print(nodeErr)
 # exit(proc.returncode)
