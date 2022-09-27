@@ -10,11 +10,11 @@ import { fireEvent, render } from "@testing-library/react";
 import { IModelApp, MockRender, QuantityType, QuantityTypeKey } from "@itwin/core-frontend";
 import TestUtils, { getButtonWithText, handleError, selectChangeValueByText, stubScrollIntoView } from "../TestUtils";
 import { Presentation, PresentationManager } from "@itwin/presentation-frontend";
-import { mockPresentationManager } from "@itwin/presentation-components/lib/cjs/test";
 import { getQuantityFormatsSettingsManagerEntry } from "../../appui-react/settings/quantityformatting/QuantityFormat";
 import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager";
 import { FormatProps, UnitSystemKey } from "@itwin/core-quantity";
 import { UiFramework } from "../../appui-react/UiFramework";
+import { mockPresentationManager } from "../PresentationTestUtils";
 
 describe("QuantityFormatSettingsPage", () => {
 

@@ -13,34 +13,31 @@ function readPackage(pkg) {
   // Note that these dependencies are only ever allowed for testing purposes and should not be the
   // dependency of any published packages.
 
-  // https://github.com/iTwin/imodels-clients
-  else if (pkg.name == "@itwin/imodels-access-backend") {
-    pkg.dependencies["@itwin/core-bentley"] = "workspace:*";
-    pkg.dependencies["@itwin/core-backend"] = "workspace:*";
-    pkg.dependencies["@itwin/core-common"] = "workspace:*";
-  } else if (pkg.name == "@itwin/imodels-access-frontend") {
-    pkg.dependencies["@itwin/core-bentley"] = "workspace:*";
-    pkg.dependencies["@itwin/core-frontend"] = "workspace:*";
-    pkg.dependencies["@itwin/core-common"] = "workspace:*";
+  else if (pkg.name == "@itwin/presentation-components") {
+    pkg.dependencies["@itwin/components-react"] = "workspace:*";
+    pkg.dependencies["@itwin/core-react"] = "workspace:*"
+    pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
+  } else if (pkg.name == "@itwin/map-layers") {
+    pkg.dependencies["@itwin/appui-layout-react"] = "workspace:*";
+    pkg.dependencies["@itwin/appui-react"] = "workspace:*";
+    pkg.dependencies["@itwin/components-react"] = "workspace:*";
+    pkg.dependencies["@itwin/core-react"] = "workspace:*"
+    pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
+  } else if (pkg.name == "@itwin/presentation-testing") {
+    pkg.dependencies["@itwin/components-react"] = "workspace:*";
+
+  }
+  if (pkg.dependencies && pkg.dependencies["@itwin/appui-abstract"]) {
+    pkg.dependencies["@itwin/appui-abstract"] = "workspace:*";
+  }
+  if (pkg.peerDependencies && pkg.peerDependencies["@itwin/appui-abstract"]) {
+    pkg.dependencies["@itwin/appui-abstract"] = "workspace:*";
+    delete pkg.peerDependencies["@itwin/appui-abstract"];
+  }
+  if (pkg.devDependencies && pkg.devDependencies["@itwin/appui-abstract"]) {
+    pkg.devDependencies["@itwin/appui-abstract"] = "workspace:*";
   }
 
-  // https://github.com/iTwin/auth-clients
-  else if (pkg.name == "@itwin/browser-authorization") {
-    pkg.dependencies["@itwin/core-bentley"] = "workspace:*";
-  } else if (pkg.name == "@itwin/electron-authorization") {
-    pkg.dependencies["@itwin/core-bentley"] = "workspace:*";
-  } else if (pkg.name == "@itwin/oidc-signin-tool") {
-    pkg.dependencies["@itwin/core-bentley"] = "workspace:*";
-  } else if (pkg.name == "@itwin/node-cli-authorization") {
-    pkg.dependencies["@itwin/core-bentley"] = "workspace:*";
-  }
-
-  // https://github.com/iTwin/reality-data-client
-  else if (pkg.name == "@itwin/reality-data-client") {
-    pkg.dependencies["@itwin/core-bentley"] = "workspace:*";
-    pkg.dependencies["@itwin/core-common"] = "workspace:*";
-    pkg.dependencies["@itwin/core-geometry"] = "workspace:*";
-  }
 
   return pkg;
 }

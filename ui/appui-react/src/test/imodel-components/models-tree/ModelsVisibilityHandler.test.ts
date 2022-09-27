@@ -13,13 +13,13 @@ import {
   IModelApp, IModelConnection, NoRenderApp, PerModelCategoryVisibility, SpatialViewState, Viewport, ViewState, ViewState3d,
 } from "@itwin/core-frontend";
 import { isPromiseLike } from "@itwin/core-react";
-import { createRandomId } from "@itwin/presentation-common/lib/cjs/test";
 import { FilteredPresentationTreeDataProvider } from "@itwin/presentation-components";
 import { IModelHierarchyChangeEventArgs, Presentation, PresentationManager } from "@itwin/presentation-frontend";
 import { ModelsVisibilityHandler, ModelsVisibilityHandlerProps } from "../../../appui-react/imodel-components/models-tree/ModelsVisibilityHandler";
 import { CachingElementIdsContainer } from "../../../appui-react/imodel-components/models-tree/Utils";
 import { TestUtils } from "../../TestUtils";
 import { createCategoryNode, createElementClassGroupingNode, createElementNode, createModelNode, createSubjectNode } from "../Common";
+import { createRandomId } from "../../PresentationTestUtils";
 
 describe("ModelsVisibilityHandler", () => {
 

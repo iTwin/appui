@@ -1,6 +1,6 @@
 {
   "name": "@itwin/imodel-components-react",
-  "version": "3.4.0-dev.44",
+  "version": "4.0.0-dev.1",
   "description": "iTwin.js UI IModel Components",
   "main": "lib/cjs/imodel-components-react.js",
   "module": "lib/esm/imodel-components-react.js",
@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iTwin/itwinjs-core/tree/master/ui/imodel-components-react"
+    "url": "https://github.com/iTwin/appui/tree/master/ui/imodel-components-react"
   },
   "scripts": {
     "build": "npm run -s copy:locale && npm run -s build:cjs",
@@ -37,14 +37,14 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "workspace:^3.4.0-dev.44",
-    "@itwin/components-react": "workspace:^3.4.0-dev.44",
-    "@itwin/core-bentley": "workspace:^3.4.0-dev.44",
-    "@itwin/core-common": "workspace:^3.4.0-dev.44",
-    "@itwin/core-frontend": "workspace:^3.4.0-dev.44",
-    "@itwin/core-geometry": "workspace:^3.4.0-dev.44",
-    "@itwin/core-quantity": "workspace:^3.4.0-dev.44",
-    "@itwin/core-react": "workspace:^3.4.0-dev.44",
+    "@itwin/appui-abstract": "workspace:^4.0.0-dev.1",
+    "@itwin/components-react": "workspace:^4.0.0-dev.1",
+    "@itwin/core-bentley": "^3.3.0",
+    "@itwin/core-common": "^3.3.0",
+    "@itwin/core-frontend": "^3.3.0",
+    "@itwin/core-geometry": "^3.3.0",
+    "@itwin/core-quantity": "^3.3.0",
+    "@itwin/core-react": "workspace:^4.0.0-dev.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
@@ -54,15 +54,17 @@
   ],
   "devDependencies": {
     "@itwin/appui-abstract": "workspace:*",
-    "@itwin/build-tools": "workspace:*",
+    "@itwin/build-tools": "^3.3.0",
     "@itwin/components-react": "workspace:*",
-    "@itwin/core-bentley": "workspace:*",
-    "@itwin/core-common": "workspace:*",
-    "@itwin/core-frontend": "workspace:*",
-    "@itwin/core-geometry": "workspace:*",
-    "@itwin/core-quantity": "workspace:*",
+    "@itwin/core-bentley": "^3.3.0",
+    "@itwin/core-common": "^3.3.0",
+    "@itwin/core-frontend": "^3.3.0",
+    "@itwin/core-geometry": "^3.3.0",
+    "@itwin/core-orbitgt": "^3.3.0",
+    "@itwin/core-quantity": "^3.3.0",
     "@itwin/core-react": "workspace:*",
-    "@itwin/eslint-plugin": "workspace:*",
+    "@itwin/eslint-plugin": "^3.3.0",
+    "@itwin/webgl-compatibility": "^3.3.0",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
