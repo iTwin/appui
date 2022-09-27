@@ -1,12 +1,12 @@
 {
-  "name": "itwinjs-core",
+  "name": "appui",
   "//private": "NOTE: This 'root' package is private. It is never published",
   "private": true,
-  "description": "iTwin.js core components",
+  "description": "iTwin.js appui components",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iTwin/itwinjs-core"
+    "url": "https://github.com/iTwin/appui"
   },
   "scripts": {
     "build": "echo NOTE: use 'rush build' instead",
