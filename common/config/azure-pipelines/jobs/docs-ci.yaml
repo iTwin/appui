@@ -18,6 +18,9 @@ pr:
     exclude:
       - release/2*
       - release/1*
+  paths:
+    exclude:
+      - .github/CODEOWNERS
 
 jobs:
   - job:
@@ -29,7 +32,7 @@ jobs:
 
     steps:
       - checkout: self
-        path: itwinjs-core
+        path: appui
         clean: true
 
       - task: NodeTool@0
@@ -45,7 +48,7 @@ jobs:
 
       - template: ../templates/docs-build.yaml
         parameters:
-          workingDir: $(Pipeline.Workspace)/itwinjs-core
+          workingDir: $(Pipeline.Workspace)/appui
           outputDir: $(Agent.BuildDirectory)/tempDocsBuild/public_build
 
       - publish: $(Agent.BuildDirectory)/tempDocsBuild/

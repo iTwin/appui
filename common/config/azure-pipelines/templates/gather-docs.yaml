@@ -4,7 +4,7 @@
 parameters:
   - name: workingDir
     type: string
-    default: $(Pipeline.Workspace)/itwinjs-core
+    default: $(Pipeline.Workspace)/appui
   - name: stagingDir
     type: string
     default: $(System.ArtifactsDirectory)/staging/
@@ -17,7 +17,6 @@ steps:
       mkdir ${{ parameters.stagingDir }}/reference/
       echo Copying all reference files to staging
       robocopy /E generated-docs/core/ ${{ parameters.stagingDir }}/reference/
-      robocopy /E generated-docs/clients/ ${{ parameters.stagingDir }}/reference/
       robocopy /E generated-docs/ui/ ${{ parameters.stagingDir }}/reference/
       robocopy /E generated-docs/presentation/ ${{ parameters.stagingDir }}/reference/
       robocopy /E generated-docs/domains/ ${{ parameters.stagingDir }}/reference/
