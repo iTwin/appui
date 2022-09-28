@@ -72,7 +72,7 @@ describe("FrontstageManager", () => {
 
   it("getFronstageDef should return active frontstage when no id provided", async () => {
     const activeFrontstageDef = new FrontstageDef();
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => activeFrontstageDef )
+    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => activeFrontstageDef );
 
     const frontstageDef = await FrontstageManager.getFrontstageDef();
 
@@ -187,11 +187,11 @@ describe("FrontstageManager", () => {
   it("setActiveContentGroup should setActiveLayout if layout found", async () => {
     const contentGroup = new ContentGroup({id: "1", contents: [], layout: {id: "1"}});
     const layoutDef = new ContentLayoutDef({id: "1"});
-    sinon.stub(ContentLayoutManager, "getLayoutForGroup").returns(layoutDef)
+    sinon.stub(ContentLayoutManager, "getLayoutForGroup").returns(layoutDef);
     const spy = sinon.stub(FrontstageManager, "setActiveLayout");
-    await FrontstageManager.setActiveContentGroup(contentGroup)
+    await FrontstageManager.setActiveContentGroup(contentGroup);
     expect(spy).to.have.been.calledWithExactly(layoutDef, contentGroup);
-  })
+  });
 
   it("setWidgetState returns false on invalid id", () => {
     expect(FrontstageManager.setWidgetState("xyz", WidgetState.Closed)).to.be.false;

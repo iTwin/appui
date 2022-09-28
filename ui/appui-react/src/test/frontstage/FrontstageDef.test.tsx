@@ -317,18 +317,18 @@ describe("FrontstageDef", () => {
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
     expect(spy).to.not.be.called;
-  })
+  });
 
   it("should not save size and position if widget is not found", () => {
     const frontstageDef = new FrontstageDef();
-    let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
+    const state = createNineZoneState({ size: { height: 1000, width: 1600 } });
     const spy = sinon.stub(frontstageDef, "findWidgetDef");
     sinon.stub(frontstageDef, "nineZoneState").get(() => state);
 
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
     expect(spy).to.not.be.called;
-  })
+  });
   it("should not save size and position if widget is not found", () => {
     let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
     state = addTab(state, "t1");
@@ -341,7 +341,7 @@ describe("FrontstageDef", () => {
     frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
 
     expect(spy).to.be.calledOnceWithExactly("t1");
-  })
+  });
 });
 
 describe("float and dock widget", () => {
@@ -560,7 +560,7 @@ describe("float and dock widget", () => {
   });
 
   it("dock popout widget should not set state given non popout container", () => {
-    let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
+    const state = createNineZoneState({ size: { height: 1000, width: 1600 } });
 
     const frontstageDef = new FrontstageDef();
     const nineZoneStateSetter = sinon.spy();
@@ -640,8 +640,8 @@ describe("float and dock widget", () => {
   it("should return default size for panel", () => {
     const frontstageDef = new FrontstageDef();
     const panelDef = new StagePanelDef();
-    panelDef.initializeFromProps({resizable: true, size: 300})
+    panelDef.initializeFromProps({resizable: true, size: 300});
 
     expect(frontstageDef.getPanelCurrentState(panelDef)).to.have.ordered.members([StagePanelState.Open, 300]);
-  })
+  });
 });

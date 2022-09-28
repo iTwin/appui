@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { ViewClipByPlaneTool } from "@itwin/core-frontend";
 import {
   CommonStatusBarItem, CommonToolbarItem,
   StatusBarSection, ToolbarOrientation, ToolbarUsage,

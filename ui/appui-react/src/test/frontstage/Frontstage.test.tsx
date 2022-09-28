@@ -282,8 +282,6 @@ describe("Frontstage", () => {
       expect(foundWidgetDef).to.not.be.undefined;
     }
   });
-
-
 });
 
 describe("getExtendedZone", () => {
@@ -342,18 +340,18 @@ describe("useSpecificWidgetDef", () => {
   it("should return widgetDef from active frontstage", () => {
     const frontstageDef = new FrontstageDef();
     const widgetDef = new WidgetDef({});
-    sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef)
+    sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
     const {result} = renderHook(() => useSpecificWidgetDef("t1"));
 
     expect(result.current).to.be.eq(widgetDef);
-  })
+  });
 
   it("should handle no active frontstage", () => {
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
     const { result } = renderHook(() => useSpecificWidgetDef("t1"));
 
     expect(result.current).to.be.undefined;
-  })
-})
+  });
+});
