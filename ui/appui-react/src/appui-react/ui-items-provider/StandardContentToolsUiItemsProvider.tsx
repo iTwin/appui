@@ -60,7 +60,6 @@ function getGroupPriority(potentialId: any, defaultValue: number) {
  */
 export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
   public get id(): string { return "appui-react:StandardContentToolsUiItemsProvider"; }
-  private _isClipToolRegistered = false;
 
   constructor(private defaultContextTools?: DefaultContentTools) { }
 
@@ -109,11 +108,6 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
         items.push(ToolbarHelper.createToolbarItemFromItemDef(20, CoreTools.measureToolGroup, { groupPriority: measureGroupPriority }));
 
       if (!this.defaultContextTools || !this.defaultContextTools.vertical || this.defaultContextTools.vertical.sectionGroup) {
-        if (!this._isClipToolRegistered) {
-          // register core commands not automatically registered
-          ViewClipByPlaneTool.register();
-          this._isClipToolRegistered = true;
-        }
         items.push(ToolbarHelper.createToolbarItemFromItemDef(30, CoreTools.sectionToolGroup, { groupPriority: selectionGroupPriority }));
       }
     }

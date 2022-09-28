@@ -13,11 +13,12 @@ import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
 import { getDefaultZonesManagerProps } from "@itwin/appui-layout-react";
 import {
-  CoreTools, Frontstage, FrontstageComposer, FrontstageManager, getExtendedZone, UiFramework, WidgetDef, ZoneDef, ZoneDefProvider,
+  CoreTools, Frontstage, FrontstageComposer, FrontstageDef, FrontstageManager, getExtendedZone, UiFramework, useSpecificWidgetDef, WidgetDef, ZoneDef, ZoneDefProvider,
   ZoneLocation,
 } from "../../appui-react";
 import TestUtils, { mount } from "../TestUtils";
 import { TestFrontstage, TestWidgetElement } from "./FrontstageTestUtils";
+import { renderHook } from "@testing-library/react-hooks";
 
 describe("Frontstage", () => {
   before(async () => {
@@ -281,6 +282,8 @@ describe("Frontstage", () => {
       expect(foundWidgetDef).to.not.be.undefined;
     }
   });
+
+
 });
 
 describe("getExtendedZone", () => {
@@ -334,3 +337,23 @@ describe("getExtendedZone", () => {
     expect(extended).to.eq(props.zones[4]);
   });
 });
+
+describe("useSpecificWidgetDef", () => {
+  it("should return widgetDef from active frontstage", () => {
+    const frontstageDef = new FrontstageDef();
+    const widgetDef = new WidgetDef({});
+    sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef)
+    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+
+    const {result} = renderHook(() => useSpecificWidgetDef("t1"));
+
+    expect(result.current).to.be.eq(widgetDef);
+  })
+
+  it("should handle no active frontstage", () => {
+    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
+    const { result } = renderHook(() => useSpecificWidgetDef("t1"));
+
+    expect(result.current).to.be.undefined;
+  })
+})
