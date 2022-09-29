@@ -466,8 +466,8 @@ export function ActiveFrontstageDefProvider({ frontstageDef }: {
 }): JSX.Element;
 
 // @public
-export class ActivityCenterField extends React_2.Component<StatusFieldProps, ActivityCenterState> {
-    constructor(p: StatusFieldProps);
+export class ActivityCenterField extends React_2.Component<CommonProps, ActivityCenterState> {
+    constructor(p: CommonProps);
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -1070,9 +1070,6 @@ export enum ClassGroupingOption {
     YesWithCounts = 2
 }
 
-// @beta @deprecated
-export function ClearEmphasisStatusField(props: ClearEmphasisStatusFieldProps): JSX.Element;
-
 // @internal (undocumented)
 export function clearKeyinPaletteHistory(): void;
 
@@ -1132,27 +1129,6 @@ export class CommandLaunchBackstageItem extends React_2.PureComponent<CommandLau
 // @public @deprecated
 export interface CommandLaunchBackstageItemProps extends BackstageItemProps, CommandHandler {
     commandId: string;
-}
-
-// @public @deprecated
-export class ConditionalField extends React_2.PureComponent<ConditionalFieldProps, ConditionalFieldState> {
-    constructor(props: ConditionalFieldProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: ConditionalFieldProps): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: ConditionalFieldState;
-}
-
-// @public
-export interface ConditionalFieldProps extends StatusFieldProps {
-    boolFunc: (props: StatusFieldProps & {
-        isInFooterMode: boolean;
-    }) => boolean;
-    defaultValue?: boolean;
 }
 
 // @public
@@ -1490,8 +1466,6 @@ export interface ContentLayoutComponentProps extends CommonProps {
     contentGroup: ContentGroup;
     // (undocumented)
     contentLayout: ContentLayoutDef;
-    // @deprecated (undocumented)
-    isInFooterMode?: boolean;
 }
 
 // @public
@@ -2182,14 +2156,6 @@ export class FocusToolSettings extends Tool {
     static toolId: string;
 }
 
-// @public @deprecated
-export function FooterModeField(props: FooterModeFieldProps): JSX.Element;
-
-// @public
-export interface FooterModeFieldProps extends StatusFieldProps {
-    children?: React_2.ReactNode;
-}
-
 // @beta
 export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider {
     constructor();
@@ -2275,8 +2241,6 @@ export interface FrameworkStagePanelProps {
     header?: React_2.ReactNode;
     // (undocumented)
     initialSize?: number;
-    // (undocumented)
-    isInFooterMode: boolean;
     // (undocumented)
     isTargeted: boolean;
     // (undocumented)
@@ -2413,8 +2377,6 @@ export interface FrameworkZoneProps extends CommonProps {
     getWidgetContentRef: (id: WidgetZoneId) => React_2.Ref<HTMLDivElement>;
     // (undocumented)
     isHidden: boolean;
-    // (undocumented)
-    isInFooterMode: boolean;
     // (undocumented)
     openWidgetId: WidgetZoneId | undefined;
     // (undocumented)
@@ -2594,8 +2556,6 @@ export class FrontstageDef {
     get isApplicationClosing(): boolean;
     // (undocumented)
     isFloatingWidget(widgetId: string): boolean;
-    // (undocumented)
-    get isInFooterMode(): boolean;
     // (undocumented)
     isPopoutWidget(widgetId: string): boolean;
     // (undocumented)
@@ -2805,8 +2765,6 @@ export interface FrontstageProps extends CommonProps {
     defaultTool: ToolItemDef;
     id: string;
     isIModelIndependent?: boolean;
-    // @deprecated
-    isInFooterMode?: boolean;
     leftPanel?: React_2.ReactElement<StagePanelProps>;
     rightPanel?: React_2.ReactElement<StagePanelProps>;
     // @internal (undocumented)
@@ -3728,20 +3686,14 @@ export interface MessageAddedEventArgs {
 }
 
 // @public
-export class MessageCenterField extends React_2.Component<MessageCenterFieldProps, MessageCenterState> {
-    constructor(p: MessageCenterFieldProps);
+export class MessageCenterField extends React_2.Component<CommonProps, MessageCenterState> {
+    constructor(p: CommonProps);
     // @internal (undocumented)
     componentDidMount(): void;
     // @internal (undocumented)
     componentWillUnmount(): void;
     // (undocumented)
     render(): React_2.ReactNode;
-}
-
-// @public
-export interface MessageCenterFieldProps extends StatusFieldProps {
-    // @deprecated
-    targetRef?: React_2.Ref<HTMLElement>;
 }
 
 // @public
@@ -4394,9 +4346,6 @@ export interface PresentationSelectionScope {
     label: string;
 }
 
-// @public @deprecated
-export const PromptField: ConnectedComponent<typeof PromptFieldComponent, Omit_3<React_2.ClassAttributes<PromptFieldComponent> & PromptFieldProps, "toolPrompt">>;
-
 // @public
 export class PropsHelper {
     // (undocumented)
@@ -4564,7 +4513,7 @@ export class ScheduleAnimationTimelineDataProvider extends BaseTimelineDataProvi
 export function SectionsStatusField(props: SectionsStatusFieldProps): JSX.Element;
 
 // @beta
-export interface SectionsStatusFieldProps extends StatusFieldProps {
+export interface SectionsStatusFieldProps extends CommonProps {
     // (undocumented)
     hideWhenUnused?: boolean;
 }
@@ -5185,8 +5134,6 @@ export interface StagePanelRuntimeProps {
     // (undocumented)
     getWidgetContentRef: (id: WidgetZoneId) => React_2.Ref<HTMLDivElement>;
     // (undocumented)
-    isInFooterMode: boolean;
-    // (undocumented)
     isTargeted: boolean;
     // (undocumented)
     panel: NineZoneStagePanelManagerProps;
@@ -5409,9 +5356,6 @@ export interface StatusBarComposerProps extends CommonProps {
     rightClassName?: string;
 }
 
-// @internal
-export const StatusBarContext: React_2.Context<StatusBarWidgetControlArgs>;
-
 // @public
 export type StatusBarFieldId = string | null;
 
@@ -5445,8 +5389,6 @@ export function StatusBarLeftSection(props: CommonDivProps): JSX.Element;
 
 // @public
 export interface StatusBarProps extends CommonProps {
-    // @deprecated
-    isInFooterMode?: boolean;
     // (undocumented)
     widgetControl?: StatusBarWidgetControl;
 }
@@ -5470,19 +5412,8 @@ export class StatusBarWidgetComposerControl extends StatusBarWidgetControl {
 // @public
 export abstract class StatusBarWidgetControl extends WidgetControl {
     constructor(info: ConfigurableCreateInfo, options: any);
-    abstract getReactNode(args: StatusBarWidgetControlArgs): React.ReactNode;
+    abstract getReactNode(): React.ReactNode;
     getType(): ConfigurableUiControlType;
-}
-
-// @public
-export interface StatusBarWidgetControlArgs {
-    // @deprecated
-    isInFooterMode: boolean;
-    // @deprecated
-    onOpenWidget: (widget: StatusBarFieldId) => void;
-    // @deprecated
-    openWidget: StatusBarFieldId;
-    toastTargetRef: React.Ref<HTMLElement>;
 }
 
 // @internal
@@ -5498,8 +5429,6 @@ export interface StatusBarZoneProps extends CommonProps {
     // (undocumented)
     isHidden: boolean;
     // (undocumented)
-    isInFooterMode: boolean;
-    // (undocumented)
     targetChangeHandler: TargetChangeHandler;
     // (undocumented)
     targetedBounds: RectangleProps | undefined;
@@ -5509,16 +5438,6 @@ export interface StatusBarZoneProps extends CommonProps {
     widgetControl?: StatusBarWidgetControl;
     // (undocumented)
     zoneProps: ZoneManagerProps;
-}
-
-// @public
-export interface StatusFieldProps extends CommonProps {
-    // @deprecated
-    isInFooterMode?: boolean;
-    // @deprecated
-    onOpenWidget?: (widget: StatusBarFieldId) => void;
-    // @deprecated
-    openWidget?: StatusBarFieldId;
 }
 
 // @public @deprecated
@@ -5737,8 +5656,8 @@ export interface TaskPropsList {
 export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity">>;
 
 // @public
-export class TileLoadingIndicator extends React_2.PureComponent<StatusFieldProps, TileLoadingIndicatorState> {
-    constructor(props: StatusFieldProps);
+export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, TileLoadingIndicatorState> {
+    constructor(props: CommonProps);
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -5809,7 +5728,7 @@ export class ToolAssistanceField extends React_2.Component<ToolAssistanceFieldPr
 export type ToolAssistanceFieldDefaultProps = Pick<ToolAssistanceFieldProps, "includePromptAtCursor" | "uiStateStorage" | "cursorPromptTimeout" | "fadeOutCursorPrompt" | "defaultPromptAtCursor">;
 
 // @public
-export interface ToolAssistanceFieldProps extends StatusFieldProps {
+export interface ToolAssistanceFieldProps extends CommonProps {
     cursorPromptTimeout: number;
     defaultPromptAtCursor: boolean;
     fadeOutCursorPrompt: boolean;
@@ -6570,8 +6489,8 @@ export class ValidationTextbox extends React_2.PureComponent<ValidationTextboxPr
 }
 
 // @beta
-export class ViewAttributesStatusField extends React_2.Component<StatusFieldProps, ViewAttributesStatusFieldState> {
-    constructor(props: StatusFieldProps);
+export class ViewAttributesStatusField extends React_2.Component<CommonProps, ViewAttributesStatusFieldState> {
+    constructor(props: CommonProps);
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
@@ -7226,9 +7145,6 @@ export enum WidgetType {
     ToolSettings = 4
 }
 
-// @public @deprecated
-export const withMessageCenterFieldProps: <P extends MessageCenterFieldProps, C>(Component: React_2.JSXElementConstructor<P> & C) => (props: JSX.LibraryManagedAttributes<C, Omit<P, "isInFooterMode" | "openWidget" | "onOpenWidget" | "targetRef">>) => JSX.Element;
-
 // @public
 export const withSafeArea: <P extends InjectedWithSafeAreaProps, C>(Component: React_2.JSXElementConstructor<P> & C) => {
     new (props: JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>> | Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>): {
@@ -7283,9 +7199,6 @@ export const withSafeArea: <P extends InjectedWithSafeAreaProps, C>(Component: R
     };
     contextType?: React_2.Context<any> | undefined;
 };
-
-// @public @deprecated
-export const withStatusFieldProps: <P extends StatusFieldProps, C>(Component: React_2.JSXElementConstructor<P> & C) => (props: JSX.LibraryManagedAttributes<C, Omit<P, "isInFooterMode" | "openWidget" | "onOpenWidget">>) => JSX.Element;
 
 // @internal @deprecated
 export class Workflow extends ItemDefBase {
@@ -7447,8 +7360,6 @@ export interface ZoneRuntimeProps {
     ghostOutline: RectangleProps | undefined;
     // (undocumented)
     isHidden: boolean;
-    // (undocumented)
-    isInFooterMode: boolean;
     // (undocumented)
     openWidgetId: WidgetZoneId | undefined;
     // (undocumented)

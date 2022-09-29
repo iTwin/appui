@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { ViewClipByPlaneTool } from "@itwin/core-frontend";
 import {
   CommonStatusBarItem, CommonToolbarItem,
   StatusBarSection, ToolbarOrientation, ToolbarUsage,
@@ -15,7 +14,6 @@ import {
 } from "@itwin/appui-abstract";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
-import { withStatusFieldProps } from "../statusbar/withStatusFieldProps";
 import { SectionsStatusField } from "../statusfields/SectionsField";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { CoreTools } from "../tools/CoreToolDefinitions";
@@ -61,7 +59,6 @@ function getGroupPriority(potentialId: any, defaultValue: number) {
  */
 export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
   public get id(): string { return "appui-react:StandardContentToolsUiItemsProvider"; }
-  private _isClipToolRegistered = false;
 
   constructor(private defaultContextTools?: DefaultContentTools) { }
 
@@ -110,11 +107,6 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
         items.push(ToolbarHelper.createToolbarItemFromItemDef(20, CoreTools.measureToolGroup, { groupPriority: measureGroupPriority }));
 
       if (!this.defaultContextTools || !this.defaultContextTools.vertical || this.defaultContextTools.vertical.sectionGroup) {
-        if (!this._isClipToolRegistered) {
-          // register core commands not automatically registered
-          ViewClipByPlaneTool.register();
-          this._isClipToolRegistered = true;
-        }
         items.push(ToolbarHelper.createToolbarItemFromItemDef(30, CoreTools.sectionToolGroup, { groupPriority: selectionGroupPriority }));
       }
     }
@@ -126,9 +118,7 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
 
     // if the sectionGroup tools are to be shown then we want the status field added to allow clearing or manipulation the section
     if (this.defaultContextTools?.vertical?.sectionGroup) {
-      // eslint-disable-next-line deprecation/deprecation
-      const Sections = withStatusFieldProps(SectionsStatusField);
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.Sections", StatusBarSection.Center, 20, <Sections hideWhenUnused />));
+      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.Sections", StatusBarSection.Center, 20, <SectionsStatusField hideWhenUnused />));
     }
 
     return statusBarItems;
