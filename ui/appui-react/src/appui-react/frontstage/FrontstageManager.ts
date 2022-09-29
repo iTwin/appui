@@ -380,14 +380,6 @@ export class FrontstageManager {
     return key;
   }
 
-  /** Add a Frontstage via a definition.
-   * @param frontstageDef  Definition of the Frontstage to add
-   */
-  private static addFrontstageDef(frontstageDef: FrontstageDef): void {
-    const key = FrontstageManager.getFrontstageKey(frontstageDef.id);
-    FrontstageManager._frontstageDefs.set(key, frontstageDef);
-  }
-
   /** @internal */
   public static clearFrontstageDefsForIModelId(iModelId: string | undefined) {
     // istanbul ignore next
@@ -611,9 +603,7 @@ export class FrontstageManager {
    */
   public static async setActiveContentGroup(contentGroup: ContentGroup): Promise<void> {
     const contentLayoutDef = ContentLayoutManager.getLayoutForGroup(contentGroup);
-    if (contentLayoutDef) {
-      await FrontstageManager.setActiveLayout(contentLayoutDef, contentGroup);
-    }
+    await FrontstageManager.setActiveLayout(contentLayoutDef, contentGroup);
   }
 
   /** Opens a modal Frontstage. Modal Frontstages can be stacked.

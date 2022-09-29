@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
 import * as React from "react";
 import * as moq from "typemoq";
 import { BeEvent } from "@itwin/core-bentley";
@@ -29,18 +28,6 @@ describe("TileLoadingIndicator", () => {
 
     expect(wrapper.container.querySelector(".nz-footer-mode")).to.exist;
     cleanup();
-  });
-
-  it("should render correctly footer (deprecated)", () => {
-    shallow(
-      <TileLoadingIndicator isInFooterMode={true} />,
-    ).should.matchSnapshot();
-  });
-
-  it("should render correctly not footer (deprecated)", () => {
-    shallow(
-      <TileLoadingIndicator isInFooterMode={false} />,
-    ).should.matchSnapshot();
   });
 
   it("should unmount correctly", () => {
