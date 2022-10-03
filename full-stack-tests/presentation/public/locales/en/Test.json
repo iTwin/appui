@@ -1,6 +1,0 @@
-{
-  "string": "test value",
-  "nested": {
-    "string": "test nested value"
-  }
-}

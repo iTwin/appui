@@ -10,7 +10,6 @@ import { BeEvent, Id64, Id64String } from "@itwin/core-bentley";
 import { IModelConnection, MockRender, ScreenViewport, SnapshotConnection, SpatialViewState, SubCategoriesCache, ViewManager, Viewport } from "@itwin/core-frontend";
 import { ECInstancesNodeKey, KeySet, LabelDefinition, Node, NodePathElement, StandardNodeTypes } from "@itwin/presentation-common";
 import { IPresentationTreeDataProvider, PresentationTreeDataProvider } from "@itwin/presentation-components";
-import { mockPresentationManager } from "@itwin/presentation-components/lib/cjs/test";
 import { Presentation, PresentationManager, RulesetVariablesManager, SelectionChangeEvent, SelectionManager } from "@itwin/presentation-frontend";
 import {
   HierarchyBuilder,
@@ -24,6 +23,7 @@ import { CategoryVisibilityHandler } from "../../../appui-react/imodel-component
 import { VisibilityChangeListener } from "../../../appui-react/imodel-components/VisibilityTreeEventHandler";
 import TestUtils from "../../TestUtils";
 import { CategoryProps, IModel } from "@itwin/core-common";
+import { mockPresentationManager } from "../../PresentationTestUtils";
 
 describe("CategoryTree", () => {
 

@@ -89,7 +89,7 @@ describe("ContentLayout", () => {
   });
 
   it("SingleContent renders correctly", () => {
-    render(<ContentLayout contentGroup={singleContentGroup} contentLayout={singleContentLayout} isInFooterMode={true} />);
+    render(<ContentLayout contentGroup={singleContentGroup} contentLayout={singleContentLayout} />);
 
     expect(screen.getAllByText("Test")).to.have.lengthOf(1).and.satisfy((elements: HTMLElement[]) =>
       expect(elements[0].parentElement?.style).to.include({height: "100%"})
@@ -97,7 +97,7 @@ describe("ContentLayout", () => {
   });
 
   it("TwoHalvesVertical renders correctly", () => {
-    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={verticalSplitLayout} isInFooterMode={true} />);
+    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={verticalSplitLayout} />);
     expect(screen.getAllByText("Test")).to.have.lengthOf(2).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.vertical .Pane.vertical.Pane1 > .uifw-contentlayout-wrapper > div")),
       expect(elements[0].parentElement?.parentElement?.style).to.include({width: "50%"}),
@@ -112,7 +112,7 @@ describe("ContentLayout", () => {
   });
 
   it("TwoHalvesHorizontal renders correctly", () => {
-    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={horizontalSplitLayout} isInFooterMode={false} />);
+    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={horizontalSplitLayout} />);
 
     expect(screen.getAllByText("Test")).to.have.lengthOf(2).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.horizontal .Pane.horizontal.Pane1 > .uifw-contentlayout-wrapper > div")),
@@ -137,7 +137,7 @@ describe("ContentLayout", () => {
   );
 
   it("FourQuadrantsVertical renders correctly", () => {
-    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={fourQuadrantsVerticalLayout} isInFooterMode={false} />);
+    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={fourQuadrantsVerticalLayout} />);
 
     expect(screen.getAllByText("Test")).to.have.lengthOf(4).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.vertical .Pane.vertical.Pane1 > .uifw-contentlayout-full-size > .SplitPane.horizontal > .Pane.horizontal.Pane1 > .uifw-contentlayout-wrapper > div")),
@@ -166,7 +166,7 @@ describe("ContentLayout", () => {
   );
 
   it("FourQuadrantsHorizontal renders correctly", () => {
-    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={fourQuadrantsHorizontalLayoutDef} isInFooterMode={false} />);
+    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={fourQuadrantsHorizontalLayoutDef} />);
 
     expect(screen.getAllByText("Test")).to.have.lengthOf(4).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.horizontal .Pane.horizontal.Pane1 > .uifw-contentlayout-full-size > .SplitPane.vertical > .Pane.vertical.Pane1 > .uifw-contentlayout-wrapper > div")),
@@ -180,7 +180,7 @@ describe("ContentLayout", () => {
   });
 
   it("ContentLayoutDiv mouse down and up", async () => {
-    render(<ContentLayout contentGroup={singleContentGroup} contentLayout={singleContentLayout} isInFooterMode={true} />);
+    render(<ContentLayout contentGroup={singleContentGroup} contentLayout={singleContentLayout} />);
 
     await theUserTo.pointer({target: screen.getByText("Test"), keys: "[MouseLeft>]"});
     expect(ContentViewManager.isMouseDown).to.be.true;
@@ -189,7 +189,7 @@ describe("ContentLayout", () => {
   });
 
   it("ContentWrapper mouse down", async () => {
-    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={verticalSplitLayout} isInFooterMode={true} />);
+    render(<ContentLayout contentGroup={fourContentGroup} contentLayout={verticalSplitLayout} />);
     const allTests = screen.getAllByText("Test");
     expect(allTests).to.have.lengthOf(2).and.to.satisfy((elements: HTMLElement[])=> [
       expect(elements[0].parentElement).to.satisfy(childStructure("div+.uifw-contentlayout-overlay-inactive")),
@@ -207,7 +207,7 @@ describe("ContentLayout", () => {
   it("Vertical SplitPane onChanged", async () => {
     const {container} = render(
       <div>
-        <ContentLayout contentGroup={fourContentGroup} contentLayout={verticalSplitLayout} isInFooterMode={true} />
+        <ContentLayout contentGroup={fourContentGroup} contentLayout={verticalSplitLayout} />
       </div>);
 
     const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
@@ -231,7 +231,7 @@ describe("ContentLayout", () => {
   it("Horizontal SplitPane onChanged", async () => {
     const {container} = render(
       <div>
-        <ContentLayout contentGroup={fourContentGroup} contentLayout={horizontalSplitLayout} isInFooterMode={true} />
+        <ContentLayout contentGroup={fourContentGroup} contentLayout={horizontalSplitLayout} />
       </div>);
 
     const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
@@ -357,7 +357,7 @@ describe("SingleContentLayout", () => {
     const floatingControl = new TestFloatingContentControl();
     ContentViewManager.addFloatingContentControl(floatingControl);
 
-    render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} isInFooterMode={true} />);
+    render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
     expect(screen.getByText("Test").parentElement).to.satisfy(childStructure("div+.uifw-contentlayout-overlay-active"));
 
     ContentViewManager.setActiveContent(floatingControl.reactNode, true);

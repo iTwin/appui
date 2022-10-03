@@ -9,7 +9,6 @@ import * as moq from "typemoq";
 import * as sinon from "sinon";
 import { IModelRpcProps } from "@itwin/core-common";
 import { RpcRequestsHandler } from "@itwin/presentation-common";
-import { createRandomSelectionScope } from "@itwin/presentation-common/lib/cjs/test";
 import { Id64String, Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, MockRender, SelectionSet, ViewState } from "@itwin/core-frontend";
 import { Presentation, SelectionManager, SelectionScopesManager, SelectionScopesManagerProps } from "@itwin/presentation-frontend";
@@ -18,6 +17,7 @@ import { ColorTheme, CursorMenuData, SettingsModalFrontstage, UiFramework, UserS
 import { LocalStateStorage, UiStateStorage } from "@itwin/core-react";
 import TestUtils, { storageMock } from "./TestUtils";
 import { OpenSettingsTool } from "../appui-react/tools/OpenSettingsTool";
+import { createRandomSelectionScope } from "./PresentationTestUtils";
 
 describe("UiFramework localStorage Wrapper", () => {
 

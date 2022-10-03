@@ -4,7 +4,7 @@
 parameters:
   - name: workingDir
     type: string
-    default: $(Pipeline.Workspace)/itwinjs-core
+    default: $(Pipeline.Workspace)/appui
   - name: stagingDir
     type: string
     default: $(System.ArtifactsDirectory)/staging/

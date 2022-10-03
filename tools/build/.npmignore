@@ -1,9 +1,0 @@
-# start off ignoring everything, and then add back only the files we want
-*
-!scripts/**/*.js
-!bin/**/*.js
-!mocha-reporter/**/*.js
-!*.md
-!tsconfig.json
-!tsconfig-base.json
-!.nycrc
