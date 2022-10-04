@@ -7,6 +7,9 @@ parameters:
   - name: rushBuildCacheEnabled
     type: number
     default: 1
+  - name: buildIos
+    type: boolean
+    default: false
 
 steps:
   - script: node common/scripts/set-rush-write-cache-variables.js

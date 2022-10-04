@@ -385,5 +385,78 @@ describe("ModelsTree", () => {
       await waitFor(() => result.getByText("Joe's house.bim"), { timeout: 60 * 1000 });
       expect(result.container).to.matchSnapshot();
     });
+
+    // IModelTestUtility will be published with presentation-testing 3.4.0, keeping for now as comment.
+    // it("does not show private categories", async () => {
+    //   const testUtility = new IModelTestUtility();
+
+    //   testUtility.createIModel();
+    //   testUtility.addPhysicalModel();
+
+    //   // Insert a SpatialCategory
+    //   const spatialCategoryProps: CategoryProps = {
+    //     classFullName: "BisCore:SpatialCategory",
+    //     model: IModel.dictionaryId,
+    //     code: testUtility.getSpatialCategoryCode("Test SpatialCategory"),
+    //   };
+    //   const spatialCategoryId: Id64String = testUtility.addSpatialCategory(spatialCategoryProps);
+    //   assert.isTrue(Id64.isValidId64(spatialCategoryId));
+
+    //   // Insert a private SpatialCategory
+    //   const privateSpatialCategoryProps: CategoryProps = {
+    //     classFullName: "BisCore:SpatialCategory",
+    //     model: IModel.dictionaryId,
+    //     code: testUtility.getSpatialCategoryCode("Test private SpatialCategory"),
+    //     isPrivate: true,
+    //   };
+    //   const privateSpatialCategoryId: Id64String = testUtility.addSpatialCategory(privateSpatialCategoryProps);
+    //   assert.isTrue(Id64.isValidId64(privateSpatialCategoryId));
+
+    //   testUtility.addPhysicalObject(spatialCategoryId);
+    //   testUtility.addPhysicalObject(privateSpatialCategoryId);
+    //   testUtility.closeIModel();
+
+    //   const openedIModel = await SnapshotConnection.openFile(testUtility.outputFile);
+    //   const hierarchyBuilder = new HierarchyBuilder({ imodel: openedIModel });
+    //   const hierarchy = await hierarchyBuilder.createHierarchy(RULESET_MODELS);
+
+    //   expect(hierarchy).to.matchSnapshot();
+    // });
+
+    // it("does not show private categories with class grouping", async () => {
+    //   const testUtility = new IModelTestUtility();
+
+    //   testUtility.createIModel();
+    //   testUtility.addPhysicalModel();
+
+    //   // Insert a SpatialCategory
+    //   const spatialCategoryProps: CategoryProps = {
+    //     classFullName: "BisCore:SpatialCategory",
+    //     model: IModel.dictionaryId,
+    //     code: testUtility.getSpatialCategoryCode("Test SpatialCategory"),
+    //   };
+    //   const spatialCategoryId: Id64String = testUtility.addSpatialCategory(spatialCategoryProps);
+    //   assert.isTrue(Id64.isValidId64(spatialCategoryId));
+
+    //   // Insert a private SpatialCategory
+    //   const privateSpatialCategoryProps: CategoryProps = {
+    //     classFullName: "BisCore:SpatialCategory",
+    //     model: IModel.dictionaryId,
+    //     code: testUtility.getSpatialCategoryCode("Test private SpatialCategory"),
+    //     isPrivate: true,
+    //   };
+    //   const privateSpatialCategoryId: Id64String = testUtility.addSpatialCategory(privateSpatialCategoryProps);
+    //   assert.isTrue(Id64.isValidId64(privateSpatialCategoryId));
+
+    //   testUtility.addPhysicalObject(spatialCategoryId);
+    //   testUtility.addPhysicalObject(privateSpatialCategoryId);
+    //   testUtility.closeIModel();
+
+    //   const openedIModel = await SnapshotConnection.openFile(testUtility.outputFile);
+    //   const hierarchyBuilder = new HierarchyBuilder({ imodel: openedIModel });
+    //   const hierarchy = await hierarchyBuilder.createHierarchy(RULESET_MODELS_GROUPED_BY_CLASS);
+
+    //   expect(hierarchy).to.matchSnapshot();
+    // });
   });
 });

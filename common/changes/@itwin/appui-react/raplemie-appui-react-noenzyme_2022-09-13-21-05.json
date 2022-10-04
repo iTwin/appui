@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Models Tree: Do not recreate subject model ids cache unless iModel changes",
+      "comment": "Refactored many tests to remove enzyme and snaphot testing",
       "type": "none"
     }
   ],
