@@ -57,7 +57,7 @@
     "@itwin/itwinui-icons-react": "^1.8.0",
     "@itwin/itwinui-css": "0.x",
     "@itwin/webgl-compatibility": "^3.3.0",
-    "classnames": "^2.3.1",
+    "classnames": "2.3.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "@reduxjs/toolkit": "^1.5.0",
