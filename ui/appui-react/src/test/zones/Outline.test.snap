@@ -3,7 +3,7 @@
 exports[`Outline does not render w/o bounds 1`] = `""`;
 
 exports[`Outline renders correctly 1`] = `
-<Outline
+<Component
   bounds={
     Object {
       "bottom": 10,

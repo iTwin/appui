@@ -21,9 +21,6 @@ import { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl";
 import { WidgetDef, WidgetStateChangedEventArgs, WidgetType } from "../widgets/WidgetDef";
 import { WidgetProps } from "../widgets/WidgetProps";
 import { WidgetTabs } from "../widgets/WidgetStack";
-import { FrameworkZone } from "./FrameworkZone";
-import { StatusBarZone } from "./StatusBarZone";
-import { ToolSettingsZone } from "./toolsettings/ToolSettingsZone";
 import { ZoneDef, ZoneState } from "./ZoneDef";
 
 /** Enum for [[Zone]] Location.
@@ -144,24 +141,7 @@ export class Zone extends React.Component<ZoneProps> {
     // istanbul ignore else
     if (runtimeProps.zone.widgets.length === 1) {
       if (zoneDef.isToolSettings && isToolSettingsWidgetManagerProps(runtimeProps.widget) && runtimeProps.widget.mode === ToolSettingsWidgetMode.TitleBar) {
-        const widgetDef = zoneDef.getSingleWidgetDef();
-        const isClosed = widgetDef ? (widgetDef.state === WidgetState.Closed || widgetDef.state === WidgetState.Hidden)
-          : /* istanbul ignore next */ false;
-        return (
-          <ToolSettingsZone
-            className={this.props.className}
-            dropTarget={runtimeProps.dropTarget}
-            getWidgetContentRef={runtimeProps.getWidgetContentRef}
-            isClosed={isClosed}
-            isHidden={runtimeProps.isHidden}
-            lastPosition={runtimeProps.draggedWidget && /* istanbul ignore next */ runtimeProps.draggedWidget.lastPosition}
-            style={this.props.style}
-            targetChangeHandler={runtimeProps.targetChangeHandler}
-            targetedBounds={runtimeProps.ghostOutline}
-            widgetChangeHandler={runtimeProps.widgetChangeHandler}
-            zone={runtimeProps.zone}
-          />
-        );
+        return null;
       } else if (zoneDef.isStatusBar) {
         // istanbul ignore next
         if (runtimeProps.zone.id !== 8)
@@ -174,19 +154,7 @@ export class Zone extends React.Component<ZoneProps> {
         if (widgetDef)
           widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
 
-        return (
-          <StatusBarZone
-            className={this.props.className}
-            dropTarget={runtimeProps.dropTarget}
-            isHidden={runtimeProps.isHidden}
-            style={this.props.style}
-            targetChangeHandler={runtimeProps.targetChangeHandler}
-            targetedBounds={runtimeProps.ghostOutline}
-            widgetChangeHandler={runtimeProps.widgetChangeHandler}
-            widgetControl={widgetControl}
-            zoneProps={runtimeProps.zone}
-          />
-        );
+        return null;
       }
 
       const zDef = runtimeProps.zoneDefProvider.getZoneDef(runtimeProps.zone.widgets[0]);
@@ -200,27 +168,7 @@ export class Zone extends React.Component<ZoneProps> {
       }
     }
 
-    return (
-      <FrameworkZone
-        activeTabIndex={runtimeProps.activeTabIndex}
-        className={this.props.className}
-        disabledResizeHandles={runtimeProps.disabledResizeHandles}
-        draggedWidget={runtimeProps.draggedWidget}
-        dropTarget={runtimeProps.dropTarget}
-        fillZone={zoneDef.shouldFillZone}
-        getWidgetContentRef={runtimeProps.getWidgetContentRef}
-        isHidden={runtimeProps.isHidden}
-        openWidgetId={runtimeProps.openWidgetId}
-        style={this.props.style}
-        targetedBounds={runtimeProps.ghostOutline}
-        targetChangeHandler={runtimeProps.targetChangeHandler}
-        widget={runtimeProps.widget}
-        widgetElement={widgetElement}
-        widgetTabs={runtimeProps.widgetTabs}
-        widgetChangeHandler={runtimeProps.widgetChangeHandler}
-        zone={runtimeProps.zone}
-      />
-    );
+    return null;
   }
 
   private _handleWidgetStateChangedEvent = (args: WidgetStateChangedEventArgs) => {

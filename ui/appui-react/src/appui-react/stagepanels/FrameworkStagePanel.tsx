@@ -12,8 +12,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { StagePanelLocation } from "@itwin/appui-abstract";
 import {
-  NineZoneStagePanelManagerProps, SplitterPaneTarget as NZ_SplitterPaneTarget, StagePanel as NZ_StagePanel, SafeAreaInsets, Splitter, SplitterTarget,
-  StagePanelTarget, StagePanelTypeHelpers, WidgetZoneId, ZonesManagerWidgetsProps,
+  NineZoneStagePanelManagerProps, StagePanel as NZ_StagePanel, SafeAreaInsets, Splitter, StagePanelTypeHelpers, WidgetZoneId, ZonesManagerWidgetsProps,
 } from "@itwin/appui-layout-react";
 import { StagePanelChangeHandler, WidgetChangeHandler } from "../frontstage/FrontstageComposer";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
@@ -73,21 +72,9 @@ export class FrameworkStagePanel extends React.PureComponent<FrameworkStagePanel
     if (paneCount === 0) {
       if (!isTargetVisible)
         return null;
-      return (
-        <SafeAreaContext.Consumer>
-          {(safeAreaInsets) => (
-            <StagePanelTarget
-              className={panelStateClassName}
-              onTargetChanged={this._handleTargetChanged}
-              safeAreaInsets={safeAreaInsets}
-              type={type}
-            />
-          )}
-        </SafeAreaContext.Consumer>
-      );
+      return null;
     }
 
-    const isSplitterTargetVisible = isTargetVisible && !this.props.isTargeted;
     const isVertical = StagePanelTypeHelpers.isVertical(type);
     return (
       <SafeAreaContext.Consumer>
@@ -109,14 +96,6 @@ export class FrameworkStagePanel extends React.PureComponent<FrameworkStagePanel
               <div className="uifw-content">
                 {this.props.panel.isCollapsed ? undefined : this.props.header}
                 <div className="uifw-widgets">
-                  <SplitterTarget
-                    isVertical={isVertical}
-                    onTargetChanged={this._handleTargetChanged}
-                    paneCount={paneCount}
-                    style={{
-                      ...isTargetVisible ? {} : { display: "none" },
-                    }}
-                  />
                   <Splitter
                     isGripHidden={this.props.panel.isCollapsed}
                     isVertical={isVertical}
@@ -153,10 +132,6 @@ export class FrameworkStagePanel extends React.PureComponent<FrameworkStagePanel
                             widgetTabs={this.props.widgetTabs}
                             widgetChangeHandler={this.props.widgetChangeHandler}
                           />
-                          {isSplitterTargetVisible && <SplitterPaneTarget
-                            onTargetChanged={this._handlePaneTargetChanged}
-                            paneIndex={index}
-                          />}
                         </div>
                       );
                     })}
@@ -181,16 +156,8 @@ export class FrameworkStagePanel extends React.PureComponent<FrameworkStagePanel
     this.props.changeHandler.handlePanelResize(this.props.location, resizeBy);
   };
 
-  private _handleTargetChanged = (isTargeted: boolean) => {
-    this.props.changeHandler.handlePanelTargetChange(isTargeted ? this.props.location : undefined);
-  };
-
   private _handleToggleCollapse = () => {
     this.props.changeHandler.handleTogglePanelCollapse(this.props.location);
-  };
-
-  private _handlePaneTargetChanged = (paneIndex: number | undefined) => {
-    this.props.changeHandler.handlePanelPaneTargetChange(this.props.location, paneIndex);
   };
 
   private initializeSize() {
@@ -207,26 +174,4 @@ export class FrameworkStagePanel extends React.PureComponent<FrameworkStagePanel
     const size = StagePanelTypeHelpers.isVertical(type) ? clientRect.width : clientRect.height;
     this.props.changeHandler.handlePanelInitialize(location, size);
   }
-}
-
-/** @internal */
-export interface SplitterPaneTargetProps {
-  onTargetChanged: (paneIndex: number | undefined) => void;
-  paneIndex: number;
-}
-
-/** @internal */
-export class SplitterPaneTarget extends React.PureComponent<SplitterPaneTargetProps> {
-  public override render() {
-    return (
-      <NZ_SplitterPaneTarget
-        onTargetChanged={this._handleTargetChanged}
-      />
-    );
-  }
-
-  private _handleTargetChanged = (isTargeted: boolean) => {
-    const target = isTargeted ? this.props.paneIndex : undefined;
-    this.props.onTargetChanged(target);
-  };
 }

@@ -124,7 +124,7 @@ describe("WidgetStack", () => {
     widgetChangeHandler.reset();
   });
 
-  it("should produce a WidgetStack with 2 widgets", async () => {
+  it.skip("should produce a WidgetStack with 2 widgets", async () => {
     await FrontstageManager.setActiveFrontstageDef(undefined);
     const wrapper = render(<FrontstageComposer />); // eslint-disable-line deprecation/deprecation
 
