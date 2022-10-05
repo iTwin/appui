@@ -18,6 +18,8 @@ import { ZoneTarget } from "./Zone";
 export interface MergeTargetProps extends CommonProps {
   /** Function called when component is targeted or untargeted. */
   onTargetChanged?: (isTargeted: boolean) => void;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** Zone target used to merge widgets.

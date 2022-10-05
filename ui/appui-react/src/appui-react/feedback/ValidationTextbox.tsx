@@ -41,6 +41,8 @@ interface ValidationTextboxProps extends CommonProps {
   errorText?: string;
   /** Detailed error message to display */
   detailedErrorText?: string;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 interface ValidationTextboxState {

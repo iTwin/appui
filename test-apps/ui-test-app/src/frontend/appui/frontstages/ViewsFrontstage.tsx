@@ -104,8 +104,8 @@ function MySliderPanel() {
     closePanel();
   }, [closePanel]);
 
-  const handleChange = React.useCallback((values) => {
-    setSliderValues(values);
+  const handleChange = React.useCallback<Required<React.ComponentPropsWithRef<typeof Slider>>["onChange"]>((values) => {
+    setSliderValues([...values]);
   }, []);
 
   return (

@@ -256,7 +256,7 @@ export class MessageManager {
     const content = <>
       {message.briefMessage}
       {message.detailedMessage &&
-      <Small>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</Small>
+      <Small><>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</></Small>
       }
     </>;
     switch (message.priority) {

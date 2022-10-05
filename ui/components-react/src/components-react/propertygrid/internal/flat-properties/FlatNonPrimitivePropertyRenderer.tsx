@@ -66,7 +66,7 @@ export class FlatNonPrimitivePropertyRenderer extends React.Component<FlatNonPri
   /** @internal */
   public override render() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { children, indentation, ...props } = this.props;
+    const { indentation, ...props } = this.props;
     return (
       <PropertyView
         labelElement={this.getLabel(this.props)}

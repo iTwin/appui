@@ -53,7 +53,7 @@ export interface PopupButtonProps extends ItemProps, CommonProps {
   noPadding?: boolean;
 }
 
-const isFunction = <T extends (...args: any) => any>(node: React.ReactNode): node is T => {
+const isFunction = <T extends (...args: any) => any>(node: React.ReactNode | PopupButtonChildrenRenderProp): node is T => {
   if (typeof node === "function")
     return true;
   return false;

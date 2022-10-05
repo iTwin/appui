@@ -147,7 +147,6 @@ export * from "./components-react/table/columnfiltering/TableFilterDescriptorCol
 export * from "./components-react/table/component/Table";
 export * from "./components-react/table/component/TableCell";
 export * from "./components-react/table/component/TableColumn";
-export * from "./components-react/table/component/dragdrop/BeDragDropContext";
 
 export * from "./components-react/toolbar/Toolbar";
 export * from "./components-react/toolbar/ToolbarWithOverflow";

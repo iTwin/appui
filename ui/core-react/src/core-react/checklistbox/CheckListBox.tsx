@@ -57,7 +57,10 @@ export function CheckListBoxSeparator() {
 /** React component showing a list of Checkbox items.
  * @public
  */
-export class CheckListBox extends React.PureComponent<CommonProps> {
+export class CheckListBox extends React.PureComponent<CommonProps & {
+  /** Content */
+  children?: React.ReactNode;
+}> {
   public override render() {
     const className = classnames("core-chk-listbox", this.props.className);
     return (

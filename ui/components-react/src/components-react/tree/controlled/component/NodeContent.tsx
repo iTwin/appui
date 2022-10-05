@@ -68,12 +68,14 @@ export function TreeNodeContent(props: TreeNodeContentProps) {
 
   return (
     <div className={containerClassName} style={props.style}>
-      {editor ? editor : label}
-      {isDescriptionEnabled ?
-        <div className={descriptionClassName}>
-          {props.node.item.description}
-        </div>
-        : undefined}
+      <>
+        {editor ? editor : label}
+        {isDescriptionEnabled ?
+          <div className={descriptionClassName}>
+            {props.node.item.description}
+          </div>
+          : undefined}
+      </>
     </div>
   );
 }

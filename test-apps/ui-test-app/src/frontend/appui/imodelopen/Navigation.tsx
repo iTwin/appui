@@ -96,6 +96,8 @@ export interface NavigationListProps {
   onExpandChanged?: (isPinned: boolean) => any;
   defaultTab: number;
   highlightStyle?: NavigationHighlightStyle;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 interface NavigationListState {

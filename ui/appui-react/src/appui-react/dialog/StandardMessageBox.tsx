@@ -27,6 +27,8 @@ export interface StandardMessageBoxProps extends CommonProps {
   messageBoxType: MessageBoxType;
   /** Callback function for processing the message box result */
   onResult?: (result: MessageBoxValue) => void;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** State for [[StandardMessageBox]] React component

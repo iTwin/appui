@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { Icon, UiCore } from "@itwin/core-react";
+import { Icon, ReactMessage, UiCore } from "@itwin/core-react";
 import {
   Message,
   MessageButton,
@@ -139,7 +139,7 @@ export function CustomActivityMessageContent({initialActivityMessageInfo}: {init
 
   return (
     <>
-      {activityMessageInfo.message && <Text>{activityMessageInfo.message}</Text>}
+      {activityMessageInfo.message && <Text><>{(activityMessageInfo.message as ReactMessage).reactNode || activityMessageInfo.message}</></Text>}
       {!!activityMessageInfo.details?.showPercentInMessage &&
         <Small>{`${activityMessageInfo.percentage} ${percentCompleteLabel}`}</Small>
       }

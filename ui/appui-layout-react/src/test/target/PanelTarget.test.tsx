@@ -11,7 +11,7 @@ import { useAllowedPanelTarget } from "../../appui-layout-react/target/PanelTarg
 
 describe("useAllowedPanelTarget", () => {
   it("should return `true`", () => {
-    const { result } = renderHook(() => useAllowedPanelTarget(), {
+    const { result } = renderHook<{children?: React.ReactNode}, boolean>(() => useAllowedPanelTarget(), {
       wrapper: (props) => (  // eslint-disable-line react/display-name
         <PanelSideContext.Provider value="left">
           {props.children}
@@ -24,7 +24,7 @@ describe("useAllowedPanelTarget", () => {
   it("should return `false` if dragged tab doesn't allow a panel target", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { allowedPanelTargets: ["right"] });
-    const { result } = renderHook(() => useAllowedPanelTarget(), {
+    const { result } = renderHook<{children?: React.ReactNode}, boolean>(() => useAllowedPanelTarget(), {
       wrapper: (props) => ( // eslint-disable-line react/display-name
         <TestNineZoneProvider state={state}>
           <PanelSideContext.Provider value="left">
@@ -42,7 +42,7 @@ describe("useAllowedPanelTarget", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { allowedPanelTargets: ["right"] });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { result } = renderHook(() => useAllowedPanelTarget(), {
+    const { result } = renderHook<{children?: React.ReactNode}, boolean>(() => useAllowedPanelTarget(), {
       wrapper: (props) => ( // eslint-disable-line react/display-name
         <TestNineZoneProvider state={state}>
           <PanelSideContext.Provider value="left">

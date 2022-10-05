@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { PropertyDescription } from "@itwin/appui-abstract";
-import { ComboBox, MenuItem, SelectOption } from "@itwin/itwinui-react";
+import { ComboBox, ComboBoxProps, MenuItem, SelectOption } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 
 /** @alpha */
@@ -35,7 +35,7 @@ export function PropertyFilterBuilderRuleProperty(props: PropertyFilterBuilderRu
       onSelectedPropertyChanged(currentSelectedProperty);
   }, [properties, selectedProperty, onSelectedPropertyChanged]);
 
-  const itemRenderer = React.useCallback((selectOption: SelectOption<string>, { isSelected, id }) => {
+  const itemRenderer = React.useCallback<Required<ComboBoxProps<string>>["itemRenderer"]>((selectOption, { isSelected, id }) => {
     return <MenuItem key={id} id={id} isSelected={isSelected}>
       {propertyRenderer ? propertyRenderer(selectOption.value) : selectOption.label}
     </MenuItem>;

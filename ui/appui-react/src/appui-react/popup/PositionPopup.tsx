@@ -19,6 +19,8 @@ export interface PositionPopupProps extends CommonProps {
   point: PointProps;
   /** Function called when size is known. */
   onSizeKnown?: (size: SizeProps) => void;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** Popup component at screen position

@@ -26,6 +26,8 @@ export interface PointerCaptorProps extends CommonProps {
   onPointerMove?: (e: PointerEvent) => void;
   /** Function called when the pointer is released. */
   onPointerUp?: (e: PointerEvent) => void;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** A component which will capture the pointer down event.

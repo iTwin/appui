@@ -26,6 +26,8 @@ export interface ExpandableItemProps extends CommonProps {
   isDisabled?: boolean;
   /** Panel of the toolbar. */
   panel?: React.ReactNode;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 class ActualItem extends React.PureComponent<ExpandableItemProps> implements ToolbarItem {
