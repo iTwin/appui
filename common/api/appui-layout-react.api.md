@@ -137,17 +137,6 @@ export class BackstageSeparator extends React_2.PureComponent<CommonProps> {
     render(): JSX.Element;
 }
 
-// @internal
-export class BackTarget extends React_2.PureComponent<BackTargetProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface BackTargetProps extends MergeTargetProps {
-    zoneIndex: WidgetZoneId;
-}
-
 // @internal (undocumented)
 export type BottomPanelSide = "bottom";
 
@@ -233,8 +222,6 @@ export class Css {
 
 // @internal
 export class CssProperties {
-    // (undocumented)
-    static fromBounds(props: RectangleProps): React.CSSProperties;
     // (undocumented)
     static fromPosition(props: PointProps): React.CSSProperties;
     // (undocumented)
@@ -1084,17 +1071,6 @@ export type LeftPanelSide = "left";
 // @internal (undocumented)
 export const MeasureContext: React_2.Context<() => Rectangle>;
 
-// @internal
-export class MergeTarget extends React_2.PureComponent<MergeTargetProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface MergeTargetProps extends CommonProps {
-    onTargetChanged?: (isTargeted: boolean) => void;
-}
-
 // @internal @deprecated
 export class Message extends React_2.PureComponent<StatusMessageProps> {
     // (undocumented)
@@ -1529,17 +1505,6 @@ export class OrthogonalDirectionHelpers {
     // (undocumented)
     static inverse(direction: OrthogonalDirection): OrthogonalDirection;
     static readonly VERTICAL_CLASS_NAME = "nz-vertical";
-}
-
-// @internal
-export class Outline extends React_2.PureComponent<OutlineProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface OutlineProps extends CommonProps {
-    bounds: RectangleProps;
 }
 
 // @internal
@@ -2187,28 +2152,10 @@ export class Splitter extends React_2.PureComponent<SplitterProps, SplitterState
 }
 
 // @internal
-export class SplitterPaneTarget extends React_2.PureComponent<MergeTargetProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
 export interface SplitterProps extends CommonProps {
     children?: React_2.ReactNode;
     isGripHidden?: boolean;
     isVertical?: boolean;
-}
-
-// @internal
-export class SplitterTarget extends React_2.PureComponent<SplitterTargetProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface SplitterTargetProps extends MergeTargetProps {
-    readonly isVertical?: boolean;
-    readonly paneCount: number;
 }
 
 // @internal
@@ -2326,18 +2273,6 @@ export interface StagePanelsProps extends CommonProps {
     leftPanel?: React_2.ReactNode;
     rightPanel?: React_2.ReactNode;
     topPanel?: React_2.ReactNode;
-}
-
-// @internal
-export class StagePanelTarget extends React_2.PureComponent<StagePanelTargetProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface StagePanelTargetProps extends MergeTargetProps {
-    safeAreaInsets?: SafeAreaInsets;
-    type: StagePanelType;
 }
 
 // @internal
@@ -3708,12 +3643,6 @@ export interface WithDragInteractionProps {
 }
 
 // @internal
-export class Zone extends React_2.PureComponent<ZoneProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
 export type ZoneId = WidgetZoneId | ContentZoneId;
 
 // @internal
@@ -3755,22 +3684,6 @@ export interface ZoneManagerProps {
     readonly isLayoutChanged: boolean;
     // (undocumented)
     readonly widgets: ReadonlyArray<WidgetZoneId>;
-}
-
-// @internal
-export interface ZoneProps extends CommonProps {
-    bounds?: RectangleProps;
-    children?: React_2.ReactNode;
-    id: WidgetZoneId;
-    isFloating?: boolean;
-    isHidden?: boolean;
-    safeAreaInsets?: SafeAreaInsets;
-}
-
-// @internal
-export class Zones extends React_2.PureComponent<ZonesProps> {
-    // (undocumented)
-    render(): JSX.Element;
 }
 
 // @internal
@@ -3937,12 +3850,6 @@ export type ZonesManagerWidgetsProps = {
 export type ZonesManagerZonesProps = {
     readonly [id in WidgetZoneId]: ZoneManagerProps;
 };
-
-// @internal
-export interface ZonesProps extends CommonProps {
-    children?: React_2.ReactNode;
-    isHidden?: boolean;
-}
 
 // @beta @deprecated
 export enum ZoneTargetType {

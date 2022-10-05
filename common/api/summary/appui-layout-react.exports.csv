@@ -21,8 +21,6 @@ internal;BackstageItem
 internal;BackstageItemProps 
 internal;BackstageProps 
 internal;BackstageSeparator 
-internal;BackTarget 
-internal;BackTargetProps 
 internal;BottomPanelSide = "bottom"
 internal;Cell 
 internal;CellProps
@@ -202,8 +200,6 @@ internal;Items
 internal;ItemsProps 
 internal;LeftPanelSide = "left"
 internal;MeasureContext: React_2.Context
-internal;MergeTarget 
-internal;MergeTargetProps 
 internal;Message 
 deprecated;Message 
 internal;MessageButton 
@@ -261,8 +257,6 @@ internal;onOverflowLabelAndEditorResize(): void
 internal;OrthogonalDirection
 deprecated;OrthogonalDirection
 internal;OrthogonalDirectionHelpers
-internal;Outline 
-internal;OutlineProps 
 internal;Overflow 
 internal;OverflowProps 
 alpha;Panel 
@@ -343,10 +337,7 @@ internal;SnapModePanelProps
 internal;SnapModeProps 
 internal;SnapProps 
 internal;Splitter 
-internal;SplitterPaneTarget 
 internal;SplitterProps 
-internal;SplitterTarget 
-internal;SplitterTargetProps 
 internal;Stacked 
 internal;StackedProps 
 internal;StagePanel 
@@ -357,8 +348,6 @@ internal;StagePanels
 internal;StagePanelsManager
 internal;StagePanelsManagerProps
 internal;StagePanelsProps 
-internal;StagePanelTarget 
-internal;StagePanelTargetProps 
 internal;StagePanelType
 internal;StagePanelTypeHelpers
 internal;Status
@@ -577,20 +566,16 @@ alpha;WithContainInProps
 deprecated;WithContainInProps
 internal;withDragInteraction: 
 internal;WithDragInteractionProps
-internal;Zone 
 internal;ZoneId = WidgetZoneId | ContentZoneId
 internal;ZoneManager
 internal;ZoneManagerFloatingProps
 internal;ZoneManagerProps
-internal;ZoneProps 
-internal;Zones 
 internal;ZonesManager
 internal;ZonesManagerProps
 internal;ZonesManagerTargetProps
 internal;ZonesManagerWidgetResizeArgs
 internal;ZonesManagerWidgetsProps =
 internal;ZonesManagerZonesProps =
-internal;ZonesProps 
 beta;ZoneTargetType
 deprecated;ZoneTargetType
 internal;ZoneWindowResizeSettings
