@@ -11,14 +11,12 @@ import * as React from "react";
 import { WidgetState } from "@itwin/appui-abstract";
 import { CommonProps, RectangleProps } from "@itwin/core-react";
 import {
-  DisabledResizeHandles, DraggedWidgetManagerProps, ToolSettingsWidgetManagerProps, ToolSettingsWidgetMode, WidgetManagerProps, WidgetZoneId,
+  DisabledResizeHandles, DraggedWidgetManagerProps, ToolSettingsWidgetManagerProps, WidgetManagerProps, WidgetZoneId,
   ZoneManagerProps, ZoneTargetType,
 } from "@itwin/appui-layout-react";
-import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { TargetChangeHandler, WidgetChangeHandler, ZoneDefProvider } from "../frontstage/FrontstageComposer";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl";
-import { WidgetDef, WidgetStateChangedEventArgs, WidgetType } from "../widgets/WidgetDef";
+import { WidgetDef, WidgetStateChangedEventArgs } from "../widgets/WidgetDef";
 import { WidgetProps } from "../widgets/WidgetProps";
 import { WidgetTabs } from "../widgets/WidgetStack";
 import { ZoneDef, ZoneState } from "./ZoneDef";
@@ -130,44 +128,6 @@ export class Zone extends React.Component<ZoneProps> {
   }
 
   public override render(): React.ReactNode {
-    const { runtimeProps } = this.props;
-
-    if (!runtimeProps)
-      return null;
-
-    const { zoneDef } = runtimeProps;
-
-    let widgetElement: React.ReactNode;
-    // istanbul ignore else
-    if (runtimeProps.zone.widgets.length === 1) {
-      if (zoneDef.isToolSettings && isToolSettingsWidgetManagerProps(runtimeProps.widget) && runtimeProps.widget.mode === ToolSettingsWidgetMode.TitleBar) {
-        return null;
-      } else if (zoneDef.isStatusBar) {
-        // istanbul ignore next
-        if (runtimeProps.zone.id !== 8)
-          throw new TypeError();
-
-        let widgetControl: StatusBarWidgetControl | undefined;
-        const widgetDef = zoneDef.getSingleWidgetDef();
-
-        // istanbul ignore else
-        if (widgetDef)
-          widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
-
-        return null;
-      }
-
-      const zDef = runtimeProps.zoneDefProvider.getZoneDef(runtimeProps.zone.widgets[0]);
-      // istanbul ignore if
-      if (!zDef) {
-        widgetElement = null;
-      } else if (zDef.widgetCount === 1 && zDef.widgetDefs[0].widgetType !== WidgetType.Rectangular) {
-        /** Return free-form nzWidgetProps */
-        const widgetDef = zDef.widgetDefs[0];
-        widgetElement = (widgetDef.isVisible) ? widgetDef.reactNode : /* istanbul ignore next */ null;
-      }
-    }
-
     return null;
   }
 
