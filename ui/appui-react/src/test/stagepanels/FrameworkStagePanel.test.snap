@@ -25,12 +25,6 @@ exports[`FrameworkStagePanel should render SplitterPaneTarget 1`] = `
     <div
       className="uifw-widgets"
     >
-      <SplitterTarget
-        isVertical={false}
-        onTargetChanged={[Function]}
-        paneCount={1}
-        style={Object {}}
-      />
       <Splitter
         isGripHidden={false}
         isVertical={false}
@@ -55,24 +49,11 @@ exports[`FrameworkStagePanel should render SplitterPaneTarget 1`] = `
             widgetTabs={null}
             widgets={Array []}
           />
-          <SplitterPaneTarget
-            onTargetChanged={[Function]}
-            paneIndex={0}
-          />
         </div>
       </Splitter>
     </div>
   </div>
 </StagePanel>
-`;
-
-exports[`FrameworkStagePanel should render StagePanelTarget 1`] = `
-<StagePanelTarget
-  className=""
-  onTargetChanged={[Function]}
-  safeAreaInsets={0}
-  type={2}
-/>
 `;
 
 exports[`FrameworkStagePanel should render WidgetStack with openWidgetId and activeTabIndex 1`] = `
@@ -98,16 +79,6 @@ exports[`FrameworkStagePanel should render WidgetStack with openWidgetId and act
     <div
       className="uifw-widgets"
     >
-      <SplitterTarget
-        isVertical={false}
-        onTargetChanged={[Function]}
-        paneCount={1}
-        style={
-          Object {
-            "display": "none",
-          }
-        }
-      />
       <Splitter
         isGripHidden={false}
         isVertical={false}
@@ -169,16 +140,6 @@ exports[`FrameworkStagePanel should render collapsed StagePanel 1`] = `
     <div
       className="uifw-widgets"
     >
-      <SplitterTarget
-        isVertical={false}
-        onTargetChanged={[Function]}
-        paneCount={2}
-        style={
-          Object {
-            "display": "none",
-          }
-        }
-      />
       <Splitter
         isGripHidden={true}
         isVertical={false}

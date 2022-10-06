@@ -157,20 +157,10 @@ export * from "./appui-layout-react/widget-panels/Panel";
 export * from "./appui-layout-react/widget-panels/Panels";
 export * from "./appui-layout-react/widget-panels/PanelTarget";
 
-export * from "./appui-layout-react/zones/Outline";
-export * from "./appui-layout-react/zones/Zone";
-export * from "./appui-layout-react/zones/Zones";
-
 export * from "./appui-layout-react/zones/manager/ResizeStrategy";
 export * from "./appui-layout-react/zones/manager/Widget";
 export * from "./appui-layout-react/zones/manager/Zone";
 export * from "./appui-layout-react/zones/manager/Zones";
-
-export * from "./appui-layout-react/zones/target/Back";
-export * from "./appui-layout-react/zones/target/Merge";
-export * from "./appui-layout-react/zones/target/Splitter";
-export * from "./appui-layout-react/zones/target/SplitterPane";
-export * from "./appui-layout-react/zones/target/StagePanel";
 
 /** @docs-package-description
  * The appui-layout-react package contains React components for application user interface layouts following the Bentley 9-Zone pattern.

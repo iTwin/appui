@@ -2369,46 +2369,6 @@ export interface FrameworkVersionSwitchProps {
     v2?: React_2.ReactNode;
 }
 
-// @internal
-export class FrameworkZone extends React_2.PureComponent<FrameworkZoneProps> {
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @internal
-export interface FrameworkZoneProps extends CommonProps {
-    // (undocumented)
-    activeTabIndex: number;
-    // (undocumented)
-    disabledResizeHandles: DisabledResizeHandles | undefined;
-    // (undocumented)
-    draggedWidget: DraggedWidgetManagerProps | undefined;
-    // (undocumented)
-    dropTarget: ZoneTargetType | undefined;
-    // (undocumented)
-    fillZone?: boolean;
-    // (undocumented)
-    getWidgetContentRef: (id: WidgetZoneId) => React_2.Ref<HTMLDivElement>;
-    // (undocumented)
-    isHidden: boolean;
-    // (undocumented)
-    openWidgetId: WidgetZoneId | undefined;
-    // (undocumented)
-    targetChangeHandler: TargetChangeHandler;
-    // (undocumented)
-    targetedBounds?: RectangleProps;
-    // (undocumented)
-    widget: WidgetManagerProps | undefined;
-    // (undocumented)
-    widgetChangeHandler: WidgetChangeHandler;
-    // (undocumented)
-    widgetElement: React_2.ReactNode;
-    // (undocumented)
-    widgetTabs: WidgetTabs;
-    // (undocumented)
-    zone: ZoneManagerProps;
-}
-
 // @public
 export class Frontstage extends React_2.Component<FrontstageProps, FrontstageState> {
     // @internal
@@ -2859,15 +2819,6 @@ export const getFirstItem: (groupItemDef: GroupItemDef) => AnyItemDef | undefine
 
 // @internal (undocumented)
 export const getFirstItemId: (groupItemDef: GroupItemDef) => string;
-
-// @internal (undocumented)
-export const getFloatingZoneBounds: (props: ZoneManagerProps) => RectangleProps;
-
-// @internal (undocumented)
-export const getFloatingZoneStyle: (props: ZoneManagerProps) => {
-    zIndex: number;
-    position: "relative";
-} | undefined;
 
 // @internal (undocumented)
 export function getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string;
@@ -5011,20 +4962,6 @@ export interface SplitPaneProps {
     style?: React_2.CSSProperties;
 }
 
-// @internal (undocumented)
-export class SplitterPaneTarget extends React_2.PureComponent<SplitterPaneTargetProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal (undocumented)
-export interface SplitterPaneTargetProps {
-    // (undocumented)
-    onTargetChanged: (paneIndex: number | undefined) => void;
-    // (undocumented)
-    paneIndex: number;
-}
-
 // @public
 export class StageContentLayout {
     static emphasizeElementsFromProps(contentGroup: ContentGroup, savedProps: StageContentLayoutProps): boolean;
@@ -5431,30 +5368,6 @@ export abstract class StatusBarWidgetControl extends WidgetControl {
     constructor(info: ConfigurableCreateInfo, options: any);
     abstract getReactNode(): React.ReactNode;
     getType(): ConfigurableUiControlType;
-}
-
-// @internal
-export class StatusBarZone extends React_2.PureComponent<StatusBarZoneProps> {
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @internal
-export interface StatusBarZoneProps extends CommonProps {
-    // (undocumented)
-    dropTarget: ZoneTargetType | undefined;
-    // (undocumented)
-    isHidden: boolean;
-    // (undocumented)
-    targetChangeHandler: TargetChangeHandler;
-    // (undocumented)
-    targetedBounds: RectangleProps | undefined;
-    // (undocumented)
-    widgetChangeHandler: WidgetChangeHandler;
-    // (undocumented)
-    widgetControl?: StatusBarWidgetControl;
-    // (undocumented)
-    zoneProps: ZoneManagerProps;
 }
 
 // @public @deprecated
@@ -5990,41 +5903,6 @@ export class ToolSettingsManager {
 
 // @internal (undocumented)
 export function ToolSettingsWidgetContent(): JSX.Element;
-
-// @internal
-export class ToolSettingsZone extends React_2.PureComponent<ToolSettingsZoneProps, ToolSettingsZoneState> {
-    constructor(props: ToolSettingsZoneProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // (undocumented)
-    readonly state: Readonly<ToolSettingsZoneState>;
-}
-
-// @internal
-export interface ToolSettingsZoneProps extends CommonProps {
-    // (undocumented)
-    dropTarget: ZoneTargetType | undefined;
-    // (undocumented)
-    getWidgetContentRef: (id: WidgetZoneId) => React_2.Ref<HTMLDivElement>;
-    // (undocumented)
-    isClosed: boolean;
-    // (undocumented)
-    isHidden: boolean;
-    // (undocumented)
-    lastPosition: PointProps | undefined;
-    // (undocumented)
-    targetChangeHandler: TargetChangeHandler;
-    // (undocumented)
-    targetedBounds: RectangleProps | undefined;
-    // (undocumented)
-    widgetChangeHandler: WidgetChangeHandler;
-    // (undocumented)
-    zone: ZoneManagerProps;
-}
 
 // @public
 export class ToolUiProvider extends ConfigurableUiControl {

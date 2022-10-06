@@ -13,7 +13,7 @@ import { Logger } from "@itwin/core-bentley";
 import { StagePanelLocation, UiItemProviderRegisteredEventArgs, UiItemsManager, WidgetState } from "@itwin/appui-abstract";
 import { CommonProps, Rectangle } from "@itwin/core-react";
 import {
-  HorizontalAnchor, Zones as NZ_Zones, StagePanels, StagePanelsManager, ToolSettingsWidgetMode, WidgetZoneId, widgetZoneIds, ZoneManagerProps,
+  HorizontalAnchor, StagePanels, StagePanelsManager, ToolSettingsWidgetMode, WidgetZoneId, widgetZoneIds, ZoneManagerProps,
   ZonesManagerProps,
 } from "@itwin/appui-layout-react";
 import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
@@ -473,41 +473,39 @@ export class Frontstage extends React.Component<FrontstageProps, FrontstageState
 
     return (
       <div style={ninezoneStyle} id="uifw-ninezone-area" className={this.props.className}>
-        <NZ_Zones style={this._zonesFooterModeStyle} >
+        <StagePanels
+          bottomPanel={this.cloneStagePanelElement(frontstageDef.bottomMostPanel, runtimeProps)} // eslint-disable-line deprecation/deprecation
+          topPanel={this.cloneStagePanelElement(frontstageDef.topMostPanel, runtimeProps)} // eslint-disable-line deprecation/deprecation
+        >
           <StagePanels
-            bottomPanel={this.cloneStagePanelElement(frontstageDef.bottomMostPanel, runtimeProps)} // eslint-disable-line deprecation/deprecation
-            topPanel={this.cloneStagePanelElement(frontstageDef.topMostPanel, runtimeProps)} // eslint-disable-line deprecation/deprecation
+            bottomPanel={this.cloneStagePanelElement(frontstageDef.bottomPanel, runtimeProps)}
+            leftPanel={this.cloneStagePanelElement(frontstageDef.leftPanel, runtimeProps)}
+            rightPanel={this.cloneStagePanelElement(frontstageDef.rightPanel, runtimeProps)}
+            topPanel={this.cloneStagePanelElement(frontstageDef.topPanel, runtimeProps)}
           >
-            <StagePanels
-              bottomPanel={this.cloneStagePanelElement(frontstageDef.bottomPanel, runtimeProps)}
-              leftPanel={this.cloneStagePanelElement(frontstageDef.leftPanel, runtimeProps)}
-              rightPanel={this.cloneStagePanelElement(frontstageDef.rightPanel, runtimeProps)}
-              topPanel={this.cloneStagePanelElement(frontstageDef.topPanel, runtimeProps)}
+            <div
+              id="uifw-ninezone-zones-area"
+              ref={this._zonesMeasurer}
+              style={{
+                height: "100%",
+                position: "relative",
+              }}
             >
-              <div
-                id="uifw-ninezone-zones-area"
-                ref={this._zonesMeasurer}
-                style={{
-                  height: "100%",
-                  position: "relative",
-                }}
-              >
-                {this.doContentLayoutRender()}
-                {this.cloneZoneElements(Frontstage._zoneIds, runtimeProps)}
-              </div>
-            </StagePanels>
+              {this.doContentLayoutRender()}
+              {this.cloneZoneElements(Frontstage._zoneIds, runtimeProps)}
+            </div>
           </StagePanels>
-          {this.cloneZoneElements([8], runtimeProps)}
-          <div
-            id="uifw-ninezone-floating-zones-area"
-            ref={this._floatingZonesMeasurer}
-            style={{
-              height: "100%",
-              width: "100%",
-              position: "absolute",
-            }}
-          />
-        </NZ_Zones>
+        </StagePanels>
+        {this.cloneZoneElements([8], runtimeProps)}
+        <div
+          id="uifw-ninezone-floating-zones-area"
+          ref={this._floatingZonesMeasurer}
+          style={{
+            height: "100%",
+            width: "100%",
+            position: "absolute",
+          }}
+        />
         {this.cloneWidgetContentElements(Frontstage._zoneIds, runtimeProps)}
       </div>
     );

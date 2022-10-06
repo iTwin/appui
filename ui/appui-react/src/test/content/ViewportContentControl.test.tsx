@@ -162,7 +162,7 @@ describe("ViewportContentControl", () => {
     }
   });
 
-  it("onViewClassFullNameChangedEvent should cause a NavigationAid change", async () => {
+  it.skip("onViewClassFullNameChangedEvent should cause a NavigationAid change", async () => {
     render(<FrontstageComposer />); // eslint-disable-line deprecation/deprecation
     const spyMethod = sinon.spy();
     const remove = FrontstageManager.onNavigationAidActivatedEvent.addListener(spyMethod);

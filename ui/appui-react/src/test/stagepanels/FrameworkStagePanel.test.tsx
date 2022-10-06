@@ -6,8 +6,8 @@ import { shallow } from "enzyme";
 import * as React from "react";
 import * as moq from "typemoq";
 import { StagePanelLocation } from "@itwin/appui-abstract";
-import { StagePanel as NZ_StagePanel, StagePanelTarget } from "@itwin/appui-layout-react";
-import { FrameworkStagePanel, FrameworkStagePanelProps, SplitterPaneTarget, StagePanelState } from "../../appui-react";
+import { StagePanel as NZ_StagePanel } from "@itwin/appui-layout-react";
+import { FrameworkStagePanel, FrameworkStagePanelProps, StagePanelState } from "../../appui-react";
 import { mount } from "../TestUtils";
 
 describe("FrameworkStagePanel", () => {
@@ -56,21 +56,6 @@ describe("FrameworkStagePanel", () => {
       panel={panel}
     />);
     changeHandler.verify((x) => x.handlePanelInitialize(StagePanelLocation.Top, 500), moq.Times.once());
-  });
-
-  it("should render StagePanelTarget", () => {
-    const panel: FrameworkStagePanelProps["panel"] = {
-      isCollapsed: false,
-      panes: [],
-      size: undefined,
-    };
-    shallow(<FrameworkStagePanel
-      {...props}
-      allowedZones={[6]}
-      draggedWidgetId={6}
-      location={StagePanelLocation.Top}
-      panel={panel}
-    />).dive().should.matchSnapshot();
   });
 
   it("should not render w/o panes and target", () => {
@@ -136,62 +121,6 @@ describe("FrameworkStagePanel", () => {
     const nzStagePanel = sut.dive().find(NZ_StagePanel);
     nzStagePanel.prop("onResize")!(50);
     changeHandler.verify((x) => x.handlePanelResize(StagePanelLocation.Top, 50), moq.Times.once());
-  });
-
-  it("should handle panel target change", () => {
-    const panel: FrameworkStagePanelProps["panel"] = {
-      isCollapsed: false,
-      panes: [],
-      size: undefined,
-    };
-    const sut = shallow(<FrameworkStagePanel
-      {...props}
-      allowedZones={[6]}
-      draggedWidgetId={6}
-      location={StagePanelLocation.Top}
-      panel={panel}
-    />);
-    const stagePanelTarget = sut.dive().find(StagePanelTarget);
-    stagePanelTarget.prop("onTargetChanged")!(true);
-    changeHandler.verify((x) => x.handlePanelTargetChange(StagePanelLocation.Top), moq.Times.once());
-  });
-
-  it("should handle panel target change (untarget)", () => {
-    const panel: FrameworkStagePanelProps["panel"] = {
-      isCollapsed: false,
-      panes: [],
-      size: undefined,
-    };
-    const sut = shallow(<FrameworkStagePanel
-      {...props}
-      allowedZones={[6]}
-      draggedWidgetId={6}
-      location={StagePanelLocation.Top}
-      panel={panel}
-    />);
-    const stagePanelTarget = sut.dive().find(StagePanelTarget);
-    stagePanelTarget.prop("onTargetChanged")!(false);
-    changeHandler.verify((x) => x.handlePanelTargetChange(undefined), moq.Times.once());
-  });
-
-  it("should handle pane target change", () => {
-    const panel: FrameworkStagePanelProps["panel"] = {
-      isCollapsed: false,
-      panes: [{
-        widgets: [],
-      }],
-      size: undefined,
-    };
-    const sut = shallow(<FrameworkStagePanel
-      {...props}
-      allowedZones={[6]}
-      draggedWidgetId={6}
-      location={StagePanelLocation.Top}
-      panel={panel}
-    />);
-    const splitterPaneTarget = sut.dive().find(SplitterPaneTarget);
-    splitterPaneTarget.prop("onTargetChanged")(0);
-    changeHandler.verify((x) => x.handlePanelPaneTargetChange(StagePanelLocation.Top, 0), moq.Times.once());
   });
 
   it("should handle toggle collapse", () => {
