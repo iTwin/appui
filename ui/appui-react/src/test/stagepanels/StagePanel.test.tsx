@@ -3,33 +3,20 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 /* eslint-disable deprecation/deprecation */
-import { expect } from "chai";
 import { shallow } from "enzyme";
 import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { StagePanelLocation, WidgetState } from "@itwin/appui-abstract";
-import {
-  ConfigurableCreateInfo, ConfigurableUiManager, CoreTools, Frontstage, FrontstageComposer, FrontstageManager, FrontstageProps,
-  FrontstageProvider, StagePanel, Widget, WidgetControl, WidgetDef,
-} from "../../appui-react";
+import { StagePanel, WidgetDef } from "../../appui-react";
 import { StagePanelRuntimeProps } from "../../appui-react/stagepanels/StagePanel";
-import { StagePanelDef, StagePanelState } from "../../appui-react/stagepanels/StagePanelDef";
+import { StagePanelDef } from "../../appui-react/stagepanels/StagePanelDef";
 import { UiFramework } from "../../appui-react/UiFramework";
-import { UiShowHideManager } from "../../appui-react/utils/UiShowHideManager";
 import TestUtils, { mount } from "../TestUtils";
 
 /* eslint-disable react/jsx-key */
 
 describe("StagePanel", () => {
-  class TestWidget extends WidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-
-      this.reactNode = <div />;
-    }
-  }
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     UiFramework.setUiVersion("1");
