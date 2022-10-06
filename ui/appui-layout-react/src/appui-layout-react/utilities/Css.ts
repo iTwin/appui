@@ -7,7 +7,6 @@
  */
 
 import { PointProps } from "@itwin/appui-abstract";
-import { Rectangle, RectangleProps } from "@itwin/core-react";
 
 /** CSS helpers.
  * @internal
@@ -28,17 +27,6 @@ export class Css {
  * @internal
  */
 export class CssProperties {
-  /** @returns CSS properties that describe bounds (top, left, height, width). */
-  public static fromBounds(props: RectangleProps): React.CSSProperties {
-    const rectangle = Rectangle.create(props);
-    return {
-      height: rectangle.getHeight(),
-      left: rectangle.left,
-      top: rectangle.top,
-      width: rectangle.getWidth(),
-    };
-  }
-
   /** @returns CSS properties that describe position (top, left). */
   public static fromPosition(props: PointProps): React.CSSProperties {
     return {

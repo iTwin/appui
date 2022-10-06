@@ -272,9 +272,6 @@ export * from "./appui-react/widgets/WidgetStack";
 export * from "./appui-react/workflow/Task";
 export * from "./appui-react/workflow/Workflow";
 
-export * from "./appui-react/zones/FrameworkZone";
-export * from "./appui-react/zones/StatusBarZone";
-export * from "./appui-react/zones/toolsettings/ToolSettingsZone";
 export * from "./appui-react/zones/toolsettings/ToolInformation";
 export * from "./appui-react/zones/toolsettings/ToolSettingsManager";
 export * from "./appui-react/zones/toolsettings/ToolUiProvider";

@@ -245,8 +245,6 @@ public;FrameworkVersionId = "1" | "2"
 public;FrameworkVersionProps
 internal;FrameworkVersionSwitch(props: FrameworkVersionSwitchProps): JSX.Element
 internal;FrameworkVersionSwitchProps
-internal;FrameworkZone 
-internal;FrameworkZoneProps 
 public;Frontstage 
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
@@ -277,8 +275,6 @@ internal;getExtendedZone: (zoneId: WidgetZoneId, zones: ZonesManagerProps, defPr
 beta;getFeatureOverrideSyncEventIds(): string[]
 internal;getFirstItem: (groupItemDef: GroupItemDef) => AnyItemDef | undefined
 internal;getFirstItemId: (groupItemDef: GroupItemDef) => string
-internal;getFloatingZoneBounds: (props: ZoneManagerProps) => RectangleProps
-internal;getFloatingZoneStyle: (props: ZoneManagerProps) =>
 internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
 beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
 beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
@@ -511,8 +507,6 @@ public;SpatialContainmentTree(props: SpatialContainmentTreeProps): JSX.Element
 public;SpatialContainmentTreeProps
 public;SplitPane(props: SplitPaneProps): JSX.Element
 public;SplitPaneProps
-internal;SplitterPaneTarget 
-internal;SplitterPaneTargetProps
 public;StageContentLayout
 public;StageContentLayoutProps
 public;StagePanel 
@@ -564,8 +558,6 @@ public;StatusBarRightSection(props: CommonDivProps): JSX.Element
 public;StatusBarSpaceBetween(props: CommonDivProps): JSX.Element
 public;StatusBarWidgetComposerControl 
 public;class StatusBarWidgetControl 
-internal;StatusBarZone 
-internal;StatusBarZoneProps 
 public;StatusMessageRenderer({ closeMessage, cancelActivityMessage: cancelActivityMessageProp, dismissActivityMessage, }: StatusMessageRendererProps): JSX.Element
 deprecated;StatusMessageRenderer({ closeMessage, cancelActivityMessage: cancelActivityMessageProp, dismissActivityMessage, }: StatusMessageRendererProps): JSX.Element
 public;StatusMessageRendererProps 
@@ -643,8 +635,6 @@ public;ToolSettingsGridContainer({ componentGenerator }:
 internal;ToolSettingsGridProps
 public;ToolSettingsManager
 internal;ToolSettingsWidgetContent(): JSX.Element
-internal;ToolSettingsZone 
-internal;ToolSettingsZoneProps 
 public;ToolUiProvider 
 public;ToolWidget 
 deprecated;ToolWidget 

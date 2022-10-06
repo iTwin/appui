@@ -9,10 +9,9 @@ import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { StagePanelLocation, WidgetState } from "@itwin/appui-abstract";
-import { SplitterPaneTarget as NZ_SplitterPaneTarget } from "@itwin/appui-layout-react";
 import {
   ConfigurableCreateInfo, ConfigurableUiManager, CoreTools, FrameworkStagePanel, Frontstage, FrontstageComposer, FrontstageManager, FrontstageProps,
-  FrontstageProvider, SplitterPaneTarget, StagePanel, Widget, WidgetControl, WidgetDef,
+  FrontstageProvider, StagePanel, Widget, WidgetControl, WidgetDef,
 } from "../../appui-react";
 import { StagePanelRuntimeProps } from "../../appui-react/stagepanels/StagePanel";
 import { StagePanelDef, StagePanelState } from "../../appui-react/stagepanels/StagePanelDef";
@@ -240,36 +239,5 @@ describe("StagePanel", () => {
     />);
     w2.setWidgetState(WidgetState.Hidden);
     sut.state("stagePanelWidgets").should.eql(["w1", "w3"]);
-  });
-
-  describe("SplitterPaneTarget", () => {
-    it("should render", () => {
-      shallow(<SplitterPaneTarget
-        onTargetChanged={sinon.spy()}
-        paneIndex={0}
-      />).should.matchSnapshot();
-    });
-
-    it("should handle target changed", () => {
-      const spy = sinon.spy();
-      const sut = shallow<SplitterPaneTarget>(<SplitterPaneTarget
-        onTargetChanged={spy}
-        paneIndex={0}
-      />);
-      const nzSplitterPaneTarget = sut.find(NZ_SplitterPaneTarget);
-      nzSplitterPaneTarget.prop("onTargetChanged")!(true);
-      spy.calledOnceWithExactly(0).should.true;
-    });
-
-    it("should handle target changed (untarget)", () => {
-      const spy = sinon.spy();
-      const sut = shallow<SplitterPaneTarget>(<SplitterPaneTarget
-        onTargetChanged={spy}
-        paneIndex={0}
-      />);
-      const nzSplitterPaneTarget = sut.find(NZ_SplitterPaneTarget);
-      nzSplitterPaneTarget.prop("onTargetChanged")!(false);
-      spy.calledOnceWithExactly(undefined).should.true;
-    });
   });
 });
