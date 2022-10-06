@@ -10,7 +10,7 @@ import { PointProps } from "@itwin/appui-abstract";
 import { Point, Rectangle, RectangleProps } from "@itwin/core-react";
 import { NestedStagePanelKey, NestedStagePanelsManagerProps } from "../stage-panels/manager/NestedStagePanels";
 import { StagePanelsManager } from "../stage-panels/manager/StagePanels";
-import { StagePanelType } from "../stage-panels/StagePanel";
+import { StagePanelType } from "../stage-panels/manager/StagePanel";
 import { ToolSettingsWidgetMode } from "../zones/manager/Widget";
 import { WidgetZoneId, ZonesManager, ZonesManagerProps } from "../zones/manager/Zones";
 import { NineZoneNestedStagePanelsManager, NineZoneNestedStagePanelsManagerProps } from "./NestedStagePanels";

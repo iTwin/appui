@@ -6,7 +6,7 @@
  * @module StagePanels
  */
 
-import { StagePanelType } from "../StagePanel";
+import { StagePanelType } from "./StagePanel";
 import { StagePanelsManager, StagePanelsManagerProps } from "./StagePanels";
 
 /** Properties used by [[NestedStagePanelsManager]].
