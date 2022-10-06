@@ -16,6 +16,8 @@ import { LabeledComponentProps, MessagedComponentProps } from "./LabeledComponen
  */
 export interface InputLabelProps extends LabeledComponentProps, MessagedComponentProps, CommonProps {
   disabled?: boolean;
+  /** Labeled content */
+  children?: React.ReactNode;
 }
 
 /** Text input wrapper that provides additional styling and labeling

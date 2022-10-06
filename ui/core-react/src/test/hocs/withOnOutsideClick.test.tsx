@@ -15,7 +15,7 @@ describe("WithOnOutsideClick", async () => {
     theUserTo = userEvent.setup();
   });
 
-  const WithOnOutsideClickDiv = withOnOutsideClick((props) => (<div {...props} />), undefined, true, false); // eslint-disable-line @typescript-eslint/naming-convention
+  const WithOnOutsideClickDiv = withOnOutsideClick<{children?: React.ReactNode}>((props) => (<div {...props} />), undefined, true, false); // eslint-disable-line @typescript-eslint/naming-convention
 
   const defaultOnClose = sinon.spy();
   const WithOnOutsideClickAndDefaultDiv = withOnOutsideClick((props) => (<div {...props} />), defaultOnClose, true, false); // eslint-disable-line @typescript-eslint/naming-convention

@@ -24,6 +24,8 @@ export interface PropertyCategoryBlockProps extends CommonProps {
   onExpansionToggled?: (categoryName: string) => void;
   /** Properties used for highlighting */
   highlight?: HighlightingComponentProps;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /**

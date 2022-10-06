@@ -48,7 +48,7 @@ export interface DockedToolSettingsProps extends CommonProps {
   /** Tool settings content. */
   children?: React.ReactNode;
   /** Container for overflown entries. */
-  panelContainer?: React.ComponentType;
+  panelContainer?: React.ComponentType<{children?: React.ReactNode}>;
 }
 
 /** Component that displays tool settings as a bar across the top of the content view.

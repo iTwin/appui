@@ -105,6 +105,8 @@ export class ListPickerItem extends React.PureComponent<ListPickerItemProps> {
 export interface ExpandableSectionProps extends CommonProps {
   title?: string;
   expanded?: boolean;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** State for the [[ExpandableSection]] component

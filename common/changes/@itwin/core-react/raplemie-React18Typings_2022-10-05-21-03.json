@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Update typings for React18",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}

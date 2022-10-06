@@ -25,6 +25,8 @@ export interface BooleanListenerProps {
    * not defined it will default to true.
    */
   defaultValue?: boolean;
+  /** Content */
+  children?: ((boolValue: boolean, otherProps: any) => React.ReactNode) | React.ReactNode;
 }
 
 /**

@@ -21,6 +21,8 @@ export interface ExpandableListProps extends CommonProps {
   singleExpandOnly?: boolean;
   /** Indicates whether the single expanded block is collapsible */
   singleIsCollapsible?: boolean;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** @internal */

@@ -2,13 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+import { ConditionalStringValue } from "@itwin/appui-abstract";
+import { render } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
+
 import { Icon } from "../../core-react/icons/IconComponent";
-import { render } from "@testing-library/react";
 
 describe("IconComponent", () => {
-
   it("Should return null from undefined iconSpec", () => {
     const { container } = render(<Icon />);
     expect(container.firstChild).to.be.null;
@@ -23,6 +24,14 @@ describe("IconComponent", () => {
     const { container } = render(<Icon iconSpec="svg:test.svg" />);
     const svgIconClassName = container.querySelector(".core-icons-svgSprite");
     expect(svgIconClassName).not.to.be.null;
+  });
+
+  it("should handle correctly with icon conditional value empty string", () => {
+    const spec = new ConditionalStringValue(() => "", []);
+    const { container } = render(<Icon iconSpec={spec} />);
+    const iconContainer = container.querySelector(".core-svg-icon");
+    expect(iconContainer).not.to.be.null;
+    expect(iconContainer?.childElementCount).to.eq(0);
   });
 
   it("should render correctly with icon class string", () => {
@@ -40,7 +49,9 @@ describe("IconComponent", () => {
 
   it("should render base64 data uri web svg iconSpec", () => {
     // eslint-disable-next-line deprecation/deprecation
-    const dataUri = `data:image/svg+xml;base64,${btoa(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7,1v6H1v2h6v6h2V9h6V7H9V1H7z"/></svg>`)}`;
+    const dataUri = `data:image/svg+xml;base64,${btoa(
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7,1v6H1v2h6v6h2V9h6V7H9V1H7z"/></svg>`
+    )}`;
     const { container } = render(<Icon iconSpec={`webSvg:${dataUri}`} />);
     const webComponent = container.querySelector("svg-loader");
     expect(webComponent).to.not.be.null;

@@ -40,7 +40,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(props: PropertyFilterBuil
   const addRuleGroup = () => actions.addItem(path, "RULE_GROUP");
   const removeGroup = () => actions.removeItem(path);
 
-  const onOperatorChange = React.useCallback((operator) => {
+  const onOperatorChange = React.useCallback((operator: PropertyFilterRuleGroupOperator) => {
     actions.setRuleGroupOperator(path, operator);
   }, [path, actions]);
 

@@ -249,7 +249,9 @@ export enum CheckBoxState {
 }
 
 // @public
-export class CheckListBox extends React_2.PureComponent<CommonProps> {
+export class CheckListBox extends React_2.PureComponent<CommonProps & {
+    children?: React_2.ReactNode;
+}> {
     // (undocumented)
     render(): JSX.Element;
 }
@@ -397,6 +399,7 @@ export interface ContextMenuItemProps extends Omit<React_2.AllHTMLAttributes<HTM
 // @public
 export interface ContextMenuProps extends CommonProps {
     autoflip?: boolean;
+    children?: React_2.ReactNode;
     direction?: ContextMenuDirection;
     edgeLimit?: boolean;
     floating?: boolean;
@@ -692,6 +695,7 @@ export class ExpandableBlock extends React_2.PureComponent<ExpandableBlockProps>
 // @public @deprecated
 export interface ExpandableBlockProps extends CommonProps {
     caption?: string;
+    children?: React_2.ReactNode;
     isExpanded: boolean;
     onClick: React_2.MouseEventHandler<HTMLDivElement>;
     onKeyDown?: React_2.KeyboardEventHandler<HTMLDivElement>;
@@ -713,6 +717,7 @@ export class ExpandableList extends React_2.PureComponent<ExpandableListProps, E
 
 // @public
 export interface ExpandableListProps extends CommonProps {
+    children?: React_2.ReactNode;
     defaultActiveBlock?: number;
     singleExpandOnly?: boolean;
     singleIsCollapsible?: boolean;
@@ -999,6 +1004,7 @@ export class InputLabel extends React_2.PureComponent<InputLabelProps> {
 
 // @public
 export interface InputLabelProps extends LabeledComponentProps, MessagedComponentProps, CommonProps {
+    children?: React_2.ReactNode;
     // (undocumented)
     disabled?: boolean;
 }
@@ -1268,6 +1274,7 @@ export class MessageBox extends React_2.PureComponent<MessageBoxProps> {
 // @public
 export interface MessageBoxProps extends CommonProps {
     buttonCluster: DialogButtonDef_2[];
+    children?: React_2.ReactNode;
     contentClassName?: string;
     contentStyle?: React_2.CSSProperties;
     height?: string | number;
@@ -1292,6 +1299,7 @@ export class MessageContainer extends React_2.PureComponent<MessageContainerProp
 
 // @public
 export interface MessageContainerProps extends CommonProps {
+    children?: React_2.ReactNode;
     // (undocumented)
     severity: MessageSeverity_2;
 }
@@ -1505,6 +1513,7 @@ export interface PopupContextMenuProps extends CommonProps {
 export interface PopupProps extends CommonProps {
     animate?: boolean;
     ariaLabel?: string;
+    children?: React_2.ReactNode;
     closeOnContextMenu?: boolean;
     closeOnEnter?: boolean;
     closeOnNestedPopupOutsideClick?: boolean;
@@ -1598,6 +1607,7 @@ export class RadialButton extends React_2.Component<RadialButtonProps, RadialBut
 export interface RadialButtonProps extends CommonProps {
     // @internal (undocumented)
     annularSector?: AnnularSector;
+    children?: React_2.ReactNode;
     icon?: IconSpec;
     labelRotate?: boolean;
     onSelect?: (e: any) => any;
@@ -1624,6 +1634,7 @@ export class RadialMenu extends React_2.Component<RadialMenuProps, RadialMenuSta
 
 // @public
 export interface RadialMenuProps extends CommonProps {
+    children?: React_2.ReactNode;
     innerRadius: number;
     labelRotate?: boolean;
     left?: number | string;
@@ -1980,6 +1991,7 @@ export enum SplitButtonActionType {
 // @public @deprecated
 export interface SplitButtonProps extends CommonProps {
     buttonType?: ButtonType;
+    children?: React_2.ReactNode;
     drawBorder?: boolean;
     icon?: IconSpec;
     // @internal (undocumented)

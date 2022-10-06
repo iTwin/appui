@@ -30,6 +30,8 @@ export interface ExpandableBlockProps extends CommonProps {
   caption?: string;
   /** Custom tooltip for the component. */
   tooltip?: string;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** ExpandableBlock React component is a container that shows and hides child content.
