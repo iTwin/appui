@@ -7,7 +7,7 @@
  */
 
 import { StagePanelsManager, StagePanelsManagerProps } from "../stage-panels/manager/StagePanels";
-import { StagePanelType } from "../stage-panels/StagePanel";
+import { StagePanelType } from "../stage-panels/manager/StagePanel";
 import { WidgetZoneId } from "../zones/manager/Zones";
 import { getDefaultNineZoneStagePanelManagerProps, NineZoneStagePanelManager, NineZoneStagePanelManagerProps } from "./StagePanel";
 

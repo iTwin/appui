@@ -6,6 +6,16 @@
  * @module StagePanels
  */
 
+/** Describes available stage panel types.
+ * @internal
+ */
+export enum StagePanelType {
+  Bottom,
+  Left,
+  Top,
+  Right,
+}
+
 /** Properties used by [[StagePanelManager]].
  * @internal
  */
