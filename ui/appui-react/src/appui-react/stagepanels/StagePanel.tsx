@@ -18,7 +18,6 @@ import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { WidgetProps } from "../widgets/WidgetProps";
 import { WidgetTabs } from "../widgets/WidgetStack";
 import { ZoneLocation } from "../zones/Zone";
-import { FrameworkStagePanel } from "./FrameworkStagePanel";
 import { PanelStateChangedEventArgs, StagePanelDef, StagePanelState as StagePanelState } from "./StagePanelDef";
 import { WidgetDef, WidgetStateChangedEventArgs } from "../widgets/WidgetDef";
 
@@ -175,44 +174,8 @@ export class StagePanel extends React.Component<StagePanelProps, StagePanelCompo
   }
 
   public override render(): React.ReactNode {
-    const { applicationData, defaultState, runtimeProps, maxSize, size, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
-    if (!runtimeProps)
-      return null;
-
-    const { stagePanelChangeHandler, panelDef, ...otherRuntimeProps } = runtimeProps;
-    return (
-      <FrameworkStagePanel
-        changeHandler={stagePanelChangeHandler}
-        initialSize={size}
-        location={panelDef.location}
-        renderPane={this._handleRenderPane}
-        stagePanelWidgets={this.state.stagePanelWidgets}
-        panelState={this.state.panelState}
-        maxSize={typeof maxSize === "number" ? maxSize : undefined}
-        {...props}
-        {...otherRuntimeProps}
-      />
-    );
+    return null;
   }
-
-  private _handleRenderPane = (widgetDefId: WidgetDef["id"]): React.ReactNode => {
-    const runtimeProps = this.props.runtimeProps;
-    if (!runtimeProps)
-      return null;
-    const widgetDef = runtimeProps.panelDef.findWidgetDef(widgetDefId);
-    if (!widgetDef || !widgetDef.isVisible)
-      return null;
-    return (
-      <div
-        style={{
-          height: "100%",
-          display: runtimeProps.panel.isCollapsed ? "none" : "block",
-        }}
-      >
-        {widgetDef.reactNode}
-      </div>
-    );
-  };
 
   private _handlePanelStateChangedEvent = ({ panelDef, panelState }: PanelStateChangedEventArgs) => {
     // istanbul ignore else
