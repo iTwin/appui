@@ -2231,56 +2231,6 @@ export interface FrameworkRootState {
     frameworkState: FrameworkState;
 }
 
-// @internal
-export class FrameworkStagePanel extends React_2.PureComponent<FrameworkStagePanelProps> {
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @internal
-export interface FrameworkStagePanelProps {
-    // (undocumented)
-    allowedZones?: ZoneLocation[];
-    // (undocumented)
-    changeHandler: StagePanelChangeHandler;
-    // (undocumented)
-    draggedWidgetId: WidgetZoneId | undefined;
-    // (undocumented)
-    getWidgetContentRef: (id: WidgetZoneId) => React_2.Ref<HTMLDivElement>;
-    // (undocumented)
-    header?: React_2.ReactNode;
-    // (undocumented)
-    initialSize?: number;
-    // (undocumented)
-    isTargeted: boolean;
-    // (undocumented)
-    location: StagePanelLocation;
-    // (undocumented)
-    maxSize?: number;
-    // (undocumented)
-    minSize?: number;
-    // (undocumented)
-    panel: NineZoneStagePanelManagerProps;
-    // (undocumented)
-    panelState: StagePanelState;
-    // (undocumented)
-    renderPane: (widgetDefId: WidgetDef["id"]) => React_2.ReactNode;
-    // (undocumented)
-    resizable: boolean;
-    // (undocumented)
-    stagePanelWidgets: ReadonlyArray<WidgetDef["id"]>;
-    // (undocumented)
-    widgetChangeHandler: WidgetChangeHandler;
-    // (undocumented)
-    widgets: ZonesManagerWidgetsProps;
-    // (undocumented)
-    widgetTabs: WidgetTabs;
-}
-
 // @public
 export interface FrameworkState {
     // (undocumented)
@@ -5042,20 +4992,6 @@ export class StagePanelDef extends WidgetHost {
 
 // @public
 export type StagePanelDefaultProps = Pick<StagePanelProps, "resizable">;
-
-// @alpha @deprecated
-export class StagePanelHeader extends React_2.PureComponent<StagePanelHeaderProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @alpha @deprecated
-export interface StagePanelHeaderProps extends CommonProps {
-    collapseButton?: boolean;
-    collapseButtonTitle?: string;
-    location: StagePanelLocation;
-    title?: string;
-}
 
 // @public
 export type StagePanelMaxSizeSpec = number | {

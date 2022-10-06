@@ -55,10 +55,6 @@ export * from "./appui-layout-react/manager/StagePanels";
 
 export * from "./appui-layout-react/popup/Tooltip";
 
-export * from "./appui-layout-react/stage-panels/Splitter";
-export * from "./appui-layout-react/stage-panels/StagePanel";
-export * from "./appui-layout-react/stage-panels/StagePanels";
-
 export * from "./appui-layout-react/stage-panels/manager/NestedStagePanels";
 export * from "./appui-layout-react/stage-panels/manager/StagePanel";
 export * from "./appui-layout-react/stage-panels/manager/StagePanels";

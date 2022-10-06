@@ -232,8 +232,6 @@ alpha;FocusToolSettings
 beta;FrameworkAccuDraw 
 public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
-internal;FrameworkStagePanel 
-internal;FrameworkStagePanelProps
 public;FrameworkState
 alpha;FrameworkToolAdmin 
 public;FrameworkUiAdmin 
@@ -513,10 +511,6 @@ public;StagePanel
 public;StagePanelChangeHandler
 public;StagePanelDef 
 public;StagePanelDefaultProps = Pick
-alpha;StagePanelHeader 
-deprecated;StagePanelHeader 
-alpha;StagePanelHeaderProps 
-deprecated;StagePanelHeaderProps 
 public;StagePanelMaxSizeSpec = number |
 public;StagePanelProps
 internal;StagePanelRuntimeProps

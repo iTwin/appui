@@ -2144,26 +2144,6 @@ export interface SnapProps extends CommonProps {
 }
 
 // @internal
-export class Splitter extends React_2.PureComponent<SplitterProps, SplitterState> {
-    constructor(props: SplitterProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: SplitterProps): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface SplitterProps extends CommonProps {
-    children?: React_2.ReactNode;
-    isGripHidden?: boolean;
-    isVertical?: boolean;
-}
-
-// @internal
 export class Stacked extends React_2.PureComponent<StackedProps> {
     // (undocumented)
     getBounds(): RectangleProps;
@@ -2188,12 +2168,6 @@ export interface StackedProps extends CommonProps, NoChildrenProps {
     onResize?: (resizeBy: number, handle: ResizeHandle, filledHeightDiff: number) => void;
     tabs?: React_2.ReactNode;
     verticalAnchor: VerticalAnchor;
-}
-
-// @internal
-export class StagePanel extends React_2.PureComponent<StagePanelProps> {
-    // (undocumented)
-    render(): JSX.Element;
 }
 
 // @internal
@@ -2223,22 +2197,6 @@ export interface StagePanelManagerProps {
     readonly isCollapsed: boolean;
     // (undocumented)
     readonly size: number | undefined;
-}
-
-// @internal
-export interface StagePanelProps extends CommonProps {
-    children?: React_2.ReactNode;
-    onResize?: (resizeBy: number) => void;
-    onToggleCollapse?: () => void;
-    safeAreaInsets?: SafeAreaInsets;
-    size?: number;
-    type: StagePanelType;
-}
-
-// @internal
-export class StagePanels extends React_2.PureComponent<StagePanelsProps> {
-    // (undocumented)
-    render(): JSX.Element;
 }
 
 // @internal
@@ -2272,15 +2230,6 @@ export interface StagePanelsManagerProps {
 }
 
 // @internal
-export interface StagePanelsProps extends CommonProps {
-    bottomPanel?: React_2.ReactNode;
-    children?: React_2.ReactNode;
-    leftPanel?: React_2.ReactNode;
-    rightPanel?: React_2.ReactNode;
-    topPanel?: React_2.ReactNode;
-}
-
-// @internal
 export enum StagePanelType {
     // (undocumented)
     Bottom = 0,
@@ -2290,13 +2239,6 @@ export enum StagePanelType {
     Right = 3,
     // (undocumented)
     Top = 2
-}
-
-// @internal
-export class StagePanelTypeHelpers {
-    // (undocumented)
-    static getCssClassName(type: StagePanelType): string;
-    static isVertical(type: StagePanelType): boolean;
 }
 
 // @internal
