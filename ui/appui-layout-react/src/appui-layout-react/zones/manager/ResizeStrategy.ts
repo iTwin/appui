@@ -7,7 +7,7 @@
  */
 
 import { Rectangle, RectangleProps } from "@itwin/core-react";
-import { HorizontalAnchor } from "../../widget/Stacked";
+import { HorizontalAnchor } from "./Widget";
 import { WidgetZoneId, ZonesManager, ZonesManagerProps } from "./Zones";
 
 /** @internal */

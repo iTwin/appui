@@ -7,7 +7,6 @@ export * from "./appui-layout-react/backstage/Item";
 export * from "./appui-layout-react/backstage/Separator";
 export * from "./appui-layout-react/backstage/UserProfile";
 
-export * from "./appui-layout-react/base/DragHandle";
 export * from "./appui-layout-react/base/DragManager";
 export * from "./appui-layout-react/base/Ellipsis";
 export * from "./appui-layout-react/base/Event";
@@ -117,14 +116,11 @@ export * from "./appui-layout-react/widget/PanelWidget";
 export * from "./appui-layout-react/widget/PinToggle";
 export * from "./appui-layout-react/widget/PopoutToggle";
 export * from "./appui-layout-react/widget/SendBack";
-export * from "./appui-layout-react/widget/Stacked";
 export * from "./appui-layout-react/widget/Tab";
 export * from "./appui-layout-react/widget/TabBar";
 export * from "./appui-layout-react/widget/Tabs";
 export * from "./appui-layout-react/widget/TabTarget";
-export * from "./appui-layout-react/widget/Tools";
 export * from "./appui-layout-react/widget/ToolsArea";
-export * from "./appui-layout-react/widget/ToolSettings";
 export * from "./appui-layout-react/widget/Widget";
 export * from "./appui-layout-react/widget/WidgetTarget";
 
@@ -133,15 +129,6 @@ export * from "./appui-layout-react/widget/tools/button/Back";
 export * from "./appui-layout-react/widget/tools/button/Button";
 export * from "./appui-layout-react/widget/tools/button/Expandable";
 export * from "./appui-layout-react/widget/tools/button/Icon";
-
-export * from "./appui-layout-react/widget/rectangular/Content";
-export * from "./appui-layout-react/widget/rectangular/ResizeGrip";
-
-export * from "./appui-layout-react/widget/rectangular/tab/Group";
-export * from "./appui-layout-react/widget/rectangular/tab/Separator";
-export * from "./appui-layout-react/widget/rectangular/tab/Tab";
-
-export * from "./appui-layout-react/widget/tool-settings/Tab";
 
 export * from "./appui-layout-react/widget-panels/AppContent";
 export * from "./appui-layout-react/widget-panels/CenterContent";
