@@ -49,6 +49,8 @@ export interface MessageBoxProps extends CommonProps {
   contentClassName?: string;
   /** Custom CSS Style for the content */
   contentStyle?: React.CSSProperties;
+  /** Message content */
+  children?: React.ReactNode;
 }
 
 /** Message Box React component.
@@ -87,6 +89,8 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
  */
 export interface MessageContainerProps extends CommonProps {
   severity: MessageSeverity;
+  /** Message Content */
+  children?: React.ReactNode;
 }
 
 /** Message Container React component.

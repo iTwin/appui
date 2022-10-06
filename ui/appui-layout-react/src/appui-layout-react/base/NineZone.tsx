@@ -227,7 +227,7 @@ function CursorTypeProvider(props: { children?: React.ReactNode }) {
 const Measurer = React.forwardRef<HTMLDivElement>(function Measurer(_, ref) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const size = React.useRef<{ height?: number, width?: number }>({});
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const handleResize = React.useCallback((width, height) => {
+  const handleResize = React.useCallback((width: number, height: number) => {
     // istanbul ignore next
     if (size.current.width === width && size.current.height === height)
       return;

@@ -116,7 +116,7 @@ export class NonPrimitivePropertyRenderer extends React.Component<NonPrimitivePr
     if (this.props.propertyRecord.value.valueFormat === PropertyValueFormat.Array)
       items = this.overrideArrayChildrenNames(items);
 
-    const { children, indentation, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { indentation, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
     return (
       <>
         {this.props.isCollapsible

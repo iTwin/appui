@@ -83,6 +83,9 @@ export interface PopupProps extends CommonProps {
    * @beta
    * */
   repositionOnResize?: boolean;
+
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** @internal */

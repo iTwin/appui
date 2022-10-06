@@ -39,6 +39,8 @@ export interface RadialMenuProps extends CommonProps {
   onBlur?: (event: any) => any;
   /** triggered onKeyUp for <Esc> key */
   onEsc?: (event: any) => any;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** @internal */
@@ -187,6 +189,8 @@ export interface RadialButtonProps extends CommonProps {
   onSelect?: (e: any) => any;
   /** Whether item is highlighted */
   selected?: boolean;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** @internal */

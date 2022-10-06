@@ -36,6 +36,8 @@ export interface BackstageProps extends CommonProps {
   showOverlay?: boolean;
   onClose?: () => void;
   header?: React.ReactNode;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** State for the [[Backstage]] React component.

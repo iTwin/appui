@@ -154,7 +154,7 @@ export class PropertyRenderer extends React.Component<PropertyRendererProps, Pro
 
   /** @internal */
   public override render() {
-    const { children, propertyValueRendererManager, isEditing, onEditCommit, onEditCancel, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { propertyValueRendererManager, isEditing, onEditCommit, onEditCancel, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
     const primitiveRendererProps: PrimitiveRendererProps = {
       ...props,
       valueElement: this.state.displayValue,

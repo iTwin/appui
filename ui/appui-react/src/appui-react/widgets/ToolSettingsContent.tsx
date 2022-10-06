@@ -16,6 +16,8 @@ import { HorizontalAnchor, ToolSettingsWidgetMode, WidgetContent } from "@itwin/
 interface ToolSettingsContentProps {
   anchor: HorizontalAnchor; // eslint-disable-line deprecation/deprecation
   mode: ToolSettingsWidgetMode;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 interface ToolSettingsContentState {

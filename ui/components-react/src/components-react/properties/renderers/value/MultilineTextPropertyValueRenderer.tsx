@@ -57,6 +57,8 @@ interface MultilineTextRenderer {
   onExpansionToggled?: () => void;
   onHeightChanged?: (newHeight: number) => void;
   style?: React.CSSProperties;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** @internal */
