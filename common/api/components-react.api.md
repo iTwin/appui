@@ -180,11 +180,6 @@ export class BasicPropertyEditor extends PropertyEditorBase {
     get reactNode(): React_2.ReactNode;
 }
 
-// @beta @deprecated
-export function BeDragDropContext(props: {
-    children?: React_2.ReactNode;
-}): JSX.Element;
-
 // @public
 export class BooleanEditor extends React_2.PureComponent<PropertyEditorProps, BooleanEditorState> implements TypeEditor {
     // @internal (undocumented)
@@ -2367,6 +2362,7 @@ export class PropertyCategoryBlock extends React_2.Component<PropertyCategoryBlo
 // @public
 export interface PropertyCategoryBlockProps extends CommonProps {
     category: PropertyCategory;
+    children?: React_2.ReactNode;
     highlight?: HighlightingComponentProps;
     onExpansionToggled?: (categoryName: string) => void;
 }

@@ -78,7 +78,7 @@ export function Icon(props: IconProps) {
 
   return (
     <i className={classnames("icon", "core-svg-icon", props.className)} style={props.style}>
-      {props.iconSpec}
+      {props.iconSpec instanceof ConditionalStringValue ? undefined : props.iconSpec}
     </i>
   );
 }

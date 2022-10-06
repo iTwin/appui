@@ -69,6 +69,8 @@ export class ITwinTab extends React.Component<TabProps> {
 export interface TabsProps {
   onClick?: (tabIndex: number) => any;
   defaultTab: number;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 interface TabsState {

@@ -43,6 +43,8 @@ export interface SplitButtonProps extends CommonProps {
   popupPosition?: RelativePosition;
   /** 4 styles to tweak the content of the button */
   buttonType?: ButtonType;  // eslint-disable-line deprecation/deprecation
+  /** Content */
+  children?: React.ReactNode;
 
   /** @internal */
   initialExpanded?: boolean;

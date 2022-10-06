@@ -746,6 +746,7 @@ export class BackstageManager {
 
 // @public
 export interface BackstageProps extends CommonProps {
+    children?: React_2.ReactNode;
     // (undocumented)
     header?: React_2.ReactNode;
     // (undocumented)
@@ -803,6 +804,7 @@ export interface BasicToolWidgetProps {
 // @public @deprecated
 export interface BooleanListenerProps {
     boolFunc: () => boolean;
+    children?: ((boolValue: boolean, otherProps: any) => React_2.ReactNode) | React_2.ReactNode;
     defaultValue?: boolean;
     eventIds: string[];
 }
@@ -2116,6 +2118,7 @@ export class ExpandableSection extends React_2.PureComponent<ExpandableSectionPr
 
 // @beta
 export interface ExpandableSectionProps extends CommonProps {
+    children?: React_2.ReactNode;
     // (undocumented)
     expanded?: boolean;
     // (undocumented)
@@ -3784,6 +3787,7 @@ export interface ModalFrontstageInfo {
 // @public
 export interface ModalFrontstageProps extends CommonProps {
     appBarRight?: React_2.ReactNode;
+    children?: React_2.ReactNode;
     closeModal: () => any;
     isOpen?: boolean;
     navigateBack?: () => any;
@@ -4296,6 +4300,7 @@ export function PositionPopupContent(props: CommonDivProps): JSX.Element;
 
 // @beta
 export interface PositionPopupProps extends CommonProps {
+    children?: React_2.ReactNode;
     onSizeKnown?: (size: SizeProps) => void;
     point: PointProps;
 }
@@ -5207,6 +5212,7 @@ export class StandardMessageBox extends React_2.PureComponent<StandardMessageBox
 
 // @public
 export interface StandardMessageBoxProps extends CommonProps {
+    children?: React_2.ReactNode;
     iconType: MessageBoxIconType;
     messageBoxType: MessageBoxType;
     onResult?: (result: MessageBoxValue) => void;

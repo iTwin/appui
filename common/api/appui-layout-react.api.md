@@ -328,7 +328,9 @@ export interface DockedToolSettingsOverflowProps extends CommonProps {
 // @internal
 export interface DockedToolSettingsProps extends CommonProps {
     children?: React_2.ReactNode;
-    panelContainer?: React_2.ComponentType;
+    panelContainer?: React_2.ComponentType<{
+        children?: React_2.ReactNode;
+    }>;
 }
 
 // @internal (undocumented)
@@ -393,6 +395,7 @@ export class DragHandle extends React_2.PureComponent<DragHandleProps, DragHandl
 
 // @internal
 export interface DragHandleProps extends CommonProps {
+    children?: React_2.ReactNode;
     lastPosition?: PointProps;
     onClick?: () => void;
     onDrag?: (dragged: PointProps) => void;
@@ -504,6 +507,7 @@ export class ExpandableItem extends React_2.PureComponent<ExpandableItemProps> {
 
 // @beta @deprecated
 export interface ExpandableItemProps extends CommonProps {
+    children?: React_2.ReactNode;
     hideIndicator?: boolean;
     isActive?: boolean;
     isDisabled?: boolean;
@@ -1755,6 +1759,7 @@ export type PointerCaptorEvent = MouseEvent | TouchEvent;
 
 // @internal
 export interface PointerCaptorProps extends CommonProps {
+    children?: React_2.ReactNode;
     isPointerDown: boolean;
     onClick?: () => void;
     onPointerDown?: (e: PointerEvent) => void;

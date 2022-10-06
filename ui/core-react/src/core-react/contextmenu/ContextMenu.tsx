@@ -46,6 +46,8 @@ export interface ContextMenuProps extends CommonProps {
   parentSubmenu?: ContextSubMenu;
   /** @internal */
   ignoreNextKeyUp?: boolean;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /** @internal */

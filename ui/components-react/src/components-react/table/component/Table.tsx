@@ -1264,7 +1264,7 @@ export class Table extends React.Component<TableProps, TableState> {
   }
 
   private _createRowRenderer = () => {
-    return (props: { row: RowProps, [k: string]: React.ReactNode }) => {
+    return (props: { row: RowProps } & {[k: string]: React.ReactNode }) => {
       // istanbul ignore next
       const renderRow = this.props.renderRow ? this.props.renderRow : this.renderRow;
       const { row: rowProps, ...reactDataGridRowProps } = props;

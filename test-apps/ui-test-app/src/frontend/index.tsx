@@ -21,7 +21,6 @@ import {
   ModalFrontstageClosedEventArgs, SafeAreaContext, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
   ToolbarDragInteractionContext, UiFramework, UiStateStorageContext, UiStateStorageHandler,
 } from "@itwin/appui-react";
-import { BeDragDropContext } from "@itwin/components-react";
 import { assert, Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
 import { BentleyCloudRpcManager, BentleyCloudRpcParams, IModelVersion, RpcConfiguration, SyncMode } from "@itwin/core-common";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
@@ -745,22 +744,19 @@ const SampleAppViewer2 = () => {
   return (
     <Provider store={SampleAppIModelApp.store} >
       <ThemeManager>
-        {/* eslint-disable-next-line deprecation/deprecation */}
-        <BeDragDropContext>
-          <SafeAreaContext.Provider value={SafeAreaInsets.All}>
-            <AppDragInteraction>
-              <AppFrameworkVersion>
-                <UiStateStorageHandler>
-                  <TargetOptionsProvider>
-                    <ConfigurableUiContent
-                      appBackstage={<AppBackstageComposer />}
-                    />
-                  </TargetOptionsProvider>
-                </UiStateStorageHandler>
-              </AppFrameworkVersion>
-            </AppDragInteraction>
-          </SafeAreaContext.Provider>
-        </BeDragDropContext>
+        <SafeAreaContext.Provider value={SafeAreaInsets.All}>
+          <AppDragInteraction>
+            <AppFrameworkVersion>
+              <UiStateStorageHandler>
+                <TargetOptionsProvider>
+                  <ConfigurableUiContent
+                    appBackstage={<AppBackstageComposer />}
+                  />
+                </TargetOptionsProvider>
+              </UiStateStorageHandler>
+            </AppFrameworkVersion>
+          </AppDragInteraction>
+        </SafeAreaContext.Provider>
       </ThemeManager>
     </Provider >
   );

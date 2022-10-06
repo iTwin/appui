@@ -760,7 +760,7 @@ describe("ContextMenu", () => {
       expect(tildeFindRet.character).to.equal(undefined);
     });
     it("should fallback to undefined character when node passed is an empty object", () => {
-      const tildeFindRet = TildeFinder.findAfterTilde({});
+      const tildeFindRet = TildeFinder.findAfterTilde({} as any);
       expect(tildeFindRet.character).to.equal(undefined);
     });
     it("should pass node value through when node passed is not string, array, or node", () => {

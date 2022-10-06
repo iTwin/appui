@@ -28,6 +28,8 @@ export interface ModalFrontstageProps extends CommonProps {
   closeModal: () => any;
   /** An optional React node displayed in the upper right of the modal Frontstage. */
   appBarRight?: React.ReactNode;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 /**

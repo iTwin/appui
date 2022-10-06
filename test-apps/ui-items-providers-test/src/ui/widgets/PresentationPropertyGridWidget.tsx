@@ -176,7 +176,7 @@ export function PresentationPropertyGridWidget() {
   }, [dataProvider, iModelConnection]);
 
   const [gridSize, setGridSize] = React.useState<{ width: number, height: number }>();
-  const onGridResize = React.useCallback((width, height) => setGridSize({ width, height }), []);
+  const onGridResize = React.useCallback<React.ComponentPropsWithoutRef<typeof ResizableContainerObserver>["onResize"]>((width, height) => setGridSize({ width, height }), []);
   const onMenuHide = React.useCallback(() => {
     setIsMenuVisible(false);
   }, []);

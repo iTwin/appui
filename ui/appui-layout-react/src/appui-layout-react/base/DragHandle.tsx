@@ -27,6 +27,8 @@ export interface DragHandleProps extends CommonProps {
   onDragStart?: (initialPosition: PointProps) => void;
   /** Function called when component drag is finished. */
   onDragEnd?: () => void;
+  /** Content */
+  children?: React.ReactNode;
 }
 
 interface DragHandleState {
