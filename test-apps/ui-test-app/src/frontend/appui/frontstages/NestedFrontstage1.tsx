@@ -2,22 +2,23 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import * as React from "react";
-import { WidgetState } from "@itwin/appui-abstract";
+import { ActionButton, CommonToolbarItem, ConditionalStringValue, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
-  ActionItemButton, CommandItemDef, ContentGroup, CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, GroupButton, ModalDialogManager,
-  NavigationWidget, NestedFrontstage, ToolButton, ToolWidget, Widget, Zone, ZoneLocation, ZoneState,
+  BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps,
+  FrontstageProvider, ItemDefBase, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, NestedFrontstage, ToolbarComposer,
+  ToolbarHelper, ToolItemDef, ToolWidgetComposer, Widget, Zone, ZoneLocation, ZoneState,
 } from "@itwin/appui-react";
-import { Direction, Toolbar } from "@itwin/appui-layout-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
 import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { NestedFrontstage2 } from "./NestedFrontstage2";
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
+import { IModelApp } from "@itwin/core-frontend";
+import { IconHelper } from "@itwin/core-react";
 
-/* eslint-disable react/jsx-key */
+/* eslint-disable react/jsx-key, deprecation/deprecation */
 
 export class NestedFrontstage1 extends FrontstageProvider {
   public static stageId = "ui-test-app:NestedFrontstage1";
@@ -113,44 +114,36 @@ class FrontstageToolWidget extends React.Component {
     });
   }
 
-  private _horizontalToolbar = (
-    <Toolbar // eslint-disable-line deprecation/deprecation
-      expandsTo={Direction.Bottom} // eslint-disable-line deprecation/deprecation
-      items={
-        <>
-          <ActionItemButton actionItem={CoreTools.selectElementCommand} />
-          <ActionItemButton actionItem={AppTools.item1} />
-          <ActionItemButton actionItem={AppTools.item2} />
-          <ActionItemButton actionItem={this._openNestedFrontstage2} />
-          <ActionItemButton actionItem={this._openModal} />
-        </>
-      }
-    />);
+  private _horizontalItems: CommonToolbarItem[] = [
+    ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.selectElementCommand),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item1),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item2),
+    ToolbarHelper.createToolbarItemFromItemDef(10, this._openNestedFrontstage2),
+    ToolbarHelper.createToolbarItemFromItemDef(10, this._openModal),
+  ];
 
-  private _verticalToolbar = (
-    <Toolbar // eslint-disable-line deprecation/deprecation
-      expandsTo={Direction.Right} // eslint-disable-line deprecation/deprecation
-      items={
-        <>
-          <ActionItemButton actionItem={CoreTools.rotateViewCommand} />
-          <ToolButton toolId={AppTools.tool1.id} iconSpec={AppTools.tool1.iconSpec} labelKey={AppTools.tool1.label} execute={AppTools.tool1.execute} />
-          <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-          <GroupButton
-            labelKey="SampleApp:buttons.anotherGroup"
-            iconSpec="icon-placeholder"
-            items={[AppTools.tool1, AppTools.tool2, AppTools.item3, AppTools.item4, AppTools.item5, AppTools.item6, AppTools.item7, AppTools.item8]}
-          />
-        </>
-      }
-    />
-  );
+  private _verticalItems: CommonToolbarItem[] = [
+    ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.rotateViewCommand),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
+    ToolbarItemUtilities.createGroupButton("SampleApp:anotherGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:anotherGroup"), [
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool1),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool2),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item3),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item4),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item5),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item6),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item7),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item8),
+    ]),
+  ];
 
   public override render() {
     return (
-      <ToolWidget // eslint-disable-line deprecation/deprecation
-        appButton={NestedFrontstage.backToPreviousFrontstageCommand}
-        horizontalToolbar={this._horizontalToolbar}
-        verticalToolbar={this._verticalToolbar}
+      <ToolWidgetComposer
+        cornerItem={<BackstageBackButton />}
+        verticalToolbar={<ToolbarComposer items={this._verticalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
+        horizontalToolbar={<ToolbarComposer items={this._horizontalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
       />
     );
   }
@@ -159,39 +152,67 @@ class FrontstageToolWidget extends React.Component {
 /** Define a NavigationWidget with Buttons to display in the TopRight zone.
  */
 class FrontstageNavigationWidget extends React.Component {
+  private _horizontalItems: CommonToolbarItem[] = [
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
+  ];
 
-  private _horizontalToolbar = (
-    <Toolbar // eslint-disable-line deprecation/deprecation
-      expandsTo={Direction.Bottom} // eslint-disable-line deprecation/deprecation
-      items={
-        <>
-          <ToolButton toolId={AppTools.item5.id} iconSpec={AppTools.item5.iconSpec} labelKey={AppTools.item5.label} execute={AppTools.item5.execute} />
-          <ToolButton toolId={AppTools.item6.id} iconSpec={AppTools.item6.iconSpec} labelKey={AppTools.item6.label} execute={AppTools.item6.execute} />
-        </>
-      }
-    />
-  );
-
-  private _verticalToolbar = (
-    <Toolbar // eslint-disable-line deprecation/deprecation
-      expandsTo={Direction.Left} // eslint-disable-line deprecation/deprecation
-      items={
-        <>
-          <ToolButton toolId={AppTools.item7.id} iconSpec={AppTools.item7.iconSpec} labelKey={AppTools.item7.label} execute={AppTools.item7.execute} />
-          <ToolButton toolId={AppTools.item8.id} iconSpec={AppTools.item8.iconSpec} labelKey={AppTools.item8.label} execute={AppTools.item8.execute} />
-        </>
-      }
-    />
-  );
+  private _verticalItems: CommonToolbarItem[] = [
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
+  ];
 
   public override render() {
     return (
-      // eslint-disable-next-line deprecation/deprecation
-      <NavigationWidget
-        navigationAidId="StandardRotationNavigationAid"
-        horizontalToolbar={this._horizontalToolbar}
-        verticalToolbar={this._verticalToolbar}
+      <NavigationWidgetComposer
+        navigationAidHost={<NavigationAidHost />} // StandardRotationNavigationAid
+        verticalToolbar={<ToolbarComposer items={this._verticalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />}
+        horizontalToolbar={<ToolbarComposer items={this._horizontalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />}
       />
     );
+  }
+}
+
+export function BackstageBackButton() {
+  const label = IModelApp.localization.getLocalizedString("UiFramework:commands.backToPreviousFrontstage");
+  return (
+    <BackstageAppButton
+      icon="icon-progress-backward"
+      label={label}
+      execute={NestedFrontstage.backToPreviousFrontstageCommand.execute}
+    />
+  );
+}
+
+export namespace AppToolbarUtilities {
+  function getStringOrConditionalString(inString: ItemDefBase["rawLabel"]): string | ConditionalStringValue {
+    if (inString instanceof ConditionalStringValue || typeof inString === "string")
+      return inString;
+
+    return inString();
+  }
+
+  // TODO: need something similar in `ToolbarHelper`.
+  export function createActionButtonFromItemDef(itemPriority: number, itemDef: CommandItemDef | ToolItemDef, overrides?: Partial<ActionButton>): ActionButton {
+    const isHidden = itemDef.isHidden;
+    const isDisabled = itemDef.isDisabled;
+    const internalData = new Map<string, any>();  // used to store ReactNode if iconSpec hold a ReactNode
+    const icon = IconHelper.getIconData(itemDef.iconSpec, internalData);
+    const label = getStringOrConditionalString(itemDef.rawLabel);
+    const badgeType = itemDef.badgeType;
+
+    return {
+      id: itemDef.id,
+      itemPriority,
+      icon,
+      label,
+      isHidden,
+      isDisabled,
+      isActive: itemDef.isActive,
+      execute: itemDef.execute,
+      badgeType,
+      internalData,
+      ...overrides,
+    };
   }
 }

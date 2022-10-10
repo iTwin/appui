@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { ViewDefinitionProps } from "@itwin/core-common";
@@ -14,7 +13,7 @@ import { OpenDialogOptions } from "electron";
 import { FillCentered } from "@itwin/core-react";
 import {
   ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageManager,
-  FrontstageProps, FrontstageProvider, ToolWidget, UiFramework, Widget, Zone,
+  FrontstageProps, FrontstageProvider, ToolWidgetComposer, UiFramework, Widget, Zone,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -94,9 +93,8 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
 class FrontstageToolWidget extends React.Component {
   public override render() {
     return (
-      // eslint-disable-next-line deprecation/deprecation
-      <ToolWidget
-        appButton={AppTools.backstageToggleCommand}
+      <ToolWidgetComposer
+        cornerItem={AppTools.backstageToggleCommand}
       />
     );
   }

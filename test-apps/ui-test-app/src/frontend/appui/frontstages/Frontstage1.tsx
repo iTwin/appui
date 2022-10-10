@@ -5,19 +5,17 @@
 import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
-  ActionItemButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, GroupButton,
-  ModalDialogManager, NavigationWidget, StagePanel, ToolButton, ToolWidget, useWidgetDirection, Widget, WidgetStateChangedEventArgs, Zone, ZoneLocation,
-  ZoneState,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanel, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, useWidgetDirection, Widget, WidgetStateChangedEventArgs, Zone, ZoneLocation, ZoneState,
 } from "@itwin/appui-react";
-import { Direction, Toolbar } from "@itwin/appui-layout-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
 import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { TableDemoWidgetControl } from "../widgets/TableDemoWidget";
-import { NestedFrontstage1 } from "./NestedFrontstage1";
-import { StandardContentLayouts, UiAdmin, WidgetState } from "@itwin/appui-abstract";
+import { AppToolbarUtilities, NestedFrontstage1 } from "./NestedFrontstage1";
+import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, UiAdmin, WidgetState } from "@itwin/appui-abstract";
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
+import { IModelApp } from "@itwin/core-frontend";
 
 /* eslint-disable react/jsx-key, deprecation/deprecation */
 
@@ -317,53 +315,39 @@ class FrontstageToolWidget extends React.Component {
     });
   }
 
-  private _horizontalToolbar = (
-    <Toolbar
-      expandsTo={Direction.Bottom}
-      items={
-        <>
-          <ActionItemButton actionItem={this._openPopupWindow} />
-          <ActionItemButton actionItem={CoreTools.selectElementCommand} />
-          <ActionItemButton actionItem={AppTools.item1} />
-          <ActionItemButton actionItem={AppTools.item2} />
-          <ActionItemButton actionItem={this._openNestedFrontstage1} />
-          <ActionItemButton actionItem={this._switchLayout} />
-          <ActionItemButton actionItem={this._pausePlayTimeline} />
-          <ActionItemButton actionItem={this._openModal} />
-        </>
-      }
-    />
-  );
+  private _horizontalItems: CommonToolbarItem[] = [
+    ToolbarHelper.createToolbarItemFromItemDef(10, this._openPopupWindow),
+    ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.selectElementCommand),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item1),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item2),
+    ToolbarHelper.createToolbarItemFromItemDef(10, this._openNestedFrontstage1),
+    ToolbarHelper.createToolbarItemFromItemDef(10, this._switchLayout),
+    ToolbarHelper.createToolbarItemFromItemDef(10, this._pausePlayTimeline),
+    ToolbarHelper.createToolbarItemFromItemDef(10, this._openModal),
+  ];
 
-  private _verticalToolbar = (
-    <Toolbar
-      expandsTo={Direction.Right}
-      items={
-        <>
-          <ActionItemButton actionItem={CoreTools.rotateViewCommand} />
-          <ToolButton toolId={AppTools.tool1.id} iconSpec={AppTools.tool1.iconSpec} labelKey={AppTools.tool1.label} execute={AppTools.tool1.execute} />
-          <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-          <GroupButton
-            labelKey="SampleApp:buttons.anotherGroup"
-            iconSpec="icon-placeholder"
-            items={
-              [
-                AppTools.tool1, AppTools.tool2, AppTools.item3, AppTools.item4, AppTools.item5,
-                AppTools.item6, AppTools.item7, AppTools.item8,
-              ]
-            }
-          />
-        </>
-      }
-    />
-  );
+  private _verticalItems: CommonToolbarItem[] = [
+    ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.rotateViewCommand),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
+    ToolbarItemUtilities.createGroupButton("SampleApp:anotherGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:anotherGroup"), [
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool1),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool2),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item3),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item4),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item5),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item6),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item7),
+      AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item8),
+    ]),
+  ];
 
   public override render() {
     return (
-      <ToolWidget
-        appButton={AppTools.backstageToggleCommand}
-        horizontalToolbar={this._horizontalToolbar}
-        verticalToolbar={this._verticalToolbar}
+      <ToolWidgetComposer
+        cornerItem={<BackstageAppButton />}
+        verticalToolbar={<ToolbarComposer items={this._verticalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
+        horizontalToolbar={<ToolbarComposer items={this._horizontalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
       />
     );
   }
@@ -372,37 +356,22 @@ class FrontstageToolWidget extends React.Component {
 /** Define a NavigationWidget with Buttons to display in the TopRight zone.
  */
 class FrontstageNavigationWidget extends React.Component {
+  private _horizontalItems: CommonToolbarItem[] = [
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
+  ];
 
-  private _horizontalToolbar = (
-    <Toolbar
-      expandsTo={Direction.Bottom}
-      items={
-        <>
-          <ToolButton toolId={AppTools.item5.id} iconSpec={AppTools.item5.iconSpec} labelKey={AppTools.item5.label} execute={AppTools.item5.execute} />
-          <ToolButton toolId={AppTools.item6.id} iconSpec={AppTools.item6.iconSpec} labelKey={AppTools.item6.label} execute={AppTools.item6.execute} />
-        </>
-      }
-    />
-  );
-
-  private _verticalToolbar = (
-    <Toolbar
-      expandsTo={Direction.Right}
-      items={
-        <>
-          <ToolButton toolId={AppTools.item7.id} iconSpec={AppTools.item7.iconSpec} labelKey={AppTools.item7.label} execute={AppTools.item7.execute} />
-          <ToolButton toolId={AppTools.item8.id} iconSpec={AppTools.item8.iconSpec} labelKey={AppTools.item8.label} execute={AppTools.item8.execute} />
-        </>
-      }
-    />
-  );
+  private _verticalItems: CommonToolbarItem[] = [
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
+    ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
+  ];
 
   public override render() {
     return (
-      <NavigationWidget
-        navigationAidId="StandardRotationNavigationAid"
-        horizontalToolbar={this._horizontalToolbar}
-        verticalToolbar={this._verticalToolbar}
+      <NavigationWidgetComposer
+        navigationAidHost={<NavigationAidHost />} // StandardRotationNavigationAid
+        verticalToolbar={<ToolbarComposer items={this._verticalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />}
+        horizontalToolbar={<ToolbarComposer items={this._horizontalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />}
       />
     );
   }
