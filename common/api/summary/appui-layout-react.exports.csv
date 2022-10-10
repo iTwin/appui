@@ -48,7 +48,6 @@ beta;Direction
 deprecated;Direction
 internal;DirectionHelpers
 internal;DisabledResizeHandles
-internal;DisabledResizeHandlesHelpers
 internal;Dock: React_2.NamedExoticComponent
 internal;DockedToolSetting(props: ToolSettingProps): JSX.Element
 internal;DockedToolSettings(props: DockedToolSettingsProps): JSX.Element
@@ -67,8 +66,6 @@ internal;DraggedTabStateContext: React_2.Context
 internal;DraggedWidgetIdContext: React_2.Context
 internal;DraggedWidgetManager
 internal;DraggedWidgetManagerProps
-internal;DragHandle 
-internal;DragHandleProps 
 internal;DragManager
 internal;DragManagerContext: React_2.Context
 internal;DragProvider: React_2.NamedExoticComponent
@@ -165,12 +162,9 @@ internal;GrowLeft
 internal;GrowRight 
 internal;class GrowStrategy 
 internal;GrowTop 
-internal;HandleMode
-internal;HandleModeHelpers
 internal;handleToCursorType(handle: FloatingWidgetResizeHandle): CursorType
 beta;HorizontalAnchor
 deprecated;HorizontalAnchor
-internal;HorizontalAnchorHelpers
 internal;HorizontalPanelSide = TopPanelSide | BottomPanelSide
 internal;HorizontalPanelState 
 internal;IconOnlyOnWidgetTabContext: React_2.Context
@@ -304,11 +298,6 @@ internal;RECTANGULAR_DEFAULT_MIN_WIDTH = 296
 internal;removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;ResizeAction
-internal;ResizeDirection
-internal;ResizeDirectionHelpers
-internal;ResizeGrip 
-internal;ResizeGripProps 
-internal;ResizeGripResizeArgs
 internal;ResizeHandle
 internal;ResizeStrategy
 internal;restrainInitialWidgetSize(size: SizeProps, nzSize: SizeProps): SizeProps
@@ -336,8 +325,6 @@ internal;SnapModePanel
 internal;SnapModePanelProps 
 internal;SnapModeProps 
 internal;SnapProps 
-internal;Stacked 
-internal;StackedProps 
 internal;StagePanelManager
 internal;StagePanelManagerProps
 internal;StagePanelsManager
@@ -346,23 +333,15 @@ internal;StagePanelType
 internal;Status
 internal;StatusHelpers
 internal;StatusMessageProps 
-internal;Tab 
 internal;TabBarButtons: React_2.NamedExoticComponent
 internal;TabDragDropTargetState = PanelDropTargetState | SectionDropTargetState | WidgetDropTargetState | TabDropTargetState | FloatingWidgetDropTargetState
 internal;TabDragStartArgs 
 internal;TabDropTargetState
-internal;TabGroup 
-internal;TabGroupProps 
 internal;TabIdContext: React_2.Context
 internal;TabLocation = PanelTabLocation | FloatingTabLocation | PopoutTabLocation
-internal;TabMode
-internal;TabModeHelpers
 internal;TabNodeContext: React_2.Context
 internal;TabPositionContext: React_2.Context
 internal;TabPositionContextArgs
-internal;TabProps 
-internal;TabSeparator 
-internal;TabSeparatorProps 
 internal;TabsState
 internal;TabsStateContext: React_2.Context
 internal;TabState
@@ -402,25 +381,19 @@ deprecated;ToolbarPanelAlignment
 internal;ToolbarPanelAlignmentHelpers
 beta;ToolbarProps 
 deprecated;ToolbarProps 
-internal;Tools 
 internal;ToolsArea 
 internal;ToolsAreaProps 
 internal;ToolSettingProps 
-internal;ToolSettings 
 internal;ToolSettingsDockAction
 internal;ToolSettingsDragStartAction
 internal;ToolSettingsNodeContext: React_2.Context
 internal;ToolSettingsOverflowPanel(props: ToolSettingsOverflowPanelProps): JSX.Element
 internal;ToolSettingsOverflowPanelProps 
-internal;ToolSettingsProps 
 internal;ToolSettingsState = DockedToolSettingsState | WidgetToolSettingsState
 internal;ToolSettingsStateContext: React_2.Context
-internal;ToolSettingsTab 
 internal;toolSettingsTabId = "nz-tool-settings-tab"
-internal;ToolSettingsTabProps 
 internal;ToolSettingsWidgetManagerProps 
 internal;ToolSettingsWidgetMode
-internal;ToolsProps 
 beta;Tooltip 
 deprecated;Tooltip 
 beta;TooltipDefaultProps = Pick
@@ -472,13 +445,10 @@ internal;useTargeted(): DropTargetState | undefined
 internal;useToolSettingsEntry(): DockedToolSettingsEntryContextArgs
 internal;useTransientState(onSave?: () => void, onRestore?: () => void): void
 internal;VerticalAnchor
-internal;VerticalAnchorHelpers
 internal;VerticalPanelSide = LeftPanelSide | RightPanelSide
 internal;VerticalPanelState 
 internal;Widget: React_2.MemoExoticComponent
 internal;WidgetComponent
-alpha;WidgetContent 
-deprecated;WidgetContent 
 internal;WidgetContentContainer: React_2.NamedExoticComponent
 internal;WidgetContentContainerProps
 internal;WidgetContentContainersContext: React_2.Context
@@ -487,8 +457,6 @@ internal;WidgetContentManagerContext: React_2.Context
 internal;WidgetContentManagerContextArgs
 internal;WidgetContentManagerProps
 internal;WidgetContentNodeContext: React_2.Context
-alpha;WidgetContentProps 
-deprecated;WidgetContentProps 
 internal;WidgetContentRenderer: React_2.NamedExoticComponent
 internal;WidgetContentRenderers: React_2.NamedExoticComponent
 internal;WidgetContext: React_2.Context
