@@ -10,7 +10,7 @@ import "./Item.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "@itwin/core-react";
-import { SafeAreaInsets, SafeAreaInsetsHelpers } from "../utilities/SafeAreaInsets";
+import { SafeAreaInsets, SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
 
 /** Properties of [[BackstageItem]] component.
  * @internal

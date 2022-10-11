@@ -8,10 +8,10 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { PointProps } from "@itwin/appui-abstract";
+import { BeEvent } from "@itwin/core-bentley";
 import { Point, SizeProps } from "@itwin/core-react";
 import { PanelSide } from "../widget-panels/Panel";
 import { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
-import { Event, EventEmitter } from "./Event";
 import { WidgetState } from "../state/WidgetState";
 import { TabState } from "../state/TabState";
 import { getUniqueId } from "./NineZone";
@@ -269,7 +269,7 @@ export function useTarget<T extends Element>(target: DropTargetState): [
   }, [dragManager, target]);
   const ref = React.useRef<T>(null);
   React.useEffect(() => {
-    return dragManager.onDrag.add((_item, info) => {
+    return dragManager.onDrag.addListener((_item, info) => {
       const targetedElement = document.elementFromPoint(info.pointerPosition.x, info.pointerPosition.y);
       const newTargeted = targetedElement === ref.current;
       newTargeted !== targetedRef.current && onTargeted(newTargeted);
@@ -277,7 +277,7 @@ export function useTarget<T extends Element>(target: DropTargetState): [
     });
   }, [onTargeted, dragManager]);
   React.useEffect(() => {
-    return dragManager.onDragEnd.add(() => {
+    return dragManager.onDragEnd.addListener(() => {
       targetedRef.current && onTargeted(false);
       targetedRef.current = false;
     });
@@ -349,7 +349,7 @@ export function useDragItem<T extends DragItem>(args: UseDragItemArgs<T>) {
     });
   }, [dragManager, item]);
   React.useEffect(() => {
-    return dragManager.onDragStart.add((draggedItem, info, target) => {
+    return dragManager.onDragStart.addListener((draggedItem, info, target) => {
       const handleEvent = isDragItem ? isDragItem(item, draggedItem) : defaultIsDragItem(item, draggedItem);
       if (!handleEvent)
         return;
@@ -357,7 +357,7 @@ export function useDragItem<T extends DragItem>(args: UseDragItemArgs<T>) {
     });
   }, [dragManager, onDragStart, item, isDragItem]);
   React.useEffect(() => {
-    return dragManager.onDrag.add((draggedItem, info, target) => {
+    return dragManager.onDrag.addListener((draggedItem, info, target) => {
       const handleEvent = isDragItem ? isDragItem(item, draggedItem) : defaultIsDragItem(item, draggedItem);
       if (!handleEvent)
         return;
@@ -365,7 +365,7 @@ export function useDragItem<T extends DragItem>(args: UseDragItemArgs<T>) {
     });
   }, [dragManager, onDrag, item, isDragItem]);
   React.useEffect(() => {
-    return dragManager.onDragEnd.add((draggedItem, info, target) => {
+    return dragManager.onDragEnd.addListener((draggedItem, info, target) => {
       const handleEvent = isDragItem ? isDragItem(item, draggedItem) : defaultIsDragItem(item, draggedItem);
       if (!handleEvent)
         return;
@@ -380,17 +380,17 @@ export function useIsDragged(callback: () => boolean) {
   const dragManager = React.useContext(DragManagerContext);
   const [dragged, setDragged] = React.useState<boolean>(() => callback());
   React.useEffect(() => {
-    return dragManager.onDragStart.add(() => {
+    return dragManager.onDragStart.addListener(() => {
       setDragged(callback());
     });
   }, [callback, dragManager]);
   React.useEffect(() => {
-    return dragManager.onDragEnd.add(() => {
+    return dragManager.onDragEnd.addListener(() => {
       setDragged(callback());
     });
   }, [callback, dragManager]);
   React.useEffect(() => {
-    return dragManager.onDragUpdate.add(() => {
+    return dragManager.onDragUpdate.addListener(() => {
       setDragged(callback());
     });
   }, [callback, dragManager]);
@@ -422,17 +422,17 @@ export function useDraggedItemId<T extends DragItem>(type: T["type"]): T["id"] |
     return dragManager.getDraggedIdOfType(type);
   });
   React.useEffect(() => {
-    return dragManager.onDragStart.add(() => {
+    return dragManager.onDragStart.addListener(() => {
       setDragged(dragManager.getDraggedIdOfType(type));
     });
   }, [dragManager, type]);
   React.useEffect(() => {
-    return dragManager.onDragEnd.add(() => {
+    return dragManager.onDragEnd.addListener(() => {
       setDragged(dragManager.getDraggedIdOfType(type));
     });
   }, [dragManager, type]);
   React.useEffect(() => {
-    return dragManager.onDragUpdate.add(() => {
+    return dragManager.onDragUpdate.addListener(() => {
       setDragged(dragManager.getDraggedIdOfType(type));
     });
   }, [dragManager, type]);
@@ -561,11 +561,11 @@ type DropTargetChangedEventHandler = (target: DropTargetState | undefined) => vo
 /** @internal */
 export class DragManager {
   private _dragged: Dragged | undefined;
-  private _onDragStartEmitter = new EventEmitter<DragEventHandler>();
-  private _onDragUpdateEmitter = new EventEmitter<DragEventHandler>();
-  private _onDragEmitter = new EventEmitter<DragEventHandler>();
-  private _onDragEndEmitter = new EventEmitter<DragEventHandler>();
-  private _onTargetChangedEmitter = new EventEmitter<DropTargetChangedEventHandler>();
+  private _onDragStartEmitter = new BeEvent<DragEventHandler>();
+  private _onDragUpdateEmitter = new BeEvent<DragEventHandler>();
+  private _onDragEmitter = new BeEvent<DragEventHandler>();
+  private _onDragEndEmitter = new BeEvent<DragEventHandler>();
+  private _onTargetChangedEmitter = new BeEvent<DropTargetChangedEventHandler>();
 
   public get draggedItem() {
     return this._dragged;
@@ -596,23 +596,23 @@ export class DragManager {
     return undefined;
   }
 
-  public get onDragStart(): Event<DragEventHandler> {
+  public get onDragStart() {
     return this._onDragStartEmitter;
   }
 
-  public get onDragUpdate(): Event<DragEventHandler> {
+  public get onDragUpdate() {
     return this._onDragUpdateEmitter;
   }
 
-  public get onDrag(): Event<DragEventHandler> {
+  public get onDrag() {
     return this._onDragEmitter;
   }
 
-  public get onDragEnd(): Event<DragEventHandler> {
+  public get onDragEnd() {
     return this._onDragEndEmitter;
   }
 
-  public get onTargetChanged(): Event<DropTargetChangedEventHandler> {
+  public get onTargetChanged() {
     return this._onTargetChangedEmitter;
   }
 
@@ -622,7 +622,7 @@ export class DragManager {
       info,
       target: undefined,
     };
-    this._onDragStartEmitter.emit(this._dragged.item, this._dragged.info, this._dragged.target);
+    this._onDragStartEmitter.raiseEvent(this._dragged.item, this._dragged.info, this._dragged.target);
   }
 
   public handleDragUpdate() {
@@ -630,7 +630,7 @@ export class DragManager {
     if (!this._dragged)
       return;
 
-    this._onDragUpdateEmitter.emit(this._dragged.item, this._dragged.info, this._dragged.target);
+    this._onDragUpdateEmitter.raiseEvent(this._dragged.item, this._dragged.info, this._dragged.target);
   }
 
   public handleDrag(x: number, y: number) {
@@ -640,7 +640,7 @@ export class DragManager {
     this._dragged.info.lastPointerPosition = this._dragged.info.pointerPosition;
     this._dragged.info.pointerPosition = new Point(x, y);
 
-    this._onDragEmitter.emit(this._dragged.item, this._dragged.info, this._dragged.target);
+    this._onDragEmitter.raiseEvent(this._dragged.item, this._dragged.info, this._dragged.target);
   }
 
   public handleDragEnd() {
@@ -651,15 +651,15 @@ export class DragManager {
     const info = this._dragged.info;
     const target = this._dragged.target;
     this._dragged = undefined;
-    this._onDragEndEmitter.emit(item, info, target);
-    target && this._onTargetChangedEmitter.emit(undefined);
+    this._onDragEndEmitter.raiseEvent(item, info, target);
+    target && this._onTargetChangedEmitter.raiseEvent(undefined);
   }
 
   public handleTargetChanged(target: DropTargetState | undefined) {
     if (!this._dragged)
       return;
     this._dragged.target = target;
-    this._onTargetChangedEmitter.emit(target);
+    this._onTargetChangedEmitter.raiseEvent(target);
   }
 }
 
@@ -684,7 +684,7 @@ export function useTargeted() {
   const dragManager = React.useContext(DragManagerContext);
   const [targeted, setTargeted] = React.useState<DropTargetState>();
   React.useEffect(() => {
-    return dragManager.onTargetChanged.add((t) => {
+    return dragManager.onTargetChanged.addListener((t) => {
       setTargeted(t);
     });
   }, [dragManager]);

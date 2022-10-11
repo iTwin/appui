@@ -7,7 +7,7 @@
  */
 
 /** Describes available safe area insets.
- * @beta
+ * @internal
  */
 export enum SafeAreaInsets {
   None = 0,

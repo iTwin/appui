@@ -5,14 +5,12 @@
 export * from "./appui-layout-react/backstage/Backstage";
 export * from "./appui-layout-react/backstage/Item";
 export * from "./appui-layout-react/backstage/Separator";
-export * from "./appui-layout-react/backstage/UserProfile";
 
 export * from "./appui-layout-react/base/DragManager";
 export * from "./appui-layout-react/base/Ellipsis";
-export * from "./appui-layout-react/base/Event";
 export * from "./appui-layout-react/base/NineZone";
-export * from "./appui-layout-react/base/PointerCaptor";
-export * from "./appui-layout-react/base/WithContainIn";
+export * from "./appui-layout-react/base/SafeAreaInsets";
+export * from "./appui-layout-react/base/usePointerCaptor";
 
 export * from "./appui-layout-react/footer/dialog/Button";
 export * from "./appui-layout-react/footer/dialog/Dialog";
@@ -83,11 +81,6 @@ export * from "./appui-layout-react/toolbar/item/expandable/group/tool/Tool";
 
 export * from "./appui-layout-react/toolbar/Items";
 export * from "./appui-layout-react/toolbar/Toolbar";
-
-export * from "./appui-layout-react/utilities/Css";
-export * from "./appui-layout-react/utilities/Direction";
-export * from "./appui-layout-react/utilities/DisabledResizeHandles";
-export * from "./appui-layout-react/utilities/SafeAreaInsets";
 
 export * from "./appui-layout-react/widget/Buttons";
 export * from "./appui-layout-react/widget/Content";
