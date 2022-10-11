@@ -63,25 +63,6 @@ export * from "./appui-layout-react/tool-settings/Overflow";
 export * from "./appui-layout-react/tool-settings/Panel";
 export * from "./appui-layout-react/tool-settings/Setting";
 
-export * from "./appui-layout-react/toolbar/item/Item";
-export * from "./appui-layout-react/toolbar/item/Overflow";
-export * from "./appui-layout-react/toolbar/item/expandable/Expandable";
-export * from "./appui-layout-react/toolbar/item/expandable/WithDragInteraction";
-
-export * from "./appui-layout-react/toolbar/item/expandable/group/BackArrow";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Column";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Columns";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Group";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Nested";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Panel";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Title";
-
-export * from "./appui-layout-react/toolbar/item/expandable/group/tool/Expander";
-export * from "./appui-layout-react/toolbar/item/expandable/group/tool/Tool";
-
-export * from "./appui-layout-react/toolbar/Items";
-export * from "./appui-layout-react/toolbar/Toolbar";
-
 export * from "./appui-layout-react/widget/Buttons";
 export * from "./appui-layout-react/widget/Content";
 export * from "./appui-layout-react/widget/ContentContainer";
