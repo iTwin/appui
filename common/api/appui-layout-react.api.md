@@ -496,7 +496,7 @@ export interface FloatingTabLocation {
 }
 
 // @internal (undocumented)
-export const FloatingWidget: React_2.NamedExoticComponent<FloatingWidgetProps>;
+export function FloatingWidget(props: FloatingWidgetProps): JSX.Element;
 
 // @internal (undocumented)
 export function floatingWidgetBringToFront(state: NineZoneState, floatingWidgetId: FloatingWidgetState["id"]): NineZoneState;
@@ -550,7 +550,21 @@ export interface FloatingWidgetLocation {
 }
 
 // @internal (undocumented)
+export const FloatingWidgetNodeContext: React_2.Context<React_2.ReactNode>;
+
+// @internal (undocumented)
 export interface FloatingWidgetProps {
+    // (undocumented)
+    onMouseEnter?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+    // (undocumented)
+    onMouseLeave?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+
+// @internal (undocumented)
+export function FloatingWidgetProvider(props: FloatingWidgetProviderProps): JSX.Element;
+
+// @internal (undocumented)
+export interface FloatingWidgetProviderProps {
     // (undocumented)
     floatingWidget: FloatingWidgetState;
     // (undocumented)
@@ -1315,6 +1329,8 @@ export interface NineZoneProps {
     children?: React_2.ReactNode;
     // (undocumented)
     dispatch: NineZoneDispatch;
+    // (undocumented)
+    floatingWidget?: React_2.ReactNode;
     // (undocumented)
     labels?: NineZoneLabels;
     // (undocumented)
@@ -3010,6 +3026,10 @@ export interface WidgetPanelsProps extends CommonProps {
 export interface WidgetProps extends CommonProps {
     // (undocumented)
     children?: React_2.ReactNode;
+    // (undocumented)
+    onMouseEnter?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+    // (undocumented)
+    onMouseLeave?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
     // (undocumented)
     onTransitionEnd?(): void;
     // (undocumented)
