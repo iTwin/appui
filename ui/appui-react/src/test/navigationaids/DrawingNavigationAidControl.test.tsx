@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { AnyWidgetProps, ConfigurableUiManager, DrawingNavigationAidControl, NavigationWidgetDef } from "../../appui-react";
+import { ConfigurableUiControlType, ConfigurableUiManager, ContentViewManager, DrawingNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
 import { TestUtils } from "../TestUtils";
 
 describe("DrawingNavigationAidControl", () => {
@@ -20,24 +20,17 @@ describe("DrawingNavigationAidControl", () => {
     TestUtils.terminateUiFramework();
   });
 
-  const widgetProps: AnyWidgetProps = {
-    classId: "NavigationWidget",
-    isFreeform: true,
-    navigationAidId: "DrawingNavigationAid",
-  };
-
   it("DrawingNavigationAidControl creates DrawingNavigationAid", () => {
+    const widgetDef = new WidgetDef({
+      classId: "DrawingNavigationAid",
+      applicationData: {
+        imodel: UiFramework.getIModelConnection(),
+        viewport: ContentViewManager.getActiveContentControl()?.viewport,
+      },
+    });
 
-    const widgetDef = new NavigationWidgetDef(widgetProps); // eslint-disable-line deprecation/deprecation
-    expect(widgetDef).to.be.instanceof(NavigationWidgetDef); // eslint-disable-line deprecation/deprecation
-
-    const navigationWidgetDef = widgetDef;
-
-    const reactNode = navigationWidgetDef.reactNode;
+    const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);
     expect(reactNode).to.not.be.undefined;
-
-    const cornerNode = navigationWidgetDef.renderCornerItem();
-    expect(cornerNode).to.not.be.undefined;
   });
 
 });

@@ -8,8 +8,36 @@
 
 import { PointProps } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
-import { HorizontalAnchor, VerticalAnchor } from "../../widget/Stacked";
 import { WidgetZoneId } from "./Zones";
+
+/** Available [[Stacked]] widget horizontal anchors.
+ * @deprecated
+ * @beta
+ */
+export enum HorizontalAnchor {
+  Left,
+  Right,
+}
+
+/** Available [[Stacked]] widget vertical anchors.
+ * @internal
+ */
+export enum VerticalAnchor {
+  Bottom,
+  BottomPanel,
+  Middle,
+  TopPanel,
+}
+
+/** Available resize handles of rectangular widget.
+ * @internal
+ */
+export enum ResizeHandle {
+  Left,
+  Top,
+  Right,
+  Bottom,
+}
 
 /** Widget properties used in [[ZonesManagerProps]].
  * @internal

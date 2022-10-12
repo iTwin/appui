@@ -16,22 +16,3 @@ export enum DisabledResizeHandles {
   Right = 1 << 2,
   Bottom = 1 << 3,
 }
-
-/** @internal */
-export class DisabledResizeHandlesHelpers {
-  public static isBottomDisabled(flags: DisabledResizeHandles) {
-    return (DisabledResizeHandles.Bottom === (flags & DisabledResizeHandles.Bottom));
-  }
-
-  public static isLeftDisabled(flags: DisabledResizeHandles) {
-    return (DisabledResizeHandles.Left === (flags & DisabledResizeHandles.Left));
-  }
-
-  public static isRightDisabled(flags: DisabledResizeHandles) {
-    return (DisabledResizeHandles.Right === (flags & DisabledResizeHandles.Right));
-  }
-
-  public static isTopDisabled(flags: DisabledResizeHandles) {
-    return (DisabledResizeHandles.Top === (flags & DisabledResizeHandles.Top));
-  }
-}

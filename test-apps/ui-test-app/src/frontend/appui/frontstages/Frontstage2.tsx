@@ -4,13 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BaseItemState,
-  CommandItemDef,
-  ContentGroup, ContentViewManager, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, GroupItemDef, ItemList, NavigationWidget,
-  SelectionContextToolDefinitions,
-  SessionStateActionId,
-  SyncUiEventId,
-  ToolWidget, UiFramework, Widget, Zone, ZoneState,
+  BackstageAppButton, BaseItemState, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, Frontstage,
+  FrontstageProps, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
+  SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, Widget,
+  Zone, ZoneState,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { TreeExampleContentControl } from "../contentviews/TreeExampleContent";
@@ -19,7 +16,7 @@ import {
   HorizontalPropertyGridContentControl, HorizontalPropertyGridWidgetControl,
 } from "../widgets/PropertyGridDemoWidget";
 import { IModelApp } from "@itwin/core-frontend";
-import { ConditionalBooleanValue, StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
+import { CommonToolbarItem, ConditionalBooleanValue, StandardContentLayouts, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 
 /* eslint-disable react/jsx-key, deprecation/deprecation */
 
@@ -157,36 +154,46 @@ class FrontstageToolWidget extends React.Component {
     });
   }
 
-  private get _horizontalToolbarItems(): ItemList {
-    const items = new ItemList([
-      SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef,
-      SelectionContextToolDefinitions.hideSectionToolGroup,
-      SelectionContextToolDefinitions.isolateSelectionToolGroup,
-      SelectionContextToolDefinitions.emphasizeElementsItemDef,
-      AppTools.item1,
-      AppTools.item2,
-      new GroupItemDef({
-        groupId: "SampleApp:buttons-toolGroup",
-        labelKey: "SampleApp:buttons.toolGroup",
-        iconSpec: "icon-symbol",
-        items: [AppTools.tool1, AppTools.tool2],
-        itemsInColumn: 7,
-      }),
-    ]);
+  private get _horizontalToolbarItems() {
+    const toolGroup = new GroupItemDef({
+      groupId: "SampleApp:buttons-toolGroup",
+      labelKey: "SampleApp:buttons.toolGroup",
+      iconSpec: "icon-symbol",
+      items: [AppTools.tool1, AppTools.tool2],
+      itemsInColumn: 7,
+    });
+
+    const items: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.clearSelectionItemDef),
+      ToolbarHelper.createToolbarItemFromItemDef(20, SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef),
+      ToolbarHelper.createToolbarItemFromItemDef(30, SelectionContextToolDefinitions.hideSectionToolGroup),
+      ToolbarHelper.createToolbarItemFromItemDef(40, SelectionContextToolDefinitions.isolateSelectionToolGroup),
+      ToolbarHelper.createToolbarItemFromItemDef(50, SelectionContextToolDefinitions.emphasizeElementsItemDef),
+      ToolbarHelper.createToolbarItemFromItemDef(50, AppTools.item1),
+      ToolbarHelper.createToolbarItemFromItemDef(50, AppTools.item2),
+      ToolbarHelper.createToolbarItemFromItemDef(50, toolGroup),
+    ];
     return items;
   }
 
-  private get _verticalToolbarItems(): ItemList {
-    const items = new ItemList([AppTools.item3, AppTools.item4, AppTools.item5, AppTools.item6, AppTools.item7, AppTools.item8]);
+  private get _verticalToolbarItems() {
+    const items: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item3),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item4),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
+    ];
     return items;
   }
 
   public override render() {
     return (
-      <ToolWidget
-        appButton={AppTools.backstageToggleCommand}
-        horizontalItems={this._horizontalToolbarItems}
-        verticalItems={this._verticalToolbarItems}
+      <ToolWidgetComposer
+        cornerItem={<BackstageAppButton />}
+        horizontalToolbar={<ToolbarComposer items={this._horizontalToolbarItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
+        verticalToolbar={<ToolbarComposer items={this._verticalToolbarItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
       />
     );
   }
@@ -194,25 +201,23 @@ class FrontstageToolWidget extends React.Component {
 
 /** Define a NavigationWidget with Buttons to display in the TopRight zone.
  */
-class FrontstageNavigationWidget extends React.Component {
-  public override render() {
-    const horizontalItems = new ItemList([
-      CoreTools.fitViewCommand,
-      CoreTools.windowAreaCommand,
-      CoreTools.zoomViewCommand,
-      CoreTools.panViewCommand,
-      CoreTools.rotateViewCommand,
-    ]);
+function FrontstageNavigationWidget() {
+  const horizontalItems = React.useMemo(() => ToolbarHelper.createToolbarItemsFromItemDefs([
+    CoreTools.fitViewCommand,
+    CoreTools.windowAreaCommand,
+    CoreTools.zoomViewCommand,
+    CoreTools.panViewCommand,
+    CoreTools.rotateViewCommand,
+  ]), []);
 
-    const verticalItems = new ItemList([
-      CoreTools.toggleCameraViewCommand,
-    ]);
+  const verticalItems = React.useMemo(() => ToolbarHelper.createToolbarItemsFromItemDefs([
+    CoreTools.toggleCameraViewCommand,
+  ]), []);
 
-    return (
-      <NavigationWidget
-        horizontalItems={horizontalItems}
-        verticalItems={verticalItems}
-      />
-    );
-  }
+  return (
+    <NavigationWidgetComposer
+      horizontalToolbar={<ToolbarComposer items={horizontalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />}
+      verticalToolbar={<ToolbarComposer items={verticalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />}
+    />
+  );
 }
