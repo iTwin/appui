@@ -15,12 +15,11 @@ import { getCursorClassName } from "../widget-panels/CursorOverlay";
 import { WidgetState } from "../state/WidgetState";
 import { WidgetIdContext } from "../widget/Widget";
 import { TabOutline } from "../outline/TabOutline";
-import { withTargetVersion } from "./TargetOptions";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import { WidgetDropTargetState } from "../state/DropTargetState";
 
 /** @internal */
-export const TitleBarTarget = withTargetVersion("2", function TitleBarTarget() {
+export function TitleBarTarget() {
   const cursorType = React.useContext(CursorTypeContext);
   const draggedTab = React.useContext(DraggedTabContext);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
@@ -44,7 +43,7 @@ export const TitleBarTarget = withTargetVersion("2", function TitleBarTarget() {
       <TabOutline />
     </div>
   );
-});
+}
 
 function useTargetArgs(widgetId: WidgetState["id"]) {
   return React.useMemo<WidgetDropTargetState>(() => {

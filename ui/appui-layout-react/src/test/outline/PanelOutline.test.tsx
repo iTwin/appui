@@ -6,7 +6,6 @@ import * as React from "react";
 import { render } from "@testing-library/react";
 import { createNineZoneState, DragManager, NineZoneState, PanelSide, PanelSideContext, PanelStateContext } from "../../appui-layout-react";
 import { PanelOutline, useHidden } from "../../appui-layout-react/outline/PanelOutline";
-import { TargetOptionsContext } from "../../appui-layout-react/target/TargetOptions";
 import { createDragStartArgs, TestNineZoneProvider } from "../Providers";
 import { renderHook } from "@testing-library/react-hooks";
 import { act } from "react-dom/test-utils";
@@ -22,15 +21,11 @@ describe("PanelOutline", () => {
     state = state ?? createNineZoneState();
     side = side ?? "left";
     return (
-      <TargetOptionsContext.Provider value={{
-        version: "2",
-      }}>
-        <TestNineZoneProvider state={state}>
-          <PanelStateContext.Provider value={state.panels[side]}>
-            {children}
-          </PanelStateContext.Provider>
-        </TestNineZoneProvider>
-      </TargetOptionsContext.Provider>
+      <TestNineZoneProvider state={state}>
+        <PanelStateContext.Provider value={state.panels[side]}>
+          {children}
+        </PanelStateContext.Provider>
+      </TestNineZoneProvider>
     );
   }
 

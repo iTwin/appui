@@ -13,7 +13,6 @@ import { Project as ITwin, ProjectsAccessClient, ProjectsSearchableProperty } fr
 import { RealityDataAccessClient, RealityDataClientOptions } from "@itwin/reality-data-client";
 import { getClassName, UiItemsManager } from "@itwin/appui-abstract";
 import { SafeAreaInsets } from "@itwin/appui-layout-react";
-import { TargetOptions, TargetOptionsContext } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/target/TargetOptions";
 import {
   ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
   FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageDef, FrontstageManager,
@@ -561,15 +560,6 @@ function AppDragInteractionComponent(props: { dragInteraction: boolean, children
   );
 }
 
-function TargetOptionsProvider({ children }: React.PropsWithChildren<{}>) {
-  const value = React.useMemo<TargetOptions>(() => ({ version: "2" }), []);
-  return (
-    <TargetOptionsContext.Provider value={value}>
-      {children}
-    </TargetOptionsContext.Provider>
-  );
-}
-
 function mapDragInteractionStateToProps(state: RootState) {
   return { dragInteraction: state.frameworkState.configurableUiState.useDragInteraction };
 }
@@ -625,13 +615,11 @@ const SampleAppViewer2 = () => {
         {/* eslint-disable-next-line deprecation/deprecation */}
         <SafeAreaContext.Provider value={SafeAreaInsets.All}>
           <AppDragInteraction>
-            <TargetOptionsProvider>
-              <UiStateStorageHandler>
-                <ConfigurableUiContent
-                  appBackstage={<BackstageComposer />}
-                />
-              </UiStateStorageHandler>
-            </TargetOptionsProvider>
+            <UiStateStorageHandler>
+              <ConfigurableUiContent
+                appBackstage={<BackstageComposer />}
+              />
+            </UiStateStorageHandler>
           </AppDragInteraction>
         </SafeAreaContext.Provider>
       </ThemeManager>
