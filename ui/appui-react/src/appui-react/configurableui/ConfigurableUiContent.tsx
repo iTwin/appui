@@ -15,8 +15,6 @@ import { CursorPopupRenderer } from "../cursor/cursorpopup/CursorPopupManager";
 import { ModalDialogRenderer } from "../dialog/ModalDialogManager";
 import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager";
 import { ElementTooltip } from "../feedback/ElementTooltip";
-import { FrontstageComposer } from "../frontstage/FrontstageComposer";
-import { useFrameworkVersion } from "../hooks/useFrameworkVersion";
 import { KeyboardShortcutManager } from "../keyboardshortcut/KeyboardShortcut";
 import { KeyboardShortcutMenu } from "../keyboardshortcut/KeyboardShortcutMenu";
 import { InputFieldMessage } from "../messages/InputField";
@@ -45,7 +43,6 @@ export interface ConfigurableUiContentProps extends CommonProps {
  * @public
  */
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
-  const version = useFrameworkVersion();
   React.useEffect(() => {
     KeyboardShortcutManager.setFocusToHome();
   }, []);
@@ -69,8 +66,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
       onMouseMove={handleMouseMove}
     >
       {props.appBackstage}
-      {/* eslint-disable-next-line deprecation/deprecation */}
-      {version === "1" ?  /* istanbul ignore next */ <FrontstageComposer style={{ position: "relative", height: "100%" }} /> : /* istanbul ignore next */ <WidgetPanelsFrontstage />}
+      <WidgetPanelsFrontstage />
       <ContentDialogRenderer />
       <ModelessDialogRenderer />
       <ModalDialogRenderer />

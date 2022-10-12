@@ -11,14 +11,13 @@ import { PointProps } from "@itwin/appui-abstract";
 import { Point, Rectangle, RectangleProps } from "@itwin/core-react";
 import { Cell, CellProps } from "../../utilities/Cell";
 import { DisabledResizeHandles } from "../../utilities/DisabledResizeHandles";
-import { HorizontalAnchor, ResizeHandle, VerticalAnchor } from "../../widget/Stacked";
 import { BottomZones, LeftZones, RightZones, TopZones } from "./AdjacentZones";
 import {
   GrowBottom, GrowLeft, GrowRight, GrowTop, ResizeStrategy, ShrinkBottom, ShrinkLeft, ShrinkRight, ShrinkTop, UpdateWindowResizeSettings,
 } from "./ResizeStrategy";
 import {
   DraggedWidgetManager, DraggedWidgetManagerProps, getDefaultToolSettingsWidgetManagerProps, getDefaultWidgetHorizontalAnchor,
-  getDefaultWidgetManagerProps, getDefaultWidgetVerticalAnchor, ToolSettingsWidgetManagerProps, ToolSettingsWidgetMode, WidgetManagerProps,
+  getDefaultWidgetManagerProps, getDefaultWidgetVerticalAnchor, HorizontalAnchor, ResizeHandle, ToolSettingsWidgetManagerProps, ToolSettingsWidgetMode, VerticalAnchor, WidgetManagerProps,
 } from "./Widget";
 import { getDefaultZoneManagerProps, getWindowResizeSettings, ZoneManager, ZoneManagerProps } from "./Zone";
 import { setRectangleProps } from "../../state/internal/NineZoneStateHelpers";

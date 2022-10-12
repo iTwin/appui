@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { Point3d, Range3d, Vector3d, YawPitchRollAngles } from "@itwin/core-geometry";
 import {
   CategorySelectorProps, DisplayStyleProps, EcefLocation, HydrateViewStateResponseProps, IModelReadRpcInterface, ModelSelectorProps, SheetProps, SpatialViewDefinitionProps, ViewStateProps,
@@ -15,7 +14,7 @@ import * as moq from "typemoq";
 import * as sinon from "sinon";
 import {
   ConfigurableCreateInfo, ConfigurableUiManager, ContentGroup, ContentLayoutDef, ContentLayoutManager, ContentProps, CoreTools, Frontstage,
-  FrontstageManager, FrontstageProps, FrontstageProvider, NavigationWidget, StageContentLayout, StageContentLayoutProps, ViewportContentControl, Widget,
+  FrontstageManager, FrontstageProps, FrontstageProvider, StageContentLayout, StageContentLayoutProps, ViewportContentControl, Widget,
   Zone,
 } from "../../appui-react";
 import { ViewUtilities } from "../../appui-react/utils/ViewUtilities";
@@ -188,7 +187,7 @@ describe("StageContentLayout", () => {
 
           topRight={
             <Zone widgets={[
-              <Widget isFreeform={true} element={<NavigationWidget />} />, // eslint-disable-line deprecation/deprecation, react/jsx-key
+              <Widget key={0} isFreeform={true} element={<>NavigationWidget</>} />,
             ]} />
           }
         />

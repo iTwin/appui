@@ -9,8 +9,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import {
   ContentGroup, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, NestedFrontstage,
-  ToolItemDef,
-  ToolWidget, Widget, Zone, ZoneState,
+  ToolItemDef, Widget, Zone, ZoneState,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { AppStatusBarWidgetControl, TestContentControl, TestFrontstage } from "./FrontstageTestUtils";
@@ -56,7 +55,7 @@ class TestNestedFrontstage extends FrontstageProvider {
         topLeft={
           <Zone defaultState={ZoneState.Open} allowsMerging={true} applicationData={{ key: "value" }}
             widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />, // eslint-disable-line react/jsx-key
+              <Widget isFreeform={true} element={<>FrontstageToolWidget</>} />, // eslint-disable-line react/jsx-key
             ]}
           />
         }
@@ -75,16 +74,6 @@ class TestNestedFrontstage extends FrontstageProvider {
             ]}
           />
         }
-      />
-    );
-  }
-}
-
-class FrontstageToolWidget extends React.Component {
-  public override render() {
-    return (
-      <ToolWidget // eslint-disable-line deprecation/deprecation
-        appButton={NestedFrontstage.backToPreviousFrontstageCommand}
       />
     );
   }

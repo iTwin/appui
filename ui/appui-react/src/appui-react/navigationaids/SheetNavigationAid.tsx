@@ -32,6 +32,7 @@ export class SheetNavigationAidControl extends NavigationAidControl {
     this.reactNode = <SheetNavigationAid iModelConnection={options.imodel} />;
   }
 
+  // istanbul ignore next
   public override getSize(): string | undefined { return "96px"; }
 }
 

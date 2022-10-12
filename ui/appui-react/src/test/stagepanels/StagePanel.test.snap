@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`StagePanel should not render w/o runtime props 1`] = `""`;
-
-exports[`StagePanel should pass down maxSize number property 1`] = `""`;

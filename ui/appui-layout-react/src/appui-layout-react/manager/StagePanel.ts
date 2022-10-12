@@ -7,7 +7,7 @@
  */
 
 import { getDefaultStagePanelManagerProps, StagePanelManager, StagePanelManagerProps, StagePanelType } from "../stage-panels/manager/StagePanel";
-import { HorizontalAnchor, VerticalAnchor } from "../widget/Stacked";
+import { HorizontalAnchor, VerticalAnchor } from "../zones/manager/Widget";
 import { WidgetZoneId } from "../zones/manager/Zones";
 import { getDefaultNineZoneStagePanelPaneManagerProps, NineZoneStagePanelPaneManager, NineZoneStagePanelPaneManagerProps } from "./StagePanelPane";
 

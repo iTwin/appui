@@ -3,12 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
+import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
-  ActionItemButton, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, GroupButton, IModelViewportControl,
-  NavigationWidget, ToolButton, ToolWidget, UiFramework, Widget, Zone, ZoneLocation, ZoneState,
+  ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, IModelViewportControl, NavigationAidHost,
+  NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, Widget, Zone, ZoneLocation, ZoneState,
 } from "@itwin/appui-react";
-import { Direction, Toolbar } from "@itwin/appui-layout-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { IModelViewportControl as App_IModelViewport } from "../contentviews/IModelViewport";
 import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
@@ -16,6 +15,8 @@ import { NavigationTreeWidgetControl } from "../widgets/NavigationTreeWidget";
 import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { TableDemoWidgetControl } from "../widgets/TableDemoWidget";
 import { ReactTableDemoContentControl } from "../table-demo/ReactTableDemo";
+import { AppToolbarUtilities } from "./NestedFrontstage1";
+import { IModelApp } from "@itwin/core-frontend";
 
 /* eslint-disable react/jsx-key, deprecation/deprecation */
 
@@ -128,51 +129,41 @@ export class Frontstage3 extends FrontstageProvider {
   /** Define a ToolWidget with Buttons to display in the TopLeft zone.
    */
   private getToolWidget(): React.ReactNode {
+    const horizontalItems: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item1),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item2),
+      ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool1),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool2),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.infoMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.warningMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.errorMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.noIconMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item6),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item7),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item8),
+      ]),
+    ];
 
-    const horizontalToolbar =
-      <Toolbar
-        expandsTo={Direction.Bottom}
-        items={
-          <>
-            <ActionItemButton actionItem={AppTools.item1} />
-            <ActionItemButton actionItem={AppTools.item2} />
-            <GroupButton
-              labelKey="SampleApp:buttons.toolGroup"
-              iconSpec="icon-placeholder"
-              items={[AppTools.tool1, AppTools.tool2, AppTools.infoMessageCommand, AppTools.warningMessageCommand, AppTools.errorMessageCommand, AppTools.noIconMessageCommand, AppTools.item6, AppTools.item7, AppTools.item8]}
-              direction={Direction.Bottom}
-              itemsInColumn={5}
-            />
-          </>
-        }
-      />;
-
-    const verticalToolbar =
-      <Toolbar
-        expandsTo={Direction.Right}
-        items={
-          <>
-            <ToolButton toolId={AppTools.tool1.id} iconSpec={AppTools.tool1.iconSpec} labelKey={AppTools.tool1.label} execute={AppTools.tool1.execute} />
-            <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-            <GroupButton
-              labelKey="SampleApp:buttons.toolGroup"
-              iconSpec="icon-placeholder"
-              items={[
-                AppTools.successMessageBoxCommand, AppTools.informationMessageBoxCommand, AppTools.questionMessageBoxCommand, AppTools.warningMessageBoxCommand,
-                AppTools.errorMessageBoxCommand, AppTools.openMessageBoxCommand, AppTools.openMessageBoxCommand2, AppTools.openMessageBoxCommand3,
-              ]}
-              direction={Direction.Right}
-              itemsInColumn={7}
-            />
-          </>
-        }
-      />;
+    const verticalItems: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
+      ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.successMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.informationMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.questionMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.warningMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.errorMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.openMessageBoxCommand2),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.openMessageBoxCommand3),
+      ]),
+    ];
 
     return (
-      <ToolWidget
-        appButton={AppTools.backstageToggleCommand}
-        horizontalToolbar={horizontalToolbar}
-        verticalToolbar={verticalToolbar}
+      <ToolWidgetComposer
+        cornerItem={AppTools.backstageToggleCommand}
+        verticalToolbar={<ToolbarComposer items={verticalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
+        horizontalToolbar={<ToolbarComposer items={horizontalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
       />
     );
   }
@@ -181,40 +172,26 @@ export class Frontstage3 extends FrontstageProvider {
    */
   private getNavigationWidget(): React.ReactNode {
 
-    const horizontalToolbar =
-      <Toolbar
-        expandsTo={Direction.Bottom}
-        items={
-          <>
-            <ToolButton toolId={AppTools.item5.id} iconSpec={AppTools.item5.iconSpec} labelKey={AppTools.item5.label} execute={AppTools.item5.execute} />
-            <ToolButton toolId={AppTools.item6.id} iconSpec={AppTools.item6.iconSpec} labelKey={AppTools.item6.label} execute={AppTools.item6.execute} />
-            <GroupButton
-              labelKey="SampleApp:buttons.toolGroup"
-              iconSpec="icon-placeholder"
-              items={[AppTools.infoMessageCommand, AppTools.warningMessageCommand, AppTools.errorMessageCommand]}
-              direction={Direction.Bottom}
-              itemsInColumn={4}
-            />
-          </>
-        }
-      />;
+    const horizontalItems: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
+      ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.infoMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.warningMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.errorMessageCommand),
+      ]),
+    ];
 
-    const verticalToolbar =
-      <Toolbar
-        expandsTo={Direction.Right}
-        items={
-          <>
-            <ToolButton toolId={AppTools.item7.id} iconSpec={AppTools.item7.iconSpec} labelKey={AppTools.item7.label} execute={AppTools.item7.execute} />
-            <ToolButton toolId={AppTools.item8.id} iconSpec={AppTools.item8.iconSpec} labelKey={AppTools.item8.label} execute={AppTools.item8.execute} />
-          </>
-        }
-      />;
+    const verticalItems: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
+    ];
 
     return (
-      <NavigationWidget
-        navigationAidId="CubeNavigationAid"
-        horizontalToolbar={horizontalToolbar}
-        verticalToolbar={verticalToolbar}
+      <NavigationWidgetComposer
+        navigationAidHost={<NavigationAidHost />} // CubeNavigationAid
+        verticalToolbar={<ToolbarComposer items={verticalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />}
+        horizontalToolbar={<ToolbarComposer items={horizontalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />}
       />
     );
   }

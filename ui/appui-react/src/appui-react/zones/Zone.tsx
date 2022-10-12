@@ -8,17 +8,9 @@
  */
 
 import * as React from "react";
-import { WidgetState } from "@itwin/appui-abstract";
-import { CommonProps, RectangleProps } from "@itwin/core-react";
-import {
-  DisabledResizeHandles, DraggedWidgetManagerProps, ToolSettingsWidgetManagerProps, WidgetManagerProps, WidgetZoneId,
-  ZoneManagerProps, ZoneTargetType,
-} from "@itwin/appui-layout-react";
-import { TargetChangeHandler, WidgetChangeHandler, ZoneDefProvider } from "../frontstage/FrontstageComposer";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { WidgetDef, WidgetStateChangedEventArgs } from "../widgets/WidgetDef";
+import { CommonProps } from "@itwin/core-react";
+import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetProps } from "../widgets/WidgetProps";
-import { WidgetTabs } from "../widgets/WidgetStack";
 import { ZoneDef, ZoneState } from "./ZoneDef";
 
 /** Enum for [[Zone]] Location.
@@ -55,30 +47,6 @@ export interface ZoneProps extends CommonProps {
    * [[Frontstage]] version must be increased when Widget location is changed or new widgets are added/removed.
    */
   widgets?: Array<React.ReactElement<WidgetProps>>;
-
-  /** @internal */
-  runtimeProps?: ZoneRuntimeProps;
-}
-
-/** Runtime Properties for the [[Zone]] component.
- * @internal
- */
-export interface ZoneRuntimeProps {
-  activeTabIndex: number;
-  disabledResizeHandles: DisabledResizeHandles | undefined;
-  draggedWidget: DraggedWidgetManagerProps | undefined;
-  dropTarget: ZoneTargetType | undefined; // eslint-disable-line deprecation/deprecation
-  getWidgetContentRef: (id: WidgetZoneId) => React.Ref<HTMLDivElement>; // eslint-disable-line deprecation/deprecation
-  ghostOutline: RectangleProps | undefined;
-  isHidden: boolean;
-  openWidgetId: WidgetZoneId | undefined; // eslint-disable-line deprecation/deprecation
-  targetChangeHandler: TargetChangeHandler; // eslint-disable-line deprecation/deprecation
-  widget: WidgetManagerProps | undefined;
-  widgetTabs: WidgetTabs;
-  widgetChangeHandler: WidgetChangeHandler; // eslint-disable-line deprecation/deprecation
-  zoneDefProvider: ZoneDefProvider;
-  zoneDef: ZoneDef;
-  zone: ZoneManagerProps;
 }
 
 /** @internal */
@@ -119,65 +87,7 @@ export class Zone extends React.Component<ZoneProps> {
     }
   }
 
-  public override componentDidMount(): void {
-    FrontstageManager.onWidgetStateChangedEvent.addListener(this._handleWidgetStateChangedEvent);
-  }
-
-  public override componentWillUnmount(): void {
-    FrontstageManager.onWidgetStateChangedEvent.removeListener(this._handleWidgetStateChangedEvent);
-  }
-
   public override render(): React.ReactNode {
     return null;
   }
-
-  private _handleWidgetStateChangedEvent = (args: WidgetStateChangedEventArgs) => {
-    const runtimeProps = this.props.runtimeProps;
-    if (!runtimeProps)
-      return;
-
-    const widgetDef = args.widgetDef;
-    const id = this.getWidgetIdForDef(widgetDef);
-    if (!id)
-      return;
-
-    const zoneDef = runtimeProps.zoneDefProvider.getZoneDef(id);
-    // istanbul ignore if
-    if (!zoneDef)
-      return;
-
-    const visibleWidgets = zoneDef.widgetDefs.filter((wd) => wd.isVisible || wd === widgetDef);
-    for (let index = 0; index < visibleWidgets.length; index++) {
-      const wDef = visibleWidgets[index];
-      if (wDef !== widgetDef)
-        continue;
-
-      if (widgetDef.state === WidgetState.Hidden && index < runtimeProps.activeTabIndex && id === runtimeProps.openWidgetId) {
-        // Need to decrease active tab index, since removed tab was rendered before active tab and we want to maintain active tab.
-        runtimeProps.widgetChangeHandler.handleTabClick(id, runtimeProps.activeTabIndex - 1);
-        break;
-      }
-      runtimeProps.widgetChangeHandler.handleWidgetStateChange(id, index, widgetDef.state === WidgetState.Open);
-      break;
-    }
-  };
-
-  private getWidgetIdForDef(widgetDef: WidgetDef): WidgetZoneId | undefined { // eslint-disable-line deprecation/deprecation
-    // istanbul ignore if
-    if (!this.props.runtimeProps)
-      return undefined;
-
-    for (const wId of this.props.runtimeProps.zone.widgets) {
-      const zoneDef = this.props.runtimeProps.zoneDefProvider.getZoneDef(wId);
-      if (zoneDef && zoneDef.widgetDefs.some((wDef: WidgetDef) => wDef === widgetDef))
-        return wId;
-    }
-
-    return undefined;
-  }
 }
-
-/** @internal */
-export const isToolSettingsWidgetManagerProps = (props: WidgetManagerProps | undefined): props is ToolSettingsWidgetManagerProps => {
-  return !!props && props.id === 2;
-};

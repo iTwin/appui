@@ -2,21 +2,18 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { MockRender, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
-import { ViewportComponentEvents } from "@itwin/imodel-components-react";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, ContentGroup, ContentLayoutManager, ContentViewManager,
-  CoreTools, FloatingContentControl, FloatingViewportContentControl, Frontstage, FrontstageComposer, FrontstageManager, FrontstageProps, FrontstageProvider, NavigationWidget, SupportsViewSelectorChange,
+  CoreTools, FloatingContentControl, FloatingViewportContentControl, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider, SupportsViewSelectorChange,
   ViewportContentControl, Widget, Zone,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { render } from "@testing-library/react";
 
 const mySessionStorage = storageMock();
 
@@ -91,7 +88,7 @@ describe("ViewportContentControl", () => {
 
           topRight={
             <Zone widgets={[
-              <Widget isFreeform={true} element={<NavigationWidget />} />, // eslint-disable-line deprecation/deprecation, react/jsx-key
+              <Widget key={0} isFreeform={true} element={<>NavigationWidget</>} />,
             ]} />
           }
         />
@@ -160,39 +157,6 @@ describe("ViewportContentControl", () => {
         expect(contentControl.navigationAidControl).to.eq("CubeNavigationAid");
       }
     }
-  });
-
-  it.skip("onViewClassFullNameChangedEvent should cause a NavigationAid change", async () => {
-    render(<FrontstageComposer />); // eslint-disable-line deprecation/deprecation
-    const spyMethod = sinon.spy();
-    const remove = FrontstageManager.onNavigationAidActivatedEvent.addListener(spyMethod);
-
-    const frontstageProvider = new Frontstage1();
-    FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(Frontstage1.stageId);
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
-
-    if (frontstageDef) {
-      expect(ContentLayoutManager.activeLayout?.id).to.eq("uia:singleView");
-
-      const contentControl = ContentViewManager.getActiveContentControl();
-      expect(contentControl).to.not.be.undefined;
-
-      await TestUtils.flushAsyncOperations();
-      expect(spyMethod.calledOnce).to.be.true;
-
-      if (contentControl) {
-        ViewportComponentEvents.onViewClassFullNameChangedEvent.emit({
-          viewport: viewportMock.object,
-          oldName: "SheetViewDefinition",
-          newName: "SpatialViewDefinition",
-        });
-        await TestUtils.flushAsyncOperations();
-        expect(spyMethod.calledTwice).to.be.true;
-      }
-    }
-
-    remove();
   });
 
   it("FrontstageManager.setActiveFrontstageDef should cause onActiveContentChangedEvent", async () => {
