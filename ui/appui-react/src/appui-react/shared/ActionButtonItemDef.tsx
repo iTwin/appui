@@ -6,10 +6,8 @@
  * @module Item
  */
 
-import * as React from "react";
 import { CommandHandler, OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { Orientation, SizeProps } from "@itwin/core-react";
-import { ActionItemButton } from "../toolbar/ActionItemButton";
 import { ItemDefBase } from "./ItemDefBase";
 import { ItemProps } from "./ItemProps";
 
@@ -61,32 +59,5 @@ export abstract class ActionButtonItemDef extends ItemDefBase {
       dimension = (orientation === Orientation.Horizontal) ? this.size.width : this.size.height;
 
     return dimension;
-  }
-
-  /** @internal */
-  public static getRandomId(): string {
-    return (Math.floor(Math.random() * 100) + 1000).toString();
-  }
-
-  /** @internal */
-  public getKey = (index?: number): string => {
-    const key = (!!this.id) ? this.id : (index !== undefined) ? index.toString() : ActionButtonItemDef.getRandomId();
-    return key;
-  };
-
-  /** @internal */
-  public toolbarReactNode(index?: number): React.ReactNode {
-    if (!this.isVisible) // eslint-disable-line deprecation/deprecation
-      return null;
-
-    const key = this.getKey(index);
-
-    return (
-      <ActionItemButton
-        key={key}
-        actionItem={this}
-        onSizeKnown={this.handleSizeKnown}
-      />
-    );
   }
 }

@@ -5,7 +5,6 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { IModelApp, NoRenderApp, SelectionTool, Tool } from "@itwin/core-frontend";
-import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { Orientation, Size } from "@itwin/core-react";
 import { ActionButtonItemDef, CommandItemDef, ItemProps, ToolItemDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
@@ -28,23 +27,6 @@ describe("Item", () => {
     });
     expect(commandItem.id.substr(0, CommandItemDef.commandIdPrefix.length)).to.eq(CommandItemDef.commandIdPrefix);
     commandItem.execute();  // Just for 'else' coverage
-  });
-
-  it("CommandItemDef that isn't visible should not render", () => {
-    const commandItem = new CommandItemDef({
-      iconSpec: "icon-placeholder",
-      isVisible: false,
-    });
-    expect(commandItem.toolbarReactNode()).to.be.null;
-  });
-
-  it("CommandItemDef that is visible should render", () => {
-    const commandItem = new CommandItemDef({
-      iconSpec: new ConditionalStringValue(() => "icon-placeholder", ["dummy"]),
-      label: new ConditionalStringValue(() => "test-command", ["dummy"]),
-      isVisible: true,
-    });
-    expect(commandItem.toolbarReactNode()).to.not.be.null;
   });
 
   it("CommandItemDef should set and get description", () => {
@@ -152,24 +134,6 @@ describe("Item", () => {
       return "";
     }
   }
-
-  it("ActionButtonItemDef with no id or index gets random key", () => {
-    const testItem = new TestItemDef({
-      iconSpec: "icon-placeholder",
-    });
-    const key = testItem.getKey();
-    const numericKey = parseInt(key, 10);
-    expect(numericKey).to.be.at.least(1000);
-  });
-
-  it("ActionButtonItemDef with no id but index gets index", () => {
-    const testItem = new TestItemDef({
-      iconSpec: "icon-placeholder",
-    });
-    const key = testItem.getKey(100);
-    const numericKey = parseInt(key, 10);
-    expect(numericKey).to.eq(100);
-  });
 
   it("ActionButtonItemDef with no size returns default dimension of 42", () => {
     const testItem = new TestItemDef({

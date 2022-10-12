@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { AbstractWidgetProps, BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent, UiSyncEventArgs, WidgetState } from "@itwin/appui-abstract";
-import { Direction, FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
+import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
@@ -69,9 +69,6 @@ export enum WidgetType {
  * @public
  */
 export interface ToolbarWidgetProps extends WidgetProps {
-  horizontalDirection?: Direction; // eslint-disable-line deprecation/deprecation
-  verticalDirection?: Direction; // eslint-disable-line deprecation/deprecation
-
   horizontalItems?: ItemList;
   verticalItems?: ItemList;
 }

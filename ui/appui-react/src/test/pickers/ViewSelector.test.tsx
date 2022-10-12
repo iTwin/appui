@@ -10,6 +10,7 @@ import { IModelConnection } from "@itwin/core-frontend";
 import { FrameworkVersion, UiFramework, ViewSelector } from "../../appui-react";
 import TestUtils, { mount } from "../TestUtils";
 import { Provider } from "react-redux";
+import { ToolbarItemContext } from "@itwin/components-react";
 
 // cSpell:ignore Spatials
 
@@ -24,7 +25,7 @@ describe("ViewSelector", () => {
   });
 
   after(async () => {
-  // restore to default "2" setting
+    // restore to default "2" setting
     UiFramework.setUiVersion("2");
     await TestUtils.flushAsyncOperations();
     TestUtils.terminateUiFramework();
@@ -45,7 +46,15 @@ describe("ViewSelector", () => {
     const wrapper = mount(
       <Provider store={TestUtils.store}>
         <FrameworkVersion>
-          <ViewSelector imodel={imodelMock.object} listenForShowUpdates={true} />
+          <ToolbarItemContext.Provider
+            value={{
+              hasOverflow: false,
+              useHeight: false,
+              onResize: () => { },
+            }}
+          >
+            <ViewSelector imodel={imodelMock.object} listenForShowUpdates={true} />
+          </ToolbarItemContext.Provider>
         </FrameworkVersion>
       </Provider>
     );
@@ -69,7 +78,15 @@ describe("ViewSelector", () => {
     const wrapper = mount(
       <Provider store={TestUtils.store}>
         <FrameworkVersion>
-          <ViewSelector imodel={imodelMock.object} />
+          <ToolbarItemContext.Provider
+            value={{
+              hasOverflow: false,
+              useHeight: false,
+              onResize: () => { },
+            }}
+          >
+            <ViewSelector imodel={imodelMock.object} />
+          </ToolbarItemContext.Provider>
         </FrameworkVersion>
       </Provider>
     );

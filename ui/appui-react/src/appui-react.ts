@@ -196,16 +196,10 @@ export * from "./appui-react/timeline/ScheduleAnimationProvider";
 export * from "./appui-react/timeline/AnalysisAnimationProvider";
 export * from "./appui-react/timeline/SolarTimelineDataProvider";
 
-export * from "./appui-react/toolbar/ActionButtonItem";
-export * from "./appui-react/toolbar/ActionItemButton";
 export * from "./appui-react/toolbar/DragInteraction";
 export * from "./appui-react/toolbar/ToolbarComposer";
-export * from "./appui-react/toolbar/GroupButtonItem";
 export * from "./appui-react/toolbar/GroupItem";
-export * from "./appui-react/toolbar/PopupButton";
-export * from "./appui-react/toolbar/Toolbar";
 export * from "./appui-react/toolbar/ToolbarHelper";
-export * from "./appui-react/toolbar/ToolButton";
 export * from "./appui-react/toolbar/useUiItemsProviderToolbarItems";
 export * from "./appui-react/toolbar/useDefaultToolbarItems";
 
@@ -253,7 +247,6 @@ export * from "./appui-react/widgets/ViewToolWidgetComposer";
 export * from "./appui-react/widgets/StatusBarWidgetComposerControl";
 export * from "./appui-react/widgets/ContentToolWidgetComposer";
 export * from "./appui-react/widgets/StableWidgetDef";
-export * from "./appui-react/widgets/ToolbarWidgetBase";
 export * from "./appui-react/widgets/ToolWidgetComposer";
 export * from "./appui-react/widgets/Widget";
 export * from "./appui-react/widgets/WidgetControl";
