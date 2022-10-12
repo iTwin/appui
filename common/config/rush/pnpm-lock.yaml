@@ -1250,6 +1250,7 @@ importers:
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~4.4.0
+      xmlhttprequest: ^1.8.0
     dependencies:
       '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': link:../appui-abstract
@@ -1305,6 +1306,7 @@ importers:
       ts-node: 10.9.1_682344da2941ebadf30143df449365fe
       typemoq: 2.1.0
       typescript: 4.4.4
+      xmlhttprequest: 1.8.0
 
   ../../ui/imodel-components-react:
     specifiers:

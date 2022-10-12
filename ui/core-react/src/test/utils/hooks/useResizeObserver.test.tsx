@@ -8,7 +8,7 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import * as ResizeObserverModule from "../../../core-react/utils/hooks/ResizeObserverPolyfill";
 import { ElementResizeObserver, ResizableContainerObserver, useResizeObserver } from "../../../core-react/utils/hooks/useResizeObserver";
 import TestUtils from "../../TestUtils";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 
 /** Stubs requestAnimationFrame. */
@@ -220,9 +220,8 @@ describe("useLayoutResizeObserver", () => {
       contentRect: DOMRect.fromRect({ width: 300, height: 100 }), // we ignore this in hook and just get size from getBoundingClientRect method.
       target: container,
     }], resizeObserverSpy.firstCall.returnValue);
-    await TestUtils.flushAsyncOperations();
 
-    expect(wrapper.getByTestId("width").textContent).to.eql("300");
+    await waitFor(() => expect(wrapper.getByTestId("width").textContent).to.eql("300"));
     expect(wrapper.getByTestId("height").textContent).to.eql("100");
     wrapper.unmount();
   });

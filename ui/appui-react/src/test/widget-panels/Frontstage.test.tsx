@@ -18,7 +18,7 @@ import {
   ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, CoreTools, expandWidget, Frontstage, FrontstageDef,
   FrontstageManager, FrontstageProvider, getWidgetId, initializeNineZoneState, initializePanel, isFrontstageStateSettingResult, ModalFrontstageComposer,
   packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanel, StagePanelDef, StagePanelZoneDef, StagePanelZonesDef,
-  UiFramework, UiSettingsProviderProps, UiStateStorageHandler, useActiveModalFrontstageInfo, useFrontstageManager, useNineZoneDispatch, useNineZoneState, useSavedFrontstageState,
+  UiFramework, UiStateStorageHandler, useActiveModalFrontstageInfo, useFrontstageManager, useNineZoneDispatch, useNineZoneState, useSavedFrontstageState,
   useSaveFrontstageSettings, useUpdateNineZoneSize, Widget, WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState, Zone, ZoneDef,
 } from "../../appui-react";
 import TestUtils, { mount, storageMock, stubRaf, UiStateStorageStub } from "../TestUtils";
@@ -843,7 +843,7 @@ describe("Frontstage local storage wrapper", () => {
           setting,
         });
         const frontstageDef = new FrontstageDef();
-        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+        renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
         await TestUtils.flushAsyncOperations();
@@ -857,7 +857,7 @@ describe("Frontstage local storage wrapper", () => {
         UiFramework.setUiStateStorage(uiStateStorage);
 
         const spy = sinon.spy(uiStateStorage, "getSetting");
-        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+        renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
         spy.notCalled.should.true;
@@ -874,7 +874,7 @@ describe("Frontstage local storage wrapper", () => {
         UiFramework.setUiStateStorage(uiStateStorage);
 
         sinon.stub(frontstageDef, "version").get(() => setting.version + 1);
-        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+        renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
         await TestUtils.flushAsyncOperations();
@@ -905,7 +905,7 @@ describe("Frontstage local storage wrapper", () => {
         }, StagePanelLocation.Left);
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
 
-        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+        renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
         await TestUtils.flushAsyncOperations();
@@ -925,7 +925,7 @@ describe("Frontstage local storage wrapper", () => {
         frontstageDef.nineZoneState = createNineZoneState();
         UiFramework.setUiStateStorage(uiStateStorage);
 
-        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef), {
+        renderHook(() => useSaveFrontstageSettings(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
         fakeTimers.tick(1000);
@@ -946,7 +946,7 @@ describe("Frontstage local storage wrapper", () => {
         frontstageDef.nineZoneState = produce(createNineZoneState(), (draft) => {
           draft.draggedTab = createDraggedTabState("t1");
         });
-        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef), {
+        renderHook(() => useSaveFrontstageSettings(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />,
         });
         fakeTimers.tick(1000);
@@ -1033,7 +1033,7 @@ describe("Frontstage local storage wrapper", () => {
           UiFramework.setUiStateStorage(uiStateStorage);
 
           const spy = sinon.spy(uiStateStorage, "deleteSetting");
-          renderHook<UiSettingsProviderProps, void>(() => useFrontstageManager(frontstageDef), {
+          renderHook(() => useFrontstageManager(frontstageDef), {
             wrapper: (props) => <UiStateStorageHandler {...props} />,
           });
           FrontstageManager.onFrontstageRestoreLayoutEvent.emit({
@@ -1048,7 +1048,7 @@ describe("Frontstage local storage wrapper", () => {
           const uiStateStorage = new UiStateStorageStub();
           UiFramework.setUiStateStorage(uiStateStorage);
 
-          renderHook<UiSettingsProviderProps, void>(() => useFrontstageManager(frontstageDef), {
+          renderHook(() => useFrontstageManager(frontstageDef), {
             wrapper: (props) => <UiStateStorageHandler {...props} />,
           });
           const frontstageDef1 = new FrontstageDef();

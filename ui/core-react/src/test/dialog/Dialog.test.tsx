@@ -12,12 +12,21 @@ import { GlobalDialog } from "../../core-react/dialog/GlobalDialog";
 import { UiCore } from "../../core-react/UiCore";
 import TestUtils from "../TestUtils";
 import { DialogButtonType } from "@itwin/appui-abstract";
+import userEvent from "@testing-library/user-event";
+
+/**
+ * Build x,y,clientX,clientY coord object. (x,y required for user-event to determine a move,
+ * but our code validates clientX and clientY)
+ * @param x x, clientX value
+ * @param y y, clientY value
+ */
+const coords = (x: number, y: number) => ({x, y, clientX: x, clientY: y});
 
 describe("Dialog", () => {
-
-  const createBubbledEvent = (type: string, props = {}) => {
-    return TestUtils.createBubbledEvent(type, props);
-  };
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
 
   before(async () => {
     await TestUtils.initializeUiCore();
@@ -99,23 +108,35 @@ describe("Dialog", () => {
     it("should render with movable", () => {
       render(<Dialog opened={true} movable={true} />);
     });
-    it("should move from pointer events", () => {
+    it("should move from pointer events", async () => {
       const component = render(<Dialog opened={true} movable={true} height={400} width={400} />);
       const head = component.getByTestId("core-dialog-head");
-      head.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 200, clientY: 5 }));
-      head.dispatchEvent(createBubbledEvent("pointermove", { clientX: 300, clientY: 50 }));
-      head.dispatchEvent(createBubbledEvent("pointerup", { clientX: 300, clientY: 50 }));
+      await theUserTo.pointer([{
+        keys:"[MouseLeft>]",
+        coords: coords(200, 5),
+        target: head,
+      }, {
+        coords: coords(300, 50),
+        target: head,
+      }, "[/MouseLeft]"]);
       const container = component.getByTestId("core-dialog-container");
       expect(container.style.left).to.equal("100px");
       expect(container.style.top).to.equal("45px");
     });
-    it("should not move from pointer events when movable is false", () => {
+    it("should not move from pointer events when movable is false", async () => {
       const component = render(<Dialog opened={true} movable={false} height={400} width={400} />);
       const head = component.getByTestId("core-dialog-head");
-      head.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 200, clientY: 5 }));
-      head.dispatchEvent(createBubbledEvent("pointermove", { clientX: 250, clientY: 25 }));
-      head.dispatchEvent(createBubbledEvent("pointermove", { clientX: 300, clientY: 50 }));
-      head.dispatchEvent(createBubbledEvent("pointerup", { clientX: 300, clientY: 50 }));
+      await theUserTo.pointer([{
+        target: head,
+        coords: coords(200, 5),
+        keys: "[MouseLeft>]",
+      },{
+        target: head,
+        coords: coords(250, 25),
+      },{
+        target: head,
+        coords: coords(300, 50),
+      },"/[MouseLeft]"]);
       const container = component.getByTestId("core-dialog-container");
       expect(container.style.left).to.equal("");
       expect(container.style.top).to.equal("");
@@ -126,69 +147,112 @@ describe("Dialog", () => {
     it("should render with string min/max sizes", () => {
       render(<Dialog opened={true} minHeight={"25%"} minWidth={"25%"} maxWidth={"75%"} maxHeight={"75%"} />);
     });
-    it("should not resize from pointer events on bottom right when resizable={false}", () => {
+    it("should not resize from pointer events on bottom right when resizable={false}", async () => {
       const component = render(<Dialog opened={true} resizable={false} height={400} width={400} minHeight={200} minWidth={200} />);
       const bottomRightDragHandle = component.getByTestId("core-dialog-drag-bottom-right");
-      bottomRightDragHandle.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 400, clientY: 400 }));
-      window.dispatchEvent(createBubbledEvent("pointermove", { clientX: 200, clientY: 200 }));
-      window.dispatchEvent(createBubbledEvent("pointerup", { clientX: 200, clientY: 200 }));
+      await theUserTo.pointer([{
+        target: bottomRightDragHandle,
+        coords: coords(400, 400),
+        keys: "[MouseLeft>]",
+      }, {
+        target: bottomRightDragHandle,
+        coords: coords(200,200),
+      }, "[/MouseLeft]"]);
       const container = component.getByTestId("core-dialog-container");
       expect(container.style.height).to.equal("400px");
       expect(container.style.width).to.equal("400px");
     });
-    it("should resize from pointer events on bottom right", () => {
+    it("should resize from pointer events on bottom right", async () => {
       const component = render(<Dialog opened={true} resizable={true} height={400} width={400} minHeight={200} minWidth={200} />);
       const bottomRightDragHandle = component.getByTestId("core-dialog-drag-bottom-right");
-      bottomRightDragHandle.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 400, clientY: 400 }));
-      window.dispatchEvent(createBubbledEvent("pointermove", { clientX: 200, clientY: 200 }));
-      window.dispatchEvent(createBubbledEvent("pointerup", { clientX: 200, clientY: 200 }));
+      await theUserTo.pointer([{
+        target: bottomRightDragHandle,
+        coords: coords(400, 400),
+        keys: "[MouseLeft>]",
+      }, {
+        target: bottomRightDragHandle,
+        coords: coords(200, 200),
+      }, "[/MouseLeft]"]);
       const container = component.getByTestId("core-dialog-container");
       expect(container.style.height).to.equal("200px");
       expect(container.style.width).to.equal("200px");
     });
-    it("should resize relative to top right corner from pointer events on bottom right when both resizable and movable", () => {
+    it("should resize relative to top right corner from pointer events on bottom right when both resizable and movable", async () => {
       const component = render(<Dialog opened={true} resizable={true} movable={true} height={400} width={400} minHeight={200} minWidth={200} />);
       const bottomRightDragHandle = component.getByTestId("core-dialog-drag-bottom-right");
-      bottomRightDragHandle.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 400, clientY: 400 }));
-      window.dispatchEvent(createBubbledEvent("pointermove", { clientX: 200, clientY: 200 }));
-      window.dispatchEvent(createBubbledEvent("pointerup", { clientX: 200, clientY: 200 }));
+      await theUserTo.pointer([{
+        target: bottomRightDragHandle,
+        coords: coords(400, 400),
+        keys: "[MouseLeft>]",
+      }, {
+        target: bottomRightDragHandle,
+        coords: coords(200, 200),
+      }, "[/MouseLeft]"]);
       const container = component.getByTestId("core-dialog-container");
       expect(container.style.height).to.equal("200px");
       expect(container.style.width).to.equal("200px");
     });
-    it("should resize to minWidth and minHeight", () => {
+    it("should resize to minWidth and minHeight", async () => {
       const component = render(<Dialog opened={true} resizable={true} height={400} width={400} minHeight={200} minWidth={200} />);
       const bottomRightDragHandle = component.getByTestId("core-dialog-drag-bottom-right");
-      bottomRightDragHandle.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 400, clientY: 400 }));
-      window.dispatchEvent(createBubbledEvent("pointermove", { clientX: 100, clientY: 100 }));
-      window.dispatchEvent(createBubbledEvent("pointerup", { clientX: 100, clientY: 100 }));
+      await theUserTo.pointer([{
+        target: bottomRightDragHandle,
+        coords: coords(400, 400),
+        keys: "[MouseLeft>]",
+      }, {
+        target: bottomRightDragHandle,
+        coords: coords(100, 100),
+      }, "[/MouseLeft]"]);
       const container = component.getByTestId("core-dialog-container");
       expect(container.style.height).to.equal("200px");
       expect(container.style.width).to.equal("200px");
     });
-    it("should resize to maxWidth and maxHeight when defined", () => {
+    it("should resize to maxWidth and maxHeight when defined", async () => {
       const component = render(<Dialog opened={true} resizable={true} height={300} width={300} maxWidth={350} maxHeight={350} />);
       const bottomRightDragHandle = component.getByTestId("core-dialog-drag-bottom-right");
-      bottomRightDragHandle.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 300, clientY: 300 }));
-      window.dispatchEvent(createBubbledEvent("pointermove", { clientX: 400, clientY: 400 }));
-      window.dispatchEvent(createBubbledEvent("pointerup", { clientX: 400, clientY: 400 }));
+      await theUserTo.pointer([{
+        target: bottomRightDragHandle,
+        coords: coords(300, 300),
+        keys: "[MouseLeft>]",
+      }, {
+        target: bottomRightDragHandle,
+        coords: coords(400, 400),
+      }, "[/MouseLeft]"]);
       const container = component.getByTestId("core-dialog-container");
       expect(container.style.height).to.equal("350px");
       expect(container.style.width).to.equal("350px");
     });
-    it("should resize from pointer events on bottom", () => {
+    it("should resize from pointer events on bottom", async () => {
+      sinon.replace(Element.prototype, "getBoundingClientRect", () => DOMRect.fromRect({ x: 0, y: 0, height: 400, width: 400 }));
       const component = render(<Dialog opened={true} resizable={true} height={400} width={400} minHeight={100} minWidth={100} />);
       const bottomRightDragHandle = component.getByTestId("core-dialog-drag-bottom");
-      bottomRightDragHandle.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 400, clientY: 400 }));
-      window.dispatchEvent(createBubbledEvent("pointermove", { clientX: 405, clientY: 200 }));
-      window.dispatchEvent(createBubbledEvent("pointerup", { clientX: 405, clientY: 200 }));
+      await theUserTo.pointer([{
+        target: bottomRightDragHandle,
+        coords: coords(400, 400),
+        keys: "[MouseLeft>]",
+      }, {
+        target: bottomRightDragHandle,
+        coords: coords(405, 200),
+      }, "[/MouseLeft]"]);
+      const container = component.getByTestId("core-dialog-container");
+      expect(container.style.height).to.equal("200px");
+      expect(container.style.width).to.equal("400px");
     });
-    it("should resize from pointer events on right", () => {
+    it("should resize from pointer events on right", async () => {
+      sinon.replace(Element.prototype, "getBoundingClientRect", () => DOMRect.fromRect({ x: 0, y: 0, height: 400, width: 400 }));
       const component = render(<Dialog opened={true} resizable={true} height={400} width={400} minHeight={100} minWidth={100} />);
       const bottomRightDragHandle = component.getByTestId("core-dialog-drag-right");
-      bottomRightDragHandle.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 400, clientY: 400 }));
-      window.dispatchEvent(createBubbledEvent("pointermove", { clientX: 200, clientY: 405 }));
-      window.dispatchEvent(createBubbledEvent("pointerup", { clientX: 200, clientY: 405 }));
+      await theUserTo.pointer([{
+        target: bottomRightDragHandle,
+        coords: coords(400, 400),
+        keys: "[MouseLeft>]",
+      }, {
+        target: bottomRightDragHandle,
+        coords: coords(405, 200),
+      }, "[/MouseLeft]"]);
+      const container = component.getByTestId("core-dialog-container");
+      expect(container.style.height).to.equal("400px");
+      expect(container.style.width).to.equal("405px");
     });
   });
 
@@ -210,18 +274,18 @@ describe("Dialog", () => {
   });
 
   describe("modeless support", () => {
-    it("should call handler for pointerDown", () => {
+    it("should call handler for pointerDown", async () => {
       const spyOnPointerDown = sinon.spy();
       const component = render(<Dialog opened={true} modal={false} onModelessPointerDown={spyOnPointerDown} modelessId="Test1" />);
       const head = component.getByTestId("core-dialog-head");
-      head.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 200, clientY: 5 }));
+      await theUserTo.click(head);
       expect(spyOnPointerDown).to.be.calledOnce;
     });
-    it("should not call handler for pointerDown if no modelessId", () => {
+    it("should not call handler for pointerDown if no modelessId", async () => {
       const spyOnPointerDown = sinon.spy();
       const component = render(<Dialog opened={true} modal={false} onModelessPointerDown={spyOnPointerDown} />);
       const head = component.getByTestId("core-dialog-head");
-      head.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 200, clientY: 5 }));
+      await theUserTo.click(head);
       expect(spyOnPointerDown).to.not.be.called;
     });
   });
