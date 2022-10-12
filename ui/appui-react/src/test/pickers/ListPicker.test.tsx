@@ -4,14 +4,14 @@
 *--------------------------------------------------------------------------------------------*/
 /* eslint-disable deprecation/deprecation */
 import { expect } from "chai";
-import { ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import * as sinon from "sinon";
 import { ToolbarItemContext } from "@itwin/components-react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
 import {
-  ExpandableSection, FrameworkVersion, ListItem, ListItemType, ListPicker, ListPickerItem, ListPickerPropsExtended, UiFramework,
+  ExpandableSection, ListItem, ListItemType, ListPicker, ListPickerItem,
 } from "../../appui-react";
 import TestUtils, { mount } from "../TestUtils";
 import { Provider } from "react-redux";
@@ -59,63 +59,56 @@ describe("ListPicker", () => {
     await IModelApp.shutdown();
   });
 
-  describe("v2 rendering", () => {
-    before(async () => {
-      UiFramework.setUiVersion("2");
-      await TestUtils.flushAsyncOperations();
-    });
+  before(async () => {
+    await TestUtils.flushAsyncOperations();
+  });
 
-    it("should render correctly", () => {
-      shallow(
-        <Provider store={TestUtils.store}>
-          <FrameworkVersion>
-            <ToolbarItemContext.Provider
-              value={{
-                hasOverflow: false,
-                useHeight: false,
-                onResize: () => { },
-              }}
-            >
-              <ListPicker
-                title={title}
-                items={listItems}
-                setEnabled={setEnabled}
-              />
-            </ToolbarItemContext.Provider>
-          </FrameworkVersion>
-        </Provider>
-      ).should.matchSnapshot();
-    });
+  it("should render correctly", () => {
+    shallow(
+      <Provider store={TestUtils.store}>
+        <ToolbarItemContext.Provider
+          value={{
+            hasOverflow: false,
+            useHeight: false,
+            onResize: () => { },
+          }}
+        >
+          <ListPicker
+            title={title}
+            items={listItems}
+            setEnabled={setEnabled}
+          />
+        </ToolbarItemContext.Provider>
+      </Provider>
+    ).should.matchSnapshot();
+  });
 
-    it("v2 should mount & unmount correctly", () => {
-      const enableAllFunc = () => { };
-      const disableAllFunc = () => { };
-      const invertFunc = () => { };
+  it("v2 should mount & unmount correctly", () => {
+    const enableAllFunc = () => { };
+    const disableAllFunc = () => { };
+    const invertFunc = () => { };
 
-      const component = mount(
-        <Provider store={TestUtils.store}>
-          <FrameworkVersion>
-            <ToolbarItemContext.Provider
-              value={{
-                hasOverflow: false,
-                useHeight: false,
-                onResize: () => { },
-              }}
-            >
-              <ListPicker
-                title={title}
-                items={listItems}
-                setEnabled={setEnabled}
-                enableAllFunc={enableAllFunc}
-                disableAllFunc={disableAllFunc}
-                invertFunc={invertFunc}
-              />
-            </ToolbarItemContext.Provider>
-          </FrameworkVersion>
-        </Provider>
-      );
-      component.unmount();
-    });
+    const component = mount(
+      <Provider store={TestUtils.store}>
+        <ToolbarItemContext.Provider
+          value={{
+            hasOverflow: false,
+            useHeight: false,
+            onResize: () => { },
+          }}
+        >
+          <ListPicker
+            title={title}
+            items={listItems}
+            setEnabled={setEnabled}
+            enableAllFunc={enableAllFunc}
+            disableAllFunc={disableAllFunc}
+            invertFunc={invertFunc}
+          />
+        </ToolbarItemContext.Provider>
+      </Provider>
+    );
+    component.unmount();
   });
 
   describe("isSpecialItem", () => {

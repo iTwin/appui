@@ -16,8 +16,7 @@ import { SafeAreaInsets } from "@itwin/appui-layout-react";
 import { TargetOptions, TargetOptionsContext } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/target/TargetOptions";
 import {
   ActionsUnion, AppNotificationManager, AppUiSettings, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrameworkVersion, FrontstageDeactivatedEventArgs, FrontstageDef, FrontstageManager,
-  InitialAppUiSettings,
+  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageDef, FrontstageManager, InitialAppUiSettings,
   ModalFrontstageClosedEventArgs, SafeAreaContext, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
   ToolbarDragInteractionContext, UiFramework, UiStateStorageContext, UiStateStorageHandler,
 } from "@itwin/appui-react";
@@ -76,7 +75,7 @@ import { InspectUiItemInfoTool } from "./tools/InspectTool";
 RpcConfiguration.developmentMode = true;
 
 // cSpell:ignore setTestProperty sampleapp uitestapp setisimodellocal projectwise hypermodeling testapp urlps
-// cSpell:ignore toggledraginteraction toggleframeworkversion set-drag-interaction set-framework-version
+// cSpell:ignore toggledraginteraction set-drag-interaction set-framework-version
 
 /** Action Ids used by redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  * Use lower case strings to be compatible with SyncUi processing.
@@ -88,13 +87,6 @@ export enum SampleAppUiActionId {
   setInitialViewIds = "sampleapp:setInitialViewIds",
   setTargetVersion = "sampleapp:setTargetVersion",
 }
-
-/* ----------------------------------------------------------------------------
-* The following variable is used to test initializing UiFramework to use UI 1.0
-* and using that initial value in ui-test-app. By default UiFramework initializes
-* the Redux state to UI 2.0 mode.
------------------------------------------------------------------------------ */
-const useUi1Mode = false;
 
 export interface SampleAppState {
   testProperty: string;
@@ -275,7 +267,7 @@ export class SampleAppIModelApp {
   }
 
   public static async initialize() {
-    await UiFramework.initialize(undefined, undefined, useUi1Mode);
+    await UiFramework.initialize(undefined);
 
     // initialize Presentation
     await Presentation.initialize({
@@ -338,21 +330,16 @@ export class SampleAppIModelApp {
 
     // Create and register the AppUiSettings instance to provide default for ui settings in Redux store
     const lastTheme = (window.localStorage && window.localStorage.getItem("uifw:defaultTheme")) ?? SYSTEM_PREFERRED_COLOR_THEME;
-    if (!useUi1Mode) {
-      const defaults: InitialAppUiSettings = {
-        colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
-        dragInteraction: false,
-        frameworkVersion: "2",
-        widgetOpacity: 0.8,
-        showWidgetIcon: true,
-        autoCollapseUnpinnedPanels: false,
-      };
+    const defaults: InitialAppUiSettings = {
+      colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
+      dragInteraction: false,
+      widgetOpacity: 0.8,
+      showWidgetIcon: true,
+      autoCollapseUnpinnedPanels: false,
+    };
 
-      // initialize any settings providers that may need to have defaults set by iModelApp
-      UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
-    } else {
-      window.localStorage.removeItem("AppUiSettings.FrameworkVersion");
-    }
+    // initialize any settings providers that may need to have defaults set by iModelApp
+    UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
 
     UiFramework.useDefaultPopoutUrl = true;
 
@@ -635,10 +622,6 @@ export class SampleAppIModelApp {
     return SampleAppIModelApp.store.getState().sampleAppState.testProperty;
   }
 
-  public static getUiFrameworkProperty(): string {
-    return SampleAppIModelApp.store.getState().frameworkState.configurableUiState.frameworkVersion;
-  }
-
   public static saveAnimationViewId(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
       UiFramework.dispatchActionToStore(SampleAppUiActionId.setAnimationViewId, value, immediateSync);
@@ -679,24 +662,11 @@ function AppDragInteractionComponent(props: { dragInteraction: boolean, children
   );
 }
 
-function AppFrameworkVersionComponent(props: { frameworkVersion: string, children: React.ReactNode }) {
-  return (
-    <FrameworkVersion>
-      {props.children}
-    </FrameworkVersion>
-  );
-}
-
 function mapDragInteractionStateToProps(state: RootState) {
   return { dragInteraction: state.frameworkState.configurableUiState.useDragInteraction };
 }
 
-function mapFrameworkVersionStateToProps(state: RootState) {
-  return { frameworkVersion: state.frameworkState.configurableUiState.frameworkVersion };
-}
-
 const AppDragInteraction = connect(mapDragInteractionStateToProps)(AppDragInteractionComponent);
-const AppFrameworkVersion = connect(mapFrameworkVersionStateToProps)(AppFrameworkVersionComponent);
 
 const SampleAppViewer2 = () => {
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
@@ -746,15 +716,13 @@ const SampleAppViewer2 = () => {
       <ThemeManager>
         <SafeAreaContext.Provider value={SafeAreaInsets.All}>
           <AppDragInteraction>
-            <AppFrameworkVersion>
-              <UiStateStorageHandler>
-                <TargetOptionsProvider>
-                  <ConfigurableUiContent
-                    appBackstage={<AppBackstageComposer />}
-                  />
-                </TargetOptionsProvider>
-              </UiStateStorageHandler>
-            </AppFrameworkVersion>
+            <UiStateStorageHandler>
+              <TargetOptionsProvider>
+                <ConfigurableUiContent
+                  appBackstage={<AppBackstageComposer />}
+                />
+              </TargetOptionsProvider>
+            </UiStateStorageHandler>
           </AppDragInteraction>
         </SafeAreaContext.Provider>
       </ThemeManager>

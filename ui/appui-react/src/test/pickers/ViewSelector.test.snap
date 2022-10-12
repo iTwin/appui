@@ -23,14 +23,12 @@ exports[`ViewSelector should render correctly 1`] = `
     }
   }
 >
-  <FrameworkVersion>
-    <ViewSelector
-      imodel={null}
-      showDrawings={true}
-      showSheets={true}
-      showSpatials={true}
-      showUnknown={true}
-    />
-  </FrameworkVersion>
+  <ViewSelector
+    imodel={null}
+    showDrawings={true}
+    showSheets={true}
+    showSpatials={true}
+    showUnknown={true}
+  />
 </ContextProvider>
 `;

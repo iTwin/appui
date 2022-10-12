@@ -40,9 +40,6 @@ export function SelectedElementDataWidgetComponent() {
   const widgetDef = useSpecificWidgetDef("ui-item-provider-test:elementDataListWidget");
 
   React.useEffect(() => {
-    if (UiFramework.uiVersion === "1")
-      return;
-
     // using setTimeout to give time for frontstage to load before calling setWidgetState
     if (idList.length === 0) {
       setTimeout(() => widgetDef?.setWidgetState(WidgetState.Hidden));

@@ -221,7 +221,7 @@ export class FrontstageDef {
     if (this._nineZoneState === state)
       return;
 
-    if ("1" === UiFramework.uiVersion || !this._nineZoneState) {
+    if (!this._nineZoneState) {
       this._nineZoneState = state;
     } else {
       this.triggerStateChangeEventForWidgetsAndPanels(state);
@@ -669,7 +669,7 @@ export class FrontstageDef {
     // Tracks provided widgets to prevent duplicates.
     const allStageWidgetDefs: WidgetDef[] = [];
 
-    // Process panels before zones so in uiVersion="2" extension can explicitly target a widget for a StagePanelSection
+    // Process panels before zones so extension can explicitly target a widget for a StagePanelSection
     this.panelDefs.forEach((stagePanelDef: StagePanelDef) => {
       stagePanelDef.updateDynamicWidgetDefs(this.id, this.usage, stagePanelDef.location, undefined, allStageWidgetDefs, this.applicationData);
     });

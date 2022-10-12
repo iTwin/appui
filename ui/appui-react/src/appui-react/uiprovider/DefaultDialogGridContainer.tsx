@@ -10,7 +10,6 @@ import "./DefaultDialogGridContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { DialogRow } from "@itwin/appui-abstract";
-import { useFrameworkVersion } from "../hooks/useFrameworkVersion";
 import { ToolSettingsContentContext } from "../widgets/ToolSettingsContent";
 import { ComponentGenerator } from "./ComponentGenerator";
 
@@ -25,11 +24,9 @@ enum LayoutMode {
  */
 export function ToolSettingsGridContainer({ componentGenerator }: { componentGenerator: ComponentGenerator }) {
   const { availableContentWidth } = React.useContext(ToolSettingsContentContext);
-  const version = useFrameworkVersion();
   const layoutMode = toLayoutMode(availableContentWidth);
   const className = classnames(
     "uifw-tool-settings-grid-container",
-    version === "1" && "uifw-fill",
     // istanbul ignore next
     LayoutMode.Narrow === layoutMode && "uifw-default-narrow",
   );

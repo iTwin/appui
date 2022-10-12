@@ -29,7 +29,6 @@ describe("AppUiSettings", () => {
   it("should get/set settings", async () => {
     const uiSetting = new AppUiSettings({});
     await uiSetting.loadUserSettings(UiFramework.getUiStateStorage());
-    const uiVersion = "2";
     const opacity = 0.5;
     const colorTheme = "dark";
     const useDragInteraction = true;
@@ -38,7 +37,6 @@ describe("AppUiSettings", () => {
     const autoCollapseUnpinnedPanels = true;
     const useToolAsToolSettingsLabel = false;
 
-    UiFramework.setUiVersion(uiVersion);
     UiFramework.setWidgetOpacity(opacity);
     UiFramework.setWidgetOpacity(opacity);
     UiFramework.setUseDragInteraction(true);
@@ -50,7 +48,6 @@ describe("AppUiSettings", () => {
     UiFramework.setAnimateToolSettings(animateToolSettings);
     UiFramework.setUseToolAsToolSettingsLabel(useToolAsToolSettingsLabel);
     await TestUtils.flushAsyncOperations();
-    expect(UiFramework.uiVersion).to.eql(uiVersion);
     expect(UiFramework.getWidgetOpacity()).to.eql(opacity);
     expect(UiFramework.getColorTheme()).to.eql(colorTheme);
     expect(UiFramework.useDragInteraction).to.eql(useDragInteraction);
@@ -64,7 +61,6 @@ describe("AppUiSettings", () => {
     const defaults: InitialAppUiSettings = {
       colorTheme: SYSTEM_PREFERRED_COLOR_THEME,
       dragInteraction: false,
-      frameworkVersion: "2",
       widgetOpacity: 0.8,
       showWidgetIcon: true,
       autoCollapseUnpinnedPanels: true,
@@ -75,7 +71,6 @@ describe("AppUiSettings", () => {
     const uiSetting = new AppUiSettings(defaults);
     await uiSetting.loadUserSettings(UiFramework.getUiStateStorage());
     await TestUtils.flushAsyncOperations();
-    expect(UiFramework.uiVersion).to.eql(defaults.frameworkVersion);
     expect(UiFramework.getWidgetOpacity()).to.eql(defaults.widgetOpacity);
     expect(UiFramework.getColorTheme()).to.eql(defaults.colorTheme);
     expect(UiFramework.useDragInteraction).to.eql(defaults.dragInteraction);

@@ -9,7 +9,6 @@
 import { SnapMode } from "@itwin/core-frontend";
 import { ActionsUnion, createAction } from "../redux/redux-ts";
 import { SYSTEM_PREFERRED_COLOR_THEME, WIDGET_OPACITY_DEFAULT } from "../theme/ThemeManager";
-import { FrameworkVersionId } from "../UiFramework";
 
 // cSpell:ignore configurableui snapmode toolprompt
 
@@ -23,7 +22,6 @@ export enum ConfigurableUiActionId {
   SetToolPrompt = "configurableui:set_toolprompt",
   SetWidgetOpacity = "configurableui:set_widget_opacity",
   SetDragInteraction = "configurableui:set-drag-interaction",
-  SetFrameworkVersion = "configurableui:set-framework-version",
   SetShowWidgetIcon = "configurableui:set-show-widget-icon",
   AutoCollapseUnpinnedPanels = "configurableui:set-auto-collapse-unpinned-panels",
   SetViewOverlayDisplay = "configurableui:set-view-overlay-display",
@@ -40,7 +38,6 @@ export interface ConfigurableUiState {
   theme: string;
   widgetOpacity: number;
   useDragInteraction: boolean;
-  frameworkVersion: FrameworkVersionId;
   showWidgetIcon: boolean;
   autoCollapseUnpinnedPanels: boolean;
   viewOverlayDisplay: boolean;
@@ -55,7 +52,6 @@ const initialState: ConfigurableUiState = {
   theme: SYSTEM_PREFERRED_COLOR_THEME,
   widgetOpacity: WIDGET_OPACITY_DEFAULT,
   useDragInteraction: false,
-  frameworkVersion: "2",
   showWidgetIcon: true,
   autoCollapseUnpinnedPanels: false,
   viewOverlayDisplay: true,
@@ -78,7 +74,6 @@ export const ConfigurableUiActions = {   // eslint-disable-line @typescript-esli
     // istanbul ignore next
     (opacity: number) => createAction(ConfigurableUiActionId.SetWidgetOpacity, opacity),
   setDragInteraction: (dragInteraction: boolean) => createAction(ConfigurableUiActionId.SetDragInteraction, dragInteraction),
-  setFrameworkVersion: (frameworkVersion: FrameworkVersionId) => createAction(ConfigurableUiActionId.SetFrameworkVersion, frameworkVersion),
   setShowWidgetIcon: (showWidgetIcon: boolean) => createAction(ConfigurableUiActionId.SetShowWidgetIcon, showWidgetIcon),
   setAutoCollapseUnpinnedPanels: (autoCollapse: boolean) => createAction(ConfigurableUiActionId.AutoCollapseUnpinnedPanels, autoCollapse),
   setViewOverlayDisplay: (displayViewOverlay: boolean) => createAction(ConfigurableUiActionId.SetViewOverlayDisplay, displayViewOverlay),
@@ -112,10 +107,6 @@ export function ConfigurableUiReducer(state: ConfigurableUiState = initialState,
     }
     case ConfigurableUiActionId.SetDragInteraction: {
       return { ...state, useDragInteraction: action.payload };
-    }
-    case ConfigurableUiActionId.SetFrameworkVersion: {
-      const frameworkVersion = (action.payload);
-      return { ...state, frameworkVersion };
     }
     case ConfigurableUiActionId.SetShowWidgetIcon: {
       return { ...state, showWidgetIcon: action.payload };

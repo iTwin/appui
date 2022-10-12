@@ -14,9 +14,7 @@ import { SafeAreaInsets } from "@itwin/appui-layout-react";
 import { TargetOptions, TargetOptionsContext } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/target/TargetOptions";
 import {
   ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrameworkVersion, FrontstageDeactivatedEventArgs, FrontstageManager,
-  IModelViewportControl,
-  InitialAppUiSettings,
+  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageManager, IModelViewportControl, InitialAppUiSettings,
   ModalFrontstageClosedEventArgs, SafeAreaContext, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
   ToolbarDragInteractionContext, UiFramework, UiStateStorageHandler,
 } from "@itwin/appui-react";
@@ -223,7 +221,6 @@ export class SampleAppIModelApp {
     const defaults: InitialAppUiSettings = {
       colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
       dragInteraction: false,
-      frameworkVersion: "2",
       widgetOpacity: 0.8,
       showWidgetIcon: true,
       autoCollapseUnpinnedPanels: false,
@@ -337,10 +334,6 @@ export class SampleAppIModelApp {
     return SampleAppIModelApp.store.getState().sampleAppState.testProperty;
   }
 
-  public static getUiFrameworkProperty(): string {
-    return SampleAppIModelApp.store.getState().frameworkState.configurableUiState.frameworkVersion;
-  }
-
   public static saveAnimationViewId(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
       UiFramework.dispatchActionToStore(SampleAppUiActionId.setAnimationViewId, value, immediateSync);
@@ -377,14 +370,6 @@ function AppDragInteractionComponent(props: { dragInteraction: boolean, children
   );
 }
 
-function AppFrameworkVersionComponent(props: { frameworkVersion: string, children: React.ReactNode }) {
-  return (
-    <FrameworkVersion>
-      {props.children}
-    </FrameworkVersion>
-  );
-}
-
 function TargetOptionsProvider({ children }: React.PropsWithChildren<{}>) {
   const value = React.useMemo<TargetOptions>(() => ({ version: "2" }), []);
   return (
@@ -398,12 +383,7 @@ function mapDragInteractionStateToProps(state: RootState) {
   return { dragInteraction: state.frameworkState.configurableUiState.useDragInteraction };
 }
 
-function mapFrameworkVersionStateToProps(state: RootState) {
-  return { frameworkVersion: state.frameworkState.configurableUiState.frameworkVersion };
-}
-
 const AppDragInteraction = connect(mapDragInteractionStateToProps)(AppDragInteractionComponent);
-const AppFrameworkVersion = connect(mapFrameworkVersionStateToProps)(AppFrameworkVersionComponent);
 
 const SampleAppViewer = () => {
   React.useEffect(() => {
@@ -438,15 +418,13 @@ const SampleAppViewer = () => {
       <ThemeManager>
         <SafeAreaContext.Provider value={SafeAreaInsets.All}>
           <AppDragInteraction>
-            <AppFrameworkVersion>
-              <TargetOptionsProvider>
-                <UiStateStorageHandler>
-                  <ConfigurableUiContent
-                    appBackstage={<BackstageComposer />}
-                  />
-                </UiStateStorageHandler>
-              </TargetOptionsProvider>
-            </AppFrameworkVersion>
+            <TargetOptionsProvider>
+              <UiStateStorageHandler>
+                <ConfigurableUiContent
+                  appBackstage={<BackstageComposer />}
+                />
+              </UiStateStorageHandler>
+            </TargetOptionsProvider>
           </AppDragInteraction>
         </SafeAreaContext.Provider>
       </ThemeManager>

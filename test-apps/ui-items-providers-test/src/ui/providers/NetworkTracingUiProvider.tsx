@@ -67,8 +67,6 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
   public static register() {
     const provider = new NetworkTracingUiProvider();
     UiItemsManager.register(provider);
-    if (UiFramework.uiVersion === "1")
-      provider._removeListenerFunc = Presentation.selection.selectionChange.addListener(provider._onPresentationSelectionChanged);
   }
 
   public static unregister() {
@@ -201,7 +199,7 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
     section?: StagePanelSection, zoneLocation?: AbstractZoneLocation, _stageAppData?: any): ReadonlyArray<AbstractWidgetProps> {
     const widgets: AbstractWidgetProps[] = [];
     if ((stageId === NetworkTracingFrontstage.stageId || stageId === "ui-test-app:no-widget-frontstage" || stageId === "ViewsFrontstage") &&
-      (location === StagePanelLocation.Right && section === StagePanelSection.Start && UiFramework.uiVersion !== "1") ||
+      (location === StagePanelLocation.Right && section === StagePanelSection.Start) ||
       zoneLocation === AbstractZoneLocation.BottomRight) {
       /** This widget when only be displayed when there is an element selected. */
       const widget: AbstractWidgetProps = {
