@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { AnyWidgetProps, ConfigurableUiManager, CubeNavigationAidControl, NavigationWidgetDef } from "../../appui-react";
+import { ConfigurableUiControlType, ConfigurableUiManager, ContentViewManager, CubeNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("CubeNavigationAidControl", () => {
@@ -19,23 +19,17 @@ describe("CubeNavigationAidControl", () => {
     TestUtils.terminateUiFramework();
   });
 
-  const widgetProps: AnyWidgetProps = {
-    classId: "NavigationWidget",
-    isFreeform: true,
-    navigationAidId: "CubeNavigationAid",
-  };
-
   it("CubeNavigationAidControl creates CubeNavigationAid", () => {
-    const widgetDef = new NavigationWidgetDef(widgetProps); // eslint-disable-line deprecation/deprecation
-    expect(widgetDef).to.be.instanceof(NavigationWidgetDef); // eslint-disable-line deprecation/deprecation
+    const widgetDef = new WidgetDef({
+      classId: "CubeNavigationAid",
+      applicationData: {
+        imodel: UiFramework.getIModelConnection(),
+        viewport: ContentViewManager.getActiveContentControl()?.viewport,
+      },
+    });
 
-    const navigationWidgetDef = widgetDef;
-
-    const reactNode = navigationWidgetDef.reactNode;
+    const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);
     expect(reactNode).to.not.be.undefined;
-
-    const cornerNode = navigationWidgetDef.renderCornerItem();
-    expect(cornerNode).to.not.be.undefined;
   });
 
 });

@@ -32,13 +32,14 @@ describe("ZoneDef", () => {
     expect(zoneDef.allowsMerging).to.be.false;
   });
 
-  it("applicationData, allowsMerging, mergeWithZone", () => {
+  it("should initialize ZoneDef", () => {
     const zoneDef = new ZoneDef();
     zoneDef.initializeFromProps({
       defaultState: ZoneState.Open,
       allowsMerging: true,
       applicationData: "AppData",
       mergeWithZone: ZoneLocation.CenterRight,
+      initialWidth: 321,
     });
 
     zoneDef.addWidgetDef(new WidgetDef({
@@ -52,6 +53,7 @@ describe("ZoneDef", () => {
     expect(zoneDef.isToolSettings).to.be.true;
     expect(zoneDef.isStatusBar).to.be.true;
     expect(zoneDef.allowsMerging).to.be.true;
+    expect(zoneDef.initialWidth).to.eq(321);
   });
 
   it("addWidgetDef, widgetDefs & getSingleWidgetDef", () => {
@@ -79,5 +81,4 @@ describe("ZoneDef", () => {
     expect(zoneDef.findWidgetDef("IdTest")).to.not.be.undefined;
     expect(zoneDef.shouldFillZone).to.be.true;
   });
-
 });

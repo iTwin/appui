@@ -3,16 +3,18 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module Utilities
+ * @module Widget
  */
 
-/** Describes disabled resize handles.
- * @internal
- */
-export enum DisabledResizeHandles {
-  None = 0,
-  Left = 1 << 0,
-  Top = 1 << 1,
-  Right = 1 << 2,
-  Bottom = 1 << 3,
+import * as React from "react";
+import { FloatingWidget as FloatingWidgetComponent } from "@itwin/appui-layout-react";
+import { UiShowHideManager } from "../utils/UiShowHideManager";
+
+/** @internal */
+export function FloatingWidget() {
+  return (
+    <FloatingWidgetComponent
+      onMouseEnter={UiShowHideManager.handleWidgetMouseEnter}
+    />
+  );
 }

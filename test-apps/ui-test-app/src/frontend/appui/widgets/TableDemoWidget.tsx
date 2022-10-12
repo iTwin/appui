@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import * as React from "react";
 import { IModelConnection } from "@itwin/core-frontend";
 import { Table } from "@itwin/components-react";
@@ -41,9 +40,9 @@ export class TableDemoWidget extends React.Component<Props, State> {
           this.setState({ checked: event.target.checked });
         }} />
         <div style={{ height: "calc(100% - 20px)" }}>
-          <Table
+
+          <Table // eslint-disable-line deprecation/deprecation
             dataProvider={demoMutableTableDataProvider}
-            reorderableColumns={true}
             showHideColumns={true}
             settingsIdentifier="Test"
           />

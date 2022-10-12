@@ -287,18 +287,6 @@ export enum DisabledResizeHandles {
 }
 
 // @internal (undocumented)
-export class DisabledResizeHandlesHelpers {
-    // (undocumented)
-    static isBottomDisabled(flags: DisabledResizeHandles): boolean;
-    // (undocumented)
-    static isLeftDisabled(flags: DisabledResizeHandles): boolean;
-    // (undocumented)
-    static isRightDisabled(flags: DisabledResizeHandles): boolean;
-    // (undocumented)
-    static isTopDisabled(flags: DisabledResizeHandles): boolean;
-}
-
-// @internal (undocumented)
 export const Dock: React_2.NamedExoticComponent<object>;
 
 // @internal
@@ -383,24 +371,6 @@ export interface DraggedWidgetManagerProps {
     readonly lastPosition: PointProps;
     // (undocumented)
     readonly tabIndex: number;
-}
-
-// @internal
-export class DragHandle extends React_2.PureComponent<DragHandleProps, DragHandleState> {
-    // (undocumented)
-    render(): JSX.Element;
-    // (undocumented)
-    readonly state: DragHandleState;
-}
-
-// @internal
-export interface DragHandleProps extends CommonProps {
-    children?: React_2.ReactNode;
-    lastPosition?: PointProps;
-    onClick?: () => void;
-    onDrag?: (dragged: PointProps) => void;
-    onDragEnd?: () => void;
-    onDragStart?: (initialPosition: PointProps) => void;
 }
 
 // @internal (undocumented)
@@ -526,7 +496,7 @@ export interface FloatingTabLocation {
 }
 
 // @internal (undocumented)
-export const FloatingWidget: React_2.NamedExoticComponent<FloatingWidgetProps>;
+export function FloatingWidget(props: FloatingWidgetProps): JSX.Element;
 
 // @internal (undocumented)
 export function floatingWidgetBringToFront(state: NineZoneState, floatingWidgetId: FloatingWidgetState["id"]): NineZoneState;
@@ -580,7 +550,21 @@ export interface FloatingWidgetLocation {
 }
 
 // @internal (undocumented)
+export const FloatingWidgetNodeContext: React_2.Context<React_2.ReactNode>;
+
+// @internal (undocumented)
 export interface FloatingWidgetProps {
+    // (undocumented)
+    onMouseEnter?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+    // (undocumented)
+    onMouseLeave?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+
+// @internal (undocumented)
+export function FloatingWidgetProvider(props: FloatingWidgetProviderProps): JSX.Element;
+
+// @internal (undocumented)
+export interface FloatingWidgetProviderProps {
     // (undocumented)
     floatingWidget: FloatingWidgetState;
     // (undocumented)
@@ -933,25 +917,6 @@ export class GrowTop extends GrowStrategy {
     resize(bounds: RectangleProps, growBy: number): RectangleProps;
 }
 
-// @internal
-export enum HandleMode {
-    // (undocumented)
-    Hovered = 0,
-    // (undocumented)
-    Timedout = 2,
-    // (undocumented)
-    Visible = 1
-}
-
-// @internal
-export class HandleModeHelpers {
-    // (undocumented)
-    static getCssClassName(mode: HandleMode): string;
-    static readonly HOVERED_CLASS_NAME = "nz-handle-hovered";
-    static readonly TIMEDOUT_CLASS_NAME = "nz-handle-timedout";
-    static readonly VISIBLE_CLASS_NAME = "nz-handle-visible";
-}
-
 // @internal (undocumented)
 export function handleToCursorType(handle: FloatingWidgetResizeHandle): CursorType;
 
@@ -961,14 +926,6 @@ export enum HorizontalAnchor {
     Left = 0,
     // (undocumented)
     Right = 1
-}
-
-// @internal
-export class HorizontalAnchorHelpers {
-    // (undocumented)
-    static getCssClassName(anchor: HorizontalAnchor): string;
-    static readonly LEFT_CLASS_NAME = "nz-left-anchor";
-    static readonly RIGHT_CLASS_NAME = "nz-right-anchor";
 }
 
 // @internal (undocumented)
@@ -1372,6 +1329,8 @@ export interface NineZoneProps {
     children?: React_2.ReactNode;
     // (undocumented)
     dispatch: NineZoneDispatch;
+    // (undocumented)
+    floatingWidget?: React_2.ReactNode;
     // (undocumented)
     labels?: NineZoneLabels;
     // (undocumented)
@@ -1842,51 +1801,6 @@ export interface ResizeAction {
 }
 
 // @internal
-export enum ResizeDirection {
-    // (undocumented)
-    EastWest = 0,
-    // (undocumented)
-    NorthEast_SouthWest = 2,
-    // (undocumented)
-    NorthSouth = 1,
-    // (undocumented)
-    NorthWest_SouthEast = 3
-}
-
-// @internal
-export class ResizeDirectionHelpers {
-    static readonly EW_CLASS_NAME = "nz-direction-ew";
-    // (undocumented)
-    static getCssClassName(direction: ResizeDirection): string;
-    static readonly NE_SW_CLASS_NAME = "nz-direction-ne-sw";
-    static readonly NS_CLASS_NAME = "nz-direction-ns";
-    static readonly NW_SE_CLASS_NAME = "nz-direction-nw-se";
-}
-
-// @internal
-export class ResizeGrip extends React_2.PureComponent<ResizeGripProps, ResizeGripState> {
-    // (undocumented)
-    render(): JSX.Element;
-    // (undocumented)
-    readonly state: ResizeGripState;
-}
-
-// @internal
-export interface ResizeGripProps extends CommonProps {
-    direction: ResizeDirection;
-    onClick?: () => void;
-    onResize?: (args: ResizeGripResizeArgs) => void;
-    onResizeEnd?: (args: ResizeGripResizeArgs) => void;
-    onResizeStart?: (args: ResizeGripResizeArgs) => void;
-}
-
-// @internal
-export interface ResizeGripResizeArgs {
-    readonly bounds: RectangleProps;
-    readonly position: PointProps;
-}
-
-// @internal
 export enum ResizeHandle {
     // (undocumented)
     Bottom = 3,
@@ -2144,33 +2058,6 @@ export interface SnapProps extends CommonProps {
 }
 
 // @internal
-export class Stacked extends React_2.PureComponent<StackedProps> {
-    // (undocumented)
-    getBounds(): RectangleProps;
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface StackedProps extends CommonProps, NoChildrenProps {
-    content?: React_2.ReactNode;
-    contentRef?: React_2.Ref<HTMLDivElement>;
-    disabledResizeHandles?: DisabledResizeHandles;
-    fillZone?: boolean;
-    horizontalAnchor: HorizontalAnchor;
-    isCollapsed?: boolean;
-    isDragged?: boolean;
-    isFloating?: boolean;
-    isOpen?: boolean;
-    isTabBarVisible?: boolean;
-    onMouseEnter?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
-    onMouseLeave?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
-    onResize?: (resizeBy: number, handle: ResizeHandle, filledHeightDiff: number) => void;
-    tabs?: React_2.ReactNode;
-    verticalAnchor: VerticalAnchor;
-}
-
-// @internal
 export class StagePanelManager {
     // (undocumented)
     get collapseOffset(): number;
@@ -2272,16 +2159,6 @@ export interface StatusMessageProps extends CommonProps {
     status: Status;
 }
 
-// @internal
-export class Tab extends React_2.PureComponent<TabProps> {
-    // (undocumented)
-    static defaultProps: TabDefaultProps;
-    // (undocumented)
-    getBounds(): RectangleProps;
-    // (undocumented)
-    render(): JSX.Element;
-}
-
 // @internal (undocumented)
 export const TabBarButtons: React_2.NamedExoticComponent<object>;
 
@@ -2304,45 +2181,11 @@ export interface TabDropTargetState {
     readonly widgetId: WidgetState["id"];
 }
 
-// @internal
-export class TabGroup extends React_2.PureComponent<TabGroupProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface TabGroupProps extends CommonProps {
-    children?: React_2.ReactNode;
-    handle: HandleMode;
-    horizontalAnchor: HorizontalAnchor;
-    isCollapsed?: boolean;
-    verticalAnchor: VerticalAnchor;
-}
-
 // @internal (undocumented)
 export const TabIdContext: React_2.Context<string>;
 
 // @internal (undocumented)
 export type TabLocation = PanelTabLocation | FloatingTabLocation | PopoutTabLocation;
-
-// @internal
-export enum TabMode {
-    // (undocumented)
-    Active = 2,
-    // (undocumented)
-    Closed = 0,
-    // (undocumented)
-    Open = 1
-}
-
-// @internal
-export class TabModeHelpers {
-    static readonly ACTIVE_CLASS_NAME = "nz-mode-active";
-    static readonly CLOSED_CLASS_NAME = "nz-mode-closed";
-    // (undocumented)
-    static getCssClassName(mode: TabMode): string;
-    static readonly OPEN_CLASS_NAME = "nz-mode-open";
-}
 
 // @internal (undocumented)
 export const TabNodeContext: React_2.Context<React_2.ReactNode>;
@@ -2358,35 +2201,6 @@ export interface TabPositionContextArgs {
     firstInactive?: boolean;
     // (undocumented)
     last?: boolean;
-}
-
-// @internal
-export interface TabProps extends CommonProps {
-    badge?: React_2.ReactNode;
-    children?: React_2.ReactNode;
-    horizontalAnchor: HorizontalAnchor;
-    isCollapsed?: boolean;
-    isProtruding: boolean;
-    lastPosition?: PointProps;
-    mode: TabMode;
-    onClick?: () => void;
-    onDrag?: (dragged: PointProps) => void;
-    onDragEnd?: () => void;
-    onDragStart?: (initialPosition: PointProps) => void;
-    title?: string;
-    verticalAnchor: VerticalAnchor;
-}
-
-// @internal
-export class TabSeparator extends React_2.PureComponent<TabSeparatorProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface TabSeparatorProps extends CommonProps, NoChildrenProps {
-    // (undocumented)
-    readonly isHorizontal?: boolean;
 }
 
 // @internal (undocumented)
@@ -2632,12 +2446,6 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
 }
 
 // @internal
-export class Tools extends React_2.PureComponent<ToolsProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
 export class ToolsArea extends React_2.PureComponent<ToolsAreaProps> {
     // (undocumented)
     render(): JSX.Element;
@@ -2655,14 +2463,6 @@ export interface ToolsAreaProps extends CommonProps, NoChildrenProps {
 // @internal
 export interface ToolSettingProps extends CommonProps {
     children?: React_2.ReactNode;
-}
-
-// @internal
-export class ToolSettings extends React_2.PureComponent<ToolSettingsProps> {
-    // (undocumented)
-    getBounds(): RectangleProps;
-    // (undocumented)
-    render(): JSX.Element;
 }
 
 // @internal (undocumented)
@@ -2696,46 +2496,14 @@ export interface ToolSettingsOverflowPanelProps extends CommonProps {
     target: HTMLElement | undefined;
 }
 
-// @internal
-export interface ToolSettingsProps extends CommonProps {
-    buttons?: React_2.ReactNode;
-    children?: React_2.ReactNode;
-    contentRef?: React_2.Ref<HTMLDivElement>;
-    fillZone?: boolean;
-    lastPosition?: PointProps;
-    onDrag?: (dragged: PointProps) => void;
-    onDragEnd?: () => void;
-    onDragStart?: (initialPosition: PointProps) => void;
-    onMouseEnter?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
-    onMouseLeave?: (event: React_2.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    onResize?: (resizeBy: number, handle: ResizeHandle) => void;
-    title?: string;
-}
-
 // @internal (undocumented)
 export type ToolSettingsState = DockedToolSettingsState | WidgetToolSettingsState;
 
 // @internal (undocumented)
 export const ToolSettingsStateContext: React_2.Context<ToolSettingsState>;
 
-// @internal
-export class ToolSettingsTab extends React_2.PureComponent<ToolSettingsTabProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
 // @internal (undocumented)
 export const toolSettingsTabId = "nz-tool-settings-tab";
-
-// @internal
-export interface ToolSettingsTabProps extends CommonProps {
-    children?: React_2.ReactNode;
-    onClick?: () => void;
-    onKeyDown?: (e: React_2.KeyboardEvent) => void;
-    onMouseEnter?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
-    onMouseLeave?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
-    title?: string;
-}
 
 // @internal
 export interface ToolSettingsWidgetManagerProps extends WidgetManagerProps {
@@ -2749,17 +2517,6 @@ export enum ToolSettingsWidgetMode {
     Tab = 0,
     // (undocumented)
     TitleBar = 1
-}
-
-// @internal
-export interface ToolsProps extends CommonProps, NoChildrenProps {
-    button?: React_2.ReactNode;
-    horizontalToolbar?: React_2.ReactNode;
-    isNavigation?: boolean;
-    onMouseEnter?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
-    onMouseLeave?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
-    preserveSpace?: boolean;
-    verticalToolbar?: React_2.ReactNode;
 }
 
 // @beta @deprecated
@@ -3045,18 +2802,6 @@ export enum VerticalAnchor {
     TopPanel = 3
 }
 
-// @internal
-export class VerticalAnchorHelpers {
-    static readonly BOTTOM_CLASS_NAME = "nz-bottom-anchor";
-    static readonly BOTTOM_PANEL_CLASS_NAME = "nz-bottom-panel-anchor";
-    // (undocumented)
-    static getCssClassName(anchor: VerticalAnchor): string;
-    // (undocumented)
-    static isHorizontal(anchor: VerticalAnchor): boolean;
-    static readonly MIDDLE_CLASS_NAME = "nz-middle-anchor";
-    static readonly TOP_PANEL_CLASS_NAME = "nz-top-panel-anchor";
-}
-
 // @internal (undocumented)
 export type VerticalPanelSide = LeftPanelSide | RightPanelSide;
 
@@ -3073,14 +2818,6 @@ export const Widget: React_2.MemoExoticComponent<React_2.ForwardRefExoticCompone
 export interface WidgetComponent {
     // (undocumented)
     measure: () => Rectangle;
-}
-
-// @alpha @deprecated
-export class WidgetContent extends React_2.PureComponent<WidgetContentProps> {
-    // (undocumented)
-    componentDidUpdate(): void;
-    // (undocumented)
-    render(): JSX.Element;
 }
 
 // @internal (undocumented)
@@ -3119,13 +2856,6 @@ export interface WidgetContentManagerProps {
 
 // @internal (undocumented)
 export const WidgetContentNodeContext: React_2.Context<React_2.ReactNode>;
-
-// @alpha @deprecated
-export interface WidgetContentProps extends CommonProps, NoChildrenProps {
-    anchor: HorizontalAnchor;
-    containerRef?: React_2.Ref<HTMLDivElement>;
-    content?: React_2.ReactNode;
-}
 
 // @internal (undocumented)
 export const WidgetContentRenderer: React_2.NamedExoticComponent<WidgetContentRendererProps>;
@@ -3296,6 +3026,10 @@ export interface WidgetPanelsProps extends CommonProps {
 export interface WidgetProps extends CommonProps {
     // (undocumented)
     children?: React_2.ReactNode;
+    // (undocumented)
+    onMouseEnter?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+    // (undocumented)
+    onMouseLeave?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
     // (undocumented)
     onTransitionEnd?(): void;
     // (undocumented)

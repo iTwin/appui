@@ -2,10 +2,9 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import * as React from "react";
 import {
-  ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, NestedFrontstage, ToolWidget, Widget, Zone,
+  ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, NestedFrontstage, ToolWidgetComposer, Widget, Zone,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
@@ -51,9 +50,8 @@ export class NestedAnimationStage extends FrontstageProvider {
 class FrontstageToolWidget extends React.Component {
   public override render() {
     return (
-      // eslint-disable-next-line deprecation/deprecation
-      <ToolWidget
-        appButton={NestedFrontstage.backToPreviousFrontstageCommand}
+      <ToolWidgetComposer
+        cornerItem={NestedFrontstage.backToPreviousFrontstageCommand}
       />
     );
   }

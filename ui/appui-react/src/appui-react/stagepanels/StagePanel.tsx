@@ -9,17 +9,10 @@
 
 import * as React from "react";
 import { StagePanelLocation } from "@itwin/appui-abstract";
-import {
-  NestedStagePanelKey, NestedStagePanelsManagerProps, NineZoneStagePanelManagerProps, StagePanelType as NZ_StagePanelType, WidgetZoneId,
-  ZonesManagerWidgetsProps,
-} from "@itwin/appui-layout-react";
-import { StagePanelChangeHandler, WidgetChangeHandler, ZoneDefProvider } from "../frontstage/FrontstageComposer";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
+
 import { WidgetProps } from "../widgets/WidgetProps";
-import { WidgetTabs } from "../widgets/WidgetStack";
 import { ZoneLocation } from "../zones/Zone";
-import { PanelStateChangedEventArgs, StagePanelDef, StagePanelState as StagePanelState } from "./StagePanelDef";
-import { WidgetDef, WidgetStateChangedEventArgs } from "../widgets/WidgetDef";
+import { StagePanelDef, StagePanelState as StagePanelState } from "./StagePanelDef";
 
 /** Available StagePanel locations.
  * ------------------------------------------------------------------------------------
@@ -102,9 +95,6 @@ export interface StagePanelProps {
   /** Properties for the Panel Zones in this Panel.
    * @beta */
   panelZones?: StagePanelZonesProps;
-
-  /** @internal */
-  runtimeProps?: StagePanelRuntimeProps;
 }
 
 /** Default properties of [[StagePanel]] component.
@@ -112,149 +102,19 @@ export interface StagePanelProps {
  */
 export type StagePanelDefaultProps = Pick<StagePanelProps, "resizable">;
 
-/** Runtime Properties for the [[StagePanel]] component.
- * @internal
- */
-export interface StagePanelRuntimeProps {
-  draggedWidgetId: WidgetZoneId | undefined; // eslint-disable-line deprecation/deprecation
-  getWidgetContentRef: (id: WidgetZoneId) => React.Ref<HTMLDivElement>; // eslint-disable-line deprecation/deprecation
-  isTargeted: boolean;
-  panel: NineZoneStagePanelManagerProps;
-  panelDef: StagePanelDef;
-  stagePanelChangeHandler: StagePanelChangeHandler;
-  widgetChangeHandler: WidgetChangeHandler; // eslint-disable-line deprecation/deprecation
-  widgets: ZonesManagerWidgetsProps;
-  widgetTabs: WidgetTabs;
-  zoneDefProvider: ZoneDefProvider;
-}
-
-interface StagePanelComponentState {
-  panelState: StagePanelState;
-  stagePanelWidgets: ReadonlyArray<WidgetDef["id"]>;
-}
-
 /** Frontstage Panel React component.
  * @public
  */
-export class StagePanel extends React.Component<StagePanelProps, StagePanelComponentState> {
+export class StagePanel extends React.Component<StagePanelProps> {
   public static readonly defaultProps: StagePanelDefaultProps = {
     resizable: true,
   };
-
-  public constructor(props: StagePanelProps) {
-    super(props);
-
-    const panelState = this.props.runtimeProps?.panelDef.panelState;
-    this.state = {
-      panelState: panelState === undefined ? StagePanelState.Open : panelState,
-      stagePanelWidgets: this._getVisibleStagePanelWidgets(),
-    };
-  }
 
   public static initializeStagePanelDef(panelDef: StagePanelDef, props: StagePanelProps, panelLocation: StagePanelLocation): void {
     panelDef.initializeFromProps(props, panelLocation);
   }
 
-  public override componentDidMount() {
-    FrontstageManager.onPanelStateChangedEvent.addListener(this._handlePanelStateChangedEvent);
-    FrontstageManager.onWidgetStateChangedEvent.addListener(this._handleWidgetStateChangedEvent);
-  }
-
-  public override componentDidUpdate(prevProps: StagePanelProps) {
-    if (prevProps.runtimeProps?.panelDef !== this.props.runtimeProps?.panelDef) {
-      this.setState({
-        stagePanelWidgets: this._getVisibleStagePanelWidgets(),
-      });
-    }
-  }
-
-  public override componentWillUnmount() {
-    FrontstageManager.onPanelStateChangedEvent.removeListener(this._handlePanelStateChangedEvent);
-    FrontstageManager.onWidgetStateChangedEvent.removeListener(this._handleWidgetStateChangedEvent);
-  }
-
   public override render(): React.ReactNode {
     return null;
   }
-
-  private _handlePanelStateChangedEvent = ({ panelDef, panelState }: PanelStateChangedEventArgs) => {
-    // istanbul ignore else
-    if (panelDef !== this.props.runtimeProps?.panelDef)
-      return;
-    // istanbul ignore next
-    this.setState({
-      panelState,
-    });
-  };
-
-  private _handleWidgetStateChangedEvent = ({ widgetDef }: WidgetStateChangedEventArgs) => {
-    const runtimeProps = this.props.runtimeProps;
-    if (!runtimeProps)
-      return;
-    if (!runtimeProps.panelDef.findWidgetDef(widgetDef.id))
-      return;
-    this.setState({
-      stagePanelWidgets: this._getVisibleStagePanelWidgets(),
-    });
-  };
-
-  private _getVisibleStagePanelWidgets() {
-    const panelDef = this.props.runtimeProps?.panelDef;
-    if (!panelDef)
-      return [];
-    const visibleWidgets = panelDef.widgetDefs.filter((wd) => wd.isVisible);
-    return visibleWidgets.map((widgetDef) => widgetDef.id);
-  }
 }
-
-/** @internal */
-export const getStagePanelType = (location: StagePanelLocation): NZ_StagePanelType => {
-  switch (location) {
-    case StagePanelLocation.Bottom:
-    case StagePanelLocation.BottomMost:
-      return NZ_StagePanelType.Bottom;
-    case StagePanelLocation.Left:
-      return NZ_StagePanelType.Left;
-    case StagePanelLocation.Right:
-      return NZ_StagePanelType.Right;
-    case StagePanelLocation.Top:
-    case StagePanelLocation.TopMost:
-      return NZ_StagePanelType.Top;
-  }
-};
-
-/** @internal */
-export const getNestedStagePanelKey = (location: StagePanelLocation): NestedStagePanelKey<NestedStagePanelsManagerProps> => {
-  switch (location) {
-    case StagePanelLocation.Bottom:
-      return {
-        id: "inner",
-        type: NZ_StagePanelType.Bottom,
-      };
-    case StagePanelLocation.BottomMost:
-      return {
-        id: "outer",
-        type: NZ_StagePanelType.Bottom,
-      };
-    case StagePanelLocation.Left:
-      return {
-        id: "inner",
-        type: NZ_StagePanelType.Left,
-      };
-    case StagePanelLocation.Right:
-      return {
-        id: "inner",
-        type: NZ_StagePanelType.Right,
-      };
-    case StagePanelLocation.Top:
-      return {
-        id: "inner",
-        type: NZ_StagePanelType.Top,
-      };
-    case StagePanelLocation.TopMost:
-      return {
-        id: "outer",
-        type: NZ_StagePanelType.Top,
-      };
-  }
-};
