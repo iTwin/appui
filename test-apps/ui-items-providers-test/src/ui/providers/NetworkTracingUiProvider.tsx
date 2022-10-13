@@ -16,7 +16,7 @@ import {
   UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
 import { CustomToolbarItem } from "@itwin/components-react";
-import { FrontstageManager, Indicator, PropsHelper, StateManager, StatusBarItemUtilities, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
+import { FrontstageManager, Indicator, PropsHelper, StateManager, StatusBarItemUtilities, SyncUiEventDispatcher } from "@itwin/appui-react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { PresentationPropertyGridWidget, PresentationPropertyGridWidgetControl } from "../widgets/PresentationPropertyGridWidget";
 import { OpenTraceDialogTool } from "../../tools/OpenTraceDialogTool";
@@ -29,7 +29,7 @@ import downstreamQuerySvg from "../icons/downstream-query.svg";
 import queryMultiSvg from "../icons/query-multi.svg";
 import upstreamQuerySvg from "../icons/upstream-query.svg";
 import { SvgList } from "@itwin/itwinui-icons-react";
-import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
+import { ISelectionProvider, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 function SvgApple(props: React.SVGProps<SVGSVGElement>) {
