@@ -21,11 +21,8 @@ beta;AccuDrawUiSettingsChangedEvent
 beta;AccuDrawWidget(): JSX.Element
 beta;AccuDrawWidgetControl 
 public;Action
-internal;ActionButtonItem(props: ActionButtonProps): JSX.Element
 public;class ActionButtonItemDef 
 public;ActionCreatorsObject =
-public;ActionItemButton 
-public;ActionItemButtonProps 
 public;ActionsUnion
 public;ActionTypes
 public;ActionWithPayload
@@ -231,14 +228,6 @@ beta;FrameworkRootState
 public;FrameworkState
 alpha;FrameworkToolAdmin 
 public;FrameworkUiAdmin 
-public;FrameworkVersion(props: FrameworkVersionProps): JSX.Element
-internal;FrameworkVersionChangedEvent 
-internal;FrameworkVersionChangedEventArgs
-public;FrameworkVersionContext: React_2.Context
-public;FrameworkVersionId = "1" | "2"
-public;FrameworkVersionProps
-internal;FrameworkVersionSwitch(props: FrameworkVersionSwitchProps): JSX.Element
-internal;FrameworkVersionSwitchProps
 public;Frontstage 
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
@@ -263,8 +252,6 @@ deprecated;getBackstageItemStateFromProps: (props: BackstageItemProps) => Backst
 internal;getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined
 alpha;getCategories(imodel: IModelConnection, viewport?: Viewport, filteredProvider?: IPresentationTreeDataProvider): Promise
 beta;getFeatureOverrideSyncEventIds(): string[]
-internal;getFirstItem: (groupItemDef: GroupItemDef) => AnyItemDef | undefined
-internal;getFirstItemId: (groupItemDef: GroupItemDef) => string
 internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
 beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
 beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
@@ -273,13 +260,9 @@ internal;getPanelZoneWidgets(frontstageDef: FrontstageDef, panelZone: WidgetIdTy
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 internal;getStableWidgetProps(widgetProps: WidgetProps, stableId: string): WidgetProps
-beta;getUiSettingsManagerEntry(itemPriority: number, allowSettingUiFrameworkVersion?: boolean): SettingsTabEntry
+beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
 internal;getWidgetId(side: PanelSide, key: StagePanelZoneDefKeys): WidgetIdTypes
-public;GroupButton(props: GroupButtonProps): JSX.Element
-internal;GroupButtonItem(props: GroupButtonProps_2): JSX.Element
-public;GroupButtonProps 
 internal;GroupedItems = ReadonlyArray
-internal;GroupItem 
 public;GroupItemDef 
 public;GroupItemProps 
 public;HideIsolateEmphasizeAction
@@ -336,7 +319,6 @@ public;KeyinPalettePopupProps
 beta;ListItem
 beta;ListItemType
 beta;ListPicker 
-beta;ListPickerBase 
 beta;ListPickerItem 
 beta;ListPickerItemProps 
 beta;ListPickerProps
@@ -406,14 +388,6 @@ public;PointerMessage
 public;PointerMessageChangedEvent 
 public;PointerMessageChangedEventArgs
 public;PointerMessageProps 
-public;PopupButton 
-deprecated;PopupButton 
-public;PopupButtonChildrenRenderProp = (args: PopupButtonChildrenRenderPropArgs) => React_2.ReactNode
-deprecated;PopupButtonChildrenRenderProp = (args: PopupButtonChildrenRenderPropArgs) => React_2.ReactNode
-public;PopupButtonChildrenRenderPropArgs
-deprecated;PopupButtonChildrenRenderPropArgs
-public;PopupButtonProps 
-deprecated;PopupButtonProps 
 public;PopupContentType = HTMLElement | ReactContent
 public;PopupInfo
 public;PopupManager
@@ -575,20 +549,13 @@ public;ToolAssistanceChangedEventArgs
 public;ToolAssistanceField 
 internal;ToolAssistanceFieldDefaultProps = Pick
 public;ToolAssistanceFieldProps 
-internal;Toolbar 
 public;ToolbarButtonHelper
 public;ToolbarComposer(props: ExtensibleToolbarProps): JSX.Element
 beta;ToolbarDragInteractionContext: React_2.Context
-internal;ToolbarGroupItem 
 public;ToolbarHelper
 beta;ToolbarPopup 
 beta;ToolbarPopupProps 
-internal;ToolbarProps 
-public;ToolbarWidgetDefBase 
-deprecated;ToolbarWidgetDefBase 
 public;ToolbarWidgetProps 
-public;ToolButton 
-public;ToolButtonProps 
 internal;ToolGroupPanelContext: React_2.Context
 public;ToolIconChangedEvent 
 public;ToolIconChangedEventArgs
@@ -616,7 +583,7 @@ public;UiDataProvidedDialogProps
 public;UiFramework
 internal;UiIntervalEvent 
 internal;UiIntervalEventArgs
-beta;UiSettingsPage({ allowSettingUiFrameworkVersion }:
+beta;UiSettingsPage(): JSX.Element
 public;UiSettingsProviderProps
 public;UiShowHideManager
 internal;UiShowHideSettingsProvider 
@@ -641,7 +608,6 @@ internal;useCategories(viewManager: ViewManager, imodel: IModelConnection, view?
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useDefaultStatusBarItems: (manager: StatusBarItemsManager_2) => readonly CommonStatusBarItem[]
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly CommonToolbarItem[]
-public;useFrameworkVersion(): FrameworkVersionId
 internal;useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void
 internal;useGroupedItems: (items: ReadonlyArray
 internal;useHorizontalToolSettingNodes(): ToolSettingsEntry[] | undefined
