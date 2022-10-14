@@ -10,10 +10,10 @@
 
 import "./AnalysisAnimationToolSettings.scss";
 import * as React from "react";
-import { Icon } from "@itwin/core-react";
 import { ConfigurableCreateInfo, ContentViewManager, ToolUiProvider } from "@itwin/appui-react";
-import { Direction, Item, Toolbar } from "@itwin/appui-layout-react";
 import { IModelApp } from "@itwin/core-frontend";
+import { Direction, Toolbar } from "@itwin/components-react";
+import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 
 /** State for [[AnalysisAnimationToolSettings]] */
 interface AnimationState {
@@ -176,33 +176,22 @@ export class AnalysisAnimationToolSettings extends React.Component<Props, Animat
                 className="toolSettings-sliderStretch" id="animationSlider" onChange={this._handleSliderChange} />
             </div>
             <div className={className}>
-              <Toolbar // eslint-disable-line deprecation/deprecation
-                expandsTo={Direction.Bottom} // eslint-disable-line deprecation/deprecation
-                items={
-                  <>
-                    <Item // eslint-disable-line deprecation/deprecation
-                      isActive={this.state.isAnimating && !this.state.isAnimationPaused}
-                      title={IModelApp.localization.getLocalizedString("SampleApp:tools.AnalysisAnimation.ToolSettings.play")}
-                      key="animationPlay"
-                      onClick={this._startAnimation}
-                      icon={<Icon iconSpec="icon-media-controls-circular-play" />}
-                    />
-                    <Item // eslint-disable-line deprecation/deprecation
-                      isActive={this.state.isAnimationPaused}
-                      title={IModelApp.localization.getLocalizedString("SampleApp:tools.AnalysisAnimation.ToolSettings.pause")}
-                      key="animationPause"
-                      onClick={this._pauseAnimation}
-                      icon={<Icon iconSpec="icon-media-controls-circular-pause" />}
-                    />
-                    <Item // eslint-disable-line deprecation/deprecation
-                      isActive={!this.state.isAnimating}
-                      title={IModelApp.localization.getLocalizedString("SampleApp:tools.AnalysisAnimation.ToolSettings.stop")}
-                      key="animationStop"
-                      onClick={this._stopAnimation}
-                      icon={<Icon iconSpec="icon-media-controls-circular-stop" />}
-                    />
-                  </>
-                }
+              <Toolbar
+                expandsTo={Direction.Bottom}
+                items={[
+                  ToolbarItemUtilities.createActionButton(
+                    "animationPlay", 10, "icon-media-controls-circular-play", IModelApp.localization.getLocalizedString("SampleApp:tools.AnalysisAnimation.ToolSettings.play"), this._startAnimation,
+                    { isActive: this.state.isAnimating && !this.state.isAnimationPaused },
+                  ),
+                  ToolbarItemUtilities.createActionButton(
+                    "animationPause", 10, "icon-media-controls-circular-pause", IModelApp.localization.getLocalizedString("SampleApp:tools.AnalysisAnimation.ToolSettings.pause"), this._pauseAnimation,
+                    { isActive: this.state.isAnimationPaused },
+                  ),
+                  ToolbarItemUtilities.createActionButton(
+                    "animationStop", 10, "icon-media-controls-circular-stop", IModelApp.localization.getLocalizedString("SampleApp:tools.AnalysisAnimation.ToolSettings.stop"), this._stopAnimation,
+                    { isActive: !this.state.isAnimating },
+                  ),
+                ]}
               />
             </div>
           </>

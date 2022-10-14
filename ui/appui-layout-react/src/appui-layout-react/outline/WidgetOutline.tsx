@@ -11,11 +11,10 @@ import classnames from "classnames";
 import * as React from "react";
 import { useTargeted } from "../base/DragManager";
 import { WidgetIdContext } from "../widget/Widget";
-import { withTargetVersion } from "../target/TargetOptions";
 import { isTabDropTargetState, isWidgetDropTargetState } from "../state/DropTargetState";
 
 /** @internal */
-export const WidgetOutline = withTargetVersion("2", function WidgetOutline() {
+export function WidgetOutline() {
   const hidden = useHidden();
   const className = classnames(
     "nz-outline-widgetOutline",
@@ -26,7 +25,7 @@ export const WidgetOutline = withTargetVersion("2", function WidgetOutline() {
       className={className}
     />
   );
-});
+}
 
 // istanbul ignore next
 function useHidden() {

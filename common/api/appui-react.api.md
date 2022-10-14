@@ -48,14 +48,13 @@ import { DialogPropertySyncItem } from '@itwin/appui-abstract';
 import { DialogProps } from '@itwin/core-react';
 import { DialogProps as DialogProps_2 } from '@itwin/appui-abstract';
 import { DialogRow } from '@itwin/appui-abstract';
-import { Direction } from '@itwin/appui-layout-react';
 import { DisplayStyle3dState } from '@itwin/core-frontend';
 import { ECClassGroupingNodeKey } from '@itwin/presentation-common';
 import { EmphasizeElementsProps } from '@itwin/core-common';
 import { FloatingWidgetState } from '@itwin/appui-layout-react';
 import { FooterPopupContentType } from '@itwin/appui-layout-react';
 import { FunctionKey } from '@itwin/appui-abstract';
-import { GroupButton as GroupButton_2 } from '@itwin/appui-abstract';
+import { GroupButton } from '@itwin/appui-abstract';
 import { GuidString } from '@itwin/core-bentley';
 import { HighlightableTreeProps } from '@itwin/components-react';
 import { HorizontalPanelSide } from '@itwin/appui-layout-react';
@@ -82,10 +81,7 @@ import { MessageSeverity } from '@itwin/appui-abstract';
 import { MessageType } from '@itwin/core-react';
 import { NineZoneDispatch } from '@itwin/appui-layout-react';
 import { NineZoneLabels } from '@itwin/appui-layout-react';
-import { NineZoneManager } from '@itwin/appui-layout-react';
-import { NineZoneManagerProps } from '@itwin/appui-layout-react';
 import { NineZoneState } from '@itwin/appui-layout-react';
-import { NoChildrenProps } from '@itwin/core-react';
 import { NodeCheckboxRenderProps } from '@itwin/core-react';
 import { NodeKey } from '@itwin/presentation-common';
 import { NotificationManager } from '@itwin/core-frontend';
@@ -148,7 +144,6 @@ import { ToolAssistanceInstructions } from '@itwin/core-frontend';
 import { ToolbarItem } from '@itwin/appui-abstract';
 import { ToolbarItemsManager } from '@itwin/appui-abstract';
 import { ToolbarOrientation } from '@itwin/appui-abstract';
-import { ToolbarPanelAlignment } from '@itwin/appui-layout-react';
 import { ToolbarUsage } from '@itwin/appui-abstract';
 import { ToolTipOptions } from '@itwin/core-frontend';
 import { TreeCheckboxStateChangeEventArgs } from '@itwin/components-react';
@@ -372,9 +367,6 @@ export interface Action<T extends string> {
     type: T;
 }
 
-// @internal
-export function ActionButtonItem(props: ActionButtonProps): JSX.Element;
-
 // @public
 export abstract class ActionButtonItemDef extends ItemDefBase {
     constructor(itemProps: ItemProps, onItemExecuted?: OnItemExecutedFunc);
@@ -382,43 +374,15 @@ export abstract class ActionButtonItemDef extends ItemDefBase {
     static defaultButtonSize: number;
     execute(): void;
     getDimension(orientation: Orientation): number;
-    // @internal (undocumented)
-    getKey: (index?: number | undefined) => string;
-    // @internal (undocumented)
-    static getRandomId(): string;
     handleSizeKnown: (size: SizeProps) => void;
     parameters?: any;
     size?: SizeProps;
-    // @internal (undocumented)
-    toolbarReactNode(index?: number): React_2.ReactNode;
 }
 
 // @public
 export type ActionCreatorsObject = {
     [actionCreatorName: string]: FunctionType;
 };
-
-// @public
-export class ActionItemButton extends React_2.Component<ActionItemButtonProps, BaseItemState> {
-    constructor(props: ActionItemButtonProps);
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // @internal (undocumented)
-    static getDerivedStateFromProps(props: ActionItemButtonProps, state: BaseItemState): BaseItemState | null;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: Readonly<BaseItemState>;
-}
-
-// @public
-export interface ActionItemButtonProps extends CommonProps {
-    actionItem: ActionButtonItemDef;
-    isEnabled?: boolean;
-    onSizeKnown?: (size: SizeProps) => void;
-}
 
 // @public
 export type ActionsUnion<A extends ActionCreatorsObject> = ReturnType<A[keyof A]>;
@@ -562,8 +526,6 @@ export class AppUiSettings implements UserSettingsProvider {
     colorTheme: UiStateEntry<string>;
     // (undocumented)
     dragInteraction: UiStateEntry<boolean>;
-    // (undocumented)
-    frameworkVersion: UiStateEntry<FrameworkVersionId>;
     // (undocumented)
     loadUserSettings(storage: UiStateStorage): Promise<void>;
     // (undocumented)
@@ -1147,8 +1109,6 @@ export enum ConfigurableUiActionId {
     // (undocumented)
     SetDragInteraction = "configurableui:set-drag-interaction",
     // (undocumented)
-    SetFrameworkVersion = "configurableui:set-framework-version",
-    // (undocumented)
     SetShowWidgetIcon = "configurableui:set-show-widget-icon",
     // (undocumented)
     SetSnapMode = "configurableui:set_snapmode",
@@ -1171,7 +1131,6 @@ export const ConfigurableUiActions: {
     setToolPrompt: (toolPrompt: string) => ActionWithPayload<ConfigurableUiActionId.SetToolPrompt, string>;
     setWidgetOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetWidgetOpacity, number>;
     setDragInteraction: (dragInteraction: boolean) => ActionWithPayload<ConfigurableUiActionId.SetDragInteraction, boolean>;
-    setFrameworkVersion: (frameworkVersion: FrameworkVersionId) => ActionWithPayload<ConfigurableUiActionId.SetFrameworkVersion, FrameworkVersionId>;
     setShowWidgetIcon: (showWidgetIcon: boolean) => ActionWithPayload<ConfigurableUiActionId.SetShowWidgetIcon, boolean>;
     setAutoCollapseUnpinnedPanels: (autoCollapse: boolean) => ActionWithPayload<ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>;
     setViewOverlayDisplay: (displayViewOverlay: boolean) => ActionWithPayload<ConfigurableUiActionId.SetViewOverlayDisplay, boolean>;
@@ -1272,8 +1231,6 @@ export interface ConfigurableUiState {
     animateToolSettings: boolean;
     // (undocumented)
     autoCollapseUnpinnedPanels: boolean;
-    // (undocumented)
-    frameworkVersion: FrameworkVersionId;
     // (undocumented)
     showWidgetIcon: boolean;
     // (undocumented)
@@ -2188,7 +2145,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
 export const FrameworkReducer: (state: CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
-}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetFrameworkVersion, FrameworkVersionId>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
+}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
 }>;
@@ -2247,44 +2204,6 @@ export class FrameworkUiAdmin extends UiAdmin {
     showMenuButton(id: string, menuItemsProps: AbstractMenuItemProps[], location: XAndY, htmlElement?: HTMLElement): boolean;
     showReactCard(content: React_2.ReactNode, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, anchorElement?: HTMLElement): boolean;
     showToolbar(toolbarProps: AbstractToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, htmlElement?: HTMLElement): boolean;
-}
-
-// @public
-export function FrameworkVersion(props: FrameworkVersionProps): JSX.Element;
-
-// @internal
-export class FrameworkVersionChangedEvent extends UiEvent<FrameworkVersionChangedEventArgs> {
-}
-
-// @internal
-export interface FrameworkVersionChangedEventArgs {
-    // (undocumented)
-    oldVersion: FrameworkVersionId;
-    // (undocumented)
-    version: FrameworkVersionId;
-}
-
-// @public (undocumented)
-export const FrameworkVersionContext: React_2.Context<FrameworkVersionId>;
-
-// @public
-export type FrameworkVersionId = "1" | "2";
-
-// @public (undocumented)
-export interface FrameworkVersionProps {
-    // (undocumented)
-    children?: React_2.ReactNode;
-}
-
-// @internal (undocumented)
-export function FrameworkVersionSwitch(props: FrameworkVersionSwitchProps): JSX.Element;
-
-// @internal (undocumented)
-export interface FrameworkVersionSwitchProps {
-    // (undocumented)
-    v1?: React_2.ReactNode;
-    // (undocumented)
-    v2?: React_2.ReactNode;
 }
 
 // @public
@@ -2400,9 +2319,6 @@ export class FrontstageDef {
     isWidgetDisplayed(widgetId: string): boolean;
     // @beta (undocumented)
     get leftPanel(): StagePanelDef | undefined;
-    // @internal (undocumented)
-    get nineZone(): NineZoneManagerProps | undefined;
-    set nineZone(props: NineZoneManagerProps | undefined);
     // @internal (undocumented)
     get nineZoneState(): NineZoneState | undefined;
     set nineZoneState(state: NineZoneState | undefined);
@@ -2523,7 +2439,6 @@ export class FrontstageManager {
     static get isLoading(): boolean;
     static get modalFrontstageCount(): number;
     static get nestedFrontstageCount(): number;
-    static get NineZoneManager(): NineZoneManager;
     // @internal (undocumented)
     static get nineZoneSize(): Size | undefined;
     static set nineZoneSize(size: Size | undefined);
@@ -2651,12 +2566,6 @@ export function getCategories(imodel: IModelConnection, viewport?: Viewport, fil
 export function getFeatureOverrideSyncEventIds(): string[];
 
 // @internal (undocumented)
-export const getFirstItem: (groupItemDef: GroupItemDef) => AnyItemDef | undefined;
-
-// @internal (undocumented)
-export const getFirstItemId: (groupItemDef: GroupItemDef) => string;
-
-// @internal (undocumented)
 export function getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string;
 
 // @beta
@@ -2681,52 +2590,19 @@ export function getSelectionContextSyncEventIds(): string[];
 export function getStableWidgetProps(widgetProps: WidgetProps, stableId: string): WidgetProps;
 
 // @beta
-export function getUiSettingsManagerEntry(itemPriority: number, allowSettingUiFrameworkVersion?: boolean): SettingsTabEntry;
+export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
 
 // @internal (undocumented)
 export function getWidgetId(side: PanelSide, key: StagePanelZoneDefKeys): WidgetIdTypes;
 
-// @public
-export function GroupButton(props: GroupButtonProps): JSX.Element;
-
-// @internal
-export function GroupButtonItem(props: GroupButtonProps_2): JSX.Element;
-
-// @public
-export interface GroupButtonProps extends GroupItemProps, CommonProps {
-}
-
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
-
-// @internal
-export class GroupItem extends React_2.Component<GroupItemComponentProps, GroupItemState> {
-    constructor(props: GroupItemComponentProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: GroupItemComponentProps, _prevState: GroupItemState): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    getItemById(id: string): ItemDefBase | undefined;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // (undocumented)
-    shouldComponentUpdate(nextProps: GroupItemComponentProps, nextState: GroupItemState): boolean;
-    // (undocumented)
-    readonly state: Readonly<GroupItemState>;
-}
 
 // @public
 export class GroupItemDef extends ActionButtonItemDef {
     constructor(groupItemProps: GroupItemProps, onItemExecuted?: OnItemExecutedFunc);
     // (undocumented)
     defaultActiveItemId?: string;
-    // (undocumented)
-    direction: Direction;
-    // (undocumented)
-    directionExplicit: boolean;
     // (undocumented)
     execute(): void;
     // (undocumented)
@@ -2751,16 +2627,12 @@ export class GroupItemDef extends ActionButtonItemDef {
     // (undocumented)
     resolveItems(force?: boolean): void;
     setPanelLabel(v: string | StringGetter | ConditionalStringValue): void;
-    // (undocumented)
-    toolbarReactNode(index?: number): React_2.ReactNode;
 }
 
 // @public
 export interface GroupItemProps extends ItemProps {
     // (undocumented)
     defaultActiveItemId?: string;
-    // (undocumented)
-    direction?: Direction;
     // (undocumented)
     groupId?: string;
     // (undocumented)
@@ -2936,8 +2808,6 @@ export interface InitialAppUiSettings {
     colorTheme: string;
     // (undocumented)
     dragInteraction: boolean;
-    // (undocumented)
-    frameworkVersion: FrameworkVersionId;
     // (undocumented)
     showWidgetIcon?: boolean;
     // (undocumented)
@@ -3317,19 +3187,6 @@ export class ListPicker extends React_2.Component<ListPickerPropsExtended> {
     static get Key_None(): number;
     // (undocumented)
     static get Key_Separator(): number;
-    render(): JSX.Element;
-}
-
-// @beta
-export class ListPickerBase extends React_2.PureComponent<ListPickerProps, ListPickerState> {
-    constructor(props: any);
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    getExpandedContent(): React_2.ReactNode;
-    isExpanded: () => boolean;
-    minimize: () => void;
     render(): JSX.Element;
 }
 
@@ -3943,40 +3800,6 @@ export interface PointerMessageProps extends CommonProps {
     message?: string;
 }
 
-// @public @deprecated
-export class PopupButton extends React_2.Component<PopupButtonProps, BaseItemState> {
-    constructor(props: PopupButtonProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    get label(): string;
-    minimize: () => void;
-    render(): JSX.Element | null;
-}
-
-// @public @deprecated
-export type PopupButtonChildrenRenderProp = (args: PopupButtonChildrenRenderPropArgs) => React_2.ReactNode;
-
-// @public @deprecated
-export interface PopupButtonChildrenRenderPropArgs {
-    // (undocumented)
-    closePanel: () => void;
-}
-
-// @public @deprecated
-export interface PopupButtonProps extends ItemProps, CommonProps {
-    // (undocumented)
-    children?: React_2.ReactNode | PopupButtonChildrenRenderProp;
-    // (undocumented)
-    noPadding?: boolean;
-    // (undocumented)
-    onExpanded?: (expand: boolean) => void;
-    // (undocumented)
-    onSizeKnown?: (size: SizeProps) => void;
-}
-
 // @public
 export type PopupContentType = HTMLElement | ReactContent;
 
@@ -4520,6 +4343,11 @@ export const setPanelSize: (base: {
             readonly id: string;
             readonly label: string;
             readonly iconSpec?: boolean | ReactText | {
+                readonly stringGetter: () => string;
+                readonly syncEventIds: readonly string[];
+                readonly value: string;
+                readonly refresh: () => boolean;
+            } | {
                 readonly type: string | JSXElementConstructor<any>;
                 readonly props: any;
                 readonly key: Key | null;
@@ -4536,11 +4364,6 @@ export const setPanelSize: (base: {
                 } | any | null | undefined;
                 readonly type: string | JSXElementConstructor<any>;
                 readonly props: any;
-            } | {
-                readonly stringGetter: () => string;
-                readonly syncEventIds: readonly string[];
-                readonly value: string;
-                readonly refresh: () => boolean;
             } | null | undefined;
             readonly preferredFloatingWidgetSize?: {
                 readonly width: number;
@@ -5381,19 +5204,6 @@ export interface ToolAssistanceFieldProps extends CommonProps {
     uiStateStorage?: UiStateStorage;
 }
 
-// @internal
-export class Toolbar extends React_2.Component<ToolbarProps, ToolbarState> {
-    constructor(props: ToolbarProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: ToolbarProps, _prevState: ToolbarState): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): JSX.Element | null;
-}
-
 // @public
 export class ToolbarButtonHelper {
     static getAppButton(): HTMLButtonElement | null;
@@ -5410,34 +5220,15 @@ export function ToolbarComposer(props: ExtensibleToolbarProps): JSX.Element;
 // @beta
 export const ToolbarDragInteractionContext: React_2.Context<boolean>;
 
-// @internal
-export class ToolbarGroupItem extends React_2.Component<ToolbarGroupItemComponentProps, ToolbarGroupItemState> {
-    constructor(props: ToolbarGroupItemComponentProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: ToolbarGroupItemComponentProps, _prevState: ToolbarGroupItemState): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    getItemById(id: string): ActionButton | GroupButton_2 | undefined;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // (undocumented)
-    readonly state: Readonly<ToolbarGroupItemState>;
-}
-
 // @public
 export class ToolbarHelper {
-    static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ActionButton | GroupButton_2>;
+    static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ActionButton | GroupButton>;
     static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): CustomToolbarItem;
-    // (undocumented)
-    static createNodeForToolbarItem(item: CommonToolbarItem, onItemExecuted?: OnItemExecutedFunc): React_2.ReactNode;
     static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<ToolbarItem>): CommonToolbarItem;
     // (undocumented)
     static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<ToolbarItem>): CommonToolbarItem[];
     // (undocumented)
-    static getIconReactNode(item: ActionButton | GroupButton_2): React_2.ReactNode;
+    static getIconReactNode(item: ActionButton | GroupButton): React_2.ReactNode;
     // @internal
     static isCustomToolbarButton: (item: CommonToolbarItem) => item is CustomToolbarItem;
 }
@@ -5466,69 +5257,12 @@ export interface ToolbarPopupProps extends PopupPropsBase {
     relativePosition: RelativePosition;
 }
 
-// @internal
-export interface ToolbarProps extends CommonProps, NoChildrenProps {
-    expandsTo?: Direction;
-    initialSize?: Size;
-    items: ItemList;
-    orientation: Orientation;
-    panelAlignment?: ToolbarPanelAlignment;
-    toolbarId?: string;
-}
-
-// @public @deprecated
-export class ToolbarWidgetDefBase extends WidgetDef {
-    constructor(def: ToolbarWidgetProps);
-    // (undocumented)
-    horizontalDirection: Direction;
-    // (undocumented)
-    horizontalItems?: ItemList;
-    // (undocumented)
-    horizontalPanelAlignment: ToolbarPanelAlignment;
-    // (undocumented)
-    renderHorizontalToolbar(): React_2.ReactNode;
-    // (undocumented)
-    renderVerticalToolbar(): React_2.ReactNode;
-    // (undocumented)
-    verticalDirection: Direction;
-    // (undocumented)
-    verticalItems?: ItemList;
-    // (undocumented)
-    verticalPanelAlignment: ToolbarPanelAlignment;
-    set widgetBaseName(baseName: string);
-    // (undocumented)
-    get widgetBaseName(): string;
-}
-
 // @public
 export interface ToolbarWidgetProps extends WidgetProps {
     // (undocumented)
-    horizontalDirection?: Direction;
-    // (undocumented)
     horizontalItems?: ItemList;
     // (undocumented)
-    verticalDirection?: Direction;
-    // (undocumented)
     verticalItems?: ItemList;
-}
-
-// @public
-export class ToolButton extends React_2.Component<ToolButtonProps, BaseItemState> {
-    constructor(props: ToolItemProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    get label(): string;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: Readonly<BaseItemState>;
-}
-
-// @public
-export interface ToolButtonProps extends ToolItemProps, CommonProps {
 }
 
 // @internal (undocumented)
@@ -5738,10 +5472,10 @@ export class UiFramework {
     static getWidgetOpacity(): number;
     // @alpha (undocumented)
     static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler;
-    static initialize(store: Store<any> | undefined, frameworkStateKey?: string, startInUi1Mode?: boolean): Promise<void>;
+    static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static get initialized(): boolean;
     // @internal
-    static initializeEx(store: Store<any> | undefined, frameworkStateKey?: string, startInUi1Mode?: boolean): Promise<void>;
+    static initializeEx(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
     // @alpha
     static get isContextMenuOpen(): boolean;
@@ -5793,8 +5527,6 @@ export class UiFramework {
     // (undocumented)
     static setUiStateStorage(storage: UiStateStorage, immediateSync?: boolean): Promise<void>;
     // (undocumented)
-    static setUiVersion(version: FrameworkVersionId): void;
-    // (undocumented)
     static setUseDragInteraction(useDragInteraction: boolean): void;
     // (undocumented)
     static setUseToolAsToolSettingsLabel(value: boolean): void;
@@ -5807,7 +5539,6 @@ export class UiFramework {
     static terminate(): void;
     // @internal
     static translate(key: string | string[]): string;
-    static get uiVersion(): FrameworkVersionId;
     // (undocumented)
     static useDefaultPopoutUrl: boolean;
     // (undocumented)
@@ -5829,9 +5560,7 @@ export interface UiIntervalEventArgs {
 }
 
 // @beta
-export function UiSettingsPage({ allowSettingUiFrameworkVersion }: {
-    allowSettingUiFrameworkVersion: boolean;
-}): JSX.Element;
+export function UiSettingsPage(): JSX.Element;
 
 // @public
 export interface UiSettingsProviderProps {
@@ -5959,9 +5688,6 @@ export const useDefaultStatusBarItems: (manager: StatusBarItemsManager_2) => rea
 
 // @public
 export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly CommonToolbarItem[];
-
-// @public (undocumented)
-export function useFrameworkVersion(): FrameworkVersionId;
 
 // @internal (undocumented)
 export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void;

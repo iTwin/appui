@@ -5,12 +5,13 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { act, render } from "@testing-library/react";
-import { EventEmitter, ScrollableWidgetContent, TabIdContext, TabState, WidgetContentManagerContext } from "../../appui-layout-react";
+import { ScrollableWidgetContent, TabIdContext, TabState, WidgetContentManagerContext } from "../../appui-layout-react";
+import { BeEvent } from "@itwin/core-bentley";
 
 describe("ScrollableWidgetContent", () => {
   it("should save and restore scroll position", () => {
-    const onSaveTransientState = new EventEmitter<(tabId: TabState["id"]) => void>();
-    const onRestoreTransientState = new EventEmitter<(tabId: TabState["id"]) => void>();
+    const onSaveTransientState = new BeEvent<(tabId: TabState["id"]) => void>();
+    const onRestoreTransientState = new BeEvent<(tabId: TabState["id"]) => void>();
     const { container } = render(<WidgetContentManagerContext.Provider value={{
       setContainer: () => { },
       onRestoreTransientState,
@@ -25,8 +26,8 @@ describe("ScrollableWidgetContent", () => {
     const content = container.getElementsByClassName("nz-widget-content")[0];
     const scrollLeftSpy = sinon.spy(content, "scrollLeft", ["get", "set"]);
     act(() => {
-      onSaveTransientState.emit("t1");
-      onRestoreTransientState.emit("t1");
+      onSaveTransientState.raiseEvent("t1");
+      onRestoreTransientState.raiseEvent("t1");
     });
     scrollLeftSpy.get.callCount.should.eq(1);
     scrollLeftSpy.set.callCount.should.eq(1);

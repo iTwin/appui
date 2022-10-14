@@ -8,15 +8,8 @@
 
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { SizeProps } from "@itwin/core-react";
 import { ActionButtonItemDef } from "./ActionButtonItemDef";
 import { CustomItemProps } from "./CustomItemProps";
-
-/** @internal */
-interface CloneProps {
-  key: string;
-  onSizeKnown: (size: SizeProps) => void;
-}
 
 /** An Item that renders a React component.
  * @public
@@ -46,7 +39,7 @@ export class CustomItemDef extends ActionButtonItemDef {
     return this.customId;
   }
 
-  public override toolbarReactNode(index?: number): React.ReactNode {
+  public toolbarReactNode(index?: number): React.ReactNode {
     if (!this.isVisible || ConditionalBooleanValue.getValue(this.isHidden)) // eslint-disable-line deprecation/deprecation
       return null;
 
@@ -54,9 +47,8 @@ export class CustomItemDef extends ActionButtonItemDef {
 
     // istanbul ignore else
     if (this.reactElement && React.isValidElement(this.reactElement)) {
-      const key = this.getKey(index);
-      const cloneProps: CloneProps = {
-        key,
+      const cloneProps = {
+        key: index,
         onSizeKnown: this.handleSizeKnown,
       };
 

@@ -15,7 +15,6 @@ import {
 } from "@itwin/core-frontend";
 import { ConditionalBooleanValue, ConditionalStringValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import { ToolbarPopupContext } from "@itwin/components-react";
-import { PopupButton, PopupButtonChildrenRenderPropArgs } from "../toolbar/PopupButton";
 import { ContentViewManager } from "../content/ContentViewManager";
 import { KeyinBrowser } from "../keyinbrowser/KeyinBrowser";
 import { getIsHiddenIfSelectionNotActive, getSelectionContextSyncEventIds, selectionContextStateFunc } from "../selection/SelectionContextItemDef";
@@ -50,21 +49,8 @@ export class CoreTools {
           <KeyinBrowser onExecute={closePanel} onCancel={closePanel} />
         )}
       </ToolbarPopupContext.Consumer>,
-      // DEPRECATED way
-      reactElement: (
-        <PopupButton iconSpec="icon-process" labelKey="UiFramework:keyinbrowser.label">
-          {this._renderKeyInBrowser}
-        </PopupButton>
-      ),
     });
   }
-
-  // istanbul ignore next
-  private static _renderKeyInBrowser = ({ closePanel }: PopupButtonChildrenRenderPropArgs) => {
-    return (
-      <KeyinBrowser onExecute={closePanel} onCancel={closePanel} />
-    );
-  };
 
   public static get keyinPaletteButtonItemDef() {
     return new ToolItemDef({

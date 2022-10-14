@@ -13,10 +13,9 @@ import { Project as ITwin, ProjectsAccessClient, ProjectsSearchableProperty } fr
 import { RealityDataAccessClient, RealityDataClientOptions } from "@itwin/reality-data-client";
 import { getClassName, UiItemsManager } from "@itwin/appui-abstract";
 import { SafeAreaInsets } from "@itwin/appui-layout-react";
-import { TargetOptions, TargetOptionsContext } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/target/TargetOptions";
 import {
   ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrameworkVersion, FrontstageDeactivatedEventArgs, FrontstageDef, FrontstageManager,
+  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageDef, FrontstageManager,
   IModelViewportControl,
   InitialAppUiSettings,
   ModalFrontstageClosedEventArgs, SafeAreaContext, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
@@ -53,7 +52,7 @@ import {
 RpcConfiguration.developmentMode = true;
 
 // cSpell:ignore setTestProperty sampleapp uitestapp projectwise hypermodeling testapp urlps
-// cSpell:ignore toggledraginteraction toggleframeworkversion set-drag-interaction set-framework-version
+// cSpell:ignore toggledraginteraction set-drag-interaction set-framework-version
 
 /** Action Ids used by redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  * Use lower case strings to be compatible with SyncUi processing.
@@ -262,7 +261,6 @@ export class SampleAppIModelApp {
     const defaults: InitialAppUiSettings = {
       colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
       dragInteraction: false,
-      frameworkVersion: "2",
       widgetOpacity: 0.8,
       showWidgetIcon: true,
       autoCollapseUnpinnedPanels: false,
@@ -529,10 +527,6 @@ export class SampleAppIModelApp {
     return SampleAppIModelApp.store.getState().sampleAppState.testProperty;
   }
 
-  public static getUiFrameworkProperty(): string {
-    return SampleAppIModelApp.store.getState().frameworkState.configurableUiState.frameworkVersion;
-  }
-
   public static saveAnimationViewId(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
       UiFramework.dispatchActionToStore(SampleAppUiActionId.setAnimationViewId, value, immediateSync);
@@ -566,33 +560,11 @@ function AppDragInteractionComponent(props: { dragInteraction: boolean, children
   );
 }
 
-function AppFrameworkVersionComponent(props: { frameworkVersion: string, children: React.ReactNode }) {
-  return (
-    <FrameworkVersion>
-      {props.children}
-    </FrameworkVersion>
-  );
-}
-
-function TargetOptionsProvider({ children }: React.PropsWithChildren<{}>) {
-  const value = React.useMemo<TargetOptions>(() => ({ version: "2" }), []);
-  return (
-    <TargetOptionsContext.Provider value={value}>
-      {children}
-    </TargetOptionsContext.Provider>
-  );
-}
-
 function mapDragInteractionStateToProps(state: RootState) {
   return { dragInteraction: state.frameworkState.configurableUiState.useDragInteraction };
 }
 
-function mapFrameworkVersionStateToProps(state: RootState) {
-  return { frameworkVersion: state.frameworkState.configurableUiState.frameworkVersion };
-}
-
 const AppDragInteraction = connect(mapDragInteractionStateToProps)(AppDragInteractionComponent);
-const AppFrameworkVersion = connect(mapFrameworkVersionStateToProps)(AppFrameworkVersionComponent);
 
 const SampleAppViewer2 = () => {
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
@@ -643,15 +615,11 @@ const SampleAppViewer2 = () => {
         {/* eslint-disable-next-line deprecation/deprecation */}
         <SafeAreaContext.Provider value={SafeAreaInsets.All}>
           <AppDragInteraction>
-            <AppFrameworkVersion>
-              <TargetOptionsProvider>
-                <UiStateStorageHandler>
-                  <ConfigurableUiContent
-                    appBackstage={<BackstageComposer />}
-                  />
-                </UiStateStorageHandler>
-              </TargetOptionsProvider>
-            </AppFrameworkVersion>
+            <UiStateStorageHandler>
+              <ConfigurableUiContent
+                appBackstage={<BackstageComposer />}
+              />
+            </UiStateStorageHandler>
           </AppDragInteraction>
         </SafeAreaContext.Provider>
       </ThemeManager>

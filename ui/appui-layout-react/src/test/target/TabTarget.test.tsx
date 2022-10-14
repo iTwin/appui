@@ -5,7 +5,6 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { addPanelWidget, addTab, createNineZoneState, DraggedTabStateContext, DraggedWidgetIdContext, NineZoneState, WidgetState, WidgetStateContext } from "../../appui-layout-react";
-import { TargetOptionsContext } from "../../appui-layout-react/target/TargetOptions";
 import { TestNineZoneProvider } from "../Providers";
 import { TabTarget } from "../../appui-layout-react/target/TabTarget";
 import { renderHook } from "@testing-library/react-hooks";
@@ -19,15 +18,11 @@ interface WrapperProps {
 
 function Wrapper({ children, state, widgetId }: React.PropsWithChildren<WrapperProps>) {
   return (
-    <TargetOptionsContext.Provider value={{
-      version: "2",
-    }}>
-      <TestNineZoneProvider state={state}>
-        <WidgetStateContext.Provider value={state.widgets[widgetId]}>
-          {children}
-        </WidgetStateContext.Provider>
-      </TestNineZoneProvider>
-    </TargetOptionsContext.Provider>
+    <TestNineZoneProvider state={state}>
+      <WidgetStateContext.Provider value={state.widgets[widgetId]}>
+        {children}
+      </WidgetStateContext.Provider>
+    </TestNineZoneProvider>
   );
 }
 
@@ -85,7 +80,7 @@ describe("TabTarget", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addTab(state, "t2");
-    state = addTab(state, "t3", { allowedPanelTargets: ["left","right"] });
+    state = addTab(state, "t3", { allowedPanelTargets: ["left", "right"] });
     state = addTab(state, "t4", { allowedPanelTargets: ["right"] });
     state = addPanelWidget(state, "left", "w2", ["t2", "t3", "t4"]);
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {

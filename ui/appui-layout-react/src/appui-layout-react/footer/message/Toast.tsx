@@ -10,7 +10,6 @@ import "./Toast.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { CommonProps, NoChildrenProps, Rectangle, Timer } from "@itwin/core-react";
-import { Css } from "../../utilities/Css";
 
 /** Properties of [[Toast]] component.
  * @internal
@@ -155,15 +154,15 @@ export class Toast extends React.PureComponent<ToastProps, ToastState> {
       if (!this._toast.current)
         return;
 
-      this._toast.current.style.width = Css.toPx(toast.getWidth());
-      this._toast.current.style.height = Css.toPx(toast.getHeight());
+      this._toast.current.style.width = `${toast.getWidth()}px`;
+      this._toast.current.style.height = `${toast.getHeight()}px`;
 
       window.requestAnimationFrame(() => {
         if (!this._toast.current)
           return;
 
-        this._toast.current.style.width = Css.toPx(0);
-        this._toast.current.style.height = Css.toPx(0);
+        this._toast.current.style.width = "0px";
+        this._toast.current.style.height = "0px";
       });
     });
   }

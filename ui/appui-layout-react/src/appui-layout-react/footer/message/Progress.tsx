@@ -10,7 +10,6 @@ import "./Progress.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { Css } from "../../utilities/Css";
 import { Status, StatusHelpers } from "./Status";
 
 /** Properties of [[MessageProgress]] component.
@@ -42,7 +41,7 @@ export class MessageProgress extends React.PureComponent<ProgressProps> {
           <div
             className="nz-progress-bar"
             style={{
-              width: Css.toPercentage(this.props.progress),
+              width: `${this.props.progress}%`,
             }}
           >
             <div className="nz-progress-bar-tip"></div>

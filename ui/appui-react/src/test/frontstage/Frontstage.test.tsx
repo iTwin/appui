@@ -9,17 +9,17 @@ import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
 import {
-  CoreTools, Frontstage, FrontstageDef, FrontstageManager, UiFramework, useSpecificWidgetDef, WidgetDef,
+  CoreTools, Frontstage, FrontstageDef, FrontstageManager, useSpecificWidgetDef, WidgetDef,
 } from "../../appui-react";
 import TestUtils, { mount } from "../TestUtils";
 import { TestFrontstage } from "./FrontstageTestUtils";
 import { renderHook } from "@testing-library/react-hooks";
+import { assert } from "@itwin/core-bentley";
 
 describe("Frontstage", () => {
   before(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
-    UiFramework.setUiVersion("1");
     FrontstageManager.clearFrontstageProviders();
   });
 
@@ -44,15 +44,11 @@ describe("Frontstage", () => {
     await FrontstageManager.setActiveFrontstageDef(frontstageDef);
     const widgetDef = FrontstageManager.findWidget("widget1");
     expect(widgetDef).to.not.be.undefined;
+    assert((!!widgetDef));
 
-    if (widgetDef) {
-      widgetDef.setWidgetState(WidgetState.Open);
-      expect(widgetDef.isActive).to.eq(true);
-      expect(widgetDef.isVisible).to.eq(true);
-
-      FrontstageManager.setWidgetState("widget1", WidgetState.Hidden);
-      expect(widgetDef.isVisible).to.eq(false);
-    }
+    widgetDef.setWidgetState(WidgetState.Open);
+    expect(widgetDef.isActive).to.eq(true);
+    expect(widgetDef.isVisible).to.eq(true);
   });
 
   it("Expect cached frontstageDef to be replaced", async () => {

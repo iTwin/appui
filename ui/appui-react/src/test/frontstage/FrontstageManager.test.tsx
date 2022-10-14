@@ -31,7 +31,6 @@ describe("FrontstageManager", () => {
     });
 
     await TestUtils.initializeUiFramework();
-    UiFramework.setUiVersion("1");
     await MockRender.App.startup();
 
     FrontstageManager.initialize();
@@ -72,7 +71,7 @@ describe("FrontstageManager", () => {
 
   it("getFronstageDef should return active frontstage when no id provided", async () => {
     const activeFrontstageDef = new FrontstageDef();
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => activeFrontstageDef );
+    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => activeFrontstageDef);
 
     const frontstageDef = await FrontstageManager.getFrontstageDef();
 
@@ -138,22 +137,6 @@ describe("FrontstageManager", () => {
     spyMethod.calledOnce.should.true;
   });
 
-  it("setWidgetState should find and set widget state", async () => {
-    const frontstageProvider = new TestFrontstage();
-    FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
-
-    const widgetDef = FrontstageManager.findWidget("widget1");
-    expect(widgetDef).to.not.be.undefined;
-
-    if (widgetDef) {
-      expect(widgetDef.isVisible).to.eq(true);
-      expect(FrontstageManager.setWidgetState("widget1", WidgetState.Hidden)).to.be.true;
-      expect(widgetDef.isVisible).to.eq(false);
-    }
-  });
-
   it("setActiveFrontstage should set active frontstage", async () => {
     const frontstageProvider = new TestFrontstage2();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
@@ -185,8 +168,8 @@ describe("FrontstageManager", () => {
   });
 
   it("setActiveContentGroup should setActiveLayout if layout found", async () => {
-    const contentGroup = new ContentGroup({id: "1", contents: [], layout: {id: "1"}});
-    const layoutDef = new ContentLayoutDef({id: "1"});
+    const contentGroup = new ContentGroup({ id: "1", contents: [], layout: { id: "1" } });
+    const layoutDef = new ContentLayoutDef({ id: "1" });
     sinon.stub(ContentLayoutManager, "getLayoutForGroup").returns(layoutDef);
     const spy = sinon.stub(FrontstageManager, "setActiveLayout");
     await FrontstageManager.setActiveContentGroup(contentGroup);

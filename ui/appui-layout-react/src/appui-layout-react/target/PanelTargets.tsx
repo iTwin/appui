@@ -14,12 +14,11 @@ import { PanelStateContext } from "../widget-panels/Panel";
 import { TargetContainer } from "./TargetContainer";
 import { PanelTarget } from "./PanelTarget";
 import { SectionTarget, useTargetDirection } from "./SectionTarget";
-import { withTargetVersion } from "./TargetOptions";
 import { MergeTarget } from "./MergeTarget";
 import { isHorizontalPanelState } from "../state/PanelState";
 
 /** @internal */
-export const PanelTargets = withTargetVersion("2", function PanelTargets() {
+export function PanelTargets() {
   const panel = React.useContext(PanelStateContext);
   assert(!!panel);
   const direction = useTargetDirection();
@@ -55,7 +54,7 @@ export const PanelTargets = withTargetVersion("2", function PanelTargets() {
       {targets}
     </TargetContainer>
   );
-});
+}
 
 function usePanelTargetsType(): "no-panel" | "single-widget" | "two-widgets" | "hidden" {
   const panelState = React.useContext(PanelStateContext);

@@ -5,20 +5,15 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { createNineZoneState } from "../../appui-layout-react";
-import { TargetOptionsContext } from "../../appui-layout-react/target/TargetOptions";
 import { TestNineZoneProvider } from "../Providers";
 import { WidgetOutline } from "../../appui-layout-react/outline/WidgetOutline";
 
 function Wrapper(props: React.PropsWithChildren<{}>) {
   const state = createNineZoneState();
   return (
-    <TargetOptionsContext.Provider value={{
-      version: "2",
-    }}>
-      <TestNineZoneProvider state={state}>
-        {props.children}
-      </TestNineZoneProvider>
-    </TargetOptionsContext.Provider>
+    <TestNineZoneProvider state={state}>
+      {props.children}
+    </TestNineZoneProvider>
   );
 }
 

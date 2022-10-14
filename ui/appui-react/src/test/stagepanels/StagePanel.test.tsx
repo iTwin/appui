@@ -6,7 +6,6 @@ import * as React from "react";
 import { StagePanelLocation } from "@itwin/appui-abstract";
 import { StagePanel } from "../../appui-react";
 import { StagePanelDef } from "../../appui-react/stagepanels/StagePanelDef";
-import { UiFramework } from "../../appui-react/UiFramework";
 import TestUtils, { mount } from "../TestUtils";
 
 /* eslint-disable react/jsx-key */
@@ -14,7 +13,6 @@ import TestUtils, { mount } from "../TestUtils";
 describe("StagePanel", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
-    UiFramework.setUiVersion("1");
   });
 
   after(() => {

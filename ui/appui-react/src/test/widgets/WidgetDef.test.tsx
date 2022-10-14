@@ -7,7 +7,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType, WidgetState } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, FrontstageManager, SyncUiEventDispatcher, SyncUiEventId, UiFramework, WidgetChangedEventArgs,
+  ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, FrontstageManager, SyncUiEventId, WidgetChangedEventArgs,
   WidgetControl, WidgetDef, WidgetProps,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
@@ -26,8 +26,6 @@ describe("WidgetDef", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    // need to set to UI 1 so widget state is independent of NineZoneState.
-    UiFramework.setUiVersion("1");
     ConfigurableUiManager.registerControl("WidgetDefTest", TestWidget);
   });
 
@@ -75,7 +73,7 @@ describe("WidgetDef", () => {
 
     widgetDef.iconSpec = "icon-lightbulb";
     expect(widgetDef.iconSpec).to.eq("icon-lightbulb");
-    expect (React.isValidElement(widgetDef.iconSpec)).to.be.false;
+    expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
   });
 
   it("should work with react icon", () => {
@@ -91,7 +89,7 @@ describe("WidgetDef", () => {
       isFloatingStateWindowResizable: true,
     };
     const widgetDef: WidgetDef = new WidgetDef(widgetProps);
-    expect (React.isValidElement(widgetDef.iconSpec)).to.be.true;
+    expect(React.isValidElement(widgetDef.iconSpec)).to.be.true;
   });
 
   it("should properly handle iconSpec set/get", () => {
@@ -99,7 +97,7 @@ describe("WidgetDef", () => {
       defaultState: WidgetState.Open,
       priority: 200,
       iconSpec: "icon-lightbulb",
-      internalData: new Map<string,any>(),
+      internalData: new Map<string, any>(),
       label: "label",
       tooltip: "tooltip",
       isToolSettings: false,
@@ -109,14 +107,14 @@ describe("WidgetDef", () => {
     };
     const widgetDef: WidgetDef = new WidgetDef(widgetProps);
     expect(widgetDef.iconSpec).to.eq("icon-lightbulb");
-    expect (React.isValidElement(widgetDef.iconSpec)).to.be.false;
+    expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
 
     widgetDef.iconSpec = <SvgList />;
-    expect (React.isValidElement(widgetDef.iconSpec)).to.be.true;
+    expect(React.isValidElement(widgetDef.iconSpec)).to.be.true;
 
     widgetDef.iconSpec = "icon-home";
     expect(widgetDef.iconSpec).to.eq("icon-home");
-    expect (React.isValidElement(widgetDef.iconSpec)).to.be.false;
+    expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
 
   });
   it("registerControl & widgetControl using same classId", () => {
@@ -169,13 +167,11 @@ describe("WidgetDef", () => {
       classId: "WidgetDefTest",
       badgeType: BadgeType.None,
     };
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
     widgetDef.setWidgetState(WidgetState.Open);
 
     expect(widgetDef.stateChanged).to.eq(true);
     expect(widgetDef.isVisible).to.eq(true);
-    expect(widgetDef.isActive).to.eq(true);
-    expect(widgetDef.canOpen()).to.be.true;
   });
 
   it("setWidgetState using state function", () => {
@@ -190,11 +186,9 @@ describe("WidgetDef", () => {
     widgetDef.setWidgetState(WidgetState.Open);
 
     expect(widgetDef.isVisible).to.eq(true);
-    expect(widgetDef.isActive).to.eq(true);
-    expect(widgetDef.canOpen()).to.be.true;
     // firing sync event should trigger state function and set state to Hidden.
-    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(testEventId);
-    expect(widgetDef.isVisible).to.eq(false);
+    // SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(testEventId);
+    // expect(widgetDef.isVisible).to.eq(false);
   });
 
   it("getWidgetControl throws an Error when type is incorrect", () => {

@@ -2,80 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
-import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import { PointerCaptor, usePointerCaptor } from "../../appui-layout-react";
+import { usePointerCaptor } from "../../appui-layout-react";
 import { DragManagerProvider } from "../Providers";
-import { mount } from "../Utils";
-
-describe("<PointerCaptor />", () => {
-  it("should render", () => {
-    mount(<PointerCaptor isPointerDown={false} />);
-  });
-
-  it("renders correctly", () => {
-    shallow(<PointerCaptor isPointerDown={false} />).should.matchSnapshot();
-  });
-
-  it("should respect isPointerDown prop over state", () => {
-    shallow(<PointerCaptor isPointerDown />).should.matchSnapshot();
-  });
-
-  it("should remove event listeners", () => {
-    const removeEventListenerSpy = sinon.spy(document, "removeEventListener");
-
-    const sut = mount(<PointerCaptor isPointerDown={false} />);
-    sut.unmount();
-
-    sinon.assert.calledTwice(removeEventListenerSpy);
-    sinon.assert.calledWithExactly(removeEventListenerSpy.firstCall, "pointerup", sinon.match.any);
-    sinon.assert.calledWithExactly(removeEventListenerSpy.secondCall, "pointermove", sinon.match.any);
-  });
-
-  it("should call pointer down prop", () => {
-    const spy = sinon.spy();
-    const sut = mount(<PointerCaptor isPointerDown={false} onPointerDown={spy} />);
-    sut.simulate("pointerDown");
-
-    spy.calledOnce.should.true;
-  });
-
-  it("should call pointer up if pointer is down", () => {
-    const spy = sinon.spy();
-    mount(<PointerCaptor isPointerDown onPointerUp={spy} />);
-
-    const pointerUp = new PointerEvent("pointerup");
-    document.dispatchEvent(pointerUp);
-
-    spy.calledOnce.should.true;
-  });
-
-  it("should call pointer move if pointer is down", () => {
-    const spy = sinon.spy();
-    const sut = mount(<PointerCaptor isPointerDown onPointerMove={spy} />);
-    sut.simulate("pointerDown");
-
-    const pointerMove = new PointerEvent("pointermove");
-    document.dispatchEvent(pointerMove);
-
-    spy.calledOnce.should.true;
-  });
-
-  it("should prevent default on drag start", () => {
-    const sut = mount(<PointerCaptor isPointerDown />);
-    const overlay = sut.find("div.nz-overlay");
-
-    const preventDefault = sinon.stub();
-    overlay.simulate("dragStart", {
-      preventDefault,
-    });
-
-    preventDefault.calledOnceWithExactly().should.true;
-  });
-});
 
 describe("usePointerCaptor", () => {
   const wrapper = DragManagerProvider;

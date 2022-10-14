@@ -6,7 +6,8 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { EventEmitter, TabIdContext, TabState, useTransientState, WidgetContentManager, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetContentRenderer } from "../../appui-layout-react";
+import { TabIdContext, TabState, useTransientState, WidgetContentManager, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetContentRenderer } from "../../appui-layout-react";
+import { BeEvent } from "@itwin/core-bentley";
 
 describe("WidgetContentRenderer", () => {
   const wrapper = WidgetContentManager;
@@ -43,10 +44,10 @@ describe("WidgetContentRenderer", () => {
 
 describe("useTransientState", () => {
   it("should invoke onSave", () => {
-    const onSaveTransientState = new EventEmitter<(tabId: TabState["id"]) => void>();
+    const onSaveTransientState = new BeEvent<(tabId: TabState["id"]) => void>();
     const widgetContentManager: WidgetContentManagerContextArgs = {
       setContainer: () => { },
-      onRestoreTransientState: new EventEmitter<(tabId: TabState["id"]) => void>(),
+      onRestoreTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
       onSaveTransientState,
     };
     const onSave = sinon.stub<NonNullable<Parameters<typeof useTransientState>[0]>>();
@@ -59,17 +60,17 @@ describe("useTransientState", () => {
       </WidgetContentManagerContext.Provider>,
     });
     act(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
-      onSaveTransientState.emit("t1");
+      onSaveTransientState.raiseEvent("t1");
     });
     onSave.calledOnceWithExactly().should.true;
   });
 
   it("should invoke onRestore", () => {
-    const onRestoreTransientState = new EventEmitter<(tabId: TabState["id"]) => void>();
+    const onRestoreTransientState = new BeEvent<(tabId: TabState["id"]) => void>();
     const widgetContentManager: WidgetContentManagerContextArgs = {
       setContainer: () => { },
       onRestoreTransientState,
-      onSaveTransientState: new EventEmitter<(tabId: TabState["id"]) => void>(),
+      onSaveTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
     };
     const onRestore = sinon.stub<NonNullable<Parameters<typeof useTransientState>[1]>>();
     renderHook(() => useTransientState(undefined, onRestore), {
@@ -81,7 +82,7 @@ describe("useTransientState", () => {
       </WidgetContentManagerContext.Provider>,
     });
     act(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
-      onRestoreTransientState.emit("t1");
+      onRestoreTransientState.raiseEvent("t1");
     });
     onRestore.calledOnceWithExactly().should.true;
   });
