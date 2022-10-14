@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Add RestoreFrontstagesLayout tool.",
+      "comment": "Add RestoreAllFrontstages tool.",
       "type": "none"
     }
   ],
