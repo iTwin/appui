@@ -5,7 +5,6 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { addPanelWidget, addTab, createNineZoneState, NineZoneState, WidgetState, WidgetStateContext } from "../../appui-layout-react";
-import { TargetOptionsContext } from "../../appui-layout-react/target/TargetOptions";
 import { TitleBarTarget } from "../../appui-layout-react/target/TitleBarTarget";
 import { TestNineZoneProvider } from "../Providers";
 
@@ -16,15 +15,11 @@ interface WrapperProps {
 
 function Wrapper({ children, state, widgetId }: React.PropsWithChildren<WrapperProps>) {
   return (
-    <TargetOptionsContext.Provider value={{
-      version: "2",
-    }}>
-      <TestNineZoneProvider state={state}>
-        <WidgetStateContext.Provider value={state.widgets[widgetId]}>
-          {children}
-        </WidgetStateContext.Provider>
-      </TestNineZoneProvider>
-    </TargetOptionsContext.Provider>
+    <TestNineZoneProvider state={state}>
+      <WidgetStateContext.Provider value={state.widgets[widgetId]}>
+        {children}
+      </WidgetStateContext.Provider>
+    </TestNineZoneProvider>
   );
 }
 

@@ -33,15 +33,13 @@ import { Select, SelectOption, Slider, ToggleSwitch } from "@itwin/itwinui-react
  *
  * @beta
  */
-export function UiSettingsPage({ allowSettingUiFrameworkVersion }: { allowSettingUiFrameworkVersion: boolean }) {
+export function UiSettingsPage() {
   const themeTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.themeTitle"));
   const themeDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.themeDescription"));
   const autoHideTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.autoHideTitle"));
   const autoHideDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.autoHideDescription"));
   const dragInteractionTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.dragInteractionTitle"));
   const dragInteractionDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.dragInteractionDescription"));
-  const useNewUiTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.newUiTitle"));
-  const useNewUiDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.newUiDescription"));
   const useProximityOpacityTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.useProximityOpacityTitle"));
   const useProximityOpacityDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.useProximityOpacityDescription"));
   const snapWidgetOpacityTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.snapWidgetOpacityTitle"));
@@ -61,7 +59,6 @@ export function UiSettingsPage({ allowSettingUiFrameworkVersion }: { allowSettin
   const useToolAsToolSettingsLabelDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.useToolAsToolSettingsLabelDescription"));
 
   const [theme, setTheme] = React.useState(() => UiFramework.getColorTheme());
-  const [uiVersion, setUiVersion] = React.useState(() => UiFramework.uiVersion);
   const [useDragInteraction, setUseDragInteraction] = React.useState(() => UiFramework.useDragInteraction);
   const [showWidgetIcon, setShowWidgetIcon] = React.useState(() => UiFramework.showWidgetIcon);
   const [autoCollapseUnpinnedPanels, setAutoCollapseUnpinnedPanels] = React.useState(() => UiFramework.autoCollapseUnpinnedPanels);
@@ -84,8 +81,6 @@ export function UiSettingsPage({ allowSettingUiFrameworkVersion }: { allowSettin
           setTheme(UiFramework.getColorTheme());
         if (UiShowHideManager.autoHideUi !== autoHideUi)
           setAutoHideUi(UiShowHideManager.autoHideUi);
-        if (UiFramework.uiVersion !== uiVersion)
-          setUiVersion(UiFramework.uiVersion);
         if (UiFramework.useDragInteraction !== useDragInteraction)
           setUseDragInteraction(UiFramework.useDragInteraction);
         if (UiFramework.showWidgetIcon !== showWidgetIcon)
@@ -107,7 +102,7 @@ export function UiSettingsPage({ allowSettingUiFrameworkVersion }: { allowSettin
       }
     };
     return SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
-  }, [autoCollapseUnpinnedPanels, autoHideUi, showWidgetIcon, snapWidgetOpacity, theme, uiVersion,
+  }, [autoCollapseUnpinnedPanels, autoHideUi, showWidgetIcon, snapWidgetOpacity, theme,
     useDragInteraction, useProximityOpacity, widgetOpacity, animateToolSettings, useToolAsToolSettingsLabel]);
 
   const defaultThemeOption = { label: systemPreferredLabel.current, value: SYSTEM_PREFERRED_COLOR_THEME };
@@ -147,9 +142,6 @@ export function UiSettingsPage({ allowSettingUiFrameworkVersion }: { allowSettin
       UiFramework.setWidgetOpacity(values[0]);
     }
   }, []);
-  const onToggleFrameworkVersion = React.useCallback(async () => {
-    UiFramework.setUiVersion(uiVersion === "2" ? "1" : "2");
-  }, [uiVersion]);
 
   const onToggleDragInteraction = React.useCallback(async () => {
     UiFramework.setUseDragInteraction(!useDragInteraction);
@@ -182,33 +174,27 @@ export function UiSettingsPage({ allowSettingUiFrameworkVersion }: { allowSettin
       <SettingsItem title={autoHideTitle.current} description={autoHideDescription.current}
         settingUi={<ToggleSwitch checked={autoHideUi} onChange={onAutoHideChange} />}
       />
-      {allowSettingUiFrameworkVersion && <SettingsItem title={useNewUiTitle.current} description={useNewUiDescription.current}
-        settingUi={<ToggleSwitch checked={UiFramework.uiVersion === "2"} onChange={onToggleFrameworkVersion} />}
-      />}
-      {UiFramework.uiVersion === "2" && <>
-        <SettingsItem title={dragInteractionTitle.current} description={dragInteractionDescription.current}
-          settingUi={<ToggleSwitch checked={useDragInteraction} onChange={onToggleDragInteraction} />}
-        />
-        <SettingsItem title={useProximityOpacityTitle.current} description={useProximityOpacityDescription.current}
-          settingUi={<ToggleSwitch checked={useProximityOpacity} onChange={onUseProximityOpacityChange} />}
-        />
-        <SettingsItem title={snapWidgetOpacityTitle.current} description={snapWidgetOpacityDescription.current}
-          settingUi={<ToggleSwitch checked={snapWidgetOpacity} onChange={onSnapWidgetOpacityChange} />}
-        />
-        <SettingsItem title={widgetIconTitle.current} description={widgetIconDescription.current}
-          settingUi={<ToggleSwitch checked={showWidgetIcon} onChange={onWidgetIconChange} />}
-        />
-        <SettingsItem title={autoCollapseUnpinnedPanelsTitle.current} description={autoCollapseUnpinnedPanelsDescription.current}
-          settingUi={<ToggleSwitch checked={autoCollapseUnpinnedPanels} onChange={onAutoCollapseUnpinnedPanelsChange} />}
-        />
-        <SettingsItem title={animateToolSettingsTitle.current} description={animateToolSettingsDescription.current}
-          settingUi={<ToggleSwitch checked={animateToolSettings} onChange={OnToggleAnimateToolSettings} />}
-        />
-        <SettingsItem title={useToolAsToolSettingsLabelTitle.current} description={useToolAsToolSettingsLabelDescription.current}
-          settingUi={<ToggleSwitch checked={useToolAsToolSettingsLabel} onChange={OnToggleUseToolAsToolSettingsLabel} />}
-        />
-      </>
-      }
+      <SettingsItem title={dragInteractionTitle.current} description={dragInteractionDescription.current}
+        settingUi={<ToggleSwitch checked={useDragInteraction} onChange={onToggleDragInteraction} />}
+      />
+      <SettingsItem title={useProximityOpacityTitle.current} description={useProximityOpacityDescription.current}
+        settingUi={<ToggleSwitch checked={useProximityOpacity} onChange={onUseProximityOpacityChange} />}
+      />
+      <SettingsItem title={snapWidgetOpacityTitle.current} description={snapWidgetOpacityDescription.current}
+        settingUi={<ToggleSwitch checked={snapWidgetOpacity} onChange={onSnapWidgetOpacityChange} />}
+      />
+      <SettingsItem title={widgetIconTitle.current} description={widgetIconDescription.current}
+        settingUi={<ToggleSwitch checked={showWidgetIcon} onChange={onWidgetIconChange} />}
+      />
+      <SettingsItem title={autoCollapseUnpinnedPanelsTitle.current} description={autoCollapseUnpinnedPanelsDescription.current}
+        settingUi={<ToggleSwitch checked={autoCollapseUnpinnedPanels} onChange={onAutoCollapseUnpinnedPanelsChange} />}
+      />
+      <SettingsItem title={animateToolSettingsTitle.current} description={animateToolSettingsDescription.current}
+        settingUi={<ToggleSwitch checked={animateToolSettings} onChange={OnToggleAnimateToolSettings} />}
+      />
+      <SettingsItem title={useToolAsToolSettingsLabelTitle.current} description={useToolAsToolSettingsLabelDescription.current}
+        settingUi={<ToggleSwitch checked={useToolAsToolSettingsLabel} onChange={OnToggleUseToolAsToolSettingsLabel} />}
+      />
       <SettingsItem title={widgetOpacityTitle.current} description={widgetOpacityDescription.current}
         settingUi={
           <Slider style={{ flex: "1" }} values={[widgetOpacity]} step={0.05} onChange={onWidgetOpacityChange}
@@ -246,12 +232,12 @@ function SettingsItem(props: SettingsItemProps) {
  * @param itemPriority - Used to define the order of the entry in the Settings Stage
  * @beta
  */
-export function getUiSettingsManagerEntry(itemPriority: number, allowSettingUiFrameworkVersion?: boolean): SettingsTabEntry {
+export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry {
   return {
     itemPriority, tabId: "uifw:UiStateStorage",
     label: UiFramework.translate("settings.uiSettingsPage.label"),
     icon: IconSpecUtilities.createWebComponentIconSpec(widowSettingsIconSvg),
-    page: <UiSettingsPage allowSettingUiFrameworkVersion={!!allowSettingUiFrameworkVersion} />,
+    page: <UiSettingsPage />,
     isDisabled: false,
     tooltip: UiFramework.translate("settings.uiSettingsPage.tooltip"),
   };

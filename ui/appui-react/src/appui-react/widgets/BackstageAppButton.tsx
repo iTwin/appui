@@ -12,7 +12,6 @@ import { IconSpecUtilities } from "@itwin/appui-abstract";
 import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
 import { AppButton } from "@itwin/appui-layout-react";
 import { BackstageManager } from "../backstage/BackstageManager";
-import { useFrameworkVersion } from "../hooks/useFrameworkVersion";
 import { UiFramework } from "../UiFramework";
 import { UiShowHideManager } from "../utils/UiShowHideManager";
 
@@ -38,8 +37,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
   const backstageLabel = React.useMemo(() => props.label || backstageToggleCommand.tooltip, [backstageToggleCommand.tooltip, props.label]);
   const [icon, setIcon] = React.useState(props.icon ? props.icon : IconSpecUtilities.createWebComponentIconSpec(widgetIconSvg));
   const isInitialMount = React.useRef(true);
-  const useSmallAppButton = "1" !== useFrameworkVersion();
-  const divClassName = useSmallAppButton ? "uifw-app-button-small" : undefined;
+  const divClassName = "uifw-app-button-small";
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -62,14 +60,14 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
 
   let buttonProximityScale: number | undefined;
 
-  if ("1" !== useFrameworkVersion() && UiShowHideManager.useProximityOpacity && !UiFramework.isMobile()) {
+  if (UiShowHideManager.useProximityOpacity && !UiFramework.isMobile()) {
     buttonProximityScale = proximityScale;
   }
 
   return (
     <div ref={ref} className={divClassName}>
       <AppButton
-        small={useSmallAppButton}
+        small={true}
         mouseProximity={buttonProximityScale}
         onClick={handleClick}
         icon={<Icon iconSpec={icon} />}

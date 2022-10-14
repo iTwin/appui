@@ -12,7 +12,6 @@ import * as React from "react";
 import { Icon } from "@itwin/core-react";
 import { useDragTab, UseDragTabArgs } from "../base/DragManager";
 import { DraggedTabStateContext, NineZoneDispatchContext, ShowWidgetIconContext, TabsStateContext } from "../base/NineZone";
-import { CssProperties } from "../utilities/Css";
 
 /** Component that displays a floating tab.
  * @internal
@@ -42,7 +41,9 @@ export function FloatingTab() {
     onDragEnd,
   });
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
-  const style = draggedTab && CssProperties.transformFromPosition(draggedTab.position);
+  const style = draggedTab && {
+    transform: `translate(${draggedTab.position.x}px, ${draggedTab.position.y}px)`,
+  };
   const className = classnames(
     "nz-widget-floatingTab",
     !draggedTab && "nz-hidden",

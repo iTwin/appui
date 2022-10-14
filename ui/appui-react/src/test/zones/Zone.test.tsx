@@ -4,14 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 /* eslint-disable deprecation/deprecation */
 import * as React from "react";
-import { UiFramework, Zone } from "../../appui-react";
+import { Zone } from "../../appui-react";
 import TestUtils, { mount } from "../TestUtils";
 
 describe("Zone", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
-    UiFramework.setUiVersion("1");
   });
 
   after(() => {

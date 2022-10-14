@@ -15,7 +15,6 @@ import { getChildKey, useOverflow } from "../tool-settings/Docked";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { WidgetOverflow } from "./Overflow";
 import { WidgetTabProvider } from "./Tab";
-import { WidgetTabTarget } from "./TabTarget";
 import { ActiveTabIdContext, WidgetStateContext } from "./Widget";
 import { TitleBarTarget } from "../target/TitleBarTarget";
 
@@ -36,24 +35,14 @@ export const WidgetTabs = React.memo(function WidgetTabs() { // eslint-disable-l
       const firstInactive = activeTabIndex + 1 === index;
       const tab = tabs[tabId];
       return (
-        <React.Fragment
+        <WidgetTabProvider
           key={tabId}
-        >
-          {index === 0 && <WidgetTabTarget
-            tabIndex={index}
-            first
-          />}
-          <WidgetTabProvider
-            first={index === 0}
-            firstInactive={firstInactive}
-            last={index === array.length - 1}
-            tab={tab}
-            showOnlyTabIcon={showOnlyTabIcon && showWidgetIcon}
-          />
-          <WidgetTabTarget
-            tabIndex={index}
-          />
-        </React.Fragment>
+          first={index === 0}
+          firstInactive={firstInactive}
+          last={index === array.length - 1}
+          tab={tab}
+          showOnlyTabIcon={showOnlyTabIcon && showWidgetIcon}
+        />
       );
     });
   }, [tabIds, activeTabIndex, tabs, showOnlyTabIcon, showWidgetIcon]);

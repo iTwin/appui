@@ -10,11 +10,10 @@ import "./WidgetTarget.scss";
 import * as React from "react";
 import { WidgetIdContext } from "../widget/Widget";
 import { TargetContainer } from "./TargetContainer";
-import { withTargetVersion } from "./TargetOptions";
 import { MergeTarget } from "./MergeTarget";
 
 /** @internal */
-export const WidgetTarget = withTargetVersion("2", function WidgetTarget() {
+export function WidgetTarget() {
   const widgetId = React.useContext(WidgetIdContext);
   return (
     <TargetContainer
@@ -24,4 +23,4 @@ export const WidgetTarget = withTargetVersion("2", function WidgetTarget() {
       <MergeTarget widgetId={widgetId} />
     </TargetContainer>
   );
-});
+}

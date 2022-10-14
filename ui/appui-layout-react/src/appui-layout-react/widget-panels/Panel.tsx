@@ -21,8 +21,6 @@ import { WidgetComponent } from "../widget/Widget";
 import { PanelTargets } from "../target/PanelTargets";
 import { SectionOutline } from "../outline/SectionOutline";
 import { PanelOutline } from "../outline/PanelOutline";
-import { WidgetTarget } from "../widget/WidgetTarget";
-import { PanelTarget } from "./PanelTarget";
 import { SectionTargets } from "../target/SectionTargets";
 import { isHorizontalPanelState, PanelState } from "../state/PanelState";
 
@@ -140,7 +138,6 @@ export const WidgetPanelProvider = React.memo<WidgetPanelProviderProps>(function
           spanTop={panels.top.span}
           spanBottom={panels.bottom.span}
         />}
-        {panel.widgets.length === 0 && <PanelTarget />}
         <PanelTargets />
         <PanelOutline />
       </PanelSideContext.Provider>
@@ -318,7 +315,6 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanelComp
       getBounds,
     };
   }, [getBounds]);
-  const showTargets = panel.widgets.length < panel.maxWidgetCount;
   const className = classnames(
     "nz-widgetPanels-panel",
     `nz-${panel.side}`,
@@ -397,28 +393,18 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanelComp
 
             const panelStyle = index === 0 && array.length > 1 ? splitterControlledPanelStyle : undefined;
             return (
-              <React.Fragment key={widgetId}>
-                <div className={panelClassName} style={panelStyle}>
-                  {index === 0 && showTargets && <WidgetTarget
-                    position="first"
-                    widgetIndex={0}
-                  />}
-                  <PanelWidget
-                    onBeforeTransition={handleBeforeTransition}
-                    onPrepareTransition={handlePrepareTransition}
-                    onTransitionEnd={handleTransitionEnd}
-                    size={sizes[widgetId]}
-                    transition={animatePanelWidgets.transition}
-                    widgetId={widgetId}
-                    ref={getRef(widgetId)}
-                  />
-                  {showTargets && <WidgetTarget
-                    position={last ? "last" : undefined}
-                    widgetIndex={index + 1}
-                  />}
-                  {(!last && 0 === index) && <PanelSplitter isHorizontal={horizontal} />}
-                </div>
-              </React.Fragment>
+              <div key={widgetId} className={panelClassName} style={panelStyle}>
+                <PanelWidget
+                  onBeforeTransition={handleBeforeTransition}
+                  onPrepareTransition={handlePrepareTransition}
+                  onTransitionEnd={handleTransitionEnd}
+                  size={sizes[widgetId]}
+                  transition={animatePanelWidgets.transition}
+                  widgetId={widgetId}
+                  ref={getRef(widgetId)}
+                />
+                {(!last && 0 === index) && <PanelSplitter isHorizontal={horizontal} />}
+              </div>
             );
           })}
           {singleSection && <SectionOutline sectionIndex={1} />}

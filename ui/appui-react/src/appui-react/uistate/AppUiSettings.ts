@@ -9,7 +9,7 @@
 import { UiStateEntry, UiStateStorage } from "@itwin/core-react";
 import { UiSyncEventArgs } from "@itwin/appui-abstract";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import { FrameworkVersionId, UiFramework, UserSettingsProvider } from "../UiFramework";
+import { UiFramework, UserSettingsProvider } from "../UiFramework";
 
 // cSpell:ignore configurableui
 
@@ -19,7 +19,6 @@ import { FrameworkVersionId, UiFramework, UserSettingsProvider } from "../UiFram
 export interface InitialAppUiSettings {
   colorTheme: string;
   dragInteraction: boolean;
-  frameworkVersion: FrameworkVersionId;
   widgetOpacity: number;
   showWidgetIcon?: boolean;
   /** @alpha */
@@ -48,7 +47,6 @@ export class AppUiSettings implements UserSettingsProvider {
 
   public colorTheme: UiStateEntry<string>;
   public dragInteraction: UiStateEntry<boolean>;
-  public frameworkVersion: UiStateEntry<FrameworkVersionId>;
   public widgetOpacity: UiStateEntry<number>;
   public showWidgetIcon: UiStateEntry<boolean>;
   public autoCollapseUnpinnedPanels: UiStateEntry<boolean>;
@@ -82,11 +80,6 @@ export class AppUiSettings implements UserSettingsProvider {
       (value: boolean) => UiFramework.setAutoCollapseUnpinnedPanels(value), defaults.autoCollapseUnpinnedPanels);
     this._settings.push(this.autoCollapseUnpinnedPanels);
 
-    this.frameworkVersion = new UiStateEntry<FrameworkVersionId>(AppUiSettings._settingNamespace, "FrameworkVersion",
-      () => UiFramework.uiVersion,
-      (value: FrameworkVersionId) => UiFramework.setUiVersion(value), defaults.frameworkVersion);
-    this._settings.push(this.frameworkVersion);
-
     this.widgetOpacity = new UiStateEntry<number>(AppUiSettings._settingNamespace, "WidgetOpacity",
       () => UiFramework.getWidgetOpacity(), (value: number) => UiFramework.setWidgetOpacity(value), defaults.widgetOpacity);
     this._settings.push(this.widgetOpacity);
@@ -116,9 +109,6 @@ export class AppUiSettings implements UserSettingsProvider {
 
     if (args.eventIds.has("configurableui:set-drag-interaction"))
       await this.dragInteraction.saveSetting(UiFramework.getUiStateStorage());
-
-    if (args.eventIds.has("configurableui:set-framework-version"))
-      await this.frameworkVersion.saveSetting(UiFramework.getUiStateStorage());
 
     if (args.eventIds.has("configurableui:set-show-widget-icon"))
       await this.showWidgetIcon.saveSetting(UiFramework.getUiStateStorage());

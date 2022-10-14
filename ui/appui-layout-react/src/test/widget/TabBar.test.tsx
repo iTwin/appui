@@ -7,12 +7,14 @@ import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
-  addFloatingWidget, addPanelWidget, addTab, createNineZoneState, FloatingWidgetProvider, NineZoneDispatch, PanelStateContext,
-  PanelTarget, useDrag, WidgetIdContext, WidgetTabTarget,
+  addFloatingWidget, addPanelWidget, addTab, createNineZoneState, FloatingWidgetProvider, NineZoneDispatch,
+  TabIdContext, useDrag, WidgetIdContext, WidgetStateContext,
 } from "../../appui-layout-react";
 import * as NineZoneModule from "../../appui-layout-react/base/NineZone";
 import { TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
+import { TabTarget } from "../../appui-layout-react/target/TabTarget";
+import { PanelTarget } from "../../appui-layout-react/target/PanelTarget";
 
 describe("WidgetTitleBar", () => {
   it("should dispatch WIDGET_DRAG_END", () => {
@@ -77,10 +79,11 @@ describe("WidgetTitleBar", () => {
       fireEvent.mouseUp(handle);
       fakeTimers.tick(300);
     });
-    dispatch.calledOnceWithExactly(sinon.match({
+
+    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
       type: "FLOATING_WIDGET_CLEAR_USER_SIZED",
       id: "w1",
-    })).should.true;
+    }));
   });
 
   it("should dispatch WIDGET_DRAG_END with tab target", () => {
@@ -94,18 +97,23 @@ describe("WidgetTitleBar", () => {
         state={state}
         dispatch={dispatch}
       >
-        <WidgetIdContext.Provider value="w2">
-          <WidgetTabTarget tabIndex={0} first />
-        </WidgetIdContext.Provider>
         <FloatingWidgetProvider
           floatingWidget={state.floatingWidgets.byId.w1}
           widget={state.widgets.w1}
         />
+        <WidgetStateContext.Provider value={state.widgets.w2}>
+          <WidgetIdContext.Provider value="w2">
+            <TabIdContext.Provider value="t2">
+              <TabTarget />
+            </TabIdContext.Provider>
+          </WidgetIdContext.Provider>
+        </WidgetStateContext.Provider>
       </TestNineZoneProvider>,
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
-    const target = container.getElementsByClassName("nz-widget-tabTarget")[0];
+    const targets = container.getElementsByClassName("nz-target-tabTarget");
+    const target = targets[targets.length - 1];
 
     sinon.stub(document, "elementFromPoint").returns(target);
 
@@ -141,14 +149,12 @@ describe("WidgetTitleBar", () => {
           floatingWidget={state.floatingWidgets.byId.w1}
           widget={state.widgets.w1}
         />
-        <PanelStateContext.Provider value={state.panels.right}>
-          <PanelTarget />
-        </PanelStateContext.Provider>
+        <PanelTarget side="right" />
       </TestNineZoneProvider>,
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
-    const target = container.getElementsByClassName("nz-widgetPanels-panelTarget")[0];
+    const target = container.getElementsByClassName("nz-target-panelTarget")[0];
     sinon.stub(document, "elementFromPoint").returns(target);
     act(() => {
       fireEvent.mouseDown(handle);
@@ -156,7 +162,7 @@ describe("WidgetTitleBar", () => {
       dispatch.reset();
       fireEvent.mouseUp(document);
     });
-    dispatch.calledOnceWithExactly(sinon.match({
+    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
       type: "WIDGET_DRAG_END",
       floatingWidgetId: "w1",
       target: {
@@ -164,7 +170,7 @@ describe("WidgetTitleBar", () => {
         side: "right",
         type: "panel",
       },
-    })).should.true;
+    }));
   });
 
   it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
@@ -190,10 +196,10 @@ describe("WidgetTitleBar", () => {
         touches: [{}],
       });
     });
-    dispatch.calledOnceWithExactly(sinon.match({
+    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
       type: "FLOATING_WIDGET_BRING_TO_FRONT",
       id: "w1",
-    })).should.true;
+    }));
   });
 });
 
@@ -207,7 +213,7 @@ describe("useDrag", () => {
       fireEvent.mouseDown(instance);
       fireEvent.mouseMove(document);
     });
-    spy.calledOnce.should.true;
+    sinon.assert.calledOnce(spy);
   });
 
   it("should not start drag on subsequent pointer move", () => {
@@ -221,7 +227,7 @@ describe("useDrag", () => {
       spy.resetHistory();
       fireEvent.mouseMove(document);
     });
-    spy.notCalled.should.true;
+    sinon.assert.notCalled(spy);
   });
 
   it("should report drag action", () => {
@@ -234,7 +240,7 @@ describe("useDrag", () => {
       fireEvent.mouseMove(document);
       fireEvent.mouseMove(document);
     });
-    spy.calledOnce.should.true;
+    sinon.assert.calledOnce(spy);
   });
 
   it("should report drag end action", () => {
@@ -246,6 +252,6 @@ describe("useDrag", () => {
       fireEvent.mouseDown(instance);
       fireEvent.mouseUp(document);
     });
-    spy.calledOnce.should.true;
+    sinon.assert.calledOnce(spy);
   });
 });

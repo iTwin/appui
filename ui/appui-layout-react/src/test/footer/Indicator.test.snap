@@ -6,12 +6,6 @@ exports[`<FooterIndicator /> renders correctly 1`] = `
 />
 `;
 
-exports[`<FooterIndicator /> renders correctly in footer mode (deprecated) 1`] = `
-<div
-  className="nz-footer-indicator nz-footer-mode"
-/>
-`;
-
 exports[`<FooterIndicator /> renders correctly with additional class names 1`] = `
 <div
   className="nz-footer-indicator nz-footer-mode test-class-name"

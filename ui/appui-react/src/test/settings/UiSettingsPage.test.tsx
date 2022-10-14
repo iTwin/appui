@@ -28,7 +28,6 @@ describe("UiSettingsPage", () => {
     // create a new mock each run so there are no "stored values"
     localStorageMock = storageMock();
     await TestUtils.initializeUiFramework();
-    UiFramework.setUiVersion("1");
     await TestUtils.flushAsyncOperations();
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
@@ -48,11 +47,11 @@ describe("UiSettingsPage", () => {
     return settingsItemDiv!.querySelector("input");
   }
 
-  it("renders using getUiSettingsManagerEntry (V1)", async () => {
-    const tabEntry = getUiSettingsManagerEntry(10, false);
+  it("renders using getUiSettingsManagerEntry", async () => {
+    const tabEntry = getUiSettingsManagerEntry(5);
     const wrapper = render(tabEntry.page);
     expect(wrapper).not.to.be.undefined;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(3);
+    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(10);
     wrapper.unmount();
   });
 
@@ -62,8 +61,8 @@ describe("UiSettingsPage", () => {
   //   return settingsItemDiv!.querySelector("select");
   // }
 
-  it("renders without version option (V1) set theme", async () => {
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={false} />);
+  it("renders set theme", async () => {
+    const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
     // const themeSpan = wrapper.getByText("settings.uiSettingsPage.themeTitle");
@@ -88,11 +87,10 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  it("renders without version option (V1) set widget opacity", async () => {
-    UiFramework.setUiVersion("1");
+  it("renders set widget opacity", async () => {
     await TestUtils.flushAsyncOperations();
 
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={false} />);
+    const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
     const thumb = wrapper.container.ownerDocument.querySelector(".iui-slider-thumb");
     expect(thumb).to.exist;
@@ -106,11 +104,10 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  it("renders without version option (V1) toggle auto-hide", async () => {
-    UiFramework.setUiVersion("1");
+  it("renders toggle auto-hide", async () => {
     await TestUtils.flushAsyncOperations();
 
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={false} />);
+    const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
     const autoHideSpan = wrapper.getByText("settings.uiSettingsPage.autoHideTitle");
     const checkbox = getInputBySpanTitle(autoHideSpan);
@@ -121,32 +118,13 @@ describe("UiSettingsPage", () => {
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.true;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(3);
+    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(10);
     wrapper.unmount();
   });
 
-  it("renders with version option (V1)", async () => {
-    UiFramework.setUiVersion("1");
+  it("renders toggle drag interaction", async () => {
     await TestUtils.flushAsyncOperations();
-
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={true} />);
-    expect(wrapper).not.to.be.undefined;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(4);
-
-    const titleSpan = wrapper.getByText("settings.uiSettingsPage.newUiTitle");
-    const checkbox = getInputBySpanTitle(titleSpan);
-    expect(checkbox).not.to.be.null;
-    fireEvent.click(checkbox!);
-    await TestUtils.flushAsyncOperations();
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
-
-    wrapper.unmount();
-  });
-
-  it("renders without version option (V2) toggle drag interaction", async () => {
-    UiFramework.setUiVersion("2");
-    await TestUtils.flushAsyncOperations();
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={false} />);
+    const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
     const titleSpan = wrapper.getByText("settings.uiSettingsPage.dragInteractionTitle");
@@ -160,10 +138,9 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  it("renders without version option (V2) toggle useProximityOpacity", async () => {
-    UiFramework.setUiVersion("2");
+  it("renders toggle useProximityOpacity", async () => {
     await TestUtils.flushAsyncOperations();
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={false} />);
+    const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
     const titleSpan = wrapper.getByText("settings.uiSettingsPage.useProximityOpacityTitle");
@@ -177,10 +154,9 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  it("renders without version option (V2) toggle snapWidgetOpacity", async () => {
-    UiFramework.setUiVersion("2");
+  it("renders toggle snapWidgetOpacity", async () => {
     await TestUtils.flushAsyncOperations();
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={false} />);
+    const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
     const titleSpan = wrapper.getByText("settings.uiSettingsPage.snapWidgetOpacityTitle");
@@ -195,9 +171,8 @@ describe("UiSettingsPage", () => {
   });
 
   it("renders showWidgetIcon toggle", async () => {
-    UiFramework.setUiVersion("2");
     await TestUtils.flushAsyncOperations();
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={false} />);
+    const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
     const titleSpan = wrapper.getByText("settings.uiSettingsPage.widgetIconTitle");
@@ -211,30 +186,9 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  it("renders with version option (V2) toggle ui-version", async () => {
-    UiFramework.setUiVersion("2");
-    await TestUtils.flushAsyncOperations();
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={true} />);
-    expect(wrapper).not.to.be.undefined;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
-    const uiVersionSpan = wrapper.getByText("settings.uiSettingsPage.newUiTitle");
-    const checkbox = getInputBySpanTitle(uiVersionSpan);
-
-    fireEvent.click(checkbox!);
-    await TestUtils.flushAsyncOperations();
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(4);
-
-    fireEvent.click(checkbox!);
-    await TestUtils.flushAsyncOperations();
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
-
-    wrapper.unmount();
-  });
-
   it("renders animateToolSettings toggle", async () => {
-    UiFramework.setUiVersion("2");
     await TestUtils.flushAsyncOperations();
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={false} />);
+    const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
     const titleSpan = wrapper.getByText("settings.uiSettingsPage.animateToolSettingsTitle");
@@ -249,9 +203,8 @@ describe("UiSettingsPage", () => {
   });
 
   it("renders useToolAsToolSettingsLabel toggle", async () => {
-    UiFramework.setUiVersion("2");
     await TestUtils.flushAsyncOperations();
-    const wrapper = render(<UiSettingsPage allowSettingUiFrameworkVersion={false} />);
+    const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
     const titleSpan = wrapper.getByText("settings.uiSettingsPage.useToolAsToolSettingsLabelTitle");

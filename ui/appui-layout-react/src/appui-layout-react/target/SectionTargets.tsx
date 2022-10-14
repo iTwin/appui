@@ -10,7 +10,6 @@ import "./SectionTargets.scss";
 import * as React from "react";
 import { TargetContainer } from "./TargetContainer";
 import { SectionTarget, useTargetDirection } from "./SectionTarget";
-import { withTargetVersion } from "./TargetOptions";
 import { WidgetState } from "../state/WidgetState";
 import { MergeTarget } from "./MergeTarget";
 
@@ -20,7 +19,7 @@ export interface SectionTargetsProps {
 }
 
 /** @internal */
-export const SectionTargets = withTargetVersion("2", function SectionTargets(props: SectionTargetsProps) {
+export function SectionTargets(props: SectionTargetsProps) {
   const direction = useTargetDirection();
   const { widgetId } = props;
   return (
@@ -33,4 +32,4 @@ export const SectionTargets = withTargetVersion("2", function SectionTargets(pro
       <SectionTarget sectionIndex={1} />
     </TargetContainer>
   );
-});
+}

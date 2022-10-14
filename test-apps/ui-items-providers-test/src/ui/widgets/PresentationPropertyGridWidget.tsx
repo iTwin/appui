@@ -18,7 +18,7 @@ import {
   VirtualizedPropertyGridWithDataProviderProps,
 } from "@itwin/components-react";
 import { ContextMenuItemProps, FillCentered, Icon, Orientation, ResizableContainerObserver } from "@itwin/core-react";
-import { ConfigurableCreateInfo, useActiveIModelConnection, useFrameworkVersion, WidgetControl } from "@itwin/appui-react";
+import { ConfigurableCreateInfo, useActiveIModelConnection, WidgetControl } from "@itwin/appui-react";
 import { UiItemsProvidersTest } from "../../ui-items-providers-test";
 
 export type ContextMenuItemInfo = ContextMenuItemProps & React.Attributes & { label: string };
@@ -96,9 +96,8 @@ export function PresentationPropertyGridWidget() {
   const [contextMenu, setContextMenu] = React.useState<PropertyGridContextMenuArgs | undefined>(undefined);
   const [contextMenuItemInfos, setContextMenuItemInfos] = React.useState<ContextMenuItemInfo[] | undefined>(undefined);
 
-  const version = useFrameworkVersion();
-  const componentId = ("2" === version) ? "uifw-v2-container" : "uifw-v1-container";
-  const style: React.CSSProperties = ("2" === version) ? { height: "100%", width: "100%", position: "absolute" } : { height: "100%" };
+  const componentId = "uifw-v2-container";
+  const style: React.CSSProperties = { height: "100%", width: "100%", position: "absolute" };
 
   const onAddFavorite = React.useCallback(async (propertyField: Field) => {
     if (iModelConnection)

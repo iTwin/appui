@@ -7,9 +7,10 @@ import { shallow } from "enzyme";
 import * as React from "react";
 import * as moq from "typemoq";
 import { IModelConnection } from "@itwin/core-frontend";
-import { FrameworkVersion, UiFramework, ViewSelector } from "../../appui-react";
+import { ViewSelector } from "../../appui-react";
 import TestUtils, { mount } from "../TestUtils";
 import { Provider } from "react-redux";
+import { ToolbarItemContext } from "@itwin/components-react";
 
 // cSpell:ignore Spatials
 
@@ -19,13 +20,10 @@ describe("ViewSelector", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    UiFramework.setUiVersion("1");
     await TestUtils.flushAsyncOperations();
   });
 
   after(async () => {
-  // restore to default "2" setting
-    UiFramework.setUiVersion("2");
     await TestUtils.flushAsyncOperations();
     TestUtils.terminateUiFramework();
   });
@@ -33,9 +31,7 @@ describe("ViewSelector", () => {
   it("should render correctly", () => {
     const wrapper = shallow(
       <Provider store={TestUtils.store}>
-        <FrameworkVersion>
-          <ViewSelector imodel={imodelMock.object} />
-        </FrameworkVersion>
+        <ViewSelector imodel={imodelMock.object} />
       </Provider>
     );
     wrapper.should.matchSnapshot();
@@ -44,9 +40,15 @@ describe("ViewSelector", () => {
   it("should set Show settings by ViewSelector.updateShowSettings", () => {
     const wrapper = mount(
       <Provider store={TestUtils.store}>
-        <FrameworkVersion>
+        <ToolbarItemContext.Provider
+          value={{
+            hasOverflow: false,
+            useHeight: false,
+            onResize: () => { },
+          }}
+        >
           <ViewSelector imodel={imodelMock.object} listenForShowUpdates={true} />
-        </FrameworkVersion>
+        </ToolbarItemContext.Provider>
       </Provider>
     );
     const vs = wrapper.find(ViewSelector);
@@ -68,13 +70,18 @@ describe("ViewSelector", () => {
   it("should trigger componentDidUpdate processing", async () => {
     const wrapper = mount(
       <Provider store={TestUtils.store}>
-        <FrameworkVersion>
+        <ToolbarItemContext.Provider
+          value={{
+            hasOverflow: false,
+            useHeight: false,
+            onResize: () => { },
+          }}
+        >
           <ViewSelector imodel={imodelMock.object} />
-        </FrameworkVersion>
+        </ToolbarItemContext.Provider>
       </Provider>
     );
     wrapper.setProps({ imodel: imodelMock2.object });
     await TestUtils.flushAsyncOperations();
   });
-
 });

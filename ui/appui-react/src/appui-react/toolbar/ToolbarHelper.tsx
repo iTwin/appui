@@ -7,8 +7,7 @@
  */
 import * as React from "react";
 import {
-  ActionButton, CommonToolbarItem, ConditionalStringValue, CustomButtonDefinition, GroupButton, OnItemExecutedFunc, StringGetter, ToolbarItem,
-  ToolbarItemUtilities,
+  ActionButton, CommonToolbarItem, ConditionalStringValue, CustomButtonDefinition, GroupButton, StringGetter, ToolbarItem, ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import { CustomToolbarItem } from "@itwin/components-react";
 import { IconHelper } from "@itwin/core-react";
@@ -16,8 +15,6 @@ import { AnyItemDef } from "../shared/AnyItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { CustomItemDef } from "../shared/CustomItemDef";
 import { ToolItemDef } from "../shared/ToolItemDef";
-import { ActionButtonItem } from "./ActionButtonItem";
-import { GroupButtonItem } from "./GroupButtonItem";
 import { GroupItemDef } from "./GroupItem";
 
 /** Helper functions for defining an ToolbarComposer.
@@ -144,22 +141,6 @@ export class ToolbarHelper {
       return item;
     });
     return items;
-  }
-
-  public static createNodeForToolbarItem(item: CommonToolbarItem, onItemExecuted?: OnItemExecutedFunc): React.ReactNode {
-    if (ToolbarItemUtilities.isActionButton(item)) {
-      return ActionButtonItem({ item, onItemExecuted });
-    }
-
-    if (ToolbarItemUtilities.isGroupButton(item)) {
-      return GroupButtonItem({ item, onItemExecuted });
-    }
-
-    if (ToolbarHelper.isCustomToolbarButton(item)) {
-      return item.buttonNode ? /* istanbul ignore next */ item.buttonNode : null;
-    }
-
-    return null;
   }
 
   /** CustomToolbarButton type guard.

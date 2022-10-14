@@ -5,8 +5,7 @@
 import * as React from "react";
 import { renderHook } from "@testing-library/react-hooks";
 import { addPanelWidget, addTab, createNineZoneState, NineZoneContext, TabIdContext } from "@itwin/appui-layout-react";
-import { UiFramework, useWidgetDirection } from "../../appui-react";
-import { FrameworkVersion } from "../../appui-react/hooks/useFrameworkVersion";
+import { useWidgetDirection } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { Provider } from "react-redux";
 
@@ -20,11 +19,10 @@ describe("useWidgetDirection", () => {
   });
 
   it("should return 'vertical'", async () => {
-    UiFramework.setUiVersion("1");
     await TestUtils.flushAsyncOperations();
 
     const nineZone = createNineZoneState();
-    const { result } = renderHook<{children?: React.ReactNode}, "horizontal" | "vertical">(() => useWidgetDirection(), {
+    const { result } = renderHook<{ children?: React.ReactNode }, "horizontal" | "vertical">(() => useWidgetDirection(), {
       wrapper: ({ children }) => ( // eslint-disable-line react/display-name
         <NineZoneContext.Provider value={nineZone}>
           {children}
@@ -35,20 +33,17 @@ describe("useWidgetDirection", () => {
   });
 
   it("should return 'horizontal' for a widget in a horizontal side panel", async () => {
-    UiFramework.setUiVersion("2");
     await TestUtils.flushAsyncOperations();
 
     let nineZone = createNineZoneState();
     nineZone = addTab(nineZone, "t1");
     nineZone = addPanelWidget(nineZone, "top", "w1", ["t1"]);
-    const { result } = renderHook<{children?: React.ReactNode}, "horizontal" | "vertical">(() => useWidgetDirection(), {
+    const { result } = renderHook<{ children?: React.ReactNode }, "horizontal" | "vertical">(() => useWidgetDirection(), {
       wrapper: ({ children }) => ( // eslint-disable-line react/display-name
         <Provider store={TestUtils.store} >
           <NineZoneContext.Provider value={nineZone}>
             <TabIdContext.Provider value="t1">
-              <FrameworkVersion>
-                {children}
-              </FrameworkVersion>
+              {children}
             </TabIdContext.Provider>
           </NineZoneContext.Provider>
         </Provider>
@@ -58,20 +53,17 @@ describe("useWidgetDirection", () => {
   });
 
   it("should return 'vertical' for a widget in a vertical side panel", async () => {
-    UiFramework.setUiVersion("2");
     await TestUtils.flushAsyncOperations();
 
     let nineZone = createNineZoneState();
     nineZone = addTab(nineZone, "t1");
     nineZone = addPanelWidget(nineZone, "left", "w1", ["t1"]);
-    const { result } = renderHook<{children?: React.ReactNode}, "horizontal" | "vertical">(() => useWidgetDirection(), {
+    const { result } = renderHook<{ children?: React.ReactNode }, "horizontal" | "vertical">(() => useWidgetDirection(), {
       wrapper: ({ children }) => ( // eslint-disable-line react/display-name
         <Provider store={TestUtils.store} >
           <NineZoneContext.Provider value={nineZone}>
             <TabIdContext.Provider value="t1">
-              <FrameworkVersion>
-                {children}
-              </FrameworkVersion>
+              {children}
             </TabIdContext.Provider>
           </NineZoneContext.Provider>
         </Provider>

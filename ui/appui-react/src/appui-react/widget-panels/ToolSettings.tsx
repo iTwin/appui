@@ -27,7 +27,7 @@ function EmptyToolSettingsEntry(): ToolSettingsEntry {
   const labelString = IModelApp.localization.getLocalizedString("UiFramework:tools.noToolSettings");
   const labelNode = <div className="uif-toolsetting-label-docked-horizontal-empty">{labelString}</div>;
   const editorNode = <div />;
-  return {labelNode,editorNode };
+  return { labelNode, editorNode };
 }
 
 /** @internal */
@@ -66,7 +66,7 @@ export function useHorizontalToolSettingNodes() {
     const handleToolActivatedEvent = () => {
       const nodes = FrontstageManager.activeToolSettingsProvider?.horizontalToolSettingNodes;
       if (!nodes || nodes.length === 0)
-        setSettings ([EmptyToolSettingsEntry()]);
+        setSettings([EmptyToolSettingsEntry()]);
       else
         setSettings(nodes);
     };
@@ -80,7 +80,7 @@ export function useHorizontalToolSettingNodes() {
     const handleToolSettingsReloadEvent = () => {
       const nodes = FrontstageManager.activeToolSettingsProvider?.horizontalToolSettingNodes;
       if (!nodes || nodes.length === 0)
-        setSettings ([EmptyToolSettingsEntry()]);
+        setSettings([EmptyToolSettingsEntry()]);
       else
         setSettings(nodes);
     };

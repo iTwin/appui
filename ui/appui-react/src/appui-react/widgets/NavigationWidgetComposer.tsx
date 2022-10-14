@@ -15,7 +15,6 @@ import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
 import { ContentControl, ContentControlActivatedEventArgs } from "../content/ContentControl";
 import { ContentViewManager } from "../content/ContentViewManager";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { useFrameworkVersion } from "../hooks/useFrameworkVersion";
 import { NavigationAidControl } from "../navigationaids/NavigationAidControl";
 import { UiFramework } from "../UiFramework";
 import { UiShowHideManager } from "../utils/UiShowHideManager";
@@ -106,7 +105,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   };
 
   // istanbul ignore else
-  if ("1" !== useFrameworkVersion() && UiShowHideManager.useProximityOpacity && !UiFramework.isMobile()) {
+  if (UiShowHideManager.useProximityOpacity && !UiFramework.isMobile()) {
     const navigationAidOpacity = (0.30 * proximityScale) + 0.70;
     divStyle.opacity = `${navigationAidOpacity}`;
   }

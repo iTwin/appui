@@ -15,9 +15,6 @@ exports[`PanelWidget should render 1`] = `
       role="tablist"
     >
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
-      <div
         class="nz-widget-tab nz-active nz-first nz-last"
         data-item-id="t1"
         data-item-type="widget-tab"
@@ -25,10 +22,17 @@ exports[`PanelWidget should render 1`] = `
         title=""
       >
         <span />
+        <div
+          class="nz-target-tabTarget nz-hidden"
+        />
       </div>
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
+        class="nz-target-titleBarTarget nz-hidden"
+      >
+        <div
+          class="nz-outline-tabOutline nz-hidden"
+        />
+      </div>
       <div
         class="nz-widget-overflow nz-hidden"
       >
@@ -71,6 +75,9 @@ exports[`PanelWidget should render 1`] = `
     <div
       class="nz-content"
     />
+    <div
+      class="nz-outline-widgetOutline nz-hidden"
+    />
   </div>
 </div>
 `;
@@ -91,9 +98,6 @@ exports[`PanelWidget should render horizontal with fit-content 1`] = `
       role="tablist"
     >
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
-      <div
         class="nz-widget-tab nz-active nz-first nz-last"
         data-item-id="t1"
         data-item-type="widget-tab"
@@ -101,10 +105,17 @@ exports[`PanelWidget should render horizontal with fit-content 1`] = `
         title=""
       >
         <span />
+        <div
+          class="nz-target-tabTarget nz-hidden"
+        />
       </div>
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
+        class="nz-target-titleBarTarget nz-hidden"
+      >
+        <div
+          class="nz-outline-tabOutline nz-hidden"
+        />
+      </div>
       <div
         class="nz-widget-overflow nz-hidden"
       >
@@ -129,6 +140,16 @@ exports[`PanelWidget should render horizontal with fit-content 1`] = `
     <div
       class="nz-content"
     />
+    <div
+      class="nz-target-targetContainer nz-horizontal nz-target-widgetTarget"
+    >
+      <div
+        class="nz-target-mergeTarget nz-hidden"
+      />
+    </div>
+    <div
+      class="nz-outline-widgetOutline nz-hidden"
+    />
   </div>
 </div>
 `;
@@ -148,9 +169,6 @@ exports[`PanelWidget should render minimized 1`] = `
       role="tablist"
     >
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
-      <div
         class="nz-widget-tab nz-active nz-minimized nz-first nz-last"
         data-item-id="t1"
         data-item-type="widget-tab"
@@ -158,10 +176,17 @@ exports[`PanelWidget should render minimized 1`] = `
         title=""
       >
         <span />
+        <div
+          class="nz-target-tabTarget nz-hidden"
+        />
       </div>
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
+        class="nz-target-titleBarTarget nz-hidden"
+      >
+        <div
+          class="nz-outline-tabOutline nz-hidden"
+        />
+      </div>
       <div
         class="nz-widget-overflow nz-hidden"
       >
@@ -204,6 +229,9 @@ exports[`PanelWidget should render minimized 1`] = `
     <div
       class="nz-content"
     />
+    <div
+      class="nz-outline-widgetOutline nz-hidden"
+    />
   </div>
 </div>
 `;
@@ -224,9 +252,6 @@ exports[`PanelWidget should render with fit-content 1`] = `
       role="tablist"
     >
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
-      <div
         class="nz-widget-tab nz-active nz-first nz-last"
         data-item-id="t1"
         data-item-type="widget-tab"
@@ -234,10 +259,17 @@ exports[`PanelWidget should render with fit-content 1`] = `
         title=""
       >
         <span />
+        <div
+          class="nz-target-tabTarget nz-hidden"
+        />
       </div>
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
+        class="nz-target-titleBarTarget nz-hidden"
+      >
+        <div
+          class="nz-outline-tabOutline nz-hidden"
+        />
+      </div>
       <div
         class="nz-widget-overflow nz-hidden"
       >
@@ -279,6 +311,16 @@ exports[`PanelWidget should render with fit-content 1`] = `
   >
     <div
       class="nz-content"
+    />
+    <div
+      class="nz-target-targetContainer nz-horizontal nz-target-widgetTarget"
+    >
+      <div
+        class="nz-target-mergeTarget nz-hidden"
+      />
+    </div>
+    <div
+      class="nz-outline-widgetOutline nz-hidden"
     />
   </div>
 </div>

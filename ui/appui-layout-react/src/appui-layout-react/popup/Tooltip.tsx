@@ -11,11 +11,9 @@ import classnames from "classnames";
 import * as React from "react";
 import { PointProps } from "@itwin/appui-abstract";
 import { CommonProps, Point, Rectangle, RectangleProps, Size, SizeProps } from "@itwin/core-react";
-import { CssProperties } from "../utilities/Css";
 
 /** Properties of [[Tooltip]] component.
- * @deprecated
- * @beta
+ * @internal
  */
 export interface TooltipProps extends CommonProps {
   /** Tooltip content. */
@@ -29,14 +27,12 @@ export interface TooltipProps extends CommonProps {
 }
 
 /** Default properties of [[Tooltip]] component.
- * @deprecated
- * @beta
+ * @internal
  */
 export type TooltipDefaultProps = Pick<TooltipProps, "position">;
 
 /** Positionable tooltip component.
- * @deprecated
- * @beta
+ * @internal
  */
 export class Tooltip extends React.PureComponent<TooltipProps> {
   public static readonly defaultProps: TooltipDefaultProps = {
@@ -56,7 +52,8 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
 
     const style: React.CSSProperties = {
       ...this.props.style,
-      ...CssProperties.fromPosition(this.props.position),
+      left: this.props.position.x,
+      top: this.props.position.y,
     };
 
     return (

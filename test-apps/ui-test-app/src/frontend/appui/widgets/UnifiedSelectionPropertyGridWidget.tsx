@@ -16,7 +16,7 @@ import {
 import {
   ContextMenuItem, ContextMenuItemProps, FillCentered, GlobalContextMenu, Icon, Orientation, ResizableContainerObserver,
 } from "@itwin/core-react";
-import { ConfigurableCreateInfo, ConfigurableUiManager, FrameworkVersionSwitch, WidgetControl } from "@itwin/appui-react";
+import { ConfigurableCreateInfo, ConfigurableUiManager, WidgetControl } from "@itwin/appui-react";
 
 export class UnifiedSelectionPropertyGridWidgetControl extends WidgetControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -170,10 +170,7 @@ class UnifiedSelectionPropertyGridWidget extends React.Component<UnifiedSelectio
       </> : null;
       return (
         <>
-          <FrameworkVersionSwitch
-            v1={<div style={{ height: "100%" }}>{element}</div>}
-            v2={<div style={{ height: "100%", width: "100%", position: "absolute" }}>{element}</div>}
-          />
+          <div style={{ height: "100%", width: "100%", position: "absolute" }}>{element}</div>
           <ResizableContainerObserver onResize={this._onPropertyGridResize} />
         </>
       );

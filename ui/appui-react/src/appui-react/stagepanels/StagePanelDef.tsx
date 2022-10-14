@@ -15,7 +15,6 @@ import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
 import { StagePanelMaxSizeSpec, StagePanelProps, StagePanelZoneProps, StagePanelZonesProps } from "./StagePanel";
 import { getStableWidgetProps, ZoneLocation } from "../zones/Zone";
-import { UiFramework } from "../UiFramework";
 
 /** Enum for StagePanel state.
  * @public
@@ -80,10 +79,6 @@ export class StagePanelDef extends WidgetHost {
 
   /** Default size of the panel */
   public get size() {
-    // istanbul ignore next
-    if ("1" === UiFramework.uiVersion)
-      return this._size;
-
     // istanbul ignore else
     if (FrontstageManager.activeFrontstageDef) {
       const [_, size] = FrontstageManager.activeFrontstageDef.getPanelCurrentState(this);
@@ -98,17 +93,15 @@ export class StagePanelDef extends WidgetHost {
       return;
 
     // istanbul ignore else
-    if (UiFramework.uiVersion === "2") {
-      const frontstageDef = FrontstageManager.activeFrontstageDef;
-      // istanbul ignore else
-      if (frontstageDef && frontstageDef.nineZoneState) {
-        const side = toPanelSide(this.location);
-        frontstageDef.nineZoneState = setPanelSize(frontstageDef.nineZoneState, side, size);
-        const panel = frontstageDef.nineZoneState.panels[side];
-        if (panel.size === this._size)
-          return;
-        size = panel.size;
-      }
+    const frontstageDef = FrontstageManager.activeFrontstageDef;
+    // istanbul ignore else
+    if (frontstageDef && frontstageDef.nineZoneState) {
+      const side = toPanelSide(this.location);
+      frontstageDef.nineZoneState = setPanelSize(frontstageDef.nineZoneState, side, size);
+      const panel = frontstageDef.nineZoneState.panels[side];
+      if (panel.size === this._size)
+        return;
+      size = panel.size;
     }
     this._size = size;
     FrontstageManager.onPanelSizeChangedEvent.emit({
@@ -131,9 +124,6 @@ export class StagePanelDef extends WidgetHost {
 
   /** Panel state. Defaults to PanelState.Open. */
   public get panelState() {
-    if ("1" === UiFramework.uiVersion)
-      return this._panelState;
-
     // istanbul ignore else
     if (FrontstageManager.activeFrontstageDef) {
       const [state] = FrontstageManager.activeFrontstageDef?.getPanelCurrentState(this);
@@ -147,7 +137,7 @@ export class StagePanelDef extends WidgetHost {
     if (panelState === this._panelState)
       return;
     const frontstageDef = FrontstageManager.activeFrontstageDef;
-    if (UiFramework.uiVersion === "2" && frontstageDef && frontstageDef.nineZoneState) {
+    if (frontstageDef && frontstageDef.nineZoneState) {
       const side = toPanelSide(this.location);
       frontstageDef.nineZoneState = produce(frontstageDef.nineZoneState, (nineZone) => {
         const panel = nineZone.panels[side];
