@@ -56,6 +56,8 @@ public;CheckBoxInfo
 public;CheckboxStateChange
 public;ColumnDescription
 public;ColumnFilterDescriptor 
+internal;Columns(props: ColumnsProps): JSX.Element
+internal;ColumnsProps 
 public;CommonPropertyGridProps 
 public;CompletionObserver
 public;CompositeFilterDescriptor 
@@ -137,7 +139,11 @@ internal;getPropertyRecordAsString(label: PropertyRecord): string
 internal;getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection
 internal;getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | TreeModelRootNode, result?: Array
 beta;GridCategoryItem 
+internal;GroupColumn(props: GroupColumnProps): JSX.Element
+internal;GroupColumnProps 
 internal;GroupPopupItem({ item, addGroupSeparator }:
+internal;GroupTool(props: GroupToolProps): JSX.Element
+internal;GroupToolProps 
 internal;handleLoadedNodeHierarchy(modelSource: TreeModelSource, loadedHierarchy: LoadedNodeHierarchy): void
 public;hasChildren: (node: TreeNodeItem) => boolean
 public;hasSelectionModeFlag: (selectionMode: SelectionMode_2, flag: SelectionModeFlags) => boolean
@@ -244,6 +250,8 @@ alpha;OrthogonalDirection
 internal;OrthogonalDirectionHelpers
 public;PagedTreeNodeLoader
 public;PageOptions
+internal;Panel(props: PanelProps): JSX.Element
+internal;PanelProps 
 public;ParsedInput: (props: ParsedInputProps) => JSX.Element | null
 public;ParsedInputProps 
 public;Point2dTypeConverter 
@@ -428,6 +436,8 @@ deprecated;ThemedEnumPropertyEditor
 internal;TimeField({ time, timeDisplay, readOnly, onTimeChange }: TimeFieldProps): JSX.Element
 internal;TimeFieldProps
 internal;TimeSpec
+internal;Title(props: TitleProps): JSX.Element
+internal;TitleProps 
 public;toDateString: (date: Date, timeZoneOffset?: number | undefined, formatOptions?: DateFormatOptions | undefined) => string
 public;ToggleEditor 
 public;TogglePropertyEditor 
