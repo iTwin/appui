@@ -13,7 +13,7 @@ import { createDraggedTabState } from "../../appui-layout-react/state/internal/T
 
 describe("useTargetDirection", () => {
   it("should return `horizontal`", () => {
-    const { result } = renderHook<{ children?: React.ReactNode }, "horizontal" | "vertical">(() => useTargetDirection(), {
+    const { result } = renderHook(() => useTargetDirection(), {
       wrapper: (props) => (  // eslint-disable-line react/display-name
         <PanelSideContext.Provider value="bottom">
           {props.children}
@@ -24,7 +24,7 @@ describe("useTargetDirection", () => {
   });
 
   it("should return `vertical`", () => {
-    const { result } = renderHook<{ children?: React.ReactNode }, "horizontal" | "vertical">(() => useTargetDirection(), {
+    const { result } = renderHook(() => useTargetDirection(), {
       wrapper: (props) => (  // eslint-disable-line react/display-name
         <PanelSideContext.Provider value="left">
           {props.children}
