@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { SettingsContainer, useSaveBeforeActivatingNewSettingsTab, useSaveBeforeClosingSettingsContainer } from "../../core-react/settings/SettingsContainer";
@@ -104,16 +104,16 @@ describe("<SettingsContainer />", () => {
       onSettingsTabSelected={spyMethod} currentSettingsTab={tabs[1]} />);
 
     settingsManager.activateSettingsTab("page3");
-    await Promise.all(spyMethod.returnValues);
 
-    const activePageSelector = `li[data-for='page3']`;
-    const liPage3 = wrapper.container.querySelector(activePageSelector) as HTMLLIElement;
-    expect(liPage3.classList.contains("core-active")).to.be.true;
+    await waitFor(() => {
+      const activePageSelector = `li[data-for='page3']`;
+      const liPage3 = wrapper.container.querySelector(activePageSelector) as HTMLLIElement;
+      expect(liPage3.classList.contains("core-active")).to.be.true;
+    });
     expect(spyMethod.calledOnce).to.be.true;
 
     spyMethod.resetHistory();
     settingsManager.closeSettingsContainer(spyMethod);
-    await Promise.all(spyMethod.returnValues);
   });
 
   it("simulate tab 4 activation via keyin", async () => {

@@ -35,8 +35,7 @@ describe("useTreeModel", () => {
       (props: { modelSource: TreeModelSource }) => useTreeModel(props.modelSource),
       { initialProps: { modelSource: modelSourceMock.object } },
     );
-    expect(result.all.length).to.eq(1);
-    expect(result.all[0]).to.eq(testModel);
+    expect(result.current).to.eq(testModel);
     expect(spy).to.have.been.calledOnce;
   });
 
@@ -47,8 +46,7 @@ describe("useTreeModel", () => {
       (props: { modelSource: TreeModelSource }) => useTreeModel(props.modelSource),
       { initialProps: { modelSource: modelSourceMock.object } },
     );
-    expect(result.all.length).to.eq(1);
-    expect(result.all[0]).to.eq(testModel);
+    expect(result.current).to.eq(testModel);
     expect(firstModelEventAddSpy).to.have.been.calledOnce;
 
     const newOnModelChangeEvent = new BeUiEvent<[TreeModel, TreeModelChanges]>();
@@ -59,8 +57,7 @@ describe("useTreeModel", () => {
     newModelSourceMock.setup((x) => x.getModel()).returns(() => newTestModel);
 
     rerender({ modelSource: newModelSourceMock.object });
-    expect(result.all.length).to.eq(2);
-    expect(result.all[1]).to.eq(newTestModel);
+    expect(result.current).to.eq(newTestModel);
     expect(firstModelEventRemoveSpy).to.have.been.calledOnce;
     expect(newModelEventAddSpy).to.have.been.calledOnce;
   });
