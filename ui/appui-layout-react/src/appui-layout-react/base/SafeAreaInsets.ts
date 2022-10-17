@@ -15,7 +15,6 @@ export enum SafeAreaInsets {
   Left = 1 << 1,
   Right = 1 << 2,
   Top = 1 << 3,
-  All = SafeAreaInsets.Bottom | SafeAreaInsets.Left | SafeAreaInsets.Right | SafeAreaInsets.Top,
 }
 
 /** @internal */
