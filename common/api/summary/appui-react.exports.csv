@@ -49,9 +49,6 @@ internal;appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray
 public;AppNotificationManager 
 public;AppUiSettings 
 beta;areNoFeatureOverridesActive(): boolean
-public;Backstage 
-beta;BackstageActionItem 
-deprecated;BackstageActionItem 
 public;BackstageAppButton(props: BackstageAppButtonProps): JSX.Element
 public;BackstageAppButtonProps
 public;BackstageComposer(props: BackstageComposerProps): JSX.Element
@@ -62,21 +59,7 @@ internal;BackstageComposerItemProps
 public;BackstageComposerProps 
 internal;BackstageComposerStageLauncher({ item }: BackstageComposerStageLauncherProps): JSX.Element
 internal;BackstageComposerStageLauncherProps
-public;BackstageEvent 
-public;BackstageEventArgs
-deprecated;BackstageEventArgs
-public;BackstageItemProps 
-deprecated;BackstageItemProps 
-public;BackstageItemState
-deprecated;BackstageItemState
-beta;BackstageItemType
-deprecated;BackstageItemType
-beta;BackstageItemUtilities
-deprecated;BackstageItemUtilities
 public;BackstageManager
-public;BackstageProps 
-beta;BackstageStageLauncher 
-deprecated;BackstageStageLauncher 
 public;BackstageToggledArgs
 public;BaseItemState
 public;BasicNavigationWidget(props: BasicNavigationWidgetProps): JSX.Element
@@ -116,10 +99,6 @@ public;combineReducers: CombineReducersFunction
 public;CombineReducersFunction = 
 public;CommandItemDef 
 public;CommandItemProps 
-public;CommandLaunchBackstageItem 
-deprecated;CommandLaunchBackstageItem 
-public;CommandLaunchBackstageItemProps 
-deprecated;CommandLaunchBackstageItemProps 
 public;ConfigurableBase 
 public;ConfigurableCreateInfo
 public;ConfigurableUiActionId
@@ -236,10 +215,6 @@ public;FrontstageDeactivatedEvent
 public;FrontstageDeactivatedEventArgs
 public;FrontstageDef
 internal;FrontstageEventArgs
-public;FrontstageLaunchBackstageItem 
-deprecated;FrontstageLaunchBackstageItem 
-public;FrontstageLaunchBackstageItemProps 
-deprecated;FrontstageLaunchBackstageItemProps 
 public;FrontstageManager
 internal;FrontstageNineZoneStateChangedEventArgs 
 public;FrontstageProps 
@@ -247,8 +222,6 @@ public;class FrontstageProvider
 public;FrontstageReadyEvent 
 public;FrontstageReadyEventArgs
 public;FunctionType = (...args: any[]) => any
-public;getBackstageItemStateFromProps: (props: BackstageItemProps) => BackstageItemState
-deprecated;getBackstageItemStateFromProps: (props: BackstageItemProps) => BackstageItemState
 internal;getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined
 alpha;getCategories(imodel: IModelConnection, viewport?: Viewport, filteredProvider?: IPresentationTreeDataProvider): Promise
 beta;getFeatureOverrideSyncEventIds(): string[]
@@ -430,8 +403,6 @@ public;SelectionContextToolDefinitions
 public;SelectionInfoField: ConnectedComponent
 public;SelectionScope
 public;SelectionScopeField: ConnectedComponent
-public;SeparatorBackstageItem 
-deprecated;SeparatorBackstageItem 
 public;SessionState
 public;SessionStateActionId
 public;SessionStateActions:
@@ -527,10 +498,6 @@ internal;TaskActivatedEvent
 deprecated;TaskActivatedEvent 
 internal;TaskActivatedEventArgs
 deprecated;TaskActivatedEventArgs
-internal;TaskLaunchBackstageItem 
-deprecated;TaskLaunchBackstageItem 
-internal;TaskLaunchBackstageItemProps 
-deprecated;TaskLaunchBackstageItemProps 
 internal;TaskManager
 deprecated;TaskManager
 internal;TaskProps 
@@ -688,7 +655,6 @@ public;WidgetStateChangedEvent
 public;WidgetStateChangedEventArgs
 public;WidgetStateFunc = (state: Readonly
 public;WidgetType
-public;withSafeArea: 
 internal;Workflow 
 deprecated;Workflow 
 internal;WorkflowActivatedEvent 

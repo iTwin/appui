@@ -16,10 +16,10 @@ import { ActionButton } from '@itwin/appui-abstract';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
 import { AutoSuggestData } from '@itwin/core-react';
-import { BackstageActionItem as BackstageActionItem_2 } from '@itwin/appui-abstract';
+import { BackstageActionItem } from '@itwin/appui-abstract';
 import { BackstageItem } from '@itwin/appui-abstract';
 import { BackstageItemsManager } from '@itwin/appui-abstract';
-import { BackstageStageLauncher as BackstageStageLauncher_2 } from '@itwin/appui-abstract';
+import { BackstageStageLauncher } from '@itwin/appui-abstract';
 import { BadgeType } from '@itwin/appui-abstract';
 import { BaseSolarDataProvider } from '@itwin/imodel-components-react';
 import { BaseTimelineDataProvider } from '@itwin/imodel-components-react';
@@ -113,7 +113,6 @@ import { Rectangle } from '@itwin/core-react';
 import { RectangleProps } from '@itwin/core-react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import { Ruleset } from '@itwin/presentation-common';
-import { SafeAreaInsets } from '@itwin/appui-layout-react';
 import { ScreenViewport } from '@itwin/core-frontend';
 import { SelectionMode as SelectionMode_2 } from '@itwin/components-react';
 import { SettingsManager } from '@itwin/core-react';
@@ -133,7 +132,6 @@ import { StatusBarSection } from '@itwin/appui-abstract';
 import { Store } from 'redux';
 import { StringGetter } from '@itwin/appui-abstract';
 import { Subscription } from '@itwin/components-react';
-import { Subtract } from '@itwin/presentation-common';
 import { TabState } from '@itwin/appui-layout-react';
 import { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import { ToastOptions } from '@itwin/itwinui-react';
@@ -542,35 +540,6 @@ export class AppUiSettings implements UserSettingsProvider {
 export function areNoFeatureOverridesActive(): boolean;
 
 // @public
-export class Backstage extends React_2.Component<BackstageProps, BackstageState> {
-    constructor(props: BackstageProps);
-    static get backstageToggleCommand(): CommandItemDef;
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: BackstageProps): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    static getBackstageToggleCommand(overrideIconSpec?: IconSpec): CommandItemDef;
-    static hide(): void;
-    // (undocumented)
-    static isBackstageVisible: boolean;
-    // (undocumented)
-    static readonly onBackstageEvent: BackstageEvent;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    static show(): void;
-    // @internal (undocumented)
-    readonly state: BackstageState;
-}
-
-// @beta @deprecated
-export interface BackstageActionItem extends BackstageActionItem_2 {
-    // (undocumented)
-    readonly type: BackstageItemType.ActionItem;
-}
-
-// @public
 export function BackstageAppButton(props: BackstageAppButtonProps): JSX.Element;
 
 // @public
@@ -589,7 +558,7 @@ export function BackstageComposerActionItem({ item }: BackstageComposerActionIte
 // @internal (undocumented)
 export interface BackstageComposerActionItemProps {
     // (undocumented)
-    readonly item: BackstageActionItem_2;
+    readonly item: BackstageActionItem;
 }
 
 // @internal
@@ -616,62 +585,7 @@ export function BackstageComposerStageLauncher({ item }: BackstageComposerStageL
 // @internal (undocumented)
 export interface BackstageComposerStageLauncherProps {
     // (undocumented)
-    readonly item: BackstageStageLauncher_2;
-}
-
-// @public
-export class BackstageEvent extends UiEvent_2<BackstageEventArgs> {
-}
-
-// @public @deprecated
-export interface BackstageEventArgs {
-    // (undocumented)
-    isVisible: boolean;
-}
-
-// @public @deprecated
-export interface BackstageItemProps extends IconProps {
-    description?: string | StringGetter;
-    descriptionKey?: string;
-    isActive?: boolean;
-    isEnabled?: boolean;
-    label?: string | StringGetter;
-    labelKey?: string;
-    stateFunc?: (state: Readonly<BackstageItemState>) => BackstageItemState;
-    stateSyncIds?: string[];
-    tooltip?: string | StringGetter;
-    tooltipKey?: string;
-}
-
-// @public @deprecated
-export interface BackstageItemState {
-    // (undocumented)
-    iconSpec: IconSpec;
-    // (undocumented)
-    isActive?: boolean;
-    // (undocumented)
-    isEnabled: boolean;
-    // (undocumented)
-    label: string;
-    // (undocumented)
-    subtitle: string;
-    // (undocumented)
-    tooltip: string;
-}
-
-// @beta @deprecated
-export enum BackstageItemType {
-    ActionItem = 1,
-    StageLauncher = 2
-}
-
-// @beta @deprecated
-export class BackstageItemUtilities {
-    // @deprecated
-    static createActionItem: (itemId: string, groupPriority: number, itemPriority: number, execute: () => void, label: string, subtitle?: string | undefined, iconSpec?: string | undefined, overrides?: Partial<BackstageActionItem> | undefined) => BackstageActionItem;
-    // @deprecated
-    static createStageLauncher: (frontstageId: string, groupPriority: number, itemPriority: number, label: string, subtitle?: string | undefined, iconSpec?: string | undefined, overrides?: Partial<BackstageStageLauncher> | undefined) => BackstageStageLauncher;
-    static getBackstageItemStateFromProps: (props: BackstageItemProps) => BackstageItemState;
+    readonly item: BackstageStageLauncher;
 }
 
 // @public
@@ -686,25 +600,6 @@ export class BackstageManager {
     open(): void;
     // (undocumented)
     toggle(): void;
-}
-
-// @public
-export interface BackstageProps extends CommonProps {
-    children?: React_2.ReactNode;
-    // (undocumented)
-    header?: React_2.ReactNode;
-    // (undocumented)
-    isVisible?: boolean;
-    // (undocumented)
-    onClose?: () => void;
-    // (undocumented)
-    showOverlay?: boolean;
-}
-
-// @beta @deprecated
-export interface BackstageStageLauncher extends BackstageStageLauncher_2 {
-    // (undocumented)
-    readonly type: BackstageItemType.StageLauncher;
 }
 
 // @public
@@ -1053,28 +948,6 @@ export class CommandItemDef extends ActionButtonItemDef {
 export interface CommandItemProps extends ItemProps, CommandHandler {
     // (undocumented)
     commandId?: string;
-}
-
-// @public @deprecated
-export class CommandLaunchBackstageItem extends React_2.PureComponent<CommandLaunchBackstageItemProps, BackstageItemState> {
-    constructor(props: CommandLaunchBackstageItemProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(_prevProps: CommandLaunchBackstageItemProps): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    execute: () => void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: Readonly<BackstageItemState>;
-}
-
-// @public @deprecated
-export interface CommandLaunchBackstageItemProps extends BackstageItemProps, CommandHandler {
-    commandId: string;
 }
 
 // @public
@@ -2386,28 +2259,6 @@ export interface FrontstageEventArgs {
     frontstageDef: FrontstageDef;
 }
 
-// @public @deprecated
-export class FrontstageLaunchBackstageItem extends React_2.PureComponent<FrontstageLaunchBackstageItemProps, BackstageItemState> {
-    constructor(props: FrontstageLaunchBackstageItemProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(_prevProps: FrontstageLaunchBackstageItemProps): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    execute: () => Promise<void>;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: Readonly<BackstageItemState>;
-}
-
-// @public @deprecated
-export interface FrontstageLaunchBackstageItemProps extends BackstageItemProps {
-    frontstageId: string;
-}
-
 // @public
 export class FrontstageManager {
     static get activeFrontstageDef(): FrontstageDef | undefined;
@@ -2554,9 +2405,6 @@ export interface FrontstageReadyEventArgs {
 
 // @public
 export type FunctionType = (...args: any[]) => any;
-
-// @public @deprecated
-export const getBackstageItemStateFromProps: (props: BackstageItemProps) => BackstageItemState;
 
 // @internal (undocumented)
 export function getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined;
@@ -4053,7 +3901,7 @@ export const RULESET_SPATIAL_BREAKDOWN: Ruleset;
 export const RULESET_SPATIAL_BREAKDOWN_GROUPED_BY_CLASS: Ruleset;
 
 // @public
-export const SafeAreaContext: React_2.Context<SafeAreaInsets>;
+export const SafeAreaContext: React_2.Context<SafeAreaInsets | undefined>;
 
 // @internal
 export interface SavedWidget {
@@ -4134,13 +3982,6 @@ export enum SelectionScope {
 
 // @public
 export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<React_2.ClassAttributes<SelectionScopeFieldComponent> & SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
-
-// @public @deprecated
-export class SeparatorBackstageItem extends React_2.PureComponent<BackstageItemProps> {
-    constructor(separatorBackstageItemDef: BackstageItemProps);
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
 
 // @public
 export interface SessionState {
@@ -4415,7 +4256,7 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
     // (undocumented)
     get content(): React_2.ReactNode;
     // (undocumented)
-    static getBackstageActionItem(groupPriority: number, itemPriority: number): BackstageActionItem_2;
+    static getBackstageActionItem(groupPriority: number, itemPriority: number): BackstageActionItem;
     // (undocumented)
     static id: string;
     // (undocumented)
@@ -5006,8 +4847,6 @@ export enum SyncUiEventId {
     AccuDrawRotationChanged = "accudrawrotationchanged",
     ActiveContentChanged = "activecontentchanged",
     ActiveViewportChanged = "activeviewportchanged",
-    // @deprecated
-    BackstageCloseEvent = "backstagecloseevent",
     BackstageEvent = "backstageevent",
     ContentControlActivated = "contentcontrolactivated",
     ContentLayoutActivated = "contentlayoutactivated",
@@ -5076,31 +4915,6 @@ export interface TaskActivatedEventArgs {
     // (undocumented)
     workflow: Workflow;
     // (undocumented)
-    workflowId: string;
-}
-
-// @internal @deprecated
-export class TaskLaunchBackstageItem extends React_2.PureComponent<TaskLaunchBackstageItemProps, BackstageItemState> {
-    constructor(props: TaskLaunchBackstageItemProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(_prevProps: TaskLaunchBackstageItemProps): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    execute: () => void;
-    // (undocumented)
-    get id(): string;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // (undocumented)
-    readonly state: Readonly<BackstageItemState>;
-}
-
-// @internal @deprecated
-export interface TaskLaunchBackstageItemProps extends BackstageItemProps {
-    taskId: string;
     workflowId: string;
 }
 
@@ -6282,61 +6096,6 @@ export enum WidgetType {
     // (undocumented)
     ToolSettings = 4
 }
-
-// @public
-export const withSafeArea: <P extends InjectedWithSafeAreaProps, C>(Component: React_2.JSXElementConstructor<P> & C) => {
-    new (props: JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>> | Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>): {
-        render(): JSX.Element;
-        context: any;
-        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
-        forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
-        state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
-        componentDidMount?(): void;
-        shouldComponentUpdate?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextState: Readonly<{}>, nextContext: any): boolean;
-        componentWillUnmount?(): void;
-        componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
-        getSnapshotBeforeUpdate?(prevProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, prevState: Readonly<{}>): any;
-        componentDidUpdate?(prevProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, prevState: Readonly<{}>, snapshot?: any): void;
-        componentWillMount?(): void;
-        UNSAFE_componentWillMount?(): void;
-        componentWillReceiveProps?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextContext: any): void;
-        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextContext: any): void;
-        componentWillUpdate?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextState: Readonly<{}>, nextContext: any): void;
-        UNSAFE_componentWillUpdate?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextState: Readonly<{}>, nextContext: any): void;
-    };
-    new (props: JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>, context: any): {
-        render(): JSX.Element;
-        context: any;
-        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
-        forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>> & Readonly<{
-            children?: React_2.ReactNode;
-        }>;
-        state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
-        componentDidMount?(): void;
-        shouldComponentUpdate?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextState: Readonly<{}>, nextContext: any): boolean;
-        componentWillUnmount?(): void;
-        componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
-        getSnapshotBeforeUpdate?(prevProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, prevState: Readonly<{}>): any;
-        componentDidUpdate?(prevProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, prevState: Readonly<{}>, snapshot?: any): void;
-        componentWillMount?(): void;
-        UNSAFE_componentWillMount?(): void;
-        componentWillReceiveProps?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextContext: any): void;
-        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextContext: any): void;
-        componentWillUpdate?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextState: Readonly<{}>, nextContext: any): void;
-        UNSAFE_componentWillUpdate?(nextProps: Readonly<JSX.LibraryManagedAttributes<C, Subtract<P, InjectedWithSafeAreaProps>>>, nextState: Readonly<{}>, nextContext: any): void;
-    };
-    contextType?: React_2.Context<any> | undefined;
-};
 
 // @internal @deprecated
 export class Workflow extends ItemDefBase {

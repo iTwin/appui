@@ -1105,13 +1105,9 @@ export type RightPanelSide = "right";
 // @internal
 export enum SafeAreaInsets {
     // (undocumented)
-    All = 15,
-    // (undocumented)
     Bottom = 1,
     // (undocumented)
     Left = 2,
-    // (undocumented)
-    None = 0,
     // (undocumented)
     Right = 4,
     // (undocumented)
