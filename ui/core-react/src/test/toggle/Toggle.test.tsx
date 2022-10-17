@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Toggle, ToggleButtonType } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
@@ -49,9 +49,9 @@ describe("<Toggle />", () => {
     expect(classesFromElement(container.querySelector(".core-toggle-handle"))).to.include("core-toggling");
     expect(spyMethod).to.be.calledWith(true);
 
-    fakeTimers.tick(1000);
+    fakeTimers.runAll();
     fakeTimers.restore();
-    expect(classesFromElement(container.querySelector(".core-toggle-handle"))).to.not.include("core-toggling");
+    await waitFor(() => expect(classesFromElement(container.querySelector(".core-toggle-handle"))).to.not.include("core-toggling"));
   });
 
   it("Toggle should call onBlur handler", () => {

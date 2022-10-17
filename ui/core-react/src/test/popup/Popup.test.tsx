@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { fireEvent, render, RenderResult, screen } from "@testing-library/react";
+import { fireEvent, render, RenderResult, screen, waitFor } from "@testing-library/react";
 import { Popup } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 import userEvent from "@testing-library/user-event";
@@ -313,12 +313,7 @@ describe("<Popup />", () => {
     fireEvent.click(secondaryButton);
     const nestedButton = component.getByTestId("NestedPopup-Button");
     expect(nestedButton).to.exist;
-    fireEvent.click(nestedButton);
-
-    const mouseDown = new PointerEvent("pointerdown");
-    sinon.stub(mouseDown, "target").get(() => nestedButton);
-    window.dispatchEvent(mouseDown);
-    // component.debug();
+    await theUserTo.click(nestedButton);
 
     expect(component.queryByTestId("NestedPopup-Button")).to.be.null;
   });
@@ -516,7 +511,7 @@ describe("<Popup />", () => {
   });
 
   describe("scrolling", () => {
-    it("should hide when scrolling", () => {
+    it("should hide when scrolling", async () => {
       const spyOnClose = sinon.spy();
       render(<Popup isOpen onClose={spyOnClose}/>);
 
@@ -525,7 +520,7 @@ describe("<Popup />", () => {
       sinon.stub(scroll, "target").get(() => document.createElement("div"));
       window.dispatchEvent(scroll);
 
-      expect(spyOnClose).to.be.calledOnce;
+      await waitFor(() => expect(spyOnClose).to.be.calledOnce);
     });
 
     it("should not hide when scrolling popup content", () => {
@@ -581,7 +576,7 @@ describe("<Popup />", () => {
   });
 
   describe("context menu", () => {
-    it("should hide when context menu used", () => {
+    it("should hide when context menu used", async () => {
       const spyOnClose = sinon.spy();
       render(<><div data-testid={"outside"} /><Popup isOpen onClose={spyOnClose} /></>);
 
@@ -589,7 +584,7 @@ describe("<Popup />", () => {
       sinon.stub(contextMenu, "target").get(() => document.createElement("div"));
       window.dispatchEvent(contextMenu);
 
-      expect(spyOnClose).to.be.calledOnce;
+      await waitFor(() => expect(spyOnClose).to.be.calledOnce);
     });
 
     it("should not hide when context menu used popup content", () => {
@@ -715,13 +710,13 @@ describe("<Popup />", () => {
       spyOnClose.notCalled.should.true;
     });
 
-    it("should call onClose on resize event (default behavior)", () => {
+    it("should call onClose on resize event (default behavior)", async () => {
       const spyOnClose = sinon.spy();
       render(<Popup isOpen onClose={spyOnClose} />);
 
       window.dispatchEvent(new UIEvent("resize"));
 
-      spyOnClose.calledOnce.should.true;
+      await waitFor(() => expect(spyOnClose.callCount).to.equal(1));
     });
 
     it("should not call onClose on resize event (reposition switch)", () => {
