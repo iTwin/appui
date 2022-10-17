@@ -231,11 +231,12 @@ export const DraggedTabStateContext: React_2.Context<DraggedTabState | undefined
 export const DraggedWidgetIdContext: React_2.Context<string | undefined>;
 
 // @internal (undocumented)
+export type DragItem = TabDragItem | WidgetDragItem | PanelGripDragItem | ResizeHandleDragItem;
+
+// @internal (undocumented)
 export class DragManager {
     // (undocumented)
     get draggedItem(): Dragged | undefined;
-    // (undocumented)
-    getDraggedIdOfType<T extends DragItem>(type: T["type"]): T["id"] | undefined;
     // (undocumented)
     handleDrag(x: number, y: number): void;
     // (undocumented)
@@ -246,10 +247,6 @@ export class DragManager {
     handleDragUpdate(): void;
     // (undocumented)
     handleTargetChanged(target: DropTargetState | undefined): void;
-    // (undocumented)
-    isDragged(item: DragItem): boolean;
-    // (undocumented)
-    isDraggedType(type: DragItem["type"]): boolean;
     // (undocumented)
     isTargeted(target: DropTargetState): boolean;
     // (undocumented)
@@ -1588,6 +1585,9 @@ export function useDoubleClick(onDoubleClick?: () => void): () => void;
 export function useDrag<T extends HTMLElement>(onDragStart?: (initialPointerPosition: Point, pointerPosition: Point) => void, onDrag?: (position: Point) => void, onDragEnd?: () => void, onTouchStart?: () => void, onDoubleClick?: () => void): (instance: T | null) => void;
 
 // @internal (undocumented)
+export function useDraggedItem(): DragItem | undefined;
+
+// @internal (undocumented)
 export function useDraggedItemId<T extends DragItem>(type: T["type"]): T["id"] | undefined;
 
 // @internal (undocumented)
@@ -1669,9 +1669,6 @@ export interface UseDragWidgetArgs {
     // (undocumented)
     widgetId: WidgetState["id"];
 }
-
-// @internal (undocumented)
-export function useIsDragged(callback: () => boolean): boolean;
 
 // @internal (undocumented)
 export function useIsDraggedItem(item: DragItem): boolean;
