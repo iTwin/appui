@@ -5,7 +5,7 @@
 import "./index.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { connect, Provider, useSelector } from "react-redux";
+import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
 import { BrowserAuthorizationCallbackHandler, BrowserAuthorizationClient } from "@itwin/browser-authorization";
@@ -13,13 +13,11 @@ import { Project as ITwin, ProjectsAccessClient, ProjectsSearchableProperty } fr
 import { RealityDataAccessClient, RealityDataClientOptions } from "@itwin/reality-data-client";
 import { getClassName } from "@itwin/appui-abstract";
 import { SafeAreaInsets } from "@itwin/appui-layout-react";
-import { TargetOptions, TargetOptionsContext } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/target/TargetOptions";
 import {
   ActionsUnion, AppNotificationManager, AppUiSettings, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrameworkVersion, FrontstageDeactivatedEventArgs, FrontstageDef, FrontstageManager,
-  InitialAppUiSettings,
+  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageDef, FrontstageManager, InitialAppUiSettings,
   ModalFrontstageClosedEventArgs, SafeAreaContext, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
-  ToolbarDragInteractionContext, UiFramework, UiStateStorageContext, UiStateStorageHandler,
+  ToolbarDragInteractionContext, UiFramework, UiStateStorageHandler,
 } from "@itwin/appui-react";
 import { assert, Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
 import { BentleyCloudRpcManager, BentleyCloudRpcParams, IModelVersion, RpcConfiguration, SyncMode } from "@itwin/core-common";
@@ -76,7 +74,7 @@ import { InspectUiItemInfoTool } from "./tools/InspectTool";
 RpcConfiguration.developmentMode = true;
 
 // cSpell:ignore setTestProperty sampleapp uitestapp setisimodellocal projectwise hypermodeling testapp urlps
-// cSpell:ignore toggledraginteraction toggleframeworkversion set-drag-interaction set-framework-version
+// cSpell:ignore toggledraginteraction set-drag-interaction set-framework-version
 
 /** Action Ids used by redux and to send sync UI components. Typically used to refresh visibility or enable state of control.
  * Use lower case strings to be compatible with SyncUi processing.
@@ -89,19 +87,11 @@ export enum SampleAppUiActionId {
   setTargetVersion = "sampleapp:setTargetVersion",
 }
 
-/* ----------------------------------------------------------------------------
-* The following variable is used to test initializing UiFramework to use UI 1.0
-* and using that initial value in ui-test-app. By default UiFramework initializes
-* the Redux state to UI 2.0 mode.
------------------------------------------------------------------------------ */
-const useUi1Mode = false;
-
 export interface SampleAppState {
   testProperty: string;
   animationViewId: string;
   isIModelLocal: boolean;
   initialViewIds: string[];
-  targetVersion: TargetOptions["version"];
 }
 
 const initialState: SampleAppState = {
@@ -109,7 +99,6 @@ const initialState: SampleAppState = {
   animationViewId: "",
   isIModelLocal: true,  // initialize to true to hide iModelIndex from enabling which should only occur if External iModel is open.
   initialViewIds: [],
-  targetVersion: "1",
 };
 
 // An object with a function that creates each OpenIModelAction that can be handled by our reducer.
@@ -118,7 +107,6 @@ export const SampleAppActions = {
   setAnimationViewId: (viewId: string) => createAction(SampleAppUiActionId.setAnimationViewId, viewId),
   setIsIModelLocal: (isIModelLocal: boolean) => createAction(SampleAppUiActionId.setIsIModelLocal, isIModelLocal),
   setInitialViewIds: (viewIds: string[]) => createAction(SampleAppUiActionId.setInitialViewIds, viewIds),
-  setTargetVersion: (version: TargetOptions["version"]) => createAction(SampleAppUiActionId.setTargetVersion, version),
 };
 
 class SampleAppAccuSnap extends AccuSnap {
@@ -155,9 +143,6 @@ function SampleAppReducer(state: SampleAppState = initialState, action: SampleAp
     }
     case SampleAppUiActionId.setInitialViewIds: {
       return { ...state, initialViewIds: action.payload };
-    }
-    case SampleAppUiActionId.setTargetVersion: {
-      return { ...state, targetVersion: action.payload };
     }
   }
   return state;
@@ -275,7 +260,7 @@ export class SampleAppIModelApp {
   }
 
   public static async initialize() {
-    await UiFramework.initialize(undefined, undefined, useUi1Mode);
+    await UiFramework.initialize(undefined);
 
     // initialize Presentation
     await Presentation.initialize({
@@ -338,21 +323,16 @@ export class SampleAppIModelApp {
 
     // Create and register the AppUiSettings instance to provide default for ui settings in Redux store
     const lastTheme = (window.localStorage && window.localStorage.getItem("uifw:defaultTheme")) ?? SYSTEM_PREFERRED_COLOR_THEME;
-    if (!useUi1Mode) {
-      const defaults: InitialAppUiSettings = {
-        colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
-        dragInteraction: false,
-        frameworkVersion: "2",
-        widgetOpacity: 0.8,
-        showWidgetIcon: true,
-        autoCollapseUnpinnedPanels: false,
-      };
+    const defaults: InitialAppUiSettings = {
+      colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
+      dragInteraction: false,
+      widgetOpacity: 0.8,
+      showWidgetIcon: true,
+      autoCollapseUnpinnedPanels: false,
+    };
 
-      // initialize any settings providers that may need to have defaults set by iModelApp
-      UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
-    } else {
-      window.localStorage.removeItem("AppUiSettings.FrameworkVersion");
-    }
+    // initialize any settings providers that may need to have defaults set by iModelApp
+    UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
 
     UiFramework.useDefaultPopoutUrl = true;
 
@@ -635,10 +615,6 @@ export class SampleAppIModelApp {
     return SampleAppIModelApp.store.getState().sampleAppState.testProperty;
   }
 
-  public static getUiFrameworkProperty(): string {
-    return SampleAppIModelApp.store.getState().frameworkState.configurableUiState.frameworkVersion;
-  }
-
   public static saveAnimationViewId(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
       UiFramework.dispatchActionToStore(SampleAppUiActionId.setAnimationViewId, value, immediateSync);
@@ -665,10 +641,6 @@ export class SampleAppIModelApp {
     const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageId);
     await FrontstageManager.setActiveFrontstageDef(frontstageDef);
   }
-
-  public static setTargetVersion(version: TargetOptions["version"]) {
-    UiFramework.dispatchActionToStore(SampleAppUiActionId.setTargetVersion, version);
-  }
 }
 
 function AppDragInteractionComponent(props: { dragInteraction: boolean, children: React.ReactNode }) {
@@ -679,24 +651,11 @@ function AppDragInteractionComponent(props: { dragInteraction: boolean, children
   );
 }
 
-function AppFrameworkVersionComponent(props: { frameworkVersion: string, children: React.ReactNode }) {
-  return (
-    <FrameworkVersion>
-      {props.children}
-    </FrameworkVersion>
-  );
-}
-
 function mapDragInteractionStateToProps(state: RootState) {
   return { dragInteraction: state.frameworkState.configurableUiState.useDragInteraction };
 }
 
-function mapFrameworkVersionStateToProps(state: RootState) {
-  return { frameworkVersion: state.frameworkState.configurableUiState.frameworkVersion };
-}
-
 const AppDragInteraction = connect(mapDragInteractionStateToProps)(AppDragInteractionComponent);
-const AppFrameworkVersion = connect(mapFrameworkVersionStateToProps)(AppFrameworkVersionComponent);
 
 const SampleAppViewer2 = () => {
   const [isAuthorized, setIsAuthorized] = React.useState<boolean>(false);
@@ -746,54 +705,17 @@ const SampleAppViewer2 = () => {
       <ThemeManager>
         <SafeAreaContext.Provider value={SafeAreaInsets.All}>
           <AppDragInteraction>
-            <AppFrameworkVersion>
-              <UiStateStorageHandler>
-                <TargetOptionsProvider>
-                  <ConfigurableUiContent
-                    appBackstage={<AppBackstageComposer />}
-                  />
-                </TargetOptionsProvider>
-              </UiStateStorageHandler>
-            </AppFrameworkVersion>
+            <UiStateStorageHandler>
+              <ConfigurableUiContent
+                appBackstage={<AppBackstageComposer />}
+              />
+            </UiStateStorageHandler>
           </AppDragInteraction>
         </SafeAreaContext.Provider>
       </ThemeManager>
     </Provider >
   );
 };
-
-function TargetOptionsProvider({ children }: React.PropsWithChildren<{}>) {
-  const namespace = "ui-test-app[TargetOptions]";
-  const versionName = "version";
-  const version = useSelector((state: RootState) => state.sampleAppState.targetVersion);
-  const stateStorage = React.useContext(UiStateStorageContext);
-  const value = React.useMemo<TargetOptions>(() => ({
-    version,
-  }), [version]);
-  React.useEffect(() => {
-    let didCancel = false;
-    void (async function () {
-      const storedVersion = await stateStorage.getSetting(namespace, versionName);
-      if (didCancel)
-        return;
-
-      if (storedVersion.setting) {
-        SampleAppIModelApp.setTargetVersion(storedVersion.setting);
-      }
-    })();
-    return () => { didCancel = true; };
-  }, [stateStorage]);
-  React.useEffect(() => {
-    void (async function () {
-      await stateStorage.saveSetting(namespace, versionName, version);
-    })();
-  }, [stateStorage, version]);
-  return (
-    <TargetOptionsContext.Provider value={value}>
-      {children}
-    </TargetOptionsContext.Provider>
-  );
-}
 
 // If we are using a browser, close the current iModel before leaving
 window.addEventListener("unload", async () => { // eslint-disable-line @typescript-eslint/no-misused-promises

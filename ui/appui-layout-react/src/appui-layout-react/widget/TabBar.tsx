@@ -12,7 +12,7 @@ import * as React from "react";
 import { Point, Timer } from "@itwin/core-react";
 import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
-import { PointerCaptorArgs, PointerCaptorEvent, usePointerCaptor } from "../base/PointerCaptor";
+import { PointerCaptorArgs, PointerCaptorEvent, usePointerCaptor } from "../base/usePointerCaptor";
 import { TabBarButtons } from "./Buttons";
 import { FloatingWidgetIdContext } from "./FloatingWidget";
 import { WidgetTabs } from "./Tabs";

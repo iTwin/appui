@@ -8,7 +8,6 @@ import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { UiFramework } from "../../appui-react";
-import { FrameworkVersion } from "../../appui-react/hooks/useFrameworkVersion";
 import { ToolWidgetComposer } from "../../appui-react/widgets/ToolWidgetComposer";
 import { BackstageAppButton } from "../../appui-react/widgets/BackstageAppButton";
 import TestUtils, { mount, storageMock } from "../TestUtils";
@@ -66,9 +65,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
     it("BackstageAppButton should render in 2.0 mode", () => {
       mount(
         <Provider store={TestUtils.store} >
-          <FrameworkVersion>
-            <BackstageAppButton icon={"icon-test"} />
-          </FrameworkVersion>
+          <BackstageAppButton icon={"icon-test"} />
         </Provider>);
     });
 
@@ -76,9 +73,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       const spy = sinon.spy();
       const component = render(
         <Provider store={TestUtils.store} >
-          <FrameworkVersion>
-            <BackstageAppButton icon={"icon-test"} execute={spy} label="Hello" />
-          </FrameworkVersion>
+          <BackstageAppButton icon={"icon-test"} execute={spy} label="Hello" />
         </Provider>);
       const button = component.getByTitle("Hello");
       const icon = component.container.querySelector("i.icon.icon-test");
@@ -91,9 +86,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       const spy = sinon.spy(UiFramework.backstageManager, "toggle");
       const component = render(
         <Provider store={TestUtils.store} >
-          <FrameworkVersion>
-            <BackstageAppButton />
-          </FrameworkVersion>
+          <BackstageAppButton />
         </Provider>);
       const button = component.container.querySelector("button");
       fireEvent.click(button!);
@@ -101,17 +94,12 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
     });
 
     it("BackstageAppButton should render in 1.0 mode", async () => {
-      UiFramework.setUiVersion("1");
       await TestUtils.flushAsyncOperations();
       mount(
         <Provider store={TestUtils.store} >
-          <FrameworkVersion>
-            <BackstageAppButton icon={"icon-test"} />
-          </FrameworkVersion>
+          <BackstageAppButton icon={"icon-test"} />
         </Provider>
       );
-      UiFramework.setUiVersion("2");
     });
-
   });
 });

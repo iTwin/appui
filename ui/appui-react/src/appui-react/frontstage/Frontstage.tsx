@@ -10,7 +10,6 @@
 import * as React from "react";
 import { StagePanelLocation } from "@itwin/appui-abstract";
 import { CommonProps } from "@itwin/core-react";
-import { WidgetZoneId } from "@itwin/appui-layout-react";
 import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { StagePanelProps } from "../stagepanels/StagePanel";
@@ -116,7 +115,7 @@ export class Frontstage extends React.Component<FrontstageProps> {
     return undefined;
   }
 
-  private static getZoneElement(zoneId: WidgetZoneId, props: FrontstageProps): React.ReactElement<ZoneProps> | undefined { // eslint-disable-line deprecation/deprecation
+  private static getZoneElement(zoneId: ZoneLocation, props: FrontstageProps): React.ReactElement<ZoneProps> | undefined { // eslint-disable-line deprecation/deprecation
     switch (zoneId) {
       case ZoneLocation.TopLeft:
         return props.contentManipulationTools ? props.contentManipulationTools : props.topLeft;   // eslint-disable-line deprecation/deprecation

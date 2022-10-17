@@ -7,8 +7,8 @@
  */
 
 import produce, { castDraft } from "immer";
+import { BeEvent } from "@itwin/core-bentley";
 import * as React from "react";
-import { EventEmitter } from "../base/Event";
 import { TabState } from "../state/TabState";
 
 /** @internal */
@@ -19,10 +19,10 @@ export interface WidgetContentManagerProps {
 /** @internal */
 export const WidgetContentManager = React.memo<WidgetContentManagerProps>(function WidgetContentManager(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const [containers, setContainers] = React.useState<WidgetContentContainers>({});
-  const saveTransientStateRef = React.useRef(new EventEmitter<(tabId: TabState["id"]) => void>());
-  const restoreTransientStateRef = React.useRef(new EventEmitter<(tabId: TabState["id"]) => void>());
+  const saveTransientStateRef = React.useRef(new BeEvent<(tabId: TabState["id"]) => void>());
+  const restoreTransientStateRef = React.useRef(new BeEvent<(tabId: TabState["id"]) => void>());
   const setContainer = React.useCallback<WidgetContentManagerContextArgs["setContainer"]>((tabId, container) => {
-    container === null && saveTransientStateRef.current.emit(tabId);
+    container === null && saveTransientStateRef.current.raiseEvent(tabId);
     setContainers((prev) => produce(prev, (draft) => {
       draft[tabId] = castDraft(container);
     }));
@@ -50,8 +50,8 @@ WidgetContentContainersContext.displayName = "nz:WidgetContentContainersContext"
 /** @internal */
 export interface WidgetContentManagerContextArgs {
   setContainer(tabId: TabState["id"], container: Element | null): void;
-  onSaveTransientState: EventEmitter<(tabId: TabState["id"]) => void>;
-  onRestoreTransientState: EventEmitter<(tabId: TabState["id"]) => void>;
+  onSaveTransientState: BeEvent<(tabId: TabState["id"]) => void>;
+  onRestoreTransientState: BeEvent<(tabId: TabState["id"]) => void>;
 }
 
 /** @internal */

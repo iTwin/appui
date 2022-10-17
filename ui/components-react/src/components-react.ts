@@ -148,6 +148,14 @@ export * from "./components-react/table/component/Table";
 export * from "./components-react/table/component/TableCell";
 export * from "./components-react/table/component/TableColumn";
 
+// TODO: toolbar/groupPanel components needs a refactor.
+export * from "./components-react/toolbar/groupPanel/tool/Tool";
+
+export * from "./components-react/toolbar/groupPanel/Column";
+export * from "./components-react/toolbar/groupPanel/Columns";
+export * from "./components-react/toolbar/groupPanel/Panel";
+export * from "./components-react/toolbar/groupPanel/Title";
+
 export * from "./components-react/toolbar/Toolbar";
 export * from "./components-react/toolbar/ToolbarWithOverflow";
 export * from "./components-react/toolbar/PopupItem";

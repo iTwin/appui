@@ -17,9 +17,6 @@ exports[`FloatingWidgets should render 1`] = `
       role="tablist"
     >
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
-      <div
         class="nz-widget-tab nz-active nz-first nz-last"
         data-item-id="t1"
         data-item-type="widget-tab"
@@ -27,10 +24,17 @@ exports[`FloatingWidgets should render 1`] = `
         title=""
       >
         <span />
+        <div
+          class="nz-target-tabTarget nz-hidden"
+        />
       </div>
       <div
-        class="nz-widget-tabTarget nz-hidden"
-      />
+        class="nz-target-titleBarTarget nz-hidden"
+      >
+        <div
+          class="nz-outline-tabOutline nz-hidden"
+        />
+      </div>
       <div
         class="nz-widget-overflow nz-hidden"
       >
@@ -60,6 +64,16 @@ exports[`FloatingWidgets should render 1`] = `
   >
     <div
       class="nz-content"
+    />
+    <div
+      class="nz-target-targetContainer nz-horizontal nz-target-widgetTarget"
+    >
+      <div
+        class="nz-target-mergeTarget nz-hidden"
+      />
+    </div>
+    <div
+      class="nz-outline-widgetOutline nz-hidden"
     />
   </div>
   <div

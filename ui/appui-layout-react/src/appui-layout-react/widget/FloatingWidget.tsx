@@ -18,8 +18,7 @@ import { FloatingWidgetState, WidgetState } from "../state/WidgetState";
 import { WidgetContentContainer } from "./ContentContainer";
 import { WidgetTabBar } from "./TabBar";
 import { Widget, WidgetComponent, WidgetProvider, WidgetStateContext } from "./Widget";
-import { PointerCaptorArgs, usePointerCaptor } from "../base/PointerCaptor";
-import { CssProperties } from "../utilities/Css";
+import { PointerCaptorArgs, usePointerCaptor } from "../base/usePointerCaptor";
 import { WidgetTarget } from "../target/WidgetTarget";
 import { WidgetOutline } from "../outline/WidgetOutline";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
@@ -106,7 +105,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     const position = boundsRect.topLeft();
     // istanbul ignore next
     return {
-      ...CssProperties.transformFromPosition(position),
+      transform: `translate(${position.x}px, ${position.y}px)`,
       height: minimized || autoSized ? undefined : height,
       width: autoSized ? undefined : width,
       maxHeight: autoSized ? "60%" : undefined,

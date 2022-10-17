@@ -9,6 +9,9 @@ exports[`WidgetTab should render active 1`] = `
   title=""
 >
   <span />
+  <div
+    class="nz-target-tabTarget nz-hidden"
+  />
 </div>
 `;
 
@@ -26,6 +29,9 @@ exports[`WidgetTab should render badge 1`] = `
   >
     Badge
   </div>
+  <div
+    class="nz-target-tabTarget nz-hidden"
+  />
 </div>
 `;
 
@@ -38,6 +44,9 @@ exports[`WidgetTab should render first inactive 1`] = `
   title=""
 >
   <span />
+  <div
+    class="nz-target-tabTarget nz-hidden"
+  />
 </div>
 `;
 
@@ -50,6 +59,9 @@ exports[`WidgetTab should render last not overflown 1`] = `
   title=""
 >
   <span />
+  <div
+    class="nz-target-tabTarget nz-hidden"
+  />
 </div>
 `;
 
@@ -62,6 +74,9 @@ exports[`WidgetTab should render minimized 1`] = `
   title=""
 >
   <span />
+  <div
+    class="nz-target-tabTarget nz-hidden"
+  />
 </div>
 `;
 
@@ -75,6 +90,9 @@ exports[`WidgetTab should render tab with icon only 1`] = `
 >
   <i
     class="icon icon-placeholder"
+  />
+  <div
+    class="nz-target-tabTarget nz-hidden"
   />
 </div>
 `;
@@ -91,5 +109,8 @@ exports[`WidgetTab should render tab with text and icon 1`] = `
     class="icon icon-placeholder"
   />
   <span />
+  <div
+    class="nz-target-tabTarget nz-hidden"
+  />
 </div>
 `;

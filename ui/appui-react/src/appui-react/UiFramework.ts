@@ -37,11 +37,6 @@ import { FrontstageManager } from "./frontstage/FrontstageManager";
 
 // cSpell:ignore Mobi
 
-/** Defined that available UI Versions. It is recommended to always use the latest version available.
- * @public
- */
-export type FrameworkVersionId = "1" | "2";
-
 /** Interface to be implemented but any classes that wants to load their user settings when the UiStateEntry storage class is set.
  * @public
  */
@@ -64,19 +59,6 @@ export interface UiVisibilityEventArgs {
  */
 export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> { }
 
-/** FrameworkVersion Changed Event Args interface.
- * @internal
- */
-export interface FrameworkVersionChangedEventArgs {
-  oldVersion: FrameworkVersionId;
-  version: FrameworkVersionId;
-}
-
-/** FrameworkVersion Changed Event class.
- * @internal
- */
-export class FrameworkVersionChangedEvent extends UiEvent<FrameworkVersionChangedEventArgs> { }
-
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
  * @internal
  */
@@ -96,7 +78,6 @@ export class UiFramework {
   private static _frameworkStateKeyInStore: string = "frameworkState";  // default name
   private static _backstageManager?: BackstageManager;
   private static _widgetManager?: WidgetManager;
-  private static _uiVersion: FrameworkVersionId = "2";
   private static _hideIsolateEmphasizeActionHandler?: HideIsolateEmphasizeActionHandler;
   /** this provides a default state storage handler */
   private static _uiStateStorage: UiStateStorage = new LocalStateStorage();
@@ -132,21 +113,19 @@ export class UiFramework {
    * Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
    * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
-   * @param startInUi1Mode Used for legacy applications to start up in the deprecated UI 1 mode. This should not set by newer applications.
    */
-  public static async initialize(store: Store<any> | undefined, frameworkStateKey?: string, startInUi1Mode?: boolean): Promise<void> {
-    return this.initializeEx(store, frameworkStateKey, startInUi1Mode);
+  public static async initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void> {
+    return this.initializeEx(store, frameworkStateKey);
   }
 
   /**
    * Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
    * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
-   * @param startInUi1Mode Used for legacy applications to start up in the deprecated UI 1 mode. This should not set by newer applications.
    *
    * @internal
    */
-  public static async initializeEx(store: Store<any> | undefined, frameworkStateKey?: string, startInUi1Mode?: boolean): Promise<void> {
+  public static async initializeEx(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void> {
     if (UiFramework._initialized) {
       Logger.logInfo(UiFramework.loggerCategory(UiFramework), `UiFramework.initialize already called`);
       return;
@@ -161,9 +140,6 @@ export class UiFramework {
     // ignore setting _frameworkStateKeyInStore if not using store
     if (frameworkStateKey && store)
       UiFramework._frameworkStateKeyInStore = frameworkStateKey;
-
-    if (startInUi1Mode)
-      UiFramework.store.dispatch({ type: ConfigurableUiActionId.SetFrameworkVersion, payload: "1" });
 
     // set up namespace and register all tools from package
     const frameworkNamespace = IModelApp.localization?.registerNamespace(UiFramework.localizationNamespace);
@@ -497,20 +473,6 @@ export class UiFramework {
 
   public static isMobile() {  // eslint-disable-line @itwin/prefer-get
     return ProcessDetector.isMobileBrowser;
-  }
-
-  /** Returns the Ui Version.
-   * @public
-   */
-  public static get uiVersion(): FrameworkVersionId {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.frameworkVersion : this._uiVersion;
-  }
-
-  public static setUiVersion(version: FrameworkVersionId) {
-    if (UiFramework.uiVersion === version)
-      return;
-
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetFrameworkVersion, version === "1" ? "1" : "2", true);
   }
 
   public static get showWidgetIcon(): boolean {

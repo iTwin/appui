@@ -12,7 +12,6 @@ import { Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, InteractiveTool, SelectedViewportChangedArgs, StartOrResume, Tool } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
 import { Size, UiEvent } from "@itwin/core-react";
-import { NineZoneManager } from "@itwin/appui-layout-react";
 import { ContentControlActivatedEvent } from "../content/ContentControl";
 import { ContentGroup } from "../content/ContentGroup";
 import { ContentLayoutActivatedEvent, ContentLayoutDef } from "../content/ContentLayout";
@@ -190,7 +189,6 @@ export class FrontstageManager {
   private static _activeFrontstageDef: FrontstageDef | undefined;
   private static _frontstageDefs = new Map<string, FrontstageDef>();
   private static _modalFrontstages: ModalFrontstageItem[] = new Array<ModalFrontstageItem>();
-  private static _nineZoneManagers = new Map<string, NineZoneManager>();
   private static _frontstageProviders = new Map<string, FrontstageProvider>();
   private static _nineZoneSize: Size | undefined = undefined;
 
@@ -272,6 +270,11 @@ export class FrontstageManager {
     FrontstageManager._nineZoneSize = size;
   }
 
+  /** @internal */
+  public static get frontstageDefs(): ReadonlyMap<string, FrontstageDef> {
+    return this._frontstageDefs;
+  }
+
   /** Get Frontstage Deactivated event. */
   public static readonly onFrontstageDeactivatedEvent = new FrontstageDeactivatedEvent();
 
@@ -343,17 +346,6 @@ export class FrontstageManager {
 
   /** @internal */
   public static readonly onPanelSizeChangedEvent = new PanelSizeChangedEvent();
-
-  /** Get Nine-zone State Manager. */
-  public static get NineZoneManager() {
-    const id = FrontstageManager.activeFrontstageId;
-    let manager = FrontstageManager._nineZoneManagers.get(id);
-    if (!manager) {
-      manager = new NineZoneManager();
-      FrontstageManager._nineZoneManagers.set(id, manager);
-    }
-    return manager;
-  }
 
   /** Clears the Frontstage map.
    */

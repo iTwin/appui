@@ -7,7 +7,7 @@ import * as React from "react";
 import { expect } from "chai";
 import produce from "immer";
 import * as sinon from "sinon";
-import { FrontstageManager, setPanelSize, StagePanelDef, StagePanelState, StagePanelZoneDef, StagePanelZonesDef, toPanelSide, UiFramework, Widget, WidgetDef } from "../../appui-react";
+import { FrontstageManager, setPanelSize, StagePanelDef, StagePanelState, StagePanelZoneDef, StagePanelZonesDef, toPanelSide, Widget, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { StagePanelLocation } from "@itwin/appui-abstract";
 import { createNineZoneState } from "@itwin/appui-layout-react";
@@ -79,7 +79,6 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework, "uiVersion").get(() => "2");
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.size = 150;
@@ -90,7 +89,6 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework, "uiVersion").get(() => "2");
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.size = 200;
@@ -106,7 +104,6 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework, "uiVersion").get(() => "2");
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
@@ -119,7 +116,6 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework, "uiVersion").get(() => "2");
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
@@ -134,7 +130,6 @@ describe("StagePanelDef", () => {
       draft.panels.right.collapsed = true;
     });
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework, "uiVersion").get(() => "2");
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.initializeFromProps({

@@ -8,12 +8,13 @@ import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
-  addPanelWidget, addTab, createNineZoneState, EventEmitter, HorizontalPanelSide, NineZoneState, PanelSide, PanelStateContext, PanelWidget,
+  addPanelWidget, addTab, createNineZoneState, HorizontalPanelSide, NineZoneState, PanelSide, PanelStateContext, PanelWidget,
   TabState, useBorders, useMode, VerticalPanelSide, WidgetContentManagerContext, WidgetContentManagerContextArgs,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { BeEvent } from "@itwin/core-bentley";
 
 /* eslint-disable jsdoc/require-jsdoc */
 
@@ -195,10 +196,10 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "top", "w2", ["t2"]);
 
     const spy = sinon.spy();
-    const onSaveTransientState = new EventEmitter<(tabId: TabState["id"]) => void>();
+    const onSaveTransientState = new BeEvent<(tabId: TabState["id"]) => void>();
     const widgetContentManager: WidgetContentManagerContextArgs = {
       setContainer: () => { },
-      onRestoreTransientState: new EventEmitter<(tabId: TabState["id"]) => void>(),
+      onRestoreTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
       onSaveTransientState,
     };
     render(
@@ -216,7 +217,7 @@ describe("PanelWidget", () => {
       </Provider>,
     );
 
-    onSaveTransientState.emit("t1");
+    onSaveTransientState.raiseEvent("t1");
 
     sinon.assert.calledOnce(spy);
   });

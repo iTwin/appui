@@ -6,6 +6,13 @@ exports[`WidgetTabs should overflow all tabs in horizontal minimized widget 1`] 
   role="tablist"
 >
   <div
+    class="nz-target-titleBarTarget nz-hidden"
+  >
+    <div
+      class="nz-outline-tabOutline nz-hidden"
+    />
+  </div>
+  <div
     class="nz-widget-overflow"
   >
     <div
@@ -27,9 +34,6 @@ exports[`WidgetTabs should render 1`] = `
   role="tablist"
 >
   <div
-    class="nz-widget-tabTarget nz-hidden"
-  />
-  <div
     class="nz-widget-tab nz-active nz-first nz-last"
     data-item-id="t1"
     data-item-type="widget-tab"
@@ -37,10 +41,17 @@ exports[`WidgetTabs should render 1`] = `
     title=""
   >
     <span />
+    <div
+      class="nz-target-tabTarget nz-hidden"
+    />
   </div>
   <div
-    class="nz-widget-tabTarget nz-hidden"
-  />
+    class="nz-target-titleBarTarget nz-hidden"
+  >
+    <div
+      class="nz-outline-tabOutline nz-hidden"
+    />
+  </div>
   <div
     class="nz-widget-overflow nz-hidden"
   >
@@ -63,9 +74,6 @@ exports[`WidgetTabs should render overflow panel 1`] = `
   role="tablist"
 >
   <div
-    class="nz-widget-tabTarget nz-hidden"
-  />
-  <div
     class="nz-widget-tab nz-active nz-first"
     data-item-id="t1"
     data-item-type="widget-tab"
@@ -73,10 +81,17 @@ exports[`WidgetTabs should render overflow panel 1`] = `
     title=""
   >
     <span />
+    <div
+      class="nz-target-tabTarget nz-hidden"
+    />
   </div>
   <div
-    class="nz-widget-tabTarget nz-hidden"
-  />
+    class="nz-target-titleBarTarget nz-hidden"
+  >
+    <div
+      class="nz-outline-tabOutline nz-hidden"
+    />
+  </div>
   <div
     class="nz-widget-overflow"
   >
@@ -99,9 +114,6 @@ exports[`WidgetTabs should render tabs with icons 1`] = `
   role="tablist"
 >
   <div
-    class="nz-widget-tabTarget nz-hidden"
-  />
-  <div
     class="nz-widget-tab nz-active nz-first"
     data-item-id="t1"
     data-item-type="widget-tab"
@@ -109,10 +121,17 @@ exports[`WidgetTabs should render tabs with icons 1`] = `
     title=""
   >
     <span />
+    <div
+      class="nz-target-tabTarget nz-hidden"
+    />
   </div>
   <div
-    class="nz-widget-tabTarget nz-hidden"
-  />
+    class="nz-target-titleBarTarget nz-hidden"
+  >
+    <div
+      class="nz-outline-tabOutline nz-hidden"
+    />
+  </div>
   <div
     class="nz-widget-overflow"
   >

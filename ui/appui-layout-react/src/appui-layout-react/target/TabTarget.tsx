@@ -16,12 +16,11 @@ import { WidgetState } from "../state/WidgetState";
 import { WidgetIdContext, WidgetStateContext } from "../widget/Widget";
 import { TabIdContext } from "../widget/ContentRenderer";
 import { assert } from "@itwin/core-bentley";
-import { withTargetVersion } from "./TargetOptions";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import { TabDropTargetState } from "../state/DropTargetState";
 
 /** @internal */
-export const TabTarget = withTargetVersion("2", function TabTarget() {
+export function TabTarget() {
   const cursorType = React.useContext(CursorTypeContext);
   const draggedTab = React.useContext(DraggedTabContext);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
@@ -45,7 +44,7 @@ export const TabTarget = withTargetVersion("2", function TabTarget() {
       ref={ref}
     />
   );
-});
+}
 
 function useTabIndex() {
   const widget = React.useContext(WidgetStateContext);

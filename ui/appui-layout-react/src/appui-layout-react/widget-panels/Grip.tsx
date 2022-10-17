@@ -14,7 +14,7 @@ import { assert } from "@itwin/core-bentley";
 import { useDragPanelGrip, UseDragPanelGripArgs } from "../base/DragManager";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { isHorizontalPanelSide, PanelStateContext, WidgetPanelContext } from "./Panel";
-import { PointerCaptorArgs, usePointerCaptor } from "../base/PointerCaptor";
+import { PointerCaptorArgs, usePointerCaptor } from "../base/usePointerCaptor";
 
 /** Resize grip of [[WidgetPanel]] component.
  * @internal
