@@ -2,16 +2,10 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
-import { shallow } from "enzyme";
 import * as React from "react";
-import * as sinon from "sinon";
-import * as moq from "typemoq";
-import { StagePanelLocation, WidgetState } from "@itwin/appui-abstract";
-import { StagePanel, WidgetDef } from "../../appui-react";
-import { StagePanelRuntimeProps } from "../../appui-react/stagepanels/StagePanel";
+import { StagePanelLocation } from "@itwin/appui-abstract";
+import { StagePanel } from "../../appui-react";
 import { StagePanelDef } from "../../appui-react/stagepanels/StagePanelDef";
-import { UiFramework } from "../../appui-react/UiFramework";
 import TestUtils, { mount } from "../TestUtils";
 
 /* eslint-disable react/jsx-key */
@@ -19,7 +13,6 @@ import TestUtils, { mount } from "../TestUtils";
 describe("StagePanel", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
-    UiFramework.setUiVersion("1");
   });
 
   after(() => {
@@ -48,38 +41,5 @@ describe("StagePanel", () => {
 
   it("should mount", () => {
     mount(<StagePanel />);
-  });
-
-  it("should not render w/o runtime props", () => {
-    shallow(<StagePanel />).should.matchSnapshot();
-  });
-
-  it("should pass down maxSize number property", () => {
-    const runtimeProps = moq.Mock.ofType<StagePanelRuntimeProps>();
-    const panel = new StagePanelDef();
-    runtimeProps.setup((x) => x.panelDef).returns(() => panel);
-    const sut = shallow<StagePanel>(<StagePanel
-      runtimeProps={runtimeProps.object}
-      maxSize={200}
-    />);
-    sut.should.matchSnapshot();
-  });
-
-  it("should update stagePanelWidgets", () => {
-    const runtimeProps = moq.Mock.ofType<StagePanelRuntimeProps>();
-    const panel = moq.Mock.ofType<StagePanelRuntimeProps["panel"]>();
-    const panelDef = new StagePanelDef();
-    const w1 = new WidgetDef({ id: "w1" });
-    const w2 = new WidgetDef({ id: "w2" });
-    const w3 = new WidgetDef({ id: "w3" });
-    runtimeProps.setup((x) => x.panel).returns(() => panel.object);
-    runtimeProps.setup((x) => x.panelDef).returns(() => panelDef);
-    panel.setup((x) => x.panes).returns(() => []);
-    sinon.stub(panelDef, "widgetDefs").get(() => [w1, w2, w3]);
-    const sut = mount<StagePanel>(<StagePanel
-      runtimeProps={runtimeProps.object}
-    />);
-    w2.setWidgetState(WidgetState.Hidden);
-    sut.state("stagePanelWidgets").should.eql(["w1", "w3"]);
   });
 });

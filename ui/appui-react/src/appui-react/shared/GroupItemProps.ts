@@ -7,7 +7,6 @@
  */
 
 import { StringGetter } from "@itwin/appui-abstract";
-import { Direction } from "@itwin/appui-layout-react";
 import { AnyItemDef } from "./AnyItemDef";
 import { ItemProps } from "./ItemProps";
 
@@ -18,7 +17,6 @@ export interface GroupItemProps extends ItemProps {
   defaultActiveItemId?: string;
   groupId?: string;
   items: AnyItemDef[];
-  direction?: Direction; // eslint-disable-line deprecation/deprecation
   itemsInColumn?: number;
   /** if set, it is used to explicitly set a label at top of open group component. */
   panelLabel?: string | StringGetter;

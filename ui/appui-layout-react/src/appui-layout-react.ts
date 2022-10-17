@@ -5,15 +5,12 @@
 export * from "./appui-layout-react/backstage/Backstage";
 export * from "./appui-layout-react/backstage/Item";
 export * from "./appui-layout-react/backstage/Separator";
-export * from "./appui-layout-react/backstage/UserProfile";
 
-export * from "./appui-layout-react/base/DragHandle";
 export * from "./appui-layout-react/base/DragManager";
 export * from "./appui-layout-react/base/Ellipsis";
-export * from "./appui-layout-react/base/Event";
 export * from "./appui-layout-react/base/NineZone";
-export * from "./appui-layout-react/base/PointerCaptor";
-export * from "./appui-layout-react/base/WithContainIn";
+export * from "./appui-layout-react/base/SafeAreaInsets";
+export * from "./appui-layout-react/base/usePointerCaptor";
 
 export * from "./appui-layout-react/footer/dialog/Button";
 export * from "./appui-layout-react/footer/dialog/Dialog";
@@ -47,17 +44,7 @@ export * from "./appui-layout-react/footer/Indicator";
 export * from "./appui-layout-react/footer/Popup";
 export * from "./appui-layout-react/footer/Separator";
 
-export * from "./appui-layout-react/manager/NestedStagePanels";
-export * from "./appui-layout-react/manager/NineZone";
-export * from "./appui-layout-react/manager/StagePanel";
-export * from "./appui-layout-react/manager/StagePanelPane";
-export * from "./appui-layout-react/manager/StagePanels";
-
 export * from "./appui-layout-react/popup/Tooltip";
-
-export * from "./appui-layout-react/stage-panels/manager/NestedStagePanels";
-export * from "./appui-layout-react/stage-panels/manager/StagePanel";
-export * from "./appui-layout-react/stage-panels/manager/StagePanels";
 
 export * from "./appui-layout-react/state/DropTargetState";
 export * from "./appui-layout-react/state/NineZoneAction";
@@ -76,31 +63,6 @@ export * from "./appui-layout-react/tool-settings/Overflow";
 export * from "./appui-layout-react/tool-settings/Panel";
 export * from "./appui-layout-react/tool-settings/Setting";
 
-export * from "./appui-layout-react/toolbar/item/Item";
-export * from "./appui-layout-react/toolbar/item/Overflow";
-export * from "./appui-layout-react/toolbar/item/expandable/Expandable";
-export * from "./appui-layout-react/toolbar/item/expandable/WithDragInteraction";
-
-export * from "./appui-layout-react/toolbar/item/expandable/group/BackArrow";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Column";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Columns";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Group";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Nested";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Panel";
-export * from "./appui-layout-react/toolbar/item/expandable/group/Title";
-
-export * from "./appui-layout-react/toolbar/item/expandable/group/tool/Expander";
-export * from "./appui-layout-react/toolbar/item/expandable/group/tool/Tool";
-
-export * from "./appui-layout-react/toolbar/Items";
-export * from "./appui-layout-react/toolbar/Toolbar";
-
-export * from "./appui-layout-react/utilities/Cell";
-export * from "./appui-layout-react/utilities/Css";
-export * from "./appui-layout-react/utilities/Direction";
-export * from "./appui-layout-react/utilities/DisabledResizeHandles";
-export * from "./appui-layout-react/utilities/SafeAreaInsets";
-
 export * from "./appui-layout-react/widget/Buttons";
 export * from "./appui-layout-react/widget/Content";
 export * from "./appui-layout-react/widget/ContentContainer";
@@ -117,31 +79,17 @@ export * from "./appui-layout-react/widget/PanelWidget";
 export * from "./appui-layout-react/widget/PinToggle";
 export * from "./appui-layout-react/widget/PopoutToggle";
 export * from "./appui-layout-react/widget/SendBack";
-export * from "./appui-layout-react/widget/Stacked";
 export * from "./appui-layout-react/widget/Tab";
 export * from "./appui-layout-react/widget/TabBar";
 export * from "./appui-layout-react/widget/Tabs";
-export * from "./appui-layout-react/widget/TabTarget";
-export * from "./appui-layout-react/widget/Tools";
 export * from "./appui-layout-react/widget/ToolsArea";
-export * from "./appui-layout-react/widget/ToolSettings";
 export * from "./appui-layout-react/widget/Widget";
-export * from "./appui-layout-react/widget/WidgetTarget";
 
 export * from "./appui-layout-react/widget/tools/button/App";
 export * from "./appui-layout-react/widget/tools/button/Back";
 export * from "./appui-layout-react/widget/tools/button/Button";
 export * from "./appui-layout-react/widget/tools/button/Expandable";
 export * from "./appui-layout-react/widget/tools/button/Icon";
-
-export * from "./appui-layout-react/widget/rectangular/Content";
-export * from "./appui-layout-react/widget/rectangular/ResizeGrip";
-
-export * from "./appui-layout-react/widget/rectangular/tab/Group";
-export * from "./appui-layout-react/widget/rectangular/tab/Separator";
-export * from "./appui-layout-react/widget/rectangular/tab/Tab";
-
-export * from "./appui-layout-react/widget/tool-settings/Tab";
 
 export * from "./appui-layout-react/widget-panels/AppContent";
 export * from "./appui-layout-react/widget-panels/CenterContent";
@@ -151,12 +99,6 @@ export * from "./appui-layout-react/widget-panels/Expander";
 export * from "./appui-layout-react/widget-panels/Grip";
 export * from "./appui-layout-react/widget-panels/Panel";
 export * from "./appui-layout-react/widget-panels/Panels";
-export * from "./appui-layout-react/widget-panels/PanelTarget";
-
-export * from "./appui-layout-react/zones/manager/ResizeStrategy";
-export * from "./appui-layout-react/zones/manager/Widget";
-export * from "./appui-layout-react/zones/manager/Zone";
-export * from "./appui-layout-react/zones/manager/Zones";
 
 /** @docs-package-description
  * The appui-layout-react package contains React components for application user interface layouts following the Bentley 9-Zone pattern.
@@ -186,10 +128,6 @@ export * from "./appui-layout-react/zones/manager/Zones";
  * Classes for working with SnapMode UI
  */
 /**
- * @docs-group-description StagePanels
- * Classes for working with stage panels
- */
-/**
  * @docs-group-description ToolAssistance
  * Classes for working with Tool Assistance
  */
@@ -212,8 +150,4 @@ export * from "./appui-layout-react/zones/manager/Zones";
 /**
  * @docs-group-description WidgetPanels
  * Classes for working with widget panels
- */
-/**
- * @docs-group-description Zone
- * Classes for working a Zone
  */

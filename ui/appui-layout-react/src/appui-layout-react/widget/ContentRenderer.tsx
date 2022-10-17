@@ -59,7 +59,7 @@ export const WidgetContentRenderer = React.memo(function WidgetContentRenderer(p
       }
 
       parent.appendChild(container.current);
-      widgetContentManager.onRestoreTransientState.emit(props.tabId);
+      widgetContentManager.onRestoreTransientState.raiseEvent(props.tabId);
     }
     return () => {
       for (const child of parent?.children || []) {
@@ -86,12 +86,12 @@ TabIdContext.displayName = "nz:TabIdContext";
 export function useTabTransientState(tabId: string, onSave?: () => void, onRestore?: () => void) {
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   React.useEffect(() => {
-    return widgetContentManager.onSaveTransientState.add((id) => {
+    return widgetContentManager.onSaveTransientState.addListener((id) => {
       tabId === id && onSave && onSave();
     });
   }, [widgetContentManager, onSave, tabId]);
   React.useEffect(() => {
-    return widgetContentManager.onRestoreTransientState.add((id) => {
+    return widgetContentManager.onRestoreTransientState.addListener((id) => {
       tabId === id && onRestore && onRestore();
     });
   }, [widgetContentManager, onRestore, tabId]);

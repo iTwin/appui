@@ -5,17 +5,17 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import {
-  EventEmitter, TabState, WidgetContentContainer, WidgetContentManagerContext, WidgetContentManagerContextArgs,
-  WidgetStateContext,
+  TabState, WidgetContentContainer, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetStateContext,
 } from "../../appui-layout-react";
 import { createWidgetState } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
+import { BeEvent } from "@itwin/core-bentley";
 
 describe("WidgetContentContainer ", () => {
   it("should render minimized", () => {
-    const onSaveTransientState = new EventEmitter<(tabId: TabState["id"]) => void>();
+    const onSaveTransientState = new BeEvent<(tabId: TabState["id"]) => void>();
     const widgetContentManager: WidgetContentManagerContextArgs = {
       setContainer: () => { },
-      onRestoreTransientState: new EventEmitter<(tabId: TabState["id"]) => void>(),
+      onRestoreTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
       onSaveTransientState,
     };
     const { container } = render(

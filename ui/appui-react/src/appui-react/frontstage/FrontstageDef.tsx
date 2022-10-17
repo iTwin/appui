@@ -14,9 +14,8 @@ import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
 import { PointProps, StagePanelLocation, StageUsage, UiError, WidgetState } from "@itwin/appui-abstract";
 import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
 import {
-  dockWidgetContainer,
-  floatWidget, getTabLocation, getWidgetLocation, isFloatingTabLocation, isPanelTabLocation, isPopoutTabLocation, isPopoutWidgetLocation,
-  NineZoneManagerProps, NineZoneState, PanelSide, panelSides, popoutWidgetToChildWindow, setFloatingWidgetContainerBounds,
+  dockWidgetContainer, floatWidget, getTabLocation, getWidgetLocation, isFloatingTabLocation, isPanelTabLocation, isPopoutTabLocation, isPopoutWidgetLocation,
+  NineZoneState, PanelSide, panelSides, popoutWidgetToChildWindow, setFloatingWidgetContainerBounds,
 } from "@itwin/appui-layout-react";
 import { ContentControl } from "../content/ContentControl";
 import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
@@ -81,7 +80,6 @@ export class FrontstageDef {
   private _contentLayoutDef?: ContentLayoutDef;
   private _contentGroup?: ContentGroup;
   private _frontstageProvider?: FrontstageProvider;
-  private _nineZone?: NineZoneManagerProps;
   private _timeTracker: TimeTracker = new TimeTracker();
   private _nineZoneState?: NineZoneState;
   private _contentGroupProvider?: ContentGroupProvider;
@@ -124,10 +122,6 @@ export class FrontstageDef {
   public get contentLayoutDef(): ContentLayoutDef | undefined { return this._contentLayoutDef; }
   public get contentGroup(): ContentGroup | undefined { return this._contentGroup; }
   public get frontstageProvider(): FrontstageProvider | undefined { return this._frontstageProvider; }
-
-  /** @internal */
-  public get nineZone(): NineZoneManagerProps | undefined { return this._nineZone; } // istanbul ignore next
-  public set nineZone(props: NineZoneManagerProps | undefined) { this._nineZone = props; }
 
   private toStagePanelLocation(side: PanelSide): StagePanelLocation {
     switch (side) {
@@ -227,7 +221,7 @@ export class FrontstageDef {
     if (this._nineZoneState === state)
       return;
 
-    if ("1" === UiFramework.uiVersion || !this._nineZoneState) {
+    if (!this._nineZoneState) {
       this._nineZoneState = state;
     } else {
       this.triggerStateChangeEventForWidgetsAndPanels(state);
@@ -675,7 +669,7 @@ export class FrontstageDef {
     // Tracks provided widgets to prevent duplicates.
     const allStageWidgetDefs: WidgetDef[] = [];
 
-    // Process panels before zones so in uiVersion="2" extension can explicitly target a widget for a StagePanelSection
+    // Process panels before zones so extension can explicitly target a widget for a StagePanelSection
     this.panelDefs.forEach((stagePanelDef: StagePanelDef) => {
       stagePanelDef.updateDynamicWidgetDefs(this.id, this.usage, stagePanelDef.location, undefined, allStageWidgetDefs, this.applicationData);
     });

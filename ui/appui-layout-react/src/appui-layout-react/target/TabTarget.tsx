@@ -16,19 +16,20 @@ import { WidgetState } from "../state/WidgetState";
 import { WidgetIdContext, WidgetStateContext } from "../widget/Widget";
 import { TabIdContext } from "../widget/ContentRenderer";
 import { assert } from "@itwin/core-bentley";
-import { withTargetVersion } from "./TargetOptions";
+import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import { TabDropTargetState } from "../state/DropTargetState";
 
 /** @internal */
-export const TabTarget = withTargetVersion("2", function TabTarget() {
+export function TabTarget() {
   const cursorType = React.useContext(CursorTypeContext);
   const draggedTab = React.useContext(DraggedTabContext);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
   const tabIndex = useTabIndex();
   const [ref, targeted] = useTarget<HTMLDivElement>(useTargetArgs(widgetId, tabIndex));
+  const allowedTarget = useAllowedWidgetTarget(widgetId);
   // istanbul ignore next
-  const hidden = (!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId;
+  const hidden = !allowedTarget || ((!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId);
   const className = classnames(
     "nz-target-tabTarget",
     hidden && "nz-hidden",
@@ -43,7 +44,7 @@ export const TabTarget = withTargetVersion("2", function TabTarget() {
       ref={ref}
     />
   );
-});
+}
 
 function useTabIndex() {
   const widget = React.useContext(WidgetStateContext);

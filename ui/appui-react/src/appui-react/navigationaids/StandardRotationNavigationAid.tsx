@@ -10,19 +10,14 @@ import "./StandardRotationNavigationAid.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { StandardViewId } from "@itwin/core-frontend";
-import { RelativePosition } from "@itwin/appui-abstract";
+import { RelativePosition, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
 import { CommonProps, Icon, Popup } from "@itwin/core-react";
-import {
-  containHorizontally, GroupColumn as NZ_Column, ExpandableButton as NZ_Expandable, ToolbarIcon as NZ_Icon, GroupTool as NZ_Item, Group as NZ_Tray,
-  withContainIn,
-} from "@itwin/appui-layout-react";
+import { ExpandableButton as NZ_Expandable, ToolbarIcon as NZ_Icon } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
 import { UiFramework } from "../UiFramework";
 import { NavigationAidControl } from "./NavigationAidControl";
-
-// eslint-disable-next-line @typescript-eslint/naming-convention, deprecation/deprecation
-const NZ_ContainedTray = withContainIn(NZ_Tray);
+import { Columns, GroupColumn, GroupTool, Panel } from "@itwin/components-react";
 
 /** A 3D Standard Rotation Navigation Aid control.
  * @alpha
@@ -158,26 +153,24 @@ export class StandardRotationNavigationAid extends React.Component<CommonProps, 
       return undefined;
 
     return (
-      <NZ_ContainedTray
-        containFn={containHorizontally} // eslint-disable-line deprecation/deprecation
-        columns={
-          <NZ_Column> {/* eslint-disable-line deprecation/deprecation */}
+      <Panel>
+        <Columns>
+          <GroupColumn>
             {this.state.list.map((item, itemIndex) => {
               return (
-                <NZ_Item
+                <GroupTool
                   key={itemIndex.toString()}
-                  ref={itemIndex.toString()}
                   label={item.label}
                   icon={<Icon iconSpec={item.iconClassName} />}
                   isActive={this.state.selected === itemIndex}
                   onClick={() => this._handleListItemClicked(itemIndex)}
-                >
-                </NZ_Item>
+                  item={ToolbarItemUtilities.createActionButton("", 0, "", "", () => { })}
+                />
               );
             })}
-          </NZ_Column>
-        }
-      />
+          </GroupColumn>
+        </Columns>
+      </Panel>
     );
   }
 }

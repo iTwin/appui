@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { AbstractWidgetProps, BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent, UiSyncEventArgs, WidgetState } from "@itwin/appui-abstract";
-import { Direction, FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
+import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
@@ -69,9 +69,6 @@ export enum WidgetType {
  * @public
  */
 export interface ToolbarWidgetProps extends WidgetProps {
-  horizontalDirection?: Direction; // eslint-disable-line deprecation/deprecation
-  verticalDirection?: Direction; // eslint-disable-line deprecation/deprecation
-
   horizontalItems?: ItemList;
   verticalItems?: ItemList;
 }
@@ -149,6 +146,7 @@ export class WidgetDef {
   private _defaultFloatingPosition: PointProps | undefined;
 
   private _hideWithUiWhenFloating?: boolean;
+  private _allowedPanelTargets?: ReadonlyArray<"left"|"right"|"bottom"|"top">;
   private _initialProps?: WidgetProps;
 
   private _tabLocation?: TabLocation;
@@ -161,9 +159,6 @@ export class WidgetDef {
   private _popoutBounds?: Rectangle;
 
   public get state(): WidgetState {
-    if ("1" === UiFramework.uiVersion)
-      return this._state;
-
     const frontstageDef = FrontstageManager.activeFrontstageDef;
     if (frontstageDef && frontstageDef.findWidgetDef(this.id)) {
       const currentState = frontstageDef.getWidgetCurrentState(this);
@@ -242,6 +237,8 @@ export class WidgetDef {
 
     me._hideWithUiWhenFloating = !!widgetProps.hideWithUiWhenFloating;
 
+    me.allowedPanelTargets = widgetProps.allowedPanelTargets;
+
     if (widgetProps.priority !== undefined)
       me._priority = widgetProps.priority;
 
@@ -257,9 +254,6 @@ export class WidgetDef {
 
     if (widgetProps.defaultState !== undefined) {
       me._defaultState = widgetProps.defaultState;
-      // istanbul ignore next
-      if ("1" === UiFramework.uiVersion)
-        me._state = widgetProps.defaultState === WidgetState.Floating ? WidgetState.Open : widgetProps.defaultState;
     }
 
     if (widgetProps.isFreeform !== undefined) {
@@ -421,8 +415,6 @@ export class WidgetDef {
   public setWidgetState(newState: WidgetState): void {
     if (this.state === newState)
       return;
-    if ("1" === UiFramework.uiVersion)
-      this._state = newState;
     this._stateChanged = true;
     FrontstageManager.onWidgetStateChangedEvent.emit({ widgetDef: this, widgetState: newState });
     this.onWidgetStateChanged();
@@ -466,6 +458,15 @@ export class WidgetDef {
 
   public get hideWithUiWhenFloating(): boolean {
     return !!this._hideWithUiWhenFloating;
+  }
+
+  public get allowedPanelTargets(): ReadonlyArray<"left"|"right"|"bottom"|"top"> | undefined {
+    return this._allowedPanelTargets;
+  }
+
+  public set allowedPanelTargets(targets: ReadonlyArray<"left"|"right"|"bottom"|"top"> | undefined) {
+
+    this._allowedPanelTargets = (targets && targets?.length > 0) ? targets : undefined;
   }
 
   public onWidgetStateChanged(): void {

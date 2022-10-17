@@ -5,14 +5,14 @@
 import * as React from "react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import {
+  CommonToolbarItem,
   DialogButtonDef, DialogButtonType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertyItem, DialogPropertySyncItem,
-  PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardContentLayouts, StandardTypeNames, WidgetState,
+  PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardContentLayouts, StandardTypeNames, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState,
 } from "@itwin/appui-abstract";
 import {
-  ActionItemButton, CommandItemDef, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, GroupButton, ModalDialogManager,
-  ModelessDialogManager, NavigationWidget, StagePanel, StagePanelState, ToolButton, ToolWidget, Widget, Zone, ZoneState,
+  CommandItemDef, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, ModalDialogManager,
+  ModelessDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanel, StagePanelState, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, Widget, Zone, ZoneState,
 } from "@itwin/appui-react";
-import { Direction, Toolbar } from "@itwin/appui-layout-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { PopupTestDialog } from "../dialogs/PopupTest";
 import { SampleModalDialog } from "../dialogs/SampleModalDialog";
@@ -30,6 +30,8 @@ import {
 } from "../widgets/PropertyGridDemoWidget";
 import { TableDemoWidgetControl } from "../widgets/TableDemoWidget";
 import { TreeSelectionDemoWidgetControl } from "../widgets/TreeSelectionDemoWidget";
+import { AppToolbarUtilities } from "./NestedFrontstage1";
+import { IconHelper } from "@itwin/core-react";
 
 /* eslint-disable react/jsx-key, deprecation/deprecation */
 
@@ -234,53 +236,43 @@ export class Frontstage4 extends FrontstageProvider {
 
   /** Define a ToolWidget with Buttons to display in the TopLeft zone. */
   private getToolWidget(): React.ReactNode {
-    const horizontalToolbar =
-      <Toolbar
-        expandsTo={Direction.Bottom}
-        items={
-          <>
-            <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-            <GroupButton
-              labelKey="SampleApp:buttons.toolGroup"
-              iconSpec="icon-placeholder"
-              items={[
-                AppTools.tool1, AppTools.tool2, AppTools.infoMessageCommand, AppTools.warningMessageCommand, AppTools.errorMessageCommand, AppTools.noIconMessageCommand,
-                AppTools.item6, AppTools.item7, AppTools.item8]}
-              direction={Direction.Bottom}
-              itemsInColumn={5}
-            />
-          </>
-        }
-      />;
+    const horizontalItems: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
+      ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool1),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool2),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.infoMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.warningMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.errorMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.noIconMessageCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item6),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item7),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item8),
+      ]),
+    ];
 
-    const verticalToolbar =
-      <Toolbar
-        expandsTo={Direction.Right}
-        items={
-          <>
-            <ToolButton toolId={AppTools.tool1.id} iconSpec={AppTools.tool1.iconSpec} labelKey={AppTools.tool1.label} execute={AppTools.tool1.execute} />
-            <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-            <GroupButton
-              labelKey="SampleApp:buttons.anotherGroup"
-              iconSpec="icon-placeholder"
-              items={[
-                AppTools.tool1, AppTools.tool2, AppTools.item3, AppTools.item4, AppTools.item5,
-                AppTools.item6, AppTools.item7, AppTools.item8,
-              ]}
-              direction={Direction.Right}
-            />
-            <ActionItemButton actionItem={AppTools.activityMessageItem} />
-            <ToolButton toolId={AppTools.addMessageCommand.commandId} iconSpec={AppTools.addMessageCommand.iconSpec} labelKey={AppTools.addMessageCommand.label}
-              execute={AppTools.addMessageCommand.execute} />
-          </>
-        }
-      />;
+    const verticalItems: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
+      ToolbarItemUtilities.createGroupButton("SampleApp:buttons.anotherGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.anotherGroup"), [
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool1),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool2),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item3),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item4),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item5),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item6),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item7),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.item8),
+      ]),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.activityMessageItem),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.addMessageCommand),
+    ];
 
     return (
-      <ToolWidget
-        appButton={AppTools.backstageToggleCommand}
-        horizontalToolbar={horizontalToolbar}
-        verticalToolbar={verticalToolbar}
+      <ToolWidgetComposer
+        cornerItem={AppTools.backstageToggleCommand}
+        verticalToolbar={<ToolbarComposer items={verticalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
+        horizontalToolbar={<ToolbarComposer items={horizontalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
       />
     );
   }
@@ -388,54 +380,45 @@ export class Frontstage4 extends FrontstageProvider {
   /** Define a NavigationWidget with Buttons to display in the TopRight zone.
    */
   private getNavigationWidget(): React.ReactNode {
+    const horizontalItems: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
+      ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
+        ToolbarItemUtilities.createActionButton("openDialog", 10, "open modal", IconHelper.getIconData("icon-placeholder"), () => ModalDialogManager.openDialog(this.modalDialog())),
+        ToolbarItemUtilities.createActionButton("openDialog2", 10, "open modal 2", IconHelper.getIconData("icon-placeholder"), () => ModalDialogManager.openDialog(this.modalDialog2())),
+        ToolbarItemUtilities.createActionButton("openDynamicModal", 10, "open dynamic modal", IconHelper.getIconData("icon-tools"), this.handleOpenDynamicModal),
+        ToolbarItemUtilities.createActionButton("openRadial", 10, "open radial", IconHelper.getIconData("icon-placeholder"), () => ModalDialogManager.openDialog(this.radialMenu())),
+        ToolbarItemUtilities.createActionButton("popupTest", 10, "open popup", IconHelper.getIconData("icon-placeholder"), () => ModalDialogManager.openDialog(this.testPopup())),
+        ToolbarItemUtilities.createActionButton("uiProviderModalTest", 10, "open provider modal", IconHelper.getIconData("icon-placeholder"), this.handleOpenUiProviderDialogModal),
+        ToolbarItemUtilities.createActionButton("reactSelectModalTest", 10, "open modal", IconHelper.getIconData("icon-placeholder"), this.handleOpenUiProviderDialogModal),
 
-    const horizontalToolbar =
-      <Toolbar
-        expandsTo={Direction.Bottom}
-        items={
-          <>
-            <ToolButton toolId={AppTools.item6.id} iconSpec={AppTools.item6.iconSpec} labelKey={AppTools.item6.label} />
-            <ToolButton toolId={AppTools.item5.id} iconSpec={AppTools.item5.iconSpec} labelKey={AppTools.item5.label} />
-            <ToolButton toolId="openDialog" label="open modal" iconSpec="icon-placeholder" execute={() => ModalDialogManager.openDialog(this.modalDialog())} />
-            <ToolButton toolId="openDialog2" label="open modal 2" iconSpec="icon-placeholder" execute={() => ModalDialogManager.openDialog(this.modalDialog2())} />
-            <ToolButton toolId="openDynamicModal" label="open dynamic modal" iconSpec="icon-tools" execute={this.handleOpenDynamicModal} />
-            <ToolButton toolId="openRadial" iconSpec="icon-placeholder" execute={() => ModalDialogManager.openDialog(this.radialMenu())} />
-            <ToolButton toolId="popupTest" iconSpec="icon-placeholder" execute={() => ModalDialogManager.openDialog(this.testPopup())} />
-            <ToolButton toolId="uiProviderModalTest" iconSpec="icon-placeholder" execute={this.handleOpenUiProviderDialogModal} />
-            <ToolButton toolId="reactSelectModalTest" iconSpec="icon-lightbulb" execute={() => ModalDialogManager.openDialog(this.testReactSelectDialog())} />
-          </>
-        }
-      />;
+      ]),
+    ];
 
-    const verticalToolbar =
-      <Toolbar
-        expandsTo={Direction.Left}
-        items={
-          <>
-            <ToolButton toolId={AppTools.item8.id} iconSpec={AppTools.item8.iconSpec} labelKey={AppTools.item8.label} />
-            <ToolButton toolId={AppTools.item7.id} iconSpec={AppTools.item7.iconSpec} labelKey={AppTools.item7.label} />
-            <GroupButton
-              labelKey="SampleApp:buttons.toolGroup"
-              iconSpec="icon-placeholder"
-              items={[
-                AppTools.noIconMessageBoxCommand, AppTools.successMessageBoxCommand, AppTools.informationMessageBoxCommand, AppTools.questionMessageBoxCommand,
-                AppTools.warningMessageBoxCommand, AppTools.errorMessageBoxCommand, AppTools.openMessageBoxCommand, AppTools.openMessageBoxCommand2,
-                this._spinnerTestDialogItem,
-                this._sampleModelessDialogItem,
-                this._sampleModalDialogItem,
-              ]}
-              direction={Direction.Left}
-              itemsInColumn={7}
-            />
-          </>
-        }
-      />;
+    const verticalItems: CommonToolbarItem[] = [
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
+      ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
+      ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.noIconMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.successMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.informationMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.questionMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.warningMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.errorMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.openMessageBoxCommand),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.openMessageBoxCommand2),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, this._spinnerTestDialogItem),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, this._sampleModelessDialogItem),
+        AppToolbarUtilities.createActionButtonFromItemDef(10, this._sampleModalDialogItem),
+
+      ]),
+    ];
 
     return (
-      <NavigationWidget
-        navigationAidId="CubeNavigationAid"
-        horizontalToolbar={horizontalToolbar}
-        verticalToolbar={verticalToolbar}
+      <NavigationWidgetComposer
+        navigationAidHost={<NavigationAidHost />} // CubeNavigationAid
+        horizontalToolbar={<ToolbarComposer items={horizontalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />}
+        verticalToolbar={<ToolbarComposer items={verticalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />}
       />
     );
   }

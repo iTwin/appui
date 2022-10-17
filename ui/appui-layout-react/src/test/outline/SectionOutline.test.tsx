@@ -5,7 +5,6 @@
 import * as React from "react";
 import { act, render } from "@testing-library/react";
 import { addTab, createNineZoneState, DragManager, NineZoneState, PanelSideContext, PanelStateContext } from "../../appui-layout-react";
-import { TargetOptionsContext } from "../../appui-layout-react/target/TargetOptions";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { SectionOutline } from "../../appui-layout-react/outline/SectionOutline";
 import { expect } from "chai";
@@ -23,20 +22,16 @@ function Wrapper({
 }: React.PropsWithChildren<WrapperProps>) {
   const side = "left" as const;
   return (
-    <TargetOptionsContext.Provider value={{
-      version: "2",
-    }}>
-      <TestNineZoneProvider
-        state={state}
-        dragManagerRef={dragManagerRef}
-      >
-        <PanelSideContext.Provider value={side}>
-          <PanelStateContext.Provider value={state.panels[side]}>
-            {children}
-          </PanelStateContext.Provider>
-        </PanelSideContext.Provider>
-      </TestNineZoneProvider>
-    </TargetOptionsContext.Provider>
+    <TestNineZoneProvider
+      state={state}
+      dragManagerRef={dragManagerRef}
+    >
+      <PanelSideContext.Provider value={side}>
+        <PanelStateContext.Provider value={state.panels[side]}>
+          {children}
+        </PanelStateContext.Provider>
+      </PanelSideContext.Provider>
+    </TestNineZoneProvider>
   );
 }
 

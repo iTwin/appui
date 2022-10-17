@@ -14,7 +14,6 @@ import { CommonProps } from "@itwin/core-react";
 import { useTargeted } from "../base/DragManager";
 import { PanelSideContext, PanelStateContext } from "../widget-panels/Panel";
 import { useTargetDirection } from "../target/SectionTarget";
-import { withTargetVersion } from "../target/TargetOptions";
 import { isSectionDropTargetState } from "../state/DropTargetState";
 import { isHorizontalPanelState } from "../state/PanelState";
 
@@ -24,7 +23,7 @@ export interface SectionOutlineProps extends CommonProps {
 }
 
 /** @internal */
-export const SectionOutline = withTargetVersion("2", function SectionOutline(props: SectionOutlineProps) {
+export function SectionOutline(props: SectionOutlineProps) {
   const hidden = useHidden(props.sectionIndex);
   const direction = useTargetDirection();
   const style = useSize(props.sectionIndex);
@@ -44,7 +43,7 @@ export const SectionOutline = withTargetVersion("2", function SectionOutline(pro
       }}
     />
   );
-});
+}
 
 // istanbul ignore next
 function useHidden(sectionIndex: SectionOutlineProps["sectionIndex"]) {

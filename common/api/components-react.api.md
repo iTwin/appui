@@ -501,6 +501,14 @@ export interface ColumnFilterDescriptor extends FilterDescriptor {
     fieldFilter: FieldFilterDescriptor;
 }
 
+// @internal
+export function Columns(props: ColumnsProps): JSX.Element;
+
+// @internal
+export interface ColumnsProps extends CommonProps {
+    children?: React_2.ReactNode;
+}
+
 // @public
 export interface CommonPropertyGridProps extends CommonProps {
     actionButtonRenderers?: ActionButtonRenderer[];
@@ -1285,11 +1293,37 @@ export interface GridCategoryItem extends FlatGridItemBase {
     readonly type: FlatGridItemType.Category;
 }
 
+// @internal
+export function GroupColumn(props: GroupColumnProps): JSX.Element;
+
+// @internal
+export interface GroupColumnProps extends CommonProps {
+    children?: React_2.ReactNode;
+}
+
 // @internal (undocumented)
 export function GroupPopupItem({ item, addGroupSeparator }: {
     item: GroupButton;
     addGroupSeparator: boolean;
 }): JSX.Element;
+
+// @internal
+export function GroupTool(props: GroupToolProps): JSX.Element;
+
+// @internal
+export interface GroupToolProps extends CommonProps {
+    badge?: React_2.ReactNode;
+    children?: React_2.ReactNode;
+    icon?: React_2.ReactNode;
+    isActive?: boolean;
+    isDisabled?: boolean;
+    isFocused?: boolean;
+    item: GroupButton | ActionButton;
+    label?: string;
+    onClick?: (item: GroupButton | ActionButton) => void;
+    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    onPointerUp?: (item: GroupButton | ActionButton) => void;
+}
 
 // @internal (undocumented)
 export function handleLoadedNodeHierarchy(modelSource: TreeModelSource, loadedHierarchy: LoadedNodeHierarchy): void;
@@ -2246,6 +2280,16 @@ export interface PageOptions {
     size?: number;
     // (undocumented)
     start?: number;
+}
+
+// @internal
+export function Panel(props: PanelProps): JSX.Element;
+
+// @internal
+export interface PanelProps extends CommonProps {
+    children?: React_2.ReactNode;
+    // (undocumented)
+    onKeyDown?: (e: React_2.KeyboardEvent) => void;
 }
 
 // @public
@@ -3831,6 +3875,14 @@ export interface TimeSpec {
     minutes: number;
     // (undocumented)
     seconds: number;
+}
+
+// @internal
+export function Title(props: TitleProps): JSX.Element;
+
+// @internal
+export interface TitleProps extends CommonProps {
+    children?: React_2.ReactNode;
 }
 
 // @public

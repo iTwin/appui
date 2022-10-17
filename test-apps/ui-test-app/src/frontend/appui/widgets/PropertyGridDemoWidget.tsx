@@ -7,7 +7,6 @@ import { PrimitiveValue, PropertyDescription, PropertyRecord, PropertyValue, Pro
 import { PropertyCategory, PropertyGrid, PropertyUpdatedArgs, SimplePropertyDataProvider } from "@itwin/components-react";
 import { Orientation } from "@itwin/core-react";
 import { ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, WidgetControl } from "@itwin/appui-react";
-import { HorizontalAnchor, WidgetContent } from "@itwin/appui-layout-react";
 
 class SamplePropertyRecord extends PropertyRecord {
   constructor(name: string, index: number, value: any, typename: string = StandardTypeNames.String, editor?: string) {
@@ -133,25 +132,12 @@ class VerticalPropertyGridWidget extends React.Component {
 ConfigurableUiManager.registerControl("VerticalPropertyGridDemoWidget", VerticalPropertyGridWidgetControl);
 
 export class HorizontalPropertyGridWidgetControl extends WidgetControl {
-  private _ref = React.createRef<WidgetContent>(); // eslint-disable-line deprecation/deprecation
-
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
 
     this.reactNode = (
-      <WidgetContent // eslint-disable-line deprecation/deprecation
-        anchor={HorizontalAnchor.Right} // eslint-disable-line deprecation/deprecation
-        content={
-          <HorizontalPropertyGridWidget style={{ overflow: "unset" }} />
-        }
-        ref={this._ref}
-      />
+      <HorizontalPropertyGridWidget style={{ overflow: "unset" }} />
     );
-  }
-
-  public override restoreTransientState() {
-    this._ref.current && this._ref.current.forceUpdate();
-    return true;
   }
 }
 

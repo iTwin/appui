@@ -18,7 +18,6 @@ import { PopupRenderer } from "../popup/PopupManager";
 import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager";
 import { ModalDialogRenderer } from "../dialog/ModalDialogManager";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
-import { FrameworkVersion } from "../hooks/useFrameworkVersion";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { ThemeManager } from "../theme/ThemeManager";
 
@@ -104,17 +103,15 @@ export class ChildWindowManager {
             <Provider store={StateManager.store} >
               <UiStateStorageHandler>
                 <ThemeManager>
-                  <FrameworkVersion>
-                    <div className="uifw-child-window-container-host">
-                      <PopupRenderer />
-                      <ModalDialogRenderer />
-                      <ModelessDialogRenderer />
-                      <CursorPopupMenu />
-                      <div className="uifw-child-window-container nz-widget-widget">
-                        {content}
-                      </div>
+                  <div className="uifw-child-window-container-host">
+                    <PopupRenderer />
+                    <ModalDialogRenderer />
+                    <ModelessDialogRenderer />
+                    <CursorPopupMenu />
+                    <div className="uifw-child-window-container nz-widget-widget">
+                      {content}
                     </div>
-                  </FrameworkVersion>
+                  </div>
                 </ThemeManager>
               </UiStateStorageHandler>
             </Provider>,

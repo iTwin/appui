@@ -4,9 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
+import * as sinon from "sinon";
 import { WidgetState } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ConfigurableUiControlType, UiFramework, WidgetControl, WidgetDef, WidgetProps } from "../../appui-react";
+import { ConfigurableCreateInfo, ConfigurableUiControlType, WidgetControl, WidgetDef, WidgetProps } from "../../appui-react";
 import TestUtils from "../TestUtils";
+import { assert } from "@itwin/core-bentley";
 
 describe("WidgetControl", () => {
 
@@ -20,8 +22,6 @@ describe("WidgetControl", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    // need to set to UI 1 so widget state is independent of NineZoneState.
-    UiFramework.setUiVersion("1");
   });
 
   after(() => {
@@ -50,16 +50,14 @@ describe("WidgetControl", () => {
   });
 
   it("setWidgetState", () => {
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
+    const spy = sinon.spy(widgetDef, "setWidgetState");
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
-
     expect(widgetControl).to.not.be.undefined;
-    if (widgetControl) {
-      expect(widgetDef.isActive).to.eq(false);
-      widgetControl.setWidgetState(WidgetState.Open);
-      expect(widgetDef.isVisible).to.eq(true);
-      expect(widgetDef.isActive).to.eq(true);
-    }
+    assert(!!widgetControl);
+
+    widgetControl.setWidgetState(WidgetState.Open);
+    sinon.assert.calledOnceWithExactly(spy, WidgetState.Open);
   });
 
 });

@@ -26,6 +26,7 @@ describe("WidgetPanelsToolSettings", () => {
     const frontstageDef = new FrontstageDef();
     const topCenter = new ZoneDef();
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+    sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => undefined);
     sinon.stub(frontstageDef, "topCenter").get(() => topCenter);
     sinon.stub(topCenter, "isToolSettings").get(() => true);
     const { container } = render(
@@ -204,7 +205,7 @@ describe("useToolSettingsNode", () => {
     const sut = renderHook(() => useToolSettingsNode());
 
     const node = <div>Hello World</div>;
-    act(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
+    act(() => {
       sinon.stub(activeToolSettingsProvider, "toolSettingsNode").get(() => node);
       FrontstageManager.onToolActivatedEvent.emit({
         toolId: "",
@@ -224,8 +225,8 @@ describe("useToolSettingsNode", () => {
 
   it("should return undefined if activeToolSettingsProvider is unset", () => {
     const { result } = renderHook(() => useToolSettingsNode());
-    act(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
-      FrontstageManager.onToolActivatedEvent.emit({ toolId: "t1" });
+    act(() => {
+      FrontstageManager.setActiveToolId("t1");
     });
     (result.current === undefined).should.true;
   });
