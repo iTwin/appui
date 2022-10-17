@@ -5,39 +5,36 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  BackstageActionItem, BackstageComposerActionItem, BackstageComposerItem, BackstageComposerStageLauncher, BackstageItemType,
-  BackstageStageLauncher, FrontstageManager,
+  BackstageComposerActionItem, BackstageComposerItem, BackstageComposerStageLauncher, FrontstageManager,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
-import { BadgeType } from "@itwin/appui-abstract";
+import { BackstageActionItem, BackstageStageLauncher, BadgeType } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 
 /** @internal */
-export const getActionItem = (item?: Partial<BackstageActionItem>): BackstageActionItem => ({ // eslint-disable-line deprecation/deprecation
+export const getActionItem = (item?: Partial<BackstageActionItem>): BackstageActionItem => ({
   execute: () => { },
   groupPriority: 100,
   id: "Action",
   itemPriority: 50,
   label: "Custom Label",
-  type: BackstageItemType.ActionItem, // eslint-disable-line deprecation/deprecation
   ...item ? item : {},
 });
 
 /** @internal */
-export const getStageLauncherItem = (item?: Partial<BackstageStageLauncher>): BackstageStageLauncher => ({ // eslint-disable-line deprecation/deprecation
+export const getStageLauncherItem = (item?: Partial<BackstageStageLauncher>): BackstageStageLauncher => ({
   groupPriority: 100,
   id: "Stage",
   itemPriority: 50,
   label: "Custom Label",
   stageId: "stage-1",
-  type: BackstageItemType.StageLauncher, // eslint-disable-line deprecation/deprecation
   ...item ? item : {},
 });
 
 describe("BackstageComposerItem", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -53,7 +50,7 @@ describe("BackstageComposerItem", () => {
     it("should render", () => {
       render(<BackstageComposerActionItem item={getActionItem()} />);
 
-      expect(screen.getByRole("menuitem", {name: "Custom Label"})).to.satisfy(selectorMatches("li.nz-backstage-item"));
+      expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.satisfy(selectorMatches("li.nz-backstage-item"));
     });
 
     it("should invoke execute", async () => {
@@ -71,7 +68,7 @@ describe("BackstageComposerItem", () => {
     it("should render", async () => {
       render(<BackstageComposerStageLauncher item={getStageLauncherItem()} />);
 
-      expect(screen.getByRole("menuitem", {name: "Custom Label"})).to.satisfy(selectorMatches("li.nz-backstage-item"));
+      expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.satisfy(selectorMatches("li.nz-backstage-item"));
     });
 
     it("should activate frontstage", async () => {
@@ -96,7 +93,7 @@ describe("BackstageComposerItem", () => {
     it("should honor isActive prop override", () => {
       render(<BackstageComposerStageLauncher item={getStageLauncherItem({ isActive: true })} />);
 
-      expect(screen.getByRole("menuitem", {name: "Custom Label"})).to.satisfy(selectorMatches("li.nz-backstage-item.nz-active"));
+      expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.satisfy(selectorMatches("li.nz-backstage-item.nz-active"));
     });
   });
 
@@ -113,7 +110,7 @@ describe("BackstageComposerItem", () => {
 
     it("should render action item", async () => {
       const spy = sinon.spy();
-      render(<BackstageComposerItem item={getActionItem({execute: spy})} />);
+      render(<BackstageComposerItem item={getActionItem({ execute: spy })} />);
 
       await theUserTo.click(screen.getByRole("menuitem"));
 
