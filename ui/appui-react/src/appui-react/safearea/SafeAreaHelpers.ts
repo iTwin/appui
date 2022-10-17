@@ -6,13 +6,10 @@
  * @module Utilities
  */
 
-/** Describes available safe area insets.
- * @beta
- */
-export enum SafeAreaInsets {
-  Bottom = 1 << 0,
-  Left = 1 << 1,
-  Right = 1 << 2,
-  Top = 1 << 3,
-  All = SafeAreaInsets.Bottom | SafeAreaInsets.Left | SafeAreaInsets.Right | SafeAreaInsets.Top,
+import { SafeAreaInsets as LayoutSafeAreaInsets } from "@itwin/appui-layout-react";
+import { SafeAreaInsets } from "./SafeAreaInsets";
+
+/** @internal */
+export function toLayoutSafeAreaInsets(safeAreaInsets: SafeAreaInsets | undefined): LayoutSafeAreaInsets | undefined {
+  return safeAreaInsets as LayoutSafeAreaInsets | undefined;
 }

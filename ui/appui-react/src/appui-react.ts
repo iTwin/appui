@@ -26,11 +26,8 @@ export * from "./appui-react/backstage/BackstageComposerItem";
 export * from "./appui-react/backstage/BackstageItemProps";
 export * from "./appui-react/backstage/BackstageItemUtilities";
 export * from "./appui-react/backstage/BackstageManager";
-export * from "./appui-react/backstage/CommandLaunch";
-export * from "./appui-react/backstage/FrontstageLaunch";
 export * from "./appui-react/backstage/Separator";
 export * from "./appui-react/backstage/useDefaultBackstageItems";
-export * from "./appui-react/backstage/TaskLaunch";
 export * from "./appui-react/backstage/useUiItemsProviderBackstageItems";
 
 export * from "./appui-react/configurableui/ConfigurableUiContent";

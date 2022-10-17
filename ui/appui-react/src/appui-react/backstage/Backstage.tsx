@@ -12,6 +12,7 @@ import { Backstage as NZ_Backstage } from "@itwin/appui-layout-react";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { UiFramework } from "../UiFramework";
 import { BackstageManager } from "./BackstageManager";
+import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
 
 // cSpell:ignore safearea
 
@@ -136,7 +137,7 @@ export class Backstage extends React.Component<BackstageProps, BackstageState> {
             header={header}
             isOpen={this.state.isVisible}
             onClose={this._onClose}
-            safeAreaInsets={safeAreaInsets}
+            safeAreaInsets={toLayoutSafeAreaInsets(safeAreaInsets)}
             showOverlay={this.props.showOverlay}
             style={this.props.style}
           >
