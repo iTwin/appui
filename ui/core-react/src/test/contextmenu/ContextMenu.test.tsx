@@ -5,17 +5,18 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BadgeType, ConditionalBooleanValue, SpecialKey } from "@itwin/appui-abstract";
+import { BadgeType, ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import { ContextMenu, ContextMenuDirection, ContextMenuDivider, ContextMenuItem, ContextSubMenu, GlobalContextMenu } from "../../core-react";
 import { TildeFinder } from "../../core-react/contextmenu/TildeFinder";
-import TestUtils, { classesFromElement } from "../TestUtils";
+import { classesFromElement } from "../TestUtils";
+import userEvent from "@testing-library/user-event";
 
 describe("ContextMenu", () => {
-
-  const createBubbledEvent = (type: string, props = {}) => {
-    return TestUtils.createBubbledEvent(type, props);
-  };
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
 
   describe("<ContextMenu />", () => {
     it("renders open correctly", () => {
@@ -98,145 +99,128 @@ describe("ContextMenu", () => {
     });
 
     describe("Keyboard navigation", () => {
-      it("should handle Escape press", () => {
+      it("should handle Escape press", async () => {
         const handleEsc = sinon.fake();
-        const component = render(
-          <ContextMenu opened={true} onEsc={handleEsc} />);
-        const root = component.getByTestId("core-context-menu-root");
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.Escape /* <Esc> */ }));
+        render(<ContextMenu opened={true} onEsc={handleEsc} />);
+        await theUserTo.keyboard("{Escape}");
         expect(handleEsc).to.be.calledOnce;
       });
-      it("should handle one-level Left press", () => {
+      it("should handle one-level Left press", async () => {
         const handleEsc = sinon.fake();
-        const component = render(
+        render(
           <ContextMenu opened={true} onEsc={handleEsc} />);
-        const root = component.getByTestId("core-context-menu-root");
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowLeft /* <Left> */ }));
+        await theUserTo.keyboard("{ArrowLeft}");
         expect(handleEsc).to.be.calledOnce;
       });
-      it("should handle one-level select", () => {
+      it("should handle one-level select", async () => {
         const handleSelect = sinon.fake();
-        const component = render(
+        const targetSelect = sinon.fake();
+        render(
           <ContextMenu opened={true} onSelect={handleSelect}>
-            <ContextMenuItem>Item 1</ContextMenuItem>
+            <ContextMenuItem  onSelect={targetSelect}>Item 1</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getByTestId("core-context-menu-root");
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowDown /* <Down> */ }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.Enter /* <Return> */ }));
+        await theUserTo.keyboard("{ArrowDown}{Enter}");
         expect(handleSelect).to.be.calledOnce;
+        expect(targetSelect).to.be.calledOnce;
       });
-      it("should handle one-level down arrow select", () => {
+      it("should handle one-level down arrow select", async () => {
         const handleSelect = sinon.fake();
-        const component = render(
+        const targetSelect = sinon.fake();
+        render(
           <ContextMenu opened={true} onSelect={handleSelect}>
-            <ContextMenuItem>Item 1</ContextMenuItem>
+            <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
             <ContextMenuItem>Item 2</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getByTestId("core-context-menu-root");
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowDown /* <Down> */ }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowDown /* <Down> */ }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowDown /* <Down> */ }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.Enter /* <Return> */ }));
+        await theUserTo.keyboard("{ArrowDown}{ArrowDown}{ArrowDown}{Enter}");
         expect(handleSelect).to.be.calledOnce;
+        expect(targetSelect).to.be.calledOnce;
       });
-      it("should handle one-level up arrow select", () => {
+      it("should handle one-level up arrow select", async () => {
         const handleSelect = sinon.fake();
-        const component = render(
+        const targetSelect = sinon.fake();
+        render(
           <ContextMenu opened={true} onSelect={handleSelect}>
-            <ContextMenuItem>Item 1</ContextMenuItem>
+            <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
             <ContextMenuItem>Item 2</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getByTestId("core-context-menu-root");
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowUp /* <Up> */ }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowUp /* <Up> */ }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowUp /* <Up> */ }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.Enter /* <Return> */ }));
+        await theUserTo.keyboard("{ArrowUp}{ArrowUp}{ArrowUp}{Enter}");
         expect(handleSelect).to.be.calledOnce;
+        expect(targetSelect).to.be.calledOnce;
       });
-      it("should handle multi-level right arrow then enter select", () => {
+      it("should handle multi-level right arrow then enter select", async () => {
         const handleSelect = sinon.fake();
-        const component = render(
+        const targetSelect = sinon.fake();
+        render(
+          <ContextMenu opened={true} onSelect={handleSelect}>
+            <ContextSubMenu label="Item 1" >
+              <ContextMenuItem>Item 1.1</ContextMenuItem>
+              <ContextMenuItem onSelect={targetSelect}>Item 1.2</ContextMenuItem>
+            </ContextSubMenu>
+          </ContextMenu>);
+        await theUserTo.keyboard("{ArrowDown}{ArrowRight}{ArrowDown}{Enter}");
+        expect(handleSelect).to.be.calledOnce;
+        expect(targetSelect).to.be.calledOnce;
+      });
+      it("should handle multi-level left arrow select", async () => {
+        const handleSelect = sinon.fake();
+        const targetSelect = sinon.fake();
+        render(
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextSubMenu label="Item 1" >
               <ContextMenuItem>Item 1.1</ContextMenuItem>
               <ContextMenuItem>Item 1.2</ContextMenuItem>
             </ContextSubMenu>
+            <ContextMenuItem onSelect={targetSelect}>Item 2</ContextMenuItem>
           </ContextMenu>);
-        const root1 = component.getAllByTestId("core-context-menu-root")[0];
-        const root2 = component.getAllByTestId("core-context-menu-root")[1];
-        root1.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowRight /* <Right> */ }));
-        root2.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowDown /* <Down> */ }));
-        root2.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.Enter /* <Return> */ }));
+        await theUserTo.keyboard("{ArrowDown}{ArrowRight}{ArrowLeft}{ArrowDown}{Enter}");
         expect(handleSelect).to.be.calledOnce;
+        expect(targetSelect).to.be.calledOnce;
       });
-      it("should handle multi-level left arrow select", () => {
-        const handleSelect = sinon.fake();
-        const component = render(
-          <ContextMenu opened={true} onSelect={handleSelect}>
-            <ContextSubMenu label="Item 1" >
-              <ContextMenuItem>Item 1.1</ContextMenuItem>
-              <ContextMenuItem>Item 1.2</ContextMenuItem>
-            </ContextSubMenu>
-            <ContextMenuItem>Item 2</ContextMenuItem>
-          </ContextMenu>);
-        const root1 = component.getAllByTestId("core-context-menu-root")[0];
-        const root2 = component.getAllByTestId("core-context-menu-root")[1];
-        root1.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowRight /* <Right> */ }));
-        root2.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowLeft /* <Left> */ }));
-        root1.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowDown /* <Down> */ }));
-        root1.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.ArrowDown /* <Down> */ }));
-        root1.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.Enter /* <Return> */ }));
-        expect(handleSelect).to.be.calledOnce;
-      });
-      it("should select list item of hotkey", () => {
+      it("should select list item of hotkey", async () => {
         const onSelectFake = sinon.fake();
-        const component = render(
+        render(
           <ContextMenu opened={true}>
             <ContextMenuItem onSelect={onSelectFake}>~First item</ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
+        await theUserTo.keyboard("f");
         expect(onSelectFake).to.have.been.calledOnce;
       });
-      it("should not select list item of hotkey if disabled", () => {
+      it("should not select list item of hotkey if disabled", async () => {
         const onSelectFake = sinon.fake();
-        const component = render(
+        render(
           <ContextMenu opened={true}>
             <ContextMenuItem onSelect={onSelectFake} disabled={true}>~First item</ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
+        await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
       });
-      it("should not select list item of hotkey if hidden", () => {
+      it("should not select list item of hotkey if hidden", async () => {
         const onSelectFake = sinon.fake();
-        const component = render(
+        render(
           <ContextMenu opened={true}>
             <ContextMenuItem onSelect={onSelectFake} hidden={true}>~First item</ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
+        await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
       });
-      it("should ignore next keyup when ignoreNextKeyUp=true", () => {
+      it("should ignore next keyup when ignoreNextKeyUp=true", async () => {
         const onSelectFake = sinon.fake();
-        const component = render(
+        render(
           <ContextMenu opened={true} ignoreNextKeyUp={true}>
             <ContextMenuItem onSelect={onSelectFake}>~First item</ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
+        await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
+        await theUserTo.keyboard("f");
         expect(onSelectFake).to.have.been.calledOnce;
       });
-      it("should select sub menu list item of hotkey", () => {
+      it("should select sub menu list item of hotkey", async () => {
         const onSelectFake = sinon.fake();
-        const component = render(
+        render(
           <ContextMenu opened={true}>
             <ContextSubMenu label="~First item" onSelect={onSelectFake}>
               <ContextMenuItem>~First first item</ContextMenuItem>
@@ -244,13 +228,12 @@ describe("ContextMenu", () => {
             </ContextSubMenu>
             <ContextMenuItem>~Second item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
+        await theUserTo.keyboard("f");
         expect(onSelectFake).to.have.been.calledOnce;
       });
-      it("should not select sub menu list item of hotkey if disabled", () => {
+      it("should not select sub menu list item of hotkey if disabled", async () => {
         const onSelectFake = sinon.fake();
-        const component = render(
+        render(
           <ContextMenu opened={true}>
             <ContextSubMenu label="~First item" onSelect={onSelectFake} disabled={true}>
               <ContextMenuItem>~First first item</ContextMenuItem>
@@ -258,13 +241,12 @@ describe("ContextMenu", () => {
             </ContextSubMenu>
             <ContextMenuItem>~Second item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
+        await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
       });
-      it("should not select sub menu list item of hotkey if hidden", () => {
+      it("should not select sub menu list item of hotkey if hidden", async () => {
         const onSelectFake = sinon.fake();
-        const component = render(
+        render(
           <ContextMenu opened={true}>
             <ContextSubMenu label="~First item" onSelect={onSelectFake} hidden={true}>
               <ContextMenuItem>~First first item</ContextMenuItem>
@@ -272,67 +254,56 @@ describe("ContextMenu", () => {
             </ContextSubMenu>
             <ContextMenuItem>~Second item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
+        await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
       });
-      it("should find list item of hotkey", () => {
-        const component = render(
+      it("should find list item of hotkey", async () => {
+        const onSelectFake = sinon.fake();
+        render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
-            <ContextMenuItem>~Second item</ContextMenuItem>
+            <ContextMenuItem  onSelect={onSelectFake}>~Second item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "s" }));
-        const items = component.getAllByTestId("core-context-menu-item");
-        const idx = items.findIndex((value) => value.className.indexOf("is-selected") !== -1);
-        expect(idx).to.equal(1);
+        await theUserTo.keyboard("s{Enter}");
+        expect(onSelectFake).to.have.been.calledOnce;
       });
-      it("should find sub menu list item of hotkey", () => {
-        const component = render(
+      it("should find sub menu list item of hotkey", async () => {
+        const onSelectFake = sinon.fake();
+        render(
           <ContextMenu opened={true} hotkeySelect={false}>
-            <ContextSubMenu label="~First item">
+            <ContextSubMenu label="~First item" onSelect={onSelectFake}>
               <ContextMenuItem>~First first item</ContextMenuItem>
               <ContextMenuItem>~Second first item</ContextMenuItem>
             </ContextSubMenu>
             <ContextMenuItem>~Second item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
-        const items = component.getAllByTestId("core-context-menu-item");
-        const idx = items.findIndex((value) => value.className.indexOf("is-selected") !== -1);
-        expect(idx).to.equal(0);
+        await theUserTo.keyboard("f{enter}");
+        expect(onSelectFake).to.have.been.calledOnce;
       });
-      it("should find next list item of hotkey", () => {
-        const component = render(
+      it("should find next list item of hotkey", async () => {
+        const onSelectFake = sinon.fake();
+        render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
             <ContextMenuItem>~Third item</ContextMenuItem>
-            <ContextMenuItem>~Fourth item</ContextMenuItem>
+            <ContextMenuItem onSelect={onSelectFake}>~Fourth item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
-        const items = component.getAllByTestId("core-context-menu-item");
-        const idx = items.findIndex((value) => value.className.indexOf("is-selected") !== -1);
-        expect(idx).to.equal(3);
+        await theUserTo.keyboard("ff{enter}");
+        expect(onSelectFake).to.have.been.calledOnce;
       });
-      it("should wrap back to beginning to find next list item of hotkey", () => {
-        const component = render(
+      it("should wrap back to beginning to find next list item of hotkey", async () => {
+        const onSelectFake = sinon.fake();
+        render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
-            <ContextMenuItem>~Second item</ContextMenuItem>
+            <ContextMenuItem onSelect={onSelectFake}>~Second item</ContextMenuItem>
             <ContextMenuItem>~Third item</ContextMenuItem>
             <ContextMenuItem>~Fourth item</ContextMenuItem>
           </ContextMenu>);
-        const root = component.getAllByTestId("core-context-menu-root")[0];
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "f" }));
-        root.dispatchEvent(createBubbledEvent("keyup", { key: "s" }));
-        const items = component.getAllByTestId("core-context-menu-item");
-        const idx = items.findIndex((value) => value.className.indexOf("is-selected") !== -1);
-        expect(idx).to.equal(1);
+        await theUserTo.keyboard("ffs{enter}");
+        expect(onSelectFake).to.have.been.calledOnce;
+
       });
     });
 
@@ -443,7 +414,8 @@ describe("ContextMenu", () => {
     it("focuses correctly", () => {
       const component = render(<ContextMenuItem>Test</ContextMenuItem>);
       const item = component.getByTestId("core-context-menu-item");
-      item.dispatchEvent(createBubbledEvent("focus"));
+      item.focus();
+      expect(item).to.equal(document.activeElement);
     });
 
     it("renders disabled correctly", () => {
@@ -477,48 +449,48 @@ describe("ContextMenu", () => {
       expect(component.container.querySelector(".core-badge")).not.to.be.null;
     });
 
-    it("onClick handled correctly", () => {
+    it("onClick handled correctly", async () => {
       const handleClick = sinon.fake();
       const component = render(<ContextMenuItem onClick={handleClick}>Test</ContextMenuItem>);
       const item = component.getByTestId("core-context-menu-item");
-      item.dispatchEvent(createBubbledEvent("click"));
+      await theUserTo.click(item);
       handleClick.should.have.been.calledOnce;
     });
-    it("onSelect handled correctly on click", () => {
+    it("onSelect handled correctly on click", async () => {
       const handleSelect = sinon.fake();
       const component = render(<ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>);
       const item = component.getByTestId("core-context-menu-item");
-      item.dispatchEvent(createBubbledEvent("click"));
+      await theUserTo.click(item);
       handleSelect.should.have.been.calledOnce;
     });
-    it("onHover handled correctly", () => {
+    it("onHover handled correctly", async () => {
       const handleHover = sinon.fake();
       const component = render(<ContextMenuItem onHover={handleHover}>Test</ContextMenuItem>);
       const item = component.getByTestId("core-context-menu-item");
-      item.dispatchEvent(createBubbledEvent("mouseover"));
+      await theUserTo.hover(item);
       handleHover.should.have.been.calledOnce;
     });
-    it("onSelect handled correctly on Enter", () => {
+    it("onSelect handled correctly on Enter", async () => {
       const handleSelect = sinon.fake();
       const component = render(<ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>);
       const item = component.getByTestId("core-context-menu-item");
-      item.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.Enter /* <Return> */ }));
+      item.focus();
+      await theUserTo.keyboard("{Enter}");
       handleSelect.should.have.been.calledOnce;
     });
-    it("onSelect not called on Escape", () => {
+    it("onSelect not called on Escape", async () => {
       const handleSelect = sinon.fake();
       const component = render(<ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>);
       const item = component.getByTestId("core-context-menu-item");
-      item.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.Escape /* <Esc> */ }));
+      item.focus();
+      await theUserTo.keyboard("{Escape}");
       handleSelect.should.not.have.been.called;
     });
-    it("onSelect not called when disabled", () => {
+    it("onSelect not called when disabled", async () => {
       const handleSelect = sinon.fake();
       const component = render(<ContextMenuItem onSelect={handleSelect} disabled={true}>Test</ContextMenuItem>);
       const item = component.getByTestId("core-context-menu-item");
-      item.dispatchEvent(createBubbledEvent("keyup", { key: SpecialKey.Enter /* <Return> */ }));
-      handleSelect.should.not.have.been.called;
-      item.dispatchEvent(createBubbledEvent("click"));
+      await theUserTo.type(item, "{Enter}");
       handleSelect.should.not.have.been.called;
     });
   });
@@ -584,27 +556,29 @@ describe("ContextMenu", () => {
         </ContextMenu>);
       expect(component.container.querySelector(".core-badge")).not.to.be.null;
     });
-    it("onHover handled correctly", () => {
+    it("onHover handled correctly", async () => {
       const handleHover = sinon.fake();
       const component = render(
         <ContextSubMenu label="test" onHover={handleHover}>
           <ContextMenuItem> Test </ContextMenuItem>
         </ContextSubMenu>);
       const item = component.getByTestId("core-context-submenu");
-      item.dispatchEvent(createBubbledEvent("mouseover"));
+      await theUserTo.hover(item);
       handleHover.should.have.been.calledOnce;
     });
-    it("onHover handled internally when in ContextMenu", () => {
+    it("onHover handled internally when in ContextMenu", async () => {
+      const handleHover = sinon.fake();
       const component = render(
         <ContextMenu opened={true}>
-          <ContextSubMenu label="test">
+          <ContextSubMenu label="test" onHover={handleHover}>
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
         </ContextMenu>);
       const item = component.getByTestId("core-context-submenu");
-      item.dispatchEvent(createBubbledEvent("mouseover"));
+      await theUserTo.hover(item);
+      handleHover.should.not.have.been.calledOnce;
     });
-    it("onClick handled correctly", () => {
+    it("onClick handled correctly", async () => {
       const handleClick = sinon.fake();
       const component = render(
         <ContextMenu opened={true}>
@@ -613,7 +587,7 @@ describe("ContextMenu", () => {
           </ContextSubMenu>
         </ContextMenu>);
       const item = component.getByTestId("core-context-submenu-container");
-      item.dispatchEvent(createBubbledEvent("click"));
+      await theUserTo.click(item);
       handleClick.should.have.been.calledOnce;
     });
     it("onFocus handled correctly", () => {

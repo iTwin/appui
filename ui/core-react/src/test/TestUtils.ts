@@ -31,12 +31,6 @@ export class TestUtils {
     TestUtils._uiCoreInitialized = false;
   }
 
-  public static createBubbledEvent(type: string, props = {}) {
-    const event = new Event(type, { bubbles: true });
-    Object.assign(event, props);
-    return event;
-  }
-
   /** Waits until all async operations finish */
   public static async flushAsyncOperations() {
     return new Promise((resolve) => setTimeout(resolve));

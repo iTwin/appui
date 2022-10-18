@@ -22,7 +22,7 @@ describe("useWidgetDirection", () => {
     await TestUtils.flushAsyncOperations();
 
     const nineZone = createNineZoneState();
-    const { result } = renderHook<{ children?: React.ReactNode }, "horizontal" | "vertical">(() => useWidgetDirection(), {
+    const { result } = renderHook(() => useWidgetDirection(), {
       wrapper: ({ children }) => ( // eslint-disable-line react/display-name
         <NineZoneContext.Provider value={nineZone}>
           {children}
@@ -38,7 +38,7 @@ describe("useWidgetDirection", () => {
     let nineZone = createNineZoneState();
     nineZone = addTab(nineZone, "t1");
     nineZone = addPanelWidget(nineZone, "top", "w1", ["t1"]);
-    const { result } = renderHook<{ children?: React.ReactNode }, "horizontal" | "vertical">(() => useWidgetDirection(), {
+    const { result } = renderHook(() => useWidgetDirection(), {
       wrapper: ({ children }) => ( // eslint-disable-line react/display-name
         <Provider store={TestUtils.store} >
           <NineZoneContext.Provider value={nineZone}>
@@ -58,7 +58,7 @@ describe("useWidgetDirection", () => {
     let nineZone = createNineZoneState();
     nineZone = addTab(nineZone, "t1");
     nineZone = addPanelWidget(nineZone, "left", "w1", ["t1"]);
-    const { result } = renderHook<{ children?: React.ReactNode }, "horizontal" | "vertical">(() => useWidgetDirection(), {
+    const { result } = renderHook(() => useWidgetDirection(), {
       wrapper: ({ children }) => ( // eslint-disable-line react/display-name
         <Provider store={TestUtils.store} >
           <NineZoneContext.Provider value={nineZone}>

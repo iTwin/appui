@@ -5,12 +5,16 @@
 /* eslint-disable deprecation/deprecation */
 import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { FieldDefinitions, FieldValues, Form } from "../../core-react";
 import TestUtils, { handleError, selectChangeValueByText, stubScrollIntoView } from "../TestUtils";
+import userEvent from "@testing-library/user-event";
 
 describe("<Form />", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
 
   before(async () => {
     await TestUtils.initializeUiCore();
@@ -62,24 +66,20 @@ describe("<Form />", () => {
   };
 
   it("render with default button label with submit error", async () => {
-    const fakeTimers = sinon.useFakeTimers();
-    const form = render(<Form handleFormSubmit={async (_values: FieldValues) => { throw new Error("bad news"); }} fields={fields} />);
-    expect(form).not.to.be.null;
-    const button = form.container.querySelector("button") as HTMLButtonElement;
+    const { container } = render(<Form handleFormSubmit={async (_values: FieldValues) => { throw new Error("bad news"); }} fields={fields} />);
+    const button = container.querySelector("button") as HTMLButtonElement;
     expect(button).not.to.be.null;
     const span = button.querySelector("span");
     expect(span).not.to.be.null;
     expect(span!.innerHTML).to.be.eq("form.submitButtonLabel");
-    expect(form.container.querySelector("div.core-form-alert")).to.be.null;
+    expect(container.querySelector("div.core-form-alert")).to.be.null;
+
     // fire click to trigger handleFormSubmit processing
-    fireEvent.click(button);
-    await fakeTimers.tickAsync(500);
-    fakeTimers.restore();
-    expect(form.container.querySelector("div.core-form-alert")).not.to.be.null;
+    await theUserTo.click(button);
+    expect(container.querySelector("div.core-form-alert")).not.to.be.null;
   });
 
   it("exercise Form and Fields", async () => {
-    const fakeTimers = sinon.useFakeTimers();
     await TestUtils.initializeUiCore();
     let submitProcessed = false;
 
@@ -95,7 +95,7 @@ describe("<Form />", () => {
     const siteUrlInput = form.container.querySelector("input#SiteUrl") as HTMLInputElement;
     expect(siteUrlInput).not.to.be.null;
     expect(siteUrlInput.value).to.be.eq("");
-    fireEvent.change(siteUrlInput, { target: { value: "https://www.bentley.com/" } });
+    await theUserTo.type(siteUrlInput, "https://www.bentley.com/");
     expect(siteUrlInput.value).to.be.eq("https://www.bentley.com/");
 
     const nameInput = form.container.querySelector("input#Name") as HTMLInputElement;
@@ -105,12 +105,12 @@ describe("<Form />", () => {
     const notesInput = form.container.querySelector("textarea#Notes") as HTMLTextAreaElement;
     expect(notesInput).not.to.be.null;
     expect(notesInput.value).to.be.eq("");
-    fireEvent.change(notesInput, { target: { value: "hello world" } });
+    await theUserTo.type(notesInput, "hello world");
 
     const lockInput = form.container.querySelector("input#Lock") as HTMLInputElement;
     expect(lockInput).not.to.be.null;
     expect(lockInput.value).to.be.eq("on");
-    fireEvent.click(lockInput); // associated lock value should be false
+    await theUserTo.click(lockInput); // associated lock value should be false
     const pickList = form.container.ownerDocument.querySelector(".core-form-select#PickList") as HTMLSelectElement;
     expect(pickList).not.to.be.null;
     selectChangeValueByText(pickList, "four", handleError);
@@ -122,9 +122,7 @@ describe("<Form />", () => {
     const button = form.container.querySelector("button") as HTMLButtonElement;
     expect(submitProcessed).to.be.eq(false);
     // fire click to trigger handleFormSubmit processing
-    fireEvent.click(button);
-    fakeTimers.tick(500);
-    fakeTimers.restore();
+    await theUserTo.click(button);
     expect(submitProcessed).to.be.eq(true);
   });
 });
