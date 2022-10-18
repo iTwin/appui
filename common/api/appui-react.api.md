@@ -3903,6 +3903,20 @@ export const RULESET_SPATIAL_BREAKDOWN_GROUPED_BY_CLASS: Ruleset;
 // @public
 export const SafeAreaContext: React_2.Context<SafeAreaInsets | undefined>;
 
+// @public
+export enum SafeAreaInsets {
+    // (undocumented)
+    All = 15,
+    // (undocumented)
+    Bottom = 1,
+    // (undocumented)
+    Left = 2,
+    // (undocumented)
+    Right = 4,
+    // (undocumented)
+    Top = 8
+}
+
 // @internal
 export interface SavedWidget {
     // (undocumented)

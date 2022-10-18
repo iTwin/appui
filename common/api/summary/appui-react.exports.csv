@@ -393,6 +393,7 @@ internal;RULESET_MODELS_GROUPED_BY_CLASS: Ruleset
 internal;RULESET_SPATIAL_BREAKDOWN: Ruleset
 internal;RULESET_SPATIAL_BREAKDOWN_GROUPED_BY_CLASS: Ruleset
 public;SafeAreaContext: React_2.Context
+public;SafeAreaInsets
 internal;SavedWidget
 internal;SavedWidgets = ReadonlyArray
 public;ScheduleAnimationTimelineDataProvider 

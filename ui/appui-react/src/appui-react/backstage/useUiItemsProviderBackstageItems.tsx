@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -10,8 +9,6 @@
 import * as React from "react";
 import { BackstageItem, BackstageItemsChangedArgs, BackstageItemsManager, UiItemsManager } from "@itwin/appui-abstract";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
-
-// cspell:ignore setxxx
 
 /** Hook that returns items from [[BackstageItemsManager]].
  * @public
@@ -32,7 +29,7 @@ export const useUiItemsProviderBackstageItems = (manager: BackstageItemsManager)
       setItems(manager.items);
     }
   }, [manager, uiItemProviderIds]);
-  // handle item changes caused by calls to UiFramework.addonStatusBarItemsManager.setxxx
+  // handle item changes caused by calls to UiFramework.backstageManager
   React.useEffect(() => {
     const handleChanged = (args: BackstageItemsChangedArgs) => {
       setItems(args.items);

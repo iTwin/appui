@@ -10,7 +10,6 @@ import { IModelApp, IModelConnection, MockRender, ScreenViewport, SelectionSet }
 import { InstanceKey, RpcRequestsHandler } from "@itwin/presentation-common";
 import { Presentation, SelectionManager, SelectionScopesManager, SelectionScopesManagerProps } from "@itwin/presentation-frontend";
 import {
-  BackstageManager,
   ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventArgs, SyncUiEventDispatcher,
   UiFramework, WidgetStateChangedEventArgs,
 } from "../../appui-react";
