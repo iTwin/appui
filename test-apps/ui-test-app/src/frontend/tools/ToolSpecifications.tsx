@@ -24,7 +24,7 @@ import { Dialog, FillCentered, ReactMessage, SvgPath, SvgSprite, UnderlinedButto
 import {
   BackstageManager, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager,
   FrontstageManager, IModelViewportControl, Indicator, MessageManager, ModalDialogManager, ReactNotifyMessageDetails,
-  StatusBarItemUtilities, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef, UiFramework,
+  StatusBarItemUtilities, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef,
 } from "@itwin/appui-react";
 import { FooterPopupContentType, FooterSeparator, Dialog as NZ_Dialog, TitleBar } from "@itwin/appui-layout-react";
 import { SampleAppIModelApp } from "../";
