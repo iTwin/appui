@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { ExpandableBlock, ExpandableBlockProps } from "@itwin/core-react";
+import { ExpandableBlock, ExpandableBlockProps } from "@itwin/itwinui-react";
 
 /** Sample component using ExpandableBlock with an expanded state  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -12,24 +12,13 @@ import { ExpandableBlock, ExpandableBlockProps } from "@itwin/core-react";
 export const SampleExpandableBlock: React.FC<ExpandableBlockProps> = (props: ExpandableBlockProps) => {
   const [expanded, setExpanded] = React.useState(props.isExpanded);
 
-  const handleClick = React.useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+  const handleClick = React.useCallback((_isExpanding: boolean): void => {
     setExpanded(!expanded);
 
-    props.onClick && props.onClick(event);
   }, [expanded, props]);
-
-  const handleKeyDown = React.useCallback((event: React.KeyboardEvent): void => {
-    if (event.key === SpecialKey.Enter || event.key === SpecialKey.Space) {
-      setExpanded(!expanded);
-    } else if (event.key === SpecialKey.ArrowDown && !expanded) {
-      setExpanded(true);
-    } else if (event.key === SpecialKey.ArrowUp && expanded) {
-      setExpanded(false);
-    }
-  }, [expanded]);
 
   return (
     // eslint-disable-next-line deprecation/deprecation
-    <ExpandableBlock {...props} isExpanded={expanded} onClick={handleClick} onKeyDown={handleKeyDown} />
+    <ExpandableBlock {...props} isExpanded={expanded} onToggle={handleClick} />
   );
 };

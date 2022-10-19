@@ -7,7 +7,8 @@
  */
 
 import * as React from "react";
-import { CommonProps, IconSpec, UiEvent } from "@itwin/core-react";
+import { UiEvent } from "@itwin/appui-abstract";
+import { CommonProps, IconSpec } from "@itwin/core-react";
 import { Backstage as NZ_Backstage } from "@itwin/appui-layout-react";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { UiFramework } from "../UiFramework";

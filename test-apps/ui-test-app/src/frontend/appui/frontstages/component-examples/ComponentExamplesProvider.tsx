@@ -25,13 +25,16 @@ import {
   QuantityInput, QuantityNumberInput, WeightPickerButton,
 } from "@itwin/imodel-components-react";
 import {
+  Checkbox
+} from "@itwin/itwinui-react";
+import {
   AutoSuggest,
   AutoSuggestData,
-  BetaBadge, BlockText, BodyText, Button, ButtonSize, ButtonType, Checkbox, CheckListBox, CheckListBoxItem, CheckListBoxSeparator, ContextMenuItem,
+  BetaBadge, BlockText, BodyText,  CheckListBox, CheckListBoxItem, CheckListBoxSeparator, ContextMenuItem,
   DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalAlignment, HorizontalTabs, Icon, IconInput, Input, InputStatus, LabeledInput,
   LabeledSelect, LabeledTextarea, LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ProgressBar, ProgressSpinner, Radio, ReactMessage,
-  SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Spinner, SpinnerSize, SplitButton, Subheading, Textarea, ThemedSelect, Tile, Title,
+  SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Spinner, SpinnerSize, Subheading, Textarea, ThemedSelect, Tile, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
@@ -484,38 +487,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get buttonSamples(): ComponentExampleCategory {
-    return {
-      title: "Button",
-      examples: [
-        createComponentExample("Basic Button", "Primary Button", <Button>Primary Button</Button>),
-        createComponentExample("Disabled Button", "Button with disabled prop", <Button disabled>Disabled Button</Button>),
-        // eslint-disable-next-line deprecation/deprecation
-        createComponentExample("Blue Button", "Button with ButtonType.Blue", <Button buttonType={ButtonType.Blue}>Blue Button</Button>),
-        // eslint-disable-next-line deprecation/deprecation
-        createComponentExample("Hollow Button", "Button with ButtonType.Hollow", <Button buttonType={ButtonType.Hollow}>Hollow Button</Button>),
-        // eslint-disable-next-line deprecation/deprecation
-        createComponentExample("Large Basic Button", "Primary Button with size={ButtonSize.Large}", <Button size={ButtonSize.Large}>Primary Button</Button>),
-        // eslint-disable-next-line deprecation/deprecation
-        createComponentExample("Large Disabled Button", "Button with disabled and size={ButtonSize.Large} props", <Button disabled size={ButtonSize.Large}>Disabled Button</Button>),
-        // eslint-disable-next-line deprecation/deprecation
-        createComponentExample("Large Blue Button", "Button with ButtonType.Blue and size={ButtonSize.Large}", <Button buttonType={ButtonType.Blue} size={ButtonSize.Large}>Blue Button</Button>),
-        // eslint-disable-next-line deprecation/deprecation
-        createComponentExample("Large Hollow Button", "Button with ButtonType.Hollow and size={ButtonSize.Large}", <Button buttonType={ButtonType.Hollow} size={ButtonSize.Large}>Hollow Button</Button>),
-        createComponentExample("Underlined Button", "UnderlinedButton component",
-          <UnderlinedButton
-            onActivate={() => Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `UnderlinedButton activated`)}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `UnderlinedButton clicked`);
-            }}>
-            Underlined Button
-          </UnderlinedButton>),
-      ],
-    };
-  }
-
   private static get checkListBoxSamples(): ComponentExampleCategory {
     return {
       title: "CheckListBox",
@@ -661,19 +632,19 @@ export class ComponentExamplesProvider {
       examples: [
         createComponentExample("ExpandableList", "ExpandableList with one ExpandableBlock",
           <ExpandableList className="uicore-full-width">
-            <SampleExpandableBlock title="Test" isExpanded={true} onClick={() => { }}>
+            <SampleExpandableBlock title="Test" isExpanded={true} onToggle={() => { }}>
               Hello World!
             </SampleExpandableBlock>
           </ExpandableList>),
         createComponentExample("ExpandableList", "ExpandableList with 3 ExpandableBlocks",
           <ExpandableList className="uicore-full-width">
-            <SampleExpandableBlock title="Test1" isExpanded={false} onClick={() => { }}>
+            <SampleExpandableBlock title="Test1" isExpanded={false} onToggle={() => { }}>
               Hello World 1
             </SampleExpandableBlock>
-            <SampleExpandableBlock title="Test2" isExpanded={false} onClick={() => { }}>
+            <SampleExpandableBlock title="Test2" isExpanded={false} onToggle={() => { }}>
               Hello World 2
             </SampleExpandableBlock>
-            <SampleExpandableBlock title="Test3" isExpanded={false} onClick={() => { }}>
+            <SampleExpandableBlock title="Test3" isExpanded={false} onToggle={() => { }}>
               Hello World 3
             </SampleExpandableBlock>
           </ExpandableList>),
@@ -778,18 +749,6 @@ export class ComponentExamplesProvider {
       examples: [
         createComponentExample("Basic Input", "Input with placeholder", <Input placeholder="Basic Input" />),
         createComponentExample("Disabled Input", "Input with disabled prop", <Input placeholder="Disabled Input" disabled />),
-
-        createComponentExample("Check Box", "Basic Check Box", <Checkbox label="Basic Check Box" />),
-        createComponentExample("Check Box Set", "Set of Check Boxes",
-          <div>
-            <Checkbox label="First" />
-            <Checkbox label="Success" status={InputStatus.Success} />
-            <Checkbox label="Warning" status={InputStatus.Warning} />
-            <Checkbox label="Error" status={InputStatus.Error} />
-          </div>),
-        createComponentExample("Disabled Check Box", "Check Box with disabled prop", <Checkbox label="Disabled Check Box" disabled />),
-        createComponentExample("Indeterminate Check Box", "Check Box with indeterminate prop", <Checkbox label="Indeterminate Check Box" indeterminate />),
-        createComponentExample("Check Box with text after", "Check Box with <label> after", <div><Checkbox id="cb1" />&nbsp;&nbsp;<label htmlFor="cb1">This is text in a span</label></div>),
 
         createComponentExample("Radio Button", "Basic Radio Buttons",
           <div>
@@ -1149,48 +1108,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get splitButtonSamples(): ComponentExampleCategory {
-    return {
-      title: "SplitButton",
-      examples: [
-        createComponentExample("Basic SplitButton", "Basic SplitButton",
-          <SplitButton label="Split Button" onClick={() => { }}>
-            {this.splitButtonMenuItems.map((node) => node)}
-          </SplitButton>),
-        createComponentExample("SplitButton with border", "SplitButton with drawBorder prop",
-          <SplitButton label="Split Button" drawBorder icon="icon-placeholder" onClick={() => { }}>
-            {this.splitButtonMenuItems.map((node) => node)}
-          </SplitButton>),
-        createComponentExample("SplitButton with width", "SplitButton with width style",
-          <SplitButton label="Split Button" drawBorder icon="icon-placeholder" onClick={() => { }} style={{ width: "200px" }}>
-            {this.splitButtonMenuItems.map((node) => node)}
-          </SplitButton>),
-        createComponentExample("SplitButton with popupPosition", "SplitButton with RelativePosition.BottomRight popupPosition prop",
-          <SplitButton label="Split Button" drawBorder icon="icon-placeholder" onClick={() => { }} popupPosition={RelativePosition.BottomRight}>
-            {this.splitButtonMenuItems.map((node) => node)}
-          </SplitButton>),
-        createComponentExample("SplitButton with Blue buttonType", "SplitButton with buttonType={ButtonType.Blue} prop",
-          // eslint-disable-next-line deprecation/deprecation
-          <SplitButton label="Split Button" drawBorder icon="icon-placeholder" onClick={() => { }} buttonType={ButtonType.Blue}>
-            {this.splitButtonMenuItems.map((node) => node)}
-          </SplitButton>),
-        createComponentExample("SplitButton with Primary buttonType", "SplitButton with buttonType={ButtonType.Primary} prop",
-          // eslint-disable-next-line deprecation/deprecation
-          <SplitButton label="Split Button" drawBorder icon="icon-placeholder" onClick={() => { }} buttonType={ButtonType.Primary}>
-            {this.splitButtonMenuItems.map((node) => node)}
-          </SplitButton>),
-      ],
-    };
-  }
-
-  private static get splitButtonMenuItems(): React.ReactNode[] {
-    return [
-      <ContextMenuItem key="item1" icon="icon-placeholder">Item 1</ContextMenuItem>,
-      <ContextMenuItem key="item2" icon="icon-placeholder">Item 2</ContextMenuItem>,
-      <ContextMenuItem key="item3" icon="icon-placeholder">Item 3</ContextMenuItem>,
-    ];
-  }
-
   private static get tabsSamples(): ComponentExampleCategory {
     return {
       title: "Tabs",
@@ -1363,7 +1280,6 @@ export class ComponentExamplesProvider {
     return [
       ComponentExamplesProvider.autoSuggestSamples,
       ComponentExamplesProvider.badgeSamples,
-      ComponentExamplesProvider.buttonSamples,
       ComponentExamplesProvider.checkListBoxSamples,
       ComponentExamplesProvider.colorSamples,
       ComponentExamplesProvider.contextMenuSample,
@@ -1379,7 +1295,6 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.searchBoxSample,
       ComponentExamplesProvider.selectSamples,
       ComponentExamplesProvider.sliderSamples,
-      ComponentExamplesProvider.splitButtonSamples,
       ComponentExamplesProvider.tableSamples,
       ComponentExamplesProvider.tabsSamples,
       ComponentExamplesProvider.textSamples,

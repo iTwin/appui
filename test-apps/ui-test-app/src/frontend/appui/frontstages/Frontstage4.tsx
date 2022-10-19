@@ -23,7 +23,6 @@ import { TestModalDialog2 } from "../dialogs/TestModalDialog2";
 import { TestRadialMenu } from "../dialogs/TestRadialMenu";
 import { TestReactSelectDialog } from "../dialogs/TestReactSelectDialog";
 import { TestUiProvider } from "../dialogs/TestUiProviderDialog";
-import { BreadcrumbDemoWidgetControl } from "../widgets/BreadcrumbDemoWidget";
 import { NavigationTreeWidgetControl } from "../widgets/NavigationTreeWidget";
 import {
   HorizontalPropertyGridWidgetControl, HorizontalPropertyGridWidgetControl2, VerticalPropertyGridWidgetControl,
@@ -190,7 +189,6 @@ export class Frontstage4 extends FrontstageProvider {
           <Zone defaultState={ZoneState.Minimized} allowsMerging={false}
             widgets={[
               <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.BreadcrumbDemo" control={BreadcrumbDemoWidgetControl} />,
               <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TreeSelectionDemo" control={TreeSelectionDemoWidgetControl} />,
             ]}
           />
@@ -201,7 +199,6 @@ export class Frontstage4 extends FrontstageProvider {
             start: {
               widgets: [
                 <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
-                <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.BreadcrumbDemo" control={BreadcrumbDemoWidgetControl} />,
                 <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TreeSelectionDemo" control={TreeSelectionDemoWidgetControl} />,
               ],
             },
