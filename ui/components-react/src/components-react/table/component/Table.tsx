@@ -394,12 +394,15 @@ export class Table extends React.Component<TableProps, TableState> {
     this._rowSelectionHandler.selectionMode = this.props.selectionMode ? this.props.selectionMode : SelectionMode.Single;
     this._cellSelectionHandler.selectionMode = this.props.selectionMode ? this.props.selectionMode : SelectionMode.Single;
 
+    // ignoring because this component is deprecated
+    // istanbul ignore next
     if (previousProps.dataProvider !== this.props.dataProvider) {
       this._disposableListeners.dispose();
       this._disposableListeners.add(this.props.dataProvider.onColumnsChanged.addListener(this._onColumnsChanged));
       this._disposableListeners.add(this.props.dataProvider.onRowsChanged.addListener(this._onRowsChanged));
     }
 
+    // istanbul ignore next
     if (this.props.dataProvider !== previousProps.dataProvider) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.update();
@@ -952,6 +955,7 @@ export class Table extends React.Component<TableProps, TableState> {
       loadResult.rows.forEach((r, i) => { rows[index + i] = r; });
       return { rows };
     }, async () => {
+      // istanbul ignore else
       if (this.props.onRowsLoaded)
         this.props.onRowsLoaded(index, index + loadResult.rows.length - 1);
 
@@ -962,6 +966,7 @@ export class Table extends React.Component<TableProps, TableState> {
   });
 
   private async renderCellContent(cellItem: CellItem, column: ReactDataGridColumn, displayValue: string): Promise<React.ComponentType<{ isSelected: boolean }>> {
+    // istanbul ignore next
     if (column.icon)
       return () => <TableIconCellContent iconName={displayValue} />;
 

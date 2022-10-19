@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { RelativePosition } from "@itwin/appui-abstract";
+import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
 import { fireEvent, render, RenderResult, screen, waitFor } from "@testing-library/react";
 import { Popup } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
@@ -710,24 +710,23 @@ describe("<Popup />", () => {
       spyOnClose.notCalled.should.true;
     });
 
-    // todo: replace uievent
-    // it("should call onClose on resize event (default behavior)", async () => {
-    //   const spyOnClose = sinon.spy();
-    //   render(<Popup isOpen onClose={spyOnClose} />);
+    it("should call onClose on resize event (default behavior)", async () => {
+      const spyOnClose = sinon.spy();
+      render(<Popup isOpen onClose={spyOnClose} />);
 
-    //   window.dispatchEvent(new UIEvent("resize"));
+      window.dispatchEvent(new UIEvent("resize"));
 
-    //   await waitFor(() => expect(spyOnClose.callCount).to.equal(1));
-    // });
+      await waitFor(() => expect(spyOnClose.callCount).to.equal(1));
+    });
 
-    // it("should not call onClose on resize event (reposition switch)", () => {
-    //   const spyOnClose = sinon.spy();
-    //   render(<Popup isOpen repositionOnResize={true} onClose={spyOnClose} />);
+    it("should not call onClose on resize event (reposition switch)", () => {
+      const spyOnClose = sinon.spy();
+      render(<Popup isOpen repositionOnResize={true} onClose={spyOnClose} />);
 
-    //   window.dispatchEvent(new UIEvent("resize"));
+      window.dispatchEvent(new UIEvent("resize"));
 
-    //   spyOnClose.calledOnce.should.false;
-    // });
+      spyOnClose.calledOnce.should.false;
+    });
 
   });
 
