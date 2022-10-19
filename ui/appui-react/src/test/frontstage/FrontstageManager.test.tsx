@@ -145,10 +145,10 @@ describe("FrontstageManager", () => {
     expect(frontstageDef).to.not.be.undefined;
     if (frontstageDef) {
       // make sure zones defined by new names are properly placed into the proper spot in frontstageDef
-      expect(frontstageDef.getZoneDef(1)).not.to.be.undefined;
-      expect(frontstageDef.getZoneDef(2)).not.to.be.undefined;
-      expect(frontstageDef.getZoneDef(8)).not.to.be.undefined;
-      expect(frontstageDef.getZoneDef(3)).to.be.undefined;
+      expect(frontstageDef.contentManipulation).not.to.be.undefined;
+      expect(frontstageDef.toolSettings).not.to.be.undefined;
+      expect(frontstageDef.statusBar).not.to.be.undefined;
+      expect(frontstageDef.viewNavigation).to.be.undefined;
       await FrontstageManager.setActiveFrontstage(frontstageDef.id);
       expect(FrontstageManager.activeFrontstageId).to.eq(frontstageDef.id);
     }

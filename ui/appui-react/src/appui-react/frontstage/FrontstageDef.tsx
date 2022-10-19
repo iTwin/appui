@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -27,8 +26,6 @@ import { StagePanelDef, StagePanelState, toPanelSide } from "../stagepanels/Stag
 import { UiFramework } from "../UiFramework";
 import { WidgetControl } from "../widgets/WidgetControl";
 import { WidgetDef } from "../widgets/WidgetDef";
-import { ZoneLocation } from "../zones/Zone";
-import { ZoneDef } from "../zones/ZoneDef";
 import { Frontstage, FrontstageProps } from "./Frontstage";
 import { FrontstageManager } from "./FrontstageManager";
 import { FrontstageProvider } from "./FrontstageProvider";
@@ -38,6 +35,8 @@ import { PopoutWidget } from "../childwindow/PopoutWidget";
 import { SavedWidgets } from "../widget-panels/Frontstage";
 import { assert, BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
 import { ContentDialogManager } from "../dialog/ContentDialogManager";
+import { WidgetProps } from "../widgets/WidgetProps";
+import { getStableWidgetProps } from "../widgets/WidgetManager";
 
 /** @internal */
 export interface FrontstageEventArgs {
@@ -63,14 +62,10 @@ export class FrontstageDef {
   private _applicationData?: any;
   private _usage?: string;
   private _version: number = 0;
-  private _topLeft?: ZoneDef;
-  private _topCenter?: ZoneDef;
-  private _topRight?: ZoneDef;
-  private _centerLeft?: ZoneDef;
-  private _centerRight?: ZoneDef;
-  private _bottomLeft?: ZoneDef;
-  private _bottomCenter?: ZoneDef;
-  private _bottomRight?: ZoneDef;
+  private _toolSettings?: WidgetDef;
+  private _statusBar?: WidgetDef;
+  private _contentManipulation?: WidgetDef;
+  private _viewNavigation?: WidgetDef;
   private _topPanel?: StagePanelDef;
   private _topMostPanel?: StagePanelDef;
   private _leftPanel?: StagePanelDef;
@@ -95,15 +90,14 @@ export class FrontstageDef {
   public get contentGroupProvider(): ContentGroupProvider | undefined { return this._contentGroupProvider; }
   public get floatingContentControls() { return this._floatingContentControls; }
 
-  public get topLeft(): ZoneDef | undefined { return this._topLeft; }
-  public get topCenter(): ZoneDef | undefined { return this._topCenter; }
-  public get topRight(): ZoneDef | undefined { return this._topRight; }
-  public get centerLeft(): ZoneDef | undefined { return this._centerLeft; }
-  public get centerRight(): ZoneDef | undefined { return this._centerRight; }
-  public get bottomLeft(): ZoneDef | undefined { return this._bottomLeft; }
-  public get bottomCenter(): ZoneDef | undefined { return this._bottomCenter; }
-  public get bottomRight(): ZoneDef | undefined { return this._bottomRight; }
-
+  /** @beta */
+  public get toolSettings() { return this._toolSettings; }
+  /** @beta */
+  public get statusBar() { return this._statusBar; }
+  /** @beta */
+  public get contentManipulation() { return this._contentManipulation; }
+  /** @beta */
+  public get viewNavigation() { return this._viewNavigation; }
   /** @beta */
   public get topPanel(): StagePanelDef | undefined { return this._topPanel; }
   /** @beta
@@ -428,59 +422,6 @@ export class FrontstageDef {
     return false;
   }
 
-  /** Gets a [[ZoneDef]] based on a given zone id */
-  public getZoneDef(zoneId: number): ZoneDef | undefined {
-    let zoneDef;
-
-    switch (zoneId) {
-      case 1:
-        zoneDef = this.topLeft;
-        break;
-      case 2:
-        zoneDef = this.topCenter;
-        break;
-      case 3:
-        zoneDef = this.topRight;
-        break;
-      case 4:
-        zoneDef = this.centerLeft;
-        break;
-      case 6:
-        zoneDef = this.centerRight;
-        break;
-      case 7:
-        zoneDef = this.bottomLeft;
-        break;
-      case 8:
-        zoneDef = this.bottomCenter;
-        break;
-      case 9:
-        zoneDef = this.bottomRight;
-        break;
-      // istanbul ignore next
-      default:
-        throw new RangeError();
-    }
-
-    // Zones can be undefined in a Frontstage
-
-    return zoneDef;
-  }
-
-  /** Gets a list of [[ZoneDef]]s */
-  public get zoneDefs(): ZoneDef[] {
-    const zones = [1, 2, 3, 4, 6, 7, 8, 9];
-    const zoneDefs: ZoneDef[] = [];
-
-    zones.forEach((zoneId) => {
-      const zoneDef = this.getZoneDef(zoneId);
-      if (zoneDef)
-        zoneDefs.push(zoneDef);
-    });
-
-    return zoneDefs;
-  }
-
   /** Gets a [[StagePanelDef]] based on a given panel location
    * @beta
    */
@@ -538,33 +479,16 @@ export class FrontstageDef {
 
   /** Finds a [[WidgetDef]] based on a given id */
   public findWidgetDef(id: string): WidgetDef | undefined {
-    for (const zoneDef of this.zoneDefs) {
-      const widgetDef = zoneDef.findWidgetDef(id);
-      if (widgetDef)
+    for (const widgetDef of this.widgetDefs) {
+      if (widgetDef.id === id)
         return widgetDef;
     }
-
-    for (const panelDef of this.panelDefs) {
-      const widgetDef = panelDef.findWidgetDef(id);
-      if (widgetDef)
-        return widgetDef;
-    }
-
-    // istanbul ignore next
     return undefined;
   }
 
   /** Gets the list of [[WidgetControl]]s */
   private get _widgetControls(): WidgetControl[] {
     const widgetControls = new Array<WidgetControl>();
-
-    this.zoneDefs.forEach((zoneDef: ZoneDef) => {
-      zoneDef.widgetDefs.forEach((widgetDef: WidgetDef) => {
-        const widgetControl = widgetDef.widgetControl;
-        if (widgetControl)
-          widgetControls.push(widgetControl);
-      });
-    });
 
     this.panelDefs.forEach((panelDef: StagePanelDef) => {
       panelDef.widgetDefs.forEach((widgetDef: WidgetDef) => {
@@ -638,24 +562,10 @@ export class FrontstageDef {
     this._usage = props.usage;
     this._version = props.version || 0;
 
-    // eslint-disable-next-line deprecation/deprecation
-    this._topLeft = Frontstage.createZoneDef(props.contentManipulationTools ? props.contentManipulationTools : props.topLeft, ZoneLocation.TopLeft, props);
-    // eslint-disable-next-line deprecation/deprecation
-    this._topCenter = Frontstage.createZoneDef(props.toolSettings ? props.toolSettings : props.topCenter, ZoneLocation.TopCenter, props);
-    // eslint-disable-next-line deprecation/deprecation
-    this._topRight = Frontstage.createZoneDef(props.viewNavigationTools ? /* istanbul ignore next */ props.viewNavigationTools : props.topRight, ZoneLocation.TopRight, props);
-    // eslint-disable-next-line deprecation/deprecation
-    this._centerLeft = Frontstage.createZoneDef(props.centerLeft, ZoneLocation.CenterLeft, props);
-    // eslint-disable-next-line deprecation/deprecation
-    this._centerRight = Frontstage.createZoneDef(props.centerRight, ZoneLocation.CenterRight, props);
-    // eslint-disable-next-line deprecation/deprecation
-    this._bottomLeft = Frontstage.createZoneDef(props.bottomLeft, ZoneLocation.BottomLeft, props);
-    // eslint-disable-next-line deprecation/deprecation
-    this._bottomCenter = Frontstage.createZoneDef(props.statusBar ? props.statusBar : props.bottomCenter, ZoneLocation.BottomCenter, props);
-    // eslint-disable-next-line deprecation/deprecation
-    this._bottomRight = Frontstage.createZoneDef(props.bottomRight, ZoneLocation.BottomRight, props);
-    // eslint-disable-next-line deprecation/deprecation
-
+    this._toolSettings = createWidgetDef(props.toolSettings, `uifw-toolSettings-widget`, props);
+    this._statusBar = createWidgetDef(props.statusBar, `uifw-statusBar-widget`, props);
+    this._contentManipulation = createWidgetDef(props.contentManipulation, `uifw-contentManipulation-widget`, props);
+    this._viewNavigation = createWidgetDef(props.viewNavigation, `uifw-viewNavigation-widget`, props);
     this._topPanel = Frontstage.createStagePanelDef(StagePanelLocation.Top, props);
     this._topMostPanel = Frontstage.createStagePanelDef(StagePanelLocation.TopMost, props);
     this._leftPanel = Frontstage.createStagePanelDef(StagePanelLocation.Left, props);
@@ -672,10 +582,6 @@ export class FrontstageDef {
     // Process panels before zones so extension can explicitly target a widget for a StagePanelSection
     this.panelDefs.forEach((stagePanelDef: StagePanelDef) => {
       stagePanelDef.updateDynamicWidgetDefs(this.id, this.usage, stagePanelDef.location, undefined, allStageWidgetDefs, this.applicationData);
-    });
-
-    this.zoneDefs.forEach((zoneDef: ZoneDef) => {
-      zoneDef.updateDynamicWidgetDefs(this.id, this.usage, zoneDef.zoneLocation, undefined, allStageWidgetDefs, this.applicationData);
     });
   }
 
@@ -1050,11 +956,6 @@ export class FrontstageDef {
   }
 
   private *_widgetDefs(): Iterator<WidgetDef> {
-    for (const zoneDef of this.zoneDefs) {
-      for (const widgetDef of zoneDef.widgetDefs) {
-        yield widgetDef;
-      }
-    }
     for (const panelDef of this.panelDefs) {
       for (const widgetDef of panelDef.widgetDefs) {
         yield widgetDef;
@@ -1075,4 +976,13 @@ export class FrontstageDef {
       },
     };
   }
+}
+
+function createWidgetDef(widgetElement: React.ReactElement<WidgetProps> | undefined, stableId: string, _props: FrontstageProps): WidgetDef | undefined {
+  if (!widgetElement || !React.isValidElement(widgetElement))
+    return undefined;
+
+  const props = getStableWidgetProps(widgetElement.props, stableId);
+  const widgetDef = new WidgetDef(props);
+  return widgetDef;
 }

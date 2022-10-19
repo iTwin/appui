@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -11,7 +10,6 @@ import * as React from "react";
 import { StagePanelLocation } from "@itwin/appui-abstract";
 
 import { WidgetProps } from "../widgets/WidgetProps";
-import { ZoneLocation } from "../zones/Zone";
 import { StagePanelDef, StagePanelState as StagePanelState } from "./StagePanelDef";
 
 /** Available StagePanel locations.
@@ -51,11 +49,11 @@ export interface StagePanelZoneProps {
  */
 export interface StagePanelZonesProps {
   /** Properties for the Widgets in the Start section. */
-  start?: StagePanelZoneProps;
+  start?: StagePanelZoneProps; // eslint-disable-line deprecation/deprecation
   /** Properties for the Widgets in the Middle section. Deprecated - all widgets originally targeted for "middle" will now go to "end". */
-  middle?: StagePanelZoneProps;
+  middle?: StagePanelZoneProps; // eslint-disable-line deprecation/deprecation
   /** Properties for the Widgets in the End section. */
-  end?: StagePanelZoneProps;
+  end?: StagePanelZoneProps; // eslint-disable-line deprecation/deprecation
 }
 
 /** Available units of panel maximum size. Pixels or percentage of 9-Zone App size.
@@ -68,8 +66,6 @@ export type StagePanelMaxSizeSpec = number | { percentage: number };
  * @public
  */
 export interface StagePanelProps {
-  /** Describes which zones are allowed in this stage panel. */
-  allowedZones?: ZoneLocation[];
   /** Any application data to attach to this Panel. */
   applicationData?: any;
   /** Default Panel state. Controls how the panel is initially displayed. Defaults to StagePanelState.Open. */
@@ -94,7 +90,7 @@ export interface StagePanelProps {
 
   /** Properties for the Panel Zones in this Panel.
    * @beta */
-  panelZones?: StagePanelZonesProps;
+  panelZones?: StagePanelZonesProps; // eslint-disable-line deprecation/deprecation
 }
 
 /** Default properties of [[StagePanel]] component.

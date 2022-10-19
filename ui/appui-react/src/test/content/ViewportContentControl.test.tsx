@@ -10,7 +10,7 @@ import { MockRender, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, ContentGroup, ContentLayoutManager, ContentViewManager,
   CoreTools, FloatingContentControl, FloatingViewportContentControl, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider, SupportsViewSelectorChange,
-  ViewportContentControl, Widget, Zone,
+  ViewportContentControl, Widget,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -86,10 +86,8 @@ describe("ViewportContentControl", () => {
           defaultTool={CoreTools.selectElementCommand}
           contentGroup={myContentGroup}
 
-          topRight={
-            <Zone widgets={[
-              <Widget key={0} isFreeform={true} element={<>NavigationWidget</>} />,
-            ]} />
+          viewNavigation={
+            <Widget isFreeform={true} element={<>NavigationWidget</>} />
           }
         />
       );

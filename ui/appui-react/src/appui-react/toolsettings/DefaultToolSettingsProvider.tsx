@@ -8,15 +8,14 @@
 
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-// cSpell:Ignore configurableui Fronstage
 import { DialogItem, DialogPropertySyncItem, UiLayoutDataProvider } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo } from "../../configurableui/ConfigurableUiControl";
-import { ConfigurableUiManager } from "../../configurableui/ConfigurableUiManager";
-import { ComponentGenerator } from "../../uiprovider/ComponentGenerator";
-import { DefaultDialogGridContainer } from "../../uiprovider/DefaultDialogGridContainer";
+import { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
+import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
+import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
+import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
 import { SyncToolSettingsPropertiesEventArgs, ToolSettingsManager } from "./ToolSettingsManager";
 import { ToolUiProvider } from "./ToolUiProvider";
-import { FrontstageManager } from "../../frontstage/FrontstageManager";
+import { FrontstageManager } from "../frontstage/FrontstageManager";
 
 /** @internal */
 
@@ -57,7 +56,7 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
       this.toolSettingsNode = null;
       this.horizontalToolSettingNodes = [];
     }
-    // We emit the FrontstageManager.onToolSettingsReloadEvent event here because the Fronstage Manager is a static
+    // We emit the FrontstageManager.onToolSettingsReloadEvent event here because the Frontstage Manager is a static
     // class that UI components can easily register listeners.
     FrontstageManager.onToolSettingsReloadEvent.emit();
   }

@@ -2,14 +2,12 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Widget
  */
 
 import { StagePanelLocation, StagePanelSection } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
-import { ZoneLocation } from "../zones/Zone";
 import { WidgetDef } from "./WidgetDef";
 
 /**
@@ -65,7 +63,7 @@ export class WidgetHost {
   /** Updates the WidgetHost with dynamic widgets
    * @internal
    */
-  public updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: ZoneLocation | StagePanelLocation, section: StagePanelSection | undefined,
+  public updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined,
     allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any
   ): void {
     // get widgetDefs not already in allStageWidgetDefs and add them
@@ -77,43 +75,19 @@ export class WidgetHost {
 
     let dynamicWidgetDefs: readonly WidgetDef[] | undefined;
 
-    if (location in ZoneLocation) {
-      switch (location) {
-        case ZoneLocation.CenterLeft:
+    if (undefined !== section) {
+      switch (section) {
+        case StagePanelSection.Start: {
+          dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start, frontstageApplicationData) ?? [];
+          break;
+        }
+        case StagePanelSection.Middle: // eslint-disable-line deprecation/deprecation
           break; // added to BottomLeft
-        case ZoneLocation.BottomLeft:
-          {
-            const middleDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, ZoneLocation.CenterLeft, section, frontstageApplicationData) ?? [];
-            const bottomDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, ZoneLocation.BottomLeft, section, frontstageApplicationData) ?? [];
-            dynamicWidgetDefs = [...middleDynamicWidgetDefs, ...bottomDynamicWidgetDefs];
-          }
+        case StagePanelSection.End: {
+          const middleDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Middle, frontstageApplicationData) ?? []; // eslint-disable-line deprecation/deprecation
+          const bottomDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, frontstageApplicationData) ?? [];
+          dynamicWidgetDefs = [...middleDynamicWidgetDefs, ...bottomDynamicWidgetDefs];
           break;
-        case ZoneLocation.CenterRight:
-          break; // added to BottomRight
-        case ZoneLocation.BottomRight:
-          {
-            const middleDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, ZoneLocation.CenterRight, section, frontstageApplicationData) ?? [];
-            const bottomDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, ZoneLocation.BottomRight, section, frontstageApplicationData) ?? [];
-            dynamicWidgetDefs = [...middleDynamicWidgetDefs, ...bottomDynamicWidgetDefs];
-          }
-          break;
-      }
-    } else {
-      // istanbul ignore else
-      if ((location in StagePanelLocation) && undefined !== section) {
-        switch (section) {
-          case StagePanelSection.Start: {
-            dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start, frontstageApplicationData) ?? [];
-            break;
-          }
-          case StagePanelSection.Middle:
-            break; // added to BottomLeft
-          case StagePanelSection.End: {
-            const middleDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Middle, frontstageApplicationData) ?? [];
-            const bottomDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, frontstageApplicationData) ?? [];
-            dynamicWidgetDefs = [...middleDynamicWidgetDefs, ...bottomDynamicWidgetDefs];
-            break;
-          }
         }
       }
     }

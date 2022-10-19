@@ -19,7 +19,7 @@ import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
 import { TaskManager, TaskPropsList } from "../workflow/Task";
 import { WorkflowManager, WorkflowProps, WorkflowPropsList } from "../workflow/Workflow";
-import { ToolSettingsManager } from "../zones/toolsettings/ToolSettingsManager";
+import { ToolSettingsManager } from "../toolsettings/ToolSettingsManager";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
 import { ModelessDialogManager } from "../dialog/ModelessDialogManager";
 import { ModalDialogManager } from "../dialog/ModalDialogManager";

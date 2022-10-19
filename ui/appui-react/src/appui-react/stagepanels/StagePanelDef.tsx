@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -14,7 +13,7 @@ import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
 import { StagePanelMaxSizeSpec, StagePanelProps, StagePanelZoneProps, StagePanelZonesProps } from "./StagePanel";
-import { getStableWidgetProps, ZoneLocation } from "../zones/Zone";
+import { getStableWidgetProps } from "../widgets/WidgetManager";
 
 /** Enum for StagePanel state.
  * @public
@@ -229,11 +228,11 @@ export class StagePanelDef extends WidgetHost {
   }
 
   /** @internal */
-  public override updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: ZoneLocation | StagePanelLocation, _section: StagePanelSection | undefined,
+  public override updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, _section: StagePanelSection | undefined,
     allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any,
   ): void {
     this.panelZones.start.updateDynamicWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start, allStageWidgetDefs, frontstageApplicationData);
-    this.panelZones.end.updateDynamicWidgetDefs(stageId, stageUsage, location, StagePanelSection.Middle, allStageWidgetDefs, frontstageApplicationData);
+    this.panelZones.end.updateDynamicWidgetDefs(stageId, stageUsage, location, StagePanelSection.Middle, allStageWidgetDefs, frontstageApplicationData); // eslint-disable-line deprecation/deprecation
     this.panelZones.end.updateDynamicWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, allStageWidgetDefs, frontstageApplicationData);
   }
 }
@@ -257,7 +256,7 @@ export class StagePanelZonesDef {
   }
 
   /** @internal */
-  public initializeFromProps(props: StagePanelZonesProps, panelLocation: StagePanelLocation): void {
+  public initializeFromProps(props: StagePanelZonesProps, panelLocation: StagePanelLocation) { // eslint-disable-line deprecation/deprecation
     if (props.start) {
       this.start.initializeFromProps(props.start, panelLocation, "start");
     }
@@ -282,7 +281,7 @@ export class StagePanelZonesDef {
 /** @internal */
 export class StagePanelZoneDef extends WidgetHost {
   /** @internal */
-  public initializeFromProps(props: StagePanelZoneProps, panelLocation: StagePanelLocation, panelZone: StagePanelZoneDefKeys): void {
+  public initializeFromProps(props: StagePanelZoneProps, panelLocation: StagePanelLocation, panelZone: StagePanelZoneDefKeys) { // eslint-disable-line deprecation/deprecation
     props.widgets.forEach((widgetNode, index) => {
       const stableId = `uifw-spz-${StagePanelLocation[panelLocation]}-${panelZone}-${index}`;
       const stableProps = getStableWidgetProps(widgetNode.props, stableId);

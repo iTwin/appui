@@ -2,8 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
-
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -32,7 +30,6 @@ import { StagePanelState, StagePanelZoneDefKeys } from "../stagepanels/StagePane
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
 import { TabLocation, WidgetDef, WidgetEventArgs, WidgetStateChangedEventArgs } from "../widgets/WidgetDef";
-import { ZoneState } from "../zones/ZoneDef";
 import { WidgetContent } from "./Content";
 import { WidgetPanelsFrontstageContent } from "./FrontstageContent";
 import { ModalFrontstageComposer, useActiveModalFrontstageInfo } from "./ModalFrontstageComposer";
@@ -418,15 +415,11 @@ function processPopoutWidgets(initialState: NineZoneState, frontstageDef: Fronts
 export function addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState {
   let state = initialState;
 
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.centerLeft?.widgetDefs, state), "left", 0);
   state = appendWidgets(state, determineNewWidgets(frontstageDef.leftPanel?.panelZones.start.widgetDefs, state), "left", 0);
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.bottomLeft?.widgetDefs, state), "left", 1);
   state = appendWidgets(state, determineNewWidgets(frontstageDef.leftPanel?.panelWidgetDefs, state), "left", 1);
   state = appendWidgets(state, determineNewWidgets(frontstageDef.leftPanel?.panelZones.end.widgetDefs, state), "left", 1);
 
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.centerRight?.widgetDefs, state), "right", 0);
   state = appendWidgets(state, determineNewWidgets(frontstageDef.rightPanel?.panelZones.start.widgetDefs, state), "right", 0);
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.bottomRight?.widgetDefs, state), "right", 1);
   state = appendWidgets(state, determineNewWidgets(frontstageDef.rightPanel?.panelWidgetDefs, state), "right", 1);
   state = appendWidgets(state, determineNewWidgets(frontstageDef.rightPanel?.panelZones.end.widgetDefs, state), "right", 1);
 
@@ -532,24 +525,13 @@ export function getWidgetId(side: PanelSide, key: StagePanelZoneDefKeys): Widget
 }
 
 /** @internal */
-export function getPanelZoneWidgets(frontstageDef: FrontstageDef, panelZone: WidgetIdTypes): WidgetDef[] {
+export function getPanelZoneWidgets(frontstageDef: FrontstageDef, panelZone: WidgetIdTypes): ReadonlyArray<WidgetDef> {
   switch (panelZone) {
     case "leftStart": {
-      const outArray = [...frontstageDef.centerLeft?.widgetDefs || []];
-      frontstageDef.leftPanel?.panelZones.start.widgetDefs.forEach((widgetDef) => {
-        // istanbul ignore else
-        if (undefined === outArray.find((widget) => widget.id === widgetDef.id))
-          outArray.push(widgetDef);
-      });
-      return outArray;
+      return frontstageDef.leftPanel?.panelZones.start.widgetDefs || [];
     }
     case "leftEnd": {
-      const outArray = [...frontstageDef.bottomLeft?.widgetDefs || []];
-      frontstageDef.leftPanel?.panelZones.end.widgetDefs.forEach((widgetDef) => {
-        // istanbul ignore else
-        if (undefined === outArray.find((widget) => widget.id === widgetDef.id))
-          outArray.push(widgetDef);
-      });
+      const outArray = [...frontstageDef.leftPanel?.panelZones.end.widgetDefs || []];
       frontstageDef.leftPanel?.panelWidgetDefs.forEach((widgetDef) => {
         // istanbul ignore else
         if (undefined === outArray.find((widget) => widget.id === widgetDef.id))
@@ -558,21 +540,10 @@ export function getPanelZoneWidgets(frontstageDef: FrontstageDef, panelZone: Wid
       return outArray;
     }
     case "rightStart": {
-      const outArray = [...frontstageDef.centerRight?.widgetDefs || []];
-      frontstageDef.rightPanel?.panelZones.start.widgetDefs.forEach((widgetDef) => {
-        // istanbul ignore else
-        if (undefined === outArray.find((widget) => widget.id === widgetDef.id))
-          outArray.push(widgetDef);
-      });
-      return outArray;
+      return frontstageDef.rightPanel?.panelZones.start.widgetDefs || [];
     }
     case "rightEnd": {
-      const outArray = [...frontstageDef.bottomRight?.widgetDefs || []];
-      frontstageDef.rightPanel?.panelZones.end.widgetDefs.forEach((widgetDef) => {
-        // istanbul ignore else
-        if (undefined === outArray.find((widget) => widget.id === widgetDef.id))
-          outArray.push(widgetDef);
-      });
+      const outArray = [...frontstageDef.rightPanel?.panelZones.end.widgetDefs || []];
       frontstageDef.rightPanel?.panelWidgetDefs.forEach((widgetDef) => {
         // istanbul ignore else
         if (undefined === outArray.find((widget) => widget.id === widgetDef.id))
@@ -636,7 +607,7 @@ export function addPanelWidgets(
 }
 
 /** @internal */
-export function isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is { // eslint-disable-line deprecation/deprecation
+export function isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is {
   status: UiStateStorageStatus.Success;
   setting: WidgetPanelsFrontstageState;
 } {
@@ -701,25 +672,12 @@ export function initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneS
         firstWidget.minimized = false;
       }
     }
-    stateDraft.panels.left.collapsed = isPanelCollapsed([
-      frontstageDef.centerLeft?.zoneState,
-      frontstageDef.bottomLeft?.zoneState,
-    ], [frontstageDef.leftPanel?.panelState]);
-    stateDraft.panels.right.collapsed = isPanelCollapsed([
-      frontstageDef.centerRight?.zoneState,
-      frontstageDef.bottomRight?.zoneState,
-    ], [frontstageDef.rightPanel?.panelState]);
-    stateDraft.panels.top.collapsed = isPanelCollapsed([], [
-      // istanbul ignore next - ignore topMostPanel if topPanel is defined
-      frontstageDef.topPanel ? frontstageDef.topPanel?.panelState : frontstageDef.topMostPanel?.panelState,// eslint-disable-line deprecation/deprecation
-    ]);
-    stateDraft.panels.bottom.collapsed = isPanelCollapsed([], [
-      // istanbul ignore next - ignore bottomMostPanel if bottomPanel is defined
-      frontstageDef.bottomPanel ? frontstageDef.bottomPanel?.panelState : frontstageDef.bottomMostPanel?.panelState, // eslint-disable-line deprecation/deprecation
-    ]);
+    stateDraft.panels.left.collapsed = isPanelCollapsed(frontstageDef.leftPanel?.panelState);
+    stateDraft.panels.right.collapsed = isPanelCollapsed(frontstageDef.rightPanel?.panelState);
+    stateDraft.panels.top.collapsed = isPanelCollapsed(frontstageDef.topPanel ? frontstageDef.topPanel?.panelState : frontstageDef.topMostPanel?.panelState); // eslint-disable-line deprecation/deprecation
+    stateDraft.panels.bottom.collapsed = isPanelCollapsed(frontstageDef.bottomPanel ? frontstageDef.bottomPanel?.panelState : frontstageDef.bottomMostPanel?.panelState); // eslint-disable-line deprecation/deprecation
 
-    const topCenterDef = frontstageDef.topCenter;
-    const toolSettingsWidgetDef = topCenterDef?.getSingleWidgetDef();
+    const toolSettingsWidgetDef = frontstageDef.toolSettings;
     if (toolSettingsWidgetDef) {
       const toolSettingsTab = stateDraft.tabs[toolSettingsTabId];
       toolSettingsTab.preferredPanelWidgetSize = toolSettingsWidgetDef.preferredPanelSize;
@@ -888,10 +846,8 @@ function restoreSavedWidgets(savedWidgets: SavedWidgets, frontstage: FrontstageD
 }
 
 /** @internal */
-export function isPanelCollapsed(zoneStates: ReadonlyArray<ZoneState | undefined>, panelStates: ReadonlyArray<StagePanelState | undefined>) {
-  const openZone = zoneStates.find((zoneState) => zoneState === ZoneState.Open);
-  const openPanel = panelStates.find((panelState) => panelState === StagePanelState.Open);
-  return !openZone && !openPanel;
+export function isPanelCollapsed(panelState: StagePanelState | undefined) {
+  return panelState !== StagePanelState.Open;
 }
 
 /** FrontstageState is saved in UiStateStorage.
@@ -999,7 +955,7 @@ export function setWidgetState(
       if (isFloatingTabLocation(location)) {
         const floatingWidget = draft.floatingWidgets.byId[location.floatingWidgetId];
         floatingWidget.hidden = false;
-      // istanbul ignore else
+        // istanbul ignore else
       } else if (isPanelTabLocation(location)) {
         const panel = draft.panels[location.side];
         panel.collapsed = false;

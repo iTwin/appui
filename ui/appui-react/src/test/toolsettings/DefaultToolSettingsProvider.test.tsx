@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { expect } from "chai";
 import * as React from "react";
 import {
@@ -12,9 +11,9 @@ import {
 import { render } from "@testing-library/react";
 import {
   ConfigurableUiManager, CoreTools, DefaultToolSettingsProvider, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider,
-  SyncToolSettingsPropertiesEventArgs, ToolSettingsManager, Widget, Zone,
-} from "../../../appui-react";
-import TestUtils from "../../TestUtils";
+  SyncToolSettingsPropertiesEventArgs, ToolSettingsManager, Widget,
+} from "../../appui-react";
+import TestUtils from "../TestUtils";
 
 describe("DefaultToolUiSettingsProvider", () => {
 
@@ -152,12 +151,8 @@ describe("DefaultToolUiSettingsProvider", () => {
             id={this.id}
             defaultTool={CoreTools.selectElementCommand}
             contentGroup={TestUtils.TestContentGroup1}
-            topCenter={
-              <Zone
-                widgets={[
-                  <Widget isToolSettings={true} />, // eslint-disable-line react/jsx-key
-                ]}
-              />
+            toolSettings={
+              <Widget isToolSettings={true} />
             }
           />
         );

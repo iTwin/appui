@@ -13,7 +13,6 @@ import { ContentGroup, ContentGroupProps, ContentGroupProvider } from "../conten
 import { FrontstageProvider } from "./FrontstageProvider";
 import { Frontstage, FrontstageProps } from "./Frontstage";
 import { CoreTools } from "../tools/CoreToolDefinitions";
-import { Zone } from "../zones/Zone";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
 import { Widget } from "../widgets/Widget";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
@@ -107,46 +106,38 @@ export class StandardFrontstageProvider extends FrontstageProvider {
         usage={this.props.usage}
         applicationData={this.props.applicationData}
 
-        contentManipulationTools={
-          <Zone
-            widgets={
-              [
-                <Widget id={`${this.props.id}-contentManipulationTools`} key={`${this.props.id}-contentManipulationTools`} isFreeform={true}
-                  element={<ContentToolWidgetComposer cornerButton={this.props.cornerButton} />}
-                />,
-              ]}
+        contentManipulation={
+          <Widget
+            id={`${this.props.id}-contentManipulationTools`}
+            key={`${this.props.id}-contentManipulationTools`}
+            isFreeform={true}
+            element={<ContentToolWidgetComposer cornerButton={this.props.cornerButton} />}
           />
         }
-        viewNavigationTools={
-          <Zone
-            widgets={
-              [
-                <Widget id={`${this.props.id}-viewNavigationTools`} key={`${this.props.id}-viewNavigationTools`} isFreeform={true}
-                  element={<ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />}
-                />,
-              ]}
+        viewNavigation={
+          <Widget
+            id={`${this.props.id}-viewNavigationTools`}
+            key={`${this.props.id}-viewNavigationTools`}
+            isFreeform={true}
+            element={<ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />}
           />
         }
         toolSettings={
-          <Zone
-            widgets={
-              this.props.hideToolSettings ? [] :
-                [
-                  <Widget id={`${this.props.id}-toolSettings`} key={`${this.props.id}-toolSettings`} isToolSettings={true} />,
-                ]
-            }
-          />
+          this.props.hideToolSettings ? undefined :
+            <Widget
+              id={`${this.props.id}-toolSettings`}
+              key={`${this.props.id}-toolSettings`}
+              isToolSettings={true}
+            />
         }
         statusBar={
-          <Zone
-            widgets={
-              this.props.hideStatusBar ? [] :
-                [
-                  <Widget id={`${this.props.id}-statusBar`} key={`${this.props.id}-statusBar`} isStatusBar={true}
-                    control={StatusBarWidgetComposerControl} />,
-                ]
-            }
-          />
+          this.props.hideStatusBar ? undefined :
+            <Widget
+              id={`${this.props.id}-statusBar`}
+              key={`${this.props.id}-statusBar`}
+              isStatusBar={true}
+              control={StatusBarWidgetComposerControl}
+            />
         }
 
         leftPanel={

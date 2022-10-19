@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -20,9 +19,9 @@ import { PanelSizeChangedEvent, PanelStateChangedEvent } from "../stagepanels/St
 import { UiFramework } from "../UiFramework";
 import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { WidgetChangedEventArgs, WidgetDef, WidgetEventArgs, WidgetStateChangedEvent } from "../widgets/WidgetDef";
-import { ToolInformation } from "../zones/toolsettings/ToolInformation";
-import { SyncToolSettingsPropertiesEventArgs, ToolSettingsManager } from "../zones/toolsettings/ToolSettingsManager";
-import { ToolUiProvider } from "../zones/toolsettings/ToolUiProvider";
+import { ToolInformation } from "../toolsettings/ToolInformation";
+import { SyncToolSettingsPropertiesEventArgs, ToolSettingsManager } from "../toolsettings/ToolSettingsManager";
+import { ToolUiProvider } from "../toolsettings/ToolUiProvider";
 import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs } from "./FrontstageDef";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";

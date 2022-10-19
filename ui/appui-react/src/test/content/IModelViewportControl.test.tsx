@@ -10,7 +10,7 @@ import { MockRender, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, ContentGroup, ContentLayoutManager, ContentViewManager,
   CoreTools, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider, IModelViewportControl, IModelViewportControlOptions,
-  SupportsViewSelectorChange, Widget, Zone,
+  SupportsViewSelectorChange, Widget,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -95,10 +95,8 @@ describe("IModelViewportControl", () => {
           defaultTool={CoreTools.selectElementCommand}
           contentGroup={myContentGroup}
 
-          topRight={
-            <Zone widgets={[
-              <Widget key={0} isFreeform={true} element={<>NavigationWidget</>} />,
-            ]} />
+          viewNavigation={
+            <Widget isFreeform={true} element={<>NavigationWidget</>} />
           }
         />
       );

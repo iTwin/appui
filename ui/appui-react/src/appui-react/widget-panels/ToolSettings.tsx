@@ -39,9 +39,9 @@ function TsLabel({ children }: { children: React.ReactNode }) {
 /** @internal */
 export function WidgetPanelsToolSettings() {
   const frontstageDef = useActiveFrontstageDef();
-  const toolSettings = React.useContext(ToolSettingsStateContext);
-  const topCenterZone = frontstageDef?.topCenter;
-  if (!topCenterZone || !topCenterZone.isToolSettings || toolSettings.type === "widget")
+  const toolSettingsState = React.useContext(ToolSettingsStateContext);
+  const toolSettings = frontstageDef?.toolSettings;
+  if (!toolSettings || toolSettingsState.type === "widget")
     return null;
   return (
     <ToolSettingsDockedContent />

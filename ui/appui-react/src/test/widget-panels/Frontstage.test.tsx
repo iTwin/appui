@@ -19,14 +19,14 @@ import {
   FrontstageManager, FrontstageProvider, getWidgetId, initializeNineZoneState, initializePanel, isFrontstageStateSettingResult, ModalFrontstageComposer,
   packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanel, StagePanelDef, StagePanelZoneDef, StagePanelZonesDef,
   UiFramework, UiStateStorageHandler, useActiveModalFrontstageInfo, useFrontstageManager, useNineZoneDispatch, useNineZoneState, useSavedFrontstageState,
-  useSaveFrontstageSettings, useUpdateNineZoneSize, Widget, WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState, Zone, ZoneDef,
+  useSaveFrontstageSettings, useUpdateNineZoneSize, Widget, WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState,
 } from "../../appui-react";
 import TestUtils, { mount, storageMock, stubRaf, UiStateStorageStub } from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { expect } from "chai";
 import { Provider } from "react-redux";
 
-/* eslint-disable @typescript-eslint/no-floating-promises, react/display-name, deprecation/deprecation */
+/* eslint-disable @typescript-eslint/no-floating-promises, react/display-name */
 
 function createSavedNineZoneState(args?: Partial<NineZoneState>) {
   return {
@@ -107,244 +107,6 @@ export class TestFrontstageWithHiddenWidget extends FrontstageProvider {
   }
 }
 
-/** @internal */
-export class TestFrontstageUi1 extends FrontstageProvider {
-  public static stageId = "TestFrontstageUi1";
-  public get id(): string {
-    return TestFrontstageUi1.stageId;
-  }
-
-  public get frontstage() {
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={TestUtils.TestContentGroup1}
-        centerLeft={
-          <Zone
-            widgets={[
-              <Widget
-                key="CenterLeft1"
-                id="CenterLeft1"
-              />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone
-            widgets={[
-              <Widget
-                key="BottomLeft1"
-                id="BottomLeft1"
-              />,
-            ]}
-          />
-        }
-        leftPanel={
-          <StagePanel
-            widgets={[
-              <Widget
-                key="Left1"
-                id="Left1"
-                label="Left 1"
-                element="Left 1 widget"
-              />,
-            ]}
-            panelZones={{
-              start: {
-                widgets: [
-                  <Widget
-                    key="LeftStart1"
-                    id="LeftStart1"
-                    label="Left Start 1"
-                    element="Left Start 1 widget"
-                  />,
-                ],
-              },
-              middle: {
-                widgets: [
-                  <Widget
-                    key="LeftMiddle1"
-                    id="LeftMiddle1"
-                    label="Left Middle 1"
-                    element="Left Middle 1 widget"
-                  />,
-                ],
-              },
-              end: {
-                widgets: [
-                  <Widget
-                    key="LeftEnd1"
-                    id="LeftEnd1"
-                    label="Left End 1"
-                    element="Left End 1 widget"
-                  />,
-                ],
-              },
-            }}
-          />
-        }
-        centerRight={
-          <Zone
-            widgets={[
-              <Widget
-                key="CenterRight1"
-                id="CenterRight1"
-              />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone
-            widgets={[
-              <Widget
-                key="BottomRight1"
-                id="BottomRight1"
-              />,
-            ]}
-          />
-        }
-        rightPanel={
-          <StagePanel
-            widgets={[
-              <Widget
-                key="Right1"
-                id="Right1"
-                label="Right 1"
-                element="Right 1 widget"
-              />,
-            ]}
-            panelZones={{
-              start: {
-                widgets: [
-                  <Widget
-                    key="RightStart1"
-                    id="RightStart1"
-                    label="Right Start 1"
-                    element="Right Start 1 widget"
-                  />,
-                ],
-              },
-              middle: {
-                widgets: [
-                  <Widget
-                    key="RightMiddle1"
-                    id="RightMiddle1"
-                    label="Right Middle 1"
-                    element="Right Middle 1 widget"
-                  />,
-                ],
-              },
-              end: {
-                widgets: [
-                  <Widget
-                    key="RightEnd1"
-                    id="RightEnd1"
-                    label="Right End 1"
-                    element="Right End 1 widget"
-                  />,
-                ],
-              },
-            }}
-          />
-        }
-        topPanel={
-          <StagePanel
-            widgets={[
-              <Widget
-                key="Top1"
-                id="Top1"
-                label="Top 1"
-                element="Top 1 widget"
-              />,
-            ]}
-            panelZones={{
-              start: {
-                widgets: [
-                  <Widget
-                    key="TopStart1"
-                    id="TopStart1"
-                    label="Top Start 1"
-                    element="Top Start 1 widget"
-                  />,
-                ],
-              },
-              end: {
-                widgets: [
-                  <Widget
-                    key="TopEnd1"
-                    id="TopEnd1"
-                    label="Top End 1"
-                    element="Top End 1 widget"
-                  />,
-                ],
-              },
-            }}
-          />
-        }
-        topMostPanel={
-          <StagePanel
-            widgets={[
-              <Widget
-                key="TopMost1"
-                id="TopMost1"
-                label="Top Most 1"
-                element="Top Most 1 widget"
-              />,
-            ]}
-          />
-        }
-        bottomPanel={
-          <StagePanel
-            widgets={[
-              <Widget
-                key="Bottom1"
-                id="Bottom1"
-                label="Bottom 1"
-                element="Bottom 1 widget"
-              />,
-            ]}
-            panelZones={{
-              start: {
-                widgets: [
-                  <Widget
-                    key="BottomStart1"
-                    id="BottomStart1"
-                    label="Bottom Start 1"
-                    element="Bottom Start 1 widget"
-                  />,
-                ],
-              },
-              end: {
-                widgets: [
-                  <Widget
-                    key="BottomEnd1"
-                    id="BottomEnd1"
-                    label="Bottom End 1"
-                    element="Bottom End 1 widget"
-                  />,
-                ],
-              },
-            }}
-          />
-        }
-        bottomMostPanel={
-          <StagePanel
-            widgets={[
-              <Widget
-                key="BottomMost1"
-                id="BottomMost1"
-                label="Bottom Most 1"
-                element="Bottom Most 1 widget"
-              />,
-            ]}
-          />
-        }
-      />
-    );
-  }
-}
-
 class TestUi2Provider implements UiItemsProvider {
   public static stageId = "TestUi2Provider";
   public get id(): string {
@@ -358,7 +120,8 @@ class TestUi2Provider implements UiItemsProvider {
       label: "TestUi2Provider W1",
       getWidgetContent: () => "TestUi2Provider W1 widget",
     });
-    if (location === StagePanelLocation.Right && section === StagePanelSection.Middle) // old Middle section should now go to end
+    // Old Middle section should now go to end
+    if (location === StagePanelLocation.Right && section === StagePanelSection.Middle) // eslint-disable-line deprecation/deprecation
       widgets.push({
         id: "TestUi2ProviderRM1",
         label: "TestUi2Provider RM1",
@@ -381,7 +144,7 @@ class TestDuplicateWidgetProvider implements UiItemsProvider {
       label: "TestUi3Provider W1",
       getWidgetContent: () => "TestUi3Provider W1 widget",
     });
-    if (location === StagePanelLocation.Right && section === StagePanelSection.Middle)
+    if (location === StagePanelLocation.Right && section === StagePanelSection.Middle) // eslint-disable-line deprecation/deprecation
       widgets.push({
         id: "TestUi2ProviderRM1",
         label: "TestUi2Provider RM1",
@@ -405,7 +168,7 @@ class TestHiddenWidgetProvider implements UiItemsProvider {
 
   public provideWidgets(_stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) {
     const widgets: Array<AbstractWidgetProps> = [];
-    if (location === StagePanelLocation.Left && section === StagePanelSection.Middle)
+    if (location === StagePanelLocation.Left && section === StagePanelSection.Middle) // eslint-disable-line deprecation/deprecation
       widgets.push({
         id: "TestHiddenWidgetProviderLM1",
         label: "TestHiddenWidgetProvider Hidden LM1",
@@ -1143,11 +906,7 @@ describe("Frontstage local storage wrapper", () => {
     describe("initializeNineZoneState", () => {
       it("should initialize widgets", () => {
         const frontstageDef = new FrontstageDef();
-        sinon.stub(frontstageDef, "centerLeft").get(() => new ZoneDef());
-        sinon.stub(frontstageDef, "bottomLeft").get(() => new ZoneDef());
         sinon.stub(frontstageDef, "leftPanel").get(() => new StagePanelDef());
-        sinon.stub(frontstageDef, "centerRight").get(() => new ZoneDef());
-        sinon.stub(frontstageDef, "bottomRight").get(() => new ZoneDef());
         sinon.stub(frontstageDef, "rightPanel").get(() => new StagePanelDef());
         sinon.stub(frontstageDef, "topPanel").get(() => new StagePanelDef());
         sinon.stub(frontstageDef, "topMostPanel").get(() => new StagePanelDef());
@@ -1159,14 +918,14 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should keep one widget open", () => {
         const frontstageDef = new FrontstageDef();
-        const centerLeft = new ZoneDef();
+        const panel = new StagePanelDef();
         const widgetDef = new WidgetDef({
           id: "w1",
         });
-        sinon.stub(frontstageDef, "centerLeft").get(() => centerLeft);
-        sinon.stub(centerLeft, "widgetDefs").get(() => [widgetDef]);
+        sinon.stub(frontstageDef, "leftPanel").get(() => panel);
+        sinon.stub(panel, "panelWidgetDefs").get(() => [widgetDef]);
         const state = initializeNineZoneState(frontstageDef);
-        state.widgets.leftStart.activeTabId.should.eq("w1");
+        state.widgets.leftEnd.activeTabId.should.eq("w1");
       });
 
       it("should initialize size", () => {
@@ -1184,14 +943,12 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should initialize preferredPanelWidgetSize of tool settings widget", () => {
         const frontstageDef = new FrontstageDef();
-        const zoneDef = new ZoneDef();
         const widgetDef = new WidgetDef({
           id: "w1",
           preferredPanelSize: "fit-content",
           defaultFloatingSize: { width: 33, height: 33 },
         });
-        sinon.stub(frontstageDef, "topCenter").get(() => zoneDef);
-        sinon.stub(zoneDef, "getSingleWidgetDef").returns(widgetDef);
+        sinon.stub(frontstageDef, "toolSettings").get(() => widgetDef);
         const sut = initializeNineZoneState(frontstageDef);
         sut.tabs[toolSettingsTabId].preferredPanelWidgetSize!.should.eq("fit-content");
       });
@@ -1251,48 +1008,6 @@ describe("Frontstage local storage wrapper", () => {
         sinon.stub(panelZone, "widgetDefs").get(() => [widgetDef]);
         state = addPanelWidgets(state, frontstageDef, "left");
         state.panels.left.widgets[0].should.eq("leftStart");
-      });
-
-      it("should add bottomLeft widgets", () => {
-        let state = createNineZoneState();
-        const frontstageDef = new FrontstageDef();
-        const zoneDef = new ZoneDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
-        });
-        sinon.stub(frontstageDef, "bottomLeft").get(() => zoneDef);
-        sinon.stub(zoneDef, "widgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "left");
-        state.panels.left.widgets[0].should.eq("leftEnd");
-        state.widgets.leftEnd.tabs.should.eql(["w1"]);
-      });
-
-      it("should add centerRight widgets", () => {
-        let state = createNineZoneState();
-        const frontstageDef = new FrontstageDef();
-        const zoneDef = new ZoneDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
-        });
-        sinon.stub(frontstageDef, "centerRight").get(() => zoneDef);
-        sinon.stub(zoneDef, "widgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "right");
-        state.panels.right.widgets[0].should.eq("rightStart");
-        state.widgets.rightStart.tabs.should.eql(["w1"]);
-      });
-
-      it("should add bottomRight widgets", () => {
-        let state = createNineZoneState();
-        const frontstageDef = new FrontstageDef();
-        const zoneDef = new ZoneDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
-        });
-        sinon.stub(frontstageDef, "bottomRight").get(() => zoneDef);
-        sinon.stub(zoneDef, "widgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "right");
-        state.panels.right.widgets[0].should.eq("rightEnd");
-        state.widgets.rightEnd.tabs.should.eql(["w1"]);
       });
 
       it("should add leftPanel widgets", () => {
@@ -1851,53 +1566,6 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     describe("addMissingWidgets", () => {
-      it("should add centerLeft widgets", () => {
-        const state = createNineZoneState();
-        const frontstageDef = new FrontstageDef();
-        const zoneDef = new ZoneDef();
-        const widgetDef = new WidgetDef({ id: "w1" });
-        sinon.stub(zoneDef, "widgetDefs").get(() => [widgetDef]);
-        sinon.stub(frontstageDef, "centerLeft").get(() => zoneDef);
-        const newState = addMissingWidgets(frontstageDef, state);
-        expect(newState.tabs.w1).to.exist;
-      });
-
-      it("should add bottomLeft widgets", () => {
-        let state = createNineZoneState();
-        state = addTab(state, "t2");
-        const frontstageDef = new FrontstageDef();
-        const zoneDef = new ZoneDef();
-        const widgetDef = new WidgetDef({ id: "t1" });
-        const widgetDef2 = new WidgetDef({ id: "t2" });
-        sinon.stub(zoneDef, "widgetDefs").get(() => [widgetDef, widgetDef2]);
-        sinon.stub(frontstageDef, "bottomLeft").get(() => zoneDef);
-        const newState = addMissingWidgets(frontstageDef, state);
-        expect(newState.tabs.t1).to.exist;
-        expect(newState.tabs.t2).to.exist;
-      });
-
-      it("should add centerRight widgets", () => {
-        const state = createNineZoneState();
-        const frontstageDef = new FrontstageDef();
-        const zoneDef = new ZoneDef();
-        const widgetDef = new WidgetDef({ id: "w1" });
-        sinon.stub(zoneDef, "widgetDefs").get(() => [widgetDef]);
-        sinon.stub(frontstageDef, "centerRight").get(() => zoneDef);
-        const newState = addMissingWidgets(frontstageDef, state);
-        expect(newState.tabs.w1).to.exist;
-      });
-
-      it("should add bottomRight widgets", () => {
-        const state = createNineZoneState();
-        const frontstageDef = new FrontstageDef();
-        const zoneDef = new ZoneDef();
-        const widgetDef = new WidgetDef({ id: "w1" });
-        sinon.stub(zoneDef, "widgetDefs").get(() => [widgetDef]);
-        sinon.stub(frontstageDef, "bottomRight").get(() => zoneDef);
-        const newState = addMissingWidgets(frontstageDef, state);
-        expect(newState.tabs.w1).to.exist;
-      });
-
       it("should add leftPanel widgets", () => {
         let state = createNineZoneState();
         state = addTab(state, "start1");
@@ -2374,35 +2042,6 @@ describe("Frontstage local storage wrapper", () => {
         expect(frontstageDef?.nineZoneState?.tabs.TestUi2ProviderW1, "TestUi2ProviderW1 after unregister").to.not.exist;
         expect(frontstageDef?.nineZoneState?.widgets.rightEnd, "rightEnd widget").to.not.exist;
         frontstageDef?.nineZoneState?.widgets.leftStart.tabs.should.eql(["LeftStart1"], "leftStart widget tabs");
-      });
-
-      it("should render from 1.0 definition", async () => {
-        const frontstageProvider = new TestFrontstageUi1();
-        FrontstageManager.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
-
-        await FrontstageManager.setActiveFrontstageDef(frontstageDef);
-        render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>);
-
-        await TestUtils.flushAsyncOperations();
-        const state = frontstageDef!.nineZoneState!;
-
-        state.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-        state.panels.right.widgets.should.eql(["rightStart", "rightEnd"]);
-        state.panels.top.widgets.should.eql(["topStart", "topEnd"]);
-        state.panels.bottom.widgets.should.eql(["bottomStart", "bottomEnd"]);
-
-        state.widgets.leftStart.tabs.should.eql(["CenterLeft1", "LeftStart1"]);
-        state.widgets.leftEnd.tabs.should.eql(["BottomLeft1", "LeftMiddle1", "LeftEnd1", "Left1"]);
-
-        state.widgets.rightStart.tabs.should.eql(["CenterRight1", "RightStart1"]);
-        state.widgets.rightEnd.tabs.should.eql(["BottomRight1", "RightMiddle1", "RightEnd1", "Right1"]);
-
-        state.widgets.topStart.tabs.should.eql(["Top1", "TopStart1"]);
-        state.widgets.topEnd.tabs.should.eql(["TopMost1", "TopEnd1"]);
-
-        state.widgets.bottomStart.tabs.should.eql(["Bottom1", "BottomStart1"]);
-        state.widgets.bottomEnd.tabs.should.eql(["BottomMost1", "BottomEnd1"]);
       });
     });
   });

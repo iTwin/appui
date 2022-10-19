@@ -2,16 +2,13 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import * as React from "react";
 import { StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
 import {
   ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider,
-  MessageCenterField, StatusBarWidgetControl, Widget, WidgetControl, Zone, ZoneLocation, ZoneState,
+  MessageCenterField, StagePanel, StatusBarWidgetControl, Widget, WidgetControl,
 } from "../../appui-react";
 import { ToolItemDef } from "../../appui-react/shared/ToolItemDef";
-
-/* eslint-disable react/jsx-key */
 
 /** @internal */
 export class TestContentControl extends ContentControl {
@@ -99,60 +96,52 @@ export class TestFrontstage extends FrontstageProvider {
         defaultContentId="defaultContentId"
         applicationData={{ key: "value" }}
         usage="MyUsage"
-        topLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} applicationData={{ key: "value" }}
-            widgets={[
-              <Widget isFreeform={true} element={<div />} />,
-            ]}
+        contentManipulation={
+          <Widget isFreeform={true} element={<div />} applicationData={{ key: "value" }} />
+        }
+        toolSettings={
+          <Widget isToolSettings={true} />
+        }
+        leftPanel={
+          <StagePanel
+            panelZones={{
+              start: {
+                widgets: [
+                  <Widget key="widget3" id="widget3" defaultState={WidgetState.Open} control={TestWidget}
+                    onWidgetStateChanged={() => { }}
+                    saveTransientState={() => { }}
+                    restoreTransientState={() => false} />,
+                ],
+              },
+              end: {
+                widgets: [
+                  <Widget key="widget4" id="widget4" defaultState={WidgetState.Open} control={TestWidget} />,
+                ],
+              },
+            }}
           />
         }
-        topCenter={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
+        rightPanel={
+          <StagePanel
+            panelZones={{
+              start: {
+                widgets: [
+                  <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,
+                  <Widget key="widget6_2" id="widget6_2" element={<div />} />,
+                ],
+              },
+              end: {
+                widgets: [
+                  <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,
+                  <Widget key="widget2" id="widget2" defaultState={WidgetState.Hidden} element={<div />} />,
+                ],
+              },
+            }}
           />
         }
-        centerLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="widget3" defaultState={WidgetState.Open} control={TestWidget}
-                onWidgetStateChanged={() => { }}
-                saveTransientState={() => { }}
-                restoreTransientState={() => false} />,
-            ]}
-          />
-        }
-        centerRight={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-              <Widget id="widget6_2" element={<div />} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="widget4" defaultState={WidgetState.Open} control={TestWidget} />,
-            ]}
-          />
-        }
-        bottomCenter={
-          <Zone
-            widgets={[
-              <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar"
-                control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} mergeWithZone={ZoneLocation.CenterRight}
-            widgets={[
-              <Widget id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-              <Widget id="widget2" defaultState={WidgetState.Hidden} element={<div />} />,
-            ]}
-          />
+        statusBar={
+          <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar"
+            control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />
         }
       />
     );
@@ -189,60 +178,52 @@ export class TestFrontstage2 extends FrontstageProvider {
         defaultContentId="defaultContentId"
         applicationData={{ key: "value" }}
         usage="MyUsage"
-        contentManipulationTools={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} applicationData={{ key: "value" }}
-            widgets={[
-              <Widget isFreeform={true} element={<div />} />,
-            ]}
-          />
+        contentManipulation={
+          <Widget isFreeform={true} element={<div />} applicationData={{ key: "value" }} />
         }
         toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
+          <Widget isToolSettings={true} />
+        }
+        leftPanel={
+          <StagePanel
+            panelZones={{
+              start: {
+                widgets: [
+                  <Widget key="widget3" id="widget3" defaultState={WidgetState.Open} control={TestWidget}
+                    onWidgetStateChanged={() => { }}
+                    saveTransientState={() => { }}
+                    restoreTransientState={() => false} />,
+                ],
+              },
+              end: {
+                widgets: [
+                  <Widget key="widget4" id="widget4" defaultState={WidgetState.Open} control={TestWidget} />,
+                ],
+              },
+            }}
           />
         }
-        centerLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="widget3" defaultState={WidgetState.Open} control={TestWidget}
-                onWidgetStateChanged={() => { }}
-                saveTransientState={() => { }}
-                restoreTransientState={() => false} />,
-            ]}
-          />
-        }
-        centerRight={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-              <Widget id="widget6_2" element={<div />} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="widget4" defaultState={WidgetState.Open} control={TestWidget} />,
-            ]}
+        rightPanel={
+          <StagePanel
+            panelZones={{
+              start: {
+                widgets: [
+                  <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,
+                  <Widget key="widget6_2" id="widget6_2" element={<div />} />,
+                ],
+              },
+              end: {
+                widgets: [
+                  <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,
+                  <Widget key="widget2" id="widget2" defaultState={WidgetState.Hidden} element={<div />} />,
+                ],
+              },
+            }}
           />
         }
         statusBar={
-          <Zone
-            widgets={[
-              <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar"
-                control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} mergeWithZone={ZoneLocation.CenterRight}
-            widgets={[
-              <Widget id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-              <Widget id="widget2" defaultState={WidgetState.Hidden} element={<div />} />,
-            ]}
-          />
+          <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar"
+            control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />
         }
       />
     );

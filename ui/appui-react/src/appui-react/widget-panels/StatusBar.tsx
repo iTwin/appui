@@ -18,10 +18,10 @@ import { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl";
 /** @internal */
 export function WidgetPanelsStatusBar(props: CommonProps) {
   const frontstageDef = useActiveFrontstageDef();
-  const zone = frontstageDef?.bottomCenter;
-  if (!zone || !zone.isStatusBar)
+  const widgetDef = frontstageDef?.statusBar;
+  if (!widgetDef)
     return null;
-  const widget = zone.getSingleWidgetDef();
+  const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   const className = classnames(
     "uifw-widgetPanels-statusBar",
     props.className,
@@ -30,7 +30,7 @@ export function WidgetPanelsStatusBar(props: CommonProps) {
     <StatusBar
       className={className}
       style={props.style}
-      widgetControl={widget?.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl}
+      widgetControl={widgetControl}
     />
   );
 }

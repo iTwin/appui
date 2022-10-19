@@ -15,7 +15,6 @@ import * as sinon from "sinon";
 import {
   ConfigurableCreateInfo, ConfigurableUiManager, ContentGroup, ContentLayoutDef, ContentLayoutManager, ContentProps, CoreTools, Frontstage,
   FrontstageManager, FrontstageProps, FrontstageProvider, StageContentLayout, StageContentLayoutProps, ViewportContentControl, Widget,
-  Zone,
 } from "../../appui-react";
 import { ViewUtilities } from "../../appui-react/utils/ViewUtilities";
 import TestUtils from "../TestUtils";
@@ -185,10 +184,8 @@ describe("StageContentLayout", () => {
           defaultTool={CoreTools.selectElementCommand}
           contentGroup={myContentGroup}
 
-          topRight={
-            <Zone widgets={[
-              <Widget key={0} isFreeform={true} element={<>NavigationWidget</>} />,
-            ]} />
+          viewNavigation={
+            <Widget isFreeform={true} element={<>NavigationWidget</>} />
           }
         />
       );
