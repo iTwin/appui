@@ -133,21 +133,15 @@ describe("FrontstageDef", () => {
           getWidgetContent: () => "",
         });
         if (location === StagePanelLocation.Right)
-          widgets.push({ // This should be added to Right stage panel, Start location.
+          widgets.push({
             id: "WidgetsProviderR1",
             label: "WidgetsProvider R1",
             getWidgetContent: () => "",
           });
-        if (location === StagePanelLocation.Right && section === StagePanelSection.Middle)
+        if (location === StagePanelLocation.Right && section === StagePanelSection.End)
           widgets.push({
             id: "WidgetsProviderRM1",
             label: "WidgetsProvider RM1",
-            getWidgetContent: () => "",
-          });
-        if (location === StagePanelLocation.Right)
-          widgets.push({ // This should be added to Right stage panel, Start location.
-            id: "WidgetsProviderR1",
-            label: "WidgetsProvider R1",
             getWidgetContent: () => "",
           });
 
@@ -189,9 +183,9 @@ describe("FrontstageDef", () => {
       expect(!!frontstageDef?.isReady).to.be.false;
       await FrontstageManager.setActiveFrontstageDef(frontstageDef);
       const sut = FrontstageManager.activeFrontstageDef!;
-      sut.rightPanel!.panelZones.start.widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderR1"]);
-      sut.rightPanel!.panelZones.end.widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderRM1"]);
-      sut.leftPanel!.panelZones.start.widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderW1"]);
+      sut.rightPanel!.getPanelSectionDef(StagePanelSection.Start).widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderR1"]);
+      sut.rightPanel!.getPanelSectionDef(StagePanelSection.End).widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderRM1"]);
+      sut.leftPanel!.getPanelSectionDef(StagePanelSection.Start).widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderW1"]);
     });
   });
 

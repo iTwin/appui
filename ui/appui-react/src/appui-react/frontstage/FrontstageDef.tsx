@@ -67,11 +67,9 @@ export class FrontstageDef {
   private _contentManipulation?: WidgetDef;
   private _viewNavigation?: WidgetDef;
   private _topPanel?: StagePanelDef;
-  private _topMostPanel?: StagePanelDef;
   private _leftPanel?: StagePanelDef;
   private _rightPanel?: StagePanelDef;
   private _bottomPanel?: StagePanelDef;
-  private _bottomMostPanel?: StagePanelDef;
   private _contentLayoutDef?: ContentLayoutDef;
   private _contentGroup?: ContentGroup;
   private _frontstageProvider?: FrontstageProvider;
@@ -100,18 +98,12 @@ export class FrontstageDef {
   public get viewNavigation() { return this._viewNavigation; }
   /** @beta */
   public get topPanel(): StagePanelDef | undefined { return this._topPanel; }
-  /** @beta
-   * @deprecated Only topPanel is supported in UI 2.0 */
-  public get topMostPanel(): StagePanelDef | undefined { return this._topMostPanel; }
   /** @beta */
   public get leftPanel(): StagePanelDef | undefined { return this._leftPanel; }
   /** @beta */
   public get rightPanel(): StagePanelDef | undefined { return this._rightPanel; }
   /** @beta */
   public get bottomPanel(): StagePanelDef | undefined { return this._bottomPanel; }
-  /** @beta
-   * @deprecated Only bottomPanel is supported in UI 2.0  */
-  public get bottomMostPanel(): StagePanelDef | undefined { return this._bottomMostPanel; }
 
   public get contentLayoutDef(): ContentLayoutDef | undefined { return this._contentLayoutDef; }
   public get contentGroup(): ContentGroup | undefined { return this._contentGroup; }
@@ -365,7 +357,7 @@ export class FrontstageDef {
         IModelApp.toolAdmin.defaultToolId = this.defaultTool.toolId;
         this.defaultTool.execute();
       } else {
-        IModelApp.toolAdmin.startDefaultTool(); // eslint-disable-line @typescript-eslint/no-floating-promises
+        void IModelApp.toolAdmin.startDefaultTool();
       }
     }
   }
@@ -432,9 +424,6 @@ export class FrontstageDef {
       case StagePanelLocation.Top:
         panelDef = this.topPanel;
         break;
-      case StagePanelLocation.TopMost:
-        panelDef = this.topMostPanel; // eslint-disable-line deprecation/deprecation
-        break;
       case StagePanelLocation.Left:
         panelDef = this.leftPanel;
         break;
@@ -444,12 +433,6 @@ export class FrontstageDef {
       case StagePanelLocation.Bottom:
         panelDef = this.bottomPanel;
         break;
-      case StagePanelLocation.BottomMost:
-        panelDef = this.bottomMostPanel; // eslint-disable-line deprecation/deprecation
-        break;
-      // istanbul ignore next
-      default:
-        throw new RangeError();
     }
 
     // Panels can be undefined in a Frontstage
@@ -461,20 +444,19 @@ export class FrontstageDef {
    * @beta
    */
   public get panelDefs(): StagePanelDef[] {
-    const panels = [
+    const locations = [
       StagePanelLocation.Left, StagePanelLocation.Right,
-      StagePanelLocation.Top, StagePanelLocation.TopMost,
-      StagePanelLocation.Bottom, StagePanelLocation.BottomMost,
+      StagePanelLocation.Top, StagePanelLocation.Bottom,
     ];
-    const panelDefs: StagePanelDef[] = [];
+    const panels: StagePanelDef[] = [];
 
-    panels.forEach((location: StagePanelLocation) => {
-      const panelDef = this.getStagePanelDef(location);
-      if (panelDef)
-        panelDefs.push(panelDef);
+    locations.forEach((location: StagePanelLocation) => {
+      const panel = this.getStagePanelDef(location);
+      if (panel)
+        panels.push(panel);
     });
 
-    return panelDefs;
+    return panels;
   }
 
   /** Finds a [[WidgetDef]] based on a given id */
@@ -567,11 +549,9 @@ export class FrontstageDef {
     this._contentManipulation = createWidgetDef(props.contentManipulation, `uifw-contentManipulation-widget`, props);
     this._viewNavigation = createWidgetDef(props.viewNavigation, `uifw-viewNavigation-widget`, props);
     this._topPanel = Frontstage.createStagePanelDef(StagePanelLocation.Top, props);
-    this._topMostPanel = Frontstage.createStagePanelDef(StagePanelLocation.TopMost, props);
     this._leftPanel = Frontstage.createStagePanelDef(StagePanelLocation.Left, props);
     this._rightPanel = Frontstage.createStagePanelDef(StagePanelLocation.Right, props);
     this._bottomPanel = Frontstage.createStagePanelDef(StagePanelLocation.Bottom, props);
-    this._bottomMostPanel = Frontstage.createStagePanelDef(StagePanelLocation.BottomMost, props);
   }
 
   /** @internal */

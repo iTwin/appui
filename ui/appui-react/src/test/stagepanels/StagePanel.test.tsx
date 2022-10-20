@@ -23,19 +23,23 @@ describe("StagePanel", () => {
     const sut = new StagePanelDef();
     StagePanel.initializeStagePanelDef(sut, {
       resizable: true,
-    }, StagePanelLocation.BottomMost);
+    }, StagePanelLocation.Bottom);
 
-    sut.location.should.eq(StagePanelLocation.BottomMost);
+    sut.location.should.eq(StagePanelLocation.Bottom);
   });
 
   it("should add widget definitions", () => {
     const sut = new StagePanelDef();
     StagePanel.initializeStagePanelDef(sut, {
       resizable: false,
-      widgets: [
-        <div />,
-      ],
-    }, StagePanelLocation.BottomMost);
+      sections: {
+        start: {
+          widgets: [
+            <div />,
+          ],
+        },
+      },
+    }, StagePanelLocation.Bottom);
     sut.widgetDefs.length.should.eq(1);
   });
 

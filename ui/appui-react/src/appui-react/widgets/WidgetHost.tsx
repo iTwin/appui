@@ -81,12 +81,8 @@ export class WidgetHost {
           dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start, frontstageApplicationData) ?? [];
           break;
         }
-        case StagePanelSection.Middle: // eslint-disable-line deprecation/deprecation
-          break; // added to BottomLeft
         case StagePanelSection.End: {
-          const middleDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Middle, frontstageApplicationData) ?? []; // eslint-disable-line deprecation/deprecation
-          const bottomDynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, frontstageApplicationData) ?? [];
-          dynamicWidgetDefs = [...middleDynamicWidgetDefs, ...bottomDynamicWidgetDefs];
+          dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, frontstageApplicationData) ?? [];
           break;
         }
       }

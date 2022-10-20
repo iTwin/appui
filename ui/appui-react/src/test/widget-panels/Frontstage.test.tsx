@@ -17,16 +17,14 @@ import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-l
 import {
   ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, CoreTools, expandWidget, Frontstage, FrontstageDef,
   FrontstageManager, FrontstageProvider, getWidgetId, initializeNineZoneState, initializePanel, isFrontstageStateSettingResult, ModalFrontstageComposer,
-  packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanel, StagePanelDef, StagePanelZoneDef, StagePanelZonesDef,
-  UiFramework, UiStateStorageHandler, useActiveModalFrontstageInfo, useFrontstageManager, useNineZoneDispatch, useNineZoneState, useSavedFrontstageState,
-  useSaveFrontstageSettings, useUpdateNineZoneSize, Widget, WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState,
+  packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanel, StagePanelDef, UiFramework, UiSettingsProviderProps, UiStateStorageHandler,
+  useActiveModalFrontstageInfo, useFrontstageManager, useNineZoneDispatch, useNineZoneState, useSavedFrontstageState, useSaveFrontstageSettings, useUpdateNineZoneSize,
+  Widget, WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState,
 } from "../../appui-react";
 import TestUtils, { mount, storageMock, stubRaf, UiStateStorageStub } from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { expect } from "chai";
 import { Provider } from "react-redux";
-
-/* eslint-disable @typescript-eslint/no-floating-promises, react/display-name */
 
 function createSavedNineZoneState(args?: Partial<NineZoneState>) {
   return {
@@ -70,7 +68,7 @@ export class TestFrontstageUi2 extends FrontstageProvider {
         contentGroup={TestUtils.TestContentGroup1}
         leftPanel={
           <StagePanel
-            panelZones={{
+            sections={{
               start: {
                 widgets: [
                   <Widget
@@ -120,8 +118,7 @@ class TestUi2Provider implements UiItemsProvider {
       label: "TestUi2Provider W1",
       getWidgetContent: () => "TestUi2Provider W1 widget",
     });
-    // Old Middle section should now go to end
-    if (location === StagePanelLocation.Right && section === StagePanelSection.Middle) // eslint-disable-line deprecation/deprecation
+    if (location === StagePanelLocation.Right && section === StagePanelSection.End)
       widgets.push({
         id: "TestUi2ProviderRM1",
         label: "TestUi2Provider RM1",
@@ -144,7 +141,7 @@ class TestDuplicateWidgetProvider implements UiItemsProvider {
       label: "TestUi3Provider W1",
       getWidgetContent: () => "TestUi3Provider W1 widget",
     });
-    if (location === StagePanelLocation.Right && section === StagePanelSection.Middle) // eslint-disable-line deprecation/deprecation
+    if (location === StagePanelLocation.Right && section === StagePanelSection.End)
       widgets.push({
         id: "TestUi2ProviderRM1",
         label: "TestUi2Provider RM1",
@@ -168,7 +165,7 @@ class TestHiddenWidgetProvider implements UiItemsProvider {
 
   public provideWidgets(_stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) {
     const widgets: Array<AbstractWidgetProps> = [];
-    if (location === StagePanelLocation.Left && section === StagePanelSection.Middle) // eslint-disable-line deprecation/deprecation
+    if (location === StagePanelLocation.Left && section === StagePanelSection.End)
       widgets.push({
         id: "TestHiddenWidgetProviderLM1",
         label: "TestHiddenWidgetProvider Hidden LM1",
@@ -464,16 +461,20 @@ describe("Frontstage local storage wrapper", () => {
         const leftPanel = new StagePanelDef();
         leftPanel.initializeFromProps({
           resizable: true,
-          widgets: [
-            <Widget
-              key="start"
-              id="start"
-            />,
-            <Widget
-              key="end"
-              id="end"
-            />,
-          ],
+          sections: {
+            start: {
+              widgets: [
+                <Widget
+                  key="start"
+                  id="start"
+                />,
+                <Widget
+                  key="end"
+                  id="end"
+                />,
+              ],
+            },
+          },
         }, StagePanelLocation.Left);
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
 
@@ -504,12 +505,16 @@ describe("Frontstage local storage wrapper", () => {
         const leftPanel = new StagePanelDef();
         leftPanel.initializeFromProps({
           resizable: true,
-          widgets: [
-            <Widget
-              key="start"
-              id="start"
-            />,
-          ],
+          sections: {
+            start: {
+              widgets: [
+                <Widget
+                  key="start"
+                  id="start"
+                />,
+              ],
+            },
+          },
         }, StagePanelLocation.Left);
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
 
@@ -538,12 +543,16 @@ describe("Frontstage local storage wrapper", () => {
         leftPanel.initializeFromProps({
           resizable: true,
           size: 0,
-          widgets: [
-            <Widget
-              key="start"
-              id="start"
-            />,
-          ],
+          sections: {
+            start: {
+              widgets: [
+                <Widget
+                  key="start"
+                  id="start"
+                />,
+              ],
+            },
+          },
         }, StagePanelLocation.Left);
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
 
@@ -600,14 +609,14 @@ describe("Frontstage local storage wrapper", () => {
       it("should load saved nineZoneState", async () => {
         const setting = createFrontstageState();
         const uiStateStorage = new UiStateStorageStub();
-        UiFramework.setUiStateStorage(uiStateStorage);
+        await UiFramework.setUiStateStorage(uiStateStorage);
         sinon.stub(uiStateStorage, "getSetting").resolves({
           status: UiStateStorageStatus.Success,
           setting,
         });
         const frontstageDef = new FrontstageDef();
-        renderHook(() => useSavedFrontstageState(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+          wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         await TestUtils.flushAsyncOperations();
         frontstageDef.nineZoneState?.should.matchSnapshot();
@@ -617,11 +626,11 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         frontstageDef.nineZoneState = createNineZoneState();
         const uiStateStorage = new UiStateStorageStub();
-        UiFramework.setUiStateStorage(uiStateStorage);
+        await UiFramework.setUiStateStorage(uiStateStorage);
 
         const spy = sinon.spy(uiStateStorage, "getSetting");
-        renderHook(() => useSavedFrontstageState(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+          wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         spy.notCalled.should.true;
       });
@@ -634,11 +643,11 @@ describe("Frontstage local storage wrapper", () => {
           setting,
         }));
         const frontstageDef = new FrontstageDef();
-        UiFramework.setUiStateStorage(uiStateStorage);
+        await UiFramework.setUiStateStorage(uiStateStorage);
 
         sinon.stub(frontstageDef, "version").get(() => setting.version + 1);
-        renderHook(() => useSavedFrontstageState(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+          wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         await TestUtils.flushAsyncOperations();
         expect(frontstageDef.nineZoneState).to.exist;
@@ -654,22 +663,26 @@ describe("Frontstage local storage wrapper", () => {
           setting,
         });
         const frontstageDef = new FrontstageDef();
-        UiFramework.setUiStateStorage(uiStateStorage);
+        await UiFramework.setUiStateStorage(uiStateStorage);
 
         const leftPanel = new StagePanelDef();
         leftPanel.initializeFromProps({
           resizable: true,
-          widgets: [
-            <Widget
-              key="w1"
-              id="w1"
-            />,
-          ],
+          sections: {
+            start: {
+              widgets: [
+                <Widget
+                  key="w1"
+                  id="w1"
+                />,
+              ],
+            },
+          },
         }, StagePanelLocation.Left);
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
 
-        renderHook(() => useSavedFrontstageState(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+          wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         await TestUtils.flushAsyncOperations();
 
@@ -678,7 +691,7 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     describe("useSaveFrontstageSettings", () => {
-      it("should save frontstage settings", () => {
+      it("should save frontstage settings", async () => {
         const fakeTimers = sinon.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
         const spy = sinon.stub(uiStateStorage, "saveSetting").resolves({
@@ -686,10 +699,10 @@ describe("Frontstage local storage wrapper", () => {
         });
         const frontstageDef = new FrontstageDef();
         frontstageDef.nineZoneState = createNineZoneState();
-        UiFramework.setUiStateStorage(uiStateStorage);
+        await UiFramework.setUiStateStorage(uiStateStorage);
 
-        renderHook(() => useSaveFrontstageSettings(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef), {
+          wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         fakeTimers.tick(1000);
         fakeTimers.restore();
@@ -697,20 +710,20 @@ describe("Frontstage local storage wrapper", () => {
         spy.calledOnce.should.true;
       });
 
-      it("should not save if tab is dragged", () => {
+      it("should not save if tab is dragged", async () => {
         const fakeTimers = sinon.useFakeTimers();
         const uiStateStorage = new UiStateStorageStub();
         const spy = sinon.stub(uiStateStorage, "saveSetting").resolves({
           status: UiStateStorageStatus.Success,
         });
         const frontstageDef = new FrontstageDef();
-        UiFramework.setUiStateStorage(uiStateStorage);
+        await UiFramework.setUiStateStorage(uiStateStorage);
 
         frontstageDef.nineZoneState = produce(createNineZoneState(), (draft) => {
           draft.draggedTab = createDraggedTabState("t1");
         });
-        renderHook(() => useSaveFrontstageSettings(frontstageDef), {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef), {
+          wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         fakeTimers.tick(1000);
         fakeTimers.restore();
@@ -789,15 +802,15 @@ describe("Frontstage local storage wrapper", () => {
       });
 
       describe("onFrontstageRestoreLayoutEvent", () => {
-        it("should delete saved setting", () => {
+        it("should delete saved setting", async () => {
           const frontstageDef = new FrontstageDef();
           frontstageDef.nineZoneState = createNineZoneState();
           const uiStateStorage = new UiStateStorageStub();
-          UiFramework.setUiStateStorage(uiStateStorage);
+          await UiFramework.setUiStateStorage(uiStateStorage);
 
           const spy = sinon.spy(uiStateStorage, "deleteSetting");
-          renderHook(() => useFrontstageManager(frontstageDef), {
-            wrapper: (props) => <UiStateStorageHandler {...props} />,
+          renderHook<UiSettingsProviderProps, void>(() => useFrontstageManager(frontstageDef), {
+            wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
           });
           FrontstageManager.onFrontstageRestoreLayoutEvent.emit({
             frontstageDef,
@@ -805,14 +818,14 @@ describe("Frontstage local storage wrapper", () => {
           spy.calledOnce.should.true;
         });
 
-        it("should unset nineZoneState", () => {
+        it("should unset nineZoneState", async () => {
           const frontstageDef = new FrontstageDef();
           frontstageDef.nineZoneState = createNineZoneState();
           const uiStateStorage = new UiStateStorageStub();
-          UiFramework.setUiStateStorage(uiStateStorage);
+          await UiFramework.setUiStateStorage(uiStateStorage);
 
-          renderHook(() => useFrontstageManager(frontstageDef), {
-            wrapper: (props) => <UiStateStorageHandler {...props} />,
+          renderHook<UiSettingsProviderProps, void>(() => useFrontstageManager(frontstageDef), {
+            wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
           });
           const frontstageDef1 = new FrontstageDef();
           sinon.stub(frontstageDef1, "id").get(() => "f1");
@@ -909,9 +922,7 @@ describe("Frontstage local storage wrapper", () => {
         sinon.stub(frontstageDef, "leftPanel").get(() => new StagePanelDef());
         sinon.stub(frontstageDef, "rightPanel").get(() => new StagePanelDef());
         sinon.stub(frontstageDef, "topPanel").get(() => new StagePanelDef());
-        sinon.stub(frontstageDef, "topMostPanel").get(() => new StagePanelDef());
         sinon.stub(frontstageDef, "bottomPanel").get(() => new StagePanelDef());
-        sinon.stub(frontstageDef, "bottomMostPanel").get(() => new StagePanelDef());
         const state = initializeNineZoneState(frontstageDef);
         state.should.matchSnapshot();
       });
@@ -919,11 +930,16 @@ describe("Frontstage local storage wrapper", () => {
       it("should keep one widget open", () => {
         const frontstageDef = new FrontstageDef();
         const panel = new StagePanelDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
+        panel.initializeFromProps({
+          sections: {
+            end: {
+              widgets: [
+                <Widget key={0} id="w1" />,
+              ],
+            },
+          },
         });
         sinon.stub(frontstageDef, "leftPanel").get(() => panel);
-        sinon.stub(panel, "panelWidgetDefs").get(() => [widgetDef]);
         const state = initializeNineZoneState(frontstageDef);
         state.widgets.leftEnd.activeTabId.should.eq("w1");
       });
@@ -956,15 +972,21 @@ describe("Frontstage local storage wrapper", () => {
       it("should add panel zone widgets", () => {
         const frontstageDef = new FrontstageDef();
         const panelDef = new StagePanelDef();
-        const start = new StagePanelZoneDef();
-        const end = new StagePanelZoneDef();
-        const w1 = new WidgetDef({ id: "w1" });
-        const w3 = new WidgetDef({ id: "w3" });
+        panelDef.initializeFromProps({
+          sections: {
+            start: {
+              widgets: [
+                <Widget key={0} id="w1" />,
+              ],
+            },
+            end: {
+              widgets: [
+                <Widget key={0} id="w3" />,
+              ],
+            },
+          },
+        });
         sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
-        sinon.stub(panelDef.panelZones, "start").get(() => start);
-        sinon.stub(panelDef.panelZones, "end").get(() => end);
-        sinon.stub(start, "widgetDefs").get(() => [w1]);
-        sinon.stub(end, "widgetDefs").get(() => [w3]);
         const state = initializeNineZoneState(frontstageDef);
         state.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
         state.widgets.leftStart.tabs.should.eql(["w1"]);
@@ -974,16 +996,23 @@ describe("Frontstage local storage wrapper", () => {
       it("should not duplicate widgets", () => {
         const frontstageDef = new FrontstageDef();
         const panelDef = new StagePanelDef();
-        const start = new StagePanelZoneDef();
-        const end = new StagePanelZoneDef();
-        const w1 = new WidgetDef({ id: "w1" });
-        const w3 = new WidgetDef({ id: "w3" });
+        panelDef.initializeFromProps({
+          sections: {
+            start: {
+              widgets: [
+                <Widget key={0} id="w1" />,
+              ],
+            },
+            end: {
+              widgets: [
+                <Widget key={0} id="w1" />,
+                <Widget key={0} id="w3" />,
+              ],
+            },
+          },
+        });
         sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
         sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
-        sinon.stub(panelDef.panelZones, "start").get(() => start);
-        sinon.stub(panelDef.panelZones, "end").get(() => end);
-        sinon.stub(start, "widgetDefs").get(() => [w1]);
-        sinon.stub(end, "widgetDefs").get(() => [w1, w3]);
         const state = initializeNineZoneState(frontstageDef);
         state.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
         state.panels.right.widgets.should.empty;
@@ -997,16 +1026,17 @@ describe("Frontstage local storage wrapper", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
         const leftPanel = new StagePanelDef();
-        const panelZones = new StagePanelZonesDef();
-        const panelZone = new StagePanelZoneDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
+        leftPanel.initializeFromProps({
+          sections: {
+            start: {
+              widgets: [
+                <Widget key={0} id="w1" />,
+              ],
+            },
+          },
         });
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
-        sinon.stub(leftPanel, "panelZones").get(() => panelZones);
-        sinon.stub(panelZones, "start").get(() => panelZone);
-        sinon.stub(panelZone, "widgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "left");
+        state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Left);
         state.panels.left.widgets[0].should.eq("leftStart");
       });
 
@@ -1014,12 +1044,17 @@ describe("Frontstage local storage wrapper", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
         const panelDef = new StagePanelDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
+        panelDef.initializeFromProps({
+          sections: {
+            end: {
+              widgets: [
+                <Widget key={0} id="w1" />,
+              ],
+            },
+          },
         });
         sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
-        sinon.stub(panelDef, "panelWidgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "left");
+        state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Left);
         state.panels.left.widgets[0].should.eq("leftEnd");
         state.widgets.leftEnd.tabs.should.eql(["w1"]);
       });
@@ -1028,12 +1063,17 @@ describe("Frontstage local storage wrapper", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
         const panelDef = new StagePanelDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
+        panelDef.initializeFromProps({
+          sections: {
+            end: {
+              widgets: [
+                <Widget key={0} id="w1" />,
+              ],
+            },
+          },
         });
         sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
-        sinon.stub(panelDef, "panelWidgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "right");
+        state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Right);
         state.panels.right.widgets[0].should.eq("rightEnd");
         state.widgets.rightEnd.tabs.should.eql(["w1"]);
       });
@@ -1042,56 +1082,38 @@ describe("Frontstage local storage wrapper", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
         const panelDef = new StagePanelDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
+        panelDef.initializeFromProps({
+          sections: {
+            start: {
+              widgets: [
+                <Widget key={0} id="w1" />,
+              ],
+            },
+          },
         });
         sinon.stub(frontstageDef, "topPanel").get(() => panelDef);
-        sinon.stub(panelDef, "panelWidgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "top");
+        state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Top);
         state.panels.top.widgets[0].should.eq("topStart");
         state.widgets.topStart.tabs.should.eql(["w1"]);
-      });
-
-      it("should add topMostPanel widgets", () => {
-        let state = createNineZoneState();
-        const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
-        });
-        sinon.stub(frontstageDef, "topMostPanel").get(() => panelDef);
-        sinon.stub(panelDef, "panelWidgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "top");
-        state.panels.top.widgets[0].should.eq("topEnd");
-        state.widgets.topEnd.tabs.should.eql(["w1"]);
       });
 
       it("should add bottomPanel widgets", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
         const panelDef = new StagePanelDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
+        panelDef.initializeFromProps({
+          sections: {
+            start: {
+              widgets: [
+                <Widget key={0} id="w1" />,
+              ],
+            },
+          },
         });
         sinon.stub(frontstageDef, "bottomPanel").get(() => panelDef);
-        sinon.stub(panelDef, "panelWidgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "bottom");
+        state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Bottom);
         state.panels.bottom.widgets[0].should.eq("bottomStart");
         state.widgets.bottomStart.tabs.should.eql(["w1"]);
-      });
-
-      it("should add bottomMostPanel widgets", () => {
-        let state = createNineZoneState();
-        const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        const widgetDef = new WidgetDef({
-          id: "w1",
-        });
-        sinon.stub(frontstageDef, "bottomMostPanel").get(() => panelDef);
-        sinon.stub(panelDef, "panelWidgetDefs").get(() => [widgetDef]);
-        state = addPanelWidgets(state, frontstageDef, "bottom");
-        state.panels.bottom.widgets[0].should.eq("bottomEnd");
-        state.widgets.bottomEnd.tabs.should.eql(["w1"]);
       });
     });
 
@@ -1102,7 +1124,7 @@ describe("Frontstage local storage wrapper", () => {
         const leftPanel = new StagePanelDef();
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
         sinon.stub(leftPanel, "maxSizeSpec").get(() => 100);
-        const sut = initializePanel(state, frontstageDef, "left");
+        const sut = initializePanel(state, frontstageDef, StagePanelLocation.Left);
         sut.panels.left.maxSize.should.eq(100);
       });
 
@@ -1112,7 +1134,7 @@ describe("Frontstage local storage wrapper", () => {
         const leftPanel = new StagePanelDef();
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
         sinon.stub(leftPanel, "minSize").get(() => 50);
-        const sut = initializePanel(state, frontstageDef, "left");
+        const sut = initializePanel(state, frontstageDef, StagePanelLocation.Left);
         sut.panels.left.minSize.should.eq(50);
       });
     });
@@ -1142,43 +1164,35 @@ describe("Frontstage local storage wrapper", () => {
 
     describe("getWidgetId", () => {
       it("should return 'leftStart'", () => {
-        getWidgetId("left", "start").should.eq("leftStart");
+        getWidgetId(StagePanelLocation.Left, StagePanelSection.Start).should.eq("leftStart");
       });
 
-      //      it("should return 'leftMiddle'", () => {
-      //        getWidgetId("left", "middle").should.eq("leftMiddle");
-      //      });
-
       it("should return 'leftEnd'", () => {
-        getWidgetId("left", "end").should.eq("leftEnd");
+        getWidgetId(StagePanelLocation.Left, StagePanelSection.End).should.eq("leftEnd");
       });
 
       it("should return 'rightStart'", () => {
-        getWidgetId("right", "start").should.eq("rightStart");
+        getWidgetId(StagePanelLocation.Right, StagePanelSection.Start).should.eq("rightStart");
       });
 
-      //      it("should return 'rightMiddle'", () => {
-      //        getWidgetId("right", "middle").should.eq("rightMiddle");
-      //      });
-
       it("should return 'rightEnd'", () => {
-        getWidgetId("right", "end").should.eq("rightEnd");
+        getWidgetId(StagePanelLocation.Right, StagePanelSection.End).should.eq("rightEnd");
       });
 
       it("should return 'topStart'", () => {
-        getWidgetId("top", "start").should.eq("topStart");
+        getWidgetId(StagePanelLocation.Top, StagePanelSection.Start).should.eq("topStart");
       });
 
       it("should return 'topEnd'", () => {
-        getWidgetId("top", "end").should.eq("topEnd");
+        getWidgetId(StagePanelLocation.Top, StagePanelSection.End).should.eq("topEnd");
       });
 
       it("should return 'bottomStart'", () => {
-        getWidgetId("bottom", "start").should.eq("bottomStart");
+        getWidgetId(StagePanelLocation.Bottom, StagePanelSection.Start).should.eq("bottomStart");
       });
 
       it("should return 'bottomEnd'", () => {
-        getWidgetId("bottom", "end").should.eq("bottomEnd");
+        getWidgetId(StagePanelLocation.Bottom, StagePanelSection.End).should.eq("bottomEnd");
       });
     });
 
@@ -1576,13 +1590,7 @@ describe("Frontstage local storage wrapper", () => {
         const panelDef = new StagePanelDef();
         panelDef.initializeFromProps({
           resizable: true,
-          widgets: [
-            <Widget
-              key="w1"
-              id="w1"
-            />,
-          ],
-          panelZones: {
+          sections: {
             start: {
               widgets: [
                 <Widget
@@ -1591,16 +1599,16 @@ describe("Frontstage local storage wrapper", () => {
                 />,
               ],
             },
-            middle: {
+            end: {
               widgets: [
+                <Widget
+                  key="w1"
+                  id="w1"
+                />,
                 <Widget
                   key="wm1"
                   id="wm1"
                 />,
-              ],
-            },
-            end: {
-              widgets: [
                 <Widget
                   key="we1"
                   id="we1"
@@ -1626,13 +1634,7 @@ describe("Frontstage local storage wrapper", () => {
         const panelDef = new StagePanelDef();
         panelDef.initializeFromProps({
           resizable: true,
-          widgets: [
-            <Widget
-              key="w1"
-              id="w1"
-            />,
-          ],
-          panelZones: {
+          sections: {
             start: {
               widgets: [
                 <Widget
@@ -1641,16 +1643,16 @@ describe("Frontstage local storage wrapper", () => {
                 />,
               ],
             },
-            middle: {
+            end: {
               widgets: [
+                <Widget
+                  key="w1"
+                  id="w1"
+                />,
                 <Widget
                   key="wm1"
                   id="wm1"
                 />,
-              ],
-            },
-            end: {
-              widgets: [
                 <Widget
                   key="we1"
                   id="we1"
@@ -1675,15 +1677,13 @@ describe("Frontstage local storage wrapper", () => {
         const panelDef = new StagePanelDef();
         panelDef.initializeFromProps({
           resizable: true,
-          widgets: [
-            <Widget
-              key="w1"
-              id="w1"
-            />,
-          ],
-          panelZones: {
+          sections: {
             start: {
               widgets: [
+                <Widget
+                  key="w1"
+                  id="w1"
+                />,
                 <Widget
                   key="ws1"
                   id="ws1"
@@ -1700,21 +1700,10 @@ describe("Frontstage local storage wrapper", () => {
             },
           },
         }, StagePanelLocation.Top);
-        const panelDef1 = new StagePanelDef();
-        panelDef1.initializeFromProps({
-          resizable: true,
-          widgets: [
-            <Widget
-              key="w2"
-              id="w2"
-            />,
-          ],
-        }, StagePanelLocation.TopMost);
         sinon.stub(frontstageDef, "topPanel").get(() => panelDef);
-        sinon.stub(frontstageDef, "topMostPanel").get(() => panelDef1);
         const newState = addMissingWidgets(frontstageDef, state);
         newState.widgets.topStart.tabs.should.eql(["start1", "w1", "ws1"]);
-        newState.widgets.topEnd.tabs.should.eql(["end1", "w2", "we1"]);
+        newState.widgets.topEnd.tabs.should.eql(["end1", "we1"]);
       });
 
       it("should add bottomPanel widgets", () => {
@@ -1727,15 +1716,13 @@ describe("Frontstage local storage wrapper", () => {
         const panelDef = new StagePanelDef();
         panelDef.initializeFromProps({
           resizable: true,
-          widgets: [
-            <Widget
-              key="w1"
-              id="w1"
-            />,
-          ],
-          panelZones: {
+          sections: {
             start: {
               widgets: [
+                <Widget
+                  key="w1"
+                  id="w1"
+                />,
                 <Widget
                   key="ws1"
                   id="ws1"
@@ -1752,21 +1739,10 @@ describe("Frontstage local storage wrapper", () => {
             },
           },
         }, StagePanelLocation.Bottom);
-        const panelDef1 = new StagePanelDef();
-        panelDef1.initializeFromProps({
-          resizable: true,
-          widgets: [
-            <Widget
-              key="w2"
-              id="w2"
-            />,
-          ],
-        }, StagePanelLocation.BottomMost);
         sinon.stub(frontstageDef, "bottomPanel").get(() => panelDef);
-        sinon.stub(frontstageDef, "bottomMostPanel").get(() => panelDef1);
         const newState = addMissingWidgets(frontstageDef, state);
         newState.widgets.bottomStart.tabs.should.eql(["start1", "w1", "ws1"]);
-        newState.widgets.bottomEnd.tabs.should.eql(["end1", "w2", "we1"]);
+        newState.widgets.bottomEnd.tabs.should.eql(["end1", "we1"]);
       });
 
       it("should add no duplicate widgets", () => {
@@ -1775,15 +1751,13 @@ describe("Frontstage local storage wrapper", () => {
         const leftPanelDef = new StagePanelDef();
         leftPanelDef.initializeFromProps({
           resizable: true,
-          widgets: [
-            <Widget
-              key="w1"
-              id="w1"
-            />,
-          ],
-          panelZones: {
+          sections: {
             start: {
               widgets: [
+                <Widget
+                  key="w1"
+                  id="w1"
+                />,
                 <Widget
                   key="w1"
                   id="w1"
@@ -1803,13 +1777,17 @@ describe("Frontstage local storage wrapper", () => {
         const rightPanelDef = new StagePanelDef();
         rightPanelDef.initializeFromProps({
           resizable: true,
-          widgets: [
-            <Widget
-              key="w1"
-              id="w1"
-            />,
-          ],
-        }, StagePanelLocation.BottomMost);
+          sections: {
+            start: {
+              widgets: [
+                <Widget
+                  key="w1"
+                  id="w1"
+                />,
+              ],
+            },
+          },
+        }, StagePanelLocation.Right);
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanelDef);
         sinon.stub(frontstageDef, "rightPanel").get(() => rightPanelDef);
 
@@ -1836,7 +1814,7 @@ describe("Frontstage local storage wrapper", () => {
         state = addTab(state, "t1");
         state = addPanelWidget(state, "left", "w1", ["t1"]);
         const widgetDef = new WidgetDef({ id: "t2" });
-        const newState = appendWidgets(state, [widgetDef], "left", 1);
+        const newState = appendWidgets(state, [widgetDef], StagePanelLocation.Left, StagePanelSection.End);
         expect(newState.panels.left.widgets).to.eql(["w1", "leftEnd"]);
         expect(newState.widgets.leftEnd.tabs).to.eql(["t2"]);
       });
@@ -1848,7 +1826,7 @@ describe("Frontstage local storage wrapper", () => {
         state = addPanelWidget(state, "left", "w1", ["t1"]);
         state = addPanelWidget(state, "left", "w2", ["t2"]);
         const widgetDef = new WidgetDef({ id: "t3" });
-        const newState = appendWidgets(state, [widgetDef], "left", 1);
+        const newState = appendWidgets(state, [widgetDef], StagePanelLocation.Left, StagePanelSection.End);
         expect(newState.widgets.w2.tabs).to.eql(["t2", "t3"]);
       });
     });
@@ -1860,13 +1838,13 @@ describe("Frontstage local storage wrapper", () => {
         await NoRenderApp.startup();
       });
 
-      afterEach(() => {
+      afterEach(async () => {
         UiItemsManager.clearAllProviders();
         FrontstageManager.clearFrontstageProviders();
-        FrontstageManager.setActiveFrontstageDef(undefined);
+        await FrontstageManager.setActiveFrontstageDef(undefined);
         FrontstageManager.nineZoneSize = undefined;
         TestUtils.terminateUiFramework();
-        IModelApp.shutdown();
+        await IModelApp.shutdown();
       });
 
       it("should render pre-loaded provider widgets when state is initialized", async () => {
@@ -1988,7 +1966,7 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
         await FrontstageManager.setActiveFrontstageDef(frontstageDef);
         const { findByText } = render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>, {
-          wrapper: (props) => <UiStateStorageHandler {...props} />,
+          wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         await findByText("Left Start 1");
         await findByText("TestUi2Provider RM1");

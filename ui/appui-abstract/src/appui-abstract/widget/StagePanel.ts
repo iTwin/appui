@@ -11,11 +11,9 @@
  */
 export enum StagePanelLocation {
   Top = 101,
-  TopMost,
   Left,
   Right,
   Bottom,
-  BottomMost,
 }
 
 /** Enum for Stage Panel Sections
@@ -23,7 +21,5 @@ export enum StagePanelLocation {
  */
 export enum StagePanelSection {
   Start,
-  /** @deprecated - all widgets that a targeted for Middle will be placed in `End` section */
-  Middle,
   End,
 }

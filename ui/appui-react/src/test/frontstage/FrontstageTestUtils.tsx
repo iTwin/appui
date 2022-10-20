@@ -104,7 +104,7 @@ export class TestFrontstage extends FrontstageProvider {
         }
         leftPanel={
           <StagePanel
-            panelZones={{
+            sections={{
               start: {
                 widgets: [
                   <Widget key="widget3" id="widget3" defaultState={WidgetState.Open} control={TestWidget}
@@ -123,7 +123,7 @@ export class TestFrontstage extends FrontstageProvider {
         }
         rightPanel={
           <StagePanel
-            panelZones={{
+            sections={{
               start: {
                 widgets: [
                   <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,
@@ -186,7 +186,7 @@ export class TestFrontstage2 extends FrontstageProvider {
         }
         leftPanel={
           <StagePanel
-            panelZones={{
+            sections={{
               start: {
                 widgets: [
                   <Widget key="widget3" id="widget3" defaultState={WidgetState.Open} control={TestWidget}
@@ -205,7 +205,7 @@ export class TestFrontstage2 extends FrontstageProvider {
         }
         rightPanel={
           <StagePanel
-            panelZones={{
+            sections={{
               start: {
                 widgets: [
                   <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,

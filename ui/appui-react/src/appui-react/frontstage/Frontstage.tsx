@@ -41,29 +41,23 @@ export interface FrontstageProps extends CommonProps {
   /** if isIModelIndependent then frontstage is independent from any iModel. */
   isIModelIndependent?: boolean;
 
-  /** The Zone in the top-left corner that shows tools typically used to query and modify content. To be used in place of deprecated topLeft zone definition. */
+  /** The Zone in the top-left corner that shows tools typically used to query and modify content. */
   contentManipulation?: React.ReactElement<WidgetProps>;
-  /** The Zone the that shows settings for the active tool. To be used in place of deprecated topCenter zone definition. */
+  /** The Zone the that shows settings for the active tool. */
   toolSettings?: React.ReactElement<WidgetProps>;
-  /** The Zone in the top-right corner that shows view navigation tools. To be used in place of deprecated topRight zone definition */
+  /** The Zone in the top-right corner that shows view navigation tools. */
   viewNavigation?: React.ReactElement<WidgetProps>;
-  /** The status bar Zone shown as the application footer. To be used in place of deprecated bottomCenter zone definition. */
+  /** The status bar Zone shown as the application footer. */
   statusBar?: React.ReactElement<WidgetProps>;
 
   /** The StagePanel on the top of the AppUi container. */
   topPanel?: React.ReactElement<StagePanelProps>;
-  /** The StagePanel on the very top across the full width.
-   * @deprecated Only topPanel is supported in UI 2.0 */
-  topMostPanel?: React.ReactElement<StagePanelProps>;
   /** The StagePanel on the left.  */
   leftPanel?: React.ReactElement<StagePanelProps>;
   /** The StagePanel on the right.  */
   rightPanel?: React.ReactElement<StagePanelProps>;
   /** The StagePanel on the bottom of the AppUi container.  */
   bottomPanel?: React.ReactElement<StagePanelProps>;
-  /** The StagePanel on the very bottom across the full width.
-   * @deprecated Only bottomPanel is supported in UI 2.0  */
-  bottomMostPanel?: React.ReactElement<StagePanelProps>;
 }
 
 /** Frontstage React component.
@@ -88,9 +82,6 @@ export class Frontstage extends React.Component<FrontstageProps> {
       case StagePanelLocation.Top:
         panelElement = props.topPanel;
         break;
-      case StagePanelLocation.TopMost:
-        panelElement = props.topMostPanel;  // eslint-disable-line deprecation/deprecation
-        break;
       case StagePanelLocation.Left:
         panelElement = props.leftPanel;
         break;
@@ -100,16 +91,9 @@ export class Frontstage extends React.Component<FrontstageProps> {
       case StagePanelLocation.Bottom:
         panelElement = props.bottomPanel;
         break;
-      case StagePanelLocation.BottomMost:
-        panelElement = props.bottomMostPanel; // eslint-disable-line deprecation/deprecation
-        break;
-      // istanbul ignore next
-      default:
-        throw new RangeError();
     }
 
     // Panels can be undefined in a Frontstage
-
     return panelElement;
   }
 
