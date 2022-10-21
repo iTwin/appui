@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import produce from "immer";
 import * as sinon from "sinon";
-import { FrontstageManager, PanelSectionDef, setPanelSize, StagePanelDef, StagePanelState, toPanelSide, Widget, WidgetDef } from "../../appui-react";
+import { FrontstageManager, PanelSectionDef, setPanelSize, StagePanelDef, StagePanelState, toPanelSide, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { StagePanelLocation, StagePanelSection } from "@itwin/appui-abstract";
 import { createNineZoneState } from "@itwin/appui-layout-react";

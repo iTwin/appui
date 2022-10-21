@@ -237,8 +237,8 @@ export class FrontstageDef {
     def._frontstageProvider = provider;
 
     // istanbul ignore else
-    if (provider.frontstage.props)
-      await def.initializeFromProps(provider.frontstage.props);
+    if (provider.frontstage)
+      await def.initializeFromProps(provider.frontstage);
 
     return def;
   }

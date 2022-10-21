@@ -10,8 +10,8 @@ import {
 } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import {
-  ConfigurableUiManager, CoreTools, DefaultToolSettingsProvider, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider,
-  SyncToolSettingsPropertiesEventArgs, ToolSettingsManager, Widget,
+  ConfigurableUiManager, CoreTools, DefaultToolSettingsProvider, FrontstageManager, FrontstageProps, FrontstageProvider,
+  SyncToolSettingsPropertiesEventArgs, ToolSettingsManager,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
@@ -145,17 +145,15 @@ describe("DefaultToolUiSettingsProvider", () => {
         return Frontstage1.stageId;
       }
 
-      public get frontstage(): React.ReactElement<FrontstageProps> {
-        return (
-          <Frontstage
-            id={this.id}
-            defaultTool={CoreTools.selectElementCommand}
-            contentGroup={TestUtils.TestContentGroup1}
-            toolSettings={{
-              isToolSettings: true,
-            }}
-          />
-        );
+      public override get frontstage(): FrontstageProps {
+        return {
+          id: this.id,
+          defaultTool: CoreTools.selectElementCommand,
+          contentGroup: TestUtils.TestContentGroup1,
+          toolSettings: {
+            isToolSettings: true,
+          },
+        };
       }
     }
 

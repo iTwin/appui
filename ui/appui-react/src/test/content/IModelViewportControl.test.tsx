@@ -9,8 +9,8 @@ import { render } from "@testing-library/react";
 import { MockRender, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, ContentGroup, ContentLayoutManager, ContentViewManager,
-  CoreTools, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider, IModelViewportControl, IModelViewportControlOptions,
-  SupportsViewSelectorChange, Widget,
+  CoreTools, FrontstageManager, FrontstageProps, FrontstageProvider, IModelViewportControl, IModelViewportControlOptions,
+  SupportsViewSelectorChange,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -69,13 +69,12 @@ describe("IModelViewportControl", () => {
 
   class Frontstage1 extends FrontstageProvider {
     public static stageId = "Test1";
-    public get id(): string {
+    public override get id(): string {
       return Frontstage1.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
-
-      const myContentGroup: ContentGroup = new ContentGroup(
+    public override get frontstage(): FrontstageProps {
+      const contentGroup = new ContentGroup(
         {
           id: "test",
           layout: StandardContentLayouts.singleView,
@@ -89,18 +88,15 @@ describe("IModelViewportControl", () => {
         },
       );
 
-      return (
-        <Frontstage
-          id={this.id}
-          defaultTool={CoreTools.selectElementCommand}
-          contentGroup={myContentGroup}
-
-          viewNavigation={{
-            isFreeform: true,
-            element: <>NavigationWidget</>,
-          }}
-        />
-      );
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup,
+        viewNavigation: {
+          isFreeform: true,
+          element: <>NavigationWidget</>,
+        },
+      };
     }
   }
 

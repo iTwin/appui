@@ -2,13 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { expect } from "chai";
-import * as React from "react";
 import * as sinon from "sinon";
 import produce from "immer";
 import { MockRender } from "@itwin/core-frontend";
-import { CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, StagePanelDef, StagePanelState, WidgetDef } from "../../appui-react";
+import { CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, StagePanelDef, StagePanelState, WidgetDef } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager, UiItemsProvider, WidgetState } from "@itwin/appui-abstract";
 import { addFloatingWidget, addPanelWidget, addPopoutWidget, addTab, createNineZoneState } from "@itwin/appui-layout-react";
@@ -36,15 +34,12 @@ describe("FrontstageDef", () => {
       return BadLayoutFrontstage.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
-
-      return (
-        <Frontstage
-          id={this.id}
-          defaultTool={CoreTools.selectElementCommand}
-          contentGroup={TestUtils.TestContentGroup1}
-        />
-      );
+    public override get frontstage(): FrontstageProps {
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup: TestUtils.TestContentGroup1,
+      };
     }
   }
 
@@ -54,7 +49,7 @@ describe("FrontstageDef", () => {
       return BadGroupFrontstage.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
+    public override get frontstage(): FrontstageProps {
 
       // const contentLayoutDef: ContentLayoutDef = new ContentLayoutDef(
       //   {
@@ -63,13 +58,11 @@ describe("FrontstageDef", () => {
       //   },
       // );
 
-      return (
-        <Frontstage
-          id={this.id}
-          defaultTool={CoreTools.selectElementCommand}
-          contentGroup={TestUtils.TestContentGroup1}
-        />
-      );
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup: TestUtils.TestContentGroup1,
+      };
     }
   }
 
@@ -151,20 +144,18 @@ describe("FrontstageDef", () => {
 
     class EmptyFrontstageProvider extends FrontstageProvider {
       public static stageId = "TestFrontstageUi2";
-      public get id(): string {
+      public override get id(): string {
         return EmptyFrontstageProvider.stageId;
       }
 
-      public get frontstage() {
-        return (
-          <Frontstage
-            id={this.id}
-            defaultTool={CoreTools.selectElementCommand}
-            contentGroup={TestUtils.TestContentGroup1}
-            defaultContentId="defaultContentId"
-            applicationData={{ key: "value" }}
-          />
-        );
+      public override get frontstage() {
+        return {
+          id: this.id,
+          defaultTool: CoreTools.selectElementCommand,
+          contentGroup: TestUtils.TestContentGroup1,
+          defaultContentId: "defaultContentId",
+          applicationData: { key: "value" },
+        };
       }
     }
 

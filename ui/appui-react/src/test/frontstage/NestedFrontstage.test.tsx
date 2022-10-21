@@ -7,8 +7,8 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  ContentGroup, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, NestedFrontstage,
-  ToolItemDef, Widget,
+  ContentGroup, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, NestedFrontstage,
+  ToolItemDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { AppStatusBarWidgetControl, TestContentControl, TestFrontstage } from "./FrontstageTestUtils";
@@ -29,8 +29,8 @@ class TestNestedFrontstage extends FrontstageProvider {
     return TestNestedFrontstage.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
-    const myContentGroup: ContentGroup = new ContentGroup(
+  public override get frontstage(): FrontstageProps {
+    const contentGroup: ContentGroup = new ContentGroup(
       {
         id: "test-group",
         layout: StandardContentLayouts.singleView,
@@ -44,31 +44,29 @@ class TestNestedFrontstage extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={this.defaultToolDef}
-        contentGroup={myContentGroup}
-        defaultContentId="defaultContentId"
-        applicationData={{ key: "value" }}
-        contentManipulation={{
-          isFreeform: true,
-          element: <>FrontstageToolWidget</>,
-          applicationData: { key: "value" },
-        }}
-        toolSettings={{
-          isToolSettings: true,
-        }}
-        statusBar={{
-          id: "statusBar",
-          isStatusBar: true,
-          iconSpec: "icon-placeholder",
-          labelKey: "App:widgets.StatusBar",
-          control: AppStatusBarWidgetControl,
-          applicationData: { key: "value" },
-        }}
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: this.defaultToolDef,
+      contentGroup,
+      defaultContentId: "defaultContentId",
+      applicationData: { key: "value" },
+      contentManipulation: {
+        isFreeform: true,
+        element: <>FrontstageToolWidget</>,
+        applicationData: { key: "value" },
+      },
+      toolSettings: {
+        isToolSettings: true,
+      },
+      statusBar: {
+        id: "statusBar",
+        isStatusBar: true,
+        iconSpec: "icon-placeholder",
+        labelKey: "App:widgets.StatusBar",
+        control: AppStatusBarWidgetControl,
+        applicationData: { key: "value" },
+      },
+    };
   }
 }
 

@@ -5,8 +5,8 @@
 import { expect } from "chai";
 import * as React from "react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, CoreTools, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider,
-  SyncToolSettingsPropertiesEventArgs, ToolSettingsEntry, ToolSettingsGrid, ToolUiProvider, Widget,
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, CoreTools, FrontstageManager, FrontstageProps, FrontstageProvider,
+  SyncToolSettingsPropertiesEventArgs, ToolSettingsEntry, ToolSettingsGrid, ToolUiProvider,
 } from "../../appui-react";
 import { ToolInformation } from "../../appui-react/toolsettings/ToolInformation";
 import TestUtils from "../TestUtils";
@@ -65,21 +65,20 @@ describe("ToolUiProvider", () => {
 
   class Frontstage1 extends FrontstageProvider {
     public static stageId = "ToolUiProvider-TestFrontstage";
-    public get id(): string {
+
+    public override get id(): string {
       return Frontstage1.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
-      return (
-        <Frontstage
-          id={this.id}
-          defaultTool={CoreTools.selectElementCommand}
-          contentGroup={TestUtils.TestContentGroup1}
-          statusBar={{
-            isToolSettings: true,
-          }}
-        />
-      );
+    public override get frontstage(): FrontstageProps {
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup: TestUtils.TestContentGroup1,
+        statusBar: {
+          isToolSettings: true,
+        },
+      };
     }
   }
 

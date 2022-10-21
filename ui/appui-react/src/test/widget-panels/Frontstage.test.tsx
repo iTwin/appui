@@ -15,11 +15,11 @@ import { Size, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-re
 import { addFloatingWidget, addPanelWidget, addTab, createNineZoneState, getUniqueId, NineZone, NineZoneState, toolSettingsTabId } from "@itwin/appui-layout-react";
 import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
 import {
-  ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, CoreTools, expandWidget, Frontstage, FrontstageDef,
+  ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, CoreTools, expandWidget, FrontstageDef,
   FrontstageManager, FrontstageProvider, getWidgetId, initializeNineZoneState, initializePanel, isFrontstageStateSettingResult, ModalFrontstageComposer,
-  packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanel, StagePanelDef, UiFramework, UiSettingsProviderProps, UiStateStorageHandler,
+  packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanelDef, UiFramework, UiSettingsProviderProps, UiStateStorageHandler,
   useActiveModalFrontstageInfo, useFrontstageManager, useNineZoneDispatch, useNineZoneState, useSavedFrontstageState, useSaveFrontstageSettings, useUpdateNineZoneSize,
-  Widget, WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState,
+  WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState,
 } from "../../appui-react";
 import TestUtils, { mount, storageMock, stubRaf, UiStateStorageStub } from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
@@ -60,43 +60,40 @@ export class TestFrontstageUi2 extends FrontstageProvider {
     return TestFrontstageUi2.stageId;
   }
 
-  public get frontstage() {
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={TestUtils.TestContentGroup1}
-        leftPanel={{
-          sections: {
-            start: {
-              widgets: [{
-                id: "LeftStart1",
-                label: "Left Start 1",
-                element: "Left Start 1 widget",
-              }],
-            },
-          }
-        }}
-      />
-    );
+  public override get frontstage() {
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup: TestUtils.TestContentGroup1,
+      leftPanel: {
+        sections: {
+          start: {
+            widgets: [{
+              id: "LeftStart1",
+              label: "Left Start 1",
+              element: "Left Start 1 widget",
+            }],
+          },
+        },
+      },
+    };
   }
 }
 
 /** @internal */
 export class TestFrontstageWithHiddenWidget extends FrontstageProvider {
   public static stageId = "TestFrontstageWithHiddenWidget";
-  public get id(): string {
+
+  public override get id() {
     return TestFrontstageWithHiddenWidget.stageId;
   }
 
-  public get frontstage() {
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={TestUtils.TestContentGroup1}
-      />
-    );
+  public override get frontstage() {
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup: TestUtils.TestContentGroup1,
+    };
   }
 }
 
@@ -1742,7 +1739,7 @@ describe("Frontstage local storage wrapper", () => {
 
         const frontstageProvider = new TestFrontstageUi2();
         FrontstageManager.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
         await FrontstageManager.setActiveFrontstageDef(frontstageDef);
         const { findByText } = render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>);
         await findByText("Left Start 1");
@@ -1756,7 +1753,7 @@ describe("Frontstage local storage wrapper", () => {
 
         const frontstageProvider = new TestFrontstageUi2();
         FrontstageManager.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
         await FrontstageManager.setActiveFrontstageDef(frontstageDef);
         const wrapper = render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>);
         await wrapper.findByText("Left Start 1");
@@ -1772,7 +1769,7 @@ describe("Frontstage local storage wrapper", () => {
 
         const frontstageProvider = new TestFrontstageWithHiddenWidget();
         FrontstageManager.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
         if (frontstageDef)
           frontstageDef.nineZoneState = createNineZoneState();
 
@@ -1797,7 +1794,7 @@ describe("Frontstage local storage wrapper", () => {
 
         const frontstageProvider = new TestFrontstageWithHiddenWidget();
         FrontstageManager.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
         if (frontstageDef) {
           let state = createNineZoneState();
           state = produce(state, (draft) => {
@@ -1826,7 +1823,7 @@ describe("Frontstage local storage wrapper", () => {
         UiItemsManager.register(new TestUi2Provider());
         const frontstageProvider = new TestFrontstageUi2();
         FrontstageManager.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
         await FrontstageManager.setActiveFrontstageDef(frontstageDef);
         const spy = sinon.stub(frontstageDef!, "setIsApplicationClosing");
         const wrapper = render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>);
@@ -1853,7 +1850,7 @@ describe("Frontstage local storage wrapper", () => {
 
         const frontstageProvider = new TestFrontstageUi2();
         FrontstageManager.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
         await FrontstageManager.setActiveFrontstageDef(frontstageDef);
         const { findByText } = render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>, {
           wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
@@ -1868,7 +1865,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should render loaded extension widgets", async () => {
         const frontstageProvider = new TestFrontstageUi2();
         FrontstageManager.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
         await FrontstageManager.setActiveFrontstageDef(frontstageDef);
         const { findByText } = render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>);
         await findByText("Left Start 1");
@@ -1883,7 +1880,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should stop rendering unloaded extension widgets", async () => {
         const frontstageProvider = new TestFrontstageUi2();
         FrontstageManager.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+        const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
 
         await FrontstageManager.setActiveFrontstageDef(frontstageDef);
         render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>);

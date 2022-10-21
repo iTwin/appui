@@ -57,8 +57,8 @@ describe("FrontstageManager", () => {
   it("setActiveFrontstage should set active frontstage", async () => {
     const frontstageProvider = new TestFrontstage();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    expect(FrontstageManager.hasFrontstage(frontstageProvider.frontstage.props.id)).to.be.true;
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+    expect(FrontstageManager.hasFrontstage(frontstageProvider.frontstage.id)).to.be.true;
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
 
     expect(frontstageDef).to.not.be.undefined;
     if (frontstageDef) {
@@ -106,7 +106,7 @@ describe("FrontstageManager", () => {
 
     const frontstageProvider = new TestFrontstage();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
 
     expect(FrontstageManager.activeModalFrontstage).to.be.undefined;
     expect(frontstageDef).to.not.be.undefined;
@@ -140,7 +140,7 @@ describe("FrontstageManager", () => {
   it("setActiveFrontstage should set active frontstage", async () => {
     const frontstageProvider = new TestFrontstage2();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
 
     expect(frontstageDef).to.not.be.undefined;
     if (frontstageDef) {
@@ -157,7 +157,7 @@ describe("FrontstageManager", () => {
   it("deactivateFrontstageDef should set active frontstage to undefined", async () => {
     const frontstageProvider = new TestFrontstage();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
 
     await FrontstageManager.setActiveFrontstageDef(frontstageDef);
     expect(FrontstageManager.activeFrontstageDef).to.eq(frontstageDef);
@@ -244,7 +244,7 @@ describe("FrontstageManager", () => {
 
       const frontstageProvider = new TestFrontstage3();
       FrontstageManager.addFrontstageProvider(frontstageProvider);
-      const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+      const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
       await FrontstageManager.setActiveFrontstageDef(frontstageDef);
       expect(FrontstageManager.activeFrontstageDef).to.eq(frontstageDef);
 

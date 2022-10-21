@@ -39,7 +39,7 @@ describe("Frontstage", () => {
   it("FrontstageProvider supplies valid Frontstage", async () => {
     const frontstageProvider = new TestFrontstage();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
 
     await FrontstageManager.setActiveFrontstageDef(frontstageDef);
     const widgetDef = FrontstageManager.findWidget("widget1");
@@ -54,10 +54,10 @@ describe("Frontstage", () => {
   it("Expect cached frontstageDef to be replaced", async () => {
     const frontstageProvider = new TestFrontstage();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
     const newFrontstageProvider = new TestFrontstage();
     FrontstageManager.addFrontstageProvider(newFrontstageProvider);
-    const newFrontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+    const newFrontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
     expect(newFrontstageDef).to.not.eql(frontstageDef);
   });
 });

@@ -8,10 +8,10 @@
 
 import * as React from "react";
 import { StageUsage } from "@itwin/appui-abstract";
-import { StagePanel, StagePanelProps } from "../stagepanels/StagePanel";
+import { StagePanelProps } from "../stagepanels/StagePanel";
 import { ContentGroup, ContentGroupProps, ContentGroupProvider } from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
-import { Frontstage, FrontstageProps } from "./Frontstage";
+import { FrontstageProps } from "./Frontstage";
 import { CoreTools } from "../tools/CoreToolDefinitions";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
@@ -89,65 +89,59 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     super();
   }
 
-  public get id(): string {
+  public override get id(): string {
     return this.props.id;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const contentGroup = (this.props.contentGroupProps instanceof ContentGroupProvider) ? this.props.contentGroupProps : new ContentGroup(this.props.contentGroupProps);
-    return (
-      <Frontstage
-        key={this.props.id}
-        id={this.props.id}
-        version={this.props.version ?? 1.0}
-        defaultTool={this.props.defaultTool ?? CoreTools.selectElementCommand}
-        contentGroup={contentGroup}
-        usage={this.props.usage}
-        applicationData={this.props.applicationData}
-
-        contentManipulation={{
-          id: `${this.props.id}-contentManipulationTools`,
-          isFreeform: true,
-          element: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
-        }}
-        viewNavigation={{
-          id: `${this.props.id}-viewNavigationTools`,
-          isFreeform: true,
-          element: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
-        }}
-        toolSettings={this.props.hideToolSettings ? undefined : {
-          id: `${this.props.id}-toolSettings`,
-          isToolSettings: true,
-        }}
-        statusBar={this.props.hideStatusBar ? undefined : {
-          id: `${this.props.id}-statusBar`,
-          isStatusBar: true,
-          control: StatusBarWidgetComposerControl,
-        }}
-        leftPanel={{
-          size: 300,
-          pinned: false,
-          defaultState: StagePanelState.Minimized,
-          ...this.props.leftPanelProps,
-        }}
-        topPanel={{
-          size: 90,
-          pinned: false,
-          defaultState: StagePanelState.Minimized,
-          ...this.props.topPanelProps,
-        }}
-
-        rightPanel={{
-          defaultState: StagePanelState.Open,
-          ...this.props.rightPanelProps,
-        }}
-
-        bottomPanel={{
-          size: 180,
-          defaultState: StagePanelState.Open,
-          ...this.props.bottomPanelProps,
-        }}
-      />
-    );
+    return {
+      id: this.props.id,
+      version: this.props.version ?? 1.0,
+      defaultTool: this.props.defaultTool ?? CoreTools.selectElementCommand,
+      contentGroup,
+      usage: this.props.usage,
+      applicationData: this.props.applicationData,
+      contentManipulation: {
+        id: `${this.props.id}-contentManipulationTools`,
+        isFreeform: true,
+        element: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
+      },
+      viewNavigation: {
+        id: `${this.props.id}-viewNavigationTools`,
+        isFreeform: true,
+        element: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
+      },
+      toolSettings: this.props.hideToolSettings ? undefined : {
+        id: `${this.props.id}-toolSettings`,
+        isToolSettings: true,
+      },
+      statusBar: this.props.hideStatusBar ? undefined : {
+        id: `${this.props.id}-statusBar`,
+        isStatusBar: true,
+        control: StatusBarWidgetComposerControl,
+      },
+      leftPanel: {
+        size: 300,
+        pinned: false,
+        defaultState: StagePanelState.Minimized,
+        ...this.props.leftPanelProps,
+      },
+      topPanel: {
+        size: 90,
+        pinned: false,
+        defaultState: StagePanelState.Minimized,
+        ...this.props.topPanelProps,
+      },
+      rightPanel: {
+        defaultState: StagePanelState.Open,
+        ...this.props.rightPanelProps,
+      },
+      bottomPanel: {
+        size: 180,
+        defaultState: StagePanelState.Open,
+        ...this.props.bottomPanelProps,
+      },
+    };
   }
 }

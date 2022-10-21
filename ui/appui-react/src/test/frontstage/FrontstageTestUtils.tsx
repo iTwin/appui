@@ -5,8 +5,8 @@
 import * as React from "react";
 import { StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider,
-  MessageCenterField, StagePanel, StatusBarWidgetControl, Widget, WidgetControl,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider,
+  MessageCenterField, StatusBarWidgetControl, WidgetControl,
 } from "../../appui-react";
 import { ToolItemDef } from "../../appui-react/shared/ToolItemDef";
 
@@ -73,7 +73,7 @@ export class TestFrontstage extends FrontstageProvider {
     });
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const myContentGroup: ContentGroup = new ContentGroup(
       {
         id: "test-group",
@@ -88,95 +88,93 @@ export class TestFrontstage extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={this.defaultToolDef}
-        contentGroup={myContentGroup}
-        defaultContentId="defaultContentId"
-        applicationData={{ key: "value" }}
-        usage="MyUsage"
-        contentManipulation={{
-          isFreeform: true,
-          element: <div />,
-          applicationData: { key: "value" },
-        }}
-        toolSettings={{
-          isToolSettings: true,
-        }}
-        leftPanel={{
-          sections: {
-            start: {
-              widgets: [{
-                id: "widget3",
-                defaultState: WidgetState.Open,
-                control: TestWidget,
-                onWidgetStateChanged: () => { },
-                saveTransientState: () => { },
-                restoreTransientState: () => false,
-              }],
-            },
-            end: {
-              widgets: [{
-                id: "widget4",
-                defaultState: WidgetState.Open,
-                control: TestWidget,
-              }],
-            },
-          }
-        }}
-        rightPanel={{
-          sections: {
-            start: {
-              widgets: [
-                {
-                  id: "widget1",
-                  defaultState: WidgetState.Open,
-                  element: <div />,
-                },
-                {
-                  id: "widget6_2",
-                  element: < div />,
-                },
-              ],
-            },
-            end: {
-              widgets: [
-                {
-                  id: "widget1",
-                  defaultState: WidgetState.Open,
-                  element: <div />,
-                },
-                {
-                  id: "widget2",
-                  defaultState: WidgetState.Hidden,
-                  element: < div />,
-                },
-              ],
-            },
+    return {
+      id: this.id,
+      defaultTool: this.defaultToolDef,
+      contentGroup: myContentGroup,
+      defaultContentId: "defaultContentId",
+      applicationData: { key: "value" },
+      usage: "MyUsage",
+      contentManipulation: {
+        isFreeform: true,
+        element: <div />,
+        applicationData: { key: "value" },
+      },
+      toolSettings: {
+        isToolSettings: true,
+      },
+      leftPanel: {
+        sections: {
+          start: {
+            widgets: [{
+              id: "widget3",
+              defaultState: WidgetState.Open,
+              control: TestWidget,
+              onWidgetStateChanged: () => { },
+              saveTransientState: () => { },
+              restoreTransientState: () => false,
+            }],
           },
-        }}
-        statusBar={{
-          id: "statusBar",
-          isStatusBar: true,
-          iconSpec: "icon-placeholder",
-          labelKey: "App:widgets.StatusBar",
-          control: AppStatusBarWidgetControl,
-          applicationData: { key: "value" },
-        }}
-      />
-    );
+          end: {
+            widgets: [{
+              id: "widget4",
+              defaultState: WidgetState.Open,
+              control: TestWidget,
+            }],
+          },
+        },
+      },
+      rightPanel: {
+        sections: {
+          start: {
+            widgets: [
+              {
+                id: "widget1",
+                defaultState: WidgetState.Open,
+                element: <div />,
+              },
+              {
+                id: "widget6_2",
+                element: < div />,
+              },
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                id: "widget1",
+                defaultState: WidgetState.Open,
+                element: <div />,
+              },
+              {
+                id: "widget2",
+                defaultState: WidgetState.Hidden,
+                element: < div />,
+              },
+            ],
+          },
+        },
+      },
+      statusBar: {
+        id: "statusBar",
+        isStatusBar: true,
+        iconSpec: "icon-placeholder",
+        labelKey: "App:widgets.StatusBar",
+        control: AppStatusBarWidgetControl,
+        applicationData: { key: "value" },
+      },
+    };
   }
 }
 
 /** @internal */
 export class TestFrontstage2 extends FrontstageProvider {
   public static stageId = "TestFrontstage2";
-  public get id(): string {
+  public override get id(): string {
     return TestFrontstage2.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const myContentGroup: ContentGroup = new ContentGroup(
       {
         id: "test-group",
@@ -191,95 +189,93 @@ export class TestFrontstage2 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        defaultContentId="defaultContentId"
-        applicationData={{ key: "value" }}
-        usage="MyUsage"
-        contentManipulation={{
-          isFreeform: true,
-          element: <div />,
-          applicationData: { key: "value" },
-        }}
-        toolSettings={{
-          isToolSettings: true,
-        }}
-        leftPanel={{
-          sections: {
-            start: {
-              widgets: [{
-                id: "widget3",
-                defaultState: WidgetState.Open,
-                control: TestWidget,
-                onWidgetStateChanged: () => { },
-                saveTransientState: () => { },
-                restoreTransientState: () => false,
-              }],
-            },
-            end: {
-              widgets: [{
-                id: "widget4",
-                defaultState: WidgetState.Open,
-                control: TestWidget,
-              }],
-            },
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup: myContentGroup,
+      defaultContentId: "defaultContentId",
+      applicationData: { key: "value" },
+      usage: "MyUsage",
+      contentManipulation: {
+        isFreeform: true,
+        element: <div />,
+        applicationData: { key: "value" },
+      },
+      toolSettings: {
+        isToolSettings: true,
+      },
+      leftPanel: {
+        sections: {
+          start: {
+            widgets: [{
+              id: "widget3",
+              defaultState: WidgetState.Open,
+              control: TestWidget,
+              onWidgetStateChanged: () => { },
+              saveTransientState: () => { },
+              restoreTransientState: () => false,
+            }],
           },
-        }}
-        rightPanel={{
-          sections: {
-            start: {
-              widgets: [
-                {
-                  id: "widget1",
-                  defaultState: WidgetState.Open,
-                  element: <div />,
-                },
-                {
-                  id: "widget6_2",
-                  element: <div />,
-                },
-              ],
-            },
-            end: {
-              widgets: [
-                {
-                  id: "widget1",
-                  defaultState: WidgetState.Open,
-                  element: <div />,
-                },
-                {
-                  id: "widget2",
-                  defaultState: WidgetState.Hidden,
-                  element: <div />,
-                },
-              ],
-            },
+          end: {
+            widgets: [{
+              id: "widget4",
+              defaultState: WidgetState.Open,
+              control: TestWidget,
+            }],
           },
-        }}
-        statusBar={{
-          id: "statusBar",
-          isStatusBar: true,
-          iconSpec: "icon-placeholder",
-          labelKey: "App:widgets.StatusBar",
-          control: AppStatusBarWidgetControl,
-          applicationData: { key: "value" },
-        }}
-      />
-    );
+        },
+      },
+      rightPanel: {
+        sections: {
+          start: {
+            widgets: [
+              {
+                id: "widget1",
+                defaultState: WidgetState.Open,
+                element: <div />,
+              },
+              {
+                id: "widget6_2",
+                element: <div />,
+              },
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                id: "widget1",
+                defaultState: WidgetState.Open,
+                element: <div />,
+              },
+              {
+                id: "widget2",
+                defaultState: WidgetState.Hidden,
+                element: <div />,
+              },
+            ],
+          },
+        },
+      },
+      statusBar: {
+        id: "statusBar",
+        isStatusBar: true,
+        iconSpec: "icon-placeholder",
+        labelKey: "App:widgets.StatusBar",
+        control: AppStatusBarWidgetControl,
+        applicationData: { key: "value" },
+      },
+    };
   }
 }
 
 /** @internal */
 export class TestFrontstage3 extends FrontstageProvider {
   public static stageId = "TestFrontstage3";
-  public get id(): string {
+  public override get id(): string {
     return TestFrontstage3.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const myContentGroup: ContentGroup = new ContentGroup(
       {
         id: "test-group",
@@ -292,13 +288,11 @@ export class TestFrontstage3 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={new ToolItemDef({ toolId: "test" })}
-        contentGroup={myContentGroup}
-        defaultContentId="defaultContentId"
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: new ToolItemDef({ toolId: "test" }),
+      contentGroup: myContentGroup,
+      defaultContentId: "defaultContentId",
+    };
   }
 }

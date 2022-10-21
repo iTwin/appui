@@ -9,7 +9,7 @@ import { MockRender } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentGroupProps, CoreTools,
-  Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider, MessageManager, ModalDialogManager, ModelessDialogManager, PopupManager,
+  FrontstageManager, FrontstageProps, FrontstageProvider, MessageManager, ModalDialogManager, ModelessDialogManager, PopupManager,
   TaskManager, TaskPropsList, WidgetControl, WorkflowManager, WorkflowProps, WorkflowPropsList,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
@@ -45,20 +45,19 @@ describe("ConfigurableUiManager", () => {
   it("addFrontstageProvider & getFrontstageDef", async () => {
     class Frontstage1 extends FrontstageProvider {
       public static stageId = "TestFrontstage2";
-      public get id(): string {
+      public override get id(): string {
         return Frontstage1.stageId;
       }
 
-      public get frontstage(): React.ReactElement<FrontstageProps> {
-        return (
-          <Frontstage
-            id={Frontstage1.stageId}
-            defaultTool={CoreTools.selectElementCommand}
-            contentGroup={TestUtils.TestContentGroup1}
-          />
-        );
+      public override get frontstage(): FrontstageProps {
+        return {
+          id: Frontstage1.stageId,
+          defaultTool: CoreTools.selectElementCommand,
+          contentGroup: TestUtils.TestContentGroup1,
+        };
       }
     }
+
     ConfigurableUiManager.addFrontstageProvider(new Frontstage1());
     const frontstageDef2 = await FrontstageManager.getFrontstageDef(Frontstage1.stageId);
     expect(frontstageDef2).to.not.be.undefined;
