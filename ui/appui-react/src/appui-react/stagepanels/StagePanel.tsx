@@ -35,7 +35,7 @@ export interface PanelSectionProps {
    * @note Stable `WidgetProps["id"]` is generated if id is not provided to correctly save and restore App layout.
    * [[Frontstage]] version must be increased when Widget location is changed or new widgets are added/removed.
    */
-  widgets: Array<React.ReactElement<WidgetProps>>;
+  widgets: Array<WidgetProps>;
   /** Any application data to attach to this Zone. */
   applicationData?: any;
 }

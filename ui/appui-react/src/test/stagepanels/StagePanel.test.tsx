@@ -8,8 +8,6 @@ import { StagePanel } from "../../appui-react";
 import { StagePanelDef } from "../../appui-react/stagepanels/StagePanelDef";
 import TestUtils, { mount } from "../TestUtils";
 
-/* eslint-disable react/jsx-key */
-
 describe("StagePanel", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
@@ -34,9 +32,7 @@ describe("StagePanel", () => {
       resizable: false,
       sections: {
         start: {
-          widgets: [
-            <div />,
-          ],
+          widgets: [{ element: <div /> }],
         },
       },
     }, StagePanelLocation.Bottom);

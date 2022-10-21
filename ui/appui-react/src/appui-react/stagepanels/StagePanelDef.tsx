@@ -240,7 +240,7 @@ export class PanelSectionDef extends WidgetHost {
   public initializeFromProps(props: PanelSectionProps, location: StagePanelLocation, section: StagePanelSection) {
     props.widgets.forEach((widgetNode, index) => {
       const stableId = `uifw-ps-${StagePanelLocation[location]}-${section}-${index}`;
-      const stableProps = getStableWidgetProps(widgetNode.props, stableId);
+      const stableProps = getStableWidgetProps(widgetNode, stableId);
       const widgetDef = new WidgetDef(stableProps);
       this.addWidgetDef(widgetDef);
     });

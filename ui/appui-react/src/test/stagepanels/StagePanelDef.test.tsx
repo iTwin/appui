@@ -2,8 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
-import * as React from "react";
 import { expect } from "chai";
 import produce from "immer";
 import * as sinon from "sinon";
@@ -141,14 +139,12 @@ describe("StagePanelDef", () => {
     panelDef.initializeFromProps({
       sections: {
         start: {
-          widgets: [
-            <Widget key={0} id="s1" />,
-          ],
+          widgets: [{ id: "s1" }],
         },
         end: {
           widgets: [
-            <Widget key={0} id="e1" />,
-            <Widget key={1} id="e2" />,
+            { id: "e1" },
+            { id: "e2" },
           ],
         },
       },
@@ -161,7 +157,7 @@ describe("PanelSectionDef", () => {
   it("should initialize stable widgets", () => {
     const sut = new PanelSectionDef();
     sut.initializeFromProps({
-      widgets: [<Widget key={0} />],
+      widgets: [{}],
     }, StagePanelLocation.Left, StagePanelSection.Start);
     expect(sut.widgetCount).to.eq(1);
     expect(sut.widgetDefs[0].id).to.eq("uifw-ps-Left-0-0");

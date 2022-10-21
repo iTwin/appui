@@ -108,17 +108,21 @@ export class TestFrontstage extends FrontstageProvider {
           <StagePanel
             sections={{
               start: {
-                widgets: [
-                  <Widget key="widget3" id="widget3" defaultState={WidgetState.Open} control={TestWidget}
-                    onWidgetStateChanged={() => { }}
-                    saveTransientState={() => { }}
-                    restoreTransientState={() => false} />,
-                ],
+                widgets: [{
+                  id: "widget3",
+                  defaultState: WidgetState.Open,
+                  control: TestWidget,
+                  onWidgetStateChanged: () => { },
+                  saveTransientState: () => { },
+                  restoreTransientState: () => false,
+                }],
               },
               end: {
-                widgets: [
-                  <Widget key="widget4" id="widget4" defaultState={WidgetState.Open} control={TestWidget} />,
-                ],
+                widgets: [{
+                  id: "widget4",
+                  defaultState: WidgetState.Open,
+                  control: TestWidget,
+                }],
               },
             }}
           />
@@ -128,14 +132,29 @@ export class TestFrontstage extends FrontstageProvider {
             sections={{
               start: {
                 widgets: [
-                  <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-                  <Widget key="widget6_2" id="widget6_2" element={<div />} />,
+                  {
+                    id: "widget1",
+                    defaultState: WidgetState.Open,
+                    element: <div />,
+                  },
+                  {
+                    id: "widget6_2",
+                    element: < div />,
+                  },
                 ],
               },
               end: {
                 widgets: [
-                  <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-                  <Widget key="widget2" id="widget2" defaultState={WidgetState.Hidden} element={<div />} />,
+                  {
+                    id: "widget1",
+                    defaultState: WidgetState.Open,
+                    element: <div />,
+                  },
+                  {
+                    id: "widget2",
+                    defaultState: WidgetState.Hidden,
+                    element: < div />,
+                  },
                 ],
               },
             }}
@@ -196,17 +215,21 @@ export class TestFrontstage2 extends FrontstageProvider {
           <StagePanel
             sections={{
               start: {
-                widgets: [
-                  <Widget key="widget3" id="widget3" defaultState={WidgetState.Open} control={TestWidget}
-                    onWidgetStateChanged={() => { }}
-                    saveTransientState={() => { }}
-                    restoreTransientState={() => false} />,
-                ],
+                widgets: [{
+                  id: "widget3",
+                  defaultState: WidgetState.Open,
+                  control: TestWidget,
+                  onWidgetStateChanged: () => { },
+                  saveTransientState: () => { },
+                  restoreTransientState: () => false,
+                }],
               },
               end: {
-                widgets: [
-                  <Widget key="widget4" id="widget4" defaultState={WidgetState.Open} control={TestWidget} />,
-                ],
+                widgets: [{
+                  id: "widget4",
+                  defaultState: WidgetState.Open,
+                  control: TestWidget,
+                }],
               },
             }}
           />
@@ -216,14 +239,29 @@ export class TestFrontstage2 extends FrontstageProvider {
             sections={{
               start: {
                 widgets: [
-                  <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-                  <Widget key="widget6_2" id="widget6_2" element={<div />} />,
+                  {
+                    id: "widget1",
+                    defaultState: WidgetState.Open,
+                    element: <div />,
+                  },
+                  {
+                    id: "widget6_2",
+                    element: <div />,
+                  },
                 ],
               },
               end: {
                 widgets: [
-                  <Widget key="widget1" id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-                  <Widget key="widget2" id="widget2" defaultState={WidgetState.Hidden} element={<div />} />,
+                  {
+                    id: "widget1",
+                    defaultState: WidgetState.Open,
+                    element: <div />,
+                  },
+                  {
+                    id: "widget2",
+                    defaultState: WidgetState.Hidden,
+                    element: <div />,
+                  },
                 ],
               },
             }}

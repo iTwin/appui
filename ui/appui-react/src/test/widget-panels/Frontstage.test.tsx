@@ -70,14 +70,11 @@ export class TestFrontstageUi2 extends FrontstageProvider {
           <StagePanel
             sections={{
               start: {
-                widgets: [
-                  <Widget
-                    key="LeftStart1"
-                    id="LeftStart1"
-                    label="Left Start 1"
-                    element="Left Start 1 widget"
-                  />,
-                ],
+                widgets: [{
+                  id: "LeftStart1",
+                  label: "Left Start 1",
+                  element: "Left Start 1 widget",
+                }],
               },
             }}
           />
@@ -464,14 +461,8 @@ describe("Frontstage local storage wrapper", () => {
           sections: {
             start: {
               widgets: [
-                <Widget
-                  key="start"
-                  id="start"
-                />,
-                <Widget
-                  key="end"
-                  id="end"
-                />,
+                { id: "start" },
+                { id: "end" },
               ],
             },
           },
@@ -507,12 +498,7 @@ describe("Frontstage local storage wrapper", () => {
           resizable: true,
           sections: {
             start: {
-              widgets: [
-                <Widget
-                  key="start"
-                  id="start"
-                />,
-              ],
+              widgets: [{ id: "start" }],
             },
           },
         }, StagePanelLocation.Left);
@@ -545,12 +531,7 @@ describe("Frontstage local storage wrapper", () => {
           size: 0,
           sections: {
             start: {
-              widgets: [
-                <Widget
-                  key="start"
-                  id="start"
-                />,
-              ],
+              widgets: [{ id: "start" }],
             },
           },
         }, StagePanelLocation.Left);
@@ -670,12 +651,7 @@ describe("Frontstage local storage wrapper", () => {
           resizable: true,
           sections: {
             start: {
-              widgets: [
-                <Widget
-                  key="w1"
-                  id="w1"
-                />,
-              ],
+              widgets: [{ id: "w1" }],
             },
           },
         }, StagePanelLocation.Left);
@@ -933,9 +909,7 @@ describe("Frontstage local storage wrapper", () => {
         panel.initializeFromProps({
           sections: {
             end: {
-              widgets: [
-                <Widget key={0} id="w1" />,
-              ],
+              widgets: [{ id: "w1" }],
             },
           },
         });
@@ -975,14 +949,10 @@ describe("Frontstage local storage wrapper", () => {
         panelDef.initializeFromProps({
           sections: {
             start: {
-              widgets: [
-                <Widget key={0} id="w1" />,
-              ],
+              widgets: [{ id: "w1" }],
             },
             end: {
-              widgets: [
-                <Widget key={0} id="w3" />,
-              ],
+              widgets: [{ id: "w3" }],
             },
           },
         });
@@ -999,14 +969,12 @@ describe("Frontstage local storage wrapper", () => {
         panelDef.initializeFromProps({
           sections: {
             start: {
-              widgets: [
-                <Widget key={0} id="w1" />,
-              ],
+              widgets: [{ id: "w1" }],
             },
             end: {
               widgets: [
-                <Widget key={0} id="w1" />,
-                <Widget key={0} id="w3" />,
+                { id: "w1" },
+                { id: "w3" },
               ],
             },
           },
@@ -1029,9 +997,7 @@ describe("Frontstage local storage wrapper", () => {
         leftPanel.initializeFromProps({
           sections: {
             start: {
-              widgets: [
-                <Widget key={0} id="w1" />,
-              ],
+              widgets: [{ id: "w1" }],
             },
           },
         });
@@ -1047,9 +1013,7 @@ describe("Frontstage local storage wrapper", () => {
         panelDef.initializeFromProps({
           sections: {
             end: {
-              widgets: [
-                <Widget key={0} id="w1" />,
-              ],
+              widgets: [{ id: "w1" }],
             },
           },
         });
@@ -1066,9 +1030,7 @@ describe("Frontstage local storage wrapper", () => {
         panelDef.initializeFromProps({
           sections: {
             end: {
-              widgets: [
-                <Widget key={0} id="w1" />,
-              ],
+              widgets: [{ id: "w1" }],
             },
           },
         });
@@ -1085,9 +1047,7 @@ describe("Frontstage local storage wrapper", () => {
         panelDef.initializeFromProps({
           sections: {
             start: {
-              widgets: [
-                <Widget key={0} id="w1" />,
-              ],
+              widgets: [{ id: "w1" }],
             },
           },
         });
@@ -1104,9 +1064,7 @@ describe("Frontstage local storage wrapper", () => {
         panelDef.initializeFromProps({
           sections: {
             start: {
-              widgets: [
-                <Widget key={0} id="w1" />,
-              ],
+              widgets: [{ id: "w1" }],
             },
           },
         });
@@ -1592,27 +1550,13 @@ describe("Frontstage local storage wrapper", () => {
           resizable: true,
           sections: {
             start: {
-              widgets: [
-                <Widget
-                  key="ws1"
-                  id="ws1"
-                />,
-              ],
+              widgets: [{ id: "ws1" }],
             },
             end: {
               widgets: [
-                <Widget
-                  key="w1"
-                  id="w1"
-                />,
-                <Widget
-                  key="wm1"
-                  id="wm1"
-                />,
-                <Widget
-                  key="we1"
-                  id="we1"
-                />,
+                { id: "w1" },
+                { id: "wm1" },
+                { id: "we1" },
               ],
             },
           },
@@ -1636,27 +1580,13 @@ describe("Frontstage local storage wrapper", () => {
           resizable: true,
           sections: {
             start: {
-              widgets: [
-                <Widget
-                  key="ws1"
-                  id="ws1"
-                />,
-              ],
+              widgets: [{ id: "ws1" }],
             },
             end: {
               widgets: [
-                <Widget
-                  key="w1"
-                  id="w1"
-                />,
-                <Widget
-                  key="wm1"
-                  id="wm1"
-                />,
-                <Widget
-                  key="we1"
-                  id="we1"
-                />,
+                { id: "w1" },
+                { id: "wm1" },
+                { id: "we1" },
               ],
             },
           },
@@ -1680,23 +1610,12 @@ describe("Frontstage local storage wrapper", () => {
           sections: {
             start: {
               widgets: [
-                <Widget
-                  key="w1"
-                  id="w1"
-                />,
-                <Widget
-                  key="ws1"
-                  id="ws1"
-                />,
+                { id: "w1" },
+                { id: "ws1" },
               ],
             },
             end: {
-              widgets: [
-                <Widget
-                  key="we1"
-                  id="we1"
-                />,
-              ],
+              widgets: [{ id: "we1" }],
             },
           },
         }, StagePanelLocation.Top);
@@ -1719,23 +1638,12 @@ describe("Frontstage local storage wrapper", () => {
           sections: {
             start: {
               widgets: [
-                <Widget
-                  key="w1"
-                  id="w1"
-                />,
-                <Widget
-                  key="ws1"
-                  id="ws1"
-                />,
+                { id: "w1" },
+                { id: "ws1" },
               ],
             },
             end: {
-              widgets: [
-                <Widget
-                  key="we1"
-                  id="we1"
-                />,
-              ],
+              widgets: [{ id: "we1" }],
             },
           },
         }, StagePanelLocation.Bottom);
@@ -1754,23 +1662,12 @@ describe("Frontstage local storage wrapper", () => {
           sections: {
             start: {
               widgets: [
-                <Widget
-                  key="w1"
-                  id="w1"
-                />,
-                <Widget
-                  key="w1"
-                  id="w1"
-                />,
+                { id: "w1" },
+                { id: "w1" },
               ],
             },
             end: {
-              widgets: [
-                <Widget
-                  key="w1"
-                  id="w1"
-                />,
-              ],
+              widgets: [{ id: "w1" }],
             },
           },
         }, StagePanelLocation.Bottom);
@@ -1779,12 +1676,7 @@ describe("Frontstage local storage wrapper", () => {
           resizable: true,
           sections: {
             start: {
-              widgets: [
-                <Widget
-                  key="w1"
-                  id="w1"
-                />,
-              ],
+              widgets: [{ id: "w1" }],
             },
           },
         }, StagePanelLocation.Right);
