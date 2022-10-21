@@ -334,7 +334,8 @@ export class AppTools {
   }
 
   public static get setLengthFormatImperialCommand() {
-    const spriteIconSpec = <SvgSprite src={imperialIconSvg} />;  // equivalent to `svg:${imperialIconSvg}`
+    // equivalent to `svg:${imperialIconSvg}`
+    const spriteIconSpec = <SvgSprite src={imperialIconSvg} />; // eslint-disable-line deprecation/deprecation
     return new CommandItemDef({
       commandId: "setLengthFormatImperial",
       iconSpec: spriteIconSpec,

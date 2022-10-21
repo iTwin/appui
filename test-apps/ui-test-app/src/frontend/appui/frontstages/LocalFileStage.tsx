@@ -13,7 +13,7 @@ import { OpenDialogOptions } from "electron";
 import { FillCentered } from "@itwin/core-react";
 import {
   ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageManager,
-  FrontstageProps, FrontstageProvider, ToolWidgetComposer, UiFramework, Widget, Zone,
+  FrontstageProps, FrontstageProvider, ToolWidgetComposer, UiFramework, Widget,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -76,12 +76,8 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
         contentGroup={contentGroup}
         isIModelIndependent={true}
         usage={StageUsage.Private}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />, // eslint-disable-line react/jsx-key
-            ]}
-          />
+        contentManipulation={
+          <Widget isFreeform={true} element={<FrontstageToolWidget />} />
         }
       />
     );

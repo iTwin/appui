@@ -6,8 +6,7 @@ import * as React from "react";
 import {
   BackstageAppButton, BaseItemState, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, Frontstage,
   FrontstageProps, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
-  SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, Widget,
-  Zone, ZoneState,
+  SessionStateActionId, StagePanel, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, Widget,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { TreeExampleContentControl } from "../contentviews/TreeExampleContent";
@@ -17,8 +16,6 @@ import {
 } from "../widgets/PropertyGridDemoWidget";
 import { IModelApp } from "@itwin/core-frontend";
 import { CommonToolbarItem, ConditionalBooleanValue, StandardContentLayouts, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
-
-/* eslint-disable react/jsx-key, deprecation/deprecation */
 
 export class Frontstage2 extends FrontstageProvider {
   public static stageId = "ui-test-app:Test2";
@@ -63,39 +60,27 @@ export class Frontstage2 extends FrontstageProvider {
         contentGroup={myContentGroup}
         applicationData={{ key: "value" }}
 
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />,
-            ]}
-          />
+        contentManipulation={
+          <Widget isFreeform={true} element={<FrontstageToolWidget />} />
         }
         toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
+          <Widget isToolSettings={true} />
         }
-        viewNavigationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />,
-            ]}
-          />
+        viewNavigation={
+          <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />
         }
         statusBar={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
+          <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />
         }
-        bottomRight={
-          <Zone allowsMerging={true} defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
-            ]}
+        rightPanel={
+          <StagePanel
+            sections={{
+              end: {
+                widgets: [
+                  <Widget key={0} defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
+                ],
+              },
+            }}
           />
         }
       />

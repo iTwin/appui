@@ -5,7 +5,9 @@
 import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanel, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, useWidgetDirection, Widget, WidgetStateChangedEventArgs, Zone, ZoneLocation, ZoneState,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps,
+  FrontstageProvider, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanel, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, useWidgetDirection,
+  Widget, WidgetStateChangedEventArgs,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
@@ -16,8 +18,6 @@ import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, Toolba
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
 import { IModelApp } from "@itwin/core-frontend";
-
-/* eslint-disable react/jsx-key, deprecation/deprecation */
 
 function RightPanel() {
   const direction = useWidgetDirection();
@@ -82,57 +82,6 @@ export class Frontstage1 extends FrontstageProvider {
     return Frontstage1.stageId;
   }
 
-  private _topMostPanel = {
-    widgets: [
-      <Widget element={<>
-        <h2>TopMost panel</h2>
-        <span>BottomMost panel:</span>
-        &nbsp;
-        <button onClick={() => {
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
-          const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
-          widgetDef?.setWidgetState(WidgetState.Open);
-        }}>show</button>
-        &nbsp;
-        <button onClick={() => {
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
-          const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
-          widgetDef?.setWidgetState(WidgetState.Hidden);
-        }}>hide</button>
-      </>} />,
-    ],
-  };
-
-  private _topPanel = {
-    widgets: [
-      <Widget element={<h2>Top panel</h2>} />,
-    ],
-  };
-
-  private _leftPanel = {
-    allowedZones: [2, 4, 7, 9],
-  };
-
-  private _rightPanel = {
-    allowedZones: [2, 9],
-    widgets: [
-      <Widget element={<RightPanel />} />,
-    ],
-  };
-
-  private _bottomPanel = {
-    widgets: [
-      <Widget element={<SampleTimelineComponent />} />,
-    ],
-  };
-
-  private _bottomMostPanel = {
-    allowedZones: [2, 4, 9],
-    widgets: [
-      <Widget id="BottomMostPanelWidget" element={<h2>BottomMost panel</h2>} />,
-    ],
-  };
-
   public get frontstage(): React.ReactElement<FrontstageProps> {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup1);
     return (
@@ -141,103 +90,98 @@ export class Frontstage1 extends FrontstageProvider {
         defaultTool={CoreTools.selectElementCommand}
         contentGroup={contentGroup}
         defaultContentId="TestContent1"
-        topLeft={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />,
-            ]}
-          />
+        contentManipulation={
+          <Widget isFreeform={true} element={<FrontstageToolWidget />} />
         }
-        topCenter={
-          <Zone
-            allowsMerging
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
+        toolSettings={
+          <Widget isToolSettings={true} />
         }
-        topRight={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />,
-            ]}
-          />
+        viewNavigation={
+          <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />
         }
-        centerLeft={
-          <Zone
-            allowsMerging={true}
-            defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget id="VerticalPropertyGrid" iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone
-            allowsMerging={true}
-            defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-            ]}
-          />
-        }
-        /** The HorizontalPropertyGrid in zone 9 should be merged across zones 6 & 9 and take up the height of both zones initially.
-         *  The zones can be resized manually to take up the full height.
-         */
-        centerRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} mergeWithZone={ZoneLocation.BottomRight}
-          />
-        }
-        bottomCenter={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
-              <Widget id="VerticalPropertyGrid1" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
-
-        topMostPanel={
-          <StagePanel
-            widgets={this._topMostPanel.widgets}
-          />
+        statusBar={
+          <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />
         }
         topPanel={
           <StagePanel
             resizable={false}
-            widgets={this._topPanel.widgets}
+            sections={{
+              start: {
+                widgets: [
+                  <Widget key={0} element={<h2>Top panel</h2>} />,
+                  <Widget
+                    key={1}
+                    element={<>
+                      <h2>TopMost panel</h2>
+                      <span>BottomMost panel:</span>
+                      &nbsp;
+                      <button onClick={() => {
+                        const frontstageDef = FrontstageManager.activeFrontstageDef;
+                        const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
+                        widgetDef?.setWidgetState(WidgetState.Open);
+                      }}>show</button>
+                      &nbsp;
+                      <button onClick={() => {
+                        const frontstageDef = FrontstageManager.activeFrontstageDef;
+                        const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
+                        widgetDef?.setWidgetState(WidgetState.Hidden);
+                      }}>hide</button>
+                    </>}
+                  />,
+                ],
+              },
+            }}
           />
         }
         leftPanel={
           <StagePanel
-            allowedZones={this._leftPanel.allowedZones}
+            sections={{
+              start: {
+                widgets: [
+                  <Widget key={0} id="VerticalPropertyGrid" iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
+                ],
+              },
+              end: {
+                widgets: [
+                  <Widget key={0} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
+                ],
+              },
+            }}
           />
         }
         rightPanel={
           <StagePanel
-            allowedZones={this._rightPanel.allowedZones}
             resizable={false}
             size={200}
-            widgets={this._rightPanel.widgets}
+            sections={{
+              start: {
+                widgets: [
+                  <Widget key={0} element={<RightPanel />} />,
+                ],
+              },
+              end: {
+                widgets: [
+                  <Widget key={0} defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
+                  <Widget key={1} id="VerticalPropertyGrid1" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
+                ],
+              },
+            }}
           />
         }
         bottomPanel={
           <StagePanel
-            widgets={this._bottomPanel.widgets}
-          />
-        }
-        bottomMostPanel={
-          <StagePanel
-            allowedZones={this._bottomMostPanel.allowedZones}
-            size={100}
-            widgets={this._bottomMostPanel.widgets}
+            sections={{
+              start: {
+                widgets: [
+                  <Widget key={0} element={<SampleTimelineComponent />} />,
+                ],
+              },
+              end: {
+                widgets: [
+                  <Widget key={0} id="BottomMostPanelWidget" element={<h2>BottomMost panel</h2>} />,
+                ],
+              },
+            }}
           />
         }
       />

@@ -6,7 +6,8 @@ import * as React from "react";
 import { CommonToolbarItem, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
   ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
-  ToolbarComposer, ToolbarHelper, ToolWidgetComposer, Widget, Zone, ZoneLocation, ZoneState,
+  StagePanel,
+  ToolbarComposer, ToolbarHelper, ToolWidgetComposer, Widget,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
@@ -14,8 +15,6 @@ import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl 
 import { AppUi } from "../AppUi";
 import { AppToolbarUtilities, BackstageBackButton } from "./NestedFrontstage1";
 import { IModelApp } from "@itwin/core-frontend";
-
-/* eslint-disable react/jsx-key, deprecation/deprecation */
 
 export class NestedFrontstage2 extends FrontstageProvider {
   public static stageId = "ui-test-app:NestedFrontstage2";
@@ -31,47 +30,28 @@ export class NestedFrontstage2 extends FrontstageProvider {
       <Frontstage id={this.id}
         defaultTool={CoreTools.rotateViewCommand}
         contentGroup={contentGroup}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />,
-            ]}
-          />
+        contentManipulation={
+          <Widget isFreeform={true} element={<FrontstageToolWidget />} />
         }
         toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
+          <Widget isToolSettings={true} />
         }
-        viewNavigationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />,
-            ]}
-          />
-        }
-        /** The HorizontalPropertyGrid in zone 9 should be merged across zones 6 & 9 and take up the height of both zones initially.
-         *  The zones can be resized manually to take up the full height.
-         */
-        centerRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} mergeWithZone={ZoneLocation.BottomRight}
-          />
+        viewNavigation={
+          <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />
         }
         statusBar={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.StatusBar" control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
+          <Widget isStatusBar={true} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.StatusBar" control={SmallStatusBarWidgetControl} />
         }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget defaultState={WidgetState.Closed} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
-              <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-            ]}
+        rightPanel={
+          <StagePanel
+            sections={{
+              end: {
+                widgets: [
+                  <Widget key={0} defaultState={WidgetState.Closed} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
+                  <Widget key={1} id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
+                ],
+              },
+            }}
           />
         }
       />

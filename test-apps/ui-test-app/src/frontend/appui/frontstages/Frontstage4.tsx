@@ -11,7 +11,7 @@ import {
 } from "@itwin/appui-abstract";
 import {
   CommandItemDef, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, ModalDialogManager,
-  ModelessDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanel, StagePanelState, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, Widget, Zone, ZoneState,
+  ModelessDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanel, StagePanelState, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, Widget,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { PopupTestDialog } from "../dialogs/PopupTest";
@@ -32,8 +32,6 @@ import { TableDemoWidgetControl } from "../widgets/TableDemoWidget";
 import { TreeSelectionDemoWidgetControl } from "../widgets/TreeSelectionDemoWidget";
 import { AppToolbarUtilities } from "./NestedFrontstage1";
 import { IconHelper } from "@itwin/core-react";
-
-/* eslint-disable react/jsx-key, deprecation/deprecation */
 
 class DynamicModalUiDataProvider extends DialogLayoutDataProvider {
   public currentPageIndex = 0;
@@ -165,70 +163,42 @@ export class Frontstage4 extends FrontstageProvider {
         defaultTool={CoreTools.selectElementCommand}
         contentGroup={myContentGroup}
         defaultContentId="TestContent1"
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={this.getToolWidget()} />,
-            ]}
-          />
+        contentManipulation={
+          <Widget isFreeform={true} element={this.getToolWidget()} />
         }
         toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
+          <Widget isToolSettings={true} />
         }
-        viewNavigationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={this.getNavigationWidget()} />,
-            ]}
-          />
-        }
-        centerRight={
-          <Zone defaultState={ZoneState.Minimized} allowsMerging={false}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.BreadcrumbDemo" control={BreadcrumbDemoWidgetControl} />,
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TreeSelectionDemo" control={TreeSelectionDemoWidgetControl} />,
-            ]}
-          />
+        viewNavigation={
+          <Widget isFreeform={true} element={this.getNavigationWidget()} />
         }
         rightPanel={<StagePanel
           defaultState={StagePanelState.Minimized}
-          panelZones={{
+          sections={{
             start: {
               widgets: [
-                <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
-                <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.BreadcrumbDemo" control={BreadcrumbDemoWidgetControl} />,
-                <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TreeSelectionDemo" control={TreeSelectionDemoWidgetControl} />,
+                <Widget key={0} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
+                <Widget key={1} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.BreadcrumbDemo" control={BreadcrumbDemoWidgetControl} />,
+                <Widget key={2} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TreeSelectionDemo" control={TreeSelectionDemoWidgetControl} />,
+                <Widget key={3} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
+                <Widget key={4} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.BreadcrumbDemo" control={BreadcrumbDemoWidgetControl} />,
+                <Widget key={5} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TreeSelectionDemo" control={TreeSelectionDemoWidgetControl} />,
               ],
             },
             end: {
               widgets: [
-                <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-                <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl2} />,
-                <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
+                <Widget key={0} id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
+                <Widget key={1} defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
+                <Widget key={2} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
+                <Widget key={3} id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
+                <Widget key={4} defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl2} />,
+                <Widget key={5} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
               ],
             },
           }}
         />}
         statusBar={
-          <Zone
-            widgets={[
-              <Widget isStatusBar={true} classId="SmallStatusBar" />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-              <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-            ]}
-          />
+          <Widget isStatusBar={true} classId="SmallStatusBar" />
         }
       />
     );

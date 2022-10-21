@@ -8,17 +8,15 @@ import { CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities, StageUsa
 import {
   AccuDrawDialog, AccuDrawWidgetControl, BasicNavigationWidget, BasicToolWidget, CommandItemDef,
   CoreTools, CustomItemDef, Frontstage, FrontstageProvider, IModelConnectedViewSelector, ModelessDialogManager,
-  StagePanel, ToolbarHelper, Widget, Zone, ZoneLocation, ZoneState,
+  StagePanel, ToolbarHelper, Widget,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../../frontend/index";
 import { EditTools } from "../../../tools/editing/ToolSpecifications";
-// cSpell:Ignore contentviews statusbars
+// cSpell:Ignore statusbars
 import { EditStatusBarWidgetControl } from "../../statusbars/editing/EditStatusBar";
 import { ActiveSettingsWidget } from "../../widgets/editing/ActiveSettingsWidget";
 import { ModelCreationWidget } from "../../widgets/editing/ModelCreationWidget";
 import { Orientation } from "@itwin/core-react";
-
-/* eslint-disable react/jsx-key, deprecation/deprecation */
 
 import sketchIconSvg from "../../icons/draw.svg?sprite";
 import { InitialIModelContentStageProvider } from "../ViewsFrontstage";
@@ -33,12 +31,6 @@ export class EditFrontstage extends FrontstageProvider {
   private _additionalTools = new AdditionalTools();
 
   public static savedViewLayoutProps: string;
-
-  private _bottomPanel = {
-    widgets: [
-      <Widget id={AccuDrawWidgetControl.id} label={AccuDrawWidgetControl.label} control={AccuDrawWidgetControl} />,
-    ],
-  };
 
   /** Get the CustomItemDef for ViewSelector  */
   private get _viewSelectorItemDef() {
@@ -64,73 +56,63 @@ export class EditFrontstage extends FrontstageProvider {
         contentGroup={this._contentGroupProvider}
         applicationData={{ key: "value" }}
         usage={StageUsage.Edit}
-        contentManipulationTools={
-          <Zone
-            widgets={
-              [
-                <Widget isFreeform={true} element={<BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
-                  additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={false} />} />,
-              ]}
-          />
+        contentManipulation={
+          <Widget isFreeform={true} element={<BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
+            additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={false} />} />
         }
         toolSettings={
-          <Zone
-            allowsMerging
-            widgets={
-              [
-                <Widget
-                  iconSpec="icon-placeholder"
-                  isToolSettings={true}
-                />,
-              ]}
+          <Widget
+            iconSpec="icon-placeholder"
+            isToolSettings={true}
           />
         }
-        viewNavigationTools={
-          <Zone
-            widgets={
-              [
-                <Widget isFreeform={true} element={
-                  <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />
-                } />,
-              ]}
-          />
-        }
-        centerLeft={
-          <Zone
-            allowsMerging
-            defaultState={ZoneState.Minimized}
-            initialWidth={250}
-            widgets={
-              [
-                <Widget defaultState={WidgetState.Closed} iconSpec="icon-active" labelKey="SampleApp:widgets.ActiveSettings" control={ActiveSettingsWidget}
-                  syncEventIds={[SampleAppUiActionId.setTestProperty]}
-                  stateFunc={(): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden}
-                />,
-                <Widget defaultState={WidgetState.Closed} iconSpec="icon-add" labelKey="SampleApp:widgets.ModelCreation" control={ModelCreationWidget}
-                  syncEventIds={[SampleAppUiActionId.setTestProperty]}
-                  stateFunc={(): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden}
-                />,
-              ]}
-          />
+        viewNavigation={
+          <Widget isFreeform={true} element={
+            <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />
+          } />
         }
         statusBar={
-          <Zone
-            widgets={
-              [
-                <Widget isStatusBar={true} control={EditStatusBarWidgetControl} />,
-              ]}
-          />
+          <Widget isStatusBar={true} control={EditStatusBarWidgetControl} />
         }
-        bottomRight={
-          <Zone defaultState={ZoneState.Minimized} allowsMerging={true} mergeWithZone={ZoneLocation.CenterRight}
-            widgets={
-              [
-              ]}
+        leftPanel={
+          <StagePanel
+            size={250}
+            sections={{
+              start: {
+                widgets: [
+                  <Widget
+                    key={0}
+                    defaultState={WidgetState.Closed}
+                    iconSpec="icon-active"
+                    labelKey="SampleApp:widgets.ActiveSettings"
+                    control={ActiveSettingsWidget}
+                    syncEventIds={[SampleAppUiActionId.setTestProperty]}
+                    stateFunc={(): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden}
+                  />,
+                  <Widget
+                    key={1}
+                    defaultState={WidgetState.Closed}
+                    iconSpec="icon-add"
+                    labelKey="SampleApp:widgets.ModelCreation"
+                    control={ModelCreationWidget}
+                    syncEventIds={[SampleAppUiActionId.setTestProperty]}
+                    stateFunc={(): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden}
+                  />,
+                ],
+              },
+            }}
+
           />
         }
         bottomPanel={
           <StagePanel
-            widgets={this._bottomPanel.widgets}
+            sections={{
+              start: {
+                widgets: [
+                  <Widget key={0} id={AccuDrawWidgetControl.id} label={AccuDrawWidgetControl.label} control={AccuDrawWidgetControl} />,
+                ],
+              },
+            }}
           />
         }
       />
@@ -144,7 +126,7 @@ class AdditionalTools {
   public sketchGroupItems = ToolbarHelper.constructChildToolbarItems([
     EditTools.placeLineStringTool, EditTools.placeArcTool]);
 
-  public sketchGroupButtonItem = ToolbarItemUtilities.createGroupButton("SampleApp:buttons.sketch", 135, IconSpecUtilities.createSvgIconSpec(sketchIconSvg),
+  public sketchGroupButtonItem = ToolbarItemUtilities.createGroupButton("SampleApp:buttons.sketch", 135, IconSpecUtilities.createSvgIconSpec(sketchIconSvg), // eslint-disable-line deprecation/deprecation
     IModelApp.localization.getLocalizedString("SampleApp:buttons.sketch"), this.sketchGroupItems);
 
   public additionalHorizontalToolbarItems: CommonToolbarItem[] = [...ToolbarHelper.createToolbarItemsFromItemDefs([
