@@ -7,12 +7,10 @@
  */
 
 import * as React from "react";
-import { StagePanelLocation } from "@itwin/appui-abstract";
 import { CommonProps } from "@itwin/core-react";
 import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { StagePanelProps } from "../stagepanels/StagePanel";
-import { StagePanelDef } from "../stagepanels/StagePanelDef";
 import { FrontstageActivatedEventArgs, FrontstageManager } from "./FrontstageManager";
 import { WidgetProps } from "../widgets/WidgetProps";
 
@@ -58,49 +56,6 @@ export interface FrontstageProps extends CommonProps {
   rightPanel?: StagePanelProps;
   /** The StagePanel on the bottom of the AppUi container.  */
   bottomPanel?: StagePanelProps;
-}
-
-/** Frontstage React component.
- * A Frontstage is a full-screen configuration designed to enable the user to accomplish a task.
- * @public
- */
-export class Frontstage extends React.Component<FrontstageProps> {
-  /** @internal */
-  public static createStagePanelDef(panelLocation: StagePanelLocation, props: FrontstageProps): StagePanelDef | undefined {
-    const panelDef = new StagePanelDef();
-
-    const panel = Frontstage.getStagePanel(panelLocation, props);
-    panelDef.initializeFromProps(panel, panelLocation);
-
-    return panelDef;
-  }
-
-  private static getStagePanel(location: StagePanelLocation, props: FrontstageProps) {
-    let panelElement: StagePanelProps | undefined;
-
-    switch (location) {
-      case StagePanelLocation.Top:
-        panelElement = props.topPanel;
-        break;
-      case StagePanelLocation.Left:
-        panelElement = props.leftPanel;
-        break;
-      case StagePanelLocation.Right:
-        panelElement = props.rightPanel;
-        break;
-      case StagePanelLocation.Bottom:
-        panelElement = props.bottomPanel;
-        break;
-    }
-
-    // Panels can be undefined in a Frontstage
-    return panelElement;
-  }
-
-  /** @internal */
-  public override render(): React.ReactNode {
-    return null;
-  }
 }
 
 /** Hook that returns active frontstage id.

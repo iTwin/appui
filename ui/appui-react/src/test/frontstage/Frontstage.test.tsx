@@ -3,15 +3,14 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import * as React from "react";
 import * as sinon from "sinon";
 
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
 import {
-  CoreTools, Frontstage, FrontstageDef, FrontstageManager, useSpecificWidgetDef, WidgetDef,
+  FrontstageDef, FrontstageManager, useSpecificWidgetDef, WidgetDef,
 } from "../../appui-react";
-import TestUtils, { mount } from "../TestUtils";
+import TestUtils from "../TestUtils";
 import { TestFrontstage } from "./FrontstageTestUtils";
 import { renderHook } from "@testing-library/react-hooks";
 import { assert } from "@itwin/core-bentley";
@@ -30,10 +29,6 @@ describe("Frontstage", () => {
 
   beforeEach(() => {
     sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => undefined);
-  });
-
-  it("should render", () => {
-    mount(<Frontstage id="test1" defaultTool={CoreTools.selectElementCommand} contentGroup={TestUtils.TestContentGroup1} />);
   });
 
   it("FrontstageProvider supplies valid Frontstage", async () => {

@@ -26,7 +26,7 @@ import { StagePanelDef, StagePanelState, toPanelSide } from "../stagepanels/Stag
 import { UiFramework } from "../UiFramework";
 import { WidgetControl } from "../widgets/WidgetControl";
 import { WidgetDef } from "../widgets/WidgetDef";
-import { Frontstage, FrontstageProps } from "./Frontstage";
+import { FrontstageProps } from "./Frontstage";
 import { FrontstageManager } from "./FrontstageManager";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
@@ -37,6 +37,7 @@ import { assert, BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
 import { ContentDialogManager } from "../dialog/ContentDialogManager";
 import { WidgetProps } from "../widgets/WidgetProps";
 import { getStableWidgetProps } from "../widgets/WidgetManager";
+import { StagePanelProps } from "../stagepanels/StagePanel";
 
 /** @internal */
 export interface FrontstageEventArgs {
@@ -548,10 +549,10 @@ export class FrontstageDef {
     this._statusBar = createWidgetDef(props.statusBar, `uifw-statusBar-widget`);
     this._contentManipulation = createWidgetDef(props.contentManipulation, `uifw-contentManipulation-widget`);
     this._viewNavigation = createWidgetDef(props.viewNavigation, `uifw-viewNavigation-widget`);
-    this._topPanel = Frontstage.createStagePanelDef(StagePanelLocation.Top, props);
-    this._leftPanel = Frontstage.createStagePanelDef(StagePanelLocation.Left, props);
-    this._rightPanel = Frontstage.createStagePanelDef(StagePanelLocation.Right, props);
-    this._bottomPanel = Frontstage.createStagePanelDef(StagePanelLocation.Bottom, props);
+    this._topPanel = createStagePanelDef(StagePanelLocation.Top, props);
+    this._leftPanel = createStagePanelDef(StagePanelLocation.Left, props);
+    this._rightPanel = createStagePanelDef(StagePanelLocation.Right, props);
+    this._bottomPanel = createStagePanelDef(StagePanelLocation.Bottom, props);
   }
 
   /** @internal */
@@ -965,4 +966,35 @@ function createWidgetDef(widget: WidgetProps | undefined, stableId: string): Wid
   const props = getStableWidgetProps(widget, stableId);
   const widgetDef = new WidgetDef(props);
   return widgetDef;
+}
+
+function createStagePanelDef(panelLocation: StagePanelLocation, props: FrontstageProps): StagePanelDef | undefined {
+  const panelDef = new StagePanelDef();
+
+  const panel = getStagePanel(panelLocation, props);
+  panelDef.initializeFromProps(panel, panelLocation);
+
+  return panelDef;
+}
+
+function getStagePanel(location: StagePanelLocation, props: FrontstageProps) {
+  let panelElement: StagePanelProps | undefined;
+
+  switch (location) {
+    case StagePanelLocation.Top:
+      panelElement = props.topPanel;
+      break;
+    case StagePanelLocation.Left:
+      panelElement = props.leftPanel;
+      break;
+    case StagePanelLocation.Right:
+      panelElement = props.rightPanel;
+      break;
+    case StagePanelLocation.Bottom:
+      panelElement = props.bottomPanel;
+      break;
+  }
+
+  // Panels can be undefined in a Frontstage
+  return panelElement;
 }

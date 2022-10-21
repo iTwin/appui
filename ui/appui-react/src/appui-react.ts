@@ -240,7 +240,6 @@ export * from "./appui-react/widgets/StatusBarWidgetComposerControl";
 export * from "./appui-react/widgets/ContentToolWidgetComposer";
 export * from "./appui-react/widgets/StableWidgetDef";
 export * from "./appui-react/widgets/ToolWidgetComposer";
-export * from "./appui-react/widgets/Widget";
 export * from "./appui-react/widgets/WidgetControl";
 export * from "./appui-react/widgets/WidgetDef";
 export * from "./appui-react/widgets/WidgetHost";

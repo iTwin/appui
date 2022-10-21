@@ -7,10 +7,9 @@
  */
 
 import * as React from "react";
-import { StagePanelLocation } from "@itwin/appui-abstract";
 
 import { WidgetProps } from "../widgets/WidgetProps";
-import { StagePanelDef, StagePanelState as StagePanelState } from "./StagePanelDef";
+import { StagePanelState as StagePanelState } from "./StagePanelDef";
 
 /** Available StagePanel locations.
  * ------------------------------------------------------------------------------------
@@ -79,17 +78,4 @@ export interface StagePanelProps {
 
   /** Properties for the Panel Zones in this Panel. */
   sections?: PanelSectionsProps;
-}
-
-/** Frontstage Panel React component.
- * @public
- */
-export class StagePanel extends React.Component<StagePanelProps> {
-  public static initializeStagePanelDef(panelDef: StagePanelDef, props: StagePanelProps, panelLocation: StagePanelLocation): void {
-    panelDef.initializeFromProps(props, panelLocation);
-  }
-
-  public override render(): React.ReactNode {
-    return null;
-  }
 }
