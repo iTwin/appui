@@ -51,16 +51,22 @@ class TestNestedFrontstage extends FrontstageProvider {
         contentGroup={myContentGroup}
         defaultContentId="defaultContentId"
         applicationData={{ key: "value" }}
-        contentManipulation={
-          <Widget isFreeform={true} element={<>FrontstageToolWidget</>} applicationData={{ key: "value" }} />
-        }
-        toolSettings={
-          <Widget isToolSettings={true} />
-        }
-        statusBar={
-          <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar"
-            control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />
-        }
+        contentManipulation={{
+          isFreeform: true,
+          element: <>FrontstageToolWidget</>,
+          applicationData: { key: "value" },
+        }}
+        toolSettings={{
+          isToolSettings: true,
+        }}
+        statusBar={{
+          id: "statusBar",
+          isStatusBar: true,
+          iconSpec: "icon-placeholder",
+          labelKey: "App:widgets.StatusBar",
+          control: AppStatusBarWidgetControl,
+          applicationData: { key: "value" },
+        }}
       />
     );
   }

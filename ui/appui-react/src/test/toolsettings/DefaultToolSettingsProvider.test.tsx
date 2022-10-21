@@ -151,9 +151,9 @@ describe("DefaultToolUiSettingsProvider", () => {
             id={this.id}
             defaultTool={CoreTools.selectElementCommand}
             contentGroup={TestUtils.TestContentGroup1}
-            toolSettings={
-              <Widget isToolSettings={true} />
-            }
+            toolSettings={{
+              isToolSettings: true,
+            }}
           />
         );
       }

@@ -96,12 +96,14 @@ export class TestFrontstage extends FrontstageProvider {
         defaultContentId="defaultContentId"
         applicationData={{ key: "value" }}
         usage="MyUsage"
-        contentManipulation={
-          <Widget isFreeform={true} element={<div />} applicationData={{ key: "value" }} />
-        }
-        toolSettings={
-          <Widget isToolSettings={true} />
-        }
+        contentManipulation={{
+          isFreeform: true,
+          element: <div />,
+          applicationData: { key: "value" },
+        }}
+        toolSettings={{
+          isToolSettings: true,
+        }}
         leftPanel={
           <StagePanel
             sections={{
@@ -139,10 +141,14 @@ export class TestFrontstage extends FrontstageProvider {
             }}
           />
         }
-        statusBar={
-          <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar"
-            control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />
-        }
+        statusBar={{
+          id: "statusBar",
+          isStatusBar: true,
+          iconSpec: "icon-placeholder",
+          labelKey: "App:widgets.StatusBar",
+          control: AppStatusBarWidgetControl,
+          applicationData: { key: "value" },
+        }}
       />
     );
   }
@@ -178,12 +184,14 @@ export class TestFrontstage2 extends FrontstageProvider {
         defaultContentId="defaultContentId"
         applicationData={{ key: "value" }}
         usage="MyUsage"
-        contentManipulation={
-          <Widget isFreeform={true} element={<div />} applicationData={{ key: "value" }} />
-        }
-        toolSettings={
-          <Widget isToolSettings={true} />
-        }
+        contentManipulation={{
+          isFreeform: true,
+          element: <div />,
+          applicationData: { key: "value" },
+        }}
+        toolSettings={{
+          isToolSettings: true,
+        }}
         leftPanel={
           <StagePanel
             sections={{
@@ -221,10 +229,14 @@ export class TestFrontstage2 extends FrontstageProvider {
             }}
           />
         }
-        statusBar={
-          <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar"
-            control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />
-        }
+        statusBar={{
+          id: "statusBar",
+          isStatusBar: true,
+          iconSpec: "icon-placeholder",
+          labelKey: "App:widgets.StatusBar",
+          control: AppStatusBarWidgetControl,
+          applicationData: { key: "value" },
+        }}
       />
     );
   }

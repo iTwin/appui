@@ -14,7 +14,6 @@ import { FrontstageProvider } from "./FrontstageProvider";
 import { Frontstage, FrontstageProps } from "./Frontstage";
 import { CoreTools } from "../tools/CoreToolDefinitions";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
-import { Widget } from "../widgets/Widget";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
 import { StatusBarWidgetComposerControl } from "../widgets/StatusBarWidgetComposerControl";
 import { StagePanelState } from "../stagepanels/StagePanelDef";
@@ -106,40 +105,25 @@ export class StandardFrontstageProvider extends FrontstageProvider {
         usage={this.props.usage}
         applicationData={this.props.applicationData}
 
-        contentManipulation={
-          <Widget
-            id={`${this.props.id}-contentManipulationTools`}
-            key={`${this.props.id}-contentManipulationTools`}
-            isFreeform={true}
-            element={<ContentToolWidgetComposer cornerButton={this.props.cornerButton} />}
-          />
-        }
-        viewNavigation={
-          <Widget
-            id={`${this.props.id}-viewNavigationTools`}
-            key={`${this.props.id}-viewNavigationTools`}
-            isFreeform={true}
-            element={<ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />}
-          />
-        }
-        toolSettings={
-          this.props.hideToolSettings ? undefined :
-            <Widget
-              id={`${this.props.id}-toolSettings`}
-              key={`${this.props.id}-toolSettings`}
-              isToolSettings={true}
-            />
-        }
-        statusBar={
-          this.props.hideStatusBar ? undefined :
-            <Widget
-              id={`${this.props.id}-statusBar`}
-              key={`${this.props.id}-statusBar`}
-              isStatusBar={true}
-              control={StatusBarWidgetComposerControl}
-            />
-        }
-
+        contentManipulation={{
+          id: `${this.props.id}-contentManipulationTools`,
+          isFreeform: true,
+          element: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
+        }}
+        viewNavigation={{
+          id: `${this.props.id}-viewNavigationTools`,
+          isFreeform: true,
+          element: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
+        }}
+        toolSettings={this.props.hideToolSettings ? undefined : {
+          id: `${this.props.id}-toolSettings`,
+          isToolSettings: true,
+        }}
+        statusBar={this.props.hideStatusBar ? undefined : {
+          id: `${this.props.id}-statusBar`,
+          isStatusBar: true,
+          control: StatusBarWidgetComposerControl,
+        }}
         leftPanel={
           <StagePanel
             size={300}

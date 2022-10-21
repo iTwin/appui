@@ -95,9 +95,10 @@ describe("IModelViewportControl", () => {
           defaultTool={CoreTools.selectElementCommand}
           contentGroup={myContentGroup}
 
-          viewNavigation={
-            <Widget isFreeform={true} element={<>NavigationWidget</>} />
-          }
+          viewNavigation={{
+            isFreeform: true,
+            element: <>NavigationWidget</>,
+          }}
         />
       );
     }

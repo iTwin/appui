@@ -544,10 +544,10 @@ export class FrontstageDef {
     this._usage = props.usage;
     this._version = props.version || 0;
 
-    this._toolSettings = createWidgetDef(props.toolSettings, `uifw-toolSettings-widget`, props);
-    this._statusBar = createWidgetDef(props.statusBar, `uifw-statusBar-widget`, props);
-    this._contentManipulation = createWidgetDef(props.contentManipulation, `uifw-contentManipulation-widget`, props);
-    this._viewNavigation = createWidgetDef(props.viewNavigation, `uifw-viewNavigation-widget`, props);
+    this._toolSettings = createWidgetDef(props.toolSettings, `uifw-toolSettings-widget`);
+    this._statusBar = createWidgetDef(props.statusBar, `uifw-statusBar-widget`);
+    this._contentManipulation = createWidgetDef(props.contentManipulation, `uifw-contentManipulation-widget`);
+    this._viewNavigation = createWidgetDef(props.viewNavigation, `uifw-viewNavigation-widget`);
     this._topPanel = Frontstage.createStagePanelDef(StagePanelLocation.Top, props);
     this._leftPanel = Frontstage.createStagePanelDef(StagePanelLocation.Left, props);
     this._rightPanel = Frontstage.createStagePanelDef(StagePanelLocation.Right, props);
@@ -958,11 +958,11 @@ export class FrontstageDef {
   }
 }
 
-function createWidgetDef(widgetElement: React.ReactElement<WidgetProps> | undefined, stableId: string, _props: FrontstageProps): WidgetDef | undefined {
-  if (!widgetElement || !React.isValidElement(widgetElement))
+function createWidgetDef(widget: WidgetProps | undefined, stableId: string): WidgetDef | undefined {
+  if (!widget)
     return undefined;
 
-  const props = getStableWidgetProps(widgetElement.props, stableId);
+  const props = getStableWidgetProps(widget, stableId);
   const widgetDef = new WidgetDef(props);
   return widgetDef;
 }

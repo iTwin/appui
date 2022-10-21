@@ -42,13 +42,13 @@ export interface FrontstageProps extends CommonProps {
   isIModelIndependent?: boolean;
 
   /** The Zone in the top-left corner that shows tools typically used to query and modify content. */
-  contentManipulation?: React.ReactElement<WidgetProps>;
+  contentManipulation?: WidgetProps;
   /** The Zone the that shows settings for the active tool. */
-  toolSettings?: React.ReactElement<WidgetProps>;
+  toolSettings?: WidgetProps;
   /** The Zone in the top-right corner that shows view navigation tools. */
-  viewNavigation?: React.ReactElement<WidgetProps>;
+  viewNavigation?: WidgetProps;
   /** The status bar Zone shown as the application footer. */
-  statusBar?: React.ReactElement<WidgetProps>;
+  statusBar?: WidgetProps;
 
   /** The StagePanel on the top of the AppUi container. */
   topPanel?: React.ReactElement<StagePanelProps>;

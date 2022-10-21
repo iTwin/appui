@@ -75,9 +75,9 @@ describe("ToolUiProvider", () => {
           id={this.id}
           defaultTool={CoreTools.selectElementCommand}
           contentGroup={TestUtils.TestContentGroup1}
-          statusBar={
-            <Widget isToolSettings={true} />
-          }
+          statusBar={{
+            isToolSettings: true,
+          }}
         />
       );
     }
