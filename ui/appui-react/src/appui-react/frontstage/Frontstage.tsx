@@ -51,13 +51,13 @@ export interface FrontstageProps extends CommonProps {
   statusBar?: WidgetProps;
 
   /** The StagePanel on the top of the AppUi container. */
-  topPanel?: React.ReactElement<StagePanelProps>;
+  topPanel?: StagePanelProps;
   /** The StagePanel on the left.  */
-  leftPanel?: React.ReactElement<StagePanelProps>;
+  leftPanel?: StagePanelProps;
   /** The StagePanel on the right.  */
-  rightPanel?: React.ReactElement<StagePanelProps>;
+  rightPanel?: StagePanelProps;
   /** The StagePanel on the bottom of the AppUi container.  */
-  bottomPanel?: React.ReactElement<StagePanelProps>;
+  bottomPanel?: StagePanelProps;
 }
 
 /** Frontstage React component.
@@ -69,14 +69,14 @@ export class Frontstage extends React.Component<FrontstageProps> {
   public static createStagePanelDef(panelLocation: StagePanelLocation, props: FrontstageProps): StagePanelDef | undefined {
     const panelDef = new StagePanelDef();
 
-    const panelElement = Frontstage.getStagePanelElement(panelLocation, props);
-    panelDef.initializeFromProps(panelElement?.props, panelLocation);
+    const panel = Frontstage.getStagePanel(panelLocation, props);
+    panelDef.initializeFromProps(panel, panelLocation);
 
     return panelDef;
   }
 
-  private static getStagePanelElement(location: StagePanelLocation, props: FrontstageProps): React.ReactElement<StagePanelProps> | undefined {
-    let panelElement: React.ReactElement<StagePanelProps> | undefined;
+  private static getStagePanel(location: StagePanelLocation, props: FrontstageProps) {
+    let panelElement: StagePanelProps | undefined;
 
     switch (location) {
       case StagePanelLocation.Top:

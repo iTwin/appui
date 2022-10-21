@@ -104,62 +104,58 @@ export class TestFrontstage extends FrontstageProvider {
         toolSettings={{
           isToolSettings: true,
         }}
-        leftPanel={
-          <StagePanel
-            sections={{
-              start: {
-                widgets: [{
-                  id: "widget3",
+        leftPanel={{
+          sections: {
+            start: {
+              widgets: [{
+                id: "widget3",
+                defaultState: WidgetState.Open,
+                control: TestWidget,
+                onWidgetStateChanged: () => { },
+                saveTransientState: () => { },
+                restoreTransientState: () => false,
+              }],
+            },
+            end: {
+              widgets: [{
+                id: "widget4",
+                defaultState: WidgetState.Open,
+                control: TestWidget,
+              }],
+            },
+          }
+        }}
+        rightPanel={{
+          sections: {
+            start: {
+              widgets: [
+                {
+                  id: "widget1",
                   defaultState: WidgetState.Open,
-                  control: TestWidget,
-                  onWidgetStateChanged: () => { },
-                  saveTransientState: () => { },
-                  restoreTransientState: () => false,
-                }],
-              },
-              end: {
-                widgets: [{
-                  id: "widget4",
+                  element: <div />,
+                },
+                {
+                  id: "widget6_2",
+                  element: < div />,
+                },
+              ],
+            },
+            end: {
+              widgets: [
+                {
+                  id: "widget1",
                   defaultState: WidgetState.Open,
-                  control: TestWidget,
-                }],
-              },
-            }}
-          />
-        }
-        rightPanel={
-          <StagePanel
-            sections={{
-              start: {
-                widgets: [
-                  {
-                    id: "widget1",
-                    defaultState: WidgetState.Open,
-                    element: <div />,
-                  },
-                  {
-                    id: "widget6_2",
-                    element: < div />,
-                  },
-                ],
-              },
-              end: {
-                widgets: [
-                  {
-                    id: "widget1",
-                    defaultState: WidgetState.Open,
-                    element: <div />,
-                  },
-                  {
-                    id: "widget2",
-                    defaultState: WidgetState.Hidden,
-                    element: < div />,
-                  },
-                ],
-              },
-            }}
-          />
-        }
+                  element: <div />,
+                },
+                {
+                  id: "widget2",
+                  defaultState: WidgetState.Hidden,
+                  element: < div />,
+                },
+              ],
+            },
+          },
+        }}
         statusBar={{
           id: "statusBar",
           isStatusBar: true,
@@ -211,62 +207,58 @@ export class TestFrontstage2 extends FrontstageProvider {
         toolSettings={{
           isToolSettings: true,
         }}
-        leftPanel={
-          <StagePanel
-            sections={{
-              start: {
-                widgets: [{
-                  id: "widget3",
+        leftPanel={{
+          sections: {
+            start: {
+              widgets: [{
+                id: "widget3",
+                defaultState: WidgetState.Open,
+                control: TestWidget,
+                onWidgetStateChanged: () => { },
+                saveTransientState: () => { },
+                restoreTransientState: () => false,
+              }],
+            },
+            end: {
+              widgets: [{
+                id: "widget4",
+                defaultState: WidgetState.Open,
+                control: TestWidget,
+              }],
+            },
+          },
+        }}
+        rightPanel={{
+          sections: {
+            start: {
+              widgets: [
+                {
+                  id: "widget1",
                   defaultState: WidgetState.Open,
-                  control: TestWidget,
-                  onWidgetStateChanged: () => { },
-                  saveTransientState: () => { },
-                  restoreTransientState: () => false,
-                }],
-              },
-              end: {
-                widgets: [{
-                  id: "widget4",
+                  element: <div />,
+                },
+                {
+                  id: "widget6_2",
+                  element: <div />,
+                },
+              ],
+            },
+            end: {
+              widgets: [
+                {
+                  id: "widget1",
                   defaultState: WidgetState.Open,
-                  control: TestWidget,
-                }],
-              },
-            }}
-          />
-        }
-        rightPanel={
-          <StagePanel
-            sections={{
-              start: {
-                widgets: [
-                  {
-                    id: "widget1",
-                    defaultState: WidgetState.Open,
-                    element: <div />,
-                  },
-                  {
-                    id: "widget6_2",
-                    element: <div />,
-                  },
-                ],
-              },
-              end: {
-                widgets: [
-                  {
-                    id: "widget1",
-                    defaultState: WidgetState.Open,
-                    element: <div />,
-                  },
-                  {
-                    id: "widget2",
-                    defaultState: WidgetState.Hidden,
-                    element: <div />,
-                  },
-                ],
-              },
-            }}
-          />
-        }
+                  element: <div />,
+                },
+                {
+                  id: "widget2",
+                  defaultState: WidgetState.Hidden,
+                  element: <div />,
+                },
+              ],
+            },
+          },
+        }}
         statusBar={{
           id: "statusBar",
           isStatusBar: true,

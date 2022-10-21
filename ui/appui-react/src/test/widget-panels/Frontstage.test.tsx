@@ -66,19 +66,17 @@ export class TestFrontstageUi2 extends FrontstageProvider {
         id={this.id}
         defaultTool={CoreTools.selectElementCommand}
         contentGroup={TestUtils.TestContentGroup1}
-        leftPanel={
-          <StagePanel
-            sections={{
-              start: {
-                widgets: [{
-                  id: "LeftStart1",
-                  label: "Left Start 1",
-                  element: "Left Start 1 widget",
-                }],
-              },
-            }}
-          />
-        }
+        leftPanel={{
+          sections: {
+            start: {
+              widgets: [{
+                id: "LeftStart1",
+                label: "Left Start 1",
+                element: "Left Start 1 widget",
+              }],
+            },
+          }
+        }}
       />
     );
   }

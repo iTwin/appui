@@ -124,39 +124,29 @@ export class StandardFrontstageProvider extends FrontstageProvider {
           isStatusBar: true,
           control: StatusBarWidgetComposerControl,
         }}
-        leftPanel={
-          <StagePanel
-            size={300}
-            pinned={false}
-            defaultState={StagePanelState.Minimized}
-            {...this.props.leftPanelProps}
-          />
-        }
+        leftPanel={{
+          size: 300,
+          pinned: false,
+          defaultState: StagePanelState.Minimized,
+          ...this.props.leftPanelProps,
+        }}
+        topPanel={{
+          size: 90,
+          pinned: false,
+          defaultState: StagePanelState.Minimized,
+          ...this.props.topPanelProps,
+        }}
 
-        topPanel={
-          <StagePanel
-            size={90}
-            pinned={false}
-            defaultState={StagePanelState.Minimized}
-            {...this.props.topPanelProps}
-          />
-        }
+        rightPanel={{
+          defaultState: StagePanelState.Open,
+          ...this.props.rightPanelProps,
+        }}
 
-        rightPanel={
-          <StagePanel
-            defaultState={StagePanelState.Open}
-            {...this.props.rightPanelProps}
-
-          />
-        }
-
-        bottomPanel={
-          <StagePanel
-            size={180}
-            defaultState={StagePanelState.Open}
-            {...this.props.bottomPanelProps}
-          />
-        }
+        bottomPanel={{
+          size: 180,
+          defaultState: StagePanelState.Open,
+          ...this.props.bottomPanelProps,
+        }}
       />
     );
   }
