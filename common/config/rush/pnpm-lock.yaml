@@ -1331,35 +1331,25 @@ importers:
       '@testing-library/user-event': ^14.4.2
       '@types/chai': 4.3.1
       '@types/chai-as-promised': ^7
-      '@types/chai-jest-snapshot': ^1.3.0
       '@types/chai-spies': ^1.0.0
       '@types/chai-string': ^1.4.1
-      '@types/enzyme': 3.9.3
       '@types/faker': ^4.1.0
-      '@types/lodash': ^4.14.0
       '@types/mocha': ^8.2.2
       '@types/node': 16.11.59
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.0
       '@types/sinon': ^9.0.0
       '@types/sinon-chai': ^3.2.0
-      '@wojtekmaj/enzyme-adapter-react-17': ^0.6.3
-      callable-instance2: 1.0.0
       chai: ^4.1.2
       chai-as-promised: ^7
-      chai-jest-snapshot: ^2.0.0
       chai-spies: 1.0.0
       chai-string: ^1.5.0
       classnames: 2.3.1
       cpx2: ^3.0.0
-      enzyme: 3.10.0
-      enzyme-to-json: ^3.3.4
       eslint: ^7.11.0
-      eventemitter2: ^5.0.1
       faker: ^4.1.0
       ignore-styles: ^5.0.1
       immer: 9.0.6
-      immutable: ^3.8.2
       jsdom: ^19.0.0
       jsdom-global: 3.0.2
       mocha: ^10.0.0
@@ -1371,7 +1361,6 @@ importers:
       rimraf: ^3.0.2
       sinon: ^9.0.2
       sinon-chai: ^3.2.0
-      ts-key-enum: ^2.0.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
       typescript: ~4.4.0
@@ -1381,12 +1370,8 @@ importers:
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
-      callable-instance2: 1.0.0
       classnames: 2.3.1
-      eventemitter2: 5.0.1
       immer: 9.0.6
-      immutable: 3.8.2
-      ts-key-enum: 2.0.12
     devDependencies:
       '@itwin/build-tools': 3.4.1
       '@itwin/components-react': link:../components-react
@@ -1405,27 +1390,20 @@ importers:
       '@testing-library/user-event': 14.4.3_@testing-library+dom@8.17.1
       '@types/chai': 4.3.1
       '@types/chai-as-promised': 7.1.5
-      '@types/chai-jest-snapshot': 1.3.6
       '@types/chai-spies': 1.0.3
       '@types/chai-string': 1.4.2
-      '@types/enzyme': 3.9.3
       '@types/faker': 4.1.12
-      '@types/lodash': 4.14.184
       '@types/mocha': 8.2.3
       '@types/node': 16.11.59
       '@types/react': 17.0.49
       '@types/react-dom': 17.0.17
       '@types/sinon': 9.0.11
       '@types/sinon-chai': 3.2.8
-      '@wojtekmaj/enzyme-adapter-react-17': 0.6.7_139404e387ad12a3919093d103c0dae6
       chai: 4.3.6
       chai-as-promised: 7.1.1_chai@4.3.6
-      chai-jest-snapshot: 2.0.0_chai@4.3.6
       chai-spies: 1.0.0_chai@4.3.6
       chai-string: 1.5.0_chai@4.3.6
       cpx2: 3.0.2
-      enzyme: 3.10.0
-      enzyme-to-json: 3.6.2_enzyme@3.10.0
       eslint: 7.32.0
       faker: 4.1.0
       ignore-styles: 5.0.1
