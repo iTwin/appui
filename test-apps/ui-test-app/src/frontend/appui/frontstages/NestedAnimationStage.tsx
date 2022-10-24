@@ -4,19 +4,19 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, NestedFrontstage, ToolWidgetComposer, Widget,
+  ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, NestedFrontstage, ToolWidgetComposer,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
 export class NestedAnimationStage extends FrontstageProvider {
   public static stageId = "ui-test-app:NestedAnimationStage";
 
-  public get id(): string {
+  public override get id(): string {
     return NestedAnimationStage.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
-    const myContentGroup: ContentGroup = new ContentGroup(
+  public override get frontstage(): FrontstageProps {
+    const contentGroup = new ContentGroup(
       {
         id: "ScheduleAnimation",
         layout: StandardContentLayouts.singleView,
@@ -28,16 +28,15 @@ export class NestedAnimationStage extends FrontstageProvider {
         ],
       },
     );
-
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        contentManipulation={
-          <Widget isFreeform={true} element={<FrontstageToolWidget />} />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup,
+      contentManipulation: {
+        isFreeform: true,
+        element: <FrontstageToolWidget />,
+      },
+    };
   }
 }
 

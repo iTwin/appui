@@ -7,8 +7,8 @@ import { IModelApp } from "@itwin/core-frontend";
 import { CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities, StageUsage, ToolbarItemUtilities, WidgetState } from "@itwin/appui-abstract";
 import {
   AccuDrawDialog, AccuDrawWidgetControl, BasicNavigationWidget, BasicToolWidget, CommandItemDef,
-  CoreTools, CustomItemDef, Frontstage, FrontstageProvider, IModelConnectedViewSelector, ModelessDialogManager,
-  StagePanel, ToolbarHelper, Widget,
+  CoreTools, CustomItemDef, FrontstageProps, FrontstageProvider, IModelConnectedViewSelector, ModelessDialogManager,
+  ToolbarHelper,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../../frontend/index";
 import { EditTools } from "../../../tools/editing/ToolSpecifications";
@@ -24,7 +24,7 @@ import { InitialIModelContentStageProvider } from "../ViewsFrontstage";
 export class EditFrontstage extends FrontstageProvider {
   private _contentGroupProvider = new InitialIModelContentStageProvider(true);
   public static stageId = "EditFrontstage";
-  public get id(): string {
+  public override get id(): string {
     return EditFrontstage.stageId;
   }
 
@@ -49,74 +49,65 @@ export class EditFrontstage extends FrontstageProvider {
       ToolbarHelper.createToolbarItemFromItemDef(200, this._viewSelectorItemDef)];
   }
 
-  public get frontstage() {
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={this._contentGroupProvider}
-        applicationData={{ key: "value" }}
-        usage={StageUsage.Edit}
-        contentManipulation={
-          <Widget isFreeform={true} element={<BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
-            additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={false} />} />
-        }
-        toolSettings={
-          <Widget
-            iconSpec="icon-placeholder"
-            isToolSettings={true}
-          />
-        }
-        viewNavigation={
-          <Widget isFreeform={true} element={
-            <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />
-          } />
-        }
-        statusBar={
-          <Widget isStatusBar={true} control={EditStatusBarWidgetControl} />
-        }
-        leftPanel={
-          <StagePanel
-            size={250}
-            sections={{
-              start: {
-                widgets: [
-                  <Widget
-                    key={0}
-                    defaultState={WidgetState.Closed}
-                    iconSpec="icon-active"
-                    labelKey="SampleApp:widgets.ActiveSettings"
-                    control={ActiveSettingsWidget}
-                    syncEventIds={[SampleAppUiActionId.setTestProperty]}
-                    stateFunc={(): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden}
-                  />,
-                  <Widget
-                    key={1}
-                    defaultState={WidgetState.Closed}
-                    iconSpec="icon-add"
-                    labelKey="SampleApp:widgets.ModelCreation"
-                    control={ModelCreationWidget}
-                    syncEventIds={[SampleAppUiActionId.setTestProperty]}
-                    stateFunc={(): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden}
-                  />,
-                ],
+  public override get frontstage(): FrontstageProps {
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup: this._contentGroupProvider,
+      applicationData: { key: "value" },
+      usage: StageUsage.Edit,
+      contentManipulation: {
+        isFreeform: true,
+        element: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
+          additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={false} />,
+      },
+      toolSettings: {
+        iconSpec: "icon-placeholder",
+        isToolSettings: true,
+      },
+      viewNavigation: {
+        isFreeform: true,
+        element: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
+      },
+      statusBar: {
+        isStatusBar: true,
+        control: EditStatusBarWidgetControl,
+      },
+      leftPanel: {
+        size: 250,
+        sections: {
+          start: {
+            widgets: [
+              {
+                defaultState: WidgetState.Closed,
+                iconSpec: "icon-active",
+                labelKey: "SampleApp:widgets.ActiveSettings",
+                control: ActiveSettingsWidget,
+                syncEventIds: [SampleAppUiActionId.setTestProperty],
+                stateFunc: (): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden,
               },
-            }}
-
-          />
-        }
-        bottomPanel={
-          <StagePanel
-            sections={{
-              start: {
-                widgets: [
-                  <Widget key={0} id={AccuDrawWidgetControl.id} label={AccuDrawWidgetControl.label} control={AccuDrawWidgetControl} />,
-                ],
+              {
+                defaultState: WidgetState.Closed,
+                iconSpec: "icon-add",
+                labelKey: "SampleApp:widgets.ModelCreation",
+                control: ModelCreationWidget,
+                syncEventIds: [SampleAppUiActionId.setTestProperty],
+                stateFunc: (): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden,
               },
-            }}
-          />
-        }
-      />
-    );
+            ],
+          },
+        },
+      },
+      bottomPanel: {
+        sections: {
+          start: {
+            widgets: [
+              { id: AccuDrawWidgetControl.id, label: AccuDrawWidgetControl.label, control: AccuDrawWidgetControl },
+            ],
+          },
+        },
+      },
+    };
   }
 }
 

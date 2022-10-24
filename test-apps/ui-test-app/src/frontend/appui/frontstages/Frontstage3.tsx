@@ -5,8 +5,8 @@
 import * as React from "react";
 import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
-  ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, IModelViewportControl, NavigationAidHost,
-  NavigationWidgetComposer, StagePanel, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, Widget,
+  ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, IModelViewportControl, NavigationAidHost,
+  NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { IModelViewportControl as App_IModelViewport } from "../contentviews/IModelViewport";
@@ -21,7 +21,7 @@ import { IModelApp } from "@itwin/core-frontend";
 export class Frontstage3 extends FrontstageProvider {
   public static stageId = "ui-test-app:Test3";
 
-  public get id(): string {
+  public override get id(): string {
     return Frontstage3.stageId;
   }
 
@@ -29,9 +29,8 @@ export class Frontstage3 extends FrontstageProvider {
     return UiFramework.getDefaultViewState()?.clone();
   };
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
-
-    const myContentGroup: ContentGroup = new ContentGroup(
+  public override get frontstage(): FrontstageProps {
+    const contentGroup = new ContentGroup(
       {
         id: "ui-test-app:Frontstage3ContentGroup",
         layout: StandardContentLayouts.fourQuadrants,
@@ -58,53 +57,69 @@ export class Frontstage3 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        contentManipulation={
-          <Widget isFreeform={true} element={this.getToolWidget()} />
-        }
-        toolSettings={
-          <Widget isToolSettings={true} />
-        }
-        viewNavigation={
-          <Widget isFreeform={true} element={this.getNavigationWidget()} />
-        }
-        rightPanel={
-          <StagePanel
-            sections={{
-              start: {
-                widgets: [
-                  <Widget key={0} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
-                ],
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup,
+      contentManipulation: {
+        isFreeform: true,
+        element: this.getToolWidget(),
+      },
+      toolSettings: {
+        isToolSettings: true,
+      },
+      viewNavigation: {
+        isFreeform: true,
+        element: this.getNavigationWidget(),
+      },
+      rightPanel: {
+        sections: {
+          start: {
+            widgets: [
+              {
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.NavigationTree",
+                control: NavigationTreeWidgetControl,
               },
-              end: {
-                widgets: [
-                  <Widget key={0} id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-                  <Widget key={1} defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
-                ],
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                id: "VerticalPropertyGrid",
+                defaultState: WidgetState.Hidden,
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+                control: VerticalPropertyGridWidgetControl,
               },
-            }}
-          />
-        }
-        leftPanel={
-          <StagePanel
-            sections={{
-              end: {
-                widgets: [
-                  <Widget key={0} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-                ],
+              {
+                defaultState: WidgetState.Open,
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+                control: HorizontalPropertyGridWidgetControl,
               },
-            }}
-          />
-        }
-        statusBar={
-          <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />
-        }
-      />
-    );
+            ],
+          },
+        },
+      },
+      leftPanel: {
+        sections: {
+          end: {
+            widgets: [
+              {
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.TableDemo",
+                control: TableDemoWidgetControl,
+              },
+            ],
+          },
+        },
+      },
+      statusBar: {
+        isStatusBar: true,
+        control: SmallStatusBarWidgetControl,
+      },
+    };
   }
 
   /** Define a ToolWidget with Buttons to display in the TopLeft zone.

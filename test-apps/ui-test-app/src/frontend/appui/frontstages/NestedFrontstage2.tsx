@@ -5,9 +5,8 @@
 import * as React from "react";
 import { CommonToolbarItem, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
-  ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
-  StagePanel,
-  ToolbarComposer, ToolbarHelper, ToolWidgetComposer, Widget,
+  ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
+  ToolbarComposer, ToolbarHelper, ToolWidgetComposer,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
@@ -19,43 +18,34 @@ import { IModelApp } from "@itwin/core-frontend";
 export class NestedFrontstage2 extends FrontstageProvider {
   public static stageId = "ui-test-app:NestedFrontstage2";
 
-  public get id(): string {
+  public override get id(): string {
     return NestedFrontstage2.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup2);
-
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.rotateViewCommand}
-        contentGroup={contentGroup}
-        contentManipulation={
-          <Widget isFreeform={true} element={<FrontstageToolWidget />} />
-        }
-        toolSettings={
-          <Widget isToolSettings={true} />
-        }
-        viewNavigation={
-          <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />
-        }
-        statusBar={
-          <Widget isStatusBar={true} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.StatusBar" control={SmallStatusBarWidgetControl} />
-        }
-        rightPanel={
-          <StagePanel
-            sections={{
-              end: {
-                widgets: [
-                  <Widget key={0} defaultState={WidgetState.Closed} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
-                  <Widget key={1} id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-                ],
-              },
-            }}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: CoreTools.rotateViewCommand,
+      contentGroup,
+      contentManipulation: {
+        isFreeform: true,
+        element: <FrontstageToolWidget />,
+      },
+      toolSettings: { isToolSettings: true },
+      viewNavigation: { isFreeform: true, element: <FrontstageNavigationWidget /> },
+      statusBar: { isStatusBar: true, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.StatusBar", control: SmallStatusBarWidgetControl },
+      rightPanel: {
+        sections: {
+          end: {
+            widgets: [
+              { defaultState: WidgetState.Closed, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl, fillZone: true },
+              { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
+            ],
+          },
+        },
+      },
+    };
   }
 }
 

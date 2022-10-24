@@ -4,9 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BaseItemState, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, Frontstage,
-  FrontstageProps, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
-  SessionStateActionId, StagePanel, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, Widget,
+  BackstageAppButton, BaseItemState, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, FrontstageProps, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
+  SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { TreeExampleContentControl } from "../contentviews/TreeExampleContent";
@@ -20,12 +19,12 @@ import { CommonToolbarItem, ConditionalBooleanValue, StandardContentLayouts, Too
 export class Frontstage2 extends FrontstageProvider {
   public static stageId = "ui-test-app:Test2";
 
-  public get id(): string {
+  public override get id(): string {
     return Frontstage2.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
-    const myContentGroup: ContentGroup = new ContentGroup(
+  public override get frontstage(): FrontstageProps {
+    const contentGroup = new ContentGroup(
       {
         id: "frontstage2",
         layout: StandardContentLayouts.fourQuadrants,
@@ -54,37 +53,41 @@ export class Frontstage2 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        applicationData={{ key: "value" }}
-
-        contentManipulation={
-          <Widget isFreeform={true} element={<FrontstageToolWidget />} />
-        }
-        toolSettings={
-          <Widget isToolSettings={true} />
-        }
-        viewNavigation={
-          <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />
-        }
-        statusBar={
-          <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />
-        }
-        rightPanel={
-          <StagePanel
-            sections={{
-              end: {
-                widgets: [
-                  <Widget key={0} defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
-                ],
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup,
+      applicationData: { key: "value" },
+      contentManipulation: {
+        isFreeform: true,
+        element: <FrontstageToolWidget />,
+      },
+      toolSettings: {
+        isToolSettings: true,
+      },
+      viewNavigation: {
+        isFreeform: true,
+        element: <FrontstageNavigationWidget />,
+      },
+      statusBar: {
+        isStatusBar: true,
+        control: SmallStatusBarWidgetControl,
+      },
+      rightPanel: {
+        sections: {
+          end: {
+            widgets: [
+              {
+                defaultState: WidgetState.Hidden,
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+                control: HorizontalPropertyGridWidgetControl,
               },
-            }}
-          />
-        }
-      />
-    );
+            ],
+          },
+        },
+      },
+    };
   }
 }
 

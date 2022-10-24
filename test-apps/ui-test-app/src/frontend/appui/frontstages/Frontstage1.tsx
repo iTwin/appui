@@ -5,9 +5,9 @@
 import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps,
-  FrontstageProvider, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanel, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, useWidgetDirection,
-  Widget, WidgetStateChangedEventArgs,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, FrontstageDef, FrontstageManager, FrontstageProps,
+  FrontstageProvider, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, useWidgetDirection,
+  WidgetStateChangedEventArgs,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
@@ -82,112 +82,131 @@ export class Frontstage1 extends FrontstageProvider {
     return Frontstage1.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup1);
-    return (
-      <Frontstage id={this.id}
-        version={1}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={contentGroup}
-        defaultContentId="TestContent1"
-        contentManipulation={
-          <Widget isFreeform={true} element={<FrontstageToolWidget />} />
-        }
-        toolSettings={
-          <Widget isToolSettings={true} />
-        }
-        viewNavigation={
-          <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />
-        }
-        statusBar={
-          <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />
-        }
-        topPanel={
-          <StagePanel
-            resizable={false}
-            sections={{
-              start: {
-                widgets: [
-                  <Widget key={0} element={<h2>Top panel</h2>} />,
-                  <Widget
-                    key={1}
-                    element={<>
-                      <h2>TopMost panel</h2>
-                      <span>BottomMost panel:</span>
-                      &nbsp;
-                      <button onClick={() => {
-                        const frontstageDef = FrontstageManager.activeFrontstageDef;
-                        const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
-                        widgetDef?.setWidgetState(WidgetState.Open);
-                      }}>show</button>
-                      &nbsp;
-                      <button onClick={() => {
-                        const frontstageDef = FrontstageManager.activeFrontstageDef;
-                        const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
-                        widgetDef?.setWidgetState(WidgetState.Hidden);
-                      }}>hide</button>
-                    </>}
-                  />,
-                ],
+    return {
+      id: this.id,
+      version: 1,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup,
+      defaultContentId: "TestContent1",
+      contentManipulation: {
+        isFreeform: true,
+        element: <FrontstageToolWidget />,
+      },
+      toolSettings: {
+        isToolSettings: true,
+      },
+      viewNavigation: {
+        isFreeform: true,
+        element: < FrontstageNavigationWidget />,
+      },
+      statusBar: {
+        isStatusBar: true,
+        control: SmallStatusBarWidgetControl,
+      },
+      topPanel: {
+        resizable: false,
+        sections: {
+          start: {
+            widgets: [
+              { element: <h2>Top panel</h2> },
+              {
+                element: <>
+                  <h2>TopMost panel</h2>
+                  <span>BottomMost panel:</span>
+                  & nbsp;
+                  < button onClick={() => {
+                    const frontstageDef = FrontstageManager.activeFrontstageDef;
+                    const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
+                    widgetDef?.setWidgetState(WidgetState.Open);
+                  }} > show</button>
+                  & nbsp;
+                  < button onClick={() => {
+                    const frontstageDef = FrontstageManager.activeFrontstageDef;
+                    const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
+                    widgetDef?.setWidgetState(WidgetState.Hidden);
+                  }
+                  }> hide</button >
+                </>,
               },
-            }}
-          />
-        }
-        leftPanel={
-          <StagePanel
-            sections={{
-              start: {
-                widgets: [
-                  <Widget key={0} id="VerticalPropertyGrid" iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-                ],
+            ],
+          },
+        },
+      },
+      leftPanel: {
+        sections: {
+          start: {
+            widgets: [
+              {
+                id: "VerticalPropertyGrid",
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+                control: VerticalPropertyGridWidgetControl,
               },
-              end: {
-                widgets: [
-                  <Widget key={0} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-                ],
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.TableDemo",
+                control: TableDemoWidgetControl,
               },
-            }}
-          />
-        }
-        rightPanel={
-          <StagePanel
-            resizable={false}
-            size={200}
-            sections={{
-              start: {
-                widgets: [
-                  <Widget key={0} element={<RightPanel />} />,
-                ],
+            ],
+          },
+        },
+      },
+      rightPanel: {
+        resizable: false,
+        size: 200,
+        sections: {
+          start: {
+            widgets: [
+              { element: <RightPanel /> },
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                defaultState: WidgetState.Open,
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+                control: HorizontalPropertyGridWidgetControl,
+                fillZone: true,
               },
-              end: {
-                widgets: [
-                  <Widget key={0} defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
-                  <Widget key={1} id="VerticalPropertyGrid1" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-                ],
+              {
+                id: "VerticalPropertyGrid1",
+                defaultState: WidgetState.Hidden,
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+                control: VerticalPropertyGridWidgetControl,
               },
-            }}
-          />
-        }
-        bottomPanel={
-          <StagePanel
-            sections={{
-              start: {
-                widgets: [
-                  <Widget key={0} element={<SampleTimelineComponent />} />,
-                ],
+            ],
+          },
+        },
+      },
+      bottomPanel: {
+        sections: {
+          start: {
+            widgets: [
+              { element: <SampleTimelineComponent /> },
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                id: "BottomMostPanelWidget",
+                element: <h2> BottomMost panel</h2>,
               },
-              end: {
-                widgets: [
-                  <Widget key={0} id="BottomMostPanelWidget" element={<h2>BottomMost panel</h2>} />,
-                ],
-              },
-            }}
-          />
-        }
-      />
-    );
+            ],
+          },
+        },
+      },
+    };
   }
 }
+
 /** Define a ToolWidget with Buttons to display in the TopLeft zone.
  */
 class FrontstageToolWidget extends React.Component {

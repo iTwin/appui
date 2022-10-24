@@ -6,7 +6,7 @@ import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, UiFramework,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, UiFramework,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { IModelIndex } from "../imodelindex/IModelIndex";
@@ -35,12 +35,12 @@ class IModelIndexControl extends ContentControl {
 
 export class IModelIndexFrontstage extends FrontstageProvider {
   public static stageId = "ui-test-app:IModelIndex";
-  public get id(): string {
+  public override get id(): string {
     return IModelIndexFrontstage.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
-    const contentGroup: ContentGroup = new ContentGroup({
+  public override get frontstage(): FrontstageProps {
+    const contentGroup = new ContentGroup({
       id: "imodelIndexGroup",
       layout: StandardContentLayouts.singleView,
       contents: [
@@ -51,12 +51,11 @@ export class IModelIndexFrontstage extends FrontstageProvider {
       ],
     });
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={contentGroup}
-        usage={StageUsage.Private}
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup,
+      usage: StageUsage.Private,
+    };
   }
 }
