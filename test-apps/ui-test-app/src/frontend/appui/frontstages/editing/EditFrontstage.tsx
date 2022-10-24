@@ -57,20 +57,16 @@ export class EditFrontstage extends FrontstageProvider {
       applicationData: { key: "value" },
       usage: StageUsage.Edit,
       contentManipulation: {
-        isFreeform: true,
         element: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
           additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={false} />,
       },
       toolSettings: {
         iconSpec: "icon-placeholder",
-        isToolSettings: true,
       },
       viewNavigation: {
-        isFreeform: true,
         element: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
       },
       statusBar: {
-        isStatusBar: true,
         control: EditStatusBarWidgetControl,
       },
       leftPanel: {
@@ -83,16 +79,12 @@ export class EditFrontstage extends FrontstageProvider {
                 iconSpec: "icon-active",
                 labelKey: "SampleApp:widgets.ActiveSettings",
                 control: ActiveSettingsWidget,
-                syncEventIds: [SampleAppUiActionId.setTestProperty],
-                stateFunc: (): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden,
               },
               {
                 defaultState: WidgetState.Closed,
                 iconSpec: "icon-add",
                 labelKey: "SampleApp:widgets.ModelCreation",
                 control: ModelCreationWidget,
-                syncEventIds: [SampleAppUiActionId.setTestProperty],
-                stateFunc: (): WidgetState => SampleAppIModelApp.getTestProperty() !== "HIDE" ? WidgetState.Closed : WidgetState.Hidden,
               },
             ],
           },

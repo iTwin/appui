@@ -351,21 +351,17 @@ export class ViewsFrontstage extends FrontstageProvider {
       usage: StageUsage.General,
       version: 3.1, // Defaults to 0. Increment this when Frontstage changes are meaningful enough to reinitialize saved user layout settings.
       contentManipulation: {
-        isFreeform: true,
         element: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
           additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={true} />,
       },
       toolSettings: {
         iconSpec: "icon-placeholder",
-        isToolSettings: true,
         preferredPanelSize: "fit-content",
       },
       viewNavigation: {
-        isFreeform: true,
         element: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
       },
       statusBar: {
-        isStatusBar: true,
         control: AppStatusBarWidgetControl,
       },
       rightPanel: {
@@ -386,7 +382,6 @@ export class ViewsFrontstage extends FrontstageProvider {
                     },
                   },
                 },
-                fillZone: true,
                 defaultFloatingSize: { width: 330, height: 540 },
                 isFloatingStateWindowResizable: true,
               },
@@ -400,7 +395,6 @@ export class ViewsFrontstage extends FrontstageProvider {
                 labelKey: "SampleApp:widgets.UnifiedSelectPropertyGrid",
                 id: ViewsFrontstage.unifiedSelectionPropertyGridId,
                 control: UnifiedSelectionPropertyGridWidgetControl,
-                fillZone: true,
                 applicationData: { iModelConnection },
                 isFloatingStateWindowResizable: true,
                 defaultFloatingSize: { width: 200, height: 300 },
@@ -426,7 +420,6 @@ export class ViewsFrontstage extends FrontstageProvider {
                 labelKey: "SampleApp:widgets.UnifiedSelectionTable",
                 control: UnifiedSelectionTableWidgetControl,
                 applicationData: { iModelConnection },
-                fillZone: true,
                 badgeType: BadgeType.New,
               },
             ],

@@ -33,7 +33,6 @@ export class NestedAnimationStage extends FrontstageProvider {
       defaultTool: CoreTools.selectElementCommand,
       contentGroup,
       contentManipulation: {
-        isFreeform: true,
         element: <FrontstageToolWidget />,
       },
     };

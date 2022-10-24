@@ -104,21 +104,17 @@ export class StandardFrontstageProvider extends FrontstageProvider {
       applicationData: this.props.applicationData,
       contentManipulation: {
         id: `${this.props.id}-contentManipulationTools`,
-        isFreeform: true,
         element: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
       },
       viewNavigation: {
         id: `${this.props.id}-viewNavigationTools`,
-        isFreeform: true,
         element: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
       },
       toolSettings: this.props.hideToolSettings ? undefined : {
         id: `${this.props.id}-toolSettings`,
-        isToolSettings: true,
       },
       statusBar: this.props.hideStatusBar ? undefined : {
         id: `${this.props.id}-statusBar`,
-        isStatusBar: true,
         control: StatusBarWidgetComposerControl,
       },
       leftPanel: {

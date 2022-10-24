@@ -16,8 +16,6 @@ describe("PopoutWidget", () => {
   const testWidgetDef = new WidgetDef({
     classId: "test",
     defaultState: WidgetState.Open,
-    isFreeform: false,
-    isStatusBar: false,
   });
 
   afterEach(async () => {

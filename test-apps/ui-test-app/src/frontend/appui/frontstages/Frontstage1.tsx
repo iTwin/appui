@@ -91,18 +91,13 @@ export class Frontstage1 extends FrontstageProvider {
       contentGroup,
       defaultContentId: "TestContent1",
       contentManipulation: {
-        isFreeform: true,
         element: <FrontstageToolWidget />,
       },
-      toolSettings: {
-        isToolSettings: true,
-      },
+      toolSettings: {},
       viewNavigation: {
-        isFreeform: true,
         element: < FrontstageNavigationWidget />,
       },
       statusBar: {
-        isStatusBar: true,
         control: SmallStatusBarWidgetControl,
       },
       topPanel: {
@@ -173,7 +168,6 @@ export class Frontstage1 extends FrontstageProvider {
                 iconSpec: "icon-placeholder",
                 labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
                 control: HorizontalPropertyGridWidgetControl,
-                fillZone: true,
               },
               {
                 id: "VerticalPropertyGrid1",

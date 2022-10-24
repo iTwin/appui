@@ -62,14 +62,10 @@ export class Frontstage3 extends FrontstageProvider {
       defaultTool: CoreTools.selectElementCommand,
       contentGroup,
       contentManipulation: {
-        isFreeform: true,
         element: this.getToolWidget(),
       },
-      toolSettings: {
-        isToolSettings: true,
-      },
+      toolSettings: {},
       viewNavigation: {
-        isFreeform: true,
         element: this.getNavigationWidget(),
       },
       rightPanel: {
@@ -116,7 +112,6 @@ export class Frontstage3 extends FrontstageProvider {
         },
       },
       statusBar: {
-        isStatusBar: true,
         control: SmallStatusBarWidgetControl,
       },
     };

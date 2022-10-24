@@ -75,9 +75,7 @@ describe("ToolUiProvider", () => {
         id: this.id,
         defaultTool: CoreTools.selectElementCommand,
         contentGroup: TestUtils.TestContentGroup1,
-        statusBar: {
-          isToolSettings: true,
-        },
+        statusBar: {},
       };
     }
   }

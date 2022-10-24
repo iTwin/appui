@@ -150,9 +150,7 @@ describe("DefaultToolUiSettingsProvider", () => {
           id: this.id,
           defaultTool: CoreTools.selectElementCommand,
           contentGroup: TestUtils.TestContentGroup1,
-          toolSettings: {
-            isToolSettings: true,
-          },
+          toolSettings: {},
         };
       }
     }

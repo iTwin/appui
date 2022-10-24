@@ -83,7 +83,6 @@ describe("ViewportContentControl", () => {
         defaultTool: CoreTools.selectElementCommand,
         contentGroup,
         viewNavigation: {
-          isFreeform: true,
           element: <>NavigationWidget</>,
         },
       };

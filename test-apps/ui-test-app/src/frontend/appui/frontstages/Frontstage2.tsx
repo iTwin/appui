@@ -59,18 +59,13 @@ export class Frontstage2 extends FrontstageProvider {
       contentGroup,
       applicationData: { key: "value" },
       contentManipulation: {
-        isFreeform: true,
         element: <FrontstageToolWidget />,
       },
-      toolSettings: {
-        isToolSettings: true,
-      },
+      toolSettings: {},
       viewNavigation: {
-        isFreeform: true,
         element: <FrontstageNavigationWidget />,
       },
       statusBar: {
-        isStatusBar: true,
         control: SmallStatusBarWidgetControl,
       },
       rightPanel: {

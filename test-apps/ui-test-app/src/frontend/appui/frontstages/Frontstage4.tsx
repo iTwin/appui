@@ -163,14 +163,10 @@ export class Frontstage4 extends FrontstageProvider {
       contentGroup,
       defaultContentId: "TestContent1",
       contentManipulation: {
-        isFreeform: true,
         element: this.getToolWidget(),
       },
-      toolSettings: {
-        isToolSettings: true,
-      },
+      toolSettings: {},
       viewNavigation: {
-        isFreeform: true,
         element: this.getNavigationWidget(),
       },
       rightPanel: {
@@ -199,7 +195,6 @@ export class Frontstage4 extends FrontstageProvider {
         },
       },
       statusBar: {
-        isStatusBar: true,
         classId: "SmallStatusBar",
       },
     };

@@ -96,13 +96,10 @@ export class TestFrontstage extends FrontstageProvider {
       applicationData: { key: "value" },
       usage: "MyUsage",
       contentManipulation: {
-        isFreeform: true,
         element: <div />,
         applicationData: { key: "value" },
       },
-      toolSettings: {
-        isToolSettings: true,
-      },
+      toolSettings: {},
       leftPanel: {
         sections: {
           start: {
@@ -157,7 +154,6 @@ export class TestFrontstage extends FrontstageProvider {
       },
       statusBar: {
         id: "statusBar",
-        isStatusBar: true,
         iconSpec: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
         control: AppStatusBarWidgetControl,
@@ -197,13 +193,10 @@ export class TestFrontstage2 extends FrontstageProvider {
       applicationData: { key: "value" },
       usage: "MyUsage",
       contentManipulation: {
-        isFreeform: true,
         element: <div />,
         applicationData: { key: "value" },
       },
-      toolSettings: {
-        isToolSettings: true,
-      },
+      toolSettings: {},
       leftPanel: {
         sections: {
           start: {
@@ -258,7 +251,6 @@ export class TestFrontstage2 extends FrontstageProvider {
       },
       statusBar: {
         id: "statusBar",
-        isStatusBar: true,
         iconSpec: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
         control: AppStatusBarWidgetControl,

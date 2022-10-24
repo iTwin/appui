@@ -77,7 +77,6 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
       isIModelIndependent: true,
       usage: StageUsage.Private,
       contentManipulation: {
-        isFreeform: true,
         element: < FrontstageToolWidget />,
       },
     };

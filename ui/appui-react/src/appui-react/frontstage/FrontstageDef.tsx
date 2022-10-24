@@ -25,7 +25,7 @@ import { ToolItemDef } from "../shared/ToolItemDef";
 import { StagePanelDef, StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { WidgetControl } from "../widgets/WidgetControl";
-import { WidgetDef } from "../widgets/WidgetDef";
+import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
 import { FrontstageProps } from "./Frontstage";
 import { FrontstageManager } from "./FrontstageManager";
 import { FrontstageProvider } from "./FrontstageProvider";
@@ -545,10 +545,10 @@ export class FrontstageDef {
     this._usage = props.usage;
     this._version = props.version || 0;
 
-    this._toolSettings = createWidgetDef(props.toolSettings, `uifw-toolSettings-widget`);
-    this._statusBar = createWidgetDef(props.statusBar, `uifw-statusBar-widget`);
-    this._contentManipulation = createWidgetDef(props.contentManipulation, `uifw-contentManipulation-widget`);
-    this._viewNavigation = createWidgetDef(props.viewNavigation, `uifw-viewNavigation-widget`);
+    this._toolSettings = createWidgetDef(props.toolSettings, `uifw-toolSettings-widget`, WidgetType.ToolSettings);
+    this._statusBar = createWidgetDef(props.statusBar, `uifw-statusBar-widget`, WidgetType.StatusBar);
+    this._contentManipulation = createWidgetDef(props.contentManipulation, `uifw-contentManipulation-widget`, WidgetType.Tool);
+    this._viewNavigation = createWidgetDef(props.viewNavigation, `uifw-viewNavigation-widget`, WidgetType.Navigation);
     this._topPanel = createStagePanelDef(StagePanelLocation.Top, props);
     this._leftPanel = createStagePanelDef(StagePanelLocation.Left, props);
     this._rightPanel = createStagePanelDef(StagePanelLocation.Right, props);
@@ -959,12 +959,12 @@ export class FrontstageDef {
   }
 }
 
-function createWidgetDef(widget: WidgetProps | undefined, stableId: string): WidgetDef | undefined {
+function createWidgetDef(widget: WidgetProps | undefined, stableId: string, type: WidgetType): WidgetDef | undefined {
   if (!widget)
     return undefined;
 
   const props = getStableWidgetProps(widget, stableId);
-  const widgetDef = new WidgetDef(props);
+  const widgetDef = new WidgetDef(props, type);
   return widgetDef;
 }
 

@@ -33,12 +33,11 @@ export class NestedFrontstage1 extends FrontstageProvider {
       defaultTool: CoreTools.rotateViewCommand,
       contentGroup,
       contentManipulation: {
-        isFreeform: true,
         element: <FrontstageToolWidget />,
       },
-      toolSettings: { isToolSettings: true },
-      viewNavigation: { isFreeform: true, element: <FrontstageNavigationWidget /> },
-      statusBar: { isStatusBar: true, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.StatusBar", control: SmallStatusBarWidgetControl },
+      toolSettings: {},
+      viewNavigation: { element: <FrontstageNavigationWidget /> },
+      statusBar: { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.StatusBar", control: SmallStatusBarWidgetControl },
       rightPanel: {
         sections: {
           end: {
@@ -48,7 +47,6 @@ export class NestedFrontstage1 extends FrontstageProvider {
                 iconSpec: "icon-placeholder",
                 labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
                 control: HorizontalPropertyGridWidgetControl,
-                fillZone: true,
               },
               {
                 id: "VerticalPropertyGrid",

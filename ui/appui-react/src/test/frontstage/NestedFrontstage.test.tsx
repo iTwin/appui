@@ -51,16 +51,12 @@ class TestNestedFrontstage extends FrontstageProvider {
       defaultContentId: "defaultContentId",
       applicationData: { key: "value" },
       contentManipulation: {
-        isFreeform: true,
         element: <>FrontstageToolWidget</>,
         applicationData: { key: "value" },
       },
-      toolSettings: {
-        isToolSettings: true,
-      },
+      toolSettings: {},
       statusBar: {
         id: "statusBar",
-        isStatusBar: true,
         iconSpec: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
         control: AppStatusBarWidgetControl,
