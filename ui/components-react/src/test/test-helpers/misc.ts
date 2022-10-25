@@ -29,23 +29,6 @@ export const waitForSpy = async (spy: sinon.SinonSpy, options?: WaitForSpyOption
 };
 
 /**
- * Waits for `spy` to be called `count` number of times during and after the `action`
- */
-export const waitForUpdate = async (action: () => any, spy: sinon.SinonSpy, count: number = 1) => {
-  const stack = (new Error()).stack;
-  const timeout = mochaTimeoutsEnabled ? undefined : Number.MAX_VALUE;
-  const callCountBefore = spy.callCount;
-  act(() => { action(); });
-  await waitFor(() => {
-    if (spy.callCount - callCountBefore !== count) {
-      const err = new Error(`Calls count doesn't match. Expected ${count}, got ${spy.callCount - callCountBefore} (${spy.callCount} in total)`);
-      err.stack = stack;
-      throw err;
-    }
-  }, { timeout, interval: 1 });
-};
-
-/**
  * Select component pick value using index
  */
 export const selectChangeValueByIndex = (select: HTMLElement, index: number, onError?: (msg: string) => void, useOwnerDoc?: boolean): void => {

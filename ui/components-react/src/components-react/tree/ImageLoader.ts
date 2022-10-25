@@ -20,7 +20,7 @@ export interface ITreeImageLoader extends IImageLoader {
  * @public
  */
 export class TreeImageLoader implements ITreeImageLoader {
-  /** Loads image data from either [[TreeNodeItem]] or [[BeInspireTreeNodeITree]] */
+  /** Loads image data from either [[TreeNodeItem]] */
   public load(item: TreeNodeItem): LoadedImage | undefined {
     if (!item.icon)
       return undefined;
