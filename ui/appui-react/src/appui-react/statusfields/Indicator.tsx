@@ -11,20 +11,16 @@ import classnames from "classnames";
 import * as React from "react";
 import { ConditionalStringValue, StatusBarLabelSide } from "@itwin/appui-abstract";
 import { CommonProps, Icon, IconSpec } from "@itwin/core-react";
-import { FooterPopup, FooterPopupContentType } from "@itwin/appui-layout-react";
+import { FooterIndicator, FooterPopup } from "@itwin/appui-layout-react";
 
-/** Properties of [[Indicator]] component. */
-interface IndicatorProps extends CommonProps {
-  /** Label of balloon icon. @deprecated use label */
-  balloonLabel?: string;
-  /** Dialog to display in popup when indicator is clicked. */
+/** Properties of [[Indicator]] component.
+ * @beta
+ */
+export interface IndicatorProps extends CommonProps {
+  /** Dialog to display in a popup when indicator is clicked. */
   dialog?: React.ReactChild;
-  /** Icon to use in the footer. @deprecated use iconSpec */
-  iconName?: string;
-  /** specification for Icon, overrides iconName specification */
+  /** Specification of an icon. */
   iconSpec?: IconSpec;
-  /** Describes if the indicator label is visible. */
-  isLabelVisible?: boolean;
   /** Indicator label. */
   label?: string;
   /** Side to display label. */
@@ -35,16 +31,13 @@ interface IndicatorProps extends CommonProps {
   opened?: boolean;
   /** Tooltip text if not specified label is used */
   toolTip?: string;
-  /** ContentType is used to determine color of popup arrow. If not set defaults to FooterPopupContentType.Dialog */
-  contentType?: FooterPopupContentType;
 }
 
 /** General-purpose [[Footer]] indicator. Shows an icon and supports an optional popup dialog.
  * @beta
  */
 export function Indicator(props: IndicatorProps) {
-  // eslint-disable-next-line deprecation/deprecation
-  const { className, contentType, dialog, iconName, iconSpec, isLabelVisible, label, labelSide, onClick, opened, style, toolTip } = props;
+  const { className, dialog, iconSpec, label, labelSide, onClick, opened, style, toolTip } = props;
   const hasClickAction = React.useMemo(() => !!onClick || !!dialog, [dialog, onClick]);
   const [isOpen, setIsOpen] = React.useState(!!opened);
   const handleOnIndicatorClick = React.useCallback(() => {
@@ -54,29 +47,29 @@ export function Indicator(props: IndicatorProps) {
     onClick && onClick();
   }, [dialog, isOpen, onClick]);
   const target = React.useRef<HTMLDivElement>(null);
-  const icon = React.useMemo(() => iconSpec ?? iconName, [iconSpec, iconName]);
   const title = React.useMemo(() => toolTip ?? label, [toolTip, label]);
   const classNames = classnames(
-    "uifw-footer-label-left", "uifw-footer-indicator",
-    "nz-footer-mode",
+    "uifw-footer-indicator",
     hasClickAction && "uifw-footer-action",
     labelSide === StatusBarLabelSide.Right && "uifw-footer-label-reversed",
     className);
   return (
-
     <>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-      <div ref={target}
-        role="button" tabIndex={-1}
+      <FooterIndicator
+        ref={target}
         className={classNames}
         title={title}
         style={style}
         onClick={handleOnIndicatorClick}
+        {...{
+          role: "button",
+          tabIndex: -1,
+        }}
       >
-        {isLabelVisible && label && <span className="nz-label">{ConditionalStringValue.getValue(label)}</span>}
-        {icon && <div className="uifw-indicator-icon"><Icon iconSpec={icon} /></div>}
-      </div>
-      {dialog && <FooterPopup contentType={contentType}
+        {label && <span className="uifw-label">{ConditionalStringValue.getValue(label)}</span>}
+        {iconSpec && <div className="uifw-indicator-icon"><Icon iconSpec={iconSpec} /></div>}
+      </FooterIndicator>
+      {dialog && <FooterPopup
         target={target.current}
         onClose={() => setIsOpen(false)}
         isOpen={isOpen}>

@@ -8,7 +8,6 @@
 
 import * as React from "react";
 import { BaseUiItemsProvider, CommonStatusBarItem, StatusBarSection, UiItemsManager } from "@itwin/appui-abstract";
-import { FooterSeparator } from "@itwin/appui-layout-react";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { ToolAssistanceField } from "../statusfields/toolassistance/ToolAssistanceField";
 import { MessageCenterField } from "../statusfields/MessageCenter";
@@ -18,6 +17,7 @@ import { SelectionInfoField } from "../statusfields/SelectionInfo";
 import { TileLoadingIndicator } from "../statusfields/tileloading/TileLoadingIndicator";
 import { SelectionScopeField } from "../statusfields/SelectionScope";
 import { DefaultStatusbarItems } from "./StandardStatusbarUiItemsProvider";
+import { FooterSeparator } from "../statusfields/Separator";
 
 /**
  * Provide standard statusbar fields for the SimpleStatusbarWidget

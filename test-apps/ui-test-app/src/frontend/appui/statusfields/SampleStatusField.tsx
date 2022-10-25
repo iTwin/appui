@@ -38,12 +38,11 @@ export class SampleStatusField extends React.Component<CommonProps> {
   public override render() {
     return (
       <Indicator
-        iconName="icon-placeholder"
+        iconSpec="icon-placeholder"
         dialog={<Dialog titleBar={<TitleBar title={this._title} />}>
           <TestStatusBarDialog />
         </Dialog>}
         label="Left"
-        isLabelVisible={true}
         toolTip={this._title}
         labelSide={StatusBarLabelSide.Left}
       />

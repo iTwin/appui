@@ -78,10 +78,9 @@ class SnapModeFieldComponent extends React.Component<SnapModeFieldProps, SnapMod
     return (
       <>
         <Indicator
-          iconName={`icon-${this.getSnapModeIconNameFromMode(this.props.snapMode)}`}
+          iconSpec={`icon-${this.getSnapModeIconNameFromMode(this.props.snapMode)}`}
           toolTip={this._title}
           label={this._title}
-          isLabelVisible={true}
           dialog={
             <SnapModePanel title={this._title}>
               {this.getSnapEntries()}

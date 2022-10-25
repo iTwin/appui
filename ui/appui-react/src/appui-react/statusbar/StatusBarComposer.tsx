@@ -131,11 +131,12 @@ function useStatusBarItemSyncEffect(itemsManager: StatusBarItemsManager, syncIds
 
 /** function to produce a StatusBarItem component from an AbstractStatusBarLabelItem */
 function generateActionStatusLabelItem(item: AbstractStatusBarLabelItem): React.ReactNode {
-  const iconPaddingClass = item.labelSide === StatusBarLabelSide.Left ? "nz-icon-padding-right" : "nz-icon-padding-left";
-  return (<FooterIndicator>
-    {item.icon && <Icon iconSpec={item.icon} />}
-    {item.label && <span className={iconPaddingClass}>{ConditionalStringValue.getValue(item.label)}</span>}
-  </FooterIndicator>
+  const label = ConditionalStringValue.getValue(item.label);
+  return (
+    <Indicator
+      iconSpec={item.icon}
+      label={label}
+    />
   );
 }
 

@@ -108,7 +108,7 @@ export class ViewAttributesStatusField extends React.Component<CommonProps, View
     return (
       <>
         <Indicator
-          iconName="icon-window-settings"
+          iconSpec="icon-window-settings"
           toolTip={this._title}
           dialog={<Dialog
             titleBar={

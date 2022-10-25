@@ -175,6 +175,7 @@ export * from "./appui-react/statusfields/MessageCenter";
 export * from "./appui-react/statusfields/SectionsField";
 export * from "./appui-react/statusfields/SelectionInfo";
 export * from "./appui-react/statusfields/SelectionScope";
+export * from "./appui-react/statusfields/Separator";
 export * from "./appui-react/statusfields/SnapMode";
 export * from "./appui-react/statusfields/ViewAttributes";
 export * from "./appui-react/statusfields/toolassistance/ToolAssistanceField";

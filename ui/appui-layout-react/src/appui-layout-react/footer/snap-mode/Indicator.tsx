@@ -25,9 +25,8 @@ export interface SnapModeProps extends FooterIndicatorProps {
   onClick?: () => void;
 }
 
-/** Snap mode indicator used in [[Footer]] component.
- * @note Used with [[SnapModePanel]] component.
- * @deprecated Use [SnapModeField]($appui-react) instead
+/** Snap mode indicator used in [[Footer]] component. Used with [[SnapModePanel]] component.
+ * @note Use [SnapModeField]($appui-react) instead
  * @internal
  */
 export class SnapMode extends React.PureComponent<SnapModeProps> {

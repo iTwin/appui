@@ -21,11 +21,10 @@ import {
 } from "@itwin/appui-abstract";
 import { Dialog, FillCentered, ReactMessage, SvgPath, SvgSprite, UnderlinedButton } from "@itwin/core-react";
 import {
-  BackstageManager, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager,
-  FrontstageManager, IModelViewportControl, Indicator, MessageManager, ModalDialogManager, ReactNotifyMessageDetails,
-  StatusBarItemUtilities, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef,
+  BackstageManager, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager, FooterSeparator, FrontstageManager,
+  IModelViewportControl, Indicator, MessageManager, ModalDialogManager, ReactNotifyMessageDetails, StatusBarItemUtilities, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef,
 } from "@itwin/appui-react";
-import { FooterPopupContentType, FooterSeparator, Dialog as NZ_Dialog, TitleBar } from "@itwin/appui-layout-react";
+import { Dialog as NZ_Dialog, TitleBar } from "@itwin/appui-layout-react";
 import { SampleAppIModelApp } from "../";
 import { AppUi } from "../appui/AppUi";
 import { TestMessageBox } from "../appui/dialogs/TestMessageBox";
@@ -126,20 +125,18 @@ class AppItemsProvider implements UiItemsProvider {
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusFieldId, StatusBarSection.Left, 12, <SampleStatusField />, { isHidden: isHiddenCondition }));
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusField2Id, StatusBarSection.Left, 13,
       <Indicator
-        iconName="icon-app-1"
+        iconSpec="icon-app-1"
         dialog={<TestStatusBarDialog />}
         toolTip="Middle"
-        contentType={FooterPopupContentType.Panel}
       />, { isHidden: isHiddenCondition }));
 
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusField3Id, StatusBarSection.Left, 14,
       <Indicator
-        iconName="icon-app-2"
+        iconSpec="icon-app-2"
         dialog={<NZ_Dialog titleBar={<TitleBar title="Right Test" />}>
           <TestStatusBarDialog />
         </NZ_Dialog>}
         label="Right"
-        isLabelVisible={true}
         toolTip="Right Test"
         labelSide={StatusBarLabelSide.Right}
       />, { isHidden: isHiddenCondition }));

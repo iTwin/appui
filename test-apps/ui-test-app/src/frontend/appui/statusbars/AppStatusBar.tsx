@@ -6,11 +6,10 @@ import "./AppStatusBar.scss";
 import * as React from "react";
 import { ConditionalBooleanValue, StatusBarSection } from "@itwin/appui-abstract";
 import {
-  ActivityCenterField, ConfigurableUiManager, MessageCenterField, SectionsStatusField, SelectionInfoField,
+  ActivityCenterField, ConfigurableUiManager, FooterSeparator, MessageCenterField, SectionsStatusField, SelectionInfoField,
   SelectionScopeField, SnapModeField, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarWidgetControl,
   TileLoadingIndicator, ToolAssistanceField, ViewAttributesStatusField,
 } from "@itwin/appui-react";
-import { FooterSeparator } from "@itwin/appui-layout-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../..";
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
 

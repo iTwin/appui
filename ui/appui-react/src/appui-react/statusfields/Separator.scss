@@ -3,9 +3,9 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "variables";
+@import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 
-.nz-footer-separator {
+.uifw-footer-separator {
   height: calc(100% - (#{$nz-footer-indicator-vertical-padding} * 2));
   width: 1px;
   filter: drop-shadow(1px 0 $buic-foreground-body-reverse);

@@ -8,7 +8,6 @@
 
 import * as React from "react";
 import { CommonStatusBarItem, StatusBarSection, UiItemsProvider } from "@itwin/appui-abstract";
-import { FooterSeparator } from "@itwin/appui-layout-react";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { ToolAssistanceField } from "../statusfields/toolassistance/ToolAssistanceField";
 import { MessageCenterField } from "../statusfields/MessageCenter";
@@ -17,6 +16,7 @@ import { SnapModeField } from "../statusfields/SnapMode";
 import { SelectionInfoField } from "../statusfields/SelectionInfo";
 import { TileLoadingIndicator } from "../statusfields/tileloading/TileLoadingIndicator";
 import { SelectionScopeField } from "../statusfields/SelectionScope";
+import { FooterSeparator } from "../statusfields/Separator";
 
 /**
  * Defines what items to include from the provider. If any items are

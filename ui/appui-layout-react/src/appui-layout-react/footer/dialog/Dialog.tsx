@@ -12,7 +12,7 @@ import * as React from "react";
 import { CommonProps } from "@itwin/core-react";
 
 /** Properties of [[Dialog]] component.
- * @beta
+ * @internal
  */
 export interface DialogProps extends CommonProps {
   /** Dialog content.  */
@@ -23,7 +23,7 @@ export interface DialogProps extends CommonProps {
 
 /** Dialog used in footer indicators.
  * @note See [[MessageCenter]], [[ToolAssistance]]
- * @beta
+ * @internal
  */
 export class Dialog extends React.PureComponent<DialogProps> {
   public override render() {

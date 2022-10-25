@@ -81,7 +81,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
         <>
           <div ref={targetDiv} title={toolTip}>
             <Indicator className={classes}
-              iconName="icon-section-tool"
+              iconSpec="icon-section-tool"
               onClick={() => setPopupOpen(!isPopupOpen)}
               opened={isPopupOpen}
             />
