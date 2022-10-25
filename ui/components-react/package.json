@@ -122,7 +122,6 @@
     "@itwin/itwinui-react": "~1.42.0",
     "@types/shortid": "~0.0.29",
     "classnames": "2.3.1",
-    "eventemitter2": "^5.0.1",
     "immer": "9.0.6",
     "immutable": "^3.8.2",
     "linkify-it": "~2.2.0",
