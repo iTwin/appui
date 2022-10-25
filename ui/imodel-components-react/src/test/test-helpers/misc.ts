@@ -4,12 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as sinon from "sinon";
 import { expect } from "chai";
-import { act, fireEvent, waitFor } from "@testing-library/react";
-
-let mochaTimeoutsEnabled: Mocha.Context;
-beforeEach(function () {
-  mochaTimeoutsEnabled = this.timeout(0);
-});
+import { fireEvent, waitFor } from "@testing-library/react";
 
 /** Options for waitForSpy test helper function */
 export interface WaitForSpyOptions {
