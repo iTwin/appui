@@ -11,6 +11,8 @@ import {
 } from "@itwin/appui-abstract";
 import { AsyncValueProcessingResult, ColumnDescription, CompositeFilterDescriptorCollection, DataControllerBase, FilterableTable, TableFilterDescriptorCollection } from "@itwin/components-react";
 import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents";
+import { prettyDOM } from "@testing-library/react";
+import { expect } from "chai";
 
 // cSpell:ignore buttongroup
 
@@ -435,6 +437,53 @@ export class MineDataController extends DataControllerBase {
   public override async validateValue(_newValue: PropertyValue, _record: PropertyRecord): Promise<AsyncValueProcessingResult> {
     return { encounteredError: true, errorMessage: { severity: MessageSeverity.Error, briefMessage: "Test" } };
   }
+}
+
+/** Returns tag, id and classes of the information used by CSS selectors */
+function getPartialSelctorInfo(e: HTMLElement) {
+  return `${e.tagName}${e.id ? `#${e.id}`: ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
+}
+
+/** Returns the full list of classes and tag chain for an element up to HTML */
+function currentSelectorInfo(e: HTMLElement) {
+  let w = e;
+  const chain = [getPartialSelctorInfo(w)];
+  while(w.parentElement) {
+    w = w.parentElement;
+    chain.unshift(getPartialSelctorInfo(w));
+  }
+  return chain.join(" > ");
+}
+
+/**
+ * Function to generate a `satisfy` function and the relevant error message.
+ * @param selectors selector string used in `matches`
+ * @returns satisfy function which returns `tested.matches(selectors)`
+ */
+export function selectorMatches(selectors: string) {
+  const satisfier = (e: HTMLElement) => {
+    // \b\b\b... removes default "[Function : " part to get clear message in output.
+    const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(e)}'\n\n${prettyDOM()}`;
+    Object.defineProperty(satisfier, "name",  {value: message});
+    return e.matches(selectors);
+  };
+  return satisfier;
+}
+
+/**
+ * Function to generate a `satisfy` function
+ * @param style Style object to compare, each properties of this object should be on the element style
+ * @returns satisfy function
+ */
+export function styleMatch(style: Partial<CSSStyleDeclaration>) {
+  return (e: HTMLElement) => {
+    for(const prop in style) {
+      if(Object.prototype.hasOwnProperty.call(style, prop)) {
+        expect(e.style).to.have.property(prop, style[prop]);
+      }
+    }
+    return true;
+  };
 }
 
 export default TestUtils;   // eslint-disable-line: no-default-export
