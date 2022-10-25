@@ -252,7 +252,7 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
     const statusBarItems: CommonStatusBarItem[] = [];
     if (stageId === NetworkTracingFrontstage.stageId) {
       statusBarItems.push(
-        StatusBarItemUtilities.createStatusBarItem("Test:Visibility", StatusBarSection.Center, 50, <Indicator iconSpec={<SvgList />} isLabelVisible={false} label="Searchable Tree" opened={false} dialog={<VisibilityTreeComponent />} />),
+        StatusBarItemUtilities.createStatusBarItem("Test:Visibility", StatusBarSection.Center, 50, <Indicator iconSpec={<SvgList />} toolTip="Searchable Tree" dialog={<VisibilityTreeComponent />} />),
       );
     }
     return statusBarItems;

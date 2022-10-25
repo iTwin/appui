@@ -11,12 +11,12 @@ import classnames from "classnames";
 import * as React from "react";
 import { ConditionalStringValue, StatusBarLabelSide } from "@itwin/appui-abstract";
 import { CommonProps, Icon, IconSpec } from "@itwin/core-react";
-import { FooterIndicator, FooterPopup } from "@itwin/appui-layout-react";
+import { FooterIndicator as FooterIndicatorComponent, FooterPopup } from "@itwin/appui-layout-react";
 
-/** Properties of [[Indicator]] component.
+/** Properties of [[FooterIndicator]] component.
  * @beta
  */
-export interface IndicatorProps extends CommonProps {
+export interface FooterIndicatorProps extends CommonProps {
   /** Dialog to display in a popup when indicator is clicked. */
   dialog?: React.ReactChild;
   /** Specification of an icon. */
@@ -36,7 +36,7 @@ export interface IndicatorProps extends CommonProps {
 /** General-purpose [[Footer]] indicator. Shows an icon and supports an optional popup dialog.
  * @beta
  */
-export function Indicator(props: IndicatorProps) {
+export function FooterIndicator(props: FooterIndicatorProps) {
   const { className, dialog, iconSpec, label, labelSide, onClick, opened, style, toolTip } = props;
   const hasClickAction = React.useMemo(() => !!onClick || !!dialog, [dialog, onClick]);
   const [isOpen, setIsOpen] = React.useState(!!opened);
@@ -55,7 +55,7 @@ export function Indicator(props: IndicatorProps) {
     className);
   return (
     <>
-      <FooterIndicator
+      <FooterIndicatorComponent
         ref={target}
         className={classNames}
         title={title}
@@ -68,7 +68,7 @@ export function Indicator(props: IndicatorProps) {
       >
         {label && <span className="uifw-label">{ConditionalStringValue.getValue(label)}</span>}
         {iconSpec && <div className="uifw-indicator-icon"><Icon iconSpec={iconSpec} /></div>}
-      </FooterIndicator>
+      </FooterIndicatorComponent>
       {dialog && <FooterPopup
         target={target.current}
         onClose={() => setIsOpen(false)}

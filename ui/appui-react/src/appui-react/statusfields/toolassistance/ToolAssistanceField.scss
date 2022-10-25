@@ -23,19 +23,10 @@ $key-size-modifier: 24px;
   $font-size-small: $iui-font-size-small - 1px;
 
   overflow: hidden;
-
-  &.nz-footer-mode {
-    width: 20em;
-  }
-
-  &:not(.nz-footer-mode) {
-    min-width: 2em;
-  }
+  width: 20em;
 
   @include for-tablet-landscape-down {
-    &.nz-footer-mode {
-      width: 16em;
-    }
+    width: 16em;
   }
 
   @include for-tablet-portrait-down {
@@ -44,10 +35,7 @@ $key-size-modifier: 24px;
 
   @include for-phone-only {
     font-size: $font-size-small;
-
-    &.nz-footer-mode {
-      width: 12em;
-    }
+    width: 12em;
   }
 
   .nz-indicator {

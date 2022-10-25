@@ -32,7 +32,6 @@ export const FooterIndicator = React.forwardRef<HTMLDivElement, FooterIndicatorP
 
   const className = classnames(
     "nz-footer-indicator",
-    "nz-footer-mode",
     props.className
   );
 

@@ -16,7 +16,6 @@ describe("Indicator", () => {
     expect(wrapper.container.querySelector(".uifw-footer-label-reversed")).to.be.null;
     expect(wrapper.container.querySelector(".icon.test-icon")).not.to.be.null;
     expect(wrapper.container.querySelector("span")).not.to.be.null;
-    expect(wrapper.container.querySelector(".nz-footer-mode")).not.to.be.null;
   });
 
   it("Should render label on right", () => {
@@ -26,7 +25,6 @@ describe("Indicator", () => {
     expect(wrapper.container.querySelector(".uifw-footer-label-reversed")).not.to.be.null;
     expect(wrapper.container.querySelector(".icon.test-icon")).not.to.be.null;
     expect(wrapper.container.querySelector("span")).not.to.be.null;
-    expect(wrapper.container.querySelector(".nz-footer-mode")).not.to.be.null;
   });
 
   it("Should not render label", () => {
@@ -36,6 +34,5 @@ describe("Indicator", () => {
     expect(wrapper.container.querySelector(".uifw-footer-label-reversed")).not.to.be.null;
     expect(wrapper.container.querySelector(".icon.test-icon")).not.to.be.null;
     expect(wrapper.container.querySelector("span")).to.be.null;
-    expect(wrapper.container.querySelector(".nz-footer-mode")).not.to.be.null;
   });
 });
