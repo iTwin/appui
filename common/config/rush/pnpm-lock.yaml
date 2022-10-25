@@ -1073,7 +1073,6 @@ importers:
       enzyme: 3.10.0
       enzyme-to-json: ^3.3.4
       eslint: ^7.11.0
-      eventemitter2: ^5.0.1
       faker: ^4.1.0
       ignore-styles: ^5.0.1
       immer: 9.0.6
@@ -1114,7 +1113,6 @@ importers:
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
       '@types/shortid': 0.0.29
       classnames: 2.3.1
-      eventemitter2: 5.0.1
       immer: 9.0.6
       immutable: 3.8.2
       linkify-it: 2.2.0
@@ -9114,10 +9112,6 @@ packages:
   /etag/1.8.1:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
-
-  /eventemitter2/5.0.1:
-    resolution: {integrity: sha512-5EM1GHXycJBS6mauYAbVKT1cVs7POKWb2NXD4Vyt8dDqeZa7LaDK1/sjtL+Zb0lzTpSNil4596Dyu97hz37QLg==}
-    dev: false
 
   /eventemitter3/4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
