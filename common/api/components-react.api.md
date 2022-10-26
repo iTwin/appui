@@ -10,7 +10,6 @@ import { ActionButton } from '@itwin/appui-abstract';
 import { AlternateDateFormats } from '@itwin/appui-abstract';
 import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
-import { CheckBoxInfo as CheckBoxInfo_2 } from '@itwin/core-react';
 import { CheckBoxState } from '@itwin/core-react';
 import { CommonProps } from '@itwin/core-react';
 import { CommonToolbarItem } from '@itwin/appui-abstract';
@@ -27,7 +26,6 @@ import { IconDefinition } from '@itwin/appui-abstract';
 import { Id64String } from '@itwin/core-bentley';
 import { IDisposable } from '@itwin/core-bentley';
 import { immerable } from 'immer';
-import * as Inspire from 'inspire-tree';
 import { LinkElementsInfo } from '@itwin/appui-abstract';
 import { Localization } from '@itwin/core-common';
 import { MessageSeverity } from '@itwin/appui-abstract';
@@ -52,7 +50,6 @@ import { SelectOption } from '@itwin/itwinui-react';
 import { SortDirection } from '@itwin/core-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
 import { TimeFormat } from '@itwin/core-react';
-import { UiEvent } from '@itwin/core-react';
 import { UiStateStorage } from '@itwin/core-react';
 
 // @public
@@ -224,188 +221,6 @@ export class BooleanTypeConverter extends TypeConverter {
     static sl10nTrue: string;
     // (undocumented)
     sortCompare(a: Primitives.Boolean, b: Primitives.Boolean, _ignoreCase?: boolean): number;
-}
-
-// @beta @deprecated
-export class Breadcrumb extends React_2.Component<BreadcrumbProps, BreadcrumbState> {
-    // @internal
-    constructor(props: BreadcrumbProps);
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentDidUpdate(prevProps: BreadcrumbProps, prevState: BreadcrumbState): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // @internal (undocumented)
-    static defaultProps: Partial<BreadcrumbProps>;
-    // @internal (undocumented)
-    static getDerivedStateFromProps(props: BreadcrumbProps, state: BreadcrumbState): BreadcrumbState | null;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    shouldComponentUpdate(nextProps: BreadcrumbProps, nextState: BreadcrumbState): boolean;
-    // @internal (undocumented)
-    readonly state: Readonly<BreadcrumbState>;
-}
-
-// @beta @deprecated
-export class BreadcrumbDetails extends React_2.Component<BreadcrumbDetailsProps, BreadcrumbDetailsState> {
-    // @internal
-    constructor(props: BreadcrumbDetailsProps);
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentDidUpdate(prevProps: BreadcrumbDetailsProps): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    shouldComponentUpdate(nextProps: BreadcrumbDetailsProps, nextState: BreadcrumbDetailsState): boolean;
-    // (undocumented)
-    readonly state: BreadcrumbDetailsState;
-}
-
-// @beta @deprecated
-export interface BreadcrumbDetailsProps extends CommonProps {
-    // (undocumented)
-    columns?: ColumnDescription[];
-    onChildrenLoaded?: (parent: TreeNodeItem, children: TreeNodeItem[]) => void;
-    // @internal (undocumented)
-    onRender?: () => void;
-    onRootNodesLoaded?: (nodes: TreeNodeItem[]) => void;
-    path: BreadcrumbPath;
-    // (undocumented)
-    renderTable?: (props: TableProps, node: TreeNodeItem | undefined, children: TreeNodeItem[]) => React_2.ReactNode;
-}
-
-// @internal (undocumented)
-export class BreadcrumbInput extends React_2.Component<BreadcrumbInputProps, BreadcrumbInputState> {
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): JSX.Element;
-    // (undocumented)
-    readonly state: Readonly<BreadcrumbInputState>;
-}
-
-// @internal (undocumented)
-export interface BreadcrumbInputProps {
-    // (undocumented)
-    delimiter?: string;
-    // (undocumented)
-    node?: BeInspireTreeNode<TreeNodeItem>;
-    // (undocumented)
-    onCancel: () => void;
-    // (undocumented)
-    onNodeChange: (node: TreeNodeItem | undefined) => void;
-    // (undocumented)
-    parentsOnly?: boolean;
-    // (undocumented)
-    pathString: string;
-    // (undocumented)
-    tree: BeInspireTree<TreeNodeItem>;
-    // (undocumented)
-    width: number | string;
-}
-
-// @internal (undocumented)
-export interface BreadcrumbInputState {
-    // (undocumented)
-    autocompleteList: string[];
-    // (undocumented)
-    autocompleting: boolean;
-    // (undocumented)
-    messageBoxOpened: boolean;
-}
-
-// @beta @deprecated
-export enum BreadcrumbMode {
-    // (undocumented)
-    Dropdown = "dropdown",
-    // (undocumented)
-    Input = "input"
-}
-
-// @beta @deprecated
-export class BreadcrumbNode extends React_2.Component<BreadcrumbNodeProps> {
-    constructor(props: BreadcrumbNodeProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @beta @deprecated
-export interface BreadcrumbNodeProps {
-    icon: string;
-    label: PropertyRecord;
-    // @internal (undocumented)
-    onRender?: () => void;
-}
-
-// @internal (undocumented)
-export type BreadcrumbNodeRenderer = (props: BreadcrumbNodeProps, node?: TreeNodeItem, parent?: TreeNodeItem) => React_2.ReactNode;
-
-// @beta @deprecated
-export class BreadcrumbPath {
-    constructor(dataProvider: TreeDataProvider);
-    // (undocumented)
-    get BreadcrumbUpdateEvent(): BreadcrumbUpdateEvent;
-    // (undocumented)
-    getCurrentNode(): TreeNodeItem | undefined;
-    // (undocumented)
-    getDataProvider(): TreeDataProvider;
-    // (undocumented)
-    setCurrentNode(currentNode: TreeNodeItem | undefined): void;
-    // (undocumented)
-    setDataProvider(dataProvider: TreeDataProvider): void;
-}
-
-// @beta @deprecated
-export interface BreadcrumbProps extends CommonProps {
-    background?: boolean;
-    dataProvider: TreeDataProvider;
-    delimiter?: string;
-    dropdownOnly?: boolean;
-    // @internal (undocumented)
-    expandedNodes?: boolean;
-    initialBreadcrumbMode?: BreadcrumbMode;
-    initialCurrent?: TreeNodeItem;
-    onChildrenLoaded?: (parent: TreeNodeItem, children: TreeNodeItem[]) => void;
-    // @internal (undocumented)
-    onRender?: () => void;
-    onRootNodesLoaded?: (nodes: TreeNodeItem[]) => void;
-    parentsOnly?: boolean;
-    path?: BreadcrumbPath;
-    // @internal (undocumented)
-    renderNode?: BreadcrumbNodeRenderer;
-    showUpDir?: boolean;
-    staticOnly?: boolean;
-    width?: number | string;
-}
-
-// @beta @deprecated
-export class BreadcrumbTreeUtils {
-    static aliasNodeListToTableDataProvider(nodes: TreeNodeItem[], columns: ColumnDescription[], treeDataProvider?: TreeDataProvider): TableDataProvider;
-}
-
-// @beta @deprecated
-export class BreadcrumbUpdateEvent extends UiEvent<BreadcrumbUpdateEventArgs> {
-}
-
-// @beta @deprecated
-export interface BreadcrumbUpdateEventArgs {
-    // (undocumented)
-    currentNode: TreeNodeItem | undefined;
-    // (undocumented)
-    dataProvider: TreeDataProvider;
-    // (undocumented)
-    oldDataProvider: TreeDataProvider;
 }
 
 // @internal (undocumented)
@@ -706,12 +521,6 @@ export abstract class DataControllerBase implements DataController {
     commitValue(_newValue: PropertyValue, _record: PropertyRecord): Promise<AsyncValueProcessingResult>;
     // (undocumented)
     validateValue(_newValue: PropertyValue, _record: PropertyRecord): Promise<AsyncValueProcessingResult>;
-}
-
-// @internal (undocumented)
-export interface DataRowItem extends RowItem {
-    // (undocumented)
-    _node?: TreeNodeItem;
 }
 
 // @internal
@@ -1271,9 +1080,6 @@ export function getPropertyFilterOperators(property: PropertyDescription): Prope
 export function getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string;
 
 // @internal (undocumented)
-export function getPropertyRecordAsString(label: PropertyRecord): string;
-
-// @internal (undocumented)
 export const getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection;
 
 // @internal
@@ -1587,42 +1393,6 @@ export interface IMutablePropertyGridModel {
     getRootCategories: () => IMutableGridCategoryItem[];
     // (undocumented)
     getVisibleFlatGrid: () => IMutableFlatGridItem[];
-}
-
-// @internal (undocumented)
-export class InputSwitchComponent extends React_2.PureComponent<InputSwitchProps> {
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @internal (undocumented)
-export interface InputSwitchProps {
-    // (undocumented)
-    currentMode: BreadcrumbMode;
-    // (undocumented)
-    delimiter: string;
-    // (undocumented)
-    expandedNode?: boolean;
-    // (undocumented)
-    node?: BeInspireTreeNode<TreeNodeItem>;
-    // (undocumented)
-    onInputCancel: () => void;
-    // (undocumented)
-    onInputStart?: () => void;
-    // (undocumented)
-    onNodeChange: (node?: TreeNodeItem) => void;
-    // (undocumented)
-    parentsOnly?: boolean;
-    // (undocumented)
-    pathString: string;
-    // (undocumented)
-    renderNode?: BreadcrumbNodeRenderer;
-    // (undocumented)
-    showUpDir?: boolean;
-    // (undocumented)
-    tree: BeInspireTree<TreeNodeItem>;
-    // (undocumented)
-    width: number | string;
 }
 
 // @alpha

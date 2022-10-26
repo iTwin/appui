@@ -7,11 +7,6 @@
 
 export { UiComponents } from "./components-react/UiComponents";
 
-export * from "./components-react/breadcrumb/Breadcrumb";
-export * from "./components-react/breadcrumb/BreadcrumbPath";
-export * from "./components-react/breadcrumb/BreadcrumbTreeUtils";
-export * from "./components-react/breadcrumb/BreadcrumbDetails";
-
 export * from "./components-react/common/Links";
 export * from "./components-react/common/PageOptions";
 export * from "./components-react/common/selection/SelectionModes";
