@@ -13,8 +13,8 @@ import { IModelApp } from "@itwin/core-frontend";
 import { Dialog, TitleBar } from "@itwin/appui-layout-react";
 import { Checkbox } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
-import { Indicator } from "./Indicator";
 import { CommonProps } from "@itwin/core-react";
+import { FooterLabelIndicator } from "./LabelIndicator";
 
 interface ViewAttributesStatusFieldState {
   viewFlags: ViewFlagProps;
@@ -107,10 +107,10 @@ export class ViewAttributesStatusField extends React.Component<CommonProps, View
   public override render() {
     return (
       <>
-        <Indicator
+        <FooterLabelIndicator
           iconSpec="icon-window-settings"
-          toolTip={this._title}
-          dialog={<Dialog
+          title={this._title}
+          popup={<Dialog
             titleBar={
               <TitleBar title={this._title} />
             }>

@@ -31,7 +31,7 @@ export interface FooterProps extends CommonProps {
   safeAreaInsets?: SafeAreaInsets;
 }
 
-/** Footer component. Used in a StatusBar [[Zone]] component.
+/** Footer component.
  * @note Use [StatusBar]($appui-react) instead
  * @internal
  */

@@ -7,7 +7,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
-@keyframes uifw-indicator-FadeIn {
+@keyframes uifw-indicator-fadeIn {
   0% {
     opacity: 0;
     -webkit-transform: scale(.5);
@@ -26,7 +26,7 @@
   }
 }
 
-@keyframes uifw-indicator-FadeOut {
+@keyframes uifw-indicator-fadeOut {
   0% {
     opacity: 1;
   }
@@ -36,11 +36,11 @@
   }
 }
 
-.uifw-footer-indicator {
+.uifw-statusfields-indicator {
   visibility: visible;
   gap: 8px;
 
-  &.uifw-footer-action {
+  &.uifw-action {
     cursor: pointer;
 
     &:hover {
@@ -48,29 +48,14 @@
     }
   }
 
-  &.uifw-footer-label-reversed {
-    flex-direction: row-reverse;
-  }
-
-  >.uifw-label {
-    font-size: $text-font-size;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    @include for-tablet-landscape-down {
-      display: none;
-    }
-  }
-
   &.uifw-indicator-fade-in {
-    animation: uifw-indicator-FadeIn 1s linear;
+    animation: uifw-indicator-fadeIn 1s linear;
     opacity: 1;
     pointer-events: auto;
   }
 
   &.uifw-indicator-fade-out {
-    animation: uifw-indicator-FadeOut 500ms linear;
+    animation: uifw-indicator-fadeOut 500ms linear;
     opacity: 0;
     pointer-events: none;
   }
@@ -122,25 +107,5 @@
       top: 0;
       left: 50%;
     }
-  }
-}
-
-.uifw-indicator-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: $icon-size;
-  width: $icon-size;
-
-  /* Medium devices */
-  @include for-tablet-landscape-down {
-    font-size: $icon-size-medium;
-    width: $icon-size-medium;
-  }
-
-  /* Small devices */
-  @include for-phone-only {
-    font-size: $icon-size-small;
-    width: $icon-size-small;
   }
 }

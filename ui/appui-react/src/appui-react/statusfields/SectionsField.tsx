@@ -9,13 +9,13 @@
 import "./SectionsField.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { ClipEventType, IModelApp, ViewClipClearTool, ViewClipDecoration, ViewClipDecorationProvider, Viewport } from "@itwin/core-frontend";
 import { Dialog, FooterPopup, TitleBar } from "@itwin/appui-layout-react";
+import { ClipEventType, IModelApp, ViewClipClearTool, ViewClipDecoration, ViewClipDecorationProvider, Viewport } from "@itwin/core-frontend";
+import { CommonProps } from "@itwin/core-react";
 import { Button, ToggleSwitch } from "@itwin/itwinui-react";
 import { useActiveViewport } from "../hooks/useActiveViewport";
 import { UiFramework } from "../UiFramework";
-import { Indicator } from "./Indicator";
-import { CommonProps } from "@itwin/core-react";
+import { FooterLabelIndicator } from "./LabelIndicator";
 
 /** Sections Status Field Props
  * @beta
@@ -80,10 +80,9 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
       {showIndicator &&
         <>
           <div ref={targetDiv} title={toolTip}>
-            <Indicator className={classes}
+            <FooterLabelIndicator className={classes}
               iconSpec="icon-section-tool"
               onClick={() => setPopupOpen(!isPopupOpen)}
-              opened={isPopupOpen}
             />
           </div>
           <FooterPopup
