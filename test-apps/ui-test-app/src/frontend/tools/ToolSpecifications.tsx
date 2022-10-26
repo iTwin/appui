@@ -22,7 +22,7 @@ import {
 } from "@itwin/appui-abstract";
 import { Dialog, FillCentered, ReactMessage, SvgPath, SvgSprite, UnderlinedButton } from "@itwin/core-react";
 import {
-  Backstage, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager,
+  BackstageManager, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager,
   FrontstageManager, IModelViewportControl, Indicator, MessageManager, ModalDialogManager, ReactNotifyMessageDetails,
   StatusBarItemUtilities, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef,
 } from "@itwin/appui-react";
@@ -234,8 +234,7 @@ export class AppTools {
 
   // Tool that toggles the backstage
   public static get backstageToggleCommand() {
-    // eslint-disable-next-line deprecation/deprecation
-    return Backstage.backstageToggleCommand;
+    return BackstageManager.getBackstageToggleCommand();
   }
 
   public static get item1() {

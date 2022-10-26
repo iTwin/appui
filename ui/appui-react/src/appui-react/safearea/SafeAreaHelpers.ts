@@ -6,11 +6,10 @@
  * @module Utilities
  */
 
-import * as React from "react";
+import { SafeAreaInsets as LayoutSafeAreaInsets } from "@itwin/appui-layout-react";
 import { SafeAreaInsets } from "./SafeAreaInsets";
 
-/**
- * Context used to manage safe area (feature used by devices with non-rectangular screens).
- * @public
- */
-export const SafeAreaContext = React.createContext<SafeAreaInsets | undefined>(undefined);
+/** @internal */
+export function toLayoutSafeAreaInsets(safeAreaInsets: SafeAreaInsets | undefined): LayoutSafeAreaInsets | undefined {
+  return safeAreaInsets as LayoutSafeAreaInsets | undefined;
+}

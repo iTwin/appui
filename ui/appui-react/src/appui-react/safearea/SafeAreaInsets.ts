@@ -6,11 +6,13 @@
  * @module Utilities
  */
 
-import * as React from "react";
-import { SafeAreaInsets } from "./SafeAreaInsets";
-
-/**
- * Context used to manage safe area (feature used by devices with non-rectangular screens).
+/** Describes available safe area insets.
  * @public
  */
-export const SafeAreaContext = React.createContext<SafeAreaInsets | undefined>(undefined);
+export enum SafeAreaInsets {
+  Bottom = 1 << 0,
+  Left = 1 << 1,
+  Right = 1 << 2,
+  Top = 1 << 3,
+  All = SafeAreaInsets.Bottom | SafeAreaInsets.Left | SafeAreaInsets.Right | SafeAreaInsets.Top,
+}
