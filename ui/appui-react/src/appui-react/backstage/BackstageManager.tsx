@@ -11,7 +11,6 @@ import { BeEvent } from "@itwin/core-bentley";
 import { IconSpec } from "@itwin/core-react";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { UiFramework } from "../UiFramework";
-import { Backstage } from "./Backstage";
 
 /** Arguments of [[BackstageManager.onToggled]].
  * @public
@@ -40,7 +39,6 @@ export class BackstageManager {
     this.onToggled.raiseEvent({
       isOpen,
     });
-    Backstage.onBackstageEvent.emit({ isVisible: isOpen }); // eslint-disable-line deprecation/deprecation
   }
 
   public open() {

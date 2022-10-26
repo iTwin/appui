@@ -390,6 +390,7 @@ export class Table extends React.Component<TableProps, TableState> {
   }
 
   /** @internal */
+  // istanbul ignore next
   public override componentDidUpdate(previousProps: TableProps, previousState: TableState) {
     this._rowSelectionHandler.selectionMode = this.props.selectionMode ? this.props.selectionMode : SelectionMode.Single;
     this._cellSelectionHandler.selectionMode = this.props.selectionMode ? this.props.selectionMode : SelectionMode.Single;
@@ -966,7 +967,7 @@ export class Table extends React.Component<TableProps, TableState> {
   });
 
   private async renderCellContent(cellItem: CellItem, column: ReactDataGridColumn, displayValue: string): Promise<React.ComponentType<{ isSelected: boolean }>> {
-    // istanbul ignore next
+    // istanbul ignore if
     if (column.icon)
       return () => <TableIconCellContent iconName={displayValue} />;
 

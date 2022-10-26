@@ -4,12 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as sinon from "sinon";
 import { expect } from "chai";
-import { act, fireEvent, waitFor } from "@testing-library/react";
-
-let mochaTimeoutsEnabled: Mocha.Context;
-beforeEach(function () {
-  mochaTimeoutsEnabled = this.timeout(0);
-});
+import { fireEvent, waitFor } from "@testing-library/react";
 
 /** Options for waitForSpy test helper function */
 export interface WaitForSpyOptions {
@@ -26,23 +21,6 @@ export const waitForSpy = async (spy: sinon.SinonSpy, options?: WaitForSpyOption
     if (!spy.called)
       throw new Error(error);
   }, { timeout, interval: 10 });
-};
-
-/**
- * Waits for `spy` to be called `count` number of times during and after the `action`
- */
-export const waitForUpdate = async (action: () => any, spy: sinon.SinonSpy, count: number = 1) => {
-  const stack = (new Error()).stack;
-  const timeout = mochaTimeoutsEnabled ? undefined : Number.MAX_VALUE;
-  const callCountBefore = spy.callCount;
-  act(() => { action(); });
-  await waitFor(() => {
-    if (spy.callCount - callCountBefore !== count) {
-      const err = new Error(`Calls count doesn't match. Expected ${count}, got ${spy.callCount - callCountBefore} (${spy.callCount} in total)`);
-      err.stack = stack;
-      throw err;
-    }
-  }, { timeout, interval: 1 });
 };
 
 /**

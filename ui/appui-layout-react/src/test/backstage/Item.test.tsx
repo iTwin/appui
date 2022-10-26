@@ -29,7 +29,7 @@ describe("<Item />", () => {
   });
 
   it("renders safe area aware correctly", () => {
-    shallow(<BackstageItem safeAreaInsets={SafeAreaInsets.All} />).should.matchSnapshot();
+    shallow(<BackstageItem safeAreaInsets={SafeAreaInsets.Left} />).should.matchSnapshot();
   });
 
   it("should render subtitle", () => {

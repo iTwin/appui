@@ -66,14 +66,6 @@ global.enzymeMount = (...args) => {
   return result;
 }
 
-const chai = require("chai");
-const sinonChai = require("sinon-chai");
-const chaiAsPromised = require("chai-as-promised");
-const chaiJestSnapshot = require("chai-jest-snapshot");
-const enzyme = require("enzyme/build");
-const spies = require("chai-spies");
-const rhtl = require("@testing-library/react-hooks");
-
 // Fix node's module loader to strip ?sprite from SVG imports
 const m = require("module");
 const origLoader = m._load;
@@ -82,23 +74,36 @@ m._load = (request, parent, isMain) => {
 };
 
 // setup enzyme (testing utils for React)
-enzyme.configure({
-  adapter: new (require("@wojtekmaj/enzyme-adapter-react-17/build"))()
-});
-chaiJestSnapshot.addSerializer(require("enzyme-to-json/serializer"));
+try {
+  const enzyme = require("enzyme/build");
+  enzyme.configure({
+    adapter: new (require("@wojtekmaj/enzyme-adapter-react-17/build"))()
+  });
+} catch (e) { }
 
 // setup chai
+const chai = require("chai");
 chai.should();
+const chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
-chai.use(chaiJestSnapshot);
+let chaiJestSnapshot;
+try {
+  chaiJestSnapshot = require("chai-jest-snapshot");
+  chaiJestSnapshot.addSerializer(require("enzyme-to-json/serializer"));
+  chai.use(chaiJestSnapshot);
+} catch (e) { }
+const spies = require("chai-spies");
 chai.use(spies);
+const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 try {
   chai.use(require("chai-string"));
 } catch (e) { }
 
 before(function () {
-  chaiJestSnapshot.resetSnapshotRegistry();
+  if(chaiJestSnapshot) {
+    chaiJestSnapshot.resetSnapshotRegistry();
+  }
 });
 
 after(function () {
@@ -113,25 +118,32 @@ beforeEach(function () {
     const faker = require("faker");
     let seed = 0;
     for (let i = 0; i < currentTest.fullTitle().length; ++i)
-      seed += currentTest.fullTitle().charCodeAt(i);
+    seed += currentTest.fullTitle().charCodeAt(i);
     faker.seed(seed);
   } catch (e) {
     // may throw if package doesn't use faker - ignore
   }
 
-  // set up snapshot name
-  const sourceFilePath = currentTest.file.replace(path.join("lib", "cjs", "test"), path.join("src", "test")).replace(/\.(jsx?|tsx?)$/, "");
-  const snapPath = sourceFilePath + ".snap";
-  chaiJestSnapshot.setFilename(snapPath);
-  chaiJestSnapshot.setTestName(currentTest.fullTitle());
+  if(chaiJestSnapshot) {
+    // set up snapshot name
+    const sourceFilePath = currentTest.file.replace(path.join("lib", "cjs", "test"), path.join("src", "test")).replace(/\.(jsx?|tsx?)$/, "");
+    const snapPath = sourceFilePath + ".snap";
+    chaiJestSnapshot.setFilename(snapPath);
+    chaiJestSnapshot.setTestName(currentTest.fullTitle());
+  }
 
   chai.spy.restore();
 });
 
+let rhtl;
+try {
+  rhtl = require("@testing-library/react-hooks");
+} catch (e) { }
+
 afterEach(async () => {
   for (const m of mounted) {
     if (!m[isMounted])
-      continue;
+    continue;
     m.unmount();
   }
   mounted = [];
@@ -139,7 +151,9 @@ afterEach(async () => {
     const rtl = require("@testing-library/react");
     rtl.cleanup();
   } catch (e) { }
-  await rhtl.cleanup();
+  if(rhtl) {
+    await rhtl.cleanup();
+  }
   try {
     const sinon = require("sinon");
     sinon.restore();

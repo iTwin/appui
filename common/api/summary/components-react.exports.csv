@@ -19,32 +19,6 @@ public;BasicPropertyEditor
 public;BooleanEditor 
 public;BooleanPropertyEditor 
 public;BooleanTypeConverter 
-beta;Breadcrumb 
-deprecated;Breadcrumb 
-beta;BreadcrumbDetails 
-deprecated;BreadcrumbDetails 
-beta;BreadcrumbDetailsProps 
-deprecated;BreadcrumbDetailsProps 
-internal;BreadcrumbInput 
-internal;BreadcrumbInputProps
-internal;BreadcrumbInputState
-beta;BreadcrumbMode
-deprecated;BreadcrumbMode
-beta;BreadcrumbNode 
-deprecated;BreadcrumbNode 
-beta;BreadcrumbNodeProps
-deprecated;BreadcrumbNodeProps
-internal;BreadcrumbNodeRenderer = (props: BreadcrumbNodeProps, node?: TreeNodeItem, parent?: TreeNodeItem) => React_2.ReactNode
-beta;BreadcrumbPath
-deprecated;BreadcrumbPath
-beta;BreadcrumbProps 
-deprecated;BreadcrumbProps 
-beta;BreadcrumbTreeUtils
-deprecated;BreadcrumbTreeUtils
-beta;BreadcrumbUpdateEvent 
-deprecated;BreadcrumbUpdateEvent 
-beta;BreadcrumbUpdateEventArgs
-deprecated;BreadcrumbUpdateEventArgs
 internal;buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined
 beta;CategorizedPropertyItem 
 beta;CategorizedPropertyTypes = FlatGridItemType.Array | FlatGridItemType.Primitive | FlatGridItemType.Struct
@@ -78,7 +52,6 @@ alpha;CustomNumberPropertyEditor
 public;CustomToolbarItem 
 public;DataController
 public;class DataControllerBase 
-internal;DataRowItem 
 internal;DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className }: DateFieldProps): JSX.Element
 internal;DateFieldProps 
 public;DateFormatOptions
@@ -135,7 +108,6 @@ public;from
 alpha;getPropertyFilterOperatorLabel(operator: PropertyFilterRuleOperator): string
 alpha;getPropertyFilterOperators(property: PropertyDescription): PropertyFilterRuleOperator[]
 internal;getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string
-internal;getPropertyRecordAsString(label: PropertyRecord): string
 internal;getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection
 internal;getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | TreeModelRootNode, result?: Array
 beta;GridCategoryItem 
@@ -173,8 +145,6 @@ beta;IMutableFlatPropertyGridItem
 beta;IMutableGridCategoryItem 
 beta;IMutableGridItemFactory
 beta;IMutablePropertyGridModel
-internal;InputSwitchComponent 
-internal;InputSwitchProps
 alpha;IntlFormatter 
 public;IntTypeConverter 
 public;IPropertyDataFilterer

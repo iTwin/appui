@@ -15,6 +15,7 @@ import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { StatusBarWidgetControl } from "./StatusBarWidgetControl";
 import { CustomActivityMessageRenderer } from "../messages/ActivityMessage";
+import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
 
 // cspell:ignore safearea
 
@@ -63,7 +64,7 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
             className={this.props.className}
             messages={this.getFooterMessages()}
             onMouseEnter={UiShowHideManager.handleWidgetMouseEnter}
-            safeAreaInsets={safeAreaInsets}
+            safeAreaInsets={toLayoutSafeAreaInsets(safeAreaInsets)}
             style={this.props.style}
           >
             {this.props.widgetControl?.getReactNode?.() ?? null}
@@ -94,8 +95,8 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
     const messagesToAdd = MessageManager.activeMessageManager.messages.filter((msg) => !this.messages.find((m) => m.id === msg.id));
     messagesToAdd.forEach((msg) => {
       const displayedMessage = MessageManager.displayMessage(msg.messageDetails, { onRemove: () => this._closeMessage(msg.id) });
-      if(!!displayedMessage)
-        this.messages.push({close: displayedMessage.close, id: msg.id});
+      if (!!displayedMessage)
+        this.messages.push({ close: displayedMessage.close, id: msg.id });
     });
   };
 
@@ -137,7 +138,7 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
 
   private getFooterMessages(): React.ReactNode {
     return (
-      <CustomActivityMessageRenderer settings={{placement: "bottom"}} activityMessageInfo={this.state.activityMessageInfo} cancelActivityMessage={this._cancelActivityMessage} />
+      <CustomActivityMessageRenderer settings={{ placement: "bottom" }} activityMessageInfo={this.state.activityMessageInfo} cancelActivityMessage={this._cancelActivityMessage} />
     );
   }
 

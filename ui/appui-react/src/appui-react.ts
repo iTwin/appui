@@ -20,17 +20,10 @@ export * from "./appui-react/accudraw/FrameworkAccuDraw";
 export * from "./appui-react/accudraw/MenuButton";
 export * from "./appui-react/accudraw/MenuButtonPopup";
 
-export * from "./appui-react/backstage/Backstage";
 export * from "./appui-react/backstage/BackstageComposer";
 export * from "./appui-react/backstage/BackstageComposerItem";
-export * from "./appui-react/backstage/BackstageItemProps";
-export * from "./appui-react/backstage/BackstageItemUtilities";
 export * from "./appui-react/backstage/BackstageManager";
-export * from "./appui-react/backstage/CommandLaunch";
-export * from "./appui-react/backstage/FrontstageLaunch";
-export * from "./appui-react/backstage/Separator";
 export * from "./appui-react/backstage/useDefaultBackstageItems";
-export * from "./appui-react/backstage/TaskLaunch";
 export * from "./appui-react/backstage/useUiItemsProviderBackstageItems";
 
 export * from "./appui-react/configurableui/ConfigurableUiContent";
@@ -140,6 +133,7 @@ export * from "./appui-react/redux/ReducerRegistry";
 export * from "./appui-react/redux/redux-ts";
 
 export * from "./appui-react/safearea/SafeAreaContext";
+export * from "./appui-react/safearea/SafeAreaInsets";
 
 export * from "./appui-react/selection/SelectionContextItemDef";
 export * from "./appui-react/selection/HideIsolateEmphasizeManager";
