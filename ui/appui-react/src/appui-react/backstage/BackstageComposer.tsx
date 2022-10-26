@@ -16,6 +16,7 @@ import { BackstageComposerItem } from "./BackstageComposerItem";
 import { useBackstageManager, useIsBackstageOpen } from "./BackstageManager";
 import { useDefaultBackstageItems } from "./useDefaultBackstageItems";
 import { useUiItemsProviderBackstageItems } from "./useUiItemsProviderBackstageItems";
+import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
 
 // cSpell:ignore safearea
 
@@ -168,7 +169,7 @@ export function BackstageComposer(props: BackstageComposerProps) {
       header={props.header}
       isOpen={isOpen}
       onClose={handleClose}
-      safeAreaInsets={safeAreaInsets}
+      safeAreaInsets={toLayoutSafeAreaInsets(safeAreaInsets)}
       showOverlay={props.showOverlay}
       style={props.style}
     >
