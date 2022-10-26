@@ -17,6 +17,6 @@ describe("<Footer />", () => {
   });
 
   it("renders safe area aware correctly", () => {
-    shallow(<Footer safeAreaInsets={SafeAreaInsets.All} />).should.matchSnapshot();
+    shallow(<Footer safeAreaInsets={SafeAreaInsets.Left} />).should.matchSnapshot();
   });
 });

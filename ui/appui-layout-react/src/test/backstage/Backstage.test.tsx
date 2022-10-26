@@ -30,7 +30,7 @@ describe("<Backstage />", () => {
   });
 
   it("renders safe area aware correctly", () => {
-    shallow(<Backstage safeAreaInsets={SafeAreaInsets.All} />).should.matchSnapshot();
+    shallow(<Backstage safeAreaInsets={SafeAreaInsets.Left} />).should.matchSnapshot();
   });
 
   it("should add event listener", () => {

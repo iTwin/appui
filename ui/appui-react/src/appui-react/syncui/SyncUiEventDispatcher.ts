@@ -11,19 +11,17 @@ import { Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
 import { getInstancesCount, SelectionScope } from "@itwin/presentation-common";
 import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
-// cSpell:ignore configurableui
-import { Backstage } from "../backstage/Backstage";
 import { ContentViewManager } from "../content/ContentViewManager";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { PresentationSelectionScope, SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 import { WorkflowManager } from "../workflow/Workflow";
 
-// cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstagecloseevent, backstageevent, contentlayoutactivated, contentcontrolactivated,
+// cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,
 // cSpell:ignore elementtooltipchanged, frontstageactivated, inputfieldmessageadded, inputfieldmessageremoved, modalfrontstagechanged, modaldialogchanged
 // cSpell:ignore navigationaidactivated, notificationmessageadded, toolactivated, taskactivated, widgetstatechanged, workflowactivated frontstageactivating
 // cSpell:ignore frontstageready activeviewportchanged selectionsetchanged presentationselectionchanged viewstatechanged
-// cSpell:ignore accudrawcompassmodechanged accudrawfieldlockchanged accudrawrotationchanged uisettingschanged
+// cSpell:ignore accudrawcompassmodechanged accudrawfieldlockchanged accudrawrotationchanged uisettingschanged configurableui
 
 /** Event Id used to sync UI components. Used to refresh visibility or enable state of control.
  * @public
@@ -37,11 +35,7 @@ export enum SyncUiEventId {
   ActiveContentChanged = "activecontentchanged",
   /** The active view maintained by the ViewManager has changed. */
   ActiveViewportChanged = "activeviewportchanged",
-  /** Backstage has been closed.
-   * @deprecated Use BackstageEvent instead
-   */
-  BackstageCloseEvent = "backstagecloseevent",
-  /** Backstage has been closed. */
+  /** Backstage has been toggled. */
   BackstageEvent = "backstageevent",
   /** A Content Layout has been activated.  */
   ContentLayoutActivated = "contentlayoutactivated",
@@ -185,7 +179,7 @@ export class SyncUiEventDispatcher {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.WidgetStateChanged);
     }));
 
-    this._unregisterListenerFuncs.push(Backstage.onBackstageEvent.addListener(() => { // eslint-disable-line deprecation/deprecation
+    this._unregisterListenerFuncs.push(UiFramework.backstageManager.onToggled.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.BackstageEvent);
     }));
 
@@ -277,7 +271,7 @@ export class SyncUiEventDispatcher {
           UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, activeSelectionScope);
         }
       }
-    } catch {}
+    } catch { }
 
   }
 

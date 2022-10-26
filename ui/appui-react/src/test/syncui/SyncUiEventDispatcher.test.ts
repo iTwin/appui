@@ -13,7 +13,6 @@ import {
   ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventArgs, SyncUiEventDispatcher,
   UiFramework, WidgetStateChangedEventArgs,
 } from "../../appui-react";
-import { Backstage, BackstageEventArgs } from "../../appui-react/backstage/Backstage";
 import { ActiveContentChangedEventArgs, ContentViewManager } from "../../appui-react/content/ContentViewManager";
 import {
   FrontstageActivatedEventArgs, FrontstageManager, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, ToolActivatedEventArgs,
@@ -197,7 +196,7 @@ describe("SyncUiEventDispatcher", () => {
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    Backstage.onBackstageEvent.emit({} as BackstageEventArgs); // eslint-disable-line deprecation/deprecation
+    UiFramework.backstageManager.open();
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
