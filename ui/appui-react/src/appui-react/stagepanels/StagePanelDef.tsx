@@ -193,14 +193,8 @@ export class StagePanelDef extends WidgetHost {
       this._applicationData = props.applicationData;
 
     const sections = props.sections;
-    if (sections) {
-      if (sections.start) {
-        this._start.initializeFromProps(sections.start, this._location, StagePanelSection.Start);
-      }
-      if (sections.end) {
-        this._end.initializeFromProps(sections.end, this._location, StagePanelSection.End);
-      }
-    }
+    this._start.initializeFromProps(sections?.start, this._location, StagePanelSection.Start);
+    this._end.initializeFromProps(sections?.end, this._location, StagePanelSection.End);
   }
 
   /** Gets the list of Widgets. */
@@ -237,8 +231,8 @@ export class StagePanelDef extends WidgetHost {
 /** @internal */
 export class PanelSectionDef extends WidgetHost {
   /** @internal */
-  public initializeFromProps(props: PanelSectionProps, location: StagePanelLocation, section: StagePanelSection) {
-    props.widgets.forEach((widgetNode, index) => {
+  public initializeFromProps(props: PanelSectionProps | undefined, location: StagePanelLocation, section: StagePanelSection) {
+    props?.widgets.forEach((widgetNode, index) => {
       const stableId = `uifw-ps-${StagePanelLocation[location]}-${section}-${index}`;
       const stableProps = getStableWidgetProps(widgetNode, stableId);
       const widgetDef = new WidgetDef(stableProps);
