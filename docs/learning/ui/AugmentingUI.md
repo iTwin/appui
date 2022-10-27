@@ -60,7 +60,7 @@ public provideStatusBarItems(stageId: string, stageUsage: string): CommonStatusB
 The UiItemsProvider function called when appui-react is populating StagePanels is detailed below. The [StagePanelLocation]($appui-abstract) will be the default location for the widget. The [StagePanelSection]($appui-abstract) will specify what section of the panel should contain the widget. Since widgets can be moved by the user, the locations specified are only the default locations.
 
 ```ts
-    provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, _zoneLocation?: AbstractZoneLocation, stageAppData?: any): ReadonlyArray<AbstractWidgetProps>;
+    provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any): ReadonlyArray<AbstractWidgetProps>;
 ```
 
 Starting in version 2.17 Widgets can support being "popped-out" to a child window by setting the AbstractWidgetProps property `canPopout` to true. This option must be explicitly set because the method `getWidgetContent` must return React components that works properly in a child window. At minimum  components should typically not use the `window` or `document` property to register listeners as these listener will be registered for events in the main window and not in the child window. Components will need to use the `ownerDocument` and `ownerDocument.defaultView` properties to retrieve `document` and `window` properties for the child window.
@@ -68,35 +68,28 @@ Starting in version 2.17 Widgets can support being "popped-out" to a child windo
 Below is an example of implementation of a `provideWidgets` method that can work in Ninezone UI (UI-1) or AppUi (UI-2).
 
 ```tsx
-  public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined, zoneLocation?: AbstractZoneLocation): ReadonlyArray<AbstractWidgetProps> {
+  public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined): ReadonlyArray<AbstractWidgetProps> {
     const widgets: AbstractWidgetProps[] = [];
-    // `section` will be undefined if uiVersion === "1" (referred to as Ninezone UI) and in that case we can add
-    // specified zoneLocation. Because the Ninezone UI also had StagePanels we must make sure we only add to stage panels if
-    // the Ninezone UI is NOT active.
-    if ((undefined === section && stageUsage === StageUsage.General && zoneLocation === AbstractZoneLocation.BottomRight) ||
-      (stageUsage === StageUsage.General && location === StagePanelLocation.Right && section === StagePanelSection.End && "1" !== UiFramework.uiVersion)) {
-      {
-        widgets.push({
-          id: PresentationPropertyGridWidgetControl.id,
-          icon: PresentationPropertyGridWidgetControl.iconSpec,
-          label: PresentationPropertyGridWidgetControl.label,
-          defaultState: WidgetState.Open,
-          canPopout: true,
-          defaultFloatingSize={{width:330, height:540}},
-          isFloatingStateWindowResizable={true},
-          getWidgetContent: () => <PresentationPropertyGridWidget />,
-        });
-      }
+    if (stageUsage === StageUsage.General && location === StagePanelLocation.Right && section === StagePanelSection.End) {
+      widgets.push({
+        id: PresentationPropertyGridWidgetControl.id,
+        icon: PresentationPropertyGridWidgetControl.iconSpec,
+        label: PresentationPropertyGridWidgetControl.label,
+        defaultState: WidgetState.Open,
+        canPopout: true,
+        defaultFloatingSize={{width:330, height:540}},
+        isFloatingStateWindowResizable={true},
+        getWidgetContent: () => <PresentationPropertyGridWidget />,
+      });
     }
     return widgets;
   }
-}
 ```
 
 For newer apps that run only in AppUI then the above method can be simplified to the following.
 
 ```tsx
-  public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined, zoneLocation?: AbstractZoneLocation): ReadonlyArray<AbstractWidgetProps> {
+  public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined): ReadonlyArray<AbstractWidgetProps> {
     const widgets: AbstractWidgetProps[] = [];
     if (stageUsage === StageUsage.General && location === StagePanelLocation.Right && section === StagePanelSection.End) {
       {
