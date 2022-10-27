@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Frontstage provider to return FrontstageProps instead of a ReactElement.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

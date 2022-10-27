@@ -7,14 +7,13 @@
  */
 
 import * as React from "react";
-import { AbstractWidgetProps, BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent, UiSyncEventArgs, WidgetState } from "@itwin/appui-abstract";
+import { AbstractWidgetProps, BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent, WidgetState } from "@itwin/appui-abstract";
 import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { ItemList } from "../shared/ItemMap";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import { WidgetControl } from "./WidgetControl";
@@ -59,7 +58,6 @@ export interface WidgetEventArgs {
 export enum WidgetType {
   Tool,
   Navigation,
-  FreeFrom,
   Rectangular,
   ToolSettings,
   StatusBar,
@@ -118,19 +116,12 @@ export class WidgetDef {
   private _widgetReactNode: React.ReactNode;
   private _widgetControl!: WidgetControl;
   private _defaultState: WidgetState = WidgetState.Unloaded;
-  private _state: WidgetState = WidgetState.Unloaded;
   private _id: string;
   private _classId: string | ConfigurableUiControlConstructor | undefined = undefined;
   private _priority: number = 0;
-  private _isFreeform: boolean = false;
   private _isFloatingStateSupported: boolean = false;
   private _isFloatingStateWindowResizable: boolean = true;
-  private _isToolSettings: boolean = false;
-  private _isStatusBar: boolean = false;
   private _stateChanged: boolean = false;
-  private _fillZone: boolean = false;
-  private _syncEventIds: string[] = [];
-  private _stateFunc?: WidgetStateFunc;
   private _widgetType: WidgetType = WidgetType.Rectangular;
   private _applicationData?: any;
   private _iconSpec?: string | ConditionalStringValue | React.ReactNode;
@@ -146,7 +137,7 @@ export class WidgetDef {
   private _defaultFloatingPosition: PointProps | undefined;
 
   private _hideWithUiWhenFloating?: boolean;
-  private _allowedPanelTargets?: ReadonlyArray<"left"|"right"|"bottom"|"top">;
+  private _allowedPanelTargets?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
   private _initialProps?: WidgetProps;
 
   private _tabLocation?: TabLocation;
@@ -172,15 +163,11 @@ export class WidgetDef {
   public get id(): string { return this._id; }
   public get classId(): string | ConfigurableUiControlConstructor | undefined { return this._classId; }
   public get priority(): number { return this._priority; }
-  public get isFreeform(): boolean { return this._isFreeform; }
   public get isFloatingStateSupported(): boolean { return this._isFloatingStateSupported; }
   public get isFloatingStateWindowResizable(): boolean { return this._isFloatingStateWindowResizable; }
-  public get isToolSettings(): boolean { return this._isToolSettings; }
-  public get isStatusBar(): boolean { return this._isStatusBar; }
+  public get isToolSettings(): boolean { return this._widgetType === WidgetType.ToolSettings; }
+  public get isStatusBar(): boolean { return this._widgetType === WidgetType.StatusBar; }
   public get stateChanged(): boolean { return this._stateChanged; }
-  public get fillZone(): boolean { return this._fillZone; }
-  public get syncEventIds(): string[] { return this._syncEventIds; }
-  public get stateFunc(): WidgetStateFunc | undefined { return this._stateFunc; }
   public get applicationData(): any | undefined { return this._applicationData; }
   public get isFloating(): boolean { return this.state === WidgetState.Floating; }
   public get iconSpec(): IconSpec { return this._iconSpec === IconHelper.reactIconKey ? IconHelper.getIconReactNode(this._iconSpec, this._internalData) : this._iconSpec; }
@@ -213,7 +200,7 @@ export class WidgetDef {
   public get popoutBounds() { return this._popoutBounds; }
   public set popoutBounds(bounds: Rectangle | undefined) { this._popoutBounds = bounds; }
 
-  constructor(widgetProps: WidgetProps) {
+  constructor(widgetProps: WidgetProps, type?: WidgetType) {
     if (widgetProps.id !== undefined)
       this._id = widgetProps.id;
     else {
@@ -221,81 +208,67 @@ export class WidgetDef {
       this._id = `Widget-${WidgetDef._sId}`;
     }
 
-    WidgetDef.initializeFromWidgetProps(widgetProps, this);
-  }
+    if (type !== undefined)
+      this._widgetType = type;
 
-  public static initializeFromWidgetProps(widgetProps: WidgetProps, me: WidgetDef) {
-    me._initialProps = widgetProps;
+    this._initialProps = widgetProps;
     if (widgetProps.label)
-      me.setLabel(widgetProps.label);
+      this.setLabel(widgetProps.label);
     else if (widgetProps.labelKey)
-      me._label = UiFramework.localization.getLocalizedString(widgetProps.labelKey);
+      this._label = UiFramework.localization.getLocalizedString(widgetProps.labelKey);
 
-    me.setCanPopout(widgetProps.canPopout);
-    me.setFloatingContainerId(widgetProps.floatingContainerId);
-    me.defaultFloatingPosition = widgetProps.defaultFloatingPosition ? widgetProps.defaultFloatingPosition as PointProps : undefined;
+    this.setCanPopout(widgetProps.canPopout);
+    this.setFloatingContainerId(widgetProps.floatingContainerId);
+    this.defaultFloatingPosition = widgetProps.defaultFloatingPosition ? widgetProps.defaultFloatingPosition as PointProps : undefined;
 
-    me._hideWithUiWhenFloating = !!widgetProps.hideWithUiWhenFloating;
+    this._hideWithUiWhenFloating = !!widgetProps.hideWithUiWhenFloating;
 
-    me.allowedPanelTargets = widgetProps.allowedPanelTargets;
+    this.allowedPanelTargets = widgetProps.allowedPanelTargets;
 
     if (widgetProps.priority !== undefined)
-      me._priority = widgetProps.priority;
+      this._priority = widgetProps.priority;
 
     if (widgetProps.tooltip)
-      me.setTooltip(widgetProps.tooltip);
+      this.setTooltip(widgetProps.tooltip);
     else if (widgetProps.tooltipKey)
-      me._tooltip = UiFramework.localization.getLocalizedString(widgetProps.tooltipKey);
+      this._tooltip = UiFramework.localization.getLocalizedString(widgetProps.tooltipKey);
 
     if (widgetProps.control !== undefined)
-      me._classId = widgetProps.control;
+      this._classId = widgetProps.control;
     else if (widgetProps.classId !== undefined)
-      me._classId = widgetProps.classId;
+      this._classId = widgetProps.classId;
 
     if (widgetProps.defaultState !== undefined) {
-      me._defaultState = widgetProps.defaultState;
-    }
-
-    if (widgetProps.isFreeform !== undefined) {
-      me._isFreeform = widgetProps.isFreeform;
-      me._widgetType = me.isFreeform ? WidgetType.FreeFrom : WidgetType.Rectangular;
+      this._defaultState = widgetProps.defaultState;
     }
 
     if (widgetProps.isFloatingStateSupported !== undefined)
-      me._isFloatingStateSupported = widgetProps.isFloatingStateSupported;
+      this._isFloatingStateSupported = widgetProps.isFloatingStateSupported;
     if (widgetProps.isFloatingStateWindowResizable !== undefined)
-      me._isFloatingStateWindowResizable = widgetProps.isFloatingStateWindowResizable;
-    if (widgetProps.isToolSettings !== undefined)
-      me._isToolSettings = widgetProps.isToolSettings;
-    if (widgetProps.isStatusBar !== undefined)
-      me._isStatusBar = widgetProps.isStatusBar;
-    if (widgetProps.fillZone !== undefined)
-      me._fillZone = widgetProps.fillZone;
+      this._isFloatingStateWindowResizable = widgetProps.isFloatingStateWindowResizable;
 
     if (widgetProps.applicationData !== undefined)
-      me._applicationData = widgetProps.applicationData;
+      this._applicationData = widgetProps.applicationData;
 
     if (widgetProps.element !== undefined)
-      me._widgetReactNode = widgetProps.element;
+      this._widgetReactNode = widgetProps.element;
 
     if (widgetProps.iconSpec !== undefined)
-      me._iconSpec = widgetProps.iconSpec;
+      this._iconSpec = widgetProps.iconSpec;
     if (widgetProps.internalData)
-      me._internalData = widgetProps.internalData;
+      this._internalData = widgetProps.internalData;
     // istanbul ignore next
-    if (widgetProps.icon !== undefined && me._iconSpec === undefined)
-      me._iconSpec = widgetProps.icon;
+    if (widgetProps.icon !== undefined && this._iconSpec === undefined)
+      this._iconSpec = widgetProps.icon;
 
     if (widgetProps.badgeType !== undefined)
-      me._badgeType = widgetProps.badgeType;
+      this._badgeType = widgetProps.badgeType;
 
-    me._preferredPanelSize = widgetProps.preferredPanelSize;
-    me._defaultFloatingSize = widgetProps.defaultFloatingSize;
-    me._onWidgetStateChanged = widgetProps.onWidgetStateChanged;
-    me._saveTransientState = widgetProps.saveTransientState;
-    me._restoreTransientState = widgetProps.restoreTransientState;
-
-    me.setUpSyncSupport(widgetProps);
+    this._preferredPanelSize = widgetProps.preferredPanelSize;
+    this._defaultFloatingSize = widgetProps.defaultFloatingSize;
+    this._onWidgetStateChanged = widgetProps.onWidgetStateChanged;
+    this._saveTransientState = widgetProps.saveTransientState;
+    this._restoreTransientState = widgetProps.restoreTransientState;
   }
 
   public static createWidgetPropsFromAbstractProps(abstractWidgetProps: AbstractWidgetProps): WidgetProps {
@@ -303,25 +276,6 @@ export class WidgetDef {
     widgetProps.element = abstractWidgetProps.getWidgetContent();
     return widgetProps;
   }
-
-  public setUpSyncSupport(props: WidgetProps) {
-    if (props.stateFunc && props.syncEventIds && props.syncEventIds.length > 0) { // eslint-disable-line deprecation/deprecation
-      this._syncEventIds = props.syncEventIds;
-      this._stateFunc = props.stateFunc; // eslint-disable-line deprecation/deprecation
-      SyncUiEventDispatcher.onSyncUiEvent.addListener(this._handleSyncUiEvent);
-    }
-  }
-
-  private _handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-    if ((this.syncEventIds.length > 0) && this.syncEventIds.some((value: string): boolean => args.eventIds.has(value.toLowerCase()))) {
-      // istanbul ignore else
-      if (this.stateFunc) {
-        let newState = this.state;
-        newState = this.stateFunc(newState);
-        this.setWidgetState(newState);
-      }
-    }
-  };
 
   /** @alpha */
   public get preferredPanelSize() {
@@ -460,11 +414,11 @@ export class WidgetDef {
     return !!this._hideWithUiWhenFloating;
   }
 
-  public get allowedPanelTargets(): ReadonlyArray<"left"|"right"|"bottom"|"top"> | undefined {
+  public get allowedPanelTargets(): ReadonlyArray<"left" | "right" | "bottom" | "top"> | undefined {
     return this._allowedPanelTargets;
   }
 
-  public set allowedPanelTargets(targets: ReadonlyArray<"left"|"right"|"bottom"|"top"> | undefined) {
+  public set allowedPanelTargets(targets: ReadonlyArray<"left" | "right" | "bottom" | "top"> | undefined) {
 
     this._allowedPanelTargets = (targets && targets?.length > 0) ? targets : undefined;
   }

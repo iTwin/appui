@@ -31,7 +31,7 @@ import { MobileApp, MobileAppOpts } from "@itwin/core-mobile/lib/cjs/MobileFront
 import { EditTools } from "@itwin/editor-frontend";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
-import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
+// import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
 import { ArcGisAccessClient, ArcGisEnterpriseClientId } from "@itwin/map-layers-auth";
 import { ArcGisOauthRedirect } from "./appui/ArcGisOauthRedirect";
 import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
@@ -316,7 +316,7 @@ export class SampleAppIModelApp {
 
     await FrontendDevTools.initialize();
     await HyperModeling.initialize();
-    await MapLayersUI.initialize({ featureInfoOpts: { onMapHit: DefaultMapFeatureInfoTool.onMapHit } });
+    // await MapLayersUI.initialize({ featureInfoOpts: { onMapHit: DefaultMapFeatureInfoTool.onMapHit } });
 
     AppSettingsTabsProvider.initializeAppSettingProvider();
 

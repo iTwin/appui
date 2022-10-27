@@ -5,8 +5,8 @@
 import * as React from "react";
 import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
-  ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, IModelViewportControl, NavigationAidHost,
-  NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, Widget, Zone, ZoneLocation, ZoneState,
+  ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, IModelViewportControl, NavigationAidHost,
+  NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { IModelViewportControl as App_IModelViewport } from "../contentviews/IModelViewport";
@@ -18,12 +18,10 @@ import { ReactTableDemoContentControl } from "../table-demo/ReactTableDemo";
 import { AppToolbarUtilities } from "./NestedFrontstage1";
 import { IModelApp } from "@itwin/core-frontend";
 
-/* eslint-disable react/jsx-key, deprecation/deprecation */
-
 export class Frontstage3 extends FrontstageProvider {
   public static stageId = "ui-test-app:Test3";
 
-  public get id(): string {
+  public override get id(): string {
     return Frontstage3.stageId;
   }
 
@@ -31,9 +29,8 @@ export class Frontstage3 extends FrontstageProvider {
     return UiFramework.getDefaultViewState()?.clone();
   };
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
-
-    const myContentGroup: ContentGroup = new ContentGroup(
+  public override get frontstage(): FrontstageProps {
+    const contentGroup = new ContentGroup(
       {
         id: "ui-test-app:Frontstage3ContentGroup",
         layout: StandardContentLayouts.fourQuadrants,
@@ -60,70 +57,64 @@ export class Frontstage3 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={this.getToolWidget()} />,
-            ]}
-          />
-        }
-        toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        viewNavigationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={this.getNavigationWidget()} />,
-            ]}
-          />
-        }
-        centerRight={
-          <Zone allowsMerging={true} defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone allowsMerging={true} defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-            ]}
-          />
-        }
-        statusBar={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone allowsMerging={true} defaultState={ZoneState.Minimized} mergeWithZone={ZoneLocation.CenterRight}
-            widgets={[
-              <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-              <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
-      // bottomPanel={
-      //   <StagePanel
-      //     widgets={[
-      //       <Widget iconSpec="icon-placeholder" label="Large Table" control={TableExampleWidgetControl} />,
-      //     ]}
-      //   />
-      // }
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup,
+      contentManipulation: {
+        element: this.getToolWidget(),
+      },
+      toolSettings: {},
+      viewNavigation: {
+        element: this.getNavigationWidget(),
+      },
+      rightPanel: {
+        sections: {
+          start: {
+            widgets: [
+              {
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.NavigationTree",
+                control: NavigationTreeWidgetControl,
+              },
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                id: "VerticalPropertyGrid",
+                defaultState: WidgetState.Hidden,
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+                control: VerticalPropertyGridWidgetControl,
+              },
+              {
+                defaultState: WidgetState.Open,
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+                control: HorizontalPropertyGridWidgetControl,
+              },
+            ],
+          },
+        },
+      },
+      leftPanel: {
+        sections: {
+          end: {
+            widgets: [
+              {
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.TableDemo",
+                control: TableDemoWidgetControl,
+              },
+            ],
+          },
+        },
+      },
+      statusBar: {
+        control: SmallStatusBarWidgetControl,
+      },
+    };
   }
 
   /** Define a ToolWidget with Buttons to display in the TopLeft zone.

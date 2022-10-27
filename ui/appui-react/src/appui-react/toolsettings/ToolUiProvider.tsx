@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import { UiDataProvider } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ConfigurableUiControl, ConfigurableUiControlType } from "../../configurableui/ConfigurableUiControl";
-import { ToolSettingsEntry } from "../../widget-panels/ToolSettings";
+import { ConfigurableCreateInfo, ConfigurableUiControl, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
+import { ToolSettingsEntry } from "../widget-panels/ToolSettings";
 import { SyncToolSettingsPropertiesEventArgs } from "./ToolSettingsManager";
 
 /**

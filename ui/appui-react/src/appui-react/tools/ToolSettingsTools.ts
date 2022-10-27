@@ -6,7 +6,7 @@
  * @module Tools
  */
 import { IModelApp, Tool } from "@itwin/core-frontend";
-import { ToolSettingsManager } from "../zones/toolsettings/ToolSettingsManager";
+import { ToolSettingsManager } from "../toolsettings/ToolSettingsManager";
 
 /**
  * Immediate tool that will focus into the Tool Settings widget.

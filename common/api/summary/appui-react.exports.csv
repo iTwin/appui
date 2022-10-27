@@ -39,7 +39,7 @@ public;ActivityMessagePopupProps
 public;ActivityMessageProps
 public;ActivityMessageUpdatedEvent 
 internal;addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState
-internal;addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, side: PanelSide): NineZoneState
+internal;addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState
 internal;addWidgets(state: NineZoneState, widgets: ReadonlyArray
 public;AnalysisAnimationTimelineDataProvider 
 public;AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionButtonItemDef
@@ -142,7 +142,6 @@ public;CoreTools
 public;createAction
 public;createAction
 internal;createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef
-deprecated;createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef
 alpha;createVisibilityTreeNodeRenderer: (iconsEnabled: boolean, descriptionEnabled: boolean) => (props: TreeNodeRendererProps) => JSX.Element
 public;CubeNavigationAidControl 
 public;CursorDirection
@@ -207,7 +206,6 @@ beta;FrameworkRootState
 public;FrameworkState
 alpha;FrameworkToolAdmin 
 public;FrameworkUiAdmin 
-public;Frontstage 
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
 public;FrontstageActivatedEventArgs
@@ -229,12 +227,12 @@ internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState
 beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
 beta;getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue
 beta;getListPanel(props: ListPickerProps): React_2.ReactNode
-internal;getPanelZoneWidgets(frontstageDef: FrontstageDef, panelZone: WidgetIdTypes): WidgetDef[]
+internal;getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
 internal;getStableWidgetProps(widgetProps: WidgetProps, stableId: string): WidgetProps
 beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
-internal;getWidgetId(side: PanelSide, key: StagePanelZoneDefKeys): WidgetIdTypes
+internal;getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId
 internal;GroupedItems = ReadonlyArray
 public;GroupItemDef 
 public;GroupItemProps 
@@ -251,7 +249,7 @@ internal;INACTIVITY_TIME_DEFAULT = 3500
 beta;Indicator(props: IndicatorProps): JSX.Element
 public;InitialAppUiSettings
 internal;initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneState
-internal;initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, panelSide: PanelSide): NineZoneState
+internal;initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState
 beta;InputEditorCommitHandler
 alpha;InputEditorPopup 
 beta;InputEditorPopupProps 
@@ -262,7 +260,7 @@ public;InputFieldMessageRemovedEvent
 alpha;InputStatus
 internal;isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is
 beta;isNoSelectionActive(): boolean
-internal;isPanelCollapsed(zoneStates: ReadonlyArray
+internal;isPanelCollapsed(panelState: StagePanelState | undefined): boolean
 internal;isReactContent: (content: PopupContentType) => content is ReactContent
 internal;isReactNotifyMessageDetails: (details: any) => details is ReactNotifyMessageDetails
 public;isStatusBarItem: (item: CommonStatusBarItem) => item is StatusBarItem
@@ -347,12 +345,14 @@ public;NavigationWidgetComposer(props: NavigationWidgetComposerProps): JSX.Eleme
 public;NavigationWidgetComposerProps 
 public;NavigationWidgetProps 
 public;NestedFrontstage
-public;NineZoneChangeHandler
 public;NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetails
 public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
 internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
+internal;PanelSectionDef 
+public;PanelSectionProps
+public;PanelSectionsProps
 internal;PanelSizeChangedEvent 
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
@@ -431,20 +431,10 @@ public;SplitPane(props: SplitPaneProps): JSX.Element
 public;SplitPaneProps
 public;StageContentLayout
 public;StageContentLayoutProps
-public;StagePanel 
-public;StagePanelChangeHandler
 public;StagePanelDef 
-public;StagePanelDefaultProps = Pick
 public;StagePanelMaxSizeSpec = number |
 public;StagePanelProps
 public;StagePanelState
-internal;StagePanelZoneDef 
-internal;StagePanelZoneDefKeys = keyof Pick
-public;StagePanelZoneProps
-deprecated;StagePanelZoneProps
-internal;StagePanelZonesDef
-public;StagePanelZonesProps
-deprecated;StagePanelZonesProps
 public;StandardContentToolsProvider 
 beta;StandardContentToolsUiItemsProvider 
 public;StandardFrontstageProps
@@ -525,7 +515,6 @@ public;ToolbarHelper
 beta;ToolbarPopup 
 beta;ToolbarPopupProps 
 public;ToolbarWidgetProps 
-internal;ToolGroupPanelContext: React_2.Context
 public;ToolIconChangedEvent 
 public;ToolIconChangedEventArgs
 public;ToolInformation
@@ -631,7 +620,6 @@ alpha;visibilityTreeNodeCheckboxRenderer: (props: NodeCheckboxRenderProps) => JS
 alpha;VisibilityTreeNoFilteredData(props: VisibilityTreeNoFilteredDataProps): JSX.Element
 alpha;VisibilityTreeNoFilteredDataProps
 alpha;VisibilityTreeSelectionPredicate = (key: NodeKey, node: TreeNodeItem) => boolean
-public;Widget 
 public;WIDGET_OPACITY_DEFAULT = 0.9
 internal;WidgetChangedEventArgs
 internal;WidgetContent(): JSX.Element
@@ -668,11 +656,3 @@ internal;WorkflowProps
 deprecated;WorkflowProps 
 internal;WorkflowPropsList
 deprecated;WorkflowPropsList
-public;Zone 
-public;ZoneDef 
-public;ZoneDefProvider
-public;ZoneLocation
-deprecated;ZoneLocation
-public;ZoneProps 
-public;ZoneState
-deprecated;ZoneState

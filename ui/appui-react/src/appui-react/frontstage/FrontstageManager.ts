@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -10,8 +9,8 @@
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, InteractiveTool, SelectedViewportChangedArgs, StartOrResume, Tool } from "@itwin/core-frontend";
-import { WidgetState } from "@itwin/appui-abstract";
-import { Size, UiEvent } from "@itwin/core-react";
+import { UiEvent, WidgetState } from "@itwin/appui-abstract";
+import { Size } from "@itwin/core-react";
 import { ContentControlActivatedEvent } from "../content/ContentControl";
 import { ContentGroup } from "../content/ContentGroup";
 import { ContentLayoutActivatedEvent, ContentLayoutDef } from "../content/ContentLayout";
@@ -20,9 +19,9 @@ import { PanelSizeChangedEvent, PanelStateChangedEvent } from "../stagepanels/St
 import { UiFramework } from "../UiFramework";
 import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { WidgetChangedEventArgs, WidgetDef, WidgetEventArgs, WidgetStateChangedEvent } from "../widgets/WidgetDef";
-import { ToolInformation } from "../zones/toolsettings/ToolInformation";
-import { SyncToolSettingsPropertiesEventArgs, ToolSettingsManager } from "../zones/toolsettings/ToolSettingsManager";
-import { ToolUiProvider } from "../zones/toolsettings/ToolUiProvider";
+import { ToolInformation } from "../toolsettings/ToolInformation";
+import { SyncToolSettingsPropertiesEventArgs, ToolSettingsManager } from "../toolsettings/ToolSettingsManager";
+import { ToolUiProvider } from "../toolsettings/ToolUiProvider";
 import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs } from "./FrontstageDef";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
@@ -365,7 +364,7 @@ export class FrontstageManager {
     const provider = FrontstageManager._frontstageProviders.get(frontstageId);
     let isIModelIndependent = false;
     if (provider) {
-      isIModelIndependent = !!provider.frontstage.props.isIModelIndependent;
+      isIModelIndependent = !!provider.frontstage.isIModelIndependent;
     }
     const imodelId = UiFramework.getIModelConnection()?.iModelId ?? "noImodel";
     const key = isIModelIndependent ? frontstageId : `[${imodelId}]${frontstageId}`;

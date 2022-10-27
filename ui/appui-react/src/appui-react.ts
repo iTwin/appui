@@ -63,7 +63,6 @@ export * from "./appui-react/feedback/ValidationTextbox";
 export * from "./appui-react/feedback/ElementTooltip";
 
 export * from "./appui-react/frontstage/Frontstage";
-export * from "./appui-react/frontstage/FrontstageComposer";
 export * from "./appui-react/frontstage/FrontstageDef";
 export * from "./appui-react/frontstage/FrontstageManager";
 export * from "./appui-react/frontstage/FrontstageProvider";
@@ -241,7 +240,6 @@ export * from "./appui-react/widgets/StatusBarWidgetComposerControl";
 export * from "./appui-react/widgets/ContentToolWidgetComposer";
 export * from "./appui-react/widgets/StableWidgetDef";
 export * from "./appui-react/widgets/ToolWidgetComposer";
-export * from "./appui-react/widgets/Widget";
 export * from "./appui-react/widgets/WidgetControl";
 export * from "./appui-react/widgets/WidgetDef";
 export * from "./appui-react/widgets/WidgetHost";
@@ -251,12 +249,10 @@ export * from "./appui-react/widgets/WidgetProps";
 export * from "./appui-react/workflow/Task";
 export * from "./appui-react/workflow/Workflow";
 
-export * from "./appui-react/zones/toolsettings/ToolInformation";
-export * from "./appui-react/zones/toolsettings/ToolSettingsManager";
-export * from "./appui-react/zones/toolsettings/ToolUiProvider";
-export * from "./appui-react/zones/toolsettings/DefaultToolSettingsProvider";
-export * from "./appui-react/zones/Zone";
-export * from "./appui-react/zones/ZoneDef";
+export * from "./appui-react/toolsettings/ToolInformation";
+export * from "./appui-react/toolsettings/ToolSettingsManager";
+export * from "./appui-react/toolsettings/ToolUiProvider";
+export * from "./appui-react/toolsettings/DefaultToolSettingsProvider";
 
 /** @docs-package-description
  * The ui-framework package contains classes and components for specifying the application UI consisting of the
@@ -382,8 +378,4 @@ export * from "./appui-react/zones/ZoneDef";
 /**
  * @docs-group-description Widget
  * Classes for working with a Widget
- */
-/**
- * @docs-group-description Zone
- * Classes for working with a Zone
  */

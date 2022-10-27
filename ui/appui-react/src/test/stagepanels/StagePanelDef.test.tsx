@@ -2,14 +2,12 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
-import * as React from "react";
 import { expect } from "chai";
 import produce from "immer";
 import * as sinon from "sinon";
-import { FrontstageManager, setPanelSize, StagePanelDef, StagePanelState, StagePanelZoneDef, StagePanelZonesDef, toPanelSide, Widget, WidgetDef } from "../../appui-react";
+import { FrontstageManager, PanelSectionDef, setPanelSize, StagePanelDef, StagePanelState, toPanelSide, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import { StagePanelLocation } from "@itwin/appui-abstract";
+import { StagePanelLocation, StagePanelSection } from "@itwin/appui-abstract";
 import { createNineZoneState } from "@itwin/appui-layout-react";
 import { FrontstageDef } from "../../appui-react/frontstage/FrontstageDef";
 
@@ -53,12 +51,6 @@ describe("StagePanelDef", () => {
   it("should default to Open state", () => {
     const panelDef = new StagePanelDef();
     expect(panelDef.panelState).to.eq(StagePanelState.Open);
-  });
-
-  it("should initialize panel zones", () => {
-    const panelDef = new StagePanelDef();
-    panelDef.initializeFromProps({ resizable: false, panelZones: {} });
-    expect(panelDef.panelZones).to.exist;
   });
 
   it("should initialize pinned", () => {
@@ -144,49 +136,31 @@ describe("StagePanelDef", () => {
 
   it("should returns panel zone widgets", () => {
     const panelDef = new StagePanelDef();
-    const panelZonesDef = new StagePanelZonesDef();
-    const start = new StagePanelZoneDef();
-    const end = new StagePanelZoneDef();
-    const s1 = new WidgetDef({});
-    const e1 = new WidgetDef({});
-    const e2 = new WidgetDef({});
-    sinon.stub(panelZonesDef, "start").get(() => start);
-    sinon.stub(panelZonesDef, "end").get(() => end);
-
-    sinon.stub(start, "widgetDefs").get(() => [s1]);
-    sinon.stub(end, "widgetDefs").get(() => [e1, e2]);
-
-    sinon.stub(panelDef, "panelZones").get(() => panelZonesDef);
-    panelDef.widgetDefs.should.eql([s1, e1, e2]);
+    panelDef.initializeFromProps({
+      sections: {
+        start: {
+          widgets: [{ id: "s1" }],
+        },
+        end: {
+          widgets: [
+            { id: "e1" },
+            { id: "e2" },
+          ],
+        },
+      },
+    });
+    panelDef.widgetDefs.map((w) => w.id).should.eql(["s1", "e1", "e2"]);
   });
 });
 
-describe("StagePanelZonesDef", () => {
-  it("should initialize start", () => {
-    const sut = new StagePanelZonesDef();
-    sut.initializeFromProps({ start: { widgets: [<Widget key="w1" id="w1" />] } }, StagePanelLocation.Left);
-    expect(sut.start.widgetCount).to.eq(1);
-  });
-
-  it("should initialize middle", () => {
-    const sut = new StagePanelZonesDef();
-    sut.initializeFromProps({ middle: { widgets: [<Widget key="w1" id="w1" />] } }, StagePanelLocation.Left);
-    expect(sut.end.widgetCount).to.eq(1);
-  });
-
-  it("should initialize end", () => {
-    const sut = new StagePanelZonesDef();
-    sut.initializeFromProps({ end: { widgets: [<Widget key="w1" id="w1" />] } }, StagePanelLocation.Left);
-    expect(sut.end.widgetCount).to.eq(1);
-  });
-});
-
-describe("StagePanelZoneDef", () => {
+describe("PanelSectionDef", () => {
   it("should initialize stable widgets", () => {
-    const sut = new StagePanelZoneDef();
-    sut.initializeFromProps({ widgets: [<Widget />] }, StagePanelLocation.Left, "start"); // eslint-disable-line react/jsx-key
+    const sut = new PanelSectionDef();
+    sut.initializeFromProps({
+      widgets: [{}],
+    }, StagePanelLocation.Left, StagePanelSection.Start);
     expect(sut.widgetCount).to.eq(1);
-    expect(sut.widgetDefs[0].id).to.eq("uifw-spz-Left-start-0");
+    expect(sut.widgetDefs[0].id).to.eq("uifw-ps-Left-0-0");
   });
 });
 
@@ -203,16 +177,8 @@ describe("toPanelSide", () => {
     toPanelSide(StagePanelLocation.Bottom).should.eq("bottom");
   });
 
-  it("should return 'bottom'", () => {
-    toPanelSide(StagePanelLocation.BottomMost).should.eq("bottom");
-  });
-
   it("should return 'top'", () => {
     toPanelSide(StagePanelLocation.Top).should.eq("top");
-  });
-
-  it("should return 'top'", () => {
-    toPanelSide(StagePanelLocation.TopMost).should.eq("top");
   });
 });
 

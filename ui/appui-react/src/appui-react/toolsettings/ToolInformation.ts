@@ -7,9 +7,9 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
-import { ConfigurableUiControlType } from "../../configurableui/ConfigurableUiControl";
-import { ConfigurableUiManager } from "../../configurableui/ConfigurableUiManager";
-import { UiFramework } from "../../UiFramework";
+import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
+import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
+import { UiFramework } from "../UiFramework";
 import { ToolSettingsManager } from "./ToolSettingsManager";
 import { ToolUiProvider } from "./ToolUiProvider";
 

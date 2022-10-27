@@ -5,8 +5,8 @@
 import * as React from "react";
 import { CommonToolbarItem, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
-  ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
-  ToolbarComposer, ToolbarHelper, ToolWidgetComposer, Widget, Zone, ZoneLocation, ZoneState,
+  ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
+  ToolbarComposer, ToolbarHelper, ToolWidgetComposer,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
@@ -15,67 +15,42 @@ import { AppUi } from "../AppUi";
 import { AppToolbarUtilities, BackstageBackButton } from "./NestedFrontstage1";
 import { IModelApp } from "@itwin/core-frontend";
 
-/* eslint-disable react/jsx-key, deprecation/deprecation */
-
 export class NestedFrontstage2 extends FrontstageProvider {
   public static stageId = "ui-test-app:NestedFrontstage2";
 
-  public get id(): string {
+  public override get id(): string {
     return NestedFrontstage2.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup2);
-
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.rotateViewCommand}
-        contentGroup={contentGroup}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />,
-            ]}
-          />
-        }
-        toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        viewNavigationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />,
-            ]}
-          />
-        }
-        /** The HorizontalPropertyGrid in zone 9 should be merged across zones 6 & 9 and take up the height of both zones initially.
-         *  The zones can be resized manually to take up the full height.
-         */
-        centerRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} mergeWithZone={ZoneLocation.BottomRight}
-          />
-        }
-        statusBar={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.StatusBar" control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget defaultState={WidgetState.Closed} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
-              <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: CoreTools.rotateViewCommand,
+      contentGroup,
+      contentManipulation: {
+        element: <FrontstageToolWidget />,
+      },
+      toolSettings: {},
+      viewNavigation: {
+        element: <FrontstageNavigationWidget />,
+      },
+      statusBar: {
+        iconSpec: "icon-placeholder",
+        labelKey: "SampleApp:widgets.StatusBar",
+        control: SmallStatusBarWidgetControl,
+      },
+      rightPanel: {
+        sections: {
+          end: {
+            widgets: [
+              { defaultState: WidgetState.Closed, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
+              { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
+            ],
+          },
+        },
+      },
+    };
   }
 }
 

@@ -18,7 +18,7 @@ import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { ContentGroup } from "./ContentGroup";
 import { ContentLayoutProps, LayoutFragmentProps, LayoutHorizontalSplitProps, LayoutSplitPropsBase, LayoutVerticalSplitProps, UiEvent } from "@itwin/appui-abstract";
 import { ActiveContentChangedEventArgs, ContentViewManager } from "./ContentViewManager";
-import { useActiveFrontstageDef } from "../frontstage/Frontstage";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
 /** Properties for [[ContentWrapper]] */
 interface ContentWrapperProps extends CommonProps {
@@ -34,10 +34,10 @@ export function ContentWrapper(props: ContentWrapperProps) {
   const activeFrontstageDef = useActiveFrontstageDef();
 
   // istanbul ignore next
-  const [hasMultipleContents, setHasMultipleContents] = React.useState(() =>
+  const [hasMultipleContents, setHasMultipleContents] = React.useState(() => (
     (activeFrontstageDef && (!!activeFrontstageDef.floatingContentControls?.length) ||
-    (activeFrontstageDef?.contentGroup?.getContentControls().length ?? 0) > 1)
-  );
+      (activeFrontstageDef?.contentGroup?.getContentControls().length ?? 0) > 1)
+  ));
 
   React.useEffect(() => {
     setIsActive(content === ContentViewManager.getActiveContent());
