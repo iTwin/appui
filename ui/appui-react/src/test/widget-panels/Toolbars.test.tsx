@@ -2,11 +2,10 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { shallow } from "enzyme";
 import * as React from "react";
 import * as sinon from "sinon";
-import { FrontstageDef, FrontstageManager, WidgetDef, WidgetPanelsToolbars, ZoneDef } from "../../appui-react";
+import { FrontstageDef, FrontstageManager, WidgetDef, WidgetPanelsToolbars } from "../../appui-react";
 
 describe("WidgetPanelsToolbars", () => {
   it("should not render", () => {
@@ -17,17 +16,11 @@ describe("WidgetPanelsToolbars", () => {
 
   it("should render toolbars", () => {
     const frontstageDef = new FrontstageDef();
-    const topLeft = new ZoneDef();
-    const topRight = new ZoneDef();
-    const topLeftWidget = new WidgetDef({});
-    const topRightWidget = new WidgetDef({});
+    const contentManipulationWidget = new WidgetDef({ element: <>tools</> });
+    const viewNavigationWidget = new WidgetDef({ element: <>navigation</> });
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
-    sinon.stub(frontstageDef, "topLeft").get(() => topLeft);
-    sinon.stub(frontstageDef, "topRight").get(() => topRight);
-    sinon.stub(topLeft, "getSingleWidgetDef").returns(topLeftWidget);
-    sinon.stub(topRight, "getSingleWidgetDef").returns(topRightWidget);
-    sinon.stub(topLeftWidget, "reactNode").get(() => <>tools</>);
-    sinon.stub(topRightWidget, "reactNode").get(() => <>navigation</>);
+    sinon.stub(frontstageDef, "contentManipulation").get(() => contentManipulationWidget);
+    sinon.stub(frontstageDef, "viewNavigation").get(() => viewNavigationWidget);
     const sut = shallow(<WidgetPanelsToolbars />);
     sut.should.matchSnapshot();
   });

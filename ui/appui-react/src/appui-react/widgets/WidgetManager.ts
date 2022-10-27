@@ -2,17 +2,16 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Widget
  */
 
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
-import { AbstractWidgetProps, AbstractZoneLocation, StagePanelLocation, StagePanelSection, UiItemsManager } from "@itwin/appui-abstract";
+import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
-import { getStableWidgetProps, ZoneLocation } from "../zones/Zone";
 import { WidgetDef } from "./WidgetDef";
 import { createStableWidgetDef } from "./StableWidgetDef";
+import { WidgetProps } from "./WidgetProps";
 
 /** Information about WidgetDefs in the WidgetManager
  * @internal
@@ -21,7 +20,7 @@ export interface WidgetInfo {
   widgetDef: WidgetDef;
   stageId?: string;
   stageUsage?: string;
-  location: ZoneLocation | StagePanelLocation;
+  location: StagePanelLocation;
   section: StagePanelSection;
 }
 
@@ -37,17 +36,8 @@ export interface WidgetsChangedEventArgs {
  */
 export class WidgetsChangedEvent extends BeUiEvent<WidgetsChangedEventArgs> { }
 
-function isZoneLocation(location: ZoneLocation | StagePanelLocation): location is ZoneLocation {
-  return location >= ZoneLocation.TopLeft && location <= ZoneLocation.BottomRight;
-}
-
-function getLocationName(location: ZoneLocation | StagePanelLocation) {
-  return isZoneLocation(location) ? ZoneLocation[location] : StagePanelLocation[location];
-}
-
-function getWidgetManagerStableWidgetId(stageUsage: string | undefined, location: ZoneLocation | StagePanelLocation, section: StagePanelSection,
-  index: number) {
-  return `uifw-wm-${stageUsage || ""}-${getLocationName(location)}-${StagePanelSection[section]}-${index}`;
+function getWidgetManagerStableWidgetId(stageUsage: string | undefined, location: StagePanelLocation, section: StagePanelSection, index: number) {
+  return `uifw-wm-${stageUsage || ""}-${StagePanelLocation[location]}-${StagePanelSection[section]}-${index}`;
 }
 
 function getAddonStableWidgetId(stageUsage: string, location: StagePanelLocation, section: StagePanelSection, index: number) {
@@ -82,7 +72,7 @@ export class WidgetManager {
    * Semi-stable id is generated when auto-generated `widgetDef` id is detected,
    * but correctness of such id depends on `addWidgetDef` call order and widget location.
    */
-  public addWidgetDef(widgetDef: WidgetDef, stageId: string | undefined, stageUsage: string | undefined, location: ZoneLocation | StagePanelLocation, section?: StagePanelSection): boolean {
+  public addWidgetDef(widgetDef: WidgetDef, stageId: string | undefined, stageUsage: string | undefined, location: StagePanelLocation, section?: StagePanelSection): boolean {
     if (stageId === undefined && stageUsage === undefined) {
       Logger.logError(UiFramework.loggerCategory(this), `addWidgetDef: stageId or stageUsage param must be specified`);
       return false;
@@ -122,27 +112,9 @@ export class WidgetManager {
     return result;
   }
 
-  // Used when WidgetDefs are requested from UiItemProviders when uiVersion="1"
-  // istanbul ignore next
-  private getStagePanelLocationFromZoneLocation(location: ZoneLocation): StagePanelLocation | undefined {
-    switch (location) {
-      case ZoneLocation.BottomCenter:
-      case ZoneLocation.TopCenter:
-      case ZoneLocation.TopRight:
-      case ZoneLocation.TopLeft:
-        return undefined; // an existing stage does not support appending widgets to these zones
-      case ZoneLocation.BottomLeft:
-      case ZoneLocation.CenterLeft:
-        return StagePanelLocation.Left;
-      case ZoneLocation.BottomRight:
-      case ZoneLocation.CenterRight:
-        return StagePanelLocation.Right;
-    }
-  }
-
   /** Gets WidgetDefs for a Frontstage location.
    */
-  public getWidgetDefs(stageId: string, stageUsage: string, location: ZoneLocation | StagePanelLocation, section?: StagePanelSection,
+  public getWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection,
     frontstageApplicationData?: any): ReadonlyArray<WidgetDef> | undefined {
     const definedSection = section === undefined ? StagePanelSection.Start : section;
 
@@ -156,33 +128,25 @@ export class WidgetManager {
     const widgetDefs = widgetInfos.map((info) => info.widgetDef);
 
     // Consult the UiItemsManager to get any Abstract widgets
-    if (location in StagePanelLocation) {
-      const widgets = UiItemsManager.getWidgets(stageId, stageUsage, location as StagePanelLocation, definedSection, undefined, frontstageApplicationData);
-      widgets.forEach((abstractProps: AbstractWidgetProps, index: number) => {
-        const props = WidgetDef.createWidgetPropsFromAbstractProps(abstractProps);
-        const stableId = getAddonStableWidgetId(stageUsage, location as StagePanelLocation, definedSection, index);
-        const stableProps = getStableWidgetProps(props, stableId);
-        const wd = new WidgetDef(stableProps);
-        widgetDefs.push(wd);
-      });
-    } else {
-      // istanbul ignore else
-      if (location in ZoneLocation) {
-        const panelLocation = this.getStagePanelLocationFromZoneLocation(location as ZoneLocation);
-        // istanbul ignore else
-        if (panelLocation && location in AbstractZoneLocation) {
-          const widgets = UiItemsManager.getWidgets(stageId, stageUsage, panelLocation, undefined, location as unknown as AbstractZoneLocation, frontstageApplicationData);
-          widgets.forEach((abstractProps: AbstractWidgetProps, index: number) => {
-            const props = WidgetDef.createWidgetPropsFromAbstractProps(abstractProps);
-            const stableId = getAddonStableWidgetId(stageUsage, location as StagePanelLocation, definedSection, index);
-            const stableProps = getStableWidgetProps(props, stableId);
-            const wd = new WidgetDef(stableProps);
-            widgetDefs.push(wd);
-          });
-        }
-      }
-    }
-
+    const widgets = UiItemsManager.getWidgets(stageId, stageUsage, location, definedSection, frontstageApplicationData);
+    widgets.forEach((abstractProps: AbstractWidgetProps, index: number) => {
+      const props = WidgetDef.createWidgetPropsFromAbstractProps(abstractProps);
+      const stableId = getAddonStableWidgetId(stageUsage, location, definedSection, index);
+      const stableProps = getStableWidgetProps(props, stableId);
+      const wd = new WidgetDef(stableProps);
+      widgetDefs.push(wd);
+    });
     return widgetDefs.length > 0 ? widgetDefs : undefined;
   }
+}
+
+/** @internal */
+export function getStableWidgetProps(widgetProps: WidgetProps, stableId: string) {
+  let props = widgetProps;
+  if (props.id === undefined)
+    props = {
+      ...props,
+      id: stableId,
+    };
+  return props;
 }

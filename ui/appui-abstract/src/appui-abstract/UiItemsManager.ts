@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module UiItemsProvider
  */
@@ -12,7 +11,7 @@ import { BackstageItem } from "./backstage/BackstageItem";
 import { CommonStatusBarItem } from "./statusbar/StatusBarItem";
 import { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "./toolbars/ToolbarItem";
 import { AbstractWidgetProps } from "./widget/AbstractWidgetProps";
-import { AbstractZoneLocation, StagePanelLocation, StagePanelSection } from "./widget/StagePanel";
+import { StagePanelLocation, StagePanelSection } from "./widget/StagePanel";
 import { loggerCategory } from "./utils/misc";
 import { UiItemsProvider } from "./UiItemsProvider";
 
@@ -175,7 +174,7 @@ export class UiItemsManager {
         uiProvider.provideToolbarButtonItems(stageId, stageUsage, toolbarUsage, toolbarOrientation, stageAppData)
           .forEach((spec: CommonToolbarItem) => {
             // ignore duplicate ids
-            if (-1 === buttonItems.findIndex((existingItem)=> spec.id === existingItem.id ))
+            if (-1 === buttonItems.findIndex((existingItem) => spec.id === existingItem.id))
               buttonItems.push({ ...spec, providerId });
           });
       }
@@ -204,7 +203,7 @@ export class UiItemsManager {
         uiProvider.provideStatusBarItems(stageId, stageUsage, stageAppData)
           .forEach((item: CommonStatusBarItem) => {
             // ignore duplicate ids
-            if (-1 === statusBarItems.findIndex((existingItem)=> item.id === existingItem.id ))
+            if (-1 === statusBarItems.findIndex((existingItem) => item.id === existingItem.id))
               statusBarItems.push({ ...item, providerId });
           });
       }
@@ -231,7 +230,7 @@ export class UiItemsManager {
         uiProvider.provideBackstageItems()    //       should not be considered stage specific. If they need to be hidden
           .forEach((item: BackstageItem) => { //       the isHidden property should be set to a ConditionalBooleanValue
             // ignore duplicate ids
-            if (-1 === backstageItems.findIndex((existingItem)=> item.id === existingItem.id ))
+            if (-1 === backstageItems.findIndex((existingItem) => item.id === existingItem.id))
               backstageItems.push({ ...item, providerId });
           });
       }
@@ -246,7 +245,7 @@ export class UiItemsManager {
    * @param section the section within location.
    * @returns An array of AbstractWidgetProps that will be used to create widgets.
    */
-  public static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, zoneLocation?: AbstractZoneLocation, stageAppData?: any): ReadonlyArray<AbstractWidgetProps> {
+  public static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any): ReadonlyArray<AbstractWidgetProps> {
     const widgets: AbstractWidgetProps[] = [];
 
     if (0 === UiItemsManager._registeredUiItemsProviders.size)
@@ -258,10 +257,10 @@ export class UiItemsManager {
 
       // istanbul ignore else
       if (uiProvider.provideWidgets && this.allowItemsFromProvider(entry, stageId, stageUsage)) {
-        uiProvider.provideWidgets(stageId, stageUsage, location, section, zoneLocation, stageAppData)
+        uiProvider.provideWidgets(stageId, stageUsage, location, section, stageAppData)
           .forEach((widget: AbstractWidgetProps) => {
             // ignore duplicate ids
-            if (-1 === widgets.findIndex((existingItem)=> widget.id === existingItem.id ))
+            if (-1 === widgets.findIndex((existingItem) => widget.id === existingItem.id))
               widgets.push({ ...widget, providerId });
           });
       }

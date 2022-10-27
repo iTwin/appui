@@ -6,14 +6,14 @@
  * @module Frontstage
  */
 
-import * as React from "react";
 import { FrontstageProps } from "./Frontstage";
 
-/** Provides a Frontstage as a React based definition
+/** Provides a Frontstage.
  * @public
  */
 export abstract class FrontstageProvider {
-  /** Get the Frontstage React based definition */
+  /** Get the FrontstageProvider id. */
   public abstract get id(): string;
-  public abstract get frontstage(): React.ReactElement<FrontstageProps>;
+  /** Get the Frontstage definition. */
+  public abstract get frontstage(): FrontstageProps;
 }

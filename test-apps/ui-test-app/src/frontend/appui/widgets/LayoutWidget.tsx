@@ -119,9 +119,6 @@ function WidgetSelect({
       return;
     }
     const newOptions = [];
-    for (const zoneDef of frontstageDef.zoneDefs) {
-      newOptions.push(...zoneDef.widgetDefs.map((w) => ({ label: w.id, value: w.id })));
-    }
     for (const panelDef of frontstageDef.panelDefs) {
       newOptions.push(...panelDef.widgetDefs.map((w) => ({ label: w.id, value: w.id })));
     }

@@ -30,8 +30,6 @@ describe("StatusBarComposerControl", () => {
     const statusBarWidgetDef = new WidgetDef({
       classId: StatusBarWidgetComposerControl,
       defaultState: WidgetState.Open,
-      isFreeform: false,
-      isStatusBar: true,
     });
     const statusBarControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
     sinon.stub(FrontstageManager, "activeFrontstageId").returns("TestStage");

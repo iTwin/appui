@@ -2,17 +2,16 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { expect } from "chai";
-import * as React from "react";
 import * as sinon from "sinon";
 import produce from "immer";
-import { MockRender } from "@itwin/core-frontend";
-import { CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, StagePanelDef, StagePanelState, WidgetDef } from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
+import { renderHook } from "@testing-library/react-hooks";
 import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager, UiItemsProvider, WidgetState } from "@itwin/appui-abstract";
 import { addFloatingWidget, addPanelWidget, addPopoutWidget, addTab, createNineZoneState } from "@itwin/appui-layout-react";
+import { MockRender } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
+import { CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, StagePanelDef, StagePanelState, useSpecificWidgetDef, WidgetDef } from "../../appui-react";
+import TestUtils, { storageMock } from "../TestUtils";
 
 describe("FrontstageDef", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(window, "localStorage")!;
@@ -36,15 +35,12 @@ describe("FrontstageDef", () => {
       return BadLayoutFrontstage.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
-
-      return (
-        <Frontstage
-          id={this.id}
-          defaultTool={CoreTools.selectElementCommand}
-          contentGroup={TestUtils.TestContentGroup1}
-        />
-      );
+    public override get frontstage(): FrontstageProps {
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup: TestUtils.TestContentGroup1,
+      };
     }
   }
 
@@ -54,7 +50,7 @@ describe("FrontstageDef", () => {
       return BadGroupFrontstage.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
+    public override get frontstage(): FrontstageProps {
 
       // const contentLayoutDef: ContentLayoutDef = new ContentLayoutDef(
       //   {
@@ -63,13 +59,11 @@ describe("FrontstageDef", () => {
       //   },
       // );
 
-      return (
-        <Frontstage
-          id={this.id}
-          defaultTool={CoreTools.selectElementCommand}
-          contentGroup={TestUtils.TestContentGroup1}
-        />
-      );
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup: TestUtils.TestContentGroup1,
+      };
     }
   }
 
@@ -133,21 +127,15 @@ describe("FrontstageDef", () => {
           getWidgetContent: () => "",
         });
         if (location === StagePanelLocation.Right)
-          widgets.push({ // This should be added to Right stage panel, Start location.
+          widgets.push({
             id: "WidgetsProviderR1",
             label: "WidgetsProvider R1",
             getWidgetContent: () => "",
           });
-        if (location === StagePanelLocation.Right && section === StagePanelSection.Middle)
+        if (location === StagePanelLocation.Right && section === StagePanelSection.End)
           widgets.push({
             id: "WidgetsProviderRM1",
             label: "WidgetsProvider RM1",
-            getWidgetContent: () => "",
-          });
-        if (location === StagePanelLocation.Right)
-          widgets.push({ // This should be added to Right stage panel, Start location.
-            id: "WidgetsProviderR1",
-            label: "WidgetsProvider R1",
             getWidgetContent: () => "",
           });
 
@@ -157,20 +145,18 @@ describe("FrontstageDef", () => {
 
     class EmptyFrontstageProvider extends FrontstageProvider {
       public static stageId = "TestFrontstageUi2";
-      public get id(): string {
+      public override get id(): string {
         return EmptyFrontstageProvider.stageId;
       }
 
-      public get frontstage() {
-        return (
-          <Frontstage
-            id={this.id}
-            defaultTool={CoreTools.selectElementCommand}
-            contentGroup={TestUtils.TestContentGroup1}
-            defaultContentId="defaultContentId"
-            applicationData={{ key: "value" }}
-          />
-        );
+      public override get frontstage() {
+        return {
+          id: this.id,
+          defaultTool: CoreTools.selectElementCommand,
+          contentGroup: TestUtils.TestContentGroup1,
+          defaultContentId: "defaultContentId",
+          applicationData: { key: "value" },
+        };
       }
     }
 
@@ -189,9 +175,9 @@ describe("FrontstageDef", () => {
       expect(!!frontstageDef?.isReady).to.be.false;
       await FrontstageManager.setActiveFrontstageDef(frontstageDef);
       const sut = FrontstageManager.activeFrontstageDef!;
-      sut.rightPanel!.panelZones.start.widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderR1"]);
-      sut.rightPanel!.panelZones.end.widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderRM1"]);
-      sut.leftPanel!.panelZones.start.widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderW1"]);
+      sut.rightPanel!.getPanelSectionDef(StagePanelSection.Start).widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderR1"]);
+      sut.rightPanel!.getPanelSectionDef(StagePanelSection.End).widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderRM1"]);
+      sut.leftPanel!.getPanelSectionDef(StagePanelSection.Start).widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderW1"]);
     });
   });
 
@@ -633,5 +619,25 @@ describe("float and dock widget", () => {
     panelDef.initializeFromProps({ resizable: true, size: 300 });
 
     expect(frontstageDef.getPanelCurrentState(panelDef)).to.have.ordered.members([StagePanelState.Open, 300]);
+  });
+});
+
+describe("useSpecificWidgetDef", () => {
+  it("should return widgetDef from active frontstage", () => {
+    const frontstageDef = new FrontstageDef();
+    const widgetDef = new WidgetDef({});
+    sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
+    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+
+    const { result } = renderHook(() => useSpecificWidgetDef("t1"));
+
+    expect(result.current).to.be.eq(widgetDef);
+  });
+
+  it("should handle no active frontstage", () => {
+    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
+    const { result } = renderHook(() => useSpecificWidgetDef("t1"));
+
+    expect(result.current).to.be.undefined;
   });
 });

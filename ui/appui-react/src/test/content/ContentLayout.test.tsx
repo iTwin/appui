@@ -9,7 +9,7 @@ import { MockRender } from "@itwin/core-frontend";
 import { ContentLayoutProps, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   ConfigurableCreateInfo, ContentControl, ContentGroup, ContentLayout, ContentLayoutDef, ContentLayoutManager,
-  ContentViewManager, CoreTools, FloatingContentControl, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider,
+  ContentViewManager, CoreTools, FloatingContentControl, FrontstageManager, FrontstageProps, FrontstageProvider,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
@@ -56,19 +56,21 @@ describe("ContentLayout", () => {
 
   class TestFrontstage2 extends FrontstageProvider {
     public static stageId = "TestFrontstage2";
-    public get id(): string {
+    public override get id(): string {
       return TestFrontstage2.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
-      return (
-        <Frontstage id={this.id} defaultTool={CoreTools.selectElementCommand}
-          contentGroup={fourContentGroup} />
-      );
+    public override get frontstage(): FrontstageProps {
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup: fourContentGroup,
+      };
     }
   }
+
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -92,7 +94,7 @@ describe("ContentLayout", () => {
     render(<ContentLayout contentGroup={singleContentGroup} contentLayout={singleContentLayout} />);
 
     expect(screen.getAllByText("Test")).to.have.lengthOf(1).and.satisfy((elements: HTMLElement[]) =>
-      expect(elements[0].parentElement?.style).to.include({height: "100%"})
+      expect(elements[0].parentElement?.style).to.include({ height: "100%" })
     );
   });
 
@@ -100,7 +102,7 @@ describe("ContentLayout", () => {
     render(<ContentLayout contentGroup={fourContentGroup} contentLayout={verticalSplitLayout} />);
     expect(screen.getAllByText("Test")).to.have.lengthOf(2).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.vertical .Pane.vertical.Pane1 > .uifw-contentlayout-wrapper > div")),
-      expect(elements[0].parentElement?.parentElement?.style).to.include({width: "50%"}),
+      expect(elements[0].parentElement?.parentElement?.style).to.include({ width: "50%" }),
       expect(elements[1]).to.satisfy(selectorMatches(".SplitPane.vertical .Pane.vertical.Pane2 > .uifw-contentlayout-wrapper > div")),
     ]);
   });
@@ -116,7 +118,7 @@ describe("ContentLayout", () => {
 
     expect(screen.getAllByText("Test")).to.have.lengthOf(2).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.horizontal .Pane.horizontal.Pane1 > .uifw-contentlayout-wrapper > div")),
-      expect(elements[0].parentElement?.parentElement?.style).to.include({height: "50%"}),
+      expect(elements[0].parentElement?.parentElement?.style).to.include({ height: "50%" }),
       expect(elements[1]).to.satisfy(selectorMatches(".SplitPane.horizontal .Pane.horizontal.Pane2 > .uifw-contentlayout-wrapper > div")),
     ]);
   });
@@ -141,11 +143,11 @@ describe("ContentLayout", () => {
 
     expect(screen.getAllByText("Test")).to.have.lengthOf(4).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.vertical .Pane.vertical.Pane1 > .uifw-contentlayout-full-size > .SplitPane.horizontal > .Pane.horizontal.Pane1 > .uifw-contentlayout-wrapper > div")),
-      expect(elements[0].parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.style).to.include({width: "50%"}),
-      expect(elements[0].parentElement?.parentElement?.style).to.include({height: "50%"}),
+      expect(elements[0].parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.style).to.include({ width: "50%" }),
+      expect(elements[0].parentElement?.parentElement?.style).to.include({ height: "50%" }),
       expect(elements[1]).to.satisfy(selectorMatches(".SplitPane.vertical .Pane.vertical.Pane1 > .uifw-contentlayout-full-size > .SplitPane.horizontal > .horizontal.Resizer.disabled+.Pane.horizontal.Pane2 > .uifw-contentlayout-wrapper > div")),
       expect(elements[2]).to.satisfy(selectorMatches(".SplitPane.vertical .vertical.Resizer.disabled+.Pane.vertical.Pane2 > .uifw-contentlayout-full-size > .SplitPane.horizontal > .Pane.horizontal.Pane1 > .uifw-contentlayout-wrapper > div")),
-      expect(elements[2].parentElement?.parentElement?.style).to.include({height: "50%"}),
+      expect(elements[2].parentElement?.parentElement?.style).to.include({ height: "50%" }),
       expect(elements[3]).to.satisfy(selectorMatches(".SplitPane.vertical .vertical.Resizer.disabled+.Pane.vertical.Pane2 > .uifw-contentlayout-full-size > .SplitPane.horizontal > .horizontal.Resizer.disabled+.Pane.horizontal.Pane2 > .uifw-contentlayout-wrapper > div")),
     ]);
   });
@@ -170,11 +172,11 @@ describe("ContentLayout", () => {
 
     expect(screen.getAllByText("Test")).to.have.lengthOf(4).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.horizontal .Pane.horizontal.Pane1 > .uifw-contentlayout-full-size > .SplitPane.vertical > .Pane.vertical.Pane1 > .uifw-contentlayout-wrapper > div")),
-      expect(elements[0].parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.style).to.include({height: "50%"}),
-      expect(elements[0].parentElement?.parentElement?.style).to.include({width: "50%"}),
+      expect(elements[0].parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.style).to.include({ height: "50%" }),
+      expect(elements[0].parentElement?.parentElement?.style).to.include({ width: "50%" }),
       expect(elements[1]).to.satisfy(selectorMatches(".SplitPane.horizontal .Pane.horizontal.Pane1 > .uifw-contentlayout-full-size > .SplitPane.vertical > .vertical.Resizer.disabled+.Pane.vertical.Pane2 > .uifw-contentlayout-wrapper > div")),
       expect(elements[2]).to.satisfy(selectorMatches(".SplitPane.horizontal .horizontal.Resizer.disabled+.Pane.horizontal.Pane2 > .uifw-contentlayout-full-size > .SplitPane.vertical > .Pane.vertical.Pane1 > .uifw-contentlayout-wrapper > div")),
-      expect(elements[2].parentElement?.parentElement?.style).to.include({width: "50%"}),
+      expect(elements[2].parentElement?.parentElement?.style).to.include({ width: "50%" }),
       expect(elements[3]).to.satisfy(selectorMatches(".SplitPane.horizontal .horizontal.Resizer.disabled+.Pane.horizontal.Pane2 > .uifw-contentlayout-full-size > .SplitPane.vertical > .vertical.Resizer.disabled+.Pane.vertical.Pane2 > .uifw-contentlayout-wrapper > div")),
     ]);
   });
@@ -182,7 +184,7 @@ describe("ContentLayout", () => {
   it("ContentLayoutDiv mouse down and up", async () => {
     render(<ContentLayout contentGroup={singleContentGroup} contentLayout={singleContentLayout} />);
 
-    await theUserTo.pointer({target: screen.getByText("Test"), keys: "[MouseLeft>]"});
+    await theUserTo.pointer({ target: screen.getByText("Test"), keys: "[MouseLeft>]" });
     expect(ContentViewManager.isMouseDown).to.be.true;
     await theUserTo.pointer("[/MouseLeft]");
     expect(ContentViewManager.isMouseDown).to.be.false;
@@ -191,63 +193,63 @@ describe("ContentLayout", () => {
   it("ContentWrapper mouse down", async () => {
     render(<ContentLayout contentGroup={fourContentGroup} contentLayout={verticalSplitLayout} />);
     const allTests = screen.getAllByText("Test");
-    expect(allTests).to.have.lengthOf(2).and.to.satisfy((elements: HTMLElement[])=> [
+    expect(allTests).to.have.lengthOf(2).and.to.satisfy((elements: HTMLElement[]) => [
       expect(elements[0].parentElement).to.satisfy(childStructure("div+.uifw-contentlayout-overlay-inactive")),
       expect(elements[1].parentElement).to.satisfy(childStructure("div+.uifw-contentlayout-overlay-inactive")),
     ]);
 
     await theUserTo.click(allTests[1]);
 
-    expect(screen.getAllByText("Test")).to.have.lengthOf(2).and.to.satisfy((elements: HTMLElement[])=> [
+    expect(screen.getAllByText("Test")).to.have.lengthOf(2).and.to.satisfy((elements: HTMLElement[]) => [
       expect(elements[0].parentElement).to.satisfy(childStructure("div+.uifw-contentlayout-overlay-inactive")),
       expect(elements[1].parentElement).to.satisfy(childStructure("div+.uifw-contentlayout-overlay-active")),
     ]);
   });
 
   it("Vertical SplitPane onChanged", async () => {
-    const {container} = render(
+    const { container } = render(
       <div>
         <ContentLayout contentGroup={fourContentGroup} contentLayout={verticalSplitLayout} />
       </div>);
 
     const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
-    rect.onFirstCall().returns(DOMRect.fromRect({height: 100, width: 100, x: 0, y: 0}));
-    rect.onSecondCall().returns(DOMRect.fromRect({height: 100, width: 100, x: 0, y: 0}));
-    rect.onThirdCall().returns(DOMRect.fromRect({height: 100, width: 100, x: 0, y: 0}));
-    rect.returns(DOMRect.fromRect({height: 0, width: 0, x: 0, y: 0}));
+    rect.onFirstCall().returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
+    rect.onSecondCall().returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
+    rect.onThirdCall().returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
+    rect.returns(DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 }));
 
     await theUserTo.pointer([
-      {keys: "[MouseLeft>]", target: container.querySelector(".Resizer")!, coords: {x: 0, y: 0, clientX: 0, clientY: 0}},
-      {coords: {x: 50, y: 50, clientX: 50, clientY: 50}},
+      { keys: "[MouseLeft>]", target: container.querySelector(".Resizer")!, coords: { x: 0, y: 0, clientX: 0, clientY: 0 } },
+      { coords: { x: 50, y: 50, clientX: 50, clientY: 50 } },
       "[/MouseLeft]",
     ]);
     expect(screen.getAllByText("Test")).to.have.lengthOf(2).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.vertical .Pane.vertical.Pane1 > .uifw-contentlayout-wrapper > div")),
-      expect(elements[0].parentElement?.parentElement?.style).to.include({width: "94px"}),
+      expect(elements[0].parentElement?.parentElement?.style).to.include({ width: "94px" }),
     ]);
 
   });
 
   it("Horizontal SplitPane onChanged", async () => {
-    const {container} = render(
+    const { container } = render(
       <div>
         <ContentLayout contentGroup={fourContentGroup} contentLayout={horizontalSplitLayout} />
       </div>);
 
     const rect = sinon.stub(Element.prototype, "getBoundingClientRect");
-    rect.onFirstCall().returns(DOMRect.fromRect({height: 100, width: 100, x: 0, y: 0}));
-    rect.onSecondCall().returns(DOMRect.fromRect({height: 100, width: 100, x: 0, y: 0}));
-    rect.onThirdCall().returns(DOMRect.fromRect({height: 100, width: 100, x: 0, y: 0}));
-    rect.returns(DOMRect.fromRect({height: 0, width: 0, x: 0, y: 0}));
+    rect.onFirstCall().returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
+    rect.onSecondCall().returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
+    rect.onThirdCall().returns(DOMRect.fromRect({ height: 100, width: 100, x: 0, y: 0 }));
+    rect.returns(DOMRect.fromRect({ height: 0, width: 0, x: 0, y: 0 }));
 
     await theUserTo.pointer([
-      {keys: "[MouseLeft>]", target: container.querySelector(".Resizer")!, coords: {x: 0, y: 0, clientX: 0, clientY: 0}},
-      {coords: {x: 50, y: 50, clientX: 50, clientY: 50}},
+      { keys: "[MouseLeft>]", target: container.querySelector(".Resizer")!, coords: { x: 0, y: 0, clientX: 0, clientY: 0 } },
+      { coords: { x: 50, y: 50, clientX: 50, clientY: 50 } },
       "[/MouseLeft]",
     ]);
     expect(screen.getAllByText("Test")).to.have.lengthOf(2).and.satisfy((elements: HTMLElement[]) => [
       expect(elements[0]).to.satisfy(selectorMatches(".SplitPane.horizontal .Pane.horizontal.Pane1 > .uifw-contentlayout-wrapper > div")),
-      expect(elements[0].parentElement?.parentElement?.style).to.include({height: "94px"}),
+      expect(elements[0].parentElement?.parentElement?.style).to.include({ height: "94px" }),
     ]);
   });
 
@@ -261,7 +263,7 @@ describe("ContentLayout", () => {
     const remove = FrontstageManager.onContentLayoutActivatedEvent.addListener(spyMethod);
     render(<ContentLayout contentGroup={fourContentGroup} contentLayout={contentLayout} />);
 
-    const emptyContentGroup = new ContentGroup({contents: [], id: "empty-cg", layout: contentLayout.toJSON()});
+    const emptyContentGroup = new ContentGroup({ contents: [], id: "empty-cg", layout: contentLayout.toJSON() });
 
     await ContentLayoutManager.setActiveLayout(contentLayout, emptyContentGroup);
     spyMethod.calledOnce.should.true;
@@ -318,15 +320,16 @@ describe("SingleContentLayout", () => {
 
   class TestFrontstage1 extends FrontstageProvider {
     public static stageId = "TestFrontstage1";
-    public get id(): string {
+    public override get id(): string {
       return TestFrontstage1.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
-      return (
-        <Frontstage id={this.id} defaultTool={CoreTools.selectElementCommand}
-          contentGroup={myContentGroup} />
-      );
+    public override get frontstage(): FrontstageProps {
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup: myContentGroup,
+      };
     }
   }
 

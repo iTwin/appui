@@ -12,8 +12,8 @@ import { OpenDialogOptions } from "electron";
 
 import { FillCentered } from "@itwin/core-react";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageManager,
-  FrontstageProps, FrontstageProvider, ToolWidgetComposer, UiFramework, Widget, Zone,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageManager,
+  FrontstageProps, FrontstageProvider, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -45,7 +45,7 @@ class LocalFileOpenControl extends ContentControl {
 export class LocalFileOpenFrontstage extends FrontstageProvider {
   public static stageId = "ui-test-app:LocalFileOpen";
 
-  public get id(): string {
+  public override get id(): string {
     return LocalFileOpenFrontstage.stageId;
   }
 
@@ -53,13 +53,13 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
     if (LocalFileSupport.localFilesSupported()) {
       const frontstageProvider = new LocalFileOpenFrontstage();
       FrontstageManager.addFrontstageProvider(frontstageProvider);
-      const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+      const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
       await FrontstageManager.setActiveFrontstageDef(frontstageDef);
     }
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
-    const contentGroup: ContentGroup = new ContentGroup({
+  public override get frontstage(): FrontstageProps {
+    const contentGroup = new ContentGroup({
       id: "LocalFileOpenGroup",
       layout: StandardContentLayouts.singleView,
       contents: [
@@ -70,21 +70,16 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
       ],
     });
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={contentGroup}
-        isIModelIndependent={true}
-        usage={StageUsage.Private}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />, // eslint-disable-line react/jsx-key
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup,
+      isIModelIndependent: true,
+      usage: StageUsage.Private,
+      contentManipulation: {
+        element: < FrontstageToolWidget />,
+      },
+    };
   }
 }
 

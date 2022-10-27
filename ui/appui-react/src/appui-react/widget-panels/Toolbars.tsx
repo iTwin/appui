@@ -8,13 +8,13 @@
 
 import "./Toolbars.scss";
 import * as React from "react";
-import { useActiveFrontstageDef } from "../frontstage/Frontstage";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
 /** @internal */
 export function WidgetPanelsToolbars() {
   const frontstageDef = useActiveFrontstageDef();
-  const tools = frontstageDef?.topLeft?.getSingleWidgetDef()?.reactNode;
-  const navigation = frontstageDef?.topRight?.getSingleWidgetDef()?.reactNode;
+  const tools = frontstageDef?.contentManipulation?.reactNode;
+  const navigation = frontstageDef?.viewNavigation?.reactNode;
   return (
     <div className="uifw-widgetPanels-toolbars">
       {tools}

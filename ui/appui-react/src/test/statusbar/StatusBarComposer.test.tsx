@@ -84,8 +84,6 @@ describe("StatusBarComposer", () => {
     const statusBarWidgetDef = new WidgetDef({
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
-      isFreeform: false,
-      isStatusBar: true,
     });
     widgetControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });

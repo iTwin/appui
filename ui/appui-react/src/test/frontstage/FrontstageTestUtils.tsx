@@ -2,16 +2,13 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import * as React from "react";
 import { StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider,
-  MessageCenterField, StatusBarWidgetControl, Widget, WidgetControl, Zone, ZoneLocation, ZoneState,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider,
+  MessageCenterField, StatusBarWidgetControl, WidgetControl,
 } from "../../appui-react";
 import { ToolItemDef } from "../../appui-react/shared/ToolItemDef";
-
-/* eslint-disable react/jsx-key */
 
 /** @internal */
 export class TestContentControl extends ContentControl {
@@ -76,7 +73,7 @@ export class TestFrontstage extends FrontstageProvider {
     });
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const myContentGroup: ContentGroup = new ContentGroup(
       {
         id: "test-group",
@@ -91,82 +88,89 @@ export class TestFrontstage extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={this.defaultToolDef}
-        contentGroup={myContentGroup}
-        defaultContentId="defaultContentId"
-        applicationData={{ key: "value" }}
-        usage="MyUsage"
-        topLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} applicationData={{ key: "value" }}
-            widgets={[
-              <Widget isFreeform={true} element={<div />} />,
-            ]}
-          />
-        }
-        topCenter={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        centerLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="widget3" defaultState={WidgetState.Open} control={TestWidget}
-                onWidgetStateChanged={() => { }}
-                saveTransientState={() => { }}
-                restoreTransientState={() => false} />,
-            ]}
-          />
-        }
-        centerRight={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-              <Widget id="widget6_2" element={<div />} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="widget4" defaultState={WidgetState.Open} control={TestWidget} />,
-            ]}
-          />
-        }
-        bottomCenter={
-          <Zone
-            widgets={[
-              <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar"
-                control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} mergeWithZone={ZoneLocation.CenterRight}
-            widgets={[
-              <Widget id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-              <Widget id="widget2" defaultState={WidgetState.Hidden} element={<div />} />,
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: this.defaultToolDef,
+      contentGroup: myContentGroup,
+      defaultContentId: "defaultContentId",
+      applicationData: { key: "value" },
+      usage: "MyUsage",
+      contentManipulation: {
+        element: <div />,
+        applicationData: { key: "value" },
+      },
+      toolSettings: {},
+      leftPanel: {
+        sections: {
+          start: {
+            widgets: [{
+              id: "widget3",
+              defaultState: WidgetState.Open,
+              control: TestWidget,
+              onWidgetStateChanged: () => { },
+              saveTransientState: () => { },
+              restoreTransientState: () => false,
+            }],
+          },
+          end: {
+            widgets: [{
+              id: "widget4",
+              defaultState: WidgetState.Open,
+              control: TestWidget,
+            }],
+          },
+        },
+      },
+      rightPanel: {
+        sections: {
+          start: {
+            widgets: [
+              {
+                id: "widget1",
+                defaultState: WidgetState.Open,
+                element: <div />,
+              },
+              {
+                id: "widget6_2",
+                element: < div />,
+              },
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                id: "widget1",
+                defaultState: WidgetState.Open,
+                element: <div />,
+              },
+              {
+                id: "widget2",
+                defaultState: WidgetState.Hidden,
+                element: < div />,
+              },
+            ],
+          },
+        },
+      },
+      statusBar: {
+        id: "statusBar",
+        iconSpec: "icon-placeholder",
+        labelKey: "App:widgets.StatusBar",
+        control: AppStatusBarWidgetControl,
+        applicationData: { key: "value" },
+      },
+    };
   }
 }
 
 /** @internal */
 export class TestFrontstage2 extends FrontstageProvider {
   public static stageId = "TestFrontstage2";
-  public get id(): string {
+  public override get id(): string {
     return TestFrontstage2.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const myContentGroup: ContentGroup = new ContentGroup(
       {
         id: "test-group",
@@ -181,82 +185,89 @@ export class TestFrontstage2 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        defaultContentId="defaultContentId"
-        applicationData={{ key: "value" }}
-        usage="MyUsage"
-        contentManipulationTools={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} applicationData={{ key: "value" }}
-            widgets={[
-              <Widget isFreeform={true} element={<div />} />,
-            ]}
-          />
-        }
-        toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        centerLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="widget3" defaultState={WidgetState.Open} control={TestWidget}
-                onWidgetStateChanged={() => { }}
-                saveTransientState={() => { }}
-                restoreTransientState={() => false} />,
-            ]}
-          />
-        }
-        centerRight={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-              <Widget id="widget6_2" element={<div />} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="widget4" defaultState={WidgetState.Open} control={TestWidget} />,
-            ]}
-          />
-        }
-        statusBar={
-          <Zone
-            widgets={[
-              <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar"
-                control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} mergeWithZone={ZoneLocation.CenterRight}
-            widgets={[
-              <Widget id="widget1" defaultState={WidgetState.Open} element={<div />} />,
-              <Widget id="widget2" defaultState={WidgetState.Hidden} element={<div />} />,
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup: myContentGroup,
+      defaultContentId: "defaultContentId",
+      applicationData: { key: "value" },
+      usage: "MyUsage",
+      contentManipulation: {
+        element: <div />,
+        applicationData: { key: "value" },
+      },
+      toolSettings: {},
+      leftPanel: {
+        sections: {
+          start: {
+            widgets: [{
+              id: "widget3",
+              defaultState: WidgetState.Open,
+              control: TestWidget,
+              onWidgetStateChanged: () => { },
+              saveTransientState: () => { },
+              restoreTransientState: () => false,
+            }],
+          },
+          end: {
+            widgets: [{
+              id: "widget4",
+              defaultState: WidgetState.Open,
+              control: TestWidget,
+            }],
+          },
+        },
+      },
+      rightPanel: {
+        sections: {
+          start: {
+            widgets: [
+              {
+                id: "widget1",
+                defaultState: WidgetState.Open,
+                element: <div />,
+              },
+              {
+                id: "widget6_2",
+                element: <div />,
+              },
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                id: "widget1",
+                defaultState: WidgetState.Open,
+                element: <div />,
+              },
+              {
+                id: "widget2",
+                defaultState: WidgetState.Hidden,
+                element: <div />,
+              },
+            ],
+          },
+        },
+      },
+      statusBar: {
+        id: "statusBar",
+        iconSpec: "icon-placeholder",
+        labelKey: "App:widgets.StatusBar",
+        control: AppStatusBarWidgetControl,
+        applicationData: { key: "value" },
+      },
+    };
   }
 }
 
 /** @internal */
 export class TestFrontstage3 extends FrontstageProvider {
   public static stageId = "TestFrontstage3";
-  public get id(): string {
+  public override get id(): string {
     return TestFrontstage3.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
+  public override get frontstage(): FrontstageProps {
     const myContentGroup: ContentGroup = new ContentGroup(
       {
         id: "test-group",
@@ -269,13 +280,11 @@ export class TestFrontstage3 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={new ToolItemDef({ toolId: "test" })}
-        contentGroup={myContentGroup}
-        defaultContentId="defaultContentId"
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: new ToolItemDef({ toolId: "test" }),
+      contentGroup: myContentGroup,
+      defaultContentId: "defaultContentId",
+    };
   }
 }

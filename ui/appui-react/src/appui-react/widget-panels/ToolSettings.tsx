@@ -10,8 +10,8 @@ import "./ToolSettings.scss";
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
 import { DockedToolSetting, DockedToolSettings, ScrollableWidgetContent, ToolSettingsStateContext } from "@itwin/appui-layout-react";
-import { useActiveFrontstageDef } from "../frontstage/Frontstage";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -39,9 +39,9 @@ function TsLabel({ children }: { children: React.ReactNode }) {
 /** @internal */
 export function WidgetPanelsToolSettings() {
   const frontstageDef = useActiveFrontstageDef();
-  const toolSettings = React.useContext(ToolSettingsStateContext);
-  const topCenterZone = frontstageDef?.topCenter;
-  if (!topCenterZone || !topCenterZone.isToolSettings || toolSettings.type === "widget")
+  const toolSettingsState = React.useContext(ToolSettingsStateContext);
+  const toolSettings = frontstageDef?.toolSettings;
+  if (!toolSettings || toolSettingsState.type === "widget")
     return null;
   return (
     <ToolSettingsDockedContent />

@@ -7,13 +7,10 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType, WidgetState } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, FrontstageManager, SyncUiEventId, WidgetChangedEventArgs,
-  WidgetControl, WidgetDef, WidgetProps,
+  ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, FrontstageManager, WidgetChangedEventArgs, WidgetControl, WidgetDef, WidgetProps,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { SvgList } from "@itwin/itwinui-icons-react";
-
-// cSpell:ignore widgetstate
 
 describe("WidgetDef", () => {
   class TestWidget extends WidgetControl {
@@ -37,33 +34,25 @@ describe("WidgetDef", () => {
     const widgetProps: WidgetProps = {
       defaultState: WidgetState.Open,
       priority: 100,
-      isFreeform: true,
       iconSpec: "icon-home",
       label: "label",
       tooltip: "tooltip",
-      isToolSettings: true,
-      isStatusBar: true,
-      fillZone: true,
       isFloatingStateSupported: true,
       isFloatingStateWindowResizable: false,
       applicationData: "AppData",
       element: <div />,
-      syncEventIds: [SyncUiEventId.FrontstageReady],
-      stateFunc: sinon.spy(),
       badgeType: BadgeType.TechnicalPreview,
     };
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
 
     expect(widgetDef.isVisible).to.eq(true);
     expect(widgetDef.isActive).to.eq(true);
     expect(widgetDef.isFloating).to.eq(false);
     expect(widgetDef.priority).to.eq(100);
-    expect(widgetDef.isFreeform).to.eq(true);
     expect(widgetDef.isFloatingStateSupported).to.eq(true);
     expect(widgetDef.isFloatingStateWindowResizable).to.eq(false);
-    expect(widgetDef.isToolSettings).to.eq(true);
-    expect(widgetDef.isStatusBar).to.eq(true);
-    expect(widgetDef.fillZone).to.eq(true);
+    expect(widgetDef.isToolSettings).to.eq(false);
+    expect(widgetDef.isStatusBar).to.eq(false);
     expect(widgetDef.applicationData).to.eq("AppData");
 
     expect(widgetDef.label).to.eq("label");
@@ -83,12 +72,10 @@ describe("WidgetDef", () => {
       iconSpec: <SvgList />,
       label: "label",
       tooltip: "tooltip",
-      isToolSettings: false,
-      fillZone: true,
       isFloatingStateSupported: true,
       isFloatingStateWindowResizable: true,
     };
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.true;
   });
 
@@ -100,12 +87,10 @@ describe("WidgetDef", () => {
       internalData: new Map<string, any>(),
       label: "label",
       tooltip: "tooltip",
-      isToolSettings: false,
-      fillZone: true,
       isFloatingStateSupported: true,
       isFloatingStateWindowResizable: true,
     };
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
     expect(widgetDef.iconSpec).to.eq("icon-lightbulb");
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
 
@@ -121,7 +106,7 @@ describe("WidgetDef", () => {
     const widgetProps: WidgetProps = {
       classId: "WidgetDefTest",
     };
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
 
     expect(widgetDef.getWidgetControl(ConfigurableUiControlType.Widget)).to.not.be.undefined;
     expect(widgetDef.reactNode).to.not.be.undefined;
@@ -133,7 +118,7 @@ describe("WidgetDef", () => {
       labelKey: "App:label",
       tooltipKey: "App:tooltip",
     };
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
 
     expect(widgetDef.label).to.eq("label");
     expect(widgetDef.tooltip).to.eq("tooltip");
@@ -143,7 +128,7 @@ describe("WidgetDef", () => {
     const widgetProps: WidgetProps = {
       classId: "WidgetDefTest",
     };
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
 
     widgetDef.reactNode = <div />;
     expect(widgetDef.reactNode).to.not.be.undefined;
@@ -153,7 +138,7 @@ describe("WidgetDef", () => {
     const widgetProps: WidgetProps = {
       classId: TestWidget,
     };
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
 
     expect(widgetControl).to.not.be.undefined;
@@ -174,28 +159,11 @@ describe("WidgetDef", () => {
     expect(widgetDef.isVisible).to.eq(true);
   });
 
-  it("setWidgetState using state function", () => {
-    const testEventId = "test-widgetstate";
-    const widgetProps: WidgetProps = {
-      classId: "WidgetDefTest",
-      syncEventIds: [testEventId],
-      stateFunc: (): WidgetState => WidgetState.Hidden,
-    };
-
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
-    widgetDef.setWidgetState(WidgetState.Open);
-
-    expect(widgetDef.isVisible).to.eq(true);
-    // firing sync event should trigger state function and set state to Hidden.
-    // SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(testEventId);
-    // expect(widgetDef.isVisible).to.eq(false);
-  });
-
   it("getWidgetControl throws an Error when type is incorrect", () => {
     const widgetProps: WidgetProps = {
       classId: "WidgetDefTest",
     };
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
 
     expect(() => widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget)).to.throw(Error);
   });

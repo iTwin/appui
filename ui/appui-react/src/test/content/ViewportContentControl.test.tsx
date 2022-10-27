@@ -9,8 +9,8 @@ import * as moq from "typemoq";
 import { MockRender, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, ContentGroup, ContentLayoutManager, ContentViewManager,
-  CoreTools, FloatingContentControl, FloatingViewportContentControl, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider, SupportsViewSelectorChange,
-  ViewportContentControl, Widget, Zone,
+  CoreTools, FloatingContentControl, FloatingViewportContentControl, FrontstageManager, FrontstageProps, FrontstageProvider, SupportsViewSelectorChange,
+  ViewportContentControl,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -60,13 +60,12 @@ describe("ViewportContentControl", () => {
 
   class Frontstage1 extends FrontstageProvider {
     public static stageId = "Test1";
-    public get id(): string {
+    public override get id(): string {
       return Frontstage1.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
-
-      const myContentGroup: ContentGroup = new ContentGroup(
+    public override get frontstage(): FrontstageProps {
+      const contentGroup = new ContentGroup(
         {
           id: "test-group",
           layout: StandardContentLayouts.singleView,
@@ -79,20 +78,14 @@ describe("ViewportContentControl", () => {
           ],
         },
       );
-
-      return (
-        <Frontstage
-          id={this.id}
-          defaultTool={CoreTools.selectElementCommand}
-          contentGroup={myContentGroup}
-
-          topRight={
-            <Zone widgets={[
-              <Widget key={0} isFreeform={true} element={<>NavigationWidget</>} />,
-            ]} />
-          }
-        />
-      );
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup,
+        viewNavigation: {
+          element: <>NavigationWidget</>,
+        },
+      };
     }
   }
 
