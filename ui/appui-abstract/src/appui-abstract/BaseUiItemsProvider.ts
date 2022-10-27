@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module UiItemsProvider
  */
@@ -11,7 +10,7 @@ import { BackstageItem } from "./backstage/BackstageItem";
 import { CommonStatusBarItem } from "./statusbar/StatusBarItem";
 import { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "./toolbars/ToolbarItem";
 import { AbstractWidgetProps } from "./widget/AbstractWidgetProps";
-import { AbstractZoneLocation, StagePanelLocation, StagePanelSection } from "./widget/StagePanel";
+import { StagePanelLocation, StagePanelSection } from "./widget/StagePanel";
 import { StageUsage } from "./items/StageUsage";
 import { UiItemsProvider } from "./UiItemsProvider";
 import { UiItemsManager } from "./UiItemsManager";
@@ -72,12 +71,11 @@ export class BaseUiItemsProvider implements UiItemsProvider {
     return provideToStage ? this.provideStatusBarItemsInternal(stageId, stageUsage, stageAppData) : [];
   }
 
-  public provideWidgetsInternal(_stageId: string, _stageUsage: string, _location: StagePanelLocation, _section?: StagePanelSection, _zoneLocation?: AbstractZoneLocation, _stageAppData?: any): AbstractWidgetProps[] {
+  public provideWidgetsInternal(_stageId: string, _stageUsage: string, _location: StagePanelLocation, _section?: StagePanelSection, _stageAppData?: any): AbstractWidgetProps[] {
     return [];
   }
 
-  public provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection,
-    _zoneLocation?: AbstractZoneLocation, stageAppData?: any): ReadonlyArray<AbstractWidgetProps> {
+  public provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any): ReadonlyArray<AbstractWidgetProps> {
     let provideToStage = false;
 
     if (this.isSupportedStage) {
@@ -86,6 +84,6 @@ export class BaseUiItemsProvider implements UiItemsProvider {
       provideToStage = (stageUsage === StageUsage.General);
     }
 
-    return provideToStage ? this.provideWidgetsInternal(stageId, stageUsage, location, section, _zoneLocation, stageAppData) : [];
+    return provideToStage ? this.provideWidgetsInternal(stageId, stageUsage, location, section, stageAppData) : [];
   }
 }

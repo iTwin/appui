@@ -7,7 +7,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentViewManager, CoreTools, Frontstage,
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentViewManager, CoreTools,
   FrontstageManager, FrontstageProps, FrontstageProvider,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
@@ -43,20 +43,19 @@ describe("ContentControl", () => {
 
     class Frontstage1 extends FrontstageProvider {
       public static stageId = "ContentFrontstage1";
-      public get id(): string {
+      public override get id(): string {
         return Frontstage1.stageId;
       }
 
-      public get frontstage(): React.ReactElement<FrontstageProps> {
-        return (
-          <Frontstage
-            id={this.id}
-            defaultTool={CoreTools.selectElementCommand}
-            contentGroup={myContentGroup}
-          />
-        );
+      public override get frontstage(): FrontstageProps {
+        return {
+          id: this.id,
+          defaultTool: CoreTools.selectElementCommand,
+          contentGroup: myContentGroup,
+        };
       }
     }
+
     ConfigurableUiManager.addFrontstageProvider(new Frontstage1());
 
     const frontstageDef = await FrontstageManager.getFrontstageDef(Frontstage1.stageId);
@@ -99,20 +98,19 @@ describe("ContentControl", () => {
 
     class Frontstage2 extends FrontstageProvider {
       public static stageId = "ContentFrontstage2";
-      public get id(): string {
+      public override get id(): string {
         return Frontstage2.stageId;
       }
 
-      public get frontstage(): React.ReactElement<FrontstageProps> {
-        return (
-          <Frontstage
-            id={this.id}
-            defaultTool={CoreTools.selectElementCommand}
-            contentGroup={contentGroup2}
-          />
-        );
+      public override get frontstage(): FrontstageProps {
+        return {
+          id: this.id,
+          defaultTool: CoreTools.selectElementCommand,
+          contentGroup: contentGroup2,
+        };
       }
     }
+
     ConfigurableUiManager.addFrontstageProvider(new Frontstage2());
 
     const frontstageDef = await FrontstageManager.getFrontstageDef(Frontstage2.stageId);

@@ -61,8 +61,6 @@ describe(`ToolAssistanceField`, () => {
     const statusBarWidgetDef = new WidgetDef({
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
-      isFreeform: false,
-      isStatusBar: true,
     });
     widgetControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
@@ -84,7 +82,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("Status Bar with ToolAssistanceField should display prompt", async () => {
-    const wrapper = render(<ToolAssistanceField uiStateStorage={uiSettingsStorage}/>);
+    const wrapper = render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();

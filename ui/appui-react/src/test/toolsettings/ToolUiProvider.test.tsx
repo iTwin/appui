@@ -2,16 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { expect } from "chai";
 import * as React from "react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, CoreTools, Frontstage, FrontstageManager, FrontstageProps, FrontstageProvider,
-  SyncToolSettingsPropertiesEventArgs,
-  ToolSettingsEntry, ToolSettingsGrid, ToolUiProvider, Widget, Zone,
-} from "../../../appui-react";
-import { ToolInformation } from "../../../appui-react/zones/toolsettings/ToolInformation";
-import TestUtils from "../../TestUtils";
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, CoreTools, FrontstageManager, FrontstageProps, FrontstageProvider,
+  SyncToolSettingsPropertiesEventArgs, ToolSettingsEntry, ToolSettingsGrid, ToolUiProvider,
+} from "../../appui-react";
+import { ToolInformation } from "../../appui-react/toolsettings/ToolInformation";
+import TestUtils from "../TestUtils";
 import { DialogItemValue, DialogPropertySyncItem, UiLayoutDataProvider } from "@itwin/appui-abstract";
 import { Input, Slider } from "@itwin/itwinui-react";
 
@@ -67,25 +65,18 @@ describe("ToolUiProvider", () => {
 
   class Frontstage1 extends FrontstageProvider {
     public static stageId = "ToolUiProvider-TestFrontstage";
-    public get id(): string {
+
+    public override get id(): string {
       return Frontstage1.stageId;
     }
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
-      return (
-        <Frontstage
-          id={this.id}
-          defaultTool={CoreTools.selectElementCommand}
-          contentGroup={TestUtils.TestContentGroup1}
-          topCenter={
-            <Zone
-              widgets={[
-                <Widget isToolSettings={true} />, // eslint-disable-line react/jsx-key
-              ]}
-            />
-          }
-        />
-      );
+    public override get frontstage(): FrontstageProps {
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup: TestUtils.TestContentGroup1,
+        statusBar: {},
+      };
     }
   }
 

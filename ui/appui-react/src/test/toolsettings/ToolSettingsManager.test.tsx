@@ -10,8 +10,8 @@ import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import {
   DialogItem, DialogItemValue, DialogPropertySyncItem, PropertyDescription, PropertyEditorParamTypes, SuppressLabelEditorParams,
 } from "@itwin/appui-abstract";
-import { SyncToolSettingsPropertiesEventArgs, SyncUiEventDispatcher, ToolSettingsManager } from "../../../appui-react";
-import TestUtils from "../../TestUtils";
+import { SyncToolSettingsPropertiesEventArgs, SyncUiEventDispatcher, ToolSettingsManager } from "../../appui-react";
+import TestUtils from "../TestUtils";
 
 // cSpell:Ignore USELENGTH
 

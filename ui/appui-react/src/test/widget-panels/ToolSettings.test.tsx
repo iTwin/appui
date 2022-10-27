@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { Rectangle } from "@itwin/core-react";
 import { createNineZoneState, DragManager, DragManagerContext, NineZoneProvider, ToolSettingsStateContext } from "@itwin/appui-layout-react";
 import { render } from "@testing-library/react";
@@ -12,7 +11,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import {
   ConfigurableCreateInfo, FrontstageDef, FrontstageManager, ToolSettingsContent, ToolSettingsDockedContent, ToolSettingsEntry, ToolSettingsGrid,
-  ToolUiProvider, useHorizontalToolSettingNodes, useToolSettingsNode, WidgetPanelsToolSettings, ZoneDef,
+  ToolUiProvider, useHorizontalToolSettingNodes, useToolSettingsNode, WidgetDef, WidgetPanelsToolSettings,
 } from "../../appui-react";
 
 describe("WidgetPanelsToolSettings", () => {
@@ -24,11 +23,10 @@ describe("WidgetPanelsToolSettings", () => {
 
   it("should render", () => {
     const frontstageDef = new FrontstageDef();
-    const topCenter = new ZoneDef();
+    const toolSettings = new WidgetDef({});
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => undefined);
-    sinon.stub(frontstageDef, "topCenter").get(() => topCenter);
-    sinon.stub(topCenter, "isToolSettings").get(() => true);
+    sinon.stub(frontstageDef, "toolSettings").get(() => toolSettings);
     const { container } = render(
       <DragManagerContext.Provider value={new DragManager()}>
         <ToolSettingsStateContext.Provider value={{ type: "docked" }}>

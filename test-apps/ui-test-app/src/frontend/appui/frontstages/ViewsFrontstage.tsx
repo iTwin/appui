@@ -15,14 +15,10 @@ import {
 import { CustomToolbarItem, SelectionMode, useToolbarPopupContext } from "@itwin/components-react";
 import { Point, ScrollView } from "@itwin/core-react";
 import {
-  BasicNavigationWidget, BasicToolWidget, CommandItemDef, ConfigurableUiManager, ContentGroup, ContentGroupProps,
-  ContentGroupProvider, ContentProps, ContentViewManager, CoreTools, CursorInformation,
-  CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef,
-  EmphasizeElementsChangedArgs, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider,
-  GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
-  HideIsolateEmphasizeManager, MessageManager,
-  ModalDialogManager, ModelessDialogManager, ModelsTreeNodeType, StagePanel,
-  SyncUiEventId, ToolbarHelper, UiFramework, Widget, WIDGET_OPACITY_DEFAULT, Zone, ZoneLocation, ZoneState,
+  BasicNavigationWidget, BasicToolWidget, CommandItemDef, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps,
+  ContentViewManager, CoreTools, CursorInformation, CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef, EmphasizeElementsChangedArgs,
+  FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
+  HideIsolateEmphasizeManager, MessageManager, ModalDialogManager, ModelessDialogManager, ModelsTreeNodeType, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT,
 } from "@itwin/appui-react";
 import { Button, Slider } from "@itwin/itwinui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../frontend/index";
@@ -87,7 +83,6 @@ function MyLoremIpsumPanel() {
   );
 }
 
-/* eslint-disable react/jsx-key, deprecation/deprecation */
 function MySliderPanel() {
   const [sliderValues, setSliderValues] = React.useState([50]);
   React.useEffect(() => {
@@ -241,14 +236,6 @@ export class ViewsFrontstage extends FrontstageProvider {
 
   public static savedViewLayoutProps: string;
 
-  private _rightPanel = {
-    allowedZones: [2, 6, 9],
-  };
-
-  private _bottomPanel = {
-    allowedZones: [2, 7],
-  };
-
   private async applyVisibilityOverrideToSpatialViewports(frontstageDef: FrontstageDef, processedViewport: ScreenViewport, action: HideIsolateEmphasizeAction) {
     frontstageDef?.contentControls?.forEach(async (cc) => {
       const vp = cc.viewport;
@@ -353,58 +340,40 @@ export class ViewsFrontstage extends FrontstageProvider {
     ];
   }
 
-  public get frontstage() {
+  public override get frontstage(): FrontstageProps {
     const iModelConnection = UiFramework.getIModelConnection();
 
-    return (
-      <Frontstage id={ViewsFrontstage.stageId}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={this._contentGroupProvider}
-        applicationData={{ key: "value" }}
-        usage={StageUsage.General}
-        version={3.1} // Defaults to 0. Increment this when Frontstage changes are meaningful enough to reinitialize saved user layout settings.
-        contentManipulationTools={
-          <Zone
-            widgets={
-              [
-                <Widget isFreeform={true} element={<BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
-                  additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={true} />} />,
-              ]}
-          />
-        }
-        toolSettings={
-          <Zone
-            allowsMerging
-            widgets={
-              [
-                <Widget
-                  iconSpec="icon-placeholder"
-                  isToolSettings={true}
-                  preferredPanelSize="fit-content"
-                />,
-              ]}
-          />
-        }
-        viewNavigationTools={
-          <Zone
-            widgets={
-              [
-                <Widget isFreeform={true} element={
-                  <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />
-                } />,
-              ]}
-          />
-        }
-        centerRight={
-          <Zone
-            allowsMerging
-            defaultState={ZoneState.Minimized}
-            initialWidth={400}
-            widgets={[
-              // <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl}
-              //   applicationData={{ iModelConnection: this.iModelConnection }} fillZone={true} />,
-              <Widget iconSpec="icon-visibility" label="Searchable Tree" control={VisibilityWidgetControl}
-                applicationData={{
+    return {
+      id: ViewsFrontstage.stageId,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup: this._contentGroupProvider,
+      applicationData: { key: "value" },
+      usage: StageUsage.General,
+      version: 3.1, // Defaults to 0. Increment this when Frontstage changes are meaningful enough to reinitialize saved user layout settings.
+      contentManipulation: {
+        element: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
+          additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={true} />,
+      },
+      toolSettings: {
+        iconSpec: "icon-placeholder",
+        preferredPanelSize: "fit-content",
+      },
+      viewNavigation: {
+        element: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
+      },
+      statusBar: {
+        control: AppStatusBarWidgetControl,
+      },
+      rightPanel: {
+        maxSize: { percentage: 50 },
+        sections: {
+          start: {
+            widgets: [
+              {
+                iconSpec: "icon-visibility",
+                label: "Searchable Tree",
+                control: VisibilityWidgetControl,
+                applicationData: {
                   iModelConnection,
                   config: {
                     modelsTree: {
@@ -412,66 +381,52 @@ export class ViewsFrontstage extends FrontstageProvider {
                       selectionPredicate: (_key: NodeKey, type: ModelsTreeNodeType) => type === ModelsTreeNodeType.Element,
                     },
                   },
-                }}
-                fillZone={true} defaultFloatingSize={{width:330, height:540}} isFloatingStateWindowResizable={true} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone
-            allowsMerging
-            defaultState={ZoneState.Minimized}
-            initialWidth={400}
-            widgets={
-              [
-                /* <Widget iconSpec="icon-placeholder" label="External iModel View" control={ViewportWidgetControl} fillZone={true} badgeType={BadgeType.TechnicalPreview}
-                   applicationData={{ iTwinName: "iModelHubTest", imodelName: "GrandCanyonTerrain" }} />, */
-              ]}
-          />
-        }
-        statusBar={
-          <Zone
-            widgets={
-              [
-                <Widget isStatusBar={true} control={AppStatusBarWidgetControl} />,
-              ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Minimized} allowsMerging={true} mergeWithZone={ZoneLocation.CenterRight}
-            initialWidth={450}
-            widgets={
-              [
-                <Widget defaultState={WidgetState.Closed} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.UnifiedSelectPropertyGrid"
-                  id={ViewsFrontstage.unifiedSelectionPropertyGridId}
-                  control={UnifiedSelectionPropertyGridWidgetControl} fillZone={true}
-                  applicationData={{ iModelConnection }}
-                  isFloatingStateWindowResizable={true}
-                  defaultFloatingSize={{width:200, height:300}}
-                />,
-                <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder"
-                  labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-              ]}
-          />
-        }
-        rightPanel={
-          <StagePanel
-            allowedZones={this._rightPanel.allowedZones}
-            maxSize={{ percentage: 50 }}
-          />
-        }
-        bottomPanel={
-          <StagePanel
-            pinned={false}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.UnifiedSelectionTable" control={UnifiedSelectionTableWidgetControl}
-                applicationData={{ iModelConnection }} fillZone={true} badgeType={BadgeType.New} />,
-            ]}
-            allowedZones={this._bottomPanel.allowedZones}
-          />
-        }
-      />
-    );
+                },
+                defaultFloatingSize: { width: 330, height: 540 },
+                isFloatingStateWindowResizable: true,
+              },
+            ],
+          },
+          end: {
+            widgets: [
+              {
+                defaultState: WidgetState.Closed,
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.UnifiedSelectPropertyGrid",
+                id: ViewsFrontstage.unifiedSelectionPropertyGridId,
+                control: UnifiedSelectionPropertyGridWidgetControl,
+                applicationData: { iModelConnection },
+                isFloatingStateWindowResizable: true,
+                defaultFloatingSize: { width: 200, height: 300 },
+              },
+              {
+                id: "VerticalPropertyGrid",
+                defaultState: WidgetState.Hidden,
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+                control: VerticalPropertyGridWidgetControl,
+              },
+            ],
+          },
+        },
+      },
+      bottomPanel: {
+        pinned: false,
+        sections: {
+          start: {
+            widgets: [
+              {
+                iconSpec: "icon-placeholder",
+                labelKey: "SampleApp:widgets.UnifiedSelectionTable",
+                control: UnifiedSelectionTableWidgetControl,
+                applicationData: { iModelConnection },
+                badgeType: BadgeType.New,
+              },
+            ],
+          },
+        },
+      },
+    };
   }
 }
 
@@ -802,7 +757,7 @@ class AdditionalTools {
         const widgetDef = frontstageDef.findWidgetDef("uitestapp-test-wd3");
         if (!widgetDef)
           return;
-        if (widgetDef.activeState === WidgetState.Open || widgetDef.activeState ===  WidgetState.Floating) {
+        if (widgetDef.activeState === WidgetState.Open || widgetDef.activeState === WidgetState.Floating) {
           widgetDef.setWidgetState(WidgetState.Hidden);
         } else {
           widgetDef.setWidgetState(WidgetState.Open);
@@ -873,4 +828,3 @@ class AdditionalTools {
   OpenViewDialogTool.getActionButtonDef(430, 40),
   ];
 }
-

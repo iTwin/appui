@@ -5,7 +5,7 @@
 import * as React from "react";
 import { BrowserAuthorizationClient } from "@itwin/browser-authorization";
 import { StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider } from "@itwin/appui-react";
+import { ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { ElectronRendererAuthorization } from "@itwin/electron-authorization/lib/cjs/ElectronRenderer";
 import { Centered } from "@itwin/core-react";
@@ -42,12 +42,12 @@ class SignInControl extends ContentControl {
 
 export class SignInFrontstage extends FrontstageProvider {
   public static stageId = "ui-test-app:SignIn";
-  public get id(): string {
+  public override get id(): string {
     return SignInFrontstage.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
-    const contentGroup: ContentGroup = new ContentGroup({
+  public override get frontstage(): FrontstageProps {
+    const contentGroup = new ContentGroup({
       id: "sign-in-stage",
       layout: StandardContentLayouts.singleView,
       contents: [
@@ -58,13 +58,12 @@ export class SignInFrontstage extends FrontstageProvider {
       ],
     });
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={contentGroup}
-        isIModelIndependent={true}
-        usage={StageUsage.Private}
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: CoreTools.selectElementCommand,
+      contentGroup,
+      isIModelIndependent: true,
+      usage: StageUsage.Private,
+    };
   }
 }

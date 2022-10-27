@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import {
-  AbstractWidgetProps, AbstractZoneLocation, BackstageItem,
+  AbstractWidgetProps, BackstageItem,
   BackstageItemUtilities, BadgeType,
   CommonStatusBarItem,
   CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities,
@@ -196,11 +196,10 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
   }
 
   public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation,
-    section?: StagePanelSection, zoneLocation?: AbstractZoneLocation, _stageAppData?: any): ReadonlyArray<AbstractWidgetProps> {
+    section?: StagePanelSection, _stageAppData?: any): ReadonlyArray<AbstractWidgetProps> {
     const widgets: AbstractWidgetProps[] = [];
     if ((stageId === NetworkTracingFrontstage.stageId || stageId === "ui-test-app:no-widget-frontstage" || stageId === "ViewsFrontstage") &&
-      (location === StagePanelLocation.Right && section === StagePanelSection.Start) ||
-      zoneLocation === AbstractZoneLocation.BottomRight) {
+      (location === StagePanelLocation.Right && section === StagePanelSection.Start)) {
       /** This widget when only be displayed when there is an element selected. */
       const widget: AbstractWidgetProps = {
         ...{

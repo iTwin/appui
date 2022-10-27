@@ -2,14 +2,13 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  ContentGroup, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, NestedFrontstage,
-  ToolItemDef, Widget, Zone, ZoneState,
+  ContentGroup, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, NestedFrontstage,
+  ToolItemDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { AppStatusBarWidgetControl, TestContentControl, TestFrontstage } from "./FrontstageTestUtils";
@@ -30,8 +29,8 @@ class TestNestedFrontstage extends FrontstageProvider {
     return TestNestedFrontstage.stageId;
   }
 
-  public get frontstage(): React.ReactElement<FrontstageProps> {
-    const myContentGroup: ContentGroup = new ContentGroup(
+  public override get frontstage(): FrontstageProps {
+    const contentGroup: ContentGroup = new ContentGroup(
       {
         id: "test-group",
         layout: StandardContentLayouts.singleView,
@@ -45,37 +44,25 @@ class TestNestedFrontstage extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={this.defaultToolDef}
-        contentGroup={myContentGroup}
-        defaultContentId="defaultContentId"
-        applicationData={{ key: "value" }}
-        topLeft={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} applicationData={{ key: "value" }}
-            widgets={[
-              <Widget isFreeform={true} element={<>FrontstageToolWidget</>} />, // eslint-disable-line react/jsx-key
-            ]}
-          />
-        }
-        topCenter={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />, // eslint-disable-line react/jsx-key
-            ]}
-          />
-        }
-        bottomCenter={
-          <Zone
-            widgets={[
-              <Widget id="statusBar" isStatusBar={true} iconSpec="icon-placeholder" labelKey="App:widgets.StatusBar" // eslint-disable-line react/jsx-key
-                control={AppStatusBarWidgetControl} applicationData={{ key: "value" }} />,
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      defaultTool: this.defaultToolDef,
+      contentGroup,
+      defaultContentId: "defaultContentId",
+      applicationData: { key: "value" },
+      contentManipulation: {
+        element: <>FrontstageToolWidget</>,
+        applicationData: { key: "value" },
+      },
+      toolSettings: {},
+      statusBar: {
+        id: "statusBar",
+        iconSpec: "icon-placeholder",
+        labelKey: "App:widgets.StatusBar",
+        control: AppStatusBarWidgetControl,
+        applicationData: { key: "value" },
+      },
+    };
   }
 }
 

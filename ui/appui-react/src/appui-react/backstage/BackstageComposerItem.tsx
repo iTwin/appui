@@ -13,9 +13,9 @@ import {
 } from "@itwin/appui-abstract";
 import { BadgeUtilities, Icon, IconHelper } from "@itwin/core-react";
 import { BackstageItem as NZ_BackstageItem } from "@itwin/appui-layout-react";
-import { useActiveFrontstageId } from "../frontstage/Frontstage";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { useBackstageManager } from "./BackstageManager";
+import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
 
 /** @internal */
 export interface BackstageComposerActionItemProps {
@@ -25,7 +25,7 @@ export interface BackstageComposerActionItemProps {
 /** @internal */
 export function BackstageComposerActionItem({ item }: BackstageComposerActionItemProps) {
   const manager = useBackstageManager();
-  const iconSpec = IconHelper.getIconReactNode (item.icon, item.internalData);
+  const iconSpec = IconHelper.getIconReactNode(item.icon, item.internalData);
   const handleClick = React.useCallback(() => {
     manager.close();
     item.execute();
@@ -64,7 +64,7 @@ export function BackstageComposerStageLauncher({ item }: BackstageComposerStageL
   }, [manager, item.stageId]);
   const activeFrontstageId = useActiveFrontstageId();
   const isActive = ConditionalBooleanValue.getValue(item.isActive ?? item.stageId === activeFrontstageId);
-  const iconSpec = IconHelper.getIconReactNode (item.icon, item.internalData);
+  const iconSpec = IconHelper.getIconReactNode(item.icon, item.internalData);
   return (
     <NZ_BackstageItem
       itemId={item.id}

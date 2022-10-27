@@ -8,10 +8,9 @@
 import * as React from "react";
 import { UiItemsManager } from "@itwin/appui-abstract";
 import { ScrollableWidgetContent, TabIdContext } from "@itwin/appui-layout-react";
-import { useActiveFrontstageDef } from "../frontstage/Frontstage";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { FrontstageNineZoneStateChangedEventArgs } from "../frontstage/FrontstageDef";
+import { FrontstageNineZoneStateChangedEventArgs, useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { useTransientState } from "./useTransientState";
 
 /** @internal */

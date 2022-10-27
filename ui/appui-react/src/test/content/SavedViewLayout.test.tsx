@@ -13,9 +13,7 @@ import * as React from "react";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentGroup, ContentLayoutDef, ContentLayoutManager, ContentProps, CoreTools, Frontstage,
-  FrontstageManager, FrontstageProps, FrontstageProvider, StageContentLayout, StageContentLayoutProps, ViewportContentControl, Widget,
-  Zone,
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentGroup, ContentLayoutDef, ContentLayoutManager, ContentProps, CoreTools, FrontstageManager, FrontstageProps, FrontstageProvider, StageContentLayout, StageContentLayoutProps, ViewportContentControl,
 } from "../../appui-react";
 import { ViewUtilities } from "../../appui-react/utils/ViewUtilities";
 import TestUtils from "../TestUtils";
@@ -152,20 +150,19 @@ describe("StageContentLayout", () => {
   }
   class Frontstage1 extends FrontstageProvider {
     public static stageId = "Test1";
-    public get id(): string {
+    public override get id(): string {
       return Frontstage1.stageId;
     }
 
-    public contentLayoutDef: ContentLayoutDef = new ContentLayoutDef(
+    public contentLayoutDef = new ContentLayoutDef(
       {
         id: "SingleContent",
         description: "App:ContentLayoutDef.SingleContent",
       },
     );
 
-    public get frontstage(): React.ReactElement<FrontstageProps> {
-
-      const myContentGroup: ContentGroup = new ContentGroup(
+    public override get frontstage(): FrontstageProps {
+      const contentGroup = new ContentGroup(
         {
           id: "MyContentGroup",
           layout: StandardContentLayouts.singleView,
@@ -179,19 +176,14 @@ describe("StageContentLayout", () => {
         },
       );
 
-      return (
-        <Frontstage
-          id={this.id}
-          defaultTool={CoreTools.selectElementCommand}
-          contentGroup={myContentGroup}
-
-          topRight={
-            <Zone widgets={[
-              <Widget key={0} isFreeform={true} element={<>NavigationWidget</>} />,
-            ]} />
-          }
-        />
-      );
+      return {
+        id: this.id,
+        defaultTool: CoreTools.selectElementCommand,
+        contentGroup,
+        viewNavigation: {
+          element: <>NavigationWidget</>,
+        },
+      };
     }
   }
 
@@ -270,7 +262,7 @@ describe("StageContentLayout", () => {
 
     const frontstageProvider = new Frontstage1();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
     await FrontstageManager.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
@@ -332,7 +324,7 @@ describe("StageContentLayout", () => {
 
     const frontstageProvider = new Frontstage1();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
     await FrontstageManager.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {

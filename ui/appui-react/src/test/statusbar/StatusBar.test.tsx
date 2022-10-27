@@ -43,8 +43,6 @@ describe("StatusBar", () => {
     const statusBarWidgetDef = new WidgetDef({
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
-      isFreeform: false,
-      isStatusBar: true,
     });
     widgetControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
 
@@ -96,7 +94,7 @@ describe("StatusBar", () => {
     });
     expect(await screen.findByText("A brief message.")).to.be.not.null;
 
-    const closeButton = screen.getByRole("button", {name: "Close"});
+    const closeButton = screen.getByRole("button", { name: "Close" });
     fireEvent.click(closeButton);
     await waitForElementToBeRemoved(screen.queryByText("A brief message."));
     act(() => {
@@ -147,7 +145,7 @@ describe("StatusBar", () => {
     });
     expect(await screen.findByText("Message text")).to.be.not.null;
 
-    const closeButton = screen.getByRole("button", {name: "Close"});
+    const closeButton = screen.getByRole("button", { name: "Close" });
     fireEvent.click(closeButton);
     await waitForElementToBeRemoved(screen.queryByText("Message text"));
   });
@@ -341,7 +339,7 @@ describe("StatusBar", () => {
       // eslint-disable-next-line deprecation/deprecation
       render(<StatusMessagesContainer
         messages={[]}
-        activityMessageInfo={{message: "My activity message", percentage: 0, details }}
+        activityMessageInfo={{ message: "My activity message", percentage: 0, details }}
         isActivityMessageVisible
         toastTarget={null}
         closeMessage={() => { }}
@@ -359,7 +357,7 @@ describe("StatusBar", () => {
       // eslint-disable-next-line deprecation/deprecation
       render(<StatusMessagesContainer
         messages={[]}
-        activityMessageInfo={{message: "My activity message", percentage: 0, details }}
+        activityMessageInfo={{ message: "My activity message", percentage: 0, details }}
         isActivityMessageVisible
         toastTarget={null}
         closeMessage={() => { }}

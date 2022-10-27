@@ -463,10 +463,10 @@ export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArg
 export function addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState;
 
 // @internal (undocumented)
-export function addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, side: PanelSide): NineZoneState;
+export function addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState;
 
 // @internal (undocumented)
-export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDef>, side: PanelSide, widgetId: WidgetIdTypes): NineZoneState;
+export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDef>, side: PanelSide, widgetId: WidgetId): NineZoneState;
 
 // @public
 export class AnalysisAnimationTimelineDataProvider extends BaseTimelineDataProvider {
@@ -489,7 +489,7 @@ export type AnyToolbarItemDef = AnyItemDef | CustomItemDef;
 export type AnyWidgetProps = WidgetProps | ToolWidgetProps | NavigationWidgetProps;
 
 // @internal (undocumented)
-export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, side: PanelSide, preferredWidgetIndex: number): NineZoneState;
+export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, location: StagePanelLocation, section: StagePanelSection): NineZoneState;
 
 // @public
 export class AppNotificationManager extends NotificationManager {
@@ -1413,7 +1413,7 @@ export function createAction<T extends string>(type: T): Action<T>;
 // @public
 export function createAction<T extends string, P>(type: T, payload: P): ActionWithPayload<T, DeepReadonly<P>>;
 
-// @internal @deprecated
+// @internal
 export function createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef;
 
 // @alpha
@@ -2078,16 +2078,6 @@ export class FrameworkUiAdmin extends UiAdmin {
     showToolbar(toolbarProps: AbstractToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, htmlElement?: HTMLElement): boolean;
 }
 
-// @public
-export class Frontstage extends React_2.Component<FrontstageProps> {
-    // @internal (undocumented)
-    static createStagePanelDef(panelLocation: StagePanelLocation, props: FrontstageProps): StagePanelDef | undefined;
-    // @internal (undocumented)
-    static createZoneDef(zoneNode: React_2.ReactElement<ZoneProps> | undefined, zoneLocation: ZoneLocation, props: FrontstageProps): ZoneDef | undefined;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-}
-
 // @internal (undocumented)
 export const FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings";
 
@@ -2122,20 +2112,8 @@ export class FrontstageDef {
     addFloatingContentControl(contentControl?: ContentControl): void;
     // (undocumented)
     get applicationData(): any | undefined;
-    // (undocumented)
-    get bottomCenter(): ZoneDef | undefined;
-    // (undocumented)
-    get bottomLeft(): ZoneDef | undefined;
-    // @beta @deprecated (undocumented)
-    get bottomMostPanel(): StagePanelDef | undefined;
     // @beta (undocumented)
     get bottomPanel(): StagePanelDef | undefined;
-    // (undocumented)
-    get bottomRight(): ZoneDef | undefined;
-    // (undocumented)
-    get centerLeft(): ZoneDef | undefined;
-    // (undocumented)
-    get centerRight(): ZoneDef | undefined;
     get contentControls(): ContentControl[];
     // (undocumented)
     get contentGroup(): ContentGroup | undefined;
@@ -2143,6 +2121,8 @@ export class FrontstageDef {
     get contentGroupProvider(): ContentGroupProvider | undefined;
     // (undocumented)
     get contentLayoutDef(): ContentLayoutDef | undefined;
+    // @beta (undocumented)
+    get contentManipulation(): WidgetDef | undefined;
     static create(provider: FrontstageProvider): Promise<FrontstageDef>;
     // (undocumented)
     get defaultContentId(): string;
@@ -2173,7 +2153,6 @@ export class FrontstageDef {
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
     // @internal
     getWidgetCurrentState(widgetDef: WidgetDef): WidgetState | undefined;
-    getZoneDef(zoneId: number): ZoneDef | undefined;
     // (undocumented)
     get id(): string;
     // @internal
@@ -2226,30 +2205,27 @@ export class FrontstageDef {
     // @internal (undocumented)
     setIsApplicationClosing(value: boolean): void;
     startDefaultTool(): void;
+    // @beta (undocumented)
+    get statusBar(): WidgetDef | undefined;
     // @internal (undocumented)
     get timeTracker(): TimeTracker;
-    // (undocumented)
-    get topCenter(): ZoneDef | undefined;
-    // (undocumented)
-    get topLeft(): ZoneDef | undefined;
-    // @beta @deprecated (undocumented)
-    get topMostPanel(): StagePanelDef | undefined;
+    // @beta (undocumented)
+    get toolSettings(): WidgetDef | undefined;
     // @beta (undocumented)
     get topPanel(): StagePanelDef | undefined;
-    // (undocumented)
-    get topRight(): ZoneDef | undefined;
     // @internal (undocumented)
     updateWidgetDefs(): void;
     // (undocumented)
     get usage(): string;
     // (undocumented)
     get version(): number;
+    // @beta (undocumented)
+    get viewNavigation(): WidgetDef | undefined;
     waitUntilReady(): Promise<void>;
     // @internal
     get widgetDefs(): {
         [Symbol.iterator](): Iterator<WidgetDef, any, undefined>;
     };
-    get zoneDefs(): ZoneDef[];
 }
 
 // @internal (undocumented)
@@ -2348,47 +2324,26 @@ export interface FrontstageNineZoneStateChangedEventArgs extends FrontstageEvent
 // @public
 export interface FrontstageProps extends CommonProps {
     applicationData?: any;
-    // @deprecated
-    bottomCenter?: React_2.ReactElement<ZoneProps>;
-    // @deprecated
-    bottomLeft?: React_2.ReactElement<ZoneProps>;
-    // @deprecated
-    bottomMostPanel?: React_2.ReactElement<StagePanelProps>;
-    bottomPanel?: React_2.ReactElement<StagePanelProps>;
-    // @deprecated
-    bottomRight?: React_2.ReactElement<ZoneProps>;
-    // @deprecated
-    centerLeft?: React_2.ReactElement<ZoneProps>;
-    // @deprecated
-    centerRight?: React_2.ReactElement<ZoneProps>;
+    bottomPanel?: StagePanelProps;
     contentGroup: ContentGroup | ContentGroupProvider;
-    contentManipulationTools?: React_2.ReactElement<ZoneProps>;
+    contentManipulation?: WidgetProps;
     defaultContentId?: string;
     defaultTool: ToolItemDef;
     id: string;
     isIModelIndependent?: boolean;
-    leftPanel?: React_2.ReactElement<StagePanelProps>;
-    rightPanel?: React_2.ReactElement<StagePanelProps>;
-    statusBar?: React_2.ReactElement<ZoneProps>;
-    toolSettings?: React_2.ReactElement<ZoneProps>;
-    // @deprecated
-    topCenter?: React_2.ReactElement<ZoneProps>;
-    // @deprecated
-    topLeft?: React_2.ReactElement<ZoneProps>;
-    // @deprecated
-    topMostPanel?: React_2.ReactElement<StagePanelProps>;
-    topPanel?: React_2.ReactElement<StagePanelProps>;
-    // @deprecated
-    topRight?: React_2.ReactElement<ZoneProps>;
+    leftPanel?: StagePanelProps;
+    rightPanel?: StagePanelProps;
+    statusBar?: WidgetProps;
+    toolSettings?: WidgetProps;
+    topPanel?: StagePanelProps;
     usage?: string;
     version?: number;
-    viewNavigationTools?: React_2.ReactElement<ZoneProps>;
+    viewNavigation?: WidgetProps;
 }
 
 // @public
 export abstract class FrontstageProvider {
-    // (undocumented)
-    abstract get frontstage(): React_2.ReactElement<FrontstageProps>;
+    abstract get frontstage(): FrontstageProps;
     abstract get id(): string;
 }
 
@@ -2427,7 +2382,7 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue;
 export function getListPanel(props: ListPickerProps): React_2.ReactNode;
 
 // @internal (undocumented)
-export function getPanelZoneWidgets(frontstageDef: FrontstageDef, panelZone: WidgetIdTypes): WidgetDef[];
+export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray<WidgetDef>;
 
 // @beta
 export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial<QuantityFormatterSettingsOptions>): SettingsTabEntry;
@@ -2442,7 +2397,7 @@ export function getStableWidgetProps(widgetProps: WidgetProps, stableId: string)
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
 
 // @internal (undocumented)
-export function getWidgetId(side: PanelSide, key: StagePanelZoneDefKeys): WidgetIdTypes;
+export function getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
@@ -2669,7 +2624,7 @@ export interface InitialAppUiSettings {
 export function initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneState;
 
 // @internal (undocumented)
-export function initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, panelSide: PanelSide): NineZoneState;
+export function initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState;
 
 // @beta (undocumented)
 export class InputEditorCommitHandler {
@@ -2746,7 +2701,7 @@ export function isFrontstageStateSettingResult(settingsResult: UiStateStorageRes
 export function isNoSelectionActive(): boolean;
 
 // @internal (undocumented)
-export function isPanelCollapsed(zoneStates: ReadonlyArray<ZoneState | undefined>, panelStates: ReadonlyArray<StagePanelState | undefined>): boolean;
+export function isPanelCollapsed(panelState: StagePanelState | undefined): boolean;
 
 // @internal
 export const isReactContent: (content: PopupContentType) => content is ReactContent;
@@ -3546,14 +3501,6 @@ export class NestedFrontstage {
 }
 
 // @public
-export interface NineZoneChangeHandler {
-    // (undocumented)
-    handleFloatingZonesBoundsChange(bounds: RectangleProps): void;
-    // (undocumented)
-    handleZonesBoundsChange(bounds: RectangleProps): void;
-}
-
-// @public
 export type NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetails;
 
 // @public
@@ -3575,6 +3522,24 @@ export class OpenMessageCenterEvent extends UiEvent<{}> {
 
 // @internal
 export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
+
+// @internal (undocumented)
+export class PanelSectionDef extends WidgetHost {
+    // (undocumented)
+    initializeFromProps(props: PanelSectionProps | undefined, location: StagePanelLocation, section: StagePanelSection): void;
+}
+
+// @public
+export interface PanelSectionProps {
+    applicationData?: any;
+    widgets: Array<WidgetProps>;
+}
+
+// @public
+export interface PanelSectionsProps {
+    end?: PanelSectionProps;
+    start?: PanelSectionProps;
+}
 
 // @internal (undocumented)
 export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {
@@ -4437,30 +4402,6 @@ export interface StageContentLayoutProps {
 }
 
 // @public
-export class StagePanel extends React_2.Component<StagePanelProps> {
-    // (undocumented)
-    static readonly defaultProps: StagePanelDefaultProps;
-    // (undocumented)
-    static initializeStagePanelDef(panelDef: StagePanelDef, props: StagePanelProps, panelLocation: StagePanelLocation): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @public
-export interface StagePanelChangeHandler {
-    // @alpha (undocumented)
-    handlePanelInitialize(panelLocation: StagePanelLocation, size: number): void;
-    // @alpha (undocumented)
-    handlePanelPaneTargetChange(panelLocation: StagePanelLocation, paneIndex: number | undefined): void;
-    // @alpha (undocumented)
-    handlePanelResize(panelLocation: StagePanelLocation, resizeBy: number): void;
-    // @alpha (undocumented)
-    handlePanelTargetChange(panelLocation: StagePanelLocation | undefined): void;
-    // @alpha (undocumented)
-    handleTogglePanelCollapse(panelLocation: StagePanelLocation): void;
-}
-
-// @public
 export class StagePanelDef extends WidgetHost {
     constructor();
     get applicationData(): any | undefined;
@@ -4468,6 +4409,8 @@ export class StagePanelDef extends WidgetHost {
     get defaultSize(): number | undefined;
     // @internal (undocumented)
     get defaultState(): StagePanelState;
+    // @internal (undocumented)
+    getPanelSectionDef(section: StagePanelSection): PanelSectionDef;
     // @internal (undocumented)
     initializeFromProps(props?: StagePanelProps, panelLocation?: StagePanelLocation): void;
     get location(): StagePanelLocation;
@@ -4477,21 +4420,14 @@ export class StagePanelDef extends WidgetHost {
     get minSize(): number | undefined;
     get panelState(): StagePanelState;
     set panelState(panelState: StagePanelState);
-    // @internal
-    get panelWidgetDefs(): readonly WidgetDef[];
-    // @internal
-    get panelZones(): StagePanelZonesDef;
     get pinned(): boolean;
     get resizable(): boolean;
     get size(): number | undefined;
     set size(size: number | undefined);
     // @internal (undocumented)
-    updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: ZoneLocation | StagePanelLocation, _section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any): void;
+    updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, _section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any): void;
     get widgetDefs(): ReadonlyArray<WidgetDef>;
 }
-
-// @public
-export type StagePanelDefaultProps = Pick<StagePanelProps, "resizable">;
 
 // @public
 export type StagePanelMaxSizeSpec = number | {
@@ -4500,18 +4436,15 @@ export type StagePanelMaxSizeSpec = number | {
 
 // @public
 export interface StagePanelProps {
-    allowedZones?: ZoneLocation[];
     applicationData?: any;
     defaultState?: StagePanelState;
-    header?: React_2.ReactNode;
+    header?: React.ReactNode;
     maxSize?: StagePanelMaxSizeSpec;
     minSize?: number;
-    // @beta
-    panelZones?: StagePanelZonesProps;
     pinned?: boolean;
-    resizable: boolean;
+    resizable?: boolean;
+    sections?: PanelSectionsProps;
     size?: number;
-    widgets?: Array<React_2.ReactElement<WidgetProps>>;
 }
 
 // @public
@@ -4524,40 +4457,6 @@ export enum StagePanelState {
     Open = 2,
     // (undocumented)
     Popup = 3
-}
-
-// @internal (undocumented)
-export class StagePanelZoneDef extends WidgetHost {
-    // (undocumented)
-    initializeFromProps(props: StagePanelZoneProps, panelLocation: StagePanelLocation, panelZone: StagePanelZoneDefKeys): void;
-}
-
-// @internal (undocumented)
-export type StagePanelZoneDefKeys = keyof Pick<StagePanelZonesDef, "start" | "end">;
-
-// @public @deprecated
-export interface StagePanelZoneProps {
-    applicationData?: any;
-    widgets: Array<React_2.ReactElement<WidgetProps>>;
-}
-
-// @internal (undocumented)
-export class StagePanelZonesDef {
-    // (undocumented)
-    [Symbol.iterator](): Iterator<[StagePanelZoneDefKeys, StagePanelZoneDef]>;
-    // (undocumented)
-    get end(): StagePanelZoneDef;
-    // (undocumented)
-    initializeFromProps(props: StagePanelZonesProps, panelLocation: StagePanelLocation): void;
-    // (undocumented)
-    get start(): StagePanelZoneDef;
-}
-
-// @public @deprecated
-export interface StagePanelZonesProps {
-    end?: StagePanelZoneProps;
-    middle?: StagePanelZoneProps;
-    start?: StagePanelZoneProps;
 }
 
 // @public
@@ -4606,7 +4505,7 @@ export interface StandardFrontstageProps {
 export class StandardFrontstageProvider extends FrontstageProvider {
     constructor(props: StandardFrontstageProps);
     // (undocumented)
-    get frontstage(): React_2.ReactElement<FrontstageProps>;
+    get frontstage(): FrontstageProps;
     // (undocumented)
     get id(): string;
 }
@@ -5103,9 +5002,6 @@ export interface ToolbarWidgetProps extends WidgetProps {
     // (undocumented)
     verticalItems?: ItemList;
 }
-
-// @internal (undocumented)
-export const ToolGroupPanelContext: React_2.Context<boolean>;
 
 // @public
 export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {
@@ -5835,13 +5731,6 @@ export interface VisibilityTreeNoFilteredDataProps {
 export type VisibilityTreeSelectionPredicate = (key: NodeKey, node: TreeNodeItem) => boolean;
 
 // @public
-export class Widget extends React_2.Component<WidgetProps> {
-    constructor(props: WidgetProps);
-    // (undocumented)
-    render(): null;
-}
-
-// @public
 export const WIDGET_OPACITY_DEFAULT = 0.9;
 
 // @internal (undocumented)
@@ -5869,7 +5758,7 @@ export class WidgetControl extends ConfigurableUiControl {
 
 // @public
 export class WidgetDef {
-    constructor(widgetProps: WidgetProps);
+    constructor(widgetProps: WidgetProps, type?: WidgetType);
     // (undocumented)
     get activeState(): WidgetState;
     // (undocumented)
@@ -5900,8 +5789,6 @@ export class WidgetDef {
     // @alpha
     expand(): void;
     // (undocumented)
-    get fillZone(): boolean;
-    // (undocumented)
     get floatingContainerId(): string | undefined;
     // (undocumented)
     getWidgetControl(type: ConfigurableUiControlType): WidgetControl | undefined;
@@ -5914,8 +5801,6 @@ export class WidgetDef {
     // (undocumented)
     get id(): string;
     // (undocumented)
-    static initializeFromWidgetProps(widgetProps: WidgetProps, me: WidgetDef): void;
-    // (undocumented)
     get initialProps(): WidgetProps | undefined;
     // (undocumented)
     get isActive(): boolean;
@@ -5925,8 +5810,6 @@ export class WidgetDef {
     get isFloatingStateSupported(): boolean;
     // (undocumented)
     get isFloatingStateWindowResizable(): boolean;
-    // (undocumented)
-    get isFreeform(): boolean;
     // (undocumented)
     get isStatusBar(): boolean;
     // (undocumented)
@@ -5955,8 +5838,6 @@ export class WidgetDef {
     setLabel(v: string | ConditionalStringValue | StringGetter): void;
     setTooltip(v: string | ConditionalStringValue | StringGetter): void;
     // (undocumented)
-    setUpSyncSupport(props: WidgetProps): void;
-    // (undocumented)
     setWidgetState(newState: WidgetState): void;
     // @alpha
     show(): void;
@@ -5964,10 +5845,6 @@ export class WidgetDef {
     get state(): WidgetState;
     // (undocumented)
     get stateChanged(): boolean;
-    // (undocumented)
-    get stateFunc(): WidgetStateFunc | undefined;
-    // (undocumented)
-    get syncEventIds(): string[];
     // @internal (undocumented)
     get tabLocation(): TabLocation | undefined;
     set tabLocation(tabLocation: TabLocation | undefined);
@@ -5992,7 +5869,7 @@ export class WidgetHost {
     findWidgetDef(id: string): WidgetDef | undefined;
     getSingleWidgetDef(): WidgetDef | undefined;
     // @internal
-    updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: ZoneLocation | StagePanelLocation, section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any): void;
+    updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any): void;
     get widgetCount(): number;
     get widgetDefs(): ReadonlyArray<WidgetDef>;
 }
@@ -6000,7 +5877,7 @@ export class WidgetHost {
 // @internal
 export interface WidgetInfo {
     // (undocumented)
-    location: ZoneLocation | StagePanelLocation;
+    location: StagePanelLocation;
     // (undocumented)
     section: StagePanelSection;
     // (undocumented)
@@ -6013,8 +5890,8 @@ export interface WidgetInfo {
 
 // @beta
 export class WidgetManager {
-    addWidgetDef(widgetDef: WidgetDef, stageId: string | undefined, stageUsage: string | undefined, location: ZoneLocation | StagePanelLocation, section?: StagePanelSection): boolean;
-    getWidgetDefs(stageId: string, stageUsage: string, location: ZoneLocation | StagePanelLocation, section?: StagePanelSection, frontstageApplicationData?: any): ReadonlyArray<WidgetDef> | undefined;
+    addWidgetDef(widgetDef: WidgetDef, stageId: string | undefined, stageUsage: string | undefined, location: StagePanelLocation, section?: StagePanelSection): boolean;
+    getWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, frontstageApplicationData?: any): ReadonlyArray<WidgetDef> | undefined;
     // @internal
     readonly onWidgetsChanged: WidgetsChangedEvent;
     removeWidgetDef(widgetId: string): boolean;
@@ -6062,7 +5939,7 @@ export function WidgetPanelsToolSettings(): JSX.Element | null;
 export interface WidgetProps extends Omit<AbstractWidgetProps, "getWidgetContent">, IconProps {
     classId?: string | ConfigurableUiControlConstructor;
     control?: ConfigurableUiControlConstructor;
-    element?: React_2.ReactNode;
+    element?: React.ReactNode;
     labelKey?: string;
     // @alpha (undocumented)
     preferredPanelSize?: "fit-content";
@@ -6097,17 +5974,15 @@ export type WidgetStateFunc = (state: Readonly<WidgetState>) => WidgetState;
 // @public
 export enum WidgetType {
     // (undocumented)
-    FreeFrom = 2,
-    // (undocumented)
     Navigation = 1,
     // (undocumented)
-    Rectangular = 3,
+    Rectangular = 2,
     // (undocumented)
-    StatusBar = 5,
+    StatusBar = 4,
     // (undocumented)
     Tool = 0,
     // (undocumented)
-    ToolSettings = 4
+    ToolSettings = 3
 }
 
 // @internal @deprecated
@@ -6178,88 +6053,6 @@ export interface WorkflowPropsList {
     defaultWorkflowId: string;
     // (undocumented)
     workflows: WorkflowProps[];
-}
-
-// @public
-export class Zone extends React_2.Component<ZoneProps> {
-    constructor(props: ZoneProps);
-    // (undocumented)
-    static initializeZoneDef(zoneDef: ZoneDef, props: ZoneProps): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @public
-export class ZoneDef extends WidgetHost {
-    constructor();
-    // @deprecated
-    get allowsMerging(): boolean;
-    get applicationData(): any | undefined;
-    // @internal (undocumented)
-    initializeFromProps(props: ZoneProps): void;
-    get initialWidth(): number | undefined;
-    get isStatusBar(): boolean;
-    get isToolSettings(): boolean;
-    // @deprecated
-    get mergeWithZone(): ZoneLocation | undefined;
-    // @internal (undocumented)
-    setInitialWidth(width: number | undefined): void;
-    get shouldFillZone(): boolean;
-    // @internal
-    get zoneLocation(): ZoneLocation;
-    set zoneLocation(zoneLocation: ZoneLocation);
-    // @deprecated
-    get zoneState(): ZoneState;
-}
-
-// @public
-export interface ZoneDefProvider {
-    // (undocumented)
-    getZoneDef(zoneId: number): ZoneDef | undefined;
-}
-
-// @public @deprecated
-export enum ZoneLocation {
-    // (undocumented)
-    BottomCenter = 8,
-    // (undocumented)
-    BottomLeft = 7,
-    // (undocumented)
-    BottomRight = 9,
-    // (undocumented)
-    CenterLeft = 4,
-    // (undocumented)
-    CenterRight = 6,
-    // (undocumented)
-    TopCenter = 2,
-    // (undocumented)
-    TopLeft = 1,
-    // (undocumented)
-    TopRight = 3
-}
-
-// @public
-export interface ZoneProps extends CommonProps {
-    allowsMerging?: boolean;
-    applicationData?: any;
-    defaultState?: ZoneState;
-    initialWidth?: number;
-    mergeWithZone?: ZoneLocation;
-    widgets?: Array<React_2.ReactElement<WidgetProps>>;
-}
-
-// @public @deprecated
-export enum ZoneState {
-    // (undocumented)
-    Floating = 4,
-    // (undocumented)
-    Minimized = 1,
-    // (undocumented)
-    Off = 0,
-    // (undocumented)
-    Open = 2,
-    // (undocumented)
-    Popup = 3
 }
 
 // (No @packageDocumentation comment for this package)

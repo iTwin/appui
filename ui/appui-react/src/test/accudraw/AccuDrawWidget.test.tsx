@@ -34,7 +34,7 @@ describe("AccuDrawWidget", () => {
       control: AccuDrawWidgetControl,
     };
 
-    const widgetDef: WidgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef(widgetProps);
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
 
     expect(widgetControl).to.not.be.undefined;

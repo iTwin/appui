@@ -75,48 +75,28 @@ export interface AbstractWidgetProps extends ProvidedItem {
     readonly badgeType?: BadgeType;
     readonly canPopout?: boolean;
     readonly defaultFloatingPosition?: {
-        x: number;
-        y: number;
+        readonly x: number;
+        readonly y: number;
     };
-    defaultFloatingSize?: {
-        width: number;
-        height: number;
+    readonly defaultFloatingSize?: {
+        readonly width: number;
+        readonly height: number;
     };
     readonly defaultState?: WidgetState;
-    readonly fillZone?: boolean;
     readonly floatingContainerId?: string;
     readonly getWidgetContent: () => any;
-    hideWithUiWhenFloating?: boolean;
+    readonly hideWithUiWhenFloating?: boolean;
     readonly icon?: string | ConditionalStringValue;
     readonly id?: string;
     readonly internalData?: Map<string, any>;
     readonly isFloatingStateSupported?: boolean;
     readonly isFloatingStateWindowResizable?: boolean;
-    // @deprecated
-    readonly isFreeform?: boolean;
-    readonly isStatusBar?: boolean;
-    readonly isToolSettings?: boolean;
     readonly label?: string | ConditionalStringValue;
     readonly onWidgetStateChanged?: () => void;
     readonly priority?: number;
     readonly restoreTransientState?: () => boolean;
     readonly saveTransientState?: () => void;
-    // @deprecated
-    readonly stateFunc?: (state: Readonly<WidgetState>) => WidgetState;
-    readonly syncEventIds?: string[];
     readonly tooltip?: string | ConditionalStringValue;
-}
-
-// @public @deprecated
-export enum AbstractZoneLocation {
-    // (undocumented)
-    BottomLeft = 7,
-    // (undocumented)
-    BottomRight = 9,
-    // (undocumented)
-    CenterLeft = 4,
-    // (undocumented)
-    CenterRight = 6
 }
 
 // @public
@@ -290,9 +270,9 @@ export class BaseUiItemsProvider implements UiItemsProvider {
     // (undocumented)
     provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, _toolbarUsage: ToolbarUsage, _toolbarOrientation: ToolbarOrientation, _stageAppData?: any): CommonToolbarItem[];
     // (undocumented)
-    provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, _zoneLocation?: AbstractZoneLocation, stageAppData?: any): ReadonlyArray<AbstractWidgetProps>;
+    provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any): ReadonlyArray<AbstractWidgetProps>;
     // (undocumented)
-    provideWidgetsInternal(_stageId: string, _stageUsage: string, _location: StagePanelLocation, _section?: StagePanelSection, _zoneLocation?: AbstractZoneLocation, _stageAppData?: any): AbstractWidgetProps[];
+    provideWidgetsInternal(_stageId: string, _stageUsage: string, _location: StagePanelLocation, _section?: StagePanelSection, _stageAppData?: any): AbstractWidgetProps[];
     // (undocumented)
     unregister(): void;
 }
@@ -1730,25 +1710,19 @@ export enum SpecialKey {
 // @public
 export enum StagePanelLocation {
     // (undocumented)
-    Bottom = 105,
+    Bottom = 104,
     // (undocumented)
-    BottomMost = 106,
+    Left = 102,
     // (undocumented)
-    Left = 103,
+    Right = 103,
     // (undocumented)
-    Right = 104,
-    // (undocumented)
-    Top = 101,
-    // (undocumented)
-    TopMost = 102
+    Top = 101
 }
 
 // @public
 export enum StagePanelSection {
     // (undocumented)
-    End = 2,
-    // @deprecated (undocumented)
-    Middle = 1,
+    End = 1,
     // (undocumented)
     Start = 0
 }
@@ -2135,7 +2109,7 @@ export class UiItemsManager {
     static getStatusBarItems(stageId: string, stageUsage: string, stageAppData?: any): CommonStatusBarItem[];
     static getToolbarButtonItems(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): CommonToolbarItem[];
     static getUiItemsProvider(providerId: string): UiItemsProvider | undefined;
-    static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, zoneLocation?: AbstractZoneLocation, stageAppData?: any): ReadonlyArray<AbstractWidgetProps>;
+    static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any): ReadonlyArray<AbstractWidgetProps>;
     static get hasRegisteredProviders(): boolean;
     static readonly onUiProviderRegisteredEvent: BeEvent<(ev: UiItemProviderRegisteredEventArgs) => void>;
     static register(uiProvider: UiItemsProvider, overrides?: UiItemProviderOverrides): void;
@@ -2150,7 +2124,7 @@ export interface UiItemsProvider {
     provideBackstageItems?: () => BackstageItem[];
     provideStatusBarItems?: (stageId: string, stageUsage: string, stageAppData?: any) => CommonStatusBarItem[];
     provideToolbarButtonItems?: (stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any) => CommonToolbarItem[];
-    provideWidgets?: (stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, zoneLocation?: AbstractZoneLocation, stageAppData?: any) => ReadonlyArray<AbstractWidgetProps>;
+    provideWidgets?: (stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any) => ReadonlyArray<AbstractWidgetProps>;
 }
 
 // @public (undocumented)
