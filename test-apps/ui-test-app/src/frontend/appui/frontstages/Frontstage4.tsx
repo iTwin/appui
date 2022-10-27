@@ -23,7 +23,6 @@ import { TestModalDialog2 } from "../dialogs/TestModalDialog2";
 import { TestRadialMenu } from "../dialogs/TestRadialMenu";
 import { TestReactSelectDialog } from "../dialogs/TestReactSelectDialog";
 import { TestUiProvider } from "../dialogs/TestUiProviderDialog";
-import { BreadcrumbDemoWidgetControl } from "../widgets/BreadcrumbDemoWidget";
 import { NavigationTreeWidgetControl } from "../widgets/NavigationTreeWidget";
 import {
   HorizontalPropertyGridWidgetControl, HorizontalPropertyGridWidgetControl2, VerticalPropertyGridWidgetControl,
@@ -175,10 +174,6 @@ export class Frontstage4 extends FrontstageProvider {
           start: {
             widgets: [
               { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree", control: NavigationTreeWidgetControl },
-              { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.BreadcrumbDemo", control: BreadcrumbDemoWidgetControl },
-              { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo", control: TreeSelectionDemoWidgetControl },
-              { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree", control: NavigationTreeWidgetControl },
-              { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.BreadcrumbDemo", control: BreadcrumbDemoWidgetControl },
               { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo", control: TreeSelectionDemoWidgetControl },
             ],
           },
@@ -186,8 +181,6 @@ export class Frontstage4 extends FrontstageProvider {
             widgets: [
               { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
               { defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
-              { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.TableDemo", control: TableDemoWidgetControl },
-              { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
               { defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl2 },
               { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.TableDemo", control: TableDemoWidgetControl },
             ],

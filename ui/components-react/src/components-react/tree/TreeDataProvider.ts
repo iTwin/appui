@@ -74,7 +74,7 @@ export interface ITreeDataProvider {
   getNodes(parent?: TreeNodeItem, page?: PageOptions): Promise<DelayLoadedTreeNodeItem[]>;
 }
 
-/** Type definition for all BeInspireTree data providers
+/** Type definition for all Tree data providers
  * @public
  */
 export type TreeDataProvider = TreeDataProviderRaw | TreeDataProviderPromise | TreeDataProviderMethod | ITreeDataProvider;
