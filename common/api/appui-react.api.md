@@ -3527,7 +3527,7 @@ export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
 // @internal (undocumented)
 export class PanelSectionDef extends WidgetHost {
     // (undocumented)
-    initializeFromProps(props: PanelSectionProps, location: StagePanelLocation, section: StagePanelSection): void;
+    initializeFromProps(props: PanelSectionProps | undefined, location: StagePanelLocation, section: StagePanelSection): void;
 }
 
 // @public
@@ -4439,7 +4439,7 @@ export type StagePanelMaxSizeSpec = number | {
 export interface StagePanelProps {
     applicationData?: any;
     defaultState?: StagePanelState;
-    header?: React_2.ReactNode;
+    header?: React.ReactNode;
     maxSize?: StagePanelMaxSizeSpec;
     minSize?: number;
     pinned?: boolean;
@@ -5940,7 +5940,7 @@ export function WidgetPanelsToolSettings(): JSX.Element | null;
 export interface WidgetProps extends Omit<AbstractWidgetProps, "getWidgetContent">, IconProps {
     classId?: string | ConfigurableUiControlConstructor;
     control?: ConfigurableUiControlConstructor;
-    element?: React_2.ReactNode;
+    element?: React.ReactNode;
     labelKey?: string;
     // @alpha (undocumented)
     preferredPanelSize?: "fit-content";
