@@ -6,12 +6,10 @@
  * @module Frontstage
  */
 
-import * as React from "react";
 import { CommonProps } from "@itwin/core-react";
 import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { StagePanelProps } from "../stagepanels/StagePanel";
-import { FrontstageActivatedEventArgs, FrontstageManager } from "./FrontstageManager";
 import { WidgetProps } from "../widgets/WidgetProps";
 
 /** Properties for a [[Frontstage]] component.
@@ -56,37 +54,4 @@ export interface FrontstageProps extends CommonProps {
   rightPanel?: StagePanelProps;
   /** The StagePanel on the bottom of the AppUi container.  */
   bottomPanel?: StagePanelProps;
-}
-
-/** Hook that returns active frontstage id.
- * @public
- */
-export const useActiveFrontstageId = () => {
-  const def = useActiveFrontstageDef();
-  const id = React.useMemo(() => def ? /* istanbul ignore next */ def.id : "", [def]);
-  return id;
-};
-
-/** @internal */
-export function useActiveFrontstageDef() {
-  const [def, setDef] = React.useState(FrontstageManager.activeFrontstageDef);
-  React.useEffect(() => {
-    // istanbul ignore next
-    const handleActivated = (args: FrontstageActivatedEventArgs) => {
-      setDef(args.activatedFrontstageDef);
-    };
-    FrontstageManager.onFrontstageActivatedEvent.addListener(handleActivated);
-    return () => {
-      FrontstageManager.onFrontstageActivatedEvent.removeListener(handleActivated);
-    };
-  }, []);
-  return def;
-}
-
-/** Hook that returns the widgetDef for a specific widgetId within the active frontstage.
- * @public
- */
-export function useSpecificWidgetDef(widgetId: string) {
-  const frontstageDef = useActiveFrontstageDef();
-  return frontstageDef?.findWidgetDef(widgetId);
 }

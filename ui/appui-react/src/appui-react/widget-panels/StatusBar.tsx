@@ -11,9 +11,9 @@ import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "@itwin/core-react";
 import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
-import { useActiveFrontstageDef } from "../frontstage/Frontstage";
 import { StatusBar } from "../statusbar/StatusBar";
 import { StatusBarWidgetControl } from "../statusbar/StatusBarWidgetControl";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
 /** @internal */
 export function WidgetPanelsStatusBar(props: CommonProps) {

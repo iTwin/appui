@@ -10,8 +10,8 @@ import "./ToolSettings.scss";
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
 import { DockedToolSetting, DockedToolSettings, ScrollableWidgetContent, ToolSettingsStateContext } from "@itwin/appui-layout-react";
-import { useActiveFrontstageDef } from "../frontstage/Frontstage";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
 /** Defines a ToolSettings property entry.
  * @public

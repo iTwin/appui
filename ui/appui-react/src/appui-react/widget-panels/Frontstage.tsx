@@ -22,8 +22,7 @@ import {
   isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, NineZone, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, NineZoneStateReducer, PanelSide,
   panelSides, removeTab, removeTabFromWidget, TabState, toolSettingsTabId, WidgetPanels,
 } from "@itwin/appui-layout-react";
-import { useActiveFrontstageDef } from "../frontstage/Frontstage";
-import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs } from "../frontstage/FrontstageDef";
+import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs, useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { StagePanelMaxSizeSpec } from "../stagepanels/StagePanel";
 import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";

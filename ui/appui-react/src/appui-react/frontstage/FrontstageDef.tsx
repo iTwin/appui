@@ -27,7 +27,7 @@ import { UiFramework } from "../UiFramework";
 import { WidgetControl } from "../widgets/WidgetControl";
 import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
 import { FrontstageProps } from "./Frontstage";
-import { FrontstageManager } from "./FrontstageManager";
+import { FrontstageActivatedEventArgs, FrontstageManager } from "./FrontstageManager";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import { ChildWindowLocationProps } from "../childwindow/ChildWindowManager";
@@ -997,4 +997,38 @@ function getStagePanel(location: StagePanelLocation, props: FrontstageProps) {
 
   // Panels can be undefined in a Frontstage
   return panelElement;
+}
+
+
+/** Hook that returns active frontstage id.
+ * @public
+ */
+export const useActiveFrontstageId = () => {
+  const def = useActiveFrontstageDef();
+  const id = React.useMemo(() => def ? /* istanbul ignore next */ def.id : "", [def]);
+  return id;
+};
+
+/** @internal */
+export function useActiveFrontstageDef() {
+  const [def, setDef] = React.useState(FrontstageManager.activeFrontstageDef);
+  React.useEffect(() => {
+    // istanbul ignore next
+    const handleActivated = (args: FrontstageActivatedEventArgs) => {
+      setDef(args.activatedFrontstageDef);
+    };
+    FrontstageManager.onFrontstageActivatedEvent.addListener(handleActivated);
+    return () => {
+      FrontstageManager.onFrontstageActivatedEvent.removeListener(handleActivated);
+    };
+  }, []);
+  return def;
+}
+
+/** Hook that returns the widgetDef for a specific widgetId within the active frontstage.
+ * @public
+ */
+export function useSpecificWidgetDef(widgetId: string) {
+  const frontstageDef = useActiveFrontstageDef();
+  return frontstageDef?.findWidgetDef(widgetId);
 }

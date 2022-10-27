@@ -5,12 +5,13 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import produce from "immer";
-import { MockRender } from "@itwin/core-frontend";
-import { CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, StagePanelDef, StagePanelState, WidgetDef } from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
+import { renderHook } from "@testing-library/react-hooks";
 import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager, UiItemsProvider, WidgetState } from "@itwin/appui-abstract";
 import { addFloatingWidget, addPanelWidget, addPopoutWidget, addTab, createNineZoneState } from "@itwin/appui-layout-react";
+import { MockRender } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
+import { CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, StagePanelDef, StagePanelState, useSpecificWidgetDef, WidgetDef } from "../../appui-react";
+import TestUtils, { storageMock } from "../TestUtils";
 
 describe("FrontstageDef", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(window, "localStorage")!;
@@ -618,5 +619,25 @@ describe("float and dock widget", () => {
     panelDef.initializeFromProps({ resizable: true, size: 300 });
 
     expect(frontstageDef.getPanelCurrentState(panelDef)).to.have.ordered.members([StagePanelState.Open, 300]);
+  });
+});
+
+describe("useSpecificWidgetDef", () => {
+  it("should return widgetDef from active frontstage", () => {
+    const frontstageDef = new FrontstageDef();
+    const widgetDef = new WidgetDef({});
+    sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
+    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+
+    const { result } = renderHook(() => useSpecificWidgetDef("t1"));
+
+    expect(result.current).to.be.eq(widgetDef);
+  });
+
+  it("should handle no active frontstage", () => {
+    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
+    const { result } = renderHook(() => useSpecificWidgetDef("t1"));
+
+    expect(result.current).to.be.undefined;
   });
 });

@@ -8,14 +8,13 @@ import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
 import {
-  FrontstageDef, FrontstageManager, useSpecificWidgetDef, WidgetDef,
+  FrontstageManager,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { TestFrontstage } from "./FrontstageTestUtils";
-import { renderHook } from "@testing-library/react-hooks";
 import { assert } from "@itwin/core-bentley";
 
-describe("Frontstage", () => {
+describe("FrontstageManager", () => {
   before(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
@@ -54,25 +53,5 @@ describe("Frontstage", () => {
     FrontstageManager.addFrontstageProvider(newFrontstageProvider);
     const newFrontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
     expect(newFrontstageDef).to.not.eql(frontstageDef);
-  });
-});
-
-describe("useSpecificWidgetDef", () => {
-  it("should return widgetDef from active frontstage", () => {
-    const frontstageDef = new FrontstageDef();
-    const widgetDef = new WidgetDef({});
-    sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
-
-    const { result } = renderHook(() => useSpecificWidgetDef("t1"));
-
-    expect(result.current).to.be.eq(widgetDef);
-  });
-
-  it("should handle no active frontstage", () => {
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
-    const { result } = renderHook(() => useSpecificWidgetDef("t1"));
-
-    expect(result.current).to.be.undefined;
   });
 });
