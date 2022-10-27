@@ -10,7 +10,7 @@ import classnames from "classnames";
 import * as React from "react";
 import {
   AbstractStatusBarActionItem, AbstractStatusBarLabelItem, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue,
-  isAbstractStatusBarActionItem, isAbstractStatusBarLabelItem, StatusBarItemsManager, StatusBarLabelSide, StatusBarSection, UiSyncEventArgs,
+  isAbstractStatusBarActionItem, isAbstractStatusBarLabelItem, StatusBarItemsManager, StatusBarSection, UiSyncEventArgs,
 } from "@itwin/appui-abstract";
 import { CommonProps, useRefs, useResizeObserver } from "@itwin/core-react";
 import { eqlOverflown } from "@itwin/appui-layout-react";
@@ -21,7 +21,7 @@ import { StatusBarCenterSection, StatusBarLeftSection, StatusBarRightSection, St
 import { isStatusBarItem } from "./StatusBarItem";
 import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems";
 import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems";
-import { FooterLabelIndicator } from "../statusfields/LabelIndicator";
+import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 
 /** Private  function to generate a value that will allow the proper order to be maintained when items are placed in overflow panel */
 function getCombinedSectionItemPriority(item: CommonStatusBarItem) {
@@ -133,7 +133,7 @@ function useStatusBarItemSyncEffect(itemsManager: StatusBarItemsManager, syncIds
 function generateActionStatusLabelItem(item: AbstractStatusBarLabelItem): React.ReactNode {
   const label = ConditionalStringValue.getValue(item.label);
   return (
-    <FooterLabelIndicator
+    <StatusBarLabelIndicator
       iconSpec={item.icon}
       label={label}
     />
@@ -144,7 +144,7 @@ function generateActionStatusLabelItem(item: AbstractStatusBarLabelItem): React.
 function generateActionStatusBarItem(item: AbstractStatusBarActionItem): React.ReactNode {
   const title = ConditionalStringValue.getValue(item.tooltip);
   return (
-    <FooterLabelIndicator
+    <StatusBarLabelIndicator
       title={title}
       onClick={item.execute}
       iconSpec={item.icon}

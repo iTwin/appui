@@ -26,24 +26,22 @@ export interface TitleBarButtonProps extends CommonProps {
 /** Button used in [[TitleBar]] component.
  * @internal
  */
-export class TitleBarButton extends React.PureComponent<TitleBarButtonProps> {
-  public override render() {
-    const className = classnames(
-      "nz-footer-dialog-button",
-      this.props.className);
+export function TitleBarButton(props: TitleBarButtonProps) {
+  const className = classnames(
+    "nz-footer-dialog-button",
+    props.className);
 
-    return (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <div
-        className={className}
-        onClick={this.props.onClick}
-        style={this.props.style}
-        title={this.props.title}
-        role="button"
-        tabIndex={-1}
-      >
-        {this.props.children}
-      </div>
-    );
-  }
+  return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <div
+      className={className}
+      onClick={props.onClick}
+      style={props.style}
+      title={props.title}
+      role="button"
+      tabIndex={-1}
+    >
+      {props.children}
+    </div>
+  );
 }

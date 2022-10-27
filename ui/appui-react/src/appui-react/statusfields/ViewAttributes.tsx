@@ -10,11 +10,11 @@ import "./ViewAttributes.scss";
 import * as React from "react";
 import { ViewFlagProps, ViewFlags } from "@itwin/core-common";
 import { IModelApp } from "@itwin/core-frontend";
-import { Dialog, TitleBar } from "@itwin/appui-layout-react";
 import { Checkbox } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import { CommonProps } from "@itwin/core-react";
-import { FooterLabelIndicator } from "./LabelIndicator";
+import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
+import { StatusBarDialog } from "../statusbar/dialog/Dialog";
 
 interface ViewAttributesStatusFieldState {
   viewFlags: ViewFlagProps;
@@ -106,19 +106,16 @@ export class ViewAttributesStatusField extends React.Component<CommonProps, View
 
   public override render() {
     return (
-      <>
-        <FooterLabelIndicator
-          iconSpec="icon-window-settings"
-          title={this._title}
-          popup={<Dialog
-            titleBar={
-              <TitleBar title={this._title} />
-            }>
-            {this.getViewFlags()}
-          </Dialog>}
-        />
-      </>
+      <StatusBarLabelIndicator
+        iconSpec="icon-window-settings"
+        title={this._title}
+        popup={<StatusBarDialog
+          titleBar={
+            <StatusBarDialog.TitleBar title={this._title} />
+          }>
+          {this.getViewFlags()}
+        </StatusBarDialog>}
+      />
     );
   }
-
 }

@@ -158,6 +158,9 @@ export * from "./appui-react/shared/ToolItemDef";
 export * from "./appui-react/stagepanels/StagePanel";
 export * from "./appui-react/stagepanels/StagePanelDef";
 
+export * from "./appui-react/statusbar/dialog/Dialog";
+export * from "./appui-react/statusbar/Indicator";
+export * from "./appui-react/statusbar/LabelIndicator";
 export * from "./appui-react/statusbar/StatusBar";
 export * from "./appui-react/statusbar/StatusBarWidgetControl";
 export * from "./appui-react/statusbar/StatusBarComposer";
@@ -170,8 +173,6 @@ export * from "./appui-react/statusbar/useDefaultStatusBarItems";
 
 export * from "./appui-react/statusfields/tileloading/TileLoadingIndicator";
 export * from "./appui-react/statusfields/ActivityCenter";
-export * from "./appui-react/statusfields/Indicator";
-export * from "./appui-react/statusfields/LabelIndicator";
 export * from "./appui-react/statusfields/MessageCenter";
 export * from "./appui-react/statusfields/SectionsField";
 export * from "./appui-react/statusfields/SelectionInfo";

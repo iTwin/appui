@@ -22,9 +22,8 @@ import {
 import { Dialog, FillCentered, ReactMessage, SvgPath, SvgSprite, UnderlinedButton } from "@itwin/core-react";
 import {
   BackstageManager, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager, FooterSeparator, FrontstageManager,
-  IModelViewportControl, Indicator, MessageManager, ModalDialogManager, ReactNotifyMessageDetails, StatusBarItemUtilities, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef,
+  IModelViewportControl, MessageManager, ModalDialogManager, ReactNotifyMessageDetails, StatusBarDialog, StatusBarItemUtilities, StatusBarLabelIndicator, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef,
 } from "@itwin/appui-react";
-import { Dialog as NZ_Dialog, TitleBar } from "@itwin/appui-layout-react";
 import { SampleAppIModelApp } from "../";
 import { AppUi } from "../appui/AppUi";
 import { TestMessageBox } from "../appui/dialogs/TestMessageBox";
@@ -124,20 +123,24 @@ class AppItemsProvider implements UiItemsProvider {
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusSeparatorId, StatusBarSection.Left, 11, <FooterSeparator />, { isHidden: isHiddenCondition }));
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusFieldId, StatusBarSection.Left, 12, <SampleStatusField />, { isHidden: isHiddenCondition }));
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusField2Id, StatusBarSection.Left, 13,
-      <Indicator
+      <StatusBarLabelIndicator
         iconSpec="icon-app-1"
-        dialog={<TestStatusBarDialog />}
-        toolTip="Middle"
+        popup={<TestStatusBarDialog />}
+        title="Middle"
       />, { isHidden: isHiddenCondition }));
 
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusField3Id, StatusBarSection.Left, 14,
-      <Indicator
+      <StatusBarLabelIndicator
         iconSpec="icon-app-2"
-        dialog={<NZ_Dialog titleBar={<TitleBar title="Right Test" />}>
-          <TestStatusBarDialog />
-        </NZ_Dialog>}
+        popup={
+          <StatusBarDialog
+            titleBar={<StatusBarDialog.TitleBar title="Right Test" />}
+          >
+            <TestStatusBarDialog />
+          </StatusBarDialog>
+        }
         label="Right"
-        toolTip="Right Test"
+        title="Right Test"
         labelSide={StatusBarLabelSide.Right}
       />, { isHidden: isHiddenCondition }));
     return statusBarItems;

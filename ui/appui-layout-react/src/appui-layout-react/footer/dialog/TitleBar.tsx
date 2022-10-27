@@ -24,22 +24,20 @@ export interface TitleBarProps extends CommonProps {
 /** Title bar of [[Dialog]] component.
  * @internal
  */
-export class TitleBar extends React.PureComponent<TitleBarProps> {
-  public override render() {
-    const className = classnames(
-      "nz-footer-dialog-titleBar",
-      this.props.className);
+export function TitleBar(props: TitleBarProps) {
+  const className = classnames(
+    "nz-footer-dialog-titleBar",
+    props.className);
 
-    return (
-      <div
-        className={className}
-        style={this.props.style}
-      >
-        <span className="nz-title">
-          {this.props.title}
-        </span>
-        {this.props.children}
-      </div>
-    );
-  }
+  return (
+    <div
+      className={className}
+      style={props.style}
+    >
+      <span className="nz-title">
+        {props.title}
+      </span>
+      {props.children}
+    </div>
+  );
 }

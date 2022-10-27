@@ -13,9 +13,10 @@ import { Snap, SnapModePanel } from "@itwin/appui-layout-react";
 import { ConfigurableUiActions } from "../configurableui/state";
 import { UiFramework } from "../UiFramework";
 import { CommonProps } from "@itwin/core-react";
-import { FooterLabelIndicator } from "./LabelIndicator";
+import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 
 // cSpell:ignore multione
+
 /** Defines properties supported by the SnapMode Field Component.
  */
 interface SnapModeFieldProps extends CommonProps {
@@ -77,7 +78,7 @@ class SnapModeFieldComponent extends React.Component<SnapModeFieldProps, SnapMod
   public override render(): React.ReactNode {
     return (
       <>
-        <FooterLabelIndicator
+        <StatusBarLabelIndicator
           iconSpec={`icon-${this.getSnapModeIconNameFromMode(this.props.snapMode)}`}
           title={this._title}
           label={this._title}

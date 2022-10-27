@@ -15,7 +15,7 @@ import { CommonProps } from "@itwin/core-react";
 import { Button, ToggleSwitch } from "@itwin/itwinui-react";
 import { useActiveViewport } from "../hooks/useActiveViewport";
 import { UiFramework } from "../UiFramework";
-import { FooterLabelIndicator } from "./LabelIndicator";
+import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 
 /** Sections Status Field Props
  * @beta
@@ -80,7 +80,8 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
       {showIndicator &&
         <>
           <div ref={targetDiv} title={toolTip}>
-            <FooterLabelIndicator className={classes}
+            <StatusBarLabelIndicator
+              className={classes}
               iconSpec="icon-section-tool"
               onClick={() => setPopupOpen(!isPopupOpen)}
             />

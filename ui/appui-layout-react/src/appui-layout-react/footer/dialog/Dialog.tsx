@@ -25,24 +25,22 @@ export interface DialogProps extends CommonProps {
  * @note See [[MessageCenter]], [[ToolAssistance]]
  * @internal
  */
-export class Dialog extends React.PureComponent<DialogProps> {
-  public override render() {
-    const className = classnames(
-      "nz-footer-dialog-dialog",
-      this.props.className);
+export function Dialog(props: DialogProps) {
+  const className = classnames(
+    "nz-footer-dialog-dialog",
+    props.className);
 
-    return (
-      <div
-        className={className}
-        style={this.props.style}
-      >
-        <div>
-          {this.props.titleBar}
-        </div>
-        <div>
-          {this.props.children}
-        </div>
+  return (
+    <div
+      className={className}
+      style={props.style}
+    >
+      <div>
+        {props.titleBar}
       </div>
-    );
-  }
+      <div>
+        {props.children}
+      </div>
+    </div>
+  );
 }
