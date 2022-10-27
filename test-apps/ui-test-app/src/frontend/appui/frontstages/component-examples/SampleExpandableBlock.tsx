@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { SpecialKey } from "@itwin/appui-abstract";
 import { ExpandableBlock, ExpandableBlockProps } from "@itwin/itwinui-react";
 
 /** Sample component using ExpandableBlock with an expanded state  */
@@ -15,7 +14,7 @@ export const SampleExpandableBlock: React.FC<ExpandableBlockProps> = (props: Exp
   const handleClick = React.useCallback((_isExpanding: boolean): void => {
     setExpanded(!expanded);
 
-  }, [expanded, props]);
+  }, [expanded]);
 
   return (
     // eslint-disable-next-line deprecation/deprecation

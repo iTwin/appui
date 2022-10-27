@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
+import { RelativePosition } from "@itwin/appui-abstract";
 import { fireEvent, render, RenderResult, screen, waitFor } from "@testing-library/react";
 import { Popup } from "../../core-react";
 import { classesFromElement } from "../TestUtils";

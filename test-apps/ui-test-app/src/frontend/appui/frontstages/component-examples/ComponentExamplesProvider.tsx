@@ -5,7 +5,7 @@
 /* eslint-disable deprecation/deprecation */
 
 import * as React from "react";
-import { BeDuration, Logger } from "@itwin/core-bentley";
+import { BeDuration } from "@itwin/core-bentley";
 import moreSvg from "@bentley/icons-generic/icons/more-circular.svg?sprite";
 import moreVerticalSvg from "@bentley/icons-generic/icons/more-vertical-circular.svg?sprite";
 import moreWebSvg from "@bentley/icons-generic/icons/more-circular.svg";
@@ -25,12 +25,13 @@ import {
   QuantityInput, QuantityNumberInput, WeightPickerButton,
 } from "@itwin/imodel-components-react";
 import {
-  Checkbox
+  Checkbox,
+  ExpandableBlock,
 } from "@itwin/itwinui-react";
 import {
   AutoSuggest,
   AutoSuggestData,
-  BetaBadge, BlockText, BodyText,  CheckListBox, CheckListBoxItem, CheckListBoxSeparator, ContextMenuItem,
+  BetaBadge, BlockText, BodyText,  CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
   DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalAlignment, HorizontalTabs, Icon, IconInput, Input, InputStatus, LabeledInput,
   LabeledSelect, LabeledTextarea, LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ProgressBar, ProgressSpinner, Radio, ReactMessage,
@@ -38,7 +39,6 @@ import {
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
-import { SampleAppIModelApp } from "../../..";
 import { ComponentExampleCategory, ComponentExampleProps } from "./ComponentExamples";
 import { SampleContextMenu } from "./SampleContextMenu";
 import { SampleExpandableBlock } from "./SampleExpandableBlock";
@@ -46,7 +46,6 @@ import { SampleImageCheckBox } from "./SampleImageCheckBox";
 import { ButtonWithContextMenu, ButtonWithDropdownMenu, ContextMenuInPopup, DropdownMenuInPopup, GlobalContextMenuInPopup, GlobalItwinContextMenuInPopup, PopupContextMenuInPopup, SamplePopupContextMenu } from "./SamplePopupContextMenu";
 import { FormatPopupButton } from "./FormatPopupButton";
 import { AccudrawSettingsPageComponent } from "../Settings";
-import { ExpandableBlock } from "@itwin/itwinui-react";
 import { TableExampleContent } from "../../contentviews/TableExampleContent";
 import { CurrentDateMarkedCustomIconSampleTimeline, CurrentDateMarkedSampleTimeline, ItemsAppendedSampleTimeline, ItemsPrefixedSampleTimeline, ItemsReplacedSampleTimeline, LocalizedTimeSampleTimeline, NoLocalizedTimeSampleTimeline, NoRepeatSampleTimeline } from "./SampleTimelineComponent";
 function DualColorPickers() {
