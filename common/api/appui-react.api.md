@@ -153,7 +153,6 @@ import { TreeSelectionReplacementEventArgs } from '@itwin/components-react';
 import { UiAdmin } from '@itwin/appui-abstract';
 import { UiDataProvider } from '@itwin/appui-abstract';
 import { UiEvent } from '@itwin/appui-abstract';
-import { UiEvent as UiEvent_2 } from '@itwin/core-react';
 import { UiItemsProvider } from '@itwin/appui-abstract';
 import { UiLayoutDataProvider } from '@itwin/appui-abstract';
 import { UiStateEntry } from '@itwin/core-react';
@@ -2093,7 +2092,7 @@ export class Frontstage extends React_2.Component<FrontstageProps> {
 export const FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings";
 
 // @public
-export class FrontstageActivatedEvent extends UiEvent_2<FrontstageActivatedEventArgs> {
+export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {
 }
 
 // @public
@@ -2105,7 +2104,7 @@ export interface FrontstageActivatedEventArgs {
 }
 
 // @public
-export class FrontstageDeactivatedEvent extends UiEvent_2<FrontstageDeactivatedEventArgs> {
+export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {
 }
 
 // @public
@@ -2302,10 +2301,10 @@ export class FrontstageManager {
     static readonly onFrontstageActivatedEvent: FrontstageActivatedEvent;
     static readonly onFrontstageDeactivatedEvent: FrontstageDeactivatedEvent;
     // @internal (undocumented)
-    static readonly onFrontstageNineZoneStateChangedEvent: UiEvent_2<FrontstageNineZoneStateChangedEventArgs>;
+    static readonly onFrontstageNineZoneStateChangedEvent: UiEvent<FrontstageNineZoneStateChangedEventArgs>;
     static readonly onFrontstageReadyEvent: FrontstageReadyEvent;
     // @internal (undocumented)
-    static readonly onFrontstageRestoreLayoutEvent: UiEvent_2<FrontstageEventArgs>;
+    static readonly onFrontstageRestoreLayoutEvent: UiEvent<FrontstageEventArgs>;
     static readonly onModalFrontstageChangedEvent: ModalFrontstageChangedEvent;
     static readonly onModalFrontstageClosedEvent: ModalFrontstageClosedEvent;
     static readonly onNavigationAidActivatedEvent: NavigationAidActivatedEvent;
@@ -2316,16 +2315,16 @@ export class FrontstageManager {
     static readonly onToolActivatedEvent: ToolActivatedEvent;
     static readonly onToolIconChangedEvent: ToolIconChangedEvent;
     // @internal
-    static readonly onToolPanelOpenedEvent: UiEvent_2<void>;
-    static readonly onToolSettingsReloadEvent: UiEvent_2<void>;
+    static readonly onToolPanelOpenedEvent: UiEvent<void>;
+    static readonly onToolSettingsReloadEvent: UiEvent<void>;
     // @internal (undocumented)
-    static readonly onWidgetDefsUpdatedEvent: UiEvent_2<void>;
+    static readonly onWidgetDefsUpdatedEvent: UiEvent<void>;
     // @internal (undocumented)
-    static readonly onWidgetExpandEvent: UiEvent_2<WidgetEventArgs>;
+    static readonly onWidgetExpandEvent: UiEvent<WidgetEventArgs>;
     // @internal (undocumented)
-    static readonly onWidgetLabelChangedEvent: UiEvent_2<WidgetChangedEventArgs>;
+    static readonly onWidgetLabelChangedEvent: UiEvent<WidgetChangedEventArgs>;
     // @internal (undocumented)
-    static readonly onWidgetShowEvent: UiEvent_2<WidgetEventArgs>;
+    static readonly onWidgetShowEvent: UiEvent<WidgetEventArgs>;
     static readonly onWidgetStateChangedEvent: WidgetStateChangedEvent;
     static openModalFrontstage(modalFrontstage: ModalFrontstageInfo): void;
     static openNestedFrontstage(nestedFrontstage: FrontstageDef): Promise<void>;
@@ -2394,7 +2393,7 @@ export abstract class FrontstageProvider {
 }
 
 // @public
-export class FrontstageReadyEvent extends UiEvent_2<FrontstageReadyEventArgs> {
+export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {
 }
 
 // @public
@@ -3274,7 +3273,7 @@ export class ModalFrontstage extends React_2.Component<ModalFrontstageProps> {
 }
 
 // @public
-export class ModalFrontstageChangedEvent extends UiEvent_2<ModalFrontstageChangedEventArgs> {
+export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {
 }
 
 // @public
@@ -3284,7 +3283,7 @@ export interface ModalFrontstageChangedEventArgs {
 }
 
 // @public
-export class ModalFrontstageClosedEvent extends UiEvent_2<ModalFrontstageClosedEventArgs> {
+export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {
 }
 
 // @public
@@ -3323,7 +3322,7 @@ export interface ModalFrontstageProps extends CommonProps {
 }
 
 // @alpha
-export class ModalFrontstageRequestedCloseEvent extends UiEvent_2<ModalFrontstageRequestedCloseEventArgs> {
+export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {
 }
 
 // @alpha
@@ -4917,7 +4916,7 @@ export class Task extends ItemDefBase {
 }
 
 // @internal @deprecated
-export class TaskActivatedEvent extends UiEvent_2<TaskActivatedEventArgs> {
+export class TaskActivatedEvent extends UiEvent<TaskActivatedEventArgs> {
 }
 
 // @internal @deprecated
@@ -4994,7 +4993,7 @@ export interface ToastMessageProps {
 export function toggleAllCategories(viewManager: ViewManager, imodel: IModelConnection, display: boolean, viewport?: Viewport, forAllViewports?: boolean, filteredProvider?: IPresentationTreeDataProvider): Promise<void>;
 
 // @public
-export class ToolActivatedEvent extends UiEvent_2<ToolActivatedEventArgs> {
+export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {
 }
 
 // @public
@@ -5109,7 +5108,7 @@ export interface ToolbarWidgetProps extends WidgetProps {
 export const ToolGroupPanelContext: React_2.Context<boolean>;
 
 // @public
-export class ToolIconChangedEvent extends UiEvent_2<ToolIconChangedEventArgs> {
+export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {
 }
 
 // @public
@@ -6129,7 +6128,7 @@ export class Workflow extends ItemDefBase {
 }
 
 // @internal @deprecated
-export class WorkflowActivatedEvent extends UiEvent_2<WorkflowActivatedEventArgs> {
+export class WorkflowActivatedEvent extends UiEvent<WorkflowActivatedEventArgs> {
 }
 
 // @internal @deprecated
