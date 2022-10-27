@@ -6,8 +6,6 @@
  * @module Frontstage
  */
 
-import * as React from "react";
-
 import { WidgetProps } from "../widgets/WidgetProps";
 import { StagePanelState as StagePanelState } from "./StagePanelDef";
 
@@ -55,7 +53,7 @@ export interface PanelSectionsProps {
  */
 export type StagePanelMaxSizeSpec = number | { percentage: number };
 
-/** Properties of a [[StagePanel]] component
+/** Properties of a StagePanel.
  * @public
  */
 export interface StagePanelProps {

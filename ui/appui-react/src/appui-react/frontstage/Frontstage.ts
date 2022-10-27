@@ -12,7 +12,7 @@ import { ToolItemDef } from "../shared/ToolItemDef";
 import { StagePanelProps } from "../stagepanels/StagePanel";
 import { WidgetProps } from "../widgets/WidgetProps";
 
-/** Properties for a [[Frontstage]] component.
+/** Properties of a Frontstage.
  * @public
  */
 export interface FrontstageProps extends CommonProps {

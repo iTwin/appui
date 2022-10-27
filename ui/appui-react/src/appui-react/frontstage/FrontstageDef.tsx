@@ -999,7 +999,6 @@ function getStagePanel(location: StagePanelLocation, props: FrontstageProps) {
   return panelElement;
 }
 
-
 /** Hook that returns active frontstage id.
  * @public
  */

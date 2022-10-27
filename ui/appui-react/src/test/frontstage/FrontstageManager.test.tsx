@@ -8,7 +8,7 @@ import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
-import { assert, Logger } from "@itwin/core-bentley";
+import { Logger } from "@itwin/core-bentley";
 import { WidgetState } from "@itwin/appui-abstract";
 import { Size } from "@itwin/core-react";
 import { IModelApp, IModelConnection, MockRender, ScreenViewport, SpatialViewState } from "@itwin/core-frontend";
@@ -183,7 +183,6 @@ describe("FrontstageManager", () => {
   it("findWidget returns undefined on invalid id", () => {
     expect(FrontstageManager.findWidget("xyz")).to.be.undefined;
   });
-
 
   it("FrontstageProvider supplies valid Frontstage", async () => {
     const frontstageProvider = new TestFrontstage();
