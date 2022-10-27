@@ -74,17 +74,14 @@ export class WidgetHost {
     allStageWidgetDefs.push(...uniqueWidgets);
 
     let dynamicWidgetDefs: readonly WidgetDef[] | undefined;
-
-    if (undefined !== section) {
-      switch (section) {
-        case StagePanelSection.Start: {
-          dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start, frontstageApplicationData) ?? [];
-          break;
-        }
-        case StagePanelSection.End: {
-          dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, frontstageApplicationData) ?? [];
-          break;
-        }
+    switch (section) {
+      case StagePanelSection.Start: {
+        dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start, frontstageApplicationData) ?? [];
+        break;
+      }
+      case StagePanelSection.End: {
+        dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, frontstageApplicationData) ?? [];
+        break;
       }
     }
 
