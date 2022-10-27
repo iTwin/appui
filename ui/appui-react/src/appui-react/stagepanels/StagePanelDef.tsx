@@ -199,12 +199,7 @@ export class StagePanelDef extends WidgetHost {
 
   /** Gets the list of Widgets. */
   public override get widgetDefs(): ReadonlyArray<WidgetDef> {
-    const widgetDefs = [...super.widgetDefs];
-    const sections = [this._start, this._end];
-    for (const section of sections) {
-      widgetDefs.push(...section.widgetDefs);
-    }
-    return widgetDefs;
+    return [...super.widgetDefs, ...this._start.widgetDefs, ...this._end.widgetDefs];
   }
 
   /** @internal */
