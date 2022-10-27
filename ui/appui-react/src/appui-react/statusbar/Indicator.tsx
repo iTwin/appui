@@ -10,12 +10,12 @@ import "./Indicator.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "@itwin/core-react";
-import { FooterIndicator as FooterIndicatorComponent, FooterPopup } from "@itwin/appui-layout-react";
+import { FooterIndicator, FooterPopup } from "@itwin/appui-layout-react";
 
-/** Properties of [[FooterIndicator]] component.
+/** Properties of [[StatusBarIndicator]] component.
  * @beta
  */
-export interface FooterIndicatorProps extends CommonProps {
+export interface StatusBarIndicatorProps extends CommonProps {
   /** Indicator content. */
   children?: React.ReactNode;
   /** Content to display in a popup when indicator is clicked. */
@@ -31,7 +31,7 @@ export interface FooterIndicatorProps extends CommonProps {
 /** General-purpose [[StatusBar]] indicator.
  * @beta
  */
-export function FooterIndicator(props: FooterIndicatorProps) {
+export function StatusBarIndicator(props: StatusBarIndicatorProps) {
   const hasClickAction = !!props.onClick || !!props.popup;
   const [isOpen, setIsOpen] = React.useState(!!props.defaultIsOpen);
   const handleOnIndicatorClick = () => {
@@ -46,7 +46,7 @@ export function FooterIndicator(props: FooterIndicatorProps) {
   );
   return (
     <>
-      <FooterIndicatorComponent
+      <FooterIndicator
         ref={target}
         className={classNames}
         title={props.title}
@@ -58,7 +58,7 @@ export function FooterIndicator(props: FooterIndicatorProps) {
         }}
       >
         {props.children}
-      </FooterIndicatorComponent>
+      </FooterIndicator>
       {props.popup && <FooterPopup
         target={target.current}
         onClose={() => setIsOpen(false)}

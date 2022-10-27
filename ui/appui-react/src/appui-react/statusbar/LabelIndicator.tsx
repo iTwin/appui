@@ -9,14 +9,14 @@
 import "./LabelIndicator.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { FooterIndicator, FooterIndicatorProps } from "./Indicator";
+import { StatusBarIndicator, StatusBarIndicatorProps } from "./Indicator";
 import { Icon, IconSpec } from "@itwin/core-react";
 import { StatusBarLabelSide } from "@itwin/appui-abstract";
 
-/** Properties of [[FooterLabelIndicator]] component.
+/** Properties of [[StatusBarLabelIndicator]] component.
  * @beta
  */
-export interface FooterLabelIndicatorProps extends Omit<FooterIndicatorProps, "children"> {
+export interface StatusBarLabelIndicatorProps extends Omit<StatusBarIndicatorProps, "children"> {
   /** Specification of an icon. */
   iconSpec?: IconSpec;
   /** Indicator label. */
@@ -28,7 +28,7 @@ export interface FooterLabelIndicatorProps extends Omit<FooterIndicatorProps, "c
 /** [[StatusBar]] indicator that shows a label with an icon.
  * @beta
  */
-export function FooterLabelIndicator(props: FooterLabelIndicatorProps) {
+export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps) {
   const { className, iconSpec, label, labelSide, ...other } = props;
   const classNames = classnames(
     "uifw-statusfields-labelIndicator",
@@ -36,12 +36,12 @@ export function FooterLabelIndicator(props: FooterLabelIndicatorProps) {
     className,
   );
   return (
-    <FooterIndicator
+    <StatusBarIndicator
       className={classNames}
       {...other}
     >
       {label && <span className="uifw-label">{label}</span>}
       {iconSpec && <div className="uifw-icon"><Icon iconSpec={iconSpec} /></div>}
-    </FooterIndicator>
+    </StatusBarIndicator>
   );
 }
