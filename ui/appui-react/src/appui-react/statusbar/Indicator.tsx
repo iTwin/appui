@@ -40,7 +40,7 @@ export function StatusBarIndicator(props: StatusBarIndicatorProps) {
   };
   const target = React.useRef<HTMLDivElement>(null);
   const classNames = classnames(
-    "uifw-statusfields-indicator",
+    "uifw-statusbar-indicator",
     hasClickAction && "uifw-action",
     props.className,
   );

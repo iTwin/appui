@@ -31,7 +31,7 @@ export interface StatusBarLabelIndicatorProps extends Omit<StatusBarIndicatorPro
 export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps) {
   const { className, iconSpec, label, labelSide, ...other } = props;
   const classNames = classnames(
-    "uifw-statusfields-labelIndicator",
+    "uifw-statusbar-labelIndicator",
     labelSide === StatusBarLabelSide.Right && "uifw-reversed",
     className,
   );

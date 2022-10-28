@@ -62,7 +62,6 @@ describe("ModalSettingsStage", () => {
     FrontstageManager.openModalFrontstage(modalFrontstage);
 
     const wrapper = render(renderModalFrontstage(true));
-    // wrapper.debug();
     expect(wrapper.container.querySelectorAll("div.uifw-modal-frontstage").length).to.eq(1);
 
     const centeredDiv = wrapper.container.querySelectorAll("div.uicore-centered");
@@ -131,7 +130,6 @@ describe("ModalSettingsStage", () => {
     await TestUtils.flushAsyncOperations();
     const liPage2 = wrapper.container.querySelector(`li[data-for='page-2']`) as HTMLLIElement;
     expect(liPage2.classList.contains("core-active")).to.be.true;
-    // wrapper.debug();
 
     SettingsModalFrontstage.showSettingsStage("page-3");
     const liPage3 = wrapper.container.querySelector(`li[data-for='page-3']`) as HTMLLIElement;

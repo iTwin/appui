@@ -62,14 +62,13 @@ describe("SnapModeField", () => {
       <StatusBar widgetControl={widgetControl} />
     </Provider>);
 
-    const button = wrapper.container.querySelector(".uifw-footer-indicator");
+    const button = wrapper.container.querySelector(".uifw-statusbar-indicator");
     expect(button).not.to.be.null;
     fireEvent.click(button!);
 
-    const iconContainer = wrapper.container.querySelector(".uifw-indicator-icon");
+    const iconContainer = wrapper.container.querySelector(".uifw-icon");
     expect(iconContainer).not.to.be.null;
 
-    // wrapper.debug();
     const popup = wrapper.getByTestId("core-popup");
     const snaps = popup.querySelectorAll(".nz-footer-snapMode-snap");
     expect(snaps.length).to.eql(7);
@@ -97,7 +96,7 @@ describe("SnapModeField", () => {
     const wrapper = render(<Provider store={TestUtils.store}>
       <StatusBar widgetControl={widgetControl} />
     </Provider>);
-    const iconContainer = wrapper.container.querySelector(".uifw-indicator-icon");
+    const iconContainer = wrapper.container.querySelector(".uifw-icon");
     expect(iconContainer).not.to.be.null;
     expect(iconContainer!.querySelector(".icon-snaps-multione")).not.to.be.null;
   });
