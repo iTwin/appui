@@ -17,7 +17,7 @@ import { SafeAreaInsets, SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
  */
 export interface FooterProps extends CommonProps {
   /**
-   * Footer indicators and separators. I.e: [[FooterSeparator]], [[FooterIndicator]],
+   * Footer indicators, separators and status fields. I.e: [StatusBarSeparator]($appui-react), [[FooterIndicator]],
    * [[MessageCenter]], [[ToolAssistance]], [[SnapMode]]
    */
   children?: React.ReactNode;

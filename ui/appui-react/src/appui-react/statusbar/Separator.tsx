@@ -14,9 +14,9 @@ import { CommonProps } from "@itwin/core-react";
 /** Component used to separate status fields in a footer.
  * @public
  */
-export function FooterSeparator(props: CommonProps) {
+export function StatusBarSeparator(props: CommonProps) {
   const className = classnames(
-    "uifw-footer-separator",
+    "uifw-statusbar-separator",
     props.className
   );
   return (

@@ -21,8 +21,9 @@ import {
 } from "@itwin/appui-abstract";
 import { Dialog, FillCentered, ReactMessage, SvgPath, SvgSprite, UnderlinedButton } from "@itwin/core-react";
 import {
-  BackstageManager, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager, FooterSeparator, FrontstageManager,
-  IModelViewportControl, MessageManager, ModalDialogManager, ReactNotifyMessageDetails, StatusBarDialog, StatusBarItemUtilities, StatusBarLabelIndicator, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef,
+  BackstageManager, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager, FrontstageManager,
+  IModelViewportControl, MessageManager, ModalDialogManager, ReactNotifyMessageDetails, StatusBarDialog, StatusBarItemUtilities, StatusBarLabelIndicator,
+  StatusBarSeparator, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../";
 import { AppUi } from "../appui/AppUi";
@@ -120,7 +121,7 @@ class AppItemsProvider implements UiItemsProvider {
   public provideStatusBarItems(_stageId: string, _stageUsage: string): CommonStatusBarItem[] {
     const statusBarItems: CommonStatusBarItem[] = [];
     const isHiddenCondition = new ConditionalBooleanValue(() => !AppItemsProvider._sampleBackstageItemVisible, [AppItemsProvider.syncEventId]);
-    statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusSeparatorId, StatusBarSection.Left, 11, <FooterSeparator />, { isHidden: isHiddenCondition }));
+    statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusSeparatorId, StatusBarSection.Left, 11, <StatusBarSeparator />, { isHidden: isHiddenCondition }));
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusFieldId, StatusBarSection.Left, 12, <SampleStatusField />, { isHidden: isHiddenCondition }));
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusField2Id, StatusBarSection.Left, 13,
       <StatusBarLabelIndicator

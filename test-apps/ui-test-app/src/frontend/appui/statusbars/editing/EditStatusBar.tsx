@@ -6,8 +6,8 @@ import "./EditStatusBar.scss";
 import * as React from "react";
 import { StatusBarSection } from "@itwin/appui-abstract";
 import {
-  ActivityCenterField, ConfigurableUiManager, FooterSeparator, MessageCenterField, SectionsStatusField, SelectionInfoField,
-  SelectionScopeField, SnapModeField, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarWidgetControl,
+  ActivityCenterField, ConfigurableUiManager, MessageCenterField, SectionsStatusField, SelectionInfoField,
+  SelectionScopeField, SnapModeField, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarSeparator, StatusBarWidgetControl,
   TileLoadingIndicator, ToolAssistanceField, ViewAttributesStatusField,
 } from "@itwin/appui-react";
 import { DisplayStyleField } from "../../statusfields/DisplayStyleField";
@@ -20,9 +20,9 @@ export class EditStatusBarWidgetControl extends StatusBarWidgetControl {
     if (!this._statusBarItems) {
       this._statusBarItems = [
         StatusBarItemUtilities.createStatusBarItem("ToolAssistance", StatusBarSection.Left, 10, <ToolAssistanceField />),
-        StatusBarItemUtilities.createStatusBarItem("ToolAssistanceSeparator", StatusBarSection.Left, 15, (<FooterSeparator />)),
+        StatusBarItemUtilities.createStatusBarItem("ToolAssistanceSeparator", StatusBarSection.Left, 15, (<StatusBarSeparator />)),
         StatusBarItemUtilities.createStatusBarItem("MessageCenter", StatusBarSection.Left, 20, <MessageCenterField />),
-        StatusBarItemUtilities.createStatusBarItem("MessageCenterSeparator", StatusBarSection.Left, 25, (<FooterSeparator />)),
+        StatusBarItemUtilities.createStatusBarItem("MessageCenterSeparator", StatusBarSection.Left, 25, (<StatusBarSeparator />)),
         StatusBarItemUtilities.createStatusBarItem("DisplayStyle", StatusBarSection.Center, 10, <DisplayStyleField />),
         StatusBarItemUtilities.createStatusBarItem("ActivityCenter", StatusBarSection.Center, 20, <ActivityCenterField />),
         StatusBarItemUtilities.createStatusBarItem("PushPull", StatusBarSection.Center, 30, <PushPullStatusField />),

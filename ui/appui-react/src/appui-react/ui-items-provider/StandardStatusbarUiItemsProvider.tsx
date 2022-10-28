@@ -16,7 +16,7 @@ import { SnapModeField } from "../statusfields/SnapMode";
 import { SelectionInfoField } from "../statusfields/SelectionInfo";
 import { TileLoadingIndicator } from "../statusfields/tileloading/TileLoadingIndicator";
 import { SelectionScopeField } from "../statusfields/SelectionScope";
-import { FooterSeparator } from "../statusfields/Separator";
+import { StatusBarSeparator } from "../statusbar/Separator";
 
 /**
  * Defines what items to include from the provider. If any items are
@@ -53,12 +53,12 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
     // istanbul ignore else
     if (!this._defaultItems || this._defaultItems.toolAssistance) {
       if (!this._defaultItems || this._defaultItems.preToolAssistanceSeparator)
-        statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.PreToolAssistance", StatusBarSection.Left, 15, <FooterSeparator />));
+        statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.PreToolAssistance", StatusBarSection.Left, 15, <StatusBarSeparator />));
 
       statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.ToolAssistance", StatusBarSection.Left, 20, <ToolAssistanceField />));
 
       if (!this._defaultItems || this._defaultItems.postToolAssistanceSeparator)
-        statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.PostToolAssistance", StatusBarSection.Left, 25, <FooterSeparator />));
+        statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.PostToolAssistance", StatusBarSection.Left, 25, <StatusBarSeparator />));
     }
     // istanbul ignore else
     if (this._defaultItems?.activityCenter) {
