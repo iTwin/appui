@@ -24,6 +24,7 @@ export interface TitleBarButtonProps extends CommonProps {
 }
 
 /** Button used in [[TitleBar]] component.
+ * @note Use [StatusBarDialog.TitleBarButton]($appui-react) instead
  * @internal
  */
 export function TitleBarButton(props: TitleBarButtonProps) {

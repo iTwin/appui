@@ -23,6 +23,7 @@ export interface DialogProps extends CommonProps {
 
 /** Dialog used in footer indicators.
  * @note See [[MessageCenter]], [[ToolAssistance]]
+ * @note Use [StatusBarDialog]($appui-react) instead
  * @internal
  */
 export function Dialog(props: DialogProps) {

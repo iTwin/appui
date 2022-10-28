@@ -13,6 +13,7 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import { Popup, PopupProps } from "@itwin/core-react";
 
 /** Popup component used in [[Footer]] component.
+ * @note Use [StatusBarIndicator]($appui-react) instead
  * @internal
  */
 export function FooterPopup(props: Partial<PopupProps>) {

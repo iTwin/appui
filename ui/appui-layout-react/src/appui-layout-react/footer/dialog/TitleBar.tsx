@@ -22,6 +22,7 @@ export interface TitleBarProps extends CommonProps {
 }
 
 /** Title bar of [[Dialog]] component.
+ * @note Use [StatusBarDialog.TitleBar]($appui-react) instead
  * @internal
  */
 export function TitleBar(props: TitleBarProps) {
