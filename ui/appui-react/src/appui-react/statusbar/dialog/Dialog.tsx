@@ -29,8 +29,13 @@ export function StatusBarDialog(props: StatusBarDialogProps) {
   return <Dialog {...props} />;
 }
 
-/** Title bar of a [[StatusBarDialog]]. */
-StatusBarDialog.TitleBar = StatusBarDialogTitleBar;
+/** Components used in a [[StatusBarDialog]].
+ * @beta
+ */
+export namespace StatusBarDialog {
+  /** Title bar of a [[StatusBarDialog]]. */
+  export const TitleBar = StatusBarDialogTitleBar;
 
-/** Title bar button of a [[StatusBarDialog]]. */
-StatusBarDialog.TitleBarButton = StatusBarDialogTitleBarButton;
+  /** Title bar button of a [[StatusBarDialog]]. */
+  export const TitleBarButton = StatusBarDialogTitleBarButton;
+}
