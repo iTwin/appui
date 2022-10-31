@@ -91,7 +91,6 @@ export * from "./appui-react/imodel-components/VisibilityTreeRenderer";
 
 export * from "./appui-react/keyboardshortcut/KeyboardShortcut";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcutMenu";
-export * from "./appui-react/keyinbrowser/KeyinBrowser";
 
 export * from "./appui-react/messages/ActivityMessage";
 export * from "./appui-react/messages/ActivityMessagePopup";
