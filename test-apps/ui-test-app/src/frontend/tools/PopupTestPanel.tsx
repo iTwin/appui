@@ -10,11 +10,11 @@ import { SampleModelessDialog } from "../appui/dialogs/SampleModelessDialog";
 import { TestModalDialog } from "../appui/dialogs/TestModalDialog";
 
 import { SamplePopupContextMenu } from "../appui/frontstages/component-examples/SamplePopupContextMenu";
-import { TableExampleContent } from "../appui/contentviews/TableExampleContent";
 import "./PopupTestPanel.scss";
 import { AbstractToolbarProps, BadgeType, RelativePosition } from "@itwin/appui-abstract";
 import { WeightPickerHost } from "../appui/frontstages/component-examples/ComponentExamplesProvider";
 import { Button } from "@itwin/itwinui-react";
+import { TreeExampleContent } from "../appui/contentviews/TreeExampleContent";
 
 export function DatePickerHost(props: DatePickerPopupButtonProps) {
   const { onDateChange, selected, ...otherProp } = props;
@@ -70,7 +70,7 @@ export function PopupTestPanel() {
         <Button style={{ width: "180px" }} onClick={handleShowToolbarClick}>Open Toolbar</Button>
         <WeightPickerHost activeWeight={3} onLineWeightPick={() => { }} />
         {true && <div className="test-table-widget-container">
-          <TableExampleContent />
+          <TreeExampleContent />
         </div>}
       </div>
     </div>

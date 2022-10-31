@@ -136,12 +136,6 @@ export * from "./components-react/propertygrid/dataproviders/filterers/PropertyD
 export * from "./components-react/selectable-content/SelectableContent";
 
 export * from "./components-react/table/TableDataProvider";
-export * from "./components-react/table/SimpleTableDataProvider";
-export * from "./components-react/table/columnfiltering/ColumnFiltering";
-export * from "./components-react/table/columnfiltering/TableFilterDescriptorCollection";
-export * from "./components-react/table/component/Table";
-export * from "./components-react/table/component/TableCell";
-export * from "./components-react/table/component/TableColumn";
 
 // TODO: toolbar/groupPanel components needs a refactor.
 export * from "./components-react/toolbar/groupPanel/tool/Tool";

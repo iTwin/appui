@@ -15,10 +15,10 @@ import {
   ActivityMessageDetails, ActivityMessageEndReason, IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType, QuantityType,
 } from "@itwin/core-frontend";
 import { Format, FormatProps, FormatterSpec, FormatTraits, getTraitString, UnitProps, UnitsProvider } from "@itwin/core-quantity";
-import { DateFormatter, IconSpecUtilities, ParseResults, PropertyDescription, PropertyRecord, PropertyValue, PropertyValueFormat, RelativePosition, TimeDisplay } from "@itwin/appui-abstract";
+import { DateFormatter, IconSpecUtilities, ParseResults, RelativePosition, TimeDisplay } from "@itwin/appui-abstract";
 import {
-  adjustDateToTimezone, ColumnDescription, DatePickerPopupButton, DatePickerPopupButtonProps,
-  IntlFormatter, ParsedInput, Table, TableDataChangeEvent, TableDataProvider,
+  adjustDateToTimezone, DatePickerPopupButton, DatePickerPopupButtonProps,
+  IntlFormatter, ParsedInput,
 } from "@itwin/components-react";
 import {
   ColorPickerButton, ColorPickerDialog, ColorPickerPopup, ColorSwatch, LineWeightSwatch,
@@ -31,8 +31,8 @@ import {
 import {
   AutoSuggest,
   AutoSuggestData,
-  BetaBadge, BlockText, BodyText,  CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
-  DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalAlignment, HorizontalTabs, Icon, IconInput, Input, InputStatus, LabeledInput,
+  BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
+  DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput, Input, InputStatus, LabeledInput,
   LabeledSelect, LabeledTextarea, LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ProgressBar, ProgressSpinner, Radio, ReactMessage,
   SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Spinner, SpinnerSize, Subheading, Textarea, ThemedSelect, Tile, Title,
@@ -46,7 +46,6 @@ import { SampleImageCheckBox } from "./SampleImageCheckBox";
 import { ButtonWithContextMenu, ButtonWithDropdownMenu, ContextMenuInPopup, DropdownMenuInPopup, GlobalContextMenuInPopup, GlobalItwinContextMenuInPopup, PopupContextMenuInPopup, SamplePopupContextMenu } from "./SamplePopupContextMenu";
 import { FormatPopupButton } from "./FormatPopupButton";
 import { AccudrawSettingsPageComponent } from "../Settings";
-import { TableExampleContent } from "../../contentviews/TableExampleContent";
 import { CurrentDateMarkedCustomIconSampleTimeline, CurrentDateMarkedSampleTimeline, ItemsAppendedSampleTimeline, ItemsPrefixedSampleTimeline, ItemsReplacedSampleTimeline, LocalizedTimeSampleTimeline, NoLocalizedTimeSampleTimeline, NoRepeatSampleTimeline } from "./SampleTimelineComponent";
 function DualColorPickers() {
   const [colorDef, setColorDef] = React.useState(ColorDef.green);
@@ -675,73 +674,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get tableSamples(): ComponentExampleCategory {
-    const testRecord = (valueString: string): PropertyRecord => {
-      const value: PropertyValue = {
-        value: valueString,
-        displayValue: valueString,
-        valueFormat: PropertyValueFormat.Primitive,
-      };
-      const description: PropertyDescription = {
-        name: "1",
-        typename: "text",
-        displayLabel: "column",
-      };
-      return new PropertyRecord(value, description);
-    };
-
-    const rowData = [
-      {
-        key: "row1",
-        cells: [
-          { key: "1", record: testRecord("Cell 1-1 text") },
-          { key: "2", record: testRecord("Cell 1-2 text") },
-          { key: "3", record: testRecord("Cell 1-3 text") },
-          { key: "4", record: testRecord("Cell 1-4 text") }],
-      },
-      {
-        key: "row2",
-        cells: [
-          { key: "1", record: testRecord("Cell 2-1 text") },
-          { key: "2", record: testRecord("Text in the merged cells (2-2, 2-3)"), mergedCellsCount: 2, alignment: HorizontalAlignment.Center },
-          { key: "3", record: testRecord("") },
-          { key: "4", record: testRecord("Cell 2-4 text") }],
-      },
-      {
-        key: "row3",
-        cells: [
-          { key: "1", record: testRecord("Cell 3-1 text") },
-          { key: "2", record: testRecord("Cell 3-2 text") },
-          { key: "3", record: testRecord("Cell 3-3 text") },
-          { key: "4", record: testRecord("Cell 3-4 text") }],
-      },
-    ];
-    const onColumnsChanged = new TableDataChangeEvent();
-    const onRowsChanged = new TableDataChangeEvent();
-    const dataProvider: TableDataProvider = {
-      getColumns: async (): Promise<ColumnDescription[]> => [
-        { key: "1", label: "Column1", resizable: true },
-        { key: "2", label: "Column2", resizable: true },
-        { key: "3", label: "Column3", resizable: true },
-        { key: "4", label: "Column4", resizable: true }],
-      getRowsCount: async () => rowData.length,
-      getRow: async (index: number) => rowData[index],
-      sort: async () => { },
-      onColumnsChanged,
-      onRowsChanged,
-    };
-
-    return {
-      title: "Tables",
-      examples: [
-        createComponentExample("Basic Table", "Table with merged cells",
-          <div style={{ height: "115px", width: "100%" }}> <Table dataProvider={dataProvider} /></div>),
-        createComponentExample("Table w/options", "Table with filters and edit cells",
-          <div style={{ height: "360px", width: "100%" }}><TableExampleContent /></div>),
-      ],
-    };
-  }
-
   private static get inputsSamples(): ComponentExampleCategory {
     return {
       title: "Inputs",
@@ -1294,7 +1226,6 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.searchBoxSample,
       ComponentExamplesProvider.selectSamples,
       ComponentExamplesProvider.sliderSamples,
-      ComponentExamplesProvider.tableSamples,
       ComponentExamplesProvider.tabsSamples,
       ComponentExamplesProvider.textSamples,
       ComponentExamplesProvider.tileSamples,

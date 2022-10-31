@@ -27,7 +27,7 @@ class EditableSimpleTreeDataProvider extends SimpleTreeDataProvider implements E
   }
 }
 
-function TreeExampleContent() {
+export function TreeExampleContent() {
   const [selectionMode, setSelectionMode] = React.useState(SelectionMode.Single);
   const onChangeSelectionMode = React.useCallback((newValue: SelectionMode) => {
     setSelectionMode(newValue);

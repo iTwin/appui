@@ -95,4 +95,15 @@ describe("TypeConverter", () => {
     expect(converter.isNullableType).to.be.true;
   });
 
+  it("isNull", () => {
+    expect(converter.isNull(null as any)).to.be.true;
+    expect(converter.isNull(undefined as any)).to.be.true;
+    expect(converter.isNull("")).to.be.false;
+  });
+
+  it("isNotNull", () => {
+    expect(converter.isNotNull(null as any)).to.be.false;
+    expect(converter.isNotNull(undefined as any)).to.be.false;
+    expect(converter.isNotNull(0)).to.be.true;
+  });
 });
