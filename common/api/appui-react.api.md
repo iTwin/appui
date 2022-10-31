@@ -153,7 +153,6 @@ import { TreeSelectionReplacementEventArgs } from '@itwin/components-react';
 import { UiAdmin } from '@itwin/appui-abstract';
 import { UiDataProvider } from '@itwin/appui-abstract';
 import { UiEvent } from '@itwin/appui-abstract';
-import { UiEvent as UiEvent_2 } from '@itwin/core-react';
 import { UiItemsProvider } from '@itwin/appui-abstract';
 import { UiLayoutDataProvider } from '@itwin/appui-abstract';
 import { UiStateEntry } from '@itwin/core-react';
@@ -4816,7 +4815,7 @@ export class Task extends ItemDefBase {
 }
 
 // @internal @deprecated
-export class TaskActivatedEvent extends UiEvent_2<TaskActivatedEventArgs> {
+export class TaskActivatedEvent extends UiEvent<TaskActivatedEventArgs> {
 }
 
 // @internal @deprecated
@@ -6004,7 +6003,7 @@ export class Workflow extends ItemDefBase {
 }
 
 // @internal @deprecated
-export class WorkflowActivatedEvent extends UiEvent_2<WorkflowActivatedEventArgs> {
+export class WorkflowActivatedEvent extends UiEvent<WorkflowActivatedEventArgs> {
 }
 
 // @internal @deprecated

@@ -9,12 +9,12 @@
 import { ActionMeta } from 'react-select/src/types';
 import { BadgeType } from '@itwin/appui-abstract';
 import { BeUiEvent } from '@itwin/core-bentley';
-import { CheckboxProps as CheckboxProps_2 } from '@itwin/itwinui-react';
+import { CheckboxProps } from '@itwin/itwinui-react';
 import Component from 'react-select';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { default as default_2 } from 'resize-observer-polyfill';
-import { DialogButtonDef as DialogButtonDef_2 } from '@itwin/appui-abstract';
+import { DialogButtonDef } from '@itwin/appui-abstract';
 import { FocusEventHandler } from 'react-select/src/types';
 import { formatGroupLabel } from 'react-select/src/builtins';
 import { getOptionLabel } from 'react-select/src/builtins';
@@ -150,40 +150,6 @@ export function BlockText(props: TextProps): JSX.Element;
 // @public
 export function BodyText(props: TextProps): JSX.Element;
 
-// @public @deprecated
-export class Button extends React_2.PureComponent<ButtonProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export interface ButtonProps extends React_2.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
-    buttonType?: ButtonType;
-    id?: string;
-    onClick?: ((event: React_2.MouseEvent<HTMLButtonElement, MouseEvent>) => void);
-    size?: ButtonSize;
-}
-
-// @public @deprecated
-export enum ButtonSize {
-    // (undocumented)
-    Default = "",
-    // (undocumented)
-    Large = "large"
-}
-
-// @public @deprecated
-export enum ButtonType {
-    // (undocumented)
-    Blue = "blue",
-    // (undocumented)
-    Disabled = "disabled",
-    // (undocumented)
-    Hollow = "hollow",
-    // (undocumented)
-    Primary = "primary"
-}
-
 // @internal
 export const calculateBackdropFilterBlur: (proximityScale: number) => number;
 
@@ -199,18 +165,6 @@ export const calculateToolbarOpacity: (proximityScale: number) => number;
 // @public
 export function Centered(props: CommonDivProps): JSX.Element;
 
-// @public @deprecated
-export class Checkbox extends React_2.PureComponent<CheckboxProps> {
-    // @internal
-    constructor(props: CheckboxProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentDidUpdate(_prevProps: CheckboxProps): void;
-    // (undocumented)
-    render(): JSX.Element;
-}
-
 // @public
 export interface CheckBoxInfo {
     // (undocumented)
@@ -221,21 +175,6 @@ export interface CheckBoxInfo {
     state?: CheckBoxState;
     // (undocumented)
     tooltip?: string;
-}
-
-// @public @deprecated
-export interface CheckboxProps extends Omit_2<React_2.InputHTMLAttributes<HTMLInputElement>, "type" | "onClick" | "onBlur">, CommonProps {
-    indeterminate?: boolean;
-    inputClassName?: string;
-    inputRef?: React_2.Ref<HTMLInputElement>;
-    inputStyle?: React_2.CSSProperties;
-    label?: string;
-    labelClassName?: string;
-    labelStyle?: React_2.CSSProperties;
-    onBlur?: (e: React_2.FocusEvent) => void;
-    onClick?: (e: React_2.MouseEvent) => void;
-    setFocus?: boolean;
-    status?: InputStatus;
 }
 
 // @public
@@ -499,55 +438,11 @@ export enum DialogAlignment {
     TopRight = "top-right"
 }
 
-// @public @deprecated
-export interface DialogButtonDef {
-    buttonStyle?: DialogButtonStyle;
-    className?: string;
-    disabled?: boolean;
-    label?: string;
-    onClick: () => void;
-    type: DialogButtonType;
-}
-
-// @public @deprecated
-export enum DialogButtonStyle {
-    // (undocumented)
-    Blue = "iui-high-visibility",
-    // (undocumented)
-    Hollow = "iui-default",
-    // (undocumented)
-    None = "",
-    // (undocumented)
-    Primary = "iui-cta"
-}
-
-// @public @deprecated
-export enum DialogButtonType {
-    // (undocumented)
-    Cancel = "cancel",
-    // (undocumented)
-    Close = "close",
-    // (undocumented)
-    Next = "next",
-    // (undocumented)
-    No = "no",
-    // (undocumented)
-    None = "",
-    // (undocumented)
-    OK = "ok",
-    // (undocumented)
-    Previous = "previous",
-    // (undocumented)
-    Retry = "retry",
-    // (undocumented)
-    Yes = "yes"
-}
-
 // @public
 export interface DialogProps extends Omit_2<React_2.AllHTMLAttributes<HTMLDivElement>, "title">, CommonProps {
     alignment?: DialogAlignment;
     backgroundStyle?: React_2.CSSProperties;
-    buttonCluster?: DialogButtonDef_2[];
+    buttonCluster?: DialogButtonDef[];
     contentClassName?: string;
     contentStyle?: React_2.CSSProperties;
     footer?: string | JSX.Element;
@@ -685,24 +580,6 @@ export interface ElementSeparatorProps extends CommonProps {
 
 // @public
 export type ExecuteHandler = (this: void) => void;
-
-// @public @deprecated
-export class ExpandableBlock extends React_2.PureComponent<ExpandableBlockProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export interface ExpandableBlockProps extends CommonProps {
-    caption?: string;
-    children?: React_2.ReactNode;
-    isExpanded: boolean;
-    onClick: React_2.MouseEventHandler<HTMLDivElement>;
-    onKeyDown?: React_2.KeyboardEventHandler<HTMLDivElement>;
-    onKeyPress?: React_2.KeyboardEventHandler<HTMLDivElement>;
-    title: string | JSX.Element;
-    tooltip?: string;
-}
 
 // @public
 export class ExpandableList extends React_2.PureComponent<ExpandableListProps, ExpandableListState> {
@@ -855,9 +732,6 @@ export type GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[];
 
 // @internal
 export function getBestBWContrastColor(hexColor: string): "black" | "white";
-
-// @internal (undocumented)
-export function getButtonTypeClassName(buttonType?: ButtonType): string;
 
 // @public
 export function getCssVariable(variableName: string, htmlElement?: HTMLElement): string;
@@ -1273,7 +1147,7 @@ export class MessageBox extends React_2.PureComponent<MessageBoxProps> {
 
 // @public
 export interface MessageBoxProps extends CommonProps {
-    buttonCluster: DialogButtonDef_2[];
+    buttonCluster: DialogButtonDef[];
     children?: React_2.ReactNode;
     contentClassName?: string;
     contentStyle?: React_2.CSSProperties;
@@ -1369,7 +1243,7 @@ export interface NodeCheckboxProps {
 export type NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode;
 
 // @public
-export type NodeCheckboxRenderProps = Omit_2<CheckboxProps_2, "onChange" | "onClick"> & {
+export type NodeCheckboxRenderProps = Omit_2<CheckboxProps, "onChange" | "onClick"> & {
     onChange: (checked: boolean) => void;
     onClick: (e: React_2.MouseEvent) => void;
 };
@@ -1971,38 +1845,6 @@ export enum SpinnerSize {
     XLarge = 3
 }
 
-// @public @deprecated
-export class SplitButton extends React_2.Component<SplitButtonProps, SplitButtonState> {
-    constructor(props: SplitButtonProps);
-    // (undocumented)
-    render(): JSX.Element;
-    // @internal (undocumented)
-    readonly state: Readonly<SplitButtonState>;
-}
-
-// @internal (undocumented)
-export enum SplitButtonActionType {
-    // (undocumented)
-    ContextMenu = 0,
-    // (undocumented)
-    List = 1
-}
-
-// @public @deprecated
-export interface SplitButtonProps extends CommonProps {
-    buttonType?: ButtonType;
-    children?: React_2.ReactNode;
-    drawBorder?: boolean;
-    icon?: IconSpec;
-    // @internal (undocumented)
-    initialExpanded?: boolean;
-    label: string | React_2.ReactNode;
-    onClick?: (event: any) => any;
-    onExecute?: () => any;
-    popupPosition?: RelativePosition;
-    toolTip?: string;
-}
-
 // @public
 export type StepFunctionProp = number | ((direction: string) => number | undefined);
 
@@ -2383,10 +2225,6 @@ export class UiCore {
     static terminate(): void;
     // @internal
     static translate(key: string | string[]): string;
-}
-
-// @public @deprecated
-export class UiEvent<TEventArgs> extends BeUiEvent<TEventArgs> {
 }
 
 // @internal
