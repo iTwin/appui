@@ -17,7 +17,6 @@ import { ActiveContentChangedEventArgs, ContentViewManager } from "../../appui-r
 import {
   FrontstageActivatedEventArgs, FrontstageManager, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, ToolActivatedEventArgs,
 } from "../../appui-react/frontstage/FrontstageManager";
-import { TaskActivatedEventArgs, WorkflowActivatedEventArgs, WorkflowManager } from "../../appui-react/workflow/Workflow";
 import TestUtils from "../TestUtils";
 import { createRandomECInstanceKey, createRandomId, createRandomSelectionScope } from "../PresentationTestUtils";
 
@@ -197,16 +196,6 @@ describe("SyncUiEventDispatcher", () => {
 
     handleSyncUiEvent.resetHistory();
     UiFramework.backstageManager.open();
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
-
-    handleSyncUiEvent.resetHistory();
-    WorkflowManager.onTaskActivatedEvent.emit({} as TaskActivatedEventArgs);  // eslint-disable-line deprecation/deprecation
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
-
-    handleSyncUiEvent.resetHistory();
-    WorkflowManager.onWorkflowActivatedEvent.emit({} as WorkflowActivatedEventArgs);  // eslint-disable-line deprecation/deprecation
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 

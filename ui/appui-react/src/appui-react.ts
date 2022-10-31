@@ -249,9 +249,6 @@ export * from "./appui-react/widgets/WidgetHost";
 export * from "./appui-react/widgets/WidgetManager";
 export * from "./appui-react/widgets/WidgetProps";
 
-export * from "./appui-react/workflow/Task";
-export * from "./appui-react/workflow/Workflow";
-
 export * from "./appui-react/toolsettings/ToolInformation";
 export * from "./appui-react/toolsettings/ToolSettingsManager";
 export * from "./appui-react/toolsettings/ToolUiProvider";

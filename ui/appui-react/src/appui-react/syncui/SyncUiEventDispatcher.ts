@@ -15,7 +15,6 @@ import { ContentViewManager } from "../content/ContentViewManager";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { PresentationSelectionScope, SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
-import { WorkflowManager } from "../workflow/Workflow";
 
 // cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,
 // cSpell:ignore elementtooltipchanged, frontstageactivated, inputfieldmessageadded, inputfieldmessageremoved, modalfrontstagechanged, modaldialogchanged
@@ -53,14 +52,8 @@ export enum SyncUiEventId {
   NavigationAidActivated = "navigationaidactivated",
   /** An InteractiveTool has been activated via the ToolAdmin. */
   ToolActivated = "toolactivated",
-  /** A Task has been activated.
-   * @deprecated */
-  TaskActivated = "taskactivated",
   /** The state of a Widget has changed. */
   WidgetStateChanged = "widgetstatechanged",
-  /** A Workflow has been activated.
-   * @deprecated */
-  WorkflowActivated = "workflowactivated",
   /** The SelectionSet for the active IModelConnection has changed. */
   SelectionSetChanged = "selectionsetchanged",
   /** The list of settings providers registered with SettingsManager has changed. */
@@ -181,14 +174,6 @@ export class SyncUiEventDispatcher {
 
     this._unregisterListenerFuncs.push(UiFramework.backstageManager.onToggled.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.BackstageEvent);
-    }));
-
-    this._unregisterListenerFuncs.push(WorkflowManager.onTaskActivatedEvent.addListener(() => { // eslint-disable-line deprecation/deprecation
-      SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.TaskActivated); // eslint-disable-line deprecation/deprecation
-    }));
-
-    this._unregisterListenerFuncs.push(WorkflowManager.onWorkflowActivatedEvent.addListener(() => { // eslint-disable-line deprecation/deprecation
-      SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.WorkflowActivated); // eslint-disable-line deprecation/deprecation
     }));
 
     this._unregisterListenerFuncs.push(ContentViewManager.onActiveContentChangedEvent.addListener(() => {
