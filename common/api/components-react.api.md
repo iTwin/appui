@@ -18,8 +18,6 @@ import { CustomButtonDefinition } from '@itwin/appui-abstract';
 import { DateFormatter } from '@itwin/appui-abstract';
 import { DisplayMessageType } from '@itwin/appui-abstract';
 import { EnumerationChoice } from '@itwin/appui-abstract';
-import { GlobalContextMenuProps } from '@itwin/core-react';
-import { GlobalDialogProps } from '@itwin/core-react';
 import { GroupButton } from '@itwin/appui-abstract';
 import { IconDefinition } from '@itwin/appui-abstract';
 import { Id64String } from '@itwin/core-bentley';
@@ -2737,58 +2735,6 @@ export class ShortDateTimePropertyEditor extends PropertyEditorBase {
 export class ShortDateTypeConverter extends DateTimeTypeConverterBase {
     // (undocumented)
     protected getTimeFormat(): TimeFormat;
-}
-
-// @public @deprecated
-export class ShowHideDialog<T extends ShowHideID> extends React_2.PureComponent<ShowHideDialogProps<T>, ShowHideDialogState<T>> {
-    constructor(props: ShowHideDialogProps<T>);
-    // @internal (undocumented)
-    componentDidUpdate(oldProps: ShowHideDialogProps<T>): void;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: ShowHideDialogState<T>;
-}
-
-// @public @deprecated
-export interface ShowHideDialogProps<T extends ShowHideID> extends GlobalDialogProps {
-    initialHidden?: T[];
-    items: Array<ShowHideItem<T>>;
-    onShowHideChange?: (cols: T[]) => boolean | undefined;
-}
-
-// @public @deprecated
-export type ShowHideID = string | number | symbol;
-
-// @public @deprecated
-export interface ShowHideItem<T extends ShowHideID> {
-    // (undocumented)
-    id: T;
-    // (undocumented)
-    label: string;
-}
-
-// @public @deprecated
-export class ShowHideMenu<T extends ShowHideID> extends React_2.PureComponent<ShowHideMenuProps<T>, ShowHideMenuState<T>> {
-    // @internal
-    constructor(props: ShowHideMenuProps<T>);
-    // @internal (undocumented)
-    componentDidUpdate(oldProps: ShowHideMenuProps<T>): void;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: ShowHideMenuState<T>;
-}
-
-// @public @deprecated
-export interface ShowHideMenuProps<T extends ShowHideID> extends GlobalContextMenuProps {
-    initialHidden?: T[];
-    items: Array<ShowHideItem<T>>;
-    onClose?: () => void;
-    onShowHideChange?: (cols: T[]) => boolean | undefined;
-    opened: boolean;
-    x: number;
-    y: number;
 }
 
 // @public
