@@ -46,13 +46,13 @@ jobs:
     - checkout: self
 
     - task: NodeTool@0
-      displayName: Use Node 12.x
+      displayName: Use Node 16.x
       inputs:
-        versionSpec: 12.x
+        versionSpec: 16.x
         checkLatest: true
 
     - bash: |
-        git config --local user.email 38288322+imodeljs-admin@users.noreply.github.com
+        git config --local user.email imodeljs-admin@users.noreply.github.com
         git config --local user.name imodeljs-admin
       displayName: Setup Git
 
@@ -176,13 +176,13 @@ jobs:
       steps:
       - checkout: self
       - task: NodeTool@0
-        displayName: 'Use Node 12.x'
+        displayName: 'Use Node 16.x'
         inputs:
-          versionSpec: 12.x
+          versionSpec: 16.x
           checkLatest: true
 
       - bash: |
-          git config --local user.email 38288322+imodeljs-admin@users.noreply.github.com
+          git config --local user.email imodeljs-admin@users.noreply.github.com
           git config --local user.name imodeljs-admin
         displayName: 'Setup Git'
 
