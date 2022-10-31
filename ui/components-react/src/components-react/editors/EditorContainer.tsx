@@ -72,7 +72,7 @@ export interface TypeEditor {
 }
 
 /**
- * EditorContainer React component used by the Table, Tree and PropertyGrid for cell editing.
+ * EditorContainer React component used by the Tree and PropertyGrid for cell editing.
  * @public
  */
 export class EditorContainer extends React.PureComponent<EditorContainerProps> {

@@ -6,7 +6,7 @@
  * @module Common
  */
 
-/** Selection mode flags for Table and Tree row selection
+/** Selection mode flags for Tree row selection
  * @public
  */
 export enum SelectionModeFlags {
@@ -17,7 +17,7 @@ export enum SelectionModeFlags {
   None = 1 << 4,
 }
 
-/** Selection modes for Table and Tree row selection
+/** Selection modes for Tree row selection
  * @public
  */
 export enum SelectionMode {
