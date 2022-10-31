@@ -395,12 +395,15 @@ export class Table extends React.Component<TableProps, TableState> {
     this._rowSelectionHandler.selectionMode = this.props.selectionMode ? this.props.selectionMode : SelectionMode.Single;
     this._cellSelectionHandler.selectionMode = this.props.selectionMode ? this.props.selectionMode : SelectionMode.Single;
 
+    // ignoring because this component is deprecated
+    // istanbul ignore next
     if (previousProps.dataProvider !== this.props.dataProvider) {
       this._disposableListeners.dispose();
       this._disposableListeners.add(this.props.dataProvider.onColumnsChanged.addListener(this._onColumnsChanged));
       this._disposableListeners.add(this.props.dataProvider.onRowsChanged.addListener(this._onRowsChanged));
     }
 
+    // istanbul ignore next
     if (this.props.dataProvider !== previousProps.dataProvider) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       this.update();
