@@ -166,7 +166,6 @@ export * from "./appui-react/statusbar/StatusBar";
 export * from "./appui-react/statusbar/StatusBarWidgetControl";
 export * from "./appui-react/statusbar/StatusBarComposer";
 export * from "./appui-react/statusbar/StatusBarItem";
-export * from "./appui-react/statusbar/StatusBarItemsManager";
 export * from "./appui-react/statusbar/StatusBarItemUtilities";
 export * from "./appui-react/statusbar/StatusBarComposer";
 export * from "./appui-react/statusbar/useUiItemsProviderStatusBarItems";
@@ -183,7 +182,6 @@ export * from "./appui-react/statusfields/ViewAttributes";
 export * from "./appui-react/statusfields/toolassistance/ToolAssistanceField";
 
 export * from "./appui-react/syncui/SyncUiEventDispatcher";
-export * from "./appui-react/syncui/BooleanListener";
 
 export * from "./appui-react/theme/ThemeManager";
 
@@ -200,7 +198,6 @@ export * from "./appui-react/toolbar/useDefaultToolbarItems";
 
 export * from "./appui-react/tools/CoreToolDefinitions";
 export * from "./appui-react/tools/FrameworkToolAdmin";
-export * from "./appui-react/tools/MarkupToolDefinitions";
 export * from "./appui-react/tools/RestoreLayoutTool";
 export * from "./appui-react/tools/ToolSettingsTools";
 
@@ -215,7 +212,6 @@ export * from "./appui-react/ui-items-provider/StandardContentToolsUiItemsProvid
 export * from "./appui-react/uiprovider/DefaultDialogGridContainer";
 
 export * from "./appui-react/uistate/AppUiSettings";
-export * from "./appui-react/uistate/UserSettingsStorage";
 export * from "./appui-react/uistate/useUiStateStorage";
 
 export * from "./appui-react/utils/ViewUtilities";

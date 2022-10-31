@@ -5,12 +5,13 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
+import { UiSyncEventArgs } from "@itwin/appui-abstract";
 import { IModelRpcProps } from "@itwin/core-common";
 import { IModelApp, IModelConnection, MockRender, ScreenViewport, SelectionSet } from "@itwin/core-frontend";
 import { InstanceKey, RpcRequestsHandler } from "@itwin/presentation-common";
 import { Presentation, SelectionManager, SelectionScopesManager, SelectionScopesManagerProps } from "@itwin/presentation-frontend";
 import {
-  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventArgs, SyncUiEventDispatcher,
+  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventDispatcher,
   UiFramework, WidgetStateChangedEventArgs,
 } from "../../appui-react";
 import { ActiveContentChangedEventArgs, ContentViewManager } from "../../appui-react/content/ContentViewManager";
@@ -61,7 +62,7 @@ describe("SyncUiEventDispatcher", () => {
     let callbackHasExpectedEventId = false;
 
     // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: SyncUiEventArgs): void => {
+    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
       callbackHasExpectedEventId = args.eventIds.has("event1");
     };
@@ -80,7 +81,7 @@ describe("SyncUiEventDispatcher", () => {
     let callback1HasExpectedEventId = false;
 
     // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent1 = (args: SyncUiEventArgs): void => {
+    const handleSyncUiEvent1 = (args: UiSyncEventArgs): void => {
       callback1Called = true;
       callback1HasExpectedEventId = args.eventIds.has("event1");
     };
@@ -103,7 +104,7 @@ describe("SyncUiEventDispatcher", () => {
     let callbackHasExpectedEventIds = false;
 
     // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: SyncUiEventArgs): void => {
+    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
       callbackHasExpectedEventIds = args.eventIds.has("event1") && args.eventIds.has("event2");
     };
@@ -127,7 +128,7 @@ describe("SyncUiEventDispatcher", () => {
     let callbackHasExpectedEventIds = false;
 
     // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: SyncUiEventArgs): void => {
+    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
       callbackHasExpectedEventIds = args.eventIds.has("event1") && args.eventIds.has("event2") && args.eventIds.has("event3");
     };

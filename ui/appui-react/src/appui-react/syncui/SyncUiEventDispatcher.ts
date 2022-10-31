@@ -6,7 +6,7 @@
  * @module SyncUi
  */
 
-import { UiEventDispatcher, UiSyncEvent, UiSyncEventArgs } from "@itwin/appui-abstract";
+import { UiEventDispatcher, UiSyncEvent } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
 import { getInstancesCount, SelectionScope } from "@itwin/presentation-common";
@@ -65,16 +65,6 @@ export enum SyncUiEventId {
   ShowHideManagerSettingChange = "show-hide-setting-change",
 }
 
-/** SyncUi Event arguments. Contains a set of lower case event Ids.
- * @public @deprecated use UiSyncEventArgs in appui-abstract instead
- */
-export type SyncUiEventArgs = UiSyncEventArgs;
-
-/** SyncUi Event class.
- * @public @deprecated use UiSyncEvent in appui-abstract instead
- */
-export type SyncUiEvent = UiSyncEvent;
-
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
  * to refresh its display by calling setState on itself.
  * @public
@@ -98,7 +88,7 @@ export class SyncUiEventDispatcher {
 
   /** Return SyncUiEvent so callers can register an event callback. */
   // eslint-disable-next-line deprecation/deprecation
-  public static get onSyncUiEvent(): SyncUiEvent {
+  public static get onSyncUiEvent(): UiSyncEvent {
     return SyncUiEventDispatcher._uiEventDispatcher.onSyncUiEvent;
   }
 

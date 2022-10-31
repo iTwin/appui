@@ -32,7 +32,6 @@ describe("Item", () => {
   it("CommandItemDef should set and get description", () => {
     const commandItem = new CommandItemDef({
       iconSpec: "icon-placeholder",
-      isVisible: true,
     });
     commandItem.setDescription("Hello");
     expect(commandItem.description).to.eq("Hello");

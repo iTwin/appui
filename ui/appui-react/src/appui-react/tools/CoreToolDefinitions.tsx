@@ -17,10 +17,9 @@ import { ConditionalBooleanValue, ConditionalStringValue, IconSpecUtilities } fr
 import { ToolbarPopupContext } from "@itwin/components-react";
 import { ContentViewManager } from "../content/ContentViewManager";
 import { KeyinBrowser } from "../keyinbrowser/KeyinBrowser";
-import { getIsHiddenIfSelectionNotActive, getSelectionContextSyncEventIds, selectionContextStateFunc } from "../selection/SelectionContextItemDef";
+import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { CustomItemDef } from "../shared/CustomItemDef";
-import { BaseItemState } from "../shared/ItemDefBase";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { GroupItemDef } from "../toolbar/GroupItem";
@@ -200,17 +199,7 @@ export class CoreTools {
       iconSpec: ViewUndoTool.iconSpec,
       label: ViewUndoTool.flyover,
       description: ViewUndoTool.description,
-      execute: async () =>
-        IModelApp.tools.run(ViewUndoTool.toolId, IModelApp.viewManager.selectedView)
-      ,
-      stateSyncIds: [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged],
-      stateFunc: (currentState: Readonly<BaseItemState>): BaseItemState => {
-        const returnState: BaseItemState = { ...currentState };
-        const activeContentControl = ContentViewManager.getActiveContentControl();
-        if (activeContentControl && activeContentControl.viewport)
-          returnState.isEnabled = activeContentControl.viewport.isUndoPossible;
-        return returnState;
-      },
+      execute: async () => IModelApp.tools.run(ViewUndoTool.toolId, IModelApp.viewManager.selectedView),
     });
   }
 
@@ -227,14 +216,6 @@ export class CoreTools {
           return !activeContentControl.viewport.isRedoPossible;
         return false;
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
-      stateSyncIds: [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged],
-      stateFunc: (currentState: Readonly<BaseItemState>): BaseItemState => {
-        const returnState: BaseItemState = { ...currentState };
-        const activeContentControl = ContentViewManager.getActiveContentControl();
-        if (activeContentControl && activeContentControl.viewport)
-          returnState.isEnabled = activeContentControl.viewport.isRedoPossible;
-        return returnState;
-      },
     });
   }
 
@@ -404,8 +385,6 @@ export class CoreTools {
       commandId: "UiFramework.ClearSelection",
       iconSpec: "icon-selection-clear",
       labelKey: "UiFramework:buttons.clearSelection",
-      stateSyncIds: getSelectionContextSyncEventIds(),
-      stateFunc: selectionContextStateFunc,
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => {
         const iModelConnection = UiFramework.getIModelConnection();
