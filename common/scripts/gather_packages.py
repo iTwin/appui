@@ -88,7 +88,7 @@ sourcesDirectory = os.path.realpath(sys.argv[2])
 branchName = sys.argv[3]
 
 ## Setup
-stagingDir = os.path.join(artifactStagingDir, "imodeljs", "packages")
+stagingDir = os.path.join(artifactStagingDir, "appui", "packages")
 os.makedirs(stagingDir)
 
 packageDir = os.path.join(sourcesDirectory, "common", "temp", "artifacts", "packages")
