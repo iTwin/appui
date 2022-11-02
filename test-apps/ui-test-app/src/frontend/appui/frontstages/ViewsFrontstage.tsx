@@ -288,18 +288,6 @@ export class ViewsFrontstage extends FrontstageProvider {
     HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.addListener(this._onEmphasizeElementsChangedHandler);
   }
 
-  /** DEPRECATED way of providing button --- Get the CustomItemDef for ViewSelector  */
-  // private get _viewSelectorItemDef() {
-  //   return new CustomItemDef({
-  //     customId: "sampleApp:viewSelector",
-  //     reactElement: (
-  //       <IModelConnectedViewSelector
-  //         listenForShowUpdates={false}  // Demo for showing only the same type of view in ViewSelector - See IModelViewport.tsx, onActivated
-  //       />
-  //     ),
-  //   });
-  // }
-
   /** Commands that opens switches the content layout */
   private get _additionalNavigationVerticalToolbarItems() {
     const customPopupButton: CustomToolbarItem = {

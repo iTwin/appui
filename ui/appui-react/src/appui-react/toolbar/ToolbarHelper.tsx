@@ -9,7 +9,7 @@ import * as React from "react";
 import {
   ActionButton, CommonToolbarItem, ConditionalStringValue, CustomButtonDefinition, GroupButton, StringGetter, ToolbarItem, ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import { CustomToolbarItem } from "@itwin/components-react";
+import { CustomToolbarItem, isCustomToolbarItem } from "@itwin/components-react";
 import { IconHelper } from "@itwin/core-react";
 import { AnyItemDef } from "../shared/AnyItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
@@ -41,7 +41,6 @@ export class ToolbarHelper {
       isDisabled,
       internalData,
       badgeType,
-      buttonNode: itemDef.toolbarReactNode(),  // used by createNodeForToolbarItem below
       panelContentNode: itemDef.popupPanelNode,
       ...overrides,
     };
@@ -147,6 +146,6 @@ export class ToolbarHelper {
    * @internal
    */
   public static isCustomToolbarButton = (item: CommonToolbarItem): item is CustomToolbarItem => {
-    return !!(item as CustomToolbarItem).isCustom && ("buttonNode" in item);
+    return isCustomToolbarItem(item);
   };
 }

@@ -513,17 +513,17 @@ describe("GridCategory", () => {
 
       // Test current gridCategory descendants against flattened propertyCategory
       // eslint-disable-next-line deprecation/deprecation
-      const descendants = gridCategory.getDescendantCategoriesAndSelf();
+      const descendants = gridCategory.getDescendantsAndSelf();
       const flattenedPropertyCategories = GridUtils.flattenPropertyCategories([propertyCategory], {});
       expect(descendants.length).to.be.equal(flattenedPropertyCategories.length);
-      descendants.forEach((descendant, index) => GridUtils.assertCategoryEquals(descendant, flattenedPropertyCategories[index].item as PropertyCategory));
+      descendants.forEach((descendant, index) => GridUtils.assertCategoryEquals(descendant as GridCategoryItem, flattenedPropertyCategories[index].item as PropertyCategory));
 
       // Test current gridCategory children parent-child category relationship (recursive)
       // eslint-disable-next-line deprecation/deprecation
-      const childCategories = gridCategory.getChildCategories();
+      const childCategories = gridCategory.getChildren();
       const childPropertyCategories = propertyCategory.childCategories ?? [];
       expect(childCategories.length).to.be.equal(childPropertyCategories.length);
-      childCategories.forEach((childCategory, index) => assertParentChildCategoryRelationship(childCategory, childPropertyCategories[index], gridCategory.selectionKey, expectedDepth + 1));
+      childCategories.forEach((childCategory, index) => assertParentChildCategoryRelationship(childCategory as  IMutableGridCategoryItem, childPropertyCategories[index], gridCategory.selectionKey, expectedDepth + 1));
     }
 
     describe("Should correctly handle category to category parent-child relationship", () => {
@@ -539,10 +539,7 @@ describe("GridCategory", () => {
         const gridCategory = new MutableGridCategory(propertyCategory, categoryRecords, gridItemFactory);
 
         // eslint-disable-next-line deprecation/deprecation
-        const childCategories = gridCategory.getChildCategories();
-        expect(gridCategory.getChildren()).to.deep.equal(childCategories);
-        // eslint-disable-next-line deprecation/deprecation
-        expect(gridCategory.getDescendantCategoriesAndSelf()).to.deep.equal([gridCategory, ...childCategories]);
+        const childCategories = gridCategory.getChildren();
         expect(gridCategory.getDescendantsAndSelf()).to.deep.equal([gridCategory, ...childCategories]);
 
         assertParentChildCategoryRelationship(gridCategory, propertyCategory);
@@ -561,11 +558,7 @@ describe("GridCategory", () => {
 
         const gridCategory = new MutableGridCategory(propertyCategory, categoryRecords, gridItemFactory);
 
-        // eslint-disable-next-line deprecation/deprecation
-        const childCategories = gridCategory.getChildCategories();
-        expect(gridCategory.getChildren()).to.deep.equal(childCategories);
-        // eslint-disable-next-line deprecation/deprecation
-        expect(gridCategory.getDescendantCategoriesAndSelf()).to.deep.equal([gridCategory, ...childCategories]);
+        const childCategories = gridCategory.getChildren();
         expect(gridCategory.getDescendantsAndSelf()).to.deep.equal([gridCategory, ...childCategories]);
 
         assertParentChildCategoryRelationship(gridCategory, propertyCategory);

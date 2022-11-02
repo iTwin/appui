@@ -36,8 +36,7 @@ export function useTreeModel(modelSource: TreeModelSource): TreeModel {
  * @public
  */
 export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, modelSource: TreeModelSource) {
-  const createLoader = useCallback(() => new TreeNodeLoader(dataProvider, modelSource), [dataProvider, modelSource]);
-  return useDisposable(createLoader);
+  return useMemo(() => new TreeNodeLoader(dataProvider, modelSource), [dataProvider, modelSource]);
 }
 
 /**
@@ -46,8 +45,7 @@ export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataPr
  * @public
  */
 export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, pageSize: number, modelSource: TreeModelSource) {
-  const createLoader = useCallback(() => new PagedTreeNodeLoader(dataProvider, modelSource, pageSize), [dataProvider, modelSource, pageSize]);
-  return useDisposable(createLoader);
+  return useMemo(() => new PagedTreeNodeLoader(dataProvider, modelSource, pageSize), [dataProvider, modelSource, pageSize]);
 }
 
 /**

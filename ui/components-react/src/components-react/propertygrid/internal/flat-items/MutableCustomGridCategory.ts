@@ -69,14 +69,6 @@ export class MutableCustomGridCategory extends MutableFlatPropertyGridItem imple
     return this;
   }
 
-  public getChildCategories(): IMutableGridCategoryItem[] {
-    return [];
-  }
-
-  public getDescendantCategoriesAndSelf(): IMutableGridCategoryItem[] {
-    return [this];
-  }
-
   public getChildren(): IMutableFlatGridItem[] {
     return this._children;
   }

@@ -29,16 +29,6 @@ export interface PropertyGridProps extends CommonPropertyGridProps {
   dataProvider: IPropertyDataProvider;
 }
 
-/** Property Category in the [[PropertyGrid]] state
- * @public
- * @deprecated This was part of [[PropertyGrid]] internal state and should've never been public. The component is not using it anymore.
- */
-export interface PropertyGridCategory {
-  propertyCategory: PropertyCategory;
-  propertyCount: number;
-  properties: PropertyRecord[];
-}
-
 interface CategorizedPropertyGridRecords {
   category: PropertyCategory;
   records: PropertyRecord[];

@@ -51,7 +51,6 @@ export * from "./components-react/editors/PropertyEditorManager";
 export * from "./components-react/editors/SliderEditor";
 export * from "./components-react/editors/TextEditor";
 export * from "./components-react/editors/TextareaEditor";
-export * from "./components-react/editors/ThemedEnumEditor";
 export * from "./components-react/editors/ToggleEditor";
 
 export * from "./components-react/favorite/FavoritePropertiesRenderer";
@@ -59,8 +58,6 @@ export * from "./components-react/favorite/FavoritePropertyList";
 
 export * from "./components-react/filtering/FilteringInput";
 export * from "./components-react/filtering/ResultSelector";
-
-export * from "./components-react/iconpicker/IconPickerButton";
 
 export * from "./components-react/inputs/ParsedInput";
 
