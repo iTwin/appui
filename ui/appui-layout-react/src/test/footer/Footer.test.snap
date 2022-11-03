@@ -2,7 +2,7 @@
 
 exports[`<Footer /> renders correctly 1`] = `
 <div
-  className="nz-footer-footer nz-footer-mode"
+  className="nz-footer-footer"
 >
   <div>
     <div
@@ -17,7 +17,7 @@ exports[`<Footer /> renders correctly 1`] = `
 
 exports[`<Footer /> renders safe area aware correctly 1`] = `
 <div
-  className="nz-footer-footer nz-footer-mode nz-safe-area-left"
+  className="nz-footer-footer nz-safe-area-left"
 >
   <div>
     <div

@@ -13,12 +13,11 @@ import { CommonProps } from "@itwin/core-react";
 import { SafeAreaInsets, SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
 
 /** Properties of [[Footer]] component.
- * @deprecated
  * @internal
  */
 export interface FooterProps extends CommonProps {
   /**
-   * Footer indicators and separators. I.e: [[FooterSeparator]], [[FooterIndicator]],
+   * Footer indicators, separators and status fields. I.e: [StatusBarSeparator]($appui-react), [[FooterIndicator]],
    * [[MessageCenter]], [[ToolAssistance]], [[SnapMode]]
    */
   children?: React.ReactNode;
@@ -32,15 +31,14 @@ export interface FooterProps extends CommonProps {
   safeAreaInsets?: SafeAreaInsets;
 }
 
-/** Footer component. Used in a StatusBar [[Zone]] component.
- * @deprecated Use [StatusBar]($appui-react) instead
+/** Footer component.
+ * @note Use [StatusBar]($appui-react) instead
  * @internal
  */
 export class Footer extends React.PureComponent<FooterProps> {
   public override render() {
     const className = classnames(
       "nz-footer-footer",
-      "nz-footer-mode",
       this.props.safeAreaInsets && SafeAreaInsetsHelpers.getCssClassNames(this.props.safeAreaInsets),
       this.props.className);
 

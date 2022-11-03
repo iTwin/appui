@@ -51,7 +51,6 @@ describe("<ThemedEnumEditor />", () => {
 
     const wrapper = render(<ThemedEnumEditor propertyRecord={record} onCommit={handleCommit} />);
     await TestUtils.flushAsyncOperations();
-    // wrapper.debug();
     const selectNode = wrapper.container.querySelector(".react-select__input");
 
     expect(selectNode).not.to.be.null;
@@ -71,7 +70,6 @@ describe("<ThemedEnumEditor />", () => {
 
     const wrapper = render(<ThemedEnumEditor propertyRecord={record} onCommit={handleCommit} />);
     await TestUtils.flushAsyncOperations();
-    // wrapper.debug();
     const selectNode = wrapper.container.querySelector(".react-select__input");
 
     expect(selectNode).not.to.be.null;
@@ -91,7 +89,6 @@ describe("<ThemedEnumEditor />", () => {
 
     const wrapper = render(<ThemedEnumEditor propertyRecord={record} onCommit={handleCommit} />);
     await TestUtils.flushAsyncOperations();
-    // wrapper.debug();
     const selectNode = wrapper.container.querySelector(".react-select__input");
 
     expect(selectNode).not.to.be.null;

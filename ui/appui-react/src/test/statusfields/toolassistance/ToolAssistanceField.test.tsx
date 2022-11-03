@@ -143,8 +143,7 @@ describe(`ToolAssistanceField`, () => {
     wrapper.update();
 
     clickIndicator(wrapper);
-
-    expect(wrapper.find(".nz-content-dialog .uifw-toolassistance-key").length).to.eq(1);
+    expect(wrapper.find(".uifw-toolassistance-key").length).to.eq(1);
   });
 
   it("should support known icons and multiple sections", () => {
@@ -198,7 +197,7 @@ describe(`ToolAssistanceField`, () => {
 
     clickIndicator(wrapper);
 
-    expect(wrapper.find(".nz-content-dialog .uifw-toolassistance-key-large").length).to.eq(1);
+    expect(wrapper.find(".uifw-toolassistance-key-large").length).to.eq(1);
   });
 
   it("ToolAssistanceImage.Keyboard with 2 keys should use medium keys", () => {
@@ -214,7 +213,7 @@ describe(`ToolAssistanceField`, () => {
 
     clickIndicator(wrapper);
 
-    expect(wrapper.find(".nz-content-dialog .uifw-toolassistance-key-medium").length).to.eq(2);
+    expect(wrapper.find(".uifw-toolassistance-key-medium").length).to.eq(2);
   });
 
   it("ToolAssistanceImage.Keyboard with a modifier key should a medium modifier key & medium key", () => {
@@ -230,8 +229,8 @@ describe(`ToolAssistanceField`, () => {
 
     clickIndicator(wrapper);
 
-    expect(wrapper.find(".nz-content-dialog .uifw-toolassistance-key-modifier").length).to.eq(1);
-    expect(wrapper.find(".nz-content-dialog .uifw-toolassistance-key-medium").length).to.eq(1);
+    expect(wrapper.find(".uifw-toolassistance-key-modifier").length).to.eq(1);
+    expect(wrapper.find(".uifw-toolassistance-key-medium").length).to.eq(1);
   });
 
   it("ToolAssistanceImage.Keyboard with bottomRow should use small keys", () => {
@@ -247,7 +246,7 @@ describe(`ToolAssistanceField`, () => {
 
     clickIndicator(wrapper);
 
-    expect(wrapper.find(".nz-content-dialog .uifw-toolassistance-key-small").length).to.eq(4);
+    expect(wrapper.find(".uifw-toolassistance-key-small").length).to.eq(4);
   });
 
   it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", () => {

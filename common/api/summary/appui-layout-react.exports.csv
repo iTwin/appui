@@ -27,8 +27,8 @@ internal;convertAllPopupWidgetContainersToFloating(state: NineZoneState): NineZo
 internal;createNineZoneState(args?: Partial
 internal;CursorType = "nwse-resize" | "nesw-resize" | "ew-resize" | "ns-resize" | "grabbing"
 internal;CursorTypeContext: React_2.Context
-beta;Dialog 
-beta;DialogProps 
+internal;Dialog(props: DialogProps): JSX.Element
+internal;DialogProps 
 internal;Dock: React_2.NamedExoticComponent
 internal;DockedToolSetting(props: ToolSettingProps): JSX.Element
 internal;DockedToolSettings(props: DockedToolSettingsProps): JSX.Element
@@ -81,17 +81,10 @@ internal;FloatingWidgetsStateContext: React_2.Context
 internal;FloatingWidgetState
 internal;floatWidget(state: NineZoneState, widgetTabId: string, point?: PointProps, size?: SizeProps): NineZoneState
 internal;Footer 
-deprecated;Footer 
-beta;FooterIndicator(props: FooterIndicatorProps): JSX.Element
-beta;FooterIndicatorProps 
-beta;FooterPopup 
-beta;FooterPopupContentType
-beta;FooterPopupDefaultProps = Pick
-beta;FooterPopupProps 
+internal;FooterIndicator: React_2.ForwardRefExoticComponent
+internal;FooterIndicatorProps 
+internal;FooterPopup(props: Partial
 internal;FooterProps 
-deprecated;FooterProps 
-public;FooterSeparator 
-public;FooterSeparatorProps 
 internal;getChildKey(child: React_2.ReactNode, index: number): string
 internal;getCursorClassName(type: CursorType): string
 internal;getOverflown(width: number, docked: ReadonlyArray
@@ -125,7 +118,6 @@ internal;isWindowDropTargetState(state: WidgetDragDropTargetState): state is Win
 internal;LeftPanelSide = "left"
 internal;MeasureContext: React_2.Context
 internal;Message 
-deprecated;Message 
 internal;MessageButton 
 internal;MessageButtonProps 
 internal;MessageCenter 
@@ -204,7 +196,6 @@ internal;ShowWidgetIconContext: React_2.Context
 internal;sideToCursorType(side: PanelSide): CursorType
 internal;Snap 
 internal;SnapMode 
-deprecated;SnapMode 
 internal;SnapModePanel 
 internal;SnapModePanelProps 
 internal;SnapModeProps 
@@ -225,12 +216,11 @@ internal;TabsState
 internal;TabsStateContext: React_2.Context
 internal;TabState
 internal;TabStateContext: React_2.Context
-beta;TitleBar 
-internal;TitleBarButton 
+internal;TitleBar(props: TitleBarProps): JSX.Element
+internal;TitleBarButton(props: TitleBarButtonProps): JSX.Element
 internal;TitleBarButtonProps 
-beta;TitleBarProps 
+internal;TitleBarProps 
 internal;Toast 
-deprecated;Toast 
 internal;ToastDefaultProps = Pick
 internal;ToastProps 
 internal;ToastStyle = Pick
