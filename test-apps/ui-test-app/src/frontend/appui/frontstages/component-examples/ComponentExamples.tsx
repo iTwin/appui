@@ -5,7 +5,7 @@
 import "./ComponentExamples.scss";
 import * as React from "react";
 import { CommonProps, VerticalTabs } from "@itwin/core-react";
-import { ColorTheme, MessageManager, ModalFrontstageInfo, StatusMessageRenderer, UiFramework } from "@itwin/appui-react";
+import { ColorTheme, MessageManager, ModalFrontstageInfo, UiFramework } from "@itwin/appui-react";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 import { ComponentExamplesProvider } from "./ComponentExamplesProvider";
 import { ITwinUIExamplesProvider } from "./ITwinUIExamplesProvider";
@@ -89,8 +89,6 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (prop
           );
         })}
       </div>
-      {/* eslint-disable-next-line deprecation/deprecation */}
-      <StatusMessageRenderer />
     </div>
   );
 };

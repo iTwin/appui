@@ -9,7 +9,6 @@
 import classnames from "classnames";
 import * as React from "react";
 import { Centered, CommonProps } from "@itwin/core-react";
-import { MessageLayout, MessageProgress, Status } from "@itwin/appui-layout-react";
 import { ActivityMessageEventArgs, MessageManager } from "../messages/MessageManager";
 import { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
@@ -76,14 +75,14 @@ export class ActivityCenterField extends React.Component<CommonProps, ActivityCe
           style={this.props.style}
           onClick={this._openActivityMessage} title={tooltip}
         >
-          <MessageLayout
+          {/*<MessageLayout
             progress={
               <MessageProgress
                 status={Status.Information}
                 progress={this.state.percentage}
               />
             }
-          />
+          />*/}
         </Centered>
       );
     } else {

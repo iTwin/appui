@@ -14,7 +14,6 @@ import { ActivityMessageEventArgs, MessageAddedEventArgs, MessageManager } from 
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { StatusBarWidgetControl } from "./StatusBarWidgetControl";
-import { CustomActivityMessageRenderer } from "../messages/ActivityMessage";
 import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
 
 // cspell:ignore safearea
@@ -60,9 +59,8 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
     return (
       <SafeAreaContext.Consumer>
         {(safeAreaInsets) => (
-          <Footer // eslint-disable-line deprecation/deprecation
+          <Footer
             className={this.props.className}
-            messages={this.getFooterMessages()}
             onMouseEnter={UiShowHideManager.handleWidgetMouseEnter}
             safeAreaInsets={toLayoutSafeAreaInsets(safeAreaInsets)}
             style={this.props.style}
@@ -134,19 +132,6 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
     this.setState({
       activityMessageInfo: undefined,
     });
-  };
-
-  private getFooterMessages(): React.ReactNode {
-    return (
-      <CustomActivityMessageRenderer settings={{ placement: "bottom" }} activityMessageInfo={this.state.activityMessageInfo} cancelActivityMessage={this._cancelActivityMessage} />
-    );
-  }
-
-  /**
-   * Ends canceled process and dismisses ActivityMessage
-   */
-  private _cancelActivityMessage = () => {
-    MessageManager.endActivityMessage(false);
   };
 
   private _closeMessage = (id: string) => {
