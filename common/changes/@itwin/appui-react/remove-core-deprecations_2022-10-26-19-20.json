@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Remove deprecated components with dependencies on deprecations in core-react",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

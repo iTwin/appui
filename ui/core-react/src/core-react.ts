@@ -21,7 +21,6 @@ export * from "./core-react/base/Gap";
 export * from "./core-react/base/PointerEvents";
 export * from "./core-react/base/ScrollView";
 
-export * from "./core-react/button/Button";
 export * from "./core-react/button/UnderlinedButton";
 
 export * from "./core-react/checklistbox/CheckListBox";
@@ -35,7 +34,6 @@ export * from "./core-react/contextmenu/GlobalContextMenu";
 export * from "./core-react/contextmenu/PopupContextMenu";
 
 export * from "./core-react/dialog/Dialog";
-export * from "./core-react/dialog/DialogButtonDef";
 export * from "./core-react/dialog/GlobalDialog";
 
 export * from "./core-react/elementseparator/ElementSeparator";
@@ -47,7 +45,6 @@ export * from "./core-react/enums/SortDirection";
 export * from "./core-react/enums/TimeFormat";
 
 export * from "./core-react/expandable/ExpandableList";
-export * from "./core-react/expandable/ExpandableBlock";
 
 export * from "./core-react/focus/ItemKeyboardNavigator";
 export * from "./core-react/focustrap/FocusTrap";
@@ -65,8 +62,6 @@ export * from "./core-react/icons/SvgSprite";
 export * from "./core-react/icons/WebFontIcon";
 
 export * from "./core-react/autosuggest/AutoSuggest";
-
-export * from "./core-react/checkbox/Checkbox";
 
 export * from "./core-react/imagecheckbox/ImageCheckBox";
 
@@ -113,8 +108,6 @@ export * from "./core-react/settings/SettingsManager";
 export * from "./core-react/settings/SettingsContainer";
 
 export * from "./core-react/slider/Slider";
-
-export * from "./core-react/splitbutton/SplitButton";
 
 export * from "./core-react/tabs/HorizontalTabs";
 export * from "./core-react/tabs/VerticalTabs";
@@ -163,7 +156,6 @@ export * from "./core-react/utils/Props";
 export * from "./core-react/utils/Rectangle";
 export * from "./core-react/utils/Size";
 export * from "./core-react/utils/Timer";
-export * from "./core-react/utils/UiEvent";
 export * from "./core-react/utils/UiGeometry";
 export * from "./core-react/utils/flattenChildren";
 export * from "./core-react/utils/getBestBWContrastColor";

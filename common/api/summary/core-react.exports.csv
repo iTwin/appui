@@ -14,24 +14,12 @@ internal;BadgeUtilities
 internal;BetaBadge(props: CommonProps): JSX.Element
 public;BlockText(props: TextProps): JSX.Element
 public;BodyText(props: TextProps): JSX.Element
-public;Button 
-deprecated;Button 
-public;ButtonProps 
-deprecated;ButtonProps 
-public;ButtonSize
-deprecated;ButtonSize
-public;ButtonType
-deprecated;ButtonType
 internal;calculateBackdropFilterBlur: (proximityScale: number) => number
 internal;calculateBoxShadowOpacity: (proximityScale: number) => number
 internal;calculateProximityScale: (proximity: number, snap?: boolean, threshold?: number) => number
 internal;calculateToolbarOpacity: (proximityScale: number) => number
 public;Centered(props: CommonDivProps): JSX.Element
-public;Checkbox 
-deprecated;Checkbox 
 public;CheckBoxInfo
-public;CheckboxProps 
-deprecated;CheckboxProps 
 public;CheckBoxState
 public;CheckListBox 
 public;CheckListBoxItem 
@@ -54,12 +42,6 @@ internal;Corner
 internal;CrossAxisArrowKeyFunc = (forward: boolean) => void
 public;Dialog 
 public;DialogAlignment
-public;DialogButtonDef
-deprecated;DialogButtonDef
-public;DialogButtonStyle
-deprecated;DialogButtonStyle
-public;DialogButtonType
-deprecated;DialogButtonType
 public;DialogProps 
 public;DisabledText(props: TextProps): JSX.Element
 public;Div(props: DivProps): JSX.Element
@@ -69,10 +51,6 @@ public;ElementResizeObserver({ watchedElement, render }:
 public;ElementSeparator: (props: ElementSeparatorProps) => JSX.Element
 public;ElementSeparatorProps 
 public;ExecuteHandler = (this: void) => void
-public;ExpandableBlock 
-deprecated;ExpandableBlock 
-public;ExpandableBlockProps 
-deprecated;ExpandableBlockProps 
 public;ExpandableList 
 public;ExpandableListProps 
 public;ExpansionToggle 
@@ -107,7 +85,6 @@ public;Gap(props: GapProps): JSX.Element
 public;GapProps 
 public;GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[]
 internal;getBestBWContrastColor(hexColor: string): "black" | "white"
-internal;getButtonTypeClassName(buttonType?: ButtonType): string
 public;getCssVariable(variableName: string, htmlElement?: HTMLElement): string
 public;getCssVariableAsNumber(variableName: string, htmlElement?: HTMLElement): number
 internal;getDisplayName: (component: React_2.ComponentType
@@ -289,11 +266,6 @@ public;SpinnerProps
 deprecated;SpinnerProps
 public;SpinnerSize
 deprecated;SpinnerSize
-public;SplitButton 
-deprecated;SplitButton 
-internal;SplitButtonActionType
-public;SplitButtonProps 
-deprecated;SplitButtonProps 
 public;StepFunctionProp = number | ((direction: string) => number | undefined)
 public;StyledText(props: StyledTextProps): JSX.Element
 public;StyledTextProps 
@@ -354,8 +326,6 @@ public;TreeNodePlaceholderProps
 public;TreeNodeProps 
 public;TreeProps 
 public;UiCore
-public;UiEvent
-deprecated;UiEvent
 internal;UiGeometry
 public;UiStateEntry
 public;UiStateStorage
