@@ -18,11 +18,11 @@ import { StatusBarDialogTitleBarButton } from "./Button";
 export interface StatusBarDialogProps extends CommonProps {
   /** Dialog content.  */
   children?: React.ReactNode;
-  /** Dialog title bar. See [[TitleBar]] */
+  /** Dialog title bar. See [[StatusBarDialog.TitleBar]] */
   titleBar?: React.ReactNode;
 }
 
-/** Dialog component used in a [[FooterIndicator]] component.
+/** Dialog component used in a [[StatusBarIndicator]] component.
  * @beta
  */
 export function StatusBarDialog(props: StatusBarDialogProps) {
