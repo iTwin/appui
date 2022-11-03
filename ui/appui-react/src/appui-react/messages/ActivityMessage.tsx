@@ -32,7 +32,7 @@ function useActivityMessage({ activityMessageInfo, dismissActivityMessage, cance
   React.useEffect(() => {
     if (activityMessageInfo?.restored) {
       recentToast.current = toaster.informational(
-        <CustomActivityMessageContent initialActivityMessageInfo={activityMessageInfo} />,
+        <ActivityMessageContent initialActivityMessageInfo={activityMessageInfo} />,
         { onRemove: dismissActivityMessage, type: "persisting", link: activityMessageInfo?.details?.supportsCancellation && cancelActivityMessage ? { title: cancelLabel, onClick: cancelActivityMessage } : undefined }
       );
     }
@@ -72,7 +72,7 @@ export function ActivityMessageRenderer() {
  * Component used to show and update activity message content.
  * @internal
  */
-function CustomActivityMessageContent({ initialActivityMessageInfo }: { initialActivityMessageInfo: ActivityMessageEventArgs }) {
+export function ActivityMessageContent({ initialActivityMessageInfo }: { initialActivityMessageInfo: ActivityMessageEventArgs }) {
   const [percentCompleteLabel] = React.useState(UiFramework.translate("activityCenter.percentComplete"));
   const [activityMessageInfo, setActivityMessageInfo] = React.useState(initialActivityMessageInfo);
 

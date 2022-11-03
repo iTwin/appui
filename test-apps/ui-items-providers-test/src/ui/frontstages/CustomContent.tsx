@@ -17,10 +17,13 @@ import { SampleContentControl } from "../content/SampleContentControl";
 export class CustomContentGroupProvider extends ContentGroupProvider {
   public async provideContentGroup(_props: FrontstageProps): Promise<ContentGroup> {
     // copy and then modify standard layout so the content is always shown - note we could have just copied the standard and created a new one in line
-    const twoHorizontalSplit: ContentLayoutProps = {...StandardContentLayouts.twoHorizontalSplit, horizontalSplit: {...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
-      minSizeBottom: 100,
-      percentage: 0.80,
-    }};
+    const twoHorizontalSplit: ContentLayoutProps = {
+      ...StandardContentLayouts.twoHorizontalSplit, horizontalSplit: {
+        ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
+        minSizeBottom: 100,
+        percentage: 0.80,
+      }
+    };
 
     return new ContentGroup({
       id: "ui-item-provider-test:custom-stage-content",
@@ -88,7 +91,7 @@ export class CustomFrontstage {
     });
 
     /** Provides standard status fields */
-    StandardStatusbarItemsProvider.register("customStatusFields", undefined, (stageId: string, _stageUsage: string, _applicationData: any) => {
+    StandardStatusbarItemsProvider.register("customStatusFields", { activityCenter: true }, (stageId: string, _stageUsage: string, _applicationData: any) => {
       return stageId === CustomFrontstage.stageId;
     });
 
@@ -96,4 +99,3 @@ export class CustomFrontstage {
     CustomContentUiProvider.register();
   }
 }
-

@@ -48,7 +48,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
             IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, "Toast message", undefined, OutputMessageType.Toast));
           }),
           ToolbarItemUtilities.createActionButton(`${this.id}:sticky`, 1, "icon-placeholder", "Sticky message", () => {
-            IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, "Toast message", undefined, OutputMessageType.Sticky));
+            IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, "Sticky message", undefined, OutputMessageType.Sticky));
           }),
           ToolbarItemUtilities.createActionButton(`${this.id}:alert`, 1, "icon-placeholder", "Alert message", () => {
             IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, "Alert message", undefined, OutputMessageType.Alert));
