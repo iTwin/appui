@@ -12,10 +12,11 @@ import { SnapMode } from "@itwin/core-frontend";
 import { Snap, SnapModePanel } from "@itwin/appui-layout-react";
 import { ConfigurableUiActions } from "../configurableui/state";
 import { UiFramework } from "../UiFramework";
-import { Indicator } from "./Indicator";
 import { CommonProps } from "@itwin/core-react";
+import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 
 // cSpell:ignore multione
+
 /** Defines properties supported by the SnapMode Field Component.
  */
 interface SnapModeFieldProps extends CommonProps {
@@ -77,12 +78,11 @@ class SnapModeFieldComponent extends React.Component<SnapModeFieldProps, SnapMod
   public override render(): React.ReactNode {
     return (
       <>
-        <Indicator
-          iconName={`icon-${this.getSnapModeIconNameFromMode(this.props.snapMode)}`}
-          toolTip={this._title}
+        <StatusBarLabelIndicator
+          iconSpec={`icon-${this.getSnapModeIconNameFromMode(this.props.snapMode)}`}
+          title={this._title}
           label={this._title}
-          isLabelVisible={true}
-          dialog={
+          popup={
             <SnapModePanel title={this._title}>
               {this.getSnapEntries()}
             </SnapModePanel>

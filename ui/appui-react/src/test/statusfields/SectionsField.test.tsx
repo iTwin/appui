@@ -59,12 +59,12 @@ describe(`SectionsField`, () => {
     </Provider>);
 
     // Simulate a click to open the pop-up dialog
-    wrapper.find("div.uifw-indicator-icon").simulate("click"); // Opens it
+    wrapper.find("div.uifw-icon").simulate("click"); // Opens it
     wrapper.update();
 
     expect(wrapper.find("div.uifw-sections-footer-contents").length).to.eq(1);
 
-    wrapper.find("div.uifw-indicator-icon").simulate("click"); // Closes it
+    wrapper.find("div.uifw-icon").simulate("click"); // Closes it
     wrapper.update();
   });
 

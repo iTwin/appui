@@ -42,7 +42,6 @@ export * from "./appui-layout-react/footer/tool-assistance/Separator";
 export * from "./appui-layout-react/footer/Footer";
 export * from "./appui-layout-react/footer/Indicator";
 export * from "./appui-layout-react/footer/Popup";
-export * from "./appui-layout-react/footer/Separator";
 
 export * from "./appui-layout-react/popup/Tooltip";
 

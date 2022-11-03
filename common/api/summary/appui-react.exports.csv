@@ -246,7 +246,6 @@ beta;IModelConnectedViewSelector: ConnectedComponent
 public;IModelViewportControl 
 public;IModelViewportControlOptions
 internal;INACTIVITY_TIME_DEFAULT = 3500
-beta;Indicator(props: IndicatorProps): JSX.Element
 public;InitialAppUiSettings
 internal;initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneState
 internal;initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState
@@ -453,15 +452,23 @@ public;StatusBar
 public;StatusBarCenterSection(props: CommonDivProps): JSX.Element
 public;StatusBarComposer(props: StatusBarComposerProps): JSX.Element
 public;StatusBarComposerProps 
+beta;StatusBarDialog(props: StatusBarDialogProps): JSX.Element
+beta;StatusBarDialog
+beta;StatusBarDialogProps 
 public;StatusBarFieldId = string | null
+beta;StatusBarIndicator(props: StatusBarIndicatorProps): JSX.Element
+beta;StatusBarIndicatorProps 
 public;StatusBarItem 
 internal;StatusBarItemProps 
 beta;StatusBarItemsManager 
 deprecated;StatusBarItemsManager 
 public;StatusBarItemUtilities
+beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): JSX.Element
+beta;StatusBarLabelIndicatorProps 
 public;StatusBarLeftSection(props: CommonDivProps): JSX.Element
 public;StatusBarProps 
 public;StatusBarRightSection(props: CommonDivProps): JSX.Element
+public;StatusBarSeparator(props: CommonProps): JSX.Element
 public;StatusBarSpaceBetween(props: CommonDivProps): JSX.Element
 public;StatusBarWidgetComposerControl 
 public;class StatusBarWidgetControl 

@@ -362,21 +362,23 @@ describe("StatusBarComposer", () => {
         StatusBarItemUtilities.createStatusBarItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
       ];
 
-      const uiProvider = new TestUiProvider();
-      expect(items.length).to.eq(2);
       const wrapper = render(<StatusBarComposer items={items} />);
-      expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(1); // 1 visible
+      expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(1);
+
+      const uiProvider = new TestUiProvider();
       UiItemsManager.register(uiProvider);
       await TestUtils.flushAsyncOperations();
       expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(5);
-      // ensure the ConditionalStringValue for label has been evaluated
-      expect(wrapper.container.querySelector("span.nz-icon-padding-right")?.textContent).to.be.eql("visible");
+      await wrapper.findByText("visible");
+
+      // Ensure the ConditionalStringValue for label has been evaluated
       TestUiProvider.triggerSyncRefresh();
       await TestUtils.flushAsyncOperations();
-      expect(wrapper.container.querySelector("span.nz-icon-padding-right")?.textContent).to.be.eql("hidden");
+      await wrapper.findByText("hidden");
+
       UiItemsManager.unregister(uiProvider.id);
       await TestUtils.flushAsyncOperations();
-      expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(1); // 1 visible
+      expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(1);
       wrapper.unmount();
     });
 
@@ -406,20 +408,17 @@ describe("StatusBarComposer", () => {
         StatusBarItemUtilities.createStatusBarItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
       ];
 
-      const uiProvider = new TestUiProvider(true);
       const wrapper = render(<StatusBarComposer items={items} />);
-      expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(1); // 1 visible
+      expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(1);
+
+      const uiProvider = new TestUiProvider(true);
       UiItemsManager.register(uiProvider);
       await TestUtils.flushAsyncOperations();
       expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(5);
-      // ensure the ConditionalStringValue for label has been evaluated
-      expect(wrapper.container.querySelector("span.nz-icon-padding-right")?.textContent).to.be.eql("visible");
-      TestUiProvider.triggerSyncRefresh();
-      await TestUtils.flushAsyncOperations();
-      expect(wrapper.container.querySelector("span.nz-icon-padding-right")?.textContent).to.be.eql("hidden");
+
       UiItemsManager.unregister(uiProvider.id);
       await TestUtils.flushAsyncOperations();
-      expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(1); // 1 visible
+      expect(wrapper.container.querySelectorAll(".uifw-statusbar-item-container").length).to.be.eql(1);
       wrapper.unmount();
     });
 

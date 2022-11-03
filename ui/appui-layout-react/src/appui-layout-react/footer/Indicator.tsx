@@ -12,7 +12,7 @@ import * as React from "react";
 import { CommonProps } from "@itwin/core-react";
 
 /** Properties of [[FooterIndicator]] component.
- * @beta
+ * @internal
  */
 export interface FooterIndicatorProps extends CommonProps {
   /** Indicator content. */
@@ -24,21 +24,20 @@ export interface FooterIndicatorProps extends CommonProps {
 }
 
 /** Indicator used in [[Footer]] component.
- * @beta
+ * @note Use [Indicator]($appui-react) instead
+ * @internal
  */
-export function FooterIndicator(props: FooterIndicatorProps) {
-
+export const FooterIndicator = React.forwardRef<HTMLDivElement, FooterIndicatorProps>(function FooterIndicator(props, ref) {
   const { children, ...attributes } = props;
 
   const className = classnames(
     "nz-footer-indicator",
-    "nz-footer-mode",
     props.className
   );
 
   return (
-    <div {...{ ...attributes, className }}>
+    <div ref={ref} {...{ ...attributes, className }}>
       {children}
     </div>
   );
-}
+});
