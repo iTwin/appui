@@ -22,7 +22,7 @@ export class CustomContentGroupProvider extends ContentGroupProvider {
         ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
         minSizeBottom: 100,
         percentage: 0.80,
-      }
+      },
     };
 
     return new ContentGroup({

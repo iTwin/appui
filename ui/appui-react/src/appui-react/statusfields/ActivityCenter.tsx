@@ -66,7 +66,7 @@ export function ActivityCenterField(props: CommonProps) {
           flex: "1",
         }}
         value={percentage}
-        labels={[<Small>{percentage} {label}</Small>]}
+        labels={[<Small key={0}>{percentage} {label}</Small>]}
       />
     </Centered>
   );

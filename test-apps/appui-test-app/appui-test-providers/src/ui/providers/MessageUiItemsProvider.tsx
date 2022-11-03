@@ -61,4 +61,4 @@ export class MessageUiItemsProvider implements UiItemsProvider {
   }
 }
 
-let details: ActivityMessageDetails | undefined = undefined;
+let details: ActivityMessageDetails | undefined;

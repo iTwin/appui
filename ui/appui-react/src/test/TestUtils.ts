@@ -76,7 +76,7 @@ export class TestUtils {
         });
       }
 
-      this.store = createStore(this._rootReducer,
+      this.store = createStore(this._rootReducer, // eslint-disable-line deprecation/deprecation
         (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__());
 
       if (testAlternateKey)
