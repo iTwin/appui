@@ -13,52 +13,16 @@
   font-size: $text-font-size;
   box-sizing: border-box;
 
-  .nz-icon-padding-left {
-    padding-left: $nz-footer-indicator-space-between-text-and-icon;
-  }
-
-  .nz-icon-padding-right {
-    padding-right: $nz-footer-indicator-space-between-text-and-icon;
-  }
-
-  .nz-icon {
-    font-size: $icon-size;
-
-    /* Medium devices */
-    @include for-tablet-landscape-down {
-      font-size: $icon-size-medium;
-    }
-
-    /* Small devices */
-    @include for-phone-only {
-      font-size: $icon-size-small;
-    }
-  }
-
   /* Desktop */
   @include for-medium-desktop-up {
-    &.nz-footer-mode {
-      padding-left: $nz-footer-indicator-horizontal-padding;
-      padding-right: $nz-footer-indicator-horizontal-padding;
-    }
-
-    &:not(.nz-footer-mode) {
-      padding-left: $nz-footer-widget-indicator-horizontal-padding;
-      padding-right: $nz-footer-widget-indicator-horizontal-padding;
-    }
+    padding-left: $nz-footer-indicator-horizontal-padding;
+    padding-right: $nz-footer-indicator-horizontal-padding;
   }
 
   /* Medium devices */
   @include for-small-desktop-down {
-    &.nz-footer-mode {
-      padding-left: $nz-footer-indicator-horizontal-padding-medium;
-      padding-right: $nz-footer-indicator-horizontal-padding-medium;
-    }
-
-    &:not(.nz-footer-mode) {
-      padding-left: $nz-footer-widget-indicator-horizontal-padding-medium;
-      padding-right: $nz-footer-widget-indicator-horizontal-padding-medium;
-    }
+    padding-left: $nz-footer-indicator-horizontal-padding-medium;
+    padding-right: $nz-footer-indicator-horizontal-padding-medium;
   }
 
   @include for-tablet-portrait-down {
@@ -69,14 +33,7 @@
   @include for-phone-only {
     font-size: $text-font-size-small;
 
-    &.nz-footer-mode {
-      padding-left: $nz-footer-indicator-horizontal-padding-small;
-      padding-right: $nz-footer-indicator-horizontal-padding-small;
-    }
-
-    &:not(.nz-footer-mode) {
-      padding-left: $nz-footer-widget-indicator-horizontal-padding-small;
-      padding-right: $nz-footer-widget-indicator-horizontal-padding-small;
-    }
+    padding-left: $nz-footer-indicator-horizontal-padding-small;
+    padding-right: $nz-footer-indicator-horizontal-padding-small;
   }
 }

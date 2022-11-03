@@ -149,13 +149,10 @@ export type CursorType = "nwse-resize" | "nesw-resize" | "ew-resize" | "ns-resiz
 // @internal (undocumented)
 export const CursorTypeContext: React_2.Context<CursorType | undefined>;
 
-// @beta
-export class Dialog extends React_2.PureComponent<DialogProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
+// @internal
+export function Dialog(props: DialogProps): JSX.Element;
 
-// @beta
+// @internal
 export interface DialogProps extends CommonProps {
     children?: React_2.ReactNode;
     titleBar?: React_2.ReactNode;
@@ -452,61 +449,32 @@ export interface FloatingWidgetState {
 // @internal (undocumented)
 export function floatWidget(state: NineZoneState, widgetTabId: string, point?: PointProps, size?: SizeProps): NineZoneState;
 
-// @internal @deprecated
+// @internal
 export class Footer extends React_2.PureComponent<FooterProps> {
     // (undocumented)
     render(): JSX.Element;
 }
 
-// @beta
-export function FooterIndicator(props: FooterIndicatorProps): JSX.Element;
+// @internal
+export const FooterIndicator: React_2.ForwardRefExoticComponent<FooterIndicatorProps & React_2.RefAttributes<HTMLDivElement>>;
 
-// @beta
+// @internal
 export interface FooterIndicatorProps extends CommonProps {
     children?: React_2.ReactNode;
     onClick?: (event: React_2.MouseEvent) => void;
     title?: string;
 }
 
-// @beta
-export class FooterPopup extends React_2.PureComponent<FooterPopupProps> {
-    // (undocumented)
-    static readonly defaultProps: FooterPopupDefaultProps;
-    // (undocumented)
-    render(): JSX.Element;
-}
+// @internal
+export function FooterPopup(props: Partial<PopupProps>): JSX.Element;
 
-// @beta
-export enum FooterPopupContentType {
-    Dialog = "nz-content-dialog",
-    Panel = "nz-content-panel"
-}
-
-// @beta
-export type FooterPopupDefaultProps = Pick<FooterPopupProps, "contentType">;
-
-// @beta
-export interface FooterPopupProps extends Partial<PopupProps> {
-    contentType: FooterPopupContentType;
-}
-
-// @internal @deprecated
+// @internal
 export interface FooterProps extends CommonProps {
     children?: React_2.ReactNode;
     messages?: React_2.ReactNode;
     onMouseEnter?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
     onMouseLeave?: (event: React_2.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     safeAreaInsets?: SafeAreaInsets;
-}
-
-// @public
-export class FooterSeparator extends React_2.PureComponent<FooterSeparatorProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public
-export interface FooterSeparatorProps extends CommonProps, NoChildrenProps {
 }
 
 // @internal
@@ -610,7 +578,7 @@ export type LeftPanelSide = "left";
 // @internal (undocumented)
 export const MeasureContext: React_2.Context<() => Rectangle>;
 
-// @internal @deprecated
+// @internal
 export class Message extends React_2.PureComponent<StatusMessageProps> {
     // (undocumented)
     render(): JSX.Element;
@@ -1172,7 +1140,7 @@ export class Snap extends React_2.PureComponent<SnapProps> {
     render(): JSX.Element;
 }
 
-// @internal @deprecated
+// @internal
 export class SnapMode extends React_2.PureComponent<SnapModeProps> {
     // (undocumented)
     render(): JSX.Element;
@@ -1317,17 +1285,11 @@ export interface TabState {
 // @internal (undocumented)
 export const TabStateContext: React_2.Context<TabState>;
 
-// @beta
-export class TitleBar extends React_2.PureComponent<TitleBarProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
+// @internal
+export function TitleBar(props: TitleBarProps): JSX.Element;
 
 // @internal
-export class TitleBarButton extends React_2.PureComponent<TitleBarButtonProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
+export function TitleBarButton(props: TitleBarButtonProps): JSX.Element;
 
 // @internal
 export interface TitleBarButtonProps extends CommonProps {
@@ -1336,13 +1298,13 @@ export interface TitleBarButtonProps extends CommonProps {
     title?: string;
 }
 
-// @beta
+// @internal
 export interface TitleBarProps extends CommonProps {
     children?: React_2.ReactNode;
     title?: string;
 }
 
-// @internal @deprecated
+// @internal
 export class Toast extends React_2.PureComponent<ToastProps, ToastState> {
     constructor(props: ToastProps);
     // (undocumented)

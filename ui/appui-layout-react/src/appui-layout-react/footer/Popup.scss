@@ -10,21 +10,12 @@
 .nz-footer-popup {
   border: unset;
   font-size: $iui-font-size;
+  background-color: $buic-background-dialog;
+
+  &.core-popup.arrow::after,
+  &.core-popup.arrow::before {
+    color: $buic-background-dialog;
+  }
 
   @include uicore-z-index(status-popup);
-
-  &.nz-content-dialog {
-    background-color: $buic-background-dialog;
-    &.core-popup.arrow::after, .core-popup.arrow::before {
-      color: $buic-background-dialog;
-    }
-  }
-
-  &.nz-content-panel {
-    background-color: $buic-background-panel;
-    &.core-popup.arrow::after, .core-popup.arrow::before {
-      color: $buic-background-panel;
-    }
-  }
-
 }

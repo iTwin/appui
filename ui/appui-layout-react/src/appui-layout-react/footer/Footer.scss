@@ -42,36 +42,21 @@
     }
   }
 
-  &:not(.nz-footer-mode) {
-    height: 100%;
-
-    >div {
-      position: absolute;
-      @include nz-widget-opacity;
-    }
-  }
-
   &.nz-safe-area-left {
-    &.nz-footer-mode {
-      >div {
-        @include nz-safe-area-left;
-      }
+    >div {
+      @include nz-safe-area-left;
     }
   }
 
   &.nz-safe-area-right {
-    &.nz-footer-mode {
-      >div {
-        @include nz-safe-area-right;
-      }
+    >div {
+      @include nz-safe-area-right;
     }
   }
 
   &.nz-safe-area-bottom {
-    &.nz-footer-mode {
-      >div {
-        @include nz-safe-area-bottom;
-      }
+    >div {
+      @include nz-safe-area-bottom;
     }
   }
 }

@@ -21,7 +21,7 @@ import {
   FillCentered, Icon, LocalStateStorage, UiCore, UiStateEntry, UiStateStorage, UiStateStorageResult, UiStateStorageStatus,
 } from "@itwin/core-react";
 import {
-  FooterPopup, ToolAssistanceInstruction as NZ_ToolAssistanceInstruction, TitleBarButton, ToolAssistance, ToolAssistanceDialog,
+  FooterPopup, ToolAssistanceInstruction as NZ_ToolAssistanceInstruction, ToolAssistance, ToolAssistanceDialog,
   ToolAssistanceItem,
   ToolAssistanceSeparator,
 } from "@itwin/appui-layout-react";
@@ -48,6 +48,7 @@ import clickMouseWheelDragIcon from "./mouse-click-wheel-drag.svg";
 import mouseWheelClickIcon from "./mouse-click-wheel.svg";
 import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
+import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 
 // cSpell:ignore cursorprompt
 
@@ -403,14 +404,20 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
             buttons={
               <>
                 {!this.state.isPinned &&
-                  <TitleBarButton onClick={this._handlePinButtonClick} title={UiFramework.translate("toolAssistance.pin")}>
+                  <StatusBarDialog.TitleBarButton
+                    onClick={this._handlePinButtonClick}
+                    title={UiFramework.translate("toolAssistance.pin")}
+                  >
                     <i className={"icon icon-pin"} />
-                  </TitleBarButton>
+                  </StatusBarDialog.TitleBarButton>
                 }
                 {this.state.isPinned &&
-                  <TitleBarButton onClick={this._handleCloseButtonClick} title={UiCore.translate("dialog.close")}>
+                  <StatusBarDialog.TitleBarButton
+                    onClick={this._handleCloseButtonClick}
+                    title={UiCore.translate("dialog.close")}
+                  >
                     <i className={"icon icon-close"} />
-                  </TitleBarButton>
+                  </StatusBarDialog.TitleBarButton>
                 }
               </>
             }
@@ -473,7 +480,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       isOpen,
     };
     if (!isOpen && this.state.isPinned && this._isMounted) {
-      newState = {...newState, ...{isPinned: false}};
+      newState = { ...newState, ...{ isPinned: false } };
     }
     this.setState(newState);
   }

@@ -52,7 +52,6 @@ import { DisplayStyle3dState } from '@itwin/core-frontend';
 import { ECClassGroupingNodeKey } from '@itwin/presentation-common';
 import { EmphasizeElementsProps } from '@itwin/core-common';
 import { FloatingWidgetState } from '@itwin/appui-layout-react';
-import { FooterPopupContentType } from '@itwin/appui-layout-react';
 import { FunctionKey } from '@itwin/appui-abstract';
 import { GroupButton } from '@itwin/appui-abstract';
 import { GuidString } from '@itwin/core-bentley';
@@ -2599,9 +2598,6 @@ export interface IModelViewportControlOptions {
 // @internal
 export const INACTIVITY_TIME_DEFAULT = 3500;
 
-// @beta
-export function Indicator(props: IndicatorProps): JSX.Element;
-
 // @public
 export interface InitialAppUiSettings {
     // (undocumented)
@@ -4619,8 +4615,35 @@ export interface StatusBarComposerProps extends CommonProps {
     rightClassName?: string;
 }
 
+// @beta
+export function StatusBarDialog(props: StatusBarDialogProps): JSX.Element;
+
+// @beta
+export namespace StatusBarDialog {
+    const TitleBar: typeof StatusBarDialogTitleBar;
+    const TitleBarButton: typeof StatusBarDialogTitleBarButton;
+}
+
+// @beta
+export interface StatusBarDialogProps extends CommonProps {
+    children?: React_2.ReactNode;
+    titleBar?: React_2.ReactNode;
+}
+
 // @public
 export type StatusBarFieldId = string | null;
+
+// @beta
+export function StatusBarIndicator(props: StatusBarIndicatorProps): JSX.Element;
+
+// @beta
+export interface StatusBarIndicatorProps extends CommonProps {
+    children?: React_2.ReactNode;
+    defaultIsOpen?: boolean;
+    onClick?: () => void;
+    popup?: React_2.ReactNode;
+    title?: string;
+}
 
 // @public
 export interface StatusBarItem extends AbstractStatusBarCustomItem {
@@ -4647,6 +4670,16 @@ export class StatusBarItemUtilities {
     static createStatusBarItem: (id: string, section: StatusBarSection, itemPriority: number, reactNode: React_2.ReactNode, itemProps?: Partial<StatusBarItem> | undefined) => StatusBarItem;
 }
 
+// @beta
+export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): JSX.Element;
+
+// @beta
+export interface StatusBarLabelIndicatorProps extends Omit<StatusBarIndicatorProps, "children"> {
+    iconSpec?: IconSpec;
+    label?: string;
+    labelSide?: StatusBarLabelSide;
+}
+
 // @public
 export function StatusBarLeftSection(props: CommonDivProps): JSX.Element;
 
@@ -4658,6 +4691,9 @@ export interface StatusBarProps extends CommonProps {
 
 // @public
 export function StatusBarRightSection(props: CommonDivProps): JSX.Element;
+
+// @public
+export function StatusBarSeparator(props: CommonProps): JSX.Element;
 
 // @public
 export function StatusBarSpaceBetween(props: CommonDivProps): JSX.Element;
