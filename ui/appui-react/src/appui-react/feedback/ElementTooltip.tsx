@@ -109,7 +109,7 @@ export class ElementTooltip extends React.Component<CommonProps, ElementTooltipS
 
     return (
       <div className="uifw-element-tooltip-container">
-        <Tooltip // eslint-disable-line deprecation/deprecation
+        <Tooltip
           className={className}
           style={this.props.style}
           position={this.state.position}

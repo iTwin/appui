@@ -49,7 +49,7 @@ export class GroupItemDef extends ActionButtonItemDef {
     }
 
     this.itemsInColumn = (groupItemProps.itemsInColumn !== undefined) ? groupItemProps.itemsInColumn : 7;
-    this._panelLabel = PropsHelper.getStringSpec(groupItemProps.panelLabel, groupItemProps.panelLabelKey); // eslint-disable-line deprecation/deprecation
+    this._panelLabel = PropsHelper.getStringSpec(groupItemProps.panelLabel, groupItemProps.panelLabelKey);
     this.items = groupItemProps.items;
     this.defaultActiveItemId = groupItemProps.defaultActiveItemId;
   }

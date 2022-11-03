@@ -9,10 +9,10 @@ import { ViewToolWidgetComposer } from "../../appui-react/widgets/ViewToolWidget
 describe("ViewToolWidgetComposer", () => {
 
   it("ViewToolWidgetComposer should render correctly", () => {
-    shallow(<ViewToolWidgetComposer />).should.matchSnapshot(); // eslint-disable-line deprecation/deprecation
+    shallow(<ViewToolWidgetComposer />).should.matchSnapshot();
   });
 
   it("ViewToolWidgetComposer with no navigation aid should render correctly", () => {
-    shallow(<ViewToolWidgetComposer hideNavigationAid />).should.matchSnapshot(); // eslint-disable-line deprecation/deprecation
+    shallow(<ViewToolWidgetComposer hideNavigationAid />).should.matchSnapshot();
   });
 });

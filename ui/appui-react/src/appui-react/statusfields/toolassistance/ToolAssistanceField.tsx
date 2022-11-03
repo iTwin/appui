@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Notification
  */
@@ -60,7 +59,7 @@ export interface ToolAssistanceFieldProps extends CommonProps {
   includePromptAtCursor: boolean;
   /** Optional parameter for persistent UI settings. Defaults to UiStateStorageContext.
    */
-  uiStateStorage?: UiStateStorage; // eslint-disable-line deprecation/deprecation
+  uiStateStorage?: UiStateStorage;
   /** Cursor Prompt Timeout period. Defaults to 5000. */
   cursorPromptTimeout: number;
   /** Fade Out the Cursor Prompt when closed. */
@@ -108,7 +107,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
   private _indicator = React.createRef<HTMLDivElement>();
   private _cursorPrompt: CursorPrompt;
   private _isMounted = false;
-  private _uiSettingsStorage: UiStateStorage; // eslint-disable-line deprecation/deprecation
+  private _uiSettingsStorage: UiStateStorage;
 
   /** @internal */
   public static readonly defaultProps: ToolAssistanceFieldDefaultProps = {
@@ -169,7 +168,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
   }
 
   private async restoreSettings() {
-    let getShowPromptAtCursor: Promise<UiStateStorageResult> | undefined; // eslint-disable-line deprecation/deprecation
+    let getShowPromptAtCursor: Promise<UiStateStorageResult> | undefined;
     // istanbul ignore else
     if (this.props.includePromptAtCursor) {
       getShowPromptAtCursor = this._showPromptAtCursorSetting.getSetting(this._uiSettingsStorage);
@@ -378,7 +377,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
     return (
       <>
         <div style={{ height: "100%" }} ref={this._handleTargetRef}>
-          <ToolAssistance // eslint-disable-line deprecation/deprecation
+          <ToolAssistance
             icons={
               <>
                 {toolIcon}

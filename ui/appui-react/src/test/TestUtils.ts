@@ -17,9 +17,7 @@ import {
 } from "../appui-react";
 import { TestContentControl } from "./frontstage/FrontstageTestUtils";
 import userEvent from "@testing-library/user-event";
-export {userEvent};
-
-/* eslint-disable deprecation/deprecation */
+export { userEvent };
 
 interface SampleAppState {
   placeHolder?: boolean;
@@ -366,14 +364,14 @@ export function stubScrollIntoView() {
 
 /** Returns tag, id and classes of the information used by CSS selectors */
 function getPartialSelctorInfo(e: HTMLElement) {
-  return `${e.tagName}${e.id ? `#${e.id}`: ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
+  return `${e.tagName}${e.id ? `#${e.id}` : ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
 }
 
 /** Returns the full list of classes and tag chain for an element up to HTML */
 function currentSelectorInfo(e: HTMLElement) {
   let w = e;
   const chain = [getPartialSelctorInfo(w)];
-  while(w.parentElement) {
+  while (w.parentElement) {
     w = w.parentElement;
     chain.unshift(getPartialSelctorInfo(w));
   }
@@ -389,7 +387,7 @@ export function selectorMatches(selectors: string) {
   const satisfier = (e: HTMLElement) => {
     // \b\b\b... removes default "[Function : " part to get clear message in output.
     const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(e)}'\n\n${prettyDOM()}`;
-    Object.defineProperty(satisfier, "name",  {value: message});
+    Object.defineProperty(satisfier, "name", { value: message });
     return e.matches(selectors);
   };
   return satisfier;
@@ -404,7 +402,7 @@ export function childStructure(selectors: string) {
   const satisfier = (e: HTMLElement) => {
     // \b\b\b... removes default "[Function : " part to get clear message in output.
     const message = `\b\b\b\b\b\b\b\b\b\b\belement.querySelector('${selectors}'); but is: \n${prettyDOM(e)}`;
-    Object.defineProperty(satisfier, "name", {value: message});
+    Object.defineProperty(satisfier, "name", { value: message });
     return !!e.querySelector(selectors);
   };
   return satisfier;

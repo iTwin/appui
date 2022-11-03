@@ -24,8 +24,6 @@ import { UiFramework } from "../UiFramework";
 import cameraAnimationIcon from "@itwin/itwinui-icons/icons/camera-animation.svg";
 import cameraAnimationDisabledIcon from "@itwin/itwinui-icons/icons/camera-animation-disabled.svg";
 
-/* eslint-disable deprecation/deprecation */
-
 /** Utility Class that provides definitions of tools provided by the ($core-frontend) core. These definitions can be used to populate the UI.
  * @public
  */
