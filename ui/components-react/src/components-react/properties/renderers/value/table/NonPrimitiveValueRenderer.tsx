@@ -6,7 +6,6 @@
  * @module Properties
  */
 
-import "./NonPrimitiveValueRenderer.scss";
 import * as React from "react";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation, UnderlinedButton } from "@itwin/core-react";

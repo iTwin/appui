@@ -10,6 +10,7 @@ import {
   PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardContentLayouts, StandardTypeNames, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState,
 } from "@itwin/appui-abstract";
 import {
+  BackstageAppButton,
   CommandItemDef, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, ModalDialogManager,
   ModelessDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanelState, ToolbarComposer, ToolbarHelper, ToolWidgetComposer,
 } from "@itwin/appui-react";
@@ -27,7 +28,6 @@ import { NavigationTreeWidgetControl } from "../widgets/NavigationTreeWidget";
 import {
   HorizontalPropertyGridWidgetControl, HorizontalPropertyGridWidgetControl2, VerticalPropertyGridWidgetControl,
 } from "../widgets/PropertyGridDemoWidget";
-import { TableDemoWidgetControl } from "../widgets/TableDemoWidget";
 import { TreeSelectionDemoWidgetControl } from "../widgets/TreeSelectionDemoWidget";
 import { AppToolbarUtilities } from "./NestedFrontstage1";
 import { IconHelper } from "@itwin/core-react";
@@ -182,7 +182,6 @@ export class Frontstage4 extends FrontstageProvider {
               { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
               { defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
               { defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl2 },
-              { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.TableDemo", control: TableDemoWidgetControl },
             ],
           },
         },
@@ -229,7 +228,7 @@ export class Frontstage4 extends FrontstageProvider {
 
     return (
       <ToolWidgetComposer
-        cornerItem={AppTools.backstageToggleCommand}
+        cornerItem={<BackstageAppButton />}
         verticalToolbar={<ToolbarComposer items={verticalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
         horizontalToolbar={<ToolbarComposer items={horizontalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
       />

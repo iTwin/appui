@@ -23,19 +23,12 @@ internal;buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): Pro
 beta;CategorizedPropertyItem 
 beta;CategorizedPropertyTypes = FlatGridItemType.Array | FlatGridItemType.Primitive | FlatGridItemType.Struct
 beta;CategoryRecordsDict
-public;CellItem
-public;CellProps
-deprecated;CellProps
 public;CheckBoxInfo
 public;CheckboxStateChange
-public;ColumnDescription
-public;ColumnFilterDescriptor 
 internal;Columns(props: ColumnsProps): JSX.Element
 internal;ColumnsProps 
 public;CommonPropertyGridProps 
 public;CompletionObserver
-public;CompositeFilterDescriptor 
-public;CompositeFilterDescriptorCollection
 public;CompositeFilterType
 public;CompositePropertyDataFilterer 
 public;CompositeTypeConverter 
@@ -68,8 +61,6 @@ public;DelayLoadedTreeNodeItem
 public;Direction
 internal;DirectionHelpers
 public;DisplayValuePropertyDataFilterer 
-public;DistinctValueCollection
-public;DistinctValuesFilterDescriptor 
 public;DoublePropertyValueRenderer 
 internal;DragAction
 public;EditableTreeDataProvider 
@@ -84,21 +75,12 @@ public;ErrorObserver
 public;FavoritePropertiesRenderer
 alpha;FavoritePropertyList(props: FavoritePropertyListProps): JSX.Element | null
 alpha;FavoritePropertyListProps
-public;FieldFilterDescriptor 
-public;FilterableColumn
-public;FilterableTable
-public;FilterCompositionLogicalOperator
-public;FilterDescriptor
-public;FilterDescriptorCollection 
-public;class FilterDescriptorCollectionBase
 public;FilteredPropertyData 
 public;FilteredType
 public;FilteringInput 
 public;FilteringInputProps 
 public;FilteringInputStatus
 public;FilteringPropertyDataProvider 
-public;FilterOperator
-public;FilterRenderer
 beta;FlatGridItem = CategorizedPropertyItem | GridCategoryItem
 beta;FlatGridItemBase
 beta;FlatGridItemType
@@ -192,7 +174,6 @@ beta;class MutableFlatPropertyGridItem
 beta;MutableGridCategory 
 beta;MutableGridItemFactory 
 beta;MutablePropertyGridModel 
-public;MutableTableDataProvider 
 beta;MutableTreeDataProvider 
 deprecated;MutableTreeDataProvider 
 public;MutableTreeModel 
@@ -214,8 +195,6 @@ public;OnItemsDeselectedCallback
 public;OnItemsSelectedCallback
 public;OnSelectionChanged = (shiftDown?: boolean, ctrlDown?: boolean) => void
 public;OperatorProcessor
-public;OperatorValueFilterDescriptor 
-public;OperatorValueFilterDescriptorCollection 
 alpha;OrthogonalDirection
 internal;OrthogonalDirectionHelpers
 public;PagedTreeNodeLoader
@@ -313,15 +292,10 @@ public;PropertyValueRendererContext
 public;PropertyValueRendererManager
 public;PropertyView 
 public;PropertyViewProps 
-public;ReactDataGridColumn 
-deprecated;ReactDataGridColumn 
 beta;RenderedItemsRange
 public;renderLinks: (text: string, links: LinkElementsInfo, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode
 public;ResultSelector 
 public;ResultSelectorProps 
-public;RowItem
-public;RowProps
-deprecated;RowProps
 public;SelectableContent(props: SelectableContentProps): JSX.Element
 public;SelectableContentDefinition
 public;SelectableContentProps
@@ -331,20 +305,7 @@ public;SharedRendererProps
 public;SharedTableNonPrimitiveValueRendererProps
 internal;ShortDateTimePropertyEditor 
 public;ShortDateTypeConverter 
-public;ShowHideDialog
-deprecated;ShowHideDialog
-public;ShowHideDialogProps
-deprecated;ShowHideDialogProps
-public;ShowHideID = string | number | symbol
-deprecated;ShowHideID = string | number | symbol
-public;ShowHideItem
-deprecated;ShowHideItem
-public;ShowHideMenu
-deprecated;ShowHideMenu
-public;ShowHideMenuProps
-deprecated;ShowHideMenuProps
 public;SimplePropertyDataProvider 
-public;SimpleTableDataProvider 
 public;SimpleTreeDataProvider 
 public;SimpleTreeDataProviderHierarchy = Map
 internal;SingleSelectionHandler
@@ -358,40 +319,12 @@ public;StringTypeConverter
 public;StructPropertyValueRenderer 
 public;Subscribable
 public;Subscription 
-public;Table 
-deprecated;Table 
 public;TableArrayValueRenderer 
-public;TableCell 
-deprecated;TableCell 
-public;TableCellContent 
-deprecated;TableCellContent 
-public;TableCellContentProps 
-deprecated;TableCellContentProps 
-public;TableCellContextMenuArgs
-deprecated;TableCellContextMenuArgs
-public;TableCellEditorState
-deprecated;TableCellEditorState
-public;TableCellProps 
-deprecated;TableCellProps 
-public;TableCellUpdatedArgs
-deprecated;TableCellUpdatedArgs
-internal;TableColumn 
 public;TableDataChangeEvent 
-public;TableDataChangesListener = () => void
-public;TableDataProvider
-public;TableDistinctValue
-internal;TableFilterDescriptorCollection 
-public;TableIconCellContent 
-public;TableIconCellContentProps
+deprecated;TableDataChangeEvent 
 public;TableNonPrimitiveValueRenderer 
 public;TableNonPrimitiveValueRendererProps 
-public;TableProps 
-deprecated;TableProps 
-internal;TableRow 
-internal;TableRowProps 
 public;TableRowStyleProvider:
-public;TableSelectionTarget
-deprecated;TableSelectionTarget
 public;TableSpecificValueRendererProps 
 public;TableStructValueRenderer 
 public;TextareaEditor 

@@ -37,7 +37,6 @@ import { ExampleForm } from "../forms/ExampleForm";
 import { AppStatusBarWidgetControl } from "../statusbars/AppStatusBar";
 import { VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { UnifiedSelectionPropertyGridWidgetControl } from "../widgets/UnifiedSelectionPropertyGridWidget";
-import { UnifiedSelectionTableWidgetControl } from "../widgets/UnifiedSelectionTableWidget";
 import { ViewportWidget } from "../widgets/ViewportWidget";
 import { VisibilityWidgetControl } from "../widgets/VisibilityWidget";
 import { NestedAnimationStage } from "./NestedAnimationStage";
@@ -405,22 +404,6 @@ export class ViewsFrontstage extends FrontstageProvider {
                 iconSpec: "icon-placeholder",
                 labelKey: "SampleApp:widgets.VerticalPropertyGrid",
                 control: VerticalPropertyGridWidgetControl,
-              },
-            ],
-          },
-        },
-      },
-      bottomPanel: {
-        pinned: false,
-        sections: {
-          start: {
-            widgets: [
-              {
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.UnifiedSelectionTable",
-                control: UnifiedSelectionTableWidgetControl,
-                applicationData: { iModelConnection },
-                badgeType: BadgeType.New,
               },
             ],
           },

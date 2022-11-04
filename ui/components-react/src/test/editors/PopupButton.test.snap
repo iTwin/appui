@@ -97,9 +97,9 @@ exports[`<PopupButton /> renders correctly with placeholder 1`] = `
     tabIndex={0}
   >
     <div
-      className="components-popup-button-value"
+      className="components-popup-button-value components-popup-button-placeholder"
     >
-      Hello
+      Test
     </div>
     <div
       className="components-popup-button-arrow"

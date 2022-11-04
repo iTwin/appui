@@ -17,13 +17,11 @@ import { IModelOpenFrontstage } from "../frontstages/IModelOpenFrontstage";
 import { IModelIndexFrontstage } from "../frontstages/IModelIndexFrontstage";
 import { Frontstage1 } from "../frontstages/Frontstage1";
 import { Frontstage2 } from "../frontstages/Frontstage2";
-import { Frontstage3 } from "../frontstages/Frontstage3";
 import { Frontstage4 } from "../frontstages/Frontstage4";
 import { FrontstageUi2 } from "../frontstages/FrontstageUi2";
 import { FrontstageWithNoWidgets } from "../frontstages/FrontStageWithNoWidgets";
 
 export function AppBackstageComposer() {
-  const hiddenCondition3 = new ConditionalBooleanValue(() => SampleAppIModelApp.getTestProperty() === "HIDE", [SampleAppUiActionId.setTestProperty]);
   const enableCondition = new ConditionalBooleanValue(() => SampleAppIModelApp.getTestProperty() === "HIDE", [SampleAppUiActionId.setTestProperty]);
   const imodelIndexHidden = new ConditionalBooleanValue(() => SampleAppIModelApp.isIModelLocal, [SampleAppUiActionId.setIsIModelLocal]);
   const openLocalFileHidden = new ConditionalBooleanValue(() => SampleAppIModelApp.testAppConfiguration?.snapshotPath === undefined, [SampleAppUiActionId.setIsIModelLocal]);
@@ -42,7 +40,6 @@ export function AppBackstageComposer() {
       BackstageItemUtilities.createStageLauncher(ViewsFrontstage.stageId, 100, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.viewIModel"), IModelApp.localization.getLocalizedString("SampleApp:backstage.iModelStage"), `svg:${stageIconSvg}`),
       BackstageItemUtilities.createStageLauncher(Frontstage1.stageId, 200, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.testFrontstage1"), undefined, "icon-placeholder", { badgeType: BadgeType.TechnicalPreview }),
       BackstageItemUtilities.createStageLauncher(Frontstage2.stageId, 200, 20, IModelApp.localization.getLocalizedString("SampleApp:backstage.testFrontstage2"), undefined, "icon-placeholder"),
-      BackstageItemUtilities.createStageLauncher(Frontstage3.stageId, 200, 30, IModelApp.localization.getLocalizedString("SampleApp:backstage.testFrontstage3"), undefined, "icon-placeholder", { isHidden: hiddenCondition3 }),
       BackstageItemUtilities.createStageLauncher(Frontstage4.stageId, 200, 40, IModelApp.localization.getLocalizedString("SampleApp:backstage.testFrontstage4"), undefined, "icon-placeholder", { isDisabled: enableCondition }),
       BackstageItemUtilities.createStageLauncher(FrontstageUi2.stageId, 200, 50, IModelApp.localization.getLocalizedString("SampleApp:backstage.testFrontstageUi20"), undefined, "icon-placeholder"),
       BackstageItemUtilities.createStageLauncher(FrontstageWithNoWidgets.stageId, 200, 60, IModelApp.localization.getLocalizedString("SampleApp:backstage.testFrontstageNoWidgets"), undefined, "icon-placeholder"),
