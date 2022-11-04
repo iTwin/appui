@@ -6,10 +6,8 @@ import "@bentley/icons-generic-webfont/dist/bentley-icons-generic-webfont.css";
 /** Include application registered Controls in Webpack
  */
 import "./contentviews/CubeContent";
-import "./contentviews/TableExampleContent";
-import "./contentviews/TreeExampleContent";
+import "./contentviews/DateConverter";
 import "./contentviews/ScheduleAnimationViewport";
-import "./widgets/TableDemoWidget";
 import "./widgets/FeedbackWidget";
 import "./widgets/NavigationTreeWidget";
 import "./widgets/PropertyGridDemoWidget";
@@ -33,7 +31,6 @@ import {
 import { IModelViewportControl } from "./contentviews/IModelViewport";
 import { Frontstage1 } from "./frontstages/Frontstage1";
 import { Frontstage2 } from "./frontstages/Frontstage2";
-import { Frontstage3 } from "./frontstages/Frontstage3";
 import { Frontstage4 } from "./frontstages/Frontstage4";
 import { IModelIndexFrontstage } from "./frontstages/IModelIndexFrontstage";
 import { IModelOpenFrontstage } from "./frontstages/IModelOpenFrontstage";
@@ -43,6 +40,7 @@ import { AccuDrawPopupTools } from "../tools/AccuDrawPopupTools";
 import { AppTools } from "../tools/ToolSpecifications";
 import { FrontstageUi2 } from "./frontstages/FrontstageUi2";
 import { FrontstageWithNoWidgets } from "./frontstages/FrontStageWithNoWidgets";
+import { TreeExampleContentControl } from "./contentviews/TreeExampleContent";
 
 // cSpell:ignore uitestapp
 
@@ -61,7 +59,6 @@ export class AppUi {
   private static defineFrontstages() {
     ConfigurableUiManager.addFrontstageProvider(new Frontstage1());
     ConfigurableUiManager.addFrontstageProvider(new Frontstage2());
-    ConfigurableUiManager.addFrontstageProvider(new Frontstage3());
     ConfigurableUiManager.addFrontstageProvider(new Frontstage4());
     FrontstageUi2.register();
     ConfigurableUiManager.addFrontstageProvider(new IModelIndexFrontstage());
@@ -122,8 +119,8 @@ export class AppUi {
         applicationData: { label: "Content 2a", bgColor: "black" },
       },
       {
-        id: "tableView",
-        classId: "TableExampleContent",
+        id: "treeExampleView",
+        classId: TreeExampleContentControl,
         applicationData: { label: "Content 3a", bgColor: "black" },
       },
     ],
@@ -144,8 +141,8 @@ export class AppUi {
         applicationData: { label: "Content 2b", bgColor: "black" },
       },
       {
-        id: "tableView",
-        classId: "TableExampleContent",
+        id: "treeExampleView",
+        classId: TreeExampleContentControl,
         applicationData: { label: "Content 3b", bgColor: "black" },
       },
     ],

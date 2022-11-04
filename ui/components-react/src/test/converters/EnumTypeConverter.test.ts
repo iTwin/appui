@@ -57,8 +57,24 @@ describe("EnumTypeConverter", () => {
       expect(await converter.convertPropertyToString(propertyDescription, undefined)).to.equal("");
     });
 
-    it("returns empty string when value is undefined", async () => {
-      expect(await converter.convertPropertyToString(propertyDescription, undefined)).to.equal("");
+    it("returns promise value when value is a promise", async () => {
+      const asyncPropertyDescription: PropertyDescription = {
+        name: "column1",
+        displayLabel: "column1",
+        typename: "enum",
+        enum: {
+          choices: Promise.resolve([
+            { label: colorNames[0], value: 100 },
+            { label: colorNames[1], value: 101 },
+            { label: colorNames[2], value: 102 },
+            { label: colorNames[3], value: 103 },
+            { label: colorNames[4], value: 104 },
+            { label: colorNames[5], value: 105 },
+          ]),
+        },
+      };
+
+      expect(await converter.convertPropertyToString(asyncPropertyDescription, 101)).to.equal(colorNames[1]);
     });
   });
 

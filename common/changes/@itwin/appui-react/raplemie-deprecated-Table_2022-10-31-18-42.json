@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Removed react-dnd dependency",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

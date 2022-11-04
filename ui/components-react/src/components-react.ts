@@ -14,9 +14,6 @@ export * from "./components-react/common/HighlightingComponentProps";
 export * from "./components-react/common/HighlightedText";
 export * from "./components-react/common/IImageLoader";
 export * from "./components-react/common/selection/SelectionHandler";
-export * from "./components-react/common/showhide/ShowHideDialog";
-export * from "./components-react/common/showhide/ShowHideItem";
-export * from "./components-react/common/showhide/ShowHideMenu";
 export * from "./components-react/common/UseAsyncValue";
 export * from "./components-react/common/UseDebouncedAsyncValue";
 export * from "./components-react/common/DateUtils";
@@ -136,12 +133,6 @@ export * from "./components-react/propertygrid/dataproviders/filterers/PropertyD
 export * from "./components-react/selectable-content/SelectableContent";
 
 export * from "./components-react/table/TableDataProvider";
-export * from "./components-react/table/SimpleTableDataProvider";
-export * from "./components-react/table/columnfiltering/ColumnFiltering";
-export * from "./components-react/table/columnfiltering/TableFilterDescriptorCollection";
-export * from "./components-react/table/component/Table";
-export * from "./components-react/table/component/TableCell";
-export * from "./components-react/table/component/TableColumn";
 
 // TODO: toolbar/groupPanel components needs a refactor.
 export * from "./components-react/toolbar/groupPanel/tool/Tool";

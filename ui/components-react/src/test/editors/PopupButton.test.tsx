@@ -44,7 +44,7 @@ describe("<PopupButton />", () => {
 
   it("renders correctly with placeholder", () => {
     shallow(
-      <PopupButton label="Hello" placeholder="Test">
+      <PopupButton placeholder="Test">
         <div>Hello World</div>
       </PopupButton>).should.matchSnapshot();
   });
