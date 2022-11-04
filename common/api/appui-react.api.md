@@ -1657,7 +1657,6 @@ export interface DefaultNavigationTools {
 export interface DefaultStatusbarItems {
     // (undocumented)
     accuSnapModePicker?: boolean;
-    // (undocumented)
     activityCenter?: boolean;
     // (undocumented)
     messageCenter?: boolean;
