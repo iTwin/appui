@@ -10,7 +10,7 @@ import { ItemProps } from "./ItemProps";
 
 /** Definition for a Custom item that renders a React component.
  * @public
- */
+ */
 export interface CustomItemProps extends ItemProps {
   customId?: string;
   popupPanelNode?: React.ReactNode;

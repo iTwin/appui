@@ -170,7 +170,7 @@ describe("UiFramework localStorage Wrapper", () => {
     class testSettingsProvider implements UserSettingsProvider {
       public readonly providerId = "testSettingsProvider";
       public settingsLoaded = false;
-      public async loadUserSettings(storage: UiStateStorage) { // eslint-disable-line deprecation/deprecation
+      public async loadUserSettings(storage: UiStateStorage) {
         if (storage)
           this.settingsLoaded = true;
       }

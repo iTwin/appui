@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Remove deprecated APIs.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

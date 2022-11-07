@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { BadgeType } from "@itwin/appui-abstract";
-import { BaseItemState, CommandItemDef, GroupItemDef } from "../../appui-react";
+import { CommandItemDef, GroupItemDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 const tool1 = new CommandItemDef({
@@ -14,16 +14,11 @@ const tool1 = new CommandItemDef({
   badgeType: BadgeType.New,
 });
 
-const toolItemEventId = "test-button-state";
-const toolItemStateFunc = (state: Readonly<BaseItemState>): BaseItemState => state;
-
 const tool2 = new CommandItemDef({
   commandId: "tool2",
   label: "Tool 2",
   iconSpec: "icon-placeholder",
   applicationData: { key: "value" },
-  stateSyncIds: [toolItemEventId],
-  stateFunc: toolItemStateFunc,
 });
 
 describe("GroupItem", () => {
