@@ -12,7 +12,7 @@ import { ECInstancesNodeKey, KeySet, LabelDefinition, Node, NodePathElement, Sta
 import { IPresentationTreeDataProvider, PresentationTreeDataProvider } from "@itwin/presentation-components";
 import { Presentation, PresentationManager, RulesetVariablesManager, SelectionChangeEvent, SelectionManager } from "@itwin/presentation-frontend";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import { TreeDataChangesListener, TreeNodeItem } from "@itwin/components-react";
+import { TreeNodeItem } from "@itwin/components-react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { CategoryTree, toggleAllCategories } from "../../../appui-react/imodel-components/category-tree/CategoriesTree";
 import { CategoryVisibilityHandler } from "../../../appui-react/imodel-components/category-tree/CategoryVisibilityHandler";
@@ -444,7 +444,6 @@ describe("CategoryTree", () => {
           dataProvider = {
             imodel: imodelMock.object,
             rulesetId: "",
-            onTreeNodeChanged: new BeEvent<TreeDataChangesListener>(),
             dispose: () => { },
             getFilteredNodePaths: async () => [],
             getNodeKey: (node: TreeNodeItem) => (node as any).__key,

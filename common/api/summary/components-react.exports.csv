@@ -6,7 +6,6 @@ public;ActionButtonList
 public;ActionButtonListProps
 public;ActionButtonRenderer = (props: ActionButtonRendererProps) => React_2.ReactNode
 public;ActionButtonRendererProps
-internal;ActionItem({ item, addGroupSeparator }:
 public;ActiveMatchInfo
 alpha;ActiveRuleGroupContext: React_2.Context
 alpha;ActiveRuleGroupContextProps
@@ -39,7 +38,6 @@ public;ControlledTree(props: ControlledTreeProps): JSX.Element
 public;ControlledTreeProps 
 public;ConvertedPrimitives
 internal;convertPrimitiveRecordToString(record: PropertyRecord): string | Promise
-internal;CustomItem({ item, addGroupSeparator }:
 alpha;CustomNumberEditor 
 alpha;CustomNumberPropertyEditor 
 public;CustomToolbarItem 
@@ -95,7 +93,6 @@ internal;getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | Tre
 beta;GridCategoryItem 
 internal;GroupColumn(props: GroupColumnProps): JSX.Element
 internal;GroupColumnProps 
-internal;GroupPopupItem({ item, addGroupSeparator }:
 internal;GroupTool(props: GroupToolProps): JSX.Element
 internal;GroupToolProps 
 internal;handleLoadedNodeHierarchy(modelSource: TreeModelSource, loadedHierarchy: LoadedNodeHierarchy): void
@@ -110,10 +107,6 @@ public;HighlightInfo
 public;HighlightingComponentProps
 public;HighlightingEngine
 alpha;IconEditor 
-alpha;IconPickerButton 
-deprecated;IconPickerButton 
-alpha;IconPickerProps 
-deprecated;IconPickerProps 
 alpha;IconPropertyEditor 
 public;IImageLoader
 public;ImageCheckBoxEditor 
@@ -174,8 +167,6 @@ beta;class MutableFlatPropertyGridItem
 beta;MutableGridCategory 
 beta;MutableGridItemFactory 
 beta;MutablePropertyGridModel 
-beta;MutableTreeDataProvider 
-deprecated;MutableTreeDataProvider 
 public;MutableTreeModel 
 public;MutableTreeModelNode 
 public;NavigationPropertyTypeConverter 
@@ -266,8 +257,6 @@ alpha;PropertyFilterRuleGroup
 alpha;PropertyFilterRuleGroupOperator
 alpha;PropertyFilterRuleOperator
 public;PropertyGrid 
-public;PropertyGridCategory
-deprecated;PropertyGridCategory
 internal;PropertyGridCommons
 public;PropertyGridContextMenuArgs
 beta;PropertyGridEventHandler
@@ -330,12 +319,6 @@ public;TableStructValueRenderer
 public;TextareaEditor 
 public;TextareaPropertyEditor 
 public;TextEditor 
-beta;ThemedEnumEditor 
-deprecated;ThemedEnumEditor 
-beta;ThemedEnumEditorProps 
-deprecated;ThemedEnumEditorProps 
-beta;ThemedEnumPropertyEditor 
-deprecated;ThemedEnumPropertyEditor 
 internal;TimeField({ time, timeDisplay, readOnly, onTimeChange }: TimeFieldProps): JSX.Element
 internal;TimeFieldProps
 internal;TimeSpec
@@ -367,12 +350,11 @@ public;toTimeString: (date: Date, timeZoneOffset?: number | undefined, formatOpt
 internal;toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition
 public;TreeActions
 public;TreeCheckboxStateChangeEventArgs
-public;TreeDataChangesListener = (nodes: Array
 public;TreeDataProvider = TreeDataProviderRaw | TreeDataProviderPromise | TreeDataProviderMethod | ITreeDataProvider
 public;TreeDataProviderMethod = (node?: TreeNodeItem) => Promise
 public;TreeDataProviderPromise = Promise
 public;TreeDataProviderRaw = ImmediatelyLoadedTreeNodeItem[]
-internal;TreeDataSource 
+internal;TreeDataSource
 public;TreeEditingParams
 internal;TreeEventDispatcher 
 public;TreeEventHandler 

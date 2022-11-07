@@ -6,7 +6,6 @@
  * @module Tree
  */
 
-import { BeEvent } from "@itwin/core-bentley";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
 import { PageOptions } from "../common/PageOptions";
@@ -68,8 +67,6 @@ export type TreeDataProviderMethod = (node?: TreeNodeItem) => Promise<DelayLoade
  * @public
  */
 export interface ITreeDataProvider {
-  /** @deprecated */
-  onTreeNodeChanged?: BeEvent<TreeDataChangesListener>;
   getNodesCount(parent?: TreeNodeItem): Promise<number>;
   getNodes(parent?: TreeNodeItem, page?: PageOptions): Promise<DelayLoadedTreeNodeItem[]>;
 }
@@ -122,30 +119,9 @@ export const hasChildren = (node: TreeNodeItem) => {
 };
 
 /**
- * An interface tree data change listeners.
- * Contains a list of nodes that changed or undefined if root level changed.
- * @public
- */
-export type TreeDataChangesListener = (nodes: Array<TreeNodeItem | undefined>) => void;
-
-/**
  * EditableTreeDataProvider provides cell editing processing for the Tree.
  * @public
  */
 export interface EditableTreeDataProvider extends ITreeDataProvider {
   updateLabel(nodeItem: TreeNodeItem, newLabel: string): void;
-}
-
-/**
- * MutableTreeDataProvider provides manipulation processing for the Tree.
- * Useful for Drag & Drop processing.
- * @beta @deprecated
- */
-export interface MutableTreeDataProvider extends ITreeDataProvider {
-  insertNode(parent: TreeNodeItem | undefined, child: TreeNodeItem, index?: number): void;
-  removeNode(parent: TreeNodeItem | undefined, child: TreeNodeItem): void;
-  moveNode(parent: TreeNodeItem | undefined, newParent: TreeNodeItem | undefined, child: TreeNodeItem, index?: number): void;
-
-  isDescendent(parent: TreeNodeItem | undefined, nodeItem: TreeNodeItem): boolean;
-  getNodeIndex(parent: TreeNodeItem | undefined, child: TreeNodeItem): number;
 }

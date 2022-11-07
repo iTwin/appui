@@ -17,13 +17,12 @@ import { map } from "rxjs/internal/operators/map";
 import { publish } from "rxjs/internal/operators/publish";
 import { refCount } from "rxjs/internal/operators/refCount";
 import { toArray } from "rxjs/internal/operators/toArray";
-import { BeEvent, IDisposable } from "@itwin/core-bentley";
 import { UiError } from "@itwin/appui-abstract";
 import { scheduleSubscription, SubscriptionScheduler } from "../../common/SubscriptionScheduler";
 import { UiComponents } from "../../UiComponents";
 import {
   ImmediatelyLoadedTreeNodeItem, isTreeDataProviderInterface, isTreeDataProviderMethod, isTreeDataProviderPromise, isTreeDataProviderRaw,
-  TreeDataChangesListener, TreeDataProvider, TreeDataProviderRaw, TreeNodeItem,
+  TreeDataProvider, TreeDataProviderRaw, TreeNodeItem,
 } from "../TreeDataProvider";
 import { Observable, toRxjsObservable } from "./Observable";
 import { isTreeModelNode, MutableTreeModel, TreeModelNode, TreeModelNodeInput, TreeModelRootNode, TreeNodeItemData } from "./TreeModel";
@@ -117,7 +116,7 @@ export abstract class AbstractTreeNodeLoaderWithProvider<TDataProvider extends T
  * Default tree node loader with `TreeDataProvider` implementation.
  * @public
  */
-export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> implements IDisposable {
+export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> {
   private _treeDataSource: TreeDataSource;
   private _activeRequests = new Map<string | undefined, RxjsObservable<TreeNodeLoadResult>>();
   private _scheduler = new SubscriptionScheduler<TreeNodeLoadResult>();
@@ -126,9 +125,6 @@ export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends Abst
     super(modelSource, dataProvider);
     this._treeDataSource = new TreeDataSource(dataProvider);
   }
-
-  /** Disposes data source */
-  public dispose() { this._treeDataSource.dispose(); }
 
   /**
    * Schedules to load children of node and returns an Observable.
@@ -167,7 +163,7 @@ export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends Abst
  * Default paged tree node loader with `TreeDataProvider` implementation.
  * @public
  */
-export class PagedTreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> implements IDisposable {
+export class PagedTreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> {
   private _treeDataSource: TreeDataSource;
   private _pageSize: number;
   private _activePageRequests: Map<string | undefined, Map<number, Observable<TreeNodeLoadResult>>>;
@@ -180,9 +176,6 @@ export class PagedTreeNodeLoader<TDataProvider extends TreeDataProvider> extends
     this._activePageRequests = new Map();
     this._scheduler = new SubscriptionScheduler();
   }
-
-  /** Disposes data source */
-  public dispose() { this._treeDataSource.dispose(); }
 
   /** Returns page size used by tree node loader. */
   public get pageSize(): number { return this._pageSize; }
@@ -417,26 +410,11 @@ interface TreeDataSourceResult {
  *
  * @internal
  */
-export class TreeDataSource implements IDisposable {
+export class TreeDataSource {
   private _dataProvider: TreeDataProvider;
-  private _disposeTreeNodesChangedListener?: () => void;
-
-  public readonly onItemsChanged = new BeEvent<TreeDataChangesListener>();
 
   constructor(dataProvider: TreeDataProvider) {
     this._dataProvider = dataProvider;
-
-    // eslint-disable-next-line deprecation/deprecation
-    if (isTreeDataProviderInterface(this._dataProvider) && this._dataProvider.onTreeNodeChanged) {
-      // eslint-disable-next-line deprecation/deprecation
-      this._disposeTreeNodesChangedListener = this._dataProvider.onTreeNodeChanged.addListener(
-        (changedItems) => this.onItemsChanged.raiseEvent(changedItems),
-      );
-    }
-  }
-
-  public dispose() {
-    this._disposeTreeNodesChangedListener && this._disposeTreeNodesChangedListener();
   }
 
   public requestItems(
