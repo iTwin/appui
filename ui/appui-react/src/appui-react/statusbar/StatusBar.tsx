@@ -15,6 +15,7 @@ import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { StatusBarWidgetControl } from "./StatusBarWidgetControl";
 import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
+import { ActivityMessageRenderer } from "../messages/ActivityMessage";
 
 // cspell:ignore safearea
 
@@ -61,6 +62,7 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
         {(safeAreaInsets) => (
           <Footer
             className={this.props.className}
+            messages={<ActivityMessageRenderer />}
             onMouseEnter={UiShowHideManager.handleWidgetMouseEnter}
             safeAreaInsets={toLayoutSafeAreaInsets(safeAreaInsets)}
             style={this.props.style}

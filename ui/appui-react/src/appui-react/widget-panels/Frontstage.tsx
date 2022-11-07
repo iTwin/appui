@@ -42,7 +42,6 @@ import { useSelector } from "react-redux";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import { IModelApp } from "@itwin/core-frontend";
 import { FloatingWidget } from "./FloatingWidget";
-import { ActivityMessageRenderer } from "../messages/ActivityMessage";
 
 const WidgetInternals = React.memo(function WidgetInternals() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -60,7 +59,6 @@ const WidgetInternals = React.memo(function WidgetInternals() { // eslint-disabl
         </WidgetPanels>
         <WidgetPanelsStatusBar />
         <FloatingWidgets />
-        <ActivityMessageRenderer />
       </ToolbarPopupAutoHideContext.Provider>
     </>
   );

@@ -72,7 +72,7 @@ export function ActivityMessageRenderer() {
  * Component used to show and update activity message content.
  * @internal
  */
-export function ActivityMessageContent({ initialActivityMessageInfo }: { initialActivityMessageInfo: ActivityMessageEventArgs }) {
+function ActivityMessageContent({ initialActivityMessageInfo }: { initialActivityMessageInfo: ActivityMessageEventArgs }) {
   const [percentCompleteLabel] = React.useState(UiFramework.translate("activityCenter.percentComplete"));
   const [activityMessageInfo, setActivityMessageInfo] = React.useState(initialActivityMessageInfo);
 
