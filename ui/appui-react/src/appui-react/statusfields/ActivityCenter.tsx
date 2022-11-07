@@ -9,86 +9,65 @@
 import classnames from "classnames";
 import * as React from "react";
 import { Centered, CommonProps } from "@itwin/core-react";
-import { MessageLayout, MessageProgress, Status } from "@itwin/appui-layout-react";
-import { ActivityMessageEventArgs, MessageManager } from "../messages/MessageManager";
+import { MessageManager } from "../messages/MessageManager";
 import { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
-
-/** State for the [[ActivityCenterField]] component
- * @internal
- */
-interface ActivityCenterState {
-  message: NotifyMessageType;
-  percentage: number;
-  isActivityMessageVisible: boolean;
-}
+import { ProgressLinear, Small } from "@itwin/itwinui-react";
 
 /** Activity Center Field React component.
  * @public
  */
-export class ActivityCenterField extends React.Component<CommonProps, ActivityCenterState> {
-  constructor(p: CommonProps) {
-    super(p);
-    this.state = {
-      message: "",
-      percentage: 0,
-      isActivityMessageVisible: true,
-    };
-  }
+export function ActivityCenterField(props: CommonProps) {
+  const [message, setMessage] = React.useState<NotifyMessageType>("");
+  const [percentage, setPercentage] = React.useState<number>(0);
+  const [isVisible, setIsVisible] = React.useState<boolean>(true);
+  const [label] = React.useState(UiFramework.translate("activityCenter.percentComplete"));
 
-  public override componentDidMount() {
-    MessageManager.onActivityMessageUpdatedEvent.addListener(this._handleActivityMessageEvent);
-    MessageManager.onActivityMessageCancelledEvent.addListener(this._handleActivityMessageCancelledEvent);
-  }
-
-  public override componentWillUnmount() {
-    MessageManager.onActivityMessageUpdatedEvent.removeListener(this._handleActivityMessageEvent);
-    MessageManager.onActivityMessageCancelledEvent.removeListener(this._handleActivityMessageCancelledEvent);
-  }
-
-  private _handleActivityMessageEvent = (args: ActivityMessageEventArgs) => {
-    this.setState({
-      message: args.message,
-      percentage: args.percentage,
-      isActivityMessageVisible: true,
+  React.useEffect(() => {
+    return MessageManager.onActivityMessageUpdatedEvent.addListener((args) => {
+      setMessage(args.message);
+      setPercentage(args.percentage);
+      setIsVisible(true);
     });
-  };
+  }, []);
 
-  private _handleActivityMessageCancelledEvent = () => {
-    this.setState({
-      isActivityMessageVisible: false,
+  React.useEffect(() => {
+    return MessageManager.onActivityMessageCancelledEvent.addListener(() => {
+      setIsVisible(false);
     });
+  }, []);
+
+  const openActivityMessage = () => {
+    MessageManager.setupActivityMessageValues(message, percentage, true);
   };
 
-  private _openActivityMessage = () => {
-    MessageManager.setupActivityMessageValues(this.state.message, this.state.percentage, true);
-  };
+  const isPercentageValid = (percentage > 0 && percentage < 100);
+  if (!isVisible || !isPercentageValid)
+    return null;
 
-  public override render(): React.ReactNode {
-    let footerMessages: React.ReactNode;
-    const isPercentageValid = (this.state.percentage > 0 && this.state.percentage < 100);
-    if (this.state.isActivityMessageVisible && isPercentageValid) {
-      const moreDetails = UiFramework.translate("activityCenter.moreDetails");
-      const tooltip = `${this.state.message}-${moreDetails}`;
+  const moreDetails = UiFramework.translate("activityCenter.moreDetails");
+  const tooltip = `${message}-${moreDetails}`;
 
-      footerMessages = (
-        <Centered className={classnames("open-activity-message", this.props.className)}
-          style={this.props.style}
-          onClick={this._openActivityMessage} title={tooltip}
-        >
-          <MessageLayout
-            progress={
-              <MessageProgress
-                status={Status.Information}
-                progress={this.state.percentage}
-              />
-            }
-          />
-        </Centered>
-      );
-    } else {
-      footerMessages = <div />;
-    }
-    return footerMessages;
-  }
+  return (
+    <Centered
+      className={classnames("open-activity-message", props.className)}
+      style={{
+        height: "100%",
+        minWidth: 120,
+        padding: "0 8px",
+        alignItems: "end",
+        ...props.style,
+      }}
+      onClick={openActivityMessage}
+      title={tooltip}
+    >
+      <ProgressLinear
+        style={{
+          flex: "1",
+        }}
+        value={percentage}
+        labels={[<Small key={0}>{percentage} {label}</Small>]}
+      />
+    </Centered>
+  );
 }

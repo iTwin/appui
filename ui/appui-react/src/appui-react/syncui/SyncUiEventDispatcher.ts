@@ -6,7 +6,7 @@
  * @module SyncUi
  */
 
-import { UiEventDispatcher, UiSyncEvent, UiSyncEventArgs } from "@itwin/appui-abstract";
+import { UiEventDispatcher, UiSyncEvent } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
 import { getInstancesCount, SelectionScope } from "@itwin/presentation-common";
@@ -15,7 +15,6 @@ import { ContentViewManager } from "../content/ContentViewManager";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { PresentationSelectionScope, SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
-import { WorkflowManager } from "../workflow/Workflow";
 
 // cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,
 // cSpell:ignore elementtooltipchanged, frontstageactivated, inputfieldmessageadded, inputfieldmessageremoved, modalfrontstagechanged, modaldialogchanged
@@ -53,14 +52,8 @@ export enum SyncUiEventId {
   NavigationAidActivated = "navigationaidactivated",
   /** An InteractiveTool has been activated via the ToolAdmin. */
   ToolActivated = "toolactivated",
-  /** A Task has been activated.
-   * @deprecated */
-  TaskActivated = "taskactivated",
   /** The state of a Widget has changed. */
   WidgetStateChanged = "widgetstatechanged",
-  /** A Workflow has been activated.
-   * @deprecated */
-  WorkflowActivated = "workflowactivated",
   /** The SelectionSet for the active IModelConnection has changed. */
   SelectionSetChanged = "selectionsetchanged",
   /** The list of settings providers registered with SettingsManager has changed. */
@@ -71,16 +64,6 @@ export enum SyncUiEventId {
   UiStateStorageChanged = "uistatestoragechanged",
   ShowHideManagerSettingChange = "show-hide-setting-change",
 }
-
-/** SyncUi Event arguments. Contains a set of lower case event Ids.
- * @public @deprecated use UiSyncEventArgs in appui-abstract instead
- */
-export type SyncUiEventArgs = UiSyncEventArgs;
-
-/** SyncUi Event class.
- * @public @deprecated use UiSyncEvent in appui-abstract instead
- */
-export type SyncUiEvent = UiSyncEvent;
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
  * to refresh its display by calling setState on itself.
@@ -104,8 +87,7 @@ export class SyncUiEventDispatcher {
   }
 
   /** Return SyncUiEvent so callers can register an event callback. */
-  // eslint-disable-next-line deprecation/deprecation
-  public static get onSyncUiEvent(): SyncUiEvent {
+  public static get onSyncUiEvent(): UiSyncEvent {
     return SyncUiEventDispatcher._uiEventDispatcher.onSyncUiEvent;
   }
 
@@ -181,14 +163,6 @@ export class SyncUiEventDispatcher {
 
     this._unregisterListenerFuncs.push(UiFramework.backstageManager.onToggled.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.BackstageEvent);
-    }));
-
-    this._unregisterListenerFuncs.push(WorkflowManager.onTaskActivatedEvent.addListener(() => { // eslint-disable-line deprecation/deprecation
-      SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.TaskActivated); // eslint-disable-line deprecation/deprecation
-    }));
-
-    this._unregisterListenerFuncs.push(WorkflowManager.onWorkflowActivatedEvent.addListener(() => { // eslint-disable-line deprecation/deprecation
-      SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.WorkflowActivated); // eslint-disable-line deprecation/deprecation
     }));
 
     this._unregisterListenerFuncs.push(ContentViewManager.onActiveContentChangedEvent.addListener(() => {

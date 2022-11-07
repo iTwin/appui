@@ -17,7 +17,7 @@ export class CustomItemDef extends ActionButtonItemDef {
   private static _sId = 0;
   public static customIdPrefix = "Custom-";
   public customId: string;
-  public popupPanelNode?: React.ReactNode; // popupPanelNode populates the panelContentNode when converted to a CustomToolbarItem which can be supplied by an UiItemsProvider
+  public popupPanelNode?: React.ReactNode;
 
   constructor(props: CustomItemProps) {
     super(props);

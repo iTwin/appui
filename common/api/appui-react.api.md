@@ -15,7 +15,6 @@ import { AccuDraw } from '@itwin/core-frontend';
 import { ActionButton } from '@itwin/appui-abstract';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
-import { AutoSuggestData } from '@itwin/core-react';
 import { BackstageActionItem } from '@itwin/appui-abstract';
 import { BackstageItem } from '@itwin/appui-abstract';
 import { BackstageItemsManager } from '@itwin/appui-abstract';
@@ -125,7 +124,7 @@ import { StagePanelLocation } from '@itwin/appui-abstract';
 import { StagePanelSection } from '@itwin/appui-abstract';
 import { StageUsage } from '@itwin/appui-abstract';
 import { StandardViewId } from '@itwin/core-frontend';
-import { StatusBarItemsManager as StatusBarItemsManager_2 } from '@itwin/appui-abstract';
+import { StatusBarItemsManager } from '@itwin/appui-abstract';
 import { StatusBarLabelSide } from '@itwin/appui-abstract';
 import { StatusBarSection } from '@itwin/appui-abstract';
 import { Store } from 'redux';
@@ -159,7 +158,6 @@ import { UiStateStorage } from '@itwin/core-react';
 import { UiStateStorageResult } from '@itwin/core-react';
 import { UiStateStorageStatus } from '@itwin/core-react';
 import { UiSyncEvent } from '@itwin/appui-abstract';
-import { UiSyncEventArgs } from '@itwin/appui-abstract';
 import { UnifiedSelectionTreeEventHandler } from '@itwin/presentation-components';
 import { UnifiedSelectionTreeEventHandlerParams } from '@itwin/presentation-components';
 import { UnitSystemKey } from '@itwin/core-quantity';
@@ -408,18 +406,7 @@ export function ActiveFrontstageDefProvider({ frontstageDef }: {
 }): JSX.Element;
 
 // @public
-export class ActivityCenterField extends React_2.Component<CommonProps, ActivityCenterState> {
-    constructor(p: CommonProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @public @deprecated
-export function ActivityMessage(props: ActivityMessageProps): JSX.Element;
+export function ActivityCenterField(props: CommonProps): JSX.Element | null;
 
 // @public
 export class ActivityMessageCancelledEvent extends UiEvent<{}> {
@@ -431,27 +418,6 @@ export interface ActivityMessageEventArgs {
     message: NotifyMessageType;
     percentage: number;
     restored?: boolean;
-}
-
-// @public
-export function ActivityMessagePopup(props: ActivityMessagePopupProps): JSX.Element;
-
-// @public
-export interface ActivityMessagePopupProps extends CommonProps {
-    // (undocumented)
-    cancelActivityMessage?: () => void;
-    // (undocumented)
-    dismissActivityMessage?: () => void;
-}
-
-// @public
-export interface ActivityMessageProps {
-    // (undocumented)
-    activityMessageInfo: ActivityMessageEventArgs;
-    // (undocumented)
-    cancelActivityMessage: () => void;
-    // (undocumented)
-    dismissActivityMessage: () => void;
 }
 
 // @public
@@ -636,27 +602,6 @@ export interface BasicToolWidgetProps {
     additionalVerticalItems?: CommonToolbarItem[];
     icon?: string;
     showCategoryAndModelsContextTools?: boolean;
-}
-
-// @public @deprecated
-export interface BooleanListenerProps {
-    boolFunc: () => boolean;
-    children?: ((boolValue: boolean, otherProps: any) => React_2.ReactNode) | React_2.ReactNode;
-    defaultValue?: boolean;
-    eventIds: string[];
-}
-
-// @public @deprecated
-export class BooleanSyncUiListener extends React_2.Component<BooleanListenerProps, BooleanListenerState> {
-    constructor(props: BooleanListenerProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: BooleanListenerState;
 }
 
 // @alpha
@@ -1079,12 +1024,6 @@ export class ConfigurableUiManager {
     static initialize(): void;
     static isControlRegistered(classId: string): boolean;
     static loadKeyboardShortcuts(shortcutList: KeyboardShortcutProps[]): void;
-    // @internal @deprecated
-    static loadTasks(taskPropsList: TaskPropsList): void;
-    // @internal @deprecated
-    static loadWorkflow(workflowProps: WorkflowProps): void;
-    // @internal @deprecated
-    static loadWorkflows(workflowPropsList: WorkflowPropsList): void;
     // @internal (undocumented)
     static readonly onUiActivityEvent: UiActivityEvent;
     // @internal (undocumented)
@@ -1361,7 +1300,6 @@ export class CoreTools {
     static get fitViewCommand(): ToolItemDef;
     // (undocumented)
     static get flyViewCommand(): ToolItemDef;
-    static get keyinBrowserButtonItemDef(): CustomItemDef;
     // (undocumented)
     static get keyinPaletteButtonItemDef(): ToolItemDef;
     // (undocumented)
@@ -1624,14 +1562,6 @@ export interface CursorUpdatedEventArgs {
     oldPt: PointProps;
 }
 
-// @internal
-export function CustomActivityMessageContent({ initialActivityMessageInfo }: {
-    initialActivityMessageInfo: ActivityMessageEventArgs;
-}): JSX.Element;
-
-// @internal
-export function CustomActivityMessageRenderer({ activityMessageInfo, dismissActivityMessage, cancelActivityMessage, settings }: CustomActivityMessageProps): JSX.Element;
-
 // @public
 export class CustomItemDef extends ActionButtonItemDef {
     constructor(props: CustomItemProps);
@@ -1727,7 +1657,6 @@ export interface DefaultNavigationTools {
 export interface DefaultStatusbarItems {
     // (undocumented)
     accuSnapModePicker?: boolean;
-    // (undocumented)
     activityCenter?: boolean;
     // (undocumented)
     messageCenter?: boolean;
@@ -2723,23 +2652,15 @@ export abstract class ItemDefBase {
     set isActive(v: boolean);
     // (undocumented)
     isDisabled?: boolean | ConditionalBooleanValue;
-    // @deprecated (undocumented)
-    isEnabled: boolean;
     // (undocumented)
     isHidden?: boolean | ConditionalBooleanValue;
     // (undocumented)
     isPressed: boolean;
-    // @deprecated (undocumented)
-    isVisible: boolean;
     get label(): string;
     get rawLabel(): string | StringGetter | ConditionalStringValue;
     setDescription(v: string | StringGetter | ConditionalStringValue): void;
     setLabel(v: string | StringGetter | ConditionalStringValue): void;
     setTooltip(v: string | StringGetter | ConditionalStringValue): void;
-    // @deprecated (undocumented)
-    stateFunc?: (state: Readonly<BaseItemState>) => BaseItemState;
-    // @deprecated (undocumented)
-    stateSyncIds: string[];
     get tooltip(): string;
     // (undocumented)
     get trayId(): undefined;
@@ -2774,18 +2695,10 @@ export interface ItemProps extends IconProps {
     icon?: string | ConditionalStringValue;
     isActive?: boolean;
     isDisabled?: boolean | ConditionalBooleanValue;
-    // @deprecated
-    isEnabled?: boolean;
     isHidden?: boolean | ConditionalBooleanValue;
     isPressed?: boolean;
-    // @deprecated
-    isVisible?: boolean;
     label?: string | StringGetter | ConditionalStringValue;
     labelKey?: string;
-    // @deprecated
-    stateFunc?: (state: Readonly<BaseItemState>) => BaseItemState;
-    // @deprecated
-    stateSyncIds?: string[];
     tooltip?: string | StringGetter | ConditionalStringValue;
     tooltipKey?: string;
 }
@@ -2882,31 +2795,6 @@ export interface KeyboardShortcutProps extends ItemProps {
     item?: ActionButtonItemDef;
     key: string | FunctionKey | SpecialKey;
     shortcuts?: KeyboardShortcutProps[];
-}
-
-// @beta @deprecated
-export class KeyinBrowser extends React_2.PureComponent<KeyinBrowserProps, KeyinBrowserState> {
-    // @internal
-    constructor(props: any);
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-}
-
-// @beta @deprecated
-export interface KeyinBrowserExecuteArgs {
-    args: string[];
-    runStatus: boolean;
-    toolId: string | undefined;
-}
-
-// @beta @deprecated
-export interface KeyinBrowserProps extends CommonProps {
-    onCancel?: () => void;
-    onExecute?: (args: KeyinBrowserExecuteArgs) => void;
 }
 
 // @public
@@ -3031,32 +2919,6 @@ export interface ListPickerPropsExtended extends ListPickerProps {
 
 // @internal (undocumented)
 export function loadCategoriesFromViewport(iModel?: IModelConnection, vp?: Viewport): Promise<Category[]>;
-
-// @public @deprecated
-export class MarkupTools {
-    // (undocumented)
-    static get arrowToolDef(): ToolItemDef;
-    // (undocumented)
-    static get cloudToolDef(): ToolItemDef;
-    // (undocumented)
-    static get distanceToolDef(): ToolItemDef;
-    // (undocumented)
-    static get ellipseToolDef(): ToolItemDef;
-    // (undocumented)
-    static get lineToolDef(): ToolItemDef;
-    // (undocumented)
-    static get placeTextToolDef(): ToolItemDef;
-    // (undocumented)
-    static get polygonToolDef(): ToolItemDef;
-    // (undocumented)
-    static get rectangleToolDef(): ToolItemDef;
-    // (undocumented)
-    static get selectToolDef(): ToolItemDef;
-    // (undocumented)
-    static get sketchToolDef(): ToolItemDef;
-    // (undocumented)
-    static get symbolToolDef(): ToolItemDef;
-}
 
 // @alpha (undocumented)
 export class MenuButton extends React_2.PureComponent<MenuButtonProps, MenuButtonState> {
@@ -4655,10 +4517,6 @@ export interface StatusBarItemProps extends CommonProps {
     section?: string;
 }
 
-// @beta @deprecated
-export class StatusBarItemsManager extends StatusBarItemsManager_2 {
-}
-
 // @public
 export class StatusBarItemUtilities {
     static createStatusBarItem: (id: string, section: StatusBarSection, itemPriority: number, reactNode: React_2.ReactNode, itemProps?: Partial<StatusBarItem> | undefined) => StatusBarItem;
@@ -4709,34 +4567,6 @@ export abstract class StatusBarWidgetControl extends WidgetControl {
     getType(): ConfigurableUiControlType;
 }
 
-// @public @deprecated
-export function StatusMessageRenderer({ closeMessage, cancelActivityMessage: cancelActivityMessageProp, dismissActivityMessage, }: StatusMessageRendererProps): JSX.Element;
-
-// @public
-export interface StatusMessageRendererProps extends CommonProps {
-    // (undocumented)
-    cancelActivityMessage?: () => void;
-    // (undocumented)
-    closeMessage?: (id: string) => void;
-    // (undocumented)
-    dismissActivityMessage?: () => void;
-}
-
-// @public @deprecated
-export function StickyMessage(props: StickyMessageProps): JSX.Element;
-
-// @public
-export interface StickyMessageProps {
-    // (undocumented)
-    closeMessage: (id: string) => void;
-    // (undocumented)
-    id: string;
-    // (undocumented)
-    messageDetails: NotifyMessageDetailsType;
-    // (undocumented)
-    severity: MessageSeverity;
-}
-
 // @internal (undocumented)
 export class SubjectModelIdsCache {
     constructor(imodel: IModelConnection);
@@ -4762,12 +4592,6 @@ export interface SyncToolSettingsPropertiesEventArgs {
     toolId: string;
 }
 
-// @public @deprecated
-export type SyncUiEvent = UiSyncEvent;
-
-// @public @deprecated
-export type SyncUiEventArgs = UiSyncEventArgs;
-
 // @public
 export class SyncUiEventDispatcher {
     static clearConnectionEvents(iModelConnection: IModelConnection): void;
@@ -4777,7 +4601,7 @@ export class SyncUiEventDispatcher {
     static hasEventOfInterest(eventIds: Set<string>, idsOfInterest: string[]): boolean;
     static initialize(): void;
     static initializeConnectionEvents(iModelConnection: IModelConnection): void;
-    static get onSyncUiEvent(): SyncUiEvent;
+    static get onSyncUiEvent(): UiSyncEvent;
     // @internal
     static setTimeoutPeriod(period: number): void;
     static get syncEventIds(): Set<string>;
@@ -4801,14 +4625,10 @@ export enum SyncUiEventId {
     SettingsProvidersChanged = "settingsproviderschanged",
     // (undocumented)
     ShowHideManagerSettingChange = "show-hide-setting-change",
-    // @deprecated
-    TaskActivated = "taskactivated",
     ToolActivated = "toolactivated",
     UiStateStorageChanged = "uistatestoragechanged",
     ViewStateChanged = "viewstatechanged",
-    WidgetStateChanged = "widgetstatechanged",
-    // @deprecated
-    WorkflowActivated = "workflowactivated"
+    WidgetStateChanged = "widgetstatechanged"
 }
 
 // @public
@@ -4828,66 +4648,6 @@ export interface TabLocation {
     widgetIndex: number;
 }
 
-// @internal @deprecated
-export class Task extends ItemDefBase {
-    constructor(taskProps: TaskProps);
-    // (undocumented)
-    get id(): string;
-    // (undocumented)
-    get isActive(): boolean;
-    set isActive(_: boolean);
-    // (undocumented)
-    onActivated(): Promise<void>;
-    // (undocumented)
-    primaryStageId: string;
-    // (undocumented)
-    taskId: string;
-}
-
-// @internal @deprecated
-export class TaskActivatedEvent extends UiEvent<TaskActivatedEventArgs> {
-}
-
-// @internal @deprecated
-export interface TaskActivatedEventArgs {
-    // (undocumented)
-    task?: Task;
-    // (undocumented)
-    taskId?: string;
-    // (undocumented)
-    workflow: Workflow;
-    // (undocumented)
-    workflowId: string;
-}
-
-// @internal @deprecated
-export class TaskManager {
-    // (undocumented)
-    static addTask(taskId: string, task: Task): void;
-    // (undocumented)
-    static findTask(taskId: string): Task | undefined;
-    // (undocumented)
-    static loadTaskDef(taskDef: TaskProps): void;
-    // (undocumented)
-    static loadTaskDefs(taskDefs: TaskProps[]): void;
-    // (undocumented)
-    static loadTasks(taskListDef: TaskPropsList): void;
-}
-
-// @internal @deprecated
-export interface TaskProps extends ItemProps {
-    // (undocumented)
-    id: string;
-    // (undocumented)
-    primaryStageId: string;
-}
-
-// @internal @deprecated
-export interface TaskPropsList {
-    // (undocumented)
-    tasks: TaskProps[];
-}
-
 // @public
 export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity">>;
 
@@ -4899,23 +4659,6 @@ export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, Til
     // (undocumented)
     componentWillUnmount(): void;
     render(): JSX.Element;
-}
-
-// @public @deprecated
-export function ToastMessage(props: ToastMessageProps): JSX.Element;
-
-// @public
-export interface ToastMessageProps {
-    // (undocumented)
-    closeMessage: (id: string) => void;
-    // (undocumented)
-    id: string;
-    // (undocumented)
-    messageDetails: NotifyMessageDetailsType;
-    // (undocumented)
-    severity: MessageSeverity;
-    // (undocumented)
-    toastTarget: HTMLElement | null;
 }
 
 // @alpha
@@ -5430,9 +5173,6 @@ export function useActiveStageId(): string;
 // @public
 export function useActiveViewport(): ScreenViewport | undefined;
 
-// @internal
-export function useActivityMessage({ activityMessageInfo, dismissActivityMessage, cancelActivityMessage, settings }: CustomActivityMessageProps): void;
-
 // @public
 export function useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): AnalysisAnimationTimelineDataProvider | undefined;
 
@@ -5449,7 +5189,7 @@ export function useCategories(viewManager: ViewManager, imodel: IModelConnection
 export const useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
 
 // @public
-export const useDefaultStatusBarItems: (manager: StatusBarItemsManager_2) => readonly CommonStatusBarItem[];
+export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly CommonStatusBarItem[];
 
 // @public
 export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly CommonToolbarItem[];
@@ -5484,16 +5224,6 @@ export interface UserSettingsProvider {
     providerId: string;
 }
 
-// @public @deprecated
-export class UserSettingsStorage implements UiStateStorage {
-    // (undocumented)
-    deleteSetting(namespace: string, name: string): Promise<UiStateStorageResult>;
-    // (undocumented)
-    getSetting(namespace: string, name: string): Promise<UiStateStorageResult>;
-    // (undocumented)
-    saveSetting(namespace: string, name: string, setting: any): Promise<UiStateStorageResult>;
-}
-
 // @internal (undocumented)
 export function useSavedFrontstageState(frontstageDef: FrontstageDef): void;
 
@@ -5522,7 +5252,7 @@ export function useTransientState(onSave?: () => void, onRestore?: () => void): 
 export const useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
 
 // @public
-export const useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager_2) => readonly CommonStatusBarItem[];
+export const useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly CommonStatusBarItem[];
 
 // @public
 export const useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly CommonToolbarItem[];
@@ -5999,9 +5729,6 @@ export interface WidgetStateChangedEventArgs {
 }
 
 // @public
-export type WidgetStateFunc = (state: Readonly<WidgetState>) => WidgetState;
-
-// @public
 export enum WidgetType {
     // (undocumented)
     Navigation = 1,
@@ -6013,76 +5740,6 @@ export enum WidgetType {
     Tool = 0,
     // (undocumented)
     ToolSettings = 3
-}
-
-// @internal @deprecated
-export class Workflow extends ItemDefBase {
-    constructor(workflowDef: WorkflowProps);
-    get activeTask(): Task | undefined;
-    activeTaskId: string | null;
-    defaultTaskId: string;
-    getSortedTasks(): Task[];
-    getTask(taskId: string): Task | undefined;
-    get id(): string;
-    get isActive(): boolean;
-    set isActive(_: boolean);
-    isDefault: boolean;
-    get lastActiveTask(): Task | undefined;
-    setActiveTask(task: Task): Promise<void>;
-    workflowId: string;
-}
-
-// @internal @deprecated
-export class WorkflowActivatedEvent extends UiEvent<WorkflowActivatedEventArgs> {
-}
-
-// @internal @deprecated
-export interface WorkflowActivatedEventArgs {
-    // (undocumented)
-    workflow?: Workflow;
-    // (undocumented)
-    workflowId?: string;
-}
-
-// @internal @deprecated
-export class WorkflowManager {
-    static get activeTask(): Task | undefined;
-    static get activeTaskId(): string;
-    static get activeWorkflow(): Workflow | undefined;
-    static get activeWorkflowId(): string;
-    static addWorkflow(workflowId: string, workflow: Workflow): void;
-    static get defaultWorkflowId(): string;
-    static findWorkflow(workflowId: string): Workflow | undefined;
-    // (undocumented)
-    static getSortedWorkflows(): Workflow[];
-    static loadWorkflow(workflowProps: WorkflowProps): void;
-    static loadWorkflows(workflowPropsList: WorkflowPropsList): void;
-    static readonly onTaskActivatedEvent: TaskActivatedEvent;
-    static readonly onWorkflowActivatedEvent: WorkflowActivatedEvent;
-    static removeWorkflow(workflow: Workflow): boolean;
-    static setActiveWorkflow(workflow: Workflow | undefined): void;
-    static setActiveWorkflowAndTask(workflow: Workflow, task: Task): Promise<void>;
-    static setDefaultWorkflowId(id: string): void;
-}
-
-// @internal @deprecated
-export interface WorkflowProps extends ItemProps {
-    // (undocumented)
-    defaultTaskId: string;
-    // (undocumented)
-    id: string;
-    // (undocumented)
-    isDefault?: boolean;
-    // (undocumented)
-    tasks: string[];
-}
-
-// @internal @deprecated
-export interface WorkflowPropsList {
-    // (undocumented)
-    defaultWorkflowId: string;
-    // (undocumented)
-    workflows: WorkflowProps[];
 }
 
 // (No @packageDocumentation comment for this package)

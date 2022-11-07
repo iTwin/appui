@@ -183,7 +183,7 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
               className="ListPickerInnerContainer"
               expanded={expandSingleSection()}
             >
-              <GroupColumn> {/* eslint-disable-line deprecation/deprecation */}
+              <GroupColumn>
                 {item.children!.map(listItemToElement)}
               </GroupColumn>
             </ExpandableSection>

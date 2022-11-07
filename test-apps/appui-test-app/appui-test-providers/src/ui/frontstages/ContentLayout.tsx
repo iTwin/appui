@@ -152,10 +152,9 @@ export class ContentLayoutStage {
     UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), { providerId: "content-layout-stage-standardNavigationTools", stageIds: [ContentLayoutStage.stageId] });
 
     // Provides standard status fields for stage
-    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), { providerId: "content-layout-stage-standardStatusItems", stageIds: [ContentLayoutStage.stageId] });
+    UiItemsManager.register(new StandardStatusbarUiItemsProvider({ activityCenter: true }), { providerId: "content-layout-stage-standardStatusItems", stageIds: [ContentLayoutStage.stageId] });
 
     // Provides example widgets stage
     ContentLayoutStageUiItemsProvider.register(localizationNamespace);
   }
 }
-

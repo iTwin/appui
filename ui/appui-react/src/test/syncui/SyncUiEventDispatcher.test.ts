@@ -5,19 +5,19 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
+import { UiSyncEventArgs } from "@itwin/appui-abstract";
 import { IModelRpcProps } from "@itwin/core-common";
 import { IModelApp, IModelConnection, MockRender, ScreenViewport, SelectionSet } from "@itwin/core-frontend";
 import { InstanceKey, RpcRequestsHandler } from "@itwin/presentation-common";
 import { Presentation, SelectionManager, SelectionScopesManager, SelectionScopesManagerProps } from "@itwin/presentation-frontend";
 import {
-  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventArgs, SyncUiEventDispatcher,
+  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventDispatcher,
   UiFramework, WidgetStateChangedEventArgs,
 } from "../../appui-react";
 import { ActiveContentChangedEventArgs, ContentViewManager } from "../../appui-react/content/ContentViewManager";
 import {
   FrontstageActivatedEventArgs, FrontstageManager, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, ToolActivatedEventArgs,
 } from "../../appui-react/frontstage/FrontstageManager";
-import { TaskActivatedEventArgs, WorkflowActivatedEventArgs, WorkflowManager } from "../../appui-react/workflow/Workflow";
 import TestUtils from "../TestUtils";
 import { createRandomECInstanceKey, createRandomId, createRandomSelectionScope } from "../PresentationTestUtils";
 
@@ -61,8 +61,7 @@ describe("SyncUiEventDispatcher", () => {
     let callbackCalled = false;
     let callbackHasExpectedEventId = false;
 
-    // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: SyncUiEventArgs): void => {
+    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
       callbackHasExpectedEventId = args.eventIds.has("event1");
     };
@@ -80,8 +79,7 @@ describe("SyncUiEventDispatcher", () => {
     let callback1Called = false;
     let callback1HasExpectedEventId = false;
 
-    // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent1 = (args: SyncUiEventArgs): void => {
+    const handleSyncUiEvent1 = (args: UiSyncEventArgs): void => {
       callback1Called = true;
       callback1HasExpectedEventId = args.eventIds.has("event1");
     };
@@ -103,8 +101,7 @@ describe("SyncUiEventDispatcher", () => {
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
-    // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: SyncUiEventArgs): void => {
+    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
       callbackHasExpectedEventIds = args.eventIds.has("event1") && args.eventIds.has("event2");
     };
@@ -127,8 +124,7 @@ describe("SyncUiEventDispatcher", () => {
     let callbackCalled = false;
     let callbackHasExpectedEventIds = false;
 
-    // eslint-disable-next-line deprecation/deprecation
-    const handleSyncUiEvent = (args: SyncUiEventArgs): void => {
+    const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
       callbackHasExpectedEventIds = args.eventIds.has("event1") && args.eventIds.has("event2") && args.eventIds.has("event3");
     };
@@ -197,16 +193,6 @@ describe("SyncUiEventDispatcher", () => {
 
     handleSyncUiEvent.resetHistory();
     UiFramework.backstageManager.open();
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
-
-    handleSyncUiEvent.resetHistory();
-    WorkflowManager.onTaskActivatedEvent.emit({} as TaskActivatedEventArgs);  // eslint-disable-line deprecation/deprecation
-    fakeTimers.runAll();
-    expect(handleSyncUiEvent.calledOnce).to.be.true;
-
-    handleSyncUiEvent.resetHistory();
-    WorkflowManager.onWorkflowActivatedEvent.emit({} as WorkflowActivatedEventArgs);  // eslint-disable-line deprecation/deprecation
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 

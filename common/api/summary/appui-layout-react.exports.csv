@@ -117,9 +117,6 @@ internal;isWidgetDropTargetState(state: DropTargetState): state is WidgetDropTar
 internal;isWindowDropTargetState(state: WidgetDragDropTargetState): state is WindowDropTargetState
 internal;LeftPanelSide = "left"
 internal;MeasureContext: React_2.Context
-internal;Message 
-internal;MessageButton 
-internal;MessageButtonProps 
 internal;MessageCenter 
 internal;MessageCenterDialog 
 internal;MessageCenterDialogProps 
@@ -128,11 +125,6 @@ internal;MessageCenterMessageProps
 internal;MessageCenterProps 
 internal;MessageCenterTab 
 internal;MessageCenterTabProps 
-internal;MessageHyperlink 
-internal;MessageHyperlinkProps 
-internal;MessageLayout 
-internal;MessageLayoutProps 
-internal;MessageProgress 
 internal;NavigationArea: React_2.NamedExoticComponent
 internal;NavigationAreaProps 
 internal;NineZone(props: NineZoneProps): JSX.Element
@@ -179,7 +171,6 @@ internal;PopoutWidgetSendBackAction
 internal;PopoutWidgetsState
 internal;PopoutWidgetState
 internal;popoutWidgetToChildWindow(state: NineZoneState, tabId: string, preferredBounds: RectangleProps): NineZoneState
-internal;ProgressProps 
 internal;removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;removeTabFromWidget(state: NineZoneState, tabId: TabState["id"]): NineZoneState
 internal;ResizeAction
@@ -200,9 +191,6 @@ internal;SnapModePanel
 internal;SnapModePanelProps 
 internal;SnapModeProps 
 internal;SnapProps 
-internal;Status
-internal;StatusHelpers
-internal;StatusMessageProps 
 internal;TabBarButtons: React_2.NamedExoticComponent
 internal;TabDragDropTargetState = PanelDropTargetState | SectionDropTargetState | WidgetDropTargetState | TabDropTargetState | FloatingWidgetDropTargetState
 internal;TabDragStartArgs 
@@ -220,10 +208,6 @@ internal;TitleBar(props: TitleBarProps): JSX.Element
 internal;TitleBarButton(props: TitleBarButtonProps): JSX.Element
 internal;TitleBarButtonProps 
 internal;TitleBarProps 
-internal;Toast 
-internal;ToastDefaultProps = Pick
-internal;ToastProps 
-internal;ToastStyle = Pick
 internal;ToolAssistance 
 internal;ToolAssistanceDialog 
 internal;ToolAssistanceDialogProps 

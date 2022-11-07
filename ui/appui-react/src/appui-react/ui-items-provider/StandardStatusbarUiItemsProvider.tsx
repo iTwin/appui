@@ -28,6 +28,7 @@ export interface DefaultStatusbarItems {
   preToolAssistanceSeparator?: boolean;
   toolAssistance?: boolean;
   postToolAssistanceSeparator?: boolean;
+  /** Activity center field is hidden by default. */
   activityCenter?: boolean;
   accuSnapModePicker?: boolean;
   tileLoadIndicator?: boolean;

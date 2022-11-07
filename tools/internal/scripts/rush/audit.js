@@ -38,7 +38,7 @@ const rushCommonDir = path.join(__dirname, "../../../../common/");
   // All security issues should be addressed asap.
   // every entry should look like:
   // "GHSA-xxxx-xxxx-xxxx", // https://github.com/advisories/GHSA-xxxx-xxxx-xxxx pkgName>subDepA>subDepB
-  const excludedAdvisories = ["GHSA-f8q6-p94x-37v3"];
+  const excludedAdvisories = ["GHSA-f8q6-p94x-37v3", "GHSA-76p3-8jx3-jpfq"];
 
   let shouldFailBuild = false;
   for (const action of jsonOut.actions) {

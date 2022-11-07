@@ -8,9 +8,8 @@ import * as React from "react";
 import { MockRender } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentGroupProps, CoreTools,
-  FrontstageManager, FrontstageProps, FrontstageProvider, MessageManager, ModalDialogManager, ModelessDialogManager, PopupManager,
-  TaskManager, TaskPropsList, WidgetControl, WorkflowManager, WorkflowProps, WorkflowPropsList,
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentGroupProps, CoreTools, FrontstageManager, FrontstageProps, FrontstageProvider,
+  MessageManager, ModalDialogManager, ModelessDialogManager, PopupManager, WidgetControl,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
@@ -115,63 +114,6 @@ describe("ConfigurableUiManager", () => {
     const control = contentGroup?.getContentControlById("test-content-control");
     expect(control).to.not.be.undefined;
     expect(control?.applicationData.label).eql("Content 1a");
-  });
-
-  it("loadTasks", () => {
-    const taskPropsList: TaskPropsList = {  // eslint-disable-line deprecation/deprecation
-      tasks: [
-        {
-          id: "Task1",
-          primaryStageId: "Test1",
-          iconSpec: "icon-placeholder",
-          labelKey: "SampleApp:backstage.task1",
-        },
-        {
-          id: "Task2",
-          primaryStageId: "Test2",
-          iconSpec: "icon-placeholder",
-          labelKey: "SampleApp:backstage.task2",
-        },
-      ],
-    };
-
-    ConfigurableUiManager.loadTasks(taskPropsList); // eslint-disable-line deprecation/deprecation
-    expect(TaskManager.findTask("Task1")).to.not.be.undefined;  // eslint-disable-line deprecation/deprecation
-  });
-
-  it("loadWorkflows", () => {
-    const workflowPropsList: WorkflowPropsList = {  // eslint-disable-line deprecation/deprecation
-      defaultWorkflowId: "ExampleWorkflow",
-      workflows: [
-        {
-          id: "ExampleWorkflow",
-          iconSpec: "icon-placeholder",
-          labelKey: "SampleApp:Test.my-label",
-          defaultTaskId: "task1",
-          tasks: ["Task1", "Task2"],
-        },
-      ],
-    };
-
-    ConfigurableUiManager.loadWorkflows(workflowPropsList); // eslint-disable-line deprecation/deprecation
-    expect(WorkflowManager.findWorkflow("ExampleWorkflow")).to.not.be.undefined;  // eslint-disable-line deprecation/deprecation
-  });
-
-  it("loadWorkflow", () => {
-    const workflowProps: WorkflowProps = {  // eslint-disable-line deprecation/deprecation
-      id: "OneWorkflow",
-      iconSpec: "icon-placeholder",
-      labelKey: "SampleApp:Test.my-label",
-      defaultTaskId: "task1",
-      tasks: ["Task1", "Task2"],
-    };
-
-    ConfigurableUiManager.loadWorkflow(workflowProps);  // eslint-disable-line deprecation/deprecation
-    const workflow = WorkflowManager.findWorkflow("OneWorkflow"); // eslint-disable-line deprecation/deprecation
-    expect(workflow).to.not.be.undefined;
-
-    if (workflow)
-      expect(WorkflowManager.removeWorkflow(workflow)).to.eq(true); // eslint-disable-line deprecation/deprecation
   });
 
   it("closeUi", () => {

@@ -9,7 +9,6 @@
 import { BeEvent } from '@itwin/core-bentley';
 import { CommonProps } from '@itwin/core-react';
 import { IconSpec } from '@itwin/core-react';
-import { MessageSeverity } from '@itwin/appui-abstract';
 import { NoChildrenProps } from '@itwin/core-react';
 import { OmitChildrenProp } from '@itwin/core-react';
 import { Point } from '@itwin/core-react';
@@ -579,24 +578,6 @@ export type LeftPanelSide = "left";
 export const MeasureContext: React_2.Context<() => Rectangle>;
 
 // @internal
-export class Message extends React_2.PureComponent<StatusMessageProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export class MessageButton extends React_2.PureComponent<MessageButtonProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface MessageButtonProps extends CommonProps {
-    children?: React_2.ReactNode;
-    onClick?: () => void;
-}
-
-// @internal
 export class MessageCenter extends React_2.PureComponent<MessageCenterProps> {
     // (undocumented)
     render(): JSX.Element;
@@ -650,37 +631,6 @@ export interface MessageCenterTabProps extends CommonProps {
     children?: React_2.ReactNode;
     isActive?: boolean;
     onClick?: () => void;
-}
-
-// @internal
-export class MessageHyperlink extends React_2.PureComponent<MessageHyperlinkProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface MessageHyperlinkProps extends CommonProps {
-    children?: string;
-    onClick?: () => void;
-}
-
-// @internal
-export class MessageLayout extends React_2.PureComponent<MessageLayoutProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface MessageLayoutProps extends CommonProps {
-    buttons?: React_2.ReactNode;
-    children?: React_2.ReactNode;
-    progress?: React_2.ReactNode;
-}
-
-// @internal
-export class MessageProgress extends React_2.PureComponent<ProgressProps> {
-    // (undocumented)
-    render(): JSX.Element;
 }
 
 // @internal
@@ -1042,12 +992,6 @@ export interface PopoutWidgetState {
 export function popoutWidgetToChildWindow(state: NineZoneState, tabId: string, preferredBounds: RectangleProps): NineZoneState;
 
 // @internal
-export interface ProgressProps extends CommonProps, NoChildrenProps {
-    progress: number;
-    status: Status;
-}
-
-// @internal
 export function removeTab(state: NineZoneState, tabId: TabState["id"]): NineZoneState;
 
 // @internal
@@ -1174,37 +1118,6 @@ export interface SnapProps extends CommonProps {
     onClick?: () => void;
 }
 
-// @internal
-export enum Status {
-    // (undocumented)
-    Error = 2,
-    // (undocumented)
-    Information = 0,
-    // (undocumented)
-    Success = 1,
-    // (undocumented)
-    Warning = 3
-}
-
-// @internal
-export class StatusHelpers {
-    static readonly ERROR_CLASS_NAME = "nz-status-error";
-    // (undocumented)
-    static getCssClassName(status: Status): string;
-    static readonly INFORMATION_CLASS_NAME = "nz-status-information";
-    // (undocumented)
-    static severityToStatus(severity: MessageSeverity): Status;
-    static readonly SUCCESS_CLASS_NAME = "nz-status-success";
-    static readonly WARNING_CLASS_NAME = "nz-status-warning";
-}
-
-// @internal
-export interface StatusMessageProps extends CommonProps {
-    children?: React_2.ReactNode;
-    icon?: React_2.ReactNode;
-    status: Status;
-}
-
 // @internal (undocumented)
 export const TabBarButtons: React_2.NamedExoticComponent<object>;
 
@@ -1303,33 +1216,6 @@ export interface TitleBarProps extends CommonProps {
     children?: React_2.ReactNode;
     title?: string;
 }
-
-// @internal
-export class Toast extends React_2.PureComponent<ToastProps, ToastState> {
-    constructor(props: ToastProps);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    static readonly defaultProps: ToastDefaultProps;
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export type ToastDefaultProps = Pick<ToastProps, "timeout">;
-
-// @internal
-export interface ToastProps extends CommonProps, NoChildrenProps {
-    animateOutTo?: HTMLElement | null;
-    content?: React_2.ReactNode;
-    onAnimatedOut?: () => void;
-    timeout: number;
-}
-
-// @internal
-export type ToastStyle = Pick<React_2.CSSProperties, "width" | "height">;
 
 // @internal
 export class ToolAssistance extends React_2.PureComponent<ToolAssistanceProps> {

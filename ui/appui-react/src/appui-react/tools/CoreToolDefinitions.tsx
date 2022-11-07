@@ -6,21 +6,16 @@
  * @module Tools
  */
 
-import * as React from "react";
-// cSpell:ignore configurableui keyinbrowser
+// cSpell:ignore keyinbrowser
 import {
   FitViewTool, FlyViewTool, IModelApp, MeasureDistanceTool, MeasureLocationTool, PanViewTool, RotateViewTool, SelectionTool, SetupWalkCameraTool,
   ViewClipByElementTool, ViewClipByPlaneTool, ViewClipByRangeTool, ViewClipByShapeTool, ViewClipDecorationProvider, ViewRedoTool, ViewToggleCameraTool,
   ViewUndoTool, WalkViewTool, WindowAreaTool, ZoomViewTool,
 } from "@itwin/core-frontend";
 import { ConditionalBooleanValue, ConditionalStringValue, IconSpecUtilities } from "@itwin/appui-abstract";
-import { ToolbarPopupContext } from "@itwin/components-react";
 import { ContentViewManager } from "../content/ContentViewManager";
-import { KeyinBrowser } from "../keyinbrowser/KeyinBrowser";
-import { getIsHiddenIfSelectionNotActive, getSelectionContextSyncEventIds, selectionContextStateFunc } from "../selection/SelectionContextItemDef";
+import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
-import { CustomItemDef } from "../shared/CustomItemDef";
-import { BaseItemState } from "../shared/ItemDefBase";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { GroupItemDef } from "../toolbar/GroupItem";
@@ -29,29 +24,11 @@ import { UiFramework } from "../UiFramework";
 import cameraAnimationIcon from "@itwin/itwinui-icons/icons/camera-animation.svg";
 import cameraAnimationDisabledIcon from "@itwin/itwinui-icons/icons/camera-animation-disabled.svg";
 
-/* eslint-disable deprecation/deprecation */
-
 /** Utility Class that provides definitions of tools provided by the ($core-frontend) core. These definitions can be used to populate the UI.
  * @public
  */
 // istanbul ignore next
 export class CoreTools {
-  /** Get the CustomItemDef for PopupButton
-   * @public
-   */
-  public static get keyinBrowserButtonItemDef() {
-    return new CustomItemDef({
-      customId: "uif:keyinbrowser",
-      iconSpec: "icon-process",
-      labelKey: "UiFramework:keyinbrowser.label",
-      popupPanelNode: <ToolbarPopupContext.Consumer>
-        {({ closePanel }) => (
-          <KeyinBrowser onExecute={closePanel} onCancel={closePanel} />
-        )}
-      </ToolbarPopupContext.Consumer>,
-    });
-  }
-
   public static get keyinPaletteButtonItemDef() {
     return new ToolItemDef({
       toolId: "uif:keyinpalette",
@@ -200,17 +177,7 @@ export class CoreTools {
       iconSpec: ViewUndoTool.iconSpec,
       label: ViewUndoTool.flyover,
       description: ViewUndoTool.description,
-      execute: async () =>
-        IModelApp.tools.run(ViewUndoTool.toolId, IModelApp.viewManager.selectedView)
-      ,
-      stateSyncIds: [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged],
-      stateFunc: (currentState: Readonly<BaseItemState>): BaseItemState => {
-        const returnState: BaseItemState = { ...currentState };
-        const activeContentControl = ContentViewManager.getActiveContentControl();
-        if (activeContentControl && activeContentControl.viewport)
-          returnState.isEnabled = activeContentControl.viewport.isUndoPossible;
-        return returnState;
-      },
+      execute: async () => IModelApp.tools.run(ViewUndoTool.toolId, IModelApp.viewManager.selectedView),
     });
   }
 
@@ -227,14 +194,6 @@ export class CoreTools {
           return !activeContentControl.viewport.isRedoPossible;
         return false;
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
-      stateSyncIds: [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged],
-      stateFunc: (currentState: Readonly<BaseItemState>): BaseItemState => {
-        const returnState: BaseItemState = { ...currentState };
-        const activeContentControl = ContentViewManager.getActiveContentControl();
-        if (activeContentControl && activeContentControl.viewport)
-          returnState.isEnabled = activeContentControl.viewport.isRedoPossible;
-        return returnState;
-      },
     });
   }
 
@@ -404,8 +363,6 @@ export class CoreTools {
       commandId: "UiFramework.ClearSelection",
       iconSpec: "icon-selection-clear",
       labelKey: "UiFramework:buttons.clearSelection",
-      stateSyncIds: getSelectionContextSyncEventIds(),
-      stateFunc: selectionContextStateFunc,
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => {
         const iModelConnection = UiFramework.getIModelConnection();

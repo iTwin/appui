@@ -127,9 +127,6 @@
     "extends": [
       "plugin:@itwin/ui",
       "plugin:@itwin/jsdoc"
-    ],
-    "rules": {
-      "deprecation/deprecation": "off"
-    }
+    ]
   }
 }

@@ -30,10 +30,6 @@ export abstract class ItemDefBase {
   private _tooltip: string | StringGetter | ConditionalStringValue = "";
   private _description: string | StringGetter | ConditionalStringValue = "";
 
-  /** @deprecated Use isHidden instead */
-  public isVisible: boolean = true;
-  /** @deprecated Use isDisabled instead */
-  public isEnabled: boolean = true;
   public isPressed: boolean = false;
   private _isActive: boolean = false;
   public get isActive(): boolean { return this._isActive; }
@@ -45,19 +41,12 @@ export abstract class ItemDefBase {
 
   public badgeType?: BadgeType;
 
-  /** @deprecated Use condition instead */
-  public stateFunc?: (state: Readonly<BaseItemState>) => BaseItemState;
-  /** @deprecated Use condition instead */
-  public stateSyncIds: string[] = [];
-
   public iconSpec?: IconSpec;
   public iconElement?: React.ReactNode;
 
   public static initializeDef(me: ItemDefBase, itemProps: ItemProps): void {
-    me.isVisible = (itemProps.isVisible !== undefined) ? itemProps.isVisible : true; // eslint-disable-line deprecation/deprecation
-    me.isEnabled = (itemProps.isEnabled !== undefined) ? itemProps.isEnabled : true; // eslint-disable-line deprecation/deprecation
-    me.isHidden = (itemProps.isHidden === undefined && itemProps.isVisible !== undefined) ? !itemProps.isVisible : itemProps.isHidden; // eslint-disable-line deprecation/deprecation
-    me.isDisabled = (itemProps.isDisabled === undefined && itemProps.isEnabled !== undefined) ? !itemProps.isEnabled : itemProps.isDisabled; // eslint-disable-line deprecation/deprecation
+    me.isHidden = itemProps.isHidden;
+    me.isDisabled = itemProps.isDisabled;
 
     me.isPressed = (itemProps.isPressed !== undefined) ? itemProps.isPressed : false;
     me.isActive = (itemProps.isActive !== undefined) ? itemProps.isActive : false;
@@ -74,14 +63,6 @@ export abstract class ItemDefBase {
     me._label = PropsHelper.getStringSpec(itemProps.label, itemProps.labelKey);
     me._tooltip = PropsHelper.getStringSpec(itemProps.tooltip, itemProps.tooltipKey);
     me._description = PropsHelper.getStringSpec(itemProps.description, itemProps.descriptionKey);
-
-    // deprecated
-    if (itemProps.stateFunc) // eslint-disable-line deprecation/deprecation
-      me.stateFunc = itemProps.stateFunc; // eslint-disable-line deprecation/deprecation
-
-    // deprecated
-    if (itemProps.stateSyncIds) // eslint-disable-line deprecation/deprecation
-      me.stateSyncIds = itemProps.stateSyncIds.map((value: string) => value.toLowerCase()); // eslint-disable-line deprecation/deprecation
   }
 
   constructor(itemProps: ItemProps) {
