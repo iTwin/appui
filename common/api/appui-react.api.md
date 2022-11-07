@@ -1643,10 +1643,6 @@ export class CustomItemDef extends ActionButtonItemDef {
     get id(): string;
     // (undocumented)
     popupPanelNode?: React_2.ReactNode;
-    // (undocumented)
-    reactElement?: React_2.ReactNode;
-    // (undocumented)
-    toolbarReactNode(index?: number): React_2.ReactNode;
 }
 
 // @public
@@ -1655,8 +1651,6 @@ export interface CustomItemProps extends ItemProps {
     customId?: string;
     // (undocumented)
     popupPanelNode?: React.ReactNode;
-    // (undocumented)
-    reactElement?: React.ReactNode;
 }
 
 // @public

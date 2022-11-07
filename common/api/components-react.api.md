@@ -30,7 +30,6 @@ import { NoChildrenProps } from '@itwin/core-react';
 import { NodeCheckboxRenderer } from '@itwin/core-react';
 import { Observable as Observable_2 } from 'rxjs/internal/Observable';
 import { OnItemExecutedFunc } from '@itwin/appui-abstract';
-import { OptionType } from '@itwin/core-react';
 import { Orientation } from '@itwin/core-react';
 import { ParseResults } from '@itwin/appui-abstract';
 import { Primitives } from '@itwin/appui-abstract';
@@ -84,12 +83,6 @@ export interface ActionButtonRendererProps {
     isPropertyHovered?: boolean;
     property: PropertyRecord;
 }
-
-// @internal (undocumented)
-export function ActionItem({ item, addGroupSeparator }: {
-    item: ActionButton;
-    addGroupSeparator: boolean;
-}): JSX.Element;
 
 // @public
 export interface ActiveMatchInfo {
@@ -390,12 +383,6 @@ export namespace ConvertedPrimitives {
 // @internal
 export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string>;
 
-// @internal (undocumented)
-export function CustomItem({ item, addGroupSeparator }: {
-    item: CustomToolbarItem;
-    addGroupSeparator: boolean;
-}): JSX.Element | null;
-
 // @alpha
 export class CustomNumberEditor extends React_2.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
     // @internal (undocumented)
@@ -426,8 +413,6 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
 
 // @public
 export interface CustomToolbarItem extends CustomButtonDefinition {
-    // @deprecated
-    buttonNode?: React_2.ReactNode;
     keepContentsLoaded?: boolean;
     panelContentNode?: React_2.ReactNode;
 }
@@ -881,10 +866,6 @@ export function getVisibleDescendants(model: TreeModel, parentNode: TreeModelNod
 export interface GridCategoryItem extends FlatGridItemBase {
     // (undocumented)
     readonly derivedCategory: PropertyCategory;
-    // @deprecated (undocumented)
-    getChildCategories(): GridCategoryItem[];
-    // @deprecated (undocumented)
-    getDescendantCategoriesAndSelf(): GridCategoryItem[];
     // (undocumented)
     readonly name: string;
     // (undocumented)
@@ -898,12 +879,6 @@ export function GroupColumn(props: GroupColumnProps): JSX.Element;
 export interface GroupColumnProps extends CommonProps {
     children?: React_2.ReactNode;
 }
-
-// @internal (undocumented)
-export function GroupPopupItem({ item, addGroupSeparator }: {
-    item: GroupButton;
-    addGroupSeparator: boolean;
-}): JSX.Element;
 
 // @internal
 export function GroupTool(props: GroupToolProps): JSX.Element;
@@ -1028,27 +1003,6 @@ export class IconEditor extends React_2.PureComponent<PropertyEditorProps, IconE
     render(): JSX.Element;
 }
 
-// @alpha @deprecated
-export class IconPickerButton extends React_2.PureComponent<IconPickerProps, IconPickerState> {
-    // @internal
-    constructor(props: IconPickerProps);
-    // @internal (undocumented)
-    static defaultProps: Partial<IconPickerProps>;
-    // @internal (undocumented)
-    render(): JSX.Element;
-}
-
-// @alpha @deprecated
-export interface IconPickerProps extends React_2.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
-    disabled?: boolean;
-    dropDownTitle?: string;
-    icon: string;
-    icons: string[];
-    numColumns: number;
-    onIconChange?: ((icon: string) => void) | undefined;
-    readonly?: boolean;
-}
-
 // @alpha
 export class IconPropertyEditor extends PropertyEditorBase {
     // (undocumented)
@@ -1155,10 +1109,6 @@ export interface IMutableFlatPropertyGridItem {
 export interface IMutableGridCategoryItem extends IMutableFlatPropertyGridItem {
     // (undocumented)
     derivedCategory: PropertyCategory;
-    // @deprecated (undocumented)
-    getChildCategories(): IMutableGridCategoryItem[];
-    // @deprecated (undocumented)
-    getDescendantCategoriesAndSelf(): IMutableGridCategoryItem[];
     // (undocumented)
     isRootCategory: boolean;
     // (undocumented)
@@ -1317,8 +1267,6 @@ export interface ITreeDataProvider {
     getNodes(parent?: TreeNodeItem, page?: PageOptions): Promise<DelayLoadedTreeNodeItem[]>;
     // (undocumented)
     getNodesCount(parent?: TreeNodeItem): Promise<number>;
-    // @deprecated (undocumented)
-    onTreeNodeChanged?: BeEvent<TreeDataChangesListener>;
 }
 
 // @public
@@ -1555,10 +1503,7 @@ export class MutableGridCategory extends MutableFlatPropertyGridItem implements 
     // (undocumented)
     get derivedCategory(): PropertyCategory;
     // (undocumented)
-    getChildCategories(): IMutableGridCategoryItem[];
-    // (undocumented)
     getChildren(): IMutableFlatGridItem[];
-    getDescendantCategoriesAndSelf(): IMutableGridCategoryItem[];
     // (undocumented)
     getSelf(): this;
     get isRootCategory(): boolean;
@@ -1596,20 +1541,6 @@ export class MutablePropertyGridModel implements IPropertyGridModel, IMutablePro
     getItem(selectionKey: string): IMutableFlatGridItem;
     getRootCategories(): IMutableGridCategoryItem[];
     getVisibleFlatGrid(): IMutableFlatGridItem[];
-}
-
-// @beta @deprecated
-export interface MutableTreeDataProvider extends ITreeDataProvider {
-    // (undocumented)
-    getNodeIndex(parent: TreeNodeItem | undefined, child: TreeNodeItem): number;
-    // (undocumented)
-    insertNode(parent: TreeNodeItem | undefined, child: TreeNodeItem, index?: number): void;
-    // (undocumented)
-    isDescendent(parent: TreeNodeItem | undefined, nodeItem: TreeNodeItem): boolean;
-    // (undocumented)
-    moveNode(parent: TreeNodeItem | undefined, newParent: TreeNodeItem | undefined, child: TreeNodeItem, index?: number): void;
-    // (undocumented)
-    removeNode(parent: TreeNodeItem | undefined, child: TreeNodeItem): void;
 }
 
 // @public
@@ -1806,9 +1737,8 @@ export class OrthogonalDirectionHelpers {
 }
 
 // @public
-export class PagedTreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> implements IDisposable {
+export class PagedTreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> {
     constructor(dataProvider: TDataProvider, modelSource: TreeModelSource, pageSize: number);
-    dispose(): void;
     // (undocumented)
     protected load(): Observable<LoadedNodeHierarchy>;
     loadNode(parent: TreeModelNode | TreeModelRootNode, childIndex: number): Observable<TreeNodeLoadResult>;
@@ -2355,16 +2285,6 @@ export class PropertyGrid extends React_2.Component<PropertyGridProps, PropertyG
     render(): JSX.Element;
 }
 
-// @public @deprecated
-export interface PropertyGridCategory {
-    // (undocumented)
-    properties: PropertyRecord[];
-    // (undocumented)
-    propertyCategory: PropertyCategory;
-    // (undocumented)
-    propertyCount: number;
-}
-
 // @internal (undocumented)
 export class PropertyGridCommons {
     // (undocumented)
@@ -2772,8 +2692,6 @@ export class SimpleTreeDataProvider implements ITreeDataProvider {
     getNodes(parent?: TreeNodeItem, pageOptions?: PageOptions): Promise<TreeNodeItem[]>;
     // (undocumented)
     getNodesCount(parent?: TreeNodeItem): Promise<number>;
-    // (undocumented)
-    onTreeNodeChanged: BeEvent<TreeDataChangesListener>;
 }
 
 // @public
@@ -3022,49 +2940,6 @@ export class TextEditor extends React_2.PureComponent<PropertyEditorProps, TextE
     readonly state: Readonly<TextEditorState>;
 }
 
-// @beta @deprecated
-export class ThemedEnumEditor extends React_2.PureComponent<ThemedEnumEditorProps, EnumEditorState_2> implements TypeEditor {
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    getPropertyValue(): Promise<PropertyValue | undefined>;
-    // (undocumented)
-    get hasFocus(): boolean;
-    // (undocumented)
-    get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
-    render(): JSX.Element;
-    // @internal (undocumented)
-    readonly state: Readonly<EnumEditorState_2>;
-}
-
-// @beta @deprecated
-export interface ThemedEnumEditorProps extends PropertyEditorProps {
-    isSearchable?: boolean;
-    noOptionsMessage?: (obj: {
-        inputValue: string;
-    }) => string | null;
-    placeholder?: string;
-}
-
-// @beta @deprecated
-export class ThemedEnumPropertyEditor extends PropertyEditorBase {
-    // (undocumented)
-    get containerHandlesBlur(): boolean;
-    // (undocumented)
-    get containerHandlesEnter(): boolean;
-    // (undocumented)
-    get containerHandlesEscape(): boolean;
-    // (undocumented)
-    get containerHandlesTab(): boolean;
-    // (undocumented)
-    get reactNode(): React_2.ReactNode;
-}
-
 // @internal
 export function TimeField({ time, timeDisplay, readOnly, onTimeChange }: TimeFieldProps): JSX.Element;
 
@@ -3303,9 +3178,6 @@ export interface TreeCheckboxStateChangeEventArgs {
 }
 
 // @public
-export type TreeDataChangesListener = (nodes: Array<TreeNodeItem | undefined>) => void;
-
-// @public
 export type TreeDataProvider = TreeDataProviderRaw | TreeDataProviderPromise | TreeDataProviderMethod | ITreeDataProvider;
 
 // @public
@@ -3318,12 +3190,8 @@ export type TreeDataProviderPromise = Promise<TreeDataProviderRaw>;
 export type TreeDataProviderRaw = ImmediatelyLoadedTreeNodeItem[];
 
 // @internal
-export class TreeDataSource implements IDisposable {
+export class TreeDataSource {
     constructor(dataProvider: TreeDataProvider);
-    // (undocumented)
-    dispose(): void;
-    // (undocumented)
-    readonly onItemsChanged: BeEvent<TreeDataChangesListener>;
     // (undocumented)
     requestItems(parent: TreeNodeItem | undefined, firstItemIndex: number, numItems: number, requestNumChildren: boolean): Observable_2<TreeDataSourceResult>;
 }
@@ -3565,9 +3433,8 @@ export interface TreeNodeItem {
 export type TreeNodeItemData = ImmediatelyLoadedTreeNodeItem & DelayLoadedTreeNodeItem;
 
 // @public
-export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> implements IDisposable {
+export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> {
     constructor(dataProvider: TDataProvider, modelSource: TreeModelSource);
-    dispose(): void;
     // (undocumented)
     protected load(): Observable<LoadedNodeHierarchy>;
     loadNode(parent: TreeModelNode | TreeModelRootNode, _childIndex?: number): Observable<TreeNodeLoadResult>;

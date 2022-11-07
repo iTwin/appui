@@ -10,7 +10,6 @@ import { from as rxjsFrom } from "rxjs/internal/observable/from";
 import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import { BeEvent } from "@itwin/core-bentley";
 import { Observable, Observer } from "../../../components-react/tree/controlled/Observable";
 import { MutableTreeModelNode, TreeModelNode, TreeModelNodeInput, TreeModelRootNode, TreeNodeItemData } from "../../../components-react/tree/controlled/TreeModel";
 import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
@@ -18,7 +17,7 @@ import {
   AbstractTreeNodeLoader, handleLoadedNodeHierarchy, LoadedNodeHierarchy, PagedTreeNodeLoader, TreeDataSource, TreeNodeLoader, TreeNodeLoadResult,
 } from "../../../components-react/tree/controlled/TreeNodeLoader";
 import {
-  ImmediatelyLoadedTreeNodeItem, ITreeDataProvider, TreeDataChangesListener, TreeDataProvider, TreeDataProviderRaw, TreeNodeItem,
+  ImmediatelyLoadedTreeNodeItem, ITreeDataProvider, TreeDataProvider, TreeDataProviderRaw, TreeNodeItem,
 } from "../../../components-react/tree/TreeDataProvider";
 import { extractSequence } from "../../common/ObservableTestHelpers";
 import { ResolvablePromise } from "../../test-helpers/misc";
@@ -83,8 +82,6 @@ describe("TreeNodeLoader", () => {
     dataProviderMock.reset();
     modelSourceMock.reset();
 
-    // eslint-disable-next-line deprecation/deprecation
-    dataProviderMock.setup((x) => x.onTreeNodeChanged).returns(() => undefined);
     treeNodeLoader = new TreeNodeLoader(dataProviderMock.object, modelSourceMock.object);
   });
 
@@ -189,9 +186,6 @@ describe("PagedTreeNodeLoader", () => {
   beforeEach(() => {
     dataProviderMock.reset();
     modelSourceMock.reset();
-
-    // eslint-disable-next-line deprecation/deprecation
-    dataProviderMock.setup((x) => x.onTreeNodeChanged).returns(() => undefined);
 
     pagedTreeNodeLoader = new PagedTreeNodeLoader(dataProviderMock.object, modelSourceMock.object, pageSize);
   });
@@ -407,34 +401,6 @@ describe("AbstractTreeNodeLoader", () => {
 });
 
 describe("TreeDataSource", () => {
-  describe("constructor", () => {
-    it("handles dataProvider onTreeNodeChanged event", () => {
-      const onTreeNodeChangedEvent = new BeEvent<TreeDataChangesListener>();
-      const dataProviderMock = moq.Mock.ofType<ITreeDataProvider>();
-      // eslint-disable-next-line deprecation/deprecation
-      dataProviderMock.setup((x) => x.onTreeNodeChanged).returns(() => onTreeNodeChangedEvent);
-
-      const treeDataSource = new TreeDataSource(dataProviderMock.object);
-      const spy = sinon.spy(treeDataSource.onItemsChanged, "raiseEvent");
-      onTreeNodeChangedEvent.raiseEvent([]);
-      expect(spy).to.be.called;
-    });
-  });
-
-  describe("dispose", () => {
-    it("stops listening from dataProvider onTreeNodeChanges event", () => {
-      const onTreeNodeChangedEvent = new BeEvent<TreeDataChangesListener>();
-      const spy = sinon.spy(onTreeNodeChangedEvent, "removeListener");
-      const dataProviderMock = moq.Mock.ofType<ITreeDataProvider>();
-      // eslint-disable-next-line deprecation/deprecation
-      dataProviderMock.setup((x) => x.onTreeNodeChanged).returns(() => onTreeNodeChangedEvent);
-
-      const treeDataSource = new TreeDataSource(dataProviderMock.object);
-      treeDataSource.dispose();
-      expect(spy).to.be.called;
-    });
-  });
-
   describe("requestItems", () => {
     describe("using TreeDataProviderRaw", () => {
       const rawProvider = [

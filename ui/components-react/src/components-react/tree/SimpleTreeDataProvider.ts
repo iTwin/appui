@@ -6,9 +6,8 @@
  * @module Tree
  */
 
-import { BeEvent } from "@itwin/core-bentley";
 import { PageOptions } from "../common/PageOptions";
-import { ITreeDataProvider, TreeDataChangesListener, TreeNodeItem } from "./TreeDataProvider";
+import { ITreeDataProvider, TreeNodeItem } from "./TreeDataProvider";
 
 /**
  * Used by [[SimpleTreeDataProvider]].
@@ -28,8 +27,6 @@ export class SimpleTreeDataProvider implements ITreeDataProvider {
   public constructor(hierarchy: SimpleTreeDataProviderHierarchy) {
     this._hierarchy = hierarchy;
   }
-
-  public onTreeNodeChanged = new BeEvent<TreeDataChangesListener>();
 
   private getNodesByParentId(parentId?: string, pageOptions?: PageOptions): TreeNodeItem[] {
     const nodes = this._hierarchy.get(parentId);

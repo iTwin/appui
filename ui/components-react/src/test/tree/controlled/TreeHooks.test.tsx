@@ -88,17 +88,6 @@ describe("useTreeNodeLoader", () => {
     expect(result.current).to.be.eq(nodeLoader);
   });
 
-  it("disposes NodeLoader on unmount", () => {
-    const { result, unmount } = renderHook(
-      (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource }) => useTreeNodeLoader(props.dataProvider, props.modelSource),
-      { initialProps: { dataProvider: dataProviderMock, modelSource: modelSourceMock.object } },
-    );
-    const spy = sinon.spy(result.current, "dispose");
-    unmount();
-
-    expect(spy).to.be.called;
-  });
-
   it("creates new NodeLoader when data provider changes", () => {
     const { result, rerender } = renderHook(
       (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource }) => useTreeNodeLoader(props.dataProvider, props.modelSource),
@@ -106,12 +95,10 @@ describe("useTreeNodeLoader", () => {
     );
 
     const firstNodeLoader = result.current;
-    const disposeSpy = sinon.spy(firstNodeLoader, "dispose");
     const newDataProviderMock: TreeDataProviderRaw = [];
     rerender({ dataProvider: newDataProviderMock, modelSource: modelSourceMock.object });
 
     expect(result.current).to.not.be.deep.eq(firstNodeLoader);
-    expect(disposeSpy).to.be.called;
   });
 
 });
@@ -140,17 +127,6 @@ describe("usePagedTreeNodeLoader", () => {
     expect(result.current).to.be.eq(nodeLoader);
   });
 
-  it("disposes PagedNodeLoader on unmount", () => {
-    const { result, unmount } = renderHook(
-      (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource, pageSize: number }) => usePagedTreeNodeLoader(props.dataProvider, props.pageSize, props.modelSource),
-      { initialProps: { dataProvider: dataProviderMock, pageSize: 10, modelSource: modelSourceMock.object } },
-    );
-    const spy = sinon.spy(result.current, "dispose");
-    unmount();
-
-    expect(spy).to.be.called;
-  });
-
   it("creates new PagedNodeLoader when data provider changes", () => {
     const { result, rerender } = renderHook(
       (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource, pageSize: number }) => usePagedTreeNodeLoader(props.dataProvider, props.pageSize, props.modelSource),
@@ -158,12 +134,10 @@ describe("usePagedTreeNodeLoader", () => {
     );
 
     const firstNodeLoader = result.current;
-    const disposeSpy = sinon.spy(firstNodeLoader, "dispose");
     const newDataProviderMock: TreeDataProviderRaw = [];
     rerender({ dataProvider: newDataProviderMock, pageSize: 10, modelSource: modelSourceMock.object });
 
     expect(result.current).to.not.be.deep.eq(firstNodeLoader);
-    expect(disposeSpy).to.be.called;
   });
 
   it("creates new PagedNodeLoader when page size changes", () => {
