@@ -10,8 +10,9 @@ import "./Expander.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { PanelSide, panelSides } from "./Panel";
-import { NineZoneDispatchContext, PanelsStateContext } from "../base/NineZone";
+import { NineZoneDispatchContext } from "../base/NineZone";
 import { Point, Timer } from "@itwin/core-react";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export interface WidgetPanelExpanderProps {
@@ -61,7 +62,7 @@ export function WidgetPanelExpander({ side }: WidgetPanelExpanderProps) {
 
 /** @internal */
 export function WidgetPanelExpanders() {
-  const panels = React.useContext(PanelsStateContext);
+  const panels = useLayout((state) => state.panels);
   return (
     <>
       {panelSides.map((side) => {

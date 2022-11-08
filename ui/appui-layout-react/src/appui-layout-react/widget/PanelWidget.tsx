@@ -10,7 +10,6 @@ import "./PanelWidget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { PanelsStateContext, TabsStateContext, ToolSettingsStateContext, WidgetsStateContext } from "../base/NineZone";
 import { WidgetsState, WidgetState } from "../state/WidgetState";
 import { isHorizontalPanelSide, PanelStateContext } from "../widget-panels/Panel";
 import { WidgetContentContainer } from "./ContentContainer";
@@ -21,6 +20,7 @@ import { WidgetOutline } from "../outline/WidgetOutline";
 import { WidgetTarget } from "../target/WidgetTarget";
 import { isHorizontalPanelState } from "../state/PanelState";
 import { TabsState } from "../state/TabState";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export interface PanelWidgetProps {
@@ -45,7 +45,7 @@ export const PanelWidget = React.memo( // eslint-disable-line react/display-name
     }, ref) { // eslint-disable-line @typescript-eslint/naming-convention
       const panel = React.useContext(PanelStateContext);
       assert(!!panel);
-      const widgets = React.useContext(WidgetsStateContext);
+      const widgets = useLayout((state) => state.widgets);
       const widget = widgets[widgetId];
       const horizontal = isHorizontalPanelSide(panel.side);
       const mode = useMode(widgetId);
@@ -130,8 +130,8 @@ function findFillWidget(panelWidgets: ReadonlyArray<string>, widgets: WidgetsSta
 /** @internal */
 export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
   const panel = React.useContext(PanelStateContext);
-  const widgets = React.useContext(WidgetsStateContext);
-  const tabs = React.useContext(TabsStateContext);
+  const widgets = useLayout((state) => state.widgets);
+  const tabs = useLayout((state) => state.tabs);
   assert(!!panel);
   const fillWidget = findFillWidget(panel.widgets, widgets, tabs);
 
@@ -159,8 +159,8 @@ export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
 /** @internal */
 export function useBorders(widgetId: WidgetState["id"]) {
   const panel = React.useContext(PanelStateContext);
-  const panels = React.useContext(PanelsStateContext);
-  const toolSettings = React.useContext(ToolSettingsStateContext);
+  const panels = useLayout((state) => state.panels);
+  const toolSettings = useLayout((state) => state.toolSettings);
   assert(!!panel);
   let top = true;
   let bottom = true;

@@ -3,8 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
-import { createNineZoneState, DragManager, DragManagerContext, NineZoneProvider, ToolSettingsStateContext } from "@itwin/appui-layout-react";
-import { render, screen } from "@testing-library/react";
+import { createNineZoneState, DragManager, DragManagerContext, NineZoneProvider } from "@itwin/appui-layout-react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -30,9 +29,7 @@ describe("WidgetPanelsToolSettings", () => {
     sinon.stub(frontstageDef, "toolSettings").get(() => toolSettings);
     const { container } = render(
       <DragManagerContext.Provider value={new DragManager()}>
-        <ToolSettingsStateContext.Provider value={{ type: "docked" }}>
-          <WidgetPanelsToolSettings />
-        </ToolSettingsStateContext.Provider>
+        <WidgetPanelsToolSettings />
       </DragManagerContext.Provider>,
     );
     container.firstChild!.should.matchSnapshot();
@@ -83,9 +80,7 @@ describe("ToolSettingsContent", () => {
 
   it("should not render if not in 'widget' mode", () => {
     const { container } = render(
-      <ToolSettingsStateContext.Provider value={{ type: "docked" }}>
-        <ToolSettingsContent />
-      </ToolSettingsStateContext.Provider>,
+      <ToolSettingsContent />
     );
     (container.firstChild === null).should.true;
   });
@@ -100,17 +95,15 @@ describe("ToolSettingsContent", () => {
       },
     });
     const { container } = render(
-      <ToolSettingsStateContext.Provider value={{ type: "widget" }}>
-        <NineZoneProvider
-          state={state}
-          dispatch={sinon.stub()}
-          measure={() => new Rectangle()}
-        >
-          <div className="nz-floating-toolsettings">
-            <ToolSettingsContent />
-          </div>
-        </NineZoneProvider>
-      </ToolSettingsStateContext.Provider>,
+      <NineZoneProvider
+        state={state}
+        dispatch={sinon.stub()}
+        measure={() => new Rectangle()}
+      >
+        <div className="nz-floating-toolsettings">
+          <ToolSettingsContent />
+        </div>
+      </NineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });

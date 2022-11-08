@@ -10,18 +10,19 @@ import "./TitleBarTarget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
-import { CursorTypeContext, DraggedTabContext } from "../base/NineZone";
+import { CursorTypeContext } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
 import { WidgetState } from "../state/WidgetState";
 import { WidgetIdContext } from "../widget/Widget";
 import { TabOutline } from "../outline/TabOutline";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import { WidgetDropTargetState } from "../state/DropTargetState";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export function TitleBarTarget() {
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = React.useContext(DraggedTabContext);
+  const draggedTab = useLayout((state) => state.draggedTab);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
   const [ref] = useTarget<HTMLDivElement>(useTargetArgs(widgetId));

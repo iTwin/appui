@@ -7,17 +7,18 @@
  */
 
 import * as React from "react";
-import { AutoCollapseUnpinnedPanelsContext, NineZoneDispatchContext, PanelsStateContext } from "../base/NineZone";
+import { AutoCollapseUnpinnedPanelsContext, NineZoneDispatchContext } from "../base/NineZone";
 import { WidgetPanelsContent } from "./Content";
 import { ContentNodeContext } from "./Panels";
 import { panelSides } from "./Panel";
 import { useRefEffect, useRefs } from "@itwin/core-react";
+import { useLayout } from "../base/LayoutStore";
 
 /** Main app content (i.e. viewport) that will change bounds based on panel pinned settings.
  * @internal
  */
 export const AppContent = React.memo(function AppContent() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const panels = React.useContext(PanelsStateContext);
+  const panels = useLayout((state) => state.panels);
   const content = React.useContext(ContentNodeContext);
   const ref = usePanelsAutoCollapse<HTMLDivElement>();
   return (
@@ -36,7 +37,7 @@ export const AppContent = React.memo(function AppContent() { // eslint-disable-l
 
 /** @internal */
 export function usePanelsAutoCollapse<T extends Element>(): React.Ref<T> {
-  const panels = React.useContext(PanelsStateContext);
+  const panels = useLayout((state) => state.panels);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const autoCollapseUnpinnedPanels = React.useContext(AutoCollapseUnpinnedPanelsContext);
 

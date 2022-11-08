@@ -13,7 +13,7 @@ import produce from "immer";
 import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import { DraggedPanelSideContext } from "../base/DragManager";
-import { NineZoneDispatchContext, PanelsStateContext, WidgetsStateContext } from "../base/NineZone";
+import { NineZoneDispatchContext } from "../base/NineZone";
 import { WidgetState } from "../state/WidgetState";
 import { PanelWidget, PanelWidgetProps } from "../widget/PanelWidget";
 import { WidgetPanelGrip } from "./Grip";
@@ -22,6 +22,7 @@ import { SectionOutline } from "../outline/SectionOutline";
 import { PanelOutline } from "../outline/PanelOutline";
 import { SectionTargets } from "../target/SectionTargets";
 import { isHorizontalPanelState, PanelState } from "../state/PanelState";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export type TopPanelSide = "top";
@@ -128,7 +129,7 @@ export interface WidgetPanelProviderProps {
  * @internal
  */
 export const WidgetPanelProvider = React.memo<WidgetPanelProviderProps>(function WidgetPanelProvider({ side }) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const panels = React.useContext(PanelsStateContext);
+  const panels = useLayout((state) => state.panels);
   const panel = panels[side];
   return (
     <PanelStateContext.Provider value={panel}>
@@ -438,7 +439,7 @@ export function useAnimatePanelWidgets(): {
   sizes: { [id: string]: PanelWidgetProps["size"] };
 } {
   const panel = React.useContext(PanelStateContext);
-  const widgets = React.useContext(WidgetsStateContext);
+  const widgets = useLayout((state) => state.widgets);
   assert(!!panel);
   const [prepareTransition, setPrepareTransition] = React.useState(false);
   const [transition, setTransition] = React.useState<PanelWidgetProps["transition"] | undefined>();

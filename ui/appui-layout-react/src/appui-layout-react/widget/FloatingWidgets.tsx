@@ -7,16 +7,16 @@
  */
 
 import * as React from "react";
-import { FloatingWidgetsStateContext, WidgetsStateContext } from "../base/NineZone";
 import { FloatingWidgetProvider } from "./FloatingWidget";
 import { FloatingTab } from "./FloatingTab";
+import { useLayout } from "../base/LayoutStore";
 
 /** This component renders all floating widgets.
  * @internal
  */
 export const FloatingWidgets = React.memo(function FloatingWidgets() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const floatingWidgets = React.useContext(FloatingWidgetsStateContext);
-  const widgets = React.useContext(WidgetsStateContext);
+  const floatingWidgets = useLayout((state) => state.floatingWidgets);
+  const widgets = useLayout((state) => state.widgets);
   return (
     <>
       {floatingWidgets.allIds.map((floatingWidgetId) => {

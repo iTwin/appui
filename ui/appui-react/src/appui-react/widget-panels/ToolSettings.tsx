@@ -9,7 +9,7 @@
 import "./ToolSettings.scss";
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { DockedToolSetting, DockedToolSettings, ScrollableWidgetContent, ToolSettingsStateContext } from "@itwin/appui-layout-react";
+import { DockedToolSetting, DockedToolSettings, ScrollableWidgetContent, useLayout } from "@itwin/appui-layout-react";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
@@ -39,7 +39,7 @@ function TsLabel({ children }: { children: React.ReactNode }) {
 /** @internal */
 export function WidgetPanelsToolSettings() {
   const frontstageDef = useActiveFrontstageDef();
-  const toolSettingsState = React.useContext(ToolSettingsStateContext);
+  const toolSettingsState = useLayout((state) => state.toolSettings);
   const toolSettings = frontstageDef?.toolSettings;
   if (!toolSettings || toolSettingsState.type === "widget")
     return null;
@@ -152,7 +152,7 @@ export function useToolSettingsNode() {
 
 /** @internal */
 export function ToolSettingsContent() {
-  const toolSettings = React.useContext(ToolSettingsStateContext);
+  const toolSettings = useLayout((state) => state.toolSettings);
   // This is needed to remount underlying components tree when going into widget state.
   if (toolSettings.type === "docked")
     return null;

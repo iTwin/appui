@@ -10,17 +10,18 @@ import "./Tabs.scss";
 import * as React from "react";
 import { useResizeObserver } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
-import { ShowWidgetIconContext, TabsStateContext } from "../base/NineZone";
+import { ShowWidgetIconContext } from "../base/NineZone";
 import { getChildKey, useOverflow } from "../tool-settings/Docked";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { WidgetOverflow } from "./Overflow";
 import { WidgetTabProvider } from "./Tab";
 import { ActiveTabIdContext, WidgetStateContext } from "./Widget";
 import { TitleBarTarget } from "../target/TitleBarTarget";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export const WidgetTabs = React.memo(function WidgetTabs() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const tabs = React.useContext(TabsStateContext);
+  const tabs = useLayout((state) => state.tabs);
   const side = React.useContext(PanelSideContext);
   const widget = React.useContext(WidgetStateContext);
   assert(!!widget);

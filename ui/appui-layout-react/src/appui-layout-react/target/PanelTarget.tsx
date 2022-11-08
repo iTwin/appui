@@ -10,10 +10,11 @@ import "./PanelTarget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { DraggedWidgetIdContext, usePanelTarget } from "../base/DragManager";
-import { CursorTypeContext, DraggedTabStateContext, getUniqueId } from "../base/NineZone";
+import { CursorTypeContext, getUniqueId } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
 import { isHorizontalPanelSide, PanelSide } from "../widget-panels/Panel";
 import { useAllowedPanelTarget } from "./useAllowedPanelTarget";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export interface PanelTargetProps {
@@ -24,7 +25,7 @@ export interface PanelTargetProps {
 export function PanelTarget(props: PanelTargetProps) {
   const { side } = props;
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = React.useContext(DraggedTabStateContext);
+  const draggedTab = useLayout((state) => state.draggedTab);
   const draggedWidget = React.useContext(DraggedWidgetIdContext);
   const allowedTarget = useAllowedPanelTarget();
   const newWidgetId = React.useMemo(() => getUniqueId(), []);
@@ -52,4 +53,3 @@ export function PanelTarget(props: PanelTargetProps) {
     />
   );
 }
-

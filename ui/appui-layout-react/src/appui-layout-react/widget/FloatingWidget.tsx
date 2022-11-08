@@ -13,7 +13,7 @@ import { PointProps } from "@itwin/appui-abstract";
 import { Point, Rectangle, useRefs, useResizeObserver } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import { DragManagerContext, useDragResizeHandle, UseDragResizeHandleArgs, useIsDraggedItem } from "../base/DragManager";
-import { FloatingWidgetNodeContext, MeasureContext, NineZoneDispatchContext, TabsStateContext, UiIsVisibleContext } from "../base/NineZone";
+import { FloatingWidgetNodeContext, MeasureContext, NineZoneDispatchContext, UiIsVisibleContext } from "../base/NineZone";
 import { FloatingWidgetState, WidgetState } from "../state/WidgetState";
 import { WidgetContentContainer } from "./ContentContainer";
 import { WidgetTabBar } from "./TabBar";
@@ -22,6 +22,7 @@ import { PointerCaptorArgs, usePointerCaptor } from "../base/usePointerCaptor";
 import { WidgetTarget } from "../target/WidgetTarget";
 import { WidgetOutline } from "../outline/WidgetOutline";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
+import { useLayout } from "../base/LayoutStore";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
@@ -69,7 +70,7 @@ export interface FloatingWidgetProps {
 export function FloatingWidget(props: FloatingWidgetProps) {
   const widget = React.useContext(WidgetStateContext);
   const floatingWidget = React.useContext(FloatingWidgetContext);
-  const tabsState = React.useContext(TabsStateContext);
+  const tabsState = useLayout((state) => state.tabs);
   const uiIsVisible = React.useContext(UiIsVisibleContext);
   assert(!!widget);
   assert(!!floatingWidget);

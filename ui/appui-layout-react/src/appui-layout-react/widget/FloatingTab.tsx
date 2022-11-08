@@ -11,14 +11,15 @@ import classnames from "classnames";
 import * as React from "react";
 import { Icon } from "@itwin/core-react";
 import { useDragTab, UseDragTabArgs } from "../base/DragManager";
-import { DraggedTabStateContext, NineZoneDispatchContext, ShowWidgetIconContext, TabsStateContext } from "../base/NineZone";
+import { NineZoneDispatchContext, ShowWidgetIconContext } from "../base/NineZone";
+import { useLayout } from "../base/LayoutStore";
 
 /** Component that displays a floating tab.
  * @internal
  */
 export function FloatingTab() {
-  const draggedTab = React.useContext(DraggedTabStateContext);
-  const tabs = React.useContext(TabsStateContext);
+  const draggedTab = useLayout((state) => state.draggedTab);
+  const tabs = useLayout((state) => state.tabs);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const id = draggedTab?.tabId;
   const tab = id ? tabs[id] : undefined;

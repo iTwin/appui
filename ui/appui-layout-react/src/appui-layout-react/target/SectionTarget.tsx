@@ -11,11 +11,12 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
-import { CursorTypeContext, DraggedTabContext, getUniqueId } from "../base/NineZone";
+import { CursorTypeContext, getUniqueId } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { useAllowedPanelTarget } from "./useAllowedPanelTarget";
 import { SectionDropTargetState } from "../state/DropTargetState";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export interface SectionTargetProps {
@@ -26,7 +27,7 @@ export interface SectionTargetProps {
 export function SectionTarget(props: SectionTargetProps) {
   const { sectionIndex } = props;
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = React.useContext(DraggedTabContext);
+  const draggedTab = useLayout((state) => state.draggedTab);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const direction = useTargetDirection();
   const [ref, targeted] = useTarget<HTMLDivElement>(useSectionTargetArgs(sectionIndex));
