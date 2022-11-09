@@ -13,7 +13,7 @@ import produce from "immer";
 import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import { DraggedPanelSideContext } from "../base/DragManager";
-import { NineZoneDispatchContext } from "../base/NineZone";
+import { NineZoneDispatchContext, sideToCursorType } from "../base/NineZone";
 import { WidgetState } from "../state/WidgetState";
 import { PanelWidget, PanelWidgetProps } from "../widget/PanelWidget";
 import { WidgetPanelGrip } from "./Grip";
@@ -48,7 +48,8 @@ export type PanelSide = VerticalPanelSide | HorizontalPanelSide;
 // istanbul ignore next
 function PanelSplitter({ isHorizontal }: { isHorizontal: boolean }) {
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const panel = React.useContext(PanelStateContext);
+  const side = React.useContext(PanelSideContext)!;
+  const panel = useLayout((state) => state.panels[side]);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const splitterProcessingActiveRef = React.useRef<boolean>(false);
 
@@ -129,19 +130,18 @@ export interface WidgetPanelProviderProps {
  * @internal
  */
 export const WidgetPanelProvider = React.memo<WidgetPanelProviderProps>(function WidgetPanelProvider({ side }) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const panels = useLayout((state) => state.panels);
-  const panel = panels[side];
+  const spanTop = useLayout((state) => state.panels.top.span);
+  const spanBottom = useLayout((state) => state.panels.bottom.span);
+  const widgetsLength = useLayout((state) => state.panels[side].widgets.length);
   return (
-    <PanelStateContext.Provider value={panel}>
-      <PanelSideContext.Provider value={side}>
-        {panel.widgets.length > 0 && <WidgetPanel
-          spanTop={panels.top.span}
-          spanBottom={panels.bottom.span}
-        />}
-        <PanelTargets />
-        <PanelOutline />
-      </PanelSideContext.Provider>
-    </PanelStateContext.Provider>
+    <PanelSideContext.Provider value={side}>
+      {widgetsLength > 0 && <WidgetPanel
+        spanTop={spanTop}
+        spanBottom={spanBottom}
+      />}
+      <PanelTargets />
+      <PanelOutline />
+    </PanelSideContext.Provider>
   );
 });
 
@@ -156,12 +156,12 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanelComp
   spanBottom,
   spanTop,
 }) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const panel = React.useContext(PanelStateContext);
-  assert(!!panel);
+  const side = React.useContext(PanelSideContext)!;
+  const panel = useLayout((state) => state.panels[side]);
   const { handleBeforeTransition, handlePrepareTransition, handleTransitionEnd, getRef, sizes, ...animatePanelWidgets } = useAnimatePanelWidgets();
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const captured = draggedPanelSide === panel.side;
+  const captured = draggedPanelSide === side;
   const horizontalPanel = isHorizontalPanelState(panel) ? panel : undefined;
   const [contentSize, setContentSize] = React.useState<number | undefined>();
   const [prepareTransition, setPrepareTransition] = React.useState(false);
@@ -404,10 +404,6 @@ export const PanelSideContext = React.createContext<PanelSide | undefined>(undef
 PanelSideContext.displayName = "nz:PanelSideContext";
 
 /** @internal */
-export const PanelStateContext = React.createContext<PanelState | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
-PanelStateContext.displayName = "nz:PanelStateContext";
-
-/** @internal */
 export interface WidgetPanelContextArgs {
   getBounds(): RectangleProps;
 }
@@ -438,9 +434,9 @@ export function useAnimatePanelWidgets(): {
   transition: PanelWidgetProps["transition"];
   sizes: { [id: string]: PanelWidgetProps["size"] };
 } {
-  const panel = React.useContext(PanelStateContext);
+  const side = React.useContext(PanelSideContext)!;
+  const panel = useLayout((state) => state.panels[side]);
   const widgets = useLayout((state) => state.widgets);
-  assert(!!panel);
   const [prepareTransition, setPrepareTransition] = React.useState(false);
   const [transition, setTransition] = React.useState<PanelWidgetProps["transition"] | undefined>();
   const [prevPanelWidgets, setPrevPanelWidgets] = React.useState(panel.widgets);

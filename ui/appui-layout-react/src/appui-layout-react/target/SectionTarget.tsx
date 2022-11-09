@@ -27,7 +27,7 @@ export interface SectionTargetProps {
 export function SectionTarget(props: SectionTargetProps) {
   const { sectionIndex } = props;
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = useLayout((state) => state.draggedTab);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const direction = useTargetDirection();
   const [ref, targeted] = useTarget<HTMLDivElement>(useSectionTargetArgs(sectionIndex));

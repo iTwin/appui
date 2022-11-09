@@ -9,13 +9,12 @@
 import "./SectionOutline.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
 import { CommonProps } from "@itwin/core-react";
 import { useTargeted } from "../base/DragManager";
-import { PanelSideContext, PanelStateContext } from "../widget-panels/Panel";
+import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { useTargetDirection } from "../target/SectionTarget";
 import { isSectionDropTargetState } from "../state/DropTargetState";
-import { isHorizontalPanelState } from "../state/PanelState";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export interface SectionOutlineProps extends CommonProps {
@@ -67,19 +66,19 @@ function useHidden(sectionIndex: SectionOutlineProps["sectionIndex"]) {
 
 // istanbul ignore next
 function useSize(sectionIndex: SectionOutlineProps["sectionIndex"]) {
-  const panel = React.useContext(PanelStateContext);
-  assert(!!panel);
+  const side = React.useContext(PanelSideContext)!;
+  const splitterPercent = useLayout((state) => state.panels[side].splitterPercent);
   return React.useMemo<React.CSSProperties | undefined>(() => {
-    let size = panel.splitterPercent;
+    let size = splitterPercent;
     if (!size)
       return undefined;
     if (sectionIndex === 1)
       size = 100 - size;
     const style: React.CSSProperties = {};
-    if (isHorizontalPanelState(panel))
+    if (isHorizontalPanelSide(side))
       style.width = `${size}%`;
     else
       style.height = `${size}%`;
     return style;
-  }, [panel, sectionIndex]);
+  }, [side, splitterPercent, sectionIndex]);
 }

@@ -25,26 +25,24 @@ export interface WidgetPanelsContentProps extends CommonProps {
 /** Component that displays widget panels content.
  * @internal
  */
-export const WidgetPanelsContent = React.memo( // eslint-disable-line react/display-name
-  React.forwardRef<HTMLDivElement, WidgetPanelsContentProps>( // eslint-disable-line @typescript-eslint/naming-convention
-    function WidgetPanelsContent(props, ref) {   // eslint-disable-line @typescript-eslint/no-shadow
-      const className = classnames(
-        "nz-widgetPanels-content",
-        props.pinnedLeft && "nz-pinned-left",
-        props.pinnedRight && "nz-pinned-right",
-        props.pinnedTop && "nz-pinned-top",
-        props.pinnedBottom && "nz-pinned-bottom",
-        props.className,
-      );
-      return (
-        <div
-          className={className}
-          ref={ref}
-          style={props.style}
-        >
-          {props.children}
-        </div>
-      );
-    },
-  )
-);
+export const WidgetPanelsContent = React.forwardRef<HTMLDivElement, WidgetPanelsContentProps>( // eslint-disable-line react/display-name
+  function WidgetPanelsContent(props, ref) {   // eslint-disable-line @typescript-eslint/no-shadow
+    const className = classnames(
+      "nz-widgetPanels-content",
+      props.pinnedLeft && "nz-pinned-left",
+      props.pinnedRight && "nz-pinned-right",
+      props.pinnedTop && "nz-pinned-top",
+      props.pinnedBottom && "nz-pinned-bottom",
+      props.className,
+    );
+    return (
+      <div
+        className={className}
+        ref={ref}
+        style={props.style}
+      >
+        {props.children}
+      </div>
+    );
+  }
+)

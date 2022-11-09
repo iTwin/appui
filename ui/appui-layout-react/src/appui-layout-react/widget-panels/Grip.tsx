@@ -13,17 +13,17 @@ import { CommonProps, Point, Rectangle, Timer } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import { useDragPanelGrip, UseDragPanelGripArgs } from "../base/DragManager";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
-import { isHorizontalPanelSide, PanelStateContext, WidgetPanelContext } from "./Panel";
+import { isHorizontalPanelSide, PanelSideContext, WidgetPanelContext } from "./Panel";
 import { PointerCaptorArgs, usePointerCaptor } from "../base/usePointerCaptor";
+import { useLayout } from "../base/LayoutStore";
 
 /** Resize grip of [[WidgetPanel]] component.
  * @internal
  */
-export const WidgetPanelGrip = React.memo(function WidgetPanelGrip(props: CommonProps) {
-  const panelState = React.useContext(PanelStateContext);
+export function WidgetPanelGrip(props: CommonProps) {
+  const side = React.useContext(PanelSideContext)!;
+  const panel = useLayout((state) => state.panels[side]);
   const dispatch = React.useContext(NineZoneDispatchContext);
-  assert(!!panelState);
-  const { side } = panelState;
   const [ref, resizing, active] = useResizeGrip<HTMLDivElement>();
   const className = classnames(
     "nz-widgetPanels-grip",
@@ -47,7 +47,7 @@ export const WidgetPanelGrip = React.memo(function WidgetPanelGrip(props: Common
         className="nz-handle"
         ref={ref}
         onMouseOverCapture={() => {
-          panelState.collapsed && !panelState.pinned && !resizing && dispatch({
+          panel.collapsed && !panel.pinned && !resizing && dispatch({
             side,
             collapsed: false,
             type: "PANEL_SET_COLLAPSED",
@@ -56,15 +56,15 @@ export const WidgetPanelGrip = React.memo(function WidgetPanelGrip(props: Common
       />
     </div>
   );
-});
+}
 
 /** @internal */
 export const useResizeGrip = <T extends HTMLElement>(): [(instance: T | null) => void, boolean, boolean] => {
   const widgetPanel = React.useContext(WidgetPanelContext);
-  const panelState = React.useContext(PanelStateContext);
+  const side = React.useContext(PanelSideContext)!;
+  const panelState = useLayout((state) => state.panels[side]);
   const dispatch = React.useContext(NineZoneDispatchContext);
   assert(!!widgetPanel);
-  assert(!!panelState);
   const [resizing, setResizing] = React.useState(false);
   const [active, setActive] = React.useState(false);
   const initialPointerPosition = React.useRef<Point>();
@@ -73,7 +73,6 @@ export const useResizeGrip = <T extends HTMLElement>(): [(instance: T | null) =>
   const relativePosition = React.useRef(new Point());
   const panelStateRef = React.useRef(panelState);
   panelStateRef.current = panelState;
-  const { side } = panelState;
   const handleDoubleClick = React.useCallback(() => {
     dispatch({
       type: "PANEL_TOGGLE_COLLAPSED",

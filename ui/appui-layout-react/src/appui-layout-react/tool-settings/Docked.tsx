@@ -23,7 +23,7 @@ export function onOverflowLabelAndEditorResize() {
 
 /** This component takes a DockedToolSetting "wrapper" component and extract only the label and editor components from it */
 // eslint-disable-next-line @typescript-eslint/naming-convention, no-shadow
-const OverflowLabelAndEditor = React.memo(function OverflowLabelAndEditor({ wrapper }: { wrapper: React.ReactNode }) {
+function OverflowLabelAndEditor({ wrapper }: { wrapper: React.ReactNode }) {
   assert(React.isValidElement(wrapper));
   const entryValue = React.useMemo<DockedToolSettingsEntryContextArgs>(() => ({
     isOverflown: true,
@@ -39,7 +39,7 @@ const OverflowLabelAndEditor = React.memo(function OverflowLabelAndEditor({ wrap
       </DockedToolSettingsEntryContext.Provider>
     </>
   );
-});
+}
 
 /** Properties of [[DockedToolSettings]] component.
  * @internal
@@ -48,7 +48,7 @@ export interface DockedToolSettingsProps extends CommonProps {
   /** Tool settings content. */
   children?: React.ReactNode;
   /** Container for overflown entries. */
-  panelContainer?: React.ComponentType<{children?: React.ReactNode}>;
+  panelContainer?: React.ComponentType<{ children?: React.ReactNode }>;
 }
 
 /** Component that displays tool settings as a bar across the top of the content view.

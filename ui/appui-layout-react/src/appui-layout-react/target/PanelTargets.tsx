@@ -10,17 +10,18 @@ import "./PanelTargets.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { PanelStateContext } from "../widget-panels/Panel";
 import { TargetContainer } from "./TargetContainer";
 import { PanelTarget } from "./PanelTarget";
 import { SectionTarget, useTargetDirection } from "./SectionTarget";
 import { MergeTarget } from "./MergeTarget";
 import { isHorizontalPanelState } from "../state/PanelState";
+import { PanelSideContext } from "../widget-panels/Panel";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export function PanelTargets() {
-  const panel = React.useContext(PanelStateContext);
-  assert(!!panel);
+  const side = React.useContext(PanelSideContext)!;
+  const panel = useLayout((state) => state.panels[side]);
   const direction = useTargetDirection();
   const type = usePanelTargetsType();
   const className = classnames(
@@ -57,18 +58,18 @@ export function PanelTargets() {
 }
 
 function usePanelTargetsType(): "no-panel" | "single-widget" | "two-widgets" | "hidden" {
-  const panelState = React.useContext(PanelStateContext);
-  assert(!!panelState);
+  const side = React.useContext(PanelSideContext)!;
+  const panel = useLayout((state) => state.panels[side]);
 
-  if (panelState.widgets.length === 0)
+  if (panel.widgets.length === 0)
     return "no-panel";
 
-  if (!panelState.collapsed)
+  if (!panel.collapsed)
     return "hidden";
 
-  if (panelState.widgets.length === 2)
+  if (panel.widgets.length === 2)
     return "two-widgets";
 
-  assert(panelState.widgets.length === 1);
+  assert(panel.widgets.length === 1);
   return "single-widget";
 }

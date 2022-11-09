@@ -16,8 +16,7 @@ import { PanelSide } from "../widget-panels/Panel";
   */
 export function useAllowedSideTarget(side: PanelSide | undefined, allowedTarget: boolean) {
   const draggedWidget = React.useContext(DraggedWidgetIdContext);
-  const state = useLayout((state) => state);
-  return isAllowedSideTarget(state, draggedWidget, side, allowedTarget);
+  return useLayout((state) => isAllowedSideTarget(state, draggedWidget, side, allowedTarget));
 }
 
 /** @internal */

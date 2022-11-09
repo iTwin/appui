@@ -15,16 +15,17 @@ import { getChildKey, useOverflow } from "../tool-settings/Docked";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { WidgetOverflow } from "./Overflow";
 import { WidgetTabProvider } from "./Tab";
-import { ActiveTabIdContext, WidgetStateContext } from "./Widget";
 import { TitleBarTarget } from "../target/TitleBarTarget";
 import { useLayout } from "../base/LayoutStore";
+import { WidgetIdContext } from "./Widget";
 
 /** @internal */
-export const WidgetTabs = React.memo(function WidgetTabs() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetTabs() {
   const tabs = useLayout((state) => state.tabs);
   const side = React.useContext(PanelSideContext);
-  const widget = React.useContext(WidgetStateContext);
-  assert(!!widget);
+  const widgetId = React.useContext(WidgetIdContext);
+  assert(!!widgetId);
+  const widget = useLayout((state) => state.widgets[widgetId]);
   const tabIds = widget.tabs;
   assert(tabIds.length > 0);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
@@ -73,42 +74,40 @@ export const WidgetTabs = React.memo(function WidgetTabs() { // eslint-disable-l
     return [key, child];
   }) : [];
   return (
-    <ActiveTabIdContext.Provider value={widget.activeTabId}>
-      <div
-        className="nz-widget-tabs"
-        ref={ref}
-        role="tablist"
+    <div
+      className="nz-widget-tabs"
+      ref={ref}
+      role="tablist"
+    >
+      {tabChildren.map(([key, child], index, array) => {
+        return (
+          <WidgetTabsEntryProvider
+            children={child} // eslint-disable-line react/no-children-prop
+            key={key}
+            id={key}
+            lastNotOverflown={index === array.length - 1 && panelChildren.length > 0}
+            getOnResize={handleEntryResize}
+          />
+        );
+      })}
+      <TitleBarTarget />
+      <WidgetOverflow
+        hidden={overflown && panelChildren.length === 0}
+        onResize={handleOverflowResize}
       >
-        {tabChildren.map(([key, child], index, array) => {
+        {panelChildren.map(([key, child]) => {
           return (
-            <WidgetTabsEntryProvider
-              children={child} // eslint-disable-line react/no-children-prop
+            <React.Fragment
               key={key}
-              id={key}
-              lastNotOverflown={index === array.length - 1 && panelChildren.length > 0}
-              getOnResize={handleEntryResize}
-            />
+            >
+              {child}
+            </React.Fragment>
           );
         })}
-        <TitleBarTarget />
-        <WidgetOverflow
-          hidden={overflown && panelChildren.length === 0}
-          onResize={handleOverflowResize}
-        >
-          {panelChildren.map(([key, child]) => {
-            return (
-              <React.Fragment
-                key={key}
-              >
-                {child}
-              </React.Fragment>
-            );
-          })}
-        </WidgetOverflow>
-      </div>
-    </ActiveTabIdContext.Provider>
+      </WidgetOverflow>
+    </div>
   );
-});
+}
 
 interface WidgetTabsEntryContextArgs {
   readonly lastNotOverflown: boolean;

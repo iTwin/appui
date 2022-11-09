@@ -17,7 +17,7 @@ import { useLayout } from "../base/LayoutStore";
 /** Main app content (i.e. viewport) that will change bounds based on panel pinned settings.
  * @internal
  */
-export const AppContent = React.memo(function AppContent() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function AppContent() {
   const panels = useLayout((state) => state.panels);
   const content = React.useContext(ContentNodeContext);
   const ref = usePanelsAutoCollapse<HTMLDivElement>();
@@ -33,7 +33,7 @@ export const AppContent = React.memo(function AppContent() { // eslint-disable-l
       {content}
     </WidgetPanelsContent>
   );
-});
+}
 
 /** @internal */
 export function usePanelsAutoCollapse<T extends Element>(): React.Ref<T> {

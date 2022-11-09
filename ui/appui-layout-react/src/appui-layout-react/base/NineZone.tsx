@@ -87,44 +87,38 @@ export function NineZoneProvider(props: NineZoneProviderProps) {
   }, [props.state]);
   return (
     <LayoutStoreContext.Provider value={store}>
-      <NineZoneContext.Provider value={props.state}>
-        <NineZoneDispatchContext.Provider value={props.dispatch}>
-          <NineZoneLabelsContext.Provider value={props.labels}>
-            <UiIsVisibleContext.Provider value={!!props.uiIsVisible}>
-              <ShowWidgetIconContext.Provider value={!!props.showWidgetIcon}>
-                <AutoCollapseUnpinnedPanelsContext.Provider value={!!props.autoCollapseUnpinnedPanels}>
-                  <WidgetContentNodeContext.Provider value={props.widgetContent}>
-                    <ToolSettingsNodeContext.Provider value={props.toolSettingsContent}>
-                      <TabNodeContext.Provider value={props.tab || tab}>
-                        <FloatingWidgetNodeContext.Provider value={props.floatingWidget || floatingWidget}>
-                          <AnimateDockedToolSettingsContext.Provider value={!!props.animateDockedToolSettings}>
-                            <DragProvider>
-                              <CursorTypeProvider>
-                                <WidgetContentManager>
-                                  <MeasureContext.Provider value={props.measure}>
-                                    {props.children}
-                                  </MeasureContext.Provider>
-                                </WidgetContentManager>
-                              </CursorTypeProvider>
-                            </DragProvider>
-                          </AnimateDockedToolSettingsContext.Provider>
-                        </FloatingWidgetNodeContext.Provider>
-                      </TabNodeContext.Provider>
-                    </ToolSettingsNodeContext.Provider>
-                  </WidgetContentNodeContext.Provider>
-                </AutoCollapseUnpinnedPanelsContext.Provider>
-              </ShowWidgetIconContext.Provider>
-            </UiIsVisibleContext.Provider>
-          </NineZoneLabelsContext.Provider>
-        </NineZoneDispatchContext.Provider>
-      </NineZoneContext.Provider>
+      <NineZoneDispatchContext.Provider value={props.dispatch}>
+        <NineZoneLabelsContext.Provider value={props.labels}>
+          <UiIsVisibleContext.Provider value={!!props.uiIsVisible}>
+            <ShowWidgetIconContext.Provider value={!!props.showWidgetIcon}>
+              <AutoCollapseUnpinnedPanelsContext.Provider value={!!props.autoCollapseUnpinnedPanels}>
+                <WidgetContentNodeContext.Provider value={props.widgetContent}>
+                  <ToolSettingsNodeContext.Provider value={props.toolSettingsContent}>
+                    <TabNodeContext.Provider value={props.tab || tab}>
+                      <FloatingWidgetNodeContext.Provider value={props.floatingWidget || floatingWidget}>
+                        <AnimateDockedToolSettingsContext.Provider value={!!props.animateDockedToolSettings}>
+                          <DragProvider>
+                            <CursorTypeProvider>
+                              <WidgetContentManager>
+                                <MeasureContext.Provider value={props.measure}>
+                                  {props.children}
+                                </MeasureContext.Provider>
+                              </WidgetContentManager>
+                            </CursorTypeProvider>
+                          </DragProvider>
+                        </AnimateDockedToolSettingsContext.Provider>
+                      </FloatingWidgetNodeContext.Provider>
+                    </TabNodeContext.Provider>
+                  </ToolSettingsNodeContext.Provider>
+                </WidgetContentNodeContext.Provider>
+              </AutoCollapseUnpinnedPanelsContext.Provider>
+            </ShowWidgetIconContext.Provider>
+          </UiIsVisibleContext.Provider>
+        </NineZoneLabelsContext.Provider>
+      </NineZoneDispatchContext.Provider>
     </LayoutStoreContext.Provider>
   );
 }
-
-/** @internal */
-export const NineZoneContext = React.createContext<NineZoneState>(null!); // eslint-disable-line @typescript-eslint/naming-convention
-NineZoneContext.displayName = "nz:NineZoneContext";
 
 /** @internal */
 export const NineZoneDispatchContext = React.createContext<NineZoneDispatch>(null!); // eslint-disable-line @typescript-eslint/naming-convention

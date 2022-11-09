@@ -16,7 +16,7 @@ import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
-export const WidgetContentRenderers = React.memo(function WidgetContentRenderers() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetContentRenderers() {
   const widgetContent = React.useContext(WidgetContentNodeContext);
   const toolSettingsContent = React.useContext(ToolSettingsNodeContext);
   const widgetContentContainers = React.useContext(WidgetContentContainersContext);
@@ -28,7 +28,7 @@ export const WidgetContentRenderers = React.memo(function WidgetContentRenderers
         const container = widgetContentContainers[tab.id];
         const children = tab.id === toolSettingsTabId ? toolSettingsContent : widgetContent;
         return <WidgetContentRenderer
-          children={children} // eslint-disable-line react/no-children-prop
+          children={children}
           key={tab.id}
           renderTo={container}
           tabId={tab.id}
@@ -36,7 +36,7 @@ export const WidgetContentRenderers = React.memo(function WidgetContentRenderers
       })}
     </>
   );
-});
+}
 
 interface WidgetContentRendererProps {
   children?: React.ReactNode;
@@ -45,7 +45,7 @@ interface WidgetContentRendererProps {
 }
 
 /** @internal */
-export const WidgetContentRenderer = React.memo(function WidgetContentRenderer(props: WidgetContentRendererProps) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetContentRenderer(props: WidgetContentRendererProps) {
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const container = React.useRef<HTMLDivElement>(undefined!);
   if (!container.current) {
@@ -77,7 +77,7 @@ export const WidgetContentRenderer = React.memo(function WidgetContentRenderer(p
     </TabIdContext.Provider>,
     container.current,
   );
-});
+}
 
 /** @internal */
 export const TabIdContext = React.createContext<TabState["id"]>(""); // eslint-disable-line @typescript-eslint/naming-convention

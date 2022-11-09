@@ -12,7 +12,8 @@ import * as React from "react";
 import { useRefs, useRefState, useResizeObserver } from "@itwin/core-react";
 import { WidgetMenu } from "./Menu";
 import { useLabel } from "../base/NineZone";
-import { PanelStateContext } from "../widget-panels/Panel";
+import { PanelSideContext } from "../widget-panels/Panel";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export interface WidgetOverflowProps {
@@ -22,7 +23,7 @@ export interface WidgetOverflowProps {
 }
 
 /** @internal */
-export const WidgetOverflow = React.memo<WidgetOverflowProps>(function WidgetOverflow(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetOverflow(props: WidgetOverflowProps) {
   const [open, setOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
   const [targetRef, target] = useRefState<HTMLDivElement>();
@@ -71,7 +72,7 @@ export const WidgetOverflow = React.memo<WidgetOverflowProps>(function WidgetOve
       </WidgetOverflowContext.Provider>
     </div>
   );
-});
+}
 
 interface WidgetOverflowContextArgs {
   close(): void;
@@ -82,8 +83,8 @@ export const WidgetOverflowContext = React.createContext<WidgetOverflowContextAr
 WidgetOverflowContext.displayName = "nz:WidgetOverflowContext";
 
 function usePanelPopup(onClose: () => void) {
-  const panel = React.useContext(PanelStateContext);
-  const { collapsed } = panel || {};
+  const side = React.useContext(PanelSideContext);
+  const collapsed = useLayout((state) => side ? state.panels[side].collapsed : false);
   React.useEffect(() => {
     if (collapsed) {
       onClose();

@@ -18,13 +18,15 @@ import { TabOutline } from "../outline/TabOutline";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import { WidgetDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";
+import { assert } from "@itwin/core-bentley";
 
 /** @internal */
 export function TitleBarTarget() {
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = useLayout((state) => state.draggedTab);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
+  assert(!!widgetId);
   const [ref] = useTarget<HTMLDivElement>(useTargetArgs(widgetId));
   const allowedTarget = useAllowedWidgetTarget(widgetId);
 

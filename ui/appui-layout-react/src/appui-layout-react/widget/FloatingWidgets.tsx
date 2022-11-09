@@ -14,21 +14,17 @@ import { useLayout } from "../base/LayoutStore";
 /** This component renders all floating widgets.
  * @internal
  */
-export const FloatingWidgets = React.memo(function FloatingWidgets() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const floatingWidgets = useLayout((state) => state.floatingWidgets);
-  const widgets = useLayout((state) => state.widgets);
+export function FloatingWidgets() {
+  const ids = useLayout((state) => state.floatingWidgets.allIds);
   return (
     <>
-      {floatingWidgets.allIds.map((floatingWidgetId) => {
-        const widget = widgets[floatingWidgetId];
-        const floatingWidget = floatingWidgets.byId[floatingWidgetId];
+      {ids.map((id) => {
         return <FloatingWidgetProvider
-          key={floatingWidgetId}
-          floatingWidget={floatingWidget}
-          widget={widget}
+          key={id}
+          id={id}
         />;
       })}
       <FloatingTab />
     </>
   );
-});
+}

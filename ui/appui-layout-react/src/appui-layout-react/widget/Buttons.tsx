@@ -8,16 +8,18 @@
 
 import * as React from "react";
 import { SendBack } from "./SendBack";
-import { ActiveTabIdContext, useActiveTab, WidgetIdContext } from "./Widget";
+import { useActiveTab, useActiveTabId, WidgetIdContext } from "./Widget";
 import { Dock } from "./Dock";
 import { FloatingWidgetIdContext } from "./FloatingWidget";
-import { isHorizontalPanelSide, PanelStateContext } from "../widget-panels/Panel";
+import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
+import { useLayout } from "../base/LayoutStore";
+import { assert } from "@itwin/core-bentley";
 
 /** @internal */
-export const TabBarButtons = React.memo(function TabBarButtons() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function TabBarButtons() {
   const isToolSettings = useIsToolSettingsTab();
   const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
   const isMainPanelWidget = useIsMainPanelWidget();
@@ -32,19 +34,21 @@ export const TabBarButtons = React.memo(function TabBarButtons() { // eslint-dis
       {isMainPanelWidget && <PinToggle />}
     </div>
   );
-});
+}
 
 function useIsToolSettingsTab() {
-  const activeTabId = React.useContext(ActiveTabIdContext);
+  const activeTabId = useActiveTabId();
   return activeTabId === toolSettingsTabId;
 }
 
 /** @internal */
 export function useIsMainPanelWidget() {
-  const panelState = React.useContext(PanelStateContext);
+  const side = React.useContext(PanelSideContext);
+  const widgets = useLayout((state) => side ? state.panels[side].widgets : undefined);
   const widgetId = React.useContext(WidgetIdContext);
-  if (!panelState)
+  if (!widgets)
     return false;
-  const mainWidget = isHorizontalPanelSide(panelState.side) ? panelState.widgets[panelState.widgets.length - 1] : panelState.widgets[0];
+  assert(!!side);
+  const mainWidget = isHorizontalPanelSide(side) ? widgets[widgets.length - 1] : widgets[0];
   return mainWidget === widgetId;
 }

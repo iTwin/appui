@@ -10,11 +10,13 @@ import "./MenuTab.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { CommonProps, Icon } from "@itwin/core-react";
-import { TabStateContext, useTabInteractions } from "./Tab";
-import { WidgetStateContext } from "./Widget";
+import { useTabInteractions } from "./Tab";
+import { useActiveTabId } from "./Widget";
 import { assert } from "@itwin/core-bentley";
 import { WidgetOverflowContext } from "./Overflow";
 import { ShowWidgetIconContext } from "../base/NineZone";
+import { useLayout } from "../base/LayoutStore";
+import { TabIdContext } from "./ContentRenderer";
 
 /** @internal */
 export interface WidgetMenuTabProps extends CommonProps {
@@ -23,13 +25,11 @@ export interface WidgetMenuTabProps extends CommonProps {
 
 /** @internal */
 export const WidgetMenuTab = React.memo<WidgetMenuTabProps>(function WidgetMenuTab(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const tab = React.useContext(TabStateContext);
-  const widget = React.useContext(WidgetStateContext);
-  assert(!!widget);
+  const id = React.useContext(TabIdContext);
+  const tab = useLayout((state) => state.tabs[id]);
   const overflowContext = React.useContext(WidgetOverflowContext);
   assert(!!overflowContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
-  const { id } = tab;
   const closeOverflow = React.useCallback(() => {
     overflowContext.close();
   }, [overflowContext]);
@@ -38,7 +38,8 @@ export const WidgetMenuTab = React.memo<WidgetMenuTabProps>(function WidgetMenuT
     onClick: closeOverflow,
     onDoubleClick: closeOverflow,
   });
-  const active = widget.activeTabId === id;
+  const activeTabId = useActiveTabId();
+  const active = activeTabId === id;
   const className = classnames(
     "nz-widget-menuTab",
     !showWidgetIcon && "nz-no-icon",

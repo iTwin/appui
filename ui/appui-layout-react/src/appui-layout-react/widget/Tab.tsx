@@ -18,11 +18,12 @@ import { PointerCaptorArgs, PointerCaptorEvent, usePointerCaptor } from "../base
 import { PanelSideContext } from "../widget-panels/Panel";
 import { FloatingWidgetIdContext } from "./FloatingWidget";
 import { WidgetTabsEntryContext } from "./Tabs";
-import { ActiveTabIdContext, restrainInitialWidgetSize, WidgetContext, WidgetStateContext } from "./Widget";
+import { restrainInitialWidgetSize, WidgetContext, WidgetIdContext } from "./Widget";
 import { TabIdContext } from "./ContentRenderer";
 import { TabTarget } from "../target/TabTarget";
 import { WidgetMenuTab } from "./MenuTab";
 import { WidgetOverflowContext } from "./Overflow";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -40,13 +41,11 @@ export function WidgetTabProvider({ tab, first, firstInactive, last, showOnlyTab
   }), [first, firstInactive, last]);
   return (
     <TabIdContext.Provider value={tab.id}>
-      <TabStateContext.Provider value={tab}>
-        <TabPositionContext.Provider value={position}>
-          <IconOnlyOnWidgetTabContext.Provider value={!!showOnlyTabIcon}>
-            {tabNode}
-          </IconOnlyOnWidgetTabContext.Provider>
-        </TabPositionContext.Provider>
-      </TabStateContext.Provider>
+      <TabPositionContext.Provider value={position}>
+        <IconOnlyOnWidgetTabContext.Provider value={!!showOnlyTabIcon}>
+          {tabNode}
+        </IconOnlyOnWidgetTabContext.Provider>
+      </TabPositionContext.Provider>
     </TabIdContext.Provider>
   );
 }
@@ -70,13 +69,15 @@ export const WidgetTab = React.memo<WidgetTabProps>(function WidgetTab(props) { 
 });
 
 const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponent(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const tab = React.useContext(TabStateContext);
+  const id = React.useContext(TabIdContext);
+  const tab = useLayout((state) => state.tabs[id]);
   const { first, firstInactive, last } = React.useContext(TabPositionContext);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
   const side = React.useContext(PanelSideContext);
-  const widget = React.useContext(WidgetStateContext);
-  assert(!!widget);
-  const activeTabId = React.useContext(ActiveTabIdContext);
+  const widgetId = React.useContext(WidgetIdContext);
+  assert(!!widgetId);
+  const widget = useLayout((state) => state.widgets[widgetId]);
+  const activeTabId = widget.activeTabId;
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(widgetTabsEntryContext?.onResize);
   const pointerCaptorRef = useTabInteractions({});
@@ -129,22 +130,21 @@ export function useTabInteractions<T extends HTMLElement>({
   onDoubleClick,
   onDragStart,
 }: UseTabInteractionsArgs) {
-  const tab = React.useContext(TabStateContext);
+  const id = React.useContext(TabIdContext);
+  const tab = useLayout((state) => state.tabs[id]);
   const widgetContext = React.useContext(WidgetContext);
   const measure = React.useContext(MeasureContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const side = React.useContext(PanelSideContext);
   const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
-  const widget = React.useContext(WidgetStateContext);
-  assert(!!widget);
+  const widgetId = React.useContext(WidgetIdContext);
+  assert(!!widgetId);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
 
   const clickCount = React.useRef(0);
   const doubleClickTimer = React.useRef(new Timer(300));
   const initialPointerPosition = React.useRef<Point>();
 
-  const { id } = tab;
-  const { id: widgetId } = widget;
   const overflown = !widgetTabsEntryContext;
 
   const handleClick = React.useCallback(() => {
@@ -262,10 +262,6 @@ export interface TabPositionContextArgs {
 /** @internal */
 export const TabPositionContext = React.createContext<TabPositionContextArgs>(undefined!);
 TabPositionContext.displayName = "nz:TabPositionContext";
-
-/** @internal */
-export const TabStateContext = React.createContext<TabState>(undefined!);
-TabStateContext.displayName = "nz:TabStateContext";
 
 /** @internal */
 export const IconOnlyOnWidgetTabContext = React.createContext<boolean>(false);

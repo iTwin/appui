@@ -10,18 +10,20 @@ import "./SendBack.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
-import { FloatingWidgetContext } from "./FloatingWidget";
 import { assert } from "@itwin/core-bentley";
+import { useLayout } from "../base/LayoutStore";
+import { FloatingWidgetIdContext } from "./FloatingWidget";
 
 /** @internal */
-export const SendBack = React.memo(function SendBack() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const floatingWidget = React.useContext(FloatingWidgetContext);
+export function SendBack() {
+  const id = React.useContext(FloatingWidgetIdContext);
+  assert(!!id);
+  const side = useLayout((state) => state.floatingWidgets.byId[id].home.side);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("sendWidgetHomeTitle");
-  assert(!!floatingWidget);
   const className = classnames(
     "nz-widget-sendBack",
-    floatingWidget.home.side && `nz-${floatingWidget.home.side}`,
+    `nz-${side}`,
   );
   return (
     <button
@@ -29,7 +31,7 @@ export const SendBack = React.memo(function SendBack() { // eslint-disable-line 
       onClick={() => {
         dispatch({
           type: "FLOATING_WIDGET_SEND_BACK",
-          id: floatingWidget.id,
+          id,
         });
       }}
       title={title}
@@ -37,4 +39,4 @@ export const SendBack = React.memo(function SendBack() { // eslint-disable-line 
       <i />
     </button >
   );
-});
+}

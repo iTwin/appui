@@ -11,8 +11,9 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { WidgetContentManagerContext } from "./ContentManager";
-import { WidgetStateContext } from "./Widget";
 import { PanelSideContext } from "../widget-panels/Panel";
+import { WidgetIdContext } from "./Widget";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export interface WidgetContentContainerProps {
@@ -20,8 +21,10 @@ export interface WidgetContentContainerProps {
 }
 
 /** @internal */
-export const WidgetContentContainer = React.memo(function WidgetContentContainer(props: WidgetContentContainerProps) { // eslint-disable-line @typescript-eslint/no-shadow, @typescript-eslint/naming-convention
-  const widget = React.useContext(WidgetStateContext);
+export function WidgetContentContainer(props: WidgetContentContainerProps) {
+  const widgetId = React.useContext(WidgetIdContext);
+  assert(!!widgetId);
+  const widget = useLayout((state) => state.widgets[widgetId]);
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const side = React.useContext(PanelSideContext);
 
@@ -44,4 +47,4 @@ export const WidgetContentContainer = React.memo(function WidgetContentContainer
       {props.children}
     </div>
   );
-});
+}

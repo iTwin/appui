@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { WidgetsState, WidgetState } from "../state/WidgetState";
-import { isHorizontalPanelSide, PanelStateContext } from "../widget-panels/Panel";
+import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { WidgetContentContainer } from "./ContentContainer";
 import { useTabTransientState } from "./ContentRenderer";
 import { WidgetTabBar } from "./TabBar";
@@ -21,6 +21,7 @@ import { WidgetTarget } from "../target/WidgetTarget";
 import { isHorizontalPanelState } from "../state/PanelState";
 import { TabsState } from "../state/TabState";
 import { useLayout } from "../base/LayoutStore";
+import { useRefs } from "@itwin/core-react";
 
 /** @internal */
 export interface PanelWidgetProps {
@@ -33,75 +34,76 @@ export interface PanelWidgetProps {
 }
 
 /** @internal */
-export const PanelWidget = React.memo( // eslint-disable-line react/display-name
-  React.forwardRef<HTMLDivElement, PanelWidgetProps>(
-    function PanelWidget({
-      widgetId,
-      onBeforeTransition,
-      onPrepareTransition,
-      onTransitionEnd,
-      size,
-      transition,
-    }, ref) { // eslint-disable-line @typescript-eslint/naming-convention
-      const panel = React.useContext(PanelStateContext);
-      assert(!!panel);
-      const widgets = useLayout((state) => state.widgets);
-      const widget = widgets[widgetId];
-      const horizontal = isHorizontalPanelSide(panel.side);
-      const mode = useMode(widgetId);
-      const borders = useBorders(widgetId);
-      const [prevMode, setPrevMode] = React.useState(mode);
-      const lastOnPrepareTransition = React.useRef(onPrepareTransition);
-      lastOnPrepareTransition.current = onPrepareTransition;
-      if (prevMode !== mode) {
-        onBeforeTransition();
-        setPrevMode(mode);
+export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( // eslint-disable-line react/display-name
+  function PanelWidget({
+    widgetId,
+    onBeforeTransition,
+    onPrepareTransition,
+    onTransitionEnd,
+    size,
+    transition,
+  }, forwardedRef) { // eslint-disable-line @typescript-eslint/naming-convention
+    const side = React.useContext(PanelSideContext)!;
+    const panel = useLayout((state) => state.panels[side]);
+    const widgets = useLayout((state) => state.widgets);
+    const widget = widgets[widgetId];
+    const horizontal = isHorizontalPanelSide(panel.side);
+    const elementRef = React.useRef<HTMLDivElement>(null);
+    const ref = useRefs(forwardedRef, elementRef);
+    const mode = useMode(widgetId);
+    const borders = useBorders(widgetId);
+    const [prevMode, setPrevMode] = React.useState(mode);
+    const lastOnPrepareTransition = React.useRef(onPrepareTransition);
+    lastOnPrepareTransition.current = onPrepareTransition;
+    if (prevMode !== mode) {
+      onBeforeTransition();
+      setPrevMode(mode);
+    }
+    React.useLayoutEffect(() => {
+      lastOnPrepareTransition.current();
+    }, [mode]);
+    const onSave = React.useCallback(() => {
+      onBeforeTransition();
+    }, [onBeforeTransition]);
+    const onRestore = React.useCallback(() => {
+      onPrepareTransition();
+    }, [onPrepareTransition]);
+    useTabTransientState(widget.activeTabId, onSave, onRestore);
+    const style = React.useMemo<React.CSSProperties | undefined>(() => {
+      if (size !== undefined) {
+        return { flexBasis: size };
+      } else if (mode === "fit") {
+        return getMaxSize(horizontal, `${100 / panel.widgets.length}%`);
       }
-      React.useLayoutEffect(() => {
-        lastOnPrepareTransition.current();
-      }, [mode]);
-      const onSave = React.useCallback(() => {
-        onBeforeTransition();
-      }, [onBeforeTransition]);
-      const onRestore = React.useCallback(() => {
-        onPrepareTransition();
-      }, [onPrepareTransition]);
-      useTabTransientState(widget.activeTabId, onSave, onRestore);
-      const style = React.useMemo<React.CSSProperties | undefined>(() => {
-        if (size !== undefined) {
-          return { flexBasis: size };
-        } else if (mode === "fit") {
-          return getMaxSize(horizontal, `${100 / panel.widgets.length}%`);
-        }
-        return undefined;
-      }, [horizontal, size, mode, panel.widgets.length]);
-      const showTarget = panel.widgets.length !== 1;
-      const className = classnames(
-        "nz-widget-panelWidget",
-        horizontal && "nz-horizontal",
-        size === undefined && `nz-${mode}`,
-        transition !== undefined && `nz-${transition}`,
-        borders,
-      );
-      return (
-        <WidgetProvider
-          widget={widget}
+      return undefined;
+    }, [horizontal, size, mode, panel.widgets.length]);
+    const showTarget = panel.widgets.length !== 1;
+    const className = classnames(
+      "nz-widget-panelWidget",
+      horizontal && "nz-horizontal",
+      size === undefined && `nz-${mode}`,
+      transition !== undefined && `nz-${transition}`,
+      borders,
+    );
+    return (
+      <WidgetProvider
+        id={widget.id}
+      >
+        <Widget
+          className={className}
+          onTransitionEnd={onTransitionEnd}
+          style={style}
+          ref={ref}
         >
-          <Widget
-            className={className}
-            onTransitionEnd={onTransitionEnd}
-            style={style}
-            ref={ref}
-          >
-            <WidgetTabBar separator={isHorizontalPanelSide(panel.side) ? true : !widget.minimized} />
-            <WidgetContentContainer>
-              {showTarget && <WidgetTarget />}
-              <WidgetOutline />
-            </WidgetContentContainer>
-          </Widget>
-        </WidgetProvider>
-      );
-    }),
+          <WidgetTabBar separator={isHorizontalPanelSide(panel.side) ? true : !widget.minimized} />
+          <WidgetContentContainer>
+            {showTarget && <WidgetTarget />}
+            <WidgetOutline />
+          </WidgetContentContainer>
+        </Widget>
+      </WidgetProvider>
+    );
+  }
 );
 
 function getMaxSize(horizontal: boolean, size: string | number) {
@@ -129,7 +131,8 @@ function findFillWidget(panelWidgets: ReadonlyArray<string>, widgets: WidgetsSta
 
 /** @internal */
 export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
-  const panel = React.useContext(PanelStateContext);
+  const side = React.useContext(PanelSideContext)!;
+  const panel = useLayout((state) => state.panels[side]);
   const widgets = useLayout((state) => state.widgets);
   const tabs = useLayout((state) => state.tabs);
   assert(!!panel);
@@ -158,7 +161,8 @@ export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
 
 /** @internal */
 export function useBorders(widgetId: WidgetState["id"]) {
-  const panel = React.useContext(PanelStateContext);
+  const side = React.useContext(PanelSideContext)!;
+  const panel = useLayout((state) => state.panels[side]);
   const panels = useLayout((state) => state.panels);
   const toolSettings = useLayout((state) => state.toolSettings);
   assert(!!panel);

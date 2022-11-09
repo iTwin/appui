@@ -14,10 +14,10 @@ import { Point, Rectangle, useRefs, useResizeObserver } from "@itwin/core-react"
 import { assert } from "@itwin/core-bentley";
 import { DragManagerContext, useDragResizeHandle, UseDragResizeHandleArgs, useIsDraggedItem } from "../base/DragManager";
 import { FloatingWidgetNodeContext, MeasureContext, NineZoneDispatchContext, UiIsVisibleContext } from "../base/NineZone";
-import { FloatingWidgetState, WidgetState } from "../state/WidgetState";
+import { FloatingWidgetState } from "../state/WidgetState";
 import { WidgetContentContainer } from "./ContentContainer";
 import { WidgetTabBar } from "./TabBar";
-import { Widget, WidgetProvider, WidgetStateContext } from "./Widget";
+import { Widget, WidgetIdContext, WidgetProvider } from "./Widget";
 import { PointerCaptorArgs, usePointerCaptor } from "../base/usePointerCaptor";
 import { WidgetTarget } from "../target/WidgetTarget";
 import { WidgetOutline } from "../outline/WidgetOutline";
@@ -32,33 +32,26 @@ export type FloatingWidgetResizeHandle = FloatingWidgetEdgeHandle | FloatingWidg
 
 /** @internal */
 export interface FloatingWidgetProviderProps {
-  floatingWidget: FloatingWidgetState;
-  widget: WidgetState;
+  id: FloatingWidgetState["id"];
 }
 
 /** @internal */
 export function FloatingWidgetProvider(props: FloatingWidgetProviderProps) {
   const floatingWidget = React.useContext(FloatingWidgetNodeContext);
   return (
-    <FloatingWidgetIdContext.Provider value={props.floatingWidget.id}>
-      <FloatingWidgetContext.Provider value={props.floatingWidget}>
-        <WidgetProvider
-          widget={props.widget}
-        >
-          {floatingWidget}
-        </WidgetProvider>
-      </FloatingWidgetContext.Provider>
+    <FloatingWidgetIdContext.Provider value={props.id}>
+      <WidgetProvider
+        id={props.id}
+      >
+        {floatingWidget}
+      </WidgetProvider>
     </FloatingWidgetIdContext.Provider>
   );
 }
 
 /** @internal */
-export const FloatingWidgetIdContext = React.createContext<FloatingWidgetState["id"] | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const FloatingWidgetIdContext = React.createContext<FloatingWidgetState["id"]>(""); // eslint-disable-line @typescript-eslint/naming-convention
 FloatingWidgetIdContext.displayName = "nz:FloatingWidgetIdContext";
-
-/** @internal */
-export const FloatingWidgetContext = React.createContext<FloatingWidgetState | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
-FloatingWidgetContext.displayName = "nz:FloatingWidgetContext";
 
 /** @internal */
 export interface FloatingWidgetProps {
@@ -68,13 +61,16 @@ export interface FloatingWidgetProps {
 
 /** @internal */
 export function FloatingWidget(props: FloatingWidgetProps) {
-  const widget = React.useContext(WidgetStateContext);
-  const floatingWidget = React.useContext(FloatingWidgetContext);
+  const widgetId = React.useContext(WidgetIdContext);
+  assert(!!widgetId);
+  const widget = useLayout((state) => state.widgets[widgetId]);
+  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
+  assert(!!floatingWidgetId);
+  const id = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].id);
+  const bounds = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].bounds);
+  const userSized = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].userSized);
   const tabsState = useLayout((state) => state.tabs);
   const uiIsVisible = React.useContext(UiIsVisibleContext);
-  assert(!!widget);
-  assert(!!floatingWidget);
-  const { id, bounds, userSized } = floatingWidget;
   const { minimized, tabs, activeTabId } = widget;
   const isSingleTab = 1 === tabs.length;
   const activeTab = tabsState[activeTabId];
@@ -220,7 +216,7 @@ interface FloatingWidgetHandleProps {
   handle: FloatingWidgetResizeHandle;
 }
 
-const FloatingWidgetHandle = React.memo<FloatingWidgetHandleProps>(function FloatingWidgetHandle(props) { // eslint-disable-line @typescript-eslint/no-shadow, @typescript-eslint/naming-convention
+function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const id = React.useContext(FloatingWidgetIdContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const { handle } = props;
@@ -270,7 +266,7 @@ const FloatingWidgetHandle = React.memo<FloatingWidgetHandleProps>(function Floa
       ref={refs}
     />
   );
-});
+}
 
 /** @internal */
 export function getResizeBy(handle: FloatingWidgetResizeHandle, offset: PointProps) {
