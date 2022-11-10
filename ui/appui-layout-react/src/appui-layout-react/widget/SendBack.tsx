@@ -12,11 +12,11 @@ import * as React from "react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { assert } from "@itwin/core-bentley";
 import { useLayout } from "../base/LayoutStore";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
+import { useFloatingWidgetId } from "./FloatingWidget";
 
 /** @internal */
 export function SendBack() {
-  const id = React.useContext(FloatingWidgetIdContext);
+  const id = useFloatingWidgetId();
   assert(!!id);
   const side = useLayout((state) => state.floatingWidgets.byId[id].home.side);
   const dispatch = React.useContext(NineZoneDispatchContext);

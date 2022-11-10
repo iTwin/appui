@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, NineZoneState, WidgetState, WidgetStateContext } from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, NineZoneState, WidgetIdContext, WidgetState } from "../../appui-layout-react";
 import { TitleBarTarget } from "../../appui-layout-react/target/TitleBarTarget";
 import { TestNineZoneProvider } from "../Providers";
 
@@ -16,9 +16,9 @@ interface WrapperProps {
 function Wrapper({ children, state, widgetId }: React.PropsWithChildren<WrapperProps>) {
   return (
     <TestNineZoneProvider state={state}>
-      <WidgetStateContext.Provider value={state.widgets[widgetId]}>
+      <WidgetIdContext.Provider value={widgetId}>
         {children}
-      </WidgetStateContext.Provider>
+      </WidgetIdContext.Provider>
     </TestNineZoneProvider>
   );
 }
@@ -29,10 +29,9 @@ describe("TitleBarTarget", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <TitleBarTarget />,
-      {
-        wrapper: (props) => <Wrapper state={state} widgetId="w1" {...props} />, // eslint-disable-line react/display-name
-      }
+      <Wrapper state={state} widgetId="w1">
+        <TitleBarTarget />
+      </Wrapper>,
     );
     container.getElementsByClassName("nz-target-titleBarTarget").length.should.eq(1);
   });

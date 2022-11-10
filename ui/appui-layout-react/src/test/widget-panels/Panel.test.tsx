@@ -10,7 +10,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import {
   addPanelWidget, addTab, createNineZoneState, DraggedPanelSideContext, DragManager, NineZoneDispatch,
-  NineZoneState, PanelSide, PanelStateContext, useAnimatePanelWidgets, WidgetPanelProvider,
+  NineZoneState, PanelSide, PanelSideContext, useAnimatePanelWidgets, WidgetPanelProvider,
 } from "../../appui-layout-react";
 import { createDragInfo, setRefValue, TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
@@ -573,9 +573,9 @@ describe("useAnimatePanelWidgets", () => {
       <TestNineZoneProvider
         state={state}
       >
-        <PanelStateContext.Provider value={state.panels[side]}>
+        <PanelSideContext.Provider value={side}>
           {children}
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
   }

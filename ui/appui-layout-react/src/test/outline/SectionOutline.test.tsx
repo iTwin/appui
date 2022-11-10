@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, render } from "@testing-library/react";
-import { addTab, createNineZoneState, DragManager, NineZoneState, PanelSideContext, PanelStateContext } from "../../appui-layout-react";
+import { addTab, createNineZoneState, DragManager, NineZoneState, PanelSideContext } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { SectionOutline } from "../../appui-layout-react/outline/SectionOutline";
 import { expect } from "chai";
@@ -27,9 +27,7 @@ function Wrapper({
       dragManagerRef={dragManagerRef}
     >
       <PanelSideContext.Provider value={side}>
-        <PanelStateContext.Provider value={state.panels[side]}>
-          {children}
-        </PanelStateContext.Provider>
+        {children}
       </PanelSideContext.Provider>
     </TestNineZoneProvider>
   );

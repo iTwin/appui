@@ -14,7 +14,7 @@ import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
 import { PointerCaptorArgs, PointerCaptorEvent, usePointerCaptor } from "../base/usePointerCaptor";
 import { TabBarButtons } from "./Buttons";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
+import { useFloatingWidgetId } from "./FloatingWidget";
 import { WidgetTabs } from "./Tabs";
 import { WidgetIdContext } from "./Widget";
 import { useDoubleClick } from "../widget-panels/Grip";
@@ -30,7 +30,7 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const id = React.useContext(WidgetIdContext);
   assert(!!id);
-  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
+  const floatingWidgetId = useFloatingWidgetId();
   const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
   const handleDoubleClick = React.useCallback(() => {
     floatingWidgetId && dispatch({

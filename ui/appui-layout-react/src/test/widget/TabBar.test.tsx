@@ -8,7 +8,7 @@ import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
   addFloatingWidget, addPanelWidget, addTab, createNineZoneState, FloatingWidgetProvider, NineZoneDispatch,
-  TabIdContext, useDrag, WidgetIdContext, WidgetStateContext,
+  TabIdContext, useDrag, WidgetIdContext,
 } from "../../appui-layout-react";
 import * as NineZoneModule from "../../appui-layout-react/base/NineZone";
 import { TestNineZoneProvider } from "../Providers";
@@ -28,8 +28,7 @@ describe("WidgetTitleBar", () => {
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -63,8 +62,7 @@ describe("WidgetTitleBar", () => {
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -98,16 +96,13 @@ describe("WidgetTitleBar", () => {
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1}
-          widget={state.widgets.w1}
+          id="w1"
         />
-        <WidgetStateContext.Provider value={state.widgets.w2}>
-          <WidgetIdContext.Provider value="w2">
-            <TabIdContext.Provider value="t2">
-              <TabTarget />
-            </TabIdContext.Provider>
-          </WidgetIdContext.Provider>
-        </WidgetStateContext.Provider>
+        <WidgetIdContext.Provider value="w2">
+          <TabIdContext.Provider value="t2">
+            <TabTarget />
+          </TabIdContext.Provider>
+        </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
@@ -146,8 +141,7 @@ describe("WidgetTitleBar", () => {
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1}
-          widget={state.widgets.w1}
+          id="w1"
         />
         <PanelTarget side="right" />
       </TestNineZoneProvider>,
@@ -173,35 +167,33 @@ describe("WidgetTitleBar", () => {
       },
     });
   });
-});
 
-it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
-  const dispatch = sinon.stub<NineZoneDispatch>();
-  let state = createNineZoneState();
-  state = addTab(state, "t1");
-  state = addFloatingWidget(state, "w1", ["t1"]);
-  const { container } = render(
-    <TestNineZoneProvider
-      state={state}
-      dispatch={dispatch}
-    >
-      <FloatingWidgetProvider
-        floatingWidget={state.floatingWidgets.byId.w1}
-        widget={state.widgets.w1}
-      />
-    </TestNineZoneProvider>,
-  );
-  const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-  const handle = titleBar.getElementsByClassName("nz-handle")[0];
-  act(() => {
-    fireEvent.touchStart(handle, {
-      touches: [{}],
+  it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
+    const dispatch = sinon.stub<NineZoneDispatch>();
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(state, "w1", ["t1"]);
+    const { container } = render(
+      <TestNineZoneProvider
+        state={state}
+        dispatch={dispatch}
+      >
+        <FloatingWidgetProvider
+          id="w1"
+        />
+      </TestNineZoneProvider>,
+    );
+    const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
+    const handle = titleBar.getElementsByClassName("nz-handle")[0];
+    act(() => {
+      fireEvent.touchStart(handle, {
+        touches: [{}],
+      });
     });
-  });
-
-  sinon.assert.calledWithExactly(dispatch, {
-    type: "FLOATING_WIDGET_BRING_TO_FRONT",
-    id: "w1",
+    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
+      type: "FLOATING_WIDGET_BRING_TO_FRONT",
+      id: "w1",
+    }));
   });
 });
 

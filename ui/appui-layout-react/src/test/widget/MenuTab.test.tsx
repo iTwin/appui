@@ -12,12 +12,12 @@ import {
   createNineZoneState,
   NineZoneState,
   ShowWidgetIconContext,
+  TabIdContext,
   TabState,
-  TabStateContext,
   WidgetContext,
+  WidgetIdContext,
   WidgetOverflowContext,
   WidgetState,
-  WidgetStateContext,
 } from "../../appui-layout-react";
 import { WidgetMenuTab } from "../../appui-layout-react/widget/MenuTab";
 import { TestNineZoneProvider } from "../Providers";
@@ -32,11 +32,11 @@ describe("MenuTab", () => {
   function Wrapper({ children, state, widgetId, tabId }: React.PropsWithChildren<WrapperProps>) {
     return (
       <TestNineZoneProvider state={state}>
-        <WidgetStateContext.Provider value={state.widgets[widgetId]}>
-          <TabStateContext.Provider value={state.tabs[tabId]}>
+        <WidgetIdContext.Provider value={widgetId}>
+          <TabIdContext.Provider value={tabId}>
             {children}
-          </TabStateContext.Provider>
-        </WidgetStateContext.Provider>
+          </TabIdContext.Provider>
+        </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
   }

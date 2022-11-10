@@ -16,7 +16,7 @@ import { MeasureContext, NineZoneDispatchContext, ShowWidgetIconContext, TabNode
 import { TabState } from "../state/TabState";
 import { PointerCaptorArgs, PointerCaptorEvent, usePointerCaptor } from "../base/usePointerCaptor";
 import { PanelSideContext } from "../widget-panels/Panel";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
+import { useFloatingWidgetId } from "./FloatingWidget";
 import { WidgetTabsEntryContext } from "./Tabs";
 import { restrainInitialWidgetSize, WidgetContext, WidgetIdContext } from "./Widget";
 import { TabIdContext } from "./ContentRenderer";
@@ -136,7 +136,7 @@ export function useTabInteractions<T extends HTMLElement>({
   const measure = React.useContext(MeasureContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const side = React.useContext(PanelSideContext);
-  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
+  const floatingWidgetId = useFloatingWidgetId();
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);

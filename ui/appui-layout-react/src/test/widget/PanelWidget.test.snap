@@ -169,7 +169,7 @@ exports[`PanelWidget should render minimized 1`] = `
       role="tablist"
     >
       <div
-        class="nz-widget-tab nz-active nz-minimized nz-first nz-last"
+        class="nz-widget-tab nz-active nz-first nz-last"
         data-item-id="t1"
         data-item-type="widget-tab"
         role="tab"
@@ -224,7 +224,7 @@ exports[`PanelWidget should render minimized 1`] = `
     </div>
   </div>
   <div
-    class="nz-widget-contentContainer nz-minimized"
+    class="nz-widget-contentContainer"
   >
     <div
       class="nz-content"

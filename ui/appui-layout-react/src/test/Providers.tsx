@@ -23,11 +23,14 @@ export interface TestNineZoneProviderProps extends PartialBy<NineZoneProviderPro
 /** @internal */
 export function TestNineZoneProvider(props: TestNineZoneProviderProps) {
   const { children, dragManagerRef, ...otherProps } = props;
+  const [state] = React.useState(() => createNineZoneState());
+  const [dispatch] = React.useState(() => sinon.stub());
+  const [measure] = React.useState(() => () => new Rectangle());
   return (
     <NineZoneProvider
-      state={createNineZoneState()}
-      dispatch={sinon.stub()}
-      measure={() => new Rectangle()}
+      state={state}
+      dispatch={dispatch}
+      measure={measure}
       {...otherProps}
     >
       <ContextConsumer

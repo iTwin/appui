@@ -5,49 +5,48 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
-import { createNineZoneState, NineZoneDispatch, PanelStateContext, PinToggle } from "../../appui-layout-react";
+import { createNineZoneState, NineZoneDispatch, PanelSideContext, PinToggle } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 describe("PinToggle", () => {
   it("should render", () => {
-    const nineZone = createNineZoneState();
     const { container } = render(
       <TestNineZoneProvider>
-        <PanelStateContext.Provider value={nineZone.panels.left}>
+        <PanelSideContext.Provider value="left">
           <PinToggle />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
 
   it("should render with `pin panel` title", () => {
-    let nineZone = createNineZoneState();
-    nineZone = updatePanelState(nineZone, "left", {
+    let state = createNineZoneState();
+    state = updatePanelState(state, "left", {
       pinned: false,
     });
     const { container } = render(
       <TestNineZoneProvider
+        state={state}
         labels={{
           pinPanelTitle: "Pin panel",
         }}
       >
-        <PanelStateContext.Provider value={nineZone.panels.left}>
+        <PanelSideContext.Provider value="left">
           <PinToggle />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
 
   it("should render `icon-chevron-down` for bottom pinned panel", () => {
-    const nineZone = createNineZoneState();
     const { container } = render(
       <TestNineZoneProvider>
-        <PanelStateContext.Provider value={nineZone.panels.bottom}>
+        <PanelSideContext.Provider value="bottom">
           <PinToggle />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
     const toggle = container.getElementsByClassName("nz-widget-pinToggle")[0];
@@ -56,15 +55,15 @@ describe("PinToggle", () => {
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
-    const nineZone = createNineZoneState();
+    const state = createNineZoneState();
     const { container } = render(
       <TestNineZoneProvider
-        state={nineZone}
+        state={state}
         dispatch={dispatch}
       >
-        <PanelStateContext.Provider value={nineZone.panels.left}>
+        <PanelSideContext.Provider value="left">
           <PinToggle />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
     );
     const button = container.getElementsByClassName("nz-widget-pinToggle")[0];

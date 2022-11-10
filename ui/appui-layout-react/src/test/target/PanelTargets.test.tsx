@@ -4,33 +4,33 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, NineZoneState, PanelStateContext } from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, NineZoneState, PanelSideContext } from "../../appui-layout-react";
 import { PanelTargets } from "../../appui-layout-react/target/PanelTargets";
 import { TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 interface WrapperProps {
-  state: NineZoneState;
+  state?: NineZoneState;
 }
 
-function Wrapper({ children, state }: React.PropsWithChildren<WrapperProps>) {
+function Wrapper(props: React.PropsWithChildren<WrapperProps>) {
+  const { children, ...other } = props;
   return (
-    <TestNineZoneProvider state={state}>
-      <PanelStateContext.Provider value={state.panels.left}>
+    <TestNineZoneProvider {...other}>
+      <PanelSideContext.Provider value="left">
         {children}
-      </PanelStateContext.Provider>
+      </PanelSideContext.Provider>
     </TestNineZoneProvider>
   );
 }
 
 describe("PanelTargets", () => {
   it("should render a panel target", () => {
-    const state = createNineZoneState();
     const { container } = render(
       <PanelTargets />,
       {
-        wrapper: (props) => <Wrapper state={state} {...props} />, // eslint-disable-line react/display-name
+        wrapper: Wrapper,
       }
     );
     container.getElementsByClassName("nz-target-panelTarget").length.should.eq(1);
@@ -43,10 +43,9 @@ describe("PanelTargets", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <PanelTargets />,
-      {
-        wrapper: (props) => <Wrapper state={state} {...props} />, // eslint-disable-line react/display-name
-      }
+      <Wrapper state={state}>
+        <PanelTargets />
+      </Wrapper>,
     );
     container.getElementsByClassName("nz-target-mergeTarget").length.should.eq(1);
     container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(2);
@@ -59,10 +58,9 @@ describe("PanelTargets", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     const { container } = render(
-      <PanelTargets />,
-      {
-        wrapper: (props) => <Wrapper state={state} {...props} />, // eslint-disable-line react/display-name
-      }
+      <Wrapper state={state}>
+        <PanelTargets />
+      </Wrapper>,
     );
     container.getElementsByClassName("nz-target-mergeTarget").length.should.eq(2);
     container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(0);
@@ -73,10 +71,9 @@ describe("PanelTargets", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <PanelTargets />,
-      {
-        wrapper: (props) => <Wrapper state={state} {...props} />, // eslint-disable-line react/display-name
-      }
+      <Wrapper state={state}>
+        <PanelTargets />
+      </Wrapper>,
     );
     container.getElementsByClassName("nz-target-panelTarget").length.should.eq(0);
     container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(0);

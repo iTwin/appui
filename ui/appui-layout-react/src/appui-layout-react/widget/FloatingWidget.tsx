@@ -39,19 +39,22 @@ export interface FloatingWidgetProviderProps {
 export function FloatingWidgetProvider(props: FloatingWidgetProviderProps) {
   const floatingWidget = React.useContext(FloatingWidgetNodeContext);
   return (
-    <FloatingWidgetIdContext.Provider value={props.id}>
-      <WidgetProvider
-        id={props.id}
-      >
-        {floatingWidget}
-      </WidgetProvider>
-    </FloatingWidgetIdContext.Provider>
+    <WidgetProvider
+      id={props.id}
+    >
+      {floatingWidget}
+    </WidgetProvider>
   );
 }
 
 /** @internal */
-export const FloatingWidgetIdContext = React.createContext<FloatingWidgetState["id"]>(""); // eslint-disable-line @typescript-eslint/naming-convention
-FloatingWidgetIdContext.displayName = "nz:FloatingWidgetIdContext";
+export function useFloatingWidgetId() {
+  const widgetId = React.useContext(WidgetIdContext);
+  return useLayout((state) => {
+    const floatingWidget = state.floatingWidgets.byId[widgetId];
+    return floatingWidget ? floatingWidget.id : undefined;
+  });
+}
 
 /** @internal */
 export interface FloatingWidgetProps {
@@ -64,7 +67,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
   const widget = useLayout((state) => state.widgets[widgetId]);
-  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
+  const floatingWidgetId = useFloatingWidgetId();
   assert(!!floatingWidgetId);
   const id = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].id);
   const bounds = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].bounds);
@@ -142,9 +145,9 @@ function useHandleAutoSize(dragged: boolean) {
   const dragManager = React.useContext(DragManagerContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const measureNz = React.useContext(MeasureContext);
-  const floatingWidget = React.useContext(FloatingWidgetContext);
-  assert(!!floatingWidget);
-  const { id, userSized } = floatingWidget;
+  const id = useFloatingWidgetId();
+  assert(!!id);
+  const userSized = useLayout((state) => state.floatingWidgets.byId[id].userSized);
 
   const updatePosition = React.useRef(true);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -217,7 +220,7 @@ interface FloatingWidgetHandleProps {
 }
 
 function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
-  const id = React.useContext(FloatingWidgetIdContext);
+  const id = useFloatingWidgetId();
   const dispatch = React.useContext(NineZoneDispatchContext);
   const { handle } = props;
   const relativePosition = React.useRef<Point>(new Point());

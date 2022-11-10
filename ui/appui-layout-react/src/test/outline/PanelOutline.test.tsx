@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { createNineZoneState, DragManager, NineZoneState, PanelSide, PanelSideContext, PanelStateContext } from "../../appui-layout-react";
+import { createNineZoneState, DragManager, NineZoneState, PanelSide, PanelSideContext } from "../../appui-layout-react";
 import { PanelOutline, useHidden } from "../../appui-layout-react/outline/PanelOutline";
 import { createDragStartArgs, TestNineZoneProvider } from "../Providers";
 import { renderHook } from "@testing-library/react-hooks";
@@ -22,9 +22,9 @@ describe("PanelOutline", () => {
     side = side ?? "left";
     return (
       <TestNineZoneProvider state={state}>
-        <PanelStateContext.Provider value={state.panels[side]}>
+        <PanelSideContext.Provider value={side}>
           {children}
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
   }

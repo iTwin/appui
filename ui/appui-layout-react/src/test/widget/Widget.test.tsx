@@ -6,8 +6,9 @@ import { act, fireEvent, render } from "@testing-library/react";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  addPanelWidget, addTab, createNineZoneState, FloatingWidgetIdContext, NineZoneDispatch, PanelSideContext,
-  PanelStateContext, PanelWidget, PanelWidgetDragStartAction, Widget, WidgetIdContext, WidgetStateContext,
+  addFloatingWidget,
+  addPanelWidget, addTab, createNineZoneState, NineZoneDispatch, PanelSideContext,
+  PanelWidget, PanelWidgetDragStartAction, Widget, WidgetIdContext,
 } from "../../appui-layout-react";
 import * as NineZoneModule from "../../appui-layout-react/base/NineZone";
 import { TestNineZoneProvider } from "../Providers";
@@ -26,11 +27,9 @@ describe("PanelWidget", () => {
           state={state}
           dispatch={dispatch}
         >
-          <PanelStateContext.Provider value={state.panels.left}>
-            <PanelSideContext.Provider value="left">
-              <PanelWidget widgetId="w1" {...defaultProps} />
-            </PanelSideContext.Provider>
-          </PanelStateContext.Provider>
+          <PanelSideContext.Provider value="left">
+            <PanelWidget widgetId="w1" {...defaultProps} />
+          </PanelSideContext.Provider>
         </TestNineZoneProvider>,
       );
 
@@ -41,11 +40,11 @@ describe("PanelWidget", () => {
         fireEvent.mouseMove(handle);
       });
 
-      dispatch.calledOnceWithExactly(sinon.match({
+      sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
         type: "PANEL_WIDGET_DRAG_START",
         id: "w1",
         newFloatingWidgetId: "newId",
-      })).should.true;
+      }));
     });
 
     it("should adjust bounds to keep widget under pointer", () => {
@@ -58,11 +57,9 @@ describe("PanelWidget", () => {
           state={state}
           dispatch={dispatch}
         >
-          <PanelStateContext.Provider value={state.panels.left}>
-            <PanelSideContext.Provider value="left">
-              <PanelWidget widgetId="w1" {...defaultProps} />
-            </PanelSideContext.Provider>
-          </PanelStateContext.Provider>
+          <PanelSideContext.Provider value="left">
+            <PanelWidget widgetId="w1" {...defaultProps} />
+          </PanelSideContext.Provider>
         </TestNineZoneProvider>,
       );
 
@@ -73,7 +70,7 @@ describe("PanelWidget", () => {
         fireEvent.mouseMove(handle, { clientX: 230 });
       });
 
-      dispatch.calledOnce.should.true;
+      sinon.assert.calledOnce(dispatch);
       dispatch.firstCall.args[0].type.should.eq("PANEL_WIDGET_DRAG_START");
       const action = dispatch.firstCall.args[0] as PanelWidgetDragStartAction;
       action.bounds.should.eql({
@@ -99,11 +96,9 @@ describe("PanelWidget", () => {
           state={state}
           dispatch={dispatch}
         >
-          <PanelStateContext.Provider value={state.panels.left}>
-            <PanelSideContext.Provider value="left">
-              <PanelWidget widgetId="w1" {...defaultProps} />
-            </PanelSideContext.Provider>
-          </PanelStateContext.Provider>
+          <PanelSideContext.Provider value="left">
+            <PanelWidget widgetId="w1" {...defaultProps} />
+          </PanelSideContext.Provider>
         </TestNineZoneProvider>,
       );
 
@@ -132,11 +127,9 @@ describe("PanelWidget", () => {
       <TestNineZoneProvider
         state={state}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
-          <PanelSideContext.Provider value="left">
-            <PanelWidget widgetId="w1" {...defaultProps} />
-          </PanelSideContext.Provider>
-        </PanelStateContext.Provider>
+        <PanelSideContext.Provider value="left">
+          <PanelWidget widgetId="w1" {...defaultProps} />
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
     );
 
@@ -149,35 +142,31 @@ describe("PanelWidget", () => {
       fireEvent.mouseMove(document, { clientX: 10, clientY: 10 });
     });
 
-    spy.calledOnce.should.true;
+    sinon.assert.calledOnce(spy);
   });
 
   it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
+    state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
         state={state}
         dispatch={dispatch}
       >
-        <WidgetStateContext.Provider value={state.widgets.w1}>
-          <WidgetIdContext.Provider value="w1">
-            <FloatingWidgetIdContext.Provider value="fw1">
-              <Widget />
-            </FloatingWidgetIdContext.Provider>
-          </WidgetIdContext.Provider>
-        </WidgetStateContext.Provider>
+        <WidgetIdContext.Provider value="w1">
+          <Widget />
+        </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
     );
 
     const widgetElement = container.getElementsByClassName("nz-widget-widget")[0];
     fireEvent.click(widgetElement);
 
-    dispatch.calledOnceWithExactly({
+    sinon.assert.calledOnceWithExactly(dispatch, {
       type: "FLOATING_WIDGET_BRING_TO_FRONT",
-      id: "fw1",
-    }).should.true;
+      id: "w1",
+    });
   });
 });

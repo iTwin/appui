@@ -10,7 +10,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
   addPanelWidget, addTab, createNineZoneState, DragManager,
-  NineZoneDispatch, PanelSide, PanelStateContext, useResizeGrip, WidgetPanelContext, WidgetPanelGrip,
+  NineZoneDispatch, PanelSide, PanelSideContext, useResizeGrip, WidgetPanelContext, WidgetPanelGrip,
 } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
@@ -29,14 +29,11 @@ describe("WidgetPanelGrip", () => {
   />;
 
   it("should render resizing", () => {
-    const nineZone = createNineZoneState();
     const { container } = render(
-      <TestNineZoneProvider
-        state={nineZone}
-      >
-        <PanelStateContext.Provider value={nineZone.panels.left}>
+      <TestNineZoneProvider>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -57,9 +54,9 @@ describe("WidgetPanelGrip", () => {
         state={state}
         dispatch={dispatch}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -87,9 +84,9 @@ describe("WidgetPanelGrip", () => {
         state={state}
         dispatch={dispatch}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -118,9 +115,9 @@ describe("WidgetPanelGrip", () => {
       <TestNineZoneProvider
         state={state}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -138,9 +135,9 @@ describe("WidgetPanelGrip", () => {
       <TestNineZoneProvider
         state={state}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -166,9 +163,9 @@ describe("WidgetPanelGrip", () => {
         state={state}
         dispatch={dispatch}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -198,9 +195,9 @@ describe("useResizeGrip", () => {
       {...nzProps}
     >
       <WidgetPanelContext.Provider value={{ getBounds: () => new Rectangle() }}>
-        <PanelStateContext.Provider value={nineZone.panels[side || "left"]}>
+        <PanelSideContext.Provider value={side || "left"}>
           {children}
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </WidgetPanelContext.Provider>
     </TestNineZoneProvider>;
   }

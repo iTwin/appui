@@ -18,8 +18,7 @@ describe("FloatingWidget", () => {
         state={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -35,8 +34,7 @@ describe("FloatingWidget", () => {
         state={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -52,8 +50,7 @@ describe("FloatingWidget", () => {
         state={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -69,8 +66,7 @@ describe("FloatingWidget", () => {
         state={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -86,8 +82,7 @@ describe("FloatingWidget", () => {
         state={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -111,8 +106,7 @@ describe("FloatingWidget", () => {
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -138,8 +132,7 @@ describe("FloatingWidget", () => {
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.toolSettings!}
-          widget={state.widgets.toolSettings}
+          id="toolSettings"
         />
       </TestNineZoneProvider>,
     );

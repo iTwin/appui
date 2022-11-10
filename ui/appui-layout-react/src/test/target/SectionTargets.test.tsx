@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, NineZoneState, PanelStateContext } from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, NineZoneState, PanelSideContext } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { SectionTargets } from "../../appui-layout-react/target/SectionTargets";
 
@@ -15,9 +15,9 @@ interface WrapperProps {
 function Wrapper({ children, state }: React.PropsWithChildren<WrapperProps>) {
   return (
     <TestNineZoneProvider state={state}>
-      <PanelStateContext.Provider value={state.panels.left}>
+      <PanelSideContext.Provider value="left">
         {children}
-      </PanelStateContext.Provider>
+      </PanelSideContext.Provider>
     </TestNineZoneProvider>
   );
 }
@@ -28,10 +28,9 @@ describe("SectionTargets", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <SectionTargets widgetId="w1" />,
-      {
-        wrapper: (props) => <Wrapper state={state} {...props} />, // eslint-disable-line react/display-name
-      }
+      <Wrapper state={state}>
+        <SectionTargets widgetId="w1" />
+      </Wrapper>,
     );
     container.getElementsByClassName("nz-target-mergeTarget").length.should.eq(1);
     container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(2);

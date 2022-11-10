@@ -10,7 +10,7 @@ import * as React from "react";
 import { SendBack } from "./SendBack";
 import { useActiveTab, useActiveTabId, WidgetIdContext } from "./Widget";
 import { Dock } from "./Dock";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
+import { useFloatingWidgetId } from "./FloatingWidget";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
@@ -21,7 +21,7 @@ import { assert } from "@itwin/core-bentley";
 /** @internal */
 export function TabBarButtons() {
   const isToolSettings = useIsToolSettingsTab();
-  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
+  const floatingWidgetId = useFloatingWidgetId();
   const isMainPanelWidget = useIsMainPanelWidget();
   const activeTab = useActiveTab();
   // istanbul ignore next

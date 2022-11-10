@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, DraggedTabStateContext, DraggedWidgetIdContext, NineZoneState, WidgetState, WidgetStateContext } from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, DraggedWidgetIdContext, NineZoneState, WidgetIdContext, WidgetState } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { TabTarget } from "../../appui-layout-react/target/TabTarget";
 import { renderHook } from "@testing-library/react-hooks";
@@ -19,9 +19,9 @@ interface WrapperProps {
 function Wrapper({ children, state, widgetId }: React.PropsWithChildren<WrapperProps>) {
   return (
     <TestNineZoneProvider state={state}>
-      <WidgetStateContext.Provider value={state.widgets[widgetId]}>
+      <WidgetIdContext.Provider value={widgetId}>
         {children}
-      </WidgetStateContext.Provider>
+      </WidgetIdContext.Provider>
     </TestNineZoneProvider>
   );
 }
@@ -60,16 +60,16 @@ describe("TabTarget", () => {
   });
 
   it("should return `false` if dragged tab doesn't allow the tab's panel target", () => {
-    let state = createNineZoneState();
+    let state = createNineZoneState({
+      draggedTab: createDraggedTabState("t2"),
+    });
     state = addTab(state, "t1");
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addTab(state, "t2", { allowedPanelTargets: ["right"] });
+    state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {
       wrapper: (props) => ( // eslint-disable-line react/display-name
         <TestNineZoneProvider state={state}>
-          <DraggedTabStateContext.Provider value={createDraggedTabState("t2")}>
-            {props.children}
-          </DraggedTabStateContext.Provider>
+          {props.children}
         </TestNineZoneProvider>
       ),
     });

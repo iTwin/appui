@@ -8,7 +8,7 @@ import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
-  addPanelWidget, addTab, createNineZoneState, HorizontalPanelSide, NineZoneState, PanelSide, PanelStateContext, PanelWidget,
+  addPanelWidget, addTab, createNineZoneState, HorizontalPanelSide, NineZoneState, PanelSide, PanelSideContext, PanelWidget,
   TabState, useBorders, useMode, VerticalPanelSide, WidgetContentManagerContext, WidgetContentManagerContextArgs,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
@@ -38,9 +38,9 @@ function Provider(props: ProviderProps) {
     <TestNineZoneProvider
       state={props.state}
     >
-      <PanelStateContext.Provider value={props.state.panels[side]}>
+      <PanelSideContext.Provider value={side}>
         {props.children}
-      </PanelStateContext.Provider>
+      </PanelSideContext.Provider>
     </TestNineZoneProvider>
   );
 }
@@ -263,9 +263,9 @@ describe("useBorders", () => {
       <TestNineZoneProvider
         state={state}
       >
-        <PanelStateContext.Provider value={state.panels[side]}>
+        <PanelSideContext.Provider value={side}>
           {children}
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
   }

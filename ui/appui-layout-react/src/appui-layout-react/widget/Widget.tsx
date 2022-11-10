@@ -16,7 +16,7 @@ import { getUniqueId, MeasureContext, NineZoneDispatchContext } from "../base/Ni
 import { WidgetState } from "../state/WidgetState";
 import { TabState } from "../state/TabState";
 import { PanelSideContext } from "../widget-panels/Panel";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
+import { useFloatingWidgetId } from "./FloatingWidget";
 import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
@@ -50,7 +50,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
     const side = React.useContext(PanelSideContext);
     const id = React.useContext(WidgetIdContext);
     assert(!!id);
-    const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
+    const floatingWidgetId = useFloatingWidgetId();
     const measureNz = React.useContext(MeasureContext);
     const activeTab = useActiveTab();
     const elementRef = React.useRef<HTMLDivElement>(null);

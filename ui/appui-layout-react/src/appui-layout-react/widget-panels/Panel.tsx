@@ -152,7 +152,7 @@ export interface WidgetPanelProps {
 }
 
 /** @internal */
-export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanelComponent({
+export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
   spanBottom,
   spanTop,
 }) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow

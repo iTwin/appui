@@ -5,34 +5,45 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
-import { FloatingWidgetContext, NineZoneDispatch, NineZoneDispatchContext, SendBack } from "../../appui-layout-react";
-import { createFloatingWidgetState } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
+import { addFloatingWidget, addTab, createNineZoneState, NineZoneDispatch, SendBack, WidgetIdContext } from "../../appui-layout-react";
+import { TestNineZoneProvider } from "../Providers";
 
 describe("SendBack", () => {
   it("should render", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
-      <FloatingWidgetContext.Provider value={createFloatingWidgetState("w1")}>
-        <SendBack />
-      </FloatingWidgetContext.Provider>,
+      <TestNineZoneProvider state={state}>
+        <WidgetIdContext.Provider value="w1">
+          <SendBack />
+        </WidgetIdContext.Provider>
+      </TestNineZoneProvider>,
     );
     container.firstChild!.should.matchSnapshot();
   });
 
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
-      <NineZoneDispatchContext.Provider value={dispatch}>
-        <FloatingWidgetContext.Provider value={createFloatingWidgetState("w1")}>
+      <TestNineZoneProvider
+        state={state}
+        dispatch={dispatch}
+      >
+        <WidgetIdContext.Provider value="w1">
           <SendBack />
-        </FloatingWidgetContext.Provider>,
-      </NineZoneDispatchContext.Provider>,
+        </WidgetIdContext.Provider>
+      </TestNineZoneProvider>,
     );
     const button = container.getElementsByClassName("nz-widget-sendBack")[0];
     fireEvent.click(button);
 
-    dispatch.calledOnceWithExactly({
+    sinon.assert.calledOnceWithExactly(dispatch, {
       type: "FLOATING_WIDGET_SEND_BACK",
       id: "w1",
-    }).should.true;
+    });
   });
 });
