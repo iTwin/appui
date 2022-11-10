@@ -3,15 +3,19 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
+import * as sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
 import { StructPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/StructPropertyValueRenderer";
-import { TableNonPrimitiveValueRenderer } from "../../../../components-react/properties/renderers/value/table/NonPrimitiveValueRenderer";
 import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager";
-import TestUtils from "../../../TestUtils";
+import TestUtils, { userEvent } from "../../../TestUtils";
+import { render, screen } from "@testing-library/react";
 
 describe("StructPropertyValueRenderer", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
@@ -22,9 +26,8 @@ describe("StructPropertyValueRenderer", () => {
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
       const element = renderer.render(structProperty);
-      const elementMount = mount(<div>{element}</div>);
 
-      expect(elementMount.text()).to.be.eq("{struct}");
+      expect(element).to.be.eq("{struct}");
     });
 
     it("renders default way when provided with empty context", () => {
@@ -32,31 +35,32 @@ describe("StructPropertyValueRenderer", () => {
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
       const element = renderer.render(structProperty, {});
-      const elementMount = mount(<div>{element}</div>);
 
-      expect(elementMount.text()).to.be.eq("{struct}");
+      expect(element).to.be.eq("{struct}");
     });
 
-    it("renders struct with Table renderer if container type is Table", () => {
+    it("renders struct with Table renderer if container type is Table", async () => {
+      const dialogSpy = sinon.spy();
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
-      const element = renderer.render(structProperty, { containerType: PropertyContainerType.Table, orientation: Orientation.Vertical });
-      const elementMount = mount(<div>{element}</div>);
-
-      expect(elementMount.find(TableNonPrimitiveValueRenderer).exists()).to.be.true;
+      const element = renderer.render(structProperty, { containerType: PropertyContainerType.Table, orientation: Orientation.Vertical, onDialogOpen: dialogSpy });
+      render(<>{element}</>);
+      await theUserTo.click(screen.getByRole("link", {name: "View {struct} in more detail."}));
+      expect(dialogSpy).to.have.been.calledWithMatch((arg: any) => arg?.content?.props?.orientation === Orientation.Vertical);
     });
 
-    it("defaults to horizontal orientation when rendering for a table without specified orientation", () => {
+    it("defaults to horizontal orientation when rendering for a table without specified orientation", async () => {
+      const dialogSpy = sinon.spy();
       const renderer = new StructPropertyValueRenderer();
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
-      const element = renderer.render(structProperty, { containerType: PropertyContainerType.Table });
-      const elementMount = mount(<div>{element}</div>);
+      const element = renderer.render(structProperty, { containerType: PropertyContainerType.Table, onDialogOpen: dialogSpy });
+      render(<>{element}</>);
 
-      const dialogContentsMount = mount(<div>{elementMount.find(TableNonPrimitiveValueRenderer).prop("dialogContents")}</div>);
+      await theUserTo.click(screen.getByRole("link"));
 
-      expect(dialogContentsMount.childAt(0).prop("orientation")).to.be.eq(Orientation.Horizontal);
+      expect(dialogSpy).to.have.been.calledWithMatch((arg: any) => arg?.content?.props?.orientation === Orientation.Horizontal);
     });
 
     it("throws when trying to render primitive property", () => {
@@ -70,9 +74,8 @@ describe("StructPropertyValueRenderer", () => {
       const structProperty = TestUtils.createStructProperty("NameStruct");
 
       const element = renderer.render(structProperty, { containerType: PropertyContainerType.PropertyPane });
-      const elementMount = mount(<div>{element}</div>);
 
-      expect(elementMount.text()).to.be.eq("");
+      expect(element).to.be.eq("");
     });
   });
 

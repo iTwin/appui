@@ -3,8 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
-import * as React from "react";
 import { MergedPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/MergedPropertyValueRenderer";
 import { UiComponents } from "../../../../components-react/UiComponents";
 import TestUtils from "../../../TestUtils";
@@ -24,8 +22,7 @@ describe("MergedPropertyValueRenderer", () => {
       const property = TestUtils.createPrimitiveStringProperty("a", "b");
       property.isMerged = true;
       const element = renderer.render(property);
-      const elementMount = mount(<div>{element}</div>);
-      expect(elementMount.text()).to.be.eq(UiComponents.translate("property.varies"));
+      expect(element).to.be.eq(UiComponents.translate("property.varies"));
     });
   });
 

@@ -23,33 +23,6 @@ describe("TableNonPrimitiveValueRenderer", () => {
     renderer.getByText("Open greeting");
   });
 
-  // TODO: Enable, when table gets refactored
-  // it("shows tooltip when hovered on", () => {
-  //   const onPopupShow = sinon.spy();
-  //   const onPopupHide = sinon.spy();
-
-  //   const rendererMount = mount(
-  //     <TableNonPrimitiveValueRenderer
-  //       buttonLabel="Open greeting"
-  //       dialogContents={<div><p>Hello</p></div>}
-  //       dialogTitle={"Greeting"}
-  //       onPopupHide={onPopupHide}
-  //       onPopupShow={onPopupShow}
-  //     />);
-
-  //   const button = rendererMount.find("button");
-
-  //   button.simulate("mouseenter");
-
-  //   expect(onPopupShow.calledOnce).to.be.true;
-  //   const popupContentMount = mount(<>{(onPopupShow.args[0][0] as PropertyPopupState).content}</>);
-  //   expect(popupContentMount.html().indexOf("Open greeting")).to.be.greaterThan(-1);
-
-  //   button.simulate("mouseleave");
-  //   expect(onPopupHide.calledOnce).to.be.true;
-  //   expect(onPopupHide.calledAfter(onPopupShow)).to.be.true;
-  // });
-
   it("calls onDialogOpen when button gets clicked", () => {
     const onDialogOpen = sinon.spy();
 

@@ -4,91 +4,77 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
 import sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
 import {
-  IconEditorParams, InputEditorSizeParams, MessageSeverity, PropertyConverterInfo, PropertyEditorInfo, PropertyEditorParamTypes,
+  IconEditorParams, InputEditorSizeParams, MessageSeverity, Primitives, PropertyConverterInfo, PropertyDescription, PropertyEditorInfo, PropertyEditorParamTypes,
   PropertyRecord, PropertyValue, SpecialKey,
 } from "@itwin/appui-abstract";
 import { TextEditor } from "../../components-react/editors/TextEditor";
-import TestUtils, { MineDataController } from "../TestUtils";
+import TestUtils, { childStructure, MineDataController, styleMatch, userEvent } from "../TestUtils";
 import { EditorContainer, PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { AsyncValueProcessingResult, DataControllerBase, PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+import { StringTypeConverter, TypeConverterManager } from "../../components-react";
 
 describe("<TextEditor />", () => {
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
-
-  it("should render", () => {
-    mount(<TextEditor />);
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
   });
 
-  it("renders correctly", () => {
-    shallow(<TextEditor />).should.matchSnapshot();
-  });
+  it("renders correctly with style and no record", () => {
+    render(<TextEditor style={{ color: "red" }} />);
 
-  it("renders correctly with style", () => {
-    shallow(<TextEditor style={{ color: "red" }} />).should.matchSnapshot();
+    expect(screen.getByRole("textbox"))
+      .to.satisfy(styleMatch({color: "red"}))
+      .and.to.have.property("value", "");
   });
 
   it("getValue returns proper value after componentDidMount & setState", async () => {
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue");
-    const wrapper = mount(<TextEditor propertyRecord={record} />);
+    render(<TextEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as TextEditor;
-    expect(editor.state.inputValue).to.equal("MyValue");
-
-    wrapper.unmount();
+    await waitFor(() => expect(screen.getByRole("textbox")).to.have.property("value", "MyValue"));
   });
 
   it("should support record.property.converter?.name", async () => {
+    class Dasher extends StringTypeConverter {
+      public override convertPropertyToString(propertyDescription: PropertyDescription, value?: Primitives.Value | undefined): string | Promise<string> {
+        return super.convertPropertyToString(propertyDescription, `-${value}`);
+      }
+    }
+    TypeConverterManager.registerConverter("string:dasher", Dasher);
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue");
-    const convertInfo: PropertyConverterInfo = { name: "" };
+    const convertInfo: PropertyConverterInfo = { name: "dasher" };
     record.property.converter = convertInfo;
 
-    const wrapper = mount(<TextEditor propertyRecord={record} />);
+    render(<TextEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as TextEditor;
-    expect(editor.state.inputValue).to.equal("MyValue");
-
-    wrapper.unmount();
+    await waitFor(() => expect(screen.getByRole("textbox")).to.have.property("value", "-MyValue"));
+    TypeConverterManager.unregisterConverter("dasher");
   });
 
-  it("HTML input onChange updates value", () => {
+  it("HTML input onChange updates value", async () => {
     const record = TestUtils.createPrimitiveStringProperty("Test1", "MyValue");
-    const wrapper = mount(<TextEditor propertyRecord={record} />);
-    const editor = wrapper.instance() as TextEditor;
-    const inputNode = wrapper.find("input");
+    render(<TextEditor propertyRecord={record} />);
+    await theUserTo.type(screen.getByRole("textbox"), "[Backspace>7/]The modified value");
 
-    expect(inputNode.length).to.eq(1);
-    if (inputNode) {
-      const testValue = "My new value";
-      inputNode.simulate("change", { target: { value: testValue } });
-      wrapper.update();
-      expect(editor.state.inputValue).to.equal(testValue);
-    }
+    await waitFor(() => expect(screen.getByRole("textbox")).to.have.property("value", "The modified value"));
   });
 
-  it("componentDidUpdate updates the value", async () => {
+  it("new props update display", async () => {
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue");
-    const wrapper = mount(<TextEditor propertyRecord={record} />);
-
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as TextEditor;
-    expect(editor.state.inputValue).to.equal("MyValue");
+    const { rerender } = render(<TextEditor propertyRecord={record} />);
 
     const testValue = "MyNewValue";
     const newRecord = TestUtils.createPrimitiveStringProperty("Test", testValue);
-    wrapper.setProps({ propertyRecord: newRecord });
-    await TestUtils.flushAsyncOperations();
-    expect(editor.state.inputValue).to.equal(testValue);
+    rerender(<TextEditor propertyRecord={newRecord} />);
 
-    wrapper.unmount();
+    await waitFor(() => expect(screen.getByRole("textbox")).to.have.property("value", "MyNewValue"));
   });
 
   it("should support InputEditorSize params", async () => {
@@ -105,15 +91,11 @@ describe("<TextEditor />", () => {
     };
 
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue", "Test", editorInfo);
-    const wrapper = mount(<TextEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
+    render(<TextEditor propertyRecord={record} />);
 
-    const textEditor = wrapper.find(TextEditor);
-    expect(textEditor.length).to.eq(1);
-    expect(textEditor.state("size")).to.eq(size);
-    expect(textEditor.state("maxLength")).to.eq(maxLength);
-
-    wrapper.unmount();
+    await waitFor(() => expect(screen.getByRole("textbox"))
+      .to.satisfy(styleMatch({minWidth: "3em"}))
+      .and.to.have.property("maxLength", 60));
   });
 
   it("should support IconEditor params", async () => {
@@ -128,14 +110,9 @@ describe("<TextEditor />", () => {
     };
 
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue", "Test", editorInfo);
-    const wrapper = mount(<TextEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
+    const { container } = render(<TextEditor propertyRecord={record} />);
 
-    const textEditor = wrapper.find(TextEditor);
-    expect(textEditor.length).to.eq(1);
-    expect(textEditor.state("iconSpec")).to.eq(iconSpec);
-
-    wrapper.unmount();
+    await waitFor(() => expect(container).to.satisfy(childStructure(".icon.icon-placeholder")));
   });
 
   it("should call onCommit for Enter", async () => {

@@ -4,49 +4,46 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { PopupButton } from "../../components-react/editors/PopupButton";
-import { TestUtils } from "../TestUtils";
+import { selectorMatches, TestUtils, userEvent } from "../TestUtils";
 
 describe("<PopupButton />", () => {
-  it("should render", () => {
-    const wrapper = mount(
-      <PopupButton label="Hello">
-        <div>Hello World</div>
-      </PopupButton>);
-    wrapper.unmount();
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
   });
 
-  it("renders correctly", () => {
-    shallow(
-      <PopupButton label="Hello">
-        <div>Hello World</div>
-      </PopupButton>).should.matchSnapshot();
-  });
-
-  it("renders correctly with showArrow and showShadow", () => {
-    shallow(
+  it("renders correctly with showArrow and showShadow", async () => {
+    render(
       <PopupButton label="Hello" showArrow={true} showShadow={true}>
         <div>Hello World</div>
-      </PopupButton>).should.matchSnapshot();
+      </PopupButton>);
+
+    await theUserTo.click(screen.getByRole("button"));
+
+    expect(screen.getByRole("dialog")).to.satisfy(selectorMatches(".arrow.core-popup-shadow"));
   });
 
-  it("renders correctly with moveFocus", () => {
-    shallow(
+  it("renders correctly with moveFocus", async () => {
+    render(
       <PopupButton label="Hello" moveFocus={false}>
-        <div>Hello World</div>
-      </PopupButton>).should.matchSnapshot();
+        <button data-testid={"focused-button"} />
+      </PopupButton>);
+
+    await theUserTo.click(screen.getByRole("button"));
+    expect(screen.getByTestId("focused-button") === document.activeElement);
   });
 
   it("renders correctly with placeholder", () => {
-    shallow(
+    render(
       <PopupButton placeholder="Test">
         <div>Hello World</div>
-      </PopupButton>).should.matchSnapshot();
+      </PopupButton>);
+    expect(screen.getByText("Test", {selector: ".components-popup-button-placeholder"})).to.exist;
   });
 
   it("calls onClick", async () => {
@@ -118,40 +115,30 @@ describe("<PopupButton />", () => {
   it("calls onClose", async () => {
     const spyOnClose = sinon.spy();
 
-    const wrapper = mount(
+    render(
       <PopupButton label="Hello" onClose={spyOnClose}>
         <div>Hello World</div>
       </PopupButton>);
 
-    const button = wrapper.find(".components-popup-button");
-    expect(button.length).to.eq(1);
-    button.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByRole("button"));
 
-    window.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, view: window, key: "Escape" }));
+    await theUserTo.keyboard("{Escape}");
 
     spyOnClose.calledOnce.should.true;
-
-    wrapper.unmount();
   });
 
   it("closePopup() closes popup", async () => {
     const spyOnClose = sinon.spy();
     const popupButtonRef = React.createRef<PopupButton>();
 
-    const wrapper = mount(
+    render(
       <PopupButton label="Hello" onClose={spyOnClose} ref={popupButtonRef}>
         <div>Hello World</div>
       </PopupButton>);
 
     popupButtonRef.current?.closePopup();
-    await TestUtils.flushAsyncOperations();
-
-    window.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, view: window, key: "Escape" }));
 
     spyOnClose.calledOnce.should.true;
-
-    wrapper.unmount();
   });
 
 });
