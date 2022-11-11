@@ -2,8 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
 import sinon from "sinon";
 import { IPropertyValueRenderer, PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
@@ -98,25 +98,24 @@ describe("PropertyValueRendererManager", () => {
     it("renders a primitive type", () => {
       const value = manager.render(TestUtils.createPrimitiveStringProperty("Label", "Test prop"));
 
-      const valueMount = mount(<div>{value}</div>);
-
-      expect(valueMount.text()).to.not.be.empty;
+      render(<>{value}</>);
+      expect(screen.getByTitle("Test prop")).to.exist;
     });
 
     it("renders an array type", () => {
       const value = manager.render(TestUtils.createArrayProperty("LabelArray"));
 
-      const valueMount = mount(<div>{value}</div>);
+      render(<>{value}</>);
 
-      expect(valueMount.text()).to.not.be.empty;
+      expect(screen.getByText("string[]")).to.exist;
     });
 
     it("renders a struct type", () => {
       const value = manager.render(TestUtils.createStructProperty("TestStruct"));
 
-      const valueMount = mount(<div>{value}</div>);
+      render(<>{value}</>);
 
-      expect(valueMount.text()).to.not.be.empty;
+      expect(screen.getByText("{struct}")).to.exist;
     });
 
     it("does not render unknown type", () => {
@@ -125,9 +124,9 @@ describe("PropertyValueRendererManager", () => {
 
       const value = manager.render(property);
 
-      const valueMount = mount(<div>{value}</div>);
+      const { container } = render(<>{value}</>);
 
-      expect(valueMount.text()).to.be.empty;
+      expect(container.innerHTML).to.be.empty;
     });
 
     it("renders merged properties", () => {
@@ -136,9 +135,9 @@ describe("PropertyValueRendererManager", () => {
 
       const value = manager.render(property);
 
-      const valueMount = mount(<div>{value}</div>);
+      render(<>{value}</>);
 
-      expect(valueMount.text()).to.be.equal(UiComponents.translate("property.varies"));
+      expect(screen.getByText(UiComponents.translate("property.varies"))).to.exist;
     });
 
     it("renders merged properties before looking for custom renderer in property typename", () => {
@@ -150,8 +149,8 @@ describe("PropertyValueRendererManager", () => {
       rendererManager.registerRenderer("stub", fakeRenderer);
 
       const value = rendererManager.render(property);
-      const valueMount = mount(<div>{value}</div>);
-      expect(valueMount.text()).to.be.equal(UiComponents.translate("property.varies"));
+      render(<>{value}</>);
+      expect(screen.getByText(UiComponents.translate("property.varies"))).to.exist;
       expect(fakeRenderer.render).to.not.be.called;
     });
   });

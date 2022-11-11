@@ -1038,11 +1038,9 @@ importers:
       '@testing-library/user-event': ^14.4.2
       '@types/chai': 4.3.1
       '@types/chai-as-promised': ^7
-      '@types/chai-jest-snapshot': ^1.3.0
       '@types/chai-spies': ^1.0.0
       '@types/chai-string': ^1.4.1
       '@types/chai-subset': 1.3.1
-      '@types/enzyme': 3.9.3
       '@types/faker': ^4.1.0
       '@types/linkify-it': ~2.1.0
       '@types/lodash': ^4.14.0
@@ -1051,22 +1049,17 @@ importers:
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.0
       '@types/react-highlight-words': ^0.16.1
-      '@types/react-select': 3.0.26
       '@types/react-window': ^1.8.2
       '@types/shortid': ~0.0.29
       '@types/sinon': ^9.0.0
       '@types/sinon-chai': ^3.2.0
-      '@wojtekmaj/enzyme-adapter-react-17': ^0.6.3
       chai: ^4.1.2
       chai-as-promised: ^7
-      chai-jest-snapshot: ^2.0.0
       chai-spies: 1.0.0
       chai-string: ^1.5.0
       chai-subset: 1.6.0
       classnames: 2.3.1
       cpx2: ^3.0.0
-      enzyme: 3.10.0
-      enzyme-to-json: ^3.3.4
       eslint: ^7.11.0
       faker: ^4.1.0
       ignore-styles: ^5.0.1
@@ -1082,8 +1075,6 @@ importers:
       react: ^17.0.0
       react-dom: ^17.0.0
       react-highlight-words: ^0.17.0
-      react-select: 3.2.0
-      react-select-event: 5.0.0
       react-window: ^1.8.2
       rimraf: ^3.0.2
       rxjs: ^6.6.2
@@ -1108,7 +1099,6 @@ importers:
       linkify-it: 2.2.0
       lodash: 4.17.21
       react-highlight-words: 0.17.0_react@17.0.2
-      react-select: 3.2.0_react-dom@17.0.2+react@17.0.2
       react-window: 1.8.7_react-dom@17.0.2+react@17.0.2
       rxjs: 6.6.7
       shortid: 2.2.16
@@ -1127,11 +1117,9 @@ importers:
       '@testing-library/user-event': 14.4.3_@testing-library+dom@8.17.1
       '@types/chai': 4.3.1
       '@types/chai-as-promised': 7.1.5
-      '@types/chai-jest-snapshot': 1.3.6
       '@types/chai-spies': 1.0.3
       '@types/chai-string': 1.4.2
       '@types/chai-subset': 1.3.1
-      '@types/enzyme': 3.9.3
       '@types/faker': 4.1.12
       '@types/linkify-it': 2.1.0
       '@types/lodash': 4.14.184
@@ -1140,20 +1128,15 @@ importers:
       '@types/react': 17.0.49
       '@types/react-dom': 17.0.17
       '@types/react-highlight-words': 0.16.4
-      '@types/react-select': 3.0.26
       '@types/react-window': 1.8.5
       '@types/sinon': 9.0.11
       '@types/sinon-chai': 3.2.8
-      '@wojtekmaj/enzyme-adapter-react-17': 0.6.7_139404e387ad12a3919093d103c0dae6
       chai: 4.3.6
       chai-as-promised: 7.1.1_chai@4.3.6
-      chai-jest-snapshot: 2.0.0_chai@4.3.6
       chai-spies: 1.0.0_chai@4.3.6
       chai-string: 1.5.0_chai@4.3.6
       chai-subset: 1.6.0
       cpx2: 3.0.2
-      enzyme: 3.10.0
-      enzyme-to-json: 3.6.2_enzyme@3.10.0
       eslint: 7.32.0
       faker: 4.1.0
       ignore-styles: 5.0.1
@@ -1164,7 +1147,6 @@ importers:
       raf: 3.4.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-select-event: 5.0.0
       rimraf: 3.0.2
       sinon: 9.2.4
       sinon-chai: 3.7.0_chai@4.3.6+sinon@9.2.4
@@ -14207,12 +14189,6 @@ packages:
       tiny-invariant: 1.2.0
       tiny-warning: 1.0.3
     dev: false
-
-  /react-select-event/5.0.0:
-    resolution: {integrity: sha512-bESECffhi//x1nlMoRJtwI0nGl5n6OKaVYeIEcPTV8flVPycvUoBGank/1RIoxVc6WtoQ4QbPbU8xMvX0xAiOA==}
-    dependencies:
-      '@testing-library/dom': 8.17.1
-    dev: true
 
   /react-select/3.2.0_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-B/q3TnCZXEKItO0fFN/I0tWOX3WJvi/X2wtdffmwSQVRwg5BpValScTO1vdic9AxlUgmeSzib2hAZAwIUQUZGQ==}

@@ -34,6 +34,10 @@ export class BooleanEditor extends React.PureComponent<PropertyEditorProps, Bool
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
+    return this.getPropertyValueSync();
+  }
+
+  private getPropertyValueSync(): PropertyValue | undefined {
     const record = this.props.propertyRecord;
     let propertyValue: PropertyValue | undefined;
 
@@ -60,23 +64,14 @@ export class BooleanEditor extends React.PureComponent<PropertyEditorProps, Bool
   private _updateCheckboxValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     // istanbul ignore else
     if (this._isMounted) {
-      let checkboxValue: boolean = false;
-
-      // istanbul ignore if
-      if (e.target.checked !== undefined)   // Needed for unit test environment
-        checkboxValue = e.target.checked;
-      else {
-        // istanbul ignore else
-        if (e.target.value !== undefined && typeof e.target.value === "boolean")
-          checkboxValue = e.target.value;
-      }
+      const checkboxValue = !!e.target.checked;
 
       this.setState({
         checkboxValue,
-      }, async () => {
+      }, () => {
         // istanbul ignore else
         if (this.props.propertyRecord && this.props.onCommit) {
-          const propertyValue = await this.getPropertyValue();
+          const propertyValue = this.getPropertyValueSync();
           // istanbul ignore else
           if (propertyValue !== undefined) {
             this.props.onCommit({ propertyRecord: this.props.propertyRecord, newValue: propertyValue });
@@ -89,7 +84,7 @@ export class BooleanEditor extends React.PureComponent<PropertyEditorProps, Bool
   /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
-    this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    this.setStateFromProps();
   }
 
   /** @internal */
@@ -100,11 +95,11 @@ export class BooleanEditor extends React.PureComponent<PropertyEditorProps, Bool
   /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
-      this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      this.setStateFromProps();
     }
   }
 
-  private async setStateFromProps() {
+  private setStateFromProps() {
     const { propertyRecord } = this.props;
     let checkboxValue = false;
     let isDisabled = false;

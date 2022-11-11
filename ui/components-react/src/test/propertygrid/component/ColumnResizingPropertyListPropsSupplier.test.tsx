@@ -3,17 +3,18 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
 import sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { ColumnResizingPropertyListPropsSupplier } from "../../../components-react/propertygrid/component/ColumnResizingPropertyListPropsSupplier";
 import { PropertyList } from "../../../components-react/propertygrid/component/PropertyList";
-import TestUtils from "../../TestUtils";
+import TestUtils, { styleMatch, userEvent } from "../../TestUtils";
+import { render, screen } from "@testing-library/react";
 
 describe("ColumnResizingPropertyListPropsSupplier", () => {
 
+  let theUserTo: ReturnType<typeof userEvent.setup>;
   let clock: sinon.SinonFakeTimers;
   let records: PropertyRecord[];
 
@@ -24,6 +25,11 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
 
   beforeEach(() => {
     clock = sinon.useFakeTimers({ now: Date.now() });
+    theUserTo = userEvent.setup({advanceTimers: (delay) => {
+      clock.tick(delay);
+    },
+    delay: throttleMs,
+    });
     records = [TestUtils.createPrimitiveStringProperty("CADID", "0000 0005 00E0 02D8")];
   });
 
@@ -31,69 +37,67 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
     clock.restore();
   });
 
-  function moveElement(moveAmount: { clientX: number } | { clientY: number }, moveDelayMs: number = throttleMs) {
-    document.dispatchEvent(new MouseEvent("pointermove", moveAmount));
-    clock.tick(moveDelayMs);
-  }
-
   describe("ratio between label and value when width below minimum column size", () => {
 
-    it("changes label-value ratio when it's modified within bounds", () => {
-      const propertyBlockMount = mount<ColumnResizingPropertyListPropsSupplier>(
+    it("changes label-value ratio when it's modified within bounds", async () => {
+      render(
         <ColumnResizingPropertyListPropsSupplier orientation={Orientation.Horizontal} width={100}>
           {(listProps) => <PropertyList {...listProps} properties={records} />}
         </ColumnResizingPropertyListPropsSupplier>,
       );
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.25);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "25% 1px auto"}));
+      await theUserTo.pointer([
+        { target: screen.getByRole("button"), keys: "[MouseLeft>]", coords: {x: 10 }},
+        { coords: {x: 40 }},
+      ]);
 
-      const elementSeparator = propertyBlockMount.find(".core-element-separator").first();
-      elementSeparator.simulate("pointerdown", { clientX: 10 });
-      moveElement({ clientX: 40 });
-      document.dispatchEvent(new MouseEvent("pointerup"));
-
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.55);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: /^55(?:\.\d*|)% 1px auto/}));
     });
 
-    it("changes label-value ratio to 0.15 when it's modified lower than allowed", () => {
-      const propertyBlockMount = mount<ColumnResizingPropertyListPropsSupplier>(
+    it("changes label-value ratio to 0.15 when it's modified lower than allowed", async () => {
+      render(
         <ColumnResizingPropertyListPropsSupplier orientation={Orientation.Horizontal} width={100}>
           {(listProps) => <PropertyList {...listProps} properties={records} />}
         </ColumnResizingPropertyListPropsSupplier>,
       );
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.25);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "25% 1px auto"}));
+      await theUserTo.pointer([
+        { target: screen.getByRole("button"), keys: "[MouseLeft>]", coords: {x: 30 }},
+        { coords: {x: 0 }},
+      ]);
 
-      const elementSeparator = propertyBlockMount.find(".core-element-separator").first();
-      elementSeparator.simulate("pointerdown", { clientX: 30 });
-      moveElement({ clientX: 0 });
-      document.dispatchEvent(new MouseEvent("pointerup"));
-
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.15);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "15% 1px auto"}));
     });
 
-    it("changes label-value ratio to 0.6 when it's modified higher than allowed", () => {
-      const propertyBlockMount = mount<ColumnResizingPropertyListPropsSupplier>(
+    it("changes label-value ratio to 0.6 when it's modified higher than allowed", async () => {
+      render(
         <ColumnResizingPropertyListPropsSupplier orientation={Orientation.Horizontal} width={100}>
           {(listProps) => <PropertyList {...listProps} properties={records} />}
         </ColumnResizingPropertyListPropsSupplier>,
       );
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.25);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "25% 1px auto"}));
+      await theUserTo.pointer([
+        { target: screen.getByRole("button"), keys: "[MouseLeft>]", coords: {x: 25 }},
+        { coords: {x: 90 }},
+      ]);
 
-      const elementSeparator = propertyBlockMount.find(".core-element-separator").first();
-      elementSeparator.simulate("pointerdown", { clientX: 25 });
-      moveElement({ clientX: 90 });
-      document.dispatchEvent(new MouseEvent("pointerup"));
-
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.6);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "60% 1px auto"}));
     });
   });
 
   describe("ratio between label and value when width above minimum column size", () => {
 
-    it("changes label-value ratio when it's modified within bounds", () => {
-      const propertyBlockMount = mount<ColumnResizingPropertyListPropsSupplier>(
+    it("changes label-value ratio when it's modified within bounds", async () => {
+      render(
         <ColumnResizingPropertyListPropsSupplier
           orientation={Orientation.Horizontal}
           width={1000}
@@ -105,18 +109,19 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         </ColumnResizingPropertyListPropsSupplier>,
       );
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.25);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)"}));
+      await theUserTo.pointer([
+        { target: screen.getByRole("button"), keys: "[MouseLeft>]", coords: {x: 240 }},
+        { coords: {x: 490 }},
+      ]);
 
-      const elementSeparator = propertyBlockMount.find(".core-element-separator").first();
-      elementSeparator.simulate("pointerdown", { clientX: 240 });
-      moveElement({ clientX: 490 });
-      document.dispatchEvent(new MouseEvent("pointerup"));
-
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.5);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 50%) 1px minmax(100px, 1fr)"}));
     });
 
-    it("changes label-value ratio to minimum label width when it's modified lower than allowed", () => {
-      const propertyBlockMount = mount<ColumnResizingPropertyListPropsSupplier>(
+    it("changes label-value ratio to minimum label width when it's modified lower than allowed", async () => {
+      render(
         <ColumnResizingPropertyListPropsSupplier
           orientation={Orientation.Horizontal}
           width={1000}
@@ -128,18 +133,19 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         </ColumnResizingPropertyListPropsSupplier>,
       );
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.25);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)"}));
+      await theUserTo.pointer([
+        { target: screen.getByRole("button"), keys: "[MouseLeft>]", coords: {x: 255 }},
+        { coords: {x: 0 }},
+      ]);
 
-      const elementSeparator = propertyBlockMount.find(".core-element-separator").first();
-      elementSeparator.simulate("pointerdown", { clientX: 255 });
-      moveElement({ clientX: 0 });
-      document.dispatchEvent(new MouseEvent("pointerup"));
-
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.1);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)"}));
     });
 
-    it("changes label-value ratio to maximum label width when it's modified higher than allowed", () => {
-      const propertyBlockMount = mount<ColumnResizingPropertyListPropsSupplier>(
+    it("changes label-value ratio to maximum label width when it's modified higher than allowed", async () => {
+      render(
         <ColumnResizingPropertyListPropsSupplier
           orientation={Orientation.Horizontal}
           width={1000}
@@ -150,19 +156,19 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
           {(listProps) => <PropertyList {...listProps} properties={records} />}
         </ColumnResizingPropertyListPropsSupplier>,
       );
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)"}));
+      await theUserTo.pointer([
+        { target: screen.getByRole("button"), keys: "[MouseLeft>]", coords: {x: 250 }},
+        { coords: {x: 950 }},
+      ]);
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.25);
-
-      const elementSeparator = propertyBlockMount.find(".core-element-separator").first();
-      elementSeparator.simulate("pointerdown", { clientX: 250 });
-      moveElement({ clientX: 950 });
-      document.dispatchEvent(new MouseEvent("pointerup"));
-
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.8);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)"}));
     });
 
-    it("stops changing label-value ratio after reaching max when element not hovered", () => {
-      const propertyBlockMount = mount<ColumnResizingPropertyListPropsSupplier>(
+    it("stops changing label-value ratio after reaching max when element not hovered", async () => {
+      render(
         <ColumnResizingPropertyListPropsSupplier
           orientation={Orientation.Horizontal}
           width={1000}
@@ -174,22 +180,27 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         </ColumnResizingPropertyListPropsSupplier>,
       );
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.25);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)"}));
+      await theUserTo.pointer([
+        { target: screen.getByRole("button"), keys: "[MouseLeft>]", coords: {x: 250 }},
+        { coords: {x: 950 }},
+      ]);
 
-      const elementSeparator = propertyBlockMount.find(".core-element-separator").first();
-      elementSeparator.simulate("pointerdown", { clientX: 250 });
-      moveElement({ clientX: 950 });
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.8);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)"}));
 
-      moveElement({ clientX: 980 });
-      moveElement({ clientX: 500 });
-      document.dispatchEvent(new MouseEvent("pointerup"));
+      await theUserTo.pointer([
+        { coords: {x: 980 }},
+        { coords: {x: 500 }},
+      ]);
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.8);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)"}));
     });
 
-    it("stops changing label-value ratio after reaching min when element not hovered", () => {
-      const propertyBlockMount = mount<ColumnResizingPropertyListPropsSupplier>(
+    it("stops changing label-value ratio after reaching min when element not hovered", async () => {
+      render(
         <ColumnResizingPropertyListPropsSupplier
           width={1000}
           orientation={Orientation.Horizontal}
@@ -201,18 +212,23 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         </ColumnResizingPropertyListPropsSupplier>,
       );
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.25);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 25%) 1px minmax(100px, 1fr)"}));
+      await theUserTo.pointer([
+        { target: screen.getByRole("button"), keys: "[MouseLeft>]", coords: {x: 250 }},
+        { coords: {x: 10 }},
+      ]);
 
-      const elementSeparator = propertyBlockMount.find(".core-element-separator").first();
-      elementSeparator.simulate("pointerdown", { clientX: 250 });
-      moveElement({ clientX: 10 });
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.1);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)"}));
 
-      moveElement({ clientX: 0 });
-      moveElement({ clientX: 500 });
-      document.dispatchEvent(new MouseEvent("pointerup"));
+      await theUserTo.pointer([
+        { coords: {x: 0 }},
+        { coords: {x: 500 }},
+      ]);
 
-      expect(propertyBlockMount.state().columnRatio).to.be.eq(0.1);
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)"}));
     });
   });
 });

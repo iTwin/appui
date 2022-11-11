@@ -2,23 +2,24 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { expect } from "chai";
-import * as enzyme from "enzyme";
 import * as React from "react";
 import * as sinon from "sinon";
-import { Key } from "ts-key-enum";
 import { FilteringInput, FilteringInputStatus } from "../../components-react/filtering/FilteringInput";
-import { ResultSelector } from "../../components-react/filtering/ResultSelector";
-import TestUtils from "../TestUtils";
+import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
 
 describe("FilteringInput", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
 
   it("renders correctly", () => {
-    const filteringInput = enzyme.mount(
+    render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
         onFilterCancel={() => { }}
@@ -26,50 +27,47 @@ describe("FilteringInput", () => {
         onFilterStart={() => { }}
         resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
 
-    expect(filteringInput.find("input[type=\"text\"]").first().exists()).to.be.true;
-
-    const actionIcon = filteringInput.find(".components-filtering-input-input-components").childAt(0);
-    expect(actionIcon.render().hasClass("icon-search"));
+    expect(screen.getByRole("textbox")).to.exist;
+    expect(screen.getByRole("button")).to.satisfy(selectorMatches(".icon-search"));
   });
 
   it("shows 'Cancel' button when filtering status is `FilteringInProgress`", () => {
-    const filteringInput = enzyme.mount(
+    render(
       <FilteringInput
         status={FilteringInputStatus.FilteringInProgress}
         onFilterCancel={() => { }}
         onFilterClear={() => { }}
         onFilterStart={() => { }}
         resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
-    const actionIcon = filteringInput.find(".components-filtering-input-input-components").childAt(0);
-    expect(actionIcon.render().hasClass("icon-close"));
+    expect(screen.getByRole("button")).to.satisfy(selectorMatches(".icon-close"));
   });
 
   it("shows `ResultSelector` and 'X' button when filtering status is `FilteringFinished` and stepping is enabled", () => {
-    const filteringInput = enzyme.mount(
+    render(
       <FilteringInput
         status={FilteringInputStatus.FilteringFinished}
         onFilterCancel={() => { }}
         onFilterClear={() => { }}
         onFilterStart={() => { }}
         resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
-    expect(filteringInput.find(ResultSelector).first().exists(), "No ResultSelector found").to.be.true;
-    expect(filteringInput.find(".components-filtering-input-clear").first().hasClass("icon-close"), "No X button found").to.be.true;
+    expect(screen.getAllByRole("presentation")[1]).to.satisfy(selectorMatches(".components-result-selector-current-result"));
+    expect(screen.getByTitle("general.search")).to.satisfy(selectorMatches(".icon-close"));
   });
 
   it("doesn't show `ResultSelector` when filtering status is `FilteringFinished` and stepping is disabled", () => {
-    const filteringInput = enzyme.mount(
+    render(
       <FilteringInput
         status={FilteringInputStatus.FilteringFinished}
         onFilterCancel={() => { }}
         onFilterClear={() => { }}
         onFilterStart={() => { }} />);
-    expect(filteringInput.find(ResultSelector).first().exists()).to.be.false;
-    expect(filteringInput.find(".components-filtering-input-clear").first().hasClass("icon-close"), "No X button found").to.be.true;
+    expect(screen.queryByRole("presentation")).to.not.satisfy(selectorMatches(".components-result-selector-current-result"));
+    expect(screen.getByTitle("general.search")).to.satisfy(selectorMatches(".icon-close"));
   });
 
-  it("starts search when input is edited and 'Enter' key is pressed", () => {
+  it("starts search when input is edited and 'Enter' key is pressed", async () => {
     const startCallback = sinon.spy();
-    const filteringInput = enzyme.mount(
+    render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
         onFilterCancel={() => { }}
@@ -77,63 +75,65 @@ describe("FilteringInput", () => {
         onFilterStart={startCallback}
         resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
 
-    const inputField = filteringInput.find("input[type=\"text\"]").first();
-    inputField.simulate("change", { target: { value: "test" } });
-
-    inputField.simulate("keyDown", { key: Key.Backspace });
+    await theUserTo.type(screen.getByRole("textbox"), "test{Backspace}", {skipAutoClose: true});
     expect(startCallback).to.not.be.called;
 
-    inputField.simulate("keyDown", { key: Key.Enter });
+    await theUserTo.keyboard("[Enter]");
     expect(startCallback).to.be.calledOnce;
   });
 
-  it("doesn't start search when input is empty", () => {
+  it("doesn't start search when input is empty", async () => {
     const startCallback = sinon.spy();
-    const filteringInput = enzyme.mount(
+    render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
         onFilterCancel={() => { }}
         onFilterClear={() => { }}
         onFilterStart={startCallback} />);
 
-    const inputField = filteringInput.find("input[type=\"text\"]").first();
-    expect(inputField.props().value).to.be.empty;
-
-    inputField.simulate("keyDown", { key: Key.Enter });
+    await theUserTo.type(screen.getByRole("textbox"), "{Enter}", {skipAutoClose: true});
     expect(startCallback).to.not.be.called;
 
-    const searchButton = filteringInput.find(".components-filtering-input-input-components>.icon-search");
-    searchButton.simulate("click");
+    await theUserTo.click(screen.getByTitle("general.search"));
     expect(startCallback).to.not.be.called;
   });
 
-  it("calls appropriate callbacks to different button clicks", () => {
+  it("calls appropriate callbacks to different button clicks", async () => {
     const cancelCallback = sinon.spy();
     const clearCallback = sinon.spy();
     const startCallback = sinon.spy();
 
-    const filteringInput = enzyme.mount(
+    const { rerender } = render(
       <FilteringInput
         status={FilteringInputStatus.ReadyToFilter}
         onFilterCancel={cancelCallback}
         onFilterClear={clearCallback}
         onFilterStart={startCallback} />);
 
-    const inputField = filteringInput.find("input[type=\"text\"]").first();
-    inputField.simulate("change", { target: { value: "test" } });
-    filteringInput.find(".components-filtering-input-input-components>.icon-search").simulate("click");
+    await theUserTo.type(screen.getByRole("textbox"), "test", {skipAutoClose: true});
+    await theUserTo.click(screen.getByTitle("general.search"));
     expect(startCallback).to.be.calledOnce;
-    filteringInput.setProps({ status: FilteringInputStatus.FilteringInProgress });
 
-    filteringInput.find(".components-filtering-input-input-components>.icon-close").simulate("click");
+    rerender(
+      <FilteringInput
+        status={FilteringInputStatus.FilteringInProgress}
+        onFilterCancel={cancelCallback}
+        onFilterClear={clearCallback}
+        onFilterStart={startCallback} />);
+
+    await theUserTo.click(screen.getByTitle("dialog.cancel"));
     expect(cancelCallback).to.be.calledOnce;
-    filteringInput.setProps({ status: FilteringInputStatus.ReadyToFilter });
 
-    inputField.simulate("change", { target: { value: "test" } });
-    filteringInput.find(".components-filtering-input-input-components>.icon-search").simulate("click");
-    filteringInput.setProps({ status: FilteringInputStatus.FilteringInProgress });
-    filteringInput.setProps({ status: FilteringInputStatus.FilteringFinished, resultSelectorProps: { onSelectedChanged: () => { }, resultCount: 0 } });
-    filteringInput.find(".components-filtering-input-clear").simulate("click");
+    rerender(
+      <FilteringInput
+        status={FilteringInputStatus.FilteringFinished}
+        resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }}
+        onFilterCancel={cancelCallback}
+        onFilterClear={clearCallback}
+        onFilterStart={startCallback} />);
+
+    await theUserTo.click(screen.getByTitle("general.search"));
+
     expect(clearCallback).to.be.calledOnce;
   });
 

@@ -4,115 +4,102 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
 import * as React from "react";
 import sinon from "sinon";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import TestUtils from "../TestUtils";
+import TestUtils, { childStructure, userEvent } from "../TestUtils";
 import { SpecialKey, StandardEditorNames } from "@itwin/appui-abstract";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("<EditorContainer />", () => {
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
 
-  beforeEach(() => {
-    sinon.restore();
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
   });
 
   after(() => {
     TestUtils.terminateUiComponents();
   });
 
-  it("should render", () => {
-    const propertyRecord = TestUtils.createPrimitiveStringProperty("Test1", "my value");
-    const sut = mount(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
-    sut.unmount();
-  });
-
-  it("renders correctly", () => {
-    const propertyRecord = TestUtils.createPrimitiveStringProperty("Test1", "my value");
-    shallow(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />).should.matchSnapshot();
-  });
-
   it("renders editor for 'text' type using TextEditor", () => {
     const propertyRecord = TestUtils.createPrimitiveStringProperty("Test1", "my value");
-    const wrapper = mount(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
-    expect(wrapper.find("input.components-text-editor").length).to.eq(1);
-    wrapper.unmount();
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
+
+    expect(screen.getByTestId("editor-container")).to.satisfy(childStructure("input.components-text-editor"));
   });
 
   it("calls onCommit for Enter", async () => {
     const propertyRecord = TestUtils.createPrimitiveStringProperty("Test1", "my value");
     const spyOnCommit = sinon.spy();
-    const wrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
-    const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.type(screen.getByTestId("components-text-editor"), "{Enter}");
+
     sinon.assert.calledOnce(spyOnCommit);
   });
 
   it("calls onCancel for Escape", async () => {
     const propertyRecord = TestUtils.createPrimitiveStringProperty("Test1", "my value");
     const spyOnCancel = sinon.spy();
-    const wrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={spyOnCancel} />);
-    const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={spyOnCancel} />);
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Escape });
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.type(screen.getByTestId("components-text-editor"), "{Escape}");
+
     sinon.assert.calledOnce(spyOnCancel);
   });
 
   it("calls onCancel for Cancel button in popup", async () => {
     const propertyRecord = TestUtils.createPrimitiveStringProperty("Test1", "my value", undefined, { name: StandardEditorNames.MultiLine });
     const spyOnCancel = sinon.spy();
-    const wrapper = mount(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={spyOnCancel} />);
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={spyOnCancel} />);
 
-    const button = wrapper.find(".components-popup-button");
-    expect(button.length).to.eq(1);
-    button.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-
-    const okButton = wrapper.find("button.components-popup-cancel-button");
-    expect(okButton.length).to.eq(1);
-    okButton.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByRole("button"));
+    await theUserTo.click(screen.getByTestId("components-popup-cancel-button"));
 
     sinon.assert.calledOnce(spyOnCancel);
-    wrapper.unmount();
   });
 
   it("calls onCommit for Tab", async () => {
     const propertyRecord = TestUtils.createPrimitiveStringProperty("Test1", "my value");
     const spyOnCommit = sinon.spy();
-    const wrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
-    const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} ignoreEditorBlur={true} />);
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Tab });
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.type(screen.getByTestId("components-text-editor"), "{tab}", {skipAutoClose: true});
 
     sinon.assert.calledOnce(spyOnCommit);
   });
 
-  it("processes other input node events", () => {
+  it("stopPropagation of other input node events", () => {
     const propertyRecord = TestUtils.createPrimitiveStringProperty("Test1", "my value");
-    const wrapper = mount(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
-    const inputNode = wrapper.find("input");
-    expect(inputNode.length).to.eq(1);
+    const blurSpy = sinon.spy();
+    const contextSpy = sinon.spy();
+    const keySpy = sinon.spy();
+    render(<div onBlur={blurSpy} onContextMenu={contextSpy} onKeyDown={keySpy} role={"button"} tabIndex={-1}>
+      <input data-testid={"test-control-input"} type={"text"}></input>
+      <EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />
+    </div>);
 
-    inputNode.simulate("blur");
-    inputNode.simulate("click");
-    inputNode.simulate("contextMenu");
+    const testInput = screen.getByTestId("components-text-editor");
 
-    const renderedWrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
-    const renderedInputNode = renderedWrapper.container.querySelector("input");
-    fireEvent.keyDown(renderedInputNode as HTMLElement, { key: SpecialKey.ArrowLeft });
-    wrapper.unmount();
+    fireEvent.blur(testInput);
+    expect(blurSpy).to.not.been.called;
+    fireEvent.contextMenu(testInput);
+    expect(contextSpy).to.not.been.called;
+    fireEvent.keyDown(testInput, { key: SpecialKey.ArrowLeft });
+    expect(keySpy).to.not.been.called;
+
+    // Sanity: Validating that a similar control would indeed cause these to be triggered.
+    const controlInput = screen.getByTestId("test-control-input");
+    fireEvent.blur(controlInput);
+    expect(blurSpy).to.have.been.called;
+    fireEvent.contextMenu(controlInput);
+    expect(contextSpy).to.have.been.called;
+    fireEvent.keyDown(controlInput, { key: SpecialKey.ArrowLeft });
+    expect(keySpy).to.have.been.called;
   });
 
 });

@@ -4,13 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { expect } from "chai";
-import { mount } from "enzyme";
 import sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import {
   MultilineTextPropertyValueRenderer, MultilineTextRenderer,
 } from "../../../components-react/properties/renderers/value/MultilineTextPropertyValueRenderer";
-import TestUtils from "../../TestUtils";
+import TestUtils, { styleMatch } from "../../TestUtils";
 
 describe("MultilineTextPropertyValueRenderer", () => {
   const renderer = new MultilineTextPropertyValueRenderer();
@@ -36,8 +35,8 @@ describe("MultilineTextPropertyValueRenderer", () => {
     });
 
     it("forwards context to props", () => {
-      const result = mount(<>{renderer.render(record, { style: { display: "none" } })}</>);
-      expect(result.find(MultilineTextRenderer).prop("style")).to.deep.equal({ display: "none" });
+      render(<>{renderer.render(record, { style: { color: "red" } })}</>);
+      expect(screen.getByTitle("test")).to.satisfy(styleMatch({color: "red"}));
     });
   });
 });

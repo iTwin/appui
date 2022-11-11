@@ -4,8 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
 import {
@@ -13,7 +12,7 @@ import {
   RangeEditorParams, SpecialKey, StandardEditorNames,
 } from "@itwin/appui-abstract";
 import { NumericInputEditor } from "../../components-react/editors/NumericInputEditor";
-import TestUtils, { MineDataController } from "../TestUtils";
+import TestUtils, { MineDataController, styleMatch, userEvent } from "../TestUtils";
 import { EditorContainer, PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 
@@ -22,31 +21,25 @@ describe("<NumericInputEditor />", () => {
     await TestUtils.initializeUiComponents();
   });
 
-  beforeEach(() => {
-    sinon.restore();
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
   });
 
   after(() => {
     TestUtils.terminateUiComponents();
   });
 
-  it("should render", () => {
-    mount(<NumericInputEditor />);
+  it("should render without record", () => {
+    render(<NumericInputEditor />);
+    expect(screen.getByRole("textbox")).to.satisfy(styleMatch({minWidth: "6em"}));
   });
 
-  it("renders correctly", () => {
-    shallow(<NumericInputEditor />).should.matchSnapshot();
-  });
-
-  it("getValue returns proper value after componentDidMount & setState", async () => {
+  it("display record value", async () => {
     const record = TestUtils.createNumericProperty("Test", 123, StandardEditorNames.NumericInput);
-    const wrapper = mount(<NumericInputEditor propertyRecord={record} />);
+    render(<NumericInputEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as NumericInputEditor;
-    expect(editor.state.value).to.equal(123);
-
-    wrapper.unmount();
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("123");
   });
 
   it("HTML input onChange updates value", () => {
@@ -62,21 +55,16 @@ describe("<NumericInputEditor />", () => {
     expect(input.value).to.eq("6");
   });
 
-  it("componentDidUpdate updates the value", async () => {
+  it("new props should update the display", async () => {
     const record = TestUtils.createNumericProperty("Test", 123, StandardEditorNames.NumericInput);
-    const wrapper = mount(<NumericInputEditor propertyRecord={record} />);
+    const { rerender } = render(<NumericInputEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as NumericInputEditor;
-    expect(editor.state.value).to.equal(123);
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("123");
 
-    const testValue = 987;
-    const newRecord = TestUtils.createNumericProperty("Test", testValue, StandardEditorNames.NumericInput);
-    wrapper.setProps({ propertyRecord: newRecord });
-    await TestUtils.flushAsyncOperations();
-    expect(editor.state.value).to.equal(testValue);
+    const newRecord = TestUtils.createNumericProperty("Test", 987, StandardEditorNames.NumericInput);
+    rerender(<NumericInputEditor propertyRecord={newRecord} />);
 
-    wrapper.unmount();
+    expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("987");
   });
 
   it("should support InputEditorSize params", async () => {
@@ -91,15 +79,11 @@ describe("<NumericInputEditor />", () => {
     editorParams.push(sizeParams);
 
     const record = TestUtils.createNumericProperty("Test", 123, StandardEditorNames.NumericInput, editorParams);
-    const wrapper = mount(<NumericInputEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
+    render(<NumericInputEditor propertyRecord={record} />);
 
-    const textEditor = wrapper.find(NumericInputEditor);
-    expect(textEditor.length).to.eq(1);
-    expect(textEditor.state("size")).to.eq(size);
-    expect(textEditor.state("maxLength")).to.eq(maxLength);
-
-    wrapper.unmount();
+    expect(screen.getByRole<HTMLInputElement>("textbox"))
+      .to.satisfy(styleMatch({minWidth: "3em"}))
+      .and.to.have.property("maxLength", 60);
   });
 
   it("should support Range Editor Params", async () => {
@@ -113,18 +97,20 @@ describe("<NumericInputEditor />", () => {
     };
     editorParams.push(rangeParams);
 
-    const record = TestUtils.createNumericProperty("Test", 123, StandardEditorNames.NumericInput, editorParams);
-    const wrapper = mount(<NumericInputEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
+    const record = TestUtils.createNumericProperty("Test", 95, StandardEditorNames.NumericInput, editorParams);
+    render(<NumericInputEditor propertyRecord={record} />);
 
-    const textEditor = wrapper.find(NumericInputEditor);
-    expect(textEditor.length).to.eq(1);
-    expect(textEditor.state("min")).to.eq(1);
-    expect(textEditor.state("max")).to.eq(100);
-    expect(textEditor.state("step")).to.eq(5);
-    expect(textEditor.state("precision")).to.eq(2);
+    expect(screen.getByRole("textbox")).to.have.property("value", "95.00");
 
-    wrapper.unmount();
+    const [up, down] = screen.getAllByRole("presentation");
+    await theUserTo.click(up);
+
+    expect(screen.getByRole("textbox")).to.have.property("value", "100.00");
+    await theUserTo.click(up);
+
+    expect(screen.getByRole("textbox")).to.have.property("value", "100.00");
+    await theUserTo.click(down);
+    expect(screen.getByRole("textbox")).to.have.property("value", "95.00");
   });
 
   it("renders editor for 'number' type and 'numeric-input' editor using NumericInputEditor", () => {

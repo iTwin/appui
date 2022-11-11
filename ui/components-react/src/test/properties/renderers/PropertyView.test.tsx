@@ -3,15 +3,19 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
 import sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import { ElementSeparator, Orientation } from "@itwin/core-react";
+import { Orientation } from "@itwin/core-react";
 import { PropertyView } from "../../../components-react";
-import TestUtils from "../../TestUtils";
+import TestUtils, { childStructure, selectorMatches, styleMatch, userEvent } from "../../TestUtils";
+import { render, screen } from "@testing-library/react";
 
 describe("PropertyView", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   let propertyRecord: PropertyRecord;
 
   before(async () => {
@@ -22,7 +26,7 @@ describe("PropertyView", () => {
 
   describe("Minimum column size disabled grid-template-columns", () => {
     it("renders label and value with custom ratio when it's provided", () => {
-      const propertyRenderer = mount(
+      render(
         <PropertyView
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
@@ -31,11 +35,12 @@ describe("PropertyView", () => {
           columnInfo={{ isMinimumColumnSizeEnabled: false, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
         />);
 
-      expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "60% auto");
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "60% auto"}));
     });
 
     it("renders two columns when onColumnRatioChanged callback is not provided", () => {
-      const propertyRenderer = mount(
+      render(
         <PropertyView
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
@@ -43,11 +48,12 @@ describe("PropertyView", () => {
           columnInfo={{ isMinimumColumnSizeEnabled: false, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
         />);
 
-      expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "25% auto");
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "25% auto"}));
     });
 
     it("renders three columns when orientation is horizontal and onColumnRatioChanged is provided", () => {
-      const propertyRenderer = mount(
+      render(
         <PropertyView
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
@@ -55,12 +61,12 @@ describe("PropertyView", () => {
           onColumnRatioChanged={() => ({ ratio: 0.5 })}
           columnInfo={{ isMinimumColumnSizeEnabled: false, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
         />);
-
-      expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "25% 1px auto");
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns: "25% 1px auto"}));
     });
 
     it("renders four columns if orientation is horizontal and action button renderers are passed", async () => {
-      const propertyRenderer = mount(
+      render(
         <PropertyView
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
@@ -70,11 +76,12 @@ describe("PropertyView", () => {
           columnInfo={{ isMinimumColumnSizeEnabled: false, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
         />);
 
-      expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "25% 1px auto auto");
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns:  "25% 1px auto auto"}));
     });
 
     it("renders four columns if orientation is horizontal, action button renderers are passed and columnInfo is not passed", async () => {
-      const propertyRenderer = mount(
+      render(
         <PropertyView
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
@@ -83,13 +90,14 @@ describe("PropertyView", () => {
           actionButtonRenderers={[(_) => undefined]}
         />);
 
-      expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "25% 1px auto auto");
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns:  "25% 1px auto auto"}));
     });
   });
 
   describe("Minimum column size enabled grid-template-columns", () => {
     it("renders label and value with custom ratio when it's provided", () => {
-      const propertyRenderer = mount(
+      render(
         <PropertyView
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
@@ -98,11 +106,12 @@ describe("PropertyView", () => {
           columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 20, minValueWidth: 40, actionButtonWidth: 50 }}
         />);
 
-      expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "minmax(20px, 60%) minmax(40px, 1fr)");
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns:  "minmax(20px, 60%) minmax(40px, 1fr)"}));
     });
 
     it("renders two min width columns when onColumnRatioChanged callback is not provided", () => {
-      const propertyRenderer = mount(
+      render(
         <PropertyView
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
@@ -110,11 +119,12 @@ describe("PropertyView", () => {
           columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 10, minValueWidth: 10, actionButtonWidth: 20 }}
         />);
 
-      expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "minmax(10px, 25%) minmax(10px, 1fr)");
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns:  "minmax(10px, 25%) minmax(10px, 1fr)"}));
     });
 
     it("renders three min width columns when orientation is horizontal and onColumnRatioChanged is provided", () => {
-      const propertyRenderer = mount(
+      render(
         <PropertyView
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
@@ -123,11 +133,12 @@ describe("PropertyView", () => {
           columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
         />);
 
-      expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "minmax(30px, 25%) 1px minmax(45px, 1fr)");
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns:  "minmax(30px, 25%) 1px minmax(45px, 1fr)"}));
     });
 
     it("renders four min width columns if orientation is horizontal and action button renderers are passed", async () => {
-      const propertyRenderer = mount(
+      render(
         <PropertyView
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
@@ -137,12 +148,13 @@ describe("PropertyView", () => {
           columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
         />);
 
-      expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "minmax(30px, 25%) 1px minmax(45px, 1fr) 60px");
+      expect(screen.getByRole("presentation"))
+        .satisfy(styleMatch({gridTemplateColumns:  "minmax(30px, 25%) 1px minmax(45px, 1fr) 60px"}));
     });
   });
 
   it("renders single column if orientation is vertical and action button renderers are not provided", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Vertical}
         propertyRecord={propertyRecord}
@@ -150,11 +162,12 @@ describe("PropertyView", () => {
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
       />);
 
-    expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "auto");
+    expect(screen.getByRole("presentation"))
+      .satisfy(styleMatch({gridTemplateColumns:  "auto"}));
   });
 
   it("renders two columns if orientation is vertical and action button renderers are provided", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Vertical}
         propertyRecord={propertyRecord}
@@ -163,11 +176,12 @@ describe("PropertyView", () => {
         actionButtonRenderers={[(_) => undefined]}
       />);
 
-    expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "auto auto");
+    expect(screen.getByRole("presentation"))
+      .satisfy(styleMatch({gridTemplateColumns:  "auto auto"}));
   });
 
   it("renders two auto columns if orientation is vertical, action button renderers are provided and columnInfo is provided", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Vertical}
         propertyRecord={propertyRecord}
@@ -177,11 +191,12 @@ describe("PropertyView", () => {
         columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
       />);
 
-    expect(propertyRenderer.childAt(0).get(0).props.style).to.have.property("gridTemplateColumns", "auto auto");
+    expect(screen.getByRole("presentation"))
+      .satisfy(styleMatch({gridTemplateColumns:  "auto auto"}));
   });
 
   it("renders label and value", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -189,12 +204,14 @@ describe("PropertyView", () => {
         valueElement={"Vilnius"}
       />);
 
-    expect(propertyRenderer.find(".components-property-record-label").first().text()).to.be.eq("City");
-    expect(propertyRenderer.find(".components-property-record-value").first().text()).to.be.eq("Vilnius");
+    expect(screen.getByText("City"))
+      .satisfy(selectorMatches("div.components-property-record-label"));
+    expect(screen.getByText("Vilnius"))
+      .satisfy(selectorMatches("div.components-property-record-value span"));
   });
 
   it("renders ElementSeparator when orientation is horizontal and onColumnRatioChanged is provided", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -202,37 +219,39 @@ describe("PropertyView", () => {
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
       />);
 
-    expect(propertyRenderer.childAt(0).hasClass("components-property-record--horizontal"), "class not found").to.be.true;
-    expect(propertyRenderer.find(ElementSeparator).first().exists(), "ElementSeparator not found").to.be.true;
+    expect(screen.getByRole("button"))
+      .satisfy(selectorMatches([
+        ".components-property-record--horizontal",
+        ".core-element-separator--horizontal",
+      ].join(" > ")));
   });
 
   it("does not render ElementSeparator when onColumnRatioChanged is not provided", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         labelElement={"label"}
       />);
 
-    expect(propertyRenderer.find(ElementSeparator).first().exists(), "ElementSeparator found").to.be.false;
+    expect(screen.queryByRole("button")).to.be.null;
   });
 
   it("does not render ElementSeparator when orientation is vertical", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Vertical}
         propertyRecord={propertyRecord}
         labelElement={"label"}
       />);
 
-    expect(propertyRenderer.childAt(0).hasClass("components-property-record--vertical"), "class not found").to.be.true;
-    expect(propertyRenderer.find(ElementSeparator).first().exists(), "ElementSeparator found").to.be.false;
+    expect(screen.queryByRole("button")).to.be.null;
   });
 
-  it("triggers selection if property gets clicked once", () => {
+  it("triggers selection if property gets clicked once", async () => {
     const onClick = sinon.spy();
 
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -240,15 +259,15 @@ describe("PropertyView", () => {
         labelElement={"label"}
       />);
 
-    propertyRenderer.find(".components-property-record--horizontal").first().simulate("click");
+    await theUserTo.click(screen.getByRole("presentation"));
 
     expect(onClick.callCount).to.be.eq(1);
   });
 
-  it("triggers deselection if property gets clicked twice", () => {
+  it("triggers deselection if property gets clicked twice", async () => {
     const onClick = sinon.spy();
 
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -256,28 +275,14 @@ describe("PropertyView", () => {
         labelElement={"label"}
       />);
 
-    const propertyElement = propertyRenderer.find(".components-property-record--horizontal").first();
-    propertyElement.simulate("click");
-    propertyElement.simulate("click");
+    await theUserTo.click(screen.getByRole("presentation"));
+    await theUserTo.click(screen.getByRole("presentation"));
 
     expect(onClick.callCount).to.be.eq(2);
   });
 
-  it("does not throw if property is clicked but onPropertySelected/Deselected props are not supplied", () => {
-    const propertyRenderer = mount(
-      <PropertyView
-        orientation={Orientation.Horizontal}
-        propertyRecord={propertyRecord}
-        labelElement={"label"}
-      />);
-
-    const propertyElement = propertyRenderer.find(".components-property-record--horizontal").first();
-    propertyElement.simulate("click");
-    propertyElement.simulate("click");
-  });
-
   it("renders as selected when isSelected prop is true", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -285,11 +290,12 @@ describe("PropertyView", () => {
         labelElement={"label"}
       />);
 
-    expect(propertyRenderer.find(".components--selected").first().exists()).to.be.true;
+    expect(screen.getByRole("presentation"))
+      .satisfy(selectorMatches(".components--selected"));
   });
 
   it("renders as clickable when onClick prop is given", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -297,11 +303,12 @@ describe("PropertyView", () => {
         labelElement={"label"}
       />);
 
-    expect(propertyRenderer.find(".components--clickable").first().exists()).to.be.true;
+    expect(screen.getByRole("presentation"))
+      .satisfy(selectorMatches(".components--clickable"));
   });
 
   it("renders as hoverable when isHoverable prop is true", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -309,41 +316,50 @@ describe("PropertyView", () => {
         isHoverable={true}
       />);
 
-    expect(propertyRenderer.find(".components--hoverable").first().exists()).to.be.true;
+    expect(screen.getByRole("presentation"))
+      .satisfy(selectorMatches(".components--hoverable"));
   });
 
   it("changes state on hovering if set to hoverable", async () => {
-    const propertyRenderer = mount(
+
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         labelElement={"label"}
         isHoverable={true}
+        actionButtonRenderers={[(props) => <div data-testid={"validator"}>{props.isPropertyHovered ? "Y" : "N"}</div>]}
       />);
-    expect(propertyRenderer.state("isHovered")).to.eq(false);
-    propertyRenderer.simulate("mouseenter");
-    expect(propertyRenderer.state("isHovered")).to.eq(true);
-    propertyRenderer.simulate("mouseleave");
-    expect(propertyRenderer.state("isHovered")).to.eq(false);
+
+    await theUserTo.hover(screen.getByRole("presentation"));
+    expect(screen.getByTestId("validator"))
+      .have.property("innerHTML", "Y");
+
+    await theUserTo.unhover(screen.getByRole("presentation"));
+    expect(screen.getByTestId("validator"))
+      .have.property("innerHTML", "N");
   });
 
   it("does not changes state on hovering if not set to hoverable", async () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         labelElement={"label"}
         isHoverable={false}
+        actionButtonRenderers={[(props) => <div data-testid={"validator"}>{props.isPropertyHovered ? "Y" : "N"}</div>]}
       />);
-    expect(propertyRenderer.state("isHovered")).to.eq(false);
-    propertyRenderer.simulate("mouseenter");
-    expect(propertyRenderer.state("isHovered")).to.eq(false);
-    propertyRenderer.simulate("mouseleave");
-    expect(propertyRenderer.state("isHovered")).to.eq(false);
+    await theUserTo.hover(screen.getByRole("presentation"));
+    expect(screen.getByTestId("validator"))
+      .have.property("innerHTML", "N");
+
+    await theUserTo.unhover(screen.getByRole("presentation"));
+    expect(screen.getByTestId("validator"))
+      .have.property("innerHTML", "N");
   });
 
   it("renders action button list if orientation is horizontal and action button renderers are passed", async () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -351,11 +367,12 @@ describe("PropertyView", () => {
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
         actionButtonRenderers={[(_) => undefined]}
       />);
-    expect(propertyRenderer.find(".components-property-action-button-list--horizontal").first().exists()).to.be.true;
+    expect(screen.getByRole("presentation"))
+      .satisfy(childStructure(".components-property-action-button-list--horizontal"));
   });
 
   it("renders action button list if orientation is vertical and action button renderers are passed", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Vertical}
         propertyRecord={propertyRecord}
@@ -363,45 +380,46 @@ describe("PropertyView", () => {
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
         actionButtonRenderers={[(_) => undefined]}
       />);
-    expect(propertyRenderer.find(".components-property-action-button-list--vertical").first().exists()).to.be.true;
+    expect(screen.getByRole("presentation"))
+      .satisfy(childStructure(".components-property-action-button-list--vertical"));
   });
 
   it("renders only label when property record is non primitive", () => {
     propertyRecord = TestUtils.createStructProperty("StructProperty");
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         labelElement={"City"}
         valueElement={"Vilnius"}
       />);
-    expect(propertyRenderer.find(".components-property-record-label").first().text()).to.be.eq("City");
-    expect(propertyRenderer.find(".components-property-record-value").exists()).to.be.false;
+    expect(screen.getByText("City", {selector: ".components-property-record-label"})).to.exist;
+    expect(screen.queryByText("Vilnius")).to.be.null;
   });
 
-  it("calls onContextMenu callback on property right click", () => {
+  it("calls onContextMenu callback on property right click", async () => {
     const callback = sinon.spy();
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         onContextMenu={callback}
         labelElement={"label"}
       />);
-    propertyRenderer.find(".components-property-record--horizontal").first().simulate("contextMenu");
+    await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseRight]"});
     expect(callback).to.be.calledOnceWith(propertyRecord);
   });
 
-  it("calls onRightClick callback on property right click", () => {
+  it("calls onRightClick callback on property right click", async () => {
     const callback = sinon.spy();
-    const propertyRenderer = mount(
+    render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         onRightClick={callback}
         labelElement={"label"}
       />);
-    propertyRenderer.find(".components-property-record--horizontal").first().simulate("contextMenu");
+    await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseRight]"});
     expect(callback).to.be.calledOnceWith(propertyRecord);
   });
 

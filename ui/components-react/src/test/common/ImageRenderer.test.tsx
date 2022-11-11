@@ -29,6 +29,12 @@ describe("ImageRenderer", () => {
   const hex = "89504e470d0a1a0a0000000d49484452000000080000000808020000004b6d29dc000000097048597300002e2300002e230178a53f76000000434944415408d7858dc109804010c4b26213c1fe4b93edc2f171277e3c9c67481858ac0088bea8fbe11a2e8c468206d887657956034766bbad3e66d1f4703bedfff9e76ec62115e8243cfe640000000049454e44ae426082";
   const hexBase64 = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAQ0lEQVQI14WNwQmAQBDEsmITwf5Lk+3C8XEnfjycZ0gYWKwAiL6o++EaLoxGggbYh2V5VgNHZrutPmbR9HA77f/5527GIRXoJDz+ZAAAAABJRU5ErkJggg==";
 
+  const renderedSvg = `<div><i class="icon core-svg-icon"><div><svg-loader src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMCIgd2lkdGg9IjQ4MCIgaGVpZ2h0PSI1NDMuMDMwMDMiIHZpZXdCb3g9IjAgMCAyNTcuMDAyIDI5Ny41IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KICAgICAgPGcgdHJhbnNmb3JtPSJtYXRyaXgoMC44NTI2ODExLDAsMCwwLjg1MjY4MTEsMTguOTMwNjMyLDIxLjkxMzI5OSkiPgogICAgICAgIDxwb2x5Z29uIHBvaW50cz0iOC4wMDMsMjE4LjQ5NiAwLDIyMi45OTggMCw3NC40OTcgOC4wMDMsNzguOTk5IDguMDAzLDIxOC40OTYgIi8+CiAgICAgIDwvZz4KICAgIDwvc3ZnPg=="><svg xml:space="preserve" viewBox="0 0 257.002 297.5" height="543.03003" width="480" version="1.0" xmlns="http://www.w3.org/2000/svg">
+      <g transform="matrix(0.8526811,0,0,0.8526811,18.930632,21.913299)">
+        <polygon points="8.003,218.496 0,222.998 0,74.497 8.003,78.999 8.003,218.496"></polygon>
+      </g>
+    </svg></svg-loader></div></i></div>`;
+
   describe("render", () => {
     it("renders binary", () => {
       const image = imageRenderer.render({ sourceType: "binary", fileFormat: "png", value: hex } as LoadedBinaryImage);
@@ -45,7 +51,7 @@ describe("ImageRenderer", () => {
       const image = imageRenderer.render({ sourceType: "svg", value: svg });
       const imageRender = render(<>{image}</>);
 
-      expect(imageRender.container.innerHTML).to.matchSnapshot();
+      expect(imageRender.container.innerHTML).to.eq(renderedSvg);
 
       // render a second time to see if it produces identical value
       const image2 = imageRenderer.render({ sourceType: "svg", value: svg });

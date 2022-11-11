@@ -61,16 +61,7 @@ export class ToggleEditor extends React.PureComponent<PropertyEditorProps, Toggl
     if (this._isMounted) {
       // istanbul ignore else
       if (this._isMounted) {
-        let toggleValue: boolean = false;
-
-        // istanbul ignore if
-        if (e.target.checked !== undefined)   // Needed for unit test environment
-          toggleValue = e.target.checked;
-        else {
-          // istanbul ignore else
-          if (e.target.value !== undefined && typeof e.target.value === "boolean")
-            toggleValue = e.target.value;
-        }
+        const toggleValue = !!e.target.checked;
 
         this.setState({
           toggleValue,
