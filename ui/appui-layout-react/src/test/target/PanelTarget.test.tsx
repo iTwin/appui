@@ -30,7 +30,7 @@ describe("useAllowedPanelTarget", () => {
     state = addTab(state, "t1", { allowedPanelTargets: ["right"] });
     const { result } = renderHook(() => useAllowedPanelTarget(), {
       wrapper: (props) => ( // eslint-disable-line react/display-name
-        <TestNineZoneProvider state={state}>
+        <TestNineZoneProvider defaultState={state}>
           <PanelSideContext.Provider value="left">
             {props.children}
           </PanelSideContext.Provider>
@@ -46,7 +46,7 @@ describe("useAllowedPanelTarget", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { result } = renderHook(() => useAllowedPanelTarget(), {
       wrapper: (props) => ( // eslint-disable-line react/display-name
-        <TestNineZoneProvider state={state}>
+        <TestNineZoneProvider defaultState={state}>
           <PanelSideContext.Provider value="left">
             <DraggedWidgetIdContext.Provider value="w1">
               {props.children}
@@ -65,7 +65,7 @@ describe("useAllowedPanelTarget", () => {
     state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
     const { result } = renderHook(() => useAllowedPanelTarget(), {
       wrapper: (props) => ( // eslint-disable-line react/display-name
-        <TestNineZoneProvider state={state}>
+        <TestNineZoneProvider defaultState={state}>
           <PanelSideContext.Provider value="left">
             <DraggedWidgetIdContext.Provider value="w1">
               {props.children}

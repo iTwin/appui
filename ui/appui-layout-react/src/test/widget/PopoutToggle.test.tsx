@@ -14,7 +14,7 @@ describe("PopoutToggle", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider state={state}>
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="w1">
           <PopoutToggle />
         </WidgetIdContext.Provider>
@@ -30,7 +30,7 @@ describe("PopoutToggle", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <WidgetIdContext.Provider value="w1">

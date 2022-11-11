@@ -3,7 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
-import { createNineZoneState, DragManager, DragManagerContext, NineZoneProvider } from "@itwin/appui-layout-react";
+import { createLayoutStore, DragManager, DragManagerContext, NineZoneProvider } from "@itwin/appui-layout-react";
+import { render } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -89,14 +90,14 @@ describe("ToolSettingsContent", () => {
     const activeToolSettingsProvider = new ToolUiProviderMock(new ConfigurableCreateInfo("test", "test", "test"), undefined);
     sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => activeToolSettingsProvider);
     sinon.stub(activeToolSettingsProvider, "toolSettingsNode").get(() => <div>Hello World</div>);
-    const state = createNineZoneState({
+    const layout = createLayoutStore({
       toolSettings: {
         type: "widget",
       },
     });
     const { container } = render(
       <NineZoneProvider
-        state={state}
+        layout={layout}
         dispatch={sinon.stub()}
         measure={() => new Rectangle()}
       >

@@ -24,7 +24,7 @@ describe("WidgetTitleBar", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
@@ -58,7 +58,7 @@ describe("WidgetTitleBar", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
@@ -92,7 +92,7 @@ describe("WidgetTitleBar", () => {
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
@@ -137,7 +137,7 @@ describe("WidgetTitleBar", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
@@ -175,7 +175,7 @@ describe("WidgetTitleBar", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <FloatingWidgetProvider

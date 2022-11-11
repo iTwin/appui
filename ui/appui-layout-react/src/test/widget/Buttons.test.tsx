@@ -17,7 +17,7 @@ describe("TabBarButtons", () => {
     state = addTab(state, "t1", { label: "t1-label" });
     state = addFloatingWidget(state, "fw1", ["t1"]);
     const wrapper = render(
-      <TestNineZoneProvider state={state}>
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="fw1">
           <TabBarButtons />
         </WidgetIdContext.Provider>
@@ -31,7 +31,7 @@ describe("TabBarButtons", () => {
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addFloatingWidget(state, "fw1", ["t1"]);
     const wrapper = render(
-      <TestNineZoneProvider state={state}>
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="fw1">
           <TabBarButtons />
         </WidgetIdContext.Provider>
@@ -45,7 +45,7 @@ describe("TabBarButtons", () => {
     let state = createNineZoneState();
     state = addFloatingWidget(state, "fw1", [toolSettingsTabId]);
     const wrapper = render(
-      <TestNineZoneProvider state={state}>
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="fw1">
           <TabBarButtons />
         </WidgetIdContext.Provider>
@@ -59,7 +59,7 @@ describe("TabBarButtons", () => {
     state = addTab(state, "t1", { label: "t1-label", canPopout: false });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
     const wrapper = render(
-      <TestNineZoneProvider state={state}>
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <TabBarButtons />
@@ -75,7 +75,7 @@ describe("TabBarButtons", () => {
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
     const wrapper = render(
-      <TestNineZoneProvider state={state}>
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <TabBarButtons />
@@ -92,7 +92,7 @@ describe("TabBarButtons", () => {
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
     const wrapper = render(
-      <TestNineZoneProvider state={state}>
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <TabBarButtons />

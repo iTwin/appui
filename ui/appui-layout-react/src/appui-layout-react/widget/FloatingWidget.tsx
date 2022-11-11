@@ -66,7 +66,10 @@ export interface FloatingWidgetProps {
 export function FloatingWidget(props: FloatingWidgetProps) {
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
-  const widget = useLayout((state) => state.widgets[widgetId]);
+  const widget = useLayout((state) => {
+    console.log("WIDGET", widgetId, state)
+    return state.widgets[widgetId];
+  });
   const floatingWidgetId = useFloatingWidgetId();
   assert(!!floatingWidgetId);
   const id = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].id);

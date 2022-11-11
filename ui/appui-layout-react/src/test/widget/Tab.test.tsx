@@ -20,7 +20,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <WidgetIdContext.Provider value="w1">
           <WidgetTabsEntryContext.Provider value={{
@@ -42,7 +42,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <WidgetIdContext.Provider value="w1">
           <WidgetTabsEntryContext.Provider value={{
@@ -64,7 +64,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"], { minimized: true });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <WidgetIdContext.Provider value="w1">
           <WidgetTabsEntryContext.Provider value={{
@@ -84,7 +84,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <WidgetIdContext.Provider value="w1">
           <WidgetTabsEntryContext.Provider value={{
@@ -104,7 +104,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <WidgetIdContext.Provider value="w1">
           <WidgetTabsEntryContext.Provider value={{
@@ -124,7 +124,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <ShowWidgetIconContext.Provider value={true} >
           <WidgetIdContext.Provider value="w1">
@@ -146,7 +146,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <ShowWidgetIconContext.Provider value={true} >
           <WidgetIdContext.Provider value="w1">
@@ -168,7 +168,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         tab={<WidgetTab badge="Badge" />}
       >
         <WidgetIdContext.Provider value="w1">
@@ -193,7 +193,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <PanelSideContext.Provider value="left">
@@ -229,7 +229,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <PanelSideContext.Provider value="left">
@@ -266,7 +266,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <WidgetContext.Provider value={{ measure: () => new Rectangle() }}>
@@ -295,7 +295,7 @@ describe("WidgetTab", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <WidgetIdContext.Provider value="w1">
@@ -318,7 +318,7 @@ describe("WidgetTab", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <WidgetIdContext.Provider value="w1">

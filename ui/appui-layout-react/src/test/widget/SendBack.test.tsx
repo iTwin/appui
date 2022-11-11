@@ -14,7 +14,7 @@ describe("SendBack", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider state={state}>
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
@@ -30,7 +30,7 @@ describe("SendBack", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <WidgetIdContext.Provider value="w1">

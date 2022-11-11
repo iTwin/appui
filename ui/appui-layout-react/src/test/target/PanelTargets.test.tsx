@@ -4,17 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, NineZoneState, PanelSideContext } from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, PanelSideContext } from "../../appui-layout-react";
 import { PanelTargets } from "../../appui-layout-react/target/PanelTargets";
-import { TestNineZoneProvider } from "../Providers";
+import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { addTabs } from "../Utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
-interface WrapperProps {
-  state?: NineZoneState;
-}
-
-function Wrapper(props: React.PropsWithChildren<WrapperProps>) {
+function Wrapper(props: React.PropsWithChildren<TestNineZoneProviderProps>) {
   const { children, ...other } = props;
   return (
     <TestNineZoneProvider {...other}>
@@ -43,7 +39,7 @@ describe("PanelTargets", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <Wrapper state={state}>
+      <Wrapper defaultState={state}>
         <PanelTargets />
       </Wrapper>,
     );
@@ -58,7 +54,7 @@ describe("PanelTargets", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     const { container } = render(
-      <Wrapper state={state}>
+      <Wrapper defaultState={state}>
         <PanelTargets />
       </Wrapper>,
     );
@@ -71,7 +67,7 @@ describe("PanelTargets", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <Wrapper state={state}>
+      <Wrapper defaultState={state}>
         <PanelTargets />
       </Wrapper>,
     );

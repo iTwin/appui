@@ -11,13 +11,13 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { BentleyError, Logger } from "@itwin/core-bentley";
 import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager, UiItemsProvider, WidgetState } from "@itwin/appui-abstract";
 import { Size, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-react";
-import { addFloatingWidget, addPanelWidget, addTab, createNineZoneState, getUniqueId, NineZoneState, toolSettingsTabId } from "@itwin/appui-layout-react";
+import { addFloatingWidget, addPanelWidget, addTab, createLayoutStore, createNineZoneState, getUniqueId, NineZone, NineZoneState, toolSettingsTabId } from "@itwin/appui-layout-react";
 import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
 import {
   ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, expandWidget, FrontstageConfig, FrontstageDef,
   FrontstageManager, FrontstageProvider, getWidgetId, initializeNineZoneState, initializePanel, isFrontstageStateSettingResult, ModalFrontstageComposer,
   packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanelDef, UiFramework, UiSettingsProviderProps, UiStateStorageHandler,
-  useActiveModalFrontstageInfo, useFrontstageManager, useNineZoneDispatch, useNineZoneState, useSavedFrontstageState, useSaveFrontstageSettings, useUpdateNineZoneSize,
+  useActiveModalFrontstageInfo, useFrontstageManager, useLayoutStore, useNineZoneDispatch, useSavedFrontstageState, useSaveFrontstageSettings, useUpdateNineZoneSize,
   WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState,
 } from "../../appui-react";
 import TestUtils, { childStructure, storageMock, stubRaf, styleMatch, UiStateStorageStub } from "../TestUtils";
@@ -172,7 +172,7 @@ describe("Frontstage local storage wrapper", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup({ localization: new EmptyLocalization() });
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
@@ -273,7 +273,7 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should render", () => {
         const frontstageDef = new FrontstageDef();
-        const { container } =render(<Provider store={TestUtils.store}><ActiveFrontstageDefProvider frontstageDef={frontstageDef} /></Provider>);
+        const { container } = render(<Provider store={TestUtils.store}><ActiveFrontstageDefProvider frontstageDef={frontstageDef} /></Provider>);
         expect(container).to.satisfy(childStructure([
           ".nz-widgetPanels-appContent",
           ".nz-widgetPanels-centerContent .uifw-widgetPanels-toolbars",
@@ -303,10 +303,10 @@ describe("Frontstage local storage wrapper", () => {
 
         const { container, rerender } = render(<Provider store={TestUtils.store}><ActiveFrontstageDefProvider frontstageDef={frontstageDef} /></Provider>);
         expect(container.querySelector(".nz-outline-panelOutline.nz-hidden.nz-left"))
-          .satisfy(styleMatch({width: "482px"}));
+          .satisfy(styleMatch({ width: "482px" }));
         rerender(<Provider store={TestUtils.store}><ActiveFrontstageDefProvider frontstageDef={newFrontstageDef} /></Provider>);
         expect(container.querySelector(".nz-outline-panelOutline.nz-hidden.nz-left"))
-          .satisfy(styleMatch({width: "482px"}));
+          .satisfy(styleMatch({ width: "482px" }));
       });
     });
 
@@ -413,13 +413,13 @@ describe("Frontstage local storage wrapper", () => {
       });
     });
 
-    describe("useNineZoneState", () => {
+    describe("useLayoutStore", () => {
       it("should return initial nineZoneState", () => {
         const frontstageDef = new FrontstageDef();
         const nineZoneState = createNineZoneState();
         frontstageDef.nineZoneState = nineZoneState;
-        const { result } = renderHook(() => useNineZoneState(frontstageDef));
-        nineZoneState?.should.eq(result.current);
+        const { result } = renderHook(() => useLayoutStore(frontstageDef));
+        nineZoneState?.should.eq(result.current.get());
       });
 
       it("should return nineZoneState of provided frontstageDef", () => {
@@ -429,11 +429,11 @@ describe("Frontstage local storage wrapper", () => {
         const newFrontstageDef = new FrontstageDef();
         const newNineZoneState = createNineZoneState();
         newFrontstageDef.nineZoneState = newNineZoneState;
-        const { result, rerender } = renderHook((def: FrontstageDef) => useNineZoneState(def), {
+        const { result, rerender } = renderHook((def: FrontstageDef) => useLayoutStore(def), {
           initialProps: frontstageDef,
         });
         rerender(newFrontstageDef);
-        newNineZoneState?.should.eq(result.current);
+        newNineZoneState?.should.eq(result.current.get());
       });
 
       it("should return updated nineZoneState", () => {
@@ -442,11 +442,11 @@ describe("Frontstage local storage wrapper", () => {
         const nineZoneState = createNineZoneState();
         const newNineZoneState = createNineZoneState();
         frontstageDef.nineZoneState = nineZoneState;
-        const { result } = renderHook(() => useNineZoneState(frontstageDef));
+        const { result } = renderHook(() => useLayoutStore(frontstageDef));
         act(() => {
           frontstageDef.nineZoneState = newNineZoneState;
         });
-        newNineZoneState?.should.eq(result.current);
+        newNineZoneState?.should.eq(result.current.get());
       });
 
       it("should handle trigger onWidgetStateChangedEvent", () => {
@@ -572,11 +572,11 @@ describe("Frontstage local storage wrapper", () => {
         const nineZoneState = createNineZoneState();
         const newNineZoneState = createNineZoneState();
         frontstageDef.nineZoneState = nineZoneState;
-        const { result } = renderHook(() => useNineZoneState(frontstageDef));
+        const { result } = renderHook(() => useLayoutStore(frontstageDef));
         act(() => {
           (new FrontstageDef()).nineZoneState = newNineZoneState;
         });
-        nineZoneState?.should.eq(result.current);
+        nineZoneState?.should.eq(result.current.get());
       });
     });
 
@@ -676,7 +676,8 @@ describe("Frontstage local storage wrapper", () => {
         frontstageDef.nineZoneState = createNineZoneState();
         await UiFramework.setUiStateStorage(uiStateStorage);
 
-        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef), {
+        const layout = createLayoutStore();
+        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef, layout), {
           wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         fakeTimers.tick(1000);
@@ -697,7 +698,9 @@ describe("Frontstage local storage wrapper", () => {
         frontstageDef.nineZoneState = produce(createNineZoneState(), (draft) => {
           draft.draggedTab = createDraggedTabState("t1");
         });
-        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef), {
+
+        const layout = createLayoutStore();
+        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef, layout), {
           wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         fakeTimers.tick(1000);

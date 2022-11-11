@@ -27,12 +27,15 @@ export function WidgetContentRenderers() {
       {tabEntries.map(([, tab]) => {
         const container = widgetContentContainers[tab.id];
         const children = tab.id === toolSettingsTabId ? toolSettingsContent : widgetContent;
-        return <WidgetContentRenderer
-          children={children}
-          key={tab.id}
-          renderTo={container}
-          tabId={tab.id}
-        />;
+        return (
+          <WidgetContentRenderer
+            key={tab.id}
+            renderTo={container}
+            tabId={tab.id}
+          >
+            {children}
+          </WidgetContentRenderer>
+        );
       })}
     </>
   );

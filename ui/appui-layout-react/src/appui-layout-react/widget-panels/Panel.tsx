@@ -13,7 +13,7 @@ import produce from "immer";
 import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import { DraggedPanelSideContext } from "../base/DragManager";
-import { NineZoneDispatchContext, sideToCursorType } from "../base/NineZone";
+import { NineZoneDispatchContext } from "../base/NineZone";
 import { WidgetState } from "../state/WidgetState";
 import { PanelWidget, PanelWidgetProps } from "../widget/PanelWidget";
 import { WidgetPanelGrip } from "./Grip";
@@ -21,7 +21,7 @@ import { PanelTargets } from "../target/PanelTargets";
 import { SectionOutline } from "../outline/SectionOutline";
 import { PanelOutline } from "../outline/PanelOutline";
 import { SectionTargets } from "../target/SectionTargets";
-import { isHorizontalPanelState, PanelState } from "../state/PanelState";
+import { isHorizontalPanelState } from "../state/PanelState";
 import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
@@ -158,6 +158,7 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
 }) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const side = React.useContext(PanelSideContext)!;
   const panel = useLayout((state) => state.panels[side]);
+  panel.side === "right" && console.log(panel.side, panel.widgets);
   const { handleBeforeTransition, handlePrepareTransition, handleTransitionEnd, getRef, sizes, ...animatePanelWidgets } = useAnimatePanelWidgets();
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   const dispatch = React.useContext(NineZoneDispatchContext);

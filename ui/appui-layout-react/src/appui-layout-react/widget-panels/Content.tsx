@@ -45,4 +45,4 @@ export const WidgetPanelsContent = React.forwardRef<HTMLDivElement, WidgetPanels
       </div>
     );
   }
-)
+);

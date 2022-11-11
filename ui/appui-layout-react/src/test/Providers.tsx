@@ -5,30 +5,32 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  createNineZoneState,
+  createLayoutStore,
   DragManager,
   DragManagerContext,
   NineZoneProvider,
   NineZoneProviderProps,
+  NineZoneState,
 } from "../appui-layout-react";
 import { Point, Rectangle, Size } from "@itwin/core-react";
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 /** @internal */
-export interface TestNineZoneProviderProps extends PartialBy<NineZoneProviderProps, "measure" | "state" | "dispatch"> {
+export interface TestNineZoneProviderProps extends PartialBy<NineZoneProviderProps, "measure" | "layout" | "dispatch"> {
   dragManagerRef?: React.Ref<DragManager>;
+  defaultState?: NineZoneState;
 }
 
 /** @internal */
 export function TestNineZoneProvider(props: TestNineZoneProviderProps) {
   const { children, dragManagerRef, ...otherProps } = props;
-  const [state] = React.useState(() => createNineZoneState());
+  const [layout] = React.useState(() => createLayoutStore(props.defaultState));
   const [dispatch] = React.useState(() => sinon.stub());
   const [measure] = React.useState(() => () => new Rectangle());
   return (
     <NineZoneProvider
-      state={state}
+      layout={layout}
       dispatch={dispatch}
       measure={measure}
       {...otherProps}

@@ -16,9 +16,7 @@ import { FloatingWidget, FloatingWidgetResizeHandle } from "../widget/FloatingWi
 import { DraggedPanelSideContext, DraggedResizeHandleContext, DraggedWidgetIdContext, DragProvider } from "./DragManager";
 import { WidgetTab } from "../widget/Tab";
 import { NineZoneAction } from "../state/NineZoneAction";
-import { NineZoneState } from "../state/NineZoneState";
-import { createStore } from "./Store";
-import { LayoutStoreContext, useLayout } from "./LayoutStore";
+import { LayoutStore, LayoutStoreContext, useLayout } from "./LayoutStore";
 
 /** @internal */
 export type NineZoneDispatch = (action: NineZoneAction) => void;
@@ -27,7 +25,7 @@ export type NineZoneDispatch = (action: NineZoneAction) => void;
 export interface NineZoneProps {
   children?: React.ReactNode;
   dispatch: NineZoneDispatch;
-  state: NineZoneState;
+  layout: LayoutStore;
   labels?: NineZoneLabels;
   toolSettingsContent?: React.ReactNode;
   widgetContent?: React.ReactNode;
@@ -81,12 +79,8 @@ const floatingWidget = <FloatingWidget />;
 
 /** @internal */
 export function NineZoneProvider(props: NineZoneProviderProps) {
-  const [store] = React.useState(() => createStore(props.state));
-  React.useEffect(() => {
-    store.set(props.state);
-  }, [props.state]);
   return (
-    <LayoutStoreContext.Provider value={store}>
+    <LayoutStoreContext.Provider value={props.layout}>
       <NineZoneDispatchContext.Provider value={props.dispatch}>
         <NineZoneLabelsContext.Provider value={props.labels}>
           <UiIsVisibleContext.Provider value={!!props.uiIsVisible}>

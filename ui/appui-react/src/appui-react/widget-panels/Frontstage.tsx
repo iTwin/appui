@@ -16,10 +16,9 @@ import { StagePanelLocation, StagePanelSection, UiItemsManager, WidgetState } fr
 import { Rectangle, RectangleProps, Size, SizeProps, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import {
-  addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createNineZoneState, floatingWidgetBringToFront,
-  FloatingWidgetHomeState,
-  FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
-  isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, NineZone, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, NineZoneStateReducer, PanelSide,
+  addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createLayoutStore, createNineZoneState, floatingWidgetBringToFront,
+  FloatingWidgetHomeState, FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
+  isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, LayoutStore, NineZone, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, NineZoneStateReducer, PanelSide,
   panelSides, removeTab, removeTabFromWidget, TabState, toolSettingsTabId, WidgetPanels,
 } from "@itwin/appui-layout-react";
 import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs, useActiveFrontstageDef } from "../frontstage/FrontstageDef";
@@ -79,34 +78,22 @@ const toolSettingsContent = <ToolSettingsContent />;
 const widgetPanelsFrontstage = <WidgetPanelsFrontstageComponent />;
 
 /** @internal */
-export function useNineZoneState(frontstageDef: FrontstageDef) {
+export function useLayoutStore(frontstageDef: FrontstageDef) {
   const lastFrontstageDef = React.useRef(frontstageDef);
-  const [nineZone, setNineZone] = React.useState(frontstageDef.nineZoneState);
+  const [layout] = React.useState(() => createLayoutStore(frontstageDef.nineZoneState));
   React.useEffect(() => {
-    setNineZone(frontstageDef.nineZoneState);
+    layout.set(frontstageDef.nineZoneState || defaultNineZone);
     lastFrontstageDef.current = frontstageDef;
   }, [frontstageDef]);
   React.useEffect(() => {
     const listener = (args: FrontstageNineZoneStateChangedEventArgs) => {
       if (args.frontstageDef !== frontstageDef || frontstageDef.isStageClosing || frontstageDef.isApplicationClosing)
         return;
-      setNineZone(args.state);
+      layout.set(args.state || defaultNineZone);
     };
     return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(listener);
   }, [frontstageDef]);
-  return lastFrontstageDef.current === frontstageDef ? nineZone : frontstageDef.nineZoneState;
-}
-
-/** @returns Defined NineZoneState with fallback to last defined and default NineZoneState.
- * @internal
- */
-function useCachedNineZoneState(nineZone: NineZoneState | undefined): NineZoneState {
-  const cached = React.useRef<NineZoneState>(nineZone || defaultNineZone);
-  React.useEffect(() => {
-    if (nineZone)
-      cached.current = nineZone;
-  }, [nineZone]);
-  return nineZone || cached.current;
+  return layout;
 }
 
 /** Update in-memory NineZoneState of newly activated frontstage with up to date size.
@@ -209,12 +196,11 @@ const floatingWidgetElement = <FloatingWidget />;
 
 /** @internal */
 export function ActiveFrontstageDefProvider({ frontstageDef }: { frontstageDef: FrontstageDef }) {
-  let nineZone = useNineZoneState(frontstageDef);
-  nineZone = useCachedNineZoneState(nineZone);
+  const layout = useLayoutStore(frontstageDef);
   const dispatch = useNineZoneDispatch(frontstageDef);
   useUpdateNineZoneSize(frontstageDef);
   useSavedFrontstageState(frontstageDef);
-  useSaveFrontstageSettings(frontstageDef);
+  useSaveFrontstageSettings(frontstageDef, layout);
   useItemsManager(frontstageDef);
   const labels = useLabels();
   const uiIsVisible = useUiVisibility();
@@ -246,7 +232,7 @@ export function ActiveFrontstageDefProvider({ frontstageDef }: { frontstageDef: 
       <NineZone
         dispatch={dispatch}
         labels={labels}
-        state={nineZone}
+        layout={layout}
         tab={tabElement}
         floatingWidget={floatingWidgetElement}
         showWidgetIcon={showWidgetIcon}
@@ -1067,9 +1053,22 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   }, [frontstageDef]);
 }
 
+function useNineZone(store: LayoutStore) {
+  const [state, setState] = React.useState(() => store.get());
+  React.useEffect(() => {
+    setState(store.get());
+  }, [store]);
+  React.useEffect(() => {
+    return store.onChanged(() => {
+      setState(store.get());
+    });
+  }, [store]);
+  return state;
+}
+
 /** @internal */
-export function useSaveFrontstageSettings(frontstageDef: FrontstageDef) {
-  const nineZone = useNineZoneState(frontstageDef);
+export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, layout: LayoutStore) {
+  const nineZone = useNineZone(layout);
   const uiSettingsStorage = useUiStateStorageHandler();
   const saveSetting = React.useMemo(() => {
     return debounce(async (frontstage: FrontstageDef, state: NineZoneState) => {

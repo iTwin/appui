@@ -4,21 +4,20 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, DraggedWidgetIdContext, NineZoneState, WidgetIdContext, WidgetState } from "../../appui-layout-react";
-import { TestNineZoneProvider } from "../Providers";
+import { addPanelWidget, addTab, createNineZoneState, DraggedWidgetIdContext, WidgetIdContext, WidgetState } from "../../appui-layout-react";
+import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { TabTarget } from "../../appui-layout-react/target/TabTarget";
 import { renderHook } from "@testing-library/react-hooks";
 import { useAllowedWidgetTarget } from "../../appui-layout-react/target/useAllowedWidgetTarget";
 import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
-interface WrapperProps {
-  state: NineZoneState;
+interface WrapperProps extends TestNineZoneProviderProps {
   widgetId: WidgetState["id"];
 }
 
-function Wrapper({ children, state, widgetId }: React.PropsWithChildren<WrapperProps>) {
+function Wrapper({ children, widgetId, ...other }: React.PropsWithChildren<WrapperProps>) {
   return (
-    <TestNineZoneProvider state={state}>
+    <TestNineZoneProvider {...other}>
       <WidgetIdContext.Provider value={widgetId}>
         {children}
       </WidgetIdContext.Provider>
@@ -34,7 +33,7 @@ describe("TabTarget", () => {
     const { container } = render(
       <TabTarget />,
       {
-        wrapper: (props) => <Wrapper state={state} widgetId="w1" {...props} />, // eslint-disable-line react/display-name
+        wrapper: (props) => <Wrapper defaultState={state} widgetId="w1" {...props} />, // eslint-disable-line react/display-name
       }
     );
     container.getElementsByClassName("nz-target-tabTarget").length.should.eq(1);
@@ -49,7 +48,7 @@ describe("TabTarget", () => {
     state = addPanelWidget(state, "right", "w2", ["t2", "t3"]);
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {
       wrapper: (props) => ( // eslint-disable-line react/display-name
-        <TestNineZoneProvider state={state}>
+        <TestNineZoneProvider defaultState={state}>
           <DraggedWidgetIdContext.Provider value="w2">
             {props.children}
           </DraggedWidgetIdContext.Provider>
@@ -68,7 +67,7 @@ describe("TabTarget", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {
       wrapper: (props) => ( // eslint-disable-line react/display-name
-        <TestNineZoneProvider state={state}>
+        <TestNineZoneProvider defaultState={state}>
           {props.children}
         </TestNineZoneProvider>
       ),
@@ -85,7 +84,7 @@ describe("TabTarget", () => {
     state = addPanelWidget(state, "left", "w2", ["t2", "t3", "t4"]);
     const { result } = renderHook(() => useAllowedWidgetTarget("w1"), {
       wrapper: (props) => ( // eslint-disable-line react/display-name
-        <TestNineZoneProvider state={state}>
+        <TestNineZoneProvider defaultState={state}>
           <DraggedWidgetIdContext.Provider value="w2">
             {props.children}
           </DraggedWidgetIdContext.Provider>

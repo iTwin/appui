@@ -50,9 +50,16 @@ export function TabTarget() {
 
 function useTabIndex() {
   const widgetId = React.useContext(WidgetIdContext);
-  assert(!!widgetId);
-  const widget = useLayout((state) => state.widgets[widgetId]);
   const tabId = React.useContext(TabIdContext);
+  const widget = useLayout((state) => {
+    console.log("useTabIndex", widgetId, state)
+    const widget = state.widgets[widgetId];
+    if (!widget) {
+      let i = 0;
+      i++;
+    }
+    return widget;
+  });
   return React.useMemo(() => {
     return widget.tabs.findIndex((id) => id === tabId);
   }, [widget, tabId]);

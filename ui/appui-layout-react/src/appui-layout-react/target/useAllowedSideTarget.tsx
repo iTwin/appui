@@ -23,7 +23,7 @@ export function useAllowedSideTarget(side: PanelSide | undefined, allowedTarget:
 export function isAllowedSideTarget(state: NineZoneState, draggedWidget: string | undefined, side: PanelSide | undefined, allowedTarget: boolean) {
   const draggedTab = state.draggedTab;
   const tabsState = state.tabs;
-  const widgetsState = state.widgets
+  const widgetsState = state.widgets;
 
   if (!side) return allowedTarget;
 

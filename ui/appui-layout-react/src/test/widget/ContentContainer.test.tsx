@@ -25,7 +25,7 @@ describe("WidgetContentContainer ", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"], { minimized: true });
     const { container } = render(
-      <TestNineZoneProvider state={state}>
+      <TestNineZoneProvider defaultState={state}>
         <WidgetContentManagerContext.Provider value={widgetContentManager}>
           <WidgetIdContext.Provider value="w1">
             <WidgetContentContainer />

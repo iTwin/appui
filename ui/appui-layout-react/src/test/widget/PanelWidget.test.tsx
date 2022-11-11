@@ -5,20 +5,20 @@
 import produce from "immer";
 import * as React from "react";
 import * as sinon from "sinon";
-import { render } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
-  addPanelWidget, addTab, createNineZoneState, HorizontalPanelSide, NineZoneState, PanelSide, PanelSideContext, PanelWidget,
+  addPanelWidget, addTab, createLayoutStore, createNineZoneState, HorizontalPanelSide, NineZoneDispatch, PanelSide, PanelSideContext, PanelWidget,
+  PanelWidgetDragStartAction,
   TabState, useBorders, useMode, VerticalPanelSide, WidgetContentManagerContext, WidgetContentManagerContextArgs,
 } from "../../appui-layout-react";
-import { TestNineZoneProvider } from "../Providers";
+import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { addTabs } from "../Utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import { BeEvent } from "@itwin/core-bentley";
+import * as NineZoneModule from "../../appui-layout-react/base/NineZone";
 
-/* eslint-disable jsdoc/require-jsdoc */
-
-export const defaultProps = {
+const defaultProps = {
   onBeforeTransition: () => { },
   onPrepareTransition: () => { },
   onTransitionEnd: () => { },
@@ -26,20 +26,16 @@ export const defaultProps = {
   transition: undefined,
 };
 
-interface ProviderProps {
-  children?: React.ReactNode;
-  state: NineZoneState;
+interface ProviderProps extends TestNineZoneProviderProps {
   side?: PanelSide;
 }
 
-function Provider(props: ProviderProps) {
-  const side = props.side || "left";
+function Provider({ children, side, ...other }: ProviderProps) {
+  side = side || "left";
   return (
-    <TestNineZoneProvider
-      state={props.state}
-    >
+    <TestNineZoneProvider {...other}>
       <PanelSideContext.Provider value={side}>
-        {props.children}
+        {children}
       </PanelSideContext.Provider>
     </TestNineZoneProvider>
   );
@@ -52,7 +48,7 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <Provider
-        state={state}
+        defaultState={state}
       >
         <PanelWidget widgetId="w1" {...defaultProps} />
       </Provider>,
@@ -66,7 +62,7 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"], { minimized: true });
     const { container } = render(
       <Provider
-        state={state}
+        defaultState={state}
       >
         <PanelWidget widgetId="w1" {...defaultProps} />
       </Provider>,
@@ -82,7 +78,7 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     const { container } = render(
       <Provider
-        state={state}
+        defaultState={state}
       >
         <PanelWidget widgetId="w1" {...defaultProps} />
       </Provider>,
@@ -98,7 +94,7 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "top", "w2", ["t2"]);
     const { container } = render(
       <Provider
-        state={state}
+        defaultState={state}
         side="top"
       >
         <PanelWidget widgetId="w1" {...defaultProps} />
@@ -113,7 +109,7 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     const { container } = render(
       <Provider
-        state={state}
+        defaultState={state}
         side="top"
       >
         <PanelWidget
@@ -133,7 +129,7 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     const { container } = render(
       <Provider
-        state={state}
+        defaultState={state}
         side="top"
       >
         <PanelWidget
@@ -155,9 +151,10 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "top", "w2", ["t2"]);
 
     const spy = sinon.spy();
-    const { rerender } = render(
+    const layout = createLayoutStore(state);
+    render(
       <Provider
-        state={state}
+        layout={layout}
         side="top"
       >
         <PanelWidget
@@ -172,18 +169,9 @@ describe("PanelWidget", () => {
       draft.tabs.t1.preferredPanelWidgetSize = undefined;
     });
 
-    rerender(
-      <Provider
-        state={state}
-        side="top"
-      >
-        <PanelWidget
-          widgetId="w1"
-          {...defaultProps}
-          onBeforeTransition={spy}
-        />
-      </Provider>,
-    );
+    act(() => {
+      layout.set(state);
+    });
 
     sinon.assert.calledOnce(spy);
   });
@@ -204,7 +192,7 @@ describe("PanelWidget", () => {
     };
     render(
       <Provider
-        state={state}
+        defaultState={state}
         side="top"
       >
         <WidgetContentManagerContext.Provider value={widgetContentManager}>
@@ -221,6 +209,137 @@ describe("PanelWidget", () => {
 
     sinon.assert.calledOnce(spy);
   });
+
+  describe("PANEL_WIDGET_DRAG_START", () => {
+    it("should dispatch", () => {
+      sinon.stub(NineZoneModule, "getUniqueId").returns("newId");
+      const dispatch = sinon.stub<NineZoneDispatch>();
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addPanelWidget(state, "left", "w1", ["t1"]);
+      const { container } = render(
+        <TestNineZoneProvider
+          defaultState={state}
+          dispatch={dispatch}
+        >
+          <PanelSideContext.Provider value="left">
+            <PanelWidget widgetId="w1" {...defaultProps} />
+          </PanelSideContext.Provider>
+        </TestNineZoneProvider>,
+      );
+
+      const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
+      const handle = titleBar.getElementsByClassName("nz-handle")[0];
+      act(() => {
+        fireEvent.mouseDown(handle);
+        fireEvent.mouseMove(handle);
+      });
+
+      sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
+        type: "PANEL_WIDGET_DRAG_START",
+        id: "w1",
+        newFloatingWidgetId: "newId",
+      }));
+    });
+
+    it("should adjust bounds to keep widget under pointer", () => {
+      const dispatch = sinon.stub<NineZoneDispatch>();
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addPanelWidget(state, "left", "w1", ["t1"]);
+      const { container } = render(
+        <TestNineZoneProvider
+          defaultState={state}
+          dispatch={dispatch}
+        >
+          <PanelSideContext.Provider value="left">
+            <PanelWidget widgetId="w1" {...defaultProps} />
+          </PanelSideContext.Provider>
+        </TestNineZoneProvider>,
+      );
+
+      const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
+      const handle = titleBar.getElementsByClassName("nz-handle")[0];
+      act(() => {
+        fireEvent.mouseDown(handle, { clientX: 230 });
+        fireEvent.mouseMove(handle, { clientX: 230 });
+      });
+
+      sinon.assert.calledOnce(dispatch);
+      dispatch.firstCall.args[0].type.should.eq("PANEL_WIDGET_DRAG_START");
+      const action = dispatch.firstCall.args[0] as PanelWidgetDragStartAction;
+      action.bounds.should.eql({
+        top: 0,
+        bottom: 200,
+        left: 50,
+        right: 250,
+      });
+    });
+
+    it("should use preferredFloatingWidgetSize of active tab", () => {
+      const dispatch = sinon.stub<NineZoneDispatch>();
+      let state = createNineZoneState();
+      state = addTab(state, "t1", {
+        preferredFloatingWidgetSize: {
+          height: 400,
+          width: 500,
+        },
+      });
+      state = addPanelWidget(state, "left", "w1", ["t1"]);
+      const { container } = render(
+        <TestNineZoneProvider
+          defaultState={state}
+          dispatch={dispatch}
+        >
+          <PanelSideContext.Provider value="left">
+            <PanelWidget widgetId="w1" {...defaultProps} />
+          </PanelSideContext.Provider>
+        </TestNineZoneProvider>,
+      );
+
+      const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
+      const handle = titleBar.getElementsByClassName("nz-handle")[0];
+      act(() => {
+        fireEvent.mouseDown(handle);
+        fireEvent.mouseMove(handle);
+      });
+
+      const action = dispatch.firstCall.args[0] as PanelWidgetDragStartAction;
+      action.bounds.should.eql({
+        top: 0,
+        bottom: 400,
+        left: 0,
+        right: 500,
+      });
+    });
+  });
+
+  it("should measure widget bounds", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addPanelWidget(state, "left", "w1", ["t1"]);
+    const { container } = render(
+      <TestNineZoneProvider
+        defaultState={state}
+      >
+        <PanelSideContext.Provider value="left">
+          <PanelWidget widgetId="w1" {...defaultProps} />
+        </PanelSideContext.Provider>
+      </TestNineZoneProvider>,
+    );
+
+    const widget = container.getElementsByClassName("nz-widget-panelWidget")[0];
+    const spy = sinon.spy(widget, "getBoundingClientRect");
+
+    const tab = container.getElementsByClassName("nz-widget-tab")[0];
+    act(() => {
+      fireEvent.mouseDown(tab);
+      fireEvent.mouseMove(document, { clientX: 10, clientY: 10 });
+    });
+
+    sinon.assert.calledOnce(spy);
+  });
+
 });
 
 describe("useMode", () => {
@@ -232,7 +351,7 @@ describe("useMode", () => {
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     state = addPanelWidget(state, "left", "w3", ["t3"], { minimized: true });
     const { result } = renderHook(() => useMode("w2"), {
-      wrapper: (props) => <Provider state={state} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => <Provider defaultState={state} {...props} />, // eslint-disable-line react/display-name
     });
     result.current.should.eq("fill");
   });
@@ -245,24 +364,21 @@ describe("useMode", () => {
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     state = addPanelWidget(state, "left", "w3", ["t3"]);
     const { result } = renderHook(() => useMode("w2"), {
-      wrapper: (props) => <Provider state={state} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => <Provider defaultState={state} {...props} />, // eslint-disable-line react/display-name
     });
     result.current.should.eq("fit");
   });
 });
 
 describe("useBorders", () => {
-  interface WrapperProps {
+  interface WrapperProps extends TestNineZoneProviderProps {
     children?: React.ReactNode;
-    state?: NineZoneState;
     side?: PanelSide;
   }
 
-  function Wrapper({ children, side = "left", state = createNineZoneState() }: WrapperProps) {
+  function Wrapper({ children, side = "left", ...other }: WrapperProps) {
     return (
-      <TestNineZoneProvider
-        state={state}
-      >
+      <TestNineZoneProvider {...other}>
         <PanelSideContext.Provider value={side}>
           {children}
         </PanelSideContext.Provider>
@@ -279,7 +395,7 @@ describe("useBorders", () => {
       state = addPanelWidget(state, "top", "w1", ["t1"]);
       const { result } = renderHook(() => useBorders("w1"), {
         initialProps: {
-          state,
+          defaultState: state,
           side,
         },
         wrapper,
@@ -296,7 +412,7 @@ describe("useBorders", () => {
       state = addPanelWidget(state, "bottom", "w1", ["t1"]);
       const { result } = renderHook(() => useBorders("w1"), {
         initialProps: {
-          state,
+          defaultState: state,
           side,
         },
         wrapper,
@@ -314,7 +430,7 @@ describe("useBorders", () => {
         state = addPanelWidget(state, side, "w2", ["t2"]);
         const { result } = renderHook(() => useBorders("w2"), {
           initialProps: {
-            state,
+            defaultState: state,
             side,
           },
           wrapper,
@@ -330,7 +446,7 @@ describe("useBorders", () => {
         state = addPanelWidget(state, "left", "w2", ["t2"]);
         const { result } = renderHook(() => useBorders("w1"), {
           initialProps: {
-            state,
+            defaultState: state,
             side,
           },
           wrapper,
@@ -346,7 +462,7 @@ describe("useBorders", () => {
         state = addPanelWidget(state, "right", "w2", ["t2"]);
         const { result } = renderHook(() => useBorders("w1"), {
           initialProps: {
-            state,
+            defaultState: state,
             side,
           },
           wrapper,
@@ -365,7 +481,7 @@ describe("useBorders", () => {
         state = addPanelWidget(state, "top", "w2", ["t2"]);
         const { result } = renderHook(() => useBorders("w1"), {
           initialProps: {
-            state,
+            defaultState: state,
             side,
           },
           wrapper,

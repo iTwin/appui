@@ -18,7 +18,7 @@ describe("WidgetTabs", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
@@ -37,7 +37,7 @@ describe("WidgetTabs", () => {
     sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({ width: 100 }));
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
@@ -56,7 +56,7 @@ describe("WidgetTabs", () => {
     sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({ width: 300 }));
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <ShowWidgetIconContext.Provider value={true}>
           <PanelSideContext.Provider value="left">
@@ -76,7 +76,7 @@ describe("WidgetTabs", () => {
     state = addPanelWidget(state, "top", "w1", ["t1"], { minimized: true });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <PanelSideContext.Provider value="top">
           <WidgetIdContext.Provider value="w1">

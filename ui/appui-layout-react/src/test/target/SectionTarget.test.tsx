@@ -4,10 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, DraggedWidgetIdContext, NineZoneState, PanelSideContext } from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, DraggedWidgetIdContext, PanelSideContext } from "../../appui-layout-react";
 import { renderHook } from "@testing-library/react-hooks";
 import { useTargetDirection } from "../../appui-layout-react/target/SectionTarget";
-import { TestNineZoneProvider } from "../Providers";
+import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { SectionTargets } from "../../appui-layout-react/target/SectionTargets";
 import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
 
@@ -35,13 +35,9 @@ describe("useTargetDirection", () => {
   });
 });
 
-interface WrapperProps {
-  state: NineZoneState;
-}
-
-function DragWidgetWrapper({ children, state }: React.PropsWithChildren<WrapperProps>) {
+function DragWidgetWrapper({ children, ...other }: React.PropsWithChildren<TestNineZoneProviderProps>) {
   return (
-    <TestNineZoneProvider state={state}>
+    <TestNineZoneProvider {...other}>
       <PanelSideContext.Provider value="left">
         <DraggedWidgetIdContext.Provider value="w1">
           {children}
@@ -51,9 +47,9 @@ function DragWidgetWrapper({ children, state }: React.PropsWithChildren<WrapperP
   );
 }
 
-function DragTabWrapper({ children, state }: React.PropsWithChildren<WrapperProps>) {
+function DragTabWrapper({ children, ...other }: React.PropsWithChildren<TestNineZoneProviderProps>) {
   return (
-    <TestNineZoneProvider state={state}>
+    <TestNineZoneProvider {...other}>
       <PanelSideContext.Provider value="left">
         {children}
       </PanelSideContext.Provider>
@@ -72,7 +68,7 @@ describe("useAllowedPanelTarget", () => {
     const { container } = render(
       <SectionTargets widgetId="w2" />,
       {
-        wrapper: (props) => <DragWidgetWrapper state={state} {...props} />, // eslint-disable-line react/display-name
+        wrapper: (props) => <DragWidgetWrapper defaultState={state} {...props} />, // eslint-disable-line react/display-name
       }
     );
     container.getElementsByClassName("nz-hidden").length.should.eq(3);
@@ -88,7 +84,7 @@ describe("useAllowedPanelTarget", () => {
     const { container } = render(
       <SectionTargets widgetId="w1" />,
       {
-        wrapper: (props) => <DragTabWrapper state={state} {...props} />, // eslint-disable-line react/display-name
+        wrapper: (props) => <DragTabWrapper defaultState={state} {...props} />, // eslint-disable-line react/display-name
       }
     );
     container.getElementsByClassName("nz-hidden").length.should.eq(3);

@@ -28,7 +28,7 @@ describe("PinToggle", () => {
     });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         labels={{
           pinPanelTitle: "Pin panel",
         }}
@@ -58,7 +58,7 @@ describe("PinToggle", () => {
     const state = createNineZoneState();
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <PanelSideContext.Provider value="left">

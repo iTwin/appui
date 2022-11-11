@@ -15,7 +15,7 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
           id="w1"
@@ -31,7 +31,7 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"], undefined, { minimized: true });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
           id="w1"
@@ -47,7 +47,7 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"], { hidden: true }, undefined);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
           id="w1"
@@ -63,7 +63,7 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
           id="w1"
@@ -79,7 +79,7 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"], undefined, { minimized: true });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
           id="w1"
@@ -102,7 +102,7 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"], undefined, { minimized: true, isFloatingStateWindowResizable: true });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
@@ -128,7 +128,7 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "toolSettings", ["nz-tool-settings-tab"], undefined, { minimized: true, isFloatingStateWindowResizable: false });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
