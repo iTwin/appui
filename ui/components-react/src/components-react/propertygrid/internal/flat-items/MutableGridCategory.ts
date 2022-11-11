@@ -25,7 +25,6 @@ export interface CategoryRecordsDict {
  */
 export class MutableGridCategory extends MutableFlatPropertyGridItem implements IMutableGridCategoryItem {
   private _children: IMutableFlatGridItem[];
-  private _childCategories: IMutableGridCategoryItem[];
   private _selectionKey: string;
   private _category: PropertyCategory;
 
@@ -51,9 +50,9 @@ export class MutableGridCategory extends MutableFlatPropertyGridItem implements 
     this._children = categoryRecords.map((value) => gridItemFactory.createCategorizedProperty(value, this.selectionKey, this.selectionKey, 0));
 
     const childCategories = category.childCategories ?? [];
-    this._childCategories = childCategories.map((childCategory) => gridItemFactory.createGridCategory(childCategory, recordsDict, this.selectionKey, this.depth + 1));
+    const child = childCategories.map((childCategory) => gridItemFactory.createGridCategory(childCategory, recordsDict, this.selectionKey, this.depth + 1));
 
-    this._children.push(...this._childCategories);
+    this._children.push(...child);
 
     // Assign lastInNumberOfCategories and isLastInRootCategory for entire children hierarchy
     this.lastInNumberOfCategories = 0;
@@ -93,21 +92,6 @@ export class MutableGridCategory extends MutableFlatPropertyGridItem implements 
 
   public getChildren(): IMutableFlatGridItem[] {
     return this._children;
-  }
-
-  public getChildCategories() {
-    return this._childCategories;
-  }
-
-  /**
-   * Gets a flat list of all categories beneath this category and itself in depth first visiting order.
-   */
-  public getDescendantCategoriesAndSelf(): IMutableGridCategoryItem[] {
-    const descendants: IMutableGridCategoryItem[] = [];
-    // eslint-disable-next-line deprecation/deprecation
-    this._childCategories.forEach((value) => descendants.push(...value.getDescendantCategoriesAndSelf()));
-
-    return [this, ...descendants];
   }
 
   /**

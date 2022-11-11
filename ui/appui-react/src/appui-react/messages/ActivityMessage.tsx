@@ -7,102 +7,33 @@
  */
 
 import * as React from "react";
-import { Icon, ReactMessage, UiCore } from "@itwin/core-react";
-import {
-  Message,
-  MessageButton,
-  MessageHyperlink,
-  MessageLayout,
-  MessageProgress,
-  Status,
-} from "@itwin/appui-layout-react";
+import { ReactMessage, UiCore } from "@itwin/core-react";
 import { ProgressLinear, Small, Text, toaster } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import { ActivityMessageEventArgs, MessageManager } from "../messages/MessageManager";
-import { MessageLabel } from "./MessageLabel";
-import { HollowIcon } from "./HollowIcon";
-import { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
 
-/** Properties for a [[ActivityMessage]]
- * @public
- */
-export interface ActivityMessageProps {
-  activityMessageInfo: ActivityMessageEventArgs;
-  cancelActivityMessage: () => void;
-  dismissActivityMessage: () => void;
-}
-
-/** Activity Message React component
- * @public
- * @deprecated
- */
-export function ActivityMessage(props: ActivityMessageProps) {
-  const messageDetails = props.activityMessageInfo.details;
-  const [percentCompleteLabel] = React.useState(UiFramework.translate("activityCenter.percentComplete"));
-  const [cancelLabel] = React.useState(UiCore.translate("dialog.cancel"));
-
-  return (
-    <Message // eslint-disable-line deprecation/deprecation
-      status={Status.Information}
-      icon={<HollowIcon iconSpec="icon-info-hollow" />}
-    >
-      <MessageLayout
-        buttons={(messageDetails && messageDetails.supportsCancellation) ? (
-          <div>
-            <MessageHyperlink onClick={props.cancelActivityMessage}>
-              {cancelLabel}
-            </MessageHyperlink>
-            <span>&nbsp;</span>
-            <MessageButton onClick={props.dismissActivityMessage}>
-              <Icon iconSpec="icon-close" />
-            </MessageButton>
-          </div>
-        ) : (
-          <MessageButton onClick={props.dismissActivityMessage}>
-            <Icon iconSpec="icon-close" />
-          </MessageButton>
-        )}
-        progress={(messageDetails && messageDetails.showProgressBar) &&
-            <MessageProgress
-              status={Status.Information}
-              progress={props.activityMessageInfo.percentage}
-            />
-        }
-      >
-        <div>
-          <MessageLabel message={props.activityMessageInfo.message} className="uifw-statusbar-message-brief" />
-          {(messageDetails && messageDetails.showPercentInMessage) &&
-            <Small>{props.activityMessageInfo.percentage + percentCompleteLabel}</Small>
-          }
-        </div>
-      </MessageLayout>
-    </Message>
-  );
-}
-
-interface CustomActivityMessageProps {
+interface UseActivityMessageProps {
   cancelActivityMessage?: () => void;
   dismissActivityMessage?: () => void;
   activityMessageInfo?: ActivityMessageEventArgs;
-  settings?: ToasterSettings;
 }
 
 /**
  * Hook to render an Activity message.
  * @internal
  */
-export function useActivityMessage({activityMessageInfo, dismissActivityMessage, cancelActivityMessage, settings}: CustomActivityMessageProps) {
+function useActivityMessage({ activityMessageInfo, dismissActivityMessage, cancelActivityMessage }: UseActivityMessageProps) {
   const [cancelLabel] = React.useState(UiCore.translate("dialog.cancel"));
-  const recentToast = React.useRef<{close: () => void} | undefined>();
+  const recentToast = React.useRef<{ close: () => void } | undefined>();
   React.useEffect(() => {
-    toaster.setSettings(settings ?? {placement: "top"});
-  }, [settings]);
+    toaster.setSettings({ placement: "bottom" });
+  }, []);
 
   React.useEffect(() => {
     if (activityMessageInfo?.restored) {
       recentToast.current = toaster.informational(
-        <CustomActivityMessageContent initialActivityMessageInfo={activityMessageInfo} />,
-        { onRemove: dismissActivityMessage, type: "persisting", link: activityMessageInfo?.details?.supportsCancellation && cancelActivityMessage ? { title: cancelLabel, onClick: cancelActivityMessage } : undefined}
+        <ActivityMessageContent initialActivityMessageInfo={activityMessageInfo} />,
+        { onRemove: dismissActivityMessage, type: "persisting", link: activityMessageInfo?.details?.supportsCancellation && cancelActivityMessage ? { title: cancelLabel, onClick: cancelActivityMessage } : undefined }
       );
     }
     if (!activityMessageInfo) {
@@ -115,9 +46,25 @@ export function useActivityMessage({activityMessageInfo, dismissActivityMessage,
  * Component wrapping the `useActivityMessage` hook to use in class components.
  * @internal
  */
-export function CustomActivityMessageRenderer({activityMessageInfo, dismissActivityMessage, cancelActivityMessage, settings}: CustomActivityMessageProps) {
-  useActivityMessage({activityMessageInfo, cancelActivityMessage, dismissActivityMessage, settings});
+export function ActivityMessageRenderer() {
+  const [activityMessageInfo, setActivityMessageInfo] = React.useState<ActivityMessageEventArgs | undefined>();
+  React.useEffect(() => {
+    return MessageManager.onActivityMessageUpdatedEvent.addListener((args) => {
+      setActivityMessageInfo(args);
+    });
+  }, []);
 
+  React.useEffect(() => {
+    return MessageManager.onActivityMessageCancelledEvent.addListener(() => {
+      setActivityMessageInfo(undefined);
+    });
+  }, []);
+
+  const cancelActivityMessage = React.useCallback(() => {
+    MessageManager.endActivityMessage(false);
+  }, []);
+
+  useActivityMessage({ activityMessageInfo, cancelActivityMessage });
   return <></>;
 }
 
@@ -125,7 +72,7 @@ export function CustomActivityMessageRenderer({activityMessageInfo, dismissActiv
  * Component used to show and update activity message content.
  * @internal
  */
-export function CustomActivityMessageContent({initialActivityMessageInfo}: {initialActivityMessageInfo: ActivityMessageEventArgs})  {
+function ActivityMessageContent({ initialActivityMessageInfo }: { initialActivityMessageInfo: ActivityMessageEventArgs }) {
   const [percentCompleteLabel] = React.useState(UiFramework.translate("activityCenter.percentComplete"));
   const [activityMessageInfo, setActivityMessageInfo] = React.useState(initialActivityMessageInfo);
 

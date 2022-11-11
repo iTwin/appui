@@ -3,85 +3,92 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
+import sinon from "sinon";
 import { PropertyCategoryBlock } from "../../../components-react/propertygrid/component/PropertyCategoryBlock";
 import { PropertyCategory } from "../../../components-react/propertygrid/PropertyDataProvider";
-import { SpecialKey } from "@itwin/appui-abstract";
+import { render, screen } from "@testing-library/react";
+import { selectorMatches, userEvent } from "../../TestUtils";
 
 describe("PropertyCategoryBlock", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
   let category: PropertyCategory;
 
   beforeEach(() => {
+    theUserTo = userEvent.setup();
     category = { name: "Group_1", label: "Group 1", expand: false };
   });
 
   it("renders content correctly when collapsed", () => {
     category.expand = false;
 
-    const categoryBlock = mount(
+    const { container } = render(
       <PropertyCategoryBlock category={category} >
         <div className="test-content" />
       </PropertyCategoryBlock>);
 
-    expect(categoryBlock.find(".iui-expanded").exists()).to.be.false;
+    expect(container.firstElementChild)
+      .satisfy(selectorMatches(".iui-expandable-block:not(.iui-expanded)"));
   });
 
   it("renders content correctly when expanded", () => {
     category.expand = true;
 
-    const categoryBlock = mount(
+    const { container } = render (
       <PropertyCategoryBlock category={category} >
-        <div className="test-content" />
+        <div>My Content</div>
       </PropertyCategoryBlock>);
 
-    expect(categoryBlock.find(".iui-expanded").exists()).to.be.true;
+    expect(screen.getByText("My Content")).to.exist;
+    expect(container.firstElementChild)
+      .satisfy(selectorMatches(".iui-expandable-block.iui-expanded"));
   });
 
-  it("does not expand if header gets clicked, but callback is not provided", () => {
-    const categoryBlock = mount(<PropertyCategoryBlock category={category} />);
+  it("does not expand if header gets clicked, but callback is not provided", async () => {
+    render(<PropertyCategoryBlock category={category}>
+      <div>My Content</div>
+    </PropertyCategoryBlock>);
 
-    const prevProps = categoryBlock.props();
+    await theUserTo.click(screen.getByText("Group 1"));
 
-    categoryBlock.find(".iui-header").simulate("click");
-    expect(categoryBlock.props().category).to.be.eq(prevProps.category);
+    expect(screen.queryByText("My Content")).to.be.null;
+    // #511: We dont provide the content, but the block is still expanded but empty
+    // Probably not what we want.
+    // expect(container.firstElementChild)
+    //   .satisfy(selectorMatches(".iui-expandable-block:not(.iui-expanded)"));
   });
 
-  it("expands when header gets clicked", () => {
-    let toggled = false;
+  it("expands when header gets clicked", async () => {
+    const toggleSpy = sinon.spy();
 
-    const categoryBlock = mount(<PropertyCategoryBlock category={category} onExpansionToggled={() => { toggled = true; }} />);
+    const { container } = render(<PropertyCategoryBlock category={category} onExpansionToggled={toggleSpy} />);
 
-    toggled = false;
-    categoryBlock.find(".iui-header").simulate("click");
-    expect(toggled).to.be.true;
+    await theUserTo.click(screen.getByText("Group 1"));
+
+    expect(container.firstElementChild)
+      .satisfy(selectorMatches(".iui-expandable-block.iui-expanded"));
+    expect(toggleSpy).to.have.been.calledWith("Group_1");
   });
 
-  it("expands when \"Enter\" or \"Space\" key gets pressed", () => {
-    let toggled = false;
+  it("expands when \"Enter\" or \"Space\" key gets pressed", async () => {
+    const toggleSpy = sinon.spy();
 
-    const categoryBlock = mount(<PropertyCategoryBlock category={category} onExpansionToggled={() => { toggled = true; }} />);
+    render(<PropertyCategoryBlock category={category} onExpansionToggled={toggleSpy} />);
 
-    const header = categoryBlock.find(".iui-header");
-
-    toggled = false;
-    header.simulate("keydown", { key: SpecialKey.Space });
-    expect(toggled).to.be.true;
-
-    toggled = false;
-    header.simulate("keydown", { key: SpecialKey.Enter });
-    expect(toggled).to.be.true;
+    await theUserTo.keyboard("{tab} ");
+    expect(toggleSpy).to.have.been.calledOnceWith("Group_1");
+    toggleSpy.resetHistory();
+    await theUserTo.keyboard("{Enter}");
+    expect(toggleSpy).to.have.been.calledOnceWith("Group_1");
   });
 
-  it("does not expand when wrong key gets pressed", () => {
-    let toggled = false;
+  it("does not expand when wrong key gets pressed", async () => {
+    const toggleSpy = sinon.spy();
 
-    const categoryBlock = mount(<PropertyCategoryBlock category={category} onExpansionToggled={() => { toggled = true; }} />);
+    render(<PropertyCategoryBlock category={category} onExpansionToggled={toggleSpy} />);
 
-    const header = categoryBlock.find(".iui-header");
-
-    toggled = false;
-    header.simulate("keydown", { keyCode: 42 });
-    expect(toggled).to.be.false;
+    screen.getByText("Group 1").focus();
+    await theUserTo.keyboard("a");
+    expect(toggleSpy).to.not.have.been.called;
   });
 });

@@ -5,19 +5,16 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import * as moq from "typemoq";
-import { BeEvent } from "@itwin/core-bentley";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { MutableTreeModel, TreeModelNodeInput } from "../../../components-react/tree/controlled/TreeModel";
 import { TreeModelChanges, TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
-import { ITreeDataProvider, TreeDataChangesListener } from "../../../components-react/tree/TreeDataProvider";
+import { ITreeDataProvider } from "../../../components-react/tree/TreeDataProvider";
 import TestUtils from "../../TestUtils";
 
 describe("TreeModelSource", () => {
   let modelSource: TreeModelSource;
   const dataProviderMock = moq.Mock.ofType<ITreeDataProvider>();
   const mutableTreeModelMock = moq.Mock.ofType<MutableTreeModel>();
-
-  let onTreeNodeChanged: BeEvent<TreeDataChangesListener>;
 
   before(async () => {
     await TestUtils.initializeUiComponents();
@@ -27,9 +24,6 @@ describe("TreeModelSource", () => {
     dataProviderMock.reset();
     mutableTreeModelMock.reset();
 
-    onTreeNodeChanged = new BeEvent<TreeDataChangesListener>();
-    // eslint-disable-next-line deprecation/deprecation
-    dataProviderMock.setup((x) => x.onTreeNodeChanged).returns(() => onTreeNodeChanged);
     modelSource = new TreeModelSource();
   });
 

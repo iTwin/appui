@@ -10,18 +10,18 @@ import classnames from "classnames";
 import * as React from "react";
 import {
   AbstractStatusBarActionItem, AbstractStatusBarLabelItem, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue,
-  isAbstractStatusBarActionItem, isAbstractStatusBarLabelItem, StatusBarItemsManager, StatusBarLabelSide, StatusBarSection, UiSyncEventArgs,
+  isAbstractStatusBarActionItem, isAbstractStatusBarLabelItem, StatusBarItemsManager, StatusBarSection, UiSyncEventArgs,
 } from "@itwin/appui-abstract";
-import { CommonProps, Icon, useRefs, useResizeObserver } from "@itwin/core-react";
-import { eqlOverflown, FooterIndicator } from "@itwin/appui-layout-react";
+import { CommonProps, useRefs, useResizeObserver } from "@itwin/core-react";
+import { eqlOverflown } from "@itwin/appui-layout-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
-import { Indicator } from "../statusfields/Indicator";
 import { StatusBarOverflow } from "./Overflow";
 import { StatusBarOverflowPanel } from "./OverflowPanel";
 import { StatusBarCenterSection, StatusBarLeftSection, StatusBarRightSection, StatusBarSpaceBetween } from "./StatusBar";
 import { isStatusBarItem } from "./StatusBarItem";
 import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems";
 import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems";
+import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 
 /** Private  function to generate a value that will allow the proper order to be maintained when items are placed in overflow panel */
 function getCombinedSectionItemPriority(item: CommonStatusBarItem) {
@@ -131,17 +131,25 @@ function useStatusBarItemSyncEffect(itemsManager: StatusBarItemsManager, syncIds
 
 /** function to produce a StatusBarItem component from an AbstractStatusBarLabelItem */
 function generateActionStatusLabelItem(item: AbstractStatusBarLabelItem): React.ReactNode {
-  const iconPaddingClass = item.labelSide === StatusBarLabelSide.Left ? "nz-icon-padding-right" : "nz-icon-padding-left";
-  return (<FooterIndicator>
-    {item.icon && <Icon iconSpec={item.icon} />}
-    {item.label && <span className={iconPaddingClass}>{ConditionalStringValue.getValue(item.label)}</span>}
-  </FooterIndicator>
+  const label = ConditionalStringValue.getValue(item.label);
+  return (
+    <StatusBarLabelIndicator
+      iconSpec={item.icon}
+      label={label}
+    />
   );
 }
 
 /** function to produce a StatusBarItem component from an AbstractStatusBarActionItem */
 function generateActionStatusBarItem(item: AbstractStatusBarActionItem): React.ReactNode {
-  return <Indicator toolTip={ConditionalStringValue.getValue(item.tooltip)} opened={false} onClick={item.execute} iconSpec={item.icon} />;
+  const title = ConditionalStringValue.getValue(item.tooltip);
+  return (
+    <StatusBarLabelIndicator
+      title={title}
+      onClick={item.execute}
+      iconSpec={item.icon}
+    />
+  );
 }
 
 /** local function to combine items from Stage and from Extensions */

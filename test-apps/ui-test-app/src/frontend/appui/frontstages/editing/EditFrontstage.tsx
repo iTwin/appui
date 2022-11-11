@@ -36,7 +36,7 @@ export class EditFrontstage extends FrontstageProvider {
   private get _viewSelectorItemDef() {
     return new CustomItemDef({
       customId: "sampleApp:viewSelector",
-      reactElement: (
+      popupPanelNode: (
         <IModelConnectedViewSelector
           listenForShowUpdates={false}  // Demo for showing only the same type of view in ViewSelector - See IModelViewport.tsx, onActivated
         />

@@ -112,7 +112,6 @@ export class TileLoadingIndicator extends React.PureComponent<CommonProps, TileL
     const classes = classnames(
       "uifw-tile-loading-bar",
       this.state.enabled && "uifw-tile-loading-bar-visible",
-      "nz-footer-mode",
       this.props.className,
     );
     return (

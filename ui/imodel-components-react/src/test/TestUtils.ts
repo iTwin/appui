@@ -9,7 +9,7 @@ import {
   Primitives, PrimitiveValue, PropertyDescription, PropertyEditorInfo, PropertyEditorParamTypes, PropertyRecord, PropertyValue, PropertyValueFormat,
   StandardEditorNames, StandardTypeNames, StructValue, UiAdmin,
 } from "@itwin/appui-abstract";
-import { AsyncValueProcessingResult, ColumnDescription, CompositeFilterDescriptorCollection, DataControllerBase, FilterableTable, TableFilterDescriptorCollection } from "@itwin/components-react";
+import { AsyncValueProcessingResult, DataControllerBase } from "@itwin/components-react";
 import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents";
 import { prettyDOM } from "@testing-library/react";
 import { expect } from "chai";
@@ -44,7 +44,7 @@ export class TestUtils {
     return new Promise((resolve) => setTimeout(resolve));
   }
 
-  public static createPropertyRecord(value: any, column: ColumnDescription, typename: string) {
+  public static createPropertyRecord(value: any, column: {key: string, label: string}, typename: string) {
     const v: PrimitiveValue = {
       valueFormat: PropertyValueFormat.Primitive,
       value,
@@ -55,7 +55,6 @@ export class TestUtils {
       name: column.key,
       displayLabel: column.label,
     };
-    column.propertyDescription = pd;
     return new PropertyRecord(v, pd);
   }
 
@@ -131,7 +130,7 @@ export class TestUtils {
     return property;
   }
 
-  public static createEnumStringProperty(name: string, index: string, column?: ColumnDescription) {
+  public static createEnumStringProperty(name: string, index: string) {
     const value: PrimitiveValue = {
       displayValue: "",
       value: index,
@@ -155,12 +154,9 @@ export class TestUtils {
       isStrict: false,
     };
 
-    if (column)
-      column.propertyDescription = description;
-
     return propertyRecord;
   }
-  public static createEnumProperty(name: string, index: string | number, column?: ColumnDescription) {
+  public static createEnumProperty(name: string, index: string | number) {
     const value: PrimitiveValue = {
       displayValue: name,
       value: index,
@@ -185,9 +181,6 @@ export class TestUtils {
     const propertyRecord = new PropertyRecord(value, description);
     propertyRecord.isReadonly = false;
     propertyRecord.property.enum = { choices: getChoices(), isStrict: false };
-
-    if (column)
-      column.propertyDescription = description;
 
     return propertyRecord;
   }
@@ -403,31 +396,6 @@ export class TestUtils {
   ): PropertyRecord {
     const property = TestUtils.createPrimitiveStringProperty(name, value, displayValue);
     property.property.typename = StandardTypeNames.URL;
-    return property;
-  }
-}
-
-/** @internal */
-export class TestFilterableTable implements FilterableTable {
-  private _filterDescriptors = new TableFilterDescriptorCollection();
-  private _columnDescriptions: ColumnDescription[];
-
-  constructor(colDescriptions: ColumnDescription[]) {
-    this._columnDescriptions = colDescriptions;
-  }
-
-  /** Gets the description of a column within the table. */
-  public getColumnDescription(columnKey: string): ColumnDescription | undefined {
-    return this._columnDescriptions.find((v: ColumnDescription) => v.key === columnKey);
-  }
-
-  /** Gets the filter descriptors for the table. */
-  public get filterDescriptors(): CompositeFilterDescriptorCollection {
-    return this._filterDescriptors;
-  }
-
-  /** Gets ECExpression to get property display value. */
-  public getPropertyDisplayValueExpression(property: string): string {
     return property;
   }
 }

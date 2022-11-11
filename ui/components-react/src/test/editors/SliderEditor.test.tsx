@@ -4,15 +4,14 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
 import {
   BasePropertyEditorParams, PropertyEditorParamTypes, SliderEditorParams, SpecialKey, StandardEditorNames,
 } from "@itwin/appui-abstract";
 import { SliderEditor } from "../../components-react/editors/SliderEditor";
-import TestUtils, { MineDataController } from "../TestUtils";
+import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 import { findInstance } from "../ReactInstance";
@@ -21,174 +20,78 @@ describe("<SliderEditor />", () => {
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
-
-  it("should render", () => {
-    const wrapper = mount(<SliderEditor />);
-    wrapper.unmount();
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
   });
 
-  it("renders correctly", () => {
-    shallow(<SliderEditor />).should.matchSnapshot();
+  it("should render with no record", () => {
+    render(<SliderEditor />);
+    expect(screen.getByTestId("components-popup-button")).to.exist;
   });
 
   it("getValue returns proper value after componentDidMount & setState", async () => {
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider);
-    const wrapper = mount(<SliderEditor propertyRecord={record} />);
+    render(<SliderEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as SliderEditor;
-    expect(editor.state.value).to.equal(50);
-
-    wrapper.unmount();
+    expect(screen.getByRole("button", {name: "50"})).to.exist;
   });
 
-  it("componentDidUpdate updates the value", async () => {
+  it("new props updates the display", async () => {
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider);
-    const wrapper = mount(<SliderEditor propertyRecord={record} />);
+    const { rerender } = render(<SliderEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as SliderEditor;
-    expect(editor.state.value).to.equal(50);
-
-    const testValue = 60;
-    const newRecord = TestUtils.createNumericProperty("Test", testValue, StandardEditorNames.Slider);
-    wrapper.setProps({ propertyRecord: newRecord });
-    await TestUtils.flushAsyncOperations();
-    expect(editor.state.value).to.equal(testValue);
-
-    wrapper.unmount();
-  });
-
-  it("should support Slider Editor Params", async () => {
-    const editorParams: BasePropertyEditorParams[] = [];
-    const formatTooltip = (_value: number): string => "";
-    const formatTick = (tick: number): string => tick.toFixed(0);
-    const getTickCount = (): number => 2; // 2 segments actually 3 ticks
-    const getTickValues = (): number[] => [1, 100];
-    const sliderParams: SliderEditorParams = {
-      type: PropertyEditorParamTypes.Slider,
-      size: 100,
-      minimum: 1,
-      maximum: 100,
-      step: 5,
-      mode: 1,
-      reversed: true,
-      showTooltip: true,
-      tooltipBelow: true,
-      showMinMax: true,
-      maxIconSpec: "icon-placeholder",
-      showTicks: true,
-      showTickLabels: true,
-      formatTooltip,
-      formatTick,
-      getTickCount,
-      getTickValues,
-    };
-    editorParams.push(sliderParams);
-
-    const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
-    const wrapper = mount(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
-
-    const sliderEditor = wrapper.find(SliderEditor);
-    expect(sliderEditor.length).to.eq(1);
-    expect(sliderEditor.state("size")).to.eq(100);
-    expect(sliderEditor.state("min")).to.eq(1);
-    expect(sliderEditor.state("max")).to.eq(100);
-    expect(sliderEditor.state("step")).to.eq(5);
-    expect(sliderEditor.state("thumbMode")).to.eq("allow-crossing");
-    expect(sliderEditor.state("trackDisplayMode")).to.eq("odd-segments");
-    expect(sliderEditor.state("value")).to.eq(50);
-    expect(sliderEditor.state("isDisabled")).to.eq(undefined);
-    expect(sliderEditor.state("showTooltip")).to.be.true;
-    expect(sliderEditor.state("formatTooltip")).to.eq(formatTooltip);
-    expect(sliderEditor.state("tooltipBelow")).to.be.true;
-    expect(sliderEditor.state("minLabel")).to.eq(undefined);
-    expect(wrapper.find(".icon").length).to.eq(1);
-    wrapper.unmount();
+    const newRecord = TestUtils.createNumericProperty("Test", 60, StandardEditorNames.Slider);
+    rerender(<SliderEditor propertyRecord={newRecord} />);
+    expect(screen.getByRole("button", {name: "60"})).to.exist;
   });
 
   it("calls onCommit on OK button click", async () => {
     const spyOnCommit = sinon.spy();
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider);
-    const wrapper = mount(<SliderEditor propertyRecord={record} onCommit={spyOnCommit} />);
+    render(<SliderEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
-    const button = wrapper.find(".components-popup-button");
-    expect(button.length).to.eq(1);
-    button.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
 
-    const okButton = wrapper.find("button.components-popup-ok-button");
-    expect(okButton.length).to.eq(1);
-    okButton.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
+    await theUserTo.click(screen.getByTestId("components-popup-ok-button"));
 
     expect(spyOnCommit.calledOnce).to.be.true;
-
-    wrapper.unmount();
   });
 
   it("calls onCancel on Cancel button click", async () => {
     const spyOnCancel = sinon.spy();
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider);
-    const wrapper = mount(<SliderEditor propertyRecord={record} onCancel={spyOnCancel} />);
+    render(<SliderEditor propertyRecord={record} onCancel={spyOnCancel} />);
 
-    const button = wrapper.find(".components-popup-button");
-    expect(button.length).to.eq(1);
-    button.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
 
-    const cancelButton = wrapper.find("button.components-popup-cancel-button");
-    expect(cancelButton.length).to.eq(1);
-    cancelButton.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
+    await theUserTo.click(screen.getByTestId("components-popup-cancel-button"));
 
     expect(spyOnCancel.calledOnce).to.be.true;
-
-    wrapper.unmount();
   });
 
   it("calls onCommit on Enter key", async () => {
     const spyOnCommit = sinon.spy();
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider);
-    const wrapper = mount(<SliderEditor propertyRecord={record} onCommit={spyOnCommit} />);
+    render(<SliderEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
-    const button = wrapper.find(".components-popup-button");
-    expect(button.length).to.eq(1);
-    button.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
 
-    window.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, view: window, key: "Enter" }));
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.keyboard("{Enter}");
 
     expect(spyOnCommit.calledOnce).to.be.true;
-
-    wrapper.unmount();
   });
 
   it("calls onCancel on Escape key", async () => {
     const spyOnCancel = sinon.spy();
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider);
-    const wrapper = mount(<SliderEditor propertyRecord={record} onCancel={spyOnCancel} />);
+    render(<SliderEditor propertyRecord={record} onCancel={spyOnCancel} />);
 
-    const button = wrapper.find(".components-popup-button");
-    expect(button.length).to.eq(1);
-    button.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
 
-    window.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, view: window, key: "Escape" }));
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.keyboard("{Escape}");
 
     expect(spyOnCancel.calledOnce).to.be.true;
-
-    wrapper.unmount();
   });
 
   it("renders editor for 'number' type and 'slider' editor using SliderEditor", () => {
@@ -200,28 +103,13 @@ describe("<SliderEditor />", () => {
   it("calls onCommit for Change", async () => {
     const propertyRecord = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider);
     const spyOnCommit = sinon.spy();
-    function handleCommit(): void {
-      spyOnCommit();
-    }
-    const component = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={handleCommit} onCancel={() => { }} />);
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
 
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
-
-    const sliderContainer = component.container.ownerDocument.querySelector(".iui-slider-container");
-    expect(sliderContainer).to.exist;
-    fireEvent.mouseDown(sliderContainer!);
-    await TestUtils.flushAsyncOperations();
-
-    const ok = component.getByTestId("components-popup-ok-button");
-    expect(ok).to.exist;
-    fireEvent.click(ok);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
+    await theUserTo.click(screen.getByRole("slider"));
+    await theUserTo.click(screen.getByTestId("components-popup-ok-button"));
 
     expect(spyOnCommit.calledOnce).to.be.true;
-
   });
 
   it("should render Editor Params reversed track coloring", async () => {
@@ -240,11 +128,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     const track = component.container.ownerDocument.querySelector(".iui-slider-track");
     expect(track).to.exist;
     expect((track as HTMLElement).style.right).to.eq("0%");
@@ -268,11 +152,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     const track = component.container.ownerDocument.querySelector(".iui-slider-track");
     expect(track).to.exist;
     expect((track as HTMLElement).style.left).to.eq("0%");
@@ -297,11 +177,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 3, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     expect(component.container.ownerDocument.querySelector(".iui-tooltip")?.textContent).to.eq("3.0");
     component.unmount();
   });
@@ -323,11 +199,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 3, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     expect(component.container.ownerDocument.querySelector(".iui-tooltip")?.textContent).to.eq("3.0");
     component.unmount();
   });
@@ -358,11 +230,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     expect(component.container.ownerDocument.querySelector("span.iui-slider-min")?.textContent).to.eq("1");
     expect(component.container.ownerDocument.querySelector(".iui-tooltip")?.textContent).to.eq("50.00");
     const maxLabel = component.container.ownerDocument.querySelector("span.iui-slider-max");
@@ -396,11 +264,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     expect(component.container.ownerDocument.querySelector("span.iui-slider-min")?.textContent).to.eq("1");
     expect(component.container.ownerDocument.querySelector(".iui-tooltip")?.textContent).to.eq("50.00");
     const maxLabel = component.container.ownerDocument.querySelector("span.iui-slider-max");
@@ -433,11 +297,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     expect(component.container.ownerDocument.querySelector("span.iui-slider-min")?.textContent).to.eq("0");
     expect(component.container.ownerDocument.querySelector(".iui-tooltip")?.textContent).to.eq("50");
     expect(component.container.ownerDocument.querySelector("span.iui-slider-max")?.textContent).to.eq("100");
@@ -473,11 +333,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     expect(component.container.ownerDocument.querySelector("span.iui-slider-min")?.textContent).to.eq("0");
     expect(component.container.ownerDocument.querySelector(".iui-tooltip")?.textContent).to.eq("50");
     expect(component.container.ownerDocument.querySelector("span.iui-slider-max")?.textContent).to.eq("100");
@@ -512,11 +368,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     expect(component.container.ownerDocument.querySelector("span.iui-slider-min")?.textContent).to.eq("0");
     expect(component.container.ownerDocument.querySelector(".iui-tooltip")?.textContent).to.eq("50");
     expect(component.container.ownerDocument.querySelector("span.iui-slider-max")?.textContent).to.eq("100");
@@ -554,11 +406,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     expect(component.container.ownerDocument.querySelector(".iui-tooltip")?.textContent).to.eq("50.0");
     expect(component.container.ownerDocument.querySelector("span.iui-slider-min")?.querySelector(".icon-placeholder")).to.exist;
     expect(component.container.ownerDocument.querySelector("span.iui-slider-max")?.querySelector(".icon-placeholder")).to.exist;
@@ -580,11 +428,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
     expect(component.container.ownerDocument.querySelector(".iui-tooltip")?.textContent).to.eq("50");
     expect(component.container.ownerDocument.querySelector("span.iui-slider-min")?.textContent).to.eq("1");
     expect(component.container.ownerDocument.querySelector("span.iui-slider-max")?.textContent).to.eq("100");
@@ -610,11 +454,7 @@ describe("<SliderEditor />", () => {
 
     const record = TestUtils.createNumericProperty("Test", 50, StandardEditorNames.Slider, editorParams);
     const component = render(<SliderEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
-    const button = component.getByTestId("components-popup-button");
-    expect(button).to.exist;
-    fireEvent.click(button);
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
 
     const thumb = component.container.ownerDocument.querySelector(".iui-slider-thumb");
     expect(thumb).to.exist;

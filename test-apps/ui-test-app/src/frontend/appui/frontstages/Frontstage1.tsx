@@ -12,7 +12,6 @@ import {
 import { AppTools } from "../../tools/ToolSpecifications";
 import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
 import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
-import { TableDemoWidgetControl } from "../widgets/TableDemoWidget";
 import { AppToolbarUtilities, NestedFrontstage1 } from "./NestedFrontstage1";
 import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, UiAdmin, WidgetState } from "@itwin/appui-abstract";
 import { AppUi } from "../AppUi";
@@ -138,15 +137,6 @@ export class Frontstage1 extends FrontstageProvider {
                 iconSpec: "icon-placeholder",
                 labelKey: "SampleApp:widgets.VerticalPropertyGrid",
                 control: VerticalPropertyGridWidgetControl,
-              },
-            ],
-          },
-          end: {
-            widgets: [
-              {
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.TableDemo",
-                control: TableDemoWidgetControl,
               },
             ],
           },

@@ -8,10 +8,13 @@ import {
   PropertyRecord, PropertyValue, PropertyValueFormat, StandardEditorNames, StandardTypeNames, StructValue, UiAdmin,
 } from "@itwin/appui-abstract";
 import { ITwinLocalization } from "@itwin/core-i18n";
+import { prettyDOM } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { expect } from "chai";
 import {
-  AsyncValueProcessingResult, ColumnDescription, CompositeFilterDescriptorCollection, DataControllerBase, FilterableTable, UiComponents,
+  AsyncValueProcessingResult, DataControllerBase, UiComponents,
 } from "../components-react";
-import { TableFilterDescriptorCollection } from "../components-react/table/columnfiltering/TableFilterDescriptorCollection";
+export {userEvent};
 
 // cSpell:ignore buttongroup
 
@@ -51,7 +54,7 @@ export class TestUtils {
     return new Promise((resolve) => setTimeout(resolve));
   }
 
-  public static createPropertyRecord(value: any, column: ColumnDescription, typename: string) {
+  public static createPropertyRecord(value: any, column: {key: string, label: string}, typename: string) {
     const v: PrimitiveValue = {
       valueFormat: PropertyValueFormat.Primitive,
       value,
@@ -62,7 +65,6 @@ export class TestUtils {
       name: column.key,
       displayLabel: column.label,
     };
-    column.propertyDescription = pd;
     return new PropertyRecord(v, pd);
   }
 
@@ -160,7 +162,7 @@ export class TestUtils {
     return property;
   }
 
-  public static createEnumStringProperty(name: string, index: string, column?: ColumnDescription) {
+  public static createEnumStringProperty(name: string, index: string) {
     const value: PrimitiveValue = {
       displayValue: "",
       value: index,
@@ -184,12 +186,9 @@ export class TestUtils {
       isStrict: false,
     };
 
-    if (column)
-      column.propertyDescription = description;
-
     return propertyRecord;
   }
-  public static createEnumProperty(name: string, index: string | number, column?: ColumnDescription) {
+  public static createEnumProperty(name: string, index: string | number) {
     const value: PrimitiveValue = {
       displayValue: name,
       value: index,
@@ -214,9 +213,6 @@ export class TestUtils {
     const propertyRecord = new PropertyRecord(value, description);
     propertyRecord.isReadonly = false;
     propertyRecord.property.enum = { choices: getChoices(), isStrict: false };
-
-    if (column)
-      column.propertyDescription = description;
 
     return propertyRecord;
   }
@@ -378,35 +374,84 @@ export class TestUtils {
 }
 
 /** @internal */
-export class TestFilterableTable implements FilterableTable {
-  private _filterDescriptors = new TableFilterDescriptorCollection();
-  private _columnDescriptions: ColumnDescription[];
-
-  constructor(colDescriptions: ColumnDescription[]) {
-    this._columnDescriptions = colDescriptions;
-  }
-
-  /** Gets the description of a column within the table. */
-  public getColumnDescription(columnKey: string): ColumnDescription | undefined {
-    return this._columnDescriptions.find((v: ColumnDescription) => v.key === columnKey);
-  }
-
-  /** Gets the filter descriptors for the table. */
-  public get filterDescriptors(): CompositeFilterDescriptorCollection {
-    return this._filterDescriptors;
-  }
-
-  /** Gets ECExpression to get property display value. */
-  public getPropertyDisplayValueExpression(property: string): string {
-    return property;
-  }
-}
-
-/** @internal */
 export class MineDataController extends DataControllerBase {
   public override async validateValue(_newValue: PropertyValue, _record: PropertyRecord): Promise<AsyncValueProcessingResult> {
     return { encounteredError: true, errorMessage: { severity: MessageSeverity.Error, briefMessage: "Test" } };
   }
+}
+
+/** Returns tag, id and classes of the information used by CSS selectors */
+function getPartialSelctorInfo(e: HTMLElement) {
+  return `${e.tagName}${e.id ? `#${e.id}`: ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
+}
+
+/** Returns the full list of classes and tag chain for an element up to HTML */
+function currentSelectorInfo(e: HTMLElement) {
+  let w = e;
+  const chain = [getPartialSelctorInfo(w)];
+  while(w.parentElement) {
+    w = w.parentElement;
+    chain.unshift(getPartialSelctorInfo(w));
+  }
+  return chain.join(" > ");
+}
+
+/**
+ * Function to generate a `satisfy` function and the relevant error message.
+ * @param selectors selector string used in `matches`
+ * @returns satisfy function which returns `tested.matches(selectors)`
+ */
+export function selectorMatches(selectors: string) {
+  const satisfier = (e: HTMLElement) => {
+    // \b\b\b... removes default "[Function : " part to get clear message in output.
+    const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(e)}'\n\n${prettyDOM()}`;
+    Object.defineProperty(satisfier, "name",  {value: message});
+    return e.matches(selectors);
+  };
+  return satisfier;
+}
+
+/**
+ * Function to generate a `satisfy` function and the relevant error message.
+ * @param selectors selector string used in `querySelector` of the element tested.
+ * @returns satisfy function which returns `!!tested.querySelector(selectors)`
+ */
+export function childStructure(selectors: string) {
+  const satisfier = (e: HTMLElement) => {
+    // \b\b\b... removes default "[Function : " part to get clear message in output.
+    const message = `\b\b\b\b\b\b\b\b\b\belement.querySelector('${selectors}'); but is: \n${prettyDOM(e)}`;
+    Object.defineProperty(satisfier, "name", {value: message});
+    return !!e.querySelector(selectors);
+  };
+  return satisfier;
+}
+
+/**
+ * Type to allow CSSStyleDeclaration to be a regexp that will be matched against the
+ * property instead of the string value.
+ */
+type Matchable<T> = { [P in keyof T]: T[P] | RegExp; };
+
+/**
+ * Function to generate a `satisfy` function
+ * @param style Style object to compare, each properties of this object should be on the element style
+ * @returns satisfy function
+ */
+export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
+  return (e: HTMLElement) => {
+    expect(e).to.be.instanceOf(HTMLElement).and.have.property("style");
+    for(const prop in style) {
+      if(Object.prototype.hasOwnProperty.call(style, prop)) {
+        const value = style[prop];
+        if(value instanceof RegExp) {
+          expect(e.style, `property ${prop}`).to.have.property(prop).that.match(value);
+        } else {
+          expect(e.style).to.have.property(prop, value);
+        }
+      }
+    }
+    return true;
+  };
 }
 
 export default TestUtils;   // eslint-disable-line: no-default-export

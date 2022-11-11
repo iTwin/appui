@@ -487,37 +487,6 @@ describe("<ToolbarWithOverflow />", () => {
       expect(popupDiv!.classList.contains("core-popup-hidden")).to.be.false;
     });
 
-    it("should accept a self defined button", () => {
-      const getCustomDef = (): CustomToolbarItem => {
-        return {
-          id: "TestPopupPanelButton",
-          itemPriority: 10,
-          icon: "icon-placeholder",
-          label: "PopupEntry",
-          isCustom: true,
-          buttonNode: <button data-testid="popup-panel">HelloWorld!</button>,
-        };
-      };
-
-      const toolbarItems: CommonToolbarItem[] = [
-        getCustomDef(),
-      ];
-
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-      sandbox.stub(Element.prototype, "getBoundingClientRect").callsFake(function (this: HTMLElement) {
-        if (this.classList.contains("components-toolbar-overflow-sizer")) {
-          return DOMRect.fromRect({ width: 252 }); // 6*42 = 252
-        } else if (this.classList.contains("components-toolbar-item-container")) {
-          return DOMRect.fromRect({ width: 40 });
-        }
-        return new DOMRect();
-      });
-      const renderedComponent = render(<ToolbarWithOverflow items={toolbarItems} />);
-      expect(renderedComponent).not.to.be.undefined;
-      // renderedComponent.debug();
-      expect(renderedComponent.queryByTestId("popup-panel")).not.to.be.null;
-    });
-
     it("group button panel should open when clicked", () => {
       const spy = sinon.spy();
 

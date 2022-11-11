@@ -90,11 +90,6 @@ export interface NavigationWidgetProps extends ToolbarWidgetProps {
  */
 export type AnyWidgetProps = WidgetProps | ToolWidgetProps | NavigationWidgetProps;
 
-/** Prototype for WidgetDef StateFunc (UI 1.0 only deprecate ???)
- * @public
- */
-export type WidgetStateFunc = (state: Readonly<WidgetState>) => WidgetState;
-
 /** @internal */
 export interface TabLocation {
   widgetId: string;

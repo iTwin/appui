@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Notification
  */
@@ -21,7 +20,7 @@ import {
   FillCentered, Icon, LocalStateStorage, UiCore, UiStateEntry, UiStateStorage, UiStateStorageResult, UiStateStorageStatus,
 } from "@itwin/core-react";
 import {
-  FooterPopup, ToolAssistanceInstruction as NZ_ToolAssistanceInstruction, TitleBarButton, ToolAssistance, ToolAssistanceDialog,
+  FooterPopup, ToolAssistanceInstruction as NZ_ToolAssistanceInstruction, ToolAssistance, ToolAssistanceDialog,
   ToolAssistanceItem,
   ToolAssistanceSeparator,
 } from "@itwin/appui-layout-react";
@@ -48,6 +47,7 @@ import clickMouseWheelDragIcon from "./mouse-click-wheel-drag.svg";
 import mouseWheelClickIcon from "./mouse-click-wheel.svg";
 import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
+import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
 
 // cSpell:ignore cursorprompt
 
@@ -59,7 +59,7 @@ export interface ToolAssistanceFieldProps extends CommonProps {
   includePromptAtCursor: boolean;
   /** Optional parameter for persistent UI settings. Defaults to UiStateStorageContext.
    */
-  uiStateStorage?: UiStateStorage; // eslint-disable-line deprecation/deprecation
+  uiStateStorage?: UiStateStorage;
   /** Cursor Prompt Timeout period. Defaults to 5000. */
   cursorPromptTimeout: number;
   /** Fade Out the Cursor Prompt when closed. */
@@ -107,7 +107,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
   private _indicator = React.createRef<HTMLDivElement>();
   private _cursorPrompt: CursorPrompt;
   private _isMounted = false;
-  private _uiSettingsStorage: UiStateStorage; // eslint-disable-line deprecation/deprecation
+  private _uiSettingsStorage: UiStateStorage;
 
   /** @internal */
   public static readonly defaultProps: ToolAssistanceFieldDefaultProps = {
@@ -168,7 +168,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
   }
 
   private async restoreSettings() {
-    let getShowPromptAtCursor: Promise<UiStateStorageResult> | undefined; // eslint-disable-line deprecation/deprecation
+    let getShowPromptAtCursor: Promise<UiStateStorageResult> | undefined;
     // istanbul ignore else
     if (this.props.includePromptAtCursor) {
       getShowPromptAtCursor = this._showPromptAtCursorSetting.getSetting(this._uiSettingsStorage);
@@ -377,7 +377,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
     return (
       <>
         <div style={{ height: "100%" }} ref={this._handleTargetRef}>
-          <ToolAssistance // eslint-disable-line deprecation/deprecation
+          <ToolAssistance
             icons={
               <>
                 {toolIcon}
@@ -403,14 +403,20 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
             buttons={
               <>
                 {!this.state.isPinned &&
-                  <TitleBarButton onClick={this._handlePinButtonClick} title={UiFramework.translate("toolAssistance.pin")}>
+                  <StatusBarDialog.TitleBarButton
+                    onClick={this._handlePinButtonClick}
+                    title={UiFramework.translate("toolAssistance.pin")}
+                  >
                     <i className={"icon icon-pin"} />
-                  </TitleBarButton>
+                  </StatusBarDialog.TitleBarButton>
                 }
                 {this.state.isPinned &&
-                  <TitleBarButton onClick={this._handleCloseButtonClick} title={UiCore.translate("dialog.close")}>
+                  <StatusBarDialog.TitleBarButton
+                    onClick={this._handleCloseButtonClick}
+                    title={UiCore.translate("dialog.close")}
+                  >
                     <i className={"icon icon-close"} />
-                  </TitleBarButton>
+                  </StatusBarDialog.TitleBarButton>
                 }
               </>
             }
@@ -473,7 +479,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       isOpen,
     };
     if (!isOpen && this.state.isPinned && this._isMounted) {
-      newState = {...newState, ...{isPinned: false}};
+      newState = { ...newState, ...{ isPinned: false } };
     }
     this.setState(newState);
   }
@@ -500,7 +506,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       }
     } else if (typeof instruction.image === "string") {
       if (instruction.image.length > 0) {
-        const svgSource = IconSpecUtilities.getSvgSource(instruction.image);
+        const svgSource = IconSpecUtilities.getSvgSource(instruction.image); // eslint-disable-line deprecation/deprecation
         const className = (svgSource !== undefined) ? "uifw-toolassistance-svg" : "uifw-toolassistance-icon-large";
         image = <div className={className}><Icon iconSpec={instruction.image} /></div>;
       }

@@ -4,103 +4,80 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
-import { fireEvent, render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import * as React from "react";
 import sinon from "sinon";
-import { PrimitiveValue, SpecialKey } from "@itwin/appui-abstract";
 import { BooleanEditor } from "../../components-react/editors/BooleanEditor";
-import { EditorContainer, PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
-import TestUtils, { MineDataController } from "../TestUtils";
+import { EditorContainer } from "../../components-react/editors/EditorContainer";
+import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+import { PrimitiveValue } from "@itwin/appui-abstract";
+
+const testId = "components-checkbox-editor";
 
 describe("<BooleanEditor />", () => {
-  it("should render", () => {
-    mount(<BooleanEditor />);
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
   });
 
-  it("renders correctly", () => {
-    shallow(<BooleanEditor />).should.matchSnapshot();
-  });
-
-  it("getValue returns proper value after componentDidMount & setState", async () => {
+  it("value 'false' should have the checkbox unchecked", async () => {
     const record = TestUtils.createBooleanProperty("Test", false);
-    const wrapper = mount(<BooleanEditor propertyRecord={record} />);
-
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as BooleanEditor;
-    expect(editor.state.checkboxValue).to.equal(false);
-
-    wrapper.unmount();
+    render(<BooleanEditor propertyRecord={record} />);
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
   });
 
-  it("isDisabled is set by the property record", async () => {
+  it("value 'true' should have the checkbox checked", async () => {
+    const record = TestUtils.createBooleanProperty("Test", true);
+    render(<BooleanEditor propertyRecord={record} />);
+
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
+  });
+
+  it("isDisabled should have the checkbox disabled", async () => {
     const record = TestUtils.createBooleanProperty("Test", false);
     record.isDisabled = true;
-    const wrapper = mount(<BooleanEditor propertyRecord={record} />);
+    render(<BooleanEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as BooleanEditor;
-    expect(editor.state.isDisabled).to.equal(true);
-
-    wrapper.unmount();
+    expect(screen.getByTestId<HTMLInputElement>(testId).disabled).to.be.true;
   });
 
-  it("HTML input onChange updates boolean value", async () => {
+  it("toggling the checkbox should updates boolean value", async () => {
     const record = TestUtils.createBooleanProperty("Test1", false);
     const spyOnCommit = sinon.spy();
-    function handleCommit(_commit: PropertyUpdatedArgs): void {
-      spyOnCommit();
-    }
-    const wrapper = mount(<BooleanEditor propertyRecord={record} onCommit={handleCommit} />);
-    const editor = wrapper.instance() as BooleanEditor;
-    const inputNode = wrapper.find("input");
+    render(<BooleanEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
-    expect(inputNode.length).to.eq(1);
-    if (inputNode) {
-      const testValue = true;
-      inputNode.simulate("change", { target: { value: testValue } });
-      wrapper.update();
-      expect(editor.state.checkboxValue).to.equal(testValue);
-      await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit.calledOnce).to.be.true;
-    }
+    await theUserTo.click(screen.getByTestId(testId));
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
+    expect(spyOnCommit).to.have.been.calledWith(sinon.match({newValue: sinon.match({value: true})}));
+    spyOnCommit.resetHistory();
+
+    await theUserTo.click(screen.getByTestId(testId));
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
+    expect(spyOnCommit).to.have.been.calledWith(sinon.match({newValue: sinon.match({value: false})}));
   });
 
   it("onCommit should be called for Space", async () => {
-    let booleanValue = false;
-    const propertyRecord = TestUtils.createBooleanProperty("Test2", booleanValue);
+    const propertyRecord = TestUtils.createBooleanProperty("Test2", false);
     const spyOnCommit = sinon.spy();
-    function handleCommit(commit: PropertyUpdatedArgs): void {
-      booleanValue = (commit.newValue as PrimitiveValue).value as boolean;
-      spyOnCommit();
-    }
-    const wrapper = mount(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={handleCommit} onCancel={() => { }} />);
-    const inputNode = wrapper.find("input");
-    expect(inputNode.length).to.eq(1);
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
 
-    const testValue = true;
-    inputNode.simulate("change", { target: { value: testValue } });
+    screen.getByTestId(testId).focus();
+    await theUserTo.keyboard(" ");
 
-    await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.true;
-    expect(booleanValue).to.be.true;
+    expect(spyOnCommit).to.have.been.calledOnceWith(sinon.match({newValue: sinon.match({value: true})}));
   });
 
-  it("componentDidUpdate updates the value", async () => {
+  it("new props update checkbox state", async () => {
     const record = TestUtils.createBooleanProperty("Test", false);
-    const wrapper = mount(<BooleanEditor propertyRecord={record} />);
+    const {rerender} = render(<BooleanEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as BooleanEditor;
-    expect(editor.state.checkboxValue).to.equal(false);
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
 
     const newRecord = TestUtils.createBooleanProperty("Test", true);
-    wrapper.setProps({ propertyRecord: newRecord });
-    await TestUtils.flushAsyncOperations();
-    expect(editor.state.checkboxValue).to.equal(true);
+    rerender(<BooleanEditor propertyRecord={newRecord} />);
 
-    wrapper.unmount();
+    expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -109,15 +86,22 @@ describe("<BooleanEditor />", () => {
     propertyRecord.property.dataController = "myData";
 
     const spyOnCommit = sinon.spy();
-    const wrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
-    const inputNode = wrapper.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.click(screen.getByTestId(testId));
+
     expect(spyOnCommit.calledOnce).to.be.false;
 
     PropertyEditorManager.deregisterDataController("myData");
   });
 
+  it("implements TypeEditor", async () => {
+    const record = TestUtils.createBooleanProperty("Test", false);
+    const ref = React.createRef<BooleanEditor>();
+    render(<BooleanEditor propertyRecord={record} setFocus={true} ref={ref}/>);
+
+    expect((await ref.current?.getPropertyValue() as PrimitiveValue).value).to.be.false;
+    expect(ref.current?.hasFocus).to.be.true;
+    expect(ref.current?.htmlElement).to.equal(screen.getByRole("checkbox"));
+  });
 });

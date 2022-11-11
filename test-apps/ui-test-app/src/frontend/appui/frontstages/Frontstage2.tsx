@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BaseItemState, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, FrontstageProps, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, FrontstageProps, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
   SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -102,11 +102,6 @@ function isSelectionSetEmpty(): boolean {
   return true;
 }
 
-function selectionContextStateFunc(state: Readonly<BaseItemState>): BaseItemState {
-  const isVisible = !isSelectionSetEmpty();
-  return { ...state, isVisible };
-}
-
 function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
   return new ConditionalBooleanValue(isSelectionSetEmpty, getSelectionContextSyncEventIds());
 }
@@ -120,9 +115,7 @@ class FrontstageToolWidget extends React.Component {
       commandId: "UiFramework.ClearSelection",
       iconSpec: "icon-selection-clear",
       labelKey: "UiFramework:buttons.clearSelection",
-      stateSyncIds: getSelectionContextSyncEventIds(), /* only used when in ui 1.0 mode */
-      stateFunc: selectionContextStateFunc,  /* only used when in ui 1.0 mode */
-      isHidden: getIsHiddenIfSelectionNotActive(),  /* only used when in ui 2.0 mode */
+      isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => {
         const iModelConnection = UiFramework.getIModelConnection();
         if (iModelConnection) {

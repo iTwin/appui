@@ -6,7 +6,6 @@ public;ActionButtonList
 public;ActionButtonListProps
 public;ActionButtonRenderer = (props: ActionButtonRendererProps) => React_2.ReactNode
 public;ActionButtonRendererProps
-internal;ActionItem({ item, addGroupSeparator }:
 public;ActiveMatchInfo
 alpha;ActiveRuleGroupContext: React_2.Context
 alpha;ActiveRuleGroupContextProps
@@ -23,19 +22,12 @@ internal;buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): Pro
 beta;CategorizedPropertyItem 
 beta;CategorizedPropertyTypes = FlatGridItemType.Array | FlatGridItemType.Primitive | FlatGridItemType.Struct
 beta;CategoryRecordsDict
-public;CellItem
-public;CellProps
-deprecated;CellProps
 public;CheckBoxInfo
 public;CheckboxStateChange
-public;ColumnDescription
-public;ColumnFilterDescriptor 
 internal;Columns(props: ColumnsProps): JSX.Element
 internal;ColumnsProps 
 public;CommonPropertyGridProps 
 public;CompletionObserver
-public;CompositeFilterDescriptor 
-public;CompositeFilterDescriptorCollection
 public;CompositeFilterType
 public;CompositePropertyDataFilterer 
 public;CompositeTypeConverter 
@@ -46,7 +38,6 @@ public;ControlledTree(props: ControlledTreeProps): JSX.Element
 public;ControlledTreeProps 
 public;ConvertedPrimitives
 internal;convertPrimitiveRecordToString(record: PropertyRecord): string | Promise
-internal;CustomItem({ item, addGroupSeparator }:
 alpha;CustomNumberEditor 
 alpha;CustomNumberPropertyEditor 
 public;CustomToolbarItem 
@@ -68,8 +59,6 @@ public;DelayLoadedTreeNodeItem
 public;Direction
 internal;DirectionHelpers
 public;DisplayValuePropertyDataFilterer 
-public;DistinctValueCollection
-public;DistinctValuesFilterDescriptor 
 public;DoublePropertyValueRenderer 
 internal;DragAction
 public;EditableTreeDataProvider 
@@ -84,21 +73,12 @@ public;ErrorObserver
 public;FavoritePropertiesRenderer
 alpha;FavoritePropertyList(props: FavoritePropertyListProps): JSX.Element | null
 alpha;FavoritePropertyListProps
-public;FieldFilterDescriptor 
-public;FilterableColumn
-public;FilterableTable
-public;FilterCompositionLogicalOperator
-public;FilterDescriptor
-public;FilterDescriptorCollection 
-public;class FilterDescriptorCollectionBase
 public;FilteredPropertyData 
 public;FilteredType
 public;FilteringInput 
 public;FilteringInputProps 
 public;FilteringInputStatus
 public;FilteringPropertyDataProvider 
-public;FilterOperator
-public;FilterRenderer
 beta;FlatGridItem = CategorizedPropertyItem | GridCategoryItem
 beta;FlatGridItemBase
 beta;FlatGridItemType
@@ -113,7 +93,6 @@ internal;getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | Tre
 beta;GridCategoryItem 
 internal;GroupColumn(props: GroupColumnProps): JSX.Element
 internal;GroupColumnProps 
-internal;GroupPopupItem({ item, addGroupSeparator }:
 internal;GroupTool(props: GroupToolProps): JSX.Element
 internal;GroupToolProps 
 internal;handleLoadedNodeHierarchy(modelSource: TreeModelSource, loadedHierarchy: LoadedNodeHierarchy): void
@@ -128,10 +107,6 @@ public;HighlightInfo
 public;HighlightingComponentProps
 public;HighlightingEngine
 alpha;IconEditor 
-alpha;IconPickerButton 
-deprecated;IconPickerButton 
-alpha;IconPickerProps 
-deprecated;IconPickerProps 
 alpha;IconPropertyEditor 
 public;IImageLoader
 public;ImageCheckBoxEditor 
@@ -192,9 +167,6 @@ beta;class MutableFlatPropertyGridItem
 beta;MutableGridCategory 
 beta;MutableGridItemFactory 
 beta;MutablePropertyGridModel 
-public;MutableTableDataProvider 
-beta;MutableTreeDataProvider 
-deprecated;MutableTreeDataProvider 
 public;MutableTreeModel 
 public;MutableTreeModelNode 
 public;NavigationPropertyTypeConverter 
@@ -214,8 +186,6 @@ public;OnItemsDeselectedCallback
 public;OnItemsSelectedCallback
 public;OnSelectionChanged = (shiftDown?: boolean, ctrlDown?: boolean) => void
 public;OperatorProcessor
-public;OperatorValueFilterDescriptor 
-public;OperatorValueFilterDescriptorCollection 
 alpha;OrthogonalDirection
 internal;OrthogonalDirectionHelpers
 public;PagedTreeNodeLoader
@@ -287,8 +257,6 @@ alpha;PropertyFilterRuleGroup
 alpha;PropertyFilterRuleGroupOperator
 alpha;PropertyFilterRuleOperator
 public;PropertyGrid 
-public;PropertyGridCategory
-deprecated;PropertyGridCategory
 internal;PropertyGridCommons
 public;PropertyGridContextMenuArgs
 beta;PropertyGridEventHandler
@@ -313,15 +281,10 @@ public;PropertyValueRendererContext
 public;PropertyValueRendererManager
 public;PropertyView 
 public;PropertyViewProps 
-public;ReactDataGridColumn 
-deprecated;ReactDataGridColumn 
 beta;RenderedItemsRange
 public;renderLinks: (text: string, links: LinkElementsInfo, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode
 public;ResultSelector 
 public;ResultSelectorProps 
-public;RowItem
-public;RowProps
-deprecated;RowProps
 public;SelectableContent(props: SelectableContentProps): JSX.Element
 public;SelectableContentDefinition
 public;SelectableContentProps
@@ -331,20 +294,7 @@ public;SharedRendererProps
 public;SharedTableNonPrimitiveValueRendererProps
 internal;ShortDateTimePropertyEditor 
 public;ShortDateTypeConverter 
-public;ShowHideDialog
-deprecated;ShowHideDialog
-public;ShowHideDialogProps
-deprecated;ShowHideDialogProps
-public;ShowHideID = string | number | symbol
-deprecated;ShowHideID = string | number | symbol
-public;ShowHideItem
-deprecated;ShowHideItem
-public;ShowHideMenu
-deprecated;ShowHideMenu
-public;ShowHideMenuProps
-deprecated;ShowHideMenuProps
 public;SimplePropertyDataProvider 
-public;SimpleTableDataProvider 
 public;SimpleTreeDataProvider 
 public;SimpleTreeDataProviderHierarchy = Map
 internal;SingleSelectionHandler
@@ -358,51 +308,17 @@ public;StringTypeConverter
 public;StructPropertyValueRenderer 
 public;Subscribable
 public;Subscription 
-public;Table 
-deprecated;Table 
 public;TableArrayValueRenderer 
-public;TableCell 
-deprecated;TableCell 
-public;TableCellContent 
-deprecated;TableCellContent 
-public;TableCellContentProps 
-deprecated;TableCellContentProps 
-public;TableCellContextMenuArgs
-deprecated;TableCellContextMenuArgs
-public;TableCellEditorState
-deprecated;TableCellEditorState
-public;TableCellProps 
-deprecated;TableCellProps 
-public;TableCellUpdatedArgs
-deprecated;TableCellUpdatedArgs
-internal;TableColumn 
 public;TableDataChangeEvent 
-public;TableDataChangesListener = () => void
-public;TableDataProvider
-public;TableDistinctValue
-internal;TableFilterDescriptorCollection 
-public;TableIconCellContent 
-public;TableIconCellContentProps
+deprecated;TableDataChangeEvent 
 public;TableNonPrimitiveValueRenderer 
 public;TableNonPrimitiveValueRendererProps 
-public;TableProps 
-deprecated;TableProps 
-internal;TableRow 
-internal;TableRowProps 
 public;TableRowStyleProvider:
-public;TableSelectionTarget
-deprecated;TableSelectionTarget
 public;TableSpecificValueRendererProps 
 public;TableStructValueRenderer 
 public;TextareaEditor 
 public;TextareaPropertyEditor 
 public;TextEditor 
-beta;ThemedEnumEditor 
-deprecated;ThemedEnumEditor 
-beta;ThemedEnumEditorProps 
-deprecated;ThemedEnumEditorProps 
-beta;ThemedEnumPropertyEditor 
-deprecated;ThemedEnumPropertyEditor 
 internal;TimeField({ time, timeDisplay, readOnly, onTimeChange }: TimeFieldProps): JSX.Element
 internal;TimeFieldProps
 internal;TimeSpec
@@ -434,12 +350,11 @@ public;toTimeString: (date: Date, timeZoneOffset?: number | undefined, formatOpt
 internal;toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition
 public;TreeActions
 public;TreeCheckboxStateChangeEventArgs
-public;TreeDataChangesListener = (nodes: Array
 public;TreeDataProvider = TreeDataProviderRaw | TreeDataProviderPromise | TreeDataProviderMethod | ITreeDataProvider
 public;TreeDataProviderMethod = (node?: TreeNodeItem) => Promise
 public;TreeDataProviderPromise = Promise
 public;TreeDataProviderRaw = ImmediatelyLoadedTreeNodeItem[]
-internal;TreeDataSource 
+internal;TreeDataSource
 public;TreeEditingParams
 internal;TreeEventDispatcher 
 public;TreeEventHandler 

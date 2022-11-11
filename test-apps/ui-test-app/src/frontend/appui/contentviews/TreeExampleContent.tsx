@@ -23,11 +23,10 @@ export class TreeExampleContentControl extends ContentControl {
 class EditableSimpleTreeDataProvider extends SimpleTreeDataProvider implements EditableTreeDataProvider {
   public updateLabel(nodeItem: TreeNodeItem, newLabel: string): void {
     nodeItem.label = PropertyRecord.fromString(newLabel);
-    this.onTreeNodeChanged.raiseEvent([nodeItem]);
   }
 }
 
-function TreeExampleContent() {
+export function TreeExampleContent() {
   const [selectionMode, setSelectionMode] = React.useState(SelectionMode.Single);
   const onChangeSelectionMode = React.useCallback((newValue: SelectionMode) => {
     setSelectionMode(newValue);

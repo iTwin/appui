@@ -4,42 +4,37 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
 import React from "react";
 import * as sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import {
   IconEditorParams, InputEditorSizeParams, PrimitiveValue, PropertyEditorParamTypes, SpecialKey,
 } from "@itwin/appui-abstract";
 import { CustomNumberEditor } from "../../components-react/editors/CustomNumberEditor";
 import { EditorContainer, PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
-import TestUtils, { MineDataController } from "../TestUtils";
+import TestUtils, { childStructure, MineDataController, styleMatch } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 
 // cSpell:ignore customnumber
 
 const numVal = 3.345689;
 const displayVal = "3.35";
+const testId = "components-customnumber-editor";
 
 describe("<CustomNumberEditor />", () => {
-  it("should render", () => {
-
-    const record = TestUtils.createCustomNumberProperty("FormattedNumber", numVal, displayVal);
-    const renderedComponent = render(<CustomNumberEditor propertyRecord={record} />);
-    expect(renderedComponent).not.to.be.undefined;
-  });
-
   it("renders correctly with style", () => {
     const record = TestUtils.createCustomNumberProperty("FormattedNumber", numVal, displayVal);
-    shallow(<CustomNumberEditor propertyRecord={record} style={{ color: "red" }} />).should.matchSnapshot();
+    render(<CustomNumberEditor propertyRecord={record} style={{ color: "red" }} />);
+
+    expect(screen.getByTestId(testId)).to.satisfy(styleMatch({color: "red"}))
+      .and.to.have.property("value", "3.35");
   });
 
   it("change input value", () => {
-
     const record = TestUtils.createCustomNumberProperty("FormattedNumber", numVal, displayVal);
     const renderedComponent = render(<CustomNumberEditor propertyRecord={record} />);
     expect(renderedComponent).not.to.be.undefined;
-    const inputField = renderedComponent.getByTestId("components-customnumber-editor") as HTMLInputElement;
+    const inputField = renderedComponent.getByTestId(testId) as HTMLInputElement;
     expect(inputField.value).to.be.equal(displayVal);
     const newValue = "7.777";
     fireEvent.change(inputField, { target: { value: newValue } });
@@ -60,7 +55,7 @@ describe("<CustomNumberEditor />", () => {
     const propertyRecord = TestUtils.createCustomNumberProperty("FormattedNumber", numVal, displayVal);
     const renderedComponent = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={handleCommit} onCancel={spyOnCancel} />);
     // renderedComponent.debug();
-    const inputField = renderedComponent.getByTestId("components-customnumber-editor") as HTMLInputElement;
+    const inputField = renderedComponent.getByTestId(testId) as HTMLInputElement;
     expect(inputField.value).to.be.equal(displayVal);
     const container = renderedComponent.getByTestId("editor-container") as HTMLSpanElement;
 
@@ -128,7 +123,7 @@ describe("<CustomNumberEditor />", () => {
     }
     const renderedComponent = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={handleCommit} onCancel={() => { }} />);
     // renderedComponent.debug();
-    const inputField = renderedComponent.getByTestId("components-customnumber-editor") as HTMLInputElement;
+    const inputField = renderedComponent.getByTestId(testId) as HTMLInputElement;
     expect(inputField.value).to.be.equal(displayVal);
     const newValue = "7.777";
     fireEvent.change(inputField, { target: { value: newValue } });
@@ -166,7 +161,7 @@ describe("<CustomNumberEditor />", () => {
     }
 
     const renderedComponent = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={handleCommit} onCancel={() => { }} />);
-    const inputField = renderedComponent.getByTestId("components-customnumber-editor") as HTMLInputElement;
+    const inputField = renderedComponent.getByTestId(testId) as HTMLInputElement;
     expect(inputField.value).to.be.equal(displayVal);
     const newValue = "7.777";
     fireEvent.change(inputField, { target: { value: newValue } });
@@ -185,7 +180,7 @@ describe("<CustomNumberEditor />", () => {
 
     const renderedComponent = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
     // renderedComponent.debug();
-    const inputField = renderedComponent.queryByTestId("components-customnumber-editor") as HTMLInputElement;
+    const inputField = renderedComponent.queryByTestId(testId) as HTMLInputElement;
     expect(inputField).to.be.null;
   });
 
@@ -197,14 +192,9 @@ describe("<CustomNumberEditor />", () => {
     };
 
     const propertyRecord = TestUtils.createCustomNumberProperty("FormattedNumber", numVal, displayVal, [iconParams]);
-    const wrapper = mount(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
-    await TestUtils.flushAsyncOperations();
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
 
-    const textEditor = wrapper.find(CustomNumberEditor);
-    expect(textEditor.length).to.eq(1);
-    expect(textEditor.state("iconSpec")).to.eq(iconSpec);
-
-    wrapper.unmount();
+    expect(screen.getByTestId("editor-container")).to.satisfy(childStructure(".icon-placeholder"));
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -214,7 +204,7 @@ describe("<CustomNumberEditor />", () => {
 
     const spyOnCommit = sinon.spy();
     const wrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
-    const inputNode = wrapper.queryByTestId("components-customnumber-editor") as HTMLInputElement;
+    const inputNode = wrapper.queryByTestId(testId) as HTMLInputElement;
     expect(inputNode).not.to.be.null;
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });

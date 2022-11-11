@@ -16,14 +16,6 @@ export * from "./appui-layout-react/footer/dialog/Button";
 export * from "./appui-layout-react/footer/dialog/Dialog";
 export * from "./appui-layout-react/footer/dialog/TitleBar";
 
-export * from "./appui-layout-react/footer/message/Button";
-export * from "./appui-layout-react/footer/message/Hyperlink";
-export * from "./appui-layout-react/footer/message/Layout";
-export * from "./appui-layout-react/footer/message/Message";
-export * from "./appui-layout-react/footer/message/Progress";
-export * from "./appui-layout-react/footer/message/Status";
-export * from "./appui-layout-react/footer/message/Toast";
-
 export * from "./appui-layout-react/footer/message-center/Dialog";
 export * from "./appui-layout-react/footer/message-center/Indicator";
 export * from "./appui-layout-react/footer/message-center/Message";
@@ -42,7 +34,6 @@ export * from "./appui-layout-react/footer/tool-assistance/Separator";
 export * from "./appui-layout-react/footer/Footer";
 export * from "./appui-layout-react/footer/Indicator";
 export * from "./appui-layout-react/footer/Popup";
-export * from "./appui-layout-react/footer/Separator";
 
 export * from "./appui-layout-react/popup/Tooltip";
 

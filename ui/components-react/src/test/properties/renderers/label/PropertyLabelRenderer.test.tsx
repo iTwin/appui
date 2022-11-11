@@ -2,32 +2,38 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
 import sinon from "sinon";
 import { NonPrimitivePropertyLabelRenderer, PrimitivePropertyLabelRenderer } from "../../../../components-react";
+import { childStructure, selectorMatches, styleMatch, userEvent } from "../../../TestUtils";
 
 describe("PrimitivePropertyLabelRenderer ", () => {
   it("renders correctly when offset is not provided", () => {
-    const rendererMount = mount(<PrimitivePropertyLabelRenderer>Title</PrimitivePropertyLabelRenderer>);
+    const { container } = render(<PrimitivePropertyLabelRenderer>Title</PrimitivePropertyLabelRenderer>);
 
-    expect(rendererMount.childAt(0).prop("style")).to.have.property("paddingLeft", 0);
-    expect(rendererMount.find(".components-property-label-renderer").text()).to.be.eq("Title");
+    expect(container.firstElementChild).that.satisfy(styleMatch({paddingLeft: "0px"}));
+    expect(screen.getByText("Title")).to.exist;
   });
 
   it("renders correctly when offset is provided", () => {
-    const rendererMount = mount(<PrimitivePropertyLabelRenderer className="test-class" offset={50}>Title</PrimitivePropertyLabelRenderer>);
+    const { container } = render(<PrimitivePropertyLabelRenderer className="test-class" offset={50}>Title</PrimitivePropertyLabelRenderer>);
 
-    expect(rendererMount.childAt(0).prop("style")).to.have.property("paddingLeft", 50);
-    expect(rendererMount.find(".test-class").exists()).to.be.true;
+    expect(container.firstElementChild).that
+      .satisfy(styleMatch({paddingLeft: "50px"}))
+      .satisfy(selectorMatches(".test-class"));
   });
 
 });
 
 describe("NonPrimitivePropertyLabelRenderer  ", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   it("renders correctly", () => {
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyLabelRenderer
         className="test-class-name"
         isExpanded={false}
@@ -37,14 +43,15 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
         Title
       </NonPrimitivePropertyLabelRenderer>);
 
-    expect(rendererMount.html().indexOf("Title")).to.be.greaterThan(-1);
-    expect(rendererMount.find("i").hasClass("icon")).to.be.true;
-    expect(rendererMount.find(".components-expanded").exists()).to.be.false;
-    expect(rendererMount.find(".test-class-name").exists()).to.be.true;
+    expect(screen.getByRole("presentation")).to
+      .satisfy(childStructure("i.icon"))
+      .satisfy(selectorMatches(".test-class-name"))
+      .not.satisfy(childStructure(".components-expanded"));
+    expect(screen.getByText("Title")).to.exist;
   });
 
   it("manipulates expand icon correctly when expanded", () => {
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyLabelRenderer
         isExpanded={true}
         onCollapse={() => { }}
@@ -53,14 +60,14 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
         Title
       </NonPrimitivePropertyLabelRenderer>);
 
-    expect(rendererMount.find("i").hasClass("icon")).to.be.true;
-    expect(rendererMount.find(".components-expanded").exists()).to.be.true;
+    expect(screen.getByRole("presentation")).to
+      .satisfy(childStructure(".components-expanded"));
   });
 
-  it("calls onExpand when label gets clicked while collapsed", () => {
+  it("calls onExpand when label gets clicked while collapsed", async () => {
     const onExpand = sinon.spy();
 
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyLabelRenderer
         isExpanded={false}
         onCollapse={() => { }}
@@ -69,15 +76,15 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
         Title
       </NonPrimitivePropertyLabelRenderer>);
 
-    rendererMount.find("i").simulate("click");
+    await theUserTo.click(screen.getByRole("presentation"));
 
     expect(onExpand.calledOnce).to.be.true;
   });
 
-  it("calls onCollapse when label gets clicked while expanded", () => {
+  it("calls onCollapse when label gets clicked while expanded", async () => {
     const onCollapse = sinon.spy();
 
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyLabelRenderer
         isExpanded={true}
         onCollapse={onCollapse}
@@ -86,7 +93,7 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
         Title
       </NonPrimitivePropertyLabelRenderer>);
 
-    rendererMount.find("i").simulate("click");
+    await theUserTo.click(screen.getByRole("presentation"));
 
     expect(onCollapse.calledOnce).to.be.true;
   });

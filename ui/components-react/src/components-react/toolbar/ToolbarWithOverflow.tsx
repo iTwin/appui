@@ -29,8 +29,6 @@ import { UiComponents } from "../UiComponents";
  * @public
  */
 export interface CustomToolbarItem extends CustomButtonDefinition {
-  /** React node that must result in providing a PopupItem @deprecated use panelContentNode */
-  buttonNode?: React.ReactNode;
   /** defines the content to display in popup panel */
   panelContentNode?: React.ReactNode;
   /** If true the popup panel is mounted once and unmounted when button is unmounted. If false the
@@ -62,7 +60,7 @@ export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
  * @internal
  */
 export function isCustomToolbarItem(item: ToolbarItem): item is CustomToolbarItem {
-  return !!(item as CustomToolbarItem).isCustom && (("buttonNode" in item) || ("panelContentNode" in item));
+  return !!(item as CustomToolbarItem).isCustom && ("panelContentNode" in item);
 }
 
 /** @internal */
@@ -148,7 +146,7 @@ export const ToolbarWithOverflowDirectionContext = React.createContext<ToolbarOv
 });
 
 /** @internal */
-export function CustomItem({ item, addGroupSeparator }: { item: CustomToolbarItem, addGroupSeparator: boolean }) {
+function CustomItem({ item, addGroupSeparator }: { item: CustomToolbarItem, addGroupSeparator: boolean }) {
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const icon = React.useMemo(() => (item.icon &&
     IconHelper.getIconReactNode(item.icon, item.internalData)) || /* istanbul ignore next */
@@ -157,31 +155,22 @@ export function CustomItem({ item, addGroupSeparator }: { item: CustomToolbarIte
   const title = React.useMemo(() => /* istanbul ignore next */ ConditionalStringValue.getValue(item.label) ?? item.id, [item.id, item.label]);
   const badge = React.useMemo(() => BadgeUtilities.getComponentForBadgeType(item.badgeType), [item.badgeType]);
 
-  if (item.panelContentNode) {
-    return <PopupItem
-      key={item.id}
-      itemId={item.id}
-      icon={icon}
-      isDisabled={isDisabled}
-      title={title}
-      panel={item.panelContentNode}
-      hideIndicator={useDragInteraction}
-      badge={badge}
-      addGroupSeparator={addGroupSeparator}
-      keepContentsMounted={item.keepContentsLoaded}
-    />;
-  }
-
-  // istanbul ignore else
-  if (item.buttonNode)
-    return <>{item.buttonNode}</>;
-
-  // istanbul ignore next
-  return null;
+  return <PopupItem
+    key={item.id}
+    itemId={item.id}
+    icon={icon}
+    isDisabled={isDisabled}
+    title={title}
+    panel={item.panelContentNode}
+    hideIndicator={useDragInteraction}
+    badge={badge}
+    addGroupSeparator={addGroupSeparator}
+    keepContentsMounted={item.keepContentsLoaded}
+  />;
 }
 
 /** @internal */
-export function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGroupSeparator: boolean }) {
+function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGroupSeparator: boolean }) {
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const title = ConditionalStringValue.getValue(item.label)!;
   const badge = BadgeUtilities.getComponentForBadgeType(item.badgeType);
@@ -218,7 +207,7 @@ export function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton,
 }
 
 /** @internal */
-export function ActionItem({ item, addGroupSeparator }: { item: ActionButton, addGroupSeparator: boolean }) {
+function ActionItem({ item, addGroupSeparator }: { item: ActionButton, addGroupSeparator: boolean }) {
   const title = ConditionalStringValue.getValue(item.label)!;
   const badge = BadgeUtilities.getComponentForBadgeType(item.badgeType);
   const { onItemExecuted } = useToolbarWithOverflowDirectionContext();

@@ -17,8 +17,6 @@ import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid"
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
-import { TaskManager, TaskPropsList } from "../workflow/Task";
-import { WorkflowManager, WorkflowProps, WorkflowPropsList } from "../workflow/Workflow";
 import { ToolSettingsManager } from "../toolsettings/ToolSettingsManager";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
 import { ModelessDialogManager } from "../dialog/ModelessDialogManager";
@@ -169,33 +167,6 @@ export class ConfigurableUiManager {
    */
   public static addFrontstageProvider(frontstageProvider: FrontstageProvider): void {
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-  }
-
-  /** Loads one or more Tasks into the [[TaskManager]].
-   * @param taskPropsList  the list of Tasks to load
-   * @internal
-   * @deprecated
-   */
-  public static loadTasks(taskPropsList: TaskPropsList): void {   // eslint-disable-line deprecation/deprecation
-    TaskManager.loadTasks(taskPropsList);   // eslint-disable-line deprecation/deprecation
-  }
-
-  /** Loads a Workflow into the [[WorkflowManager]].
-   * @param workflowProps  the Workflow to load
-   * @internal
-   * @deprecated
-   */
-  public static loadWorkflow(workflowProps: WorkflowProps): void {    // eslint-disable-line deprecation/deprecation
-    WorkflowManager.loadWorkflow(workflowProps);    // eslint-disable-line deprecation/deprecation
-  }
-
-  /** Loads one or more Workflows into the [[WorkflowManager]].
-   * @param workflowPropsList  the list of Workflows to load
-   * @internal
-   * @deprecated
-   */
-  public static loadWorkflows(workflowPropsList: WorkflowPropsList): void {   // eslint-disable-line deprecation/deprecation
-    WorkflowManager.loadWorkflows(workflowPropsList);   // eslint-disable-line deprecation/deprecation
   }
 
   /** Loads one or more Keyboard Shortcuts into the [[KeyboardShortcutManager]].

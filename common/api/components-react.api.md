@@ -18,10 +18,7 @@ import { CustomButtonDefinition } from '@itwin/appui-abstract';
 import { DateFormatter } from '@itwin/appui-abstract';
 import { DisplayMessageType } from '@itwin/appui-abstract';
 import { EnumerationChoice } from '@itwin/appui-abstract';
-import { GlobalContextMenuProps } from '@itwin/core-react';
-import { GlobalDialogProps } from '@itwin/core-react';
 import { GroupButton } from '@itwin/appui-abstract';
-import { HorizontalAlignment } from '@itwin/core-react';
 import { IconDefinition } from '@itwin/appui-abstract';
 import { Id64String } from '@itwin/core-bentley';
 import { IDisposable } from '@itwin/core-bentley';
@@ -32,9 +29,7 @@ import { MessageSeverity } from '@itwin/appui-abstract';
 import { NoChildrenProps } from '@itwin/core-react';
 import { NodeCheckboxRenderer } from '@itwin/core-react';
 import { Observable as Observable_2 } from 'rxjs/internal/Observable';
-import { Omit as Omit_2 } from '@itwin/core-react';
 import { OnItemExecutedFunc } from '@itwin/appui-abstract';
-import { OptionType } from '@itwin/core-react';
 import { Orientation } from '@itwin/core-react';
 import { ParseResults } from '@itwin/appui-abstract';
 import { Primitives } from '@itwin/appui-abstract';
@@ -43,14 +38,11 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import { PropertyValue } from '@itwin/appui-abstract';
 import { RatioChangeResult } from '@itwin/core-react';
 import * as React_2 from 'react';
-import ReactDataGrid from 'react-data-grid';
 import { ReactNode } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import { SelectOption } from '@itwin/itwinui-react';
-import { SortDirection } from '@itwin/core-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
 import { TimeFormat } from '@itwin/core-react';
-import { UiStateStorage } from '@itwin/core-react';
 
 // @public
 export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
@@ -91,12 +83,6 @@ export interface ActionButtonRendererProps {
     isPropertyHovered?: boolean;
     property: PropertyRecord;
 }
-
-// @internal (undocumented)
-export function ActionItem({ item, addGroupSeparator }: {
-    item: ActionButton;
-    addGroupSeparator: boolean;
-}): JSX.Element;
 
 // @public
 export interface ActiveMatchInfo {
@@ -250,29 +236,6 @@ export interface CategoryRecordsDict {
 }
 
 // @public
-export interface CellItem {
-    alignment?: HorizontalAlignment;
-    isDisabled?: boolean;
-    key: string;
-    // @alpha
-    mergedCellsCount?: number;
-    record?: PropertyRecord;
-    style?: ItemStyle;
-}
-
-// @public @deprecated
-export interface CellProps {
-    // (undocumented)
-    displayValue: string;
-    // (undocumented)
-    item: CellItem;
-    // (undocumented)
-    render: React_2.ComponentType<{
-        isSelected: boolean;
-    }>;
-}
-
-// @public
 export interface CheckBoxInfo {
     // (undocumented)
     readonly isDisabled: boolean;
@@ -288,32 +251,6 @@ export interface CheckBoxInfo {
 export interface CheckboxStateChange {
     newState: CheckBoxState;
     nodeItem: TreeNodeItem;
-}
-
-// @public
-export interface ColumnDescription {
-    editable?: boolean;
-    filterable?: boolean;
-    filterCaseSensitive?: boolean;
-    filterRenderer?: FilterRenderer;
-    icon?: boolean;
-    key: string;
-    label: string;
-    propertyDescription?: PropertyDescription;
-    resizable?: boolean;
-    secondarySortColumn?: number;
-    showDistinctValueFilters?: boolean;
-    showFieldFilters?: boolean;
-    sortable?: boolean;
-    sortIgnoreCase?: boolean;
-    sortType?: string;
-    width?: number;
-}
-
-// @public
-export interface ColumnFilterDescriptor extends FilterDescriptor {
-    distinctFilter: DistinctValuesFilterDescriptor;
-    fieldFilter: FieldFilterDescriptor;
 }
 
 // @internal
@@ -359,25 +296,6 @@ export interface CompletionObserver<T> {
     error?: (err: any) => void;
     // (undocumented)
     next?: (value: T) => void;
-}
-
-// @public
-export interface CompositeFilterDescriptor extends FilterDescriptor {
-    filterDescriptorCollection: FilterDescriptorCollection;
-    logicalOperator: FilterCompositionLogicalOperator;
-}
-
-// @public
-export interface CompositeFilterDescriptorCollection {
-    add(item: FilterDescriptor): void;
-    clear(): void;
-    count: number;
-    evaluateRow(row: RowItem): boolean;
-    getColumnFilterDescriptor(columnKey: string): ColumnFilterDescriptor | undefined;
-    // @alpha
-    getFilterExpression(): string;
-    isColumnFilterActive(columnKey: string): boolean;
-    logicalOperator: FilterCompositionLogicalOperator;
 }
 
 // @public
@@ -465,12 +383,6 @@ export namespace ConvertedPrimitives {
 // @internal
 export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string>;
 
-// @internal (undocumented)
-export function CustomItem({ item, addGroupSeparator }: {
-    item: CustomToolbarItem;
-    addGroupSeparator: boolean;
-}): JSX.Element | null;
-
 // @alpha
 export class CustomNumberEditor extends React_2.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
     // @internal (undocumented)
@@ -501,8 +413,6 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
 
 // @public
 export interface CustomToolbarItem extends CustomButtonDefinition {
-    // @deprecated
-    buttonNode?: React_2.ReactNode;
     keepContentsLoaded?: boolean;
     panelContentNode?: React_2.ReactNode;
 }
@@ -689,24 +599,6 @@ export class DisplayValuePropertyDataFilterer extends PropertyRecordDataFilterer
 }
 
 // @public
-export class DistinctValueCollection {
-    constructor();
-    // (undocumented)
-    get values(): TableDistinctValue[];
-    set values(values: TableDistinctValue[]);
-}
-
-// @public
-export interface DistinctValuesFilterDescriptor extends FilterDescriptor {
-    addDistinctValue(distinctValue: any): void;
-    distinctValues: DistinctValueCollection;
-    distinctValuesComparisonOperator: FilterOperator;
-    filterDescriptorCollection: OperatorValueFilterDescriptorCollection;
-    removeDistinctValue(distinctValue: any): boolean;
-    tryFindDescriptor(distinctValue: any): FilterDescriptor | undefined;
-}
-
-// @public
 export class DoublePropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
     render(record: PropertyRecord, context?: PropertyValueRendererContext): JSX.Element;
@@ -841,69 +733,6 @@ export interface FavoritePropertyListProps {
 }
 
 // @public
-export interface FieldFilterDescriptor extends FilterDescriptor {
-    addFieldValue(fieldValue: any, operator: FilterOperator, isCaseSensitive?: boolean): void;
-    filterDescriptorCollection: OperatorValueFilterDescriptorCollection;
-    logicalOperator: FilterCompositionLogicalOperator;
-    removeFieldValue(fieldValue: any, operator: FilterOperator): boolean;
-    tryFindDescriptor(fieldValue: any, operator: FilterOperator): FilterDescriptor | undefined;
-}
-
-// @public
-export interface FilterableColumn {
-    columnFilterDescriptor: ColumnFilterDescriptor;
-    createSimpleFilterDescriptor(value: any, filterOperator: FilterOperator): OperatorValueFilterDescriptor;
-    filterableTable: FilterableTable;
-    filterCaseSensitive: boolean;
-    filterMemberKey: string;
-    filterMemberType: string;
-    getDistinctValues(maximumValueCount?: number): Promise<DistinctValueCollection>;
-    isFilterActive: boolean;
-    showDistinctValueFilters: boolean;
-    showFieldFilters: boolean;
-}
-
-// @public
-export interface FilterableTable {
-    filterDescriptors: CompositeFilterDescriptorCollection;
-    getPropertyDisplayValueExpression(property: string): string;
-}
-
-// @public
-export enum FilterCompositionLogicalOperator {
-    // (undocumented)
-    And = 0,
-    // (undocumented)
-    Or = 1
-}
-
-// @public
-export interface FilterDescriptor {
-    clear(): void;
-    evaluateRow(row: RowItem): boolean;
-    // @alpha
-    getFilterExpression(): string;
-    isActive: boolean;
-    isFilterForColumn(columnKey: string): boolean;
-}
-
-// @public
-export class FilterDescriptorCollection extends FilterDescriptorCollectionBase<FilterDescriptor> {
-}
-
-// @public
-export abstract class FilterDescriptorCollectionBase<TDescriptor extends FilterDescriptor> {
-    constructor();
-    add(item: TDescriptor): void;
-    clear(): void;
-    get count(): number;
-    // (undocumented)
-    get descriptors(): TDescriptor[];
-    get isActive(): boolean;
-    remove(item: TDescriptor): boolean;
-}
-
-// @public
 export interface FilteredPropertyData extends PropertyData {
     filteredTypes?: FilteredType[];
     getMatchByIndex?: (index: number) => HighlightInfo | undefined;
@@ -955,58 +784,6 @@ export class FilteringPropertyDataProvider implements IPropertyDataProvider, IDi
     getData(): Promise<FilteredPropertyData>;
     // (undocumented)
     onDataChanged: PropertyDataChangeEvent;
-}
-
-// @public
-export enum FilterOperator {
-    // (undocumented)
-    Contains = 9,
-    // (undocumented)
-    DoesNotContain = 10,
-    // (undocumented)
-    EndsWith = 8,
-    // (undocumented)
-    IsContainedIn = 11,
-    // (undocumented)
-    IsEmpty = 13,
-    // (undocumented)
-    IsEqualTo = 0,
-    // (undocumented)
-    IsGreaterThan = 4,
-    // (undocumented)
-    IsGreaterThanOrEqualTo = 5,
-    // (undocumented)
-    IsLessThan = 2,
-    // (undocumented)
-    IsLessThanOrEqualTo = 3,
-    // (undocumented)
-    IsNotContainedIn = 12,
-    // (undocumented)
-    IsNotEmpty = 14,
-    // (undocumented)
-    IsNotEqualTo = 1,
-    // (undocumented)
-    IsNotNull = 16,
-    // (undocumented)
-    IsNull = 15,
-    // (undocumented)
-    Range = 6,
-    // (undocumented)
-    StartsWith = 7
-}
-
-// @public
-export enum FilterRenderer {
-    // (undocumented)
-    MultiSelect = 2,
-    // (undocumented)
-    MultiValue = 5,
-    // (undocumented)
-    Numeric = 1,
-    // (undocumented)
-    SingleSelect = 3,
-    // (undocumented)
-    Text = 4
 }
 
 // @beta
@@ -1089,10 +866,6 @@ export function getVisibleDescendants(model: TreeModel, parentNode: TreeModelNod
 export interface GridCategoryItem extends FlatGridItemBase {
     // (undocumented)
     readonly derivedCategory: PropertyCategory;
-    // @deprecated (undocumented)
-    getChildCategories(): GridCategoryItem[];
-    // @deprecated (undocumented)
-    getDescendantCategoriesAndSelf(): GridCategoryItem[];
     // (undocumented)
     readonly name: string;
     // (undocumented)
@@ -1106,12 +879,6 @@ export function GroupColumn(props: GroupColumnProps): JSX.Element;
 export interface GroupColumnProps extends CommonProps {
     children?: React_2.ReactNode;
 }
-
-// @internal (undocumented)
-export function GroupPopupItem({ item, addGroupSeparator }: {
-    item: GroupButton;
-    addGroupSeparator: boolean;
-}): JSX.Element;
 
 // @internal
 export function GroupTool(props: GroupToolProps): JSX.Element;
@@ -1236,27 +1003,6 @@ export class IconEditor extends React_2.PureComponent<PropertyEditorProps, IconE
     render(): JSX.Element;
 }
 
-// @alpha @deprecated
-export class IconPickerButton extends React_2.PureComponent<IconPickerProps, IconPickerState> {
-    // @internal
-    constructor(props: IconPickerProps);
-    // @internal (undocumented)
-    static defaultProps: Partial<IconPickerProps>;
-    // @internal (undocumented)
-    render(): JSX.Element;
-}
-
-// @alpha @deprecated
-export interface IconPickerProps extends React_2.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
-    disabled?: boolean;
-    dropDownTitle?: string;
-    icon: string;
-    icons: string[];
-    numColumns: number;
-    onIconChange?: ((icon: string) => void) | undefined;
-    readonly?: boolean;
-}
-
 // @alpha
 export class IconPropertyEditor extends PropertyEditorBase {
     // (undocumented)
@@ -1363,10 +1109,6 @@ export interface IMutableFlatPropertyGridItem {
 export interface IMutableGridCategoryItem extends IMutableFlatPropertyGridItem {
     // (undocumented)
     derivedCategory: PropertyCategory;
-    // @deprecated (undocumented)
-    getChildCategories(): IMutableGridCategoryItem[];
-    // @deprecated (undocumented)
-    getDescendantCategoriesAndSelf(): IMutableGridCategoryItem[];
     // (undocumented)
     isRootCategory: boolean;
     // (undocumented)
@@ -1525,8 +1267,6 @@ export interface ITreeDataProvider {
     getNodes(parent?: TreeNodeItem, page?: PageOptions): Promise<DelayLoadedTreeNodeItem[]>;
     // (undocumented)
     getNodesCount(parent?: TreeNodeItem): Promise<number>;
-    // @deprecated (undocumented)
-    onTreeNodeChanged?: BeEvent<TreeDataChangesListener>;
 }
 
 // @public
@@ -1763,10 +1503,7 @@ export class MutableGridCategory extends MutableFlatPropertyGridItem implements 
     // (undocumented)
     get derivedCategory(): PropertyCategory;
     // (undocumented)
-    getChildCategories(): IMutableGridCategoryItem[];
-    // (undocumented)
     getChildren(): IMutableFlatGridItem[];
-    getDescendantCategoriesAndSelf(): IMutableGridCategoryItem[];
     // (undocumented)
     getSelf(): this;
     get isRootCategory(): boolean;
@@ -1804,28 +1541,6 @@ export class MutablePropertyGridModel implements IPropertyGridModel, IMutablePro
     getItem(selectionKey: string): IMutableFlatGridItem;
     getRootCategories(): IMutableGridCategoryItem[];
     getVisibleFlatGrid(): IMutableFlatGridItem[];
-}
-
-// @public
-export interface MutableTableDataProvider extends TableDataProvider {
-    addRow(rowItem: RowItem): number;
-    deleteRow(rowItem: RowItem): void;
-    insertRow(rowItem: RowItem, index: number): number;
-    moveRow(rowItem: RowItem, newIndex: number): number;
-}
-
-// @beta @deprecated
-export interface MutableTreeDataProvider extends ITreeDataProvider {
-    // (undocumented)
-    getNodeIndex(parent: TreeNodeItem | undefined, child: TreeNodeItem): number;
-    // (undocumented)
-    insertNode(parent: TreeNodeItem | undefined, child: TreeNodeItem, index?: number): void;
-    // (undocumented)
-    isDescendent(parent: TreeNodeItem | undefined, nodeItem: TreeNodeItem): boolean;
-    // (undocumented)
-    moveNode(parent: TreeNodeItem | undefined, newParent: TreeNodeItem | undefined, child: TreeNodeItem, index?: number): void;
-    // (undocumented)
-    removeNode(parent: TreeNodeItem | undefined, child: TreeNodeItem): void;
 }
 
 // @public
@@ -2003,19 +1718,6 @@ export interface OperatorProcessor {
     isNotEqualTo(a: Primitives.Value, b: Primitives.Value): boolean;
 }
 
-// @public
-export interface OperatorValueFilterDescriptor extends FilterDescriptor {
-    isCaseSensitive: boolean;
-    memberKey: string;
-    memberType: string;
-    operator: FilterOperator;
-    value: any;
-}
-
-// @public
-export class OperatorValueFilterDescriptorCollection extends FilterDescriptorCollectionBase<OperatorValueFilterDescriptor> {
-}
-
 // @alpha
 export enum OrthogonalDirection {
     // (undocumented)
@@ -2035,9 +1737,8 @@ export class OrthogonalDirectionHelpers {
 }
 
 // @public
-export class PagedTreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> implements IDisposable {
+export class PagedTreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> {
     constructor(dataProvider: TDataProvider, modelSource: TreeModelSource, pageSize: number);
-    dispose(): void;
     // (undocumented)
     protected load(): Observable<LoadedNodeHierarchy>;
     loadNode(parent: TreeModelNode | TreeModelRootNode, childIndex: number): Observable<TreeNodeLoadResult>;
@@ -2584,16 +2285,6 @@ export class PropertyGrid extends React_2.Component<PropertyGridProps, PropertyG
     render(): JSX.Element;
 }
 
-// @public @deprecated
-export interface PropertyGridCategory {
-    // (undocumented)
-    properties: PropertyRecord[];
-    // (undocumented)
-    propertyCategory: PropertyCategory;
-    // (undocumented)
-    propertyCount: number;
-}
-
 // @internal (undocumented)
 export class PropertyGridCommons {
     // (undocumented)
@@ -2830,13 +2521,6 @@ export interface PropertyViewProps extends SharedRendererProps {
     valueElementRenderer?: () => React_2.ReactNode;
 }
 
-// @public @deprecated
-export interface ReactDataGridColumn extends ReactDataGrid.Column<any> {
-    // (undocumented)
-    filterableColumn?: FilterableColumn;
-    icon?: boolean;
-}
-
 // @beta
 export interface RenderedItemsRange {
     // (undocumented)
@@ -2868,34 +2552,6 @@ export class ResultSelector extends React_2.PureComponent<ResultSelectorProps, R
 export interface ResultSelectorProps extends CommonProps {
     onSelectedChanged: (index: number) => void;
     resultCount: number;
-}
-
-// @public
-export interface RowItem {
-    cells: CellItem[];
-    colorOverrides?: ItemColorOverrides;
-    extendedData?: {
-        [key: string]: any;
-    };
-    getValueFromCell?: (columnKey: string) => any;
-    isDisabled?: boolean;
-    key: string;
-}
-
-// @public @deprecated
-export interface RowProps {
-    // (undocumented)
-    cells: {
-        [key: string]: CellProps;
-    };
-    // (undocumented)
-    index: number;
-    // (undocumented)
-    item: RowItem;
-    // (undocumented)
-    render?: () => React_2.ReactNode;
-    // (undocumented)
-    style?: React_2.CSSProperties;
 }
 
 // @public
@@ -3001,58 +2657,6 @@ export class ShortDateTypeConverter extends DateTimeTypeConverterBase {
     protected getTimeFormat(): TimeFormat;
 }
 
-// @public @deprecated
-export class ShowHideDialog<T extends ShowHideID> extends React_2.PureComponent<ShowHideDialogProps<T>, ShowHideDialogState<T>> {
-    constructor(props: ShowHideDialogProps<T>);
-    // @internal (undocumented)
-    componentDidUpdate(oldProps: ShowHideDialogProps<T>): void;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: ShowHideDialogState<T>;
-}
-
-// @public @deprecated
-export interface ShowHideDialogProps<T extends ShowHideID> extends GlobalDialogProps {
-    initialHidden?: T[];
-    items: Array<ShowHideItem<T>>;
-    onShowHideChange?: (cols: T[]) => boolean | undefined;
-}
-
-// @public @deprecated
-export type ShowHideID = string | number | symbol;
-
-// @public @deprecated
-export interface ShowHideItem<T extends ShowHideID> {
-    // (undocumented)
-    id: T;
-    // (undocumented)
-    label: string;
-}
-
-// @public @deprecated
-export class ShowHideMenu<T extends ShowHideID> extends React_2.PureComponent<ShowHideMenuProps<T>, ShowHideMenuState<T>> {
-    // @internal
-    constructor(props: ShowHideMenuProps<T>);
-    // @internal (undocumented)
-    componentDidUpdate(oldProps: ShowHideMenuProps<T>): void;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: ShowHideMenuState<T>;
-}
-
-// @public @deprecated
-export interface ShowHideMenuProps<T extends ShowHideID> extends GlobalContextMenuProps {
-    initialHidden?: T[];
-    items: Array<ShowHideItem<T>>;
-    onClose?: () => void;
-    onShowHideChange?: (cols: T[]) => boolean | undefined;
-    opened: boolean;
-    x: number;
-    y: number;
-}
-
 // @public
 export class SimplePropertyDataProvider implements IPropertyDataProvider, PropertyData {
     // (undocumented)
@@ -3082,32 +2686,12 @@ export class SimplePropertyDataProvider implements IPropertyDataProvider, Proper
 }
 
 // @public
-export class SimpleTableDataProvider implements MutableTableDataProvider {
-    constructor(columns: ColumnDescription[]);
-    addRow(rowItem: RowItem): number;
-    applyFilterDescriptors(filterDescriptors: CompositeFilterDescriptorCollection): Promise<void>;
-    deleteRow(rowItem: RowItem, raiseRowsChangedEvent?: boolean): void;
-    getColumns(): Promise<ColumnDescription[]>;
-    getDistinctValues(columnKey: string, maximumValueCount?: number): Promise<DistinctValueCollection>;
-    getRow(rowIndex: number, unfiltered?: boolean): Promise<RowItem>;
-    getRowsCount(): Promise<number>;
-    insertRow(rowItem: RowItem, index: number): number;
-    moveRow(rowItem: RowItem, newIndex: number): number;
-    onColumnsChanged: TableDataChangeEvent;
-    onRowsChanged: TableDataChangeEvent;
-    setItems(items: RowItem[]): void;
-    sort(columnIndex: number, sortDirection: SortDirection): Promise<void>;
-}
-
-// @public
 export class SimpleTreeDataProvider implements ITreeDataProvider {
     constructor(hierarchy: SimpleTreeDataProviderHierarchy);
     // (undocumented)
     getNodes(parent?: TreeNodeItem, pageOptions?: PageOptions): Promise<TreeNodeItem[]>;
     // (undocumented)
     getNodesCount(parent?: TreeNodeItem): Promise<number>;
-    // (undocumented)
-    onTreeNodeChanged: BeEvent<TreeDataChangesListener>;
 }
 
 // @public
@@ -3264,34 +2848,6 @@ export interface Subscription extends Unsubscribable {
     unsubscribe(): void;
 }
 
-// @public @deprecated
-export class Table extends React_2.Component<TableProps, TableState> {
-    // @internal
-    constructor(props: TableProps);
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentDidUpdate(previousProps: TableProps, previousState: TableState): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // @internal
-    get filterDescriptors(): CompositeFilterDescriptorCollection;
-    // @internal
-    getPropertyDisplayValueExpression(property: string): string;
-    // @internal (undocumented)
-    render(): JSX.Element;
-    // @internal (undocumented)
-    shouldComponentUpdate(_props: TableProps): boolean;
-    // @internal (undocumented)
-    readonly state: TableState;
-    // @internal (undocumented)
-    update(): Promise<UpdateStatus>;
-    // @internal (undocumented)
-    updateSelectedCells(): void;
-    // @internal (undocumented)
-    updateSelectedRows(): void;
-}
-
 // @public
 export class TableArrayValueRenderer extends React_2.PureComponent<TableSpecificValueRendererProps> {
     // @internal (undocumented)
@@ -3299,141 +2855,7 @@ export class TableArrayValueRenderer extends React_2.PureComponent<TableSpecific
 }
 
 // @public @deprecated
-export class TableCell extends React_2.PureComponent<TableCellProps> {
-    // @internal (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export class TableCellContent extends React_2.PureComponent<TableCellContentProps, TableCellContentState> {
-    // @internal (undocumented)
-    componentDidMount(): Promise<void>;
-    // @internal (undocumented)
-    componentDidUpdate(prevProps: TableCellContentProps): Promise<void>;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // @internal (undocumented)
-    render(): React_2.ReactNode;
-    // @internal (undocumented)
-    readonly state: TableCellContentState;
-}
-
-// @public @deprecated
-export interface TableCellContentProps extends CommonProps {
-    cellItem: CellItem;
-    height?: number;
-    isSelected: boolean;
-    onDialogOpen?: (state: PropertyDialogState) => void;
-    propertyValueRendererManager: PropertyValueRendererManager;
-}
-
-// @public @deprecated
-export interface TableCellContextMenuArgs {
-    cellItem?: CellItem;
-    cellKey: string;
-    colIndex: number;
-    event: React_2.MouseEvent;
-    rowIndex: number;
-}
-
-// @public @deprecated
-export interface TableCellEditorState {
-    // (undocumented)
-    active: boolean;
-    // (undocumented)
-    cellKey?: string;
-    // (undocumented)
-    colIndex?: number;
-    // (undocumented)
-    rowIndex?: number;
-}
-
-// @public @deprecated
-export interface TableCellProps extends CommonProps {
-    cellEditingProps?: Omit_2<EditorContainerProps, "title">;
-    children?: React_2.ReactNode;
-    className?: string;
-    onClick?: (e: React_2.MouseEvent) => void;
-    onMouseDown?: (e: React_2.MouseEvent) => void;
-    onMouseMove?: (e: React_2.MouseEvent) => void;
-    title: string;
-}
-
-// @public @deprecated
-export interface TableCellUpdatedArgs {
-    // (undocumented)
-    cellKey: string;
-    // (undocumented)
-    colIndex: number;
-    // (undocumented)
-    rowIndex: number;
-}
-
-// @internal
-export class TableColumn extends FilterableColumnBase {
-    constructor(filterableTable: FilterableTable, columnDescription: ColumnDescription, reactDataGridColumn: ReactDataGridColumn);
-    // (undocumented)
-    dataProvider?: TableDataProvider;
-    // (undocumented)
-    distinctValueCollection?: DistinctValueCollection;
-    getDistinctValues(maximumValueCount?: number): Promise<DistinctValueCollection>;
-    // (undocumented)
-    get key(): string;
-    // (undocumented)
-    readonly reactDataGridColumn: ReactDataGridColumn;
-}
-
-// @public
-export class TableDataChangeEvent extends BeEvent<TableDataChangesListener> {
-}
-
-// @public
-export type TableDataChangesListener = () => void;
-
-// @public
-export interface TableDataProvider {
-    applyFilterDescriptors?: (filterDescriptors: CompositeFilterDescriptorCollection) => Promise<void>;
-    getColumns(): Promise<ColumnDescription[]>;
-    getDistinctValues?: (columnKey: string, maximumValueCount?: number) => Promise<DistinctValueCollection>;
-    // @alpha
-    getPropertyDisplayValueExpression?: (property: string) => string;
-    getRow(rowIndex: number, unfiltered?: boolean): Promise<RowItem>;
-    getRowsCount(): Promise<number>;
-    onColumnsChanged: TableDataChangeEvent;
-    onRowsChanged: TableDataChangeEvent;
-    sort(columnIndex: number, sortDirection: SortDirection): Promise<void>;
-}
-
-// @public
-export interface TableDistinctValue {
-    // (undocumented)
-    label: string;
-    // (undocumented)
-    value: Primitives.Value;
-}
-
-// @internal
-export class TableFilterDescriptorCollection extends FilterDescriptorCollection implements CompositeFilterDescriptorCollection {
-    constructor();
-    evaluateRow(row: RowItem): boolean;
-    get filterDescriptorCollection(): FilterDescriptorCollection;
-    getColumnFilterDescriptor(columnKey: string): ColumnFilterDescriptor | undefined;
-    // (undocumented)
-    getFilterExpression(): string;
-    isColumnFilterActive(columnKey: string): boolean;
-    get logicalOperator(): FilterCompositionLogicalOperator;
-    set logicalOperator(value: FilterCompositionLogicalOperator);
-}
-
-// @public
-export class TableIconCellContent extends React_2.PureComponent<TableIconCellContentProps> {
-    // @internal (undocumented)
-    render(): JSX.Element;
-}
-
-// @public
-export interface TableIconCellContentProps {
-    iconName: string;
+export class TableDataChangeEvent extends BeEvent<() => void> {
 }
 
 // @public
@@ -3449,71 +2871,10 @@ export interface TableNonPrimitiveValueRendererProps extends SharedTableNonPrimi
     dialogTitle: string;
 }
 
-// @public @deprecated
-export interface TableProps extends CommonProps {
-    dataProvider: TableDataProvider;
-    hideHeader?: boolean;
-    isCellSelected?: (rowIndex: number, cell: CellItem) => boolean;
-    isRowSelected?: (row: RowItem) => boolean;
-    maximumDistinctValues?: number;
-    // @internal (undocumented)
-    onApplyFilter?: () => void;
-    onCellContextMenu?: (args: TableCellContextMenuArgs) => void;
-    onCellsDeselected?: (cellIterator: AsyncIterableIterator<[RowItem, CellItem]>) => Promise<boolean>;
-    onCellsSelected?: (cellIterator: AsyncIterableIterator<[RowItem, CellItem]>, replace: boolean) => Promise<boolean>;
-    onPropertyEditing?: (args: TableCellEditorState) => void;
-    onPropertyUpdated?: (propertyArgs: PropertyUpdatedArgs, cellArgs: TableCellUpdatedArgs) => Promise<boolean>;
-    // @internal
-    onRender?: () => void;
-    onRowsDeselected?: (rowIterator: AsyncIterableIterator<RowItem>) => Promise<boolean>;
-    onRowsLoaded?: (firstRowIndex: number, lastRowIndex: number) => void;
-    onRowsSelected?: (rowIterator: AsyncIterableIterator<RowItem>, replace: boolean) => Promise<boolean>;
-    // @internal (undocumented)
-    onScrollToRow?: (rowIndex: number) => void;
-    pageAmount?: number;
-    propertyValueRendererManager?: PropertyValueRendererManager;
-    // @internal (undocumented)
-    renderRow?: (item: RowItem, props: TableRowProps) => React_2.ReactNode;
-    reorderableColumns?: boolean;
-    scrollToRow?: number;
-    selectionMode?: SelectionMode_2;
-    settingsIdentifier?: string;
-    settingsStorage?: UiStateStorage;
-    showHideColumns?: boolean;
-    stripedRows?: boolean;
-    tableSelectionTarget?: TableSelectionTarget;
-    // @deprecated
-    uiStateStorage?: UiStateStorage;
-}
-
-// @internal
-export class TableRow extends React_2.Component<TableRowProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal
-export interface TableRowProps extends CommonProps {
-    // (undocumented)
-    cells: {
-        [key: string]: React_2.ReactNode;
-    };
-    // (undocumented)
-    isSelected?: boolean;
-}
-
 // @public
 export const TableRowStyleProvider: {
     createStyle: ({ color, backgroundColor }: ItemColorOverrides) => CSSProperties;
 };
-
-// @public @deprecated
-export enum TableSelectionTarget {
-    // (undocumented)
-    Cell = 1,
-    // (undocumented)
-    Row = 0
-}
 
 // @public
 export interface TableSpecificValueRendererProps extends SharedTableNonPrimitiveValueRendererProps {
@@ -3577,49 +2938,6 @@ export class TextEditor extends React_2.PureComponent<PropertyEditorProps, TextE
     render(): React_2.ReactNode;
     // @internal (undocumented)
     readonly state: Readonly<TextEditorState>;
-}
-
-// @beta @deprecated
-export class ThemedEnumEditor extends React_2.PureComponent<ThemedEnumEditorProps, EnumEditorState_2> implements TypeEditor {
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // @internal (undocumented)
-    componentDidUpdate(prevProps: PropertyEditorProps): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    getPropertyValue(): Promise<PropertyValue | undefined>;
-    // (undocumented)
-    get hasFocus(): boolean;
-    // (undocumented)
-    get htmlElement(): HTMLElement | null;
-    // @internal (undocumented)
-    render(): JSX.Element;
-    // @internal (undocumented)
-    readonly state: Readonly<EnumEditorState_2>;
-}
-
-// @beta @deprecated
-export interface ThemedEnumEditorProps extends PropertyEditorProps {
-    isSearchable?: boolean;
-    noOptionsMessage?: (obj: {
-        inputValue: string;
-    }) => string | null;
-    placeholder?: string;
-}
-
-// @beta @deprecated
-export class ThemedEnumPropertyEditor extends PropertyEditorBase {
-    // (undocumented)
-    get containerHandlesBlur(): boolean;
-    // (undocumented)
-    get containerHandlesEnter(): boolean;
-    // (undocumented)
-    get containerHandlesEscape(): boolean;
-    // (undocumented)
-    get containerHandlesTab(): boolean;
-    // (undocumented)
-    get reactNode(): React_2.ReactNode;
 }
 
 // @internal
@@ -3860,9 +3178,6 @@ export interface TreeCheckboxStateChangeEventArgs {
 }
 
 // @public
-export type TreeDataChangesListener = (nodes: Array<TreeNodeItem | undefined>) => void;
-
-// @public
 export type TreeDataProvider = TreeDataProviderRaw | TreeDataProviderPromise | TreeDataProviderMethod | ITreeDataProvider;
 
 // @public
@@ -3875,12 +3190,8 @@ export type TreeDataProviderPromise = Promise<TreeDataProviderRaw>;
 export type TreeDataProviderRaw = ImmediatelyLoadedTreeNodeItem[];
 
 // @internal
-export class TreeDataSource implements IDisposable {
+export class TreeDataSource {
     constructor(dataProvider: TreeDataProvider);
-    // (undocumented)
-    dispose(): void;
-    // (undocumented)
-    readonly onItemsChanged: BeEvent<TreeDataChangesListener>;
     // (undocumented)
     requestItems(parent: TreeNodeItem | undefined, firstItemIndex: number, numItems: number, requestNumChildren: boolean): Observable_2<TreeDataSourceResult>;
 }
@@ -4122,9 +3433,8 @@ export interface TreeNodeItem {
 export type TreeNodeItemData = ImmediatelyLoadedTreeNodeItem & DelayLoadedTreeNodeItem;
 
 // @public
-export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> implements IDisposable {
+export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> {
     constructor(dataProvider: TDataProvider, modelSource: TreeModelSource);
-    dispose(): void;
     // (undocumented)
     protected load(): Observable<LoadedNodeHierarchy>;
     loadNode(parent: TreeModelNode | TreeModelRootNode, _childIndex?: number): Observable<TreeNodeLoadResult>;

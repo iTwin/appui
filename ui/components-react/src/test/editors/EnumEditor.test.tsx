@@ -4,82 +4,58 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
 import * as React from "react";
 import sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { EditorContainer, PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
+import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { EnumEditor } from "../../components-react/editors/EnumEditor";
-import TestUtils, { MineDataController } from "../TestUtils";
+import TestUtils, { MineDataController, styleMatch, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { handleError, selectChangeValueByIndex, stubScrollIntoView } from "../test-helpers/misc";
+import { stubScrollIntoView } from "../test-helpers/misc";
 
 describe("<EnumEditor />", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   stubScrollIntoView();
 
-  it("should render", () => {
-    mount(<EnumEditor />);
+  it("render without record", () => {
+    render(<EnumEditor style={{width: 400}}/>);
+    expect(screen.getByTestId("components-select-editor"))
+      .to.satisfy(styleMatch({width: "400px"}));
   });
 
-  it("renders correctly", () => {
-    shallow(<EnumEditor />).should.matchSnapshot();
-  });
-
-  it("renders correctly with style", () => {
-    shallow(<EnumEditor style={{ color: "red" }} />).should.matchSnapshot();
-  });
-
-  it("getValue returns proper value after componentDidMount & setState", async () => {
+  it("uses record value", async () => {
     const record = TestUtils.createEnumProperty("Test", 0);
-    const wrapper = mount(<EnumEditor propertyRecord={record} />);
+    render(<EnumEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as EnumEditor;
-    expect(editor.state.selectValue).to.equal(0);
-
-    wrapper.unmount();
+    await waitFor(() => expect(screen.getByText("Yellow")).to.exist);
   });
 
   it("HTML select onChange updates string value", async () => {
     const record = TestUtils.createEnumProperty("Test1", "0");
     const spyOnCommit = sinon.spy();
-    function handleCommit(_commit: PropertyUpdatedArgs): void {
-      spyOnCommit();
-    }
-    const wrapper = render(<EnumEditor propertyRecord={record} onCommit={handleCommit} />);
-    await TestUtils.flushAsyncOperations();
-    const selectNode = wrapper.getByTestId("components-select-editor");
-    expect(selectNode).not.to.be.null;
-
-    selectChangeValueByIndex(selectNode, 1, handleError, true);
-    await TestUtils.flushAsyncOperations();
+    render(<EnumEditor propertyRecord={record} onCommit={spyOnCommit} />);
+    await theUserTo.click(screen.getByTestId("components-select-editor").firstElementChild!);
+    await theUserTo.click(screen.getByRole("option", {name: "Green"}));
     expect(spyOnCommit.calledOnce).to.be.true;
   });
 
   it("HTML select onChange updates numeric value", async () => {
     const record = TestUtils.createEnumProperty("Test1", 0);
     const spyOnCommit = sinon.spy();
-    function handleCommit(_commit: PropertyUpdatedArgs): void {
-      spyOnCommit();
-    }
-    const wrapper = render(<EnumEditor propertyRecord={record} onCommit={handleCommit} />);
-    await TestUtils.flushAsyncOperations();
-    const selectNode = wrapper.getByTestId("components-select-editor");
-    expect(selectNode).not.to.be.null;
-
-    selectChangeValueByIndex(selectNode, 1, handleError, true);
-    await TestUtils.flushAsyncOperations();
+    render(<EnumEditor propertyRecord={record} onCommit={spyOnCommit} />);
+    await theUserTo.click(screen.getByTestId("components-select-editor").firstElementChild!);
+    await theUserTo.click(screen.getByRole("option", {name: "Green"}));
     expect(spyOnCommit.calledOnce).to.be.true;
   });
 
   it("onCommit should not be called for escape", async () => {
     const propertyRecord = TestUtils.createEnumProperty("Test", 0);
     const spyOnCommit = sinon.spy();
-    function handleCommit(_commit: PropertyUpdatedArgs): void {
-      spyOnCommit();
-    }
-    const wrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={handleCommit} onCancel={() => { }} />);
+    const wrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
     await TestUtils.flushAsyncOperations();
     const selectNode = wrapper.getByTestId("components-select-editor");
     expect(selectNode).not.to.be.null;
@@ -89,21 +65,15 @@ describe("<EnumEditor />", () => {
     expect(spyOnCommit.called).to.be.false;
   });
 
-  it("componentDidUpdate updates the value", async () => {
+  it("new props updates the display", async () => {
     const record = TestUtils.createEnumProperty("Test", 0);
-    const wrapper = mount(<EnumEditor propertyRecord={record} />);
-
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as EnumEditor;
-    expect(editor.state.selectValue).to.equal(0);
+    const { rerender } = render(<EnumEditor propertyRecord={record} />);
+    await waitFor(() => expect(screen.getByText("Yellow")).to.exist);
 
     const testValue = 1;
     const newRecord = TestUtils.createEnumProperty("Test", testValue);
-    wrapper.setProps({ propertyRecord: newRecord });
-    await TestUtils.flushAsyncOperations();
-    expect(editor.state.selectValue).to.equal(testValue);
-
-    wrapper.unmount();
+    rerender(<EnumEditor propertyRecord={newRecord} />);
+    await waitFor(() => expect(screen.getByText("Red")).to.exist);
   });
 
   it("should not commit if DataController fails to validate", async () => {

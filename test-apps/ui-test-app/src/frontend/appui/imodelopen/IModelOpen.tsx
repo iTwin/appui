@@ -9,7 +9,6 @@ import * as React from "react";
 import { AccessToken, BeDuration } from "@itwin/core-bentley";
 import { Project as ITwin, ProjectsAccessClient } from "@itwin/projects-client";
 import { ActivityMessageDetails, ActivityMessageEndReason, IModelApp } from "@itwin/core-frontend";
-import { ActivityMessagePopup } from "@itwin/appui-react";
 import { AccessTokenAdapter } from "@itwin/imodels-access-frontend";
 import { Button } from "@itwin/itwinui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -222,7 +221,6 @@ export class IModelOpen extends React.Component<IModelOpenProps, IModelOpenState
             {this.renderIModels()}
           </div>
         </div>
-        <ActivityMessagePopup />
       </>
     );
   }

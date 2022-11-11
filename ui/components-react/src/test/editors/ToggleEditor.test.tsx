@@ -4,103 +4,68 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import sinon from "sinon";
-import { PrimitiveValue, SpecialKey } from "@itwin/appui-abstract";
-import { EditorContainer, PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
+import { SpecialKey } from "@itwin/appui-abstract";
+import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { ToggleEditor } from "../../components-react/editors/ToggleEditor";
-import TestUtils, { MineDataController } from "../TestUtils";
+import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 
 describe("<ToggleEditor />", () => {
-  it("should render", () => {
-    mount(<ToggleEditor />);
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
+  it("renders correctly it no record", () => {
+    render(<ToggleEditor />);
+
+    expect(screen.getByRole("switch")).to.have.property("checked", false);
   });
 
-  it("renders correctly", () => {
-    shallow(<ToggleEditor />).should.matchSnapshot();
-  });
+  it("record set correct value", async () => {
+    const record = TestUtils.createBooleanProperty("Test", true, "toggle");
+    render(<ToggleEditor propertyRecord={record} />);
 
-  it("getValue returns proper value after componentDidMount & setState", async () => {
-    const record = TestUtils.createBooleanProperty("Test", false, "toggle");
-    const wrapper = mount(<ToggleEditor propertyRecord={record} />);
-
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as ToggleEditor;
-    expect(editor.state.toggleValue).to.equal(false);
-
-    wrapper.unmount();
+    expect(screen.getByRole("switch")).to.have.property("checked", true);
   });
 
   it("isDisabled is set by the property record", async () => {
     const record = TestUtils.createBooleanProperty("Test", false, "toggle");
     record.isDisabled = true;
-    const wrapper = mount(<ToggleEditor propertyRecord={record} />);
+    render(<ToggleEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as ToggleEditor;
-    expect(editor.state.isDisabled).to.equal(true);
-
-    wrapper.unmount();
+    expect(screen.getByRole("switch")).to.have.property("disabled", true);
   });
 
   it("HTML input onChange updates boolean value", async () => {
     const record = TestUtils.createBooleanProperty("Test1", false, "toggle");
     const spyOnCommit = sinon.spy();
-    function handleCommit(_commit: PropertyUpdatedArgs): void {
-      spyOnCommit();
-    }
-    const wrapper = mount(<ToggleEditor propertyRecord={record} onCommit={handleCommit} />);
-    const editor = wrapper.instance() as ToggleEditor;
-    const inputNode = wrapper.find("input");
+    render(<ToggleEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
-    expect(inputNode.length).to.eq(1);
-    if (inputNode) {
-      const testValue = true;
-      inputNode.simulate("change", { target: { value: testValue } });
-      wrapper.update();
-      expect(editor.state.toggleValue).to.equal(testValue);
-      await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit.calledOnce).to.be.true;
-    }
+    await theUserTo.click(screen.getByRole("switch"));
+
+    expect(spyOnCommit.calledOnce).to.be.true;
   });
 
   it("onCommit should be called for Space", async () => {
-    let booleanValue = false;
-    const propertyRecord = TestUtils.createBooleanProperty("Test2", booleanValue, "toggle");
+    const propertyRecord = TestUtils.createBooleanProperty("Test2", false, "toggle");
     const spyOnCommit = sinon.spy();
-    function handleCommit(commit: PropertyUpdatedArgs): void {
-      booleanValue = (commit.newValue as PrimitiveValue).value as boolean;
-      spyOnCommit();
-    }
-    const wrapper = mount(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={handleCommit} onCancel={() => { }} />);
-    const inputNode = wrapper.find("input");
-    expect(inputNode.length).to.eq(1);
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} setFocus={true} />);
 
-    const testValue = true;
-    inputNode.simulate("change", { target: { value: testValue } });
+    await theUserTo.keyboard(" ");
 
-    await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.true;
-    expect(booleanValue).to.be.true;
+    expect(spyOnCommit).to.be.calledWith(sinon.match({newValue: sinon.match({value: true})}));
   });
 
-  it("componentDidUpdate updates the value", async () => {
+  it("new props update display", async () => {
     const record = TestUtils.createBooleanProperty("Test", false, "toggle");
-    const wrapper = mount(<ToggleEditor propertyRecord={record} />);
-
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as ToggleEditor;
-    expect(editor.state.toggleValue).to.equal(false);
+    const { rerender } = render(<ToggleEditor propertyRecord={record} />);
 
     const newRecord = TestUtils.createBooleanProperty("Test", true);
-    wrapper.setProps({ propertyRecord: newRecord });
-    await TestUtils.flushAsyncOperations();
-    expect(editor.state.toggleValue).to.equal(true);
-
-    wrapper.unmount();
+    rerender(<ToggleEditor propertyRecord={newRecord} />);
+    expect(screen.getByRole("switch")).to.have.property("checked", true);
   });
 
   it("should not commit if DataController fails to validate", async () => {

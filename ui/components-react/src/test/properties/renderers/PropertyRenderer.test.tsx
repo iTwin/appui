@@ -3,20 +3,21 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
 import sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
-import { LinksRenderer } from "../../../components-react/properties/LinkHandler";
-import { NonPrimitivePropertyRenderer } from "../../../components-react/properties/renderers/NonPrimitivePropertyRenderer";
-import { PrimitivePropertyRenderer } from "../../../components-react/properties/renderers/PrimitivePropertyRenderer";
 import { PropertyRenderer } from "../../../components-react/properties/renderers/PropertyRenderer";
 import { PropertyValueRendererManager } from "../../../components-react/properties/ValueRendererManager";
-import TestUtils from "../../TestUtils";
-import { fireEvent, render } from "@testing-library/react";
+import TestUtils, { selectorMatches, styleMatch, userEvent } from "../../TestUtils";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { PropertyRecord } from "@itwin/appui-abstract";
 
 describe("PropertyRenderer", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
+
   describe("getLabelOffset", () => {
     const maxIndent = 17;
     const minIndent = 6;
@@ -120,89 +121,101 @@ describe("PropertyRenderer", () => {
 
     propertyRecord = TestUtils.createPrimitiveStringProperty("Label", originalValue);
 
-    const propertyRenderer = mount(
+    const { rerender } = render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
       />);
 
-    await TestUtils.flushAsyncOperations();
-    propertyRenderer.update();
+    expect(screen.getByTitle(originalValue)).to.exist;
 
-    expect(propertyRenderer.find(LinksRenderer).prop("value")).to.be.equal(originalValue);
+    rerender(
+      <PropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={TestUtils.createPrimitiveStringProperty("Label", recordValue)}
+      />);
 
-    propertyRenderer.setProps({ propertyRecord: TestUtils.createPrimitiveStringProperty("Label", recordValue) });
-
-    await TestUtils.flushAsyncOperations();
-    propertyRenderer.update();
-
-    expect(propertyRenderer.find(LinksRenderer).prop("value")).to.be.equal(recordValue);
+    expect(screen.queryByTitle(originalValue)).to.be.null;
+    expect(screen.getByTitle(recordValue)).to.exist;
   });
 
   it("renders value differently if provided with custom propertyValueRendererManager", async () => {
     class RendererManager extends PropertyValueRendererManager {
       public override render({ }) {
-        return ("Test");
+        return (<div style={{color: "blue"}}>Test</div>);
       }
     }
 
-    const propertyRenderer = mount(
+    render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         propertyValueRendererManager={new RendererManager()}
       />);
 
-    await TestUtils.flushAsyncOperations();
-    propertyRenderer.update();
-
-    expect(propertyRenderer.find(PrimitivePropertyRenderer).prop("valueElement")).to.be.eq("Test");
+    expect(screen.getByText("Test"))
+      .satisfy(styleMatch({color: "blue"}));
+    // Should not display the default rendering.
+    expect(screen.queryByTitle("Model")).to.be.null;
   });
 
   it("renders as primitive value if property is an empty array", () => {
     propertyRecord = TestUtils.createArrayProperty("EmptyArray");
 
-    const propertyRenderer = mount(
+    render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
       />);
 
-    expect(propertyRenderer.find(PrimitivePropertyRenderer).exists()).to.be.true;
+    expect(screen.getByTitle("EmptyArray"))
+      .satisfy(selectorMatches([
+        ".components-primitive-property-label-renderer",
+        ".components-property-label-renderer",
+      ].join(" > ")));
   });
 
   it("renders struct as a non primitive value", () => {
     propertyRecord = TestUtils.createArrayProperty("StringArray", [TestUtils.createPrimitiveStringProperty("Label", "Model")]);
 
-    const propertyRenderer = mount(
+    render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
       />);
 
-    expect(propertyRenderer.find(NonPrimitivePropertyRenderer).exists()).to.be.true;
+    expect(screen.getByTitle("StringArray (1)"))
+      .satisfy(selectorMatches([
+        ".components-nonprimitive-property-label-renderer",
+        ".components-property-label-renderer",
+      ].join(" > ")));
   });
 
   it("renders array as a non primitive value", () => {
     propertyRecord = TestUtils.createStructProperty("Struct");
 
-    const propertyRenderer = mount(
+    render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
       />);
 
-    expect(propertyRenderer.find(NonPrimitivePropertyRenderer).exists()).to.be.true;
+    expect(screen.getByTitle("Struct"))
+      .satisfy(selectorMatches([
+        ".components-nonprimitive-property-label-renderer",
+        ".components-property-label-renderer",
+      ].join(" > ")));
   });
   it("renders an editor correctly", () => {
-    const propertyRenderer = mount(
+    render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isEditing={true}
       />);
 
-    expect(propertyRenderer.find("input.components-text-editor").length).to.eq(1);
+    expect(screen.getByRole("textbox"))
+      .satisfy(selectorMatches("input.components-text-editor"));
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
@@ -240,34 +253,43 @@ describe("PropertyRenderer", () => {
     expect(spyMethod.calledOnce).to.be.true;
   });
 
-  it("does not remove Editor on Enter if callback is not provided", () => {
-    const propertyRenderer = mount(
+  it("does not remove Editor on Enter if callback is not provided", async () => {
+    render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isEditing={true}
       />);
 
-    const inputNode = propertyRenderer.find("input");
-    expect(inputNode.exists()).to.be.true;
-
-    inputNode.simulate("keyDown", { key: "Enter" });
-    expect(propertyRenderer.find("input").exists()).to.be.true;
+    await theUserTo.type(screen.getByRole("textbox"), "{Enter}");
+    expect(screen.getByRole("textbox")).to.exist;
   });
 
-  it("does not remove Editor on Escape if callback is not provided", () => {
-    const propertyRenderer = mount(
+  it("does not remove Editor on Escape if callback is not provided", async () => {
+    render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isEditing={true}
       />);
 
-    const inputNode = propertyRenderer.find("input");
-    expect(inputNode.exists()).to.be.true;
+    await theUserTo.type(screen.getByRole("textbox"), "{Escape}");
+    expect(screen.getByRole("textbox")).to.exist;
+  });
 
-    inputNode.simulate("keyDown", { key: "Escape" });
-    expect(propertyRenderer.find("input").exists()).to.be.true;
+  it("does wrap valueElement in span if it's a string", async () => {
+    render(
+      <PropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+      />);
+
+    expect(screen.getByText("Model"))
+      .satisfy(selectorMatches([
+        "div.components-property-record-value",
+        "span",
+        "span[title='Model']",
+      ].join(" > ")));
   });
 
   it("does not wrap valueElement in span if it's not a string", async () => {
@@ -279,17 +301,17 @@ describe("PropertyRenderer", () => {
     };
 
     PropertyValueRendererManager.defaultManager.registerRenderer("mycustom", myCustomRenderer);
-    const propertyRenderer = mount(
+    render(
       <PropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
       />);
 
-    await TestUtils.flushAsyncOperations();
-    propertyRenderer.update();
-
-    const originalRender = mount(<div>My value</div>).html();
-    const propsRender = mount(<>{propertyRenderer.find(PrimitivePropertyRenderer).prop("valueElement")}</>).html();
-    expect(originalRender).to.be.eq(propsRender);
+    expect(screen.getByText("My value"))
+      .satisfy(selectorMatches([
+        "div.components-property-record-value",
+        "span",
+        "div",
+      ].join(" > ")));
   });
 });

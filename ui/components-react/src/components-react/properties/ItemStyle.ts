@@ -11,7 +11,7 @@ import { CSSProperties } from "react";
 /** Converts a color value from a number to an HTML/CSS hex string */
 const colorDecimalToHex = (decimal: number) => `#${decimal.toString(16).padStart(6, "0")}`;
 
-/** Style properties for styled item like [[CellItem]] and [[TreeNodeItem]]
+/** Style properties for styled item like [[TreeNodeItem]]
  * @public
  */
 export interface ItemStyle {
@@ -68,7 +68,7 @@ function getForegroundColor(isSelected: boolean, colorOverrides?: ItemColorOverr
 }
 
 /**
- * Style provider for stylable items like [[CellItem]] and [[TreeNodeItem]]
+ * Style provider for stylable items like [[TreeNodeItem]]
  * @public
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -37,7 +37,6 @@ import { ExampleForm } from "../forms/ExampleForm";
 import { AppStatusBarWidgetControl } from "../statusbars/AppStatusBar";
 import { VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { UnifiedSelectionPropertyGridWidgetControl } from "../widgets/UnifiedSelectionPropertyGridWidget";
-import { UnifiedSelectionTableWidgetControl } from "../widgets/UnifiedSelectionTableWidget";
 import { ViewportWidget } from "../widgets/ViewportWidget";
 import { VisibilityWidgetControl } from "../widgets/VisibilityWidget";
 import { NestedAnimationStage } from "./NestedAnimationStage";
@@ -289,18 +288,6 @@ export class ViewsFrontstage extends FrontstageProvider {
     HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.addListener(this._onEmphasizeElementsChangedHandler);
   }
 
-  /** DEPRECATED way of providing button --- Get the CustomItemDef for ViewSelector  */
-  // private get _viewSelectorItemDef() {
-  //   return new CustomItemDef({
-  //     customId: "sampleApp:viewSelector",
-  //     reactElement: (
-  //       <IModelConnectedViewSelector
-  //         listenForShowUpdates={false}  // Demo for showing only the same type of view in ViewSelector - See IModelViewport.tsx, onActivated
-  //       />
-  //     ),
-  //   });
-  // }
-
   /** Commands that opens switches the content layout */
   private get _additionalNavigationVerticalToolbarItems() {
     const customPopupButton: CustomToolbarItem = {
@@ -405,22 +392,6 @@ export class ViewsFrontstage extends FrontstageProvider {
                 iconSpec: "icon-placeholder",
                 labelKey: "SampleApp:widgets.VerticalPropertyGrid",
                 control: VerticalPropertyGridWidgetControl,
-              },
-            ],
-          },
-        },
-      },
-      bottomPanel: {
-        pinned: false,
-        sections: {
-          start: {
-            widgets: [
-              {
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.UnifiedSelectionTable",
-                control: UnifiedSelectionTableWidgetControl,
-                applicationData: { iModelConnection },
-                badgeType: BadgeType.New,
               },
             ],
           },
@@ -736,7 +707,6 @@ class AdditionalTools {
 
   // cSpell:enable
   public additionalHorizontalToolbarItems: CommonToolbarItem[] = [
-    // ToolbarHelper.createToolbarItemFromItemDef(0, CoreTools.keyinBrowserButtonItemDef, {groupPriority: -10 }),
     ToolbarHelper.createToolbarItemFromItemDef(0, CoreTools.keyinPaletteButtonItemDef, { groupPriority: -10 }),
     ToolbarHelper.createToolbarItemFromItemDef(5, this._openNestedAnimationStage, { groupPriority: -10 }),
     ToolbarHelper.createToolbarItemFromItemDef(115, AppTools.tool1, { groupPriority: 20 }),

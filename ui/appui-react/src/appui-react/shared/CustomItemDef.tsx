@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { ActionButtonItemDef } from "./ActionButtonItemDef";
 import { CustomItemProps } from "./CustomItemProps";
 
@@ -18,8 +17,7 @@ export class CustomItemDef extends ActionButtonItemDef {
   private static _sId = 0;
   public static customIdPrefix = "Custom-";
   public customId: string;
-  public reactElement?: React.ReactNode;  // prefer to use popupPanelNode
-  public popupPanelNode?: React.ReactNode; // popupPanelNode populates the panelContentNode when converted to a CustomToolbarItem which can be supplied by an UiItemsProvider
+  public popupPanelNode?: React.ReactNode;
 
   constructor(props: CustomItemProps) {
     super(props);
@@ -31,31 +29,10 @@ export class CustomItemDef extends ActionButtonItemDef {
       this.customId = CustomItemDef.customIdPrefix + CustomItemDef._sId;
     }
 
-    this.reactElement = props.reactElement;
     this.popupPanelNode = props.popupPanelNode;
   }
 
   public get id(): string {
     return this.customId;
   }
-
-  public toolbarReactNode(index?: number): React.ReactNode {
-    if (!this.isVisible || ConditionalBooleanValue.getValue(this.isHidden)) // eslint-disable-line deprecation/deprecation
-      return null;
-
-    let clone: React.ReactNode;
-
-    // istanbul ignore else
-    if (this.reactElement && React.isValidElement(this.reactElement)) {
-      const cloneProps = {
-        key: index,
-        onSizeKnown: this.handleSizeKnown,
-      };
-
-      clone = React.cloneElement(this.reactElement, cloneProps);
-    }
-
-    return clone;
-  }
-
 }

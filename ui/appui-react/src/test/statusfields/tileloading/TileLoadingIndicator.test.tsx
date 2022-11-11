@@ -26,7 +26,7 @@ describe("TileLoadingIndicator", () => {
   it("should render correctly as footer by default", () => {
     const wrapper = render(<TileLoadingIndicator />);
 
-    expect(wrapper.container.querySelector(".nz-footer-mode")).to.exist;
+    expect(wrapper.container.querySelector(".uifw-tile-loading-bar")).to.exist;
     cleanup();
   });
 

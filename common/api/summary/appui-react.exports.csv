@@ -29,14 +29,9 @@ public;ActionWithPayload
 public;ActiveContentChangedEvent 
 public;ActiveContentChangedEventArgs
 internal;ActiveFrontstageDefProvider({ frontstageDef }:
-public;ActivityCenterField 
-public;ActivityMessage(props: ActivityMessageProps): JSX.Element
-deprecated;ActivityMessage(props: ActivityMessageProps): JSX.Element
+public;ActivityCenterField(props: CommonProps): JSX.Element | null
 public;ActivityMessageCancelledEvent 
 public;ActivityMessageEventArgs
-public;ActivityMessagePopup(props: ActivityMessagePopupProps): JSX.Element
-public;ActivityMessagePopupProps 
-public;ActivityMessageProps
 public;ActivityMessageUpdatedEvent 
 internal;addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState
 internal;addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState
@@ -66,10 +61,6 @@ public;BasicNavigationWidget(props: BasicNavigationWidgetProps): JSX.Element
 public;BasicNavigationWidgetProps
 public;BasicToolWidget(props: BasicToolWidgetProps): JSX.Element
 public;BasicToolWidgetProps
-public;BooleanListenerProps
-deprecated;BooleanListenerProps
-public;BooleanSyncUiListener 
-deprecated;BooleanSyncUiListener 
 alpha;BumpToolSetting 
 alpha;Calculator 
 internal;CalculatorEngine
@@ -163,8 +154,6 @@ internal;CursorPopupUpdatePositionEventArgs
 internal;CursorPrompt
 public;CursorUpdatedEvent 
 public;CursorUpdatedEventArgs
-internal;CustomActivityMessageContent({ initialActivityMessageInfo }:
-internal;CustomActivityMessageRenderer({ activityMessageInfo, dismissActivityMessage, cancelActivityMessage, settings }: CustomActivityMessageProps): JSX.Element
 public;CustomItemDef 
 public;CustomItemProps 
 public;DeepReadonly
@@ -246,7 +235,6 @@ beta;IModelConnectedViewSelector: ConnectedComponent
 public;IModelViewportControl 
 public;IModelViewportControlOptions
 internal;INACTIVITY_TIME_DEFAULT = 3500
-beta;Indicator(props: IndicatorProps): JSX.Element
 public;InitialAppUiSettings
 internal;initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneState
 internal;initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState
@@ -276,12 +264,6 @@ public;KeyboardShortcutMenu
 public;KeyboardShortcutMenuEvent 
 public;KeyboardShortcutMenuState
 public;KeyboardShortcutProps 
-beta;KeyinBrowser 
-deprecated;KeyinBrowser 
-beta;KeyinBrowserExecuteArgs
-deprecated;KeyinBrowserExecuteArgs
-beta;KeyinBrowserProps 
-deprecated;KeyinBrowserProps 
 public;KeyinEntry
 public;KeyinFieldLocalization
 internal;KeyinPalettePanel({ keyins, onKeyinExecuted, historyLength: allowedHistoryLength }: KeyinPalettePanelProps): JSX.Element
@@ -295,8 +277,6 @@ beta;ListPickerItemProps
 beta;ListPickerProps
 beta;ListPickerPropsExtended 
 internal;loadCategoriesFromViewport(iModel?: IModelConnection, vp?: Viewport): Promise
-public;MarkupTools
-deprecated;MarkupTools
 alpha;MenuButton 
 alpha;MenuButtonPopup 
 alpha;MenuButtonPopupProps 
@@ -453,53 +433,34 @@ public;StatusBar
 public;StatusBarCenterSection(props: CommonDivProps): JSX.Element
 public;StatusBarComposer(props: StatusBarComposerProps): JSX.Element
 public;StatusBarComposerProps 
+beta;StatusBarDialog(props: StatusBarDialogProps): JSX.Element
+beta;StatusBarDialog
+beta;StatusBarDialogProps 
 public;StatusBarFieldId = string | null
+beta;StatusBarIndicator(props: StatusBarIndicatorProps): JSX.Element
+beta;StatusBarIndicatorProps 
 public;StatusBarItem 
 internal;StatusBarItemProps 
-beta;StatusBarItemsManager 
-deprecated;StatusBarItemsManager 
 public;StatusBarItemUtilities
+beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): JSX.Element
+beta;StatusBarLabelIndicatorProps 
 public;StatusBarLeftSection(props: CommonDivProps): JSX.Element
 public;StatusBarProps 
 public;StatusBarRightSection(props: CommonDivProps): JSX.Element
+public;StatusBarSeparator(props: CommonProps): JSX.Element
 public;StatusBarSpaceBetween(props: CommonDivProps): JSX.Element
 public;StatusBarWidgetComposerControl 
 public;class StatusBarWidgetControl 
-public;StatusMessageRenderer({ closeMessage, cancelActivityMessage: cancelActivityMessageProp, dismissActivityMessage, }: StatusMessageRendererProps): JSX.Element
-deprecated;StatusMessageRenderer({ closeMessage, cancelActivityMessage: cancelActivityMessageProp, dismissActivityMessage, }: StatusMessageRendererProps): JSX.Element
-public;StatusMessageRendererProps 
-public;StickyMessage(props: StickyMessageProps): JSX.Element
-deprecated;StickyMessage(props: StickyMessageProps): JSX.Element
-public;StickyMessageProps
 internal;SubjectModelIdsCache
 public;SupportsViewSelectorChange
 public;SyncToolSettingsPropertiesEvent 
 public;SyncToolSettingsPropertiesEventArgs
-public;SyncUiEvent = UiSyncEvent
-deprecated;SyncUiEvent = UiSyncEvent
-public;SyncUiEventArgs = UiSyncEventArgs
-deprecated;SyncUiEventArgs = UiSyncEventArgs
 public;SyncUiEventDispatcher
 public;SyncUiEventId
 public;SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED"
 internal;TabLocation
-internal;Task 
-deprecated;Task 
-internal;TaskActivatedEvent 
-deprecated;TaskActivatedEvent 
-internal;TaskActivatedEventArgs
-deprecated;TaskActivatedEventArgs
-internal;TaskManager
-deprecated;TaskManager
-internal;TaskProps 
-deprecated;TaskProps 
-internal;TaskPropsList
-deprecated;TaskPropsList
 public;ThemeManager: ConnectedComponent
 public;TileLoadingIndicator 
-public;ToastMessage(props: ToastMessageProps): JSX.Element
-deprecated;ToastMessage(props: ToastMessageProps): JSX.Element
-public;ToastMessageProps
 alpha;toggleAllCategories(viewManager: ViewManager, imodel: IModelConnection, display: boolean, viewport?: Viewport, forAllViewports?: boolean, filteredProvider?: IPresentationTreeDataProvider): Promise
 public;ToolActivatedEvent 
 public;ToolActivatedEventArgs
@@ -558,13 +519,12 @@ public;useActiveIModelConnection(): IModelConnection | undefined
 internal;useActiveModalFrontstageInfo(): ModalFrontstageInfo | undefined
 public;useActiveStageId(): string
 public;useActiveViewport(): ScreenViewport | undefined
-internal;useActivityMessage({ activityMessageInfo, dismissActivityMessage, cancelActivityMessage, settings }: CustomActivityMessageProps): void
 public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): AnalysisAnimationTimelineDataProvider | undefined
 internal;useAvailableUiItemsProviders(): readonly string[]
 public;useBackstageManager: () => BackstageManager
 internal;useCategories(viewManager: ViewManager, imodel: IModelConnection, view?: Viewport): Category[]
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
-public;useDefaultStatusBarItems: (manager: StatusBarItemsManager_2) => readonly CommonStatusBarItem[]
+public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly CommonStatusBarItem[]
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly CommonToolbarItem[]
 internal;useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void
 internal;useGroupedItems: (items: ReadonlyArray
@@ -575,8 +535,6 @@ internal;useLabels(): NineZoneLabels
 internal;useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch
 internal;useNineZoneState(frontstageDef: FrontstageDef): NineZoneState | undefined
 public;UserSettingsProvider
-public;UserSettingsStorage 
-deprecated;UserSettingsStorage 
 internal;useSavedFrontstageState(frontstageDef: FrontstageDef): void
 internal;useSaveFrontstageSettings(frontstageDef: FrontstageDef): void
 public;useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined
@@ -586,7 +544,7 @@ internal;useStatusBarEntry(): DockedStatusBarEntryContextArg
 internal;useToolSettingsNode(): string | number | boolean | {} | React_2.ReactElement
 beta;useTransientState(onSave?: () => void, onRestore?: () => void): void
 public;useUiItemsProviderBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
-public;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager_2) => readonly CommonStatusBarItem[]
+public;useUiItemsProviderStatusBarItems: (manager: StatusBarItemsManager) => readonly CommonStatusBarItem[]
 public;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => readonly CommonToolbarItem[]
 public;useUiStateStorageHandler(): UiStateStorage
 internal;useUiVisibility(): boolean
@@ -642,17 +600,4 @@ internal;WidgetsChangedEvent
 internal;WidgetsChangedEventArgs
 public;WidgetStateChangedEvent 
 public;WidgetStateChangedEventArgs
-public;WidgetStateFunc = (state: Readonly
 public;WidgetType
-internal;Workflow 
-deprecated;Workflow 
-internal;WorkflowActivatedEvent 
-deprecated;WorkflowActivatedEvent 
-internal;WorkflowActivatedEventArgs
-deprecated;WorkflowActivatedEventArgs
-internal;WorkflowManager
-deprecated;WorkflowManager
-internal;WorkflowProps 
-deprecated;WorkflowProps 
-internal;WorkflowPropsList
-deprecated;WorkflowPropsList

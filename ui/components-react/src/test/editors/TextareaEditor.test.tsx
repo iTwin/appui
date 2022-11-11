@@ -4,8 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
 import {
@@ -14,75 +13,51 @@ import {
 } from "@itwin/appui-abstract";
 import { TextareaEditor } from "../../components-react/editors/TextareaEditor";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
-import TestUtils from "../TestUtils";
+import TestUtils, { styleMatch, userEvent } from "../TestUtils";
 
 describe("<TextareaEditor />", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
+
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
 
-  it("should render", () => {
-    mount(<TextareaEditor />);
-  });
+  it("renders correctly with style and no record", async () => {
+    render(<TextareaEditor style={{ color: "red" }} />);
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
 
-  it("renders correctly", () => {
-    shallow(<TextareaEditor />).should.matchSnapshot();
-  });
-
-  it("renders correctly with style", () => {
-    shallow(<TextareaEditor style={{ color: "red" }} />).should.matchSnapshot();
+    expect(screen.getByRole("textbox"))
+      .to.satisfy(styleMatch({color: "red"}));
   });
 
   it("getValue returns proper value after componentDidMount & setState", async () => {
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue");
-    const wrapper = mount(<TextareaEditor propertyRecord={record} />);
-
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as TextareaEditor;
-    expect(editor.state.inputValue).to.equal("MyValue");
-
-    wrapper.unmount();
+    render(<TextareaEditor propertyRecord={record} />);
+    await waitFor(() => expect(screen.getByTestId("components-popup-button").firstElementChild).to.have.property("innerHTML", "MyValue"));
   });
 
   it("HTML input onChange updates value", async () => {
     const record = TestUtils.createPrimitiveStringProperty("Test1", "MyValue");
-    const wrapper = mount(<TextareaEditor propertyRecord={record} />);
+    render(<TextareaEditor propertyRecord={record} />);
 
-    const button = wrapper.find(".components-popup-button");
-    expect(button.length).to.eq(1);
-    button.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
 
-    const editor = wrapper.instance() as TextareaEditor;
-    const textareaNode = wrapper.find("textarea");
-
-    expect(textareaNode.length).to.eq(1);
-    if (textareaNode) {
-      const testValue = "My new value";
-      textareaNode.simulate("change", { target: { value: testValue } });
-      wrapper.update();
-      expect(editor.state.inputValue).to.equal(testValue);
-    }
-
-    wrapper.unmount();
+    await theUserTo.clear(screen.getByRole("textbox"));
+    await theUserTo.type(screen.getByRole("textbox"), "My new value");
+    expect(screen.getByTestId("components-popup-button").firstElementChild).to.have.property("innerHTML", "My new value");
   });
 
-  it("componentDidUpdate updates the value", async () => {
+  it("new props updates the display", async () => {
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue");
-    const wrapper = mount(<TextareaEditor propertyRecord={record} />);
-
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as TextareaEditor;
-    expect(editor.state.inputValue).to.equal("MyValue");
+    const { rerender } = render(<TextareaEditor propertyRecord={record} />);
 
     const testValue = "MyNewValue";
     const newRecord = TestUtils.createPrimitiveStringProperty("Test", testValue);
-    wrapper.setProps({ propertyRecord: newRecord });
-    await TestUtils.flushAsyncOperations();
-    expect(editor.state.inputValue).to.equal(testValue);
-
-    wrapper.unmount();
+    rerender(<TextareaEditor propertyRecord={newRecord} />);
+    await waitFor(() => expect(screen.getByTestId("components-popup-button").firstElementChild).to.have.property("innerHTML", testValue));
   });
 
   it("should support InputEditorSize params", async () => {
@@ -99,15 +74,13 @@ describe("<TextareaEditor />", () => {
     };
 
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue", "Test", editorInfo);
-    const wrapper = mount(<TextareaEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
+    render(<TextareaEditor propertyRecord={record} />);
 
-    const textEditor = wrapper.find(TextareaEditor);
-    expect(textEditor.length).to.eq(1);
-    expect(textEditor.state("size")).to.eq(size);
-    expect(textEditor.state("maxLength")).to.eq(maxLength);
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
 
-    wrapper.unmount();
+    expect(screen.getByRole("textbox"))
+      .to.satisfy(styleMatch({minWidth: "3em"}))
+      .and.to.have.property("maxLength", 60);
   });
 
   it("should support MultilineTextEditor Params", async () => {
@@ -121,58 +94,34 @@ describe("<TextareaEditor />", () => {
     };
 
     const record = TestUtils.createPrimitiveStringProperty("Test", "MyValue", "Test", editorInfo);
-    const wrapper = mount(<TextareaEditor propertyRecord={record} />);
-    await TestUtils.flushAsyncOperations();
+    render(<TextareaEditor propertyRecord={record} />);
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
 
-    const textEditor = wrapper.find(TextareaEditor);
-    expect(textEditor.length).to.eq(1);
-    expect(textEditor.state("rows")).to.eq(4);
-
-    wrapper.unmount();
+    expect(screen.getByRole("textbox"))
+      .to.have.property("rows", 4);
   });
 
   it("calls onCommit on OK button click", async () => {
     const spyOnCommit = sinon.spy();
     const record = TestUtils.createPrimitiveStringProperty("Test1", "MyValue");
-    const wrapper = mount(<TextareaEditor propertyRecord={record} onCommit={spyOnCommit} />);
+    render(<TextareaEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
-    const button = wrapper.find(".components-popup-button");
-    expect(button.length).to.eq(1);
-    button.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
-
-    const okButton = wrapper.find("button.components-popup-ok-button");
-    expect(okButton.length).to.eq(1);
-    okButton.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
+    await theUserTo.click(screen.getByTestId("components-popup-ok-button"));
 
     expect(spyOnCommit.calledOnce).to.be.true;
 
-    wrapper.unmount();
   });
 
   it("calls onCancel on Cancel button click", async () => {
     const spyOnCancel = sinon.spy();
     const record = TestUtils.createPrimitiveStringProperty("Test1", "MyValue");
-    const wrapper = mount(<TextareaEditor propertyRecord={record} onCancel={spyOnCancel} />);
+    render(<TextareaEditor propertyRecord={record} onCancel={spyOnCancel} />);
 
-    const button = wrapper.find(".components-popup-button");
-    expect(button.length).to.eq(1);
-    button.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
-
-    const okButton = wrapper.find("button.components-popup-cancel-button");
-    expect(okButton.length).to.eq(1);
-    okButton.first().simulate("click");
-    await TestUtils.flushAsyncOperations();
-    wrapper.update();
+    await theUserTo.click(screen.getByTestId("components-popup-button"));
+    await theUserTo.click(screen.getByTestId("components-popup-cancel-button"));
 
     expect(spyOnCancel.calledOnce).to.be.true;
-
-    wrapper.unmount();
   });
 
   it("renders editor for 'text' type and 'multi=line' editor using TextareaEditor", () => {
