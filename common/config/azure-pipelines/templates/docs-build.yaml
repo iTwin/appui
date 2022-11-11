@@ -29,11 +29,23 @@ steps:
     workingDirectory: ${{ parameters.workingDir }}
 
   # Gathers all the pieces to run BeMetalsmith
-  - template: ../templates/gather-docs.yaml
-    parameters:
-      workingDir: ${{ parameters.workingDir }}
-      stagingDir: ${{ parameters.stagingDir }}
-      downloadCurrentBuildArtifacts: ${{ parameters.downloadCurrentBuildArtifacts }}
+  - script: |
+      mkdir ${{ parameters.stagingDir }}/reference/
+      echo Copying all reference files to staging
+      robocopy /E generated-docs/ui/ ${{ parameters.stagingDir }}/reference/
+      echo Copying extracted code to staging
+      mkdir ${{ parameters.stagingDir }}/extract/
+      robocopy /E generated-docs/extract/ ${{ parameters.stagingDir }}/extract/
+      echo Copying all files from \docs folder
+      robocopy /E docs/ ${{ parameters.stagingDir }}/
+    workingDirectory: ${{ parameters.workingDir }}
+    displayName: Copy Reference files to Staging
+    failOnStderr: false
+    continueOnError: true
+
+  - script: dir /S
+    workingDirectory: ${{ parameters.stagingDir }}
+    displayName: Log files
 
   # Currently BeMetalsmith is an internal only tool
   - script: npm install @bentley/bemetalsmith@4.x
@@ -49,3 +61,9 @@ steps:
     artifact: .updated.json
     displayName: Publish Pipeline Artifact - .updated.json
     condition: and(succeeded(), eq('${{ parameters.downloadCurrentBuildArtifacts }}', false))
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: AppUi Docs'
+    inputs:
+      PathtoPublish: ${{ parameters.workingDir }}
+      ArtifactName: 'AppUi Docs'
