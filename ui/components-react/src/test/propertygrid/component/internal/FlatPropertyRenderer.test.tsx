@@ -3,20 +3,17 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
 import sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
-import { fireEvent, render } from "@testing-library/react";
-import { LinksRenderer } from "../../../../components-react/properties/LinkHandler";
-import { PrimitivePropertyRenderer } from "../../../../components-react/properties/renderers/PrimitivePropertyRenderer";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { PropertyValueRendererManager } from "../../../../components-react/properties/ValueRendererManager";
-import { FlatNonPrimitivePropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatNonPrimitivePropertyRenderer";
 import { FlatPropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatPropertyRenderer";
-import TestUtils from "../../../TestUtils";
+import TestUtils, { selectorMatches, userEvent } from "../../../TestUtils";
 
 describe("FlatPropertyRenderer", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
   let propertyRecord: PropertyRecord;
 
   before(async () => {
@@ -28,6 +25,7 @@ describe("FlatPropertyRenderer", () => {
   });
 
   beforeEach(() => {
+    theUserTo = userEvent.setup();
     propertyRecord = TestUtils.createPrimitiveStringProperty("Label", "Model");
   });
 
@@ -37,7 +35,7 @@ describe("FlatPropertyRenderer", () => {
 
     propertyRecord = TestUtils.createPrimitiveStringProperty("Label", originalValue);
 
-    const propertyRenderer = mount(
+    const { rerender } = render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -45,17 +43,18 @@ describe("FlatPropertyRenderer", () => {
         onExpansionToggled={() => { }}
       />);
 
-    await TestUtils.flushAsyncOperations();
-    propertyRenderer.update();
+    expect(screen.getByTitle(originalValue)).to.exist;
 
-    expect(propertyRenderer.find(LinksRenderer).prop("value")).to.be.equal(originalValue);
+    rerender(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={TestUtils.createPrimitiveStringProperty("Label", recordValue)}
+        isExpanded={false}
+        onExpansionToggled={() => { }}
+      />);
 
-    propertyRenderer.setProps({ propertyRecord: TestUtils.createPrimitiveStringProperty("Label", recordValue) });
-
-    await TestUtils.flushAsyncOperations();
-    propertyRenderer.update();
-
-    expect(propertyRenderer.find(LinksRenderer).prop("value")).to.be.equal(recordValue);
+    expect(screen.getByTitle(recordValue)).to.exist;
+    expect(screen.queryByTitle(originalValue)).to.be.null;
   });
 
   it("uses provided propertyValueRendererManager", async () => {
@@ -93,7 +92,7 @@ describe("FlatPropertyRenderer", () => {
   it("renders as primitive value if property is an empty array", () => {
     propertyRecord = TestUtils.createArrayProperty("EmptyArray");
 
-    const propertyRenderer = mount(
+    render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -101,7 +100,11 @@ describe("FlatPropertyRenderer", () => {
         onExpansionToggled={() => { }}
       />);
 
-    expect(propertyRenderer.find(PrimitivePropertyRenderer).exists()).to.be.true;
+    expect(screen.getByTitle("EmptyArray"))
+      .satisfy(selectorMatches([
+        ".components-primitive-property-label-renderer",
+        ".components-property-label-renderer",
+      ].join(" ")));
   });
 
   it("highlights matches in empty array values", () => {
@@ -121,7 +124,7 @@ describe("FlatPropertyRenderer", () => {
   it("renders struct as a non primitive value", () => {
     propertyRecord = TestUtils.createArrayProperty("StringArray", [TestUtils.createPrimitiveStringProperty("Label", "Model")]);
 
-    const propertyRenderer = mount(
+    render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -129,13 +132,17 @@ describe("FlatPropertyRenderer", () => {
         onExpansionToggled={() => { }}
       />);
 
-    expect(propertyRenderer.find(FlatNonPrimitivePropertyRenderer).exists()).to.be.true;
+    expect(screen.getByTitle("StringArray (1)"))
+      .satisfy(selectorMatches([
+        ".components-nonprimitive-property-label-renderer",
+        ".components-property-label-renderer",
+      ].join(" ")));
   });
 
   it("renders array as a non primitive value", () => {
     propertyRecord = TestUtils.createStructProperty("Struct");
 
-    const propertyRenderer = mount(
+    render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -143,11 +150,15 @@ describe("FlatPropertyRenderer", () => {
         onExpansionToggled={() => { }}
       />);
 
-    expect(propertyRenderer.find(FlatNonPrimitivePropertyRenderer).exists()).to.be.true;
+    expect(screen.getByTitle("Struct"))
+      .satisfy(selectorMatches([
+        ".components-nonprimitive-property-label-renderer",
+        ".components-property-label-renderer",
+      ].join(" ")));
   });
 
   it("renders an editor correctly", () => {
-    const propertyRenderer = mount(
+    render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -156,7 +167,8 @@ describe("FlatPropertyRenderer", () => {
         onExpansionToggled={() => { }}
       />);
 
-    expect(propertyRenderer.find("input.components-text-editor").length).to.eq(1);
+    expect(screen.getByRole("textbox"))
+      .satisfy(selectorMatches(".components-text-editor"));
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
@@ -217,8 +229,8 @@ describe("FlatPropertyRenderer", () => {
     expect(spyMethod.calledOnce).to.be.true;
   });
 
-  it("does not remove Editor on Enter if callback is not provided", () => {
-    const propertyRenderer = mount(
+  it("does not remove Editor on Enter if callback is not provided", async () => {
+    render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -227,15 +239,12 @@ describe("FlatPropertyRenderer", () => {
         onExpansionToggled={() => { }}
       />);
 
-    const inputNode = propertyRenderer.find("input");
-    expect(inputNode.exists()).to.be.true;
-
-    inputNode.simulate("keyDown", { key: "Enter" });
-    expect(propertyRenderer.find("input").exists()).to.be.true;
+    await theUserTo.type(screen.getByRole("textbox"), "{Enter}");
+    expect(screen.getByRole("textbox")).to.exist;
   });
 
-  it("does not remove Editor on Escape if callback is not provided", () => {
-    const propertyRenderer = mount(
+  it("does not remove Editor on Escape if callback is not provided", async () => {
+    render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -244,11 +253,25 @@ describe("FlatPropertyRenderer", () => {
         onExpansionToggled={() => { }}
       />);
 
-    const inputNode = propertyRenderer.find("input");
-    expect(inputNode.exists()).to.be.true;
+    await theUserTo.type(screen.getByRole("textbox"), "{Escape}");
+    expect(screen.getByRole("textbox")).to.exist;
+  });
 
-    inputNode.simulate("keyDown", { key: "Escape" });
-    expect(propertyRenderer.find("input").exists()).to.be.true;
+  it("wrap valueElement in span if it a string", async () => {
+    render(
+      <FlatPropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isExpanded={false}
+        onExpansionToggled={() => { }}
+      />);
+
+    expect(screen.getByText("Model"))
+      .satisfy(selectorMatches([
+        "div.components-property-record-value",
+        "span",
+        "span[title='Model']",
+      ].join(" > ")));
   });
 
   it("does not wrap valueElement in span if it's not a string", async () => {
@@ -261,7 +284,7 @@ describe("FlatPropertyRenderer", () => {
     };
 
     PropertyValueRendererManager.defaultManager.registerRenderer("mycustomRenderer", myCustomRenderer);
-    const propertyRenderer = mount(
+    render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -269,12 +292,12 @@ describe("FlatPropertyRenderer", () => {
         onExpansionToggled={() => { }}
       />);
 
-    await TestUtils.flushAsyncOperations();
-    propertyRenderer.update();
-
-    const originalRender = mount(<div>My value</div>).html();
-    const propsRender = mount(<>{propertyRenderer.find(PrimitivePropertyRenderer).prop("valueElementRenderer")!()}</>).html();
-    expect(originalRender).to.be.eq(propsRender);
+    expect(screen.getByText("My value"))
+      .satisfy(selectorMatches([
+        "div.components-property-record-value",
+        "span",
+        "div",
+      ].join(" > ")));
   });
 
   describe("onHeightChanged", () => {

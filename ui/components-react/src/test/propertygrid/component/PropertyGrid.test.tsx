@@ -4,37 +4,36 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
 import * as faker from "faker";
 import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
-import { Orientation, ResizableContainerObserver } from "@itwin/core-react";
-import { act, fireEvent, render } from "@testing-library/react";
-import { PropertyCategoryBlock } from "../../../components-react/propertygrid/component/PropertyCategoryBlock";
+import { Orientation } from "@itwin/core-react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { PropertyGrid } from "../../../components-react/propertygrid/component/PropertyGrid";
 import { PropertyGridCommons } from "../../../components-react/propertygrid/component/PropertyGridCommons";
 import {
   IPropertyDataProvider, PropertyCategory, PropertyData, PropertyDataChangeEvent,
 } from "../../../components-react/propertygrid/PropertyDataProvider";
 import { ResolvablePromise } from "../../test-helpers/misc";
-import TestUtils from "../../TestUtils";
+import TestUtils, { selectorMatches, userEvent } from "../../TestUtils";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
 describe("PropertyGrid", () => {
-
+  let theUserTo: ReturnType<typeof userEvent.setup>;
   const categories: PropertyCategory[] = [
     { name: "Group_1", label: "Group 1", expand: true },
     { name: "Group_2", label: "Group 2", expand: false },
   ];
   const records: PropertyRecord[] = [
     TestUtils.createPrimitiveStringProperty("CADID1", "0000 0005 00E0 02D8"),
-    TestUtils.createPrimitiveStringProperty("CADID2", "0000 0005 00E0 02D8"),
+    TestUtils.createPrimitiveStringProperty("CADID2", "0000 0005 00E0 02D9"),
   ];
   let dataProvider: IPropertyDataProvider;
 
   beforeEach(() => {
+    theUserTo = userEvent.setup();
     const evt = new PropertyDataChangeEvent();
     dataProvider = {
       onDataChanged: evt,
@@ -61,37 +60,30 @@ describe("PropertyGrid", () => {
   describe("rendering", () => {
 
     it("renders correctly horizontally", async () => {
-      const wrapper = mount(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} isOrientationFixed={true} />);
+      render(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} isOrientationFixed={true} />);
 
-      await TestUtils.flushAsyncOperations();
-
-      wrapper.update();
-
-      expect(wrapper.find(".components-property-list--horizontal").first().exists()).to.be.true;
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components-property-list--horizontal *"))
+      );
     });
 
     it("renders correctly vertically", async () => {
-      const wrapper = mount(<PropertyGrid orientation={Orientation.Vertical} dataProvider={dataProvider} isOrientationFixed={true} />);
+      render(<PropertyGrid orientation={Orientation.Vertical} dataProvider={dataProvider} isOrientationFixed={true} />);
 
-      await TestUtils.flushAsyncOperations();
-
-      wrapper.update();
-
-      expect(wrapper.find(".components-property-list--vertical").first().exists()).to.be.true;
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components-property-list--vertical *"))
+      );
     });
 
     it("renders PropertyCategoryBlocks correctly", async () => {
-      const wrapper = mount(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
+      render(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
 
-      await TestUtils.flushAsyncOperations();
-
-      wrapper.update();
-
-      let categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "First category block does not exist").to.be.true;
-
-      categoryBlock = wrapper.find(PropertyCategoryBlock).at(1);
-      expect(categoryBlock.exists(), "Second category block does not exist").to.be.true;
+      await waitFor(() => {
+        expect(screen.getByText("Group 1")).to.exist;
+        expect(screen.getByText("Group 2")).to.exist;
+      });
     });
 
     it("renders nested property categories", async () => {
@@ -117,28 +109,30 @@ describe("PropertyGrid", () => {
           },
         }),
       };
-      const wrapper = mount(<PropertyGrid dataProvider={dataProvider} />);
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
+      render(<PropertyGrid dataProvider={dataProvider} />);
 
-      const categoryBlocks = wrapper.find(PropertyCategoryBlock);
-      expect(categoryBlocks.length).to.eq(2);
+      await waitFor(() =>
+        expect(screen.getByTitle("Test")).to.satisfy(selectorMatches([
+          ".components-property-grid-wrapper",
+          ".property-categories",
+          ".property-categories",
+          ".components-property-record-value",
+          "span",
+        ].join(" ")))
+      );
     });
 
     it("renders PropertyCategoryBlock as collapsed when it gets clicked", async () => {
-      const wrapper = mount<PropertyGrid>(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
+      render(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
 
-      await TestUtils.flushAsyncOperations();
+      await waitFor(() => {
+        screen.getByText("Group 1");
+      });
+      expect(screen.getByText("CADID1")).to.exist;
 
-      wrapper.update();
+      await theUserTo.click(screen.getByText("Group 1"));
 
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      categoryBlock.find(".iui-header").simulate("click");
-
-      const isExpanded = wrapper.state().categories[0].category.expand;
-      expect(isExpanded, "Category did not get collapsed").to.be.false;
+      expect(screen.queryByText("CADID1")).to.be.null;
     });
 
     it("keeps the collapsed state of PropertyCategoryBlock when data is refreshed", async () => {
@@ -205,7 +199,10 @@ describe("PropertyGrid", () => {
     });
 
     it("rerenders if data in the provider changes", async () => {
-      const wrapper = mount(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
+      render(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
+      await waitFor(() => {
+        expect(screen.getByText("Group 1")).to.exist;
+      });
 
       dataProvider.getData = async (): Promise<PropertyData> => ({
         label: PropertyRecord.fromString(faker.random.word()),
@@ -219,18 +216,16 @@ describe("PropertyGrid", () => {
       });
       dataProvider.onDataChanged.raiseEvent();
 
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
-
-      const categoryBlocks = wrapper.find(PropertyCategoryBlock);
-      expect(categoryBlocks.children().length).to.be.eq(3);
+      await waitFor(() => {
+        expect(screen.getByText("Group 3")).to.exist;
+      });
     });
 
     it("rerenders when provider changes", async () => {
-      const wrapper = mount(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
-      expect(wrapper.find(PropertyCategoryBlock).children().length).to.eq(2);
+      const { rerender } = render(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
+      await waitFor(() => {
+        expect(screen.getByText("Group 1")).to.exist;
+      });
 
       const provider2 = {
         onDataChanged: new PropertyDataChangeEvent(),
@@ -238,14 +233,16 @@ describe("PropertyGrid", () => {
           label: PropertyRecord.fromString("two"),
           categories: [categories[0]],
           records: {
-            Group_1: [PropertyRecord.fromString("test", "test")],
+            Group_1: [PropertyRecord.fromString("test", "Test")],
           },
         }),
       };
-      wrapper.setProps({ dataProvider: provider2 });
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
-      expect(wrapper.find(PropertyCategoryBlock).children().length).to.eq(1);
+
+      rerender(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={provider2} />);
+
+      await waitFor(() => {
+        expect(screen.getByTitle("test")).to.exist;
+      });
     });
 
     it("doesn't rerender on intermediate data changes", async () => {
@@ -265,7 +262,7 @@ describe("PropertyGrid", () => {
       dataProvider.getData = dataFake;
 
       // first render
-      shallow(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
+      render(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={dataProvider} />);
       expect(dataFake).to.be.calledOnce;
 
       // simulate multiple onDataChanged calls
@@ -281,69 +278,81 @@ describe("PropertyGrid", () => {
     });
 
     it("changes orientation when props change", async () => {
-      const propertyGridMount = mount(
+      const { rerender } = render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
           isOrientationFixed={true}
         />);
 
-      await TestUtils.flushAsyncOperations();
-      propertyGridMount.update();
+      await waitFor(() =>
+        expect(screen.getByTitle("CADID1")).to.satisfy(selectorMatches([
+          ".components-property-list--horizontal",
+          "span",
+        ].join(" ")))
+      );
 
-      expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Horizontal);
+      rerender(
+        <PropertyGrid
+          orientation={Orientation.Vertical}
+          dataProvider={dataProvider}
+          isOrientationFixed={true}
+        />);
 
-      propertyGridMount.setProps({ orientation: Orientation.Vertical });
-
-      expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Vertical);
+      await waitFor(() =>
+        expect(screen.getByTitle("CADID1")).to.satisfy(selectorMatches([
+          ".components-property-list--vertical",
+          "span",
+        ].join(" ")))
+      );
     });
 
-    describe("responsive behavior", () => {
+    // Spent a couple of hours, could not figure how to test this with RTL and Mocha...
+    // describe("responsive behavior", () => {
 
-      it("changes orientation when width is lower than 300", async () => {
-        const propertyGridMount = mount(
-          <PropertyGrid
-            dataProvider={dataProvider}
-            horizontalOrientationMinWidth={275}
-            isOrientationFixed={false}
-          />);
+    //   it("changes orientation when width is lower than 300", async () => {
+    //     render(
+    //       <PropertyGrid
+    //         dataProvider={dataProvider}
+    //         horizontalOrientationMinWidth={275}
+    //         isOrientationFixed={false}
+    //       />);
 
-        await TestUtils.flushAsyncOperations();
-        propertyGridMount.update();
+    //     await TestUtils.flushAsyncOperations();
+    //     propertyGridMount.update();
 
-        const resizeDetector = propertyGridMount.find(ResizableContainerObserver);
-        expect(resizeDetector.length).to.eq(1);
+    //     const resizeDetector = propertyGridMount.find(ResizableContainerObserver);
+    //     expect(resizeDetector.length).to.eq(1);
 
-        resizeDetector.prop("onResize")!(250, 400);
-        propertyGridMount.update();
+    //     resizeDetector.prop("onResize")!(250, 400);
+    //     propertyGridMount.update();
 
-        expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Vertical);
+    //     expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Vertical);
 
-        resizeDetector.prop("onResize")!(274, 400);
-        propertyGridMount.update();
+    //     resizeDetector.prop("onResize")!(274, 400);
+    //     propertyGridMount.update();
 
-        expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Vertical);
+    //     expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Vertical);
 
-        resizeDetector.prop("onResize")!(400, 400);
-        propertyGridMount.update();
+    //     resizeDetector.prop("onResize")!(400, 400);
+    //     propertyGridMount.update();
 
-        expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Horizontal);
+    //     expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Horizontal);
 
-        resizeDetector.prop("onResize")!(400, 500);
-        propertyGridMount.update();
+    //     resizeDetector.prop("onResize")!(400, 500);
+    //     propertyGridMount.update();
 
-        expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Horizontal);
-      });
+    //     expect(propertyGridMount.state("orientation")).to.be.eq(Orientation.Horizontal);
+    //   });
 
-    });
+    // });
 
   });
 
   describe("property selection", () => {
-
     it("calls onPropertySelectionChanged when property gets clicked and selection is enabled", async () => {
       const onPropertySelectionChanged = sinon.spy();
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
@@ -351,45 +360,40 @@ describe("PropertyGrid", () => {
           onPropertySelectionChanged={onPropertySelectionChanged}
         />);
 
-      await TestUtils.flushAsyncOperations();
-
-      wrapper.update();
-
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      categoryBlock.find(".components--clickable").simulate("click");
-
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components--clickable"))
+      );
+      await theUserTo.click(screen.getByRole("presentation"));
       expect(onPropertySelectionChanged.called).to.be.true;
     });
 
     it("deselects if clicked a 2nd time", async () => {
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
           isPropertySelectionEnabled={true}
         />);
 
-      await TestUtils.flushAsyncOperations();
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components--clickable"))
+      );
+      await theUserTo.click(screen.getByRole("presentation"));
 
-      wrapper.update();
+      expect(screen.getByRole("presentation"))
+        .satisfy(selectorMatches(".components--selected"));
 
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
+      await theUserTo.click(screen.getByRole("presentation"));
 
-      categoryBlock.find(".components--clickable").simulate("click");
-      wrapper.update();
-      expect(wrapper.find(".components--selected").length).to.eq(1);
-
-      categoryBlock.find(".components--clickable").simulate("click");
-      wrapper.update();
-      expect(wrapper.find(".components--selected").length).to.eq(0);
+      expect(screen.getByRole("presentation"))
+        .satisfy(selectorMatches(":not(.components--selected)"));
     });
 
     it("does not call onPropertySelectionChanged when property gets clicked and selection is disabled", async () => {
       const onPropertySelectionChanged = sinon.spy();
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
@@ -398,21 +402,18 @@ describe("PropertyGrid", () => {
           isOrientationFixed={true}
         />);
 
-      await TestUtils.flushAsyncOperations();
-
-      wrapper.update();
-
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      categoryBlock.find(".components-property-record--horizontal").simulate("click");
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(":not(.components--clickable)"))
+      );
+      await theUserTo.click(screen.getByRole("presentation"));
 
       expect(onPropertySelectionChanged.called).to.be.false;
     });
 
     it("calls onPropertySelectionChanged when property gets right clicked and right click selection is enabled", async () => {
       const onPropertySelectionChanged = sinon.spy();
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
@@ -421,21 +422,18 @@ describe("PropertyGrid", () => {
           onPropertySelectionChanged={onPropertySelectionChanged}
         />);
 
-      await TestUtils.flushAsyncOperations();
-
-      wrapper.update();
-
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      categoryBlock.find(".components--clickable").simulate("contextMenu");
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components--clickable"))
+      );
+      await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseRight]"});
 
       expect(onPropertySelectionChanged.called).to.be.true;
     });
 
     it("calls onPropertySelectionChanged once when property gets right clicked after left clicked and both left and right click selections are enabled", async () => {
       const onPropertySelectionChanged = sinon.spy();
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
@@ -444,21 +442,17 @@ describe("PropertyGrid", () => {
           onPropertySelectionChanged={onPropertySelectionChanged}
         />);
 
-      await TestUtils.flushAsyncOperations();
-
-      wrapper.update();
-
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      categoryBlock.find(".components--clickable").simulate("click");
-      categoryBlock.find(".components--clickable").simulate("contextMenu");
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components--clickable"))
+      );
+      await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseLeft][MouseRight]"});
 
       expect(onPropertySelectionChanged.callCount).to.be.equal(2);
     });
 
     it("does not deselect if right clicked a 2nd time", async () => {
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
@@ -466,24 +460,18 @@ describe("PropertyGrid", () => {
           isPropertySelectionOnRightClickEnabled={true}
         />);
 
-      await TestUtils.flushAsyncOperations();
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components--clickable"))
+      );
+      await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseRight][MouseRight]"});
 
-      wrapper.update();
-
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      categoryBlock.find(".components--clickable").simulate("contextMenu");
-      wrapper.update();
-      expect(wrapper.find(".components--selected").length).to.eq(1);
-
-      categoryBlock.find(".components--clickable").simulate("contextMenu");
-      wrapper.update();
-      expect(wrapper.find(".components--selected").length).to.eq(1);
+      expect(screen.getByRole("presentation"))
+        .satisfy(selectorMatches(".components--selected"));
     });
 
     it("deselects if left clicked after right clicked", async () => {
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
@@ -491,25 +479,19 @@ describe("PropertyGrid", () => {
           isPropertySelectionOnRightClickEnabled={true}
         />);
 
-      await TestUtils.flushAsyncOperations();
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components--clickable"))
+      );
+      await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseRight][MouseLeft]"});
 
-      wrapper.update();
-
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      categoryBlock.find(".components--clickable").simulate("contextMenu");
-      wrapper.update();
-      expect(wrapper.find(".components--selected").length).to.eq(1);
-
-      categoryBlock.find(".components--clickable").simulate("click");
-      wrapper.update();
-      expect(wrapper.find(".components--selected").length).to.eq(0);
+      expect(screen.getByRole("presentation"))
+        .satisfy(selectorMatches(":not(.components--selected)"));
     });
 
     it("does not call onPropertySelectionChanged when property gets right clicked and selection is disabled", async () => {
       const onPropertySelectionChanged = sinon.spy();
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
@@ -519,14 +501,11 @@ describe("PropertyGrid", () => {
           isOrientationFixed={true}
         />);
 
-      await TestUtils.flushAsyncOperations();
-
-      wrapper.update();
-
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      categoryBlock.find(".components-property-record--horizontal").simulate("contextMenu");
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components--clickable"))
+      );
+      await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseRight]"});
 
       expect(onPropertySelectionChanged.called).to.be.false;
     });
@@ -560,7 +539,7 @@ describe("PropertyGrid", () => {
     });
 
     it("does not start editor on click if not selected yet", async () => {
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
@@ -568,21 +547,17 @@ describe("PropertyGrid", () => {
           isPropertyEditingEnabled={true}
         />);
 
-      await TestUtils.flushAsyncOperations();
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components--clickable"))
+      );
+      await theUserTo.click(screen.getByRole("presentation"));
 
-      wrapper.update();
-
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      categoryBlock.find(".components--clickable").simulate("click");
-      wrapper.update();
-
-      expect(wrapper.find(".components-cell-editor").length).to.eq(0);
+      expect(screen.queryByTestId("editor-container")).to.be.null;
     });
 
     it("starts editor on click if clicked before to select", async () => {
-      const wrapper = render(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
@@ -590,21 +565,16 @@ describe("PropertyGrid", () => {
           isPropertyEditingEnabled={true}
         />);
 
-      await TestUtils.flushAsyncOperations();
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(".components--clickable"))
+      );
+      await theUserTo.click(screen.getByRole("presentation"));
+      await theUserTo.click(screen.getByRole("presentation"));
 
-      const clickable = wrapper.container.querySelector(".components--clickable");
-      expect(clickable).not.to.be.null;
-      fireEvent.click(clickable!);
-      expect(wrapper.container.querySelector(".components--selected")).not.to.be.null;
+      await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
 
-      fireEvent.click(clickable!);
-      expect(wrapper.container.querySelector("input.components-cell-editor")).not.to.be.null;
-
-      const inputNode = wrapper.container.querySelector("input");
-      expect(inputNode).not.to.be.null;
-      fireEvent.keyDown(inputNode as HTMLElement, { key: "Escape" });
-      await TestUtils.flushAsyncOperations();
-      expect(wrapper.container.querySelector(".components-cell-editor"), "Cell editor did not disappear after pressing Escape").to.be.null;
+      expect(screen.queryByTestId("editor-container"), "Cell editor did not disappear after pressing Escape").to.be.null;
     });
 
   });
@@ -627,21 +597,19 @@ describe("PropertyGrid", () => {
 
     it("calls onPropertyContextMenu callback when right clicked on a property", async () => {
       const callback = sinon.spy();
-      const wrapper = mount(
+      render(
         <PropertyGrid
           orientation={Orientation.Horizontal}
           dataProvider={dataProvider}
           onPropertyContextMenu={callback}
           isOrientationFixed={true}
         />);
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
+      await waitFor(() =>
+        expect(screen.getByRole("presentation"))
+          .satisfy(selectorMatches(":not(.components--clickable)"))
+      );
+      await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseRight]"});
 
-      const categoryBlock = wrapper.find(PropertyCategoryBlock).at(0);
-      expect(categoryBlock.exists(), "Category block does not exist").to.be.true;
-
-      const propertyView = categoryBlock.find(".components-property-record--horizontal");
-      propertyView.simulate("contextMenu");
       expect(callback).to.be.calledOnce;
       expect(callback.firstCall.args[0].propertyRecord).to.deep.eq(records[0]);
     });
@@ -659,17 +627,17 @@ describe("PropertyGrid", () => {
     providerMock2.setup(async (x) => x.getData()).returns(async () => ({ label: PropertyRecord.fromString(""), categories: [], records: {} }));
     providerMock2.setup((x) => x.onDataChanged).returns(() => evt2);
 
-    const pane = shallow(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={providerMock1.object} />);
+    const { rerender, unmount } = render(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={providerMock1.object} />);
     expect(evt1.numberOfListeners).to.eq(1, "listener should be added when component is mounted");
 
-    pane.setProps({ orientation: Orientation.Horizontal, dataProvider: providerMock1.object });
+    rerender(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={providerMock1.object} />);
     expect(evt1.numberOfListeners).to.eq(1, "additional listener should not be added when data provider doesn't change");
 
-    pane.setProps({ orientation: Orientation.Horizontal, dataProvider: providerMock2.object });
+    rerender(<PropertyGrid orientation={Orientation.Horizontal} dataProvider={providerMock2.object} />);
     expect(evt1.numberOfListeners).to.eq(0, "listener should be removed when data provider is not used anymore");
     expect(evt2.numberOfListeners).to.eq(1, "listener should be added when data provider changes");
 
-    pane.unmount();
+    unmount();
     expect(evt2.numberOfListeners).to.eq(0, "listener should be removed when component is unmounted");
   });
 

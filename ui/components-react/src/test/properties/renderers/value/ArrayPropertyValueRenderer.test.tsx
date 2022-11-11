@@ -3,15 +3,19 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
+import * as sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
 import { ArrayPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/ArrayPropertyValueRenderer";
-import { TableNonPrimitiveValueRenderer } from "../../../../components-react/properties/renderers/value/table/NonPrimitiveValueRenderer";
 import { PropertyContainerType } from "../../../../components-react/properties/ValueRendererManager";
-import TestUtils from "../../../TestUtils";
+import TestUtils, { userEvent } from "../../../TestUtils";
+import { render, screen } from "@testing-library/react";
 
 describe("ArrayPropertyValueRenderer", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
@@ -23,9 +27,8 @@ describe("ArrayPropertyValueRenderer", () => {
       const arrayProperty = TestUtils.createArrayProperty("LabelArray", [stringProperty]);
 
       const element = renderer.render(arrayProperty);
-      const elementMount = mount(<div>{element}</div>);
 
-      expect(elementMount.text()).to.be.eq("string[1]");
+      expect(element).to.eq("string[1]");
     });
 
     it("renders empty array property", () => {
@@ -33,9 +36,8 @@ describe("ArrayPropertyValueRenderer", () => {
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 
       const element = renderer.render(arrayProperty);
-      const elementMount = mount(<div>{element}</div>);
 
-      expect(elementMount.text()).to.be.eq("string[]");
+      expect(element).to.be.eq("string[]");
     });
 
     it("renders default way if empty context is provided", () => {
@@ -43,31 +45,33 @@ describe("ArrayPropertyValueRenderer", () => {
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 
       const element = renderer.render(arrayProperty, {});
-      const elementMount = mount(<div>{element}</div>);
 
-      expect(elementMount.text()).to.be.eq("string[]");
+      expect(element).to.be.eq("string[]");
     });
 
-    it("renders array with Table renderer if container type is Table", () => {
+    it("renders array with Table renderer if container type is Table", async () => {
+      const dialogSpy = sinon.spy();
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 
-      const element = renderer.render(arrayProperty, { containerType: PropertyContainerType.Table, orientation: Orientation.Vertical });
-      const elementMount = mount(<div>{element}</div>);
+      const element = renderer.render(arrayProperty, { containerType: PropertyContainerType.Table, orientation: Orientation.Vertical, onDialogOpen: dialogSpy });
+      render(<div>{element}</div>);
 
-      expect(elementMount.find(TableNonPrimitiveValueRenderer).exists()).to.be.true;
+      await theUserTo.click(screen.getByRole("link", {name: "View [] in more detail."}));
+      expect(dialogSpy).to.have.been.calledWithMatch((arg: any) => arg?.content?.props?.orientation === Orientation.Vertical);
     });
 
-    it("defaults to horizontal orientation when rendering for a table without specified orientation", () => {
+    it("defaults to horizontal orientation when rendering for a table without specified orientation", async () => {
+      const dialogSpy = sinon.spy();
       const renderer = new ArrayPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
 
-      const element = renderer.render(arrayProperty, { containerType: PropertyContainerType.Table });
-      const elementMount = mount(<div>{element}</div>);
+      const element = renderer.render(arrayProperty, { containerType: PropertyContainerType.Table, onDialogOpen: dialogSpy });
+      render(<div>{element}</div>);
 
-      const dialogContentsMount = mount(<div>{elementMount.find(TableNonPrimitiveValueRenderer).prop("dialogContents")}</div>);
+      await theUserTo.click(screen.getByRole("link"));
 
-      expect(dialogContentsMount.childAt(0).prop("orientation")).to.be.eq(Orientation.Horizontal);
+      expect(dialogSpy).to.have.been.calledWithMatch((arg: any) => arg?.content?.props?.orientation === Orientation.Horizontal);
     });
 
     it("throws when trying to render primitive property", () => {
@@ -82,9 +86,8 @@ describe("ArrayPropertyValueRenderer", () => {
       const arrayProperty = TestUtils.createArrayProperty("LabelArray", [stringProperty]);
 
       const element = renderer.render(arrayProperty, { containerType: PropertyContainerType.PropertyPane });
-      const elementMount = mount(<div>{element}</div>);
 
-      expect(elementMount.text()).to.be.eq("");
+      expect(element).to.be.eq("");
     });
   });
 

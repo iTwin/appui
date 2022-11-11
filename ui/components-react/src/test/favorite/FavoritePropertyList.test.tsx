@@ -3,15 +3,16 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as faker from "faker";
 import * as React from "react";
+import * as sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyCategory, PropertyData } from "../../components-react/propertygrid/PropertyDataProvider";
 import { FavoritePropertyList } from "../../components-react/favorite/FavoritePropertyList";
-import TestUtils from "../TestUtils";
-import { Orientation, ResizableContainerObserver } from "@itwin/core-react";
+import TestUtils, { childStructure } from "../TestUtils";
+import { Orientation } from "@itwin/core-react";
 import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
+import { render, screen } from "@testing-library/react";
 
 describe("FavoritePropertyList", () => {
 
@@ -27,7 +28,7 @@ describe("FavoritePropertyList", () => {
     ];
     const records: PropertyRecord[] = [
       TestUtils.createPrimitiveStringProperty("CADID1", "0000 0005 00E0 02D8"),
-      TestUtils.createPrimitiveStringProperty("CADID2", "0000 0005 00E0 02D8"),
+      TestUtils.createPrimitiveStringProperty("CADID2", "0000 0005 00E0 02D9"),
     ];
 
     data = {
@@ -43,46 +44,35 @@ describe("FavoritePropertyList", () => {
   describe("rendering", () => {
 
     it("renders correctly with label as string", async () => {
-      const wrapper = mount(<FavoritePropertyList propertyData={data} />);
-      const resizeDetector = wrapper.find(ResizableContainerObserver);
-      resizeDetector.prop("onResize")!(250, 400);
+      sinon.replace(Element.prototype, "getBoundingClientRect", () => DOMRect.fromRect({ x: 0, y: 0, height: 250, width: 400 }));
 
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
+      const { container } = render(<FavoritePropertyList propertyData={data} />);
 
-      expect(wrapper.find(".components-favorite-property-list").first().exists()).to.be.true;
-
-      let record = wrapper.find(".components-property-record--horizontal").at(0);
-      expect(record.exists(), "First record does not exist").to.be.true;
-
-      record = wrapper.find(".components-property-record--horizontal").at(1);
-      expect(record.exists(), "Second record does not exist").to.be.true;
+      expect(screen.getByTitle("CADID1")).to.eq(screen.getByText("CADID1")).and.to.exist;
+      expect(screen.getByTitle("0000 0005 00E0 02D8")).to.eq(screen.getByText("0000 0005 00E0 02D8")).and.to.exist;
+      expect(screen.getByTitle("CADID2")).to.eq(screen.getByText("CADID2")).and.to.exist;
+      expect(screen.getByTitle("0000 0005 00E0 02D9")).to.eq(screen.getByText("0000 0005 00E0 02D9")).and.to.exist;
+      expect(container).to.satisfy(childStructure(
+        ".components-favorite-property-list .components-property-list--horizontal .components-property-record--horizontal"
+      ));
     });
 
     it("renders correctly in vertical orientation", async () => {
+      sinon.replace(Element.prototype, "getBoundingClientRect", () => DOMRect.fromRect({ x: 0, y: 0, height: 250, width: 400 }));
       const propertyValueRendererManager = new PropertyValueRendererManager();
-      const wrapper = mount(
+      const { container } = render(
         <FavoritePropertyList propertyData={data} orientation={Orientation.Vertical} propertyValueRendererManager={propertyValueRendererManager} />
       );
-      const resizeDetector = wrapper.find(ResizableContainerObserver);
-      resizeDetector.prop("onResize")!(250, 400);
 
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
-
-      expect(wrapper.find(".components-favorite-property-list").first().exists()).to.be.true;
-
-      let record = wrapper.find(".components-property-record--vertical").at(0);
-      expect(record.exists(), "First record does not exist").to.be.true;
-
-      record = wrapper.find(".components-property-record--vertical").at(1);
-      expect(record.exists(), "Second record does not exist").to.be.true;
+      expect(container).to.satisfy(childStructure(
+        ".components-favorite-property-list  .components-property-list--vertical .components-property-record--vertical"
+      ));
     });
 
     it("renders null if no Favorites", async () => {
       delete data.records.Favorite;
-      const wrapper = mount(<FavoritePropertyList propertyData={data} />);
-      expect(wrapper.isEmptyRender()).to.be.true;
+      const { container } = render(<FavoritePropertyList propertyData={data} />);
+      expect(container).to.have.property("innerHTML", "");
     });
 
   });

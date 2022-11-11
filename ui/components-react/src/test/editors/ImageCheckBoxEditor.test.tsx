@@ -4,107 +4,77 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { mount, shallow } from "enzyme";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import sinon from "sinon";
-import { PrimitiveValue, SpecialKey } from "@itwin/appui-abstract";
-import { EditorContainer, PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
+import { SpecialKey } from "@itwin/appui-abstract";
+import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { ImageCheckBoxEditor } from "../../components-react/editors/ImageCheckBoxEditor";
-import TestUtils, { MineDataController } from "../TestUtils";
+import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 
 describe("<ImageCheckBoxEditor />", () => {
-  it("should render", () => {
-    mount(<ImageCheckBoxEditor />);
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
   });
 
-  it("renders correctly", () => {
-    shallow(<ImageCheckBoxEditor />).should.matchSnapshot();
+  it("renders with no record", () => {
+    render(<ImageCheckBoxEditor />);
+
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.false;
   });
 
-  it("getValue returns proper value after componentDidMount & setState", async () => {
+  it("value 'false' should have checkbox unchecked", async () => {
     const record = TestUtils.createImageCheckBoxProperty("Test", false);
-    const wrapper = mount(<ImageCheckBoxEditor propertyRecord={record} />);
+    render(<ImageCheckBoxEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as ImageCheckBoxEditor;
-    expect(editor.state.checkboxValue).to.equal(false);
-    await TestUtils.flushAsyncOperations();
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.false;
+  });
 
-    wrapper.unmount();
+  it("value 'false' should have checkbox unchecked", async () => {
+    const record = TestUtils.createImageCheckBoxProperty("Test", true);
+    render(<ImageCheckBoxEditor propertyRecord={record} />);
+
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.true;
   });
 
   it("isDisabled is set by the property record", async () => {
     const record = TestUtils.createImageCheckBoxProperty("Test", false);
     record.isDisabled = true;
-    const wrapper = mount(<ImageCheckBoxEditor propertyRecord={record} />);
+    render(<ImageCheckBoxEditor propertyRecord={record} />);
 
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as ImageCheckBoxEditor;
-    expect(editor.state.isDisabled).to.equal(true);
-
-    wrapper.unmount();
+    expect(screen.getByRole<HTMLInputElement>("checkbox").disabled).to.be.true;
   });
 
-  it("HTML input onChange updates boolean value", async () => {
+  it("toggling the checkbox should updates boolean value", async () => {
     const record = TestUtils.createImageCheckBoxProperty("Test1", false);
     const spyOnCommit = sinon.spy();
-    function handleCommit(_commit: PropertyUpdatedArgs): void {
-      spyOnCommit();
-    }
-    const wrapper = mount(<ImageCheckBoxEditor propertyRecord={record} onCommit={handleCommit} />);
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as ImageCheckBoxEditor;
-    const inputNode = wrapper.find("input");
+    render(<ImageCheckBoxEditor propertyRecord={record} onCommit={spyOnCommit} />);
 
-    expect(inputNode.length).to.eq(1);
-    if (inputNode) {
-      const testValue = true;
-      inputNode.simulate("change", { target: { checked: testValue } });
-      wrapper.update();
-      expect(editor.state.checkboxValue).to.equal(testValue);
-      await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit.calledOnce).to.be.true;
-    }
-    wrapper.unmount();
+    await theUserTo.click(screen.getByRole("checkbox"));
+
+    expect(spyOnCommit).to.have.been.called;
   });
 
   it("onCommit should be called for Space", async () => {
-    let booleanValue = false;
-    const propertyRecord = TestUtils.createImageCheckBoxProperty("Test2", booleanValue);
+    const propertyRecord = TestUtils.createImageCheckBoxProperty("Test2", false);
     const spyOnCommit = sinon.spy();
-    function handleCommit(commit: PropertyUpdatedArgs): void {
-      booleanValue = (commit.newValue as PrimitiveValue).value as boolean;
-      spyOnCommit();
-    }
-    const wrapper = mount(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={handleCommit} onCancel={() => { }} />);
-    const inputNode = wrapper.find("input");
-    expect(inputNode.length).to.eq(1);
+    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
 
-    const testValue = true;
-    inputNode.simulate("change", { target: { checked: testValue } });
+    await theUserTo.click(screen.getByRole("checkbox"));
 
-    await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit.calledOnce).to.be.true;
-    expect(booleanValue).to.be.true;
-    wrapper.unmount();
+    expect(spyOnCommit).to.have.been.calledWith(sinon.match({newValue: sinon.match({value: true})}));
   });
 
-  it("componentDidUpdate updates the value", async () => {
+  it("new props update checkbox state", async () => {
     const record = TestUtils.createImageCheckBoxProperty("Test", false);
-    const wrapper = mount(<ImageCheckBoxEditor propertyRecord={record} />);
-
-    await TestUtils.flushAsyncOperations();
-    const editor = wrapper.instance() as ImageCheckBoxEditor;
-    expect(editor.state.checkboxValue).to.equal(false);
+    const { rerender } = render(<ImageCheckBoxEditor propertyRecord={record} />);
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.false;
 
     const newRecord = TestUtils.createImageCheckBoxProperty("Test", true);
-    wrapper.setProps({ propertyRecord: newRecord });
-    await TestUtils.flushAsyncOperations();
-    expect(editor.state.checkboxValue).to.equal(true);
-
-    wrapper.unmount();
+    rerender(<ImageCheckBoxEditor propertyRecord={newRecord} />);
+    expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.true;
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -114,17 +84,15 @@ describe("<ImageCheckBoxEditor />", () => {
 
     const spyOnCommit = sinon.spy();
     const spyOnCancel = sinon.spy();
-    const renderedComponent = render(<EditorContainer propertyRecord={record} title="abc" onCommit={spyOnCommit} onCancel={spyOnCancel} />);
-    expect(renderedComponent).not.to.be.undefined;
+    render(<EditorContainer propertyRecord={record} title="abc" onCommit={spyOnCommit} onCancel={spyOnCancel} />);
 
-    const inputNode = renderedComponent.container.querySelector("input");
-    expect(inputNode).not.to.be.null;
+    const inputNode = screen.getByRole("checkbox");
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Enter });
+    fireEvent.keyDown(inputNode, { key: SpecialKey.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit.called).to.be.false;
 
-    fireEvent.keyDown(inputNode as HTMLElement, { key: SpecialKey.Escape });
+    fireEvent.keyDown(inputNode, { key: SpecialKey.Escape });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCancel.calledOnce).to.be.true;
 

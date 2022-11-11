@@ -3,21 +3,25 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { mount } from "enzyme";
 import * as React from "react";
+import * as sinon from "sinon";
 import { Orientation } from "@itwin/core-react";
-import { NonPrimitivePropertyLabelRenderer, PrimitivePropertyLabelRenderer } from "../../../components-react";
 import { NonPrimitivePropertyRenderer } from "../../../components-react/properties/renderers/NonPrimitivePropertyRenderer";
-import { PropertyRenderer } from "../../../components-react/properties/renderers/PropertyRenderer";
-import TestUtils from "../../TestUtils";
+import TestUtils, { selectorMatches, styleMatch, userEvent } from "../../TestUtils";
+import { render, screen } from "@testing-library/react";
 
 describe("NonPrimitivePropertyRenderer", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
+
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
 
   it("renders correctly", async () => {
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={TestUtils.createArrayProperty("Pipes", [TestUtils.createPrimitiveStringProperty("pipe_1", "Water pipe")])}
@@ -25,18 +29,19 @@ describe("NonPrimitivePropertyRenderer", () => {
         isCollapsible={true}
       />);
 
-    await TestUtils.flushAsyncOperations();
-
-    const labelRenderer = rendererMount.find(NonPrimitivePropertyLabelRenderer);
-    expect(labelRenderer.exists()).to.be.true;
-    expect(labelRenderer.html().indexOf("Pipes (1)")).to.be.greaterThan(-1);
-
-    expect(rendererMount.find(".components-property-label-renderer-colon").exists()).to.be.false;
-    expect(rendererMount.find(PropertyRenderer).exists()).to.be.false;
+    expect(screen.getByTitle("Pipes (1)"))
+      .satisfy(selectorMatches(
+        [
+          ".components-property-record--horizontal",
+          ".components-property-record-label",
+          "[role='presentation'].components-nonprimitive-property-label-renderer",
+          "span.components-property-label-renderer"].join(" "
+        )))
+      .have.property("innerHTML", "Pipes (1)");
   });
 
   it("renders array size in label correctly", async () => {
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={TestUtils.createArrayProperty("Pipes", [
@@ -47,18 +52,11 @@ describe("NonPrimitivePropertyRenderer", () => {
         valueElement={"string[1]"}
         isCollapsible={true}
       />);
-
-    await TestUtils.flushAsyncOperations();
-
-    const labelRenderer = rendererMount.find(NonPrimitivePropertyLabelRenderer);
-    expect(labelRenderer.exists()).to.be.true;
-    expect(labelRenderer.html().indexOf("Pipes (3)")).to.be.greaterThan(-1);
-
-    expect(rendererMount.find(PropertyRenderer).exists()).to.be.false;
+    expect(screen.getByTitle("Pipes (3)")).to.exist;
   });
 
   it("renders as expanded if isCollapsible is not set", () => {
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={
@@ -69,12 +67,12 @@ describe("NonPrimitivePropertyRenderer", () => {
               TestUtils.createPrimitiveStringProperty("pipe_2", "Sewage pipe"),
             ])}
       />);
-
-    expect(rendererMount.find(PropertyRenderer).length).to.be.be.eq(2);
+    expect(screen.getByTitle("Water pipe")).to.exist;
+    expect(screen.getByTitle("Sewage pipe")).to.exist;
   });
 
-  it("changes component state from collapsed to expanded when label is clicked", () => {
-    const rendererMount = mount(
+  it("changes component state from collapsed to expanded when label is clicked", async () => {
+    render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={
@@ -87,15 +85,18 @@ describe("NonPrimitivePropertyRenderer", () => {
         isCollapsible={true}
       />);
 
-    expect(rendererMount.find(PropertyRenderer).length).to.be.be.eq(0);
+    expect(screen.queryByTitle("Building")).to.be.null;
+    expect(screen.queryByTitle("Street")).to.be.null;
 
-    rendererMount.find(NonPrimitivePropertyLabelRenderer).simulate("click");
+    await theUserTo.click(screen.getByTitle("House"));
 
-    expect(rendererMount.find(PropertyRenderer).length).to.be.be.eq(2);
+    expect(screen.queryByTitle("Building")).to.exist;
+    expect(screen.queryByTitle("Street")).to.exist;
 
-    rendererMount.find(NonPrimitivePropertyLabelRenderer).simulate("click");
+    await theUserTo.click(screen.getByTitle("House"));
 
-    expect(rendererMount.find(PropertyRenderer).length).to.be.be.eq(0);
+    expect(screen.queryByTitle("Building")).to.be.null;
+    expect(screen.queryByTitle("Street")).to.be.null;
   });
 
   it("does not render base struct properties", async () => {
@@ -105,22 +106,20 @@ describe("NonPrimitivePropertyRenderer", () => {
 
     const structProperty = TestUtils.createStructProperty("NameStruct", struct);
 
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={structProperty}
       />);
 
-    await TestUtils.flushAsyncOperations();
-
-    const propertyRenderer = rendererMount.find(PropertyRenderer);
-    expect(propertyRenderer.length).to.be.eq(1);
-    expect(propertyRenderer.find(".components-property-record-label").html().indexOf("Title")).to.be.greaterThan(-1);
-    expect(propertyRenderer.find(".components-property-record-value").text()).to.be.eq("Model");
+    expect(screen.getByTitle("Title")).to.exist;
+    expect(screen.getByTitle("Model")).to.exist;
+    expect(screen.queryByTitle("Size")).to.be.null;
+    expect(screen.queryByTitle("Huge")).to.be.null;
   });
 
   it("renders property with an offset when indentation is more than 0", () => {
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={TestUtils.createArrayProperty(
@@ -131,11 +130,12 @@ describe("NonPrimitivePropertyRenderer", () => {
         indentation={1}
       />);
 
-    expect(rendererMount.find(PrimitivePropertyLabelRenderer).get(0).props.offset).to.be.greaterThan(0);
+    expect(screen.getByTitle("[1]").parentElement).to.satisfy(styleMatch({paddingLeft: "34px"}));
   });
 
-  it("uses unique key as a template in naming array/struct items", () => {
-    const rendererMount = mount(
+  it("uses unique key as a click parameter when used", async () => {
+    const keySpy = sinon.spy();
+    render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={TestUtils.createArrayProperty(
@@ -143,10 +143,12 @@ describe("NonPrimitivePropertyRenderer", () => {
           [
             TestUtils.createPrimitiveStringProperty("pipe_1", "Water pipe"),
           ])}
+        isCollapsible={true}
+        onClick={keySpy}
         uniqueKey="unique_key"
       />);
-
-    expect(rendererMount.find(PropertyRenderer).at(0).key()).to.be.eq("unique_key_pipe_1_0");
+    await theUserTo.click(screen.getByTitle("Pipes (1)"));
+    expect(keySpy).to.have.been.calledWith(sinon.match.any, "unique_key");
   });
 
   it("renders as expanded if property should be automatically expanded", () => {
@@ -158,13 +160,14 @@ describe("NonPrimitivePropertyRenderer", () => {
       });
     structProperty.autoExpand = true;
 
-    const rendererMount = mount(
+    render(
       <NonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={structProperty}
         isCollapsible={true}
       />);
 
-    expect(rendererMount.find(PropertyRenderer).length).to.be.be.eq(2);
+    expect(screen.queryByTitle("Building")).to.exist;
+    expect(screen.queryByTitle("Street")).to.exist;
   });
 });
