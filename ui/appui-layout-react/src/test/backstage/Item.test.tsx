@@ -2,43 +2,50 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { BackstageItem, SafeAreaInsets } from "../../appui-layout-react";
-import { mount } from "../Utils";
+import { childStructure, selectorMatches, styleMatch } from "../Utils";
 
 describe("<Item />", () => {
-  it("should render", () => {
-    mount(<BackstageItem />);
-  });
-
   it("renders correctly", () => {
-    shallow(<BackstageItem />).should.matchSnapshot();
+    render(<BackstageItem />);
+    expect(screen.getByRole("menuitem")).to.satisfy(selectorMatches(".nz-backstage-item"));
   });
 
   it("should apply style", () => {
-    shallow(<BackstageItem style={{ backgroundColor: "red" }} />).should.matchSnapshot();
+    render(<BackstageItem style={{ backgroundColor: "red" }} />);
+
+    expect(screen.getByRole("menuitem")).to.satisfy(styleMatch({backgroundColor: "red"}));
   });
 
   it("should set is-active class", () => {
-    shallow(<BackstageItem isActive />).should.matchSnapshot();
+    render(<BackstageItem isActive />);
+
+    expect(screen.getByRole("menuitem")).to.satisfy(selectorMatches(".nz-active"));
   });
 
   it("should set is-disabled class", () => {
-    shallow(<BackstageItem isDisabled />).should.matchSnapshot();
+    render(<BackstageItem isDisabled />);
+
+    expect(screen.getByRole("menuitem")).to.satisfy(selectorMatches(".nz-disabled"));
   });
 
   it("renders safe area aware correctly", () => {
-    shallow(<BackstageItem safeAreaInsets={SafeAreaInsets.Left} />).should.matchSnapshot();
+    render(<BackstageItem safeAreaInsets={SafeAreaInsets.Left} />);
+
+    expect(screen.getByRole("menuitem")).to.satisfy(selectorMatches(".nz-safe-area-left"));
   });
 
   it("should render subtitle", () => {
-    shallow(<BackstageItem subtitle="custom subtitle" />).should.matchSnapshot();
+    render(<BackstageItem subtitle="custom subtitle" />);
+
+    expect(screen.getByRole("menuitem", {name: "custom subtitle"})).to.exist;
   });
 
   it("renders with badge correctly", () => {
-    const sut = mount(<BackstageItem badge />);
-    const badge = sut.find("div.nz-badge");
-    badge.length.should.eq(1);
+    render(<BackstageItem badge />);
+    expect(screen.getByRole("menuitem")).to.satisfy(childStructure("div.nz-badge"));
   });
 });

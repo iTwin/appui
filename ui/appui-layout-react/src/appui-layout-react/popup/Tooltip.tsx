@@ -82,9 +82,7 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
   }
 
   private onSizeChanged() {
-    const tooltip = this._tooltip.current;
-    if (!tooltip)
-      return;
+    const tooltip = this._tooltip.current!;
 
     const rect = tooltip.getBoundingClientRect();
     const size = {
