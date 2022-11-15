@@ -2,29 +2,43 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
+import * as sinon from "sinon";
 import { FooterIndicator } from "../../appui-layout-react";
-import { mount } from "../Utils";
+import { selectorMatches, userEvent } from "../Utils";
 
 describe("<FooterIndicator />", () => {
-  it("should render", () => {
-    mount(<FooterIndicator />);
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
   });
 
   it("renders correctly", () => {
-    shallow(<FooterIndicator />).should.matchSnapshot();
+    const { container } = render(<FooterIndicator />);
+
+    expect(container.firstElementChild).to.satisfy(selectorMatches(".nz-footer-indicator"));
   });
 
   it("renders correctly with additional class names", () => {
-    shallow(<FooterIndicator className="test-class-name" />).should.matchSnapshot();
+    const { container } = render(<FooterIndicator className="test-class-name" />);
+
+    expect(container.firstElementChild).to.satisfy(selectorMatches(".test-class-name.nz-footer-indicator"));
   });
 
   it("renders correctly with title", () => {
-    shallow(<FooterIndicator title="Title test" />).should.matchSnapshot();
+    render(<FooterIndicator title="Title test" />);
+
+    expect(screen.getByTitle("Title test")).to.exist;
   });
 
-  it("renders correctly with onClick function", () => {
-    shallow(<FooterIndicator onClick={() => { }} />).should.matchSnapshot();
+  it("renders correctly with onClick function", async () => {
+    const spy = sinon.spy();
+    render(<FooterIndicator onClick={spy}>Indicator</FooterIndicator>);
+
+    await theUserTo.click(screen.getByText("Indicator"));
+
+    expect(spy.calledOnce).to.be.true;
   });
 });

@@ -2,42 +2,40 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
 import * as React from "react";
 import * as sinon from "sinon";
 import { SizeProps } from "@itwin/core-react";
 import { offsetAndContainInContainer, Tooltip } from "../../appui-layout-react";
-import { createRect, mount } from "../Utils";
+import { createRect, selectorMatches, styleMatch } from "../Utils";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 
 describe("<Tooltip />", () => {
-  it("should render", () => {
-    mount(<Tooltip />);
-  });
-
   it("renders correctly", () => {
-    shallow(<Tooltip />).should.matchSnapshot();
+    const { container } = render(<Tooltip />);
+
+    expect(container.firstElementChild).to
+      .satisfy(styleMatch({left: "0px", top: "0px"}))
+      .satisfy(selectorMatches(".nz-popup-tooltip"));
   });
 
   it("renders with icon", () => {
-    shallow(<Tooltip icon={<i />} />).should.matchSnapshot();
+    render(<Tooltip icon={<i data-testid="Icon"/>} />);
+
+    expect(screen.getByTestId("Icon")).to.satisfy(selectorMatches("div i"));
   });
 
   it("should notify about size change", () => {
     const spy = sinon.spy();
-    const sut = mount<Tooltip>(
+    const { rerender } = render(
       <Tooltip
         onSizeChanged={spy}
       />,
     );
-    const element = sut.getDOMNode();
-    sinon.stub(element, "getBoundingClientRect").returns(createRect(10, 1, 50, 22));
 
-    sut.setProps({
-      position: {
-        x: 0,
-        y: 0,
-      },
-    });
+    sinon.stub(Element.prototype, "getBoundingClientRect").returns(createRect(10, 1, 50, 22));
+
+    rerender(<Tooltip onSizeChanged={spy} position={{x: 0, y: 0}} />);
 
     const size: SizeProps = {
       height: 21,

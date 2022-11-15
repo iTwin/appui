@@ -2,17 +2,19 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { ToolAssistanceDialog } from "../../../appui-layout-react";
-import { mount } from "../../Utils";
+import { childStructure } from "../../Utils";
 
 describe("<ToolAssistanceDialog />", () => {
-  it("should render", () => {
-    mount(<ToolAssistanceDialog />);
-  });
-
   it("renders correctly", () => {
-    shallow(<ToolAssistanceDialog />).should.matchSnapshot();
+    const { container } = render(<ToolAssistanceDialog />);
+
+    expect(container.firstElementChild).to.satisfy(childStructure([
+      ".nz-footer-dialog-dialog.nz-footer-toolAssistance-dialog .nz-footer-dialog-titleBar .nz-title",
+      ".nz-content",
+    ]));
   });
 });

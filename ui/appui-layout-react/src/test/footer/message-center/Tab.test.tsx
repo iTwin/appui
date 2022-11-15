@@ -2,21 +2,22 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { MessageCenterTab } from "../../../appui-layout-react";
-import { mount } from "../../Utils";
+import { selectorMatches } from "../../Utils";
 
 describe("<MessageCenterTab />", () => {
-  it("should render", () => {
-    mount(<MessageCenterTab />);
-  });
-
   it("renders correctly", () => {
-    shallow(<MessageCenterTab />).should.matchSnapshot();
+    render(<MessageCenterTab />);
+
+    expect(screen.getByRole("tab")).to.satisfy(selectorMatches(".nz-footer-messageCenter-tab"));
   });
 
   it("renders active correctly", () => {
-    shallow(<MessageCenterTab isActive />).should.matchSnapshot();
+    render(<MessageCenterTab isActive />);
+
+    expect(screen.getByRole("tab")).to.satisfy(selectorMatches(".nz-active"));
   });
 });

@@ -2,17 +2,18 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render} from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { ExpandableButton } from "../../../appui-layout-react";
-import { mount } from "../../Utils";
+import { childStructure, selectorMatches } from "../../Utils";
 
 describe("<ExpandableButton  />", () => {
-  it("should render", () => {
-    mount(<ExpandableButton />);
-  });
-
   it("renders correctly", () => {
-    shallow(<ExpandableButton />).should.matchSnapshot();
+    const { container } = render(<ExpandableButton />);
+
+    expect(container.firstElementChild)
+      .satisfy(selectorMatches(".nz-widget-tools-button-expandable"))
+      .satisfy(childStructure(".nz-triangle"));
   });
 });
