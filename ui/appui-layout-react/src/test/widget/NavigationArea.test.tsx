@@ -2,33 +2,44 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { NavigationArea } from "../../appui-layout-react";
-import { mount } from "../Utils";
+import { childStructure, selectorMatches } from "../Utils";
 
 describe("<NavigationArea />", () => {
-  it("should render", () => {
-    mount(<NavigationArea />);
-  });
-
   it("renders correctly without app button", () => {
-    shallow(<NavigationArea />).should.matchSnapshot();
+    const { container } = render(<NavigationArea />);
+
+    expect(container.firstElementChild).to.satisfy(childStructure(
+      ".nz-widget-navigationArea .nz-horizontal-toolbar-container + .nz-vertical-toolbar-container"
+    ));
   });
 
   it("renders correctly with navigation aid", () => {
-    shallow(<NavigationArea navigationAid={<div></div>} />).should.matchSnapshot();
+    render(<NavigationArea navigationAid={<div>NavigationAid</div>} />);
+
+    expect(screen.getByText("NavigationAid")).to.satisfy(selectorMatches(".nz-horizontal-toolbar-container + .nz-navigation-aid-container > div"));
   });
 
   it("renders correctly with vertical toolbar", () => {
-    shallow(<NavigationArea verticalToolbar={<div></div>} />).should.matchSnapshot();
+    render(<NavigationArea verticalToolbar={<div>VerticalToolbar</div>} />);
+
+    expect(screen.getByText("VerticalToolbar")).to.satisfy(selectorMatches(".nz-vertical-toolbar-container > div"));
   });
 
   it("renders correctly with horizontal toolbar", () => {
-    shallow(<NavigationArea horizontalToolbar={<div></div>} />).should.matchSnapshot();
+    render(<NavigationArea horizontalToolbar={<div>HorizontalToolbar</div>} />);
+
+    expect(screen.getByText("HorizontalToolbar")).to.satisfy(selectorMatches(".nz-horizontal-toolbar-container > div"));
   });
 
   it("renders correctly with vertical and horizontal toolbar", () => {
-    shallow(<NavigationArea navigationAid={<div></div>} horizontalToolbar={<div></div>} verticalToolbar={<div></div>} />).should.matchSnapshot();
+    const { container } = render(<NavigationArea navigationAid={<div>NavigationAid</div>} horizontalToolbar={<div>HorizontalToolbar</div>} verticalToolbar={<div>VerticalToolbar</div>} />);
+
+    expect(container.firstElementChild).to.satisfy(childStructure(
+      ".nz-widget-navigationArea .nz-horizontal-toolbar-container + .nz-navigation-aid-container + .nz-vertical-toolbar-container"
+    ));
   });
 });

@@ -2,21 +2,25 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { MessageCenter } from "../../../appui-layout-react";
-import { mount } from "../../Utils";
+import { childStructure } from "../../Utils";
 
 describe("<MessageCenter />", () => {
-  it("should render", () => {
-    mount(<MessageCenter />);
-  });
-
   it("renders correctly", () => {
-    shallow(<MessageCenter />).should.matchSnapshot();
+    render(<MessageCenter />);
+
+    expect(screen.getByRole("button")).to.satisfy(childStructure([
+      ".nz-container .nz-balloon .nz-arrow~.nz-content",
+      ".nz-container .nz-target",
+    ]));
   });
 
   it("renders correctly with label", () => {
-    shallow(<MessageCenter label="Messages:" />).should.matchSnapshot();
+    render(<MessageCenter label="Messages:" />);
+
+    expect(screen.getByText("Messages:")).to.exist;
   });
 });

@@ -2,17 +2,16 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { ToolAssistanceItem } from "../../../appui-layout-react";
-import { mount } from "../../Utils";
+import { selectorMatches } from "../../Utils";
 
 describe("<ToolAssistanceItem />", () => {
-  it("should render", () => {
-    mount(<ToolAssistanceItem />);
-  });
-
   it("renders correctly", () => {
-    shallow(<ToolAssistanceItem />).should.matchSnapshot();
+    const { container } = render(<ToolAssistanceItem />);
+
+    expect(container.firstElementChild).to.satisfy(selectorMatches(".nz-footer-toolAssistance-item"));
   });
 });

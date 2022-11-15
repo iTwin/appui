@@ -2,17 +2,22 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { MessageCenterDialog } from "../../../appui-layout-react";
-import { mount } from "../../Utils";
+import { childStructure } from "../../Utils";
 
 describe("<MessageCenterDialog />", () => {
-  it("should render", () => {
-    mount(<MessageCenterDialog />);
-  });
-
   it("renders correctly", () => {
-    shallow(<MessageCenterDialog />).should.matchSnapshot();
+    const { container } = render(<MessageCenterDialog />);
+
+    expect(container).to.satisfy(childStructure([
+      ".nz-footer-dialog-titleBar .nz-title",
+      ".nz-tabs[role='tablist']",
+      ".nz-messages",
+      ".nz-message-prompt",
+      ".nz-gradient",
+    ]));
   });
 });

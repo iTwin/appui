@@ -408,17 +408,17 @@ export class MineDataController extends DataControllerBase {
 }
 
 /** Returns tag, id and classes of the information used by CSS selectors */
-function getPartialSelctorInfo(e: HTMLElement) {
+function getPartialSelectorInfo(e: HTMLElement) {
   return `${e.tagName}${e.id ? `#${e.id}`: ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
 }
 
 /** Returns the full list of classes and tag chain for an element up to HTML */
 function currentSelectorInfo(e: HTMLElement) {
   let w = e;
-  const chain = [getPartialSelctorInfo(w)];
+  const chain = [getPartialSelectorInfo(w)];
   while(w.parentElement) {
     w = w.parentElement;
-    chain.unshift(getPartialSelctorInfo(w));
+    chain.unshift(getPartialSelectorInfo(w));
   }
   return chain.join(" > ");
 }

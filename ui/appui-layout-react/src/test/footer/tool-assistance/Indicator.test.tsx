@@ -2,21 +2,22 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { ToolAssistance } from "../../../appui-layout-react";
-import { mount } from "../../Utils";
+import { selectorMatches } from "../../Utils";
 
 describe("<ToolAssistance />", () => {
-  it("should render", () => {
-    mount(<ToolAssistance />);
-  });
-
   it("renders correctly", () => {
-    shallow(<ToolAssistance />).should.matchSnapshot();
+    render(<ToolAssistance />);
+
+    expect(screen.getByRole("button").parentElement).to.satisfy(selectorMatches(".nz-footer-toolAssistance-indicator"));
   });
 
   it("renders correctly with label", () => {
-    shallow(<ToolAssistance>Start Point</ToolAssistance>).should.matchSnapshot();
+    render(<ToolAssistance>Start Point</ToolAssistance>);
+
+    expect(screen.getByText("Start Point")).to.satisfy(selectorMatches(".nz-indicator .nz-content"));
   });
 });
