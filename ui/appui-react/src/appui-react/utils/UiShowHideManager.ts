@@ -213,5 +213,12 @@ export class UiShowHideManager {
   /** @internal */
   public static terminate() {
     UiShowHideManager.cancelTimer();
+    this._isUiVisible = true;
+    this._autoHideUi = true;
+    this._showHidePanels = false;
+    this._showHideFooter = false;
+    this._inactivityTime = INACTIVITY_TIME_DEFAULT;
+    this._useProximityOpacity = false;
+    this._snapWidgetOpacity = false;
   }
 }
