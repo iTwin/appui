@@ -14,7 +14,7 @@ import { expect } from "chai";
 import {
   AsyncValueProcessingResult, DataControllerBase, UiComponents,
 } from "../components-react";
-export {userEvent};
+export { userEvent };
 
 // cSpell:ignore buttongroup
 
@@ -54,7 +54,7 @@ export class TestUtils {
     return new Promise((resolve) => setTimeout(resolve));
   }
 
-  public static createPropertyRecord(value: any, column: {key: string, label: string}, typename: string) {
+  public static createPropertyRecord(value: any, column: { key: string, label: string }, typename: string) {
     const v: PrimitiveValue = {
       valueFormat: PropertyValueFormat.Primitive,
       value,
@@ -382,14 +382,14 @@ export class MineDataController extends DataControllerBase {
 
 /** Returns tag, id and classes of the information used by CSS selectors */
 function getPartialSelectorInfo(e: HTMLElement) {
-  return `${e.tagName}${e.id ? `#${e.id}`: ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
+  return `${e.tagName}${e.id ? `#${e.id}` : ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
 }
 
 /** Returns the full list of classes and tag chain for an element up to HTML */
 function currentSelectorInfo(e: HTMLElement) {
   let w = e;
   const chain = [getPartialSelectorInfo(w)];
-  while(w.parentElement) {
+  while (w.parentElement) {
     w = w.parentElement;
     chain.unshift(getPartialSelectorInfo(w));
   }
@@ -405,7 +405,7 @@ export function selectorMatches(selectors: string) {
   const satisfier = (e: HTMLElement) => {
     // \b\b\b... removes default "[Function : " part to get clear message in output.
     const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(e)}'\n\n${prettyDOM()}`;
-    Object.defineProperty(satisfier, "name",  {value: message});
+    Object.defineProperty(satisfier, "name", { value: message });
     return e.matches(selectors);
   };
   return satisfier;
@@ -420,7 +420,7 @@ export function childStructure(selectors: string) {
   const satisfier = (e: HTMLElement) => {
     // \b\b\b... removes default "[Function : " part to get clear message in output.
     const message = `\b\b\b\b\b\b\b\b\b\belement.querySelector('${selectors}'); but is: \n${prettyDOM(e)}`;
-    Object.defineProperty(satisfier, "name", {value: message});
+    Object.defineProperty(satisfier, "name", { value: message });
     return !!e.querySelector(selectors);
   };
   return satisfier;
@@ -440,10 +440,10 @@ type Matchable<T> = { [P in keyof T]: T[P] | RegExp; };
 export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
   return (e: HTMLElement) => {
     expect(e).to.be.instanceOf(HTMLElement).and.have.property("style");
-    for(const prop in style) {
-      if(Object.prototype.hasOwnProperty.call(style, prop)) {
+    for (const prop in style) {
+      if (Object.prototype.hasOwnProperty.call(style, prop)) {
         const value = style[prop];
-        if(value instanceof RegExp) {
+        if (value instanceof RegExp) {
           expect(e.style, `property ${prop}`).to.have.property(prop).that.match(value);
         } else {
           expect(e.style).to.have.property(prop, value);
@@ -453,5 +453,11 @@ export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
     return true;
   };
 }
+
+/**
+ * Simplified type for `sinon.SinonSpy`.
+ * @internal
+ */
+export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<Parameters<T>, ReturnType<T>>;
 
 export default TestUtils;   // eslint-disable-line: no-default-export
