@@ -5,7 +5,6 @@
 import { expect } from "chai";
 import sinon from "sinon";
 import * as moq from "typemoq";
-import { BeEvent } from "@itwin/core-bentley";
 import { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
 import { TreeModelChanges, TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
 import { ITreeDataProvider } from "../../../components-react/tree/TreeDataProvider";
