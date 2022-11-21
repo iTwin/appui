@@ -467,6 +467,11 @@ public;ToolAssistanceChangedEventArgs
 public;ToolAssistanceField 
 internal;ToolAssistanceFieldDefaultProps = Pick
 public;ToolAssistanceFieldProps 
+<<<<<<< HEAD
+=======
+internal;Toolbar 
+public;TOOLBAR_OPACITY_DEFAULT = 0.5
+>>>>>>> 6be1f3992f (Make Toolbar Opacity configurable (#4702))
 public;ToolbarButtonHelper
 public;ToolbarComposer(props: ExtensibleToolbarProps): JSX.Element
 beta;ToolbarDragInteractionContext: React_2.Context

@@ -96,7 +96,18 @@ describe("UiSettingsPage", () => {
     expect(thumb).to.exist;
     fireEvent.keyDown(thumb!, { key: SpecialKey.ArrowRight });
     await TestUtils.flushAsyncOperations();
+    let widgetOpacity = UiFramework.getWidgetOpacity();
+    expect (widgetOpacity).greaterThan(.9);
+    await TestUtils.flushAsyncOperations();
+    // trigger sync event processing
+    UiFramework.setWidgetOpacity(.5);
+    await TestUtils.flushAsyncOperations();
+    widgetOpacity = UiFramework.getWidgetOpacity();
+    expect (widgetOpacity).equals(.5);
+    wrapper.unmount();
+  });
 
+  it("renders without version option (V2) set toolbar opacity", async () => {
     await TestUtils.flushAsyncOperations();
     // trigger sync event processing
     UiFramework.setWidgetOpacity(.5);
@@ -109,13 +120,12 @@ describe("UiSettingsPage", () => {
 
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
-    const autoHideSpan = wrapper.getByText("settings.uiSettingsPage.autoHideTitle");
-    const checkbox = getInputBySpanTitle(autoHideSpan);
-    expect(checkbox).not.to.be.null;
-    fireEvent.click(checkbox!);
+    const thumb = wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
+    expect(thumb[0]).to.exist;
+    fireEvent.keyDown(thumb[0]!, { key: SpecialKey.ArrowRight });
     await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false; // defaults to true so this should make if false
-    fireEvent.click(checkbox!);
+    let toolbarOpacity = UiFramework.getToolbarOpacity();
+    expect (toolbarOpacity).greaterThan(.5);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.true;
     expect(wrapper.container.querySelectorAll("span.title").length).to.eq(10);
