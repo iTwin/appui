@@ -21,7 +21,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: packages'
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/imodeljs/packages'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/appui/packages'
     ArtifactName: packages
   condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'Schedule', 'Manual'), eq(variables['Agent.OS'], 'Windows_NT'))
 
