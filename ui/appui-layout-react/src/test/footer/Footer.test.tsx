@@ -2,21 +2,25 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { Footer, SafeAreaInsets } from "../../appui-layout-react";
-import { mount } from "../Utils";
+import { childStructure, selectorMatches } from "../Utils";
 
 describe("<Footer />", () => {
-  it("should render", () => {
-    mount(<Footer />);
-  });
-
   it("renders correctly", () => {
-    shallow(<Footer />).should.matchSnapshot();
+    const { container } = render(<Footer />);
+
+    expect(container.firstElementChild).to.satisfy(childStructure([
+      ".nz-footer-footer .nz-messages",
+      ".nz-footer-footer .nz-indicators",
+    ]));
   });
 
   it("renders safe area aware correctly", () => {
-    shallow(<Footer safeAreaInsets={SafeAreaInsets.Left} />).should.matchSnapshot();
+    const { container } = render(<Footer safeAreaInsets={SafeAreaInsets.Left} />);
+
+    expect(container.firstElementChild).to.satisfy(selectorMatches(".nz-safe-area-left"));
   });
 });

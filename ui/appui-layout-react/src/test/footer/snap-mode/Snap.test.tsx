@@ -2,25 +2,28 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import { Snap } from "../../../appui-layout-react";
-import { mount } from "../../Utils";
+import { selectorMatches } from "../../Utils";
 
 describe("<Snap />", () => {
-  it("should render", () => {
-    mount(<Snap />);
-  });
-
   it("renders correctly", () => {
-    shallow(<Snap />).should.matchSnapshot();
+    render(<Snap />);
+
+    expect(screen.getByRole("button")).to.satisfy(selectorMatches(".nz-footer-snapMode-snap"));
   });
 
   it("renders active correctly", () => {
-    shallow(<Snap isActive />).should.matchSnapshot();
+    render(<Snap isActive />);
+
+    expect(screen.getByRole("button")).to.satisfy(selectorMatches(".nz-active"));
   });
 
   it("renders correctly with icon", () => {
-    shallow(<Snap icon={<i />} />).should.matchSnapshot();
+    render(<Snap icon={<i data-testid="icon" />} />);
+
+    expect(screen.getByTestId("icon")).to.satisfy(selectorMatches(".nz-footer-snapMode-snap div:first-child i"));
   });
 });
