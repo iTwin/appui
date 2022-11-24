@@ -98,6 +98,15 @@ export class FrontstageDef {
   /** @beta */
   public get viewNavigation() { return this._viewNavigation; }
   /** @beta */
+  public get toolSettings(): WidgetDef | undefined { return this.topCenter?.getSingleWidgetDef(); }
+  /** @beta */
+  public get statusBar(): WidgetDef | undefined { return this.bottomCenter?.getSingleWidgetDef(); }
+  /** @beta */
+  public get contentManipulation(): WidgetDef | undefined { return this.topLeft?.getSingleWidgetDef(); }
+  /** @beta */
+  public get viewNavigation(): WidgetDef | undefined { return this.topRight?.getSingleWidgetDef(); }
+
+  /** @beta */
   public get topPanel(): StagePanelDef | undefined { return this._topPanel; }
   /** @beta */
   public get leftPanel(): StagePanelDef | undefined { return this._leftPanel; }
@@ -237,9 +246,8 @@ export class FrontstageDef {
     const def = new FrontstageDef();
     def._frontstageProvider = provider;
 
-    // istanbul ignore else
-    if (provider.frontstage)
-      await def.initializeFromProps(provider.frontstage);
+    const config = provider.frontstageConfig();
+    await def.initializeFromProps(config);
 
     return def;
   }
@@ -251,8 +259,14 @@ export class FrontstageDef {
   public async onActivated() {
     this.updateWidgetDefs();
 
-    if (this._contentGroupProvider && this._initialProps) {
-      this._contentGroup = await this._contentGroupProvider.provideContentGroup(this._initialProps);
+    const provider = this._contentGroupProvider;
+    if (provider && this._initialProps) {
+      if (provider.contentGroup) {
+        const config = toFrontstageConfig(this._initialProps);
+        this._contentGroup = await provider.contentGroup(config);
+      } else {
+        this._contentGroup = await provider.provideContentGroup(this._initialProps);
+      }
     }
 
     // istanbul ignore next
@@ -539,9 +553,7 @@ export class FrontstageDef {
       this._contentGroup = props.contentGroup;
     }
 
-    if (props.applicationData !== undefined)
-      this._applicationData = props.applicationData;
-
+    this._applicationData = props.applicationData;
     this._usage = props.usage;
     this._version = props.version || 0;
 

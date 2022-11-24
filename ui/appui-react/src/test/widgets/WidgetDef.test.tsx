@@ -31,7 +31,7 @@ describe("WidgetDef", () => {
   });
 
   it("optional properties", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       defaultState: WidgetState.Open,
       priority: 100,
       iconSpec: "icon-home",
@@ -66,7 +66,7 @@ describe("WidgetDef", () => {
   });
 
   it("should work with react icon", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       defaultState: WidgetState.Open,
       priority: 200,
       iconSpec: <SvgList />,
@@ -80,7 +80,7 @@ describe("WidgetDef", () => {
   });
 
   it("should properly handle iconSpec set/get", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       defaultState: WidgetState.Open,
       priority: 200,
       iconSpec: "icon-lightbulb",
@@ -103,7 +103,7 @@ describe("WidgetDef", () => {
 
   });
   it("registerControl & widgetControl using same classId", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       classId: "WidgetDefTest",
     };
     const widgetDef = new WidgetDef(widgetProps);
@@ -113,7 +113,7 @@ describe("WidgetDef", () => {
   });
 
   it("labelKey and tooltipKey should return translated string", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       classId: "WidgetDefTest",
       labelKey: "App:label",
       tooltipKey: "App:tooltip",
@@ -125,7 +125,7 @@ describe("WidgetDef", () => {
   });
 
   it("reactNode supports set and get", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       classId: "WidgetDefTest",
     };
     const widgetDef = new WidgetDef(widgetProps);
@@ -135,7 +135,7 @@ describe("WidgetDef", () => {
   });
 
   it("widgetControl using constructor classId", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       classId: TestWidget,
     };
     const widgetDef = new WidgetDef(widgetProps);
@@ -148,7 +148,7 @@ describe("WidgetDef", () => {
   });
 
   it("setWidgetState", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       classId: "WidgetDefTest",
       badgeType: BadgeType.None,
     };
@@ -160,7 +160,7 @@ describe("WidgetDef", () => {
   });
 
   it("getWidgetControl throws an Error when type is incorrect", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       classId: "WidgetDefTest",
     };
     const widgetDef = new WidgetDef(widgetProps);
@@ -171,7 +171,7 @@ describe("WidgetDef", () => {
   describe("show", () => {
     it("should emit onWidgetShowEvent", () => {
       const spy = sinon.spy(FrontstageManager.onWidgetShowEvent, "emit");
-      const widgetDef = new WidgetDef({});
+      const widgetDef = new WidgetDef();
       widgetDef.show();
       spy.calledOnceWithExactly(sinon.match({
         widgetDef,
@@ -182,7 +182,7 @@ describe("WidgetDef", () => {
   describe("expand", () => {
     it("should emit onWidgetExpandEvent", () => {
       const spy = sinon.spy(FrontstageManager.onWidgetExpandEvent, "emit");
-      const widgetDef = new WidgetDef({});
+      const widgetDef = new WidgetDef();
       widgetDef.expand();
       spy.calledOnceWithExactly(sinon.match({
         widgetDef,
@@ -192,7 +192,7 @@ describe("WidgetDef", () => {
 
   describe("label", () => {
     it("should set label", () => {
-      const sut = new WidgetDef({});
+      const sut = new WidgetDef();
       sut.setLabel("test");
 
       sut.label.should.eq("test");
@@ -201,7 +201,7 @@ describe("WidgetDef", () => {
     it("should emit onWidgetLabelChangedEvent", () => {
       const spy = sinon.stub<(args: WidgetChangedEventArgs) => void>();
       FrontstageManager.onWidgetLabelChangedEvent.addListener(spy);
-      const sut = new WidgetDef({});
+      const sut = new WidgetDef();
       sut.setLabel("test");
 
       spy.calledOnceWithExactly(sinon.match({ widgetDef: sut })).should.true;
@@ -209,7 +209,7 @@ describe("WidgetDef", () => {
 
     it("should not emit onWidgetLabelChangedEvent for same label", () => {
       const spy = sinon.stub<(args: WidgetChangedEventArgs) => void>();
-      const sut = new WidgetDef({});
+      const sut = new WidgetDef();
       sut.setLabel("test");
 
       FrontstageManager.onWidgetLabelChangedEvent.addListener(spy);
@@ -221,7 +221,7 @@ describe("WidgetDef", () => {
 
   describe("tabLocation", () => {
     it("should set tabLocation", () => {
-      const sut = new WidgetDef({});
+      const sut = new WidgetDef();
       sut.tabLocation = {
         side: "bottom",
         tabIndex: 8,

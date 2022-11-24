@@ -22,7 +22,7 @@ import { ToolItemDef } from "../shared/ToolItemDef";
 /** Properties of a [[WidgetPanelProps]] component
  * @public
  */
-export type WidgetPanelProps = Omit<StagePanelProps, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
+export type WidgetPanelProps = Omit<StagePanelProps, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">; // eslint-disable-line deprecation/deprecation
 
 /**
  * Props for [[StandardFrontstageProvider]]

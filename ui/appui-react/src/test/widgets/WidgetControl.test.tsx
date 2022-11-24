@@ -28,7 +28,7 @@ describe("WidgetControl", () => {
     TestUtils.terminateUiFramework();
   });
 
-  const widgetProps: WidgetProps = {
+  const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
     id: "test-widget",
     classId: TestWidget,
     defaultState: WidgetState.Hidden,

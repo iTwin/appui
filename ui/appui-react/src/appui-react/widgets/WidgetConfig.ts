@@ -3,17 +3,12 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module Frontstage
+ * @module Widget
  */
 
-import { FrontstageConfig } from "./FrontstageConfig";
+import { WidgetProps } from "./WidgetProps";
 
-/** Provides a definition required to create a Frontstage.
- * @public
+/** Configuration from which a widget is created.
+ * @beta
  */
-export abstract class FrontstageProvider {
-  /** Get the FrontstageProvider id. */
-  public abstract get id(): string;
-  /** Return the frontstage configuration. */
-  public abstract frontstageConfig(): FrontstageConfig;
-}
+export type WidgetConfig = Readonly<Omit<WidgetProps, "id">> & { readonly id: string }; // eslint-disable-line deprecation/deprecation

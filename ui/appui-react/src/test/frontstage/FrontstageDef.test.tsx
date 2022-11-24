@@ -67,6 +67,61 @@ describe("FrontstageDef", () => {
     }
   }
 
+  class ConfigContentGroupProvider extends ContentGroupProvider {
+    public override async provideContentGroup(_props: FrontstageProps): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
+      throw new Error("Not implemented.");
+    }
+
+    public override async contentGroup(_config: FrontstageConfig): Promise<ContentGroup> {
+      return TestUtils.TestContentGroup1;
+    }
+  }
+
+  class ConfigFrontstageProvider extends FrontstageProvider {
+    public constructor(private _contentGroup?: FrontstageConfig["contentGroup"]) {
+      super();
+    }
+
+    public override get id() {
+      return "config";
+    }
+
+    public override get frontstage(): React.ReactElement<FrontstageProps> {
+      throw new Error("Not implemented.");
+    }
+
+    public override frontstageConfig(): FrontstageConfig {
+      return {
+        id: this.id,
+        version: 1,
+        contentGroup: this._contentGroup ? this._contentGroup : TestUtils.TestContentGroup1,
+        leftPanel: {
+          defaultState: StagePanelState.Minimized,
+          sections: {
+            start: [
+              {
+                id: "w1",
+              },
+            ],
+          },
+        },
+        bottomPanel: {
+          size: 400,
+          sections: {
+            end: [
+              {
+                id: "w2",
+              },
+              {
+                id: "w3",
+              },
+            ],
+          },
+        },
+      };
+    }
+  }
+
   it("setActiveFrontstage should throw Error on invalid content layout", () => {
     const frontstageProvider = new BadLayoutFrontstage();
     FrontstageManager.addFrontstageProvider(frontstageProvider);

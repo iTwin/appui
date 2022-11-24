@@ -450,7 +450,7 @@ export type AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionBut
 // @public
 export type AnyToolbarItemDef = AnyItemDef | CustomItemDef;
 
-// @public
+// @public @deprecated
 export type AnyWidgetProps = WidgetProps | ToolWidgetProps | NavigationWidgetProps;
 
 // @internal (undocumented)
@@ -1180,9 +1180,11 @@ export interface ContentGroupProps {
 // @public
 export abstract class ContentGroupProvider {
     applyUpdatesToSavedProps(contentGroupProps: ContentGroupProps): ContentGroupProps;
+    // @beta
+    contentGroup?(config: FrontstageConfig): Promise<ContentGroup>;
     onFrontstageDeactivated(): Promise<void>;
     prepareToSaveProps(contentGroupProps: ContentGroupProps): ContentGroupProps;
-    // (undocumented)
+    // @deprecated
     abstract provideContentGroup(props: FrontstageProps): Promise<ContentGroup>;
 }
 
@@ -2243,7 +2245,7 @@ export interface FrontstageNineZoneStateChangedEventArgs extends FrontstageEvent
     state: NineZoneState | undefined;
 }
 
-// @public
+// @public @deprecated
 export interface FrontstageProps extends CommonProps {
     applicationData?: any;
     bottomPanel?: StagePanelProps;
@@ -2313,7 +2315,9 @@ export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opt
 export function getSelectionContextSyncEventIds(): string[];
 
 // @internal (undocumented)
-export function getStableWidgetProps(widgetProps: WidgetProps, stableId: string): WidgetProps;
+export function getStableWidgetProps<T extends {
+    id?: string;
+}>(widgetProps: T, stableId: string): T;
 
 // @beta
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
@@ -4286,7 +4290,7 @@ export type StagePanelMaxSizeSpec = number | {
     percentage: number;
 };
 
-// @public
+// @public @deprecated
 export interface StagePanelProps {
     applicationData?: any;
     defaultState?: StagePanelState;
@@ -4297,6 +4301,15 @@ export interface StagePanelProps {
     resizable?: boolean;
     sections?: PanelSectionsProps;
     size?: number;
+}
+
+// @beta
+export type StagePanelSectionConfig = ReadonlyArray<WidgetConfig>;
+
+// @beta
+export interface StagePanelSectionsConfig {
+    readonly end?: StagePanelSectionConfig;
+    readonly start?: StagePanelSectionConfig;
 }
 
 // @public
@@ -5534,7 +5547,7 @@ export class WidgetDef {
     get canPopout(): boolean | undefined;
     // (undocumented)
     get classId(): string | ConfigurableUiControlConstructor | undefined;
-    // (undocumented)
+    // @deprecated (undocumented)
     static createWidgetPropsFromAbstractProps(abstractWidgetProps: AbstractWidgetProps): WidgetProps;
     // @internal (undocumented)
     get defaultFloatingPosition(): PointProps | undefined;
@@ -5695,7 +5708,7 @@ export function WidgetPanelsToolbars(): JSX.Element;
 // @internal (undocumented)
 export function WidgetPanelsToolSettings(): JSX.Element | null;
 
-// @public
+// @public @deprecated
 export interface WidgetProps extends Omit<AbstractWidgetProps, "getWidgetContent">, IconProps {
     classId?: string | ConfigurableUiControlConstructor;
     control?: ConfigurableUiControlConstructor;

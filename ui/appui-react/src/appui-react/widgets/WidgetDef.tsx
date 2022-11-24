@@ -64,6 +64,7 @@ export enum WidgetType {
 }
 
 /** Properties for a Toolbar Widget.
+ * @deprecated
  * @public
  */
 export interface ToolbarWidgetProps extends WidgetProps {
@@ -72,23 +73,26 @@ export interface ToolbarWidgetProps extends WidgetProps {
 }
 
 /** Properties for a Tool Widget.
+ * @deprecated
  * @public
  */
-export interface ToolWidgetProps extends ToolbarWidgetProps {
+export interface ToolWidgetProps extends ToolbarWidgetProps { // eslint-disable-line deprecation/deprecation
   appButton?: CommandItemDef;
 }
 
 /** Properties for a Navigation Widget.
+ * @deprecated
  * @public
  */
-export interface NavigationWidgetProps extends ToolbarWidgetProps {
+export interface NavigationWidgetProps extends ToolbarWidgetProps { // eslint-disable-line deprecation/deprecation
   navigationAidId?: string;
 }
 
 /** Union of all Widget properties.
+ * @deprecated
  * @public
  */
-export type AnyWidgetProps = WidgetProps | ToolWidgetProps | NavigationWidgetProps;
+export type AnyWidgetProps = WidgetProps | ToolWidgetProps | NavigationWidgetProps; // eslint-disable-line deprecation/deprecation
 
 /** @internal */
 export interface TabLocation {
@@ -168,7 +172,7 @@ export class WidgetDef {
   public get iconSpec(): IconSpec { return this._iconSpec === IconHelper.reactIconKey ? IconHelper.getIconReactNode(this._iconSpec, this._internalData) : this._iconSpec; }
   public set iconSpec(spec: IconSpec) { this._iconSpec = this._internalData ? IconHelper.getIconData(spec, this._internalData) : spec; }
   public get badgeType(): BadgeType | undefined { return this._badgeType; }
-  public get initialProps(): WidgetProps | undefined { return this._initialProps; }
+  public get initialProps(): WidgetProps | undefined { return this._initialProps; } // eslint-disable-line deprecation/deprecation
 
   public get widgetType(): WidgetType { return this._widgetType; }
   public set widgetType(type: WidgetType) { this._widgetType = type; }
@@ -195,18 +199,23 @@ export class WidgetDef {
   public get popoutBounds() { return this._popoutBounds; }
   public set popoutBounds(bounds: Rectangle | undefined) { this._popoutBounds = bounds; }
 
-  constructor(widgetProps: WidgetProps, type?: WidgetType) {
-    if (widgetProps.id !== undefined)
-      this._id = widgetProps.id;
-    else {
-      WidgetDef._sId++;
-      this._id = `Widget-${WidgetDef._sId}`;
-    }
+  constructor() {
+    WidgetDef._sId++;
+    this._id = `Widget-${WidgetDef._sId}`;
 
     if (type !== undefined)
       this._widgetType = type;
 
     this._initialProps = widgetProps;
+  }
+
+  /** @deprecated */
+  public static initializeFromWidgetProps(widgetProps: WidgetProps, me: WidgetDef) { // eslint-disable-line deprecation/deprecation
+    me._initialProps = widgetProps;
+
+    if (widgetProps.id !== undefined)
+      me._id = widgetProps.id;
+
     if (widgetProps.label)
       this.setLabel(widgetProps.label);
     else if (widgetProps.labelKey)
@@ -266,8 +275,9 @@ export class WidgetDef {
     this._restoreTransientState = widgetProps.restoreTransientState;
   }
 
-  public static createWidgetPropsFromAbstractProps(abstractWidgetProps: AbstractWidgetProps): WidgetProps {
-    const widgetProps: WidgetProps = abstractWidgetProps;
+  /** @deprecated */
+  public static createWidgetPropsFromAbstractProps(abstractWidgetProps: AbstractWidgetProps): WidgetProps { // eslint-disable-line deprecation/deprecation
+    const widgetProps: WidgetProps = abstractWidgetProps; // eslint-disable-line deprecation/deprecation
     widgetProps.element = abstractWidgetProps.getWidgetContent();
     return widgetProps;
   }

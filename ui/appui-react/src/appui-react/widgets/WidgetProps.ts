@@ -11,6 +11,7 @@ import { IconProps } from "@itwin/core-react";
 import { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 
 /** Properties of a Widget.
+ * @deprecated Props of a deprecated component.
  * @public
  */
 export interface WidgetProps extends Omit<AbstractWidgetProps, "getWidgetContent">, IconProps {

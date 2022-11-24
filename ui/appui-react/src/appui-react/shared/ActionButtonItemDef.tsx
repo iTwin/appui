@@ -61,3 +61,5 @@ export abstract class ActionButtonItemDef extends ItemDefBase {
     return dimension;
   }
 }
+
+import { ActionItemButton } from "../toolbar/ActionItemButton";

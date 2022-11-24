@@ -63,6 +63,7 @@ export * from "./appui-react/feedback/ValidationTextbox";
 export * from "./appui-react/feedback/ElementTooltip";
 
 export * from "./appui-react/frontstage/Frontstage";
+export * from "./appui-react/frontstage/FrontstageConfig";
 export * from "./appui-react/frontstage/FrontstageDef";
 export * from "./appui-react/frontstage/FrontstageManager";
 export * from "./appui-react/frontstage/FrontstageProvider";
@@ -150,6 +151,7 @@ export * from "./appui-react/shared/SelectionScope";
 export * from "./appui-react/shared/ToolItemDef";
 
 export * from "./appui-react/stagepanels/StagePanel";
+export * from "./appui-react/stagepanels/StagePanelConfig";
 export * from "./appui-react/stagepanels/StagePanelDef";
 
 export * from "./appui-react/statusbar/dialog/Dialog";
@@ -233,6 +235,7 @@ export * from "./appui-react/widgets/StatusBarWidgetComposerControl";
 export * from "./appui-react/widgets/ContentToolWidgetComposer";
 export * from "./appui-react/widgets/StableWidgetDef";
 export * from "./appui-react/widgets/ToolWidgetComposer";
+export * from "./appui-react/widgets/WidgetConfig";
 export * from "./appui-react/widgets/WidgetControl";
 export * from "./appui-react/widgets/WidgetDef";
 export * from "./appui-react/widgets/WidgetHost";

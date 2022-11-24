@@ -28,7 +28,7 @@ describe("AccuDrawWidget", () => {
   });
 
   it("should get AccuDrawWidgetControl", () => {
-    const widgetProps: WidgetProps = {
+    const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
       id: AccuDrawWidgetControl.id,
       label: AccuDrawWidgetControl.label,
       control: AccuDrawWidgetControl,
