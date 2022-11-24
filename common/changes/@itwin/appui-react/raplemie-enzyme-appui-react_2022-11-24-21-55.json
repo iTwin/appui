@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Removed Enzyme tests and related dependencies",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

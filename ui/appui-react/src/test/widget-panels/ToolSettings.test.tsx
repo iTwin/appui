@@ -4,21 +4,22 @@
 *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
 import { createNineZoneState, DragManager, DragManagerContext, NineZoneProvider, ToolSettingsStateContext } from "@itwin/appui-layout-react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { shallow } from "enzyme";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
   ConfigurableCreateInfo, FrontstageDef, FrontstageManager, ToolSettingsContent, ToolSettingsDockedContent, ToolSettingsEntry, ToolSettingsGrid,
   ToolUiProvider, useHorizontalToolSettingNodes, useToolSettingsNode, WidgetDef, WidgetPanelsToolSettings,
 } from "../../appui-react";
+import { expect } from "chai";
+import { childStructure } from "../TestUtils";
 
 describe("WidgetPanelsToolSettings", () => {
   it("should not render w/o tool settings top center zone", () => {
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
-    const sut = shallow(<WidgetPanelsToolSettings />);
-    sut.should.matchSnapshot();
+    const { container } = render(<WidgetPanelsToolSettings />);
+    expect(container.innerHTML).to.eq("");
   });
 
   it("should render", () => {
@@ -64,8 +65,12 @@ describe("ToolSettingsGrid", () => {
   it("should render", () => {
     const entries: ToolSettingsEntry[] = [{ labelNode: "Date", editorNode: <input type="date" /> }];
 
-    const sut = shallow(<ToolSettingsGrid settings={entries} />);
-    sut.should.matchSnapshot();
+    render(<ToolSettingsGrid settings={entries} />);
+    expect(screen.getByText("Date", {
+      selector: ".uifw-standard-toolsettings-two-column-grid .uifw-standard-toolsettings-label-entry",
+    }).parentElement).to.satisfy(childStructure(
+      "input[type='date']"
+    ));
   });
 });
 

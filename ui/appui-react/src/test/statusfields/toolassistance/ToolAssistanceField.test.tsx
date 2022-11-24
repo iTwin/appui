@@ -3,29 +3,33 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { ReactWrapper } from "enzyme";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import { MockRender, ToolAssistance, ToolAssistanceImage, ToolAssistanceInputMethod } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
 import { LocalStateStorage } from "@itwin/core-react";
-import { FooterPopup, TitleBarButton } from "@itwin/appui-layout-react";
-import { ToggleSwitch } from "@itwin/itwinui-react";
 import {
   AppNotificationManager, ConfigurableCreateInfo, ConfigurableUiControlType, CursorPopupManager, FrontstageManager, StatusBar, StatusBarWidgetControl,
   ToolAssistanceField, WidgetDef,
 } from "../../../appui-react";
-import TestUtils, { mount, storageMock } from "../../TestUtils";
-import { render } from "@testing-library/react";
+import TestUtils, { selectorMatches, storageMock, userEvent } from "../../TestUtils";
+import { render, screen } from "@testing-library/react";
 
 describe(`ToolAssistanceField`, () => {
-
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   const uiSettingsStorage = new LocalStateStorage({ localStorage: storageMock() } as Window);
 
   before(async () => {
     await uiSettingsStorage.saveSetting("ToolAssistance", "showPromptAtCursor", true);
     await uiSettingsStorage.saveSetting("ToolAssistance", "mouseTouchTabIndex", 0);
+  });
+
+  const DefaultValueContext = React.createContext({
+    defaultPromptAtCursor: false,
   });
 
   class AppStatusBarWidgetControl extends StatusBarWidgetControl {
@@ -35,24 +39,20 @@ describe(`ToolAssistanceField`, () => {
 
     public getReactNode(): React.ReactNode {
       return (
-        <>
-          <ToolAssistanceField
-            includePromptAtCursor={true}
-            uiStateStorage={uiSettingsStorage} />
-        </>
+        <DefaultValueContext.Consumer>{
+          (context) =>
+            <ToolAssistanceField
+              includePromptAtCursor={true}
+              uiStateStorage={uiSettingsStorage}
+              {...context}
+            />
+        }
+        </DefaultValueContext.Consumer>
       );
     }
   }
 
   let widgetControl: StatusBarWidgetControl | undefined;
-
-  const clickIndicator = (wrapper: ReactWrapper) => {
-    wrapper.update();
-    const indicator = wrapper.find("div.nz-indicator");
-    expect(indicator.length).to.eq(1);
-    indicator.simulate("click");
-    wrapper.update();
-  };
 
   before(async () => {
     await TestUtils.initializeUiFramework();
@@ -73,12 +73,12 @@ describe(`ToolAssistanceField`, () => {
   // cSpell:Ignore TOOLPROMPT
 
   it("Status Bar with ToolAssistanceField should mount", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
     notifications.outputPrompt(helloWorld);
-    wrapper.update();
+    expect(screen.getByText("Hello World!")).to.satisfy(selectorMatches(".nz-indicator .nz-content"));
   });
 
   it("Status Bar with ToolAssistanceField should display prompt", async () => {
@@ -92,25 +92,26 @@ describe(`ToolAssistanceField`, () => {
     expect(prompt).to.exist;
   });
 
-  it("dialog should open and close on click", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("dialog should open and close on click", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
     notifications.outputPrompt(helloWorld);
-    wrapper.update();
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find("div.nz-footer-toolAssistance-dialog").length).to.eq(1);
+    expect(screen.getByText("toolAssistance.promptAtCursor")).to.satisfy(selectorMatches(
+      ".nz-footer-toolAssistance-item .iui-toggle-switch-label"
+    ));
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByTitle(/Hello World!.*toolAssistance\.moreInfo/));
 
-    expect(wrapper.find("div.nz-footer-toolAssistance-dialog").length).to.eq(0);
+    expect(screen.queryByText("toolAssistance.promptAtCursor")).to.null;
   });
 
-  it("passing isNew:true should use newDot", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("passing isNew:true should use newDot", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true);
@@ -122,16 +123,14 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction, [section1]);
 
     notifications.setToolAssistance(instructions);
-    wrapper.update();
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find(".nz-footer-toolAssistance-newDot").length).to.eq(3);
-    expect(wrapper.find(".nz-text-new").length).to.eq(3);
+    expect(screen.getByRole("dialog").querySelectorAll(".nz-footer-toolAssistance-newDot,.nz-text-new")).lengthOf(6);
   });
 
-  it("ToolAssistanceImage.Keyboard with a single key should generate key image", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("ToolAssistanceImage.Keyboard with a single key should generate key image", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -140,14 +139,13 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction, [section1]);
     notifications.setToolAssistance(instructions);
 
-    wrapper.update();
+    await theUserTo.click(screen.getByRole("button"));
 
-    clickIndicator(wrapper);
-    expect(wrapper.find(".uifw-toolassistance-key").length).to.eq(1);
+    expect(screen.getByRole("dialog").querySelectorAll(".uifw-toolassistance-key")).lengthOf(1);
   });
 
-  it("should support known icons and multiple sections", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("should support known icons and multiple sections", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction("icon-clock", "This is the prompt that is fairly long 1234567890");
@@ -177,15 +175,17 @@ describe(`ToolAssistanceField`, () => {
 
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find("div.nz-footer-toolAssistance-dialog").length).to.eq(1);
-    expect(wrapper.find("div.nz-footer-toolAssistance-separator").length).to.eq(4);
-    expect(wrapper.find("div.nz-footer-toolAssistance-instruction").length).to.eq(16);
+    expect(screen.getByRole("dialog").querySelectorAll([
+      "div.nz-footer-toolAssistance-dialog",
+      "div.nz-footer-toolAssistance-separator",
+      "div.nz-footer-toolAssistance-instruction",
+    ].join(","))).lengthOf(21);
   });
 
-  it("ToolAssistanceImage.Keyboard with a key containing multiple chars should use large key", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("ToolAssistanceImage.Keyboard with a key containing multiple chars should use large key", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -195,13 +195,15 @@ describe(`ToolAssistanceField`, () => {
 
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find(".uifw-toolassistance-key-large").length).to.eq(1);
+    expect(screen.getByRole("dialog").querySelectorAll(
+      ".uifw-toolassistance-key-large"
+    )).lengthOf(1);
   });
 
-  it("ToolAssistanceImage.Keyboard with 2 keys should use medium keys", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("ToolAssistanceImage.Keyboard with 2 keys should use medium keys", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -211,13 +213,15 @@ describe(`ToolAssistanceField`, () => {
 
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find(".uifw-toolassistance-key-medium").length).to.eq(2);
+    expect(screen.getByRole("dialog").querySelectorAll(
+      ".uifw-toolassistance-key-medium"
+    )).lengthOf(2);
   });
 
-  it("ToolAssistanceImage.Keyboard with a modifier key should a medium modifier key & medium key", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("ToolAssistanceImage.Keyboard with a modifier key should a medium modifier key & medium key", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -227,14 +231,15 @@ describe(`ToolAssistanceField`, () => {
 
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find(".uifw-toolassistance-key-modifier").length).to.eq(1);
-    expect(wrapper.find(".uifw-toolassistance-key-medium").length).to.eq(1);
+    expect(screen.getByRole("dialog").querySelectorAll(
+      ".uifw-toolassistance-key-medium,.uifw-toolassistance-key-modifier"
+    )).lengthOf(2);
   });
 
-  it("ToolAssistanceImage.Keyboard with bottomRow should use small keys", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("ToolAssistanceImage.Keyboard with bottomRow should use small keys", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -244,14 +249,16 @@ describe(`ToolAssistanceField`, () => {
 
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find(".uifw-toolassistance-key-small").length).to.eq(4);
+    expect(screen.getByRole("dialog").querySelectorAll(
+      ".uifw-toolassistance-key-small"
+    )).lengthOf(4);
   });
 
   it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", () => {
     const spyMethod = sinon.spy(Logger, "logError");
-    mount(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.Keyboard, "Press a key" /* No keyboardInfo */);
@@ -264,7 +271,7 @@ describe(`ToolAssistanceField`, () => {
 
   it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", () => {
     const spyMethod = sinon.spy(Logger, "logError");
-    mount(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createKeyboardInstruction(ToolAssistance.createKeyboardInfo([]), "Press key");
@@ -275,8 +282,8 @@ describe(`ToolAssistanceField`, () => {
     spyMethod.called.should.true;
   });
 
-  it("createModifierKeyInstruction should generate valid instruction", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("createModifierKeyInstruction should generate valid instruction", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true, ToolAssistanceInputMethod.Both, ToolAssistance.createKeyboardInfo([]));
@@ -290,16 +297,18 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction, [section1]);
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find("div.uifw-toolassistance-key-modifier").length).to.eq(5);
-    expect(wrapper.find("div.uifw-toolassistance-svg-medium").length).to.eq(1);
-    expect(wrapper.find("div.uifw-toolassistance-icon-medium").length).to.eq(1);
-    expect(wrapper.find("div.uifw-toolassistance-svg-medium-wide").length).to.eq(3);
+    expect(screen.getByRole("dialog").querySelectorAll([
+      "div.uifw-toolassistance-key-modifier",
+      "div.uifw-toolassistance-svg-medium",
+      "div.uifw-toolassistance-icon-medium",
+      "div.uifw-toolassistance-svg-medium-wide",
+    ].join(","))).lengthOf(10);
   });
 
-  it("should support svg icons in string-based instruction.image", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("should support svg icons in string-based instruction.image", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction("svg:test", "This is the prompt");
@@ -308,15 +317,15 @@ describe(`ToolAssistanceField`, () => {
 
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find("div.uifw-toolassistance-svg").length).to.eq(1);
-    expect(wrapper.find("div.uifw-toolassistance-icon-large").length).to.eq(0);
+    expect(screen.getByRole("dialog").querySelectorAll("div.uifw-toolassistance-svg")).lengthOf(1);
+    expect(screen.getByRole("dialog").querySelectorAll("div.uifw-toolassistance-icon-large")).lengthOf(0);
   });
 
   it("invalid modifier key info along with image should log error", () => {
     const spyMethod = sinon.spy(Logger, "logError");
-    mount(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true, ToolAssistanceInputMethod.Both, ToolAssistance.createKeyboardInfo([]));
@@ -326,94 +335,59 @@ describe(`ToolAssistanceField`, () => {
     spyMethod.called.should.true;
   });
 
-  it("should close on outside click", () => {
-    const wrapper = mount<StatusBar>(<StatusBar widgetControl={widgetControl} />);
-    const footerPopup = wrapper.find(FooterPopup);
-    const toolAssistanceField = wrapper.find(ToolAssistanceField);
-    const toolAssistance = wrapper.find("div.nz-indicator");
+  it("should close on outside click", async () => {
+    render(<><div data-testid={"outside"}></div><StatusBar widgetControl={widgetControl} /></>);
 
-    toolAssistance.simulate("click");
-    expect(toolAssistanceField.state().isOpen).to.be.true;
+    await theUserTo.click(screen.getByRole("button"));
 
-    const outsideClick = new MouseEvent("");
-    sinon.stub(outsideClick, "target").get(() => document.createElement("div"));
-    footerPopup.prop("onOutsideClick")!(outsideClick);
+    expect(screen.getByText("toolAssistance.title")).to.exist;
 
-    expect(toolAssistanceField.state().isOpen).to.be.false;
+    await theUserTo.click(screen.getByTestId("outside"));
+
+    expect(screen.queryByText("toolAssistance.title")).to.be.null;
   });
 
-  it("should not close on outside click if pinned", () => {
-    const wrapper = mount<StatusBar>(<StatusBar widgetControl={widgetControl} />);
-    const footerPopup = wrapper.find(FooterPopup);
-    const toolAssistance = wrapper.find("div.nz-indicator");
-    const toolAssistanceField = wrapper.find(ToolAssistanceField);
+  it("should not close on outside click if pinned", async () => {
+    render(<><div data-testid={"outside"}></div><StatusBar widgetControl={widgetControl} /></>);
 
-    toolAssistance.simulate("click");
-    expect(toolAssistanceField.state().isOpen).to.be.true;
+    await theUserTo.click(screen.getByRole("button"));
+    await theUserTo.click(screen.getByTitle("toolAssistance.pin"));
+    await theUserTo.click(screen.getByTestId("outside"));
 
-    expect(toolAssistanceField.length).to.eq(1);
-    expect(toolAssistanceField.state("isPinned")).to.be.false;
-    toolAssistanceField.setState({ isPinned: true });
-    expect(toolAssistanceField.state("isPinned")).to.be.true;
-
-    const outsideClick = new MouseEvent("");
-    sinon.stub(outsideClick, "target").get(() => document.createElement("div"));
-    footerPopup.prop("onOutsideClick")!(outsideClick);
-
-    expect(toolAssistanceField.state().isOpen).to.be.true;
+    expect(screen.getByText("toolAssistance.title")).to.exist;
   });
 
-  it("dialog should open and close on click, even if pinned", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("dialog should open and close on click, even if pinned", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
     notifications.outputPrompt(helloWorld);
-    wrapper.update();
-
-    clickIndicator(wrapper);
-
-    expect(wrapper.find("div.nz-footer-toolAssistance-dialog").length).to.eq(1);
-
-    const toolAssistanceField = wrapper.find(ToolAssistanceField);
-    expect(toolAssistanceField.length).to.eq(1);
-    expect(toolAssistanceField.state("isPinned")).to.be.false;
-    toolAssistanceField.setState({ isPinned: true });
-    expect(toolAssistanceField.state("isPinned")).to.be.true;
-
-    clickIndicator(wrapper);
-
-    expect(wrapper.find("div.nz-footer-toolAssistance-dialog").length).to.eq(0);
-    expect(toolAssistanceField.state("isPinned")).to.be.false;
+    await theUserTo.click(screen.getByRole("button"));
+    await theUserTo.click(screen.getByTitle("toolAssistance.pin"));
+    await theUserTo.click(screen.getByTitle(/Hello World!.*toolAssistance\.moreInfo/));
+    expect(screen.queryByText("toolAssistance.title")).to.be.null;
   });
 
   it("should set showPromptAtCursor on toggle click", async () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
-    await TestUtils.flushAsyncOperations();
-    const toolAssistanceField = wrapper.find(ToolAssistanceField);
-    expect(toolAssistanceField.length).to.eq(1);
-    expect(toolAssistanceField.state("showPromptAtCursor")).to.be.true;
+    render(<StatusBar widgetControl={widgetControl} />);
+    await theUserTo.click(screen.getByRole("button"));
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true);
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByText("toolAssistance.promptAtCursor"));
 
-    const toggle = wrapper.find(ToggleSwitch);
-    expect(toggle.length).to.eq(1);
-    toggle.find("input").simulate("change", { target: { checked: false } });
-
-    expect(toolAssistanceField.state("showPromptAtCursor")).to.be.false;
+    expect(screen.getByRole<HTMLInputElement>("switch").checked).to.be.false;
   });
 
-  it("cursorPrompt should open when tool assistance set", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
-
-    const toolAssistanceField = wrapper.find(ToolAssistanceField);
-    expect(toolAssistanceField.length).to.eq(1);
-    toolAssistanceField.setState({ showPromptAtCursor: true });
+  it("cursorPrompt should open when tool assistance set", async () => {
+    render(<DefaultValueContext.Provider value={{defaultPromptAtCursor: true}}>
+      <StatusBar widgetControl={widgetControl} />
+    </DefaultValueContext.Provider>
+    );
 
     const spyMethod = sinon.spy();
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
@@ -422,7 +396,6 @@ describe(`ToolAssistanceField`, () => {
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true);
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
-    wrapper.update();
 
     spyMethod.called.should.true;
 
@@ -430,111 +403,94 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("cursorPrompt should open when tool icon changes", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+    render(<DefaultValueContext.Provider value={{defaultPromptAtCursor: true}}>
+      <StatusBar widgetControl={widgetControl} />
+    </DefaultValueContext.Provider>
+    );
 
-    FrontstageManager.onToolIconChangedEvent.emit({ iconSpec: "icon-placeholder" });
-
-    const toolAssistanceField = wrapper.find(ToolAssistanceField);
-    expect(toolAssistanceField.length).to.eq(1);
-    toolAssistanceField.setState({ showPromptAtCursor: true });
+    const spyMethod = sinon.spy();
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
 
     // emit before instructions set
     FrontstageManager.onToolIconChangedEvent.emit({ iconSpec: "icon-placeholder" });
 
-    const spyMethod = sinon.spy();
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
+    spyMethod.called.should.false;
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true);
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
+    spyMethod.resetHistory();
+
     // emit after instructions set
     FrontstageManager.onToolIconChangedEvent.emit({ iconSpec: "icon-placeholder" });
-
-    wrapper.update();
 
     spyMethod.called.should.true;
 
     CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(spyMethod);
   });
 
-  it("mouse & touch instructions should generate tabs", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("mouse & touch instructions should generate tabs", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true);
 
-    const instruction1 = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz", true, ToolAssistanceInputMethod.Mouse);
-    const instruction2 = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz", true, ToolAssistanceInputMethod.Touch);
+    const instruction1 = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "mouseClick", true, ToolAssistanceInputMethod.Mouse);
+    const instruction2 = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "fingerTouch", true, ToolAssistanceInputMethod.Touch);
     const section1 = ToolAssistance.createSection([instruction1, instruction2], "Inputs");
 
     const instructions = ToolAssistance.createInstructions(mainInstruction, [section1]);
 
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    const tabList = wrapper.find("ul.uifw-toolAssistance-tabs");
-    expect(tabList.length).to.eq(1);
+    expect(screen.getByText("toolAssistance.mouse")).to.satisfy(selectorMatches(
+      ".nz-content .iui-tabs-wrapper .iui-tab.iui-active .iui-tab-label div"
+    ));
+    expect(screen.getByText("mouseClick")).to.exist;
+    expect(screen.queryByText("fingerTouch")).to.be.null;
 
-    const tabIndex = wrapper.find(ToolAssistanceField).state("mouseTouchTabIndex");
-    expect(tabIndex).to.satisfy((index: number) => index === 0 || index === 1);
-    const nonActive = tabList.find(".iui-tab:not(.iui-active)");
-    expect(nonActive.length).to.eq(1);
+    const touchTab = screen.getByText("toolAssistance.touch");
+    expect(touchTab).to.satisfy(selectorMatches(
+      ".nz-content .iui-tabs-wrapper .iui-tab:not(.iui-active) .iui-tab-label div"
+    ));
 
-    nonActive.simulate("click");
-
-    const newTabIndex = wrapper.find(ToolAssistanceField).state("mouseTouchTabIndex");
-    expect(tabIndex !== newTabIndex).to.be.true;
+    await theUserTo.click(touchTab);
+    expect(screen.getByText("toolAssistance.touch")).to.satisfy(selectorMatches(
+      ".nz-content .iui-tabs-wrapper .iui-tab.iui-active .iui-tab-label div"
+    ));
+    expect(screen.getByText("fingerTouch")).to.exist;
+    expect(screen.queryByText("mouseClick")).to.be.null;
   });
 
-  it("touch instructions should show", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("touch instructions should show", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true);
-
     const instruction1 = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz", true, ToolAssistanceInputMethod.Touch);
     const section1 = ToolAssistance.createSection([instruction1], "Inputs");
-
     const instructions = ToolAssistance.createInstructions(mainInstruction, [section1]);
-
     notifications.setToolAssistance(instructions);
 
-    clickIndicator(wrapper);
+    await theUserTo.click(screen.getByRole("button"));
 
-    const showTouchInstructions = wrapper.find(ToolAssistanceField).state("showTouchInstructions");
-    expect(showTouchInstructions).to.be.true;
+    expect(screen.queryByRole("tablist")).to.be.null;
+    expect(screen.getByText("xyz")).to.exist;
   });
 
-  it("dialog should open, pin and close on click", () => {
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+  it("dialog should open, pin and close on click", async () => {
+    render(<StatusBar widgetControl={widgetControl} />);
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
     notifications.outputPrompt(helloWorld);
-
-    clickIndicator(wrapper);
-
-    expect(wrapper.find("div.nz-footer-toolAssistance-dialog").length).to.eq(1);
-
-    const toolAssistanceField = wrapper.find(ToolAssistanceField);
-    expect(toolAssistanceField.length).to.eq(1);
-    expect(toolAssistanceField.state("isPinned")).to.be.false;
-
-    let buttons = wrapper.find(TitleBarButton); // Pin button
-    expect(buttons.length).to.eq(1);
-    buttons.simulate("click");
-    wrapper.update();
-    expect(toolAssistanceField.state("isPinned")).to.be.true;
-
-    buttons = wrapper.find(TitleBarButton);   // Close button
-    expect(buttons.length).to.eq(1);
-    buttons.simulate("click");
-    wrapper.update();
-    expect(toolAssistanceField.state("isPinned")).to.be.false;
-
-    expect(wrapper.find("div.nz-footer-toolAssistance-dialog").length).to.eq(0);
+    await theUserTo.click(screen.getByRole("button"));
+    await theUserTo.click(screen.getByTitle("toolAssistance.pin"));
+    await theUserTo.click(screen.getByTitle("dialog.close"));
+    expect(screen.queryByText("toolAssistance.title")).to.be.null;
   });
 });

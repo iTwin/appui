@@ -6,13 +6,11 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
-import { ContextMenuItem, ContextSubMenu } from "@itwin/core-react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MenuItem, MenuItemHelpers, MenuItemProps } from "../../appui-react/shared/MenuItem";
-import TestUtils, { mount } from "../TestUtils";
+import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
 
 describe("MenuItem", () => {
-
   const createBubbledEvent = (type: string, props = {}) => {
     return TestUtils.createBubbledEvent(type, props);
   };
@@ -104,10 +102,10 @@ describe("MenuItem", () => {
     expect(menuItem.submenu.length).to.eq(2);
   });
 
-  it("createMenuItemNodes should create a valid MenuItem", () => {
+  it("createMenuItemNodes should create a valid MenuItem", async () => {
     const menuItemProps: MenuItemProps[] = [
       {
-        id: "test", badgeType: BadgeType.New, isDisabled: true, item: { label: "test label", icon: "icon-placeholder", execute: () => { } }, iconRight: "icon-checkmark",
+        id: "test", badgeType: BadgeType.New, isDisabled: true, item: { label: "test label", icon: "icon-placeholder", execute: ( ) => { } }, iconRight: "icon-checkmark",
       },
     ];
 
@@ -117,14 +115,18 @@ describe("MenuItem", () => {
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
     expect(menuItemNodes.length).to.eq(1);
 
-    const wrapper = mount(<div>{menuItemNodes}</div>);
-    expect(wrapper.find(ContextMenuItem).length).to.eq(1);
-    expect(wrapper.find(".core-badge").length).to.eq(1);
-    expect(wrapper.find(".icon-placeholder").length).to.eq(1);
-    expect(wrapper.find(".icon-checkmark").length).to.eq(1);
+    render(<div>{menuItemNodes}</div>);
+
+    expect(screen.getByRole("menuitem"))
+      .satisfy(selectorMatches(".core-context-menu-item.core-context-menu-disabled"))
+      .satisfy(childStructure([
+        ".core-context-menu-icon-right > .icon.icon-checkmark",
+        ".core-context-menu-item > .core-context-menu-icon > .icon.icon-placeholder",
+        ".core-context-menu-badge .core-new-badge",
+      ]));
   });
 
-  it("createMenuItemNodes should create a disabled MenuItem", () => {
+  it("createMenuItemNodes abstract disabled item should create a disabled MenuItem", () => {
     const menuItemProps: MenuItemProps[] = [
       {
         id: "test", badgeType: BadgeType.New, item: { label: "test label", isDisabled: true, icon: "icon-placeholder", execute: () => { } }, iconRight: "icon-checkmark",
@@ -137,11 +139,10 @@ describe("MenuItem", () => {
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
     expect(menuItemNodes.length).to.eq(1);
 
-    const wrapper = mount(<div>{menuItemNodes}</div>);
-    const contextMenuItems = wrapper.find(ContextMenuItem);
-    contextMenuItems.forEach((contextMenuItem): void => {
-      expect(contextMenuItem.props().disabled).to.equal(true);
-    });
+    render(<div>{menuItemNodes}</div>);
+
+    expect(screen.getByRole("menuitem"))
+      .satisfy(selectorMatches(".core-context-menu-item.core-context-menu-disabled"));
   });
 
   it("onSelect handled correctly on click", async () => {
@@ -187,8 +188,11 @@ describe("MenuItem", () => {
     const menuItemNodes = MenuItemHelpers.createMenuItemNodes(menuItems);
     expect(menuItemNodes.length).to.eq(1);
 
-    const wrapper = mount(<div>{menuItemNodes}</div>);
-    expect(wrapper.find(ContextSubMenu).length).to.eq(1);
+    render(<div>{menuItemNodes}</div>);
+
+    expect(screen.getByText("Mode 2")).to.satisfy(selectorMatches(
+      ".core-context-submenu .core-context-submenu-popup .core-context-menu-container .core-context-menu-content"
+    ));
   });
 
 });
