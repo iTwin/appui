@@ -7,7 +7,7 @@ import { AccessToken } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import { StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { IModelOpen } from "../imodelopen/IModelOpen";
@@ -36,7 +36,7 @@ export class IModelOpenFrontstage extends FrontstageProvider {
     return IModelOpenFrontstage.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup({
       id: "imodelIndexGroup",
       layout: StandardContentLayouts.singleView,
@@ -50,9 +50,8 @@ export class IModelOpenFrontstage extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 1,
       contentGroup,
-      isIModelIndependent: true,
       usage: StageUsage.Private,
     };
   }

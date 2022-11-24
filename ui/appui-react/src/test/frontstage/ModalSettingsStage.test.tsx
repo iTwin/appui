@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
-import { CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, ModalFrontstage, ModalFrontstageInfo, SettingsModalFrontstage } from "../../appui-react";
+import { FrontstageDef, FrontstageManager, ModalFrontstage, ModalFrontstageInfo, SettingsModalFrontstage } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { SettingsManager, SettingsTabEntry, SettingsTabsProvider, useSaveBeforeActivatingNewSettingsTab, useSaveBeforeClosingSettingsContainer } from "@itwin/core-react";
@@ -109,9 +109,13 @@ describe("ModalSettingsStage", () => {
   it("will display settings because they are registered", async () => {
     const settingsManager = UiFramework.settingsManager;
 
-    const dummy: FrontstageProps = { id: "old", usage: "General", defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 }; // eslint-disable-line deprecation/deprecation
     const frontstageDef = new FrontstageDef();
-    await frontstageDef.initializeFromProps(dummy);
+    await frontstageDef.initializeFromConfig({
+      id: "old",
+      version: 1,
+      usage: "General",
+      contentGroup: TestUtils.TestContentGroup2,
+    });
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
@@ -145,9 +149,13 @@ describe("ModalSettingsStage", () => {
   it("set initial stage via tab-id", async () => {
     const settingsManager = UiFramework.settingsManager;
 
-    const dummy: FrontstageProps = { id: "old", usage: "General", defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 }; // eslint-disable-line deprecation/deprecation
     const frontstageDef = new FrontstageDef();
-    await frontstageDef.initializeFromProps(dummy);
+    await frontstageDef.initializeFromConfig({
+      id: "old",
+      version: 1,
+      usage: "General",
+      contentGroup: TestUtils.TestContentGroup2,
+    });
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
@@ -168,9 +176,13 @@ describe("ModalSettingsStage", () => {
   it("set initial stage via tab name", async () => {
     const settingsManager = UiFramework.settingsManager;
 
-    const dummy: FrontstageProps = { id: "old", usage: "General", defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 }; // eslint-disable-line deprecation/deprecation
     const frontstageDef = new FrontstageDef();
-    await frontstageDef.initializeFromProps(dummy);
+    await frontstageDef.initializeFromConfig({
+      id: "old",
+      version: 1,
+      usage: "General",
+      contentGroup: TestUtils.TestContentGroup2,
+    });
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());

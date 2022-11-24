@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, FrontstageProps, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, FrontstageConfig, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
   SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -23,7 +23,7 @@ export class Frontstage2 extends FrontstageProvider {
     return Frontstage2.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup(
       {
         id: "frontstage2",
@@ -55,31 +55,34 @@ export class Frontstage2 extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 1,
       contentGroup,
-      applicationData: { key: "value" },
       contentManipulation: {
+        id: "contentManipulation",
         element: <FrontstageToolWidget />,
       },
-      toolSettings: {},
+      toolSettings: {
+        id: "toolSettings",
+      },
       viewNavigation: {
+        id: "viewNavigation",
         element: <FrontstageNavigationWidget />,
       },
       statusBar: {
+        id: "statusBar",
         control: SmallStatusBarWidgetControl,
       },
       rightPanel: {
         sections: {
-          end: {
-            widgets: [
-              {
-                defaultState: WidgetState.Hidden,
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
-                control: HorizontalPropertyGridWidgetControl,
-              },
-            ],
-          },
+          end: [
+            {
+              id: "HorizontalPropertyGrid",
+              defaultState: WidgetState.Hidden,
+              iconSpec: "icon-placeholder",
+              labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+              control: HorizontalPropertyGridWidgetControl,
+            },
+          ],
         },
       },
     };

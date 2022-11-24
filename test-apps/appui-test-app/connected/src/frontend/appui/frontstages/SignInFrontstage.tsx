@@ -5,7 +5,7 @@
 import * as React from "react";
 import { BrowserAuthorizationClient } from "@itwin/browser-authorization";
 import { StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider } from "@itwin/appui-react";
+import { ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { ElectronRendererAuthorization } from "@itwin/electron-authorization/lib/cjs/ElectronRenderer";
 import { Centered } from "@itwin/core-react";
@@ -40,8 +40,8 @@ export class SignInFrontstage extends FrontstageProvider {
     return SignInFrontstage.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
-    const contentGroup: ContentGroup = new ContentGroup({
+  public override frontstageConfig(): FrontstageConfig {
+    const contentGroup = new ContentGroup({
       id: "sign-in-stage",
       layout: StandardContentLayouts.singleView,
       contents: [
@@ -54,9 +54,8 @@ export class SignInFrontstage extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 1,
       contentGroup,
-      isIModelIndependent: true,
       usage: StageUsage.Private,
     };
   }

@@ -2,17 +2,15 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Frontstage
  */
 
 import { WidgetConfig } from "../widgets/WidgetConfig";
-import { StagePanelMaxSizeSpec } from "./StagePanel";
 import { StagePanelState as StagePanelState } from "./StagePanelDef";
 
 /** Configuration from which a stage panel is created.
- * @beta
+ * @public
  */
 export interface StagePanelConfig {
   /** Default Panel state. Controls how the panel is initially displayed. Defaults to StagePanelState.Open. */
@@ -32,12 +30,12 @@ export interface StagePanelConfig {
 }
 
 /** Configuration from which a stage panel section is created.
- * @beta
+ * @public
  */
 export type StagePanelSectionConfig = ReadonlyArray<WidgetConfig>;
 
 /** Configuration from which stage panel sections are created.
- * @beta
+ * @public
  */
 export interface StagePanelSectionsConfig {
   /** Configuration of the `start` section. */
@@ -45,3 +43,9 @@ export interface StagePanelSectionsConfig {
   /** Configuration of the `end` section. */
   readonly end?: StagePanelSectionConfig;
 }
+
+/** Available units of panel max size. Pixels or percentage of App size.
+ * @note Percentage of App `height` is used for top/bottom panel and percentage of App `width` is used for left/right panel.
+ * @public
+ */
+export type StagePanelMaxSizeSpec = number | { percentage: number };

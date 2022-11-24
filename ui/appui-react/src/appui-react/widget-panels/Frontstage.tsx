@@ -24,7 +24,7 @@ import {
 } from "@itwin/appui-layout-react";
 import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs, useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { StagePanelMaxSizeSpec } from "../stagepanels/StagePanel";
+import { StagePanelMaxSizeSpec } from "../stagepanels/StagePanelConfig";
 import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";

@@ -36,7 +36,7 @@ export const useUiItemsProviderStatusBarItems = (manager: StatusBarItemsManager)
       // istanbul ignore else
       if (frontstageDef) {
         providersRef.current = uiProviders;
-        const statusBarItems = UiItemsManager.getStatusBarItems(stageId, frontstageDef.usage, frontstageDef.applicationData);
+        const statusBarItems = UiItemsManager.getStatusBarItems(stageId, frontstageDef.usage);
         manager.loadItems(statusBarItems);
         setItems(manager.items);
       }

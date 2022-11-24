@@ -38,11 +38,13 @@ describe("StatusBar", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
 
-    const statusBarWidgetDef = new WidgetDef({ // eslint-disable-line deprecation/deprecation
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "statusBar",
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
-    widgetControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
+    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
 
     notifications = new AppNotificationManager();
     await NoRenderApp.startup();

@@ -13,7 +13,7 @@ import {
   ContentGroupProps,
   ContentGroupProvider,
   ContentProps,
-  CoreTools, FrontstageManager, FrontstageProps,
+  FrontstageManager,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { StandardFrontstageProps, StandardFrontstageProvider } from "../../appui-react/frontstage/StandardFrontstageProvider";
@@ -48,7 +48,7 @@ class BasicContentGroupProvider extends ContentGroupProvider {
     ],
   };
 
-  public async provideContentGroup(_props: FrontstageProps): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
+  public override async contentGroup(): Promise<ContentGroup> {
     return new ContentGroup(this.initialContentGroupProps);
   }
 }
@@ -92,7 +92,7 @@ class TestContentGroupProvider extends ContentGroupProvider {
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public async provideContentGroup(_props: FrontstageProps): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
+  public override async contentGroup(): Promise<ContentGroup> {
     if (this.hasSavedData) {
       const savedViewLayoutProps = await getSavedViewLayoutProps();
       if (savedViewLayoutProps) {
@@ -124,7 +124,7 @@ describe("ContentGroupProvider", () => {
 
   it("should exercise base Content Group Provider", async () => {
     const provider = new BasicContentGroupProvider();
-    const contentGroup = await provider.provideContentGroup({ id: "test", usage: "General", defaultTool: CoreTools.selectElementCommand, contentGroup: provider }); // eslint-disable-line deprecation/deprecation
+    const contentGroup = await provider.contentGroup();
     const savedContentGroupProps = provider.prepareToSaveProps(contentGroup.toJSON());
     expect(savedContentGroupProps).to.exist;
     const retrievedContentGroupProps = provider.applyUpdatesToSavedProps(savedContentGroupProps);
@@ -134,18 +134,8 @@ describe("ContentGroupProvider", () => {
   it("Should provide Content Group", async () => {
     const provider = new TestContentGroupProvider();
 
-    const frontstageProps: FrontstageProps = { // eslint-disable-line deprecation/deprecation
-      id: "test",
-      usage: "General",
-      defaultTool: CoreTools.selectElementCommand,
-      contentGroup: provider,
-      applicationData: {
-        isTestStageData: true,
-      },
-    };
-
     expect(provider).to.exist;
-    const contentGroup = await provider.provideContentGroup(frontstageProps); // eslint-disable-line deprecation/deprecation
+    const contentGroup = await provider.contentGroup();
     expect(contentGroup).to.exist;
 
     expect(contentGroup.groupId).to.contain("main-content-group-");
@@ -169,9 +159,6 @@ describe("ContentGroupProvider", () => {
       hideNavigationAid: true,
       cornerButton: undefined,
       usage: StageUsage.General,
-      applicationData: {
-        isTestStageData: true,
-      },
     };
 
     const standardFrontstageProvider = new StandardFrontstageProvider(ui2StageProps);
@@ -194,9 +181,6 @@ describe("ContentGroupProvider", () => {
       hideNavigationAid: false,
       cornerButton,
       usage: StageUsage.General,
-      applicationData: {
-        isTestStageData: true,
-      },
     };
 
     const standardFrontstageProvider = new StandardFrontstageProvider(ui2StageProps);

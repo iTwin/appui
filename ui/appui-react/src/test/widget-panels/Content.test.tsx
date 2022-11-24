@@ -24,9 +24,8 @@ describe("WidgetContent", () => {
     nineZone = addTab(nineZone, "w1");
     nineZone = addPanelWidget(nineZone, "left", "leftStart", ["w1"]);
     const frontstage = new FrontstageDef();
-    const widget = new WidgetDef({ // eslint-disable-line deprecation/deprecation
-      id: "w1",
-    });
+    const widget = new WidgetDef();
+    widget.initializeFromConfig({ id: "w1" });
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstage);
     sinon.stub(frontstage, "findWidgetDef").returns(widget);
     sinon.stub(widget, "reactNode").get(() => <>Content</>);

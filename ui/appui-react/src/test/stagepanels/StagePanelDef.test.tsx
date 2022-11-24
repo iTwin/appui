@@ -5,9 +5,9 @@
 import { expect } from "chai";
 import produce from "immer";
 import * as sinon from "sinon";
-import { FrontstageManager, PanelSectionDef, setPanelSize, StagePanelDef, StagePanelState, toPanelSide, WidgetDef } from "../../appui-react";
+import { FrontstageManager, setPanelSize, StagePanelDef, StagePanelState, toPanelSide, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import { StagePanelLocation, StagePanelSection } from "@itwin/appui-abstract";
+import { StagePanelLocation } from "@itwin/appui-abstract";
 import { createNineZoneState } from "@itwin/appui-layout-react";
 import { FrontstageDef } from "../../appui-react/frontstage/FrontstageDef";
 
@@ -22,12 +22,15 @@ describe("StagePanelDef", () => {
   });
 
   it("Defaults, widgetDefs & widgetCount", () => {
-    const panelDef = new StagePanelDef();
-    panelDef.addWidgetDef(new WidgetDef({
+    const w1 = new WidgetDef();
+    w1.initializeFromConfig({
+      id: "w1",
       classId: "Test",
-    }));
+    });
 
-    expect(panelDef.applicationData).to.be.undefined;
+    const panelDef = new StagePanelDef();
+    panelDef.addWidgetDef(w1);
+
     expect(panelDef.widgetDefs).to.have.lengthOf(1);
     expect(panelDef.widgetCount).to.eq(1);
     expect(panelDef.getSingleWidgetDef()).to.not.be.undefined;
@@ -36,8 +39,7 @@ describe("StagePanelDef", () => {
   it("applicationData", () => {
     const panelDef = new StagePanelDef();
     panelDef.panelState = StagePanelState.Open;
-    panelDef.initializeFromProps({ resizable: false, applicationData: "AppData" });
-    expect(panelDef.applicationData).to.eq("AppData");
+    panelDef.initializeFromConfig({ resizable: false }, StagePanelLocation.Left);
   });
 
   it("should emit onPanelStateChangedEvent", () => {
@@ -55,7 +57,7 @@ describe("StagePanelDef", () => {
 
   it("should initialize pinned", () => {
     const panelDef = new StagePanelDef();
-    panelDef.initializeFromProps({ resizable: false, pinned: false });
+    panelDef.initializeFromConfig({ resizable: false, pinned: false }, StagePanelLocation.Left);
     expect(panelDef.pinned).to.false;
   });
 
@@ -124,11 +126,10 @@ describe("StagePanelDef", () => {
     frontstageDef.nineZoneState = nineZoneState;
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
-    panelDef.initializeFromProps({
+    panelDef.initializeFromConfig({
       resizable: true,
       defaultState: StagePanelState.Minimized,
-    });
-    sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
+    }, StagePanelLocation.Right);
     panelDef.panelState = StagePanelState.Open;
 
     frontstageDef.nineZoneState.panels.right.collapsed.should.false;
@@ -136,31 +137,16 @@ describe("StagePanelDef", () => {
 
   it("should returns panel zone widgets", () => {
     const panelDef = new StagePanelDef();
-    panelDef.initializeFromProps({
+    panelDef.initializeFromConfig({
       sections: {
-        start: {
-          widgets: [{ id: "s1" }],
-        },
-        end: {
-          widgets: [
-            { id: "e1" },
-            { id: "e2" },
-          ],
-        },
+        start: [{ id: "s1" }],
+        end: [
+          { id: "e1" },
+          { id: "e2" },
+        ],
       },
-    });
+    }, StagePanelLocation.Left);
     panelDef.widgetDefs.map((w) => w.id).should.eql(["s1", "e1", "e2"]);
-  });
-});
-
-describe("PanelSectionDef", () => {
-  it("should initialize stable widgets", () => {
-    const sut = new PanelSectionDef();
-    sut.initializeFromProps({
-      widgets: [{}],
-    }, StagePanelLocation.Left, StagePanelSection.Start);
-    expect(sut.widgetCount).to.eq(1);
-    expect(sut.widgetDefs[0].id).to.eq("uifw-ps-Left-0-0");
   });
 });
 

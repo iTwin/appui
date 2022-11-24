@@ -20,7 +20,9 @@ describe("CubeNavigationAidControl", () => {
   });
 
   it("CubeNavigationAidControl creates CubeNavigationAid", () => {
-    const widgetDef = new WidgetDef({
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "w1",
       classId: "CubeNavigationAid",
       applicationData: {
         imodel: UiFramework.getIModelConnection(),

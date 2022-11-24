@@ -6,7 +6,7 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 
 import {
-  BackstageAppButton, BackstageManager, CommandItemDef, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageProps,
+  BackstageAppButton, BackstageManager, CommandItemDef, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
   IModelViewportControl, StagePanelState, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
@@ -70,8 +70,8 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public async provideContentGroup(props: FrontstageProps): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
-    const savedViewLayoutProps = await getSavedViewLayoutProps(props.id, UiFramework.getIModelConnection());
+  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> {
+    const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, UiFramework.getIModelConnection());
     if (savedViewLayoutProps) {
       const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
       if (viewState) {

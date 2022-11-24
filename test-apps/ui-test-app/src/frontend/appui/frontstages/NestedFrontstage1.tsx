@@ -5,7 +5,7 @@
 import * as React from "react";
 import { ActionButton, CommonToolbarItem, ConditionalStringValue, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, FrontstageDef, FrontstageManager, FrontstageProps,
+  BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, FrontstageConfig, FrontstageDef, FrontstageManager,
   FrontstageProvider, ItemDefBase, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, NestedFrontstage, ToolbarComposer,
   ToolbarHelper, ToolItemDef, ToolWidgetComposer,
 } from "@itwin/appui-react";
@@ -25,38 +25,48 @@ export class NestedFrontstage1 extends FrontstageProvider {
     return NestedFrontstage1.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup1);
 
     return {
       id: this.id,
-      defaultTool: CoreTools.rotateViewCommand,
+      version: 1,
       contentGroup,
       contentManipulation: {
+        id: "contentManipulation",
         element: <FrontstageToolWidget />,
       },
-      toolSettings: {},
-      viewNavigation: { element: <FrontstageNavigationWidget /> },
-      statusBar: { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.StatusBar", control: SmallStatusBarWidgetControl },
+      toolSettings: {
+        id: "toolSettings",
+      },
+      viewNavigation: {
+        id: "viewNavigation",
+        element: <FrontstageNavigationWidget />,
+      },
+      statusBar: {
+        id: "statusBar",
+        iconSpec: "icon-placeholder",
+        labelKey: "SampleApp:widgets.StatusBar",
+        control: SmallStatusBarWidgetControl,
+      },
       rightPanel: {
         sections: {
-          end: {
-            widgets: [
-              {
-                defaultState: WidgetState.Closed,
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
-                control: HorizontalPropertyGridWidgetControl,
-              },
-              {
-                id: "VerticalPropertyGrid",
-                defaultState: WidgetState.Hidden,
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-                control: VerticalPropertyGridWidgetControl,
-              },
-            ],
-          },
+          end: [
+            {
+              id: "HorizontalPropertyGrid",
+              defaultState: WidgetState.Closed,
+              iconSpec: "icon-placeholder",
+              labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+              control: HorizontalPropertyGridWidgetControl,
+            },
+            {
+              id: "VerticalPropertyGrid",
+              defaultState: WidgetState.Hidden,
+              iconSpec: "icon-placeholder",
+              labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+              control: VerticalPropertyGridWidgetControl,
+            },
+          ],
         },
       },
     };

@@ -66,35 +66,54 @@ describe("WidgetManager", () => {
 
   it("addWidgetDef should log error when no stageId or stageUsage is provided", () => {
     const spyMethod = sinon.spy(Logger, "logError");
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, undefined, undefined, StagePanelLocation.Bottom);
     spyMethod.calledOnce.should.true;
   });
 
   it("addWidgetDef should add a WidgetDef targeting a stageId", () => {
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, "TestStage", undefined, StagePanelLocation.Bottom);
     expect(widgetManager.widgets.length).to.eq(1);
   });
 
   it("addWidgetDef should add a WidgetDef targeting a stageUsage", () => {
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
     expect(widgetManager.widgetCount).to.eq(1);
   });
 
   it("addWidgetDef should add another WidgetDef", () => {
-    const widgetDef = new WidgetDef({ id: "test1" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test1",
+    });
+
     widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
     expect(widgetManager.widgetCount).to.eq(1);
 
-    const widgetDef2 = new WidgetDef({ id: "test2" });
+    const widgetDef2 = new WidgetDef();
+    widgetDef2.initializeFromConfig({
+      id: "test2",
+    });
     widgetManager.addWidgetDef(widgetDef2, "TestStage", undefined, StagePanelLocation.Bottom);
     expect(widgetManager.widgetCount).to.eq(2);
   });
 
   it("addWidgetDef should not add a duplicate WidgetDef", () => {
-    const widgetDef = new WidgetDef({ id: "test1" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
     expect(widgetManager.widgetCount).to.eq(1);
     widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
@@ -102,7 +121,10 @@ describe("WidgetManager", () => {
   });
 
   it("getWidgetDefs should find a WidgetDef targeting a stageId", () => {
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, "TestStage", undefined, StagePanelLocation.Bottom);
     expect(widgetManager.widgetCount).to.eq(1);
 
@@ -113,7 +135,10 @@ describe("WidgetManager", () => {
   });
 
   it("getWidgetDefs should find a WidgetDef targeting a stageUsage", () => {
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
     expect(widgetManager.widgetCount).to.eq(1);
 
@@ -124,7 +149,10 @@ describe("WidgetManager", () => {
   });
 
   it("getWidgetDefs should find a WidgetDef with location & section", () => {
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, "TestStage", "TestUsage", StagePanelLocation.Bottom, StagePanelSection.Start);
     expect(widgetManager.widgetCount).to.eq(1);
 
@@ -135,7 +163,10 @@ describe("WidgetManager", () => {
   });
 
   it("getWidgetDefs should get a WidgetDef from an 'addon' UiItemsProvider", async () => {
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, "TestStage", undefined, StagePanelLocation.Right);
     expect(widgetManager.widgetCount).to.eq(1);
 
@@ -170,7 +201,10 @@ describe("WidgetManager", () => {
   });
 
   it("getWidgetDefs should not find a WidgetDef if no match", () => {
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, "TestStage", "TestUsage", StagePanelLocation.Bottom);
     expect(widgetManager.widgetCount).to.eq(1);
 
@@ -179,7 +213,10 @@ describe("WidgetManager", () => {
   });
 
   it("removeWidgetDef should remove a WidgetDef", () => {
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, "TestStage", "TestUsage", StagePanelLocation.Bottom);
     expect(widgetManager.widgetCount).to.eq(1);
 
@@ -189,7 +226,10 @@ describe("WidgetManager", () => {
   });
 
   it("removeWidgetDef should not remove a WidgetDef if not found", () => {
-    const widgetDef = new WidgetDef({ id: "test" });
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "test",
+    });
     widgetManager.addWidgetDef(widgetDef, "TestStage", "TestUsage", StagePanelLocation.Bottom);
     expect(widgetManager.widgetCount).to.eq(1);
 

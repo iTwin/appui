@@ -9,7 +9,7 @@ import {
   ConfigurableCreateInfo,
   ConfigurableUiManager,
   ContentControl,
-  ContentGroup, ContentToolWidgetComposer, CoreTools, FrontstageConfig, FrontstageManager, FrontstageProps, FrontstageProvider, StagePanelState, StandardContentToolsUiItemsProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, StatusBarWidgetComposerControl, ViewToolWidgetComposer,
+  ContentGroup, ContentToolWidgetComposer, CoreTools, FrontstageConfig, FrontstageManager, FrontstageProvider, StagePanelState, StandardContentToolsUiItemsProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, StatusBarWidgetComposerControl, ViewToolWidgetComposer,
 } from "@itwin/appui-react";
 import { StandardContentLayouts, UiItemsManager } from "@itwin/appui-abstract";
 import { CustomStageUiItemsProvider } from "../providers/CustomStageUiItemsProvider";
@@ -38,16 +38,12 @@ export class CustomFrontstageProvider extends FrontstageProvider {
     return CustomFrontstageProvider.stageId;
   }
 
-  public override get frontstage(): React.ReactElement<FrontstageProps> { // eslint-disable-line deprecation/deprecation
-    throw new Error("`frontstageConfig` should be used instead.");
-  }
-
   public override frontstageConfig(): FrontstageConfig {
     const id = this.id;
     const contentGroup = new ContentGroup({
       id: "test-group",
       layout: StandardContentLayouts.singleView,
-      contents: [{id: "custom-content", classId: CustomContentControl }],
+      contents: [{ id: "custom-content", classId: CustomContentControl }],
     });
     return {
       id,

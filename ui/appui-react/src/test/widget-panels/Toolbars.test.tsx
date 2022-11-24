@@ -16,8 +16,16 @@ describe("WidgetPanelsToolbars", () => {
 
   it("should render toolbars", () => {
     const frontstageDef = new FrontstageDef();
-    const contentManipulationWidget = new WidgetDef({ element: <>tools</> });
-    const viewNavigationWidget = new WidgetDef({ element: <>navigation</> });
+    const contentManipulationWidget = new WidgetDef();
+    contentManipulationWidget.initializeFromConfig({
+      id: "contentManipulationWidget",
+      element: <>tools</>,
+    });
+    const viewNavigationWidget = new WidgetDef();
+    viewNavigationWidget.initializeFromConfig({
+      id: "viewNavigationWidget",
+      element: <>navigation</>,
+    });
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     sinon.stub(frontstageDef, "contentManipulation").get(() => contentManipulationWidget);
     sinon.stub(frontstageDef, "viewNavigation").get(() => viewNavigationWidget);

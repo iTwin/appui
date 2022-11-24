@@ -12,7 +12,7 @@ import {
 } from "@itwin/appui-abstract";
 import { fireEvent, render } from "@testing-library/react";
 import {
-  ActivityCenterField, ConfigurableCreateInfo, ConfigurableUiControlType, CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, MessageCenterField, StatusBar, StatusBarComposer, StatusBarItem,
+  ActivityCenterField, ConfigurableCreateInfo, ConfigurableUiControlType, FrontstageDef, FrontstageManager, MessageCenterField, StatusBar, StatusBarComposer, StatusBarItem,
   StatusBarItemUtilities, StatusBarWidgetControl, SyncUiEventDispatcher, WidgetDef,
 } from "../../appui-react";
 import TestUtils, { mount } from "../TestUtils";
@@ -81,11 +81,13 @@ describe("StatusBarComposer", () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
 
-    const statusBarWidgetDef = new WidgetDef({ // eslint-disable-line deprecation/deprecation
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "statusBar",
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
-    widgetControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
+    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
   after(async () => {
@@ -221,10 +223,13 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should support extension items", async () => {
       // useUiItemsProviderStatusBarItems will only supply items if there is an "activeFrontstageDef" so set up dummy below
-      // eslint-disable-next-line deprecation/deprecation
-      const dummy: FrontstageProps = { id: "status-bar-1", usage: StageUsage.General, defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 };
       const frontstageDef = new FrontstageDef();
-      await frontstageDef.initializeFromProps(dummy);
+      await frontstageDef.initializeFromConfig({
+        id: "status-bar-1",
+        version: 1,
+        usage: StageUsage.General,
+        contentGroup: TestUtils.TestContentGroup2,
+      });
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       const items: StatusBarItem[] = [
@@ -263,10 +268,13 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should support addon items loaded before component", async () => {
       // useUiItemsProviderStatusBarItems will only supply items if there is an "activeFrontstageDef" so set up dummy below
-      // eslint-disable-next-line deprecation/deprecation
-      const dummy: FrontstageProps = { id: "status-bar-2", usage: StageUsage.General, defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 };
       const frontstageDef = new FrontstageDef();
-      await frontstageDef.initializeFromProps(dummy);
+      await frontstageDef.initializeFromConfig({
+        id: "status-bar-2",
+        version: 1,
+        usage: StageUsage.General,
+        contentGroup: TestUtils.TestContentGroup2,
+      });
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       const items: StatusBarItem[] = [
@@ -341,10 +349,13 @@ describe("StatusBarComposer", () => {
   describe("StatusBarComposer React-Testing", () => {
     it("StatusBarComposer should support extension items", async () => {
       // useUiItemsProviderStatusBarItems will only supply items if there is an "activeFrontstageDef" so set up dummy below
-      // eslint-disable-next-line deprecation/deprecation
-      const dummy: FrontstageProps = { id: "oldstatus-bar-3", usage: StageUsage.General, defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 };
       const frontstageDef = new FrontstageDef();
-      await frontstageDef.initializeFromProps(dummy);
+      await frontstageDef.initializeFromConfig({
+        id: "oldstatus-bar-3",
+        version: 1,
+        usage: StageUsage.General,
+        contentGroup: TestUtils.TestContentGroup2,
+      });
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       // make sure we have enough size to render without overflow
@@ -387,10 +398,13 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should filter duplicate items", async () => {
       // useUiItemsProviderStatusBarItems will only supply items if there is an "activeFrontstageDef" so set up dummy below
-      // eslint-disable-next-line deprecation/deprecation
-      const dummy: FrontstageProps = { id: "oldstatus-bar-4", usage: StageUsage.General, defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 };
       const frontstageDef = new FrontstageDef();
-      await frontstageDef.initializeFromProps(dummy);
+      await frontstageDef.initializeFromConfig({
+        id: "oldstatus-bar-4",
+        version: 1,
+        usage: StageUsage.General,
+        contentGroup: TestUtils.TestContentGroup2,
+      });
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       // make sure we have enough size to render without overflow

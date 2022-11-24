@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { WidgetState } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ConfigurableUiControlType, WidgetControl, WidgetDef, WidgetProps } from "../../appui-react";
+import { ConfigurableCreateInfo, ConfigurableUiControlType, WidgetConfig, WidgetControl, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { assert } from "@itwin/core-bentley";
 
@@ -28,14 +28,15 @@ describe("WidgetControl", () => {
     TestUtils.terminateUiFramework();
   });
 
-  const widgetProps: WidgetProps = { // eslint-disable-line deprecation/deprecation
+  const widgetConfig: WidgetConfig = {
     id: "test-widget",
     classId: TestWidget,
     defaultState: WidgetState.Hidden,
   };
 
   it("registerControl & widgetControl using same classId", () => {
-    const widgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig(widgetConfig);
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
 
     expect(widgetControl).to.not.be.undefined;
@@ -50,7 +51,8 @@ describe("WidgetControl", () => {
   });
 
   it("setWidgetState", () => {
-    const widgetDef = new WidgetDef(widgetProps);
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig(widgetConfig);
     const spy = sinon.spy(widgetDef, "setWidgetState");
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
     expect(widgetControl).to.not.be.undefined;
@@ -59,5 +61,4 @@ describe("WidgetControl", () => {
     widgetControl.setWidgetState(WidgetState.Open);
     sinon.assert.calledOnceWithExactly(spy, WidgetState.Open);
   });
-
 });

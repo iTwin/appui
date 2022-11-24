@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, NestedFrontstage, ToolWidgetComposer,
+  ContentGroup, FrontstageConfig, FrontstageProvider, NestedFrontstage, ToolWidgetComposer,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
@@ -15,7 +15,7 @@ export class NestedAnimationStage extends FrontstageProvider {
     return NestedAnimationStage.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup(
       {
         id: "ScheduleAnimation",
@@ -30,9 +30,10 @@ export class NestedAnimationStage extends FrontstageProvider {
     );
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 1,
       contentGroup,
       contentManipulation: {
+        id: "contentManipulation",
         element: <FrontstageToolWidget />,
       },
     };

@@ -19,7 +19,11 @@ describe("WidgetPanelsTab", () => {
   it("should render with badge", () => {
     const frontstageDef = new FrontstageDef();
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
-    const widgetDef = new WidgetDef({ badgeType: BadgeType.New }); // eslint-disable-line deprecation/deprecation
+    const widgetDef = new WidgetDef();
+    widgetDef.initializeFromConfig({
+      id: "w1",
+      badgeType: BadgeType.New,
+    });
     sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
     const wrapper = shallow(<WidgetPanelsTab />);
     wrapper.should.matchSnapshot();

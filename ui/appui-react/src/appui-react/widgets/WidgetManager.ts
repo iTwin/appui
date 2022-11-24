@@ -11,7 +11,7 @@ import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsMana
 import { UiFramework } from "../UiFramework";
 import { WidgetDef } from "./WidgetDef";
 import { createStableWidgetDef } from "./StableWidgetDef";
-import { WidgetProps } from "./WidgetProps";
+import { WidgetConfig } from "./WidgetConfig";
 
 /** Information about WidgetDefs in the WidgetManager
  * @internal
@@ -114,8 +114,7 @@ export class WidgetManager {
 
   /** Gets WidgetDefs for a Frontstage location.
    */
-  public getWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection,
-    frontstageApplicationData?: any): ReadonlyArray<WidgetDef> | undefined {
+  public getWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<WidgetDef> | undefined {
     const definedSection = section === undefined ? StagePanelSection.Start : section;
 
     const widgetInfos = this._widgets.filter((info) => {
@@ -128,25 +127,23 @@ export class WidgetManager {
     const widgetDefs = widgetInfos.map((info) => info.widgetDef);
 
     // Consult the UiItemsManager to get any Abstract widgets
-    const widgets = UiItemsManager.getWidgets(stageId, stageUsage, location, definedSection, frontstageApplicationData);
+    const widgets = UiItemsManager.getWidgets(stageId, stageUsage, location, definedSection);
     widgets.forEach((abstractProps: AbstractWidgetProps, index: number) => {
-      const props = WidgetDef.createWidgetPropsFromAbstractProps(abstractProps);
       const stableId = getAddonStableWidgetId(stageUsage, location, definedSection, index);
-      const stableProps = getStableWidgetProps(props, stableId);
-      const wd = new WidgetDef(stableProps);
-      widgetDefs.push(wd);
+      const config = createWidgetConfigFromAbstractProps(abstractProps, stableId);
+      const widgetDef = new WidgetDef();
+      widgetDef.initializeFromConfig(config);
+      widgetDefs.push(widgetDef);
     });
     return widgetDefs.length > 0 ? widgetDefs : undefined;
   }
 }
 
-/** @internal */
-export function getStableWidgetProps(widgetProps: WidgetProps, stableId: string) {
-  let props = widgetProps;
-  if (props.id === undefined)
-    props = {
-      ...props,
-      id: stableId,
-    };
-  return props;
+function createWidgetConfigFromAbstractProps(props: AbstractWidgetProps, stableId: WidgetConfig["id"]): WidgetConfig {
+  const config: WidgetConfig = {
+    id: props.id ? props.id : stableId,
+    element: props.getWidgetContent(),
+    ...props,
+  };
+  return config;
 }

@@ -10,7 +10,7 @@ import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsMana
 import { addFloatingWidget, addPanelWidget, addPopoutWidget, addTab, createNineZoneState } from "@itwin/appui-layout-react";
 import { MockRender } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
-import { CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, StagePanelDef, StagePanelState, useSpecificWidgetDef, WidgetDef } from "../../appui-react";
+import { FrontstageConfig, FrontstageDef, FrontstageManager, FrontstageProvider, StagePanelDef, StagePanelState, useSpecificWidgetDef, WidgetDef } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 
 describe("FrontstageDef", () => {
@@ -35,10 +35,10 @@ describe("FrontstageDef", () => {
       return BadLayoutFrontstage.stageId;
     }
 
-    public override get frontstage(): FrontstageProps {
+    public override frontstageConfig(): FrontstageConfig {
       return {
         id: this.id,
-        defaultTool: CoreTools.selectElementCommand,
+        version: 1,
         contentGroup: TestUtils.TestContentGroup1,
       };
     }
@@ -50,74 +50,11 @@ describe("FrontstageDef", () => {
       return BadGroupFrontstage.stageId;
     }
 
-    public override get frontstage(): FrontstageProps {
-
-      // const contentLayoutDef: ContentLayoutDef = new ContentLayoutDef(
-      //   {
-      //     id: "SingleContent",
-      //     description: "App:ContentLayoutDef.SingleContent",
-      //   },
-      // );
-
-      return {
-        id: this.id,
-        defaultTool: CoreTools.selectElementCommand,
-        contentGroup: TestUtils.TestContentGroup1,
-      };
-    }
-  }
-
-  class ConfigContentGroupProvider extends ContentGroupProvider {
-    public override async provideContentGroup(_props: FrontstageProps): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
-      throw new Error("Not implemented.");
-    }
-
-    public override async contentGroup(_config: FrontstageConfig): Promise<ContentGroup> {
-      return TestUtils.TestContentGroup1;
-    }
-  }
-
-  class ConfigFrontstageProvider extends FrontstageProvider {
-    public constructor(private _contentGroup?: FrontstageConfig["contentGroup"]) {
-      super();
-    }
-
-    public override get id() {
-      return "config";
-    }
-
-    public override get frontstage(): React.ReactElement<FrontstageProps> {
-      throw new Error("Not implemented.");
-    }
-
     public override frontstageConfig(): FrontstageConfig {
       return {
         id: this.id,
         version: 1,
-        contentGroup: this._contentGroup ? this._contentGroup : TestUtils.TestContentGroup1,
-        leftPanel: {
-          defaultState: StagePanelState.Minimized,
-          sections: {
-            start: [
-              {
-                id: "w1",
-              },
-            ],
-          },
-        },
-        bottomPanel: {
-          size: 400,
-          sections: {
-            end: [
-              {
-                id: "w2",
-              },
-              {
-                id: "w3",
-              },
-            ],
-          },
-        },
+        contentGroup: TestUtils.TestContentGroup1,
       };
     }
   }
@@ -147,7 +84,9 @@ describe("FrontstageDef", () => {
     it("should restore panel widget to default state", () => {
       const frontstageDef = new FrontstageDef();
       const rightPanel = new StagePanelDef();
-      const w1 = new WidgetDef({
+      const w1 = new WidgetDef();
+      w1.initializeFromConfig({
+        id: "w1",
         defaultState: WidgetState.Open,
       });
       sinon.stub(rightPanel, "widgetDefs").get(() => [w1]);
@@ -204,13 +143,11 @@ describe("FrontstageDef", () => {
         return EmptyFrontstageProvider.stageId;
       }
 
-      public override get frontstage() {
+      public override frontstageConfig(): FrontstageConfig {
         return {
           id: this.id,
-          defaultTool: CoreTools.selectElementCommand,
+          version: 1,
           contentGroup: TestUtils.TestContentGroup1,
-          defaultContentId: "defaultContentId",
-          applicationData: { key: "value" },
         };
       }
     }
@@ -254,20 +191,26 @@ describe("FrontstageDef", () => {
     const fw1Visible = frontstageDef.isWidgetDisplayed("t1");
     expect(fw1Visible).to.be.true;
 
-    const t2 = new WidgetDef({
+    const t2 = new WidgetDef();
+    t2.initializeFromConfig({
       id: "t2",
       defaultState: WidgetState.Open,
     });
 
-    const t3 = new WidgetDef({
+    const t3 = new WidgetDef();
+    t3.initializeFromConfig({
       id: "t3",
       defaultState: WidgetState.Hidden,
     });
-    const t4 = new WidgetDef({
+
+    const t4 = new WidgetDef();
+    t4.initializeFromConfig({
       id: "t4",
       defaultState: WidgetState.Floating,
     });
-    const t5 = new WidgetDef({
+
+    const t5 = new WidgetDef();
+    t5.initializeFromConfig({
       id: "t5",
       defaultState: WidgetState.Hidden,
     });
@@ -296,8 +239,11 @@ describe("FrontstageDef", () => {
     state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
     state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
 
+    const t1 = new WidgetDef();
+    t1.initializeFromConfig({ id: "t1" });
+
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(new WidgetDef({ id: "t1" }));
+    sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(t1);
     sinon.stub(frontstageDef, "nineZoneState").get(() => state);
     sinon.stub(frontstageDef, "id").get(() => "testFrontstage");
     sinon.stub(frontstageDef, "version").get(() => 11);
@@ -327,8 +273,11 @@ describe("FrontstageDef", () => {
     state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
     state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
 
+    const t1 = new WidgetDef();
+    t1.initializeFromConfig({ id: "t1" });
+
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(new WidgetDef({ id: "t1" }));
+    sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(t1);
     sinon.stub(frontstageDef, "nineZoneState").get(() => state);
     sinon.stub(frontstageDef, "id").get(() => "testFrontstage");
     sinon.stub(frontstageDef, "version").get(() => 11);
@@ -422,17 +371,20 @@ describe("float and dock widget", () => {
     const nineZoneStateSetter = sinon.spy();
     sinon.stub(frontstageDef, "nineZoneState").get(() => state).set(nineZoneStateSetter);
 
-    const t1 = new WidgetDef({
+    const t1 = new WidgetDef();
+    t1.initializeFromConfig({
       id: "t1",
       defaultState: WidgetState.Open,
     });
 
-    const t2 = new WidgetDef({
+    const t2 = new WidgetDef();
+    t2.initializeFromConfig({
       id: "t2",
       defaultState: WidgetState.Open,
     });
 
-    const t4 = new WidgetDef({
+    const t4 = new WidgetDef();
+    t4.initializeFromConfig({
       id: "t4",
       defaultState: WidgetState.Closed,
     });
@@ -470,12 +422,14 @@ describe("float and dock widget", () => {
 
     const frontstageDef = new FrontstageDef();
 
-    const t1 = new WidgetDef({
+    const t1 = new WidgetDef();
+    t1.initializeFromConfig({
       id: "t1",
       defaultState: WidgetState.Open,
     });
 
-    const t2 = new WidgetDef({
+    const t2 = new WidgetDef();
+    t2.initializeFromConfig({
       id: "t2",
       defaultState: WidgetState.Open,
     });
@@ -671,7 +625,7 @@ describe("float and dock widget", () => {
   it("should return default size for panel", () => {
     const frontstageDef = new FrontstageDef();
     const panelDef = new StagePanelDef();
-    panelDef.initializeFromProps({ resizable: true, size: 300 });
+    panelDef.initializeFromConfig({ resizable: true, size: 300 }, StagePanelLocation.Left);
 
     expect(frontstageDef.getPanelCurrentState(panelDef)).to.have.ordered.members([StagePanelState.Open, 300]);
   });
@@ -680,7 +634,7 @@ describe("float and dock widget", () => {
 describe("useSpecificWidgetDef", () => {
   it("should return widgetDef from active frontstage", () => {
     const frontstageDef = new FrontstageDef();
-    const widgetDef = new WidgetDef({});
+    const widgetDef = new WidgetDef();
     sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 

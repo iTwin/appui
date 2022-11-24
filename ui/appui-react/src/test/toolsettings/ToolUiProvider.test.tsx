@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, CoreTools, FrontstageManager, FrontstageProps, FrontstageProvider,
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, FrontstageConfig, FrontstageManager, FrontstageProvider,
   SyncToolSettingsPropertiesEventArgs, ToolSettingsEntry, ToolSettingsGrid, ToolUiProvider,
 } from "../../appui-react";
 import { ToolInformation } from "../../appui-react/toolsettings/ToolInformation";
@@ -70,12 +70,14 @@ describe("ToolUiProvider", () => {
       return Frontstage1.stageId;
     }
 
-    public override get frontstage(): FrontstageProps {
+    public override frontstageConfig(): FrontstageConfig {
       return {
         id: this.id,
-        defaultTool: CoreTools.selectElementCommand,
+        version: 1,
         contentGroup: TestUtils.TestContentGroup1,
-        statusBar: {},
+        statusBar: {
+          id: "statusBar",
+        },
       };
     }
   }

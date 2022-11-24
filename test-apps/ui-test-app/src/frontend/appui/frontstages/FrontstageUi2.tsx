@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BackstageManager, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageProps,
+  BackstageAppButton, BackstageManager, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
   IModelViewportControl, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
@@ -53,8 +53,8 @@ export class FrontstageUi2ContentGroupProvider extends ContentGroupProvider {
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public async provideContentGroup(props: FrontstageProps): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
-    const savedViewLayoutProps = await getSavedViewLayoutProps(props.id, UiFramework.getIModelConnection());
+  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> {
+    const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, UiFramework.getIModelConnection());
     if (savedViewLayoutProps) {
       const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
       if (viewState) {
@@ -103,20 +103,6 @@ export class FrontstageUi2 {
       <BackstageAppButton key="ui2-backstage" label="Toggle Ui2 Backstage" icon={"icon-bentley-systems"}
         execute={() => BackstageManager.getBackstageToggleCommand().execute()} /> : undefined;
     const hideNavigationAid = !FrontstageUi2.showCornerButtons;
-    const setUpCustomToolGroups = true;
-    const applicationData = setUpCustomToolGroups ? {
-      defaultContentTools: {
-        vertical: {
-          selectElementGroupPriority: 100,
-          measureGroupPriority: 200,
-          selectionGroupPriority: 300,
-        },
-        horizontal: {
-          clearSelectionGroupPriority: 100,
-          overridesGroupPriority: 200,
-        },
-      },
-    } : undefined;
 
     const ui2StageProps: StandardFrontstageProps = {
       id: FrontstageUi2.stageId,
@@ -125,7 +111,6 @@ export class FrontstageUi2 {
       hideNavigationAid,
       cornerButton,
       usage: StageUsage.General,
-      applicationData,
     };
 
     ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(ui2StageProps));

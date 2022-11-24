@@ -7,7 +7,7 @@ import { IModelApp } from "@itwin/core-frontend";
 import { CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities, StageUsage, ToolbarItemUtilities, WidgetState } from "@itwin/appui-abstract";
 import {
   AccuDrawDialog, AccuDrawWidgetControl, BasicNavigationWidget, BasicToolWidget, CommandItemDef,
-  CoreTools, CustomItemDef, FrontstageProps, FrontstageProvider, IModelConnectedViewSelector, ModelessDialogManager,
+  CoreTools, CustomItemDef, FrontstageConfig, FrontstageProvider, IModelConnectedViewSelector, ModelessDialogManager,
   ToolbarHelper,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../../frontend/index";
@@ -49,54 +49,55 @@ export class EditFrontstage extends FrontstageProvider {
       ToolbarHelper.createToolbarItemFromItemDef(200, this._viewSelectorItemDef)];
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 1,
       contentGroup: this._contentGroupProvider,
-      applicationData: { key: "value" },
       usage: StageUsage.Edit,
       contentManipulation: {
+        id: "contentManipulation",
         element: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
           additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={false} />,
       },
       toolSettings: {
+        id: "toolSettings",
         iconSpec: "icon-placeholder",
       },
       viewNavigation: {
+        id: "viewNavigation",
         element: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
       },
       statusBar: {
+        id: "statusBar",
         control: EditStatusBarWidgetControl,
       },
       leftPanel: {
         size: 250,
         sections: {
-          start: {
-            widgets: [
-              {
-                defaultState: WidgetState.Closed,
-                iconSpec: "icon-active",
-                labelKey: "SampleApp:widgets.ActiveSettings",
-                control: ActiveSettingsWidget,
-              },
-              {
-                defaultState: WidgetState.Closed,
-                iconSpec: "icon-add",
-                labelKey: "SampleApp:widgets.ModelCreation",
-                control: ModelCreationWidget,
-              },
-            ],
-          },
+          start: [
+            {
+              id: "ActiveSettings",
+              defaultState: WidgetState.Closed,
+              iconSpec: "icon-active",
+              labelKey: "SampleApp:widgets.ActiveSettings",
+              control: ActiveSettingsWidget,
+            },
+            {
+              id: "ModelCreation",
+              defaultState: WidgetState.Closed,
+              iconSpec: "icon-add",
+              labelKey: "SampleApp:widgets.ModelCreation",
+              control: ModelCreationWidget,
+            },
+          ],
         },
       },
       bottomPanel: {
         sections: {
-          start: {
-            widgets: [
-              { id: AccuDrawWidgetControl.id, label: AccuDrawWidgetControl.label, control: AccuDrawWidgetControl },
-            ],
-          },
+          start: [
+            { id: AccuDrawWidgetControl.id, label: AccuDrawWidgetControl.label, control: AccuDrawWidgetControl },
+          ],
         },
       },
     };

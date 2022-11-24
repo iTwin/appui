@@ -10,7 +10,7 @@ import { FrontstageDef, FrontstageManager, WidgetDef, WidgetPanelsStatusBar } fr
 describe("WidgetPanelsStatusBar", () => {
   it("should render", () => {
     const frontstageDef = new FrontstageDef();
-    const widget = new WidgetDef({});
+    const widget = new WidgetDef();
     sinon.stub(frontstageDef, "statusBar").get(() => widget);
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     const sut = shallow(<WidgetPanelsStatusBar />);
@@ -19,7 +19,7 @@ describe("WidgetPanelsStatusBar", () => {
 
   it("should not render widget control", () => {
     const frontstageDef = new FrontstageDef();
-    const widget = new WidgetDef({});
+    const widget = new WidgetDef();
     sinon.stub(frontstageDef, "statusBar").get(() => widget);
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     const sut = shallow(<WidgetPanelsStatusBar />);

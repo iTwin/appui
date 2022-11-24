@@ -7,19 +7,17 @@
  */
 
 import * as React from "react";
-import { AbstractWidgetProps, BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent, WidgetState } from "@itwin/appui-abstract";
+import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent, WidgetState } from "@itwin/appui-abstract";
 import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { CommandItemDef } from "../shared/CommandItemDef";
-import { ItemList } from "../shared/ItemMap";
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import { WidgetControl } from "./WidgetControl";
-import { WidgetProps } from "./WidgetProps";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import { IconHelper, IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
+import { WidgetConfig } from "./WidgetConfig";
 
 const widgetStateNameMap = new Map<WidgetState, string>([
   [WidgetState.Closed, "Closed"],
@@ -62,37 +60,6 @@ export enum WidgetType {
   ToolSettings,
   StatusBar,
 }
-
-/** Properties for a Toolbar Widget.
- * @deprecated
- * @public
- */
-export interface ToolbarWidgetProps extends WidgetProps {
-  horizontalItems?: ItemList;
-  verticalItems?: ItemList;
-}
-
-/** Properties for a Tool Widget.
- * @deprecated
- * @public
- */
-export interface ToolWidgetProps extends ToolbarWidgetProps { // eslint-disable-line deprecation/deprecation
-  appButton?: CommandItemDef;
-}
-
-/** Properties for a Navigation Widget.
- * @deprecated
- * @public
- */
-export interface NavigationWidgetProps extends ToolbarWidgetProps { // eslint-disable-line deprecation/deprecation
-  navigationAidId?: string;
-}
-
-/** Union of all Widget properties.
- * @deprecated
- * @public
- */
-export type AnyWidgetProps = WidgetProps | ToolWidgetProps | NavigationWidgetProps; // eslint-disable-line deprecation/deprecation
 
 /** @internal */
 export interface TabLocation {
@@ -137,7 +104,7 @@ export class WidgetDef {
 
   private _hideWithUiWhenFloating?: boolean;
   private _allowedPanelTargets?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
-  private _initialProps?: WidgetProps;
+  private _initialConfig?: WidgetConfig;
 
   private _tabLocation?: TabLocation;
   private _defaultTabLocation: TabLocation = {
@@ -172,7 +139,7 @@ export class WidgetDef {
   public get iconSpec(): IconSpec { return this._iconSpec === IconHelper.reactIconKey ? IconHelper.getIconReactNode(this._iconSpec, this._internalData) : this._iconSpec; }
   public set iconSpec(spec: IconSpec) { this._iconSpec = this._internalData ? IconHelper.getIconData(spec, this._internalData) : spec; }
   public get badgeType(): BadgeType | undefined { return this._badgeType; }
-  public get initialProps(): WidgetProps | undefined { return this._initialProps; } // eslint-disable-line deprecation/deprecation
+  public get initialConfig(): WidgetConfig | undefined { return this._initialConfig; }
 
   public get widgetType(): WidgetType { return this._widgetType; }
   public set widgetType(type: WidgetType) { this._widgetType = type; }
@@ -202,84 +169,71 @@ export class WidgetDef {
   constructor() {
     WidgetDef._sId++;
     this._id = `Widget-${WidgetDef._sId}`;
-
-    if (type !== undefined)
-      this._widgetType = type;
-
-    this._initialProps = widgetProps;
   }
 
-  /** @deprecated */
-  public static initializeFromWidgetProps(widgetProps: WidgetProps, me: WidgetDef) { // eslint-disable-line deprecation/deprecation
-    me._initialProps = widgetProps;
+  /** @internal */
+  public initializeFromConfig(config: WidgetConfig, type: WidgetType = WidgetType.Rectangular) {
+    this._widgetType = type;
+    this._initialConfig = config;
+    this._id = config.id;
 
-    if (widgetProps.id !== undefined)
-      me._id = widgetProps.id;
+    if (config.label)
+      this.setLabel(config.label);
+    else if (config.labelKey)
+      this._label = UiFramework.localization.getLocalizedString(config.labelKey);
 
-    if (widgetProps.label)
-      this.setLabel(widgetProps.label);
-    else if (widgetProps.labelKey)
-      this._label = UiFramework.localization.getLocalizedString(widgetProps.labelKey);
+    this.setCanPopout(config.canPopout);
+    this.setFloatingContainerId(config.floatingContainerId);
+    this.defaultFloatingPosition = config.defaultFloatingPosition ? config.defaultFloatingPosition as PointProps : undefined;
 
-    this.setCanPopout(widgetProps.canPopout);
-    this.setFloatingContainerId(widgetProps.floatingContainerId);
-    this.defaultFloatingPosition = widgetProps.defaultFloatingPosition ? widgetProps.defaultFloatingPosition as PointProps : undefined;
+    this._hideWithUiWhenFloating = !!config.hideWithUiWhenFloating;
 
-    this._hideWithUiWhenFloating = !!widgetProps.hideWithUiWhenFloating;
+    this.allowedPanelTargets = config.allowedPanelTargets;
 
-    this.allowedPanelTargets = widgetProps.allowedPanelTargets;
+    if (config.priority !== undefined)
+      this._priority = config.priority;
 
-    if (widgetProps.priority !== undefined)
-      this._priority = widgetProps.priority;
+    if (config.tooltip)
+      this.setTooltip(config.tooltip);
+    else if (config.tooltipKey)
+      this._tooltip = UiFramework.localization.getLocalizedString(config.tooltipKey);
 
-    if (widgetProps.tooltip)
-      this.setTooltip(widgetProps.tooltip);
-    else if (widgetProps.tooltipKey)
-      this._tooltip = UiFramework.localization.getLocalizedString(widgetProps.tooltipKey);
+    if (config.control !== undefined)
+      this._classId = config.control;
+    else if (config.classId !== undefined)
+      this._classId = config.classId;
 
-    if (widgetProps.control !== undefined)
-      this._classId = widgetProps.control;
-    else if (widgetProps.classId !== undefined)
-      this._classId = widgetProps.classId;
-
-    if (widgetProps.defaultState !== undefined) {
-      this._defaultState = widgetProps.defaultState;
+    if (config.defaultState !== undefined) {
+      this._defaultState = config.defaultState;
     }
 
-    if (widgetProps.isFloatingStateSupported !== undefined)
-      this._isFloatingStateSupported = widgetProps.isFloatingStateSupported;
-    if (widgetProps.isFloatingStateWindowResizable !== undefined)
-      this._isFloatingStateWindowResizable = widgetProps.isFloatingStateWindowResizable;
+    if (config.isFloatingStateSupported !== undefined)
+      this._isFloatingStateSupported = config.isFloatingStateSupported;
+    if (config.isFloatingStateWindowResizable !== undefined)
+      this._isFloatingStateWindowResizable = config.isFloatingStateWindowResizable;
 
-    if (widgetProps.applicationData !== undefined)
-      this._applicationData = widgetProps.applicationData;
+    if (config.applicationData !== undefined)
+      this._applicationData = config.applicationData;
 
-    if (widgetProps.element !== undefined)
-      this._widgetReactNode = widgetProps.element;
+    if (config.element !== undefined)
+      this._widgetReactNode = config.element;
 
-    if (widgetProps.iconSpec !== undefined)
-      this._iconSpec = widgetProps.iconSpec;
-    if (widgetProps.internalData)
-      this._internalData = widgetProps.internalData;
+    if (config.iconSpec !== undefined)
+      this._iconSpec = config.iconSpec;
+    if (config.internalData)
+      this._internalData = config.internalData;
     // istanbul ignore next
-    if (widgetProps.icon !== undefined && this._iconSpec === undefined)
-      this._iconSpec = widgetProps.icon;
+    if (config.icon !== undefined && this._iconSpec === undefined)
+      this._iconSpec = config.icon;
 
-    if (widgetProps.badgeType !== undefined)
-      this._badgeType = widgetProps.badgeType;
+    if (config.badgeType !== undefined)
+      this._badgeType = config.badgeType;
 
-    this._preferredPanelSize = widgetProps.preferredPanelSize;
-    this._defaultFloatingSize = widgetProps.defaultFloatingSize;
-    this._onWidgetStateChanged = widgetProps.onWidgetStateChanged;
-    this._saveTransientState = widgetProps.saveTransientState;
-    this._restoreTransientState = widgetProps.restoreTransientState;
-  }
-
-  /** @deprecated */
-  public static createWidgetPropsFromAbstractProps(abstractWidgetProps: AbstractWidgetProps): WidgetProps { // eslint-disable-line deprecation/deprecation
-    const widgetProps: WidgetProps = abstractWidgetProps; // eslint-disable-line deprecation/deprecation
-    widgetProps.element = abstractWidgetProps.getWidgetContent();
-    return widgetProps;
+    this._preferredPanelSize = config.preferredPanelSize;
+    this._defaultFloatingSize = config.defaultFloatingSize;
+    this._onWidgetStateChanged = config.onWidgetStateChanged;
+    this._saveTransientState = config.saveTransientState;
+    this._restoreTransientState = config.restoreTransientState;
   }
 
   /** @alpha */

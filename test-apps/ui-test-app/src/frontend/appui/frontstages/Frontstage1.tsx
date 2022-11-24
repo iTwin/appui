@@ -5,7 +5,7 @@
 import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, FrontstageDef, FrontstageManager, FrontstageProps,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, FrontstageConfig, FrontstageDef, FrontstageManager,
   FrontstageProvider, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, useWidgetDirection,
   WidgetStateChangedEventArgs,
 } from "@itwin/appui-react";
@@ -81,110 +81,112 @@ export class Frontstage1 extends FrontstageProvider {
     return Frontstage1.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup1);
     return {
       id: this.id,
       version: 1,
-      defaultTool: CoreTools.selectElementCommand,
       contentGroup,
-      defaultContentId: "TestContent1",
       contentManipulation: {
+        id: "contentManipulation",
         element: <FrontstageToolWidget />,
       },
-      toolSettings: {},
+      toolSettings: {
+        id: "toolSettings",
+      },
       viewNavigation: {
+        id: "viewNavigation",
         element: < FrontstageNavigationWidget />,
       },
       statusBar: {
+        id: "statusBar",
         control: SmallStatusBarWidgetControl,
       },
       topPanel: {
         resizable: false,
         sections: {
-          start: {
-            widgets: [
-              { element: <h2>Top panel</h2> },
-              {
-                element: <>
-                  <h2>TopMost panel</h2>
-                  <span>BottomMost panel:</span>
-                  & nbsp;
-                  < button onClick={() => {
-                    const frontstageDef = FrontstageManager.activeFrontstageDef;
-                    const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
-                    widgetDef?.setWidgetState(WidgetState.Open);
-                  }} > show</button>
-                  & nbsp;
-                  < button onClick={() => {
-                    const frontstageDef = FrontstageManager.activeFrontstageDef;
-                    const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
-                    widgetDef?.setWidgetState(WidgetState.Hidden);
-                  }
-                  }> hide</button >
-                </>,
-              },
-            ],
-          },
+          start: [
+            {
+              id: "topPanel",
+              element: <h2>Top panel</h2>,
+            },
+            {
+              id: "topMostPanel",
+              element: <>
+                <h2>TopMost panel</h2>
+                <span>BottomMost panel:</span>
+                & nbsp;
+                < button onClick={() => {
+                  const frontstageDef = FrontstageManager.activeFrontstageDef;
+                  const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
+                  widgetDef?.setWidgetState(WidgetState.Open);
+                }} > show</button>
+                & nbsp;
+                < button onClick={() => {
+                  const frontstageDef = FrontstageManager.activeFrontstageDef;
+                  const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
+                  widgetDef?.setWidgetState(WidgetState.Hidden);
+                }
+                }> hide</button >
+              </>,
+            },
+          ],
         },
       },
       leftPanel: {
         sections: {
-          start: {
-            widgets: [
-              {
-                id: "VerticalPropertyGrid",
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-                control: VerticalPropertyGridWidgetControl,
-              },
-            ],
-          },
+          start: [
+            {
+              id: "VerticalPropertyGrid",
+              iconSpec: "icon-placeholder",
+              labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+              control: VerticalPropertyGridWidgetControl,
+            },
+          ],
         },
       },
       rightPanel: {
         resizable: false,
         size: 200,
         sections: {
-          start: {
-            widgets: [
-              { element: <RightPanel /> },
-            ],
-          },
-          end: {
-            widgets: [
-              {
-                defaultState: WidgetState.Open,
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
-                control: HorizontalPropertyGridWidgetControl,
-              },
-              {
-                id: "VerticalPropertyGrid1",
-                defaultState: WidgetState.Hidden,
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-                control: VerticalPropertyGridWidgetControl,
-              },
-            ],
-          },
+          start: [
+            {
+              id: "RightPanel",
+              element: <RightPanel />,
+            },
+          ],
+          end: [
+            {
+              id: "HorizontalPropertyGrid1",
+              defaultState: WidgetState.Open,
+              iconSpec: "icon-placeholder",
+              labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+              control: HorizontalPropertyGridWidgetControl,
+            },
+            {
+              id: "VerticalPropertyGrid1",
+              defaultState: WidgetState.Hidden,
+              iconSpec: "icon-placeholder",
+              labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+              control: VerticalPropertyGridWidgetControl,
+            },
+          ],
         },
       },
       bottomPanel: {
         sections: {
-          start: {
-            widgets: [
-              { element: <SampleTimelineComponent /> },
-            ],
-          },
-          end: {
-            widgets: [
-              {
-                id: "BottomMostPanelWidget",
-                element: <h2> BottomMost panel</h2>,
-              },
-            ],
-          },
+          start: [
+            {
+              id: "SampleTimeline",
+              element: <SampleTimelineComponent />,
+            },
+          ],
+          end: [
+            {
+              id: "BottomMostPanelWidget",
+              element: <h2> BottomMost panel</h2>,
+            },
+          ],
         },
       },
     };
