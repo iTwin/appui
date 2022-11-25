@@ -4,18 +4,21 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
-import { NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
+import { MockRender, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
-import { FooterPopup } from "@itwin/appui-layout-react";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, MessageCenterField, MessageManager, StatusBar, StatusBarWidgetControl,
   WidgetDef,
 } from "../../appui-react";
-import TestUtils, { mount } from "../TestUtils";
+import TestUtils, { childStructure, userEvent } from "../TestUtils";
+import { render, screen } from "@testing-library/react";
+import { EmptyLocalization } from "@itwin/core-common";
 
 describe(`MessageCenter`, () => {
-
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   class AppStatusBarWidgetControl extends StatusBarWidgetControl {
     constructor(info: ConfigurableCreateInfo, options: any) {
       super(info, options);
@@ -34,6 +37,7 @@ describe(`MessageCenter`, () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
+    await MockRender.App.startup({localization: new EmptyLocalization()});
 
     ConfigurableUiManager.unregisterControl("AppStatusBar");
     ConfigurableUiManager.registerControl("AppStatusBar", AppStatusBarWidgetControl);
@@ -45,88 +49,96 @@ describe(`MessageCenter`, () => {
     widgetControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
-  after(() => {
+  after(async () => {
+    await MockRender.App.shutdown();
     TestUtils.terminateUiFramework();
   });
 
-  it("Message Center should support all message types", () => {
+  it("Message Center should support all message types", async () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
 
-    const infoMessage = new NotifyMessageDetails(OutputMessagePriority.Info, "Message text.");
+    const infoMessage = new NotifyMessageDetails(OutputMessagePriority.Info, "Info text.");
     MessageManager.addMessage(infoMessage);
-    const warningMessage = new NotifyMessageDetails(OutputMessagePriority.Warning, "Message text.");
+    const warningMessage = new NotifyMessageDetails(OutputMessagePriority.Warning, "Warning text.");
     MessageManager.addMessage(warningMessage);
-    const errorMessage = new NotifyMessageDetails(OutputMessagePriority.Error, "Message text.");
+    const errorMessage = new NotifyMessageDetails(OutputMessagePriority.Error, "Error text.");
     MessageManager.addMessage(errorMessage);
-    const fatalMessage = new NotifyMessageDetails(OutputMessagePriority.Fatal, "Message text.");
+    const fatalMessage = new NotifyMessageDetails(OutputMessagePriority.Fatal, "Fatal text.");
     MessageManager.addMessage(fatalMessage);
     expect(MessageManager.messages.length).to.eq(4);
 
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar widgetControl={widgetControl} />);
 
-    wrapper.find("div.nz-balloon").simulate("click"); // Opens it
-    wrapper.update();
+    await theUserTo.click(screen.getByRole("button"));
 
-    expect(wrapper.find("i.icon-info").length).to.eq(1);
-    expect(wrapper.find("i.icon-status-warning").length).to.eq(1);
-    expect(wrapper.find("i.icon-status-error").length).to.eq(1);
-    expect(wrapper.find("i.icon-status-rejected").length).to.eq(1);
-
-    wrapper.find("div.nz-balloon").simulate("click"); // Closes it
-    wrapper.update();
+    expect(screen.getByText("Fatal text.", {
+      selector: ".nz-footer-messageCenter-message > .nz-content > span",
+    }).parentElement?.parentElement).to.satisfy(childStructure(
+      "i.icon-status-rejected.core-message-box-fatal"
+    ));
+    expect(screen.getByText("Warning text.", {
+      selector: ".nz-footer-messageCenter-message > .nz-content > span",
+    }).parentElement?.parentElement).to.satisfy(childStructure(
+      "i.icon-status-warning.core-message-box-warning"
+    ));
+    expect(screen.getByText("Error text.", {
+      selector: ".nz-footer-messageCenter-message > .nz-content > span",
+    }).parentElement?.parentElement).to.satisfy(childStructure(
+      "i.icon-status-error.core-message-box-error"
+    ));
+    expect(screen.getByText("Info text.", {
+      selector: ".nz-footer-messageCenter-message > .nz-content > span",
+    }).parentElement?.parentElement).to.satisfy(childStructure(
+      "i.icon-info.core-message-box-information"
+    ));
+    await theUserTo.click(screen.getByRole("button"));
   });
 
-  it("Message Center should change tabs", () => {
+  it("Message Center should change tabs", async () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
 
-    const infoMessage = new NotifyMessageDetails(OutputMessagePriority.Info, "Brief text.", "Detail text");
+    const infoMessage = new NotifyMessageDetails(OutputMessagePriority.Info, "Info text.", "Detail text");
     MessageManager.addMessage(infoMessage);
-    const errorMessage = new NotifyMessageDetails(OutputMessagePriority.Error, "Message text.");
+    const errorMessage = new NotifyMessageDetails(OutputMessagePriority.Error, "Error text.");
     MessageManager.addMessage(errorMessage);
     expect(MessageManager.messages.length).to.eq(2);
 
-    const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar widgetControl={widgetControl} />);
 
-    wrapper.find("div.nz-balloon").simulate("click");
-    wrapper.update();
+    await theUserTo.click(screen.getByRole("button"));
 
-    const tabs = wrapper.find("div.nz-footer-messageCenter-tab");
-    expect(tabs.length).to.eq(2);
+    expect(screen.getByText("Info text.")).to.exist;
+    expect(screen.getByText("Error text.")).to.exist;
+    expect(screen.getByRole("tablist")).to.have.property("childNodes").that.have.lengthOf(2);
 
-    tabs.at(1).simulate("click"); // Change tab
-    wrapper.update();
+    await theUserTo.click(screen.getByText("messageCenter.errors"));
 
-    tabs.at(0).simulate("click"); // Change tab back
-    wrapper.update();
+    expect(screen.queryByText("Info text.")).to.be.null;
+    expect(screen.getByText("Error text.")).to.exist;
+
+    await theUserTo.click(screen.getByText("messageCenter.all"));
+
+    expect(screen.getByText("Info text.")).to.exist;
+    expect(screen.getByText("Error text.")).to.exist;
   });
 
-  it("Message Center should close on outside click", () => {
-    const wrapper = mount<StatusBar>(<StatusBar widgetControl={widgetControl} />);
-    const footerPopup = wrapper.find(FooterPopup);
-    const messageCenterField = wrapper.find(MessageCenterField);
-    const messageCenter = wrapper.find("div.nz-indicator");
+  it("Message Center should close on outside click", async () => {
+    render(<div title="outside"><StatusBar widgetControl={widgetControl} /></div>);
+    await theUserTo.click(screen.getByRole("button"));
 
-    messageCenter.simulate("click");
-    wrapper.update();
+    expect(screen.getByRole("tablist")).to.exist;
 
-    expect(messageCenterField.state().isOpen).to.be.true;
+    await theUserTo.click(screen.getByTitle("outside"));
 
-    const outsideClick = new MouseEvent("");
-    sinon.stub(outsideClick, "target").get(() => document.createElement("div"));
-    footerPopup.prop("onOutsideClick")!(outsideClick);
-
-    expect(messageCenterField.state().isOpen).to.be.false;
+    expect(screen.queryByRole("tablist")).to.be.null;
   });
 
   it("Message Center should open on OpenMessageCenterEvent", () => {
-    const wrapper = mount<StatusBar>(<StatusBar widgetControl={widgetControl} />);
-    const messageCenterField = wrapper.find(MessageCenterField);
-
-    expect(messageCenterField.state().isOpen).to.be.false;
-
+    render(<StatusBar widgetControl={widgetControl} />);
+    expect(screen.queryByRole("tablist")).to.be.null;
     MessageManager.onOpenMessageCenterEvent.emit({});
-    expect(messageCenterField.state().isOpen).to.be.true;
+    expect(screen.getByRole("tablist")).to.exist;
   });
 });

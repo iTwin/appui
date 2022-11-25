@@ -209,7 +209,6 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
     const sheets: ListItem[] = [];
     const unknown: ListItem[] = [];
 
-    // istanbul ignore if
     if (this.props.imodel && this.props.imodel.views.getViewList) {
       const query = { wantPrivate: false };
       const specs = await this.props.imodel.views.getViewList(query);

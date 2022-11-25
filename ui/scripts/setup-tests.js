@@ -50,36 +50,12 @@ global.DOMRect.fromRect = function (rect) {
 const { JSDOM } = require('jsdom');
 global.DOMParser = new JSDOM().window.DOMParser;
 
-/** Enzyme mount with automatic unmount after the test. */
-let mounted = [];
-const isMounted = Symbol("isMounted");
-global.enzymeMount = (...args) => {
-  const enzyme = require("enzyme");
-  const result = enzyme.mount(...args);
-  result[isMounted] = true;
-  const unmount = result.unmount.bind(result);
-  result.unmount = () => {
-    result[isMounted] = false;
-    return unmount();
-  };
-  mounted.push(result);
-  return result;
-}
-
 // Fix node's module loader to strip ?sprite from SVG imports
 const m = require("module");
 const origLoader = m._load;
 m._load = (request, parent, isMain) => {
   return origLoader(request.replace("?sprite", ""), parent, isMain);
 };
-
-// setup enzyme (testing utils for React)
-try {
-  const enzyme = require("enzyme/build");
-  enzyme.configure({
-    adapter: new (require("@wojtekmaj/enzyme-adapter-react-17/build"))()
-  });
-} catch (e) { }
 
 // setup chai
 const chai = require("chai");
@@ -89,7 +65,6 @@ chai.use(chaiAsPromised);
 let chaiJestSnapshot;
 try {
   chaiJestSnapshot = require("chai-jest-snapshot");
-  chaiJestSnapshot.addSerializer(require("enzyme-to-json/serializer"));
   chai.use(chaiJestSnapshot);
 } catch (e) { }
 const spies = require("chai-spies");
@@ -141,12 +116,6 @@ try {
 } catch (e) { }
 
 afterEach(async () => {
-  for (const m of mounted) {
-    if (!m[isMounted])
-    continue;
-    m.unmount();
-  }
-  mounted = [];
   try {
     const rtl = require("@testing-library/react");
     rtl.cleanup();

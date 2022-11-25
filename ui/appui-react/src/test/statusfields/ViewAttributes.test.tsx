@@ -4,18 +4,23 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
+import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { WidgetState } from "@itwin/appui-abstract";
-import { MockRender } from "@itwin/core-frontend";
-import { Checkbox } from "@itwin/itwinui-react";
+import { IModelApp, MockRender } from "@itwin/core-frontend";
 import { ConfigurableCreateInfo, ConfigurableUiControlType } from "../../appui-react/configurableui/ConfigurableUiControl";
 import { StatusBar } from "../../appui-react/statusbar/StatusBar";
 import { StatusBarWidgetControl } from "../../appui-react/statusbar/StatusBarWidgetControl";
 import { ViewAttributesStatusField } from "../../appui-react/statusfields/ViewAttributes";
 import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
-import TestUtils, { mount } from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
+import { render, screen } from "@testing-library/react";
 
 describe(`ViewAttributes`, () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   class AppStatusBarWidgetControl extends StatusBarWidgetControl {
     constructor(info: ConfigurableCreateInfo, options: any) {
       super(info, options);
@@ -48,50 +53,36 @@ describe(`ViewAttributes`, () => {
     TestUtils.terminateUiFramework();
   });
 
-  it("should render", () => {
-    mount(<Provider store={TestUtils.store}>
+  it("should open/close on click", async () => {
+    render(<Provider store={TestUtils.store}>
       <StatusBar widgetControl={widgetControl} />
     </Provider>);
+
+    await theUserTo.click(screen.getByRole("button"));
+
+    expect(screen.getByText("listTools.viewAttributes", {selector: ".nz-title"})).to.exist;
+
+    await theUserTo.click(screen.getAllByRole("button")[0]);
+
+    expect(screen.queryByText("listTools.viewAttributes")).to.be.null;
   });
 
-  it("should open/close on click", () => {
-    const wrapper = mount(<Provider store={TestUtils.store}>
+  it("should process Checkbox clicks", async () => {
+    render(<Provider store={TestUtils.store}>
       <StatusBar widgetControl={widgetControl} />
     </Provider>);
 
-    // Simulate a click to open the pop-up dialog
-    wrapper.find("div.uifw-icon").simulate("click"); // Opens it
-    wrapper.update();
+    await theUserTo.click(screen.getByRole("button"));
+    expect(screen.getByText("listTools.acs").previousElementSibling).to.have.property("checked", false);
 
-    expect(wrapper.find("div.uifw-view-attributes-contents").length).to.eq(1);
+    await theUserTo.click(screen.getByText("listTools.acs"));
+    expect(screen.getByText("listTools.acs").previousElementSibling).to.have.property("checked", true);
 
-    wrapper.find("div.uifw-icon").simulate("click"); // Closes it
-    wrapper.update();
-  });
+    const spy = sinon.stub(IModelApp.tools, "run");
+    await theUserTo.click(screen.getByText("listTools.camera"));
+    expect(screen.getByText("listTools.camera").previousElementSibling).to.have.property("checked", true);
+    expect(spy).to.have.been.calledWith("View.ToggleCamera", sinon.match.any);
 
-  it("should process Checkbox clicks", () => {
-    const wrapper = mount(<Provider store={TestUtils.store}>
-      <StatusBar widgetControl={widgetControl} />
-    </Provider>);
-
-    // Simulate a click to open the pop-up dialog
-    wrapper.find("div.uifw-icon").simulate("click"); // Opens it
-    wrapper.update();
-
-    expect(wrapper.find("div.uifw-view-attributes-contents").length).to.eq(1);
-
-    const checkBoxes = wrapper.find(Checkbox);
-    expect(checkBoxes.length).to.be.greaterThan(0);
-
-    const acs = checkBoxes.find({ label: "listTools.acs" });
-    expect(acs.length).to.be.greaterThan(0);
-    acs.at(0).prop("onClick")!();
-
-    const camera = checkBoxes.find({ label: "listTools.camera" });
-    expect(camera.length).to.be.greaterThan(0);
-    camera.at(0).prop("onClick")!();
-
-    wrapper.find("div.uifw-icon").simulate("click"); // Closes it
-    wrapper.update();
+    await theUserTo.click(screen.getAllByRole("button")[0]);
   });
 });

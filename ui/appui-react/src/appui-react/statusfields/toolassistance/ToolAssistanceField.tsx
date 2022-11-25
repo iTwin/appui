@@ -448,9 +448,6 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
   };
 
   private _handleOutsideClick = (e: MouseEvent) => {
-    if (this.state.isPinned)
-      return;
-
     // istanbul ignore if
     if (!this._indicator.current ||
       !(e.target instanceof Node) ||

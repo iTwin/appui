@@ -2,7 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { FrontstageDef, FrontstageManager, WidgetPanelsFrontstageContent } from "../../appui-react";
@@ -10,16 +11,16 @@ import { FrontstageDef, FrontstageManager, WidgetPanelsFrontstageContent } from 
 describe("WidgetPanelsFrontstageContent", () => {
   it("should render", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(frontstageDef, "contentLayoutDef").get(() => ({}));
-    sinon.stub(frontstageDef, "contentGroup").get(() => ({}));
+    sinon.stub(frontstageDef, "contentLayoutDef").get(() => ({fillLayoutContainer() { return "ContentLayoutDefMockContent";}}));
+    sinon.stub(frontstageDef, "contentGroup").get(() => ({getContentNodes() {}}));
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
-    const sut = shallow(<WidgetPanelsFrontstageContent />);
-    sut.should.matchSnapshot();
+    render(<WidgetPanelsFrontstageContent />);
+    expect(screen.getByRole("presentation")).to.have.property("innerHTML", "ContentLayoutDefMockContent");
   });
 
   it("should not render", () => {
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
-    const sut = shallow(<WidgetPanelsFrontstageContent />);
-    sut.should.matchSnapshot();
+    const { container } = render(<WidgetPanelsFrontstageContent />);
+    expect(container.childNodes).lengthOf(0);
   });
 });
