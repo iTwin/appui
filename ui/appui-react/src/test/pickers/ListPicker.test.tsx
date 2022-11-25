@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import * as sinon from "sinon";
 import { ToolbarItemContext } from "@itwin/components-react";
@@ -12,14 +11,18 @@ import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import {
   ExpandableSection, ListItem, ListItemType, ListPicker, ListPickerItem,
 } from "../../appui-react";
-import TestUtils, { mount } from "../TestUtils";
+import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
 import { Provider } from "react-redux";
-
+import { render, screen } from "@testing-library/react";
 const title = "Test";
 const listItems = new Array<ListItem>();
 const setEnabled = sinon.spy();
 
 describe("ListPicker", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   before(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
@@ -40,9 +43,12 @@ describe("ListPicker", () => {
     const containerItem: ListItem = {
       enabled: true,
       type: ListItemType.Container,
-      children: [],
+      children: [{
+        enabled: false,
+        type: ListItemType.Item,
+        name: "XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      }],
     };
-    containerItem.children!.push(listItem);
     listItems.push(containerItem);
 
     const emptyContainerItem: ListItem = {
@@ -63,7 +69,7 @@ describe("ListPicker", () => {
   });
 
   it("should render correctly", () => {
-    shallow(
+    render(
       <Provider store={TestUtils.store}>
         <ToolbarItemContext.Provider
           value={{
@@ -79,15 +85,16 @@ describe("ListPicker", () => {
           />
         </ToolbarItemContext.Provider>
       </Provider>
-    ).should.matchSnapshot();
+    );
+    expect(screen.getByRole("button", {name: "Test"})).to.satisfy(childStructure(".components-icon .icon-list"));
   });
 
-  it("v2 should mount & unmount correctly", () => {
-    const enableAllFunc = () => { };
-    const disableAllFunc = () => { };
-    const invertFunc = () => { };
+  it("should support items and functions", async () => {
+    const enableAllFunc = sinon.spy();
+    const disableAllFunc = sinon.spy();
+    const invertFunc = sinon.spy();
 
-    const component = mount(
+    render(
       <Provider store={TestUtils.store}>
         <ToolbarItemContext.Provider
           value={{
@@ -107,22 +114,26 @@ describe("ListPicker", () => {
         </ToolbarItemContext.Provider>
       </Provider>
     );
-    component.unmount();
+    await theUserTo.click(screen.getByRole("button"));
+
+    await theUserTo.click(screen.getByText("pickerButtons.all"));
+    expect(enableAllFunc).to.be.called;
+
+    await theUserTo.click(screen.getByText("pickerButtons.none"));
+    expect(disableAllFunc).to.be.called;
+
+    await theUserTo.click(screen.getByText("pickerButtons.invert"));
+    expect(invertFunc).to.be.called;
+
+    await theUserTo.click(screen.getByText("123456789012345678901234567890"));
+    expect(setEnabled).to.be.called;
   });
 
   describe("isSpecialItem", () => {
-    let listPickerWrapper: ShallowWrapper<any>;
     let listPickerInstance: ListPicker;
 
     beforeEach(() => {
-      listPickerWrapper = shallow(
-        <ListPicker
-          title={title}
-          items={listItems}
-          setEnabled={setEnabled}
-        />,
-      );
-      listPickerInstance = listPickerWrapper.instance() as ListPicker;
+      listPickerInstance = new ListPicker({items: listItems, setEnabled, title});
     });
 
     it("should return true if item key is special", () => {
@@ -178,56 +189,40 @@ describe("ListPicker", () => {
 
   describe("ListPickerItem", () => {
     it("should render correctly", () => {
-      shallow(
+      render(
         <ListPickerItem
           key="key"
         />,
-      ).should.matchSnapshot();
+      );
+      expect(screen.getByRole("button")).to.satisfy(selectorMatches(".ListPicker-item"));
     });
 
-    it("should unmount correctly", () => {
-      const unknownItem: ListItem = {
-        key: "unknown-item",
-        name: "unknown",
-        enabled: false,
-        type: ListItemType.Item,
-      };
-
-      const singleItemList = new Array<ListItem>();
-      singleItemList.push(unknownItem);
-
-      const component = mount(
+    it("renders class props correctly", () => {
+      render(
         <ListPickerItem
           key="key"
           isActive={true}
           isFocused={true}
         />,
       );
-      component.unmount();
+      expect(screen.getByRole("button")).to.satisfy(selectorMatches(".is-active.is-focused"));
     });
-
   });
 
   describe("ExpandableSection", () => {
     it("should render correctly", () => {
-      shallow(<ExpandableSection />);
+      render(<ExpandableSection />);
+      expect(screen.getByRole("region")).to.satisfy(childStructure(
+        ".nz-toolbar-item-expandable-group-group > .ListPickerInnerContainer-header"
+      ));
     });
 
-    it("should unmount correctly", () => {
-      const component = mount(
+    it("should handle onClick", async () => {
+      render(
         <ExpandableSection />,
       );
-      component.unmount();
-    });
-
-    it("should handle onClick", () => {
-      const component = mount(
-        <ExpandableSection />,
-      );
-      component.find("div.ListPickerInnerContainer-header").simulate("click");
-      component.update();
-      component.find("div.ListPickerInnerContainer-header-expanded");
-      expect(component.length).to.eq(1);
+      await theUserTo.click(screen.getByRole("button"));
+      expect(screen.getByRole("button")).to.satisfy(selectorMatches(".ListPickerInnerContainer-header-expanded"));
     });
   });
 });

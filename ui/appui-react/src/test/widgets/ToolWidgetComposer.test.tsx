@@ -2,15 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
 import * as sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { UiFramework } from "../../appui-react";
 import { ToolWidgetComposer } from "../../appui-react/widgets/ToolWidgetComposer";
 import { BackstageAppButton } from "../../appui-react/widgets/BackstageAppButton";
-import TestUtils, { mount, storageMock } from "../TestUtils";
+import TestUtils, { childStructure, storageMock } from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { expect } from "chai";
 
@@ -40,33 +39,44 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       await IModelApp.shutdown();
     });
 
-    it("ToolWidgetComposer should render", () => {
-      mount(<ToolWidgetComposer />);
-    });
-
     it("ToolWidgetComposer should render correctly", () => {
-      shallow(<ToolWidgetComposer />).should.matchSnapshot();
+      const { container } = render(<ToolWidgetComposer />);
+
+      expect(container).to.satisfy(childStructure([
+        ".nz-tools-widget .nz-app-button",
+        ".nz-tools-widget .nz-vertical-toolbar-container",
+        ".nz-tools-widget .nz-horizontal-toolbar-container",
+      ]));
     });
 
     it("ToolWidgetComposer with should render", () => {
-      shallow(<ToolWidgetComposer cornerItem={<BackstageAppButton icon="icon-test" />} />).should.matchSnapshot();
+      const { container } = render(<ToolWidgetComposer cornerItem={<BackstageAppButton icon="icon-test" />} />);
+      expect(container).to.satisfy(childStructure([
+        ".nz-tools-widget .nz-app-button .icon-test",
+      ]));
     });
 
     it("BackstageAppButtonProps should render", () => {
-      const wrapper = mount(<BackstageAppButton icon={"icon-home"} />);
-      wrapper.setProps({ icon: "icon-bentley" });
+      const { rerender } = render(<BackstageAppButton icon={"icon-home"} />);
+      expect(screen.getByRole("button")).to.satisfy(childStructure([
+        ".uifw-app-button-small .icon.icon-home",
+        ".nz-bars .nz-bar + .nz-bar + .nz-bar",
+      ]));
+
+      rerender(<BackstageAppButton icon={"icon-bentley"} />);
+      expect(screen.getByRole("button")).to.satisfy(childStructure([
+        ".uifw-app-button-small .icon.icon-bentley",
+        ".nz-bars .nz-bar + .nz-bar + .nz-bar",
+      ]));
     });
 
-    it("BackstageAppButtonProps should update with default icon", () => {
-      const wrapper = mount(<BackstageAppButton icon={"icon-test"} />);
-      wrapper.setProps({ icon: undefined });
-    });
-
-    it("BackstageAppButton should render in 2.0 mode", () => {
-      mount(
-        <Provider store={TestUtils.store} >
-          <BackstageAppButton icon={"icon-test"} />
-        </Provider>);
+    it("BackstageAppButtonProps should update with default icon", async () => {
+      const { rerender } = render(<BackstageAppButton icon={"icon-test"} />);
+      rerender(<BackstageAppButton />);
+      expect(screen.getByRole("button")).to.satisfy(childStructure([
+        ".uifw-app-button-small .icon:not(.icon-home).core-svg-icon",
+        ".nz-bars .nz-bar + .nz-bar + .nz-bar",
+      ]));
     });
 
     it("BackstageAppButton should render in 2.0 mode", () => {
@@ -93,13 +103,5 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       spy.called.should.true;
     });
 
-    it("BackstageAppButton should render in 1.0 mode", async () => {
-      await TestUtils.flushAsyncOperations();
-      mount(
-        <Provider store={TestUtils.store} >
-          <BackstageAppButton icon={"icon-test"} />
-        </Provider>
-      );
-    });
   });
 });

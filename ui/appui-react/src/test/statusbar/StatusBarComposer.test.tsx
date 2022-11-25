@@ -10,12 +10,12 @@ import {
   AbstractStatusBarItemUtilities, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue, StageUsage, StatusBarLabelSide, StatusBarSection, UiItemsManager,
   UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
-  ActivityCenterField, ConfigurableCreateInfo, ConfigurableUiControlType, CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, MessageCenterField, StatusBar, StatusBarComposer, StatusBarItem,
+  ConfigurableCreateInfo, ConfigurableUiControlType, CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, StatusBar, StatusBarComposer, StatusBarItem,
   StatusBarItemUtilities, StatusBarWidgetControl, SyncUiEventDispatcher, WidgetDef,
 } from "../../appui-react";
-import TestUtils, { mount } from "../TestUtils";
+import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
 
 describe("StatusBarComposer", () => {
 
@@ -69,10 +69,8 @@ describe("StatusBarComposer", () => {
     }
   }
 
-  class AppStatusBarComponent extends React.PureComponent {
-    public override render() {
-      return <div className="status-bar-component" />;
-    }
+  function AppStatusBarComponent(props: {}) {
+    return <div className="status-bar-component" {...props} />;
   }
 
   let widgetControl: StatusBarWidgetControl | undefined;
@@ -99,124 +97,68 @@ describe("StatusBarComposer", () => {
       if (widgetControl)
         expect(widgetControl.getType()).to.eq(ConfigurableUiControlType.StatusBarWidget);
 
-      const wrapper = mount(<StatusBar widgetControl={widgetControl} />);
+      render(<StatusBar widgetControl={widgetControl} />);
 
-      const statusBarComposer = wrapper.find(StatusBarComposer);
-      expect(statusBarComposer.length).to.eq(1);
-      expect(wrapper.find("div.uifw-statusbar-space-between").length).to.eq(1);
+      expect(screen.getByRole("presentation")).to.satisfy(childStructure(".uifw-statusbar-space-between"));
     });
 
     it("StatusBarComposer should render items", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Right, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent data-testid={"item1"} />),
+        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent data-testid={"item2"} />),
+        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Right, 1, <AppStatusBarComponent data-testid={"item3"} />),
       ];
 
-      expect(items.length).to.eq(3);
+      render(<StatusBarComposer items={items} />);
 
-      const wrapper = mount(<StatusBarComposer items={items} />);
-
-      const leftItems = wrapper.find("div.uifw-statusbar-left");
-      expect(leftItems.length).to.eq(1);
-      expect(leftItems.find(AppStatusBarComponent).length).to.eq(1);
-
-      const centerItems = wrapper.find("div.uifw-statusbar-center");
-      expect(centerItems.length).to.eq(1);
-      expect(centerItems.find(AppStatusBarComponent).length).to.eq(1);
-
-      const rightItems = wrapper.find("div.uifw-statusbar-right");
-      expect(rightItems.length).to.eq(1);
-      expect(rightItems.find(AppStatusBarComponent).length).to.eq(1);
+      expect(screen.getByTestId("item1").parentElement).to.satisfy(selectorMatches(".uifw-statusbar-left .uifw-statusbar-item-container"));
+      expect(screen.getByTestId("item2").parentElement).to.satisfy(selectorMatches(".uifw-statusbar-center .uifw-statusbar-item-container"));
+      expect(screen.getByTestId("item3").parentElement).to.satisfy(selectorMatches(".uifw-statusbar-right .uifw-statusbar-item-container"));
     });
 
     it("StatusBarComposer should support changing props", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent  data-testid={"item1"} />),
       ];
 
-      expect(items.length).to.eq(1);
+      const { rerender } = render(<StatusBarComposer items={items} />);
 
-      const wrapper = mount(<StatusBarComposer items={items} />);
-
-      const leftItems = wrapper.find("div.uifw-statusbar-left");
-      expect(leftItems.length).to.eq(1);
-      expect(leftItems.find(AppStatusBarComponent).length).to.eq(1);
+      expect(screen.getByTestId("item1").parentElement).to.satisfy(selectorMatches(".uifw-statusbar-left .uifw-statusbar-item-container"));
 
       const items2: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent  data-testid={"item2"} />),
       ];
 
-      expect(items2.length).to.eq(1);
+      rerender(<StatusBarComposer items={items2} />);
 
-      wrapper.setProps({ items: items2 });
-      wrapper.update();
-
-      const centerItems = wrapper.find("div.uifw-statusbar-center");
-      expect(centerItems.length).to.eq(1);
-      expect(centerItems.find(AppStatusBarComponent).length).to.eq(1);
+      expect(screen.queryByTestId("item1")).to.be.null;
+      expect(screen.getByTestId("item2").parentElement).to.satisfy(selectorMatches(".uifw-statusbar-center .uifw-statusbar-item-container"));
     });
 
     it("StatusBarComposer should sort items", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Left, 5, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Left, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 10, <AppStatusBarComponent data-testid={"item1"} />),
+        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Left, 5, <AppStatusBarComponent data-testid={"item2"} />),
+        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Left, 1, <AppStatusBarComponent data-testid={"item3"} />),
       ];
 
-      expect(items.length).to.eq(3);
+      render(<StatusBarComposer items={items} />);
 
-      const wrapper = mount(<StatusBarComposer items={items} />);
-
-      const leftItems = wrapper.find("div.uifw-statusbar-left");
-      expect(leftItems.length).to.eq(1);
-      expect(leftItems.find(AppStatusBarComponent).length).to.eq(3);
-    });
-
-    it("StatusBarComposer should support withStatusBarField components ", () => {
-      const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 10, <ActivityCenterField />),
-      ];
-
-      expect(items.length).to.eq(1);
-      const wrapper = mount(<StatusBarComposer items={items} />);
-
-      const leftItems = wrapper.find("div.uifw-statusbar-left");
-      expect(leftItems.length).to.eq(1);
-      expect(leftItems.find(ActivityCenterField).length).to.eq(1);
-    });
-
-    it("StatusBarComposer should support withMessageCenter components ", () => {
-      const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 10, <MessageCenterField />),
-      ];
-
-      expect(items.length).to.eq(1);
-
-      const wrapper = mount(<StatusBarComposer items={items} />);
-
-      const leftItems = wrapper.find("div.uifw-statusbar-left");
-      expect(leftItems.length).to.eq(1);
-      expect(leftItems.find(MessageCenterField).length).to.eq(1);
+      expect(screen.getByRole("presentation")).to.satisfy(childStructure(
+        "[data-item-id='item3'] + [data-item-id='item2'] + [data-item-id='item1']"
+      ));
     });
 
     it("StatusBarComposer should support item.isVisible", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
+        StatusBarItemUtilities.createStatusBarItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent data-testid={"item1"} />, { isHidden: true }),
+        StatusBarItemUtilities.createStatusBarItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent data-testid={"item2"} />),
       ];
 
-      expect(items.length).to.eq(2);
+      render(<StatusBarComposer items={items} />);
 
-      const wrapper = mount(<StatusBarComposer items={items} />);
-
-      let leftItems = wrapper.find("div.uifw-statusbar-left");
-      expect(leftItems.find(AppStatusBarComponent).length).to.eq(1);
-
-      // defaultItemsManager.setIsVisible("test2", true);
-      // wrapper.update();
-      leftItems = wrapper.find("div.uifw-statusbar-left");
-      // expect(leftItems.find(AppStatusBarComponent).length).to.eq(2);
+      expect(screen.queryByTestId("item1")).to.be.null;
+      expect(screen.getByTestId("item2").parentElement).to.satisfy(selectorMatches(".uifw-statusbar-left .uifw-statusbar-item-container"));
     });
 
     it("StatusBarComposer should support extension items", async () => {
@@ -232,32 +174,20 @@ describe("StatusBarComposer", () => {
       ];
 
       const uiProvider = new TestUiProvider();
-      expect(items.length).to.eq(2);
 
-      const wrapper = mount(<StatusBarComposer items={items} />);
-
-      let addonItem = wrapper.find("i.icon-visibility-hide-2");
-      expect(addonItem.exists()).to.be.false;
+      render(<StatusBarComposer items={items} />);
 
       UiItemsManager.register(uiProvider);
 
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
-
-      const leftItems = wrapper.find("div.uifw-statusbar-left");
-      expect(leftItems.find(AppStatusBarComponent).length).to.eq(1);
-
-      const addonItem1 = wrapper.find("i.icon-visibility-hide-2");
-      expect(addonItem1.exists()).to.be.true;
-      const addonItem2 = wrapper.find("i.icon-hand-2");
-      expect(addonItem2.exists()).to.be.true;
+      await waitFor(() => expect(screen.getByRole("presentation")).to.satisfy(childStructure([
+        ".uifw-statusbar-left .uifw-statusbar-item-container:only-child",
+        ".uifw-statusbar-center .icon-visibility-hide-2",
+        ".uifw-statusbar-center .icon-hand-2",
+      ])));
 
       UiItemsManager.unregister(uiProvider.id);
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
 
-      addonItem = wrapper.find("i.icon-visibility-hide-2");
-      expect(addonItem.exists()).to.be.false;
+      await waitFor(() => expect(screen.getByRole("presentation")).to.satisfy(childStructure(".uifw-statusbar-center:empty")));
     });
 
     it("StatusBarComposer should support addon items loaded before component", async () => {
@@ -275,36 +205,24 @@ describe("StatusBarComposer", () => {
       const uiProvider = new TestUiProvider();
 
       UiItemsManager.register(uiProvider);
-      const wrapper = mount(<StatusBarComposer items={items} />);
+      render(<StatusBarComposer items={items} />);
 
-      const leftItems = wrapper.find("div.uifw-statusbar-left");
-      expect(leftItems.find(AppStatusBarComponent).length).to.eq(1);
-
-      let addonItem1 = wrapper.find("i.icon-visibility-hide-2");
-      expect(addonItem1.exists()).to.be.true;
-      let addonItem2 = wrapper.find("i.icon-hand-2");
-      expect(addonItem2.exists()).to.be.true;
-      let addonItem3 = wrapper.find("i.icon-hand-2-condition");
-      expect(addonItem3.exists()).to.be.true;
+      expect(screen.getByRole("presentation")).to.satisfy(childStructure([
+        ".uifw-statusbar-left .uifw-statusbar-item-container:only-child",
+        ".uifw-statusbar-center .icon-visibility-hide-2",
+        ".uifw-statusbar-center .icon-hand-2",
+        ".uifw-statusbar-center .icon-hand-2-condition",
+      ]));
 
       TestUiProvider.triggerSyncRefresh();
 
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
-
-      addonItem1 = wrapper.find("i.icon-visibility-hide-2");
-      expect(addonItem1.exists()).to.be.true;
-      addonItem2 = wrapper.find("i.icon-hand-2");
-      expect(addonItem2.exists()).to.be.true;
-      addonItem3 = wrapper.find("i.icon-hand-2-condition");
-      expect(addonItem3.exists()).to.be.false;
+      expect(screen.getByRole("presentation")).to.not.satisfy(childStructure([
+        ".uifw-statusbar-center .icon-hand-2-condition",
+      ]));
 
       UiItemsManager.unregister(uiProvider.id);
-      await TestUtils.flushAsyncOperations();
-      wrapper.update();
 
-      addonItem1 = wrapper.find("i.icon-visibility-hide-2");
-      expect(addonItem1.exists()).to.be.false;
+      await waitFor(() => expect(screen.getByRole("presentation")).to.satisfy(childStructure(".uifw-statusbar-center:empty")));
     });
 
     it("StatusBarComposer should render items with custom CSS classes", () => {
@@ -314,24 +232,13 @@ describe("StatusBarComposer", () => {
         StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Right, 1, <AppStatusBarComponent />),
       ];
 
-      expect(items.length).to.eq(3);
+      render(<StatusBarComposer items={items} mainClassName="main-test" leftClassName="left-test" centerClassName="center-test" rightClassName="right-test" />);
 
-      const wrapper = mount(<StatusBarComposer items={items} mainClassName="main-test" leftClassName="left-test" centerClassName="center-test" rightClassName="right-test" />);
-
-      const mainSB = wrapper.find("div.main-test");
-      expect(mainSB.length).to.eq(1);
-
-      const leftItems = wrapper.find("div.left-test");
-      expect(leftItems.length).to.eq(1);
-      expect(leftItems.find(AppStatusBarComponent).length).to.eq(1);
-
-      const centerItems = wrapper.find("div.center-test");
-      expect(centerItems.length).to.eq(1);
-      expect(centerItems.find(AppStatusBarComponent).length).to.eq(1);
-
-      const rightItems = wrapper.find("div.right-test");
-      expect(rightItems.length).to.eq(1);
-      expect(rightItems.find(AppStatusBarComponent).length).to.eq(1);
+      expect(screen.getByRole("presentation")).to.satisfy(childStructure([
+        ".main-test :not(.uifw-statusbar-left).left-test > .uifw-statusbar-item-container",
+        ".main-test :not(.uifw-statusbar-center).center-test > .uifw-statusbar-item-container",
+        ".main-test :not(.uifw-statusbar-right).right-test > .uifw-statusbar-item-container",
+      ]));
     });
 
   });
