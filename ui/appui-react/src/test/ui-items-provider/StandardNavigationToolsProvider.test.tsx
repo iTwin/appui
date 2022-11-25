@@ -76,10 +76,8 @@ describe("StandardNavigationToolsProvider", () => {
   it("should register StandardNavigationToolsProvider with defaults", () => {
     const provider = StandardNavigationToolsProvider.register(testToolProviderId);
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-      ToolbarOrientation.Horizontal, undefined).length).to.eq(6);
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-      ToolbarOrientation.Vertical, undefined).length).to.eq(3);
+    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal).length).to.eq(6);
+    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical).length).to.eq(3);
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -97,10 +95,8 @@ describe("StandardNavigationToolsProvider", () => {
       return "test" === stageId;
     });
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-      ToolbarOrientation.Horizontal, undefined).length).to.eq(0);
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-      ToolbarOrientation.Vertical, undefined).length).to.eq(3);
+    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal).length).to.eq(0);
+    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical).length).to.eq(3);
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -120,10 +116,8 @@ describe("StandardNavigationToolsProvider", () => {
       return "test" === stageId;
     });
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-      ToolbarOrientation.Horizontal, undefined).length).to.eq(6);
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-      ToolbarOrientation.Vertical, undefined).length).to.eq(0);
+    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal).length).to.eq(6);
+    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical).length).to.eq(0);
 
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
@@ -134,23 +128,18 @@ describe("StandardNavigationToolsProvider", () => {
       return true;
     });
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-      ToolbarOrientation.Horizontal, undefined);
-    UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-      ToolbarOrientation.Vertical, undefined);
+    UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
+    UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical);
 
     provider.unregister();
 
     testToolsArray.forEach((defaultTools: DefaultNavigationTools) => {
       const local_provider = StandardNavigationToolsProvider.register(testToolProviderId, defaultTools);
       expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-      UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-        ToolbarOrientation.Horizontal, undefined);
-      UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation,
-        ToolbarOrientation.Vertical, undefined);
+      UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
+      UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical);
       local_provider.unregister();
       expect(UiItemsManager.hasRegisteredProviders).to.be.false;
     });
   });
 });
-
