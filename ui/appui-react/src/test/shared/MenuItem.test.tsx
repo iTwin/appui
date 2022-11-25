@@ -102,10 +102,10 @@ describe("MenuItem", () => {
     expect(menuItem.submenu.length).to.eq(2);
   });
 
-  it("createMenuItemNodes should create a valid MenuItem", async () => {
+  it("createMenuItemNodes should create a valid MenuItem", () => {
     const menuItemProps: MenuItemProps[] = [
       {
-        id: "test", badgeType: BadgeType.New, isDisabled: true, item: { label: "test label", icon: "icon-placeholder", execute: ( ) => { } }, iconRight: "icon-checkmark",
+        id: "test", badgeType: BadgeType.New, isDisabled: true, item: { label: "test label", icon: "icon-placeholder", execute: () => { } }, iconRight: "icon-checkmark",
       },
     ];
 
