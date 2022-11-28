@@ -37,8 +37,7 @@ describe(`SelectionScopeField`, () => {
       await MockRender.App.startup();
       await TestUtils.initializeUiFramework();
 
-      const widgetDef = new WidgetDef();
-      widgetDef.initializeFromConfig({
+      const widgetDef = WidgetDef.create({
         id: "statusBar",
         classId: AppStatusBarWidgetControl,
         defaultState: WidgetState.Open,
@@ -97,8 +96,7 @@ describe(`SelectionScopeField`, () => {
       await initializePresentationTesting();
       await TestUtils.initializeUiFramework();
 
-      const widgetDef = new WidgetDef();
-      widgetDef.initializeFromConfig({
+      const widgetDef = WidgetDef.create({
         id: "statusBar",
         classId: AppStatusBarWidgetControl,
         defaultState: WidgetState.Open,

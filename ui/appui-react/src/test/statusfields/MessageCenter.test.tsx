@@ -38,8 +38,7 @@ describe(`MessageCenter`, () => {
     ConfigurableUiManager.unregisterControl("AppStatusBar");
     ConfigurableUiManager.registerControl("AppStatusBar", AppStatusBarWidgetControl);
 
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "statusBar",
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,

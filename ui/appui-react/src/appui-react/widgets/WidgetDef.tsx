@@ -172,7 +172,14 @@ export class WidgetDef {
   }
 
   /** @internal */
-  public initializeFromConfig(config: WidgetConfig, type: WidgetType = WidgetType.Rectangular) {
+  public static create(config: WidgetConfig, type: WidgetType = WidgetType.Rectangular) {
+    const def = new WidgetDef();
+    def.initializeFromConfig(config, type);
+    return def;
+  }
+
+  /** @internal */
+  private initializeFromConfig(config: WidgetConfig, type: WidgetType) {
     this._widgetType = type;
     this._initialConfig = config;
     this._id = config.id;

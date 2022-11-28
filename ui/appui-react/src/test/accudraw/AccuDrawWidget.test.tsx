@@ -27,8 +27,7 @@ describe("AccuDrawWidget", () => {
   });
 
   it("should get AccuDrawWidgetControl", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: AccuDrawWidgetControl.id,
       label: AccuDrawWidgetControl.label,
       control: AccuDrawWidgetControl,

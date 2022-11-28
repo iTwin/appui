@@ -21,8 +21,7 @@ describe("DrawingNavigationAidControl", () => {
   });
 
   it("DrawingNavigationAidControl creates DrawingNavigationAid", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       classId: "DrawingNavigationAid",
       applicationData: {

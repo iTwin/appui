@@ -69,7 +69,7 @@ export class FrontstageDef {
   private _contentLayoutDef?: ContentLayoutDef;
   private _contentGroup?: ContentGroup;
   private _frontstageProvider?: FrontstageProvider;
-  private _timeTracker: TimeTracker = new TimeTracker();
+  private _timeTracker = new TimeTracker();
   private _nineZoneState?: NineZoneState;
   private _contentGroupProvider?: ContentGroupProvider;
   private _floatingContentControls?: ContentControl[];
@@ -923,15 +923,14 @@ function createWidgetDef(config: WidgetConfig | undefined, type: WidgetType): Wi
   if (!config)
     return undefined;
 
-  const widgetDef = new WidgetDef();
-  widgetDef.initializeFromConfig(config, type);
+  const widgetDef = WidgetDef.create(config, type);
   return widgetDef;
 }
 
 function createStagePanelDef(config: FrontstageConfig, location: StagePanelLocation): StagePanelDef | undefined {
-  const panelDef = new StagePanelDef();
-
   const panelConfig = getStagePanel(location, config);
+
+  const panelDef = new StagePanelDef();
   panelDef.initializeFromConfig(panelConfig, location);
 
   return panelDef;

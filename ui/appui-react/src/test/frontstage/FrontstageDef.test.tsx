@@ -84,8 +84,7 @@ describe("FrontstageDef", () => {
     it("should restore panel widget to default state", () => {
       const frontstageDef = new FrontstageDef();
       const rightPanel = new StagePanelDef();
-      const w1 = new WidgetDef();
-      w1.initializeFromConfig({
+      const w1 = WidgetDef.create({
         id: "w1",
         defaultState: WidgetState.Open,
       });
@@ -191,26 +190,22 @@ describe("FrontstageDef", () => {
     const fw1Visible = frontstageDef.isWidgetDisplayed("t1");
     expect(fw1Visible).to.be.true;
 
-    const t2 = new WidgetDef();
-    t2.initializeFromConfig({
+    const t2 = WidgetDef.create({
       id: "t2",
       defaultState: WidgetState.Open,
     });
 
-    const t3 = new WidgetDef();
-    t3.initializeFromConfig({
+    const t3 = WidgetDef.create({
       id: "t3",
       defaultState: WidgetState.Hidden,
     });
 
-    const t4 = new WidgetDef();
-    t4.initializeFromConfig({
+    const t4 = WidgetDef.create({
       id: "t4",
       defaultState: WidgetState.Floating,
     });
 
-    const t5 = new WidgetDef();
-    t5.initializeFromConfig({
+    const t5 = WidgetDef.create({
       id: "t5",
       defaultState: WidgetState.Hidden,
     });
@@ -239,8 +234,7 @@ describe("FrontstageDef", () => {
     state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
     state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
 
-    const t1 = new WidgetDef();
-    t1.initializeFromConfig({ id: "t1" });
+    const t1 = WidgetDef.create({ id: "t1" });
 
     const frontstageDef = new FrontstageDef();
     sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(t1);
@@ -273,8 +267,7 @@ describe("FrontstageDef", () => {
     state = addPanelWidget(state, "right", "rightMiddle", ["t2"]);
     state = addPanelWidget(state, "right", "rightEnd", ["t3"]);
 
-    const t1 = new WidgetDef();
-    t1.initializeFromConfig({ id: "t1" });
+    const t1 = WidgetDef.create({ id: "t1" });
 
     const frontstageDef = new FrontstageDef();
     sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(t1);
@@ -371,20 +364,17 @@ describe("float and dock widget", () => {
     const nineZoneStateSetter = sinon.spy();
     sinon.stub(frontstageDef, "nineZoneState").get(() => state).set(nineZoneStateSetter);
 
-    const t1 = new WidgetDef();
-    t1.initializeFromConfig({
+    const t1 = WidgetDef.create({
       id: "t1",
       defaultState: WidgetState.Open,
     });
 
-    const t2 = new WidgetDef();
-    t2.initializeFromConfig({
+    const t2 = WidgetDef.create({
       id: "t2",
       defaultState: WidgetState.Open,
     });
 
-    const t4 = new WidgetDef();
-    t4.initializeFromConfig({
+    const t4 = WidgetDef.create({
       id: "t4",
       defaultState: WidgetState.Closed,
     });
@@ -422,14 +412,12 @@ describe("float and dock widget", () => {
 
     const frontstageDef = new FrontstageDef();
 
-    const t1 = new WidgetDef();
-    t1.initializeFromConfig({
+    const t1 = WidgetDef.create({
       id: "t1",
       defaultState: WidgetState.Open,
     });
 
-    const t2 = new WidgetDef();
-    t2.initializeFromConfig({
+    const t2 = WidgetDef.create({
       id: "t2",
       defaultState: WidgetState.Open,
     });

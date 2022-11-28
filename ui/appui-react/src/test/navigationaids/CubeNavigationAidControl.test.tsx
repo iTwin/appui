@@ -20,8 +20,7 @@ describe("CubeNavigationAidControl", () => {
   });
 
   it("CubeNavigationAidControl creates CubeNavigationAid", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       classId: "CubeNavigationAid",
       applicationData: {

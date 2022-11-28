@@ -19,8 +19,7 @@ describe("WidgetPanelsTab", () => {
   it("should render with badge", () => {
     const frontstageDef = new FrontstageDef();
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       badgeType: BadgeType.New,
     });

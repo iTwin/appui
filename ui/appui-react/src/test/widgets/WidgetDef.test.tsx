@@ -31,8 +31,7 @@ describe("WidgetDef", () => {
   });
 
   it("optional properties", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       defaultState: WidgetState.Open,
       priority: 100,
@@ -67,8 +66,7 @@ describe("WidgetDef", () => {
   });
 
   it("should work with react icon", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       defaultState: WidgetState.Open,
       priority: 200,
@@ -82,8 +80,7 @@ describe("WidgetDef", () => {
   });
 
   it("should properly handle iconSpec set/get", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       defaultState: WidgetState.Open,
       priority: 200,
@@ -106,8 +103,7 @@ describe("WidgetDef", () => {
 
   });
   it("registerControl & widgetControl using same classId", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       classId: "WidgetDefTest",
     });
@@ -117,8 +113,7 @@ describe("WidgetDef", () => {
   });
 
   it("labelKey and tooltipKey should return translated string", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       classId: "WidgetDefTest",
       labelKey: "App:label",
@@ -130,8 +125,7 @@ describe("WidgetDef", () => {
   });
 
   it("reactNode supports set and get", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       classId: "WidgetDefTest",
     });
@@ -141,8 +135,7 @@ describe("WidgetDef", () => {
   });
 
   it("widgetControl using constructor classId", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       classId: TestWidget,
     });
@@ -155,8 +148,7 @@ describe("WidgetDef", () => {
   });
 
   it("setWidgetState", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       classId: "WidgetDefTest",
       badgeType: BadgeType.None,
@@ -168,8 +160,7 @@ describe("WidgetDef", () => {
   });
 
   it("getWidgetControl throws an Error when type is incorrect", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "w1",
       classId: "WidgetDefTest",
     });

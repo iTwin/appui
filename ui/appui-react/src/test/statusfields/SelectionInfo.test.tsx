@@ -34,8 +34,7 @@ describe(`SelectionInfoField`, () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
 
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "statusBar",
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,

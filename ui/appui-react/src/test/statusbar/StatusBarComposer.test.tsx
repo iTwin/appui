@@ -81,8 +81,7 @@ describe("StatusBarComposer", () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
 
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "statusBar",
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,

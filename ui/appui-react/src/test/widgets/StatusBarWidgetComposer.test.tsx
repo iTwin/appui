@@ -27,8 +27,7 @@ describe("StatusBarComposerControl", () => {
   });
 
   it("will render empty status bar", async () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "statusBar",
       classId: StatusBarWidgetComposerControl,
       defaultState: WidgetState.Open,

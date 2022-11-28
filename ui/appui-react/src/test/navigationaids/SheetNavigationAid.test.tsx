@@ -62,8 +62,7 @@ describe("SheetNavigationAid", () => {
 
   describe("SheetNavigationAidControl", () => {
     it("SheetNavigationAidControl creates SheetNavigationAid", () => {
-      const widgetDef = new WidgetDef();
-      widgetDef.initializeFromConfig({
+      const widgetDef = WidgetDef.create({
         id: "w1",
         classId: "SheetNavigationAid",
         applicationData: {

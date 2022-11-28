@@ -35,8 +35,7 @@ describe(`SectionsField`, () => {
     await TestUtils.initializeUiFramework();
     await MockRender.App.startup();
 
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig({
+    const widgetDef = WidgetDef.create({
       id: "statusBar",
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,

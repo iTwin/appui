@@ -13,8 +13,7 @@ import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
 
 describe("PopoutWidget", () => {
   const sandbox = sinon.createSandbox();
-  const widgetDef = new WidgetDef();
-  widgetDef.initializeFromConfig({
+  const widgetDef = WidgetDef.create({
     id: "w1",
     classId: "test",
     defaultState: WidgetState.Open,

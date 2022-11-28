@@ -131,8 +131,7 @@ export class WidgetManager {
     widgets.forEach((abstractProps: AbstractWidgetProps, index: number) => {
       const stableId = getAddonStableWidgetId(stageUsage, location, definedSection, index);
       const config = createWidgetConfigFromAbstractProps(abstractProps, stableId);
-      const widgetDef = new WidgetDef();
-      widgetDef.initializeFromConfig(config);
+      const widgetDef = WidgetDef.create(config);
       widgetDefs.push(widgetDef);
     });
     return widgetDefs.length > 0 ? widgetDefs : undefined;

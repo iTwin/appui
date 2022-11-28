@@ -16,13 +16,11 @@ describe("WidgetPanelsToolbars", () => {
 
   it("should render toolbars", () => {
     const frontstageDef = new FrontstageDef();
-    const contentManipulationWidget = new WidgetDef();
-    contentManipulationWidget.initializeFromConfig({
+    const contentManipulationWidget = WidgetDef.create({
       id: "contentManipulationWidget",
       element: <>tools</>,
     });
-    const viewNavigationWidget = new WidgetDef();
-    viewNavigationWidget.initializeFromConfig({
+    const viewNavigationWidget = WidgetDef.create({
       id: "viewNavigationWidget",
       element: <>navigation</>,
     });

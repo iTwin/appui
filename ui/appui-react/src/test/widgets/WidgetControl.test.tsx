@@ -35,8 +35,7 @@ describe("WidgetControl", () => {
   };
 
   it("registerControl & widgetControl using same classId", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig(widgetConfig);
+    const widgetDef = WidgetDef.create(widgetConfig);
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
 
     expect(widgetControl).to.not.be.undefined;
@@ -51,8 +50,7 @@ describe("WidgetControl", () => {
   });
 
   it("setWidgetState", () => {
-    const widgetDef = new WidgetDef();
-    widgetDef.initializeFromConfig(widgetConfig);
+    const widgetDef = WidgetDef.create(widgetConfig);
     const spy = sinon.spy(widgetDef, "setWidgetState");
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
     expect(widgetControl).to.not.be.undefined;

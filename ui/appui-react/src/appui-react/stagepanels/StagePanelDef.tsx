@@ -219,8 +219,7 @@ export class PanelSectionDef extends WidgetHost {
   /** @internal */
   public initializeFromConfig(config: StagePanelSectionConfig | undefined) {
     config?.forEach((widgetConfig) => {
-      const widgetDef = new WidgetDef();
-      widgetDef.initializeFromConfig(widgetConfig);
+      const widgetDef = WidgetDef.create(widgetConfig);
       this.addWidgetDef(widgetDef);
     });
   }
