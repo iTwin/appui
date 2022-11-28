@@ -12,9 +12,14 @@ import { StatusBar } from "../../appui-react/statusbar/StatusBar";
 import { StatusBarWidgetControl } from "../../appui-react/statusbar/StatusBarWidgetControl";
 import { SectionsStatusField } from "../../appui-react/statusfields/SectionsField";
 import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
-import TestUtils, { mount } from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
+import { render, screen } from "@testing-library/react";
 
 describe(`SectionsField`, () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   class AppStatusBarWidgetControl extends StatusBarWidgetControl {
     constructor(info: ConfigurableCreateInfo, options: any) {
       super(info, options);
@@ -48,25 +53,18 @@ describe(`SectionsField`, () => {
     TestUtils.terminateUiFramework();
   });
 
-  it("should render", () => {
-    mount(<Provider store={TestUtils.store}>
-      <StatusBar widgetControl={widgetControl} />
-    </Provider>);
-  });
-
-  it("should open/close on click", () => {
-    const wrapper = mount(<Provider store={TestUtils.store}>
+  it("should open/close on click", async () => {
+    render(<Provider store={TestUtils.store}>
       <StatusBar widgetControl={widgetControl} />
     </Provider>);
 
-    // Simulate a click to open the pop-up dialog
-    wrapper.find("div.uifw-icon").simulate("click"); // Opens it
-    wrapper.update();
+    await theUserTo.click(screen.getByTitle("tools.sectionTools").firstElementChild!);
 
-    expect(wrapper.find("div.uifw-sections-footer-contents").length).to.eq(1);
+    expect(screen.getByText("tools.sectionTools", {selector: ".nz-title"})).to.exist;
 
-    wrapper.find("div.uifw-icon").simulate("click"); // Closes it
-    wrapper.update();
+    await theUserTo.click(screen.getByTitle("tools.sectionTools").firstElementChild!);
+
+    expect(screen.queryByText("tools.sectionTools")).to.be.null;
   });
 
 });

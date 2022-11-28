@@ -2,17 +2,16 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { shallow } from "enzyme";
 import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import produce from "immer";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { BentleyError, Logger } from "@itwin/core-bentley";
 import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager, UiItemsProvider, WidgetState } from "@itwin/appui-abstract";
 import { Size, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-react";
-import { addFloatingWidget, addPanelWidget, addTab, createNineZoneState, getUniqueId, NineZone, NineZoneState, toolSettingsTabId } from "@itwin/appui-layout-react";
+import { addFloatingWidget, addPanelWidget, addTab, createNineZoneState, getUniqueId, NineZoneState, toolSettingsTabId } from "@itwin/appui-layout-react";
 import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
 import {
   ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, expandWidget, FrontstageConfig, FrontstageDef,
@@ -21,10 +20,11 @@ import {
   useActiveModalFrontstageInfo, useFrontstageManager, useNineZoneDispatch, useNineZoneState, useSavedFrontstageState, useSaveFrontstageSettings, useUpdateNineZoneSize,
   WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState,
 } from "../../appui-react";
-import TestUtils, { mount, storageMock, stubRaf, UiStateStorageStub } from "../TestUtils";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import TestUtils, { childStructure, storageMock, stubRaf, styleMatch, UiStateStorageStub } from "../TestUtils";
+import { IModelApp, MockRender, NoRenderApp } from "@itwin/core-frontend";
 import { expect } from "chai";
 import { Provider } from "react-redux";
+import { EmptyLocalization } from "@itwin/core-common";
 
 function createSavedNineZoneState(args?: Partial<NineZoneState>) {
   return {
@@ -171,23 +171,20 @@ describe("Frontstage local storage wrapper", () => {
   const localStorageMock = storageMock();
 
   before(async () => {
+    await TestUtils.initializeUiFramework();
+    await MockRender.App.startup({localization: new EmptyLocalization()});
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
   });
 
-  after(() => {
+  after(async () => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
+    await MockRender.App.shutdown();
+    TestUtils.terminateUiFramework();
   });
 
   describe("WidgetPanelsFrontstage", () => {
-    it("should render", () => {
-      const frontstageDef = new FrontstageDef();
-      sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
-      const wrapper = shallow(<WidgetPanelsFrontstage />);
-      wrapper.should.matchSnapshot();
-    });
-
     it("should render modal stage content", () => {
       const modalStageInfo = {
         title: "TestModalStage",
@@ -198,14 +195,16 @@ describe("Frontstage local storage wrapper", () => {
       const contentGroup = moq.Mock.ofType<FrontstageDef["contentGroup"]>();
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
       sinon.stub(frontstageDef, "contentGroup").get(() => contentGroup.object);
-      const wrapper = shallow(<WidgetPanelsFrontstage />);
-      wrapper.should.matchSnapshot();
+      render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>);
+      expect(screen.getByText("Hello World!", {
+        selector: ".uifw-modal-frontstage.uifw-modal-open .uifw-modal-stage-content > div",
+      })).to.exist;
     });
 
     it("should not render w/o frontstage", () => {
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
-      const wrapper = shallow(<WidgetPanelsFrontstage />);
-      wrapper.should.matchSnapshot();
+      const { container } = render(<Provider store={TestUtils.store}><WidgetPanelsFrontstage /></Provider>);
+      expect(container.childNodes).lengthOf(0);
     });
   });
 
@@ -223,7 +222,10 @@ describe("Frontstage local storage wrapper", () => {
         title: "TestModalStage",
         content: <div>Hello World!</div>,
       };
-      mount(<ModalFrontstageComposer stageInfo={modalStageInfo} />);
+      render(<ModalFrontstageComposer stageInfo={modalStageInfo} />);
+      expect(screen.getByText("Hello World!", {
+        selector: ".uifw-modal-frontstage.uifw-modal-open .uifw-modal-stage-content > div",
+      })).to.exist;
     });
 
     it("should add tool activated event listener", () => {
@@ -271,23 +273,40 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should render", () => {
         const frontstageDef = new FrontstageDef();
-        const wrapper = shallow(<Provider store={TestUtils.store}><ActiveFrontstageDefProvider frontstageDef={frontstageDef} /></Provider>);
-        wrapper.should.matchSnapshot();
+        const { container } =render(<Provider store={TestUtils.store}><ActiveFrontstageDefProvider frontstageDef={frontstageDef} /></Provider>);
+        expect(container).to.satisfy(childStructure([
+          ".nz-widgetPanels-appContent",
+          ".nz-widgetPanels-centerContent .uifw-widgetPanels-toolbars",
+          ".nz-left .nz-target-panelTarget",
+          ".nz-outline-panelOutline.nz-left",
+          ".nz-right .nz-target-panelTarget",
+          ".nz-outline-panelOutline.nz-right",
+          ".nz-top .nz-target-panelTarget",
+          ".nz-outline-panelOutline.nz-top",
+          ".nz-bottom .nz-target-panelTarget",
+          ".nz-outline-panelOutline.nz-bottom",
+          ".nz-widget-floatingTab",
+        ]));
       });
 
       it("should fall back to cached NineZoneState", () => {
 
         const frontstageDef = new FrontstageDef();
-        frontstageDef.nineZoneState = createNineZoneState();
+        let state = createNineZoneState();
+        state = produce(state, (draft) => {
+          draft.panels.left.size = 482;
+        });
+        frontstageDef.nineZoneState = state;
 
         const newFrontstageDef = new FrontstageDef();
         newFrontstageDef.nineZoneState = undefined;
 
-        const wrapper = mount(<Provider store={TestUtils.store}><ActiveFrontstageDefProvider frontstageDef={frontstageDef} /></Provider>);
-        wrapper.setProps({ frontstageDef: newFrontstageDef });
-
-        const nineZone = wrapper.find(NineZone);
-        nineZone.prop("state").should.eq(frontstageDef.nineZoneState);
+        const { container, rerender } = render(<Provider store={TestUtils.store}><ActiveFrontstageDefProvider frontstageDef={frontstageDef} /></Provider>);
+        expect(container.querySelector(".nz-outline-panelOutline.nz-hidden.nz-left"))
+          .satisfy(styleMatch({width: "482px"}));
+        rerender(<Provider store={TestUtils.store}><ActiveFrontstageDefProvider frontstageDef={newFrontstageDef} /></Provider>);
+        expect(container.querySelector(".nz-outline-panelOutline.nz-hidden.nz-left"))
+          .satisfy(styleMatch({width: "482px"}));
       });
     });
 

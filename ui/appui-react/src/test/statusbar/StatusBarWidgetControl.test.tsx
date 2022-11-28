@@ -6,9 +6,12 @@ import { expect } from "chai";
 import * as React from "react";
 import { WidgetState } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, MessageCenterField, StatusBar, StatusBarWidgetControl, WidgetDef,
+  ConfigurableCreateInfo, ConfigurableUiControlType, StatusBar, StatusBarWidgetControl, WidgetDef,
 } from "../../appui-react";
-import TestUtils, { mount } from "../TestUtils";
+import TestUtils, { selectorMatches } from "../TestUtils";
+import { render, screen } from "@testing-library/react";
+import { MockRender } from "@itwin/core-frontend";
+import { EmptyLocalization } from "@itwin/core-common";
 
 describe("StatusBarWidgetControl", () => {
 
@@ -19,9 +22,7 @@ describe("StatusBarWidgetControl", () => {
 
     public getReactNode(): React.ReactNode {
       return (
-        <>
-          <MessageCenterField />
-        </>
+        <div data-testid={"my-inner-node"}></div>
       );
     }
   }
@@ -30,6 +31,7 @@ describe("StatusBarWidgetControl", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
+    await MockRender.App.startup({localization: new EmptyLocalization()});
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
@@ -39,7 +41,8 @@ describe("StatusBarWidgetControl", () => {
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
-  after(() => {
+  after(async () => {
+    await MockRender.App.shutdown();
     TestUtils.terminateUiFramework();
   });
 
@@ -48,7 +51,11 @@ describe("StatusBarWidgetControl", () => {
     if (widgetControl)
       expect(widgetControl.getType()).to.eq(ConfigurableUiControlType.StatusBarWidget);
 
-    mount(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar widgetControl={widgetControl} />);
+
+    expect(screen.getByTestId("my-inner-node")).to.satisfy(selectorMatches(
+      ".nz-footer-footer .nz-indicators div"
+    ));
   });
 
 });
