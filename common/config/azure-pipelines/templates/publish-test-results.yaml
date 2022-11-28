@@ -109,3 +109,13 @@ steps:
       summaryFileLocation: "$(Build.ArtifactStagingDirectory)/coverageResults/cobertura-coverage.xml"
       reportDirectory: "$(Build.ArtifactStagingDirectory)/coverageResults/lcov-report"
     condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin'))
+
+  #-------
+  # Playwright Tests
+  #-------
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Playwright Report"
+    inputs:
+      pathToPublish: '$(Build.Repository.LocalPath)\full-stack-tests\ui\playwright-report'
+      artifactName: "playwright-report_$(Build.BuildId)"
+    condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT'))
