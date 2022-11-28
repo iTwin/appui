@@ -73,15 +73,8 @@ export class WidgetHost {
     allStageWidgetDefs.push(...uniqueWidgets);
 
     let dynamicWidgetDefs: readonly WidgetDef[] | undefined;
-    switch (section) {
-      case StagePanelSection.Start: {
-        dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start) ?? [];
-        break;
-      }
-      case StagePanelSection.End: {
-        dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.End) ?? [];
-        break;
-      }
+    if (section) {
+      dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, section) ?? [];
     }
 
     const uniqueDynamicWidgetDefs = dynamicWidgetDefs?.filter((widgetDef) => {
