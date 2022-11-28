@@ -448,8 +448,7 @@ describe("Frontstage local storage wrapper", () => {
           defaultState: WidgetState.Closed,
         });
 
-        const leftPanel = new StagePanelDef();
-        leftPanel.initializeFromConfig({
+        const leftPanel = StagePanelDef.create({
           resizable: true,
           sections: {
             start: [
@@ -484,8 +483,7 @@ describe("Frontstage local storage wrapper", () => {
           defaultState: WidgetState.Hidden,
         });
 
-        const leftPanel = new StagePanelDef();
-        leftPanel.initializeFromConfig({
+        const leftPanel = StagePanelDef.create({
           resizable: true,
           sections: {
             start: [{ id: "start" }],
@@ -513,8 +511,7 @@ describe("Frontstage local storage wrapper", () => {
           defaultState: WidgetState.Hidden,
         });
 
-        const leftPanel = new StagePanelDef();
-        leftPanel.initializeFromConfig({
+        const leftPanel = StagePanelDef.create({
           resizable: true,
           size: 0,
           sections: {
@@ -632,8 +629,7 @@ describe("Frontstage local storage wrapper", () => {
         const frontstageDef = new FrontstageDef();
         await UiFramework.setUiStateStorage(uiStateStorage);
 
-        const leftPanel = new StagePanelDef();
-        leftPanel.initializeFromConfig({
+        const leftPanel = StagePanelDef.create({
           resizable: true,
           sections: {
             start: [{ id: "w1" }],
@@ -893,8 +889,7 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should keep one widget open", () => {
         const frontstageDef = new FrontstageDef();
-        const panel = new StagePanelDef();
-        panel.initializeFromConfig({
+        const panel = StagePanelDef.create({
           sections: {
             end: [{ id: "w1" }],
           },
@@ -931,8 +926,7 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should add panel zone widgets", () => {
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           sections: {
             start: [{ id: "w1" }],
             end: [{ id: "w3" }],
@@ -947,8 +941,7 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should not duplicate widgets", () => {
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           sections: {
             start: [{ id: "w1" }],
             end: [
@@ -971,8 +964,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should add widgets from panel zones", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
-        const leftPanel = new StagePanelDef();
-        leftPanel.initializeFromConfig({
+        const leftPanel = StagePanelDef.create({
           sections: {
             start: [{ id: "w1" }],
           },
@@ -985,8 +977,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should add leftPanel widgets", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           sections: {
             end: [{ id: "w1" }],
           },
@@ -1000,8 +991,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should add rightPanel widgets", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           sections: {
             end: [{ id: "w1" }],
           },
@@ -1015,8 +1005,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should add topPanel widgets", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           sections: {
             start: [{ id: "w1" }],
           },
@@ -1030,8 +1019,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should add bottomPanel widgets", () => {
         let state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           sections: {
             start: [{ id: "w1" }],
           },
@@ -1568,8 +1556,7 @@ describe("Frontstage local storage wrapper", () => {
         state = addPanelWidget(state, "left", "leftStart", ["start1"]);
         state = addPanelWidget(state, "left", "leftEnd", ["end1"]);
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           resizable: true,
           sections: {
             start: [{ id: "ws1" }],
@@ -1594,8 +1581,7 @@ describe("Frontstage local storage wrapper", () => {
         state = addPanelWidget(state, "right", "rightStart", ["start1"]);
         state = addPanelWidget(state, "right", "rightEnd", ["end1"]);
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           resizable: true,
           sections: {
             start: [{ id: "ws1" }],
@@ -1619,8 +1605,7 @@ describe("Frontstage local storage wrapper", () => {
         state = addPanelWidget(state, "top", "topStart", ["start1"]);
         state = addPanelWidget(state, "top", "topEnd", ["end1"]);
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           resizable: true,
           sections: {
             start: [
@@ -1643,8 +1628,7 @@ describe("Frontstage local storage wrapper", () => {
         state = addPanelWidget(state, "bottom", "bottomStart", ["start1"]);
         state = addPanelWidget(state, "bottom", "bottomEnd", ["end1"]);
         const frontstageDef = new FrontstageDef();
-        const panelDef = new StagePanelDef();
-        panelDef.initializeFromConfig({
+        const panelDef = StagePanelDef.create({
           resizable: true,
           sections: {
             start: [
@@ -1663,8 +1647,7 @@ describe("Frontstage local storage wrapper", () => {
       it("should add no duplicate widgets", () => {
         const state = createNineZoneState();
         const frontstageDef = new FrontstageDef();
-        const leftPanelDef = new StagePanelDef();
-        leftPanelDef.initializeFromConfig({
+        const leftPanelDef = StagePanelDef.create({
           resizable: true,
           sections: {
             start: [
@@ -1674,8 +1657,7 @@ describe("Frontstage local storage wrapper", () => {
             end: [{ id: "w1" }],
           },
         }, StagePanelLocation.Bottom);
-        const rightPanelDef = new StagePanelDef();
-        rightPanelDef.initializeFromConfig({
+        const rightPanelDef = StagePanelDef.create({
           resizable: true,
           sections: {
             start: [{ id: "w1" }],

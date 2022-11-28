@@ -73,7 +73,7 @@ export class WidgetHost {
     allStageWidgetDefs.push(...uniqueWidgets);
 
     let dynamicWidgetDefs: readonly WidgetDef[] | undefined;
-    if (section) {
+    if (section !== undefined) {
       dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, section) ?? [];
     }
 

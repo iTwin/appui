@@ -35,12 +35,6 @@ describe("StagePanelDef", () => {
     expect(panelDef.getSingleWidgetDef()).to.not.be.undefined;
   });
 
-  it("applicationData", () => {
-    const panelDef = new StagePanelDef();
-    panelDef.panelState = StagePanelState.Open;
-    panelDef.initializeFromConfig({ resizable: false }, StagePanelLocation.Left);
-  });
-
   it("should emit onPanelStateChangedEvent", () => {
     const spy = sinon.spy();
     FrontstageManager.onPanelStateChangedEvent.addListener(spy);
@@ -55,8 +49,7 @@ describe("StagePanelDef", () => {
   });
 
   it("should initialize pinned", () => {
-    const panelDef = new StagePanelDef();
-    panelDef.initializeFromConfig({ resizable: false, pinned: false }, StagePanelLocation.Left);
+    const panelDef = StagePanelDef.create({ resizable: false, pinned: false }, StagePanelLocation.Left);
     expect(panelDef.pinned).to.false;
   });
 
@@ -124,8 +117,7 @@ describe("StagePanelDef", () => {
     });
     frontstageDef.nineZoneState = nineZoneState;
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
-    const panelDef = new StagePanelDef();
-    panelDef.initializeFromConfig({
+    const panelDef = StagePanelDef.create({
       resizable: true,
       defaultState: StagePanelState.Minimized,
     }, StagePanelLocation.Right);
@@ -135,8 +127,7 @@ describe("StagePanelDef", () => {
   });
 
   it("should returns panel zone widgets", () => {
-    const panelDef = new StagePanelDef();
-    panelDef.initializeFromConfig({
+    const panelDef = StagePanelDef.create({
       sections: {
         start: [{ id: "s1" }],
         end: [

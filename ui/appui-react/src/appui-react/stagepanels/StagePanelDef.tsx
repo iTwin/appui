@@ -60,8 +60,8 @@ export class StagePanelDef extends WidgetHost {
   private _resizable = true;
   private _pinned = true;
   private _location: StagePanelLocation = StagePanelLocation.Left;
-  private _start = new PanelSectionDef();
-  private _end = new PanelSectionDef();
+  private _start = new StagePanelSectionDef();
+  private _end = new StagePanelSectionDef();
 
   /** Constructor for PanelDef.
    */
@@ -167,6 +167,13 @@ export class StagePanelDef extends WidgetHost {
   public get defaultSize() { return this._defaultSize; }
 
   /** @internal */
+  public static create(config: StagePanelConfig, location: StagePanelLocation) {
+    const def = new StagePanelDef();
+    def.initializeFromConfig(config, location);
+    return def;
+  }
+
+  /** @internal */
   public initializeFromConfig(config: StagePanelConfig | undefined, location: StagePanelLocation): void {
     this._location = location;
 
@@ -215,7 +222,7 @@ export class StagePanelDef extends WidgetHost {
 }
 
 /** @internal */
-export class PanelSectionDef extends WidgetHost {
+export class StagePanelSectionDef extends WidgetHost {
   /** @internal */
   public initializeFromConfig(config: StagePanelSectionConfig | undefined) {
     config?.forEach((widgetConfig) => {

@@ -612,8 +612,7 @@ describe("float and dock widget", () => {
 
   it("should return default size for panel", () => {
     const frontstageDef = new FrontstageDef();
-    const panelDef = new StagePanelDef();
-    panelDef.initializeFromConfig({ resizable: true, size: 300 }, StagePanelLocation.Left);
+    const panelDef = StagePanelDef.create({ resizable: true, size: 300 }, StagePanelLocation.Left);
 
     expect(frontstageDef.getPanelCurrentState(panelDef)).to.have.ordered.members([StagePanelState.Open, 300]);
   });

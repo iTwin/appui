@@ -178,7 +178,6 @@ export class WidgetDef {
     return def;
   }
 
-  /** @internal */
   private initializeFromConfig(config: WidgetConfig, type: WidgetType) {
     this._widgetType = type;
     this._initialConfig = config;

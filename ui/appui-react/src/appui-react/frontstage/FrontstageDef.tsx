@@ -927,12 +927,11 @@ function createWidgetDef(config: WidgetConfig | undefined, type: WidgetType): Wi
   return widgetDef;
 }
 
-function createStagePanelDef(config: FrontstageConfig, location: StagePanelLocation): StagePanelDef | undefined {
-  const panelConfig = getStagePanel(location, config);
+function createStagePanelDef(frontstageConfig: FrontstageConfig, location: StagePanelLocation): StagePanelDef {
+  const config = getStagePanel(location, frontstageConfig);
 
   const panelDef = new StagePanelDef();
-  panelDef.initializeFromConfig(panelConfig, location);
-
+  panelDef.initializeFromConfig(config, location);
   return panelDef;
 }
 
