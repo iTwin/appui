@@ -327,7 +327,6 @@ public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
 internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
-internal;PanelSectionDef 
 internal;PanelSizeChangedEvent 
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
@@ -410,6 +409,7 @@ public;StagePanelConfig
 public;StagePanelDef 
 public;StagePanelMaxSizeSpec = number |
 public;StagePanelSectionConfig = ReadonlyArray
+internal;StagePanelSectionDef 
 public;StagePanelSectionsConfig
 public;StagePanelState
 public;StandardContentToolsProvider 

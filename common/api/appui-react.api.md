@@ -3352,12 +3352,6 @@ export class OpenMessageCenterEvent extends UiEvent<{}> {
 export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
 
 // @internal (undocumented)
-export class PanelSectionDef extends WidgetHost {
-    // (undocumented)
-    initializeFromConfig(config: StagePanelSectionConfig | undefined): void;
-}
-
-// @internal (undocumented)
 export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {
 }
 
@@ -4232,11 +4226,13 @@ export interface StagePanelConfig {
 export class StagePanelDef extends WidgetHost {
     constructor();
     // @internal (undocumented)
+    static create(config: StagePanelConfig, location: StagePanelLocation): StagePanelDef;
+    // @internal (undocumented)
     get defaultSize(): number | undefined;
     // @internal (undocumented)
     get defaultState(): StagePanelState;
     // @internal (undocumented)
-    getPanelSectionDef(section: StagePanelSection): PanelSectionDef;
+    getPanelSectionDef(section: StagePanelSection): StagePanelSectionDef;
     // @internal (undocumented)
     initializeFromConfig(config: StagePanelConfig | undefined, location: StagePanelLocation): void;
     get location(): StagePanelLocation;
@@ -4262,6 +4258,12 @@ export type StagePanelMaxSizeSpec = number | {
 
 // @public
 export type StagePanelSectionConfig = ReadonlyArray<WidgetConfig>;
+
+// @internal (undocumented)
+export class StagePanelSectionDef extends WidgetHost {
+    // (undocumented)
+    initializeFromConfig(config: StagePanelSectionConfig | undefined): void;
+}
 
 // @public
 export interface StagePanelSectionsConfig {
@@ -5502,6 +5504,8 @@ export class WidgetDef {
     // (undocumented)
     get classId(): string | ConfigurableUiControlConstructor | undefined;
     // @internal (undocumented)
+    static create(config: WidgetConfig, type?: WidgetType): WidgetDef;
+    // @internal (undocumented)
     get defaultFloatingPosition(): PointProps | undefined;
     set defaultFloatingPosition(position: PointProps | undefined);
     // @internal (undocumented)
@@ -5527,8 +5531,6 @@ export class WidgetDef {
     get id(): string;
     // (undocumented)
     get initialConfig(): WidgetConfig | undefined;
-    // @internal (undocumented)
-    initializeFromConfig(config: WidgetConfig, type?: WidgetType): void;
     // (undocumented)
     get isActive(): boolean;
     // (undocumented)
