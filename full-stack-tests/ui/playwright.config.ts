@@ -104,10 +104,9 @@ const config: PlaywrightTestConfig = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "npm run start:servers --prefix ../../test-apps/appui-test-app/standalone",
+    command: "npm run serve --prefix ../../test-apps/appui-test-app/standalone",
     url: "http://localhost:3000/",
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
   },
 };
 
