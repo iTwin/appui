@@ -9,7 +9,7 @@ import { MockRender } from "@itwin/core-frontend";
 import { ContentLayoutProps, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   ConfigurableCreateInfo, ContentControl, ContentGroup, ContentLayout, ContentLayoutDef, ContentLayoutManager,
-  ContentViewManager, CoreTools, FloatingContentControl, FrontstageManager, FrontstageProps, FrontstageProvider,
+  ContentViewManager, FloatingContentControl, FrontstageConfig, FrontstageManager, FrontstageProvider,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
@@ -60,10 +60,10 @@ describe("ContentLayout", () => {
       return TestFrontstage2.stageId;
     }
 
-    public override get frontstage(): FrontstageProps {
+    public override frontstageConfig(): FrontstageConfig {
       return {
         id: this.id,
-        defaultTool: CoreTools.selectElementCommand,
+        version: 1,
         contentGroup: fourContentGroup,
       };
     }
@@ -307,7 +307,7 @@ describe("SingleContentLayout", () => {
     }
   }
 
-  const myContentGroup: ContentGroup = new ContentGroup({
+  const contentGroup = new ContentGroup({
     id: "testGroup",
     layout: StandardContentLayouts.singleView,
     contents: [{ id: "myContent", classId: TestContentControl, applicationData: { name: "Test" } }],
@@ -324,11 +324,11 @@ describe("SingleContentLayout", () => {
       return TestFrontstage1.stageId;
     }
 
-    public override get frontstage(): FrontstageProps {
+    public override frontstageConfig(): FrontstageConfig {
       return {
         id: this.id,
-        defaultTool: CoreTools.selectElementCommand,
-        contentGroup: myContentGroup,
+        version: 1,
+        contentGroup,
       };
     }
   }
@@ -360,7 +360,7 @@ describe("SingleContentLayout", () => {
     const floatingControl = new TestFloatingContentControl();
     ContentViewManager.addFloatingContentControl(floatingControl);
 
-    render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
+    render(<ContentLayout contentGroup={contentGroup} contentLayout={myContentLayout} />);
     expect(screen.getByText("Test").parentElement).to.satisfy(childStructure("div+.uifw-contentlayout-overlay-active"));
 
     ContentViewManager.setActiveContent(floatingControl.reactNode, true);

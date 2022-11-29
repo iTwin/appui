@@ -12,7 +12,7 @@ import {
 } from "@itwin/appui-abstract";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, CoreTools, FrontstageDef, FrontstageManager, FrontstageProps, StatusBar, StatusBarComposer, StatusBarItem,
+  ConfigurableCreateInfo, ConfigurableUiControlType, FrontstageDef, FrontstageManager, StatusBar, StatusBarComposer, StatusBarItem,
   StatusBarItemUtilities, StatusBarWidgetControl, SyncUiEventDispatcher, WidgetDef,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
@@ -79,11 +79,12 @@ describe("StatusBarComposer", () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
 
-    const statusBarWidgetDef = new WidgetDef({
+    const widgetDef = WidgetDef.create({
+      id: "statusBar",
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
-    widgetControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
+    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
   after(async () => {
@@ -118,7 +119,7 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should support changing props", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent  data-testid={"item1"} />),
+        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent data-testid={"item1"} />),
       ];
 
       const { rerender } = render(<StatusBarComposer items={items} />);
@@ -126,7 +127,7 @@ describe("StatusBarComposer", () => {
       expect(screen.getByTestId("item1").parentElement).to.satisfy(selectorMatches(".uifw-statusbar-left .uifw-statusbar-item-container"));
 
       const items2: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent  data-testid={"item2"} />),
+        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent data-testid={"item2"} />),
       ];
 
       rerender(<StatusBarComposer items={items2} />);
@@ -163,9 +164,13 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should support extension items", async () => {
       // useUiItemsProviderStatusBarItems will only supply items if there is an "activeFrontstageDef" so set up dummy below
-      const dummy: FrontstageProps = { id: "status-bar-1", usage: StageUsage.General, defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 };
       const frontstageDef = new FrontstageDef();
-      await frontstageDef.initializeFromProps(dummy);
+      await frontstageDef.initializeFromConfig({
+        id: "status-bar-1",
+        version: 1,
+        usage: StageUsage.General,
+        contentGroup: TestUtils.TestContentGroup2,
+      });
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       const items: StatusBarItem[] = [
@@ -192,9 +197,13 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should support addon items loaded before component", async () => {
       // useUiItemsProviderStatusBarItems will only supply items if there is an "activeFrontstageDef" so set up dummy below
-      const dummy: FrontstageProps = { id: "status-bar-2", usage: StageUsage.General, defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 };
       const frontstageDef = new FrontstageDef();
-      await frontstageDef.initializeFromProps(dummy);
+      await frontstageDef.initializeFromConfig({
+        id: "status-bar-2",
+        version: 1,
+        usage: StageUsage.General,
+        contentGroup: TestUtils.TestContentGroup2,
+      });
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       const items: StatusBarItem[] = [
@@ -246,9 +255,13 @@ describe("StatusBarComposer", () => {
   describe("StatusBarComposer React-Testing", () => {
     it("StatusBarComposer should support extension items", async () => {
       // useUiItemsProviderStatusBarItems will only supply items if there is an "activeFrontstageDef" so set up dummy below
-      const dummy: FrontstageProps = { id: "oldstatus-bar-3", usage: StageUsage.General, defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 };
       const frontstageDef = new FrontstageDef();
-      await frontstageDef.initializeFromProps(dummy);
+      await frontstageDef.initializeFromConfig({
+        id: "oldstatus-bar-3",
+        version: 1,
+        usage: StageUsage.General,
+        contentGroup: TestUtils.TestContentGroup2,
+      });
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       // make sure we have enough size to render without overflow
@@ -291,9 +304,13 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should filter duplicate items", async () => {
       // useUiItemsProviderStatusBarItems will only supply items if there is an "activeFrontstageDef" so set up dummy below
-      const dummy: FrontstageProps = { id: "oldstatus-bar-4", usage: StageUsage.General, defaultTool: CoreTools.selectElementCommand, contentGroup: TestUtils.TestContentGroup2 };
       const frontstageDef = new FrontstageDef();
-      await frontstageDef.initializeFromProps(dummy);
+      await frontstageDef.initializeFromConfig({
+        id: "oldstatus-bar-4",
+        version: 1,
+        usage: StageUsage.General,
+        contentGroup: TestUtils.TestContentGroup2,
+      });
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       // make sure we have enough size to render without overflow

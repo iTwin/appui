@@ -39,7 +39,6 @@ internal;addWidgets(state: NineZoneState, widgets: ReadonlyArray
 public;AnalysisAnimationTimelineDataProvider 
 public;AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionButtonItemDef
 public;AnyToolbarItemDef = AnyItemDef | CustomItemDef
-public;AnyWidgetProps = WidgetProps | ToolWidgetProps | NavigationWidgetProps
 internal;appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray
 public;AppNotificationManager 
 public;AppUiSettings 
@@ -198,13 +197,13 @@ public;FrameworkUiAdmin
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
 public;FrontstageActivatedEventArgs
+public;FrontstageConfig 
 public;FrontstageDeactivatedEvent 
 public;FrontstageDeactivatedEventArgs
 public;FrontstageDef
 internal;FrontstageEventArgs
 public;FrontstageManager
 internal;FrontstageNineZoneStateChangedEventArgs 
-public;FrontstageProps 
 public;class FrontstageProvider
 public;FrontstageReadyEvent 
 public;FrontstageReadyEventArgs
@@ -219,7 +218,6 @@ beta;getListPanel(props: ListPickerProps): React_2.ReactNode
 internal;getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray
 beta;getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial
 beta;getSelectionContextSyncEventIds(): string[]
-internal;getStableWidgetProps(widgetProps: WidgetProps, stableId: string): WidgetProps
 beta;getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry
 internal;getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId
 internal;GroupedItems = ReadonlyArray
@@ -323,16 +321,12 @@ public;NavigationAidHost(props: NavigationAidHostProps): JSX.Element
 public;NavigationAidHostProps
 public;NavigationWidgetComposer(props: NavigationWidgetComposerProps): JSX.Element
 public;NavigationWidgetComposerProps 
-public;NavigationWidgetProps 
 public;NestedFrontstage
 public;NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetails
 public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
 internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
-internal;PanelSectionDef 
-public;PanelSectionProps
-public;PanelSectionsProps
 internal;PanelSizeChangedEvent 
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
@@ -411,9 +405,12 @@ public;SplitPane(props: SplitPaneProps): JSX.Element
 public;SplitPaneProps
 public;StageContentLayout
 public;StageContentLayoutProps
+public;StagePanelConfig
 public;StagePanelDef 
 public;StagePanelMaxSizeSpec = number |
-public;StagePanelProps
+public;StagePanelSectionConfig = ReadonlyArray
+internal;StagePanelSectionDef 
+public;StagePanelSectionsConfig
 public;StagePanelState
 public;StandardContentToolsProvider 
 beta;StandardContentToolsUiItemsProvider 
@@ -475,7 +472,6 @@ beta;ToolbarDragInteractionContext: React_2.Context
 public;ToolbarHelper
 beta;ToolbarPopup 
 beta;ToolbarPopupProps 
-public;ToolbarWidgetProps 
 public;ToolIconChangedEvent 
 public;ToolIconChangedEventArgs
 public;ToolInformation
@@ -492,7 +488,6 @@ internal;ToolSettingsWidgetContent(): JSX.Element
 public;ToolUiProvider 
 public;ToolWidgetComposer(props: ToolWidgetComposerProps): JSX.Element
 public;ToolWidgetComposerProps 
-public;ToolWidgetProps 
 internal;toPanelSide(location: StagePanelLocation): PanelSide
 internal;TrackingTime
 internal;UiActivityEvent 
@@ -580,6 +575,7 @@ alpha;VisibilityTreeNoFilteredDataProps
 alpha;VisibilityTreeSelectionPredicate = (key: NodeKey, node: TreeNodeItem) => boolean
 public;WIDGET_OPACITY_DEFAULT = 0.9
 internal;WidgetChangedEventArgs
+public;WidgetConfig 
 internal;WidgetContent(): JSX.Element
 public;WidgetControl 
 public;WidgetDef
@@ -595,7 +591,6 @@ internal;WidgetPanelsStatusBar(props: CommonProps): JSX.Element | null
 internal;WidgetPanelsTab(): JSX.Element
 internal;WidgetPanelsToolbars(): JSX.Element
 internal;WidgetPanelsToolSettings(): JSX.Element | null
-public;WidgetProps 
 internal;WidgetsChangedEvent 
 internal;WidgetsChangedEventArgs
 public;WidgetStateChangedEvent 

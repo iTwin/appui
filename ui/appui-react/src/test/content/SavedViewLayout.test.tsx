@@ -13,7 +13,7 @@ import * as React from "react";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentGroup, ContentLayoutDef, ContentLayoutManager, ContentProps, CoreTools, FrontstageManager, FrontstageProps, FrontstageProvider, StageContentLayout, StageContentLayoutProps, ViewportContentControl,
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentGroup, ContentLayoutDef, ContentLayoutManager, ContentProps, FrontstageConfig, FrontstageManager, FrontstageProvider, StageContentLayout, StageContentLayoutProps, ViewportContentControl,
 } from "../../appui-react";
 import { ViewUtilities } from "../../appui-react/utils/ViewUtilities";
 import TestUtils from "../TestUtils";
@@ -161,7 +161,7 @@ describe("StageContentLayout", () => {
       },
     );
 
-    public override get frontstage(): FrontstageProps {
+    public override frontstageConfig(): FrontstageConfig {
       const contentGroup = new ContentGroup(
         {
           id: "MyContentGroup",
@@ -178,9 +178,10 @@ describe("StageContentLayout", () => {
 
       return {
         id: this.id,
-        defaultTool: CoreTools.selectElementCommand,
+        version: 1,
         contentGroup,
         viewNavigation: {
+          id: "viewNavigation",
           element: <>NavigationWidget</>,
         },
       };
@@ -262,7 +263,7 @@ describe("StageContentLayout", () => {
 
     const frontstageProvider = new Frontstage1();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.id);
     await FrontstageManager.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
@@ -324,7 +325,7 @@ describe("StageContentLayout", () => {
 
     const frontstageProvider = new Frontstage1();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.id);
     await FrontstageManager.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {

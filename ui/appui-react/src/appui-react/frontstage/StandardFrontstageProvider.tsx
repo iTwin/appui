@@ -8,21 +8,19 @@
 
 import * as React from "react";
 import { StageUsage } from "@itwin/appui-abstract";
-import { StagePanelProps } from "../stagepanels/StagePanel";
 import { ContentGroup, ContentGroupProps, ContentGroupProvider } from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
-import { FrontstageProps } from "./Frontstage";
-import { CoreTools } from "../tools/CoreToolDefinitions";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
 import { StatusBarWidgetComposerControl } from "../widgets/StatusBarWidgetComposerControl";
 import { StagePanelState } from "../stagepanels/StagePanelDef";
-import { ToolItemDef } from "../shared/ToolItemDef";
+import { FrontstageConfig } from "./FrontstageConfig";
+import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 
 /** Properties of a [[WidgetPanelProps]] component
  * @public
  */
-export type WidgetPanelProps = Omit<StagePanelProps, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
+export type WidgetPanelProps = Omit<StagePanelConfig, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
 
 /**
  * Props for [[StandardFrontstageProvider]]
@@ -67,16 +65,6 @@ export interface StandardFrontstageProps {
   /** Props used to set initial size and state of panel. Defaults to:
    *  {size: 180, pinned=true, defaultState:StagePanelState.Open} */
   bottomPanelProps?: WidgetPanelProps;
-  /** Application data is not require but exists for stages to pass feature settings to UiItemsProviders.
-   * It is expected that the UiItemsProvider supply an xxxAppData interface to define the properties it
-   * supports. See [[DefaultContentToolsAppData]] for an example.
-   */
-  applicationData?: any;
-  /** The defaultTool is is started when then frontstage loads and whenever any other tools exit.
-   * Most of the time, this is the Element Selection Tool (CoreTools.selectElementCommand).
-   * Your app can specify its own tool or another core tool as default with this property.
-   */
-  defaultTool?: ToolItemDef;
 }
 
 /**
@@ -93,15 +81,13 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     return this.props.id;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = (this.props.contentGroupProps instanceof ContentGroupProvider) ? this.props.contentGroupProps : new ContentGroup(this.props.contentGroupProps);
     return {
       id: this.props.id,
       version: this.props.version ?? 1.0,
-      defaultTool: this.props.defaultTool ?? CoreTools.selectElementCommand,
       contentGroup,
       usage: this.props.usage,
-      applicationData: this.props.applicationData,
       contentManipulation: {
         id: `${this.props.id}-contentManipulationTools`,
         element: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,

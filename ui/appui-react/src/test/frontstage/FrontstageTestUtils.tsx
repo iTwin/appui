@@ -5,10 +5,9 @@
 import * as React from "react";
 import { StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider,
   MessageCenterField, StatusBarWidgetControl, WidgetControl,
 } from "../../appui-react";
-import { ToolItemDef } from "../../appui-react/shared/ToolItemDef";
 
 /** @internal */
 export class TestContentControl extends ContentControl {
@@ -63,18 +62,8 @@ export class TestFrontstage extends FrontstageProvider {
     return TestFrontstage.stageId;
   }
 
-  public get defaultToolDef() {
-    return new ToolItemDef({
-      toolId: "dummy",
-      iconSpec: "dummy",
-      label: "dummy",
-      description: "dummy",
-      execute: async () => { },
-    });
-  }
-
-  public override get frontstage(): FrontstageProps {
-    const myContentGroup: ContentGroup = new ContentGroup(
+  public override frontstageConfig(): FrontstageConfig {
+    const contentGroup = new ContentGroup(
       {
         id: "test-group",
         layout: StandardContentLayouts.singleView,
@@ -90,66 +79,59 @@ export class TestFrontstage extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: this.defaultToolDef,
-      contentGroup: myContentGroup,
-      defaultContentId: "defaultContentId",
-      applicationData: { key: "value" },
+      version: 1,
+      contentGroup,
       usage: "MyUsage",
       contentManipulation: {
+        id: "contentManipulation",
         element: <div />,
         applicationData: { key: "value" },
       },
-      toolSettings: {},
+      toolSettings: {
+        id: "toolSettings",
+      },
       leftPanel: {
         sections: {
-          start: {
-            widgets: [{
-              id: "widget3",
-              defaultState: WidgetState.Open,
-              control: TestWidget,
-              onWidgetStateChanged: () => { },
-              saveTransientState: () => { },
-              restoreTransientState: () => false,
-            }],
-          },
-          end: {
-            widgets: [{
-              id: "widget4",
-              defaultState: WidgetState.Open,
-              control: TestWidget,
-            }],
-          },
+          start: [{
+            id: "widget3",
+            defaultState: WidgetState.Open,
+            control: TestWidget,
+            onWidgetStateChanged: () => { },
+            saveTransientState: () => { },
+            restoreTransientState: () => false,
+          }],
+          end: [{
+            id: "widget4",
+            defaultState: WidgetState.Open,
+            control: TestWidget,
+          }],
         },
       },
       rightPanel: {
         sections: {
-          start: {
-            widgets: [
-              {
-                id: "widget1",
-                defaultState: WidgetState.Open,
-                element: <div />,
-              },
-              {
-                id: "widget6_2",
-                element: < div />,
-              },
-            ],
-          },
-          end: {
-            widgets: [
-              {
-                id: "widget1",
-                defaultState: WidgetState.Open,
-                element: <div />,
-              },
-              {
-                id: "widget2",
-                defaultState: WidgetState.Hidden,
-                element: < div />,
-              },
-            ],
-          },
+          start: [
+            {
+              id: "widget1",
+              defaultState: WidgetState.Open,
+              element: <div />,
+            },
+            {
+              id: "widget6_2",
+              element: < div />,
+            },
+          ],
+          end: [
+            {
+              id: "widget1",
+              defaultState: WidgetState.Open,
+              element: <div />,
+            },
+            {
+              id: "widget2",
+              defaultState: WidgetState.Hidden,
+              element: < div />,
+            },
+          ],
         },
       },
       statusBar: {
@@ -170,8 +152,8 @@ export class TestFrontstage2 extends FrontstageProvider {
     return TestFrontstage2.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
-    const myContentGroup: ContentGroup = new ContentGroup(
+  public override frontstageConfig(): FrontstageConfig {
+    const contentGroup = new ContentGroup(
       {
         id: "test-group",
         layout: StandardContentLayouts.singleView,
@@ -187,66 +169,59 @@ export class TestFrontstage2 extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
-      contentGroup: myContentGroup,
-      defaultContentId: "defaultContentId",
-      applicationData: { key: "value" },
+      version: 1,
+      contentGroup,
       usage: "MyUsage",
       contentManipulation: {
+        id: "contentManipulation",
         element: <div />,
         applicationData: { key: "value" },
       },
-      toolSettings: {},
+      toolSettings: {
+        id: "toolSettings",
+      },
       leftPanel: {
         sections: {
-          start: {
-            widgets: [{
-              id: "widget3",
-              defaultState: WidgetState.Open,
-              control: TestWidget,
-              onWidgetStateChanged: () => { },
-              saveTransientState: () => { },
-              restoreTransientState: () => false,
-            }],
-          },
-          end: {
-            widgets: [{
-              id: "widget4",
-              defaultState: WidgetState.Open,
-              control: TestWidget,
-            }],
-          },
+          start: [{
+            id: "widget3",
+            defaultState: WidgetState.Open,
+            control: TestWidget,
+            onWidgetStateChanged: () => { },
+            saveTransientState: () => { },
+            restoreTransientState: () => false,
+          }],
+          end: [{
+            id: "widget4",
+            defaultState: WidgetState.Open,
+            control: TestWidget,
+          }],
         },
       },
       rightPanel: {
         sections: {
-          start: {
-            widgets: [
-              {
-                id: "widget1",
-                defaultState: WidgetState.Open,
-                element: <div />,
-              },
-              {
-                id: "widget6_2",
-                element: <div />,
-              },
-            ],
-          },
-          end: {
-            widgets: [
-              {
-                id: "widget1",
-                defaultState: WidgetState.Open,
-                element: <div />,
-              },
-              {
-                id: "widget2",
-                defaultState: WidgetState.Hidden,
-                element: <div />,
-              },
-            ],
-          },
+          start: [
+            {
+              id: "widget1",
+              defaultState: WidgetState.Open,
+              element: <div />,
+            },
+            {
+              id: "widget6_2",
+              element: <div />,
+            },
+          ],
+          end: [
+            {
+              id: "widget1",
+              defaultState: WidgetState.Open,
+              element: <div />,
+            },
+            {
+              id: "widget2",
+              defaultState: WidgetState.Hidden,
+              element: <div />,
+            },
+          ],
         },
       },
       statusBar: {
@@ -267,8 +242,8 @@ export class TestFrontstage3 extends FrontstageProvider {
     return TestFrontstage3.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
-    const myContentGroup: ContentGroup = new ContentGroup(
+  public override frontstageConfig(): FrontstageConfig {
+    const contentGroup = new ContentGroup(
       {
         id: "test-group",
         layout: StandardContentLayouts.singleView,
@@ -282,9 +257,8 @@ export class TestFrontstage3 extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: new ToolItemDef({ toolId: "test" }),
-      contentGroup: myContentGroup,
-      defaultContentId: "defaultContentId",
+      version: 1,
+      contentGroup,
     };
   }
 }

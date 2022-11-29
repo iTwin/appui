@@ -20,15 +20,15 @@ export interface UiItemsProvider {
   readonly id: string;
 
   /** UiItemsManager calls following method to get items to populate specific toolbars */
-  provideToolbarButtonItems?: (stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any) => CommonToolbarItem[];
+  provideToolbarButtonItems?: (stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation) => CommonToolbarItem[];
   /** UiItemsManager calls following method to augment base statusbar for stages that allow it. */
-  provideStatusBarItems?: (stageId: string, stageUsage: string, stageAppData?: any) => CommonStatusBarItem[];
+  provideStatusBarItems?: (stageId: string, stageUsage: string) => CommonStatusBarItem[];
   /** UiItemsManager calls following method to augment backstage items. */
   provideBackstageItems?: () => BackstageItem[];
   /** UiItemsManager calls following method to augment Widget lists.
    * @note Returned widgets must provide unique `AbstractWidgetProps["id"]` to correctly save/restore App layout.
    */
-  provideWidgets?: (stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any) => ReadonlyArray<AbstractWidgetProps>;
+  provideWidgets?: (stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) => ReadonlyArray<AbstractWidgetProps>;
   /** Function called when the provider is unregistered via `ItemsManager.unregister` to allow provider to do cleanup. */
   onUnregister?: () => void;
 }

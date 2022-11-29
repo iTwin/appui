@@ -11,7 +11,7 @@ import * as React from "react";
 import classnames from "classnames";
 import { CommonProps } from "@itwin/core-react";
 
-/** Component used to separate status fields in a footer.
+/** Component used to separate status fields in a status bar.
  * @public
  */
 export function StatusBarSeparator(props: CommonProps) {

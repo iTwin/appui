@@ -37,10 +37,9 @@ export const useUiItemsProviderToolbarItems = (manager: ToolbarItemsManager, too
       // istanbul ignore else
       if (frontstageDef) {
         const usage = frontstageDef.usage;
-        const applicationData = frontstageDef.applicationData;
         currentStageRef.current = stageId;
         providersRef.current = uiProviders;
-        const toolbarItems = UiItemsManager.getToolbarButtonItems(stageId, usage, toolbarUsage, toolbarOrientation, applicationData);
+        const toolbarItems = UiItemsManager.getToolbarButtonItems(stageId, usage, toolbarUsage, toolbarOrientation);
         manager.loadItems(toolbarItems);
         setItems(manager.items);
       }

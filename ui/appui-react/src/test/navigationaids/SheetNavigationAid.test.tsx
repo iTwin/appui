@@ -62,7 +62,8 @@ describe("SheetNavigationAid", () => {
 
   describe("SheetNavigationAidControl", () => {
     it("SheetNavigationAidControl creates SheetNavigationAid", () => {
-      const widgetDef = new WidgetDef({
+      const widgetDef = WidgetDef.create({
+        id: "w1",
         classId: "SheetNavigationAid",
         applicationData: {
           imodel: UiFramework.getIModelConnection(),

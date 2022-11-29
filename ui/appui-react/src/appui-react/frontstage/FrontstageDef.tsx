@@ -21,12 +21,10 @@ import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { ContentLayoutDef } from "../content/ContentLayout";
 import { ContentLayoutManager } from "../content/ContentLayoutManager";
 import { ContentViewManager } from "../content/ContentViewManager";
-import { ToolItemDef } from "../shared/ToolItemDef";
 import { StagePanelDef, StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { WidgetControl } from "../widgets/WidgetControl";
 import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
-import { FrontstageProps } from "./Frontstage";
 import { FrontstageActivatedEventArgs, FrontstageManager } from "./FrontstageManager";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
@@ -35,9 +33,9 @@ import { PopoutWidget } from "../childwindow/PopoutWidget";
 import { SavedWidgets } from "../widget-panels/Frontstage";
 import { assert, BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
 import { ContentDialogManager } from "../dialog/ContentDialogManager";
-import { WidgetProps } from "../widgets/WidgetProps";
-import { getStableWidgetProps } from "../widgets/WidgetManager";
-import { StagePanelProps } from "../stagepanels/StagePanel";
+import { FrontstageConfig } from "./FrontstageConfig";
+import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
+import { WidgetConfig } from "../widgets/WidgetConfig";
 
 /** @internal */
 export interface FrontstageEventArgs {
@@ -54,13 +52,10 @@ export interface FrontstageNineZoneStateChangedEventArgs extends FrontstageEvent
  */
 export class FrontstageDef {
   private _id: string = "";
-  private _initialProps?: FrontstageProps;
-  private _defaultTool?: ToolItemDef;
-  private _defaultContentId: string = "";
+  private _initialConfig?: FrontstageConfig;
   private _isStageClosing = false;
   private _isReady = false;
   private _isApplicationClosing = false;
-  private _applicationData?: any;
   private _usage?: string;
   private _version: number = 0;
   private _toolSettings?: WidgetDef;
@@ -74,36 +69,26 @@ export class FrontstageDef {
   private _contentLayoutDef?: ContentLayoutDef;
   private _contentGroup?: ContentGroup;
   private _frontstageProvider?: FrontstageProvider;
-  private _timeTracker: TimeTracker = new TimeTracker();
+  private _timeTracker = new TimeTracker();
   private _nineZoneState?: NineZoneState;
   private _contentGroupProvider?: ContentGroupProvider;
   private _floatingContentControls?: ContentControl[];
   private _savedWidgetDefs?: SavedWidgets;
 
   public get id(): string { return this._id; }
-  public get defaultTool(): ToolItemDef | undefined { return this._defaultTool; }
-  public get defaultContentId(): string { return this._defaultContentId; }
-  public get applicationData(): any | undefined { return this._applicationData; }
   public get usage(): string { return this._usage !== undefined ? this._usage : StageUsage.General; }
   public get version(): number { return this._version; }
   public get contentGroupProvider(): ContentGroupProvider | undefined { return this._contentGroupProvider; }
   public get floatingContentControls() { return this._floatingContentControls; }
 
-  /** @beta */
-  public get toolSettings() { return this._toolSettings; }
-  /** @beta */
-  public get statusBar() { return this._statusBar; }
-  /** @beta */
-  public get contentManipulation() { return this._contentManipulation; }
-  /** @beta */
-  public get viewNavigation() { return this._viewNavigation; }
-  /** @beta */
+  public get toolSettings(): WidgetDef | undefined { return this._toolSettings; }
+  public get statusBar(): WidgetDef | undefined { return this._statusBar; }
+  public get contentManipulation(): WidgetDef | undefined { return this._contentManipulation; }
+  public get viewNavigation(): WidgetDef | undefined { return this._viewNavigation; }
+
   public get topPanel(): StagePanelDef | undefined { return this._topPanel; }
-  /** @beta */
   public get leftPanel(): StagePanelDef | undefined { return this._leftPanel; }
-  /** @beta */
   public get rightPanel(): StagePanelDef | undefined { return this._rightPanel; }
-  /** @beta */
   public get bottomPanel(): StagePanelDef | undefined { return this._bottomPanel; }
 
   public get contentLayoutDef(): ContentLayoutDef | undefined { return this._contentLayoutDef; }
@@ -237,9 +222,8 @@ export class FrontstageDef {
     const def = new FrontstageDef();
     def._frontstageProvider = provider;
 
-    // istanbul ignore else
-    if (provider.frontstage)
-      await def.initializeFromProps(provider.frontstage);
+    const config = provider.frontstageConfig();
+    await def.initializeFromConfig(config);
 
     return def;
   }
@@ -251,8 +235,9 @@ export class FrontstageDef {
   public async onActivated() {
     this.updateWidgetDefs();
 
-    if (this._contentGroupProvider && this._initialProps) {
-      this._contentGroup = await this._contentGroupProvider.provideContentGroup(this._initialProps);
+    const provider = this._contentGroupProvider;
+    if (provider && this._initialConfig) {
+      this._contentGroup = await provider.contentGroup(this._initialConfig);
     }
 
     // istanbul ignore next
@@ -349,20 +334,6 @@ export class FrontstageDef {
     this._onFrontstageReady();
   }
 
-  /** Starts the default tool for the Frontstage */
-  public startDefaultTool(): void {
-    // Start the default tool
-    // istanbul ignore next
-    if (IModelApp.toolAdmin && IModelApp.viewManager) {
-      if (this.defaultTool) {
-        IModelApp.toolAdmin.defaultToolId = this.defaultTool.toolId;
-        this.defaultTool.execute();
-      } else {
-        void IModelApp.toolAdmin.startDefaultTool();
-      }
-    }
-  }
-
   /** Sets the Content Layout and Content Group */
   public setContentLayoutAndGroup(contentLayoutDef: ContentLayoutDef, contentGroup: ContentGroup): void {
     this._contentLayoutDef = contentLayoutDef;
@@ -373,10 +344,6 @@ export class FrontstageDef {
   public async setActiveContent(): Promise<boolean> {
     let contentControl: ContentControl | undefined;
     let activated = false;
-
-    if (this.contentGroup && this.defaultContentId) {
-      contentControl = this.contentGroup.getContentControlById(this.defaultContentId);
-    }
 
     // istanbul ignore else
     if (!contentControl && this.contentControls.length >= 0) {
@@ -522,37 +489,30 @@ export class FrontstageDef {
     return contentControls;
   }
 
-  /** Initializes a FrontstageDef from FrontstageProps
+  /** Initializes a FrontstageDef from FrontstageConfig.
    * @internal
    */
-  public async initializeFromProps(props: FrontstageProps): Promise<void> {
-    this._id = props.id;
-    this._initialProps = props;
-    this._defaultTool = props.defaultTool;
+  public async initializeFromConfig(config: FrontstageConfig): Promise<void> {
+    this._id = config.id;
+    this._initialConfig = config;
 
-    if (props.defaultContentId !== undefined)
-      this._defaultContentId = props.defaultContentId;
-
-    if (props.contentGroup instanceof ContentGroupProvider) {
-      this._contentGroupProvider = props.contentGroup;
+    if (config.contentGroup instanceof ContentGroupProvider) {
+      this._contentGroupProvider = config.contentGroup;
     } else {
-      this._contentGroup = props.contentGroup;
+      this._contentGroup = config.contentGroup;
     }
 
-    if (props.applicationData !== undefined)
-      this._applicationData = props.applicationData;
+    this._usage = config.usage;
+    this._version = config.version;
 
-    this._usage = props.usage;
-    this._version = props.version || 0;
-
-    this._toolSettings = createWidgetDef(props.toolSettings, `uifw-toolSettings-widget`, WidgetType.ToolSettings);
-    this._statusBar = createWidgetDef(props.statusBar, `uifw-statusBar-widget`, WidgetType.StatusBar);
-    this._contentManipulation = createWidgetDef(props.contentManipulation, `uifw-contentManipulation-widget`, WidgetType.Tool);
-    this._viewNavigation = createWidgetDef(props.viewNavigation, `uifw-viewNavigation-widget`, WidgetType.Navigation);
-    this._topPanel = createStagePanelDef(StagePanelLocation.Top, props);
-    this._leftPanel = createStagePanelDef(StagePanelLocation.Left, props);
-    this._rightPanel = createStagePanelDef(StagePanelLocation.Right, props);
-    this._bottomPanel = createStagePanelDef(StagePanelLocation.Bottom, props);
+    this._toolSettings = createWidgetDef(config.toolSettings, WidgetType.ToolSettings);
+    this._statusBar = createWidgetDef(config.statusBar, WidgetType.StatusBar);
+    this._contentManipulation = createWidgetDef(config.contentManipulation, WidgetType.Tool);
+    this._viewNavigation = createWidgetDef(config.viewNavigation, WidgetType.Navigation);
+    this._topPanel = createStagePanelDef(config, StagePanelLocation.Top);
+    this._leftPanel = createStagePanelDef(config, StagePanelLocation.Left);
+    this._rightPanel = createStagePanelDef(config, StagePanelLocation.Right);
+    this._bottomPanel = createStagePanelDef(config, StagePanelLocation.Bottom);
   }
 
   /** @internal */
@@ -562,7 +522,7 @@ export class FrontstageDef {
 
     // Process panels before zones so extension can explicitly target a widget for a StagePanelSection
     this.panelDefs.forEach((stagePanelDef: StagePanelDef) => {
-      stagePanelDef.updateDynamicWidgetDefs(this.id, this.usage, stagePanelDef.location, undefined, allStageWidgetDefs, this.applicationData);
+      stagePanelDef.updateDynamicWidgetDefs(this.id, this.usage, stagePanelDef.location, undefined, allStageWidgetDefs);
     });
   }
 
@@ -959,44 +919,33 @@ export class FrontstageDef {
   }
 }
 
-function createWidgetDef(widget: WidgetProps | undefined, stableId: string, type: WidgetType): WidgetDef | undefined {
-  if (!widget)
+function createWidgetDef(config: WidgetConfig | undefined, type: WidgetType): WidgetDef | undefined {
+  if (!config)
     return undefined;
 
-  const props = getStableWidgetProps(widget, stableId);
-  const widgetDef = new WidgetDef(props, type);
+  const widgetDef = WidgetDef.create(config, type);
   return widgetDef;
 }
 
-function createStagePanelDef(panelLocation: StagePanelLocation, props: FrontstageProps): StagePanelDef | undefined {
+function createStagePanelDef(frontstageConfig: FrontstageConfig, location: StagePanelLocation): StagePanelDef {
+  const config = getStagePanel(location, frontstageConfig);
+
   const panelDef = new StagePanelDef();
-
-  const panel = getStagePanel(panelLocation, props);
-  panelDef.initializeFromProps(panel, panelLocation);
-
+  panelDef.initializeFromConfig(config, location);
   return panelDef;
 }
 
-function getStagePanel(location: StagePanelLocation, props: FrontstageProps) {
-  let panelElement: StagePanelProps | undefined;
-
+function getStagePanel(location: StagePanelLocation, config: FrontstageConfig): StagePanelConfig | undefined {
   switch (location) {
     case StagePanelLocation.Top:
-      panelElement = props.topPanel;
-      break;
+      return config.topPanel;
     case StagePanelLocation.Left:
-      panelElement = props.leftPanel;
-      break;
+      return config.leftPanel;
     case StagePanelLocation.Right:
-      panelElement = props.rightPanel;
-      break;
+      return config.rightPanel;
     case StagePanelLocation.Bottom:
-      panelElement = props.bottomPanel;
-      break;
+      return config.bottomPanel;
   }
-
-  // Panels can be undefined in a Frontstage
-  return panelElement;
 }
 
 /** Hook that returns active frontstage id.

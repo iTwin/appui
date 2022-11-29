@@ -24,7 +24,7 @@ describe("WidgetPanelsToolSettings", () => {
 
   it("should render", () => {
     const frontstageDef = new FrontstageDef();
-    const toolSettings = new WidgetDef({});
+    const toolSettings = new WidgetDef();
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => undefined);
     sinon.stub(frontstageDef, "toolSettings").get(() => toolSettings);

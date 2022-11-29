@@ -27,11 +27,12 @@ describe("StatusBarComposerControl", () => {
   });
 
   it("will render empty status bar", async () => {
-    const statusBarWidgetDef = new WidgetDef({
+    const widgetDef = WidgetDef.create({
+      id: "statusBar",
       classId: StatusBarWidgetComposerControl,
       defaultState: WidgetState.Open,
     });
-    const statusBarControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
+    const statusBarControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
     sinon.stub(FrontstageManager, "activeFrontstageId").returns("TestStage");
     const node = statusBarControl.getReactNode();
     const renderedComponent = render(node as React.ReactElement);

@@ -13,7 +13,7 @@ import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableU
 import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
 import { UiFramework } from "../UiFramework";
 import { ContentControl } from "./ContentControl";
-import { FrontstageProps } from "../frontstage/Frontstage";
+import { FrontstageConfig } from "../frontstage/FrontstageConfig";
 
 /** Properties for content displayed in a content view
  * @public
@@ -44,7 +44,8 @@ export interface ContentGroupProps {
  * @public
  */
 export abstract class ContentGroupProvider {
-  abstract provideContentGroup(props: FrontstageProps): Promise<ContentGroup>;
+  /** Return the contentGroup based on the `FrontstageConfig`. */
+  abstract contentGroup(config: FrontstageConfig): Promise<ContentGroup>;
 
   /** Allow provider to update any data stored in ContentGroupProps. Typically this may
    * be to remove applicationData entries.

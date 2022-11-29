@@ -8,7 +8,7 @@ import * as React from "react";
 import { MockRender } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentGroupProps, CoreTools, FrontstageManager, FrontstageProps, FrontstageProvider,
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentGroupProps, FrontstageConfig, FrontstageManager, FrontstageProvider,
   MessageManager, ModalDialogManager, ModelessDialogManager, PopupManager, WidgetControl,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
@@ -48,10 +48,10 @@ describe("ConfigurableUiManager", () => {
         return Frontstage1.stageId;
       }
 
-      public override get frontstage(): FrontstageProps {
+      public override frontstageConfig(): FrontstageConfig {
         return {
           id: Frontstage1.stageId,
-          defaultTool: CoreTools.selectElementCommand,
+          version: 1,
           contentGroup: TestUtils.TestContentGroup1,
         };
       }

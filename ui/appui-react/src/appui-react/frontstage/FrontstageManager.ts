@@ -361,14 +361,7 @@ export class FrontstageManager {
   }
 
   private static getFrontstageKey(frontstageId: string) {
-    const provider = FrontstageManager._frontstageProviders.get(frontstageId);
-    let isIModelIndependent = false;
-    if (provider) {
-      isIModelIndependent = !!provider.frontstage.isIModelIndependent;
-    }
-    const imodelId = UiFramework.getIModelConnection()?.iModelId ?? "noImodel";
-    const key = isIModelIndependent ? frontstageId : `[${imodelId}]${frontstageId}`;
-    return key;
+    return frontstageId;
   }
 
   /** @internal */
@@ -517,8 +510,6 @@ export class FrontstageManager {
       frontstageDef.onFrontstageReady();
       FrontstageManager.onFrontstageReadyEvent.emit({ frontstageDef });
       UiShowHideManager.handleFrontstageReady();
-
-      frontstageDef.startDefaultTool();
 
       await frontstageDef.setActiveContent();
     }

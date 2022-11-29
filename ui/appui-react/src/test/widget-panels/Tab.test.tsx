@@ -34,7 +34,10 @@ describe("WidgetPanelsTab", () => {
   it("should render with badge", () => {
     const frontstageDef = new FrontstageDef();
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
-    const widgetDef = new WidgetDef({ badgeType: BadgeType.New });
+    const widgetDef = WidgetDef.create({
+      id: "w1",
+      badgeType: BadgeType.New,
+    });
     sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
     render(
       <DragManagerContext.Provider value={new DragManager()}>

@@ -64,8 +64,7 @@ export class WidgetHost {
    * @internal
    */
   public updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined,
-    allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any
-  ): void {
+    allStageWidgetDefs: WidgetDef[]): void {
     // get widgetDefs not already in allStageWidgetDefs and add them
     const uniqueWidgets = this._widgetDefs.filter((widgetDef) => {
       return !allStageWidgetDefs.find((wDef) => wDef.id === widgetDef.id);
@@ -74,15 +73,8 @@ export class WidgetHost {
     allStageWidgetDefs.push(...uniqueWidgets);
 
     let dynamicWidgetDefs: readonly WidgetDef[] | undefined;
-    switch (section) {
-      case StagePanelSection.Start: {
-        dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start, frontstageApplicationData) ?? [];
-        break;
-      }
-      case StagePanelSection.End: {
-        dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, frontstageApplicationData) ?? [];
-        break;
-      }
+    if (section !== undefined) {
+      dynamicWidgetDefs = UiFramework.widgetManager.getWidgetDefs(stageId, stageUsage, location, section) ?? [];
     }
 
     const uniqueDynamicWidgetDefs = dynamicWidgetDefs?.filter((widgetDef) => {

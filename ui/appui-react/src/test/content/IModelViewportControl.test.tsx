@@ -9,8 +9,7 @@ import { render } from "@testing-library/react";
 import { MockRender, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, ContentGroup, ContentLayoutManager, ContentViewManager,
-  CoreTools, FrontstageManager, FrontstageProps, FrontstageProvider, IModelViewportControl, IModelViewportControlOptions,
-  SupportsViewSelectorChange,
+  FrontstageConfig, FrontstageManager, FrontstageProvider, IModelViewportControl, IModelViewportControlOptions, SupportsViewSelectorChange,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -73,7 +72,7 @@ describe("IModelViewportControl", () => {
       return Frontstage1.stageId;
     }
 
-    public override get frontstage(): FrontstageProps {
+    public override frontstageConfig(): FrontstageConfig {
       const contentGroup = new ContentGroup(
         {
           id: "test",
@@ -90,9 +89,10 @@ describe("IModelViewportControl", () => {
 
       return {
         id: this.id,
-        defaultTool: CoreTools.selectElementCommand,
+        version: 1,
         contentGroup,
         viewNavigation: {
+          id: "viewNavigation",
           element: <>NavigationWidget</>,
         },
       };
