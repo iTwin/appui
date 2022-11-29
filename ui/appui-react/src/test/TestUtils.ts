@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import * as enzyme from "enzyme";
 import { createStore, Store } from "redux";
 import * as sinon from "sinon";
 import { fireEvent, prettyDOM } from "@testing-library/react";
@@ -250,18 +249,12 @@ export function stubRaf() {
   });
 }
 
-/** @internal */
-export type ReactWrapper<C extends React.Component, P = C["props"], S = C["state"]> = enzyme.ReactWrapper<P, S, C>;
-
 declare module "sinon" {
   interface SinonStubStatic {
     // eslint-disable-next-line @typescript-eslint/prefer-function-type
     <T extends (...args: any) => any>(): sinon.SinonStub<Parameters<T>, ReturnType<T>>;
   }
 }
-
-/** Enzyme mount with automatic unmount after the test. */
-export const mount: typeof enzyme.mount = (global as any).enzymeMount;
 
 /** Get a iTwinUI Button with a given label */
 export function getButtonWithText(container: HTMLElement, label: string, onError?: (msg: string) => void): Element | undefined {
@@ -398,14 +391,44 @@ export function selectorMatches(selectors: string) {
  * @param selectors selector string used in `querySelector` of the element tested.
  * @returns satisfy function which returns `!!tested.querySelector(selectors)`
  */
-export function childStructure(selectors: string) {
+export function childStructure(selectors: string | string[]) {
   const satisfier = (e: HTMLElement) => {
+    const failedSelectors = (Array.isArray(selectors) ? selectors : [selectors])
+      .filter((selector) => !e.querySelector(selector));
     // \b\b\b... removes default "[Function : " part to get clear message in output.
-    const message = `\b\b\b\b\b\b\b\b\b\b\belement.querySelector('${selectors}'); but is: \n${prettyDOM(e)}`;
-    Object.defineProperty(satisfier, "name", { value: message });
-    return !!e.querySelector(selectors);
+    const message = `\b\b\b\b\b\b\b\b\b\b element.querySelector(\n'${failedSelectors.join("'\n AND \n'")}'\n); but is: \n${prettyDOM(e)}`;
+    Object.defineProperty(satisfier, "name", {value: message});
+    return failedSelectors.length === 0;
   };
   return satisfier;
+}
+
+/**
+ * Type to allow CSSStyleDeclaration to be a regexp that will be matched against the
+ * property instead of the string value.
+ */
+ type Matchable<T> = { [P in keyof T]: T[P] | RegExp; };
+
+/**
+  * Function to generate a `satisfy` function
+  * @param style Style object to compare, each properties of this object should be on the element style
+  * @returns satisfy function
+  */
+export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
+  return (e: HTMLElement) => {
+    expect(e).to.be.instanceOf(HTMLElement).and.have.property("style");
+    for(const prop in style) {
+      if(Object.prototype.hasOwnProperty.call(style, prop)) {
+        const value = style[prop];
+        if(value instanceof RegExp) {
+          expect(e.style, `property ${prop}`).to.have.property(prop).that.match(value);
+        } else {
+          expect(e.style).to.have.property(prop, value);
+        }
+      }
+    }
+    return true;
+  };
 }
 
 export default TestUtils;   // eslint-disable-line: no-default-export
