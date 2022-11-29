@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, ConfigurableUiManager, ContentGroup, ContentGroupProvider, FrontstageProps,
+  BackstageAppButton, ConfigurableUiManager, ContentGroup, ContentGroupProvider,
   IModelViewportControl,
   StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
@@ -21,7 +21,7 @@ import { SampleContentControl } from "../content/SampleContentControl";
  * used in StandardContentLayouts.twoHorizontalSplit which arrange the iModel view on top and the React content below.
  */
 export class CustomContentGroupProvider extends ContentGroupProvider {
-  public async provideContentGroup(_props: FrontstageProps): Promise<ContentGroup> {
+  public override async contentGroup(): Promise<ContentGroup> {
     // copy and then modify standard layout so the content is always shown - note we could have just copied the standard and created a new one in line
     const twoHorizontalSplit: ContentLayoutProps = {
       ...StandardContentLayouts.twoHorizontalSplit, horizontalSplit: {
@@ -80,7 +80,6 @@ export class CustomContentFrontstage {
       hideNavigationAid: false,
       cornerButton,
       usage: StageUsage.General,
-      applicationData: undefined,
     };
 
     CustomContentFrontstage.registerToolProviders(localizationNamespace);
@@ -113,4 +112,3 @@ export class CustomContentFrontstage {
     UiItemsManager.register(new CustomContentStageUiProvider(localizationNamespace), { providerId: "customStageTools", stageIds: [CustomContentFrontstage.stageId] });
   }
 }
-

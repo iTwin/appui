@@ -4,18 +4,16 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, ConfigurableUiManager, ContentGroup, ContentGroupProvider, CoreTools, FrontstageProps,
+  BackstageAppButton, ConfigurableUiManager, ContentGroup, ContentGroupProvider,
   IModelViewportControl, StandardContentToolsProvider, StandardFrontstageProps, StandardFrontstageProvider,
-  StandardNavigationToolsProvider,
-  StandardStatusbarItemsProvider,
-  UiFramework,
+  StandardNavigationToolsProvider, StandardStatusbarItemsProvider, UiFramework,
 } from "@itwin/appui-react";
 import { ContentLayoutProps, StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
 
 export class NoWidgetContentGroupProvider extends ContentGroupProvider {
-  public async provideContentGroup(_props: FrontstageProps): Promise<ContentGroup> {
+  public override async contentGroup(): Promise<ContentGroup> {
     // copy and then modify standard layout so the content is always shown - note we could have just copied the standard and created a new one in line
-    const singleView: ContentLayoutProps = {...StandardContentLayouts.singleView};
+    const singleView: ContentLayoutProps = { ...StandardContentLayouts.singleView };
 
     return new ContentGroup({
       id: "ui-test-app:no-widget-content",
@@ -60,8 +58,6 @@ export class FrontstageWithNoWidgets {
       hideNavigationAid: false,
       cornerButton,
       usage: StageUsage.General,
-      applicationData: undefined,
-      defaultTool: CoreTools.measureDistanceToolItemDef,
     };
 
     FrontstageWithNoWidgets.registerToolProviders();
@@ -93,4 +89,3 @@ export class FrontstageWithNoWidgets {
     });
   }
 }
-

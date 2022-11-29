@@ -11,10 +11,9 @@ import {
 } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import {
-  CommandItemDef, ConfigurableUiManager, CustomItemDef, FrontstageManager, FrontstageProps, FrontstageProvider, GroupItemDef,
+  CommandItemDef, ConfigurableUiManager, CustomItemDef, FrontstageConfig, FrontstageManager, FrontstageProvider, GroupItemDef,
   ToolbarComposer, ToolbarHelper, ToolItemDef,
 } from "../../appui-react";
-import { CoreTools } from "../../appui-react/tools/CoreToolDefinitions";
 import TestUtils from "../TestUtils";
 import { Provider } from "react-redux";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
@@ -116,10 +115,10 @@ describe("<ToolbarComposer  />", async () => {
       return Frontstage1.stageId;
     }
 
-    public override get frontstage(): FrontstageProps {
+    public override frontstageConfig(): FrontstageConfig {
       return {
         id: this.id,
-        defaultTool: CoreTools.selectElementCommand,
+        version: 1,
         contentGroup: TestUtils.TestContentGroup1,
       };
     }

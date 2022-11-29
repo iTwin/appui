@@ -17,7 +17,8 @@ import { Point, ScrollView } from "@itwin/core-react";
 import {
   BasicNavigationWidget, BasicToolWidget, CommandItemDef, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps,
   ContentViewManager, CoreTools, CursorInformation, CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef, EmphasizeElementsChangedArgs,
-  FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
+  FrontstageConfig,
+  FrontstageDef, FrontstageManager, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
   HideIsolateEmphasizeManager, MessageManager, ModalDialogManager, ModelessDialogManager, ModelsTreeNodeType, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT,
 } from "@itwin/appui-react";
 import { Button, Slider } from "@itwin/itwinui-react";
@@ -147,7 +148,7 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public async provideContentGroup(props: FrontstageProps): Promise<ContentGroup> {
+  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> {
     const viewIdsSelected = SampleAppIModelApp.getInitialViewIds();
     const iModelConnection = UiFramework.getIModelConnection();
 
@@ -155,7 +156,7 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
       throw new Error(`Unable to generate content group if not iModelConnection is available`);
 
     if (0 === viewIdsSelected.length) {
-      const savedViewLayoutProps = await getSavedViewLayoutProps(props.id, iModelConnection);
+      const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, iModelConnection);
       if (savedViewLayoutProps) {
         const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
         if (viewState) {
@@ -327,74 +328,73 @@ export class ViewsFrontstage extends FrontstageProvider {
     ];
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const iModelConnection = UiFramework.getIModelConnection();
 
     return {
       id: ViewsFrontstage.stageId,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 3.1,
       contentGroup: this._contentGroupProvider,
-      applicationData: { key: "value" },
       usage: StageUsage.General,
-      version: 3.1, // Defaults to 0. Increment this when Frontstage changes are meaningful enough to reinitialize saved user layout settings.
       contentManipulation: {
+        id: "contentManipulation",
         element: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
           additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={true} />,
       },
       toolSettings: {
+        id: "toolSettings",
         iconSpec: "icon-placeholder",
         preferredPanelSize: "fit-content",
       },
       viewNavigation: {
+        id: "viewNavigation",
         element: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
       },
       statusBar: {
+        id: "statusBar",
         control: AppStatusBarWidgetControl,
       },
       rightPanel: {
         maxSize: { percentage: 50 },
         sections: {
-          start: {
-            widgets: [
-              {
-                iconSpec: "icon-visibility",
-                label: "Searchable Tree",
-                control: VisibilityWidgetControl,
-                applicationData: {
-                  iModelConnection,
-                  config: {
-                    modelsTree: {
-                      selectionMode: SelectionMode.Extended,
-                      selectionPredicate: (_key: NodeKey, type: ModelsTreeNodeType) => type === ModelsTreeNodeType.Element,
-                    },
+          start: [
+            {
+              id: "SearchableTree",
+              iconSpec: "icon-visibility",
+              label: "Searchable Tree",
+              control: VisibilityWidgetControl,
+              applicationData: {
+                iModelConnection,
+                config: {
+                  modelsTree: {
+                    selectionMode: SelectionMode.Extended,
+                    selectionPredicate: (_key: NodeKey, type: ModelsTreeNodeType) => type === ModelsTreeNodeType.Element,
                   },
                 },
-                defaultFloatingSize: { width: 330, height: 540 },
-                isFloatingStateWindowResizable: true,
               },
-            ],
-          },
-          end: {
-            widgets: [
-              {
-                defaultState: WidgetState.Closed,
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.UnifiedSelectPropertyGrid",
-                id: ViewsFrontstage.unifiedSelectionPropertyGridId,
-                control: UnifiedSelectionPropertyGridWidgetControl,
-                applicationData: { iModelConnection },
-                isFloatingStateWindowResizable: true,
-                defaultFloatingSize: { width: 200, height: 300 },
-              },
-              {
-                id: "VerticalPropertyGrid",
-                defaultState: WidgetState.Hidden,
-                iconSpec: "icon-placeholder",
-                labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-                control: VerticalPropertyGridWidgetControl,
-              },
-            ],
-          },
+              defaultFloatingSize: { width: 330, height: 540 },
+              isFloatingStateWindowResizable: true,
+            },
+          ],
+          end: [
+            {
+              defaultState: WidgetState.Closed,
+              iconSpec: "icon-placeholder",
+              labelKey: "SampleApp:widgets.UnifiedSelectPropertyGrid",
+              id: ViewsFrontstage.unifiedSelectionPropertyGridId,
+              control: UnifiedSelectionPropertyGridWidgetControl,
+              applicationData: { iModelConnection },
+              isFloatingStateWindowResizable: true,
+              defaultFloatingSize: { width: 200, height: 300 },
+            },
+            {
+              id: "VerticalPropertyGrid",
+              defaultState: WidgetState.Hidden,
+              iconSpec: "icon-placeholder",
+              labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+              control: VerticalPropertyGridWidgetControl,
+            },
+          ],
         },
       },
     };

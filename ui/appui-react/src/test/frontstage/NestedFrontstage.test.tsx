@@ -7,8 +7,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  ContentGroup, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, NestedFrontstage,
-  ToolItemDef,
+  ContentGroup, FrontstageConfig, FrontstageDef, FrontstageManager, FrontstageProvider, NestedFrontstage, ToolItemDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { AppStatusBarWidgetControl, TestContentControl, TestFrontstage } from "./FrontstageTestUtils";
@@ -29,7 +28,7 @@ class TestNestedFrontstage extends FrontstageProvider {
     return TestNestedFrontstage.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup: ContentGroup = new ContentGroup(
       {
         id: "test-group",
@@ -46,15 +45,16 @@ class TestNestedFrontstage extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: this.defaultToolDef,
+      version: 1,
       contentGroup,
-      defaultContentId: "defaultContentId",
-      applicationData: { key: "value" },
       contentManipulation: {
+        id: "contentManipulation",
         element: <>FrontstageToolWidget</>,
         applicationData: { key: "value" },
       },
-      toolSettings: {},
+      toolSettings: {
+        id: "toolSettings",
+      },
       statusBar: {
         id: "statusBar",
         iconSpec: "icon-placeholder",

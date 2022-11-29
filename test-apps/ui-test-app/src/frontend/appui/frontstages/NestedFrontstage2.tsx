@@ -5,7 +5,7 @@
 import * as React from "react";
 import { CommonToolbarItem, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
-  ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
+  ContentGroup, CoreTools, FrontstageConfig, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
   ToolbarComposer, ToolbarHelper, ToolWidgetComposer,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -22,32 +22,35 @@ export class NestedFrontstage2 extends FrontstageProvider {
     return NestedFrontstage2.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup2);
     return {
       id: this.id,
-      defaultTool: CoreTools.rotateViewCommand,
+      version: 1,
       contentGroup,
       contentManipulation: {
+        id: "contentManipulation",
         element: <FrontstageToolWidget />,
       },
-      toolSettings: {},
+      toolSettings: {
+        id: "toolSettings",
+      },
       viewNavigation: {
+        id: "viewNavigation",
         element: <FrontstageNavigationWidget />,
       },
       statusBar: {
+        id: "statusBar",
         iconSpec: "icon-placeholder",
         labelKey: "SampleApp:widgets.StatusBar",
         control: SmallStatusBarWidgetControl,
       },
       rightPanel: {
         sections: {
-          end: {
-            widgets: [
-              { defaultState: WidgetState.Closed, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
-              { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
-            ],
-          },
+          end: [
+            { id: "HorizontalPropertyGrid", defaultState: WidgetState.Closed, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
+            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
+          ],
         },
       },
     };

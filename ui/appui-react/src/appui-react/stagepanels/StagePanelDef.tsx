@@ -12,8 +12,7 @@ import { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
-import { PanelSectionProps, StagePanelMaxSizeSpec, StagePanelProps } from "./StagePanel";
-import { getStableWidgetProps } from "../widgets/WidgetManager";
+import { StagePanelConfig, StagePanelMaxSizeSpec, StagePanelSectionConfig } from "./StagePanelConfig";
 
 /** Enum for StagePanel state.
  * @public
@@ -60,10 +59,9 @@ export class StagePanelDef extends WidgetHost {
   private _defaultSize: number | undefined;
   private _resizable = true;
   private _pinned = true;
-  private _applicationData?: any;
   private _location: StagePanelLocation = StagePanelLocation.Left;
-  private _start = new PanelSectionDef();
-  private _end = new PanelSectionDef();
+  private _start = new StagePanelSectionDef();
+  private _end = new StagePanelSectionDef();
 
   /** Constructor for PanelDef.
    */
@@ -117,8 +115,6 @@ export class StagePanelDef extends WidgetHost {
   /** Indicates whether the panel is pinned. */
   public get pinned(): boolean { return this._pinned; }
 
-  /** Any application data to attach to this Panel. */
-  public get applicationData(): any | undefined { return this._applicationData; }
   /** Location of panel. */
   public get location(): StagePanelLocation { return this._location; }
 
@@ -171,30 +167,33 @@ export class StagePanelDef extends WidgetHost {
   public get defaultSize() { return this._defaultSize; }
 
   /** @internal */
-  public initializeFromProps(props?: StagePanelProps, panelLocation?: StagePanelLocation): void {
-    if (panelLocation !== undefined)
-      this._location = panelLocation;
-    if (!props)
-      return;
-    this._size = props.size;
-    this._defaultSize = props.size;
-    this._maxSizeSpec = props.maxSize;
-    this._minSize = props.minSize;
-    if (panelLocation !== undefined)
-      this._location = panelLocation;
-    if (props.defaultState !== undefined) {
-      this._panelState = props.defaultState;
-      this._defaultState = props.defaultState;
-    }
-    this._resizable = props.resizable ?? true;
-    if (props.pinned !== undefined)
-      this._pinned = props.pinned;
-    if (props.applicationData !== undefined)
-      this._applicationData = props.applicationData;
+  public static create(config: StagePanelConfig, location: StagePanelLocation) {
+    const def = new StagePanelDef();
+    def.initializeFromConfig(config, location);
+    return def;
+  }
 
-    const sections = props.sections;
-    this._start.initializeFromProps(sections?.start, this._location, StagePanelSection.Start);
-    this._end.initializeFromProps(sections?.end, this._location, StagePanelSection.End);
+  /** @internal */
+  public initializeFromConfig(config: StagePanelConfig | undefined, location: StagePanelLocation): void {
+    this._location = location;
+
+    if (!config)
+      return;
+    this._size = config.size;
+    this._defaultSize = config.size;
+    this._maxSizeSpec = config.maxSize;
+    this._minSize = config.minSize;
+    if (config.defaultState !== undefined) {
+      this._panelState = config.defaultState;
+      this._defaultState = config.defaultState;
+    }
+    this._resizable = config.resizable ?? true;
+    if (config.pinned !== undefined)
+      this._pinned = config.pinned;
+
+    const sections = config.sections;
+    this._start.initializeFromConfig(sections?.start);
+    this._end.initializeFromConfig(sections?.end);
   }
 
   /** Gets the list of Widgets. */
@@ -204,10 +203,9 @@ export class StagePanelDef extends WidgetHost {
 
   /** @internal */
   public override updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, _section: StagePanelSection | undefined,
-    allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any,
-  ) {
-    this._start.updateDynamicWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start, allStageWidgetDefs, frontstageApplicationData);
-    this._end.updateDynamicWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, allStageWidgetDefs, frontstageApplicationData);
+    allStageWidgetDefs: WidgetDef[]) {
+    this._start.updateDynamicWidgetDefs(stageId, stageUsage, location, StagePanelSection.Start, allStageWidgetDefs);
+    this._end.updateDynamicWidgetDefs(stageId, stageUsage, location, StagePanelSection.End, allStageWidgetDefs);
   }
 
   /** @internal */
@@ -224,13 +222,11 @@ export class StagePanelDef extends WidgetHost {
 }
 
 /** @internal */
-export class PanelSectionDef extends WidgetHost {
+export class StagePanelSectionDef extends WidgetHost {
   /** @internal */
-  public initializeFromProps(props: PanelSectionProps | undefined, location: StagePanelLocation, section: StagePanelSection) {
-    props?.widgets.forEach((widgetNode, index) => {
-      const stableId = `uifw-ps-${StagePanelLocation[location]}-${section}-${index}`;
-      const stableProps = getStableWidgetProps(widgetNode, stableId);
-      const widgetDef = new WidgetDef(stableProps);
+  public initializeFromConfig(config: StagePanelSectionConfig | undefined) {
+    config?.forEach((widgetConfig) => {
+      const widgetDef = WidgetDef.create(widgetConfig);
       this.addWidgetDef(widgetDef);
     });
   }

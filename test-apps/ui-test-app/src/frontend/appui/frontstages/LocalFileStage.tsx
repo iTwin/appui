@@ -12,8 +12,8 @@ import { OpenDialogOptions } from "electron";
 
 import { FillCentered } from "@itwin/core-react";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageManager,
-  FrontstageProps, FrontstageProvider, ToolWidgetComposer, UiFramework,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageManager,
+  FrontstageProvider, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -53,12 +53,12 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
     if (LocalFileSupport.localFilesSupported()) {
       const frontstageProvider = new LocalFileOpenFrontstage();
       FrontstageManager.addFrontstageProvider(frontstageProvider);
-      const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.id);
+      const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.id);
       await FrontstageManager.setActiveFrontstageDef(frontstageDef);
     }
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup({
       id: "LocalFileOpenGroup",
       layout: StandardContentLayouts.singleView,
@@ -72,11 +72,11 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 1,
       contentGroup,
-      isIModelIndependent: true,
       usage: StageUsage.Private,
       contentManipulation: {
+        id: "contentManipulation",
         element: < FrontstageToolWidget />,
       },
     };

@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { ContentGroup, CoreTools, FrontstageProps, FrontstageProvider } from "@itwin/appui-react";
+import { ContentGroup, FrontstageConfig, FrontstageProvider } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
 export class ScheduleAnimationFrontstage extends FrontstageProvider {
@@ -12,7 +12,7 @@ export class ScheduleAnimationFrontstage extends FrontstageProvider {
     return ScheduleAnimationFrontstage.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup({
       id: "ScheduleAnimation",
       layout: StandardContentLayouts.singleView,
@@ -26,9 +26,8 @@ export class ScheduleAnimationFrontstage extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 1,
       contentGroup,
-      applicationData: { key: "value" },
     };
   }
 }

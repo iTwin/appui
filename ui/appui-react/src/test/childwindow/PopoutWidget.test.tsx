@@ -13,7 +13,8 @@ import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
 
 describe("PopoutWidget", () => {
   const sandbox = sinon.createSandbox();
-  const testWidgetDef = new WidgetDef({
+  const widgetDef = WidgetDef.create({
+    id: "w1",
     classId: "test",
     defaultState: WidgetState.Open,
   });
@@ -31,8 +32,8 @@ describe("PopoutWidget", () => {
   });
 
   it("will render", () => {
-    sandbox.stub(testWidgetDef, "reactNode").get(() => <div>Hello</div>);
-    const renderedComponent = render(<PopoutWidget widgetContainerId="testContainer" widgetDef={testWidgetDef} />);
+    sandbox.stub(widgetDef, "reactNode").get(() => <div>Hello</div>);
+    const renderedComponent = render(<PopoutWidget widgetContainerId="testContainer" widgetDef={widgetDef} />);
     expect(renderedComponent.queryByText("Hello")).not.to.be.null;
     renderedComponent.unmount();
   });
