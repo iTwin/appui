@@ -14,7 +14,7 @@ import {
   ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
   FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageManager, IModelViewportControl, InitialAppUiSettings,
   ModalFrontstageClosedEventArgs, SafeAreaContext, SafeAreaInsets, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
-  ToolbarDragInteractionContext, UiFramework, UiStateStorageHandler,
+  ToolbarDragInteractionContext, UiFramework, UiShowHideManager, UiStateStorageHandler,
 } from "@itwin/appui-react";
 import { Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
 import { BentleyCloudRpcManager, BentleyCloudRpcParams, RpcConfiguration } from "@itwin/core-common";
@@ -228,6 +228,7 @@ export class SampleAppIModelApp {
     UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
 
     UiFramework.useDefaultPopoutUrl = true;
+    UiShowHideManager.autoHideUi = false;
 
     // initialize state from all registered UserSettingsProviders
     await UiFramework.initializeStateFromUserSettingsProviders();
@@ -428,6 +429,10 @@ window.addEventListener("beforeunload", async () => { // eslint-disable-line @ty
 
 // main entry point.
 async function main() {
+  // Popout widget content is loaded by main window, avoid app-reinitialization.
+  if (window.location.href.endsWith("iTwinPopup"))
+    return;
+
   // initialize logging
   Logger.initializeToConsole();
   Logger.setLevelDefault(LogLevel.Warning);

@@ -18,6 +18,7 @@
     "start:webserver": "npm run -s pseudolocalize && cross-env DISABLE_NEW_JSX_TRANSFORM=true SKIP_PREFLIGHT_CHECK=true BROWSER=none DISABLE_ESLINT_PLUGIN=true TRANSPILE_DEPS=false USE_FAST_SASS=true react-scripts start",
     "start:backend": "node --max-http-header-size=16000 lib/backend/main.js",
     "start:servers": "run-p \"start:webserver\" \"start:backend\"",
+    "serve": "serve -s build",
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./build/public/locales/en-PSEUDO",
     "test": "",
     "cover": "",
@@ -68,6 +69,7 @@
     "npm-run-all": "^4.1.5",
     "null-loader": "^4.0.1",
     "rimraf": "^3.0.2",
+    "serve": "^14.1.2",
     "typescript": "~4.4.0",
     "webpack": "^5.64.4"
   },

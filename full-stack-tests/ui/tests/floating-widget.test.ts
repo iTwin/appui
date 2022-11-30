@@ -12,7 +12,7 @@ test.describe("floating widget", () => {
     await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
   });
 
-  test("should float a panel section", async ({ context, page }) => {
+  test("should float a panel section", async ({ page }) => {
     const tab = tabLocator(page, "WL-1");
     const widget = widgetLocator({ tab });
     const titleBarHandle = titleBarHandleLocator(widget);
@@ -49,7 +49,6 @@ test.describe("floating widget", () => {
 
     await expectSavedFrontstageState(context, (state) => {
       const widgets = Object.values(state.nineZone.widgets);
-      console.log(widgets);
       const widget = widgets.find((w) => w.tabs.indexOf("WL-1") >= 0);
       if (!widget)
         return false;
