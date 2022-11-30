@@ -9,7 +9,7 @@ import * as moq from "typemoq";
 import { MockRender, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, ContentGroup, ContentLayoutManager, ContentViewManager,
-  CoreTools, FloatingContentControl, FloatingViewportContentControl, FrontstageManager, FrontstageProps, FrontstageProvider, SupportsViewSelectorChange,
+  FloatingContentControl, FloatingViewportContentControl, FrontstageConfig, FrontstageManager, FrontstageProvider, SupportsViewSelectorChange,
   ViewportContentControl,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
@@ -64,7 +64,7 @@ describe("ViewportContentControl", () => {
       return Frontstage1.stageId;
     }
 
-    public override get frontstage(): FrontstageProps {
+    public override frontstageConfig(): FrontstageConfig {
       const contentGroup = new ContentGroup(
         {
           id: "test-group",
@@ -80,9 +80,10 @@ describe("ViewportContentControl", () => {
       );
       return {
         id: this.id,
-        defaultTool: CoreTools.selectElementCommand,
+        version: 1,
         contentGroup,
         viewNavigation: {
+          id: "viewNavigation",
           element: <>NavigationWidget</>,
         },
       };

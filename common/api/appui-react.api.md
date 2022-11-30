@@ -450,9 +450,6 @@ export type AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionBut
 // @public
 export type AnyToolbarItemDef = AnyItemDef | CustomItemDef;
 
-// @public
-export type AnyWidgetProps = WidgetProps | ToolWidgetProps | NavigationWidgetProps;
-
 // @internal (undocumented)
 export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, location: StagePanelLocation, section: StagePanelSection): NineZoneState;
 
@@ -1180,10 +1177,9 @@ export interface ContentGroupProps {
 // @public
 export abstract class ContentGroupProvider {
     applyUpdatesToSavedProps(contentGroupProps: ContentGroupProps): ContentGroupProps;
+    abstract contentGroup(config: FrontstageConfig): Promise<ContentGroup>;
     onFrontstageDeactivated(): Promise<void>;
     prepareToSaveProps(contentGroupProps: ContentGroupProps): ContentGroupProps;
-    // (undocumented)
-    abstract provideContentGroup(props: FrontstageProps): Promise<ContentGroup>;
 }
 
 // @public
@@ -2016,6 +2012,22 @@ export interface FrontstageActivatedEventArgs {
 }
 
 // @public
+export interface FrontstageConfig extends CommonProps {
+    readonly bottomPanel?: StagePanelConfig;
+    readonly contentGroup: ContentGroup | ContentGroupProvider;
+    readonly contentManipulation?: WidgetConfig;
+    readonly id: string;
+    readonly leftPanel?: StagePanelConfig;
+    readonly rightPanel?: StagePanelConfig;
+    readonly statusBar?: WidgetConfig;
+    readonly toolSettings?: WidgetConfig;
+    readonly topPanel?: StagePanelConfig;
+    readonly usage?: string;
+    readonly version: number;
+    readonly viewNavigation?: WidgetConfig;
+}
+
+// @public
 export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {
 }
 
@@ -2033,8 +2045,6 @@ export class FrontstageDef {
     // (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
     // (undocumented)
-    get applicationData(): any | undefined;
-    // @beta (undocumented)
     get bottomPanel(): StagePanelDef | undefined;
     get contentControls(): ContentControl[];
     // (undocumented)
@@ -2043,13 +2053,9 @@ export class FrontstageDef {
     get contentGroupProvider(): ContentGroupProvider | undefined;
     // (undocumented)
     get contentLayoutDef(): ContentLayoutDef | undefined;
-    // @beta (undocumented)
+    // (undocumented)
     get contentManipulation(): WidgetDef | undefined;
     static create(provider: FrontstageProvider): Promise<FrontstageDef>;
-    // (undocumented)
-    get defaultContentId(): string;
-    // (undocumented)
-    get defaultTool(): ToolItemDef | undefined;
     // @internal
     dockPopoutWidgetContainer(widgetContainerId: string): void;
     // @beta
@@ -2078,7 +2084,7 @@ export class FrontstageDef {
     // (undocumented)
     get id(): string;
     // @internal
-    initializeFromProps(props: FrontstageProps): Promise<void>;
+    initializeFromConfig(config: FrontstageConfig): Promise<void>;
     // (undocumented)
     get isApplicationClosing(): boolean;
     // (undocumented)
@@ -2090,7 +2096,7 @@ export class FrontstageDef {
     // (undocumented)
     get isStageClosing(): boolean;
     isWidgetDisplayed(widgetId: string): boolean;
-    // @beta (undocumented)
+    // (undocumented)
     get leftPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
     get nineZoneState(): NineZoneState | undefined;
@@ -2109,7 +2115,7 @@ export class FrontstageDef {
     popoutWidget(widgetId: string, point?: PointProps, size?: SizeProps): void;
     // @beta (undocumented)
     restoreLayout(): void;
-    // @beta (undocumented)
+    // (undocumented)
     get rightPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
     saveChildWindowSizeAndPosition(childWindowId: string, childWindow: Window): void;
@@ -2126,14 +2132,13 @@ export class FrontstageDef {
     setFloatingWidgetContainerBounds(floatingWidgetId: string, bounds: RectangleProps): boolean;
     // @internal (undocumented)
     setIsApplicationClosing(value: boolean): void;
-    startDefaultTool(): void;
-    // @beta (undocumented)
+    // (undocumented)
     get statusBar(): WidgetDef | undefined;
     // @internal (undocumented)
     get timeTracker(): TimeTracker;
-    // @beta (undocumented)
+    // (undocumented)
     get toolSettings(): WidgetDef | undefined;
-    // @beta (undocumented)
+    // (undocumented)
     get topPanel(): StagePanelDef | undefined;
     // @internal (undocumented)
     updateWidgetDefs(): void;
@@ -2141,7 +2146,7 @@ export class FrontstageDef {
     get usage(): string;
     // (undocumented)
     get version(): number;
-    // @beta (undocumented)
+    // (undocumented)
     get viewNavigation(): WidgetDef | undefined;
     waitUntilReady(): Promise<void>;
     // @internal
@@ -2244,28 +2249,8 @@ export interface FrontstageNineZoneStateChangedEventArgs extends FrontstageEvent
 }
 
 // @public
-export interface FrontstageProps extends CommonProps {
-    applicationData?: any;
-    bottomPanel?: StagePanelProps;
-    contentGroup: ContentGroup | ContentGroupProvider;
-    contentManipulation?: WidgetProps;
-    defaultContentId?: string;
-    defaultTool: ToolItemDef;
-    id: string;
-    isIModelIndependent?: boolean;
-    leftPanel?: StagePanelProps;
-    rightPanel?: StagePanelProps;
-    statusBar?: WidgetProps;
-    toolSettings?: WidgetProps;
-    topPanel?: StagePanelProps;
-    usage?: string;
-    version?: number;
-    viewNavigation?: WidgetProps;
-}
-
-// @public
 export abstract class FrontstageProvider {
-    abstract get frontstage(): FrontstageProps;
+    abstract frontstageConfig(): FrontstageConfig;
     abstract get id(): string;
 }
 
@@ -2311,9 +2296,6 @@ export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opt
 
 // @beta
 export function getSelectionContextSyncEventIds(): string[];
-
-// @internal (undocumented)
-export function getStableWidgetProps(widgetProps: WidgetProps, stableId: string): WidgetProps;
 
 // @beta
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
@@ -3342,12 +3324,6 @@ export interface NavigationWidgetComposerProps extends CommonProps {
 }
 
 // @public
-export interface NavigationWidgetProps extends ToolbarWidgetProps {
-    // (undocumented)
-    navigationAidId?: string;
-}
-
-// @public
 export class NestedFrontstage {
     static get backToPreviousFrontstageCommand(): CommandItemDef;
 }
@@ -3374,24 +3350,6 @@ export class OpenMessageCenterEvent extends UiEvent<{}> {
 
 // @internal
 export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
-
-// @internal (undocumented)
-export class PanelSectionDef extends WidgetHost {
-    // (undocumented)
-    initializeFromProps(props: PanelSectionProps | undefined, location: StagePanelLocation, section: StagePanelSection): void;
-}
-
-// @public
-export interface PanelSectionProps {
-    applicationData?: any;
-    widgets: Array<WidgetProps>;
-}
-
-// @public
-export interface PanelSectionsProps {
-    end?: PanelSectionProps;
-    start?: PanelSectionProps;
-}
 
 // @internal (undocumented)
 export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {
@@ -4254,17 +4212,29 @@ export interface StageContentLayoutProps {
 }
 
 // @public
+export interface StagePanelConfig {
+    readonly defaultState?: StagePanelState;
+    readonly maxSize?: StagePanelMaxSizeSpec;
+    readonly minSize?: number;
+    readonly pinned?: boolean;
+    readonly resizable?: boolean;
+    readonly sections?: StagePanelSectionsConfig;
+    readonly size?: number;
+}
+
+// @public
 export class StagePanelDef extends WidgetHost {
     constructor();
-    get applicationData(): any | undefined;
+    // @internal (undocumented)
+    static create(config: StagePanelConfig, location: StagePanelLocation): StagePanelDef;
     // @internal (undocumented)
     get defaultSize(): number | undefined;
     // @internal (undocumented)
     get defaultState(): StagePanelState;
     // @internal (undocumented)
-    getPanelSectionDef(section: StagePanelSection): PanelSectionDef;
+    getPanelSectionDef(section: StagePanelSection): StagePanelSectionDef;
     // @internal (undocumented)
-    initializeFromProps(props?: StagePanelProps, panelLocation?: StagePanelLocation): void;
+    initializeFromConfig(config: StagePanelConfig | undefined, location: StagePanelLocation): void;
     get location(): StagePanelLocation;
     // @internal (undocumented)
     get maxSizeSpec(): StagePanelMaxSizeSpec | undefined;
@@ -4277,7 +4247,7 @@ export class StagePanelDef extends WidgetHost {
     get size(): number | undefined;
     set size(size: number | undefined);
     // @internal (undocumented)
-    updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, _section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any): void;
+    updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, _section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[]): void;
     get widgetDefs(): ReadonlyArray<WidgetDef>;
 }
 
@@ -4287,16 +4257,18 @@ export type StagePanelMaxSizeSpec = number | {
 };
 
 // @public
-export interface StagePanelProps {
-    applicationData?: any;
-    defaultState?: StagePanelState;
-    header?: React.ReactNode;
-    maxSize?: StagePanelMaxSizeSpec;
-    minSize?: number;
-    pinned?: boolean;
-    resizable?: boolean;
-    sections?: PanelSectionsProps;
-    size?: number;
+export type StagePanelSectionConfig = ReadonlyArray<WidgetConfig>;
+
+// @internal (undocumented)
+export class StagePanelSectionDef extends WidgetHost {
+    // (undocumented)
+    initializeFromConfig(config: StagePanelSectionConfig | undefined): void;
+}
+
+// @public
+export interface StagePanelSectionsConfig {
+    readonly end?: StagePanelSectionConfig;
+    readonly start?: StagePanelSectionConfig;
 }
 
 // @public
@@ -4334,11 +4306,9 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
 
 // @public
 export interface StandardFrontstageProps {
-    applicationData?: any;
     bottomPanelProps?: WidgetPanelProps;
     contentGroupProps: ContentGroupProps | ContentGroupProvider;
     cornerButton?: React_2.ReactNode;
-    defaultTool?: ToolItemDef;
     hideNavigationAid?: boolean;
     hideStatusBar?: boolean;
     hideToolSettings?: boolean;
@@ -4357,7 +4327,7 @@ export interface StandardFrontstageProps {
 export class StandardFrontstageProvider extends FrontstageProvider {
     constructor(props: StandardFrontstageProps);
     // (undocumented)
-    get frontstage(): FrontstageProps;
+    frontstageConfig(): FrontstageConfig;
     // (undocumented)
     get id(): string;
 }
@@ -4769,14 +4739,6 @@ export interface ToolbarPopupProps extends PopupPropsBase {
 }
 
 // @public
-export interface ToolbarWidgetProps extends WidgetProps {
-    // (undocumented)
-    horizontalItems?: ItemList;
-    // (undocumented)
-    verticalItems?: ItemList;
-}
-
-// @public
 export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {
 }
 
@@ -4889,12 +4851,6 @@ export interface ToolWidgetComposerProps extends CommonProps {
     cornerItem?: React_2.ReactNode;
     horizontalToolbar?: React_2.ReactNode;
     verticalToolbar?: React_2.ReactNode;
-}
-
-// @public
-export interface ToolWidgetProps extends ToolbarWidgetProps {
-    // (undocumented)
-    appButton?: CommandItemDef;
 }
 
 // @internal (undocumented)
@@ -5499,6 +5455,19 @@ export interface WidgetChangedEventArgs {
     widgetDef: WidgetDef;
 }
 
+// @public
+export interface WidgetConfig extends Omit<AbstractWidgetProps, "getWidgetContent" | "id">, IconProps {
+    readonly classId?: string | ConfigurableUiControlConstructor;
+    readonly control?: ConfigurableUiControlConstructor;
+    readonly element?: React.ReactNode;
+    // (undocumented)
+    readonly id: string;
+    readonly labelKey?: string;
+    // @alpha (undocumented)
+    readonly preferredPanelSize?: "fit-content";
+    readonly tooltipKey?: string;
+}
+
 // @internal (undocumented)
 export function WidgetContent(): JSX.Element;
 
@@ -5518,7 +5487,7 @@ export class WidgetControl extends ConfigurableUiControl {
 
 // @public
 export class WidgetDef {
-    constructor(widgetProps: WidgetProps, type?: WidgetType);
+    constructor();
     // (undocumented)
     get activeState(): WidgetState;
     // (undocumented)
@@ -5534,8 +5503,8 @@ export class WidgetDef {
     get canPopout(): boolean | undefined;
     // (undocumented)
     get classId(): string | ConfigurableUiControlConstructor | undefined;
-    // (undocumented)
-    static createWidgetPropsFromAbstractProps(abstractWidgetProps: AbstractWidgetProps): WidgetProps;
+    // @internal (undocumented)
+    static create(config: WidgetConfig, type?: WidgetType): WidgetDef;
     // @internal (undocumented)
     get defaultFloatingPosition(): PointProps | undefined;
     set defaultFloatingPosition(position: PointProps | undefined);
@@ -5561,7 +5530,7 @@ export class WidgetDef {
     // (undocumented)
     get id(): string;
     // (undocumented)
-    get initialProps(): WidgetProps | undefined;
+    get initialConfig(): WidgetConfig | undefined;
     // (undocumented)
     get isActive(): boolean;
     // (undocumented)
@@ -5629,7 +5598,7 @@ export class WidgetHost {
     findWidgetDef(id: string): WidgetDef | undefined;
     getSingleWidgetDef(): WidgetDef | undefined;
     // @internal
-    updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[], frontstageApplicationData?: any): void;
+    updateDynamicWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section: StagePanelSection | undefined, allStageWidgetDefs: WidgetDef[]): void;
     get widgetCount(): number;
     get widgetDefs(): ReadonlyArray<WidgetDef>;
 }
@@ -5651,7 +5620,7 @@ export interface WidgetInfo {
 // @beta
 export class WidgetManager {
     addWidgetDef(widgetDef: WidgetDef, stageId: string | undefined, stageUsage: string | undefined, location: StagePanelLocation, section?: StagePanelSection): boolean;
-    getWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, frontstageApplicationData?: any): ReadonlyArray<WidgetDef> | undefined;
+    getWidgetDefs(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<WidgetDef> | undefined;
     // @internal
     readonly onWidgetsChanged: WidgetsChangedEvent;
     removeWidgetDef(widgetId: string): boolean;
@@ -5663,7 +5632,7 @@ export class WidgetManager {
 }
 
 // @public
-export type WidgetPanelProps = Omit<StagePanelProps, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
+export type WidgetPanelProps = Omit<StagePanelConfig, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
 
 // @internal (undocumented)
 export const WidgetPanelsFrontstage: React_2.NamedExoticComponent<object>;
@@ -5694,17 +5663,6 @@ export function WidgetPanelsToolbars(): JSX.Element;
 
 // @internal (undocumented)
 export function WidgetPanelsToolSettings(): JSX.Element | null;
-
-// @public
-export interface WidgetProps extends Omit<AbstractWidgetProps, "getWidgetContent">, IconProps {
-    classId?: string | ConfigurableUiControlConstructor;
-    control?: ConfigurableUiControlConstructor;
-    element?: React.ReactNode;
-    labelKey?: string;
-    // @alpha (undocumented)
-    preferredPanelSize?: "fit-content";
-    tooltipKey?: string;
-}
 
 // @internal
 export class WidgetsChangedEvent extends BeUiEvent<WidgetsChangedEventArgs> {

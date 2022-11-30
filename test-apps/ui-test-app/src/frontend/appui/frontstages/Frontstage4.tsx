@@ -11,7 +11,7 @@ import {
 } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
-  CommandItemDef, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, ModalDialogManager,
+  CommandItemDef, ContentGroup, FrontstageConfig, FrontstageProvider, ModalDialogManager,
   ModelessDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanelState, ToolbarComposer, ToolbarHelper, ToolWidgetComposer,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -142,7 +142,7 @@ export class Frontstage4 extends FrontstageProvider {
     return Frontstage4.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup(
       {
         id: "CubeContent",
@@ -158,35 +158,35 @@ export class Frontstage4 extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 1,
       contentGroup,
-      defaultContentId: "TestContent1",
       contentManipulation: {
+        id: "contentManipulation",
         element: this.getToolWidget(),
       },
-      toolSettings: {},
+      toolSettings: {
+        id: "toolSettings",
+      },
       viewNavigation: {
+        id: "viewNavigation",
         element: this.getNavigationWidget(),
       },
       rightPanel: {
         defaultState: StagePanelState.Minimized,
         sections: {
-          start: {
-            widgets: [
-              { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree", control: NavigationTreeWidgetControl },
-              { iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo", control: TreeSelectionDemoWidgetControl },
-            ],
-          },
-          end: {
-            widgets: [
-              { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
-              { defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
-              { defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl2 },
-            ],
-          },
+          start: [
+            { id: "w1", iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree", control: NavigationTreeWidgetControl },
+            { id: "w2", iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo", control: TreeSelectionDemoWidgetControl },
+          ],
+          end: [
+            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
+            { id: "w3", defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
+            { id: "w4", defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl2 },
+          ],
         },
       },
       statusBar: {
+        id: "statusBar",
         classId: "SmallStatusBar",
       },
     };

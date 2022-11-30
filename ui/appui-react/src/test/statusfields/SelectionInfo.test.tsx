@@ -34,11 +34,12 @@ describe(`SelectionInfoField`, () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
 
-    const statusBarWidgetDef = new WidgetDef({
+    const widgetDef = WidgetDef.create({
+      id: "statusBar",
       classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
-    widgetControl = statusBarWidgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
+    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
   after(() => {

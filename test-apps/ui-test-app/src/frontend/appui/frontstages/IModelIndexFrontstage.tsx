@@ -6,7 +6,7 @@ import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, FrontstageProps, FrontstageProvider, UiFramework,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider, UiFramework,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { IModelIndex } from "../imodelindex/IModelIndex";
@@ -39,7 +39,7 @@ export class IModelIndexFrontstage extends FrontstageProvider {
     return IModelIndexFrontstage.stageId;
   }
 
-  public override get frontstage(): FrontstageProps {
+  public override frontstageConfig(): FrontstageConfig {
     const contentGroup = new ContentGroup({
       id: "imodelIndexGroup",
       layout: StandardContentLayouts.singleView,
@@ -53,7 +53,7 @@ export class IModelIndexFrontstage extends FrontstageProvider {
 
     return {
       id: this.id,
-      defaultTool: CoreTools.selectElementCommand,
+      version: 1,
       contentGroup,
       usage: StageUsage.Private,
     };

@@ -6,7 +6,6 @@ import { expect } from "chai";
 import * as React from "react";
 import { IModelAppOptions, MockRender } from "@itwin/core-frontend";
 import { ConfigurableUiControlType } from "../../appui-react/configurableui/ConfigurableUiControl";
-import { WidgetProps } from "../../appui-react/widgets/WidgetProps";
 import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawWidget, AccuDrawWidgetControl } from "../../appui-react/accudraw/AccuDrawWidget";
@@ -28,13 +27,11 @@ describe("AccuDrawWidget", () => {
   });
 
   it("should get AccuDrawWidgetControl", () => {
-    const widgetProps: WidgetProps = {
+    const widgetDef = WidgetDef.create({
       id: AccuDrawWidgetControl.id,
       label: AccuDrawWidgetControl.label,
       control: AccuDrawWidgetControl,
-    };
-
-    const widgetDef = new WidgetDef(widgetProps);
+    });
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
 
     expect(widgetControl).to.not.be.undefined;

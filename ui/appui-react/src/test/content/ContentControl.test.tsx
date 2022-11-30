@@ -7,8 +7,8 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentViewManager, CoreTools,
-  FrontstageManager, FrontstageProps, FrontstageProvider,
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentViewManager,
+  FrontstageConfig, FrontstageManager, FrontstageProvider,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
@@ -47,10 +47,10 @@ describe("ContentControl", () => {
         return Frontstage1.stageId;
       }
 
-      public override get frontstage(): FrontstageProps {
+      public override frontstageConfig(): FrontstageConfig {
         return {
           id: this.id,
-          defaultTool: CoreTools.selectElementCommand,
+          version: 1,
           contentGroup: myContentGroup,
         };
       }
@@ -102,10 +102,10 @@ describe("ContentControl", () => {
         return Frontstage2.stageId;
       }
 
-      public override get frontstage(): FrontstageProps {
+      public override frontstageConfig(): FrontstageConfig {
         return {
           id: this.id,
-          defaultTool: CoreTools.selectElementCommand,
+          version: 1,
           contentGroup: contentGroup2,
         };
       }

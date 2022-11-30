@@ -30,7 +30,7 @@ export function WidgetContent() {
   return (
     <ScrollableWidgetContent
       itemId={itemId}
-      providerId={widget?.initialProps?.providerId}
+      providerId={widget?.initialConfig?.providerId}
     >
       {widget?.reactNode}
     </ScrollableWidgetContent>

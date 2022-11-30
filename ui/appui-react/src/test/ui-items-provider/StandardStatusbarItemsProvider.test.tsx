@@ -73,7 +73,7 @@ describe("StandardStatusbarItemsProvider", () => {
     const provider = StandardStatusbarItemsProvider.register(testProviderId);
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
     // Activity Item is not included by default
-    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General, undefined).length).to.eq(8);
+    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General).length).to.eq(8);
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -89,7 +89,7 @@ describe("StandardStatusbarItemsProvider", () => {
       selectionInfo: true,
     });
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General, undefined).length).to.eq(7);
+    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General).length).to.eq(7);
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -100,7 +100,7 @@ describe("StandardStatusbarItemsProvider", () => {
     });
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
     // Activity Item is not included by default
-    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General, undefined).length).to.eq(8);
+    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General).length).to.eq(8);
     provider.unregister();
 
     testArray.forEach((itemList: DefaultStatusbarItems) => {
@@ -112,4 +112,3 @@ describe("StandardStatusbarItemsProvider", () => {
     });
   });
 });
-

@@ -24,7 +24,7 @@ export interface FooterIndicatorProps extends CommonProps {
 }
 
 /** Indicator used in [[Footer]] component.
- * @note Use [Indicator]($appui-react) instead
+ * @note Use [StatusBarIndicator]($appui-react) instead
  * @internal
  */
 export const FooterIndicator = React.forwardRef<HTMLDivElement, FooterIndicatorProps>(function FooterIndicator(props, ref) {

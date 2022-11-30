@@ -6,14 +6,14 @@
  * @module Frontstage
  */
 
-import { FrontstageProps } from "./Frontstage";
+import { FrontstageConfig } from "./FrontstageConfig";
 
-/** Provides a Frontstage.
+/** Provides a definition required to create a Frontstage.
  * @public
  */
 export abstract class FrontstageProvider {
   /** Get the FrontstageProvider id. */
   public abstract get id(): string;
-  /** Get the Frontstage definition. */
-  public abstract get frontstage(): FrontstageProps;
+  /** Return the frontstage configuration. */
+  public abstract frontstageConfig(): FrontstageConfig;
 }

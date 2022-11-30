@@ -16,7 +16,7 @@ import {
 import {
   BackstageAppButton,
   ConfigurableUiManager, ContentGroup, ContentGroupProps,
-  ContentGroupProvider, ContentProps, FrontstageProps, IModelViewportControl,
+  ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl,
   SettingsModalFrontstage, StageContentLayout, StageContentLayoutProps,
   StandardContentToolsUiItemsProvider, StandardFrontstageProps,
   StandardFrontstageProvider,
@@ -95,7 +95,7 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public async provideContentGroup(props: FrontstageProps): Promise<ContentGroup> {
+  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> {
     const viewIdsSelected = SampleAppIModelApp.getInitialViewIds();
     const iModelConnection = UiFramework.getIModelConnection();
 
@@ -103,7 +103,7 @@ export class InitialIModelContentStageProvider extends ContentGroupProvider {
       throw new Error(`Unable to generate content group if not iModelConnection is available`);
 
     if (0 === viewIdsSelected.length) {
-      const savedViewLayoutProps = await getSavedViewLayoutProps(props.id, iModelConnection);
+      const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, iModelConnection);
       if (savedViewLayoutProps) {
         const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
         if (viewState) {

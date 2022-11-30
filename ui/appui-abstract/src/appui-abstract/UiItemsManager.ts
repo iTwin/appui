@@ -161,7 +161,7 @@ export class UiItemsManager {
    * @returns an array of error messages. The array will be empty if the load is successful, otherwise it is a list of one or more problems.
    */
   public static getToolbarButtonItems(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage,
-    toolbarOrientation: ToolbarOrientation, stageAppData?: any): CommonToolbarItem[] {
+    toolbarOrientation: ToolbarOrientation): CommonToolbarItem[] {
     const buttonItems: CommonToolbarItem[] = [];
     if (0 === UiItemsManager._registeredUiItemsProviders.size)
       return buttonItems;
@@ -171,7 +171,7 @@ export class UiItemsManager {
       const providerId = entry.overrides?.providerId ?? uiProvider.id;
       // istanbul ignore else
       if (uiProvider.provideToolbarButtonItems && this.allowItemsFromProvider(entry, stageId, stageUsage)) {
-        uiProvider.provideToolbarButtonItems(stageId, stageUsage, toolbarUsage, toolbarOrientation, stageAppData)
+        uiProvider.provideToolbarButtonItems(stageId, stageUsage, toolbarUsage, toolbarOrientation)
           .forEach((spec: CommonToolbarItem) => {
             // ignore duplicate ids
             if (-1 === buttonItems.findIndex((existingItem) => spec.id === existingItem.id))
@@ -188,7 +188,7 @@ export class UiItemsManager {
    * @param stageUsage the StageUsage of the active stage.
    * @returns An array of CommonStatusBarItem that will be used to create controls for the status bar.
    */
-  public static getStatusBarItems(stageId: string, stageUsage: string, stageAppData?: any): CommonStatusBarItem[] {
+  public static getStatusBarItems(stageId: string, stageUsage: string): CommonStatusBarItem[] {
     const statusBarItems: CommonStatusBarItem[] = [];
 
     if (0 === UiItemsManager._registeredUiItemsProviders.size)
@@ -200,7 +200,7 @@ export class UiItemsManager {
 
       // istanbul ignore else
       if (uiProvider.provideStatusBarItems && this.allowItemsFromProvider(entry, stageId, stageUsage)) {
-        uiProvider.provideStatusBarItems(stageId, stageUsage, stageAppData)
+        uiProvider.provideStatusBarItems(stageId, stageUsage)
           .forEach((item: CommonStatusBarItem) => {
             // ignore duplicate ids
             if (-1 === statusBarItems.findIndex((existingItem) => item.id === existingItem.id))
@@ -245,7 +245,7 @@ export class UiItemsManager {
    * @param section the section within location.
    * @returns An array of AbstractWidgetProps that will be used to create widgets.
    */
-  public static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any): ReadonlyArray<AbstractWidgetProps> {
+  public static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<AbstractWidgetProps> {
     const widgets: AbstractWidgetProps[] = [];
 
     if (0 === UiItemsManager._registeredUiItemsProviders.size)
@@ -257,7 +257,7 @@ export class UiItemsManager {
 
       // istanbul ignore else
       if (uiProvider.provideWidgets && this.allowItemsFromProvider(entry, stageId, stageUsage)) {
-        uiProvider.provideWidgets(stageId, stageUsage, location, section, stageAppData)
+        uiProvider.provideWidgets(stageId, stageUsage, location, section)
           .forEach((widget: AbstractWidgetProps) => {
             // ignore duplicate ids
             if (-1 === widgets.findIndex((existingItem) => widget.id === existingItem.id))
