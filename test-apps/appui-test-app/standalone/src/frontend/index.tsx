@@ -428,6 +428,10 @@ window.addEventListener("beforeunload", async () => { // eslint-disable-line @ty
 
 // main entry point.
 async function main() {
+  // Popout widget content is loaded by main window, avoid app-reinitialization.
+  if (window.location.href.endsWith("iTwinPopup"))
+    return;
+
   // initialize logging
   Logger.initializeToConsole();
   Logger.setLevelDefault(LogLevel.Warning);

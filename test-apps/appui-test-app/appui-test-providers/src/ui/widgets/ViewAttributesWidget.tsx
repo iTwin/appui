@@ -80,9 +80,15 @@ export function ViewFlagItem(flagName: string) {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function ViewAttributesWidgetComponent() {
   const widgetDef = useWidgetDef("appui-test-providers:ViewAttributesWidget");
+  const frontstageDef = useActiveFrontstageDef();
   React.useEffect(() => {
     // using setTimeout to give time for frontstage to load before calling setWidgetState
-    setTimeout(() => widgetDef?.setWidgetState(WidgetState.Floating));
+    setTimeout(() => {
+      const isPopoutWidget = frontstageDef?.isPopoutWidget("appui-test-providers:ViewAttributesWidget") ?? false;
+      if (isPopoutWidget)
+        return;
+      widgetDef?.setWidgetState(WidgetState.Floating)
+    });
   }, [widgetDef]);
   const items: JSX.Element[] = [];
   items.push(ViewFlagItem("acs"));
