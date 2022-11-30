@@ -22,6 +22,7 @@ test.describe("popout widget", () => {
       context.waitForEvent("page"),
       popoutButton.click(),
     ]);
+    await expect(popoutPage).toHaveTitle(/View Attributes/);
 
     await expect(tab).not.toBeVisible();
     expect(await popoutPage.title()).toEqual("View Attributes");
@@ -37,6 +38,8 @@ test.describe("popout widget", () => {
       context.waitForEvent("page"),
       popoutButton.click(),
     ]);
+    await expect(popoutPage).toHaveTitle(/View Attributes/);
+
     expect(popoutPage.viewportSize()).toEqual({
       height: 800,
       width: 600
@@ -74,6 +77,7 @@ test.describe("popout widget", () => {
       context.waitForEvent("page"),
       popoutButton.click(),
     ]);
+    await expect(popoutPage).toHaveTitle(/View Attributes/);
 
     // Update widget size and close the popout.
     await popoutPage.setViewportSize({
@@ -87,7 +91,7 @@ test.describe("popout widget", () => {
     await expect(tab).toHaveClass(/nz-active/);
 
     await expectSavedFrontstageState(context, (state) => {
-      return state.nineZone.widgets.leftStart.activeTabId === "WL-A";
+      return state.nineZone.widgets.leftStart.activeTabId === "appui-test-providers:ViewAttributesWidget";
     });
 
     await page.reload();

@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { useActiveFrontstageDef, useActiveViewport } from "@itwin/appui-react";
-import { WidgetState } from "@itwin/appui-abstract";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 import { ViewFlagProps, ViewFlags } from "@itwin/core-common";
 import * as React from "react";
@@ -79,17 +78,6 @@ export function ViewFlagItem(flagName: string) {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function ViewAttributesWidgetComponent() {
-  const widgetDef = useWidgetDef("appui-test-providers:ViewAttributesWidget");
-  const frontstageDef = useActiveFrontstageDef();
-  React.useEffect(() => {
-    // using setTimeout to give time for frontstage to load before calling setWidgetState
-    setTimeout(() => {
-      const isPopoutWidget = frontstageDef?.isPopoutWidget("appui-test-providers:ViewAttributesWidget") ?? false;
-      if (isPopoutWidget)
-        return;
-      widgetDef?.setWidgetState(WidgetState.Floating);
-    });
-  }, [widgetDef, frontstageDef]);
   const items: JSX.Element[] = [];
   items.push(ViewFlagItem("acs"));
   items.push(ToggleCameraItem());
