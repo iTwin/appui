@@ -87,9 +87,9 @@ export function ViewAttributesWidgetComponent() {
       const isPopoutWidget = frontstageDef?.isPopoutWidget("appui-test-providers:ViewAttributesWidget") ?? false;
       if (isPopoutWidget)
         return;
-      widgetDef?.setWidgetState(WidgetState.Floating)
+      widgetDef?.setWidgetState(WidgetState.Floating);
     });
-  }, [widgetDef]);
+  }, [widgetDef, frontstageDef]);
   const items: JSX.Element[] = [];
   items.push(ViewFlagItem("acs"));
   items.push(ToggleCameraItem());
