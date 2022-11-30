@@ -15,7 +15,7 @@
     "cover": "",
     "docs": "",
     "lint": "",
-    "test": ""
+    "test": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.24.1"
