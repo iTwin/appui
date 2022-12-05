@@ -983,6 +983,10 @@
       "allowedCategories": [ "backend", "common", "frontend", "internal" ]
     },
     {
+      "name": "serve",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "shortid",
       "allowedCategories": [ "frontend" ]
     },

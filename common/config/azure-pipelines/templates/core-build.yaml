@@ -10,7 +10,7 @@ parameters:
 
 steps:
   - script: node common/scripts/set-rush-write-cache-variables.js
-    displayName: 'Set Rush Write Cache Variables'
+    displayName: "Set Rush Write Cache Variables"
   - script: node common/scripts/install-run-rush.js check
     displayName: rush check
     workingDirectory: ${{ parameters.workingDir }}
@@ -41,6 +41,7 @@ steps:
     displayName: rush build
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Agent.OS'], 'Darwin'))
+
   - script: node common/scripts/install-run-rush.js lint
     displayName: rush lint
     workingDirectory: ${{ parameters.workingDir }}
@@ -56,6 +57,20 @@ steps:
     displayName: rush cover
     workingDirectory: ${{ parameters.workingDir }}
     condition: and(succeeded(), ne(variables['Agent.OS'], 'Linux'))
+
+  # Install Playwright browsers and dependencies
+  - script: npx playwright install --with-deps
+    displayName: install playwright
+    workingDirectory: "full-stack-tests/ui"
+    condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
+
+  # Run playwright tests
+  - script: npm run test
+    displayName: run playwright
+    workingDirectory: "full-stack-tests/ui"
+    env:
+      CI: true
+    condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
 
   - script: node common/scripts/install-run-rush.js docs
     displayName: rush docs
