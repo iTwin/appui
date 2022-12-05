@@ -13,11 +13,14 @@
   "scripts": {
     "build": "npm run -s copy:locale && npm run -s build:cjs",
     "build:ci": "npm run -s build && npm run -s build:esm",
-    "build:cjs": "tsc 1>&2 --outDir lib/cjs && npm run -s copy:cjs",
-    "build:esm": "tsc 1>&2 --module ES2020 --outDir lib/esm && npm run -s copy:esm",
-    "copy:cjs": "cpx \"./src/**/*.*css\" ./lib/cjs",
-    "copy:esm": "cpx \"./src/**/*.*css\" ./lib/esm",
+    "build:cjs": "npm run -s copy:cjs && tsc -p tsconfig.cjs.json",
+    "build:esm": "npm run -s copy:esm && tsc -p tsconfig.esm.json",
+    "build:watch": "run-p watch:cjs watch:esm",
+    "watch:cjs": "npm run -s build:cjs -- -w",
+    "watch:esm": "npm run -s build:esm -- -w",
     "copy:locale": "cpx \"./public/**/*\" ./lib/public",
+    "copy:cjs": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/cjs\"",
+    "copy:esm": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib/esm\"",
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./public/locales/en-PSEUDO",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "cover": "nyc npm -s test",
@@ -105,7 +108,7 @@
     "NOTE: core-frontend should remain UI technology agnostic, so no react/angular dependencies are allowed"
   ],
   "dependencies": {
-    "@bentley/icons-generic-webfont": "^1.0.15",
+    "@bentley/icons-generic": "^1.0.34",
     "@itwin/itwinui-css": "0.x",
     "@itwin/itwinui-icons-react": "^1.8.0",
     "@itwin/itwinui-react": "~1.42.0",

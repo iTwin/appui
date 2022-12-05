@@ -1,8 +1,9 @@
 {
   "extends": "./node_modules/@itwin/build-tools/tsconfig-base.json",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "jsx": "react"
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "types": ["sinon-chai", "chai-as-promised", "mocha" ]
   },
   "include": ["./src/**/*.ts*"]
 }

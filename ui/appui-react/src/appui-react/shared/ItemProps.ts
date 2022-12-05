@@ -7,7 +7,7 @@
  */
 
 import { BadgeType, CommandHandler, ConditionalBooleanValue, ConditionalStringValue, StringGetter } from "@itwin/appui-abstract";
-import { IconProps } from "@itwin/core-react";
+import { ConditionalIconItem, IconProps, IconSpec } from "@itwin/core-react";
 
 /** Definition that specifies properties shared between many ConfigurableUi components.
  * @public
@@ -27,6 +27,9 @@ export interface ItemProps extends IconProps {
   badgeType?: BadgeType;
   /** abstract icon definition, used when create itemDef from abstract item (ie. MenuItem) */
   icon?: string | ConditionalStringValue;
+
+  /** icon definition, used when create itemDef from abstract item (ie. MenuItem) */
+  iconSpec?: IconSpec | ConditionalIconItem;
 
   /** if set, it is used to explicitly set the label shown by a component. */
   label?: string | StringGetter | ConditionalStringValue;

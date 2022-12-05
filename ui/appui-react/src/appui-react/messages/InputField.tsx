@@ -11,10 +11,11 @@ import classnames from "classnames";
 import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { Popup } from "@itwin/core-react";
+import { Icon, Popup } from "@itwin/core-react";
 import { InputFieldMessageEventArgs, MessageManager } from "../messages/MessageManager";
 import { MessageDiv } from "./MessageSpan";
 import { NotifyMessageType } from "./ReactNotifyMessageDetails";
+import { SvgClose, SvgInfoCircularHollow, SvgStatusError, SvgStatusWarning} from "@itwin/itwinui-icons-react";
 
 /** Properties of [[InputFieldMessage]] component.
  * @public
@@ -53,16 +54,16 @@ export class InputFieldMessage extends React.PureComponent<InputFieldMessageProp
       return null;
     }
 
-    let iconClassName = "";
+    let iconComponent = <SvgInfoCircularHollow />
     switch (priority) {
       case OutputMessagePriority.Warning:
-        iconClassName = "icon-status-warning";
+        iconComponent = <SvgStatusWarning />;
         break;
       case OutputMessagePriority.Error:
-        iconClassName = "icon-status-error";
+        iconComponent = <SvgStatusError />;
         break;
       case OutputMessagePriority.Info:
-        iconClassName = "icon-info";
+        iconComponent = <SvgInfoCircularHollow />;
         break;
     }
 
@@ -75,8 +76,8 @@ export class InputFieldMessage extends React.PureComponent<InputFieldMessageProp
         <div className="uifw-popup-message-inputField">
           <div className="uifw-popup-message-inputField-content">
             <div className="uifw-popup-message-inputField-primary">
-              {iconClassName &&
-                <span className="uifw-popup-message-icon"> <i className={classnames("icon", iconClassName)} /> </span>
+            {iconComponent &&
+                <span className="uifw-popup-message-icon"> <i className={classnames("icon", "core-svg-icon")}>{iconComponent}</i> </span>
               }
               <span className="uifw-popup-message-text">
                 <MessageDiv className="uifw-popup-message-brief" message={message} />
@@ -89,7 +90,7 @@ export class InputFieldMessage extends React.PureComponent<InputFieldMessageProp
           {showCloseButton &&
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <div className="uifw-popup-message-close" onClick={this._onInputMessageClose} role="button" tabIndex={-1}>
-              <i className="icon icon-close" />
+              <Icon iconSpec={<SvgClose />} />
             </div>
           }
         </div>

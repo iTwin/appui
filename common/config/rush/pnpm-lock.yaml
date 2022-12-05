@@ -85,8 +85,7 @@ importers:
   ../../test-apps/appui-test-app/connected:
     specifiers:
       '@axe-core/react': 4.3.1
-      '@bentley/icons-generic': ^1.0.15
-      '@bentley/icons-generic-webfont': ^1.0.15
+      '@bentley/icons-generic': ^1.0.34
       '@bentley/react-scripts': ^5.0.0
       '@itwin/appui-abstract': workspace:*
       '@itwin/appui-layout-react': workspace:*
@@ -172,7 +171,6 @@ importers:
       webpack: ^5.64.4
     dependencies:
       '@bentley/icons-generic': 1.0.34
-      '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': link:../../../ui/appui-abstract
       '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
       '@itwin/appui-react': link:../../../ui/appui-react
@@ -262,8 +260,7 @@ importers:
   ../../test-apps/appui-test-app/standalone:
     specifiers:
       '@axe-core/react': 4.3.1
-      '@bentley/icons-generic': ^1.0.15
-      '@bentley/icons-generic-webfont': ^1.0.15
+      '@bentley/icons-generic': ^1.0.34
       '@bentley/react-scripts': ^5.0.0
       '@itwin/appui-abstract': workspace:*
       '@itwin/appui-layout-react': workspace:*
@@ -348,7 +345,6 @@ importers:
       webpack: ^5.64.4
     dependencies:
       '@bentley/icons-generic': 1.0.34
-      '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': link:../../../ui/appui-abstract
       '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
       '@itwin/appui-react': link:../../../ui/appui-react
@@ -502,8 +498,7 @@ importers:
   ../../test-apps/ui-test-app:
     specifiers:
       '@axe-core/react': 4.3.1
-      '@bentley/icons-generic': ^1.0.15
-      '@bentley/icons-generic-webfont': ^1.0.15
+      '@bentley/icons-generic': ^1.0.34
       '@bentley/react-scripts': ^5.0.0
       '@itwin/appui-abstract': workspace:*
       '@itwin/appui-layout-react': workspace:*
@@ -586,7 +581,6 @@ importers:
       webpack: ^5.64.4
     dependencies:
       '@bentley/icons-generic': 1.0.34
-      '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': link:../../ui/appui-abstract
       '@itwin/appui-layout-react': link:../../ui/appui-layout-react
       '@itwin/appui-react': link:../../ui/appui-react
@@ -754,6 +748,7 @@ importers:
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^3.4.0
       '@itwin/itwinui-css': 0.x
+      '@itwin/itwinui-icons-react': ^1.8.0
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
       '@testing-library/user-event': ^14.4.2
@@ -798,6 +793,7 @@ importers:
     dependencies:
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
+      '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       classnames: 2.3.1
       immer: 9.0.6
       lodash: 4.17.21
@@ -847,8 +843,7 @@ importers:
 
   ../../ui/appui-react:
     specifiers:
-      '@bentley/icons-generic': ^1.0.15
-      '@bentley/icons-generic-webfont': ^1.0.15
+      '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': workspace:*
       '@itwin/appui-layout-react': workspace:*
       '@itwin/build-tools': ^3.4.0
@@ -925,7 +920,6 @@ importers:
       xmlhttprequest: ^1.8.0
     dependencies:
       '@bentley/icons-generic': 1.0.34
-      '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/core-telemetry': 3.4.1_@itwin+core-geometry@3.4.1
       '@itwin/itwinui-css': 0.63.1
@@ -1004,7 +998,7 @@ importers:
 
   ../../ui/components-react:
     specifiers:
-      '@bentley/icons-generic-webfont': ^1.0.15
+      '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': workspace:*
       '@itwin/build-tools': ^3.4.0
       '@itwin/core-bentley': ^3.4.0
@@ -1071,7 +1065,7 @@ importers:
       typescript: ~4.4.0
       xmlhttprequest: ^1.8.0
     dependencies:
-      '@bentley/icons-generic-webfont': 1.0.34
+      '@bentley/icons-generic': 1.0.34
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
@@ -1141,7 +1135,7 @@ importers:
 
   ../../ui/core-react:
     specifiers:
-      '@bentley/icons-generic-webfont': ^1.0.15
+      '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': workspace:*
       '@itwin/build-tools': ^3.4.0
       '@itwin/core-bentley': ^3.4.0
@@ -1150,6 +1144,7 @@ importers:
       '@itwin/core-i18n': ^3.4.0
       '@itwin/eslint-plugin': ^3.4.0
       '@itwin/itwinui-css': 0.x
+      '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
@@ -1196,9 +1191,10 @@ importers:
       typescript: ~4.4.0
       xmlhttprequest: ^1.8.0
     dependencies:
-      '@bentley/icons-generic-webfont': 1.0.34
+      '@bentley/icons-generic': 1.0.34
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
+      '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
       classnames: 2.3.1
       dompurify: 2.4.0
@@ -1254,7 +1250,7 @@ importers:
 
   ../../ui/imodel-components-react:
     specifiers:
-      '@bentley/icons-generic-webfont': ^1.0.15
+      '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': workspace:*
       '@itwin/build-tools': ^3.4.0
       '@itwin/components-react': workspace:*
@@ -1267,6 +1263,7 @@ importers:
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^3.4.0
       '@itwin/itwinui-css': 0.x
+      '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
       '@itwin/webgl-compatibility': ^3.4.0
       '@testing-library/dom': ^8.11.2
@@ -1310,9 +1307,10 @@ importers:
       typescript: ~4.4.0
       xmlhttprequest: ^1.8.0
     dependencies:
-      '@bentley/icons-generic-webfont': 1.0.34
+      '@bentley/icons-generic': 1.0.34
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
+      '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
       classnames: 2.3.1
       immer: 9.0.6

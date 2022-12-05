@@ -12,6 +12,11 @@ import * as React from "react";
 import { DialogButtonDef, MessageSeverity } from "@itwin/appui-abstract";
 import { Dialog } from "../dialog/Dialog";
 import { CommonProps } from "../utils/Props";
+import { SvgHelpCircular, SvgHelpCircularHollow, SvgInfoCircular, SvgInfoCircularHollow, SvgStatusError, SvgStatusErrorHollow, SvgStatusRejected,
+  SvgStatusRejectedHollow,
+  SvgStatusSuccess, SvgStatusSuccessHollow, SvgStatusWarning } from "@itwin/itwinui-icons-react";
+import { Icon, IconSpec } from "../icons/IconComponent";
+
 
 /** Properties for the [[MessageBox]] component
  * @public
@@ -97,7 +102,7 @@ export interface MessageContainerProps extends CommonProps {
  * @public
  */
 export class MessageContainer extends React.PureComponent<MessageContainerProps> {
-  public static getIconClassName(severity: MessageSeverity, hollow?: boolean): string {
+  public static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string {
     let iconClassName = "";
 
     switch (severity) {
@@ -105,27 +110,56 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
         iconClassName = " ";
         break;
       case MessageSeverity.Success:
-        iconClassName = hollow ? "icon-status-success-hollow" : "icon-status-success" + " core-message-box-success";
+        iconClassName = " core-message-box-success";
         break;
       case MessageSeverity.Information:
-        iconClassName = hollow ? "icon-info-hollow" : "icon-info" + " core-message-box-information";
-        break;
+        iconClassName = " core-message-box-information";
+         break;
       case MessageSeverity.Question:
-        iconClassName = hollow ? "icon-help-hollow" : "icon-help" + " core-message-box-question";
+        iconClassName = " core-message-box-question";
         break;
       case MessageSeverity.Warning:
-        iconClassName = hollow ? "icon-status-warning" : "icon-status-warning" + " core-message-box-warning";  // TODO - need icon-status-warning-hollow icon
+        iconClassName = " core-message-box-warning";  // TODO - need icon-status-warning-hollow icon
         break;
       case MessageSeverity.Error:
-        iconClassName = hollow ? "icon-status-error-hollow" : "icon-status-error" + " core-message-box-error";
+        iconClassName = " core-message-box-error";
         break;
       case MessageSeverity.Fatal:
-        iconClassName = hollow ? "icon-status-rejected" : "icon-status-rejected" + " core-message-box-fatal";
+        iconClassName = " core-message-box-fatal";
         break;
     }
 
     return iconClassName;
   }
+
+  public static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec {
+    let iconSpec: IconSpec = "";
+    switch (severity) {
+      case MessageSeverity.None:
+        iconSpec = "";
+        break;
+      case MessageSeverity.Success:
+        iconSpec = hollow ? <SvgStatusSuccessHollow /> : <SvgStatusSuccess />;
+        break;
+      case MessageSeverity.Information:
+        iconSpec = hollow ? <SvgInfoCircularHollow /> : <SvgInfoCircular />;
+        break;
+      case MessageSeverity.Question:
+        iconSpec = hollow ? <SvgHelpCircularHollow /> : <SvgHelpCircular />;
+        break;
+      case MessageSeverity.Warning:
+        iconSpec = <SvgStatusWarning />;
+        break;
+      case MessageSeverity.Error:
+        iconSpec = hollow ? <SvgStatusErrorHollow /> : <SvgStatusError />;
+        break;
+      case MessageSeverity.Fatal:
+        iconSpec = hollow ? <SvgStatusRejectedHollow /> : <SvgStatusRejected />;
+        break;
+    }
+    return iconSpec;
+  }
+
 
   public override render(): JSX.Element {
     const iconClassName = classnames(
@@ -134,9 +168,11 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
       MessageContainer.getIconClassName(this.props.severity),
     );
 
+    const iconSpec = MessageContainer.getIcon(this.props.severity);
+
     return (
       <div className="core-message-box-container">
-        <div className={iconClassName} />
+        <div className={iconClassName} ><Icon iconSpec={iconSpec} /></div>
         <div className={classnames("core-message-box-content", this.props.className)} style={this.props.style}>
           {this.props.children}
         </div>

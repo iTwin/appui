@@ -15,7 +15,7 @@ import {
   OutputMessageType, ToolAssistanceInstructions, ToolTipOptions,
 } from "@itwin/core-frontend";
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
-import { MessageContainer, ReactMessage } from "@itwin/core-react";
+import { IconSpec, MessageContainer, ReactMessage } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
 import { ModalDialogManager } from "../dialog/ModalDialogManager";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
@@ -27,6 +27,7 @@ import { NotifyMessageDetailsType, NotifyMessageType } from "./ReactNotifyMessag
 import { StatusMessageManager } from "./StatusMessageManager";
 import { Small, toaster, ToastOptions } from "@itwin/itwinui-react";
 import { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
+import { SvgStatusError, SvgInfo, SvgStatusSuccess, SvgStatusWarning } from "@itwin/itwinui-icons-react";
 
 class MessageBoxCallbacks {
   constructor(
@@ -408,11 +409,26 @@ export class MessageManager {
     UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetToolPrompt, prompt, true);
   }
 
-  /** Gets an icon CSS class name based on a given NotifyMessageDetailsType. */
-  public static getIconClassName(details: NotifyMessageDetailsType): string {
+  public static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec {
     const severity = MessageManager.getSeverity(details);
-    const className = MessageContainer.getIconClassName(severity, false);
-    const iconClassName = classnames("icon", "notifymessage-icon", className);
+    let iconSpec: IconSpec = <SvgStatusSuccess />;
+    switch (severity) {
+      case MessageSeverity.Error:
+      case MessageSeverity.Fatal:
+        iconSpec =  <SvgStatusError />;
+        break;
+      case MessageSeverity.Warning:
+        iconSpec =  <SvgStatusWarning />;
+        break;
+      case MessageSeverity.Information:
+        iconSpec =  <SvgInfo />;
+        break;
+    }
+    return iconSpec;
+  }
+  /** Gets an icon CSS class name based on a given NotifyMessageDetailsType. */
+  public static getIconClassName(_details: NotifyMessageDetailsType): string {
+    const iconClassName = classnames("icon", "notifymessage-icon");
 
     return iconClassName;
   }

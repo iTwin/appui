@@ -37,11 +37,11 @@ export interface StandardFrontstageProps {
   contentGroupProps: ContentGroupProps | ContentGroupProvider;
   /** Specify button to use to open backstage. Leave undefined for no backstage button.
    * ```
-   * <BackstageAppButton icon={"icon-bentley-systems"} />
+   * <BackstageAppButton icon={<SvgBentleySystems />} />
    * ```
    * Custom corner button definition
    * ```
-   * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"}
+   * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />}
    *   label="Toggle Backstage display",
    *   execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
    * ```

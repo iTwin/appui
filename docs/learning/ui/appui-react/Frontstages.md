@@ -37,7 +37,7 @@ export class FrontstageUi2 {
   public static register() {
     // set up custom corner button where we specify icon, label, and action
     const cornerButton = FrontstageUi2.showCornerButtons ?
-      <BackstageAppButton key="ui2-backstage" label="Toggle Ui2 Backstage" icon={"icon-bentley-systems"}
+      <BackstageAppButton key="ui2-backstage" label="Toggle Ui2 Backstage" icon={<SvgBentleySystems />}
         execute={() => BackstageManager.getBackstageToggleCommand().execute()} /> : undefined;
     const hideNavigationAid = !FrontstageUi2.showCornerButtons;
     const setUpCustomToolGroups = true;
@@ -361,7 +361,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
         items.push(ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.toggleHideShowItemsCommand, { groupPriority: 3000 }));
         items.push(ToolbarHelper.createToolbarItemFromItemDef(15, AppTools.splitSingleViewportCommandDef, { groupPriority: 3000 }));
         if (!this.toolWidgetDisplayCornerButton)
-          items.push(ToolbarHelper.createToolbarItemFromItemDef(20, BackstageManager.getBackstageToggleCommand("icon-bentley-systems"), { groupPriority: 3000 }));
+          items.push(ToolbarHelper.createToolbarItemFromItemDef(20, BackstageManager.getBackstageToggleCommand(<SvgBentleySystems />), { groupPriority: 3000 }));
         return items;
       } else if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Vertical) {
         const items: CommonToolbarItem[] = [];

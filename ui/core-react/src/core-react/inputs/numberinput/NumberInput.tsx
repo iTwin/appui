@@ -11,7 +11,8 @@ import classnames from "classnames";
 import * as React from "react";
 import { Input, InputProps } from "@itwin/itwinui-react";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { WebFontIcon } from "../../icons/WebFontIcon";
+import { Icon } from "../../icons/IconComponent";
+import { SvgCaretDownSmall, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
 
 /** Step function prototype for [[NumberInput]] component
  * @public
@@ -204,11 +205,11 @@ const ForwardRefNumberInput = React.forwardRef<HTMLInputElement, NumberInputProp
         <div className={classnames("core-number-input-buttons-container", showTouchButtons && "core-number-buttons-for-touch")}>
           { /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div className="core-number-input-button core-number-input-button-up" tabIndex={-1} onClick={handleUpClick}>
-            <WebFontIcon iconName="icon-caret-up" />
+            <Icon iconSpec={<SvgCaretUpSmall />} />
           </div>
           { /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div className="core-number-input-button core-number-input-button-down" tabIndex={-1} onClick={handleDownClick}>
-            <WebFontIcon iconName="icon-caret-down" />
+            <Icon iconSpec={<SvgCaretDownSmall />} />
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ import {
 } from "@itwin/components-react";
 import { ImageCheckBox, NodeCheckboxRenderProps } from "@itwin/core-react";
 import { VisibilityTreeFilterInfo } from "./Common";
+import { SvgVisibilityHide, SvgVisibilityShow } from "@itwin/itwinui-icons-react";
 
 /**
  * Creates Visibility tree renderer which renders nodes with eye checkbox.
@@ -54,8 +55,8 @@ export const visibilityTreeNodeCheckboxRenderer = (props: NodeCheckboxRenderProp
   <ImageCheckBox
     checked={props.checked}
     disabled={props.disabled}
-    imageOn="icon-visibility"
-    imageOff="icon-visibility-hide-2"
+    imageOn={<SvgVisibilityShow />}
+    imageOff={<SvgVisibilityHide />}
     onClick={props.onChange}
     tooltip={props.title}
   />

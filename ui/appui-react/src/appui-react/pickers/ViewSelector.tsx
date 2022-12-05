@@ -9,13 +9,14 @@
 import * as React from "react";
 import { Id64String, Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
-import { UiEvent } from "@itwin/appui-abstract";
+import { IconSpecUtilities, UiEvent } from "@itwin/appui-abstract";
 import { SupportsViewSelectorChange } from "../content/ContentControl";
 import { ContentViewManager } from "../content/ContentViewManager";
 import { connectIModelConnection } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
 import { ViewUtilities } from "../utils/ViewUtilities";
 import { ListItem, ListItemType, ListPicker } from "./ListPicker";
+import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
 
 // cSpell:ignore Spatials
 
@@ -330,6 +331,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
   public override render() {
     if (!this.state.initialized)
       return null;
+    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgSavedView);
 
     const { imodel, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
 
@@ -339,7 +341,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
         title={this.state.title}
         setEnabled={this._setEnabled}
         items={this.state.items}
-        iconSpec={"icon-saved-view"}
+        iconSpec={iconSpec}
         onExpanded={this._onExpanded}
       />
     );

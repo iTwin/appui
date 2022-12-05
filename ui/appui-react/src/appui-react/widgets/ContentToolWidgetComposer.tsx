@@ -32,12 +32,12 @@ export interface ContentToolWidgetComposerProps {
  * ```
  * ToolWidget with corner button
  * ```
- * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"} />;
+ * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />} />;
  * <ContentToolWidgetComposer cornerButton={cornerButton} />
  * ```
  * ToolWidget with custom corner button
  * ```
- * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"}
+ * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />}
  *   label="Toggle Backstage display",
  *   execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
  * <ContentToolWidgetComposer cornerButton={cornerButton} />

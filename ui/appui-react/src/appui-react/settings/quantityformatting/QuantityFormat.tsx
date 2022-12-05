@@ -24,6 +24,7 @@ import { UiFramework } from "../../UiFramework";
 import { UnitSystemSelector } from "./UnitSystemSelector";
 import { Presentation } from "@itwin/presentation-frontend";
 import { Button } from "@itwin/itwinui-react";
+import { SvgMeasure } from "@itwin/itwinui-icons-react";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();
@@ -53,7 +54,7 @@ export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opt
     page: <QuantityFormatSettingsPage initialQuantityType={initialQuantityType ?? QuantityType.Length}
       availableUnitSystems={availableUnitSystems ?? new Set(["metric", "imperial", "usCustomary", "usSurvey"])} />,
     isDisabled: false,
-    icon: "icon-measure",
+    icon: <SvgMeasure />,
     tooltip: UiFramework.translate("settings.quantity-formatting.tooltip"),
     pageWillHandleCloseRequest: true,
   };

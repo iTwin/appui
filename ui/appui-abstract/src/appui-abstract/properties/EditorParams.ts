@@ -7,7 +7,6 @@
  */
 
 // cspell:ignore BBGGRR pushable DDTHH
-
 /** Interface used to provide a custom Date Time formatter and optional parser
  * for use by `DatePickerPopup`. If a parseData function is not implemented
  * then string to date parsing will not be possible when a `DateFormatter` is used.

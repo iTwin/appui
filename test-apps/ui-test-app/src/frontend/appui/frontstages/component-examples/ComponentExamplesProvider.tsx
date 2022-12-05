@@ -27,16 +27,17 @@ import {
 import {
   Checkbox,
   ExpandableBlock,
+  LabeledInput,
 } from "@itwin/itwinui-react";
 import {
   AutoSuggest,
   AutoSuggestData,
   BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
-  DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput, Input, InputStatus, LabeledInput,
-  LabeledSelect, LabeledTextarea, LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
-  MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ProgressBar, ProgressSpinner, Radio, ReactMessage,
+  DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput, Input, InputStatus,
+  LabeledSelect, LabeledTextarea, LabeledThemedSelect, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
+  MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ProgressBar, Radio, ReactMessage,
   SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Spinner, SpinnerSize, Subheading, Textarea, ThemedSelect, Tile, Title,
-  Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
+  UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
 import { ComponentExampleCategory, ComponentExampleProps } from "./ComponentExamples";
@@ -700,10 +701,6 @@ export class ComponentExamplesProvider {
         createComponentExample("Number Input w/snap  & custom step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={exoticStep} snap containerClassName="uicore-full-width" />),
         createComponentExample("Number Input w/placeholder", "New Numeric Input component", <NumberInput placeholder="Enter Input" precision={2} step={0.25} containerClassName="uicore-full-width" />),
         createComponentExample("Icon Input", "Icon Input component", <IconInput placeholder="Icon Input" icon={<Icon iconSpec="icon-placeholder" />} containerClassName="uicore-full-width" />),
-        createComponentExample("Labeled Input", "Labeled Input component", <LabeledInput label="Labeled Input" placeholder="Labeled Input" className="uicore-full-width" />),
-        createComponentExample("Labeled Input", "Labeled Input Icon", <LabeledInput label="Labeled Input with icon" placeholder="Labeled Input with Icon" status={InputStatus.Success} />),
-        createComponentExample("Labeled Input Warning", "Labeled Input Warning", <LabeledInput label="Labeled Input Warning" placeholder="Labeled Input Warning" status={InputStatus.Warning} message="Warning message text" />),
-        createComponentExample("Labeled Input Error", "Labeled Input Error", <LabeledInput label="Labeled Input Error" placeholder="Labeled Input Error" status={InputStatus.Error} message="Error message text" />),
         createComponentExample("Labeled Textarea", "Labeled Textarea component", <LabeledTextarea label="Labeled Textarea" placeholder="Labeled Textarea" className="uicore-full-width" />),
 
         createComponentExample("Image Checkbox", "ImageCheckbox with WebFonts", <SampleImageCheckBox imageOn="icon-more-circular" imageOff="icon-more-vertical-circular" />),
@@ -826,21 +823,6 @@ export class ComponentExamplesProvider {
         createComponentExample("Indeterminate ProgressBar", "indeterminate prop", <ProgressBar indeterminate />),
         createComponentExample("ProgressBar with label", "labelLeft prop", <ProgressBar percent={25} labelLeft="Centered Label" />),
         createComponentExample("ProgressBar with labels", "labelLeft & labelRight props", <ProgressBar percent={75} labelLeft="Loading..." labelRight="75%" />),
-        createComponentExample("ProgressSpinner", "at 50%", <ProgressSpinner value={50} />),
-        createComponentExample("Indeterminate ProgressSpinner", "indeterminate prop", <ProgressSpinner indeterminate />),
-        createComponentExample("Success ProgressSpinner", "success prop", <ProgressSpinner success />),
-        createComponentExample("Error ProgressSpinner", "error prop", <ProgressSpinner error />),
-        createComponentExample("ProgressSpinner with value", "display value of 63", <ProgressSpinner value={63}>63</ProgressSpinner>),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner Small", "width/height of 16", <ProgressSpinner indeterminate size={SpinnerSize.Small} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner Medium", "width/height of 32", <ProgressSpinner indeterminate size={SpinnerSize.Medium} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner Large", "width/height of 64", <ProgressSpinner indeterminate size={SpinnerSize.Large} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner XLarge", "width/height of 96", <ProgressSpinner indeterminate size={SpinnerSize.XLarge} />),
-        createComponentExample("ProgressSpinner with style", "width/height of 120",
-          <div><ProgressSpinner indeterminate style={{ display: "inline-block", width: 120, height: 120 }} />... Loading</div>),
       ],
     };
   }
@@ -1121,22 +1103,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get toggleSamples(): ComponentExampleCategory {
-    return {
-      title: "Toggle",
-      examples: [
-        createComponentExample("Basic Toggle", undefined, <Toggle isOn={true} />),
-        // eslint-disable-next-line deprecation/deprecation
-        createComponentExample("Primary Toggle", "Toggle with buttonType={ToggleButtonType.Primary}", <Toggle isOn={true} buttonType={ToggleButtonType.Primary} />),
-        createComponentExample("Large Toggle", "Toggle with large={true}", <Toggle isOn={true} large={true} />),
-        createComponentExample("Square Toggle", "Toggle with rounded={false}", <Toggle isOn={true} rounded={false} />),
-        createComponentExample("Toggle with Checkmark", "Toggle with showCheckmark prop", <Toggle isOn={true} showCheckmark={true} />),
-        createComponentExample("Disabled Toggle", "Toggle with disabled prop", <Toggle isOn={true} showCheckmark={true} disabled />),
-        createComponentExample("LabeledToggle", undefined, <LabeledToggle checked={true} label="Toggle label" />),
-      ],
-    };
-  }
-
   private static get listboxSamples(): ComponentExampleCategory {
     const listItems = ["London", "Paris", "Stockholm", "Berlin", "Mumbai", "Christchurch", "Johannesburg", "Beijing", "New York"];
 
@@ -1230,7 +1196,6 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.textSamples,
       ComponentExamplesProvider.tileSamples,
       ComponentExamplesProvider.timelineSamples,
-      ComponentExamplesProvider.toggleSamples,
       ComponentExamplesProvider.weightSamples,
       ComponentExamplesProvider.quantityFormatting,
       ComponentExamplesProvider.settingPage,

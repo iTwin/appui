@@ -56,6 +56,7 @@ export * from "./core-react/hocs/withIsPressed";
 export * from "./core-react/hocs/withOnOutsideClick";
 export * from "./core-react/hocs/withTimeout";
 
+export * from "./core-react/icons/ConditionalIconItem";
 export * from "./core-react/icons/IconComponent";
 export * from "./core-react/icons/SvgPath";
 export * from "./core-react/icons/SvgSprite";
@@ -70,7 +71,6 @@ export * from "./core-react/inputs/InputLabel";
 export * from "./core-react/inputs/InputStatus";
 export * from "./core-react/inputs/iconinput/IconInput";
 export * from "./core-react/inputs/LabeledComponentProps";
-export * from "./core-react/inputs/LabeledInput";
 export * from "./core-react/inputs/LabeledTextarea";
 export * from "./core-react/inputs/numberinput/NumberInput";
 export * from "./core-react/inputs/Textarea";
@@ -92,7 +92,6 @@ export * from "./core-react/notification/MessageType";
 export * from "./core-react/popup/Popup";
 
 export * from "./core-react/progress-indicators/ProgressBar";
-export * from "./core-react/progress-indicators/ProgressSpinner";
 
 export * from "./core-react/radialmenu/RadialMenu";
 export * from "./core-react/radialmenu/Annulus";
@@ -134,7 +133,6 @@ export * from "./core-react/tiles/MinimalFeaturedTile";
 export * from "./core-react/tiles/MinimalTile";
 export * from "./core-react/tiles/Tile";
 
-export * from "./core-react/toggle/Toggle";
 export * from "./core-react/toggle/LabeledToggle";
 
 export * from "./core-react/tooltip/Tooltip";
