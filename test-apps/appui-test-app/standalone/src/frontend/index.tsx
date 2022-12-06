@@ -16,7 +16,7 @@ import {
   ModalFrontstageClosedEventArgs, SafeAreaContext, SafeAreaInsets, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
   ToolbarDragInteractionContext, UiFramework, UiShowHideManager, UiStateStorageHandler,
 } from "@itwin/appui-react";
-import { Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
+import { assert, Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
 import { BentleyCloudRpcManager, BentleyCloudRpcParams, RpcConfiguration } from "@itwin/core-common";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import {
@@ -38,7 +38,7 @@ import { MainFrontstage } from "./appui/frontstages/MainFrontstage";
 import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
 // import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import {
-  AbstractUiItemsProvider, AppUiTestProviders, ContentLayoutStage, CustomContentFrontstage,
+  AbstractUiItemsProvider, ApplicationLayoutContext, ApplicationLayoutProvider, AppUiTestProviders, ContentLayoutStage, CustomContentFrontstage,
   CustomFrontstageProvider, FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, MessageUiItemsProvider, WidgetApiStage,
 } from "@itwin/appui-test-providers";
 import { useHandleURLParams } from "./UrlParams";
@@ -411,16 +411,34 @@ const SampleAppViewer = () => {
         <SafeAreaContext.Provider value={SafeAreaInsets.All}>
           <AppDragInteraction>
             <UiStateStorageHandler>
-              <ConfigurableUiContent
-                appBackstage={<BackstageComposer />}
-              />
+              <ApplicationLayoutProvider>
+                <AppViewerContent />
+              </ApplicationLayoutProvider>
             </UiStateStorageHandler>
-          </AppDragInteraction>
-        </SafeAreaContext.Provider>
-      </ThemeManager>
+          </AppDragInteraction >
+        </SafeAreaContext.Provider >
+      </ThemeManager >
     </Provider >
   );
 };
+
+function AppViewerContent() {
+  const applicationLayout = React.useContext(ApplicationLayoutContext);
+  assert(!!applicationLayout, "ApplicationLayoutProvider is required");
+  const isPortal = applicationLayout.mode === "portal";
+  return (
+    <div style={{
+      display: "grid",
+      height: "100%",
+      gridAutoRows: isPortal ? "80px 1fr" : "0 1fr",
+    }}>
+      <h2>Portal Header</h2>
+      <ConfigurableUiContent
+        appBackstage={<BackstageComposer />}
+      />
+    </div>
+  );
+}
 
 // If we are using a browser, close the current iModel before leaving
 window.addEventListener("beforeunload", async () => { // eslint-disable-line @typescript-eslint/no-misused-promises
