@@ -26,7 +26,7 @@ describe("addTabToWidget", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addTabToWidget(state, "t2", "w1");
-    state.widgets.w1.tabs.should.eql(["t1", "t2"]);
+    state.widgets.w1!.tabs.should.eql(["t1", "t2"]);
   });
 });
 
@@ -64,7 +64,7 @@ describe("removeTab", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
     const newState = removeTab(state, "t1");
-    newState.widgets.w1.activeTabId.should.eq("t2");
+    newState.widgets.w1!.activeTabId.should.eq("t2");
   });
 
   it("should not update widget activeTabId", () => {
@@ -72,8 +72,8 @@ describe("removeTab", () => {
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
     const newState = removeTab(state, "t2");
-    newState.widgets.w1.activeTabId.should.eq("t1");
-    newState.widgets.w1.tabs.should.eql(["t1"]);
+    newState.widgets.w1!.activeTabId.should.eq("t1");
+    newState.widgets.w1!.tabs.should.eql(["t1"]);
   });
 
   it("should remove popout widget", () => {

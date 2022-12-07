@@ -17,7 +17,7 @@ import { WidgetOverflow } from "./Overflow";
 import { WidgetTabProvider } from "./Tab";
 import { TitleBarTarget } from "../target/TitleBarTarget";
 import { useLayout } from "../base/LayoutStore";
-import { WidgetIdContext } from "./Widget";
+import { restrainInitialWidgetSize, WidgetIdContext } from "./Widget";
 
 /** @internal */
 export function WidgetTabs() {
@@ -26,15 +26,14 @@ export function WidgetTabs() {
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
   const widget = useLayout((state) => state.widgets[widgetId]);
-  const tabIds = widget.tabs;
-  assert(tabIds.length > 0);
+  const tabIds = widget?.tabs;
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
   const [showOnlyTabIcon, setShowOnlyTabIcon] = React.useState(false);
 
-  const activeTabIndex = tabIds.findIndex((tabId) => tabId === widget.activeTabId);
+  const activeTabIndex = tabIds?.findIndex((tabId) => tabId === widget?.activeTabId);
   const children = React.useMemo<React.ReactNode>(() => {
-    return tabIds.map((tabId, index, array) => {
-      const firstInactive = activeTabIndex + 1 === index;
+    return tabIds?.map((tabId, index, array) => {
+      const firstInactive = activeTabIndex === undefined ? false : activeTabIndex + 1 === index;
       const tab = tabs[tabId];
       return (
         <WidgetTabProvider
@@ -51,14 +50,20 @@ export function WidgetTabs() {
   const [overflown, handleResize, handleOverflowResize, handleEntryResize] = useOverflow(children, activeTabIndex);
   const horizontal = side && isHorizontalPanelSide(side);
   const handleContainerResize = React.useCallback((w: number) => {
+    if (!widget)
+      return;
+
     if (showWidgetIcon)
       setShowOnlyTabIcon((widget.tabs.length * 158) > w); // 158px per text tab
     handleResize && handleResize(w);
-  }, [handleResize, showWidgetIcon, widget.tabs]);
+  }, [handleResize, showWidgetIcon, widget?.tabs]);
 
   const ref = useResizeObserver(handleContainerResize);
   const childrenArray = React.useMemo(() => React.Children.toArray(children), [children]);
   const tabChildren = childrenArray.reduce<Array<[string, React.ReactNode]>>((acc, child, index) => {
+    if (!widget)
+      return acc;
+
     const key = getChildKey(child, index);
     if (!overflown) {
       acc.push([key, child]);

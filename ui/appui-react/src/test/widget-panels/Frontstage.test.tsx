@@ -739,7 +739,7 @@ describe("Frontstage local storage wrapper", () => {
           widgetDef,
           widgetState: WidgetState.Closed,
         });
-        frontstageDef.nineZoneState?.widgets.w1.minimized.should.false; // Closed has no effect on widgets in panels
+        frontstageDef.nineZoneState?.widgets.w1!.minimized.should.false; // Closed has no effect on widgets in panels
       });
 
       it("should handle onWidgetShowEvent", () => {
@@ -776,7 +776,7 @@ describe("Frontstage local storage wrapper", () => {
         FrontstageManager.onWidgetExpandEvent.emit({
           widgetDef,
         });
-        frontstageDef.nineZoneState?.widgets.w1.minimized.should.false;
+        frontstageDef.nineZoneState?.widgets.w1!.minimized.should.false;
       });
 
       describe("onFrontstageRestoreLayoutEvent", () => {
@@ -918,7 +918,7 @@ describe("Frontstage local storage wrapper", () => {
         }, StagePanelLocation.Left);
         sinon.stub(frontstageDef, "leftPanel").get(() => panel);
         const state = initializeNineZoneState(frontstageDef);
-        state.widgets.leftEnd.activeTabId.should.eq("w1");
+        state.widgets.leftEnd!.activeTabId.should.eq("w1");
       });
 
       it("should initialize size", () => {
@@ -957,8 +957,8 @@ describe("Frontstage local storage wrapper", () => {
         sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
         const state = initializeNineZoneState(frontstageDef);
         state.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-        state.widgets.leftStart.tabs.should.eql(["w1"]);
-        state.widgets.leftEnd.tabs.should.eql(["w3"]);
+        state.widgets.leftStart!.tabs.should.eql(["w1"]);
+        state.widgets.leftEnd!.tabs.should.eql(["w3"]);
       });
 
       it("should not duplicate widgets", () => {
@@ -977,8 +977,8 @@ describe("Frontstage local storage wrapper", () => {
         const state = initializeNineZoneState(frontstageDef);
         state.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
         state.panels.right.widgets.should.empty;
-        state.widgets.leftStart.tabs.should.eql(["w1"]);
-        state.widgets.leftEnd.tabs.should.eql(["w3"]);
+        state.widgets.leftStart!.tabs.should.eql(["w1"]);
+        state.widgets.leftEnd!.tabs.should.eql(["w3"]);
       });
     });
 
@@ -1007,7 +1007,7 @@ describe("Frontstage local storage wrapper", () => {
         sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
         state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Left);
         state.panels.left.widgets[0].should.eq("leftEnd");
-        state.widgets.leftEnd.tabs.should.eql(["w1"]);
+        state.widgets.leftEnd!.tabs.should.eql(["w1"]);
       });
 
       it("should add rightPanel widgets", () => {
@@ -1021,7 +1021,7 @@ describe("Frontstage local storage wrapper", () => {
         sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
         state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Right);
         state.panels.right.widgets[0].should.eq("rightEnd");
-        state.widgets.rightEnd.tabs.should.eql(["w1"]);
+        state.widgets.rightEnd!.tabs.should.eql(["w1"]);
       });
 
       it("should add topPanel widgets", () => {
@@ -1035,7 +1035,7 @@ describe("Frontstage local storage wrapper", () => {
         sinon.stub(frontstageDef, "topPanel").get(() => panelDef);
         state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Top);
         state.panels.top.widgets[0].should.eq("topStart");
-        state.widgets.topStart.tabs.should.eql(["w1"]);
+        state.widgets.topStart!.tabs.should.eql(["w1"]);
       });
 
       it("should add bottomPanel widgets", () => {
@@ -1049,7 +1049,7 @@ describe("Frontstage local storage wrapper", () => {
         sinon.stub(frontstageDef, "bottomPanel").get(() => panelDef);
         state = addPanelWidgets(state, frontstageDef, StagePanelLocation.Bottom);
         state.panels.bottom.widgets[0].should.eq("bottomStart");
-        state.widgets.bottomStart.tabs.should.eql(["w1"]);
+        state.widgets.bottomStart!.tabs.should.eql(["w1"]);
       });
     });
 
@@ -1094,7 +1094,7 @@ describe("Frontstage local storage wrapper", () => {
           defaultState: WidgetState.Open,
         });
         state = addWidgets(state, [widgetDef], "left", "leftStart");
-        state.widgets.leftStart.activeTabId.should.eq("w1");
+        state.widgets.leftStart!.activeTabId.should.eq("w1");
       });
     });
 
@@ -1161,7 +1161,7 @@ describe("Frontstage local storage wrapper", () => {
             id: "t1",
           });
           const sut = setWidgetState(nineZone, widgetDef, WidgetState.Open);
-          sut.widgets.w1.activeTabId.should.eq("t1");
+          sut.widgets.w1!.activeTabId.should.eq("t1");
         });
 
         it("should add removed tab", () => {
@@ -1192,7 +1192,7 @@ describe("Frontstage local storage wrapper", () => {
             widgetId: "w2",
           };
           const sut = setWidgetState(nineZone, widgetDef, WidgetState.Open);
-          sut.widgets.w2.tabs.should.eql(["t3", "t2"]);
+          sut.widgets.w2!.tabs.should.eql(["t3", "t2"]);
         });
 
         it("should add removed tab to existing panel widget", () => {
@@ -1214,7 +1214,7 @@ describe("Frontstage local storage wrapper", () => {
             tabIndex: 2,
           };
           const sut = setWidgetState(nineZone, widgetDef, WidgetState.Open);
-          sut.widgets.leftEnd.tabs.should.eql(["t2_1", "t2_2", "t4", "t2_3"]);
+          sut.widgets.leftEnd!.tabs.should.eql(["t2_1", "t2_2", "t4", "t2_3"]);
         });
       });
 
@@ -1239,7 +1239,7 @@ describe("Frontstage local storage wrapper", () => {
             id: "t1",
           });
           const sut = setWidgetState(nineZone, widgetDef, WidgetState.Closed);
-          sut.widgets.w1.minimized.should.true;
+          sut.widgets.w1!.minimized.should.true;
         });
 
         it("should not minimize any panel section", () => {
@@ -1252,7 +1252,7 @@ describe("Frontstage local storage wrapper", () => {
             id: "t1",
           });
           const sut = setWidgetState(nineZone, widgetDef, WidgetState.Closed);
-          sut.widgets.leftStart.minimized.should.false;
+          sut.widgets.leftStart!.minimized.should.false;
         });
 
         it("should not minimize single panel widget", () => {
@@ -1263,7 +1263,7 @@ describe("Frontstage local storage wrapper", () => {
             id: "t1",
           });
           const sut = setWidgetState(nineZone, widgetDef, WidgetState.Closed);
-          sut.widgets.leftStart.minimized.should.false;
+          sut.widgets.leftStart!.minimized.should.false;
         });
 
         it("should add removed tab", () => {
@@ -1298,7 +1298,7 @@ describe("Frontstage local storage wrapper", () => {
             id: "t1",
           });
           const sut = setWidgetState(nineZone, widgetDef, WidgetState.Hidden);
-          sut.widgets.w1.tabs.should.eql(["t2"]);
+          sut.widgets.w1!.tabs.should.eql(["t2"]);
         });
 
         it("should reopen hidden widget", () => {
@@ -1425,7 +1425,7 @@ describe("Frontstage local storage wrapper", () => {
         nineZone = addTab(nineZone, "t1");
         nineZone = addFloatingWidget(nineZone, "w1", ["t1"], undefined, { minimized: true });
         const sut = expandWidget(nineZone, "t1");
-        sut.widgets.w1.minimized.should.false;
+        sut.widgets.w1!.minimized.should.false;
       });
     });
 
@@ -1465,7 +1465,7 @@ describe("Frontstage local storage wrapper", () => {
           },
         };
         const newState = restoreNineZoneState(frontstageDef, savedState);
-        newState.widgets.w1.tabs.should.eql(["t2"]);
+        newState.widgets.w1!.tabs.should.eql(["t2"]);
         expect(newState.tabs.t1).to.not.exist;
         expect(newState.tabs.t3).to.not.exist;
       });
@@ -1591,8 +1591,8 @@ describe("Frontstage local storage wrapper", () => {
         }, StagePanelLocation.Left);
         sinon.stub(frontstageDef, "leftPanel").get(() => panelDef);
         const newState = addMissingWidgets(frontstageDef, state);
-        newState.widgets.leftStart.tabs.should.eql(["start1", "ws1"]);
-        newState.widgets.leftEnd.tabs.should.eql(["end1", "w1", "wm1", "we1"]);
+        newState.widgets.leftStart!.tabs.should.eql(["start1", "ws1"]);
+        newState.widgets.leftEnd!.tabs.should.eql(["end1", "w1", "wm1", "we1"]);
       });
 
       it("should add rightPanel widgets", () => {
@@ -1616,8 +1616,8 @@ describe("Frontstage local storage wrapper", () => {
         }, StagePanelLocation.Right);
         sinon.stub(frontstageDef, "rightPanel").get(() => panelDef);
         const newState = addMissingWidgets(frontstageDef, state);
-        newState.widgets.rightStart.tabs.should.eql(["start1", "ws1"]);
-        newState.widgets.rightEnd.tabs.should.eql(["end1", "w1", "wm1", "we1"]);
+        newState.widgets.rightStart!.tabs.should.eql(["start1", "ws1"]);
+        newState.widgets.rightEnd!.tabs.should.eql(["end1", "w1", "wm1", "we1"]);
       });
 
       it("should add topPanel widgets", () => {
@@ -1639,8 +1639,8 @@ describe("Frontstage local storage wrapper", () => {
         }, StagePanelLocation.Top);
         sinon.stub(frontstageDef, "topPanel").get(() => panelDef);
         const newState = addMissingWidgets(frontstageDef, state);
-        newState.widgets.topStart.tabs.should.eql(["start1", "w1", "ws1"]);
-        newState.widgets.topEnd.tabs.should.eql(["end1", "we1"]);
+        newState.widgets.topStart!.tabs.should.eql(["start1", "w1", "ws1"]);
+        newState.widgets.topEnd!.tabs.should.eql(["end1", "we1"]);
       });
 
       it("should add bottomPanel widgets", () => {
@@ -1662,8 +1662,8 @@ describe("Frontstage local storage wrapper", () => {
         }, StagePanelLocation.Bottom);
         sinon.stub(frontstageDef, "bottomPanel").get(() => panelDef);
         const newState = addMissingWidgets(frontstageDef, state);
-        newState.widgets.bottomStart.tabs.should.eql(["start1", "w1", "ws1"]);
-        newState.widgets.bottomEnd.tabs.should.eql(["end1", "we1"]);
+        newState.widgets.bottomStart!.tabs.should.eql(["start1", "w1", "ws1"]);
+        newState.widgets.bottomEnd!.tabs.should.eql(["end1", "we1"]);
       });
 
       it("should add no duplicate widgets", () => {
@@ -1691,17 +1691,21 @@ describe("Frontstage local storage wrapper", () => {
         const newState = addMissingWidgets(frontstageDef, state);
         const widgets = Object.values(newState.widgets);
         const widgetIds = widgets.reduce<Array<string>>((acc, w) => {
+          if (!w)
+            return acc;
           acc.push(w.id);
           return acc;
         }, []);
         const tabs = widgets.reduce<Array<string>>((acc, w) => {
+          if (!w)
+            return acc;
           acc.push(...w.tabs);
           return acc;
         }, []);
 
         widgetIds.should.eql(["leftStart"]);
         tabs.should.eql(["w1"]);
-        newState.widgets.leftStart.tabs.should.eql(["w1"]);
+        newState.widgets.leftStart!.tabs.should.eql(["w1"]);
       });
     });
 
@@ -1713,7 +1717,7 @@ describe("Frontstage local storage wrapper", () => {
         const widgetDef = WidgetDef.create({ id: "t2" });
         const newState = appendWidgets(state, [widgetDef], StagePanelLocation.Left, StagePanelSection.End);
         expect(newState.panels.left.widgets).to.eql(["w1", "leftEnd"]);
-        expect(newState.widgets.leftEnd.tabs).to.eql(["t2"]);
+        expect(newState.widgets.leftEnd!.tabs).to.eql(["t2"]);
       });
 
       it("should append widgets to an existing panel section (by preferredWidgetIndex)", () => {
@@ -1724,7 +1728,7 @@ describe("Frontstage local storage wrapper", () => {
         state = addPanelWidget(state, "left", "w2", ["t2"]);
         const widgetDef = WidgetDef.create({ id: "t3" });
         const newState = appendWidgets(state, [widgetDef], StagePanelLocation.Left, StagePanelSection.End);
-        expect(newState.widgets.w2.tabs).to.eql(["t2", "t3"]);
+        expect(newState.widgets.w2!.tabs).to.eql(["t2", "t3"]);
       });
     });
 
@@ -1903,8 +1907,8 @@ describe("Frontstage local storage wrapper", () => {
         expect(frontstageDef?.nineZoneState?.tabs.LeftStart1, "LeftStart1").to.exist;
         expect(frontstageDef?.nineZoneState?.tabs.TestUi2ProviderRM1, "TestUi2ProviderRM1").to.exist;
         expect(frontstageDef?.nineZoneState?.tabs.TestUi2ProviderW1, "TestUi2ProviderW1").to.exist;
-        frontstageDef?.nineZoneState?.widgets.rightEnd.tabs.should.eql(["TestUi2ProviderRM1"], "rightEnd widget tabs");
-        frontstageDef?.nineZoneState?.widgets.leftStart.tabs.should.eql(["LeftStart1", "TestUi2ProviderW1"], "leftStart widget tabs");
+        frontstageDef?.nineZoneState?.widgets.rightEnd!.tabs.should.eql(["TestUi2ProviderRM1"], "rightEnd widget tabs");
+        frontstageDef?.nineZoneState?.widgets.leftStart!.tabs.should.eql(["LeftStart1", "TestUi2ProviderW1"], "leftStart widget tabs");
 
         act(() => {
           UiItemsManager.unregister("TestUi2Provider");
@@ -1916,7 +1920,7 @@ describe("Frontstage local storage wrapper", () => {
         expect(frontstageDef?.nineZoneState?.tabs.TestUi2ProviderRM1, "TestUi2ProviderRM1 after unregister").to.not.exist;
         expect(frontstageDef?.nineZoneState?.tabs.TestUi2ProviderW1, "TestUi2ProviderW1 after unregister").to.not.exist;
         expect(frontstageDef?.nineZoneState?.widgets.rightEnd, "rightEnd widget").to.not.exist;
-        frontstageDef?.nineZoneState?.widgets.leftStart.tabs.should.eql(["LeftStart1"], "leftStart widget tabs");
+        frontstageDef?.nineZoneState?.widgets.leftStart!.tabs.should.eql(["LeftStart1"], "leftStart widget tabs");
       });
     });
   });

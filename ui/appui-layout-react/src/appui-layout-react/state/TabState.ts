@@ -15,7 +15,7 @@ import { FloatingWidgetHomeState, WidgetState } from "./WidgetState";
 import { getTabLocation } from "./TabLocation";
 import { category } from "./internal/NineZoneStateHelpers";
 import { createTabState } from "./internal/TabStateHelpers";
-import { assertWidgetState, removeWidget, setWidgetActiveTabId, updateWidgetState } from "./internal/WidgetStateHelpers";
+import { assertWidgetState, getWidgetState, removeWidget, setWidgetActiveTabId, updateWidgetState } from "./internal/WidgetStateHelpers";
 
 /** `WidgetDef` is equivalent structure in `appui-react`.
  * @internal
@@ -77,7 +77,7 @@ export function insertTabToWidget(state: NineZoneState, tabId: TabState["id"], w
     throw new UiError(category, "Tab is already in a widget", undefined, () => ({ tabId, widgetId: location.widgetId }));
 
   return produce(state, (draft) => {
-    const widget = draft.widgets[widgetId];
+    const widget = getWidgetState(draft, widgetId);
     widget.tabs.splice(tabIndex, 0, tabId);
   });
 }
@@ -91,7 +91,7 @@ export function removeTabFromWidget(state: NineZoneState, tabId: TabState["id"])
     return state;
 
   const widgetId = location.widgetId;
-  const widget = state.widgets[widgetId];
+  const widget = getWidgetState(state, widgetId);
   const tabs = [...widget.tabs];
   const tabIndex = tabs.indexOf(tabId);
   tabs.splice(tabIndex, 1);

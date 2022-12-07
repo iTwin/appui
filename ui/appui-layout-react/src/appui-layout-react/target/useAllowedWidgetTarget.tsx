@@ -9,8 +9,6 @@ import * as React from "react";
 import { getWidgetLocation, isFloatingWidgetLocation, isPopoutWidgetLocation } from "../state/WidgetLocation";
 import { isAllowedSideTarget } from "./useAllowedSideTarget";
 import { WidgetState } from "../state/WidgetState";
-import { assert } from "@itwin/core-bentley";
-import { PanelSide } from "../widget-panels/Panel";
 import { useLayout } from "../base/LayoutStore";
 import { DraggedWidgetIdContext } from "../base/DragManager";
 
@@ -21,21 +19,13 @@ export function useAllowedWidgetTarget(widgetId: WidgetState["id"]) {
   const draggedWidget = React.useContext(DraggedWidgetIdContext);
   return useLayout((state) => {
     const widgetLocation = getWidgetLocation(state, widgetId);
-    assert(!!widgetLocation);
-
-    let allowedTarget: boolean = false;
-    let side: PanelSide | undefined;
 
     if (!widgetLocation || isPopoutWidgetLocation(widgetLocation)) {
-      allowedTarget = false;
-      side = undefined;
+      return false;
     } else if (isFloatingWidgetLocation(widgetLocation)) {
-      allowedTarget = true;
-      side = undefined;
-    } else {
-      side = widgetLocation.side;
+      return false;
     }
 
-    return isAllowedSideTarget(state, draggedWidget, side, allowedTarget);
+    return isAllowedSideTarget(state, draggedWidget, widgetLocation.side);
   });
 }

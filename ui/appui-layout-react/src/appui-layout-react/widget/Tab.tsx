@@ -75,14 +75,18 @@ const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponen
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
   const side = React.useContext(PanelSideContext);
   const widgetId = React.useContext(WidgetIdContext);
-  assert(!!widgetId);
   const widget = useLayout((state) => state.widgets[widgetId]);
-  const activeTabId = widget.activeTabId;
+  const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
+  const showWidgetIcon = React.useContext(ShowWidgetIconContext);
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(widgetTabsEntryContext?.onResize);
   const pointerCaptorRef = useTabInteractions({});
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
 
+  if (!widget)
+    return null;
+
+  const activeTabId = widget.activeTabId;
   const active = activeTabId === tab.id;
   const className = classnames(
     "nz-widget-tab",
@@ -94,8 +98,6 @@ const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponen
     props.className,
   );
 
-  const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
-  const showWidgetIcon = React.useContext(ShowWidgetIconContext);
   const showLabel = (showIconOnly && !tab.iconSpec) || (showWidgetIcon && !showIconOnly) || !showWidgetIcon;
   return (
     <div

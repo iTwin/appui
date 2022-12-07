@@ -582,7 +582,12 @@ export function initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneS
   nineZone = initializePanel(nineZone, frontstageDef, StagePanelLocation.Bottom);
   nineZone = produce(nineZone, (stateDraft) => {
     for (const [, panel] of Object.entries(stateDraft.panels)) {
-      const expanded = panel.widgets.find((widgetId) => stateDraft.widgets[widgetId].minimized === false);
+      const expanded = panel.widgets.find((widgetId) => {
+        const widget = stateDraft.widgets[widgetId]
+        if (!widget)
+          return false;
+        return widget.minimized === false
+      });
       const firstWidget = panel.widgets.length > 0 ? stateDraft.widgets[panel.widgets[0]] : undefined;
       // istanbul ignore next
       if (!expanded && firstWidget) {
@@ -650,9 +655,9 @@ export function restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedN
     if (-1 !== oldLeftMiddleIndex) {
       draft.panels.left.widgets = saved.panels.left.widgets.filter((value) => value !== "leftMiddle");
       if ("leftEnd" in draft.widgets) {
-        draft.widgets.leftMiddle.tabs.forEach((tab) => draft.widgets.leftEnd.tabs.push(tab));
+        draft.widgets.leftMiddle!.tabs.forEach((tab) => draft.widgets.leftEnd!.tabs.push(tab));
       } else {
-        draft.widgets.leftEnd = { ...draft.widgets.leftMiddle };
+        draft.widgets.leftEnd = { ...draft.widgets.leftMiddle! };
         delete draft.widgets.leftMiddle;
       }
     }
@@ -662,9 +667,9 @@ export function restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedN
     if (-1 !== oldRightMiddleIndex) {
       draft.panels.right.widgets = saved.panels.right.widgets.filter((value) => value !== "rightMiddle");
       if ("rightEnd" in draft.widgets) {
-        draft.widgets.rightMiddle.tabs.forEach((tab) => draft.widgets.rightEnd.tabs.push(tab));
+        draft.widgets.rightMiddle!.tabs.forEach((tab) => draft.widgets.rightEnd!.tabs.push(tab));
       } else {
-        draft.widgets.rightEnd = { ...draft.widgets.rightMiddle };
+        draft.widgets.rightEnd = { ...draft.widgets.rightMiddle! };
         delete draft.widgets.rightMiddle;
       }
     }
@@ -871,6 +876,7 @@ export function setWidgetState(
     return produce(state, (draft) => {
       assert(!!location);
       const widget = draft.widgets[location.widgetId];
+      assert(!!widget);
       widget.minimized = false;
       widget.activeTabId = id;
 
@@ -899,7 +905,7 @@ export function setWidgetState(
     return produce(state, (draft) => {
       assert(!!location);
       const widget = draft.widgets[location.widgetId];
-
+      assert(!!widget);
       if (isFloatingTabLocation(location)) {
         if (id === widget.activeTabId) {
           widget.minimized = true;
@@ -944,9 +950,11 @@ function hideWidget(state: NineZoneState, widgetDef: WidgetDef) {
     };
   } else if (!isPopoutTabLocation(location)) {
     const widgetId = location.widgetId;
+    const widget = state.widgets[location.widgetId];
+    assert(!!widget);
     const side = isPanelTabLocation(location) ? location.side : "left";
     const widgetIndex = isPanelTabLocation(location) ? state.panels[side].widgets.indexOf(widgetId) : 0;
-    const tabIndex = state.widgets[location.widgetId].tabs.indexOf(widgetDef.id);
+    const tabIndex = widget.tabs.indexOf(widgetDef.id);
     widgetDef.tabLocation = {
       side,
       tabIndex,
@@ -964,6 +972,7 @@ export function showWidget(state: NineZoneState, id: TabState["id"]) {
     return state;
   state = produce(state, (draft) => {
     const widget = draft.widgets[location.widgetId];
+    assert(!!widget);
     widget.activeTabId = id;
     widget.minimized = false;
     if (isPanelTabLocation(location)) {
@@ -985,10 +994,13 @@ export function expandWidget(state: NineZoneState, id: TabState["id"]) {
 
   return produce(state, (draft) => {
     const widget = draft.widgets[location.widgetId];
+    assert(!!widget);
     if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
       panel.widgets.forEach((wId) => {
         const w = draft.widgets[wId];
+        if (!w)
+          return;
         w.minimized = true;
       });
     }

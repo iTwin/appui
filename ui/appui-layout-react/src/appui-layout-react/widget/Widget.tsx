@@ -179,5 +179,10 @@ export function useActiveTab(): TabState | undefined {
 export function useActiveTabId() {
   const id = React.useContext(WidgetIdContext);
   assert(!!id);
-  return useLayout((state) => state.widgets[id].activeTabId);
+  return useLayout((state) => {
+    const widget = state.widgets[id];
+    if (!widget)
+      return "";
+    return widget.activeTabId;
+  });
 }

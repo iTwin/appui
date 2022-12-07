@@ -182,7 +182,7 @@ describe("NineZoneStateReducer", () => {
         widgetId: "w1",
         id: "t1",
       });
-      newState.widgets.w1.activeTabId.should.eq("t1");
+      newState.widgets.w1!.activeTabId.should.eq("t1");
     });
 
     it("should set tab active", () => {
@@ -196,8 +196,8 @@ describe("NineZoneStateReducer", () => {
         widgetId: "w1",
         id: "t1",
       });
-      newState.widgets.w1.minimized.should.false;
-      expect(newState.widgets.w1.activeTabId).to.be.eql("t1");
+      newState.widgets.w1!.minimized.should.false;
+      expect(newState.widgets.w1!.activeTabId).to.be.eql("t1");
 
       const newState2 = NineZoneStateReducer(newState, {
         type: "WIDGET_TAB_CLICK",
@@ -205,7 +205,7 @@ describe("NineZoneStateReducer", () => {
         widgetId: "w1",
         id: "t3",
       });
-      expect(newState2.widgets.w1.activeTabId).to.be.eql("t3");
+      expect(newState2.widgets.w1!.activeTabId).to.be.eql("t3");
     });
 
     it("should maximize minimized floating widget", () => {
@@ -218,7 +218,7 @@ describe("NineZoneStateReducer", () => {
         widgetId: "w1",
         id: "t1",
       });
-      newState.widgets.w1.minimized.should.false;
+      newState.widgets.w1!.minimized.should.false;
     });
 
     it("should update preferredFloatingWidgetSize of a tab", () => {
@@ -263,7 +263,7 @@ describe("NineZoneStateReducer", () => {
         widgetId: "fw1",
         floatingWidgetId: "fw1",
       });
-      newState.widgets.fw1.minimized.should.true;
+      newState.widgets.fw1!.minimized.should.true;
     });
 
     it("should activate tab in floating widget", () => {
@@ -277,7 +277,7 @@ describe("NineZoneStateReducer", () => {
         widgetId: "fw1",
         floatingWidgetId: "fw1",
       });
-      newState.widgets.fw1.activeTabId.should.eq("t2");
+      newState.widgets.fw1!.activeTabId.should.eq("t2");
     });
   });
 
@@ -309,7 +309,7 @@ describe("NineZoneStateReducer", () => {
         newFloatingWidgetId: "newId",
         side: "left",
       });
-      newState.widgets.w2.minimized.should.false;
+      newState.widgets.w2!.minimized.should.false;
     });
   });
 
@@ -399,7 +399,7 @@ describe("NineZoneStateReducer", () => {
             widgetId: "w1",
           },
         });
-        newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "t2", "t3"]);
+        newState.widgets.w1!.tabs.should.eql(["t1", "fwt1", "t2", "t3"]);
       });
 
       it("should update home of tool settings floating widget", () => {
@@ -467,7 +467,7 @@ describe("NineZoneStateReducer", () => {
             widgetId: "w2",
           },
         });
-        newState.widgets.w2.tabs.should.eql(["t2", "fwt1"]);
+        newState.widgets.w2!.tabs.should.eql(["t2", "fwt1"]);
       });
 
       it("should add tabs to a floating widget", () => {
@@ -483,7 +483,7 @@ describe("NineZoneStateReducer", () => {
             widgetId: "fw2",
           },
         });
-        newState.widgets.fw2.tabs.should.eql(["fwt2", "fwt1"]);
+        newState.widgets.fw2!.tabs.should.eql(["fwt2", "fwt1"]);
       });
     });
 
@@ -522,7 +522,7 @@ describe("NineZoneStateReducer", () => {
         type: "FLOATING_WIDGET_SEND_BACK",
         id: "fw1",
       });
-      newState.widgets.leftStart.tabs.should.eql(["t1", "fwt1", "fwt2"]);
+      newState.widgets.leftStart!.tabs.should.eql(["t1", "fwt1", "fwt2"]);
       should().not.exist(newState.widgets.fw1);
       should().not.exist(newState.floatingWidgets.byId.fw1);
     });
@@ -542,7 +542,7 @@ describe("NineZoneStateReducer", () => {
         type: "FLOATING_WIDGET_SEND_BACK",
         id: "fw1",
       });
-      newState.widgets.w1.tabs.should.eql(["t0", "t1", "t2"]);
+      newState.widgets.w1!.tabs.should.eql(["t0", "t1", "t2"]);
       should().not.exist(newState.widgets.fw1);
       should().not.exist(newState.floatingWidgets.byId.fw1);
     });
@@ -567,8 +567,8 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-      newState.widgets.leftStart.tabs.should.eql(["t1"]);
-      newState.widgets.leftEnd.tabs.should.eql(["t2", "t3"]);
+      newState.widgets.leftStart!.tabs.should.eql(["t1"]);
+      newState.widgets.leftEnd!.tabs.should.eql(["t2", "t3"]);
       should().not.exist(newState.widgets.fw1);
       should().not.exist(newState.floatingWidgets.byId.fw1);
     });
@@ -593,8 +593,8 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-      newState.widgets.leftEnd.tabs.should.eql(["t1"]);
-      newState.widgets.leftStart.tabs.should.eql(["t2", "t3"]);
+      newState.widgets.leftEnd!.tabs.should.eql(["t1"]);
+      newState.widgets.leftStart!.tabs.should.eql(["t2", "t3"]);
       should().not.exist(newState.floatingWidgets.byId.fw1);
     });
 
@@ -616,8 +616,8 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.panels.left.widgets.should.eql(["w1", "w2"]);
-      newState.widgets.w1.tabs.should.eql(["t1"]);
-      newState.widgets.w2.tabs.should.eql(["t2"]);
+      newState.widgets.w1!.tabs.should.eql(["t1"]);
+      newState.widgets.w2!.tabs.should.eql(["t2"]);
       should().not.exist(newState.widgets.fw1);
       should().not.exist(newState.floatingWidgets.byId.fw1);
     });
@@ -640,8 +640,8 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-      newState.widgets.leftStart.tabs.should.eql(["t1", "t2"]);
-      newState.widgets.leftEnd.tabs.should.eql(["t3", "fwt1", "fwt2"]);
+      newState.widgets.leftStart!.tabs.should.eql(["t1", "t2"]);
+      newState.widgets.leftEnd!.tabs.should.eql(["t3", "fwt1", "fwt2"]);
       should().not.exist(newState.widgets.fw1);
       should().not.exist(newState.floatingWidgets.byId.fw1);
     });
@@ -672,7 +672,7 @@ describe("NineZoneStateReducer", () => {
         id: "fw2",
       });
       newState.panels.left.widgets.should.eql(["leftStart"]);
-      newState.widgets.leftStart.tabs.should.eql(["t1", "t2"]);
+      newState.widgets.leftStart!.tabs.should.eql(["t1", "t2"]);
     });
 
     it("should send back to existing panel section ('maxWidgetCount' limit)", () => {
@@ -691,8 +691,8 @@ describe("NineZoneStateReducer", () => {
         type: "FLOATING_WIDGET_SEND_BACK",
         id: "fw1",
       });
-      newState.widgets.w1.tabs.should.eql(["t1", "ft1"]);
-      newState.widgets.w2.tabs.should.eql(["t2"]);
+      newState.widgets.w1!.tabs.should.eql(["t1", "ft1"]);
+      newState.widgets.w2!.tabs.should.eql(["t2"]);
     });
   });
 
@@ -841,7 +841,7 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         widgetId: "w1",
       });
-      newState.widgets.w1.tabs.should.eql(["t2"]);
+      newState.widgets.w1!.tabs.should.eql(["t2"]);
     });
 
     it("should remove widget from panel", () => {
@@ -901,7 +901,7 @@ describe("NineZoneStateReducer", () => {
         side: undefined,
         widgetId: "fw1",
       });
-      newState.widgets.fw1.activeTabId.should.eq("t1");
+      newState.widgets.fw1!.activeTabId.should.eq("t1");
     });
 
     it("should keep one widget expanded", () => {
@@ -917,7 +917,7 @@ describe("NineZoneStateReducer", () => {
         side: "left",
         widgetId: "w1",
       });
-      newState.widgets.w2.minimized.should.false;
+      newState.widgets.w2!.minimized.should.false;
     });
   });
 
@@ -962,7 +962,7 @@ describe("NineZoneStateReducer", () => {
             widgetId: "leftStart",
           },
         });
-        newState.widgets.leftStart.tabs.should.eql(["t1", "dt", "t2"]);
+        newState.widgets.leftStart!.tabs.should.eql(["t1", "dt", "t2"]);
       });
 
       it("should add tab to leftEnd", () => {
@@ -983,7 +983,7 @@ describe("NineZoneStateReducer", () => {
             widgetId: "leftEnd",
           },
         });
-        newState.widgets.leftEnd.tabs.should.eql(["t1", "dt", "t2"]);
+        newState.widgets.leftEnd!.tabs.should.eql(["t1", "dt", "t2"]);
       });
 
       it("should update home of tool settings floating widget", () => {
@@ -1144,7 +1144,7 @@ describe("NineZoneStateReducer", () => {
             widgetId: "fw1",
           },
         });
-        newState.widgets.fw1.tabs.should.eql(["fwt1", "dt"]);
+        newState.widgets.fw1!.tabs.should.eql(["fwt1", "dt"]);
       });
     });
 
@@ -1309,7 +1309,7 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.panels.left.widgets.should.eql(["leftStart"]);
-      newState.widgets.leftStart.tabs.should.eql(["t1", "t2"]);
+      newState.widgets.leftStart!.tabs.should.eql(["t1", "t2"]);
       should().not.exist(newState.popoutWidgets.byId.fw1);
       newState.popoutWidgets.allIds.indexOf("fw1").should.eq(-1);
     });
@@ -1331,8 +1331,8 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-      newState.widgets.leftStart.tabs.should.eql(["t1"]);
-      newState.widgets.leftEnd.tabs.should.eql(["t2"]);
+      newState.widgets.leftStart!.tabs.should.eql(["t1"]);
+      newState.widgets.leftEnd!.tabs.should.eql(["t2"]);
       should().not.exist(newState.popoutWidgets.byId.fw1);
       newState.popoutWidgets.allIds.indexOf("fw1").should.eq(-1);
     });
@@ -1354,8 +1354,8 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-      newState.widgets.leftEnd.tabs.should.eql(["t1"]);
-      newState.widgets.leftStart.tabs.should.eql(["t2"]);
+      newState.widgets.leftEnd!.tabs.should.eql(["t1"]);
+      newState.widgets.leftStart!.tabs.should.eql(["t2"]);
       should().not.exist(newState.popoutWidgets.byId.fw1);
       newState.popoutWidgets.allIds.indexOf("fw1").should.eq(-1);
     });
@@ -1378,8 +1378,8 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.panels.left.widgets.should.eql(["w1", "w2"]);
-      newState.widgets.w1.tabs.should.eql(["t1"]);
-      newState.widgets.w2.tabs.should.eql(["t2"]);
+      newState.widgets.w1!.tabs.should.eql(["t1"]);
+      newState.widgets.w2!.tabs.should.eql(["t2"]);
       should().not.exist(newState.popoutWidgets.byId.fw1);
       newState.popoutWidgets.allIds.should.not.contain("fw1");
     });
@@ -1401,8 +1401,8 @@ describe("NineZoneStateReducer", () => {
       });
 
       newState.panels.left.widgets.should.eql(["leftStart", "leftEnd"]);
-      newState.widgets.leftStart.tabs.should.eql(["t1", "t2", "t3"]);
-      newState.widgets.leftEnd.tabs.should.eql(["fwt1"]);
+      newState.widgets.leftStart!.tabs.should.eql(["t1", "t2", "t3"]);
+      newState.widgets.leftEnd!.tabs.should.eql(["fwt1"]);
       should().not.exist(newState.popoutWidgets.byId.fw1);
       newState.popoutWidgets.allIds.indexOf("fw1").should.eq(-1);
       should().not.exist(newState.widgets.fw1);
@@ -1453,7 +1453,7 @@ describe("floatWidget", () => {
     // restore widget tab "t1" back to original "rightStart" location
     const dockedState = dockWidgetContainer(newState, "t1");
     dockedState.panels.right.widgets.should.eql(["rightStart", "rightEnd"]);
-    dockedState.widgets.rightStart.tabs.should.eql(["t1"]);
+    dockedState.widgets.rightStart!.tabs.should.eql(["t1"]);
   });
 
   it("should apply position and preferred size", () => {
@@ -1480,7 +1480,7 @@ describe("floatWidget", () => {
 
     // restore widget tab "t1" back to original "rightStart" location
     const dockedState = dockWidgetContainer(newState, "t1");
-    dockedState.widgets.rightEnd.tabs.should.eql(["t2"]);
+    dockedState.widgets.rightEnd!.tabs.should.eql(["t2"]);
   });
 
   it("should apply default position {x:50, y:100} and size {height:400, width:400}", () => {
@@ -1507,7 +1507,7 @@ describe("floatWidget", () => {
 
     // restore widget tab "t1" back to original "rightStart" location
     const dockedState = dockWidgetContainer(newState, "t1");
-    dockedState.widgets.rightEnd.tabs.should.eql(["t2"]);
+    dockedState.widgets.rightEnd!.tabs.should.eql(["t2"]);
   });
 
   it("should apply position and default size of (400,400)", () => {
@@ -1533,7 +1533,7 @@ describe("floatWidget", () => {
 
     // restore widget tab "t1" back to original "rightStart" location
     const dockedState = dockWidgetContainer(newState, "t1");
-    dockedState.widgets.rightEnd.tabs.should.eql(["t2"]);
+    dockedState.widgets.rightEnd!.tabs.should.eql(["t2"]);
   });
 
   it("should properly handle multiple widget tabs", () => {
@@ -1559,7 +1559,7 @@ describe("floatWidget", () => {
 
     // Restore "t1" back to original "rightStart" location
     const dockedState = dockWidgetContainer(newState, "t1");
-    dockedState.widgets.rightStart.tabs.should.contain("t1");
+    dockedState.widgets.rightStart!.tabs.should.contain("t1");
     dockedState.floatingWidgets.allIds.should.length(0);
   });
 
@@ -1689,7 +1689,7 @@ describe("dockWidgetContainer", () => {
     });
 
     const newState = dockWidgetContainer(state, "fw1", true);
-    newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "fwt2"]);
+    newState.widgets.w1!.tabs.should.eql(["t1", "fwt1", "fwt2"]);
     should().not.exist(newState.widgets.fw1);
     should().not.exist(newState.floatingWidgets.byId.fw1);
   });
@@ -1707,7 +1707,7 @@ describe("dockWidgetContainer", () => {
     });
 
     const newState = dockWidgetContainer(state, "fwt1", false);
-    newState.widgets.w1.tabs.should.eql(["t1", "fwt1", "fwt2"]);
+    newState.widgets.w1!.tabs.should.eql(["t1", "fwt1", "fwt2"]);
     should().not.exist(newState.widgets.fw1);
     should().not.exist(newState.floatingWidgets.byId.fw1);
   });

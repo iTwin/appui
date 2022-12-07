@@ -15,7 +15,7 @@ import { useAllowedSideTarget } from "./useAllowedSideTarget";
  */
 export function useAllowedPanelTarget() {
   const side = React.useContext(PanelSideContext);
-  assert (!!side);
+  assert(!!side);
 
-  return useAllowedSideTarget(side, false);
+  return useAllowedSideTarget(side);
 }

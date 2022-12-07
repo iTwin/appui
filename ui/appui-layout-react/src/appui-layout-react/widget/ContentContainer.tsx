@@ -24,17 +24,20 @@ export interface WidgetContentContainerProps {
 export function WidgetContentContainer(props: WidgetContentContainerProps) {
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
-  const widget = useLayout((state) => state.widgets[widgetId]);
+  const minimized = useLayout((state) => {
+    const widget = state.widgets[widgetId];
+    return widget?.minimized;
+  });
+  const activeTabId = useLayout((state) => {
+    const widget = state.widgets[widgetId];
+    return widget?.activeTabId;
+  });
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const side = React.useContext(PanelSideContext);
 
-  assert(!!widget);
-  const ref = React.useCallback((instance: HTMLDivElement | null) => {
-    widgetContentManager.setContainer(widget.activeTabId, instance);
-  }, [widget.activeTabId, widgetContentManager]);
   const className = classnames(
     "nz-widget-contentContainer",
-    undefined === side && widget.minimized && "nz-minimized",
+    undefined === side && minimized && "nz-minimized",
   );
   return (
     <div
@@ -42,7 +45,11 @@ export function WidgetContentContainer(props: WidgetContentContainerProps) {
     >
       <div
         className="nz-content"
-        ref={ref}
+        ref={(instance: HTMLDivElement | null) => {
+          if (!activeTabId)
+            return;
+          widgetContentManager.setContainer(activeTabId, instance);
+        }}
       />
       {props.children}
     </div>

@@ -27,7 +27,7 @@ export interface WidgetState {
 }
 
 /** @internal */
-export interface WidgetsState { readonly [id: string]: WidgetState }
+export interface WidgetsState { readonly [id: string]: WidgetState | undefined }
 
 /** @internal */
 export interface FloatingWidgetHomeState {

@@ -14,25 +14,27 @@ import { PanelSide } from "../widget-panels/Panel";
 /** Check the docking side against allowed regions
   * @internal
   */
-export function useAllowedSideTarget(side: PanelSide | undefined, allowedTarget: boolean) {
+export function useAllowedSideTarget(side: PanelSide) {
   const draggedWidget = React.useContext(DraggedWidgetIdContext);
-  return useLayout((state) => isAllowedSideTarget(state, draggedWidget, side, allowedTarget));
+  return useLayout((state) => {
+    return isAllowedSideTarget(state, draggedWidget, side)
+  });
 }
 
 /** @internal */
-export function isAllowedSideTarget(state: NineZoneState, draggedWidget: string | undefined, side: PanelSide | undefined, allowedTarget: boolean) {
+export function isAllowedSideTarget(state: NineZoneState, draggedWidget: string | undefined, side: PanelSide) {
   const draggedTab = state.draggedTab;
   const tabsState = state.tabs;
   const widgetsState = state.widgets;
-
-  if (!side) return allowedTarget;
 
   let allowedPanelTargets: ReadonlyArray<PanelSide> | undefined;
   if (draggedTab) {
     const tab = tabsState[draggedTab.tabId];
     allowedPanelTargets = tab.allowedPanelTargets;
-  } else if (draggedWidget && draggedWidget in widgetsState) { // handle a case where DraggedWidgetIdContext exists, but dragged widget is not in WidgetsStateContet
+  } else if (draggedWidget && draggedWidget in widgetsState) { // handle a case where DraggedWidgetIdContext exists, but dragged widget is not in WidgetsStateContext
     const widget = widgetsState[draggedWidget];
+    if (!widget)
+      return false;
     const activeTabId = widget.activeTabId;
     const activeTab = tabsState[activeTabId];
     allowedPanelTargets = activeTab.allowedPanelTargets;

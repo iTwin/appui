@@ -45,8 +45,18 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
   }, forwardedRef) { // eslint-disable-line @typescript-eslint/naming-convention
     const side = React.useContext(PanelSideContext)!;
     const panel = useLayout((state) => state.panels[side]);
-    const widgets = useLayout((state) => state.widgets);
-    const widget = widgets[widgetId];
+    const widget = useLayout(React.useCallback((state) => {
+      // Parent components are providing `side`, `widgetId`.
+      // This is called before the context values are updated by parent components, hence `widgetId` can no longer be in an updated state.
+      // Looks like a "Zombie child" problem, see: https://react-redux.js.org/api/hooks#stale-props-and-zombie-children
+      const w = state.widgets[widgetId];
+      if (!w) {
+        console.log("PanelWidget:layout", widgetId, w);
+      }
+      return w;
+    }, [widgetId]));
+    if (!widget)
+      console.log("PanelWidget", widgetId, widget);
     const horizontal = isHorizontalPanelSide(panel.side);
     const elementRef = React.useRef<HTMLDivElement>(null);
     const ref = useRefs(forwardedRef, elementRef);
@@ -68,7 +78,7 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
     const onRestore = React.useCallback(() => {
       onPrepareTransition();
     }, [onPrepareTransition]);
-    useTabTransientState(widget.activeTabId, onSave, onRestore);
+    useTabTransientState(widget?.activeTabId || "", onSave, onRestore);
     const style = React.useMemo<React.CSSProperties | undefined>(() => {
       if (size !== undefined) {
         return { flexBasis: size };
@@ -77,6 +87,9 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
       }
       return undefined;
     }, [horizontal, size, mode, panel.widgets.length]);
+
+    if (!widget)
+      return null;
     const showTarget = panel.widgets.length !== 1;
     const className = classnames(
       "nz-widget-panelWidget",
@@ -119,6 +132,9 @@ function getMaxSize(horizontal: boolean, size: string | number) {
 function findFillWidget(panelWidgets: ReadonlyArray<string>, widgets: WidgetsState, tabs: TabsState) {
   return panelWidgets.find((widgetId) => {
     const widget = widgets[widgetId];
+    if (!widget)
+      return false;
+
     if (widget.minimized)
       return false;
     const tabId = widget.activeTabId;
@@ -143,6 +159,7 @@ export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
     for (let i = panel.widgets.length - 1; i >= 0; i--) {
       const wId = panel.widgets[i];
       const w = widgets[wId];
+      assert(!!w);
       if (w.minimized)
         continue;
       if (wId === widgetId)
@@ -152,6 +169,9 @@ export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
   }
 
   const widget = widgets[widgetId];
+  if (!widget)
+    return "fill";
+
   if (widget.minimized)
     return "minimized";
   const tabId = widget.activeTabId;

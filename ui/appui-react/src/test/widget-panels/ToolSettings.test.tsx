@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
 import { createLayoutStore, DragManager, DragManagerContext, NineZoneProvider } from "@itwin/appui-layout-react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
 import * as sinon from "sinon";

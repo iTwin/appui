@@ -49,12 +49,12 @@ export function useStoreData<T, SelectorOutput>(
   const [state, setState] = React.useState(() => selector(store.get()));
   React.useEffect(() => {
     setState(selector(store.get()));
-  }, [store]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [store, selector]);
   React.useEffect(() => {
     return store.onChanged(() => {
       setState(selector(store.get()));
     });
-  }, [store]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [store, selector]);
 
   return state;
 }

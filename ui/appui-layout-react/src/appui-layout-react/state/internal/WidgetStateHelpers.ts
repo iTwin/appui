@@ -32,9 +32,8 @@ export function createWidgetState(id: WidgetState["id"], tabs: WidgetState["tabs
 
 /** @internal */
 export function updateWidgetState(state: NineZoneState, id: WidgetState["id"], args: Partial<WidgetState>) {
-  assertWidgetState(state, id);
   return produce(state, (draft) => {
-    const widget = draft.widgets[id];
+    const widget = getWidgetState(draft, id);
     draft.widgets[id] = {
       ...widget,
       ...castDraft(args),
@@ -174,7 +173,8 @@ export function removePanelWidget(state: NineZoneState, id: WidgetState["id"], l
   });
 
   const expandedWidget = widgets.find((widgetId) => {
-    return !state.widgets[widgetId].minimized;
+    const widget = getWidgetState(state, widgetId);
+    return !widget.minimized;
   });
   if (!expandedWidget && widgets.length > 0) {
     const firstWidgetId = widgets[0];
@@ -200,9 +200,10 @@ export function assertWidgetState(state: NineZoneState, id: WidgetState["id"]) {
 }
 
 /** @internal */
-export function getWidgetState(state: NineZoneState, id: WidgetState["id"]) {
+export function getWidgetState<T extends NineZoneState>(state: T, id: WidgetState["id"]): NonNullable<T["widgets"][0]> {
   assertWidgetState(state, id);
-  return state.widgets[id];
+  const widget = state.widgets[id];
+  return widget! as NonNullable<T["widgets"][0]>;
 }
 
 /** @internal */
