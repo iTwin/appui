@@ -170,7 +170,7 @@ describe("PanelWidget", () => {
     });
 
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     sinon.assert.calledOnce(spy);

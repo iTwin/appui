@@ -82,14 +82,14 @@ export function useLayoutStore(frontstageDef: FrontstageDef) {
   const lastFrontstageDef = React.useRef(frontstageDef);
   const [layout] = React.useState(() => createLayoutStore(frontstageDef.nineZoneState));
   React.useEffect(() => {
-    layout.set(frontstageDef.nineZoneState || defaultNineZone);
+    layout.setState(frontstageDef.nineZoneState || defaultNineZone);
     lastFrontstageDef.current = frontstageDef;
   }, [frontstageDef]);
   React.useEffect(() => {
     const listener = (args: FrontstageNineZoneStateChangedEventArgs) => {
       if (args.frontstageDef !== frontstageDef || frontstageDef.isStageClosing || frontstageDef.isApplicationClosing)
         return;
-      layout.set(args.state || defaultNineZone);
+      layout.setState(args.state || defaultNineZone);
     };
     return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(listener);
   }, [frontstageDef]);
@@ -1066,13 +1066,13 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
 }
 
 function useNineZone(store: LayoutStore) {
-  const [state, setState] = React.useState(() => store.get());
+  const [state, setState] = React.useState(() => store.getState());
   React.useEffect(() => {
-    setState(store.get());
+    setState(store.getState());
   }, [store]);
   React.useEffect(() => {
-    return store.onChanged(() => {
-      setState(store.get());
+    return store.subscribe(() => {
+      setState(store.getState());
     });
   }, [store]);
   return state;

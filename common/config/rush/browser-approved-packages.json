@@ -1113,6 +1113,10 @@
     {
       "name": "yargs",
       "allowedCategories": [ "backend", "common", "internal", "tools" ]
+    },
+    {
+      "name": "zustand",
+      "allowedCategories": [ "frontend" ]
     }
   ]
 }

@@ -211,7 +211,7 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.collapsed = true;
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     // Invoke raf callbacks.
@@ -252,7 +252,7 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.collapsed = false;
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     // Invoke raf callbacks.
@@ -289,7 +289,7 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.size = 300;
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     // Invoke raf callbacks.
@@ -320,7 +320,7 @@ describe("WidgetPanelProvider", () => {
           draft.panels.left.size = 150;
         });
         act(() => {
-          layout.set(state);
+          layout.setState(state);
         });
       }
     };
@@ -338,7 +338,7 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.size = undefined;
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     panel.style.width.should.eq("100px");
@@ -385,7 +385,7 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.size = 300;
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     Array.from(panel.classList.values()).should.not.contain("nz-transition");
@@ -423,7 +423,7 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.collapsed = true;
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     // Invoke raf callbacks.
@@ -438,7 +438,7 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.size = 400;
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     Array.from(panel.classList.values()).should.contain("nz-transition");
@@ -472,7 +472,7 @@ describe("WidgetPanelProvider", () => {
       draft.panels.left.size = 300;
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     Array.from(panel.classList.values()).should.not.contain("nz-transition");
@@ -508,7 +508,7 @@ describe("WidgetPanelProvider", () => {
       .onSecondCall().returns(DOMRect.fromRect({ height: 0 }));
 
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     // Invoke raf callbacks.
@@ -602,7 +602,7 @@ describe("useAnimatePanelWidgets", () => {
 
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     "init".should.eq(result.current.transition);
@@ -657,7 +657,7 @@ describe("useAnimatePanelWidgets", () => {
       draft.panels.left.widgets = ["w1", "w2"];
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     "init".should.eq(result.current.transition);
@@ -702,7 +702,7 @@ describe("useAnimatePanelWidgets", () => {
     });
 
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
     rerender({
       layout,
@@ -747,7 +747,7 @@ describe("useAnimatePanelWidgets", () => {
       draft.panels.left.widgets = ["w1", "w2"];
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     "init".should.eq(result.current.transition);
@@ -791,7 +791,7 @@ describe("useAnimatePanelWidgets", () => {
     });
 
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
     rerender({ layout });
 
@@ -820,7 +820,7 @@ describe("useAnimatePanelWidgets", () => {
       draft.panels.left.widgets = [];
     });
 
-    (() => act(() => layout.set(state))).should.not.throw();
+    (() => act(() => layout.setState(state))).should.not.throw();
   });
 
   it("should not transition when from and to sizes are equal", () => {
@@ -857,7 +857,7 @@ describe("useAnimatePanelWidgets", () => {
       draft.panels.left.widgets = ["w1", "w2"];
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     should().not.exist(result.current.transition);
@@ -957,7 +957,7 @@ describe("useAnimatePanelWidgets", () => {
 
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
 
     should().not.exist(result.current.transition);
@@ -996,7 +996,7 @@ describe("useAnimatePanelWidgets", () => {
       draft.panels.left.widgets = ["w1"];
     });
     act(() => {
-      layout.set(state);
+      layout.setState(state);
     });
     rerender({ layout, onAfterRender });
 

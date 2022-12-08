@@ -419,7 +419,7 @@ describe("Frontstage local storage wrapper", () => {
         const nineZoneState = createNineZoneState();
         frontstageDef.nineZoneState = nineZoneState;
         const { result } = renderHook(() => useLayoutStore(frontstageDef));
-        nineZoneState?.should.eq(result.current.get());
+        nineZoneState?.should.eq(result.current.getState());
       });
 
       it("should return nineZoneState of provided frontstageDef", () => {
@@ -433,7 +433,7 @@ describe("Frontstage local storage wrapper", () => {
           initialProps: frontstageDef,
         });
         rerender(newFrontstageDef);
-        newNineZoneState?.should.eq(result.current.get());
+        newNineZoneState?.should.eq(result.current.getState());
       });
 
       it("should return updated nineZoneState", () => {
@@ -446,7 +446,7 @@ describe("Frontstage local storage wrapper", () => {
         act(() => {
           frontstageDef.nineZoneState = newNineZoneState;
         });
-        newNineZoneState?.should.eq(result.current.get());
+        newNineZoneState?.should.eq(result.current.getState());
       });
 
       it("should handle trigger onWidgetStateChangedEvent", () => {
@@ -576,7 +576,7 @@ describe("Frontstage local storage wrapper", () => {
         act(() => {
           (new FrontstageDef()).nineZoneState = newNineZoneState;
         });
-        nineZoneState?.should.eq(result.current.get());
+        nineZoneState?.should.eq(result.current.getState());
       });
     });
 

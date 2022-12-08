@@ -8,30 +8,32 @@
 
 import { assert } from "@itwin/core-bentley";
 import * as React from "react";
+import { createStore, StoreApi, useStore } from "zustand";
 import { createNineZoneState, NineZoneState } from "../state/NineZoneState";
-import { createStore, Store, useStoreData } from "./Store";
 
 /** @internal */
-export type LayoutStore = Store<NineZoneState>;
+export type LayoutState = NineZoneState;
+
+/** @internal */
+export type LayoutStore = StoreApi<NineZoneState>;
 
 /** @internal */
 export const LayoutStoreContext = React.createContext<LayoutStore | undefined>(undefined);
 LayoutStoreContext.displayName = "appui:LayoutStoreContext";
 
 /** @internal */
-export function createLayoutStore(args?: Partial<NineZoneState>) {
-  return createStore(createNineZoneState(args));
+export function createLayoutStore(args?: Partial<LayoutState>): LayoutStore {
+  return createStore<LayoutState>(() => createNineZoneState(args));
 }
 
-/** @internal */
-export function useLayoutStore() {
+function useLayoutStore() {
   const store = React.useContext(LayoutStoreContext);
-  assert(!!store, "LayoutStoreContext not found");
+  assert(!!store, "LayoutStoreContext is not defined");
   return store;
 }
 
 /** @internal */
-export function useLayout<SelectorOutput>(selector: (state: NineZoneState) => SelectorOutput) {
+export function useLayout<SelectorOutput>(selector: (state: LayoutState) => SelectorOutput) {
   const store = useLayoutStore();
-  return useStoreData(store, selector);
+  return useStore(store, selector);
 }
