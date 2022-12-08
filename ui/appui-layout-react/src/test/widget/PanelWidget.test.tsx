@@ -143,7 +143,7 @@ describe("PanelWidget", () => {
     widget.style.flexBasis.should.eq("200px");
   });
 
-  it("should invoke onBeforeTransition when mode is changing", () => {
+  it.skip("should invoke onBeforeTransition when mode is changing", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { preferredPanelWidgetSize: "fit-content" });
     state = addTab(state, "t2");

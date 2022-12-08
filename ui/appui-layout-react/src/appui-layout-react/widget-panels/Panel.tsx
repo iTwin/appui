@@ -157,10 +157,7 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
   spanTop,
 }) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const side = React.useContext(PanelSideContext)!;
-  const panel = useLayout((state) => {
-    console.log("PANEL:layout", state.panels[side]);
-    return state.panels[side]
-  });
+  const panel = useLayout((state) => state.panels[side]);
   const { handleBeforeTransition, handlePrepareTransition, handleTransitionEnd, getRef, sizes, ...animatePanelWidgets } = useAnimatePanelWidgets();
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
@@ -344,7 +341,6 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
 
   const singleSection = panel.widgets.length === 1;
   const showSectionTargets = singleSection && !panel.collapsed;
-  console.log("PANEL", panel);
   /* istanbul ignore next */
   return (
     <WidgetPanelContext.Provider value={widgetPanel}>
@@ -484,8 +480,6 @@ export function useAnimatePanelWidgets(): {
         for (let i = removedWidgetIndex + 1; i < prevPanelWidgets.length; i++) {
           const widgetId = prevPanelWidgets[i];
           const widget = prevWidgets[widgetId];
-          if (!widget)
-            continue;
           if (widget.minimized)
             continue;
           fillWidget = widgetId;
@@ -495,8 +489,6 @@ export function useAnimatePanelWidgets(): {
         for (let i = removedWidgetIndex - 1; i >= 0; i--) {
           const widgetId = prevPanelWidgets[i];
           const widget = prevWidgets[widgetId];
-          if (!widget)
-            continue;
           if (widget.minimized)
             continue;
           fillWidget = widgetId;

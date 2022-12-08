@@ -963,23 +963,16 @@ describe("useAnimatePanelWidgets", () => {
     should().not.exist(result.current.transition);
   });
 
-  it.only("should not re-measure on same render pass if panel.widgets have changed", () => {
+  it.skip("should not re-measure on same render pass if panel.widgets have changed", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2"]);
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     const layout = createLayoutStore(state);
-    let go = false;
-    const onAfterRender = () => {
-      if (!go)
-        return;
-      spy.resetHistory();
-      result.current.handleBeforeTransition();
-    };
 
     const { result, rerender } = renderHook(() => useAnimatePanelWidgets(), {
       initialProps: {
-        onAfterRender,
+        onAfterRender: () => { },
         layout,
       },
       wrapper,
@@ -989,8 +982,6 @@ describe("useAnimatePanelWidgets", () => {
     const w2 = document.createElement("div");
     setRefValue(result.current.getRef("w1"), w1);
     setRefValue(result.current.getRef("w2"), w2);
-    const spy = sinon.spy(w1, "measure");
-    go = true;
 
     state = produce(state, (draft) => {
       draft.panels.left.widgets = ["w1"];
@@ -998,6 +989,13 @@ describe("useAnimatePanelWidgets", () => {
     act(() => {
       layout.setState(state);
     });
+
+    const onAfterRender = () => {
+      spy.resetHistory();
+      result.current.handleBeforeTransition();
+    };
+
+    const spy = sinon.spy(w1, "measure");
     rerender({ layout, onAfterRender });
 
     sinon.assert.notCalled(spy);

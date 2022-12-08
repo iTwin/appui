@@ -19,6 +19,7 @@ import { assert } from "@itwin/core-bentley";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import { TabDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 /** @internal */
 export function TabTarget() {
@@ -52,10 +53,7 @@ function useTabIndex() {
   const widgetId = React.useContext(WidgetIdContext);
   const tabId = React.useContext(TabIdContext);
   return useLayout((state) => {
-    const widget = state.widgets[widgetId];
-    if (!widget) {
-      return -1;
-    }
+    const widget = getWidgetState(state, widgetId);
     return widget.tabs.findIndex((id) => id === tabId);
   });
 }

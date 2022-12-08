@@ -564,7 +564,6 @@ export class FrontstageDef {
         collapsedPanel = panel.collapsed || undefined === panel.size || 0 === panel.size;
       }
       const widgetContainer = this.nineZoneState.widgets[location.widgetId];
-      assert(!!widgetContainer);
       if (widgetDef.id === widgetContainer.activeTabId && !collapsedPanel)
         return WidgetState.Open;
       else
@@ -684,7 +683,6 @@ export class FrontstageDef {
       return;
 
     const widget = state.widgets[widgetContainerId];
-    assert(!!widget);
     const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];
 
     // Popout widget should only contain a single tab.
@@ -787,7 +785,6 @@ export class FrontstageDef {
       return;
 
     const widget = this.nineZoneState.widgets[location.popoutWidgetId];
-    assert(!!widget);
     const tabId = widget.tabs[0];
     const widgetDef = this.findWidgetDef(tabId);
     if (!widgetDef)

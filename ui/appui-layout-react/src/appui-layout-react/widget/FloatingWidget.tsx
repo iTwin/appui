@@ -23,6 +23,7 @@ import { WidgetTarget } from "../target/WidgetTarget";
 import { WidgetOutline } from "../outline/WidgetOutline";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
@@ -67,9 +68,8 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
   const widget = useLayout((state) => {
-    return state.widgets[widgetId];
+    return getWidgetState(state, widgetId);
   });
-  assert(!!widget);
   const floatingWidgetId = useFloatingWidgetId();
   assert(!!floatingWidgetId);
   const id = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].id);

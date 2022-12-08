@@ -75,23 +75,21 @@ const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponen
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
   const side = React.useContext(PanelSideContext);
   const widgetId = React.useContext(WidgetIdContext);
-  const widget = useLayout((state) => state.widgets[widgetId]);
+  assert(!!widgetId);
   const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
+  const activeTabId = useLayout((state) => state.widgets[widgetId].activeTabId);
+  const minimized = useLayout((state) => state.widgets[widgetId].minimized);
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(widgetTabsEntryContext?.onResize);
   const pointerCaptorRef = useTabInteractions({});
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
 
-  if (!widget)
-    return null;
-
-  const activeTabId = widget.activeTabId;
   const active = activeTabId === tab.id;
   const className = classnames(
     "nz-widget-tab",
     active && "nz-active",
-    undefined === side && widget.minimized && "nz-minimized",
+    undefined === side && minimized && "nz-minimized",
     first && "nz-first",
     last && "nz-last",
     firstInactive && "nz-first-inactive",

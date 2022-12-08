@@ -54,8 +54,6 @@ export function isPanelTabLocation(location: TabLocation): location is PanelTabL
 export function getTabLocation(state: NineZoneState, id: TabState["id"]): TabLocation | undefined {
   let widgetId;
   for (const [, widget] of Object.entries(state.widgets)) {
-    if (!widget)
-      continue;
     const index = widget.tabs.indexOf(id);
     if (index >= 0) {
       widgetId = widget.id;

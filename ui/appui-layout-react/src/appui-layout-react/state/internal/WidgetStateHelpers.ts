@@ -200,10 +200,9 @@ export function assertWidgetState(state: NineZoneState, id: WidgetState["id"]) {
 }
 
 /** @internal */
-export function getWidgetState<T extends NineZoneState>(state: T, id: WidgetState["id"]): NonNullable<T["widgets"][0]> {
+export function getWidgetState<T extends NineZoneState>(state: T, id: WidgetState["id"]): T["widgets"][0] {
   assertWidgetState(state, id);
-  const widget = state.widgets[id];
-  return widget! as NonNullable<T["widgets"][0]>;
+  return state.widgets[id] as T["widgets"][0];
 }
 
 /** @internal */

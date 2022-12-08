@@ -14,6 +14,7 @@ import { WidgetContentManagerContext } from "./ContentManager";
 import { PanelSideContext } from "../widget-panels/Panel";
 import { WidgetIdContext } from "./Widget";
 import { useLayout } from "../base/LayoutStore";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 /** @internal */
 export interface WidgetContentContainerProps {
@@ -25,12 +26,12 @@ export function WidgetContentContainer(props: WidgetContentContainerProps) {
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
   const minimized = useLayout((state) => {
-    const widget = state.widgets[widgetId];
-    return widget?.minimized;
+    const widget = getWidgetState(state, widgetId);
+    return widget.minimized;
   });
   const activeTabId = useLayout((state) => {
-    const widget = state.widgets[widgetId];
-    return widget?.activeTabId;
+    const widget = getWidgetState(state, widgetId);
+    return widget.activeTabId;
   });
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const side = React.useContext(PanelSideContext);
@@ -45,9 +46,7 @@ export function WidgetContentContainer(props: WidgetContentContainerProps) {
     >
       <div
         className="nz-content"
-        ref={(instance: HTMLDivElement | null) => {
-          if (!activeTabId)
-            return;
+        ref={(instance) => {
           widgetContentManager.setContainer(activeTabId, instance);
         }}
       />

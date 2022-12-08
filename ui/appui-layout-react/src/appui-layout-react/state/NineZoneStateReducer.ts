@@ -299,7 +299,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       if (action.floatingWidgetId === undefined)
         return state;
 
-      const widget = getWidgetState(state, action.id);
+      const widget = getWidgetState(state, action.widgetId);
       const active = action.id === widget.activeTabId;
       if (!active)
         return setWidgetActiveTabId(state, widget.id, action.id);

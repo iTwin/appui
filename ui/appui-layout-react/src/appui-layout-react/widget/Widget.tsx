@@ -18,6 +18,7 @@ import { TabState } from "../state/TabState";
 import { PanelSideContext } from "../widget-panels/Panel";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { useLayout } from "../base/LayoutStore";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 /** @internal */
 export interface WidgetProviderProps {
@@ -180,9 +181,7 @@ export function useActiveTabId() {
   const id = React.useContext(WidgetIdContext);
   assert(!!id);
   return useLayout((state) => {
-    const widget = state.widgets[id];
-    if (!widget)
-      return "";
+    const widget = getWidgetState(state, id);
     return widget.activeTabId;
   });
 }

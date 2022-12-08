@@ -16,9 +16,7 @@ import { PanelSide } from "../widget-panels/Panel";
   */
 export function useAllowedSideTarget(side: PanelSide) {
   const draggedWidget = React.useContext(DraggedWidgetIdContext);
-  return useLayout((state) => {
-    return isAllowedSideTarget(state, draggedWidget, side)
-  });
+  return useLayout((state) => isAllowedSideTarget(state, draggedWidget, side));
 }
 
 /** @internal */
@@ -31,10 +29,8 @@ export function isAllowedSideTarget(state: NineZoneState, draggedWidget: string 
   if (draggedTab) {
     const tab = tabsState[draggedTab.tabId];
     allowedPanelTargets = tab.allowedPanelTargets;
-  } else if (draggedWidget && draggedWidget in widgetsState) { // handle a case where DraggedWidgetIdContext exists, but dragged widget is not in WidgetsStateContext
+  } else if (draggedWidget && draggedWidget in widgetsState) { // handle a case where DraggedWidgetIdContext exists, but dragged widget is not in WidgetsStateContet
     const widget = widgetsState[draggedWidget];
-    if (!widget)
-      return false;
     const activeTabId = widget.activeTabId;
     const activeTab = tabsState[activeTabId];
     allowedPanelTargets = activeTab.allowedPanelTargets;
