@@ -24,7 +24,7 @@ import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 /** @internal */
 export function TabTarget() {
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = useLayout((state) => state.draggedTab);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);

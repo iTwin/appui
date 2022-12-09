@@ -70,7 +70,6 @@ export const WidgetTab = React.memo<WidgetTabProps>(function WidgetTab(props) { 
 
 const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponent(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const id = React.useContext(TabIdContext);
-  const tab = useLayout((state) => state.tabs[id]);
   const { first, firstInactive, last } = React.useContext(TabPositionContext);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
   const side = React.useContext(PanelSideContext);
@@ -78,6 +77,9 @@ const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponen
   assert(!!widgetId);
   const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
+
+  const iconSpec = useLayout((state) => state.tabs[id].iconSpec);
+  const label = useLayout((state) => state.tabs[id].label);
   const activeTabId = useLayout((state) => state.widgets[widgetId].activeTabId);
   const minimized = useLayout((state) => state.widgets[widgetId].minimized);
 
@@ -85,7 +87,7 @@ const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponen
   const pointerCaptorRef = useTabInteractions({});
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
 
-  const active = activeTabId === tab.id;
+  const active = activeTabId === id;
   const className = classnames(
     "nz-widget-tab",
     active && "nz-active",
@@ -96,19 +98,19 @@ const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponen
     props.className,
   );
 
-  const showLabel = (showIconOnly && !tab.iconSpec) || (showWidgetIcon && !showIconOnly) || !showWidgetIcon;
+  const showLabel = (showIconOnly && !iconSpec) || (showWidgetIcon && !showIconOnly) || !showWidgetIcon;
   return (
     <div
-      data-item-id={tab.id}
+      data-item-id={id}
       data-item-type="widget-tab"
       className={className}
       ref={refs}
       role="tab"
       style={props.style}
-      title={tab.label}
+      title={label}
     >
-      {(showWidgetIcon || showIconOnly) && tab.iconSpec && <Icon iconSpec={tab.iconSpec} />}
-      {showLabel && <span>{tab.label}</span>}
+      {(showWidgetIcon || showIconOnly) && iconSpec && <Icon iconSpec={iconSpec} />}
+      {showLabel && <span>{label}</span>}
       {props.badge && <div className="nz-badge">
         {props.badge}
       </div>}

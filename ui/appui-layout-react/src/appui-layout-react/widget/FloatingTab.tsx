@@ -18,11 +18,23 @@ import { useLayout } from "../base/LayoutStore";
  * @internal
  */
 export function FloatingTab() {
-  const draggedTab = useLayout((state) => state.draggedTab);
-  const tabs = useLayout((state) => state.tabs);
+  const { id, position } = useLayout((state) => {
+    const draggedTab = state.draggedTab;
+    return {
+      id: draggedTab?.tabId,
+      position: draggedTab?.position,
+    };
+  }, true);
+  const { iconSpec, label } = useLayout((state) => {
+    const tabId = state.draggedTab?.tabId;
+    const tab = tabId ? state.tabs[tabId] : undefined;
+    return {
+      iconSpec: tab?.iconSpec,
+      label: tab?.label,
+    };
+  }, true);
+
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const id = draggedTab?.tabId;
-  const tab = id ? tabs[id] : undefined;
   const onDrag = React.useCallback<NonNullable<UseDragTabArgs["onDrag"]>>((dragBy) => {
     id && dispatch({
       type: "WIDGET_TAB_DRAG",
@@ -42,20 +54,20 @@ export function FloatingTab() {
     onDragEnd,
   });
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
-  const style = draggedTab && {
-    transform: `translate(${draggedTab.position.x}px, ${draggedTab.position.y}px)`,
+  const style = position && {
+    transform: `translate(${position.x}px, ${position.y}px)`,
   };
   const className = classnames(
     "nz-widget-floatingTab",
-    !draggedTab && "nz-hidden",
+    !position && "nz-hidden",
   );
   return (
     <div
       className={className}
       style={style}
     >
-      {showWidgetIcon && tab && tab.iconSpec && <Icon iconSpec={tab.iconSpec} />}
-      <span>{tab && tab.label}</span>
+      {showWidgetIcon && iconSpec && <Icon iconSpec={iconSpec} />}
+      <span>{label}</span>
     </div>
   );
 }

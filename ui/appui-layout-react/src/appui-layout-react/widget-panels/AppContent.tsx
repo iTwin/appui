@@ -12,23 +12,31 @@ import { WidgetPanelsContent } from "./Content";
 import { ContentNodeContext } from "./Panels";
 import { panelSides } from "./Panel";
 import { useRefEffect, useRefs } from "@itwin/core-react";
-import { useLayout } from "../base/LayoutStore";
+import { useLayout, useLayoutStore } from "../base/LayoutStore";
 
 /** Main app content (i.e. viewport) that will change bounds based on panel pinned settings.
  * @internal
  */
 export function AppContent() {
-  const panels = useLayout((state) => state.panels);
+  const { pinnedLeft, pinnedRight, pinnedTop, pinnedBottom } = useLayout((state) => {
+    const panels = state.panels;
+    return {
+      pinnedLeft: panels.left.pinned,
+      pinnedRight: panels.right.pinned,
+      pinnedTop: panels.top.pinned,
+      pinnedBottom: panels.bottom.pinned,
+    };
+  }, true);
   const content = React.useContext(ContentNodeContext);
   const ref = usePanelsAutoCollapse<HTMLDivElement>();
   return (
     <WidgetPanelsContent
       className="nz-widgetPanels-appContent"
       ref={ref}
-      pinnedLeft={panels.left.pinned}
-      pinnedRight={panels.right.pinned}
-      pinnedTop={panels.top.pinned}
-      pinnedBottom={panels.bottom.pinned}
+      pinnedLeft={pinnedLeft}
+      pinnedRight={pinnedRight}
+      pinnedTop={pinnedTop}
+      pinnedBottom={pinnedBottom}
     >
       {content}
     </WidgetPanelsContent>
@@ -37,13 +45,18 @@ export function AppContent() {
 
 /** @internal */
 export function usePanelsAutoCollapse<T extends Element>(): React.Ref<T> {
-  const panels = useLayout((state) => state.panels);
+  const layoutStore = useLayoutStore();
+  const panelsRef = React.useRef(layoutStore.getState().panels);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const autoCollapseUnpinnedPanels = React.useContext(AutoCollapseUnpinnedPanelsContext);
 
+  React.useEffect(() => layoutStore.subscribe(
+    (state) => (panelsRef.current = state.panels),
+  ), [layoutStore]);
+
   const collapsePanels = React.useCallback(() => {
     for (const side of panelSides) {
-      const panel = panels[side];
+      const panel = panelsRef.current[side];
       if (panel.collapsed || panel.pinned)
         continue;
       dispatch({
@@ -52,7 +65,7 @@ export function usePanelsAutoCollapse<T extends Element>(): React.Ref<T> {
         side: panel.side,
       });
     }
-  }, [dispatch, panels]);
+  }, [dispatch]);
   const mouseDownRef = useRefEffect<T>((instance) => {
     if (!instance)
       return;

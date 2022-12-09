@@ -60,7 +60,8 @@ export function useHidden() {
 
 function useSize() {
   const side = React.useContext(PanelSideContext)!;
-  const size = useLayout((state) => state.panels[side].size);
-  const minSize = useLayout((state) => state.panels[side].minSize);
-  return size !== undefined ? size : minSize;
+  return useLayout((state) => {
+    const panel = state.panels[side];
+    return panel.size !== undefined ? panel.size : panel.minSize;
+  });
 }

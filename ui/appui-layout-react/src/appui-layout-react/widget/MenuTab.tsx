@@ -26,7 +26,13 @@ export interface WidgetMenuTabProps extends CommonProps {
 /** @internal */
 export const WidgetMenuTab = React.memo<WidgetMenuTabProps>(function WidgetMenuTab(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const id = React.useContext(TabIdContext);
-  const tab = useLayout((state) => state.tabs[id]);
+  const { label, iconSpec } = useLayout((state) => {
+    const tab = state.tabs[id];
+    return {
+      label: tab.label,
+      iconSpec: tab.iconSpec,
+    };
+  }, true);
   const overflowContext = React.useContext(WidgetOverflowContext);
   assert(!!overflowContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
@@ -49,15 +55,15 @@ export const WidgetMenuTab = React.memo<WidgetMenuTabProps>(function WidgetMenuT
     <div
       className={className}
       ref={ref}
-      title={tab.label}
+      title={label}
     >
       {props.badge && <div className="nz-badge">
         {props.badge}
       </div>}
       {showWidgetIcon && <div className="nz-icon">
-        {tab.iconSpec && <Icon iconSpec={tab.iconSpec} />}
+        {iconSpec && <Icon iconSpec={iconSpec} />}
       </div>}
-      <span>{tab.label}</span>
+      <span>{label}</span>
       <div className={classnames(
         "nz-checkmark",
         // istanbul ignore next

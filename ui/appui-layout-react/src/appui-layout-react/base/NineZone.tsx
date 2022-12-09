@@ -163,7 +163,7 @@ export const UiIsVisibleContext = React.createContext<boolean>(false); // eslint
 UiIsVisibleContext.displayName = "nz:UiIsVisibleContext";
 
 function CursorTypeProvider(props: { children?: React.ReactNode }) {
-  const draggedTab = useLayout((state) => state.draggedTab);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
   const draggedWidget = React.useContext(DraggedWidgetIdContext);
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   const draggedResizeHandle = React.useContext(DraggedResizeHandleContext);

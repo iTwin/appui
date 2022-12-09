@@ -9,6 +9,7 @@
 import { assert } from "@itwin/core-bentley";
 import * as React from "react";
 import { createStore, StoreApi, useStore } from "zustand";
+import shallow from 'zustand/shallow'
 import { createNineZoneState, NineZoneState } from "../state/NineZoneState";
 
 /** @internal */
@@ -26,14 +27,15 @@ export function createLayoutStore(args?: Partial<LayoutState>): LayoutStore {
   return createStore<LayoutState>(() => createNineZoneState(args));
 }
 
-function useLayoutStore() {
+/** @internal */
+export function useLayoutStore() {
   const store = React.useContext(LayoutStoreContext);
   assert(!!store, "LayoutStoreContext is not defined");
   return store;
 }
 
 /** @internal */
-export function useLayout<SelectorOutput>(selector: (state: LayoutState) => SelectorOutput) {
+export function useLayout<SelectorOutput>(selector: (state: LayoutState) => SelectorOutput, multipleSlices: boolean = false) {
   const store = useLayoutStore();
-  return useStore(store, selector);
+  return useStore(store, selector, multipleSlices ? shallow : undefined);
 }

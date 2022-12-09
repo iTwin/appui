@@ -49,15 +49,13 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
       const panel = state.panels[side];
       return panel.widgets.length;
     });
-    const minimized = useLayout((state) => {
+    const { minimized, activeTabId } = useLayout((state) => {
       const widget = getWidgetState(state, widgetId);
-      return widget.minimized;
-    });
-    const activeTabId = useLayout((state) => {
-      const widget = getWidgetState(state, widgetId);
-      return widget.activeTabId;
-    });
-    const widget = useLayout((state) => getWidgetState(state, widgetId));
+      return {
+        minimized: widget.minimized,
+        activeTabId: widget.activeTabId,
+      };
+    }, true);
     const horizontal = isHorizontalPanelSide(side);
     const mode = useMode(widgetId);
     const borders = useBorders(widgetId);
@@ -96,7 +94,7 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
     );
     return (
       <WidgetProvider
-        id={widget.id}
+        id={widgetId}
       >
         <Widget
           className={className}
@@ -141,80 +139,84 @@ function findFillWidget(panelWidgets: ReadonlyArray<string>, widgets: WidgetsSta
 /** @internal */
 export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
   const side = React.useContext(PanelSideContext)!;
-  const panel = useLayout((state) => state.panels[side]);
-  const widgets = useLayout((state) => state.widgets);
-  const tabs = useLayout((state) => state.tabs);
-  assert(!!panel);
-  const fillWidget = findFillWidget(panel.widgets, widgets, tabs);
+  return useLayout((state) => {
+    const panel = state.panels[side];
+    const widgets = state.widgets;
+    const tabs = state.tabs;
 
-  // Force `fill` for last panel widget that is not minimized.
-  if (!fillWidget) {
-    for (let i = panel.widgets.length - 1; i >= 0; i--) {
-      const wId = panel.widgets[i];
-      const w = widgets[wId];
-      if (w.minimized)
-        continue;
-      if (wId === widgetId)
-        return "fill";
-      break;
+    const fillWidget = findFillWidget(panel.widgets, widgets, tabs);
+
+    // Force `fill` for last panel widget that is not minimized.
+    if (!fillWidget) {
+      for (let i = panel.widgets.length - 1; i >= 0; i--) {
+        const wId = panel.widgets[i];
+        const w = widgets[wId];
+        if (w.minimized)
+          continue;
+        if (wId === widgetId)
+          return "fill";
+        break;
+      }
     }
-  }
 
-  const widget = widgets[widgetId];
-  if (widget.minimized)
-    return "minimized";
-  const tabId = widget.activeTabId;
-  const tab = tabs[tabId];
-  return tab.preferredPanelWidgetSize ? "fit" : "fill";
+    const widget = widgets[widgetId];
+    if (widget.minimized)
+      return "minimized";
+    const tabId = widget.activeTabId;
+    const tab = tabs[tabId];
+    return tab.preferredPanelWidgetSize ? "fit" : "fill";
+  });
 }
 
 /** @internal */
 export function useBorders(widgetId: WidgetState["id"]) {
   const side = React.useContext(PanelSideContext)!;
-  const panel = useLayout((state) => state.panels[side]);
-  const panels = useLayout((state) => state.panels);
-  const toolSettings = useLayout((state) => state.toolSettings);
-  assert(!!panel);
-  let top = true;
-  let bottom = true;
-  let left = true;
-  let right = true;
-  const isHorizontal = isHorizontalPanelSide(panel.side);
-  const isVertical = !isHorizontal;
-  const isFirst = panel.widgets[0] === widgetId;
-  const isLast = panel.widgets[panel.widgets.length - 1] === widgetId;
-  const isTopMostPanelBorder = panel.side === "top" ||
-    (isVertical && !panels.top.span) ||
-    (isVertical && panels.top.span && panels.top.collapsed) ||
-    (isVertical && panels.top.widgets.length === 0);
-  if (panel.side === "bottom") {
-    bottom = false;
-  }
-  if (isVertical && isLast) {
-    bottom = false;
-  }
-  if (isTopMostPanelBorder && toolSettings.type === "docked") {
-    top = false;
-  }
-  if (isVertical && !isFirst) {
-    top = false;
-  }
-  if (isVertical && panels.top.span && !panels.top.collapsed && panels.top.widgets.length > 0) {
-    top = false;
-  }
-  if (isHorizontal && !isFirst) {
-    left = false;
-  }
-  if (isHorizontalPanelState(panel) && !panel.span && isFirst && !panels.left.collapsed && panels.left.widgets.length > 0) {
-    left = false;
-  }
-  if (isHorizontalPanelState(panel) && !panel.span && isLast && !panels.right.collapsed && panels.right.widgets.length > 0) {
-    right = false;
-  }
-  return {
-    "nz-border-top": top,
-    "nz-border-bottom": bottom,
-    "nz-border-left": left,
-    "nz-border-right": right,
-  };
+  return useLayout((state) => {
+    const panels = state.panels;
+    const panel = panels[side];
+    const toolSettings = state.toolSettings;
+    const isHorizontal = isHorizontalPanelSide(panel.side);
+    const isVertical = !isHorizontal;
+    const isFirst = panel.widgets[0] === widgetId;
+    const isLast = panel.widgets[panel.widgets.length - 1] === widgetId;
+    const isTopMostPanelBorder = panel.side === "top" ||
+      (isVertical && !panels.top.span) ||
+      (isVertical && panels.top.span && panels.top.collapsed) ||
+      (isVertical && panels.top.widgets.length === 0);
+
+    let top = true;
+    let bottom = true;
+    let left = true;
+    let right = true;
+    if (panel.side === "bottom") {
+      bottom = false;
+    }
+    if (isVertical && isLast) {
+      bottom = false;
+    }
+    if (isTopMostPanelBorder && toolSettings.type === "docked") {
+      top = false;
+    }
+    if (isVertical && !isFirst) {
+      top = false;
+    }
+    if (isVertical && panels.top.span && !panels.top.collapsed && panels.top.widgets.length > 0) {
+      top = false;
+    }
+    if (isHorizontal && !isFirst) {
+      left = false;
+    }
+    if (isHorizontalPanelState(panel) && !panel.span && isFirst && !panels.left.collapsed && panels.left.widgets.length > 0) {
+      left = false;
+    }
+    if (isHorizontalPanelState(panel) && !panel.span && isLast && !panels.right.collapsed && panels.right.widgets.length > 0) {
+      right = false;
+    }
+    return {
+      "nz-border-top": top,
+      "nz-border-bottom": bottom,
+      "nz-border-left": left,
+      "nz-border-right": right,
+    };
+  }, true);
 }

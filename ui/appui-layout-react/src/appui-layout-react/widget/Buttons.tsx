@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { SendBack } from "./SendBack";
-import { useActiveTab, useActiveTabId, WidgetIdContext } from "./Widget";
+import { useActiveTabId, WidgetIdContext } from "./Widget";
 import { Dock } from "./Dock";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
@@ -23,9 +23,11 @@ export function TabBarButtons() {
   const isToolSettings = useIsToolSettingsTab();
   const floatingWidgetId = useFloatingWidgetId();
   const isMainPanelWidget = useIsMainPanelWidget();
-  const activeTab = useActiveTab();
-  // istanbul ignore next
-  const canPopout = activeTab?.canPopout ?? false;
+  const tabId = useActiveTabId();
+  const canPopout = useLayout((state) => {
+    const tab = state.tabs[tabId];
+    return tab.canPopout;
+  });
   return (
     <div className="nz-widget-tabBarButtons">
       {canPopout && <PopoutToggle />}
@@ -44,11 +46,13 @@ function useIsToolSettingsTab() {
 /** @internal */
 export function useIsMainPanelWidget() {
   const side = React.useContext(PanelSideContext);
-  const widgets = useLayout((state) => side ? state.panels[side].widgets : undefined);
   const widgetId = React.useContext(WidgetIdContext);
-  if (!widgets)
-    return false;
-  assert(!!side);
-  const mainWidget = isHorizontalPanelSide(side) ? widgets[widgets.length - 1] : widgets[0];
-  return mainWidget === widgetId;
+  return useLayout((state) => {
+    const widgets = side ? state.panels[side].widgets : undefined;
+    if (!widgets)
+      return false;
+    assert(!!side);
+    const mainWidget = isHorizontalPanelSide(side) ? widgets[widgets.length - 1] : widgets[0];
+    return mainWidget === widgetId;
+  });
 }

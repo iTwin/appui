@@ -25,14 +25,10 @@ export interface WidgetContentContainerProps {
 export function WidgetContentContainer(props: WidgetContentContainerProps) {
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
-  const minimized = useLayout((state) => {
+  const { minimized, activeTabId } = useLayout((state) => {
     const widget = getWidgetState(state, widgetId);
-    return widget.minimized;
-  });
-  const activeTabId = useLayout((state) => {
-    const widget = getWidgetState(state, widgetId);
-    return widget.activeTabId;
-  });
+    return { minimized: widget.minimized, activeTabId: widget.activeTabId };
+  }, true);
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const side = React.useContext(PanelSideContext);
 

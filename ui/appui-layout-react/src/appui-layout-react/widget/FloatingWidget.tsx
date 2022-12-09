@@ -65,28 +65,11 @@ export interface FloatingWidgetProps {
 
 /** @internal */
 export function FloatingWidget(props: FloatingWidgetProps) {
-  const widgetId = React.useContext(WidgetIdContext);
-  assert(!!widgetId);
-  const widget = useLayout((state) => {
-    return getWidgetState(state, widgetId);
-  });
-  const floatingWidgetId = useFloatingWidgetId();
-  assert(!!floatingWidgetId);
-  const id = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].id);
-  const bounds = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].bounds);
-  const userSized = useLayout((state) => state.floatingWidgets.byId[floatingWidgetId].userSized);
-  const tabsState = useLayout((state) => state.tabs);
+  const id = useFloatingWidgetId();
+  assert(!!id);
+  const { autoSized, bounds, hideWithUiWhenFloating, isToolSettingsTab, minimized, resizable } = useFloatingWidgetState();
   const uiIsVisible = React.useContext(UiIsVisibleContext);
-  const { minimized, tabs, activeTabId } = widget;
-  const isSingleTab = 1 === tabs.length;
-  const activeTab = tabsState[activeTabId];
-  const hideWithUiWhenFloating = activeTab.hideWithUiWhenFloating;
-  const autoSized = isSingleTab && !userSized;
   const hideFloatingWidget = !uiIsVisible && hideWithUiWhenFloating;
-  const isToolSettingsTab = widget.tabs[0] === toolSettingsTabId;
-
-  // Never allow resizing of tool settings - always auto-fit them.
-  const isResizable = (undefined === widget.isFloatingStateWindowResizable || widget.isFloatingStateWindowResizable) && !isToolSettingsTab;
 
   const item = React.useMemo(() => ({
     id,
@@ -123,12 +106,12 @@ export function FloatingWidget(props: FloatingWidgetProps) {
       onMouseEnter={props.onMouseEnter}
       onMouseLeave={props.onMouseLeave}
     >
-      <WidgetTabBar separator={!widget.minimized} />
+      <WidgetTabBar separator={!minimized} />
       <WidgetContentContainer>
         <WidgetTarget />
         <WidgetOutline />
       </WidgetContentContainer>
-      {isResizable && <>
+      {resizable && <>
         <FloatingWidgetHandle handle="left" />
         <FloatingWidgetHandle handle="top" />
         <FloatingWidgetHandle handle="right" />
@@ -140,6 +123,31 @@ export function FloatingWidget(props: FloatingWidgetProps) {
       </>}
     </Widget >
   );
+}
+
+function useFloatingWidgetState() {
+  const widgetId = React.useContext(WidgetIdContext);
+  return useLayout((state) => {
+    const widget = getWidgetState(state, widgetId);
+    const floatingWidget = state.floatingWidgets.byId[widgetId];
+    const tabs = widget.tabs;
+    const activeTabId = widget.activeTabId;
+    const activeTab = state.tabs[activeTabId];
+    const userSized = floatingWidget.userSized;
+    const singleTab = 1 === tabs.length;
+
+    const isToolSettingsTab = widget.tabs[0] === toolSettingsTabId;
+    const resizable = (undefined === widget.isFloatingStateWindowResizable || widget.isFloatingStateWindowResizable) && !isToolSettingsTab;
+    const autoSized = singleTab && !userSized;
+    return {
+      autoSized,
+      bounds: floatingWidget.bounds,
+      hideWithUiWhenFloating: activeTab.hideWithUiWhenFloating,
+      isToolSettingsTab,
+      minimized: widget.minimized,
+      resizable,
+    };
+  }, true);
 }
 
 // Re-adjust bounds so that widget is behind pointer when auto-sized.

@@ -49,7 +49,6 @@ export type PanelSide = VerticalPanelSide | HorizontalPanelSide;
 function PanelSplitter({ isHorizontal }: { isHorizontal: boolean }) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const side = React.useContext(PanelSideContext)!;
-  const panel = useLayout((state) => state.panels[side]);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const splitterProcessingActiveRef = React.useRef<boolean>(false);
 
@@ -66,25 +65,26 @@ function PanelSplitter({ isHorizontal }: { isHorizontal: boolean }) {
 
   const updatePanelSize = React.useCallback(
     (event: PointerEvent) => {
-      if (containerRef.current && panel?.side) {
-        const parentPanel = containerRef.current.closest(".nz-widgetPanels-panel");
-        const sectionToResize = containerRef.current.parentElement as HTMLElement;
-        if (parentPanel && sectionToResize) {
-          const rect = parentPanel.getBoundingClientRect();
-          const percent = getPercentage(
-            isHorizontal ? rect.left : rect.top,
-            isHorizontal ? rect.right : rect.bottom,
-            isHorizontal ? event.clientX : event.clientY,
-          );
+      if (!containerRef.current)
+        return;
 
-          dispatch({
-            type: "PANEL_SET_SPLITTER_VALUE",
-            side: panel.side,
-            percent,
-          });
-        }
+      const parentPanel = containerRef.current.closest(".nz-widgetPanels-panel");
+      const sectionToResize = containerRef.current.parentElement as HTMLElement;
+      if (parentPanel && sectionToResize) {
+        const rect = parentPanel.getBoundingClientRect();
+        const percent = getPercentage(
+          isHorizontal ? rect.left : rect.top,
+          isHorizontal ? rect.right : rect.bottom,
+          isHorizontal ? event.clientX : event.clientY,
+        );
+
+        dispatch({
+          type: "PANEL_SET_SPLITTER_VALUE",
+          side,
+          percent,
+        });
       }
-    }, [getPercentage, isHorizontal, panel, dispatch]);
+    }, [getPercentage, isHorizontal, side, dispatch]);
 
   const handlePointerMove = React.useCallback((event: Event): void => {
     if (splitterProcessingActiveRef.current) {
@@ -132,10 +132,10 @@ export interface WidgetPanelProviderProps {
 export const WidgetPanelProvider = React.memo<WidgetPanelProviderProps>(function WidgetPanelProvider({ side }) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const spanTop = useLayout((state) => state.panels.top.span);
   const spanBottom = useLayout((state) => state.panels.bottom.span);
-  const widgetsLength = useLayout((state) => state.panels[side].widgets.length);
+  const hasWidgets = useLayout((state) => state.panels[side].widgets.length > 0);
   return (
     <PanelSideContext.Provider value={side}>
-      {widgetsLength > 0 && <WidgetPanel
+      {hasWidgets && <WidgetPanel
         spanTop={spanTop}
         spanBottom={spanBottom}
       />}
@@ -169,31 +169,31 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
   const [panelSize, setPanelSize] = React.useState<number | undefined>();
   const [initializing, setInitializing] = React.useState(false);
 
-  const horizontal = isHorizontalPanelSide(panel.side);
+  const horizontal = isHorizontalPanelSide(side);
   const style = React.useMemo(() => {
     let size = panel.collapsed ? 0 : panel.size ?? panel.minSize;
     if (panelSize !== undefined)
       size = panelSize;
 
-    if (isHorizontalPanelSide(panel.side))
+    if (isHorizontalPanelSide(side))
       return {
         height: `${size}px`,
       };
     return {
       width: `${size}px`,
     };
-  }, [panel.side, panel.size, panel.collapsed, panel.minSize, panelSize]);
+  }, [side, panel.size, panel.collapsed, panel.minSize, panelSize]);
   const contentStyle = React.useMemo(() => {
     if (contentSize === undefined)
       return undefined;
-    if (isHorizontalPanelSide(panel.side))
+    if (isHorizontalPanelSide(side))
       return {
         minHeight: `${contentSize}px`,
       };
     return {
       minWidth: `${contentSize}px`,
     };
-  }, [contentSize, panel.side]);
+  }, [contentSize, side]);
   const animateFrom = React.useRef<number | undefined>();
   const animateTo = React.useRef(0);
   const maxPanelSize = React.useRef<number | undefined>();
@@ -262,7 +262,7 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
     const newSize = getPanelSize(horizontal, bounds);
     dispatch({
       type: "PANEL_INITIALIZE",
-      side: panel.side,
+      side,
       size: newSize,
     });
     setInitializing(true);
@@ -316,7 +316,7 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
   }, [getBounds]);
   const className = classnames(
     "nz-widgetPanels-panel",
-    `nz-${panel.side}`,
+    `nz-${side}`,
     panel.collapsed && "nz-collapsed",
     captured && "nz-captured",
     horizontalPanel?.span && "nz-span",
@@ -435,11 +435,11 @@ export function useAnimatePanelWidgets(): {
   sizes: { [id: string]: PanelWidgetProps["size"] };
 } {
   const side = React.useContext(PanelSideContext)!;
-  const panel = useLayout((state) => state.panels[side]);
+  const panelWidgets = useLayout((state) => state.panels[side].widgets);
   const widgets = useLayout((state) => state.widgets);
   const [prepareTransition, setPrepareTransition] = React.useState(false);
   const [transition, setTransition] = React.useState<PanelWidgetProps["transition"] | undefined>();
-  const [prevPanelWidgets, setPrevPanelWidgets] = React.useState(panel.widgets);
+  const [prevPanelWidgets, setPrevPanelWidgets] = React.useState(panelWidgets);
   const [prevWidgets, setPrevWidgets] = React.useState(widgets);
   const [sizes, setSizes] = React.useState<{ [id: string]: number | undefined }>({});
   const refs = React.useRef(new Map<WidgetState["id"], React.RefObject<HTMLDivElement>>());
@@ -449,9 +449,9 @@ export function useAnimatePanelWidgets(): {
   }>());
   const measured = React.useRef(false);
   const horizontal = React.useRef(false);
-  horizontal.current = isHorizontalPanelSide(panel.side);
-  if (prevPanelWidgets !== panel.widgets) {
-    const widgetsToMeasure = panel.widgets.length > prevPanelWidgets.length ? panel.widgets : prevPanelWidgets;
+  horizontal.current = isHorizontalPanelSide(side);
+  if (prevPanelWidgets !== panelWidgets) {
+    const widgetsToMeasure = panelWidgets.length > prevPanelWidgets.length ? panelWidgets : prevPanelWidgets;
     for (const widgetId of widgetsToMeasure) {
       const ref = refs.current.get(widgetId);
 
@@ -462,11 +462,11 @@ export function useAnimatePanelWidgets(): {
       const bounds = Rectangle.create(ref.current.getBoundingClientRect());
       widgetTransitions.current.set(widgetId, { from: getSize(horizontal.current, bounds.getSize()), to: undefined });
     }
-    if (panel.widgets.length < prevPanelWidgets.length) {
+    if (panelWidgets.length < prevPanelWidgets.length) {
       // Widget removed.
       let removedWidgetIndex = 0;
       for (let i = 0; i < prevPanelWidgets.length; i++) {
-        const newWidget = panel.widgets[i];
+        const newWidget = panelWidgets[i];
         const lastWidget = prevPanelWidgets[i];
         if (newWidget !== lastWidget) {
           removedWidgetIndex = i;
@@ -513,7 +513,7 @@ export function useAnimatePanelWidgets(): {
     // Reset before measuring in case we were already in a transition.
     setTransition(undefined);
     setSizes({});
-    setPrevPanelWidgets(panel.widgets);
+    setPrevPanelWidgets(panelWidgets);
   }
   React.useEffect(() => {
     setPrevWidgets(widgets);
@@ -581,18 +581,18 @@ export function useAnimatePanelWidgets(): {
   React.useEffect(() => {
     // Clean-up ref objects.
     const newRefs: typeof refs.current = new Map();
-    for (const widgetId of panel.widgets) {
+    for (const widgetId of panelWidgets) {
       const ref = refs.current.get(widgetId);
       if (ref)
         newRefs.set(widgetId, ref);
     }
     refs.current = newRefs;
-  }, [panel.widgets]);
+  }, [panelWidgets]);
   const handleBeforeTransition = React.useCallback(() => {
     // PanelWidget reports mode changes on same render pass, but we want to keep our initial measurements if panel.widgets have changed.
     if (measured.current)
       return;
-    for (const wId of panel.widgets) {
+    for (const wId of panelWidgets) {
       const ref = refs.current.get(wId);
       if (!ref || !ref.current) {
         widgetTransitions.current.clear();
@@ -602,7 +602,7 @@ export function useAnimatePanelWidgets(): {
       const from = getSize(horizontal.current, bounds.getSize());
       widgetTransitions.current.set(wId, { from, to: undefined });
     }
-  }, [panel.widgets]);
+  }, [panelWidgets]);
   const handlePrepareTransition = React.useCallback(() => {
     if (widgetTransitions.current.size === 0)
       return;

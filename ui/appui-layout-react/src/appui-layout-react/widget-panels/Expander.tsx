@@ -62,12 +62,18 @@ export function WidgetPanelExpander({ side }: WidgetPanelExpanderProps) {
 
 /** @internal */
 export function WidgetPanelExpanders() {
-  const panels = useLayout((state) => state.panels);
+  const expanders = useLayout((state) => {
+    const panels = state.panels;
+    return panelSides.filter((side) => {
+      const panel = panels[side];
+      return !panel.pinned && panel.collapsed;
+    });
+  }, true);
+
   return (
     <>
-      {panelSides.map((side) => {
-        const panel = panels[side];
-        return !panel.pinned && panel.collapsed && <WidgetPanelExpander key={side} side={side} />;
+      {expanders.map((side) => {
+        return <WidgetPanelExpander key={side} side={side} />;
       })}
     </>
   );

@@ -14,7 +14,6 @@ import { assert } from "@itwin/core-bentley";
 import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager";
 import { getUniqueId, MeasureContext, NineZoneDispatchContext } from "../base/NineZone";
 import { WidgetState } from "../state/WidgetState";
-import { TabState } from "../state/TabState";
 import { PanelSideContext } from "../widget-panels/Panel";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { useLayout } from "../base/LayoutStore";
@@ -53,7 +52,14 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
     assert(!!id);
     const floatingWidgetId = useFloatingWidgetId();
     const measureNz = React.useContext(MeasureContext);
-    const activeTab = useActiveTab();
+    const { preferredFloatingWidgetSize, userSized } = useLayout((state) => {
+      const widget = state.widgets[id];
+      const tab = state.tabs[widget.activeTabId];
+      return {
+        preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
+        userSized: tab.userSized || (tab.isFloatingStateWindowResizable && !!tab.preferredFloatingWidgetSize),
+      };
+    });
     const elementRef = React.useRef<HTMLDivElement>(null);
     const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
     const onDragStart = React.useCallback<NonNullable<UseDragWidgetArgs["onDragStart"]>>((updateId, initialPointerPosition, pointerPosition) => {
@@ -66,12 +72,9 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
       const size = restrainInitialWidgetSize(bounds.getSize(), nzBounds.getSize());
       bounds = bounds.setSize(size);
 
-      if (activeTab && activeTab.preferredFloatingWidgetSize) {
-        bounds = bounds.setSize(activeTab.preferredFloatingWidgetSize);
+      if (preferredFloatingWidgetSize) {
+        bounds = bounds.setSize(preferredFloatingWidgetSize);
       }
-
-      /* istanbul ignore next */
-      const userSized = activeTab?.userSized || (activeTab?.isFloatingStateWindowResizable && !!activeTab.preferredFloatingWidgetSize);
 
       // Pointer is outside of tab area. Need to re-adjust widget bounds so that tab is behind pointer
       if (initialPointerPosition.x > bounds.right) {
@@ -95,7 +98,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
         side,
         userSized,
       });
-    }, [activeTab, dispatch, floatingWidgetId, id, side, measureNz]);
+    }, [dispatch, floatingWidgetId, id, side, measureNz, preferredFloatingWidgetSize, userSized]);
     useDragWidget({
       widgetId,
       onDragStart,
@@ -167,13 +170,6 @@ export function restrainInitialWidgetSize(size: SizeProps, nzSize: SizeProps): S
     width,
     height,
   };
-}
-
-/** @internal */
-export function useActiveTab(): TabState | undefined {
-  const tabId = useActiveTabId();
-  const tabs = useLayout((state) => state.tabs);
-  return tabs[tabId];
 }
 
 /** @internal */

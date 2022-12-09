@@ -20,18 +20,19 @@ export function WidgetContentRenderers() {
   const widgetContent = React.useContext(WidgetContentNodeContext);
   const toolSettingsContent = React.useContext(ToolSettingsNodeContext);
   const widgetContentContainers = React.useContext(WidgetContentContainersContext);
-  const tabs = useLayout((state) => state.tabs);
-  const tabEntries = Object.entries(tabs);
+  const tabIds = useLayout((state) => {
+    return Object.keys(state.tabs);
+  }, true);
   return (
     <>
-      {tabEntries.map(([, tab]) => {
-        const container = widgetContentContainers[tab.id];
-        const children = tab.id === toolSettingsTabId ? toolSettingsContent : widgetContent;
+      {tabIds.map((tabId) => {
+        const container = widgetContentContainers[tabId];
+        const children = tabId === toolSettingsTabId ? toolSettingsContent : widgetContent;
         return (
           <WidgetContentRenderer
-            key={tab.id}
+            key={tabId}
             renderTo={container}
-            tabId={tab.id}
+            tabId={tabId}
           >
             {children}
           </WidgetContentRenderer>

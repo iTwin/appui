@@ -39,9 +39,9 @@ function TsLabel({ children }: { children: React.ReactNode }) {
 /** @internal */
 export function WidgetPanelsToolSettings() {
   const frontstageDef = useActiveFrontstageDef();
-  const toolSettingsState = useLayout((state) => state.toolSettings);
+  const toolSettingsType = useLayout((state) => state.toolSettings.type);
   const toolSettings = frontstageDef?.toolSettings;
-  if (!toolSettings || toolSettingsState.type === "widget")
+  if (!toolSettings || toolSettingsType === "widget")
     return null;
   return (
     <ToolSettingsDockedContent />
@@ -152,9 +152,9 @@ export function useToolSettingsNode() {
 
 /** @internal */
 export function ToolSettingsContent() {
-  const toolSettings = useLayout((state) => state.toolSettings);
+  const toolSettingsType = useLayout((state) => state.toolSettings.type);
   // This is needed to remount underlying components tree when going into widget state.
-  if (toolSettings.type === "docked")
+  if (toolSettingsType === "docked")
     return null;
   return <ToolSettingsWidgetContent />;
 }
