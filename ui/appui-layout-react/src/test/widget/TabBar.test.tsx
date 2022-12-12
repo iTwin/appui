@@ -80,10 +80,10 @@ describe("WidgetTitleBar", () => {
       fakeTimers.tick(300);
     });
 
-    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
+    sinon.assert.calledOnceWithExactly(dispatch, {
       type: "FLOATING_WIDGET_CLEAR_USER_SIZED",
       id: "w1",
-    }));
+    });
   });
 
   it("should dispatch WIDGET_DRAG_END with tab target", () => {
@@ -162,7 +162,8 @@ describe("WidgetTitleBar", () => {
       dispatch.reset();
       fireEvent.mouseUp(document);
     });
-    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
+
+    sinon.assert.calledOnceWithExactly(dispatch, {
       type: "WIDGET_DRAG_END",
       floatingWidgetId: "w1",
       target: {
@@ -170,36 +171,37 @@ describe("WidgetTitleBar", () => {
         side: "right",
         type: "panel",
       },
-    }));
+    });
+  });
+});
+
+it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
+  const dispatch = sinon.stub<NineZoneDispatch>();
+  let state = createNineZoneState();
+  state = addTab(state, "t1");
+  state = addFloatingWidget(state, "w1", ["t1"]);
+  const { container } = render(
+    <TestNineZoneProvider
+      state={state}
+      dispatch={dispatch}
+    >
+      <FloatingWidgetProvider
+        floatingWidget={state.floatingWidgets.byId.w1}
+        widget={state.widgets.w1}
+      />
+    </TestNineZoneProvider>,
+  );
+  const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
+  const handle = titleBar.getElementsByClassName("nz-handle")[0];
+  act(() => {
+    fireEvent.touchStart(handle, {
+      touches: [{}],
+    });
   });
 
-  it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
-    const dispatch = sinon.stub<NineZoneDispatch>();
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addFloatingWidget(state, "w1", ["t1"]);
-    const { container } = render(
-      <TestNineZoneProvider
-        state={state}
-        dispatch={dispatch}
-      >
-        <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1}
-          widget={state.widgets.w1}
-        />
-      </TestNineZoneProvider>,
-    );
-    const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-    const handle = titleBar.getElementsByClassName("nz-handle")[0];
-    act(() => {
-      fireEvent.touchStart(handle, {
-        touches: [{}],
-      });
-    });
-    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
-      type: "FLOATING_WIDGET_BRING_TO_FRONT",
-      id: "w1",
-    }));
+  sinon.assert.calledWithExactly(dispatch, {
+    type: "FLOATING_WIDGET_BRING_TO_FRONT",
+    id: "w1",
   });
 });
 
