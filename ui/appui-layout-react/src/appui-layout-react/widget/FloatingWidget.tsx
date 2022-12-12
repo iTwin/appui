@@ -209,7 +209,7 @@ function useHandleAutoSize(dragged: boolean) {
       id,
       bounds,
     });
-  }, [dispatch, dragged, id, userSized]);
+  }, [dispatch, dragged, id, userSized, measureNz]);
   const roRef = useResizeObserver(handleResize);
   const refs = useRefs(ref, roRef);
   return refs;
