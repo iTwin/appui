@@ -198,7 +198,12 @@ function useHandleAutoSize(dragged: boolean) {
     if (userSized)
       return;
 
-    const bounds = Rectangle.create(ref.current.getBoundingClientRect());
+    let bounds = Rectangle.create(ref.current.getBoundingClientRect());
+
+    // Adjust bounds to be relative to 9z origin
+    const nzBounds = measureNz();
+    bounds = bounds.offset({ x: -nzBounds.left, y: -nzBounds.top });
+
     dispatch({
       type: "FLOATING_WIDGET_SET_BOUNDS",
       id,
