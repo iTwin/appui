@@ -995,7 +995,7 @@ describe("useAnimatePanelWidgets", () => {
       result.current.handleBeforeTransition();
     };
 
-    const spy = sinon.spy(w1, "measure");
+    const spy = sinon.spy(w1, "getBoundingClientRect");
     rerender({ layout, onAfterRender });
 
     sinon.assert.notCalled(spy);
