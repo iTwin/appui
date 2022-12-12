@@ -10,6 +10,7 @@ import "./Panel.scss";
 import classnames from "classnames";
 import * as React from "react";
 import produce from "immer";
+import { Logger } from "@itwin/core-bentley";
 import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import { DraggedPanelSideContext } from "../base/DragManager";
@@ -156,6 +157,7 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
   spanBottom,
   spanTop,
 }) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+  const category = "appui-layout-react.WidgetPanel";
   const side = React.useContext(PanelSideContext)!;
   const panel = useLayout((state) => state.panels[side]);
   const { handleBeforeTransition, handlePrepareTransition, handleTransitionEnd, getRef, sizes, ...animatePanelWidgets } = useAnimatePanelWidgets();
@@ -202,6 +204,7 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
 
   const [prevCollapsed, setPrevCollapsed] = React.useState(panel.collapsed);
   if (prevCollapsed !== panel.collapsed) {
+    Logger.logTrace(category, "Changed 'collapsed'", () => ({ collapsed: panel.collapsed }));
     setPrevCollapsed(panel.collapsed);
     let from = animateFrom.current;
     // istanbul ignore else
@@ -271,6 +274,7 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
   React.useLayoutEffect(() => {
     if (!prepareTransition)
       return;
+
     setPrepareTransition(false);
     assert(!!ref.current);
     animateTo.current = getPanelSize(horizontal, ref.current.getBoundingClientRect());
@@ -286,6 +290,8 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
     if (collapsing.current === "expanding" && maxPanelSize.current === undefined) {
       maxPanelSize.current = animateTo.current;
     }
+
+    Logger.logTrace(category, "Initializing a transition");
     setPanelSize(animateFrom.current);
     setContentSize(maxPanelSize.current);
     setTransition("init");
@@ -293,10 +299,13 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
   React.useLayoutEffect(() => {
     if (transition !== "init")
       return;
+
+    Logger.logTrace(category, "requestAnimationFrame");
     const handle = window.requestAnimationFrame(() => {
+      Logger.logTrace(category, "Starting a transition");
       animateFrom.current = undefined;
-      setPanelSize(animateTo.current);
       setTransition("transition");
+      setPanelSize(animateTo.current);
     });
     return () => {
       window.cancelAnimationFrame(handle);
@@ -341,6 +350,7 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
 
   const singleSection = panel.widgets.length === 1;
   const showSectionTargets = singleSection && !panel.collapsed;
+  Logger.logTrace(category, "Render", () => ({ style, contentStyle, className }));
   /* istanbul ignore next */
   return (
     <WidgetPanelContext.Provider value={widgetPanel}>
@@ -349,6 +359,7 @@ export const WidgetPanel = React.memo<WidgetPanelProps>(function WidgetPanel({
         ref={ref}
         style={style}
         onTransitionEnd={() => {
+          Logger.logTrace(category, "onTransitionEnd");
           maxPanelSize.current = undefined;
           collapsing.current = undefined;
           animateFrom.current = undefined;
