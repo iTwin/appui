@@ -192,6 +192,7 @@ beta;FrameworkAccuDraw
 public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
 public;FrameworkState
+internal;FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef): NineZoneState
 alpha;FrameworkToolAdmin 
 public;FrameworkUiAdmin 
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"

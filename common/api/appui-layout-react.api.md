@@ -419,6 +419,16 @@ export interface FloatingWidgetSetBoundsAction {
 }
 
 // @internal (undocumented)
+export interface FloatingWidgetSetUserSizedAction {
+    // (undocumented)
+    readonly id: FloatingWidgetState["id"];
+    // (undocumented)
+    readonly type: "FLOATING_WIDGET_SET_USER_SIZED";
+    // (undocumented)
+    readonly userSized: boolean;
+}
+
+// @internal (undocumented)
 export interface FloatingWidgetsState {
     // (undocumented)
     readonly allIds: ReadonlyArray<FloatingWidgetState["id"]>;
@@ -649,7 +659,7 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
 export function NineZone(props: NineZoneProps): JSX.Element;
 
 // @internal (undocumented)
-export type NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetSizeAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabPopoutAction | ToolSettingsDragStartAction | ToolSettingsDockAction;
+export type NineZoneAction = ResizeAction | PanelToggleCollapsedAction | PanelSetCollapsedAction | PanelSetSizeAction | PanelSetSplitterPercentAction | PanelToggleSpanAction | PanelTogglePinnedAction | PanelInitializeAction | FloatingWidgetResizeAction | FloatingWidgetSetBoundsAction | FloatingWidgetBringToFrontAction | FloatingWidgetSendBackAction | FloatingWidgetClearUserSizedAction | FloatingWidgetSetUserSizedAction | PopoutWidgetSendBackAction | PanelWidgetDragStartAction | WidgetDragAction | WidgetDragEndAction | WidgetTabClickAction | WidgetTabDoubleClickAction | WidgetTabDragStartAction | WidgetTabDragAction | WidgetTabDragEndAction | WidgetTabPopoutAction | ToolSettingsDragStartAction | ToolSettingsDockAction;
 
 // @internal (undocumented)
 export const NineZoneContext: React_2.Context<NineZoneState>;
@@ -887,7 +897,7 @@ export interface PanelToggleSpanAction {
 }
 
 // @internal (undocumented)
-export const PanelWidget: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<PanelWidgetProps & React_2.RefAttributes<WidgetComponent>>>;
+export const PanelWidget: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<PanelWidgetProps & React_2.RefAttributes<HTMLDivElement>>>;
 
 // @internal (undocumented)
 export interface PanelWidgetDragStartAction {
@@ -1068,9 +1078,6 @@ export interface SectionDropTargetState {
 
 // @internal (undocumented)
 export const SendBack: React_2.NamedExoticComponent<object>;
-
-// @internal (undocumented)
-export function setFloatingWidgetContainerBounds(state: NineZoneState, floatingWidgetId: string, bounds: RectangleProps): NineZoneState;
 
 // @internal (undocumented)
 export const ShowWidgetIconContext: React_2.Context<boolean>;
@@ -1404,7 +1411,7 @@ export function useAnimatePanelWidgets(): {
     handleBeforeTransition: PanelWidgetProps["onBeforeTransition"];
     handlePrepareTransition: PanelWidgetProps["onPrepareTransition"];
     handleTransitionEnd: PanelWidgetProps["onTransitionEnd"];
-    getRef(widgetId: WidgetState["id"]): React_2.Ref<WidgetComponent>;
+    getRef(widgetId: WidgetState["id"]): React_2.Ref<HTMLDivElement>;
     transition: PanelWidgetProps["transition"];
     sizes: {
         [id: string]: PanelWidgetProps["size"];
@@ -1615,13 +1622,7 @@ export interface VerticalPanelState extends PanelState {
 }
 
 // @internal (undocumented)
-export const Widget: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<WidgetProps & React_2.RefAttributes<WidgetComponent>>>;
-
-// @internal (undocumented)
-export interface WidgetComponent {
-    // (undocumented)
-    measure: () => Rectangle;
-}
+export const Widget: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<WidgetProps & React_2.RefAttributes<HTMLDivElement>>>;
 
 // @internal (undocumented)
 export const WidgetContentContainer: React_2.NamedExoticComponent<object>;
