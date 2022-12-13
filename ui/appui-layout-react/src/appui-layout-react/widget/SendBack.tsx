@@ -10,14 +10,13 @@ import "./SendBack.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
-import { assert } from "@itwin/core-bentley";
 import { useLayout } from "../base/LayoutStore";
-import { useFloatingWidgetId } from "./FloatingWidget";
+import { FloatingWidgetIdContext } from "./FloatingWidget";
 
 /** @internal */
 export function SendBack() {
-  const id = useFloatingWidgetId();
-  assert(!!id);
+  const id = React.useContext(FloatingWidgetIdContext);
+
   const side = useLayout((state) => state.floatingWidgets.byId[id].home.side);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("sendWidgetHomeTitle");

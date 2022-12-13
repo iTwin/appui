@@ -10,18 +10,18 @@ import * as React from "react";
 import { SendBack } from "./SendBack";
 import { useActiveTabId, WidgetIdContext } from "./Widget";
 import { Dock } from "./Dock";
-import { useFloatingWidgetId } from "./FloatingWidget";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 import { assert } from "@itwin/core-bentley";
+import { FloatingWidgetIdContext } from "./FloatingWidget";
 
 /** @internal */
 export function TabBarButtons() {
   const isToolSettings = useIsToolSettingsTab();
-  const floatingWidgetId = useFloatingWidgetId();
+  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
   const isMainPanelWidget = useIsMainPanelWidget();
   const tabId = useActiveTabId();
   const canPopout = useLayout((state) => {

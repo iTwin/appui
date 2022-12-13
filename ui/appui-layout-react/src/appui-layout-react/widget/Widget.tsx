@@ -15,9 +15,9 @@ import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager";
 import { getUniqueId, MeasureContext, NineZoneDispatchContext } from "../base/NineZone";
 import { WidgetState } from "../state/WidgetState";
 import { PanelSideContext } from "../widget-panels/Panel";
-import { useFloatingWidgetId } from "./FloatingWidget";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+import { FloatingWidgetIdContext } from "./FloatingWidget";
 
 /** @internal */
 export interface WidgetProviderProps {
@@ -50,7 +50,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
     const side = React.useContext(PanelSideContext);
     const id = React.useContext(WidgetIdContext);
     assert(!!id);
-    const floatingWidgetId = useFloatingWidgetId();
+    const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
     const measureNz = React.useContext(MeasureContext);
     const { preferredFloatingWidgetSize, userSized } = useLayout((state) => {
       const widget = state.widgets[id];
@@ -59,7 +59,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
         preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
         userSized: tab.userSized || (tab.isFloatingStateWindowResizable && !!tab.preferredFloatingWidgetSize),
       };
-    });
+    }, true);
     const elementRef = React.useRef<HTMLDivElement>(null);
     const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
     const onDragStart = React.useCallback<NonNullable<UseDragWidgetArgs["onDragStart"]>>((updateId, initialPointerPosition, pointerPosition) => {
@@ -110,14 +110,15 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
           id: floatingWidgetId,
         });
       };
-      const element = elementRef.current!;
-      element.addEventListener("click", listener);
+      elementRef.current?.addEventListener("click", listener);
       return () => {
-        element.removeEventListener("click", listener);
+        elementRef.current?.removeEventListener("click", listener);
       };
     }, [dispatch, floatingWidgetId]);
     const measure = React.useCallback<WidgetContextArgs["measure"]>(() => {
-      const bounds = elementRef.current!.getBoundingClientRect();
+      if (!elementRef.current)
+        return new Rectangle();
+      const bounds = elementRef.current.getBoundingClientRect();
       return Rectangle.create(bounds);
     }, []);
     const widgetContextValue = React.useMemo<WidgetContextArgs>(() => ({
