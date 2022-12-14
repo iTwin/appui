@@ -3,6 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
+import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import { useDebouncedAsyncValue } from "../../components-react/common/UseDebouncedAsyncValue";
 import { ResolvablePromise } from "../test-helpers/misc";
@@ -29,7 +30,7 @@ describe("useDebouncedAsyncValue", () => {
     expect(result.current.value).to.be.undefined;
 
     await valuePromise.resolve(value);
-    expect(result.current.inProgress).to.be.false;
+    await waitFor(() => expect(result.current.inProgress).to.be.false);
     expect(result.current.value).to.eq(value);
   });
 
@@ -46,7 +47,7 @@ describe("useDebouncedAsyncValue", () => {
     rerender({ value: async () => 2 });
     await initialPromise.resolve(0);
 
-    expect(result.current.inProgress).to.be.false;
+    await waitFor(() => expect(result.current.inProgress).to.be.false);
     expect(result.current.value).to.eq(2);
   });
 
