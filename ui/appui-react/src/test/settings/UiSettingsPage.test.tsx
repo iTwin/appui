@@ -107,17 +107,7 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  it("renders without version option (V2) set toolbar opacity", async () => {
-    await TestUtils.flushAsyncOperations();
-    // trigger sync event processing
-    UiFramework.setWidgetOpacity(.5);
-    await TestUtils.flushAsyncOperations();
-    wrapper.unmount();
-  });
-
-  it("renders toggle auto-hide", async () => {
-    await TestUtils.flushAsyncOperations();
-
+  it("renders  set toolbar opacity", async () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
     const thumb = wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
@@ -127,8 +117,27 @@ describe("UiSettingsPage", () => {
     let toolbarOpacity = UiFramework.getToolbarOpacity();
     expect (toolbarOpacity).greaterThan(.5);
     await TestUtils.flushAsyncOperations();
+    // trigger sync event processing
+    UiFramework.setToolbarOpacity(.9);
+    await TestUtils.flushAsyncOperations();
+    toolbarOpacity = UiFramework.getToolbarOpacity();
+    expect (toolbarOpacity).equals(.9);
+    wrapper.unmount();
+  });
+
+  it("renders toggle auto-hide", async () => {
+    const wrapper = render(<UiSettingsPage />);
+    expect(wrapper).not.to.be.undefined;
+    const autoHideSpan = wrapper.getByText("settings.uiSettingsPage.autoHideTitle");
+    const checkbox = getInputBySpanTitle(autoHideSpan);
+    expect(checkbox).not.to.be.null;
+    fireEvent.click(checkbox!);
+    await TestUtils.flushAsyncOperations();
+    expect(checkbox?.checked).to.be.false; // defaults to true so this should make if false
+    fireEvent.click(checkbox!);
+    await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.true;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(10);
+    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(3);
     wrapper.unmount();
   });
 
@@ -142,22 +151,6 @@ describe("UiSettingsPage", () => {
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.true;
-    fireEvent.click(checkbox!);
-    await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.false;
-    wrapper.unmount();
-  });
-
-  it("renders toggle useProximityOpacity", async () => {
-    await TestUtils.flushAsyncOperations();
-    const wrapper = render(<UiSettingsPage />);
-    expect(wrapper).not.to.be.undefined;
-
-    const titleSpan = wrapper.getByText("settings.uiSettingsPage.useProximityOpacityTitle");
-    const checkbox = getInputBySpanTitle(titleSpan);
-    fireEvent.click(checkbox!);
-    await TestUtils.flushAsyncOperations();
-    expect(checkbox?.checked).to.be.true; // latest default value
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.false;
