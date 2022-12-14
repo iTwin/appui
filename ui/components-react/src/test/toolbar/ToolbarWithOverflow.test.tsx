@@ -7,7 +7,7 @@ import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
 import { ActionButton, BadgeType, CommonToolbarItem, GroupButton, SpecialKey, ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { CustomToolbarItem, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarPanelAlignmentHelpers, ToolbarPopupAutoHideContext, ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import TestUtils from "../TestUtils";
@@ -999,7 +999,7 @@ describe("<ToolbarWithOverflow />", () => {
       // renderedComponent.debug();
     });
 
-    it("should open on drag", () => {
+    it("should open on drag", async () => {
       const childItems: ReadonlyArray<ActionButton | GroupButton> = [
         ToolbarItemUtilities.createActionButton("Entry1", 10, "icon-developer", "Entry1", (): void => { }),
         ToolbarItemUtilities.createActionButton("Entry2", 20, "icon-developer", "Entry2", (): void => { }),
@@ -1038,7 +1038,7 @@ describe("<ToolbarWithOverflow />", () => {
       button!.dispatchEvent(createBubbledEvent("pointermove", { clientX: 30, clientY: 60 }));
 
       // renderedComponent.debug();
-      expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null;
+      await waitFor(() => expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null);
       expect(renderedComponent.queryByText("Entry1")).not.to.be.null;
       expect(renderedComponent.queryByText("Entry2")).not.to.be.null;
       expect(renderedComponent.queryByText("Entry3")).not.to.be.null;
@@ -1134,7 +1134,7 @@ describe("<ToolbarWithOverflow />", () => {
       button!.dispatchEvent(createBubbledEvent("pointerdown", { clientX: 30, clientY: 30 }));
       fakeTimers.tick(500);
 
-      expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null;
+      await waitFor(() => expect(renderedComponent.queryByText("Group1-Tools")).not.to.be.null);
       expect(renderedComponent.queryByText("Entry1")).not.to.be.null;
       const groupEntry2 = renderedComponent.queryByText("Entry2");
       expect(groupEntry2).not.to.be.null;

@@ -10,7 +10,7 @@ import { Orientation } from "@itwin/core-react";
 import { ColumnResizingPropertyListPropsSupplier } from "../../../components-react/propertygrid/component/ColumnResizingPropertyListPropsSupplier";
 import { PropertyList } from "../../../components-react/propertygrid/component/PropertyList";
 import TestUtils, { styleMatch, userEvent } from "../../TestUtils";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ColumnResizingPropertyListPropsSupplier", () => {
 
@@ -53,8 +53,10 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         { coords: {x: 40 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: /^55(?:\.\d*|)% 1px auto/}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: /^55(?:\.\d*|)% 1px auto/}));
+      });
     });
 
     it("changes label-value ratio to 0.15 when it's modified lower than allowed", async () => {
@@ -71,8 +73,10 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         { coords: {x: 0 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "15% 1px auto"}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: "15% 1px auto"}));
+      });
     });
 
     it("changes label-value ratio to 0.6 when it's modified higher than allowed", async () => {
@@ -89,8 +93,10 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         { coords: {x: 90 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "60% 1px auto"}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: "60% 1px auto"}));
+      });
     });
   });
 
@@ -116,8 +122,10 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         { coords: {x: 490 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 50%) 1px minmax(100px, 1fr)"}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 50%) 1px minmax(100px, 1fr)"}));
+      });
     });
 
     it("changes label-value ratio to minimum label width when it's modified lower than allowed", async () => {
@@ -140,8 +148,10 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         { coords: {x: 0 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)"}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)"}));
+      });
     });
 
     it("changes label-value ratio to maximum label width when it's modified higher than allowed", async () => {
@@ -163,8 +173,10 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         { coords: {x: 950 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)"}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)"}));
+      });
     });
 
     it("stops changing label-value ratio after reaching max when element not hovered", async () => {
@@ -187,16 +199,20 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         { coords: {x: 950 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)"}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)"}));
+      });
 
       await theUserTo.pointer([
         { coords: {x: 980 }},
         { coords: {x: 500 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)"}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 80%) 1px minmax(100px, 1fr)"}));
+      });
     });
 
     it("stops changing label-value ratio after reaching min when element not hovered", async () => {
@@ -219,16 +235,20 @@ describe("ColumnResizingPropertyListPropsSupplier", () => {
         { coords: {x: 10 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)"}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)"}));
+      });
 
       await theUserTo.pointer([
         { coords: {x: 0 }},
         { coords: {x: 500 }},
       ]);
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)"}));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation"))
+          .satisfy(styleMatch({gridTemplateColumns: "minmax(100px, 10%) 1px minmax(100px, 1fr)"}));
+      });
     });
   });
 });

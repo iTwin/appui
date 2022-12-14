@@ -6,7 +6,7 @@
 import * as React from "react";
 import { expect } from "chai";
 import sinon from "sinon";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { DelayedSpinner } from "../../components-react/common/DelayedSpinner";
 
 describe("<DelayedSpinner />", () => {
@@ -17,7 +17,7 @@ describe("<DelayedSpinner />", () => {
     expect(spinnerNode).to.not.be.null;
   });
 
-  it("renders spinner with delay", () => {
+  it("renders spinner with delay", async () => {
     const clock = sinon.useFakeTimers({ now: Date.now() });
     const delay = 100;
     const { container } = render(<DelayedSpinner delay={delay} />);
@@ -26,7 +26,7 @@ describe("<DelayedSpinner />", () => {
 
     clock.tick(delay);
 
-    expect(container.children.length).to.be.eq(1);
+    await waitFor(() => expect(container.children.length).to.be.eq(1));
     expect(container.querySelector(".iui-large")).to.not.be.null;
     clock.restore();
   });
