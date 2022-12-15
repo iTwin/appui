@@ -49,9 +49,6 @@ export * from "./core-react/expandable/ExpandableList";
 export * from "./core-react/focus/ItemKeyboardNavigator";
 export * from "./core-react/focustrap/FocusTrap";
 
-export * from "./core-react/form/Field";
-export * from "./core-react/form/Form";
-
 export * from "./core-react/hocs/withIsPressed";
 export * from "./core-react/hocs/withOnOutsideClick";
 export * from "./core-react/hocs/withTimeout";

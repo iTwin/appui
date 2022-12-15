@@ -34,7 +34,6 @@ import { CalculatorDialog } from "../dialogs/CalculatorDialog";
 import { SpinnerTestDialog } from "../dialogs/SpinnerTestDialog";
 import { TestRadialMenu } from "../dialogs/TestRadialMenu";
 import { ViewportDialog } from "../dialogs/ViewportDialog";
-import { ExampleForm } from "../forms/ExampleForm";
 import { AppStatusBarWidgetControl } from "../statusbars/AppStatusBar";
 import { VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { UnifiedSelectionPropertyGridWidgetControl } from "../widgets/UnifiedSelectionPropertyGridWidget";
@@ -545,12 +544,6 @@ class AdditionalTools {
     });
   }
 
-  private get _exampleFormItem() {
-    return new CommandItemDef({
-      iconSpec: "icon-annotation", label: "Open Example Form", execute: () => { ExampleForm.open(); },
-    });
-  }
-
   private get _radialMenuItem() {
     return new CommandItemDef({
       iconSpec: "icon-placeholder", labelKey: "SampleApp:buttons.openRadial", execute: () => { ModalDialogManager.openDialog(this.radialMenu()); },
@@ -788,7 +781,7 @@ class AdditionalTools {
       panelLabel: "Dialog Demos",
       iconSpec: "icon-placeholder",
       items: [
-        this._radialMenuItem, this._exampleFormItem, this._viewportDialogItem, this._spinnerTestDialogItem,
+        this._radialMenuItem, this._viewportDialogItem, this._spinnerTestDialogItem,
         this._reduceWidgetOpacity, this._defaultWidgetOpacity, this._openCalculatorItem,
       ],
       badgeType: BadgeType.TechnicalPreview,
