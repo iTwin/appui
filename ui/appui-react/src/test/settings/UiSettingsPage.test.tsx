@@ -157,6 +157,22 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
+  it("renders toggle useProximityOpacity", async () => {
+    await TestUtils.flushAsyncOperations();
+    const wrapper = render(<UiSettingsPage />);
+    expect(wrapper).not.to.be.undefined;
+
+    const titleSpan = wrapper.getByText("settings.uiSettingsPage.useProximityOpacityTitle");
+    const checkbox = getInputBySpanTitle(titleSpan);
+    fireEvent.click(checkbox!);
+    await TestUtils.flushAsyncOperations();
+    expect(checkbox?.checked).to.be.true; // latest default value
+    fireEvent.click(checkbox!);
+    await TestUtils.flushAsyncOperations();
+    expect(checkbox?.checked).to.be.false;
+    wrapper.unmount();
+  });
+
   it("renders toggle snapWidgetOpacity", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
