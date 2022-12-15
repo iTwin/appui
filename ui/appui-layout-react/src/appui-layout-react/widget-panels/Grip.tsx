@@ -78,9 +78,9 @@ export const useResizeGrip = <T extends HTMLElement>(): [(instance: T | null) =>
   const relativePosition = React.useRef(new Point());
   const layoutStore = useLayoutStore();
   const panelStateRef = React.useRef(layoutStore.getState().panels[side]);
-  React.useEffect(() => layoutStore.subscribe(
-    (state) => (panelStateRef.current = state.panels[side]),
-  ), [layoutStore]);
+  React.useEffect(() => layoutStore.subscribe((state) => {
+    panelStateRef.current = state.panels[side];
+  }), [layoutStore, side]);
   const handleDoubleClick = React.useCallback(() => {
     dispatch({
       type: "PANEL_TOGGLE_COLLAPSED",

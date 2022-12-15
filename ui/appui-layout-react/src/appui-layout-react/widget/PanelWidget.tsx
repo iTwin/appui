@@ -9,8 +9,6 @@
 import "./PanelWidget.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
-import { useRefs } from "@itwin/core-react";
 import { WidgetsState, WidgetState } from "../state/WidgetState";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { WidgetContentContainer } from "./ContentContainer";

@@ -11,6 +11,7 @@
 import "./Frontstage.scss";
 import produce from "immer";
 import * as React from "react";
+import { unstable_batchedUpdates } from "react-dom";
 import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
 import { StagePanelLocation, StagePanelSection, UiItemsManager, WidgetState } from "@itwin/appui-abstract";
 import { Rectangle, RectangleProps, Size, SizeProps, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-react";
@@ -19,9 +20,9 @@ import {
   addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createLayoutStore, createNineZoneState, floatingWidgetBringToFront,
   FloatingWidgetHomeState, FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
   isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, LayoutStore, NineZone, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, NineZoneStateReducer, PanelSide,
-  panelSides, removeTab, removeTabFromWidget, TabState, toolSettingsTabId, WidgetPanels,
+  panelSides, removeTab, removeTabFromWidget, TabState, toolSettingsTabId, useLayout, WidgetPanels,
 } from "@itwin/appui-layout-react";
-import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs, useActiveFrontstageDef } from "../frontstage/FrontstageDef";
+import { FrontstageDef, FrontstageEventArgs } from "../frontstage/FrontstageDef";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { StagePanelMaxSizeSpec } from "../stagepanels/StagePanelConfig";
 import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
@@ -78,22 +79,27 @@ const toolSettingsContent = <ToolSettingsContent />;
 const widgetPanelsFrontstage = <WidgetPanelsFrontstageComponent />;
 
 /** @internal */
-export function useLayoutStore(frontstageDef: FrontstageDef) {
-  const lastFrontstageDef = React.useRef(frontstageDef);
-  const [layout] = React.useState(() => createLayoutStore(frontstageDef.nineZoneState));
+export function useLayoutStore() {
+  const [def, setDef] = React.useState(FrontstageManager.activeFrontstageDef);
+  const [layout, setLayout] = React.useState(() => createLayoutStore(def?.nineZoneState));
   React.useEffect(() => {
-    layout.setState(frontstageDef.nineZoneState || defaultNineZone);
-    lastFrontstageDef.current = frontstageDef;
-  }, [frontstageDef]);
+    return FrontstageManager.onFrontstageActivatedEvent.addListener((args) => {
+      unstable_batchedUpdates(() => {
+        setDef(args.activatedFrontstageDef);
+        setLayout(createLayoutStore(args.activatedFrontstageDef.nineZoneState));
+      });
+    });
+  }, []);
   React.useEffect(() => {
-    const listener = (args: FrontstageNineZoneStateChangedEventArgs) => {
-      if (args.frontstageDef !== frontstageDef || frontstageDef.isStageClosing || frontstageDef.isApplicationClosing)
+    return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((args) => {
+      if (args.frontstageDef !== def || def.isStageClosing || def.isApplicationClosing)
         return;
-      layout.setState(args.state || defaultNineZone);
-    };
-    return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(listener);
-  }, [frontstageDef]);
-  return layout;
+      unstable_batchedUpdates(() => { // https://github.com/pmndrs/zustand/blob/main/docs/guides/event-handler-in-pre-react-18.md
+        layout.setState(args.state || defaultNineZone);
+      });
+    });
+  }, [def, layout]);
+  return [layout, def] as const;
 }
 
 /** Update in-memory NineZoneState of newly activated frontstage with up to date size.
@@ -158,17 +164,18 @@ export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
       frontstageDef.popoutWidget(tabId);
       return;
     }
-    const nineZoneState = frontstageDef.nineZoneState;
-    if (!nineZoneState)
+
+    const state = frontstageDef.nineZoneState;
+    if (!state)
       return;
-    frontstageDef.nineZoneState = FrameworkStateReducer(nineZoneState, action, frontstageDef);
+    frontstageDef.nineZoneState = FrameworkStateReducer(state, action, frontstageDef);
   }, [frontstageDef]);
   return dispatch;
 }
 
 /** @internal */
 export const WidgetPanelsFrontstage = React.memo(function WidgetPanelsFrontstage() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const frontstageDef = useActiveFrontstageDef();
+  const [layout, frontstageDef] = useLayoutStore();
 
   React.useEffect(() => {
     const triggerWidowCloseProcessing = () => {
@@ -186,7 +193,10 @@ export const WidgetPanelsFrontstage = React.memo(function WidgetPanelsFrontstage
   if (!frontstageDef)
     return null;
   return (
-    <ActiveFrontstageDefProvider frontstageDef={frontstageDef} />
+    <ActiveFrontstageDefProvider
+      frontstageDef={frontstageDef}
+      layout={layout}
+    />
   );
 });
 
@@ -194,9 +204,13 @@ const defaultNineZone = createNineZoneState();
 const tabElement = <WidgetPanelsTab />;
 const floatingWidgetElement = <FloatingWidget />;
 
+interface ActiveFrontstageDefProviderProps {
+  layout: LayoutStore;
+  frontstageDef: FrontstageDef;
+}
+
 /** @internal */
-export function ActiveFrontstageDefProvider({ frontstageDef }: { frontstageDef: FrontstageDef }) {
-  const layout = useLayoutStore(frontstageDef);
+export function ActiveFrontstageDefProvider({ frontstageDef, layout }: ActiveFrontstageDefProviderProps) {
   const dispatch = useNineZoneDispatch(frontstageDef);
   useUpdateNineZoneSize(frontstageDef);
   useSavedFrontstageState(frontstageDef);
@@ -223,6 +237,7 @@ export function ActiveFrontstageDefProvider({ frontstageDef }: { frontstageDef: 
   useFrontstageManager(frontstageDef, useToolAsToolSettingsLabel);
 
   const handleKeyDown = useEscapeSetFocusToHome();
+
   return (
     <div
       className="uifw-widgetPanels-frontstage"
@@ -1172,7 +1187,7 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
       if (frontstageDef.id === args.frontstageDef.id) {
         args.frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
       } else {
-        args.frontstageDef.nineZoneState = undefined;
+        // args.frontstageDef.nineZoneState = undefined;
       }
     };
     FrontstageManager.onFrontstageRestoreLayoutEvent.addListener(listener);

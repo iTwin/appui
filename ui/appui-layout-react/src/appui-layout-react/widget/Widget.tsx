@@ -90,7 +90,9 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
 
       const newFloatingWidgetId = getUniqueId();
       updateId(newFloatingWidgetId);
-      side && dispatch({
+
+      assert(!!side);
+      dispatch({
         type: "PANEL_WIDGET_DRAG_START",
         newFloatingWidgetId,
         id,
@@ -110,9 +112,10 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
           id: floatingWidgetId,
         });
       };
-      elementRef.current?.addEventListener("click", listener);
+      const element = elementRef.current;
+      element?.addEventListener("click", listener);
       return () => {
-        elementRef.current?.removeEventListener("click", listener);
+        element?.removeEventListener("click", listener);
       };
     }, [dispatch, floatingWidgetId]);
     const measure = React.useCallback<WidgetContextArgs["measure"]>(() => {

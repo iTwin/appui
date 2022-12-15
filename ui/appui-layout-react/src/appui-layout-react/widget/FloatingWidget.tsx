@@ -59,6 +59,7 @@ export interface FloatingWidgetProps {
 /** @internal */
 export function FloatingWidget(props: FloatingWidgetProps) {
   const id = React.useContext(FloatingWidgetIdContext);
+  assert(!!id);
   const { autoSized, bounds, hideWithUiWhenFloating, isToolSettingsTab, minimized, resizable } = useFloatingWidgetState();
   const uiIsVisible = React.useContext(UiIsVisibleContext);
   const hideFloatingWidget = !uiIsVisible && hideWithUiWhenFloating;
@@ -149,6 +150,7 @@ function useHandleAutoSize(dragged: boolean) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const measureNz = React.useContext(MeasureContext);
   const id = React.useContext(FloatingWidgetIdContext);
+  assert(!!id);
   const userSized = useLayout((state) => state.floatingWidgets.byId[id].userSized);
 
   const updatePosition = React.useRef(true);
@@ -296,5 +298,5 @@ export function getResizeBy(handle: FloatingWidgetResizeHandle, offset: PointPro
 }
 
 /** @internal */
-export const FloatingWidgetIdContext = React.createContext<FloatingWidgetState["id"]>(""); // eslint-disable-line @typescript-eslint/naming-convention
+export const FloatingWidgetIdContext = React.createContext<FloatingWidgetState["id"] | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 FloatingWidgetIdContext.displayName = "nz:FloatingWidgetIdContext";
