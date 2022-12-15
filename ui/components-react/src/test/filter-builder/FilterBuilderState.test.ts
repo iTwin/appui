@@ -5,9 +5,10 @@
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
 import { PropertyDescription, PropertyValue, PropertyValueFormat } from "@itwin/appui-abstract";
+import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
-  PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup, usePropertyFilterBuilderState,
+  PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup, PropertyFilterBuilderRuleGroupItem, usePropertyFilterBuilderState,
 } from "../../components-react/filter-builder/FilterBuilderState";
 import { PropertyFilterRuleGroupOperator, PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
@@ -50,13 +51,17 @@ describe("usePropertyFilterBuilderState", () => {
     });
   });
 
-  it("adds rule to nested group", () => {
+  it("adds rule to nested group", async () => {
     const {result} = renderHook(() => usePropertyFilterBuilderState());
     const {actions} = result.current;
     actions.addItem([], "RULE_GROUP");
 
-    const nestedGroup = result.current.state.rootGroup.items[1];
-    expect(nestedGroup).to.not.be.undefined;
+    let nestedGroup: PropertyFilterBuilderRuleGroupItem | undefined;
+
+    await waitFor(() => {
+      nestedGroup = result.current.state.rootGroup.items[1];
+      expect(nestedGroup).to.not.be.undefined;
+    });
 
     actions.addItem([], "RULE");
 
@@ -69,27 +74,29 @@ describe("usePropertyFilterBuilderState", () => {
         groupId: rootGroup.id,
         operator: PropertyFilterRuleGroupOperator.And,
         items: [{
-          groupId: nestedGroup.id,
+          groupId: nestedGroup!.id,
         }],
       }],
     });
   });
 
-  it("adds rule group to root group", () => {
+  it("adds rule group to root group", async () => {
     const {result} = renderHook(() => usePropertyFilterBuilderState());
     const {actions} = result.current;
     actions.addItem([], "RULE_GROUP");
 
-    const rootGroup = result.current.state.rootGroup;
-    expect(rootGroup).to.containSubset({
-      operator: PropertyFilterRuleGroupOperator.And,
-      items: [{
-        groupId: rootGroup.id,
-      },{
-        groupId: rootGroup.id,
+    await waitFor(() => {
+      const rootGroup = result.current.state.rootGroup;
+      expect(rootGroup).to.containSubset({
         operator: PropertyFilterRuleGroupOperator.And,
-        items: [],
-      }],
+        items: [{
+          groupId: rootGroup.id,
+        },{
+          groupId: rootGroup.id,
+          operator: PropertyFilterRuleGroupOperator.And,
+          items: [],
+        }],
+      });
     });
   });
 
@@ -135,19 +142,21 @@ describe("usePropertyFilterBuilderState", () => {
     expect(state).to.be.eq(newState);
   });
 
-  it("sets root group operator", () => {
+  it("sets root group operator", async () => {
     const {result} = renderHook(() => usePropertyFilterBuilderState());
     const {state, actions} = result.current;
 
     expect(state.rootGroup.operator).to.be.eq(PropertyFilterRuleGroupOperator.And);
     actions.setRuleGroupOperator([], PropertyFilterRuleGroupOperator.Or);
 
-    const rootGroup = result.current.state.rootGroup;
-    expect(rootGroup).to.containSubset({
-      operator: PropertyFilterRuleGroupOperator.Or,
-      items: [{
-        groupId: rootGroup.id,
-      }],
+    await waitFor(() => {
+      const rootGroup = result.current.state.rootGroup;
+      expect(rootGroup).to.containSubset({
+        operator: PropertyFilterRuleGroupOperator.Or,
+        items: [{
+          groupId: rootGroup.id,
+        }],
+      });
     });
   });
 
@@ -160,19 +169,21 @@ describe("usePropertyFilterBuilderState", () => {
     expect(state).to.be.eq(newState);
   });
 
-  it("sets rule property", () => {
+  it("sets rule property", async () => {
     const {result} = renderHook(() => usePropertyFilterBuilderState());
     const {state, actions} = result.current;
 
     const property: PropertyDescription = {name: "prop", displayLabel: "Prop", typename: "string"};
     actions.setRuleProperty([state.rootGroup.items[0].id], property);
 
-    const rootGroup = result.current.state.rootGroup;
-    expect(rootGroup).to.containSubset({
-      items: [{
-        groupId: rootGroup.id,
-        property,
-      }],
+    await waitFor(() => {
+      const rootGroup = result.current.state.rootGroup;
+      expect(rootGroup).to.containSubset({
+        items: [{
+          groupId: rootGroup.id,
+          property,
+        }],
+      });
     });
   });
 
@@ -187,39 +198,46 @@ describe("usePropertyFilterBuilderState", () => {
     expect(state).to.be.eq(newState);
   });
 
-  it("sets rule operator", () => {
+  it("sets rule operator", async () => {
     const {result} = renderHook(() => usePropertyFilterBuilderState());
     const {state, actions} = result.current;
 
     actions.setRuleOperator([state.rootGroup.items[0].id], PropertyFilterRuleOperator.IsEqual);
 
-    const rootGroup = result.current.state.rootGroup;
-    expect(rootGroup).to.containSubset({
-      items: [{
-        groupId: rootGroup.id,
-        operator: PropertyFilterRuleOperator.IsEqual,
-      }],
+    await waitFor(() => {
+      const rootGroup = result.current.state.rootGroup;
+      expect(rootGroup).to.containSubset({
+        items: [{
+          groupId: rootGroup.id,
+          operator: PropertyFilterRuleOperator.IsEqual,
+        }],
+      });
     });
   });
 
-  it("resets rule value if new operator does not need value", () => {
+  it("resets rule value if new operator does not need value", async () => {
     const {result} = renderHook(() => usePropertyFilterBuilderState());
     const {state, actions} = result.current;
 
     const value: PropertyValue = {valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING"};
     actions.setRuleValue([state.rootGroup.items[0].id], value);
-    const rule = result.current.state.rootGroup.items[0] as PropertyFilterBuilderRule;
-    expect(rule.value).to.be.deep.eq(value);
+    await waitFor(() => {
+      const rule = result.current.state.rootGroup.items[0] as PropertyFilterBuilderRule;
+      expect(rule.value).to.be.deep.eq(value);
+
+    });
 
     actions.setRuleOperator([state.rootGroup.items[0].id], PropertyFilterRuleOperator.IsNull);
 
-    const rootGroup = result.current.state.rootGroup;
-    expect(rootGroup).to.containSubset({
-      items: [{
-        groupId: rootGroup.id,
-        operator: PropertyFilterRuleOperator.IsNull,
-        value: undefined,
-      }],
+    await waitFor(() => {
+      const rootGroup = result.current.state.rootGroup;
+      expect(rootGroup).to.containSubset({
+        items: [{
+          groupId: rootGroup.id,
+          operator: PropertyFilterRuleOperator.IsNull,
+          value: undefined,
+        }],
+      });
     });
   });
 
@@ -233,19 +251,21 @@ describe("usePropertyFilterBuilderState", () => {
     expect(state).to.be.eq(newState);
   });
 
-  it("sets rule value", () => {
+  it("sets rule value", async () => {
     const {result} = renderHook(() => usePropertyFilterBuilderState());
     const {state, actions} = result.current;
 
     const value: PropertyValue = {valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING"};
     actions.setRuleValue([state.rootGroup.items[0].id], value);
 
-    const rootGroup = result.current.state.rootGroup;
-    expect(rootGroup).to.containSubset({
-      items: [{
-        groupId: rootGroup.id,
-        value,
-      }],
+    await waitFor(() => {
+      const rootGroup = result.current.state.rootGroup;
+      expect(rootGroup).to.containSubset({
+        items: [{
+          groupId: rootGroup.id,
+          value,
+        }],
+      });
     });
   });
 
@@ -272,7 +292,7 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   describe("rule group", () => {
-    function getStateWithNestedRule() {
+    async function getStateWithNestedRule() {
       const {result} = renderHook(() => usePropertyFilterBuilderState());
       const {actions} = result.current;
 
@@ -281,73 +301,87 @@ describe("usePropertyFilterBuilderState", () => {
       const getNestedRulePath = () => [getNestingRule().id, getNestedRule().id];
 
       actions.addItem([], "RULE_GROUP");
-      expect(getNestingRule()).to.not.be.undefined;
-      expect(getNestedRule()).to.not.be.undefined;
+      await waitFor(() => {
+        expect(getNestingRule()).to.not.be.undefined;
+        expect(getNestedRule()).to.not.be.undefined;
+      });
 
       return {result, getNestingRule, getNestedRule, getNestedRulePath};
     }
 
     describe("nested rule", () => {
-      it("sets property", () => {
-        const {result, getNestingRule, getNestedRule, getNestedRulePath} = getStateWithNestedRule();
+      it("sets property", async () => {
+        const {result, getNestingRule, getNestedRule, getNestedRulePath} = await getStateWithNestedRule();
         const {actions} = result.current;
 
         const property: PropertyDescription = {name: "prop", displayLabel: "Prop", typename: "string"};
         actions.setRuleProperty(getNestedRulePath(), property);
 
-        const rule = getNestedRule();
-        expect(rule).to.containSubset({
-          groupId: getNestingRule().id,
-          property,
+        await waitFor(() => {
+          const rule = getNestedRule();
+          expect(rule).to.containSubset({
+            groupId: getNestingRule().id,
+            property,
+          });
         });
       });
 
-      it("sets operator", () => {
-        const {result, getNestingRule, getNestedRule, getNestedRulePath} = getStateWithNestedRule();
+      it("sets operator", async () => {
+        const {result, getNestingRule, getNestedRule, getNestedRulePath} = await getStateWithNestedRule();
         const {actions} = result.current;
 
         actions.setRuleOperator(getNestedRulePath(), PropertyFilterRuleOperator.IsEqual);
 
-        const rule = getNestedRule();
-        expect(rule).to.containSubset({
-          groupId: getNestingRule().id,
-          operator: PropertyFilterRuleOperator.IsEqual,
+        await waitFor(() => {
+          const rule = getNestedRule();
+          expect(rule).to.containSubset({
+            groupId: getNestingRule().id,
+            operator: PropertyFilterRuleOperator.IsEqual,
+          });
         });
       });
 
-      it("sets value", () => {
-        const {result, getNestingRule, getNestedRule, getNestedRulePath} = getStateWithNestedRule();
+      it("sets value", async () => {
+        const {result, getNestingRule, getNestedRule, getNestedRulePath} = await getStateWithNestedRule();
         const {actions} = result.current;
 
         const value: PropertyValue = {valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING"};
         actions.setRuleValue(getNestedRulePath(), value);
 
-        const rule = getNestedRule();
-        expect(rule).to.containSubset({
-          groupId: getNestingRule().id,
-          value,
+        await waitFor(() => {
+          const rule = getNestedRule();
+          expect(rule).to.containSubset({
+            groupId: getNestingRule().id,
+            value,
+          });
         });
       });
     });
 
-    it("adds and removes rule", () => {
-      const {result, getNestingRule} = getStateWithNestedRule();
+    it("adds and removes rule", async () => {
+      const {result, getNestingRule} = await getStateWithNestedRule();
       const {actions} = result.current;
 
       actions.addItem([getNestingRule().id], "RULE");
-      expect(getNestingRule().items).to.have.lengthOf(2);
+      await waitFor(() => {
+        expect(getNestingRule().items).to.have.lengthOf(2);
+      });
 
       actions.removeItem([getNestingRule().id, getNestingRule().items[1].id]);
-      expect(getNestingRule().items).to.have.lengthOf(1);
+      await waitFor(() => {
+        expect(getNestingRule().items).to.have.lengthOf(1);
+      });
     });
 
-    it("removes group when last rule is removed", () => {
-      const {result, getNestingRule, getNestedRulePath} = getStateWithNestedRule();
+    it("removes group when last rule is removed", async () => {
+      const {result, getNestingRule, getNestedRulePath} = await getStateWithNestedRule();
       const {actions} = result.current;
 
       actions.removeItem(getNestedRulePath());
 
-      expect(getNestingRule()).to.be.undefined;
+      await waitFor(() => {
+        expect(getNestingRule()).to.be.undefined;
+      });
     });
   });
 });

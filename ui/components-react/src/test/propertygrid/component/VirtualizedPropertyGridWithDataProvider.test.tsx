@@ -80,9 +80,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
-
-      expect(container.querySelector(".components-property-record--horizontal")).to.be.not.null;
+      await waitFor(() => expect(container.querySelector(".components-property-record--horizontal")).to.be.not.null);
     });
 
     it("renders correctly vertically", async () => {
@@ -94,9 +92,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
-
-      expect(container.querySelector(".components-property-record--vertical")).to.be.not.null;
+      await waitFor(() => expect(container.querySelector(".components-property-record--vertical")).to.be.not.null);
     });
 
     it("renders horizontally by default", async () => {
@@ -115,13 +111,13 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
     it("renders PropertyCategoryBlocks correctly", async () => {
       const { container } = render(<VirtualizedPropertyGridWithDataProvider {...defaultProps} />);
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => {
+        const categoryBlocks = container.querySelectorAll(".virtualized-grid-node-category");
+        expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(2);
 
-      const categoryBlocks = container.querySelectorAll(".virtualized-grid-node-category");
-      expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(2);
-
-      expect(categoryBlocks[0].textContent).to.be.equal("Group 1");
-      expect(categoryBlocks[1].textContent).to.be.equal("Group 2");
+        expect(categoryBlocks[0].textContent).to.be.equal("Group 1");
+        expect(categoryBlocks[1].textContent).to.be.equal("Group 2");
+      });
     });
 
     it("renders nested property categories", async () => {
@@ -151,19 +147,19 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider  {...defaultProps} dataProvider={dataProvider} />,
       );
-      await waitForPropertyGridLoad(container);
-
-      const categoryBlocks = container.querySelectorAll(".virtualized-grid-node-category");
-      expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(2);
+      await waitFor(() => {
+        const categoryBlocks = container.querySelectorAll(".virtualized-grid-node-category");
+        expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(2);
+      });
     });
 
     it("renders PropertyCategoryBlock as collapsed when it gets clicked", async () => {
       const { container } = render(<VirtualizedPropertyGridWithDataProvider  {...defaultProps} />);
 
-      await waitForPropertyGridLoad(container);
-
-      let categoryChild = container.querySelector(".virtualized-grid-node span[title=\"CADID1\"]");
-      expect(categoryChild, "Category child is not rendered").to.not.be.null;
+      await waitFor(() => {
+        const categoryChild = container.querySelector(".virtualized-grid-node span[title=\"CADID1\"]");
+        expect(categoryChild, "Category child is not rendered").to.not.be.null;
+      });
 
       const categoryBlocks = container.querySelectorAll(".virtualized-grid-node-category .iui-header");
       expect(categoryBlocks.length, "Wrong amount of categories").to.be.equal(2);
@@ -171,8 +167,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.click(categoryBlock);
 
-      categoryChild = container.querySelector(".virtualized-grid-node span[title=\"CADID1\"]");
-      expect(categoryChild, "Category child rendered").to.be.null;
+      await waitFor(() => {
+        const categoryChild = container.querySelector(".virtualized-grid-node span[title=\"CADID1\"]");
+        expect(categoryChild, "Category child rendered").to.be.null;
+      });
     });
 
     it("keeps the collapsed state of PropertyCategoryBlock when non-nested data is refreshed", async () => {
@@ -320,10 +318,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       });
       dataProvider.onDataChanged.raiseEvent();
 
-      await waitForPropertyGridLoad(container);
-
-      const categoryBlocks = container.querySelectorAll(".virtualized-grid-node-category");
-      expect(categoryBlocks.length).to.be.eq(3);
+      await waitFor(() => {
+        const categoryBlocks = container.querySelectorAll(".virtualized-grid-node-category");
+        expect(categoryBlocks.length).to.be.eq(3);
+      });
     });
 
     it("doesn't rerender on intermediate data changes", async () => {
@@ -349,8 +347,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       expect(dataFake).to.be.calledOnce;
 
       // simulate multiple onDataChanged calls
-      for (let i = 1; i <= 10; ++i)
+      for (let i = 1; i <= 10; ++i) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
         dataProvider.onDataChanged.raiseEvent();
+      }
 
       // resolve the data promise
       await dataPromise.resolve(data);
@@ -370,9 +370,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
-
-      expect(container.querySelector(".components-property-record--horizontal")).to.be.not.null;
+      await waitFor(() => expect(container.querySelector(".components-property-record--horizontal")).to.be.not.null);
 
       rerender(
         <VirtualizedPropertyGridWithDataProvider
@@ -441,8 +439,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           isOrientationFixed={true}
         />,
       );
-      await waitForPropertyGridLoad(container);
-      expect(container.querySelector(".components-property-record--horizontal")).to.be.not.null;
+
+      await waitFor(() => expect(container.querySelector(".components-property-record--horizontal")).to.be.not.null);
 
       rerender(
         <VirtualizedPropertyGridWithDataProvider
@@ -606,7 +604,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       expect(onPropertySelectionChanged.called).to.be.false;
 
@@ -624,7 +622,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         <VirtualizedPropertyGridWithDataProvider {...defaultProps} isPropertySelectionEnabled={true} />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       expect(container.querySelectorAll(".components--selected").length).to.be.equal(0);
 
@@ -651,7 +649,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => expect(container.querySelectorAll(".components-property-record--horizontal").length).to.be.greaterThan(0));
 
       const renderedRecords = container.querySelectorAll(".components-property-record--horizontal");
       expect(renderedRecords.length).to.be.greaterThan(0);
@@ -672,7 +670,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);
@@ -693,7 +691,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);
@@ -715,7 +713,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);
@@ -737,7 +735,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);
@@ -762,7 +760,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);
@@ -795,7 +793,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor( () => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);
@@ -809,7 +807,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       await waitForPropertyGridLoad(container);
 
-      expect(spyMethod).to.be.calledOnce;
+      await waitFor(() => expect(spyMethod).to.be.calledOnce);
     });
 
     it("does not start editor on click if not selected yet", async () => {
@@ -821,7 +819,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);
@@ -840,7 +838,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitForPropertyGridLoad(container);
+      await waitFor(() => {
+        expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0);
+      });
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);
@@ -872,11 +872,12 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           isOrientationFixed={true}
         />,
       );
-      await waitForPropertyGridLoad(container);
 
-      const clickableComponents = container.querySelectorAll(".components-property-record--horizontal");
-      expect(clickableComponents.length).to.be.greaterThan(0);
-      fireEvent.contextMenu(clickableComponents[0]);
+      await waitFor(() => {
+        const clickableComponents = container.querySelectorAll(".components-property-record--horizontal");
+        expect(clickableComponents.length).to.be.greaterThan(0);
+        fireEvent.contextMenu(clickableComponents[0]);
+      });
 
       expect(callback).to.be.calledOnce;
       expect(callback.firstCall.args[0].propertyRecord).to.deep.eq(records[0]);
@@ -888,14 +889,15 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       const { container } = render(
         <VirtualizedPropertyGridWithDataProvider {...defaultProps} isOrientationFixed={true} />,
       );
-      await waitForPropertyGridLoad(container);
 
-      const clickableComponents = container.querySelectorAll(".virtualized-grid-node");
-      expect(clickableComponents.length).to.be.equal(3);
+      await waitFor(() => {
+        const clickableComponents = container.querySelectorAll(".virtualized-grid-node");
+        expect(clickableComponents.length).to.be.equal(3);
 
-      expect(clickableComponents[0].querySelector(".virtualized-grid-node > .virtualized-grid-node-content")).to.be.not.null;
-      expect(clickableComponents[1].querySelector(".virtualized-grid-node > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content")).to.be.not.null;
-      expect(clickableComponents[2].querySelector(".virtualized-grid-node > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[0].querySelector(".virtualized-grid-node > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[1].querySelector(".virtualized-grid-node > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[2].querySelector(".virtualized-grid-node > .virtualized-grid-node-content")).to.be.not.null;
+      });
     });
 
     it("Wraps nested content in nested borders correctly", async () => {
@@ -949,25 +951,26 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           isOrientationFixed={true}
         />,
       );
-      await waitForPropertyGridLoad(container);
 
-      const clickableComponents = container.querySelectorAll(".virtualized-grid-node");
-      expect(clickableComponents.length).to.be.equal(12);
+      await waitFor(() => {
+        const clickableComponents = container.querySelectorAll(".virtualized-grid-node");
+        expect(clickableComponents.length).to.be.equal(12);
 
-      expect(clickableComponents[0].querySelector(".virtualized-grid-node > .virtualized-grid-node-category")).to.be.not.null;
-      expect(clickableComponents[1].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
-      expect(clickableComponents[2].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
-      expect(clickableComponents[3].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
-      expect(clickableComponents[4].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[0].querySelector(".virtualized-grid-node > .virtualized-grid-node-category")).to.be.not.null;
+        expect(clickableComponents[1].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[2].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[3].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[4].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
 
-      expect(clickableComponents[5].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-category")).to.be.not.null;
-      expect(clickableComponents[6].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
-      expect(clickableComponents[7].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
-      expect(clickableComponents[8].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
-      expect(clickableComponents[9].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
-      expect(clickableComponents[10].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[5].querySelector(".virtualized-grid-node > .nested-border-middle > .virtualized-grid-node-category")).to.be.not.null;
+        expect(clickableComponents[6].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[7].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[8].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[9].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle > .virtualized-grid-node-content")).to.be.not.null;
+        expect(clickableComponents[10].querySelector(".virtualized-grid-node > .nested-border-middle > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-content")).to.be.not.null;
 
-      expect(clickableComponents[11].querySelector(".virtualized-grid-node > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-category")).to.be.not.null;
+        expect(clickableComponents[11].querySelector(".virtualized-grid-node > .nested-border-middle.nested-border-bottom > .virtualized-grid-node-category")).to.be.not.null;
+      });
     });
   });
 
@@ -997,11 +1000,12 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
           isOrientationFixed={true}
         />,
       );
-      await waitForPropertyGridLoad(container);
 
-      const gridNodes = container.querySelectorAll(".virtualized-grid-node");
-      expect(gridNodes.length).to.be.greaterThan(0);
-      expect(gridNodes.length).to.be.lessThan(1000);
+      await waitFor(() =>
+        expect(container.querySelectorAll(".virtualized-grid-node").length)
+          .to.be.greaterThan(0)
+          .to.be.lessThan(1000)
+      );
     });
   });
 

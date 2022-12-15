@@ -6,7 +6,7 @@
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { TimeField, TimeSpec } from "../../components-react/datepicker/TimeField";
 import TestUtils from "../TestUtils";
 import { SpecialKey, TimeDisplay } from "@itwin/appui-abstract";
@@ -105,7 +105,7 @@ describe("<TimeField />", () => {
     expect(inputs[2].value).to.eq("13");
   });
 
-  it("should trigger time hour change", () => {
+  it("should trigger time hour change", async () => {
     const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MC} onTimeChange={renderSpy} readOnly={false} />);
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
@@ -140,17 +140,17 @@ describe("<TimeField />", () => {
     fireEvent.change(hour, { target: { value: "26" } });
     // fireEvent.keyDown(hour, { key: SpecialKey.Enter });
     hour.blur();
-    expect(hour.value).to.eq("12");
+    await waitFor(() => expect(hour.value).to.eq("12"));
 
     hour.focus();
     fireEvent.change(hour, { target: { value: "08" } });
     hour.blur();
     expect(hour.value).to.eq("08");
-    expect(cycle.value).to.eq("timepicker.day-period-am");
+    await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-am"));
 
   });
 
-  it("should trigger time minute change", () => {
+  it("should trigger time minute change", async () => {
     const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MC} onTimeChange={renderSpy} readOnly={false} />);
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
@@ -171,7 +171,7 @@ describe("<TimeField />", () => {
     minute.focus();
     fireEvent.change(minute, { target: { value: "66" } });
     minute.blur();
-    expect(minute.value).to.eq("30");
+    await waitFor(() => expect(minute.value).to.eq("30"));
     fireEvent.keyDown(minute, { key: SpecialKey.Home });
     expect(minute.value).to.eq("00");
     fireEvent.keyDown(minute, { key: SpecialKey.ArrowDown });
@@ -182,7 +182,7 @@ describe("<TimeField />", () => {
     expect(minute.value).to.eq("00");
   });
 
-  it("should trigger time seconds change", () => {
+  it("should trigger time seconds change", async () => {
     const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MSC} onTimeChange={renderSpy} readOnly={false} />);
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
@@ -207,7 +207,7 @@ describe("<TimeField />", () => {
     seconds.focus();
     fireEvent.change(seconds, { target: { value: "66" } });
     seconds.blur();
-    expect(seconds.value).to.eq("30");
+    await waitFor(() => expect(seconds.value).to.eq("30"));
     fireEvent.keyDown(seconds, { key: SpecialKey.Home });
     expect(seconds.value).to.eq("00");
     fireEvent.keyDown(seconds, { key: SpecialKey.ArrowDown });
@@ -216,7 +216,7 @@ describe("<TimeField />", () => {
     expect(seconds.value).to.eq("59");
   });
 
-  it("should trigger time period change", () => {
+  it("should trigger time period change", async () => {
     const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MSC} onTimeChange={renderSpy} readOnly={false} />);
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
@@ -262,7 +262,7 @@ describe("<TimeField />", () => {
     cycle.focus();
     fireEvent.change(cycle, { target: { value: "pm" } });
     cycle.blur();
-    expect(cycle.value).to.eq("timepicker.day-period-pm");
+    await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-pm"));
 
     cycle.focus();
     fireEvent.change(hour, { target: { value: "22" } });
@@ -276,31 +276,31 @@ describe("<TimeField />", () => {
     fireEvent.keyDown(hour, { key: SpecialKey.Enter });
     fireEvent.change(cycle, { target: { value: "PM" } });
     cycle.blur();
-    expect(cycle.value).to.eq("timepicker.day-period-pm");
+    await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-pm"));
 
     cycle.focus();
     fireEvent.change(hour, { target: { value: "22" } });
     fireEvent.keyDown(hour, { key: SpecialKey.Enter });
     fireEvent.change(cycle, { target: { value: "am" } });
     cycle.blur();
-    expect(cycle.value).to.eq("timepicker.day-period-am");
+    await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-am"));
 
     cycle.focus();
     fireEvent.change(hour, { target: { value: "08" } });
     fireEvent.keyDown(hour, { key: SpecialKey.Enter });
     fireEvent.change(cycle, { target: { value: "timepicker.day-period-pm" } });
     cycle.blur();
-    expect(cycle.value).to.eq("timepicker.day-period-pm");
+    await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-pm"));
 
     cycle.focus();
     fireEvent.change(cycle, { target: { value: "AM" } });
     cycle.blur();
-    expect(cycle.value).to.eq("timepicker.day-period-am");
+    await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-am"));
 
     cycle.focus();
     fireEvent.change(cycle, { target: { value: "AM" } });
     cycle.blur();
-    expect(cycle.value).to.eq("timepicker.day-period-am");
+    await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-am"));
 
     renderedComponent.rerender(<TimeField time={pmTime} timeDisplay={TimeDisplay.H12MSC} onTimeChange={renderSpy} readOnly={false} />);
   });
