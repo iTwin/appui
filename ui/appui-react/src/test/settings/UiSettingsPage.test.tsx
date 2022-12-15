@@ -51,7 +51,7 @@ describe("UiSettingsPage", () => {
     const tabEntry = getUiSettingsManagerEntry(5);
     const wrapper = render(tabEntry.page);
     expect(wrapper).not.to.be.undefined;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(10);
+    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
     wrapper.unmount();
   });
 
@@ -96,17 +96,36 @@ describe("UiSettingsPage", () => {
     expect(thumb).to.exist;
     fireEvent.keyDown(thumb!, { key: SpecialKey.ArrowRight });
     await TestUtils.flushAsyncOperations();
-
+    let widgetOpacity = UiFramework.getWidgetOpacity();
+    expect (widgetOpacity).greaterThanOrEqual(.9);
     await TestUtils.flushAsyncOperations();
     // trigger sync event processing
     UiFramework.setWidgetOpacity(.5);
     await TestUtils.flushAsyncOperations();
+    widgetOpacity = UiFramework.getWidgetOpacity();
+    expect (widgetOpacity).equals(.5);
+    wrapper.unmount();
+  });
+
+  it("renders  set toolbar opacity", async () => {
+    const wrapper = render(<UiSettingsPage />);
+    expect(wrapper).not.to.be.undefined;
+    const thumb = wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
+    expect(thumb[0]).to.exist;
+    fireEvent.keyDown(thumb[0]!, { key: SpecialKey.ArrowRight });
+    await TestUtils.flushAsyncOperations();
+    let toolbarOpacity = UiFramework.getToolbarOpacity();
+    expect (toolbarOpacity).greaterThan(.5);
+    await TestUtils.flushAsyncOperations();
+    // trigger sync event processing
+    UiFramework.setToolbarOpacity(.9);
+    await TestUtils.flushAsyncOperations();
+    toolbarOpacity = UiFramework.getToolbarOpacity();
+    expect (toolbarOpacity).equals(.9);
     wrapper.unmount();
   });
 
   it("renders toggle auto-hide", async () => {
-    await TestUtils.flushAsyncOperations();
-
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
     const autoHideSpan = wrapper.getByText("settings.uiSettingsPage.autoHideTitle");
@@ -118,7 +137,7 @@ describe("UiSettingsPage", () => {
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.true;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(10);
+    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
     wrapper.unmount();
   });
 
