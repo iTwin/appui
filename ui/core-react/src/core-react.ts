@@ -67,7 +67,6 @@ export * from "./core-react/inputs/InputLabel";
 export * from "./core-react/inputs/InputStatus";
 export * from "./core-react/inputs/iconinput/IconInput";
 export * from "./core-react/inputs/LabeledComponentProps";
-export * from "./core-react/inputs/LabeledInput";
 export * from "./core-react/inputs/LabeledTextarea";
 export * from "./core-react/inputs/numberinput/NumberInput";
 export * from "./core-react/inputs/Textarea";
