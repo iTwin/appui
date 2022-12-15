@@ -6,11 +6,16 @@ import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
 import { PropertyDescription, PropertyValueFormat } from "@itwin/appui-abstract";
-import { act, fireEvent, render, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue";
-import TestUtils from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
 
 describe("PropertyFilterBuilderRuleValue", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
+
   const defaultProperty: PropertyDescription = {
     name: "prop",
     displayLabel: "Prop",
@@ -48,19 +53,14 @@ describe("PropertyFilterBuilderRuleValue", () => {
 
   it("calls onChange when value is changed", async () => {
     const spy = sinon.spy();
-    const {container, getByDisplayValue} = render(<PropertyFilterBuilderRuleValue
+    render(<PropertyFilterBuilderRuleValue
       property={defaultProperty}
       onChange={spy}
     />);
 
-    const input = container.querySelector<HTMLInputElement>(".iui-input");
-    expect(input).to.not.be.null;
+    await theUserTo.type(screen.getByRole("textbox"), "test text");
+    screen.getByRole("textbox").blur();
 
-    act(() => { fireEvent.change(input!, {target: {value: "test text"}}); });
-    act(() => { fireEvent.focusOut(input!); });
-
-    await waitFor(() => getByDisplayValue("test text"));
-
-    expect(spy).to.be.calledOnceWith({valueFormat: PropertyValueFormat.Primitive, value: "test text", displayValue: ""});
+    await waitFor(() => expect(spy).to.be.calledOnceWith({valueFormat: PropertyValueFormat.Primitive, value: "test text", displayValue: "test text"}));
   });
 });

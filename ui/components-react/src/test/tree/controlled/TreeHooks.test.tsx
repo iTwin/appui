@@ -83,7 +83,7 @@ describe("useTreeNodeLoader", () => {
       { initialProps: { dataProvider: dataProviderMock, modelSource: modelSourceMock.object } },
     );
     const nodeLoader = result.current;
-    rerender();
+    rerender({ dataProvider: dataProviderMock, modelSource: modelSourceMock.object });
 
     expect(result.current).to.be.eq(nodeLoader);
   });
@@ -122,7 +122,7 @@ describe("usePagedTreeNodeLoader", () => {
       { initialProps: { dataProvider: dataProviderMock, pageSize: 10, modelSource: modelSourceMock.object } },
     );
     const nodeLoader = result.current;
-    rerender();
+    rerender({ dataProvider: dataProviderMock, pageSize: 10, modelSource: modelSourceMock.object });
 
     expect(result.current).to.be.eq(nodeLoader);
   });

@@ -2077,6 +2077,8 @@ export interface PropertyFilterBuilderContextProps {
 // @alpha (undocumented)
 export interface PropertyFilterBuilderProps {
     // (undocumented)
+    disablePropertySelection?: boolean;
+    // (undocumented)
     onFilterChanged: (filter?: PropertyFilter) => void;
     // (undocumented)
     onRulePropertySelected?: (property: PropertyDescription) => void;
@@ -2162,6 +2164,8 @@ export function PropertyFilterBuilderRuleProperty(props: PropertyFilterBuilderRu
 // @alpha (undocumented)
 export interface PropertyFilterBuilderRulePropertyProps {
     // (undocumented)
+    isDisabled?: boolean;
+    // (undocumented)
     onSelectedPropertyChanged: (property?: PropertyDescription) => void;
     // (undocumented)
     properties: PropertyDescription[];
@@ -2187,6 +2191,8 @@ export const PropertyFilterBuilderRuleRenderingContext: React_2.Context<Property
 
 // @alpha (undocumented)
 export interface PropertyFilterBuilderRuleRenderingContextProps {
+    // (undocumented)
+    disablePropertySelection?: boolean;
     // (undocumented)
     propertyRenderer?: (name: string) => React_2.ReactNode;
     // (undocumented)

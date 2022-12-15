@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
@@ -138,7 +138,7 @@ describe("<PopupButton />", () => {
 
     popupButtonRef.current?.closePopup();
 
-    spyOnClose.calledOnce.should.true;
+    await waitFor(() => spyOnClose.calledOnce.should.true);
   });
 
 });
