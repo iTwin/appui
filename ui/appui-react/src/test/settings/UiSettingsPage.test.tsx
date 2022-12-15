@@ -51,7 +51,7 @@ describe("UiSettingsPage", () => {
     const tabEntry = getUiSettingsManagerEntry(5);
     const wrapper = render(tabEntry.page);
     expect(wrapper).not.to.be.undefined;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(10);
+    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
     wrapper.unmount();
   });
 
@@ -97,7 +97,7 @@ describe("UiSettingsPage", () => {
     fireEvent.keyDown(thumb!, { key: SpecialKey.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let widgetOpacity = UiFramework.getWidgetOpacity();
-    expect (widgetOpacity).greaterThan(.9);
+    expect (widgetOpacity).greaterThanOrEqual(.9);
     await TestUtils.flushAsyncOperations();
     // trigger sync event processing
     UiFramework.setWidgetOpacity(.5);
@@ -137,7 +137,7 @@ describe("UiSettingsPage", () => {
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
     expect(checkbox?.checked).to.be.true;
-    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(3);
+    expect(wrapper.container.querySelectorAll("span.title").length).to.eq(11);
     wrapper.unmount();
   });
 
@@ -205,7 +205,7 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  it("renders useToolAsToolSettingsLabel toggle", async () => {
+  it("renders useToolAsToolSettingsLabel toggle", async () => {3
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
