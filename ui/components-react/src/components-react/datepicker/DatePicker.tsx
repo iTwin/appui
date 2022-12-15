@@ -190,11 +190,11 @@ export function DatePicker(props: DatePickerProps) {
     <div className="components-date-picker-calendar">
       <div className="components-date-picker-calendar-header-months">
         <button className={previousButtonClass} title={previousMonthLabel.current} onClick={handleMoveToPreviousMonth}>
-        <Icon iconSpec={<SvgChevronLeft />} />
+          <Icon iconSpec={<SvgChevronLeft />} />
         </button>
         <span className="components-month-year">{monthsLong.current[displayedMonthIndex]} {displayedYear}</span>
         <button className={nextButtonClass} title={nextMonthLabel.current} onClick={handleMoveToNextMonth}>
-        <Icon iconSpec={<SvgChevronRight />} />
+          <Icon iconSpec={<SvgChevronRight />} />
         </button>
       </div>
       <div className="components-date-picker-calendar-header-weekdays">

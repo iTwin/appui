@@ -17,7 +17,6 @@ import { SvgHelpCircular, SvgHelpCircularHollow, SvgInfoCircular, SvgInfoCircula
   SvgStatusSuccess, SvgStatusSuccessHollow, SvgStatusWarning } from "@itwin/itwinui-icons-react";
 import { Icon, IconSpec } from "../icons/IconComponent";
 
-
 /** Properties for the [[MessageBox]] component
  * @public
  */
@@ -114,7 +113,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
         break;
       case MessageSeverity.Information:
         iconClassName = " core-message-box-information";
-         break;
+        break;
       case MessageSeverity.Question:
         iconClassName = " core-message-box-question";
         break;
@@ -159,7 +158,6 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
     }
     return iconSpec;
   }
-
 
   public override render(): JSX.Element {
     const iconClassName = classnames(

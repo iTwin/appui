@@ -225,7 +225,7 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       <div className={className} onClick={this._onClick} onMouseDown={this._onMouseDown} onMouseLeave={this._onMouseLeave} role="button" tabIndex={-1} >
         {label}
         <div className="sheet-image-container">
-        <div className="icon"> <Icon iconSpec={this.props.iconSpec} /></div>
+          <div className="icon"> <Icon iconSpec={this.props.iconSpec} /></div>
         </div >
         <div className="sheet-index">{index + 1}</div>
       </div >

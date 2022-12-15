@@ -13,9 +13,8 @@ import { MessageManager } from "../messages/MessageManager";
 import { MessageSpan } from "../messages/MessageSpan";
 import { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps, Icon } from "@itwin/core-react";
 import classnames from "classnames";
-import { Icon } from "@itwin/core-react";
 
 /** Enum for the [[MessageCenterField]] active tab
  * @internal

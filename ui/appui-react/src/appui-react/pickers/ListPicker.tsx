@@ -13,7 +13,7 @@ import { Columns, GroupColumn, Panel, PopupItem, Title } from "@itwin/components
 import { CommonProps, Icon, SizeProps } from "@itwin/core-react";
 import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
 import { UiFramework } from "../UiFramework";
-import { SvgList, SvgChevronDown, SvgChevronRight } from "@itwin/itwinui-icons-react";
+import { SvgChevronDown, SvgChevronRight, SvgList } from "@itwin/itwinui-icons-react";
 
 /** Enum for the list picker item type
  * @beta
@@ -219,7 +219,7 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
  */
 function ListPickerPopupItem(props: ListPickerProps) {
   const icon = props.iconSpec ? (/* istanbul ignore next */ typeof props.iconSpec === "string" ? <Icon iconSpec={props.iconSpec} /> :
-  <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>) : <Icon iconSpec={<SvgList />} />;
+    <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>) : <Icon iconSpec={<SvgList />} />;
 
   return (
     <ToolbarDragInteractionContext.Consumer>

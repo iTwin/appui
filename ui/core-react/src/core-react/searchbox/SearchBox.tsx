@@ -81,8 +81,8 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
         ></input>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
         <div className="core-searchbox-button" onClick={this._handleIconClick} role="button" tabIndex={-1} title={buttonTitle}>
-        <span className={iconClassName}><Icon iconSpec={iconSpec} /></span>
-         </div>
+          <span className={iconClassName}><Icon iconSpec={iconSpec} /></span>
+        </div>
       </div>
     );
   }

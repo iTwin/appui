@@ -15,7 +15,7 @@ import {
   OutputMessageType, ToolAssistanceInstructions, ToolTipOptions,
 } from "@itwin/core-frontend";
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
-import { IconSpec, MessageContainer, ReactMessage } from "@itwin/core-react";
+import { IconSpec, ReactMessage } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
 import { ModalDialogManager } from "../dialog/ModalDialogManager";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
@@ -27,7 +27,7 @@ import { NotifyMessageDetailsType, NotifyMessageType } from "./ReactNotifyMessag
 import { StatusMessageManager } from "./StatusMessageManager";
 import { Small, toaster, ToastOptions } from "@itwin/itwinui-react";
 import { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
-import { SvgStatusError, SvgInfo, SvgStatusSuccess, SvgStatusWarning } from "@itwin/itwinui-icons-react";
+import { SvgInfo, SvgStatusError, SvgStatusSuccess, SvgStatusWarning } from "@itwin/itwinui-icons-react";
 
 class MessageBoxCallbacks {
   constructor(

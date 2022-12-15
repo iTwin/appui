@@ -53,7 +53,7 @@ export class RestoreFrontstageLayoutTool extends Tool {
  */
 export class RestoreAllFrontstagesTool extends Tool {
   public static override toolId = "RestoreAllFrontstages";
-  public static override iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgViewLayouts);;
+  public static override iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgViewLayouts);
 
   public override async run() {
     const frontstages = FrontstageManager.frontstageDefs;

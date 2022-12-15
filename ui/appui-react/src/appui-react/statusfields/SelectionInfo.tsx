@@ -37,7 +37,7 @@ class SelectionInfoFieldComponent extends React.Component<SelectionInfoFieldProp
         className={classnames("uifw-statusFields-selectionInfo", this.props.className)}
         style={this.props.style}
       >
-       {<Icon iconSpec={<SvgCursor />} />}
+        {<Icon iconSpec={<SvgCursor />} />}
         {this.props.selectionCount.toString()}
       </FooterIndicator>
     );

@@ -54,7 +54,7 @@ export class InputFieldMessage extends React.PureComponent<InputFieldMessageProp
       return null;
     }
 
-    let iconComponent = <SvgInfoCircularHollow />
+    let iconComponent = <SvgInfoCircularHollow />;
     switch (priority) {
       case OutputMessagePriority.Warning:
         iconComponent = <SvgStatusWarning />;
@@ -76,7 +76,7 @@ export class InputFieldMessage extends React.PureComponent<InputFieldMessageProp
         <div className="uifw-popup-message-inputField">
           <div className="uifw-popup-message-inputField-content">
             <div className="uifw-popup-message-inputField-primary">
-            {iconComponent &&
+              {iconComponent &&
                 <span className="uifw-popup-message-icon"> <i className={classnames("icon", "core-svg-icon")}>{iconComponent}</i> </span>
               }
               <span className="uifw-popup-message-text">
