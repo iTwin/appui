@@ -221,7 +221,7 @@ describe("UiSettingsPage", () => {
     wrapper.unmount();
   });
 
-  it("renders useToolAsToolSettingsLabel toggle", async () => {3
+  it("renders useToolAsToolSettingsLabel toggle", async () => {
     await TestUtils.flushAsyncOperations();
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
