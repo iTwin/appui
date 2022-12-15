@@ -129,7 +129,8 @@ export function useUpdateNineZoneSize(frontstageDef: FrontstageDef) {
   }, [frontstageDef]);
 }
 
-function FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef) {
+/** @internal */
+export function FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef) {
   state = NineZoneStateReducer(state, action);
   if (action.type === "RESIZE") {
     state = produce(state, (draft) => {
@@ -168,10 +169,6 @@ export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
     if (action.type === "WIDGET_TAB_POPOUT") {
       const tabId = action.id;
       frontstageDef.popoutWidget(tabId);
-      return;
-    }
-    if (action.type === "FLOATING_WIDGET_SET_BOUNDS") {
-      frontstageDef.setFloatingWidgetBoundsInternal(action.id, action.bounds, true);
       return;
     }
     const nineZoneState = frontstageDef.nineZoneState;

@@ -5,7 +5,7 @@
 
 import { expect } from "chai";
 import { UiError } from "@itwin/appui-abstract";
-import { ActionCreatorsObject, ActionsUnion, createAction, FrameworkReducer, ReducerRegistryInstance, SYSTEM_PREFERRED_COLOR_THEME, WIDGET_OPACITY_DEFAULT } from "../../appui-react";
+import { ActionCreatorsObject, ActionsUnion, createAction, FrameworkReducer, ReducerRegistryInstance, SYSTEM_PREFERRED_COLOR_THEME, TOOLBAR_OPACITY_DEFAULT, WIDGET_OPACITY_DEFAULT } from "../../appui-react";
 import { StateManager } from "../../appui-react/redux/StateManager";
 import { ConfigurableUiActions, ConfigurableUiReducer, ConfigurableUiState } from "../../appui-react/configurableui/state";
 import { SnapMode } from "@itwin/core-frontend";
@@ -196,6 +196,7 @@ describe("ConfigurableUiReducer", () => {
       viewOverlayDisplay: true,
       animateToolSettings: false,
       useToolAsToolSettingsLabel: false,
+      toolbarOpacity: TOOLBAR_OPACITY_DEFAULT,
     };
 
     let outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setDragInteraction(true));
@@ -227,5 +228,8 @@ describe("ConfigurableUiReducer", () => {
 
     outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setUseToolAsToolSettingsLabel(true));
     expect(outState.useToolAsToolSettingsLabel).to.be.true;
+
+    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setToolbarOpacity(.9));
+    expect(outState.toolbarOpacity).to.be.eql(.9);
   });
 });

@@ -192,6 +192,7 @@ beta;FrameworkAccuDraw
 public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
 public;FrameworkState
+internal;FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef): NineZoneState
 alpha;FrameworkToolAdmin 
 public;FrameworkUiAdmin 
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
@@ -466,6 +467,7 @@ public;ToolAssistanceChangedEventArgs
 public;ToolAssistanceField 
 internal;ToolAssistanceFieldDefaultProps = Pick
 public;ToolAssistanceFieldProps 
+public;TOOLBAR_OPACITY_DEFAULT = 0.5
 public;ToolbarButtonHelper
 public;ToolbarComposer(props: ExtensibleToolbarProps): JSX.Element
 beta;ToolbarDragInteractionContext: React_2.Context

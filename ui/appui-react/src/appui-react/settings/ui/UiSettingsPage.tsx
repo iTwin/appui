@@ -57,6 +57,8 @@ export function UiSettingsPage() {
   const animateToolSettingsDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.animateToolSettingsDescription"));
   const useToolAsToolSettingsLabelTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.useToolAsToolSettingsLabelTitle"));
   const useToolAsToolSettingsLabelDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.useToolAsToolSettingsLabelDescription"));
+  const toolbarOpacityTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.toolbarOpacityTitle"));
+  const toolbarOpacityDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.toolbarOpacityDescription"));
 
   const [theme, setTheme] = React.useState(() => UiFramework.getColorTheme());
   const [useDragInteraction, setUseDragInteraction] = React.useState(() => UiFramework.useDragInteraction);
@@ -68,11 +70,13 @@ export function UiSettingsPage() {
   const [autoHideUi, setAutoHideUi] = React.useState(() => UiShowHideManager.autoHideUi);
   const [useProximityOpacity, setUseProximityOpacity] = React.useState(() => UiShowHideManager.useProximityOpacity);
   const [snapWidgetOpacity, setSnapWidgetOpacity] = React.useState(() => UiShowHideManager.snapWidgetOpacity);
+  const [toolbarOpacity, setToolbarOpacity] = React.useState(() => UiFramework.getToolbarOpacity());
 
   React.useEffect(() => {
     const syncIdsOfInterest = ["configurableui:set_theme", "configurableui:set_widget_opacity", "configurableui:set-show-widget-icon",
       "configurableui:set-drag-interaction", "configurableui:set-framework-version",
-      "configurableui:set-auto-collapse-unpinned-panels", "configurableui:set-animate-tool-settings", "configurableui:set-use-tool-as-tool-settings-label", SyncUiEventId.ShowHideManagerSettingChange];
+      "configurableui:set-auto-collapse-unpinned-panels", "configurableui:set-animate-tool-settings",
+      "configurableui:set-use-tool-as-tool-settings-label", "configurableui:set-toolbar-opacity", SyncUiEventId.ShowHideManagerSettingChange];
 
     const handleSyncUiEvent = (args: UiSyncEventArgs) => {
       // istanbul ignore else
@@ -99,11 +103,13 @@ export function UiSettingsPage() {
           setAnimateToolSettings(UiFramework.animateToolSettings);
         if (UiFramework.useToolAsToolSettingsLabel !== useToolAsToolSettingsLabel)
           setUseToolAsToolSettingsLabel(UiFramework.useToolAsToolSettingsLabel);
+        if (UiFramework.getToolbarOpacity() !== toolbarOpacity)
+          setToolbarOpacity(UiFramework.getToolbarOpacity());
       }
     };
     return SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
   }, [autoCollapseUnpinnedPanels, autoHideUi, showWidgetIcon, snapWidgetOpacity, theme,
-    useDragInteraction, useProximityOpacity, widgetOpacity, animateToolSettings, useToolAsToolSettingsLabel]);
+    useDragInteraction, useProximityOpacity, widgetOpacity, animateToolSettings, useToolAsToolSettingsLabel, toolbarOpacity]);
 
   const defaultThemeOption = { label: systemPreferredLabel.current, value: SYSTEM_PREFERRED_COLOR_THEME };
   const themeOptions: SelectOption<string>[] = [
@@ -156,6 +162,13 @@ export function UiSettingsPage() {
     UiFramework.setUseToolAsToolSettingsLabel(!useToolAsToolSettingsLabel);
   }, [useToolAsToolSettingsLabel]);
 
+  const onToolbarOpacityChange = React.useCallback(async (values: readonly number[]) => {
+    // istanbul ignore else
+    if (values.length > 0) {
+      UiFramework.setToolbarOpacity(values[0]);
+    }
+  }, []);
+
   return (
     <div className="uifw-settings">
       <SettingsItem title={themeTitle.current} description={themeDescription.current}
@@ -194,6 +207,12 @@ export function UiSettingsPage() {
       />
       <SettingsItem title={useToolAsToolSettingsLabelTitle.current} description={useToolAsToolSettingsLabelDescription.current}
         settingUi={<ToggleSwitch checked={useToolAsToolSettingsLabel} onChange={OnToggleUseToolAsToolSettingsLabel} />}
+      />
+      <SettingsItem title={toolbarOpacityTitle.current} description={toolbarOpacityDescription.current}
+        settingUi={
+          <Slider style={{ flex: "1" }} values={[toolbarOpacity]} step={0.05} onChange={onToolbarOpacityChange}
+            min={0.20} max={1.0} maxLabel="1.0" tickLabels={["", "", "", "", ""]} />
+        }
       />
       <SettingsItem title={widgetOpacityTitle.current} description={widgetOpacityDescription.current}
         settingUi={

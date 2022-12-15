@@ -83,6 +83,13 @@ export function DatePicker(props: DatePickerProps) {
   const [displayedMonthIndex, setDisplayedMonthIndex] = React.useState(selectedDay.getMonth());
   const [displayedYear, setDisplayedYear] = React.useState(selectedDay.getFullYear());
   const [focusedDay, setFocusedDay] = React.useState(selectedDay);
+  React.useEffect(() => {
+    const newSelectedDay = new Date(props.selected);
+    setSelectedDay(new Date(props.selected));
+    setDisplayedMonthIndex(newSelectedDay.getMonth());
+    setDisplayedYear(newSelectedDay.getFullYear());
+    setFocusedDay(newSelectedDay);
+  }, [props.selected]);
   const days = React.useMemo(() => {
     const msFirstDayOfMonth = new Date(displayedYear, displayedMonthIndex, 1).getTime();
     let offsetToFirst = new Date(msFirstDayOfMonth).getDay();

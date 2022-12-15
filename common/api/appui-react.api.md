@@ -77,6 +77,7 @@ import { MessageBoxType } from '@itwin/core-frontend';
 import { MessageBoxValue } from '@itwin/core-frontend';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import { MessageType } from '@itwin/core-react';
+import { NineZoneAction } from '@itwin/appui-layout-react';
 import { NineZoneDispatch } from '@itwin/appui-layout-react';
 import { NineZoneLabels } from '@itwin/appui-layout-react';
 import { NineZoneState } from '@itwin/appui-layout-react';
@@ -491,6 +492,8 @@ export class AppUiSettings implements UserSettingsProvider {
     readonly providerId = "AppUiSettingsProvider";
     // (undocumented)
     showWidgetIcon: UiStateEntry<boolean>;
+    // (undocumented)
+    toolbarOpacity: UiStateEntry<number>;
     // (undocumented)
     useToolAsToolSettingsLabel: UiStateEntry<boolean>;
     // (undocumented)
@@ -928,6 +931,8 @@ export enum ConfigurableUiActionId {
     // (undocumented)
     SetTheme = "configurableui:set_theme",
     // (undocumented)
+    SetToolbarOpacity = "configurableui:set-toolbar-opacity",
+    // (undocumented)
     SetToolPrompt = "configurableui:set_toolprompt",
     // (undocumented)
     SetViewOverlayDisplay = "configurableui:set-view-overlay-display",
@@ -949,6 +954,7 @@ export const ConfigurableUiActions: {
     setViewOverlayDisplay: (displayViewOverlay: boolean) => ActionWithPayload<ConfigurableUiActionId.SetViewOverlayDisplay, boolean>;
     setAnimateToolSettings: (animateToolSettings: boolean) => ActionWithPayload<ConfigurableUiActionId.AnimateToolSettings, boolean>;
     setUseToolAsToolSettingsLabel: (useToolAsToolSettingsLabel: boolean) => ActionWithPayload<ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>;
+    setToolbarOpacity: (opacity: number) => ActionWithPayload<ConfigurableUiActionId.SetToolbarOpacity, number>;
 };
 
 // @public
@@ -1044,6 +1050,8 @@ export interface ConfigurableUiState {
     snapMode: number;
     // (undocumented)
     theme: string;
+    // (undocumented)
+    toolbarOpacity: number;
     // (undocumented)
     toolPrompt: string;
     // (undocumented)
@@ -1935,7 +1943,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
 export const FrameworkReducer: (state: CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
-}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
+}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
 }>;
@@ -1953,6 +1961,9 @@ export interface FrameworkState {
     // (undocumented)
     sessionState: SessionState;
 }
+
+// @internal (undocumented)
+export function FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef): NineZoneState;
 
 // @alpha
 export class FrameworkToolAdmin extends ToolAdmin {
@@ -2126,8 +2137,6 @@ export class FrontstageDef {
     setActiveView(newContent: ContentControl, oldContent?: ContentControl): void;
     setActiveViewFromViewport(viewport: ScreenViewport): boolean;
     setContentLayoutAndGroup(contentLayoutDef: ContentLayoutDef, contentGroup: ContentGroup): void;
-    // @internal (undocumented)
-    setFloatingWidgetBoundsInternal(floatingWidgetId: string, bounds: RectangleProps, inhibitNineZoneStateChangedEvent?: boolean): void;
     // (undocumented)
     setFloatingWidgetContainerBounds(floatingWidgetId: string, bounds: RectangleProps): boolean;
     // @internal (undocumented)
@@ -2515,6 +2524,8 @@ export interface InitialAppUiSettings {
     dragInteraction: boolean;
     // (undocumented)
     showWidgetIcon?: boolean;
+    // (undocumented)
+    toolbarOpacity: number;
     // (undocumented)
     useToolAsToolSettingsLabel?: boolean;
     // (undocumented)
@@ -4619,7 +4630,7 @@ export interface TabLocation {
 }
 
 // @public
-export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity">>;
+export const ThemeManager: ConnectedComponent<typeof ThemeManagerComponent, Omit_3<React_2.ClassAttributes<ThemeManagerComponent> & ThemeManagerProps, "theme" | "widgetOpacity" | "toolbarOpacity">>;
 
 // @public
 export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, TileLoadingIndicatorState> {
@@ -4684,6 +4695,9 @@ export interface ToolAssistanceFieldProps extends CommonProps {
     includePromptAtCursor: boolean;
     uiStateStorage?: UiStateStorage;
 }
+
+// @public
+export const TOOLBAR_OPACITY_DEFAULT = 0.5;
 
 // @public
 export class ToolbarButtonHelper {
@@ -4931,6 +4945,7 @@ export class UiFramework {
     static getIModelConnection(): IModelConnection | undefined;
     // (undocumented)
     static getIsUiVisible(): boolean;
+    static getToolbarOpacity(): number;
     static getUiStateStorage(): UiStateStorage;
     // (undocumented)
     static getWidgetOpacity(): number;
@@ -4988,6 +5003,7 @@ export class UiFramework {
     // (undocumented)
     static setShowWidgetIcon(value: boolean): void;
     static get settingsManager(): SettingsManager;
+    static setToolbarOpacity(opacity: number): void;
     // (undocumented)
     static setUiStateStorage(storage: UiStateStorage, immediateSync?: boolean): Promise<void>;
     // (undocumented)
