@@ -208,12 +208,12 @@ export function UiSettingsPage() {
       <SettingsItem title={useToolAsToolSettingsLabelTitle.current} description={useToolAsToolSettingsLabelDescription.current}
         settingUi={<ToggleSwitch checked={useToolAsToolSettingsLabel} onChange={OnToggleUseToolAsToolSettingsLabel} />}
       />
-        <SettingsItem title={toolbarOpacityTitle.current} description={toolbarOpacityDescription.current}
-          settingUi={
-            <Slider style={{ flex: "1" }} values={[toolbarOpacity]} step={0.05} onChange={onToolbarOpacityChange}
-              min={0.20} max={1.0} maxLabel="1.0" tickLabels={["", "", "", "", ""]} />
-          }
-        />
+      <SettingsItem title={toolbarOpacityTitle.current} description={toolbarOpacityDescription.current}
+        settingUi={
+          <Slider style={{ flex: "1" }} values={[toolbarOpacity]} step={0.05} onChange={onToolbarOpacityChange}
+            min={0.20} max={1.0} maxLabel="1.0" tickLabels={["", "", "", "", ""]} />
+        }
+      />
       <SettingsItem title={widgetOpacityTitle.current} description={widgetOpacityDescription.current}
         settingUi={
           <Slider style={{ flex: "1" }} values={[widgetOpacity]} step={0.05} onChange={onWidgetOpacityChange}
