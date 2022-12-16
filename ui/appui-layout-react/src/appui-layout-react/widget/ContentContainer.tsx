@@ -31,6 +31,9 @@ export function WidgetContentContainer(props: WidgetContentContainerProps) {
   }, true);
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const side = React.useContext(PanelSideContext);
+  const ref = React.useCallback((instance: HTMLDivElement) => {
+    widgetContentManager.setContainer(activeTabId, instance);
+  }, [widgetContentManager, activeTabId]);
 
   const className = classnames(
     "nz-widget-contentContainer",
@@ -42,9 +45,7 @@ export function WidgetContentContainer(props: WidgetContentContainerProps) {
     >
       <div
         className="nz-content"
-        ref={(instance) => {
-          widgetContentManager.setContainer(activeTabId, instance);
-        }}
+        ref={ref}
       />
       {props.children}
     </div>

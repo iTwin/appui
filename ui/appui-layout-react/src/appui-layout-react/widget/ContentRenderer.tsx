@@ -11,7 +11,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { ToolSettingsNodeContext, WidgetContentNodeContext } from "../base/NineZone";
 import { TabState } from "../state/TabState";
-import { WidgetContentContainersContext, WidgetContentManagerContext } from "./ContentManager";
+import { useContainersStore, WidgetContentManagerContext } from "./ContentManager";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 
@@ -19,19 +19,16 @@ import { useLayout } from "../base/LayoutStore";
 export function WidgetContentRenderers() {
   const widgetContent = React.useContext(WidgetContentNodeContext);
   const toolSettingsContent = React.useContext(ToolSettingsNodeContext);
-  const widgetContentContainers = React.useContext(WidgetContentContainersContext);
   const tabIds = useLayout((state) => {
     return Object.keys(state.tabs);
   }, true);
   return (
     <>
       {tabIds.map((tabId) => {
-        const container = widgetContentContainers[tabId];
         const children = tabId === toolSettingsTabId ? toolSettingsContent : widgetContent;
         return (
           <WidgetContentRenderer
             key={tabId}
-            renderTo={container}
             tabId={tabId}
           >
             {children}
@@ -44,12 +41,12 @@ export function WidgetContentRenderers() {
 
 interface WidgetContentRendererProps {
   children?: React.ReactNode;
-  renderTo: Element | null | undefined;
   tabId: TabState["id"];
 }
 
 /** @internal */
 export function WidgetContentRenderer(props: WidgetContentRendererProps) {
+  const renderTo = useContainersStore((state) => state.containers[props.tabId]);
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const container = React.useRef<HTMLDivElement>(undefined!);
   if (!container.current) {
@@ -57,7 +54,7 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
     container.current.classList.add("nz-widget-contentRenderer");
   }
   React.useLayoutEffect(() => {
-    const parent = props.renderTo;
+    const parent = renderTo;
     if (parent) {
       while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -74,7 +71,7 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
         }
       }
     };
-  }, [props.renderTo, widgetContentManager, props.tabId]);
+  }, [renderTo, widgetContentManager, props.tabId]);
   return ReactDOM.createPortal(
     <TabIdContext.Provider value={props.tabId}>
       {props.children}

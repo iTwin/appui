@@ -18,7 +18,6 @@ describe("WidgetContentRenderer", () => {
 
     const spy = sinon.spy(renderTo, "removeChild");
     render(<WidgetContentRenderer
-      renderTo={renderTo}
       tabId="t1"
     />, { wrapper });
 
@@ -30,7 +29,6 @@ describe("WidgetContentRenderer", () => {
 
     const spy = sinon.spy(renderTo, "removeChild");
     const { unmount } = render(<WidgetContentRenderer
-      renderTo={renderTo}
       tabId="t1"
     />, { wrapper });
 
