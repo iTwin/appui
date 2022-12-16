@@ -35,7 +35,7 @@ import {
   BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
   DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput,
   LabeledSelect, LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
-  MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, Radio, ReactMessage,
+  MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ReactMessage,
   SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Subheading, ThemedSelect, Tile, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
@@ -679,14 +679,6 @@ export class ComponentExamplesProvider {
     return {
       title: "Inputs",
       examples: [
-        createComponentExample("Radio Button", "Basic Radio Buttons",
-          <div>
-            <Radio label="Radio Button 1" name="demo1" value="option-1" />
-            <Radio label="Radio Button 2" name="demo1" value="option-2" />
-            <Radio label="Radio Button 3" name="demo1" value="option-3" />
-          </div>),
-        createComponentExample("Disabled Radio Button", "Radio Button with disabled prop", <Radio label="Disabled Radio Button" name="demo1" disabled />),
-
         createComponentExample("Number Input .25 step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} containerClassName="uicore-full-width" />),
         createComponentExample("Disabled Number Input .25 step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} containerClassName="uicore-full-width" disabled />),
         createComponentExample("Number Input .25 step w/snap", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} snap containerClassName="uicore-full-width" />),
