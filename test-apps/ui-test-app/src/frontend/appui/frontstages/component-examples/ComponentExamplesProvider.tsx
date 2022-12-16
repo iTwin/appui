@@ -34,7 +34,7 @@ import {
   AutoSuggestData,
   BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
   DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput,
-  LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
+  LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ReactMessage,
   SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Subheading, ThemedSelect, Tile, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
@@ -919,23 +919,6 @@ export class ComponentExamplesProvider {
           <div className="uicore-full-width">
             <ThemedSelect options={colorChoices} isDisabled />
           </div>),
-        createComponentExample("Labeled Multi ThemedSelect", "Labeled ThemedSelect component with isMulti",
-          <div className="uicore-full-width">
-            <LabeledThemedSelect label={"Labeled ThemedSelect Multi"} isMulti={true} isSearchable={true} options={cityChoices} />
-          </div>),
-        createComponentExample("Disabled Labeled Multi ThemedSelect", "Labeled ThemedSelect component with isMulti",
-          <div className="uicore-full-width">
-            <LabeledThemedSelect label={"Disabled Labeled ThemedSelect Multi"} isMulti={true} isSearchable={true} options={cityChoices} isDisabled={true} />
-          </div>),
-        createComponentExample("Labeled ThemedSelect", "Labeled ThemedSelect component",
-          <div className="uicore-full-width">
-            <LabeledThemedSelect label={"Labeled ThemedSelect"} options={colorChoices} />
-          </div>),
-        createComponentExample("Disabled Labeled ThemedSelect", "Labeled ThemedSelect component with isDisabled prop and message prop",
-          <div className="uicore-full-width">
-            <LabeledThemedSelect label={"Disabled Labeled ThemedSelect"} message={"This field is disabled"} options={colorChoices} isDisabled />
-          </div>),
-
       ],
     };
   }
