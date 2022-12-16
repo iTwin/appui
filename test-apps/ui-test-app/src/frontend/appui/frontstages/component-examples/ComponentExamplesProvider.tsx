@@ -36,7 +36,7 @@ import {
   DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput,
   LabeledSelect, LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ProgressBar, ProgressSpinner, Radio, ReactMessage,
-  SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Spinner, SpinnerSize, Subheading, ThemedSelect, Tile, Title,
+  SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, SpinnerSize, Subheading, ThemedSelect, Tile, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
@@ -707,14 +707,6 @@ export class ComponentExamplesProvider {
     return {
       title: "Loading",
       examples: [
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("Small Spinner", undefined, <Spinner size={SpinnerSize.Small} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("Medium Spinner", undefined, <Spinner size={SpinnerSize.Medium} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("Large Spinner", undefined, <Spinner size={SpinnerSize.Large} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("XLarge Spinner", undefined, <Spinner size={SpinnerSize.XLarge} />),
         createComponentExample("X-Small LoadingSpinner", undefined, <LoadingSpinner size="x-small" message="This is a X-Small LoadingSpinner" />),
         createComponentExample("Small LoadingSpinner", undefined, <LoadingSpinner size="small" message="This is a Small LoadingSpinner" />),
         createComponentExample("Medium LoadingSpinner", undefined, <LoadingSpinner size="" message="This is a Medium LoadingSpinner" />),

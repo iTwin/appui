@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { Dialog, FillCentered, LoadingSpinner, Spinner, SpinnerSize } from "@itwin/core-react";
+import { Dialog, LoadingSpinner } from "@itwin/core-react";
 
 export interface SpinnerTestDialogProps {
   opened: boolean;
@@ -38,33 +38,6 @@ export class SpinnerTestDialog extends React.Component<SpinnerTestDialogProps, S
         onClose={this._handleClose}
         onEscape={this._handleClose}
       >
-        <div style={{ display: "flex", flexDirection: "row", marginBottom: "5px" }}>
-          <span style={{ flex: "1", marginRight: "5px" }}>
-            <FillCentered>
-              {/* eslint-disable-next-line deprecation/deprecation */}
-              <Spinner size={SpinnerSize.XLarge} />
-              {/* eslint-disable-next-line deprecation/deprecation */}
-              <Spinner size={SpinnerSize.Large} />
-              {/* eslint-disable-next-line deprecation/deprecation */}
-              <Spinner size={SpinnerSize.Medium} />
-              {/* eslint-disable-next-line deprecation/deprecation */}
-              <Spinner size={SpinnerSize.Small} />
-            </FillCentered>
-          </span>
-          <span style={{ flex: "1", marginLeft: "5px" }}>
-            <FillCentered>
-              {/* eslint-disable-next-line deprecation/deprecation */}
-              <Spinner size={SpinnerSize.XLarge} />
-              {/* eslint-disable-next-line deprecation/deprecation */}
-              <Spinner size={SpinnerSize.Large} />
-              {/* eslint-disable-next-line deprecation/deprecation */}
-              <Spinner size={SpinnerSize.Medium} />
-              {/* eslint-disable-next-line deprecation/deprecation */}
-              <Spinner size={SpinnerSize.Small} />
-            </FillCentered>
-          </span>
-        </div>
-        <br />
         <div style={{ display: "flex", flexDirection: "row" }}>
           <span style={{ flex: "1", marginRight: "5px" }}>
             <div style={{ border: "1px solid black", marginBottom: "10px" }}>

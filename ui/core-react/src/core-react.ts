@@ -74,7 +74,6 @@ export * from "./core-react/loading/LoadingBar";
 export * from "./core-react/loading/LoadingPrompt";
 export * from "./core-react/loading/LoadingSpinner";
 export * from "./core-react/loading/LoadingStatus";
-export * from "./core-react/loading/Spinner";
 
 export * from "./core-react/messagebox/MessageBox";
 export * from "./core-react/messagebox/MessageSeverity";

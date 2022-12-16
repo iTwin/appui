@@ -10,7 +10,21 @@ import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "../utils/Props";
 import { Icon } from "../icons/IconComponent";
-import { SpinnerSize } from "../loading/Spinner";
+
+/** Size for [[Spinner]] component
+ * @public
+ * @deprecated Use `size` in ProgressRadialProps in itwinui-react instead.
+ */
+export enum SpinnerSize {
+  /** width/height of 16px */
+  Small,
+  /** width/height of 32px */
+  Medium,
+  /** width/height of 64px */
+  Large,
+  /** width/height of 96px */
+  XLarge,
+}
 
 /**
  * Properties for [[ProgressSpinner]] component
