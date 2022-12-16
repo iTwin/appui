@@ -25,69 +25,30 @@ import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 /** @internal */
 export interface PanelWidgetProps {
   widgetId: WidgetState["id"];
-  onBeforeTransition(): void;
-  onPrepareTransition(): void;
-  onTransitionEnd(): void;
-  size: number | undefined;
-  transition: "init" | "transition" | undefined;
 }
 
 /** @internal */
 export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( // eslint-disable-line react/display-name
   function PanelWidget({
     widgetId,
-    onBeforeTransition,
-    onPrepareTransition,
-    onTransitionEnd,
-    size,
-    transition,
   }, ref) { // eslint-disable-line @typescript-eslint/naming-convention
     const side = React.useContext(PanelSideContext)!;
     const widgetsLength = useLayout((state) => {
       const panel = state.panels[side];
       return panel.widgets.length;
     });
-    const { minimized, activeTabId } = useLayout((state) => {
+    const minimized = useLayout((state) => {
       const widget = getWidgetState(state, widgetId);
-      return {
-        minimized: widget.minimized,
-        activeTabId: widget.activeTabId,
-      };
-    }, true);
+      return widget.minimized;
+    });
     const horizontal = isHorizontalPanelSide(side);
     const mode = useMode(widgetId);
     const borders = useBorders(widgetId);
-    const [prevMode, setPrevMode] = React.useState(mode);
-    const lastOnPrepareTransition = React.useRef(onPrepareTransition);
-    lastOnPrepareTransition.current = onPrepareTransition;
-    if (prevMode !== mode) {
-      onBeforeTransition();
-      setPrevMode(mode);
-    }
-    React.useLayoutEffect(() => {
-      lastOnPrepareTransition.current();
-    }, [mode]);
-    const onSave = React.useCallback(() => {
-      onBeforeTransition();
-    }, [onBeforeTransition]);
-    const onRestore = React.useCallback(() => {
-      onPrepareTransition();
-    }, [onPrepareTransition]);
-    useTabTransientState(activeTabId, onSave, onRestore);
-    const style = React.useMemo<React.CSSProperties | undefined>(() => {
-      if (size !== undefined) {
-        return { flexBasis: size };
-      } else if (mode === "fit") {
-        return getMaxSize(horizontal, `${100 / widgetsLength}%`);
-      }
-      return undefined;
-    }, [horizontal, size, mode, widgetsLength]);
     const showTarget = widgetsLength !== 1;
     const className = classnames(
       "nz-widget-panelWidget",
       horizontal && "nz-horizontal",
-      size === undefined && `nz-${mode}`,
-      transition !== undefined && `nz-${transition}`,
+      `nz-${mode}`,
       borders,
     );
     return (
@@ -96,8 +57,6 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
       >
         <Widget
           className={className}
-          onTransitionEnd={onTransitionEnd}
-          style={style}
           ref={ref}
         >
           <WidgetTabBar separator={isHorizontalPanelSide(side) ? true : !minimized} />

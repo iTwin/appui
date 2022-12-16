@@ -115,7 +115,6 @@ describe("PanelWidget", () => {
         <PanelWidget
           widgetId="w1"
           {...defaultProps}
-          transition="transition"
         />
       </Provider>,
     );
@@ -135,7 +134,6 @@ describe("PanelWidget", () => {
         <PanelWidget
           widgetId="w1"
           {...defaultProps}
-          size={200}
         />
       </Provider>,
     );
@@ -160,7 +158,6 @@ describe("PanelWidget", () => {
         <PanelWidget
           widgetId="w1"
           {...defaultProps}
-          onBeforeTransition={spy}
         />
       </Provider>,
     );
@@ -199,7 +196,6 @@ describe("PanelWidget", () => {
           <PanelWidget
             widgetId="w1"
             {...defaultProps}
-            onBeforeTransition={spy}
           />
         </WidgetContentManagerContext.Provider>
       </Provider>,
