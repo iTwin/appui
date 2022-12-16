@@ -1068,25 +1068,11 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   }, [frontstageDef]);
 }
 
-function useNineZone(store: LayoutStore) {
-  const [state, setState] = React.useState(() => store.getState());
-  React.useEffect(() => {
-    setState(store.getState());
-  }, [store]);
-  React.useEffect(() => {
-    return store.subscribe(() => {
-      setState(store.getState());
-    });
-  }, [store]);
-  return state;
-}
-
 /** @internal */
-export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, layout: LayoutStore) {
-  const nineZone = useNineZone(layout);
+export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: LayoutStore) {
   const uiSettingsStorage = useUiStateStorageHandler();
   const saveSetting = React.useMemo(() => {
-    return debounce(async (frontstage: FrontstageDef, state: NineZoneState) => {
+    const debounced = debounce(async (frontstage: FrontstageDef, state: NineZoneState) => {
       const id = frontstage.id;
       const widgets = packSavedWidgets(frontstage);
       frontstage.savedWidgetDefs = widgets;
@@ -1099,17 +1085,29 @@ export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, layout: 
       };
       await uiSettingsStorage.saveSetting(FRONTSTAGE_SETTINGS_NAMESPACE, getFrontstageStateSettingName(id), setting);
     }, 1000);
+
+    const save = (frontstage: FrontstageDef, state: NineZoneState) => {
+      if (state.draggedTab)
+        return;
+      debounced(frontstage, state);
+    };
+    save.cancel = debounced.cancel;
+    return save;
   }, [uiSettingsStorage]);
   React.useEffect(() => {
     return () => {
       saveSetting.cancel();
     };
   }, [saveSetting]);
+
   React.useEffect(() => {
-    if (!nineZone || nineZone.draggedTab)
-      return;
-    saveSetting(frontstageDef, nineZone);
-  }, [frontstageDef, nineZone, saveSetting]);
+    saveSetting(frontstageDef, store.getState());
+  }, [frontstageDef, store]);
+  React.useEffect(() => {
+    return store.subscribe(() => {
+      saveSetting(frontstageDef, store.getState());
+    });
+  }, [store]);
 }
 
 /** @internal */
