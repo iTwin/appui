@@ -184,7 +184,7 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
       <div className={className} ref={this._divElement}>
         <PopupButton label={this.state.inputValue}
           closeOnEnter={false}
-          setFocus={this.props.setFocus} focusTarget=".uicore-inputs-textarea">
+          setFocus={this.props.setFocus} focusTarget=".iui-input">
           <PopupContent>
             <Textarea
               {...textareaProps}

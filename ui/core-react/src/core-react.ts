@@ -68,7 +68,6 @@ export * from "./core-react/inputs/InputStatus";
 export * from "./core-react/inputs/iconinput/IconInput";
 export * from "./core-react/inputs/LabeledComponentProps";
 export * from "./core-react/inputs/numberinput/NumberInput";
-export * from "./core-react/inputs/Textarea";
 
 export * from "./core-react/listbox/Listbox";
 
@@ -231,7 +230,7 @@ export * from "./core-react/utils/hooks/useCrossOriginPopup";
  */
 /**
  * @docs-group-description Inputs
- * Components for working with input controls, such as Input, IconInput, NumberInput and Textarea.
+ * Components for working with input controls, such as Input, IconInput and NumberInput.
  */
 /**
  * @docs-group-description Loading
