@@ -76,7 +76,6 @@ export * from "./core-react/loading/LoadingSpinner";
 export * from "./core-react/loading/LoadingStatus";
 
 export * from "./core-react/messagebox/MessageBox";
-export * from "./core-react/messagebox/MessageSeverity";
 
 export * from "./core-react/notification/MessageRenderer";
 export * from "./core-react/notification/MessageType";
