@@ -62,7 +62,6 @@ export * from "./core-react/autosuggest/AutoSuggest";
 
 export * from "./core-react/imagecheckbox/ImageCheckBox";
 
-export * from "./core-react/inputs/Input";
 export * from "./core-react/inputs/InputLabel";
 export * from "./core-react/inputs/InputStatus";
 export * from "./core-react/inputs/iconinput/IconInput";
