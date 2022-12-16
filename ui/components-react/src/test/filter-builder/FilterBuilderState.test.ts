@@ -25,8 +25,8 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("initializes group with one empty rule", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state } = result.current;
     expect(state.rootGroup).to.containSubset({
       operator: PropertyFilterRuleGroupOperator.And,
       items: [{
@@ -36,8 +36,8 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("adds rule to root group", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { actions } = result.current;
     actions.addItem([], "RULE");
 
     const rootGroup = result.current.state.rootGroup;
@@ -45,15 +45,15 @@ describe("usePropertyFilterBuilderState", () => {
       operator: PropertyFilterRuleGroupOperator.And,
       items: [{
         groupId: rootGroup.id,
-      },{
+      }, {
         groupId: rootGroup.id,
       }],
     });
   });
 
   it("adds rule to nested group", async () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { actions } = result.current;
     actions.addItem([], "RULE_GROUP");
 
     let nestedGroup: PropertyFilterBuilderRuleGroupItem | undefined;
@@ -70,7 +70,7 @@ describe("usePropertyFilterBuilderState", () => {
       operator: PropertyFilterRuleGroupOperator.And,
       items: [{
         groupId: rootGroup.id,
-      },{
+      }, {
         groupId: rootGroup.id,
         operator: PropertyFilterRuleGroupOperator.And,
         items: [{
@@ -81,8 +81,8 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("adds rule group to root group", async () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { actions } = result.current;
     actions.addItem([], "RULE_GROUP");
 
     await waitFor(() => {
@@ -91,7 +91,7 @@ describe("usePropertyFilterBuilderState", () => {
         operator: PropertyFilterRuleGroupOperator.And,
         items: [{
           groupId: rootGroup.id,
-        },{
+        }, {
           groupId: rootGroup.id,
           operator: PropertyFilterRuleGroupOperator.And,
           items: [],
@@ -101,17 +101,17 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("does not change state if parent group is not found when adding item", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
     actions.addItem(["invalidParent"], "RULE_GROUP");
 
-    const {state: newState} = result.current;
+    const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
   });
 
   it("removes rule from root group", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { actions } = result.current;
 
     let rootGroup = result.current.state.rootGroup;
     expect(rootGroup.items).to.have.lengthOf(1);
@@ -125,26 +125,26 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("does not change state if parent group is not found when removing item", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
     actions.removeItem(["invalidParent", state.rootGroup.items[0].id]);
 
-    const {state: newState} = result.current;
+    const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
   });
 
   it("does not change state when removing non existing item", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
     actions.removeItem(["invalidItem"]);
 
-    const {state: newState} = result.current;
+    const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
   });
 
   it("sets root group operator", async () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
 
     expect(state.rootGroup.operator).to.be.eq(PropertyFilterRuleGroupOperator.And);
     actions.setRuleGroupOperator([], PropertyFilterRuleGroupOperator.Or);
@@ -161,19 +161,19 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("does not change state when setting non existing group operator", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
     actions.setRuleGroupOperator(["invalidGroup"], PropertyFilterRuleGroupOperator.Or);
 
-    const {state: newState} = result.current;
+    const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
   });
 
   it("sets rule property", async () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
 
-    const property: PropertyDescription = {name: "prop", displayLabel: "Prop", typename: "string"};
+    const property: PropertyDescription = { name: "prop", displayLabel: "Prop", typename: "string" };
     actions.setRuleProperty([state.rootGroup.items[0].id], property);
 
     await waitFor(() => {
@@ -188,19 +188,19 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("does not change state when setting non existing rule property", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
 
-    const property: PropertyDescription = {name: "prop", displayLabel: "Prop", typename: "string"};
+    const property: PropertyDescription = { name: "prop", displayLabel: "Prop", typename: "string" };
     actions.setRuleProperty(["invalidRule"], property);
 
-    const {state: newState} = result.current;
+    const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
   });
 
   it("sets rule operator", async () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
 
     actions.setRuleOperator([state.rootGroup.items[0].id], PropertyFilterRuleOperator.IsEqual);
 
@@ -216,10 +216,10 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("resets rule value if new operator does not need value", async () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
 
-    const value: PropertyValue = {valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING"};
+    const value: PropertyValue = { valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING" };
     actions.setRuleValue([state.rootGroup.items[0].id], value);
     await waitFor(() => {
       const rule = result.current.state.rootGroup.items[0] as PropertyFilterBuilderRule;
@@ -242,20 +242,20 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("does not change state when setting non existing rule operator", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
 
     actions.setRuleOperator(["invalidRule"], PropertyFilterRuleOperator.IsEqual);
 
-    const {state: newState} = result.current;
+    const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
   });
 
   it("sets rule value", async () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
 
-    const value: PropertyValue = {valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING"};
+    const value: PropertyValue = { valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING" };
     actions.setRuleValue([state.rootGroup.items[0].id], value);
 
     await waitFor(() => {
@@ -270,31 +270,31 @@ describe("usePropertyFilterBuilderState", () => {
   });
 
   it("does not change state when setting non existing rule value", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
 
-    const value: PropertyValue = {valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING"};
+    const value: PropertyValue = { valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING" };
     actions.setRuleValue(["invalidRule"], value);
 
-    const {state: newState} = result.current;
+    const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
   });
 
   it("does not change state when trying to set property on rule group", () => {
-    const {result} = renderHook(() => usePropertyFilterBuilderState());
-    const {state, actions} = result.current;
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { state, actions } = result.current;
 
-    const property: PropertyDescription = {name: "prop", displayLabel: "Prop", typename: "string"};
+    const property: PropertyDescription = { name: "prop", displayLabel: "Prop", typename: "string" };
     actions.setRuleProperty([], property);
 
-    const {state: newState} = result.current;
+    const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
   });
 
   describe("rule group", () => {
     async function getStateWithNestedRule() {
-      const {result} = renderHook(() => usePropertyFilterBuilderState());
-      const {actions} = result.current;
+      const { result } = renderHook(() => usePropertyFilterBuilderState());
+      const { actions } = result.current;
 
       const getNestingRule = () => result.current.state.rootGroup.items[1] as PropertyFilterBuilderRuleGroup;
       const getNestedRule = () => getNestingRule().items[0] as PropertyFilterBuilderRule;
@@ -306,15 +306,15 @@ describe("usePropertyFilterBuilderState", () => {
         expect(getNestedRule()).to.not.be.undefined;
       });
 
-      return {result, getNestingRule, getNestedRule, getNestedRulePath};
+      return { result, getNestingRule, getNestedRule, getNestedRulePath };
     }
 
     describe("nested rule", () => {
       it("sets property", async () => {
-        const {result, getNestingRule, getNestedRule, getNestedRulePath} = await getStateWithNestedRule();
-        const {actions} = result.current;
+        const { result, getNestingRule, getNestedRule, getNestedRulePath } = await getStateWithNestedRule();
+        const { actions } = result.current;
 
-        const property: PropertyDescription = {name: "prop", displayLabel: "Prop", typename: "string"};
+        const property: PropertyDescription = { name: "prop", displayLabel: "Prop", typename: "string" };
         actions.setRuleProperty(getNestedRulePath(), property);
 
         await waitFor(() => {
@@ -327,8 +327,8 @@ describe("usePropertyFilterBuilderState", () => {
       });
 
       it("sets operator", async () => {
-        const {result, getNestingRule, getNestedRule, getNestedRulePath} = await getStateWithNestedRule();
-        const {actions} = result.current;
+        const { result, getNestingRule, getNestedRule, getNestedRulePath } = await getStateWithNestedRule();
+        const { actions } = result.current;
 
         actions.setRuleOperator(getNestedRulePath(), PropertyFilterRuleOperator.IsEqual);
 
@@ -342,10 +342,10 @@ describe("usePropertyFilterBuilderState", () => {
       });
 
       it("sets value", async () => {
-        const {result, getNestingRule, getNestedRule, getNestedRulePath} = await getStateWithNestedRule();
-        const {actions} = result.current;
+        const { result, getNestingRule, getNestedRule, getNestedRulePath } = await getStateWithNestedRule();
+        const { actions } = result.current;
 
-        const value: PropertyValue = {valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING"};
+        const value: PropertyValue = { valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING" };
         actions.setRuleValue(getNestedRulePath(), value);
 
         await waitFor(() => {
@@ -359,8 +359,8 @@ describe("usePropertyFilterBuilderState", () => {
     });
 
     it("adds and removes rule", async () => {
-      const {result, getNestingRule} = await getStateWithNestedRule();
-      const {actions} = result.current;
+      const { result, getNestingRule } = await getStateWithNestedRule();
+      const { actions } = result.current;
 
       actions.addItem([getNestingRule().id], "RULE");
       await waitFor(() => {
@@ -374,8 +374,8 @@ describe("usePropertyFilterBuilderState", () => {
     });
 
     it("removes group when last rule is removed", async () => {
-      const {result, getNestingRule, getNestedRulePath} = await getStateWithNestedRule();
-      const {actions} = result.current;
+      const { result, getNestingRule, getNestedRulePath } = await getStateWithNestedRule();
+      const { actions } = result.current;
 
       actions.removeItem(getNestedRulePath());
 
