@@ -26,9 +26,7 @@ describe("WidgetTab", () => {
           <WidgetTabsEntryContext.Provider value={{
             lastNotOverflown: false,
           }}>
-            <WidgetTabProvider
-              tab={state.tabs.t1}
-            />
+            <WidgetTabProvider id="t1" />
           </WidgetTabsEntryContext.Provider>
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
@@ -49,7 +47,7 @@ describe("WidgetTab", () => {
             lastNotOverflown: false,
           }}>
             <WidgetOverflowContext.Provider value={{ close: sinon.spy() }}>
-              <WidgetTabProvider tab={state.tabs.t1} />
+              <WidgetTabProvider id="t1" />
             </WidgetOverflowContext.Provider>
           </WidgetTabsEntryContext.Provider>
         </WidgetIdContext.Provider>
@@ -70,7 +68,7 @@ describe("WidgetTab", () => {
           <WidgetTabsEntryContext.Provider value={{
             lastNotOverflown: false,
           }}>
-            <WidgetTabProvider tab={state.tabs.t1} />
+            <WidgetTabProvider id="t1" />
           </WidgetTabsEntryContext.Provider>
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
@@ -90,7 +88,7 @@ describe("WidgetTab", () => {
           <WidgetTabsEntryContext.Provider value={{
             lastNotOverflown: false,
           }}>
-            <WidgetTabProvider tab={state.tabs.t1} firstInactive />
+            <WidgetTabProvider id="t1" firstInactive />
           </WidgetTabsEntryContext.Provider>
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
@@ -110,7 +108,7 @@ describe("WidgetTab", () => {
           <WidgetTabsEntryContext.Provider value={{
             lastNotOverflown: true,
           }}>
-            <WidgetTabProvider tab={state.tabs.t1} />
+            <WidgetTabProvider id="t1" />
           </WidgetTabsEntryContext.Provider>
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
@@ -131,7 +129,7 @@ describe("WidgetTab", () => {
             <WidgetTabsEntryContext.Provider value={{
               lastNotOverflown: true,
             }}>
-              <WidgetTabProvider tab={state.tabs.t1} showOnlyTabIcon={true} />
+              <WidgetTabProvider id="t1" showOnlyTabIcon={true} />
             </WidgetTabsEntryContext.Provider>
           </WidgetIdContext.Provider>
         </ShowWidgetIconContext.Provider>
@@ -153,7 +151,7 @@ describe("WidgetTab", () => {
             <WidgetTabsEntryContext.Provider value={{
               lastNotOverflown: true,
             }}>
-              <WidgetTabProvider tab={state.tabs.t1} showOnlyTabIcon={false} />
+              <WidgetTabProvider id="t1" />
             </WidgetTabsEntryContext.Provider>
           </WidgetIdContext.Provider>
         </ShowWidgetIconContext.Provider>
@@ -175,9 +173,7 @@ describe("WidgetTab", () => {
           <WidgetTabsEntryContext.Provider value={{
             lastNotOverflown: false,
           }}>
-            <WidgetTabProvider
-              tab={state.tabs.t1}
-            />
+            <WidgetTabProvider id="t1" />
           </WidgetTabsEntryContext.Provider>
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
@@ -201,7 +197,7 @@ describe("WidgetTab", () => {
             <WidgetTabsEntryContext.Provider value={{
               lastNotOverflown: false,
             }}>
-              <WidgetTabProvider tab={state.tabs.t1} />
+              <WidgetTabProvider id="t1" />
             </WidgetTabsEntryContext.Provider>
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
@@ -237,7 +233,7 @@ describe("WidgetTab", () => {
             <WidgetTabsEntryContext.Provider value={{
               lastNotOverflown: false,
             }}>
-              <WidgetTabProvider tab={state.tabs.t1} />
+              <WidgetTabProvider id="t1" />
             </WidgetTabsEntryContext.Provider>
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
@@ -271,7 +267,7 @@ describe("WidgetTab", () => {
       >
         <WidgetContext.Provider value={{ measure: () => new Rectangle() }}>
           <WidgetIdContext.Provider value="w1">
-            <WidgetTabProvider tab={state.tabs.t1} />
+            <WidgetTabProvider id="t1" />
           </WidgetIdContext.Provider>
         </WidgetContext.Provider>
       </TestNineZoneProvider>,
@@ -299,7 +295,7 @@ describe("WidgetTab", () => {
         dispatch={dispatch}
       >
         <WidgetIdContext.Provider value="w1">
-          <WidgetTabProvider tab={state.tabs.t1} />
+          <WidgetTabProvider id="t1" />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
     );
@@ -322,7 +318,7 @@ describe("WidgetTab", () => {
         dispatch={dispatch}
       >
         <WidgetIdContext.Provider value="w1">
-          <WidgetTabProvider tab={state.tabs.t1} />
+          <WidgetTabProvider id="t1" />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
     );

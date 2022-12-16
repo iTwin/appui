@@ -21,7 +21,6 @@ import { WidgetIdContext } from "./Widget";
 
 /** @internal */
 export function WidgetTabs() {
-  const tabs = useLayout((state) => state.tabs);
   const side = React.useContext(PanelSideContext);
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
@@ -31,23 +30,22 @@ export function WidgetTabs() {
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
   const [showOnlyTabIcon, setShowOnlyTabIcon] = React.useState(false);
 
-  const activeTabIndex = tabIds.findIndex((tabId) => tabId === activeTabId);
+  const activeTabIndex = tabIds.findIndex((id) => id === activeTabId);
   const children = React.useMemo<React.ReactNode>(() => {
-    return tabIds.map((tabId, index, array) => {
+    return tabIds.map((id, index, array) => {
       const firstInactive = activeTabIndex + 1 === index;
-      const tab = tabs[tabId];
       return (
         <WidgetTabProvider
-          key={tabId}
+          key={id}
+          id={id}
           first={index === 0}
           firstInactive={firstInactive}
           last={index === array.length - 1}
-          tab={tab}
           showOnlyTabIcon={showOnlyTabIcon && showWidgetIcon}
         />
       );
     });
-  }, [tabIds, activeTabIndex, tabs, showOnlyTabIcon, showWidgetIcon]);
+  }, [tabIds, activeTabIndex, showOnlyTabIcon, showWidgetIcon]);
   const [overflown, handleResize, handleOverflowResize, handleEntryResize] = useOverflow(children, activeTabIndex);
   const horizontal = side && isHorizontalPanelSide(side);
   const handleContainerResize = React.useCallback((w: number) => {

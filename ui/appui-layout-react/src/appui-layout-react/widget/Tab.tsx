@@ -27,12 +27,12 @@ import { FloatingWidgetIdContext } from "./FloatingWidget";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
-  tab: TabState;
+  id: TabState["id"];
   showOnlyTabIcon?: boolean;
 }
 
 /** @internal */
-export function WidgetTabProvider({ tab, first, firstInactive, last, showOnlyTabIcon }: WidgetTabProviderProps) {
+export function WidgetTabProvider({ id, first, firstInactive, last, showOnlyTabIcon }: WidgetTabProviderProps) {
   const tabNode = React.useContext(TabNodeContext);
   const position = React.useMemo<TabPositionContextArgs>(() => ({
     first,
@@ -40,7 +40,7 @@ export function WidgetTabProvider({ tab, first, firstInactive, last, showOnlyTab
     last,
   }), [first, firstInactive, last]);
   return (
-    <TabIdContext.Provider value={tab.id}>
+    <TabIdContext.Provider value={id}>
       <TabPositionContext.Provider value={position}>
         <IconOnlyOnWidgetTabContext.Provider value={!!showOnlyTabIcon}>
           {tabNode}
