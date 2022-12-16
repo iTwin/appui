@@ -35,8 +35,8 @@ import {
   BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
   DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput,
   LabeledSelect, LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
-  MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ProgressBar, ProgressSpinner, Radio, ReactMessage,
-  SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, SpinnerSize, Subheading, ThemedSelect, Tile, Title,
+  MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, Radio, ReactMessage,
+  SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Subheading, ThemedSelect, Tile, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
@@ -790,34 +790,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get progressIndicatorsSamples(): ComponentExampleCategory {
-    return {
-      title: "Progress Indicators",
-      examples: [
-        createComponentExample("ProgressBar", "at 50%", <ProgressBar percent={50} />),
-        createComponentExample("ProgressBar with height", "height of 8", <ProgressBar percent={50} barHeight={8} />),
-        createComponentExample("Indeterminate ProgressBar", "indeterminate prop", <ProgressBar indeterminate />),
-        createComponentExample("ProgressBar with label", "labelLeft prop", <ProgressBar percent={25} labelLeft="Centered Label" />),
-        createComponentExample("ProgressBar with labels", "labelLeft & labelRight props", <ProgressBar percent={75} labelLeft="Loading..." labelRight="75%" />),
-        createComponentExample("ProgressSpinner", "at 50%", <ProgressSpinner value={50} />),
-        createComponentExample("Indeterminate ProgressSpinner", "indeterminate prop", <ProgressSpinner indeterminate />),
-        createComponentExample("Success ProgressSpinner", "success prop", <ProgressSpinner success />),
-        createComponentExample("Error ProgressSpinner", "error prop", <ProgressSpinner error />),
-        createComponentExample("ProgressSpinner with value", "display value of 63", <ProgressSpinner value={63}>63</ProgressSpinner>),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner Small", "width/height of 16", <ProgressSpinner indeterminate size={SpinnerSize.Small} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner Medium", "width/height of 32", <ProgressSpinner indeterminate size={SpinnerSize.Medium} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner Large", "width/height of 64", <ProgressSpinner indeterminate size={SpinnerSize.Large} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner XLarge", "width/height of 96", <ProgressSpinner indeterminate size={SpinnerSize.XLarge} />),
-        createComponentExample("ProgressSpinner with style", "width/height of 120",
-          <div><ProgressSpinner indeterminate style={{ display: "inline-block", width: 120, height: 120 }} />... Loading</div>),
-      ],
-    };
-  }
-
   private static get quantitySamples(): ComponentExampleCategory {
     const onLengthChange = (value: number) => {
       IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, `Length value set to ${value}`));
@@ -1194,7 +1166,6 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.loadingSamples,
       ComponentExamplesProvider.messageSamples,
       ComponentExamplesProvider.popupSamples,
-      ComponentExamplesProvider.progressIndicatorsSamples,
       ComponentExamplesProvider.quantitySamples,
       ComponentExamplesProvider.searchBoxSample,
       ComponentExamplesProvider.selectSamples,

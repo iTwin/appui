@@ -82,9 +82,6 @@ export * from "./core-react/notification/MessageType";
 
 export * from "./core-react/popup/Popup";
 
-export * from "./core-react/progress-indicators/ProgressBar";
-export * from "./core-react/progress-indicators/ProgressSpinner";
-
 export * from "./core-react/radialmenu/RadialMenu";
 export * from "./core-react/radialmenu/Annulus";
 export * from "./core-react/radio/Radio";
