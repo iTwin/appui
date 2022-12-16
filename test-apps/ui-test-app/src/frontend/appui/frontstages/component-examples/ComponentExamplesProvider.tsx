@@ -34,7 +34,7 @@ import {
   AutoSuggestData,
   BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
   DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput,
-  LabeledSelect, LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
+  LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ReactMessage,
   SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Subheading, ThemedSelect, Tile, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
@@ -906,8 +906,6 @@ export class ComponentExamplesProvider {
         createComponentExample("Placeholder Select", "Select with placeholder prop", <Select options={["Option 1", "Option 2", "Option 3", "Option 4"]} placeholder="Pick an option" />),
         createComponentExample("Select with Disabled option", "Select with option with disabled prop",
           <Select options={["Option 1", "Option 2", { label: "Disabled Option", disabled: true }, "Option 3", "Option 4"]} placeholder="Pick an option" />),
-
-        createComponentExample("Labeled Select", "Labeled Select component", <LabeledSelect label="Labeled Select" options={["Option 1", "Option 2", "Option 3", "Option 4"]} />),
 
         createComponentExample("ThemedSelect", "ThemedSelect component for colors",
           <div className="uicore-full-width">
