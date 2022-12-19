@@ -7,7 +7,7 @@ import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import * as sinon from "sinon";
 import { expect } from "chai";
-import { HorizontalTabs, Orientation, Tabs, VerticalTabs } from "../../core-react";
+import { Orientation, Tabs, VerticalTabs } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
 describe("<Tabs />", () => {
@@ -73,24 +73,6 @@ describe("<Tabs />", () => {
     expect(document.activeElement).to.eq(nextTab);
   });
 
-  it("Left key in Horizontal puts focus on previous tab", async () => {
-    // eslint-disable-next-line deprecation/deprecation
-    const { getAllByRole } = render(<HorizontalTabs labels={["label 1", "label 2", "label 3"]} activeIndex={1} />);
-    const label = screen.getByText("label 2");
-    await theUserTo.type(label, "{arrowleft}");
-    const previous = getAllByRole("button")[0];
-    expect(document.activeElement).to.eq(previous);
-  });
-
-  it("Right key in Horizontal puts focus on next tab", async () => {
-    // eslint-disable-next-line deprecation/deprecation
-    const { getAllByRole } = render(<HorizontalTabs labels={["label 1", "label 2", "label 3"]} activeIndex={1} />);
-    const label = screen.getByText("label 2");
-    await theUserTo.type(label, "{arrowright}");
-    const nextTab = getAllByRole("button")[2];
-    expect(document.activeElement).to.eq(nextTab);
-  });
-
   ///
 
   it("Up key in Vertical puts focus on last tab when on first", async () => {
@@ -109,24 +91,6 @@ describe("<Tabs />", () => {
     expect(document.activeElement).to.eq(first);
   });
 
-  it("Left key in Horizontal puts focus on last tab when on first", async () => {
-    // eslint-disable-next-line deprecation/deprecation
-    const { getAllByRole } = render(<HorizontalTabs labels={["label 1", "label 2", "label 3"]} activeIndex={1} />);
-    const label = screen.getByText("label 1");
-    await theUserTo.type(label, "{arrowleft}");
-    const last = getAllByRole("button")[2];
-    expect(document.activeElement).to.eq(last);
-  });
-
-  it("Right key in Horizontal puts focus on first tab when on last", async () => {
-    // eslint-disable-next-line deprecation/deprecation
-    const { getAllByRole } = render(<HorizontalTabs labels={["label 1", "label 2", "label 3"]} activeIndex={1} />);
-    const label = screen.getByText("label 3");
-    await theUserTo.type(label, "{arrowright}");
-    const first = getAllByRole("button")[0];
-    expect(document.activeElement).to.eq(first);
-  });
-
   ///
 
   it("Left/Right key in Vertical does nothing", async () => {
@@ -136,18 +100,6 @@ describe("<Tabs />", () => {
     const first = getAllByRole("button")[0];
     expect(document.activeElement).to.not.eq(first);
     await theUserTo.type(label, "{arrowleft}");
-    const last = getAllByRole("button")[2];
-    expect(document.activeElement).to.not.eq(last);
-  });
-
-  it("Up/Down key in Horizontal does nothing", async () => {
-    // eslint-disable-next-line deprecation/deprecation
-    const { getAllByRole } = render(<HorizontalTabs labels={["label 1", "label 2", "label 3"]} activeIndex={1} />);
-    const label = screen.getByText("label 2");
-    await theUserTo.type(label, "{arrowup}");
-    const first = getAllByRole("button")[0];
-    expect(document.activeElement).to.not.eq(first);
-    await theUserTo.type(label, "{arrowdown}");
     const last = getAllByRole("button")[2];
     expect(document.activeElement).to.not.eq(last);
   });

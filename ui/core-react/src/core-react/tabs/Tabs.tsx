@@ -35,7 +35,7 @@ function isTabLabel(item: string | TabLabel): item is TabLabel {
   return (typeof item !== "string");
 }
 
-/** Properties for the [[HorizontalTabs]] and [[VerticalTabs]] components
+/** Properties for the [[VerticalTabs]] component
  * @public
  */
 export interface TabsProps extends React.AllHTMLAttributes<HTMLUListElement>, CommonProps {

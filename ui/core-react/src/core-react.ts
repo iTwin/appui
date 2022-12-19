@@ -90,7 +90,6 @@ export * from "./core-react/searchbox/SearchBox";
 export * from "./core-react/settings/SettingsManager";
 export * from "./core-react/settings/SettingsContainer";
 
-export * from "./core-react/tabs/HorizontalTabs";
 export * from "./core-react/tabs/VerticalTabs";
 export * from "./core-react/tabs/Tabs";
 
