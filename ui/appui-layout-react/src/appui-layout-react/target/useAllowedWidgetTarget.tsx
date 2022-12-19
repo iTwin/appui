@@ -23,7 +23,7 @@ export function useAllowedWidgetTarget(widgetId: WidgetState["id"]) {
     if (!widgetLocation || isPopoutWidgetLocation(widgetLocation)) {
       return false;
     } else if (isFloatingWidgetLocation(widgetLocation)) {
-      return false;
+      return true;
     }
 
     return isAllowedSideTarget(state, draggedWidget, widgetLocation.side);
