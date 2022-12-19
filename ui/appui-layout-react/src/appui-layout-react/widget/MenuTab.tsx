@@ -26,6 +26,10 @@ export interface WidgetMenuTabProps extends CommonProps {
 /** @internal */
 export const WidgetMenuTab = React.memo<WidgetMenuTabProps>(function WidgetMenuTab(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const id = React.useContext(TabIdContext);
+  const overflowContext = React.useContext(WidgetOverflowContext);
+  const showWidgetIcon = React.useContext(ShowWidgetIconContext);
+  assert(!!id);
+
   const { label, iconSpec } = useLayout((state) => {
     const tab = state.tabs[id];
     return {
@@ -33,9 +37,7 @@ export const WidgetMenuTab = React.memo<WidgetMenuTabProps>(function WidgetMenuT
       iconSpec: tab.iconSpec,
     };
   }, true);
-  const overflowContext = React.useContext(WidgetOverflowContext);
   assert(!!overflowContext);
-  const showWidgetIcon = React.useContext(ShowWidgetIconContext);
   const closeOverflow = React.useCallback(() => {
     overflowContext.close();
   }, [overflowContext]);

@@ -8,6 +8,7 @@
 
 import * as React from "react";
 import { getTabLocation, isHorizontalPanelSide, TabIdContext, useLayout } from "@itwin/appui-layout-react";
+import { assert } from "@itwin/core-bentley";
 
 /** Returns widget direction.
  * I.e. "horizontal" when widget is in bottom/top stage panel.
@@ -15,6 +16,7 @@ import { getTabLocation, isHorizontalPanelSide, TabIdContext, useLayout } from "
  */
 export function useWidgetDirection(): "horizontal" | "vertical" {
   const tabId = React.useContext(TabIdContext);
+  assert(!!tabId);
   return useLayout((state) => {
     const tabLocation = getTabLocation(state, tabId);
     if (tabLocation && ("side" in tabLocation) && isHorizontalPanelSide(tabLocation.side)) {

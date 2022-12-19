@@ -14,6 +14,7 @@ import { TabState } from "../state/TabState";
 import { useContainersStore, WidgetContentManagerContext } from "./ContentManager";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
+import { assert } from "@itwin/core-bentley";
 
 /** @internal */
 export function WidgetContentRenderers() {
@@ -81,7 +82,7 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
 }
 
 /** @internal */
-export const TabIdContext = React.createContext<TabState["id"]>(""); // eslint-disable-line @typescript-eslint/naming-convention
+export const TabIdContext = React.createContext<TabState["id"] | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 TabIdContext.displayName = "nz:TabIdContext";
 
 /** @internal */
@@ -102,5 +103,6 @@ export function useTabTransientState(tabId: string, onSave?: () => void, onResto
 /** @internal */
 export function useTransientState(onSave?: () => void, onRestore?: () => void) {
   const tabId = React.useContext(TabIdContext);
+  assert(!!tabId);
   return useTabTransientState(tabId, onSave, onRestore);
 }

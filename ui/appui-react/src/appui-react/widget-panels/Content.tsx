@@ -12,6 +12,7 @@ import { WidgetDef } from "../widgets/WidgetDef";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { FrontstageNineZoneStateChangedEventArgs, useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { useTransientState } from "./useTransientState";
+import { assert } from "@itwin/core-bentley";
 
 /** @internal */
 export function WidgetContent() {
@@ -40,6 +41,8 @@ export function WidgetContent() {
 /** @internal */
 export function useWidgetDef(): WidgetDef | undefined {
   const tabId = React.useContext(TabIdContext);
+  assert(!!tabId);
+
   const frontstage = useActiveFrontstageDef();
   const [widgetDef, setWidgetDef] = React.useState(() => frontstage?.findWidgetDef(tabId));
 

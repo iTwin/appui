@@ -74,9 +74,10 @@ const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponen
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
   const side = React.useContext(PanelSideContext);
   const widgetId = React.useContext(WidgetIdContext);
-  assert(!!widgetId);
   const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
+  assert(!!id);
+  assert(!!widgetId);
 
   const iconSpec = useLayout((state) => state.tabs[id].iconSpec);
   const label = useLayout((state) => state.tabs[id].label);
@@ -133,15 +134,17 @@ export function useTabInteractions<T extends HTMLElement>({
   onDragStart,
 }: UseTabInteractionsArgs) {
   const id = React.useContext(TabIdContext);
-  const tab = useLayout((state) => state.tabs[id]);
   const widgetContext = React.useContext(WidgetContext);
   const measure = React.useContext(MeasureContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const side = React.useContext(PanelSideContext);
   const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
-  assert(!!widgetId);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
+  assert(!!id);
+  assert(!!widgetId);
+
+  const tab = useLayout((state) => state.tabs[id]);
 
   const clickCount = React.useRef(0);
   const doubleClickTimer = React.useRef(new Timer(300));
