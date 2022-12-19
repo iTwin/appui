@@ -36,7 +36,7 @@ import {
   DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput,
   LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ReactMessage,
-  SearchBox, SettingsContainer, SettingsTabEntry, Slider, SmallText, Subheading, Tile, Title,
+  SearchBox, SettingsContainer, SettingsTabEntry, SmallText, Subheading, Tile, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
@@ -821,40 +821,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get sliderSamples(): ComponentExampleCategory {
-    return {
-      title: "Deprecated Slider",
-      examples: [
-        createComponentExample("Slider", "Basic Slider",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip />),
-        createComponentExample("Slider w/ tooltipBelow", "Slider with Tooltip Below",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip tooltipBelow />),
-        createComponentExample("Slider w/ min/max", "Slider with showMinMax prop",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip showMinMax />),
-        createComponentExample("Slider w/ min/max", "Slider with formatMax prop",
-          <Slider min={0} max={1} values={[0.5]} step={0.01} showTooltip showMinMax formatMax={(v: number) => v.toFixed(1)} />),
-        createComponentExample("Slider w/ min/max images", "Slider with minImage and maxImage props",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip showMinMax
-            minImage={<Icon iconSpec="icon-placeholder" />} maxImage={<Icon iconSpec="icon-placeholder" />} />),
-        createComponentExample("Slider w/ tick marks", "Slider with showTicks and getTickCount props",
-          <Slider min={0} max={5} values={[2.25]} step={.01} showTooltip showMinMax
-            showTicks getTickCount={() => 10} />),
-        createComponentExample("Slider w/ multiple values", "Slider with array of values",
-          <Slider min={0} max={100} values={[30, 70]} step={5} mode={2} showTooltip showMinMax
-            showTicks getTickCount={() => 10} />),
-        createComponentExample("Slider multiple values tooltipBelow", "Slider with multiple values & tooltip below",
-          <Slider min={0} max={100} values={[20, 80]} step={5} mode={2} showTooltip tooltipBelow showMinMax
-            showTicks getTickCount={() => 10} />),
-        createComponentExample("Slider w/ tick labels", "Slider with showTickLabels prop",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip showMinMax showTickLabels
-            showTicks getTickCount={() => 10} />),
-        createComponentExample("Disabled Slider", "Slider with disabled prop",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip showMinMax showTickLabels disabled
-            showTicks getTickCount={() => 10} />),
-      ],
-    };
-  }
-
   private static get tabsSamples(): ComponentExampleCategory {
     return {
       title: "Tabs",
@@ -1039,7 +1005,6 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.popupSamples,
       ComponentExamplesProvider.quantitySamples,
       ComponentExamplesProvider.searchBoxSample,
-      ComponentExamplesProvider.sliderSamples,
       ComponentExamplesProvider.tabsSamples,
       ComponentExamplesProvider.textSamples,
       ComponentExamplesProvider.tileSamples,
