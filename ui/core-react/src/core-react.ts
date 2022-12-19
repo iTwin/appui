@@ -85,7 +85,6 @@ export * from "./core-react/popup/Popup";
 export * from "./core-react/radialmenu/RadialMenu";
 export * from "./core-react/radialmenu/Annulus";
 
-export * from "./core-react/select/ThemedSelect";
 export * from "./core-react/searchbox/SearchBox";
 
 export * from "./core-react/settings/SettingsManager";

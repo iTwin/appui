@@ -36,7 +36,7 @@ import {
   DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput,
   LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ReactMessage,
-  SearchBox, SettingsContainer, SettingsTabEntry, Slider, SmallText, Subheading, ThemedSelect, Tile, Title,
+  SearchBox, SettingsContainer, SettingsTabEntry, Slider, SmallText, Subheading, Tile, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
@@ -821,54 +821,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get selectSamples(): ComponentExampleCategory {
-    enum ColorOptions {
-      Red,
-      White,
-      Blue,
-      Yellow,
-      Orange,
-    }
-
-    const colorChoices = [
-      { label: "Red", value: ColorOptions.Red },
-      { label: "White", value: ColorOptions.White },
-      { label: "Blue", value: ColorOptions.Blue },
-      { label: "Yellow", value: ColorOptions.Yellow },
-      { label: "Orange", value: ColorOptions.Orange },
-    ];
-
-    const cityChoices = [
-      { label: "London", value: "London" },
-      { label: "Paris", value: "Paris" },
-      { label: "Stockholm", value: "Stockholm" },
-      { label: "Berlin", value: "Berlin" },
-      { label: "Mumbai", value: "Mumbai" },
-      { label: "Christchurch", value: "Christchurch" },
-      { label: "Johannesburg", value: "Johannesburg" },
-      { label: "Beijing", value: "Beijing" },
-      { label: "New York", value: "New York" },
-    ];
-
-    return {
-      title: "ThemedSelect",
-      examples: [
-        createComponentExample("ThemedSelect", "ThemedSelect component for colors",
-          <div className="uicore-full-width">
-            <ThemedSelect options={colorChoices} />
-          </div>),
-        createComponentExample("Multi ThemedSelect", "ThemedSelect component with isMulti",
-          <div className="uicore-full-width">
-            <ThemedSelect isMulti={true} isSearchable={true} options={cityChoices} />
-          </div>),
-        createComponentExample("Disabled ThemedSelect", "ThemedSelect component with isDisabled prop",
-          <div className="uicore-full-width">
-            <ThemedSelect options={colorChoices} isDisabled />
-          </div>),
-      ],
-    };
-  }
-
   private static get sliderSamples(): ComponentExampleCategory {
     return {
       title: "Deprecated Slider",
@@ -1087,7 +1039,6 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.popupSamples,
       ComponentExamplesProvider.quantitySamples,
       ComponentExamplesProvider.searchBoxSample,
-      ComponentExamplesProvider.selectSamples,
       ComponentExamplesProvider.sliderSamples,
       ComponentExamplesProvider.tabsSamples,
       ComponentExamplesProvider.textSamples,
