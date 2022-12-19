@@ -23,7 +23,7 @@ import { TabTarget } from "../target/TabTarget";
 import { WidgetMenuTab } from "./MenuTab";
 import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
+import { useFloatingWidgetId } from "./FloatingWidget";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -138,9 +138,9 @@ export function useTabInteractions<T extends HTMLElement>({
   const measure = React.useContext(MeasureContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const side = React.useContext(PanelSideContext);
-  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
+  const floatingWidgetId = useFloatingWidgetId();
   assert(!!id);
   assert(!!widgetId);
 

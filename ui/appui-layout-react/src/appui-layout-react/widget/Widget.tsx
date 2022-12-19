@@ -17,7 +17,7 @@ import { WidgetState } from "../state/WidgetState";
 import { PanelSideContext } from "../widget-panels/Panel";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
+import { useFloatingWidgetId } from "./FloatingWidget";
 
 /** @internal */
 export interface WidgetProviderProps {
@@ -49,8 +49,8 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
     const dispatch = React.useContext(NineZoneDispatchContext);
     const side = React.useContext(PanelSideContext);
     const id = React.useContext(WidgetIdContext);
-    const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
     const measureNz = React.useContext(MeasureContext);
+    const floatingWidgetId = useFloatingWidgetId();
     assert(!!id);
     const { preferredFloatingWidgetSize, userSized } = useLayout((state) => {
       const widget = state.widgets[id];

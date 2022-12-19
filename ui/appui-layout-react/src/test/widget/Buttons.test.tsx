@@ -12,7 +12,7 @@ import {
 import { TestNineZoneProvider } from "../Providers";
 
 describe("TabBarButtons", () => {
-  it("Floating widget should render Sendback button", () => {
+  it("should render SendBack button in a floating widget", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "t1-label" });
     state = addFloatingWidget(state, "fw1", ["t1"]);
@@ -26,7 +26,7 @@ describe("TabBarButtons", () => {
     expect(wrapper.container.querySelector("button.nz-widget-sendBack")).to.not.be.null;
   });
 
-  it("Floating widget that canPopout should render Popout button", () => {
+  it("should render Popout button in a floating widget that canPopout ", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addFloatingWidget(state, "fw1", ["t1"]);
@@ -41,7 +41,7 @@ describe("TabBarButtons", () => {
     expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to.not.be.null;
   });
 
-  it("Floating ToolSettings should render Dock button", () => {
+  it("should render Dock button in floating ToolSettings", () => {
     let state = createNineZoneState();
     state = addFloatingWidget(state, "fw1", [toolSettingsTabId]);
     const wrapper = render(
@@ -54,7 +54,7 @@ describe("TabBarButtons", () => {
     expect(wrapper.container.querySelector("button.nz-widget-dock")).to.not.be.null;
   });
 
-  it("Main Panel widget should not render Pin buttons", () => {
+  it("should render Pin button in main panel widget", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "t1-label", canPopout: false });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
@@ -70,7 +70,7 @@ describe("TabBarButtons", () => {
     expect(wrapper.container.querySelector("button.nz-widget-pinToggle")).to.not.be.null;
   });
 
-  it("Main Panel widget that canPopout should render Popout and Pin buttons", () => {
+  it("should render Popout and Pin buttons in main panel widget that canPopout ", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });

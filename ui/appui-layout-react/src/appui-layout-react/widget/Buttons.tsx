@@ -16,12 +16,12 @@ import { PopoutToggle } from "./PopoutToggle";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 import { assert } from "@itwin/core-bentley";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
+import { useFloatingWidgetId } from "./FloatingWidget";
 
 /** @internal */
 export function TabBarButtons() {
   const isToolSettings = useIsToolSettingsTab();
-  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
+  const floatingWidgetId = useFloatingWidgetId();
   const isMainPanelWidget = useIsMainPanelWidget();
   const tabId = useActiveTabId();
   const canPopout = useLayout((state) => {
