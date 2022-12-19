@@ -44,8 +44,8 @@ function createSelectFormatPropEditor(key: string, label: string, options: { lab
         value={value}
         options={options}
         size={"small"}
-        onChange={(value) => {
-          const newProps = setString(inProps, value);
+        onChange={(newValue) => {
+          const newProps = setString(inProps, newValue);
           fireFormatChange(newProps);
         }}
       />
