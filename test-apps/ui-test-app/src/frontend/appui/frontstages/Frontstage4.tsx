@@ -22,7 +22,6 @@ import { SpinnerTestDialog } from "../dialogs/SpinnerTestDialog";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
 import { TestModalDialog2 } from "../dialogs/TestModalDialog2";
 import { TestRadialMenu } from "../dialogs/TestRadialMenu";
-import { TestReactSelectDialog } from "../dialogs/TestReactSelectDialog";
 import { TestUiProvider } from "../dialogs/TestUiProviderDialog";
 import { NavigationTreeWidgetControl } from "../widgets/NavigationTreeWidget";
 import {
@@ -321,13 +320,6 @@ export class Frontstage4 extends FrontstageProvider {
       width: "auto",
     });
   };
-
-  private testReactSelectDialog(): React.ReactNode {
-    return (
-      <TestReactSelectDialog
-        opened={true} />
-    );
-  }
 
   private handleOpenDynamicModal = () => {
     IModelApp.uiAdmin.openDialog(new DynamicModalUiDataProvider(), "Dynamic Model", true, "SampleApp:DynamicModal", {
