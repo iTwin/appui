@@ -121,7 +121,6 @@ export * from "./core-react/uistate/LocalStateStorage";
 
 export * from "./core-react/utils/IconHelper";
 export * from "./core-react/utils/Point";
-export * from "./core-react/utils/PointProps";
 export * from "./core-react/utils/Props";
 export * from "./core-react/utils/Rectangle";
 export * from "./core-react/utils/Size";
