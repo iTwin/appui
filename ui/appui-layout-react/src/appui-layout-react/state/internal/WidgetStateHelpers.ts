@@ -83,6 +83,7 @@ export function removeWidgetState(state: NineZoneState, id: WidgetState["id"]): 
 
 /** @internal */
 export function createFloatingWidgetState(id: FloatingWidgetState["id"], args?: Partial<FloatingWidgetState>): FloatingWidgetState {
+  // istanbul ignore next
   const bounds = toRectangleProps(args?.bounds);
   return {
     home: {

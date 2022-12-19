@@ -88,6 +88,7 @@ export function updateHomeOfToolSettingsWidget(state: NineZoneState, id: Floatin
 /** @internal */
 export function convertFloatingWidgetContainerToPopout(state: NineZoneState, widgetContainerId: string): NineZoneState {
   const widget = getWidgetState(state, widgetContainerId);
+  // istanbul ignore next
   if (widget.tabs.length !== 1) {
     // currently only support popping out a floating widget container if it has a single tab
     return state;

@@ -16,7 +16,6 @@ import { isHorizontalPanelSide, PanelSideContext } from "./Panel";
 
 /** @internal */
 export function useAnimatePanel() {
-  const category = "appui-layout-react.useAnimatePanel";
   const side = React.useContext(PanelSideContext)!;
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
@@ -44,7 +43,6 @@ export function useAnimatePanel() {
 
   const [prevCollapsed, setPrevCollapsed] = React.useState(panel.collapsed);
   if (prevCollapsed !== panel.collapsed) {
-    Logger.logTrace(category, "Changed 'collapsed'", () => ({ collapsed: panel.collapsed }));
     setPrevCollapsed(panel.collapsed);
     let from = animateFrom.current;
     // istanbul ignore else
@@ -131,7 +129,6 @@ export function useAnimatePanel() {
       maxPanelSize.current = animateTo.current;
     }
 
-    Logger.logTrace(category, "Initializing a transition");
     setPanelSize(animateFrom.current);
     setContentSize(maxPanelSize.current);
     setTransition("init");
@@ -140,9 +137,7 @@ export function useAnimatePanel() {
     if (transition !== "init")
       return;
 
-    Logger.logTrace(category, "requestAnimationFrame");
     const handle = window.requestAnimationFrame(() => {
-      Logger.logTrace(category, "Starting a transition");
       animateFrom.current = undefined;
       setTransition("transition");
       setPanelSize(animateTo.current);
@@ -156,7 +151,6 @@ export function useAnimatePanel() {
   }, [initializing]);
 
   const handleTransitionEnd = React.useCallback(() => {
-    Logger.logTrace(category, "onTransitionEnd");
     maxPanelSize.current = undefined;
     collapsing.current = undefined;
     animateFrom.current = undefined;

@@ -2,10 +2,12 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
-import { addFloatingWidget, addTab, createNineZoneState, FloatingWidgetProvider, getResizeBy, NineZoneDispatch } from "../../appui-layout-react";
+import { renderHook } from "@testing-library/react-hooks";
+import { addFloatingWidget, addTab, createNineZoneState, FloatingWidgetProvider, getResizeBy, NineZoneDispatch, useFloatingWidgetId, WidgetIdContext } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("FloatingWidget", () => {
@@ -212,5 +214,14 @@ describe("getResizeBy", () => {
       right: 10,
       bottom: 20,
     });
+  });
+});
+
+describe("useFloatingWidgetId", () => {
+  it("should return `undefined` if WidgetIdContext is not provided", () => {
+    const { result } = renderHook(() => useFloatingWidgetId(), {
+      wrapper: (props) => <TestNineZoneProvider {...props} />, // eslint-disable-line react/display-name
+    });
+    expect(result.current).to.be.undefined;
   });
 });

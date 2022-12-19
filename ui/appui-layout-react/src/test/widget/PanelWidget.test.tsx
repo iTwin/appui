@@ -2,29 +2,18 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import produce from "immer";
 import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
-  addPanelWidget, addTab, createLayoutStore, createNineZoneState, HorizontalPanelSide, NineZoneDispatch, PanelSide, PanelSideContext, PanelWidget,
-  PanelWidgetDragStartAction,
-  TabState, useBorders, useMode, VerticalPanelSide, WidgetContentManagerContext, WidgetContentManagerContextArgs,
+  addPanelWidget, addTab, createNineZoneState, HorizontalPanelSide, NineZoneDispatch, PanelSide, PanelSideContext, PanelWidget,
+  PanelWidgetDragStartAction, useBorders, useMode, VerticalPanelSide,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { addTabs } from "../Utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
-import { BeEvent } from "@itwin/core-bentley";
 import * as NineZoneModule from "../../appui-layout-react/base/NineZone";
-
-const defaultProps = {
-  onBeforeTransition: () => { },
-  onPrepareTransition: () => { },
-  onTransitionEnd: () => { },
-  size: undefined,
-  transition: undefined,
-};
 
 interface ProviderProps extends TestNineZoneProviderProps {
   side?: PanelSide;
@@ -50,7 +39,7 @@ describe("PanelWidget", () => {
       <Provider
         defaultState={state}
       >
-        <PanelWidget widgetId="w1" {...defaultProps} />
+        <PanelWidget widgetId="w1" />
       </Provider>,
     );
     container.firstChild!.should.matchSnapshot();
@@ -64,7 +53,7 @@ describe("PanelWidget", () => {
       <Provider
         defaultState={state}
       >
-        <PanelWidget widgetId="w1" {...defaultProps} />
+        <PanelWidget widgetId="w1" />
       </Provider>,
     );
     container.firstChild!.should.matchSnapshot();
@@ -80,7 +69,7 @@ describe("PanelWidget", () => {
       <Provider
         defaultState={state}
       >
-        <PanelWidget widgetId="w1" {...defaultProps} />
+        <PanelWidget widgetId="w1" />
       </Provider>,
     );
     container.firstChild!.should.matchSnapshot();
@@ -97,113 +86,10 @@ describe("PanelWidget", () => {
         defaultState={state}
         side="top"
       >
-        <PanelWidget widgetId="w1" {...defaultProps} />
+        <PanelWidget widgetId="w1" />
       </Provider>,
     );
     container.firstChild!.should.matchSnapshot();
-  });
-
-  it("should render with nz-transition", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addPanelWidget(state, "top", "w1", ["t1"]);
-    const { container } = render(
-      <Provider
-        defaultState={state}
-        side="top"
-      >
-        <PanelWidget
-          widgetId="w1"
-          {...defaultProps}
-        />
-      </Provider>,
-    );
-    const widget = container.getElementsByClassName("nz-widget-panelWidget")[0];
-    Array.from(widget.classList.values()).should.contain("nz-transition");
-  });
-
-  it("should render with flexBasis", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1");
-    state = addPanelWidget(state, "top", "w1", ["t1"]);
-    const { container } = render(
-      <Provider
-        defaultState={state}
-        side="top"
-      >
-        <PanelWidget
-          widgetId="w1"
-          {...defaultProps}
-        />
-      </Provider>,
-    );
-    const widget = container.getElementsByClassName("nz-widget-panelWidget")[0] as HTMLElement;
-    widget.style.flexBasis.should.eq("200px");
-  });
-
-  it.skip("should invoke onBeforeTransition when mode is changing", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1", { preferredPanelWidgetSize: "fit-content" });
-    state = addTab(state, "t2");
-    state = addPanelWidget(state, "top", "w1", ["t1"]);
-    state = addPanelWidget(state, "top", "w2", ["t2"]);
-
-    const spy = sinon.spy();
-    const layout = createLayoutStore(state);
-    render(
-      <Provider
-        layout={layout}
-        side="top"
-      >
-        <PanelWidget
-          widgetId="w1"
-          {...defaultProps}
-        />
-      </Provider>,
-    );
-
-    state = produce(state, (draft) => {
-      draft.tabs.t1.preferredPanelWidgetSize = undefined;
-    });
-
-    act(() => {
-      layout.setState(state);
-    });
-
-    sinon.assert.calledOnce(spy);
-  });
-
-  it("should invoke onBeforeTransition when tab is changing", () => {
-    let state = createNineZoneState();
-    state = addTab(state, "t1", { preferredPanelWidgetSize: "fit-content" });
-    state = addTab(state, "t2");
-    state = addPanelWidget(state, "top", "w1", ["t1"]);
-    state = addPanelWidget(state, "top", "w2", ["t2"]);
-
-    const spy = sinon.spy();
-    const onSaveTransientState = new BeEvent<(tabId: TabState["id"]) => void>();
-    const widgetContentManager: WidgetContentManagerContextArgs = {
-      setContainer: () => { },
-      onRestoreTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
-      onSaveTransientState,
-    };
-    render(
-      <Provider
-        defaultState={state}
-        side="top"
-      >
-        <WidgetContentManagerContext.Provider value={widgetContentManager}>
-          <PanelWidget
-            widgetId="w1"
-            {...defaultProps}
-          />
-        </WidgetContentManagerContext.Provider>
-      </Provider>,
-    );
-
-    onSaveTransientState.raiseEvent("t1");
-
-    sinon.assert.calledOnce(spy);
   });
 
   describe("PANEL_WIDGET_DRAG_START", () => {
@@ -219,7 +105,7 @@ describe("PanelWidget", () => {
           dispatch={dispatch}
         >
           <PanelSideContext.Provider value="left">
-            <PanelWidget widgetId="w1" {...defaultProps} />
+            <PanelWidget widgetId="w1" />
           </PanelSideContext.Provider>
         </TestNineZoneProvider>,
       );
@@ -249,7 +135,7 @@ describe("PanelWidget", () => {
           dispatch={dispatch}
         >
           <PanelSideContext.Provider value="left">
-            <PanelWidget widgetId="w1" {...defaultProps} />
+            <PanelWidget widgetId="w1" />
           </PanelSideContext.Provider>
         </TestNineZoneProvider>,
       );
@@ -288,7 +174,7 @@ describe("PanelWidget", () => {
           dispatch={dispatch}
         >
           <PanelSideContext.Provider value="left">
-            <PanelWidget widgetId="w1" {...defaultProps} />
+            <PanelWidget widgetId="w1" />
           </PanelSideContext.Provider>
         </TestNineZoneProvider>,
       );
@@ -319,7 +205,7 @@ describe("PanelWidget", () => {
         defaultState={state}
       >
         <PanelSideContext.Provider value="left">
-          <PanelWidget widgetId="w1" {...defaultProps} />
+          <PanelWidget widgetId="w1" />
         </PanelSideContext.Provider>
       </TestNineZoneProvider>,
     );

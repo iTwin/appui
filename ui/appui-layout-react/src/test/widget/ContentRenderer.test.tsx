@@ -6,7 +6,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { TabIdContext, TabState, useTransientState, WidgetContentManager, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetContentRenderer } from "../../appui-layout-react";
+import { TabIdContext, TabState, useContainersStore, useTransientState, WidgetContentManager, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetContentRenderer } from "../../appui-layout-react";
 import { BeEvent } from "@itwin/core-bentley";
 
 describe("WidgetContentRenderer", () => {
@@ -15,17 +15,20 @@ describe("WidgetContentRenderer", () => {
   it("should remove existing content nodes before restoring", () => {
     const renderTo = document.createElement("div");
     renderTo.appendChild(document.createElement("div"));
+    useContainersStore.getState().setContainer("t1", renderTo);
+    useContainersStore.getState().setContainer("t2", renderTo);
 
     const spy = sinon.spy(renderTo, "removeChild");
     render(<WidgetContentRenderer
       tabId="t1"
     />, { wrapper });
 
-    spy.callCount.should.eq(1);
+    sinon.assert.callCount(spy, 1);
   });
 
   it("should remove added content node", () => {
     const renderTo = document.createElement("div");
+    useContainersStore.getState().setContainer("t1", renderTo);
 
     const spy = sinon.spy(renderTo, "removeChild");
     const { unmount } = render(<WidgetContentRenderer
@@ -36,7 +39,7 @@ describe("WidgetContentRenderer", () => {
     renderTo.appendChild(document.createElement("div"));
     unmount();
 
-    spy.callCount.should.eq(1);
+    sinon.assert.callCount(spy, 1);
   });
 });
 
@@ -60,7 +63,7 @@ describe("useTransientState", () => {
     act(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
       onSaveTransientState.raiseEvent("t1");
     });
-    onSave.calledOnceWithExactly().should.true;
+    sinon.assert.calledOnceWithExactly(onSave);
   });
 
   it("should invoke onRestore", () => {
@@ -82,6 +85,6 @@ describe("useTransientState", () => {
     act(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
       onRestoreTransientState.raiseEvent("t1");
     });
-    onRestore.calledOnceWithExactly().should.true;
+    sinon.assert.calledOnceWithExactly(onRestore);
   });
 });

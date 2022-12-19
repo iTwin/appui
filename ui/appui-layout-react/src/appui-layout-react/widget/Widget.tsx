@@ -55,6 +55,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
     const { preferredFloatingWidgetSize, userSized } = useLayout((state) => {
       const widget = state.widgets[id];
       const tab = state.tabs[widget.activeTabId];
+      // istanbul ignore next
       return {
         preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
         userSized: tab.userSized || (tab.isFloatingStateWindowResizable && !!tab.preferredFloatingWidgetSize),
@@ -113,12 +114,15 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
         });
       };
       const element = elementRef.current;
+      // istanbul ignore next
       element?.addEventListener("click", listener);
       return () => {
+        // istanbul ignore next
         element?.removeEventListener("click", listener);
       };
     }, [dispatch, floatingWidgetId]);
     const measure = React.useCallback<WidgetContextArgs["measure"]>(() => {
+      // istanbul ignore next
       if (!elementRef.current)
         return new Rectangle();
       const bounds = elementRef.current.getBoundingClientRect();

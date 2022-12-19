@@ -186,6 +186,7 @@ describe("WidgetTitleBar", () => {
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
     act(() => {
+      dispatch.reset();
       fireEvent.touchStart(handle, {
         touches: [{}],
       });
