@@ -37,7 +37,7 @@ import {
   LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MutedText, NewBadge, NumberInput, Popup, ReactMessage,
   SearchBox, SettingsContainer, SettingsTabEntry, SmallText, Subheading, Title,
-  Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
+  UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
 import { ComponentExampleCategory, ComponentExampleProps } from "./ComponentExamples";
@@ -854,21 +854,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get toggleSamples(): ComponentExampleCategory {
-    return {
-      title: "Toggle",
-      examples: [
-        createComponentExample("Basic Toggle", undefined, <Toggle isOn={true} />),
-        // eslint-disable-next-line deprecation/deprecation
-        createComponentExample("Primary Toggle", "Toggle with buttonType={ToggleButtonType.Primary}", <Toggle isOn={true} buttonType={ToggleButtonType.Primary} />),
-        createComponentExample("Large Toggle", "Toggle with large={true}", <Toggle isOn={true} large={true} />),
-        createComponentExample("Square Toggle", "Toggle with rounded={false}", <Toggle isOn={true} rounded={false} />),
-        createComponentExample("Toggle with Checkmark", "Toggle with showCheckmark prop", <Toggle isOn={true} showCheckmark={true} />),
-        createComponentExample("Disabled Toggle", "Toggle with disabled prop", <Toggle isOn={true} showCheckmark={true} disabled />),
-      ],
-    };
-  }
-
   private static get listboxSamples(): ComponentExampleCategory {
     const listItems = ["London", "Paris", "Stockholm", "Berlin", "Mumbai", "Christchurch", "Johannesburg", "Beijing", "New York"];
 
@@ -958,7 +943,6 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.tabsSamples,
       ComponentExamplesProvider.textSamples,
       ComponentExamplesProvider.timelineSamples,
-      ComponentExamplesProvider.toggleSamples,
       ComponentExamplesProvider.weightSamples,
       ComponentExamplesProvider.quantityFormatting,
       ComponentExamplesProvider.settingPage,

@@ -109,8 +109,6 @@ export * from "./core-react/text/TextProps";
 export * from "./core-react/text/Title";
 export * from "./core-react/text/Title2";
 
-export * from "./core-react/toggle/Toggle";
-
 export * from "./core-react/tooltip/Tooltip";
 
 export { ExpansionToggle, ExpansionToggleProps } from "./core-react/tree/ExpansionToggle";
