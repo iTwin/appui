@@ -49,9 +49,9 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
     const dispatch = React.useContext(NineZoneDispatchContext);
     const side = React.useContext(PanelSideContext);
     const id = React.useContext(WidgetIdContext);
-    assert(!!id);
     const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
     const measureNz = React.useContext(MeasureContext);
+    assert(!!id);
     const { preferredFloatingWidgetSize, userSized } = useLayout((state) => {
       const widget = state.widgets[id];
       const tab = state.tabs[widget.activeTabId];
@@ -151,7 +151,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
 );
 
 /** @internal */
-export const WidgetIdContext = React.createContext<WidgetState["id"]>(""); // eslint-disable-line @typescript-eslint/naming-convention
+export const WidgetIdContext = React.createContext<WidgetState["id"] | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 WidgetIdContext.displayName = "nz:WidgetIdContext";
 
 /** @internal */

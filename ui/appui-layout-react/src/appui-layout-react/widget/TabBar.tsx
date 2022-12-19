@@ -29,8 +29,8 @@ export interface WidgetTabBarProps {
 export const WidgetTabBar = React.memo(function WidgetTabBar(props: WidgetTabBarProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const id = React.useContext(WidgetIdContext);
-  assert(!!id);
   const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
+  assert(!!id);
   const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
   const handleDoubleClick = React.useCallback(() => {
     floatingWidgetId && dispatch({

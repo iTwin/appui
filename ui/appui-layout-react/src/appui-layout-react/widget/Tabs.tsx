@@ -23,11 +23,11 @@ import { WidgetIdContext } from "./Widget";
 export function WidgetTabs() {
   const side = React.useContext(PanelSideContext);
   const widgetId = React.useContext(WidgetIdContext);
+  const showWidgetIcon = React.useContext(ShowWidgetIconContext);
   assert(!!widgetId);
   const tabIds = useLayout((state) => state.widgets[widgetId].tabs);
   const activeTabId = useLayout((state) => state.widgets[widgetId].activeTabId);
   const minimized = useLayout((state) => state.widgets[widgetId].minimized);
-  const showWidgetIcon = React.useContext(ShowWidgetIconContext);
   const [showOnlyTabIcon, setShowOnlyTabIcon] = React.useState(false);
 
   const activeTabIndex = tabIds.findIndex((id) => id === activeTabId);

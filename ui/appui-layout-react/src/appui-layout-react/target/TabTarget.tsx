@@ -52,6 +52,7 @@ export function TabTarget() {
 function useTabIndex() {
   const widgetId = React.useContext(WidgetIdContext);
   const tabId = React.useContext(TabIdContext);
+  assert(!!widgetId);
   return useLayout((state) => {
     const widget = getWidgetState(state, widgetId);
     return widget.tabs.findIndex((id) => id === tabId);

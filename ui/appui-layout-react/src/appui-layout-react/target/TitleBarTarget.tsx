@@ -23,10 +23,10 @@ import { assert } from "@itwin/core-bentley";
 /** @internal */
 export function TitleBarTarget() {
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = useLayout((state) => !!state.draggedTab);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
   const [ref] = useTarget<HTMLDivElement>(useTargetArgs(widgetId));
   const allowedTarget = useAllowedWidgetTarget(widgetId);
 

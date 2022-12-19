@@ -24,13 +24,13 @@ export interface WidgetContentContainerProps {
 /** @internal */
 export function WidgetContentContainer(props: WidgetContentContainerProps) {
   const widgetId = React.useContext(WidgetIdContext);
+  const widgetContentManager = React.useContext(WidgetContentManagerContext);
+  const side = React.useContext(PanelSideContext);
   assert(!!widgetId);
   const { minimized, activeTabId } = useLayout((state) => {
     const widget = getWidgetState(state, widgetId);
     return { minimized: widget.minimized, activeTabId: widget.activeTabId };
   }, true);
-  const widgetContentManager = React.useContext(WidgetContentManagerContext);
-  const side = React.useContext(PanelSideContext);
   const ref = React.useCallback((instance: HTMLDivElement) => {
     widgetContentManager.setContainer(activeTabId, instance);
   }, [widgetContentManager, activeTabId]);

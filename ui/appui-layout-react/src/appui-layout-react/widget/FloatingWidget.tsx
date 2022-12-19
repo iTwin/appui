@@ -41,9 +41,7 @@ export function FloatingWidgetProvider(props: FloatingWidgetProviderProps) {
   const floatingWidget = React.useContext(FloatingWidgetNodeContext);
   return (
     <FloatingWidgetIdContext.Provider value={props.id}>
-      <WidgetProvider
-        id={props.id}
-      >
+      <WidgetProvider id={props.id}>
         {floatingWidget}
       </WidgetProvider>
     </FloatingWidgetIdContext.Provider>
@@ -120,6 +118,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
 
 function useFloatingWidgetState() {
   const widgetId = React.useContext(WidgetIdContext);
+  assert(!!widgetId);
   return useLayout((state) => {
     const widget = getWidgetState(state, widgetId);
     const floatingWidget = state.floatingWidgets.byId[widgetId];
