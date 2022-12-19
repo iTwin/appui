@@ -20,7 +20,8 @@ import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export function PanelTargets() {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   const widgets = useLayout((state) => state.panels[side].widgets);
   const span = useLayout((state) => {
     const panel = state.panels[side];
@@ -61,7 +62,8 @@ export function PanelTargets() {
 }
 
 function usePanelTargetsType(): "no-panel" | "single-widget" | "two-widgets" | "hidden" {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   return useLayout((state) => {
     const panel = state.panels[side];
     if (panel.widgets.length === 0)

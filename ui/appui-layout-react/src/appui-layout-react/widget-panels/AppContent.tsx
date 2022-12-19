@@ -50,9 +50,9 @@ export function usePanelsAutoCollapse<T extends Element>(): React.Ref<T> {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const autoCollapseUnpinnedPanels = React.useContext(AutoCollapseUnpinnedPanelsContext);
 
-  React.useEffect(() => layoutStore.subscribe(
-    (state) => (panelsRef.current = state.panels),
-  ), [layoutStore]);
+  React.useEffect(() => layoutStore.subscribe((state) => {
+    panelsRef.current = state.panels;
+  }), [layoutStore]);
 
   const collapsePanels = React.useCallback(() => {
     for (const side of panelSides) {

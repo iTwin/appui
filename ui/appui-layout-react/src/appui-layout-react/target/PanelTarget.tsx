@@ -25,8 +25,8 @@ export interface PanelTargetProps {
 export function PanelTarget(props: PanelTargetProps) {
   const { side } = props;
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = useLayout((state) => !!state.draggedTab);
   const draggedWidget = React.useContext(DraggedWidgetIdContext);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
   const allowedTarget = useAllowedPanelTarget();
   const newWidgetId = React.useMemo(() => getUniqueId(), []);
   const [ref, targeted] = usePanelTarget<HTMLDivElement>({

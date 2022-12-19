@@ -71,7 +71,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   const className = classnames(
     "nz-widget-floatingWidget",
     dragged && "nz-dragged",
-    isToolSettingsTab && "nz-floating-toolsettings",
+    isToolSettingsTab && "nz-floating-toolSettings",
     minimized && "nz-minimized",
     hideFloatingWidget && "nz-hidden",
   );

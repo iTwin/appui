@@ -26,8 +26,8 @@ export interface MergeTargetProps {
 export function MergeTarget(props: MergeTargetProps) {
   const { widgetId } = props;
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = useLayout((state) => !!state.draggedTab);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
   const [ref, targeted] = useTarget<HTMLDivElement>(useTargetArgs(widgetId));
   const allowedTarget = useAllowedWidgetTarget(widgetId);
   // istanbul ignore next
