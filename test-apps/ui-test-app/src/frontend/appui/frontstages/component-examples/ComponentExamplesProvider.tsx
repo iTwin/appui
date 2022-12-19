@@ -33,10 +33,10 @@ import {
   AutoSuggest,
   AutoSuggestData,
   BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
-  DisabledText, ExpandableList, Headline, Icon, IconInput,
-  LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
+  DisabledText, ExpandableList, Icon, IconInput,
+  Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MutedText, NewBadge, NumberInput, Popup, ReactMessage,
-  SearchBox, SettingsContainer, SettingsTabEntry, SmallText, Subheading, Title,
+  SearchBox, SettingsContainer, SettingsTabEntry,
   UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
@@ -844,12 +844,7 @@ export class ComponentExamplesProvider {
         createComponentExample("BodyText", undefined, <BodyText>This is Body Text</BodyText>),
         createComponentExample("BlockText", undefined, <BlockText>This is Block Text</BlockText>),
         createComponentExample("DisabledText", undefined, <DisabledText>This is Disabled Text</DisabledText>),
-        createComponentExample("Headline", undefined, <Headline>This is Headline Text</Headline>),
-        createComponentExample("LeadingText", undefined, <LeadingText>This is Leading Text</LeadingText>),
         createComponentExample("MutedText", undefined, <MutedText>This is Muted Text</MutedText>),
-        createComponentExample("SmallText", undefined, <SmallText>This is Small Text</SmallText>),
-        createComponentExample("Subheading", undefined, <Subheading>This is Subheading Text</Subheading>),
-        createComponentExample("Title", undefined, <Title>This is Title Text</Title>),
       ],
     };
   }

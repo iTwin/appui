@@ -97,17 +97,9 @@ export * from "./core-react/text/BodyText";
 export * from "./core-react/text/BlockText";
 export * from "./core-react/text/DisabledText";
 export * from "./core-react/text/FilteredText";
-export * from "./core-react/text/Headline";
-export * from "./core-react/text/LeadingText";
-export * from "./core-react/text/LeadingText2";
 export * from "./core-react/text/MutedText";
-export * from "./core-react/text/SmallText";
-export * from "./core-react/text/Subheading";
-export * from "./core-react/text/Subheading2";
 export * from "./core-react/text/StyledText";
 export * from "./core-react/text/TextProps";
-export * from "./core-react/text/Title";
-export * from "./core-react/text/Title2";
 
 export { ExpansionToggle, ExpansionToggleProps } from "./core-react/tree/ExpansionToggle";
 export { TreeBranch, TreeBranchProps } from "./core-react/tree/Branch";

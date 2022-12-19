@@ -12,6 +12,7 @@ import * as React from "react";
 import { CommonProps } from "@itwin/core-react";
 import { BackButton } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
+import { Headline } from "@itwin/itwinui-react";
 
 /**
  * Properties for the [[ModalFrontstage]] React component
@@ -67,7 +68,7 @@ export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
               }
               title={this._backButtonTitle}
             />
-            <span className="uicore-text-headline">{this.props.title}</span>
+            <Headline>{this.props.title}</Headline>
             {this.props.appBarRight &&
               <span className="uifw-modal-app-bar-right">{this.props.appBarRight}</span>
             }
