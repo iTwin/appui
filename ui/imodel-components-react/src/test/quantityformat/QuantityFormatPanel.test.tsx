@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
-import { act, fireEvent, render, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { IModelApp, MockRender, QuantityType } from "@itwin/core-frontend";
 import { FormatProps, FormatType, ShowSignOption } from "@itwin/core-quantity";
@@ -545,27 +545,32 @@ describe("QuantityInput", () => {
   });
 
   describe("Properties from Custom Quantity Type are Rendered", () => {
+    let theUserTo: ReturnType<typeof userEvent.setup>;
+    beforeEach(()=>{
+      theUserTo = userEvent.setup();
+    });
     before(async () => {
       // register new QuantityType
       await BearingQuantityType.registerQuantityType();
     });
 
-    it("should handle onFormatChange when changing changing primary unit", () => {
+    it("should handle onFormatChange when changing changing primary unit", async () => {
       const spy = sinon.spy();
       const renderedComponent = render(<QuantityFormatPanel quantityType={"Bearing"} showSample initialMagnitude={1.45} onFormatChange={spy} />);
 
       const textField = renderedComponent.getByTestId("text-1-editor");
-      fireEvent.change(textField, { target: { value: "Hello" } });
+      await theUserTo.type(textField, "Hello", { initialSelectionStart: 0, initialSelectionEnd: Infinity });
       expect(spy).to.be.called;
       spy.resetHistory();
 
       const checkboxField = renderedComponent.getByTestId("checkbox-0-editor");
-      fireEvent.click(checkboxField);
+      await theUserTo.click(checkboxField);
       expect(spy).to.be.called;
       spy.resetHistory();
 
       const selectField = renderedComponent.getByTestId("select-0-editor");
-      fireEvent.change(selectField, { target: { value: "counter-clockwise" } });
+      await theUserTo.click(selectField.querySelector(".iui-actionable")!);
+      await theUserTo.click(screen.getByText(/counter-clockwise/));
       expect(spy).to.be.called;
       spy.resetHistory();
     });
