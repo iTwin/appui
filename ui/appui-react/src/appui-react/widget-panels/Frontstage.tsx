@@ -20,7 +20,7 @@ import {
   addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createLayoutStore, createNineZoneState, floatingWidgetBringToFront,
   FloatingWidgetHomeState, FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
   isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, LayoutStore, NineZone, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, NineZoneStateReducer, PanelSide,
-  panelSides, removeTab, removeTabFromWidget, TabState, toolSettingsTabId, useLayout, WidgetPanels,
+  panelSides, removeTab, removeTabFromWidget, TabState, toolSettingsTabId, WidgetPanels,
 } from "@itwin/appui-layout-react";
 import { FrontstageDef, FrontstageEventArgs } from "../frontstage/FrontstageDef";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
@@ -1102,12 +1102,12 @@ export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: L
 
   React.useEffect(() => {
     saveSetting(frontstageDef, store.getState());
-  }, [frontstageDef, store]);
+  }, [saveSetting, frontstageDef, store]);
   React.useEffect(() => {
     return store.subscribe(() => {
       saveSetting(frontstageDef, store.getState());
     });
-  }, [store]);
+  }, [saveSetting, frontstageDef, store]);
 }
 
 /** @internal */

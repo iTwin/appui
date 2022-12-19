@@ -28,9 +28,9 @@ export const useContainersStore = create<ContainersStore>((set) => ({
   setContainer: (tabId: TabState["id"], container: Element | null) => {
     set((state) => produce(state, (draft) => {
       draft.containers[tabId] = castDraft(container);
-    }))
+    }));
   },
-}))
+}));
 
 /** @internal */
 export const WidgetContentManager = React.memo<WidgetContentManagerProps>(function WidgetContentManager(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow

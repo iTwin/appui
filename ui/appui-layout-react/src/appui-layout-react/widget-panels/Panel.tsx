@@ -9,13 +9,11 @@
 import "./Panel.scss";
 import classnames from "classnames";
 import * as React from "react";
-import produce from "immer";
-import { assert, Logger } from "@itwin/core-bentley";
-import { Rectangle, RectangleProps, SizeProps, useRefs } from "@itwin/core-react";
+import { assert } from "@itwin/core-bentley";
+import { RectangleProps, useRefs } from "@itwin/core-react";
 import { DraggedPanelSideContext } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
-import { WidgetState } from "../state/WidgetState";
-import { PanelWidget, PanelWidgetProps } from "../widget/PanelWidget";
+import { PanelWidget } from "../widget/PanelWidget";
 import { WidgetPanelGrip } from "./Grip";
 import { PanelTargets } from "../target/PanelTargets";
 import { SectionOutline } from "../outline/SectionOutline";
@@ -47,11 +45,13 @@ export type VerticalPanelSide = LeftPanelSide | RightPanelSide;
 export type PanelSide = VerticalPanelSide | HorizontalPanelSide;
 
 // istanbul ignore next
-function PanelSplitter({ isHorizontal }: { isHorizontal: boolean }) {
+function PanelSplitter() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const side = React.useContext(PanelSideContext)!;
   const containerRef = React.useRef<HTMLDivElement>(null);
   const splitterProcessingActiveRef = React.useRef<boolean>(false);
+
+  const isHorizontal = isHorizontalPanelSide(side);
 
   const getPercentage = React.useCallback((min: number, max: number, current: number) => {
     const range = max - min;
@@ -257,7 +257,7 @@ export const WidgetPanel = React.memo(function WidgetPanel() { // eslint-disable
                 <PanelWidget
                   widgetId={widgetId}
                 />
-                {(!last && 0 === index) && <PanelSplitter isHorizontal={isHorizontal} />}
+                {(!last && 0 === index) && <PanelSplitter />}
               </div>
             );
           })}

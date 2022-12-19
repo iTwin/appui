@@ -12,7 +12,6 @@ import * as React from "react";
 import { WidgetsState, WidgetState } from "../state/WidgetState";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { WidgetContentContainer } from "./ContentContainer";
-import { useTabTransientState } from "./ContentRenderer";
 import { WidgetTabBar } from "./TabBar";
 import { Widget, WidgetProvider } from "./Widget";
 import { WidgetOutline } from "../outline/WidgetOutline";
@@ -51,6 +50,12 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
       `nz-${mode}`,
       borders,
     );
+    const content = React.useMemo(() => (
+      <WidgetContentContainer>
+        {showTarget && <WidgetTarget />}
+        <WidgetOutline />
+      </WidgetContentContainer>
+    ), [showTarget]);
     return (
       <WidgetProvider
         id={widgetId}
@@ -60,25 +65,12 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
           ref={ref}
         >
           <WidgetTabBar separator={isHorizontalPanelSide(side) ? true : !minimized} />
-          <WidgetContentContainer>
-            {showTarget && <WidgetTarget />}
-            <WidgetOutline />
-          </WidgetContentContainer>
+          {content}
         </Widget>
       </WidgetProvider>
     );
   }
 );
-
-function getMaxSize(horizontal: boolean, size: string | number) {
-  if (horizontal)
-    return {
-      maxWidth: size,
-    };
-  return {
-    maxHeight: size,
-  };
-}
 
 function findFillWidget(panelWidgets: ReadonlyArray<string>, widgets: WidgetsState, tabs: TabsState) {
   return panelWidgets.find((widgetId) => {

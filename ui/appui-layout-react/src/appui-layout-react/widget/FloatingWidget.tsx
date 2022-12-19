@@ -88,6 +88,23 @@ export function FloatingWidget(props: FloatingWidgetProps) {
       maxWidth: autoSized ? "60%" : undefined,
     };
   }, [autoSized, bounds, minimized]);
+
+  const content = React.useMemo(() => (
+    <WidgetContentContainer>
+      <WidgetTarget />
+      <WidgetOutline />
+    </WidgetContentContainer>
+  ), []);
+  const handles = React.useMemo(() => resizable && <>
+    <FloatingWidgetHandle handle="left" />
+    <FloatingWidgetHandle handle="top" />
+    <FloatingWidgetHandle handle="right" />
+    <FloatingWidgetHandle handle="bottom" />
+    <FloatingWidgetHandle handle="topLeft" />
+    <FloatingWidgetHandle handle="topRight" />
+    <FloatingWidgetHandle handle="bottomLeft" />
+    <FloatingWidgetHandle handle="bottomRight" />
+  </>, [resizable]);
   return (
     <Widget
       className={className}
@@ -98,20 +115,8 @@ export function FloatingWidget(props: FloatingWidgetProps) {
       onMouseLeave={props.onMouseLeave}
     >
       <WidgetTabBar separator={!minimized} />
-      <WidgetContentContainer>
-        <WidgetTarget />
-        <WidgetOutline />
-      </WidgetContentContainer>
-      {resizable && <>
-        <FloatingWidgetHandle handle="left" />
-        <FloatingWidgetHandle handle="top" />
-        <FloatingWidgetHandle handle="right" />
-        <FloatingWidgetHandle handle="bottom" />
-        <FloatingWidgetHandle handle="topLeft" />
-        <FloatingWidgetHandle handle="topRight" />
-        <FloatingWidgetHandle handle="bottomLeft" />
-        <FloatingWidgetHandle handle="bottomRight" />
-      </>}
+      {content}
+      {handles}
     </Widget >
   );
 }

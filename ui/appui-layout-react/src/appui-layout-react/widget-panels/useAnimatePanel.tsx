@@ -169,7 +169,7 @@ export function useAnimatePanel() {
     if (panelSize !== undefined)
       return panelSize;
     return panel.collapsed ? 0 : panel.size ?? panel.minSize;
-  }, [panel.size, panel.collapsed, panel.minSize, panelSize, horizontal]);
+  }, [panel.size, panel.collapsed, panel.minSize, panelSize]);
   return { ref, size, handleTransitionEnd, contentSize, transition };
 }
 
