@@ -33,10 +33,10 @@ import {
   AutoSuggest,
   AutoSuggestData,
   BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
-  DisabledText, ExpandableList, FeaturedTile, Headline, Icon, IconInput,
+  DisabledText, ExpandableList, Headline, Icon, IconInput,
   LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
-  MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ReactMessage,
-  SearchBox, SettingsContainer, SettingsTabEntry, SmallText, Subheading, Tile, Title,
+  MutedText, NewBadge, NumberInput, Popup, ReactMessage,
+  SearchBox, SettingsContainer, SettingsTabEntry, SmallText, Subheading, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
@@ -854,34 +854,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get tileSamples(): ComponentExampleCategory {
-    return {
-      title: "Tiles",
-      examples: [
-        createComponentExample("Normal Tile", undefined,
-          <Tile title="Normal Tile" icon="icon-placeholder">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>Link 1</a>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>Link 2</a>
-          </Tile>),
-        createComponentExample("Featured Tile", undefined,
-          <FeaturedTile title="Featured Tile" icon="icon-placeholder">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>Link 1</a>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>Link 2</a>
-          </FeaturedTile>),
-        createComponentExample("Minimal Tile", undefined, <MinimalTile title="Minimal Tile" icon="icon-placeholder" />),
-        createComponentExample("Featured Minimal Tile", undefined, <MinimalFeaturedTile title="Minimal Featured Tile" icon="icon-placeholder" />),
-        createComponentExample("Tile stepNum={0}", undefined, <MinimalFeaturedTile stepNum={0} title="Tile stepNum={0}" icon="icon-placeholder" />),
-        createComponentExample("Tile stepNum={6}", undefined, <MinimalFeaturedTile stepNum={6} title="Tile stepNum={6}" icon="icon-placeholder" />),
-        createComponentExample("Tile stepNum={9}", undefined, <MinimalFeaturedTile stepNum={9} title="Tile stepNum={9}" icon="icon-placeholder" />),
-        createComponentExample("Tile stepNum={15}", undefined, <MinimalFeaturedTile stepNum={15} title="Tile stepNum={15}" icon="icon-placeholder" />),
-      ],
-    };
-  }
-
   private static get toggleSamples(): ComponentExampleCategory {
     return {
       title: "Toggle",
@@ -986,7 +958,6 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.searchBoxSample,
       ComponentExamplesProvider.tabsSamples,
       ComponentExamplesProvider.textSamples,
-      ComponentExamplesProvider.tileSamples,
       ComponentExamplesProvider.timelineSamples,
       ComponentExamplesProvider.toggleSamples,
       ComponentExamplesProvider.weightSamples,
