@@ -34,7 +34,7 @@ import {
   AutoSuggestData,
   BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
   DisabledText, ExpandableList, Headline, Icon, IconInput,
-  LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
+  LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
   MutedText, NewBadge, NumberInput, Popup, ReactMessage,
   SearchBox, SettingsContainer, SettingsTabEntry, SmallText, Subheading, Title,
   Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
@@ -865,7 +865,6 @@ export class ComponentExamplesProvider {
         createComponentExample("Square Toggle", "Toggle with rounded={false}", <Toggle isOn={true} rounded={false} />),
         createComponentExample("Toggle with Checkmark", "Toggle with showCheckmark prop", <Toggle isOn={true} showCheckmark={true} />),
         createComponentExample("Disabled Toggle", "Toggle with disabled prop", <Toggle isOn={true} showCheckmark={true} disabled />),
-        createComponentExample("LabeledToggle", undefined, <LabeledToggle checked={true} label="Toggle label" />),
       ],
     };
   }

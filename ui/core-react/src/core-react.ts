@@ -110,7 +110,6 @@ export * from "./core-react/text/Title";
 export * from "./core-react/text/Title2";
 
 export * from "./core-react/toggle/Toggle";
-export * from "./core-react/toggle/LabeledToggle";
 
 export * from "./core-react/tooltip/Tooltip";
 
