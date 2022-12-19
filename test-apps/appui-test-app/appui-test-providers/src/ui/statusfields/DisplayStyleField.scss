@@ -29,17 +29,9 @@
 
   @include for-tablet-portrait-down {
     font-size: $font-size-medium;
-
-    .uicore-inputs-select {
-      font-size: $font-size-medium;
-    }
   }
 
   @include for-phone-only {
     font-size: $font-size-small;
-
-    .uicore-inputs-select {
-      font-size: $font-size-small;
-    }
   }
 }

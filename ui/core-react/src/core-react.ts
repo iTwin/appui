@@ -49,9 +49,6 @@ export * from "./core-react/expandable/ExpandableList";
 export * from "./core-react/focus/ItemKeyboardNavigator";
 export * from "./core-react/focustrap/FocusTrap";
 
-export * from "./core-react/form/Field";
-export * from "./core-react/form/Form";
-
 export * from "./core-react/hocs/withIsPressed";
 export * from "./core-react/hocs/withOnOutsideClick";
 export * from "./core-react/hocs/withTimeout";
@@ -65,15 +62,11 @@ export * from "./core-react/autosuggest/AutoSuggest";
 
 export * from "./core-react/imagecheckbox/ImageCheckBox";
 
-export * from "./core-react/inputs/Input";
 export * from "./core-react/inputs/InputLabel";
 export * from "./core-react/inputs/InputStatus";
 export * from "./core-react/inputs/iconinput/IconInput";
 export * from "./core-react/inputs/LabeledComponentProps";
-export * from "./core-react/inputs/LabeledInput";
-export * from "./core-react/inputs/LabeledTextarea";
 export * from "./core-react/inputs/numberinput/NumberInput";
-export * from "./core-react/inputs/Textarea";
 
 export * from "./core-react/listbox/Listbox";
 
@@ -81,35 +74,22 @@ export * from "./core-react/loading/LoadingBar";
 export * from "./core-react/loading/LoadingPrompt";
 export * from "./core-react/loading/LoadingSpinner";
 export * from "./core-react/loading/LoadingStatus";
-export * from "./core-react/loading/Spinner";
 
 export * from "./core-react/messagebox/MessageBox";
-export * from "./core-react/messagebox/MessageSeverity";
 
 export * from "./core-react/notification/MessageRenderer";
 export * from "./core-react/notification/MessageType";
 
 export * from "./core-react/popup/Popup";
 
-export * from "./core-react/progress-indicators/ProgressBar";
-export * from "./core-react/progress-indicators/ProgressSpinner";
-
 export * from "./core-react/radialmenu/RadialMenu";
 export * from "./core-react/radialmenu/Annulus";
-export * from "./core-react/radio/Radio";
 
-export * from "./core-react/select/LabeledSelect";
-export * from "./core-react/select/Select";
-export * from "./core-react/select/ThemedSelect";
-export * from "./core-react/select/LabeledThemedSelect";
 export * from "./core-react/searchbox/SearchBox";
 
 export * from "./core-react/settings/SettingsManager";
 export * from "./core-react/settings/SettingsContainer";
 
-export * from "./core-react/slider/Slider";
-
-export * from "./core-react/tabs/HorizontalTabs";
 export * from "./core-react/tabs/VerticalTabs";
 export * from "./core-react/tabs/Tabs";
 
@@ -117,27 +97,9 @@ export * from "./core-react/text/BodyText";
 export * from "./core-react/text/BlockText";
 export * from "./core-react/text/DisabledText";
 export * from "./core-react/text/FilteredText";
-export * from "./core-react/text/Headline";
-export * from "./core-react/text/LeadingText";
-export * from "./core-react/text/LeadingText2";
 export * from "./core-react/text/MutedText";
-export * from "./core-react/text/SmallText";
-export * from "./core-react/text/Subheading";
-export * from "./core-react/text/Subheading2";
 export * from "./core-react/text/StyledText";
 export * from "./core-react/text/TextProps";
-export * from "./core-react/text/Title";
-export * from "./core-react/text/Title2";
-
-export * from "./core-react/tiles/FeaturedTile";
-export * from "./core-react/tiles/MinimalFeaturedTile";
-export * from "./core-react/tiles/MinimalTile";
-export * from "./core-react/tiles/Tile";
-
-export * from "./core-react/toggle/Toggle";
-export * from "./core-react/toggle/LabeledToggle";
-
-export * from "./core-react/tooltip/Tooltip";
 
 export { ExpansionToggle, ExpansionToggleProps } from "./core-react/tree/ExpansionToggle";
 export { TreeBranch, TreeBranchProps } from "./core-react/tree/Branch";
@@ -151,7 +113,6 @@ export * from "./core-react/uistate/LocalStateStorage";
 
 export * from "./core-react/utils/IconHelper";
 export * from "./core-react/utils/Point";
-export * from "./core-react/utils/PointProps";
 export * from "./core-react/utils/Props";
 export * from "./core-react/utils/Rectangle";
 export * from "./core-react/utils/Size";
@@ -236,7 +197,7 @@ export * from "./core-react/utils/hooks/useCrossOriginPopup";
  */
 /**
  * @docs-group-description Inputs
- * Components for working with input controls, such as Input, IconInput, NumberInput and Textarea.
+ * Components for working with input controls, such as Input, IconInput and NumberInput.
  */
 /**
  * @docs-group-description Loading
