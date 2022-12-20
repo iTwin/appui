@@ -12,8 +12,8 @@ import {
   isTextInputFormatPropEditorSpec, isTextSelectFormatPropEditorSpec, QuantityTypeArg,
 } from "@itwin/core-frontend";
 import { FormatProps, UnitProps, UnitsProvider } from "@itwin/core-quantity";
-import { CommonProps, Select } from "@itwin/core-react";
-import { Checkbox, Input } from "@itwin/itwinui-react";
+import { CommonProps } from "@itwin/core-react";
+import { Checkbox, Input, Select } from "@itwin/itwinui-react";
 import { FormatPanel } from "./FormatPanel";
 import { DeepCompare } from "@itwin/core-geometry";
 
@@ -34,20 +34,18 @@ function createTextInputFormatPropEditor(key: string, label: string, inProps: Fo
     </React.Fragment>
   );
 }
-
 function createSelectFormatPropEditor(key: string, label: string, options: { label: string, value: string }[], inProps: FormatProps,
   getString: (props: FormatProps) => string, setString: (props: FormatProps, value: string) => FormatProps, fireFormatChange: (newProps: FormatProps) => void) {
   const value = getString(inProps);
   return (
     <React.Fragment key={`${key}`}>
       <span key={`${key}-label`} className={"uicore-label"}>{label}</span>
-      {/* NEEDSWORK - unable to migrate this Select to iTwinUI because no menu items were found */}
-      {/* eslint-disable-next-line deprecation/deprecation */}
       <Select data-testid={`${key}-editor`} key={`${key}-editor`}
         value={value}
         options={options}
-        onChange={(e) => {
-          const newProps = setString(inProps, e.currentTarget.value);
+        size={"small"}
+        onChange={(newValue) => {
+          const newProps = setString(inProps, newValue);
           fireFormatChange(newProps);
         }}
       />

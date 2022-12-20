@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import { Input } from "../../core-react";
+import { Input } from "../../core-react/inputs/Input";
 import * as sinon from "sinon";
 
 /* eslint-disable deprecation/deprecation */

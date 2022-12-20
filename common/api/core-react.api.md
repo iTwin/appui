@@ -6,34 +6,23 @@
 
 /// <reference types="react" />
 
-import { ActionMeta } from 'react-select/src/types';
 import { BadgeType } from '@itwin/appui-abstract';
 import { BeUiEvent } from '@itwin/core-bentley';
 import { CheckboxProps } from '@itwin/itwinui-react';
-import Component from 'react-select';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { default as default_2 } from 'resize-observer-polyfill';
 import { DialogButtonDef } from '@itwin/appui-abstract';
-import { FocusEventHandler } from 'react-select/src/types';
-import { formatGroupLabel } from 'react-select/src/builtins';
-import { getOptionLabel } from 'react-select/src/builtins';
-import { getOptionValue } from 'react-select/src/builtins';
 import { IDisposable } from '@itwin/core-bentley';
 import { IMatch } from '@itwin/appui-abstract';
-import { InputActionMeta } from 'react-select/src/types';
 import { InputProps as InputProps_2 } from '@itwin/itwinui-react';
-import { KeyboardEventHandler } from 'react-select/src/types';
 import type { Localization } from '@itwin/core-common';
-import { MessageSeverity as MessageSeverity_2 } from '@itwin/appui-abstract';
-import { PointProps as PointProps_2 } from '@itwin/appui-abstract';
+import { MessageSeverity } from '@itwin/appui-abstract';
+import { PointProps } from '@itwin/appui-abstract';
 import { ProgressRadialProps } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
 import * as ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
-import { SelectComponentsConfig } from 'react-select/src/components/index';
-import { ToggleSwitchProps } from '@itwin/itwinui-react';
-import { ValueType } from 'react-select/src/types';
 
 // @public
 export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {
@@ -616,51 +605,6 @@ export interface ExpansionToggleProps extends CommonProps {
     onClick?: (e: React_2.MouseEvent<HTMLDivElement>) => void;
 }
 
-// @beta @deprecated
-export function FeaturedTile(props: TileProps): JSX.Element;
-
-// @public @deprecated
-export class Field extends React_2.Component<FieldProps> {
-    constructor(props: FieldProps);
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export interface FieldDef {
-    // (undocumented)
-    editor?: FieldEditor;
-    // (undocumented)
-    label?: string;
-    // (undocumented)
-    options?: string[] | {
-        [key: string]: string;
-    };
-    // (undocumented)
-    value?: any;
-}
-
-// @public
-export interface FieldDefinitions {
-    // (undocumented)
-    [key: string]: FieldDef;
-}
-
-// @public @deprecated
-export type FieldEditor = "textbox" | "multilinetextbox" | "dropdown" | "checkbox";
-
-// @public @deprecated
-export interface FieldProps extends FieldDef {
-    // (undocumented)
-    id: string;
-}
-
-// @public @deprecated
-export interface FieldValues {
-    // (undocumented)
-    [key: string]: any;
-}
-
 // @public
 export function FillCentered(props: CommonDivProps): JSX.Element;
 
@@ -693,29 +637,6 @@ export interface FocusTrapProps extends React_2.AllHTMLAttributes<any> {
     children: React_2.ReactNode;
     initialFocusElement?: React_2.RefObject<HTMLElement> | string;
     returnFocusOnDeactivate: boolean;
-}
-
-// @public
-export class Form extends React_2.Component<FormProps, FormState> {
-    constructor(props: FormProps);
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export const FormContext: React_2.Context<FormContextState | undefined>;
-
-// @public
-export interface FormContextState extends FormState {
-    // (undocumented)
-    setValues: (values: FieldValues) => void;
-}
-
-// @public
-export interface FormProps {
-    fields: FieldDefinitions;
-    handleFormSubmit: (values: FieldValues) => Promise<void>;
-    submitButtonLabel?: string;
 }
 
 // @public
@@ -799,9 +720,6 @@ export interface GlobalDialogState {
 // @internal
 export function hasPointerEventsSupport(): boolean;
 
-// @public @deprecated
-export function Headline(props: TextProps): JSX.Element;
-
 // @public
 export enum HorizontalAlignment {
     // (undocumented)
@@ -813,9 +731,6 @@ export enum HorizontalAlignment {
     // (undocumented)
     Right = "right"
 }
-
-// @public @deprecated
-export function HorizontalTabs(props: TabsProps): JSX.Element;
 
 // @public
 export function Icon(props: IconProps): JSX.Element | null;
@@ -867,9 +782,6 @@ export interface ImageCheckBoxProps extends CommonProps {
     tooltip?: string;
 }
 
-// @public @deprecated
-export const Input: (props: InputProps) => JSX.Element | null;
-
 // @public
 export class InputLabel extends React_2.PureComponent<InputLabelProps> {
     // (undocumented)
@@ -881,13 +793,6 @@ export interface InputLabelProps extends LabeledComponentProps, MessagedComponen
     children?: React_2.ReactNode;
     // (undocumented)
     disabled?: boolean;
-}
-
-// @public @deprecated
-export interface InputProps extends React_2.InputHTMLAttributes<HTMLInputElement>, CommonProps {
-    nativeKeyHandler?: (e: KeyboardEvent) => void;
-    ref?: React_2.Ref<HTMLInputElement>;
-    setFocus?: boolean;
 }
 
 // @public
@@ -940,56 +845,6 @@ export interface LabeledComponentProps {
     labelStyle?: React_2.CSSProperties;
     status?: InputStatus;
 }
-
-// @public @deprecated
-export function LabeledInput(props: LabeledInputProps): JSX.Element;
-
-// @public @deprecated
-export interface LabeledInputProps extends InputProps, LabeledComponentProps, MessagedComponentProps {
-}
-
-// @public @deprecated
-export class LabeledSelect extends React_2.PureComponent<LabeledSelectProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export interface LabeledSelectProps extends SelectProps, LabeledComponentProps, MessagedComponentProps {
-}
-
-// @public @deprecated
-export function LabeledTextarea(props: LabeledTextareaProps): JSX.Element;
-
-// @public @deprecated
-export interface LabeledTextareaProps extends TextareaProps, LabeledComponentProps, MessagedComponentProps {
-}
-
-// @beta @deprecated
-export function LabeledThemedSelect(props: LabeledThemedSelectProps): JSX.Element;
-
-// @beta @deprecated
-export interface LabeledThemedSelectProps extends ThemedSelectProps, LabeledComponentProps, MessagedComponentProps {
-}
-
-// @public @deprecated
-export class LabeledToggle extends React_2.PureComponent<LabeledToggleProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export interface LabeledToggleProps extends ToggleSwitchProps {
-    label?: string;
-    labelClassName?: string;
-    labelStyle?: React_2.CSSProperties;
-}
-
-// @public @deprecated
-export function LeadingText(props: TextProps): JSX.Element;
-
-// @public @deprecated
-export function LeadingText2(props: TextProps): JSX.Element;
 
 // @internal
 export class Line {
@@ -1096,7 +951,7 @@ export class LoadingSpinner extends React_2.PureComponent<LoadingSpinnerProps> {
 export interface LoadingSpinnerProps extends Omit<ProgressRadialProps, "size"> {
     message?: string;
     messageOnTop?: boolean;
-    size?: RadialSizeType | SpinnerSize;
+    size?: RadialSizeType;
 }
 
 // @public
@@ -1158,7 +1013,7 @@ export interface MessageBoxProps extends CommonProps {
     onClose?: () => void;
     onEscape?: () => void;
     opened: boolean;
-    severity: MessageSeverity_2;
+    severity: MessageSeverity;
     title?: string | JSX.Element;
     width?: string | number;
 }
@@ -1166,7 +1021,7 @@ export interface MessageBoxProps extends CommonProps {
 // @public
 export class MessageContainer extends React_2.PureComponent<MessageContainerProps> {
     // (undocumented)
-    static getIconClassName(severity: MessageSeverity_2, hollow?: boolean): string;
+    static getIconClassName(severity: MessageSeverity, hollow?: boolean): string;
     // (undocumented)
     render(): JSX.Element;
 }
@@ -1175,7 +1030,7 @@ export class MessageContainer extends React_2.PureComponent<MessageContainerProp
 export interface MessageContainerProps extends CommonProps {
     children?: React_2.ReactNode;
     // (undocumented)
-    severity: MessageSeverity_2;
+    severity: MessageSeverity;
 }
 
 // @public
@@ -1194,30 +1049,8 @@ export interface MessageRendererProps extends ClassNameProps {
     useSpan?: boolean;
 }
 
-// @public @deprecated
-export enum MessageSeverity {
-    // (undocumented)
-    Error = 4,
-    // (undocumented)
-    Fatal = 5,
-    // (undocumented)
-    Information = 1,
-    // (undocumented)
-    None = 0,
-    // (undocumented)
-    Question = 2,
-    // (undocumented)
-    Warning = 3
-}
-
 // @public
 export type MessageType = string | HTMLElement | ReactMessage;
-
-// @beta @deprecated
-export function MinimalFeaturedTile(props: TileProps): JSX.Element;
-
-// @beta @deprecated
-export function MinimalTile(props: TileProps): JSX.Element;
 
 // @public
 export function MutedText(props: TextProps): JSX.Element;
@@ -1277,17 +1110,6 @@ export type OmitChildrenProp<T extends {
     children?: React_2.ReactNode;
 }> = Omit_2<T, "children">;
 
-// @beta @deprecated
-export type OptionsType = Array<OptionType>;
-
-// @beta @deprecated
-export interface OptionType {
-    // (undocumented)
-    label: string;
-    // (undocumented)
-    value: any;
-}
-
 // @public
 export enum Orientation {
     // (undocumented)
@@ -1302,22 +1124,19 @@ export type OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent;
 // @internal
 export function percentInRange(percent: number): number;
 
-// @internal (undocumented)
-export function placementToPosition(placement: TooltipPlacement | undefined): RelativePosition;
-
 // @internal
-export class Point implements PointProps_2 {
+export class Point implements PointProps {
     constructor(x?: number, y?: number);
-    static create(pointProps: PointProps_2): Point;
+    static create(pointProps: PointProps): Point;
     // (undocumented)
-    equals(other: PointProps_2): boolean;
-    getDistanceTo(other: PointProps_2): number;
-    getManhattanDistanceTo(other: PointProps_2): number;
-    getOffsetTo(other: PointProps_2): Point;
+    equals(other: PointProps): boolean;
+    getDistanceTo(other: PointProps): number;
+    getManhattanDistanceTo(other: PointProps): number;
+    getOffsetTo(other: PointProps): Point;
     // (undocumented)
     multiply(factor: number): Point;
     // (undocumented)
-    offset(offset: PointProps_2): Point;
+    offset(offset: PointProps): Point;
     // (undocumented)
     offsetX(offset: number): Point;
     // (undocumented)
@@ -1327,15 +1146,7 @@ export class Point implements PointProps_2 {
     // (undocumented)
     setY(y: number): Point;
     // (undocumented)
-    toProps(): PointProps_2;
-    // (undocumented)
-    readonly x: number;
-    // (undocumented)
-    readonly y: number;
-}
-
-// @public @deprecated
-export interface PointProps {
+    toProps(): PointProps;
     // (undocumented)
     readonly x: number;
     // (undocumented)
@@ -1439,31 +1250,6 @@ export interface ProcessSettingsTabActivationEventArgs {
     readonly tabSelectionFunc: (tabId: string) => void;
 }
 
-// @beta @deprecated
-export function ProgressBar(props: ProgressBarProps): JSX.Element;
-
-// @beta @deprecated
-export interface ProgressBarProps extends CommonProps {
-    barHeight?: number;
-    indeterminate?: boolean;
-    labelLeft?: string;
-    labelRight?: string;
-    percent?: number;
-}
-
-// @beta @deprecated
-export function ProgressSpinner(props: ProgressSpinnerProps): JSX.Element;
-
-// @beta @deprecated
-export interface ProgressSpinnerProps extends CommonProps {
-    children?: React_2.ReactNode;
-    error?: boolean;
-    indeterminate?: boolean;
-    size?: SpinnerSize;
-    success?: boolean;
-    value?: number;
-}
-
 // @internal
 export const PROXIMITY_THRESHOLD_DEFAULT = 100;
 
@@ -1523,16 +1309,6 @@ export interface RadialMenuProps extends CommonProps {
 // @public
 export type RadialSizeType = ProgressRadialProps["size"];
 
-// @public @deprecated
-export class Radio extends React_2.PureComponent<RadioProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export interface RadioProps extends React_2.InputHTMLAttributes<HTMLInputElement>, CommonProps, LabeledComponentProps {
-}
-
 // @public
 export interface RatioChangeResult {
     // (undocumented)
@@ -1558,7 +1334,7 @@ export class Rectangle implements RectangleProps {
     containIn(other: RectangleProps): Rectangle;
     // (undocumented)
     contains(other: RectangleProps): boolean;
-    containsPoint(point: PointProps_2): boolean;
+    containsPoint(point: PointProps): boolean;
     containsXY(x: number, y: number): boolean;
     // (undocumented)
     containVerticallyIn(other: RectangleProps): Rectangle;
@@ -1571,7 +1347,7 @@ export class Rectangle implements RectangleProps {
     // (undocumented)
     getHeight(): number;
     getHorizontalSegmentBounds(segmentId: number, numberOfSegments: number): Rectangle;
-    getShortestDistanceToPoint(point: PointProps_2): number;
+    getShortestDistanceToPoint(point: PointProps): number;
     // (undocumented)
     getSize(): Size;
     getVerticalSegmentBounds(segmentId: number, numberOfSegments: number): Rectangle;
@@ -1582,14 +1358,14 @@ export class Rectangle implements RectangleProps {
     intersects(other: RectangleProps): boolean;
     // (undocumented)
     readonly left: number;
-    offset(offset: PointProps_2): Rectangle;
+    offset(offset: PointProps): Rectangle;
     offsetX(offset: number): Rectangle;
     offsetY(offset: number): Rectangle;
     outerMergeWith(other: RectangleProps): Rectangle;
     // (undocumented)
     readonly right: number;
     setHeight(height: number): Rectangle;
-    setPosition(position: PointProps_2): Rectangle;
+    setPosition(position: PointProps): Rectangle;
     setSize(size: SizeProps): Rectangle;
     setWidth(width: number): Rectangle;
     // (undocumented)
@@ -1665,25 +1441,6 @@ export interface SearchBoxProps extends CommonProps {
     onValueChanged: (value: string) => void;
     placeholder?: string;
     valueChangedDelay?: number;
-}
-
-// @public @deprecated
-export const Select: (props: SelectProps) => JSX.Element | null;
-
-// @public @deprecated
-export interface SelectOption {
-    disabled?: boolean;
-    label: string;
-    value?: string | number | readonly string[];
-}
-
-// @public @deprecated
-export interface SelectProps extends React_2.SelectHTMLAttributes<HTMLSelectElement>, CommonProps {
-    options: (string | SelectOption)[] | {
-        [key: string]: (string | SelectOption);
-    };
-    ref?: React_2.Ref<HTMLSelectElement>;
-    setFocus?: boolean;
 }
 
 // @public
@@ -1780,41 +1537,6 @@ export interface SizeProps {
     readonly width: number;
 }
 
-// @public @deprecated
-export function Slider(props: SliderProps): JSX.Element;
-
-// @public
-export interface SliderProps extends CommonProps {
-    disabled?: boolean;
-    formatMax?: (value: number) => string;
-    formatMin?: (value: number) => string;
-    formatTick?: (tick: number) => string;
-    formatTooltip?: (value: number) => string;
-    getTickCount?: () => number;
-    getTickValues?: () => number[];
-    includeTicksInWidth?: boolean;
-    max: number;
-    maxImage?: React_2.ReactNode;
-    min: number;
-    minImage?: React_2.ReactNode;
-    mode?: number | (() => number);
-    onChange?: (values: ReadonlyArray<number>) => void;
-    onSlideEnd?: (values: ReadonlyArray<number>) => void;
-    onSlideStart?: (values: ReadonlyArray<number>) => void;
-    onUpdate?: (values: ReadonlyArray<number>) => void;
-    reversed?: boolean;
-    showMinMax?: boolean;
-    showTickLabels?: boolean;
-    showTicks?: boolean;
-    showTooltip?: boolean;
-    step?: number;
-    tooltipBelow?: boolean;
-    values: number[];
-}
-
-// @public @deprecated
-export function SmallText(props: TextProps): JSX.Element;
-
 // @public
 export enum SortDirection {
     // (undocumented)
@@ -1823,26 +1545,6 @@ export enum SortDirection {
     Descending = 2,
     // (undocumented)
     NoSort = 0
-}
-
-// @public @deprecated
-export class Spinner extends React_2.PureComponent<SpinnerProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export interface SpinnerProps {
-    size?: SpinnerSize;
-    sizeClass?: string;
-}
-
-// @public @deprecated
-export enum SpinnerSize {
-    Large = 2,
-    Medium = 1,
-    Small = 0,
-    XLarge = 3
 }
 
 // @public
@@ -1855,12 +1557,6 @@ export function StyledText(props: StyledTextProps): JSX.Element;
 export interface StyledTextProps extends TextProps {
     mainClassName: string;
 }
-
-// @public @deprecated
-export function Subheading(props: TextProps): JSX.Element;
-
-// @public @deprecated
-export function Subheading2(props: TextProps): JSX.Element;
 
 // @public
 export class SvgPath extends React_2.PureComponent<SvgPathProps> {
@@ -1920,117 +1616,8 @@ export interface TabsProps extends React_2.AllHTMLAttributes<HTMLUListElement>, 
     onActivateTab?: (index: number) => any;
 }
 
-// @public @deprecated
-export const Textarea: (props: TextareaProps) => JSX.Element | null;
-
-// @public @deprecated
-export interface TextareaProps extends React_2.TextareaHTMLAttributes<HTMLTextAreaElement>, CommonProps {
-    ref?: React_2.Ref<HTMLTextAreaElement>;
-    rows?: number;
-    setFocus?: boolean;
-}
-
 // @public
 export interface TextProps extends React_2.AllHTMLAttributes<HTMLSpanElement>, CommonProps {
-}
-
-// @beta @deprecated
-export function ThemedSelect(props: ThemedSelectProps): JSX.Element;
-
-// @beta @deprecated
-export type ThemedSelectProps = {
-    "aria-label"?: string;
-    "aria-labelledby"?: string;
-    autoFocus?: boolean;
-    backspaceRemovesValue?: boolean;
-    blurInputOnSelect?: boolean;
-    captureMenuScroll?: boolean;
-    className?: string;
-    closeMenuOnSelect?: boolean;
-    closeMenuOnScroll?: boolean | EventListener;
-    components?: SelectComponentsConfig<OptionType>;
-    controlShouldRenderValue?: boolean;
-    defaultMenuIsOpen?: boolean;
-    defaultValue?: ValueType<OptionType>;
-    divRef?: React_2.Ref<HTMLDivElement>;
-    escapeClearsValue?: boolean;
-    filterOption?: ((option: OptionType, rawInput: string) => boolean) | null;
-    formatGroupLabel?: typeof formatGroupLabel;
-    formatOptionLabel?: (optionType: OptionType, formatLabelMeta: FormatOptionLabelMeta) => React_2.ReactNode;
-    getOptionLabel?: typeof getOptionLabel;
-    getOptionValue?: typeof getOptionValue;
-    hideSelectedOptions?: boolean;
-    id?: string;
-    inputValue?: string;
-    inputId?: string;
-    instanceId?: number | string;
-    isClearable?: boolean;
-    isDisabled?: boolean;
-    isLoading?: boolean;
-    isOptionDisabled?: (option: OptionType, options: OptionsType) => boolean | false;
-    isMulti?: boolean;
-    isMenuFixed?: boolean;
-    isRtl?: boolean;
-    isSearchable?: boolean;
-    minMenuHeight?: number;
-    maxMenuHeight?: number;
-    menuIsOpen?: boolean;
-    menuShouldBlockScroll?: boolean;
-    menuShouldScrollIntoView?: boolean;
-    name?: string;
-    noOptionsMessage?: (obj: {
-        inputValue: string;
-    }) => string | null;
-    onBlur?: FocusEventHandler;
-    onChange?: (value: ValueType<OptionType>, action: ActionMeta<OptionType>) => void;
-    onFocus?: FocusEventHandler;
-    onInputChange?: (newValue: string, actionMeta?: InputActionMeta) => void;
-    onKeyDown?: KeyboardEventHandler;
-    onMenuOpen?: () => void;
-    onMenuClose?: () => void;
-    onMenuScrollToTop?: (e: React_2.SyntheticEvent<HTMLElement>) => void;
-    onMenuScrollToBottom?: (e: React_2.SyntheticEvent<HTMLElement>) => void;
-    openMenuOnFocus?: boolean;
-    openMenuOnClick?: boolean;
-    options: OptionsType;
-    pageSize?: number;
-    placeholder?: string;
-    ref?: React_2.Ref<Component>;
-    styles?: React_2.CSSProperties;
-    tabIndex?: string;
-    tabSelectsValue?: boolean;
-    value?: ValueType<OptionType>;
-};
-
-// @beta @deprecated
-export class Tile extends React_2.Component<TileProps> {
-    // @internal (undocumented)
-    static readonly defaultProps: TileDefaultProps;
-    // @internal (undocumented)
-    render(): JSX.Element;
-}
-
-// @internal (undocumented)
-export type TileDefaultProps = Pick<TileProps, "stepNum">;
-
-// @beta @deprecated
-export interface TileProps extends CommonDivProps {
-    // (undocumented)
-    featured?: boolean;
-    // (undocumented)
-    href?: string;
-    // (undocumented)
-    icon?: string | React_2.ReactNode;
-    // (undocumented)
-    minimal?: boolean;
-    // (undocumented)
-    onClick?: (e: any) => any;
-    // (undocumented)
-    stepCount?: number;
-    // (undocumented)
-    stepNum?: number;
-    // (undocumented)
-    title: string;
 }
 
 // @public
@@ -2051,37 +1638,6 @@ export class Timer {
     stop(): void;
 }
 
-// @public @deprecated
-export function Title(props: TextProps): JSX.Element;
-
-// @public @deprecated
-export function Title2(props: TextProps): JSX.Element;
-
-// @public @deprecated
-export const Toggle: (props: ToggleProps) => JSX.Element | null;
-
-// @public @deprecated
-export enum ToggleButtonType {
-    Blue = 1,
-    Primary = 0
-}
-
-// @public @deprecated
-export interface ToggleProps extends CommonProps {
-    // @deprecated
-    buttonType?: ToggleButtonType;
-    disabled?: boolean;
-    isOn?: boolean;
-    large?: boolean;
-    onBlur?: (event: React_2.FocusEvent) => any;
-    onChange?: (checked: boolean) => any;
-    ref?: React_2.Ref<HTMLInputElement>;
-    rounded?: boolean;
-    setFocus?: boolean;
-    showCheckmark?: boolean;
-    title?: string;
-}
-
 // @internal
 export const TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT = 10;
 
@@ -2090,20 +1646,6 @@ export const TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT = 0.35;
 
 // @internal
 export const TOOLBAR_OPACITY_DEFAULT = 0.5;
-
-// @beta @deprecated
-export function Tooltip(props: TooltipProps): JSX.Element;
-
-// @beta @deprecated
-export type TooltipPlacement = "bottom" | "left" | "right" | "top";
-
-// @beta @deprecated
-export interface TooltipProps extends CommonProps {
-    children?: React_2.ReactNode;
-    placement?: TooltipPlacement;
-    target?: HTMLElement;
-    visible?: boolean;
-}
 
 // @public
 export class Tree extends React_2.PureComponent<TreeProps> {

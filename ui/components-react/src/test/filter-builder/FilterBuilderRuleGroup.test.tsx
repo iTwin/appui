@@ -137,9 +137,9 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
     expect(removeItemSpy).to.be.calledOnceWith(defaultProps.path);
   });
 
-  it("dispatches operator change event when operator is selected", () => {
+  it("dispatches operator change event when operator is selected", async () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const {container, getByText} = renderWithContext(<PropertyFilterBuilderRuleGroupRenderer
+    const {container, findByText} = renderWithContext(<PropertyFilterBuilderRuleGroupRenderer
       {...defaultProps}
     />, {actions});
     const setRuleGroupOperatorSpy = sinon.stub(actions, "setRuleGroupOperator");
@@ -149,7 +149,7 @@ describe("PropertyFilterBuilderRuleGroupRenderer", () => {
 
     selector?.click();
 
-    getByText(TestUtils.i18n.getLocalizedString("Components:filterBuilder.operators.or")).click();
+    (await findByText(TestUtils.i18n.getLocalizedString("Components:filterBuilder.operators.or"))).click();
 
     expect(setRuleGroupOperatorSpy).to.be.calledOnceWith(defaultProps.path, PropertyFilterRuleGroupOperator.Or);
   });

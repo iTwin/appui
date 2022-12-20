@@ -27,16 +27,17 @@ import {
 import {
   Checkbox,
   ExpandableBlock,
+  LabeledInput,
 } from "@itwin/itwinui-react";
 import {
   AutoSuggest,
   AutoSuggestData,
   BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
-  DisabledText, ExpandableList, FeaturedTile, Headline, HorizontalTabs, Icon, IconInput, Input, InputStatus, LabeledInput,
-  LabeledSelect, LabeledTextarea, LabeledThemedSelect, LabeledToggle, LeadingText, Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
-  MinimalFeaturedTile, MinimalTile, MutedText, NewBadge, NumberInput, Popup, ProgressBar, ProgressSpinner, Radio, ReactMessage,
-  SearchBox, Select, SettingsContainer, SettingsTabEntry, Slider, SmallText, Spinner, SpinnerSize, Subheading, Textarea, ThemedSelect, Tile, Title,
-  Toggle, ToggleButtonType, UnderlinedButton, VerticalTabs,
+  DisabledText, ExpandableList, Icon, IconInput,
+  Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
+  MutedText, NewBadge, NumberInput, Popup, ReactMessage,
+  SearchBox, SettingsContainer, SettingsTabEntry,
+  UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
 import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
 import { ComponentExampleCategory, ComponentExampleProps } from "./ComponentExamples";
@@ -205,32 +206,6 @@ function NumericFormatPopup({ persistenceUnitName, initialMagnitude }: { persist
           />
         </>
       }
-    </div>
-  );
-}
-
-function WrappedSelect() {
-  const [currentValue, setCurrentValue] = React.useState(3);
-  const handleValueChange = React.useCallback((value: number) => {
-    IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, `Set select value to ${value.toString()}`));
-    setCurrentValue(value);
-  }, []);
-
-  return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <Select
-        value={currentValue}
-        onChange={(event) => handleValueChange(Number.parseInt(event.target.value, 10))}
-        options={[
-          { label: "Option 0", value: 0 },
-          { label: "Option 1", value: 1 },
-          { label: "Option 2", value: 2 },
-          { label: "Option 3", value: 3 },
-        ]} />
-      <button onClick={() => handleValueChange(0)}>0</button>
-      <button onClick={() => handleValueChange(1)}>1</button>
-      <button onClick={() => handleValueChange(2)}>2</button>
-      <button onClick={() => handleValueChange(3)}>3</button>
     </div>
   );
 }
@@ -678,20 +653,6 @@ export class ComponentExamplesProvider {
     return {
       title: "Inputs",
       examples: [
-        createComponentExample("Basic Input", "Input with placeholder", <Input placeholder="Basic Input" />),
-        createComponentExample("Disabled Input", "Input with disabled prop", <Input placeholder="Disabled Input" disabled />),
-
-        createComponentExample("Radio Button", "Basic Radio Buttons",
-          <div>
-            <Radio label="Radio Button 1" name="demo1" value="option-1" />
-            <Radio label="Radio Button 2" name="demo1" value="option-2" />
-            <Radio label="Radio Button 3" name="demo1" value="option-3" />
-          </div>),
-        createComponentExample("Disabled Radio Button", "Radio Button with disabled prop", <Radio label="Disabled Radio Button" name="demo1" disabled />),
-
-        createComponentExample("Basic Textarea", "Textarea with placeholder", <Textarea placeholder="Basic Textarea" />),
-        createComponentExample("Disabled Textarea", "Textarea with disabled prop", <Textarea placeholder="Disabled Textarea" disabled />),
-
         createComponentExample("Number Input .25 step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} containerClassName="uicore-full-width" />),
         createComponentExample("Disabled Number Input .25 step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} containerClassName="uicore-full-width" disabled />),
         createComponentExample("Number Input .25 step w/snap", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} snap containerClassName="uicore-full-width" />),
@@ -700,24 +661,10 @@ export class ComponentExamplesProvider {
         createComponentExample("Number Input w/snap  & custom step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={exoticStep} snap containerClassName="uicore-full-width" />),
         createComponentExample("Number Input w/placeholder", "New Numeric Input component", <NumberInput placeholder="Enter Input" precision={2} step={0.25} containerClassName="uicore-full-width" />),
         createComponentExample("Icon Input", "Icon Input component", <IconInput placeholder="Icon Input" icon={<Icon iconSpec="icon-placeholder" />} containerClassName="uicore-full-width" />),
-        createComponentExample("Labeled Input", "Labeled Input component", <LabeledInput label="Labeled Input" placeholder="Labeled Input" className="uicore-full-width" />),
-        createComponentExample("Labeled Input", "Labeled Input Icon", <LabeledInput label="Labeled Input with icon" placeholder="Labeled Input with Icon" status={InputStatus.Success} />),
-        createComponentExample("Labeled Input Warning", "Labeled Input Warning", <LabeledInput label="Labeled Input Warning" placeholder="Labeled Input Warning" status={InputStatus.Warning} message="Warning message text" />),
-        createComponentExample("Labeled Input Error", "Labeled Input Error", <LabeledInput label="Labeled Input Error" placeholder="Labeled Input Error" status={InputStatus.Error} message="Error message text" />),
-        createComponentExample("Labeled Textarea", "Labeled Textarea component", <LabeledTextarea label="Labeled Textarea" placeholder="Labeled Textarea" className="uicore-full-width" />),
 
         createComponentExample("Image Checkbox", "ImageCheckbox with WebFonts", <SampleImageCheckBox imageOn="icon-more-circular" imageOff="icon-more-vertical-circular" />),
         createComponentExample("Image Checkbox", "ImageCheckbox with SVG (deprecate sprite)", <SampleImageCheckBox imageOn={IconSpecUtilities.createSvgIconSpec(moreSvg)} imageOff={IconSpecUtilities.createSvgIconSpec(moreVerticalSvg)} />),
         createComponentExample("Image Checkbox", "ImageCheckbox with SVG using web component", <SampleImageCheckBox imageOn={IconSpecUtilities.createWebComponentIconSpec(moreWebSvg)} imageOff={IconSpecUtilities.createWebComponentIconSpec(moreVerticalWebSvg)} />),
-
-        createComponentExample("Input Described By", "Input with aria-describedby",
-          <div>
-            <label htmlFor="phone">Phone</label>
-            <Input id="phone" name="phone" type="tel"
-              pattern="^(\(?0[1-9]{1}\)?)?[0-9 -]*$"
-              aria-describedby="phone-desc" />
-            <p id="phone-desc">For example, (02) 1234 1234</p>
-          </div>),
       ],
     };
   }
@@ -726,14 +673,6 @@ export class ComponentExamplesProvider {
     return {
       title: "Loading",
       examples: [
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("Small Spinner", undefined, <Spinner size={SpinnerSize.Small} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("Medium Spinner", undefined, <Spinner size={SpinnerSize.Medium} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("Large Spinner", undefined, <Spinner size={SpinnerSize.Large} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("XLarge Spinner", undefined, <Spinner size={SpinnerSize.XLarge} />),
         createComponentExample("X-Small LoadingSpinner", undefined, <LoadingSpinner size="x-small" message="This is a X-Small LoadingSpinner" />),
         createComponentExample("Small LoadingSpinner", undefined, <LoadingSpinner size="small" message="This is a Small LoadingSpinner" />),
         createComponentExample("Medium LoadingSpinner", undefined, <LoadingSpinner size="" message="This is a Medium LoadingSpinner" />),
@@ -817,34 +756,6 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get progressIndicatorsSamples(): ComponentExampleCategory {
-    return {
-      title: "Progress Indicators",
-      examples: [
-        createComponentExample("ProgressBar", "at 50%", <ProgressBar percent={50} />),
-        createComponentExample("ProgressBar with height", "height of 8", <ProgressBar percent={50} barHeight={8} />),
-        createComponentExample("Indeterminate ProgressBar", "indeterminate prop", <ProgressBar indeterminate />),
-        createComponentExample("ProgressBar with label", "labelLeft prop", <ProgressBar percent={25} labelLeft="Centered Label" />),
-        createComponentExample("ProgressBar with labels", "labelLeft & labelRight props", <ProgressBar percent={75} labelLeft="Loading..." labelRight="75%" />),
-        createComponentExample("ProgressSpinner", "at 50%", <ProgressSpinner value={50} />),
-        createComponentExample("Indeterminate ProgressSpinner", "indeterminate prop", <ProgressSpinner indeterminate />),
-        createComponentExample("Success ProgressSpinner", "success prop", <ProgressSpinner success />),
-        createComponentExample("Error ProgressSpinner", "error prop", <ProgressSpinner error />),
-        createComponentExample("ProgressSpinner with value", "display value of 63", <ProgressSpinner value={63}>63</ProgressSpinner>),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner Small", "width/height of 16", <ProgressSpinner indeterminate size={SpinnerSize.Small} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner Medium", "width/height of 32", <ProgressSpinner indeterminate size={SpinnerSize.Medium} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner Large", "width/height of 64", <ProgressSpinner indeterminate size={SpinnerSize.Large} />),
-        /* eslint-disable-next-line deprecation/deprecation */
-        createComponentExample("ProgressSpinner XLarge", "width/height of 96", <ProgressSpinner indeterminate size={SpinnerSize.XLarge} />),
-        createComponentExample("ProgressSpinner with style", "width/height of 120",
-          <div><ProgressSpinner indeterminate style={{ display: "inline-block", width: 120, height: 120 }} />... Loading</div>),
-      ],
-    };
-  }
-
   private static get quantitySamples(): ComponentExampleCategory {
     const onLengthChange = (value: number) => {
       IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, `Length value set to ${value}`));
@@ -910,160 +821,10 @@ export class ComponentExamplesProvider {
     };
   }
 
-  private static get selectSamples(): ComponentExampleCategory {
-    enum ColorOptions {
-      Red,
-      White,
-      Blue,
-      Yellow,
-      Orange,
-    }
-
-    const colorChoices = [
-      { label: "Red", value: ColorOptions.Red },
-      { label: "White", value: ColorOptions.White },
-      { label: "Blue", value: ColorOptions.Blue },
-      { label: "Yellow", value: ColorOptions.Yellow },
-      { label: "Orange", value: ColorOptions.Orange },
-    ];
-
-    const cityChoices = [
-      { label: "London", value: "London" },
-      { label: "Paris", value: "Paris" },
-      { label: "Stockholm", value: "Stockholm" },
-      { label: "Berlin", value: "Berlin" },
-      { label: "Mumbai", value: "Mumbai" },
-      { label: "Christchurch", value: "Christchurch" },
-      { label: "Johannesburg", value: "Johannesburg" },
-      { label: "Beijing", value: "Beijing" },
-      { label: "New York", value: "New York" },
-    ];
-
-    return {
-      title: "Select",
-      examples: [
-        createComponentExample("Basic Select", "Basic Select component",
-          <Select
-            onChange={(event) => IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, event.target.value))}
-            options={["Option 1", "Option 2", "Option 3", "Option 4"]} />),
-        createComponentExample("Select with values", "Select with values in array",
-          <Select
-            onChange={(event) => IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, event.target.value))}
-            options={[
-              { label: "Option 1", value: "option1" },
-              { label: "Option 2", value: "option2" },
-              { label: "Option 3", value: "option3" },
-              { label: "Option 4", value: "option4" },
-            ]} />),
-        createComponentExample("Select with values/labels", "Select with value objects",
-          <Select
-            onChange={(event) => IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, event.target.value))}
-            options={{
-              option1: { label: "Option 1", value: "xyz" },
-              option2: "Option 2",
-              option3: "Option 3",
-              option4: "Option 4",
-            }} />),
-        createComponentExample("Select with Number values", "Sync Select with button values", <WrappedSelect />),
-        createComponentExample("Disabled Select", "Select with disabled prop", <Select options={["Option 1", "Option 2", "Option 3", "Option 4"]} disabled />),
-        createComponentExample("Placeholder Select", "Select with placeholder prop", <Select options={["Option 1", "Option 2", "Option 3", "Option 4"]} placeholder="Pick an option" />),
-        createComponentExample("Select with Disabled option", "Select with option with disabled prop",
-          <Select options={["Option 1", "Option 2", { label: "Disabled Option", disabled: true }, "Option 3", "Option 4"]} placeholder="Pick an option" />),
-
-        createComponentExample("Labeled Select", "Labeled Select component", <LabeledSelect label="Labeled Select" options={["Option 1", "Option 2", "Option 3", "Option 4"]} />),
-
-        createComponentExample("ThemedSelect", "ThemedSelect component for colors",
-          <div className="uicore-full-width">
-            <ThemedSelect options={colorChoices} />
-          </div>),
-        createComponentExample("Multi ThemedSelect", "ThemedSelect component with isMulti",
-          <div className="uicore-full-width">
-            <ThemedSelect isMulti={true} isSearchable={true} options={cityChoices} />
-          </div>),
-        createComponentExample("Disabled ThemedSelect", "ThemedSelect component with isDisabled prop",
-          <div className="uicore-full-width">
-            <ThemedSelect options={colorChoices} isDisabled />
-          </div>),
-        createComponentExample("Labeled Multi ThemedSelect", "Labeled ThemedSelect component with isMulti",
-          <div className="uicore-full-width">
-            <LabeledThemedSelect label={"Labeled ThemedSelect Multi"} isMulti={true} isSearchable={true} options={cityChoices} />
-          </div>),
-        createComponentExample("Disabled Labeled Multi ThemedSelect", "Labeled ThemedSelect component with isMulti",
-          <div className="uicore-full-width">
-            <LabeledThemedSelect label={"Disabled Labeled ThemedSelect Multi"} isMulti={true} isSearchable={true} options={cityChoices} isDisabled={true} />
-          </div>),
-        createComponentExample("Labeled ThemedSelect", "Labeled ThemedSelect component",
-          <div className="uicore-full-width">
-            <LabeledThemedSelect label={"Labeled ThemedSelect"} options={colorChoices} />
-          </div>),
-        createComponentExample("Disabled Labeled ThemedSelect", "Labeled ThemedSelect component with isDisabled prop and message prop",
-          <div className="uicore-full-width">
-            <LabeledThemedSelect label={"Disabled Labeled ThemedSelect"} message={"This field is disabled"} options={colorChoices} isDisabled />
-          </div>),
-
-      ],
-    };
-  }
-
-  private static get sliderSamples(): ComponentExampleCategory {
-    return {
-      title: "Deprecated Slider",
-      examples: [
-        createComponentExample("Slider", "Basic Slider",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip />),
-        createComponentExample("Slider w/ tooltipBelow", "Slider with Tooltip Below",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip tooltipBelow />),
-        createComponentExample("Slider w/ min/max", "Slider with showMinMax prop",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip showMinMax />),
-        createComponentExample("Slider w/ min/max", "Slider with formatMax prop",
-          <Slider min={0} max={1} values={[0.5]} step={0.01} showTooltip showMinMax formatMax={(v: number) => v.toFixed(1)} />),
-        createComponentExample("Slider w/ min/max images", "Slider with minImage and maxImage props",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip showMinMax
-            minImage={<Icon iconSpec="icon-placeholder" />} maxImage={<Icon iconSpec="icon-placeholder" />} />),
-        createComponentExample("Slider w/ tick marks", "Slider with showTicks and getTickCount props",
-          <Slider min={0} max={5} values={[2.25]} step={.01} showTooltip showMinMax
-            showTicks getTickCount={() => 10} />),
-        createComponentExample("Slider w/ multiple values", "Slider with array of values",
-          <Slider min={0} max={100} values={[30, 70]} step={5} mode={2} showTooltip showMinMax
-            showTicks getTickCount={() => 10} />),
-        createComponentExample("Slider multiple values tooltipBelow", "Slider with multiple values & tooltip below",
-          <Slider min={0} max={100} values={[20, 80]} step={5} mode={2} showTooltip tooltipBelow showMinMax
-            showTicks getTickCount={() => 10} />),
-        createComponentExample("Slider w/ tick labels", "Slider with showTickLabels prop",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip showMinMax showTickLabels
-            showTicks getTickCount={() => 10} />),
-        createComponentExample("Disabled Slider", "Slider with disabled prop",
-          <Slider min={0} max={100} values={[50]} step={1} showTooltip showMinMax showTickLabels disabled
-            showTicks getTickCount={() => 10} />),
-      ],
-    };
-  }
-
   private static get tabsSamples(): ComponentExampleCategory {
     return {
       title: "Tabs",
       examples: [
-        createComponentExample("Horizontal Tabs", "full width",
-          <div className="uicore-full-width">
-            <HorizontalTabs className="component-examples-horizontal-tabs"
-              labels={[
-                { label: "Tab 1", tabId: "tab1", icon: "icon-placeholder", subLabel: "Sub-label 1" },
-                { label: "Tab 2", tabId: "tab2", icon: "icon-placeholder", subLabel: "Sub-label 2" },
-                { label: "Tab 3", tabId: "tab3", icon: "icon-placeholder", subLabel: "Sub-label 3" },
-              ]}
-              activeIndex={0} />
-          </div>
-        ),
-        createComponentExample("Green Horizontal Tabs", "with green prop", <HorizontalTabs labels={["Tab 1", "Tab 2", "Tab 3"]} activeIndex={0} green />),
-        createComponentExample("Horizontal Tabs", undefined,
-          <HorizontalTabs className="component-examples-horizontal-tabs"
-            labels={[
-              { label: "Tab 1", tabId: "tab1", icon: "icon-placeholder", subLabel: "Sub-label 1" },
-              { label: "Tab 2", tabId: "tab2", icon: "icon-placeholder", subLabel: "Sub-label 2" },
-              { label: "Tab 3", tabId: "tab3", icon: "icon-placeholder", subLabel: "Sub-label 3", disabled: true },
-            ]}
-            activeIndex={0} />
-        ),
         createComponentExample("Vertical Tabs", undefined, <VerticalTabs
           labels={[
             { label: "Tab 1", tabId: "tab1", icon: "icon-placeholder", subLabel: "Sub-label 1" },
@@ -1083,56 +844,7 @@ export class ComponentExamplesProvider {
         createComponentExample("BodyText", undefined, <BodyText>This is Body Text</BodyText>),
         createComponentExample("BlockText", undefined, <BlockText>This is Block Text</BlockText>),
         createComponentExample("DisabledText", undefined, <DisabledText>This is Disabled Text</DisabledText>),
-        createComponentExample("Headline", undefined, <Headline>This is Headline Text</Headline>),
-        createComponentExample("LeadingText", undefined, <LeadingText>This is Leading Text</LeadingText>),
         createComponentExample("MutedText", undefined, <MutedText>This is Muted Text</MutedText>),
-        createComponentExample("SmallText", undefined, <SmallText>This is Small Text</SmallText>),
-        createComponentExample("Subheading", undefined, <Subheading>This is Subheading Text</Subheading>),
-        createComponentExample("Title", undefined, <Title>This is Title Text</Title>),
-      ],
-    };
-  }
-
-  private static get tileSamples(): ComponentExampleCategory {
-    return {
-      title: "Tiles",
-      examples: [
-        createComponentExample("Normal Tile", undefined,
-          <Tile title="Normal Tile" icon="icon-placeholder">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>Link 1</a>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>Link 2</a>
-          </Tile>),
-        createComponentExample("Featured Tile", undefined,
-          <FeaturedTile title="Featured Tile" icon="icon-placeholder">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>Link 1</a>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>Link 2</a>
-          </FeaturedTile>),
-        createComponentExample("Minimal Tile", undefined, <MinimalTile title="Minimal Tile" icon="icon-placeholder" />),
-        createComponentExample("Featured Minimal Tile", undefined, <MinimalFeaturedTile title="Minimal Featured Tile" icon="icon-placeholder" />),
-        createComponentExample("Tile stepNum={0}", undefined, <MinimalFeaturedTile stepNum={0} title="Tile stepNum={0}" icon="icon-placeholder" />),
-        createComponentExample("Tile stepNum={6}", undefined, <MinimalFeaturedTile stepNum={6} title="Tile stepNum={6}" icon="icon-placeholder" />),
-        createComponentExample("Tile stepNum={9}", undefined, <MinimalFeaturedTile stepNum={9} title="Tile stepNum={9}" icon="icon-placeholder" />),
-        createComponentExample("Tile stepNum={15}", undefined, <MinimalFeaturedTile stepNum={15} title="Tile stepNum={15}" icon="icon-placeholder" />),
-      ],
-    };
-  }
-
-  private static get toggleSamples(): ComponentExampleCategory {
-    return {
-      title: "Toggle",
-      examples: [
-        createComponentExample("Basic Toggle", undefined, <Toggle isOn={true} />),
-        // eslint-disable-next-line deprecation/deprecation
-        createComponentExample("Primary Toggle", "Toggle with buttonType={ToggleButtonType.Primary}", <Toggle isOn={true} buttonType={ToggleButtonType.Primary} />),
-        createComponentExample("Large Toggle", "Toggle with large={true}", <Toggle isOn={true} large={true} />),
-        createComponentExample("Square Toggle", "Toggle with rounded={false}", <Toggle isOn={true} rounded={false} />),
-        createComponentExample("Toggle with Checkmark", "Toggle with showCheckmark prop", <Toggle isOn={true} showCheckmark={true} />),
-        createComponentExample("Disabled Toggle", "Toggle with disabled prop", <Toggle isOn={true} showCheckmark={true} disabled />),
-        createComponentExample("LabeledToggle", undefined, <LabeledToggle checked={true} label="Toggle label" />),
       ],
     };
   }
@@ -1221,16 +933,11 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.loadingSamples,
       ComponentExamplesProvider.messageSamples,
       ComponentExamplesProvider.popupSamples,
-      ComponentExamplesProvider.progressIndicatorsSamples,
       ComponentExamplesProvider.quantitySamples,
       ComponentExamplesProvider.searchBoxSample,
-      ComponentExamplesProvider.selectSamples,
-      ComponentExamplesProvider.sliderSamples,
       ComponentExamplesProvider.tabsSamples,
       ComponentExamplesProvider.textSamples,
-      ComponentExamplesProvider.tileSamples,
       ComponentExamplesProvider.timelineSamples,
-      ComponentExamplesProvider.toggleSamples,
       ComponentExamplesProvider.weightSamples,
       ComponentExamplesProvider.quantityFormatting,
       ComponentExamplesProvider.settingPage,
