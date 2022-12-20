@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { WidgetsState, WidgetState } from "../state/WidgetState";
-import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
+import { isHorizontalPanelSide, PanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { WidgetContentContainer } from "./ContentContainer";
 import { WidgetTabBar } from "./TabBar";
 import { Widget, WidgetProvider } from "./Widget";
@@ -21,6 +21,7 @@ import { isHorizontalPanelState } from "../state/PanelState";
 import { TabsState } from "../state/TabState";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+import { NineZoneState } from "../state/NineZoneState";
 
 /** @internal */
 export interface PanelWidgetProps {
@@ -74,13 +75,14 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
   }
 );
 
-function findFillWidget(panelWidgets: ReadonlyArray<string>, widgets: WidgetsState, tabs: TabsState) {
+function findFillWidget(state: NineZoneState, side: PanelSide) {
+  const panelWidgets = state.panels[side].widgets;
   return panelWidgets.find((widgetId) => {
-    const widget = widgets[widgetId];
+    const widget = getWidgetState(state, widgetId);
     if (widget.minimized)
       return false;
     const tabId = widget.activeTabId;
-    const tab = tabs[tabId];
+    const tab = state.tabs[tabId];
     if (!tab.preferredPanelWidgetSize)
       return true;
     return false;
@@ -92,17 +94,14 @@ export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
   return useLayout((state) => {
-    const panel = state.panels[side];
-    const widgets = state.widgets;
-    const tabs = state.tabs;
-
-    const fillWidget = findFillWidget(panel.widgets, widgets, tabs);
+    const fillWidget = findFillWidget(state, side);
 
     // Force `fill` for last panel widget that is not minimized.
     if (!fillWidget) {
+      const panel = state.panels[side];
       for (let i = panel.widgets.length - 1; i >= 0; i--) {
         const wId = panel.widgets[i];
-        const w = widgets[wId];
+        const w = getWidgetState(state, wId);
         if (w.minimized)
           continue;
         if (wId === widgetId)
@@ -111,11 +110,11 @@ export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
       }
     }
 
-    const widget = widgets[widgetId];
+    const widget = getWidgetState(state, widgetId);
     if (widget.minimized)
       return "minimized";
     const tabId = widget.activeTabId;
-    const tab = tabs[tabId];
+    const tab = state.tabs[tabId];
     return tab.preferredPanelWidgetSize ? "fit" : "fill";
   });
 }

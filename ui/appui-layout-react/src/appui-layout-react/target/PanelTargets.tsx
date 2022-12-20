@@ -22,7 +22,7 @@ import { useLayout } from "../base/LayoutStore";
 export function PanelTargets() {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
-  const widgets = useLayout((state) => state.panels[side].widgets);
+  const widgets = useLayout((state) => state.panels[side].widgets, true);
   const span = useLayout((state) => {
     const panel = state.panels[side];
     return isHorizontalPanelState(panel) && panel.span;

@@ -18,6 +18,7 @@ import { WidgetTabProvider } from "./Tab";
 import { TitleBarTarget } from "../target/TitleBarTarget";
 import { useLayout } from "../base/LayoutStore";
 import { WidgetIdContext } from "./Widget";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 /** @internal */
 export function WidgetTabs() {
@@ -25,9 +26,9 @@ export function WidgetTabs() {
   const widgetId = React.useContext(WidgetIdContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
   assert(!!widgetId);
-  const tabIds = useLayout((state) => state.widgets[widgetId].tabs);
-  const activeTabId = useLayout((state) => state.widgets[widgetId].activeTabId);
-  const minimized = useLayout((state) => state.widgets[widgetId].minimized);
+  const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
+  const activeTabId = useLayout((state) => getWidgetState(state, widgetId).activeTabId);
+  const minimized = useLayout((state) => getWidgetState(state, widgetId).minimized);
   const [showOnlyTabIcon, setShowOnlyTabIcon] = React.useState(false);
 
   const activeTabIndex = tabIds.findIndex((id) => id === activeTabId);

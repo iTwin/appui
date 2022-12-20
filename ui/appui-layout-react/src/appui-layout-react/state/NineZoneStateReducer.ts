@@ -218,7 +218,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       return produce(state, (draft) => {
         const floatingWidget = draft.floatingWidgets.byId[action.id];
         floatingWidget.userSized = false;
-        const widget = draft.widgets[action.id];
+        const widget = getWidgetState(draft, action.id);
         const tab = draft.tabs[widget.activeTabId];
         tab.userSized = false;
       });

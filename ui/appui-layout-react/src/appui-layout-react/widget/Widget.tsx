@@ -53,7 +53,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
     const floatingWidgetId = useFloatingWidgetId();
     assert(!!id);
     const { preferredFloatingWidgetSize, userSized } = useLayout((state) => {
-      const widget = state.widgets[id];
+      const widget = getWidgetState(state, id);
       const tab = state.tabs[widget.activeTabId];
       // istanbul ignore next
       return {

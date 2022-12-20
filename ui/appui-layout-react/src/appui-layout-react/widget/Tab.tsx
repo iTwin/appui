@@ -24,6 +24,7 @@ import { WidgetMenuTab } from "./MenuTab";
 import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -81,8 +82,8 @@ const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponen
 
   const iconSpec = useLayout((state) => state.tabs[id].iconSpec);
   const label = useLayout((state) => state.tabs[id].label);
-  const activeTabId = useLayout((state) => state.widgets[widgetId].activeTabId);
-  const minimized = useLayout((state) => state.widgets[widgetId].minimized);
+  const activeTabId = useLayout((state) => getWidgetState(state, widgetId).activeTabId);
+  const minimized = useLayout((state) => getWidgetState(state, widgetId).minimized);
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(widgetTabsEntryContext?.onResize);
   const pointerCaptorRef = useTabInteractions({});
