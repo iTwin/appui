@@ -80,7 +80,7 @@ export class UiCore {
       Logger.logError(UiCore.loggerCategory(this), `translate: UiCore must be initialize with a localization provider. Returning blank string.`);
       return "";
     }
-    return UiCore._localization.getLocalizedStringWithNamespace(UiCore.localizationNamespace, key);
+    return UiCore._localization.getLocalizedString(key, { ns: UiCore.localizationNamespace });
   }
 
   /** @internal */

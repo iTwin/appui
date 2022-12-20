@@ -78,7 +78,7 @@ export class UiComponents {
       Logger.logError(UiComponents.loggerCategory(this), `translate: UiComponents.initialize has not been called. Returning blank string.`);
       return "";
     }
-    return UiComponents.localization.getLocalizedStringWithNamespace(UiComponents.localizationNamespace, key);
+    return UiComponents.localization.getLocalizedString(key, { ns: UiComponents.localizationNamespace });
   }
 
   /** @internal */
