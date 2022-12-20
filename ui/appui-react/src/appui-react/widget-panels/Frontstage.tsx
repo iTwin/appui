@@ -1185,7 +1185,7 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
       if (frontstageDef.id === args.frontstageDef.id) {
         args.frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
       } else {
-        // args.frontstageDef.nineZoneState = undefined;
+        args.frontstageDef.nineZoneState = undefined;
       }
     };
     FrontstageManager.onFrontstageRestoreLayoutEvent.addListener(listener);

@@ -18,7 +18,15 @@ import { childStructure } from "../TestUtils";
 describe("WidgetPanelsToolSettings", () => {
   it("should not render w/o tool settings top center zone", () => {
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
-    const { container } = render(<WidgetPanelsToolSettings />);
+    const { container } = render(
+      <NineZoneProvider
+        dispatch={sinon.spy()}
+        layout={createLayoutStore()}
+        measure={sinon.spy()}
+      >
+        <WidgetPanelsToolSettings />
+      </NineZoneProvider>
+    );
     expect(container.innerHTML).to.eq("");
   });
 
@@ -29,9 +37,13 @@ describe("WidgetPanelsToolSettings", () => {
     sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => undefined);
     sinon.stub(frontstageDef, "toolSettings").get(() => toolSettings);
     const { container } = render(
-      <DragManagerContext.Provider value={new DragManager()}>
+      <NineZoneProvider
+        dispatch={sinon.spy()}
+        layout={createLayoutStore()}
+        measure={sinon.spy()}
+      >
         <WidgetPanelsToolSettings />
-      </DragManagerContext.Provider>,
+      </NineZoneProvider>,
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -81,9 +93,15 @@ describe("ToolSettingsContent", () => {
 
   it("should not render if not in 'widget' mode", () => {
     const { container } = render(
-      <ToolSettingsContent />
+      <NineZoneProvider
+        dispatch={sinon.spy()}
+        measure={sinon.spy()}
+        layout={createLayoutStore()}
+      >
+        <ToolSettingsContent />
+      </NineZoneProvider>
     );
-    (container.firstChild === null).should.true;
+    expect(container.firstChild).to.be.null;
   });
 
   it("should render (Floating Widget mode)", () => {

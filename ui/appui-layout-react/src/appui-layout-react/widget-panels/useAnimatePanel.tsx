@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { assert, Logger } from "@itwin/core-bentley";
+import { assert } from "@itwin/core-bentley";
 import { SizeProps } from "@itwin/core-react";
 import { DraggedPanelSideContext } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
