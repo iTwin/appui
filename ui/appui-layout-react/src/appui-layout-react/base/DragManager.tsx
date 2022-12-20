@@ -459,27 +459,27 @@ export const DragProvider = React.memo<DragProviderProps>(function DragProvider(
 });
 
 function DraggedWidgetIdProvider(props: { children?: React.ReactNode }) {
-  const dragged = useDraggedItemId<WidgetDragItem>("widget");
+  const draggedWidgetId = useDraggedItemId<WidgetDragItem>("widget");
   return (
-    <DraggedWidgetIdContext.Provider value={dragged || ""}>
+    <DraggedWidgetIdContext.Provider value={draggedWidgetId}>
       {props.children}
     </DraggedWidgetIdContext.Provider>
   );
 }
 
 function DraggedPanelSideProvider(props: { children?: React.ReactNode }) {
-  const draggedWidget = useDraggedItemId<PanelGripDragItem>("panelGrip");
+  const draggedSide = useDraggedItemId<PanelGripDragItem>("panelGrip");
   return (
-    <DraggedPanelSideContext.Provider value={draggedWidget}>
+    <DraggedPanelSideContext.Provider value={draggedSide}>
       {props.children}
     </DraggedPanelSideContext.Provider>
   );
 }
 
 function DraggedResizeHandleProvider(props: { children?: React.ReactNode }) {
-  const value = useDraggedItemId<ResizeHandleDragItem>("resizeHandle");
+  const draggedHandle = useDraggedItemId<ResizeHandleDragItem>("resizeHandle");
   return (
-    <DraggedResizeHandleContext.Provider value={value}>
+    <DraggedResizeHandleContext.Provider value={draggedHandle}>
       {props.children}
     </DraggedResizeHandleContext.Provider>
   );
@@ -634,7 +634,7 @@ export const DragManagerContext = React.createContext<DragManager>(null!); // es
 DragManagerContext.displayName = "nz:DragManagerContext";
 
 /** @internal */
-export const DraggedWidgetIdContext = React.createContext<WidgetState["id"]>(""); // eslint-disable-line @typescript-eslint/naming-convention
+export const DraggedWidgetIdContext = React.createContext<WidgetState["id"] | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 DraggedWidgetIdContext.displayName = "nz:DraggedWidgetIdContext";
 
 /** @internal */

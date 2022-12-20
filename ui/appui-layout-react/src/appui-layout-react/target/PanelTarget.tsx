@@ -25,7 +25,7 @@ export interface PanelTargetProps {
 export function PanelTarget(props: PanelTargetProps) {
   const { side } = props;
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedWidget = React.useContext(DraggedWidgetIdContext);
+  const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const draggedTab = useLayout((state) => !!state.draggedTab);
   const allowedTarget = useAllowedPanelTarget();
   const newWidgetId = React.useMemo(() => getUniqueId(), []);
@@ -34,7 +34,7 @@ export function PanelTarget(props: PanelTargetProps) {
     newWidgetId,
   });
   // istanbul ignore next
-  const visible = (draggedTab || !!draggedWidget) && allowedTarget;
+  const visible = (draggedTab || !!draggedWidgetId) && allowedTarget;
   const isHorizontal = isHorizontalPanelSide(side);
   const className = classnames(
     "nz-target-panelTarget",

@@ -457,8 +457,6 @@ async function main() {
   Logger.setLevelDefault(LogLevel.Warning);
   Logger.setLevel(loggerCategory, LogLevel.Info);
   Logger.setLevel("ViewportComponent", LogLevel.Info);
-  // Logger.setLevel("appui-react.UiFramework", LogLevel.Info);
-  // Logger.setLevel("appui-layout-react.WidgetPanel", LogLevel.Trace);
 
   ToolAdmin.exceptionHandler = async (err: any) => Promise.resolve(UnexpectedErrors.handle(err));
 

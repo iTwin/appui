@@ -164,11 +164,11 @@ UiIsVisibleContext.displayName = "nz:UiIsVisibleContext";
 
 function CursorTypeProvider(props: { children?: React.ReactNode }) {
   const draggedTab = useLayout((state) => !!state.draggedTab);
-  const draggedWidget = React.useContext(DraggedWidgetIdContext);
+  const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   const draggedResizeHandle = React.useContext(DraggedResizeHandleContext);
   let type: CursorType | undefined;
-  if (draggedTab || draggedWidget)
+  if (draggedTab || draggedWidgetId)
     type = "grabbing";
   else if (draggedPanelSide)
     type = sideToCursorType(draggedPanelSide);
