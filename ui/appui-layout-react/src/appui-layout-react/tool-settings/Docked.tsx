@@ -9,8 +9,8 @@
 import "./Docked.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, useRefs, useResizeObserver } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
+import { CommonProps, useRefs, useResizeObserver } from "@itwin/core-react";
 import { DockedToolSettingsHandle } from "./Handle";
 import { DockedToolSettingsOverflow } from "./Overflow";
 import { ToolSettingsOverflowPanel } from "./Panel";

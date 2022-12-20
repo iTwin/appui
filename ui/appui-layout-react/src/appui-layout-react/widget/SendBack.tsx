@@ -9,10 +9,10 @@
 import "./SendBack.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
-import { assert } from "@itwin/core-bentley";
 
 /** @internal */
 export function SendBack() {

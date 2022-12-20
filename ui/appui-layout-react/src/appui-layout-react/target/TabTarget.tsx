@@ -9,13 +9,13 @@
 import "./TabTarget.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
 import { CursorTypeContext } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
 import { WidgetState } from "../state/WidgetState";
 import { WidgetIdContext } from "../widget/Widget";
 import { TabIdContext } from "../widget/ContentRenderer";
-import { assert } from "@itwin/core-bentley";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import { TabDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";

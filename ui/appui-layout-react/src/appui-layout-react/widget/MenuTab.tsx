@@ -9,10 +9,10 @@
 import "./MenuTab.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { CommonProps, Icon } from "@itwin/core-react";
 import { useTabInteractions } from "./Tab";
 import { useActiveTabId } from "./Widget";
-import { assert } from "@itwin/core-bentley";
 import { WidgetOverflowContext } from "./Overflow";
 import { ShowWidgetIconContext } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";

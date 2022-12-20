@@ -8,8 +8,8 @@
 
 import "./Tabs.scss";
 import * as React from "react";
-import { useResizeObserver } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
+import { useResizeObserver } from "@itwin/core-react";
 import { ShowWidgetIconContext } from "../base/NineZone";
 import { getChildKey, useOverflow } from "../tool-settings/Docked";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";

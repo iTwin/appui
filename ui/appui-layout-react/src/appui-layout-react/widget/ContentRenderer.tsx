@@ -9,12 +9,12 @@
 import "./ContentRenderer.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { assert } from "@itwin/core-bentley";
 import { ToolSettingsNodeContext, WidgetContentNodeContext } from "../base/NineZone";
 import { TabState } from "../state/TabState";
 import { useContainersStore, WidgetContentManagerContext } from "./ContentManager";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
-import { assert } from "@itwin/core-bentley";
 
 /** @internal */
 export function WidgetContentRenderers() {

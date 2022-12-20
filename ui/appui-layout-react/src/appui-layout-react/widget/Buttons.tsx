@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { SendBack } from "./SendBack";
 import { useActiveTabId, WidgetIdContext } from "./Widget";
 import { Dock } from "./Dock";
@@ -15,7 +16,6 @@ import { PinToggle } from "./PinToggle";
 import { PopoutToggle } from "./PopoutToggle";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
-import { assert } from "@itwin/core-bentley";
 import { useFloatingWidgetId } from "./FloatingWidget";
 
 /** @internal */

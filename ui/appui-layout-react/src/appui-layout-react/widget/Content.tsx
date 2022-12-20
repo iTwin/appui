@@ -8,8 +8,8 @@
 
 import "./Content.scss";
 import * as React from "react";
-import { Point } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
+import { Point } from "@itwin/core-react";
 import { useTransientState } from "./ContentRenderer";
 
 /** Properties of [[ScrollableWidgetContent]] component.

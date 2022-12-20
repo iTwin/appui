@@ -6,8 +6,8 @@
  * @module Widget
  */
 import * as React from "react";
-import { PanelSideContext } from "../widget-panels/Panel";
 import { assert } from "@itwin/core-bentley";
+import { PanelSideContext } from "../widget-panels/Panel";
 import { useAllowedSideTarget } from "./useAllowedSideTarget";
 
 /** Check the docking side against allowed regions

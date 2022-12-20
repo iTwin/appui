@@ -4,13 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import {
-  addPanelWidget,
-  addTab,
-  createNineZoneState,
-  TabState, WidgetContentContainer, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetIdContext,
-} from "../../appui-layout-react";
 import { BeEvent } from "@itwin/core-bentley";
+import {
+  addPanelWidget, addTab, createNineZoneState, TabState, WidgetContentContainer, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetIdContext,
+} from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("WidgetContentContainer ", () => {

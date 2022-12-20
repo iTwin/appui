@@ -9,8 +9,8 @@
 import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, Rectangle, SizeProps, useRefs } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
+import { CommonProps, Rectangle, SizeProps, useRefs } from "@itwin/core-react";
 import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager";
 import { getUniqueId, MeasureContext, NineZoneDispatchContext } from "../base/NineZone";
 import { WidgetState } from "../state/WidgetState";

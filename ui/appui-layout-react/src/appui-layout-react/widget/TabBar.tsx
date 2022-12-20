@@ -9,6 +9,7 @@
 import "./TabBar.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { Point, Timer } from "@itwin/core-react";
 import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
@@ -17,7 +18,6 @@ import { TabBarButtons } from "./Buttons";
 import { WidgetTabs } from "./Tabs";
 import { WidgetIdContext } from "./Widget";
 import { useDoubleClick } from "../widget-panels/Grip";
-import { assert } from "@itwin/core-bentley";
 import { useFloatingWidgetId } from "./FloatingWidget";
 
 /** @internal */

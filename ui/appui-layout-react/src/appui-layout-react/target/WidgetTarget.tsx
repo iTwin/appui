@@ -8,10 +8,10 @@
 
 import "./WidgetTarget.scss";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { WidgetIdContext } from "../widget/Widget";
 import { TargetContainer } from "./TargetContainer";
 import { MergeTarget } from "./MergeTarget";
-import { assert } from "@itwin/core-bentley";
 
 /** @internal */
 export function WidgetTarget() {
