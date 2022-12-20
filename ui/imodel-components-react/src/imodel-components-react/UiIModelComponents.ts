@@ -72,7 +72,7 @@ export class UiIModelComponents {
       Logger.logError(UiIModelComponents.loggerCategory(this), `translate: IModelApp.localization has not been setup. Returning blank string.`);
       return "";
     }
-    return IModelApp.localization.getLocalizedStringWithNamespace(UiIModelComponents.localizationNamespace, key);
+    return IModelApp.localization.getLocalizedString(key, { ns: UiIModelComponents.localizationNamespace });
   }
 
   /** @internal */
