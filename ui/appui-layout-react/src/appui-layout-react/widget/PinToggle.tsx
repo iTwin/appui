@@ -9,9 +9,10 @@
 import "./PinToggle.scss";
 import * as React from "react";
 import classnames from "classnames";
+import { assert } from "@itwin/core-bentley";
+import { Icon } from "@itwin/core-react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { PanelSideContext } from "../widget-panels/Panel";
-import { Icon } from "@itwin/core-react";
 import { useLayout } from "../base/LayoutStore";
 
 function SvgPin(props: React.SVGProps<SVGSVGElement>) {
@@ -32,7 +33,8 @@ function SvgUnPin(props: React.SVGProps<SVGSVGElement>) {
 
 /** @internal */
 export function PinToggle() {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const pinPanelTitle = useLabel("pinPanelTitle");
   const unpinPanelTitle = useLabel("unpinPanelTitle");

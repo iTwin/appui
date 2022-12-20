@@ -47,7 +47,8 @@ export type PanelSide = VerticalPanelSide | HorizontalPanelSide;
 // istanbul ignore next
 function PanelSplitter() {
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const splitterProcessingActiveRef = React.useRef<boolean>(false);
 

@@ -9,6 +9,7 @@
 import "./PanelOutline.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { useTargeted } from "../base/DragManager";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { isHorizontalPanelState } from "../state/PanelState";
@@ -17,7 +18,8 @@ import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export function PanelOutline() {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   const isHorizontal = isHorizontalPanelSide(side);
   const span = useLayout((state) => {
     const panel = state.panels[side];
@@ -59,7 +61,8 @@ export function useHidden() {
 }
 
 function useSize() {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   return useLayout((state) => {
     const panel = state.panels[side];
     return panel.size !== undefined ? panel.size : panel.minSize;

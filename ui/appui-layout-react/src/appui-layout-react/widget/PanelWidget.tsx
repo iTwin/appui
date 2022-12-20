@@ -9,6 +9,7 @@
 import "./PanelWidget.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { WidgetsState, WidgetState } from "../state/WidgetState";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { WidgetContentContainer } from "./ContentContainer";
@@ -31,7 +32,8 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
   function PanelWidget({
     widgetId,
   }, ref) { // eslint-disable-line @typescript-eslint/naming-convention
-    const side = React.useContext(PanelSideContext)!;
+    const side = React.useContext(PanelSideContext);
+    assert(!!side);
     const widgetsLength = useLayout((state) => {
       const panel = state.panels[side];
       return panel.widgets.length;
@@ -87,7 +89,8 @@ function findFillWidget(panelWidgets: ReadonlyArray<string>, widgets: WidgetsSta
 
 /** @internal */
 export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   return useLayout((state) => {
     const panel = state.panels[side];
     const widgets = state.widgets;
@@ -119,7 +122,8 @@ export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
 
 /** @internal */
 export function useBorders(widgetId: WidgetState["id"]) {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   return useLayout((state) => {
     const panels = state.panels;
     const panel = panels[side];

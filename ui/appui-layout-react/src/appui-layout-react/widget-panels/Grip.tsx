@@ -9,8 +9,8 @@
 import "./Grip.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, Point, Rectangle, Timer } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
+import { CommonProps, Point, Rectangle, Timer } from "@itwin/core-react";
 import { useDragPanelGrip, UseDragPanelGripArgs } from "../base/DragManager";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { isHorizontalPanelSide, PanelSideContext, WidgetPanelContext } from "./Panel";
@@ -21,7 +21,8 @@ import { useLayout, useLayoutStore } from "../base/LayoutStore";
  * @internal
  */
 export function WidgetPanelGrip(props: CommonProps) {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   const { collapsed, pinned } = useLayout((state) => {
     const panel = state.panels[side];
     return {
@@ -67,8 +68,9 @@ export function WidgetPanelGrip(props: CommonProps) {
 /** @internal */
 export const useResizeGrip = <T extends HTMLElement>(): [(instance: T | null) => void, boolean, boolean] => {
   const widgetPanel = React.useContext(WidgetPanelContext);
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
+  assert(!!side);
   assert(!!widgetPanel);
   const [resizing, setResizing] = React.useState(false);
   const [active, setActive] = React.useState(false);

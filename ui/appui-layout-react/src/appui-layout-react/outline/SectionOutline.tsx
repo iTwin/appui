@@ -9,6 +9,7 @@
 import "./SectionOutline.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { CommonProps } from "@itwin/core-react";
 import { useTargeted } from "../base/DragManager";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
@@ -66,7 +67,8 @@ function useHidden(sectionIndex: SectionOutlineProps["sectionIndex"]) {
 
 // istanbul ignore next
 function useSize(sectionIndex: SectionOutlineProps["sectionIndex"]) {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   const splitterPercent = useLayout((state) => state.panels[side].splitterPercent);
   return React.useMemo<React.CSSProperties | undefined>(() => {
     let size = splitterPercent;

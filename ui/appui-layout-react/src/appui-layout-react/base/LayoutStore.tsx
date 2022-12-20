@@ -35,7 +35,7 @@ export function useLayoutStore() {
 }
 
 /** @internal */
-export function useLayout<SelectorOutput>(selector: (state: LayoutState) => SelectorOutput, multipleSlices: boolean = false) {
+export function useLayout<SelectorOutput>(selector: (state: LayoutState) => SelectorOutput, multipleSlices = false) {
   const store = useLayoutStore();
   return useStore(store, selector, multipleSlices ? shallow : undefined);
 }

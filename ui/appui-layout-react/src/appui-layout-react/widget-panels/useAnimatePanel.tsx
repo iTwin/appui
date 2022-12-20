@@ -16,7 +16,8 @@ import { isHorizontalPanelSide, PanelSideContext } from "./Panel";
 
 /** @internal */
 export function useAnimatePanel() {
-  const side = React.useContext(PanelSideContext)!;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const captured = draggedPanelSide === side;
