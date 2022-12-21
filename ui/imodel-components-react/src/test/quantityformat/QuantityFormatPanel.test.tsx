@@ -516,10 +516,6 @@ describe("QuantityInput", () => {
   });
 
   describe("Properties from Custom Quantity Type are Rendered", () => {
-    let theUserTo: ReturnType<typeof userEvent.setup>;
-    beforeEach(()=>{
-      theUserTo = userEvent.setup();
-    });
     before(async () => {
       // register new QuantityType
       await BearingQuantityType.registerQuantityType();
