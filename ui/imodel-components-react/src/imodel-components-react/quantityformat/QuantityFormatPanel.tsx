@@ -94,15 +94,7 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
   const [formatProps, setFormatProps] = React.useState<FormatProps>();
   const initialFormatProps = React.useRef<FormatProps>();
 
-  const [persistenceUnit, setPersistenceUnit] = React.useState(() => {
-    const quantityTypeKey = getQuantityTypeKey(quantityType);
-    const quantityTypeDefinition = IModelApp.quantityFormatter.quantityTypesRegistry.get(quantityTypeKey);
-    // istanbul ignore else
-    if (quantityTypeDefinition)
-      return quantityTypeDefinition.persistenceUnit;
-    else
-      throw Error(`Unable to locate a quantity type with type ${quantityType}`);
-  });
+  const [persistenceUnit, setPersistenceUnit] = React.useState<UnitProps>();
 
   React.useEffect(() => {
     const newFormatProps = IModelApp.quantityFormatter.getFormatPropsByQuantityType(quantityType);
@@ -110,6 +102,13 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
     if (!initialFormatProps.current)
       initialFormatProps.current = newFormatProps;
     setFormatProps(newFormatProps);
+    const quantityTypeKey = getQuantityTypeKey(quantityType);
+    const quantityTypeDefinition = IModelApp.quantityFormatter.quantityTypesRegistry.get(quantityTypeKey);
+    // istanbul ignore else
+    if (quantityTypeDefinition)
+      setPersistenceUnit(quantityTypeDefinition.persistenceUnit);
+    else
+      throw Error(`Unable to locate a quantity type with type ${quantityType}`);
   }, [quantityType]); // no dependencies defined as we want this to run on every render
 
   // handle case where quantityType does not change but the formatProps for that quantity type has (ie after a Set or Clear)
@@ -124,14 +123,6 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
       }
     }
   }); // no dependencies defined as we want this to run on every render
-
-  React.useEffect(() => {
-    const quantityTypeKey = getQuantityTypeKey(quantityType);
-    const quantityTypeDefinition = IModelApp.quantityFormatter.quantityTypesRegistry.get(quantityTypeKey);
-    // istanbul ignore else
-    if (quantityTypeDefinition)
-      setPersistenceUnit(quantityTypeDefinition.persistenceUnit);
-  }, [quantityType]);
 
   const handleOnFormatChanged = React.useCallback(async (newProps: FormatProps) => {
     setFormatProps(newProps);

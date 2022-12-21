@@ -13,10 +13,36 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import { TestUtils } from "../TestUtils";
 import { DrawingNavigationAid, DrawingNavigationCanvas, MapMode } from "../../imodel-components-react/navigationaids/DrawingNavigationAid";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
+import userEvent from "@testing-library/user-event";
 
 // cspell:ignore unrotate
 
+/**
+ * Will create a coords value suitable for our use of pointer events.
+ * @param xAndY value to assign to x, y, clientX and clientY
+ */
+function coords(xAndY: number): {x: number, y: number, clientX: number, clientY: number };
+/**
+ * Will create a coords value suitable for our use of pointer events.
+ * @param x value to assign to x and clientX
+ * @param y value to assign to y and clientY
+ * @returns coords object suitable for our use of pointer events.
+ */
+function coords(x: number, y?: number) {
+  return {
+    x,
+    y: y ?? x,
+    clientX: x,
+    clientY: y ?? x,
+  };
+}
+
 describe("DrawingNavigationAid", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
+
   before(async () => {
     sinon.restore();
     await TestUtils.initializeUiIModelComponents();
@@ -119,8 +145,7 @@ describe("DrawingNavigationAid", () => {
 
       expect(navAid.style.width).to.equal("96px");
       expect(navAid.style.height).to.equal("96px");
-      drawingContainer.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
-      drawingContainer.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
+      await theUserTo.click(drawingContainer);
 
       await waitForSpy(animationEnd, { timeout: 1000 });
 
@@ -140,8 +165,7 @@ describe("DrawingNavigationAid", () => {
 
       expect(navAid.style.width).to.equal("96px");
       expect(navAid.style.height).to.equal("96px");
-      drawingWindow.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
+      await theUserTo.click(drawingWindow);
 
       await waitForSpy(animationEnd, { timeout: 1000 });
 
@@ -161,8 +185,7 @@ describe("DrawingNavigationAid", () => {
 
       expect(navAid.style.width).to.equal("96px");
       expect(navAid.style.height).to.equal("96px");
-      drawingContainer.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
-      drawingContainer.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
+      await theUserTo.click(drawingContainer);
 
       await waitForSpy(animationEnd, { timeout: 1000 });
 
@@ -243,8 +266,7 @@ describe("DrawingNavigationAid", () => {
       expect(navAid.style.width).to.equal("350px");
       expect(navAid.style.height).to.equal("300px");
 
-      outside.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
-      outside.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
+      await theUserTo.click(outside);
 
       await waitForSpy(animationEnd, { timeout: 1000 });
 
@@ -264,14 +286,18 @@ describe("DrawingNavigationAid", () => {
         const viewWindow = component.getByTestId("drawing-view-window");
         expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
         ViewportComponentEvents.onViewRotationChangeEvent.emit({ viewport: vp.object });
-        expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
+        await waitFor(() => {
+          expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
+        });
       });
       it("should update onViewRotationChangeEvent with rotateMinimapWithView", async () => {
         const component = render(<DrawingNavigationAid iModelConnection={connection.object} viewport={vp.object} initialRotateMinimapWithView={true} />);
         const viewWindow = component.getByTestId("drawing-view-window");
         expect(viewWindow.style.transform).to.equal("translate(47.5px, 47.5px)");
         ViewportComponentEvents.onViewRotationChangeEvent.emit({ viewport: vp.object });
-        expect(viewWindow.style.transform).to.equal("translate(32px, 32px)");
+        await waitFor(() => {
+          expect(viewWindow.style.transform).to.equal("translate(32px, 32px)");
+        });
       });
       it("should update with rotation", async () => {
         const component = render(<DrawingNavigationAid iModelConnection={connection.object} viewport={vp.object} />);
@@ -279,7 +305,9 @@ describe("DrawingNavigationAid", () => {
         expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
         rotation = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.Z);
         ViewportComponentEvents.onViewRotationChangeEvent.emit({ viewport: vp.object });
-        expect(viewWindow.style.transform).to.equal("matrix3d(0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
+        await waitFor(() => {
+          expect(viewWindow.style.transform).to.equal("matrix3d(0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
+        });
       });
       it("should update with rotation in opened mode", async () => {
         const size = Vector3d.create(240, 240);
@@ -289,7 +317,9 @@ describe("DrawingNavigationAid", () => {
         expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 119.5, 119.5, 0, 1)");
         rotation = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.Z);
         ViewportComponentEvents.onViewRotationChangeEvent.emit({ viewport: vp.object });
-        expect(viewWindow.style.transform).to.equal("matrix3d(0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 80, 80, 0, 1)");
+        await waitFor(() => {
+          expect(viewWindow.style.transform).to.equal("matrix3d(0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 80, 80, 0, 1)");
+        });
         expect(navAid.style.width).to.equal("240px");
         expect(navAid.style.height).to.equal("240px");
       });
@@ -300,7 +330,10 @@ describe("DrawingNavigationAid", () => {
         expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
         rotation = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.Z);
         ViewportComponentEvents.onViewRotationChangeEvent.emit({ viewport: vp.object });
-        expect(viewWindow.style.transform).to.equal("matrix3d(0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
+
+        await waitFor(() => {
+          expect(viewWindow.style.transform).to.equal("matrix3d(0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
+        });
         const unRotate = component.getByTestId("drawing-unrotate-button");
         unRotate.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
         await waitForSpy(animationEnd, { timeout: 1000 });
@@ -313,11 +346,15 @@ describe("DrawingNavigationAid", () => {
         expect(viewWindow.style.transform).to.equal("translate(47.5px, 47.5px)");
         rotation = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.Z);
         ViewportComponentEvents.onViewRotationChangeEvent.emit({ viewport: vp.object });
-        expect(viewWindow.style.transform).to.equal("translate(32px, 32px)");
+        await waitFor(() => {
+          expect(viewWindow.style.transform).to.equal("translate(32px, 32px)");
+        });
         const unRotate = component.getByTestId("drawing-unrotate-button");
         unRotate.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
         await waitForSpy(animationEnd, { timeout: 1000 });
-        expect(viewWindow.style.transform).to.equal("translate(32px, 32px)");
+        await waitFor(() => {
+          expect(viewWindow.style.transform).to.equal("translate(32px, 32px)");
+        });
       });
     });
     it("should update panning", async () => {
@@ -329,9 +366,11 @@ describe("DrawingNavigationAid", () => {
 
       expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 174.5, 149.5, 0, 1)");
 
-      drawingContainer.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
-      drawingContainer.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
-      drawingContainer.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
+      await theUserTo.pointer([
+        { keys: "[MouseLeft>]", target: drawingContainer, coords: coords(4)},
+        { coords: coords(6)},
+        { keys: "[/MouseLeft]"},
+      ]);
       expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 176.5, 151.5, 0, 1)");
     });
     it("should update panning with rotateMinimapWithView", async () => {
@@ -343,9 +382,11 @@ describe("DrawingNavigationAid", () => {
 
       expect(drawingWindow.style.transform).to.equal("translate(174.5px, 149.5px)");
 
-      drawingContainer.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
-      drawingContainer.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
-      drawingContainer.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
+      await theUserTo.pointer([
+        { keys: "[MouseLeft>]", target: drawingContainer, coords: coords(4)},
+        { coords: coords(6)},
+        { keys: "[/MouseLeft]"},
+      ]);
       expect(drawingWindow.style.transform).to.equal("translate(176.5px, 151.5px)");
     });
     it("should update moving", async () => {
@@ -356,9 +397,11 @@ describe("DrawingNavigationAid", () => {
 
       expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 174.5, 149.5, 0, 1)");
 
-      drawingWindow.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
+      await theUserTo.pointer([
+        { keys: "[MouseLeft>]", target: drawingWindow, coords: coords(4)},
+        { coords: coords(6)},
+        { keys: "[/MouseLeft]"},
+      ]);
       expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 176.5, 151.5, 0, 1)");
     });
     it("should update moving with rotateMinimapWithView", async () => {
@@ -369,9 +412,11 @@ describe("DrawingNavigationAid", () => {
 
       expect(drawingWindow.style.transform).to.equal("translate(174.5px, 149.5px)");
 
-      drawingWindow.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
+      await theUserTo.pointer([
+        { keys: "[MouseLeft>]", target: drawingWindow, coords: coords(4)},
+        { coords: coords(6)},
+        { keys: "[/MouseLeft]"},
+      ]);
       expect(drawingWindow.style.transform).to.equal("translate(176.5px, 151.5px)");
     });
     it("should update moving in collapsed mode", async () => {
@@ -382,26 +427,36 @@ describe("DrawingNavigationAid", () => {
 
       expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
 
-      drawingWindow.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 4, clientY: 4 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 6, clientY: 6 }));
+      await theUserTo.pointer([
+        { keys: "[MouseLeft>]", target: drawingWindow, coords: coords(4)},
+        { coords: coords(6)},
+        { keys: "[/MouseLeft]"},
+      ]);
+
       expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 49.5, 49.5, 0, 1)");
     });
     it("should update pan-move", async () => {
       const closedSize = Vector3d.create(96, 96);
-      const component = render(<DrawingNavigationAid iModelConnection={connection.object} closeSize={closedSize} />);
+      const component = render(<><div data-testid={"other"} /><DrawingNavigationAid iModelConnection={connection.object} closeSize={closedSize} /></>);
 
       const drawingWindow = component.getByTestId("drawing-view-window");
 
       expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
 
-      drawingWindow.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 50, clientY: 50 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 0, clientY: 0 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: -50, clientY: -50 }));
+      await theUserTo.pointer([
+        { keys: "[MouseLeft>]", target: drawingWindow, coords: coords(50)},
+        { coords: coords(0)},
+        { coords: coords(-50)},
+      ]);
       await new Promise((r) => { setTimeout(r, 100); });
-      drawingWindow.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: -50, clientY: -50 }));
-
-      drawingWindow.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: -50, clientY: -50 }));
+      await theUserTo.pointer([
+        { keys: "[/MouseLeft]"},
+      ]);
+      await theUserTo.pointer( [
+        { target: component.getByTestId("other"), keys: "[MouseLeft>]", coords: coords(0) },
+        { target: drawingWindow, coords: coords(-50) },
+        { keys: "[/MouseLeft]" },
+      ]);
       const mat = drawingWindow.style.transform.match(/matrix3d\(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, ([-\d\.]+), ([-\d\.]+), 0, 1\)/);
       const x = parseFloat(mat![1]);
       const y = parseFloat(mat![2]);
@@ -416,17 +471,25 @@ describe("DrawingNavigationAid", () => {
 
       expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
 
-      drawingWindow.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 50, clientY: 50 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 0, clientY: 0 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: -50, clientY: -50 }));
+      await theUserTo.pointer([
+        { keys: "[MouseLeft>]", target: drawingWindow, coords: coords(50)},
+        { coords: coords(0)},
+        { coords: coords(-50)},
+      ]);
       await new Promise((r) => { setTimeout(r, 40); });
-      drawingWindow.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: -50, clientY: -50 }));
+      await theUserTo.pointer([
+        { keys: "[/MouseLeft]"},
+      ]);
 
-      drawingWindow.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 50, clientY: 50 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 0, clientY: 0 }));
-      drawingWindow.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: -50, clientY: -50 }));
+      await theUserTo.pointer([
+        { keys: "[MouseLeft>]", target: drawingWindow, coords: coords(50)},
+        { coords: coords(0)},
+        { coords: coords(-50)},
+      ]);
       await new Promise((r) => { setTimeout(r, 40); });
-      drawingWindow.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: -50, clientY: -50 }));
+      await theUserTo.pointer([
+        { keys: "[/MouseLeft]"},
+      ]);
       const mat = drawingWindow.style.transform.match(/matrix3d\(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, ([-\d\.]+), ([-\d\.]+), 0, 1\)/);
       const x = parseFloat(mat![1]);
       const y = parseFloat(mat![2]);
