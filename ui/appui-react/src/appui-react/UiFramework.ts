@@ -286,7 +286,7 @@ export class UiFramework {
    * @internal
    */
   public static translate(key: string | string[]): string {
-    return IModelApp.localization.getLocalizedStringWithNamespace(UiFramework.localizationNamespace, key);
+    return IModelApp.localization.getLocalizedString(key, { ns: UiFramework.localizationNamespace });
   }
 
   /** @internal */
