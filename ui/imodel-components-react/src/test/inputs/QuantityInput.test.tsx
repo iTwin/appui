@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { IModelApp, MockRender, QuantityType } from "@itwin/core-frontend";
 import { QuantityInput } from "../../imodel-components-react/inputs/QuantityInput";
 import { SpecialKey } from "@itwin/appui-abstract";
@@ -123,7 +123,7 @@ describe("QuantityInput", () => {
     expect(input.value).to.eq("3'-3 3/8\"");
   });
 
-  it("should attach 'components-parsed-input-has-error' when bad input", () => {
+  it("should attach 'components-parsed-input-has-error' when bad input", async () => {
     const initialLength = 1;  // 1 meter
     const spyOnChange = sinon.spy();
 
@@ -134,7 +134,9 @@ describe("QuantityInput", () => {
     input.focus();
     fireEvent.change(input, { target: { value: "abc" } });
     input.blur();
-    expect(input.classList.contains("components-parsed-input-has-error")).to.be.true;
+    await waitFor(() => {
+      expect(input.classList.contains("components-parsed-input-has-error")).to.be.true;
+    });
     fireEvent.keyDown(input, { key: SpecialKey.Escape });
     expect(spyOnChange).not.to.have.been.called;  // value did not change after ESC was pressed
     const currentValue = input.value;
