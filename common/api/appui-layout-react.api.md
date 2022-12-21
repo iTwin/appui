@@ -257,7 +257,7 @@ export class DragManager {
 export const DragManagerContext: React_2.Context<DragManager>;
 
 // @internal (undocumented)
-export const DragProvider: React_2.NamedExoticComponent<DragProviderProps>;
+export function DragProvider(props: DragProviderProps): JSX.Element;
 
 // @internal (undocumented)
 export interface DragProviderProps {
@@ -638,7 +638,7 @@ export interface MessageCenterTabProps extends CommonProps {
 }
 
 // @internal
-export const NavigationArea: React_2.NamedExoticComponent<NavigationAreaProps>;
+export function NavigationArea(props: NavigationAreaProps): JSX.Element;
 
 // @internal
 export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
@@ -1028,7 +1028,7 @@ export class SafeAreaInsetsHelpers {
 }
 
 // @internal
-export const ScrollableWidgetContent: React_2.NamedExoticComponent<ScrollableWidgetContentProps>;
+export function ScrollableWidgetContent(props: ScrollableWidgetContentProps): JSX.Element;
 
 // @internal
 export interface ScrollableWidgetContentProps {
@@ -1600,7 +1600,7 @@ export interface WidgetContentContainerProps {
 }
 
 // @internal (undocumented)
-export const WidgetContentManager: React_2.NamedExoticComponent<WidgetContentManagerProps>;
+export function WidgetContentManager(props: WidgetContentManagerProps): JSX.Element;
 
 // @internal (undocumented)
 export const WidgetContentManagerContext: React_2.Context<WidgetContentManagerContextArgs>;
@@ -1708,7 +1708,7 @@ export interface WidgetOverflowProps {
 }
 
 // @internal (undocumented)
-export const WidgetPanel: React_2.NamedExoticComponent<object>;
+export function WidgetPanel(): JSX.Element;
 
 // @internal (undocumented)
 export const WidgetPanelContext: React_2.Context<WidgetPanelContextArgs | undefined>;
@@ -1735,7 +1735,7 @@ export function WidgetPanelExpanders(): JSX.Element;
 export function WidgetPanelGrip(props: CommonProps): JSX.Element;
 
 // @internal
-export const WidgetPanelProvider: React_2.NamedExoticComponent<WidgetPanelProviderProps>;
+export function WidgetPanelProvider({ side }: WidgetPanelProviderProps): JSX.Element;
 
 // @internal
 export interface WidgetPanelProviderProps {
@@ -1744,7 +1744,7 @@ export interface WidgetPanelProviderProps {
 }
 
 // @internal
-export const WidgetPanels: React_2.NamedExoticComponent<WidgetPanelsProps>;
+export function WidgetPanels(props: WidgetPanelsProps): JSX.Element;
 
 // @internal
 export const WidgetPanelsContent: React_2.ForwardRefExoticComponent<WidgetPanelsContentProps & React_2.RefAttributes<HTMLDivElement>>;
@@ -1784,7 +1784,7 @@ export interface WidgetProps extends CommonProps {
 }
 
 // @internal (undocumented)
-export const WidgetProvider: React_2.NamedExoticComponent<WidgetProviderProps>;
+export function WidgetProvider(props: WidgetProviderProps): JSX.Element;
 
 // @internal (undocumented)
 export interface WidgetProviderProps {
@@ -1815,10 +1815,10 @@ export interface WidgetState {
 }
 
 // @internal
-export const WidgetTab: React_2.NamedExoticComponent<WidgetTabProps>;
+export function WidgetTab(props: WidgetTabProps): JSX.Element;
 
 // @internal (undocumented)
-export const WidgetTabBar: React_2.NamedExoticComponent<WidgetTabBarProps>;
+export function WidgetTabBar(props: WidgetTabBarProps): JSX.Element;
 
 // @internal (undocumented)
 export interface WidgetTabBarProps {
@@ -1932,7 +1932,7 @@ export interface WidgetTabsEntryContextProviderProps {
 }
 
 // @internal (undocumented)
-export const WidgetTabsEntryProvider: React_2.NamedExoticComponent<WidgetTabsEntryContextProviderProps>;
+export function WidgetTabsEntryProvider(props: WidgetTabsEntryContextProviderProps): JSX.Element;
 
 // @internal (undocumented)
 export interface WidgetToolSettingsState {

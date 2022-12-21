@@ -586,7 +586,7 @@ public;WidgetHost
 internal;WidgetInfo
 beta;WidgetManager
 public;WidgetPanelProps = Omit
-internal;WidgetPanelsFrontstage: React_2.NamedExoticComponent
+internal;WidgetPanelsFrontstage(): JSX.Element | null
 internal;WidgetPanelsFrontstageContent(): JSX.Element | null
 internal;WidgetPanelsFrontstageState
 internal;WidgetPanelsStatusBar(props: CommonProps): JSX.Element | null

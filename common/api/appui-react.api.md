@@ -5650,7 +5650,7 @@ export class WidgetManager {
 export type WidgetPanelProps = Omit<StagePanelConfig, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
 
 // @internal (undocumented)
-export const WidgetPanelsFrontstage: React_2.NamedExoticComponent<object>;
+export function WidgetPanelsFrontstage(): JSX.Element | null;
 
 // @internal (undocumented)
 export function WidgetPanelsFrontstageContent(): JSX.Element | null;
