@@ -145,6 +145,7 @@
       "plugin:@itwin/jsdoc"
     ],
     "rules": {
+      "@itwin/no-internal": "error",
       "@typescript-eslint/consistent-type-imports": "error",
       "no-duplicate-imports": "off"
     }

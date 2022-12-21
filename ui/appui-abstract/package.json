@@ -104,6 +104,7 @@
       "plugin:@itwin/jsdoc"
     ],
     "rules": {
+      "@itwin/no-internal": "error",
       "@typescript-eslint/consistent-type-imports": "error",
       "max-statements-per-line": "off",
       "no-duplicate-imports": "off"
