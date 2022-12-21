@@ -10,7 +10,8 @@ import "./SelectionInfo.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { connect } from "react-redux";
-import { CommonProps, Icon } from "@itwin/core-react";
+import type { CommonProps} from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import { FooterIndicator } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
 

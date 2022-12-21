@@ -12,8 +12,9 @@ import { Orientation } from "@itwin/core-react";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { PropertyGrid } from "../../../components-react/propertygrid/component/PropertyGrid";
 import { PropertyGridCommons } from "../../../components-react/propertygrid/component/PropertyGridCommons";
-import {
-  IPropertyDataProvider, PropertyCategory, PropertyData, PropertyDataChangeEvent,
+import type {
+  IPropertyDataProvider, PropertyCategory, PropertyData} from "../../../components-react/propertygrid/PropertyDataProvider";
+import { PropertyDataChangeEvent,
 } from "../../../components-react/propertygrid/PropertyDataProvider";
 import { ResolvablePromise } from "../../test-helpers/misc";
 import TestUtils, { selectorMatches, userEvent } from "../../TestUtils";

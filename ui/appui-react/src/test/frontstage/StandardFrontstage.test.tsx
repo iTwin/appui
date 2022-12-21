@@ -7,16 +7,18 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
+import type {
+  ContentGroupProps,
+  ContentProps} from "../../appui-react";
 import {
   BackstageAppButton,
   ContentGroup,
-  ContentGroupProps,
   ContentGroupProvider,
-  ContentProps,
   FrontstageManager,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import { StandardFrontstageProps, StandardFrontstageProvider } from "../../appui-react/frontstage/StandardFrontstageProvider";
+import type { StandardFrontstageProps} from "../../appui-react/frontstage/StandardFrontstageProvider";
+import { StandardFrontstageProvider } from "../../appui-react/frontstage/StandardFrontstageProvider";
 
 async function getSavedViewLayoutProps() {
   return Promise.resolve({

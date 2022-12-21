@@ -9,7 +9,8 @@
 import "./MenuTab.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, Icon } from "@itwin/core-react";
+import type { CommonProps} from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import { TabStateContext, useTabInteractions } from "./Tab";
 import { WidgetStateContext } from "./Widget";
 import { assert } from "@itwin/core-bentley";

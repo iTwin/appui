@@ -9,8 +9,9 @@ import { Logger } from "@itwin/core-bentley";
 import { MockRender, ToolAssistance, ToolAssistanceImage, ToolAssistanceInputMethod } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
 import { LocalStateStorage } from "@itwin/core-react";
+import type { ConfigurableCreateInfo} from "../../../appui-react";
 import {
-  AppNotificationManager, ConfigurableCreateInfo, ConfigurableUiControlType, CursorPopupManager, FrontstageManager, StatusBar, StatusBarWidgetControl,
+  AppNotificationManager, ConfigurableUiControlType, CursorPopupManager, FrontstageManager, StatusBar, StatusBarWidgetControl,
   ToolAssistanceField, WidgetDef,
 } from "../../../appui-react";
 import TestUtils, { selectorMatches, storageMock, userEvent } from "../../TestUtils";

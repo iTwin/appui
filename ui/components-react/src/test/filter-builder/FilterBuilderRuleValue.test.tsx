@@ -5,7 +5,8 @@
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
-import { PropertyDescription, PropertyValueFormat } from "@itwin/appui-abstract";
+import type { PropertyDescription} from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilderRuleValue } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import TestUtils, { userEvent } from "../TestUtils";

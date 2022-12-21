@@ -8,12 +8,14 @@
 
 import "./StatusBar.scss";
 import * as React from "react";
-import { CommonDivProps, CommonProps, Div } from "@itwin/core-react";
+import type { CommonDivProps, CommonProps} from "@itwin/core-react";
+import { Div } from "@itwin/core-react";
 import { Footer } from "@itwin/appui-layout-react";
-import { ActivityMessageEventArgs, MessageAddedEventArgs, MessageManager } from "../messages/MessageManager";
+import type { ActivityMessageEventArgs, MessageAddedEventArgs} from "../messages/MessageManager";
+import { MessageManager } from "../messages/MessageManager";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { UiShowHideManager } from "../utils/UiShowHideManager";
-import { StatusBarWidgetControl } from "./StatusBarWidgetControl";
+import type { StatusBarWidgetControl } from "./StatusBarWidgetControl";
 import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
 import { ActivityMessageRenderer } from "../messages/ActivityMessage";
 

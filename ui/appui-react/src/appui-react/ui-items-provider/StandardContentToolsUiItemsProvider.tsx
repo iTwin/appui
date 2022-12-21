@@ -7,10 +7,11 @@
  */
 
 import * as React from "react";
-import {
+import type {
   CommonStatusBarItem, CommonToolbarItem,
+  UiItemsProvider} from "@itwin/appui-abstract";
+import {
   StatusBarSection, ToolbarOrientation, ToolbarUsage,
-  UiItemsProvider,
 } from "@itwin/appui-abstract";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";

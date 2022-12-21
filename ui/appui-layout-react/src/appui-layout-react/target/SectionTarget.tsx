@@ -15,7 +15,7 @@ import { CursorTypeContext, DraggedTabContext, getUniqueId } from "../base/NineZ
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
 import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { useAllowedPanelTarget } from "./useAllowedPanelTarget";
-import { SectionDropTargetState } from "../state/DropTargetState";
+import type { SectionDropTargetState } from "../state/DropTargetState";
 
 /** @internal */
 export interface SectionTargetProps {

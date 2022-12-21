@@ -5,13 +5,15 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import {
-  CommonToolbarItem, ConditionalBooleanValue, StageUsage, ToolbarOrientation, ToolbarUsage,
-  UiItemsManager, UiItemsProvider,
+import type {
+  CommonToolbarItem, UiItemsProvider} from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, StageUsage, ToolbarOrientation, ToolbarUsage,
+  UiItemsManager,
 } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
+import type { FrontstageConfig} from "../../appui-react";
 import {
-  CommandItemDef, ConfigurableUiManager, CustomItemDef, FrontstageConfig, FrontstageManager, FrontstageProvider, GroupItemDef,
+  CommandItemDef, ConfigurableUiManager, CustomItemDef, FrontstageManager, FrontstageProvider, GroupItemDef,
   ToolbarComposer, ToolbarHelper, ToolItemDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";

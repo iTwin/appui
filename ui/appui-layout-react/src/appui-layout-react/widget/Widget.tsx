@@ -9,12 +9,14 @@
 import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, Rectangle, SizeProps, useRefs } from "@itwin/core-react";
+import type { CommonProps, SizeProps} from "@itwin/core-react";
+import { Rectangle, useRefs } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
-import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager";
+import type { UseDragWidgetArgs } from "../base/DragManager";
+import { useDragWidget } from "../base/DragManager";
 import { getUniqueId, MeasureContext, NineZoneDispatchContext, TabsStateContext } from "../base/NineZone";
-import { WidgetState } from "../state/WidgetState";
-import { TabState } from "../state/TabState";
+import type { WidgetState } from "../state/WidgetState";
+import type { TabState } from "../state/TabState";
 import { PanelSideContext } from "../widget-panels/Panel";
 import { FloatingWidgetIdContext } from "./FloatingWidget";
 

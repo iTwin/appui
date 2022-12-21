@@ -6,11 +6,11 @@
  * @module UiItemsProvider
  */
 
-import { BackstageItem } from "./backstage/BackstageItem";
-import { CommonStatusBarItem } from "./statusbar/StatusBarItem";
-import { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "./toolbars/ToolbarItem";
-import { AbstractWidgetProps } from "./widget/AbstractWidgetProps";
-import { StagePanelLocation, StagePanelSection } from "./widget/StagePanel";
+import type { BackstageItem } from "./backstage/BackstageItem";
+import type { CommonStatusBarItem } from "./statusbar/StatusBarItem";
+import type { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "./toolbars/ToolbarItem";
+import type { AbstractWidgetProps } from "./widget/AbstractWidgetProps";
+import type { StagePanelLocation, StagePanelSection } from "./widget/StagePanel";
 
 /** Describes interface of objects that want to provide UI component to the running IModelApp.
  * @public

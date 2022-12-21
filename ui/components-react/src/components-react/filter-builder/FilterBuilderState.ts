@@ -2,12 +2,15 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { Draft, produce } from "immer";
+import type { Draft} from "immer";
+import { produce } from "immer";
 import * as React from "react";
-import { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
+import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
-import { isUnaryPropertyFilterOperator, PropertyFilterRuleGroupOperator, PropertyFilterRuleOperator } from "./Operators";
-import { isPropertyFilterRuleGroup, PropertyFilter, PropertyFilterRule } from "./Types";
+import type { PropertyFilterRuleOperator } from "./Operators";
+import { isUnaryPropertyFilterOperator, PropertyFilterRuleGroupOperator } from "./Operators";
+import type { PropertyFilter, PropertyFilterRule } from "./Types";
+import { isPropertyFilterRuleGroup } from "./Types";
 
 /** @alpha */
 export interface PropertyFilterBuilderState {

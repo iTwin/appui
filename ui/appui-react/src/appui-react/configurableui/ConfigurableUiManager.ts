@@ -9,8 +9,9 @@
 import { BeUiEvent } from "@itwin/core-bentley";
 import { UiError } from "@itwin/appui-abstract";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { FrontstageProvider } from "../frontstage/FrontstageProvider";
-import { KeyboardShortcutManager, KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcut";
+import type { FrontstageProvider } from "../frontstage/FrontstageProvider";
+import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcut";
+import { KeyboardShortcutManager } from "../keyboardshortcut/KeyboardShortcut";
 import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl";
 import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl";
 import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
@@ -18,7 +19,8 @@ import { StandardRotationNavigationAidControl } from "../navigationaids/Standard
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
 import { ToolSettingsManager } from "../toolsettings/ToolSettingsManager";
-import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
+import type { ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
+import { ConfigurableCreateInfo } from "./ConfigurableUiControl";
 import { ModelessDialogManager } from "../dialog/ModelessDialogManager";
 import { ModalDialogManager } from "../dialog/ModalDialogManager";
 import { MessageManager } from "../messages/MessageManager";

@@ -9,33 +9,40 @@
 // cSpell:ignore popout
 
 import * as React from "react";
-import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import { PointProps, StagePanelLocation, StageUsage, UiError, WidgetState } from "@itwin/appui-abstract";
-import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
+import type { PointProps} from "@itwin/appui-abstract";
+import { StagePanelLocation, StageUsage, UiError, WidgetState } from "@itwin/appui-abstract";
+import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react";
+import type {
+  NineZoneState, PanelSide} from "@itwin/appui-layout-react";
 import {
-  dockWidgetContainer, floatWidget, getTabLocation, getWidgetLocation, isFloatingTabLocation, isPanelTabLocation, isPopoutTabLocation, isPopoutWidgetLocation,
-  NineZoneState, PanelSide, panelSides, popoutWidgetToChildWindow,
+  dockWidgetContainer, floatWidget, getTabLocation, getWidgetLocation, isFloatingTabLocation, isPanelTabLocation, isPopoutTabLocation, isPopoutWidgetLocation, panelSides, popoutWidgetToChildWindow,
 } from "@itwin/appui-layout-react";
-import { ContentControl } from "../content/ContentControl";
-import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
-import { ContentLayoutDef } from "../content/ContentLayout";
+import type { ContentControl } from "../content/ContentControl";
+import type { ContentGroup} from "../content/ContentGroup";
+import { ContentGroupProvider } from "../content/ContentGroup";
+import type { ContentLayoutDef } from "../content/ContentLayout";
 import { ContentLayoutManager } from "../content/ContentLayoutManager";
 import { ContentViewManager } from "../content/ContentViewManager";
 import { StagePanelDef, StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
-import { WidgetControl } from "../widgets/WidgetControl";
+import type { WidgetControl } from "../widgets/WidgetControl";
 import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
-import { FrontstageActivatedEventArgs, FrontstageManager } from "./FrontstageManager";
-import { FrontstageProvider } from "./FrontstageProvider";
+import type { FrontstageActivatedEventArgs} from "./FrontstageManager";
+import { FrontstageManager } from "./FrontstageManager";
+import type { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
-import { ChildWindowLocationProps } from "../childwindow/ChildWindowManager";
+import type { ChildWindowLocationProps } from "../childwindow/ChildWindowManager";
 import { PopoutWidget } from "../childwindow/PopoutWidget";
-import { FrameworkStateReducer, SavedWidgets } from "../widget-panels/Frontstage";
+import type { SavedWidgets } from "../widget-panels/Frontstage";
+import { FrameworkStateReducer } from "../widget-panels/Frontstage";
 import { assert, BentleyStatus, ProcessDetector } from "@itwin/core-bentley";
 import { ContentDialogManager } from "../dialog/ContentDialogManager";
-import { FrontstageConfig } from "./FrontstageConfig";
-import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
-import { WidgetConfig } from "../widgets/WidgetConfig";
+import type { FrontstageConfig } from "./FrontstageConfig";
+import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
+import type { WidgetConfig } from "../widgets/WidgetConfig";
 
 /** @internal */
 export interface FrontstageEventArgs {

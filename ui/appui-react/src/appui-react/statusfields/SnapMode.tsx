@@ -12,7 +12,7 @@ import { SnapMode } from "@itwin/core-frontend";
 import { Snap, SnapModePanel } from "@itwin/appui-layout-react";
 import { ConfigurableUiActions } from "../configurableui/state";
 import { UiFramework } from "../UiFramework";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 
 // cSpell:ignore multione

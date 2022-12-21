@@ -2,7 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { PropertyDescription, StandardTypeNames } from "@itwin/appui-abstract";
+import type { PropertyDescription} from "@itwin/appui-abstract";
+import { StandardTypeNames } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents";
 
 /** @alpha */

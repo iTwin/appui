@@ -6,8 +6,10 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import { createNineZoneState, NineZoneDispatch, usePanelsAutoCollapse } from "../../appui-layout-react";
-import { setRefValue, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
+import type { NineZoneDispatch} from "../../appui-layout-react";
+import { createNineZoneState, usePanelsAutoCollapse } from "../../appui-layout-react";
+import type { TestNineZoneProviderProps } from "../Providers";
+import { setRefValue, TestNineZoneProvider } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 const wrapper = (props: TestNineZoneProviderProps) => {

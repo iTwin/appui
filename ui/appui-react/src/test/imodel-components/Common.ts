@@ -3,10 +3,12 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { Id64, Id64String } from "@itwin/core-bentley";
-import { ECClassGroupingNodeKey, ECInstancesNodeKey, InstanceKey, StandardNodeTypes } from "@itwin/presentation-common";
+import type { Id64String } from "@itwin/core-bentley";
+import { Id64 } from "@itwin/core-bentley";
+import type { ECClassGroupingNodeKey, ECInstancesNodeKey, InstanceKey} from "@itwin/presentation-common";
+import { StandardNodeTypes } from "@itwin/presentation-common";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import { TreeModelNode } from "@itwin/components-react";
+import type { TreeModelNode } from "@itwin/components-react";
 import { CheckBoxState } from "@itwin/core-react";
 import { createRandomPropertyRecord, createRandomTreeNodeItem } from "../PresentationTestUtils";
 

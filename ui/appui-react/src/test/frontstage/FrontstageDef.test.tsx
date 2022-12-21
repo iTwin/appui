@@ -6,11 +6,13 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import produce from "immer";
 import { renderHook } from "@testing-library/react-hooks";
-import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager, UiItemsProvider, WidgetState } from "@itwin/appui-abstract";
+import type { AbstractWidgetProps, UiItemsProvider} from "@itwin/appui-abstract";
+import { StagePanelLocation, StagePanelSection, UiItemsManager, WidgetState } from "@itwin/appui-abstract";
 import { addFloatingWidget, addPanelWidget, addPopoutWidget, addTab, createNineZoneState } from "@itwin/appui-layout-react";
 import { MockRender } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
-import { FrontstageConfig, FrontstageDef, FrontstageManager, FrontstageProvider, StagePanelDef, StagePanelState, useSpecificWidgetDef, WidgetDef } from "../../appui-react";
+import type { FrontstageConfig} from "../../appui-react";
+import { FrontstageDef, FrontstageManager, FrontstageProvider, StagePanelDef, StagePanelState, useSpecificWidgetDef, WidgetDef } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 
 describe("FrontstageDef", () => {

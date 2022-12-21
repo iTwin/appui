@@ -4,7 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, render } from "@testing-library/react";
-import { addTab, createNineZoneState, DragManager, NineZoneState, PanelSideContext, PanelStateContext } from "../../appui-layout-react";
+import type { DragManager, NineZoneState} from "../../appui-layout-react";
+import { addTab, createNineZoneState, PanelSideContext, PanelStateContext } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { SectionOutline } from "../../appui-layout-react/outline/SectionOutline";
 import { expect } from "chai";

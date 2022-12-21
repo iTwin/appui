@@ -7,15 +7,16 @@
  */
 
 import * as React from "react";
-import { StageUsage } from "@itwin/appui-abstract";
-import { ContentGroup, ContentGroupProps, ContentGroupProvider } from "../content/ContentGroup";
+import type { StageUsage } from "@itwin/appui-abstract";
+import type { ContentGroupProps} from "../content/ContentGroup";
+import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
 import { StatusBarWidgetComposerControl } from "../widgets/StatusBarWidgetComposerControl";
 import { StagePanelState } from "../stagepanels/StagePanelDef";
-import { FrontstageConfig } from "./FrontstageConfig";
-import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
+import type { FrontstageConfig } from "./FrontstageConfig";
+import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 
 /** Properties of a [[WidgetPanelProps]] component
  * @public

@@ -8,11 +8,13 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import {
-  AbstractStatusBarActionItem, AbstractStatusBarLabelItem, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue,
-  isAbstractStatusBarActionItem, isAbstractStatusBarLabelItem, StatusBarItemsManager, StatusBarSection, UiSyncEventArgs,
+import type {
+  AbstractStatusBarActionItem, AbstractStatusBarLabelItem, CommonStatusBarItem, UiSyncEventArgs} from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, ConditionalStringValue,
+  isAbstractStatusBarActionItem, isAbstractStatusBarLabelItem, StatusBarItemsManager, StatusBarSection,
 } from "@itwin/appui-abstract";
-import { CommonProps, useRefs, useResizeObserver } from "@itwin/core-react";
+import type { CommonProps} from "@itwin/core-react";
+import { useRefs, useResizeObserver } from "@itwin/core-react";
 import { eqlOverflown } from "@itwin/appui-layout-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { StatusBarOverflow } from "./Overflow";

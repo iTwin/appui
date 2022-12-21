@@ -7,12 +7,13 @@
  */
 
 import * as React from "react";
-import {
-  CustomFormatPropEditorSpec, getQuantityTypeKey, IModelApp, isCheckboxFormatPropEditorSpec, isCustomQuantityTypeDefinition,
-  isTextInputFormatPropEditorSpec, isTextSelectFormatPropEditorSpec, QuantityTypeArg,
+import type {
+  CustomFormatPropEditorSpec, QuantityTypeArg} from "@itwin/core-frontend";
+import { getQuantityTypeKey, IModelApp, isCheckboxFormatPropEditorSpec, isCustomQuantityTypeDefinition,
+  isTextInputFormatPropEditorSpec, isTextSelectFormatPropEditorSpec,
 } from "@itwin/core-frontend";
-import { FormatProps, UnitProps, UnitsProvider } from "@itwin/core-quantity";
-import { CommonProps } from "@itwin/core-react";
+import type { FormatProps, UnitProps, UnitsProvider } from "@itwin/core-quantity";
+import type { CommonProps } from "@itwin/core-react";
 import { Checkbox, Input, Select } from "@itwin/itwinui-react";
 import { FormatPanel } from "./FormatPanel";
 import { DeepCompare } from "@itwin/core-geometry";

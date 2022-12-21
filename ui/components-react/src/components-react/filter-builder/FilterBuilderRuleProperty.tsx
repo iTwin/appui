@@ -3,8 +3,9 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { PropertyDescription } from "@itwin/appui-abstract";
-import { ComboBox, ComboBoxProps, MenuItem, SelectOption } from "@itwin/itwinui-react";
+import type { PropertyDescription } from "@itwin/appui-abstract";
+import type { ComboBoxProps, SelectOption } from "@itwin/itwinui-react";
+import { ComboBox, MenuItem } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 
 /** @alpha */

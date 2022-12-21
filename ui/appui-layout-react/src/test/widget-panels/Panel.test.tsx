@@ -8,9 +8,10 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
+import type { DragManager, NineZoneDispatch,
+  NineZoneState, PanelSide} from "../../appui-layout-react";
 import {
-  addPanelWidget, addTab, createNineZoneState, DraggedPanelSideContext, DragManager, NineZoneDispatch,
-  NineZoneState, PanelSide, PanelStateContext, useAnimatePanelWidgets, WidgetPanelProvider,
+  addPanelWidget, addTab, createNineZoneState, DraggedPanelSideContext, PanelStateContext, useAnimatePanelWidgets, WidgetPanelProvider,
 } from "../../appui-layout-react";
 import { createDragInfo, setRefValue, TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";

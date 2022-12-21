@@ -10,18 +10,21 @@ import "./Panel.scss";
 import classnames from "classnames";
 import * as React from "react";
 import produce from "immer";
-import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
+import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
 import { DraggedPanelSideContext } from "../base/DragManager";
 import { NineZoneDispatchContext, PanelsStateContext, WidgetsStateContext } from "../base/NineZone";
-import { WidgetState } from "../state/WidgetState";
-import { PanelWidget, PanelWidgetProps } from "../widget/PanelWidget";
+import type { WidgetState } from "../state/WidgetState";
+import type { PanelWidgetProps } from "../widget/PanelWidget";
+import { PanelWidget } from "../widget/PanelWidget";
 import { WidgetPanelGrip } from "./Grip";
 import { PanelTargets } from "../target/PanelTargets";
 import { SectionOutline } from "../outline/SectionOutline";
 import { PanelOutline } from "../outline/PanelOutline";
 import { SectionTargets } from "../target/SectionTargets";
-import { isHorizontalPanelState, PanelState } from "../state/PanelState";
+import type { PanelState } from "../state/PanelState";
+import { isHorizontalPanelState } from "../state/PanelState";
 
 /** @internal */
 export type TopPanelSide = "top";

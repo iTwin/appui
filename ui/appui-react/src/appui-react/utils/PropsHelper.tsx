@@ -7,8 +7,10 @@
  */
 
 import * as React from "react";
-import { AbstractWidgetProps, BackstageItem, ConditionalStringValue, StringGetter } from "@itwin/appui-abstract";
-import { Icon, IconHelper, IconSpec } from "@itwin/core-react";
+import type { AbstractWidgetProps, BackstageItem, StringGetter } from "@itwin/appui-abstract";
+import { ConditionalStringValue } from "@itwin/appui-abstract";
+import type { IconSpec } from "@itwin/core-react";
+import { Icon, IconHelper } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 
 /** A set of helper methods for various props

@@ -10,7 +10,7 @@ import "./SectionOutline.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { useTargeted } from "../base/DragManager";
 import { PanelSideContext, PanelStateContext } from "../widget-panels/Panel";
 import { useTargetDirection } from "../target/SectionTarget";

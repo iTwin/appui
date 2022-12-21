@@ -8,7 +8,8 @@ import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react";
-import { CursorInformation, CursorPopupContent, CursorPopupManager, CursorPopupOptions, CursorPopupRenderer } from "../../../appui-react";
+import type { CursorPopupOptions} from "../../../appui-react";
+import { CursorInformation, CursorPopupContent, CursorPopupManager, CursorPopupRenderer } from "../../../appui-react";
 import TestUtils, { selectorMatches } from "../../TestUtils";
 import { render, screen } from "@testing-library/react";
 

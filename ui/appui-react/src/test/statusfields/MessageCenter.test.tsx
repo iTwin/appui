@@ -6,8 +6,9 @@ import { expect } from "chai";
 import * as React from "react";
 import { MockRender, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, MessageCenterField, MessageManager, StatusBar, StatusBarWidgetControl,
+import type {
+  ConfigurableCreateInfo} from "../../appui-react";
+import { ConfigurableUiControlType, ConfigurableUiManager, MessageCenterField, MessageManager, StatusBar, StatusBarWidgetControl,
   WidgetDef,
 } from "../../appui-react";
 import TestUtils, { childStructure, userEvent } from "../TestUtils";

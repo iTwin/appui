@@ -6,7 +6,8 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { WidgetState } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ConfigurableUiControlType, WidgetConfig, WidgetControl, WidgetDef } from "../../appui-react";
+import type { ConfigurableCreateInfo, WidgetConfig} from "../../appui-react";
+import { ConfigurableUiControlType, WidgetControl, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { assert } from "@itwin/core-bentley";
 

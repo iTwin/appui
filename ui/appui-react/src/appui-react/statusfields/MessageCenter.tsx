@@ -11,9 +11,9 @@ import { OutputMessagePriority } from "@itwin/core-frontend";
 import { FooterPopup, MessageCenter, MessageCenterDialog, MessageCenterMessage, MessageCenterTab } from "@itwin/appui-layout-react";
 import { MessageManager } from "../messages/MessageManager";
 import { MessageSpan } from "../messages/MessageSpan";
-import { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
+import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 
 /** Enum for the [[MessageCenterField]] active tab
  * @internal

@@ -9,18 +9,19 @@
 import * as React from "react";
 import { assert, Guid } from "@itwin/core-bentley";
 import { Rectangle, useRefs, useResizeObserver } from "@itwin/core-react";
-import { CursorType } from "../widget-panels/CursorOverlay";
-import { PanelSide } from "../widget-panels/Panel";
+import type { CursorType } from "../widget-panels/CursorOverlay";
+import type { PanelSide } from "../widget-panels/Panel";
 import { WidgetContentManager } from "../widget/ContentManager";
-import { FloatingWidget, FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
+import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
+import { FloatingWidget } from "../widget/FloatingWidget";
 import { DraggedPanelSideContext, DraggedResizeHandleContext, DraggedWidgetIdContext, DragProvider } from "./DragManager";
 import { WidgetTab } from "../widget/Tab";
-import { NineZoneAction } from "../state/NineZoneAction";
-import { NineZoneState } from "../state/NineZoneState";
-import { PanelsState } from "../state/PanelState";
-import { DraggedTabState, TabsState } from "../state/TabState";
-import { ToolSettingsState } from "../state/ToolSettingsState";
-import { FloatingWidgetsState, WidgetsState } from "../state/WidgetState";
+import type { NineZoneAction } from "../state/NineZoneAction";
+import type { NineZoneState } from "../state/NineZoneState";
+import type { PanelsState } from "../state/PanelState";
+import type { DraggedTabState, TabsState } from "../state/TabState";
+import type { ToolSettingsState } from "../state/ToolSettingsState";
+import type { FloatingWidgetsState, WidgetsState } from "../state/WidgetState";
 
 /** @internal */
 export type NineZoneDispatch = (action: NineZoneAction) => void;

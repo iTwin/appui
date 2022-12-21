@@ -6,14 +6,15 @@
  * @module UiItemsProvider
  */
 
-import { BeEvent, Logger, MarkRequired } from "@itwin/core-bentley";
-import { BackstageItem } from "./backstage/BackstageItem";
-import { CommonStatusBarItem } from "./statusbar/StatusBarItem";
-import { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "./toolbars/ToolbarItem";
-import { AbstractWidgetProps } from "./widget/AbstractWidgetProps";
-import { StagePanelLocation, StagePanelSection } from "./widget/StagePanel";
+import type { MarkRequired } from "@itwin/core-bentley";
+import { BeEvent, Logger } from "@itwin/core-bentley";
+import type { BackstageItem } from "./backstage/BackstageItem";
+import type { CommonStatusBarItem } from "./statusbar/StatusBarItem";
+import type { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "./toolbars/ToolbarItem";
+import type { AbstractWidgetProps } from "./widget/AbstractWidgetProps";
+import type { StagePanelLocation, StagePanelSection } from "./widget/StagePanel";
 import { loggerCategory } from "./utils/misc";
-import { UiItemsProvider } from "./UiItemsProvider";
+import type { UiItemsProvider } from "./UiItemsProvider";
 
 /** Action taken by the application on item provided by a UiItemsProvider
  * @public @deprecated this was only used by the previously removed UiItemsArbiter.

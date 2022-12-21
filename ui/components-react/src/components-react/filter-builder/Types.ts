@@ -2,8 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
-import { PropertyFilterRuleGroupOperator, PropertyFilterRuleOperator } from "./Operators";
+import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
+import type { PropertyFilterRuleGroupOperator, PropertyFilterRuleOperator } from "./Operators";
 
 /** @alpha */
 export type PropertyFilter = PropertyFilterRule | PropertyFilterRuleGroup;

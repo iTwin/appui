@@ -5,10 +5,11 @@
 /* eslint-disable deprecation/deprecation */
 import { expect } from "chai";
 import * as sinon from "sinon";
+import type { AbstractWidgetProps, BackstageItem, CommonStatusBarItem, CommonToolbarItem, StagePanelSection, UiItemsProvider} from "../appui-abstract";
 import {
-  AbstractStatusBarItemUtilities, AbstractWidgetProps, BackstageItem, BackstageItemUtilities, CommonStatusBarItem, CommonToolbarItem,
-  StagePanelLocation, StagePanelSection, StageUsage, StatusBarSection, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage,
-  UiItemsManager, UiItemsProvider,
+  AbstractStatusBarItemUtilities, BackstageItemUtilities,
+  StagePanelLocation, StageUsage, StatusBarSection, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage,
+  UiItemsManager,
 } from "../appui-abstract";
 
 const testStageUsage = StageUsage.General;

@@ -8,18 +8,22 @@
 
 import "./ModelsTree.scss";
 import * as React from "react";
-import { ControlledTree, SelectionMode, TreeNodeItem, useTreeModel } from "@itwin/components-react";
-import { Id64Array } from "@itwin/core-bentley";
-import { IModelConnection, Viewport } from "@itwin/core-frontend";
+import type { TreeNodeItem} from "@itwin/components-react";
+import { ControlledTree, SelectionMode, useTreeModel } from "@itwin/components-react";
+import type { Id64Array } from "@itwin/core-bentley";
+import type { IModelConnection, Viewport } from "@itwin/core-frontend";
 import { useDisposable, useOptionalDisposable } from "@itwin/core-react";
-import { NodeKey, Ruleset } from "@itwin/presentation-common";
-import { IFilteredPresentationTreeDataProvider, IPresentationTreeDataProvider, usePresentationTreeNodeLoader } from "@itwin/presentation-components";
+import type { NodeKey, Ruleset } from "@itwin/presentation-common";
+import type { IFilteredPresentationTreeDataProvider, IPresentationTreeDataProvider} from "@itwin/presentation-components";
+import { usePresentationTreeNodeLoader } from "@itwin/presentation-components";
 import { Presentation } from "@itwin/presentation-frontend";
 import { UiFramework } from "../../../appui-react/UiFramework";
-import { ClassGroupingOption, VisibilityTreeFilterInfo } from "../Common";
+import type { VisibilityTreeFilterInfo } from "../Common";
+import { ClassGroupingOption } from "../Common";
 import { VisibilityTreeEventHandler } from "../VisibilityTreeEventHandler";
 import { useVisibilityTreeFiltering, useVisibilityTreeRenderer, VisibilityTreeNoFilteredData } from "../VisibilityTreeRenderer";
-import { ModelsTreeSelectionPredicate, ModelsVisibilityHandler, SubjectModelIdsCache } from "./ModelsVisibilityHandler";
+import type { ModelsTreeSelectionPredicate} from "./ModelsVisibilityHandler";
+import { ModelsVisibilityHandler, SubjectModelIdsCache } from "./ModelsVisibilityHandler";
 
 const PAGING_SIZE = 20;
 

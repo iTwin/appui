@@ -6,17 +6,18 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { Rectangle } from "@itwin/core-react";
 import { act, fireEvent, render } from "@testing-library/react";
+import type {
+  NineZoneState,
+  TabState,
+  WidgetState} from "../../appui-layout-react";
 import {
   addPanelWidget,
   addTab,
   createNineZoneState,
-  NineZoneState,
   ShowWidgetIconContext,
-  TabState,
   TabStateContext,
   WidgetContext,
   WidgetOverflowContext,
-  WidgetState,
   WidgetStateContext,
 } from "../../appui-layout-react";
 import { WidgetMenuTab } from "../../appui-layout-react/widget/MenuTab";

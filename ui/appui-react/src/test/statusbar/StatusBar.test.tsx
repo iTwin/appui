@@ -9,8 +9,9 @@ import {
   ActivityMessageDetails, ActivityMessageEndReason, NoRenderApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType,
 } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
+import type { ConfigurableCreateInfo} from "../../appui-react";
 import {
-  AppNotificationManager, ConfigurableCreateInfo, ConfigurableUiControlType, MessageCenterField, StatusBar, StatusBarCenterSection,
+  AppNotificationManager, ConfigurableUiControlType, MessageCenterField, StatusBar, StatusBarCenterSection,
   StatusBarLeftSection, StatusBarRightSection, StatusBarSpaceBetween, StatusBarWidgetControl, WidgetDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";

@@ -6,13 +6,14 @@
  * @module Frontstage
  */
 
-import produce, { Draft } from "immer";
+import type { Draft } from "immer";
+import produce from "immer";
 import { StagePanelLocation, StagePanelSection, UiEvent } from "@itwin/appui-abstract";
-import { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
+import type { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
-import { StagePanelConfig, StagePanelMaxSizeSpec, StagePanelSectionConfig } from "./StagePanelConfig";
+import type { StagePanelConfig, StagePanelMaxSizeSpec, StagePanelSectionConfig } from "./StagePanelConfig";
 
 /** Enum for StagePanel state.
  * @public

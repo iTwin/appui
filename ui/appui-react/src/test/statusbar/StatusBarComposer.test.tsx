@@ -6,13 +6,15 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import type { CommonStatusBarItem,
+  UiItemsProvider} from "@itwin/appui-abstract";
 import {
-  AbstractStatusBarItemUtilities, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue, StageUsage, StatusBarLabelSide, StatusBarSection, UiItemsManager,
-  UiItemsProvider, WidgetState,
+  AbstractStatusBarItemUtilities, ConditionalBooleanValue, ConditionalStringValue, StageUsage, StatusBarLabelSide, StatusBarSection, UiItemsManager, WidgetState,
 } from "@itwin/appui-abstract";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, FrontstageDef, FrontstageManager, StatusBar, StatusBarComposer, StatusBarItem,
+import type {
+  ConfigurableCreateInfo, StatusBarItem} from "../../appui-react";
+import { ConfigurableUiControlType, FrontstageDef, FrontstageManager, StatusBar, StatusBarComposer,
   StatusBarItemUtilities, StatusBarWidgetControl, SyncUiEventDispatcher, WidgetDef,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";

@@ -9,11 +9,14 @@
 import "./Calculator.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { IconSpecUtilities, OnCancelFunc, OnNumberCommitFunc, SpecialKey } from "@itwin/appui-abstract";
-import { CommonProps, Icon, IconInput, Omit } from "@itwin/core-react";
+import type { OnCancelFunc, OnNumberCommitFunc} from "@itwin/appui-abstract";
+import { IconSpecUtilities, SpecialKey } from "@itwin/appui-abstract";
+import type { CommonProps, Omit } from "@itwin/core-react";
+import { Icon, IconInput } from "@itwin/core-react";
 import { Button, Input } from "@itwin/itwinui-react";
 import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine";
-import { SquareButton, SquareButtonProps } from "./SquareButton";
+import type { SquareButtonProps } from "./SquareButton";
+import { SquareButton } from "./SquareButton";
 
 import backspaceIcon from "./backspace.svg";
 

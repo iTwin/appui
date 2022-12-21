@@ -11,10 +11,12 @@ import { render } from "@testing-library/react";
 import { Logger } from "@itwin/core-bentley";
 import { WidgetState } from "@itwin/appui-abstract";
 import { Size } from "@itwin/core-react";
-import { IModelApp, IModelConnection, MockRender, ScreenViewport, SpatialViewState } from "@itwin/core-frontend";
+import type { IModelConnection, ScreenViewport, SpatialViewState } from "@itwin/core-frontend";
+import { IModelApp, MockRender } from "@itwin/core-frontend";
+import type {
+  ModalFrontstageRequestedCloseEventArgs} from "../../appui-react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiContent, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, FrontstageDef, FrontstageManager,
-  ModalFrontstageRequestedCloseEventArgs, RestoreFrontstageLayoutTool, SettingsModalFrontstage,
+  ConfigurableCreateInfo, ConfigurableUiContent, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, FrontstageDef, FrontstageManager, RestoreFrontstageLayoutTool, SettingsModalFrontstage,
   ToolSettingsManager, ToolUiProvider, UiFramework,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";

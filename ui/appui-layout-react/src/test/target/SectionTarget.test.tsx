@@ -4,7 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, DraggedTabStateContext, DraggedWidgetIdContext, NineZoneState, PanelSideContext } from "../../appui-layout-react";
+import type { NineZoneState} from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, DraggedTabStateContext, DraggedWidgetIdContext, PanelSideContext } from "../../appui-layout-react";
 import { renderHook } from "@testing-library/react-hooks";
 import { useTargetDirection } from "../../appui-layout-react/target/SectionTarget";
 import { TestNineZoneProvider } from "../Providers";

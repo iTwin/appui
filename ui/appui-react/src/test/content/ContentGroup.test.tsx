@@ -4,8 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentGroupProps, ContentProps,
+import type {
+  ConfigurableCreateInfo, ContentGroupProps, ContentProps} from "../../appui-react";
+import { ConfigurableUiManager, ContentControl, ContentGroup,
   NavigationAidControl,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";

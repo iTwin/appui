@@ -9,7 +9,8 @@ import {
 } from "@itwin/appui-abstract";
 import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
-import { DefaultStatusbarItems, StandardStatusbarUiItemsProvider } from "../../appui-react";
+import type { DefaultStatusbarItems} from "../../appui-react";
+import { StandardStatusbarUiItemsProvider } from "../../appui-react";
 const testArray: DefaultStatusbarItems[] = [
   {
   },

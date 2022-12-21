@@ -5,7 +5,8 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
-import { addFloatingWidget, addTab, createNineZoneState, FloatingWidgetProvider, getResizeBy, NineZoneDispatch } from "../../appui-layout-react";
+import type { NineZoneDispatch } from "../../appui-layout-react";
+import { addFloatingWidget, addTab, createNineZoneState, FloatingWidgetProvider, getResizeBy } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("FloatingWidget", () => {

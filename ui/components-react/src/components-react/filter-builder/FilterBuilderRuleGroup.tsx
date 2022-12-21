@@ -4,11 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
-import { Button, IconButton, Select, SelectOption } from "@itwin/itwinui-react";
+import type { SelectOption } from "@itwin/itwinui-react";
+import { Button, IconButton, Select } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 import { PropertyFilterBuilderContext } from "./FilterBuilder";
 import { PropertyFilterBuilderRuleRenderer } from "./FilterBuilderRule";
-import { isPropertyFilterBuilderRuleGroup, PropertyFilterBuilderRuleGroup, PropertyFilterBuilderRuleGroupItem } from "./FilterBuilderState";
+import type { PropertyFilterBuilderRuleGroup, PropertyFilterBuilderRuleGroupItem } from "./FilterBuilderState";
+import { isPropertyFilterBuilderRuleGroup } from "./FilterBuilderState";
 import { PropertyFilterRuleGroupOperator } from "./Operators";
 import "./FilterBuilderRuleGroup.scss";
 

@@ -6,14 +6,19 @@
  * @module SyncUi
  */
 
-import { UiEventDispatcher, UiSyncEvent } from "@itwin/appui-abstract";
+import type { UiSyncEvent } from "@itwin/appui-abstract";
+import { UiEventDispatcher } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { IModelApp, IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
-import { getInstancesCount, SelectionScope } from "@itwin/presentation-common";
-import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
+import type { IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
+import type { SelectionScope } from "@itwin/presentation-common";
+import { getInstancesCount } from "@itwin/presentation-common";
+import type { ISelectionProvider, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
+import { Presentation } from "@itwin/presentation-frontend";
 import { ContentViewManager } from "../content/ContentViewManager";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { PresentationSelectionScope, SessionStateActionId } from "../redux/SessionState";
+import type { PresentationSelectionScope} from "../redux/SessionState";
+import { SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 
 // cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,

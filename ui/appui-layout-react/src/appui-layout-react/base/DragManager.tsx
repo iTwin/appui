@@ -7,15 +7,17 @@
  */
 import * as React from "react";
 import * as _ from "lodash";
-import { PointProps } from "@itwin/appui-abstract";
+import type { PointProps } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
-import { Point, SizeProps } from "@itwin/core-react";
-import { PanelSide } from "../widget-panels/Panel";
-import { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
-import { WidgetState } from "../state/WidgetState";
-import { TabState } from "../state/TabState";
+import type { SizeProps } from "@itwin/core-react";
+import { Point } from "@itwin/core-react";
+import type { PanelSide } from "../widget-panels/Panel";
+import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
+import type { WidgetState } from "../state/WidgetState";
+import type { TabState } from "../state/TabState";
 import { getUniqueId } from "./NineZone";
-import { DropTargetState, isTabDragDropTargetState, isWidgetDragDropTargetState, PanelDropTargetState, TabDragDropTargetState, TabDropTargetState, WidgetDragDropTargetState } from "../state/DropTargetState";
+import type { DropTargetState, PanelDropTargetState, TabDragDropTargetState, TabDropTargetState, WidgetDragDropTargetState } from "../state/DropTargetState";
+import { isTabDragDropTargetState, isWidgetDragDropTargetState } from "../state/DropTargetState";
 
 /** @internal */
 export interface DragStartArgs {

@@ -4,12 +4,15 @@
 *--------------------------------------------------------------------------------------------*/
 import * as faker from "faker";
 import * as moq from "typemoq";
-import { ECInstancesNodeKey, InstanceId, InstanceKey, NodeKey, RegisteredRuleset, Ruleset, SelectionScope, StandardNodeTypes, VariableValue } from "@itwin/presentation-common";
-import { DelayLoadedTreeNodeItem } from "@itwin/components-react";
-import { PrimitiveValue, PropertyDescription, PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
+import type { ECInstancesNodeKey, InstanceId, InstanceKey, NodeKey, RegisteredRuleset, Ruleset, SelectionScope, VariableValue } from "@itwin/presentation-common";
+import { StandardNodeTypes } from "@itwin/presentation-common";
+import type { DelayLoadedTreeNodeItem } from "@itwin/components-react";
+import type { PrimitiveValue, PropertyDescription} from "@itwin/appui-abstract";
+import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import { PRESENTATION_TREE_NODE_KEY } from "@itwin/presentation-components";
-import { BeEvent, Id64, Id64String } from "@itwin/core-bentley";
-import { IModelContentChangeEventArgs, IModelHierarchyChangeEventArgs, PresentationManager, RulesetManager, RulesetVariablesManager } from "@itwin/presentation-frontend";
+import type { Id64String } from "@itwin/core-bentley";
+import { BeEvent, Id64 } from "@itwin/core-bentley";
+import type { IModelContentChangeEventArgs, IModelHierarchyChangeEventArgs, PresentationManager, RulesetManager, RulesetVariablesManager } from "@itwin/presentation-frontend";
 
 const deepEqual = require("deep-equal"); // eslint-disable-line @typescript-eslint/no-var-requires
 

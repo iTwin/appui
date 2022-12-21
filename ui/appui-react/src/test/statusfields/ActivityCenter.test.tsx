@@ -7,8 +7,9 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import { WidgetState } from "@itwin/appui-abstract";
+import type { ConfigurableCreateInfo} from "../../appui-react";
 import {
-  ActivityCenterField, ConfigurableCreateInfo, ConfigurableUiControlType, MessageManager, StatusBar, StatusBarWidgetControl,
+  ActivityCenterField, ConfigurableUiControlType, MessageManager, StatusBar, StatusBarWidgetControl,
   WidgetDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";

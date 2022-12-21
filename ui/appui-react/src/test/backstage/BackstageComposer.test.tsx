@@ -5,8 +5,9 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import {
-  BackstageItem, BackstageItemUtilities, ConditionalBooleanValue, UiItemsManager, UiItemsProvider,
+import type {
+  BackstageItem, UiItemsProvider} from "@itwin/appui-abstract";
+import { BackstageItemUtilities, ConditionalBooleanValue, UiItemsManager,
 } from "@itwin/appui-abstract";
 import { BackstageComposer, SyncUiEventDispatcher, UiFramework, useGroupedItems } from "../../appui-react";
 import TestUtils, { selectorMatches, userEvent } from "../TestUtils";

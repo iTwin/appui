@@ -8,9 +8,10 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { Centered, CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import { Centered } from "@itwin/core-react";
 import { MessageManager } from "../messages/MessageManager";
-import { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
+import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
 import { ProgressLinear, Small } from "@itwin/itwinui-react";
 

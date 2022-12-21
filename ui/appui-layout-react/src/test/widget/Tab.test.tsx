@@ -6,8 +6,9 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { Rectangle } from "@itwin/core-react";
 import { act, fireEvent, render } from "@testing-library/react";
+import type { NineZoneDispatch} from "../../appui-layout-react";
 import {
-  ActiveTabIdContext, addPanelWidget, addTab, createNineZoneState, FloatingWidgetIdContext, NineZoneDispatch, PanelSideContext, ShowWidgetIconContext,
+  ActiveTabIdContext, addPanelWidget, addTab, createNineZoneState, FloatingWidgetIdContext, PanelSideContext, ShowWidgetIconContext,
   WidgetContext, WidgetOverflowContext, WidgetStateContext, WidgetTab, WidgetTabProvider, WidgetTabsEntryContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";

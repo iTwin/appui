@@ -10,7 +10,8 @@ import "./FloatingTab.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Icon } from "@itwin/core-react";
-import { useDragTab, UseDragTabArgs } from "../base/DragManager";
+import type { UseDragTabArgs } from "../base/DragManager";
+import { useDragTab } from "../base/DragManager";
 import { DraggedTabStateContext, NineZoneDispatchContext, ShowWidgetIconContext, TabsStateContext } from "../base/NineZone";
 
 /** Component that displays a floating tab.

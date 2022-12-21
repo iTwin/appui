@@ -6,9 +6,9 @@
  * @module Widget
  */
 
-import { AbstractWidgetProps } from "@itwin/appui-abstract";
-import { IconProps } from "@itwin/core-react";
-import { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
+import type { AbstractWidgetProps } from "@itwin/appui-abstract";
+import type { IconProps } from "@itwin/core-react";
+import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 
 /** Configuration from which a widget is created.
  * @public

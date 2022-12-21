@@ -7,14 +7,17 @@ import { expect } from "chai";
 import sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as React from "react";
-import {
-  IconEditorParams, InputEditorSizeParams, MessageSeverity, Primitives, PropertyConverterInfo, PropertyDescription, PropertyEditorInfo, PropertyEditorParamTypes,
-  PropertyRecord, PropertyValue, SpecialKey,
+import type {
+  IconEditorParams, InputEditorSizeParams, Primitives, PropertyConverterInfo, PropertyDescription, PropertyEditorInfo,
+  PropertyRecord, PropertyValue} from "@itwin/appui-abstract";
+import { MessageSeverity, PropertyEditorParamTypes, SpecialKey,
 } from "@itwin/appui-abstract";
 import { TextEditor } from "../../components-react/editors/TextEditor";
 import TestUtils, { childStructure, MineDataController, styleMatch, userEvent } from "../TestUtils";
-import { EditorContainer, PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
-import { AsyncValueProcessingResult, DataControllerBase, PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
+import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
+import { EditorContainer } from "../../components-react/editors/EditorContainer";
+import type { AsyncValueProcessingResult} from "../../components-react/editors/PropertyEditorManager";
+import { DataControllerBase, PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 import { StringTypeConverter, TypeConverterManager } from "../../components-react";
 
 describe("<TextEditor />", () => {

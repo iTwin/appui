@@ -7,11 +7,12 @@
  */
 
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
-import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager } from "@itwin/appui-abstract";
+import type { AbstractWidgetProps} from "@itwin/appui-abstract";
+import { StagePanelLocation, StagePanelSection, UiItemsManager } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
 import { WidgetDef } from "./WidgetDef";
 import { createStableWidgetDef } from "./StableWidgetDef";
-import { WidgetConfig } from "./WidgetConfig";
+import type { WidgetConfig } from "./WidgetConfig";
 
 /** Information about WidgetDefs in the WidgetManager
  * @internal

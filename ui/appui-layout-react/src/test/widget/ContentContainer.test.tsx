@@ -4,8 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import {
-  TabState, WidgetContentContainer, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetStateContext,
+import type {
+  TabState, WidgetContentManagerContextArgs} from "../../appui-layout-react";
+import { WidgetContentContainer, WidgetContentManagerContext, WidgetStateContext,
 } from "../../appui-layout-react";
 import { createWidgetState } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 import { BeEvent } from "@itwin/core-bentley";

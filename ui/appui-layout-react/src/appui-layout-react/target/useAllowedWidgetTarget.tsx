@@ -9,9 +9,9 @@ import * as React from "react";
 import { NineZoneContext } from "../base/NineZone";
 import { getWidgetLocation, isFloatingWidgetLocation, isPopoutWidgetLocation } from "../state/WidgetLocation";
 import { useAllowedSideTarget } from "./useAllowedSideTarget";
-import { WidgetState } from "../state/WidgetState";
+import type { WidgetState } from "../state/WidgetState";
 import { assert } from "@itwin/core-bentley";
-import { PanelSide } from "../widget-panels/Panel";
+import type { PanelSide } from "../widget-panels/Panel";
 
 /** Checks the proposed docking target to see if it's allowed by the dragged widget or tab
  * @internal

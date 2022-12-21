@@ -7,9 +7,10 @@
  */
 
 import * as React from "react";
-import { PropertyRecord } from "@itwin/appui-abstract";
-import { Orientation, UnderlinedButton } from "@itwin/core-react";
-import { PropertyDialogState } from "../../../ValueRendererManager";
+import type { PropertyRecord } from "@itwin/appui-abstract";
+import type { Orientation} from "@itwin/core-react";
+import { UnderlinedButton } from "@itwin/core-react";
+import type { PropertyDialogState } from "../../../ValueRendererManager";
 
 /** Properties for [[TableArrayValueRenderer]] and [[TableStructValueRenderer]] React component
  * @public

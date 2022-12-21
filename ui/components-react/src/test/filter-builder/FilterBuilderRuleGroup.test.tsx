@@ -5,11 +5,13 @@
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
-import { PropertyDescription } from "@itwin/appui-abstract";
+import type { PropertyDescription } from "@itwin/appui-abstract";
+import type { PropertyFilterBuilderRuleGroupRendererProps} from "../../components-react/filter-builder/FilterBuilderRuleGroup";
 import {
-  PropertyFilterBuilderRuleGroupRenderer, PropertyFilterBuilderRuleGroupRendererProps,
+  PropertyFilterBuilderRuleGroupRenderer,
 } from "../../components-react/filter-builder/FilterBuilderRuleGroup";
-import { PropertyFilterBuilderActions, PropertyFilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
+import type { PropertyFilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
+import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
 import { PropertyFilterRuleGroupOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";

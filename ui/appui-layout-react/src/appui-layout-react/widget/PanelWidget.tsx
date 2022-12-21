@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { PanelsStateContext, TabsStateContext, ToolSettingsStateContext, WidgetsStateContext } from "../base/NineZone";
-import { WidgetsState, WidgetState } from "../state/WidgetState";
+import type { WidgetsState, WidgetState } from "../state/WidgetState";
 import { isHorizontalPanelSide, PanelStateContext } from "../widget-panels/Panel";
 import { WidgetContentContainer } from "./ContentContainer";
 import { useTabTransientState } from "./ContentRenderer";
@@ -20,7 +20,7 @@ import { Widget, WidgetProvider } from "./Widget";
 import { WidgetOutline } from "../outline/WidgetOutline";
 import { WidgetTarget } from "../target/WidgetTarget";
 import { isHorizontalPanelState } from "../state/PanelState";
-import { TabsState } from "../state/TabState";
+import type { TabsState } from "../state/TabState";
 
 /** @internal */
 export interface PanelWidgetProps {

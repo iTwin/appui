@@ -10,8 +10,9 @@ import { Presentation } from "@itwin/presentation-frontend";
 import { initialize as initializePresentationTesting, terminate as terminatePresentationTesting } from "@itwin/presentation-testing";
 import { WidgetState } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, PresentationSelectionScope, SelectionScopeField, SessionStateActionId, StatusBar,
+import type {
+  ConfigurableCreateInfo, PresentationSelectionScope} from "../../appui-react";
+import { ConfigurableUiControlType, SelectionScopeField, SessionStateActionId, StatusBar,
   StatusBarWidgetControl, UiFramework, WidgetDef,
 } from "../../appui-react";
 import TestUtils, { handleError, selectChangeValueByIndex, stubScrollIntoView } from "../TestUtils";

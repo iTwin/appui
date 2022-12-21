@@ -5,18 +5,23 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
-import { UiSyncEventArgs } from "@itwin/appui-abstract";
-import { IModelRpcProps } from "@itwin/core-common";
-import { IModelApp, IModelConnection, MockRender, ScreenViewport, SelectionSet } from "@itwin/core-frontend";
-import { InstanceKey, RpcRequestsHandler } from "@itwin/presentation-common";
-import { Presentation, SelectionManager, SelectionScopesManager, SelectionScopesManagerProps } from "@itwin/presentation-frontend";
-import {
-  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventDispatcher,
-  UiFramework, WidgetStateChangedEventArgs,
+import type { UiSyncEventArgs } from "@itwin/appui-abstract";
+import type { IModelRpcProps } from "@itwin/core-common";
+import type { IModelConnection, ScreenViewport} from "@itwin/core-frontend";
+import { IModelApp, MockRender, SelectionSet } from "@itwin/core-frontend";
+import type { InstanceKey, RpcRequestsHandler } from "@itwin/presentation-common";
+import type { SelectionScopesManagerProps } from "@itwin/presentation-frontend";
+import { Presentation, SelectionManager, SelectionScopesManager } from "@itwin/presentation-frontend";
+import type {
+  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, WidgetStateChangedEventArgs} from "../../appui-react";
+import { SyncUiEventDispatcher,
+  UiFramework,
 } from "../../appui-react";
-import { ActiveContentChangedEventArgs, ContentViewManager } from "../../appui-react/content/ContentViewManager";
-import {
-  FrontstageActivatedEventArgs, FrontstageManager, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, ToolActivatedEventArgs,
+import type { ActiveContentChangedEventArgs} from "../../appui-react/content/ContentViewManager";
+import { ContentViewManager } from "../../appui-react/content/ContentViewManager";
+import type {
+  FrontstageActivatedEventArgs, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, ToolActivatedEventArgs} from "../../appui-react/frontstage/FrontstageManager";
+import { FrontstageManager,
 } from "../../appui-react/frontstage/FrontstageManager";
 import TestUtils from "../TestUtils";
 import { createRandomECInstanceKey, createRandomId, createRandomSelectionScope } from "../PresentationTestUtils";

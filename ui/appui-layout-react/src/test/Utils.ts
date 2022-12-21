@@ -2,8 +2,9 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
-import { addTab, NineZoneState, TabState } from "../appui-layout-react";
+import type * as sinon from "sinon";
+import type { NineZoneState, TabState } from "../appui-layout-react";
+import { addTab } from "../appui-layout-react";
 import { BentleyError } from "@itwin/core-bentley";
 import { expect } from "chai";
 import { prettyDOM } from "@testing-library/react";

@@ -8,7 +8,8 @@ import {
   BackstageComposerActionItem, BackstageComposerItem, BackstageComposerStageLauncher, FrontstageManager,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
-import { BackstageActionItem, BackstageStageLauncher, BadgeType } from "@itwin/appui-abstract";
+import type { BackstageActionItem, BackstageStageLauncher} from "@itwin/appui-abstract";
+import { BadgeType } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 

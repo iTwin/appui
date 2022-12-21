@@ -4,8 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as moq from "typemoq";
-import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import { ActiveContentChangedEventArgs, ContentViewManager, useActiveViewport } from "../../appui-react";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
+import type { ActiveContentChangedEventArgs} from "../../appui-react";
+import { ContentViewManager, useActiveViewport } from "../../appui-react";
 import { renderHook } from "@testing-library/react-hooks";
 
 describe("useActiveViewport", () => {

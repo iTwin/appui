@@ -6,8 +6,9 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType, WidgetState } from "@itwin/appui-abstract";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, FrontstageManager, WidgetChangedEventArgs, WidgetControl, WidgetDef,
+import type {
+  ConfigurableCreateInfo, WidgetChangedEventArgs} from "../../appui-react";
+import { ConfigurableUiControlType, ConfigurableUiManager, FrontstageManager, WidgetControl, WidgetDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { SvgList } from "@itwin/itwinui-icons-react";

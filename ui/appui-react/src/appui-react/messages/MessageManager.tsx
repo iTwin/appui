@@ -9,13 +9,15 @@
 import classnames from "classnames";
 import * as _ from "lodash";
 import * as React from "react";
-import { XAndY } from "@itwin/core-geometry";
+import type { XAndY } from "@itwin/core-geometry";
+import type { MessageBoxValue, ToolAssistanceInstructions, ToolTipOptions} from "@itwin/core-frontend";
 import {
-  ActivityMessageDetails, IModelApp, MessageBoxIconType, MessageBoxType, MessageBoxValue, OutputMessageAlert, OutputMessagePriority,
-  OutputMessageType, ToolAssistanceInstructions, ToolTipOptions,
+  ActivityMessageDetails, IModelApp, MessageBoxIconType, MessageBoxType, OutputMessageAlert, OutputMessagePriority,
+  OutputMessageType,
 } from "@itwin/core-frontend";
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
-import { MessageContainer, ReactMessage } from "@itwin/core-react";
+import type { ReactMessage } from "@itwin/core-react";
+import { MessageContainer } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
 import { ModalDialogManager } from "../dialog/ModalDialogManager";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
@@ -23,10 +25,11 @@ import { ElementTooltip } from "../feedback/ElementTooltip";
 import { UiFramework } from "../UiFramework";
 import { MessageSpan } from "./MessageSpan";
 import { PointerMessage } from "./Pointer";
-import { NotifyMessageDetailsType, NotifyMessageType } from "./ReactNotifyMessageDetails";
+import type { NotifyMessageDetailsType, NotifyMessageType } from "./ReactNotifyMessageDetails";
 import { StatusMessageManager } from "./StatusMessageManager";
-import { Small, toaster, ToastOptions } from "@itwin/itwinui-react";
-import { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
+import type { ToastOptions } from "@itwin/itwinui-react";
+import { Small, toaster } from "@itwin/itwinui-react";
+import type { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
 
 class MessageBoxCallbacks {
   constructor(

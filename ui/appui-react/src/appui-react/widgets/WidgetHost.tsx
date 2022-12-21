@@ -6,9 +6,9 @@
  * @module Widget
  */
 
-import { StagePanelLocation, StagePanelSection } from "@itwin/appui-abstract";
+import type { StagePanelLocation, StagePanelSection } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
-import { WidgetDef } from "./WidgetDef";
+import type { WidgetDef } from "./WidgetDef";
 
 /**
  * A WidgetHost represents a definition that hosts one or most Widgets in a Frontstage.

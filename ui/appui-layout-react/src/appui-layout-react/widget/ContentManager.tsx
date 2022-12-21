@@ -9,7 +9,7 @@
 import produce, { castDraft } from "immer";
 import { BeEvent } from "@itwin/core-bentley";
 import * as React from "react";
-import { TabState } from "../state/TabState";
+import type { TabState } from "../state/TabState";
 
 /** @internal */
 export interface WidgetContentManagerProps {

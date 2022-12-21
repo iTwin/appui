@@ -8,8 +8,9 @@
 
 import * as React from "react";
 import { ViewClipByPlaneTool } from "@itwin/core-frontend";
+import type { CommonStatusBarItem, CommonToolbarItem} from "@itwin/appui-abstract";
 import {
-  BaseUiItemsProvider, CommonStatusBarItem, CommonToolbarItem,
+  BaseUiItemsProvider,
   StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsManager,
 } from "@itwin/appui-abstract";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
@@ -17,7 +18,7 @@ import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { SectionsStatusField } from "../statusfields/SectionsField";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { CoreTools } from "../tools/CoreToolDefinitions";
-import { DefaultContentTools } from "./StandardContentToolsUiItemsProvider";
+import type { DefaultContentTools } from "./StandardContentToolsUiItemsProvider";
 
 /**
  * Defines options that may be set in frontstage app data to control what group priorities

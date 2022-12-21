@@ -3,15 +3,17 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import * as React from "react";
-import {
-  ButtonGroupEditorParams, DialogItem, DialogItemValue, DialogPropertySyncItem, PropertyDescription, PropertyEditorParamTypes,
-  SuppressLabelEditorParams,
+import type * as React from "react";
+import type {
+  ButtonGroupEditorParams, DialogItem, DialogItemValue, DialogPropertySyncItem, PropertyDescription,
+  SuppressLabelEditorParams} from "@itwin/appui-abstract";
+import { PropertyEditorParamTypes,
 } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
+import type { DefaultToolSettingsProvider, FrontstageConfig,
+  SyncToolSettingsPropertiesEventArgs} from "../../appui-react";
 import {
-  ConfigurableUiManager, DefaultToolSettingsProvider, FrontstageConfig, FrontstageManager, FrontstageProvider,
-  SyncToolSettingsPropertiesEventArgs, ToolSettingsManager,
+  ConfigurableUiManager, FrontstageManager, FrontstageProvider, ToolSettingsManager,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 

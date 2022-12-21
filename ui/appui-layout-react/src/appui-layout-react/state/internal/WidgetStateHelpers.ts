@@ -8,11 +8,13 @@
 
 import { castDraft, produce } from "immer";
 import { UiError } from "@itwin/appui-abstract";
-import { NineZoneState } from "../NineZoneState";
-import { FloatingWidgetState, PopoutWidgetState, WidgetState } from "../WidgetState";
+import type { NineZoneState } from "../NineZoneState";
+import type { FloatingWidgetState, PopoutWidgetState, WidgetState } from "../WidgetState";
 import { getTabLocation } from "../TabLocation";
-import { getWidgetLocation, isFloatingWidgetLocation, isPanelWidgetLocation, isPopoutWidgetLocation, PanelWidgetLocation } from "../WidgetLocation";
-import { Point, Rectangle, RectangleProps } from "@itwin/core-react";
+import type { PanelWidgetLocation } from "../WidgetLocation";
+import { getWidgetLocation, isFloatingWidgetLocation, isPanelWidgetLocation, isPopoutWidgetLocation } from "../WidgetLocation";
+import type { RectangleProps } from "@itwin/core-react";
+import { Point, Rectangle } from "@itwin/core-react";
 import { category, setRectangleProps, toRectangleProps } from "./NineZoneStateHelpers";
 import { updatePanelState } from "./PanelStateHelpers";
 import { updateTabState } from "./TabStateHelpers";

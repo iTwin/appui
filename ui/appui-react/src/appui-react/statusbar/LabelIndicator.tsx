@@ -9,8 +9,10 @@
 import "./LabelIndicator.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { StatusBarIndicator, StatusBarIndicatorProps } from "./Indicator";
-import { Icon, IconSpec } from "@itwin/core-react";
+import type { StatusBarIndicatorProps } from "./Indicator";
+import { StatusBarIndicator } from "./Indicator";
+import type { IconSpec } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import { StatusBarLabelSide } from "@itwin/appui-abstract";
 
 /** Properties of [[StatusBarLabelIndicator]] component.

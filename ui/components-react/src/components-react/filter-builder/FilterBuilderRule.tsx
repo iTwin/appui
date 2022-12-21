@@ -3,15 +3,16 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
+import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { SvgDelete } from "@itwin/itwinui-icons-react";
 import { IconButton } from "@itwin/itwinui-react";
 import { PropertyFilterBuilderContext, PropertyFilterBuilderRuleRenderingContext } from "./FilterBuilder";
 import { PropertyFilterBuilderRuleOperator } from "./FilterBuilderRuleOperator";
 import { PropertyFilterBuilderRuleProperty } from "./FilterBuilderRuleProperty";
 import { PropertyFilterBuilderRuleValue } from "./FilterBuilderRuleValue";
-import { PropertyFilterBuilderRule } from "./FilterBuilderState";
-import { isUnaryPropertyFilterOperator, PropertyFilterRuleOperator } from "./Operators";
+import type { PropertyFilterBuilderRule } from "./FilterBuilderState";
+import type { PropertyFilterRuleOperator } from "./Operators";
+import { isUnaryPropertyFilterOperator } from "./Operators";
 import "./FilterBuilderRule.scss";
 
 /** @alpha */

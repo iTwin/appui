@@ -10,14 +10,16 @@ import "./ToolAssistanceField.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
+import type { ToolAssistanceInstruction, ToolAssistanceInstructions, ToolAssistanceKeyboardInfo,
+  ToolAssistanceSection} from "@itwin/core-frontend";
 import {
-  IModelApp, ToolAssistanceImage, ToolAssistanceInputMethod, ToolAssistanceInstruction, ToolAssistanceInstructions, ToolAssistanceKeyboardInfo,
-  ToolAssistanceSection,
+  IModelApp, ToolAssistanceImage, ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
+import type {
+  CommonProps, UiStateStorage, UiStateStorageResult} from "@itwin/core-react";
 import {
-  CommonProps,
-  FillCentered, Icon, LocalStateStorage, UiCore, UiStateEntry, UiStateStorage, UiStateStorageResult, UiStateStorageStatus,
+  FillCentered, Icon, LocalStateStorage, UiCore, UiStateEntry, UiStateStorageStatus,
 } from "@itwin/core-react";
 import {
   FooterPopup, ToolAssistanceInstruction as NZ_ToolAssistanceInstruction, ToolAssistance, ToolAssistanceDialog,
@@ -26,8 +28,10 @@ import {
 } from "@itwin/appui-layout-react";
 import { HorizontalTabs, ToggleSwitch } from "@itwin/itwinui-react";
 import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt";
-import { FrontstageManager, ToolIconChangedEventArgs } from "../../frontstage/FrontstageManager";
-import { MessageManager, ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
+import type { ToolIconChangedEventArgs } from "../../frontstage/FrontstageManager";
+import { FrontstageManager } from "../../frontstage/FrontstageManager";
+import type { ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
+import { MessageManager } from "../../messages/MessageManager";
 import { UiFramework } from "../../UiFramework";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage";
 

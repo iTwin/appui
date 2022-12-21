@@ -3,16 +3,18 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { PropertyDescription, PropertyValueFormat } from "@itwin/appui-abstract";
+import type { PropertyDescription} from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { ActiveRuleGroupContext, PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
-import { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
-import { PropertyFilterBuilderRuleValueProps } from "./FilterBuilderRuleValue";
+import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
+import type { PropertyFilterBuilderRuleValueProps } from "./FilterBuilderRuleValue";
+import type { PropertyFilterBuilderActions, PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup,
+  PropertyFilterBuilderRuleGroupItem} from "./FilterBuilderState";
 import {
-  isPropertyFilterBuilderRuleGroup, PropertyFilterBuilderActions, PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup,
-  PropertyFilterBuilderRuleGroupItem, usePropertyFilterBuilderState,
+  isPropertyFilterBuilderRuleGroup, usePropertyFilterBuilderState,
 } from "./FilterBuilderState";
 import { isUnaryPropertyFilterOperator } from "./Operators";
-import { PropertyFilter } from "./Types";
+import type { PropertyFilter } from "./Types";
 
 /** @alpha */
 export interface PropertyFilterBuilderProps {
