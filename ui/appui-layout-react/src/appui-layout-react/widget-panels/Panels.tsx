@@ -30,7 +30,7 @@ export interface WidgetPanelsProps extends CommonProps {
 /** Component that displays widget panels.
  * @internal
  */
-export const WidgetPanels = React.memo<WidgetPanelsProps>(function WidgetPanels(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetPanels(props: WidgetPanelsProps) {
   return (
     <ContentNodeContext.Provider value={props.children}>
       <CenterContentNodeContext.Provider value={props.centerContent}>
@@ -41,10 +41,10 @@ export const WidgetPanels = React.memo<WidgetPanelsProps>(function WidgetPanels(
       </CenterContentNodeContext.Provider>
     </ContentNodeContext.Provider >
   );
-});
+}
 
 /** @internal */
-const WidgetPanelsComponent = React.memo<CommonProps>(function WidgetPanelsComponent(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+function WidgetPanelsComponent(props: CommonProps) {
   useCursor();
   const className = classnames(
     "nz-widgetPanels-panels",
@@ -69,7 +69,7 @@ const WidgetPanelsComponent = React.memo<CommonProps>(function WidgetPanelsCompo
       })}
     </div>
   );
-});
+}
 
 /** @internal */
 export const ContentNodeContext = React.createContext<React.ReactNode>(null); // eslint-disable-line @typescript-eslint/naming-convention

@@ -24,7 +24,7 @@ export interface WidgetMenuTabProps extends CommonProps {
 }
 
 /** @internal */
-export const WidgetMenuTab = React.memo<WidgetMenuTabProps>(function WidgetMenuTab(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetMenuTab(props: WidgetMenuTabProps) {
   const id = React.useContext(TabIdContext);
   const overflowContext = React.useContext(WidgetOverflowContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
@@ -73,4 +73,4 @@ export const WidgetMenuTab = React.memo<WidgetMenuTabProps>(function WidgetMenuT
       )} />
     </div>
   );
-});
+}

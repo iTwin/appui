@@ -61,15 +61,15 @@ export interface WidgetTabProps extends CommonProps {
 /** Component that displays a tab in a side panel widget.
  * @internal
  */
-export const WidgetTab = React.memo<WidgetTabProps>(function WidgetTab(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetTab(props: WidgetTabProps) {
   const widgetOverflow = React.useContext(WidgetOverflowContext);
   const overflown = !!widgetOverflow;
   if (overflown)
     return <WidgetMenuTab {...props} />;
   return <WidgetTabComponent {...props} />;
-});
+}
 
-const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponent(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+function WidgetTabComponent(props: WidgetTabProps) {
   const id = React.useContext(TabIdContext);
   const { first, firstInactive, last } = React.useContext(TabPositionContext);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
@@ -119,7 +119,7 @@ const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponen
       <TabTarget />
     </div>
   );
-});
+}
 
 /** @internal */
 export interface UseTabInteractionsArgs {

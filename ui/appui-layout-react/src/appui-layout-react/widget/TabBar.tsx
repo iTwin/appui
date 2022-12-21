@@ -26,7 +26,7 @@ export interface WidgetTabBarProps {
 }
 
 /** @internal */
-export const WidgetTabBar = React.memo(function WidgetTabBar(props: WidgetTabBarProps) {
+export function WidgetTabBar(props: WidgetTabBarProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const id = React.useContext(WidgetIdContext);
   const floatingWidgetId = useFloatingWidgetId();
@@ -92,7 +92,7 @@ export const WidgetTabBar = React.memo(function WidgetTabBar(props: WidgetTabBar
       <TabBarButtons />
     </div>
   );
-});
+}
 
 /** Hook to control drag interactions.
  * Starts drag interaction after pointer moves or after timeout.

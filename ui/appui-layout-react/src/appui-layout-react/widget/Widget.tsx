@@ -26,13 +26,13 @@ export interface WidgetProviderProps {
 }
 
 /** @internal */
-export const WidgetProvider = React.memo<WidgetProviderProps>(function WidgetProvider(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetProvider(props: WidgetProviderProps) {
   return (
     <WidgetIdContext.Provider value={props.id}>
       {props.children}
     </WidgetIdContext.Provider>
   );
-});
+}
 
 /** @internal */
 export interface WidgetProps extends CommonProps {

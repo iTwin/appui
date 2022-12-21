@@ -43,12 +43,13 @@ import { useUiVisibility } from "../hooks/useUiVisibility";
 import { IModelApp } from "@itwin/core-frontend";
 import { FloatingWidget } from "./FloatingWidget";
 
-const WidgetInternals = React.memo(function WidgetInternals() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
   const uiIsVisible = useUiVisibility();
 
   return (
     <>
+      <WidgetPanelsToolSettings />
       <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
         <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
         <WidgetPanels
@@ -62,17 +63,7 @@ const WidgetInternals = React.memo(function WidgetInternals() { // eslint-disabl
       </ToolbarPopupAutoHideContext.Provider>
     </>
   );
-});
-
-// istanbul ignore next
-const WidgetPanelsFrontstageComponent = React.memo(function WidgetPanelsFrontstageComponent() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  return (
-    <>
-      <WidgetPanelsToolSettings />
-      <WidgetInternals />
-    </>
-  );
-});
+}
 
 const widgetContent = <WidgetContent />;
 const toolSettingsContent = <ToolSettingsContent />;
@@ -174,7 +165,7 @@ export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
 }
 
 /** @internal */
-export const WidgetPanelsFrontstage = React.memo(function WidgetPanelsFrontstage() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetPanelsFrontstage() {
   const [layout, frontstageDef] = useLayoutStore();
 
   React.useEffect(() => {
@@ -198,7 +189,7 @@ export const WidgetPanelsFrontstage = React.memo(function WidgetPanelsFrontstage
       layout={layout}
     />
   );
-});
+}
 
 const defaultNineZone = createNineZoneState();
 const tabElement = <WidgetPanelsTab />;

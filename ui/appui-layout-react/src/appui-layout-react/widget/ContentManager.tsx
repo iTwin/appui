@@ -17,23 +17,8 @@ export interface WidgetContentManagerProps {
   children?: React.ReactNode;
 }
 
-interface ContainersStore {
-  setContainer: (tabId: TabState["id"], container: Element | null) => void;
-  containers: { readonly [id in TabState["id"]]: Element | null };
-}
-
 /** @internal */
-export const useContainersStore = create<ContainersStore>((set) => ({
-  containers: {},
-  setContainer: (tabId: TabState["id"], container: Element | null) => {
-    set((state) => produce(state, (draft) => {
-      draft.containers[tabId] = castDraft(container);
-    }));
-  },
-}));
-
-/** @internal */
-export const WidgetContentManager = React.memo<WidgetContentManagerProps>(function WidgetContentManager(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetContentManager(props: WidgetContentManagerProps) {
   const setContentContainer = useContainersStore((state) => state.setContainer);
   const saveTransientStateRef = React.useRef(new BeEvent<(tabId: TabState["id"]) => void>());
   const restoreTransientStateRef = React.useRef(new BeEvent<(tabId: TabState["id"]) => void>());
@@ -51,7 +36,22 @@ export const WidgetContentManager = React.memo<WidgetContentManagerProps>(functi
       {props.children}
     </WidgetContentManagerContext.Provider>
   );
-});
+}
+
+interface ContainersStore {
+  setContainer: (tabId: TabState["id"], container: Element | null) => void;
+  containers: { readonly [id in TabState["id"]]: Element | null };
+}
+
+/** @internal */
+export const useContainersStore = create<ContainersStore>((set) => ({
+  containers: {},
+  setContainer: (tabId: TabState["id"], container: Element | null) => {
+    set((state) => produce(state, (draft) => {
+      draft.containers[tabId] = castDraft(container);
+    }));
+  },
+}));
 
 /** @internal */
 export interface WidgetContentManagerContextArgs {

@@ -131,7 +131,7 @@ export interface WidgetPanelProviderProps {
 /** Widget panel component is a side panel with multiple widgets.
  * @internal
  */
-export const WidgetPanelProvider = React.memo<WidgetPanelProviderProps>(function WidgetPanelProvider({ side }) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetPanelProvider({ side }: WidgetPanelProviderProps) {
   const hasWidgets = useLayout((state) => state.panels[side].widgets.length > 0);
   return (
     <PanelSideContext.Provider value={side}>
@@ -140,10 +140,10 @@ export const WidgetPanelProvider = React.memo<WidgetPanelProviderProps>(function
       <PanelOutline />
     </PanelSideContext.Provider>
   );
-});
+}
 
 /** @internal */
-export const WidgetPanel = React.memo(function WidgetPanel() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetPanel() {
   const side = React.useContext(PanelSideContext);
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   assert(!!side);
@@ -273,7 +273,7 @@ export const WidgetPanel = React.memo(function WidgetPanel() { // eslint-disable
       </div>
     </WidgetPanelContext.Provider>
   );
-});
+}
 
 /** @internal */
 export const PanelSideContext = React.createContext<PanelSide | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention

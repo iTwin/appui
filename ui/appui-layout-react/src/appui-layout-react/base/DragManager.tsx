@@ -425,7 +425,7 @@ export interface DragProviderProps {
 }
 
 /** @internal */
-export const DragProvider = React.memo<DragProviderProps>(function DragProvider(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function DragProvider(props: DragProviderProps) {
   const dragManager = React.useRef(new DragManager());
   React.useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
@@ -456,7 +456,7 @@ export const DragProvider = React.memo<DragProviderProps>(function DragProvider(
       </DraggedWidgetIdProvider>
     </DragManagerContext.Provider>
   );
-});
+}
 
 function DraggedWidgetIdProvider(props: { children?: React.ReactNode }) {
   const draggedWidgetId = useDraggedItemId<WidgetDragItem>("widget");

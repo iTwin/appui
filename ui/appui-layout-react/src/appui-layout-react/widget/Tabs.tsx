@@ -126,7 +126,7 @@ export interface WidgetTabsEntryContextProviderProps {
 }
 
 /** @internal */
-export const WidgetTabsEntryProvider = React.memo<WidgetTabsEntryContextProviderProps>(function WidgetTabsEntryProvider(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetTabsEntryProvider(props: WidgetTabsEntryContextProviderProps) {
   return (
     <WidgetTabsEntryContext.Provider value={{
       lastNotOverflown: props.lastNotOverflown,
@@ -135,4 +135,4 @@ export const WidgetTabsEntryProvider = React.memo<WidgetTabsEntryContextProvider
       {props.children}
     </WidgetTabsEntryContext.Provider>
   );
-});
+}
