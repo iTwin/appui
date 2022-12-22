@@ -16,8 +16,9 @@ import {
 } from "@itwin/appui-react";
 import { Button } from "@itwin/itwinui-react";
 import { SampleAppIModelApp } from "../..";
-import cancelFilterIconSvg from "../icons/filter-outlined.svg?sprite";
-import filterIconSvg from "../icons/filter.svg?sprite";
+import cancelFilterIconSvg from "../icons/filter-outlined.svg";
+import filterIconSvg from "../icons/filter.svg";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
 
 export class VisibilityWidgetControl extends WidgetControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -128,12 +129,12 @@ function ModelsTreeComponent(props: ModelsTreeComponentProps) {
           <Button
             key="activate-filter-btn"
             onClick={async () => IModelApp.tools.run(TriggerFilterHierarchyByVisibleElementIdsTool.toolId)}>
-            <Icon iconSpec={`svg:${filterIconSvg}`} />
+            <Icon iconSpec={IconSpecUtilities.createWebComponentIconSpec(filterIconSvg)} />
           </Button>,
           <Button
             key="cancel-filter-btn"
             onClick={async () => IModelApp.tools.run(CancelFilterHierarchyByVisibleElementIdsTool.toolId)}>
-            <Icon iconSpec={`svg:${cancelFilterIconSvg}`} />
+            <Icon iconSpec={IconSpecUtilities.createWebComponentIconSpec(cancelFilterIconSvg)} />
           </Button>,
         ]}
       </Toolbar>
@@ -351,7 +352,7 @@ export class TriggerFilterHierarchyByVisibleElementIdsTool extends Tool {
 
   public static getCommandItemDef() {
     return new CommandItemDef({
-      iconSpec: `svg:${filterIconSvg}`,
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(filterIconSvg),
       commandId: "TriggerFilterHierarchyByVisibleElementIds",
       label: "Enable filter tree by visible elements",
       execute: async () => { await IModelApp.tools.run(TriggerFilterHierarchyByVisibleElementIdsTool.toolId); },
@@ -374,7 +375,7 @@ export class CancelFilterHierarchyByVisibleElementIdsTool extends Tool {
 
   public static getCommandItemDef() {
     return new CommandItemDef({
-      iconSpec: `svg:${cancelFilterIconSvg}`,
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(cancelFilterIconSvg),
       commandId: "CancelFilterHierarchyByVisibleElementIds",
       label: "Cancel filter tree by visible elements",
       execute: async () => { await IModelApp.tools.run(CancelFilterHierarchyByVisibleElementIdsTool.toolId); },

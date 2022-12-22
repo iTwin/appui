@@ -27,7 +27,7 @@ import tool3IconSvg from "@bentley/icons-generic/icons/3d-render.svg";
 import tool4IconSvg from "@bentley/icons-generic/icons/3d.svg";
 import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
 import removeLayoutIconSvg from "@bentley/icons-generic/icons/remove.svg";
-import layoutSaveIconSvg from "@bentley/icons-generic/icons/upload.svg?sprite";
+import layoutSaveIconSvg from "@bentley/icons-generic/icons/upload.svg";
 import { PopupTestPanel } from "./PopupTestPanel";
 import { PopupTestView } from "./PopupTestView";
 import { ComponentExamplesPage } from "../appui/frontstages/component-examples/ComponentExamples";
@@ -87,7 +87,7 @@ export async function getSavedViewLayoutProps(activeFrontstageId: string, iModel
 
 export class SaveContentLayoutTool extends Tool {
   public static override toolId = "SaveContentLayoutTool";
-  public static override iconSpec = IconSpecUtilities.createSvgIconSpec(layoutSaveIconSvg);
+  public static override iconSpec = IconSpecUtilities.createWebComponentIconSpec(layoutSaveIconSvg);
   public static override get minArgs() { return 0; }
   public static override get maxArgs() { return 0; }
   public static override get keyin(): string {

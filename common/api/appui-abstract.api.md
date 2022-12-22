@@ -1198,13 +1198,8 @@ export interface IconListEditorParams extends BasePropertyEditorParams {
 
 // @public
 export class IconSpecUtilities {
-    // @deprecated
-    static createSvgIconSpec(svgSrc: string): string;
     static createWebComponentIconSpec(srcString: string): string;
-    // @deprecated
-    static getSvgSource(iconSpec: string): string | undefined;
     static getWebComponentSource(iconSpec: string): string | undefined;
-    static readonly SVG_PREFIX = "svg:";
     // (undocumented)
     static readonly WEB_COMPONENT_PREFIX = "webSvg:";
 }
