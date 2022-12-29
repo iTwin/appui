@@ -28,7 +28,6 @@ $buic-background-widget-stroke:           var(--buic-background-widget-stroke);
 $buic-background-widget-panel:            var(--buic-background-widget-panel);
 $buic-background-panel-stroke:            var(--buic-background-panel-stroke);
 $buic-background-tooltip:                 var(--buic-background-tooltip);
-$buic-background-statusbar:               var(--buic-background-statusbar);
 $buic-background-control-stroke:          var(--buic-background-control-stroke);
 $buic-background-toolbutton-stroke:       var(--buic-background-toolbutton-stroke);
 
@@ -124,3 +123,32 @@ $buic-accessory-warning-tint:             var(--buic-accessory-warning-tint);
 
 /** Widget Opacity */
 $buic-widget-opacity:                     var(--buic-widget-opacity, 0.90);
+
+
+// #region ROOT
+
+// #endregion ROOT
+
+// #region Cube navigation
+$buic-gradientstart-cubenavigation:       var(--buic-gradientstart-cubenavigation);
+$buic-gradientend-cubenavigation:         var(--buic-gradientend-cubenavigation);
+// #endregion Cube navigation
+// #region Status bar
+$buic-background-statusbar:               var(--buic-background-statusbar);
+$buic-bordercolor-statusbar:              var(--buic-bordercolor-statusbar);
+// #endregion Status bar
+// #region Widget
+$buic-background-widget:                  var(--buic-background-widget);
+$buic-background-widgettabbar:            var(--buic-background-widgettabbar);
+$buic-background-widgettabinactive:       var(--buic-background-widgettabinactive);
+$buic-background-widgettabinactivehover:  var(--buic-background-widgettabinactivehover);
+$buic-bordercolor-widget:                 var(--buic-bordercolor-widget);
+$buic-borderradius-widget:                var(--buic-borderradius-widget);
+$buic-color-widgettab:                    var(--buic-color-widgettab);
+$buic-color-widgettabhover:               var(--buic-color-widgettabhover);
+$buic-color-widgettabactive:              var(--buic-color-widgettabactive);
+$buic-color-widgettabactivehover:         var(--buic-color-widgettabactivehover);
+$buic-opacity-widget:                     var(--buic-opacity-widget);
+$buic-opacity-widgethover:                var(--buic-opacity-widgethover);
+$buic-opacitytransitionspeed-widgethover: var(--buic-opacitytransitionspeed-widgethover);
+// #endregion Widget

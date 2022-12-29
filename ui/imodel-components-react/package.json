@@ -111,6 +111,7 @@
   "dependencies": {
     "@bentley/icons-generic-webfont": "^1.0.15",
     "@itwin/itwinui-css": "0.x",
+    "@itwin/itwinui-variables": "1.x",
     "@itwin/itwinui-react": "~1.42.0",
     "classnames": "2.3.1",
     "immer": "9.0.6"

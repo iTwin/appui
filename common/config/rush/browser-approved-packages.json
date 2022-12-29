@@ -295,6 +295,10 @@
       "allowedCategories": [ "extensions", "frontend", "internal" ]
     },
     {
+      "name": "@itwin/itwinui-variables",
+      "allowedCategories": [ "frontend", "internal" ]
+    },
+    {
       "name": "@itwin/linear-referencing-common",
       "allowedCategories": [ "backend" ]
     },

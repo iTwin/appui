@@ -4,6 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/theme";
 
+@import "~@itwin/itwinui-variables/index";
+@import "buic-variables";
+
 // cspell:ignore mediumgray titlebar toolbutton outoffocus
 
 /** @note: This file should only be imported by UiCore.ts.
@@ -12,6 +15,7 @@
 
 :root {
 
+  // #region OLD
   // NEEDSWORK - Need to deprecate these accessory colors
   --buic-accessory-hollow: rgb(255, 255, 255);
   --buic-accessory-primary: rgb(000, 139, 225);
@@ -78,39 +82,72 @@
 
   --buic-background-card: var(--buic-background-tooltip);
   --buic-background-striped_row: rgba(var(--iui-color-foreground-body-rgb), 0.03);
+  // #endregion OLD
 
-  /** background.5 */
-  --buic-background-titlebar: var(--buic-background-5);
-  --buic-background-dialog-stroke: var(--buic-background-5);
-  --buic-background-widget-stroke: var(--buic-background-5);
-  --buic-background-control-stroke: var(--buic-background-5);
-  --buic-background-panel-stroke: var(--buic-background-5);
-  --buic-background-toolbutton-stroke: var(--buic-background-5);
-
-  /** background.4 */
-  --buic-background-titlebar-outoffocus: var(--buic-background-4);
-  --buic-background-divider: var(--buic-background-4);
-  --buic-background-widget-element-stroke: var(--buic-background-4);
-  --buic-background-statusbar: var(--buic-background-4);
-  --buic-background-table-header: var(--buic-background-4);
-  --buic-background-control-stroke-disabled: var(--buic-background-4);
-
-  /** background.3 */
-  --buic-background-tab-inactive: var(--buic-background-3);
-  --buic-background-toolbutton-inactive: var(--buic-background-3);
+  // #region Unresolved
   --buic-background-context-menu: var(--buic-background-3);
-  --buic-background-widget-panel: var(--buic-background-3);
-  --buic-background-placeholder: var(--buic-background-3);
   --buic-background-control-disabled: var(--buic-background-3);
-
-  /** background.2 */
-  --buic-background-tab-active: var(--buic-background-2);
-  --buic-background-dialog: var(--buic-background-2);
-  --buic-background-widget: var(--buic-background-2);
-  --buic-background-window: var(--buic-background-2);
-  --buic-background-toolbar: var(--buic-background-2);
+  --buic-background-control-stroke-disabled: var(--buic-background-4);
   --buic-background-panel: var(--buic-background-2);
+  --buic-background-panel-stroke: var(--buic-background-5);
+  --buic-background-placeholder: var(--buic-background-3);
+  --buic-background-table-header: var(--buic-background-4);
+  --buic-background-titlebar: var(--buic-background-5);
+  --buic-background-titlebar-outoffocus: var(--buic-background-4);
+  --buic-background-toolbar: var(--buic-background-2); // Applied on Backstage > Settings back arrow button?
+  --buic-background-toolbutton-inactive: var(--buic-background-3);
+  --buic-background-widget: var(--buic-background-2);
+  --buic-background-widget-element-stroke: var(--buic-background-4);
+  --buic-background-widget-panel: var(--buic-background-3);
+  --buic-background-widget-stroke: var(--buic-background-5);
+  // #endregion Unresolved
 
-  /** background.1 */
-  --buic-background-control: var(--buic-background-1);
+  // #region Resolved
+  --buic-background-control: var(--iui-color-background);
+  --buic-background-control-stroke: var(--buic-background-5);
+
+  --buic-background-dialog: var(--iui-color-background);
+  --buic-background-dialog-stroke: var(--iui-color-border);
+
+  --buic-background-divider: var(--iui-color-border-subtle);
+
+  --buic-background-tab-active: var(--iui-color-background);
+  --buic-background-tab-inactive: var(--iui-color-background); // FIXME: Is this the right color?
+
+  --buic-background-toolbutton-stroke: var(--iui-color-border-foreground);
+
+  --buic-background-window: var(--iui-color-background);
+  // #endregion Resolved
+
+
+
+
+
+
+
+
+
+  // #region Cube navigation
+  --buic-gradientstart-cubenavigation: var(--buic-color-background);
+  --buic-gradientend-cubenavigation: var(--buic-color-background-backdrop);
+  // #endregion Cube navigation
+  // #region Status bar
+  --buic-background-statusbar: var(--buic-color-background);
+  --buic-bordercolor-statusbar: var(--buic-color-border);
+  // #endregion Status bar
+  // #region Widget
+  --buic-background-widget: var(--buic-color-background);
+  --buic-background-widgettabbar: var(--buic-color-background-backdrop);
+  --buic-background-widgettabinactive: var(--buic-color-background);
+  --buic-background-widgettabinactivehover: var(--buic-color-background-hover);
+  --buic-bordercolor-widget: var(--buic-color-border);
+  --buic-borderradius-widget: var(--iui-border-radius-1);
+  --buic-color-widgettab: var(--buic-color-text-muted);
+  --buic-color-widgettabhover: var(--buic-color-text);
+  --buic-color-widgettabactive: var(--buic-color-text-accent);
+  --buic-color-widgettabactivehover: var(--buic-color-text-accent-hover);
+  --buic-opacity-widget: var(--buic-opacity-2);
+  --buic-opacity-widgethover: var(--buic-opacity-1);
+  --buic-opacitytransitionspeed-widgethover: var(--buic-duration-1);
+  // #endregion Widget
 }

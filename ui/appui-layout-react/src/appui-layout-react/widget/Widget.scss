@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .nz-widget-widget {
-  background: $buic-background-2;
+  background: var(--buic-background-widget);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

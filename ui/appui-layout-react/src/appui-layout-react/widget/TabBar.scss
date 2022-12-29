@@ -6,7 +6,7 @@
 @import "variables";
 
 .nz-widget-tabBar {
-  background: $buic-background-4;
+  background: $buic-background-widgettabbar;
   display: flex;
   border-radius: $nz-widget-tab-border-radius $nz-widget-tab-border-radius 0 0;
   flex: 0 0 auto;
@@ -14,7 +14,7 @@
   height: $nz-widget-tab-height;
 
   &.nz-separator {
-    border-bottom: 1px solid $buic-background-5;
+    border-bottom: 1px solid $buic-bordercolor-widget;
   }
 
   >.nz-handle {

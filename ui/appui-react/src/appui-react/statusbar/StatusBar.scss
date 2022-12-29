@@ -33,6 +33,7 @@
 .uifw-statusbar-docked {
   width: 100%;
   background-color: $buic-background-statusbar;
+  border-top: 1px solid $buic-bordercolor-statusbar;
 }
 
 .uifw-statusbar-item-container {

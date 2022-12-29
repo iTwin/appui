@@ -1,0 +1,118 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
+*--------------------------------------------------------------------------------------------*/
+@import "~@itwin/itwinui-variables/index";
+
+:root {
+  // DO NOT USE THESE VARIABLES OUTSIDE OF THIS FILE
+  // INSTEAD MAP THESE VARIABLES TO COMPONENT SPECIFIC VARIABLES BELOW
+
+  // #region Colors
+  --buic-color-background: var(--iui-color-background);
+  --buic-color-background-zebra: var(--iui-color-background-zebra);
+  --buic-color-background-hover: var(--iui-color-background-hover);
+  --buic-color-background-backdrop: var(--iui-color-background-backdrop);
+  --buic-color-background-backdrop-hover: var(--iui-color-background-backdrop-hover);
+  --buic-color-background-disabled: var(--iui-color-background-disabled);
+  --buic-color-background-accent: var(--iui-color-background-accent);
+  --buic-color-background-accent-hover: var(--iui-color-background-accent-hover);
+  --buic-color-background-accent-muted: var(--iui-color-background-accent-muted);
+  --buic-color-background-informational: var(--iui-color-background-informational);
+  --buic-color-background-informational-hover: var(--iui-color-background-informational-hover);
+  --buic-color-background-informational-muted: var(--iui-color-background-informational-muted);
+  --buic-color-background-positive: var(--iui-color-background-positive);
+  --buic-color-background-positive-hover: var(--iui-color-background-positive-hover);
+  --buic-color-background-positive-muted: var(--iui-color-background-positive-muted);
+  --buic-color-background-warning: var(--iui-color-background-warning);
+  --buic-color-background-warning-hover: var(--iui-color-background-warning-hover);
+  --buic-color-background-warning-muted: var(--iui-color-background-warning-muted);
+  --buic-color-background-negative: var(--iui-color-background-negative);
+  --buic-color-background-negative-hover: var(--iui-color-background-negative-hover);
+  --buic-color-background-negative-muted: var(--iui-color-background-negative-muted);
+  --buic-color-background-transparent-hover: var(--iui-color-background-transparent-hover);
+  --buic-color-border-subtle: var(--iui-color-border-subtle);
+  --buic-color-border: var(--iui-color-border);
+  --buic-color-border-foreground: var(--iui-color-border-foreground);
+  --buic-color-border-foreground-hover: var(--iui-color-border-foreground-hover);
+  --buic-color-border-disabled: var(--iui-color-border-disabled);
+  --buic-color-border-accent: var(--iui-color-border-accent);
+  --buic-color-border-informational: var(--iui-color-border-informational);
+  --buic-color-border-positive: var(--iui-color-border-positive);
+  --buic-color-border-warning: var(--iui-color-border-warning);
+  --buic-color-border-negative: var(--iui-color-border-negative);
+  --buic-color-icon: var(--iui-color-icon);
+  --buic-color-icon-hover: var(--iui-color-icon-hover);
+  --buic-color-icon-muted: var(--iui-color-icon-muted);
+  --buic-color-icon-muted-hover: var(--iui-color-icon-muted-hover);
+  --buic-color-icon-disabled: var(--iui-color-icon-disabled);
+  --buic-color-icon-accent: var(--iui-color-icon-accent);
+  --buic-color-icon-informational: var(--iui-color-icon-informational);
+  --buic-color-icon-positive: var(--iui-color-icon-positive);
+  --buic-color-icon-warning: var(--iui-color-icon-warning);
+  --buic-color-icon-negative: var(--iui-color-icon-negative);
+  --buic-color-text: var(--iui-color-text);
+  --buic-color-text-hover: var(--iui-color-text-hover);
+  --buic-color-text-muted: var(--iui-color-text-muted);
+  --buic-color-text-disabled: var(--iui-color-text-disabled);
+  --buic-color-text-accent: var(--iui-color-text-accent);
+  --buic-color-text-accent-hover: var(--iui-color-text-accent-hover);
+  --buic-color-text-informational: var(--iui-color-text-informational);
+  --buic-color-text-informational-hover: var(--iui-color-text-informational-hover);
+  --buic-color-text-positive: var(--iui-color-text-positive);
+  --buic-color-text-positive-hover: var(--iui-color-text-positive-hover);
+  --buic-color-text-warning: var(--iui-color-text-warning);
+  --buic-color-text-warning-hover: var(--iui-color-text-warning-hover);
+  --buic-color-text-negative: var(--iui-color-text-negative);
+  --buic-color-text-negative-hover: var(--iui-color-text-negative-hover);
+  --buic-color-background-hsl: var(--iui-color-background-hsl);
+  --buic-color-foreground-hsl: var(--iui-color-foreground-hsl);
+  --buic-color-accent-hsl: var(--iui-color-accent-hsl);
+  --buic-color-informational-hsl: var(--iui-color-informational-hsl);
+  --buic-color-positive-hsl: var(--iui-color-positive-hsl);
+  --buic-color-warning-hsl: var(--iui-color-warning-hsl);
+  --buic-color-negative-hsl: var(--iui-color-negative-hsl);
+  --buic-color-background-skyblue: var(--iui-color-background-skyblue);
+  --buic-color-background-celery: var(--iui-color-background-celery);
+  --buic-color-background-froly: var(--iui-color-background-froly);
+  --buic-color-background-steelblue: var(--iui-color-background-steelblue);
+  --buic-color-background-sunglow: var(--iui-color-background-sunglow);
+  --buic-color-background-seabuckthorn: var(--iui-color-background-seabuckthorn);
+  --buic-color-background-montecarlo: var(--iui-color-background-montecarlo);
+  --buic-color-background-poloblue: var(--iui-color-background-poloblue);
+  --buic-color-background-bouquet: var(--iui-color-background-bouquet);
+  --buic-color-background-ash: var(--iui-color-background-ash);
+  --buic-color-background-oak: var(--iui-color-background-oak);
+  --buic-color-white: var(--iui-color-white);
+  // #endregion Colors
+
+  // #region Durations
+  --buic-duration-0: var(--iui-duration-0);
+  --buic-duration-1: var(--iui-duration-1);
+  --buic-duration-2: var(--iui-duration-2);
+  --buic-duration-3: var(--iui-duration-3);
+  // #endregion Durations
+
+  // #region Shadows
+  --buic-shadow-0: var(--iui-shadow-0);
+  --buic-shadow-1: var(--iui-shadow-1);
+  --buic-shadow-2: var(--iui-shadow-2);
+  --buic-shadow-3: var(--iui-shadow-3);
+  --buic-shadow-4: var(--iui-shadow-4);
+  --buic-shadow-5: var(--iui-shadow-5);
+  // #endregion Shadows
+
+  // #region Border radii
+  --buic-border-radius-1: var(--iui-border-radius-1);
+  --buic-border-radius-round: var(--iui-border-radius-round);
+  // #endregion Border radii
+
+  // #region Opacities
+  --buic-opacity-1: var(--iui-opacity-1);
+  --buic-opacity-2: var(--iui-opacity-2);
+  --buic-opacity-3: var(--iui-opacity-3);
+  --buic-opacity-4: var(--iui-opacity-4);
+  --buic-opacity-5: var(--iui-opacity-5);
+  --buic-opacity-6: var(--iui-opacity-6);
+  // #endregion Opacities
+}

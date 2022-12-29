@@ -5,16 +5,14 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/itwinui-css/scss/style/typography";
 
+@import "~@itwin/itwinui-variables/index";
+
+@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+
 $cube-outer-width: 96px;
 $button-width: 20px;
 $nav-cube-width: 64px;
 $nav-cube-side-width: 14px;
-
-$grad-start: $buic-background-1;
-$grad-end: $buic-background-4;
-
-$grad-start-highlight: $buic-background-2;
-$grad-end-highlight: $buic-background-5;
 
 $arrow-margin: -3px;
 
@@ -42,10 +40,11 @@ $arrow-margin: -3px;
         flex-direction: column;
         width: 100%;
         height: 100%;
-        font-size: $iui-cap-size;
-        font-weight: $iui-font-weight-semibold;
-        color: $buic-text-color;
-        box-shadow: inset 0px 0px 1.0px 0.2px #000;
+        font-size: var(--iui-font-size-0);
+        font-weight: var(--iui-font-weight-semibold);
+        color: var(--iui-color-text);
+        border: 1px solid var(--iui-color-border);
+        box-sizing: border-box;
 
         .face-row {
           display: flex;
@@ -68,14 +67,10 @@ $arrow-margin: -3px;
               flex-grow: 1;
             }
 
-            &.cube-hover {
-              color: $buic-foreground-activehover;
-              background: $buic-background-active-overlay;
-            }
-
+            &.cube-hover,
             &.cube-active {
-              color: $buic-foreground-activehover;
-              background: $buic-background-pressed-overlay;
+              color: var(--iui-color-text-hover);
+              background: var(--iui-color-background-accent-muted); // TODO: Not good enough
             }
           }
 
@@ -91,40 +86,15 @@ $arrow-margin: -3px;
       .cube-right,
       .cube-front,
       .cube-back {
-        background: linear-gradient(#{$grad-start}, #{$grad-end});
+        background: linear-gradient(#{$buic-gradientstart-cubenavigation}, #{$buic-gradientend-cubenavigation});
       }
 
       .cube-top {
-        background: $grad-start;
+        background: $buic-gradientstart-cubenavigation;
       }
 
       .cube-bottom {
-        background: $grad-end;
-      }
-
-      &.cube-dragging {
-        .face-row .face-cell {
-
-          &.cube-hover,
-          &.cube-active {
-            background: transparent;
-          }
-        }
-
-        .cube-left,
-        .cube-right,
-        .cube-front,
-        .cube-back {
-          background: linear-gradient(#{$grad-start-highlight}, #{$grad-end-highlight});
-        }
-
-        .cube-top {
-          background: $grad-start-highlight;
-        }
-
-        .cube-bottom {
-          background: $grad-end-highlight;
-        }
+        background: $buic-gradientend-cubenavigation;
       }
     }
   }

@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/itwinui-css/scss/style/variables";
 
 // 40px is used to ensure scrubber is not drawn behind a widget tab
 .uifw-view-overlay {
@@ -22,8 +21,6 @@
   @include uicore-z-index(view-overlay);
 }
 
-$widget-transparency: 0.90;
-
 .uifw-animation-overlay {
   display: flex;
   justify-content: center;
@@ -31,14 +28,15 @@ $widget-transparency: 0.90;
   width: 80%;
   max-width: 1000px;
   height: auto;
-  background: $buic-background-dialog;
+  background-color: $buic-background-widget;
   border: 1px solid $buic-background-dialog-stroke;
-  border-radius: $iui-border-radius;
+  border-radius: $buic-borderradius-widget;
   // overflow: hidden;
-  opacity: $widget-transparency;
   pointer-events: auto;
+  opacity: $buic-opacity-widget;
+  transition: opacity $buic-opacitytransitionspeed-widgethover ease;
 
   &:hover {
-    opacity: 1.00;
+    opacity: $buic-opacity-widgethover;
   }
 }

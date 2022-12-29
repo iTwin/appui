@@ -5,9 +5,9 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 @mixin nz-widget-opacity {
-  opacity: $buic-widget-opacity;
+  opacity: $buic-opacity-widget;
 
   &:hover {
-    opacity: 1.00;
+    opacity: $buic-opacity-widgethover;
   }
 }
