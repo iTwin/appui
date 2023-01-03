@@ -596,7 +596,6 @@ describe("Frontstage local storage wrapper", () => {
     describe("useFrontstageManager", () => {
       it("should not handle onWidgetStateChangedEvent when nineZoneState is unset", () => {
         const frontstageDef = new FrontstageDef();
-        // frontstageDef.nineZoneState = undefined;
         renderHook(() => useFrontstageManager(frontstageDef));
         const widgetDef = new WidgetDef();
         FrontstageManager.onWidgetStateChangedEvent.emit({
