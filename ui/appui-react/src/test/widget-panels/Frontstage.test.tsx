@@ -1033,45 +1033,6 @@ describe("Frontstage local storage wrapper", () => {
         sut.should.eq(nineZone);
       });
 
-      it("should handle trigger onWidgetStateChangedEvent", () => {
-        const frontstageDef = new FrontstageDef();
-        sinon.stub(frontstageDef, "isReady").get(() => true);
-
-        let nineZoneState = createNineZoneState();
-        // need to have two panel sections if we want to close a tab/minimize panel section.
-        nineZoneState = addTab(nineZoneState, "t1");
-        nineZoneState = addTab(nineZoneState, "t2");
-        nineZoneState = addTab(nineZoneState, "t3");
-        nineZoneState = addTab(nineZoneState, "t4");
-        nineZoneState = addPanelWidget(nineZoneState, "left", "start", ["t1", "t2"], { activeTabId: "t1" });
-        nineZoneState = addPanelWidget(nineZoneState, "left", "end", ["t3", "t4"], { activeTabId: "t3" });
-        frontstageDef.nineZoneState = nineZoneState;
-        const widgetDef = WidgetDef.create({
-          id: "t1",
-          defaultState: WidgetState.Closed,
-        });
-
-        const leftPanel = StagePanelDef.create({
-          resizable: true,
-          sections: {
-            start: [
-              { id: "start" },
-              { id: "end" },
-            ],
-          },
-        }, StagePanelLocation.Left);
-        sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
-
-        sinon.stub(frontstageDef, "getStagePanelDef").withArgs(StagePanelLocation.Left).returns(leftPanel);
-        sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
-        // const spy = sinon.stub(widgetDef, "onWidgetStateChanged");
-
-        const newState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Hidden);
-        frontstageDef.nineZoneState = newState;
-
-        // spy.called.should.true;  // panel has no size so widget state is hidden and remains hidden
-      });
-
       describe("WidgetState.Open", () => {
         it("should open widget", () => {
           let nineZone = createNineZoneState();
