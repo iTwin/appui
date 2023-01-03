@@ -429,7 +429,7 @@ export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArg
 export function addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState;
 
 // @internal (undocumented)
-export function addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState;
+export function addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, location: SupportedStagePanelLocation): NineZoneState;
 
 // @internal (undocumented)
 export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDef>, side: PanelSide, widgetId: WidgetId): NineZoneState;
@@ -452,7 +452,7 @@ export type AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionBut
 export type AnyToolbarItemDef = AnyItemDef | CustomItemDef;
 
 // @internal (undocumented)
-export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, location: StagePanelLocation, section: StagePanelSection): NineZoneState;
+export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, location: SupportedStagePanelLocation, section: SupportedStagePanelSection): NineZoneState;
 
 // @public
 export class AppNotificationManager extends NotificationManager {
@@ -2298,7 +2298,7 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue;
 export function getListPanel(props: ListPickerProps): React_2.ReactNode;
 
 // @internal (undocumented)
-export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray<WidgetDef>;
+export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: SupportedStagePanelSection): ReadonlyArray<WidgetDef>;
 
 // @beta
 export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opts?: Partial<QuantityFormatterSettingsOptions>): SettingsTabEntry;
@@ -2310,7 +2310,7 @@ export function getSelectionContextSyncEventIds(): string[];
 export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry;
 
 // @internal (undocumented)
-export function getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId;
+export function getWidgetId(location: SupportedStagePanelLocation, section: SupportedStagePanelSection): WidgetId;
 
 // @internal (undocumented)
 export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
@@ -2536,7 +2536,7 @@ export interface InitialAppUiSettings {
 export function initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneState;
 
 // @internal (undocumented)
-export function initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState;
+export function initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: SupportedStagePanelLocation): NineZoneState;
 
 // @beta (undocumented)
 export class InputEditorCommitHandler {
@@ -4243,7 +4243,7 @@ export class StagePanelDef extends WidgetHost {
     // @internal (undocumented)
     get defaultState(): StagePanelState;
     // @internal (undocumented)
-    getPanelSectionDef(section: StagePanelSection): StagePanelSectionDef;
+    getPanelSectionDef(section: SupportedStagePanelSection): StagePanelSectionDef;
     // @internal (undocumented)
     initializeFromConfig(config: StagePanelConfig | undefined, location: StagePanelLocation): void;
     get location(): StagePanelLocation;
@@ -4868,7 +4868,7 @@ export interface ToolWidgetComposerProps extends CommonProps {
 }
 
 // @internal (undocumented)
-export function toPanelSide(location: StagePanelLocation): PanelSide;
+export function toPanelSide(location: SupportedStagePanelLocation): PanelSide;
 
 // @internal
 export interface TrackingTime {
