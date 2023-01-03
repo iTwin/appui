@@ -329,7 +329,6 @@ describe("Frontstage local storage wrapper", () => {
 
       it("should not modify when nineZoneState is not defined", () => {
         const frontstageDef = new FrontstageDef();
-        // frontstageDef.nineZoneState = undefined;
         const { result } = renderHook(() => useNineZoneDispatch(frontstageDef));
         result.current({
           type: "PANEL_INITIALIZE",
