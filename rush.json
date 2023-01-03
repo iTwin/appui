@@ -32,13 +32,6 @@
   },
   "projects": [
     {
-      "packageName": "@itwin/appui-abstract",
-      "projectFolder": "ui/appui-abstract",
-      "reviewCategory": "frontend",
-      "shouldPublish": true,
-      "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
-    {
       "packageName": "@itwin/core-react",
       "projectFolder": "ui/core-react",
       "reviewCategory": "frontend",
