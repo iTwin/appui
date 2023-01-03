@@ -42,6 +42,8 @@ import { useSelector } from "react-redux";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import { IModelApp } from "@itwin/core-frontend";
 import { FloatingWidget } from "./FloatingWidget";
+import { SupportedStagePanelLocation } from "../stagepanels/SupportedStagePanelLocation";
+import { SupportedStagePanelSection } from "../stagepanels/SupportedStagePanelSection";
 
 const WidgetInternals = React.memo(function WidgetInternals() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -314,7 +316,7 @@ export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDe
 
 /** @internal */
 // istanbul ignore next
-export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, location: StagePanelLocation, section: StagePanelSection): NineZoneState {
+export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, location: SupportedStagePanelLocation, section: SupportedStagePanelSection): NineZoneState {
   if (widgetDefs.length === 0)
     return state;
 
@@ -472,7 +474,7 @@ type WidgetId =
   "bottomStart" |
   "bottomEnd";
 
-function toStagePanelLocation(side: PanelSide): StagePanelLocation {
+function toStagePanelLocation(side: PanelSide): SupportedStagePanelLocation {
   switch (side) {
     case "bottom":
       return StagePanelLocation.Bottom;
@@ -486,7 +488,7 @@ function toStagePanelLocation(side: PanelSide): StagePanelLocation {
 }
 
 /** @internal */
-export function getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId {
+export function getWidgetId(location: SupportedStagePanelLocation, section: SupportedStagePanelSection): WidgetId {
   switch (location) {
     case StagePanelLocation.Left: {
       if (section === StagePanelSection.Start)
@@ -512,7 +514,7 @@ export function getWidgetId(location: StagePanelLocation, section: StagePanelSec
 }
 
 /** @internal */
-export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray<WidgetDef> {
+export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: SupportedStagePanelSection): ReadonlyArray<WidgetDef> {
   const stagePanel = frontstageDef.getStagePanelDef(location);
   const panelSection = stagePanel?.getPanelSectionDef(section);
   return panelSection?.widgetDefs || [];
@@ -522,7 +524,7 @@ export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: S
 export function addPanelWidgets(
   state: NineZoneState,
   frontstageDef: FrontstageDef,
-  location: StagePanelLocation,
+  location: SupportedStagePanelLocation,
 ): NineZoneState {
   const side = toPanelSide(location);
 
@@ -547,7 +549,7 @@ export function isFrontstageStateSettingResult(settingsResult: UiStateStorageRes
 }
 
 /** @internal */
-export function initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation) {
+export function initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: SupportedStagePanelLocation) {
   const panelSide = toPanelSide(location);
 
   state = addPanelWidgets(state, frontstageDef, location);

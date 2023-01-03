@@ -13,6 +13,8 @@ import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
 import { StagePanelConfig, StagePanelMaxSizeSpec, StagePanelSectionConfig } from "./StagePanelConfig";
+import { SupportedStagePanelLocation, toSupportedStagePanelLocation } from "./SupportedStagePanelLocation";
+import { SupportedStagePanelSection } from "./SupportedStagePanelSection";
 
 /** Enum for StagePanel state.
  * @public
@@ -92,9 +94,11 @@ export class StagePanelDef extends WidgetHost {
 
     // istanbul ignore else
     const frontstageDef = FrontstageManager.activeFrontstageDef;
+    const location = this.location;
+
     // istanbul ignore else
-    if (frontstageDef && frontstageDef.nineZoneState) {
-      const side = toPanelSide(this.location);
+    if (frontstageDef && frontstageDef.nineZoneState && toSupportedStagePanelLocation(location)) {
+      const side = toPanelSide(location);
       frontstageDef.nineZoneState = setPanelSize(frontstageDef.nineZoneState, side, size);
       const panel = frontstageDef.nineZoneState.panels[side];
       if (panel.size === this._size)
@@ -133,8 +137,9 @@ export class StagePanelDef extends WidgetHost {
     if (panelState === this._panelState)
       return;
     const frontstageDef = FrontstageManager.activeFrontstageDef;
-    if (frontstageDef && frontstageDef.nineZoneState) {
-      const side = toPanelSide(this.location);
+    const location = this.location;
+    if (frontstageDef && frontstageDef.nineZoneState && toSupportedStagePanelLocation(location)) {
+      const side = toPanelSide(location);
       frontstageDef.nineZoneState = produce(frontstageDef.nineZoneState, (nineZone) => {
         const panel = nineZone.panels[side];
         switch (panelState) {
@@ -209,7 +214,7 @@ export class StagePanelDef extends WidgetHost {
   }
 
   /** @internal */
-  public getPanelSectionDef(section: StagePanelSection) {
+  public getPanelSectionDef(section: SupportedStagePanelSection) {
     switch (section) {
       case StagePanelSection.Start: {
         return this._start;
@@ -233,7 +238,7 @@ export class StagePanelSectionDef extends WidgetHost {
 }
 
 /** @internal */
-export function toPanelSide(location: StagePanelLocation): PanelSide {
+export function toPanelSide(location: SupportedStagePanelLocation): PanelSide {
   switch (location) {
     case StagePanelLocation.Bottom:
       return "bottom";

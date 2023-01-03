@@ -36,6 +36,7 @@ import { ContentDialogManager } from "../dialog/ContentDialogManager";
 import { FrontstageConfig } from "./FrontstageConfig";
 import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import { WidgetConfig } from "../widgets/WidgetConfig";
+import { SupportedStagePanelLocation, toSupportedStagePanelLocation } from "../stagepanels/SupportedStagePanelLocation";
 
 /** @internal */
 export interface FrontstageEventArgs {
@@ -576,9 +577,10 @@ export class FrontstageDef {
    *  @internal
    */
   public getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number] {
+    const location = panelDef.location;
     // istanbul ignore next
-    if (this.nineZoneState) {
-      const side = toPanelSide(panelDef.location);
+    if (this.nineZoneState && toSupportedStagePanelLocation(location)) {
+      const side = toPanelSide(location);
       const panel = this.nineZoneState.panels[side];
       if (panel)
         return [panel.collapsed ? StagePanelState.Minimized : StagePanelState.Open, panel.size ?? 0];
@@ -925,7 +927,7 @@ function createWidgetDef(config: WidgetConfig | undefined, type: WidgetType): Wi
   return widgetDef;
 }
 
-function createStagePanelDef(frontstageConfig: FrontstageConfig, location: StagePanelLocation): StagePanelDef {
+function createStagePanelDef(frontstageConfig: FrontstageConfig, location: SupportedStagePanelLocation): StagePanelDef {
   const config = getStagePanel(location, frontstageConfig);
 
   const panelDef = new StagePanelDef();
@@ -933,7 +935,7 @@ function createStagePanelDef(frontstageConfig: FrontstageConfig, location: Stage
   return panelDef;
 }
 
-function getStagePanel(location: StagePanelLocation, config: FrontstageConfig): StagePanelConfig | undefined {
+function getStagePanel(location: SupportedStagePanelLocation, config: FrontstageConfig): StagePanelConfig | undefined {
   switch (location) {
     case StagePanelLocation.Top:
       return config.topPanel;
