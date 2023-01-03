@@ -39,7 +39,7 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "workspace:^4.0.0-dev.1",
+    "@itwin/appui-abstract": "^3.5.1",
     "@itwin/core-bentley": "^3.5.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
