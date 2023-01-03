@@ -7,7 +7,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import { addFloatingWidget, addTab, createNineZoneState, FloatingWidgetProvider, getResizeBy, NineZoneDispatch, useFloatingWidgetId } from "../../appui-layout-react";
+import { addFloatingWidget, addTab, createLayoutStore, createNineZoneState, FloatingWidgetProvider, getResizeBy, NineZoneDispatch, useFloatingWidgetId, WidgetIdContext } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("FloatingWidget", () => {
@@ -218,6 +218,20 @@ describe("getResizeBy", () => {
 });
 
 describe("useFloatingWidgetId", () => {
+  it("should return floating widget id", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(state, "w1", ["t1"]);
+    const { result } = renderHook(() => useFloatingWidgetId(), {
+      wrapper: (props) => ( // eslint-disable-line react/display-name
+        <TestNineZoneProvider layout={createLayoutStore(state)}>
+          <WidgetIdContext.Provider value="w1" {...props} />
+        </TestNineZoneProvider>
+      ),
+    });
+    expect(result.current).to.eq("w1");
+  });
+
   it("should return `undefined` if WidgetIdContext is not provided", () => {
     const { result } = renderHook(() => useFloatingWidgetId(), {
       wrapper: (props) => <TestNineZoneProvider {...props} />, // eslint-disable-line react/display-name
