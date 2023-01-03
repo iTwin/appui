@@ -49,7 +49,7 @@
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/appui-abstract": "workspace:*",
+    "@itwin/appui-abstract": "^3.5.1",
     "@itwin/build-tools": "^3.5.1",
     "@itwin/core-bentley": "^3.5.1",
     "@itwin/core-common": "^3.5.1",
