@@ -325,6 +325,88 @@ describe("FrontstageDef", () => {
 
     expect(spy).to.be.calledOnceWithExactly("t1");
   });
+
+  describe("getWidgetCurrentState", () => {
+    it("should show WidgetState as closed in panel size is undefined", () => {
+      const frontstageDef = new FrontstageDef();
+      sinon.stub(frontstageDef, "isReady").get(() => true);
+
+      let nineZoneState = createNineZoneState();
+      nineZoneState = addTab(nineZoneState, "t1");
+      nineZoneState = addTab(nineZoneState, "t2");
+      nineZoneState = addPanelWidget(nineZoneState, "left", "start", ["t1", "t2"], { activeTabId: "t1" });
+      frontstageDef.nineZoneState = nineZoneState;
+      const widgetDef = WidgetDef.create({
+        id: "t1",
+        defaultState: WidgetState.Hidden,
+      });
+
+      const leftPanel = StagePanelDef.create({
+        resizable: true,
+        sections: {
+          start: [{ id: "start" }],
+        },
+      }, StagePanelLocation.Left);
+      sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+
+      sinon.stub(frontstageDef, "getStagePanelDef").withArgs(StagePanelLocation.Left).returns(leftPanel);
+      sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
+
+      expect(frontstageDef.getWidgetCurrentState(widgetDef)).to.be.eql(WidgetState.Closed);
+    });
+
+    it("should show WidgetState as closed in panel size is 0", () => {
+      const frontstageDef = new FrontstageDef();
+      sinon.stub(frontstageDef, "isReady").get(() => true);
+
+      let nineZoneState = createNineZoneState();
+      nineZoneState = addTab(nineZoneState, "t1");
+      nineZoneState = addTab(nineZoneState, "t2");
+      nineZoneState = addPanelWidget(nineZoneState, "left", "start", ["t1", "t2"], { activeTabId: "t1" });
+      frontstageDef.nineZoneState = nineZoneState;
+      const widgetDef = WidgetDef.create({
+        id: "t1",
+        defaultState: WidgetState.Hidden,
+      });
+
+      const leftPanel = StagePanelDef.create({
+        resizable: true,
+        size: 0,
+        sections: {
+          start: [{ id: "start" }],
+        },
+      }, StagePanelLocation.Left);
+      sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
+
+      sinon.stub(frontstageDef, "getStagePanelDef").withArgs(StagePanelLocation.Left).returns(leftPanel);
+      sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
+
+      // const panel = frontstageDef.nineZoneState.panels.left;
+      expect(frontstageDef.getWidgetCurrentState(widgetDef)).to.be.eql(WidgetState.Closed);
+    });
+
+    it("should show WidgetState as closed in panel is collapsed", () => {
+      const frontstageDef = new FrontstageDef();
+      sinon.stub(frontstageDef, "isReady").get(() => true);
+
+      let nineZoneState = createNineZoneState();
+      nineZoneState = addTab(nineZoneState, "t1");
+      nineZoneState = addTab(nineZoneState, "t2");
+      nineZoneState = addPanelWidget(nineZoneState, "left", "start", ["t1", "t2"], { activeTabId: "t1" });
+      nineZoneState = produce(nineZoneState, (draft) => {
+        draft.panels.left.collapsed = true;
+      });
+      frontstageDef.nineZoneState = nineZoneState;
+      const widgetDef = WidgetDef.create({
+        id: "t1",
+        defaultState: WidgetState.Open,
+      });
+
+      sinon.stub(frontstageDef, "findWidgetDef").withArgs("t1").returns(widgetDef);
+      expect(frontstageDef.getWidgetCurrentState(widgetDef)).to.be.eql(WidgetState.Closed);
+    });
+  });
+
 });
 
 describe("float and dock widget", () => {

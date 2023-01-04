@@ -10,7 +10,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import {
   addPanelWidget, addTab, createNineZoneState, DragManager,
-  NineZoneDispatch, PanelSide, PanelStateContext, useResizeGrip, WidgetPanelContext, WidgetPanelGrip,
+  NineZoneDispatch, PanelSide, PanelSideContext, useResizeGrip, WidgetPanelContext, WidgetPanelGrip,
 } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
@@ -29,14 +29,11 @@ describe("WidgetPanelGrip", () => {
   />;
 
   it("should render resizing", () => {
-    const nineZone = createNineZoneState();
     const { container } = render(
-      <TestNineZoneProvider
-        state={nineZone}
-      >
-        <PanelStateContext.Provider value={nineZone.panels.left}>
+      <TestNineZoneProvider>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -54,12 +51,12 @@ describe("WidgetPanelGrip", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -84,12 +81,12 @@ describe("WidgetPanelGrip", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -116,11 +113,11 @@ describe("WidgetPanelGrip", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -136,11 +133,11 @@ describe("WidgetPanelGrip", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -163,12 +160,12 @@ describe("WidgetPanelGrip", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
-        <PanelStateContext.Provider value={state.panels.left}>
+        <PanelSideContext.Provider value="left">
           <WidgetPanelGrip />
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>,
       { wrapper }
     );
@@ -191,29 +188,29 @@ describe("useResizeGrip", () => {
   }
 
   function Wrapper(props: WrapperProps) {
-    const { children, side, state, ...nzProps } = props;
-    const nineZone = state || createNineZoneState();
+    const { children, side, defaultState, ...nzProps } = props;
+    const nineZone = defaultState || createNineZoneState();
     return <TestNineZoneProvider // eslint-disable-line react/display-name
-      state={nineZone}
+      defaultState={nineZone}
       {...nzProps}
     >
       <WidgetPanelContext.Provider value={{ getBounds: () => new Rectangle() }}>
-        <PanelStateContext.Provider value={nineZone.panels[side || "left"]}>
+        <PanelSideContext.Provider value={side || "left"}>
           {children}
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </WidgetPanelContext.Provider>
     </TestNineZoneProvider>;
   }
   const wrapper = Wrapper;
 
   it("should resize top panel", () => {
-    const state = produce(createNineZoneState(), (draft) => {
+    const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.top.size = 200;
     });
     const dispatch = sinon.stub<NineZoneDispatch>();
     const initialProps: WrapperProps = {
       dispatch,
-      state,
+      defaultState,
       side: "top",
     };
     const { result } = renderHook(() => useResizeGrip(), {
@@ -232,13 +229,13 @@ describe("useResizeGrip", () => {
   });
 
   it("should resize bottom panel", () => {
-    const state = produce(createNineZoneState(), (draft) => {
+    const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.bottom.size = 200;
     });
     const dispatch = sinon.stub<NineZoneDispatch>();
     const initialProps: WrapperProps = {
       dispatch,
-      state,
+      defaultState,
       side: "bottom",
     };
     const { result } = renderHook(() => useResizeGrip(), {
@@ -327,7 +324,7 @@ describe("useResizeGrip", () => {
   });
 
   it("should expand collapsed panel", () => {
-    const state = produce(createNineZoneState(), (draft) => {
+    const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.left.size = 300;
       draft.panels.left.collapsed = true;
     });
@@ -335,7 +332,7 @@ describe("useResizeGrip", () => {
     const initialProps: WrapperProps = {
       dispatch,
       side: "left",
-      state,
+      defaultState,
     };
     const { result } = renderHook(() => useResizeGrip(), {
       initialProps,
@@ -353,7 +350,7 @@ describe("useResizeGrip", () => {
   });
 
   it("should not expand if collapseOffset is not reached", () => {
-    const state = produce(createNineZoneState(), (draft) => {
+    const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.left.size = 300;
       draft.panels.left.collapsed = true;
     });
@@ -361,7 +358,7 @@ describe("useResizeGrip", () => {
     const initialProps: WrapperProps = {
       dispatch,
       side: "left",
-      state,
+      defaultState,
     };
     const { result } = renderHook(() => useResizeGrip(), {
       initialProps,
@@ -375,14 +372,14 @@ describe("useResizeGrip", () => {
   });
 
   it("should collapse", () => {
-    const state = produce(createNineZoneState(), (draft) => {
+    const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.left.size = 200;
     });
     const dispatch = sinon.stub<NineZoneDispatch>();
     const initialProps: WrapperProps = {
       dispatch,
       side: "left",
-      state,
+      defaultState,
     };
     const { result } = renderHook(() => useResizeGrip(), {
       initialProps,
@@ -406,14 +403,14 @@ describe("useResizeGrip", () => {
   });
 
   it("should not resize if drag direction does not match resize direction", () => {
-    const state = produce(createNineZoneState(), (draft) => {
+    const defaultState = produce(createNineZoneState(), (draft) => {
       draft.panels.left.size = 300;
     });
     const dispatch = sinon.stub<NineZoneDispatch>();
     const initialProps: WrapperProps = {
       dispatch,
       side: "left",
-      state,
+      defaultState,
     };
     const { result } = renderHook(() => useResizeGrip(), {
       initialProps,

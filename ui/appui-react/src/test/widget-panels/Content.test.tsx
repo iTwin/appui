@@ -5,7 +5,7 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, NineZoneProvider, WidgetStateContext } from "@itwin/appui-layout-react";
+import { addPanelWidget, addTab, createLayoutStore, createNineZoneState, NineZoneProvider, WidgetIdContext } from "@itwin/appui-layout-react";
 import { Rectangle } from "@itwin/core-react";
 import { FrontstageDef, FrontstageManager, WidgetContent, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
@@ -20,9 +20,10 @@ describe("WidgetContent", () => {
   });
 
   it("should render", () => {
-    let nineZone = createNineZoneState();
-    nineZone = addTab(nineZone, "w1");
-    nineZone = addPanelWidget(nineZone, "left", "leftStart", ["w1"]);
+    let state = createNineZoneState();
+    state = addTab(state, "w1");
+    state = addPanelWidget(state, "left", "leftStart", ["w1"]);
+    const layout = createLayoutStore(state);
     const frontstage = new FrontstageDef();
     const widget = WidgetDef.create({ id: "w1" });
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstage);
@@ -31,52 +32,54 @@ describe("WidgetContent", () => {
     const { container } = render(
       <NineZoneProvider
         dispatch={sinon.stub()}
-        state={nineZone}
+        layout={layout}
         measure={() => new Rectangle()}
       >
-        <WidgetStateContext.Provider value={nineZone.widgets.leftStart}>
+        <WidgetIdContext.Provider value="leftStart">
           <WidgetContent />
-        </WidgetStateContext.Provider>
+        </WidgetIdContext.Provider>
       </NineZoneProvider>,
     );
     container.firstChild!.should.matchSnapshot();
   });
 
   it("should render w/o frontstage", () => {
-    let nineZone = createNineZoneState();
-    nineZone = addTab(nineZone, "w1");
-    nineZone = addPanelWidget(nineZone, "left", "leftStart", ["w1"]);
+    let state = createNineZoneState();
+    state = addTab(state, "w1");
+    state = addPanelWidget(state, "left", "leftStart", ["w1"]);
+    const layout = createLayoutStore(state);
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
     const { container } = render(
       <NineZoneProvider
         dispatch={sinon.stub()}
-        state={nineZone}
+        layout={layout}
         measure={() => new Rectangle()}
       >
-        <WidgetStateContext.Provider value={nineZone.widgets.leftStart}>
+        <WidgetIdContext.Provider value="leftStart">
           <WidgetContent />
-        </WidgetStateContext.Provider>
+        </WidgetIdContext.Provider>
       </NineZoneProvider>,
     );
     container.firstChild!.should.matchSnapshot();
   });
 
   it("should render w/o widgetDef", () => {
-    let nineZone = createNineZoneState();
-    nineZone = addTab(nineZone, "w1");
-    nineZone = addPanelWidget(nineZone, "left", "leftStart", ["w1"]);
+    let state = createNineZoneState();
+    state = addTab(state, "w1");
+    state = addPanelWidget(state, "left", "leftStart", ["w1"]);
+    const layout = createLayoutStore(state);
     const frontstage = new FrontstageDef();
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstage);
     sinon.stub(frontstage, "findWidgetDef").returns(undefined);
     const { container } = render(
       <NineZoneProvider
         dispatch={sinon.stub()}
-        state={nineZone}
+        layout={layout}
         measure={() => new Rectangle()}
       >
-        <WidgetStateContext.Provider value={nineZone.widgets.leftStart}>
+        <WidgetIdContext.Provider value="leftStart">
           <WidgetContent />
-        </WidgetStateContext.Provider>
+        </WidgetIdContext.Provider>
       </NineZoneProvider>,
     );
     container.firstChild!.should.matchSnapshot();

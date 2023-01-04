@@ -11,7 +11,7 @@ import * as React from "react";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 
 /** @internal */
-export const Dock = React.memo(function Dock() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function Dock() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("dockToolSettingsTitle");
   return (
@@ -27,4 +27,4 @@ export const Dock = React.memo(function Dock() { // eslint-disable-line @typescr
       <i />
     </button >
   );
-});
+}

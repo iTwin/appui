@@ -16,11 +16,7 @@ import { FloatingWidget, FloatingWidgetResizeHandle } from "../widget/FloatingWi
 import { DraggedPanelSideContext, DraggedResizeHandleContext, DraggedWidgetIdContext, DragProvider } from "./DragManager";
 import { WidgetTab } from "../widget/Tab";
 import { NineZoneAction } from "../state/NineZoneAction";
-import { NineZoneState } from "../state/NineZoneState";
-import { PanelsState } from "../state/PanelState";
-import { DraggedTabState, TabsState } from "../state/TabState";
-import { ToolSettingsState } from "../state/ToolSettingsState";
-import { FloatingWidgetsState, WidgetsState } from "../state/WidgetState";
+import { LayoutStore, LayoutStoreContext, useLayout } from "./LayoutStore";
 
 /** @internal */
 export type NineZoneDispatch = (action: NineZoneAction) => void;
@@ -29,7 +25,7 @@ export type NineZoneDispatch = (action: NineZoneAction) => void;
 export interface NineZoneProps {
   children?: React.ReactNode;
   dispatch: NineZoneDispatch;
-  state: NineZoneState;
+  layout: LayoutStore;
   labels?: NineZoneLabels;
   toolSettingsContent?: React.ReactNode;
   widgetContent?: React.ReactNode;
@@ -84,7 +80,7 @@ const floatingWidget = <FloatingWidget />;
 /** @internal */
 export function NineZoneProvider(props: NineZoneProviderProps) {
   return (
-    <NineZoneContext.Provider value={props.state}>
+    <LayoutStoreContext.Provider value={props.layout}>
       <NineZoneDispatchContext.Provider value={props.dispatch}>
         <NineZoneLabelsContext.Provider value={props.labels}>
           <UiIsVisibleContext.Provider value={!!props.uiIsVisible}>
@@ -94,31 +90,17 @@ export function NineZoneProvider(props: NineZoneProviderProps) {
                   <ToolSettingsNodeContext.Provider value={props.toolSettingsContent}>
                     <TabNodeContext.Provider value={props.tab || tab}>
                       <FloatingWidgetNodeContext.Provider value={props.floatingWidget || floatingWidget}>
-                        <DraggedTabStateContext.Provider value={props.state.draggedTab}>
-                          <DraggedTabContext.Provider value={!!props.state.draggedTab}>
-                            <TabsStateContext.Provider value={props.state.tabs}>
-                              <WidgetsStateContext.Provider value={props.state.widgets}>
-                                <PanelsStateContext.Provider value={props.state.panels}>
-                                  <FloatingWidgetsStateContext.Provider value={props.state.floatingWidgets}>
-                                    <ToolSettingsStateContext.Provider value={props.state.toolSettings}>
-                                      <AnimateDockedToolSettingsContext.Provider value={!!props.animateDockedToolSettings}>
-                                        <DragProvider>
-                                          <CursorTypeProvider>
-                                            <WidgetContentManager>
-                                              <MeasureContext.Provider value={props.measure}>
-                                                {props.children}
-                                              </MeasureContext.Provider>
-                                            </WidgetContentManager>
-                                          </CursorTypeProvider>
-                                        </DragProvider>
-                                      </AnimateDockedToolSettingsContext.Provider>
-                                    </ToolSettingsStateContext.Provider>
-                                  </FloatingWidgetsStateContext.Provider>
-                                </PanelsStateContext.Provider>
-                              </WidgetsStateContext.Provider>
-                            </TabsStateContext.Provider>
-                          </DraggedTabContext.Provider>
-                        </DraggedTabStateContext.Provider>
+                        <AnimateDockedToolSettingsContext.Provider value={!!props.animateDockedToolSettings}>
+                          <DragProvider>
+                            <CursorTypeProvider>
+                              <WidgetContentManager>
+                                <MeasureContext.Provider value={props.measure}>
+                                  {props.children}
+                                </MeasureContext.Provider>
+                              </WidgetContentManager>
+                            </CursorTypeProvider>
+                          </DragProvider>
+                        </AnimateDockedToolSettingsContext.Provider>
                       </FloatingWidgetNodeContext.Provider>
                     </TabNodeContext.Provider>
                   </ToolSettingsNodeContext.Provider>
@@ -128,13 +110,9 @@ export function NineZoneProvider(props: NineZoneProviderProps) {
           </UiIsVisibleContext.Provider>
         </NineZoneLabelsContext.Provider>
       </NineZoneDispatchContext.Provider>
-    </NineZoneContext.Provider>
+    </LayoutStoreContext.Provider>
   );
 }
-
-/** @internal */
-export const NineZoneContext = React.createContext<NineZoneState>(null!); // eslint-disable-line @typescript-eslint/naming-convention
-NineZoneContext.displayName = "nz:NineZoneContext";
 
 /** @internal */
 export const NineZoneDispatchContext = React.createContext<NineZoneDispatch>(null!); // eslint-disable-line @typescript-eslint/naming-convention
@@ -143,30 +121,6 @@ NineZoneDispatchContext.displayName = "nz:NineZoneDispatchContext";
 /** @internal */
 export const NineZoneLabelsContext = React.createContext<NineZoneLabels | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 NineZoneLabelsContext.displayName = "nz:NineZoneLabelsContext";
-
-/** @internal */
-export const DraggedTabStateContext = React.createContext<DraggedTabState | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
-DraggedTabStateContext.displayName = "nz:DraggedTabStateContext";
-
-/** @internal */
-export const DraggedTabContext = React.createContext<boolean>(false); // eslint-disable-line @typescript-eslint/naming-convention
-DraggedTabContext.displayName = "nz:DraggedTabContext";
-
-/** @internal */
-export const TabsStateContext = React.createContext<TabsState>(null!); // eslint-disable-line @typescript-eslint/naming-convention
-TabsStateContext.displayName = "nz:TabsStateContext";
-
-/** @internal */
-export const WidgetsStateContext = React.createContext<WidgetsState>(null!); // eslint-disable-line @typescript-eslint/naming-convention
-WidgetsStateContext.displayName = "nz:WidgetsStateContext";
-
-/** @internal */
-export const PanelsStateContext = React.createContext<PanelsState>(null!); // eslint-disable-line @typescript-eslint/naming-convention
-PanelsStateContext.displayName = "nz:PanelsStateContext";
-
-/** @internal */
-export const FloatingWidgetsStateContext = React.createContext<FloatingWidgetsState>(null!); // eslint-disable-line @typescript-eslint/naming-convention
-FloatingWidgetsStateContext.displayName = "nz:FloatingWidgetsStateContext";
 
 /** @internal */
 export const CursorTypeContext = React.createContext<CursorType | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
@@ -201,10 +155,6 @@ export const FloatingWidgetNodeContext = React.createContext<React.ReactNode>(un
 FloatingWidgetNodeContext.displayName = "nz:FloatingWidgetNodeContext";
 
 /** @internal */
-export const ToolSettingsStateContext = React.createContext<ToolSettingsState>(null!); // eslint-disable-line @typescript-eslint/naming-convention
-ToolSettingsStateContext.displayName = "nz:ToolSettingsStateContext";
-
-/** @internal */
 export const MeasureContext = React.createContext<() => Rectangle>(null!); // eslint-disable-line @typescript-eslint/naming-convention
 MeasureContext.displayName = "nz:MeasureContext";
 
@@ -213,12 +163,12 @@ export const UiIsVisibleContext = React.createContext<boolean>(false); // eslint
 UiIsVisibleContext.displayName = "nz:UiIsVisibleContext";
 
 function CursorTypeProvider(props: { children?: React.ReactNode }) {
-  const draggedTab = React.useContext(DraggedTabContext);
-  const draggedWidget = React.useContext(DraggedWidgetIdContext);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
+  const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   const draggedResizeHandle = React.useContext(DraggedResizeHandleContext);
   let type: CursorType | undefined;
-  if (draggedTab || draggedWidget)
+  if (draggedTab || draggedWidgetId)
     type = "grabbing";
   else if (draggedPanelSide)
     type = sideToCursorType(draggedPanelSide);

@@ -25,7 +25,7 @@ import { StagePanelDef, StagePanelState, toPanelSide } from "../stagepanels/Stag
 import { UiFramework } from "../UiFramework";
 import { WidgetControl } from "../widgets/WidgetControl";
 import { WidgetDef, WidgetType } from "../widgets/WidgetDef";
-import { FrontstageActivatedEventArgs, FrontstageManager } from "./FrontstageManager";
+import { FrontstageManager } from "./FrontstageManager";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import { ChildWindowLocationProps } from "../childwindow/ChildWindowManager";
@@ -959,14 +959,9 @@ export const useActiveFrontstageId = () => {
 export function useActiveFrontstageDef() {
   const [def, setDef] = React.useState(FrontstageManager.activeFrontstageDef);
   React.useEffect(() => {
-    // istanbul ignore next
-    const handleActivated = (args: FrontstageActivatedEventArgs) => {
+    return FrontstageManager.onFrontstageActivatedEvent.addListener((args) => {
       setDef(args.activatedFrontstageDef);
-    };
-    FrontstageManager.onFrontstageActivatedEvent.addListener(handleActivated);
-    return () => {
-      FrontstageManager.onFrontstageActivatedEvent.removeListener(handleActivated);
-    };
+    });
   }, []);
   return def;
 }

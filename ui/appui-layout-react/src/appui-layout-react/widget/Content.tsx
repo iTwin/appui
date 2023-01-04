@@ -8,8 +8,8 @@
 
 import "./Content.scss";
 import * as React from "react";
-import { Point } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
+import { Point } from "@itwin/core-react";
 import { useTransientState } from "./ContentRenderer";
 
 /** Properties of [[ScrollableWidgetContent]] component.
@@ -25,7 +25,7 @@ export interface ScrollableWidgetContentProps {
 /** Component that enables widget content scrolling.
  * @internal
  */
-export const ScrollableWidgetContent = React.memo<ScrollableWidgetContentProps>(function ScrollableWidgetContent(props) { // eslint-disable-line @typescript-eslint/no-shadow, @typescript-eslint/naming-convention
+export function ScrollableWidgetContent(props: ScrollableWidgetContentProps) {
   const scrollPosition = React.useRef(new Point());
   const ref = React.useRef<HTMLDivElement>(null);
   const onSave = React.useCallback(() => {
@@ -50,4 +50,4 @@ export const ScrollableWidgetContent = React.memo<ScrollableWidgetContentProps>(
       {props.children}
     </div>
   );
-});
+}
