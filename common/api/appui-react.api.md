@@ -71,6 +71,7 @@ import { ItemField } from '@itwin/core-frontend';
 import { JSXElementConstructor } from 'react';
 import { Key } from 'react';
 import { LayoutFragmentProps } from '@itwin/appui-abstract';
+import { LayoutStore } from '@itwin/appui-layout-react';
 import { Localization } from '@itwin/core-common';
 import { MessageBoxIconType } from '@itwin/core-frontend';
 import { MessageBoxType } from '@itwin/core-frontend';
@@ -402,9 +403,7 @@ export interface ActiveContentChangedEventArgs {
 }
 
 // @internal (undocumented)
-export function ActiveFrontstageDefProvider({ frontstageDef }: {
-    frontstageDef: FrontstageDef;
-}): JSX.Element;
+export function ActiveFrontstageDefProvider({ frontstageDef, layout }: ActiveFrontstageDefProviderProps): JSX.Element;
 
 // @public
 export function ActivityCenterField(props: CommonProps): JSX.Element | null;
@@ -5185,10 +5184,10 @@ export function useItemsManager(frontstageDef: FrontstageDef): void;
 export function useLabels(): NineZoneLabels;
 
 // @internal (undocumented)
-export function useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch;
+export function useLayoutStore(): readonly [LayoutStore, FrontstageDef | undefined];
 
 // @internal (undocumented)
-export function useNineZoneState(frontstageDef: FrontstageDef): NineZoneState | undefined;
+export function useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch;
 
 // @public
 export interface UserSettingsProvider {
@@ -5200,7 +5199,7 @@ export interface UserSettingsProvider {
 export function useSavedFrontstageState(frontstageDef: FrontstageDef): void;
 
 // @internal (undocumented)
-export function useSaveFrontstageSettings(frontstageDef: FrontstageDef): void;
+export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: LayoutStore): void;
 
 // @public
 export function useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined;
@@ -5651,7 +5650,7 @@ export class WidgetManager {
 export type WidgetPanelProps = Omit<StagePanelConfig, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
 
 // @internal (undocumented)
-export const WidgetPanelsFrontstage: React_2.NamedExoticComponent<object>;
+export function WidgetPanelsFrontstage(): JSX.Element | null;
 
 // @internal (undocumented)
 export function WidgetPanelsFrontstageContent(): JSX.Element | null;

@@ -6,7 +6,7 @@ import { render } from "@testing-library/react";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  addPanelWidget, addTab, createNineZoneState, PanelSideContext, ShowWidgetIconContext, WidgetIdContext, WidgetStateContext, WidgetTabs,
+  addPanelWidget, addTab, createNineZoneState, PanelSideContext, ShowWidgetIconContext, WidgetIdContext, WidgetTabs,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
@@ -18,13 +18,11 @@ describe("WidgetTabs", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
-            <WidgetStateContext.Provider value={state.widgets.w1}>
-              <WidgetTabs />
-            </WidgetStateContext.Provider>
+            <WidgetTabs />
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
       </TestNineZoneProvider>,
@@ -39,13 +37,11 @@ describe("WidgetTabs", () => {
     sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({ width: 100 }));
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
-            <WidgetStateContext.Provider value={state.widgets.w1}>
-              <WidgetTabs />
-            </WidgetStateContext.Provider>
+            <WidgetTabs />
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
       </TestNineZoneProvider>,
@@ -60,14 +56,12 @@ describe("WidgetTabs", () => {
     sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({ width: 300 }));
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <ShowWidgetIconContext.Provider value={true}>
           <PanelSideContext.Provider value="left">
             <WidgetIdContext.Provider value="w1">
-              <WidgetStateContext.Provider value={state.widgets.w1}>
-                <WidgetTabs />
-              </WidgetStateContext.Provider>
+              <WidgetTabs />
             </WidgetIdContext.Provider>
           </PanelSideContext.Provider>
         </ShowWidgetIconContext.Provider>
@@ -82,13 +76,11 @@ describe("WidgetTabs", () => {
     state = addPanelWidget(state, "top", "w1", ["t1"], { minimized: true });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <PanelSideContext.Provider value="top">
           <WidgetIdContext.Provider value="w1">
-            <WidgetStateContext.Provider value={state.widgets.w1}>
-              <WidgetTabs />
-            </WidgetStateContext.Provider>
+            <WidgetTabs />
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
       </TestNineZoneProvider>,

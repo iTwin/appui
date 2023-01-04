@@ -8,6 +8,7 @@ export * from "./appui-layout-react/backstage/Separator";
 
 export * from "./appui-layout-react/base/DragManager";
 export * from "./appui-layout-react/base/Ellipsis";
+export * from "./appui-layout-react/base/LayoutStore";
 export * from "./appui-layout-react/base/NineZone";
 export * from "./appui-layout-react/base/SafeAreaInsets";
 export * from "./appui-layout-react/base/usePointerCaptor";

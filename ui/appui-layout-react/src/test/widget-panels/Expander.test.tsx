@@ -24,7 +24,7 @@ describe("WidgetPanelExpanders", () => {
     });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <WidgetPanelExpanders />
       </TestNineZoneProvider>,

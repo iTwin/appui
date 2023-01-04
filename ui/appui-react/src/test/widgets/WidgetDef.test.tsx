@@ -147,16 +147,31 @@ describe("WidgetDef", () => {
     expect(widgetDef.reactNode).to.not.be.undefined;
   });
 
-  it("setWidgetState", () => {
-    const widgetDef = WidgetDef.create({
-      id: "w1",
-      classId: "WidgetDefTest",
-      badgeType: BadgeType.None,
-    });
-    widgetDef.setWidgetState(WidgetState.Open);
+  describe("setWidgetState", () => {
+    it("should update widget state", () => {
+      const widgetDef = WidgetDef.create({
+        id: "w1",
+        classId: "WidgetDefTest",
+        badgeType: BadgeType.None,
+      });
+      widgetDef.setWidgetState(WidgetState.Open);
 
-    expect(widgetDef.stateChanged).to.eq(true);
-    expect(widgetDef.isVisible).to.eq(true);
+      expect(widgetDef.stateChanged).to.eq(true);
+      expect(widgetDef.isVisible).to.eq(true);
+    });
+
+    it("should emit FrontstageManager.onWidgetStateChangedEvent", () => {
+      const widgetDef = WidgetDef.create({
+        id: "t1",
+        defaultState: WidgetState.Closed,
+      });
+      const spy = sinon.spy();
+      FrontstageManager.onWidgetStateChangedEvent.addListener(spy);
+
+      widgetDef.setWidgetState(WidgetState.Hidden);
+
+      sinon.assert.calledOnce(spy);
+    });
   });
 
   it("getWidgetControl throws an Error when type is incorrect", () => {

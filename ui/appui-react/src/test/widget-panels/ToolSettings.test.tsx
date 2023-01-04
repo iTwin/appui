@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { Rectangle } from "@itwin/core-react";
-import { createNineZoneState, DragManager, DragManagerContext, NineZoneProvider, ToolSettingsStateContext } from "@itwin/appui-layout-react";
+import { createLayoutStore, DragManager, DragManagerContext, NineZoneProvider } from "@itwin/appui-layout-react";
 import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
@@ -18,7 +18,15 @@ import { childStructure } from "../TestUtils";
 describe("WidgetPanelsToolSettings", () => {
   it("should not render w/o tool settings top center zone", () => {
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
-    const { container } = render(<WidgetPanelsToolSettings />);
+    const { container } = render(
+      <NineZoneProvider
+        dispatch={sinon.spy()}
+        layout={createLayoutStore()}
+        measure={sinon.spy()}
+      >
+        <WidgetPanelsToolSettings />
+      </NineZoneProvider>
+    );
     expect(container.innerHTML).to.eq("");
   });
 
@@ -29,11 +37,13 @@ describe("WidgetPanelsToolSettings", () => {
     sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => undefined);
     sinon.stub(frontstageDef, "toolSettings").get(() => toolSettings);
     const { container } = render(
-      <DragManagerContext.Provider value={new DragManager()}>
-        <ToolSettingsStateContext.Provider value={{ type: "docked" }}>
-          <WidgetPanelsToolSettings />
-        </ToolSettingsStateContext.Provider>
-      </DragManagerContext.Provider>,
+      <NineZoneProvider
+        dispatch={sinon.spy()}
+        layout={createLayoutStore()}
+        measure={sinon.spy()}
+      >
+        <WidgetPanelsToolSettings />
+      </NineZoneProvider>,
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -83,34 +93,36 @@ describe("ToolSettingsContent", () => {
 
   it("should not render if not in 'widget' mode", () => {
     const { container } = render(
-      <ToolSettingsStateContext.Provider value={{ type: "docked" }}>
+      <NineZoneProvider
+        dispatch={sinon.spy()}
+        measure={sinon.spy()}
+        layout={createLayoutStore()}
+      >
         <ToolSettingsContent />
-      </ToolSettingsStateContext.Provider>,
+      </NineZoneProvider>
     );
-    (container.firstChild === null).should.true;
+    expect(container.firstChild).to.be.null;
   });
 
   it("should render (Floating Widget mode)", () => {
     const activeToolSettingsProvider = new ToolUiProviderMock(new ConfigurableCreateInfo("test", "test", "test"), undefined);
     sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => activeToolSettingsProvider);
     sinon.stub(activeToolSettingsProvider, "toolSettingsNode").get(() => <div>Hello World</div>);
-    const state = createNineZoneState({
+    const layout = createLayoutStore({
       toolSettings: {
         type: "widget",
       },
     });
     const { container } = render(
-      <ToolSettingsStateContext.Provider value={{ type: "widget" }}>
-        <NineZoneProvider
-          state={state}
-          dispatch={sinon.stub()}
-          measure={() => new Rectangle()}
-        >
-          <div className="nz-floating-toolsettings">
-            <ToolSettingsContent />
-          </div>
-        </NineZoneProvider>
-      </ToolSettingsStateContext.Provider>,
+      <NineZoneProvider
+        layout={layout}
+        dispatch={sinon.stub()}
+        measure={() => new Rectangle()}
+      >
+        <div className="nz-floating-toolsettings">
+          <ToolSettingsContent />
+        </div>
+      </NineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });

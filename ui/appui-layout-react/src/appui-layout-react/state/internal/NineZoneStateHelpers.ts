@@ -12,7 +12,7 @@ import { NineZoneState } from "../NineZoneState";
 import { FloatingWidgetHomeState, FloatingWidgetState } from "../WidgetState";
 import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
 import { toolSettingsTabId } from "../ToolSettingsState";
-import { updateFloatingWidgetState } from "./WidgetStateHelpers";
+import { getWidgetState, updateFloatingWidgetState } from "./WidgetStateHelpers";
 
 /** @internal */
 export const category = "appui-layout-react:layout";
@@ -68,7 +68,7 @@ export function initSizeProps<T, K extends KeysOfType<T, SizeProps | undefined>>
 
 /** @internal */
 export function isToolSettingsFloatingWidget(state: NineZoneState, id: FloatingWidgetState["id"]) {
-  const widget = state.widgets[id];
+  const widget = getWidgetState(state, id);
   return (widget.tabs.length === 1 &&
     widget.tabs[0] === toolSettingsTabId &&
     id in state.floatingWidgets.byId
@@ -87,8 +87,9 @@ export function updateHomeOfToolSettingsWidget(state: NineZoneState, id: Floatin
 
 /** @internal */
 export function convertFloatingWidgetContainerToPopout(state: NineZoneState, widgetContainerId: string): NineZoneState {
-  // istanbul ignore next - not an expected condition
-  if (!state.widgets[widgetContainerId]?.tabs || state.widgets[widgetContainerId].tabs.length !== 1) {
+  const widget = getWidgetState(state, widgetContainerId);
+  // istanbul ignore next
+  if (widget.tabs.length !== 1) {
     // currently only support popping out a floating widget container if it has a single tab
     return state;
   }
