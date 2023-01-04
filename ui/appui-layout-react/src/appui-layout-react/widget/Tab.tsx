@@ -9,29 +9,31 @@
 import "./Tab.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, Icon, Point, Rectangle, Timer, useRefs, useResizeObserver } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
+import { CommonProps, Icon, Point, Rectangle, Timer, useRefs, useResizeObserver } from "@itwin/core-react";
 import { useDragTab } from "../base/DragManager";
 import { MeasureContext, NineZoneDispatchContext, ShowWidgetIconContext, TabNodeContext } from "../base/NineZone";
 import { TabState } from "../state/TabState";
 import { PointerCaptorArgs, PointerCaptorEvent, usePointerCaptor } from "../base/usePointerCaptor";
 import { PanelSideContext } from "../widget-panels/Panel";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
 import { WidgetTabsEntryContext } from "./Tabs";
-import { ActiveTabIdContext, restrainInitialWidgetSize, WidgetContext, WidgetStateContext } from "./Widget";
+import { restrainInitialWidgetSize, WidgetContext, WidgetIdContext } from "./Widget";
 import { TabIdContext } from "./ContentRenderer";
 import { TabTarget } from "../target/TabTarget";
 import { WidgetMenuTab } from "./MenuTab";
 import { WidgetOverflowContext } from "./Overflow";
+import { useLayout, useLayoutStore } from "../base/LayoutStore";
+import { useFloatingWidgetId } from "./FloatingWidget";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
-  tab: TabState;
+  id: TabState["id"];
   showOnlyTabIcon?: boolean;
 }
 
 /** @internal */
-export function WidgetTabProvider({ tab, first, firstInactive, last, showOnlyTabIcon }: WidgetTabProviderProps) {
+export function WidgetTabProvider({ id, first, firstInactive, last, showOnlyTabIcon }: WidgetTabProviderProps) {
   const tabNode = React.useContext(TabNodeContext);
   const position = React.useMemo<TabPositionContextArgs>(() => ({
     first,
@@ -39,14 +41,12 @@ export function WidgetTabProvider({ tab, first, firstInactive, last, showOnlyTab
     last,
   }), [first, firstInactive, last]);
   return (
-    <TabIdContext.Provider value={tab.id}>
-      <TabStateContext.Provider value={tab}>
-        <TabPositionContext.Provider value={position}>
-          <IconOnlyOnWidgetTabContext.Provider value={!!showOnlyTabIcon}>
-            {tabNode}
-          </IconOnlyOnWidgetTabContext.Provider>
-        </TabPositionContext.Provider>
-      </TabStateContext.Provider>
+    <TabIdContext.Provider value={id}>
+      <TabPositionContext.Provider value={position}>
+        <IconOnlyOnWidgetTabContext.Provider value={!!showOnlyTabIcon}>
+          {tabNode}
+        </IconOnlyOnWidgetTabContext.Provider>
+      </TabPositionContext.Provider>
     </TabIdContext.Provider>
   );
 }
@@ -61,60 +61,65 @@ export interface WidgetTabProps extends CommonProps {
 /** Component that displays a tab in a side panel widget.
  * @internal
  */
-export const WidgetTab = React.memo<WidgetTabProps>(function WidgetTab(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetTab(props: WidgetTabProps) {
   const widgetOverflow = React.useContext(WidgetOverflowContext);
   const overflown = !!widgetOverflow;
   if (overflown)
     return <WidgetMenuTab {...props} />;
   return <WidgetTabComponent {...props} />;
-});
+}
 
-const WidgetTabComponent = React.memo<WidgetTabProps>(function WidgetTabComponent(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const tab = React.useContext(TabStateContext);
+function WidgetTabComponent(props: WidgetTabProps) {
+  const id = React.useContext(TabIdContext);
   const { first, firstInactive, last } = React.useContext(TabPositionContext);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
   const side = React.useContext(PanelSideContext);
-  const widget = React.useContext(WidgetStateContext);
-  assert(!!widget);
-  const activeTabId = React.useContext(ActiveTabIdContext);
+  const widgetId = React.useContext(WidgetIdContext);
+  const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
+  const showWidgetIcon = React.useContext(ShowWidgetIconContext);
+  assert(!!id);
+  assert(!!widgetId);
+
+  const iconSpec = useLayout((state) => state.tabs[id].iconSpec);
+  const label = useLayout((state) => state.tabs[id].label);
+  const activeTabId = useLayout((state) => getWidgetState(state, widgetId).activeTabId);
+  const minimized = useLayout((state) => getWidgetState(state, widgetId).minimized);
 
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(widgetTabsEntryContext?.onResize);
   const pointerCaptorRef = useTabInteractions({});
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
 
-  const active = activeTabId === tab.id;
+  const active = activeTabId === id;
   const className = classnames(
     "nz-widget-tab",
     active && "nz-active",
-    undefined === side && widget.minimized && "nz-minimized",
+    undefined === side && minimized && "nz-minimized",
     first && "nz-first",
     last && "nz-last",
     firstInactive && "nz-first-inactive",
     props.className,
   );
 
-  const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
-  const showWidgetIcon = React.useContext(ShowWidgetIconContext);
-  const showLabel = (showIconOnly && !tab.iconSpec) || (showWidgetIcon && !showIconOnly) || !showWidgetIcon;
+  const showLabel = (showIconOnly && !iconSpec) || (showWidgetIcon && !showIconOnly) || !showWidgetIcon;
   return (
     <div
-      data-item-id={tab.id}
+      data-item-id={id}
       data-item-type="widget-tab"
       className={className}
       ref={refs}
       role="tab"
       style={props.style}
-      title={tab.label}
+      title={label}
     >
-      {(showWidgetIcon || showIconOnly) && tab.iconSpec && <Icon iconSpec={tab.iconSpec} />}
-      {showLabel && <span>{tab.label}</span>}
+      {(showWidgetIcon || showIconOnly) && iconSpec && <Icon iconSpec={iconSpec} />}
+      {showLabel && <span>{label}</span>}
       {props.badge && <div className="nz-badge">
         {props.badge}
       </div>}
       <TabTarget />
     </div>
   );
-});
+}
 
 /** @internal */
 export interface UseTabInteractionsArgs {
@@ -129,23 +134,28 @@ export function useTabInteractions<T extends HTMLElement>({
   onDoubleClick,
   onDragStart,
 }: UseTabInteractionsArgs) {
-  const tab = React.useContext(TabStateContext);
+  const id = React.useContext(TabIdContext);
   const widgetContext = React.useContext(WidgetContext);
   const measure = React.useContext(MeasureContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const side = React.useContext(PanelSideContext);
-  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
-  const widget = React.useContext(WidgetStateContext);
-  assert(!!widget);
+  const widgetId = React.useContext(WidgetIdContext);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
+  const floatingWidgetId = useFloatingWidgetId();
+  assert(!!id);
+  assert(!!widgetId);
 
+  const layoutStore = useLayoutStore();
+  const tabRef = React.useRef(layoutStore.getState().tabs[id]);
   const clickCount = React.useRef(0);
   const doubleClickTimer = React.useRef(new Timer(300));
   const initialPointerPosition = React.useRef<Point>();
 
-  const { id } = tab;
-  const { id: widgetId } = widget;
   const overflown = !widgetTabsEntryContext;
+
+  React.useEffect(() => layoutStore.subscribe((state) => {
+    tabRef.current = state.tabs[id];
+  }), [layoutStore, id]);
 
   const handleClick = React.useCallback(() => {
     dispatch({
@@ -177,6 +187,8 @@ export function useTabInteractions<T extends HTMLElement>({
     const nzOffset = new Point(-nzBounds.left, -nzBounds.top);
     let bounds = Rectangle.create(ref.current.getBoundingClientRect());
     bounds = bounds.offset(nzOffset);
+
+    const tab = tabRef.current;
     const userSized = tab.userSized || (tab.isFloatingStateWindowResizable && /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
     let position = bounds.topLeft();
     const widgetBounds = widgetContext.measure();
@@ -206,7 +218,7 @@ export function useTabInteractions<T extends HTMLElement>({
     onDragStart?.();
 
     initialPointerPosition.current = undefined;
-  }, [measure, tab.userSized, tab.isFloatingStateWindowResizable, tab.preferredFloatingWidgetSize, widgetContext, handleDragTabStart, dispatch, floatingWidgetId, side, widgetId, id, onDragStart, overflown]);
+  }, [measure, widgetContext, handleDragTabStart, dispatch, floatingWidgetId, side, widgetId, id, onDragStart, overflown]);
   const handlePointerDown = React.useCallback((args: PointerCaptorArgs, e: PointerCaptorEvent) => {
     e.type === "touchstart" && floatingWidgetId && dispatch({
       type: "FLOATING_WIDGET_BRING_TO_FRONT",
@@ -262,10 +274,6 @@ export interface TabPositionContextArgs {
 /** @internal */
 export const TabPositionContext = React.createContext<TabPositionContextArgs>(undefined!);
 TabPositionContext.displayName = "nz:TabPositionContext";
-
-/** @internal */
-export const TabStateContext = React.createContext<TabState>(undefined!);
-TabStateContext.displayName = "nz:TabStateContext";
 
 /** @internal */
 export const IconOnlyOnWidgetTabContext = React.createContext<boolean>(false);

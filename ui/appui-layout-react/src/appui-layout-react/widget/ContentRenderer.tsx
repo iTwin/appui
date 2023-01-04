@@ -9,42 +9,45 @@
 import "./ContentRenderer.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { TabsStateContext, ToolSettingsNodeContext, WidgetContentNodeContext } from "../base/NineZone";
+import { assert } from "@itwin/core-bentley";
+import { ToolSettingsNodeContext, WidgetContentNodeContext } from "../base/NineZone";
 import { TabState } from "../state/TabState";
-import { WidgetContentContainersContext, WidgetContentManagerContext } from "./ContentManager";
+import { useContainersStore, WidgetContentManagerContext } from "./ContentManager";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
-export const WidgetContentRenderers = React.memo(function WidgetContentRenderers() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetContentRenderers() {
   const widgetContent = React.useContext(WidgetContentNodeContext);
   const toolSettingsContent = React.useContext(ToolSettingsNodeContext);
-  const widgetContentContainers = React.useContext(WidgetContentContainersContext);
-  const tabs = React.useContext(TabsStateContext);
-  const tabEntries = Object.entries(tabs);
+  const tabIds = useLayout((state) => {
+    return Object.keys(state.tabs);
+  }, true);
   return (
     <>
-      {tabEntries.map(([, tab]) => {
-        const container = widgetContentContainers[tab.id];
-        const children = tab.id === toolSettingsTabId ? toolSettingsContent : widgetContent;
-        return <WidgetContentRenderer
-          children={children} // eslint-disable-line react/no-children-prop
-          key={tab.id}
-          renderTo={container}
-          tabId={tab.id}
-        />;
+      {tabIds.map((tabId) => {
+        const children = tabId === toolSettingsTabId ? toolSettingsContent : widgetContent;
+        return (
+          <WidgetContentRenderer
+            key={tabId}
+            tabId={tabId}
+          >
+            {children}
+          </WidgetContentRenderer>
+        );
       })}
     </>
   );
-});
+}
 
 interface WidgetContentRendererProps {
   children?: React.ReactNode;
-  renderTo: Element | null | undefined;
   tabId: TabState["id"];
 }
 
 /** @internal */
-export const WidgetContentRenderer = React.memo(function WidgetContentRenderer(props: WidgetContentRendererProps) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetContentRenderer(props: WidgetContentRendererProps) {
+  const renderTo = useContainersStore((state) => state.containers[props.tabId]);
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const container = React.useRef<HTMLDivElement>(undefined!);
   if (!container.current) {
@@ -52,7 +55,7 @@ export const WidgetContentRenderer = React.memo(function WidgetContentRenderer(p
     container.current.classList.add("nz-widget-contentRenderer");
   }
   React.useLayoutEffect(() => {
-    const parent = props.renderTo;
+    const parent = renderTo;
     if (parent) {
       while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
@@ -69,17 +72,17 @@ export const WidgetContentRenderer = React.memo(function WidgetContentRenderer(p
         }
       }
     };
-  }, [props.renderTo, widgetContentManager, props.tabId]);
+  }, [renderTo, widgetContentManager, props.tabId]);
   return ReactDOM.createPortal(
     <TabIdContext.Provider value={props.tabId}>
       {props.children}
     </TabIdContext.Provider>,
     container.current,
   );
-});
+}
 
 /** @internal */
-export const TabIdContext = React.createContext<TabState["id"]>(""); // eslint-disable-line @typescript-eslint/naming-convention
+export const TabIdContext = React.createContext<TabState["id"] | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 TabIdContext.displayName = "nz:TabIdContext";
 
 /** @internal */
@@ -100,5 +103,6 @@ export function useTabTransientState(tabId: string, onSave?: () => void, onResto
 /** @internal */
 export function useTransientState(onSave?: () => void, onRestore?: () => void) {
   const tabId = React.useContext(TabIdContext);
+  assert(!!tabId);
   return useTabTransientState(tabId, onSave, onRestore);
 }

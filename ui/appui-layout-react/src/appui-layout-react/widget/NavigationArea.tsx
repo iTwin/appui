@@ -34,7 +34,7 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
  * @note Should be placed in [[Zone]] component.
  * @internal
  */
-export const NavigationArea = React.memo<NavigationAreaProps>(function NavigationArea(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function NavigationArea(props: NavigationAreaProps) {
   const className = classnames(
     "nz-widget-navigationArea",
     props.className);
@@ -59,4 +59,4 @@ export const NavigationArea = React.memo<NavigationAreaProps>(function Navigatio
       </div>
     </div>
   );
-});
+}

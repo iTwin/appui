@@ -26,32 +26,29 @@ export interface StatusBarOverflowProps extends CommonProps {
 /** Entry point to overflow status bar items of [[StatusBarComposer]] component.
  * @internal
  */
-// eslint-disable-next-line react/display-name, @typescript-eslint/naming-convention
-export const StatusBarOverflow = React.memo(
-  React.forwardRef<HTMLDivElement, StatusBarOverflowProps>(
-    function StatusBarOverflow(props, ref) { // eslint-disable-line @typescript-eslint/no-shadow, @typescript-eslint/naming-convention
-      const roRef = useResizeObserver<HTMLDivElement>(props.onResize);
-      const refs = useRefs(roRef, ref);
-      const className = classnames(
-        "uifw-statusbar-overflow",
-        props.className,
-      );
-      const title = React.useRef(UiFramework.translate("statusBar.overflow"));
+export const StatusBarOverflow = React.forwardRef<HTMLDivElement, StatusBarOverflowProps>(
+  function StatusBarOverflow(props, ref) { // eslint-disable-line @typescript-eslint/no-shadow, @typescript-eslint/naming-convention
+    const roRef = useResizeObserver<HTMLDivElement>(props.onResize);
+    const refs = useRefs(roRef, ref);
+    const className = classnames(
+      "uifw-statusbar-overflow",
+      props.className,
+    );
+    const title = React.useRef(UiFramework.translate("statusBar.overflow"));
 
-      return (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-        <div
-          className={className}
-          onClick={props.onClick}
-          ref={refs}
-          style={props.style}
-          role="button"
-          tabIndex={-1}
-          title={title.current}
-        >
-          <Ellipsis />
-        </div>
-      );
-    },
-  ),
+    return (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+      <div
+        className={className}
+        onClick={props.onClick}
+        ref={refs}
+        style={props.style}
+        role="button"
+        tabIndex={-1}
+        title={title.current}
+      >
+        <Ellipsis />
+      </div>
+    );
+  },
 );

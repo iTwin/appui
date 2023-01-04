@@ -8,7 +8,7 @@ import {
   FrontstageDef, FrontstageManager, StagePanelState, useActiveFrontstageDef,
 } from "@itwin/appui-react";
 import { SpecialKey, StagePanelLocation, WidgetState } from "@itwin/appui-abstract";
-import { NumberInput, RectangleProps } from "@itwin/core-react";
+import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import { ApplicationLayoutContext, ApplicationMode } from "../ApplicationLayout";
 
@@ -558,19 +558,25 @@ export function FloatingLayoutInfo() {
   const [bounds, setBounds] = React.useState<RectangleProps>(() => getFloatingWidgetContainerBounds(frontstageDef, floatingWidgetId));
   React.useEffect(() => {
     return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((e) => {
-      if (e.frontstageDef === frontstageDef) {
-        const allIds = frontstageDef ? frontstageDef.getFloatingWidgetContainerIds() : [];
-        setFloatingIds(allIds);
-        let widgetId = floatingWidgetId;
-        if (!floatingWidgetId || !allIds.includes(floatingWidgetId)) {
-          widgetId = allIds.length ? allIds[0] : undefined;
-          setFloatingWidgetId(widgetId);
-        }
-        // give time for DOM to be updated
-        setTimeout(() => {
-          setBounds(getFloatingWidgetContainerBounds(frontstageDef, widgetId));
-        });
+      if (e.frontstageDef !== frontstageDef)
+        return;
+
+      const allIds = frontstageDef ? frontstageDef.getFloatingWidgetContainerIds() : [];
+      setFloatingIds(allIds);
+      let widgetId = floatingWidgetId;
+      if (!floatingWidgetId || !allIds.includes(floatingWidgetId)) {
+        widgetId = allIds.length ? allIds[0] : undefined;
+        setFloatingWidgetId(widgetId);
       }
+      // give time for DOM to be updated
+      setTimeout(() => {
+        setBounds((prev) => {
+          const newBounds = getFloatingWidgetContainerBounds(frontstageDef, widgetId);
+          if (Rectangle.create(newBounds).equals(prev))
+            return prev;
+          return newBounds;
+        });
+      });
     });
   }, [frontstageDef, floatingWidgetId]);
 

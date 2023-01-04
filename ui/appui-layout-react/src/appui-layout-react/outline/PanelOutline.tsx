@@ -11,24 +11,28 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { useTargeted } from "../base/DragManager";
-import { isHorizontalPanelSide, PanelSideContext, PanelStateContext } from "../widget-panels/Panel";
+import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { isHorizontalPanelState } from "../state/PanelState";
 import { isPanelDropTargetState } from "../state/DropTargetState";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export function PanelOutline() {
-  const panel = React.useContext(PanelStateContext);
-  assert(!!panel);
-  const { side } = panel;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
+  const isHorizontal = isHorizontalPanelSide(side);
+  const span = useLayout((state) => {
+    const panel = state.panels[side];
+    return isHorizontalPanelState(panel) ? panel.span : false;
+  });
   const hidden = useHidden();
   const className = classnames(
     "nz-outline-panelOutline",
     hidden && "nz-hidden",
     `nz-${side}`,
-    isHorizontalPanelState(panel) && panel.span && "nz-span",
+    span && "nz-span",
   );
   const size = useSize();
-  const isHorizontal = isHorizontalPanelSide(side);
   return (
     <div
       className={className}
@@ -57,8 +61,10 @@ export function useHidden() {
 }
 
 function useSize() {
-  const panel = React.useContext(PanelStateContext);
-  assert(!!panel);
-  // istanbul ignore next
-  return panel.size !== undefined ? panel.size : panel.minSize;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
+  return useLayout((state) => {
+    const panel = state.panels[side];
+    return panel.size !== undefined ? panel.size : panel.minSize;
+  });
 }

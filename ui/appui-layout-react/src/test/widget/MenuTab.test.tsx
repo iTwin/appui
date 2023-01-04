@@ -12,31 +12,31 @@ import {
   createNineZoneState,
   NineZoneState,
   ShowWidgetIconContext,
+  TabIdContext,
   TabState,
-  TabStateContext,
   WidgetContext,
+  WidgetIdContext,
   WidgetOverflowContext,
   WidgetState,
-  WidgetStateContext,
 } from "../../appui-layout-react";
 import { WidgetMenuTab } from "../../appui-layout-react/widget/MenuTab";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("MenuTab", () => {
   interface WrapperProps {
-    state: NineZoneState;
+    defaultState: NineZoneState;
     widgetId: WidgetState["id"];
     tabId: TabState["id"];
   }
 
-  function Wrapper({ children, state, widgetId, tabId }: React.PropsWithChildren<WrapperProps>) {
+  function Wrapper({ children, defaultState, widgetId, tabId }: React.PropsWithChildren<WrapperProps>) {
     return (
-      <TestNineZoneProvider state={state}>
-        <WidgetStateContext.Provider value={state.widgets[widgetId]}>
-          <TabStateContext.Provider value={state.tabs[tabId]}>
+      <TestNineZoneProvider defaultState={defaultState}>
+        <WidgetIdContext.Provider value={widgetId}>
+          <TabIdContext.Provider value={tabId}>
             {children}
-          </TabStateContext.Provider>
-        </WidgetStateContext.Provider>
+          </TabIdContext.Provider>
+        </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
   }
@@ -49,7 +49,7 @@ describe("MenuTab", () => {
       <WidgetMenuTab />,
       {
         wrapper: (props) => <Wrapper // eslint-disable-line react/display-name
-          state={state}
+          defaultState={state}
           widgetId="w1"
           tabId="t1"
           {...props}
@@ -69,7 +69,7 @@ describe("MenuTab", () => {
       </ShowWidgetIconContext.Provider>,
       {
         wrapper: (props) => <Wrapper // eslint-disable-line react/display-name
-          state={state}
+          defaultState={state}
           widgetId="w1"
           tabId="t1"
           {...props}
@@ -94,7 +94,7 @@ describe("MenuTab", () => {
       </WidgetOverflowContext.Provider>,
       {
         wrapper: (props) => <Wrapper // eslint-disable-line react/display-name
-          state={state}
+          defaultState={state}
           widgetId="w1"
           tabId="t1"
           {...props}

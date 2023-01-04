@@ -94,7 +94,7 @@ interface DockedStatusBarEntryProps {
 
 /** Wrapper for status bar entries so their size can be used to determine if the status bar container can display them or if they will need to be placed in an overflow panel. */
 // eslint-disable-next-line @typescript-eslint/naming-convention, no-shadow
-const DockedStatusBarEntry = React.memo<DockedStatusBarEntryProps>(function DockedStatusbarEntry({ children, entryKey, getOnResize }) {
+function DockedStatusBarEntry({ children, entryKey, getOnResize }: DockedStatusBarEntryProps) {
   const onResize = React.useMemo(() => getOnResize(entryKey), [getOnResize, entryKey]);
   const entry = React.useMemo<DockedStatusBarEntryContextArg>(() => ({
     isOverflown: false,
@@ -105,7 +105,7 @@ const DockedStatusBarEntry = React.memo<DockedStatusBarEntryProps>(function Dock
       {children}
     </DockedStatusBarEntryContext.Provider>
   );
-});
+}
 
 /** Private function to set up sync event monitoring of statusbar items */
 function useStatusBarItemSyncEffect(itemsManager: StatusBarItemsManager, syncIdsOfInterest: string[]) {

@@ -31,6 +31,23 @@ test.describe("floating widget", () => {
     await expect(floatingWidget).toBeVisible();
   });
 
+  test("should float a tab", async ({ page }) => {
+    const tab = tabLocator(page, "WR-A");
+    const frontstage = frontstageLocator(page);
+    const floatingWidget = floatingWidgetLocator({ tab });
+
+    await expect(floatingWidget).not.toBeVisible();
+
+    await tab.dragTo(frontstage, {
+      targetPosition: {
+        x: 300,
+        y: 200,
+      },
+    });
+
+    await expect(floatingWidget).toBeVisible();
+  });
+
   test("should maintain a floating widget (after reload)", async ({ context, page }) => {
     const tab = tabLocator(page, "WL-1");
     const widget = widgetLocator({ tab });

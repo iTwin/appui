@@ -85,7 +85,6 @@ exports[`PanelWidget should render 1`] = `
 exports[`PanelWidget should render horizontal with fit-content 1`] = `
 <div
   class="nz-widget-widget nz-widget-panelWidget nz-horizontal nz-fit nz-border-bottom nz-border-left nz-border-right"
-  style="max-width: 50%;"
 >
   <div
     class="nz-widget-tabBar nz-separator"
@@ -169,7 +168,7 @@ exports[`PanelWidget should render minimized 1`] = `
       role="tablist"
     >
       <div
-        class="nz-widget-tab nz-active nz-minimized nz-first nz-last"
+        class="nz-widget-tab nz-active nz-first nz-last"
         data-item-id="t1"
         data-item-type="widget-tab"
         role="tab"
@@ -224,7 +223,7 @@ exports[`PanelWidget should render minimized 1`] = `
     </div>
   </div>
   <div
-    class="nz-widget-contentContainer nz-minimized"
+    class="nz-widget-contentContainer"
   >
     <div
       class="nz-content"
@@ -239,7 +238,6 @@ exports[`PanelWidget should render minimized 1`] = `
 exports[`PanelWidget should render with fit-content 1`] = `
 <div
   class="nz-widget-widget nz-widget-panelWidget nz-fit nz-border-bottom nz-border-left nz-border-right"
-  style="max-height: 50%;"
 >
   <div
     class="nz-widget-tabBar nz-separator"

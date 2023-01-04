@@ -23,7 +23,7 @@ describe("WidgetPanels", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         widgetContent={<div>Hello World!</div>}
       >
         <WidgetPanels />
