@@ -44,6 +44,12 @@ describe("<QuantityNumberInput />", () => {
     Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);
   });
 
+  it(`should render disabled correctly`, () => {
+    const wrapper = render(<QuantityNumberInput persistenceValue={1} quantityType={QuantityType.Length} disabled={true} />);
+    const disabled = wrapper.container.querySelector(".component-quantity-number-input-disabled");
+    expect(disabled).not.to.be.null;
+  });
+
   it(`should render ft-in as just ft`, () => {
     let value = 1;
     const handleChange = (v: number): void => {

@@ -13,9 +13,13 @@ import { TestUtils } from "../TestUtils";
 import { CubeHover, CubeNavigationAid, CubeNavigationHitBoxX, CubeNavigationHitBoxY, CubeNavigationHitBoxZ, FaceCell, NavCubeFace } from "../../imodel-components-react/navigationaids/CubeNavigationAid";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents";
 import { Face } from "../../imodel-components-react/navigationaids/Cube";
+import userEvent from "@testing-library/user-event";
 
 describe("CubeNavigationAid", () => {
-
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   before(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
@@ -171,7 +175,9 @@ describe("CubeNavigationAid", () => {
 
         const expected = !lockedViewport;
 
-        expect(topCenterCell.classList.contains("cube-hover")).to.equal(expected);
+        await waitFor(() => {
+          expect(topCenterCell.classList.contains("cube-hover")).to.equal(expected);
+        });
       });
       it(`${shouldStr} click center cell`, async () => {
         sinon.replaceGetter(IModelApp, "toolAdmin", () => ({markupView: lockedViewport}) as ToolAdmin);
@@ -186,7 +192,9 @@ describe("CubeNavigationAid", () => {
         expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
 
         topCenterCell.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window }));
-        expect(topCenterCell.classList.contains("cube-active")).to.equal(!lockedViewport);
+        await waitFor(() => {
+          expect(topCenterCell.classList.contains("cube-active")).to.equal(!lockedViewport);
+        });
 
         topCenterCell.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window }));
 
@@ -208,12 +216,16 @@ describe("CubeNavigationAid", () => {
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
         expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
         topCornerCell.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window }));
-        expect(topCornerCell.classList.contains("cube-active")).to.equal(!lockedViewport);
+        await waitFor(() => {
+          expect(topCornerCell.classList.contains("cube-active")).to.equal(!lockedViewport);
+        });
         topCornerCell.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window }));
         await waitForSpy(animationEnd);
         const expectedMatrix = !!lockedViewport ? mat.matrix : Matrix3d.createRowValues(0, -1, 0, 0.70710678, 0, -0.70710678, 0.70710678, 0, 0.70710678);
-        const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
+        await waitFor(() => {
+          const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
+          expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
+        });
       });
       it(`${shouldStr} switch from edge to top face`, async () => {
         sinon.replaceGetter(IModelApp, "toolAdmin", () => ({markupView: lockedViewport}) as ToolAdmin);
@@ -280,13 +292,18 @@ describe("CubeNavigationAid", () => {
 
         const mat = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
         expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
-        topCenterCell.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, view: window, clientX: 2, clientY: 2 }));
-        topCenterCell.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 10, clientY: 2 }));
-        topCenterCell.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window, clientX: 20, clientY: 2 }));
-        topCenterCell.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, cancelable: true, view: window, clientX: 20, clientY: 2 }));
-        const expectedMatrix = !!lockedViewport ? mat.matrix : Matrix3d.createRowValues(0.62160997, 0.7833269, 0, -0.7833269, 0.62160997, 0, 0, 0, 1);
-        const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
+        await theUserTo.pointer([
+          { keys: "[MouseLeft>]", target: topCenterCell, coords: { x: 2, y: 2, clientX: 2, clientY: 2}},
+          { coords: { x: 10, y: 2, clientX: 10, clientY: 2}},
+          { coords: { x: 20, y: 2, clientX: 20, clientY: 2}},
+          { keys: "[/MouseLeft]"},
+        ]);
+
+        await waitFor(() => {
+          const expectedMatrix = !!lockedViewport ? mat.matrix : Matrix3d.createRowValues(0.62160997, 0.7833269, 0, -0.7833269, 0.62160997, 0, 0, 0, 1);
+          const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
+          expect(mat2.matrix.isAlmostEqual(expectedMatrix)).is.true;
+        });
       });
     });
 
@@ -310,8 +327,10 @@ describe("CubeNavigationAid", () => {
         expect(mat.matrix.isAlmostEqual(Matrix3d.createIdentity())).is.true;
         rotation = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.Z);
         ViewportComponentEvents.onViewRotationChangeEvent.emit({ viewport: vp.object });
-        const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
-        expect(mat2.matrix.isAlmostEqual(Matrix3d.createRowValues(0, 1, 0, -1, 0, 0, 0, 0, 1))).is.true;
+        await waitFor(() => {
+          const mat2 = cssMatrix3dToBentleyTransform(topFace.style.transform)!;
+          expect(mat2.matrix.isAlmostEqual(Matrix3d.createRowValues(0, 1, 0, -1, 0, 0, 0, 0, 1))).is.true;
+        });
       });
     });
   });
