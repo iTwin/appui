@@ -56,7 +56,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         label: "WL-1",
         icon: "icon-smiley-happy",
         canPopout: false,
-        getWidgetContent: () => <h2>Left WL-1</h2>,
+        getWidgetContent: () => <LeftWidget1 />,
       });
       widgets.push({
         id: "WL-2",
@@ -243,4 +243,27 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
     ];
   }
 
+}
+
+function LeftWidget1() {
+  return (
+    <div style={{
+      height: "100%",
+      width: "100%",
+      overflow: "auto",
+    }}>
+      <div style={{
+        height: 1000,
+        position: "relative",
+      }}>
+        <h2>Left WL-1 (row 1)</h2>
+        <h2 style={{
+          position: "absolute",
+          bottom: 0,
+        }}>
+          Left WL-1 (row 2)
+        </h2>
+      </div>
+    </div>
+  );
 }

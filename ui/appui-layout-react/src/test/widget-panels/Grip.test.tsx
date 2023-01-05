@@ -14,6 +14,7 @@ import {
 } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { BeEvent } from "@itwin/core-bentley";
 
 describe("WidgetPanelGrip", () => {
   const wrapper = (props: any) => <WidgetPanelContext.Provider
@@ -194,7 +195,7 @@ describe("useResizeGrip", () => {
       defaultState={nineZone}
       {...nzProps}
     >
-      <WidgetPanelContext.Provider value={{ getBounds: () => new Rectangle() }}>
+      <WidgetPanelContext.Provider value={{ onTransition: new BeEvent(), getBounds: () => new Rectangle() }}>
         <PanelSideContext.Provider value={side || "left"}>
           {children}
         </PanelSideContext.Provider>

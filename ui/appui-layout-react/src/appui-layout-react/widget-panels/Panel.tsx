@@ -9,7 +9,7 @@
 import "./Panel.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
+import { assert, BeEvent } from "@itwin/core-bentley";
 import { RectangleProps, useRefs } from "@itwin/core-react";
 import { DraggedPanelSideContext } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
@@ -164,6 +164,28 @@ export function WidgetPanel() {
 
   const { handleTransitionEnd, size, contentSize, transition, ref: panelRef } = useAnimatePanel();
 
+  const elementRef = React.useRef<HTMLDivElement>(null);
+  const widgetPanel = React.useMemo<WidgetPanelContextArgs>(() => {
+    return {
+      onTransition: new BeEvent(),
+      getBounds: () => {
+        assert(!!elementRef.current);
+        return elementRef.current.getBoundingClientRect();
+      },
+    };
+  }, []);
+
+  React.useEffect(() => {
+    const element = elementRef.current;
+    const ro = new ResizeObserver(() => {
+      if (transition !== "transition")
+        return;
+      widgetPanel.onTransition.raiseEvent();
+    });
+    element && ro.observe(element);
+    return () => ro.disconnect();
+  }, [transition]);
+
   const isHorizontal = isHorizontalPanelSide(side);
   const style = React.useMemo(() => {
     if (isHorizontal)
@@ -197,17 +219,6 @@ export function WidgetPanel() {
       height: `${splitterPercent}%`,
     };
   }, [isHorizontal, panel.splitterPercent]);
-
-  const elementRef = React.useRef<HTMLDivElement>(null);
-  const getBounds = React.useCallback(() => {
-    assert(!!elementRef.current);
-    return elementRef.current.getBoundingClientRect();
-  }, []);
-  const widgetPanel = React.useMemo<WidgetPanelContextArgs>(() => {
-    return {
-      getBounds,
-    };
-  }, [getBounds]);
 
   const captured = draggedPanelSide === side;
   const className = classnames(
@@ -281,6 +292,7 @@ PanelSideContext.displayName = "nz:PanelSideContext";
 
 /** @internal */
 export interface WidgetPanelContextArgs {
+  onTransition: BeEvent<() => void>;
   getBounds(): RectangleProps;
 }
 

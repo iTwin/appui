@@ -55,7 +55,6 @@ function WidgetPanelsComponent(props: CommonProps) {
       className={className}
       style={props.style}
     >
-      <WidgetContentRenderers />
       <AppContent />
       <WidgetPanelExpanders />
       <CenterContent />

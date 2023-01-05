@@ -20,7 +20,7 @@ import {
   addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createLayoutStore, createNineZoneState, floatingWidgetBringToFront,
   FloatingWidgetHomeState, FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
   isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, LayoutStore, NineZone, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, NineZoneStateReducer, PanelSide,
-  panelSides, removeTab, removeTabFromWidget, TabState, toolSettingsTabId, WidgetPanels,
+  panelSides, removeTab, removeTabFromWidget, TabState, toolSettingsTabId, WidgetContentRenderers, WidgetPanels,
 } from "@itwin/appui-layout-react";
 import { FrontstageDef, FrontstageEventArgs } from "../frontstage/FrontstageDef";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
@@ -60,6 +60,7 @@ function WidgetPanelsFrontstageComponent() {
         </WidgetPanels>
         <WidgetPanelsStatusBar />
         <FloatingWidgets />
+        <WidgetContentRenderers />
       </ToolbarPopupAutoHideContext.Provider>
     </>
   );
