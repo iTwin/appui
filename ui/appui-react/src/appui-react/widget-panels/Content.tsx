@@ -9,7 +9,6 @@ import * as React from "react";
 import { ScrollableWidgetContent, TabIdContext } from "@itwin/appui-layout-react";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { useTransientState } from "./useTransientState";
 import { assert } from "@itwin/core-bentley";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { isProviderItem } from "../ui-items-provider/isProviderItem";
@@ -33,15 +32,6 @@ export function WidgetContent() {
   const widget = useWidgetDef();
   // istanbul ignore next
   const itemId = widget?.id ?? widget?.label ?? "unknown";
-  const onSave = React.useCallback(() => {
-    // istanbul ignore next
-    widget?.saveTransientState();
-  }, [widget]);
-  const onRestore = React.useCallback(() => {
-    // istanbul ignore next
-    widget?.restoreTransientState();
-  }, [widget]);
-  useTransientState(onSave, onRestore);
   const providerId = widget?.initialConfig && isProviderItem(widget?.initialConfig) ? widget?.initialConfig.providerId : undefined;
   return (
     <ScrollableWidgetContent

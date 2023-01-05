@@ -12,7 +12,7 @@ test.describe("widget auto size", () => {
     await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
   });
 
-  test("auto-sized floating widget should folow the cursor when undocked", async ({ page }) => {
+  test("auto-sized floating widget should follow the cursor when undocked", async ({ page }) => {
     const frontstage = frontstageLocator(page);
 
     // Widget from end section of a bottom panel.

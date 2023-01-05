@@ -5,11 +5,14 @@
 import produce from "immer";
 import * as React from "react";
 import * as sinon from "sinon";
+import { BeEvent } from "@itwin/core-bentley";
 import { Rectangle } from "@itwin/core-react";
 import { fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import type { DragManager,
-  NineZoneDispatch, PanelSide} from "../../appui-layout-react";
+import type {
+  DragManager,
+  NineZoneDispatch, PanelSide
+} from "../../appui-layout-react";
 import {
   addPanelWidget, addTab, createNineZoneState, PanelSideContext, useResizeGrip, WidgetPanelContext, WidgetPanelGrip,
 } from "../../appui-layout-react";
@@ -197,7 +200,7 @@ describe("useResizeGrip", () => {
       defaultState={nineZone}
       {...nzProps}
     >
-      <WidgetPanelContext.Provider value={{ getBounds: () => new Rectangle() }}>
+      <WidgetPanelContext.Provider value={{ onTransition: new BeEvent(), getBounds: () => new Rectangle() }}>
         <PanelSideContext.Provider value={side || "left"}>
           {children}
         </PanelSideContext.Provider>

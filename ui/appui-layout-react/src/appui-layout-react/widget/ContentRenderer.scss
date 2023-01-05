@@ -3,8 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 .nz-widget-contentRenderer {
-  flex: 1 1 auto;
-  overflow: hidden;
+  position: absolute;
+  z-index: 9999;
 }
 
 .nz-widget-panelWidget {

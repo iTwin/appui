@@ -58,7 +58,6 @@ export * from "./appui-layout-react/tool-settings/Setting";
 export * from "./appui-layout-react/widget/Buttons";
 export * from "./appui-layout-react/widget/Content";
 export * from "./appui-layout-react/widget/ContentContainer";
-export * from "./appui-layout-react/widget/ContentManager";
 export * from "./appui-layout-react/widget/ContentRenderer";
 export * from "./appui-layout-react/widget/Dock";
 export * from "./appui-layout-react/widget/FloatingTab";

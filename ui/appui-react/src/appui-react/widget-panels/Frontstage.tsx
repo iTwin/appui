@@ -13,15 +13,17 @@ import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
-import type { RectangleProps, SizeProps, UiStateStorageResult} from "@itwin/core-react";
+import type { RectangleProps, SizeProps, UiStateStorageResult } from "@itwin/core-react";
 import { Rectangle, Size, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import type {
-  FloatingWidgetHomeState, LayoutStore, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, PanelSide, TabState} from "@itwin/appui-layout-react";
+  FloatingWidgetHomeState, LayoutStore, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, PanelSide, TabState,
+} from "@itwin/appui-layout-react";
 import {
-  addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createLayoutStore, createNineZoneState, floatingWidgetBringToFront, FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
+  addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createLayoutStore, createNineZoneState, floatingWidgetBringToFront,
+  FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
   isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, NineZone, NineZoneStateReducer,
-  panelSides, removeTab, removeTabFromWidget, toolSettingsTabId, WidgetPanels,
+  panelSides, removeTab, removeTabFromWidget, toolSettingsTabId, WidgetContentRenderers, WidgetPanels,
 } from "@itwin/appui-layout-react";
 import type { FrontstageDef, FrontstageEventArgs } from "../frontstage/FrontstageDef";
 import type { StagePanelMaxSizeSpec } from "../stagepanels/StagePanelConfig";
@@ -65,6 +67,7 @@ function WidgetPanelsFrontstageComponent() {
         </WidgetPanels>
         <WidgetPanelsStatusBar />
         <FloatingWidgets />
+        <WidgetContentRenderers />
       </ToolbarPopupAutoHideContext.Provider>
     </>
   );

@@ -11,13 +11,12 @@ import { assert, Guid } from "@itwin/core-bentley";
 import { Rectangle, useRefs, useResizeObserver } from "@itwin/core-react";
 import type { CursorType } from "../widget-panels/CursorOverlay";
 import type { PanelSide } from "../widget-panels/Panel";
-import { WidgetContentManager } from "../widget/ContentManager";
 import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
 import { FloatingWidget } from "../widget/FloatingWidget";
 import { DraggedPanelSideContext, DraggedResizeHandleContext, DraggedWidgetIdContext, DragProvider } from "./DragManager";
 import { WidgetTab } from "../widget/Tab";
 import type { NineZoneAction } from "../state/NineZoneAction";
-import type { LayoutStore} from "./LayoutStore";
+import type { LayoutStore } from "./LayoutStore";
 import { LayoutStoreContext, useLayout } from "./LayoutStore";
 
 /** @internal */
@@ -95,11 +94,9 @@ export function NineZoneProvider(props: NineZoneProviderProps) {
                         <AnimateDockedToolSettingsContext.Provider value={!!props.animateDockedToolSettings}>
                           <DragProvider>
                             <CursorTypeProvider>
-                              <WidgetContentManager>
-                                <MeasureContext.Provider value={props.measure}>
-                                  {props.children}
-                                </MeasureContext.Provider>
-                              </WidgetContentManager>
+                              <MeasureContext.Provider value={props.measure}>
+                                {props.children}
+                              </MeasureContext.Provider>
                             </CursorTypeProvider>
                           </DragProvider>
                         </AnimateDockedToolSettingsContext.Provider>
