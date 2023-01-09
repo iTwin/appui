@@ -19,9 +19,6 @@
     min-height: 60px;
   }
 
-  @include uicore-z-index(dragged-widget);
-  @include nz-widget-opacity;
-
   &.nz-minimized {
     flex-grow: 0;
 

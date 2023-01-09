@@ -24,6 +24,7 @@ import { WidgetOutline } from "../outline/WidgetOutline";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+import { useWidgetZIndex } from "./ContentRenderer";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
@@ -41,10 +42,23 @@ export function FloatingWidgetProvider(props: FloatingWidgetProviderProps) {
   const floatingWidget = React.useContext(FloatingWidgetNodeContext);
   return (
     <WidgetProvider id={props.id}>
-      {floatingWidget}
+      <ZIndexProvider>
+        {floatingWidget}
+      </ZIndexProvider>
     </WidgetProvider>
   );
 }
+
+function ZIndexProvider({ children }: React.PropsWithChildren<{}>) {
+  const zIndex = useWidgetZIndex();
+  return (
+    <ZIndexContext.Provider value={zIndex}>
+      {children}
+    </ZIndexContext.Provider>
+  );
+}
+
+const ZIndexContext = React.createContext<number | undefined>(undefined);
 
 /** @internal */
 export interface FloatingWidgetProps {
@@ -55,6 +69,7 @@ export interface FloatingWidgetProps {
 /** @internal */
 export function FloatingWidget(props: FloatingWidgetProps) {
   const uiIsVisible = React.useContext(UiIsVisibleContext);
+  const zIndex = React.useContext(ZIndexContext);
   const id = useFloatingWidgetId();
   assert(!!id);
   const { autoSized, bounds, hideWithUiWhenFloating, isToolSettingsTab, minimized, resizable } = useFloatingWidgetState();
@@ -73,19 +88,19 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     minimized && "nz-minimized",
     hideFloatingWidget && "nz-hidden",
   );
-  const style = React.useMemo(() => {
-    const boundsRect = Rectangle.create(bounds);
-    const { height, width } = boundsRect.getSize();
-    const position = boundsRect.topLeft();
-    // istanbul ignore next
-    return {
-      transform: `translate(${position.x}px, ${position.y}px)`,
-      height: minimized || autoSized ? undefined : height,
-      width: autoSized ? undefined : width,
-      maxHeight: autoSized ? "60%" : undefined,
-      maxWidth: autoSized ? "60%" : undefined,
-    };
-  }, [autoSized, bounds, minimized]);
+  const boundsRect = Rectangle.create(bounds);
+  const { height, width } = boundsRect.getSize();
+  const position = boundsRect.topLeft();
+  // istanbul ignore next
+  const style = {
+    left: position.x,
+    top: position.y,
+    height: minimized || autoSized ? undefined : height,
+    width: autoSized ? undefined : width,
+    maxHeight: autoSized ? "60%" : undefined,
+    maxWidth: autoSized ? "60%" : undefined,
+    zIndex,
+  };
 
   const content = React.useMemo(() => (
     <WidgetContentContainer>
@@ -227,6 +242,7 @@ interface FloatingWidgetHandleProps {
 
 function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
+  const zIndex = React.useContext(ZIndexContext);
   const id = useFloatingWidgetId();
   const { handle } = props;
   const relativePosition = React.useRef<Point>(new Point());
@@ -272,6 +288,7 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   return (
     <div
       className={className}
+      style={zIndex === undefined ? undefined : { zIndex: zIndex + 1, background: "red" }}
       ref={refs}
     />
   );
