@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
-@import "~@itwin/itwinui-css/scss/style/typography";
+@import "~@itwin/itwinui-variables";
 @import "../prefix";
 @import "../safearea";
 @import "../scrollbar";
@@ -32,11 +32,11 @@
   }
 
   @include for-tablet-landscape-down {
-    font-size: $iui-font-size;
+    font-size: var(--iui-font-size-1);
   }
 
   @include for-phone-only {
-    font-size: $iui-font-size-small;
+    font-size: var(--iui-font-size-0);
   }
 
   >ul {

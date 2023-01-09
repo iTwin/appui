@@ -3,8 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
-@import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/typography";
+@import "~@itwin/itwinui-variables";
 @import "../prefix";
 @import "../safearea";
 @import "variables";
@@ -69,7 +68,7 @@
   >div:last-child {
     display: flex;
     flex-direction: column;
-    padding-right: $iui-sm;
+    padding-right: var(--iui-size-s);
     overflow: hidden;
 
     >span {
@@ -79,16 +78,16 @@
     }
 
     >span:nth-child(2) {
-      margin-top: $iui-s;
+      margin-top: var(--iui-size-xs);
       font-size: $nz-backstage-subtitle-font-size;
       color: $buic-foreground-muted;
 
       @include for-tablet-landscape-down {
-        font-size: $iui-font-size-small;
+        font-size: var(--iui-font-size-0);
       }
 
       @include for-phone-only {
-        font-size: $iui-font-size-small - 1px;
+        font-size: var(--iui-font-size-0) - 1px;
       }
     }
   }
