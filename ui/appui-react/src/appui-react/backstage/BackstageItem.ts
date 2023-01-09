@@ -6,9 +6,7 @@
  * @module Backstage
  */
 
-import { BadgeType } from "../items/BadgeType";
-import { ConditionalBooleanValue } from "../items/ConditionalBooleanValue";
-import { ConditionalStringValue } from "../items/ConditionalStringValue";
+import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/core-react";
 import { ProvidedItem } from "../items/ProvidedItem";
 
 /** Describes the data needed to insert a button into the backstage menu.

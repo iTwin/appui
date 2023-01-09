@@ -91,6 +91,9 @@ export * from "./core-react/searchbox/SearchBox";
 export * from "./core-react/settings/SettingsManager";
 export * from "./core-react/settings/SettingsContainer";
 
+export * from "./core-react/syncevent/ConditionalBooleanValue";
+export * from "./core-react/syncevent/ConditionalStringValue";
+
 export * from "./core-react/tabs/VerticalTabs";
 export * from "./core-react/tabs/Tabs";
 
