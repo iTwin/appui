@@ -22,6 +22,7 @@ export * from "./appui-react/accudraw/MenuButtonPopup";
 
 export * from "./appui-react/backstage/BackstageComposer";
 export * from "./appui-react/backstage/BackstageComposerItem";
+export * from "./appui-react/backstage/BackstageItem";
 export * from "./appui-react/backstage/BackstageManager";
 export * from "./appui-react/backstage/useDefaultBackstageItems";
 export * from "./appui-react/backstage/useUiItemsProviderBackstageItems";
