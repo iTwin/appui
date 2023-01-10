@@ -3,8 +3,9 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "../index";
+@import "~@itwin/itwinui-variables";
 
-$uicore-list-item-height: $uicore-baseline * 2; ///  22px; /// ~1.618;
+$uicore-list-item-height: calc(var(--iui-size-s) * 2);
 
 ul.core-listbox {
   list-style: none;

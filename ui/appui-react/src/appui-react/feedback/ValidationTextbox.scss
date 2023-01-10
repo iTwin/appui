@@ -8,6 +8,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/variables";
 @import "~@itwin/itwinui-css/scss/inputs/input";
 @import "~@itwin/itwinui-css/scss/style/typography";
+@import "~@itwin/itwinui-variables";
 
 .uifw-ValidationTextbox {
   @include iui-font-family;
@@ -37,9 +38,9 @@
   .ValidationTextbox-icon {
     position: absolute;
     padding: $uicore-bordered-padding;
-    width: $uicore-line-height;
-    height: $uicore-line-height;
-    line-height: $uicore-line-height;
+    width: var(--iui-size-l);
+    height: var(--iui-size-l);
+    line-height: var(--iui-size-l);
     font-size: $uicore-icons-small;
     cursor: pointer;
     top: 0px;

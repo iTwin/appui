@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "../style/index";
 @import "~@itwin/itwinui-css/scss/style/typography";
+@import "~@itwin/itwinui-variables";
 
 @mixin uicore-inputs-labeled-input {
 
@@ -23,7 +24,7 @@
     display:                block;
     font-size:              var(--iui-font-size-1);
     font-weight:            var(--iui-font-weight-semibold);
-    line-height:            $uicore-line-height;
+    line-height:            var(--iui-size-l);
     text-align:             left;
     color:                  $buic-text-color;
   }
@@ -40,8 +41,8 @@
       > input,
       > .bwx-inputs-input {
 
-        padding-right:  $uicore-bordered-padding + $uicore-line-height;
-        margin-right: $uicore-bordered-padding + $uicore-line-height;
+        padding-right:  calc(#{$uicore-bordered-padding} + var(--iui-size-l));
+        margin-right: calc(#{$uicore-bordered-padding} + var(--iui-size-l));
       }
     }
 
@@ -64,7 +65,7 @@
 
     display:                block;
     font-size:              var(--iui-font-size-0);
-    line-height:            $uicore-line-height;
+    line-height:            var(--iui-size-l);
     color:                  $buic-text-color-muted;
   }
 

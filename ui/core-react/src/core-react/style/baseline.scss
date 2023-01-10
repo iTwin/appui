@@ -3,11 +3,14 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/baseline";
+@import "~@itwin/itwinui-variables";
 
-$uicore-baseline:                  $iui-baseline;
-$uicore-line-height:               $iui-line-height;    ///  22px; /// ~1.618;
+// @warn "baseline.scss is deprecated. Use '~@itwin/itwinui-variables/' instead.";
 
-$uicore-bordered-padding:          $uicore-baseline - 1px;
-$uicore-bordered-padding-large:    $uicore-baseline * 2 - 1px;
-$uicore-unbordered-padding:        $uicore-baseline;
-$uicore-unbordered-padding-large:  $uicore-baseline * 2;
+$uicore-baseline:                  var(--iui-size-s);
+$uicore-line-height:               var(--iui-size-l);    ///  22px; /// ~1.618;
+
+$uicore-bordered-padding:          calc(var(--iui-size-s) - 1px);
+$uicore-bordered-padding-large:    calc(var(--iui-size-s) * 2 - 1px);
+$uicore-unbordered-padding:        var(--iui-size-s);
+$uicore-unbordered-padding-large:  calc(var(--iui-size-s) * 2);

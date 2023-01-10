@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "../style/index";
 @import "./tabs";
+@import "~@itwin/itwinui-variables";
 
 @mixin uicore-tabs-vertical {
 
@@ -18,7 +19,7 @@
 
     > a {
 
-      line-height:            $uicore-line-height;
+      line-height:            var(--iui-size-l);
       padding:                14px 20px;
       background:             $buic-background-tab-inactive;
       border-width:           0;

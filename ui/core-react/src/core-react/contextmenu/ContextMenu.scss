@@ -129,9 +129,9 @@ $uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
         flex-shrink: 0;
         flex-grow: 0;
         width: $uicore-icons-small;
-        height: $uicore-line-height;
+        height: var(--iui-size-l);
         font-size: $uicore-icons-small;
-        line-height: $uicore-line-height;
+        line-height: var(--iui-size-l);
         text-align: center;
         margin-right: $uicore-unbordered-padding;
         opacity: $uicore-opacity-2;
@@ -220,9 +220,9 @@ $uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
         flex-grow: 0;
         margin-left: $uicore-unbordered-padding;
         width: $uicore-icons-small;
-        height: $uicore-line-height;
+        height: var(--iui-size-l);
         font-size: $uicore-icons-small * 0.5;
-        line-height: $uicore-line-height;
+        line-height: var(--iui-size-l);
         text-align: center;
       }
     }
