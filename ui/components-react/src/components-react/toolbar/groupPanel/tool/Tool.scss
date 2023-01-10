@@ -5,7 +5,7 @@
 @import "../../../target";
 @import "~@itwin/core-react/lib/cjs/core-react/typography";
 @import "variables";
-@import "~@itwin/itwinui-variables/";
+@import "~@itwin/itwinui-variables";
 
 .components-toolbar-item-expandable-group-tool-item {
   $label-color: $buic-text-color;

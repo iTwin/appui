@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/itwinui-css/scss/style/typography";
-@import "~@itwin/itwinui-variables/";
+@import "~@itwin/itwinui-variables";
 
 .components-color-swatch {
   font-size: var(--iui-font-size-1);

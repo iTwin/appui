@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "variables";
-@import "~@itwin/itwinui-variables/";
+@import "~@itwin/itwinui-variables";
 
 .components-toolbar-item-expandable-group-panel {
   $fill-color: $buic-background-panel;
