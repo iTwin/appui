@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/index";
 @import "~@itwin/itwinui-css/scss/button/disabled";
+@import "~@itwin/itwinui-variables/";
 
 .filter-builder > .rule-group {
   & > .rule-group-content {
@@ -38,12 +39,12 @@
   }
 
   .rule-group-remove-action {
-    padding: 3px $iui-sm 3px 0;
+    padding: 3px var(--iui-size-s) 3px 0;
     visibility: hidden;
   }
 
   .rule-group-content {
-    padding-left: $iui-sm;
+    padding-left: var(--iui-size-s);
     border-left: 1px solid;
     box-sizing: border-box;
     @include themed {

@@ -7,6 +7,7 @@
 @import "~@itwin/itwinui-css/scss/style/speed";
 @import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-css/scss/style/variables";
+@import "~@itwin/itwinui-variables/";
 
 @mixin uicore-inputs-checkbox {
 
@@ -33,7 +34,7 @@
   }
 
   .core-checkbox-label {
-    padding-left: $iui-l;
+    padding-left: var(--iui-size-l);
   }
 
   .core-checkbox-checkmark,

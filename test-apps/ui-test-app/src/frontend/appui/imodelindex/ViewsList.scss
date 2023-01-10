@@ -7,6 +7,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
 @import "~@itwin/itwinui-css/scss/style/space";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "~@itwin/itwinui-variables/";
 
 $outline-size: 2px;
 
@@ -21,7 +22,7 @@ $outline-size: 2px;
     @include nz-scrollbar($color: $buic-background-4);
     flex: 1;
     padding: $outline-size 0;
-    margin-bottom: $iui-xs;
+    margin-bottom: var(--iui-size-2xs);
     box-sizing: border-box;
     overflow-y: auto;
     overflow-x: hidden;
@@ -30,7 +31,7 @@ $outline-size: 2px;
   /* Container for all views in thumbnail view */
   .view-container-thumbnailview {
     @include nz-scrollbar($color: $buic-background-4);
-    padding: $iui-xs 0 $iui-xs 10px;
+    padding: var(--iui-size-2xs) 0 var(--iui-size-2xs) 10px;
     display: flex;
     align-items: flex-start;
     align-content: flex-start;

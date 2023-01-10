@@ -6,13 +6,14 @@
 @import "~@itwin/itwinui-css/scss/style/space";
 @import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/scrollbar";
+@import "~@itwin/itwinui-variables/";
 
 /* frontstage */
 .imodelindex {
   background-color: $uicore-gray-b;
   color: $uicore-text-color;
   height: 100%;
-  padding: $iui-l 55px;
+  padding: var(--iui-size-l) 55px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -30,7 +31,7 @@
 
     /* thumbnail container */
     .thumbnail {
-      margin: $iui-m;
+      margin: var(--iui-size-m);
       width: 150px;
       height: 100px;
       border: 1px solid $uicore-gray-a;
@@ -60,7 +61,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: $iui-m;
+      padding: var(--iui-size-m);
       box-sizing: border-box;
       border-left: 1px;
       border-right: 1px;
@@ -78,7 +79,7 @@
       }
 
       >span:nth-child(2) {
-        margin: $iui-s 0;
+        margin: var(--iui-size-xs) 0;
       }
     }
 
@@ -88,7 +89,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 $iui-xl;
+      padding: 0 var(--iui-size-xl);
       min-width: 260px;
       box-sizing: border-box;
       color: rgba($uicore-text-color, .65);
@@ -154,7 +155,7 @@
 
   .imodelindex-container {
     flex: 1;
-    margin-top: $iui-xl;
+    margin-top: var(--iui-size-xl);
     display: flex;
     flex-direction: column;
     background: $uicore-gray-c;
@@ -166,12 +167,12 @@
     .imodelindex-tabheader {
       display: flex;
       align-items: center;
-      margin-top: $iui-sm;
+      margin-top: var(--iui-size-s);
 
       .header-content {
         display: flex;
         margin-left: auto;
-        margin-right: $iui-m;
+        margin-right: var(--iui-size-m);
       }
     }
 

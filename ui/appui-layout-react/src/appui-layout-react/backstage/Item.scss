@@ -8,6 +8,7 @@
 @import "../prefix";
 @import "../safearea";
 @import "variables";
+@import "~@itwin/itwinui-variables/";
 
 .nz-backstage-item {
   position: relative;
@@ -69,7 +70,7 @@
   >div:last-child {
     display: flex;
     flex-direction: column;
-    padding-right: $iui-sm;
+    padding-right: var(--iui-size-s);
     overflow: hidden;
 
     >span {
@@ -79,7 +80,7 @@
     }
 
     >span:nth-child(2) {
-      margin-top: $iui-s;
+      margin-top: var(--iui-size-xs);
       font-size: $nz-backstage-subtitle-font-size;
       color: $buic-foreground-muted;
 

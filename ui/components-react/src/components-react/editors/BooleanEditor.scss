@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/space";
 @import "~@itwin/itwinui-css/scss/style/typography";
+@import "~@itwin/itwinui-variables/";
 
 $checkbox-size: var(--iui-font-size-1) * 1.2;
 
@@ -19,6 +20,6 @@ $checkbox-size: var(--iui-font-size-1) * 1.2;
 
 .components-property-list--horizontal {
   .components-boolean-editor {
-    margin-left:        $iui-s;    // Clear the resizer in the PropertyGrid
+    margin-left:        var(--iui-size-xs);    // Clear the resizer in the PropertyGrid
   }
 }

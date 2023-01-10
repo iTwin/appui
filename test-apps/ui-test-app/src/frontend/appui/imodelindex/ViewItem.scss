@@ -7,6 +7,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
 @import "~@itwin/itwinui-css/scss/style/space";
 @import "~@itwin/itwinui-css/scss/style/typography";
+@import "~@itwin/itwinui-variables/";
 
 $outline-size: 2px;
 
@@ -15,8 +16,8 @@ $border-color: #eee;
 /* A single item (view) in list view */
 .view-list-item {
   font-size: var(--iui-font-size-1);
-  margin: 0 6px 0 $iui-m;
-  padding: $iui-s 0;
+  margin: 0 6px 0 var(--iui-size-m);
+  padding: var(--iui-size-xs) 0;
   color: rgba($uicore-text-color, 0.85);
   display: flex;
   align-items: center;
@@ -42,7 +43,7 @@ $border-color: #eee;
   /* view name (wrap) */
   >span {
     flex: 1;
-    margin-left: $iui-s;
+    margin-left: var(--iui-size-xs);
   }
 
   /* hover gets a white background and text with full opacity */
@@ -79,7 +80,7 @@ $border-color: #eee;
     align-items: center;
     font-size: 12px;
     box-sizing: border-box;
-    padding-top: $iui-s;
+    padding-top: var(--iui-size-xs);
 
     >span {
       flex: 1;
@@ -166,7 +167,7 @@ $border-color: #eee;
 .thumbnail-container-small {
   height: 57px; // arbitrary height
   width: 85px; // arbitrary width
-  margin-left: $iui-xs;
+  margin-left: var(--iui-size-2xs);
 }
 
 /* More (...) icon */

@@ -7,6 +7,7 @@
 @import "~@itwin/itwinui-css/scss/inputs/input";
 @import "~@itwin/itwinui-css/scss/style/space";
 @import "~@itwin/itwinui-css/scss/style/typography";
+@import "~@itwin/itwinui-variables/";
 
 .core-searchbox {
   @include iui-font-family;
@@ -22,7 +23,7 @@
   input {
     @include iui-input;
     min-height: $uicore-component-height-normal;
-    padding: $iui-xxs 2em $iui-xxs 12px; //12px from design guide
+    padding: var(--iui-size-3xs) 2em var(--iui-size-3xs) 12px; //12px from design guide
     height: 100%;
     margin: 0;
     color: inherit;

@@ -6,13 +6,14 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
 @import "~@itwin/itwinui-css/scss/style/space";
 @import "~@itwin/itwinui-css/scss/style/typography";
+@import "~@itwin/itwinui-variables/";
 
 /* 3D Models tab */
 .viewstab-container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-bottom: $iui-m;
+  padding-bottom: var(--iui-size-m);
   box-sizing: border-box;
   font-size: var(--iui-font-size-1);
   background: $uicore-gray-c;
@@ -31,7 +32,7 @@
   }
 
   .searchbox {
-    margin-right: $iui-sm;
+    margin-right: var(--iui-size-s);
     width: 220px;
   }
 
@@ -57,7 +58,7 @@
 
   /* enter iModel button */
   .open-button {
-    margin: $iui-l $iui-m 0 auto !important;
+    margin: var(--iui-size-l) var(--iui-size-m) 0 auto !important;
   }
 }
 
