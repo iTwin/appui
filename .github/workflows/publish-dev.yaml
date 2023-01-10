@@ -41,6 +41,6 @@ jobs:
           set -e
           echo 'Publishing...'
           node common/scripts/install-run-rush.js version --bump
-          node common/scripts/install-run-rush.js publish --include-all --version-policy prerelease --set-access-level public --apply --publish --npm-auth-token $NPM_TOKEN --target-branch next --tag next
+          node common/scripts/install-run-rush.js publish --include-all --version-policy prerelease --set-access-level public --apply --publish --npm-auth-token $NPM_TOKEN
         env:
           NPM_TOKEN: ${{ secrets.NPMJS_PUBLISH_ITWIN }}
