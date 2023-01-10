@@ -4,11 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "variables";
+@import "~@itwin/itwinui-variables/";
 
 $separator-color: $buic-text-color-muted;
 
 .components-toolbar-items-container {
-  $border-radius: 3px;
+  $border-radius: var(--iui-border-radius-1);
 
   border-radius: $border-radius;
   display: inline-block;

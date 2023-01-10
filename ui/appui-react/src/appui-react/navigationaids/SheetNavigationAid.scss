@@ -3,6 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/index";
+@import "~@itwin/itwinui-variables/";
 
 .uifw-sheet-navigation {
   height: 96px;
@@ -10,7 +11,7 @@
   box-sizing: border-box;
   border-color: $buic-background-widget-stroke;
   border-width: 1px;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   border-style: solid;
   color: $buic-foreground-body;
   background: $buic-background-window;

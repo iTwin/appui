@@ -8,7 +8,7 @@
 @import "~@itwin/itwinui-css/scss/style/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/icons/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/button/variables";
-@import "~@itwin/itwinui-variables";
+@import "~@itwin/itwinui-variables/";
 
 $date-picker-m: 16px;
 $date-picker-icons-color-actionable: rgba(
@@ -23,7 +23,7 @@ $date-picker-outside-month-color: $buic-text-color-disabled;
 $outline-size: 2px;
 
 .components-date-picker-calendar {
-  border-radius: 3px 3px 0 0;
+  border-radius: var(--iui-border-radius-1) var(--iui-border-radius-1) 0 0;
   background-color: $buic-background-control;
   color: $buic-foreground-body;
   font-size: 14px;
@@ -55,7 +55,7 @@ $outline-size: 2px;
         &.showFocusOutline {
           outline: 0px;
           border: 0px solid $buic-inputs-border;
-          border-radius: 3px;
+          border-radius: var(--iui-border-radius-1);
           border-color: var(--buic-foreground-focus-border);
           box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
             var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
@@ -113,7 +113,7 @@ $outline-size: 2px;
 
       &.showFocusOutline {
         border: 0px solid $buic-inputs-border;
-        border-radius: 3px;
+        border-radius: var(--iui-border-radius-1);
         border-color: var(--buic-foreground-focus-border);
         box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
           var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
@@ -121,7 +121,7 @@ $outline-size: 2px;
         .components-date-picker-calendar-day.focused {
           outline: 0px;
           border: 1px solid $buic-inputs-border;
-          border-radius: 3px;
+          border-radius: var(--iui-border-radius-1);
           border-color: var(--buic-foreground-focus-border);
           box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
             var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;

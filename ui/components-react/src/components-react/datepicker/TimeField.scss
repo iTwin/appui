@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "~@itwin/itwinui-variables/";
 
 .components-time {
   display: inline-flex;
@@ -12,7 +13,7 @@
   justify-content: flex-start;
   background-color: $buic-background-control;
   border: 1px solid $buic-inputs-border;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   box-shadow: var(--buic-inputs-boxshadow) 0px 1px 1px inset;
   box-sizing: border-box;
 
@@ -36,7 +37,7 @@
     &:focus {
       outline: 0px;
       border: 1px solid $buic-inputs-border;
-      border-radius: 3px;
+      border-radius: var(--iui-border-radius-1);
       border-color: var(--buic-foreground-focus-border);
       box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
       z-index: 1;
@@ -57,7 +58,7 @@
     &:focus {
       outline: 0px;
       border: 1px solid $buic-inputs-border;
-      border-radius: 3px;
+      border-radius: var(--iui-border-radius-1);
       border-color: var(--buic-foreground-focus-border);
       box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
     }

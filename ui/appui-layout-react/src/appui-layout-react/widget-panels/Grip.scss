@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "variables";
+@import "~@itwin/itwinui-variables/";
 
 @mixin hover-style {
   background-color: $buic-accessory-primary;
@@ -20,7 +21,7 @@
   background-color: $buic-background-5;
   align-items: center;
   justify-content: center;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   position: relative;
   display: flex;
 

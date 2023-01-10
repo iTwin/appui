@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "~@itwin/itwinui-variables/";
 
 $nz-tab-height: 60px;
 $nz-tab-width: 32px;
@@ -28,7 +29,7 @@ $nz-resize-grip-size-large: 14px;
 $nz-widget-background-color: $buic-background-widget;
 $nz-widget-border-color: $buic-background-widget-stroke;
 $nz-widget-border-width: 1px;
-$nz-widget-border-radius: 3px;
+$nz-widget-border-radius: var(--iui-border-radius-1);
 $nz-widget-min-size: $nz-tab-height+10px;
 
 @mixin nz-internal-grip-offset($property) {

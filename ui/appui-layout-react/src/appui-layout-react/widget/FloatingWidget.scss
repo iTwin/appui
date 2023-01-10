@@ -6,11 +6,12 @@
 @import "~@itwin/itwinui-css/scss/style/speed";
 @import "../widgetopacity";
 @import "variables";
+@import "~@itwin/itwinui-variables/";
 
 .nz-widget-floatingWidget {
   position: absolute;
   border: 1px solid $buic-background-5;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   min-width: 200px;
   min-height: 120px;
   transition: opacity $iui-speed ease;

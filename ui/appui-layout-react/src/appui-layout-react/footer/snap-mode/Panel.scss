@@ -6,10 +6,11 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "../variables";
 @import "~@itwin/core-react/lib/cjs/core-react/typography";
+@import "~@itwin/itwinui-variables/";
 
 .nz-footer-snapMode-panel {
   background-color: $buic-background-dialog;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   overflow: hidden;
   font-size: $text-font-size;
 

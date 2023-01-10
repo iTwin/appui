@@ -4,14 +4,14 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/itwinui-css/scss/style/typography";
-@import "~@itwin/itwinui-variables";
+@import "~@itwin/itwinui-variables/";
 
 .components-color-swatch {
   font-size: var(--iui-font-size-1);
   height: 1em * 1.2;
   width: 1em * 1.2;
   border-width: 1px;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   border-style: solid;
   border-color: $buic-inputs-border;
 

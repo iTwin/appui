@@ -3,6 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "variables";
+@import "~@itwin/itwinui-variables/";
 
 .components-toolbar-item-expandable-group-panel {
   $fill-color: $buic-background-panel;
@@ -10,7 +11,7 @@
   line-height: normal;
   background: $fill-color;
   padding: 8px;
-  border-radius: 4px;
+  border-radius: var(--iui-border-radius-1);
   pointer-events: auto;
   border: 1px solid $buic-background-widget-stroke;
   font-size: $font-size;

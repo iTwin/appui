@@ -7,6 +7,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
 @import "~@itwin/core-react/lib/cjs/core-react/typography";
+@import "~@itwin/itwinui-variables/";
 
 $no-shadow: none;
 $shadow: drop-shadow(0 1px 0 $buic-text-color-reverse);
@@ -100,7 +101,7 @@ $item-height: 32px;
   height: $item-height;
   color: $label-color;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   display: flex;
   align-items: center;
 
@@ -202,7 +203,7 @@ $item-height: 32px;
   height: $item-height;
   color: $label-color;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   display: flex;
   align-items: center;
 

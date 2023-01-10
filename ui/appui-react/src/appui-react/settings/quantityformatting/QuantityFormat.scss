@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "~@itwin/itwinui-variables/";
 
 .quantity-formatting-container {
   box-sizing: border-box;
@@ -100,7 +101,7 @@
         display: flex;
         flex-direction: column;
         border: 1px solid $buic-inputs-border;
-        border-radius: 3px;
+        border-radius: var(--iui-border-radius-1);
         height: auto;
         overflow-y: auto;
         box-sizing: border-box;

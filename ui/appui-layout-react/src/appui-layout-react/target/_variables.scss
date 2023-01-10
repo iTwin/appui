@@ -7,6 +7,7 @@
 @import "~@itwin/itwinui-css/scss/style/elevation";
 @import "~@itwin/itwinui-css/scss/style/speed";
 @import "../outline/variables";
+@import "~@itwin/itwinui-variables/";
 
 $nz-widget-target-border-color: $buic-background-5;
 $nz-widget-target-background: $buic-background-4;
@@ -18,7 +19,7 @@ $nz-widget-target-border-size: 2px;
   height: $length;
   width: $length;
   border: $nz-widget-target-border-size solid $nz-widget-target-border-color;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   box-sizing: border-box;
   background-color: $nz-widget-target-background;
   transition: transform $iui-speed-fast ease-in;

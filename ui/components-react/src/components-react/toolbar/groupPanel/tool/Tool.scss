@@ -5,6 +5,7 @@
 @import "../../../target";
 @import "~@itwin/core-react/lib/cjs/core-react/typography";
 @import "variables";
+@import "~@itwin/itwinui-variables/";
 
 .components-toolbar-item-expandable-group-tool-item {
   $label-color: $buic-text-color;
@@ -24,7 +25,7 @@
   height: $item-height;
   color: $label-color;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   display: flex;
   align-items: center;
 

@@ -112,7 +112,7 @@ $border-color: #eeeeee;
     background-color: $uicore-white;
     color: rgba(black, .85);
     border: 1px solid $uicore-blue;
-    border-radius: 3px;
+    border-radius: var(--iui-border-radius-1);
 
     .toast-image {
       width: 48px;

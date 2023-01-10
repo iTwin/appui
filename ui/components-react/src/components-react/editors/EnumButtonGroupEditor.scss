@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/itwinui-css/scss/style/typography";
-@import "~@itwin/itwinui-variables";
+@import "~@itwin/itwinui-variables/";
 
 $desktop-tool-stripe-width: 2px;
 $desktop-tool-stripe-height: 22px;
@@ -33,7 +33,7 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
 
   $divider-color: $buic-background-toolbutton-stroke;
   $border-color: $buic-background-toolbutton-stroke;
-  $border-radius: 3px;
+  $border-radius: var(--iui-border-radius-1);
 
   border-color: $border-color;
   border-width: $components-enumbuttongroup-editor-item-border-width;

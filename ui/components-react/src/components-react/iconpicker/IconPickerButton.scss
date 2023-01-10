@@ -4,13 +4,14 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
+@import "~@itwin/itwinui-variables/";
 
 .components-iconpicker-button {
   color: $buic-foreground-body;
   background: $buic-background-control;
   box-sizing: border-box;
   border: 1px solid $buic-inputs-border;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   display: flex;
   align-items: center;
   width: fit-content;
@@ -54,7 +55,7 @@
         height: 34px;
         padding: 4px;
         border-width: 1px;
-        border-radius: 3px;
+        border-radius: var(--iui-border-radius-1);
         border-style: solid;
         border-color: rgba(0, 0, 0, 0.2);
         background: $buic-background-control;

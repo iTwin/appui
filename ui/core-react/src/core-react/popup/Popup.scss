@@ -5,6 +5,7 @@
 @import "../inputs/variables";
 @import "../z-index";
 @import "~@itwin/itwinui-css/scss/style/elevation";
+@import "~@itwin/itwinui-variables/";
 
 .core-popup {
  top: 0;
@@ -12,7 +13,7 @@
  display: block;
  box-sizing: border-box;
  position: absolute;
- border-radius: 4px;
+ border-radius: var(--iui-border-radius-1);
  border: 1px solid $buic-background-panel-stroke;
  background: $buic-background-panel;
  color: $buic-text-color;

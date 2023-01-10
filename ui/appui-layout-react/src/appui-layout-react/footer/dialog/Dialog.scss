@@ -4,9 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "variables";
+@import "~@itwin/itwinui-variables/";
 
 .nz-footer-dialog-dialog {
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   background-color: $buic-background-dialog;
   overflow: hidden;
   display: grid;

@@ -3,6 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "~@itwin/itwinui-variables/";
 
 .timeline-component {
   box-sizing: border-box;
@@ -21,7 +22,7 @@
     position: relative;
 
     >.play-backward {
-      border-radius: 3px 0 0 3px;
+      border-radius: var(--iui-border-radius-1) 0 0 var(--iui-border-radius-1);
     }
 
     >.play-button-step {
@@ -31,7 +32,7 @@
     }
 
     >.play-forward {
-      border-radius: 0px 3px 3px 0;
+      border-radius: 0px var(--iui-border-radius-1) var(--iui-border-radius-1) 0;
     }
 
     >.current-date {
@@ -42,7 +43,7 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      border-radius: 3px;
+      border-radius: var(--iui-border-radius-1);
       border: solid 1px $buic-background-5;
       background-color: $buic-background-1;
       text-align: center;

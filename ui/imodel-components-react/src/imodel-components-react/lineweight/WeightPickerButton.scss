@@ -4,12 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/button/button";
+@import "~@itwin/itwinui-variables/";
 
 .components-weightpicker-button {
   color: $buic-foreground-body;
   background: $buic-background-control;
   border: 1px solid $buic-inputs-border;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   min-width: 100px;
 
   &:not(.readonly):not([disabled]) {
@@ -34,7 +35,7 @@
     background: $buic-background-control;
     min-width: 60px;
     padding: 0 4px;
-    border-radius: 4px;
+    border-radius: var(--iui-border-radius-1);
 
     >ul {
       padding: 4px 0;
