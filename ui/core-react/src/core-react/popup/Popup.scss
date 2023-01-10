@@ -152,8 +152,8 @@
 }
 
 .core-popup-shadow {
- -webkit-box-shadow: $iui-elevation-16;
- box-shadow: $iui-elevation-16;
+ -webkit-box-shadow: var(--iui-shadow-4);
+ box-shadow: var(--iui-shadow-4);
  background-clip: padding-box;
 }
 

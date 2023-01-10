@@ -26,7 +26,7 @@ $nz-widget-target-border-size: 2px;
   transition: transform var(--iui-duration-1) ease-in;
   pointer-events: all;
   display: flex;
-  box-shadow: $iui-elevation-8;
+  box-shadow: var(--iui-shadow-3);
 
   @include uicore-z-index(drop-target);
 
@@ -63,6 +63,6 @@ $nz-widget-target-border-size: 2px;
 @mixin nz-targeted-widget-target {
   transform: scale(1.2);
   background-color: $nz-opaque-outline-color;
-  box-shadow: $iui-elevation-16;
+  box-shadow: var(--iui-shadow-4);
   animation-iteration-count: 0, 0;
 }
