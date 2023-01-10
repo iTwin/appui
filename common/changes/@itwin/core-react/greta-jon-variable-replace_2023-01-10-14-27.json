@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Using iTwinUI-variables",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
