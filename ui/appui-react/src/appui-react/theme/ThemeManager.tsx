@@ -28,12 +28,12 @@ export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
 /** The default widget opacity.
  * @public
  */
-export const WIDGET_OPACITY_DEFAULT = 0.90;
+export const WIDGET_OPACITY_DEFAULT = 0.9;
 
 /** The default widget opacity.
  * @public
  */
-export const TOOLBAR_OPACITY_DEFAULT = 0.50;
+export const TOOLBAR_OPACITY_DEFAULT = 0.5;
 
 /** Properties of [[ThemeManagerComponent]].
  */
@@ -47,10 +47,9 @@ interface ThemeManagerProps {
 }
 
 function mapStateToProps(state: any) {
-  const frameworkState = state[UiFramework.frameworkStateKey] as FrameworkState;  // since app sets up key, don't hard-code name
+  const frameworkState = state[UiFramework.frameworkStateKey] as FrameworkState; // since app sets up key, don't hard-code name
   // istanbul ignore if
-  if (!frameworkState)
-    return undefined;
+  if (!frameworkState) return undefined;
 
   return {
     theme: frameworkState.configurableUiState.theme,
@@ -66,8 +65,10 @@ interface ThemeManagerState {
 
 /** ThemeManagerComponent handles setting themes.
  */
-class ThemeManagerComponent extends React.Component<ThemeManagerProps, ThemeManagerState> {
-
+class ThemeManagerComponent extends React.Component<
+  ThemeManagerProps,
+  ThemeManagerState
+> {
   public override readonly state: ThemeManagerState = {
     ownerDocument: undefined,
   };
@@ -77,12 +78,13 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps, ThemeMana
   }
 
   public override componentDidUpdate(prevProps: ThemeManagerProps) {
-    if (this.props.theme !== prevProps.theme)
-      this._setTheme(this.props.theme);
-    const currentWidgetOpacity = document.documentElement.style.getPropertyValue("--buic-widget-opacity");
+    if (this.props.theme !== prevProps.theme) this._setTheme(this.props.theme);
+    const currentWidgetOpacity =
+      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
     if (this.props.widgetOpacity.toString() !== currentWidgetOpacity)
       this._setWidgetOpacity(this.props.widgetOpacity);
-    const currentToolbarOpacity = document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
+    const currentToolbarOpacity =
+      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
     if (this.props.toolbarOpacity.toString() !== currentToolbarOpacity)
       this._setToolbarOpacity(this.props.toolbarOpacity);
   }
@@ -90,17 +92,28 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps, ThemeMana
   private _setTheme = (theme: string) => {
     document.documentElement.classList.add("theme-transition");
     document.documentElement.setAttribute("data-theme", theme);
-    window.setTimeout(() => document.documentElement.classList.remove("theme-transition"), 1000);
+    window.setTimeout(
+      () => document.documentElement.classList.remove("theme-transition"),
+      1000
+    );
   };
 
   private _setWidgetOpacity = (opacity: number) => {
     setTimeout(() =>
-      document.documentElement.style.setProperty("--buic-widget-opacity", opacity.toString()));
+      document.documentElement.style.setProperty(
+        "--buic-widget-opacity",
+        opacity.toString()
+      )
+    );
   };
 
   private _setToolbarOpacity = (opacity: number) => {
     setTimeout(() =>
-      document.documentElement.style.setProperty("--buic-toolbar-opacity", opacity.toString()));
+      document.documentElement.style.setProperty(
+        "--buic-toolbar-opacity",
+        opacity.toString()
+      )
+    );
   };
 
   private _handleRefSet = (popupDiv: HTMLElement | null) => {
@@ -111,14 +124,19 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps, ThemeMana
   };
 
   public override render(): React.ReactNode {
-    const theme: ThemeType = (this.props.theme === SYSTEM_PREFERRED_COLOR_THEME) ? "os" : this.props.theme as ThemeType;
+    const theme: ThemeType =
+      this.props.theme === SYSTEM_PREFERRED_COLOR_THEME
+        ? "os"
+        : (this.props.theme as ThemeType);
 
     return (
-      <div style={{ height: "100%" }} ref={this._handleRefSet}>
-        <ThemeProvider theme={theme} themeOptions={{ ownerDocument: this.state.ownerDocument }}>
-          {this.props.children}
-        </ThemeProvider>
-      </div>
+      <ThemeProvider
+        style={{ height: "100%" }}
+        theme={theme}
+        ref={this._handleRefSet}
+      >
+        {this.props.children}
+      </ThemeProvider>
     );
   }
 }
