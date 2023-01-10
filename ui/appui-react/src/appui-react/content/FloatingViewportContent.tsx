@@ -58,8 +58,10 @@ export function FloatingViewportContent(props: FloatingViewportContentProps) { /
     };
   }, [contentId]);
 
-  const viewPortControl = React.useMemo(() =>
-    initialViewState ? (
+  const viewPortControl = React.useMemo(() => {
+    if (!initialViewState) return undefined;
+
+    const node =
       <FloatingViewport
         viewportRef={onViewportRef}
         imodel={initialViewState.iModel}
@@ -67,7 +69,15 @@ export function FloatingViewportContent(props: FloatingViewportContentProps) { /
         onContextMenu={props.onContextMenu}
         controlId={contentId}
       />
-    ) : undefined, [onViewportRef, props.onContextMenu, initialViewState, contentId]);
+      let control = node;
+
+      if (!(node as React.ReactElement<any>).key) {
+        const additionalProps: any = { key:contentId };
+        control = React.cloneElement(node, additionalProps);
+      }
+      return control;
+
+  }, [onViewportRef, props.onContextMenu, initialViewState, contentId]);
 
   React.useEffect(() => {
     if (viewport && contentControl.current) {
@@ -77,7 +87,7 @@ export function FloatingViewportContent(props: FloatingViewportContentProps) { /
       }
       if (initialViewState) {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        contentControl.current.processViewSelectorChange(initialViewState.iModel, initialViewState.id, initialViewState, initialViewState.name);
+        contentControl.current.viewport.changeView(initialViewState);
       }
     }
   }, [initialViewState, viewPortControl, viewport]);

@@ -26,6 +26,7 @@ importers:
       '@itwin/core-quantity': ^3.5.1
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^3.5.1
+      '@itwin/imodel-components-react': workspace:*
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
@@ -58,6 +59,7 @@ importers:
       '@itwin/core-orbitgt': 3.5.1
       '@itwin/core-quantity': 3.5.1_@itwin+core-bentley@3.5.1
       '@itwin/core-react': link:../../../ui/core-react
+      '@itwin/imodel-components-react': link:../../../ui/imodel-components-react
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
@@ -4604,7 +4606,7 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
-      '@types/node': 16.11.59
+      '@types/node': 18.11.5
       playwright-core: 1.25.2
     dev: true
 
