@@ -144,7 +144,7 @@ $text-color: #444;
 // iModel name
 .imodel-card .imodel-card-name {
   padding: .8em 14px;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -178,7 +178,7 @@ $text-color: #444;
 .imodel-card-options-dropdown {
   margin: 0;
   padding: .5em 0;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   list-style: none;
   background-color: $uicore-white;
 }
@@ -212,6 +212,6 @@ $text-color: #444;
   white-space: wrap;
   overflow: hidden;
   box-sizing: border-box;
-  font-size: $iui-font-size-small;
-  font-weight: $iui-font-weight-light;
+  font-size: var(--iui-font-size-0);
+  font-weight: var(--iui-font-weight-light);
 }

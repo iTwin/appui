@@ -15,7 +15,7 @@ $border-color: #eeeeee;
   height: 100%;
   padding-bottom: $iui-m;
   box-sizing: border-box;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   background: $uicore-gray-c;
   position: relative;
   overflow: hidden;

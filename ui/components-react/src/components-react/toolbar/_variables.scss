@@ -20,7 +20,7 @@ $components-desktop-toolbar-height: 40px;
 $desktop-tool-stripe-width: 2px;
 $desktop-tool-stripe-height: 30px;
 
-$font-size: $iui-font-size;
+$font-size: var(--iui-font-size-1);
 $icon-size: 16px;
 $icon-color: $buic-icon-color;
 $hovered-icon-color: $buic-foreground-activehover;

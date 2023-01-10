@@ -32,7 +32,7 @@
 
       display:        block;
       position:       relative;
-      padding:        $uicore-bordered-padding ( $iui-font-size - 1px ) $uicore-unbordered-padding;
+      padding:        $uicore-bordered-padding ( var(--iui-font-size-1) - 1px ) $uicore-unbordered-padding;
       margin:         0;
       line-height:    $uicore-line-height;
       color:          $buic-text-color;
@@ -84,7 +84,7 @@
 
       > a {
 
-        font-weight:        $iui-font-weight-bold;
+        font-weight:        var(--iui-font-weight-bold);
 
         &::after {
 
@@ -97,15 +97,15 @@
       display: flex;
       flex-direction: column;
       .uicore-tabs-subLabel {
-        font-size: $iui-font-size-small;
-        font-weight: $iui-font-weight-semibold;
+        font-size: var(--iui-font-size-0);
+        font-weight: var(--iui-font-weight-semibold);
       }
     }
     &:not(.core-active) {
       .uicore-tabs-label-subLabel-container {
         .uicore-tabs-subLabel {
           color: $buic-text-color-muted;
-          font-weight: $iui-font-weight-light;
+          font-weight: var(--iui-font-weight-light);
         }
       }
     }

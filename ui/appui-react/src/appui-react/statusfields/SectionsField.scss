@@ -27,7 +27,7 @@
 .uifw-sections-label {
   @include iui-font-family;
   color: $buic-text-color;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   align-self: center;
   margin: $iui-s;
 

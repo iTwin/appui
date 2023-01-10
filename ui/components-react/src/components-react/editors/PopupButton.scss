@@ -17,7 +17,7 @@
   padding: 0;
   background-color: $buic-background-control;
   border: 1px solid $buic-inputs-border;
-  border-radius: $iui-border-radius;
+  border-radius: var(--iui-border-radius-1);
   box-shadow: $buic-inputs-boxshadow 0px 1px 1px inset;
   box-sizing: border-box;
   cursor: pointer;

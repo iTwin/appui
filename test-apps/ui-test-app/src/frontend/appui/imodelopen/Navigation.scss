@@ -90,7 +90,7 @@ $navbar-hovercolor: $uicore-blue;
   padding-left: 24px;
   text-decoration: none;
   user-select: none;
-  font-size: $iui-font-size-leading;
+  font-size: var(--iui-font-size-2);
   cursor: pointer;
   position: relative;
   box-sizing: border-box;

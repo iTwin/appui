@@ -84,11 +84,11 @@
       color: $buic-foreground-muted;
 
       @include for-tablet-landscape-down {
-        font-size: $iui-font-size-small;
+        font-size: var(--iui-font-size-0);
       }
 
       @include for-phone-only {
-        font-size: $iui-font-size-small - 1px;
+        font-size: var(--iui-font-size-0) - 1px;
       }
     }
   }

@@ -21,7 +21,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
 }
 
 #uifw-frontstage-composer {
@@ -60,7 +60,7 @@
 
   >.uifw-element-tooltip {
     width: max-content;
-    font-size: $iui-font-size;
+    font-size: var(--iui-font-size-1);
   }
 
   >.nz-popup-tooltip {

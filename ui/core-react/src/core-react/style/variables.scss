@@ -6,8 +6,8 @@
 
 // @warn "variables.scss is deprecated. Use '~@itwin/itwinui-css/scss/style/variables' instead.";
 
-$uicore-border-radius:    $iui-border-radius;
+$uicore-border-radius: var(--iui-border-radius-1);
 
-$uicore-component-height-small:   24px;
-$uicore-component-height-normal:  28px;
-$uicore-component-height-large:   32px;
+$uicore-component-height-small: 24px;
+$uicore-component-height-normal: 28px;
+$uicore-component-height-large: 32px;

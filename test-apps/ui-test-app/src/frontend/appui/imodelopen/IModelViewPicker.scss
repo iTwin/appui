@@ -216,7 +216,7 @@ $view-card-height: 150px;
   flex: initial;
   padding: .5em;
   background: $uicore-white;
-  font-size: $iui-font-size-small;
+  font-size: var(--iui-font-size-0);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

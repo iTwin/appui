@@ -78,6 +78,6 @@
 
 .uicore-autosuggest__section-title {
   padding: 10px 0 0 10px;
-  font-size: $iui-font-size-small;
+  font-size: var(--iui-font-size-0);
   color: $buic-background-table-header;
 }

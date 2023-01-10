@@ -16,7 +16,7 @@
   //default values (height, width, font-size, color)
   height: $uicore-component-height-normal;
   width: 12em;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   color: $buic-text-color;
 
   input {

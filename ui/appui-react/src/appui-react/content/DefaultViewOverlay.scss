@@ -33,7 +33,7 @@ $widget-transparency: 0.90;
   height: auto;
   background: $buic-background-dialog;
   border: 1px solid $buic-background-dialog-stroke;
-  border-radius: $iui-border-radius;
+  border-radius: var(--iui-border-radius-1);
   // overflow: hidden;
   opacity: $widget-transparency;
   pointer-events: auto;

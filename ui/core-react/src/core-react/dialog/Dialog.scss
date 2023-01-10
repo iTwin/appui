@@ -107,7 +107,7 @@
       flex-grow: 1;
       flex-direction: column;
       border: 1px solid $buic-background-dialog-stroke;
-      border-radius: $iui-border-radius;
+      border-radius: var(--iui-border-radius-1);
       background-color: $buic-background-dialog;
       color: $buic-text-color;
       padding: 0;
@@ -144,9 +144,9 @@
 
         > .core-dialog-close {
           cursor: pointer;
-          height: $iui-font-size-title;
-          width: $iui-font-size-title;
-          line-height: $iui-font-size-title;
+          height: var(--iui-font-size-4);
+          width: var(--iui-font-size-4);
+          line-height: var(--iui-font-size-4);
           flex: 0 0 $uicore-icons-medium;
           text-align: center;
           color: $buic-text-color-muted;

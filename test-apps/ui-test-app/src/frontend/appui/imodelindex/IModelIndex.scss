@@ -69,11 +69,11 @@
       border-style: solid;
       border-color: $uicore-gray-a;
       color: rgba($uicore-text-color, .85);
-      font-size: $iui-font-size;
+      font-size: var(--iui-font-size-1);
 
       /* imodel name */
       >span:first-child {
-        font-size: $iui-font-size-title;
+        font-size: var(--iui-font-size-4);
         opacity: .85;
       }
 
@@ -92,7 +92,7 @@
       min-width: 260px;
       box-sizing: border-box;
       color: rgba($uicore-text-color, .65);
-      font-size: $iui-font-size;
+      font-size: var(--iui-font-size-1);
 
       .checkmark-circle {
         stroke-dasharray: 166;

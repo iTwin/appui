@@ -20,7 +20,7 @@ $settings-rightpanel-width: 220px;
   background: $buic-background-dialog;
   color: $buic-text-color;
   border-radius: 3px;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   display: flex;
   flex-direction: column;
 }

@@ -7,7 +7,7 @@
 
 button.components-colorpicker-popup-button {
   font-family: $iui-font-family;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   color: $buic-foreground-body;
   background-color: transparent;
   box-sizing: border-box;

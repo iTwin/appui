@@ -6,7 +6,7 @@
 @import "~@itwin/itwinui-css/scss/style/typography";
 
 .components-lineweight-swatch {
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   color: $buic-foreground-body;
   border: none;
   background: inherit;

@@ -17,11 +17,11 @@
 
   padding:                $uicore-button-padding $uicore-unbordered-padding;
   margin:                 $uicore-inputs-margin 0;
-  border-radius:          $iui-border-radius;
+  border-radius:          var(--iui-border-radius-1);
   line-height:            $uicore-button-line-height;
   outline:                none;
   font-family:            $iui-font-family;
-  font-size:              $iui-font-size;
+  font-size:              var(--iui-font-size-1);
   text-decoration:        none;
   cursor:                 pointer;
   box-sizing:             border-box;
@@ -68,14 +68,14 @@
 
   padding:                $uicore-inputs-padding-large $uicore-unbordered-padding-large;
   margin:                 $uicore-inputs-margin-large 0;
-  font-size:              $iui-font-size-leading;
-  font-weight:            $iui-font-weight-normal;
+  font-size:              var(--iui-font-size-2);
+  font-weight:            var(--iui-font-weight-normal);
 }
 
 @mixin uicore-buttons-large-bordered-size {
 
   padding:                $uicore-button-padding-bordered-large $uicore-bordered-padding-large;
   margin:                 $uicore-inputs-margin-large 0;
-  font-size:              $iui-font-size-leading;
-  font-weight:            $iui-font-weight-normal;
+  font-size:              var(--iui-font-size-2);
+  font-weight:            var(--iui-font-weight-normal);
 }

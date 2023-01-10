@@ -8,7 +8,7 @@
 .tabstrip {
   position: relative;
   color: $uicore-text-color;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
 }
 
 .tabstrip nav {

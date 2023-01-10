@@ -70,7 +70,7 @@ $ip-max-dropdown-width: 450px;
 
   /* current itwin number & name */
   >div {
-    font-size: $iui-font-size-leading;
+    font-size: var(--iui-font-size-2);
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -85,7 +85,7 @@ $ip-max-dropdown-width: 450px;
     /* itwin name font is smaller (and add some spacing between number and name) */
     .name {
       @extend .text-clip;
-      font-size: $iui-font-size;
+      font-size: var(--iui-font-size-1);
       margin-top: .25em;
     }
   }
@@ -160,14 +160,14 @@ $ip-max-dropdown-width: 450px;
 
         /* number is a larger font size than name */
         span:first-child {
-          font-size: $iui-font-size;
+          font-size: var(--iui-font-size-1);
           font-weight: 550;
         }
 
         /* name is a smaller font size and space the number/name */
         span:last-child {
           margin-top: .4em;
-          font-size: $iui-font-size-small;
+          font-size: var(--iui-font-size-0);
           font-weight: 300;
         }
       }
@@ -184,7 +184,7 @@ $ip-max-dropdown-width: 450px;
 .ip-no-mru {
   display: block;
   color: $uicore-gray;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   padding: .25em 1.25em;
 }
 

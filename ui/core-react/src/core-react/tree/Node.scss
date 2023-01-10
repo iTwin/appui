@@ -5,7 +5,7 @@
 @import "../style/themecolors.scss";
 @import "~@itwin/itwinui-css/scss/style/typography";
 
-$node-font-size: $iui-font-size;
+$node-font-size: var(--iui-font-size-1);
 
 .core-tree-node {
   /* Rules applied to the <be-tree-node> itself */

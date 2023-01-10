@@ -14,7 +14,7 @@ $component-examples-rightpanel-width: 200px;
   height: 100%;
 
   color: $buic-text-color;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
 
   display: grid;
   grid-template-columns: 280px auto;

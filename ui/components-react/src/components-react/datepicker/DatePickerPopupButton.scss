@@ -7,7 +7,7 @@
 
 .components-date-picker-calendar-popup-button {
   color: $buic-foreground-body;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   background-color: transparent;
   height: 2.2em;
   border: none;

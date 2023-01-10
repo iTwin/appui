@@ -7,8 +7,8 @@
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 
 .uifw-statusFields-displayStyle {
-  $font-size-medium: $iui-font-size-small;
-  $font-size-small: $iui-font-size-small - 1px;
+  $font-size-medium: var(--iui-font-size-0);
+  $font-size-small: var(--iui-font-size-0) - 1px;
   overflow: hidden;
   padding-right: 0px;
 

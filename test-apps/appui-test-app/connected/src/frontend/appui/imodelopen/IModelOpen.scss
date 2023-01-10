@@ -54,7 +54,7 @@ $border-color: #e7e9ec;
     /* "itwins" label */
     .itwins-label {
       margin-right: 1em;
-      font-size: $iui-font-size-subheading;
+      font-size: var(--iui-font-size-3);
     }
 
     /* itwin picker */

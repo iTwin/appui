@@ -6,7 +6,7 @@
 @import "~@itwin/itwinui-css/scss/style/typography";
 
 .components-color-swatch {
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   height: 1em * 1.2;
   width: 1em * 1.2;
   border-width: 1px;

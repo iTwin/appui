@@ -6,8 +6,8 @@
 @import "~@itwin/itwinui-css/scss/style/typography";
 
 .uifw-tile-loading-bar {
-  $font-size-medium: $iui-font-size-small;
-  $font-size-small: $iui-font-size-small - 1px;
+  $font-size-medium: var(--iui-font-size-0);
+  $font-size-small: var(--iui-font-size-0) - 1px;
 
   transition: opacity .3s ease-in;
   opacity: 0;

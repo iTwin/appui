@@ -13,7 +13,7 @@
   align-items: center;
 
   >.uicore-label {
-    font-size: $iui-font-size;
+    font-size: var(--iui-font-size-1);
     margin: 4.4px 0;
 
     /* match margin on other select controls so it spaces properly in grid */
@@ -45,7 +45,7 @@
   }
 
   >a.components-quantityFormat-more-less {
-    font-size: $iui-font-size;
+    font-size: var(--iui-font-size-1);
     color: $buic-foreground-alert;
     -webkit-transition: text-decoration 1s ease;
     -moz-transition: text-decoration 1s ease;

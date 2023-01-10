@@ -9,7 +9,7 @@ $components-color-editor-item-height: 100%;
 
 .components-icon-editor {
   font-family: $iui-font-family;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   color: $buic-foreground-body;
   border: none;
   box-sizing: border-box;

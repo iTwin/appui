@@ -12,7 +12,7 @@
 
   display: block;
   position: relative;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   line-height: normal;
   cursor: pointer;
   user-select: none;
@@ -45,7 +45,7 @@
     width: 1em;
     border: 1px solid $buic-foreground-disabled;
     background-color:  $buic-background-control;
-    border-radius: $iui-border-radius;
+    border-radius: var(--iui-border-radius-1);
   }
 
   &:hover:not(.core-disabled) input ~ .core-checkbox-checkmark,
