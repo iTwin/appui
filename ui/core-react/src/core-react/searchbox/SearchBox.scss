@@ -5,9 +5,8 @@
 @import "../style/themecolors";
 @import "../style/variables";
 @import "~@itwin/itwinui-css/scss/inputs/input";
-@import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
+@import "~@itwin/itwinui-css/scss/style/typography";
 
 .core-searchbox {
   @include iui-font-family;
@@ -49,6 +48,5 @@
     &:focus {
       outline: none;
     }
-
   }
 }

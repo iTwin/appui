@@ -4,10 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "../style/index";
 @import "./variables";
-@import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/speed";
-@import "~@itwin/itwinui-css/scss/style/typography";
-@import "~@itwin/itwinui-css/scss/style/variables";
 @import "~@itwin/itwinui-variables";
 
 @mixin uicore-inputs-input {

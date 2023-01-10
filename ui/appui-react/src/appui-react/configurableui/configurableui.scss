@@ -11,7 +11,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 @import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "../variables";
 @import "~@itwin/itwinui-variables";
 
@@ -59,12 +58,12 @@
 
   @include uicore-z-index(tooltip);
 
-  >.uifw-element-tooltip {
+  > .uifw-element-tooltip {
     width: max-content;
     font-size: var(--iui-font-size-1);
   }
 
-  >.nz-popup-tooltip {
+  > .nz-popup-tooltip {
     border: {
       color: $uifw-popup-border-color;
       radius: $uifw-popup-border-radius;

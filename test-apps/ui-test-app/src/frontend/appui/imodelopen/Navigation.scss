@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/index";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
 
 //$separator-background: #F0F0F0;
@@ -20,10 +19,10 @@ $navbar-hovercolor: $uicore-blue;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  -webkit-transition: width .5s ease;
-  -moz-transition: width .5s ease;
-  -o-transition: width .5s ease;
-  transition: width .5s ease;
+  -webkit-transition: width 0.5s ease;
+  -moz-transition: width 0.5s ease;
+  -o-transition: width 0.5s ease;
+  transition: width 0.5s ease;
   z-index: 2;
 }
 
@@ -97,15 +96,15 @@ $navbar-hovercolor: $uicore-blue;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  -webkit-transition: all .3s ease;
-  -moz-transition: all .3s ease;
-  -o-transition: all .3s ease;
-  transition: all .3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .open-navbar ul li::before,
 .open-navbar ul li::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   right: 0;
@@ -133,10 +132,10 @@ $navbar-hovercolor: $uicore-blue;
   -ms-transform: scale(0, 1);
   transform: scale(0, 1);
   transform-origin: left center;
-  -webkit-transition: all .25s ease;
-  -moz-transition: all .25s ease;
-  -o-transition: all .25s ease;
-  transition: all .25s ease;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 .open-navbar:hover li .label,
@@ -163,7 +162,7 @@ $navbar-hovercolor: $uicore-blue;
   height: 100%;
   width: 3px;
   background: $uicore-blue;
-  content: '';
+  content: "";
   -webkit-transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
   //z-index: 2; //to travel on top of the borders
@@ -178,7 +177,7 @@ $navbar-hovercolor: $uicore-blue;
   height: 100%;
   width: 3px;
   background: $uicore-blue;
-  content: '';
+  content: "";
 }
 
 .open-navbar .navnode.active .open-navbar-barindicator {

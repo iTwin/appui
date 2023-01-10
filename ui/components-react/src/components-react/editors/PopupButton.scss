@@ -7,7 +7,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/baseline";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/style/variables";
-@import "~@itwin/itwinui-css/scss/style/variables";
 @import "~@itwin/itwinui-variables";
 
 .components-popup-button {
@@ -29,7 +28,7 @@
 
   font-weight: normal;
 
-  >.components-popup-button-value {
+  > .components-popup-button-value {
     flex-grow: 1;
     max-width: calc(100% - var(--iui-size-l));
     overflow-x: hidden;
@@ -40,13 +39,13 @@
     }
   }
 
-  >.components-popup-button-arrow {
+  > .components-popup-button-arrow {
     background-color: $buic-background-control;
     width: var(--iui-size-l);
     height: var(--iui-size-l);
 
-    >.components-popup-button-arrow-icon {
-      transition: transform .2s;
+    > .components-popup-button-arrow-icon {
+      transition: transform 0.2s;
 
       &:hover {
         color: $buic-foreground-primary;
@@ -64,17 +63,16 @@
     outline: 0px;
     box-shadow: $uicore-inputs-focus-boxshadow;
 
-    >.components-popup-button-arrow {
+    > .components-popup-button-arrow {
       border: none;
       box-shadow: none;
       outline: 0px;
 
-      >.components-popup-button-arrow-icon {
+      > .components-popup-button-arrow-icon {
         color: $buic-foreground-primary;
       }
     }
   }
-
 }
 
 .components-smallEditor-host {
@@ -96,14 +94,13 @@
   justify-content: flex-end;
   margin-top: 4px;
 
-  >.components-popup-large-button {
+  > .components-popup-large-button {
     width: 70px;
     font-size: 20px;
     margin-left: 6px;
   }
 
-  >.components-popup-cancel-button {
-
+  > .components-popup-cancel-button {
     &,
     &:active,
     &:focus {
@@ -116,6 +113,5 @@
       background-color: $uicore-gray-5;
       color: $uicore-white;
     }
-
   }
 }

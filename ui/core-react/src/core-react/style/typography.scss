@@ -2,45 +2,44 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
+@import "~@itwin/itwinui-css/scss/style/typography";
 
 // @warn "typography.scss is deprecated. Use '~@itwin/itwinui-css/scss/style/typography' instead.";
 
 /// Constants ------------------------------------------------------------------
 
-$uicore-sans:                      var(--iui-font-sans);
-$uicore-monospace:                 var(--iui-font-mono);
+$uicore-sans: var(--iui-font-sans);
+$uicore-monospace: var(--iui-font-mono);
 
-$uicore-font-family:               var(--iui-font-sans);
+$uicore-font-family: var(--iui-font-sans);
 
-$uicore-font-size:                 var(--iui-font-size-1);
-$uicore-font-size-small:           var(--iui-font-size-0);
-$uicore-font-size-leading:         var(--iui-font-size-2);
-$uicore-font-size-subheading:      var(--iui-font-size-3);
-$uicore-font-size-title:           var(--iui-font-size-4);
-$uicore-font-size-headline:        var(--iui-font-size-5);
+$uicore-font-size: var(--iui-font-size-1);
+$uicore-font-size-small: var(--iui-font-size-0);
+$uicore-font-size-leading: var(--iui-font-size-2);
+$uicore-font-size-subheading: var(--iui-font-size-3);
+$uicore-font-size-title: var(--iui-font-size-4);
+$uicore-font-size-headline: var(--iui-font-size-5);
 
 //TODO review this cap part
-$uicore-cap-size:                  var(--iui-font-size-1);
-$uicore-cap-size-small:            var(--iui-font-size-0);
-$uicore-cap-size-leading:          var(--iui-font-size-2);
-$uicore-cap-size-subheading:       var(--iui-font-size-3);
-$uicore-cap-size-title:            var(--iui-font-size-4);
-$uicore-cap-size-headline:         var(--iui-font-size-5);
+$uicore-cap-size: var(--iui-font-size-1);
+$uicore-cap-size-small: var(--iui-font-size-0);
+$uicore-cap-size-leading: var(--iui-font-size-2);
+$uicore-cap-size-subheading: var(--iui-font-size-3);
+$uicore-cap-size-title: var(--iui-font-size-4);
+$uicore-cap-size-headline: var(--iui-font-size-5);
 
-$uicore-font-weight-light:         var(--iui-font-weight-light);
-$uicore-font-weight-normal:        var(--iui-font-weight-normal);
-$uicore-font-weight-semibold:      var(--iui-font-weight-semibold);
-$uicore-font-weight-bold:          var(--iui-font-weight-bold);
+$uicore-font-weight-light: var(--iui-font-weight-light);
+$uicore-font-weight-normal: var(--iui-font-weight-normal);
+$uicore-font-weight-semibold: var(--iui-font-weight-semibold);
+$uicore-font-weight-bold: var(--iui-font-weight-bold);
 
 /// Font loading helpers -------------------------------------------------------
 /// See: https://www.zachleat.com/web/comprehensive-webfonts
 
 //TODO review this
-$uicore-font-loaded-class:          var(--iui-font-sans);
+$uicore-font-loaded-class: var(--iui-font-sans);
 
 @mixin uicore-font-family {
-
   @include iui-font-family;
 }

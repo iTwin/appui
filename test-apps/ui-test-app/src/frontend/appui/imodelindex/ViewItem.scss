@@ -6,7 +6,6 @@
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
 @import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
 
 $outline-size: 2px;
@@ -25,14 +24,14 @@ $border-color: #eee;
   //border: 2px solid white;
   box-sizing: border-box;
   cursor: pointer;
-  -webkit-transition: background-color .2s ease;
-  -moz-transition: background-color .2s ease;
-  -o-transition: background-color .2s ease;
-  transition: background-color .2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 
   /* draw a line below each item */
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -41,7 +40,7 @@ $border-color: #eee;
   }
 
   /* view name (wrap) */
-  >span {
+  > span {
     flex: 1;
     margin-left: var(--iui-size-xs);
   }
@@ -82,7 +81,7 @@ $border-color: #eee;
     box-sizing: border-box;
     padding-top: var(--iui-size-xs);
 
-    >span {
+    > span {
       flex: 1;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -127,7 +126,7 @@ $border-color: #eee;
   }
 
   /* Fill the thumbnail (should we fill differently?) */
-  >img {
+  > img {
     position: absolute;
     top: 0;
     left: 0;
@@ -135,7 +134,7 @@ $border-color: #eee;
     height: 100%;
   }
 
-  >.icon {
+  > .icon {
     position: absolute;
     right: 0;
     top: 0;
@@ -147,7 +146,7 @@ $border-color: #eee;
   }
 
   /* No thumbnail svg (displayed at 50%) */
-  >.no-thumbnail {
+  > .no-thumbnail {
     width: 50%;
 
     path,
@@ -172,7 +171,7 @@ $border-color: #eee;
 
 /* More (...) icon */
 .view-item-more {
-  opacity: .85;
+  opacity: 0.85;
   padding: 2px;
   cursor: pointer;
 

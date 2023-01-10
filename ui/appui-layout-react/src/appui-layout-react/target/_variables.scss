@@ -5,7 +5,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/itwinui-css/scss/style/elevation";
-@import "~@itwin/itwinui-css/scss/style/speed";
 @import "~@itwin/itwinui-variables";
 @import "../outline/variables";
 @import "~@itwin/itwinui-variables";
@@ -57,7 +56,7 @@ $nz-widget-target-border-size: 2px;
   }
 
   animation: nz-grow var(--iui-duration-1) ease-in-out,
-  nz-pulse 3s ease-in-out 2s infinite;
+    nz-pulse 3s ease-in-out 2s infinite;
 }
 
 @mixin nz-targeted-widget-target {

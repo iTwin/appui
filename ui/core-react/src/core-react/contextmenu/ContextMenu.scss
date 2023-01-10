@@ -9,13 +9,12 @@
 @import "../style/opacity";
 @import "../style/themecolors";
 @import "../z-index";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
 
 // cspell:ignore themecolors unbordered
 
 $uicore-menu-padding: $uicore-bordered-padding;
-$uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
+$uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
 
 .core-context-menu-global {
   position: fixed;

@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
 
 .tabstrip {
@@ -33,15 +32,15 @@
 .tabstrip nav ul li.tab-active {
   background: $uicore-white;
   color: rgba($uicore-text-color, 1);
-  -webkit-transition: background .3s;
-  transition: background .3s;
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
 }
 
 .tabstrip nav a {
   position: relative;
   display: block;
   padding: 1em 0;
-  color: rgba($uicore-text-color, .85);
+  color: rgba($uicore-text-color, 0.85);
   text-overflow: ellipsis;
   white-space: nowrap;
   -webkit-transition: color 0.25s;
@@ -58,7 +57,7 @@
 
 .tabstrip nav ul li.tab-active::before,
 .tabstrip nav ul li.tab-active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 2px;
   left: 2px;

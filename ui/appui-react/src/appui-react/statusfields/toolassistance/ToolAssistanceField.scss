@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-css/scss/text/mixins";
 @import "~@itwin/itwinui-variables";
 
@@ -53,7 +52,8 @@ $key-size-modifier: 24px;
   color: $buic-text-color;
   background-color: $buic-background-1;
   border: 1px solid $buic-text-color-disabled;
-  box-shadow: 0 1px 1px $buic-background-5, 0 1px 0 0 rgba(255, 255, 255, .25) inset;
+  box-shadow: 0 1px 1px $buic-background-5,
+    0 1px 0 0 rgba(255, 255, 255, 0.25) inset;
   box-sizing: border-box;
 
   border-radius: var(--iui-border-radius-1);
@@ -166,7 +166,7 @@ $key-size-modifier: 24px;
     align-items: center;
 
     .uifw-toolAssistance-toggle-label {
-      padding-left: .5em;
+      padding-left: 0.5em;
     }
   }
 }
@@ -175,7 +175,7 @@ $key-size-modifier: 24px;
   @include iui-text(leading);
 
   // Tabs are sized at 50% with the labels centered
-  >li {
+  > li {
     width: 50%;
 
     button.iui-tab {

@@ -3,12 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
 
 // backstage common values
 $nz-backstage-width: 300px;
-$nz-backstage-overlay-background: rgba(#222, 0.60);
+$nz-backstage-overlay-background: rgba(#222, 0.6);
 
 $nz-backstage-item-font-size: var(--iui-font-size-2);
 $nz-backstage-subtitle-font-size: var(--iui-font-size-1);

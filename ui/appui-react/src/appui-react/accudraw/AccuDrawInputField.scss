@@ -5,7 +5,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/base/base";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/itwinui-css/scss/style/baseline";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
 
 .uifw-accudraw-input-label {
@@ -57,6 +56,8 @@
   color: $buic-accessory-hollow;
 }
 
-.uifw-accudraw-angle-value {}
+.uifw-accudraw-angle-value {
+}
 
-.uifw-accudraw-distance-value {}
+.uifw-accudraw-distance-value {
+}

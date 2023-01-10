@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
 
 $signin-height: 315px; // 250px;
@@ -59,11 +58,12 @@ $signin-hyperlink-hover-color: $buic-foreground-primary-tone;
   }
 
   /* sign in button */
-  .components-signin-button {}
+  .components-signin-button {
+  }
 
   /* "Register" container */
   .components-signin-register {
-    font-size: .9em;
+    font-size: 0.9em;
     margin-top: 1em;
     text-align: center;
     width: 100%;
@@ -71,7 +71,7 @@ $signin-hyperlink-hover-color: $buic-foreground-primary-tone;
     /* "Register" hyperlink */
     a {
       text-decoration: underline;
-      margin-left: .5em;
+      margin-left: 0.5em;
       color: $signin-hyperlink-color;
       cursor: pointer;
 
@@ -96,5 +96,4 @@ $signin-hyperlink-hover-color: $buic-foreground-primary-tone;
       cursor: pointer;
     }
   }
-
 }

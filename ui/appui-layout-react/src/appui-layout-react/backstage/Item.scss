@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "../prefix";
 @import "../safearea";
 @import "variables";
@@ -18,7 +17,7 @@
   padding-top: $nz-backstage-item-spacing;
   cursor: pointer;
 
-  @include nz-transition(.2s ease);
+  @include nz-transition(0.2s ease);
 
   @include for-tablet-landscape-down {
     padding-bottom: $nz-backstage-item-spacing-medium;
@@ -39,7 +38,7 @@
     background: $nz-backstage-item-active-background;
 
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
@@ -67,19 +66,19 @@
     padding-right: $nz-backstage-icon-spacing-right;
   }
 
-  >div:last-child {
+  > div:last-child {
     display: flex;
     flex-direction: column;
     padding-right: var(--iui-size-s);
     overflow: hidden;
 
-    >span {
+    > span {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
     }
 
-    >span:nth-child(2) {
+    > span:nth-child(2) {
       margin-top: var(--iui-size-xs);
       font-size: $nz-backstage-subtitle-font-size;
       color: $buic-foreground-muted;

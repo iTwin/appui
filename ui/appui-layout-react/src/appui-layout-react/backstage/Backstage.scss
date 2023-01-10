@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "../prefix";
 @import "../safearea";
 @import "../scrollbar";
@@ -26,7 +25,7 @@
   box-sizing: border-box;
 
   @include uicore-z-index(backstage);
-  @include nz-transition(transform .25s ease);
+  @include nz-transition(transform 0.25s ease);
 
   &.nz-open {
     @include nz-transform(translateX(0%));
@@ -40,7 +39,7 @@
     font-size: var(--iui-font-size-0);
   }
 
-  >ul {
+  > ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -49,11 +48,12 @@
     @include nz-scrollbar;
   }
 
-  >.nz-header {
-    border-bottom: $nz-backstage-header-divider-width solid $nz-backstage-divider-color;
+  > .nz-header {
+    border-bottom: $nz-backstage-header-divider-width solid
+      $nz-backstage-divider-color;
   }
 
-  >.nz-footer {
+  > .nz-footer {
     margin-top: auto;
   }
 
@@ -77,7 +77,7 @@
   visibility: hidden;
   background: transparent;
   @include uicore-z-index(backstage);
-  @include nz-transition(.25s ease);
+  @include nz-transition(0.25s ease);
 
   &.nz-open {
     visibility: visible;

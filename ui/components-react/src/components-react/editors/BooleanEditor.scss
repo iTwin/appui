@@ -3,23 +3,22 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
 
 $checkbox-size: calc(var(--iui-font-size-1) * 1.2);
 
 .components-boolean-editor {
-  height:      $checkbox-size;
-  width:       $checkbox-size;
+  height: $checkbox-size;
+  width: $checkbox-size;
   margin-left: 0px;
 
   &.components-cell-editor {
-    border:      none;
+    border: none;
   }
 }
 
 .components-property-list--horizontal {
   .components-boolean-editor {
-    margin-left:        var(--iui-size-xs);    // Clear the resizer in the PropertyGrid
+    margin-left: var(--iui-size-xs); // Clear the resizer in the PropertyGrid
   }
 }
