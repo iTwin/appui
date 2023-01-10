@@ -15,18 +15,19 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PUBLISH_PAT }}
+      - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Set Git Config
         run: |
           git config --local user.email imodeljs-admin@users.noreply.github.com
           git config --local user.name imodeljs-admin
-      - name: Publish pre-release
+
+      - name: Build packages
         run: |
           set -e
           echo 'Installing...'
@@ -35,6 +36,9 @@ jobs:
           echo 'Building...'
           node common/scripts/install-run-rush.js build
 
+      - name: Publish pre-release
+        run: |
+          set -e
           echo 'Publishing...'
           node common/scripts/install-run-rush.js version --bump
           node common/scripts/install-run-rush.js publish --include-all --version-policy prerelease --set-access-level public --apply --publish --npm-auth-token $NPM_TOKEN --target-branch next --tag next
