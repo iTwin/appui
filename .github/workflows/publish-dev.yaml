@@ -1,0 +1,42 @@
+# This workflow will install dependencies, build the monorepo, and publish packages from the "master" branch as pre-releases
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: AppUi NPM Publish dev pre-release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PUBLISH_PAT }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Set Git Config
+        run: |
+          git config --local user.email imodeljs-admin@users.noreply.github.com
+          git config --local user.name imodeljs-admin
+      - name: Publish pre-release
+        run: |
+          set -e
+          echo 'Installing...'
+          node common/scripts/install-run-rush.js install
+
+          echo 'Building...'
+          node common/scripts/install-run-rush.js build
+
+          echo 'Publishing...'
+          node common/scripts/install-run-rush.js version --bump
+          node common/scripts/install-run-rush.js publish --include-all --version-policy prerelease --set-access-level public --apply --publish --npm-auth-token $NPM_TOKEN --target-branch next --tag next
+        env:
+          NPM_TOKEN: ${{ secrets.NPMJS_PUBLISH_ITWIN }}
