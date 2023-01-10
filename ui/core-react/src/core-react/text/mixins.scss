@@ -24,6 +24,6 @@
 
   font-size:          map-get( $sizes, $type );
   font-weight:        var(--iui-font-weight-normal);
-  line-height:        $iui-line-height;
+  line-height:        var(--iui-size-l);
   color:              $buic-text-color;
 }
