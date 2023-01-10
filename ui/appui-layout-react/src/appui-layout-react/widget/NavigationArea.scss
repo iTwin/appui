@@ -3,11 +3,12 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/speed";
+@import "~@itwin/itwinui-variables";
 @import "./tools/button/variables";
 @import "../widgetopacity";
 
 .nz-widget-navigationArea {
-  transition: visibility $iui-speed ease, opacity $iui-speed ease;
+  transition: visibility var(--iui-duration-2) ease, opacity var(--iui-duration-2) ease;
 
   &.nz-hidden {
     opacity: 0;

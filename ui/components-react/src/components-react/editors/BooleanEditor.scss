@@ -6,7 +6,7 @@
 @import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-variables";
 
-$checkbox-size: var(--iui-font-size-1) * 1.2;
+$checkbox-size: calc(var(--iui-font-size-1) * 1.2);
 
 .components-boolean-editor {
   height:      $checkbox-size;

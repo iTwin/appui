@@ -4,12 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/speed";
 @import "variables";
+@import "~@itwin/itwinui-variables";
 
 .nz-outline-panelOutline {
   background-color: $nz-outline-color;
   position: absolute;
   transform: scale(1);
-  transition: transform $iui-speed-fast ease-in;
+  transition: transform var(--iui-duration-1) ease-in;
   width: 100%;
   height: 100%;
 

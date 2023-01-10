@@ -7,6 +7,7 @@
 @import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-css/scss/style/variables";
 @import "~@itwin/itwinui-variables";
+@import "~@itwin/itwinui-variables";
 
 // cspell:ignore unbordered
 
@@ -28,7 +29,7 @@
   box-sizing:             border-box;
   box-shadow:             transparent 0px 1px 1px inset;
   border:                 1px solid transparent;
-  transition:             all $iui-speed-fast ease-in-out;
+  transition:             all var(--iui-duration-1) ease-in-out;
 
   &:active,
   &:focus {

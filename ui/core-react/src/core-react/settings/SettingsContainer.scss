@@ -37,7 +37,7 @@ div.core-settings-container {
     .core-settings-container-right-header {
       display: flex;
       width: 100%;
-      height: (var(--iui-font-size-4) * 2);
+      height: calc(var(--iui-font-size-4) * 2);
       font-size: var(--iui-font-size-4);
       font-weight: var(--iui-font-weight-semibold);
       padding-left: 15px;

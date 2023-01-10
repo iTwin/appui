@@ -4,12 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 @import "../style/index";
 @import "~@itwin/itwinui-css/scss/style/speed";
+@import "~@itwin/itwinui-variables";
 
 @mixin uicore-expandable-blocks-list {
 
   > div {
 
-    transition:               margin $iui-speed-fast ease-in-out;
+    transition:               margin var(--iui-duration-1) ease-in-out;
 
     > .iui-header {
 

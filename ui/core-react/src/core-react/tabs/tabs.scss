@@ -62,7 +62,7 @@
         content:            "";
         position:           absolute;
         z-index:            1;
-        transition:         all $iui-speed-fast;
+        transition:         all var(--iui-duration-1);
         top:                0;
         left:               0;
         background:         $buic-foreground-primary;

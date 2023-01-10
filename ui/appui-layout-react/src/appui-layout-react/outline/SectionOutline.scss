@@ -3,13 +3,14 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/speed";
+@import "~@itwin/itwinui-variables";
 @import "variables";
 
 .nz-outline-sectionOutline {
   background-color: $nz-outline-color;
 
   &.nz-horizontal {
-    transition: width $iui-speed-fast ease-in;
+    transition: width var(--iui-duration-1) ease-in;
     height: 100%;
     width: 50%;
     top: 0;
@@ -28,7 +29,7 @@
   }
 
   &.nz-vertical {
-    transition: height $iui-speed-fast ease-in;
+    transition: height var(--iui-duration-1) ease-in;
     width: 100%;
     height: 50%;
     left: 0;

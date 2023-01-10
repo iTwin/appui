@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/itwinui-css/scss/style/speed";
+@import "~@itwin/itwinui-variables";
 @import "variables";
 
 .components-toolbar-button-item.components-ellipsis-icon {
@@ -48,7 +49,7 @@
 
   @include uicore-z-index(toolbar-panels);
 
-  transition: visibility $iui-speed ease, opacity $iui-speed ease;
+  transition: visibility var(--iui-duration-2) ease, opacity var(--iui-duration-2) ease;
 
   &.nz-hidden {
     opacity: 0;

@@ -52,7 +52,7 @@
   &:hover:not(.core-disabled) input ~ .core-checkbox-checkmark,
   &:hover:not(.core-disabled) input ~ .core-checkbox-indeterminate {
     border-color:     $buic-foreground-activehover;
-    transition:       all $iui-speed-fast ease-out;
+    transition:       all var(--iui-duration-1) ease-out;
   }
 
   & input:checked ~ .core-checkbox-checkmark,

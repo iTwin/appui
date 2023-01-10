@@ -3,6 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/speed";
+@import "~@itwin/itwinui-variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 @mixin rotate($amount) {
@@ -60,7 +61,7 @@
   font-size: 14px;
   height: 100%;
   width: 100%;
-  transition: transform $iui-speed-fast ease-in-out, -webkit-transform $iui-speed-fast ease-in-out;
+  transition: transform var(--iui-duration-1) ease-in-out, -webkit-transform var(--iui-duration-1) ease-in-out;
 
   >.components-property-label-renderer {
     flex: 1;
@@ -75,7 +76,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    @include transition($iui-speed-fast, ease-in-out);
+    @include transition(var(--iui-duration-1), ease-in-out);
 
     &.components-expanded {
       @include rotate(90deg);

@@ -6,6 +6,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/itwinui-css/scss/style/elevation";
 @import "~@itwin/itwinui-css/scss/style/speed";
+@import "~@itwin/itwinui-variables";
 @import "../outline/variables";
 @import "~@itwin/itwinui-variables";
 
@@ -22,7 +23,7 @@ $nz-widget-target-border-size: 2px;
   border-radius: var(--iui-border-radius-1);
   box-sizing: border-box;
   background-color: $nz-widget-target-background;
-  transition: transform $iui-speed-fast ease-in;
+  transition: transform var(--iui-duration-1) ease-in;
   pointer-events: all;
   display: flex;
   box-shadow: $iui-elevation-8;
@@ -55,7 +56,7 @@ $nz-widget-target-border-size: 2px;
     }
   }
 
-  animation: nz-grow $iui-speed-fast ease-in-out,
+  animation: nz-grow var(--iui-duration-1) ease-in-out,
   nz-pulse 3s ease-in-out 2s infinite;
 }
 

@@ -5,6 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/core-react/lib/cjs/core-react/geometry";
 @import "~@itwin/itwinui-css/scss/style/speed";
+@import "~@itwin/itwinui-variables";
 @import "variables";
 @import "~@itwin/itwinui-variables";
 
@@ -78,7 +79,7 @@
   border-style: solid;
   border-radius: var(--iui-border-radius-1);
 
-  transition: visibility $iui-speed ease, opacity $iui-speed ease;
+  transition: visibility var(--iui-duration-2) ease, opacity var(--iui-duration-2) ease;
 
   &.nz-hidden {
     opacity: 0;

@@ -9,6 +9,7 @@
 @import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-css/scss/style/variables";
 @import "~@itwin/itwinui-variables";
+@import "~@itwin/itwinui-variables";
 
 @mixin uicore-inputs-input {
 
@@ -26,7 +27,7 @@
   border-radius:          var(--iui-border-radius-1);
   box-shadow:             $buic-inputs-boxshadow 0px 1px 1px inset;
   box-sizing:             border-box;
-  transition:             border-color $iui-speed-fast ease-in-out, box-shadow $iui-speed-fast ease-in-out;
+  transition:             border-color var(--iui-duration-1) ease-in-out, box-shadow var(--iui-duration-1) ease-in-out;
 
   &:-ms-input-placeholder {       color: $buic-foreground-disabled; }
   &::-webkit-input-placeholder {  color: $buic-foreground-disabled; }
