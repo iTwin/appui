@@ -14,7 +14,7 @@ $node-font-size: var(--iui-font-size-1);
   box-sizing: border-box;
   width: fit-content;
   min-width: 100%;
-  font-family: $iui-sans;
+  font-family: var(--iui-font-sans);
   font-size: $node-font-size;
   color: $buic-text-color;
   white-space: nowrap;

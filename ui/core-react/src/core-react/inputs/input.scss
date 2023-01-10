@@ -9,7 +9,6 @@
 @import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-css/scss/style/variables";
 @import "~@itwin/itwinui-variables";
-@import "~@itwin/itwinui-variables";
 
 @mixin uicore-inputs-input {
 
@@ -17,7 +16,7 @@
   width:                  100%;
   padding:                $uicore-inputs-padding-bordered $uicore-bordered-padding;
   margin:                 $uicore-inputs-margin 0;
-  font-family:            $iui-font-family;
+  font-family:            var(--iui-font-sans);
   font-size:              var(--iui-font-size-1);
   line-height:            normal;
   color:                  $buic-text-color;

@@ -7,7 +7,7 @@
 @import "~@itwin/itwinui-variables";
 
 button.components-colorpicker-popup-button {
-  font-family: $iui-font-family;
+  font-family: var(--iui-font-sans);
   font-size: var(--iui-font-size-1);
   color: $buic-foreground-body;
   background-color: transparent;

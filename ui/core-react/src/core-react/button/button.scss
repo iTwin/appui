@@ -7,7 +7,6 @@
 @import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-css/scss/style/variables";
 @import "~@itwin/itwinui-variables";
-@import "~@itwin/itwinui-variables";
 
 // cspell:ignore unbordered
 
@@ -22,7 +21,7 @@
   border-radius:          var(--iui-border-radius-1);
   line-height:            $uicore-button-line-height;
   outline:                none;
-  font-family:            $iui-font-family;
+  font-family:            var(--iui-font-sans);
   font-size:              var(--iui-font-size-1);
   text-decoration:        none;
   cursor:                 pointer;

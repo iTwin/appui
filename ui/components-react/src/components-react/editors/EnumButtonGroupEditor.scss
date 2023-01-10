@@ -26,7 +26,7 @@ $components-enumbuttongroup-editor-item-border-width: 1px;
 $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
 
 .components-enumbuttongroup-editor {
-  font-family: $iui-font-family;
+  font-family: var(--iui-font-sans);
   font-size: var(--iui-font-size-1);
   background: $buic-background-control;
   width: fit-content;

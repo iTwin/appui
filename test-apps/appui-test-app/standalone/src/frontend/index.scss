@@ -9,7 +9,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: $iui-sans;
+  font-family: var(--iui-font-sans);
   font-size: var(--iui-font-size-1);
   color: $buic-foreground-body;
 }
