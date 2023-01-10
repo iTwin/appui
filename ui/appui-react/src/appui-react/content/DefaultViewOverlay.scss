@@ -5,6 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/itwinui-css/scss/style/variables";
+@import "~@itwin/itwinui-variables";
 
 // 40px is used to ensure scrubber is not drawn behind a widget tab
 .uifw-view-overlay {

@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "./style/opacity.scss";
 @import "~@itwin/itwinui-css/scss/style/typography";
+@import "~@itwin/itwinui-variables";
 
 $title-weight: var(--iui-font-weight-normal);
 $title-size: var(--iui-font-size-2);
