@@ -29,7 +29,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/presentation-common': ^3.5.1
       '@itwin/presentation-components': ^3.5.1
       '@itwin/presentation-frontend': ^3.5.1
@@ -129,7 +129,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/map-layers': ^3.5.1
       '@itwin/map-layers-auth': ^3.5.1
       '@itwin/presentation-backend': ^3.5.1
@@ -307,7 +307,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/map-layers': ^3.5.1
       '@itwin/map-layers-auth': ^3.5.1
       '@itwin/presentation-backend': ^3.5.1
@@ -460,7 +460,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/presentation-common': ^3.5.1
       '@itwin/presentation-components': ^3.5.1
       '@itwin/presentation-frontend': ^3.5.1
@@ -552,7 +552,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/map-layers': ^3.5.1
       '@itwin/map-layers-auth': ^3.5.1
       '@itwin/presentation-backend': ^3.5.1
@@ -766,7 +766,7 @@ importers:
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^3.5.1
       '@itwin/itwinui-css': 0.x
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
       '@testing-library/user-event': ^14.4.2
@@ -881,7 +881,7 @@ importers:
       '@itwin/itwinui-icons': ^1.14.0
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/presentation-common': ^3.5.1
       '@itwin/presentation-components': ^3.5.1
       '@itwin/presentation-frontend': ^3.5.1
@@ -1030,7 +1030,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
@@ -1167,7 +1167,7 @@ importers:
       '@itwin/eslint-plugin': ^3.5.1
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-react': ~1.42.0
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
@@ -1282,7 +1282,7 @@ importers:
       '@itwin/eslint-plugin': ^3.5.1
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-react': ~1.42.0
-      '@itwin/itwinui-variables': 1.0.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/webgl-compatibility': ^3.5.1
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
