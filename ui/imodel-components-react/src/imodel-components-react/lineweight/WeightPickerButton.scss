@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/button/button";
-@import "~@itwin/itwinui-variables";
 
 .components-weightpicker-button {
   color: $buic-foreground-body;
@@ -24,7 +23,6 @@
 }
 
 .components-weightpicker-popup {
-
   &.core-popup {
     background: $buic-background-control;
     border: 1px solid $buic-inputs-border;
@@ -37,16 +35,16 @@
     padding: 0 4px;
     border-radius: var(--iui-border-radius-1);
 
-    >ul {
+    > ul {
       padding: 4px 0;
       list-style: none;
       margin: 0.25rem 0;
 
-      >.components-weightpicker-swatch:hover {
+      > .components-weightpicker-swatch:hover {
         background: $buic-row-hover;
       }
 
-      >.components-weightpicker-swatch.active {
+      > .components-weightpicker-swatch.active {
         background: $buic-row-selection;
       }
     }

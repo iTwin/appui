@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-variables";
 
 $cube-outer-width: 96px;
 $button-width: 20px;
@@ -45,7 +44,7 @@ $arrow-margin: -3px;
         font-size: var(--iui-font-size-1);
         font-weight: var(--iui-font-weight-semibold);
         color: $buic-text-color;
-        box-shadow: inset 0px 0px 1.0px 0.2px #000;
+        box-shadow: inset 0px 0px 1px 0.2px #000;
 
         .face-row {
           display: flex;
@@ -104,7 +103,6 @@ $arrow-margin: -3px;
 
       &.cube-dragging {
         .face-row .face-cell {
-
           &.cube-hover,
           &.cube-active {
             background: transparent;
@@ -115,7 +113,10 @@ $arrow-margin: -3px;
         .cube-right,
         .cube-front,
         .cube-back {
-          background: linear-gradient(#{$grad-start-highlight}, #{$grad-end-highlight});
+          background: linear-gradient(
+            #{$grad-start-highlight},
+            #{$grad-end-highlight}
+          );
         }
 
         .cube-top {

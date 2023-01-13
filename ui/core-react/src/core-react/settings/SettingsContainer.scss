@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 
 @import "../style/themecolors";
-@import "~@itwin/itwinui-variables";
 
 div.core-settings-container {
   display: flex;
@@ -12,7 +11,9 @@ div.core-settings-container {
   height: 100%;
   width: 100%;
 
-  *, *:before, *:after {
+  *,
+  *:before,
+  *:after {
     box-sizing: inherit;
   }
 
@@ -20,7 +21,7 @@ div.core-settings-container {
     min-width: 15em;
     height: 100%;
     overflow: auto;
-    >.uicore-tabs-vertical {
+    > .uicore-tabs-vertical {
       font-size: 16px;
     }
   }

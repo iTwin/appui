@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/itwinui-variables";
 
 .uif-toolsetting-label-docked-horizontal {
   padding-right: 0.5em;
@@ -19,8 +18,8 @@
 .uifw-standard-toolsettings-two-column-grid {
   display: grid;
   grid-template-columns: auto 1fr;
-  row-gap: .5em;
-  column-gap: .75em;
+  row-gap: 0.5em;
+  column-gap: 0.75em;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

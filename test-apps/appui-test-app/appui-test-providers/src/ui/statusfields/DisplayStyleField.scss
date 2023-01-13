@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
-@import "~@itwin/itwinui-variables";
 
 .uifw-statusFields-displayStyle {
   $font-size-medium: var(--iui-font-size-0);
@@ -17,7 +16,7 @@
     max-width: 20em;
   }
 
-  >.uifw-statusFields-displayStyle-label {
+  > .uifw-statusFields-displayStyle-label {
     display: inline;
     padding-right: 4px;
 

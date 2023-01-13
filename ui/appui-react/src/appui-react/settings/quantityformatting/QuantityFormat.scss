@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-variables";
 
 .quantity-formatting-container {
   box-sizing: border-box;
@@ -25,7 +24,7 @@
     display: flex;
     flex-direction: column;
 
-    >span.uicore-label {
+    > span.uicore-label {
       font-size: 18px;
     }
   }
@@ -40,7 +39,7 @@
     height: 100%;
     width: auto;
 
-    >.left-panel {
+    > .left-panel {
       flex-direction: column;
       min-width: 260px;
       width: auto;
@@ -56,7 +55,7 @@
       }
     }
 
-    >.right-panel {
+    > .right-panel {
       display: flex;
       flex-direction: column;
       width: auto;
@@ -87,7 +86,7 @@
             margin-left: 10px;
           }
 
-          >span.components-inline {
+          > span.components-inline {
             display: flex;
             flex-direction: row;
             align-items: center;

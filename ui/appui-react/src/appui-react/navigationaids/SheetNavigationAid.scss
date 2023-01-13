@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/index";
-@import "~@itwin/itwinui-variables";
 
 .uifw-sheet-navigation {
   height: 96px;
@@ -21,12 +20,12 @@
   align-items: center;
   justify-content: center;
 
-  >.sheet-title {
+  > .sheet-title {
     font-size: 12px;
     font-weight: bold;
   }
 
-  >.sheet-name {
+  > .sheet-name {
     cursor: pointer;
     font-size: 11px;
     z-index: 1;
@@ -39,18 +38,18 @@
     }
   }
 
-  >.sheet-container {
+  > .sheet-container {
     flex: 1 1 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 11px;
 
-    >* {
+    > * {
       text-align: center;
     }
 
-    >.sheet-caret {
+    > .sheet-caret {
       cursor: pointer;
       font-size: 15px;
       filter: drop-shadow(0 1px 0 $buic-foreground-body-reverse);
@@ -71,8 +70,12 @@
     }
   }
 
-  >.gradient {
-    background: linear-gradient(to bottom, $buic-button-gradient1, $buic-button-gradient2);
+  > .gradient {
+    background: linear-gradient(
+      to bottom,
+      $buic-button-gradient1,
+      $buic-button-gradient2
+    );
     position: absolute;
     width: 100%;
     height: 100%;

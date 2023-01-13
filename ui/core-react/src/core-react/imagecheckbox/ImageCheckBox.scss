@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "../style/index.scss";
 @import "../icons/variables.scss";
-@import "~@itwin/itwinui-variables";
 
 .core-image-checkbox {
   display: inline-block;
@@ -39,7 +38,7 @@
 
   input[type="checkbox"]:disabled:not(:checked) + .image,
   input[type="checkbox"]:disabled:checked + .image {
-    opacity: .25;
+    opacity: 0.25;
   }
 
   /* accessibility */
@@ -49,7 +48,7 @@
 }
 .image-checkbox-border {
   border: 1px solid $buic-foreground-disabled;
-  background-color:  $buic-background-control;
+  background-color: $buic-background-control;
   border-radius: var(--iui-border-radius-1);
   padding: 1px 3px 0 2px;
 }

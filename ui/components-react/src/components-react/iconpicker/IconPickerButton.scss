@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/itwinui-variables";
 
 .components-iconpicker-button {
   color: $buic-foreground-body;
@@ -25,7 +24,7 @@
   .icon {
     margin-left: 4px;
     font-size: 10px;
-    transition: color .1s ease;
+    transition: color 0.1s ease;
   }
 
   &:not(.readonly) {
@@ -68,7 +67,7 @@
         }
 
         &[disabled] {
-          opacity: .2;
+          opacity: 0.2;
         }
       }
     }

@@ -3,43 +3,33 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "../style/index";
-@import "~@itwin/itwinui-variables";
 
 @mixin uicore-expandable-blocks-list {
-
   > div {
-
-    transition:               margin var(--iui-duration-1) ease-in-out;
+    transition: margin var(--iui-duration-1) ease-in-out;
 
     > .iui-header {
-
-      border-color:           $uicore-gray-a transparent transparent;
+      border-color: $uicore-gray-a transparent transparent;
     }
 
     &:first-child {
-
       > .iui-header {
-
-        border-top-color:   transparent;
+        border-top-color: transparent;
       }
     }
   }
 
   > .iui-expanded + div {
-
     > .iui-header {
-
-      border-top-color:       transparent;
+      border-top-color: transparent;
     }
 
-    &.iui-expanded  > .iui-header {
-
-        border-top-color:       $uicore-blue;
+    &.iui-expanded > .iui-header {
+      border-top-color: $uicore-blue;
     }
   }
 
   > .iui-expanded + .iui-expanded {
-
-    margin-top:                 0; // $uicore-unbordered-padding;
+    margin-top: 0; // $uicore-unbordered-padding;
   }
 }

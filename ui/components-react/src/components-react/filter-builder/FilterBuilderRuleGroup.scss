@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/itwinui-css/scss/style/index";
 @import "~@itwin/itwinui-css/scss/button/disabled";
-@import "~@itwin/itwinui-variables";
 
 .filter-builder > .rule-group {
   & > .rule-group-content {
@@ -22,17 +21,20 @@
   grid-template-columns: min-content auto;
   padding: 11px 0;
 
-  &[data-isactive=true] > .rule-group-remove-action {
+  &[data-isactive="true"] > .rule-group-remove-action {
     visibility: visible;
   }
 
-  &[data-isactive=true] > .rule-group-content {
+  &[data-isactive="true"] > .rule-group-content {
     @include themed {
       border-color: t(iui-color-background-1--light);
     }
   }
 
-  &[data-isactive=false] > .rule-group-content > .rule-group-actions .iui-button {
+  &[data-isactive="false"]
+    > .rule-group-content
+    > .rule-group-actions
+    .iui-button {
     @include themed {
       color: t(iui-icons-color);
     }

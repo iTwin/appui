@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-variables";
 
 .components-time {
   display: inline-flex;
@@ -39,7 +38,8 @@
       border: 1px solid $buic-inputs-border;
       border-radius: var(--iui-border-radius-1);
       border-color: var(--buic-foreground-focus-border);
-      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
+        var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
       z-index: 1;
       /* bump z-index so drop shadow in not cut off by AM/PM */
     }
@@ -60,7 +60,8 @@
       border: 1px solid $buic-inputs-border;
       border-radius: var(--iui-border-radius-1);
       border-color: var(--buic-foreground-focus-border);
-      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
+        var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
     }
   }
 

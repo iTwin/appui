@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "../style/themecolors.scss";
-@import "~@itwin/itwinui-variables";
 
 $node-font-size: var(--iui-font-size-1);
 
@@ -68,12 +67,13 @@ $node-font-size: var(--iui-font-size-1);
     }
   }
 
-  &.is-focused, &:focus {
+  &.is-focused,
+  &:focus {
     outline: 1px dotted #000;
   }
 
   &:not(.is-hover-disabled) {
-    &:hover{
+    &:hover {
       background: $buic-row-hover;
     }
   }

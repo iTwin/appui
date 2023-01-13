@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/expandable/list";
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
-@import "~@itwin/itwinui-variables";
 
 .components-virtualized-property-grid-loader {
   height: 100%;
@@ -83,7 +82,7 @@
 .virtualized-grid-node-custom-category {
   padding-top: 4px;
 
-  .iui-expandable-content>div {
+  .iui-expandable-content > div {
     padding: 0 4px 4px 4px;
   }
 }

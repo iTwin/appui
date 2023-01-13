@@ -6,7 +6,6 @@
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/scrollbar";
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-variables";
 
 $outline-size: 2px;
 
@@ -68,7 +67,7 @@ $outline-size: 2px;
     padding: 0 20px;
     text-align: center;
     color: $uicore-gray;
-    color: rgba($uicore-text-color, .85);
+    color: rgba($uicore-text-color, 0.85);
     pointer-events: none;
 
     .default-prompt {
@@ -77,9 +76,9 @@ $outline-size: 2px;
   }
 
   .fade-in {
-    -webkit-animation: show ease-in .25s;
-    -moz-animation: show ease-in .25s;
-    animation: show ease-in .25s;
+    -webkit-animation: show ease-in 0.25s;
+    -moz-animation: show ease-in 0.25s;
+    animation: show ease-in 0.25s;
 
     -webkit-animation-fill-mode: forwards;
     -moz-animation-fill-mode: forwards;

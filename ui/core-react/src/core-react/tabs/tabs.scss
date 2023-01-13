@@ -4,41 +4,37 @@
 *--------------------------------------------------------------------------------------------*/
 @import "../style/index";
 @import "../icons/variables";
-@import "~@itwin/itwinui-variables";
 
 @mixin uicore-tabs {
-
-  display:            block;
-  list-style:         none;
-  padding:            0;
-  margin:             0;
-  box-sizing:         border-box;
-  border:             none;
-  outline:            none;
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
 
   > li {
-
-    display:        block;
-    position:       relative;
-    padding:        0;
-    margin:         0;
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 0;
 
     &.core-tab-item-disabled {
       pointer-events: none;
     }
 
     > a {
-
-      display:        block;
-      position:       relative;
-      padding:        $uicore-bordered-padding ( var(--iui-font-size-1) - 1px ) $uicore-unbordered-padding;
-      margin:         0;
-      line-height:    var(--iui-size-l);
-      color:          $buic-text-color;
-      cursor:         pointer;
+      display: block;
+      position: relative;
+      padding: $uicore-bordered-padding (var(--iui-font-size-1) - 1px)
+        $uicore-unbordered-padding;
+      margin: 0;
+      line-height: var(--iui-size-l);
+      color: $buic-text-color;
+      cursor: pointer;
 
       .uicore-tabs-inline-label {
-
         &.core-tab-item-disabled {
           color: $buic-foreground-disabled;
 
@@ -48,46 +44,40 @@
         }
 
         .uicore-tabs-icon {
-          width: ( $uicore-icons-small + 12px );
-          height: ( $uicore-icons-small + 12px );
+          width: ($uicore-icons-small + 12px);
+          height: ($uicore-icons-small + 12px);
           display: flex;
           align-items: center;
         }
       }
 
       &::after {
-
-        content:            "";
-        position:           absolute;
-        z-index:            1;
-        transition:         all var(--iui-duration-1);
-        top:                0;
-        left:               0;
-        background:         $buic-foreground-primary;
-        opacity:            0;
+        content: "";
+        position: absolute;
+        z-index: 1;
+        transition: all var(--iui-duration-1);
+        top: 0;
+        left: 0;
+        background: $buic-foreground-primary;
+        opacity: 0;
       }
 
       &:hover {
-
-        text-decoration:    none;
-        color:              $buic-foreground-activehover;
+        text-decoration: none;
+        color: $buic-foreground-activehover;
 
         &::after {
-
-          opacity:        1;
+          opacity: 1;
         }
       }
     }
 
     &.core-active {
-
       > a {
-
-        font-weight:        var(--iui-font-weight-bold);
+        font-weight: var(--iui-font-weight-bold);
 
         &::after {
-
-          opacity:        1;
+          opacity: 1;
         }
       }
     }
@@ -111,6 +101,6 @@
   }
 
   &.uicore-tabs-green > li > a::after {
-    background-color:     $buic-foreground-success;
+    background-color: $buic-foreground-success;
   }
 }

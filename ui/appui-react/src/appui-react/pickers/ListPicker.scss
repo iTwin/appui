@@ -7,7 +7,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
 @import "~@itwin/core-react/lib/cjs/core-react/typography";
-@import "~@itwin/itwinui-variables";
 
 $no-shadow: none;
 $shadow: drop-shadow(0 1px 0 $buic-text-color-reverse);
@@ -85,7 +84,6 @@ $item-height: 32px;
   display: table-cell;
 }
 
-
 .ListPicker-item {
   $label-color: $buic-text-color;
   $pressed-label-color: $buic-foreground-activehover;
@@ -107,7 +105,7 @@ $item-height: 32px;
 
   @include body;
 
-  >.label {
+  > .label {
     display: inline-block;
     margin-right: $space-after-label;
     margin-left: $space-before-label;
@@ -130,7 +128,7 @@ $item-height: 32px;
 
     @include body1;
 
-    >.icon,
+    > .icon,
     .label {
       filter: $shadow;
     }
@@ -140,7 +138,7 @@ $item-height: 32px;
     background: $buic-row-selection;
     color: $pressed-label-color;
 
-    >.icon,
+    > .icon,
     .label {
       filter: $no-shadow;
     }
@@ -158,7 +156,7 @@ $item-height: 32px;
 
     @include body1;
 
-    >.icon,
+    > .icon,
     .label {
       filter: $shadow;
     }
@@ -170,7 +168,7 @@ $item-height: 32px;
     @include body1;
 
     &::before {
-      content: '';
+      content: "";
       background-color: $active-label-color;
       display: block;
       position: relative;
@@ -181,7 +179,7 @@ $item-height: 32px;
       border-radius: 2px;
     }
 
-    >.icon,
+    > .icon,
     .label {
       filter: $no-shadow;
     }
@@ -209,7 +207,7 @@ $item-height: 32px;
 
   @include body;
 
-  >.label {
+  > .label {
     display: inline-block;
     margin-right: $space-after-label;
     margin-left: $space-before-label;
@@ -232,7 +230,7 @@ $item-height: 32px;
 
     @include body1;
 
-    >.icon,
+    > .icon,
     .label {
       filter: drop-shadow(0 1px 0 $buic-text-color-reverse);
     }
@@ -242,7 +240,7 @@ $item-height: 32px;
     background: $buic-foreground-primary-tone;
     color: $pressed-label-color;
 
-    >.icon,
+    > .icon,
     .label {
       filter: drop-shadow(0 1px 0 $buic-text-color-reverse);
     }
@@ -256,7 +254,7 @@ $item-height: 32px;
 
     @include body1;
 
-    >.icon,
+    > .icon,
     .label {
       filter: drop-shadow(0 1px 0 $buic-text-color-reverse);
     }
@@ -268,7 +266,7 @@ $item-height: 32px;
     @include body1;
 
     &::before {
-      content: '';
+      content: "";
       background-color: $active-label-color;
       display: block;
       position: relative;
@@ -279,7 +277,7 @@ $item-height: 32px;
       border-radius: 2px;
     }
 
-    >.icon,
+    > .icon,
     .label {
       filter: $no-shadow;
     }

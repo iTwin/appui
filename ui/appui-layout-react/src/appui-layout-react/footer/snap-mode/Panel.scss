@@ -6,7 +6,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "../variables";
 @import "~@itwin/core-react/lib/cjs/core-react/typography";
-@import "~@itwin/itwinui-variables";
 
 .nz-footer-snapMode-panel {
   background-color: $buic-background-dialog;
@@ -14,7 +13,7 @@
   overflow: hidden;
   font-size: $text-font-size;
 
-  >.nz-snaps {
+  > .nz-snaps {
     display: grid;
     grid-gap: 8px;
     padding: 8px;

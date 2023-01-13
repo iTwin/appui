@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "../index";
-@import "~@itwin/itwinui-variables";
 
 $uicore-list-item-height: calc(var(--iui-size-s) * 2);
 
@@ -39,7 +38,7 @@ ul.core-listbox {
     line-height: $uicore-list-item-height;
     padding-left: 4px;
 
-    &[aria-selected='true'] {
+    &[aria-selected="true"] {
       background-color: $buic-row-selection;
     }
 
