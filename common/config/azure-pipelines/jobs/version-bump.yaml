@@ -27,8 +27,8 @@ parameters:
     - patch
     - releaseCandidate
 
-variables:
-  - group: Caleb - iTwin GitHub Token
+# variables:
+#   - group: Caleb - iTwin GitHub Token
 
 trigger: none
 pr: none
