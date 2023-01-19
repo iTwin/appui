@@ -3,9 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "../style/themecolors.scss";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
-$node-font-size: $iui-font-size;
+$node-font-size: var(--iui-font-size-1);
 
 .core-tree-node {
   /* Rules applied to the <be-tree-node> itself */
@@ -13,7 +12,7 @@ $node-font-size: $iui-font-size;
   box-sizing: border-box;
   width: fit-content;
   min-width: 100%;
-  font-family: $iui-sans;
+  font-family: var(--iui-font-sans);
   font-size: $node-font-size;
   color: $buic-text-color;
   white-space: nowrap;
@@ -68,12 +67,13 @@ $node-font-size: $iui-font-size;
     }
   }
 
-  &.is-focused, &:focus {
+  &.is-focused,
+  &:focus {
     outline: 1px dotted #000;
   }
 
   &:not(.is-hover-disabled) {
-    &:hover{
+    &:hover {
       background: $buic-row-hover;
     }
   }

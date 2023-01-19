@@ -10,7 +10,7 @@
   line-height: normal;
   background: $fill-color;
   padding: 8px;
-  border-radius: 4px;
+  border-radius: var(--iui-border-radius-1);
   pointer-events: auto;
   border: 1px solid $buic-background-widget-stroke;
   font-size: $font-size;

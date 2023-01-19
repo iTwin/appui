@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/itwinui-css/scss/style/space";
 @import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
@@ -15,21 +14,21 @@
 
 .uifw-uifw-sections-toggle-container {
   display: flex;
-  margin: $iui-xs;
+  margin: var(--iui-size-2xs);
   justify-content: center;
 }
 
 .uifw-sections-toggle {
   align-self: center;
-  margin-right: $iui-s;
+  margin-right: var(--iui-size-xs);
 }
 
 .uifw-sections-label {
   @include iui-font-family;
   color: $buic-text-color;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   align-self: center;
-  margin: $iui-s;
+  margin: var(--iui-size-xs);
 
   &.disabled {
     color: $buic-text-color-disabled;

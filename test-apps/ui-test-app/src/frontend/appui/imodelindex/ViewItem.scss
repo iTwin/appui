@@ -5,8 +5,6 @@
 
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-@import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 $outline-size: 2px;
 
@@ -14,9 +12,9 @@ $border-color: #eee;
 
 /* A single item (view) in list view */
 .view-list-item {
-  font-size: $iui-font-size;
-  margin: 0 6px 0 $iui-m;
-  padding: $iui-s 0;
+  font-size: var(--iui-font-size-1);
+  margin: 0 6px 0 var(--iui-size-m);
+  padding: var(--iui-size-xs) 0;
   color: rgba($uicore-text-color, 0.85);
   display: flex;
   align-items: center;
@@ -24,14 +22,14 @@ $border-color: #eee;
   //border: 2px solid white;
   box-sizing: border-box;
   cursor: pointer;
-  -webkit-transition: background-color .2s ease;
-  -moz-transition: background-color .2s ease;
-  -o-transition: background-color .2s ease;
-  transition: background-color .2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 
   /* draw a line below each item */
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -40,9 +38,9 @@ $border-color: #eee;
   }
 
   /* view name (wrap) */
-  >span {
+  > span {
     flex: 1;
-    margin-left: $iui-s;
+    margin-left: var(--iui-size-xs);
   }
 
   /* hover gets a white background and text with full opacity */
@@ -68,7 +66,7 @@ $border-color: #eee;
   display: flex;
   padding: 4px;
   flex-direction: column;
-  border-radius: 4px;
+  border-radius: var(--iui-border-radius-1);
   box-sizing: border-box;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -79,9 +77,9 @@ $border-color: #eee;
     align-items: center;
     font-size: 12px;
     box-sizing: border-box;
-    padding-top: $iui-s;
+    padding-top: var(--iui-size-xs);
 
-    >span {
+    > span {
       flex: 1;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -126,7 +124,7 @@ $border-color: #eee;
   }
 
   /* Fill the thumbnail (should we fill differently?) */
-  >img {
+  > img {
     position: absolute;
     top: 0;
     left: 0;
@@ -134,7 +132,7 @@ $border-color: #eee;
     height: 100%;
   }
 
-  >.icon {
+  > .icon {
     position: absolute;
     right: 0;
     top: 0;
@@ -146,7 +144,7 @@ $border-color: #eee;
   }
 
   /* No thumbnail svg (displayed at 50%) */
-  >.no-thumbnail {
+  > .no-thumbnail {
     width: 50%;
 
     path,
@@ -166,12 +164,12 @@ $border-color: #eee;
 .thumbnail-container-small {
   height: 57px; // arbitrary height
   width: 85px; // arbitrary width
-  margin-left: $iui-xs;
+  margin-left: var(--iui-size-2xs);
 }
 
 /* More (...) icon */
 .view-item-more {
-  opacity: .85;
+  opacity: 0.85;
   padding: 2px;
   cursor: pointer;
 
@@ -185,7 +183,7 @@ $border-color: #eee;
 .view-list-item-thumbnail .view-item-thumbnail-container .open {
   display: inline-block;
   text-decoration: none;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   z-index: 2;
   padding: 7px 14px;
   border: 1px solid #fff;

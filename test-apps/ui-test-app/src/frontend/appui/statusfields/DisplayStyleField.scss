@@ -3,12 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 
 .uifw-statusFields-displayStyle {
-  $font-size-medium: $iui-font-size-small;
-  $font-size-small: $iui-font-size-small - 1px;
+  $font-size-medium: var(--iui-font-size-0);
+  $font-size-small: var(--iui-font-size-0) - 1px;
   overflow: hidden;
   padding-right: 0px;
 
@@ -17,7 +16,7 @@
     max-width: 20em;
   }
 
-  >.uifw-statusFields-displayStyle-label {
+  > .uifw-statusFields-displayStyle-label {
     display: inline;
     padding-right: 4px;
 

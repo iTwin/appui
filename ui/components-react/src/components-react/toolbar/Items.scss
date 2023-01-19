@@ -8,14 +8,14 @@
 $separator-color: $buic-text-color-muted;
 
 .components-toolbar-items-container {
-  $border-radius: 3px;
+  $border-radius: var(--iui-border-radius-1);
 
   border-radius: $border-radius;
   display: inline-block;
   vertical-align: bottom;
   box-sizing: border-box;
 
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .35);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.35);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   pointer-events: auto;
@@ -23,14 +23,14 @@ $separator-color: $buic-text-color-muted;
   &.components-vertical {
     width: $components-desktop-toolbar-width;
 
-    >* {
+    > * {
       height: $components-desktop-item-height;
 
       &:not(:first-child) {
         margin-top: $components-desktop-space-between-toolbar-items;
 
         &:before {
-          content: '';
+          content: "";
           display: block;
           position: absolute;
           pointer-events: none;
@@ -46,7 +46,7 @@ $separator-color: $buic-text-color-muted;
   &.components-horizontal {
     height: $components-desktop-toolbar-height;
 
-    >* {
+    > * {
       display: inline-block;
       height: 100%;
       width: $components-desktop-item-width;
@@ -55,7 +55,7 @@ $separator-color: $buic-text-color-muted;
         margin-left: $components-desktop-space-between-toolbar-items;
 
         &:before {
-          content: '';
+          content: "";
           display: block;
           position: absolute;
           pointer-events: none;
@@ -68,7 +68,7 @@ $separator-color: $buic-text-color-muted;
     }
   }
 
-  >* {
+  > * {
     vertical-align: bottom;
   }
 }
@@ -78,7 +78,8 @@ $separator-color: $buic-text-color-muted;
   margin-left: $components-desktop-separator-gap-between-toolbar-items;
 }
 
-div.components-toolbar-items-container.components-toolbar-show-decorators .components-toolbar-item-container.components-horizontal.components-toolbar-button-add-gap-before::before {
+div.components-toolbar-items-container.components-toolbar-show-decorators
+  .components-toolbar-item-container.components-horizontal.components-toolbar-button-add-gap-before::before {
   width: $components-desktop-separator-thickness;
   background-color: $separator-color;
   left: $components-desktop-separator-center-offset;
@@ -88,7 +89,8 @@ div.components-toolbar-items-container.components-toolbar-show-decorators .compo
   margin-top: $components-desktop-separator-gap-between-toolbar-items;
 }
 
-div.components-toolbar-items-container.components-toolbar-show-decorators .components-toolbar-item-container.components-vertical.components-toolbar-button-add-gap-before::before {
+div.components-toolbar-items-container.components-toolbar-show-decorators
+  .components-toolbar-item-container.components-vertical.components-toolbar-button-add-gap-before::before {
   height: $components-desktop-separator-thickness;
   background-color: $separator-color;
   top: $components-desktop-separator-center-offset;

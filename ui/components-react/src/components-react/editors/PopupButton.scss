@@ -7,7 +7,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/baseline";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/style/variables";
-@import "~@itwin/itwinui-css/scss/style/variables";
 
 .components-popup-button {
   min-width: 100%;
@@ -17,7 +16,7 @@
   padding: 0;
   background-color: $buic-background-control;
   border: 1px solid $buic-inputs-border;
-  border-radius: $iui-border-radius;
+  border-radius: var(--iui-border-radius-1);
   box-shadow: $buic-inputs-boxshadow 0px 1px 1px inset;
   box-sizing: border-box;
   cursor: pointer;
@@ -28,9 +27,9 @@
 
   font-weight: normal;
 
-  >.components-popup-button-value {
+  > .components-popup-button-value {
     flex-grow: 1;
-    max-width: calc(100% - #{$uicore-line-height});
+    max-width: calc(100% - var(--iui-size-l));
     overflow-x: hidden;
     padding: 0 3px;
 
@@ -39,13 +38,13 @@
     }
   }
 
-  >.components-popup-button-arrow {
+  > .components-popup-button-arrow {
     background-color: $buic-background-control;
-    width: $uicore-line-height;
-    height: $uicore-line-height;
+    width: var(--iui-size-l);
+    height: var(--iui-size-l);
 
-    >.components-popup-button-arrow-icon {
-      transition: transform .2s;
+    > .components-popup-button-arrow-icon {
+      transition: transform 0.2s;
 
       &:hover {
         color: $buic-foreground-primary;
@@ -53,7 +52,7 @@
 
       text-align: center;
       font-size: $uicore-icons-x-small;
-      line-height: $uicore-line-height;
+      line-height: var(--iui-size-l);
     }
   }
 
@@ -63,17 +62,16 @@
     outline: 0px;
     box-shadow: $uicore-inputs-focus-boxshadow;
 
-    >.components-popup-button-arrow {
+    > .components-popup-button-arrow {
       border: none;
       box-shadow: none;
       outline: 0px;
 
-      >.components-popup-button-arrow-icon {
+      > .components-popup-button-arrow-icon {
         color: $buic-foreground-primary;
       }
     }
   }
-
 }
 
 .components-smallEditor-host {
@@ -95,14 +93,13 @@
   justify-content: flex-end;
   margin-top: 4px;
 
-  >.components-popup-large-button {
+  > .components-popup-large-button {
     width: 70px;
     font-size: 20px;
     margin-left: 6px;
   }
 
-  >.components-popup-cancel-button {
-
+  > .components-popup-cancel-button {
     &,
     &:active,
     &:focus {
@@ -115,6 +112,5 @@
       background-color: $uicore-gray-5;
       color: $uicore-white;
     }
-
   }
 }

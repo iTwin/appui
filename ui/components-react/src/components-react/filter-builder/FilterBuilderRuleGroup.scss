@@ -21,29 +21,32 @@
   grid-template-columns: min-content auto;
   padding: 11px 0;
 
-  &[data-isactive=true] > .rule-group-remove-action {
+  &[data-isactive="true"] > .rule-group-remove-action {
     visibility: visible;
   }
 
-  &[data-isactive=true] > .rule-group-content {
+  &[data-isactive="true"] > .rule-group-content {
     @include themed {
       border-color: t(iui-color-background-1--light);
     }
   }
 
-  &[data-isactive=false] > .rule-group-content > .rule-group-actions .iui-button {
+  &[data-isactive="false"]
+    > .rule-group-content
+    > .rule-group-actions
+    .iui-button {
     @include themed {
       color: t(iui-icons-color);
     }
   }
 
   .rule-group-remove-action {
-    padding: 3px $iui-sm 3px 0;
+    padding: 3px var(--iui-size-s) 3px 0;
     visibility: hidden;
   }
 
   .rule-group-content {
-    padding-left: $iui-sm;
+    padding-left: var(--iui-size-s);
     border-left: 1px solid;
     box-sizing: border-box;
     @include themed {

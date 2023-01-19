@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/core-react/lib/cjs/core-react/geometry";
-@import "~@itwin/itwinui-css/scss/style/speed";
 @import "variables";
 
 .components-toolbar-expandable-button {
@@ -15,14 +14,14 @@
   $arrow-shadow: $icon-shadow;
   position: relative;
 
-  >* {
+  > * {
     &:not(.components-triangle) {
       height: 100%;
       width: 100%;
     }
   }
 
-  >.components-triangle {
+  > .components-triangle {
     border-radius: 0;
     position: absolute;
     right: $margin-from-triangle-to-stroke;
@@ -30,12 +29,14 @@
     filter: $arrow-shadow;
     pointer-events: none;
 
-    @include triangle-bottom-right($width: $triangle-width,
+    @include triangle-bottom-right(
+      $width: $triangle-width,
       $height: $triangle-height,
-      $color: $buic-icon-color );
+      $color: $buic-icon-color
+    );
   }
 
-  &:active>.components-triangle {
+  &:active > .components-triangle {
     filter: $no-shadow;
 
     @include triangle-bottom-right-color($pressed-icon-color);
@@ -43,7 +44,7 @@
 
   &.components-active {
     &:not(:active):not(.components-disabled) {
-      >.components-triangle {
+      > .components-triangle {
         filter: $no-shadow;
 
         @include triangle-bottom-right-color($active-icon-color);
@@ -52,17 +53,17 @@
   }
 
   &.components-disabled {
-    >.components-triangle {
+    > .components-triangle {
       @include triangle-bottom-right-color($disabled-icon-color);
     }
   }
 
   &.components-disabled-drag {
-    >.components-icon {
+    > .components-icon {
       color: $disabled-icon-color;
     }
 
-    >.components-triangle {
+    > .components-triangle {
       @include triangle-bottom-right-color($disabled-icon-color);
     }
   }
@@ -75,9 +76,10 @@
   border-color: $buic-background-5;
   border-width: 1px;
   border-style: solid;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
 
-  transition: visibility $iui-speed ease, opacity $iui-speed ease;
+  transition: visibility var(--iui-duration-2) ease,
+    opacity var(--iui-duration-2) ease;
 
   &.nz-hidden {
     opacity: 0;
