@@ -24,7 +24,7 @@
   height: $item-height;
   color: $label-color;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   display: flex;
   align-items: center;
 
@@ -35,14 +35,14 @@
       background: $buic-row-selection;
       color: $pressed-label-color;
 
-      >.components-icon,
+      > .components-icon,
       .components-label {
         filter: $no-shadow;
       }
     }
   }
 
-  >.components-icon {
+  > .components-icon {
     width: $icon-size;
     height: $icon-size;
     display: inline-block;
@@ -51,7 +51,7 @@
     filter: $shadow;
     position: relative;
 
-    >.components-badge {
+    > .components-badge {
       position: absolute;
       top: -8px;
       left: -8px;
@@ -59,7 +59,7 @@
     }
   }
 
-  >.components-label {
+  > .components-label {
     display: inline-block;
     margin-right: $space-after-label;
     line-height: $item-height;
@@ -82,7 +82,7 @@
 
       @include body1;
 
-      >.components-icon,
+      > .components-icon,
       .components-label {
         filter: $shadow;
       }
@@ -111,7 +111,7 @@
 
     @include body1;
 
-    >.components-icon,
+    > .components-icon,
     .components-label {
       filter: $shadow;
     }
@@ -123,7 +123,7 @@
     @include body1;
 
     &::before {
-      content: '';
+      content: "";
       background-color: $active-label-color;
       display: block;
       position: relative;
@@ -134,7 +134,7 @@
       border-radius: 2px;
     }
 
-    >.components-icon,
+    > .components-icon,
     .components-label {
       filter: $no-shadow;
     }
@@ -143,5 +143,4 @@
   &.components-disabled {
     color: $disabled-label-color;
   }
-
 }
