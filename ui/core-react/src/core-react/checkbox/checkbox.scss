@@ -2,17 +2,12 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-// @import "../style/index";
-@import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/speed";
-@import "~@itwin/itwinui-css/scss/style/typography";
-@import "~@itwin/itwinui-css/scss/style/variables";
+@import "../style/index";
 
 @mixin uicore-inputs-checkbox {
-
   display: block;
   position: relative;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   line-height: normal;
   cursor: pointer;
   user-select: none;
@@ -33,7 +28,7 @@
   }
 
   .core-checkbox-label {
-    padding-left: $iui-l;
+    padding-left: var(--iui-size-l);
   }
 
   .core-checkbox-checkmark,
@@ -44,32 +39,32 @@
     height: 1em;
     width: 1em;
     border: 1px solid $buic-foreground-disabled;
-    background-color:  $buic-background-control;
-    border-radius: $iui-border-radius;
+    background-color: $buic-background-control;
+    border-radius: var(--iui-border-radius-1);
   }
 
   &:hover:not(.core-disabled) input ~ .core-checkbox-checkmark,
   &:hover:not(.core-disabled) input ~ .core-checkbox-indeterminate {
-    border-color:     $buic-foreground-activehover;
-    transition:       all $iui-speed-fast ease-out;
+    border-color: $buic-foreground-activehover;
+    transition: all var(--iui-duration-1) ease-out;
   }
 
   & input:checked ~ .core-checkbox-checkmark,
   & input:checked ~ .core-checkbox-indeterminate {
-    border-color:     $buic-foreground-muted;
+    border-color: $buic-foreground-muted;
   }
 
   & input:active ~ .core-checkbox-checkmark,
   & input:active ~ .core-checkbox-indeterminate,
   & input:focus ~ .core-checkbox-checkmark,
   & input:focus ~ .core-checkbox-indeterminate {
-    border-color:     $buic-foreground-focus-border;
-    box-shadow:       $uicore-inputs-focus-boxshadow;
+    border-color: $buic-foreground-focus-border;
+    box-shadow: $uicore-inputs-focus-boxshadow;
   }
 
   .core-checkbox-checkmark::after,
   .core-checkbox-indeterminate::after {
-    content: '';
+    content: "";
     position: absolute;
     display: none;
   }

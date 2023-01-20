@@ -3,26 +3,22 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "../style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/baseline";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/itwinui-css/scss/text/mixins";
 
 @mixin uicore-text-block-spacing {
-
   @include iui-text-block-spacing;
 }
 
-@mixin uicore-text( $type: body ){
-
+@mixin uicore-text($type: body) {
   $sizes: (
-    body:           $iui-font-size,
-    small:          $iui-font-size-small,
+    body: var(--iui-font-size-1),
+    small: var(--iui-font-size-0),
   );
 
-  $type: if( map-has-key( $sizes, $type ), $type, body );
+  $type: if(map-has-key($sizes, $type), $type, body);
 
-  font-size:          map-get( $sizes, $type );
-  font-weight:        $iui-font-weight-normal;
-  line-height:        $iui-line-height;
-  color:              $buic-text-color;
+  font-size: map-get($sizes, $type);
+  font-weight: var(--iui-font-weight-normal);
+  line-height: var(--iui-size-l);
+  color: $buic-text-color;
 }

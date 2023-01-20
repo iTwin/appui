@@ -9,11 +9,11 @@
 
 .nz-footer-snapMode-panel {
   background-color: $buic-background-dialog;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   overflow: hidden;
   font-size: $text-font-size;
 
-  >.nz-snaps {
+  > .nz-snaps {
     display: grid;
     grid-gap: 8px;
     padding: 8px;

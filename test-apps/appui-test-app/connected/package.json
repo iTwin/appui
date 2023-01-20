@@ -107,6 +107,7 @@
     "@itwin/imodels-client-management": "^2.2.1",
     "@itwin/itwinui-css": "0.x",
     "@itwin/itwinui-react": "2.2.1",
+    "@itwin/itwinui-variables": "^1.0.0",
     "@itwin/itwinui-icons-react": "^1.8.0",
     "@itwin/map-layers": "^3.5.1",
     "@itwin/map-layers-auth": "^3.5.1",

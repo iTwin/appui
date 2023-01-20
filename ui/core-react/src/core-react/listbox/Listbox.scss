@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "../index";
 
-$uicore-list-item-height: $uicore-baseline * 2; ///  22px; /// ~1.618;
+$uicore-list-item-height: calc(var(--iui-size-s) * 2);
 
 ul.core-listbox {
   list-style: none;
@@ -38,7 +38,7 @@ ul.core-listbox {
     line-height: $uicore-list-item-height;
     padding-left: 4px;
 
-    &[aria-selected='true'] {
+    &[aria-selected="true"] {
       background-color: $buic-row-selection;
     }
 

@@ -46,7 +46,7 @@
       background-color: $buic-background-control;
       border: 1px solid $buic-background-toolbutton-stroke;
       cursor: pointer;
-      border-radius: 3px;
+      border-radius: var(--iui-border-radius-1);
       top: 10px;
       left: 0px;
       right: 0px;
@@ -67,7 +67,7 @@
       cursor: pointer;
       background-color: $buic-background-control;
       border: 1px solid $buic-background-toolbutton-stroke;
-      border-radius: 3px;
+      border-radius: var(--iui-border-radius-1);
       right: 10px;
       top: 10px;
 
@@ -96,7 +96,7 @@
         opacity: 1;
       }
 
-      border-radius: 3px;
+      border-radius: var(--iui-border-radius-1);
       bottom: 10px;
       left: 10px;
       height: 16px;
@@ -109,7 +109,7 @@
     .zoom {
       position: absolute;
       border: 1px solid $buic-background-toolbutton-stroke;
-      border-radius: 3px;
+      border-radius: var(--iui-border-radius-1);
       right: 10px;
       bottom: 10px;
 

@@ -6,7 +6,6 @@
 @import "../inputs/variables";
 @import "../style/variables";
 @import "~@itwin/itwinui-css/scss/inputs/input";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 .uicore-autosuggest__container {
   position: relative;
@@ -78,6 +77,6 @@
 
 .uicore-autosuggest__section-title {
   padding: 10px 0 0 10px;
-  font-size: $iui-font-size-small;
+  font-size: var(--iui-font-size-0);
   color: $buic-background-table-header;
 }

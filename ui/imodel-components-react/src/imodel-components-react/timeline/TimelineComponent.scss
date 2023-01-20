@@ -14,27 +14,27 @@
   padding: 8px 16px;
   min-width: 275px;
 
-  >.header {
+  > .header {
     display: flex;
     align-items: center;
     height: 38px;
     position: relative;
 
-    >.play-backward {
-      border-radius: 3px 0 0 3px;
+    > .play-backward {
+      border-radius: var(--iui-border-radius-1) 0 0 var(--iui-border-radius-1);
     }
 
-    >.play-button-step {
+    > .play-button-step {
       border-left: none;
       border-right: none;
       border-radius: 0;
     }
 
-    >.play-forward {
-      border-radius: 0px 3px 3px 0;
+    > .play-forward {
+      border-radius: 0px var(--iui-border-radius-1) var(--iui-border-radius-1) 0;
     }
 
-    >.current-date {
+    > .current-date {
       font-size: 14px;
       min-width: 180px;
       padding: 8px;
@@ -42,7 +42,7 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      border-radius: 3px;
+      border-radius: var(--iui-border-radius-1);
       border: solid 1px $buic-background-5;
       background-color: $buic-background-1;
       text-align: center;
@@ -57,11 +57,11 @@
     margin-right: 10px;
   }
 
-  >.timeline-timeline {
+  > .timeline-timeline {
     margin: 8px 0;
   }
 
-  >.scrubber {
+  > .scrubber {
     min-height: 20px;
     display: flex;
     align-items: center;
@@ -128,11 +128,11 @@
 }
 
 .timeline-component.has-dates .start-time-container {
-  margin-right: 8px
+  margin-right: 8px;
 }
 
 .timeline-component.has-dates .end-time-container {
-  margin-left: 8px
+  margin-left: 8px;
 }
 
 .timeline-component.minimized .header,
@@ -147,11 +147,11 @@
 }
 
 .separator {
-  padding: .5em 0;
+  padding: 0.5em 0;
   position: relative;
 
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 4px;

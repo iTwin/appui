@@ -8,7 +8,7 @@
 @mixin hover-style {
   background-color: $buic-accessory-primary;
 
-  >.nz-dot {
+  > .nz-dot {
     background-color: $buic-foreground-accessory;
   }
 }
@@ -20,18 +20,18 @@
   background-color: $buic-background-5;
   align-items: center;
   justify-content: center;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   position: relative;
   display: flex;
 
-  >.nz-handle {
+  > .nz-handle {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 
-  >.nz-dot {
+  > .nz-dot {
     $size: 0.25em;
     width: $size;
     height: $size;
@@ -46,13 +46,13 @@
     width: $nz-grip-width;
     height: $nz-grip-height;
 
-    >.nz-dot {
+    > .nz-dot {
       &:not(:first-child) {
         margin-top: 3px;
       }
     }
 
-    >.nz-handle {
+    > .nz-handle {
       height: $handle-length;
       width: $handle-width;
     }
@@ -65,13 +65,13 @@
     width: $nz-grip-height;
     height: $nz-grip-width;
 
-    >.nz-dot {
+    > .nz-dot {
       &:not(:first-child) {
         margin-left: 3px;
       }
     }
 
-    >.nz-handle {
+    > .nz-handle {
       height: $handle-width;
       width: $handle-length;
     }
