@@ -8,7 +8,6 @@
 
 import "./WidgetTarget.scss";
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
 import { WidgetIdContext } from "../widget/Widget";
 import { TargetContainer } from "./TargetContainer";
 import { MergeTarget } from "./MergeTarget";
@@ -16,7 +15,8 @@ import { MergeTarget } from "./MergeTarget";
 /** @internal */
 export function WidgetTarget() {
   const widgetId = React.useContext(WidgetIdContext);
-  assert(!!widgetId);
+  if (!widgetId)
+    return null;
   return (
     <TargetContainer
       className="nz-target-widgetTarget"

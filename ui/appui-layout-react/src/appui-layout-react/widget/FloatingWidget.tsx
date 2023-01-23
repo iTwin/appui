@@ -27,6 +27,7 @@ import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { useWidgetZIndex } from "./ContentRenderer";
+import { FloatingWidgetOverlay } from "./FloatingWidgetOverlay";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
@@ -95,44 +96,36 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   const position = boundsRect.topLeft();
   // istanbul ignore next
   const style = {
-    left: position.x,
-    top: position.y,
+    transform: `translate(${position.x}px, ${position.y}px)`,
     height: minimized || autoSized ? undefined : height,
     width: autoSized ? undefined : width,
     maxHeight: autoSized ? "60%" : undefined,
     maxWidth: autoSized ? "60%" : undefined,
-    zIndex,
+    borderColor: "black",
+    zIndex
   };
 
   const content = React.useMemo(() => (
-    <WidgetContentContainer>
-      <WidgetTarget />
-      <WidgetOutline />
-    </WidgetContentContainer>
+    <WidgetContentContainer />
   ), []);
-  const handles = React.useMemo(() => resizable && <>
-    <FloatingWidgetHandle handle="left" />
-    <FloatingWidgetHandle handle="top" />
-    <FloatingWidgetHandle handle="right" />
-    <FloatingWidgetHandle handle="bottom" />
-    <FloatingWidgetHandle handle="topLeft" />
-    <FloatingWidgetHandle handle="topRight" />
-    <FloatingWidgetHandle handle="bottomLeft" />
-    <FloatingWidgetHandle handle="bottomRight" />
-  </>, [resizable]);
+  const overlay = React.useMemo(() => (
+    <FloatingWidgetOverlay />
+  ), []);
   return (
-    <Widget
-      className={className}
-      widgetId={id}
-      style={style}
-      ref={ref}
-      onMouseEnter={props.onMouseEnter}
-      onMouseLeave={props.onMouseLeave}
-    >
-      <WidgetTabBar separator={!minimized} />
-      {content}
-      {handles}
-    </Widget >
+    <>
+      <Widget
+        className={className}
+        widgetId={id}
+        style={style}
+        ref={ref}
+        onMouseEnter={props.onMouseEnter}
+        onMouseLeave={props.onMouseLeave}
+      >
+        <WidgetTabBar separator={!minimized} />
+        {content}
+      </Widget >
+      {resizable && overlay}
+    </>
   );
 }
 
@@ -242,9 +235,9 @@ interface FloatingWidgetHandleProps {
   handle: FloatingWidgetResizeHandle;
 }
 
-function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
+/** @internal */
+export function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const zIndex = React.useContext(ZIndexContext);
   const id = useFloatingWidgetId();
   const { handle } = props;
   const relativePosition = React.useRef<Point>(new Point());
@@ -290,7 +283,7 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   return (
     <div
       className={className}
-      style={zIndex === undefined ? undefined : { zIndex: zIndex + 1, background: "red" }}
+      style={{ background: "red" }}
       ref={refs}
     />
   );

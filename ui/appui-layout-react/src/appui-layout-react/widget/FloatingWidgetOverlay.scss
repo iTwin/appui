@@ -2,11 +2,12 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-.nz-target-widgetTarget {
+
+.nz-widget-floatingWidgetOverlay {
   position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
+  pointer-events: none;
+
+  >* {
+    pointer-events: all;
+  }
 }

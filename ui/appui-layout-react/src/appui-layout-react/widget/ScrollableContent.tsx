@@ -6,7 +6,7 @@
  * @module Widget
  */
 
-import "./Content.scss";
+import "./ScrollableContent.scss";
 import * as React from "react";
 
 /** Properties of [[ScrollableWidgetContent]] component.
