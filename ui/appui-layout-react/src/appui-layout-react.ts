@@ -56,7 +56,6 @@ export * from "./appui-layout-react/tool-settings/Panel";
 export * from "./appui-layout-react/tool-settings/Setting";
 
 export * from "./appui-layout-react/widget/Buttons";
-export * from "./appui-layout-react/widget/Content";
 export * from "./appui-layout-react/widget/ContentContainer";
 export * from "./appui-layout-react/widget/ContentRenderer";
 export * from "./appui-layout-react/widget/Dock";
@@ -69,6 +68,7 @@ export * from "./appui-layout-react/widget/Overflow";
 export * from "./appui-layout-react/widget/PanelWidget";
 export * from "./appui-layout-react/widget/PinToggle";
 export * from "./appui-layout-react/widget/PopoutToggle";
+export * from "./appui-layout-react/widget/ScrollableContent";
 export * from "./appui-layout-react/widget/SendBack";
 export * from "./appui-layout-react/widget/Tab";
 export * from "./appui-layout-react/widget/TabBar";

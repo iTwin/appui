@@ -87,6 +87,6 @@ function useContainerBounds() {
       const bounds = ref.current.getBoundingClientRect();
       setContainer(tabId, bounds);
     });
-  }, [widgetPanel])
+  }, [widgetPanel]);
   return ref;
 }

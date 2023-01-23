@@ -19,6 +19,8 @@ import { getTabLocation } from "../state/TabLocation";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { WidgetIdContext } from "./Widget";
 import { assert } from "@itwin/core-bentley";
+import { WidgetTarget } from "../target/WidgetTarget";
+import { WidgetOutline } from "../outline/WidgetOutline";
 
 /** @internal */
 export function WidgetContentRenderers() {
@@ -86,11 +88,12 @@ function WidgetContentRenderer() {
         width: bounds.right - bounds.left,
         zIndex: zIndex === undefined ? undefined : zIndex + 1,
         background: "green",
-        opacity: 0.5,
       } : {
         display: "none",
       }}>
       {children}
+      <WidgetTarget />
+      <WidgetOutline />
     </div>
   );
 }
@@ -126,6 +129,6 @@ export function useWidgetZIndex() {
     return undefined;
   });
   if (floatingIndex === undefined)
-    return floatingIndex;
+    return undefined;
   return floatingIndex * 10;
 }
