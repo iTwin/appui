@@ -3,17 +3,16 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/itwinui-css/scss/style/speed";
 @import "../widgetopacity";
 @import "variables";
 
 .nz-widget-floatingWidget {
   position: absolute;
   border: 1px solid $buic-background-5;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   min-width: 200px;
   min-height: 120px;
-  transition: opacity $iui-speed ease;
+  transition: opacity var(--iui-duration-2) ease;
 
   &.nz-floating-toolSettings {
     min-height: 60px;
@@ -25,7 +24,7 @@
   &.nz-minimized {
     flex-grow: 0;
 
-    >.nz-content {
+    > .nz-content {
       width: 0;
     }
   }

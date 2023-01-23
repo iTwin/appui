@@ -5,7 +5,6 @@
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/scrollbar";
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-@import "~@itwin/itwinui-css/scss/style/space";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 $outline-size: 2px;
@@ -21,7 +20,7 @@ $outline-size: 2px;
     @include nz-scrollbar($color: $buic-background-4);
     flex: 1;
     padding: $outline-size 0;
-    margin-bottom: $iui-xs;
+    margin-bottom: var(--iui-size-2xs);
     box-sizing: border-box;
     overflow-y: auto;
     overflow-x: hidden;
@@ -30,7 +29,7 @@ $outline-size: 2px;
   /* Container for all views in thumbnail view */
   .view-container-thumbnailview {
     @include nz-scrollbar($color: $buic-background-4);
-    padding: $iui-xs 0 $iui-xs 10px;
+    padding: var(--iui-size-2xs) 0 var(--iui-size-2xs) 10px;
     display: flex;
     align-items: flex-start;
     align-content: flex-start;
@@ -68,7 +67,7 @@ $outline-size: 2px;
     padding: 0 20px;
     text-align: center;
     color: $uicore-gray;
-    color: rgba($uicore-text-color, .85);
+    color: rgba($uicore-text-color, 0.85);
     pointer-events: none;
 
     .default-prompt {
@@ -77,9 +76,9 @@ $outline-size: 2px;
   }
 
   .fade-in {
-    -webkit-animation: show ease-in .25s;
-    -moz-animation: show ease-in .25s;
-    animation: show ease-in .25s;
+    -webkit-animation: show ease-in 0.25s;
+    -moz-animation: show ease-in 0.25s;
+    animation: show ease-in 0.25s;
 
     -webkit-animation-fill-mode: forwards;
     -moz-animation-fill-mode: forwards;

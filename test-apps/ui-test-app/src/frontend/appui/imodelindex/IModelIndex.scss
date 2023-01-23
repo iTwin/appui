@@ -3,8 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-@import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/scrollbar";
 
 /* frontstage */
@@ -12,7 +10,7 @@
   background-color: $uicore-gray-b;
   color: $uicore-text-color;
   height: 100%;
-  padding: $iui-l 55px;
+  padding: var(--iui-size-l) 55px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -30,7 +28,7 @@
 
     /* thumbnail container */
     .thumbnail {
-      margin: $iui-m;
+      margin: var(--iui-size-m);
       width: 150px;
       height: 100px;
       border: 1px solid $uicore-gray-a;
@@ -39,13 +37,13 @@
       justify-content: center;
 
       /* thumbnail */
-      >img {
+      > img {
         width: 100%;
         height: 100%;
       }
 
       /* default image when no thumbnail is available */
-      >svg {
+      > svg {
         width: 50%;
 
         path,
@@ -60,7 +58,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: $iui-m;
+      padding: var(--iui-size-m);
       box-sizing: border-box;
       border-left: 1px;
       border-right: 1px;
@@ -68,17 +66,17 @@
       border-bottom: 0;
       border-style: solid;
       border-color: $uicore-gray-a;
-      color: rgba($uicore-text-color, .85);
-      font-size: $iui-font-size;
+      color: rgba($uicore-text-color, 0.85);
+      font-size: var(--iui-font-size-1);
 
       /* imodel name */
-      >span:first-child {
-        font-size: $iui-font-size-title;
-        opacity: .85;
+      > span:first-child {
+        font-size: var(--iui-font-size-4);
+        opacity: 0.85;
       }
 
-      >span:nth-child(2) {
-        margin: $iui-s 0;
+      > span:nth-child(2) {
+        margin: var(--iui-size-xs) 0;
       }
     }
 
@@ -88,11 +86,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 $iui-xl;
+      padding: 0 var(--iui-size-xl);
       min-width: 260px;
       box-sizing: border-box;
-      color: rgba($uicore-text-color, .65);
-      font-size: $iui-font-size;
+      color: rgba($uicore-text-color, 0.65);
+      font-size: var(--iui-font-size-1);
 
       .checkmark-circle {
         stroke-dasharray: 166;
@@ -119,7 +117,8 @@
         stroke-width: 2;
         stroke: #000;
         stroke-miterlimit: 10;
-        animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        animation: fill 0.4s ease-in-out 0.4s forwards,
+          scale 0.3s ease-in-out 0.9s both;
 
         &.success {
           box-shadow: inset 0px 0px 0px #7ac142;
@@ -154,7 +153,7 @@
 
   .imodelindex-container {
     flex: 1;
-    margin-top: $iui-xl;
+    margin-top: var(--iui-size-xl);
     display: flex;
     flex-direction: column;
     background: $uicore-gray-c;
@@ -166,12 +165,12 @@
     .imodelindex-tabheader {
       display: flex;
       align-items: center;
-      margin-top: $iui-sm;
+      margin-top: var(--iui-size-s);
 
       .header-content {
         display: flex;
         margin-left: auto;
-        margin-right: $iui-m;
+        margin-right: var(--iui-size-m);
       }
     }
 
@@ -204,15 +203,15 @@
       z-index: 10;
       opacity: 0;
       /* make things invisible upon start */
-      -webkit-animation: show ease-in .4s;
-      -moz-animation: show ease-in .4s;
-      animation: show ease-in .4s;
+      -webkit-animation: show ease-in 0.4s;
+      -moz-animation: show ease-in 0.4s;
+      animation: show ease-in 0.4s;
       -webkit-animation-fill-mode: forwards;
       -moz-animation-fill-mode: forwards;
       animation-fill-mode: forwards;
-      -webkit-animation-duration: .4s;
-      -moz-animation-duration: .4s;
-      animation-duration: .4s;
+      -webkit-animation-duration: 0.4s;
+      -moz-animation-duration: 0.4s;
+      animation-duration: 0.4s;
       -webkit-animation-delay: 1s;
       animation-delay: 1s;
 
@@ -222,8 +221,10 @@
         background: white;
         color: #7b7b7b;
         border: 1px solid #ccc;
-        -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+          0 1px 2px rgba(0, 0, 0, 0.24);
+        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+          0 1px 2px rgba(0, 0, 0, 0.24);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       }
     }
@@ -234,17 +235,17 @@
 .fade-in {
   opacity: 0;
   /* make things invisible upon start */
-  -webkit-animation: show ease-in .4s;
-  -moz-animation: show ease-in .4s;
-  animation: show ease-in .4s;
+  -webkit-animation: show ease-in 0.4s;
+  -moz-animation: show ease-in 0.4s;
+  animation: show ease-in 0.4s;
 
   -webkit-animation-fill-mode: forwards;
   -moz-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 
-  -webkit-animation-duration: .4s;
-  -moz-animation-duration: .4s;
-  animation-duration: .4s;
+  -webkit-animation-duration: 0.4s;
+  -moz-animation-duration: 0.4s;
+  animation-duration: 0.4s;
 }
 
 .imodelindex-thumbnailView {
@@ -264,7 +265,6 @@
 }
 
 @keyframes scale {
-
   0%,
   100% {
     transform: none;

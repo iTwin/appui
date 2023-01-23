@@ -30,6 +30,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/presentation-common': ^3.5.1
       '@itwin/presentation-components': ^3.5.1
       '@itwin/presentation-frontend': ^3.5.1
@@ -63,6 +64,7 @@ importers:
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-variables': 1.0.0
       '@itwin/presentation-common': 3.5.1_6659c0093f5de177a2bc95c8423c7326
       '@itwin/presentation-components': 3.5.1_cb7fd4b9e609b22b0c39ca59a180d269
       '@itwin/presentation-frontend': 3.5.1_d6b565b7d56b61228f60b1dbd5440e67
@@ -129,6 +131,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/map-layers': ^3.5.1
       '@itwin/map-layers-auth': ^3.5.1
       '@itwin/presentation-backend': ^3.5.1
@@ -211,6 +214,7 @@ importers:
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-variables': 1.0.0
       '@itwin/map-layers': 3.5.1_1f14a8b21a8e60999fbb95c89d981a8f
       '@itwin/map-layers-auth': 3.5.1_@itwin+core-bentley@3.5.1
       '@itwin/presentation-backend': 3.5.1_94bffd2e4a7a8d3162e5300f61313012
@@ -305,6 +309,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/map-layers': ^3.5.1
       '@itwin/map-layers-auth': ^3.5.1
       '@itwin/presentation-backend': ^3.5.1
@@ -387,6 +392,7 @@ importers:
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-variables': 1.0.0
       '@itwin/map-layers': 3.5.1_1f14a8b21a8e60999fbb95c89d981a8f
       '@itwin/map-layers-auth': 3.5.1_@itwin+core-bentley@3.5.1
       '@itwin/presentation-backend': 3.5.1_94bffd2e4a7a8d3162e5300f61313012
@@ -456,6 +462,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/presentation-common': ^3.5.1
       '@itwin/presentation-components': ^3.5.1
       '@itwin/presentation-frontend': ^3.5.1
@@ -485,6 +492,7 @@ importers:
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-variables': 1.0.0
       '@itwin/presentation-common': 3.5.1_6659c0093f5de177a2bc95c8423c7326
       '@itwin/presentation-components': 3.5.1_cb7fd4b9e609b22b0c39ca59a180d269
       '@itwin/presentation-frontend': 3.5.1_d6b565b7d56b61228f60b1dbd5440e67
@@ -546,6 +554,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/map-layers': ^3.5.1
       '@itwin/map-layers-auth': ^3.5.1
       '@itwin/presentation-backend': ^3.5.1
@@ -625,6 +634,7 @@ importers:
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-variables': 1.0.0
       '@itwin/map-layers': 3.5.1_1f14a8b21a8e60999fbb95c89d981a8f
       '@itwin/map-layers-auth': 3.5.1_@itwin+core-bentley@3.5.1
       '@itwin/presentation-backend': 3.5.1_94bffd2e4a7a8d3162e5300f61313012
@@ -758,6 +768,7 @@ importers:
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^3.5.1
       '@itwin/itwinui-css': 0.x
+      '@itwin/itwinui-variables': ^1.0.0
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
       '@testing-library/user-event': ^14.4.2
@@ -801,6 +812,7 @@ importers:
     dependencies:
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
+      '@itwin/itwinui-variables': 1.0.0
       classnames: 2.3.1
       immer: 9.0.6
       lodash: 4.17.21
@@ -871,6 +883,7 @@ importers:
       '@itwin/itwinui-icons': ^1.14.0
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/presentation-common': ^3.5.1
       '@itwin/presentation-components': ^3.5.1
       '@itwin/presentation-frontend': ^3.5.1
@@ -934,6 +947,7 @@ importers:
       '@itwin/itwinui-icons': 1.14.0
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-variables': 1.0.0
       '@itwin/presentation-components': 3.5.1_cb7fd4b9e609b22b0c39ca59a180d269
       classnames: 2.3.1
       immer: 9.0.6
@@ -1018,6 +1032,7 @@ importers:
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
@@ -1078,6 +1093,7 @@ importers:
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-variables': 1.0.0
       '@types/shortid': 0.0.29
       classnames: 2.3.1
       immer: 9.0.6
@@ -1153,6 +1169,7 @@ importers:
       '@itwin/eslint-plugin': ^3.5.1
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-react': ~1.42.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
@@ -1200,6 +1217,7 @@ importers:
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-variables': 1.0.0
       classnames: 2.3.1
       dompurify: 2.4.0
       lodash: 4.17.21
@@ -1266,6 +1284,7 @@ importers:
       '@itwin/eslint-plugin': ^3.5.1
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-react': ~1.42.0
+      '@itwin/itwinui-variables': ^1.0.0
       '@itwin/webgl-compatibility': ^3.5.1
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
@@ -1312,6 +1331,7 @@ importers:
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-variables': 1.0.0
       classnames: 2.3.1
       immer: 9.0.6
     devDependencies:
@@ -3932,6 +3952,10 @@ packages:
       react-dom: 17.0.2_react@17.0.2
       react-table: 7.8.0_react@17.0.2
       react-transition-group: 4.4.5_react-dom@17.0.2+react@17.0.2
+
+  /@itwin/itwinui-variables/1.0.0:
+    resolution: {integrity: sha512-f78S401k1romzL6jgJuNZTe8P0/PCtrKUDVZwMsIJHLlgwyMKGR7nqDWQBV03tY2/TF/qMLt9S96Tej4f1Xrtg==}
+    dev: false
 
   /@itwin/map-layers-auth/3.5.1_@itwin+core-bentley@3.5.1:
     resolution: {integrity: sha512-4KG+KNuEOvLVrv7sBCKr05n96mwaYTvufBUpM2WLJy8/eekac0EHxrUkAmVIEy4BlCvXjK5m2VYBrzCgt/uijg==}

@@ -37,9 +37,9 @@
   .ValidationTextbox-icon {
     position: absolute;
     padding: $uicore-bordered-padding;
-    width: $uicore-line-height;
-    height: $uicore-line-height;
-    line-height: $uicore-line-height;
+    width: var(--iui-size-l);
+    height: var(--iui-size-l);
+    line-height: var(--iui-size-l);
     font-size: $uicore-icons-small;
     cursor: pointer;
     top: 0px;
