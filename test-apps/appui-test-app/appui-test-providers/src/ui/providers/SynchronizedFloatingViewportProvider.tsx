@@ -3,9 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import * as React from "react";
 import { BackstageItem, BackstageItemUtilities, CommonToolbarItem, StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider } from "@itwin/appui-abstract";
-import { CustomItemDef, IModelConnectedViewSelector, ToolbarHelper } from "@itwin/appui-react";
 import { OpenSynchronizedViewTool } from "../../tools/OpenSynchronizedViewTool";
 import { SynchronizedFloatingViewportStage } from "../frontstages/SynchronizedFloatingViewport";
 import { AppUiTestProviders } from "../../AppUiTestProviders";

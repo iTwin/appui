@@ -99,8 +99,8 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
             ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
           });
         }
-        } else {
-          ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
+      } else {
+        ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
       }
     }
   },[activeIModelConnection?.views, contentId, threeDViewDefinitions, twoDViewDefinitions]);

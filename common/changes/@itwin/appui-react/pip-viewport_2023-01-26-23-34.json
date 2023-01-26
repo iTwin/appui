@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix floating viewport content to properly synchronize active ViewportComponent with the selected view.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

@@ -247,7 +247,6 @@ export class SampleAppIModelApp {
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     CustomFrontstageProvider.register(AppUiTestProviders.localizationNamespace);
     SynchronizedFloatingViewportStage.register(AppUiTestProviders.localizationNamespace);
-    
     // try starting up event loop if not yet started so key-in palette can be opened
     IModelApp.startEventLoop();
   }
