@@ -158,3 +158,5 @@ AppUI goes major changes with 4.0, here is a non exhaustive list of the changes:
 `StatusBar` is no longer control state of the fields contained in it, so each individual field is responsible to handle it's "open" state, removing the need for the `openWidget` and `onOpenWidget` props.
 
 `targetRef` is no longer used, the message center is now using `MessageManager`, which allow direct registration of the "flyTo" element, which was the reason for `targetRef` to exist.
+
+`VisibilityTree`, `CategoriesTree`, `ModelsTree`, `SpacialContainmentTree` and related components and API's were removed from `appui-react`. These component are now maintained in the `@itwin/tree-widget-react` package.

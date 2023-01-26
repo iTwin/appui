@@ -19,7 +19,7 @@ import {
   ContentViewManager, CoreTools, CursorInformation, CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef, EmphasizeElementsChangedArgs,
   FrontstageConfig,
   FrontstageDef, FrontstageManager, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
-  HideIsolateEmphasizeManager, MessageManager, ModalDialogManager, ModelessDialogManager, ModelsTreeNodeType, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT,
+  HideIsolateEmphasizeManager, MessageManager, ModalDialogManager, ModelessDialogManager, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT,
 } from "@itwin/appui-react";
 import { Button, Slider } from "@itwin/itwinui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../frontend/index";
@@ -38,7 +38,6 @@ import { AppStatusBarWidgetControl } from "../statusbars/AppStatusBar";
 import { VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { UnifiedSelectionPropertyGridWidgetControl } from "../widgets/UnifiedSelectionPropertyGridWidget";
 import { ViewportWidget } from "../widgets/ViewportWidget";
-import { VisibilityWidgetControl } from "../widgets/VisibilityWidget";
 import { NestedAnimationStage } from "./NestedAnimationStage";
 import { ViewSelectorPanel } from "../../tools/ViewSelectorPanel";
 import { ActiveSettingsManager } from "../../api/ActiveSettingsManager";
@@ -356,25 +355,6 @@ export class ViewsFrontstage extends FrontstageProvider {
       rightPanel: {
         maxSize: { percentage: 50 },
         sections: {
-          start: [
-            {
-              id: "SearchableTree",
-              iconSpec: "icon-visibility",
-              label: "Searchable Tree",
-              control: VisibilityWidgetControl,
-              applicationData: {
-                iModelConnection,
-                config: {
-                  modelsTree: {
-                    selectionMode: SelectionMode.Extended,
-                    selectionPredicate: (_key: NodeKey, type: ModelsTreeNodeType) => type === ModelsTreeNodeType.Element,
-                  },
-                },
-              },
-              defaultFloatingSize: { width: 330, height: 540 },
-              isFloatingStateWindowResizable: true,
-            },
-          ],
           end: [
             {
               defaultState: WidgetState.Closed,
