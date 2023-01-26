@@ -3,27 +3,9 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import {
-  IModelApp,
-  IModelConnection,
-  ViewState,
-} from "@itwin/core-frontend";
-import {
-  BackstageItem,
-  BackstageItemUtilities,
-  ContentLayoutProps, StageUsage, StandardContentLayouts, UiItemsManager, UiItemsProvider,
-} from "@itwin/appui-abstract";
-import {
-  BackstageAppButton,
-  ConfigurableUiManager, ContentGroup, ContentGroupProps,
-  ContentGroupProvider, ContentProps, FrontstageProps, IModelViewportControl,
-  SettingsModalFrontstage, StageContentLayout, StageContentLayoutProps,
-  StandardContentToolsUiItemsProvider, StandardFrontstageProps,
-  StandardFrontstageProvider,
-  StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider,
-  UiFramework,
-} from "@itwin/appui-react";
+import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
+import { ContentLayoutProps, StandardContentLayouts } from "@itwin/appui-abstract";
+import { BackstageAppButton, BackstageItem, BackstageItemUtilities, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageProps, IModelViewportControl, SettingsModalFrontstage, StageContentLayout, StageContentLayoutProps, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager, UiItemsProvider } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { AppUi } from "../AppUi";
 // cSpell:Ignore contentviews statusbars

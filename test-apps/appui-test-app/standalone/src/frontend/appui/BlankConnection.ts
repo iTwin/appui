@@ -3,10 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 /* eslint-disable deprecation/deprecation */
-import {
-  FrontstageManager,
-  UiFramework,
-} from "@itwin/appui-react";
+import { FrontstageManager, UiFramework } from "@itwin/appui-react";
 import { Logger } from "@itwin/core-bentley";
 import { Cartographic, ColorDef, RenderMode } from "@itwin/core-common";
 import { BlankConnection, IModelApp, IModelConnection, SpatialViewState } from "@itwin/core-frontend";
