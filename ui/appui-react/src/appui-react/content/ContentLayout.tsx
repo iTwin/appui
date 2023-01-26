@@ -18,8 +18,7 @@ import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { ContentGroup } from "./ContentGroup";
 import { ContentLayoutProps, LayoutFragmentProps, LayoutHorizontalSplitProps, LayoutSplitPropsBase, LayoutVerticalSplitProps, UiEvent } from "@itwin/appui-abstract";
 import { ActiveContentChangedEventArgs, ContentViewManager } from "./ContentViewManager";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
-import { ContentControl } from "./ContentControl";
+import { useActiveFrontstageDef } from "../frontstage/Frontstage";
 
 /** Properties for [[ContentWrapper]] */
 interface ContentWrapperProps extends CommonProps {
@@ -34,7 +33,7 @@ export function ContentWrapper(props: ContentWrapperProps) {
   const [isActive, setIsActive] = React.useState(content === ContentViewManager.getActiveContent());
   const activeFrontstageDef = useActiveFrontstageDef();
 
-  const contentControlKey = (contentControl: React.ReactNode) : string | undefined => {
+  const contentControlKey = (contentControl: React.ReactNode): string | undefined => {
     let controlId: string | undefined;
     if (contentControl && (contentControl as React.ReactElement<any>).key) {
       const key = ((contentControl as React.ReactElement<any>).key as string);
@@ -45,10 +44,10 @@ export function ContentWrapper(props: ContentWrapperProps) {
   };
 
   // istanbul ignore next
-  const [hasMultipleContents, setHasMultipleContents] = React.useState(() => (
+  const [hasMultipleContents, setHasMultipleContents] = React.useState(() =>
     (activeFrontstageDef && (!!activeFrontstageDef.floatingContentControls?.length) ||
-      (activeFrontstageDef?.contentGroup?.getContentControls().length ?? 0) > 1)
-  ));
+    (activeFrontstageDef?.contentGroup?.getContentControls().length ?? 0) > 1)
+  );
 
   React.useEffect(() => {
     setIsActive(content === ContentViewManager.getActiveContent());

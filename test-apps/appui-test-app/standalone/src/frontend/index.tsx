@@ -39,7 +39,7 @@ import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTa
 // import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import {
   AbstractUiItemsProvider, ApplicationLayoutContext, ApplicationLayoutProvider, AppUiTestProviders, ContentLayoutStage, CustomContentFrontstage,
-  CustomFrontstageProvider, FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, MessageUiItemsProvider, WidgetApiStage,
+  CustomFrontstageProvider, FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, MessageUiItemsProvider, SynchronizedFloatingViewportStage, WidgetApiStage,
 } from "@itwin/appui-test-providers";
 import { useHandleURLParams } from "./UrlParams";
 
@@ -246,7 +246,8 @@ export class SampleAppIModelApp {
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     CustomFrontstageProvider.register(AppUiTestProviders.localizationNamespace);
-
+    SynchronizedFloatingViewportStage.register(AppUiTestProviders.localizationNamespace);
+    
     // try starting up event loop if not yet started so key-in palette can be opened
     IModelApp.startEventLoop();
   }

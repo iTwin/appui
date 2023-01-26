@@ -92,7 +92,7 @@ export class ContentViewManager {
         // key has format `${contentProps.id}::${this.groupId}` which is stored as unique id
         controlId = key.split("::", 1)[0];
       }
-      floatingControls.forEach((contentControl: ContentControl) => {
+      floatingControls.forEach ((contentControl: ContentControl) => {
         const node = contentControl.reactNode;
         const key = ((node as React.ReactElement<any>).key as string);
         const nodeId = key && key.split("::", 1)[0];
@@ -103,6 +103,7 @@ export class ContentViewManager {
         return control;
     }
 
+    // if it's not a floating control, look through the content area views
     // istanbul ignore else
     if (activeContentGroup) {
       const activeContentControl = activeContentGroup.getControlFromElement(content);
