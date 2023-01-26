@@ -9,10 +9,8 @@ import { CustomItemDef, IModelConnectedViewSelector, ToolbarHelper } from "@itwi
 import { OpenSynchronizedViewTool } from "../../tools/OpenSynchronizedViewTool";
 import { SynchronizedFloatingViewportStage } from "../frontstages/SynchronizedFloatingViewport";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
+import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
 
-// interface MyWBSWidgetProps {
-//   pswbsOptions?: any;
-// }
 // eslint-disable-next-line @typescript-eslint/naming-convention
 
 export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
@@ -44,21 +42,7 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
       toolbarUsage === ToolbarUsage.ContentManipulation &&
       toolbarOrientation === ToolbarOrientation.Horizontal
     ) {
-      const viewSelectorButton = ToolbarHelper.createToolbarItemFromItemDef(
-        51,
-        new CustomItemDef({
-          customId: "sampleApp:viewSelector",
-          popupPanelNode: (
-            <IModelConnectedViewSelector
-              listenForShowUpdates={false} // Demo for showing only the same type of view in ViewSelector - See IModelViewport.tsx, onActivated
-            />
-          ),
-        }),
-        {
-          groupPriority: 20,
-        }
-      );
-      toolbarItems.push(viewSelectorButton);
+      toolbarItems.push(getCustomViewSelectorPopupItem(20,3000));
       OpenSynchronizedViewTool.register("ThisTestApp");
       toolbarItems.push(OpenSynchronizedViewTool.getActionButtonDef(10,10));
     }

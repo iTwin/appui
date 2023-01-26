@@ -18,7 +18,7 @@ import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { ContentGroup } from "./ContentGroup";
 import { ContentLayoutProps, LayoutFragmentProps, LayoutHorizontalSplitProps, LayoutSplitPropsBase, LayoutVerticalSplitProps, UiEvent } from "@itwin/appui-abstract";
 import { ActiveContentChangedEventArgs, ContentViewManager } from "./ContentViewManager";
-import { useActiveFrontstageDef } from "../frontstage/Frontstage";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 
 /** Properties for [[ContentWrapper]] */
 interface ContentWrapperProps extends CommonProps {

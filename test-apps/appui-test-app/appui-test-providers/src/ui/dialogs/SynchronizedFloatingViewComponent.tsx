@@ -99,9 +99,10 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
             ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
           });
         }
+        } else {
+          ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
       }
     }
-
   },[activeIModelConnection?.views, contentId, threeDViewDefinitions, twoDViewDefinitions]);
   // Set initial view when floating viewport is launched for first time. It needs to be mirror of main/default viewport of frontstage (2d->3d or 3d->2d)
   React.useEffect(() => {
