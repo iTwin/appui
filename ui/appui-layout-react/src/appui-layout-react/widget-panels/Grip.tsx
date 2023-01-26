@@ -46,10 +46,9 @@ export function WidgetPanelGrip(props: CommonProps) {
       title={resizeGripTitle}
       style={props.style}
     >
-      <div className="nz-dot" />
-      <div className="nz-dot" />
-      <div className="nz-dot" />
-      <div className="nz-dot" />
+      <div className="nz-line-grip">
+        <div className="nz-line-grip-detail" />
+      </div>
       <div
         className="nz-handle"
         ref={ref}
