@@ -6,8 +6,8 @@
 
 import * as React from "react";
 import {
-  AbstractWidgetProps, BackstageItem, BackstageItemUtilities, CommonToolbarItem, StagePanelLocation, StagePanelSection,
-  ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider, WidgetState,
+  BackstageItem, BackstageItemUtilities, StagePanelLocation, StagePanelSection, ToolbarOrientation, ToolbarUsage,
+  UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
 import { ToolbarHelper } from "@itwin/appui-react";
 import { getToggleCustomOverlayCommandItemDef, WidgetApiStage } from "../frontstages/WidgetApiStage";
@@ -37,7 +37,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   }
 
   private getLeftPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: AbstractWidgetProps[] = [];
+    const widgets: CommonWidgetProps[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push({
@@ -79,7 +79,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   }
 
   private getRightPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: AbstractWidgetProps[] = [];
+    const widgets: CommonWidgetProps[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push({
@@ -136,7 +136,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   }
 
   private getTopPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: AbstractWidgetProps[] = [];
+    const widgets: CommonWidgetProps[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push({
@@ -175,7 +175,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   }
 
   private getBottomPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: AbstractWidgetProps[] = [];
+    const widgets: CommonWidgetProps[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push({
@@ -204,7 +204,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
     return widgets;
   }
 
-  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<AbstractWidgetProps> {
+  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<CommonWidgetProps> {
     const allowedStages = [WidgetApiStage.stageId];
     if (allowedStages.includes(stageId)) {
       switch (location) {
@@ -223,11 +223,11 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   }
 
   /** provide a toolbar button to set a value in redux store that toggles the display of the custom overlay */
-  public provideToolbarButtonItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): CommonToolbarItem[] {
+  public provideToolbarButtonItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
     const allowedStages = [WidgetApiStage.stageId];
     if (allowedStages.includes(stageId)) {
       if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
-        const items: CommonToolbarItem[] = [];
+        const items: ToolbarItem[] = [];
         items.push(ToolbarHelper.createToolbarItemFromItemDef(17, getToggleCustomOverlayCommandItemDef(), { groupPriority: 3000 }));
         return items;
       }

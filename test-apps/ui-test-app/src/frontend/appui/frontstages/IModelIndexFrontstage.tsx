@@ -10,7 +10,7 @@ import {
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { IModelIndex } from "../imodelindex/IModelIndex";
-import { StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 
 class IModelIndexControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {

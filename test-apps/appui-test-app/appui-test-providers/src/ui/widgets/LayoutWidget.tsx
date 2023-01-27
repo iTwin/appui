@@ -5,7 +5,7 @@
 import * as React from "react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import {
-  FrontstageDef, FrontstageManager, StagePanelState, useActiveFrontstageDef,
+  FrontstageDef, FrontstageManager, StagePanelLocation, StagePanelState, useActiveFrontstageDef, WidgetState,
 } from "@itwin/appui-react";
 import { SpecialKey, StagePanelLocation, WidgetState } from "@itwin/appui-abstract";
 import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
@@ -423,7 +423,7 @@ function WidgetControls({
         }}
       />
       <span>Widget actions</span>
-      <div style={{display: "flex", gap: "12px" }}>
+      <div style={{ display: "flex", gap: "12px" }}>
         <Button onClick={() => {
           const frontstageDef = FrontstageManager.activeFrontstageDef;
           const widgetDef = frontstageDef?.findWidgetDef(id);

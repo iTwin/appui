@@ -230,9 +230,9 @@ const useProximityOpacitySetting = () => {
  */
 export interface ExtensibleToolbarProps {
   items: CommonToolbarItem[];
-  usage: ToolbarUsage;
+  usage: ToolbarUsage; // eslint-disable-line deprecation/deprecation
   /** Toolbar orientation. */
-  orientation: ToolbarOrientation;
+  orientation: ToolbarOrientation; // eslint-disable-line deprecation/deprecation
 }
 
 /**
