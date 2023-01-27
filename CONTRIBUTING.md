@@ -1,6 +1,6 @@
-# Contributing to iTwin.js
+# Contributing to AppUI
 
-Welcome, and thank you for your interest in contributing to iTwin.js!
+Welcome, and thank you for your interest in contributing to AppUI!
 
 There are many ways to contribute.
 The goal of this document is to provide a high-level overview of how you can get involved.
@@ -25,7 +25,7 @@ Here's how you can make reporting your issue as effective as possible.
 
 ### Look For an Existing Issue
 
-Before you create a new issue, please do a search in [open issues](https://github.com/iTwin/itwinjs-core/issues) to see if the issue or feature request has already been filed.
+Before you create a new issue, please do a search in [open issues](https://github.com/iTwin/appui/issues) to see if the issue or feature request has already been filed.
 
 If you find that your issue already exists, please add relevant comments and your [reaction](https://github.com/blog/2119-add-reactions-to-pull-requests-issues-and-comments).
 Use a reaction in place of a "+1" comment:
