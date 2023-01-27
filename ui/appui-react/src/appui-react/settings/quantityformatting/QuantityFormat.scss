@@ -24,15 +24,8 @@
     display: flex;
     flex-direction: column;
 
-    >span.uicore-label {
+    > span.uicore-label {
       font-size: 18px;
-    }
-
-    >select.uicore-inputs-select {
-      width: fit-content;
-      min-width: 185px;
-      margin-top: 10px;
-      height: 2em;
     }
   }
 
@@ -46,7 +39,7 @@
     height: 100%;
     width: auto;
 
-    >.left-panel {
+    > .left-panel {
       flex-direction: column;
       min-width: 260px;
       width: auto;
@@ -62,7 +55,7 @@
       }
     }
 
-    >.right-panel {
+    > .right-panel {
       display: flex;
       flex-direction: column;
       width: auto;
@@ -93,7 +86,7 @@
             margin-left: 10px;
           }
 
-          >span.components-inline {
+          > span.components-inline {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -107,7 +100,7 @@
         display: flex;
         flex-direction: column;
         border: 1px solid $buic-inputs-border;
-        border-radius: 3px;
+        border-radius: var(--iui-border-radius-1);
         height: auto;
         overflow-y: auto;
         box-sizing: border-box;

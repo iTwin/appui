@@ -26,31 +26,29 @@ export interface DockedToolSettingsOverflowProps extends CommonProps {
 /** Entry point to overflown tool settings of [[DockedToolSettings]] component.
  * @internal
  */
-export const DockedToolSettingsOverflow = React.memo( // eslint-disable-line @typescript-eslint/naming-convention, react/display-name
-  React.forwardRef<HTMLDivElement, DockedToolSettingsOverflowProps>(
-    function DockedToolSettingsOverflow(props, ref) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-      const roRef = useResizeObserver<HTMLDivElement>(props.onResize);
-      const refs = useRefs(roRef, ref);
-      const className = classnames(
-        "nz-toolSettings-overflow",
-        props.className,
-      );
-      const moreToolSettingsTitle = useLabel("moreToolSettingsTitle");
+export const DockedToolSettingsOverflow = React.forwardRef<HTMLDivElement, DockedToolSettingsOverflowProps>( // eslint-disable-line @typescript-eslint/naming-convention, react/display-name
+  function DockedToolSettingsOverflow(props, ref) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+    const roRef = useResizeObserver<HTMLDivElement>(props.onResize);
+    const refs = useRefs(roRef, ref);
+    const className = classnames(
+      "nz-toolSettings-overflow",
+      props.className,
+    );
+    const moreToolSettingsTitle = useLabel("moreToolSettingsTitle");
 
-      return (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-        <div
-          className={className}
-          onClick={props.onClick}
-          ref={refs}
-          style={props.style}
-          role="button"
-          tabIndex={-1}
-          title={moreToolSettingsTitle}
-        >
-          <Ellipsis />
-        </div>
-      );
-    },
-  ),
+    return (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+      <div
+        className={className}
+        onClick={props.onClick}
+        ref={refs}
+        style={props.style}
+        role="button"
+        tabIndex={-1}
+        title={moreToolSettingsTitle}
+      >
+        <Ellipsis />
+      </div>
+    );
+  },
 );

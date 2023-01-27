@@ -8,18 +8,17 @@ import {
   ActivityMessageDetails, ActivityMessageEndReason, IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType,
   ScreenViewport, ViewState,
 } from "@itwin/core-frontend";
-import { NodeKey } from "@itwin/presentation-common";
 import {
   BadgeType, CommonToolbarItem, ConditionalBooleanValue, ContentLayoutProps, RelativePosition, SpecialKey, StageUsage, ToolbarItemUtilities, WidgetState,
 } from "@itwin/appui-abstract";
-import { CustomToolbarItem, SelectionMode, useToolbarPopupContext } from "@itwin/components-react";
+import { CustomToolbarItem, useToolbarPopupContext } from "@itwin/components-react";
 import { Point, ScrollView } from "@itwin/core-react";
 import {
   BasicNavigationWidget, BasicToolWidget, CommandItemDef, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps,
   ContentViewManager, CoreTools, CursorInformation, CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef, EmphasizeElementsChangedArgs,
   FrontstageConfig,
   FrontstageDef, FrontstageManager, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
-  HideIsolateEmphasizeManager, MessageManager, ModalDialogManager, ModelessDialogManager, ModelsTreeNodeType, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT,
+  HideIsolateEmphasizeManager, MessageManager, ModalDialogManager, ModelessDialogManager, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT,
 } from "@itwin/appui-react";
 import { Button, Slider } from "@itwin/itwinui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../frontend/index";
@@ -34,12 +33,10 @@ import { CalculatorDialog } from "../dialogs/CalculatorDialog";
 import { SpinnerTestDialog } from "../dialogs/SpinnerTestDialog";
 import { TestRadialMenu } from "../dialogs/TestRadialMenu";
 import { ViewportDialog } from "../dialogs/ViewportDialog";
-import { ExampleForm } from "../forms/ExampleForm";
 import { AppStatusBarWidgetControl } from "../statusbars/AppStatusBar";
 import { VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { UnifiedSelectionPropertyGridWidgetControl } from "../widgets/UnifiedSelectionPropertyGridWidget";
 import { ViewportWidget } from "../widgets/ViewportWidget";
-import { VisibilityWidgetControl } from "../widgets/VisibilityWidget";
 import { NestedAnimationStage } from "./NestedAnimationStage";
 import { ViewSelectorPanel } from "../../tools/ViewSelectorPanel";
 import { ActiveSettingsManager } from "../../api/ActiveSettingsManager";
@@ -357,25 +354,6 @@ export class ViewsFrontstage extends FrontstageProvider {
       rightPanel: {
         maxSize: { percentage: 50 },
         sections: {
-          start: [
-            {
-              id: "SearchableTree",
-              iconSpec: "icon-visibility",
-              label: "Searchable Tree",
-              control: VisibilityWidgetControl,
-              applicationData: {
-                iModelConnection,
-                config: {
-                  modelsTree: {
-                    selectionMode: SelectionMode.Extended,
-                    selectionPredicate: (_key: NodeKey, type: ModelsTreeNodeType) => type === ModelsTreeNodeType.Element,
-                  },
-                },
-              },
-              defaultFloatingSize: { width: 330, height: 540 },
-              isFloatingStateWindowResizable: true,
-            },
-          ],
           end: [
             {
               defaultState: WidgetState.Closed,
@@ -542,12 +520,6 @@ class AdditionalTools {
     return new CommandItemDef({
       iconSpec: "icon-placeholder", labelKey: "SampleApp:buttons.outputMessage",
       execute: () => { IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, "Test", undefined, OutputMessageType.Sticky)); },
-    });
-  }
-
-  private get _exampleFormItem() {
-    return new CommandItemDef({
-      iconSpec: "icon-annotation", label: "Open Example Form", execute: () => { ExampleForm.open(); },
     });
   }
 
@@ -788,7 +760,7 @@ class AdditionalTools {
       panelLabel: "Dialog Demos",
       iconSpec: "icon-placeholder",
       items: [
-        this._radialMenuItem, this._exampleFormItem, this._viewportDialogItem, this._spinnerTestDialogItem,
+        this._radialMenuItem, this._viewportDialogItem, this._spinnerTestDialogItem,
         this._reduceWidgetOpacity, this._defaultWidgetOpacity, this._openCalculatorItem,
       ],
       badgeType: BadgeType.TechnicalPreview,

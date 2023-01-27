@@ -4,19 +4,23 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/style/opacity";
-@import "~@itwin/itwinui-css/scss/style/typography";
-@import "~@itwin/itwinui-css/scss/style/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/icons/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/button/variables";
 
 $date-picker-m: 16px;
-$date-picker-icons-color-actionable: rgba($buic-foreground-body, $uicore-opacity-2);
-$date-picker-icons-color-actionable-hover: rgba($buic-foreground-body, $uicore-opacity-1);
+$date-picker-icons-color-actionable: rgba(
+  $buic-foreground-body,
+  $uicore-opacity-2
+);
+$date-picker-icons-color-actionable-hover: rgba(
+  $buic-foreground-body,
+  $uicore-opacity-1
+);
 $date-picker-outside-month-color: $buic-text-color-disabled;
 $outline-size: 2px;
 
 .components-date-picker-calendar {
-  border-radius: 3px 3px 0 0;
+  border-radius: var(--iui-border-radius-1) var(--iui-border-radius-1) 0 0;
   background-color: $buic-background-control;
   color: $buic-foreground-body;
   font-size: 14px;
@@ -48,9 +52,10 @@ $outline-size: 2px;
         &.showFocusOutline {
           outline: 0px;
           border: 0px solid $buic-inputs-border;
-          border-radius: 3px;
+          border-radius: var(--iui-border-radius-1);
           border-color: var(--buic-foreground-focus-border);
-          box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+          box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
+            var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
         }
       }
 
@@ -65,7 +70,7 @@ $outline-size: 2px;
 
     .components-month-year {
       flex: 2;
-      font-weight: $iui-font-weight-bold;
+      font-weight: var(--iui-font-weight-bold);
       text-align: center;
     }
   }
@@ -81,7 +86,7 @@ $outline-size: 2px;
     .components-date-picker-calendar-header-day-short {
       text-align: center;
       text-decoration: none;
-      font-weight: $iui-font-weight-bold;
+      font-weight: var(--iui-font-weight-bold);
       height: 32px;
       width: 32px;
       display: inline-flex;
@@ -105,16 +110,18 @@ $outline-size: 2px;
 
       &.showFocusOutline {
         border: 0px solid $buic-inputs-border;
-        border-radius: 3px;
+        border-radius: var(--iui-border-radius-1);
         border-color: var(--buic-foreground-focus-border);
-        box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+        box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
+          var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
 
         .components-date-picker-calendar-day.focused {
           outline: 0px;
           border: 1px solid $buic-inputs-border;
-          border-radius: 3px;
+          border-radius: var(--iui-border-radius-1);
           border-color: var(--buic-foreground-focus-border);
-          box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+          box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
+            var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
           z-index: 1;
         }
       }
@@ -137,15 +144,15 @@ $outline-size: 2px;
 
       &:hover:not(.selected) {
         background-color: $buic-row-hover;
-        border-radius: $iui-border-radius;
-        font-weight: $iui-font-weight-semibold;
+        border-radius: var(--iui-border-radius-1);
+        font-weight: var(--iui-font-weight-semibold);
       }
 
       &.selected {
         background-color: $buic-background-primary;
         color: $buic-foreground-accessory;
-        font-weight: $iui-font-weight-semibold;
-        border-radius: $iui-border-radius;
+        font-weight: var(--iui-font-weight-semibold);
+        border-radius: var(--iui-border-radius-1);
 
         &:hover {
           background-color: $buic-row-hover;
@@ -155,17 +162,16 @@ $outline-size: 2px;
 
       &.today {
         background-color: rgba($buic-foreground-body, $uicore-opacity-6);
-        font-weight: $iui-font-weight-semibold;
+        font-weight: var(--iui-font-weight-semibold);
         border-radius: 50%;
       }
 
       &.notCurrentMonth {
         &:not(.selected) {
           color: $date-picker-outside-month-color;
-          font-weight: $iui-font-weight-light;
+          font-weight: var(--iui-font-weight-light);
         }
       }
     }
   }
-
 }

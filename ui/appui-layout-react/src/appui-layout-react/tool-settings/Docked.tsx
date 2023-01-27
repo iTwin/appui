@@ -9,8 +9,8 @@
 import "./Docked.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, useRefs, useResizeObserver } from "@itwin/core-react";
 import { assert } from "@itwin/core-bentley";
+import { CommonProps, useRefs, useResizeObserver } from "@itwin/core-react";
 import { DockedToolSettingsHandle } from "./Handle";
 import { DockedToolSettingsOverflow } from "./Overflow";
 import { ToolSettingsOverflowPanel } from "./Panel";
@@ -23,7 +23,7 @@ export function onOverflowLabelAndEditorResize() {
 
 /** This component takes a DockedToolSetting "wrapper" component and extract only the label and editor components from it */
 // eslint-disable-next-line @typescript-eslint/naming-convention, no-shadow
-const OverflowLabelAndEditor = React.memo(function OverflowLabelAndEditor({ wrapper }: { wrapper: React.ReactNode }) {
+function OverflowLabelAndEditor({ wrapper }: { wrapper: React.ReactNode }) {
   assert(React.isValidElement(wrapper));
   const entryValue = React.useMemo<DockedToolSettingsEntryContextArgs>(() => ({
     isOverflown: true,
@@ -39,7 +39,7 @@ const OverflowLabelAndEditor = React.memo(function OverflowLabelAndEditor({ wrap
       </DockedToolSettingsEntryContext.Provider>
     </>
   );
-});
+}
 
 /** Properties of [[DockedToolSettings]] component.
  * @internal
@@ -48,7 +48,7 @@ export interface DockedToolSettingsProps extends CommonProps {
   /** Tool settings content. */
   children?: React.ReactNode;
   /** Container for overflown entries. */
-  panelContainer?: React.ComponentType<{children?: React.ReactNode}>;
+  panelContainer?: React.ComponentType<{ children?: React.ReactNode }>;
 }
 
 /** Component that displays tool settings as a bar across the top of the content view.
@@ -179,8 +179,7 @@ interface DockedToolSettingsEntryProps {
   getOnResize: (key: string) => (w: number) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention, no-shadow
-const DockedToolSettingsEntry = React.memo<DockedToolSettingsEntryProps>(function DockedToolSettingsEntry({ children, entryKey, getOnResize }) {
+function DockedToolSettingsEntry({ children, entryKey, getOnResize }: DockedToolSettingsEntryProps) {
   const onResize = React.useMemo(() => getOnResize(entryKey), [getOnResize, entryKey]);
   const entry = React.useMemo<DockedToolSettingsEntryContextArgs>(() => ({
     isOverflown: false,
@@ -191,7 +190,7 @@ const DockedToolSettingsEntry = React.memo<DockedToolSettingsEntryProps>(functio
       {children}
     </DockedToolSettingsEntryContext.Provider>
   );
-});
+}
 
 /** Returns key of a child. Must be used along with React.Children.toArray to preserve the semantics of children.
  * @internal

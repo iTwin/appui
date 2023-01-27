@@ -1,6 +1,6 @@
 ---
 name: Ask a question
-about: Please use the community forum (https://github.com/iTwin/itwinjs-core/discussions) for general questions about using iTwin.js.
+about: Please use the community forum (https://github.com/iTwin/appui/issues) for general questions about using iTwin.js.
 title: ""
 labels: ""
 assignees: ""

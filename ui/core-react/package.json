@@ -1,6 +1,6 @@
 {
   "name": "@itwin/core-react",
-  "version": "4.0.0-dev.1",
+  "version": "4.0.0-dev.2",
   "description": "iTwin.js UI core components",
   "main": "lib/cjs/core-react.js",
   "module": "lib/esm/core-react.js",
@@ -13,8 +13,8 @@
   "scripts": {
     "build": "npm run -s copy:locale && npm run -s build:cjs",
     "build:ci": "npm run -s build && npm run -s build:esm",
-    "build:cjs": "tsc 1>&2 --outDir lib/cjs && npm run -s copy:cjs",
-    "build:esm": "tsc 1>&2 --module ES2020 --outDir lib/esm && npm run -s copy:esm",
+    "build:cjs": "npm run -s copy:cjs && tsc 1>&2 --outDir lib/cjs",
+    "build:esm": "npm run -s copy:esm && tsc 1>&2 --module ES2020 --outDir lib/esm",
     "copy:cjs": "cpx \"./src/**/*.{*css,svg}\" ./lib/cjs",
     "copy:esm": "cpx \"./src/**/*.{*css,svg}\" ./lib/esm",
     "copy:locale": "cpx \"./public/**/*\" ./lib/public",
@@ -39,8 +39,8 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "workspace:^4.0.0-dev.1",
-    "@itwin/core-bentley": "^3.4.0",
+    "@itwin/appui-abstract": "workspace:^4.0.0-dev.2",
+    "@itwin/core-bentley": "^3.5.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
@@ -50,12 +50,12 @@
   ],
   "devDependencies": {
     "@itwin/appui-abstract": "workspace:*",
-    "@itwin/build-tools": "^3.4.0",
-    "@itwin/core-bentley": "^3.4.0",
-    "@itwin/core-common": "^3.4.0",
-    "@itwin/core-geometry": "^3.4.0",
-    "@itwin/core-i18n": "^3.4.0",
-    "@itwin/eslint-plugin": "^3.4.0",
+    "@itwin/build-tools": "^3.5.1",
+    "@itwin/core-bentley": "^3.5.1",
+    "@itwin/core-common": "^3.5.1",
+    "@itwin/core-geometry": "^3.5.1",
+    "@itwin/core-i18n": "^3.5.1",
+    "@itwin/eslint-plugin": "^3.5.1",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
@@ -66,11 +66,10 @@
     "@types/dompurify": "^2.0.3",
     "@types/lodash": "^4.14.0",
     "@types/mocha": "^8.2.2",
-    "@types/node": "16.11.59",
+    "@types/node": "18.11.5",
     "@types/react": "^17.0.37",
     "@types/react-autosuggest": "10.1.2",
     "@types/react-dom": "^17.0.0",
-    "@types/react-select": "3.0.26",
     "@types/sinon": "^9.0.0",
     "@types/sinon-chai": "^3.2.0",
     "chai": "^4.1.2",
@@ -102,13 +101,13 @@
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",
     "@itwin/itwinui-css": "0.x",
+    "@itwin/itwinui-variables": "^1.0.0",
     "@itwin/itwinui-react": "~1.42.0",
     "@itwin/itwinui-icons-react": "^1.8.0",
     "classnames": "2.3.1",
     "dompurify": "^2.0.12",
     "lodash": "^4.17.10",
     "react-autosuggest": "^10.1.0",
-    "react-select": "3.2.0",
     "resize-observer-polyfill": "1.5.1"
   },
   "nyc": {

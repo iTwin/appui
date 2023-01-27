@@ -273,7 +273,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
       if (modeKey === undefined)
         modeKey = "polar";
       const modeString = UiFramework.translate(`accuDraw.compassMode.${modeKey}`);
-      const modeMessage = UiFramework.localization.getLocalizedString("accuDraw.compassModeSet", { ns: UiFramework.localizationNamespace, modeString });
+      const modeMessage = UiFramework.localization.getLocalizedString("accuDraw.compassModeSet", { modeString, ns: UiFramework.localizationNamespace });
       this.outputInfoMessage(modeMessage);
     }
   }
@@ -285,7 +285,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
       if (rotationKey === undefined)
         rotationKey = "top";
       const rotationString = UiFramework.translate(`accuDraw.rotation.${rotationKey}`);
-      const rotationMessage = UiFramework.localization.getLocalizedString("accuDraw.rotationSet", { ns: UiFramework.localizationNamespace, rotationString });
+      const rotationMessage = UiFramework.localization.getLocalizedString("accuDraw.rotationSet", { rotationString, ns: UiFramework.localizationNamespace });
       this.outputInfoMessage(rotationMessage);
     }
   }

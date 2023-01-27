@@ -30,6 +30,7 @@ export class PlaceBlockTool extends CreateElementTool {
       return this._startedCmd;
     return EditTools.startCommand<string>(editorBuiltInCmdIds.cmdBasicManipulation, this.iModel.key);
   }
+
   protected allowView(vp: Viewport) { return vp.view.isSpatialView() || vp.view.isDrawingView(); }
   public override isCompatibleViewport(vp: Viewport | undefined, isSelectedViewChange: boolean): boolean { return (super.isCompatibleViewport(vp, isSelectedViewChange) && undefined !== vp && this.allowView(vp)); }
 

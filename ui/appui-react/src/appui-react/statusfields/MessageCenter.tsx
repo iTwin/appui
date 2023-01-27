@@ -180,7 +180,7 @@ export class MessageCenterField extends React.Component<CommonProps, MessageCent
             {details.detailedMessage &&
               <>
                 <br />
-                <MessageSpan className="uicore-text-small" message={details.detailedMessage} />
+                <MessageSpan className="iui-text-small" message={details.detailedMessage} />
               </>
             }
           </MessageCenterMessage>,

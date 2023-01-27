@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
-import { act, fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { IModelApp, MockRender, QuantityType } from "@itwin/core-frontend";
 import { FormatProps, FormatType, ShowSignOption } from "@itwin/core-quantity";
@@ -16,6 +16,11 @@ import { handleError, selectChangeValueByIndex, selectChangeValueByText, stubScr
 import { QuantityFormatPanel } from "../../imodel-components-react/quantityformat/QuantityFormatPanel";
 
 describe("QuantityInput", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(async ()=>{
+    theUserTo = userEvent.setup();
+    await IModelApp.quantityFormatter.clearAllOverrideFormats();
+  });
   const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(IModelApp, "requestNextAnimation")!;
   function requestNextAnimation() { }
 
@@ -65,7 +70,9 @@ describe("QuantityInput", () => {
     const renderedComponent = render(<QuantityFormatPanel quantityType={QuantityType.Length} showSample initialMagnitude={123.45} enableMinimumProperties />);
     await TestUtils.flushAsyncOperations();
     const spanElement = renderedComponent.getByTestId("format-sample-formatted") as HTMLSpanElement;
-    expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
+    await waitFor(() => {
+      expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
+    });
     await IModelApp.quantityFormatter.setOverrideFormat(QuantityType.Length, overrideLengthFormat);
     renderedComponent.rerender(<QuantityFormatPanel quantityType={QuantityType.Length} showSample initialMagnitude={123.45} enableMinimumProperties />);
     await TestUtils.flushAsyncOperations();
@@ -81,29 +88,26 @@ describe("QuantityInput", () => {
     const spanElement = renderedComponent.getByTestId("format-sample-formatted") as HTMLSpanElement;
 
     // change from default none to space
-    const uomSeparatorSelect = renderedComponent.getByTestId("uom-separator-select");
-    // fireEvent.change(renderedComponent.getByTestId("uom-separator-select"), { target: { value: " " } });
-    selectChangeValueByText(uomSeparatorSelect, "QuantityFormat.space", handleError);
+    await theUserTo.click(screen.getByTestId("uom-separator-select").firstElementChild!);
+    await theUserTo.click(screen.getByText("QuantityFormat.space", { selector: ".iui-popover [role='listbox'] li .iui-menu-label"}));
+
     expect(spy).to.be.called;
     spy.resetHistory();
-    await TestUtils.flushAsyncOperations();
     expect(spanElement.textContent).to.be.eql(`405 '-0 1/4 "`);
 
-    // change from default none to space
-    // fireEvent.change(renderedComponent.getByTestId("uom-separator-select"), { target: { value: "" } });
-    selectChangeValueByText(uomSeparatorSelect, "QuantityFormat.none", handleError);
+    // change back from space to none;
+    await theUserTo.click(screen.getByTestId("uom-separator-select").firstElementChild!);
+    await theUserTo.click(screen.getByText("QuantityFormat.none", { selector: ".iui-popover [role='listbox'] li .iui-menu-label"}));
     expect(spy).to.be.called;
     spy.resetHistory();
-    await TestUtils.flushAsyncOperations();
     expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
 
-    fireEvent.click(renderedComponent.getByTestId("show-unit-label-checkbox"));
+    await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
     expect(spy).to.be.called;
     spy.resetHistory();
-    await TestUtils.flushAsyncOperations();
     expect(spanElement.textContent).to.be.eql(`405:-0 1/4`);  // TODO does this match Native formatter?
 
-    fireEvent.click(renderedComponent.getByTestId("show-unit-label-checkbox"));
+    await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
     expect(spy).to.be.called;
     spy.resetHistory();
     await TestUtils.flushAsyncOperations();
@@ -115,21 +119,19 @@ describe("QuantityInput", () => {
     const spy = sinon.spy();
     const renderedComponent = render(<QuantityFormatPanel quantityType={QuantityType.Length} showSample initialMagnitude={123.45} onFormatChange={spy} />);
     expect(spy).to.not.be.called;
-    await TestUtils.flushAsyncOperations();
 
     const spanElement = renderedComponent.getByTestId("format-sample-formatted") as HTMLSpanElement;
-    expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
+    await waitFor(() => {
+      expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
+    });
 
-    // change from default none to space
-    fireEvent.change(renderedComponent.getByTestId("composite-spacer"), { target: { value: "x" } });
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.type(renderedComponent.getByTestId("composite-spacer"), "x", { initialSelectionStart: 0, initialSelectionEnd: Infinity });
     expect(spanElement.textContent).to.be.eql(`405'x0 1/4"`);
 
     expect(spy).to.be.called;
     spy.resetHistory();
 
-    // change from default none to space
-    fireEvent.change(renderedComponent.getByTestId("composite-spacer"), { target: { value: "xxx" } });
+    await theUserTo.type(renderedComponent.getByTestId("composite-spacer"), "xxx", { initialSelectionStart: 0, initialSelectionEnd: Infinity });
     await TestUtils.flushAsyncOperations();
     expect(spanElement.textContent).to.be.eql(`405'x0 1/4"`);
 
@@ -207,28 +209,6 @@ describe("QuantityInput", () => {
       spy.resetHistory();
     });
 
-    await IModelApp.quantityFormatter.clearOverrideFormats(QuantityType.Length);
-  });
-
-  it("should render new sample when format is changed", async () => {
-    const overrideLengthFormat: FormatProps = {
-      composite: {
-        includeZero: true,
-        spacer: " ",
-        units: [{ label: "in", name: "Units.IN" }],
-      },
-      formatTraits: ["keepSingleZero", "showUnitLabel"],
-      precision: 4,
-      type: "Decimal",
-    };
-    const renderedComponent = render(<QuantityFormatPanel quantityType={QuantityType.Length} showSample initialMagnitude={123.45} enableMinimumProperties />);
-    await TestUtils.flushAsyncOperations();
-    const spanElement = renderedComponent.getByTestId("format-sample-formatted") as HTMLSpanElement;
-    expect(spanElement.textContent).to.be.eql(`405'-0 1/4"`);
-    await IModelApp.quantityFormatter.setOverrideFormat(QuantityType.Length, overrideLengthFormat);
-    renderedComponent.rerender(<QuantityFormatPanel quantityType={QuantityType.Length} showSample initialMagnitude={123.45} enableMinimumProperties />);
-    await TestUtils.flushAsyncOperations();
-    expect(spanElement.textContent).to.be.eql("4860.2362 in");
     await IModelApp.quantityFormatter.clearOverrideFormats(QuantityType.Length);
   });
 
@@ -481,34 +461,26 @@ describe("QuantityInput", () => {
     const renderedComponent = render(<QuantityFormatPanel quantityType={QuantityType.LengthEngineering} showSample initialMagnitude={123.45} />);
 
     const sampleInput = renderedComponent.getByTestId("format-sample-input");
-    act(() => {
-      fireEvent.change(sampleInput, { target: { value: "729.32" } });
-    });
+    await theUserTo.type(sampleInput, "729.32[Enter]", {initialSelectionStart: 0, initialSelectionEnd: Infinity});
     await waitFor(() => {
-      fireEvent.keyDown(sampleInput, { key: "Enter", code: 13 });
-      // renderedComponent.debug();
       renderedComponent.getByDisplayValue("729.32");
     });
 
-    act(() => {
-      fireEvent.change(sampleInput, { target: { value: "a" } });
-    });
+    await theUserTo.type(sampleInput, "a[Enter]", {initialSelectionStart: 0, initialSelectionEnd: Infinity});
     await waitFor(() => {
-      fireEvent.keyDown(sampleInput, { key: "Enter", code: 13 });
       renderedComponent.getByDisplayValue("0");
     });
 
-    sampleInput.focus();
-    fireEvent.change(sampleInput, { target: { value: "14.12" } });
-    sampleInput.blur();
-    await TestUtils.flushAsyncOperations();
+    await theUserTo.type(sampleInput, "14.12", {initialSelectionStart: 0, initialSelectionEnd: Infinity});
+    await theUserTo.tab();
+
     renderedComponent.getByDisplayValue("14.12");
 
-    sampleInput.focus();
-    fireEvent.change(sampleInput, { target: { value: "a" } });
-    sampleInput.blur();
-    await TestUtils.flushAsyncOperations();
-    renderedComponent.getByDisplayValue("0");
+    await theUserTo.type(sampleInput, "a", {initialSelectionStart: 0, initialSelectionEnd: Infinity});
+    await theUserTo.tab();
+    await waitFor(() => {
+      renderedComponent.getByDisplayValue("0");
+    });
 
     // cover update props case
     renderedComponent.rerender(<QuantityFormatPanel quantityType={QuantityType.LengthEngineering} showSample initialMagnitude={4} />);
@@ -524,7 +496,6 @@ describe("QuantityInput", () => {
   });
 
   it("should handle onFormatChange when changing primary unit", async () => {
-    const theUserTo = userEvent.setup();
     const spy = sinon.spy();
     const renderedComponent = render(<QuantityFormatPanel quantityType={QuantityType.LengthEngineering} showSample initialMagnitude={123.45} onFormatChange={spy} />);
     const primaryUnitLabel = renderedComponent.getByTestId("unit-label-Units.FT");
@@ -550,22 +521,23 @@ describe("QuantityInput", () => {
       await BearingQuantityType.registerQuantityType();
     });
 
-    it("should handle onFormatChange when changing changing primary unit", () => {
+    it("should handle onFormatChange when changing changing primary unit", async () => {
       const spy = sinon.spy();
       const renderedComponent = render(<QuantityFormatPanel quantityType={"Bearing"} showSample initialMagnitude={1.45} onFormatChange={spy} />);
 
       const textField = renderedComponent.getByTestId("text-1-editor");
-      fireEvent.change(textField, { target: { value: "Hello" } });
+      await theUserTo.type(textField, "Hello", { initialSelectionStart: 0, initialSelectionEnd: Infinity });
       expect(spy).to.be.called;
       spy.resetHistory();
 
       const checkboxField = renderedComponent.getByTestId("checkbox-0-editor");
-      fireEvent.click(checkboxField);
+      await theUserTo.click(checkboxField);
       expect(spy).to.be.called;
       spy.resetHistory();
 
       const selectField = renderedComponent.getByTestId("select-0-editor");
-      fireEvent.change(selectField, { target: { value: "counter-clockwise" } });
+      await theUserTo.click(selectField.querySelector(".iui-actionable")!);
+      await theUserTo.click(screen.getByText(/counter-clockwise/));
       expect(spy).to.be.called;
       spy.resetHistory();
     });

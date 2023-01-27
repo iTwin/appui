@@ -5,34 +5,39 @@
 import * as React from "react";
 import { act, fireEvent, render } from "@testing-library/react";
 import { WidgetOverflow, WidgetTabsEntryContext } from "../../appui-layout-react";
+import { TestNineZoneProvider } from "../Providers";
 
 describe("WidgetOverflow", () => {
   it("should render", () => {
     const { container } = render(
-      <WidgetTabsEntryContext.Provider value={{
-        lastNotOverflown: false,
-        onResize: () => { },
-      }}>
-        <WidgetOverflow>
-          <div>A</div>
-          <div>B</div>
-        </WidgetOverflow>
-      </WidgetTabsEntryContext.Provider>,
+      <TestNineZoneProvider>
+        <WidgetTabsEntryContext.Provider value={{
+          lastNotOverflown: false,
+          onResize: () => { },
+        }}>
+          <WidgetOverflow>
+            <div>A</div>
+            <div>B</div>
+          </WidgetOverflow>
+        </WidgetTabsEntryContext.Provider>
+      </TestNineZoneProvider>,
     );
     container.firstChild!.should.matchSnapshot();
   });
 
   it("should open panel", () => {
     const { container } = render(
-      <WidgetTabsEntryContext.Provider value={{
-        lastNotOverflown: false,
-        onResize: () => { },
-      }}>
-        <WidgetOverflow>
-          <div>A</div>
-          <div>B</div>
-        </WidgetOverflow>
-      </WidgetTabsEntryContext.Provider>,
+      <TestNineZoneProvider>
+        <WidgetTabsEntryContext.Provider value={{
+          lastNotOverflown: false,
+          onResize: () => { },
+        }}>
+          <WidgetOverflow>
+            <div>A</div>
+            <div>B</div>
+          </WidgetOverflow>
+        </WidgetTabsEntryContext.Provider>
+      </TestNineZoneProvider>,
     );
     const button = container.getElementsByClassName("nz-button")[0];
     act(() => {
@@ -44,15 +49,17 @@ describe("WidgetOverflow", () => {
 
   it("should close panel on outside click", () => {
     const { container } = render(
-      <WidgetTabsEntryContext.Provider value={{
-        lastNotOverflown: false,
-        onResize: () => { },
-      }}>
-        <WidgetOverflow>
-          <div>A</div>
-          <div>B</div>
-        </WidgetOverflow>
-      </WidgetTabsEntryContext.Provider>,
+      <TestNineZoneProvider>
+        <WidgetTabsEntryContext.Provider value={{
+          lastNotOverflown: false,
+          onResize: () => { },
+        }}>
+          <WidgetOverflow>
+            <div>A</div>
+            <div>B</div>
+          </WidgetOverflow>
+        </WidgetTabsEntryContext.Provider>
+      </TestNineZoneProvider>,
     );
     const button = container.getElementsByClassName("nz-button")[0];
     act(() => {

@@ -3,9 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
-$text-font-size: $iui-font-size;
+$text-font-size: var(--iui-font-size-1);
 $text-font-color: $buic-text-color;
 
 .components-property-record--horizontal {
@@ -14,7 +13,7 @@ $text-font-color: $buic-text-color;
   padding: 0 8px;
 
   .components-property-record-label {
-    font-size: $iui-font-size-small;
+    font-size: var(--iui-font-size-0);
     color: $buic-foreground-muted;
   }
 
@@ -33,7 +32,7 @@ $text-font-color: $buic-text-color;
   align-content: center;
 
   .components-property-record-label {
-    font-size: $iui-font-size-small;
+    font-size: var(--iui-font-size-0);
     color: $buic-foreground-muted;
   }
 

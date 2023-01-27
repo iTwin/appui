@@ -3,9 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "../style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/space";
 
- .core-ls{
+.core-ls {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,11 +16,11 @@
 
   .ls-message-top {
     @extend .ls-message;
-    margin-bottom: $iui-sm;
+    margin-bottom: var(--iui-size-s);
   }
 
   .ls-message-bottom {
     @extend .ls-message;
-    margin-top: $iui-sm;
+    margin-top: var(--iui-size-s);
   }
 }

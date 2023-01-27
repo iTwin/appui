@@ -3,8 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-@import "~@itwin/itwinui-css/scss/style/space";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 $border-color: #eeeeee;
 
@@ -13,9 +11,9 @@ $border-color: #eeeeee;
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-bottom: $iui-m;
+  padding-bottom: var(--iui-size-m);
   box-sizing: border-box;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   background: $uicore-gray-c;
   position: relative;
   overflow: hidden;
@@ -25,18 +23,18 @@ $border-color: #eeeeee;
     box-sizing: border-box;
     width: 100%;
     flex: 1;
-    padding-left: $iui-m;
-    padding-top: $iui-m;
-    padding-bottom: $iui-m;
+    padding-left: var(--iui-size-m);
+    padding-top: var(--iui-size-m);
+    padding-bottom: var(--iui-size-m);
     border-bottom: 1px solid $uicore-gray-a;
   }
 
   /* container - flat list of models */
   .models-list-container {
     flex: 1;
-    margin-top: $iui-s;
-    margin-left: $iui-s;
-    margin-right: $iui-s;
+    margin-top: var(--iui-size-xs);
+    margin-left: var(--iui-size-xs);
+    margin-right: var(--iui-size-xs);
     border: 1px solid $uicore-gray-a;
     background: $uicore-white;
     overflow-y: auto;
@@ -50,19 +48,19 @@ $border-color: #eeeeee;
     overflow-x: auto;
     box-sizing: border-box;
     width: 100%;
-    padding: $iui-m;
+    padding: var(--iui-size-m);
 
     .dc-table {
       flex: 1 1 225px;
       display: flex;
       flex-direction: column;
       min-width: 175px;
-      margin: $iui-sm $iui-s;
+      margin: var(--iui-size-s) var(--iui-size-xs);
       background: $uicore-white;
       position: relative;
 
       .dc-table-header {
-        padding: 10px $iui-s;
+        padding: 10px var(--iui-size-xs);
         border: 1px solid $uicore-gray-a;
         color: rgba($uicore-text-color, 0.85);
         display: flex;
@@ -95,7 +93,7 @@ $border-color: #eeeeee;
 
   /* enter iModel button */
   .open-button {
-    margin: $iui-l $iui-m 0 auto !important;
+    margin: var(--iui-size-l) var(--iui-size-m) 0 auto !important;
   }
 
   /* toast displayed for 3d Models */
@@ -109,9 +107,9 @@ $border-color: #eeeeee;
     display: flex;
     align-items: center;
     background-color: $uicore-white;
-    color: rgba(black, .85);
+    color: rgba(black, 0.85);
     border: 1px solid $uicore-blue;
-    border-radius: 3px;
+    border-radius: var(--iui-border-radius-1);
 
     .toast-image {
       width: 48px;
@@ -127,23 +125,23 @@ $border-color: #eeeeee;
       display: flex;
       justify-content: center;
       flex-direction: column;
-      padding: 0 $iui-m;
+      padding: 0 var(--iui-size-m);
 
-      >span:first-child {
+      > span:first-child {
         font-size: 14px;
-        color: rgba($uicore-text-color, .85);
+        color: rgba($uicore-text-color, 0.85);
       }
 
-      >span:last-child {
+      > span:last-child {
         margin-top: 3px;
         font-size: 12px;
         color: $uicore-gray;
       }
     }
 
-    >a {
+    > a {
       margin-left: auto;
-      margin-right: $iui-xs;
+      margin-right: var(--iui-size-2xs);
       font-size: 12px;
       text-decoration: underline;
       color: $uicore-blue;
@@ -152,9 +150,9 @@ $border-color: #eeeeee;
 
     .close {
       font-size: 2em;
-      margin-left: $iui-m;
-      margin-right: $iui-sm;
-      color: rgba(0, 0, 0, .85);
+      margin-left: var(--iui-size-m);
+      margin-right: var(--iui-size-s);
+      color: rgba(0, 0, 0, 0.85);
       cursor: pointer;
 
       &:hover {
@@ -186,12 +184,12 @@ $border-color: #eeeeee;
 
 @-webkit-keyframes slide {
   100% {
-    bottom: 15px
+    bottom: 15px;
   }
 }
 
 @keyframes slide {
   100% {
-    bottom: 15px
+    bottom: 15px;
   }
 }

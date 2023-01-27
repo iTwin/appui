@@ -23,7 +23,7 @@ describe("usePanelsAutoCollapse", () => {
       wrapper,
       initialProps: {
         dispatch,
-        state,
+        defaultState: state,
       },
     });
     const element = document.createElement("div");
@@ -46,7 +46,7 @@ describe("usePanelsAutoCollapse", () => {
       wrapper,
       initialProps: {
         dispatch,
-        state,
+        defaultState: state,
         autoCollapseUnpinnedPanels: true,
       },
     });
@@ -67,7 +67,7 @@ describe("usePanelsAutoCollapse", () => {
     const { result } = renderHook(() => usePanelsAutoCollapse(), {
       wrapper,
       initialProps: {
-        state,
+        defaultState: state,
         autoCollapseUnpinnedPanels: true,
       },
     });
