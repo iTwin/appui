@@ -8,15 +8,12 @@ import * as React from "react";
 import {
   AbstractWidgetProps, BackstageItem,
   BackstageItemUtilities, BadgeType,
-  CommonStatusBarItem,
   CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities,
   StagePanelLocation, StagePanelSection,
-  StatusBarSection,
   ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage,
   UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
-import { CustomToolbarItem } from "@itwin/components-react";
-import { FrontstageManager, PropsHelper, StateManager, StatusBarItemUtilities, StatusBarLabelIndicator, SyncUiEventDispatcher } from "@itwin/appui-react";
+import { FrontstageManager, PropsHelper, StateManager, SyncUiEventDispatcher } from "@itwin/appui-react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { PresentationPropertyGridWidget, PresentationPropertyGridWidgetControl } from "../widgets/PresentationPropertyGridWidget";
 import { OpenTraceDialogTool } from "../../tools/OpenTraceDialogTool";
@@ -24,11 +21,9 @@ import { NetworkTracingFrontstage } from "../frontstages/NetworkTracing";
 import { getTestProviderState, setIsTraceAvailable } from "../../store";
 import { UiItemsProvidersTest } from "../../ui-items-providers-test";
 import { SelectedElementDataWidgetComponent } from "../widgets/SelectedElementDataWidget";
-import { VisibilityTreeComponent } from "../widgets/VisibilityWidget";
 import downstreamQuerySvg from "../icons/downstream-query.svg";
 import queryMultiSvg from "../icons/query-multi.svg";
 import upstreamQuerySvg from "../icons/upstream-query.svg";
-import { SvgList } from "@itwin/itwinui-icons-react";
 import { ISelectionProvider, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -179,18 +174,7 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
         }
       );
 
-      const customVisibilityTreeButton: CustomToolbarItem = {
-        isCustom: true,
-        id: "test.custom-popup-with-visibility-tree",
-        itemPriority: 225,
-        icon: "icon-tree",
-        label: "Searchable Tree",
-        panelContentNode: <VisibilityTreeComponent />,
-        keepContentsLoaded: true,
-        groupPriority: 20,
-      };
-
-      return [groupSpec, getStandaloneButton, toggleTracingSpec, customVisibilityTreeButton];
+      return [groupSpec, getStandaloneButton, toggleTracingSpec];
     }
     return [];
   }
@@ -246,15 +230,5 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
       // use 200 to group it with secondary stages in ui-test-app
       BackstageItemUtilities.createStageLauncher(NetworkTracingFrontstage.stageId, 200, 1, label, "from provider", iconProps.icon, { internalData: iconProps.internalData }),
     ];
-  }
-
-  public provideStatusBarItems(stageId: string, _stageUsage: string): CommonStatusBarItem[] {
-    const statusBarItems: CommonStatusBarItem[] = [];
-    if (stageId === NetworkTracingFrontstage.stageId) {
-      statusBarItems.push(
-        StatusBarItemUtilities.createStatusBarItem("Test:Visibility", StatusBarSection.Center, 50, <StatusBarLabelIndicator iconSpec={<SvgList />} title="Searchable Tree" popup={<VisibilityTreeComponent />} />),
-      );
-    }
-    return statusBarItems;
   }
 }
