@@ -12,7 +12,7 @@ import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { CommonProps, Icon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
-import { SvgChevronLeft } from "@itwin/itwinui-icons-react";
+import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 /** [[ResultSelector]] React Component state
  * @internal
@@ -143,7 +143,7 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
 
         <button className="components-result-selector-button icon icon-chevron-right"
           onClick={this._onClickNext}
-          disabled={this.props.resultCount <= 0} />
+          disabled={this.props.resultCount <= 0}><Icon iconSpec={<SvgChevronRight />}/></button>
       </span>
     );
   }

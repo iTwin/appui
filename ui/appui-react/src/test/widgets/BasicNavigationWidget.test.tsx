@@ -144,7 +144,7 @@ describe("BasicNavigationWidget", () => {
     const { container } = render(<BasicNavigationWidget />);
 
     expect(container).to.satisfy(childStructure(
-      `.nz-navigation-aid-container .uifw-standard-rotation-navigation .icon-cube-faces-top`
+      `.nz-navigation-aid-container .uifw-standard-rotation-navigation`
     ));
   });
 
