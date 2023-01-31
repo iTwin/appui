@@ -6,7 +6,7 @@ import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider, UiFramework,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider, StageUsage, UiFramework,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { IModelIndex } from "../imodelindex/IModelIndex";

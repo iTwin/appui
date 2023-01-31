@@ -5,8 +5,8 @@
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import {
-  ActivityCenterField, ConfigurableUiManager, MessageCenterField, SnapModeField, StatusBarComposer, StatusBarItem,
-  StatusBarItemUtilities, StatusBarSeparator, StatusBarWidgetControl, ToolAssistanceField,
+  ActivityCenterField, AnyStatusBarItem, ConfigurableUiManager, MessageCenterField, SnapModeField, StatusBarComposer, StatusBarItem,
+  StatusBarItemUtilities, StatusBarSection, StatusBarSeparator, StatusBarWidgetControl, ToolAssistanceField,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../..";
 

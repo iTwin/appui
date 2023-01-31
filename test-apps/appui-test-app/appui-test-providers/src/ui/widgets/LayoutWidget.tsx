@@ -7,7 +7,7 @@ import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageTy
 import {
   FrontstageDef, FrontstageManager, StagePanelLocation, StagePanelState, useActiveFrontstageDef, WidgetState,
 } from "@itwin/appui-react";
-import { SpecialKey, StagePanelLocation, WidgetState } from "@itwin/appui-abstract";
+import { SpecialKey } from "@itwin/appui-abstract";
 import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import { ApplicationLayoutContext, ApplicationMode } from "../ApplicationLayout";

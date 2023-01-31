@@ -7,7 +7,7 @@ import {
   BackstageAppButton, BackstageManager, ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup,
   ContentToolWidgetComposer, CoreTools, FrontstageConfig, FrontstageManager, FrontstageProvider, StagePanelState,
   StandardContentToolsUiItemsProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider,
-  StatusBarWidgetComposerControl, ViewToolWidgetComposer,
+  StatusBarWidgetComposerControl, UiItemsManager, ViewToolWidgetComposer,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { CustomStageUiItemsProvider } from "../providers/CustomStageUiItemsProvider";

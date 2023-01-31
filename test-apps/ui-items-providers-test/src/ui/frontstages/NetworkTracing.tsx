@@ -5,7 +5,7 @@
 import * as React from "react";
 import {
   BackstageAppButton, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
-  IModelViewportControl, StageContentLayout, StageContentLayoutProps, StandardContentToolsProvider, StandardFrontstageProps, StandardFrontstageProvider,
+  IModelViewportControl, StageContentLayout, StageContentLayoutProps, StageUsage, StandardContentToolsProvider, StandardFrontstageProps, StandardFrontstageProvider,
   StandardNavigationToolsProvider, StandardStatusbarItemsProvider, UiFramework,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";

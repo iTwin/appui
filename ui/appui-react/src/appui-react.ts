@@ -23,7 +23,6 @@ export * from "./appui-react/accudraw/MenuButtonPopup";
 export * from "./appui-react/backstage/BackstageComposer";
 export * from "./appui-react/backstage/BackstageComposerItem";
 export * from "./appui-react/backstage/BackstageItem";
-export * from "./appui-react/backstage/BackstageItemProps";
 export * from "./appui-react/backstage/BackstageItemUtilities";
 export * from "./appui-react/backstage/BackstageManager";
 export * from "./appui-react/backstage/useDefaultBackstageItems";
@@ -146,7 +145,6 @@ export * from "./appui-react/shared/ToolItemDef";
 
 export * from "./appui-react/stagepanels/StagePanelConfig";
 export * from "./appui-react/stagepanels/StagePanelDef";
-export * from "./appui-react/stagepanels/StagePanelHeader";
 export * from "./appui-react/stagepanels/StagePanelLocation";
 export * from "./appui-react/stagepanels/StagePanelSection";
 
@@ -182,15 +180,11 @@ export * from "./appui-react/timeline/AnalysisAnimationProvider";
 export * from "./appui-react/timeline/SolarTimelineDataProvider";
 
 export * from "./appui-react/toolbar/DragInteraction";
-export * from "./appui-react/toolbar/GroupButtonItem";
 export * from "./appui-react/toolbar/GroupItem";
-export * from "./appui-react/toolbar/PopupButton";
-export * from "./appui-react/toolbar/Toolbar";
 export * from "./appui-react/toolbar/ToolbarComposer";
 export * from "./appui-react/toolbar/ToolbarHelper";
 export * from "./appui-react/toolbar/ToolbarItem";
 export * from "./appui-react/toolbar/ToolbarItemUtilities";
-export * from "./appui-react/toolbar/ToolButton";
 export * from "./appui-react/toolbar/useDefaultToolbarItems";
 export * from "./appui-react/toolbar/useUiItemsProviderToolbarItems";
 
@@ -248,7 +242,6 @@ export * from "./appui-react/widgets/WidgetDef";
 export * from "./appui-react/widgets/WidgetHost";
 export * from "./appui-react/widgets/WidgetManager";
 export * from "./appui-react/widgets/WidgetProps";
-export * from "./appui-react/widgets/WidgetStack";
 export * from "./appui-react/widgets/WidgetState";
 
 export * from "./appui-react/toolsettings/ToolInformation";

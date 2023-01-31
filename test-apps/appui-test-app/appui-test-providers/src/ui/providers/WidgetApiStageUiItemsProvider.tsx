@@ -9,7 +9,7 @@ import {
   BackstageItem, BackstageItemUtilities, StagePanelLocation, StagePanelSection, ToolbarOrientation, ToolbarUsage,
   UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
-import { ToolbarHelper } from "@itwin/appui-react";
+import { CommonWidgetProps, ToolbarHelper, ToolbarItem } from "@itwin/appui-react";
 import { getToggleCustomOverlayCommandItemDef, WidgetApiStage } from "../frontstages/WidgetApiStage";
 import { FloatingLayoutInfo, LayoutControls, LayoutInfo } from "../widgets/LayoutWidget";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
