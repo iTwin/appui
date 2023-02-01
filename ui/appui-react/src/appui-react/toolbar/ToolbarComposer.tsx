@@ -9,7 +9,7 @@
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import {
-  ActionButton, CommonToolbarItem, ConditionalBooleanValue, GroupButton, ToolbarItemsManager, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, UiSyncEventArgs,
+  ActionButton, CommonToolbarItem, ConditionalBooleanValue, GroupButton, ToolbarItemsManager, ToolbarItemUtilities, UiSyncEventArgs,
 } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { Direction, ToolbarItem, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
@@ -20,6 +20,7 @@ import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { ToolbarDragInteractionContext } from "./DragInteraction";
 import { useDefaultToolbarItems } from "./useDefaultToolbarItems";
 import { useUiItemsProviderToolbarItems } from "./useUiItemsProviderToolbarItems";
+import { ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
 
 /** Private function to set up sync event monitoring of toolbar items */
 function useToolbarItemSyncEffect(uiDataProvider: ToolbarItemsManager, syncIdsOfInterest: string[]) {

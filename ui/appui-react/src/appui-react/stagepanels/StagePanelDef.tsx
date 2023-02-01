@@ -7,12 +7,14 @@
  */
 
 import produce, { Draft } from "immer";
-import { StagePanelLocation, StagePanelSection, UiEvent } from "@itwin/appui-abstract";
+import { UiEvent } from "@itwin/appui-abstract";
 import { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
 import { StagePanelConfig, StagePanelMaxSizeSpec, StagePanelSectionConfig } from "./StagePanelConfig";
+import { StagePanelLocation } from "./StagePanelLocation";
+import { StagePanelSection } from "./StagePanelSection";
 
 /** Enum for StagePanel state.
  * @public
