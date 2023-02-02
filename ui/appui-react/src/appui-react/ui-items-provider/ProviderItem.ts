@@ -6,9 +6,9 @@
  * @module UiProvider
  */
 
-import { ProvidedItem } from "@itwin/appui-abstract";
-
 /** Properties for an item provided by UiItemsProvider.
  * @beta
  */
-export type ProviderItem = ProvidedItem; // eslint-disable-line deprecation/deprecation
+export interface ProviderItem {
+  readonly providerId?: string;
+}

@@ -6,12 +6,12 @@
  * @module StandardUiItemsProvider
  */
 
-import { BaseUiItemsProvider, CommonToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "@itwin/appui-abstract";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
+import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { CoreTools } from "../tools/CoreToolDefinitions";
+import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
 import { DefaultNavigationTools } from "./StandardNavigationToolsUiItemsProvider";
-
-/* eslint-disable deprecation/deprecation */
+import { UiItemsManager } from "./UiItemsManager";
 
 /**
  * Provide standard tools for the ViewNavigationWidgetComposer.
@@ -37,8 +37,8 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     super(providerId, isSupportedStage);
   }
 
-  public override provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): CommonToolbarItem[] {
-    const items: CommonToolbarItem[] = [];
+  public override provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
+    const items: ToolbarItem[] = [];
     if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Horizontal) {
 
       if (!this.defaultNavigationTools || !this.defaultNavigationTools.horizontal || this.defaultNavigationTools.horizontal.rotateView)

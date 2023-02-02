@@ -161,8 +161,7 @@
           ]
         }
       ],
-      "@typescript-eslint/unbound-method": "off",
-      "deprecation/deprecation": "off"
+      "@typescript-eslint/unbound-method": "off"
     }
   }
 }

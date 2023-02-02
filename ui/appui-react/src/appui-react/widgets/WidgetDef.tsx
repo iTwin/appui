@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent, WidgetState } from "@itwin/appui-abstract";
+import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent } from "@itwin/appui-abstract";
 import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
@@ -18,8 +18,7 @@ import { WidgetControl } from "./WidgetControl";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import { IconHelper, IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
 import { WidgetConfig } from "./WidgetConfig";
-
-/* eslint-disable deprecation/deprecation */
+import { WidgetState } from "./WidgetState";
 
 const widgetStateNameMap = new Map<WidgetState, string>([
   [WidgetState.Closed, "Closed"],

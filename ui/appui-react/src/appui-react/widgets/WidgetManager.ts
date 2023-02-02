@@ -14,7 +14,7 @@ import { WidgetConfig } from "./WidgetConfig";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import { AbstractWidgetProps } from "@itwin/appui-abstract";
+import { WidgetProps } from "./WidgetProps";
 
 /** Information about WidgetDefs in the WidgetManager
  * @internal
@@ -41,10 +41,6 @@ export class WidgetsChangedEvent extends BeUiEvent<WidgetsChangedEventArgs> { }
 
 function getWidgetManagerStableWidgetId(stageUsage: string | undefined, location: StagePanelLocation, section: StagePanelSection, index: number) {
   return `uifw-wm-${stageUsage || ""}-${StagePanelLocation[location]}-${StagePanelSection[section]}-${index}`;
-}
-
-function getAddonStableWidgetId(stageUsage: string, location: StagePanelLocation, section: StagePanelSection, index: number) {
-  return `uifw-addon-${stageUsage}-${StagePanelLocation[location]}-${StagePanelSection[section]}-${index}`;
 }
 
 /** Widget Manager class.
@@ -131,9 +127,8 @@ export class WidgetManager {
 
     // Consult the UiItemsManager to get any Abstract widgets
     const widgets = UiItemsManager.getWidgets(stageId, stageUsage, location, definedSection);
-    widgets.forEach((abstractProps, index) => {
-      const stableId = getAddonStableWidgetId(stageUsage, location, definedSection, index);
-      const config = createWidgetConfigFromAbstractProps(abstractProps, stableId);
+    widgets.forEach((abstractProps) => {
+      const config = createWidgetConfigFromAbstractProps(abstractProps);
       const widgetDef = WidgetDef.create(config);
       widgetDefs.push(widgetDef);
     });
@@ -141,11 +136,10 @@ export class WidgetManager {
   }
 }
 
-function createWidgetConfigFromAbstractProps(props: AbstractWidgetProps, stableId: WidgetConfig["id"]): WidgetConfig { // eslint-disable-line deprecation/deprecation
+function createWidgetConfigFromAbstractProps(props: WidgetProps): WidgetConfig {
   const config: WidgetConfig = {
-    id: props.id ? props.id : stableId,
-    element: props.getWidgetContent(),
     ...props,
+    element: props.getWidgetContent(),
   };
   return config;
 }

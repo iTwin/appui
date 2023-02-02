@@ -6,14 +6,10 @@
  * @module Frontstage
  */
 
-import { StagePanelSection as UIA_StagePanelSection } from "@itwin/appui-abstract";
-
 /** Enum for Stage Panel Sections
  * @beta
  */
-export type StagePanelSection = UIA_StagePanelSection; // eslint-disable-line deprecation/deprecation
-
-/** Enum for Stage Panel Sections
- * @beta
- */
-export const StagePanelSection = UIA_StagePanelSection; // eslint-disable-line @typescript-eslint/no-redeclare, deprecation/deprecation
+export enum StagePanelSection {
+  Start,
+  End,
+}

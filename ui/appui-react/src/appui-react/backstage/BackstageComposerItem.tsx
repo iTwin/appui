@@ -8,18 +8,17 @@
 
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import {
-  BackstageActionItem, BackstageItem, BackstageStageLauncher, ConditionalBooleanValue, ConditionalStringValue, isStageLauncher,
-} from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { BadgeUtilities, Icon, IconHelper } from "@itwin/core-react";
 import { BackstageItem as NZ_BackstageItem } from "@itwin/appui-layout-react";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { useBackstageManager } from "./BackstageManager";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
+import { BackstageActionItem, BackstageItem, BackstageStageLauncher, isBackstageStageLauncher } from "./BackstageItem";
 
 /** @internal */
 export interface BackstageComposerActionItemProps {
-  readonly item: BackstageActionItem; // eslint-disable-line deprecation/deprecation
+  readonly item: BackstageActionItem;
 }
 
 /** @internal */
@@ -50,7 +49,7 @@ export function BackstageComposerActionItem({ item }: BackstageComposerActionIte
 
 /** @internal */
 export interface BackstageComposerStageLauncherProps {
-  readonly item: BackstageStageLauncher; // eslint-disable-line deprecation/deprecation
+  readonly item: BackstageStageLauncher;
 }
 
 /** @internal */
@@ -88,7 +87,7 @@ export function BackstageComposerStageLauncher({ item }: BackstageComposerStageL
  */
 export interface BackstageComposerItemProps {
   /** Backstage item to render */
-  readonly item: BackstageItem; // eslint-disable-line deprecation/deprecation
+  readonly item: BackstageItem;
   readonly providerId?: string;
 }
 
@@ -96,7 +95,7 @@ export interface BackstageComposerItemProps {
  * @internal
  */
 export function BackstageComposerItem({ item }: BackstageComposerItemProps) {
-  if (isStageLauncher(item)) { // eslint-disable-line deprecation/deprecation
+  if (isBackstageStageLauncher(item)) {
     return (
       <BackstageComposerStageLauncher
         item={item}

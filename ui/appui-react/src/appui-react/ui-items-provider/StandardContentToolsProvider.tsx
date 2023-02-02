@@ -8,18 +8,16 @@
 
 import * as React from "react";
 import { ViewClipByPlaneTool } from "@itwin/core-frontend";
-import {
-  BaseUiItemsProvider, CommonStatusBarItem, CommonToolbarItem,
-  StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsManager,
-} from "@itwin/appui-abstract";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { SectionsStatusField } from "../statusfields/SectionsField";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { CoreTools } from "../tools/CoreToolDefinitions";
 import { DefaultContentTools } from "./StandardContentToolsUiItemsProvider";
-
-/* eslint-disable deprecation/deprecation */
+import { UiItemsManager } from "./UiItemsManager";
+import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
+import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import { StatusBarItem, StatusBarSection } from "../statusbar/StatusBarItem";
 
 /**
  * Defines options that may be set in frontstage app data to control what group priorities
@@ -99,8 +97,8 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     super(providerId, isSupportedStage);
   }
 
-  public override provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): CommonToolbarItem[] {
-    const items: CommonToolbarItem[] = [];
+  public override provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[] {
+    const items: ToolbarItem[] = [];
 
     if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
       const clearSelectionGroupPriority = getGroupPriority(stageAppData?.defaultContentTools?.horizontal?.clearSelectionGroupPriority, 10);
@@ -147,12 +145,12 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     return items;
   }
 
-  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): CommonStatusBarItem[] {
-    const statusBarItems: CommonStatusBarItem[] = [];
+  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
+    const statusBarItems: StatusBarItem[] = [];
 
     // if the sectionGroup tools are to be shown then we want the status field added to allow clearing or manipulation the section
     if (this.defaultContentTools?.vertical?.sectionGroup) {
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.Sections", StatusBarSection.Center, 20, <SectionsStatusField hideWhenUnused />));
+      statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.Sections", StatusBarSection.Center, 20, <SectionsStatusField hideWhenUnused />));
     }
 
     return statusBarItems;

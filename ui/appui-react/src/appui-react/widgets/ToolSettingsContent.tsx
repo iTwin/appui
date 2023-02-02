@@ -16,6 +16,6 @@ export interface ToolSettingsContentContextProps {
 }
 
 /** @internal */
-export const ToolSettingsContentContext = React.createContext<ToolSettingsContentContextProps>({ // eslint-disable-line @typescript-eslint/naming-convention
+export const ToolSettingsContentContext = React.createContext<ToolSettingsContentContextProps>({
   availableContentWidth: 0,
 });

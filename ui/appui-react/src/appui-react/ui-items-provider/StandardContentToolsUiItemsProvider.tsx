@@ -7,18 +7,14 @@
  */
 
 import * as React from "react";
-import {
-  CommonStatusBarItem, CommonToolbarItem,
-  StatusBarSection, ToolbarOrientation, ToolbarUsage,
-  UiItemsProvider,
-} from "@itwin/appui-abstract";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
+import { StatusBarItem, StatusBarSection } from "../statusbar/StatusBarItem";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { SectionsStatusField } from "../statusfields/SectionsField";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
+import { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { CoreTools } from "../tools/CoreToolDefinitions";
-
-/* eslint-disable deprecation/deprecation */
+import { UiItemsProvider } from "./UiItemsProvider";
 
 /**
  * Defines what tools to include from the provider. If any tools in the horizontal or vertical group are
@@ -115,12 +111,12 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
     return items;
   }
 
-  public provideStatusBarItems(_stageId: string, _stageUsage: string, _stageAppData?: any): CommonStatusBarItem[] {
-    const statusBarItems: CommonStatusBarItem[] = [];
+  public provideStatusBarItems(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
+    const statusBarItems: StatusBarItem[] = [];
 
     // if the sectionGroup tools are to be shown then we want the status field added to allow clearing or manipulation the section
     if (this.defaultContextTools?.vertical?.sectionGroup) {
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.Sections", StatusBarSection.Center, 20, <SectionsStatusField hideWhenUnused />));
+      statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.Sections", StatusBarSection.Center, 20, <SectionsStatusField hideWhenUnused />));
     }
 
     return statusBarItems;

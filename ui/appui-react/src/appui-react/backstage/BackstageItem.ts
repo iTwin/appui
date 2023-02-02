@@ -6,45 +6,73 @@
  * @module Backstage
  */
 
-import {
-  isActionItem,
-  isStageLauncher,
-  BackstageActionItem as UIA_BackstageActionItem,
-  BackstageItem as UIA_BackstageItem,
-  BackstageStageLauncher as UIA_BackstageStageLauncher,
-  CommonBackstageItem as UIA_CommonBackstageItem,
-} from "@itwin/appui-abstract";
+import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import { ProviderItem } from "../ui-items-provider/ProviderItem";
 
 /** Describes the data needed to insert a button into the backstage menu.
  * @beta
  */
-export type CommonBackstageItem = UIA_CommonBackstageItem; // eslint-disable-line deprecation/deprecation
+export interface CommonBackstageItem extends ProviderItem {
+  /** can be used by application to store miscellaneous data. */
+  readonly applicationData?: any;
+  /** Describes badge. Renders no badge if not specified. */
+  readonly badgeType?: BadgeType;
+  /** Specifies the item's grouping value. Items are sorted by group and then item priority. When
+   * group priority changes a separator is inserted. It is recommended using values 10 through 100, incrementing by 10. This
+   * allows extensions enough gaps to insert their own groups.
+   */
+  readonly groupPriority: number;
+  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
+  readonly icon?: string | ConditionalStringValue;
+  /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
+  readonly id: string;
+  /** optional data to be used by item implementor. */
+  readonly internalData?: Map<string, any>;
+  /** Describes if the item is visible or hidden. The default is for the item to be visible. */
+  readonly isHidden?: boolean | ConditionalBooleanValue;
+  /** Describes if the item is enabled or disabled. The default is for the item to be enabled. */
+  readonly isDisabled?: boolean | ConditionalBooleanValue;
+  /** Priority within a group (recommend using values 1 through 100). */
+  readonly itemPriority: number;
+  /** Label. */
+  readonly label: string | ConditionalStringValue;
+  /** Subtitle. */
+  readonly subtitle?: string | ConditionalStringValue;
+  /** Tooltip. */
+  readonly tooltip?: string | ConditionalStringValue;
+  /** Describes if the item is active. The default is for the item to be active if stageId matches activeFrontstageId */
+  readonly isActive?: boolean | ConditionalBooleanValue;
+}
 
 /** Describes the data needed to insert an action button into the backstage menu.
  * @beta
  */
-export type BackstageActionItem = UIA_BackstageActionItem; // eslint-disable-line deprecation/deprecation
+export interface BackstageActionItem extends CommonBackstageItem {
+  readonly execute: () => void;
+}
 
 /** Describes the data needed to insert an action button into the backstage menu.
  * @beta
  */
-export type BackstageStageLauncher = UIA_BackstageStageLauncher; // eslint-disable-line deprecation/deprecation
+export interface BackstageStageLauncher extends CommonBackstageItem {
+  readonly stageId: string;
+}
 
 /** Describes the data needed to insert a button into the backstage menu.
- * @public TODO: 4.x cleanup
+ * @public
  */
-export type BackstageItem = UIA_BackstageItem; // eslint-disable-line deprecation/deprecation
+export type BackstageItem = BackstageActionItem | BackstageStageLauncher;
 
 /** BackstageActionItem type guard.
- * @beta
+ * @public
  */
-export function isBackstageActionItem(item: BackstageItem): item is UIA_BackstageActionItem { // eslint-disable-line deprecation/deprecation
-  return isActionItem(item); // eslint-disable-line deprecation/deprecation
+export function isBackstageActionItem(item: BackstageItem): item is BackstageActionItem {
+  return "execute" in item;
 }
 
 /** BackstageStageLauncher type guard.
- * @beta
+ * @public
  */
-export function isBackstageStageLauncher(item: BackstageItem): item is UIA_BackstageStageLauncher { // eslint-disable-line deprecation/deprecation
-  return isStageLauncher(item); // eslint-disable-line deprecation/deprecation
+export function isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher {
+  return "stageId" in item;
 }
