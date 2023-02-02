@@ -44,7 +44,7 @@
     "@itwin/core-quantity": "^3.5.1",
     "@itwin/core-orbitgt": "^3.5.1",
     "@itwin/webgl-compatibility": "^3.5.1",
-    "@itwin/appui-abstract": "workspace:*",
+    "@itwin/appui-abstract": "^3.5.1",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",

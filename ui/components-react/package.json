@@ -37,7 +37,7 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "workspace:^4.0.0-dev.8",
+    "@itwin/appui-abstract": "^3.5.1",
     "@itwin/core-bentley": "^3.5.1",
     "@itwin/core-react": "workspace:^4.0.0-dev.8",
     "react": "^17.0.0",
@@ -48,7 +48,7 @@
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/appui-abstract": "workspace:*",
+    "@itwin/appui-abstract": "^3.5.1",
     "@itwin/build-tools": "^3.5.1",
     "@itwin/core-bentley": "^3.5.1",
     "@itwin/core-common": "^3.5.1",
