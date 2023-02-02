@@ -498,8 +498,6 @@ export function areNoFeatureOverridesActive(): boolean;
 
 // @beta
 export interface BackstageActionItem extends BackstageActionItem_2 {
-    // (undocumented)
-    readonly type: BackstageItemType.ActionItem;
 }
 
 // @public
@@ -554,12 +552,6 @@ export interface BackstageComposerStageLauncherProps {
 // @public
 export type BackstageItem = BackstageItem_2;
 
-// @beta @deprecated
-export enum BackstageItemType {
-    ActionItem = 1,
-    StageLauncher = 2
-}
-
 // @beta
 export namespace BackstageItemUtilities {
     export function createActionItem(itemId: string, groupPriority: number, itemPriority: number, execute: () => void, label: string, subtitle?: string, iconSpec?: string, overrides?: Partial<BackstageActionItem>): BackstageActionItem;
@@ -582,8 +574,6 @@ export class BackstageManager {
 
 // @beta
 export interface BackstageStageLauncher extends BackstageStageLauncher_2 {
-    // (undocumented)
-    readonly type: BackstageItemType.StageLauncher;
 }
 
 // @public
@@ -3639,7 +3629,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<React_2.ClassAttributes<SelectionScopeFieldComponent> & SelectionScopeFieldProps, "activeSelectionScope" | "availableSelectionScopes">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<React_2.ClassAttributes<SelectionScopeFieldComponent> & SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
 
 // @public
 export interface SessionState {
@@ -3854,6 +3844,11 @@ export const setPanelSize: (base: {
             readonly id: string;
             readonly label: string;
             readonly iconSpec?: boolean | ReactText | {
+                readonly stringGetter: () => string;
+                readonly syncEventIds: readonly string[];
+                readonly value: string;
+                readonly refresh: () => boolean;
+            } | {
                 readonly type: string | JSXElementConstructor<any>;
                 readonly props: any;
                 readonly key: Key | null;
@@ -3870,11 +3865,6 @@ export const setPanelSize: (base: {
                 } | any | null | undefined;
                 readonly type: string | JSXElementConstructor<any>;
                 readonly props: any;
-            } | {
-                readonly stringGetter: () => string;
-                readonly syncEventIds: readonly string[];
-                readonly value: string;
-                readonly refresh: () => boolean;
             } | null | undefined;
             readonly preferredFloatingWidgetSize?: {
                 readonly width: number;
@@ -4001,7 +3991,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
 export function showWidget(state: NineZoneState, id: TabState["id"]): NineZoneState;
 
 // @public
-export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_3<React_2.ClassAttributes<SnapModeFieldComponent> & SnapModeFieldProps, "snapMode" | "setSnapMode">>;
+export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_3<React_2.ClassAttributes<SnapModeFieldComponent> & SnapModeFieldProps, "setSnapMode" | "snapMode">>;
 
 // @alpha
 export class SolarTimelineDataProvider extends BaseSolarDataProvider {

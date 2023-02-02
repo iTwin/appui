@@ -57,8 +57,6 @@ public;BackstageComposerProps
 internal;BackstageComposerStageLauncher({ item }: BackstageComposerStageLauncherProps): JSX.Element
 internal;BackstageComposerStageLauncherProps
 public;BackstageItem = BackstageItem_2
-beta;BackstageItemType
-deprecated;BackstageItemType
 beta;BackstageItemUtilities
 public;BackstageManager
 beta;BackstageStageLauncher 

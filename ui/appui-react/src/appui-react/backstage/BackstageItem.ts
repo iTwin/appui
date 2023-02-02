@@ -15,17 +15,6 @@ import {
   CommonBackstageItem as UIA_CommonBackstageItem,
 } from "@itwin/appui-abstract";
 
-/** Used to specify the item type added to the backstage menu.
- * @deprecated in 3.0. Use type guards instead.
- * @beta
- */
-export enum BackstageItemType {
-  /** Item that executes an action function */
-  ActionItem = 1,
-  /** Item that activate a stage. */
-  StageLauncher = 2,
-}
-
 /** Describes the data needed to insert a button into the backstage menu.
  * @beta
  */
@@ -35,14 +24,12 @@ export type CommonBackstageItem = UIA_CommonBackstageItem; // eslint-disable-lin
  * @beta
  */
 export interface BackstageActionItem extends UIA_BackstageActionItem { // eslint-disable-line deprecation/deprecation
-  readonly type: BackstageItemType.ActionItem; // eslint-disable-line deprecation/deprecation
 }
 
 /** Describes the data needed to insert an action button into the backstage menu.
  * @beta
  */
 export interface BackstageStageLauncher extends UIA_BackstageStageLauncher { // eslint-disable-line deprecation/deprecation
-  readonly type: BackstageItemType.StageLauncher; // eslint-disable-line deprecation/deprecation
 }
 
 /** Describes the data needed to insert a button into the backstage menu.

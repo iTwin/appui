@@ -6,7 +6,7 @@
  * @module Backstage
  */
 
-import { BackstageActionItem, BackstageItemType, BackstageStageLauncher } from "./BackstageItem";
+import { BackstageActionItem, BackstageStageLauncher } from "./BackstageItem";
 
 /** Utilities for creating and maintaining backstage items
  * @beta
@@ -19,7 +19,6 @@ export namespace BackstageItemUtilities {
       icon: iconSpec,
       id: frontstageId,
       itemPriority,
-      type: BackstageItemType.StageLauncher, // eslint-disable-line deprecation/deprecation
       label,
       stageId: frontstageId,
       subtitle,
@@ -35,7 +34,6 @@ export namespace BackstageItemUtilities {
       icon: iconSpec,
       id: itemId,
       itemPriority,
-      type: BackstageItemType.ActionItem, // eslint-disable-line deprecation/deprecation
       label,
       subtitle,
       ...overrides,
