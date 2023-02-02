@@ -23,14 +23,12 @@ export type CommonBackstageItem = UIA_CommonBackstageItem; // eslint-disable-lin
 /** Describes the data needed to insert an action button into the backstage menu.
  * @beta
  */
-export interface BackstageActionItem extends UIA_BackstageActionItem { // eslint-disable-line deprecation/deprecation
-}
+export type BackstageActionItem = UIA_BackstageActionItem; // eslint-disable-line deprecation/deprecation
 
 /** Describes the data needed to insert an action button into the backstage menu.
  * @beta
  */
-export interface BackstageStageLauncher extends UIA_BackstageStageLauncher { // eslint-disable-line deprecation/deprecation
-}
+export type BackstageStageLauncher = UIA_BackstageStageLauncher; // eslint-disable-line deprecation/deprecation
 
 /** Describes the data needed to insert a button into the backstage menu.
  * @public TODO: 4.x cleanup

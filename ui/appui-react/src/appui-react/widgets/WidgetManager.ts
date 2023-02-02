@@ -141,7 +141,7 @@ export class WidgetManager {
   }
 }
 
-function createWidgetConfigFromAbstractProps(props: AbstractWidgetProps, stableId: WidgetConfig["id"]): WidgetConfig {
+function createWidgetConfigFromAbstractProps(props: AbstractWidgetProps, stableId: WidgetConfig["id"]): WidgetConfig { // eslint-disable-line deprecation/deprecation
   const config: WidgetConfig = {
     id: props.id ? props.id : stableId,
     element: props.getWidgetContent(),

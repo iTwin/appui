@@ -497,8 +497,7 @@ export class AppUiSettings implements UserSettingsProvider {
 export function areNoFeatureOverridesActive(): boolean;
 
 // @beta
-export interface BackstageActionItem extends BackstageActionItem_2 {
-}
+export type BackstageActionItem = BackstageActionItem_2;
 
 // @public
 export function BackstageAppButton(props: BackstageAppButtonProps): JSX.Element;
@@ -573,8 +572,7 @@ export class BackstageManager {
 }
 
 // @beta
-export interface BackstageStageLauncher extends BackstageStageLauncher_2 {
-}
+export type BackstageStageLauncher = BackstageStageLauncher_2;
 
 // @public
 export interface BackstageToggledArgs {

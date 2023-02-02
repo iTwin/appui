@@ -45,7 +45,7 @@ internal;appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray
 public;AppNotificationManager 
 public;AppUiSettings 
 beta;areNoFeatureOverridesActive(): boolean
-beta;BackstageActionItem 
+beta;BackstageActionItem = BackstageActionItem_2
 public;BackstageAppButton(props: BackstageAppButtonProps): JSX.Element
 public;BackstageAppButtonProps
 public;BackstageComposer(props: BackstageComposerProps): JSX.Element
@@ -59,7 +59,7 @@ internal;BackstageComposerStageLauncherProps
 public;BackstageItem = BackstageItem_2
 beta;BackstageItemUtilities
 public;BackstageManager
-beta;BackstageStageLauncher 
+beta;BackstageStageLauncher = BackstageStageLauncher_2
 public;BackstageToggledArgs
 public;BaseItemState
 beta;BaseUiItemsProvider 
