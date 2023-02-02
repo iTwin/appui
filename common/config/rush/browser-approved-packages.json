@@ -99,16 +99,6 @@
       "allowedCategories": ["backend", "common"]
     },
     {
-      "name": "@itwin/appui-abstract",
-      "allowedCategories": [
-        "edit",
-        "extensions",
-        "frontend",
-        "internal",
-        "tools"
-      ]
-    },
-    {
       "name": "@itwin/appui-layout-react",
       "allowedCategories": ["extensions", "frontend", "internal"]
     },

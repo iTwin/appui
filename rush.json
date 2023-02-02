@@ -20,10 +20,14 @@
       "extensions",
       "integration-testing"
     ],
-    "ignoredNpmScopes": ["@types"]
+    "ignoredNpmScopes": [
+      "@types"
+    ]
   },
   "gitPolicy": {
-    "allowedEmailRegExps": ["[^@]+@users\\.noreply\\.github\\.com"],
+    "allowedEmailRegExps": [
+      "[^@]+@users\\.noreply\\.github\\.com"
+    ],
     "sampleEmail": "mrexample@users.noreply.github.com"
   },
   "repository": {
@@ -31,13 +35,6 @@
     "defaultBranch": "master"
   },
   "projects": [
-    {
-      "packageName": "@itwin/appui-abstract",
-      "projectFolder": "ui/appui-abstract",
-      "reviewCategory": "frontend",
-      "shouldPublish": true,
-      "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
     {
       "packageName": "@itwin/core-react",
       "projectFolder": "ui/core-react",
