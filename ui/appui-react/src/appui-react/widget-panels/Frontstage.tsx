@@ -44,6 +44,7 @@ import { FloatingWidget } from "./FloatingWidget";
 import { WidgetState } from "../widgets/WidgetState";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();

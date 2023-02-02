@@ -1,26 +1,27 @@
 sep=;
 Release Tag;API Item
-public;AbstractActionItemProps
-public;AbstractMenuItemProps
-public;AbstractStatusBarActionItem
-deprecated;AbstractStatusBarActionItem
-public;AbstractStatusBarCustomItem
-deprecated;AbstractStatusBarCustomItem
-public;AbstractStatusBarItem
-deprecated;AbstractStatusBarItem
+public;AbstractActionItemProps 
+public;AbstractMenuItemProps 
+public;AbstractStatusBarActionItem 
+deprecated;AbstractStatusBarActionItem 
+public;AbstractStatusBarCustomItem 
+deprecated;AbstractStatusBarCustomItem 
+public;AbstractStatusBarItem 
+deprecated;AbstractStatusBarItem 
 public;AbstractStatusBarItemUtilities
 deprecated;AbstractStatusBarItemUtilities
-public;AbstractStatusBarLabelItem
-deprecated;AbstractStatusBarLabelItem
+public;AbstractStatusBarLabelItem 
+deprecated;AbstractStatusBarLabelItem 
 public;AbstractToolbarProps
-public;AbstractWidgetProps
-public;ActionButton
+public;AbstractWidgetProps 
+deprecated;AbstractWidgetProps 
+public;ActionButton 
 public;AllowedUiItemProviderOverrides
 deprecated;AllowedUiItemProviderOverrides
 public;AlternateDateFormats
-public;ArrayValue
-public;BackstageActionItem
-deprecated;BackstageActionItem
+public;ArrayValue 
+public;BackstageActionItem 
+deprecated;BackstageActionItem 
 public;BackstageItem = BackstageActionItem | BackstageStageLauncher
 deprecated;BackstageItem = BackstageActionItem | BackstageStageLauncher
 internal;BackstageItemsChangedArgs
@@ -29,42 +30,42 @@ public;BackstageItemType
 deprecated;BackstageItemType
 public;BackstageItemUtilities
 deprecated;BackstageItemUtilities
-public;BackstageStageLauncher
-deprecated;BackstageStageLauncher
+public;BackstageStageLauncher 
+deprecated;BackstageStageLauncher 
 public;BadgeType
 public;BaseDialogItem
 public;BasePropertyEditorParams
 public;BasePropertyValue
-beta;class BaseQuantityDescription
-public;BaseUiItemsProvider
-deprecated;BaseUiItemsProvider
-public;ButtonGroupEditorParams
+beta;class BaseQuantityDescription 
+public;BaseUiItemsProvider 
+deprecated;BaseUiItemsProvider 
+public;ButtonGroupEditorParams 
 internal;enum CharCode
-public;ColorEditorParams
+public;ColorEditorParams 
 public;CommandHandler
-public;CommonBackstageItem
-deprecated;CommonBackstageItem
+public;CommonBackstageItem 
+deprecated;CommonBackstageItem 
 public;CommonItemProps
 public;CommonStatusBarItem = AbstractStatusBarActionItem | AbstractStatusBarLabelItem | AbstractStatusBarCustomItem
 deprecated;CommonStatusBarItem = AbstractStatusBarActionItem | AbstractStatusBarLabelItem | AbstractStatusBarCustomItem
 public;CommonToolbarItem = ActionButton | GroupButton | CustomButtonDefinition
 public;ConditionalBooleanValue
 public;ConditionalStringValue
-public;ContentLayoutProps
+public;ContentLayoutProps 
 internal;convertSimple2RegExpPattern(pattern: string): string
 internal;createMatches(score: undefined | FuzzyScore): IMatch[]
-public;CustomButtonDefinition
-public;CustomFormattedNumberParams
+public;CustomButtonDefinition 
+public;CustomFormattedNumberParams 
 public;DateFormatter
 public;DialogButtonDef
 public;DialogButtonStyle
 public;DialogButtonType
-public;DialogItem
+public;DialogItem 
 public;DialogItemValue
-public;class DialogLayoutDataProvider
+public;class DialogLayoutDataProvider 
 public;DialogProperty
 public;DialogPropertyItem
-public;DialogPropertySyncItem
+public;DialogPropertySyncItem 
 public;DialogProps
 public;DialogRow
 public;DisplayMessageType
@@ -79,18 +80,18 @@ internal;fuzzyScore(pattern: string, patternLow: string, patternStart: number, w
 internal;fuzzyScoreGraceful(pattern: string, lowPattern: string, patternPos: number, word: string, lowWord: string, wordPos: number, firstMatchCanBeWeak: boolean): FuzzyScore | undefined
 internal;fuzzyScoreGracefulAggressive(pattern: string, lowPattern: string, patternPos: number, word: string, lowWord: string, wordPos: number, firstMatchCanBeWeak: boolean): FuzzyScore | undefined
 internal;FuzzyScorer = (pattern: string, lowPattern: string, patternPos: number, word: string, lowWord: string, wordPos: number, firstMatchCanBeWeak: boolean) => FuzzyScore | undefined
-public;GenericUiEvent
+public;GenericUiEvent 
 public;GenericUiEventArgs
 internal;getClassName: (obj: any) => string
-public;GroupButton
+public;GroupButton 
 public;IconDefinition
-public;IconEditorParams
-public;IconListEditorParams
+public;IconEditorParams 
+public;IconListEditorParams 
 public;IconSpecUtilities
 internal;IFilter = (word: string, wordToMatchAgainst: string) => IMatch[] | null
-public;ImageCheckBoxParams
+public;ImageCheckBoxParams 
 public;IMatch
-public;InputEditorSizeParams
+public;InputEditorSizeParams 
 public;isAbstractStatusBarActionItem: (item: CommonStatusBarItem) => item is AbstractStatusBarActionItem
 deprecated;isAbstractStatusBarActionItem: (item: CommonStatusBarItem) => item is AbstractStatusBarActionItem
 public;isAbstractStatusBarCustomItem: (item: CommonStatusBarItem) => item is AbstractStatusBarCustomItem
@@ -113,9 +114,9 @@ deprecated;isStageLauncher: (item: BackstageItem) => item is BackstageStageLaunc
 public;isSuppressLabelEditorParams: (item: BasePropertyEditorParams) => item is SuppressLabelEditorParams
 internal;isUpperAsciiLetter(code: number): boolean
 public;LayoutFragmentProps
-public;LayoutHorizontalSplitProps
+public;LayoutHorizontalSplitProps 
 public;LayoutSplitPropsBase
-public;LayoutVerticalSplitProps
+public;LayoutVerticalSplitProps 
 public;LinkElementsInfo
 internal;loggerCategory: (obj: any) => string
 internal;matchesCamelCase(word: string, camelCaseWord: string): IMatch[] | null
@@ -128,7 +129,7 @@ internal;matchesSubString(word: string, wordToMatchAgainst: string): IMatch[] | 
 internal;matchesWords(word: string, target: string, contiguous?: boolean): IMatch[] | null
 public;MessagePresenter
 public;MessageSeverity
-public;MultilineTextEditorParams
+public;MultilineTextEditorParams 
 public;OnCancelFunc = () => void
 public;OnItemExecutedFunc = (item: any) => void
 public;OnNumberCommitFunc = (value: number) => void
@@ -137,7 +138,7 @@ internal;or(...filter: IFilter[]): IFilter
 public;ParseResults
 public;PointProps
 public;Primitives
-public;PrimitiveValue
+public;PrimitiveValue 
 public;PropertyChangeResult
 public;PropertyChangeStatus
 public;PropertyConverterInfo
@@ -152,9 +153,9 @@ public;PropertyValue = PrimitiveValue | StructValue | ArrayValue
 public;PropertyValueFormat
 public;ProvidedItem
 deprecated;ProvidedItem
-public;RangeEditorParams
+public;RangeEditorParams 
 public;RelativePosition
-public;SliderEditorParams
+public;SliderEditorParams 
 public;SpecialKey
 public;StagePanelLocation
 deprecated;StagePanelLocation
@@ -175,12 +176,12 @@ deprecated;StatusBarLabelSide
 public;StatusBarSection
 deprecated;StatusBarSection
 public;StringGetter = () => string
-public;StructValue
-public;SuppressLabelEditorParams
-public;SyncPropertiesChangeEvent
+public;StructValue 
+public;SuppressLabelEditorParams 
+public;SyncPropertiesChangeEvent 
 public;SyncPropertiesChangeEventArgs
 public;TimeDisplay
-public;ToolbarItem
+public;ToolbarItem 
 public;ToolbarItemId = CommonToolbarItem["id"]
 deprecated;ToolbarItemId = CommonToolbarItem["id"]
 internal;ToolbarItemsChangedArgs
@@ -192,7 +193,7 @@ public;ToolbarUsage
 deprecated;ToolbarUsage
 public;UiAdmin
 public;class UiDataProvider
-public;UiError
+public;UiError 
 public;UiEvent
 public;UiEventDispatcher
 public;UiFlags
@@ -204,8 +205,8 @@ public;UiItemsManager
 deprecated;UiItemsManager
 public;UiItemsProvider
 deprecated;UiItemsProvider
-public;class UiLayoutDataProvider
-public;UiSyncEvent
+public;class UiLayoutDataProvider 
+public;UiSyncEvent 
 public;UiSyncEventArgs
 public;WidgetState
 deprecated;WidgetState

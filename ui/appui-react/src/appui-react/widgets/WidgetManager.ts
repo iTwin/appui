@@ -14,6 +14,7 @@ import { WidgetConfig } from "./WidgetConfig";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { AbstractWidgetProps } from "@itwin/appui-abstract";
 
 /** Information about WidgetDefs in the WidgetManager
  * @internal

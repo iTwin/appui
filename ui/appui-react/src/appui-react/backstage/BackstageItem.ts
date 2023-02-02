@@ -46,7 +46,7 @@ export interface BackstageStageLauncher extends UIA_BackstageStageLauncher { // 
 }
 
 /** Describes the data needed to insert a button into the backstage menu.
- * @beta
+ * @public TODO: 4.x cleanup
  */
 export type BackstageItem = UIA_BackstageItem; // eslint-disable-line deprecation/deprecation
 

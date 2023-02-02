@@ -70,7 +70,7 @@ export interface StatusBarItem extends AbstractStatusBarCustomItem { // eslint-d
 export type StatusBarCustomItem = StatusBarItem; // eslint-disable-line deprecation/deprecation
 
 /** Describes the data needed to insert a button into the status bar.
- * @beta
+ * @public  // TODO: 4.x cleanup
  */
 // eslint-disable-next-line deprecation/deprecation
 export type AnyStatusBarItem = UIA_CommonStatusBarItem; // TODO: Rename to StatusBarItem.

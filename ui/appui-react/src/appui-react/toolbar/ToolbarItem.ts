@@ -18,22 +18,22 @@ import {
 } from "@itwin/appui-abstract";
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
- * @beta
+ * @public // TODO: 4.x cleanup
  */
 export type ToolbarUsage = UIA_ToolbarUsage; // eslint-disable-line deprecation/deprecation
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
- * @beta
+ * @public // TODO: 4.x cleanup
  */
 export const ToolbarUsage = UIA_ToolbarUsage; // eslint-disable-line @typescript-eslint/no-redeclare, deprecation/deprecation
 
 /** Used to specify the orientation of the toolbar.
- * @beta
+ * @public // TODO: 4.x cleanup
  */
 export type ToolbarOrientation = UIA_ToolbarOrientation; // eslint-disable-line deprecation/deprecation
 
 /** Used to specify the orientation of the toolbar.
- * @beta
+ * @public // TODO: 4.x cleanup
  */
 export const ToolbarOrientation = UIA_ToolbarOrientation; // eslint-disable-line @typescript-eslint/no-redeclare, deprecation/deprecation
 
