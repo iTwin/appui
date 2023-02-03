@@ -12,6 +12,7 @@ import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { CommonProps } from "@itwin/core-react";
 import { MessageManager } from "../messages/MessageManager";
+import { Input } from "@itwin/itwinui-react";
 
 /** Enum for Input Status used in [[ValidationTextbox]]
  * @alpha
@@ -54,7 +55,10 @@ interface ValidationTextboxState {
  * for empty if no method for onValueChanged is provided.
  * @alpha
  */
-export class ValidationTextbox extends React.PureComponent<ValidationTextboxProps, ValidationTextboxState> {
+export class ValidationTextbox extends React.PureComponent<
+  ValidationTextboxProps,
+  ValidationTextboxState
+> {
   constructor(props: ValidationTextboxProps) {
     super(props);
 
@@ -71,20 +75,21 @@ export class ValidationTextbox extends React.PureComponent<ValidationTextboxProp
       ...this.props.style,
     };
 
-    const validClassNames = classnames(
-      "ValidationTextbox-input",
-    );
+    const validClassNames = classnames("ValidationTextbox-input");
 
     const invalidClassNames = classnames(
       "ValidationTextbox-input",
-      "ValidationTextbox-invalid",
+      "ValidationTextbox-invalid"
     );
 
     return (
       <div
         className={classnames("uifw-ValidationTextbox", this.props.className)}
-        style={divStyle}>
-        <input
+        style={divStyle}
+      >
+        {/** TODO: replace with <Input /> */}
+        <Input
+          // status?
           className={this.state.isValid ? validClassNames : invalidClassNames}
           onChange={this._validateText}
           onKeyUp={this._handleKeyUp}
@@ -94,6 +99,16 @@ export class ValidationTextbox extends React.PureComponent<ValidationTextboxProp
           placeholder={this.props.placeholder ? this.props.placeholder : ""}
           style={sizeStyle}
         />
+        {/* <input
+          className={this.state.isValid ? validClassNames : invalidClassNames}
+          onChange={this._validateText}
+          onKeyUp={this._handleKeyUp}
+          onPaste={this._validateText}
+          onCut={this._validateText}
+          onBlur={this._validateText}
+          placeholder={this.props.placeholder ? this.props.placeholder : ""}
+          style={sizeStyle}
+        /> */}
         {this.props.children}
       </div>
     );
@@ -101,8 +116,7 @@ export class ValidationTextbox extends React.PureComponent<ValidationTextboxProp
 
   private processValidateText(target: HTMLInputElement | undefined): void {
     // istanbul ignore next
-    if (undefined === target)
-      return;
+    if (undefined === target) return;
 
     const value = target.value;
     const isValid = this._calculateIsValid(value);
@@ -135,7 +149,9 @@ export class ValidationTextbox extends React.PureComponent<ValidationTextboxProp
    */
   private _calculateIsValid(value: string): boolean {
     if (this.props.onValueChanged)
-      return (this.props.onValueChanged(value) === InputStatus.Valid) ? /* istanbul ignore next */ true : false;
+      return this.props.onValueChanged(value) === InputStatus.Valid
+        ? /* istanbul ignore next */ true
+        : false;
     return value.length > 0;
   }
 
@@ -146,7 +162,11 @@ export class ValidationTextbox extends React.PureComponent<ValidationTextboxProp
 
   /** Displays error message. */
   private _showErrorMessage(target: Element) {
-    MessageManager.displayInputFieldMessage(target as HTMLElement, this.props.errorText!, this.props.detailedErrorText);
+    MessageManager.displayInputFieldMessage(
+      target as HTMLElement,
+      this.props.errorText!,
+      this.props.detailedErrorText
+    );
     return;
   }
 
@@ -160,13 +180,11 @@ export class ValidationTextbox extends React.PureComponent<ValidationTextboxProp
     switch (event.key) {
       case SpecialKey.Escape:
         // istanbul ignore else
-        if (this.props.onEscPressed)
-          this.props.onEscPressed();
+        if (this.props.onEscPressed) this.props.onEscPressed();
         break;
       case SpecialKey.Enter:
         // istanbul ignore else
-        if (this.props.onEnterPressed)
-          this.props.onEnterPressed();
+        if (this.props.onEnterPressed) this.props.onEnterPressed();
         break;
     }
   };

@@ -48,7 +48,9 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
   private _timeoutId: number = 0;
 
   /** @internal */
-  public override readonly state: Readonly<SearchBoxState> = { value: this.props.initialValue || "" };
+  public override readonly state: Readonly<SearchBoxState> = {
+    value: this.props.initialValue || "",
+  };
 
   constructor(props: SearchBoxProps) {
     super(props);
@@ -58,30 +60,45 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
   public override render(): React.ReactNode {
     const searchClassName = classnames("core-searchbox", this.props.className);
     const emptyString = this.state.value === "";
-    const iconClassName = classnames(
-      "core-searchbox-icon",
-      "icon",
-      {
-        "icon-search": emptyString,
-        "icon-close": !emptyString,
-      },
+    const iconClassName = classnames("core-searchbox-icon", "icon", {
+      "icon-search": emptyString,
+      "icon-close": !emptyString,
+    });
+    const buttonTitle = UiCore.translate(
+      emptyString ? "general.search" : "general.clear"
     );
-    const buttonTitle = UiCore.translate(emptyString ? "general.search" : "general.clear");
     return (
-      <div className={searchClassName} style={this.props.style} data-testid="core-searchbox-instance">
+      // TODO Replace with input container???
+      <div
+        className={searchClassName}
+        style={this.props.style}
+        data-testid="core-searchbox-instance"
+      >
         <input
           defaultValue={this.props.initialValue}
-          ref={(el) => { this._inputElement = el; }}
+          ref={(el) => {
+            this._inputElement = el;
+          }}
           onChange={this._trackChange}
           onKeyDown={this._handleKeyDown}
           onPaste={this._trackChange}
           onCut={this._trackChange}
-          placeholder={this.props.placeholder ? this.props.placeholder : UiCore.translate("general.search")}
+          placeholder={
+            this.props.placeholder
+              ? this.props.placeholder
+              : UiCore.translate("general.search")
+          }
           role="searchbox"
           data-testid="core-searchbox-input"
         ></input>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-        <div className="core-searchbox-button" onClick={this._handleIconClick} role="button" tabIndex={-1} title={buttonTitle}>
+        <div
+          className="core-searchbox-button"
+          onClick={this._handleIconClick}
+          role="button"
+          tabIndex={-1}
+          title={buttonTitle}
+        >
           <span className={iconClassName} />
         </div>
       </div>
@@ -91,26 +108,31 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
   /** Wrapper for onValueChanged to make sure we don't call search unless the new value is different from the previous value */
   private _onValueChanged = (value: string, previousValue: string) => {
     // istanbul ignore else
-    if (value === previousValue)
-      return;
+    if (value === previousValue) return;
 
-    this.setState((_prevState) => {
-      return {
-        value,
-      };
-    }, () => { this.props.onValueChanged(this.state.value); });
+    this.setState(
+      (_prevState) => {
+        return {
+          value,
+        };
+      },
+      () => {
+        this.props.onValueChanged(this.state.value);
+      }
+    );
   };
   private _trackChange = (_event?: any): void => {
     let value = "";
     const previousValue = this.state.value;
 
     // istanbul ignore else
-    if (this._inputElement)
-      value = this._inputElement.value;
+    if (this._inputElement) value = this._inputElement.value;
 
     if (this.props.valueChangedDelay) {
       this._unsetTimeout();
-      this._timeoutId = window.setTimeout(() => { this._onValueChanged(value, previousValue); }, this.props.valueChangedDelay);
+      this._timeoutId = window.setTimeout(() => {
+        this._onValueChanged(value, previousValue);
+      }, this.props.valueChangedDelay);
     } else {
       this._onValueChanged(value, previousValue);
     }
@@ -120,13 +142,11 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
     switch (e.key) {
       case SpecialKey.Escape:
         // istanbul ignore else
-        if (this.props.onEscPressed)
-          this.props.onEscPressed();
+        if (this.props.onEscPressed) this.props.onEscPressed();
         break;
       case SpecialKey.Enter:
         // istanbul ignore else
-        if (this.props.onEnterPressed)
-          this.props.onEnterPressed();
+        if (this.props.onEnterPressed) this.props.onEnterPressed();
         break;
     }
   };
@@ -137,8 +157,7 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
       const clear = this.state.value !== "";
       this._inputElement.value = "";
       // istanbul ignore else
-      if (clear && this.props.onClear)
-        this.props.onClear();
+      if (clear && this.props.onClear) this.props.onClear();
       this._inputElement.focus();
     }
     this._trackChange();
@@ -157,7 +176,6 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
 
   public focus() {
     // istanbul ignore else
-    if (this._inputElement)
-      this._inputElement.focus();
+    if (this._inputElement) this._inputElement.focus();
   }
 }

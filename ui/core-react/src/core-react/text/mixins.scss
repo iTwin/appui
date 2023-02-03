@@ -3,10 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "../style/themecolors";
-@import "~@itwin/itwinui-css/scss/text/mixins";
 
 @mixin uicore-text-block-spacing {
-  @include iui-text-block-spacing;
+  //.iui-text-spacing in code
+  padding: 0;
+  margin: 0 0 var(--iui-size-l);
 }
 
 @mixin uicore-text($type: body) {

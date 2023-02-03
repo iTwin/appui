@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-css/scss/text/mixins";
 
 $image-size: 22px;
 $image-size-wide: 30px;
@@ -171,7 +170,14 @@ $key-size-modifier: 24px;
 }
 
 .uifw-toolAssistance-tabs.iui-tabs.iui-default {
-  @include iui-text(leading);
+  // @include iui-text(leading);
+  margin: 0;
+  padding: 0;
+  border: none;
+  vertical-align: baseline;
+  font-size: var(--iui-font-size-2);
+  font-weight: var(--iui-font-weight-normal);
+  line-height: var(--iui-size-l);
 
   // Tabs are sized at 50% with the labels centered
   > li {

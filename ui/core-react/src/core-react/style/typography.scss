@@ -2,10 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/itwinui-css/scss/style/typography";
-
-// @warn "typography.scss is deprecated. Use '~@itwin/itwinui-css/scss/style/typography' instead.";
-
 /// Constants ------------------------------------------------------------------
 
 $uicore-sans: var(--iui-font-sans);
@@ -40,5 +36,5 @@ $uicore-font-weight-bold: var(--iui-font-weight-bold);
 $uicore-font-loaded-class: var(--iui-font-sans);
 
 @mixin uicore-font-family {
-  @include iui-font-family;
+  font-family: var(--iui-font-sans);
 }

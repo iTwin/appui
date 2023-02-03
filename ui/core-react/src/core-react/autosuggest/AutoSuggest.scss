@@ -5,14 +5,14 @@
 @import "../scrollbar";
 @import "../inputs/variables";
 @import "../style/variables";
-@import "~@itwin/itwinui-css/scss/inputs/input";
+// @import "~@itwin/itwinui-css/scss/inputs/input";
 
 .uicore-autosuggest__container {
   position: relative;
 }
 
 .uicore-autosuggest__input {
-  @include iui-input;
+  // @include iui-input;
   min-height: $uicore-component-height-normal;
   padding: $uicore-iui-input-padding;
 }

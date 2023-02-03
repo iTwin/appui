@@ -8,13 +8,11 @@
 @import "../text/block";
 @import "../z-index";
 @import "../scrollbar";
-@import "~@itwin/itwinui-css/scss/style/typography";
-@import "~@itwin/itwinui-css/scss/text/mixins";
 
 // cspell:ignore titlebar outoffocus nwse
 
 .core-dialog {
-  @include iui-font-family;
+  font-family: var(--iui-font-sans);
 
   display: none;
   position: fixed;
@@ -127,7 +125,13 @@
         > .core-dialog-title {
           flex: 1 1;
 
-          @include iui-text(leading);
+          // @include iui-text(leading);
+          padding: 0;
+          border: none;
+          vertical-align: baseline;
+          font-size: var(--iui-font-size-2);
+          font-weight: var(--iui-font-weight-normal);
+          line-height: var(--iui-size-l);
 
           margin: 0;
           margin-left: 4px;
@@ -137,7 +141,14 @@
           background-color: $buic-background-dialog;
 
           > .core-dialog-title {
-            @include iui-text(subheading);
+            // @include iui-text(subheading);
+            margin: 0;
+            padding: 0;
+            border: none;
+            vertical-align: baseline;
+            font-size: var(--iui-font-size-3);
+            font-weight: var(--iui-font-weight-normal);
+            line-height: calc(1.5 * var(--iui-size-l));
           }
         }
 
