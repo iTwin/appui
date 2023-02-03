@@ -5526,17 +5526,6 @@ export function WidgetPanelsToolbars(): JSX.Element;
 // @internal (undocumented)
 export function WidgetPanelsToolSettings(): JSX.Element | null;
 
-// @public @deprecated
-export interface WidgetProps extends Omit<AbstractWidgetProps, "getWidgetContent">, IconProps {
-    classId?: string | ConfigurableUiControlConstructor;
-    control?: ConfigurableUiControlConstructor;
-    element?: React_2.ReactNode;
-    labelKey?: string;
-    // @alpha (undocumented)
-    preferredPanelSize?: "fit-content";
-    tooltipKey?: string;
-}
-
 // @internal
 export class WidgetsChangedEvent extends BeUiEvent<WidgetsChangedEventArgs> {
 }

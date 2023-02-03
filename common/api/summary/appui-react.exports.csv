@@ -608,8 +608,6 @@ internal;WidgetPanelsStatusBar(props: CommonProps): JSX.Element | null
 internal;WidgetPanelsTab(): JSX.Element
 internal;WidgetPanelsToolbars(): JSX.Element
 internal;WidgetPanelsToolSettings(): JSX.Element | null
-public;WidgetProps 
-deprecated;WidgetProps 
 internal;WidgetsChangedEvent 
 internal;WidgetsChangedEventArgs
 public;WidgetState = WidgetState_2
