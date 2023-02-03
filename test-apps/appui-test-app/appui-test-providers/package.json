@@ -50,6 +50,7 @@
     "@itwin/core-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",
     "@itwin/appui-layout-react": "workspace:*",
+    "@itwin/imodel-components-react": "workspace:*",
     "@itwin/presentation-common": "^3.5.1",
     "@itwin/presentation-frontend": "^3.5.1",
     "@itwin/presentation-components": "^3.5.1",

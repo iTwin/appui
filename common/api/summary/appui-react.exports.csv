@@ -74,14 +74,8 @@ alpha;CardContainerProps
 alpha;CardInfo
 alpha;CardSelectedEvent 
 alpha;CardSelectedEventArgs
-alpha;Category
-public;CategoryTree(props: CategoryTreeProps): JSX.Element
-public;CategoryTreeProps
-alpha;CategoryVisibilityHandler 
-alpha;CategoryVisibilityHandlerParams
 public;ChildWindowLocationProps
 public;ChildWindowManager
-beta;ClassGroupingOption
 internal;clearKeyinPaletteHistory(): void
 public;ColorTheme
 public;CombinedReducerState
@@ -132,7 +126,6 @@ public;CoreTools
 public;createAction
 public;createAction
 internal;createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef
-alpha;createVisibilityTreeNodeRenderer: (iconsEnabled: boolean, descriptionEnabled: boolean) => (props: TreeNodeRendererProps) => JSX.Element
 public;CubeNavigationAidControl 
 public;CursorDirection
 public;CursorDirectionParts
@@ -210,7 +203,6 @@ public;FrontstageReadyEvent
 public;FrontstageReadyEventArgs
 public;FunctionType = (...args: any[]) => any
 internal;getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined
-alpha;getCategories(imodel: IModelConnection, viewport?: Viewport, filteredProvider?: IPresentationTreeDataProvider): Promise
 beta;getFeatureOverrideSyncEventIds(): string[]
 internal;getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]): string
 beta;getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue
@@ -255,7 +247,6 @@ public;class ItemDefBase
 public;ItemList 
 public;ItemMap 
 public;ItemProps 
-alpha;IVisibilityHandler 
 public;KeyboardShortcut 
 public;KeyboardShortcutContainer
 public;KeyboardShortcutManager
@@ -275,7 +266,6 @@ beta;ListPickerItem
 beta;ListPickerItemProps 
 beta;ListPickerProps
 beta;ListPickerPropsExtended 
-internal;loadCategoriesFromViewport(iModel?: IModelConnection, vp?: Viewport): Promise
 alpha;MenuButton 
 alpha;MenuButtonPopup 
 alpha;MenuButtonPopupProps 
@@ -306,12 +296,6 @@ public;ModelessDialogChangedEvent
 public;ModelessDialogManager
 public;ModelessDialogProps 
 public;ModelessDialogRenderer 
-public;ModelsTree(props: ModelsTreeProps): JSX.Element
-beta;ModelsTreeNodeType
-public;ModelsTreeProps
-beta;ModelsTreeSelectionPredicate = (key: NodeKey, type: ModelsTreeNodeType) => boolean
-alpha;ModelsVisibilityHandler 
-alpha;ModelsVisibilityHandlerProps
 public;MouseDownChangedEvent 
 public;MouseDownChangedEventArgs
 public;NameToReducerMap
@@ -362,11 +346,6 @@ alpha;RestoreAllFrontstagesTool
 alpha;RestoreFrontstageLayoutTool 
 internal;restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedNineZoneState): NineZoneState
 internal;RotationData
-internal;RULESET_CATEGORIES: Ruleset
-internal;RULESET_MODELS: Ruleset
-internal;RULESET_MODELS_GROUPED_BY_CLASS: Ruleset
-internal;RULESET_SPATIAL_BREAKDOWN: Ruleset
-internal;RULESET_SPATIAL_BREAKDOWN_GROUPED_BY_CLASS: Ruleset
 public;SafeAreaContext: React_2.Context
 public;SafeAreaInsets
 internal;SavedWidget
@@ -400,8 +379,6 @@ alpha;SheetsModalFrontstage
 internal;showWidget(state: NineZoneState, id: TabState["id"]): NineZoneState
 public;SnapModeField: ConnectedComponent
 alpha;SolarTimelineDataProvider 
-public;SpatialContainmentTree(props: SpatialContainmentTreeProps): JSX.Element
-public;SpatialContainmentTreeProps
 public;SplitPane(props: SplitPaneProps): JSX.Element
 public;SplitPaneProps
 public;StageContentLayout
@@ -449,7 +426,6 @@ public;StatusBarSeparator(props: CommonProps): JSX.Element
 public;StatusBarSpaceBetween(props: CommonDivProps): JSX.Element
 public;StatusBarWidgetComposerControl 
 public;class StatusBarWidgetControl 
-internal;SubjectModelIdsCache
 public;SupportsViewSelectorChange
 public;SyncToolSettingsPropertiesEvent 
 public;SyncToolSettingsPropertiesEventArgs
@@ -459,7 +435,6 @@ public;SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED"
 internal;TabLocation
 public;ThemeManager: ConnectedComponent
 public;TileLoadingIndicator 
-alpha;toggleAllCategories(viewManager: ViewManager, imodel: IModelConnection, display: boolean, viewport?: Viewport, forAllViewports?: boolean, filteredProvider?: IPresentationTreeDataProvider): Promise
 public;ToolActivatedEvent 
 public;ToolActivatedEventArgs
 public;ToolAssistanceChangedEvent 
@@ -519,7 +494,6 @@ public;useActiveViewport(): ScreenViewport | undefined
 public;useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined): AnalysisAnimationTimelineDataProvider | undefined
 internal;useAvailableUiItemsProviders(): readonly string[]
 public;useBackstageManager: () => BackstageManager
-internal;useCategories(viewManager: ViewManager, imodel: IModelConnection, view?: Viewport): Category[]
 internal;useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[]
 public;useDefaultStatusBarItems: (manager: StatusBarItemsManager) => readonly CommonStatusBarItem[]
 public;useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly CommonToolbarItem[]
@@ -546,8 +520,6 @@ public;useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, toolbarUsa
 public;useUiStateStorageHandler(): UiStateStorage
 internal;useUiVisibility(): boolean
 internal;useUpdateNineZoneSize(frontstageDef: FrontstageDef): void
-alpha;useVisibilityTreeFiltering: (nodeLoader: AbstractTreeNodeLoaderWithProvider
-alpha;useVisibilityTreeRenderer: (iconsEnabled: boolean, descriptionsEnabled: boolean) => (props: TreeRendererProps) => JSX.Element
 internal;useWidgetDef(): WidgetDef | undefined
 alpha;useWidgetDirection(): "horizontal" | "vertical"
 alpha;ValidationTextbox 
@@ -566,15 +538,6 @@ public;ViewStateHelperProps
 public;ViewToolWidgetComposer(props: ViewToolWidgetComposerProps): JSX.Element
 public;ViewToolWidgetComposerProps
 public;ViewUtilities
-alpha;VisibilityChangeListener = (nodeIds?: string[], visibilityStatus?: Map
-alpha;VisibilityStatus
-alpha;VisibilityTreeEventHandler 
-alpha;VisibilityTreeEventHandlerParams 
-alpha;VisibilityTreeFilterInfo
-alpha;visibilityTreeNodeCheckboxRenderer: (props: NodeCheckboxRenderProps) => JSX.Element
-alpha;VisibilityTreeNoFilteredData(props: VisibilityTreeNoFilteredDataProps): JSX.Element
-alpha;VisibilityTreeNoFilteredDataProps
-alpha;VisibilityTreeSelectionPredicate = (key: NodeKey, node: TreeNodeItem) => boolean
 public;WIDGET_OPACITY_DEFAULT = 0.9
 internal;WidgetChangedEventArgs
 public;WidgetConfig 
