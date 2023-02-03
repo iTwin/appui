@@ -760,63 +760,7 @@ export class FilteringPropertyDataProvider implements IPropertyDataProvider, IDi
     onDataChanged: PropertyDataChangeEvent;
 }
 
-<<<<<<< HEAD
-// @beta
-=======
-// @public @deprecated
-export enum FilterOperator {
-    // (undocumented)
-    Contains = 9,
-    // (undocumented)
-    DoesNotContain = 10,
-    // (undocumented)
-    EndsWith = 8,
-    // (undocumented)
-    IsContainedIn = 11,
-    // (undocumented)
-    IsEmpty = 13,
-    // (undocumented)
-    IsEqualTo = 0,
-    // (undocumented)
-    IsGreaterThan = 4,
-    // (undocumented)
-    IsGreaterThanOrEqualTo = 5,
-    // (undocumented)
-    IsLessThan = 2,
-    // (undocumented)
-    IsLessThanOrEqualTo = 3,
-    // (undocumented)
-    IsNotContainedIn = 12,
-    // (undocumented)
-    IsNotEmpty = 14,
-    // (undocumented)
-    IsNotEqualTo = 1,
-    // (undocumented)
-    IsNotNull = 16,
-    // (undocumented)
-    IsNull = 15,
-    // (undocumented)
-    Range = 6,
-    // (undocumented)
-    StartsWith = 7
-}
-
-// @public @deprecated
-export enum FilterRenderer {
-    // (undocumented)
-    MultiSelect = 2,
-    // (undocumented)
-    MultiValue = 5,
-    // (undocumented)
-    Numeric = 1,
-    // (undocumented)
-    SingleSelect = 3,
-    // (undocumented)
-    Text = 4
-}
-
 // @public
->>>>>>> 853f6628aa8 (PropertyGrid: Promote/deprecate related APIs (#4969))
 export type FlatGridItem = CategorizedPropertyItem | GridCategoryItem;
 
 // @public
@@ -2386,18 +2330,7 @@ export interface PropertyViewProps extends SharedRendererProps {
     valueElementRenderer?: () => React_2.ReactNode;
 }
 
-<<<<<<< HEAD
-// @beta
-=======
-// @public @deprecated
-export interface ReactDataGridColumn extends ReactDataGrid.Column<any> {
-    // (undocumented)
-    filterableColumn?: FilterableColumn;
-    icon?: boolean;
-}
-
 // @public
->>>>>>> 853f6628aa8 (PropertyGrid: Promote/deprecate related APIs (#4969))
 export interface RenderedItemsRange {
     // (undocumented)
     overscanStartIndex: number;
