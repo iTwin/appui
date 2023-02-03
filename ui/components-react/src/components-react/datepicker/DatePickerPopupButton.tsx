@@ -7,13 +7,19 @@
  */
 
 import * as React from "react";
-import { DateFormatter, RelativePosition, SpecialKey, TimeDisplay } from "@itwin/appui-abstract";
+import {
+  DateFormatter,
+  RelativePosition,
+  SpecialKey,
+  TimeDisplay,
+} from "@itwin/appui-abstract";
 import { BodyText, CommonProps, Popup } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
 import { DatePicker } from "./DatePicker";
 import { DateField } from "./DateField";
 import { TimeField, TimeSpec } from "./TimeField";
 import "./DatePickerPopupButton.scss";
+import { Text } from "@itwin/itwinui-react";
 
 /** Props used by [[DatePickerPopupButton]] component.
  * @alpha */
@@ -40,13 +46,29 @@ export interface DatePickerPopupButtonProps extends CommonProps {
 /** Component that displays a button used to pick a date and optionally a time.
  * @alpha
  * */
-export function DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter,
-  buttonToolTip, fieldStyle, fieldClassName, style }: DatePickerPopupButtonProps) {
-  const [workingDate, setWorkingDate] = React.useState(new Date(selected.getTime()));
+export function DatePickerPopupButton({
+  displayEditField,
+  timeDisplay,
+  selected,
+  onDateChange,
+  dateFormatter,
+  buttonToolTip,
+  fieldStyle,
+  fieldClassName,
+  style,
+}: DatePickerPopupButtonProps) {
+  const [workingDate, setWorkingDate] = React.useState(
+    new Date(selected.getTime())
+  );
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
   const timeLabelRef = React.useRef(UiComponents.translate("datepicker.time"));
-  const toolTipLabelRef = React.useRef(UiComponents.translate("datepicker.selectDate"));
-  const toolTipLabel = React.useMemo(() => buttonToolTip ? buttonToolTip : toolTipLabelRef.current, [buttonToolTip]);
+  const toolTipLabelRef = React.useRef(
+    UiComponents.translate("datepicker.selectDate")
+  );
+  const toolTipLabel = React.useMemo(
+    () => (buttonToolTip ? buttonToolTip : toolTipLabelRef.current),
+    [buttonToolTip]
+  );
 
   // See if props have changed since component mounted
   React.useEffect(() => {
@@ -55,11 +77,14 @@ export function DatePickerPopupButton({ displayEditField, timeDisplay, selected,
   }, [selected]);
 
   const buttonRef = React.useRef<HTMLButtonElement>(null);
-  const togglePopupDisplay = React.useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    setShowFocusOutline(false);
-    setIsSettingsOpen((prev) => !prev);
-  }, [setIsSettingsOpen]);
+  const togglePopupDisplay = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      setShowFocusOutline(false);
+      setIsSettingsOpen((prev) => !prev);
+    },
+    [setIsSettingsOpen]
+  );
 
   const handleCloseSetting = React.useCallback(() => {
     setIsSettingsOpen(false);
@@ -68,7 +93,11 @@ export function DatePickerPopupButton({ displayEditField, timeDisplay, selected,
   const handleOnDateChanged = (day: Date) => {
     // combine current time into selected Date
     const newWorkingDate = new Date(day.getTime());
-    newWorkingDate.setHours(workingDate.getHours(), workingDate.getMinutes(), workingDate.getSeconds());
+    newWorkingDate.setHours(
+      workingDate.getHours(),
+      workingDate.getMinutes(),
+      workingDate.getSeconds()
+    );
     onDateChange && onDateChange(newWorkingDate);
     !timeDisplay && setIsSettingsOpen(false);
   };
@@ -82,19 +111,33 @@ export function DatePickerPopupButton({ displayEditField, timeDisplay, selected,
   };
 
   const [showFocusOutline, setShowFocusOutline] = React.useState(false);
-  const handlePopupKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLButtonElement>) => {
-    // istanbul ignore else
-    if (event.key === SpecialKey.Space) {
-      setShowFocusOutline(true);
-      setIsSettingsOpen(true);
-    }
-  }, []);
+  const handlePopupKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      // istanbul ignore else
+      if (event.key === SpecialKey.Space) {
+        setShowFocusOutline(true);
+        setIsSettingsOpen(true);
+      }
+    },
+    []
+  );
 
-  const timeSpec: TimeSpec = { hours: workingDate.getHours(), minutes: workingDate.getMinutes(), seconds: workingDate.getSeconds() };
+  const timeSpec: TimeSpec = {
+    hours: workingDate.getHours(),
+    minutes: workingDate.getMinutes(),
+    seconds: workingDate.getSeconds(),
+  };
   return (
     <>
-      <button title={toolTipLabel} style={style} className="components-date-picker-calendar-popup-button" onKeyDown={handlePopupKeyDown}
-        data-testid="components-date-picker-calendar-popup-button" onPointerDown={togglePopupDisplay} ref={buttonRef}>
+      <button
+        title={toolTipLabel}
+        style={style}
+        className="components-date-picker-calendar-popup-button"
+        onKeyDown={handlePopupKeyDown}
+        data-testid="components-date-picker-calendar-popup-button"
+        onPointerDown={togglePopupDisplay}
+        ref={buttonRef}
+      >
         <div className="datepicker-button">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
             <path d="M13,13H9V10h4ZM16,3V15a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V3A1,1,0,0,1,1,2H3V0H4V2h8V0h1V2h2A1,1,0,0,1,16,3ZM15,6H1v9H15Z" />
@@ -110,17 +153,39 @@ export function DatePickerPopupButton({ displayEditField, timeDisplay, selected,
         moveFocus={showFocusOutline}
         closeOnNestedPopupOutsideClick
       >
-        <div className="components-date-picker-calendar-popup-panel" data-testid="components-date-picker-calendar-popup-panel">
-          <DatePicker selected={workingDate} onDateChange={handleOnDateChanged} showFocusOutline={showFocusOutline} />
-          {timeDisplay &&
+        <div
+          className="components-date-picker-calendar-popup-panel"
+          data-testid="components-date-picker-calendar-popup-panel"
+        >
+          <DatePicker
+            selected={workingDate}
+            onDateChange={handleOnDateChanged}
+            showFocusOutline={showFocusOutline}
+          />
+          {timeDisplay && (
             <div className="time-container">
-              <BodyText className="time-label">{timeLabelRef.current}</BodyText>
-              <TimeField time={timeSpec} timeDisplay={timeDisplay} onTimeChange={handleOnTimeChanged} />
+              <Text variant="body" className="time-label">
+                {timeLabelRef.current}
+              </Text>
+              <TimeField
+                time={timeSpec}
+                timeDisplay={timeDisplay}
+                onTimeChange={handleOnTimeChanged}
+              />
             </div>
-          }
+          )}
         </div>
-      </Popup >
-      {!!displayEditField && <DateField style={fieldStyle} className={fieldClassName} initialDate={workingDate} timeDisplay={timeDisplay} dateFormatter={dateFormatter} onDateChange={handleOnDateChanged} />}
+      </Popup>
+      {!!displayEditField && (
+        <DateField
+          style={fieldStyle}
+          className={fieldClassName}
+          initialDate={workingDate}
+          timeDisplay={timeDisplay}
+          dateFormatter={dateFormatter}
+          onDateChange={handleOnDateChanged}
+        />
+      )}
     </>
   );
 }

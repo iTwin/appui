@@ -12,6 +12,7 @@ import { TextProps } from "./TextProps";
 
 /** Styled muted/gray text React functional component
  * @public
+ * @deprecated Use <Text isMuted /> from iTwinUI-react package.
  */
 export function MutedText(props: TextProps) {
   return <StyledText {...props} mainClassName="uicore-text-muted" />;
