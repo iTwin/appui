@@ -4,14 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as faker from "faker";
 import * as moq from "typemoq";
-import { ECInstancesNodeKey, InstanceId, InstanceKey, NodeKey, RegisteredRuleset, Ruleset, SelectionScope, StandardNodeTypes, VariableValue } from "@itwin/presentation-common";
-import { DelayLoadedTreeNodeItem } from "@itwin/components-react";
-import { PrimitiveValue, PropertyDescription, PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
-import { PRESENTATION_TREE_NODE_KEY } from "@itwin/presentation-components";
 import { BeEvent, Id64, Id64String } from "@itwin/core-bentley";
-import { IModelContentChangeEventArgs, IModelHierarchyChangeEventArgs, PresentationManager, RulesetManager, RulesetVariablesManager } from "@itwin/presentation-frontend";
-
-const deepEqual = require("deep-equal"); // eslint-disable-line @typescript-eslint/no-var-requires
+import { InstanceId, InstanceKey, RegisteredRuleset, Ruleset, SelectionScope, VariableValue } from "@itwin/presentation-common";
+import {
+  IModelContentChangeEventArgs, IModelHierarchyChangeEventArgs, PresentationManager, RulesetManager, RulesetVariablesManager,
+} from "@itwin/presentation-frontend";
 
 function nullable<T>(generator: () => T): T | undefined {
   if (faker.random.boolean())
@@ -50,58 +47,6 @@ export const createRandomECInstanceKey = (): InstanceKey => {
     className: faker.random.word(),
     id: createRandomECInstanceId(),
   };
-};
-
-/**
- * @internal Used for testing only.
- */
-const createRandomECInstancesNodeKey = (instanceKeys?: InstanceKey[]): ECInstancesNodeKey => {
-  instanceKeys = instanceKeys ?? [createRandomECInstanceKey(), createRandomECInstanceKey()];
-  return {
-    type: StandardNodeTypes.ECInstancesNode,
-    version: 2,
-    pathFromRoot: [faker.random.uuid(), faker.random.uuid()],
-    instanceKeys,
-  };
-};
-
-/**
- * @internal Used for testing only.
- */
-export const createRandomTreeNodeItem = (key?: NodeKey, parentId?: string): DelayLoadedTreeNodeItem => {
-  const node = {
-    id: faker.random.uuid(),
-    parentId,
-    label: PropertyRecord.fromString(faker.random.word()),
-    description: faker.random.words(),
-    hasChildren: faker.random.boolean(),
-  };
-  (node as any)[PRESENTATION_TREE_NODE_KEY] = key ? key : createRandomECInstancesNodeKey();
-  return node;
-};
-
-/**
- * @internal Used for testing only.
- */
-export const createRandomPropertyRecord = (): PropertyRecord => {
-  const value: PrimitiveValue = {
-    valueFormat: PropertyValueFormat.Primitive,
-    value: faker.random.word(),
-    displayValue: faker.random.words(),
-  };
-  const descr: PropertyDescription = {
-    typename: "string",
-    name: faker.random.word(),
-    displayLabel: faker.random.word(),
-  };
-  return new PropertyRecord(value, descr);
-};
-
-/**
- * @internal Used for testing only. typemoq matcher for deep equality
- */
-export const deepEquals = <T>(expected: T) => {
-  return moq.It.is((actual: T) => deepEqual(actual, expected));
 };
 
 /**
