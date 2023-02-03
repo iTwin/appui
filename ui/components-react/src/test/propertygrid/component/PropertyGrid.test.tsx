@@ -19,6 +19,7 @@ import { ResolvablePromise } from "../../test-helpers/misc";
 import TestUtils, { selectorMatches, userEvent } from "../../TestUtils";
 
 /* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable deprecation/deprecation */
 
 describe("PropertyGrid", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
