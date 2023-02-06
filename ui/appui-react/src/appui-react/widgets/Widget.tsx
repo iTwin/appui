@@ -16,7 +16,7 @@ import { WidgetState } from "./WidgetState";
  */
 export interface Widget extends ProviderItem {
   readonly id: string;
-  readonly allowedPanelTargets?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
+  readonly allowedPanels?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
   readonly applicationData?: any;
   readonly badgeType?: BadgeType;
   readonly canPopout?: boolean;
