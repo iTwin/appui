@@ -15,7 +15,7 @@ import { WidgetState } from "./WidgetState";
  * @public // TODO: 4.x cleanup
  */
 export interface Widget extends ProviderItem {
-  readonly id?: string;
+  readonly id: string;
   readonly allowedPanelTargets?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
   readonly applicationData?: any;
   readonly badgeType?: BadgeType;
