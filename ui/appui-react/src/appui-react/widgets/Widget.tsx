@@ -6,7 +6,7 @@
  * @module Widget
  */
 
-import { BadgeType, ConditionalStringValue, PointProps } from "@itwin/appui-abstract";
+import { BadgeType, ConditionalStringValue, PointProps, StagePanelLocation } from "@itwin/appui-abstract";
 import { IconSpec, SizeProps } from "@itwin/core-react";
 import { ProviderItem } from "../ui-items-provider/ProviderItem";
 import { WidgetState } from "./WidgetState";
@@ -16,7 +16,7 @@ import { WidgetState } from "./WidgetState";
  */
 export interface Widget extends ProviderItem {
   readonly id: string;
-  readonly allowedPanels?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
+  readonly allowedPanels?: ReadonlyArray<StagePanelLocation>;
   readonly applicationData?: any;
   readonly badgeType?: BadgeType;
   readonly canPopout?: boolean;
