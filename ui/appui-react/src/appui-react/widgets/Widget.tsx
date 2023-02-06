@@ -30,9 +30,6 @@ export interface Widget extends ProviderItem {
   readonly isFloatingStateSupported?: boolean;
   readonly isFloatingStateWindowResizable?: boolean;
   readonly label?: string | ConditionalStringValue;
-  readonly onWidgetStateChanged?: () => void;
   readonly priority?: number;
-  readonly restoreTransientState?: () => boolean;
-  readonly saveTransientState?: () => void;
   readonly tooltip?: string | ConditionalStringValue;
 }
