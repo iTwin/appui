@@ -27,7 +27,6 @@ export interface Widget extends ProviderItem {
   readonly element?: React.ReactNode;
   readonly hideWithUiWhenFloating?: boolean;
   readonly icon?: IconSpec;
-  readonly internalData?: Map<string, any>;
   readonly isFloatingStateSupported?: boolean;
   readonly isFloatingStateWindowResizable?: boolean;
   readonly label?: string | ConditionalStringValue;
