@@ -11,10 +11,10 @@ import { SizeProps } from "@itwin/core-react";
 import { ProviderItem } from "../ui-items-provider/ProviderItem";
 import { WidgetState } from "./WidgetState";
 
-/** Properties of a Widget.
+/** Describes the data needed to provide a widget.
  * @public // TODO: 4.x cleanup
  */
-export interface WidgetProps extends ProviderItem {
+export interface Widget extends ProviderItem {
   readonly id?: string;
   readonly allowedPanelTargets?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
   readonly applicationData?: any;
