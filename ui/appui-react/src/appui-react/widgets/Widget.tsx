@@ -24,7 +24,8 @@ export interface Widget extends ProviderItem {
   readonly defaultFloatingSize?: SizeProps;
   readonly defaultState?: WidgetState;
   readonly floatingContainerId?: string;
-  readonly getWidgetContent: () => any;
+  /** A React element for the Widget. */
+  readonly element?: React.ReactNode;
   readonly hideWithUiWhenFloating?: boolean;
   readonly icon?: IconSpec;
   readonly internalData?: Map<string, any>;
