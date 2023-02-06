@@ -7,7 +7,7 @@
  */
 
 import { BadgeType, ConditionalStringValue, PointProps } from "@itwin/appui-abstract";
-import { SizeProps } from "@itwin/core-react";
+import { IconSpec, SizeProps } from "@itwin/core-react";
 import { ProviderItem } from "../ui-items-provider/ProviderItem";
 import { WidgetState } from "./WidgetState";
 
@@ -26,7 +26,7 @@ export interface Widget extends ProviderItem {
   readonly floatingContainerId?: string;
   readonly getWidgetContent: () => any;
   readonly hideWithUiWhenFloating?: boolean;
-  readonly icon?: string | ConditionalStringValue;
+  readonly icon?: IconSpec;
   readonly internalData?: Map<string, any>;
   readonly isFloatingStateSupported?: boolean;
   readonly isFloatingStateWindowResizable?: boolean;
