@@ -17,7 +17,6 @@ import { WidgetState } from "./WidgetState";
 export interface Widget extends ProviderItem {
   readonly id: string;
   readonly allowedPanels?: ReadonlyArray<StagePanelLocation>;
-  readonly applicationData?: any;
   readonly badgeType?: BadgeType;
   readonly canPopout?: boolean;
   readonly defaultFloatingPosition?: PointProps;
