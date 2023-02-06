@@ -9,7 +9,6 @@
 import { AbstractMenuItemProps } from '@itwin/appui-abstract';
 import { AbstractStatusBarCustomItem } from '@itwin/appui-abstract';
 import { AbstractToolbarProps } from '@itwin/appui-abstract';
-import { AbstractTreeNodeLoaderWithProvider } from '@itwin/components-react';
 import { AbstractWidgetProps } from '@itwin/appui-abstract';
 import { AccuDraw } from '@itwin/core-frontend';
 import { ActionButton } from '@itwin/appui-abstract';
@@ -48,29 +47,24 @@ import { DialogProps } from '@itwin/core-react';
 import { DialogProps as DialogProps_2 } from '@itwin/appui-abstract';
 import { DialogRow } from '@itwin/appui-abstract';
 import { DisplayStyle3dState } from '@itwin/core-frontend';
-import { ECClassGroupingNodeKey } from '@itwin/presentation-common';
 import { EmphasizeElementsProps } from '@itwin/core-common';
 import { FloatingWidgetState } from '@itwin/appui-layout-react';
 import { FunctionKey } from '@itwin/appui-abstract';
 import { GroupButton } from '@itwin/appui-abstract';
 import { GuidString } from '@itwin/core-bentley';
-import { HighlightableTreeProps } from '@itwin/components-react';
 import { HorizontalPanelSide } from '@itwin/appui-layout-react';
 import { IconProps } from '@itwin/core-react';
 import { IconSpec } from '@itwin/core-react';
-import { Id64Array } from '@itwin/core-bentley';
 import { Id64String } from '@itwin/core-bentley';
-import { IDisposable } from '@itwin/core-bentley';
-import { IFilteredPresentationTreeDataProvider } from '@itwin/presentation-components';
 import { IMatch } from '@itwin/appui-abstract';
 import { IModelConnection } from '@itwin/core-frontend';
 import { InferableComponentEnhancerWithProps } from 'react-redux';
 import { InteractiveTool } from '@itwin/core-frontend';
-import { IPresentationTreeDataProvider } from '@itwin/presentation-components';
 import { ItemField } from '@itwin/core-frontend';
 import { JSXElementConstructor } from 'react';
 import { Key } from 'react';
 import { LayoutFragmentProps } from '@itwin/appui-abstract';
+import { LayoutStore } from '@itwin/appui-layout-react';
 import { Localization } from '@itwin/core-common';
 import { MessageBoxIconType } from '@itwin/core-frontend';
 import { MessageBoxType } from '@itwin/core-frontend';
@@ -81,8 +75,6 @@ import { NineZoneAction } from '@itwin/appui-layout-react';
 import { NineZoneDispatch } from '@itwin/appui-layout-react';
 import { NineZoneLabels } from '@itwin/appui-layout-react';
 import { NineZoneState } from '@itwin/appui-layout-react';
-import { NodeCheckboxRenderProps } from '@itwin/core-react';
-import { NodeKey } from '@itwin/presentation-common';
 import { NotificationManager } from '@itwin/core-frontend';
 import { NotifyMessageDetails } from '@itwin/core-frontend';
 import { Omit as Omit_2 } from '@itwin/core-react';
@@ -111,9 +103,7 @@ import { ReactText } from 'react';
 import { Rectangle } from '@itwin/core-react';
 import { RectangleProps } from '@itwin/core-react';
 import { RelativePosition } from '@itwin/appui-abstract';
-import { Ruleset } from '@itwin/presentation-common';
 import { ScreenViewport } from '@itwin/core-frontend';
-import { SelectionMode as SelectionMode_2 } from '@itwin/components-react';
 import { SettingsManager } from '@itwin/core-react';
 import { SettingsTabEntry } from '@itwin/core-react';
 import { Size } from '@itwin/core-react';
@@ -130,7 +120,6 @@ import { StatusBarLabelSide } from '@itwin/appui-abstract';
 import { StatusBarSection } from '@itwin/appui-abstract';
 import { Store } from 'redux';
 import { StringGetter } from '@itwin/appui-abstract';
-import { Subscription } from '@itwin/components-react';
 import { TabState } from '@itwin/appui-layout-react';
 import { ToasterSettings } from '@itwin/itwinui-react/cjs/core/Toast/Toaster';
 import { ToastOptions } from '@itwin/itwinui-react';
@@ -143,12 +132,6 @@ import { ToolbarItemsManager } from '@itwin/appui-abstract';
 import { ToolbarOrientation } from '@itwin/appui-abstract';
 import { ToolbarUsage } from '@itwin/appui-abstract';
 import { ToolTipOptions } from '@itwin/core-frontend';
-import { TreeCheckboxStateChangeEventArgs } from '@itwin/components-react';
-import { TreeNodeItem } from '@itwin/components-react';
-import { TreeNodeRendererProps } from '@itwin/components-react';
-import { TreeRendererProps } from '@itwin/components-react';
-import { TreeSelectionModificationEventArgs } from '@itwin/components-react';
-import { TreeSelectionReplacementEventArgs } from '@itwin/components-react';
 import { UiAdmin } from '@itwin/appui-abstract';
 import { UiDataProvider } from '@itwin/appui-abstract';
 import { UiEvent } from '@itwin/appui-abstract';
@@ -159,12 +142,9 @@ import { UiStateStorage } from '@itwin/core-react';
 import { UiStateStorageResult } from '@itwin/core-react';
 import { UiStateStorageStatus } from '@itwin/core-react';
 import { UiSyncEvent } from '@itwin/appui-abstract';
-import { UnifiedSelectionTreeEventHandler } from '@itwin/presentation-components';
-import { UnifiedSelectionTreeEventHandlerParams } from '@itwin/presentation-components';
 import { UnitSystemKey } from '@itwin/core-quantity';
 import { VerticalPanelSide } from '@itwin/appui-layout-react';
 import { ViewFlagProps } from '@itwin/core-common';
-import { ViewManager } from '@itwin/core-frontend';
 import { Viewport } from '@itwin/core-frontend';
 import { ViewportProps } from '@itwin/imodel-components-react';
 import { ViewState } from '@itwin/core-frontend';
@@ -402,9 +382,7 @@ export interface ActiveContentChangedEventArgs {
 }
 
 // @internal (undocumented)
-export function ActiveFrontstageDefProvider({ frontstageDef }: {
-    frontstageDef: FrontstageDef;
-}): JSX.Element;
+export function ActiveFrontstageDefProvider({ frontstageDef, layout }: ActiveFrontstageDefProviderProps): JSX.Element;
 
 // @public
 export function ActivityCenterField(props: CommonProps): JSX.Element | null;
@@ -756,70 +734,6 @@ export interface CardSelectedEventArgs {
     index: number;
 }
 
-// @alpha
-export interface Category {
-    // (undocumented)
-    children?: string[];
-    // (undocumented)
-    key: string;
-}
-
-// @public
-export function CategoryTree(props: CategoryTreeProps): JSX.Element;
-
-// @public
-export interface CategoryTreeProps {
-    activeView?: Viewport;
-    allViewports?: boolean;
-    // @internal
-    categoryVisibilityHandler?: CategoryVisibilityHandler;
-    // @alpha
-    filterInfo?: VisibilityTreeFilterInfo;
-    height: number;
-    iModel: IModelConnection;
-    onFilterApplied?: (filteredDataProvider: IPresentationTreeDataProvider, matchesCount: number) => void;
-    // @internal
-    viewManager?: ViewManager;
-    width: number;
-}
-
-// @alpha (undocumented)
-export class CategoryVisibilityHandler implements IVisibilityHandler {
-    constructor(params: CategoryVisibilityHandlerParams);
-    // (undocumented)
-    changeVisibility(node: TreeNodeItem, nodeKey: NodeKey, shouldDisplay: boolean): Promise<void>;
-    // (undocumented)
-    dispose(): void;
-    static enableCategory(viewManager: ViewManager, imodel: IModelConnection, ids: string[], enabled: boolean, forAllViewports: boolean, enableAllSubCategories?: boolean): void;
-    static enableSubCategory(viewManager: ViewManager, key: string, enabled: boolean, forAllViewports?: boolean): void;
-    // (undocumented)
-    getCategoryVisibility(id: string): "hidden" | "visible";
-    // (undocumented)
-    static getInstanceIdFromTreeNodeKey(nodeKey: NodeKey): string;
-    // (undocumented)
-    getParent(key: string): Category | undefined;
-    // (undocumented)
-    getSubCategoryVisibility(id: string): "hidden" | "visible";
-    // (undocumented)
-    getVisibilityStatus(node: TreeNodeItem, nodeKey: NodeKey): VisibilityStatus;
-    // (undocumented)
-    onVisibilityChange: BeEvent<VisibilityChangeListener>;
-}
-
-// @alpha (undocumented)
-export interface CategoryVisibilityHandlerParams {
-    // (undocumented)
-    activeView?: Viewport;
-    // (undocumented)
-    allViewports?: boolean;
-    // (undocumented)
-    categories: Category[];
-    // (undocumented)
-    imodel: IModelConnection;
-    // (undocumented)
-    viewManager: ViewManager;
-}
-
 // @public (undocumented)
 export interface ChildWindowLocationProps {
     // (undocumented)
@@ -845,13 +759,6 @@ export class ChildWindowManager {
     openChildWindow(childWindowId: string, title: string, content: React_2.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean): boolean;
     // (undocumented)
     get openChildWindows(): OpenChildWindowInfo[];
-}
-
-// @beta
-export enum ClassGroupingOption {
-    No = 0,
-    Yes = 1,
-    YesWithCounts = 2
 }
 
 // @internal (undocumented)
@@ -1356,9 +1263,6 @@ export function createAction<T extends string, P>(type: T, payload: P): ActionWi
 
 // @internal
 export function createStableWidgetDef(widgetDef: WidgetDef, stableId: string): WidgetDef;
-
-// @alpha
-export const createVisibilityTreeNodeRenderer: (iconsEnabled: boolean, descriptionEnabled: boolean) => (props: TreeNodeRendererProps) => JSX.Element;
 
 // @public
 export class CubeNavigationAidControl extends NavigationAidControl {
@@ -1881,8 +1785,9 @@ export class FloatingViewportContentControl extends ViewportContentControl {
 // @beta (undocumented)
 export interface FloatingViewportContentProps {
     contentId: string;
-    initialViewState: ViewState;
+    initialViewState: ViewStateProp;
     onContextMenu?: (e: React_2.MouseEvent) => boolean;
+    viewportRef?: React_2.Ref<ScreenViewport>;
 }
 
 // @alpha
@@ -2278,9 +2183,6 @@ export type FunctionType = (...args: any[]) => any;
 
 // @internal (undocumented)
 export function getBadgeClassName(badgeType: BadgeType | undefined): "uifw-badge-new" | "uifw-badge-tp" | undefined;
-
-// @alpha
-export function getCategories(imodel: IModelConnection, viewport?: Viewport, filteredProvider?: IPresentationTreeDataProvider): Promise<string[]>;
 
 // @beta
 export function getFeatureOverrideSyncEventIds(): string[];
@@ -2696,16 +2598,6 @@ export interface ItemProps extends IconProps {
     tooltipKey?: string;
 }
 
-// @alpha
-export interface IVisibilityHandler extends IDisposable {
-    // (undocumented)
-    changeVisibility(node: TreeNodeItem, nodeKey: NodeKey, shouldDisplay: boolean): Promise<void>;
-    // (undocumented)
-    getVisibilityStatus(node: TreeNodeItem, nodeKey: NodeKey): VisibilityStatus | Promise<VisibilityStatus>;
-    // (undocumented)
-    onVisibilityChange: BeEvent<VisibilityChangeListener>;
-}
-
 // @public
 export class KeyboardShortcut extends ItemDefBase {
     constructor(props: KeyboardShortcutProps);
@@ -2909,9 +2801,6 @@ export interface ListPickerPropsExtended extends ListPickerProps {
     // (undocumented)
     invertFunc?: () => void;
 }
-
-// @internal (undocumented)
-export function loadCategoriesFromViewport(iModel?: IModelConnection, vp?: Viewport): Promise<Category[]>;
 
 // @alpha (undocumented)
 export class MenuButton extends React_2.PureComponent<MenuButtonProps, MenuButtonState> {
@@ -3175,107 +3064,6 @@ export class ModelessDialogRenderer extends React_2.PureComponent<CommonProps> {
     constructor(props: CommonProps);
     // (undocumented)
     render(): React_2.ReactNode;
-}
-
-// @public
-export function ModelsTree(props: ModelsTreeProps): JSX.Element;
-
-// @beta
-export enum ModelsTreeNodeType {
-    // (undocumented)
-    Category = 3,
-    // (undocumented)
-    Element = 4,
-    // (undocumented)
-    Grouping = 5,
-    // (undocumented)
-    Model = 2,
-    // (undocumented)
-    Subject = 1,
-    // (undocumented)
-    Unknown = 0
-}
-
-// @public
-export interface ModelsTreeProps {
-    activeView?: Viewport;
-    // @beta
-    enableElementsClassGrouping?: ClassGroupingOption;
-    // @alpha
-    enableHierarchyAutoUpdate?: boolean;
-    // @alpha
-    filteredElementIds?: Id64Array;
-    // @alpha
-    filterInfo?: VisibilityTreeFilterInfo;
-    height: number;
-    iModel: IModelConnection;
-    // @alpha
-    modelsVisibilityHandler?: ModelsVisibilityHandler;
-    onFilterApplied?: (filteredDataProvider: IPresentationTreeDataProvider, matchesCount: number) => void;
-    rootElementRef?: React_2.Ref<HTMLDivElement>;
-    selectionMode?: SelectionMode_2;
-    // @alpha
-    selectionPredicate?: ModelsTreeSelectionPredicate;
-    width: number;
-}
-
-// @beta
-export type ModelsTreeSelectionPredicate = (key: NodeKey, type: ModelsTreeNodeType) => boolean;
-
-// @alpha
-export class ModelsVisibilityHandler implements IVisibilityHandler {
-    constructor(props: ModelsVisibilityHandlerProps);
-    // (undocumented)
-    protected changeCategoryState(categoryId: Id64String, parentModelId: Id64String | undefined, on: boolean): void;
-    // (undocumented)
-    protected changeElementGroupingNodeState(key: ECClassGroupingNodeKey, on: boolean): Promise<void>;
-    // (undocumented)
-    protected changeElementsState(modelId: Id64String | undefined, categoryId: Id64String | undefined, elementIds: AsyncGenerator<Id64String>, on: boolean): Promise<void>;
-    // (undocumented)
-    protected changeElementState(id: Id64String, modelId: Id64String | undefined, categoryId: Id64String | undefined, on: boolean): Promise<void>;
-    // (undocumented)
-    protected changeModelState(id: Id64String, on: boolean): Promise<void>;
-    // (undocumented)
-    protected changeModelsVisibility(ids: Id64String[], visible: boolean): Promise<void>;
-    // (undocumented)
-    protected changeSubjectNodeState(ids: Id64String[], node: TreeNodeItem, on: boolean): Promise<void | void[]>;
-    changeVisibility(node: TreeNodeItem, nodeKey: NodeKey, on: boolean): Promise<void>;
-    // (undocumented)
-    dispose(): void;
-    // (undocumented)
-    protected getCategoryDisplayStatus(id: Id64String, parentModelId: Id64String | undefined): VisibilityStatus;
-    // (undocumented)
-    protected getElementDisplayStatus(elementId: Id64String, modelId: Id64String | undefined, categoryId: Id64String | undefined): VisibilityStatus;
-    // (undocumented)
-    protected getElementGroupingNodeDisplayStatus(_id: string, key: ECClassGroupingNodeKey): Promise<VisibilityStatus>;
-    // (undocumented)
-    protected getModelDisplayStatus(id: Id64String): VisibilityStatus;
-    // (undocumented)
-    static getNodeType(item: TreeNodeItem, dataProvider: IPresentationTreeDataProvider): ModelsTreeNodeType;
-    // (undocumented)
-    protected getSubjectNodeVisibility(ids: Id64String[], node: TreeNodeItem): Promise<VisibilityStatus>;
-    getVisibilityStatus(node: TreeNodeItem, nodeKey: NodeKey): VisibilityStatus | Promise<VisibilityStatus>;
-    // (undocumented)
-    static isCategoryNode(node: TreeNodeItem): any;
-    // (undocumented)
-    static isModelNode(node: TreeNodeItem): any;
-    // (undocumented)
-    static isSubjectNode(node: TreeNodeItem): any;
-    // (undocumented)
-    onVisibilityChange: BeEvent<VisibilityChangeListener>;
-    setFilteredDataProvider(provider: IFilteredPresentationTreeDataProvider | undefined): void;
-}
-
-// @alpha
-export interface ModelsVisibilityHandlerProps {
-    // (undocumented)
-    hierarchyAutoUpdateEnabled?: boolean;
-    // (undocumented)
-    rulesetId: string;
-    // @internal (undocumented)
-    subjectModelIdsCache?: SubjectModelIdsCache;
-    // (undocumented)
-    viewport: Viewport;
 }
 
 // @public
@@ -3669,21 +3457,6 @@ export interface RotationData {
     // (undocumented)
     label: string;
 }
-
-// @internal
-export const RULESET_CATEGORIES: Ruleset;
-
-// @internal (undocumented)
-export const RULESET_MODELS: Ruleset;
-
-// @internal (undocumented)
-export const RULESET_MODELS_GROUPED_BY_CLASS: Ruleset;
-
-// @internal (undocumented)
-export const RULESET_SPATIAL_BREAKDOWN: Ruleset;
-
-// @internal (undocumented)
-export const RULESET_SPATIAL_BREAKDOWN_GROUPED_BY_CLASS: Ruleset;
 
 // @public
 export const SafeAreaContext: React_2.Context<SafeAreaInsets | undefined>;
@@ -4161,19 +3934,6 @@ export class SolarTimelineDataProvider extends BaseSolarDataProvider {
 }
 
 // @public
-export function SpatialContainmentTree(props: SpatialContainmentTreeProps): JSX.Element;
-
-// @public
-export interface SpatialContainmentTreeProps {
-    // @beta
-    enableElementsClassGrouping?: ClassGroupingOption;
-    height: number;
-    // (undocumented)
-    iModel: IModelConnection;
-    width: number;
-}
-
-// @public
 export function SplitPane(props: SplitPaneProps): JSX.Element;
 
 // @public
@@ -4548,13 +4308,6 @@ export abstract class StatusBarWidgetControl extends WidgetControl {
     getType(): ConfigurableUiControlType;
 }
 
-// @internal (undocumented)
-export class SubjectModelIdsCache {
-    constructor(imodel: IModelConnection);
-    // (undocumented)
-    getSubjectModelIds(subjectId: Id64String): Promise<Id64String[]>;
-}
-
 // @public
 export interface SupportsViewSelectorChange {
     processViewSelectorChange(iModel: IModelConnection, viewDefinitionId: Id64String, viewState: ViewState, name: string): Promise<void>;
@@ -4641,9 +4394,6 @@ export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, Til
     componentWillUnmount(): void;
     render(): JSX.Element;
 }
-
-// @alpha
-export function toggleAllCategories(viewManager: ViewManager, imodel: IModelConnection, display: boolean, viewport?: Viewport, forAllViewports?: boolean, filteredProvider?: IPresentationTreeDataProvider): Promise<void>;
 
 // @public
 export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {
@@ -5155,9 +4905,6 @@ export function useAvailableUiItemsProviders(): readonly string[];
 export const useBackstageManager: () => BackstageManager;
 
 // @internal
-export function useCategories(viewManager: ViewManager, imodel: IModelConnection, view?: Viewport): Category[];
-
-// @internal
 export const useDefaultBackstageItems: (manager: BackstageItemsManager) => readonly BackstageItem[];
 
 // @public
@@ -5185,10 +4932,10 @@ export function useItemsManager(frontstageDef: FrontstageDef): void;
 export function useLabels(): NineZoneLabels;
 
 // @internal (undocumented)
-export function useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch;
+export function useLayoutStore(): readonly [LayoutStore, FrontstageDef | undefined];
 
 // @internal (undocumented)
-export function useNineZoneState(frontstageDef: FrontstageDef): NineZoneState | undefined;
+export function useNineZoneDispatch(frontstageDef: FrontstageDef): NineZoneDispatch;
 
 // @public
 export interface UserSettingsProvider {
@@ -5200,7 +4947,7 @@ export interface UserSettingsProvider {
 export function useSavedFrontstageState(frontstageDef: FrontstageDef): void;
 
 // @internal (undocumented)
-export function useSaveFrontstageSettings(frontstageDef: FrontstageDef): void;
+export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: LayoutStore): void;
 
 // @public
 export function useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined;
@@ -5237,16 +4984,6 @@ export function useUiVisibility(): boolean;
 
 // @internal
 export function useUpdateNineZoneSize(frontstageDef: FrontstageDef): void;
-
-// @alpha
-export const useVisibilityTreeFiltering: (nodeLoader: AbstractTreeNodeLoaderWithProvider<IPresentationTreeDataProvider>, filterInfo?: VisibilityTreeFilterInfo | undefined, onFilterApplied?: ((filteredDataProvider: IPresentationTreeDataProvider, matchesCount: number) => void) | undefined) => {
-    filteredNodeLoader: AbstractTreeNodeLoaderWithProvider<IPresentationTreeDataProvider>;
-    isFiltering: boolean;
-    nodeHighlightingProps: HighlightableTreeProps | undefined;
-};
-
-// @alpha
-export const useVisibilityTreeRenderer: (iconsEnabled: boolean, descriptionsEnabled: boolean) => (props: TreeRendererProps) => JSX.Element;
 
 // @internal (undocumented)
 export function useWidgetDef(): WidgetDef | undefined;
@@ -5402,65 +5139,6 @@ export class ViewUtilities {
     static isSpatialView(viewport: ScreenViewport): boolean;
     static viewSupportsCamera(viewport: ScreenViewport): boolean;
 }
-
-// @alpha
-export type VisibilityChangeListener = (nodeIds?: string[], visibilityStatus?: Map<string, VisibilityStatus>) => void;
-
-// @alpha
-export interface VisibilityStatus {
-    // (undocumented)
-    isDisabled?: boolean;
-    // (undocumented)
-    state: "visible" | "partial" | "hidden";
-    // (undocumented)
-    tooltip?: string;
-}
-
-// @alpha
-export class VisibilityTreeEventHandler extends UnifiedSelectionTreeEventHandler {
-    constructor(params: VisibilityTreeEventHandlerParams);
-    // (undocumented)
-    dispose(): void;
-    // (undocumented)
-    onCheckboxStateChanged(event: TreeCheckboxStateChangeEventArgs): undefined;
-    // (undocumented)
-    onSelectionModified({ modifications }: TreeSelectionModificationEventArgs): Subscription | undefined;
-    // (undocumented)
-    onSelectionReplaced({ replacements }: TreeSelectionReplacementEventArgs): Subscription | undefined;
-}
-
-// @alpha
-export interface VisibilityTreeEventHandlerParams extends UnifiedSelectionTreeEventHandlerParams {
-    // (undocumented)
-    selectionPredicate?: VisibilityTreeSelectionPredicate;
-    // (undocumented)
-    visibilityHandler: IVisibilityHandler | undefined;
-}
-
-// @alpha
-export interface VisibilityTreeFilterInfo {
-    // (undocumented)
-    activeMatchIndex?: number;
-    // (undocumented)
-    filter: string;
-}
-
-// @alpha
-export const visibilityTreeNodeCheckboxRenderer: (props: NodeCheckboxRenderProps) => JSX.Element;
-
-// @alpha
-export function VisibilityTreeNoFilteredData(props: VisibilityTreeNoFilteredDataProps): JSX.Element;
-
-// @alpha
-export interface VisibilityTreeNoFilteredDataProps {
-    // (undocumented)
-    message: string;
-    // (undocumented)
-    title: string;
-}
-
-// @alpha
-export type VisibilityTreeSelectionPredicate = (key: NodeKey, node: TreeNodeItem) => boolean;
 
 // @public
 export const WIDGET_OPACITY_DEFAULT = 0.9;
@@ -5651,7 +5329,7 @@ export class WidgetManager {
 export type WidgetPanelProps = Omit<StagePanelConfig, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
 
 // @internal (undocumented)
-export const WidgetPanelsFrontstage: React_2.NamedExoticComponent<object>;
+export function WidgetPanelsFrontstage(): JSX.Element | null;
 
 // @internal (undocumented)
 export function WidgetPanelsFrontstageContent(): JSX.Element | null;

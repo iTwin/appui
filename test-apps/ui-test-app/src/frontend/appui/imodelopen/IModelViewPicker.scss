@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 $view-card-width: 215px;
 $view-card-height: 150px;
@@ -123,7 +122,7 @@ $view-card-height: 150px;
     }
   }
 */
-  >button {
+  > button {
     margin-left: auto;
     padding-left: 3em;
     padding-right: 5em;
@@ -145,26 +144,26 @@ $view-card-height: 150px;
 /* Add Zoom Animation */
 .animate {
   -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
+  animation: animatezoom 0.6s;
 }
 
 @-webkit-keyframes animatezoom {
   from {
-    -webkit-transform: scale(0)
+    -webkit-transform: scale(0);
   }
 
   to {
-    -webkit-transform: scale(1)
+    -webkit-transform: scale(1);
   }
 }
 
 @keyframes animatezoom {
   from {
-    transform: scale(0)
+    transform: scale(0);
   }
 
   to {
-    transform: scale(1)
+    transform: scale(1);
   }
 }
 
@@ -188,7 +187,8 @@ $view-card-height: 150px;
   //-webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
 
   &:hover,
-  &:focus {}
+  &:focus {
+  }
 }
 
 .view-card.isActive {
@@ -214,9 +214,9 @@ $view-card-height: 150px;
 
 .view-card-name {
   flex: initial;
-  padding: .5em;
+  padding: 0.5em;
   background: $uicore-white;
-  font-size: $iui-font-size-small;
+  font-size: var(--iui-font-size-0);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

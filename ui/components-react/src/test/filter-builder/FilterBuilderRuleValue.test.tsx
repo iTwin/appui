@@ -2,6 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
@@ -12,7 +13,7 @@ import TestUtils, { userEvent } from "../TestUtils";
 
 describe("PropertyFilterBuilderRuleValue", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -31,18 +32,18 @@ describe("PropertyFilterBuilderRuleValue", () => {
   });
 
   it("renders string value", async () => {
-    const {getByDisplayValue} = render(<PropertyFilterBuilderRuleValue
-      value={{valueFormat: PropertyValueFormat.Primitive, value: "Test String"}}
+    const { getByDisplayValue } = render(<PropertyFilterBuilderRuleValue
+      value={{ valueFormat: PropertyValueFormat.Primitive, value: "Test String" }}
       property={defaultProperty}
-      onChange={() => {}}
+      onChange={() => { }}
     />);
     await waitFor(() => getByDisplayValue("Test String"));
   });
 
   it("renders empty value", () => {
-    const {container} = render(<PropertyFilterBuilderRuleValue
+    const { container } = render(<PropertyFilterBuilderRuleValue
       property={defaultProperty}
-      onChange={() => {}}
+      onChange={() => { }}
     />);
 
     const input = container.querySelector<HTMLInputElement>(".iui-input");
@@ -61,6 +62,6 @@ describe("PropertyFilterBuilderRuleValue", () => {
     await theUserTo.type(screen.getByRole("textbox"), "test text");
     screen.getByRole("textbox").blur();
 
-    await waitFor(() => expect(spy).to.be.calledOnceWith({valueFormat: PropertyValueFormat.Primitive, value: "test text", displayValue: "test text"}));
+    await waitFor(() => expect(spy).to.be.calledOnceWith({ valueFormat: PropertyValueFormat.Primitive, value: "test text", displayValue: "test text" }));
   });
 });

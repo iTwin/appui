@@ -2,12 +2,13 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import * as sinon from "sinon";
-import { addTab, NineZoneState, TabState } from "../appui-layout-react";
-import { BentleyError } from "@itwin/core-bentley";
 import { expect } from "chai";
+import * as sinon from "sinon";
+import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { addTab, NineZoneState, TabState, useContainersStore } from "../appui-layout-react";
+
 export { userEvent };
 
 before(() => {
@@ -17,6 +18,11 @@ before(() => {
   window.cancelAnimationFrame = (handle: number) => {
     window.clearTimeout(handle);
   };
+});
+
+const initialState = useContainersStore.getState();
+beforeEach(() => {
+  useContainersStore.setState(initialState, true);
 });
 
 /** @internal */
@@ -84,14 +90,14 @@ export function handleMetaData(fn: Function) {
 
 /** Returns tag, id and classes of the information used by CSS selectors */
 function getPartialSelectorInfo(e: HTMLElement) {
-  return `${e.tagName}${e.id ? `#${e.id}`: ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
+  return `${e.tagName}${e.id ? `#${e.id}` : ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
 }
 
 /** Returns the full list of classes and tag chain for an element up to HTML */
 function currentSelectorInfo(e: HTMLElement) {
   let w = e;
   const chain = [getPartialSelectorInfo(w)];
-  while(w.parentElement) {
+  while (w.parentElement) {
     w = w.parentElement;
     chain.unshift(getPartialSelectorInfo(w));
   }
@@ -107,7 +113,7 @@ export function selectorMatches(selectors: string) {
   const satisfier = (e: HTMLElement) => {
     // \b\b\b... removes default "[Function : " part to get clear message in output.
     const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(e)}'\n\n${prettyDOM()}`;
-    Object.defineProperty(satisfier, "name",  {value: message});
+    Object.defineProperty(satisfier, "name", { value: message });
     return e.matches(selectors);
   };
   return satisfier;
@@ -124,7 +130,7 @@ export function childStructure(selectors: string | string[]) {
       .filter((selector) => !e.querySelector(selector));
     // \b\b\b... removes default "[Function : " part to get clear message in output.
     const message = `\b\b\b\b\b\b\b\b\b\b element.querySelector(\n'${failedSelectors.join("'\n AND \n'")}'\n); but is: \n${prettyDOM(e)}`;
-    Object.defineProperty(satisfier, "name", {value: message});
+    Object.defineProperty(satisfier, "name", { value: message });
     return failedSelectors.length === 0;
   };
   return satisfier;
@@ -144,10 +150,10 @@ type Matchable<T> = { [P in keyof T]: T[P] | RegExp; };
 export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
   return (e: HTMLElement) => {
     expect(e).to.be.instanceOf(HTMLElement).and.have.property("style");
-    for(const prop in style) {
-      if(Object.prototype.hasOwnProperty.call(style, prop)) {
+    for (const prop in style) {
+      if (Object.prototype.hasOwnProperty.call(style, prop)) {
         const value = style[prop];
-        if(value instanceof RegExp) {
+        if (value instanceof RegExp) {
           expect(e.style, `property ${prop}`).to.have.property(prop).that.match(value);
         } else {
           expect(e.style).to.have.property(prop, value);

@@ -8,36 +8,37 @@
 
 /// Constants ------------------------------------------------------------------
 
-$uicore-sans:                      $iui-sans;
-$uicore-monospace:                 $iui-monospace;
+$uicore-sans: var(--iui-font-sans);
+$uicore-monospace: var(--iui-font-mono);
 
-$uicore-font-family:               $iui-font-family;
+$uicore-font-family: var(--iui-font-sans);
 
-$uicore-font-size:                 $iui-font-size;
-$uicore-font-size-small:           $iui-font-size-small;
-$uicore-font-size-leading:         $iui-font-size-leading;
-$uicore-font-size-subheading:      $iui-font-size-subheading;
-$uicore-font-size-title:           $iui-font-size-title;
-$uicore-font-size-headline:        $iui-font-size-headline;
+$uicore-font-size: var(--iui-font-size-1);
+$uicore-font-size-small: var(--iui-font-size-0);
+$uicore-font-size-leading: var(--iui-font-size-2);
+$uicore-font-size-subheading: var(--iui-font-size-3);
+$uicore-font-size-title: var(--iui-font-size-4);
+$uicore-font-size-headline: var(--iui-font-size-5);
 
-$uicore-cap-size:                  $iui-cap-size;
-$uicore-cap-size-small:            $iui-cap-size-small;
-$uicore-cap-size-leading:          $iui-cap-size-leading;
-$uicore-cap-size-subheading:       $iui-cap-size-subheading;
-$uicore-cap-size-title:            $iui-cap-size-title;
-$uicore-cap-size-headline:         $iui-cap-size-headline;
+//TODO review this cap part
+$uicore-cap-size: var(--iui-font-size-1);
+$uicore-cap-size-small: var(--iui-font-size-0);
+$uicore-cap-size-leading: var(--iui-font-size-2);
+$uicore-cap-size-subheading: var(--iui-font-size-3);
+$uicore-cap-size-title: var(--iui-font-size-4);
+$uicore-cap-size-headline: var(--iui-font-size-5);
 
-$uicore-font-weight-light:         $iui-font-weight-light;
-$uicore-font-weight-normal:        $iui-font-weight-normal;
-$uicore-font-weight-semibold:      $iui-font-weight-semibold;
-$uicore-font-weight-bold:          $iui-font-weight-bold;
+$uicore-font-weight-light: var(--iui-font-weight-light);
+$uicore-font-weight-normal: var(--iui-font-weight-normal);
+$uicore-font-weight-semibold: var(--iui-font-weight-semibold);
+$uicore-font-weight-bold: var(--iui-font-weight-bold);
 
 /// Font loading helpers -------------------------------------------------------
 /// See: https://www.zachleat.com/web/comprehensive-webfonts
 
-$uicore-font-loaded-class:         $iui-font-loaded-class;
+//TODO review this
+$uicore-font-loaded-class: var(--iui-font-sans);
 
 @mixin uicore-font-family {
-
   @include iui-font-family;
 }

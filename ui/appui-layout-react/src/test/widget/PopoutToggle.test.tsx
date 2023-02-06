@@ -5,19 +5,19 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
-import { ActiveTabIdContext, createNineZoneState, NineZoneDispatch, PanelStateContext, PopoutToggle } from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, NineZoneDispatch, PopoutToggle, WidgetIdContext } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("PopoutToggle", () => {
   it("should render", () => {
-    const nineZone = createNineZoneState();
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider>
-        <PanelStateContext.Provider value={nineZone.panels.left}>
-          <ActiveTabIdContext.Provider value="t1">
-            <PopoutToggle />
-          </ActiveTabIdContext.Provider>
-        </PanelStateContext.Provider>
+      <TestNineZoneProvider defaultState={state}>
+        <WidgetIdContext.Provider value="w1">
+          <PopoutToggle />
+        </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
@@ -25,17 +25,17 @@ describe("PopoutToggle", () => {
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
-    const nineZone = createNineZoneState();
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={nineZone}
+        defaultState={state}
         dispatch={dispatch}
       >
-        <PanelStateContext.Provider value={nineZone.panels.left}>
-          <ActiveTabIdContext.Provider value="t1">
-            <PopoutToggle />
-          </ActiveTabIdContext.Provider>
-        </PanelStateContext.Provider>
+        <WidgetIdContext.Provider value="w1">
+          <PopoutToggle />
+        </WidgetIdContext.Provider>
       </TestNineZoneProvider>,
     );
     const button = container.getElementsByClassName("nz-widget-popoutToggle")[0];

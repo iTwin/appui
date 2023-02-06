@@ -4,15 +4,14 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 .uifw-statusFields-selectionScope {
-  $font-size-medium: $iui-font-size-small;
-  $font-size-small: $iui-font-size-small - 1px;
+  $font-size-medium: var(--iui-font-size-0);
+  $font-size-small: var(--iui-font-size-0) - 1px;
   overflow: hidden;
   padding-right: 0px;
 
-  >.uifw-statusFields-selectionScope-label {
+  > .uifw-statusFields-selectionScope-label {
     display: inline;
     padding-right: 4px;
     text-overflow: ellipsis;
@@ -25,7 +24,7 @@
     }
   }
 
-  >.uifw-statusFields-selectionScope-selector {
+  > .uifw-statusFields-selectionScope-selector {
     min-width: 140px;
     &.iui-select.iui-small {
       width: auto;
@@ -45,4 +44,3 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-

@@ -3,13 +3,12 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 $appbar-height: 65px;
 $navbar-width: 72px;
 $itwinpicker-min-width: 250px; /* iTwin picker minimum width */
 $itwinpicker-max-width: 450px; /* iTwin picker maximum width */
-$open-background: #FCFDFD;
+$open-background: #fcfdfd;
 $open-color: #6d6e77;
 $content-background: $uicore-white;
 $border-color: #e7e9ec;
@@ -51,7 +50,7 @@ $border-color: #e7e9ec;
     /* "itwins" label */
     .itwins-label {
       margin-right: 1em;
-      font-size: $iui-font-size-subheading;
+      font-size: var(--iui-font-size-3);
     }
 
     /* itwin picker */
@@ -60,7 +59,7 @@ $border-color: #e7e9ec;
       max-width: $itwinpicker-max-width;
       height: 100%;
 
-      >div {
+      > div {
         height: 100%;
       }
     }
@@ -100,10 +99,10 @@ $border-color: #e7e9ec;
   overflow: hidden;
   position: absolute;
   background: $content-background;
-  -webkit-transition: all .2s linear;
-  -moz-transition: all .2s linear;
-  -o-transition: all .2s linear;
-  transition: all .2s linear;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
 
 .open-content.pinned {

@@ -1,3 +1,0 @@
-## This page has been moved to developer.bentley.com, redirecting...
-
-<meta http-equiv="refresh" content="2;url=https://developer.bentley.com/tutorials/itwin-viewer-hello-world/" />

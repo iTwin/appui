@@ -4,32 +4,22 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, render } from "@testing-library/react";
-import { addTab, createNineZoneState, DragManager, NineZoneState, PanelSideContext, PanelStateContext } from "../../appui-layout-react";
-import { createDragInfo, TestNineZoneProvider } from "../Providers";
+import { addTab, createNineZoneState, DragManager, PanelSideContext } from "../../appui-layout-react";
+import { createDragInfo, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { SectionOutline } from "../../appui-layout-react/outline/SectionOutline";
 import { expect } from "chai";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
-interface WrapperProps {
-  state?: NineZoneState;
-  dragManagerRef?: React.Ref<DragManager>;
-}
-
 function Wrapper({
   children,
-  dragManagerRef,
-  state = createNineZoneState(),
-}: React.PropsWithChildren<WrapperProps>) {
-  const side = "left" as const;
+  ...other
+}: React.PropsWithChildren<TestNineZoneProviderProps>) {
   return (
     <TestNineZoneProvider
-      state={state}
-      dragManagerRef={dragManagerRef}
+      {...other}
     >
-      <PanelSideContext.Provider value={side}>
-        <PanelStateContext.Provider value={state.panels[side]}>
-          {children}
-        </PanelStateContext.Provider>
+      <PanelSideContext.Provider value="left">
+        {children}
       </PanelSideContext.Provider>
     </TestNineZoneProvider>
   );
@@ -56,7 +46,7 @@ describe("SectionOutline", () => {
     const { container } = render(
       <SectionOutline sectionIndex={0} />,
       {
-        wrapper: (props) => <Wrapper state={state} dragManagerRef={dragManager} {...props} />, // eslint-disable-line react/display-name
+        wrapper: (props) => <Wrapper defaultState={state} dragManagerRef={dragManager} {...props} />, // eslint-disable-line react/display-name
       }
     );
 

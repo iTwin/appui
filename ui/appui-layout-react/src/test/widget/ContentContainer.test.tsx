@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import {
-  TabState, WidgetContentContainer, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetStateContext,
-} from "../../appui-layout-react";
-import { createWidgetState } from "../../appui-layout-react/state/internal/WidgetStateHelpers";
 import { BeEvent } from "@itwin/core-bentley";
+import {
+  addPanelWidget, addTab, createNineZoneState, TabState, WidgetContentContainer, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetIdContext,
+} from "../../appui-layout-react";
+import { TestNineZoneProvider } from "../Providers";
 
 describe("WidgetContentContainer ", () => {
   it("should render minimized", () => {
@@ -18,12 +18,17 @@ describe("WidgetContentContainer ", () => {
       onRestoreTransientState: new BeEvent<(tabId: TabState["id"]) => void>(),
       onSaveTransientState,
     };
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addPanelWidget(state, "left", "w1", ["t1"], { minimized: true });
     const { container } = render(
-      <WidgetContentManagerContext.Provider value={widgetContentManager}>
-        <WidgetStateContext.Provider value={createWidgetState("w1", ["t1"], { minimized: true })}>
-          <WidgetContentContainer />
-        </WidgetStateContext.Provider>
-      </WidgetContentManagerContext.Provider>,
+      <TestNineZoneProvider defaultState={state}>
+        <WidgetContentManagerContext.Provider value={widgetContentManager}>
+          <WidgetIdContext.Provider value="w1">
+            <WidgetContentContainer />
+          </WidgetIdContext.Provider>
+        </WidgetContentManagerContext.Provider>,
+      </TestNineZoneProvider>,
     );
     container.firstChild!.should.matchSnapshot();
   });

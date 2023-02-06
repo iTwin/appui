@@ -4,12 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/index";
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "variables";
 
 .nz-footer-popup {
   border: unset;
-  font-size: $iui-font-size;
+  font-size: var(--iui-font-size-1);
   background-color: $buic-background-dialog;
 
   &.core-popup.arrow::after,

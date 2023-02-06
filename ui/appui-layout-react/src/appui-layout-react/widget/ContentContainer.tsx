@@ -11,8 +11,10 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { WidgetContentManagerContext } from "./ContentManager";
-import { WidgetStateContext } from "./Widget";
 import { PanelSideContext } from "../widget-panels/Panel";
+import { WidgetIdContext } from "./Widget";
+import { useLayout } from "../base/LayoutStore";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 /** @internal */
 export interface WidgetContentContainerProps {
@@ -20,18 +22,22 @@ export interface WidgetContentContainerProps {
 }
 
 /** @internal */
-export const WidgetContentContainer = React.memo(function WidgetContentContainer(props: WidgetContentContainerProps) { // eslint-disable-line @typescript-eslint/no-shadow, @typescript-eslint/naming-convention
-  const widget = React.useContext(WidgetStateContext);
+export function WidgetContentContainer(props: WidgetContentContainerProps) {
+  const widgetId = React.useContext(WidgetIdContext);
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const side = React.useContext(PanelSideContext);
+  assert(!!widgetId);
+  const { minimized, activeTabId } = useLayout((state) => {
+    const widget = getWidgetState(state, widgetId);
+    return { minimized: widget.minimized, activeTabId: widget.activeTabId };
+  }, true);
+  const ref = React.useCallback((instance: HTMLDivElement) => {
+    widgetContentManager.setContainer(activeTabId, instance);
+  }, [widgetContentManager, activeTabId]);
 
-  assert(!!widget);
-  const ref = React.useCallback((instance: HTMLDivElement | null) => {
-    widgetContentManager.setContainer(widget.activeTabId, instance);
-  }, [widget.activeTabId, widgetContentManager]);
   const className = classnames(
     "nz-widget-contentContainer",
-    undefined === side && widget.minimized && "nz-minimized",
+    undefined === side && minimized && "nz-minimized",
   );
   return (
     <div
@@ -44,4 +50,4 @@ export const WidgetContentContainer = React.memo(function WidgetContentContainer
       {props.children}
     </div>
   );
-});
+}

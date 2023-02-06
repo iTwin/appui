@@ -1,10 +1,10 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
-  "name": "imodeljs-linux",
+  "name": "appui-linux",
   "dockerFile": "./Dockerfile",
   "context": ".",
   "workspaceMount": "",
-  "workspaceFolder": "/workspace/imodeljs",
+  "workspaceFolder": "/workspace/appui",
   "extensions": [
     "streetsidesoftware.code-spell-checker",
     "dbaeumer.vscode-eslint",

@@ -20,7 +20,7 @@ import { isDockedToolSettingsState, toolSettingsTabId } from "./ToolSettingsStat
 import { updatePanelState } from "./internal/PanelStateHelpers";
 import { createDraggedTabState } from "./internal/TabStateHelpers";
 import { initSizeProps, isToolSettingsFloatingWidget, setPointProps, setRectangleProps, setSizeProps, updateHomeOfToolSettingsWidget } from "./internal/NineZoneStateHelpers";
-import { addWidgetState, removeFloatingWidget, removePanelWidget, removeWidget, setWidgetActiveTabId, updateFloatingWidgetState, updateWidgetState } from "./internal/WidgetStateHelpers";
+import { addWidgetState, getWidgetState, removeFloatingWidget, removePanelWidget, removeWidget, setWidgetActiveTabId, updateFloatingWidgetState, updateWidgetState } from "./internal/WidgetStateHelpers";
 
 /** @internal */
 export function NineZoneStateReducer(state: NineZoneState, action: NineZoneAction): NineZoneState {
@@ -95,8 +95,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       const { side, newFloatingWidgetId } = action;
       const panel = state.panels[side];
       const widgetIndex = panel.widgets.indexOf(action.id);
-      const widget = state.widgets[action.id];
-
+      const widget = getWidgetState(state, action.id);
       state = removePanelWidget(state, action.id);
       return addFloatingWidget(state, newFloatingWidgetId, widget.tabs, {
         bounds: Rectangle.create(action.bounds).toProps(),
@@ -124,7 +123,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       // TODO: handle duplicates in WIDGET_TAB_DRAG_END action
       const { target, floatingWidgetId } = action;
       const floatingWidget = state.floatingWidgets.byId[floatingWidgetId];
-      const draggedWidget = state.widgets[floatingWidgetId];
+      const draggedWidget = getWidgetState(state, floatingWidgetId);
 
       if (isWindowDropTargetState(target)) {
         const nzBounds = Rectangle.createFromSize(state.size);
@@ -144,7 +143,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       state = removeFloatingWidget(state, floatingWidgetId);
       if (isTabDropTargetState(target)) {
         state = updateHomeOfToolSettingsWidget(state, target.widgetId, floatingWidget.home);
-        const targetWidget = state.widgets[target.widgetId];
+        const targetWidget = getWidgetState(state, target.widgetId);
         const tabs = [...targetWidget.tabs];
         tabs.splice(target.tabIndex, 0, ...draggedWidget.tabs);
         state = updateWidgetState(state, target.widgetId, {
@@ -167,7 +166,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
             collapsed: false,
           });
         }
-        const targetWidget = state.widgets[target.widgetId];
+        const targetWidget = getWidgetState(state, target.widgetId);
         const tabs = [...targetWidget.tabs];
         tabs.splice(targetWidget.tabs.length, 0, ...draggedWidget.tabs);
         state = updateWidgetState(state, target.widgetId, {
@@ -188,6 +187,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
     }
     case "FLOATING_WIDGET_RESIZE": {
       const { resizeBy } = action;
+      const widget = getWidgetState(state, action.id);
       return produce(state, (draft) => {
         const floatingWidget = draft.floatingWidgets.byId[action.id];
         // if this is not a tool settings widget then set the userSized flag
@@ -196,12 +196,30 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
           floatingWidget.userSized = true;
         }
 
-        assert(!!floatingWidget);
-        const bounds = Rectangle.create(floatingWidget.bounds);
-        const newBounds = bounds.inset(-resizeBy.left, -resizeBy.top, -resizeBy.right, -resizeBy.bottom);
+        const minWidth = 200;
+        const minHeight = 120;
+        let newBounds = Rectangle.create(floatingWidget.bounds);
+
+        // Resize top-left corner.
+        const maxLeft = newBounds.right - minWidth;
+        const maxTop = newBounds.bottom - minHeight;
+
+        newBounds = newBounds.inset(-resizeBy.left, -resizeBy.top, 0, 0);
+        const left = Math.min(maxLeft, newBounds.left);
+        const top = Math.min(maxTop, newBounds.top);
+        newBounds = new Rectangle(left, top, newBounds.right, newBounds.bottom);
+
+        // Resize bottom-right corner.
+        const minRight = newBounds.left + minWidth;
+        const minBottom = newBounds.top + minHeight;
+
+        newBounds = newBounds.inset(0, 0, -resizeBy.right, -resizeBy.bottom);
+        const right = Math.max(minRight, newBounds.right);
+        const bottom = Math.max(minBottom, newBounds.bottom);
+        newBounds = new Rectangle(left, top, right, bottom);
+
         setRectangleProps(floatingWidget.bounds, newBounds);
 
-        const widget = draft.widgets[action.id];
         const size = newBounds.getSize();
         const tab = draft.tabs[widget.activeTabId];
         initSizeProps(tab, "preferredFloatingWidgetSize", size);
@@ -219,7 +237,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       return produce(state, (draft) => {
         const floatingWidget = draft.floatingWidgets.byId[action.id];
         floatingWidget.userSized = false;
-        const widget = draft.widgets[action.id];
+        const widget = getWidgetState(draft, action.id);
         const tab = draft.tabs[widget.activeTabId];
         tab.userSized = false;
       });
@@ -235,7 +253,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
     }
     case "FLOATING_WIDGET_SEND_BACK": {
       const floatingWidget = state.floatingWidgets.byId[action.id];
-      const widget = state.widgets[action.id];
+      const widget = getWidgetState(state, action.id);
       const home = floatingWidget.home;
       const panel = state.panels[home.side];
       const destinationWidgetId = home.widgetId ?? getWidgetPanelSectionId(panel.side, home.widgetIndex);
@@ -264,7 +282,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
     }
     case "POPOUT_WIDGET_SEND_BACK": {
       const popoutWidget = state.popoutWidgets.byId[action.id];
-      const widget = state.widgets[action.id];
+      const widget = getWidgetState(state, action.id);
       const home = popoutWidget.home;
       const panel = state.panels[home.side];
       let widgetPanelSectionId = home.widgetId;
@@ -300,7 +318,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       if (action.floatingWidgetId === undefined)
         return state;
 
-      const widget = state.widgets[action.widgetId];
+      const widget = getWidgetState(state, action.widgetId);
       const active = action.id === widget.activeTabId;
       if (!active)
         return setWidgetActiveTabId(state, widget.id, action.id);
@@ -346,7 +364,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       const target = action.target;
       if (isTabDropTargetState(target)) {
         state = updateHomeOfToolSettingsWidget(state, target.widgetId, state.draggedTab.home);
-        const targetWidget = state.widgets[target.widgetId];
+        const targetWidget = getWidgetState(state, target.widgetId);
         const tabIndex = target.tabIndex;
         const tabs = [...targetWidget.tabs];
         tabs.splice(tabIndex, 0, action.id);
@@ -379,7 +397,7 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
             collapsed: false,
           });
         }
-        const targetWidget = state.widgets[target.widgetId];
+        const targetWidget = getWidgetState(state, target.widgetId);
         const tabIndex = targetWidget.tabs.length;
         const tabs = [...targetWidget.tabs];
         tabs.splice(tabIndex, 0, action.id);

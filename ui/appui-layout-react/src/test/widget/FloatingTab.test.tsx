@@ -25,7 +25,7 @@ describe("FloatingTab", () => {
     });
     const { findByText } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingTab />
       </TestNineZoneProvider>,
@@ -44,7 +44,7 @@ describe("FloatingTab", () => {
     });
     const { findByText } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <ShowWidgetIconContext.Provider value={true}>
           <FloatingTab />
@@ -67,7 +67,7 @@ describe("FloatingTab", () => {
     });
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
         dragManagerRef={dragManager}
       >
@@ -102,7 +102,7 @@ describe("FloatingTab", () => {
     });
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
         dragManagerRef={dragManager}
       >
@@ -141,7 +141,7 @@ describe("FloatingTab", () => {
     });
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
         dragManagerRef={dragManager}
       >
@@ -180,7 +180,7 @@ describe("FloatingTab", () => {
     });
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
         dragManagerRef={dragManager}
       >
@@ -224,7 +224,7 @@ describe("FloatingTab", () => {
     });
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
         dragManagerRef={dragManager}
       >
@@ -268,7 +268,7 @@ describe("FloatingTab", () => {
     });
     render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
         dragManagerRef={dragManager}
       >

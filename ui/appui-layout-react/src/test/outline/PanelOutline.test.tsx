@@ -4,27 +4,25 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { createNineZoneState, DragManager, NineZoneState, PanelSide, PanelSideContext, PanelStateContext } from "../../appui-layout-react";
+import { createNineZoneState, DragManager, PanelSide, PanelSideContext } from "../../appui-layout-react";
 import { PanelOutline, useHidden } from "../../appui-layout-react/outline/PanelOutline";
-import { createDragStartArgs, TestNineZoneProvider } from "../Providers";
+import { createDragStartArgs, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { renderHook } from "@testing-library/react-hooks";
 import { act } from "react-dom/test-utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
 describe("PanelOutline", () => {
-  interface WrapperProps {
-    state?: NineZoneState;
+  interface WrapperProps extends TestNineZoneProviderProps {
     side?: PanelSide;
   }
 
-  function Wrapper({ children, state, side }: React.PropsWithChildren<WrapperProps>) {
-    state = state ?? createNineZoneState();
+  function Wrapper({ children, side, ...other }: React.PropsWithChildren<WrapperProps>) {
     side = side ?? "left";
     return (
-      <TestNineZoneProvider state={state}>
-        <PanelStateContext.Provider value={state.panels[side]}>
+      <TestNineZoneProvider {...other}>
+        <PanelSideContext.Provider value={side}>
           {children}
-        </PanelStateContext.Provider>
+        </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
   }
@@ -45,7 +43,7 @@ describe("PanelOutline", () => {
     const { container } = render(
       <PanelOutline />,
       {
-        wrapper: (props) => <Wrapper state={state} side="bottom" {...props} />, // eslint-disable-line react/display-name
+        wrapper: (props) => <Wrapper defaultState={state} side="bottom" {...props} />, // eslint-disable-line react/display-name
       }
     );
     container.getElementsByClassName("nz-outline-panelOutline nz-span").length.should.eq(1);
