@@ -4,13 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { BackstageItemUtilities, BadgeType, ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { BackstageItemUtilities, BadgeType, ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import { BackstageComposer, FrontstageManager, SettingsModalFrontstage } from "@itwin/appui-react";
 import { ComponentExamplesModalFrontstage } from "../frontstages/component-examples/ComponentExamples";
 import { LocalFileOpenFrontstage } from "../frontstages/LocalFileStage";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../..";
 
-import stageIconSvg from "./imodeljs.svg?sprite";
+import stageIconSvg from "./imodeljs.svg";
 import { EditFrontstage } from "../frontstages/editing/EditFrontstage";
 import { ViewsFrontstage } from "../frontstages/ViewsFrontstage";
 import { IModelOpenFrontstage } from "../frontstages/IModelOpenFrontstage";
@@ -37,7 +37,7 @@ export function AppBackstageComposer() {
     }
 
     return [
-      BackstageItemUtilities.createStageLauncher(ViewsFrontstage.stageId, 100, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.viewIModel"), IModelApp.localization.getLocalizedString("SampleApp:backstage.iModelStage"), `svg:${stageIconSvg}`),
+      BackstageItemUtilities.createStageLauncher(ViewsFrontstage.stageId, 100, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.viewIModel"), IModelApp.localization.getLocalizedString("SampleApp:backstage.iModelStage"), IconSpecUtilities.createWebComponentIconSpec(stageIconSvg)),
       BackstageItemUtilities.createStageLauncher(Frontstage1.stageId, 200, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.testFrontstage1"), undefined, "icon-placeholder", { badgeType: BadgeType.TechnicalPreview }),
       BackstageItemUtilities.createStageLauncher(Frontstage2.stageId, 200, 20, IModelApp.localization.getLocalizedString("SampleApp:backstage.testFrontstage2"), undefined, "icon-placeholder"),
       BackstageItemUtilities.createStageLauncher(Frontstage4.stageId, 200, 40, IModelApp.localization.getLocalizedString("SampleApp:backstage.testFrontstage4"), undefined, "icon-placeholder", { isDisabled: enableCondition }),
