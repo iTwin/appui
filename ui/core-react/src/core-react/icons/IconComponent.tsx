@@ -11,7 +11,6 @@ import "./IconComponent.scss";
 import * as React from "react";
 import classnames from "classnames";
 import { ConditionalStringValue, IconSpecUtilities } from "@itwin/appui-abstract";
-import { SvgSprite } from "./SvgSprite";
 import { CommonProps } from "../utils/Props";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
 
@@ -24,7 +23,7 @@ export type IconSpec = string | ConditionalStringValue | React.ReactNode;
  * @public
  */
 export interface IconProps extends CommonProps {
-  /** CSS class name or SvgSprite/SvgPath for icon. This is optional because it is improperly
+  /** CSS class name or SvgPath for icon. This is optional because it is improperly
    * used to extend other interfaces and changing it would break existing API.
    */
   iconSpec?: IconSpec;
@@ -41,14 +40,6 @@ export function Icon(props: IconProps) {
     ConditionalStringValue.getValue(props.iconSpec) : undefined;
 
   if (iconString) {
-    const svgSource = IconSpecUtilities.getSvgSource(iconString);
-    // if string begins with "svg:" then we assume it was imported (into extension source file) using webpack loader svg-sprite-loader
-    if (svgSource !== undefined)
-      return (
-        <i className={classnames("icon", "core-svg-icon", props.className)} style={props.style}>
-          <SvgSprite src={svgSource} />
-        </i>
-      );
     const webComponentString = IconSpecUtilities.getWebComponentSource(iconString);
     if (webComponentString) {
       const svgLoader = `<svg-loader src="${webComponentString}"></svg-loader>`;

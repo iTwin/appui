@@ -18,7 +18,7 @@ import { ActiveSettingsWidget } from "../../widgets/editing/ActiveSettingsWidget
 import { ModelCreationWidget } from "../../widgets/editing/ModelCreationWidget";
 import { Orientation } from "@itwin/core-react";
 
-import sketchIconSvg from "../../icons/draw.svg?sprite";
+import sketchIconSvg from "../../icons/draw.svg";
 import { InitialIModelContentStageProvider } from "../ViewsFrontstage";
 
 export class EditFrontstage extends FrontstageProvider {
@@ -110,7 +110,7 @@ class AdditionalTools {
   public sketchGroupItems = ToolbarHelper.constructChildToolbarItems([
     EditTools.placeLineStringTool, EditTools.placeArcTool]);
 
-  public sketchGroupButtonItem = ToolbarItemUtilities.createGroupButton("SampleApp:buttons.sketch", 135, IconSpecUtilities.createSvgIconSpec(sketchIconSvg), // eslint-disable-line deprecation/deprecation
+  public sketchGroupButtonItem = ToolbarItemUtilities.createGroupButton("SampleApp:buttons.sketch", 135, IconSpecUtilities.createWebComponentIconSpec(sketchIconSvg),
     IModelApp.localization.getLocalizedString("SampleApp:buttons.sketch"), this.sketchGroupItems);
 
   public additionalHorizontalToolbarItems: CommonToolbarItem[] = [...ToolbarHelper.createToolbarItemsFromItemDefs([

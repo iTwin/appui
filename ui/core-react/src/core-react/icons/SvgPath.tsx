@@ -6,7 +6,7 @@
  * @module Icon
  */
 
-import "./SvgSprite.scss";
+import "./SvgPath.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "../utils/Props";
@@ -29,7 +29,7 @@ export interface SvgPathProps extends CommonProps {
 export class SvgPath extends React.PureComponent<SvgPathProps> {
   public override render() {
     const className = classnames(
-      "core-icons-svgSprite",
+      "core-icons-svgPath",
       this.props.className,
     );
     const viewBox = `0 0 ${this.props.viewBoxWidth} ${this.props.viewBoxHeight}`;
