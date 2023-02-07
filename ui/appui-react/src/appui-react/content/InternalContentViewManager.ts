@@ -8,47 +8,20 @@
 
 import * as React from "react";
 import { UiEvent } from "@itwin/appui-abstract";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { ViewUtilities } from "../utils/ViewUtilities";
 import { ContentControl } from "./ContentControl";
-import { ContentLayoutManager } from "./ContentLayoutManager";
+import { InternalContentLayoutManager } from "./InternalContentLayoutManager";
 import { IModelApp } from "@itwin/core-frontend";
 import { ContentGroup } from "./ContentGroup";
 import { Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
-
-/** [[MouseDownChangedEvent]] Args interface.
- * @public
- */
-export interface MouseDownChangedEventArgs {
-  /** Indicates whether the mouse is down */
-  mouseDown: boolean;
-}
-
-/** Mouse Down Changed Event class.
- * @public
- */
-export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> { }
-
-/** [[ActiveContentChangedEvent]] Args interface.
- * @public
- */
-export interface ActiveContentChangedEventArgs {
-  /** React node of the old content */
-  oldContent?: React.ReactNode;
-  /** React node of the newly active content */
-  activeContent?: React.ReactNode;
-}
-
-/** Active Content Changed Event class.
- * @public
- */
-export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> { }
+import { ActiveContentChangedEvent, MouseDownChangedEvent } from "../framework/FrameworkContent";
+import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
 
 /** Content View Manager class.
- * @public
+ * @internal
  */
-export class ContentViewManager {
+export class InternalContentViewManager {
   private static _mouseDown: boolean = false;
   private static _activeContent?: React.ReactNode;
 
@@ -74,7 +47,7 @@ export class ContentViewManager {
   public static readonly onAvailableContentChangedEvent = new UiEvent<{ contentId: string }>();
 
   /** Gets the active content as a React.ReactNode. */
-  public static getActiveContent(): React.ReactNode | undefined {
+  public static getActive(): React.ReactNode | undefined {
     return this._activeContent;
   }
 
@@ -120,7 +93,7 @@ export class ContentViewManager {
   /** Return the active ContentControl. */
   public static getActiveContentControl(): ContentControl | undefined {
     let activeContentControl: ContentControl | undefined;
-    const activeFrontstageDef = FrontstageManager.activeFrontstageDef;
+    const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
     // istanbul ignore else
     if (this._activeContent && activeFrontstageDef) {
@@ -132,7 +105,7 @@ export class ContentViewManager {
   }
 
   public static addFloatingContentControl(contentControl?: ContentControl) {
-    const activeFrontstageDef = FrontstageManager.activeFrontstageDef;
+    const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     // istanbul ignore else
     if (activeFrontstageDef && contentControl) {
       activeFrontstageDef.addFloatingContentControl(contentControl);
@@ -140,20 +113,20 @@ export class ContentViewManager {
   }
 
   public static dropFloatingContentControl(contentControl?: ContentControl) {
-    const activeFrontstageDef = FrontstageManager.activeFrontstageDef;
+    const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     // istanbul ignore else
     if (activeFrontstageDef && contentControl)
       activeFrontstageDef.dropFloatingContentControl(contentControl);
   }
 
   /** Sets the active [[ContentControl]] */
-  public static setActiveContent(activeContent?: React.ReactNode, forceEventProcessing = false): void {
+  public static setActive(activeContent?: React.ReactNode, forceEventProcessing = false): void {
     // istanbul ignore else
     if (this._activeContent !== activeContent || forceEventProcessing) {
       const oldContent = this._activeContent;
       this._activeContent = activeContent;
 
-      const activeFrontstageDef = FrontstageManager.activeFrontstageDef;
+      const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
       // istanbul ignore else
       if (activeFrontstageDef) {
@@ -187,9 +160,9 @@ export class ContentViewManager {
   }
 
   /** Refreshes the active [[ContentControl]] */
-  public static refreshActiveContent(activeContent: React.ReactNode) {
-    ContentLayoutManager.refreshActiveLayout();
-    this.setActiveContent(activeContent, true);
+  public static refreshActive(activeContent: React.ReactNode) {
+    this.layouts.refreshActive();
+    this.setActive(activeContent, true);
   }
 
   /**
@@ -250,5 +223,20 @@ export class ContentViewManager {
     if (!content || !content.viewport)
       return false;
     return (ViewUtilities.viewSupportsCamera(content.viewport));
+  }
+
+  /**
+   * Manage content layouts.
+   * @beta
+   */
+  public static get layouts() {
+    return InternalContentLayoutManager;
+  }
+  /**
+   * Manage dialogs displaying managed content.
+   * @beta
+   */
+  public static get dialogs() {
+    return InternalContentDialogManager;
   }
 }

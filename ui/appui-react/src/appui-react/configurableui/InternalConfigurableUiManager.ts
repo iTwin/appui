@@ -6,25 +6,24 @@
  * @module ConfigurableUi
  */
 
-import { BeUiEvent } from "@itwin/core-bentley";
 import { UiError } from "@itwin/appui-abstract";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { FrontstageProvider } from "../frontstage/FrontstageProvider";
-import { KeyboardShortcutManager, KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcut";
 import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl";
 import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl";
 import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
-import { ToolSettingsManager } from "../toolsettings/ToolSettingsManager";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
-import { ModelessDialogManager } from "../dialog/ModelessDialogManager";
-import { ModalDialogManager } from "../dialog/ModalDialogManager";
 import { MessageManager } from "../messages/MessageManager";
 import { PopupManager } from "../popup/PopupManager";
 import { ActivityTracker } from "./ActivityTracker";
-import { ContentDialogManager } from "../dialog/ContentDialogManager";
+import { BeUiEvent } from "@itwin/core-bentley";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
+import { InternalToolSettingsManager } from "../zones/toolsettings/InternalToolSettingsManager";
+import { InternalModelessDialogManager } from "../dialog/InternalModelessDialogManager";
+import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
+import { InternalKeyboardShortcutManager } from "../keyboardshortcut/InternalKeyboardShortcut";
+import { InternalModalDialogManager } from "../dialog/InternalModalDialogManager";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
 /** Ui Activity Event Args interface.
  * @internal
@@ -51,9 +50,9 @@ export interface UiIntervalEventArgs {
 export class UiIntervalEvent extends BeUiEvent<UiIntervalEventArgs> { }
 
 /** Configurable Ui Manager maintains controls, Frontstages, Content Groups, Content Layouts, Tasks and Workflows.
- * @public
+ * @internal
  */
-export class ConfigurableUiManager {
+export class InternalConfigurableUiManager {
   private static _registeredControls = new Map<string, ConfigurableUiControlConstructor>();
   private static _initialized = false;
 
@@ -64,34 +63,37 @@ export class ConfigurableUiManager {
   /** @internal */
   public static readonly onUiIntervalEvent = new UiIntervalEvent();
 
-  /** Initializes the ConfigurableUiManager and registers core controls. */
+  /** Initializes the InternalConfigurableUiManager and registers core controls.
+   * @internal
+  */
   public static initialize() {
     if (this._initialized)
       return;
 
     // Register core controls
-    ConfigurableUiManager.registerControl(StandardRotationNavigationAidControl.navigationAidId, StandardRotationNavigationAidControl);
-    ConfigurableUiManager.registerControl(SheetNavigationAidControl.navigationAidId, SheetNavigationAidControl);
-    ConfigurableUiManager.registerControl(DrawingNavigationAidControl.navigationAidId, DrawingNavigationAidControl);
-    ConfigurableUiManager.registerControl(CubeNavigationAidControl.navigationAidId, CubeNavigationAidControl);
+    InternalConfigurableUiManager.register(StandardRotationNavigationAidControl.navigationAidId, StandardRotationNavigationAidControl);
+    InternalConfigurableUiManager.register(SheetNavigationAidControl.navigationAidId, SheetNavigationAidControl);
+    InternalConfigurableUiManager.register(DrawingNavigationAidControl.navigationAidId, DrawingNavigationAidControl);
+    InternalConfigurableUiManager.register(CubeNavigationAidControl.navigationAidId, CubeNavigationAidControl);
 
     // Initialize SyncUiEventDispatcher so it can register event callbacks.
     SyncUiEventDispatcher.initialize();
 
     // Initialize the FrontstageManager
-    FrontstageManager.initialize();
+    InternalFrontstageManager.initialize();
 
     // Initialize the ToolSettingsManager that manages Tool Settings properties.
-    ToolSettingsManager.initialize();
+    InternalToolSettingsManager.initialize();
 
     // Initialize dialog managers that allow one or more dialogs to be open at a time. These managers adjust the z-indexing
     // to ensure the most recently focused dialog of a specific type displays above its siblings.
-    ModelessDialogManager.initialize();
+    InternalModelessDialogManager.initialize();
+
     // ContentDialog have a z-index just above the fixed content views and below all other UI elements.
-    ContentDialogManager.initialize();
+    InternalContentDialogManager.initialize();
 
     // Initialize the Keyboard Shortcut manager
-    KeyboardShortcutManager.initialize();
+    InternalKeyboardShortcutManager.initialize();
 
     this._initialized = true;
   }
@@ -102,11 +104,11 @@ export class ConfigurableUiManager {
    * [[NavigationAidControl]],
    * [[StatusBarWidgetControl]],
    * [[WidgetControl]] or
-   * [ToolUiProvider]($appui-react).
+   * [[ToolUiProvider]].
    * @param classId the class id of the control to register
    * @param constructor the constructor of the control to register
    */
-  public static registerControl(classId: string, constructor: ConfigurableUiControlConstructor): void {
+  public static register(classId: string, constructor: ConfigurableUiControlConstructor): void {
     if (this._registeredControls.get(classId) !== undefined) {
       throw new UiError(UiFramework.loggerCategory(this), `registerControl: classId '${classId}' already registered`);
     }
@@ -118,7 +120,7 @@ export class ConfigurableUiManager {
    * @param classId   the class id of the control to test
    * @returns  true if the control is registered or false if not
    */
-  public static isControlRegistered(classId: string): boolean {
+  public static isRegistered(classId: string): boolean {
     const constructor = this._registeredControls.get(classId);
     return constructor !== undefined;
   }
@@ -138,7 +140,7 @@ export class ConfigurableUiManager {
   /** Unregisters a control that has been registered.
    * @param classId   the class id of the control to unregister
    */
-  public static unregisterControl(classId: string): void {
+  public static unregister(classId: string): void {
     const constructor = this._registeredControls.get(classId);
     if (constructor)
       this._registeredControls.delete(classId);
@@ -151,7 +153,7 @@ export class ConfigurableUiManager {
    * @param controlId controlId which may not be unique across all control instances.
    * @returns  the created control
    */
-  public static createControl(classId: string, uniqueId: string, options?: any, controlId?: string): ConfigurableUiElement | undefined {
+  public static create(classId: string, uniqueId: string, options?: any, controlId?: string): ConfigurableUiElement | undefined {
     const info = new ConfigurableCreateInfo(classId, uniqueId, controlId ?? uniqueId);
     const constructor = this._registeredControls.get(info.classId);
     if (!constructor) {
@@ -160,20 +162,6 @@ export class ConfigurableUiManager {
 
     const control = new constructor(info, options);
     return control;
-  }
-
-  /** Add a Frontstage via a provider into the [[FrontstageManager]].
-   * @param frontstageProvider  Provider of the Frontstage to add
-   */
-  public static addFrontstageProvider(frontstageProvider: FrontstageProvider): void {
-    FrontstageManager.addFrontstageProvider(frontstageProvider);
-  }
-
-  /** Loads one or more Keyboard Shortcuts into the [[KeyboardShortcutManager]].
-   * @param shortcutList  the properties of the Keyboard Shortcuts to load
-   */
-  public static loadKeyboardShortcuts(shortcutList: KeyboardShortcutProps[]): void {
-    KeyboardShortcutManager.loadKeyboardShortcuts(shortcutList);
   }
 
   /** Gets the HTML wrapper element for Configurable UI */
@@ -186,12 +174,11 @@ export class ConfigurableUiManager {
   /** Closes all UI popups currently open */
   public static closeUi(): void {
     MessageManager.closeAllMessages();
-    ModelessDialogManager.closeAll();
-    ModalDialogManager.closeAll();
-    ContentDialogManager.closeAll();
-    KeyboardShortcutManager.closeShortcutsMenu();
+    InternalModelessDialogManager.closeAll();
+    InternalModalDialogManager.closeAll();
+    InternalContentDialogManager.closeAll();
+    UiFramework.keyboardShortcuts.closeMenu();
     UiFramework.closeCursorMenu();
     PopupManager.clearPopups();
   }
-
 }
