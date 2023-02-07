@@ -29,8 +29,8 @@ export interface Widget extends ProviderItem {
   readonly canPopout?: boolean;
   readonly canFloat?: boolean | CanFloatWidgetOptions;
   readonly defaultState?: WidgetState;
-  /** A React element for the Widget. */
-  readonly element?: React.ReactNode;
+  /** Content of the Widget. */
+  readonly content?: React.ReactNode;
   readonly icon?: IconSpec;
   readonly label?: string | ConditionalStringValue;
   readonly priority?: number;
