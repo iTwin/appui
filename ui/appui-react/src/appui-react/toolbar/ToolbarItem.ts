@@ -7,6 +7,7 @@
  */
 
 import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import { IconSpec } from "@itwin/core-react";
 import { ProviderItem } from "../ui-items-provider/ProviderItem";
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
@@ -33,16 +34,12 @@ export enum ToolbarOrientation {
  * @beta
  */
 export interface CommonToolbarItem extends ProviderItem {
-  /** can be used by application to store miscellaneous data. */
-  readonly applicationData?: any;
   /** Describes badge. Renders no badge if not specified. */
   readonly badgeType?: BadgeType;
   /** Optional description */
   readonly description?: string | ConditionalStringValue;
   /** Require uniqueId for the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
-  /** optional data to used by item implementor. */
-  readonly internalData?: Map<string, any>;
   /** Defines if the item is active (shown with an active stripe/bar). */
   readonly isActive?: boolean;
   /** Describes if the item is visible or hidden. The default is for the item to be visible. */
@@ -70,7 +67,7 @@ export interface CommonToolbarItem extends ProviderItem {
  */
 export interface ToolbarActionItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id. */
-  readonly icon: string | ConditionalStringValue;
+  readonly icon: IconSpec;
   /** label, shown as tool tip on a button or an item label in a group. */
   readonly label: string | ConditionalStringValue;
   /** function to run when the button is pressed. */
@@ -82,7 +79,7 @@ export interface ToolbarActionItem extends CommonToolbarItem {
  */
 export interface ToolbarGroupItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
-  readonly icon: string | ConditionalStringValue;
+  readonly icon: IconSpec;
   /** label, shown as tool tip on group button or a group button label in a group panel. */
   readonly label: string | ConditionalStringValue;
   /** label shown as the title in at top of group panel. */
@@ -96,7 +93,7 @@ export interface ToolbarGroupItem extends CommonToolbarItem {
  */
 export interface ToolbarCustomItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
-  readonly icon?: string | ConditionalStringValue;
+  readonly icon?: IconSpec;
   /** label, shown as tool tip on group button or a group button label in a group panel. */
   readonly label?: string | ConditionalStringValue;
   /** defines the content to display in popup panel */
