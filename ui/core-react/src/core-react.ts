@@ -56,7 +56,6 @@ export * from "./core-react/hocs/withTimeout";
 export * from "./core-react/icons/ConditionalIconItem";
 export * from "./core-react/icons/IconComponent";
 export * from "./core-react/icons/SvgPath";
-export * from "./core-react/icons/SvgSprite";
 export * from "./core-react/icons/WebFontIcon";
 
 export * from "./core-react/autosuggest/AutoSuggest";

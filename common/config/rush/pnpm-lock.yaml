@@ -26,6 +26,7 @@ importers:
       '@itwin/core-quantity': ^3.5.1
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^3.5.1
+      '@itwin/imodel-components-react': workspace:*
       '@itwin/itwinui-css': 0.x
       '@itwin/itwinui-icons-react': ^1.8.0
       '@itwin/itwinui-react': ~1.42.0
@@ -59,6 +60,7 @@ importers:
       '@itwin/core-orbitgt': 3.5.1
       '@itwin/core-quantity': 3.5.1_@itwin+core-bentley@3.5.1
       '@itwin/core-react': link:../../../ui/core-react
+      '@itwin/imodel-components-react': link:../../../ui/imodel-components-react
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
@@ -807,6 +809,7 @@ importers:
     dependencies:
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
+      '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 1.0.0
       classnames: 2.3.1
       immer: 9.0.6
@@ -1212,6 +1215,7 @@ importers:
       '@bentley/icons-generic': 1.0.34
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
+      '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 1.0.0
       classnames: 2.3.1
@@ -1327,6 +1331,7 @@ importers:
       '@bentley/icons-generic': 1.0.34
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
+      '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 1.0.0
       classnames: 2.3.1

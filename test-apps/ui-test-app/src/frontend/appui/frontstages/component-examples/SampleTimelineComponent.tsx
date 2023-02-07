@@ -2,10 +2,9 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import "./SampleTimelineComponent.scss";
 import * as React from "react";
-import starSvg from "@bentley/icons-generic/icons/star.svg?sprite";
+import starSvg from "@bentley/icons-generic/icons/star.svg";
 import { TimelineComponent, TimelineDateMarkerProps, TimelineMenuItemProps } from "@itwin/imodel-components-react";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
@@ -174,9 +173,9 @@ export function CurrentDateMarkedSampleTimeline() {
 
 export function CurrentDateMarkedCustomIconSampleTimeline() {
   const duration = 10 * 1000;
-  const startDate = new Date("January 1, 2021");
-  const endDate = new Date("July 1, 2022");
-  const starMarker = <span className="date-marker-icon"><Icon iconSpec={IconSpecUtilities.createSvgIconSpec(starSvg)} /></span>;
+  const startDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
+  const endDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+  const starMarker = <span className="date-marker-icon"><Icon iconSpec={IconSpecUtilities.createWebComponentIconSpec(starSvg)} /></span>;
   const markToday: TimelineDateMarkerProps = { date: new Date(), dateMarker: starMarker };
   return (
     <div style={{ width: "100%", height: "auto" }}>

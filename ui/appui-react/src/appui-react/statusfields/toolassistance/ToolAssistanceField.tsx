@@ -504,7 +504,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       }
     } else if (typeof instruction.image === "string") {
       if (instruction.image.length > 0) {
-        const svgSource = IconSpecUtilities.getSvgSource(instruction.image); // eslint-disable-line deprecation/deprecation
+        const svgSource = IconSpecUtilities.getWebComponentSource(instruction.image);
         const className = (svgSource !== undefined) ? "uifw-toolassistance-svg" : "uifw-toolassistance-icon-large";
         image = <div className={className}><Icon iconSpec={instruction.image} /></div>;
       }
