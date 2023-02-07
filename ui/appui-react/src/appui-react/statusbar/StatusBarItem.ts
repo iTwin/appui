@@ -92,8 +92,8 @@ export interface StatusBarLabelItem extends CommonStatusBarItem {
  * @beta
  */
 export interface StatusBarCustomItem extends CommonStatusBarItem {
-  /** React node for the StatusBar item. */
-  readonly reactNode: React.ReactNode;
+  /** Content of the StatusBar item. */
+  readonly content: React.ReactNode;
 }
 
 /** Describes the data needed to insert a button into the status bar.
