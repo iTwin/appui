@@ -1571,17 +1571,6 @@ export interface SvgPathProps extends CommonProps {
     viewBoxWidth: number;
 }
 
-// @public @deprecated
-export class SvgSprite extends React_2.PureComponent<SvgSpriteProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export interface SvgSpriteProps extends CommonProps {
-    src: string;
-}
-
 // @public
 export interface TabLabel {
     // (undocumented)

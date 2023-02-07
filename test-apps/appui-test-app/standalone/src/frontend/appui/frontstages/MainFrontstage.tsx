@@ -11,7 +11,7 @@ import {
 import {
   BackstageItem,
   BackstageItemUtilities,
-  ContentLayoutProps, StageUsage, StandardContentLayouts, UiItemsManager, UiItemsProvider,
+  ContentLayoutProps, IconSpecUtilities, StageUsage, StandardContentLayouts, UiItemsManager, UiItemsProvider,
 } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
@@ -28,7 +28,7 @@ import { SampleAppIModelApp } from "../../index";
 import { AppUi } from "../AppUi";
 // cSpell:Ignore contentviews statusbars
 import { LocalStateStorage } from "@itwin/core-react";
-import stageIconSvg from "./imodeljs.svg?sprite";
+import stageIconSvg from "./imodeljs.svg";
 
 function getIModelSpecificKey(inKey: string, iModelConnection: IModelConnection | undefined) {
   const imodelId = iModelConnection?.iModelId ?? "unknownImodel";
@@ -183,7 +183,7 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(MainFrontstage.stageId, 100, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.viewIModel"), IModelApp.localization.getLocalizedString("SampleApp:backstage.iModelStage"), `svg:${stageIconSvg}`),
+      BackstageItemUtilities.createStageLauncher(MainFrontstage.stageId, 100, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.viewIModel"), IModelApp.localization.getLocalizedString("SampleApp:backstage.iModelStage"), IconSpecUtilities.createWebComponentIconSpec(stageIconSvg)),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
     ];
   }

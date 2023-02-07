@@ -6,8 +6,6 @@
 
 import * as React from "react";
 import { BeDuration } from "@itwin/core-bentley";
-import moreSvg from "@bentley/icons-generic/icons/more-circular.svg?sprite";
-import moreVerticalSvg from "@bentley/icons-generic/icons/more-vertical-circular.svg?sprite";
 import moreWebSvg from "@bentley/icons-generic/icons/more-circular.svg";
 import moreVerticalWebSvg from "@bentley/icons-generic/icons/more-vertical-circular.svg";
 import { ColorByName, ColorDef } from "@itwin/core-common";
@@ -1185,120 +1183,17 @@ export class ComponentExamplesProvider {
     return {
       title: "Inputs",
       examples: [
-        createComponentExample(
-          "Number Input .25 step",
-          "New Numeric Input component",
-          <NumberInput
-            value={10.5}
-            precision={2}
-            step={0.25}
-            containerClassName="uicore-full-width"
-          />
-        ),
-        createComponentExample(
-          "Disabled Number Input .25 step",
-          "New Numeric Input component",
-          <NumberInput
-            value={10.5}
-            precision={2}
-            step={0.25}
-            containerClassName="uicore-full-width"
-            disabled
-          />
-        ),
-        createComponentExample(
-          "Number Input .25 step w/snap",
-          "New Numeric Input component",
-          <NumberInput
-            value={10.5}
-            precision={2}
-            step={0.25}
-            snap
-            containerClassName="uicore-full-width"
-          />
-        ),
-        createComponentExample(
-          "Number Input .25 step w/snap custom format and parser",
-          "New Numeric Input component",
-          <NumberInput
-            value={10.5}
-            format={formatDollar}
-            parse={parseDollar}
-            precision={2}
-            step={0.25}
-            snap
-            containerClassName="uicore-full-width"
-          />
-        ),
-        createComponentExample(
-          "Number Input w/touch buttons",
-          "New Numeric Input component",
-          <NumberInput
-            value={10.5}
-            precision={2}
-            step={0.5}
-            snap
-            showTouchButtons
-            containerClassName="uicore-full-width"
-          />
-        ),
-        createComponentExample(
-          "Number Input w/snap  & custom step",
-          "New Numeric Input component",
-          <NumberInput
-            value={10.5}
-            precision={2}
-            step={exoticStep}
-            snap
-            containerClassName="uicore-full-width"
-          />
-        ),
-        createComponentExample(
-          "Number Input w/placeholder",
-          "New Numeric Input component",
-          <NumberInput
-            placeholder="Enter Input"
-            precision={2}
-            step={0.25}
-            containerClassName="uicore-full-width"
-          />
-        ),
-        createComponentExample(
-          "Icon Input",
-          "Icon Input component",
-          <IconInput
-            placeholder="Icon Input"
-            icon={<Icon iconSpec="icon-placeholder" />}
-            containerClassName="uicore-full-width"
-          />
-        ),
+        createComponentExample("Number Input .25 step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} containerClassName="uicore-full-width" />),
+        createComponentExample("Disabled Number Input .25 step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} containerClassName="uicore-full-width" disabled />),
+        createComponentExample("Number Input .25 step w/snap", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} snap containerClassName="uicore-full-width" />),
+        createComponentExample("Number Input .25 step w/snap custom format and parser", "New Numeric Input component", <NumberInput value={10.5} format={formatDollar} parse={parseDollar} precision={2} step={0.25} snap containerClassName="uicore-full-width" />),
+        createComponentExample("Number Input w/touch buttons", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={.5} snap showTouchButtons containerClassName="uicore-full-width" />),
+        createComponentExample("Number Input w/snap  & custom step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={exoticStep} snap containerClassName="uicore-full-width" />),
+        createComponentExample("Number Input w/placeholder", "New Numeric Input component", <NumberInput placeholder="Enter Input" precision={2} step={0.25} containerClassName="uicore-full-width" />),
+        createComponentExample("Icon Input", "Icon Input component", <IconInput placeholder="Icon Input" icon={<Icon iconSpec="icon-placeholder" />} containerClassName="uicore-full-width" />),
 
-        createComponentExample(
-          "Image Checkbox",
-          "ImageCheckbox with WebFonts",
-          <SampleImageCheckBox
-            imageOn="icon-more-circular"
-            imageOff="icon-more-vertical-circular"
-          />
-        ),
-        createComponentExample(
-          "Image Checkbox",
-          "ImageCheckbox with SVG (deprecate sprite)",
-          <SampleImageCheckBox
-            imageOn={IconSpecUtilities.createSvgIconSpec(moreSvg)}
-            imageOff={IconSpecUtilities.createSvgIconSpec(moreVerticalSvg)}
-          />
-        ),
-        createComponentExample(
-          "Image Checkbox",
-          "ImageCheckbox with SVG using web component",
-          <SampleImageCheckBox
-            imageOn={IconSpecUtilities.createWebComponentIconSpec(moreWebSvg)}
-            imageOff={IconSpecUtilities.createWebComponentIconSpec(
-              moreVerticalWebSvg
-            )}
-          />
-        ),
+        createComponentExample("Image Checkbox", "ImageCheckbox with WebFonts", <SampleImageCheckBox imageOn="icon-more-circular" imageOff="icon-more-vertical-circular" />),
+        createComponentExample("Image Checkbox", "ImageCheckbox with SVG using web component", <SampleImageCheckBox imageOn={IconSpecUtilities.createWebComponentIconSpec(moreWebSvg)} imageOff={IconSpecUtilities.createWebComponentIconSpec(moreVerticalWebSvg)} />),
       ],
     };
   }

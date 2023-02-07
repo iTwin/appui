@@ -312,7 +312,7 @@ describe(`ToolAssistanceField`, () => {
     render(<StatusBar widgetControl={widgetControl} />);
 
     const notifications = new AppNotificationManager();
-    const mainInstruction = ToolAssistance.createInstruction("svg:test", "This is the prompt");
+    const mainInstruction = ToolAssistance.createInstruction("webSvg:test", "This is the prompt");
 
     const instructions = ToolAssistance.createInstructions(mainInstruction);
 

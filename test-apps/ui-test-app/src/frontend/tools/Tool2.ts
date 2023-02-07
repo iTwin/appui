@@ -54,7 +54,7 @@ export class Tool2 extends PrimitiveTool {
 
     const instruction13 = ToolAssistance.createInstruction("icon-cursor-click", "Using icon-cursor-click icon");
     const instruction14 = ToolAssistance.createKeyboardInstruction(ToolAssistance.createKeyboardInfo([ToolAssistance.ctrlKey, "Z"]), "Press Ctrl+Z", true);
-    const instruction15 = ToolAssistance.createInstruction(IconSpecUtilities.createSvgIconSpec(placeholderSvg), "Using placeholder SVG icon");
+    const instruction15 = ToolAssistance.createInstruction(IconSpecUtilities.createWebComponentIconSpec(placeholderSvg), "Using placeholder SVG icon");
 
     const instructionT1 = ToolAssistance.createInstruction(ToolAssistanceImage.LeftClick, "Tap on something", false, ToolAssistanceInputMethod.Touch);
     const instructionT2 = ToolAssistance.createInstruction(ToolAssistanceImage.LeftClickDrag, "Tap on something then drag", false, ToolAssistanceInputMethod.Touch);
