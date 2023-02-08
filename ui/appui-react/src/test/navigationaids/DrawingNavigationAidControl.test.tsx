@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { ConfigurableUiControlType, ConfigurableUiManager, ContentViewManager, DrawingNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
 import { TestUtils } from "../TestUtils";
+import { ConfigurableUiControlType, ConfigurableUiManager, DrawingNavigationAidControl, WidgetDef } from "../../appui-react";
 
 describe("DrawingNavigationAidControl", () => {
 
@@ -24,10 +24,6 @@ describe("DrawingNavigationAidControl", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
       classId: "DrawingNavigationAid",
-      applicationData: {
-        imodel: UiFramework.getIModelConnection(),
-        viewport: ContentViewManager.getActiveContentControl()?.viewport,
-      },
     });
 
     const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);

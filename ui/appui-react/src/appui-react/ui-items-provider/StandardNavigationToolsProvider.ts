@@ -37,7 +37,7 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     super(providerId, isSupportedStage);
   }
 
-  public override provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
+  public override provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
     const items: ToolbarItem[] = [];
     if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Horizontal) {
 

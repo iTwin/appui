@@ -49,18 +49,16 @@ class TestNestedFrontstage extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: <>FrontstageToolWidget</>,
-        applicationData: { key: "value" },
+        content: <>FrontstageToolWidget</>,
       },
       toolSettings: {
         id: "toolSettings",
       },
       statusBar: {
         id: "statusBar",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
         control: AppStatusBarWidgetControl,
-        applicationData: { key: "value" },
       },
     };
   }

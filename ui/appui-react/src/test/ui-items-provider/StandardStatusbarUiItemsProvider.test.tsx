@@ -4,12 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
-import {
-  StageUsage, UiItemsManager,
-} from "@itwin/appui-abstract";
 import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
-import { DefaultStatusbarItems, StandardStatusbarUiItemsProvider } from "../../appui-react";
+import { DefaultStatusbarItems, StageUsage, StandardStatusbarUiItemsProvider, UiItemsManager } from "../../appui-react";
+
 const testArray: DefaultStatusbarItems[] = [
   {
   },

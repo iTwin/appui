@@ -6,9 +6,9 @@ import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
 import { IModelConnection, MockRender } from "@itwin/core-frontend";
-import { CardContainer, ConfigurableUiControlType, ConfigurableUiManager, ContentViewManager, SheetNavigationAid, SheetNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
 import TestUtils, { childStructure } from "../TestUtils";
 import { render } from "@testing-library/react";
+import { CardContainer, ConfigurableUiControlType, ConfigurableUiManager, SheetNavigationAid, SheetNavigationAidControl, WidgetDef } from "../../appui-react";
 
 describe("SheetNavigationAid", () => {
 
@@ -65,10 +65,6 @@ describe("SheetNavigationAid", () => {
       const widgetDef = WidgetDef.create({
         id: "w1",
         classId: "SheetNavigationAid",
-        applicationData: {
-          imodel: UiFramework.getIModelConnection(),
-          viewport: ContentViewManager.getActiveContentControl()?.viewport,
-        },
       });
 
       const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);

@@ -6,16 +6,13 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import {
-  AbstractStatusBarItemUtilities, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue, StageUsage, StatusBarLabelSide, StatusBarSection, UiItemsManager,
-  UiItemsProvider, WidgetState,
-} from "@itwin/appui-abstract";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, FrontstageDef, FrontstageManager, StatusBar, StatusBarComposer, StatusBarItem,
-  StatusBarItemUtilities, StatusBarWidgetControl, SyncUiEventDispatcher, WidgetDef,
+  ConfigurableCreateInfo, ConfigurableUiControlType, FrontstageDef, FrontstageManager, StageUsage, StatusBar, StatusBarComposer, StatusBarItem,
+  StatusBarItemUtilities, StatusBarLabelSide, StatusBarSection, StatusBarWidgetControl, SyncUiEventDispatcher, UiItemsManager, UiItemsProvider, WidgetDef, WidgetState,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
+import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 
 describe("StatusBarComposer", () => {
 
@@ -34,23 +31,23 @@ describe("StatusBarComposer", () => {
       SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(TestUiProvider.uiSyncEventId);
     };
 
-    public provideStatusBarItems(_stageId: string, stageUsage: string): CommonStatusBarItem[] {
-      const statusBarItems: CommonStatusBarItem[] = [];
+    public provideStatusBarItems(_stageId: string, stageUsage: string): StatusBarItem[] {
+      const statusBarItems: StatusBarItem[] = [];
       const hiddenCondition = new ConditionalBooleanValue(() => !TestUiProvider.statusBarItemIsVisible, [TestUiProvider.uiSyncEventId]);
       const labelCondition = new ConditionalStringValue(() => TestUiProvider.statusBarItemIsVisible ? "visible" : "hidden", [TestUiProvider.uiSyncEventId]);
 
       if (stageUsage === StageUsage.General) {
         statusBarItems.push(
-          AbstractStatusBarItemUtilities.createActionItem("ExtensionTest:StatusBarItem1", StatusBarSection.Center, 100, "icon-developer", "test status bar from extension", () => { }));
+          StatusBarItemUtilities.createActionItem("ExtensionTest:StatusBarItem1", StatusBarSection.Center, 100, "icon-developer", "test status bar from extension", () => { }));
         statusBarItems.push(
-          AbstractStatusBarItemUtilities.createLabelItem("ExtensionTest:StatusBarLabel1", StatusBarSection.Center, 105, "icon-hand-2-condition", "Hello", undefined, { isHidden: hiddenCondition }));
+          StatusBarItemUtilities.createLabelItem("ExtensionTest:StatusBarLabel1", StatusBarSection.Center, 105, "icon-hand-2-condition", "Hello", undefined, { isHidden: hiddenCondition }));
         statusBarItems.push(
-          AbstractStatusBarItemUtilities.createLabelItem("ExtensionTest:StatusBarLabel2", StatusBarSection.Center, 120, "icon-hand-2", labelCondition, StatusBarLabelSide.Left));
+          StatusBarItemUtilities.createLabelItem("ExtensionTest:StatusBarLabel2", StatusBarSection.Center, 120, "icon-hand-2", labelCondition, StatusBarLabelSide.Left));
         statusBarItems.push(
-          AbstractStatusBarItemUtilities.createActionItem("ExtensionTest:StatusBarItem2", StatusBarSection.Center, 110, "icon-visibility-hide-2", labelCondition, () => { }));
+          StatusBarItemUtilities.createActionItem("ExtensionTest:StatusBarItem2", StatusBarSection.Center, 110, "icon-visibility-hide-2", labelCondition, () => { }));
         if (this.addDuplicate) {
           statusBarItems.push(
-            AbstractStatusBarItemUtilities.createActionItem("ExtensionTest:StatusBarItem2", StatusBarSection.Center, 110, "icon-visibility-hide-2", labelCondition, () => { }));
+            StatusBarItemUtilities.createActionItem("ExtensionTest:StatusBarItem2", StatusBarSection.Center, 110, "icon-visibility-hide-2", labelCondition, () => { }));
         }
       }
       return statusBarItems;
@@ -105,9 +102,9 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should render items", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent data-testid={"item1"} />),
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent data-testid={"item2"} />),
-        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Right, 1, <AppStatusBarComponent data-testid={"item3"} />),
+        StatusBarItemUtilities.createCustomItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent data-testid={"item1"} />),
+        StatusBarItemUtilities.createCustomItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent data-testid={"item2"} />),
+        StatusBarItemUtilities.createCustomItem("item3", StatusBarSection.Right, 1, <AppStatusBarComponent data-testid={"item3"} />),
       ];
 
       render(<StatusBarComposer items={items} />);
@@ -119,7 +116,7 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should support changing props", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent data-testid={"item1"} />),
+        StatusBarItemUtilities.createCustomItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent data-testid={"item1"} />),
       ];
 
       const { rerender } = render(<StatusBarComposer items={items} />);
@@ -127,7 +124,7 @@ describe("StatusBarComposer", () => {
       expect(screen.getByTestId("item1").parentElement).to.satisfy(selectorMatches(".uifw-statusbar-left .uifw-statusbar-item-container"));
 
       const items2: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent data-testid={"item2"} />),
+        StatusBarItemUtilities.createCustomItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent data-testid={"item2"} />),
       ];
 
       rerender(<StatusBarComposer items={items2} />);
@@ -138,9 +135,9 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should sort items", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 10, <AppStatusBarComponent data-testid={"item1"} />),
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Left, 5, <AppStatusBarComponent data-testid={"item2"} />),
-        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Left, 1, <AppStatusBarComponent data-testid={"item3"} />),
+        StatusBarItemUtilities.createCustomItem("item1", StatusBarSection.Left, 10, <AppStatusBarComponent data-testid={"item1"} />),
+        StatusBarItemUtilities.createCustomItem("item2", StatusBarSection.Left, 5, <AppStatusBarComponent data-testid={"item2"} />),
+        StatusBarItemUtilities.createCustomItem("item3", StatusBarSection.Left, 1, <AppStatusBarComponent data-testid={"item3"} />),
       ];
 
       render(<StatusBarComposer items={items} />);
@@ -152,8 +149,8 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should support item.isVisible", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent data-testid={"item1"} />, { isHidden: true }),
-        StatusBarItemUtilities.createStatusBarItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent data-testid={"item2"} />),
+        StatusBarItemUtilities.createCustomItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent data-testid={"item1"} />, { isHidden: true }),
+        StatusBarItemUtilities.createCustomItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent data-testid={"item2"} />),
       ];
 
       render(<StatusBarComposer items={items} />);
@@ -174,8 +171,8 @@ describe("StatusBarComposer", () => {
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
+        StatusBarItemUtilities.createCustomItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
       ];
 
       const uiProvider = new TestUiProvider();
@@ -207,8 +204,8 @@ describe("StatusBarComposer", () => {
       sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
 
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
+        StatusBarItemUtilities.createCustomItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
       ];
 
       const uiProvider = new TestUiProvider();
@@ -236,9 +233,9 @@ describe("StatusBarComposer", () => {
 
     it("StatusBarComposer should render items with custom CSS classes", () => {
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Right, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item3", StatusBarSection.Right, 1, <AppStatusBarComponent />),
       ];
 
       render(<StatusBarComposer items={items} mainClassName="main-test" leftClassName="left-test" centerClassName="center-test" rightClassName="right-test" />);
@@ -278,8 +275,8 @@ describe("StatusBarComposer", () => {
       });
 
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
+        StatusBarItemUtilities.createCustomItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
       ];
 
       const wrapper = render(<StatusBarComposer items={items} />);
@@ -327,9 +324,9 @@ describe("StatusBarComposer", () => {
       });
 
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
+        StatusBarItemUtilities.createCustomItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("test2", StatusBarSection.Left, 5, <AppStatusBarComponent />, { isHidden: true }),
       ];
 
       const wrapper = render(<StatusBarComposer items={items} />);
@@ -361,10 +358,10 @@ describe("StatusBarComposer", () => {
       });
 
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Context, 2, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item4", StatusBarSection.Right, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item3", StatusBarSection.Context, 2, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item4", StatusBarSection.Right, 1, <AppStatusBarComponent />),
       ];
 
       const renderedComponent = render(<StatusBarComposer items={items} mainClassName="main-test" leftClassName="left-test" centerClassName="center-test" rightClassName="right-test" />);
@@ -373,9 +370,9 @@ describe("StatusBarComposer", () => {
       expect(renderedComponent.container.querySelectorAll(".uifw-statusbar-item-container")).lengthOf(4);
 
       const newItems: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Context, 2, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item2", StatusBarSection.Center, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item3", StatusBarSection.Context, 2, <AppStatusBarComponent />),
       ];
 
       renderedComponent.rerender(<StatusBarComposer items={newItems} mainClassName="main-test" leftClassName="left-test" centerClassName="center-test" rightClassName="right-test" />);
@@ -397,11 +394,11 @@ describe("StatusBarComposer", () => {
       });
 
       const items: StatusBarItem[] = [
-        StatusBarItemUtilities.createStatusBarItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item2", StatusBarSection.Left, 2, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item3", StatusBarSection.Center, 1, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item4", StatusBarSection.Context, 2, <AppStatusBarComponent />),
-        StatusBarItemUtilities.createStatusBarItem("item5", StatusBarSection.Right, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item1", StatusBarSection.Left, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item2", StatusBarSection.Left, 2, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item3", StatusBarSection.Center, 1, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item4", StatusBarSection.Context, 2, <AppStatusBarComponent />),
+        StatusBarItemUtilities.createCustomItem("item5", StatusBarSection.Right, 1, <AppStatusBarComponent />),
       ];
 
       const renderedComponent = render(<StatusBarComposer items={items} mainClassName="main-test" leftClassName="left-test" centerClassName="center-test" rightClassName="right-test" />);

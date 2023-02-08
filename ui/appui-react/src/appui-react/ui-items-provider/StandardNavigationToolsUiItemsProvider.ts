@@ -40,7 +40,7 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
 
   constructor(private defaultNavigationTools?: DefaultNavigationTools) { }
 
-  public provideToolbarButtonItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
+  public provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
     const items: ToolbarItem[] = [];
     if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Horizontal) {
 

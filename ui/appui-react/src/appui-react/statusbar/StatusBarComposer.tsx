@@ -323,7 +323,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
         getOnResize={handleEntryResize}
       >
         <DockedStatusBarItem key={key} itemId={item.id} itemPriority={itemPriority} providerId={providerId} section={getSectionName(section)} >
-          {isStatusBarCustomItem(item) && item.reactNode}
+          {isStatusBarCustomItem(item) && item.content}
           {isStatusBarActionItem(item) && <StatusBarActionItemComponent {...item} />}
           {isStatusBarLabelItem(item) && <StatusBarLabelItemComponent {...item} />}
         </DockedStatusBarItem>

@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent } from "@itwin/appui-abstract";
 import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
@@ -19,6 +18,8 @@ import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl
 import { IconHelper, IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
 import { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
+import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent } from "@itwin/appui-abstract";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 
 const widgetStateNameMap = new Map<WidgetState, string>([
   [WidgetState.Closed, "Closed"],
@@ -104,7 +105,7 @@ export class WidgetDef {
   private _defaultFloatingPosition: PointProps | undefined;
 
   private _hideWithUiWhenFloating?: boolean;
-  private _allowedPanelTargets?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
+  private _allowedPanelTargets?: ReadonlyArray<StagePanelLocation>;
   private _initialConfig?: WidgetConfig;
 
   private _tabLocation?: TabLocation;
@@ -190,12 +191,18 @@ export class WidgetDef {
       this._label = UiFramework.localization.getLocalizedString(config.labelKey);
 
     this.setCanPopout(config.canPopout);
-    this.setFloatingContainerId(config.floatingContainerId);
-    this.defaultFloatingPosition = config.defaultFloatingPosition ? config.defaultFloatingPosition as PointProps : undefined;
 
-    this._hideWithUiWhenFloating = !!config.hideWithUiWhenFloating;
+    const canFloat = config.canFloat;
+    this._isFloatingStateSupported = !!canFloat;
+    if (typeof canFloat === "object") {
+      this.setFloatingContainerId(canFloat.containerId);
+      this.defaultFloatingPosition = canFloat.defaultPosition;
+      this._hideWithUiWhenFloating = !!canFloat.hideWithUi;
+      this._isFloatingStateWindowResizable = !!canFloat.isResizable;
+      this._defaultFloatingSize = canFloat.defaultSize;
+    }
 
-    this.allowedPanelTargets = config.allowedPanelTargets;
+    this.allowedPanelTargets = config.allowedPanels;
 
     if (config.priority !== undefined)
       this._priority = config.priority;
@@ -214,21 +221,9 @@ export class WidgetDef {
       this._defaultState = config.defaultState;
     }
 
-    if (config.isFloatingStateSupported !== undefined)
-      this._isFloatingStateSupported = config.isFloatingStateSupported;
-    if (config.isFloatingStateWindowResizable !== undefined)
-      this._isFloatingStateWindowResizable = config.isFloatingStateWindowResizable;
+    this._widgetReactNode = config.content;
+    this._iconSpec = config.icon;
 
-    if (config.applicationData !== undefined)
-      this._applicationData = config.applicationData;
-
-    if (config.element !== undefined)
-      this._widgetReactNode = config.element;
-
-    if (config.iconSpec !== undefined)
-      this._iconSpec = config.iconSpec;
-    if (config.internalData)
-      this._internalData = config.internalData;
     // istanbul ignore next
     if (config.icon !== undefined && this._iconSpec === undefined)
       this._iconSpec = config.icon;
@@ -237,10 +232,6 @@ export class WidgetDef {
       this._badgeType = config.badgeType;
 
     this._preferredPanelSize = config.preferredPanelSize;
-    this._defaultFloatingSize = config.defaultFloatingSize;
-    this._onWidgetStateChanged = config.onWidgetStateChanged;
-    this._saveTransientState = config.saveTransientState;
-    this._restoreTransientState = config.restoreTransientState;
   }
 
   /** @alpha */
@@ -380,12 +371,11 @@ export class WidgetDef {
     return !!this._hideWithUiWhenFloating;
   }
 
-  public get allowedPanelTargets(): ReadonlyArray<"left" | "right" | "bottom" | "top"> | undefined {
+  public get allowedPanelTargets(): ReadonlyArray<StagePanelLocation> | undefined {
     return this._allowedPanelTargets;
   }
 
-  public set allowedPanelTargets(targets: ReadonlyArray<"left" | "right" | "bottom" | "top"> | undefined) {
-
+  public set allowedPanelTargets(targets: ReadonlyArray<StagePanelLocation> | undefined) {
     this._allowedPanelTargets = (targets && targets?.length > 0) ? targets : undefined;
   }
 

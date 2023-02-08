@@ -13,7 +13,7 @@ import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { StatusBarItem } from "../statusbar/StatusBarItem";
 import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { UiFramework } from "../UiFramework";
-import { WidgetProps } from "../widgets/WidgetProps";
+import { Widget } from "../widgets/Widget";
 import { UiItemsProvider } from "./UiItemsProvider";
 
 /** UiItemsProvider register event args.
@@ -150,8 +150,8 @@ export class UiItemsManager {
       const uiProvider = entry.provider;
       const providerId = entry.overrides?.providerId ?? uiProvider.id;
       // istanbul ignore else
-      if (uiProvider.provideToolbarButtonItems && this.allowItemsFromProvider(entry, stageId, stageUsage)) {
-        uiProvider.provideToolbarButtonItems(stageId, stageUsage, toolbarUsage, toolbarOrientation)
+      if (uiProvider.provideToolbarItems && this.allowItemsFromProvider(entry, stageId, stageUsage)) {
+        uiProvider.provideToolbarItems(stageId, stageUsage, toolbarUsage, toolbarOrientation)
           .forEach((spec: ToolbarItem) => {
             // ignore duplicate ids
             if (-1 === buttonItems.findIndex((existingItem) => spec.id === existingItem.id))
@@ -223,10 +223,10 @@ export class UiItemsManager {
    * @param stageUsage the StageUsage of the active stage.
    * @param location the location within the stage.
    * @param section the section within location.
-   * @returns An array of AbstractWidgetProps that will be used to create widgets.
+   * @returns An array of widgets.
    */
-  public static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<WidgetProps> {
-    const widgets: WidgetProps[] = [];
+  public static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
 
     if (0 === UiItemsManager._registeredUiItemsProviders.size)
       return widgets;

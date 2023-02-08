@@ -90,11 +90,11 @@ export class StandardFrontstageProvider extends FrontstageProvider {
       usage: this.props.usage,
       contentManipulation: {
         id: `${this.props.id}-contentManipulationTools`,
-        element: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
+        content: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
       },
       viewNavigation: {
         id: `${this.props.id}-viewNavigationTools`,
-        element: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
+        content: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
       },
       toolSettings: this.props.hideToolSettings ? undefined : {
         id: `${this.props.id}-toolSettings`,

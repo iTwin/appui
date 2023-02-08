@@ -10,11 +10,9 @@ import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
 import { WidgetDef } from "./WidgetDef";
 import { createStableWidgetDef } from "./StableWidgetDef";
-import { WidgetConfig } from "./WidgetConfig";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import { WidgetProps } from "./WidgetProps";
 
 /** Information about WidgetDefs in the WidgetManager
  * @internal
@@ -128,18 +126,9 @@ export class WidgetManager {
     // Consult the UiItemsManager to get any Abstract widgets
     const widgets = UiItemsManager.getWidgets(stageId, stageUsage, location, definedSection);
     widgets.forEach((abstractProps) => {
-      const config = createWidgetConfigFromAbstractProps(abstractProps);
-      const widgetDef = WidgetDef.create(config);
+      const widgetDef = WidgetDef.create(abstractProps);
       widgetDefs.push(widgetDef);
     });
     return widgetDefs.length > 0 ? widgetDefs : undefined;
   }
-}
-
-function createWidgetConfigFromAbstractProps(props: WidgetProps): WidgetConfig {
-  const config: WidgetConfig = {
-    ...props,
-    element: props.getWidgetContent(),
-  };
-  return config;
 }

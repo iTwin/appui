@@ -20,11 +20,11 @@ describe("WidgetPanelsToolbars", () => {
     const frontstageDef = new FrontstageDef();
     const contentManipulationWidget = WidgetDef.create({
       id: "contentManipulationWidget",
-      element: <>tools</>,
+      content: <>tools</>,
     });
     const viewNavigationWidget = WidgetDef.create({
       id: "viewNavigationWidget",
-      element: <>navigation</>,
+      content: <>navigation</>,
     });
     sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
     sinon.stub(frontstageDef, "contentManipulation").get(() => contentManipulationWidget);

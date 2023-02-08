@@ -3,8 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { ConfigurableUiControlType, ConfigurableUiManager, ContentViewManager, CubeNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
+import { ConfigurableUiControlType, ConfigurableUiManager, CubeNavigationAidControl, WidgetDef } from "../../appui-react";
 
 describe("CubeNavigationAidControl", () => {
 
@@ -23,10 +23,6 @@ describe("CubeNavigationAidControl", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
       classId: "CubeNavigationAid",
-      applicationData: {
-        imodel: UiFramework.getIModelConnection(),
-        viewport: ContentViewManager.getActiveContentControl()?.viewport,
-      },
     });
 
     const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);

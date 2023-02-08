@@ -84,8 +84,7 @@ export class TestFrontstage extends FrontstageProvider {
       usage: "MyUsage",
       contentManipulation: {
         id: "contentManipulation",
-        element: <div />,
-        applicationData: { key: "value" },
+        content: <div />,
       },
       toolSettings: {
         id: "toolSettings",
@@ -96,9 +95,6 @@ export class TestFrontstage extends FrontstageProvider {
             id: "widget3",
             defaultState: WidgetState.Open,
             control: TestWidget,
-            onWidgetStateChanged: () => { },
-            saveTransientState: () => { },
-            restoreTransientState: () => false,
           }],
           end: [{
             id: "widget4",
@@ -113,33 +109,32 @@ export class TestFrontstage extends FrontstageProvider {
             {
               id: "widget1",
               defaultState: WidgetState.Open,
-              element: <div />,
+              content: <div />,
             },
             {
               id: "widget6_2",
-              element: < div />,
+              content: < div />,
             },
           ],
           end: [
             {
               id: "widget1",
               defaultState: WidgetState.Open,
-              element: <div />,
+              content: <div />,
             },
             {
               id: "widget2",
               defaultState: WidgetState.Hidden,
-              element: < div />,
+              content: < div />,
             },
           ],
         },
       },
       statusBar: {
         id: "statusBar",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
         control: AppStatusBarWidgetControl,
-        applicationData: { key: "value" },
       },
     };
   }
@@ -174,8 +169,7 @@ export class TestFrontstage2 extends FrontstageProvider {
       usage: "MyUsage",
       contentManipulation: {
         id: "contentManipulation",
-        element: <div />,
-        applicationData: { key: "value" },
+        content: <div />,
       },
       toolSettings: {
         id: "toolSettings",
@@ -186,9 +180,6 @@ export class TestFrontstage2 extends FrontstageProvider {
             id: "widget3",
             defaultState: WidgetState.Open,
             control: TestWidget,
-            onWidgetStateChanged: () => { },
-            saveTransientState: () => { },
-            restoreTransientState: () => false,
           }],
           end: [{
             id: "widget4",
@@ -203,33 +194,32 @@ export class TestFrontstage2 extends FrontstageProvider {
             {
               id: "widget1",
               defaultState: WidgetState.Open,
-              element: <div />,
+              content: <div />,
             },
             {
               id: "widget6_2",
-              element: <div />,
+              content: <div />,
             },
           ],
           end: [
             {
               id: "widget1",
               defaultState: WidgetState.Open,
-              element: <div />,
+              content: <div />,
             },
             {
               id: "widget2",
               defaultState: WidgetState.Hidden,
-              element: <div />,
+              content: <div />,
             },
           ],
         },
       },
       statusBar: {
         id: "statusBar",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
         control: AppStatusBarWidgetControl,
-        applicationData: { key: "value" },
       },
     };
   }

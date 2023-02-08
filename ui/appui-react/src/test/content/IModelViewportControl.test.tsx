@@ -93,7 +93,7 @@ describe("IModelViewportControl", () => {
         contentGroup,
         viewNavigation: {
           id: "viewNavigation",
-          element: <>NavigationWidget</>,
+          content: <>NavigationWidget</>,
         },
       };
     }

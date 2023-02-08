@@ -47,12 +47,12 @@ export namespace StatusBarItemUtilities {
   /** Creates a StatusBar item to display a custom content.
    * @beta
    */
-  export function createCustomItem(id: string, section: StatusBarSection, itemPriority: number, reactNode: React.ReactNode, overrides?: Partial<StatusBarCustomItem>): StatusBarCustomItem {
+  export function createCustomItem(id: string, section: StatusBarSection, itemPriority: number, content: React.ReactNode, overrides?: Partial<StatusBarCustomItem>): StatusBarCustomItem {
     return {
       id,
       section,
       itemPriority,
-      reactNode,
+      content,
       ...overrides,
     };
   }

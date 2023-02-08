@@ -182,7 +182,7 @@ describe("StageContentLayout", () => {
         contentGroup,
         viewNavigation: {
           id: "viewNavigation",
-          element: <>NavigationWidget</>,
+          content: <>NavigationWidget</>,
         },
       };
     }

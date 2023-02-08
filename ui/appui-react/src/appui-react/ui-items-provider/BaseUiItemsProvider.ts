@@ -11,7 +11,7 @@ import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { StatusBarItem } from "../statusbar/StatusBarItem";
 import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import { CommonWidgetProps } from "../widgets/WidgetProps";
+import { Widget } from "../widgets/Widget";
 import { UiItemsManager } from "./UiItemsManager";
 import { UiItemsProvider } from "./UiItemsProvider";
 
@@ -35,11 +35,11 @@ export class BaseUiItemsProvider implements UiItemsProvider {
     UiItemsManager.unregister(this._providerId);
   }
 
-  public provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, _toolbarUsage: ToolbarUsage, _toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
+  public provideToolbarItemsInternal(_stageId: string, _stageUsage: string, _toolbarUsage: ToolbarUsage, _toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
     return [];
   }
 
-  public provideToolbarButtonItems(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[] {
+  public provideToolbarItems(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[] {
     let provideToStage = false;
 
     if (this.isSupportedStage) {
@@ -48,7 +48,7 @@ export class BaseUiItemsProvider implements UiItemsProvider {
       provideToStage = (stageUsage === StageUsage.General);
     }
 
-    return provideToStage ? this.provideToolbarButtonItemsInternal(stageId, stageUsage, toolbarUsage, toolbarOrientation, stageAppData) : [];
+    return provideToStage ? this.provideToolbarItemsInternal(stageId, stageUsage, toolbarUsage, toolbarOrientation, stageAppData) : [];
   }
 
   public provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
@@ -67,11 +67,11 @@ export class BaseUiItemsProvider implements UiItemsProvider {
     return provideToStage ? this.provideStatusBarItemsInternal(stageId, stageUsage, stageAppData) : [];
   }
 
-  public provideWidgetsInternal(_stageId: string, _stageUsage: string, _location: StagePanelLocation, _section?: StagePanelSection, _stageAppData?: any): CommonWidgetProps[] {
+  public provideWidgetsInternal(_stageId: string, _stageUsage: string, _location: StagePanelLocation, _section?: StagePanelSection, _stageAppData?: any): Widget[] {
     return [];
   }
 
-  public provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any): ReadonlyArray<CommonWidgetProps> {
+  public provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any): ReadonlyArray<Widget> {
     let provideToStage = false;
 
     if (this.isSupportedStage) {

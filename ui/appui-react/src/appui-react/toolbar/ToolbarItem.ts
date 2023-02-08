@@ -123,5 +123,5 @@ export function isToolbarGroupItem(item: ToolbarItem): item is ToolbarGroupItem 
  * @beta
  */
 export function isToolbarCustomItem(item: ToolbarItem): item is ToolbarCustomItem {
-  return !isToolbarActionItem(item) && !(isToolbarGroupItem);
+  return !isToolbarActionItem(item) && !isToolbarGroupItem(item);
 }

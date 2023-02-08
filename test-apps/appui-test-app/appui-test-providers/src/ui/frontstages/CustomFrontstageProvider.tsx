@@ -49,7 +49,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: `${id}-contentManipulationTools`,
-        element: <ContentToolWidgetComposer
+        content: <ContentToolWidgetComposer
           cornerButton={
             <BackstageAppButton label="Toggle Backstage" icon="icon-bentley-systems"
               execute={() => BackstageManager.getBackstageToggleCommand().execute()} />
@@ -58,7 +58,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       },
       viewNavigation: {
         id: `${id}-viewNavigationTools`,
-        element: <ViewToolWidgetComposer />,
+        content: <ViewToolWidgetComposer />,
       },
       toolSettings: {
         id: `${id}-toolSettings`,
@@ -75,7 +75,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
             {
               id: "widget-1",
               label: "Widget 1",
-              element: <>Frontstage provided widget: <b>widget-1</b></>,
+              content: <>Frontstage provided widget: <b>widget-1</b></>,
             },
           ],
         },

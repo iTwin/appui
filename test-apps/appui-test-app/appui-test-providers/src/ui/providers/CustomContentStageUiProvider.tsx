@@ -3,10 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import {
-  CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
-import { BackstageItem, BackstageItemUtilities, CommandItemDef, CommonWidgetProps, ModelessDialogManager, StagePanelLocation, StagePanelSection, StageUsage, StateManager, SyncUiEventDispatcher, ToolbarHelper, ToolbarOrientation, ToolbarUsage, UiItemsProvider, WidgetState } from "@itwin/appui-react";
+import { ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { BackstageItem, BackstageItemUtilities, CommandItemDef, ModelessDialogManager, StagePanelLocation, StagePanelSection, StageUsage, StateManager, SyncUiEventDispatcher, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import * as React from "react";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
@@ -40,12 +38,12 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     OpenCustomDialogTool.register(localizationNamespace);
   }
 
-  public provideToolbarButtonItems(
+  public provideToolbarItems(
     stageId: string,
     _stageUsage: string, // don't need to check usage since this provider is for specific stage.
     toolbarUsage: ToolbarUsage,
     toolbarOrientation: ToolbarOrientation
-  ): CommonToolbarItem[] {
+  ): ToolbarItem[] {
     if (
       stageId === CustomContentFrontstage.stageId &&
       toolbarUsage === ToolbarUsage.ContentManipulation &&
@@ -102,22 +100,19 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     return [];
   }
 
-  public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation,
-    section?: StagePanelSection): ReadonlyArray<CommonWidgetProps> {
-    const widgets: CommonWidgetProps[] = [];
+  public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
     if (stageUsage === StageUsage.General && location === StagePanelLocation.Right && section === StagePanelSection.Start) {
-      const widget: CommonWidgetProps = {
+      widgets.push({
         id: "appui-test-providers:elementDataListWidget",
         label: "Data",
         icon: "icon-flag-2",
         defaultState: WidgetState.Hidden,
-        isFloatingStateSupported: true,
-        floatingContainerId: "ui-item-provider-test:ViewAttributesWidget",
-        // eslint-disable-next-line react/display-name
-        getWidgetContent: () => <SelectedElementDataWidgetComponent />,
-      };
-
-      widgets.push(widget);
+        canFloat: {
+          containerId: "ui-item-provider-test:ViewAttributesWidget",
+        },
+        content: <SelectedElementDataWidgetComponent />,
+      });
     }
     return widgets;
   }

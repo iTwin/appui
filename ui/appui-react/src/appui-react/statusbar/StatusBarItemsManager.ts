@@ -28,9 +28,9 @@ export interface StatusBarItemsChangedArgs {
  * @internal
  */
 export class StatusBarItemsManager {
-  private _items: ReadonlyArray<CommonStatusBarItem> = [];
+  private _items: ReadonlyArray<StatusBarItem> = [];
 
-  constructor(items?: ReadonlyArray<CommonStatusBarItem>) {
+  constructor(items?: ReadonlyArray<StatusBarItem>) {
     if (items)
       this.loadItemsInternal(items, true, false);
   }
@@ -40,7 +40,7 @@ export class StatusBarItemsManager {
    */
   public readonly onItemsChanged = new BeEvent<(args: StatusBarItemsChangedArgs) => void>();
 
-  private loadItemsInternal(items: ReadonlyArray<CommonStatusBarItem>, processConditions: boolean, sendItemChanged: boolean) {
+  private loadItemsInternal(items: ReadonlyArray<StatusBarItem>, processConditions: boolean, sendItemChanged: boolean) {
     if (processConditions && items) {
       const eventIds = StatusBarItemsManager.getSyncIdsOfInterest(items);
       if (0 !== eventIds.length) {
@@ -60,22 +60,22 @@ export class StatusBarItemsManager {
   /** load items but do not fire onItemsChanged
    * @internal
    */
-  public loadItems(items: ReadonlyArray<CommonStatusBarItem>) {
+  public loadItems(items: ReadonlyArray<StatusBarItem>) {
     this.loadItemsInternal(items, true, false);
   }
 
   /** Get an array of the StatusBar items  */
-  public get items(): ReadonlyArray<CommonStatusBarItem> {
+  public get items(): ReadonlyArray<StatusBarItem> {
     return this._items;
   }
 
-  public set items(items: ReadonlyArray<CommonStatusBarItem>) {
+  public set items(items: ReadonlyArray<StatusBarItem>) {
     // istanbul ignore else
     if (items !== this._items)
       this.loadItemsInternal(items, true, true);
   }
 
-  public add(itemOrItems: CommonStatusBarItem | ReadonlyArray<CommonStatusBarItem>) {
+  public add(itemOrItems: StatusBarItem | ReadonlyArray<StatusBarItem>) {
     let itemsToAdd;
     if (isInstance(itemOrItems))
       itemsToAdd = [itemOrItems];
@@ -105,7 +105,7 @@ export class StatusBarItemsManager {
     this._items = [];
   }
 
-  public static getSyncIdsOfInterest(items: readonly CommonStatusBarItem[]): string[] {
+  public static getSyncIdsOfInterest(items: readonly StatusBarItem[]): string[] {
     const eventIds = new Set<string>();
     items.forEach((item) => {
       for (const [, entry] of Object.entries(item)) {
@@ -119,14 +119,14 @@ export class StatusBarItemsManager {
     return [...eventIds.values()];
   }
 
-  private internalRefreshAffectedItems(items: readonly CommonStatusBarItem[], eventIds: Set<string>): { itemsUpdated: boolean, updatedItems: CommonStatusBarItem[] } {
+  private internalRefreshAffectedItems(items: readonly StatusBarItem[], eventIds: Set<string>): { itemsUpdated: boolean, updatedItems: StatusBarItem[] } {
     // istanbul ignore next
     if (0 === eventIds.size)
       return { itemsUpdated: false, updatedItems: [] };
 
     let updateRequired = false;
 
-    const newItems: CommonStatusBarItem[] = [];
+    const newItems: StatusBarItem[] = [];
     for (const item of items) {
       const updatedItem = { ...item };
 

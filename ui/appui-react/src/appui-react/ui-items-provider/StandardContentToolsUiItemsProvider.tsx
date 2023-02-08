@@ -12,7 +12,7 @@ import { StatusBarItem, StatusBarSection } from "../statusbar/StatusBarItem";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { SectionsStatusField } from "../statusfields/SectionsField";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
-import { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { CoreTools } from "../tools/CoreToolDefinitions";
 import { UiItemsProvider } from "./UiItemsProvider";
 
@@ -60,8 +60,8 @@ export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
 
   constructor(private defaultContextTools?: DefaultContentTools) { }
 
-  public provideToolbarButtonItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): CommonToolbarItem[] {
-    const items: CommonToolbarItem[] = [];
+  public provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[] {
+    const items: ToolbarItem[] = [];
 
     if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
       const clearSelectionGroupPriority = getGroupPriority(stageAppData?.defaultContentTools?.horizontal?.clearSelectionGroupPriority, 10);

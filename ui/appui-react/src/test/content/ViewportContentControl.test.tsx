@@ -84,7 +84,7 @@ describe("ViewportContentControl", () => {
         contentGroup,
         viewNavigation: {
           id: "viewNavigation",
-          element: <>NavigationWidget</>,
+          content: <>NavigationWidget</>,
         },
       };
     }

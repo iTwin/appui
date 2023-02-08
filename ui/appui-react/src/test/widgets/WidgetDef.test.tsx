@@ -35,14 +35,14 @@ describe("WidgetDef", () => {
       id: "w1",
       defaultState: WidgetState.Open,
       priority: 100,
-      iconSpec: "icon-home",
+      icon: "icon-home",
       label: "label",
       tooltip: "tooltip",
-      isFloatingStateSupported: true,
-      isFloatingStateWindowResizable: false,
-      applicationData: "AppData",
-      element: <div />,
+      canFloat: {
+        isResizable: false,
+      },
       badgeType: BadgeType.TechnicalPreview,
+      content: <div />,
     });
 
     expect(widgetDef.isVisible).to.eq(true);
@@ -70,11 +70,12 @@ describe("WidgetDef", () => {
       id: "w1",
       defaultState: WidgetState.Open,
       priority: 200,
-      iconSpec: <SvgList />,
+      icon: <SvgList />,
       label: "label",
       tooltip: "tooltip",
-      isFloatingStateSupported: true,
-      isFloatingStateWindowResizable: true,
+      canFloat: {
+        isResizable: true,
+      },
     });
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.true;
   });
@@ -84,12 +85,12 @@ describe("WidgetDef", () => {
       id: "w1",
       defaultState: WidgetState.Open,
       priority: 200,
-      iconSpec: "icon-lightbulb",
-      internalData: new Map<string, any>(),
+      icon: "icon-lightbulb",
       label: "label",
       tooltip: "tooltip",
-      isFloatingStateSupported: true,
-      isFloatingStateWindowResizable: true,
+      canFloat: {
+        isResizable: true,
+      },
     });
     expect(widgetDef.iconSpec).to.eq("icon-lightbulb");
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;

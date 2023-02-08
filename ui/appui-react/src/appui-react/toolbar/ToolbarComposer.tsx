@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { ConditionalBooleanValue, CommonToolbarItem as UIA_CommonToolbarItem } from "@itwin/appui-abstract";
-import { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
+import { CustomToolbarItem, Direction, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
 import { Logger } from "@itwin/core-bentley";
 import { Orientation } from "@itwin/core-react";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
@@ -79,19 +79,22 @@ function nestedAddItemToSpecifiedParentGroup(items: ReadonlyArray<ToolbarActionI
 
 function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
   if (isToolbarCustomItem(item)) {
-    return {
+    const customItem: CustomToolbarItem = {
       ...item,
       isCustom: true,
+      icon: item.icon as string,
+      panelContentNode: item.panelContent,
     };
+    return customItem;
   }
-  return item;
+  return item as UIA_CommonToolbarItem; // TODO: 4.0
 }
 
-function addItemToSpecifiedParentGroup(items: readonly ToolbarItem[], groupChildren: Array<ToolbarActionItem | ToolbarGroupItem>): UIA_CommonToolbarItem[] {
-  const outItems: UIA_CommonToolbarItem[] = [];
+function addItemToSpecifiedParentGroup(items: readonly ToolbarItem[], groupChildren: Array<ToolbarActionItem | ToolbarGroupItem>): ToolbarItem[] {
+  const outItems: ToolbarItem[] = [];
   for (const toolbarItem of items) {
     if (!isToolbarGroupItem(toolbarItem)) {
-      outItems.push(toUIAToolbarItem(toolbarItem));
+      outItems.push(toolbarItem);
       continue;
     }
 
@@ -153,8 +156,8 @@ function getSortedChildren(group: ToolbarGroupItem): ReadonlyArray<ToolbarAction
 }
 
 /** local function to combine items from Stage and from Extensions */
-function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: ReadonlyArray<ToolbarItem>): UIA_CommonToolbarItem[] {
-  let items: UIA_CommonToolbarItem[] = [];
+function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: ReadonlyArray<ToolbarItem>): ToolbarItem[] {
+  let items: ToolbarItem[] = [];
   const groupChildren: Array<ToolbarActionItem | ToolbarGroupItem> = [];
 
   // istanbul ignore else
@@ -166,7 +169,7 @@ function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: Read
         if (toolbarItem.parentToolGroupId && (isToolbarGroupItem(toolbarItem) || isToolbarActionItem(toolbarItem)))
           groupChildren.push(toolbarItem);
         else
-          items.push(toUIAToolbarItem(toolbarItem));
+          items.push(toolbarItem);
       }
     });
   }
@@ -179,7 +182,7 @@ function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: Read
         if (toolbarItem.parentToolGroupId && (isToolbarGroupItem(toolbarItem) || isToolbarActionItem(toolbarItem)))
           groupChildren.push(toolbarItem);
         else
-          items.push(toUIAToolbarItem(toolbarItem));
+          items.push(toolbarItem);
       }
     });
   }
@@ -189,7 +192,7 @@ function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: Read
     items = addItemToSpecifiedParentGroup(items, groupChildren);
 
     if (groupChildren.length) {
-      groupChildren.forEach((toolbarItem: ToolbarActionItem | ToolbarGroupItem) => {
+      groupChildren.forEach((toolbarItem) => {
         Logger.logWarning("ToolbarComposer", `Requested Parent Group [${toolbarItem.parentToolGroupId!}] not found, so item [${toolbarItem.id}] is added directly to toolbar.`);
         items.push(toolbarItem);
       });
@@ -257,7 +260,10 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
   const addonSyncIdsOfInterest = React.useMemo(() => ToolbarItemsManager.getSyncIdsOfInterest(addonItems), [addonItems]);
   useToolbarItemSyncEffect(addonItemsManager, addonSyncIdsOfInterest);
 
-  const toolbarItems = React.useMemo(() => combineItems(defaultItems, addonItems), [defaultItems, addonItems]);
+  const toolbarItems = React.useMemo(() => {
+    const items = combineItems(defaultItems, addonItems);
+    return items.map((item) => toUIAToolbarItem(item));
+  }, [defaultItems, addonItems]);
 
   const toolbarOrientation = orientation === ToolbarOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
   const expandsTo = toolbarOrientation === Orientation.Horizontal ? Direction.Bottom : usage === ToolbarUsage.ViewNavigation ? Direction.Left : Direction.Right;

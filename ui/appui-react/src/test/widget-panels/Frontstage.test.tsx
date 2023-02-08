@@ -9,16 +9,16 @@ import produce from "immer";
 import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { BentleyError, Logger } from "@itwin/core-bentley";
-import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager, UiItemsProvider, WidgetState } from "@itwin/appui-abstract";
 import { Size, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-react";
 import { addFloatingWidget, addPanelWidget, addTab, createLayoutStore, createNineZoneState, getUniqueId, NineZoneState, toolSettingsTabId } from "@itwin/appui-layout-react";
 import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
 import {
   ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, expandWidget, FrontstageConfig, FrontstageDef,
   FrontstageManager, FrontstageProvider, getWidgetId, initializeNineZoneState, initializePanel, isFrontstageStateSettingResult, ModalFrontstageComposer,
-  packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanelDef, UiFramework, UiSettingsProviderProps, UiStateStorageHandler,
+  packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanelDef, StagePanelLocation, StagePanelSection, UiFramework, UiItemsManager, UiItemsProvider, UiSettingsProviderProps, UiStateStorageHandler,
   useActiveModalFrontstageInfo, useFrontstageManager, useLayoutStore, useNineZoneDispatch, useSavedFrontstageState, useSaveFrontstageSettings, useUpdateNineZoneSize,
-  WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState,
+  Widget,
+  WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState, WidgetState,
 } from "../../appui-react";
 import TestUtils, { childStructure, storageMock, stubRaf, styleMatch, UiStateStorageStub } from "../TestUtils";
 import { IModelApp, MockRender, NoRenderApp } from "@itwin/core-frontend";
@@ -70,7 +70,7 @@ export class TestFrontstageUi2 extends FrontstageProvider {
           start: [{
             id: "LeftStart1",
             label: "Left Start 1",
-            element: "Left Start 1 widget",
+            content: "Left Start 1 widget",
           }],
         },
       },
@@ -102,17 +102,17 @@ class TestUi2Provider implements UiItemsProvider {
   }
 
   public provideWidgets(_stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) {
-    const widgets: Array<AbstractWidgetProps> = [];
+    const widgets: Widget[] = [];
     widgets.push({ // should only be added once to Left Start pane
       id: "TestUi2ProviderW1",
       label: "TestUi2Provider W1",
-      getWidgetContent: () => "TestUi2Provider W1 widget",
+      content: "TestUi2Provider W1 widget",
     });
     if (location === StagePanelLocation.Right && section === StagePanelSection.End)
       widgets.push({
         id: "TestUi2ProviderRM1",
         label: "TestUi2Provider RM1",
-        getWidgetContent: () => "TestUi2Provider RM1 widget",
+        content: "TestUi2Provider RM1 widget",
       });
     return widgets;
   }
@@ -125,22 +125,22 @@ class TestDuplicateWidgetProvider implements UiItemsProvider {
   }
 
   public provideWidgets(_stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) {
-    const widgets: Array<AbstractWidgetProps> = [];
+    const widgets: Widget[] = [];
     widgets.push({ // should only be added once to Left Start pane
       id: "TestUi3ProviderW1",
       label: "TestUi3Provider W1",
-      getWidgetContent: () => "TestUi3Provider W1 widget",
+      content: "TestUi3Provider W1 widget",
     });
     if (location === StagePanelLocation.Right && section === StagePanelSection.End)
       widgets.push({
         id: "TestUi2ProviderRM1",
         label: "TestUi2Provider RM1",
-        getWidgetContent: () => "TestUi2Provider RM1 widget",
+        content: "TestUi2Provider RM1 widget",
       });
     widgets.push({
       id: "LeftStart1",
       label: "Provider LeftStart1",
-      getWidgetContent: () => "Provider LeftStart1",
+      content: "Provider LeftStart1",
     });
 
     return widgets;
@@ -154,12 +154,12 @@ class TestHiddenWidgetProvider implements UiItemsProvider {
   }
 
   public provideWidgets(_stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) {
-    const widgets: Array<AbstractWidgetProps> = [];
+    const widgets: Widget[] = [];
     if (location === StagePanelLocation.Left && section === StagePanelSection.End)
       widgets.push({
         id: "TestHiddenWidgetProviderLM1",
         label: "TestHiddenWidgetProvider Hidden LM1",
-        getWidgetContent: () => "TestHiddenWidgetProvider LM1 widget",
+        content: "TestHiddenWidgetProvider LM1 widget",
         defaultState: WidgetState.Hidden,
       });
     return widgets;
@@ -821,7 +821,9 @@ describe("Frontstage local storage wrapper", () => {
         const widgetDef = WidgetDef.create({
           id: "w1",
           preferredPanelSize: "fit-content",
-          defaultFloatingSize: { width: 33, height: 33 },
+          canFloat: {
+            defaultSize: { width: 33, height: 33 },
+          },
         });
         sinon.stub(frontstageDef, "toolSettings").get(() => widgetDef);
         const sut = initializeNineZoneState(frontstageDef);
@@ -963,7 +965,9 @@ describe("Frontstage local storage wrapper", () => {
         const widgetDef = WidgetDef.create({
           id: "w1",
           label: "Widget 1",
-          hideWithUiWhenFloating: true,
+          canFloat: {
+            hideWithUi: true,
+          },
         });
         state = addWidgets(state, [widgetDef], "left", "leftStart");
         state.tabs.w1.label.should.eq("Widget 1");
@@ -1189,7 +1193,9 @@ describe("Frontstage local storage wrapper", () => {
           nineZone = addFloatingWidget(nineZone, "w1", ["w1"]);
           const widgetDef = WidgetDef.create({
             id: "w1",
-            hideWithUiWhenFloating: true,
+            canFloat: {
+              hideWithUi: true,
+            },
           });
           let hideWidgetState = setWidgetState(nineZone, widgetDef, WidgetState.Hidden);
           expect(hideWidgetState.floatingWidgets.byId.w1).to.not.exist;

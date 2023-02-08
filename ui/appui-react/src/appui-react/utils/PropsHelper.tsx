@@ -10,7 +10,7 @@ import * as React from "react";
 import { Icon, IconHelper, IconSpec } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import { ConditionalStringValue, StringGetter } from "@itwin/appui-abstract";
-import { WidgetProps } from "../widgets/WidgetProps";
+import { Widget } from "../widgets/Widget";
 import { BackstageItem } from "../backstage/BackstageItem";
 
 /** A set of helper methods for various props
@@ -58,7 +58,8 @@ export class PropsHelper {
     return true;
   }
 
-  public static getAbstractPropsForReactIcon(iconSpec: IconSpec, internalData?: Map<string, any>): Partial<WidgetProps> | Partial<BackstageItem> {
+  /** @deprecated */
+  public static getAbstractPropsForReactIcon(iconSpec: IconSpec, internalData?: Map<string, any>): Partial<Widget> | Partial<BackstageItem> {
     // istanbul ignore else
     if (!iconSpec || !React.isValidElement(iconSpec))
       return {};
