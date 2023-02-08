@@ -13,7 +13,6 @@ import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
-import { StagePanelLocation, StagePanelSection, UiItemsManager, WidgetState } from "@itwin/appui-abstract";
 import { Rectangle, RectangleProps, Size, SizeProps, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import {
@@ -42,6 +41,10 @@ import { useSelector } from "react-redux";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import { IModelApp } from "@itwin/core-frontend";
 import { FloatingWidget } from "./FloatingWidget";
+import { WidgetState } from "../widgets/WidgetState";
+import { StagePanelSection } from "../stagepanels/StagePanelSection";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();

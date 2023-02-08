@@ -4,14 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BackstageManager, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
-  StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider,
-  UiFramework,
+  BackstageAppButton, BackstageManager, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
+  StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager,
 } from "@itwin/appui-react";
-import {
-  StageUsage, StandardContentLayouts, UiItemsManager,
-} from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { SynchronizedFloatingViewportProvider } from "../providers/SynchronizedFloatingViewportProvider";
 
@@ -57,7 +53,7 @@ export class SynchronizedFloatingViewportContentGroupProvider extends ContentGro
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public  override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
+  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
     const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, UiFramework.getIModelConnection());
     if (savedViewLayoutProps) {
       const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
@@ -132,7 +128,6 @@ export class SynchronizedFloatingViewportStage {
   }
 
   private static registerToolProviders(localizationNamespace: string) {
-
     // Provides standard tools for ToolWidget in stage
     UiItemsManager.register(new StandardContentToolsUiItemsProvider({
       vertical: {
