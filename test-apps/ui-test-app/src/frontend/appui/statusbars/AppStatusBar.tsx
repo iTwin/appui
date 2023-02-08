@@ -4,35 +4,35 @@
 *--------------------------------------------------------------------------------------------*/
 import "./AppStatusBar.scss";
 import * as React from "react";
-import { ConditionalBooleanValue, StatusBarSection } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import {
-  ActivityCenterField, ConfigurableUiManager, MessageCenterField, SectionsStatusField, SelectionInfoField,
-  SelectionScopeField, SnapModeField, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarSeparator, StatusBarWidgetControl,
+  ActivityCenterField, AnyStatusBarItem, ConfigurableUiManager, MessageCenterField, SectionsStatusField, SelectionInfoField,
+  SelectionScopeField, SnapModeField, StatusBarComposer, StatusBarItemUtilities, StatusBarSection, StatusBarSeparator, StatusBarWidgetControl,
   TileLoadingIndicator, ToolAssistanceField, ViewAttributesStatusField,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../..";
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
 
 export class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-  private _statusBarItems: StatusBarItem[] | undefined;
+  private _statusBarItems: AnyStatusBarItem[] | undefined;
 
-  public get statusBarItems(): StatusBarItem[] {
+  public get statusBarItems(): AnyStatusBarItem[] {
     if (!this._statusBarItems) {
       const isHiddenCondition = new ConditionalBooleanValue(() => SampleAppIModelApp.getTestProperty() === "HIDE", [SampleAppUiActionId.setTestProperty]);
 
       this._statusBarItems = [
-        StatusBarItemUtilities.createStatusBarItem("ToolAssistance", StatusBarSection.Left, 10, <ToolAssistanceField style={{ minWidth: "21em" }} />),
-        StatusBarItemUtilities.createStatusBarItem("ToolAssistanceSeparator", StatusBarSection.Left, 15, (<StatusBarSeparator />)),
-        StatusBarItemUtilities.createStatusBarItem("MessageCenter", StatusBarSection.Left, 20, <MessageCenterField />),
-        StatusBarItemUtilities.createStatusBarItem("MessageCenterSeparator", StatusBarSection.Left, 25, (<StatusBarSeparator />)),
-        StatusBarItemUtilities.createStatusBarItem("DisplayStyle", StatusBarSection.Center, 40, <DisplayStyleField />),
-        StatusBarItemUtilities.createStatusBarItem("ActivityCenter", StatusBarSection.Center, 10, <ActivityCenterField />),
-        StatusBarItemUtilities.createStatusBarItem("ViewAttributes", StatusBarSection.Center, 60, <ViewAttributesStatusField />),
-        StatusBarItemUtilities.createStatusBarItem("Sections", StatusBarSection.Center, 50, <SectionsStatusField hideWhenUnused={true} />),
-        StatusBarItemUtilities.createStatusBarItem("SnapMode", StatusBarSection.Center, 30, <SnapModeField />, { isHidden: isHiddenCondition }),
-        StatusBarItemUtilities.createStatusBarItem("TileLoadIndicator", StatusBarSection.Right, 10, <TileLoadingIndicator />),
-        StatusBarItemUtilities.createStatusBarItem("SelectionInfo", StatusBarSection.Right, 30, <SelectionInfoField />),
-        StatusBarItemUtilities.createStatusBarItem("SelectionScope", StatusBarSection.Right, 20, <SelectionScopeField />),
+        StatusBarItemUtilities.createCustomItem("ToolAssistance", StatusBarSection.Left, 10, <ToolAssistanceField style={{ minWidth: "21em" }} />),
+        StatusBarItemUtilities.createCustomItem("ToolAssistanceSeparator", StatusBarSection.Left, 15, (<StatusBarSeparator />)),
+        StatusBarItemUtilities.createCustomItem("MessageCenter", StatusBarSection.Left, 20, <MessageCenterField />),
+        StatusBarItemUtilities.createCustomItem("MessageCenterSeparator", StatusBarSection.Left, 25, (<StatusBarSeparator />)),
+        StatusBarItemUtilities.createCustomItem("DisplayStyle", StatusBarSection.Center, 40, <DisplayStyleField />),
+        StatusBarItemUtilities.createCustomItem("ActivityCenter", StatusBarSection.Center, 10, <ActivityCenterField />),
+        StatusBarItemUtilities.createCustomItem("ViewAttributes", StatusBarSection.Center, 60, <ViewAttributesStatusField />),
+        StatusBarItemUtilities.createCustomItem("Sections", StatusBarSection.Center, 50, <SectionsStatusField hideWhenUnused={true} />),
+        StatusBarItemUtilities.createCustomItem("SnapMode", StatusBarSection.Center, 30, <SnapModeField />, { isHidden: isHiddenCondition }),
+        StatusBarItemUtilities.createCustomItem("TileLoadIndicator", StatusBarSection.Right, 10, <TileLoadingIndicator />),
+        StatusBarItemUtilities.createCustomItem("SelectionInfo", StatusBarSection.Right, 30, <SelectionInfoField />),
+        StatusBarItemUtilities.createCustomItem("SelectionScope", StatusBarSection.Right, 20, <SelectionScopeField />),
       ];
     }
     return this._statusBarItems;

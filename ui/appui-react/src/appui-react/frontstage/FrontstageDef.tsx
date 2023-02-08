@@ -10,7 +10,7 @@
 
 import * as React from "react";
 import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import { PointProps, StagePanelLocation, StageUsage, UiError, WidgetState } from "@itwin/appui-abstract";
+import { PointProps, UiError } from "@itwin/appui-abstract";
 import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
 import {
   dockWidgetContainer, floatWidget, getTabLocation, getWidgetLocation, isFloatingTabLocation, isPanelTabLocation, isPopoutTabLocation, isPopoutWidgetLocation,
@@ -36,6 +36,9 @@ import { ContentDialogManager } from "../dialog/ContentDialogManager";
 import { FrontstageConfig } from "./FrontstageConfig";
 import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import { WidgetConfig } from "../widgets/WidgetConfig";
+import { StageUsage } from "./StageUsage";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { WidgetState } from "../widgets/WidgetState";
 
 /** @internal */
 export interface FrontstageEventArgs {

@@ -2,11 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { useActiveFrontstageDef, useActiveViewport } from "@itwin/appui-react";
-import { ToggleSwitch } from "@itwin/itwinui-react";
-import { ViewFlagProps, ViewFlags } from "@itwin/core-common";
 import * as React from "react";
+import { useActiveFrontstageDef, useActiveViewport } from "@itwin/appui-react";
+import { ViewFlagProps, ViewFlags } from "@itwin/core-common";
 import { IModelApp, Viewport } from "@itwin/core-frontend";
+import { ToggleSwitch } from "@itwin/itwinui-react";
 
 export function useWidgetDef(id: string) {
   const frontstageDef = useActiveFrontstageDef();

@@ -6,14 +6,14 @@
  * @module Widget
  */
 
-import { AbstractWidgetProps } from "@itwin/appui-abstract";
 import { IconProps } from "@itwin/core-react";
 import { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
+import { CommonWidgetProps } from "./WidgetProps";
 
 /** Configuration from which a widget is created.
  * @public
  */
-export interface WidgetConfig extends Omit<AbstractWidgetProps, "getWidgetContent" | "id">, IconProps {
+export interface WidgetConfig extends Omit<CommonWidgetProps, "getWidgetContent" | "id">, IconProps {
   readonly id: string;
   /** if set, it is used to define a key that is used to look up a localized string. This value is used only if label is not explicitly set. */
   readonly labelKey?: string;
