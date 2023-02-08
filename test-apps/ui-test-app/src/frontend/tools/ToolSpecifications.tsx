@@ -3,10 +3,10 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import imperialIconSvg from "@bentley/icons-generic/icons/app-2.svg?sprite";
-import automationIconSvg from "@bentley/icons-generic/icons/automation.svg?sprite";
-import splitVerticalIconSvg from "@bentley/icons-generic/icons/window-split-vertical.svg?sprite";
-import singlePaneIconSvg from "@bentley/icons-generic/icons/window.svg?sprite";
+import imperialIconSvg from "@bentley/icons-generic/icons/app-2.svg";
+import automationIconSvg from "@bentley/icons-generic/icons/automation.svg";
+import splitVerticalIconSvg from "@bentley/icons-generic/icons/window-split-vertical.svg";
+import singlePaneIconSvg from "@bentley/icons-generic/icons/window.svg";
 
 import {
   ActivityMessageDetails, ActivityMessageEndReason,
@@ -17,9 +17,10 @@ import { UnitSystemKey } from "@itwin/core-quantity";
 import { Presentation } from "@itwin/presentation-frontend";
 import {
   AbstractWidgetProps, BackstageItem, BackstageItemUtilities, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue, DialogButtonType,
+  IconSpecUtilities,
   MessageSeverity, StagePanelLocation, StagePanelSection, StandardContentLayouts, StatusBarLabelSide, StatusBarSection, UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
-import { Dialog, FillCentered, ReactMessage, SvgPath, SvgSprite, UnderlinedButton } from "@itwin/core-react";
+import { Dialog, FillCentered, ReactMessage, SvgPath, UnderlinedButton } from "@itwin/core-react";
 import {
   BackstageManager, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager, FrontstageManager,
   IModelViewportControl, MessageManager, ModalDialogManager, ReactNotifyMessageDetails, StatusBarDialog, StatusBarItemUtilities, StatusBarLabelIndicator,
@@ -335,11 +336,9 @@ export class AppTools {
   }
 
   public static get setLengthFormatImperialCommand() {
-    // equivalent to `svg:${imperialIconSvg}`
-    const spriteIconSpec = <SvgSprite src={imperialIconSvg} />; // eslint-disable-line deprecation/deprecation
     return new CommandItemDef({
       commandId: "setLengthFormatImperial",
-      iconSpec: spriteIconSpec,
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(imperialIconSvg),
       labelKey: "SampleApp:buttons.setLengthFormatImperial",
       execute: async () => {
         await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
@@ -395,7 +394,7 @@ export class AppTools {
 
     return new CommandItemDef({
       commandId: "toggleLengthFormatOverride",
-      iconSpec: `svg:${automationIconSvg}`,
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(automationIconSvg),
       labelKey: "SampleApp:buttons.toggleLengthFormatOverride",
       execute: async () => {
         if (IModelApp.quantityFormatter.hasActiveOverride(QuantityType.Length)) {
@@ -432,7 +431,7 @@ export class AppTools {
     const commandId = "splitSingleViewportCommandDef";
     return new CommandItemDef({
       commandId,
-      iconSpec: new ConditionalStringValue(() => 1 === FrontstageManager.activeFrontstageDef?.contentControls?.length ? `svg:${splitVerticalIconSvg}` : `svg:${singlePaneIconSvg}`, [SyncUiEventId.ActiveContentChanged]),
+      iconSpec: new ConditionalStringValue(() => IconSpecUtilities.createWebComponentIconSpec(1 === FrontstageManager.activeFrontstageDef?.contentControls?.length ? splitVerticalIconSvg : singlePaneIconSvg), [SyncUiEventId.ActiveContentChanged]),
       label: new ConditionalStringValue(() => 1 === FrontstageManager.activeFrontstageDef?.contentControls?.length ? "Split Content View" : "Single Content View", [SyncUiEventId.ActiveContentChanged]),
       execute: async () => {
         // if the active frontstage is only showing an single viewport then split it and have two copies of it

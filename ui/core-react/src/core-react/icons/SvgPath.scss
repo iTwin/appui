@@ -2,8 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-.core-badge-betaBadge {
-  > .core-icons-svgSprite {
-    fill: unset;
-  }
+.core-icons-svgPath {
+  display: inline-block;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  padding: auto;
+  overflow: hidden;
+  vertical-align: top;
+  fill: currentColor;
+  stroke: transparent;
 }

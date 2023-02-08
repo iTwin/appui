@@ -3,35 +3,18 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
+import { ContentLayoutProps, IconSpecUtilities, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  IModelApp,
-  IModelConnection,
-  ViewState,
-} from "@itwin/core-frontend";
-import {
-  ContentLayoutProps, StandardContentLayouts,
-} from "@itwin/appui-abstract";
-import {
-  BackstageAppButton,
-  BackstageItem,
-  BackstageItemUtilities,
-  ConfigurableUiManager, ContentGroup, ContentGroupProps,
-  ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl,
-  SettingsModalFrontstage, StageContentLayout, StageContentLayoutProps,
-  StageUsage,
-  StandardContentToolsUiItemsProvider, StandardFrontstageProps,
-  StandardFrontstageProvider,
-  StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider,
-  UiFramework,
-  UiItemsManager,
-  UiItemsProvider,
+  BackstageAppButton, BackstageItem, BackstageItemUtilities, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl,
+  SettingsModalFrontstage, StageContentLayout, StageContentLayoutProps, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider,
+  StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager, UiItemsProvider,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { AppUi } from "../AppUi";
 // cSpell:Ignore contentviews statusbars
 import { LocalStateStorage } from "@itwin/core-react";
-import stageIconSvg from "./imodeljs.svg?sprite";
+import stageIconSvg from "./imodeljs.svg";
 
 function getIModelSpecificKey(inKey: string, iModelConnection: IModelConnection | undefined) {
   const imodelId = iModelConnection?.iModelId ?? "unknownImodel";
@@ -186,7 +169,7 @@ class MainStageBackstageItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(MainFrontstage.stageId, 100, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.viewIModel"), IModelApp.localization.getLocalizedString("SampleApp:backstage.iModelStage"), `svg:${stageIconSvg}`),
+      BackstageItemUtilities.createStageLauncher(MainFrontstage.stageId, 100, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.viewIModel"), IModelApp.localization.getLocalizedString("SampleApp:backstage.iModelStage"), IconSpecUtilities.createWebComponentIconSpec(stageIconSvg)),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
     ];
   }

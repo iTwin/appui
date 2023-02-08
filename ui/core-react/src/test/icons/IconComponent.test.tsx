@@ -20,12 +20,6 @@ describe("IconComponent", () => {
     expect(span).not.to.be.null;
   });
 
-  it("should render correctly with icon svg string", () => {
-    const { container } = render(<Icon iconSpec="svg:test.svg" />);
-    const svgIconClassName = container.querySelector(".core-icons-svgSprite");
-    expect(svgIconClassName).not.to.be.null;
-  });
-
   it("should handle correctly with icon conditional value empty string", () => {
     const spec = new ConditionalStringValue(() => "", []);
     const { container } = render(<Icon iconSpec={spec} />);
