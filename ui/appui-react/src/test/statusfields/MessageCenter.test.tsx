@@ -72,26 +72,26 @@ describe(`MessageCenter`, () => {
     render(<StatusBar widgetControl={widgetControl} />);
 
     await theUserTo.click(screen.getByRole("button"));
-
+    // TODO: This only tests that icons are displayed. Should be replaced with visual testing.
     expect(screen.getByText("Fatal text.", {
       selector: ".nz-footer-messageCenter-message > .nz-content > span",
     }).parentElement?.parentElement).to.satisfy(childStructure(
-      "i.icon-status-rejected.core-message-box-fatal"
+      ".icon.core-svg-icon.icon.notifymessage-icon"
     ));
     expect(screen.getByText("Warning text.", {
       selector: ".nz-footer-messageCenter-message > .nz-content > span",
     }).parentElement?.parentElement).to.satisfy(childStructure(
-      "i.icon-status-warning.core-message-box-warning"
+      ".icon.core-svg-icon.icon.notifymessage-icon"
     ));
     expect(screen.getByText("Error text.", {
       selector: ".nz-footer-messageCenter-message > .nz-content > span",
     }).parentElement?.parentElement).to.satisfy(childStructure(
-      "i.icon-status-error.core-message-box-error"
+      ".icon.core-svg-icon.icon.notifymessage-icon"
     ));
     expect(screen.getByText("Info text.", {
       selector: ".nz-footer-messageCenter-message > .nz-content > span",
     }).parentElement?.parentElement).to.satisfy(childStructure(
-      "i.icon-info.core-message-box-information"
+      ".icon.core-svg-icon.icon.notifymessage-icon"
     ));
     await theUserTo.click(screen.getByRole("button"));
   });

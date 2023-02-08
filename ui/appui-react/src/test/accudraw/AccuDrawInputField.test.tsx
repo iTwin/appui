@@ -53,7 +53,7 @@ describe("AccuDrawInputField", () => {
   it("should render with lock", () => {
     const spyChanged = sinon.spy();
     const wrapper = render(<AccuDrawInputField isLocked={true} field={ItemField.X_Item} id="x" onValueChanged={spyChanged} />);
-    const icon = wrapper.container.querySelector(".icon-lock");
+    const icon = wrapper.container.querySelector(".uifw-accudraw-lock");
     expect(icon).not.to.be.null;
   });
 
