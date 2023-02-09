@@ -10,7 +10,7 @@ import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itw
 import { IconSpec } from "@itwin/core-react";
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
- * @public // TODO: 4.x cleanup
+ * @public
  */
 export enum ToolbarUsage {
   /** Contains tools to Create Update and Delete content - in ninezone this is in top left of content area. */
@@ -20,7 +20,7 @@ export enum ToolbarUsage {
 }
 
 /** Used to specify the orientation of the toolbar.
- * @public // TODO: 4.x cleanup
+ * @public
  */
 export enum ToolbarOrientation {
   /** Horizontal toolbar. */
@@ -30,7 +30,7 @@ export enum ToolbarOrientation {
 }
 
 /** Describes the data needed to insert a UI items into an existing set of UI items.
- * @beta
+ * @public
  */
 export interface CommonToolbarItem {
   /** Require uniqueId for the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
@@ -55,7 +55,7 @@ export interface CommonToolbarItem {
 }
 
 /** Describes the data needed to insert an action button into a toolbar.
- * @beta
+ * @public
  */
 export interface ToolbarActionItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id. */
@@ -69,7 +69,7 @@ export interface ToolbarActionItem extends CommonToolbarItem {
 }
 
 /** Describes the data needed to insert a group button into a toolbar.
- * @beta
+ * @public
  */
 export interface ToolbarGroupItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
@@ -85,7 +85,7 @@ export interface ToolbarGroupItem extends CommonToolbarItem {
 }
 
 /** Describes the data needed to insert a custom button into a toolbar.
- * @beta
+ * @public
  */
 export interface ToolbarCustomItem extends CommonToolbarItem {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
@@ -97,26 +97,26 @@ export interface ToolbarCustomItem extends CommonToolbarItem {
 }
 
 /** Any Button Type that can be inserted into a toolbar.
- * @beta
+ * @public
  */
 export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem;
 
 /** ToolbarActionItem type guard.
- * @beta
+ * @public
  */
 export function isToolbarActionItem(item: ToolbarItem): item is ToolbarActionItem {
   return "execute" in item;
 }
 
 /** ToolbarGroupItem type guard.
- * @beta
+ * @public
  */
 export function isToolbarGroupItem(item: ToolbarItem): item is ToolbarGroupItem {
   return "items" in item;
 }
 
 /** ToolbarCustomItem type guard.
- * @beta
+ * @public
  */
 export function isToolbarCustomItem(item: ToolbarItem): item is ToolbarCustomItem {
   return !isToolbarActionItem(item) && !isToolbarGroupItem(item);

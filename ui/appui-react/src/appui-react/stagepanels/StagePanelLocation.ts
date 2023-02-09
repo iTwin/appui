@@ -7,7 +7,7 @@
  */
 
 /** Available Stage Panel locations.
- * @public // TODO: 4.x cleanup
+ * @public
  */
 export enum StagePanelLocation {
   Top = 101,

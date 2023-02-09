@@ -14,7 +14,7 @@ import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/Toolba
 import { Widget } from "../widgets/Widget";
 
 /** Describes interface of objects that want to provide UI component to the running IModelApp.
- * @beta
+ * @public
  */
 export interface UiItemsProvider {
   /** Id of provider. */

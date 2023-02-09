@@ -10,7 +10,7 @@ import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itw
 import { IconSpec } from "@itwin/core-react";
 
 /** Describes the data needed to insert a button into the backstage menu.
- * @beta
+ * @public
  */
 export interface CommonBackstageItem {
   /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
@@ -41,14 +41,14 @@ export interface CommonBackstageItem {
 }
 
 /** Describes the data needed to insert an action button into the backstage menu.
- * @beta
+ * @public
  */
 export interface BackstageActionItem extends CommonBackstageItem {
   readonly execute: () => void;
 }
 
 /** Describes the data needed to insert an action button into the backstage menu.
- * @beta
+ * @public
  */
 export interface BackstageStageLauncher extends CommonBackstageItem {
   readonly stageId: string;

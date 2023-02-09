@@ -7,7 +7,7 @@
  */
 
 /** Widget state enum.
- * @public // TODO: 4.x cleanup
+ * @public
  */
 export enum WidgetState {
   Open = 0,

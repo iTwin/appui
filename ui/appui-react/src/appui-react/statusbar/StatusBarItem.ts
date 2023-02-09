@@ -11,7 +11,7 @@ import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itw
 import { IconSpec } from "@itwin/core-react";
 
 /** Status bar Groups/Sections from Left to Right
- * @beta
+ * @public
  */
 export enum StatusBarSection {
   /** area for tool assistance and messages */
@@ -31,7 +31,7 @@ export enum StatusBarSection {
 }
 
 /** Defines which side of Icon where label is placed
- * @beta
+ * @public
  */
 export enum StatusBarLabelSide {
   /** Label is placed left side of icon. This is the default if not specified */
@@ -41,7 +41,7 @@ export enum StatusBarLabelSide {
 }
 
 /** Describes the data needed to insert a button into the status bar.
- * @beta
+ * @public
  */
 export interface CommonStatusBarItem {
   /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
@@ -59,7 +59,7 @@ export interface CommonStatusBarItem {
 }
 
 /** Describes the data needed to insert an action item into the status bar.
- * @beta
+ * @public
  */
 export interface StatusBarActionItem extends CommonStatusBarItem {
   /** method to execute when icon is pressed */
@@ -73,7 +73,7 @@ export interface StatusBarActionItem extends CommonStatusBarItem {
 }
 
 /** Describes the data needed to insert a label item with an optional icon into the status bar.
- * @beta
+ * @public
  */
 export interface StatusBarLabelItem extends CommonStatusBarItem {
   /** Icon of a status bar item. */
@@ -85,7 +85,7 @@ export interface StatusBarLabelItem extends CommonStatusBarItem {
 }
 
 /** Describes the data needed to insert an item into the StatusBar.
- * @beta
+ * @public
  */
 export interface StatusBarCustomItem extends CommonStatusBarItem {
   /** Content of the StatusBar item. */
@@ -93,26 +93,26 @@ export interface StatusBarCustomItem extends CommonStatusBarItem {
 }
 
 /** Describes the data needed to insert a button into the status bar.
- * @public // TODO: 4.x cleanup
+ * @public
  */
 export type StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem;
 
 /** StatusBarActionItem type guard.
- * @beta
+ * @public
  */
 export function isStatusBarActionItem(item: StatusBarItem): item is StatusBarActionItem {
   return "execute" in item;
 }
 
 /** StatusBarLabelItem type guard.
- * @beta
+ * @public
  */
 export function isStatusBarLabelItem(item: StatusBarItem): item is StatusBarLabelItem {
   return !isStatusBarActionItem(item) && "label" in item;
 }
 
 /** StatusBarCustomItem type guard.
- * @beta
+ * @public
  */
 export function isStatusBarCustomItem(item: StatusBarItem): item is StatusBarCustomItem {
   return "reactNode" in item;

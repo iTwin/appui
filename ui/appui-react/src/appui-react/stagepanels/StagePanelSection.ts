@@ -7,7 +7,7 @@
  */
 
 /** Enum for Stage Panel Sections
- * @beta
+ * @public
  */
 export enum StagePanelSection {
   Start,

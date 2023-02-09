@@ -11,7 +11,10 @@ import { IconSpec, SizeProps } from "@itwin/core-react";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { WidgetState } from "./WidgetState";
 
-interface CanFloatWidgetOptions {
+/** Describes options of a floating widget.
+ * @public
+ */
+export interface CanFloatWidgetOptions {
   readonly isResizable?: boolean;
   readonly defaultPosition?: PointProps;
   readonly defaultSize?: SizeProps;
@@ -20,7 +23,7 @@ interface CanFloatWidgetOptions {
 }
 
 /** Describes the data needed to provide a widget.
- * @public // TODO: 4.x cleanup
+ * @public
  */
 export interface Widget {
   readonly id: string;
