@@ -8,7 +8,6 @@
 
 import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { IconSpec } from "@itwin/core-react";
-import { ProviderItem } from "../ui-items-provider/ProviderItem";
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
  * @public // TODO: 4.x cleanup
@@ -33,7 +32,7 @@ export enum ToolbarOrientation {
 /** Describes the data needed to insert a UI items into an existing set of UI items.
  * @beta
  */
-export interface CommonToolbarItem extends ProviderItem {
+export interface CommonToolbarItem {
   /** Require uniqueId for the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
   /** Describes badge. Renders no badge if not specified. */

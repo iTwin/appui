@@ -14,6 +14,7 @@ import { StatusBarItem } from "../statusbar/StatusBarItem";
 import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { UiFramework } from "../UiFramework";
 import { Widget } from "../widgets/Widget";
+import { ProviderItem } from "./ProviderItem";
 import { UiItemsProvider } from "./UiItemsProvider";
 
 /** UiItemsProvider register event args.
@@ -141,10 +142,8 @@ export class UiItemsManager {
    * @param toolbarOrientation orientation of the toolbar
    * @returns an array of error messages. The array will be empty if the load is successful, otherwise it is a list of one or more problems.
    */
-  public static getToolbarButtonItems(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
-    const buttonItems: ToolbarItem[] = [];
-    if (0 === UiItemsManager._registeredUiItemsProviders.size)
-      return buttonItems;
+  public static getToolbarButtonItems(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>> {
+    const buttonItems: ProviderItem<ToolbarItem>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry: UiItemProviderEntry) => {
       const uiProvider = entry.provider;
@@ -168,11 +167,8 @@ export class UiItemsManager {
    * @param stageUsage the StageUsage of the active stage.
    * @returns An array of CommonStatusBarItem that will be used to create controls for the status bar.
    */
-  public static getStatusBarItems(stageId: string, stageUsage: string): StatusBarItem[] {
-    const statusBarItems: StatusBarItem[] = [];
-
-    if (0 === UiItemsManager._registeredUiItemsProviders.size)
-      return statusBarItems;
+  public static getStatusBarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<StatusBarItem>> {
+    const statusBarItems: ProviderItem<StatusBarItem>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry: UiItemProviderEntry) => {
       const uiProvider = entry.provider;
@@ -195,11 +191,8 @@ export class UiItemsManager {
   /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
    * @returns An array of BackstageItem that will be used to create controls for the backstage menu.
    */
-  public static getBackstageItems(): BackstageItem[] {
-    const backstageItems: BackstageItem[] = [];
-
-    if (0 === UiItemsManager._registeredUiItemsProviders.size)
-      return backstageItems;
+  public static getBackstageItems(): ReadonlyArray<ProviderItem<BackstageItem>> {
+    const backstageItems: ProviderItem<BackstageItem>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry: UiItemProviderEntry) => {
       const uiProvider = entry.provider;
@@ -215,6 +208,7 @@ export class UiItemsManager {
           });
       }
     });
+
     return backstageItems;
   }
 
@@ -225,11 +219,8 @@ export class UiItemsManager {
    * @param section the section within location.
    * @returns An array of widgets.
    */
-  public static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<Widget> {
-    const widgets: Widget[] = [];
-
-    if (0 === UiItemsManager._registeredUiItemsProviders.size)
-      return widgets;
+  public static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<ProviderItem<Widget>> {
+    const widgets: ProviderItem<Widget>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
       const uiProvider = entry.provider;
@@ -245,6 +236,7 @@ export class UiItemsManager {
           });
       }
     });
+
     return widgets;
   }
 

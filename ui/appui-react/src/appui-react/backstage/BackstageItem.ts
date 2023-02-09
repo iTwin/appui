@@ -8,12 +8,11 @@
 
 import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { IconSpec } from "@itwin/core-react";
-import { ProviderItem } from "../ui-items-provider/ProviderItem";
 
 /** Describes the data needed to insert a button into the backstage menu.
  * @beta
  */
-export interface CommonBackstageItem extends ProviderItem {
+export interface CommonBackstageItem {
   /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
   /** Describes badge. Renders no badge if not specified. */

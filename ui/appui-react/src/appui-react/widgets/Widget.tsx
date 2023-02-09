@@ -9,7 +9,6 @@
 import { BadgeType, ConditionalStringValue, PointProps } from "@itwin/appui-abstract";
 import { IconSpec, SizeProps } from "@itwin/core-react";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { ProviderItem } from "../ui-items-provider/ProviderItem";
 import { WidgetState } from "./WidgetState";
 
 interface CanFloatWidgetOptions {
@@ -23,7 +22,7 @@ interface CanFloatWidgetOptions {
 /** Describes the data needed to provide a widget.
  * @public // TODO: 4.x cleanup
  */
-export interface Widget extends ProviderItem {
+export interface Widget {
   readonly id: string;
   /** Stage panels to which this widget can be docked. All stage panels are allowed if nothing is provided. */
   readonly allowedPanels?: ReadonlyArray<StagePanelLocation>;

@@ -20,6 +20,7 @@ import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems";
 import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { StatusBarItemsManager } from "./StatusBarItemsManager";
+import { isProviderItem } from "../ui-items-provider/isProviderItem";
 
 /** Private  function to generate a value that will allow the proper order to be maintained when items are placed in overflow panel */
 function getCombinedSectionItemPriority(item: StatusBarItem) {
@@ -315,7 +316,8 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
 
   /** generate a wrapped status bar entry that will report its size. */
   const getComponent = React.useCallback((item: StatusBarItem, key: string, itemPriority: number,
-    section: StatusBarSection, providerId?: string): React.ReactNode => {
+    section: StatusBarSection): React.ReactNode => {
+    const providerId = isProviderItem(item) ? item.providerId : undefined;
     return (
       <DockedStatusBarEntry
         key={key}
@@ -338,7 +340,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
 
     return sectionItems.map((sectionItem) => (
       <React.Fragment key={sectionItem.id}>
-        {getComponent(sectionItem, sectionItem.id, sectionItem.itemPriority, sectionItem.section, sectionItem.providerId)}
+        {getComponent(sectionItem, sectionItem.id, sectionItem.itemPriority, sectionItem.section)}
       </React.Fragment>
     ));
   }, [statusBarItems, overflown, getComponent]);
@@ -350,7 +352,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
 
     return itemsInOverflow.map((item) => (
       <React.Fragment key={item.id}>
-        {getComponent(item, item.id, item.itemPriority, item.section, item.providerId)}
+        {getComponent(item, item.id, item.itemPriority, item.section)}
       </React.Fragment>
     ));
   }, [statusBarItems, overflown, getComponent]);

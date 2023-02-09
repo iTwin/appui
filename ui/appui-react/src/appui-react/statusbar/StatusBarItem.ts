@@ -9,7 +9,6 @@
 import * as React from "react";
 import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { IconSpec } from "@itwin/core-react";
-import { ProviderItem } from "../ui-items-provider/ProviderItem";
 
 /** Status bar Groups/Sections from Left to Right
  * @beta
@@ -44,7 +43,7 @@ export enum StatusBarLabelSide {
 /** Describes the data needed to insert a button into the status bar.
  * @beta
  */
-export interface CommonStatusBarItem extends ProviderItem {
+export interface CommonStatusBarItem {
   /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
   /** Describes badge. Renders no badge if not specified. */

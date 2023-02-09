@@ -47,8 +47,8 @@ function useBackstageItemSyncEffect(itemsManager: BackstageItemsManager, syncIds
 }
 
 /** local function to combine items from Stage and from Extensions */
-function combineItems(stageItems: ReadonlyArray<BackstageItem>, addonItems: ReadonlyArray<BackstageItem>, hideSoloStageEntry: boolean) {
-  let items: BackstageItem[] = [];
+function combineItems(stageItems: ReadonlyArray<BackstageItem>, addonItems: ReadonlyArray<BackstageItem>, hideSoloStageEntry: boolean): ReadonlyArray<BackstageItem> {
+  let items: Array<BackstageItem> = [];
   if (stageItems.length) {
     // Walk through each and ensure no duplicate ids are added.
     stageItems.forEach((srcItem) => {
@@ -159,7 +159,6 @@ export function BackstageComposer(props: BackstageComposerProps) {
 
   const combinedBackstageItems = React.useMemo(() => combineItems(defaultItems, addonItems, !!props.hideSoloStageEntry), [defaultItems, addonItems, props.hideSoloStageEntry]);
   const groups = useGroupedItems(combinedBackstageItems);
-
   return (
     <NZ_Backstage
       className={props.className}

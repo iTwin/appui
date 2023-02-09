@@ -15,6 +15,7 @@ import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { useBackstageManager } from "./BackstageManager";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
 import { BackstageActionItem, BackstageItem, BackstageStageLauncher, isBackstageStageLauncher } from "./BackstageItem";
+import { isProviderItem } from "../ui-items-provider/isProviderItem";
 
 /** @internal */
 export interface BackstageComposerActionItemProps {
@@ -31,7 +32,7 @@ export function BackstageComposerActionItem({ item }: BackstageComposerActionIte
   return (
     <NZ_BackstageItem
       itemId={item.id}
-      providerId={item.providerId}
+      providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
       icon={<Icon iconSpec={item.icon} />}
@@ -65,7 +66,7 @@ export function BackstageComposerStageLauncher({ item }: BackstageComposerStageL
   return (
     <NZ_BackstageItem
       itemId={item.id}
-      providerId={item.providerId}
+      providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
       icon={<Icon iconSpec={item.icon} />}
@@ -86,7 +87,6 @@ export function BackstageComposerStageLauncher({ item }: BackstageComposerStageL
 export interface BackstageComposerItemProps {
   /** Backstage item to render */
   readonly item: BackstageItem;
-  readonly providerId?: string;
 }
 
 /** Item of [[BackstageComposer]].

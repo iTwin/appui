@@ -6,9 +6,9 @@
  * @module UiProvider
  */
 
-/** Properties of an item provided by UiItemsProvider.
- * @beta
- */
-export type ProviderItem<T> = T & {
-  readonly providerId: string;
-};
+import { ProviderItem } from "./ProviderItem";
+
+/** @internal */
+export function isProviderItem<T extends object>(item: T): item is ProviderItem<T> {
+  return "providerId" in item;
+}

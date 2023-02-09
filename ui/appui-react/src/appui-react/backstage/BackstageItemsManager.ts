@@ -17,12 +17,6 @@ export interface BackstageItemsChangedArgs {
   readonly items: ReadonlyArray<BackstageItem>;
 }
 
-type InstanceOrArray<T> = T | ReadonlyArray<T>;
-
-const isInstance = <T extends any>(args: InstanceOrArray<T>): args is T => {
-  return !Array.isArray(args);
-};
-
 /**
  * Controls backstage items.
  * @internal
@@ -78,7 +72,7 @@ export class BackstageItemsManager {
   /** @internal */
   public add(itemOrItems: BackstageItem | ReadonlyArray<BackstageItem>) {
     let itemsToAdd;
-    if (isInstance(itemOrItems))
+    if (!Array.isArray(itemOrItems))
       itemsToAdd = [itemOrItems];
     else {
       itemsToAdd = itemOrItems.filter((itemToAdd, index) => itemOrItems.findIndex((item) => item.id === itemToAdd.id) === index);
@@ -96,7 +90,7 @@ export class BackstageItemsManager {
   /** @internal */
   public remove(itemIdOrItemIds: BackstageItem["id"] | ReadonlyArray<BackstageItem["id"]>) {
     const items = this._items.filter((item) => {
-      return isInstance(itemIdOrItemIds) ? item.id !== itemIdOrItemIds : !itemIdOrItemIds.find((itemId) => itemId === item.id);
+      return Array.isArray(itemIdOrItemIds) ? !itemIdOrItemIds.find((itemId) => itemId === item.id) : item.id !== itemIdOrItemIds;
     });
     this.items = items;
   }
