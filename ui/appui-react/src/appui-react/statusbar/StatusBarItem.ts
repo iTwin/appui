@@ -115,5 +115,5 @@ export function isStatusBarLabelItem(item: StatusBarItem): item is StatusBarLabe
  * @public
  */
 export function isStatusBarCustomItem(item: StatusBarItem): item is StatusBarCustomItem {
-  return "reactNode" in item;
+  return "content" in item;
 }
