@@ -34,18 +34,18 @@ export class NestedFrontstage1 extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: <FrontstageToolWidget />,
+        content: <FrontstageToolWidget />,
       },
       toolSettings: {
         id: "toolSettings",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: <FrontstageNavigationWidget />,
+        content: <FrontstageNavigationWidget />,
       },
       statusBar: {
         id: "statusBar",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
         labelKey: "SampleApp:widgets.StatusBar",
         control: SmallStatusBarWidgetControl,
       },
@@ -55,14 +55,14 @@ export class NestedFrontstage1 extends FrontstageProvider {
             {
               id: "HorizontalPropertyGrid",
               defaultState: WidgetState.Closed,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
               control: HorizontalPropertyGridWidgetControl,
             },
             {
               id: "VerticalPropertyGrid",
               defaultState: WidgetState.Hidden,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
               control: VerticalPropertyGridWidgetControl,
             },

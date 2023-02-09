@@ -57,16 +57,16 @@ export class EditFrontstage extends FrontstageProvider {
       usage: StageUsage.Edit,
       contentManipulation: {
         id: "contentManipulation",
-        element: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
+        content: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
           additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={false} />,
       },
       toolSettings: {
         id: "toolSettings",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
+        content: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
       },
       statusBar: {
         id: "statusBar",
@@ -79,14 +79,14 @@ export class EditFrontstage extends FrontstageProvider {
             {
               id: "ActiveSettings",
               defaultState: WidgetState.Closed,
-              iconSpec: "icon-active",
+              icon: "icon-active",
               labelKey: "SampleApp:widgets.ActiveSettings",
               control: ActiveSettingsWidget,
             },
             {
               id: "ModelCreation",
               defaultState: WidgetState.Closed,
-              iconSpec: "icon-add",
+              icon: "icon-add",
               labelKey: "SampleApp:widgets.ModelCreation",
               control: ModelCreationWidget,
             },

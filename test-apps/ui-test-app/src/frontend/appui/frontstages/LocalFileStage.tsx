@@ -77,7 +77,7 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
       usage: StageUsage.Private,
       contentManipulation: {
         id: "contentManipulation",
-        element: < FrontstageToolWidget />,
+        content: <FrontstageToolWidget />,
       },
     };
   }

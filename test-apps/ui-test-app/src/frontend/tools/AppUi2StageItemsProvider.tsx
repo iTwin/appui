@@ -6,8 +6,8 @@
 
 import * as React from "react";
 import {
-  BackstageManager, CommonWidgetProps, StagePanelLocation, StagePanelSection, ToolbarHelper, ToolbarItem, ToolbarOrientation,
-  ToolbarUsage, UiItemsManager, UiItemsProvider, WidgetState,
+  BackstageManager, StagePanelLocation, StagePanelSection, ToolbarHelper, ToolbarItem, ToolbarOrientation,
+  ToolbarUsage, UiItemsManager, UiItemsProvider, Widget, WidgetState,
 } from "@itwin/appui-react";
 import { FloatingLayoutInfo, LayoutControls, LayoutInfo } from "../appui/widgets/LayoutWidget";
 import { AppTools } from "./ToolSpecifications";
@@ -28,7 +28,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
   }
 
   private getLeftPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: CommonWidgetProps[] = [];
+    const widgets: Widget[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push(
@@ -38,8 +38,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           icon: "icon-app-1",
           canPopout: true,
           defaultState: WidgetState.Open,
-          getWidgetContent: () => <h2>Left Start1 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Left Start1 widget</h2>,
         });
       widgets.push(
         {
@@ -48,8 +47,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           canPopout: true,
           icon: "icon-app-2",
           defaultState: WidgetState.Open,
-          getWidgetContent: () => <h2>Left Start2 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Left Start2 widget</h2>,
         }
       );
     } else if (section === StagePanelSection.End) {
@@ -59,8 +57,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           label: "Middle1",
           icon: "icon-smiley-happy",
           canPopout: false,
-          getWidgetContent: () => <h2>Left Middle1 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Left Middle1 widget</h2>,
         });
       widgets.push(
         {
@@ -69,8 +66,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           icon: "icon-smiley-sad",
           defaultState: WidgetState.Open,
           canPopout: true,
-          getWidgetContent: () => <h2>Left Middle2 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Left Middle2 widget</h2>,
         }
       );
       widgets.push(
@@ -79,8 +75,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           label: "End1",
           icon: "icon-smiley-happy-very",
           canPopout: true,
-          getWidgetContent: () => <h2>Left  End1 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Left  End1 widget</h2>,
         });
       widgets.push(
         {
@@ -89,8 +84,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           icon: "icon-smiley-sad-very",
           canPopout: true,
           defaultState: WidgetState.Open,
-          getWidgetContent: () => <h2>Left End2 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Left End2 widget</h2>,
         }
       );
     }
@@ -98,7 +92,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
   }
 
   private getRightPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: CommonWidgetProps[] = [];
+    const widgets: Widget[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push(
@@ -108,8 +102,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           icon: "icon-text-align-text-align-left",
           canPopout: true,
           defaultState: WidgetState.Open,
-          getWidgetContent: () => <h2>Right Start1 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Right Start1 widget</h2>,
         });
       widgets.push(
         {
@@ -118,8 +111,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           icon: "icon-text-align-text-align-right",
           canPopout: true,
           defaultState: WidgetState.Hidden,
-          getWidgetContent: () => <h2>Right Start2 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Right Start2 widget</h2>,
         }
       );
     } else if (section === StagePanelSection.End) {
@@ -129,8 +121,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           label: "Middle1",
           icon: "icon-text-align-text-align-center",
           canPopout: false,
-          getWidgetContent: () => <h2>Right Middle1 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Right Middle1 widget</h2>,
         });
       widgets.push(
         {
@@ -139,8 +130,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           icon: "icon-text-align-text-align-justify",
           defaultState: WidgetState.Open,
           canPopout: true,
-          getWidgetContent: () => <h2>Right Middle2 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Right Middle2 widget</h2>,
         }
       );
       widgets.push(
@@ -149,8 +139,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           label: "End1",
           icon: "icon-user",
           canPopout: true,
-          getWidgetContent: () => <h2>Right  End1 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Right  End1 widget</h2>,
         });
       widgets.push(
         {
@@ -159,8 +148,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           icon: "icon-users",
           canPopout: true,
           defaultState: WidgetState.Open,
-          getWidgetContent: () => <h2>Right End2 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Right End2 widget</h2>,
         }
       );
     }
@@ -168,7 +156,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
   }
 
   private getTopPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: CommonWidgetProps[] = [];
+    const widgets: Widget[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push(
@@ -177,18 +165,18 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           label: "Start1",
           canPopout: true,
           defaultState: WidgetState.Open,
-          getWidgetContent: () => <h2>Top Start1 widget</h2>,
-          isFloatingStateSupported: true,
-          defaultFloatingSize: { width: 400, height: 600 },
-          isFloatingStateWindowResizable: true,
+          content: <h2>Top Start1 widget</h2>,
+          canFloat: {
+            isResizable: true,
+            defaultSize: { width: 400, height: 600 },
+          },
         });
       widgets.push(
         {
           id: "TopStart2",
           label: "Start2",
           canPopout: true,
-          getWidgetContent: () => <h2>Top Start2 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Top Start2 widget</h2>,
         }
       );
     } else if (section === StagePanelSection.End) {
@@ -197,8 +185,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           id: "TopEnd1",
           label: "End1",
           canPopout: true,
-          getWidgetContent: () => <h2>Top  End1 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Top  End1 widget</h2>,
         });
       widgets.push(
         {
@@ -206,8 +193,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           label: "End2",
           canPopout: true,
           defaultState: WidgetState.Open,
-          getWidgetContent: () => <h2>Top End2 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Top End2 widget</h2>,
         }
       );
     }
@@ -215,7 +201,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
   }
 
   private getBottomPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: CommonWidgetProps[] = [];
+    const widgets: Widget[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push(
@@ -224,16 +210,14 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           label: "Floating Info",
           canPopout: true,
           defaultState: WidgetState.Open,
-          getWidgetContent: () => <FloatingLayoutInfo />,
-          isFloatingStateSupported: true,
+          content: <FloatingLayoutInfo />,
         });
       widgets.push(
         {
           id: "BottomStart2",
           label: "Layout Info",
           canPopout: true,
-          getWidgetContent: () => <LayoutInfo />,
-          isFloatingStateSupported: true,
+          content: <LayoutInfo />,
         }
       );
     } else if (section === StagePanelSection.End) {
@@ -242,8 +226,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           id: "BottomEnd1",
           label: "End1",
           canPopout: true,
-          getWidgetContent: () => <h2>Bottom  End1 widget</h2>,
-          isFloatingStateSupported: true,
+          content: <h2>Bottom  End1 widget</h2>,
         });
       widgets.push(
         {
@@ -251,15 +234,14 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
           label: "Layout Controls",
           canPopout: true,
           defaultState: WidgetState.Open,
-          getWidgetContent: () => <LayoutControls />,
-          isFloatingStateSupported: true,
+          content: <LayoutControls />,
         }
       );
     }
     return widgets;
   }
 
-  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<CommonWidgetProps> {
+  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<Widget> {
     const allowedStages = [FrontstageUi2.stageId];
     if (allowedStages.includes(stageId)) {
       switch (location) {

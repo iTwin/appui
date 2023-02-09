@@ -89,14 +89,14 @@ export class Frontstage1 extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: <FrontstageToolWidget />,
+        content: <FrontstageToolWidget />,
       },
       toolSettings: {
         id: "toolSettings",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: < FrontstageNavigationWidget />,
+        content: <FrontstageNavigationWidget />,
       },
       statusBar: {
         id: "statusBar",
@@ -108,11 +108,11 @@ export class Frontstage1 extends FrontstageProvider {
           start: [
             {
               id: "topPanel",
-              element: <h2>Top panel</h2>,
+              content: <h2>Top panel</h2>,
             },
             {
               id: "topMostPanel",
-              element: <>
+              content: <>
                 <h2>TopMost panel</h2>
                 <span>BottomMost panel:</span>
                 & nbsp;
@@ -120,14 +120,14 @@ export class Frontstage1 extends FrontstageProvider {
                   const frontstageDef = FrontstageManager.activeFrontstageDef;
                   const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
                   widgetDef?.setWidgetState(WidgetState.Open);
-                }} > show</button>
+                }}>show</button>
                 & nbsp;
                 < button onClick={() => {
                   const frontstageDef = FrontstageManager.activeFrontstageDef;
                   const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
                   widgetDef?.setWidgetState(WidgetState.Hidden);
                 }
-                }> hide</button >
+                }>hide</button>
               </>,
             },
           ],
@@ -138,7 +138,7 @@ export class Frontstage1 extends FrontstageProvider {
           start: [
             {
               id: "VerticalPropertyGrid",
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
               control: VerticalPropertyGridWidgetControl,
             },
@@ -152,21 +152,21 @@ export class Frontstage1 extends FrontstageProvider {
           start: [
             {
               id: "RightPanel",
-              element: <RightPanel />,
+              content: <RightPanel />,
             },
           ],
           end: [
             {
               id: "HorizontalPropertyGrid1",
               defaultState: WidgetState.Open,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
               control: HorizontalPropertyGridWidgetControl,
             },
             {
               id: "VerticalPropertyGrid1",
               defaultState: WidgetState.Hidden,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
               control: VerticalPropertyGridWidgetControl,
             },
@@ -178,13 +178,13 @@ export class Frontstage1 extends FrontstageProvider {
           start: [
             {
               id: "SampleTimeline",
-              element: <SampleTimelineComponent />,
+              content: <SampleTimelineComponent />,
             },
           ],
           end: [
             {
               id: "BottomMostPanelWidget",
-              element: <h2> BottomMost panel</h2>,
+              content: <h2>BottomMost panel</h2>,
             },
           ],
         },

@@ -326,8 +326,6 @@ export class ViewsFrontstage extends FrontstageProvider {
   }
 
   public override frontstageConfig(): FrontstageConfig {
-    const iModelConnection = UiFramework.getIModelConnection();
-
     return {
       id: ViewsFrontstage.stageId,
       version: 3.1,
@@ -335,17 +333,17 @@ export class ViewsFrontstage extends FrontstageProvider {
       usage: StageUsage.General,
       contentManipulation: {
         id: "contentManipulation",
-        element: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
+        content: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
           additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={true} />,
       },
       toolSettings: {
         id: "toolSettings",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
         preferredPanelSize: "fit-content",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
+        content: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
       },
       statusBar: {
         id: "statusBar",
@@ -357,18 +355,18 @@ export class ViewsFrontstage extends FrontstageProvider {
           end: [
             {
               defaultState: WidgetState.Closed,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.UnifiedSelectPropertyGrid",
               id: ViewsFrontstage.unifiedSelectionPropertyGridId,
               control: UnifiedSelectionPropertyGridWidgetControl,
-              applicationData: { iModelConnection },
-              isFloatingStateWindowResizable: true,
-              defaultFloatingSize: { width: 200, height: 300 },
+              canFloat: {
+                defaultSize: { width: 200, height: 300 },
+              },
             },
             {
               id: "VerticalPropertyGrid",
               defaultState: WidgetState.Hidden,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
               control: VerticalPropertyGridWidgetControl,
             },

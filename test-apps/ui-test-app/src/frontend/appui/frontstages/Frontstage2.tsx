@@ -59,14 +59,14 @@ export class Frontstage2 extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: <FrontstageToolWidget />,
+        content: <FrontstageToolWidget />,
       },
       toolSettings: {
         id: "toolSettings",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: <FrontstageNavigationWidget />,
+        content: <FrontstageNavigationWidget />,
       },
       statusBar: {
         id: "statusBar",
@@ -78,7 +78,7 @@ export class Frontstage2 extends FrontstageProvider {
             {
               id: "HorizontalPropertyGrid",
               defaultState: WidgetState.Hidden,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
               control: HorizontalPropertyGridWidgetControl,
             },

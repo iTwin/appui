@@ -161,26 +161,26 @@ export class Frontstage4 extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: this.getToolWidget(),
+        content: this.getToolWidget(),
       },
       toolSettings: {
         id: "toolSettings",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: this.getNavigationWidget(),
+        content: this.getNavigationWidget(),
       },
       rightPanel: {
         defaultState: StagePanelState.Minimized,
         sections: {
           start: [
-            { id: "w1", iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree", control: NavigationTreeWidgetControl },
-            { id: "w2", iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo", control: TreeSelectionDemoWidgetControl },
+            { id: "w1", icon: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree", control: NavigationTreeWidgetControl },
+            { id: "w2", icon: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo", control: TreeSelectionDemoWidgetControl },
           ],
           end: [
-            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
-            { id: "w3", defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
-            { id: "w4", defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl2 },
+            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, icon: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
+            { id: "w3", defaultState: WidgetState.Open, icon: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
+            { id: "w4", defaultState: WidgetState.Open, icon: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl2 },
           ],
         },
       },
