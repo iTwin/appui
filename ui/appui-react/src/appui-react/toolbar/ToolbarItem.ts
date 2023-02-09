@@ -34,23 +34,18 @@ export enum ToolbarOrientation {
  * @beta
  */
 export interface CommonToolbarItem extends ProviderItem {
-  /** Describes badge. Renders no badge if not specified. */
-  readonly badgeType?: BadgeType;
-  /** Optional description */
-  readonly description?: string | ConditionalStringValue;
   /** Require uniqueId for the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
+  /** Describes badge. Renders no badge if not specified. */
+  readonly badge?: BadgeType;
+  /** Optional description */
+  readonly description?: string | ConditionalStringValue;
   /** Defines if the item is active (shown with an active stripe/bar). */
   readonly isActive?: boolean;
   /** Describes if the item is visible or hidden. The default is for the item to be visible. */
   readonly isHidden?: boolean | ConditionalBooleanValue;
   /** Describes if the item is enabled or disabled. The default is for the item to be enabled. */
   readonly isDisabled?: boolean | ConditionalBooleanValue;
-  /** Describes if the item should appear pressed (used for displaying toggle state). This property is NOT used by Toolbars
-   * constructed using the `ToolbarWithOverflow` component, which are used in AppUi 2.0 and later. For these later toolbars
-   * the icon is usually changed to denote the state of a toggle.
-   */
-  readonly isPressed?: boolean;
   /** Specifies the item's grouping value. Items are sorted by group and then item priority. When
    * group priority changes a separator is inserted. It is recommended using values 10 through 100, incrementing by 10. This
    * allows extensions enough gaps to insert their own groups. If the value is not specified a groupPriority of 0 is used.
@@ -58,8 +53,6 @@ export interface CommonToolbarItem extends ProviderItem {
   readonly groupPriority?: number;
   /** Priority within a toolbar or group. */
   readonly itemPriority: number;
-  /** Optional parent tool group to add tool. */
-  readonly parentToolGroupId?: string;
 }
 
 /** Describes the data needed to insert an action button into a toolbar.
@@ -72,6 +65,8 @@ export interface ToolbarActionItem extends CommonToolbarItem {
   readonly label: string | ConditionalStringValue;
   /** function to run when the button is pressed. */
   readonly execute: () => void;
+  /** Optional parent tool group to add the tool to. */
+  readonly parentGroupItemId?: string;
 }
 
 /** Describes the data needed to insert a group button into a toolbar.
@@ -86,6 +81,8 @@ export interface ToolbarGroupItem extends CommonToolbarItem {
   readonly panelLabel?: string | ConditionalStringValue;
   /** children of the group */
   readonly items: ReadonlyArray<ToolbarActionItem | ToolbarGroupItem>;
+  /** Optional parent tool group to add the tool to. */
+  readonly parentGroupItemId?: string;
 }
 
 /** Describes the data needed to insert a custom button into a toolbar.

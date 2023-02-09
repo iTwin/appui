@@ -9,9 +9,7 @@
 import * as React from "react";
 import { Icon, IconHelper, IconSpec } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
-import { ConditionalStringValue, StringGetter } from "@itwin/appui-abstract";
-import { Widget } from "../widgets/Widget";
-import { BackstageItem } from "../backstage/BackstageItem";
+import { ConditionalStringValue, StringGetter, AbstractWidgetProps as UIA_AbstractWidgetProps, CommonBackstageItem as UIA_CommonBackstageItem } from "@itwin/appui-abstract";
 
 /** A set of helper methods for various props
  * @public
@@ -59,7 +57,7 @@ export class PropsHelper {
   }
 
   /** @deprecated */
-  public static getAbstractPropsForReactIcon(iconSpec: IconSpec, internalData?: Map<string, any>): Partial<Widget> | Partial<BackstageItem> {
+  public static getAbstractPropsForReactIcon(iconSpec: IconSpec, internalData?: Map<string, any>): Partial<UIA_AbstractWidgetProps> | Partial<UIA_CommonBackstageItem> {
     // istanbul ignore else
     if (!iconSpec || !React.isValidElement(iconSpec))
       return {};

@@ -8,6 +8,7 @@
 
 import * as React from "react";
 import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import { IconSpec } from "@itwin/core-react";
 import { ProviderItem } from "../ui-items-provider/ProviderItem";
 
 /** Status bar Groups/Sections from Left to Right
@@ -44,14 +45,10 @@ export enum StatusBarLabelSide {
  * @beta
  */
 export interface CommonStatusBarItem extends ProviderItem {
-  /** can be used by application to store miscellaneous data. */
-  readonly applicationData?: any;
-  /** Describes badge. Renders no badge if not specified. */
-  readonly badgeType?: BadgeType;
   /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
   readonly id: string;
-  /** optional data to used by item implementor. */
-  readonly internalData?: Map<string, any>;
+  /** Describes badge. Renders no badge if not specified. */
+  readonly badge?: BadgeType;
   /** Describes if the item is visible or hidden. The default is for the item to be visible. */
   readonly isHidden?: boolean | ConditionalBooleanValue;
   /** Describes if the item is enabled or disabled. The default is for the item to be enabled. */
@@ -68,8 +65,8 @@ export interface CommonStatusBarItem extends ProviderItem {
 export interface StatusBarActionItem extends CommonStatusBarItem {
   /** method to execute when icon is pressed */
   readonly execute: () => void;
-  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id. */
-  readonly icon?: string | ConditionalStringValue;
+  /** Icon of a status bar item. */
+  readonly icon?: IconSpec;
   /** Label. */
   readonly label?: string | ConditionalStringValue;
   /** tooltip. */
@@ -80,8 +77,8 @@ export interface StatusBarActionItem extends CommonStatusBarItem {
  * @beta
  */
 export interface StatusBarLabelItem extends CommonStatusBarItem {
-  /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id. */
-  readonly icon?: string | ConditionalStringValue;
+  /** Icon of a status bar item. */
+  readonly icon?: IconSpec;
   /** Label. */
   readonly label: string | ConditionalStringValue;
   /** Defines which side of icon to display label if icon is defined. */

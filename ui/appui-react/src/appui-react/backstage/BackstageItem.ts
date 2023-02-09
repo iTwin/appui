@@ -7,27 +7,24 @@
  */
 
 import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import { IconSpec } from "@itwin/core-react";
 import { ProviderItem } from "../ui-items-provider/ProviderItem";
 
 /** Describes the data needed to insert a button into the backstage menu.
  * @beta
  */
 export interface CommonBackstageItem extends ProviderItem {
-  /** can be used by application to store miscellaneous data. */
-  readonly applicationData?: any;
+  /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
+  readonly id: string;
   /** Describes badge. Renders no badge if not specified. */
-  readonly badgeType?: BadgeType;
+  readonly badge?: BadgeType;
   /** Specifies the item's grouping value. Items are sorted by group and then item priority. When
    * group priority changes a separator is inserted. It is recommended using values 10 through 100, incrementing by 10. This
    * allows extensions enough gaps to insert their own groups.
    */
   readonly groupPriority: number;
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
-  readonly icon?: string | ConditionalStringValue;
-  /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
-  readonly id: string;
-  /** optional data to be used by item implementor. */
-  readonly internalData?: Map<string, any>;
+  readonly icon?: IconSpec;
   /** Describes if the item is visible or hidden. The default is for the item to be visible. */
   readonly isHidden?: boolean | ConditionalBooleanValue;
   /** Describes if the item is enabled or disabled. The default is for the item to be enabled. */

@@ -25,9 +25,12 @@ interface CanFloatWidgetOptions {
  */
 export interface Widget extends ProviderItem {
   readonly id: string;
+  /** Stage panels to which this widget can be docked. All stage panels are allowed if nothing is provided. */
   readonly allowedPanels?: ReadonlyArray<StagePanelLocation>;
-  readonly badgeType?: BadgeType;
+  readonly badge?: BadgeType;
+  /** Defaults to `false`. */
   readonly canPopout?: boolean;
+  /** Set to `false` to disable floating of a widget. Alternatively options object can be provided which enables floating. Defaults to `true`. */
   readonly canFloat?: boolean | CanFloatWidgetOptions;
   readonly defaultState?: WidgetState;
   /** Content of the Widget. */

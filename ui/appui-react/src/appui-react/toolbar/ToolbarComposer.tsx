@@ -55,7 +55,7 @@ function nestedAddItemToSpecifiedParentGroup(items: ReadonlyArray<ToolbarActionI
     const foundIndices: number[] = [];
 
     groupChildren.forEach((entry, index) => {
-      if (entry.parentToolGroupId === toolbarItem.id) {
+      if (entry.parentGroupItemId === toolbarItem.id) {
         foundIndices.push(index);
       }
     });
@@ -102,7 +102,7 @@ function addItemToSpecifiedParentGroup(items: readonly ToolbarItem[], groupChild
     const foundIndices: number[] = [];
 
     groupChildren.forEach((entry, index) => {
-      if (entry.parentToolGroupId === toolbarItem.id) {
+      if (entry.parentGroupItemId === toolbarItem.id) {
         foundIndices.push(index);
       }
     });
@@ -166,7 +166,7 @@ function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: Read
       if (-1 === items.findIndex((item) => item.id === srcItem.id)) {
         // if the default item is a group that an addon may insert into copy it so we don't mess with original
         const toolbarItem = isToolbarGroupItem(srcItem) ? cloneGroup(srcItem) : srcItem;
-        if (toolbarItem.parentToolGroupId && (isToolbarGroupItem(toolbarItem) || isToolbarActionItem(toolbarItem)))
+        if ((isToolbarGroupItem(toolbarItem) || isToolbarActionItem(toolbarItem)) && toolbarItem.parentGroupItemId)
           groupChildren.push(toolbarItem);
         else
           items.push(toolbarItem);
@@ -179,7 +179,7 @@ function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: Read
       if (-1 === items.findIndex((item) => item.id === srcItem.id)) {
         // if the default item is a group that an addon may insert into copy it so we don't mess with original
         const toolbarItem = isToolbarGroupItem(srcItem) ? cloneGroup(srcItem) : srcItem;
-        if (toolbarItem.parentToolGroupId && (isToolbarGroupItem(toolbarItem) || isToolbarActionItem(toolbarItem)))
+        if ((isToolbarGroupItem(toolbarItem) || isToolbarActionItem(toolbarItem)) && toolbarItem.parentGroupItemId)
           groupChildren.push(toolbarItem);
         else
           items.push(toolbarItem);
@@ -193,7 +193,7 @@ function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: Read
 
     if (groupChildren.length) {
       groupChildren.forEach((toolbarItem) => {
-        Logger.logWarning("ToolbarComposer", `Requested Parent Group [${toolbarItem.parentToolGroupId!}] not found, so item [${toolbarItem.id}] is added directly to toolbar.`);
+        Logger.logWarning("ToolbarComposer", `Requested Parent Group [${toolbarItem.parentGroupItemId!}] not found, so item [${toolbarItem.id}] is added directly to toolbar.`);
         items.push(toolbarItem);
       });
     }

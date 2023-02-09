@@ -41,7 +41,7 @@ describe("WidgetDef", () => {
       canFloat: {
         isResizable: false,
       },
-      badgeType: BadgeType.TechnicalPreview,
+      badge: BadgeType.TechnicalPreview,
       content: <div />,
     });
 
@@ -153,7 +153,7 @@ describe("WidgetDef", () => {
       const widgetDef = WidgetDef.create({
         id: "w1",
         classId: "WidgetDefTest",
-        badgeType: BadgeType.None,
+        badge: BadgeType.None,
       });
       widgetDef.setWidgetState(WidgetState.Open);
 

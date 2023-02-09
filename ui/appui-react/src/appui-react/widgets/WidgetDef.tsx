@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent } from "@itwin/appui-abstract";
 import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
@@ -18,7 +19,6 @@ import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl
 import { IconHelper, IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
 import { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
-import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent } from "@itwin/appui-abstract";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 
 const widgetStateNameMap = new Map<WidgetState, string>([
@@ -94,7 +94,7 @@ export class WidgetDef {
   private _applicationData?: any;
   private _iconSpec?: string | ConditionalStringValue | React.ReactNode;
   private _internalData?: Map<string, any>;
-  private _badgeType?: BadgeType;
+  private _badge?: BadgeType;
   private _onWidgetStateChanged?: () => void;
   private _saveTransientState?: () => void;
   private _restoreTransientState?: () => boolean;
@@ -140,7 +140,7 @@ export class WidgetDef {
   public get isFloating(): boolean { return this.state === WidgetState.Floating; }
   public get iconSpec(): IconSpec { return this._iconSpec === IconHelper.reactIconKey ? IconHelper.getIconReactNode(this._iconSpec, this._internalData) : this._iconSpec; }
   public set iconSpec(spec: IconSpec) { this._iconSpec = this._internalData ? IconHelper.getIconData(spec, this._internalData) : spec; }
-  public get badgeType(): BadgeType | undefined { return this._badgeType; }
+  public get badgeType(): BadgeType | undefined { return this._badge; }
   public get initialConfig(): WidgetConfig | undefined { return this._initialConfig; }
 
   public get widgetType(): WidgetType { return this._widgetType; }
@@ -228,8 +228,8 @@ export class WidgetDef {
     if (config.icon !== undefined && this._iconSpec === undefined)
       this._iconSpec = config.icon;
 
-    if (config.badgeType !== undefined)
-      this._badgeType = config.badgeType;
+    if (config.badge !== undefined)
+      this._badge = config.badge;
 
     this._preferredPanelSize = config.preferredPanelSize;
   }

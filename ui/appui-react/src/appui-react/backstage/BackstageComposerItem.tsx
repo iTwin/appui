@@ -9,7 +9,7 @@
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
-import { BadgeUtilities, Icon, IconHelper } from "@itwin/core-react";
+import { BadgeUtilities, Icon } from "@itwin/core-react";
 import { BackstageItem as NZ_BackstageItem } from "@itwin/appui-layout-react";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { useBackstageManager } from "./BackstageManager";
@@ -24,7 +24,6 @@ export interface BackstageComposerActionItemProps {
 /** @internal */
 export function BackstageComposerActionItem({ item }: BackstageComposerActionItemProps) {
   const manager = useBackstageManager();
-  const iconSpec = IconHelper.getIconReactNode(item.icon, item.internalData);
   const handleClick = React.useCallback(() => {
     manager.close();
     item.execute();
@@ -35,12 +34,12 @@ export function BackstageComposerActionItem({ item }: BackstageComposerActionIte
       providerId={item.providerId}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      icon={<Icon iconSpec={iconSpec} />}
+      icon={<Icon iconSpec={item.icon} />}
       isActive={ConditionalBooleanValue.getValue(item.isActive)}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      badge={BadgeUtilities.getComponentForBadgeType(item.badgeType)}
+      badge={BadgeUtilities.getComponentForBadgeType(item.badge)}
     >
       {ConditionalStringValue.getValue(item.label)}
     </NZ_BackstageItem>
@@ -63,19 +62,18 @@ export function BackstageComposerStageLauncher({ item }: BackstageComposerStageL
   }, [manager, item.stageId]);
   const activeFrontstageId = useActiveFrontstageId();
   const isActive = ConditionalBooleanValue.getValue(item.isActive ?? item.stageId === activeFrontstageId);
-  const iconSpec = IconHelper.getIconReactNode(item.icon, item.internalData);
   return (
     <NZ_BackstageItem
       itemId={item.id}
       providerId={item.providerId}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      icon={<Icon iconSpec={iconSpec} />}
+      icon={<Icon iconSpec={item.icon} />}
       isActive={isActive}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      badge={BadgeUtilities.getComponentForBadgeType(item.badgeType)}
+      badge={BadgeUtilities.getComponentForBadgeType(item.badge)}
     >
       {ConditionalStringValue.getValue(item.label)}
     </NZ_BackstageItem>
