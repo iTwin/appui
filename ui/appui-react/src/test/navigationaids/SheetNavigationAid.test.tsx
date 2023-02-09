@@ -64,7 +64,6 @@ describe("SheetNavigationAid", () => {
     it("SheetNavigationAidControl creates SheetNavigationAid", () => {
       const widgetDef = WidgetDef.create({
         id: "w1",
-        classId: "SheetNavigationAid",
       });
 
       const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);

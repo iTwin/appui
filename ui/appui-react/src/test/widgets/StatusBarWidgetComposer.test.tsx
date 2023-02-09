@@ -10,9 +10,7 @@ import {
   WidgetState,
 } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
-import {
-  ConfigurableUiControlType, FrontstageManager, StatusBarWidgetComposerControl, StatusBarWidgetControl, WidgetDef,
-} from "../../appui-react";
+import { ConfigurableUiControlType, FrontstageManager, StatusBarWidgetControl, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("StatusBarComposerControl", () => {
@@ -29,7 +27,6 @@ describe("StatusBarComposerControl", () => {
   it("will render empty status bar", async () => {
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: StatusBarWidgetComposerControl,
       defaultState: WidgetState.Open,
     });
     const statusBarControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;

@@ -10,27 +10,10 @@ import { Presentation } from "@itwin/presentation-frontend";
 import { initialize as initializePresentationTesting, terminate as terminatePresentationTesting } from "@itwin/presentation-testing";
 import { WidgetState } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, PresentationSelectionScope, SelectionScopeField, SessionStateActionId, StatusBar,
-  StatusBarWidgetControl, UiFramework, WidgetDef,
-} from "../../appui-react";
+import { ConfigurableUiControlType, PresentationSelectionScope, SessionStateActionId, StatusBar, StatusBarWidgetControl, UiFramework, WidgetDef } from "../../appui-react";
 import TestUtils, { handleError, selectChangeValueByIndex, stubScrollIntoView } from "../TestUtils";
 
 describe(`SelectionScopeField`, () => {
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <SelectionScopeField />
-        </>
-      );
-    }
-  }
-
   let widgetControl: StatusBarWidgetControl | undefined;
   describe("Bare tests", () => {
     before(async () => {
@@ -39,7 +22,6 @@ describe(`SelectionScopeField`, () => {
 
       const widgetDef = WidgetDef.create({
         id: "statusBar",
-        classId: AppStatusBarWidgetControl,
         defaultState: WidgetState.Open,
       });
       widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
@@ -98,7 +80,6 @@ describe(`SelectionScopeField`, () => {
 
       const widgetDef = WidgetDef.create({
         id: "statusBar",
-        classId: AppStatusBarWidgetControl,
         defaultState: WidgetState.Open,
       });
       widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;

@@ -23,7 +23,6 @@ describe("DrawingNavigationAidControl", () => {
   it("DrawingNavigationAidControl creates DrawingNavigationAid", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      classId: "DrawingNavigationAid",
     });
 
     const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);

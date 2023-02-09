@@ -22,7 +22,6 @@ describe("StagePanelDef", () => {
   it("Defaults, widgetDefs & widgetCount", () => {
     const w1 = WidgetDef.create({
       id: "w1",
-      classId: "Test",
     });
 
     const panelDef = new StagePanelDef();

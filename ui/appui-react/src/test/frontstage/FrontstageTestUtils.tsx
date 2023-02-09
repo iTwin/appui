@@ -94,12 +94,10 @@ export class TestFrontstage extends FrontstageProvider {
           start: [{
             id: "widget3",
             defaultState: WidgetState.Open,
-            control: TestWidget,
           }],
           end: [{
             id: "widget4",
             defaultState: WidgetState.Open,
-            control: TestWidget,
           }],
         },
       },
@@ -134,7 +132,6 @@ export class TestFrontstage extends FrontstageProvider {
         id: "statusBar",
         icon: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
-        control: AppStatusBarWidgetControl,
       },
     };
   }
@@ -179,12 +176,10 @@ export class TestFrontstage2 extends FrontstageProvider {
           start: [{
             id: "widget3",
             defaultState: WidgetState.Open,
-            control: TestWidget,
           }],
           end: [{
             id: "widget4",
             defaultState: WidgetState.Open,
-            control: TestWidget,
           }],
         },
       },
@@ -219,7 +214,6 @@ export class TestFrontstage2 extends FrontstageProvider {
         id: "statusBar",
         icon: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
-        control: AppStatusBarWidgetControl,
       },
     };
   }

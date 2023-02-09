@@ -13,9 +13,6 @@ import {
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../../frontend/index";
 import { EditTools } from "../../../tools/editing/ToolSpecifications";
 // cSpell:Ignore statusbars
-import { EditStatusBarWidgetControl } from "../../statusbars/editing/EditStatusBar";
-import { ActiveSettingsWidget } from "../../widgets/editing/ActiveSettingsWidget";
-import { ModelCreationWidget } from "../../widgets/editing/ModelCreationWidget";
 import { Orientation } from "@itwin/core-react";
 
 import sketchIconSvg from "../../icons/draw.svg";
@@ -70,7 +67,6 @@ export class EditFrontstage extends FrontstageProvider {
       },
       statusBar: {
         id: "statusBar",
-        control: EditStatusBarWidgetControl,
       },
       leftPanel: {
         size: 250,
@@ -81,14 +77,12 @@ export class EditFrontstage extends FrontstageProvider {
               defaultState: WidgetState.Closed,
               icon: "icon-active",
               labelKey: "SampleApp:widgets.ActiveSettings",
-              control: ActiveSettingsWidget,
             },
             {
               id: "ModelCreation",
               defaultState: WidgetState.Closed,
               icon: "icon-add",
               labelKey: "SampleApp:widgets.ModelCreation",
-              control: ModelCreationWidget,
             },
           ],
         },
@@ -96,7 +90,7 @@ export class EditFrontstage extends FrontstageProvider {
       bottomPanel: {
         sections: {
           start: [
-            { id: AccuDrawWidgetControl.id, label: AccuDrawWidgetControl.label, control: AccuDrawWidgetControl },
+            { id: AccuDrawWidgetControl.id, label: AccuDrawWidgetControl.label },
           ],
         },
       },

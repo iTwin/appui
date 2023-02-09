@@ -212,11 +212,6 @@ export class WidgetDef {
     else if (config.tooltipKey)
       this._tooltip = UiFramework.localization.getLocalizedString(config.tooltipKey);
 
-    if (config.control !== undefined)
-      this._classId = config.control;
-    else if (config.classId !== undefined)
-      this._classId = config.classId;
-
     if (config.defaultState !== undefined) {
       this._defaultState = config.defaultState;
     }

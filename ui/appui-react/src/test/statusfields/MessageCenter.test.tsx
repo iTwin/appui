@@ -16,7 +16,7 @@ import { EmptyLocalization } from "@itwin/core-common";
 
 describe(`MessageCenter`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   class AppStatusBarWidgetControl extends StatusBarWidgetControl {
@@ -37,14 +37,13 @@ describe(`MessageCenter`, () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup({ localization: new EmptyLocalization() });
 
     ConfigurableUiManager.unregisterControl("AppStatusBar");
     ConfigurableUiManager.registerControl("AppStatusBar", AppStatusBarWidgetControl);
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;

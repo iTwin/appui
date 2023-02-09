@@ -10,8 +10,6 @@ import {
   ToolbarHelper, ToolItemDef, ToolWidgetComposer,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
-import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
-import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { NestedFrontstage2 } from "./NestedFrontstage2";
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
@@ -47,7 +45,6 @@ export class NestedFrontstage1 extends FrontstageProvider {
         id: "statusBar",
         icon: "icon-placeholder",
         labelKey: "SampleApp:widgets.StatusBar",
-        control: SmallStatusBarWidgetControl,
       },
       rightPanel: {
         sections: {
@@ -57,14 +54,12 @@ export class NestedFrontstage1 extends FrontstageProvider {
               defaultState: WidgetState.Closed,
               icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
-              control: HorizontalPropertyGridWidgetControl,
             },
             {
               id: "VerticalPropertyGrid",
               defaultState: WidgetState.Hidden,
               icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-              control: VerticalPropertyGridWidgetControl,
             },
           ],
         },

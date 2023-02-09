@@ -10,28 +10,13 @@ import {
 } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
 import {
-  AppNotificationManager, ConfigurableCreateInfo, ConfigurableUiControlType, MessageCenterField, StatusBar, StatusBarCenterSection,
+  AppNotificationManager, ConfigurableUiControlType, StatusBar, StatusBarCenterSection,
   StatusBarLeftSection, StatusBarRightSection, StatusBarSpaceBetween, StatusBarWidgetControl, WidgetDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { MessageManager } from "../../appui-react/messages/MessageManager";
 
 describe("StatusBar", () => {
-
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <MessageCenterField />
-        </>
-      );
-    }
-  }
-
   let widgetControl: StatusBarWidgetControl | undefined;
   let notifications: AppNotificationManager;
 
@@ -40,7 +25,6 @@ describe("StatusBar", () => {
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;

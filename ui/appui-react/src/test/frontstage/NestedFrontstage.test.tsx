@@ -10,13 +10,13 @@ import {
   ContentGroup, FrontstageConfig, FrontstageDef, FrontstageManager, FrontstageProvider, NestedFrontstage, ToolItemDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import { AppStatusBarWidgetControl, TestContentControl, TestFrontstage } from "./FrontstageTestUtils";
+import { TestContentControl, TestFrontstage } from "./FrontstageTestUtils";
 
 class TestNestedFrontstage extends FrontstageProvider {
   public get defaultToolDef() {
     return new ToolItemDef({
       toolId: "dummy",
-      iconSpec: "dummy",
+      icon: "dummy",
       label: "dummy",
       description: "dummy",
       execute: async () => { },
@@ -58,7 +58,6 @@ class TestNestedFrontstage extends FrontstageProvider {
         id: "statusBar",
         icon: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
-        control: AppStatusBarWidgetControl,
       },
     };
   }

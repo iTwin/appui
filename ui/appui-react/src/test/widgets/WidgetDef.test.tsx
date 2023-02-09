@@ -106,7 +106,6 @@ describe("WidgetDef", () => {
   it("registerControl & widgetControl using same classId", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      classId: "WidgetDefTest",
     });
 
     expect(widgetDef.getWidgetControl(ConfigurableUiControlType.Widget)).to.not.be.undefined;
@@ -116,7 +115,6 @@ describe("WidgetDef", () => {
   it("labelKey and tooltipKey should return translated string", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      classId: "WidgetDefTest",
       labelKey: "App:label",
       tooltipKey: "App:tooltip",
     });
@@ -128,7 +126,6 @@ describe("WidgetDef", () => {
   it("reactNode supports set and get", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      classId: "WidgetDefTest",
     });
 
     widgetDef.reactNode = <div />;
@@ -138,7 +135,6 @@ describe("WidgetDef", () => {
   it("widgetControl using constructor classId", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      classId: TestWidget,
     });
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
 
@@ -152,7 +148,6 @@ describe("WidgetDef", () => {
     it("should update widget state", () => {
       const widgetDef = WidgetDef.create({
         id: "w1",
-        classId: "WidgetDefTest",
         badge: BadgeType.None,
       });
       widgetDef.setWidgetState(WidgetState.Open);
@@ -178,7 +173,6 @@ describe("WidgetDef", () => {
   it("getWidgetControl throws an Error when type is incorrect", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      classId: "WidgetDefTest",
     });
 
     expect(() => widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget)).to.throw(Error);

@@ -30,7 +30,6 @@ describe("AccuDrawWidget", () => {
     const widgetDef = WidgetDef.create({
       id: AccuDrawWidgetControl.id,
       label: AccuDrawWidgetControl.label,
-      control: AccuDrawWidgetControl,
     });
     const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
 

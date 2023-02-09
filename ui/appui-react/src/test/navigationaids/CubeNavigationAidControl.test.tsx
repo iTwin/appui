@@ -22,7 +22,6 @@ describe("CubeNavigationAidControl", () => {
   it("CubeNavigationAidControl creates CubeNavigationAid", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      classId: "CubeNavigationAid",
     });
 
     const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);

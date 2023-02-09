@@ -10,7 +10,7 @@ import { MockRender, ToolAssistance, ToolAssistanceImage, ToolAssistanceInputMet
 import { WidgetState } from "@itwin/appui-abstract";
 import { LocalStateStorage } from "@itwin/core-react";
 import {
-  AppNotificationManager, ConfigurableCreateInfo, ConfigurableUiControlType, CursorPopupManager, FrontstageManager, StatusBar, StatusBarWidgetControl,
+  AppNotificationManager, ConfigurableUiControlType, CursorPopupManager, FrontstageManager, StatusBar, StatusBarWidgetControl,
   ToolAssistanceField, WidgetDef,
 } from "../../../appui-react";
 import TestUtils, { selectorMatches, storageMock, userEvent } from "../../TestUtils";
@@ -18,7 +18,7 @@ import { render, screen } from "@testing-library/react";
 
 describe(`ToolAssistanceField`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   const uiSettingsStorage = new LocalStateStorage({ localStorage: storageMock() } as Window);
@@ -32,26 +32,6 @@ describe(`ToolAssistanceField`, () => {
     defaultPromptAtCursor: false,
   });
 
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <DefaultValueContext.Consumer>{
-          (context) =>
-            <ToolAssistanceField
-              includePromptAtCursor={true}
-              uiStateStorage={uiSettingsStorage}
-              {...context}
-            />
-        }
-        </DefaultValueContext.Consumer>
-      );
-    }
-  }
-
   let widgetControl: StatusBarWidgetControl | undefined;
 
   before(async () => {
@@ -60,7 +40,6 @@ describe(`ToolAssistanceField`, () => {
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
@@ -385,7 +364,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("cursorPrompt should open when tool assistance set", async () => {
-    render(<DefaultValueContext.Provider value={{defaultPromptAtCursor: true}}>
+    render(<DefaultValueContext.Provider value={{ defaultPromptAtCursor: true }}>
       <StatusBar widgetControl={widgetControl} />
     </DefaultValueContext.Provider>
     );
@@ -404,7 +383,7 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("cursorPrompt should open when tool icon changes", () => {
-    render(<DefaultValueContext.Provider value={{defaultPromptAtCursor: true}}>
+    render(<DefaultValueContext.Provider value={{ defaultPromptAtCursor: true }}>
       <StatusBar widgetControl={widgetControl} />
     </DefaultValueContext.Provider>
     );

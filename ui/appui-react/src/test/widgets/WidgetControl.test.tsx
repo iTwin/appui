@@ -3,23 +3,13 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import * as React from "react";
 import * as sinon from "sinon";
 import { WidgetState } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ConfigurableUiControlType, WidgetConfig, WidgetControl, WidgetDef } from "../../appui-react";
+import { ConfigurableUiControlType, WidgetConfig, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { assert } from "@itwin/core-bentley";
 
 describe("WidgetControl", () => {
-
-  class TestWidget extends WidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-
-      this.reactNode = <div />;
-    }
-  }
-
   before(async () => {
     await TestUtils.initializeUiFramework();
   });
@@ -30,7 +20,6 @@ describe("WidgetControl", () => {
 
   const widgetConfig: WidgetConfig = {
     id: "test-widget",
-    classId: TestWidget,
     defaultState: WidgetState.Hidden,
   };
 

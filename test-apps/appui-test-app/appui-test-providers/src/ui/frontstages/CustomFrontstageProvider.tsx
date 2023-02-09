@@ -7,7 +7,7 @@ import {
   BackstageAppButton, BackstageManager, ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup,
   ContentToolWidgetComposer, CoreTools, FrontstageConfig, FrontstageManager, FrontstageProvider, StagePanelState,
   StandardContentToolsUiItemsProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider,
-  StatusBarWidgetComposerControl, UiItemsManager, ViewToolWidgetComposer,
+  StatusBarComposer, UiItemsManager, ViewToolWidgetComposer,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { CustomStageUiItemsProvider } from "../providers/CustomStageUiItemsProvider";
@@ -65,7 +65,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       },
       statusBar: {
         id: `${id}-statusBar`,
-        control: StatusBarWidgetComposerControl,
+        content: <StatusBarComposer key={FrontstageManager.activeFrontstageId} items={[]} />,
       },
       leftPanel: {
         size: 500,

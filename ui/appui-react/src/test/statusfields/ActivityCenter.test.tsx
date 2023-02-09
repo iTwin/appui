@@ -7,28 +7,11 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import { WidgetState } from "@itwin/appui-abstract";
-import {
-  ActivityCenterField, ConfigurableCreateInfo, ConfigurableUiControlType, MessageManager, StatusBar, StatusBarWidgetControl,
-  WidgetDef,
-} from "../../appui-react";
+import { ConfigurableUiControlType, MessageManager, StatusBar, StatusBarWidgetControl, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
 
 describe("ActivityCenter", () => {
-
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <ActivityCenterField />
-        </>
-      );
-    }
-  }
   let widgetControl: StatusBarWidgetControl | undefined;
 
   before(async () => {
@@ -37,7 +20,6 @@ describe("ActivityCenter", () => {
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;

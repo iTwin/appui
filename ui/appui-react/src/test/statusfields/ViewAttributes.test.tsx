@@ -8,32 +8,18 @@ import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { WidgetState } from "@itwin/appui-abstract";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
-import { ConfigurableCreateInfo, ConfigurableUiControlType } from "../../appui-react/configurableui/ConfigurableUiControl";
+import { ConfigurableUiControlType } from "../../appui-react/configurableui/ConfigurableUiControl";
 import { StatusBar } from "../../appui-react/statusbar/StatusBar";
 import { StatusBarWidgetControl } from "../../appui-react/statusbar/StatusBarWidgetControl";
-import { ViewAttributesStatusField } from "../../appui-react/statusfields/ViewAttributes";
 import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
 describe(`ViewAttributes`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <ViewAttributesStatusField />
-        </>
-      );
-    }
-  }
 
   let widgetControl: StatusBarWidgetControl | undefined;
 
@@ -43,7 +29,6 @@ describe(`ViewAttributes`, () => {
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
@@ -61,7 +46,7 @@ describe(`ViewAttributes`, () => {
 
     await theUserTo.click(screen.getByRole("button"));
 
-    expect(screen.getByText("listTools.viewAttributes", {selector: ".nz-title"})).to.exist;
+    expect(screen.getByText("listTools.viewAttributes", { selector: ".nz-title" })).to.exist;
 
     await theUserTo.click(screen.getAllByRole("button")[0]);
 

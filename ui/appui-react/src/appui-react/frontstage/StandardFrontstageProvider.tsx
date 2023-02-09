@@ -11,11 +11,11 @@ import { ContentGroup, ContentGroupProps, ContentGroupProvider } from "../conten
 import { FrontstageProvider } from "./FrontstageProvider";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
-import { StatusBarWidgetComposerControl } from "../widgets/StatusBarWidgetComposerControl";
 import { StagePanelState } from "../stagepanels/StagePanelDef";
 import { FrontstageConfig } from "./FrontstageConfig";
 import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import { StageUsage } from "./StageUsage";
+import { StatusBarComposer } from "../statusbar/StatusBarComposer";
 
 /** Properties of a [[WidgetPanelProps]] component
  * @public
@@ -101,7 +101,7 @@ export class StandardFrontstageProvider extends FrontstageProvider {
       },
       statusBar: this.props.hideStatusBar ? undefined : {
         id: `${this.props.id}-statusBar`,
-        control: StatusBarWidgetComposerControl,
+        content: <StatusBarComposer items={[]} />,
       },
       leftPanel: {
         size: 300,

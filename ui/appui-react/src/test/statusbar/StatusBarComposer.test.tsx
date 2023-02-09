@@ -5,14 +5,14 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
+import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, FrontstageDef, FrontstageManager, StageUsage, StatusBar, StatusBarComposer, StatusBarItem,
-  StatusBarItemUtilities, StatusBarLabelSide, StatusBarSection, StatusBarWidgetControl, SyncUiEventDispatcher, UiItemsManager, UiItemsProvider, WidgetDef, WidgetState,
+  ConfigurableUiControlType, FrontstageDef, FrontstageManager, StageUsage, StatusBar, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarLabelSide, StatusBarSection, StatusBarWidgetControl,
+  SyncUiEventDispatcher, UiItemsManager, UiItemsProvider, WidgetDef, WidgetState,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
-import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 
 describe("StatusBarComposer", () => {
 
@@ -54,18 +54,6 @@ describe("StatusBarComposer", () => {
     }
   }
 
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <StatusBarComposer items={[]} />
-      );
-    }
-  }
-
   function AppStatusBarComponent(props: {}) {
     return <div className="status-bar-component" {...props} />;
   }
@@ -78,7 +66,6 @@ describe("StatusBarComposer", () => {
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;

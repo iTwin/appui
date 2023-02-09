@@ -6,7 +6,6 @@
  * @module Widget
  */
 
-import { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
 import { Widget } from "./Widget";
 
 /** Configuration from which a widget is created.
@@ -17,10 +16,6 @@ export interface WidgetConfig extends Widget {
   readonly labelKey?: string;
   /** If set, it is used to define a key that is used to look up a localized string. This value is used only if tooltip is not explicitly set. */
   readonly tooltipKey?: string;
-  /** A [[WidgetControl]] providing information about the Widget. */
-  readonly control?: ConfigurableUiControlConstructor;
-  /** Control's class id */
-  readonly classId?: string | ConfigurableUiControlConstructor;
   /** @alpha */
   readonly preferredPanelSize?: "fit-content";
 }

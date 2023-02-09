@@ -8,28 +8,10 @@ import { Provider } from "react-redux";
 import { fireEvent, render } from "@testing-library/react";
 import { MockRender, SnapMode } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, SnapModeField, StatusBar, StatusBarWidgetControl, UiFramework,
-  WidgetDef,
-} from "../../appui-react";
+import { ConfigurableUiControlType, StatusBar, StatusBarWidgetControl, UiFramework, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("SnapModeField", () => {
-
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <SnapModeField />
-        </>
-      );
-    }
-  }
-
   let widgetControl: StatusBarWidgetControl | undefined;
 
   before(async () => {
@@ -39,7 +21,6 @@ describe("SnapModeField", () => {
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;

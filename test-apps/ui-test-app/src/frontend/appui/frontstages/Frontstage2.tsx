@@ -3,18 +3,15 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { CommonToolbarItem, ConditionalBooleanValue, StandardContentLayouts, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
   BackstageAppButton, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, FrontstageConfig, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
   SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
+import { IModelApp } from "@itwin/core-frontend";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { TreeExampleContentControl } from "../contentviews/TreeExampleContent";
-import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
-import {
-  HorizontalPropertyGridContentControl, HorizontalPropertyGridWidgetControl,
-} from "../widgets/PropertyGridDemoWidget";
-import { IModelApp } from "@itwin/core-frontend";
-import { CommonToolbarItem, ConditionalBooleanValue, StandardContentLayouts, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
+import { HorizontalPropertyGridContentControl } from "../widgets/PropertyGridDemoWidget";
 
 export class Frontstage2 extends FrontstageProvider {
   public static stageId = "ui-test-app:Test2";
@@ -70,7 +67,6 @@ export class Frontstage2 extends FrontstageProvider {
       },
       statusBar: {
         id: "statusBar",
-        control: SmallStatusBarWidgetControl,
       },
       rightPanel: {
         sections: {
@@ -80,7 +76,6 @@ export class Frontstage2 extends FrontstageProvider {
               defaultState: WidgetState.Hidden,
               icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
-              control: HorizontalPropertyGridWidgetControl,
             },
           ],
         },

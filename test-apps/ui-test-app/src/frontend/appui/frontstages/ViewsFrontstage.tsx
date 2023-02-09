@@ -33,9 +33,6 @@ import { CalculatorDialog } from "../dialogs/CalculatorDialog";
 import { SpinnerTestDialog } from "../dialogs/SpinnerTestDialog";
 import { TestRadialMenu } from "../dialogs/TestRadialMenu";
 import { ViewportDialog } from "../dialogs/ViewportDialog";
-import { AppStatusBarWidgetControl } from "../statusbars/AppStatusBar";
-import { VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
-import { UnifiedSelectionPropertyGridWidgetControl } from "../widgets/UnifiedSelectionPropertyGridWidget";
 import { ViewportWidget } from "../widgets/ViewportWidget";
 import { NestedAnimationStage } from "./NestedAnimationStage";
 import { ViewSelectorPanel } from "../../tools/ViewSelectorPanel";
@@ -347,7 +344,6 @@ export class ViewsFrontstage extends FrontstageProvider {
       },
       statusBar: {
         id: "statusBar",
-        control: AppStatusBarWidgetControl,
       },
       rightPanel: {
         maxSize: { percentage: 50 },
@@ -358,7 +354,6 @@ export class ViewsFrontstage extends FrontstageProvider {
               icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.UnifiedSelectPropertyGrid",
               id: ViewsFrontstage.unifiedSelectionPropertyGridId,
-              control: UnifiedSelectionPropertyGridWidgetControl,
               canFloat: {
                 defaultSize: { width: 200, height: 300 },
               },
@@ -368,7 +363,6 @@ export class ViewsFrontstage extends FrontstageProvider {
               defaultState: WidgetState.Hidden,
               icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-              control: VerticalPropertyGridWidgetControl,
             },
           ],
         },

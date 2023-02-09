@@ -7,32 +7,18 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { MockRender } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ConfigurableUiControlType } from "../../appui-react/configurableui/ConfigurableUiControl";
+import { ConfigurableUiControlType } from "../../appui-react/configurableui/ConfigurableUiControl";
 import { StatusBar } from "../../appui-react/statusbar/StatusBar";
 import { StatusBarWidgetControl } from "../../appui-react/statusbar/StatusBarWidgetControl";
-import { SectionsStatusField } from "../../appui-react/statusfields/SectionsField";
 import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
 describe(`SectionsField`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <SectionsStatusField />
-        </>
-      );
-    }
-  }
 
   let widgetControl: StatusBarWidgetControl | undefined;
 
@@ -42,7 +28,6 @@ describe(`SectionsField`, () => {
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
@@ -60,7 +45,7 @@ describe(`SectionsField`, () => {
 
     await theUserTo.click(screen.getByTitle("tools.sectionTools").firstElementChild!);
 
-    expect(screen.getByText("tools.sectionTools", {selector: ".nz-title"})).to.exist;
+    expect(screen.getByText("tools.sectionTools", { selector: ".nz-title" })).to.exist;
 
     await theUserTo.click(screen.getByTitle("tools.sectionTools").firstElementChild!);
 

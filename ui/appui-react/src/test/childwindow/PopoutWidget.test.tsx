@@ -15,7 +15,6 @@ describe("PopoutWidget", () => {
   const sandbox = sinon.createSandbox();
   const widgetDef = WidgetDef.create({
     id: "w1",
-    classId: "test",
     defaultState: WidgetState.Open,
   });
 

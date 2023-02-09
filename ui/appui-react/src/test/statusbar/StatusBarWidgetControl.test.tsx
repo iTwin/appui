@@ -5,37 +5,21 @@
 import { expect } from "chai";
 import * as React from "react";
 import { WidgetState } from "@itwin/appui-abstract";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, StatusBar, StatusBarWidgetControl, WidgetDef,
-} from "../../appui-react";
+import { ConfigurableUiControlType, StatusBar, StatusBarWidgetControl, WidgetDef } from "../../appui-react";
 import TestUtils, { selectorMatches } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 import { MockRender } from "@itwin/core-frontend";
 import { EmptyLocalization } from "@itwin/core-common";
 
 describe("StatusBarWidgetControl", () => {
-
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <div data-testid={"my-inner-node"}></div>
-      );
-    }
-  }
-
   let widgetControl: StatusBarWidgetControl | undefined;
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup({ localization: new EmptyLocalization() });
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",
-      classId: AppStatusBarWidgetControl,
       defaultState: WidgetState.Open,
     });
     widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;

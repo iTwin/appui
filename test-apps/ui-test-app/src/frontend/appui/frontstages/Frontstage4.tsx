@@ -23,11 +23,6 @@ import { TestModalDialog } from "../dialogs/TestModalDialog";
 import { TestModalDialog2 } from "../dialogs/TestModalDialog2";
 import { TestRadialMenu } from "../dialogs/TestRadialMenu";
 import { TestUiProvider } from "../dialogs/TestUiProviderDialog";
-import { NavigationTreeWidgetControl } from "../widgets/NavigationTreeWidget";
-import {
-  HorizontalPropertyGridWidgetControl, HorizontalPropertyGridWidgetControl2, VerticalPropertyGridWidgetControl,
-} from "../widgets/PropertyGridDemoWidget";
-import { TreeSelectionDemoWidgetControl } from "../widgets/TreeSelectionDemoWidget";
 import { AppToolbarUtilities } from "./NestedFrontstage1";
 import { IconHelper } from "@itwin/core-react";
 
@@ -174,19 +169,18 @@ export class Frontstage4 extends FrontstageProvider {
         defaultState: StagePanelState.Minimized,
         sections: {
           start: [
-            { id: "w1", icon: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree", control: NavigationTreeWidgetControl },
-            { id: "w2", icon: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo", control: TreeSelectionDemoWidgetControl },
+            { id: "w1", icon: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree" },
+            { id: "w2", icon: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo" },
           ],
           end: [
-            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, icon: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
-            { id: "w3", defaultState: WidgetState.Open, icon: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
-            { id: "w4", defaultState: WidgetState.Open, icon: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl2 },
+            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, icon: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid" },
+            { id: "w3", defaultState: WidgetState.Open, icon: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid" },
+            { id: "w4", defaultState: WidgetState.Open, icon: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid" },
           ],
         },
       },
       statusBar: {
         id: "statusBar",
-        classId: "SmallStatusBar",
       },
     };
   }

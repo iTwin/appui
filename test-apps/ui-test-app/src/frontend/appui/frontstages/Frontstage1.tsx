@@ -10,8 +10,6 @@ import {
   WidgetStateChangedEventArgs,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
-import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
-import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { AppToolbarUtilities, NestedFrontstage1 } from "./NestedFrontstage1";
 import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, UiAdmin, WidgetState } from "@itwin/appui-abstract";
 import { AppUi } from "../AppUi";
@@ -100,7 +98,6 @@ export class Frontstage1 extends FrontstageProvider {
       },
       statusBar: {
         id: "statusBar",
-        control: SmallStatusBarWidgetControl,
       },
       topPanel: {
         resizable: false,
@@ -140,7 +137,6 @@ export class Frontstage1 extends FrontstageProvider {
               id: "VerticalPropertyGrid",
               icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-              control: VerticalPropertyGridWidgetControl,
             },
           ],
         },
@@ -161,14 +157,12 @@ export class Frontstage1 extends FrontstageProvider {
               defaultState: WidgetState.Open,
               icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
-              control: HorizontalPropertyGridWidgetControl,
             },
             {
               id: "VerticalPropertyGrid1",
               defaultState: WidgetState.Hidden,
               icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-              control: VerticalPropertyGridWidgetControl,
             },
           ],
         },
