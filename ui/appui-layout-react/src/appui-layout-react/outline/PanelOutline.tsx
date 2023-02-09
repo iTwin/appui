@@ -15,6 +15,7 @@ import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel"
 import { isHorizontalPanelState } from "../state/PanelState";
 import { isPanelDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";
+import { useSendBackHomeState } from "../widget/SendBack";
 
 /** @internal */
 export function PanelOutline() {
@@ -48,16 +49,23 @@ export function PanelOutline() {
 export function useHidden() {
   const side = React.useContext(PanelSideContext);
   const targeted = useTargeted();
-  if (!targeted)
-    return true;
+  const activeHomeState = useSendBackHomeState();
 
-  if (!isPanelDropTargetState(targeted))
-    return true;
+  return React.useMemo(() => {
+    if (activeHomeState?.side === side && activeHomeState?.widgetId === undefined && activeHomeState?.sectionIndex === undefined)
+      return false;
 
-  if (targeted.side !== side)
-    return true;
+    if (!targeted)
+      return true;
 
-  return false;
+    if (!isPanelDropTargetState(targeted))
+      return true;
+
+    if (targeted.side !== side)
+      return true;
+
+    return false;
+  }, [side, targeted, activeHomeState]);
 }
 
 function useSize() {

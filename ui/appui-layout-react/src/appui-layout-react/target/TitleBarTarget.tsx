@@ -19,19 +19,21 @@ import { TabOutline } from "../outline/TabOutline";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import { WidgetDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";
+import { useSendBackHomeState } from "../widget/SendBack";
 
 /** @internal */
 export function TitleBarTarget() {
   const cursorType = React.useContext(CursorTypeContext);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
+  const activeHomeState = useSendBackHomeState();
   assert(!!widgetId);
   const draggedTab = useLayout((state) => !!state.draggedTab);
   const [ref] = useTarget<HTMLDivElement>(useTargetArgs(widgetId));
   const allowedTarget = useAllowedWidgetTarget(widgetId);
 
   // istanbul ignore next
-  const hidden = !allowedTarget || ((!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId);
+  const hidden = !allowedTarget || ((!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId) && !(activeHomeState?.widgetId === widgetId);
   const className = classnames(
     "nz-target-titleBarTarget",
     hidden && "nz-hidden",
