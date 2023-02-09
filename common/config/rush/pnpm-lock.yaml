@@ -1017,7 +1017,6 @@ importers:
   ../../ui/components-react:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
-      '@bentley/icons-generic-webfont': ^1.0.34
       '@itwin/appui-abstract': workspace:*
       '@itwin/build-tools': ^3.5.1
       '@itwin/core-bentley': ^3.5.1
@@ -1086,7 +1085,6 @@ importers:
       xmlhttprequest: ^1.8.0
     dependencies:
       '@bentley/icons-generic': 1.0.34
-      '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': link:../appui-abstract
       '@itwin/itwinui-css': 0.63.1
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2

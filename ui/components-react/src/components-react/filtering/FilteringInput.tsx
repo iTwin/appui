@@ -10,10 +10,11 @@ import "./FilteringInput.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { CommonProps, UiCore } from "@itwin/core-react";
+import { CommonProps, Icon, UiCore } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 import { ResultSelector, ResultSelectorProps } from "./ResultSelector";
+import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react"
 
 /** [[FilteringInput]] React Component state
  * @internal
@@ -167,16 +168,16 @@ export class FilteringInput extends React.PureComponent<FilteringInputProps, Fil
               <ResultSelector key={this.state.resultSelectorKey} {...this.props.resultSelectorProps} /> : undefined}
             {status === FilteringInputStatus.ReadyToFilter ?
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span className="icon icon-search" onClick={this._onSearchButtonClick}
-                role="button" tabIndex={-1} title={this._searchLabel} /> : undefined}
+              <span className="icon" onClick={this._onSearchButtonClick}
+                role="button" tabIndex={-1} title={this._searchLabel}><Icon iconSpec={<SvgSearch />} /> </span> : undefined}
             {status === FilteringInputStatus.FilteringInProgress ?
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span className="icon icon-close" onClick={this._onCancelButtonClick}
-                role="button" tabIndex={-1} title={this._cancelLabel} /> : undefined}
+              <span className="icon" onClick={this._onCancelButtonClick}
+                role="button" tabIndex={-1} title={this._cancelLabel}><Icon iconSpec={<SvgClose />} /> </span> : undefined}
             {status === FilteringInputStatus.FilteringFinished ?
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span className="components-filtering-input-clear icon icon-close" onClick={this._onClearButtonClick}
-                role="button" tabIndex={-1} title={this._clearLabel} /> : undefined}
+              <span className="components-filtering-input-clear icon" onClick={this._onClearButtonClick}
+                role="button" tabIndex={-1} title={this._clearLabel}><Icon iconSpec={<SvgClose />} /> </span> : undefined}
           </span>
         </span>
       </div>

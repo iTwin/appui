@@ -10,6 +10,8 @@ import "./PropertyLabelRenderer.scss";
 import * as React from "react";
 import { PrimitivePropertyLabelRendererProps } from "./PrimitivePropertyLabelRenderer";
 import { PropertyLabelRenderer } from "./PropertyLabelRenderer";
+import { SvgChevronRight } from "@itwin/itwinui-icons-react";
+import { Icon } from "@itwin/core-react";
 
 /** Properties for the [[NonPrimitivePropertyLabelRenderer]] React component
  * @public
@@ -42,7 +44,7 @@ export class NonPrimitivePropertyLabelRenderer extends React.PureComponent<NonPr
         role="presentation"
       >
         <div className={(this.props.isExpanded ? " components-expanded" : "")}>
-          <i className="icon icon-chevron-right" />
+        <Icon iconSpec={<SvgChevronRight />}/>
         </div>
         <PropertyLabelRenderer renderColon={this.props.renderColon}>{this.props.children}</PropertyLabelRenderer>
       </div>

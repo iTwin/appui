@@ -141,7 +141,7 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
           <span>{this.props.resultCount}</span>
         </span>
 
-        <button className="components-result-selector-button icon icon-chevron-right"
+        <button className="components-result-selector-button icon"
           onClick={this._onClickNext}
           disabled={this.props.resultCount <= 0}><Icon iconSpec={<SvgChevronRight />}/></button>
       </span>
