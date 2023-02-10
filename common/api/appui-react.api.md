@@ -4458,6 +4458,8 @@ export function StatusBarLeftSection(props: CommonDivProps): JSX.Element;
 // @public
 export interface StatusBarProps extends CommonProps {
     // (undocumented)
+    children?: React_2.ReactNode;
+    // (undocumented)
     widgetControl?: StatusBarWidgetControl;
 }
 
