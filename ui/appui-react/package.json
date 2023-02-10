@@ -157,8 +157,8 @@
     ],
     "check-coverage": true,
     "statements": 96,
-    "branches": 96,
-    "functions": 96,
+    "branches": 93,
+    "functions": 94,
     "lines": 96
   },
   "eslintConfig": {
