@@ -16,6 +16,8 @@ import { CommonProps } from "../utils/Props";
 import { Omit } from "../utils/typeUtils";
 import { FocusTrap } from "../focustrap/FocusTrap";
 import { Button } from "@itwin/itwinui-react";
+import { Icon } from "../icons/IconComponent";
+import { SvgClose } from "@itwin/itwinui-icons-react";
 
 // cspell:ignore focustrap
 
@@ -265,10 +267,11 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         onPointerDown={this._handleStartMove}>
         <div className={"core-dialog-title"} data-testid="core-dialog-title" style={titleStyle}>{title}</div>
         <button
-          className={"core-focus-trap-ignore-initial core-dialog-close icon icon-close"}
+          className={"core-focus-trap-ignore-initial core-dialog-close icon"}
           data-testid="core-dialog-close"
-          onClick={onClose}
-        />
+          onClick={onClose}>
+            <Icon iconSpec={<SvgClose />} />
+          </button>
       </div>
     );
 

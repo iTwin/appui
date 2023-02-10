@@ -11,10 +11,11 @@ import classnames from "classnames";
 import * as React from "react";
 import { Angle, AxisIndex, AxisOrder, Geometry, Matrix3d, Point2d, Vector2d, Vector3d, XYAndZ } from "@itwin/core-geometry";
 import { IModelApp, IModelConnection, Viewport } from "@itwin/core-frontend";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps, Icon, IconSpec } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { ViewportComponentEvents, ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
 import { Cube, Face } from "./Cube";
+import { SvgCaretDown, SvgCaretDownSmall, SvgCaretLeftSmall, SvgCaretRightSmall, SvgCaretUp, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
 
 /** @public */
 export enum CubeNavigationHitBoxX {
@@ -747,11 +748,11 @@ enum Pointer {
   Right,
 }
 
-const pointerIconClass: { [key: number]: string } = {
-  [Pointer.Up]: "icon-caret-down",
-  [Pointer.Down]: "icon-caret-up",
-  [Pointer.Left]: "icon-caret-right",
-  [Pointer.Right]: "icon-caret-left",
+const pointerIconSpec: { [key: number]: IconSpec } = {
+  [Pointer.Up]: <SvgCaretDownSmall />,
+  [Pointer.Down]: <SvgCaretUpSmall />,
+  [Pointer.Left]: <SvgCaretRightSmall />,
+  [Pointer.Right]: <SvgCaretLeftSmall />,
 };
 
 const pointerClass: { [key: number]: string } = {
@@ -775,14 +776,13 @@ class PointerButton extends React.Component<PointerProps> {
     const classes = classnames(
       "cube-pointer", "icon",
       pointerClass[pointerType],
-      pointerIconClass[pointerType],
       visible && "cube-visible",
     );
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div className={classes} role="button" tabIndex={-1} title={title} {...props}
-        onClick={this._handleClick} />
+        onClick={this._handleClick}><Icon iconSpec={pointerIconSpec[pointerType]} /> </div>
     );
   }
   private _handleClick = (event: React.MouseEvent) => {

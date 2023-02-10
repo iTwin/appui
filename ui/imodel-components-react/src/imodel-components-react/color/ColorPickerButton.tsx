@@ -11,9 +11,10 @@ import classnames from "classnames";
 import * as React from "react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { CommonProps, Popup, useRefs, WebFontIcon } from "@itwin/core-react";
+import { CommonProps, Icon, Popup, useRefs } from "@itwin/core-react";
 import { ColorSwatch } from "./Swatch";
 import { getCSSColorFromDef } from "./getCSSColorFromDef";
+import { SvgCaretDownSmall, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
 
 // cSpell:ignore colorpicker
 
@@ -125,7 +126,7 @@ const ForwardRefColorPickerButton = React.forwardRef<HTMLButtonElement, ColorPic
           style={buttonStyle} disabled={disabled} ref={refs} >
           <div className="components-colorpicker-button-container">
             <div className="components-colorpicker-button-color-swatch" style={swatchStyle} />
-            {showCaret && <WebFontIcon className="components-caret" iconName={showPopup ? "icon-caret-up" : "icon-caret-down"} iconSize="x-small" />}
+            {showCaret && <Icon className="components-caret" iconSpec={showPopup ? <SvgCaretUpSmall /> : <SvgCaretDownSmall /> } />}
           </div>
         </button>
         <Popup

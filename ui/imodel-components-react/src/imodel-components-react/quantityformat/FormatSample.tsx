@@ -9,9 +9,10 @@
 import * as React from "react";
 import { FormatterSpec } from "@itwin/core-quantity";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { CommonProps, WebFontIcon } from "@itwin/core-react";
+import { CommonProps, Icon, WebFontIcon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiIModelComponents } from "../UiIModelComponents";
+import { SvgProgressForward } from "@itwin/itwinui-icons-react";
 
 /** Properties of [[FormatSample]] component.
  * @alpha
@@ -75,7 +76,7 @@ export function FormatSample(props: FormatSampleProps) {
       </span>
       {!hideLabels && <span className={"uicore-label"}>{formattedLabel.current}</span>}
       <span>
-        {hideLabels && (formattedValue.length > 0) && <WebFontIcon iconName="icon-progress-forward-2" />}
+        {hideLabels && (formattedValue.length > 0) && <Icon iconSpec={<SvgProgressForward />} />}
         <span data-testid="format-sample-formatted" className={"uicore-label components-quantity-formatted-sample"}>{formattedValue}</span>
       </span>
     </>

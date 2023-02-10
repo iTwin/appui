@@ -5,8 +5,9 @@
 import "./PlayerButton.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps, Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
+import { SvgPause, SvgPlay } from "@itwin/itwinui-icons-react";
 
 /** Player button used by buttons on timeline control
  * @internal
@@ -22,7 +23,7 @@ export class PlayerButton extends React.PureComponent<any> {
     const { icon, title } = this.props;
     return (
       <button data-testid={this.props.className} className={classnames("player-button", this.props.className)} onClick={this._onClick} title={title}>
-        <span className={classnames("icon", !!icon)}></span>
+        <span className="icon"><Icon iconSpec={icon} /></span>
       </button>
     );
   }
@@ -78,7 +79,7 @@ export class PlayButton extends React.Component<PlayerButtonProps, PlayButtonSta
 
   public override render() {
     const { tooltip } = this.props;
-    const iconClassName = this.state.isPlaying ? "icon icon-media-controls-pause" : "icon icon-media-controls-play";
+    const iconSpec = this.state.isPlaying ? <SvgPause /> : <SvgPlay />;
     let title = tooltip;
 
     if (!title)
@@ -86,7 +87,7 @@ export class PlayButton extends React.Component<PlayerButtonProps, PlayButtonSta
 
     return (
       <button data-testid={this.props.className} title={title} className={classnames("player-button", this.props.className)} onClick={this._onClick}>
-        <span className={iconClassName}></span>
+        <span className="icon"><Icon iconSpec={iconSpec} /></span>
       </button>
     );
   }

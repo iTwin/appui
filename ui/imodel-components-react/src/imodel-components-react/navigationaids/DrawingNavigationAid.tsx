@@ -13,9 +13,10 @@ import * as ReactDOM from "react-dom";
 import { Constant, Geometry, Matrix3d, Point2d, Point3d, Point4d, Vector3d } from "@itwin/core-geometry";
 import { IModelApp, IModelConnection, ScreenViewport, ViewManager, Viewport, ViewState } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps, Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { ViewportComponentEvents, ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
+import { SvgAdd, SvgRemove, SvgRotateLeft, SvgSortUp } from "@itwin/itwinui-icons-react";
 
 // cSpell:ignore Quaternion Quaternions unrotate
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -218,11 +219,11 @@ export class DrawingNavigationAid extends React.Component<DrawingNavigationAidPr
             ref={this._viewElement}
             role="presentation" />
           {!is3D &&
-            <div className={classnames("toggle-rotate-style", "icon", "icon-rotate-left", { checked: rotateMinimapWithView })} data-testid="toggle-rotate-style"
+            <div className={classnames("toggle-rotate-style", "icon", { checked: rotateMinimapWithView })} data-testid="toggle-rotate-style"
               style={mode === MapMode.Closed && !isAnimating ? { bottom: 2, left: 2 } : {}}
               title={UiIModelComponents.translate("drawing.rotateStyle")}
               onClick={this._toggleRotationMode}
-              role="presentation" />}
+              role="presentation"><Icon iconSpec={<SvgRotateLeft />} /></div>}
           {!rot.isIdentity &&
             <div className="unrotate-button" data-testid="drawing-unrotate-button" style={mode === MapMode.Closed && !isAnimating ? { top: 2 } : {}} onClick={this._handleUnrotate}
               role="button" tabIndex={-1}
@@ -232,11 +233,15 @@ export class DrawingNavigationAid extends React.Component<DrawingNavigationAidPr
           }
           {mode === MapMode.Opened && !isAnimating && <>
             <div className="close" data-testid="drawing-close-button" onClick={this._closeLargeMap} role="button" tabIndex={-1}>
-              <div className="close-icon icon icon-sort-up" />
+              <div className="close-icon icon"><Icon iconSpec={<SvgSortUp />} /></div>
             </div>
             <div className="zoom">
-              <div className="zoom-button icon icon-add" data-testid="drawing-zoom-in-button" onClick={this._handleZoomIn} role="button" tabIndex={-1} />
-              <div className="zoom-button icon icon-remove-2" data-testid="drawing-zoom-out-button" onClick={this._handleZoomOut} role="button" tabIndex={-1} />
+              <div className="zoom-button icon" data-testid="drawing-zoom-in-button" onClick={this._handleZoomIn} role="button" tabIndex={-1}>
+                <Icon iconSpec={<SvgAdd />} />
+              </div>
+              <div className="zoom-button icon" data-testid="drawing-zoom-out-button" onClick={this._handleZoomOut} role="button" tabIndex={-1}>
+              <Icon iconSpec={<SvgRemove />} />
+              </div>
             </div>
           </>}
         </div>
