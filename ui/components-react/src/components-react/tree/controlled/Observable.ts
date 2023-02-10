@@ -17,7 +17,14 @@ export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T> {
   return rxjsFrom(iterable);
 }
 
-/** @internal */
+/**
+ * Converts [[Observable]] instance into [rxjs](https://github.com/ReactiveX/rxjs) observable instance.
+ *
+ * This is required in order to use [[Observable]] with [rxjs](https://github.com/ReactiveX/rxjs)
+ * operators.
+ *
+ * @public
+ */
 export function toRxjsObservable<T>(observable: Observable<T>): RxjsObservable<T> {
   return new RxjsObservable((subscriber) => { observable.subscribe(subscriber); });
 }

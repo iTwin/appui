@@ -833,7 +833,7 @@ export function getPropertyKey(propertyCategory: PropertyCategory, propertyRecor
 // @internal (undocumented)
 export const getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection;
 
-// @internal
+// @public
 export function getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | TreeModelRootNode, result?: Array<TreeModelNode | TreeModelNodePlaceholder>): Array<TreeModelNode | TreeModelNodePlaceholder>;
 
 // @public
@@ -2950,7 +2950,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     useDragInteraction?: boolean;
 }
 
-// @internal (undocumented)
+// @public
 export function toRxjsObservable<T>(observable: Observable<T>): Observable_2<T>;
 
 // @public
