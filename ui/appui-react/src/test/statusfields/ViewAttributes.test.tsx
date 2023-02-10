@@ -6,14 +6,10 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Provider } from "react-redux";
-import { WidgetState } from "@itwin/appui-abstract";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
-import { ConfigurableUiControlType } from "../../appui-react/configurableui/ConfigurableUiControl";
-import { StatusBar } from "../../appui-react/statusbar/StatusBar";
-import { StatusBarWidgetControl } from "../../appui-react/statusbar/StatusBarWidgetControl";
-import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
-import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
+import { StatusBar, ViewAttributesStatusField } from "../../appui-react";
+import TestUtils, { userEvent } from "../TestUtils";
 
 describe(`ViewAttributes`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -21,17 +17,9 @@ describe(`ViewAttributes`, () => {
     theUserTo = userEvent.setup();
   });
 
-  let widgetControl: StatusBarWidgetControl | undefined;
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     await MockRender.App.startup();
-
-    const widgetDef = WidgetDef.create({
-      id: "statusBar",
-      defaultState: WidgetState.Open,
-    });
-    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
   after(async () => {
@@ -41,7 +29,7 @@ describe(`ViewAttributes`, () => {
 
   it("should open/close on click", async () => {
     render(<Provider store={TestUtils.store}>
-      <StatusBar widgetControl={widgetControl} />
+      <StatusBar><ViewAttributesStatusField /></StatusBar>
     </Provider>);
 
     await theUserTo.click(screen.getByRole("button"));
@@ -55,7 +43,7 @@ describe(`ViewAttributes`, () => {
 
   it("should process Checkbox clicks", async () => {
     render(<Provider store={TestUtils.store}>
-      <StatusBar widgetControl={widgetControl} />
+      <StatusBar><ViewAttributesStatusField /></StatusBar>
     </Provider>);
 
     await theUserTo.click(screen.getByRole("button"));

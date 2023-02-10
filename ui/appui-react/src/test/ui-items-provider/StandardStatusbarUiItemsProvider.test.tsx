@@ -71,7 +71,7 @@ describe("StandardStatusbarUiItemsProvider", () => {
 
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
     // Activity Item is not included by default
-    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General).length).to.eq(8);
+    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General)).length(8);
     UiItemsManager.unregister(provider.id);
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });

@@ -5,10 +5,8 @@
 import { expect } from "chai";
 import * as React from "react";
 import { IModelAppOptions, MockRender } from "@itwin/core-frontend";
-import { ConfigurableUiControlType } from "../../appui-react/configurableui/ConfigurableUiControl";
-import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
-import { AccuDrawWidget, AccuDrawWidgetControl } from "../../appui-react/accudraw/AccuDrawWidget";
+import { AccuDrawWidget } from "../../appui-react/accudraw/AccuDrawWidget";
 import { TestUtils } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 
@@ -24,18 +22,6 @@ describe("AccuDrawWidget", () => {
   after(async () => {
     await MockRender.App.shutdown();
     TestUtils.terminateUiFramework();
-  });
-
-  it("should get AccuDrawWidgetControl", () => {
-    const widgetDef = WidgetDef.create({
-      id: AccuDrawWidgetControl.id,
-      label: AccuDrawWidgetControl.label,
-    });
-    const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
-
-    expect(widgetControl).to.not.be.undefined;
-    expect(widgetControl! instanceof AccuDrawWidgetControl).to.be.true;
-    expect(widgetControl!.reactNode).to.not.be.undefined;
   });
 
   it("should render AccuDrawWidget correctly", () => {

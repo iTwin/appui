@@ -9,8 +9,8 @@ import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-ab
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
-  ConfigurableUiControlType, FrontstageDef, FrontstageManager, StageUsage, StatusBar, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarLabelSide, StatusBarSection, StatusBarWidgetControl,
-  SyncUiEventDispatcher, UiItemsManager, UiItemsProvider, WidgetDef, WidgetState,
+  FrontstageDef, FrontstageManager, StageUsage, StatusBar, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarLabelSide, StatusBarSection,
+  SyncUiEventDispatcher, UiItemsManager, UiItemsProvider,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
 
@@ -58,17 +58,9 @@ describe("StatusBarComposer", () => {
     return <div className="status-bar-component" {...props} />;
   }
 
-  let widgetControl: StatusBarWidgetControl | undefined;
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
-
-    const widgetDef = WidgetDef.create({
-      id: "statusBar",
-      defaultState: WidgetState.Open,
-    });
-    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
   after(async () => {
@@ -78,11 +70,7 @@ describe("StatusBarComposer", () => {
 
   describe("StatusBarComposer Enzyme-Testing", () => {
     it("StatusBarComposer should be instantiated", () => {
-      expect(widgetControl).to.not.be.undefined;
-      if (widgetControl)
-        expect(widgetControl.getType()).to.eq(ConfigurableUiControlType.StatusBarWidget);
-
-      render(<StatusBar widgetControl={widgetControl} />);
+      render(<StatusBar><StatusBarComposer items={[]} /></StatusBar>);
 
       expect(screen.getByRole("presentation")).to.satisfy(childStructure(".uifw-statusbar-space-between"));
     });

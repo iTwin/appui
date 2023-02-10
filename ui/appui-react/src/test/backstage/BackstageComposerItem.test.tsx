@@ -5,12 +5,13 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  BackstageComposerActionItem, BackstageComposerItem, BackstageComposerStageLauncher, FrontstageManager,
+  BackstageActionItem,
+  BackstageComposerActionItem, BackstageComposerItem, BackstageComposerStageLauncher, BackstageStageLauncher, FrontstageManager,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
-import { BackstageActionItem, BackstageStageLauncher, BadgeType } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
+import { BadgeType } from "@itwin/appui-abstract";
 
 /** @internal */
 export const getActionItem = (item?: Partial<BackstageActionItem>): BackstageActionItem => ({
@@ -118,13 +119,13 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should render with TP badgeType", async () => {
-      render(<BackstageComposerItem item={getActionItem({ badgeType: BadgeType.TechnicalPreview })} />);
+      render(<BackstageComposerItem item={getActionItem({ badge: BadgeType.TechnicalPreview })} />);
 
       expect(screen.getByRole("menuitem")).to.satisfy(childStructure(".nz-badge .core-badge-betaBadge"));
     });
 
     it("should render with New badgeType", async () => {
-      render(<BackstageComposerItem item={getStageLauncherItem({ badgeType: BadgeType.New })} />);
+      render(<BackstageComposerItem item={getStageLauncherItem({ badge: BadgeType.New })} />);
 
       expect(screen.getByRole("menuitem")).to.satisfy(childStructure(".nz-badge .core-new-badge"));
     });

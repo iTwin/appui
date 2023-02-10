@@ -6,12 +6,12 @@ import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import * as sinon from "sinon";
-import { ConditionalBooleanValue, StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import {
-  CommandItemDef, ConfigurableUiManager, CustomItemDef, FrontstageConfig, FrontstageManager, FrontstageProvider, GroupItemDef,
-  ToolbarComposer, ToolbarHelper, ToolbarItem, ToolItemDef,
+  CommandItemDef, ConfigurableUiManager, CustomItemDef, FrontstageConfig, FrontstageManager, FrontstageProvider, GroupItemDef, StageUsage,
+  ToolbarComposer, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolItemDef, UiItemsManager, UiItemsProvider,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 

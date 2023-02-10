@@ -5,29 +5,17 @@
 import { expect } from "chai";
 import * as React from "react";
 import { act, fireEvent, render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import { ActivityMessageDetails, ActivityMessageEndReason, NoRenderApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import {
-  ActivityMessageDetails, ActivityMessageEndReason, NoRenderApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType,
-} from "@itwin/core-frontend";
-import { WidgetState } from "@itwin/appui-abstract";
-import {
-  AppNotificationManager, ConfigurableUiControlType, StatusBar, StatusBarCenterSection,
-  StatusBarLeftSection, StatusBarRightSection, StatusBarSpaceBetween, StatusBarWidgetControl, WidgetDef,
+  AppNotificationManager, MessageManager, StatusBar, StatusBarCenterSection, StatusBarLeftSection, StatusBarRightSection, StatusBarSpaceBetween,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import { MessageManager } from "../../appui-react/messages/MessageManager";
 
 describe("StatusBar", () => {
-  let widgetControl: StatusBarWidgetControl | undefined;
   let notifications: AppNotificationManager;
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-
-    const widgetDef = WidgetDef.create({
-      id: "statusBar",
-      defaultState: WidgetState.Open,
-    });
-    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
 
     notifications = new AppNotificationManager();
     await NoRenderApp.startup();
@@ -39,7 +27,7 @@ describe("StatusBar", () => {
   });
 
   it("StatusBar should render a Toast message", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details = new NotifyMessageDetails(OutputMessagePriority.None, "A brief message.", "A detailed message.");
     act(() => {
@@ -54,7 +42,7 @@ describe("StatusBar", () => {
   });
 
   it("StatusBar should render a Sticky message", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details = new NotifyMessageDetails(OutputMessagePriority.Info, "A brief message.", "A detailed message.", OutputMessageType.Sticky);
     act(() => {
@@ -69,7 +57,7 @@ describe("StatusBar", () => {
   });
 
   it("Sticky message should close on button click", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details = new NotifyMessageDetails(OutputMessagePriority.Error, "A brief message.", "A detailed message.", OutputMessageType.Sticky);
     act(() => {
@@ -86,7 +74,7 @@ describe("StatusBar", () => {
   });
 
   it("StatusBar should render an Activity message", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details = new ActivityMessageDetails(true, true, false);
     notifications.setupActivityMessage(details);
@@ -102,7 +90,7 @@ describe("StatusBar", () => {
   });
 
   it("Activity message should be canceled", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details = new ActivityMessageDetails(true, true, true);
     notifications.setupActivityMessage(details);
@@ -118,7 +106,7 @@ describe("StatusBar", () => {
   });
 
   it("Activity message should be dismissed", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details = new ActivityMessageDetails(true, true, true);
     notifications.setupActivityMessage(details);
@@ -134,7 +122,7 @@ describe("StatusBar", () => {
   });
 
   it("StatusBar should render Toast, Sticky & Activity messages", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details1 = new NotifyMessageDetails(OutputMessagePriority.Warning, "A brief message.", "A detailed message.");
     const details2 = new NotifyMessageDetails(OutputMessagePriority.None, "A brief sticky message.", "A detailed message.", OutputMessageType.Sticky);
@@ -148,7 +136,6 @@ describe("StatusBar", () => {
     expect(await screen.findByText("A brief message.")).to.be.not.null;
     expect(await screen.findByText("A brief sticky message.")).to.be.not.null;
     expect(await screen.findByText("Message text")).to.be.not.null;
-    expect(document.querySelector(".nz-content")?.textContent).to.eq("2");
     act(() => {
       notifications.endActivityMessage(ActivityMessageEndReason.Completed);
     });
@@ -161,7 +148,7 @@ describe("StatusBar", () => {
   it("StatusBar should render maximum of 3 Sticky messages", async () => {
     MessageManager.maxDisplayedStickyMessages = 3;
 
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details1 = new NotifyMessageDetails(OutputMessagePriority.None, "A brief message 1.", undefined, OutputMessageType.Sticky);
     act(() => {
@@ -193,7 +180,7 @@ describe("StatusBar", () => {
   });
 
   it("StatusBar should not render a Pointer message", () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details = new NotifyMessageDetails(OutputMessagePriority.Info, "A brief message.", "A detailed message.", OutputMessageType.Pointer);
     act(() => {
@@ -204,7 +191,7 @@ describe("StatusBar", () => {
   });
 
   it("StatusBar should clear messages", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar />);
 
     const details = new NotifyMessageDetails(OutputMessagePriority.Info, "A brief toast message.", "A detailed message.", OutputMessageType.Sticky);
     act(() => {

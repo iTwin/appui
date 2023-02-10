@@ -8,7 +8,7 @@ import * as moq from "typemoq";
 import { IModelConnection, MockRender } from "@itwin/core-frontend";
 import TestUtils, { childStructure } from "../TestUtils";
 import { render } from "@testing-library/react";
-import { CardContainer, ConfigurableUiControlType, ConfigurableUiManager, SheetNavigationAid, SheetNavigationAidControl, WidgetDef } from "../../appui-react";
+import { CardContainer, ConfigurableUiManager, SheetNavigationAid, SheetNavigationAidControl } from "../../appui-react";
 
 describe("SheetNavigationAid", () => {
 
@@ -58,17 +58,5 @@ describe("SheetNavigationAid", () => {
       // ... resolve the async operation after component is unmounted.
       expect(() => resolver([])).to.not.throw();
     });
-  });
-
-  describe("SheetNavigationAidControl", () => {
-    it("SheetNavigationAidControl creates SheetNavigationAid", () => {
-      const widgetDef = WidgetDef.create({
-        id: "w1",
-      });
-
-      const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);
-      expect(reactNode).to.not.be.undefined;
-    });
-
   });
 });

@@ -6,7 +6,7 @@ import * as React from "react";
 import { StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
 import {
   ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider,
-  MessageCenterField, StatusBarWidgetControl, WidgetControl,
+  MessageCenterField, StatusBarWidgetControl,
 } from "../../appui-react";
 
 /** @internal */
@@ -15,15 +15,6 @@ export class TestContentControl extends ContentControl {
     super(info, options);
 
     this.reactNode = <div />;
-  }
-}
-
-/** @internal */
-export class TestWidget extends WidgetControl {
-  constructor(info: ConfigurableCreateInfo, options: any) {
-    super(info, options);
-
-    this.reactNode = <TestWidgetElement />;
   }
 }
 

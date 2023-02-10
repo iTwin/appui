@@ -15,11 +15,11 @@ import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import { WidgetControl } from "./WidgetControl";
-import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import { IconHelper, IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
 import { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 
 const widgetStateNameMap = new Map<WidgetState, string>([
   [WidgetState.Closed, "Closed"],
@@ -92,7 +92,7 @@ export class WidgetDef {
   private _stateChanged: boolean = false;
   private _widgetType: WidgetType = WidgetType.Rectangular;
   private _applicationData?: any;
-  private _iconSpec?: string | ConditionalStringValue | React.ReactNode;
+  private _icon?: IconSpec;
   private _internalData?: Map<string, any>;
   private _badge?: BadgeType;
   private _onWidgetStateChanged?: () => void;
@@ -138,8 +138,8 @@ export class WidgetDef {
   public get stateChanged(): boolean { return this._stateChanged; }
   public get applicationData(): any | undefined { return this._applicationData; }
   public get isFloating(): boolean { return this.state === WidgetState.Floating; }
-  public get iconSpec(): IconSpec { return this._iconSpec === IconHelper.reactIconKey ? IconHelper.getIconReactNode(this._iconSpec, this._internalData) : this._iconSpec; }
-  public set iconSpec(spec: IconSpec) { this._iconSpec = this._internalData ? IconHelper.getIconData(spec, this._internalData) : spec; }
+  public get iconSpec(): IconSpec { return this._icon === IconHelper.reactIconKey ? IconHelper.getIconReactNode(this._icon, this._internalData) : this._icon; }
+  public set iconSpec(spec: IconSpec) { this._icon = this._internalData ? IconHelper.getIconData(spec, this._internalData) : spec; }
   public get badgeType(): BadgeType | undefined { return this._badge; }
   public get initialConfig(): WidgetConfig | undefined { return this._initialConfig; }
 
@@ -217,11 +217,11 @@ export class WidgetDef {
     }
 
     this._widgetReactNode = config.content;
-    this._iconSpec = config.icon;
+    this._icon = config.icon;
 
     // istanbul ignore next
-    if (config.icon !== undefined && this._iconSpec === undefined)
-      this._iconSpec = config.icon;
+    if (config.icon !== undefined && this._icon === undefined)
+      this._icon = config.icon;
 
     if (config.badge !== undefined)
       this._badge = config.badge;

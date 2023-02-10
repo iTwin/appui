@@ -8,23 +8,15 @@ import { Provider } from "react-redux";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
 import { Presentation } from "@itwin/presentation-frontend";
 import { initialize as initializePresentationTesting, terminate as terminatePresentationTesting } from "@itwin/presentation-testing";
-import { WidgetState } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
-import { ConfigurableUiControlType, PresentationSelectionScope, SessionStateActionId, StatusBar, StatusBarWidgetControl, UiFramework, WidgetDef } from "../../appui-react";
+import { PresentationSelectionScope, SelectionScopeField, SessionStateActionId, StatusBar, UiFramework } from "../../appui-react";
 import TestUtils, { handleError, selectChangeValueByIndex, stubScrollIntoView } from "../TestUtils";
 
 describe(`SelectionScopeField`, () => {
-  let widgetControl: StatusBarWidgetControl | undefined;
   describe("Bare tests", () => {
     before(async () => {
       await MockRender.App.startup();
       await TestUtils.initializeUiFramework();
-
-      const widgetDef = WidgetDef.create({
-        id: "statusBar",
-        defaultState: WidgetState.Open,
-      });
-      widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
     });
 
     after(async () => {
@@ -34,7 +26,7 @@ describe(`SelectionScopeField`, () => {
 
     it("SelectionScopeField with default data", () => {
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;
@@ -53,7 +45,7 @@ describe(`SelectionScopeField`, () => {
 
       // UiFramework.frameworkState!.sessionState.availableSelectionScopes = 1;
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;
@@ -77,12 +69,6 @@ describe(`SelectionScopeField`, () => {
 
       await initializePresentationTesting();
       await TestUtils.initializeUiFramework();
-
-      const widgetDef = WidgetDef.create({
-        id: "statusBar",
-        defaultState: WidgetState.Open,
-      });
-      widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
     });
 
     after(async () => {
@@ -103,7 +89,7 @@ describe(`SelectionScopeField`, () => {
 
       // UiFramework.frameworkState!.sessionState.availableSelectionScopes = 1;
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;
@@ -124,7 +110,7 @@ describe(`SelectionScopeField`, () => {
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "top-assembly");
 
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;
@@ -147,7 +133,7 @@ describe(`SelectionScopeField`, () => {
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "top-assembly");
 
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;

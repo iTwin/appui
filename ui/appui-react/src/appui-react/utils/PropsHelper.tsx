@@ -56,7 +56,7 @@ export class PropsHelper {
     return true;
   }
 
-  /** @deprecated */
+  /** @deprecated in 4.0.*/
   public static getAbstractPropsForReactIcon(iconSpec: IconSpec, internalData?: Map<string, any>): Partial<UIA_AbstractWidgetProps> | Partial<UIA_CommonBackstageItem> {
     // istanbul ignore else
     if (!iconSpec || !React.isValidElement(iconSpec))
