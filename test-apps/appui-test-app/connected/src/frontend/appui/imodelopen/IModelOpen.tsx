@@ -7,10 +7,10 @@ import "./Common.scss";
 import * as React from "react";
 import { Project as ITwin, ProjectsAccessClient } from "@itwin/projects-client";
 import { IModelApp } from "@itwin/core-frontend";
-import { BackstageManager } from "@itwin/appui-react";
 import { BasicIModelInfo, IModelInfo } from "../ExternalIModel";
 import { ITwinDropdown } from "./ITwinDropdown";
 import { IModelFull, IModelGrid } from "@itwin/imodel-browser-react";
+import { UiFramework } from "@itwin/appui-react";
 
 /** Properties for the [[IModelOpen]] component */
 export interface IModelOpenProps {
@@ -64,7 +64,7 @@ export function IModelOpen(props: IModelOpenProps) {
       <div className="open-content-container">
         <div className="open-appbar">
           <div className="backstage-icon">
-            <span className="icon icon-home" onPointerUp={() => BackstageManager.getBackstageToggleCommand()?.execute()} />
+            <span className="icon icon-home" onPointerUp={() => UiFramework.backstage.getBackstageToggleCommand()?.execute()} />
           </div>
           <div className="itwin-picker-content">
             <span className="itwins-label">iTwins</span>

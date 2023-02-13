@@ -2,16 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Frontstage
  */
 
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, InteractiveTool, SelectedViewportChangedArgs, StartOrResume, Tool } from "@itwin/core-frontend";
-import { WidgetState } from "@itwin/appui-abstract";
-import { Size, UiEvent } from "@itwin/core-react";
-import { NineZoneManager } from "@itwin/appui-layout-react";
+import { UiEvent } from "@itwin/appui-abstract";
+import { Size } from "@itwin/core-react";
 import { ContentControlActivatedEvent } from "../content/ContentControl";
 import { ContentGroup } from "../content/ContentGroup";
 import { ContentLayoutActivatedEvent, ContentLayoutDef } from "../content/ContentLayout";
@@ -19,17 +17,14 @@ import { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidCont
 import { PanelSizeChangedEvent, PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { WidgetChangedEventArgs, WidgetDef, WidgetEventArgs, WidgetStateChangedEvent } from "../widgets/WidgetDef";
-import { ToolInformation } from "../zones/toolsettings/ToolInformation";
-import { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
-import { ToolUiProvider } from "../zones/toolsettings/ToolUiProvider";
+import { ToolInformation } from "../toolsettings/ToolInformation";
+import { ToolUiProvider } from "../toolsettings/ToolUiProvider";
 import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs } from "./FrontstageDef";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
+import { WidgetState } from "../widgets/WidgetState";
 import { FrontstageActivatedEvent, FrontstageDeactivatedEvent, FrontstageReadyEvent, ModalFrontstageChangedEvent, ModalFrontstageClosedEvent, ModalFrontstageInfo, ModalFrontstageItem, ModalFrontstageRequestedCloseEvent, ToolActivatedEvent, ToolIconChangedEvent } from "../framework/FrameworkFrontstages";
-
-// -----------------------------------------------------------------------------
-// Frontstage Events
-// -----------------------------------------------------------------------------
+import { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 
 /** Frontstage Manager class.
  * @internal
@@ -41,7 +36,6 @@ export class InternalFrontstageManager {
   private static _activeFrontstageDef: FrontstageDef | undefined;
   private static _frontstageDefs = new Map<string, FrontstageDef>();
   private static _modalFrontstages: ModalFrontstageItem[] = new Array<ModalFrontstageItem>();
-  private static _nineZoneManagers = new Map<string, NineZoneManager>();
   private static _frontstageProviders = new Map<string, FrontstageProvider>();
   private static _nineZoneSize: Size | undefined = undefined;
 
@@ -202,19 +196,6 @@ export class InternalFrontstageManager {
   /** @internal */
   public static readonly onPanelSizeChangedEvent = new PanelSizeChangedEvent();
 
-  /** Get Nine-zone State Manager.
-   * @deprecated Used in UI1.0 only.
-   */
-  public static get NineZoneManager() {
-    const id = InternalFrontstageManager.activeFrontstageId;
-    let manager = InternalFrontstageManager._nineZoneManagers.get(id);
-    if (!manager) {
-      manager = new NineZoneManager();
-      InternalFrontstageManager._nineZoneManagers.set(id, manager);
-    }
-    return manager;
-  }
-
   /** Clears the Frontstage map.
    */
   public static clearFrontstageDefs(): void {
@@ -230,14 +211,7 @@ export class InternalFrontstageManager {
   }
 
   private static getFrontstageKey(frontstageId: string) {
-    const provider = InternalFrontstageManager._frontstageProviders.get(frontstageId);
-    let isIModelIndependent = false;
-    if (provider && !provider.frontstageConfig) {
-      isIModelIndependent = !!provider.frontstage.props.isIModelIndependent;
-    }
-    const imodelId = UiFramework.getIModelConnection()?.iModelId ?? "noImodel";
-    const key = isIModelIndependent ? frontstageId : `[${imodelId}]${frontstageId}`;
-    return key;
+    return frontstageId;
   }
 
   /** @internal */
@@ -387,8 +361,6 @@ export class InternalFrontstageManager {
       InternalFrontstageManager.onFrontstageReadyEvent.emit({ frontstageDef });
       UiFramework.visibility.handleFrontstageReady();
 
-      frontstageDef.startDefaultTool();
-
       await frontstageDef.setActiveContent();
     }
 
@@ -463,9 +435,7 @@ export class InternalFrontstageManager {
    */
   public static async setActiveContentGroup(contentGroup: ContentGroup): Promise<void> {
     const contentLayoutDef = UiFramework.content.layouts.getForGroup(contentGroup);
-    if (contentLayoutDef) {
-      await InternalFrontstageManager.setActiveLayout(contentLayoutDef, contentGroup);
-    }
+    await InternalFrontstageManager.setActiveLayout(contentLayoutDef, contentGroup);
   }
 
   /** Opens a modal Frontstage. Modal Frontstages can be stacked.
@@ -641,4 +611,3 @@ export class InternalFrontstageManager {
   }
 
 }
-

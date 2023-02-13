@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BackstageManager, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
+  BackstageAppButton, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
@@ -113,7 +113,7 @@ export class SynchronizedFloatingViewportStage {
   public static register(localizationNamespace: string) {
     // set up custom corner button where we specify icon, label, and action
     const cornerButton = <BackstageAppButton key="appui-test-providers-SynchronizedFloatingViewportExample-backstage" label="Toggle Backstage" icon={"icon-bentley-systems"}
-      execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
+      execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
 
     const synchronizedFloatingViewportStageProps: StandardFrontstageProps = {
       id: SynchronizedFloatingViewportStage.stageId,
@@ -123,7 +123,7 @@ export class SynchronizedFloatingViewportStage {
       usage: StageUsage.General,
     };
 
-    ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(synchronizedFloatingViewportStageProps));
+    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(synchronizedFloatingViewportStageProps));
     this.registerToolProviders(localizationNamespace);
   }
 

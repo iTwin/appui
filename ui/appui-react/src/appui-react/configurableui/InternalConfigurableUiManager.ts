@@ -18,7 +18,7 @@ import { PopupManager } from "../popup/PopupManager";
 import { ActivityTracker } from "./ActivityTracker";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { InternalToolSettingsManager } from "../zones/toolsettings/InternalToolSettingsManager";
+import { InternalToolSettingsManager } from "../toolsettings/InternalToolSettingsManager";
 import { InternalModelessDialogManager } from "../dialog/InternalModelessDialogManager";
 import { InternalContentDialogManager } from "../dialog/InternalContentDialogManager";
 import { InternalKeyboardShortcutManager } from "../keyboardshortcut/InternalKeyboardShortcut";
@@ -104,7 +104,7 @@ export class InternalConfigurableUiManager {
    * [[NavigationAidControl]],
    * [[StatusBarWidgetControl]],
    * [[WidgetControl]] or
-   * [[ToolUiProvider]].
+   * [ToolUiProvider]($appui-react).
    * @param classId the class id of the control to register
    * @param constructor the constructor of the control to register
    */

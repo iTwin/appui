@@ -18,7 +18,6 @@ import { PopupRenderer } from "../popup/PopupManager";
 import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager";
 import { ModalDialogRenderer } from "../dialog/ModalDialogManager";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
-import { FrameworkVersion } from "../hooks/useFrameworkVersion";
 import { ThemeManager } from "../theme/ThemeManager";
 import { UiFramework } from "../UiFramework";
 import { ChildWindowLocationProps, FrameworkChildWindows, OpenChildWindowInfo } from "../framework/FrameworkChildWindows";
@@ -101,17 +100,15 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
             <Provider store={StateManager.store} >
               <UiStateStorageHandler>
                 <ThemeManager>
-                  <FrameworkVersion> {/* eslint-disable-line deprecation/deprecation */}
-                    <div className="uifw-child-window-container-host">
-                      <PopupRenderer />
-                      <ModalDialogRenderer />
-                      <ModelessDialogRenderer />
-                      <CursorPopupMenu />
-                      <div className="uifw-child-window-container nz-widget-widget">
-                        {content}
-                      </div>
+                  <div className="uifw-child-window-container-host">
+                    <PopupRenderer />
+                    <ModalDialogRenderer />
+                    <ModelessDialogRenderer />
+                    <CursorPopupMenu />
+                    <div className="uifw-child-window-container nz-widget-widget">
+                      {content}
                     </div>
-                  </FrameworkVersion>
+                  </div>
                 </ThemeManager>
               </UiStateStorageHandler>
             </Provider>,
