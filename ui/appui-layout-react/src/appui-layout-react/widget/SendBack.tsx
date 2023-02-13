@@ -9,15 +9,12 @@
 import "./SendBack.scss";
 import classnames from "classnames";
 import * as React from "react";
+import create from "zustand";
 import { assert } from "@itwin/core-bentley";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
-import { WidgetOutline } from "../outline/WidgetOutline";
-import { WidgetTarget } from "../target/WidgetTarget";
-import { WidgetContentContainer } from "./ContentContainer";
 import { WidgetState } from "../state/WidgetState";;
-import create from "zustand";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { getWidgetPanelSectionId } from "../state/PanelState";
 import { PanelSide } from "../widget-panels/Panel";
@@ -25,14 +22,10 @@ import { PanelSide } from "../widget-panels/Panel";
 /** @internal */
 interface ActiveSendBackWidgetIdStore {
   id: WidgetState["id"] | undefined;
-  setId: (newId: WidgetState["id"] | undefined) => void;
 }
 
 /** @internal */
-export const useActiveSendBackWidgetIdStore = create<ActiveSendBackWidgetIdStore>((set) => ({
-  id: undefined,
-  setId: (newId: WidgetState["id"] | undefined) => set({ id: newId }),
-}))
+export const useActiveSendBackWidgetIdStore = create<ActiveSendBackWidgetIdStore>(() => ({ id: undefined }));
 
 /** @internal */
 interface SendBackHomeState {
@@ -61,6 +54,7 @@ export function useSendBackHomeState(): SendBackHomeState | undefined {
       destinationWidget = state.widgets[id];
     }
 
+    // Widget would be added to an existing panel widget.
     if (destinationWidget) {
       return {
         side: home.side,
@@ -68,11 +62,13 @@ export function useSendBackHomeState(): SendBackHomeState | undefined {
       };
     }
 
+    // Widget would be added to a panel as it's first panel widget.
     if (panel.widgets.length === 0)
       return {
         side: home.side,
       };
 
+    // Widget would be added to a panel with an existing panel widget as a separate panel widget.
     return {
       side: home.side,
       sectionIndex: destinationWidgetId.endsWith("End") ? 1 : 0,
@@ -91,7 +87,7 @@ export function SendBack() {
     "nz-widget-sendBack",
     `nz-${home.side}`,
   );
-  const setActiveWidgetId = useActiveSendBackWidgetIdStore((state) => state.setId);
+  const setActiveWidgetId = (newId: WidgetState["id"] | undefined) => useActiveSendBackWidgetIdStore.setState({ id: newId });
 
   return (
     <button
