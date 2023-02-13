@@ -1,57 +1,71 @@
-# iTwin.js Docs CI Build
-
 trigger:
   branches:
     include:
       - master
-      - release/*
-    exclude:
-      - release/2*
-      - release/1*
 
 pr:
   drafts: false
   branches:
     include:
       - master
-      - release/*
-    exclude:
-      - release/2*
-      - release/1*
-  paths:
-    exclude:
-      - .github/CODEOWNERS
 
-jobs:
-  - job:
-    workspace:
-      clean: all
-    pool:
-      name: iModelTechCI
-      demands: Agent.OS -equals Windows_NT
+resources:
+  repositories:
+    - repository: itwinjs-core
+      type: github
+      endpoint: iModelJs
+      name: iTwin/itwinjs-core
+      ref: refs/heads/master
 
-    steps:
-      - checkout: self
-        path: appui
-        clean: true
+stages:
+  - stage: Generate_Docs
+    jobs:
+      - job:
+        displayName: Generate Docs
+        workspace:
+          clean: all
 
-      - task: NodeTool@0
-        displayName: Use Node 14
-        inputs:
-          versionSpec: 14.17.4
-          checkLatest: true
+        steps:
+          - checkout: self
+            clean: true
 
-      - script: |
-          git config --local user.email imodeljs-admin@users.noreply.github.com
-          git config --local user.name imodeljs-admin
-        displayName: Setup git config
+          - task: NodeTool@0
+            displayName: Use Node 18
+            inputs:
+              versionSpec: 18.x
+              checkLatest: true
 
-      - template: ../templates/docs-build.yaml
-        parameters:
-          workingDir: $(Pipeline.Workspace)/appui
-          outputDir: $(Agent.BuildDirectory)/tempDocsBuild/public_build
+          - script: |
+              git config --local user.email imodeljs-admin@users.noreply.github.com
+              git config --local user.name imodeljs-admin
+            displayName: Setup git config
 
-      - publish: $(Agent.BuildDirectory)/tempDocsBuild/
-        artifact: DocsBuild
-        displayName: Publish Pipeline Artifact - DocsBuild
-        condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))
+          - script: node common/scripts/install-run-rush.js install
+            displayName: rush install
+
+          - script: node common/scripts/install-run-rush.js build:ci
+            displayName: rush build
+
+          - script: node common/scripts/install-run-rush.js docs
+            displayName: rush docs
+
+          - task: CopyFiles@2
+            displayName: "Copy generated docs to: $(Build.StagingDirectory)"
+            inputs:
+              SourceFolder: $(Build.SourcesDirectory)/generated-docs
+              TargetFolder: $(Build.StagingDirectory)/docs
+
+          - task: PublishBuildArtifacts@1
+            displayName: "Publish Artifact: AppUI Docs"
+            inputs:
+              PathtoPublish: "$(Build.StagingDirectory)/docs/"
+              ArtifactName: "AppUI Docs"
+
+    # - stage: Validate_Docs
+    #   dependsOn: Generate_Docs
+    #   condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'PullRequest', 'Manual'))
+    #   jobs:
+    #   - template: common/config/azure-pipelines/jobs/docs-build.yaml@itwinjs-core
+    #     parameters:
+    #       checkout: itwinjs-core
+    #       useCurrentPresentationDocsArtifact: true
