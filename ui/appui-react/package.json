@@ -29,7 +29,7 @@
     "test:watch": "npm -s test -- --reporter min --watch-extensions ts,tsx --watch",
     "docs": "npm run -s docs:extract && npm run -s docs:reference && npm run -s docs:changelog",
     "docs:changelog": "cpx ./CHANGELOG.md ../../generated-docs/ui/appui-react",
-    "docs:reference": "cross-env RUSHSTACK_FILE_ERROR_BASE_FOLDER=../../ betools docs --includes=../../generated-docs/extract --json=../../generated-docs/ui/appui-react/file.json --excludeGlob=**/declarations.d.ts --tsIndexFile=./appui-react.ts --onlyJson",
+    "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/ui/appui-react/file.json --excludeGlob=**/declarations.d.ts --tsIndexFile=./appui-react.ts --onlyJson",
     "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src/test --recursive --out=../../generated-docs/extract"
   },
   "keywords": [
@@ -107,7 +107,6 @@
     "chai-jest-snapshot": "^2.0.0",
     "chai-spies": "1.0.0",
     "cpx2": "^3.0.0",
-    "cross-env": "^5.1.4",
     "deep-equal": "^1",
     "eslint": "^7.11.0",
     "faker": "^4.1.0",
