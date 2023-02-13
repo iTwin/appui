@@ -913,6 +913,7 @@ importers:
       chai-spies: 1.0.0
       classnames: 2.3.1
       cpx2: ^3.0.0
+      cross-env: ^5.1.4
       deep-equal: ^1
       eslint: ^7.11.0
       faker: ^4.1.0
@@ -995,6 +996,7 @@ importers:
       chai-jest-snapshot: 2.0.0_chai@4.3.6
       chai-spies: 1.0.0_chai@4.3.6
       cpx2: 3.0.2
+      cross-env: 5.2.1
       deep-equal: 1.1.1
       eslint: 7.32.0
       faker: 4.1.0
