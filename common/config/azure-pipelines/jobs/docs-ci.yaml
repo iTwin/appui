@@ -24,6 +24,9 @@ stages:
         displayName: Generate Docs
         workspace:
           clean: all
+        pool:
+          name: iModelTechCI
+          demands: Agent.OS -equals Windows_NT
 
         steps:
           - checkout: self
