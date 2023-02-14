@@ -735,8 +735,16 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "jest",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "js-base64",
       "allowedCategories": [ "backend", "common" ]
+    },
+    {
+      "name": "jscodeshift",
+      "allowedCategories": [ "tools" ]
     },
     {
       "name": "jsdom",
@@ -1024,6 +1032,10 @@
     },
     {
       "name": "tree-kill",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "ts-jest",
       "allowedCategories": [ "tools" ]
     },
     {
