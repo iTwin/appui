@@ -3818,7 +3818,7 @@ packages:
       react-dom: ^16.13.0 || ^17.0.2
     dependencies:
       '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
-      '@itwin/itwinui-react': 1.42.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-react': 1.48.1_react-dom@17.0.2+react@17.0.2
       classnames: 2.3.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -3884,8 +3884,8 @@ packages:
   /@itwin/itwinui-css/0.63.1:
     resolution: {integrity: sha512-GWXRaaYBxbmIpXncrf6yOeqvyIaQWmtdx8lJ/UehT+vjahcklO00+dFEzWBboFdE/4ftDOqurqbuiDcNf2lugQ==}
 
-  /@itwin/itwinui-css/1.4.0:
-    resolution: {integrity: sha512-/oxZ4Q6jYTzojGiT5a6J7A8AiAC26XSu3UUmi8MHU9L6SxqGRvp9N43oJ7FGG6weeCDIzkkz7jlFgsTdaWV/oQ==}
+  /@itwin/itwinui-css/1.5.0:
+    resolution: {integrity: sha512-d7zWvbP61mSPwI5+TJ9GF9nGNARPK1MnDy8V5dPjT0s31C/jzvtWSvZXJtIv403dKzPuVg6Isi600oO+01eedw==}
     dev: false
 
   /@itwin/itwinui-icons-color-react/1.0.3_react-dom@17.0.2+react@17.0.2:
@@ -3947,13 +3947,32 @@ packages:
       react-table: 7.8.0_react@17.0.2
       react-transition-group: 4.4.5_react-dom@17.0.2+react@17.0.2
 
+  /@itwin/itwinui-react/1.48.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-9xQ2x5/dSOEWZnNuYZtX2RrNSAL9G9cCR6E8chu1vPlzZ4K0Nd0NpCvX56FVPHI05dNdH2LGZdVG3LE/PG7WZA==}
+    peerDependencies:
+      react: '>=16.8.6 < 19.0.0'
+      react-dom: '>=16.8.6 < 19.0.0'
+    dependencies:
+      '@itwin/itwinui-css': 0.63.1
+      '@itwin/itwinui-icons-react': 1.14.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-illustrations-react': 1.3.1_react-dom@17.0.2+react@17.0.2
+      '@tippyjs/react': 4.2.6_react-dom@17.0.2+react@17.0.2
+      '@types/react-table': 7.7.12
+      classnames: 2.3.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-table: 7.8.0_react@17.0.2
+      react-transition-group: 4.4.5_react-dom@17.0.2+react@17.0.2
+      tippy.js: 6.3.7
+    dev: false
+
   /@itwin/itwinui-react/2.3.0_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-Oc1ErWluxgzGmyU6o9clIcW6RtmNYKG7osp0i35nm/bV0RaGPEOCQNxrNfbjqxbhfXMCfllhqtmsB11M8JSTgA==}
     peerDependencies:
       react: '>=16.8.6 < 19.0.0'
       react-dom: '>=16.8.6 < 19.0.0'
     dependencies:
-      '@itwin/itwinui-css': 1.4.0
+      '@itwin/itwinui-css': 1.5.0
       '@itwin/itwinui-illustrations-react': 2.0.1_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 1.0.0
       '@tippyjs/react': 4.2.6_react-dom@17.0.2+react@17.0.2

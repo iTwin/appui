@@ -10,12 +10,12 @@
   width: 100%;
   position: absolute;
   box-sizing: border-box;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   pointer-events: none;
   visibility: hidden;
   overflow: hidden;
   background: transparent;
-  transition: background .25s ease, visibility 0s ease 0.275s;
+  transition: background 0.25s ease, visibility 0s ease 0.275s;
 
   display: flex;
   flex-direction: column;
@@ -24,12 +24,12 @@
   @include uicore-z-index(modal-frontstage);
 
   .uifw-modal-app-bar {
-    transition: transform .125s;
+    transition: transform 0.125s;
     padding: 10px;
     background: $buic-background-titlebar;
     height: 60px;
     transform: translateY(-100%);
-
+    box-sizing: initial;
 
     .iui-text-headline {
       display: inline-block;
@@ -50,7 +50,6 @@
       display: inline-block;
       border-radius: 0; // Turn off circular border from Back.scss in ui-ninezone
     }
-
   }
 
   .uifw-modal-stage-content {
@@ -61,14 +60,13 @@
   &.uifw-modal-open {
     visibility: visible;
     pointer-events: unset;
-    transition: background .25s ease;
+    transition: background 0.25s ease;
 
     .uifw-modal-app-bar {
       transform: translateY(0%);
-      transition: transform .125s ease;
+      transition: transform 0.125s ease;
     }
   }
-
 }
 
 .uifw-modal-frontstage-overlay {
