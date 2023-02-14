@@ -38,7 +38,7 @@ export const TOOLBAR_OPACITY_DEFAULT = 0.5;
 /** Properties of [[ThemeManagerComponent]].
  */
 interface ThemeManagerProps {
-  /** theme ("light", "dark", 'os') */
+  /** theme ("light", "dark", etc.) */
   theme: string;
   /* Widget Opacity */
   widgetOpacity: number;
@@ -77,18 +77,16 @@ class ThemeManagerComponent extends React.Component<
     this._setTheme(this.props.theme);
   }
 
-  // public override componentDidUpdate(prevProps: ThemeManagerProps) {
-  public override componentDidUpdate() {
-    // if (this.props.theme !== prevProps.theme) this._setTheme(this.props.theme);
-    this._setTheme(this.props.theme);
-    // const currentWidgetOpacity =
-    //   document.documentElement.style.getPropertyValue("--buic-widget-opacity");
-    // if (this.props.widgetOpacity.toString() !== currentWidgetOpacity)
-    //   this._setWidgetOpacity(this.props.widgetOpacity);
-    // const currentToolbarOpacity =
-    //   document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
-    // if (this.props.toolbarOpacity.toString() !== currentToolbarOpacity)
-    //   this._setToolbarOpacity(this.props.toolbarOpacity);
+  public override componentDidUpdate(prevProps: ThemeManagerProps) {
+    if (this.props.theme !== prevProps.theme) this._setTheme(this.props.theme);
+    const currentWidgetOpacity =
+      document.documentElement.style.getPropertyValue("--buic-widget-opacity");
+    if (this.props.widgetOpacity.toString() !== currentWidgetOpacity)
+      this._setWidgetOpacity(this.props.widgetOpacity);
+    const currentToolbarOpacity =
+      document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
+    if (this.props.toolbarOpacity.toString() !== currentToolbarOpacity)
+      this._setToolbarOpacity(this.props.toolbarOpacity);
   }
 
   private _setTheme = (theme: string) => {
