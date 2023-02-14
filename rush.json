@@ -36,38 +36,8 @@
   },
   "projects": [
     {
-      "packageName": "@itwin/core-react",
-      "projectFolder": "ui/core-react",
-      "reviewCategory": "frontend",
-      "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
-    {
-      "packageName": "@itwin/components-react",
-      "projectFolder": "ui/components-react",
-      "reviewCategory": "frontend",
-      "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
-    {
-      "packageName": "@itwin/imodel-components-react",
-      "projectFolder": "ui/imodel-components-react",
-      "reviewCategory": "frontend",
-      "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
-    {
-      "packageName": "@itwin/appui-layout-react",
-      "projectFolder": "ui/appui-layout-react",
-      "reviewCategory": "frontend",
-      "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
-    {
-      "packageName": "@itwin/appui-react",
-      "projectFolder": "ui/appui-react",
-      "reviewCategory": "frontend",
-      "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
-    {
-      "packageName": "internal-tools",
-      "projectFolder": "tools/internal",
+      "packageName": "ui-end-to-end-tests",
+      "projectFolder": "full-stack-tests/ui",
       "reviewCategory": "internal",
       "shouldPublish": false
     },
@@ -102,10 +72,53 @@
       "shouldPublish": false
     },
     {
-      "packageName": "ui-end-to-end-tests",
-      "projectFolder": "full-stack-tests/ui",
+      "packageName": "@itwin/appui-codemod",
+      "projectFolder": "tools/codemod",
+      "reviewCategory": "tools",
+      "shouldPublish": true
+    },
+    {
+      "packageName": "internal-tools",
+      "projectFolder": "tools/internal",
       "reviewCategory": "internal",
       "shouldPublish": false
+    },
+    {
+      "packageName": "@itwin/appui-abstract",
+      "projectFolder": "ui/appui-abstract",
+      "reviewCategory": "frontend",
+      "shouldPublish": true,
+      "versionPolicyName": "prerelease-monorepo-lockStep"
+    },
+    {
+      "packageName": "@itwin/core-react",
+      "projectFolder": "ui/core-react",
+      "reviewCategory": "frontend",
+      "versionPolicyName": "prerelease-monorepo-lockStep"
+    },
+    {
+      "packageName": "@itwin/components-react",
+      "projectFolder": "ui/components-react",
+      "reviewCategory": "frontend",
+      "versionPolicyName": "prerelease-monorepo-lockStep"
+    },
+    {
+      "packageName": "@itwin/imodel-components-react",
+      "projectFolder": "ui/imodel-components-react",
+      "reviewCategory": "frontend",
+      "versionPolicyName": "prerelease-monorepo-lockStep"
+    },
+    {
+      "packageName": "@itwin/appui-layout-react",
+      "projectFolder": "ui/appui-layout-react",
+      "reviewCategory": "frontend",
+      "versionPolicyName": "prerelease-monorepo-lockStep"
+    },
+    {
+      "packageName": "@itwin/appui-react",
+      "projectFolder": "ui/appui-react",
+      "reviewCategory": "frontend",
+      "versionPolicyName": "prerelease-monorepo-lockStep"
     }
   ]
 }
