@@ -13,12 +13,14 @@ import { WidgetState } from "@itwin/appui-abstract";
 import { Size } from "@itwin/core-react";
 import { IModelApp, IModelConnection, MockRender, ScreenViewport, SpatialViewState } from "@itwin/core-frontend";
 import {
-  ConfigurableCreateInfo, ConfigurableUiContent, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, FrontstageDef, FrontstageManager,
+  ConfigurableCreateInfo, ConfigurableUiContent, ContentGroup, ContentLayoutDef, CoreTools, FrontstageDef, FrontstageManager,
   ModalFrontstageRequestedCloseEventArgs, RestoreFrontstageLayoutTool, SettingsModalFrontstage,
-  ToolSettingsManager, ToolUiProvider, UiFramework,
+  ToolUiProvider, UiFramework,
 } from "../../appui-react";
-import TestUtils, { storageMock } from "../TestUtils";
+import TestUtils, { createStaticInternalPassthroughValidators, storageMock } from "../TestUtils";
 import { TestFrontstage, TestFrontstage2, TestFrontstage3 } from "./FrontstageTestUtils";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+/* eslint-disable deprecation/deprecation */
 
 const mySessionStorage = storageMock();
 
@@ -70,7 +72,7 @@ describe("FrontstageManager", () => {
 
   it("getFronstageDef should return active frontstage when no id provided", async () => {
     const activeFrontstageDef = new FrontstageDef();
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => activeFrontstageDef);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => activeFrontstageDef);
 
     const frontstageDef = await FrontstageManager.getFrontstageDef();
 
@@ -168,8 +170,8 @@ describe("FrontstageManager", () => {
   it("setActiveContentGroup should setActiveLayout if layout found", async () => {
     const contentGroup = new ContentGroup({ id: "1", contents: [], layout: { id: "1" } });
     const layoutDef = new ContentLayoutDef({ id: "1" });
-    sinon.stub(ContentLayoutManager, "getLayoutForGroup").returns(layoutDef);
-    const spy = sinon.stub(FrontstageManager, "setActiveLayout");
+    sinon.stub(UiFramework.content.layouts, "getForGroup").returns(layoutDef);
+    const spy = sinon.stub(InternalFrontstageManager, "setActiveLayout");
     await FrontstageManager.setActiveContentGroup(contentGroup);
     expect(spy).to.have.been.calledWithExactly(layoutDef, contentGroup);
   });
@@ -178,15 +180,38 @@ describe("FrontstageManager", () => {
     expect(FrontstageManager.setWidgetState("xyz", WidgetState.Closed)).to.be.false;
   });
 
+  it("setWidgetState apply state on widgetDef", () => {
+    const stubbedWidget = {
+      setWidgetState: sinon.spy(),
+    };
+    sinon.stub(UiFramework.frontstages, "findWidget").withArgs("xyz").returns(stubbedWidget as any);
+    expect(FrontstageManager.setWidgetState("xyz", WidgetState.Closed)).to.be.true;
+    expect(stubbedWidget.setWidgetState).to.calledWithExactly(WidgetState.Closed);
+    sinon.restore();
+  });
+
   it("findWidget returns undefined on invalid id", () => {
     expect(FrontstageManager.findWidget("xyz")).to.be.undefined;
   });
 
-  it("FrontstageProvider supplies valid Frontstage", async () => {
+  it("findWidget returns the widget from the active frontstage def", async () => {
     const frontstageProvider = new TestFrontstage();
     FrontstageManager.addFrontstageProvider(frontstageProvider);
     const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.id);
+
+    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+
+    expect(FrontstageManager.findWidget("widget3")).to.not.be.undefined;
+    await FrontstageManager.deactivateFrontstageDef();
+  });
+
+  it("FrontstageProvider supplies valid Frontstage", async () => {
+    const frontstageProvider = new TestFrontstage();
+    expect(FrontstageManager.frontstageDefs.has(frontstageProvider.id));
+    FrontstageManager.addFrontstageProvider(frontstageProvider);
+    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.id);
     expect(frontstageDef).to.not.be.undefined;
+    expect(FrontstageManager.frontstageDefs.has(frontstageProvider.id));
   });
 
   it("Expect cached frontstageDef to be replaced", async () => {
@@ -234,7 +259,7 @@ describe("FrontstageManager", () => {
       const activeToolSettingsProvider = new ToolUiProviderMock(new ConfigurableCreateInfo("test", "test", "test"), undefined);
       sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => activeToolSettingsProvider);
 
-      ToolSettingsManager.onReloadToolSettingsProperties.emit();
+      UiFramework.toolSettings.onReloadToolSettingsProperties.emit();
     });
 
   });
@@ -297,5 +322,68 @@ describe("FrontstageManager", () => {
       FrontstageManager.nineZoneSize.width.should.eq(10);
       FrontstageManager.nineZoneSize.height.should.eq(20);
     });
+  });
+
+  it("calls Internal static for everything", async () => {
+    const [validateMethod, validateProp] = createStaticInternalPassthroughValidators(FrontstageManager, InternalFrontstageManager);
+
+    validateMethod("addFrontstageProvider", {} as any);
+    validateMethod("clearFrontstageDefs");
+    validateMethod("clearFrontstageDefsForIModelId", "id");
+    validateMethod("clearFrontstageProviders");
+    validateMethod("closeModalFrontstage");
+    validateMethod("closeNestedFrontstage");
+    validateMethod("deactivateFrontstageDef");
+    validateMethod("ensureToolInformationIsSet", "id");
+    validateMethod("findWidget", "id");
+    validateMethod("getFrontstageDef", "id");
+    validateMethod("hasFrontstage", "id");
+    validateMethod("initialize");
+    validateMethod("openModalFrontstage", {} as any);
+    validateMethod("openNestedFrontstage", {} as any);
+    validateMethod("setActiveContentGroup", {} as any);
+    validateMethod("setActiveFrontstage", "id");
+    validateMethod("setActiveFrontstageDef", {} as any);
+    validateMethod("setActiveLayout", {} as any, {} as any);
+    validateMethod("setActiveNavigationAid", "id", {} as any);
+    validateMethod("setActiveTool", {} as any);
+    validateMethod("setActiveToolId", "id");
+    validateMethod("setWidgetState", "id", {} as any);
+    validateMethod("updateModalFrontstage");
+    validateProp("isInitialized", true);
+    validateProp("isLoading");
+    validateProp("nineZoneSize", true);
+    validateProp("frontstageDefs");
+    validateProp("onFrontstageDeactivatedEvent");
+    validateProp("onFrontstageActivatedEvent");
+    validateProp("onFrontstageReadyEvent");
+    validateProp("onModalFrontstageChangedEvent");
+    validateProp("onModalFrontstageClosedEvent");
+    validateProp("onCloseModalFrontstageRequestedEvent");
+    validateProp("onToolActivatedEvent");
+    validateProp("onToolSettingsReloadEvent");
+    validateProp("onToolPanelOpenedEvent");
+    validateProp("onToolIconChangedEvent");
+    validateProp("onContentLayoutActivatedEvent");
+    validateProp("onContentControlActivatedEvent");
+    validateProp("onNavigationAidActivatedEvent");
+    validateProp("onWidgetStateChangedEvent");
+    validateProp("onWidgetLabelChangedEvent");
+    validateProp("onWidgetShowEvent");
+    validateProp("onWidgetExpandEvent");
+    validateProp("onWidgetDefsUpdatedEvent");
+    validateProp("onFrontstageNineZoneStateChangedEvent");
+    validateProp("onFrontstageRestoreLayoutEvent");
+    validateProp("onPanelStateChangedEvent");
+    validateProp("onPanelSizeChangedEvent");
+    validateProp("activeFrontstageDef");
+    validateProp("activeFrontstageId");
+    validateProp("activeToolId");
+    validateProp("activeToolInformation");
+    validateProp("activeToolSettingsProvider");
+    validateProp("activeModalFrontstage");
+    validateProp("modalFrontstageCount");
+    validateProp("activeNestedFrontstage");
+    validateProp("nestedFrontstageCount");
   });
 });
