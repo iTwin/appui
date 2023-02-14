@@ -270,8 +270,8 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
           className={"core-focus-trap-ignore-initial core-dialog-close icon"}
           data-testid="core-dialog-close"
           onClick={onClose}>
-            <Icon iconSpec={<SvgClose />} />
-          </button>
+          <Icon iconSpec={<SvgClose />} />
+        </button>
       </div>
     );
 

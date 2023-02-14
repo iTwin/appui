@@ -240,7 +240,7 @@ export class DrawingNavigationAid extends React.Component<DrawingNavigationAidPr
                 <Icon iconSpec={<SvgAdd />} />
               </div>
               <div className="zoom-button icon" data-testid="drawing-zoom-out-button" onClick={this._handleZoomOut} role="button" tabIndex={-1}>
-              <Icon iconSpec={<SvgRemove />} />
+                <Icon iconSpec={<SvgRemove />} />
               </div>
             </div>
           </>}

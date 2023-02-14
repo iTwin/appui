@@ -14,7 +14,7 @@ import { CommonProps, Icon, UiCore } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 import { ResultSelector, ResultSelectorProps } from "./ResultSelector";
-import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react"
+import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 
 /** [[FilteringInput]] React Component state
  * @internal

@@ -44,7 +44,7 @@ export class NonPrimitivePropertyLabelRenderer extends React.PureComponent<NonPr
         role="presentation"
       >
         <div className={(this.props.isExpanded ? " components-expanded" : "")}>
-        <Icon iconSpec={<SvgChevronRight />}/>
+          <Icon iconSpec={<SvgChevronRight />}/>
         </div>
         <PropertyLabelRenderer renderColon={this.props.renderColon}>{this.props.children}</PropertyLabelRenderer>
       </div>

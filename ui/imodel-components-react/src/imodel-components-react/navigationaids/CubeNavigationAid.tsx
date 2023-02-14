@@ -15,7 +15,7 @@ import { CommonProps, Icon, IconSpec } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { ViewportComponentEvents, ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
 import { Cube, Face } from "./Cube";
-import { SvgCaretDown, SvgCaretDownSmall, SvgCaretLeftSmall, SvgCaretRightSmall, SvgCaretUp, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
+import { SvgCaretDownSmall, SvgCaretLeftSmall, SvgCaretRightSmall, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
 
 /** @public */
 export enum CubeNavigationHitBoxX {

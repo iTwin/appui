@@ -18,7 +18,7 @@ import { ColorBuilder, ColorInputPanel, ColorPalette, ColorPicker, ColorValue } 
 import "./ColorPickerPopup.scss";
 import { getCSSColorFromDef } from "./getCSSColorFromDef";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { SvgCaretUpSmall, SvgCaretDownSmall, SvgClose } from "@itwin/itwinui-icons-react";
+import { SvgCaretDownSmall, SvgCaretUpSmall, SvgClose } from "@itwin/itwinui-icons-react";
 
 /** Properties for the [[ColorPickerPopup]] React component
  * @public

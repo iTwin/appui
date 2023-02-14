@@ -7,7 +7,6 @@ import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import { MessageBox } from "../../core-react";
-import { MessageContainer } from "../../core-react/messagebox/MessageBox";
 import TestUtils, { classesFromElement } from "../TestUtils";
 
 describe("MessageBox", () => {
@@ -64,8 +63,7 @@ describe("MessageBox", () => {
 
   });
 
-
-// TODO replace this with visual testing
+  // TODO replace this with visual testing
   // describe("MessageContainer.getIconClassName with hollow param", () => {
   //   ([["None",MessageSeverity.None, " "],
   //     ["Information",MessageSeverity.Information, "icon-info-hollow"],

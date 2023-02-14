@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import { ResultSelector } from "../../components-react/filtering/ResultSelector";
 import { render, screen } from "@testing-library/react";
-import TestUtils, { childStructure, userEvent } from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
 
 describe("ResultSelector", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -35,7 +35,6 @@ describe("ResultSelector", () => {
     expect (previousButton.outerHTML).not.includes("disabled");
     const nextButton = screen.getByTestId("next-button");
     expect (nextButton.outerHTML).not.includes("disabled");
-
 
     expect(screen.getByRole("presentation")).that
       .have.property("innerHTML")

@@ -51,11 +51,6 @@ describe("SnapModeField", () => {
   });
 
   it("Status Bar with SnapModes Field should render", () => {
-    const modes = [
-      SnapMode.NearestKeypoint as number, SnapMode.Intersection as number, SnapMode.Center as number,
-      SnapMode.Nearest as number, SnapMode.Origin as number, SnapMode.MidPoint as number, SnapMode.Bisector as number,
-    ];
-
     const wrapper = render(<Provider store={TestUtils.store}>
       <StatusBar widgetControl={widgetControl} />
     </Provider>);

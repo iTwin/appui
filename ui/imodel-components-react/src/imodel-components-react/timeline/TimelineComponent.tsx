@@ -18,7 +18,7 @@ import { PlayButton, PlayerButton } from "./PlayerButton";
 import { Scrubber } from "./Scrubber";
 import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";
 import { Icon } from "@itwin/core-react";
-import { SvgCaretLeft, SvgCaretLeftSmall, SvgCaretRight, SvgCheckmark, SvgMoreVertical, SvgPlayCircular } from "@itwin/itwinui-icons-react";
+import { SvgCaretLeft, SvgCaretRight, SvgCheckmark, SvgMoreVertical, SvgPlayCircular } from "@itwin/itwinui-icons-react";
 
 // cspell:ignore millisec
 
