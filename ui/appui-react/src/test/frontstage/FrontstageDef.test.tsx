@@ -328,9 +328,9 @@ describe("FrontstageDef", () => {
     expect(spy).to.be.calledOnceWithExactly("t1");
   });
 
-  it("should activate a widget def", () => {
+  it("should activate a widget def", async () => {
     const def = new FrontstageDef();
-    def.initializeFromConfig({
+    await def.initializeFromConfig({
       id: "old",
       version: 1,
       usage: "General",
