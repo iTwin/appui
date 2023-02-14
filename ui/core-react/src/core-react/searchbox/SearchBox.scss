@@ -4,8 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "../style/themecolors";
 @import "../style/variables";
-// @import "~@itwin/itwinui-css/scss/inputs/input";
-// @import "~@itwin/itwinui-css/scss/style/typography";
 
 .core-searchbox {
   font-family: var(--iui-font-sans);
@@ -19,7 +17,6 @@
   color: $buic-text-color;
 
   input {
-    // @include iui-input;
     min-height: $uicore-component-height-normal;
     padding: var(--iui-size-3xs) 2em var(--iui-size-3xs) 12px; //12px from design guide
     height: 100%;

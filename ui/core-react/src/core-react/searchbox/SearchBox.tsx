@@ -12,6 +12,7 @@ import * as React from "react";
 import { UiCore } from "../UiCore";
 import { CommonProps } from "../utils/Props";
 import { SpecialKey } from "@itwin/appui-abstract";
+import { Input } from "@itwin/itwinui-react";
 
 /** Properties for [[SearchBox]] component
  * @public
@@ -68,13 +69,12 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
       emptyString ? "general.search" : "general.clear"
     );
     return (
-      // TODO Replace with input container???
       <div
         className={searchClassName}
         style={this.props.style}
         data-testid="core-searchbox-instance"
       >
-        <input
+        <Input
           defaultValue={this.props.initialValue}
           ref={(el) => {
             this._inputElement = el;
@@ -90,8 +90,7 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
           }
           role="searchbox"
           data-testid="core-searchbox-input"
-        ></input>
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+        />
         <div
           className="core-searchbox-button"
           onClick={this._handleIconClick}

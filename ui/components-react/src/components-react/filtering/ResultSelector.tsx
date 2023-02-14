@@ -12,6 +12,7 @@ import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { CommonProps } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
+import { Button, IconButton } from "@itwin/itwinui-react";
 
 /** [[ResultSelector]] React Component state
  * @internal
@@ -137,8 +138,10 @@ export class ResultSelector extends React.PureComponent<
         )}
         style={this.props.style}
       >
-        {/** TODO: replace with Icon Button? */}
-        <button
+        {/** TODO: replace with Icon Button?
+         * Greta: where used?
+         */}
+        <IconButton
           className={classnames(
             "components-result-selector-button",
             "icon",

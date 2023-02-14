@@ -251,7 +251,7 @@ export class AutoSuggest extends React.PureComponent<
   private _theme = {
     container: "uicore-autosuggest__container",
     containerOpen: "uicore-autosuggest__container--open",
-    input: "uicore-autosuggest__input",
+    input: "uicore-autosuggest__input iui-input",
     inputOpen: "uicore-autosuggest__input--open",
     inputFocused: "uicore-autosuggest__input--focused",
     suggestionsContainer: "uicore-autosuggest__suggestions-container",
