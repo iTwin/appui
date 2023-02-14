@@ -6,7 +6,7 @@
 
 // backstage common values
 $nz-backstage-width: 300px;
-$nz-backstage-overlay-background: rgba(#222, 0.6);
+$nz-backstage-overlay-background: rgba(0,0,0,var(--iui-opacity-4));
 
 $nz-backstage-item-font-size: var(--iui-font-size-2);
 $nz-backstage-subtitle-font-size: var(--iui-font-size-1);

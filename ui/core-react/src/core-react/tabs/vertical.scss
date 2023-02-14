@@ -17,7 +17,6 @@
     > a {
       line-height: var(--iui-size-l);
       padding: 14px 20px;
-      background: $buic-background-tab-inactive;
       border-width: 0;
 
       $bar-size: 2px;
@@ -46,8 +45,7 @@
 
     &.core-active {
       > a {
-        color: $buic-foreground-primary;
-        background-color: $buic-background-tab-active;
+        color: var(--iui-color-text-accent);
 
         &:focus {
           background-color: $buic-background-active-overlay;

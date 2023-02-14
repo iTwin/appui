@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "~@itwin/itwinui-variables";
 @import "~@itwin/core-react/lib/cjs/core-react/geometry";
 @import "~@itwin/core-react/lib/cjs/core-react/typography";
 
@@ -16,7 +16,7 @@
     position: absolute;
     top: $bar-size;
     left: 0;
-    background: $buic-foreground-primary;
+    background: var(--iui-color-text-accent);
     padding-left: $bar-size;
     padding-right: $bar-size;
     box-sizing: border-box;
@@ -34,11 +34,11 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  color: $buic-text-color;
+  color: var(--iui-color-text);
 
   &:not(.nz-active) {
-    border-bottom: 1px solid $buic-background-dialog-stroke;
-    background-color: $buic-background-tab-inactive;
+    border-bottom: 1px solid var(--iui-color-border);
+    background-color: var(--iui-color-background-backdrop);
   }
 
   &:hover {
@@ -46,13 +46,13 @@
   }
 
   &.nz-active {
-    color: $buic-foreground-primary;
+    color: var(--iui-color-text-accent);
 
     @include nz-tab-bar;
   }
 
   &:not(:first-child) {
-    border-left: 1px solid $buic-background-dialog-stroke;
+    border-left: 1px solid var(--iui-color-border);
   }
 
   &:focus {

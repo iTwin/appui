@@ -31,7 +31,7 @@ div.core-settings-container {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: var(--buic-background-dialog);
+    background: red; // TODO: Where is this applied?
     align-content: center;
 
     .core-settings-container-right-header {

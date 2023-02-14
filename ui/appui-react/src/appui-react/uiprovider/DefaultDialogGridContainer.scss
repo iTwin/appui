@@ -14,7 +14,7 @@
 }
 
 .uifw-label-disabled {
-  color: $buic-text-color-disabled;
+  color: var(--iui-color-text-disabled);
 }
 
 div.uifw-default-property-lock input[type="checkbox"] {

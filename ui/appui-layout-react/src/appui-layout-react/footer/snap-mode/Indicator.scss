@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/index";
 @import "../variables";
+@import "~@itwin/itwinui-variables";
 
 .nz-footer-snapMode-indicator {
   height: 100%;
@@ -33,7 +34,7 @@
     }
 
     &:hover {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent-hover); // TODO: Have the background color change instead of the text color?
       cursor: pointer;
     }
 

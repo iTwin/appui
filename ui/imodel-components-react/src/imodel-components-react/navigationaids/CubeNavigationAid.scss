@@ -9,11 +9,8 @@ $button-width: 20px;
 $nav-cube-width: 64px;
 $nav-cube-side-width: 14px;
 
-$grad-start: $buic-background-1;
-$grad-end: $buic-background-4;
-
-$grad-start-highlight: $buic-background-2;
-$grad-end-highlight: $buic-background-5;
+$grad-start: var(--iui-color-background);
+$grad-end: var(--iui-color-background-zebra);
 
 $arrow-margin: -3px;
 
@@ -43,7 +40,7 @@ $arrow-margin: -3px;
         height: 100%;
         font-size: var(--iui-font-size-1);
         font-weight: var(--iui-font-weight-semibold);
-        color: $buic-text-color;
+        color: var(--iui-color-text);
         box-shadow: inset 0px 0px 1px 0.2px #000;
 
         .face-row {
@@ -68,13 +65,12 @@ $arrow-margin: -3px;
             }
 
             &.cube-hover {
-              color: $buic-foreground-activehover;
-              background: $buic-background-active-overlay;
+              height: auto;
+              background-color: var(--iui-color-background-accent-muted);
             }
 
             &.cube-active {
-              color: $buic-foreground-activehover;
-              background: $buic-background-pressed-overlay;
+              background-color: var(--iui-color-background-accent-muted);
             }
           }
 
@@ -100,33 +96,6 @@ $arrow-margin: -3px;
       .cube-bottom {
         background: $grad-end;
       }
-
-      &.cube-dragging {
-        .face-row .face-cell {
-          &.cube-hover,
-          &.cube-active {
-            background: transparent;
-          }
-        }
-
-        .cube-left,
-        .cube-right,
-        .cube-front,
-        .cube-back {
-          background: linear-gradient(
-            #{$grad-start-highlight},
-            #{$grad-end-highlight}
-          );
-        }
-
-        .cube-top {
-          background: $grad-start-highlight;
-        }
-
-        .cube-bottom {
-          background: $grad-end-highlight;
-        }
-      }
     }
   }
 
@@ -135,7 +104,7 @@ $arrow-margin: -3px;
     height: $button-width;
     width: $button-width;
     font-size: $button-width;
-    color: $buic-background-2;
+    color: var(--iui-color-background);
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     cursor: pointer;
 
@@ -144,7 +113,7 @@ $arrow-margin: -3px;
     }
 
     &:hover {
-      color: $buic-row-selection;
+      color: var(--iui-color-background-hover);
     }
 
     &:focus {
