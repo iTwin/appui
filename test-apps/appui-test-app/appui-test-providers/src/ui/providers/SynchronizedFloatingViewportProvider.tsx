@@ -2,18 +2,16 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-
-import { BackstageItem, BackstageItemUtilities, CommonToolbarItem, StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider } from "@itwin/appui-abstract";
+import { BackstageItem, BackstageItemUtilities, StageUsage, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider } from "@itwin/appui-react";
 import { OpenSynchronizedViewTool } from "../../tools/OpenSynchronizedViewTool";
 import { SynchronizedFloatingViewportStage } from "../frontstages/SynchronizedFloatingViewport";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-
 export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
   public static providerId = "SynchronizedFloatingViewportProvider";
   public readonly id = SynchronizedFloatingViewportProvider.providerId;
+
   constructor(localizationNamespace: string) {
     OpenSynchronizedViewTool.register(localizationNamespace);
   }
@@ -31,18 +29,18 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
     stageUsage: string,
     toolbarUsage: ToolbarUsage,
     toolbarOrientation: ToolbarOrientation,
-  ): CommonToolbarItem[] {
+  ): ToolbarItem[] {
     if (stageUsage !== StageUsage.General) return [];
-    if (_stageId !== "appui-test-providers:SynchronizedFloatingViewportExample" ) return [];
+    if (_stageId !== "appui-test-providers:SynchronizedFloatingViewportExample") return [];
 
-    const toolbarItems: CommonToolbarItem[] = [];
+    const toolbarItems: ToolbarItem[] = [];
     if (
       toolbarUsage === ToolbarUsage.ContentManipulation &&
       toolbarOrientation === ToolbarOrientation.Horizontal
     ) {
-      toolbarItems.push(getCustomViewSelectorPopupItem(20,3000));
+      toolbarItems.push(getCustomViewSelectorPopupItem(20, 3000));
       OpenSynchronizedViewTool.register("ThisTestApp");
-      toolbarItems.push(OpenSynchronizedViewTool.getActionButtonDef(10,10));
+      toolbarItems.push(OpenSynchronizedViewTool.getActionButtonDef(10, 10));
     }
     return toolbarItems;
   }

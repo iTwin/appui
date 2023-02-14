@@ -4,14 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BackstageManager, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
-  StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider,
-  UiFramework,
+  BackstageAppButton, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
+  StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager,
 } from "@itwin/appui-react";
-import {
-  StageUsage, StandardContentLayouts, UiItemsManager,
-} from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { SynchronizedFloatingViewportProvider } from "../providers/SynchronizedFloatingViewportProvider";
 
@@ -57,7 +53,7 @@ export class SynchronizedFloatingViewportContentGroupProvider extends ContentGro
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public  override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
+  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
     const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, UiFramework.getIModelConnection());
     if (savedViewLayoutProps) {
       const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
@@ -117,7 +113,7 @@ export class SynchronizedFloatingViewportStage {
   public static register(localizationNamespace: string) {
     // set up custom corner button where we specify icon, label, and action
     const cornerButton = <BackstageAppButton key="appui-test-providers-SynchronizedFloatingViewportExample-backstage" label="Toggle Backstage" icon={"icon-bentley-systems"}
-      execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
+      execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
 
     const synchronizedFloatingViewportStageProps: StandardFrontstageProps = {
       id: SynchronizedFloatingViewportStage.stageId,
@@ -127,12 +123,11 @@ export class SynchronizedFloatingViewportStage {
       usage: StageUsage.General,
     };
 
-    ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(synchronizedFloatingViewportStageProps));
+    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(synchronizedFloatingViewportStageProps));
     this.registerToolProviders(localizationNamespace);
   }
 
   private static registerToolProviders(localizationNamespace: string) {
-
     // Provides standard tools for ToolWidget in stage
     UiItemsManager.register(new StandardContentToolsUiItemsProvider({
       vertical: {

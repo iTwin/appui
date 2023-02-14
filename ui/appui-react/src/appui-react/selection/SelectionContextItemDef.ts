@@ -7,7 +7,6 @@
  */
 
 import { ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
-import { ContentViewManager } from "../content/ContentViewManager";
 import { SessionStateActionId } from "../redux/SessionState";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { BaseItemState } from "../shared/ItemDefBase";
@@ -44,7 +43,7 @@ export function getSelectionContextSyncEventIds(): string[] {
  * @beta
  */
 export function isNoSelectionActive(): boolean {
-  const activeContentControl = ContentViewManager.getActiveContentControl();
+  const activeContentControl = UiFramework.content.getActiveContentControl();
   let selectionCount = 0;
   // istanbul ignore if
   if (!UiFramework.frameworkStateKey)
@@ -61,7 +60,7 @@ export function isNoSelectionActive(): boolean {
  * @beta
  */
 export function areNoFeatureOverridesActive(): boolean {
-  const activeContentControl = ContentViewManager.getActiveContentControl();
+  const activeContentControl = UiFramework.content.getActiveContentControl();
   // istanbul ignore next
   if (activeContentControl && activeContentControl.viewport)
     return !UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(activeContentControl.viewport);
@@ -88,7 +87,7 @@ export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
  */
 // istanbul ignore next
 export function featureOverridesActiveStateFunc(state: Readonly<BaseItemState>): BaseItemState {
-  const activeContentControl = ContentViewManager.getActiveContentControl();
+  const activeContentControl = UiFramework.content.getActiveContentControl();
   let isVisible = false;
 
   // istanbul ignore next
@@ -103,7 +102,7 @@ export function featureOverridesActiveStateFunc(state: Readonly<BaseItemState>):
  */
 // istanbul ignore next
 export function selectionContextStateFunc(state: Readonly<BaseItemState>): BaseItemState {
-  const activeContentControl = ContentViewManager.getActiveContentControl();
+  const activeContentControl = UiFramework.content.getActiveContentControl();
   let isVisible = false;
 
   let selectionCount = 0;

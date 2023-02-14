@@ -20,6 +20,8 @@ import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
 
 // cSpell:ignore safearea
 
+/* eslint-disable deprecation/deprecation */
+
 /** Private function to set up sync event monitoring of backstage items */
 function useBackstageItemSyncEffect(itemsManager: BackstageItemsManager, syncIdsOfInterest: string[]) {
   const isInitialMount = React.useRef(true);
@@ -130,7 +132,7 @@ export interface BackstageComposerProps extends CommonProps {
   readonly hideSoloStageEntry?: boolean;
 }
 
-/** Backstage component composed from [[BackstageManager]] items.
+/** Backstage component composed from [[UiFramework.backstage]] items.
  * @public
  */
 export function BackstageComposer(props: BackstageComposerProps) {

@@ -17,7 +17,6 @@ import {
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import { IconSpec, ReactMessage } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
-import { ModalDialogManager } from "../dialog/ModalDialogManager";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
 import { ElementTooltip } from "../feedback/ElementTooltip";
 import { UiFramework } from "../UiFramework";
@@ -501,7 +500,7 @@ export class MessageManager {
     return new Promise((onFulfilled: (result: MessageBoxValue) => void, onRejected: (reason: any) => void) => {
       const messageBoxCallbacks = new MessageBoxCallbacks(onFulfilled, onRejected);
       const messageElement = <MessageSpan message={message} />;
-      ModalDialogManager.openDialog(this.standardMessageBox(mbType, icon, title, messageElement, messageBoxCallbacks));
+      UiFramework.dialogs.modal.open(this.standardMessageBox(mbType, icon, title, messageElement, messageBoxCallbacks));
     });
   }
 
@@ -521,7 +520,7 @@ export class MessageManager {
         }
       </>
     );
-    ModalDialogManager.openDialog(this.standardMessageBox(MessageBoxType.Ok, iconType, title, content));
+    UiFramework.dialogs.modal.open(this.standardMessageBox(MessageBoxType.Ok, iconType, title, content));
   }
 
   private static standardMessageBox(mbType: MessageBoxType, iconType: MessageBoxIconType, title: string, messageElement: React.ReactNode, callbacks?: MessageBoxCallbacks): React.ReactNode {

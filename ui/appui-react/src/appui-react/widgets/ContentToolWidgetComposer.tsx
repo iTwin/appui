@@ -39,7 +39,7 @@ export interface ContentToolWidgetComposerProps {
  * ```
  * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />}
  *   label="Toggle Backstage display",
- *   execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
+ *   execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
  * <ContentToolWidgetComposer cornerButton={cornerButton} />
  * ```
  *
@@ -56,8 +56,8 @@ export function ContentToolWidgetComposer(props: ContentToolWidgetComposerProps)
   return (
     <ToolWidgetComposer className={className}
       cornerItem={cornerButton}
-      horizontalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
-      verticalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
+      horizontalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />} // eslint-disable-line deprecation/deprecation
+      verticalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />} // eslint-disable-line deprecation/deprecation
     />
   );
 }

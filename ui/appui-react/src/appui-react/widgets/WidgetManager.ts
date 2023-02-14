@@ -7,11 +7,14 @@
  */
 
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
-import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
 import { WidgetDef } from "./WidgetDef";
 import { createStableWidgetDef } from "./StableWidgetDef";
 import { WidgetConfig } from "./WidgetConfig";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { StagePanelSection } from "../stagepanels/StagePanelSection";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { AbstractWidgetProps } from "@itwin/appui-abstract";
 
 /** Information about WidgetDefs in the WidgetManager
  * @internal
@@ -128,7 +131,7 @@ export class WidgetManager {
 
     // Consult the UiItemsManager to get any Abstract widgets
     const widgets = UiItemsManager.getWidgets(stageId, stageUsage, location, definedSection);
-    widgets.forEach((abstractProps: AbstractWidgetProps, index: number) => {
+    widgets.forEach((abstractProps, index) => {
       const stableId = getAddonStableWidgetId(stageUsage, location, definedSection, index);
       const config = createWidgetConfigFromAbstractProps(abstractProps, stableId);
       const widgetDef = WidgetDef.create(config);
@@ -138,7 +141,7 @@ export class WidgetManager {
   }
 }
 
-function createWidgetConfigFromAbstractProps(props: AbstractWidgetProps, stableId: WidgetConfig["id"]): WidgetConfig {
+function createWidgetConfigFromAbstractProps(props: AbstractWidgetProps, stableId: WidgetConfig["id"]): WidgetConfig { // eslint-disable-line deprecation/deprecation
   const config: WidgetConfig = {
     id: props.id ? props.id : stableId,
     element: props.getWidgetContent(),

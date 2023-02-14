@@ -13,7 +13,6 @@ import {
   ViewUndoTool, WalkViewTool, WindowAreaTool, ZoomViewTool,
 } from "@itwin/core-frontend";
 import { ConditionalBooleanValue, ConditionalStringValue, IconSpecUtilities } from "@itwin/appui-abstract";
-import { ContentViewManager } from "../content/ContentViewManager";
 import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { ToolItemDef } from "../shared/ToolItemDef";
@@ -87,7 +86,7 @@ export class CoreTools {
     return new ToolItemDef({
       toolId: RotateViewTool.toolId,
       iconSpec: new ConditionalStringValue(() => {
-        const activeContentControl = ContentViewManager.getActiveContentControl();
+        const activeContentControl = UiFramework.content.getActiveContentControl();
         if (activeContentControl?.viewport?.view.is2d())
           return IconSpecUtilities.createWebComponentIconSpec(svgRotateLeft);
         return IconSpecUtilities.createWebComponentIconSpec(svgGyroscope);
@@ -105,7 +104,7 @@ export class CoreTools {
       label: WalkViewTool.flyover,
       description: WalkViewTool.description,
       isHidden: new ConditionalBooleanValue(() => {
-        const activeContentControl = ContentViewManager.getActiveContentControl();
+        const activeContentControl = UiFramework.content.getActiveContentControl();
         return !!activeContentControl?.viewport?.view.is2d();
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       execute: async () => IModelApp.tools.run(WalkViewTool.toolId, IModelApp.viewManager.selectedView),
@@ -136,14 +135,14 @@ export class CoreTools {
     return new ToolItemDef({
       toolId: ViewToggleCameraTool.toolId,
       iconSpec: new ConditionalStringValue(() => {
-        const activeContentControl = ContentViewManager.getActiveContentControl();
+        const activeContentControl = UiFramework.content.getActiveContentControl();
         if (activeContentControl?.viewport?.view.is3d() && activeContentControl?.viewport?.isCameraOn) {
           return IconSpecUtilities.createWebComponentIconSpec(cameraAnimationIcon);
         }
         return IconSpecUtilities.createWebComponentIconSpec(cameraAnimationDisabledIcon);
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       label: new ConditionalStringValue(() => {
-        const activeContentControl = ContentViewManager.getActiveContentControl();
+        const activeContentControl = UiFramework.content.getActiveContentControl();
         if (activeContentControl?.viewport?.view.is3d() && activeContentControl?.viewport?.isCameraOn) {
           return UiFramework.translate("tools.View.ToggleCamera.turnOffFlyover");
         }
@@ -151,7 +150,7 @@ export class CoreTools {
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       description: ViewToggleCameraTool.description,
       isHidden: new ConditionalBooleanValue(() => {
-        const activeContentControl = ContentViewManager.getActiveContentControl();
+        const activeContentControl = UiFramework.content.getActiveContentControl();
         return !(activeContentControl?.viewport?.view.is3d() && activeContentControl?.viewport?.view.supportsCamera());
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       execute: async () => IModelApp.tools.run(ViewToggleCameraTool.toolId, IModelApp.viewManager.selectedView),
@@ -174,7 +173,7 @@ export class CoreTools {
     return new ToolItemDef({
       toolId: ViewUndoTool.toolId,
       isDisabled: new ConditionalBooleanValue(() => {
-        const activeContentControl = ContentViewManager.getActiveContentControl();
+        const activeContentControl = UiFramework.content.getActiveContentControl();
         if (activeContentControl && activeContentControl.viewport)
           return !activeContentControl.viewport.isUndoPossible;
         return false;
@@ -194,7 +193,7 @@ export class CoreTools {
       description: ViewRedoTool.description,
       execute: async () => IModelApp.tools.run(ViewRedoTool.toolId, IModelApp.viewManager.selectedView),
       isDisabled: new ConditionalBooleanValue(() => {
-        const activeContentControl = ContentViewManager.getActiveContentControl();
+        const activeContentControl = UiFramework.content.getActiveContentControl();
         if (activeContentControl && activeContentControl.viewport)
           return !activeContentControl.viewport.isRedoPossible;
         return false;
@@ -278,7 +277,7 @@ export class CoreTools {
       labelKey: "UiFramework:tools.sectionTools",
       iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSectionTool),
       isHidden: new ConditionalBooleanValue(() => {
-        const activeContentControl = ContentViewManager.getActiveContentControl();
+        const activeContentControl = UiFramework.content.getActiveContentControl();
         return !!activeContentControl?.viewport?.view.is2d();
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       items: [this.sectionByPlaneCommandItemDef, this.sectionByElementCommandItemDef, this.sectionByRangeCommandItemDef, this.sectionByShapeCommandItemDef],
@@ -298,7 +297,7 @@ export class CoreTools {
       panelLabelKey: "UiFramework:tools.sectionPanelLabel",
       iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSectionTool),
       isHidden: new ConditionalBooleanValue(() => {
-        const activeContentControl = ContentViewManager.getActiveContentControl();
+        const activeContentControl = UiFramework.content.getActiveContentControl();
         return !!activeContentControl?.viewport?.view.is2d();
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       items: [

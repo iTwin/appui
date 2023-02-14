@@ -6,17 +6,11 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 
 import {
-  BackstageAppButton, BackstageManager, CommandItemDef, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
-  IModelViewportControl, StagePanelState, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
-  StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider,
-  StateManager,
-  UiFramework,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
+  IModelViewportControl, StagePanelState, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps,
+  StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, StateManager, UiFramework, UiItemsManager,
 } from "@itwin/appui-react";
-import {
-  ConditionalStringValue,
-  StageUsage, StandardContentLayouts, UiItemsManager,
-} from "@itwin/appui-abstract";
+import { ConditionalStringValue, StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { WidgetApiStageUiItemsProvider } from "../providers/WidgetApiStageUiItemsProvider";
 import { getTestProviderState, setShowCustomViewOverlay, TestProviderState } from "../../store";
@@ -123,7 +117,7 @@ export class WidgetApiStage {
   public static register(localizationNamespace: string) {
     // set up custom corner button where we specify icon, label, and action
     const cornerButton = <BackstageAppButton key="appui-test-providers-WidgetApi-backstage" label="Toggle Backstage" icon={"icon-bentley-systems"}
-      execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
+      execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
 
     const widgetApiStageProps: StandardFrontstageProps = {
       id: WidgetApiStage.stageId,
@@ -143,7 +137,7 @@ export class WidgetApiStage {
       },
     };
 
-    ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(widgetApiStageProps));
+    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(widgetApiStageProps));
     this.registerToolProviders(localizationNamespace);
   }
 

@@ -7,7 +7,7 @@
  */
 
 import { CommandItemDef } from "../shared/CommandItemDef";
-import { FrontstageManager } from "./FrontstageManager";
+import { UiFramework } from "../UiFramework";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
 import svgProgressBackwardCircular from "@bentley/icons-generic/icons/progress-backward.svg";
 
@@ -24,7 +24,7 @@ export class NestedFrontstage {
       iconSpec: NestedFrontstage.iconSpec,
       labelKey: "UiFramework:commands.backToPreviousFrontstage",
       execute: async () => {
-        await FrontstageManager.closeNestedFrontstage();
+        await UiFramework.frontstages.closeNestedFrontstage();
       },
     });
   }

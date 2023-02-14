@@ -10,8 +10,8 @@ import { MockRender, ToolAssistance, ToolAssistanceImage, ToolAssistanceInputMet
 import { WidgetState } from "@itwin/appui-abstract";
 import { LocalStateStorage } from "@itwin/core-react";
 import {
-  AppNotificationManager, ConfigurableCreateInfo, ConfigurableUiControlType, CursorPopupManager, FrontstageManager, StatusBar, StatusBarWidgetControl,
-  ToolAssistanceField, WidgetDef,
+  AppNotificationManager, ConfigurableCreateInfo, ConfigurableUiControlType, CursorPopupManager, StatusBar, StatusBarWidgetControl,
+  ToolAssistanceField, UiFramework, WidgetDef,
 } from "../../../appui-react";
 import TestUtils, { selectorMatches, storageMock, userEvent } from "../../TestUtils";
 import { render, screen } from "@testing-library/react";
@@ -413,7 +413,7 @@ describe(`ToolAssistanceField`, () => {
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
 
     // emit before instructions set
-    FrontstageManager.onToolIconChangedEvent.emit({ iconSpec: "icon-placeholder" });
+    UiFramework.frontstages.onToolIconChangedEvent.emit({ iconSpec: "icon-placeholder" });
 
     spyMethod.called.should.false;
 
@@ -425,7 +425,7 @@ describe(`ToolAssistanceField`, () => {
     spyMethod.resetHistory();
 
     // emit after instructions set
-    FrontstageManager.onToolIconChangedEvent.emit({ iconSpec: "icon-placeholder" });
+    UiFramework.frontstages.onToolIconChangedEvent.emit({ iconSpec: "icon-placeholder" });
 
     spyMethod.called.should.true;
 

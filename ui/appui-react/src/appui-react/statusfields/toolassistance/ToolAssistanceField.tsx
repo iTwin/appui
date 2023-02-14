@@ -26,7 +26,7 @@ import {
 } from "@itwin/appui-layout-react";
 import { HorizontalTabs, ToggleSwitch } from "@itwin/itwinui-react";
 import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt";
-import { FrontstageManager, ToolIconChangedEventArgs } from "../../frontstage/FrontstageManager";
+import { ToolIconChangedEventArgs } from "../../framework/FrameworkFrontstages";
 import { MessageManager, ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
 import { UiFramework } from "../../UiFramework";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage";
@@ -150,7 +150,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
   public override async componentDidMount() {
     this._isMounted = true;
     MessageManager.onToolAssistanceChangedEvent.addListener(this._handleToolAssistanceChangedEvent);
-    FrontstageManager.onToolIconChangedEvent.addListener(this._handleToolIconChangedEvent);
+    UiFramework.frontstages.onToolIconChangedEvent.addListener(this._handleToolIconChangedEvent);
 
     // istanbul ignore else
     if (this.props.uiStateStorage)
@@ -165,7 +165,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
   public override componentWillUnmount() {
     this._isMounted = false;
     MessageManager.onToolAssistanceChangedEvent.removeListener(this._handleToolAssistanceChangedEvent);
-    FrontstageManager.onToolIconChangedEvent.removeListener(this._handleToolIconChangedEvent);
+    UiFramework.frontstages.onToolIconChangedEvent.removeListener(this._handleToolIconChangedEvent);
   }
 
   private async restoreSettings() {

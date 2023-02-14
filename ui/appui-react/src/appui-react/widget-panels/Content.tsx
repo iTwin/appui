@@ -9,9 +9,9 @@ import * as React from "react";
 import { UiItemsManager } from "@itwin/appui-abstract";
 import { ScrollableWidgetContent, TabIdContext } from "@itwin/appui-layout-react";
 import { WidgetDef } from "../widgets/WidgetDef";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { FrontstageNineZoneStateChangedEventArgs, useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { useTransientState } from "./useTransientState";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { assert } from "@itwin/core-bentley";
 
 /** @internal */
@@ -53,7 +53,7 @@ export function useWidgetDef(): WidgetDef | undefined {
         return;
       setWidgetDef(frontstage.findWidgetDef(tabId));
     };
-    return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(listener);
+    return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(listener);
   }, [frontstage, tabId]);
 
   React.useEffect(() => {
@@ -62,7 +62,7 @@ export function useWidgetDef(): WidgetDef | undefined {
       setWidgetDef(frontstage?.findWidgetDef(tabId));
     };
 
-    return UiItemsManager.onUiProviderRegisteredEvent.addListener(handlerActivated);
+    return UiItemsManager.onUiProviderRegisteredEvent.addListener(handlerActivated); // eslint-disable-line deprecation/deprecation
   }, [frontstage, tabId]);
 
   return widgetDef;
