@@ -75,7 +75,7 @@ export function FormatSample(props: FormatSampleProps) {
         <Input data-testid="format-sample-input" className={"components-quantity-persistence-input"} value={sampleValue} onChange={handleOnValueChange} onKeyDown={handleKeyDown} onBlur={handleOnValueBlur} size="small" />{activePersistenceUnitLabel}
       </span>
       {!hideLabels && <span className={"uicore-label"}>{formattedLabel.current}</span>}
-      <span>
+      <span data-testid="progress-forward">
         {hideLabels && (formattedValue.length > 0) && <Icon iconSpec={<SvgProgressForward />} />}
         <span data-testid="format-sample-formatted" className={"uicore-label components-quantity-formatted-sample"}>{formattedValue}</span>
       </span>

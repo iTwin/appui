@@ -145,7 +145,7 @@ const ForwardRefColorPickerPopup = React.forwardRef<HTMLButtonElement, ColorPick
         <button data-testid="components-colorpicker-popup-button" onClick={togglePopup} className={buttonClassNames} style={buttonStyle}
           disabled={props.disabled} ref={refs} title={togglePopupLabel} >
           <div className="components-colorpicker-button-container">
-            <div className="components-colorpicker-button-color-swatch" style={swatchStyle} />
+            <div className="components-colorpicker-button-color-swatch" style={swatchStyle} data-testid={showPopup ? "caret-up" : "caret-down"} />
             {props.showCaret && <Icon className="components-caret" iconSpec={showPopup ? <SvgCaretUpSmall /> : <SvgCaretDownSmall /> } />}
           </div>
         </button>

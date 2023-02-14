@@ -87,7 +87,7 @@ export class PlayButton extends React.Component<PlayerButtonProps, PlayButtonSta
 
     return (
       <button data-testid={this.props.className} title={title} className={classnames("player-button", this.props.className)} onClick={this._onClick}>
-        <span className="icon"><Icon iconSpec={iconSpec} /></span>
+        <span className="icon" data-testid={this.state.isPlaying ? "pause" : "play"} ><Icon iconSpec={iconSpec} data-testid={this.state.isPlaying ? "pause" : "play"} /></span>
       </button>
     );
   }
