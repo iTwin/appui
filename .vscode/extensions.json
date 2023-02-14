@@ -4,6 +4,7 @@
     "dbaeumer.vscode-eslint",
     "davidanson.vscode-markdownlint",
     "mike-co.import-sorter",
-    "ms-playwright.playwright"
+    "ms-playwright.playwright",
+    "Orta.vscode-jest"
   ]
 }

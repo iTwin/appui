@@ -11,7 +11,7 @@ import { run as jscodeshift } from "jscodeshift/src/Runner";
 import type { Options } from "jscodeshift";
 
 async function run(definition: string, paths: string[], optionOverrides: Options) {
-  const transformFile = path.resolve(__dirname, "..", "transforms", "typed-transforms.ts");
+  const transformFile = path.resolve(__dirname, "..", "src", "v4.0.0", "widget-to-config.ts");
 
   const options = {
     extensions: "ts,tsx",
