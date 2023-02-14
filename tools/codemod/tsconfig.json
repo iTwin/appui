@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "lib"
+    "esModuleInterop": true,
+    "outDir": "lib",
+    "jsx": "preserve"
   },
 }
