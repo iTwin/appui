@@ -6,7 +6,7 @@ import * as React from "react";
 import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
 import { ContentLayoutProps, IconSpecUtilities, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton, BackstageItem, BackstageItemUtilities, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl,
+  BackstageAppButton, BackstageItem, BackstageItemUtilities, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl,
   SettingsModalFrontstage, StageContentLayout, StageContentLayoutProps, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager, UiItemsProvider,
 } from "@itwin/appui-react";
@@ -195,7 +195,7 @@ export class MainFrontstage {
       usage: StageUsage.General,
     };
 
-    ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(stageProps));
+    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(stageProps));
     this.registerUiItemProviders();
   }
 

@@ -14,7 +14,6 @@ import * as React from "react";
 import { SettingsTabEntry } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "../../theme/ThemeManager";
-import { UiShowHideManager } from "../../utils/UiShowHideManager";
 import { SyncUiEventDispatcher, SyncUiEventId } from "../../syncui/SyncUiEventDispatcher";
 import { IconSpecUtilities, UiSyncEventArgs } from "@itwin/appui-abstract";
 import { Select, SelectOption, Slider, ToggleSwitch } from "@itwin/itwinui-react";
@@ -67,9 +66,9 @@ export function UiSettingsPage() {
   const [animateToolSettings, setAnimateToolSettings] = React.useState(() => UiFramework.animateToolSettings);
   const [useToolAsToolSettingsLabel, setUseToolAsToolSettingsLabel] = React.useState(() => UiFramework.useToolAsToolSettingsLabel);
   const [widgetOpacity, setWidgetOpacity] = React.useState(() => UiFramework.getWidgetOpacity());
-  const [autoHideUi, setAutoHideUi] = React.useState(() => UiShowHideManager.autoHideUi);
-  const [useProximityOpacity, setUseProximityOpacity] = React.useState(() => UiShowHideManager.useProximityOpacity);
-  const [snapWidgetOpacity, setSnapWidgetOpacity] = React.useState(() => UiShowHideManager.snapWidgetOpacity);
+  const [autoHideUi, setAutoHideUi] = React.useState(() => UiFramework.visibility.autoHideUi);
+  const [useProximityOpacity, setUseProximityOpacity] = React.useState(() => UiFramework.visibility.useProximityOpacity);
+  const [snapWidgetOpacity, setSnapWidgetOpacity] = React.useState(() => UiFramework.visibility.snapWidgetOpacity);
   const [toolbarOpacity, setToolbarOpacity] = React.useState(() => UiFramework.getToolbarOpacity());
 
   React.useEffect(() => {
@@ -83,8 +82,8 @@ export function UiSettingsPage() {
       if (syncIdsOfInterest.some((value: string): boolean => args.eventIds.has(value))) {
         if (UiFramework.getColorTheme() !== theme)
           setTheme(UiFramework.getColorTheme());
-        if (UiShowHideManager.autoHideUi !== autoHideUi)
-          setAutoHideUi(UiShowHideManager.autoHideUi);
+        if (UiFramework.visibility.autoHideUi !== autoHideUi)
+          setAutoHideUi(UiFramework.visibility.autoHideUi);
         if (UiFramework.useDragInteraction !== useDragInteraction)
           setUseDragInteraction(UiFramework.useDragInteraction);
         if (UiFramework.showWidgetIcon !== showWidgetIcon)
@@ -93,12 +92,12 @@ export function UiSettingsPage() {
           setAutoCollapseUnpinnedPanels(UiFramework.autoCollapseUnpinnedPanels);
         if (UiFramework.getWidgetOpacity() !== widgetOpacity)
           setWidgetOpacity(UiFramework.getWidgetOpacity());
-        if (UiShowHideManager.autoHideUi !== autoHideUi)
-          setAutoHideUi(UiShowHideManager.autoHideUi);
-        if (UiShowHideManager.useProximityOpacity !== useProximityOpacity)
-          setUseProximityOpacity(UiShowHideManager.useProximityOpacity);
-        if (UiShowHideManager.snapWidgetOpacity !== snapWidgetOpacity)
-          setSnapWidgetOpacity(UiShowHideManager.snapWidgetOpacity);
+        if (UiFramework.visibility.autoHideUi !== autoHideUi)
+          setAutoHideUi(UiFramework.visibility.autoHideUi);
+        if (UiFramework.visibility.useProximityOpacity !== useProximityOpacity)
+          setUseProximityOpacity(UiFramework.visibility.useProximityOpacity);
+        if (UiFramework.visibility.snapWidgetOpacity !== snapWidgetOpacity)
+          setSnapWidgetOpacity(UiFramework.visibility.snapWidgetOpacity);
         if (UiFramework.animateToolSettings !== animateToolSettings)
           setAnimateToolSettings(UiFramework.animateToolSettings);
         if (UiFramework.useToolAsToolSettingsLabel !== useToolAsToolSettingsLabel)
@@ -123,15 +122,15 @@ export function UiSettingsPage() {
   }, []);
 
   const onAutoHideChange = React.useCallback(async () => {
-    UiShowHideManager.autoHideUi = !autoHideUi;
+    UiFramework.visibility.autoHideUi = !autoHideUi;
   }, [autoHideUi]);
 
   const onUseProximityOpacityChange = React.useCallback(async () => {
-    UiShowHideManager.useProximityOpacity = !useProximityOpacity;
+    UiFramework.visibility.useProximityOpacity = !useProximityOpacity;
   }, [useProximityOpacity]);
 
   const onSnapWidgetOpacityChange = React.useCallback(async () => {
-    UiShowHideManager.snapWidgetOpacity = !snapWidgetOpacity;
+    UiFramework.visibility.snapWidgetOpacity = !snapWidgetOpacity;
   }, [snapWidgetOpacity]);
 
   const onWidgetIconChange = React.useCallback(async () => {

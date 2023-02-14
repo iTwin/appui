@@ -10,19 +10,18 @@ import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
 import { DialogItem, DialogPropertySyncItem, UiLayoutDataProvider } from "@itwin/appui-abstract";
 import { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
 import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
 import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
-import { SyncToolSettingsPropertiesEventArgs, ToolSettingsManager } from "./ToolSettingsManager";
+import { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 import { ToolUiProvider } from "./ToolUiProvider";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
+import { UiFramework } from "../UiFramework";
 
 /** @internal */
 
 /** ToolSettingsUiDataProvider keeps tool data in sync with UI display */
 class ToolSettingsUiDataProvider extends UiLayoutDataProvider {
   public override supplyDialogItems(): DialogItem[] | undefined {
-    return ToolSettingsManager.toolSettingsProperties;
+    return UiFramework.toolSettings.toolSettingsProperties;
   }
 
   // send property changes from UI back to tool
@@ -56,9 +55,9 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
       this.toolSettingsNode = null;
       this.horizontalToolSettingNodes = [];
     }
-    // We emit the FrontstageManager.onToolSettingsReloadEvent event here because the Frontstage Manager is a static
+    // We emit the UiFramework.frontstages.onToolSettingsReloadEvent event here because the Frontstage Manager is a static
     // class that UI components can easily register listeners.
-    FrontstageManager.onToolSettingsReloadEvent.emit();
+    UiFramework.frontstages.onToolSettingsReloadEvent.emit();
   }
 
   public override reloadPropertiesFromTool(): void {
@@ -72,10 +71,10 @@ export class DefaultToolSettingsProvider extends ToolUiProvider {
     this.reloadPropertiesFromTool();
   }
 
-  // called to process ToolSettingsManager.onSyncToolSettingsProperties event
+  // called to process UiFramework.toolSettings.onSyncToolSettingsProperties event
   public override syncToolSettingsProperties(args: SyncToolSettingsPropertiesEventArgs): void {
     this.uiDataProvider.fireSyncPropertiesEvent(args.syncProperties);
   }
 }
 
-ConfigurableUiManager.registerControl("DefaultToolSettings", DefaultToolSettingsProvider);
+UiFramework.controls.register("DefaultToolSettings", DefaultToolSettingsProvider);

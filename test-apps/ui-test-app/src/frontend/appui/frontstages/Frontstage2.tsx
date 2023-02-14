@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, ContentViewManager, CoreTools, FrontstageConfig, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
+  BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, FrontstageConfig, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
   SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -94,7 +94,7 @@ function getSelectionContextSyncEventIds(): string[] {
 }
 
 function isSelectionSetEmpty(): boolean {
-  const activeContentControl = ContentViewManager.getActiveContentControl();
+  const activeContentControl = UiFramework.content.getActiveContentControl();
   let selectionCount = 0;
   if (!UiFramework.frameworkStateKey)
     selectionCount = UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState.sessionState.numItemsSelected;

@@ -11,14 +11,13 @@ import { IModelApp, IModelConnection, MockRender, ScreenViewport, SelectionSet }
 import { InstanceKey, RpcRequestsHandler } from "@itwin/presentation-common";
 import { Presentation, SelectionManager, SelectionScopesManager, SelectionScopesManagerProps } from "@itwin/presentation-frontend";
 import {
-  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventDispatcher,
+  ActiveContentChangedEventArgs,
+  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, FrontstageActivatedEventArgs, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventDispatcher,
+  ToolActivatedEventArgs,
   UiFramework, WidgetStateChangedEventArgs,
 } from "../../appui-react";
-import { ActiveContentChangedEventArgs, ContentViewManager } from "../../appui-react/content/ContentViewManager";
-import {
-  FrontstageActivatedEventArgs, FrontstageManager, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, ToolActivatedEventArgs,
-} from "../../appui-react/frontstage/FrontstageManager";
 import TestUtils from "../TestUtils";
+/* eslint-disable deprecation/deprecation */
 import { createRandomECInstanceKey, createRandomId, createRandomSelectionScope } from "../PresentationTestUtils";
 
 const timeToWaitForUiSyncCallback = 60;
@@ -152,52 +151,52 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
 
     handleSyncUiEvent.resetHistory();
-    FrontstageManager.onContentControlActivatedEvent.emit({} as ContentControlActivatedEventArgs);
+    UiFramework.frontstages.onContentControlActivatedEvent.emit({} as ContentControlActivatedEventArgs);
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    FrontstageManager.onContentLayoutActivatedEvent.emit({} as ContentLayoutActivatedEventArgs);
+    UiFramework.frontstages.onContentLayoutActivatedEvent.emit({} as ContentLayoutActivatedEventArgs);
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    FrontstageManager.onFrontstageActivatedEvent.emit({} as FrontstageActivatedEventArgs);
+    UiFramework.frontstages.onFrontstageActivatedEvent.emit({} as FrontstageActivatedEventArgs);
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    FrontstageManager.onFrontstageReadyEvent.emit({} as FrontstageReadyEventArgs);
+    UiFramework.frontstages.onFrontstageReadyEvent.emit({} as FrontstageReadyEventArgs);
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    FrontstageManager.onModalFrontstageChangedEvent.emit({} as ModalFrontstageChangedEventArgs);
+    UiFramework.frontstages.onModalFrontstageChangedEvent.emit({} as ModalFrontstageChangedEventArgs);
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    FrontstageManager.onNavigationAidActivatedEvent.emit({} as NavigationAidActivatedEventArgs);
+    UiFramework.frontstages.onNavigationAidActivatedEvent.emit({} as NavigationAidActivatedEventArgs);
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    FrontstageManager.onToolActivatedEvent.emit({} as ToolActivatedEventArgs);
+    UiFramework.frontstages.onToolActivatedEvent.emit({} as ToolActivatedEventArgs);
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    FrontstageManager.onWidgetStateChangedEvent.emit({} as WidgetStateChangedEventArgs);
+    UiFramework.frontstages.onWidgetStateChangedEvent.emit({} as WidgetStateChangedEventArgs);
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.backstageManager.open();
+    UiFramework.backstage.open();
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    ContentViewManager.onActiveContentChangedEvent.emit({} as ActiveContentChangedEventArgs);
+    UiFramework.content.onActiveContentChangedEvent.emit({} as ActiveContentChangedEventArgs);
     fakeTimers.runAll();
     fakeTimers.restore();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
