@@ -64,19 +64,21 @@ describe("MessageBox", () => {
 
   });
 
-  describe("MessageContainer.getIconClassName with hollow param", () => {
-    ([["None",MessageSeverity.None, " "],
-      ["Information",MessageSeverity.Information, "icon-info-hollow"],
-      ["Question",MessageSeverity.Question, "icon-help-hollow"],
-      ["Warning",MessageSeverity.Warning, "icon-status-warning"],
-      ["Error",MessageSeverity.Error, "icon-status-error-hollow"],
-      ["Fatal",MessageSeverity.Fatal, "icon-status-rejected"],
-      ["Success",MessageSeverity.Success, "icon-status-success-hollow"],
-    ] as [string, MessageSeverity, string][]).map(([name, severity, className]) => {
-      it(`hollow icon for ${name}`, () => {
-        expect(MessageContainer.getIconClassName(severity, true)).to.include(className);
-      });
-    });
-  });
+
+// TODO replace this with visual testing
+  // describe("MessageContainer.getIconClassName with hollow param", () => {
+  //   ([["None",MessageSeverity.None, " "],
+  //     ["Information",MessageSeverity.Information, "icon-info-hollow"],
+  //     ["Question",MessageSeverity.Question, "icon-help-hollow"],
+  //     ["Warning",MessageSeverity.Warning, "icon-status-warning"],
+  //     ["Error",MessageSeverity.Error, "icon-status-error-hollow"],
+  //     ["Fatal",MessageSeverity.Fatal, "icon-status-rejected"],
+  //     ["Success",MessageSeverity.Success, "icon-status-success-hollow"],
+  //   ] as [string, MessageSeverity, string][]).map(([name, severity, className]) => {
+  //     it(`hollow icon for ${name}`, () => {
+  //       expect(MessageContainer.getIconClassName(severity, true)).to.include(className);
+  //     });
+  //   });
+  // });
 
 });

@@ -123,6 +123,7 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
     return (
       <span className={classnames("components-result-selector", this.props.className)} style={this.props.style}>
         <button className={classnames("components-result-selector-button", "icon")}
+          data-testid="previous-button"
           onClick={this._onClickPrevious}
           disabled={this.props.resultCount <= 0}><Icon iconSpec={<SvgChevronLeft />} /></button>
 
@@ -141,7 +142,7 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
           <span>{this.props.resultCount}</span>
         </span>
 
-        <button className="components-result-selector-button icon"
+        <button className="components-result-selector-button icon" data-testid="next-button"
           onClick={this._onClickNext}
           disabled={this.props.resultCount <= 0}><Icon iconSpec={<SvgChevronRight />}/></button>
       </span>

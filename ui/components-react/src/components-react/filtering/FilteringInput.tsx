@@ -168,15 +168,15 @@ export class FilteringInput extends React.PureComponent<FilteringInputProps, Fil
               <ResultSelector key={this.state.resultSelectorKey} {...this.props.resultSelectorProps} /> : undefined}
             {status === FilteringInputStatus.ReadyToFilter ?
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span className="icon" onClick={this._onSearchButtonClick}
+              <span className="icon" onClick={this._onSearchButtonClick} data-testid="filter-input-search"
                 role="button" tabIndex={-1} title={this._searchLabel}><Icon iconSpec={<SvgSearch />} /> </span> : undefined}
             {status === FilteringInputStatus.FilteringInProgress ?
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span className="icon" onClick={this._onCancelButtonClick}
+              <span className="icon" onClick={this._onCancelButtonClick} data-testid="filter-input-close"
                 role="button" tabIndex={-1} title={this._cancelLabel}><Icon iconSpec={<SvgClose />} /> </span> : undefined}
             {status === FilteringInputStatus.FilteringFinished ?
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span className="components-filtering-input-clear icon" onClick={this._onClearButtonClick}
+              <span className="components-filtering-input-clear icon" onClick={this._onClearButtonClick} data-testid="filter-input-close"
                 role="button" tabIndex={-1} title={this._clearLabel}><Icon iconSpec={<SvgClose />} /> </span> : undefined}
           </span>
         </span>
