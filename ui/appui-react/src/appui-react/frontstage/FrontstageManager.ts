@@ -9,7 +9,7 @@
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, InteractiveTool, SelectedViewportChangedArgs, StartOrResume, Tool } from "@itwin/core-frontend";
-import { UiEvent, WidgetState } from "@itwin/appui-abstract";
+import { UiEvent } from "@itwin/appui-abstract";
 import { Size } from "@itwin/core-react";
 import { ContentControlActivatedEvent } from "../content/ContentControl";
 import { ContentGroup } from "../content/ContentGroup";
@@ -26,6 +26,7 @@ import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEvent
 import { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import { ContentLayoutManager } from "../content/ContentLayoutManager";
+import { WidgetState } from "../widgets/WidgetState";
 
 // -----------------------------------------------------------------------------
 // Frontstage Events

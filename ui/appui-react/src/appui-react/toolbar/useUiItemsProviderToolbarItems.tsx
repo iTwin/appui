@@ -7,12 +7,12 @@
  */
 
 import * as React from "react";
-import {
-  CommonToolbarItem, ToolbarItemsChangedArgs, ToolbarItemsManager, ToolbarOrientation, ToolbarUsage, UiItemsManager,
-} from "@itwin/appui-abstract";
+import { CommonToolbarItem, ToolbarItemsChangedArgs, ToolbarItemsManager } from "@itwin/appui-abstract";
 import { useActiveStageId } from "../hooks/useActiveStageId";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
+import { ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 
 /** Hook that returns items from [[ToolbarItemsManager]].
  * @public

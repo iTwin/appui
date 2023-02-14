@@ -7,19 +7,17 @@
  */
 
 import * as React from "react";
-import {
-  CommonStatusBarItem, StatusBarItemsChangedArgs, StatusBarItemsManager, UiItemsManager,
-} from "@itwin/appui-abstract";
+import { StatusBarItemsManager } from "@itwin/appui-abstract";
 import { useActiveStageId } from "../hooks/useActiveStageId";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
 import { FrontstageManager } from "../frontstage/FrontstageManager";
-
-// cspell:ignore setxxx
+import { AnyStatusBarItem } from "./StatusBarItem";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 
 /** Hook that returns items from [[StatusBarItemsManager]].
  * @public
  */
-export const useUiItemsProviderStatusBarItems = (manager: StatusBarItemsManager): readonly CommonStatusBarItem[] => {
+export const useUiItemsProviderStatusBarItems = (manager: StatusBarItemsManager): readonly AnyStatusBarItem[] => {
   const uiItemProviderIds = useAvailableUiItemsProviders();
   const stageId = useActiveStageId();
   const [items, setItems] = React.useState(manager.items);
@@ -43,15 +41,11 @@ export const useUiItemsProviderStatusBarItems = (manager: StatusBarItemsManager)
     }
 
   }, [manager, uiItemProviderIds, stageId]);
-  // handle item changes caused by calls to UiFramework.addonStatusBarItemsManager.setxxx
+  // handle item changes caused by setter calls to UiFramework.addonStatusBarItemsManager
   React.useEffect(() => {
-    const handleChanged = (args: StatusBarItemsChangedArgs) => {
+    return manager.onItemsChanged.addListener((args) => {
       setItems(args.items);
-    };
-    manager.onItemsChanged.addListener(handleChanged);
-    return () => {
-      manager.onItemsChanged.removeListener(handleChanged);
-    };
+    });
   }, [manager]);
   return items;
 };

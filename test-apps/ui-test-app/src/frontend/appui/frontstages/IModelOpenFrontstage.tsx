@@ -5,9 +5,9 @@
 import * as React from "react";
 import { AccessToken } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
-import { StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider,
+  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider, StageUsage,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { IModelOpen } from "../imodelopen/IModelOpen";

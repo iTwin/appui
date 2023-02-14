@@ -2,14 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import {
-  CommonToolbarItem,
-  StageUsage,
-  ToolbarItemUtilities,
-  ToolbarOrientation,
-  ToolbarUsage,
-  UiItemsProvider,
-} from "@itwin/appui-abstract";
+import { CommonToolbarItem, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsProvider } from "@itwin/appui-react";
 import { BeDuration } from "@itwin/core-bentley";
 import { ActivityMessageDetails, ActivityMessageEndReason, IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 
