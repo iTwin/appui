@@ -231,6 +231,19 @@ export interface CommonProps extends ClassNameProps {
 }
 
 // @public
+export class ConditionalIconItem {
+    constructor(iconGetter: () => IconSpec, syncEventIds: string[], value?: IconSpec);
+    static getValue(conditionalValue: ConditionalIconItem | string | undefined): IconSpec | undefined;
+    // (undocumented)
+    readonly iconGetter: () => IconSpec;
+    refresh(): boolean;
+    static refreshValue(conditionalValue: ConditionalIconItem | string | undefined, eventIds: Set<string>): boolean;
+    // (undocumented)
+    readonly syncEventIds: string[];
+    get value(): IconSpec;
+}
+
+// @public
 export class ContextMenu extends React_2.PureComponent<ContextMenuProps, ContextMenuState> {
     constructor(props: ContextMenuProps);
     // @internal (undocumented)
@@ -760,7 +773,7 @@ export interface IconProps extends CommonProps {
 }
 
 // @public
-export type IconSpec = string | ConditionalStringValue | React_2.ReactNode;
+export type IconSpec = string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem;
 
 // @public
 export class ImageCheckBox extends React_2.PureComponent<ImageCheckBoxProps> {
@@ -1021,7 +1034,9 @@ export interface MessageBoxProps extends CommonProps {
 // @public
 export class MessageContainer extends React_2.PureComponent<MessageContainerProps> {
     // (undocumented)
-    static getIconClassName(severity: MessageSeverity, hollow?: boolean): string;
+    static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec;
+    // (undocumented)
+    static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string;
     // (undocumented)
     render(): JSX.Element;
 }

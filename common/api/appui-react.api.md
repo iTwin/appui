@@ -35,6 +35,7 @@ import { CommonStatusBarItem } from '@itwin/appui-abstract';
 import { CommonToolbarItem } from '@itwin/appui-abstract';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
+import { ConditionalIconItem } from '@itwin/core-react';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { ConnectedComponent } from 'react-redux';
 import { ContentLayoutProps } from '@itwin/appui-abstract';
@@ -487,7 +488,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps): JSX.Element;
 // @public
 export interface BackstageAppButtonProps {
     execute?: () => void;
-    icon?: string;
+    icon?: IconSpec;
     label?: string;
 }
 
@@ -711,7 +712,7 @@ export interface CardContainerProps extends CommonProps {
 // @alpha
 export interface CardInfo {
     // (undocumented)
-    iconSpec: string;
+    iconSpec: IconSpec;
     // (undocumented)
     index: number;
     // (undocumented)
@@ -2588,6 +2589,7 @@ export interface ItemProps extends IconProps {
     description?: string | StringGetter | ConditionalStringValue;
     descriptionKey?: string;
     icon?: string | ConditionalStringValue;
+    iconSpec?: IconSpec | ConditionalIconItem;
     isActive?: boolean;
     isDisabled?: boolean | ConditionalBooleanValue;
     isHidden?: boolean | ConditionalBooleanValue;
@@ -2890,7 +2892,9 @@ export class MessageManager {
         close: () => void;
     } | undefined;
     static endActivityMessage(isCompleted: boolean): boolean;
-    static getIconClassName(details: NotifyMessageDetailsType): string;
+    static getIconClassName(_details: NotifyMessageDetailsType): string;
+    // (undocumented)
+    static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec;
     static getIconType(details: NotifyMessageDetailsType): MessageBoxIconType;
     static getSeverity(details: NotifyMessageDetailsType): MessageSeverity;
     static hideInputFieldMessage(): void;
@@ -3453,7 +3457,7 @@ export function restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedN
 // @internal (undocumented)
 export interface RotationData {
     // (undocumented)
-    iconClassName: string;
+    iconsSpec?: IconSpec;
     // (undocumented)
     label: string;
 }
@@ -3789,6 +3793,33 @@ export const setPanelSize: (base: {
                 } | any | null | undefined;
                 readonly type: string | JSXElementConstructor<any>;
                 readonly props: any;
+            } | {
+                readonly iconGetter: () => IconSpec;
+                readonly syncEventIds: readonly string[];
+                readonly value: boolean | ReactText | {
+                    readonly stringGetter: () => string;
+                    readonly syncEventIds: readonly string[];
+                    readonly value: string;
+                    readonly refresh: () => boolean;
+                } | {
+                    readonly type: string | JSXElementConstructor<any>;
+                    readonly props: any;
+                    readonly key: Key | null;
+                } | {} | {
+                    readonly [Symbol.iterator]: () => Iterator<ReactNode, any, undefined>;
+                } | {
+                    readonly key: Key | null;
+                    readonly children: boolean | ReactText | {
+                        readonly type: string | JSXElementConstructor<any>;
+                        readonly props: any;
+                        readonly key: Key | null;
+                    } | {} | {
+                        readonly [Symbol.iterator]: () => Iterator<ReactNode, any, undefined>;
+                    } | any | null | undefined;
+                    readonly type: string | JSXElementConstructor<any>;
+                    readonly props: any;
+                } | any | null | undefined;
+                readonly refresh: () => boolean;
             } | null | undefined;
             readonly preferredFloatingWidgetSize?: {
                 readonly width: number;
@@ -3857,7 +3888,7 @@ export class SheetCard extends React_2.Component<SheetCardProps, SheetCardState>
 // @alpha
 export interface SheetCardProps {
     // (undocumented)
-    iconSpec: string;
+    iconSpec: IconSpec;
     // (undocumented)
     index: number;
     // (undocumented)
