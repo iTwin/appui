@@ -20,10 +20,14 @@
       "extensions",
       "integration-testing"
     ],
-    "ignoredNpmScopes": ["@types"]
+    "ignoredNpmScopes": [
+      "@types"
+    ]
   },
   "gitPolicy": {
-    "allowedEmailRegExps": ["[^@]+@users\\.noreply\\.github\\.com"],
+    "allowedEmailRegExps": [
+      "[^@]+@users\\.noreply\\.github\\.com"
+    ],
     "sampleEmail": "mrexample@users.noreply.github.com"
   },
   "repository": {
@@ -31,6 +35,54 @@
     "defaultBranch": "master"
   },
   "projects": [
+    {
+      "packageName": "ui-end-to-end-tests",
+      "projectFolder": "full-stack-tests/ui",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@itwin/ui-items-providers-test",
+      "projectFolder": "test-apps/ui-items-providers-test",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "appui-connected-app",
+      "projectFolder": "test-apps/appui-test-app/connected",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "appui-standalone-app",
+      "projectFolder": "test-apps/appui-test-app/standalone",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@itwin/appui-test-providers",
+      "projectFolder": "test-apps/appui-test-app/appui-test-providers",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "ui-test-app",
+      "projectFolder": "test-apps/ui-test-app",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@itwin/appui-codemod",
+      "projectFolder": "tools/codemod",
+      "reviewCategory": "tools",
+      "shouldPublish": true
+    },
+    {
+      "packageName": "internal-tools",
+      "projectFolder": "tools/internal",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
     {
       "packageName": "@itwin/appui-abstract",
       "projectFolder": "ui/appui-abstract",
@@ -72,48 +124,6 @@
       "reviewCategory": "frontend",
       "shouldPublish": true,
       "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
-    {
-      "packageName": "internal-tools",
-      "projectFolder": "tools/internal",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "@itwin/ui-items-providers-test",
-      "projectFolder": "test-apps/ui-items-providers-test",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "appui-connected-app",
-      "projectFolder": "test-apps/appui-test-app/connected",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "appui-standalone-app",
-      "projectFolder": "test-apps/appui-test-app/standalone",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "@itwin/appui-test-providers",
-      "projectFolder": "test-apps/appui-test-app/appui-test-providers",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "ui-test-app",
-      "projectFolder": "test-apps/ui-test-app",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "ui-end-to-end-tests",
-      "projectFolder": "full-stack-tests/ui",
-      "reviewCategory": "internal",
-      "shouldPublish": false
     }
   ]
 }
