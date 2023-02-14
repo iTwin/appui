@@ -106,7 +106,6 @@
   ],
   "dependencies": {
     "@bentley/icons-generic-webfont": "^1.0.15",
-    "@itwin/itwinui-css": "^1.3.0",
     "@itwin/itwinui-variables": "^1.0.0",
     "@itwin/itwinui-icons-react": "^1.8.0",
     "@itwin/itwinui-react": "^2.2.1",
