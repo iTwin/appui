@@ -174,8 +174,8 @@ export function CurrentDateMarkedSampleTimeline() {
 
 export function CurrentDateMarkedCustomIconSampleTimeline() {
   const duration = 10 * 1000;
-  const startDate = new Date("January 1, 2021");
-  const endDate = new Date("July 1, 2022");
+  const startDate = new Date("January 1, 2023");
+  const endDate = new Date("July 1, 2023");
   const starMarker = <span className="date-marker-icon"><Icon iconSpec={IconSpecUtilities.createSvgIconSpec(starSvg)} /></span>;
   const markToday: TimelineDateMarkerProps = { date: new Date(), dateMarker: starMarker };
   return (

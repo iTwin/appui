@@ -28,12 +28,12 @@
   }
 
   &:hover {
-    background: $nz-backstage-item-hover-background;
-    color: $nz-backstage-item-color;
+    background: var(--iui-color-background-hover);
+    color: var(--iui-color-text-hover);
   }
 
   &.nz-active {
-    background: $nz-backstage-item-active-background;
+    background: var(--iui-color-background-accent-muted);
 
     &:before {
       content: "";
@@ -43,12 +43,12 @@
       height: 100%;
       margin-left: $nz-backstage-highlight-bar-spacing-left;
       width: $nz-backstage-highlight-bar-spacing-left;
-      background: $nz-backstage-highlight-bar-background;
+      background: var(--iui-color-border-accent);
     }
   }
 
   &.nz-disabled {
-    color: $nz-backstage-item-color-disabled;
+    color: var(--iui-color-text-disabled);
     pointer-events: none;
   }
 
@@ -79,7 +79,7 @@
     > span:nth-child(2) {
       margin-top: var(--iui-size-xs);
       font-size: $nz-backstage-subtitle-font-size;
-      color: $buic-foreground-muted;
+      color: var(--iui-color-text-muted);
 
       @include for-tablet-landscape-down {
         font-size: var(--iui-font-size-0);

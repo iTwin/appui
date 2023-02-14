@@ -4,12 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/index";
 @import "variables";
+@import "~@itwin/itwinui-variables";
 
 .nz-footer-indicator {
   height: 100%;
   display: flex;
   align-items: center;
-  color: $buic-text-color;
+  color: var(--iui-color-text);
   font-size: $text-font-size;
   box-sizing: border-box;
 

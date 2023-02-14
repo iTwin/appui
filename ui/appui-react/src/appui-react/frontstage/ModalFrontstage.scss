@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .uifw-modal-frontstage {
   height: 100%;
@@ -26,7 +25,7 @@
   .uifw-modal-app-bar {
     transition: transform .125s;
     padding: 10px;
-    background: $buic-background-titlebar;
+    background: var(--iui-color-background);
     height: 60px;
     transform: translateY(-100%);
 
@@ -39,7 +38,7 @@
     }
 
     .uifw-modal-app-bar-right {
-      color: $buic-foreground-body;
+      color: red; // TODO: Where is this applied?
       line-height: 60px;
       vertical-align: center;
       float: right;
@@ -78,7 +77,7 @@
   top: 0px;
   height: 100%;
   opacity: 0.95;
-  background: $buic-background-4;
+  background: red; // TODO: Where is this applied?
 
   @include uicore-z-index(modal-frontstage-overlay);
 }

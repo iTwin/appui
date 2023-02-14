@@ -5,10 +5,11 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/core-react/lib/cjs/core-react/geometry";
 @import "../variables";
+@import "~@itwin/itwinui-variables";
 
 .nz-footer-messageCenter-indicator {
   height: 100%;
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
 
   padding: {
     top: 0;
@@ -61,13 +62,12 @@
       margin-left: 8px;
 
       >.nz-balloon {
-        background-color: $buic-foreground-body;
+        background-color: var(--iui-color-icon);
         text-align: center;
         min-width: $min-balloon-width;
         min-height: $min-balloon-height;
         border-radius: 50%;
         padding: $balloon-padding;
-        filter: $icon-shadow;
         position: relative;
 
         >.nz-arrow {
@@ -80,13 +80,13 @@
           border-bottom-width: $balloon-arrow-height;
           border-left-width: $balloon-arrow-width;
           border-style: solid;
-          border-color: transparent $buic-foreground-body;
+          border-color: transparent var(--iui-color-icon);
           transform: rotate(25deg);
         }
 
         >.nz-content {
           position: relative;
-          color: $buic-text-color-reverse;
+          color: var(--iui-color-background);
           line-height: $min-balloon-height;
           font-size: 11px;
         }
@@ -103,13 +103,13 @@
     }
 
     &:hover {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent);
 
       >.nz-container>.nz-balloon {
-        background-color: $buic-foreground-primary;
+        background-color: var(--iui-color-text-accent);
 
         >.nz-arrow {
-          border-color: transparent $buic-foreground-primary;
+          border-color: transparent var(--iui-color-text-accent);
         }
       }
     }

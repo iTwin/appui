@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "~@itwin/itwinui-variables";
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "../safearea";
 @import "../widgetopacity";
@@ -12,12 +12,12 @@
   position: relative;
 
   >div {
-    background-color: $buic-background-statusbar;
+    background-color: var(--iui-color-background);
 
     border: {
       width: 0;
       top-width: 1px;
-      color: $buic-background-widget-stroke;
+      color: var(--iui-color-border);
       style: solid;
     }
 
