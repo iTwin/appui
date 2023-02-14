@@ -322,7 +322,7 @@ public;ToolbarProps
 public;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
 internal;ToolbarWithOverflowDirectionContext: React_2.Context
 public;ToolbarWithOverflowProps 
-public;toRxjsObservable
+internal;toRxjsObservable
 public;toTimeString: (date: Date, timeZoneOffset?: number | undefined, formatOptions?: DateFormatOptions | undefined) => string
 internal;toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition
 public;TreeActions

@@ -2950,7 +2950,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     useDragInteraction?: boolean;
 }
 
-// @public
+// @internal (undocumented)
 export function toRxjsObservable<T>(observable: Observable<T>): Observable_2<T>;
 
 // @public
