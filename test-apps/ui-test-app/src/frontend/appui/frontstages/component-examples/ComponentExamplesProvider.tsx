@@ -86,8 +86,16 @@ import {
   UnderlinedButton,
   VerticalTabs,
 } from "@itwin/core-react";
-import { MessageManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
-import { ComponentExampleCategory, ComponentExampleProps } from "./ComponentExamples";
+import {
+  MessageManager,
+  QuantityFormatSettingsPage,
+  ReactNotifyMessageDetails,
+  UiFramework,
+} from "@itwin/appui-react";
+import {
+  ComponentExampleCategory,
+  ComponentExampleProps,
+} from "./ComponentExamples";
 import { SampleContextMenu } from "./SampleContextMenu";
 import { SampleExpandableBlock } from "./SampleExpandableBlock";
 import { SampleImageCheckBox } from "./SampleImageCheckBox";
@@ -593,10 +601,13 @@ export function WeightPickerHost(props: {
 export function ColorPickerToggle({ hideRgb }: { hideRgb?: boolean }) {
   const [colorDialogTitle] = React.useState("Select Color");
   const [selectedColor, setSelectedColor] = React.useState(ColorDef.red);
-  const handleBackgroundColorDialogOk = React.useCallback((newColorDef: ColorDef) => {
-    UiFramework.dialogs.modal.close();
-    setSelectedColor(newColorDef);
-  }, []);
+  const handleBackgroundColorDialogOk = React.useCallback(
+    (newColorDef: ColorDef) => {
+      UiFramework.dialogs.modal.close();
+      setSelectedColor(newColorDef);
+    },
+    []
+  );
 
   const handleBackgroundColorDialogCancel = React.useCallback(() => {
     UiFramework.dialogs.modal.close();
@@ -624,7 +635,7 @@ export function ColorPickerToggle({ hideRgb }: { hideRgb?: boolean }) {
   const handleBgColorClick = React.useCallback(
     (newColor: ColorDef, e: React.MouseEvent<Element, MouseEvent>) => {
       e.preventDefault();
-      ModalDialogManager.openDialog(
+      UiFramework.dialogs.modal.open(
         <ColorPickerDialog
           dialogTitle={colorDialogTitle}
           color={newColor}
@@ -636,30 +647,12 @@ export function ColorPickerToggle({ hideRgb }: { hideRgb?: boolean }) {
       );
     },
     [
-      ColorDef.create(ColorByName.red),
-      ColorDef.create(ColorByName.orange),
-      ColorDef.create(ColorByName.yellow),
-      ColorDef.create(ColorByName.green),
-      ColorDef.create(ColorByName.blue),
-      ColorDef.create(ColorByName.indigo),
-      ColorDef.create(ColorByName.violet),
-      ColorDef.create(ColorByName.black),
-      ColorDef.create(ColorByName.white),
-      ColorDef.create(ColorByName.cyan),
-      ColorDef.create(ColorByName.fuchsia),
-      ColorDef.create(ColorByName.tan),
-      ColorDef.create(ColorByName.gray),
-      ColorDef.create(ColorByName.brown),
-      ColorDef.create(ColorByName.purple),
-      ColorDef.create(ColorByName.olive),
-    ]);
-
-  const handleBgColorClick = React.useCallback((newColor: ColorDef, e: React.MouseEvent<Element, MouseEvent>) => {
-    e.preventDefault();
-    UiFramework.dialogs.modal.open(<ColorPickerDialog dialogTitle={colorDialogTitle} color={newColor} colorPresets={presetColors.current}
-      onOkResult={handleBackgroundColorDialogOk} onCancelResult={handleBackgroundColorDialogCancel}
-      colorInputType={!!hideRgb ? undefined : "rgb"} />);
-  }, [colorDialogTitle, handleBackgroundColorDialogOk, handleBackgroundColorDialogCancel, hideRgb]);
+      colorDialogTitle,
+      handleBackgroundColorDialogOk,
+      handleBackgroundColorDialogCancel,
+      hideRgb,
+    ]
+  );
 
   return (
     <ColorSwatch
@@ -1189,17 +1182,112 @@ export class ComponentExamplesProvider {
     return {
       title: "Inputs",
       examples: [
-        createComponentExample("Number Input .25 step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} containerClassName="uicore-full-width" />),
-        createComponentExample("Disabled Number Input .25 step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} containerClassName="uicore-full-width" disabled />),
-        createComponentExample("Number Input .25 step w/snap", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={0.25} snap containerClassName="uicore-full-width" />),
-        createComponentExample("Number Input .25 step w/snap custom format and parser", "New Numeric Input component", <NumberInput value={10.5} format={formatDollar} parse={parseDollar} precision={2} step={0.25} snap containerClassName="uicore-full-width" />),
-        createComponentExample("Number Input w/touch buttons", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={.5} snap showTouchButtons containerClassName="uicore-full-width" />),
-        createComponentExample("Number Input w/snap  & custom step", "New Numeric Input component", <NumberInput value={10.5} precision={2} step={exoticStep} snap containerClassName="uicore-full-width" />),
-        createComponentExample("Number Input w/placeholder", "New Numeric Input component", <NumberInput placeholder="Enter Input" precision={2} step={0.25} containerClassName="uicore-full-width" />),
-        createComponentExample("Icon Input", "Icon Input component", <IconInput placeholder="Icon Input" icon={<Icon iconSpec="icon-placeholder" />} containerClassName="uicore-full-width" />),
+        createComponentExample(
+          "Number Input .25 step",
+          "New Numeric Input component",
+          <NumberInput
+            value={10.5}
+            precision={2}
+            step={0.25}
+            containerClassName="uicore-full-width"
+          />
+        ),
+        createComponentExample(
+          "Disabled Number Input .25 step",
+          "New Numeric Input component",
+          <NumberInput
+            value={10.5}
+            precision={2}
+            step={0.25}
+            containerClassName="uicore-full-width"
+            disabled
+          />
+        ),
+        createComponentExample(
+          "Number Input .25 step w/snap",
+          "New Numeric Input component",
+          <NumberInput
+            value={10.5}
+            precision={2}
+            step={0.25}
+            snap
+            containerClassName="uicore-full-width"
+          />
+        ),
+        createComponentExample(
+          "Number Input .25 step w/snap custom format and parser",
+          "New Numeric Input component",
+          <NumberInput
+            value={10.5}
+            format={formatDollar}
+            parse={parseDollar}
+            precision={2}
+            step={0.25}
+            snap
+            containerClassName="uicore-full-width"
+          />
+        ),
+        createComponentExample(
+          "Number Input w/touch buttons",
+          "New Numeric Input component",
+          <NumberInput
+            value={10.5}
+            precision={2}
+            step={0.5}
+            snap
+            showTouchButtons
+            containerClassName="uicore-full-width"
+          />
+        ),
+        createComponentExample(
+          "Number Input w/snap  & custom step",
+          "New Numeric Input component",
+          <NumberInput
+            value={10.5}
+            precision={2}
+            step={exoticStep}
+            snap
+            containerClassName="uicore-full-width"
+          />
+        ),
+        createComponentExample(
+          "Number Input w/placeholder",
+          "New Numeric Input component",
+          <NumberInput
+            placeholder="Enter Input"
+            precision={2}
+            step={0.25}
+            containerClassName="uicore-full-width"
+          />
+        ),
+        createComponentExample(
+          "Icon Input",
+          "Icon Input component",
+          <IconInput
+            placeholder="Icon Input"
+            icon={<Icon iconSpec="icon-placeholder" />}
+            containerClassName="uicore-full-width"
+          />
+        ),
 
-        createComponentExample("Image Checkbox", "ImageCheckbox with WebFonts", <SampleImageCheckBox imageOn="icon-more-circular" imageOff="icon-more-vertical-circular" />),
-        createComponentExample("Image Checkbox", "ImageCheckbox with SVG using web component", <SampleImageCheckBox imageOn={IconSpecUtilities.createWebComponentIconSpec(moreWebSvg)} imageOff={IconSpecUtilities.createWebComponentIconSpec(moreVerticalWebSvg)} />),
+        createComponentExample(
+          "Image Checkbox",
+          "ImageCheckbox with WebFonts",
+          <SampleImageCheckBox
+            imageOn="icon-more-circular"
+            imageOff="icon-more-vertical-circular"
+          />
+        ),
+        createComponentExample(
+          "Image Checkbox",
+          "ImageCheckbox with SVG using web component",
+          <SampleImageCheckBox
+            imageOn={IconSpecUtilities.createWebComponentIconSpec(moreWebSvg)}
+            imageOff={IconSpecUtilities.createWebComponentIconSpec(
+              moreVerticalWebSvg
+            )}
+          />
+        ),
       ],
     };
   }
