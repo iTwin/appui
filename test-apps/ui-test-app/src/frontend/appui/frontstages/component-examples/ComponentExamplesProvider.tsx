@@ -86,17 +86,8 @@ import {
   UnderlinedButton,
   VerticalTabs,
 } from "@itwin/core-react";
-import {
-  MessageManager,
-  ModalDialogManager,
-  QuantityFormatSettingsPage,
-  ReactNotifyMessageDetails,
-  UiFramework,
-} from "@itwin/appui-react";
-import {
-  ComponentExampleCategory,
-  ComponentExampleProps,
-} from "./ComponentExamples";
+import { MessageManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
+import { ComponentExampleCategory, ComponentExampleProps } from "./ComponentExamples";
 import { SampleContextMenu } from "./SampleContextMenu";
 import { SampleExpandableBlock } from "./SampleExpandableBlock";
 import { SampleImageCheckBox } from "./SampleImageCheckBox";
@@ -602,16 +593,13 @@ export function WeightPickerHost(props: {
 export function ColorPickerToggle({ hideRgb }: { hideRgb?: boolean }) {
   const [colorDialogTitle] = React.useState("Select Color");
   const [selectedColor, setSelectedColor] = React.useState(ColorDef.red);
-  const handleBackgroundColorDialogOk = React.useCallback(
-    (newColorDef: ColorDef) => {
-      ModalDialogManager.closeDialog();
-      setSelectedColor(newColorDef);
-    },
-    []
-  );
+  const handleBackgroundColorDialogOk = React.useCallback((newColorDef: ColorDef) => {
+    UiFramework.dialogs.modal.close();
+    setSelectedColor(newColorDef);
+  }, []);
 
   const handleBackgroundColorDialogCancel = React.useCallback(() => {
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
   }, []);
 
   const presetColors = React.useRef([
@@ -648,12 +636,30 @@ export function ColorPickerToggle({ hideRgb }: { hideRgb?: boolean }) {
       );
     },
     [
-      colorDialogTitle,
-      handleBackgroundColorDialogOk,
-      handleBackgroundColorDialogCancel,
-      hideRgb,
-    ]
-  );
+      ColorDef.create(ColorByName.red),
+      ColorDef.create(ColorByName.orange),
+      ColorDef.create(ColorByName.yellow),
+      ColorDef.create(ColorByName.green),
+      ColorDef.create(ColorByName.blue),
+      ColorDef.create(ColorByName.indigo),
+      ColorDef.create(ColorByName.violet),
+      ColorDef.create(ColorByName.black),
+      ColorDef.create(ColorByName.white),
+      ColorDef.create(ColorByName.cyan),
+      ColorDef.create(ColorByName.fuchsia),
+      ColorDef.create(ColorByName.tan),
+      ColorDef.create(ColorByName.gray),
+      ColorDef.create(ColorByName.brown),
+      ColorDef.create(ColorByName.purple),
+      ColorDef.create(ColorByName.olive),
+    ]);
+
+  const handleBgColorClick = React.useCallback((newColor: ColorDef, e: React.MouseEvent<Element, MouseEvent>) => {
+    e.preventDefault();
+    UiFramework.dialogs.modal.open(<ColorPickerDialog dialogTitle={colorDialogTitle} color={newColor} colorPresets={presetColors.current}
+      onOkResult={handleBackgroundColorDialogOk} onCancelResult={handleBackgroundColorDialogCancel}
+      colorInputType={!!hideRgb ? undefined : "rgb"} />);
+  }, [colorDialogTitle, handleBackgroundColorDialogOk, handleBackgroundColorDialogCancel, hideRgb]);
 
   return (
     <ColorSwatch

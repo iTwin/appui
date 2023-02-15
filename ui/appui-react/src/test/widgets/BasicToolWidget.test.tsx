@@ -8,7 +8,7 @@ import { render } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { ContentViewManager, ToolbarHelper } from "../../appui-react";
+import { ToolbarHelper, UiFramework } from "../../appui-react";
 import { CommandItemDef } from "../../appui-react/shared/CommandItemDef";
 import { BasicToolWidget } from "../../appui-react/widgets/BasicToolWidget";
 import TestUtils, { childStructure } from "../TestUtils";
@@ -34,7 +34,7 @@ describe("BasicToolWidget", () => {
   });
 
   it("BasicToolWidget should render correctly", () => {
-    sinon.stub(ContentViewManager, "getActiveContentControl").returns({
+    sinon.stub(UiFramework.content, "getActiveContentControl").returns({
       viewport: {
         findFeatureOverrideProviderOfType() {},
         view: {
@@ -69,7 +69,7 @@ describe("BasicToolWidget", () => {
   });
 
   it("BasicToolWidget with Categories and Models should render", () => {
-    sinon.stub(ContentViewManager, "getActiveContentControl").returns({
+    sinon.stub(UiFramework.content, "getActiveContentControl").returns({
       viewport: {
         findFeatureOverrideProviderOfType() {},
         view: {

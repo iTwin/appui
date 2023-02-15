@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BackstageManager, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
+  BackstageAppButton, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
   IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager,
 } from "@itwin/appui-react";
@@ -114,7 +114,7 @@ export class ContentLayoutStage {
   public static register(localizationNamespace: string) {
     // set up custom corner button where we specify icon, label, and action
     const cornerButton = <BackstageAppButton key="appui-test-providers-ContentLayoutExample-backstage" label="Toggle Backstage" icon={"icon-bentley-systems"}
-      execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
+      execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
 
     const widgetApiStageProps: StandardFrontstageProps = {
       id: ContentLayoutStage.stageId,
@@ -124,7 +124,7 @@ export class ContentLayoutStage {
       usage: StageUsage.General,
     };
 
-    ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(widgetApiStageProps));
+    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(widgetApiStageProps));
     this.registerToolProviders(localizationNamespace);
   }
 

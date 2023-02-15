@@ -6,8 +6,8 @@
 
 import * as React from "react";
 import {
-  BackstageManager, CommonWidgetProps, StagePanelLocation, StagePanelSection, ToolbarHelper, ToolbarItem, ToolbarOrientation,
-  ToolbarUsage, UiItemsManager, UiItemsProvider, WidgetState,
+  CommonWidgetProps, StagePanelLocation, StagePanelSection, ToolbarHelper, ToolbarItem, ToolbarOrientation,
+  ToolbarUsage, UiFramework, UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-react";
 import { FloatingLayoutInfo, LayoutControls, LayoutInfo } from "../appui/widgets/LayoutWidget";
 import { AppTools } from "./ToolSpecifications";
@@ -285,7 +285,7 @@ export class AppUi2StageItemsProvider implements UiItemsProvider {
         items.push(ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.toggleHideShowItemsCommand, { groupPriority: 3000 }));
         items.push(ToolbarHelper.createToolbarItemFromItemDef(15, AppTools.splitSingleViewportCommandDef, { groupPriority: 3000 }));
         if (!this.toolWidgetDisplayCornerButton)
-          items.push(ToolbarHelper.createToolbarItemFromItemDef(20, BackstageManager.getBackstageToggleCommand("icon-bentley-systems"), { groupPriority: 3000 }));
+          items.push(ToolbarHelper.createToolbarItemFromItemDef(20, UiFramework.backstage.getBackstageToggleCommand("icon-bentley-systems"), { groupPriority: 3000 }));
         return items;
       } else if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Vertical) {
         const items: ToolbarItem[] = [];

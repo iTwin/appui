@@ -7,69 +7,59 @@
  */
 
 import * as React from "react";
-import { BeEvent } from "@itwin/core-bentley";
 import { IconSpec } from "@itwin/core-react";
-import { CommandItemDef } from "../shared/CommandItemDef";
 import { UiFramework } from "../UiFramework";
-
-/** Arguments of [[BackstageManager.onToggled]].
- * @public
- */
-export interface BackstageToggledArgs {
-  readonly isOpen: boolean;
-}
+import { BackstageToggledArgs, FrameworkBackstage } from "../framework/FrameworkBackstage";
+import { InternalBackstageManager } from "./InternalBackstageManager";
 
 /** Controls backstage.
  * @public
  */
 export class BackstageManager {
-  private _isOpen = false;
+  private internal = new InternalBackstageManager();
 
-  /** Event raised when backstage is opened or closed. */
-  public readonly onToggled = new BeEvent<(args: BackstageToggledArgs) => void>();
-
-  public get isOpen() {
-    return this._isOpen;
+  /**
+   * Override internal implementation for a mock
+   * @internal For tests only.
+   */
+  public mockInternal(internal: InternalBackstageManager) {
+    this.internal = internal;
   }
 
-  private setIsOpen(isOpen: boolean) {
-    if (isOpen === this._isOpen)
-      return;
-    this._isOpen = isOpen;
-    this.onToggled.raiseEvent({
-      isOpen,
-    });
+  /** Event raised when backstage is opened or closed. */
+  public get onToggled() { return this.internal.onToggled; }
+
+  public get isOpen() {
+    return this.internal.isOpen;
   }
 
   public open() {
-    this.setIsOpen(true);
+    return this.internal.open();
   }
 
   public close() {
-    this.setIsOpen(false);
+    return this.internal.close();
   }
 
   public toggle() {
-    this.setIsOpen(!this.isOpen);
+    return this.internal.toggle();
   }
 
-  /** Get CommandItemDef that will toggle display of Backstage and allow iconSpec to be overridden */
+  public getBackstageToggleCommand(overrideIconSpec?: IconSpec) {
+    return this.internal.getBackstageToggleCommand(overrideIconSpec);
+  }
+
+  /** Get CommandItemDef that will toggle display of Backstage and allow iconSpec to be overridden
+  */
   public static getBackstageToggleCommand(overrideIconSpec?: IconSpec) {
-    return new CommandItemDef({
-      commandId: "UiFramework.openBackstage",
-      iconSpec: overrideIconSpec ? overrideIconSpec : "icon-home",
-      labelKey: "UiFramework:commands.openBackstage",
-      execute: () => {
-        UiFramework.backstageManager.toggle();
-      },
-    });
+    return UiFramework.backstage.getBackstageToggleCommand(overrideIconSpec);
   }
 }
 
 /** Hook that returns isOpen flag of the backstage.
  * @public
  */
-export const useIsBackstageOpen = (manager: BackstageManager) => {
+export const useIsBackstageOpen = (manager: FrameworkBackstage) => {
   const [isOpen, setIsOpen] = React.useState(manager.isOpen);
   React.useEffect(() => {
     const handleToggled = (args: BackstageToggledArgs) => {
@@ -88,6 +78,6 @@ export const useIsBackstageOpen = (manager: BackstageManager) => {
  * @public
  */
 export const useBackstageManager = () => {
-  const [manager] = React.useState(UiFramework.backstageManager);
+  const [manager] = React.useState(UiFramework.backstage);
   return manager;
 };

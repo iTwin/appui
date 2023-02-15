@@ -11,7 +11,7 @@ import {
 } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import {
-  ConfigurableUiControlType, FrontstageManager, StatusBarWidgetComposerControl, StatusBarWidgetControl, WidgetDef,
+  ConfigurableUiControlType, StatusBarWidgetComposerControl, StatusBarWidgetControl, UiFramework, WidgetDef,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
@@ -33,7 +33,7 @@ describe("StatusBarComposerControl", () => {
       defaultState: WidgetState.Open,
     });
     const statusBarControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
-    sinon.stub(FrontstageManager, "activeFrontstageId").returns("TestStage");
+    sinon.stub(UiFramework.frontstages, "activeFrontstageId").returns("TestStage"); // eslint-disable-line deprecation/deprecation
     const node = statusBarControl.getReactNode();
     const renderedComponent = render(node as React.ReactElement);
     expect(renderedComponent).not.to.be.undefined;

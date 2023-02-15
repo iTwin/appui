@@ -23,31 +23,10 @@ import {
 } from "@itwin/reality-data-client";
 import { getClassName } from "@itwin/appui-abstract";
 import {
-  ActionsUnion,
-  AppNotificationManager,
-  AppUiSettings,
-  ConfigurableUiContent,
-  createAction,
-  DeepReadonly,
-  FrameworkAccuDraw,
-  FrameworkReducer,
-  FrameworkRootState,
-  FrameworkToolAdmin,
-  FrameworkUiAdmin,
-  FrontstageDeactivatedEventArgs,
-  FrontstageDef,
-  FrontstageManager,
-  InitialAppUiSettings,
-  ModalFrontstageClosedEventArgs,
-  SafeAreaContext,
-  SafeAreaInsets,
-  StateManager,
-  SyncUiEventDispatcher,
-  SYSTEM_PREFERRED_COLOR_THEME,
-  ThemeManager,
-  ToolbarDragInteractionContext,
-  UiFramework,
-  UiStateStorageHandler,
+  ActionsUnion, AppNotificationManager, AppUiSettings, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
+  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageDef, InitialAppUiSettings,
+  ModalFrontstageClosedEventArgs, SafeAreaContext, SafeAreaInsets, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
+  ToolbarDragInteractionContext, UiFramework, UiStateStorageHandler,
 } from "@itwin/appui-react";
 import {
   assert,
@@ -429,7 +408,7 @@ export class SampleAppIModelApp {
 
     await MarkupApp.initialize();
     await FrontendDevTools.initialize();
-    await EditTools.initialize({ registerAllTools: true });
+    await EditTools.initialize();
 
     // Favorite Properties Support
     SampleAppIModelApp._selectionSetListener.initialize();
@@ -601,19 +580,19 @@ export class SampleAppIModelApp {
     if (stageId === defaultFrontstage) {
       if (stageId === ViewsFrontstage.stageId) {
         const frontstageProvider = new ViewsFrontstage();
-        FrontstageManager.addFrontstageProvider(frontstageProvider);
+        UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
       } else {
         const frontstageProvider = new EditFrontstage();
-        FrontstageManager.addFrontstageProvider(frontstageProvider);
+        UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
       }
-      frontstageDef = await FrontstageManager.getFrontstageDef(stageId);
+      frontstageDef = await UiFramework.frontstages.getFrontstageDef(stageId);
+
     } else {
-      frontstageDef = await FrontstageManager.getFrontstageDef(stageId);
+      frontstageDef = await UiFramework.frontstages.getFrontstageDef(stageId);
     }
 
     if (frontstageDef) {
-      FrontstageManager.setActiveFrontstageDef(frontstageDef).then(() => {
-        // eslint-disable-line @typescript-eslint/no-floating-promises
+      UiFramework.frontstages.setActiveFrontstageDef(frontstageDef).then(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
         // Frontstage & ScreenViewports are ready
         Logger.logInfo(
           SampleAppIModelApp.loggerCategory(this),
@@ -872,10 +851,8 @@ export class SampleAppIModelApp {
   }
 
   public static async showFrontstage(frontstageId: string) {
-    const frontstageDef = await FrontstageManager.getFrontstageDef(
-      frontstageId
-    );
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageId);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   }
 }
 
@@ -950,33 +927,15 @@ const SampleAppViewer2 = () => {
   };
 
   React.useEffect(() => {
-    if (
-      IModelApp.authorizationClient instanceof BrowserAuthorizationClient ||
-      IModelApp.authorizationClient instanceof ElectronRendererAuthorization
-    )
-      IModelApp.authorizationClient.onAccessTokenChanged.addListener(
-        _onAccessTokenChanged
-      );
-    FrontstageManager.onFrontstageDeactivatedEvent.addListener(
-      _handleFrontstageDeactivatedEvent
-    );
-    FrontstageManager.onModalFrontstageClosedEvent.addListener(
-      _handleModalFrontstageClosedEvent
-    );
+    if (IModelApp.authorizationClient instanceof BrowserAuthorizationClient || IModelApp.authorizationClient instanceof ElectronRendererAuthorization)
+      IModelApp.authorizationClient.onAccessTokenChanged.addListener(_onAccessTokenChanged);
+    UiFramework.frontstages.onFrontstageDeactivatedEvent.addListener(_handleFrontstageDeactivatedEvent);
+    UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(_handleModalFrontstageClosedEvent);
     return () => {
-      if (
-        IModelApp.authorizationClient instanceof BrowserAuthorizationClient ||
-        IModelApp.authorizationClient instanceof ElectronRendererAuthorization
-      )
-        IModelApp.authorizationClient.onAccessTokenChanged.removeListener(
-          _onAccessTokenChanged
-        );
-      FrontstageManager.onFrontstageDeactivatedEvent.removeListener(
-        _handleFrontstageDeactivatedEvent
-      );
-      FrontstageManager.onModalFrontstageClosedEvent.removeListener(
-        _handleModalFrontstageClosedEvent
-      );
+      if (IModelApp.authorizationClient instanceof BrowserAuthorizationClient || IModelApp.authorizationClient instanceof ElectronRendererAuthorization)
+        IModelApp.authorizationClient.onAccessTokenChanged.removeListener(_onAccessTokenChanged);
+      UiFramework.frontstages.onFrontstageDeactivatedEvent.removeListener(_handleFrontstageDeactivatedEvent);
+      UiFramework.frontstages.onModalFrontstageClosedEvent.removeListener(_handleModalFrontstageClosedEvent);
     };
   }, []);
 
