@@ -213,7 +213,7 @@ export function ButtonWithDropdownMenu({}: // label,
   );
 
   return (
-    <Button styleType="cta">button</Button>
+    <Button size="small">button</Button>
     // <DropdownMenu
     //   appendTo="parent"
     //   placement={placement ?? "bottom-start"}
