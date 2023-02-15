@@ -15,7 +15,7 @@ import {
   OutputMessageType, ToolAssistanceInstructions, ToolTipOptions,
 } from "@itwin/core-frontend";
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
-import { IconSpec, ReactMessage } from "@itwin/core-react";
+import { IconSpec, MessageContainer, ReactMessage } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
 import { ElementTooltip } from "../feedback/ElementTooltip";
@@ -408,6 +408,10 @@ export class MessageManager {
     UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetToolPrompt, prompt, true);
   }
 
+  /** Extracts the message severity from the message details and returns the corresponding React icon.
+   * @param details: NotifyMessageDetailsType
+   * @returns IconSpec
+   */
   public static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec {
     const severity = MessageManager.getSeverity(details);
     let iconSpec: IconSpec = <SvgStatusSuccess />;
@@ -426,8 +430,10 @@ export class MessageManager {
     return iconSpec;
   }
   /** Gets an icon CSS class name based on a given NotifyMessageDetailsType. */
-  public static getIconClassName(_details: NotifyMessageDetailsType): string {
-    const iconClassName = classnames("icon", "notifymessage-icon");
+  public static getIconClassName(details: NotifyMessageDetailsType): string {
+    const severity = MessageManager.getSeverity(details);
+    const className = MessageContainer.getIconClassName(severity, false);
+    const iconClassName = classnames("icon", "notifymessage-icon", className);
 
     return iconClassName;
   }

@@ -101,37 +101,47 @@ export interface MessageContainerProps extends CommonProps {
  * @public
  */
 export class MessageContainer extends React.PureComponent<MessageContainerProps> {
+  /** Returns the class name associated with the WebFont icon corresponding to the MessageSeverity.
+   * @param severity: MessageSeverity
+   * @param _hollow @deprecated in 4.0. Ignored.
+   * @deprecated in 4.0. Please use getIcon method
+   */
   public static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string {
     let iconClassName = "";
 
     switch (severity) {
       case MessageSeverity.None:
-        iconClassName = " ";
+        iconClassName = "";
         break;
       case MessageSeverity.Success:
-        iconClassName = " core-message-box-success";
+        iconClassName = "core-message-box-success";
         break;
       case MessageSeverity.Information:
-        iconClassName = " core-message-box-information";
+        iconClassName = "core-message-box-information";
         break;
       case MessageSeverity.Question:
-        iconClassName = " core-message-box-question";
+        iconClassName = "core-message-box-question";
         break;
       case MessageSeverity.Warning:
-        iconClassName = " core-message-box-warning";  // TODO - need icon-status-warning-hollow icon
+        iconClassName = "core-message-box-warning";  // TODO - need icon-status-warning-hollow icon
         break;
       case MessageSeverity.Error:
-        iconClassName = " core-message-box-error";
+        iconClassName = "core-message-box-error";
         break;
       case MessageSeverity.Fatal:
-        iconClassName = " core-message-box-fatal";
+        iconClassName = "core-message-box-fatal";
         break;
     }
 
     return iconClassName;
   }
 
-  public static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec {
+    /** Returns the React icon corresponding to the MessageSeverity.
+   * @param severity: MessageSeverity
+   * @param hollow: set to true to return the hollow form of the icon.
+   * @returns IconSpec
+   */
+public static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec {
     let iconSpec: IconSpec = "";
     switch (severity) {
       case MessageSeverity.None:
@@ -147,7 +157,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
         iconSpec = hollow ? <SvgHelpCircularHollow /> : <SvgHelpCircular />;
         break;
       case MessageSeverity.Warning:
-        iconSpec = <SvgStatusWarning />;
+        iconSpec = <SvgStatusWarning />; // TODO - need icon-status-warning-hollow icon
         break;
       case MessageSeverity.Error:
         iconSpec = hollow ? <SvgStatusErrorHollow /> : <SvgStatusError />;
@@ -162,8 +172,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
   public override render(): JSX.Element {
     const iconClassName = classnames(
       "icon",
-      "core-message-box-icon",
-      MessageContainer.getIconClassName(this.props.severity),
+      "core-message-box-icon"
     );
 
     const iconSpec = MessageContainer.getIcon(this.props.severity);
