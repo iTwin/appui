@@ -21,6 +21,7 @@ import { updatePanelState } from "./internal/PanelStateHelpers";
 import { createDraggedTabState } from "./internal/TabStateHelpers";
 import { initSizeProps, isToolSettingsFloatingWidget, setPointProps, setRectangleProps, setSizeProps, updateHomeOfToolSettingsWidget } from "./internal/NineZoneStateHelpers";
 import { addWidgetState, getWidgetState, removeFloatingWidget, removePanelWidget, removeWidget, setWidgetActiveTabId, updateFloatingWidgetState, updateWidgetState } from "./internal/WidgetStateHelpers";
+import { getSendBackHomeState } from "../widget/SendBack";
 
 /** @internal */
 export function NineZoneStateReducer(state: NineZoneState, action: NineZoneAction): NineZoneState {
@@ -252,22 +253,12 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       return floatingWidgetBringToFront(state, action.id);
     }
     case "FLOATING_WIDGET_SEND_BACK": {
-      const floatingWidget = state.floatingWidgets.byId[action.id];
       const widget = getWidgetState(state, action.id);
-      const home = floatingWidget.home;
-      const panel = state.panels[home.side];
-      const destinationWidgetId = home.widgetId ?? getWidgetPanelSectionId(panel.side, home.widgetIndex);
-
-      let destinationWidget = state.widgets[destinationWidgetId];
-
-      // Use existing panel section (from widgetIndex) if new widgets can't be added to the panel.
-      if (!destinationWidget && panel.widgets.length === panel.maxWidgetCount) {
-        const id = panel.widgets[home.widgetIndex];
-        destinationWidget = state.widgets[id];
-      }
+      const sendBackHomeState = getSendBackHomeState(state, action.id);
 
       // Add tabs to an existing widget.
-      if (destinationWidget) {
+      if (sendBackHomeState.widgetId) {
+        const destinationWidget = state.widgets[sendBackHomeState.widgetId];
         const tabs = [...destinationWidget.tabs, ...widget.tabs];
         state = updateWidgetState(state, destinationWidget.id, {
           tabs,
@@ -275,10 +266,11 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
         return removeWidget(state, widget.id);
       }
 
+      const sectionIndex = sendBackHomeState.sectionIndex ?? 0;
+      const destinationWidgetId = sendBackHomeState.widgetId ?? getWidgetPanelSectionId(sendBackHomeState.side, sectionIndex);
       // Add tabs to a new panel widget.
-      const sectionIndex = destinationWidgetId.endsWith("End") ? 1 : 0;
       state = removeWidget(state, widget.id);
-      return insertPanelWidget(state, panel.side, destinationWidgetId, widget.tabs, sectionIndex);
+      return insertPanelWidget(state, sendBackHomeState.side, destinationWidgetId, widget.tabs, sectionIndex);
     }
     case "POPOUT_WIDGET_SEND_BACK": {
       const popoutWidget = state.popoutWidgets.byId[action.id];
