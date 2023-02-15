@@ -17,14 +17,19 @@ export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T> {
   return rxjsFrom(iterable);
 }
 
-/** @internal */
-export function toRxjsObservable<T>(observable: Observable<T>): RxjsObservable<T> {
-  return new RxjsObservable((subscriber) => { observable.subscribe(subscriber); });
-}
-
 /**
  * Observable interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
  * This interface ensures that consumers are not required to have rxjs as dependency.
+ *
+ * To use it with [rxjs](https://github.com/ReactiveX/rxjs) operators wrap it inside
+ * `Observable` from [rxjs](https://github.com/ReactiveX/rxjs). Example:
+ *
+ * ```
+ * import { Observable as RxjsObservable } from "rxjs";
+ *
+ * new RxjsObservable((subscriber) => thisObservable.subscribe(subscriber));
+ * ```
+ *
  * @public
  */
 export interface Observable<T> extends Subscribable<T> { } // eslint-disable-line @typescript-eslint/no-empty-interface
@@ -103,4 +108,9 @@ export interface CompletionObserver<T> {
   next?: (value: T) => void;
   error?: (err: any) => void;
   complete: () => void;
+}
+
+/** @internal */
+export function toRxjsObservable<T>(observable: Observable<T>): RxjsObservable<T> {
+  return new RxjsObservable((subscriber) => { observable.subscribe(subscriber); });
 }

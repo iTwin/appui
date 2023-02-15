@@ -495,7 +495,7 @@ export function computeVisibleNodes(model: TreeModel): VisibleTreeNodes {
 
 /**
  * Traverses the tree and collects visible descendants.
- * @internal
+ * @public
  */
 export function getVisibleDescendants(
   model: TreeModel,
