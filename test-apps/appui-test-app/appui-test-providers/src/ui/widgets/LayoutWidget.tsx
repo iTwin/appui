@@ -5,7 +5,7 @@
 import * as React from "react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import {
-  FrontstageDef, FrontstageManager, StagePanelLocation, StagePanelState, useActiveFrontstageDef, WidgetState,
+  FrontstageDef, FrontstageManager, StagePanelLocation, StagePanelState, UiFramework, useActiveFrontstageDef, WidgetState,
 } from "@itwin/appui-react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
@@ -24,6 +24,7 @@ function usePanelSize(location: StagePanelLocation) {
     setSize(panelDef?.size);
   }, [panelDef]);
   React.useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     const remove = FrontstageManager.onPanelSizeChangedEvent.addListener((e) => {
       if (e.panelDef.location === location)
         setSize(e.size);
@@ -40,7 +41,7 @@ function usePanelState(location: StagePanelLocation) {
     setState(panelDef?.panelState);
   }, [panelDef]);
   React.useEffect(() => {
-    const remove = FrontstageManager.onPanelStateChangedEvent.addListener((e) => {
+    const remove = UiFramework.frontstages.onPanelStateChangedEvent.addListener((e) => {
       if (e.panelDef.location === location)
         setState(e.panelState);
     });
@@ -177,7 +178,7 @@ function useWidgetState(id: string) {
     setState(widgetDef?.state);
   }, [widgetDef]);
   React.useEffect(() => {
-    const remove = FrontstageManager.onWidgetStateChangedEvent.addListener((e) => {
+    const remove = UiFramework.frontstages.onWidgetStateChangedEvent.addListener((e) => {
       if (e.widgetDef.id === id)
         setState(e.widgetState);
     });
@@ -201,6 +202,7 @@ function WidgetInfo({
     setIsFloating(frontstageDef ? frontstageDef.isFloatingWidget(id) : false);
     setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
 
+    // eslint-disable-next-line deprecation/deprecation
     return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((e) => {
       if (e.frontstageDef === frontstageDef) {
         setIsFloating(frontstageDef ? frontstageDef.isFloatingWidget(id) : false);
@@ -272,7 +274,7 @@ function FrontstageControls() {
       <span>Frontstage layout</span>
       <div>
         <Button onClick={() => {
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
+          const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           frontstageDef?.restoreLayout();
         }}>Restore layout</Button>
       </div>
@@ -343,7 +345,7 @@ function PanelControls({
   const [sizeValue, setSizeValue] = React.useState<string>("");
   const handleSubmitValue = () => {
     setSizeValue("");
-    const frontstageDef = FrontstageManager.activeFrontstageDef;
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     const panelDef = frontstageDef?.getStagePanelDef(location);
     if (!panelDef)
       return;
@@ -382,7 +384,7 @@ function PanelControls({
       />
       <span>Reset panel size</span>
       <Button onClick={() => {
-        const frontstageDef = FrontstageManager.activeFrontstageDef;
+        const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
         const panelDef = frontstageDef?.getStagePanelDef(location);
         if (!panelDef)
           return;
@@ -393,7 +395,7 @@ function PanelControls({
         state={state}
         onChange={(newState) => {
           setState(undefined);
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
+          const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const panelDef = frontstageDef?.getStagePanelDef(location);
           if (!panelDef)
             return;
@@ -417,7 +419,7 @@ function WidgetControls({
         state={state}
         onChange={(s) => {
           setState(undefined);
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
+          const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const widgetDef = frontstageDef?.findWidgetDef(id);
           widgetDef?.setWidgetState(s);
         }}
@@ -425,12 +427,12 @@ function WidgetControls({
       <span>Widget actions</span>
       <div style={{ display: "flex", gap: "12px" }}>
         <Button onClick={() => {
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
+          const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const widgetDef = frontstageDef?.findWidgetDef(id);
           widgetDef?.show();
         }}>Show</Button>
         <Button onClick={() => {
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
+          const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const widgetDef = frontstageDef?.findWidgetDef(id);
           widgetDef?.expand();
         }}>Expand</Button>
@@ -557,6 +559,7 @@ export function FloatingLayoutInfo() {
   const [floatingWidgetId, setFloatingWidgetId] = React.useState<string | undefined>(floatingIds?.length ? floatingIds[0] : undefined);
   const [bounds, setBounds] = React.useState<RectangleProps>(() => getFloatingWidgetContainerBounds(frontstageDef, floatingWidgetId));
   React.useEffect(() => {
+    // eslint-disable-next-line deprecation/deprecation
     return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((e) => {
       if (e.frontstageDef !== frontstageDef)
         return;

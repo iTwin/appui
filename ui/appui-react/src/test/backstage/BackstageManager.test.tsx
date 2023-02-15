@@ -9,6 +9,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import { UiFramework } from "../../appui-react";
 import { BackstageManager, useBackstageManager, useIsBackstageOpen } from "../../appui-react/backstage/BackstageManager";
+import { InternalBackstageManager } from "../../appui-react/backstage/InternalBackstageManager";
 import TestUtils from "../TestUtils";
 
 describe("BackstageManager", () => {
@@ -82,16 +83,44 @@ describe("BackstageManager", () => {
 
   it("getBackstageToggleCommand generates toggle button", () => {
     const command = BackstageManager.getBackstageToggleCommand();
-    const initialState = UiFramework.backstageManager.isOpen;
+    const initialState = UiFramework.backstageManager.isOpen; // eslint-disable-line deprecation/deprecation
     command.execute();
 
-    expect(UiFramework.backstageManager.isOpen).to.eq(!initialState);
+    expect(UiFramework.backstageManager.isOpen).to.eq(!initialState); // eslint-disable-line deprecation/deprecation
   });
 
   it("getBackstageToggleCommand handles icon override", () => {
     const command = BackstageManager.getBackstageToggleCommand("different-icon");
 
     expect(command.iconSpec).to.eq("different-icon");
+  });
+
+  it("will directly call internal implementation", () => {
+    const manager = new BackstageManager();
+    const internal = new InternalBackstageManager();
+    const stubbedOnToggled = Symbol("onToggled");
+    sinon.stub(internal, "onToggled").get(() => stubbedOnToggled);
+    const stubbedIsOpen = Symbol("isOpen");
+    sinon.stub(internal, "isOpen").get(() => stubbedIsOpen);
+    sinon.stub(internal);
+    manager.mockInternal(internal);
+
+    expect(manager.onToggled).to.eq(internal.onToggled);
+    expect(manager.isOpen).to.eq(internal.isOpen);
+
+    // New method names
+    manager.open();
+    expect(internal.open).to.have.been.calledOnceWithExactly();
+    manager.close();
+    expect(internal.close).to.have.been.calledOnceWithExactly();
+    manager.toggle();
+    expect(internal.toggle).to.have.been.calledOnceWithExactly();
+    manager.getBackstageToggleCommand("iconSpec");
+    expect(internal.getBackstageToggleCommand).to.have.been.calledOnceWithExactly("iconSpec");
+
+    const stubbedCommand = Symbol("backstageCommand");
+    sinon.stub(UiFramework.backstage, "getBackstageToggleCommand").returns(stubbedCommand as any);
+    expect(BackstageManager.getBackstageToggleCommand()).to.eq(stubbedCommand);
   });
 });
 
@@ -133,7 +162,7 @@ describe("useBackstageManager", () => {
     await MockRender.App.startup({localization: new EmptyLocalization()});
 
     const {result} = renderHook(() => useBackstageManager());
-    expect(result.current).to.equal(UiFramework.backstageManager);
+    expect(result.current).to.equal(UiFramework.backstageManager); // eslint-disable-line deprecation/deprecation
 
     await MockRender.App.shutdown();
     TestUtils.terminateUiFramework();

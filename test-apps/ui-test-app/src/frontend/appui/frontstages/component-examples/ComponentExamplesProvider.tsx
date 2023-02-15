@@ -37,7 +37,7 @@ import {
   SearchBox, SettingsContainer, SettingsTabEntry,
   UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
-import { MessageManager, ModalDialogManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
+import { MessageManager, QuantityFormatSettingsPage, ReactNotifyMessageDetails, UiFramework } from "@itwin/appui-react";
 import { ComponentExampleCategory, ComponentExampleProps } from "./ComponentExamples";
 import { SampleContextMenu } from "./SampleContextMenu";
 import { SampleExpandableBlock } from "./SampleExpandableBlock";
@@ -370,12 +370,12 @@ export function ColorPickerToggle({ hideRgb }: { hideRgb?: boolean }) {
   const [colorDialogTitle] = React.useState("Select Color");
   const [selectedColor, setSelectedColor] = React.useState(ColorDef.red);
   const handleBackgroundColorDialogOk = React.useCallback((newColorDef: ColorDef) => {
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
     setSelectedColor(newColorDef);
   }, []);
 
   const handleBackgroundColorDialogCancel = React.useCallback(() => {
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
   }, []);
 
   const presetColors = React.useRef(
@@ -400,7 +400,7 @@ export function ColorPickerToggle({ hideRgb }: { hideRgb?: boolean }) {
 
   const handleBgColorClick = React.useCallback((newColor: ColorDef, e: React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
-    ModalDialogManager.openDialog(<ColorPickerDialog dialogTitle={colorDialogTitle} color={newColor} colorPresets={presetColors.current}
+    UiFramework.dialogs.modal.open(<ColorPickerDialog dialogTitle={colorDialogTitle} color={newColor} colorPresets={presetColors.current}
       onOkResult={handleBackgroundColorDialogOk} onCancelResult={handleBackgroundColorDialogCancel}
       colorInputType={!!hideRgb ? undefined : "rgb"} />);
   }, [colorDialogTitle, handleBackgroundColorDialogOk, handleBackgroundColorDialogCancel, hideRgb]);

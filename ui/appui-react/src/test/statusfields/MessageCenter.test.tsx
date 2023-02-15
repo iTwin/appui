@@ -7,8 +7,8 @@ import * as React from "react";
 import { MockRender, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import { WidgetState } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, MessageCenterField, MessageManager, StatusBar, StatusBarWidgetControl,
-  WidgetDef,
+  ConfigurableCreateInfo, ConfigurableUiControlType, MessageCenterField, MessageManager, StatusBar, StatusBarWidgetControl,
+  UiFramework, WidgetDef,
 } from "../../appui-react";
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
@@ -39,8 +39,8 @@ describe(`MessageCenter`, () => {
     await TestUtils.initializeUiFramework();
     await MockRender.App.startup({localization: new EmptyLocalization()});
 
-    ConfigurableUiManager.unregisterControl("AppStatusBar");
-    ConfigurableUiManager.registerControl("AppStatusBar", AppStatusBarWidgetControl);
+    UiFramework.controls.unregister("AppStatusBar");
+    UiFramework.controls.register("AppStatusBar", AppStatusBarWidgetControl);
 
     const widgetDef = WidgetDef.create({
       id: "statusBar",

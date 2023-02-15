@@ -93,7 +93,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
     });
 
     it("BackstageAppButton should render with defaults in 2.0 mode", () => {
-      const spy = sinon.spy(UiFramework.backstageManager, "toggle");
+      const spy = sinon.spy(UiFramework.backstage, "toggle");
       const component = render(
         <Provider store={TestUtils.store} >
           <BackstageAppButton />

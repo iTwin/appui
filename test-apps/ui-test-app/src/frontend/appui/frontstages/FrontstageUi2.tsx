@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BackstageManager, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
+  BackstageAppButton, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
   IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, SyncUiEventDispatcher, UiFramework, UiItemsManager,
 } from "@itwin/appui-react";
@@ -98,7 +98,7 @@ export class FrontstageUi2 {
     // set up custom corner button where we specify icon, label, and action
     const cornerButton = FrontstageUi2.showCornerButtons ?
       <BackstageAppButton key="ui2-backstage" label="Toggle Ui2 Backstage" icon={"icon-bentley-systems"}
-        execute={() => BackstageManager.getBackstageToggleCommand().execute()} /> : undefined;
+        execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} /> : undefined;
     const hideNavigationAid = !FrontstageUi2.showCornerButtons;
 
     const ui2StageProps: StandardFrontstageProps = {
@@ -110,7 +110,7 @@ export class FrontstageUi2 {
       usage: StageUsage.General,
     };
 
-    ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(ui2StageProps));
+    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(ui2StageProps));
     this.registerToolProviders();
   }
 
