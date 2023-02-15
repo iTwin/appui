@@ -6,9 +6,6 @@
   "projectFolderMinDepth": 2,
   "projectFolderMaxDepth": 3,
   "ensureConsistentVersions": true,
-  "pnpmOptions": {
-    "useWorkspaces": true
-  },
   "approvedPackagesPolicy": {
     "reviewCategories": [
       "frontend",
