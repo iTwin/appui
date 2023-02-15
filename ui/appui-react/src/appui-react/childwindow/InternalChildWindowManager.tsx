@@ -45,6 +45,13 @@ const childHtml = `<!DOCTYPE html>
 </body>
 </html>`;
 
+/**
+ * Simplification of non exported CreateRoot parameter, only to be used
+ * in InternalChildWindowManager and ChildWindowManager
+ * @internal
+ */
+export type CreateRoot = Parameters<FrameworkChildWindows["useCreateRoot"]>[0];
+
 /** Supports opening a child browser window from the main application window. The child window is managed by the main application
  * and is running in the same security context. The application must deliver the html file iTwinPopup.html along side its index.html.
  * See also: [Child Window Manager]($docs/learning/ui/appui-react/ChildWindows.md)
@@ -52,9 +59,38 @@ const childHtml = `<!DOCTYPE html>
  * */
 export class InternalChildWindowManager implements FrameworkChildWindows {
   private _openChildWindows: OpenChildWindowInfo[] = [];
+  private _createRoot?: CreateRoot;
 
   public get openChildWindows() {
     return this._openChildWindows;
+  }
+
+  /**
+   * When using React18, the `createRoot` function must be provided in order to render Popout content with React18.
+   * Do not call if using React 17 or before.
+   *
+   * Note: The type of the function is intentionally simplified here.
+   *
+   * @param createRootFn Function imported from `import { createRoot } from "react-dom/client";`
+   * @beta Will be removed once the transition to react 18 is complete.
+   */
+  // istanbul ignore next: Result of this assignment is only visible in `open`, which is not tested.
+  public useCreateRoot(createRootFn: CreateRoot): void {
+    this._createRoot = createRootFn;
+  }
+
+  /**
+   * Abstracts ReactDOM.render to use either the _createRoot method or the default ReactDOM.render.
+   * @param element Element to render.
+   * @param container Container to render to.
+   */
+  // istanbul ignore next: Used in `open` which is not tested.
+  private render(element: React.FunctionComponentElement<any>, container: Element | DocumentFragment) {
+    if(this._createRoot) {
+      this._createRoot(container).render(element);
+    } else {
+      ReactDOM.render(element, container);
+    }
   }
 
   /**
@@ -82,7 +118,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     return childWindow?.childWindowId;
   }
 
-  // istanbul ignore next
+  // istanbul ignore next: Used in `open` which is not tested.
   private renderChildWindowContents(childWindow: Window, childWindowId: string, content: React.ReactNode) {
     const reactConnectionDiv = childWindow.document.getElementById("root");
     if (reactConnectionDiv) {
@@ -96,7 +132,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       setTimeout(() => {
         copyStyles(childWindow.document);
         setTimeout(() => {
-          ReactDOM.render(
+          this.render(
             <Provider store={StateManager.store} >
               <UiStateStorageHandler>
                 <ThemeManager>
@@ -156,7 +192,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
     return true;
   };
 
-  // istanbul ignore next
+  // istanbul ignore next: Used in `open` which is not tested.
   private adjustWidowLocation(location: ChildWindowLocationProps, center?: boolean): ChildWindowLocationProps {
     const outLocation = { ...location };
     if (0 === location.top && 0 === location.left) {
@@ -188,7 +224,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
    * @param useDefaultPopoutUrl use "/iTwinPopup.html" as the window Url, "" otherwise.
    * @returns true if the window is opened successfully.
    */
-  // istanbul ignore next
+  // istanbul ignore next: Would require mocking window.open to return a window object.
   public open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean) {
     // first check to see if content is already open in child window
     if (this.openChildWindows.findIndex((openWindow) => openWindow.childWindowId === childWindowId) >= 0) {

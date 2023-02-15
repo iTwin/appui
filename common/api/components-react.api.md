@@ -689,8 +689,7 @@ export interface ErrorObserver<T> {
 export class FavoritePropertiesRenderer {
     // (undocumented)
     hasFavorites(propertyData: PropertyData): boolean;
-    // (undocumented)
-    renderFavorites(propertyData: PropertyData, orientation?: Orientation): HTMLElement | string;
+    renderFavorites(propertyData: PropertyData, orientation?: Orientation, createRoot?: CreateRoot): HTMLElement | string;
 }
 
 // @alpha
