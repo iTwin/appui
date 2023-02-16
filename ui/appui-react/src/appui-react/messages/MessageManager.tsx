@@ -429,7 +429,10 @@ export class MessageManager {
     }
     return iconSpec;
   }
-  /** Gets an icon CSS class name based on a given NotifyMessageDetailsType. */
+  /** Gets an icon CSS class name based on a given NotifyMessageDetailsType.
+   * @public
+   * @deprecated in 4.0. Please use getIconSpecFromDetails instead.
+   */
   public static getIconClassName(details: NotifyMessageDetailsType): string {
     const severity = MessageManager.getSeverity(details);
     const className = MessageContainer.getIconClassName(severity, false); // eslint-disable-line deprecation/deprecation
