@@ -1033,9 +1033,8 @@ export interface MessageBoxProps extends CommonProps {
 
 // @public
 export class MessageContainer extends React_2.PureComponent<MessageContainerProps> {
-    // (undocumented)
     static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec;
-    // (undocumented)
+    // @deprecated
     static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string;
     // (undocumented)
     render(): JSX.Element;

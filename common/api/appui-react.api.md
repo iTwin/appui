@@ -3209,8 +3209,7 @@ export class MessageManager {
         close: () => void;
     } | undefined;
     static endActivityMessage(isCompleted: boolean): boolean;
-    static getIconClassName(_details: NotifyMessageDetailsType): string;
-    // (undocumented)
+    static getIconClassName(details: NotifyMessageDetailsType): string;
     static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec;
     static getIconType(details: NotifyMessageDetailsType): MessageBoxIconType;
     static getSeverity(details: NotifyMessageDetailsType): MessageSeverity;
