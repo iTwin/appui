@@ -72,6 +72,7 @@
   },
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",
+    "@bentley/icons-generic-webfont": "^1.0.34",
     "@itwin/appui-abstract": "workspace:*",
     "@itwin/appui-layout-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",

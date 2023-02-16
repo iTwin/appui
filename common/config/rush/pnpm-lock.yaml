@@ -515,6 +515,7 @@ importers:
     specifiers:
       '@axe-core/react': 4.3.1
       '@bentley/icons-generic': ^1.0.34
+      '@bentley/icons-generic-webfont': ^1.0.34
       '@bentley/react-scripts': ^5.0.3
       '@itwin/appui-abstract': workspace:*
       '@itwin/appui-layout-react': workspace:*
@@ -598,6 +599,7 @@ importers:
       webpack: ^5.64.4
     dependencies:
       '@bentley/icons-generic': 1.0.34
+      '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/appui-abstract': link:../../ui/appui-abstract
       '@itwin/appui-layout-react': link:../../ui/appui-layout-react
       '@itwin/appui-react': link:../../ui/appui-react
