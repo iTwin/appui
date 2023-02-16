@@ -5,6 +5,7 @@
 
 import { expect } from "chai";
 import * as faker from "faker";
+import * as sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyCategory, PropertyData } from "../../components-react";
 import { FavoritePropertiesRenderer } from "../../components-react/favorite/FavoritePropertiesRenderer";
@@ -51,6 +52,14 @@ describe("FavoritePropertiesRenderer", () => {
       expect(tooltip).to.not.be.null;
     });
 
+    it("should support `createRoot` parameter", async () => {
+      const fakeRender = sinon.spy();
+      const fakeRoot = sinon.stub().returns({ render: fakeRender });
+      const propertyData = await dataProvider.getData();
+      const div = renderer.renderFavorites(propertyData, undefined, fakeRoot);
+      expect(fakeRoot).to.have.been.calledWithExactly(div);
+      expect(fakeRender).to.have.been.calledOnce;
+    });
   });
 
   describe("hasFavorites", () => {
