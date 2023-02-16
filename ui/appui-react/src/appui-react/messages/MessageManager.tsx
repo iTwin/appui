@@ -409,7 +409,7 @@ export class MessageManager {
   }
 
   /** Extracts the message severity from the message details and returns the corresponding React icon.
-   * @param details: NotifyMessageDetailsType
+   * @param details NotifyMessageDetailsType
    * @returns IconSpec
    */
   public static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec {
@@ -432,7 +432,7 @@ export class MessageManager {
   /** Gets an icon CSS class name based on a given NotifyMessageDetailsType. */
   public static getIconClassName(details: NotifyMessageDetailsType): string {
     const severity = MessageManager.getSeverity(details);
-    const className = MessageContainer.getIconClassName(severity, false);
+    const className = MessageContainer.getIconClassName(severity, false); // eslint-disable-line deprecation/deprecation
     const iconClassName = classnames("icon", "notifymessage-icon", className);
 
     return iconClassName;

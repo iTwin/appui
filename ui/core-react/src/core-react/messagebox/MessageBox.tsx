@@ -102,7 +102,7 @@ export interface MessageContainerProps extends CommonProps {
  */
 export class MessageContainer extends React.PureComponent<MessageContainerProps> {
   /** Returns the class name associated with the WebFont icon corresponding to the MessageSeverity.
-   * @param severity: MessageSeverity
+   * @param severity MessageSeverity
    * @param _hollow @deprecated in 4.0. Ignored.
    * @deprecated in 4.0. Please use getIcon method
    */
@@ -136,12 +136,12 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
     return iconClassName;
   }
 
-    /** Returns the React icon corresponding to the MessageSeverity.
-   * @param severity: MessageSeverity
-   * @param hollow: set to true to return the hollow form of the icon.
+  /** Returns the React icon corresponding to the MessageSeverity.
+   * @param severity MessageSeverity
+   * @param hollow set to true to return the hollow form of the icon.
    * @returns IconSpec
    */
-public static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec {
+  public static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec {
     let iconSpec: IconSpec = "";
     switch (severity) {
       case MessageSeverity.None:

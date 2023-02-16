@@ -7,7 +7,7 @@ import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import { MessageBox } from "../../core-react";
-import TestUtils, { classesFromElement } from "../TestUtils";
+import TestUtils from "../TestUtils";
 
 describe("MessageBox", () => {
 
