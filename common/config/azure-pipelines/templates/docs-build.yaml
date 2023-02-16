@@ -20,7 +20,7 @@ steps:
     displayName: rush install
     workingDirectory: ${{ parameters.workingDir }}
 
-  - script: node common/scripts/install-run-rush.js build:ci
+  - script: node common/scripts/install-run-rush.js build --to-version-policy prerelease-monorepo-lockStep
     displayName: rush build
     workingDirectory: ${{ parameters.workingDir }}
 
@@ -63,7 +63,7 @@ steps:
     condition: and(succeeded(), eq('${{ parameters.downloadCurrentBuildArtifacts }}', false))
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: AppUi Docs'
+    displayName: "Publish Artifact: AppUi Docs"
     inputs:
       PathtoPublish: ${{ parameters.workingDir }}
-      ArtifactName: 'AppUi Docs'
+      ArtifactName: "AppUi Docs"
