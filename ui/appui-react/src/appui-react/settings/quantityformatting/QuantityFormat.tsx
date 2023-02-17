@@ -21,7 +21,6 @@ import {
 } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import { UnitSystemSelector } from "./UnitSystemSelector";
-import { Presentation } from "@itwin/presentation-frontend";
 import { Button } from "@itwin/itwinui-react";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
@@ -59,6 +58,7 @@ export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opt
 }
 
 /** UI Component shown in settings page to set the active Presentation Unit System and to set format overrides.
+ * @note Listen to `IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged` to i.e. change active unit system of Presentation library.
  * @beta
  */
 export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems }: QuantityFormatterSettingsOptions) {
@@ -174,7 +174,6 @@ export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitS
   }, [activeQuantityType]);
 
   const processNewUnitSystem = React.useCallback(async (unitSystem: UnitSystemKey) => {
-    Presentation.presentation.activeUnitSystem = unitSystem;
     await IModelApp.quantityFormatter.setActiveUnitSystem(unitSystem);
   }, []);
 
