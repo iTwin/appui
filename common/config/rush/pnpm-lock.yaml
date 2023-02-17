@@ -128,7 +128,7 @@ importers:
       '@itwin/itwinui-variables': ^1.0.0
       '@itwin/map-layers': ^3.5.1
       '@itwin/map-layers-auth': ^3.5.1
-      '@itwin/presentation-common': 3.5.1
+      '@itwin/presentation-common': ^3.5.1
       '@itwin/projects-client': ^0.6.0
       '@itwin/reality-data-client': 0.9.0
       '@itwin/webgl-compatibility': ^3.5.1
@@ -300,7 +300,7 @@ importers:
       '@itwin/itwinui-variables': ^1.0.0
       '@itwin/map-layers': ^3.5.1
       '@itwin/map-layers-auth': ^3.5.1
-      '@itwin/presentation-common': 3.5.1
+      '@itwin/presentation-common': ^3.5.1
       '@itwin/projects-client': ^0.6.0
       '@itwin/reality-data-client': 0.9.0
       '@itwin/webgl-compatibility': ^3.5.1
@@ -533,7 +533,7 @@ importers:
       '@itwin/itwinui-variables': ^1.0.0
       '@itwin/map-layers': ^3.5.1
       '@itwin/map-layers-auth': ^3.5.1
-      '@itwin/presentation-common': 3.5.1
+      '@itwin/presentation-common': ^3.5.1
       '@itwin/projects-client': ^0.6.0
       '@itwin/reality-data-client': 0.9.0
       '@itwin/ui-items-providers-test': workspace:*
