@@ -6,7 +6,6 @@ import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { ViewDefinitionProps, ViewQueryParams } from "@itwin/core-common";
 import { IModelConnection, ScreenViewport, ViewState } from "@itwin/core-frontend";
-import { viewWithUnifiedSelection } from "@itwin/presentation-components";
 import { TimelineComponent, TimelineDataProvider, ViewportComponent } from "@itwin/imodel-components-react";
 import { LoadingSpinner } from "@itwin/core-react";
 import {
@@ -14,10 +13,6 @@ import {
   UiFramework, ViewportContentControl,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../..";
-
-// create a HOC viewport component that supports unified selection
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const UnifiedSelectionViewport = viewWithUnifiedSelection(ViewportComponent);
 
 /** iModel Viewport Control
  */
@@ -167,8 +162,11 @@ class ScheduleAnimationViewport extends React.Component<ScheduleAnimationViewpor
             </div>
           }
           {this.state.viewId &&
-            <UnifiedSelectionViewport viewportRef={this.props.viewportRef}
-              viewDefinitionId={this.state.viewId} imodel={this.props.iModelConnection} />
+            <ViewportComponent
+              viewportRef={this.props.viewportRef}
+              viewDefinitionId={this.state.viewId}
+              imodel={this.props.iModelConnection}
+            />
           }
         </div>
         {this.state.dataProvider &&

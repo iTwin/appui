@@ -8,7 +8,6 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import { MobileHost } from "@itwin/core-mobile/lib/cjs/MobileBackend";
 import { BackendIModelsAccess } from "@itwin/imodels-access-backend";
 import { IModelsClient } from "@itwin/imodels-client-authoring";
-import { Presentation } from "@itwin/presentation-backend";
 import { getSupportedRpcs } from "../common/rpcs";
 import { loggerCategory } from "../common/TestAppConfiguration";
 import { initializeElectron } from "./electron/ElectronMain";
@@ -45,16 +44,6 @@ import { ECSchemaRpcImpl } from "@itwin/ecschema-rpcinterface-impl";
     } else {
       await initializeWeb(iModelHost);
     }
-
-    // initialize presentation-backend
-    Presentation.initialize({
-      // Specify location of where application's presentation rule sets are located.
-      // May be omitted if application doesn't have any presentation rules.
-      rulesetDirectories: [path.join("assets", "presentation_rules")],
-      enableSchemasPreload: true,
-      updatesPollInterval: 100,
-    });
-
   } catch (error: any) {
     Logger.logError(loggerCategory, error);
     process.exitCode = 1;

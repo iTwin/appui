@@ -40,38 +40,33 @@ describe("QuantityFormatSettingsPage", () => {
     const settingsEntry = getQuantityFormatsSettingsManagerEntry(10);
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const unitSystemSpy = sandbox.spy();
+    const unitSystemSpy = sandbox.spy(IModelApp.quantityFormatter, "setActiveUnitSystem");
 
     const wrapper = render(settingsEntry.page);
 
     const selectButton = wrapper.getByTestId("unitSystemSelector");
 
     // initial unit system value should be imperial so no change expected for initial change.
-    // fireEvent.change(selectButton, { target: { value: "imperial" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.BritishImperial", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.false;
+    expect(unitSystemSpy).to.be.callCount(0);
 
-    // fireEvent.change(selectButton, { target: { value: "metric" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.Metric", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.true;
+    expect(unitSystemSpy).to.be.callCount(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
-    // fireEvent.change(selectButton, { target: { value: "usCustomary" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.USCustomary", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.true;
+    expect(unitSystemSpy).to.be.callCount(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
-    // fireEvent.change(selectButton, { target: { value: "usSurvey" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.USSurvey", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.true;
+    expect(unitSystemSpy).to.be.callCount(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
-    // fireEvent.change(selectButton, { target: { value: "imperial" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.BritishImperial", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.true;
+    expect(unitSystemSpy).to.be.callCount(1);
     await TestUtils.flushAsyncOperations();
 
     wrapper.unmount();
