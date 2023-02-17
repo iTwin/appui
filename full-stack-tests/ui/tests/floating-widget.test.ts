@@ -31,23 +31,6 @@ test.describe("floating widget", () => {
     await expect(floatingWidget).toBeVisible();
   });
 
-  test("should show a widget outline", async ({ page }) => {
-    const tab = tabLocator(page, "FW-1");
-    const floatingWidget = floatingWidgetLocator({ tab });
-    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
-
-    const destTab = tabLocator(page, "WL-A");
-    const destWidget = widgetLocator({ tab: destTab });
-    const outline = destWidget.locator(".nz-outline-widgetOutline");
-
-    await expect(outline).not.toBeVisible();
-    await sendBackButton.hover();
-    await expect(outline).toBeVisible();
-
-    //page.mouse.move(0, 0);
-    await expect(outline).not.toBeVisible();
-  });
-
   test("should float a tab", async ({ page }) => {
     const tab = tabLocator(page, "WR-A");
     const frontstage = frontstageLocator(page);
@@ -167,5 +150,53 @@ test.describe("floating widget", () => {
     const bounds = (await widget.boundingBox())!;
     expect(bounds.x + bounds.width).toEqual(frontstageBounds.width);
     expect(bounds.y + bounds.height).toEqual(frontstageBounds.height);
+  });
+
+  test("should show a widget outline", async ({ page }) => {
+    const tab = tabLocator(page, "FW-1");
+    const floatingWidget = floatingWidgetLocator({ tab });
+    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+
+    const destTab = tabLocator(page, "WL-A");
+    const destWidget = widgetLocator({ tab: destTab });
+    const outline = destWidget.locator(".nz-outline-widgetOutline");
+
+    await expect(outline).not.toBeVisible();
+    await sendBackButton.hover();
+    await expect(outline).toBeVisible();
+    page.mouse.move(0, 0);
+    await expect(outline).not.toBeVisible();
+  });
+
+  test("should show a panel outline", async ({ page }) => {
+    const tab = tabLocator(page, "FW-1");
+    const floatingWidget = floatingWidgetLocator({ tab });
+    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+
+    const destTab = tabLocator(page, "WL-A");
+    const destWidget = widgetLocator({ tab: destTab });
+    const outline = destWidget.locator(".nz-outline-widgetOutline");
+
+    await expect(outline).not.toBeVisible();
+    await sendBackButton.hover();
+    await expect(outline).toBeVisible();
+    page.mouse.move(0, 0);
+    await expect(outline).not.toBeVisible();
+  });
+
+  test("should show a section outline", async ({ page }) => {
+    const tab = tabLocator(page, "FW-1");
+    const floatingWidget = floatingWidgetLocator({ tab });
+    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+
+    const destTab = tabLocator(page, "WL-A");
+    const destWidget = widgetLocator({ tab: destTab });
+    const outline = destWidget.locator(".nz-outline-widgetOutline");
+
+    await expect(outline).not.toBeVisible();
+    await sendBackButton.hover();
+    await expect(outline).toBeVisible();
+    page.mouse.move(0, 0);
+    await expect(outline).not.toBeVisible();
   });
 });
