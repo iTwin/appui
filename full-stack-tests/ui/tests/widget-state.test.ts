@@ -4,18 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import { test, expect, Page } from '@playwright/test';
 import assert from 'assert';
-import { activeTabLocator, expectSavedFrontstageState, expectTabInPanelSection, floatingWidgetLocator, openFrontstage, panelLocator, runKeyin, tabLocator, widgetLocator } from './Utils';
-
-enum WidgetState {
-  Open = 0,
-  Closed = 1,
-  Hidden = 2,
-  Floating = 3,
-}
-
-async function setWidgetState(page: Page, widgetId: string, widgetState: WidgetState) {
-  await runKeyin(page, `widget setstate ${widgetId} ${widgetState}`);
-}
+import { activeTabLocator, expectSavedFrontstageState, expectTabInPanelSection, floatingWidgetLocator, openFrontstage, panelLocator, tabLocator, widgetLocator, WidgetState } from './Utils';
 
 test.describe("widget state", () => {
   test.beforeEach(async ({ page, baseURL }) => {
@@ -258,3 +247,7 @@ test.describe("widget state", () => {
     await expect(tab).toBeVisible();
   });
 });
+function setWidgetState(page: Page, arg1: string, Hidden: any) {
+  throw new Error('Function not implemented.');
+}
+
