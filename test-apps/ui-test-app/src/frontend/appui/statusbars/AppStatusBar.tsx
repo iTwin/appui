@@ -6,9 +6,9 @@ import "./AppStatusBar.scss";
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import {
-  ActivityCenterField, ConfigurableUiManager, MessageCenterField, SectionsStatusField, SelectionInfoField,
-  SelectionScopeField, SnapModeField, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarSection, StatusBarSeparator, StatusBarWidgetControl,
-  TileLoadingIndicator, ToolAssistanceField, ViewAttributesStatusField,
+  ActivityCenterField, MessageCenterField, SectionsStatusField, SelectionInfoField, SelectionScopeField,
+  SnapModeField, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarSection, StatusBarSeparator,
+  StatusBarWidgetControl, TileLoadingIndicator, ToolAssistanceField, UiFramework, ViewAttributesStatusField,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../..";
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
