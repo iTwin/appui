@@ -1385,7 +1385,7 @@ export type TopPanelSide = "top";
 export const UiIsVisibleContext: React_2.Context<boolean>;
 
 // @internal (undocumented)
-export const useActiveSendBackWidgetIdStore: UseBoundStore<StoreApi<ActiveSendBackWidgetIdStore>>;
+export const useActiveSendBackWidgetIdStore: UseBoundStore<StoreApi<string | undefined>>;
 
 // @internal (undocumented)
 export function useActiveTabId(): string;
