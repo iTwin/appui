@@ -267,7 +267,9 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       }
 
       const sectionIndex = sendBackHomeState.sectionIndex ?? 0;
-      const destinationWidgetId = sendBackHomeState.widgetId ?? getWidgetPanelSectionId(sendBackHomeState.side, sectionIndex);
+      const home = state.floatingWidgets.byId[action.id].home;
+      const destinationWidgetId = home.widgetId ?? getWidgetPanelSectionId(home.side, sectionIndex);
+
       // Add tabs to a new panel widget.
       state = removeWidget(state, widget.id);
       return insertPanelWidget(state, sendBackHomeState.side, destinationWidgetId, widget.tabs, sectionIndex);
