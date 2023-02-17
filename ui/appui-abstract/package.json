@@ -18,11 +18,13 @@
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./public/locales/en-PSEUDO",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "cover": "nyc npm -s test",
-    "docs": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/ui/appui-abstract/file.json --tsIndexFile=./appui-abstract.ts --onlyJson",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "extract-api": "betools extract-api --entry=appui-abstract",
     "test": "mocha --config ../.mocharc-noreact.json \"./lib/cjs/test/**/*.test.js\"",
-    "test:watch": "npm -s test -- --reporter min --watch-extensions ts --watch"
+    "test:watch": "npm -s test -- --reporter min --watch-extensions ts --watch",
+    "docs": "npm run -s docs:reference && npm run -s docs:changelog",
+    "docs:changelog": "cpx ./CHANGELOG.md ../../generated-docs/ui/appui-abstract",
+    "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/ui/appui-abstract/file.json --tsIndexFile=./appui-abstract.ts --onlyJson"
   },
   "keywords": [
     "Bentley",
