@@ -14,10 +14,9 @@ import { assert } from "@itwin/core-bentley";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
-import { WidgetState } from "../state/WidgetState";;
+import { WidgetState } from "../state/WidgetState";
 import { getWidgetPanelSectionId } from "../state/PanelState";
 import { NineZoneState } from "../state/NineZoneState";
-
 
 /** @internal */
 export const useActiveSendBackWidgetIdStore = create<WidgetState["id"] | undefined>(() => undefined);
@@ -46,10 +45,11 @@ export function getSendBackHomeState(state: NineZoneState, widgetId: WidgetState
   }
 
   // Widget would be added to a panel as it's first panel widget.
-  if (panel.widgets.length === 0)
+  if (panel.widgets.length === 0) {
     return {
       side: home.side,
     };
+  }
 
   // Widget would be added to a panel with an existing panel widget as a separate panel widget.
   return {
@@ -90,7 +90,13 @@ export function SendBack() {
       onMouseOver={() => {
         setActiveWidgetId(id);
       }}
+      onFocus={() => {
+        setActiveWidgetId(id);
+      }}
       onMouseOut={() => {
+        setActiveWidgetId(undefined);
+      }}
+      onBlur={() => {
         setActiveWidgetId(undefined);
       }}
       title={title}
