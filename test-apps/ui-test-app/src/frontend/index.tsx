@@ -24,7 +24,7 @@ import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { ElectronRendererAuthorization } from "@itwin/electron-authorization/lib/cjs/ElectronRenderer";
 import {
   AccuSnap, BriefcaseConnection, IModelApp, IModelConnection, LocalUnitFormatProvider, NativeApp, NativeAppLogger,
-  NativeAppOpts, SelectionTool, SnapMode, ToolAdmin, ViewClipByPlaneTool,
+  NativeAppOpts, SelectionTool, SnapMode, ToolAdmin, ViewClipByPlaneTool, ViewManager,
 } from "@itwin/core-frontend";
 import { MarkupApp } from "@itwin/core-markup";
 import { MobileApp, MobileAppOpts } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
@@ -48,8 +48,6 @@ import { EditFrontstage } from "./appui/frontstages/editing/EditFrontstage";
 import { LocalFileOpenFrontstage } from "./appui/frontstages/LocalFileStage";
 import { ViewsFrontstage } from "./appui/frontstages/ViewsFrontstage";
 import { AppSettingsTabsProvider } from "./appui/uiproviders/AppSettingsTabsProvider";
-import { AppViewManager } from "./favorites/AppViewManager"; // Favorite Properties Support
-import { ElementSelectionListener } from "./favorites/ElementSelectionListener"; // Favorite Properties Support
 import { AnalysisAnimationTool } from "./tools/AnalysisAnimation";
 import { EditingScopeTool } from "./tools/editing/EditingTools";
 import { PlaceBlockTool } from "./tools/editing/PlaceBlockTool";
@@ -171,9 +169,6 @@ export class SampleAppIModelApp {
   public static hubClient?: IModelsClient;
   private static _appStateManager: StateManager | undefined;
 
-  // Favorite Properties Support
-  private static _selectionSetListener = new ElementSelectionListener(true);
-
   public static get store(): Store<RootState> {
     return StateManager.store as Store<RootState>;
   }
@@ -291,9 +286,6 @@ export class SampleAppIModelApp {
     await MarkupApp.initialize();
     await FrontendDevTools.initialize();
     await EditTools.initialize();
-
-    // Favorite Properties Support
-    SampleAppIModelApp._selectionSetListener.initialize();
 
     // default to showing imperial formatted units
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
@@ -767,7 +759,7 @@ async function main() {
       notifications: new AppNotificationManager(),
       uiAdmin: new FrameworkUiAdmin(),
       accuDraw: new FrameworkAccuDraw(),
-      viewManager: new AppViewManager(true),  // Favorite Properties Support
+      viewManager: new ViewManager(),
       realityDataAccess: new RealityDataAccessClient(realityDataClientOptions),
       renderSys: { displaySolarShadows: true },
       rpcInterfaces: getSupportedRpcs(),
