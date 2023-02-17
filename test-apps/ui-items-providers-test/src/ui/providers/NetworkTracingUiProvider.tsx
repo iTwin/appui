@@ -13,9 +13,8 @@ import {
   ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage,
   UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
-import { PropsHelper, StateManager, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
+import { PropsHelper, StateManager, SyncUiEventDispatcher } from "@itwin/appui-react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
-import { PresentationPropertyGridWidget, PresentationPropertyGridWidgetControl } from "../widgets/PresentationPropertyGridWidget";
 import { OpenTraceDialogTool } from "../../tools/OpenTraceDialogTool";
 import { NetworkTracingFrontstage } from "../frontstages/NetworkTracing";
 import { getTestProviderState, setIsTraceAvailable } from "../../store";
@@ -185,25 +184,6 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
       widgets.push(widget);
     }
 
-    if (stageId === NetworkTracingFrontstage.stageId &&
-      (location === StagePanelLocation.Right && section === StagePanelSection.End)) {
-      const widget: AbstractWidgetProps = {
-        id: PresentationPropertyGridWidgetControl.id,
-        label: PresentationPropertyGridWidgetControl.label,
-        icon: PresentationPropertyGridWidgetControl.iconSpec,
-        defaultState: WidgetState.Open,
-        isFloatingStateSupported: true,
-        defaultFloatingSize: { width: 400, height: 600 },
-        isFloatingStateWindowResizable: true,
-        // eslint-disable-next-line react/display-name
-        getWidgetContent: () => {
-          return <PresentationPropertyGridWidget />;
-        },
-        canPopout: true,
-      };
-
-      widgets.push(widget);
-    }
     return widgets;
   }
 
