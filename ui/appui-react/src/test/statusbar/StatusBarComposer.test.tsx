@@ -9,8 +9,8 @@ import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-ab
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {
-  FrontstageDef, FrontstageManager, StageUsage, StatusBar, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarLabelSide, StatusBarSection,
-  SyncUiEventDispatcher, UiItemsManager, UiItemsProvider,
+  FrontstageDef, StageUsage, StatusBar, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarLabelSide, StatusBarSection,
+  SyncUiEventDispatcher, UiFramework, UiItemsManager, UiItemsProvider,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
 
@@ -143,7 +143,7 @@ describe("StatusBarComposer", () => {
         usage: StageUsage.General,
         contentGroup: TestUtils.TestContentGroup2,
       });
-      sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
@@ -176,7 +176,7 @@ describe("StatusBarComposer", () => {
         usage: StageUsage.General,
         contentGroup: TestUtils.TestContentGroup2,
       });
-      sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem("test1", StatusBarSection.Left, 10, <AppStatusBarComponent />),
@@ -234,7 +234,7 @@ describe("StatusBarComposer", () => {
         usage: StageUsage.General,
         contentGroup: TestUtils.TestContentGroup2,
       });
-      sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
 
       // make sure we have enough size to render without overflow
       sinon.stub(Element.prototype, "getBoundingClientRect").callsFake(function (this: HTMLElement) {
@@ -283,7 +283,7 @@ describe("StatusBarComposer", () => {
         usage: StageUsage.General,
         contentGroup: TestUtils.TestContentGroup2,
       });
-      sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+      sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
 
       // make sure we have enough size to render without overflow
       sinon.stub(Element.prototype, "getBoundingClientRect").callsFake(function (this: HTMLElement) {

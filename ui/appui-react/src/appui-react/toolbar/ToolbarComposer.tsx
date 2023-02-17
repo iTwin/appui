@@ -11,10 +11,8 @@ import { ConditionalBooleanValue, CommonToolbarItem as UIA_CommonToolbarItem } f
 import { CustomToolbarItem, Direction, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
 import { Logger } from "@itwin/core-bentley";
 import { Orientation } from "@itwin/core-react";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
-import { UiShowHideManager } from "../utils/UiShowHideManager";
 import { ToolbarDragInteractionContext } from "./DragInteraction";
 import { useDefaultToolbarItems } from "./useDefaultToolbarItems";
 import { useUiItemsProviderToolbarItems } from "./useUiItemsProviderToolbarItems";
@@ -37,7 +35,7 @@ function useToolbarItemSyncEffect(uiDataProvider: ToolbarItemsManager, syncIdsOf
   }, [uiDataProvider, syncIdsOfInterest, uiDataProvider.items]);
 
   React.useEffect(() => {
-    return FrontstageManager.onToolActivatedEvent.addListener(({ toolId }) => {
+    return UiFramework.frontstages.onToolActivatedEvent.addListener(({ toolId }) => {
       uiDataProvider.setActiveToolId(toolId);
     });
   }, [uiDataProvider, uiDataProvider.items]);
@@ -213,11 +211,11 @@ function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: Read
 }
 
 const useProximityOpacitySetting = () => {
-  const [proximityOpacity, setProximityOpacity] = React.useState(UiShowHideManager.useProximityOpacity);
+  const [proximityOpacity, setProximityOpacity] = React.useState(UiFramework.visibility.useProximityOpacity);
   React.useEffect(() => {
     // istanbul ignore next
     const handleUiVisibilityChanged = () => {
-      setProximityOpacity(UiShowHideManager.useProximityOpacity);
+      setProximityOpacity(UiFramework.visibility.useProximityOpacity);
     };
     UiFramework.onUiVisibilityChanged.addListener(handleUiVisibilityChanged);
     return () => {

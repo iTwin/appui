@@ -11,8 +11,8 @@ import {
 } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
-  CommandItemDef, ContentGroup, FrontstageConfig, FrontstageProvider, ModalDialogManager,
-  ModelessDialogManager, NavigationAidHost, NavigationWidgetComposer, StagePanelState, ToolbarComposer, ToolbarHelper, ToolWidgetComposer,
+  CommandItemDef, ContentGroup, FrontstageConfig, FrontstageProvider,
+  NavigationAidHost, NavigationWidgetComposer, StagePanelState, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { PopupTestDialog } from "../dialogs/PopupTest";
@@ -258,14 +258,14 @@ export class Frontstage4 extends FrontstageProvider {
   }
 
   private _closeModal = () => {
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
   };
 
   private get _spinnerTestDialogItem() {
     const id = "spinners";
     return new CommandItemDef({
       iconSpec: "icon-placeholder", labelKey: "SampleApp:buttons.spinnerTestDialog",
-      execute: () => { ModelessDialogManager.openDialog(<SpinnerTestDialog opened={true} onClose={() => ModelessDialogManager.closeDialog(id)} />, id); },
+      execute: () => { UiFramework.dialogs.modeless.open(<SpinnerTestDialog opened={true} onClose={() => UiFramework.dialogs.modeless.close(id)} />, id); },
     });
   }
 
@@ -275,7 +275,7 @@ export class Frontstage4 extends FrontstageProvider {
       iconSpec: "icon-placeholder",
       labelKey: "SampleApp:buttons.sampleModelessDialog",
       execute: () => {
-        ModelessDialogManager.openDialog(
+        UiFramework.dialogs.modeless.open(
           <SampleModelessDialog
             dialogId={dialogId}
             onClose={() => this._handleModelessClose(dialogId)}
@@ -285,7 +285,7 @@ export class Frontstage4 extends FrontstageProvider {
   }
 
   private _handleModelessClose = (dialogId: string) => {
-    ModelessDialogManager.closeDialog(dialogId);
+    UiFramework.dialogs.modeless.close(dialogId);
     IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, `Closed modeless dialog: ${dialogId}`));
   };
 
@@ -295,7 +295,7 @@ export class Frontstage4 extends FrontstageProvider {
       labelKey: "SampleApp:buttons.sampleModalDialog",
       // eslint-disable-next-line no-console
       execute: () => {
-        ModalDialogManager.openDialog(
+        UiFramework.dialogs.modal.open(
           <SampleModalDialog
             onResult={(result) => this._handleModalResult(result)}
           />);
@@ -304,7 +304,7 @@ export class Frontstage4 extends FrontstageProvider {
   }
 
   private _handleModalResult(result: DialogButtonType) {
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
     IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, `Modal dialog result: ${result}`));
   }
 
@@ -328,11 +328,11 @@ export class Frontstage4 extends FrontstageProvider {
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
       ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
-        ToolbarItemUtilities.createActionButton("openDialog", 10, "open modal", IconHelper.getIconData("icon-placeholder"), () => ModalDialogManager.openDialog(this.modalDialog())),
-        ToolbarItemUtilities.createActionButton("openDialog2", 10, "open modal 2", IconHelper.getIconData("icon-placeholder"), () => ModalDialogManager.openDialog(this.modalDialog2())),
+        ToolbarItemUtilities.createActionButton("openDialog", 10, "open modal", IconHelper.getIconData("icon-placeholder"), () => UiFramework.dialogs.modal.open(this.modalDialog())),
+        ToolbarItemUtilities.createActionButton("openDialog2", 10, "open modal 2", IconHelper.getIconData("icon-placeholder"), () => UiFramework.dialogs.modal.open(this.modalDialog2())),
         ToolbarItemUtilities.createActionButton("openDynamicModal", 10, "open dynamic modal", IconHelper.getIconData("icon-tools"), this.handleOpenDynamicModal),
-        ToolbarItemUtilities.createActionButton("openRadial", 10, "open radial", IconHelper.getIconData("icon-placeholder"), () => ModalDialogManager.openDialog(this.radialMenu())),
-        ToolbarItemUtilities.createActionButton("popupTest", 10, "open popup", IconHelper.getIconData("icon-placeholder"), () => ModalDialogManager.openDialog(this.testPopup())),
+        ToolbarItemUtilities.createActionButton("openRadial", 10, "open radial", IconHelper.getIconData("icon-placeholder"), () => UiFramework.dialogs.modal.open(this.radialMenu())),
+        ToolbarItemUtilities.createActionButton("popupTest", 10, "open popup", IconHelper.getIconData("icon-placeholder"), () => UiFramework.dialogs.modal.open(this.testPopup())),
         ToolbarItemUtilities.createActionButton("uiProviderModalTest", 10, "open provider modal", IconHelper.getIconData("icon-placeholder"), this.handleOpenUiProviderDialogModal),
         ToolbarItemUtilities.createActionButton("reactSelectModalTest", 10, "open modal", IconHelper.getIconData("icon-placeholder"), this.handleOpenUiProviderDialogModal),
 

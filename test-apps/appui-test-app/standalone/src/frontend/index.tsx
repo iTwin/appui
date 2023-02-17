@@ -12,9 +12,9 @@ import { RealityDataAccessClient, RealityDataClientOptions } from "@itwin/realit
 import { getClassName } from "@itwin/appui-abstract";
 import {
   ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageManager, IModelViewportControl, InitialAppUiSettings,
+  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, IModelViewportControl, InitialAppUiSettings,
   ModalFrontstageClosedEventArgs, SafeAreaContext, SafeAreaInsets, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
-  ToolbarDragInteractionContext, UiFramework, UiItemsManager, UiShowHideManager, UiStateStorageHandler,
+  ToolbarDragInteractionContext, UiFramework, UiItemsManager, UiStateStorageHandler,
 } from "@itwin/appui-react";
 import { assert, Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
 import { BentleyCloudRpcManager, BentleyCloudRpcParams, RpcConfiguration } from "@itwin/core-common";
@@ -229,7 +229,7 @@ export class SampleAppIModelApp {
     UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
 
     UiFramework.useDefaultPopoutUrl = true;
-    UiShowHideManager.autoHideUi = false;
+    UiFramework.visibility.autoHideUi = false;
 
     // initialize state from all registered UserSettingsProviders
     await UiFramework.initializeStateFromUserSettingsProviders();
@@ -298,9 +298,9 @@ export class SampleAppIModelApp {
       }
     }
 
-    const frontstageDef = await FrontstageManager.getFrontstageDef(stageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(stageId);
     if (frontstageDef) {
-      FrontstageManager.setActiveFrontstageDef(frontstageDef).then(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
+      UiFramework.frontstages.setActiveFrontstageDef(frontstageDef).then(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
         // Frontstage & ScreenViewports are ready
         Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Frontstage & ScreenViewports are ready`);
       });
@@ -359,8 +359,8 @@ export class SampleAppIModelApp {
   }
 
   public static async showFrontstage(frontstageId: string) {
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageId);
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageId);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   }
 }
 
@@ -396,11 +396,11 @@ const SampleAppViewer = () => {
   };
 
   React.useEffect(() => {
-    FrontstageManager.onFrontstageDeactivatedEvent.addListener(_handleFrontstageDeactivatedEvent);
-    FrontstageManager.onModalFrontstageClosedEvent.addListener(_handleModalFrontstageClosedEvent);
+    UiFramework.frontstages.onFrontstageDeactivatedEvent.addListener(_handleFrontstageDeactivatedEvent);
+    UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(_handleModalFrontstageClosedEvent);
     return () => {
-      FrontstageManager.onFrontstageDeactivatedEvent.removeListener(_handleFrontstageDeactivatedEvent);
-      FrontstageManager.onModalFrontstageClosedEvent.removeListener(_handleModalFrontstageClosedEvent);
+      UiFramework.frontstages.onFrontstageDeactivatedEvent.removeListener(_handleFrontstageDeactivatedEvent);
+      UiFramework.frontstages.onModalFrontstageClosedEvent.removeListener(_handleModalFrontstageClosedEvent);
     };
   }, []);
 

@@ -10,12 +10,11 @@ import * as React from "react";
 import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent } from "@itwin/appui-abstract";
 import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
-import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import { WidgetControl } from "./WidgetControl";
 import { IconHelper, IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
@@ -118,7 +117,7 @@ export class WidgetDef {
   private _popoutBounds?: Rectangle;
 
   public get state(): WidgetState {
-    const frontstageDef = FrontstageManager.activeFrontstageDef;
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (frontstageDef && frontstageDef.findWidgetDef(this.id)) {
       const currentState = frontstageDef.getWidgetCurrentState(this);
       // istanbul ignore else
@@ -246,7 +245,7 @@ export class WidgetDef {
     if (this._label === v)
       return;
     this._label = v;
-    FrontstageManager.onWidgetLabelChangedEvent.emit({ widgetDef: this });
+    InternalFrontstageManager.onWidgetLabelChangedEvent.emit({ widgetDef: this });
   }
 
   /** Get the tooltip string */
@@ -272,7 +271,7 @@ export class WidgetDef {
       if (typeof this.classId === "string") {
         // istanbul ignore else
         if (this.classId)
-          this._widgetControl = ConfigurableUiManager.createControl(this.classId, this.id, this.applicationData) as WidgetControl;
+          this._widgetControl = UiFramework.controls.create(this.classId, this.id, this.applicationData) as WidgetControl;
         usedClassId = this.classId;
       } else {
         const info = new ConfigurableCreateInfo(this.classId.name, this.id, this.id);
@@ -322,7 +321,7 @@ export class WidgetDef {
     if (this.state === newState)
       return;
     this._stateChanged = true;
-    FrontstageManager.onWidgetStateChangedEvent.emit({ widgetDef: this, widgetState: newState });
+    UiFramework.frontstages.onWidgetStateChangedEvent.emit({ widgetDef: this, widgetState: newState });
     this.onWidgetStateChanged();
   }
 
@@ -409,13 +408,13 @@ export class WidgetDef {
    * @alpha
    */
   public show() {
-    FrontstageManager.onWidgetShowEvent.emit({ widgetDef: this });
+    InternalFrontstageManager.onWidgetShowEvent.emit({ widgetDef: this });
   }
 
   /** Opens the widget and expands it to fill full size of the stage panel.
    * @alpha
    */
   public expand() {
-    FrontstageManager.onWidgetExpandEvent.emit({ widgetDef: this });
+    InternalFrontstageManager.onWidgetExpandEvent.emit({ widgetDef: this });
   }
 }

@@ -10,8 +10,8 @@ import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import {
-  CommandItemDef, ConfigurableUiManager, CustomItemDef, FrontstageConfig, FrontstageManager, FrontstageProvider, GroupItemDef, StageUsage,
-  ToolbarComposer, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolItemDef, UiItemsManager, UiItemsProvider,
+  CommandItemDef, CustomItemDef, FrontstageConfig, FrontstageProvider, GroupItemDef, StageUsage, ToolbarComposer, ToolbarHelper,
+  ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolItemDef, UiFramework, UiItemsManager, UiItemsProvider,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
@@ -124,10 +124,10 @@ describe("<ToolbarComposer  />", async () => {
   before(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
-    ConfigurableUiManager.addFrontstageProvider(new Frontstage1());
-    const frontstageDef = await FrontstageManager.getFrontstageDef("Test1");
+    UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef("Test1");
     expect(frontstageDef).to.not.be.undefined;
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
 
   after(async () => {

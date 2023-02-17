@@ -127,7 +127,7 @@ export interface BackstageComposerProps extends CommonProps {
   readonly hideSoloStageEntry?: boolean;
 }
 
-/** Backstage component composed from [[BackstageManager]] items.
+/** Backstage component composed from [[UiFramework.backstage]] items.
  * @public
  */
 export function BackstageComposer(props: BackstageComposerProps) {

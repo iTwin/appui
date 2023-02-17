@@ -11,10 +11,9 @@
     "url": "https://github.com/iTwin/appui/tree/master/ui/appui-layout-react"
   },
   "scripts": {
-    "build": "npm run -s build:cjs",
+    "build": "npm run -s build:cjs && npm run -s build:esm",
     "copy:cjs": "cpx \"./src/**/*.{*css,svg}\" \"./lib/cjs\"",
     "copy:esm": "cpx \"./src/**/*.{*css,svg}\" \"./lib/esm\"",
-    "build:ci": "npm run -s build && npm run -s build:esm",
     "build:cjs": "npm run -s copy:cjs && tsc 1>&2 --outDir lib/cjs",
     "build:esm": "npm run -s copy:esm && tsc 1>&2 --module ES2020 --outDir lib/esm",
     "clean": "rimraf lib .rush/temp/package-deps*.json",

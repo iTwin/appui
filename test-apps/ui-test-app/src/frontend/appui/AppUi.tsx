@@ -22,11 +22,9 @@ import {
   AccuDrawCommandItems,
   AccuDrawKeyboardShortcuts,
   CommandItemDef,
-  ConfigurableUiManager,
   ContentGroupProps,
-  FrontstageManager,
-  KeyboardShortcutManager,
   KeyboardShortcutProps,
+  UiFramework,
   WidgetState,
 } from "@itwin/appui-react";
 import { IModelViewportControl } from "./contentviews/IModelViewport";
@@ -58,19 +56,19 @@ export class AppUi {
   /** Define Frontstages
    */
   private static defineFrontstages() {
-    ConfigurableUiManager.addFrontstageProvider(new Frontstage1());
-    ConfigurableUiManager.addFrontstageProvider(new Frontstage2());
-    ConfigurableUiManager.addFrontstageProvider(new Frontstage4());
+    UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
+    UiFramework.frontstages.addFrontstageProvider(new Frontstage2());
+    UiFramework.frontstages.addFrontstageProvider(new Frontstage4());
     FrontstageUi2.register();
-    ConfigurableUiManager.addFrontstageProvider(new IModelIndexFrontstage());
-    ConfigurableUiManager.addFrontstageProvider(new IModelOpenFrontstage());
-    ConfigurableUiManager.addFrontstageProvider(new SignInFrontstage());
-    ConfigurableUiManager.addFrontstageProvider(new ScheduleAnimationFrontstage());
+    UiFramework.frontstages.addFrontstageProvider(new IModelIndexFrontstage());
+    UiFramework.frontstages.addFrontstageProvider(new IModelOpenFrontstage());
+    UiFramework.frontstages.addFrontstageProvider(new SignInFrontstage());
+    UiFramework.frontstages.addFrontstageProvider(new ScheduleAnimationFrontstage());
     FrontstageWithNoWidgets.register();
   }
 
   public static command1 = () => {
-    const activeFrontstageDef = FrontstageManager.activeFrontstageDef;
+    const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (activeFrontstageDef) {
       const widgetDef = activeFrontstageDef.findWidgetDef("VerticalPropertyGrid");
       if (widgetDef) {
@@ -80,7 +78,7 @@ export class AppUi {
   };
 
   public static command2 = () => {
-    const activeFrontstageDef = FrontstageManager.activeFrontstageDef;
+    const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (activeFrontstageDef) {
       const widgetDef = activeFrontstageDef.findWidgetDef("VerticalPropertyGrid");
       if (widgetDef) {
@@ -217,9 +215,9 @@ export class AppUi {
       },
     ];
 
-    ConfigurableUiManager.loadKeyboardShortcuts(keyboardShortcutList);
+    UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
 
-    ConfigurableUiManager.loadKeyboardShortcuts(AccuDrawKeyboardShortcuts.getDefaultShortcuts());
+    UiFramework.keyboardShortcuts.loadShortcuts(AccuDrawKeyboardShortcuts.getDefaultShortcuts());
   }
 
   private static get _bumpToolSettingToggle() {
@@ -236,7 +234,7 @@ export class AppUi {
       iconSpec: "icon-placeholder",
       labelKey: "SampleApp:buttons.showShortcutsMenu",
       execute: () => {
-        KeyboardShortcutManager.displayShortcutsMenu();
+        UiFramework.keyboardShortcuts.displayMenu();
       },
     });
   }

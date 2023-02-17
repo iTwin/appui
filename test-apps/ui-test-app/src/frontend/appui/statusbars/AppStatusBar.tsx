@@ -45,4 +45,4 @@ export class AppStatusBarWidgetControl extends StatusBarWidgetControl {
   }
 }
 
-ConfigurableUiManager.registerControl("AppStatusBar", AppStatusBarWidgetControl);
+UiFramework.controls.register("AppStatusBar", AppStatusBarWidgetControl);

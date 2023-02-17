@@ -5,9 +5,9 @@
 import * as React from "react";
 import { ActionButton, CommonToolbarItem, ConditionalStringValue, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, FrontstageConfig, FrontstageDef, FrontstageManager,
-  FrontstageProvider, ItemDefBase, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, NestedFrontstage, ToolbarComposer,
-  ToolbarHelper, ToolItemDef, ToolWidgetComposer,
+  BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, FrontstageConfig, FrontstageDef,
+  FrontstageProvider, ItemDefBase, NavigationAidHost, NavigationWidgetComposer, NestedFrontstage, ToolbarComposer,
+  ToolbarHelper, ToolItemDef, ToolWidgetComposer, UiFramework,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { NestedFrontstage2 } from "./NestedFrontstage2";
@@ -87,7 +87,7 @@ class FrontstageToolWidget extends React.Component {
       labelKey: "SampleApp:buttons.openNestedFrontstage2",
       execute: async () => {
         const frontstage2Def = await FrontstageToolWidget.getFrontstage2Def();
-        await FrontstageManager.openNestedFrontstage(frontstage2Def);
+        await UiFramework.frontstages.openNestedFrontstage(frontstage2Def);
       },
     });
   }
@@ -96,7 +96,7 @@ class FrontstageToolWidget extends React.Component {
     return new CommandItemDef({
       iconSpec: "icon-smiley-happy",
       label: "Open Modal Dialog",
-      execute: () => ModalDialogManager.openDialog(<TestModalDialog />),
+      execute: () => UiFramework.dialogs.modal.open(<TestModalDialog />),
     });
   }
 

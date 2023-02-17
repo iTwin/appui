@@ -9,7 +9,7 @@
 import * as React from "react";
 import { useActiveStageId } from "../hooks/useActiveStageId";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
+import { UiFramework } from "../UiFramework";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { StatusBarItem } from "./StatusBarItem";
 import { StatusBarItemsManager } from "./StatusBarItemsManager";
@@ -30,7 +30,7 @@ export const useUiItemsProviderStatusBarItems = (manager: StatusBarItemsManager)
     // istanbul ignore else
     if (providersRef.current !== uiProviders || currentStageRef.current !== stageId) {
       currentStageRef.current = stageId;
-      const frontstageDef = FrontstageManager.activeFrontstageDef;
+      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
       // istanbul ignore else
       if (frontstageDef) {
         providersRef.current = uiProviders;

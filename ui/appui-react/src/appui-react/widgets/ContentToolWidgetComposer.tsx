@@ -39,7 +39,7 @@ export interface ContentToolWidgetComposerProps {
  * ```
  * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"}
  *   label="Toggle Backstage display",
- *   execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
+ *   execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
  * <ContentToolWidgetComposer cornerButton={cornerButton} />
  * ```
  *

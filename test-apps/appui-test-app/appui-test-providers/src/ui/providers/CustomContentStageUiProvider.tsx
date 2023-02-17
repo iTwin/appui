@@ -2,11 +2,10 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-
-import { ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { BackstageItem, BackstageItemUtilities, CommandItemDef, ModelessDialogManager, StagePanelLocation, StagePanelSection, StageUsage, StateManager, SyncUiEventDispatcher, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
-import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import * as React from "react";
+import { ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { BackstageItem, BackstageItemUtilities, CommandItemDef, StagePanelLocation, StagePanelSection, StageUsage, StateManager, SyncUiEventDispatcher, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiFramework, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
+import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { getTestProviderState, setHideCustomDialogButton } from "../../store";
 import { OpenCustomDialogTool } from "../../tools/OpenCustomDialogTool";
@@ -86,7 +85,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
         iconSpec: <SvgWindowAdd />,
         labelKey: "SampleApp:buttons.sampleModelessDialog",
         execute: () => {
-          ModelessDialogManager.openDialog(
+          UiFramework.dialogs.modeless.open(
             <SampleModelessDialog
               opened={true}
               dialogId={dialogId}

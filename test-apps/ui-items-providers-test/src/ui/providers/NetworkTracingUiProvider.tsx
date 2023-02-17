@@ -9,7 +9,7 @@ import {
   AbstractWidgetProps, BackstageItem, BackstageItemUtilities, BadgeType, ConditionalBooleanValue, IconSpecUtilities, StagePanelLocation, StagePanelSection, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage,
   UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
-import { FrontstageManager, PropsHelper, StateManager, SyncUiEventDispatcher, ToolbarItem } from "@itwin/appui-react";
+import { PropsHelper, StateManager, SyncUiEventDispatcher, ToolbarItem } from "@itwin/appui-react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { PresentationPropertyGridWidget, PresentationPropertyGridWidgetControl } from "../widgets/PresentationPropertyGridWidget";
 import { OpenTraceDialogTool } from "../../tools/OpenTraceDialogTool";
@@ -20,7 +20,6 @@ import { SelectedElementDataWidgetComponent } from "../widgets/SelectedElementDa
 import downstreamQuerySvg from "../icons/downstream-query.svg";
 import queryMultiSvg from "../icons/query-multi.svg";
 import upstreamQuerySvg from "../icons/upstream-query.svg";
-import { ISelectionProvider, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 function SvgApple(props: React.SVGProps<SVGSVGElement>) {
@@ -39,21 +38,6 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
   public readonly id = NetworkTracingUiProvider.providerId;
   public static syncEventIdTraceAvailable = "ui-test:trace-available-changed";
   private _removeListenerFunc?: () => void;
-
-  // Listen for selection changes and when nothing is selection hide the Widget by calling widgetDef.setWidgetState
-  private _onPresentationSelectionChanged = async (evt: SelectionChangeEventArgs, selectionProvider: ISelectionProvider) => {
-    const widgetDef = FrontstageManager.activeFrontstageDef?.findWidgetDef("ui-item-provider-test:elementDataListWidget");
-    if (widgetDef) {
-      const selection = selectionProvider.getSelection(evt.imodel, evt.level);
-      if (selection.isEmpty) {
-        widgetDef?.setWidgetState(WidgetState.Hidden);
-      } else {
-        if (selection.instanceKeys.size !== 0) {
-          widgetDef?.setWidgetState(WidgetState.Open);
-        }
-      }
-    }
-  };
 
   public static register() {
     const provider = new NetworkTracingUiProvider();

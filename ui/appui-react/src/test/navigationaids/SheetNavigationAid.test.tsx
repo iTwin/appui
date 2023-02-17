@@ -6,18 +6,13 @@ import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
 import { IModelConnection, MockRender } from "@itwin/core-frontend";
-import TestUtils, { childStructure } from "../TestUtils";
 import { render } from "@testing-library/react";
-import { CardContainer, ConfigurableUiManager, SheetNavigationAid, SheetNavigationAidControl } from "../../appui-react";
+import { CardContainer, SheetNavigationAid } from "../../appui-react";
+import TestUtils, { childStructure } from "../TestUtils";
 
 describe("SheetNavigationAid", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
-
-    if (!ConfigurableUiManager.isControlRegistered("SheetNavigationAid"))
-      ConfigurableUiManager.registerControl("SheetNavigationAid", SheetNavigationAidControl);
-
     await MockRender.App.startup();
   });
 

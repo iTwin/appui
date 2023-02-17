@@ -5,8 +5,8 @@
 import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, FrontstageConfig, FrontstageDef, FrontstageManager,
-  FrontstageProvider, ModalDialogManager, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, useWidgetDirection,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, CoreTools, FrontstageConfig, FrontstageDef,
+  FrontstageProvider, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, useWidgetDirection,
   WidgetStateChangedEventArgs,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -19,7 +19,7 @@ import { IModelApp } from "@itwin/core-frontend";
 function RightPanel() {
   const direction = useWidgetDirection();
   const [state, setState] = React.useState(() => {
-    const frontstageDef = FrontstageManager.activeFrontstageDef!;
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef!;
     const widgetDef = frontstageDef.findWidgetDef("VerticalPropertyGrid")!;
     return WidgetState[widgetDef.state];
   });
@@ -28,9 +28,9 @@ function RightPanel() {
       if (args.widgetDef.id === "VerticalPropertyGrid")
         setState(WidgetState[args.widgetState]);
     };
-    FrontstageManager.onWidgetStateChangedEvent.addListener(listener);
+    UiFramework.frontstages.onWidgetStateChangedEvent.addListener(listener);
     return () => {
-      FrontstageManager.onWidgetStateChangedEvent.removeListener(listener);
+      UiFramework.frontstages.onWidgetStateChangedEvent.removeListener(listener);
     };
   });
   return (
@@ -114,13 +114,13 @@ export class Frontstage1 extends FrontstageProvider {
                 <span>BottomMost panel:</span>
                 & nbsp;
                 < button onClick={() => {
-                  const frontstageDef = FrontstageManager.activeFrontstageDef;
+                  const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
                   const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
                   widgetDef?.setWidgetState(WidgetState.Open);
                 }}>show</button>
                 & nbsp;
                 < button onClick={() => {
-                  const frontstageDef = FrontstageManager.activeFrontstageDef;
+                  const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
                   const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
                   widgetDef?.setWidgetState(WidgetState.Hidden);
                 }
@@ -207,7 +207,7 @@ class FrontstageToolWidget extends React.Component {
       labelKey: "SampleApp:buttons.openNestedFrontstage1",
       execute: async () => {
         const frontstage1Def = await FrontstageToolWidget.getFrontstage1Def();
-        await FrontstageManager.openNestedFrontstage(frontstage1Def);
+        await UiFramework.frontstages.openNestedFrontstage(frontstage1Def);
       },
     });
   }
@@ -218,11 +218,11 @@ class FrontstageToolWidget extends React.Component {
       iconSpec: "icon-placeholder",
       labelKey: "SampleApp:buttons.switchLayout",
       execute: async () => {
-        const activeFrontstageDef = FrontstageManager.activeFrontstageDef;
+        const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
         if (activeFrontstageDef) {
           const contentLayout = new ContentLayoutDef(StandardContentLayouts.twoHorizontalSplit);
           if (contentLayout && activeFrontstageDef.contentGroup) {
-            await ContentLayoutManager.setActiveLayout(contentLayout, activeFrontstageDef.contentGroup);
+            await UiFramework.content.layouts.setActive(contentLayout, activeFrontstageDef.contentGroup);
           }
         }
       },
@@ -254,7 +254,7 @@ class FrontstageToolWidget extends React.Component {
     return new CommandItemDef({
       iconSpec: "icon-smiley-happy",
       label: "Open Modal Dialog",
-      execute: () => ModalDialogManager.openDialog(<TestModalDialog />),
+      execute: () => UiFramework.dialogs.modal.open(<TestModalDialog />),
     });
   }
 

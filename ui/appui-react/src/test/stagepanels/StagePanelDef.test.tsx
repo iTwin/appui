@@ -5,9 +5,10 @@
 import { expect } from "chai";
 import produce from "immer";
 import * as sinon from "sinon";
-import { FrontstageDef, FrontstageManager, setPanelSize, StagePanelDef, StagePanelLocation, StagePanelState, toPanelSide, WidgetDef } from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { createNineZoneState } from "@itwin/appui-layout-react";
+import { FrontstageDef, setPanelSize, StagePanelDef, StagePanelLocation, StagePanelState, toPanelSide, UiFramework, WidgetDef } from "../../appui-react";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+import TestUtils from "../TestUtils";
 
 describe("StagePanelDef", () => {
 
@@ -34,7 +35,7 @@ describe("StagePanelDef", () => {
 
   it("should emit onPanelStateChangedEvent", () => {
     const spy = sinon.spy();
-    FrontstageManager.onPanelStateChangedEvent.addListener(spy);
+    UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.panelState = StagePanelState.Minimized;
     expect(spy).to.be.calledOnceWithExactly(sinon.match({ panelDef, panelState: StagePanelState.Minimized }));
@@ -52,7 +53,7 @@ describe("StagePanelDef", () => {
 
   it("should emit onPanelSizeChangedEvent", () => {
     const spy = sinon.spy();
-    FrontstageManager.onPanelSizeChangedEvent.addListener(spy);
+    InternalFrontstageManager.onPanelSizeChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.size = 200;
     expect(spy).to.be.calledOnceWithExactly(sinon.match({ panelDef, size: 200 }));
@@ -62,7 +63,7 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.size = 150;
     panelDef.size.should.eq(200);
@@ -72,12 +73,12 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.size = 200;
     panelDef.size.should.eq(200);
 
-    const spy = sinon.spy(FrontstageManager.onPanelSizeChangedEvent, "emit");
+    const spy = sinon.spy(InternalFrontstageManager.onPanelSizeChangedEvent, "emit");
     panelDef.size = 150;
     panelDef.size.should.eq(200);
     sinon.assert.notCalled(spy);
@@ -87,7 +88,7 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
     panelDef.panelState = StagePanelState.Minimized;
@@ -99,7 +100,7 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
     panelDef.panelState = StagePanelState.Off;
@@ -113,7 +114,7 @@ describe("StagePanelDef", () => {
       draft.panels.right.collapsed = true;
     });
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
     const panelDef = StagePanelDef.create({
       resizable: true,
       defaultState: StagePanelState.Minimized,
