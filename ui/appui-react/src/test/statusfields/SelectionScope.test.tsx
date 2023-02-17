@@ -151,9 +151,9 @@ describe(`SelectionScopeField`, () => {
       expect(UiFramework.getActiveSelectionScope()).to.be.equal("top-assembly");
       component.getByText("selectionScopeLabels.top-assembly");
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "assembly");
-      component.getByText("selectionScopeLabels.assembly");
+      await component.findByText("selectionScopeLabels.assembly");
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "element");
-      component.getByText("selectionScopeLabels.element");
+      await component.findByText("selectionScopeLabels.element");
     });
 
     it("SelectionScopeField should properly handle override scope labels", async () => {
@@ -174,9 +174,9 @@ describe(`SelectionScopeField`, () => {
       expect(UiFramework.getActiveSelectionScope()).to.be.equal("top-assembly");
       component.getByText("Functional TopAssembly");
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "assembly");
-      component.getByText("Functional Assembly");
+      await component.findByText("Functional Assembly");
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "element");
-      component.getByText("Functional Element");
+      await component.findByText("Functional Element");
     });
   });
 });

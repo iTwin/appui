@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -121,18 +121,17 @@ describe("AccuDrawInputField", () => {
     (UiFramework.keyboardShortcuts.processKey as any).restore();
   });
 
-  it("should update value when calling onFieldValueChange", () => {
-    const fakeTimers = sandbox.useFakeTimers();
+  it("should update value when calling onFieldValueChange", async () => {
     const spyMethod = sinon.spy();
     const wrapper = render(<AccuDrawInputField isLocked={false} field={ItemField.X_Item} id="x" onValueChanged={spyMethod} />);
     const input = wrapper.container.querySelector("input");
     expect(input).not.to.be.null;
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-    fakeTimers.tick(250);
     IModelApp.accuDraw.setValueByIndex(ItemField.X_Item, 30.48);
     IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
-    fakeTimers.tick(250);
-    expect((input as HTMLInputElement).value).to.eq("100'-0\"");
+    await waitFor(() => {
+      expect((input as HTMLInputElement).value).to.eq("100'-0\"");
+    });
     spyMethod.called.should.be.false;
   });
 

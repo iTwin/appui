@@ -7,7 +7,7 @@ import * as React from "react";
 // import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { WidgetState } from "@itwin/appui-abstract";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, SelectionInfoField, SessionStateActionId, StatusBar, StatusBarWidgetControl,
   UiFramework, WidgetDef,
@@ -66,13 +66,15 @@ describe(`SelectionInfoField`, () => {
     expect(foundText).not.to.be.undefined;
   });
 
-  it("SelectionInfoField should update after Redux action", () => {
+  it("SelectionInfoField should update after Redux action", async () => {
     const component = render(<Provider store={TestUtils.store}>
       <StatusBar widgetControl={widgetControl} />
     </Provider>);
     expect(component).not.to.be.undefined;
     UiFramework.dispatchActionToStore(SessionStateActionId.SetNumItemsSelected, 99);
-    const foundText = component.getAllByText("99");
-    expect(foundText).not.to.be.undefined;
+    await waitFor(() => {
+      const foundText = component.getAllByText("99");
+      expect(foundText).not.to.be.undefined;
+    });
   });
 });

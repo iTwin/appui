@@ -136,10 +136,10 @@ describe(`MessageCenter`, () => {
     expect(screen.queryByRole("tablist")).to.be.null;
   });
 
-  it("Message Center should open on OpenMessageCenterEvent", () => {
+  it("Message Center should open on OpenMessageCenterEvent", async () => {
     render(<StatusBar widgetControl={widgetControl} />);
     expect(screen.queryByRole("tablist")).to.be.null;
     MessageManager.onOpenMessageCenterEvent.emit({});
-    expect(screen.getByRole("tablist")).to.exist;
+    expect(await screen.findByRole("tablist")).to.exist;
   });
 });

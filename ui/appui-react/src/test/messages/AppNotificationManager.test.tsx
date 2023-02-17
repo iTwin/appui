@@ -109,7 +109,7 @@ describe("AppNotificationManager", () => {
     expect(spyMethod.calledOnce).to.be.true;
     expect(UiFramework.dialogs.modal.count).to.eq(1);
 
-    await theUserTo.click(screen.getByRole("button", {name: "dialog.ok"}));
+    await theUserTo.click(await screen.findByRole("button", {name: "dialog.ok"}));
     expect(UiFramework.dialogs.modal.count).to.eq(0);
 
     const boxValue = await boxResult;
