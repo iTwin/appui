@@ -11,8 +11,8 @@ import {
 } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import {
-  CommandItemDef, ConfigurableUiManager, CustomItemDef, FrontstageConfig, FrontstageManager, FrontstageProvider, GroupItemDef,
-  ToolbarComposer, ToolbarHelper, ToolItemDef,
+  CommandItemDef, CustomItemDef, FrontstageConfig, FrontstageProvider, GroupItemDef,
+  ToolbarComposer, ToolbarHelper, ToolItemDef, UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { Provider } from "react-redux";
@@ -127,10 +127,10 @@ describe("<ToolbarComposer  />", async () => {
   before(async () => {
     await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
-    ConfigurableUiManager.addFrontstageProvider(new Frontstage1());
-    const frontstageDef = await FrontstageManager.getFrontstageDef("Test1");
+    UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef("Test1");
     expect(frontstageDef).to.not.be.undefined;
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   });
 
   after(async () => {

@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { ConfigurableUiControlType, ConfigurableUiManager, ContentViewManager, DrawingNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
+import { ConfigurableUiControlType, DrawingNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
 import { TestUtils } from "../TestUtils";
 
 describe("DrawingNavigationAidControl", () => {
@@ -12,8 +12,8 @@ describe("DrawingNavigationAidControl", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
 
-    if (!ConfigurableUiManager.isControlRegistered("DrawingNavigationAid"))
-      ConfigurableUiManager.registerControl("DrawingNavigationAid", DrawingNavigationAidControl);
+    if (!UiFramework.controls.isRegistered("DrawingNavigationAid"))
+      UiFramework.controls.register("DrawingNavigationAid", DrawingNavigationAidControl);
   });
 
   after(() => {
@@ -26,7 +26,7 @@ describe("DrawingNavigationAidControl", () => {
       classId: "DrawingNavigationAid",
       applicationData: {
         imodel: UiFramework.getIModelConnection(),
-        viewport: ContentViewManager.getActiveContentControl()?.viewport,
+        viewport: UiFramework.content.getActiveContentControl()?.viewport,
       },
     });
 

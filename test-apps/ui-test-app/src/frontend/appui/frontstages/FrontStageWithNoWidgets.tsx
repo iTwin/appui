@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, ConfigurableUiManager, ContentGroup, ContentGroupProvider,
-  IModelViewportControl, StandardContentToolsProvider, StandardFrontstageProps, StandardFrontstageProvider,
+  BackstageAppButton, ContentGroup, ContentGroupProvider,
+  IModelViewportControl, StageUsage, StandardContentToolsProvider, StandardFrontstageProps, StandardFrontstageProvider,
   StandardNavigationToolsProvider, StandardStatusbarItemsProvider, UiFramework,
 } from "@itwin/appui-react";
-import { ContentLayoutProps, StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
+import { ContentLayoutProps, StandardContentLayouts } from "@itwin/appui-abstract";
 
 export class NoWidgetContentGroupProvider extends ContentGroupProvider {
   public override async contentGroup(): Promise<ContentGroup> {
@@ -61,7 +61,7 @@ export class FrontstageWithNoWidgets {
     };
 
     FrontstageWithNoWidgets.registerToolProviders();
-    ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(nowWidgetStageProps));
+    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(nowWidgetStageProps));
   }
 
   private static registerToolProviders() {

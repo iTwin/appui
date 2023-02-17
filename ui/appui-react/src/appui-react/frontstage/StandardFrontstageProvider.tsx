@@ -32,7 +32,7 @@ export interface StandardFrontstageProps {
   /* version id that is used to store state of stage */
   version?: number;
   // Usage of stage. To allow generic UiItemProvides to populate this stage set to `StageUsage.General`.
-  usage: StageUsage | string;
+  usage: StageUsage | string; // eslint-disable-line deprecation/deprecation
   /** Definition of available content groups or a function that provides them */
   contentGroupProps: ContentGroupProps | ContentGroupProvider;
   /** Specify button to use to open backstage. Leave undefined for no backstage button.
@@ -43,7 +43,7 @@ export interface StandardFrontstageProps {
    * ```
    * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"}
    *   label="Toggle Backstage display",
-   *   execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
+   *   execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
    * ```
    */
   cornerButton?: React.ReactNode;

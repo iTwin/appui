@@ -11,8 +11,7 @@
     "url": "https://github.com/iTwin/appui/tree/master/ui/appui-react"
   },
   "scripts": {
-    "build": "npm run -s copy:locale && npm run -s build:cjs",
-    "build:ci": "npm run -s build && npm run -s build:esm",
+    "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
     "build:cjs": "npm run -s copy:cjs && tsc -p tsconfig.cjs.json",
     "build:esm": "npm run -s copy:esm && tsc -p tsconfig.esm.json",
     "build:watch": "run-p watch:cjs watch:esm",
@@ -168,6 +167,16 @@
     "extends": [
       "plugin:@itwin/ui",
       "plugin:@itwin/jsdoc"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "src/test/**/*"
+        ],
+        "rules": {
+          "deprecation/deprecation": "off"
+        }
+      }
     ]
   }
 }

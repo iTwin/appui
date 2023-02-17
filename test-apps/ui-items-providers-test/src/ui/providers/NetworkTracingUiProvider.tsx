@@ -13,7 +13,7 @@ import {
   ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage,
   UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
-import { FrontstageManager, PropsHelper, StateManager, SyncUiEventDispatcher } from "@itwin/appui-react";
+import { PropsHelper, StateManager, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { PresentationPropertyGridWidget, PresentationPropertyGridWidgetControl } from "../widgets/PresentationPropertyGridWidget";
 import { OpenTraceDialogTool } from "../../tools/OpenTraceDialogTool";
@@ -46,7 +46,7 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
 
   // Listen for selection changes and when nothing is selection hide the Widget by calling widgetDef.setWidgetState
   private _onPresentationSelectionChanged = async (evt: SelectionChangeEventArgs, selectionProvider: ISelectionProvider) => {
-    const widgetDef = FrontstageManager.activeFrontstageDef?.findWidgetDef("ui-item-provider-test:elementDataListWidget");
+    const widgetDef = UiFramework.frontstages.activeFrontstageDef?.findWidgetDef("ui-item-provider-test:elementDataListWidget");
     if (widgetDef) {
       const selection = selectionProvider.getSelection(evt.imodel, evt.level);
       if (selection.isEmpty) {

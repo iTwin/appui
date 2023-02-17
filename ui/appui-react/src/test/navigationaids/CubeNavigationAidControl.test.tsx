@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { ConfigurableUiControlType, ConfigurableUiManager, ContentViewManager, CubeNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
+import { ConfigurableUiControlType, CubeNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("CubeNavigationAidControl", () => {
@@ -11,8 +11,8 @@ describe("CubeNavigationAidControl", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
 
-    if (!ConfigurableUiManager.isControlRegistered("CubeNavigationAid"))
-      ConfigurableUiManager.registerControl("CubeNavigationAid", CubeNavigationAidControl);
+    if (!UiFramework.controls.isRegistered("CubeNavigationAid"))
+      UiFramework.controls.register("CubeNavigationAid", CubeNavigationAidControl);
   });
 
   after(() => {
@@ -25,7 +25,7 @@ describe("CubeNavigationAidControl", () => {
       classId: "CubeNavigationAid",
       applicationData: {
         imodel: UiFramework.getIModelConnection(),
-        viewport: ContentViewManager.getActiveContentControl()?.viewport,
+        viewport: UiFramework.content.getActiveContentControl()?.viewport,
       },
     });
 

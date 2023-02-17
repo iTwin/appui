@@ -4,14 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, ConfigurableUiManager, ContentGroup, ContentGroupProvider,
-  IModelViewportControl,
-  StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
-  StandardNavigationToolsUiItemsProvider,
-  StandardStatusbarUiItemsProvider,
+  BackstageAppButton, ContentGroup, ContentGroupProvider, IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider,
+  StandardFrontstageProps, StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider,
   UiFramework,
+  UiItemsManager,
 } from "@itwin/appui-react";
-import { ContentLayoutProps, StageUsage, StandardContentLayouts, UiItemsManager } from "@itwin/appui-abstract";
+import { ContentLayoutProps, StandardContentLayouts } from "@itwin/appui-abstract";
 import { CustomContentStageUiProvider } from "../providers/CustomContentStageUiProvider";
 import { SampleContentControl } from "../content/SampleContentControl";
 
@@ -83,7 +81,7 @@ export class CustomContentFrontstage {
     };
 
     CustomContentFrontstage.registerToolProviders(localizationNamespace);
-    ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(customStageProps));
+    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(customStageProps));
   }
 
   private static registerToolProviders(localizationNamespace: string) {

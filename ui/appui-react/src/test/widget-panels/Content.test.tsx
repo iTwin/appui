@@ -7,7 +7,7 @@ import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { addPanelWidget, addTab, createLayoutStore, createNineZoneState, NineZoneProvider, WidgetIdContext } from "@itwin/appui-layout-react";
 import { Rectangle } from "@itwin/core-react";
-import { FrontstageDef, FrontstageManager, WidgetContent, WidgetDef } from "../../appui-react";
+import { FrontstageDef, UiFramework, WidgetContent, WidgetDef } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("WidgetContent", () => {
@@ -26,7 +26,7 @@ describe("WidgetContent", () => {
     const layout = createLayoutStore(state);
     const frontstage = new FrontstageDef();
     const widget = WidgetDef.create({ id: "w1" });
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstage);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstage);
     sinon.stub(frontstage, "findWidgetDef").returns(widget);
     sinon.stub(widget, "reactNode").get(() => <>Content</>);
     const { container } = render(
@@ -48,7 +48,7 @@ describe("WidgetContent", () => {
     state = addTab(state, "w1");
     state = addPanelWidget(state, "left", "leftStart", ["w1"]);
     const layout = createLayoutStore(state);
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => undefined);
     const { container } = render(
       <NineZoneProvider
         dispatch={sinon.stub()}
@@ -69,7 +69,7 @@ describe("WidgetContent", () => {
     state = addPanelWidget(state, "left", "leftStart", ["w1"]);
     const layout = createLayoutStore(state);
     const frontstage = new FrontstageDef();
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstage);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstage);
     sinon.stub(frontstage, "findWidgetDef").returns(undefined);
     const { container } = render(
       <NineZoneProvider

@@ -7,12 +7,12 @@
  */
 
 import * as React from "react";
-import {
-  CommonToolbarItem, ToolbarItemsChangedArgs, ToolbarItemsManager, ToolbarOrientation, ToolbarUsage, UiItemsManager,
-} from "@itwin/appui-abstract";
+import { CommonToolbarItem, ToolbarItemsChangedArgs, ToolbarItemsManager } from "@itwin/appui-abstract";
 import { useActiveStageId } from "../hooks/useActiveStageId";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
+import { UiFramework } from "../UiFramework";
+import { ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 
 /** Hook that returns items from [[ToolbarItemsManager]].
  * @public
@@ -33,7 +33,7 @@ export const useUiItemsProviderToolbarItems = (manager: ToolbarItemsManager, too
     manager.onItemsChanged.addListener(handleChanged);
     // istanbul ignore else
     if (providersRef.current !== uiProviders || currentStageRef.current !== stageId) {
-      const frontstageDef = FrontstageManager.activeFrontstageDef;
+      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
       // istanbul ignore else
       if (frontstageDef) {
         const usage = frontstageDef.usage;

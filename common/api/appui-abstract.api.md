@@ -23,7 +23,7 @@ export interface AbstractMenuItemProps extends CommonItemProps {
     submenu?: AbstractMenuItemProps[];
 }
 
-// @public
+// @public @deprecated
 export interface AbstractStatusBarActionItem extends AbstractStatusBarItem {
     readonly execute: () => void;
     readonly icon?: string | ConditionalStringValue;
@@ -31,13 +31,13 @@ export interface AbstractStatusBarActionItem extends AbstractStatusBarItem {
     readonly tooltip?: string | ConditionalStringValue;
 }
 
-// @public
+// @public @deprecated
 export interface AbstractStatusBarCustomItem extends AbstractStatusBarItem {
     // (undocumented)
     readonly isCustom: true;
 }
 
-// @public
+// @public @deprecated
 export interface AbstractStatusBarItem extends ProvidedItem {
     applicationData?: any;
     readonly badgeType?: BadgeType;
@@ -49,13 +49,13 @@ export interface AbstractStatusBarItem extends ProvidedItem {
     readonly section: StatusBarSection;
 }
 
-// @public
+// @public @deprecated
 export class AbstractStatusBarItemUtilities {
     static createActionItem: (id: string, section: StatusBarSection, itemPriority: number, icon: string | ConditionalStringValue, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial<AbstractStatusBarCustomItem> | undefined) => AbstractStatusBarActionItem;
     static createLabelItem: (id: string, section: StatusBarSection, itemPriority: number, icon: string | ConditionalStringValue, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial<AbstractStatusBarLabelItem> | undefined) => AbstractStatusBarLabelItem;
 }
 
-// @public
+// @public @deprecated
 export interface AbstractStatusBarLabelItem extends AbstractStatusBarItem {
     readonly icon?: string | ConditionalStringValue;
     readonly label: string | ConditionalStringValue;
@@ -68,7 +68,7 @@ export interface AbstractToolbarProps {
     toolbarId?: string;
 }
 
-// @public
+// @public @deprecated
 export interface AbstractWidgetProps extends ProvidedItem {
     readonly allowedPanelTargets?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
     readonly applicationData?: any;
@@ -106,7 +106,7 @@ export interface ActionButton extends ToolbarItem {
     readonly label: string | ConditionalStringValue;
 }
 
-// @public
+// @public @deprecated
 export interface AllowedUiItemProviderOverrides {
     // @beta
     providerId?: string;
@@ -144,13 +144,13 @@ export interface ArrayValue extends BasePropertyValue {
     valueFormat: PropertyValueFormat.Array;
 }
 
-// @public
+// @public @deprecated
 export interface BackstageActionItem extends CommonBackstageItem {
     // (undocumented)
     readonly execute: () => void;
 }
 
-// @public
+// @public @deprecated
 export type BackstageItem = BackstageActionItem | BackstageStageLauncher;
 
 // @internal
@@ -177,19 +177,19 @@ export class BackstageItemsManager {
     remove(itemIdOrItemIds: BackstageItem["id"] | ReadonlyArray<BackstageItem["id"]>): void;
 }
 
-// @public
+// @public @deprecated
 export enum BackstageItemType {
     ActionItem = 1,
     StageLauncher = 2
 }
 
-// @public
+// @public @deprecated
 export class BackstageItemUtilities {
     static createActionItem: (itemId: string, groupPriority: number, itemPriority: number, execute: () => void, label: string | ConditionalStringValue, subtitle?: string | ConditionalStringValue | undefined, icon?: string | ConditionalStringValue | undefined, overrides?: Partial<BackstageActionItem> | undefined) => BackstageActionItem;
     static createStageLauncher: (frontstageId: string, groupPriority: number, itemPriority: number, label: string | ConditionalStringValue, subtitle?: string | ConditionalStringValue | undefined, icon?: string | ConditionalStringValue | undefined, overrides?: Partial<BackstageStageLauncher> | undefined) => BackstageStageLauncher;
 }
 
-// @public
+// @public @deprecated
 export interface BackstageStageLauncher extends CommonBackstageItem {
     // (undocumented)
     readonly stageId: string;
@@ -249,7 +249,7 @@ export abstract class BaseQuantityDescription implements PropertyDescription {
     typename: string;
 }
 
-// @public
+// @public @deprecated
 export class BaseUiItemsProvider implements UiItemsProvider {
     constructor(_providerId: string, isSupportedStage?: ((stageId: string, stageUsage: string, stageAppData?: any, provider?: UiItemsProvider | undefined) => boolean) | undefined);
     // (undocumented)
@@ -832,7 +832,7 @@ export interface CommandHandler {
     parameters?: any;
 }
 
-// @public
+// @public @deprecated
 export interface CommonBackstageItem extends ProvidedItem {
     applicationData?: any;
     readonly badgeType?: BadgeType;
@@ -864,7 +864,7 @@ export interface CommonItemProps {
     tooltip?: string | ConditionalStringValue;
 }
 
-// @public
+// @public @deprecated
 export type CommonStatusBarItem = AbstractStatusBarActionItem | AbstractStatusBarLabelItem | AbstractStatusBarCustomItem;
 
 // @public
@@ -1233,16 +1233,16 @@ export interface InputEditorSizeParams extends BasePropertyEditorParams {
     type: PropertyEditorParamTypes.InputEditorSize;
 }
 
-// @public
+// @public @deprecated
 export const isAbstractStatusBarActionItem: (item: CommonStatusBarItem) => item is AbstractStatusBarActionItem;
 
-// @public
+// @public @deprecated
 export const isAbstractStatusBarCustomItem: (item: CommonStatusBarItem) => item is AbstractStatusBarCustomItem;
 
-// @public
+// @public @deprecated
 export const isAbstractStatusBarLabelItem: (item: CommonStatusBarItem) => item is AbstractStatusBarLabelItem;
 
-// @public
+// @public @deprecated
 export const isActionItem: (item: BackstageItem) => item is BackstageActionItem;
 
 // @public
@@ -1272,7 +1272,7 @@ export function isLowerAsciiLetter(code: number): boolean;
 // @internal (undocumented)
 export function isPatternInWord(patternLow: string, patternPos: number, patternLen: number, wordLow: string, wordPos: number, wordLen: number): boolean;
 
-// @public
+// @public @deprecated
 export const isStageLauncher: (item: BackstageItem) => item is BackstageStageLauncher;
 
 // @public
@@ -1592,7 +1592,7 @@ export enum PropertyValueFormat {
     Struct = 2
 }
 
-// @public
+// @public @deprecated
 export interface ProvidedItem {
     readonly providerId?: string;
 }
@@ -1702,7 +1702,7 @@ export enum SpecialKey {
     Tab = "Tab"
 }
 
-// @public
+// @public @deprecated
 export enum StagePanelLocation {
     // (undocumented)
     Bottom = 104,
@@ -1714,7 +1714,7 @@ export enum StagePanelLocation {
     Top = 101
 }
 
-// @public
+// @public @deprecated
 export enum StagePanelSection {
     // (undocumented)
     End = 1,
@@ -1722,7 +1722,7 @@ export enum StagePanelSection {
     Start = 0
 }
 
-// @public
+// @public @deprecated
 export enum StageUsage {
     // (undocumented)
     Edit = "Edit",
@@ -1839,7 +1839,7 @@ export enum StandardTypeNames {
 // @internal (undocumented)
 export function startsWithIgnoreCase(str: string, candidate: string): boolean;
 
-// @public
+// @public @deprecated
 export type StatusBarItemId = CommonStatusBarItem["id"];
 
 // @internal
@@ -1866,13 +1866,13 @@ export class StatusBarItemsManager {
     removeAll(): void;
 }
 
-// @public
+// @public @deprecated
 export enum StatusBarLabelSide {
     Left = 0,
     Right = 1
 }
 
-// @public
+// @public @deprecated
 export enum StatusBarSection {
     Center = 1,
     Context = 3,
@@ -1941,7 +1941,7 @@ export interface ToolbarItem extends ProvidedItem {
     readonly parentToolGroupId?: string;
 }
 
-// @public
+// @public @deprecated
 export type ToolbarItemId = CommonToolbarItem["id"];
 
 // @internal
@@ -1981,13 +1981,13 @@ export class ToolbarItemUtilities {
     static isGroupButton(item: CommonToolbarItem): item is GroupButton;
 }
 
-// @public
+// @public @deprecated
 export enum ToolbarOrientation {
     Horizontal = 0,
     Vertical = 1
 }
 
-// @public
+// @public @deprecated
 export enum ToolbarUsage {
     ContentManipulation = 0,
     ViewNavigation = 1
@@ -2077,13 +2077,13 @@ export interface UiFlags {
     allowKeyinPalette?: boolean;
 }
 
-// @public
+// @public @deprecated
 export type UiItemProviderOverrides = MarkRequired<AllowedUiItemProviderOverrides, "providerId" | "stageUsages"> | MarkRequired<AllowedUiItemProviderOverrides, "providerId" | "stageIds"> | // eslint-disable-line @typescript-eslint/indent
 MarkRequired<AllowedUiItemProviderOverrides, "stageIds"> | // eslint-disable-line @typescript-eslint/indent
 MarkRequired<AllowedUiItemProviderOverrides, "stageUsages"> | // eslint-disable-line @typescript-eslint/indent
 MarkRequired<AllowedUiItemProviderOverrides, "providerId" | "stageUsages" | "stageIds">;
 
-// @public
+// @public @deprecated
 export interface UiItemProviderRegisteredEventArgs {
     // (undocumented)
     providerId: string;
@@ -2096,7 +2096,7 @@ export enum UiItemsApplicationAction {
     Update = 2
 }
 
-// @public
+// @public @deprecated
 export class UiItemsManager {
     // @internal
     static clearAllProviders(): void;
@@ -2112,7 +2112,7 @@ export class UiItemsManager {
     static unregister(uiProviderId: string): void;
 }
 
-// @public
+// @public @deprecated
 export interface UiItemsProvider {
     readonly id: string;
     onUnregister?: () => void;
@@ -2152,7 +2152,7 @@ export interface UiSyncEventArgs {
     eventIds: Set<string>;
 }
 
-// @public
+// @public @deprecated
 export enum WidgetState {
     Closed = 1,
     Floating = 3,

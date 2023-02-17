@@ -6,7 +6,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
 import {
-  FrontstageDef, FrontstageManager, getBadgeClassName, WidgetDef, WidgetPanelsTab,
+  FrontstageDef, getBadgeClassName, UiFramework, WidgetDef, WidgetPanelsTab,
 } from "../../appui-react";
 import { render, screen } from "@testing-library/react";
 import { addPanelWidget, addTab, createLayoutStore, createNineZoneState, NineZone, TabIdContext, TabPositionContext, WidgetIdContext } from "@itwin/appui-layout-react";
@@ -38,7 +38,7 @@ describe("WidgetPanelsTab", () => {
 
   it("should render with badge", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
     const widgetDef = WidgetDef.create({
       id: "w1",
       badgeType: BadgeType.New,
