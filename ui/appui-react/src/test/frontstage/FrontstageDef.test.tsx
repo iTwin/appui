@@ -343,13 +343,13 @@ describe("FrontstageDef", () => {
         },
       },
     });
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => def);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
 
     const spy = sinon.spy();
-    FrontstageManager.onWidgetStateChangedEvent.addListener(spy);
+    UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
 
     // __PUBLISH_EXTRACT_START__ AppUI.WidgetDef.setWidgetState
-    const frontstageDef = FrontstageManager.activeFrontstageDef;
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (!frontstageDef)
       throw new Error("Active frontstage not found");
     const widgetDef = frontstageDef.findWidgetDef("test-widget");
