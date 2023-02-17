@@ -58,14 +58,12 @@ export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opt
 }
 
 /** UI Component shown in settings page to set the active Presentation Unit System and to set format overrides.
- * @note Listen to `IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged` to i.e. change active unit system of Presentation library.
  * @beta
  */
 export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems }: QuantityFormatterSettingsOptions) {
   const [activeUnitSystemKey, setActiveUnitSystemKey] = React.useState(IModelApp.quantityFormatter.activeUnitSystem);
   const [activeQuantityType, setActiveQuantityType] = React.useState(getQuantityTypeKey(initialQuantityType));
-  const [activeFormatterSpec, setActiveFormatterSpec] =
-    React.useState<FormatterSpec | undefined>(IModelApp.quantityFormatter.findFormatterSpecByQuantityType(getQuantityTypeKey(activeQuantityType)));
+  const [activeFormatterSpec, setActiveFormatterSpec] = React.useState<FormatterSpec | undefined>(IModelApp.quantityFormatter.findFormatterSpecByQuantityType(getQuantityTypeKey(activeQuantityType)));
   const [saveEnabled, setSaveEnabled] = React.useState(false);
   const [clearEnabled, setClearEnabled] = React.useState(IModelApp.quantityFormatter.hasActiveOverride(initialQuantityType, true));
   const newQuantityTypeRef = React.useRef<QuantityTypeKey>();
