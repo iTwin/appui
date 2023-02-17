@@ -46,7 +46,7 @@ stages:
           - script: node common/scripts/install-run-rush.js install
             displayName: rush install
 
-          - script: node common/scripts/install-run-rush.js build:ci
+          - script: node common/scripts/install-run-rush.js build
             displayName: rush build
 
           - script: node common/scripts/install-run-rush.js docs
