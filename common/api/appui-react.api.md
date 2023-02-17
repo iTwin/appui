@@ -155,11 +155,10 @@ import { UnitSystemKey } from '@itwin/core-quantity';
 import { VerticalPanelSide } from '@itwin/appui-layout-react';
 import { ViewFlagProps } from '@itwin/core-common';
 import { Viewport } from '@itwin/core-frontend';
-import { ViewportProps } from '@itwin/imodel-components-react';
+import { ViewportComponent } from '@itwin/imodel-components-react';
 import { ViewState } from '@itwin/core-frontend';
 import { ViewStateProp } from '@itwin/imodel-components-react';
 import { ViewStateProps } from '@itwin/core-common';
-import { ViewWithUnifiedSelectionProps } from '@itwin/presentation-components';
 import { WidgetState as WidgetState_2 } from '@itwin/appui-abstract';
 import { WritableDraft } from 'immer/dist/internal';
 import { XAndY } from '@itwin/core-geometry';
@@ -1844,7 +1843,7 @@ export class FloatingContentControl extends ContentControl {
     constructor(uniqueId: string, name: string, node: React_2.ReactNode);
 }
 
-// @beta
+// @beta (undocumented)
 export function FloatingViewportContent(props: FloatingViewportContentProps): JSX.Element;
 
 // @beta (undocumented)
@@ -1860,6 +1859,15 @@ export interface FloatingViewportContentProps {
     initialViewState: ViewStateProp;
     onContextMenu?: (e: React_2.MouseEvent) => boolean;
     viewportRef?: React_2.Ref<ScreenViewport>;
+}
+
+// @alpha (undocumented)
+export function FloatingViewportContentWrapper({ children }: FloatingViewportContentWrapperProps): JSX.Element;
+
+// @alpha (undocumented)
+export interface FloatingViewportContentWrapperProps {
+    // (undocumented)
+    readonly children?: React_2.ReactNode;
 }
 
 // @alpha
@@ -2613,13 +2621,11 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
     static hideSelected(vp: Viewport): void;
     static hideSelectedElementsCategory(vp: Viewport): Promise<void>;
     static hideSelectedElementsModel(vp: Viewport): Promise<void>;
-    static initializeSubjectModelCache(iModelConnection: IModelConnection): void;
     static isolateCommand(vp: Viewport): Promise<void>;
     static isolateSelected(vp: Viewport): void;
     static isolateSelectedElementsCategory(vp: Viewport): Promise<void>;
     static isolateSelectedElementsModel(vp: Viewport): Promise<void>;
     static isolateSelectedModel(vp: Viewport): Promise<void>;
-    static isolateSelectedSubject(vp: Viewport): Promise<void>;
     static isOverrideCategories(vp: Viewport): boolean;
     static isOverrideModels(vp: Viewport): boolean;
     processClearEmphasize(): Promise<void>;
@@ -2659,7 +2665,7 @@ export interface HTMLElementPopupProps extends PopupPropsBase {
 }
 
 // @public
-export const IModelConnectedViewport: ConnectedComponent<React_2.ComponentType<ViewportProps & ViewWithUnifiedSelectionProps>, any>;
+export const IModelConnectedViewport: ConnectedComponent<typeof ViewportComponent, any>;
 
 // @beta
 export const IModelConnectedViewSelector: ConnectedComponent<typeof ViewSelector, any>;
@@ -5343,6 +5349,18 @@ export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => reado
 
 // @public
 export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly CommonToolbarItem_2[];
+
+// @alpha (undocumented)
+export function useFloatingViewport(args: UseFloatingViewportArgs): {
+    viewportRef: (v: ScreenViewport) => void;
+    viewState: ViewState;
+};
+
+// @alpha (undocumented)
+export interface UseFloatingViewportArgs {
+    contentId: string;
+    initialViewState: ViewStateProp;
+}
 
 // @internal (undocumented)
 export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void;
