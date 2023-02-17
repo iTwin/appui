@@ -417,39 +417,6 @@
       "allowedCategories": ["internal"]
     },
     {
-      "name": "@itwin/presentation-backend",
-      "allowedCategories": ["integration-testing", "internal", "tools"]
-    },
-    {
-      "name": "@itwin/presentation-common",
-      "allowedCategories": [
-        "backend",
-        "common",
-        "extensions",
-        "frontend",
-        "integration-testing",
-        "internal",
-        "tools"
-      ]
-    },
-    {
-      "name": "@itwin/presentation-components",
-      "allowedCategories": ["frontend", "internal", "tools"]
-    },
-    {
-      "name": "@itwin/presentation-frontend",
-      "allowedCategories": [
-        "frontend",
-        "integration-testing",
-        "internal",
-        "tools"
-      ]
-    },
-    {
-      "name": "@itwin/presentation-testing",
-      "allowedCategories": ["frontend", "internal"]
-    },
-    {
       "name": "@itwin/projects-client",
       "allowedCategories": ["integration-testing", "internal"]
     },
