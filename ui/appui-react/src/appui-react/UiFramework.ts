@@ -12,7 +12,6 @@ import { Store } from "redux";
 import { GuidString, Logger, ProcessDetector } from "@itwin/core-bentley";
 import { Localization, RpcActivity } from "@itwin/core-common";
 import { IModelApp, IModelConnection, SnapMode, ViewState } from "@itwin/core-frontend";
-import { Presentation } from "@itwin/presentation-frontend";
 import { TelemetryEvent } from "@itwin/core-telemetry";
 import { getClassName, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
 import { LocalStateStorage, SettingsManager, UiStateStorage } from "@itwin/core-react";
@@ -421,7 +420,6 @@ export class UiFramework {
       if (-1 !== foundIndex) {
         const scope = UiFramework.frameworkState.sessionState.availableSelectionScopes[foundIndex];
         UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, scope.id);
-        Presentation.selection.scopes.activeScope = scope.id;
       }
     }
   }
