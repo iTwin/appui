@@ -15,25 +15,12 @@ import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { WidgetState } from "../state/WidgetState";;
-import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 import { getWidgetPanelSectionId } from "../state/PanelState";
-import { PanelSide } from "../widget-panels/Panel";
 import { NineZoneState } from "../state/NineZoneState";
 
-/** @internal */
-interface ActiveSendBackWidgetIdStore {
-  id: WidgetState["id"] | undefined;
-}
 
 /** @internal */
-export const useActiveSendBackWidgetIdStore = create<ActiveSendBackWidgetIdStore>(() => ({ id: undefined }));
-
-/** @internal */
-interface SendBackHomeState {
-  side: PanelSide;
-  widgetId?: WidgetState["id"];
-  sectionIndex?: 0 | 1;
-}
+export const useActiveSendBackWidgetIdStore = create<WidgetState["id"] | undefined>(() => undefined);
 
 /** @internal */
 export function getSendBackHomeState(state: NineZoneState, widgetId: WidgetState["id"]) {
@@ -73,7 +60,7 @@ export function getSendBackHomeState(state: NineZoneState, widgetId: WidgetState
 
 /** @internal */
 export function useSendBackHomeState() {
-  const widgetId = useActiveSendBackWidgetIdStore((state) => state.id);
+  const widgetId = useActiveSendBackWidgetIdStore((state) => state);
   return useLayout((state) => widgetId ? getSendBackHomeState(state, widgetId) : undefined);
 }
 
@@ -88,7 +75,7 @@ export function SendBack() {
     "nz-widget-sendBack",
     `nz-${home.side}`,
   );
-  const setActiveWidgetId = (newId: WidgetState["id"] | undefined) => useActiveSendBackWidgetIdStore.setState({ id: newId });
+  const setActiveWidgetId = (newId: WidgetState["id"] | undefined) => useActiveSendBackWidgetIdStore.setState(newId);
 
   return (
     <button
