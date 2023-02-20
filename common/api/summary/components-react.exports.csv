@@ -86,7 +86,7 @@ beta;getPropertyFilterOperatorLabel(operator: PropertyFilterRuleOperator): strin
 beta;getPropertyFilterOperators(property: PropertyDescription): PropertyFilterRuleOperator[]
 internal;getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord): string
 internal;getToolbarDirection: (expandsTo: Direction) => OrthogonalDirection
-internal;getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | TreeModelRootNode, result?: Array
+public;getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | TreeModelRootNode, result?: Array
 public;GridCategoryItem 
 internal;GroupColumn(props: GroupColumnProps): JSX.Element
 internal;GroupColumnProps 

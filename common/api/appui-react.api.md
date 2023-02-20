@@ -805,6 +805,8 @@ export class ChildWindowManager {
     openChildWindow(childWindowId: string, title: string, content: React_2.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean): boolean;
     // (undocumented)
     get openChildWindows(): OpenChildWindowInfo[];
+    // (undocumented)
+    useCreateRoot(createRootFn: CreateRoot_2): void;
 }
 
 // @internal (undocumented)
@@ -1934,6 +1936,7 @@ export interface FrameworkChildWindows {
     findId(contentWindow: Window | undefined | null): string | undefined;
     open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean): boolean;
     readonly openChildWindows: OpenChildWindowInfo[];
+    useCreateRoot(createRootFn: CreateRoot): void;
 }
 
 // @beta
