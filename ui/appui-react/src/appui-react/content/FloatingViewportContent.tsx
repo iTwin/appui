@@ -6,7 +6,6 @@
  * @module ContentView
  */
 
-import "./FloatingViewportContent.css";
 import * as React from "react";
 import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
 import { ViewportComponent, ViewStateProp } from "@itwin/imodel-components-react";
