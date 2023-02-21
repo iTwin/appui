@@ -8,7 +8,6 @@ import { Provider } from "react-redux";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
 
-import { initialize as initializePresentationTesting, terminate as terminatePresentationTesting } from "@itwin/presentation-testing";
 import { IModelConnection, MockRender, SelectionSet } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import { IModelRpcProps } from "@itwin/core-common";
@@ -18,7 +17,6 @@ import TestUtils from "../TestUtils";
 describe("useActiveIModelConnection", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await initializePresentationTesting();
 
     // use mock renderer so standards tools are registered.
     await MockRender.App.startup();
@@ -27,7 +25,6 @@ describe("useActiveIModelConnection", () => {
   after(async () => {
     await MockRender.App.shutdown();
     TestUtils.terminateUiFramework();
-    await terminatePresentationTesting();
   });
 
   afterEach(() => {

@@ -5,7 +5,6 @@
 
 import { IModelApp } from "@itwin/core-frontend";
 import { UnitSystemKey } from "@itwin/core-quantity";
-import { Presentation } from "@itwin/presentation-frontend";
 import {
   DialogButtonDef, DialogButtonType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertySyncItem, PropertyDescription,
 } from "@itwin/appui-abstract";
@@ -20,7 +19,6 @@ export class UnitsPopupUiDataProvider extends DialogLayoutDataProvider {
   }
 
   private _handleOK = async () => {
-    Presentation.presentation.activeUnitSystem = this.option;
     await IModelApp.quantityFormatter.setActiveUnitSystem(this.option);
   };
 
