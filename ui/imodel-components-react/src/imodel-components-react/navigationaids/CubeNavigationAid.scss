@@ -41,7 +41,7 @@ $arrow-margin: -3px;
         font-size: var(--iui-font-size-1);
         font-weight: var(--iui-font-weight-semibold);
         color: var(--iui-color-text);
-        box-shadow: inset 0px 0px 1px 0.2px #000;
+        box-shadow: inset 0px 0px 1px 0.2px var(--iui-color-border);
 
         .face-row {
           display: flex;

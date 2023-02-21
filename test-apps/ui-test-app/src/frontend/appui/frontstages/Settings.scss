@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/base/base";
 
 // cspell:ignore leftpanel rightpanel
@@ -16,8 +15,8 @@ $settings-rightpanel-width: 220px;
 }
 
 .uifw-settings {
-  background: $buic-background-dialog;
-  color: $buic-text-color;
+  background: var(--iui-color-background-backdrop);
+  color: var(--iui-color-text);
   border-radius: var(--iui-border-radius-1);
   font-size: var(--iui-font-size-1);
   display: flex;

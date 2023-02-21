@@ -21,6 +21,8 @@ div.core-settings-container {
     min-width: 15em;
     height: 100%;
     overflow: auto;
+    border-right: 2px solid var(--iui-color-border);
+
     > .uicore-tabs-vertical {
       font-size: 16px;
     }
@@ -31,7 +33,7 @@ div.core-settings-container {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: red; // TODO: Where is this applied?
+    background: var(--iui-color-background-backdrop);
     align-content: center;
 
     .core-settings-container-right-header {
