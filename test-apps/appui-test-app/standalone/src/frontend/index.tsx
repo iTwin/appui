@@ -28,7 +28,6 @@ import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 // import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
 // import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
-import { createFavoritePropertiesStorage, DefaultFavoritePropertiesStorageTypes, Presentation } from "@itwin/presentation-frontend";
 import { IModelsClient } from "@itwin/imodels-client-management";
 import { getSupportedRpcs } from "../common/rpcs";
 import { loggerCategory, TestAppConfiguration } from "../common/TestAppConfiguration";
@@ -186,17 +185,6 @@ export class SampleAppIModelApp {
   public static async initialize() {
     await UiFramework.initialize(undefined, undefined);
 
-    // initialize Presentation
-    await Presentation.initialize({
-      presentation: {
-        activeLocale: IModelApp.localization.getLanguageList()[0],
-      },
-      favorites: {
-        storage: createFavoritePropertiesStorage(DefaultFavoritePropertiesStorageTypes.BrowserLocalStorage),
-      },
-    });
-    Presentation.selection.scopes.activeScope = "top-assembly";
-
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
     IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
 
@@ -205,7 +193,6 @@ export class SampleAppIModelApp {
 
     // default to showing imperial formatted units
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-    Presentation.presentation.activeUnitSystem = "imperial";
     await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)); // pass true to save per imodel
 
     await FrontendDevTools.initialize();

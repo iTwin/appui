@@ -28,7 +28,6 @@ import {
 } from "@itwin/core-frontend";
 import { MobileApp, MobileAppOpts } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
 // import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
-import { createFavoritePropertiesStorage, DefaultFavoritePropertiesStorageTypes, Presentation } from "@itwin/presentation-frontend";
 import { IModelsClient } from "@itwin/imodels-client-management";
 import { AccessTokenAdapter, FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { getSupportedRpcs } from "../common/rpcs";
@@ -227,19 +226,6 @@ export class SampleAppIModelApp {
   public static async initialize() {
     await UiFramework.initialize(undefined, undefined);
 
-    // initialize Presentation
-    await Presentation.initialize({
-      presentation: {
-        activeLocale: IModelApp.localization.getLanguageList()[0],
-      },
-      favorites: {
-        storage: createFavoritePropertiesStorage(SampleAppIModelApp.testAppConfiguration?.useLocalSettings
-          ? DefaultFavoritePropertiesStorageTypes.BrowserLocalStorage
-          : DefaultFavoritePropertiesStorageTypes.UserPreferencesStorage),
-      },
-    });
-    Presentation.selection.scopes.activeScope = "top-assembly";
-
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
     IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
 
@@ -248,7 +234,6 @@ export class SampleAppIModelApp {
 
     // default to showing imperial formatted units
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-    Presentation.presentation.activeUnitSystem = "imperial";
     await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)); // pass true to save per imodel
 
     AppSettingsTabsProvider.initializeAppSettingProvider();
