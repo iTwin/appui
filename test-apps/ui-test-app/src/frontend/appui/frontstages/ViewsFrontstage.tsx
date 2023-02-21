@@ -325,8 +325,6 @@ export class ViewsFrontstage extends FrontstageProvider {
   }
 
   public override frontstageConfig(): FrontstageConfig {
-    const iModelConnection = UiFramework.getIModelConnection();
-
     return {
       id: ViewsFrontstage.stageId,
       version: 3.1,
