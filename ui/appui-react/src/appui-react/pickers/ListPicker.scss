@@ -297,3 +297,9 @@ $item-height: 32px;
 
   @include title;
 }
+
+.ListPickerSearchBox {
+  width: 21em;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}

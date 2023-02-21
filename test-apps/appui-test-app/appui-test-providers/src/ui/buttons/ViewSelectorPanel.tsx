@@ -15,6 +15,7 @@ function ViewSelectorPanel() {
   const activeImodelConnection = React.useMemo(() => activeViewport?.iModel, [activeViewport]);
   const [viewContainers, setViewContainers] = React.useState<ListItem[]>([]);
   const [activeViewId, setActiveViewId] = React.useState(activeViewport?.view.id);
+  const [searchInput, setSearchInput] = React.useState("");
 
   React.useEffect(() => {
     // eslint-disable-next-line no-console
@@ -52,6 +53,16 @@ function ViewSelectorPanel() {
             sheets.push(viewItem);
         });
 
+        let views3dFiltered: ListItem[];
+        let views2dFiltered: ListItem[];
+        let sheetsFiltered: ListItem[];
+
+        if(searchInput.length > 0){
+          views3dFiltered = views3d.filter((view) => view.name!.toLowerCase().includes(searchInput.toLowerCase()));
+          views2dFiltered = views2d.filter((view) => view.name!.toLowerCase().includes(searchInput.toLowerCase()));
+          sheetsFiltered = sheets.filter((view) => view.name!.toLowerCase().includes(searchInput.toLowerCase()));
+        }
+
         const containers: ListItem[] = [];
         if (views3d.length) {
           const views3dContainer: ListItem = {
@@ -61,7 +72,7 @@ function ViewSelectorPanel() {
               IModelApp.localization.getLocalizedString("viewTypes.spatialViews", { ns: UiFramework.localizationNamespace }),
             enabled: false,
             type: ListItemType.Container,
-            children: views3d,
+            children: views3dFiltered! ? views3dFiltered : views3d,
           };
           containers.push(views3dContainer);
         }
@@ -74,7 +85,7 @@ function ViewSelectorPanel() {
               IModelApp.localization.getLocalizedString("viewTypes.drawings", { ns: UiFramework.localizationNamespace }),
             enabled: false,
             type: ListItemType.Container,
-            children: views2d,
+            children: views2dFiltered! ? views2dFiltered : views2d,
           };
           containers.push(views2dContainer);
         }
@@ -87,7 +98,7 @@ function ViewSelectorPanel() {
               IModelApp.localization.getLocalizedString("viewTypes.sheets", { ns: UiFramework.localizationNamespace }),
             enabled: false,
             type: ListItemType.Container,
-            children: sheets,
+            children: sheetsFiltered! ? sheetsFiltered : sheets,
           };
           containers.push(sheetContainer);
         }
@@ -96,7 +107,7 @@ function ViewSelectorPanel() {
     }
 
     fetchViewData(); // eslint-disable-line @typescript-eslint/no-floating-promises
-  }, [activeImodelConnection, activeViewId]);
+  }, [activeImodelConnection, activeViewId, searchInput]);
 
   React.useEffect(() => {
     const handleViewChanged = (vp: Viewport): void => {
@@ -132,9 +143,14 @@ function ViewSelectorPanel() {
     }
   }, [activeImodelConnection]);
 
+  const handleSearchInputChange = (search: string) => {
+    setSearchInput(search);
+  };
+
   const panel = React.useMemo(() => getListPanel({
     title: "Views", items: viewContainers,
     setEnabled: handleSetEnabled,
+    searchBox: true, onSearchValueChange: handleSearchInputChange,
   }), [handleSetEnabled, viewContainers]);
 
   return (
