@@ -40,11 +40,11 @@
   "peerDependencies": {
     "@itwin/appui-abstract": "workspace:^4.0.0-dev.10",
     "@itwin/components-react": "workspace:^4.0.0-dev.10",
-    "@itwin/core-bentley": "^3.6.0",
-    "@itwin/core-common": "^3.6.0",
-    "@itwin/core-frontend": "^3.6.0",
-    "@itwin/core-geometry": "^3.6.0",
-    "@itwin/core-quantity": "^3.6.0",
+    "@itwin/core-bentley": "^3.6.0 || ^4.0.0-dev.1",
+    "@itwin/core-common": "^3.6.0 || ^4.0.0-dev.1",
+    "@itwin/core-frontend": "^3.6.0 || ^4.0.0-dev.1",
+    "@itwin/core-geometry": "^3.6.0 || ^4.0.0-dev.1",
+    "@itwin/core-quantity": "^3.6.0 || ^4.0.0-dev.1",
     "@itwin/core-react": "workspace:^4.0.0-dev.10",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
