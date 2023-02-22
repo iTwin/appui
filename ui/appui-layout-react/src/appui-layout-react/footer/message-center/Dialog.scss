@@ -13,15 +13,15 @@
   min-width: $nz-footer-popup-min-width;
   max-width: $nz-footer-popup-max-width;
 
-  >div:last-child {
-    >.nz-tabs {
+  > div:last-child {
+    > .nz-tabs {
       min-width: 100%;
       display: grid;
       grid-auto-flow: column;
       grid-auto-columns: 1fr;
     }
 
-    >.nz-messages {
+    > .nz-messages {
       max-height: 280px;
       min-height: $nz-message-horizontal-padding;
       overflow: auto;
@@ -29,7 +29,7 @@
       @include nz-scrollbar();
     }
 
-    >.nz-gradient {
+    > .nz-gradient {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -39,15 +39,18 @@
       box-sizing: border-box;
 
       &:after {
-        content: '';
+        content: "";
         display: block;
-        background: linear-gradient(hsl(var(--iui-color-background-hsl) / 0), hsl(var(--iui-color-background-hsl) / 1)); // TODO: These need to change
+        background: linear-gradient(
+          hsl(var(--iui-color-background-hsl) / 0),
+          hsl(var(--iui-color-background-hsl) / 1)
+        ); // TODO: These need to change
         width: 100%;
         height: 100%;
       }
     }
 
-    >.nz-message-prompt {
+    > .nz-message-prompt {
       display: none;
       text-align: center;
       margin: 30px 15px;
@@ -55,7 +58,7 @@
       color: var(--iui-color-text-muted);
     }
 
-    & .nz-messages:empty~.nz-message-prompt {
+    & .nz-messages:empty ~ .nz-message-prompt {
       display: block;
     }
   }
