@@ -12,23 +12,22 @@
     width: $uifw-popup-border-width;
   }
 
-  background-color: rgba($buic-background-2-rgb, $uifw-popup-opacity);
+  background-color: hsl(var(--iui-color-background-hsl) / $uifw-popup-opacity);
   position: fixed;
   height: fit-content;
   width: fit-content;
   transition: opacity 500ms;
 
-  >.uifw-cursorpopup-title {
+  > .uifw-cursorpopup-title {
     min-height: $uifw-popup-title-bar-min-height;
     opacity: $uifw-popup-opacity;
   }
 
-  >.uifw-cursorpopup-content {
+  > .uifw-cursorpopup-content {
     padding: $uifw-popup-content-padding;
   }
 
   &.uifw-cursorpopup-fadeOut {
     opacity: 0;
   }
-
 }

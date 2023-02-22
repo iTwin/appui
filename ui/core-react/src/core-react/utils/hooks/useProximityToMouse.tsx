@@ -11,12 +11,16 @@ import { Point } from "../Point";
 import { Rectangle } from "../Rectangle";
 
 /** @internal */
-export class WidgetElementSet extends Set<React.RefObject<Element>> { }
+export class WidgetElementSet extends Set<React.RefObject<Element>> {}
 
 /** Returns the proximity scale associated with the shortest distance from the element(s) to the mouse.
  * @internal
  */
-export const useProximityToMouse = (elementSet: WidgetElementSet, snap: boolean = false, threshold = PROXIMITY_THRESHOLD_DEFAULT) => {
+export const useProximityToMouse = (
+  elementSet: WidgetElementSet,
+  snap: boolean = false,
+  threshold = PROXIMITY_THRESHOLD_DEFAULT
+) => {
   const [proximityScale, setProximityScale] = React.useState(1.0);
 
   React.useEffect(() => {
@@ -29,13 +33,15 @@ export const useProximityToMouse = (elementSet: WidgetElementSet, snap: boolean 
           const clientRect = ref.current.getBoundingClientRect();
           const rectangle = Rectangle.create(clientRect);
           const point = new Point(e.pageX, e.pageY);
-          shortestProximity = Math.min(rectangle.getShortestDistanceToPoint(point), shortestProximity);
+          shortestProximity = Math.min(
+            rectangle.getShortestDistanceToPoint(point),
+            shortestProximity
+          );
         }
       }
 
       const scale = calculateProximityScale(shortestProximity, snap, threshold);
-      if (scale !== proximityScale)
-        setProximityScale(scale);
+      if (scale !== proximityScale) setProximityScale(scale);
     };
 
     document.addEventListener("pointermove", handleDocumentPointerMove);
@@ -71,10 +77,13 @@ export const TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT = 10;
 /** Calculates a proximity scale for further calculations given the proximity and threshold.
  * @internal
  */
-export const calculateProximityScale = (proximity: number, snap: boolean = false, threshold = PROXIMITY_THRESHOLD_DEFAULT): number => {
-  let scale = ((proximity < threshold) ? threshold - proximity : 0) / threshold;
-  if (snap && scale > 0)
-    scale = 1.0;
+export const calculateProximityScale = (
+  proximity: number,
+  snap: boolean = false,
+  threshold = PROXIMITY_THRESHOLD_DEFAULT
+): number => {
+  let scale = (proximity < threshold ? threshold - proximity : 0) / threshold;
+  if (snap && scale > 0) scale = 1.0;
   return scale;
 };
 
@@ -103,7 +112,7 @@ export const calculateBackdropFilterBlur = (proximityScale: number): number => {
  * @internal
  */
 export const getToolbarBackgroundColor = (opacity: number): string => {
-  return `rgba(var(--buic-background-2-rgb), ${opacity})`;
+  return `hsl(var(--iui-color-background-hsl) / ${opacity})`;
 };
 
 /** Gets the Toolbar box-shadow based on a given opacity.
