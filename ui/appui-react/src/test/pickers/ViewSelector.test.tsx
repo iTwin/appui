@@ -144,4 +144,27 @@ describe("ViewSelector", () => {
 
     await waitFor(() => expect(screen.getByText("spatial2")).to.exist);
   });
+  it("should filter views based on search input",async () => {
+    render(
+      <Provider store={TestUtils.store}>
+        <ToolbarItemContext.Provider
+          value={{
+            hasOverflow: false,
+            useHeight: false,
+            onResize: () => { },
+          }}
+        >
+          <ViewSelector imodel={imodelMock.object} />
+        </ToolbarItemContext.Provider>
+      </Provider>
+    );
+    await waitFor(async () => theUserTo.click(screen.getByRole("button")));
+    await theUserTo.type(screen.getByRole("searchbox"), "none");
+
+    expect(screen.queryByText("viewTypes.spatialViews")).to.be.null;
+    expect(screen.queryByText("viewTypes.drawings")).to.be.null;
+    expect(screen.queryByText("viewTypes.sheets")).to.be.null;
+    expect(screen.queryByText("viewTypes.others")).to.be.null;
+
+  });
 });
