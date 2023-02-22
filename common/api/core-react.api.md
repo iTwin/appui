@@ -1859,7 +1859,7 @@ export const useProximityToMouse: (elementSet: WidgetElementSet, snap?: boolean,
 export function useRefEffect<T>(callback: (instance: T | null) => (void | (() => void)), deps: ReadonlyArray<any>): (instance: T | null) => void;
 
 // @internal
-export function useRefs<T>(...refs: ReadonlyArray<React_2.Ref<T>>): (instance: T | null) => void;
+export function useRefs<T>(...refs: ReadonlyArray<React_2.Ref<T> | undefined>): (instance: T | null) => void;
 
 // @internal
 export function useRefState<T>(): [React_2.Ref<T>, T | undefined];

@@ -8,16 +8,12 @@ import { expect } from "chai";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
 import { IModelRpcProps } from "@itwin/core-common";
-import { RpcRequestsHandler } from "@itwin/presentation-common";
 import { Id64String, Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, MockRender, SelectionSet, ViewState } from "@itwin/core-frontend";
-import { Presentation, SelectionManager, SelectionScopesManager, SelectionScopesManagerProps } from "@itwin/presentation-frontend";
-import { initialize as initializePresentationTesting, terminate as terminatePresentationTesting } from "@itwin/presentation-testing";
 import { ColorTheme, CursorMenuData, SettingsModalFrontstage, UiFramework, UserSettingsProvider } from "../appui-react";
 import { LocalStateStorage, UiStateStorage } from "@itwin/core-react";
 import TestUtils, { storageMock } from "./TestUtils";
 import { OpenSettingsTool } from "../appui-react/tools/OpenSettingsTool";
-import { createRandomSelectionScope } from "./PresentationTestUtils";
 
 describe("UiFramework localStorage Wrapper", () => {
 
@@ -241,12 +237,6 @@ describe("UiFramework localStorage Wrapper", () => {
 
     beforeEach(async () => {
       await shutdownIModelApp();
-      Presentation.terminate();
-      await initializePresentationTesting();
-    });
-
-    afterEach(async () => {
-      await terminatePresentationTesting();
     });
 
     describe("initialize and setActiveSelectionScope", () => {
@@ -256,7 +246,6 @@ describe("UiFramework localStorage Wrapper", () => {
         UiFramework.setActiveSelectionScope("element");
         TestUtils.terminateUiFramework();
 
-        Presentation.terminate();
         await shutdownIModelApp();
       });
     });
@@ -266,16 +255,7 @@ describe("UiFramework localStorage Wrapper", () => {
   describe("ConnectionEvents", () => {
     const imodelToken: IModelRpcProps = { key: "" };
     const imodelMock = moq.Mock.ofType<IModelConnection>();
-    const rpcRequestsHandlerMock = moq.Mock.ofType<RpcRequestsHandler>();
-    let manager: SelectionScopesManager | undefined;
-    let managerProps: SelectionScopesManagerProps;
     let ss: SelectionSet;
-
-    const getManager = () => {
-      if (!manager)
-        manager = new SelectionScopesManager(managerProps);
-      return manager;
-    };
 
     beforeEach(async () => {
       await TestUtils.initializeUiFramework(false);
@@ -285,20 +265,6 @@ describe("UiFramework localStorage Wrapper", () => {
 
       ss = new SelectionSet(imodelMock.object);
       imodelMock.setup((x) => x.selectionSet).returns(() => ss);
-
-      rpcRequestsHandlerMock.reset();
-      manager = undefined;
-      managerProps = {
-        rpcRequestsHandler: rpcRequestsHandlerMock.object,
-      };
-
-      const result = [createRandomSelectionScope()];
-      rpcRequestsHandlerMock
-        .setup(async (x) => x.getSelectionScopes(moq.It.isObjectWith({ imodel: imodelToken, locale: undefined })))
-        .returns(async () => result)
-        .verifiable();
-
-      Presentation.setSelectionManager(new SelectionManager({ scopes: getManager() }));
     });
 
     afterEach(() => {

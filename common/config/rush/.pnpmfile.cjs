@@ -12,20 +12,12 @@ function readPackage(pkg) {
   // version of the packages. Update the pkg.json real dependency list to
   // Note that these dependencies are only ever allowed for testing purposes and should not be the
   // dependency of any published packages.
-
-  else if (pkg.name == "@itwin/presentation-components") {
-    pkg.dependencies["@itwin/components-react"] = "workspace:*";
-    pkg.dependencies["@itwin/core-react"] = "workspace:*"
-    pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
-  } else if (pkg.name == "@itwin/map-layers") {
+  else if (pkg.name == "@itwin/map-layers") {
     pkg.dependencies["@itwin/appui-layout-react"] = "workspace:*";
     pkg.dependencies["@itwin/appui-react"] = "workspace:*";
     pkg.dependencies["@itwin/components-react"] = "workspace:*";
     pkg.dependencies["@itwin/core-react"] = "workspace:*"
     pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
-  } else if (pkg.name == "@itwin/presentation-testing") {
-    pkg.dependencies["@itwin/components-react"] = "workspace:*";
-
   }
   if (pkg.dependencies && pkg.dependencies["@itwin/appui-abstract"]) {
     pkg.dependencies["@itwin/appui-abstract"] = "workspace:*";
