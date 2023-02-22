@@ -60,7 +60,7 @@ export function getSendBackHomeState(state: NineZoneState, widgetId: WidgetState
 
 /** @internal */
 export function useSendBackHomeState() {
-  const widgetId = useActiveSendBackWidgetIdStore((state) => state);
+  const widgetId = useActiveSendBackWidgetIdStore.getState();
   return useLayout((state) => widgetId ? getSendBackHomeState(state, widgetId) : undefined);
 }
 

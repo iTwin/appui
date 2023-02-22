@@ -52,8 +52,10 @@ export function useHidden() {
   const activeHomeState = useSendBackHomeState();
 
   return React.useMemo(() => {
-    if (activeHomeState?.side === side && activeHomeState?.widgetId === undefined && activeHomeState?.sectionIndex === undefined)
-      return false;
+    if (activeHomeState) {
+      if (activeHomeState.side === side && activeHomeState.widgetId === undefined && activeHomeState.sectionIndex === undefined)
+        return false;
+    }
 
     if (!targeted)
       return true;
