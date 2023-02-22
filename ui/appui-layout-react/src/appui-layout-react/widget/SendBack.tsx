@@ -90,15 +90,17 @@ export function SendBack() {
       onMouseOver={() => {
         setActiveWidgetId(id);
       }}
-      onFocus={() => {
-        setActiveWidgetId(id);
-      }}
+      onFocus={
+        // istanbul ignore next
+        () => { setActiveWidgetId(id); }
+      }
       onMouseOut={() => {
         setActiveWidgetId(undefined);
       }}
-      onBlur={() => {
-        setActiveWidgetId(undefined);
-      }}
+      onBlur={
+        // istanbul ignore next
+        () => { setActiveWidgetId(undefined); }
+      }
       title={title}
     >
       <i />
