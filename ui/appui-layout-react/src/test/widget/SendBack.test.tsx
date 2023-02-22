@@ -7,8 +7,6 @@ import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 import { addFloatingWidget, addTab, createNineZoneState, NineZoneDispatch, SendBack, useActiveSendBackWidgetIdStore, WidgetIdContext } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
-import { expect } from "chai";
-import { StoreApi, UseBoundStore } from "zustand";
 
 describe("SendBack", () => {
   it("should render", () => {
@@ -62,7 +60,7 @@ describe("SendBack", () => {
     );
     const button = container.getElementsByClassName("nz-widget-sendBack")[0];
 
-    let setSendBackHomeState = sinon.spy(useActiveSendBackWidgetIdStore, "setState");
+    const setSendBackHomeState = sinon.spy(useActiveSendBackWidgetIdStore, "setState");
 
     fireEvent.mouseOver(button);
     fireEvent.mouseOut(button);

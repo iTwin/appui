@@ -124,7 +124,7 @@ describe("useHidden", () => {
         home: {
           widgetIndex: 0,
           widgetId: undefined,
-          side: "left"
+          side: "left",
         },
       },
     );
@@ -149,7 +149,7 @@ describe("useHidden", () => {
         home: {
           widgetIndex: 0,
           widgetId: undefined,
-          side: "right"
+          side: "right",
         },
       },
     );
