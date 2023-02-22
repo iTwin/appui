@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "@itwin/appui-abstract": "workspace:^4.0.0-dev.10",
-    "@itwin/core-bentley": "^3.6.0 || ^4.0.0-dev.1",
+    "@itwin/core-bentley": "^3.6.0 || ^4.0.0-dev.22",
     "@itwin/core-react": "workspace:^4.0.0-dev.10",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
@@ -50,13 +50,13 @@
   ],
   "devDependencies": {
     "@itwin/appui-abstract": "workspace:*",
-    "@itwin/build-tools": "^3.6.0",
-    "@itwin/core-bentley": "^3.6.0",
-    "@itwin/core-common": "^3.6.0",
-    "@itwin/core-geometry": "^3.6.0",
-    "@itwin/core-i18n": "^3.6.0",
+    "@itwin/build-tools": "^4.0.0-dev.22",
+    "@itwin/core-bentley": "^4.0.0-dev.22",
+    "@itwin/core-common": "^4.0.0-dev.22",
+    "@itwin/core-geometry": "^4.0.0-dev.22",
+    "@itwin/core-i18n": "^4.0.0-dev.22",
     "@itwin/core-react": "workspace:*",
-    "@itwin/eslint-plugin": "^3.6.0",
+    "@itwin/eslint-plugin": "^4.0.0-dev.22",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
