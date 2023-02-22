@@ -10,7 +10,7 @@
  *  It should NOT be imported by any *.scss or other ui-core files.
  */
 
-:root {
+main {
   // NEEDSWORK - Need to deprecate these accessory colors
   --buic-accessory-hollow: rgb(255, 255, 255);
   --buic-accessory-primary: rgb(000, 139, 225);
