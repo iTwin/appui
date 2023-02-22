@@ -9,13 +9,10 @@
 import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { IModelConnection, ScreenViewport, ViewState } from "@itwin/core-frontend";
-import { viewWithUnifiedSelection } from "@itwin/presentation-components";
 import { ViewportComponent, ViewStateProp } from "@itwin/imodel-components-react";
 import { FillCentered } from "@itwin/core-react";
 
-import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
-import { ConfigurableUiManager } from "../configurableui/ConfigurableUiManager";
 import { connectIModelConnectionAndViewState } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
 import { DefaultViewOverlay } from "./DefaultViewOverlay";
@@ -25,14 +22,10 @@ import { UiError } from "@itwin/appui-abstract";
 import { useSelector } from "react-redux";
 import { FrameworkState } from "../redux/FrameworkState";
 
-// create a HOC viewport component that supports unified selection
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const UnifiedSelectionViewport = viewWithUnifiedSelection(ViewportComponent);
-
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @public
  */
-export const IModelConnectedViewport = connectIModelConnectionAndViewState(null, null)(UnifiedSelectionViewport); // eslint-disable-line @typescript-eslint/naming-convention
+export const IModelConnectedViewport = connectIModelConnectionAndViewState(null, null)(ViewportComponent); // eslint-disable-line @typescript-eslint/naming-convention
 
 /** [[IModelViewportControl]] options. These options are set in the applicationData property of the [[ContentProps]].
  * @public
@@ -154,8 +147,8 @@ export class IModelViewportControl extends ViewportContentControl {
         // for convenience, if window defined bind viewport to window
         if (undefined !== window)
           (window as any).viewport = v;
-        if (!FrontstageManager.isLoading)
-          FrontstageManager.activeFrontstageDef?.setActiveViewFromViewport(v);
+        if (!UiFramework.frontstages.isLoading)
+          UiFramework.frontstages.activeFrontstageDef?.setActiveViewFromViewport(v);
       }}
       getViewOverlay={this._getViewOverlay}
     />;
@@ -163,7 +156,7 @@ export class IModelViewportControl extends ViewportContentControl {
 
   /** Get the React component that will contain the Viewport */
   protected getImodelViewportReactElement(iModelConnection: IModelConnection, viewState: ViewStateProp): React.ReactNode {
-    return <UnifiedSelectionViewport
+    return <ViewportComponent
       viewState={viewState}
       imodel={iModelConnection}
       controlId={this.controlId}
@@ -172,8 +165,8 @@ export class IModelViewportControl extends ViewportContentControl {
         // for convenience, if window defined bind viewport to window
         if (undefined !== window)
           (window as any).viewport = v;
-        if (!FrontstageManager.isLoading)
-          FrontstageManager.activeFrontstageDef?.setActiveViewFromViewport(v);
+        if (!UiFramework.frontstages.isLoading)
+          UiFramework.frontstages.activeFrontstageDef?.setActiveViewFromViewport(v);
       }}
       getViewOverlay={this._getViewOverlay}
     />;
@@ -204,4 +197,4 @@ export class IModelViewportControl extends ViewportContentControl {
   }
 }
 
-ConfigurableUiManager.registerControl(IModelViewportControl.id, IModelViewportControl);
+UiFramework.controls.register(IModelViewportControl.id, IModelViewportControl);

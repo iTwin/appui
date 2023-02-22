@@ -7,7 +7,6 @@
   "scripts": {
     "prebuild": "npm run -s pseudolocalize && npm run -s copy:assets",
     "build": "npm run -s prebuild && tsc 1>&2",
-    "build:ci": "npm run -s build",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "copy:assets": "cpx \"./src/**/*.{*css,json,svg}\" \"./lib\"",
     "cover": "",
@@ -51,9 +50,6 @@
     "@itwin/appui-react": "workspace:*",
     "@itwin/appui-layout-react": "workspace:*",
     "@itwin/imodel-components-react": "workspace:*",
-    "@itwin/presentation-common": "^3.5.1",
-    "@itwin/presentation-frontend": "^3.5.1",
-    "@itwin/presentation-components": "^3.5.1",
     "@itwin/itwinui-react": "^2.2.1",
     "@itwin/itwinui-icons-react": "^1.8.0",
     "@itwin/itwinui-variables": "^1.0.0",

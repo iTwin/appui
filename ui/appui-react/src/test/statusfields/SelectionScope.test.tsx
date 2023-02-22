@@ -6,8 +6,6 @@ import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
-import { Presentation } from "@itwin/presentation-frontend";
-import { initialize as initializePresentationTesting, terminate as terminatePresentationTesting } from "@itwin/presentation-testing";
 import { WidgetState } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import {
@@ -91,9 +89,7 @@ describe(`SelectionScopeField`, () => {
 
     before(async () => {
       await shutdownIModelApp();
-      Presentation.terminate();
 
-      await initializePresentationTesting();
       await TestUtils.initializeUiFramework();
 
       const widgetDef = WidgetDef.create({
@@ -106,7 +102,6 @@ describe(`SelectionScopeField`, () => {
 
     after(async () => {
       TestUtils.terminateUiFramework();
-      await terminatePresentationTesting();
     });
 
     stubScrollIntoView();

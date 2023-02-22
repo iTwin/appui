@@ -10,8 +10,9 @@
 // Override some iTwinUI-css padding and minimums for iTwin.js applications
 
 @mixin small-itwinui-toggle-switch {
+  //Greta: is this needed?
   .iui-toggle-switch {
-    // padding: 1px 0 !important; // WTF?
+    // padding: 1px 0 !important;
   }
 }
 

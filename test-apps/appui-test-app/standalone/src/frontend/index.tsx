@@ -12,9 +12,9 @@ import { RealityDataAccessClient, RealityDataClientOptions } from "@itwin/realit
 import { getClassName } from "@itwin/appui-abstract";
 import {
   ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageManager, IModelViewportControl, InitialAppUiSettings,
+  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, IModelViewportControl, InitialAppUiSettings,
   ModalFrontstageClosedEventArgs, SafeAreaContext, SafeAreaInsets, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
-  ToolbarDragInteractionContext, UiFramework, UiItemsManager, UiShowHideManager, UiStateStorageHandler,
+  ToolbarDragInteractionContext, UiFramework, UiItemsManager, UiStateStorageHandler,
 } from "@itwin/appui-react";
 import { assert, Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
 import { BentleyCloudRpcManager, BentleyCloudRpcParams, RpcConfiguration } from "@itwin/core-common";
@@ -28,7 +28,6 @@ import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 // import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
 // import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
-import { createFavoritePropertiesStorage, DefaultFavoritePropertiesStorageTypes, Presentation } from "@itwin/presentation-frontend";
 import { IModelsClient } from "@itwin/imodels-client-management";
 import { getSupportedRpcs } from "../common/rpcs";
 import { loggerCategory, TestAppConfiguration } from "../common/TestAppConfiguration";
@@ -186,17 +185,6 @@ export class SampleAppIModelApp {
   public static async initialize() {
     await UiFramework.initialize(undefined, undefined);
 
-    // initialize Presentation
-    await Presentation.initialize({
-      presentation: {
-        activeLocale: IModelApp.localization.getLanguageList()[0],
-      },
-      favorites: {
-        storage: createFavoritePropertiesStorage(DefaultFavoritePropertiesStorageTypes.BrowserLocalStorage),
-      },
-    });
-    Presentation.selection.scopes.activeScope = "top-assembly";
-
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
     IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
 
@@ -205,7 +193,6 @@ export class SampleAppIModelApp {
 
     // default to showing imperial formatted units
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-    Presentation.presentation.activeUnitSystem = "imperial";
     await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)); // pass true to save per imodel
 
     await FrontendDevTools.initialize();
@@ -229,7 +216,7 @@ export class SampleAppIModelApp {
     UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
 
     UiFramework.useDefaultPopoutUrl = true;
-    UiShowHideManager.autoHideUi = false;
+    UiFramework.visibility.autoHideUi = false;
 
     // initialize state from all registered UserSettingsProviders
     await UiFramework.initializeStateFromUserSettingsProviders();
@@ -298,9 +285,9 @@ export class SampleAppIModelApp {
       }
     }
 
-    const frontstageDef = await FrontstageManager.getFrontstageDef(stageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(stageId);
     if (frontstageDef) {
-      FrontstageManager.setActiveFrontstageDef(frontstageDef).then(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
+      UiFramework.frontstages.setActiveFrontstageDef(frontstageDef).then(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
         // Frontstage & ScreenViewports are ready
         Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Frontstage & ScreenViewports are ready`);
       });
@@ -359,8 +346,8 @@ export class SampleAppIModelApp {
   }
 
   public static async showFrontstage(frontstageId: string) {
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageId);
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageId);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   }
 }
 
@@ -396,11 +383,11 @@ const SampleAppViewer = () => {
   };
 
   React.useEffect(() => {
-    FrontstageManager.onFrontstageDeactivatedEvent.addListener(_handleFrontstageDeactivatedEvent);
-    FrontstageManager.onModalFrontstageClosedEvent.addListener(_handleModalFrontstageClosedEvent);
+    UiFramework.frontstages.onFrontstageDeactivatedEvent.addListener(_handleFrontstageDeactivatedEvent);
+    UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(_handleModalFrontstageClosedEvent);
     return () => {
-      FrontstageManager.onFrontstageDeactivatedEvent.removeListener(_handleFrontstageDeactivatedEvent);
-      FrontstageManager.onModalFrontstageClosedEvent.removeListener(_handleModalFrontstageClosedEvent);
+      UiFramework.frontstages.onFrontstageDeactivatedEvent.removeListener(_handleFrontstageDeactivatedEvent);
+      UiFramework.frontstages.onModalFrontstageClosedEvent.removeListener(_handleModalFrontstageClosedEvent);
     };
   }, []);
 

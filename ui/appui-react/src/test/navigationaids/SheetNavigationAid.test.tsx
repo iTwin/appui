@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
 import { IModelConnection, MockRender } from "@itwin/core-frontend";
-import { CardContainer, ConfigurableUiControlType, ConfigurableUiManager, ContentViewManager, SheetNavigationAid, SheetNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
+import { CardContainer, ConfigurableUiControlType, SheetNavigationAid, SheetNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
 import TestUtils, { childStructure } from "../TestUtils";
 import { render } from "@testing-library/react";
 
@@ -15,8 +15,8 @@ describe("SheetNavigationAid", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
 
-    if (!ConfigurableUiManager.isControlRegistered("SheetNavigationAid"))
-      ConfigurableUiManager.registerControl("SheetNavigationAid", SheetNavigationAidControl);
+    if (!UiFramework.controls.isRegistered("SheetNavigationAid"))
+      UiFramework.controls.register("SheetNavigationAid", SheetNavigationAidControl);
 
     await MockRender.App.startup();
   });
@@ -67,7 +67,7 @@ describe("SheetNavigationAid", () => {
         classId: "SheetNavigationAid",
         applicationData: {
           imodel: UiFramework.getIModelConnection(),
-          viewport: ContentViewManager.getActiveContentControl()?.viewport,
+          viewport: UiFramework.content.getActiveContentControl()?.viewport,
         },
       });
 

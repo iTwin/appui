@@ -9,11 +9,7 @@
 import { UiEventDispatcher, UiSyncEvent } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
-import { getInstancesCount, SelectionScope } from "@itwin/presentation-common";
-import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
-import { ContentViewManager } from "../content/ContentViewManager";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { PresentationSelectionScope, SessionStateActionId } from "../redux/SessionState";
+import { SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 
 // cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,
@@ -38,7 +34,7 @@ export enum SyncUiEventId {
   BackstageEvent = "backstageevent",
   /** A Content Layout has been activated.  */
   ContentLayoutActivated = "contentlayoutactivated",
-  /** A Content Control maintained by FrontstageManager has been activated. */
+  /** A Content Control maintained by UiFramework.frontstages has been activated. */
   ContentControlActivated = "contentcontrolactivated",
   /** A Frontstage is activating. */
   FrontstageActivating = "frontstageactivating",
@@ -73,7 +69,6 @@ export class SyncUiEventDispatcher {
   private static _uiEventDispatcher = new UiEventDispatcher();
   private static _unregisterListenerFunc?: () => void;
   private static _unregisterListenerFuncs: Array<() => void> = [];
-  private static initialized = false;
 
   /** @internal - used for testing only */
   /* istanbul ignore next */
@@ -129,43 +124,43 @@ export class SyncUiEventDispatcher {
     // clear any registered listeners - this should only be encountered in unit test scenarios
     this._unregisterListenerFuncs.forEach((unregisterListenerFunc) => unregisterListenerFunc());
 
-    this._unregisterListenerFuncs.push(FrontstageManager.onContentControlActivatedEvent.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.frontstages.onContentControlActivatedEvent.addListener(() => {
       SyncUiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ContentControlActivated);
     }));
 
-    this._unregisterListenerFuncs.push(FrontstageManager.onContentLayoutActivatedEvent.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.frontstages.onContentLayoutActivatedEvent.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ContentLayoutActivated);
     }));
 
-    this._unregisterListenerFuncs.push(FrontstageManager.onFrontstageActivatedEvent.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.frontstages.onFrontstageActivatedEvent.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.FrontstageActivating);
     }));
 
-    this._unregisterListenerFuncs.push(FrontstageManager.onFrontstageReadyEvent.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.frontstages.onFrontstageReadyEvent.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.FrontstageReady);
     }));
 
-    this._unregisterListenerFuncs.push(FrontstageManager.onModalFrontstageChangedEvent.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ModalFrontstageChanged);
     }));
 
-    this._unregisterListenerFuncs.push(FrontstageManager.onNavigationAidActivatedEvent.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.frontstages.onNavigationAidActivatedEvent.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.NavigationAidActivated);
     }));
 
-    this._unregisterListenerFuncs.push(FrontstageManager.onToolActivatedEvent.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.frontstages.onToolActivatedEvent.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ToolActivated);
     }));
 
-    this._unregisterListenerFuncs.push(FrontstageManager.onWidgetStateChangedEvent.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.frontstages.onWidgetStateChangedEvent.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.WidgetStateChanged);
     }));
 
-    this._unregisterListenerFuncs.push(UiFramework.backstageManager.onToggled.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.backstage.onToggled.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.BackstageEvent);
     }));
 
-    this._unregisterListenerFuncs.push(ContentViewManager.onActiveContentChangedEvent.addListener(() => {
+    this._unregisterListenerFuncs.push(UiFramework.content.onActiveContentChangedEvent.addListener(() => {
       SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ActiveContentChanged);
     }));
 
@@ -213,40 +208,6 @@ export class SyncUiEventDispatcher {
 
     iModelConnection.selectionSet.onChanged.removeListener(SyncUiEventDispatcher.selectionChangedHandler);
     iModelConnection.selectionSet.onChanged.addListener(SyncUiEventDispatcher.selectionChangedHandler);
-    (iModelConnection.iModelId) ? UiFramework.setActiveIModelId(iModelConnection.iModelId) : /* istanbul ignore next */ "";
-
-    // listen for changes from presentation rules selection manager (this is done once an iModelConnection is available to ensure Presentation.selection is valid)
-    SyncUiEventDispatcher._unregisterListenerFunc = Presentation.selection.selectionChange.addListener((args: SelectionChangeEventArgs, provider: ISelectionProvider) => {
-      // istanbul ignore if
-      if (args.level !== 0) {
-        // don't need to handle sub-selections
-        return;
-      }
-      const selection = provider.getSelection(args.imodel, args.level);
-      const numSelected = getInstancesCount(selection);
-      UiFramework.dispatchActionToStore(SessionStateActionId.SetNumItemsSelected, numSelected);
-    });
-
-    try {
-      Presentation.selection.scopes.getSelectionScopes(iModelConnection).then((availableScopes: SelectionScope[]) => { // eslint-disable-line @typescript-eslint/no-floating-promises
-        // istanbul ignore else
-        if (availableScopes) {
-          const presentationScopes: PresentationSelectionScope[] = [];
-          availableScopes.map((scope) => presentationScopes.push(scope));
-          UiFramework.dispatchActionToStore(SessionStateActionId.SetAvailableSelectionScopes, presentationScopes);
-        }
-      });
-
-      const activeSelectionScope = Presentation.selection.scopes.activeScope;
-      if (activeSelectionScope) {
-        if (typeof (activeSelectionScope) === "object") {
-          UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, activeSelectionScope.id);
-        } else {
-          UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, activeSelectionScope);
-        }
-      }
-    } catch { }
-
+    iModelConnection.iModelId && UiFramework.setActiveIModelId(iModelConnection.iModelId);
   }
-
 }

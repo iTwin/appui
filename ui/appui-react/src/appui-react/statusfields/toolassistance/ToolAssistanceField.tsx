@@ -41,14 +41,8 @@ import {
 } from "@itwin/appui-layout-react";
 import { HorizontalTabs, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt";
-import {
-  FrontstageManager,
-  ToolIconChangedEventArgs,
-} from "../../frontstage/FrontstageManager";
-import {
-  MessageManager,
-  ToolAssistanceChangedEventArgs,
-} from "../../messages/MessageManager";
+import { ToolIconChangedEventArgs } from "../../framework/FrameworkFrontstages";
+import { MessageManager, ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
 import { UiFramework } from "../../UiFramework";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage";
 
@@ -187,12 +181,8 @@ export class ToolAssistanceField extends React.Component<
   /** @internal */
   public override async componentDidMount() {
     this._isMounted = true;
-    MessageManager.onToolAssistanceChangedEvent.addListener(
-      this._handleToolAssistanceChangedEvent
-    );
-    FrontstageManager.onToolIconChangedEvent.addListener(
-      this._handleToolIconChangedEvent
-    );
+    MessageManager.onToolAssistanceChangedEvent.addListener(this._handleToolAssistanceChangedEvent);
+    UiFramework.frontstages.onToolIconChangedEvent.addListener(this._handleToolIconChangedEvent);
 
     // istanbul ignore else
     if (this.props.uiStateStorage)
@@ -205,12 +195,8 @@ export class ToolAssistanceField extends React.Component<
   /** @internal */
   public override componentWillUnmount() {
     this._isMounted = false;
-    MessageManager.onToolAssistanceChangedEvent.removeListener(
-      this._handleToolAssistanceChangedEvent
-    );
-    FrontstageManager.onToolIconChangedEvent.removeListener(
-      this._handleToolIconChangedEvent
-    );
+    MessageManager.onToolAssistanceChangedEvent.removeListener(this._handleToolAssistanceChangedEvent);
+    UiFramework.frontstages.onToolIconChangedEvent.removeListener(this._handleToolIconChangedEvent);
   }
 
   private async restoreSettings() {

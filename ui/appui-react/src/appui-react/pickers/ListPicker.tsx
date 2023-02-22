@@ -9,7 +9,13 @@
 import "./ListPicker.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Columns, GroupColumn, Panel, PopupItem, Title } from "@itwin/components-react";
+import {
+  Columns,
+  GroupColumn,
+  Panel,
+  PopupItem,
+  Title,
+} from "@itwin/components-react";
 import { CommonProps, Icon, SizeProps } from "@itwin/core-react";
 import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
 import { UiFramework } from "../UiFramework";
@@ -68,14 +74,22 @@ export class ListPickerItem extends React.PureComponent<ListPickerItemProps> {
       "ListPicker-item",
       this.props.isActive && "is-active",
       this.props.isFocused && "is-focused",
-      this.props.className,
+      this.props.className
     );
     // TODO - if cut off, show a title
-    const title: string | undefined = (this.props.label && this.props.label.length > 25) ? this.props.label : undefined;
+    const title: string | undefined =
+      this.props.label && this.props.label.length > 25
+        ? this.props.label
+        : undefined;
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <div className={itemClassName} onClick={this.props.onClick} role="button" tabIndex={-1}>
+      <div
+        className={itemClassName}
+        onClick={this.props.onClick}
+        role="button"
+        tabIndex={-1}
+      >
         <div className="label" title={title}>
           {this.props.label}
         </div>
@@ -104,7 +118,10 @@ interface ExpandableSectionState {
 /** Expandable Section React component used by [[ListPickerBase]]
  * @beta
  */
-export class ExpandableSection extends React.PureComponent<ExpandableSectionProps, ExpandableSectionState> {
+export class ExpandableSection extends React.PureComponent<
+  ExpandableSectionProps,
+  ExpandableSectionState
+> {
   /** Creates an ExpandableSection */
   constructor(props: ExpandableSectionProps) {
     super(props);
@@ -119,28 +136,45 @@ export class ExpandableSection extends React.PureComponent<ExpandableSectionProp
   public override render() {
     const className = classnames(
       "nz-toolbar-item-expandable-group-group",
-      this.props.className,
+      this.props.className
     );
 
-    const icon = this.state.expanded ? <i className="icon icon-chevron-down" /> : <i className="icon icon-chevron-right" />;
+    const icon = this.state.expanded ? (
+      <i className="icon icon-chevron-down" />
+    ) : (
+      <i className="icon icon-chevron-right" />
+    );
 
     return (
-      <Panel className={className} style={this.props.style} key={this.props.title}>
+      <Panel
+        className={className}
+        style={this.props.style}
+        key={this.props.title}
+      >
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-        <div onClick={this._onClick}
-          className={this.state.expanded ? "ListPickerInnerContainer-header-expanded" : "ListPickerInnerContainer-header"}
-          role="button" tabIndex={-1} aria-expanded={this.state.expanded}
+        <div
+          onClick={this._onClick}
+          className={
+            this.state.expanded
+              ? "ListPickerInnerContainer-header-expanded"
+              : "ListPickerInnerContainer-header"
+          }
+          role="button"
+          tabIndex={-1}
+          aria-expanded={this.state.expanded}
         >
           <div className="ListPickerInnerContainer-header-content">
             <div className="ListPickerInnerContainer-expander">{icon}</div>
-            <div className="ListPickerInnerContainer-title">{this.props.title}</div>
+            <div className="ListPickerInnerContainer-title">
+              {this.props.title}
+            </div>
           </div>
         </div>
-        {this.state.expanded ?
-          <GroupColumn>
-            {this.props.children}
-          </GroupColumn> : <div />
-        }
+        {this.state.expanded ? (
+          <GroupColumn>{this.props.children}</GroupColumn>
+        ) : (
+          <div />
+        )}
       </Panel>
     );
   }
@@ -150,7 +184,9 @@ export class ExpandableSection extends React.PureComponent<ExpandableSectionProp
 export function getListPanel(props: ListPickerProps): React.ReactNode {
   const expandSingleSection = (): boolean => {
     const populatedContainers = props.items.filter((item: ListItem) => {
-      return (item.type === ListItemType.Container && item.children!.length !== 0);
+      return (
+        item.type === ListItemType.Container && item.children!.length !== 0
+      );
     });
     return populatedContainers.length === 1;
   };
@@ -166,7 +202,9 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
             isActive={item.enabled}
             onClick={
               // istanbul ignore next
-              () => { props.setEnabled(item, !item.enabled); }
+              () => {
+                props.setEnabled(item, !item.enabled);
+              }
             }
           />
         );
@@ -183,25 +221,21 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
               className="ListPickerInnerContainer"
               expanded={expandSingleSection()}
             >
-              <GroupColumn>
-                {item.children!.map(listItemToElement)}
-              </GroupColumn>
+              <GroupColumn>{item.children!.map(listItemToElement)}</GroupColumn>
             </ExpandableSection>
           );
         } else {
-          return (<div key={itemIndex.toString()} />);
+          return <div key={itemIndex.toString()} />;
         }
       // istanbul ignore next
       default:
-        return (<div key={itemIndex.toString()} />);
+        return <div key={itemIndex.toString()} />;
     }
   };
 
   return (
     <Panel className="ListPickerContainer">
-      <Title>
-        {props.title}
-      </Title>
+      <Title>{props.title}</Title>
       <Columns>
         <GroupColumn className="ListPicker-column">
           {props.items.map(listItemToElement)}
@@ -217,18 +251,27 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
  * @beta
  */
 function ListPickerPopupItem(props: ListPickerProps) {
-  const icon = props.iconSpec ? (/* istanbul ignore next */ typeof props.iconSpec === "string" ? <Icon iconSpec={props.iconSpec} /> :
-    <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>) : <Icon iconSpec="icon-list" />;
+  const icon = props.iconSpec ? (
+    /* istanbul ignore next */ typeof props.iconSpec === "string" ? (
+      <Icon iconSpec={props.iconSpec} />
+    ) : (
+      <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>
+    )
+  ) : (
+    <Icon iconSpec="icon-list" />
+  );
 
   return (
     <ToolbarDragInteractionContext.Consumer>
       {(isEnabled) => {
-        return <PopupItem
-          hideIndicator={isEnabled}
-          icon={icon}
-          title={props.title}
-          panel={getListPanel(props)}
-        />;
+        return (
+          <PopupItem
+            hideIndicator={isEnabled}
+            icon={icon}
+            title={props.title}
+            panel={getListPanel(props)}
+          />
+        );
       }}
     </ToolbarDragInteractionContext.Consumer>
   );
@@ -249,10 +292,18 @@ export interface ListPickerPropsExtended extends ListPickerProps {
  * @beta
  */
 export class ListPicker extends React.Component<ListPickerPropsExtended> {
-  public static get Key_All() { return -3; }
-  public static get Key_None() { return -2; }
-  public static get Key_Invert() { return -1; }
-  public static get Key_Separator() { return -4; }
+  public static get Key_All() {
+    return -3;
+  }
+  public static get Key_None() {
+    return -2;
+  }
+  public static get Key_Invert() {
+    return -1;
+  }
+  public static get Key_Separator() {
+    return -4;
+  }
 
   /** Creates a ListPicker */
   constructor(props: ListPickerPropsExtended) {
@@ -266,23 +317,53 @@ export class ListPicker extends React.Component<ListPickerPropsExtended> {
     // Create special buttons (All/None/Invert)
     if (this.props.enableAllFunc) {
       let allEnabled = true;
-      items.map((item: ListItem) => { allEnabled = allEnabled && item.enabled; });
-      newItems.push({ key: ListPicker.Key_All, name: UiFramework.translate("pickerButtons.all"), enabled: allEnabled, type: ListItemType.Item });
+      items.map((item: ListItem) => {
+        allEnabled = allEnabled && item.enabled;
+      });
+      newItems.push({
+        key: ListPicker.Key_All,
+        name: UiFramework.translate("pickerButtons.all"),
+        enabled: allEnabled,
+        type: ListItemType.Item,
+      });
     }
     if (this.props.disableAllFunc) {
       let allDisabled = false;
-      items.map((item: ListItem) => { allDisabled = allDisabled || item.enabled; });
-      newItems.push({ key: ListPicker.Key_None, name: UiFramework.translate("pickerButtons.none"), enabled: !allDisabled, type: ListItemType.Item });
+      items.map((item: ListItem) => {
+        allDisabled = allDisabled || item.enabled;
+      });
+      newItems.push({
+        key: ListPicker.Key_None,
+        name: UiFramework.translate("pickerButtons.none"),
+        enabled: !allDisabled,
+        type: ListItemType.Item,
+      });
     }
     if (this.props.invertFunc) {
-      newItems.push({ key: ListPicker.Key_Invert, name: UiFramework.translate("pickerButtons.invert"), enabled: false, type: ListItemType.Item });
+      newItems.push({
+        key: ListPicker.Key_Invert,
+        name: UiFramework.translate("pickerButtons.invert"),
+        enabled: false,
+        type: ListItemType.Item,
+      });
     }
-    if (this.props.enableAllFunc || this.props.disableAllFunc || this.props.invertFunc) {
-      newItems.push({ key: ListPicker.Key_Separator, name: UiFramework.translate("pickerButtons.separator"), enabled: false, type: ListItemType.Separator });
+    if (
+      this.props.enableAllFunc ||
+      this.props.disableAllFunc ||
+      this.props.invertFunc
+    ) {
+      newItems.push({
+        key: ListPicker.Key_Separator,
+        name: UiFramework.translate("pickerButtons.separator"),
+        enabled: false,
+        type: ListItemType.Separator,
+      });
     }
 
     // Push items
-    items.map((item) => { newItems.push(item); });
+    items.map((item) => {
+      newItems.push(item);
+    });
     return newItems;
   }
 
@@ -291,7 +372,13 @@ export class ListPicker extends React.Component<ListPickerPropsExtended> {
    * @param item Item to check
    */
   public isSpecialItem(item: ListItem) {
-    return item.key === ListPicker.Key_All || item.key === ListPicker.Key_Invert || item.key === ListPicker.Key_None || item.type !== ListItemType.Item || item.key === ListPicker.Key_Separator;
+    return (
+      item.key === ListPicker.Key_All ||
+      item.key === ListPicker.Key_Invert ||
+      item.key === ListPicker.Key_None ||
+      item.type !== ListItemType.Item ||
+      item.key === ListPicker.Key_Separator
+    );
   }
 
   // Handle enabling/disabling the items
@@ -301,20 +388,17 @@ export class ListPicker extends React.Component<ListPickerPropsExtended> {
       switch (item.key) {
         case ListPicker.Key_All: {
           // istanbul ignore else
-          if (this.props.enableAllFunc)
-            this.props.enableAllFunc();
+          if (this.props.enableAllFunc) this.props.enableAllFunc();
           return;
         }
         case ListPicker.Key_None: {
           // istanbul ignore else
-          if (this.props.disableAllFunc)
-            this.props.disableAllFunc();
+          if (this.props.disableAllFunc) this.props.disableAllFunc();
           return;
         }
         case ListPicker.Key_Invert: {
           // istanbul ignore else
-          if (this.props.invertFunc)
-            this.props.invertFunc();
+          if (this.props.invertFunc) this.props.invertFunc();
           return;
         }
       }
