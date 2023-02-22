@@ -3,6 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import * as sinon from "sinon";
 import { render } from "@testing-library/react";
 import { addFloatingWidget, addTab, createNineZoneState, DragManager, PanelSide, PanelSideContext, useActiveSendBackWidgetIdStore } from "../../appui-layout-react";
 import { PanelOutline, useHidden } from "../../appui-layout-react/outline/PanelOutline";
@@ -10,7 +11,6 @@ import { createDragStartArgs, TestNineZoneProvider, TestNineZoneProviderProps } 
 import { renderHook } from "@testing-library/react-hooks";
 import { act } from "react-dom/test-utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
-import sinon = require("sinon");
 
 describe("PanelOutline", () => {
   interface WrapperProps extends TestNineZoneProviderProps {
