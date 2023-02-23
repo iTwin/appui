@@ -7,10 +7,7 @@ import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { ModelProps, ModelQueryParams, QueryRowFormat } from "@itwin/core-common";
 import { IModelApp, IModelConnection, SpatialModelState } from "@itwin/core-frontend";
-import { RegisteredRuleset } from "@itwin/presentation-common";
-import { PresentationTreeDataProvider } from "@itwin/presentation-components";
-import { Presentation } from "@itwin/presentation-frontend";
-import { DelayLoadedTreeNodeItem, TreeNodeItem } from "@itwin/components-react";
+import { TreeNodeItem } from "@itwin/components-react";
 import { CheckBoxState, CheckListBox, CheckListBoxItem, LoadingSpinner } from "@itwin/core-react";
 import { Button, Checkbox } from "@itwin/itwinui-react";
 
@@ -115,9 +112,7 @@ interface ModelsState {
 /** @internal */
 export class ModelsTab extends React.Component<ModelsProps, ModelsState> {
   private _models: DocumentProperty[] = [];
-  private _ruleset?: RegisteredRuleset;
   private _isMounted = false;
-  private _dataProvider: PresentationTreeDataProvider | undefined = undefined;
 
   constructor(props?: any, context?: any) {
     super(props, context);
@@ -141,10 +136,6 @@ export class ModelsTab extends React.Component<ModelsProps, ModelsState> {
 
     // if doc codes do not exist, load models
     if (!this.state.docCodes) {
-
-      // load model presentation rules
-      await this.loadModelsFromPresentationRules();
-
       const modelQueryParams: ModelQueryParams = { from: SpatialModelState.classFullName, wantPrivate: false };
       const currentModelProps = await this.props.iModelConnection.models.queryProps(modelQueryParams);
       for (const _modelProps of currentModelProps) {
@@ -159,30 +150,6 @@ export class ModelsTab extends React.Component<ModelsProps, ModelsState> {
 
   public override componentWillUnmount() {
     this._isMounted = false;
-
-    if (this._ruleset)
-      Presentation.presentation.rulesets().remove(this._ruleset); // eslint-disable-line @typescript-eslint/no-floating-promises
-  }
-
-  private async loadModelsFromPresentationRules() {
-    await Presentation.presentation.rulesets().add(require("../../../assets/rulesets/Models")) // eslint-disable-line @typescript-eslint/no-var-requires
-      .then((ruleset: RegisteredRuleset) => {
-        if (!this._isMounted)
-          return;
-        this._ruleset = ruleset;
-        const dataProvider = new PresentationTreeDataProvider({ imodel: this.props.iModelConnection, ruleset: this._ruleset.id });
-        this.enableCheckboxes(dataProvider); // eslint-disable-line @typescript-eslint/no-floating-promises
-        this._dataProvider = dataProvider;
-      });
-  }
-
-  private async enableCheckboxes(_dataProvider: PresentationTreeDataProvider, parentNode?: TreeNodeItem) {
-    const nodes = await _dataProvider.getNodes(parentNode);
-    nodes.forEach((n: DelayLoadedTreeNodeItem) => {
-      n.isCheckboxVisible = true;
-      n.autoExpand = true;
-      this.enableCheckboxes(_dataProvider, n); // eslint-disable-line @typescript-eslint/no-floating-promises
-    });
   }
 
   private async readDataFromDb() {
@@ -404,12 +371,6 @@ export class ModelsTab extends React.Component<ModelsProps, ModelsState> {
       const index = _selectedNodes.indexOf(node);
       if (index !== -1)
         _selectedNodes.splice(index, 1);
-    }
-
-    // recursively process the children of this node
-    const childNodes = await this._dataProvider!.getNodes(node);
-    for (const childNode of childNodes) {
-      await this._onNodesSelected(_selectedNodes, childNode, state);
     }
 
     return true;
