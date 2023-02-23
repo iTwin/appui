@@ -89,7 +89,7 @@ describe("ViewSelector", () => {
             onResize: () => { },
           }}
         >
-          <ViewSelector imodel={imodelMock.object} listenForShowUpdates={true} />
+          <ViewSelector imodel={imodelMock.object} listenForShowUpdates={true} searchBox={false}/>
         </ToolbarItemContext.Provider>
       </Provider>
     );
@@ -154,7 +154,7 @@ describe("ViewSelector", () => {
             onResize: () => { },
           }}
         >
-          <ViewSelector imodel={imodelMock.object} />
+          <ViewSelector imodel={imodelMock.object} searchBox={true}/>
         </ToolbarItemContext.Provider>
       </Provider>
     );

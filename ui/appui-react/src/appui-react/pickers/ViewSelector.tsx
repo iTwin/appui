@@ -45,6 +45,7 @@ export interface ViewSelectorProps {
   showDrawings: boolean;
   showSheets: boolean;
   showUnknown: boolean;
+  searchBox?: boolean;
 }
 
 /** State for the [[ViewSelector]] component
@@ -117,7 +118,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       showDrawings: props.showDrawings,
       showSheets: props.showSheets,
       showUnknown: props.showUnknown,
-      searchBox: true,
+      searchBox: props.searchBox! ? props.searchBox : true,
     };
   }
 
