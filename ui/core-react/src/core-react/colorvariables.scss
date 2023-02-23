@@ -10,7 +10,7 @@
  *  It should NOT be imported by any *.scss or other ui-core files.
  */
 
-main {
+[data-root-container="iui-root-id"] {
   // NEEDSWORK - Need to deprecate these accessory colors
   --buic-accessory-hollow: rgb(255, 255, 255);
   --buic-accessory-primary: rgb(000, 139, 225);
@@ -22,18 +22,11 @@ main {
   --buic-accessory-alert-tint: rgb(239, 169, 169);
   --buic-accessory-warning-tint: rgb(249, 215, 171);
 
-  // not used
-  // --buic-background-1-rgb: var(--iui-color-background);
-  // --buic-background-2-rgb: var(--iui-color-background-backdrop);
-  // --buic-background-3-rgb: var(--iui-color-background);
-  // --buic-background-4-rgb: var(--iui-color-background);
-  // --buic-background-5-rgb: var(--iui-color-background);
-
   --buic-background-1: var(--iui-color-background);
-  --buic-background-2: var(--iui-color-background-backdrop);
+  --buic-background-2: var(--iui-color-background-hover);
   --buic-background-3: var(--iui-color-background-backdrop);
-  --buic-background-4: var(--iui-color-background-backdrop);
-  --buic-background-5: var(--iui-color-background-backdrop);
+  --buic-background-4: var(--iui-color-background-backdrop-hover);
+  --buic-background-5: var(--iui-color-background-disabled);
   --buic-background-primary: var(--iui-color-background-accent);
   --buic-background-tooltip: hsl(var(--iui-color-background-hsl) / 0.9);
   --buic-background-scrollbar: hsl(
@@ -48,7 +41,7 @@ main {
   // reverse????
   --buic-foreground-body-reverse-rgb: var(--iui-color-foreground-hsl);
   --buic-foreground-body-reverse: hsl(
-    var(--iui-color-foreground-hsl) / var(--iui-opacity-2)
+    var(--iui-color-background-hsl) / var(--iui-opacity-2)
   );
   --buic-foreground-muted: var(--iui-color-text-muted);
   --buic-foreground-disabled: var(--iui-color-text-disabled);

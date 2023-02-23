@@ -9,19 +9,19 @@
     transition: margin var(--iui-duration-1) ease-in-out;
 
     > .iui-header {
-      border-color: $uicore-gray-a transparent transparent;
+      border-color: $uicore-gray-a var(iui-color-border) var(iui-color-border);
     }
 
     &:first-child {
       > .iui-header {
-        border-top-color: transparent;
+        border-top-color: var(iui-color-border);
       }
     }
   }
 
   > .iui-expanded + div {
     > .iui-header {
-      border-top-color: transparent;
+      border-top-color: var(iui-color-border);
     }
 
     &.iui-expanded > .iui-header {
