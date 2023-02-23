@@ -133,6 +133,7 @@ class ThemeManagerComponent extends React.Component<
       <ThemeProvider
         style={{ height: "100%" }}
         theme={theme}
+        data-root-container={"iui-root-id"}
         ref={this._handleRefSet}
       >
         {this.props.children}
