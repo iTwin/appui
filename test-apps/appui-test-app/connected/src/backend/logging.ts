@@ -9,7 +9,7 @@ import { BackendLoggerCategory, NativeLoggerCategory } from "@itwin/core-backend
 export function initializeLogging() {
 
   Logger.initializeToConsole();
-  Logger.setLevelDefault(LogLevel.Error);
+  Logger.setLevelDefault(LogLevel.Trace);
 
   Logger.setLevel(BackendLoggerCategory.IModelDb, LogLevel.Trace);
   Logger.setLevel(BackendLoggerCategory.IModelHost, LogLevel.Trace);

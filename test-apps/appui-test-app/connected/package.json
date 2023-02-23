@@ -95,7 +95,7 @@
     "@itwin/editor-frontend": "^4.0.0-dev.22",
     "@itwin/editor-backend": "^4.0.0-dev.22",
     "@itwin/editor-common": "^4.0.0-dev.22",
-    "@itwin/electron-authorization": "^0.10.1",
+    "@itwin/electron-authorization": "^0.11.0",
     "@itwin/express-server": "^4.0.0-dev.22",
     "@itwin/frontend-devtools": "^4.0.0-dev.22",
     "@itwin/hypermodeling-frontend": "^4.0.0-dev.22",
