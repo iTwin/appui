@@ -6,7 +6,7 @@ import * as React from "react";
 import { PrimitiveValue, PropertyDescription, PropertyRecord, PropertyValue, PropertyValueFormat, StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";
 import { PropertyCategory, PropertyGrid, PropertyUpdatedArgs, SimplePropertyDataProvider } from "@itwin/components-react";
 import { Orientation } from "@itwin/core-react";
-import { ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, WidgetControl } from "@itwin/appui-react";
+import { ConfigurableCreateInfo, ContentControl, UiFramework, WidgetControl } from "@itwin/appui-react";
 
 class SamplePropertyRecord extends PropertyRecord {
   constructor(name: string, index: number, value: any, typename: string = StandardTypeNames.String, editor?: string) {
@@ -129,7 +129,7 @@ class VerticalPropertyGridWidget extends React.Component {
   }
 }
 
-ConfigurableUiManager.registerControl("VerticalPropertyGridDemoWidget", VerticalPropertyGridWidgetControl);
+UiFramework.controls.register("VerticalPropertyGridDemoWidget", VerticalPropertyGridWidgetControl);
 
 export class HorizontalPropertyGridWidgetControl extends WidgetControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -186,7 +186,7 @@ class HorizontalPropertyGridWidget extends React.Component<{ style?: React.CSSPr
   }
 }
 
-ConfigurableUiManager.registerControl("HorizontalPropertyGridDemoWidget", HorizontalPropertyGridWidgetControl);
+UiFramework.controls.register("HorizontalPropertyGridDemoWidget", HorizontalPropertyGridWidgetControl);
 
 export class HorizontalPropertyGridContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -231,4 +231,4 @@ class HorizontalPropertyGridContent extends React.Component {
   }
 }
 
-ConfigurableUiManager.registerControl("HorizontalPropertyGridDemoContent", HorizontalPropertyGridContentControl);
+UiFramework.controls.register("HorizontalPropertyGridDemoContent", HorizontalPropertyGridContentControl);

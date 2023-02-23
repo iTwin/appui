@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, ConfigurableUiManager, ContentGroup, ContentGroupProvider,
+  BackstageAppButton, ContentGroup, ContentGroupProvider,
   IModelViewportControl, StageUsage, StandardContentToolsProvider, StandardFrontstageProps, StandardFrontstageProvider,
   StandardNavigationToolsProvider, StandardStatusbarItemsProvider, UiFramework,
 } from "@itwin/appui-react";
@@ -61,7 +61,7 @@ export class FrontstageWithNoWidgets {
     };
 
     FrontstageWithNoWidgets.registerToolProviders();
-    ConfigurableUiManager.addFrontstageProvider(new StandardFrontstageProvider(nowWidgetStageProps));
+    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(nowWidgetStageProps));
   }
 
   private static registerToolProviders() {

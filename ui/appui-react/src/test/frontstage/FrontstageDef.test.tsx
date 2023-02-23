@@ -10,8 +10,9 @@ import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsMana
 import { addFloatingWidget, addPanelWidget, addPopoutWidget, addTab, createNineZoneState } from "@itwin/appui-layout-react";
 import { MockRender } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
-import { FrontstageConfig, FrontstageDef, FrontstageManager, FrontstageProvider, StagePanelDef, StagePanelState, useSpecificWidgetDef, WidgetDef } from "../../appui-react";
+import { FrontstageConfig, FrontstageDef, FrontstageProvider, StagePanelDef, StagePanelState, UiFramework, useSpecificWidgetDef, WidgetDef } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 describe("FrontstageDef", () => {
   const localStorageToRestore = Object.getOwnPropertyDescriptor(window, "localStorage")!;
@@ -61,19 +62,19 @@ describe("FrontstageDef", () => {
 
   it("setActiveFrontstage should throw Error on invalid content layout", () => {
     const frontstageProvider = new BadLayoutFrontstage();
-    FrontstageManager.addFrontstageProvider(frontstageProvider);
-    expect(FrontstageManager.setActiveFrontstage("BadLayout")).to.be.rejectedWith(Error); // eslint-disable-line @typescript-eslint/no-floating-promises
+    UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+    expect(UiFramework.frontstages.setActiveFrontstage("BadLayout")).to.be.rejectedWith(Error); // eslint-disable-line @typescript-eslint/no-floating-promises
   });
 
   it("setActiveFrontstage should throw Error on invalid content group", () => {
     const frontstageProvider = new BadGroupFrontstage();
-    FrontstageManager.addFrontstageProvider(frontstageProvider);
-    expect(FrontstageManager.setActiveFrontstage("BadGroup")).to.be.rejectedWith(Error); // eslint-disable-line @typescript-eslint/no-floating-promises
+    UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+    expect(UiFramework.frontstages.setActiveFrontstage("BadGroup")).to.be.rejectedWith(Error); // eslint-disable-line @typescript-eslint/no-floating-promises
   });
 
   describe("restoreLayout", () => {
     it("should emit onFrontstageRestoreLayoutEvent", () => {
-      const spy = sinon.spy(FrontstageManager.onFrontstageRestoreLayoutEvent, "emit");
+      const spy = sinon.spy(InternalFrontstageManager.onFrontstageRestoreLayoutEvent, "emit");
       const frontstageDef = new FrontstageDef();
       frontstageDef.restoreLayout();
       spy.calledOnceWithExactly(sinon.match({
@@ -161,11 +162,11 @@ describe("FrontstageDef", () => {
 
     it("should add extension widgets to stage panel zones", async () => {
       const frontstageProvider = new EmptyFrontstageProvider();
-      FrontstageManager.addFrontstageProvider(frontstageProvider);
-      const frontstageDef = await FrontstageManager.getFrontstageDef(EmptyFrontstageProvider.stageId);
+      UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(EmptyFrontstageProvider.stageId);
       expect(!!frontstageDef?.isReady).to.be.false;
-      await FrontstageManager.setActiveFrontstageDef(frontstageDef);
-      const sut = FrontstageManager.activeFrontstageDef!;
+      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+      const sut = UiFramework.frontstages.activeFrontstageDef!;
       sut.rightPanel!.getPanelSectionDef(StagePanelSection.Start).widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderR1"]);
       sut.rightPanel!.getPanelSectionDef(StagePanelSection.End).widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderRM1"]);
       sut.leftPanel!.getPanelSectionDef(StagePanelSection.Start).widgetDefs.map((w) => w.id).should.eql(["WidgetsProviderW1"]);
@@ -312,6 +313,7 @@ describe("FrontstageDef", () => {
 
     expect(spy).to.not.be.called;
   });
+
   it("should not save size and position if widget is not found", () => {
     let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
     state = addTab(state, "t1");
@@ -324,6 +326,37 @@ describe("FrontstageDef", () => {
     frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
 
     expect(spy).to.be.calledOnceWithExactly("t1");
+  });
+
+  it("should activate a widget def", async () => {
+    const def = new FrontstageDef();
+    await def.initializeFromConfig({
+      id: "old",
+      version: 1,
+      usage: "General",
+      contentGroup: TestUtils.TestContentGroup2,
+      rightPanel: {
+        sections: {
+          start: [{
+            id: "test-widget",
+          }],
+        },
+      },
+    });
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+
+    const spy = sinon.spy();
+    UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
+
+    // __PUBLISH_EXTRACT_START__ AppUI.WidgetDef.setWidgetState
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    if (!frontstageDef)
+      throw new Error("Active frontstage not found");
+    const widgetDef = frontstageDef.findWidgetDef("test-widget");
+    widgetDef?.setWidgetState(WidgetState.Open);
+    // __PUBLISH_EXTRACT_END__
+
+    expect(spy).to.calledOnceWith();
   });
 
   describe("getWidgetCurrentState", () => {
@@ -704,7 +737,7 @@ describe("useSpecificWidgetDef", () => {
     const frontstageDef = new FrontstageDef();
     const widgetDef = new WidgetDef();
     sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
 
     const { result } = renderHook(() => useSpecificWidgetDef("t1"));
 
@@ -712,7 +745,7 @@ describe("useSpecificWidgetDef", () => {
   });
 
   it("should handle no active frontstage", () => {
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => undefined);
     const { result } = renderHook(() => useSpecificWidgetDef("t1"));
 
     expect(result.current).to.be.undefined;

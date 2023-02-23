@@ -7,8 +7,8 @@ import { IModelApp } from "@itwin/core-frontend";
 import { CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities, StageUsage, ToolbarItemUtilities, WidgetState } from "@itwin/appui-abstract";
 import {
   AccuDrawDialog, AccuDrawWidgetControl, BasicNavigationWidget, BasicToolWidget, CommandItemDef,
-  CoreTools, CustomItemDef, FrontstageConfig, FrontstageProvider, IModelConnectedViewSelector, ModelessDialogManager,
-  ToolbarHelper,
+  CoreTools, CustomItemDef, FrontstageConfig, FrontstageProvider, IModelConnectedViewSelector,
+  ToolbarHelper, UiFramework,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../../frontend/index";
 import { EditTools } from "../../../tools/editing/ToolSpecifications";
@@ -124,12 +124,12 @@ class AdditionalTools {
       iconSpec: "icon-placeholder",
       labelKey: "SampleApp:buttons.accuDrawDialogVertical",
       execute: () => {
-        ModelessDialogManager.openDialog(
+        UiFramework.dialogs.modeless.open(
           <AccuDrawDialog
             opened={true}
             dialogId={dialogId}
             orientation={Orientation.Vertical}
-            onClose={() => ModelessDialogManager.closeDialog(dialogId)}
+            onClose={() => UiFramework.dialogs.modeless.close(dialogId)}
           />, dialogId);
       },
     });
@@ -141,12 +141,12 @@ class AdditionalTools {
       iconSpec: "icon-placeholder",
       labelKey: "SampleApp:buttons.accuDrawDialogHorizontal",
       execute: () => {
-        ModelessDialogManager.openDialog(
+        UiFramework.dialogs.modeless.open(
           <AccuDrawDialog
             opened={true}
             dialogId={dialogId}
             orientation={Orientation.Horizontal}
-            onClose={() => ModelessDialogManager.closeDialog(dialogId)}
+            onClose={() => UiFramework.dialogs.modeless.close(dialogId)}
           />, dialogId);
       },
     });

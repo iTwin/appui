@@ -13,7 +13,6 @@ import { SelectionMode } from "../../../common/selection/SelectionModes";
 import { UiComponents } from "../../../UiComponents";
 import { HighlightableTreeProps } from "../../HighlightingEngine";
 import { TreeImageLoader } from "../../ImageLoader";
-import { toRxjsObservable } from "../Observable";
 import { TreeEventDispatcher } from "../TreeEventDispatcher";
 import { TreeEvents } from "../TreeEvents";
 import { computeVisibleNodes, isTreeModelNode, TreeModel, TreeModelNode, TreeModelNodePlaceholder, VisibleTreeNodes } from "../TreeModel";
@@ -105,7 +104,7 @@ export function ControlledTree(props: ControlledTreeProps) {
 function useRootNodeLoader(visibleNodes: VisibleTreeNodes, nodeLoader: ITreeNodeLoader): boolean {
   React.useEffect(() => {
     if (visibleNodes.getNumRootNodes() === undefined) {
-      const subscription = toRxjsObservable(nodeLoader.loadNode(visibleNodes.getModel().getRootNode(), 0)).subscribe();
+      const subscription = nodeLoader.loadNode(visibleNodes.getModel().getRootNode(), 0).subscribe();
       return () => subscription.unsubscribe();
     }
 

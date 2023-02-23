@@ -8,10 +8,12 @@ import * as React from "react";
 import { MockRender } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentGroupProps, FrontstageConfig, FrontstageManager, FrontstageProvider,
-  MessageManager, ModalDialogManager, ModelessDialogManager, PopupManager, WidgetControl,
+  ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup, ContentGroupProps, FrontstageConfig, FrontstageProvider,
+  MessageManager, PopupManager, UiFramework, WidgetControl,
 } from "../../appui-react";
-import TestUtils from "../TestUtils";
+import TestUtils, { createStaticInternalPassthroughValidators } from "../TestUtils";
+import { InternalConfigurableUiManager } from "../../appui-react/configurableui/InternalConfigurableUiManager";
+/* eslint-disable deprecation/deprecation */
 
 class TableExampleContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -37,8 +39,8 @@ describe("ConfigurableUiManager", () => {
   });
 
   it("setActiveFrontstageDef passed no argument", async () => {
-    await FrontstageManager.setActiveFrontstageDef(undefined);
-    expect(FrontstageManager.activeFrontstageDef).to.be.undefined;
+    await UiFramework.frontstages.setActiveFrontstageDef(undefined);
+    expect(UiFramework.frontstages.activeFrontstageDef).to.be.undefined;
   });
 
   it("addFrontstageProvider & getFrontstageDef", async () => {
@@ -58,9 +60,9 @@ describe("ConfigurableUiManager", () => {
     }
 
     ConfigurableUiManager.addFrontstageProvider(new Frontstage1());
-    const frontstageDef2 = await FrontstageManager.getFrontstageDef(Frontstage1.stageId);
+    const frontstageDef2 = await UiFramework.frontstages.getFrontstageDef(Frontstage1.stageId);
     expect(frontstageDef2).to.not.be.undefined;
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef2);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef2);
   });
 
   class TestWidget extends WidgetControl {
@@ -120,9 +122,21 @@ describe("ConfigurableUiManager", () => {
     ConfigurableUiManager.closeUi();
 
     expect(MessageManager.messages.length).to.eq(0);
-    expect(ModelessDialogManager.dialogCount).to.eq(0);
-    expect(ModalDialogManager.dialogCount).to.eq(0);
+    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modal.count).to.eq(0);
     expect(PopupManager.popupCount).to.eq(0);
   });
 
+  it("calls Internal static for everything", () => {
+    const [validateMethod] = createStaticInternalPassthroughValidators(ConfigurableUiManager, InternalConfigurableUiManager);
+
+    validateMethod("closeUi");
+    validateMethod(["createControl", "create"], "classId", "uniqueId", {}, "controlId");
+    validateMethod("getConstructorClassId", TestWidget);
+    validateMethod("getWrapperElement");
+    validateMethod("initialize");
+    validateMethod(["isControlRegistered", "isRegistered"], "classId");
+    validateMethod(["registerControl", "register"], "classId", TestWidget);
+    validateMethod(["unregisterControl", "unregister"], "classId");
+  });
 });

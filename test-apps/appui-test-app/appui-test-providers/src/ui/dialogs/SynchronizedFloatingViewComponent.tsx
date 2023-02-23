@@ -4,26 +4,18 @@
 *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { ScreenViewport, ViewManip, ViewState } from "@itwin/core-frontend";
-import { ContentControl, ContentViewManager, FloatingViewportContent, FloatingViewportContentControl, FrontstageManager, UiFramework, useActiveIModelConnection } from "@itwin/appui-react";
+import { ViewState } from "@itwin/core-frontend";
+import { ContentControl, FloatingViewportContent, FloatingViewportContentControl, UiFramework, useActiveIModelConnection } from "@itwin/appui-react";
 
 import "./SynchronizedFloatingViewComponent.scss";
 import { getViewDefinitions } from "../components/ViewDefinitionSelector";
 import { ViewIdChangedEventArgs, ViewportComponentEvents } from "@itwin/imodel-components-react";
-import { Presentation, TRANSIENT_ELEMENT_CLASSNAME } from "@itwin/presentation-frontend";
-import { KeySet } from "@itwin/presentation-common";
+
 interface SynchronizedViewDefInterfaceLocal {
   id: string; class: string; label: string;
 }
+
 export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
-  const getIds=(args: Readonly<KeySet>) =>{
-    let allIds: Set<string> = new Set<string>();
-    args.instanceKeys.forEach((ids: Set<string>, key: string) => {
-    // Avoid transient elements
-      if (key !== TRANSIENT_ELEMENT_CLASSNAME) allIds = new Set([...allIds, ...ids]);
-    });
-    return allIds;
-  };
   const activeIModelConnection = useActiveIModelConnection();
   const divRef = React.useRef<HTMLDivElement>(null);
 
@@ -31,15 +23,11 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
   const [twoDViewDefinitions, settwoDViewDefinitions] = React.useState<SynchronizedViewDefInterfaceLocal[]>([]);
   const [threeDViewDefinitions, setthreeDViewDefinitions] = React.useState<SynchronizedViewDefInterfaceLocal[]>([]);
 
-  const handleViewIdChange = React.useCallback (async (args: ViewIdChangedEventArgs) => {
+  const handleViewIdChange = React.useCallback(async (args: ViewIdChangedEventArgs) => {
     if (args.newId === args.oldId)
       return;
 
-    const ids = getIds(Presentation.selection.getSelection(UiFramework.getIModelConnection()!, 0));
-    if ([...ids].length === 0) {
-      ViewManip.fitView(args.viewport as ScreenViewport, false);
-    }
-    const activeFrontstageDef = FrontstageManager.activeFrontstageDef;
+    const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
     const viewContentControl = activeFrontstageDef?.contentControls?.find((contentControl) => contentControl.viewport === args.viewport);
 
@@ -53,7 +41,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
     const isChangeForCurrentFloatingViewport = viewContentControl instanceof FloatingViewportContentControl;
     if (isChangeForCurrentFloatingViewport) {
       const noChangeRequired = ((args.viewport.view.is2d() && mainViewportOnFrontstage?.view.is3d()) ||
-      (args.viewport.view.is3d() && mainViewportOnFrontstage?.view.is2d()));
+        (args.viewport.view.is3d() && mainViewportOnFrontstage?.view.is2d()));
       if (noChangeRequired) {
         // add the listener back
         ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
@@ -75,9 +63,9 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
           });
         }
       }
-    }  else {
+    } else {
       // change was for main viewport of frontstage and we need to set mirror in floating viewport here
-      const floatingPIPViewport = FrontstageManager.activeFrontstageDef?.contentControls.find((thisControl: ContentControl) => {
+      const floatingPIPViewport = UiFramework.frontstages.activeFrontstageDef?.contentControls.find((thisControl: ContentControl) => {
         return (thisControl.classId === contentId);
       });
       const noChangeRequired = ((args.viewport.view.is2d() && floatingPIPViewport?.viewport?.view.is3d()) ||
@@ -103,7 +91,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
         ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
       }
     }
-  },[activeIModelConnection?.views, contentId, threeDViewDefinitions, twoDViewDefinitions]);
+  }, [activeIModelConnection?.views, contentId, threeDViewDefinitions, twoDViewDefinitions]);
   // Set initial view when floating viewport is launched for first time. It needs to be mirror of main/default viewport of frontstage (2d->3d or 3d->2d)
   React.useEffect(() => {
     if (!activeIModelConnection) return;
@@ -122,7 +110,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
       settwoDViewDefinitions(localTwoTwoDViewDefs);
       setthreeDViewDefinitions(localThreeTwoDViewDefs);
       // Set initial view state
-      const mainViewportOnFrontstage = ContentViewManager.getActiveContentControl();
+      const mainViewportOnFrontstage = UiFramework.content.getActiveContentControl();
       const isMainViewport3d = mainViewportOnFrontstage?.viewport?.view.is3d();
       let initialViewIdToLoad;
 
@@ -157,7 +145,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
     <div className="test-popup-test-view" ref={divRef}>
       <div id="floatingviewportcontainerdiv">
         {initialViewState &&
-          <FloatingViewportContent contentId={contentId} initialViewState={initialViewState}/>}
+          <FloatingViewportContent contentId={contentId} initialViewState={initialViewState} />}
       </div>
     </div>
   );

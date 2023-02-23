@@ -14,11 +14,11 @@ import {
 import { CustomToolbarItem, useToolbarPopupContext } from "@itwin/components-react";
 import { Point, ScrollView } from "@itwin/core-react";
 import {
-  BasicNavigationWidget, BasicToolWidget, CommandItemDef, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps,
-  ContentViewManager, CoreTools, CursorInformation, CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef, EmphasizeElementsChangedArgs,
+  BasicNavigationWidget, BasicToolWidget, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps,
+  CoreTools, CursorInformation, CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef, EmphasizeElementsChangedArgs,
   FrontstageConfig,
-  FrontstageDef, FrontstageManager, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
-  HideIsolateEmphasizeManager, MessageManager, ModalDialogManager, ModelessDialogManager, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT,
+  FrontstageDef, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
+  HideIsolateEmphasizeManager, MessageManager, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT,
 } from "@itwin/appui-react";
 import { Button, Slider } from "@itwin/itwinui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../frontend/index";
@@ -35,7 +35,6 @@ import { TestRadialMenu } from "../dialogs/TestRadialMenu";
 import { ViewportDialog } from "../dialogs/ViewportDialog";
 import { AppStatusBarWidgetControl } from "../statusbars/AppStatusBar";
 import { VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
-import { UnifiedSelectionPropertyGridWidgetControl } from "../widgets/UnifiedSelectionPropertyGridWidget";
 import { ViewportWidget } from "../widgets/ViewportWidget";
 import { NestedAnimationStage } from "./NestedAnimationStage";
 import { ViewSelectorPanel } from "../../tools/ViewSelectorPanel";
@@ -276,8 +275,8 @@ export class ViewsFrontstage extends FrontstageProvider {
   }
 
   private _onEmphasizeElementsChangedHandler = (args: EmphasizeElementsChangedArgs) => {
-    if (FrontstageManager.activeFrontstageDef && FrontstageManager.activeFrontstageId === ViewsFrontstage.stageId)
-      this.applyVisibilityOverrideToSpatialViewports(FrontstageManager.activeFrontstageDef, args.viewport, args.action); // eslint-disable-line @typescript-eslint/no-floating-promises
+    if (UiFramework.frontstages.activeFrontstageDef && UiFramework.frontstages.activeFrontstageId === ViewsFrontstage.stageId)
+      this.applyVisibilityOverrideToSpatialViewports(UiFramework.frontstages.activeFrontstageDef, args.viewport, args.action); // eslint-disable-line @typescript-eslint/no-floating-promises
   };
 
   constructor() {
@@ -326,8 +325,6 @@ export class ViewsFrontstage extends FrontstageProvider {
   }
 
   public override frontstageConfig(): FrontstageConfig {
-    const iModelConnection = UiFramework.getIModelConnection();
-
     return {
       id: ViewsFrontstage.stageId,
       version: 3.1,
@@ -355,16 +352,6 @@ export class ViewsFrontstage extends FrontstageProvider {
         maxSize: { percentage: 50 },
         sections: {
           end: [
-            {
-              defaultState: WidgetState.Closed,
-              iconSpec: "icon-placeholder",
-              labelKey: "SampleApp:widgets.UnifiedSelectPropertyGrid",
-              id: ViewsFrontstage.unifiedSelectionPropertyGridId,
-              control: UnifiedSelectionPropertyGridWidgetControl,
-              applicationData: { iModelConnection },
-              isFloatingStateWindowResizable: true,
-              defaultFloatingSize: { width: 200, height: 300 },
-            },
             {
               id: "VerticalPropertyGrid",
               defaultState: WidgetState.Hidden,
@@ -396,19 +383,19 @@ class AdditionalTools {
     iconSpec: "icon-camera-animation",
     labelKey: "SampleApp:buttons.openNestedAnimationStage",
     execute: async () => {
-      const activeContentControl = ContentViewManager.getActiveContentControl();
+      const activeContentControl = UiFramework.content.getActiveContentControl();
       if (activeContentControl && activeContentControl.viewport &&
         (undefined !== activeContentControl.viewport.view.analysisStyle || undefined !== activeContentControl.viewport.view.scheduleScript)) {
         const frontstageProvider = new NestedAnimationStage();
         const frontstageDef = await FrontstageDef.create(frontstageProvider);
         if (frontstageDef) {
           SampleAppIModelApp.saveAnimationViewId(activeContentControl.viewport.view.id);
-          await FrontstageManager.openNestedFrontstage(frontstageDef);
+          await UiFramework.frontstages.openNestedFrontstage(frontstageDef);
         }
       }
     },
     isHidden: new ConditionalBooleanValue(() => {
-      const activeContentControl = ContentViewManager.getActiveContentControl();
+      const activeContentControl = UiFramework.content.getActiveContentControl();
       if (activeContentControl && activeContentControl.viewport && (undefined !== activeContentControl.viewport.view.analysisStyle || undefined !== activeContentControl.viewport.view.scheduleScript))
         return false;
       return true;
@@ -451,7 +438,7 @@ class AdditionalTools {
 
   private _tool4 = () => {
     const details = new NotifyMessageDetails(this._tool4Priority, this._tool4Message, this._tool4Detailed, OutputMessageType.Pointer);
-    const wrapper = ConfigurableUiManager.getWrapperElement();
+    const wrapper = UiFramework.controls.getWrapperElement();
     details.setPointerTypeDetails(wrapper, { x: CursorInformation.cursorX, y: CursorInformation.cursorY }, this._toolRelativePosition);
     IModelApp.notifications.outputMessage(details);
     document.addEventListener("keyup", this._handleTool4Keypress);
@@ -525,7 +512,7 @@ class AdditionalTools {
 
   private get _radialMenuItem() {
     return new CommandItemDef({
-      iconSpec: "icon-placeholder", labelKey: "SampleApp:buttons.openRadial", execute: () => { ModalDialogManager.openDialog(this.radialMenu()); },
+      iconSpec: "icon-placeholder", labelKey: "SampleApp:buttons.openRadial", execute: () => { UiFramework.dialogs.modal.open(this.radialMenu()); },
     });
   }
 
@@ -536,12 +523,12 @@ class AdditionalTools {
   }
 
   private _closeModal = () => {
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
   };
 
   private get _openCalculatorItem() {
     return new CommandItemDef({
-      iconSpec: "icon-placeholder", labelKey: "SampleApp:buttons.openCalculator", execute: () => { ModalDialogManager.openDialog(<CalculatorDialog opened={true} />); },
+      iconSpec: "icon-placeholder", labelKey: "SampleApp:buttons.openCalculator", execute: () => { UiFramework.dialogs.modal.open(<CalculatorDialog opened={true} />); },
     });
   }
 
@@ -555,7 +542,7 @@ class AdditionalTools {
     const id = "spinners";
     return new CommandItemDef({
       iconSpec: "icon-placeholder", labelKey: "SampleApp:buttons.spinnerTestDialog",
-      execute: () => { ModelessDialogManager.openDialog(<SpinnerTestDialog opened={true} onClose={() => ModelessDialogManager.closeDialog(id)} />, id); },
+      execute: () => { UiFramework.dialogs.modeless.open(<SpinnerTestDialog opened={true} onClose={() => UiFramework.dialogs.modeless.close(id)} />, id); },
     });
   }
 
@@ -567,7 +554,7 @@ class AdditionalTools {
 
     const dialog = <ViewportDialog opened={true} iTwinName="iModelHubTest" imodelName="GrandCanyonTerrain" dialogId={id} />;
 
-    ModelessDialogManager.openDialog(dialog, id);
+    UiFramework.dialogs.modeless.open(dialog, id);
   }
 
   private get _reduceWidgetOpacity() {
@@ -588,7 +575,7 @@ class AdditionalTools {
         // const relativePosition = CursorInformation.getRelativePositionFromCursorDirection(CursorInformation.cursorDirection);
         const content = (
           <CursorPopupContent>
-            {FrontstageManager.activeToolSettingsProvider?.toolSettingsNode}
+            {UiFramework.frontstages.activeToolInformation?.toolUiProvider?.toolSettingsNode}
           </CursorPopupContent>
         );
         // CursorPopupManager.open("test1", content, CursorInformation.cursorPosition, new Point(20, 20), RelativePosition.TopRight, 10);
@@ -693,7 +680,7 @@ class AdditionalTools {
       iconSpec: <SvgApple />,
       label: "Show widget",
       execute: () => {
-        const frontstageDef = FrontstageManager.activeFrontstageDef;
+        const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
         if (!frontstageDef)
           return;
         const widgetDef = frontstageDef.findWidgetDef("uitestapp-test-wd3");
