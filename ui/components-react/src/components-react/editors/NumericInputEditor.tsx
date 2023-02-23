@@ -174,6 +174,7 @@ export class NumericInputEditor extends React.PureComponent<PropertyEditorProps,
         onBlur={this.props.onBlur}
         onChange={this._updateValue}
         setFocus={this.props.setFocus && !this.state.isDisabled}
+        isControlled={this.props.shouldCommitOnChange}
       />
     );
   }
