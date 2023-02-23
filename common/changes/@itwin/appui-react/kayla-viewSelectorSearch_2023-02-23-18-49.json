@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Added search functionality to ViewSelector. Added test to ViewSelector tests for search functionality.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
