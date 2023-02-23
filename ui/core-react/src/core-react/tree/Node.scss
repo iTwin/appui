@@ -14,7 +14,7 @@ $node-font-size: var(--iui-font-size-1);
   min-width: 100%;
   font-family: var(--iui-font-sans);
   font-size: $node-font-size;
-  color: $buic-text-color;
+  color: var(--iui-color-text);
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: default;

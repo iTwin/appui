@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "variables";
 
-$separator-color: $buic-text-color-muted;
+$separator-color: var(--iui-color-border-subtle);
 
 .components-toolbar-items-container {
   $border-radius: var(--iui-border-radius-1);
@@ -15,7 +15,7 @@ $separator-color: $buic-text-color-muted;
   vertical-align: bottom;
   box-sizing: border-box;
 
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: var(--iui-shadow-1);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   pointer-events: auto;

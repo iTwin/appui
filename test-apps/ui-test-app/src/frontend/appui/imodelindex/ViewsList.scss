@@ -67,7 +67,7 @@ $outline-size: 2px;
     padding: 0 20px;
     text-align: center;
     color: $uicore-gray;
-    color: rgba($uicore-text-color, 0.85);
+    color: var(--iui-color-text);
     pointer-events: none;
 
     .default-prompt {

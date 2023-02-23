@@ -2,11 +2,9 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-
 .tabstrip {
   position: relative;
-  color: $uicore-text-color;
+  color: var(--iui-color-text);
   font-size: var(--iui-font-size-1);
 }
 
@@ -29,8 +27,8 @@
 }
 
 .tabstrip nav ul li.tab-active {
-  background: $uicore-white;
-  color: rgba($uicore-text-color, 1);
+  background: var(--iui-color-background); // TODO: Where is this applied?
+  color: var(--iui-color-text-hover);
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
 }
@@ -39,7 +37,7 @@
   position: relative;
   display: block;
   padding: 1em 0;
-  color: rgba($uicore-text-color, 0.85);
+  color: var(--iui-color-text);
   text-overflow: ellipsis;
   white-space: nowrap;
   -webkit-transition: color 0.25s;
@@ -47,7 +45,7 @@
 }
 
 .tabstrip nav ul li.tab-active a {
-  color: rgba($uicore-text-color, 1);
+  color: var(--iui-color-text-hover);
 }
 
 .tabstrip nav a:focus {
@@ -61,7 +59,7 @@
   bottom: 2px;
   left: 2px;
   right: 2px;
-  background: $uicore-blue;
+  background: var(--iui-color-border-accent);
   height: 2px;
   transition: width 0.4s ease;
 }

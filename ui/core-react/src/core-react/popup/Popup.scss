@@ -12,10 +12,10 @@
   box-sizing: border-box;
   position: absolute;
   border-radius: var(--iui-border-radius-1);
-  border: 1px solid $buic-background-panel-stroke;
-  background: $buic-background-panel;
-  color: $buic-text-color;
-  animation-duration: 0.2s;
+  border: 1px solid var(--iui-color-border);
+  background: var(--iui-color-background);
+  color: var(--iui-color-text);
+  animation-duration: var(--iui-duration-1);
   animation-timing-function: ease;
   animation-fill-mode: forwards;
   cursor: default;
@@ -43,7 +43,7 @@
   width: 0;
   position: absolute;
   pointer-events: none;
-  color: $buic-background-panel;
+  color: var(--iui-color-background);
 }
 
 .core-popup.core-popup-bottom-left.arrow::after,

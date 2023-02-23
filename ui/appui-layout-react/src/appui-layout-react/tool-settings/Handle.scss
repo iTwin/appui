@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .nz-toolSettings-handle {
   $dot-size: 0.25em;
@@ -14,12 +13,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: grab;
   flex-shrink: 0;
-
-  &:hover {
-    background: $buic-background-2;
-  }
 
   >.nz-row {
     display: flex;
@@ -31,7 +26,8 @@
     >.nz-dot {
       width: $dot-size;
       height: $dot-size;
-      background-color: $buic-foreground-disabled;
+      border-radius: 50%;
+      background-color: var(--iui-color-icon-muted);
 
       &:last-child {
         margin-left: $dot-gap;

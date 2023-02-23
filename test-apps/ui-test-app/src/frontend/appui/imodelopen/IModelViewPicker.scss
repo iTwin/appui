@@ -76,7 +76,7 @@ $view-card-height: 150px;
   padding: 1em;
   display: flex;
   align-items: center;
-  color: $uicore-text-color;
+  color: var(--iui-color-text);
   border-bottom: 1px solid #eee;
 
   h3 {
@@ -115,7 +115,7 @@ $view-card-height: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: $uicore-white;
+      color: var(--iui-color-white);
       font-size: .75em;
       border-radius: 50%;
       background: rgb(148, 147, 147);
@@ -215,7 +215,7 @@ $view-card-height: 150px;
 .view-card-name {
   flex: initial;
   padding: 0.5em;
-  background: $uicore-white;
+  background: var(--iui-color-white);
   font-size: var(--iui-font-size-0);
   text-overflow: ellipsis;
   white-space: nowrap;

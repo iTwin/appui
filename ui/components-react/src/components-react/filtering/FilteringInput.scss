@@ -60,7 +60,7 @@
 
 .components-filtering-input-clear {
   @include filtering-button-base;
-  color: $buic-text-color-muted;
+  color: var(--iui-color-text-muted);
   font-size: "12px";
 }
 

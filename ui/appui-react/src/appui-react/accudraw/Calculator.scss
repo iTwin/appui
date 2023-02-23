@@ -28,7 +28,7 @@ $button-operator-size: $button-size+10px;
 
     input {
       text-align: right;
-      color: $buic-text-color;
+      color: var(--iui-color-text);
       background-color: $buic-background-control;
       cursor: default;
     }
@@ -63,13 +63,13 @@ $button-operator-size: $button-size+10px;
       &:active,
       &:focus {
         border: none;
-        background-color: $uicore-gray;
-        color: $uicore-white;
+        background-color: red; // TODO: Where is this used?
+        color: var(--iui-color-white);
       }
 
       &:hover {
-        background-color: $uicore-gray-5;
-        color: $uicore-white;
+        background-color: red; // TODO: Where is this used?
+        color: var(--iui-color-white);
       }
 
     }

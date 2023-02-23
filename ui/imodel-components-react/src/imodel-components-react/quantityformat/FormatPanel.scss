@@ -17,7 +17,7 @@
 
     /* match margin on other select controls so it spaces properly in grid */
     &.uicore-disabled {
-      color: $buic-text-color-disabled;
+      color: var(--iui-color-text-disabled);
     }
   }
 

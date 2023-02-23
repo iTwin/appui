@@ -50,7 +50,7 @@
         // Compensate the negative margin by adding padding
         padding: 0 12px;
 
-        background: $buic-row-hover;
+        background: var(--iui-color-background-hover);
       }
     }
   }
@@ -61,12 +61,8 @@
     // Compensate the negative margin by adding padding (minus one for border)
     padding: 0px 11px;
 
-    background-color: $buic-row-selection;
-    border: 1px solid $buic-foreground-primary;
-
-    &:hover {
-      background: $buic-row-hover;
-    }
+    background-color: var(--iui-color-background-accent-muted);
+    border: 1px solid var(--iui-color-border-accent);
   }
 
   .components--hoverable {
@@ -76,7 +72,7 @@
       // Compensate the negative margin by adding padding
       padding: 0 12px;
 
-      background: $buic-row-hover;
+      background: var(--iui-color-background-hover);
     }
   }
 }

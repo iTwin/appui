@@ -37,8 +37,8 @@
   position: absolute;
   top: 24px;
   width: 100%;
-  border: 1px solid $buic-inputs-border;
-  background-color: $buic-background-control;
+  border: 1px solid var(--iui-color-border-foreground);
+  background-color: var(--iui-color-background);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   box-sizing: border-box;
@@ -62,11 +62,11 @@
 }
 
 .uicore-autosuggest__suggestion--highlighted {
-  background-color: $buic-row-selection;
+  background-color: var(--iui-color-background-accent-muted);
 }
 
 .uicore-autosuggest__section-container {
-  border-top: 1px dashed $buic-background-divider;
+  border-top: 1px dashed $buic-background-divider; // TODO: Where is this applied?
 }
 
 .uicore-autosuggest__section-container--first {
@@ -76,5 +76,5 @@
 .uicore-autosuggest__section-title {
   padding: 10px 0 0 10px;
   font-size: var(--iui-font-size-0);
-  color: $buic-background-table-header;
+  color: $buic-background-table-header; // TODO: Where is this applied?
 }

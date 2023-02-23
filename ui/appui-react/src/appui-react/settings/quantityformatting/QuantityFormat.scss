@@ -11,7 +11,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  background: $buic-background-dialog;
+  background: var(--iui-color-background);
 
   *,
   *:before,
@@ -99,7 +99,7 @@
       .uifw-quantity-types-formats {
         display: flex;
         flex-direction: column;
-        border: 1px solid $buic-inputs-border;
+        border: 1px solid var(--iui-color-border-subtle);
         border-radius: var(--iui-border-radius-1);
         height: auto;
         overflow-y: auto;

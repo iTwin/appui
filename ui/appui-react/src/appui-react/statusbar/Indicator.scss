@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
+@import "~@itwin/itwinui-variables";
 
 @keyframes uifw-indicator-fadeIn {
   0% {
@@ -37,13 +37,13 @@
 
 .uifw-statusbar-indicator {
   visibility: visible;
-  gap: 8px;
+  gap: var(--iui-size-xs);
 
   &.uifw-action {
     cursor: pointer;
 
     &:hover {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent-hover);
     }
   }
 
@@ -66,7 +66,7 @@
     align-content: center;
 
     >.nz-balloon {
-      background-color: $buic-text-color;
+      background-color: var(--iui-color-text); // TODO: Where is this applied?
       text-align: center;
       cursor: pointer;
       min-width: $min-balloon-width;
@@ -87,13 +87,13 @@
         border-bottom-width: $balloon-arrow-height;
         border-left-width: $balloon-arrow-width;
         border-style: solid;
-        border-color: transparent $buic-text-color;
+        border-color: transparent var(--iui-color-icon); // TODO: Where is this applied?
         transform: rotate(25deg);
       }
 
       >.nz-content {
         position: relative;
-        color: #FFFFFF;
+        color: red;  // TODO: Where is this applied?
         line-height: $min-balloon-height;
         font-size: 11px;
       }
