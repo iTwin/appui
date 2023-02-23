@@ -15,7 +15,7 @@
     padding:            $uicore-button-padding-bordered $uicore-bordered-padding;
     border-color:       $buic-foreground-disabled;
     background-color:   transparent;
-    color:              $buic-text-color;
+    color:              var(--iui-color-text);
 
     &:hover {
 

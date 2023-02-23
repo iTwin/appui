@@ -24,8 +24,8 @@ $nz-backstage-divider-height: 1px;
 $nz-backstage-header-divider-width: 2px;
 
 $nz-backstage-background: $buic-background-window;
-$nz-backstage-item-color: $buic-text-color;
-$nz-backstage-item-color-disabled: $buic-text-color-disabled;
+$nz-backstage-item-color: var(--iui-color-text);
+$nz-backstage-item-color-disabled: var(--iui-color-text-disabled);
 $nz-backstage-item-active-background: $buic-background-tab-inactive;
 $nz-backstage-item-hover-background: $buic-row-hover;
 $nz-backstage-highlight-bar-background: $buic-foreground-primary;

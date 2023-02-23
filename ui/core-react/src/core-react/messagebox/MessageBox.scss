@@ -4,12 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
  @import "../icons/variables";
  @import "../style/colors";
- @import "../style/themecolors";
  @import "../style/baseline";
 
 .core-message-box-container {
   display: flex;
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
 
   .core-message-box-icon {
     flex: 0 0;
@@ -26,19 +25,17 @@
 }
 
 .core-message-box-success {
-  color: $buic-foreground-success;
+  color: var(--iui-color-text-positive);
 }
-.core-message-box-information {
-  color: $buic-foreground-primary;
-}
+.core-message-box-information,
 .core-message-box-question {
-  color: $uicore-yellow;
+  color: var(--iui-color-text-informational);
 }
 .core-message-box-warning {
-  color: $buic-foreground-warning;
+  color: var(--iui-color-text-warning);
 }
 .core-message-box-error, .core-message-box-fatal {
-  color: $buic-foreground-alert;
+  color: var(--iui-color-text-negative);
 }
 
 .notifymessage-icon {

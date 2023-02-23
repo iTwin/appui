@@ -15,7 +15,7 @@
   font-size: var(--iui-font-size-2);
   font-weight: var(--iui-font-weight-bold);
   line-height: var(--iui-size-l);
-  color: $buic-text-color;
+  color: var(--iui-color-text);
 
   &.uifw-label-centered {
     justify-content: center;
@@ -41,17 +41,17 @@
 
 .uifw-accudraw-x-value {
   background-color: $buic-accessory-alert;
-  color: $buic-accessory-hollow;
+  color: var(--iui-color-white);
 }
 
 .uifw-accudraw-y-value {
   background-color: $buic-accessory-success;
-  color: $buic-accessory-hollow;
+  color: var(--iui-color-white);
 }
 
 .uifw-accudraw-z-value {
   background-color: $buic-accessory-primary;
-  color: $buic-accessory-hollow;
+  color: var(--iui-color-white);
 }
 
 .uifw-accudraw-angle-value {

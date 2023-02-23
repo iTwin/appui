@@ -16,7 +16,7 @@ $date-picker-icons-color-actionable-hover: rgba(
   $buic-foreground-body,
   $uicore-opacity-1
 );
-$date-picker-outside-month-color: $buic-text-color-disabled;
+$date-picker-outside-month-color: var(--iui-color-text-disabled);
 $outline-size: 2px;
 
 .components-date-picker-calendar {
@@ -42,7 +42,7 @@ $outline-size: 2px;
       border: none;
       cursor: pointer;
       padding: 5px;
-      font-size: $uicore-icons-small;
+      font-size: var(--iui-font-size-2);
       user-select: none;
       color: $date-picker-icons-color-actionable;
 
@@ -51,7 +51,7 @@ $outline-size: 2px;
 
         &.showFocusOutline {
           outline: 0px;
-          border: 0px solid $buic-inputs-border;
+          border: 0px solid var(--iui-color-border-foreground);
           border-radius: var(--iui-border-radius-1);
           border-color: var(--buic-foreground-focus-border);
           box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
@@ -109,7 +109,7 @@ $outline-size: 2px;
       outline: 0px;
 
       &.showFocusOutline {
-        border: 0px solid $buic-inputs-border;
+        border: 0px solid var(--iui-color-border-foreground);
         border-radius: var(--iui-border-radius-1);
         border-color: var(--buic-foreground-focus-border);
         box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
@@ -117,7 +117,7 @@ $outline-size: 2px;
 
         .components-date-picker-calendar-day.focused {
           outline: 0px;
-          border: 1px solid $buic-inputs-border;
+          border: 1px solid var(--iui-color-border-foreground);
           border-radius: var(--iui-border-radius-1);
           border-color: var(--buic-foreground-focus-border);
           box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,

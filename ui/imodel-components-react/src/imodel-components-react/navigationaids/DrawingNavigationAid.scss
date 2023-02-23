@@ -12,7 +12,7 @@
 .components-drawing-navigation-aid {
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 0 1px $buic-inputs-border, 0 0 0 2px $buic-text-color;
+  box-shadow: 0 0 0 1px var(--iui-color-border-foreground), 0 0 0 2px var(--iui-color-text); // TODO: Can this use shadow vars instead?
   height: 96px;
   width: 96px;
 

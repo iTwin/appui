@@ -26,7 +26,7 @@
   padding-bottom: 6px;
 
   user-select: none;
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
 }
 
 .components-property-grid-wrapper {
@@ -42,20 +42,20 @@
   width: 100%;
 
   .components--selected {
-    background-color: $buic-row-selection;
-    outline: 1px solid $buic-foreground-primary;
+    background-color: var(--iui-color-background-accent-muted);
+    outline: 1px solid var(--iui-color-border-accent);
   }
 
   .components--clickable {
     cursor: pointer;
 
     &:hover {
-      background: $buic-row-hover;
+      background: var(--iui-color-background-hover);
     }
   }
 
   .components--hoverable:hover {
-    background-color: $buic-row-hover;
+    background-color: var(--iui-color-background-hover);
   }
 }
 

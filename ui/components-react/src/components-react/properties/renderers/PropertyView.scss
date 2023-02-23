@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 $text-font-size: var(--iui-font-size-1);
-$text-font-color: $buic-text-color;
+$text-font-color: var(--iui-color-text);
 
 .components-property-record--horizontal {
   height: 100%;

@@ -83,7 +83,7 @@
     &:not(.core-active) {
       .uicore-tabs-label-subLabel-container {
         .uicore-tabs-subLabel {
-          color: $buic-text-color-muted;
+          color: var(--iui-color-text-muted);
           font-weight: var(--iui-font-weight-light);
         }
       }

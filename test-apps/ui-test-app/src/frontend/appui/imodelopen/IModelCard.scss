@@ -91,7 +91,7 @@ $text-color: #444;
   transition: all 0.3s ease-in;
   opacity: 0;
   filter: alpha(opacity=0);
-  color: $uicore-white;
+  color: var(--iui-color-white);
   text-transform: uppercase;
 }
 
@@ -179,14 +179,14 @@ $text-color: #444;
   padding: 0.5em 0;
   font-size: var(--iui-font-size-1);
   list-style: none;
-  background-color: $uicore-white;
+  background-color: var(--iui-color-white);
 }
 
 .imodel-card-options-dropdown li {
   display: flex;
   align-items: center;
   padding: 0.25em 2em 0.25em 0.75em;
-  color: $uicore-text-color;
+  color: var(--iui-color-text);
   white-space: nowrap;
   cursor: pointer;
 

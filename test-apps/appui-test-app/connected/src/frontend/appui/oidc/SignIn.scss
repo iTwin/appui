@@ -7,9 +7,9 @@
 $signin-height: 315px; // 250px;
 $signin-width: 275px;
 
-$signin-background: $buic-background-dialog;
+$signin-background: var(--iui-color-background);
 $signin-logo-color: $buic-foreground-primary;
-$signin-text-color: $buic-text-color;
+$signin-text-color: var(--iui-color-text);
 $signin-font-size: var(--iui-font-size-1);
 $signin-hyperlink-color: $buic-foreground-primary;
 $signin-hyperlink-hover-color: $buic-foreground-primary-tone;
