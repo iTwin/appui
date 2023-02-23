@@ -5,7 +5,7 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
-import { addFloatingWidget, addTab, createNineZoneState, DragManager, PanelSide, PanelSideContext, useActiveSendBackWidgetIdStore } from "../../appui-layout-react";
+import { addFloatingWidget, addTab, createNineZoneState, DragManager, PanelSide, PanelSideContext } from "../../appui-layout-react";
 import { PanelOutline, useHidden } from "../../appui-layout-react/outline/PanelOutline";
 import { createDragStartArgs, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { renderHook } from "@testing-library/react-hooks";
@@ -129,7 +129,8 @@ describe("useHidden", () => {
       },
     );
 
-    sinon.stub(useActiveSendBackWidgetIdStore, "getState").callsFake(() => "w1");
+    const sendBackModule = require("../../appui-layout-react/widget/SendBack"); // eslint-disable-line @typescript-eslint/no-var-requires
+    sinon.stub(sendBackModule, "useActiveSendBackWidgetIdStore").callsFake(() => "w1");
 
     const { result } = renderHook(() => useHidden(), {
       wrapper: (props) => <Wrapper defaultState={state} {...props} />, // eslint-disable-line react/display-name
@@ -153,8 +154,8 @@ describe("useHidden", () => {
         },
       },
     );
-
-    sinon.stub(useActiveSendBackWidgetIdStore, "getState").callsFake(() => "w1");
+    const sendBackModule = require("../../appui-layout-react/widget/SendBack"); // eslint-disable-line @typescript-eslint/no-var-requires
+    sinon.stub(sendBackModule, "useActiveSendBackWidgetIdStore").callsFake(() => "w1");
 
     const { result } = renderHook(() => useHidden(), {
       wrapper: (props) => <Wrapper defaultState={state} {...props} />, // eslint-disable-line react/display-name
