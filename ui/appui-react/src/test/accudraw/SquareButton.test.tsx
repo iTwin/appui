@@ -10,8 +10,10 @@ import { selectorMatches } from "../TestUtils";
 
 describe("SquareButton", () => {
   it("renders correctly", () => {
-    render(<SquareButton>xyz</SquareButton >);
+    render(<SquareButton>xyz</SquareButton>);
 
-    expect(screen.getByRole("button", {name: "xyz"})).to.satisfy(selectorMatches(".uifw-square-button.iui-small"));
+    expect(screen.getByRole("button", { name: "xyz" })).to.satisfy(
+      selectorMatches('.uifw-square-button[data-iui-size="small"]')
+    );
   });
 });
