@@ -12,7 +12,7 @@
   border-width: 1px;
   border-radius: var(--iui-border-radius-1);
   border-style: solid;
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
   background: $buic-background-window;
   position: relative;
   display: flex;
@@ -61,7 +61,7 @@
       }
 
       &:hover {
-        color: $buic-foreground-primary;
+        color: var(--iui-color-text-accent);
       }
 
       &:focus {

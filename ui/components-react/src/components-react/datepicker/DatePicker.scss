@@ -22,7 +22,7 @@ $outline-size: 2px;
 .components-date-picker-calendar {
   border-radius: var(--iui-border-radius-1) var(--iui-border-radius-1) 0 0;
   background-color: $buic-background-control;
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
   font-size: 14px;
 
   * {
@@ -60,7 +60,7 @@ $outline-size: 2px;
       }
 
       &:hover {
-        color: $buic-foreground-primary;
+        color: var(--iui-color-text-accent);
       }
     }
 
@@ -150,13 +150,13 @@ $outline-size: 2px;
 
       &.selected {
         background-color: $buic-background-primary;
-        color: $buic-foreground-accessory;
+        color: var(--iui-color-white);
         font-weight: var(--iui-font-weight-semibold);
         border-radius: var(--iui-border-radius-1);
 
         &:hover {
           background-color: $buic-row-hover;
-          color: $buic-foreground-body;
+          color: var(--iui-color-text);
         }
       }
 

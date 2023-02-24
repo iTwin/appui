@@ -68,7 +68,7 @@
 }
 
 .popup-colors {
-  background-color: $buic-background-panel;
+  background-color: var(--iui-color-background);
   color: var(--iui-color-text);
 }
 
@@ -101,7 +101,7 @@
     color: inherit;
 
     &:hover {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent-hover);
       cursor: pointer;
     }
   }

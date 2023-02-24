@@ -19,7 +19,7 @@
     box-sizing: border-box;
     transform: rotate(0);
     transition: transform 100ms ease;
-    color: $buic-foreground-body;
+    color: var(--iui-color-text);
   }
 
   &.is-expanded > .toggle {

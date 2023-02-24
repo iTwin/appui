@@ -51,7 +51,7 @@
         @include uicore-centered;
 
         &:hover {
-          color: $buic-foreground-primary-tone;
+          color: var(--iui-color-text-accent-hover);
           transition-duration: 150ms;
         }
 
@@ -92,16 +92,16 @@
     .component-quantity-number-input-suffix {
       -webkit-user-select: none;
       user-select: none;
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
     .component-quantity-number-input-button-up {
       pointer-events: none;
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
 
     .component-quantity-number-input-button-down {
       pointer-events: none;
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
   }
 }

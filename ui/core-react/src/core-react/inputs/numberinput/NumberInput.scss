@@ -43,7 +43,7 @@
       width: 100%;
       @include uicore-centered;
       &:hover {
-        color: $buic-foreground-primary-tone;
+        color: var(--iui-color-text-accent-hover);
         transition-duration: 150ms;
       }
       &.core-number-input-button-up {
@@ -77,12 +77,12 @@
   &.core-number-input-disabled {
     .core-number-input-button-up {
       pointer-events: none;
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
 
     .core-number-input-button-down {
       pointer-events: none;
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
   }
 }

@@ -45,7 +45,7 @@
     color: $buic-icon-color;
 
     &:hover {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent);
     }
   }
 }

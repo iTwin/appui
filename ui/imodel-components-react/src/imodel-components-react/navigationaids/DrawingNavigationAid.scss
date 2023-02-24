@@ -86,10 +86,10 @@
       cursor: pointer;
       background-color: $buic-background-control;
       opacity: 0.5;
-      color: $buic-foreground-body;
+      color: var(--iui-color-text);
 
       &.checked {
-        color: $buic-foreground-primary;
+        color: var(--iui-color-text-accent);
       }
 
       &:hover {

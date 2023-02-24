@@ -27,7 +27,7 @@
     }
 
     > .uifw-pointer-message-text {
-      color: $buic-foreground-body;
+      color: var(--iui-color-text);
       padding-left: 3px;
       padding-right: 3px;
 

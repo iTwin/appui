@@ -38,7 +38,7 @@
     cursor: pointer;
 
     &:hover span {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent);
     }
 
     &:focus {

@@ -112,7 +112,7 @@
       > .core-dialog-head {
         flex-shrink: 0;
         align-items: center;
-        background-color: red; // TODO: Where is this applied?
+        background-color: var(--iui-color-background-backdrop);
         color: var(--iui-color-text);
         display: flex;
         padding: 4px;

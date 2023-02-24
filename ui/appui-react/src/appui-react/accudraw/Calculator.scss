@@ -63,12 +63,12 @@ $button-operator-size: $button-size+10px;
       &:active,
       &:focus {
         border: none;
-        background-color: red; // TODO: Where is this used?
+        background-color: var(--iui-color-background-negative); // TODO: Should we use this color?
         color: var(--iui-color-white);
       }
 
       &:hover {
-        background-color: red; // TODO: Where is this used?
+        background-color: var(--iui-color-background-negative-hover); // TODO: Should we use this color?
         color: var(--iui-color-white);
       }
 

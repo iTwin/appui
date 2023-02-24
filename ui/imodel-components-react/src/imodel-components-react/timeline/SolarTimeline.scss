@@ -194,7 +194,7 @@ $bottom-position: 4px;
         height: 10px;
         opacity: 0.25;
         margin: 0 1px;
-        background-color: $buic-foreground-body;
+        background-color: var(--iui-color-text);
       }
     }
 

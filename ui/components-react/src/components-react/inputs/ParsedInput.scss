@@ -9,12 +9,12 @@
   width: auto;
 
   &.components-parsed-input-has-error {
-    color: $buic-foreground-alert;
+    color: var(--iui-color-text-negative);
     font-weight: bold;
   }
 
   &.components-parsed-input[disabled] {
-    color: $buic-foreground-body;
+    color: var(--iui-color-text);
     opacity: 0.65;
   }
 

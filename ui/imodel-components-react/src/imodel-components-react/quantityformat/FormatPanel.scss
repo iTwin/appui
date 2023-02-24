@@ -45,7 +45,7 @@
 
   > a.components-quantityFormat-more-less {
     font-size: var(--iui-font-size-1);
-    color: $buic-foreground-alert;
+    color: var(--iui-color-text-negative);
     -webkit-transition: text-decoration 1s ease;
     -moz-transition: text-decoration 1s ease;
     -o-transition: text-decoration 1s ease;

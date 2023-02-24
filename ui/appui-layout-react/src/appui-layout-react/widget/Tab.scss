@@ -15,9 +15,9 @@
   cursor: pointer;
   padding: 4px 1em 0;
   position: relative;
-  border: 0 solid $buic-background-5;
+  border: 0 solid var(--iui-color-border);
   max-width: 9em;
-  background: $buic-background-3;
+  background: var(--iui-color-background-backdrop);
 
   >span {
     font-size: $nz-widget-tab-font-size;
@@ -33,8 +33,8 @@
 
   &:not(.nz-minimized) {
     &.nz-active {
-      background: $buic-background-2;
-      color: $buic-foreground-primary;
+      background: var(--iui-color-background);
+      color: var(--iui-color-text-accent);
       padding-bottom: 1px;
       margin-bottom: -1px;
 
@@ -58,7 +58,7 @@
 
   &:not(.nz-active),
   &.nz-minimized {
-    color: $buic-foreground-muted;
+    color: var(--iui-color-text-muted);
     border-right-width: 1px;
   }
 
@@ -73,10 +73,10 @@
   }
 
   &:hover {
-    background: $buic-background-2;
+    background: var(--iui-color-background);
 
     &:not(.nz-active) {
-      color: $buic-foreground-body;
+      color: var(--iui-color-text);
     }
   }
 }

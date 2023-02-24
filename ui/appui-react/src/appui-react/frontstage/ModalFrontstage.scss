@@ -38,7 +38,7 @@
     }
 
     .uifw-modal-app-bar-right {
-      color: red; // TODO: Where is this applied?
+      color: var(--iui-color-text);
       line-height: 60px;
       vertical-align: center;
       float: right;

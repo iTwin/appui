@@ -99,7 +99,7 @@ $ip-max-dropdown-width: 450px;
 .ip-highlight {
   flex: initial;
   height: $ip-highlight-size;
-  background: red; // TODO: Where is this used?
+  background: var(--iui-color-background-backdrop); // TODO: Where is this used?
   transition: background-color 0.4s ease;
 }
 

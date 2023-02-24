@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .components-controlledTree-node-description {
-  color: $buic-foreground-muted;
+  color: var(--iui-color-text-muted);
   font-size: var(--iui-font-size-0);
   margin-top: 4px;
 

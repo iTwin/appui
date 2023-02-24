@@ -34,7 +34,7 @@
     padding: 0 3px;
 
     &.components-popup-button-placeholder {
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
   }
 
@@ -47,7 +47,7 @@
       transition: transform 0.2s;
 
       &:hover {
-        color: $buic-foreground-primary;
+        color: var(--iui-color-text-accent);
       }
 
       text-align: center;
@@ -68,7 +68,7 @@
       outline: 0px;
 
       > .components-popup-button-arrow-icon {
-        color: $buic-foreground-primary;
+        color: var(--iui-color-text-accent);
       }
     }
   }
