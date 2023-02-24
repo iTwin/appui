@@ -32,7 +32,7 @@ describe("<DelayedSpinner />", () => {
 
   it("renders spinner with specified size", () => {
     const { container } = render(<DelayedSpinner delay={0} size="small" />);
-    const spinnerNode = container.querySelector('[data-iui-size="small"]');
+    const spinnerNode = container.querySelector(".iui-small");
     expect(spinnerNode).to.not.be.null;
   });
 });

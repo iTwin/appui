@@ -104,12 +104,14 @@
     &:active,
     &:focus {
       border: none;
-      background-color: red; // TODO: Where is this used?
+      background-color: var(--iui-color-background-negative); // TODO: review
       color: var(--iui-color-white);
     }
 
     &:hover {
-      background-color: red; // TODO: Where is this used?
+      background-color: var(
+        --iui-color-background-negative-hover
+      ); // TODO: review
       color: var(--iui-color-white);
     }
   }

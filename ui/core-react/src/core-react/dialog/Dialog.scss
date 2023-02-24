@@ -112,7 +112,7 @@
       > .core-dialog-head {
         flex-shrink: 0;
         align-items: center;
-        background-color: var(--iui-color-background-backdrop);
+        background-color: var(--iui-color-background-backdrop); // TODO: review
         color: var(--iui-color-text);
         display: flex;
         padding: 4px;
@@ -125,7 +125,6 @@
         > .core-dialog-title {
           flex: 1 1;
 
-          // @include iui-text(leading);
           padding: 0;
           border: none;
           vertical-align: baseline;
@@ -141,7 +140,6 @@
           background-color: var(--iui-color-background);
 
           > .core-dialog-title {
-            // @include iui-text(subheading);
             margin: 0;
             padding: 0;
             border: none;
