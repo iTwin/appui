@@ -8,7 +8,7 @@
 .uifw-popup-message-inputField {
   background-color: $buic-background-control;
   padding: 3px 3px 3px 6px;
-  border-radius: 5px;
+  border-radius: var(--iui-border-radius-1);
   color: var(--iui-color-text);
   margin: 0px;
   transition: all 3s ease;

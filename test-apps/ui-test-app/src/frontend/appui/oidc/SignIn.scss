@@ -16,7 +16,7 @@ $signin-hyperlink-hover-color: $buic-foreground-primary-tone;
 
 /* sign in dialog */
 .components-signin {
-  font-family: Arial;
+  font-family: var(--iui-font-sans);
   width: $signin-width;
   height: $signin-height;
   position: absolute;

@@ -8,15 +8,15 @@ $signin-height: 315px; // 250px;
 $signin-width: 275px;
 
 $signin-background: var(--iui-color-background);
-$signin-logo-color: $buic-foreground-primary;
+$signin-logo-color: var(--iui-color-icon-accent);
 $signin-text-color: var(--iui-color-text);
 $signin-font-size: var(--iui-font-size-1);
-$signin-hyperlink-color: $buic-foreground-primary;
-$signin-hyperlink-hover-color: $buic-foreground-primary-tone;
+$signin-hyperlink-color: var(--iui-color-text-accent);
+$signin-hyperlink-hover-color: var(--iui-color-text-accent-hover);
 
 /* sign in dialog */
 .components-signin {
-  font-family: Arial;
+  font-family: var(--iui-font-sans);
   width: $signin-width;
   height: $signin-height;
   position: absolute;
@@ -26,7 +26,7 @@ $signin-hyperlink-hover-color: $buic-foreground-primary-tone;
   color: $signin-text-color;
   background-color: $signin-background;
   transform: translate(-50%, -50%);
-  box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--iui-shadow-2);
 
   /* content area */
   .components-signin-content {

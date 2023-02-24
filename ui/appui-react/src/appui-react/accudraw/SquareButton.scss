@@ -12,7 +12,7 @@ $button-size: 32px;
   background-color: $buic-background-tab-inactive;
   color: $buic-foreground-body;
   border-color: $buic-background-toolbutton-stroke;
-  border-radius: 5px;
+  border-radius: var(--iui-border-radius-1);
   border-width: 1px;
   border-style: solid;
   opacity: 0.95;

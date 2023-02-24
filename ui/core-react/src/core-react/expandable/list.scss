@@ -9,27 +9,27 @@
     transition: margin var(--iui-duration-1) ease-in-out;
 
     > .iui-header {
-      border-color: $uicore-gray-a var(iui-color-border) var(iui-color-border);
+      border-color: var(--iui-color-border);
     }
 
     &:first-child {
       > .iui-header {
-        border-top-color: var(iui-color-border);
+        border-top-color: var(--iui-color-border);
       }
     }
   }
 
   > .iui-expanded + div {
     > .iui-header {
-      border-top-color: var(iui-color-border);
+      border-top-color: var(--iui-color-border);
     }
 
     &.iui-expanded > .iui-header {
-      border-top-color: $uicore-blue;
+      border-top-color: var(--iui-color-border-accent);
     }
   }
 
   > .iui-expanded + .iui-expanded {
-    margin-top: 0; // $uicore-unbordered-padding;
+    margin-top: 0;
   }
 }

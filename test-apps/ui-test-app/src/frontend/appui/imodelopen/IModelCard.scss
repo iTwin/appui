@@ -17,7 +17,7 @@ $text-color: #444;
   color: $text-color;
   background-color: $card-background;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: var(--iui-border-radius-1);
   margin: 15px;
   transition: all 0.3s ease;
   position: relative;

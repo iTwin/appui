@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .uifw-default-resizer-parent {
   min-width: 200px;
@@ -122,7 +121,7 @@ div.uifw-default-container {
   row-gap: 0px;
   grid-column-gap: 8px;
   column-gap: 8px;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(--iui-font-sans);
   font-size: 14px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
