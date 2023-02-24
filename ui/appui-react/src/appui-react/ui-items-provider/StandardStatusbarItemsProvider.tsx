@@ -17,9 +17,9 @@ import { DefaultStatusbarItems, StandardStatusbarUiItemsProvider } from "./Stand
  */
 export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
   private uiItemsProvider: StandardStatusbarUiItemsProvider;
-  constructor(providerId: string, defaultItems?: DefaultStatusbarItems, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
+  constructor(providerId: string, _defaultItems?: DefaultStatusbarItems | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
     super(providerId, isSupportedStage);
-    this.uiItemsProvider = new StandardStatusbarUiItemsProvider(defaultItems);
+    this.uiItemsProvider = new StandardStatusbarUiItemsProvider(_defaultItems);
   }
 
   /**
@@ -37,7 +37,7 @@ export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
     return provider;
   }
 
-  public override provideStatusBarItemsInternal(stageId: string, stageUsage: string, stageAppData?: any): CommonStatusBarItem[] {
-    return this.uiItemsProvider.provideStatusBarItems(stageId, stageUsage, stageAppData);
+  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): CommonStatusBarItem[] {
+    return this.uiItemsProvider.provideStatusBarItems(_stageId, _stageUsage, _stageAppData);
   }
 }

@@ -32,12 +32,12 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     return provider;
   }
 
-  constructor(providerId: string, defaultNavigationTools?: DefaultNavigationTools, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
+  constructor(providerId: string, defaultNavigationTools?: DefaultNavigationTools | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
     super(providerId, isSupportedStage);
     this.uiItemsProvider = new StandardNavigationToolsUiItemsProvider(defaultNavigationTools);
   }
 
-  public override provideToolbarButtonItemsInternal(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): CommonToolbarItem[] {
-    return this.uiItemsProvider.provideToolbarButtonItems(stageId, stageUsage, toolbarUsage, toolbarOrientation, stageAppData);
+  public override provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): CommonToolbarItem[] {
+    return this.uiItemsProvider.provideToolbarButtonItems(_stageId, _stageUsage, toolbarUsage, toolbarOrientation, _stageAppData);
   }
 }

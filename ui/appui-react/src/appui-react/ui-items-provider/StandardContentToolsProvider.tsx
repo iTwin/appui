@@ -77,16 +77,16 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     return provider;
   }
 
-  constructor(providerId: string, defaultContentTools?: DefaultContentTools, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
+  constructor(providerId: string, defaultContentTools?: DefaultContentTools | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
     super(providerId, isSupportedStage);
     this.uiItemsProvider = new StandardContentToolsUiItemsProvider(defaultContentTools);
   }
 
-  public override provideToolbarButtonItemsInternal(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): CommonToolbarItem[] {
-    return this.uiItemsProvider.provideToolbarButtonItems(stageId, stageUsage, toolbarUsage, toolbarOrientation, stageAppData);
+  public override provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): CommonToolbarItem[] {
+    return this.uiItemsProvider.provideToolbarButtonItems(_stageId, _stageUsage, toolbarUsage, toolbarOrientation, stageAppData);
   }
 
-  public override provideStatusBarItemsInternal(stageId: string, stageUsage: string, stageAppData?: any): CommonStatusBarItem[] {
-    return this.uiItemsProvider.provideStatusBarItems(stageId, stageUsage, stageAppData);
+  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): CommonStatusBarItem[] {
+    return this.uiItemsProvider.provideStatusBarItems(_stageId, _stageUsage, _stageAppData);
   }
 }
