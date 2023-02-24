@@ -49,12 +49,17 @@ export interface NumberInputProps extends Omit<InputProps, "min" | "max" | "step
   showTouchButtons?: boolean;
   /** Provides ability to return reference to HTMLInputElement */
   ref?: React.Ref<HTMLInputElement>;
+  /**
+   * Makes this component behave as controlled component.
+   * @internal
+   */
+  isControlled?: boolean;
 }
 
 const ForwardRefNumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
   function ForwardRefNumberInput(props, ref) {
     const { containerClassName, value, min, max, precision, format, parse,
-      onChange, onBlur, onKeyDown, step, snap, showTouchButtons, containerStyle, ...otherProps } = props;
+      onChange, onBlur, onKeyDown, step, snap, showTouchButtons, containerStyle, isControlled, ...otherProps } = props;
     const currentValueRef = React.useRef(value);
 
     /**
@@ -110,8 +115,10 @@ const ForwardRefNumberInput = React.forwardRef<HTMLInputElement, NumberInputProp
     }, [formatInternal, value]);
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-      setFormattedValue(event.currentTarget.value);
-    }, []);
+      const newVal = event.currentTarget.value;
+      setFormattedValue(newVal);
+      isControlled && onChange && onChange(parseInternal(newVal), newVal);
+    }, [isControlled, onChange, parseInternal]);
 
     const updateValue = React.useCallback((newVal: number) => {
       const newFormattedVal = formatInternal(newVal);

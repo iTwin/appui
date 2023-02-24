@@ -6,7 +6,6 @@ import {
   IModelReadRpcInterface, IModelTileRpcInterface, RpcInterfaceDefinition,
   SnapshotIModelRpcInterface,
 } from "@itwin/core-common";
-import { PresentationRpcInterface } from "@itwin/presentation-common";
 import { ECSchemaRpcInterface } from "@itwin/ecschema-rpcinterface-common";
 
 /**
@@ -18,7 +17,6 @@ export function getSupportedRpcs(): RpcInterfaceDefinition[] {
     IModelReadRpcInterface,
     IModelTileRpcInterface,
     SnapshotIModelRpcInterface,
-    PresentationRpcInterface,
     ECSchemaRpcInterface,
   ];
 

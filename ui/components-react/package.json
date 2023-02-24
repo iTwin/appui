@@ -1,6 +1,6 @@
 {
   "name": "@itwin/components-react",
-  "version": "4.0.0-dev.8",
+  "version": "4.0.0-dev.10",
   "description": "iTwin.js UI complex components",
   "main": "lib/cjs/components-react.js",
   "module": "lib/esm/components-react.js",
@@ -11,8 +11,7 @@
     "url": "https://github.com/iTwin/appui/tree/master/ui/components-react"
   },
   "scripts": {
-    "build": "npm run -s copy:locale && npm run -s build:cjs",
-    "build:ci": "npm run -s build && npm run -s build:esm",
+    "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
     "build:cjs": "tsc 1>&2 --outDir lib/cjs && npm run -s copy:cjs",
     "build:esm": "tsc 1>&2 --module ES2020 --outDir lib/esm && npm run -s copy:esm",
     "copy:cjs": "cpx \"./src/**/*.*css\" ./lib/cjs",
@@ -21,11 +20,13 @@
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./public/locales/en-PSEUDO",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "cover": "nyc npm -s test",
-    "docs": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/ui/components-react/file.json --tsIndexFile=./components-react.ts --onlyJson",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "extract-api": "betools extract-api --entry=components-react",
     "test": "mocha --config ../.mocharc.json \"./lib/cjs/test/**/*.test.js\"",
-    "test:watch": "npm -s test -- --reporter min --watch-extensions ts,tsx --watch"
+    "test:watch": "npm -s test -- --reporter min --watch-extensions ts,tsx --watch",
+    "docs": "npm run -s docs:reference && npm run -s docs:changelog",
+    "docs:changelog": "cpx ./CHANGELOG.md ../../generated-docs/ui/components-react",
+    "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/ui/components-react/file.json --tsIndexFile=./components-react.ts --onlyJson"
   },
   "keywords": [
     "Bentley",
@@ -37,9 +38,9 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "workspace:^4.0.0-dev.8",
-    "@itwin/core-bentley": "^3.5.1",
-    "@itwin/core-react": "workspace:^4.0.0-dev.8",
+    "@itwin/appui-abstract": "workspace:^4.0.0-dev.10",
+    "@itwin/core-bentley": "^3.6.0",
+    "@itwin/core-react": "workspace:^4.0.0-dev.10",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
@@ -49,13 +50,13 @@
   ],
   "devDependencies": {
     "@itwin/appui-abstract": "workspace:*",
-    "@itwin/build-tools": "^3.5.1",
-    "@itwin/core-bentley": "^3.5.1",
-    "@itwin/core-common": "^3.5.1",
-    "@itwin/core-geometry": "^3.5.1",
-    "@itwin/core-i18n": "^3.5.1",
+    "@itwin/build-tools": "^3.6.0",
+    "@itwin/core-bentley": "^3.6.0",
+    "@itwin/core-common": "^3.6.0",
+    "@itwin/core-geometry": "^3.6.0",
+    "@itwin/core-i18n": "^3.6.0",
     "@itwin/core-react": "workspace:*",
-    "@itwin/eslint-plugin": "^3.5.1",
+    "@itwin/eslint-plugin": "^3.6.0",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",

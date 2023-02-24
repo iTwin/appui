@@ -21,7 +21,6 @@ import {
 } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
 import { UnitSystemSelector } from "./UnitSystemSelector";
-import { Presentation } from "@itwin/presentation-frontend";
 import { Button } from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
 
@@ -65,8 +64,7 @@ export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opt
 export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems }: QuantityFormatterSettingsOptions) {
   const [activeUnitSystemKey, setActiveUnitSystemKey] = React.useState(IModelApp.quantityFormatter.activeUnitSystem);
   const [activeQuantityType, setActiveQuantityType] = React.useState(getQuantityTypeKey(initialQuantityType));
-  const [activeFormatterSpec, setActiveFormatterSpec] =
-    React.useState<FormatterSpec | undefined>(IModelApp.quantityFormatter.findFormatterSpecByQuantityType(getQuantityTypeKey(activeQuantityType)));
+  const [activeFormatterSpec, setActiveFormatterSpec] = React.useState<FormatterSpec | undefined>(IModelApp.quantityFormatter.findFormatterSpecByQuantityType(getQuantityTypeKey(activeQuantityType)));
   const [saveEnabled, setSaveEnabled] = React.useState(false);
   const [clearEnabled, setClearEnabled] = React.useState(IModelApp.quantityFormatter.hasActiveOverride(initialQuantityType, true));
   const newQuantityTypeRef = React.useRef<QuantityTypeKey>();
@@ -175,7 +173,6 @@ export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitS
   }, [activeQuantityType]);
 
   const processNewUnitSystem = React.useCallback(async (unitSystem: UnitSystemKey) => {
-    Presentation.presentation.activeUnitSystem = unitSystem;
     await IModelApp.quantityFormatter.setActiveUnitSystem(unitSystem);
   }, []);
 

@@ -5,8 +5,7 @@
 import * as React from "react";
 import { useResizeDetector } from "react-resize-detector";
 import { IModelApp, IModelConnection } from "@itwin/core-frontend";
-import { usePresentationTreeNodeLoader, useUnifiedSelectionTreeEventHandler } from "@itwin/presentation-components";
-import { ControlledTree, SelectionMode, useTreeModel } from "@itwin/components-react";
+import { ControlledTree, SelectionMode, SimpleTreeDataProvider, useTreeEventsHandler, useTreeModel, useTreeModelSource, useTreeNodeLoader } from "@itwin/components-react";
 import { ConfigurableCreateInfo, UiFramework, WidgetControl } from "@itwin/appui-react";
 import { Input } from "@itwin/itwinui-react";
 
@@ -92,15 +91,17 @@ interface NavigationTreeProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const NavigationTree: React.FC<NavigationTreeProps> = (props: NavigationTreeProps) => {
-  const { nodeLoader } = usePresentationTreeNodeLoader({
-    imodel: props.iModelConnection,
-    ruleset: props.rulesetId,
-    pagingSize: 20,
-  });
-  const modelSource = nodeLoader.modelSource;
-  const eventHandler = useUnifiedSelectionTreeEventHandler({ nodeLoader, collapsedChildrenDisposalEnabled: true });
+const NavigationTree: React.FC<NavigationTreeProps> = (_props: NavigationTreeProps) => {
+  const dataProvider = React.useMemo(() => {
+    return new SimpleTreeDataProvider(new Map());
+  }, []);
+  const modelSource = useTreeModelSource(dataProvider);
+  const nodeLoader = useTreeNodeLoader(dataProvider, modelSource);
   const treeModel = useTreeModel(modelSource);
+  const eventsHandler = useTreeEventsHandler(React.useMemo(() => ({
+    modelSource,
+    nodeLoader,
+  }), [modelSource, nodeLoader]));
   const { width, height, ref } = useResizeDetector();
   return (
     <div ref={ref} style={{ width: "100%", height: "100%" }}>
@@ -108,9 +109,9 @@ const NavigationTree: React.FC<NavigationTreeProps> = (props: NavigationTreeProp
         model={treeModel}
         nodeLoader={nodeLoader}
         selectionMode={SelectionMode.Single}
-        eventsHandler={eventHandler}
         width={width}
         height={height}
+        eventsHandler={eventsHandler}
       /> : null}
     </div>
   );

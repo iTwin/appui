@@ -1103,6 +1103,8 @@ export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "st
     containerClassName?: string;
     containerStyle?: React_2.CSSProperties;
     format?: (num: number | null | undefined, formattedValue: string) => string;
+    // @internal
+    isControlled?: boolean;
     max?: number;
     min?: number;
     onChange?: (value: number | undefined, stringValue: string) => void;
@@ -1873,7 +1875,7 @@ export const useProximityToMouse: (elementSet: WidgetElementSet, snap?: boolean,
 export function useRefEffect<T>(callback: (instance: T | null) => (void | (() => void)), deps: ReadonlyArray<any>): (instance: T | null) => void;
 
 // @internal
-export function useRefs<T>(...refs: ReadonlyArray<React_2.Ref<T>>): (instance: T | null) => void;
+export function useRefs<T>(...refs: ReadonlyArray<React_2.Ref<T> | undefined>): (instance: T | null) => void;
 
 // @internal
 export function useRefState<T>(): [React_2.Ref<T>, T | undefined];
