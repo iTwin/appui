@@ -35,7 +35,6 @@ import { TestRadialMenu } from "../dialogs/TestRadialMenu";
 import { ViewportDialog } from "../dialogs/ViewportDialog";
 import { AppStatusBarWidgetControl } from "../statusbars/AppStatusBar";
 import { VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
-import { UnifiedSelectionPropertyGridWidgetControl } from "../widgets/UnifiedSelectionPropertyGridWidget";
 import { ViewportWidget } from "../widgets/ViewportWidget";
 import { NestedAnimationStage } from "./NestedAnimationStage";
 import { ViewSelectorPanel } from "../../tools/ViewSelectorPanel";
@@ -326,8 +325,6 @@ export class ViewsFrontstage extends FrontstageProvider {
   }
 
   public override frontstageConfig(): FrontstageConfig {
-    const iModelConnection = UiFramework.getIModelConnection();
-
     return {
       id: ViewsFrontstage.stageId,
       version: 3.1,
@@ -355,16 +352,6 @@ export class ViewsFrontstage extends FrontstageProvider {
         maxSize: { percentage: 50 },
         sections: {
           end: [
-            {
-              defaultState: WidgetState.Closed,
-              iconSpec: "icon-placeholder",
-              labelKey: "SampleApp:widgets.UnifiedSelectPropertyGrid",
-              id: ViewsFrontstage.unifiedSelectionPropertyGridId,
-              control: UnifiedSelectionPropertyGridWidgetControl,
-              applicationData: { iModelConnection },
-              isFloatingStateWindowResizable: true,
-              defaultFloatingSize: { width: 200, height: 300 },
-            },
             {
               id: "VerticalPropertyGrid",
               defaultState: WidgetState.Hidden,

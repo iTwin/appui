@@ -312,6 +312,17 @@ describe("<NumberInput - React Testing Library />", () => {
     expect(value).to.eq(22.3);
   });
 
+  it("should update value when component is controlled", () => {
+    const spyMethod = sinon.spy();
+
+    const wrapper = render(<NumberInput precision={2} value={1.23} step={.25} onChange={spyMethod} isControlled={true}/>);
+    const input = wrapper.container.querySelector("input");
+    expect(input).not.to.be.null;
+    fireEvent.focusIn(input!);
+    fireEvent.change(input!, { target: { value: "22.3" } });
+    expect(spyMethod).calledOnceWith(22.3, "22.3");
+  });
+
   it("should reset value on ESC", () => {
     let value: number | undefined = 1.23;
     const spyMethod = sinon.spy();

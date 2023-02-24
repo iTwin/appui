@@ -6,7 +6,6 @@ import * as fs from "fs";
 import * as path from "path";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import { MobileHost } from "@itwin/core-mobile/lib/cjs/MobileBackend";
-import { Presentation } from "@itwin/presentation-backend";
 import { getSupportedRpcs } from "../common/rpcs";
 import { loggerCategory } from "../common/TestAppConfiguration";
 import { initializeElectron } from "./electron/ElectronMain";
@@ -38,13 +37,6 @@ import { ECSchemaRpcImpl } from "@itwin/ecschema-rpcinterface-impl";
     } else {
       await initializeWeb();
     }
-
-    // initialize presentation-backend
-    Presentation.initialize({
-      enableSchemasPreload: true,
-      updatesPollInterval: 100,
-    });
-
   } catch (error: any) {
     Logger.logError(loggerCategory, error);
     process.exitCode = 1;

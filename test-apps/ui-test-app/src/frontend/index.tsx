@@ -24,7 +24,7 @@ import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { ElectronRendererAuthorization } from "@itwin/electron-authorization/lib/cjs/ElectronRenderer";
 import {
   AccuSnap, BriefcaseConnection, IModelApp, IModelConnection, LocalUnitFormatProvider, NativeApp, NativeAppLogger,
-  NativeAppOpts, SelectionTool, SnapMode, ToolAdmin, ViewClipByPlaneTool,
+  NativeAppOpts, SelectionTool, SnapMode, ToolAdmin, ViewClipByPlaneTool, ViewManager,
 } from "@itwin/core-frontend";
 import { MarkupApp } from "@itwin/core-markup";
 import { MobileApp, MobileAppOpts } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
@@ -35,7 +35,6 @@ import { HyperModeling } from "@itwin/hypermodeling-frontend";
 import { ArcGisAccessClient, ArcGisEnterpriseClientId } from "@itwin/map-layers-auth";
 import { ArcGisOauthRedirect } from "./appui/ArcGisOauthRedirect";
 import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
-import { createFavoritePropertiesStorage, DefaultFavoritePropertiesStorageTypes, Presentation } from "@itwin/presentation-frontend";
 import { IModelsClient } from "@itwin/imodels-client-management";
 import { AccessTokenAdapter, FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { getSupportedRpcs } from "../common/rpcs";
@@ -49,8 +48,6 @@ import { EditFrontstage } from "./appui/frontstages/editing/EditFrontstage";
 import { LocalFileOpenFrontstage } from "./appui/frontstages/LocalFileStage";
 import { ViewsFrontstage } from "./appui/frontstages/ViewsFrontstage";
 import { AppSettingsTabsProvider } from "./appui/uiproviders/AppSettingsTabsProvider";
-import { AppViewManager } from "./favorites/AppViewManager"; // Favorite Properties Support
-import { ElementSelectionListener } from "./favorites/ElementSelectionListener"; // Favorite Properties Support
 import { AnalysisAnimationTool } from "./tools/AnalysisAnimation";
 import { EditingScopeTool } from "./tools/editing/EditingTools";
 import { PlaceBlockTool } from "./tools/editing/PlaceBlockTool";
@@ -172,9 +169,6 @@ export class SampleAppIModelApp {
   public static hubClient?: IModelsClient;
   private static _appStateManager: StateManager | undefined;
 
-  // Favorite Properties Support
-  private static _selectionSetListener = new ElementSelectionListener(true);
-
   public static get store(): Store<RootState> {
     return StateManager.store as Store<RootState>;
   }
@@ -261,19 +255,6 @@ export class SampleAppIModelApp {
   public static async initialize() {
     await UiFramework.initialize(undefined);
 
-    // initialize Presentation
-    await Presentation.initialize({
-      presentation: {
-        activeLocale: IModelApp.localization.getLanguageList()[0],
-      },
-      favorites: {
-        storage: createFavoritePropertiesStorage(SampleAppIModelApp.testAppConfiguration?.useLocalSettings
-          ? DefaultFavoritePropertiesStorageTypes.BrowserLocalStorage
-          : DefaultFavoritePropertiesStorageTypes.UserPreferencesStorage),
-      },
-    });
-    Presentation.selection.scopes.activeScope = "top-assembly";
-
     // Register tools.
     Tool1.register(this.sampleAppNamespace);
     Tool2.register(this.sampleAppNamespace);
@@ -306,12 +287,8 @@ export class SampleAppIModelApp {
     await FrontendDevTools.initialize();
     await EditTools.initialize();
 
-    // Favorite Properties Support
-    SampleAppIModelApp._selectionSetListener.initialize();
-
     // default to showing imperial formatted units
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-    Presentation.presentation.activeUnitSystem = "imperial";
     await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)); // pass true to save per imodel
 
     await FrontendDevTools.initialize();
@@ -782,7 +759,7 @@ async function main() {
       notifications: new AppNotificationManager(),
       uiAdmin: new FrameworkUiAdmin(),
       accuDraw: new FrameworkAccuDraw(),
-      viewManager: new AppViewManager(true),  // Favorite Properties Support
+      viewManager: new ViewManager(),
       realityDataAccess: new RealityDataAccessClient(realityDataClientOptions),
       renderSys: { displaySolarShadows: true },
       rpcInterfaces: getSupportedRpcs(),

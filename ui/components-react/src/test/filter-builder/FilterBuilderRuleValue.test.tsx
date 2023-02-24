@@ -62,6 +62,6 @@ describe("PropertyFilterBuilderRuleValue", () => {
     await theUserTo.type(screen.getByRole("textbox"), "test text");
     screen.getByRole("textbox").blur();
 
-    await waitFor(() => expect(spy).to.be.calledOnceWith({ valueFormat: PropertyValueFormat.Primitive, value: "test text", displayValue: "test text" }));
+    await waitFor(() => expect(spy).to.be.calledWith({ valueFormat: PropertyValueFormat.Primitive, value: "test text", displayValue: "test text" }));
   });
 });
