@@ -608,6 +608,8 @@ export interface EditorContainerProps extends CommonProps {
     onCommit: (args: PropertyUpdatedArgs) => void;
     propertyRecord: PropertyRecord;
     setFocus?: boolean;
+    // @internal
+    shouldCommitOnChange?: boolean;
     title?: string;
 }
 
@@ -2003,6 +2005,8 @@ export interface PropertyEditorProps extends CommonProps {
     onCommit?: (args: PropertyUpdatedArgs) => void;
     propertyRecord?: PropertyRecord;
     setFocus?: boolean;
+    // @internal
+    shouldCommitOnChange?: boolean;
 }
 
 // @beta
