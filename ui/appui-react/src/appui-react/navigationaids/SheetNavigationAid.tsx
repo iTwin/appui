@@ -158,7 +158,7 @@ export class SheetNavigationAid extends React.Component<SheetNavigationProps, Sh
           <div className="sheet-container">
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
             <IconButton size="small" styleType="borderless" onClick={this._handleOnClickLeftArrow}
-              role="button" tabIndex={-1} title={leftTitle}><SvgChevronLeft /></IconButton>
+             tabIndex={-1} title={leftTitle}><SvgChevronLeft /></IconButton>
             <div>{this.state.index + 1} {ofStr} {this.state.sheetData.length}</div>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
             <IconButton size="small" styleType="borderless"  onClick={this._handleOnClickRightArrow}

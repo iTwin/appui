@@ -15,7 +15,7 @@ import { CommonProps, FlexWrapContainer, Icon, IconSpec, ScrollView, SearchBox, 
 import { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
 import { SheetData } from "./SheetNavigationAid";
-import { SvgDocument } from "@itwin/itwinui-icons-react";
+import { SvgDocument, SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** Data about a sheet card
  * @alpha
@@ -220,12 +220,14 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       this.state.isPressed && "is-pressed",
     );
 
+    const iconSpec = this.props.iconSpec ? this.props.iconSpec : SvgPlaceholder;
+
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div className={className} onClick={this._onClick} onMouseDown={this._onMouseDown} onMouseLeave={this._onMouseLeave} role="button" tabIndex={-1} >
         {label}
         <div className="sheet-image-container">
-          <div className="icon"> <Icon iconSpec={this.props.iconSpec} /></div>
+          <div className="icon"> <Icon iconSpec={iconSpec} /></div>
         </div >
         <div className="sheet-index">{index + 1}</div>
       </div >
