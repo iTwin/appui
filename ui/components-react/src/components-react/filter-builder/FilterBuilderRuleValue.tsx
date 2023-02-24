@@ -44,6 +44,7 @@ export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleV
       onCancel={/* istanbul ignore next */ () => { }}
       onCommit={onValueChange}
       setFocus={false}
+      shouldCommitOnChange={true}
     />
   </div>;
 }
