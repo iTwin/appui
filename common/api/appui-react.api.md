@@ -2113,7 +2113,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: (state: CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
-}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
+}>, action: DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetSnapMode, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetTheme, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolPrompt, string>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetWidgetOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetDragInteraction, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetShowWidgetIcon, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AutoCollapseUnpinnedPanels, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetViewOverlayDisplay, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.AnimateToolSettings, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.UseToolAsToolSettingsLabel, boolean>> | DeepReadonlyObject<ActionWithPayload<import("../configurableui/state").ConfigurableUiActionId.SetToolbarOpacity, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetNumItemsSelected, number>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultIModelViewportControlId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetActiveIModelId, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetAvailableSelectionScopes, DeepReadonlyArray<PresentationSelectionScope>>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetDefaultViewState, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetIModelConnection, any>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.SetSelectionScope, string>> | DeepReadonlyObject<ActionWithPayload<import("./SessionState").SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject<CursorMenuData>>>) => CombinedReducerState<    {
 configurableUiState: typeof ConfigurableUiReducer;
 sessionState: typeof SessionStateReducer;
 }>;
@@ -3901,7 +3901,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<React_2.ClassAttributes<SelectionScopeFieldComponent> & SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<React_2.ClassAttributes<SelectionScopeFieldComponent> & SelectionScopeFieldProps, "activeSelectionScope" | "availableSelectionScopes">>;
 
 // @public
 export interface SessionState {
@@ -4116,11 +4116,6 @@ export const setPanelSize: (base: {
             readonly id: string;
             readonly label: string;
             readonly iconSpec?: boolean | ReactText | {
-                readonly stringGetter: () => string;
-                readonly syncEventIds: readonly string[];
-                readonly value: string;
-                readonly refresh: () => boolean;
-            } | {
                 readonly type: string | JSXElementConstructor<any>;
                 readonly props: any;
                 readonly key: Key | null;
@@ -4137,6 +4132,11 @@ export const setPanelSize: (base: {
                 } | any | null | undefined;
                 readonly type: string | JSXElementConstructor<any>;
                 readonly props: any;
+            } | {
+                readonly stringGetter: () => string;
+                readonly syncEventIds: readonly string[];
+                readonly value: string;
+                readonly refresh: () => boolean;
             } | null | undefined;
             readonly preferredFloatingWidgetSize?: {
                 readonly width: number;
@@ -4263,7 +4263,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
 export function showWidget(state: NineZoneState, id: TabState["id"]): NineZoneState;
 
 // @public
-export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_3<React_2.ClassAttributes<SnapModeFieldComponent> & SnapModeFieldProps, "setSnapMode" | "snapMode">>;
+export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_3<React_2.ClassAttributes<SnapModeFieldComponent> & SnapModeFieldProps, "snapMode" | "setSnapMode">>;
 
 // @alpha
 export class SolarTimelineDataProvider extends BaseSolarDataProvider {
