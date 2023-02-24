@@ -40,7 +40,6 @@ import { CommonStatusBarItem as CommonStatusBarItem_2 } from '@itwin/appui-abstr
 import { CommonToolbarItem as CommonToolbarItem_2 } from '@itwin/appui-abstract';
 import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue } from '@itwin/appui-abstract';
-import { ConditionalIconItem } from '@itwin/core-react';
 import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { ConnectedComponent } from 'react-redux';
 import { ContentLayoutProps } from '@itwin/appui-abstract';
@@ -2913,8 +2912,7 @@ export interface ItemProps extends IconProps {
     badgeType?: BadgeType;
     description?: string | StringGetter | ConditionalStringValue;
     descriptionKey?: string;
-    icon?: string | ConditionalStringValue;
-    iconSpec?: IconSpec | ConditionalIconItem;
+    icon?: IconSpec;
     isActive?: boolean;
     isDisabled?: boolean | ConditionalBooleanValue;
     isHidden?: boolean | ConditionalBooleanValue;
@@ -3218,6 +3216,7 @@ export class MessageManager {
         close: () => void;
     } | undefined;
     static endActivityMessage(isCompleted: boolean): boolean;
+    // @deprecated
     static getIconClassName(details: NotifyMessageDetailsType): string;
     static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec;
     static getIconType(details: NotifyMessageDetailsType): MessageBoxIconType;
