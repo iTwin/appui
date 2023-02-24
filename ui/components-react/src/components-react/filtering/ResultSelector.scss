@@ -3,9 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-// @import "~@itwin/itwinui-css/scss/button/button";
-// @import "~@itwin/itwinui-css/scss/button/default";
-// @import "~@itwin/itwinui-css/scss/style/typography";
 
 .components-result-selector {
   display: flex;
@@ -41,8 +38,6 @@
 }
 
 .components-result-selector-button {
-  // @include iui-button;
-  // @include iui-button-default;
   font-size: 12px;
   height: 20px;
   width: 20px;

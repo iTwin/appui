@@ -3,8 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/itwinui-variables";
-
 // the following overrides default iui-slider-thumb settings from  iTwinUI
 div.components-timeline-thumb.iui-slider-thumb {
   display: flex;

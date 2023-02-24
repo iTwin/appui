@@ -13,7 +13,7 @@ import {
   SpecialKey,
   TimeDisplay,
 } from "@itwin/appui-abstract";
-import { BodyText, CommonProps, Popup } from "@itwin/core-react";
+import { CommonProps, Popup } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
 import { DatePicker } from "./DatePicker";
 import { DateField } from "./DateField";

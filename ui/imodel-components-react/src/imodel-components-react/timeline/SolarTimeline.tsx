@@ -16,7 +16,7 @@ import { Slider, Text, Tooltip } from "@itwin/itwinui-react";
 
 import { ColorByName, ColorDef, HSVColor } from "@itwin/core-common";
 import { RelativePosition, TimeDisplay } from "@itwin/appui-abstract";
-import { BodyText, CommonProps, Popup } from "@itwin/core-react";
+import { CommonProps, Popup } from "@itwin/core-react";
 import {
   adjustDateToTimezone,
   DatePicker,

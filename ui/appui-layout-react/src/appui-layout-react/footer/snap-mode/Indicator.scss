@@ -4,18 +4,17 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/index";
 @import "../variables";
-@import "~@itwin/itwinui-variables";
 
 .nz-footer-snapMode-indicator {
   height: 100%;
   overflow: hidden;
 
-  >.nz-indicator {
+  > .nz-indicator {
     height: 100%;
     display: flex;
     align-items: center;
 
-    >.nz-label {
+    > .nz-label {
       margin-right: 6px;
       font-size: $text-font-size;
       text-align: center;
@@ -28,13 +27,15 @@
       }
     }
 
-    >.nz-icon {
+    > .nz-icon {
       display: flex;
       align-items: center;
     }
 
     &:hover {
-      color: var(--iui-color-text-accent-hover); // TODO: Have the background color change instead of the text color?
+      color: var(
+        --iui-color-text-accent-hover
+      ); // TODO: Have the background color change instead of the text color?
       cursor: pointer;
     }
 

@@ -5,7 +5,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/core-react/lib/cjs/core-react/geometry";
 @import "../variables";
-@import "~@itwin/itwinui-variables";
 
 .nz-footer-messageCenter-indicator {
   height: 100%;
@@ -32,13 +31,13 @@
     padding-right: $nz-footer-indicator-horizontal-padding-medium;
   }
 
-  >.nz-indicator {
+  > .nz-indicator {
     height: 100%;
     display: flex;
     cursor: pointer;
     align-items: center;
 
-    >.nz-label {
+    > .nz-label {
       font-size: $text-font-size;
       font-size: $text-font-size;
       overflow: hidden;
@@ -54,14 +53,14 @@
       }
     }
 
-    >.nz-container {
+    > .nz-container {
       height: 100%;
       position: relative;
       display: grid;
       align-items: center;
       margin-left: 8px;
 
-      >.nz-balloon {
+      > .nz-balloon {
         background-color: var(--iui-color-icon);
         text-align: center;
         min-width: $min-balloon-width;
@@ -70,7 +69,7 @@
         padding: $balloon-padding;
         position: relative;
 
-        >.nz-arrow {
+        > .nz-arrow {
           position: absolute;
           width: 0;
           bottom: -3px;
@@ -84,7 +83,7 @@
           transform: rotate(25deg);
         }
 
-        >.nz-content {
+        > .nz-content {
           position: relative;
           color: var(--iui-color-background);
           line-height: $min-balloon-height;
@@ -92,7 +91,7 @@
         }
       }
 
-      >.nz-target {
+      > .nz-target {
         height: 100%;
         width: 100%;
         top: 0;
@@ -105,10 +104,10 @@
     &:hover {
       color: var(--iui-color-text-accent);
 
-      >.nz-container>.nz-balloon {
+      > .nz-container > .nz-balloon {
         background-color: var(--iui-color-text-accent);
 
-        >.nz-arrow {
+        > .nz-arrow {
           border-color: transparent var(--iui-color-text-accent);
         }
       }

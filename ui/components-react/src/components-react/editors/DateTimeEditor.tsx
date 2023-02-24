@@ -27,7 +27,6 @@ import { TypeConverter } from "../converters/TypeConverter";
 import { DatePicker } from "../datepicker/DatePicker";
 import { TypeConverterManager } from "../converters/TypeConverterManager";
 import { DateTimeTypeConverterBase } from "../converters/DateTimeTypeConverter";
-import { BodyText } from "@itwin/core-react";
 import { adjustDateToTimezone } from "../common/DateUtils";
 import { Text } from "@itwin/itwinui-react";
 

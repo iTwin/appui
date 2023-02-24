@@ -4,13 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-@import "~@itwin/itwinui-variables";
 
 @keyframes uifw-indicator-fadeIn {
   0% {
     opacity: 0;
-    -webkit-transform: scale(.5);
-    transform: scale(.5);
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
   }
 
   50% {
@@ -19,8 +18,8 @@
   }
 
   100% {
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
+    -webkit-transform: scale(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
@@ -59,13 +58,13 @@
     pointer-events: none;
   }
 
-  >.nz-balloon-container {
+  > .nz-balloon-container {
     height: 100%;
     position: relative;
     display: grid;
     align-content: center;
 
-    >.nz-balloon {
+    > .nz-balloon {
       background-color: var(--iui-color-text); // TODO: Where is this applied?
       text-align: center;
       cursor: pointer;
@@ -77,7 +76,7 @@
       position: relative;
       align-self: center;
 
-      >.nz-arrow {
+      > .nz-arrow {
         position: absolute;
         width: 0;
         bottom: -3px;
@@ -91,15 +90,15 @@
         transform: rotate(25deg);
       }
 
-      >.nz-content {
+      > .nz-content {
         position: relative;
-        color: red;  // TODO: Where is this applied?
+        color: red; // TODO: Where is this applied?
         line-height: $min-balloon-height;
         font-size: 11px;
       }
     }
 
-    >.nz-dialog {
+    > .nz-dialog {
       height: 100%;
       width: 100%;
       position: absolute;

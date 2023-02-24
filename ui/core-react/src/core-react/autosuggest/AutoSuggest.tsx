@@ -247,7 +247,6 @@ export class AutoSuggest extends React.PureComponent<
     }
   };
 
-  /// TODO Where is this used?
   private _theme = {
     container: "uicore-autosuggest__container",
     containerOpen: "uicore-autosuggest__container--open",
