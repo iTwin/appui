@@ -153,7 +153,7 @@ describe("CursorPopup", () => {
 
   // After looking thoroughly the numbers, the "working" tests are wrong
   // This needs to be completely reviewed...
-  it.skip("should set offset if more than one popup in a position", async () => {
+  it("should set offset if more than one popup in a position", async () => {
     sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({height: 100, width: 100, x: 100, y: 100}));
     render(<CursorPopupRenderer />);
     const pt = new Point(300, 300);
@@ -183,7 +183,7 @@ describe("CursorPopup", () => {
     CursorPopupManager.close("test2", false);
   });
 
-  it.skip("should flip right to left appropriately", async () => {
+  it("should flip right to left appropriately", async () => {
     sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({height: 100, width: 100, x: 100, y: 100}));
     render(<CursorPopupRenderer />);
     const offset = new Point(20, 20);
@@ -207,7 +207,7 @@ describe("CursorPopup", () => {
     Object.defineProperty(window, "innerWidth", {value: originalWidth});
   });
 
-  it.skip("should flip bottom to top appropriately", async () => {
+  it("should flip bottom to top appropriately", async () => {
     sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({height: 100, width: 100, x: 100, y: 100}));
     render(<CursorPopupRenderer />);
     const offset = new Point(20, 20);
@@ -231,7 +231,7 @@ describe("CursorPopup", () => {
     Object.defineProperty(window, "innerHeight", {value: originalHeight});
   });
 
-  it.skip("should flip left to right appropriately", async () => {
+  it("should flip left to right appropriately", async () => {
     sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({height: 100, width: 100, x: 100, y: 100}));
     render(<CursorPopupRenderer />);
     const offset = new Point(20, 20);
@@ -251,7 +251,7 @@ describe("CursorPopup", () => {
     });
   });
 
-  it.skip("should flip top to bottom appropriately", async () => {
+  it("should flip top to bottom appropriately", async () => {
     sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({height: 100, width: 100, x: 100, y: 100}));
     render(<CursorPopupRenderer />);
     const offset = new Point(20, 20);
