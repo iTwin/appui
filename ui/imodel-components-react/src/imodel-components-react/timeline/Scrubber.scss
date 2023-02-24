@@ -53,7 +53,8 @@ div.components-timeline-thumb.iui-slider-thumb {
         margin-left: -5px;
         border-width: 5px;
         border-style: solid;
-        border-color: rgba(0, 0, 0, var(--iui-opacity-3)) transparent transparent transparent;
+        border-color: rgba(0, 0, 0, var(--iui-opacity-3)) transparent
+          transparent transparent;
       }
     }
   }
@@ -102,5 +103,5 @@ div.components-timeline-thumb.iui-slider-thumb {
   width: 3px;
   border-radius: var(--iui-border-radius-1);
   transform: translateY(1px);
-  background-color: red; // TODO: Where is this?
+  background-color: var(--iui-color-border); //TODO
 }

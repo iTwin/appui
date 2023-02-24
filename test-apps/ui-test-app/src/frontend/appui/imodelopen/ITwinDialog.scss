@@ -62,7 +62,7 @@
 .itwins .header .icon {
   margin-left: auto;
   font-size: 1em;
-  color: $uicore-icons-dark;
+  color: var(--iui-color-icon-muted);
   cursor: pointer;
   -webkit-transition: color 0.3s;
   transition: color 0.3s;

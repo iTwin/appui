@@ -25,7 +25,7 @@
   .uifw-modal-app-bar {
     transition: transform 0.125s;
     padding: 10px;
-    background: var(--iui-color-background);
+    background: var(--iui-color-background-backdrop);
     height: 60px;
     transform: translateY(-100%);
     box-sizing: initial;
@@ -75,7 +75,7 @@
   top: 0px;
   height: 100%;
   opacity: 0.95;
-  background: red; // TODO: Where is this applied?
+  background: var(--iui-color-background-backdrop);
 
   @include uicore-z-index(modal-frontstage-overlay);
 }
