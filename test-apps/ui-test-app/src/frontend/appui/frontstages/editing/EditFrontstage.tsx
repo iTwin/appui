@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import {
   AccuDrawDialog, AccuDrawWidgetControl, BasicNavigationWidget, BasicToolWidget, CommandItemDef,
   CoreTools, CustomItemDef, FrontstageConfig, FrontstageProvider, IModelConnectedViewSelector,
-  StageUsage, ToolbarHelper, UiFramework, WidgetState,
+  StageUsage, ToolbarHelper, ToolbarItem, ToolbarItemUtilities, UiFramework, WidgetState,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../../frontend/index";
 import { EditTools } from "../../../tools/editing/ToolSpecifications";
@@ -104,10 +104,10 @@ class AdditionalTools {
   public sketchGroupItems = ToolbarHelper.constructChildToolbarItems([
     EditTools.placeLineStringTool, EditTools.placeArcTool]);
 
-  public sketchGroupButtonItem = ToolbarItemUtilities.createGroupButton("SampleApp:buttons.sketch", 135, IconSpecUtilities.createWebComponentIconSpec(sketchIconSvg),
+  public sketchGroupButtonItem = ToolbarItemUtilities.createGroupItem("SampleApp:buttons.sketch", 135, IconSpecUtilities.createWebComponentIconSpec(sketchIconSvg),
     IModelApp.localization.getLocalizedString("SampleApp:buttons.sketch"), this.sketchGroupItems);
 
-  public additionalHorizontalToolbarItems: CommonToolbarItem[] = [...ToolbarHelper.createToolbarItemsFromItemDefs([
+  public additionalHorizontalToolbarItems: ToolbarItem[] = [...ToolbarHelper.createToolbarItemsFromItemDefs([
     CoreTools.keyinPaletteButtonItemDef, EditTools.deleteElementTool,
     EditTools.moveElementTool, EditTools.rotateElementTool, EditTools.placeBlockTool], 100),
   this.sketchGroupButtonItem];
@@ -146,16 +146,16 @@ class AdditionalTools {
     });
   }
 
-  public getMiscGroupItem = (): CommonToolbarItem => {
+  public getMiscGroupItem = (): ToolbarItem => {
     const children = ToolbarHelper.constructChildToolbarItems([
       this._accudrawDialogItemVertical, this._accudrawDialogItemHorizontal,
     ]);
 
     const groupHiddenCondition = new ConditionalBooleanValue(() => SampleAppIModelApp.getTestProperty() === "HIDE", [SampleAppUiActionId.setTestProperty]);
-    const item = ToolbarItemUtilities.createGroupButton("SampleApp:buttons.misc", 130, "icon-tools", IModelApp.localization.getLocalizedString("SampleApp:buttons.misc"), children, { isHidden: groupHiddenCondition });
+    const item = ToolbarItemUtilities.createGroupItem("SampleApp:buttons.misc", 130, "icon-tools", IModelApp.localization.getLocalizedString("SampleApp:buttons.misc"), children, { isHidden: groupHiddenCondition });
     return item;
   };
 
   // test ToolbarHelper.createToolbarItemsFromItemDefs
-  public additionalVerticalToolbarItems: CommonToolbarItem[] = [this.getMiscGroupItem()];
+  public additionalVerticalToolbarItems: ToolbarItem[] = [this.getMiscGroupItem()];
 }

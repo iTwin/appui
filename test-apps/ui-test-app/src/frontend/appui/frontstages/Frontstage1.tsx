@@ -6,12 +6,12 @@ import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
   BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, CoreTools, FrontstageConfig, FrontstageDef,
-  FrontstageProvider, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, useWidgetDirection,
+  FrontstageProvider, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, useWidgetDirection,
   WidgetState, WidgetStateChangedEventArgs,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { AppToolbarUtilities, NestedFrontstage1 } from "./NestedFrontstage1";
-import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, UiAdmin } from "@itwin/appui-abstract";
+import { StandardContentLayouts, ToolbarItemUtilities, UiAdmin } from "@itwin/appui-abstract";
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
 import { IModelApp } from "@itwin/core-frontend";
@@ -258,7 +258,7 @@ class FrontstageToolWidget extends React.Component {
     });
   }
 
-  private _horizontalItems: CommonToolbarItem[] = [
+  private _horizontalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, this._openPopupWindow),
     ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.selectElementCommand),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item1),
@@ -269,7 +269,7 @@ class FrontstageToolWidget extends React.Component {
     ToolbarHelper.createToolbarItemFromItemDef(10, this._openModal),
   ];
 
-  private _verticalItems: CommonToolbarItem[] = [
+  private _verticalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.rotateViewCommand),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
@@ -299,12 +299,12 @@ class FrontstageToolWidget extends React.Component {
 /** Define a NavigationWidget with Buttons to display in the TopRight zone.
  */
 class FrontstageNavigationWidget extends React.Component {
-  private _horizontalItems: CommonToolbarItem[] = [
+  private _horizontalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
   ];
 
-  private _verticalItems: CommonToolbarItem[] = [
+  private _verticalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
   ];

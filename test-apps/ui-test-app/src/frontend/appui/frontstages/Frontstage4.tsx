@@ -4,13 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  CommonToolbarItem,
   DialogButtonDef, DialogButtonType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertyItem, DialogPropertySyncItem,
   PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardContentLayouts, StandardTypeNames, ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import {
   BackstageAppButton, CommandItemDef, ContentGroup, FrontstageConfig, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
-  StagePanelState, ToolbarComposer, ToolbarHelper, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, WidgetState,
+  StagePanelState, ToolbarComposer, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, WidgetState,
 } from "@itwin/appui-react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -186,7 +185,7 @@ export class Frontstage4 extends FrontstageProvider {
 
   /** Define a ToolWidget with Buttons to display in the TopLeft zone. */
   private getToolWidget(): React.ReactNode {
-    const horizontalItems: CommonToolbarItem[] = [
+    const horizontalItems: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
       ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
         AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool1),
@@ -201,7 +200,7 @@ export class Frontstage4 extends FrontstageProvider {
       ]),
     ];
 
-    const verticalItems: CommonToolbarItem[] = [
+    const verticalItems: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
       ToolbarItemUtilities.createGroupButton("SampleApp:buttons.anotherGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.anotherGroup"), [
@@ -323,7 +322,7 @@ export class Frontstage4 extends FrontstageProvider {
   /** Define a NavigationWidget with Buttons to display in the TopRight zone.
    */
   private getNavigationWidget(): React.ReactNode {
-    const horizontalItems: CommonToolbarItem[] = [
+    const horizontalItems: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
       ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
@@ -338,7 +337,7 @@ export class Frontstage4 extends FrontstageProvider {
       ]),
     ];
 
-    const verticalItems: CommonToolbarItem[] = [
+    const verticalItems: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
       ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [

@@ -4,13 +4,14 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BadgeType, CommonToolbarItem, ConditionalBooleanValue, ContentLayoutProps, RelativePosition, SpecialKey, ToolbarItemUtilities,
+  BadgeType, ConditionalBooleanValue, ContentLayoutProps, RelativePosition, SpecialKey,
 } from "@itwin/appui-abstract";
 import {
   BasicNavigationWidget, BasicToolWidget, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps,
   CoreTools, CursorInformation, CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef, EmphasizeElementsChangedArgs,
   FrontstageConfig, FrontstageDef, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
-  HideIsolateEmphasizeManager, MessageManager, StageUsage, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT, WidgetState,
+  HideIsolateEmphasizeManager, MessageManager, StageUsage, SyncUiEventId, ToolbarHelper, ToolbarItem, ToolbarItemUtilities, UiFramework,
+  WIDGET_OPACITY_DEFAULT, WidgetState,
 } from "@itwin/appui-react";
 import { CustomToolbarItem, useToolbarPopupContext } from "@itwin/components-react";
 import { BeDuration } from "@itwin/core-bentley";
@@ -649,19 +650,19 @@ class AdditionalTools {
     });                                      //       which can be supplied by an UiItemsProvider
   }
 
-  public formatGroupItemsItem = (): CommonToolbarItem => {
-    const children = ToolbarHelper.constructChildToolbarItems([
+  public formatGroupItemsItem = (): ToolbarItem => {
+    const items = ToolbarHelper.constructChildToolbarItems([
       AppTools.openUnitsFormatDialogCommand,
       AppTools.setLengthFormatMetricCommand,
       AppTools.setLengthFormatImperialCommand,
       AppTools.toggleLengthFormatOverrideCommand,
     ]);
-    const item = ToolbarItemUtilities.createGroupButton("tool-formatting-setting", 135, "icon-placeholder", "set formatting units", children, { badgeType: BadgeType.New, groupPriority: 40 });
+    const item = ToolbarItemUtilities.createGroupItem("tool-formatting-setting", 135, "icon-placeholder", "set formatting units", items, { badge: BadgeType.New, groupPriority: 40 });
     return item;
   };
 
   // cSpell:enable
-  public additionalHorizontalToolbarItems: CommonToolbarItem[] = [
+  public additionalHorizontalToolbarItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(0, CoreTools.keyinPaletteButtonItemDef, { groupPriority: -10 }),
     ToolbarHelper.createToolbarItemFromItemDef(5, this._openNestedAnimationStage, { groupPriority: -10 }),
     ToolbarHelper.createToolbarItemFromItemDef(115, AppTools.tool1, { groupPriority: 20 }),
@@ -702,7 +703,7 @@ class AdditionalTools {
     }), { groupPriority: 30 }),
   ];
 
-  public getMiscGroupItem = (): CommonToolbarItem => {
+  public getMiscGroupItem = (): ToolbarItem => {
     const children = ToolbarHelper.constructChildToolbarItems([
       this._nestedGroup,
       AppTools.saveContentLayout,
@@ -720,12 +721,12 @@ class AdditionalTools {
     ]);
 
     const groupHiddenCondition = new ConditionalBooleanValue(() => SampleAppIModelApp.getTestProperty() === "HIDE", [SampleAppUiActionId.setTestProperty]);
-    const item = ToolbarItemUtilities.createGroupButton("SampleApp:buttons.anotherGroup", 130, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.anotherGroup"), children, { badgeType: BadgeType.New, isHidden: groupHiddenCondition, groupPriority: 30 });
+    const item = ToolbarItemUtilities.createGroupItem("SampleApp:buttons.anotherGroup", 130, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.anotherGroup"), children, { badge: BadgeType.New, isHidden: groupHiddenCondition, groupPriority: 30 });
     return item;
   };
 
   // test ToolbarHelper.createToolbarItemsFromItemDefs
-  public additionalVerticalToolbarItems: CommonToolbarItem[] = [...ToolbarHelper.createToolbarItemsFromItemDefs([
+  public additionalVerticalToolbarItems: ToolbarItem[] = [...ToolbarHelper.createToolbarItemsFromItemDefs([
     new GroupItemDef({
       labelKey: "SampleApp:buttons.openCloseProperties",
       panelLabel: "Open Close Properties",

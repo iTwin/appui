@@ -3,10 +3,10 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { CommonToolbarItem, ConditionalBooleanValue, StandardContentLayouts } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, FrontstageConfig, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
-  SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, WidgetState,
+  SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, WidgetState,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -137,7 +137,7 @@ class FrontstageToolWidget extends React.Component {
       itemsInColumn: 7,
     });
 
-    const items: CommonToolbarItem[] = [
+    const items: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.clearSelectionItemDef),
       ToolbarHelper.createToolbarItemFromItemDef(20, SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef),
       ToolbarHelper.createToolbarItemFromItemDef(30, SelectionContextToolDefinitions.hideSectionToolGroup),
@@ -151,7 +151,7 @@ class FrontstageToolWidget extends React.Component {
   }
 
   private get _verticalToolbarItems() {
-    const items: CommonToolbarItem[] = [
+    const items: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item3),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item4),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),

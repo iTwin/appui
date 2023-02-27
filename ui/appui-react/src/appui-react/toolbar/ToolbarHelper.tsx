@@ -7,22 +7,22 @@
  */
 import * as React from "react";
 import {
-  ActionButton, CommonToolbarItem, ConditionalStringValue, CustomButtonDefinition, GroupButton, StringGetter, ToolbarItem, ToolbarItemUtilities,
+  ActionButton, CommonToolbarItem, ConditionalStringValue, CustomButtonDefinition, GroupButton, StringGetter
 } from "@itwin/appui-abstract";
-import { CustomToolbarItem, isCustomToolbarItem } from "@itwin/components-react";
 import { IconHelper } from "@itwin/core-react";
 import { AnyItemDef } from "../shared/AnyItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { CustomItemDef } from "../shared/CustomItemDef";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { GroupItemDef } from "./GroupItem";
+import { isToolbarActionItem, isToolbarGroupItem, ToolbarActionItem, ToolbarCustomItem, ToolbarGroupItem, ToolbarItem } from "./ToolbarItem";
 
 /** Helper functions for defining an ToolbarComposer.
  * @public
  */
 export class ToolbarHelper {
   /** Construct CustomToolbarItem definitions given a CustomItemDef. */
-  public static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): CustomToolbarItem {
+  public static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): ToolbarCustomItem {
     const isHidden = itemDef.isHidden;
     const isDisabled = itemDef.isDisabled;
     const internalData = new Map<string, any>();  // used to store ReactNode if iconSpec hold a ReactNode
@@ -41,20 +41,20 @@ export class ToolbarHelper {
       isDisabled,
       internalData,
       badgeType,
-      panelContentNode: itemDef.popupPanelNode,
+      panelContent: itemDef.popupPanelNode,
       ...overrides,
     };
   }
 
   /** Construct ActionButton and GroupButton definitions given an array to ItemDefs. */
-  public static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ActionButton | GroupButton> {
+  public static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ToolbarActionItem | ToolbarGroupItem> {
     let count = 10;
-    const items: Array<ActionButton | GroupButton> = [];
+    const items: Array<ToolbarActionItem | ToolbarGroupItem> = [];
     for (const itemDef of itemDefs) {
       const item = this.createToolbarItemFromItemDef(count, itemDef);
       count = count + 10;
       // istanbul ignore else
-      if (ToolbarItemUtilities.isActionButton(item) || ToolbarItemUtilities.isGroupButton(item))
+      if (isToolbarActionItem(item) || isToolbarGroupItem(item))
         items.push(item);
     }
     return items;
@@ -72,13 +72,12 @@ export class ToolbarHelper {
   }
 
   /** Helper method to creates a generic toolbar item entry */
-  public static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<ToolbarItem>): CommonToolbarItem {
+  public static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItem>): ToolbarItem {
     const isHidden = itemDef.isHidden;
     const isDisabled = itemDef.isDisabled;
-    const internalData = new Map<string, any>();  // used to store ReactNode if iconSpec hold a ReactNode
-    const icon = IconHelper.getIconData(itemDef.iconSpec, internalData);
+    const icon = itemDef.iconSpec;
     const label = this.getStringOrConditionalString(itemDef.rawLabel);
-    const badgeType = itemDef.badgeType;
+    const badge = itemDef.badgeType;
 
     // istanbul ignore else
     if (itemDef instanceof CommandItemDef) {
@@ -91,14 +90,13 @@ export class ToolbarHelper {
         isDisabled,
         isActive: itemDef.isActive,
         execute: itemDef.execute,
-        badgeType,
-        internalData,
+        badge,
         ...overrides,
       };
     } else if (itemDef instanceof CustomItemDef) {
       return ToolbarHelper.createCustomDefinitionToolbarItem(itemPriority, itemDef, overrides);
     } else if (itemDef instanceof GroupItemDef) {
-      const children: Array<ActionButton | GroupButton> = this.constructChildToolbarItems(itemDef.items);
+      const children: Array<ToolbarActionItem | ToolbarGroupItem> = this.constructChildToolbarItems(itemDef.items);
       return {
         id: itemDef.id,
         itemPriority,
@@ -109,8 +107,7 @@ export class ToolbarHelper {
         isDisabled,
         items: children,
         isActive: false,
-        badgeType,
-        internalData,
+        badge,
         ...overrides,
       };
     } else if (itemDef instanceof ToolItemDef) {
@@ -123,8 +120,7 @@ export class ToolbarHelper {
         isDisabled,
         isActive: itemDef.isActive,
         execute: itemDef.execute,
-        badgeType,
-        internalData,
+        badge,
         ...overrides,
       };
     } else {
@@ -132,7 +128,7 @@ export class ToolbarHelper {
     }
   }
 
-  public static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority = 10, overrides?: Partial<ToolbarItem>): CommonToolbarItem[] {
+  public static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority = 10, overrides?: Partial<CommonToolbarItem>): ToolbarItem[] {
     let itemPriority = startingItemPriority;
     const items = itemDefs.map((itemDef: AnyItemDef) => {
       const item = ToolbarHelper.createToolbarItemFromItemDef(itemPriority, itemDef, overrides);
@@ -141,11 +137,4 @@ export class ToolbarHelper {
     });
     return items;
   }
-
-  /** CustomToolbarButton type guard.
-   * @internal
-   */
-  public static isCustomToolbarButton = (item: CommonToolbarItem): item is CustomToolbarItem => {
-    return isCustomToolbarItem(item);
-  };
 }
