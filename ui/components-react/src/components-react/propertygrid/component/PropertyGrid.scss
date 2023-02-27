@@ -13,7 +13,6 @@
 }
 
 .components-property-grid {
-
   .property-categories {
     @include uicore-expandable-blocks-list;
 
@@ -41,12 +40,13 @@
 @mixin components-property-list {
   width: 100%;
 
-  .components--selected {
+  .components--selected,
+  .components--selected:hover {
     background-color: var(--iui-color-background-accent-muted);
     outline: 1px solid var(--iui-color-border-accent);
   }
 
-  .components--clickable {
+  .components--clickable:where(:not(.components--selected)) {
     cursor: pointer;
 
     &:hover {

@@ -19,8 +19,6 @@ $accent: var(--iui-color-background-accent);
   --buic-button-gradient2: rgba(var(--iui-color-foreground-body-invert-rgb), 0);
 
   --buic-background-editable: var(--iui-color-background); // nowhere used?
-  --buic-row-selection: var(--iui-color-background-accent-muted);
-  --buic-row-hover: var(--iui-color-background-backdrop-hover);
 }
 
 @mixin dark-theme {
@@ -31,8 +29,6 @@ $accent: var(--iui-color-background-accent);
   );
 
   --buic-background-editable: var(--iui-color-background); // nowhere used?
-  --buic-row-selection: var(--iui-color-background-accent-muted);
-  --buic-row-hover: var(--iui-color-background-backdrop-hover);
 }
 
 html,

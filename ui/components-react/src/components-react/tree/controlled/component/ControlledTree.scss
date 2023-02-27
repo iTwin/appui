@@ -40,7 +40,7 @@
       outline: none;
     }
 
-    >div {
+    > div {
       overflow: visible !important;
       max-width: none !important;
     }
@@ -62,7 +62,6 @@
     }
 
     .core-tree-node {
-
       &.is-focused,
       &:focus {
         outline: none;
@@ -77,19 +76,20 @@
 
   .node-wrapper.is-selected {
     .core-tree-node {
+      background: $buic-row-selection;
       @include enable-border("left");
       @include enable-border("right");
     }
   }
 
   .node-wrapper.is-selected:first-child,
-  .node-wrapper:not(.is-selected)+.node-wrapper.is-selected {
+  .node-wrapper:not(.is-selected) + .node-wrapper.is-selected {
     .core-tree-node {
       @include enable-border("top");
     }
   }
 
-  .node-wrapper.is-selected+.node-wrapper:not(.is-selected) {
+  .node-wrapper.is-selected + .node-wrapper:not(.is-selected) {
     .core-tree-node {
       @include enable-border("top");
     }

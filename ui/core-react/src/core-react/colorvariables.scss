@@ -38,7 +38,7 @@
 
   --buic-foreground-body-rgb: var(--iui-color-foreground-hsl);
   --buic-foreground-body: var(--iui-color-text);
-  // reverse????
+
   --buic-foreground-body-reverse-rgb: var(--iui-color-foreground-hsl);
   --buic-foreground-body-reverse: hsl(
     var(--iui-color-background-hsl) / var(--iui-opacity-2)
@@ -125,4 +125,8 @@
 
   /** background.1 */
   --buic-background-control: var(--buic-background-1);
+
+  // Color variables
+  --buic-row-selection: var(--iui-color-background-accent-muted);
+  --buic-row-hover: var(--iui-color-background-hover);
 }
