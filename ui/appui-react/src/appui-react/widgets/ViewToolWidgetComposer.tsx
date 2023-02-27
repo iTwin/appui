@@ -8,10 +8,10 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { ToolbarOrientation, ToolbarUsage } from "@itwin/appui-abstract";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import { NavigationWidgetComposer } from "./NavigationWidgetComposer";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 
 /**
  * Props for [[ViewToolWidgetComposer]].
@@ -44,8 +44,8 @@ export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps) {
 
   return (
     <NavigationWidgetComposer className={className} hideNavigationAid={props.hideNavigationAid}
-      horizontalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />} // eslint-disable-line deprecation/deprecation
-      verticalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />} // eslint-disable-line deprecation/deprecation
+      horizontalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />}
+      verticalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />}
     />
   );
 }

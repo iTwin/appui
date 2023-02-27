@@ -3,20 +3,19 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { ActionButton, CommonToolbarItem, ConditionalStringValue, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
+import { ActionButton, ConditionalStringValue, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import {
   BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, FrontstageConfig, FrontstageDef,
   FrontstageProvider, ItemDefBase, NavigationAidHost, NavigationWidgetComposer, NestedFrontstage, ToolbarComposer,
-  ToolbarHelper, ToolItemDef, ToolWidgetComposer, UiFramework,
+  ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolItemDef, ToolWidgetComposer, UiFramework, WidgetState,
 } from "@itwin/appui-react";
+import { IModelApp } from "@itwin/core-frontend";
+import { IconHelper } from "@itwin/core-react";
+
 import { AppTools } from "../../tools/ToolSpecifications";
-import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
-import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { NestedFrontstage2 } from "./NestedFrontstage2";
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
-import { IModelApp } from "@itwin/core-frontend";
-import { IconHelper } from "@itwin/core-react";
 
 export class NestedFrontstage1 extends FrontstageProvider {
   public static stageId = "ui-test-app:NestedFrontstage1";
@@ -34,20 +33,19 @@ export class NestedFrontstage1 extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: <FrontstageToolWidget />,
+        content: <FrontstageToolWidget />,
       },
       toolSettings: {
         id: "toolSettings",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: <FrontstageNavigationWidget />,
+        content: <FrontstageNavigationWidget />,
       },
       statusBar: {
         id: "statusBar",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
         labelKey: "SampleApp:widgets.StatusBar",
-        control: SmallStatusBarWidgetControl,
       },
       rightPanel: {
         sections: {
@@ -55,16 +53,14 @@ export class NestedFrontstage1 extends FrontstageProvider {
             {
               id: "HorizontalPropertyGrid",
               defaultState: WidgetState.Closed,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
-              control: HorizontalPropertyGridWidgetControl,
             },
             {
               id: "VerticalPropertyGrid",
               defaultState: WidgetState.Hidden,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-              control: VerticalPropertyGridWidgetControl,
             },
           ],
         },
@@ -105,7 +101,7 @@ class FrontstageToolWidget extends React.Component {
     });
   }
 
-  private _horizontalItems: CommonToolbarItem[] = [
+  private _horizontalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.selectElementCommand),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item1),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item2),
@@ -113,7 +109,7 @@ class FrontstageToolWidget extends React.Component {
     ToolbarHelper.createToolbarItemFromItemDef(10, this._openModal),
   ];
 
-  private _verticalItems: CommonToolbarItem[] = [
+  private _verticalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.rotateViewCommand),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
@@ -143,12 +139,12 @@ class FrontstageToolWidget extends React.Component {
 /** Define a NavigationWidget with Buttons to display in the TopRight zone.
  */
 class FrontstageNavigationWidget extends React.Component {
-  private _horizontalItems: CommonToolbarItem[] = [
+  private _horizontalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
   ];
 
-  private _verticalItems: CommonToolbarItem[] = [
+  private _verticalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
   ];

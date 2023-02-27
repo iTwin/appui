@@ -19,17 +19,6 @@ function readPackage(pkg) {
     pkg.dependencies["@itwin/core-react"] = "workspace:*"
     pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
   }
-  if (pkg.dependencies && pkg.dependencies["@itwin/appui-abstract"]) {
-    pkg.dependencies["@itwin/appui-abstract"] = "workspace:*";
-  }
-  if (pkg.peerDependencies && pkg.peerDependencies["@itwin/appui-abstract"]) {
-    pkg.dependencies["@itwin/appui-abstract"] = "workspace:*";
-    delete pkg.peerDependencies["@itwin/appui-abstract"];
-  }
-  if (pkg.devDependencies && pkg.devDependencies["@itwin/appui-abstract"]) {
-    pkg.devDependencies["@itwin/appui-abstract"] = "workspace:*";
-  }
-
 
   return pkg;
 }

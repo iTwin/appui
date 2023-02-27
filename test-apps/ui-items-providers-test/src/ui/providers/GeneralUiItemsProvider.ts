@@ -3,16 +3,14 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import {
-  CommonToolbarItem, IconSpecUtilities,
-} from "@itwin/appui-abstract";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
 import { SampleTool } from "../../tools/SampleTool";
 import { UnitsPopupUiDataProvider } from "../dialogs/UnitsPopup";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiItemsProvidersTest } from "../../ui-items-providers-test";
 import { OpenAbstractDialogTool } from "../../tools/OpenAbstractModalDialogTool";
 import statusFieldSvg from "../icons/StatusField.svg";
-import { AnyStatusBarItem, StageUsage, StatusBarItemUtilities, StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsProvider } from "@itwin/appui-react";
+import { StageUsage, StatusBarItem, StatusBarItemUtilities, StatusBarSection, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsProvider } from "@itwin/appui-react";
 
 /**
  * The GeneralUiItemsProvider provides additional items to any frontstage that has a usage value of StageUsage.General.
@@ -21,7 +19,7 @@ import { AnyStatusBarItem, StageUsage, StatusBarItemUtilities, StatusBarSection,
 export class GeneralUiItemsProvider implements UiItemsProvider {
   public readonly id = "GeneralUiItemsProvider";
 
-  public provideToolbarButtonItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): CommonToolbarItem[] {
+  public provideToolbarItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
     /** Add a tool that displays tool settings  */
     if (stageUsage === StageUsage.General && toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
       return [SampleTool.getActionButtonDef(1000)];
@@ -34,9 +32,9 @@ export class GeneralUiItemsProvider implements UiItemsProvider {
     return [];
   }
 
-  public provideStatusBarItems(_stageId: string, stageUsage: string): AnyStatusBarItem[] {
+  public provideStatusBarItems(_stageId: string, stageUsage: string): StatusBarItem[] {
     const unitsIcon = IconSpecUtilities.createWebComponentIconSpec(statusFieldSvg);
-    const statusBarItems: AnyStatusBarItem[] = [];
+    const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General) {
       statusBarItems.push(
         /** Add a status bar item to set the active unit system used to display quantity values.  */

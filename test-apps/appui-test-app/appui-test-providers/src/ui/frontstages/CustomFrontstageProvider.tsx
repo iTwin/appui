@@ -7,7 +7,7 @@ import {
   BackstageAppButton, ConfigurableCreateInfo, ContentControl, ContentGroup,
   ContentToolWidgetComposer, CoreTools, FrontstageConfig, FrontstageProvider, StagePanelState,
   StandardContentToolsUiItemsProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider,
-  StatusBarWidgetComposerControl, UiFramework, UiItemsManager, ViewToolWidgetComposer,
+  StatusBarComposer, UiFramework, UiItemsManager, ViewToolWidgetComposer,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { CustomStageUiItemsProvider } from "../providers/CustomStageUiItemsProvider";
@@ -49,7 +49,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: `${id}-contentManipulationTools`,
-        element: <ContentToolWidgetComposer
+        content: <ContentToolWidgetComposer
           cornerButton={
             <BackstageAppButton label="Toggle Backstage" icon="icon-bentley-systems"
               execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />
@@ -58,14 +58,14 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       },
       viewNavigation: {
         id: `${id}-viewNavigationTools`,
-        element: <ViewToolWidgetComposer />,
+        content: <ViewToolWidgetComposer />,
       },
       toolSettings: {
         id: `${id}-toolSettings`,
       },
       statusBar: {
         id: `${id}-statusBar`,
-        control: StatusBarWidgetComposerControl,
+        content: <StatusBarComposer key={UiFramework.frontstages.activeFrontstageId} items={[]} />,
       },
       leftPanel: {
         size: 500,
@@ -75,7 +75,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
             {
               id: "widget-1",
               label: "Widget 1",
-              element: <>Frontstage provided widget: <b>widget-1</b></>,
+              content: <>Frontstage provided widget: <b>widget-1</b></>,
             },
           ],
         },

@@ -15,29 +15,6 @@
     },
     // UI TESTS
     {
-      "name": "[UI] Tests: AppUi Abstract",
-      "presentation": {
-        "group": "4_UI"
-      },
-      "cwd": "${workspaceFolder}/ui/appui-abstract",
-      "type": "pwa-node",
-      "request": "launch",
-      "program": "${workspaceFolder}/ui/appui-abstract/node_modules/mocha/bin/_mocha",
-      "args": [
-        "--config",
-        "../.mocharc-noreact.json",
-        "--no-timeouts",
-        "lib/cjs/test/**/*.test.js"
-      ],
-      "skipFiles": [
-        "<node_internals>/**/*.js",
-        "node_modules/rxjs/**/*"
-      ],
-      "outFiles": [
-        "${workspaceFolder}/{core,ui}/*/lib/**/*.js"
-      ]
-    },
-    {
       "name": "[UI] Tests: Components React",
       "presentation": {
         "group": "4_UI"

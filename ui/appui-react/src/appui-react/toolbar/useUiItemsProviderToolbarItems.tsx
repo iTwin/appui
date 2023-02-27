@@ -7,17 +7,17 @@
  */
 
 import * as React from "react";
-import { CommonToolbarItem, ToolbarItemsChangedArgs, ToolbarItemsManager } from "@itwin/appui-abstract";
 import { useActiveStageId } from "../hooks/useActiveStageId";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
 import { UiFramework } from "../UiFramework";
-import { ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
+import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { ToolbarItemsManager } from "./ToolbarItemsManager";
 
 /** Hook that returns items from [[ToolbarItemsManager]].
  * @public
  */
-export const useUiItemsProviderToolbarItems = (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): readonly CommonToolbarItem[] => {
+export const useUiItemsProviderToolbarItems = (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): readonly ToolbarItem[] => {
   const uiItemsProviderIds = useAvailableUiItemsProviders();
   const stageId = useActiveStageId();
   const [items, setItems] = React.useState(manager.items);
@@ -27,10 +27,7 @@ export const useUiItemsProviderToolbarItems = (manager: ToolbarItemsManager, too
   // current stage's composer allows entries from extensions.
   React.useEffect(() => {
     const uiProviders = uiItemsProviderIds.join("-");
-    const handleChanged = (args: ToolbarItemsChangedArgs) => {
-      setItems(args.items);
-    };
-    manager.onItemsChanged.addListener(handleChanged);
+
     // istanbul ignore else
     if (providersRef.current !== uiProviders || currentStageRef.current !== stageId) {
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
@@ -44,9 +41,9 @@ export const useUiItemsProviderToolbarItems = (manager: ToolbarItemsManager, too
         setItems(manager.items);
       }
     }
-    return () => {
-      manager.onItemsChanged.removeListener(handleChanged);
-    };
+    return manager.onItemsChanged.addListener((args) => {
+      setItems(args.items);
+    });
   }, [uiItemsProviderIds, stageId, manager, toolbarUsage, toolbarOrientation]);
   return items;
 };
