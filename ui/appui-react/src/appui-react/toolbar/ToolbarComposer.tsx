@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { ConditionalBooleanValue, CommonToolbarItem as UIA_CommonToolbarItem } from "@itwin/appui-abstract";
-import { CustomToolbarItem, Direction, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
 import { Logger } from "@itwin/core-bentley";
 import { Orientation } from "@itwin/core-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
@@ -16,8 +16,9 @@ import { UiFramework } from "../UiFramework";
 import { ToolbarDragInteractionContext } from "./DragInteraction";
 import { useDefaultToolbarItems } from "./useDefaultToolbarItems";
 import { useUiItemsProviderToolbarItems } from "./useUiItemsProviderToolbarItems";
-import { isToolbarActionItem, isToolbarCustomItem, isToolbarGroupItem, ToolbarActionItem, ToolbarGroupItem, ToolbarItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
+import { isToolbarActionItem, isToolbarGroupItem, ToolbarActionItem, ToolbarGroupItem, ToolbarItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
 import { ToolbarItemsManager } from "./ToolbarItemsManager";
+import { toUIAToolbarItem } from "./toUIAToolbarItem";
 
 /** Private function to set up sync event monitoring of toolbar items */
 function useToolbarItemSyncEffect(uiDataProvider: ToolbarItemsManager, syncIdsOfInterest: string[]) {
@@ -73,19 +74,6 @@ function nestedAddItemToSpecifiedParentGroup(items: ReadonlyArray<ToolbarActionI
     outItems.push({ ...toolbarItem, items: newChildren });
   }
   return outItems;
-}
-
-function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
-  if (isToolbarCustomItem(item)) {
-    const customItem: CustomToolbarItem = {
-      ...item,
-      isCustom: true,
-      icon: item.icon as string,
-      panelContentNode: item.panelContent,
-    };
-    return customItem;
-  }
-  return item as UIA_CommonToolbarItem; // TODO: 4.0
 }
 
 function addItemToSpecifiedParentGroup(items: readonly ToolbarItem[], groupChildren: Array<ToolbarActionItem | ToolbarGroupItem>): ToolbarItem[] {

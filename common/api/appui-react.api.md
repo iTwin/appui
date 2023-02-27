@@ -33,7 +33,6 @@ import { ConditionalStringValue } from '@itwin/appui-abstract';
 import { ConnectedComponent } from 'react-redux';
 import { ContentLayoutProps } from '@itwin/appui-abstract';
 import { CustomButtonDefinition } from '@itwin/appui-abstract';
-import { CustomToolbarItem } from '@itwin/components-react';
 import { DialogItem } from '@itwin/appui-abstract';
 import { DialogLayoutDataProvider } from '@itwin/appui-abstract';
 import { DialogPropertySyncItem } from '@itwin/appui-abstract';
@@ -116,7 +115,6 @@ import { Tool } from '@itwin/core-frontend';
 import { ToolAdmin } from '@itwin/core-frontend';
 import { ToolAssistanceInstruction } from '@itwin/core-frontend';
 import { ToolAssistanceInstructions } from '@itwin/core-frontend';
-import { ToolbarItem as ToolbarItem_2 } from '@itwin/appui-abstract';
 import { ToolTipOptions } from '@itwin/core-frontend';
 import { UiAdmin } from '@itwin/appui-abstract';
 import { UiDataProvider } from '@itwin/appui-abstract';
@@ -4956,15 +4954,13 @@ export interface ToolbarGroupItem extends CommonToolbarItem {
 
 // @public
 export class ToolbarHelper {
-    static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ActionButton | GroupButton>;
-    static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): CustomToolbarItem;
-    static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<ToolbarItem_2>): CommonToolbarItem_2;
+    static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ToolbarActionItem | ToolbarGroupItem>;
+    static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): ToolbarCustomItem;
+    static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem;
     // (undocumented)
-    static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<ToolbarItem_2>): CommonToolbarItem_2[];
+    static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority?: number, overrides?: Partial<CommonToolbarItem_2>): ToolbarItem[];
     // (undocumented)
     static getIconReactNode(item: ActionButton | GroupButton): React_2.ReactNode;
-    // @internal
-    static isCustomToolbarButton: (item: CommonToolbarItem_2) => item is CustomToolbarItem;
 }
 
 // @public
@@ -4996,7 +4992,7 @@ export class ToolbarPopup extends React_2.PureComponent<ToolbarPopupProps, Toolb
 // @beta
 export interface ToolbarPopupProps extends PopupPropsBase {
     // (undocumented)
-    items: CommonToolbarItem_2[];
+    items: ToolbarItem[];
     // (undocumented)
     onCancel: OnCancelFunc;
     // (undocumented)

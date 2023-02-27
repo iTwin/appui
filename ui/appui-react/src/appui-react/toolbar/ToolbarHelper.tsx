@@ -7,7 +7,7 @@
  */
 import * as React from "react";
 import {
-  ActionButton, CommonToolbarItem, ConditionalStringValue, CustomButtonDefinition, GroupButton, StringGetter
+  ActionButton, CommonToolbarItem, ConditionalStringValue, CustomButtonDefinition, GroupButton, StringGetter,
 } from "@itwin/appui-abstract";
 import { IconHelper } from "@itwin/core-react";
 import { AnyItemDef } from "../shared/AnyItemDef";
