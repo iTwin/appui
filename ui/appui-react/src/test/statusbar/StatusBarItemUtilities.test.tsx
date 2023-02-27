@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import { ConditionalBooleanValue, StatusBarSection } from "@itwin/appui-abstract";
-import { StatusBarItemUtilities } from "../../appui-react";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { StatusBarItemUtilities, StatusBarSection } from "../../appui-react";
 
 describe("StatusBarItemUtilities", () => {
   describe("createCustomItem", () => {

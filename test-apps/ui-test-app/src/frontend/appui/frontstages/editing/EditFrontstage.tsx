@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities, StageUsage, ToolbarItemUtilities, WidgetState } from "@itwin/appui-abstract";
+import { CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import {
   AccuDrawDialog, AccuDrawWidgetControl, BasicNavigationWidget, BasicToolWidget, CommandItemDef,
   CoreTools, CustomItemDef, FrontstageConfig, FrontstageProvider, IModelConnectedViewSelector,
-  ToolbarHelper, UiFramework,
+  StageUsage, ToolbarHelper, UiFramework, WidgetState,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../../frontend/index";
 import { EditTools } from "../../../tools/editing/ToolSpecifications";

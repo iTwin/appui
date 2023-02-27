@@ -3,10 +3,10 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider,
-  MessageCenterField, StatusBarWidgetControl,
+  MessageCenterField, StatusBarWidgetControl, WidgetState,
 } from "../../appui-react";
 
 /** @internal */

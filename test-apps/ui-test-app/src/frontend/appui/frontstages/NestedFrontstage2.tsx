@@ -3,15 +3,16 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { CommonToolbarItem, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
+import { CommonToolbarItem, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import {
   ContentGroup, CoreTools, FrontstageConfig, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
-  ToolbarComposer, ToolbarHelper, ToolWidgetComposer,
+  ToolbarComposer, ToolbarHelper, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, WidgetState,
 } from "@itwin/appui-react";
+import { IModelApp } from "@itwin/core-frontend";
+
 import { AppTools } from "../../tools/ToolSpecifications";
 import { AppUi } from "../AppUi";
 import { AppToolbarUtilities, BackstageBackButton } from "./NestedFrontstage1";
-import { IModelApp } from "@itwin/core-frontend";
 
 export class NestedFrontstage2 extends FrontstageProvider {
   public static stageId = "ui-test-app:NestedFrontstage2";

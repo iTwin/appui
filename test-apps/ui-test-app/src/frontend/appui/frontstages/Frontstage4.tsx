@@ -3,17 +3,16 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { IModelApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import {
   CommonToolbarItem,
   DialogButtonDef, DialogButtonType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertyItem, DialogPropertySyncItem,
-  PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardContentLayouts, StandardTypeNames, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState,
+  PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardContentLayouts, StandardTypeNames, ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton,
-  CommandItemDef, ContentGroup, FrontstageConfig, FrontstageProvider,
-  NavigationAidHost, NavigationWidgetComposer, StagePanelState, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
+  BackstageAppButton, CommandItemDef, ContentGroup, FrontstageConfig, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
+  StagePanelState, ToolbarComposer, ToolbarHelper, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, WidgetState,
 } from "@itwin/appui-react";
+import { IModelApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { PopupTestDialog } from "../dialogs/PopupTest";
 import { SampleModalDialog } from "../dialogs/SampleModalDialog";

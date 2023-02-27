@@ -6,12 +6,12 @@ import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
   BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, CoreTools, FrontstageConfig, FrontstageDef,
-  FrontstageProvider, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, useWidgetDirection,
-  WidgetStateChangedEventArgs,
+  FrontstageProvider, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, useWidgetDirection,
+  WidgetState, WidgetStateChangedEventArgs,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { AppToolbarUtilities, NestedFrontstage1 } from "./NestedFrontstage1";
-import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, UiAdmin, WidgetState } from "@itwin/appui-abstract";
+import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, UiAdmin } from "@itwin/appui-abstract";
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
 import { IModelApp } from "@itwin/core-frontend";

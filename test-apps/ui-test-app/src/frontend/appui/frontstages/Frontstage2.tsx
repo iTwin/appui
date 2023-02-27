@@ -3,10 +3,10 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { CommonToolbarItem, ConditionalBooleanValue, StandardContentLayouts, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
+import { CommonToolbarItem, ConditionalBooleanValue, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, FrontstageConfig, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
-  SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
+  SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, WidgetState,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppTools } from "../../tools/ToolSpecifications";

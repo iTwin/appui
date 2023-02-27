@@ -15,14 +15,14 @@ import {
 } from "@itwin/core-frontend";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import {
-  BackstageItem, BackstageItemUtilities, ConditionalBooleanValue, ConditionalStringValue, DialogButtonType, IconSpecUtilities, MessageSeverity, StagePanelLocation,
-  StagePanelSection, StandardContentLayouts, StatusBarLabelSide, StatusBarSection, WidgetState,
+  ConditionalBooleanValue, ConditionalStringValue, DialogButtonType, IconSpecUtilities, MessageSeverity, StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import { Dialog, FillCentered, ReactMessage, SvgPath, UnderlinedButton } from "@itwin/core-react";
 import {
-  CommandItemDef, ContentGroup, ContentGroupProps, ContentProps,
-  IModelViewportControl, MessageManager, ReactNotifyMessageDetails, StatusBarDialog, StatusBarItem, StatusBarItemUtilities, StatusBarLabelIndicator,
-  StatusBarSeparator, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef, UiFramework, UiItemsManager, UiItemsProvider, Widget,
+  BackstageItem, BackstageItemUtilities, CommandItemDef, ContentGroup, ContentGroupProps, ContentProps, IModelViewportControl,
+  MessageManager, ReactNotifyMessageDetails, StagePanelLocation, StagePanelSection, StatusBarDialog, StatusBarItem, StatusBarItemUtilities,
+  StatusBarLabelIndicator, StatusBarLabelSide, StatusBarSection, StatusBarSeparator, SyncUiEventDispatcher, SyncUiEventId,
+  ToolItemDef, UiFramework, UiItemsManager, UiItemsProvider, Widget, WidgetState,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../";
 import { AppUi } from "../appui/AppUi";

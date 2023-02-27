@@ -135,7 +135,6 @@ import { ViewportComponent } from '@itwin/imodel-components-react';
 import { ViewState } from '@itwin/core-frontend';
 import { ViewStateProp } from '@itwin/imodel-components-react';
 import { ViewStateProps } from '@itwin/core-common';
-import { WidgetState as WidgetState_2 } from '@itwin/appui-abstract';
 import { WritableDraft } from 'immer/dist/internal';
 import { XAndY } from '@itwin/core-geometry';
 

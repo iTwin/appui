@@ -5,9 +5,9 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BadgeType, WidgetState } from "@itwin/appui-abstract";
+import { BadgeType } from "@itwin/appui-abstract";
 import { SvgList } from "@itwin/itwinui-icons-react";
-import { UiFramework, WidgetChangedEventArgs, WidgetDef } from "../../appui-react";
+import { UiFramework, WidgetChangedEventArgs, WidgetDef, WidgetState } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import TestUtils from "../TestUtils";
 

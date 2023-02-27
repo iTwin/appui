@@ -3,24 +3,24 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import {
+  BadgeType, CommonToolbarItem, ConditionalBooleanValue, ContentLayoutProps, RelativePosition, SpecialKey, ToolbarItemUtilities,
+} from "@itwin/appui-abstract";
+import {
+  BasicNavigationWidget, BasicToolWidget, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps,
+  CoreTools, CursorInformation, CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef, EmphasizeElementsChangedArgs,
+  FrontstageConfig, FrontstageDef, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
+  HideIsolateEmphasizeManager, MessageManager, StageUsage, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT, WidgetState,
+} from "@itwin/appui-react";
+import { CustomToolbarItem, useToolbarPopupContext } from "@itwin/components-react";
 import { BeDuration } from "@itwin/core-bentley";
 import {
   ActivityMessageDetails, ActivityMessageEndReason, IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType,
   ScreenViewport, ViewState,
 } from "@itwin/core-frontend";
-import {
-  BadgeType, CommonToolbarItem, ConditionalBooleanValue, ContentLayoutProps, RelativePosition, SpecialKey, StageUsage, ToolbarItemUtilities, WidgetState,
-} from "@itwin/appui-abstract";
-import { CustomToolbarItem, useToolbarPopupContext } from "@itwin/components-react";
 import { Point, ScrollView } from "@itwin/core-react";
-import {
-  BasicNavigationWidget, BasicToolWidget, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps,
-  CoreTools, CursorInformation, CursorPopupContent, CursorPopupManager, CursorUpdatedEventArgs, CustomItemDef, EmphasizeElementsChangedArgs,
-  FrontstageConfig,
-  FrontstageDef, FrontstageProvider, GroupItemDef, HideIsolateEmphasizeAction, HideIsolateEmphasizeActionHandler,
-  HideIsolateEmphasizeManager, MessageManager, SyncUiEventId, ToolbarHelper, UiFramework, WIDGET_OPACITY_DEFAULT,
-} from "@itwin/appui-react";
 import { Button, Slider } from "@itwin/itwinui-react";
+
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../frontend/index";
 import { AccuDrawPopupTools } from "../../tools/AccuDrawPopupTools";
 import { AppTools } from "../../tools/ToolSpecifications";
