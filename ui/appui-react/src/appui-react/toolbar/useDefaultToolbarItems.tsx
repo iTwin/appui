@@ -7,12 +7,13 @@
  */
 
 import * as React from "react";
-import { CommonToolbarItem, ToolbarItemsChangedArgs, ToolbarItemsManager } from "@itwin/appui-abstract";
+import { ToolbarItem } from "./ToolbarItem";
+import { ToolbarItemsManager } from "./ToolbarItemsManager";
 
 /** Hook that returns items from [[ToolbarItemsManager]].
  * @public
  */
-export const useDefaultToolbarItems = (manager: ToolbarItemsManager): readonly CommonToolbarItem[] => {
+export const useDefaultToolbarItems = (manager: ToolbarItemsManager): readonly ToolbarItem[] => {
   const [items, setItems] = React.useState(() => manager.items);
   const isInitialMount = React.useRef(true);
   React.useEffect(() => {
@@ -23,13 +24,9 @@ export const useDefaultToolbarItems = (manager: ToolbarItemsManager): readonly C
     }
   }, [manager, manager.items]);
   React.useEffect(() => {
-    const handleChanged = (args: ToolbarItemsChangedArgs) => {
+    return manager.onItemsChanged.addListener((args) => {
       setItems(args.items);
-    };
-    manager.onItemsChanged.addListener(handleChanged);
-    return () => {
-      manager.onItemsChanged.removeListener(handleChanged);
-    };
+    });
   }, [manager]);
   return items;
 };

@@ -5,17 +5,17 @@
 import "./EditStatusBar.scss";
 import * as React from "react";
 import {
-  ActivityCenterField, AnyStatusBarItem, MessageCenterField, SectionsStatusField, SelectionInfoField,
-  SelectionScopeField, SnapModeField, StatusBarComposer, StatusBarItemUtilities, StatusBarSection, StatusBarSeparator, StatusBarWidgetControl,
+  ActivityCenterField, MessageCenterField, SectionsStatusField, SelectionInfoField, SelectionScopeField, SnapModeField,
+  StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarSection, StatusBarSeparator, StatusBarWidgetControl,
   TileLoadingIndicator, ToolAssistanceField, UiFramework, ViewAttributesStatusField,
 } from "@itwin/appui-react";
 import { DisplayStyleField } from "../../statusfields/DisplayStyleField";
 import { PushPullStatusField } from "../../statusfields/editing/PushPullStatusField";
 
 export class EditStatusBarWidgetControl extends StatusBarWidgetControl {
-  private _statusBarItems: AnyStatusBarItem[] | undefined;
+  private _statusBarItems: StatusBarItem[] | undefined;
 
-  public get statusBarItems(): AnyStatusBarItem[] {
+  public get statusBarItems(): StatusBarItem[] {
     if (!this._statusBarItems) {
       this._statusBarItems = [
         StatusBarItemUtilities.createCustomItem("ToolAssistance", StatusBarSection.Left, 10, <ToolAssistanceField />),

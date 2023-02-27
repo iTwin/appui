@@ -4,12 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
-import {
-  StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsManager,
-} from "@itwin/appui-abstract";
-import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
-import { DefaultNavigationTools, StandardNavigationToolsProvider } from "../../appui-react";
+import { DefaultNavigationTools, StageUsage, StandardNavigationToolsProvider, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
+import TestUtils from "../TestUtils";
 
 const testToolsArray: DefaultNavigationTools[] = [
   {
@@ -76,8 +73,8 @@ describe("StandardNavigationToolsProvider", () => {
   it("should register StandardNavigationToolsProvider with defaults", () => {
     const provider = StandardNavigationToolsProvider.register(testToolProviderId);
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal).length).to.eq(6);
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical).length).to.eq(3);
+    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal)).length(6);
+    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical)).length(3);
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
