@@ -7,13 +7,11 @@
  */
 
 import { ViewClipByPlaneTool } from "@itwin/core-frontend";
-import {
-  BaseUiItemsProvider, CommonStatusBarItem, CommonToolbarItem,
-  ToolbarOrientation, ToolbarUsage, UiItemsManager,
-} from "@itwin/appui-abstract";
 import { DefaultContentTools, StandardContentToolsUiItemsProvider } from "./StandardContentToolsUiItemsProvider";
-
-/* eslint-disable deprecation/deprecation */
+import { UiItemsManager } from "./UiItemsManager";
+import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
+import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import { StatusBarItem } from "../statusbar/StatusBarItem"
 
 /**
  * Defines options that may be set in frontstage app data to control what group priorities
@@ -82,11 +80,11 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     this.uiItemsProvider = new StandardContentToolsUiItemsProvider(defaultContentTools);
   }
 
-  public override provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): CommonToolbarItem[] {
-    return this.uiItemsProvider.provideToolbarButtonItems(_stageId, _stageUsage, toolbarUsage, toolbarOrientation, stageAppData);
+  public override provideToolbarItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[] {
+    return this.uiItemsProvider.provideToolbarItems(_stageId, _stageUsage, toolbarUsage, toolbarOrientation, stageAppData);
   }
 
-  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): CommonStatusBarItem[] {
+  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
     return this.uiItemsProvider.provideStatusBarItems(_stageId, _stageUsage, _stageAppData);
   }
 }

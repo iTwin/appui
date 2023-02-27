@@ -5,12 +5,10 @@
 import { expect } from "chai";
 import produce from "immer";
 import * as sinon from "sinon";
-import { setPanelSize, StagePanelDef, StagePanelState, toPanelSide, UiFramework, WidgetDef } from "../../appui-react";
-import TestUtils from "../TestUtils";
-import { StagePanelLocation } from "@itwin/appui-abstract";
 import { createNineZoneState } from "@itwin/appui-layout-react";
-import { FrontstageDef } from "../../appui-react/frontstage/FrontstageDef";
+import { FrontstageDef, setPanelSize, StagePanelDef, StagePanelLocation, StagePanelState, toPanelSide, UiFramework, WidgetDef } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+import TestUtils from "../TestUtils";
 
 describe("StagePanelDef", () => {
 
@@ -25,7 +23,6 @@ describe("StagePanelDef", () => {
   it("Defaults, widgetDefs & widgetCount", () => {
     const w1 = WidgetDef.create({
       id: "w1",
-      classId: "Test",
     });
 
     const panelDef = new StagePanelDef();

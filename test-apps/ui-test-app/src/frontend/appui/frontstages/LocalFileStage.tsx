@@ -3,24 +3,23 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { OpenDialogOptions } from "electron";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
+import {
+  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig,
+  FrontstageProvider, StageUsage, ToolWidgetComposer, UiFramework,
+} from "@itwin/appui-react";
 import { Id64String } from "@itwin/core-bentley";
 import { ViewDefinitionProps } from "@itwin/core-common";
 import { IModelConnection } from "@itwin/core-frontend";
-
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
-import { OpenDialogOptions } from "electron";
-
 import { FillCentered } from "@itwin/core-react";
-import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig,
-  FrontstageProvider, ToolWidgetComposer, UiFramework,
-} from "@itwin/appui-react";
+import { Button, Headline } from "@itwin/itwinui-react";
+
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { IModelViewPicker } from "../imodelopen/IModelViewPicker";
 import { LocalFileSupport } from "../LocalFileSupport";
-import { Button, Headline } from "@itwin/itwinui-react";
-import { StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
 import { hasSavedViewLayoutProps } from "../../tools/ImmediateTools";
 import { ViewsFrontstage } from "./ViewsFrontstage";
 
@@ -77,7 +76,7 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
       usage: StageUsage.Private,
       contentManipulation: {
         id: "contentManipulation",
-        element: < FrontstageToolWidget />,
+        content: <FrontstageToolWidget />,
       },
     };
   }

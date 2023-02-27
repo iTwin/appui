@@ -6,10 +6,10 @@
  * @module StandardUiItemsProvider
  */
 
-import { BaseUiItemsProvider, CommonToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "@itwin/appui-abstract";
+import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
 import { DefaultNavigationTools, StandardNavigationToolsUiItemsProvider } from "./StandardNavigationToolsUiItemsProvider";
-
-/* eslint-disable deprecation/deprecation */
+import { UiItemsManager } from "./UiItemsManager";
 
 /**
  * Provide standard tools for the ViewNavigationWidgetComposer.
@@ -37,7 +37,7 @@ export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     this.uiItemsProvider = new StandardNavigationToolsUiItemsProvider(defaultNavigationTools);
   }
 
-  public override provideToolbarButtonItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): CommonToolbarItem[] {
-    return this.uiItemsProvider.provideToolbarButtonItems(_stageId, _stageUsage, toolbarUsage, toolbarOrientation, _stageAppData);
+  public override provideToolbarItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
+    return this.uiItemsProvider.provideToolbarItems(_stageId, _stageUsage, toolbarUsage, toolbarOrientation, _stageAppData);
   }
 }

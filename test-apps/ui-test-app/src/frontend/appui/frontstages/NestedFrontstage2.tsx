@@ -3,17 +3,16 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { CommonToolbarItem, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
+import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import {
   ContentGroup, CoreTools, FrontstageConfig, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
-  ToolbarComposer, ToolbarHelper, ToolWidgetComposer,
+  ToolbarComposer, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, WidgetState,
 } from "@itwin/appui-react";
+import { IModelApp } from "@itwin/core-frontend";
+
 import { AppTools } from "../../tools/ToolSpecifications";
-import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
-import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { AppUi } from "../AppUi";
 import { AppToolbarUtilities, BackstageBackButton } from "./NestedFrontstage1";
-import { IModelApp } from "@itwin/core-frontend";
 
 export class NestedFrontstage2 extends FrontstageProvider {
   public static stageId = "ui-test-app:NestedFrontstage2";
@@ -30,26 +29,25 @@ export class NestedFrontstage2 extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: <FrontstageToolWidget />,
+        content: <FrontstageToolWidget />,
       },
       toolSettings: {
         id: "toolSettings",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: <FrontstageNavigationWidget />,
+        content: <FrontstageNavigationWidget />,
       },
       statusBar: {
         id: "statusBar",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
         labelKey: "SampleApp:widgets.StatusBar",
-        control: SmallStatusBarWidgetControl,
       },
       rightPanel: {
         sections: {
           end: [
-            { id: "HorizontalPropertyGrid", defaultState: WidgetState.Closed, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
-            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
+            { id: "HorizontalPropertyGrid", defaultState: WidgetState.Closed, icon: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid" },
+            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, icon: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid" },
           ],
         },
       },
@@ -60,13 +58,13 @@ export class NestedFrontstage2 extends FrontstageProvider {
 /** Define a ToolWidget with Buttons to display in the TopLeft zone.
  */
 class FrontstageToolWidget extends React.Component {
-  private _horizontalItems: CommonToolbarItem[] = [
+  private _horizontalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.selectElementCommand),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item1),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item2),
   ];
 
-  private _verticalItems: CommonToolbarItem[] = [
+  private _verticalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.rotateViewCommand),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
@@ -96,12 +94,12 @@ class FrontstageToolWidget extends React.Component {
 /** Define a NavigationWidget with Buttons to display in the TopRight zone.
  */
 class FrontstageNavigationWidget extends React.Component {
-  private _horizontalItems: CommonToolbarItem[] = [
+  private _horizontalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
   ];
 
-  private _verticalItems: CommonToolbarItem[] = [
+  private _verticalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
   ];

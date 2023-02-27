@@ -7,18 +7,16 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import { MockRender, ToolAssistance, ToolAssistanceImage, ToolAssistanceInputMethod } from "@itwin/core-frontend";
-import { WidgetState } from "@itwin/appui-abstract";
 import { LocalStateStorage } from "@itwin/core-react";
+import { render, screen, waitFor } from "@testing-library/react";
 import {
-  AppNotificationManager, ConfigurableCreateInfo, ConfigurableUiControlType, CursorPopupManager, StatusBar, StatusBarWidgetControl,
-  ToolAssistanceField, UiFramework, WidgetDef,
+  AppNotificationManager, CursorPopupManager, StatusBar, ToolAssistanceField, UiFramework,
 } from "../../../appui-react";
 import TestUtils, { selectorMatches, storageMock, userEvent } from "../../TestUtils";
-import { render, screen, waitFor } from "@testing-library/react";
 
 describe(`ToolAssistanceField`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(async ()=>{
+  beforeEach(async () => {
     theUserTo = userEvent.setup();
     CursorPopupManager.clearPopups();
     await uiSettingsStorage.saveSetting("ToolAssistance", "showPromptAtCursor", true);
@@ -26,42 +24,9 @@ describe(`ToolAssistanceField`, () => {
   });
   const uiSettingsStorage = new LocalStateStorage({ localStorage: storageMock() } as Window);
 
-  const DefaultValueContext = React.createContext({
-    defaultPromptAtCursor: false,
-  });
-
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <DefaultValueContext.Consumer>{
-          (context) =>
-            <ToolAssistanceField
-              includePromptAtCursor={true}
-              uiStateStorage={uiSettingsStorage}
-              {...context}
-            />
-        }
-        </DefaultValueContext.Consumer>
-      );
-    }
-  }
-
-  let widgetControl: StatusBarWidgetControl | undefined;
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     await MockRender.App.startup();
-
-    const widgetDef = WidgetDef.create({
-      id: "statusBar",
-      classId: AppStatusBarWidgetControl,
-      defaultState: WidgetState.Open,
-    });
-    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
   after(async () => {
@@ -72,7 +37,9 @@ describe(`ToolAssistanceField`, () => {
   // cSpell:Ignore TOOLPROMPT
 
   it("Status Bar with ToolAssistanceField should mount", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
@@ -94,7 +61,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("dialog should open and close on click", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
@@ -112,7 +81,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("passing isNew:true should use newDot", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true);
@@ -131,7 +102,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with a single key should generate key image", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -146,7 +119,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should support known icons and multiple sections", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction("icon-clock", "This is the prompt that is fairly long 1234567890");
@@ -186,7 +161,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with a key containing multiple chars should use large key", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -204,7 +181,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with 2 keys should use medium keys", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -222,7 +201,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with a modifier key should a medium modifier key & medium key", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -240,7 +221,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with bottomRow should use small keys", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.AcceptPoint, "xyz");
@@ -259,7 +242,9 @@ describe(`ToolAssistanceField`, () => {
 
   it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", async () => {
     const spyMethod = sinon.spy(Logger, "logError");
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.Keyboard, "Press a key" /* No keyboardInfo */);
@@ -274,7 +259,9 @@ describe(`ToolAssistanceField`, () => {
 
   it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", async () => {
     const spyMethod = sinon.spy(Logger, "logError");
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createKeyboardInstruction(ToolAssistance.createKeyboardInfo([]), "Press key");
@@ -288,7 +275,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("createModifierKeyInstruction should generate valid instruction", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true, ToolAssistanceInputMethod.Both, ToolAssistance.createKeyboardInfo([]));
@@ -313,7 +302,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should support svg icons in string-based instruction.image", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction("webSvg:test", "This is the prompt");
@@ -330,7 +321,9 @@ describe(`ToolAssistanceField`, () => {
 
   it("invalid modifier key info along with image should log error", async () => {
     const spyMethod = sinon.spy(Logger, "logError");
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true, ToolAssistanceInputMethod.Both, ToolAssistance.createKeyboardInfo([]));
@@ -343,7 +336,12 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should close on outside click", async () => {
-    render(<><div data-testid={"outside"}></div><StatusBar widgetControl={widgetControl} /></>);
+    render(<>
+      <div data-testid={"outside"} />
+      <StatusBar>
+        <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+      </StatusBar>
+    </>);
 
     await theUserTo.click(screen.getByRole("button"));
 
@@ -355,7 +353,12 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should not close on outside click if pinned", async () => {
-    render(<><div data-testid={"outside"}></div><StatusBar widgetControl={widgetControl} /></>);
+    render(<>
+      <div data-testid={"outside"} />
+      <StatusBar>
+        <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+      </StatusBar>
+    </>);
 
     await theUserTo.click(screen.getByRole("button"));
     await theUserTo.click(screen.getByTitle("toolAssistance.pin"));
@@ -365,7 +368,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("dialog should open and close on click, even if pinned", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
@@ -377,7 +382,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should set showPromptAtCursor on toggle click", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
     await theUserTo.click(screen.getByRole("button"));
 
     const notifications = new AppNotificationManager();
@@ -391,10 +398,12 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("cursorPrompt should open when tool assistance set", async () => {
-    render(<DefaultValueContext.Provider value={{defaultPromptAtCursor: true}}>
-      <StatusBar widgetControl={widgetControl} />
-    </DefaultValueContext.Provider>
-    );
+    render(<StatusBar>
+      <ToolAssistanceField
+        uiStateStorage={uiSettingsStorage}
+        defaultPromptAtCursor={true}
+      />
+    </StatusBar>);
 
     const spyMethod = sinon.spy();
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
@@ -412,10 +421,12 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("cursorPrompt should open when tool icon changes", async () => {
-    render(<DefaultValueContext.Provider value={{defaultPromptAtCursor: true}}>
-      <StatusBar widgetControl={widgetControl} />
-    </DefaultValueContext.Provider>
-    );
+    render(<StatusBar>
+      <ToolAssistanceField
+        uiStateStorage={uiSettingsStorage}
+        defaultPromptAtCursor={true}
+      />
+    </StatusBar>);
 
     const spyMethod = sinon.spy();
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spyMethod);
@@ -443,7 +454,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("mouse & touch instructions should generate tabs", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true);
@@ -478,7 +491,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("touch instructions should show", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(ToolAssistanceImage.CursorClick, "Click on something", true);
@@ -494,7 +509,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("dialog should open, pin and close on click", async () => {
-    render(<StatusBar widgetControl={widgetControl} />);
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();

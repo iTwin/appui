@@ -4,19 +4,16 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
+import { Provider } from "react-redux";
 import * as sinon from "sinon";
-import {
-  CommonToolbarItem, ConditionalBooleanValue, StageUsage, ToolbarOrientation, ToolbarUsage,
-  UiItemsManager, UiItemsProvider,
-} from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import {
-  CommandItemDef, CustomItemDef, FrontstageConfig, FrontstageProvider, GroupItemDef,
-  ToolbarComposer, ToolbarHelper, ToolItemDef, UiFramework,
+  CommandItemDef, CustomItemDef, FrontstageConfig, FrontstageProvider, GroupItemDef, StageUsage, ToolbarComposer, ToolbarHelper,
+  ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolItemDef, UiFramework, UiItemsManager, UiItemsProvider,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import { Provider } from "react-redux";
-import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
 describe("<ToolbarComposer  />", async () => {
   const testItemEventId = "test-event";
@@ -101,7 +98,7 @@ describe("<ToolbarComposer  />", async () => {
   class DuplicatesUiProvider implements UiItemsProvider {
     public readonly id = "ToolbarComposer-DuplicatesUiProvider";
 
-    public provideToolbarButtonItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): CommonToolbarItem[] {
+    public provideToolbarItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
       if (stageUsage === StageUsage.General && toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
         return ToolbarHelper.createToolbarItemsFromItemDefs([tool2, group1, custom1, tool1e]);
       }

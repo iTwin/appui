@@ -4,18 +4,15 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities, StageUsage, ToolbarItemUtilities, WidgetState } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import {
   AccuDrawDialog, AccuDrawWidgetControl, BasicNavigationWidget, BasicToolWidget, CommandItemDef,
   CoreTools, CustomItemDef, FrontstageConfig, FrontstageProvider, IModelConnectedViewSelector,
-  ToolbarHelper, UiFramework,
+  StageUsage, ToolbarHelper, ToolbarItem, ToolbarItemUtilities, UiFramework, WidgetState,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../../../../frontend/index";
 import { EditTools } from "../../../tools/editing/ToolSpecifications";
 // cSpell:Ignore statusbars
-import { EditStatusBarWidgetControl } from "../../statusbars/editing/EditStatusBar";
-import { ActiveSettingsWidget } from "../../widgets/editing/ActiveSettingsWidget";
-import { ModelCreationWidget } from "../../widgets/editing/ModelCreationWidget";
 import { Orientation } from "@itwin/core-react";
 
 import sketchIconSvg from "../../icons/draw.svg";
@@ -57,20 +54,19 @@ export class EditFrontstage extends FrontstageProvider {
       usage: StageUsage.Edit,
       contentManipulation: {
         id: "contentManipulation",
-        element: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
+        content: <BasicToolWidget additionalHorizontalItems={this._additionalTools.additionalHorizontalToolbarItems}
           additionalVerticalItems={this._additionalTools.additionalVerticalToolbarItems} showCategoryAndModelsContextTools={false} />,
       },
       toolSettings: {
         id: "toolSettings",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
+        content: <BasicNavigationWidget additionalVerticalItems={this._additionalNavigationVerticalToolbarItems} />,
       },
       statusBar: {
         id: "statusBar",
-        control: EditStatusBarWidgetControl,
       },
       leftPanel: {
         size: 250,
@@ -79,16 +75,14 @@ export class EditFrontstage extends FrontstageProvider {
             {
               id: "ActiveSettings",
               defaultState: WidgetState.Closed,
-              iconSpec: "icon-active",
+              icon: "icon-active",
               labelKey: "SampleApp:widgets.ActiveSettings",
-              control: ActiveSettingsWidget,
             },
             {
               id: "ModelCreation",
               defaultState: WidgetState.Closed,
-              iconSpec: "icon-add",
+              icon: "icon-add",
               labelKey: "SampleApp:widgets.ModelCreation",
-              control: ModelCreationWidget,
             },
           ],
         },
@@ -96,7 +90,7 @@ export class EditFrontstage extends FrontstageProvider {
       bottomPanel: {
         sections: {
           start: [
-            { id: AccuDrawWidgetControl.id, label: AccuDrawWidgetControl.label, control: AccuDrawWidgetControl },
+            { id: AccuDrawWidgetControl.id, label: AccuDrawWidgetControl.label },
           ],
         },
       },
@@ -110,10 +104,10 @@ class AdditionalTools {
   public sketchGroupItems = ToolbarHelper.constructChildToolbarItems([
     EditTools.placeLineStringTool, EditTools.placeArcTool]);
 
-  public sketchGroupButtonItem = ToolbarItemUtilities.createGroupButton("SampleApp:buttons.sketch", 135, IconSpecUtilities.createWebComponentIconSpec(sketchIconSvg),
+  public sketchGroupButtonItem = ToolbarItemUtilities.createGroupItem("SampleApp:buttons.sketch", 135, IconSpecUtilities.createWebComponentIconSpec(sketchIconSvg),
     IModelApp.localization.getLocalizedString("SampleApp:buttons.sketch"), this.sketchGroupItems);
 
-  public additionalHorizontalToolbarItems: CommonToolbarItem[] = [...ToolbarHelper.createToolbarItemsFromItemDefs([
+  public additionalHorizontalToolbarItems: ToolbarItem[] = [...ToolbarHelper.createToolbarItemsFromItemDefs([
     CoreTools.keyinPaletteButtonItemDef, EditTools.deleteElementTool,
     EditTools.moveElementTool, EditTools.rotateElementTool, EditTools.placeBlockTool], 100),
   this.sketchGroupButtonItem];
@@ -152,16 +146,16 @@ class AdditionalTools {
     });
   }
 
-  public getMiscGroupItem = (): CommonToolbarItem => {
+  public getMiscGroupItem = (): ToolbarItem => {
     const children = ToolbarHelper.constructChildToolbarItems([
       this._accudrawDialogItemVertical, this._accudrawDialogItemHorizontal,
     ]);
 
     const groupHiddenCondition = new ConditionalBooleanValue(() => SampleAppIModelApp.getTestProperty() === "HIDE", [SampleAppUiActionId.setTestProperty]);
-    const item = ToolbarItemUtilities.createGroupButton("SampleApp:buttons.misc", 130, "icon-tools", IModelApp.localization.getLocalizedString("SampleApp:buttons.misc"), children, { isHidden: groupHiddenCondition });
+    const item = ToolbarItemUtilities.createGroupItem("SampleApp:buttons.misc", 130, "icon-tools", IModelApp.localization.getLocalizedString("SampleApp:buttons.misc"), children, { isHidden: groupHiddenCondition });
     return item;
   };
 
   // test ToolbarHelper.createToolbarItemsFromItemDefs
-  public additionalVerticalToolbarItems: CommonToolbarItem[] = [this.getMiscGroupItem()];
+  public additionalVerticalToolbarItems: ToolbarItem[] = [this.getMiscGroupItem()];
 }

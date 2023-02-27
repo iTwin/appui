@@ -5,52 +5,25 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { fireEvent, render, waitFor } from "@testing-library/react";
-import { WidgetState } from "@itwin/appui-abstract";
-import {
-  ActivityCenterField, ConfigurableCreateInfo, ConfigurableUiControlType, MessageManager, StatusBar, StatusBarWidgetControl,
-  WidgetDef,
-} from "../../appui-react";
-import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
+import { fireEvent, render, waitFor } from "@testing-library/react";
+import { ActivityCenterField, MessageManager, StatusBar } from "../../appui-react";
+import TestUtils from "../TestUtils";
 
 describe("ActivityCenter", () => {
-
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <ActivityCenterField />
-        </>
-      );
-    }
-  }
-  let widgetControl: StatusBarWidgetControl | undefined;
-
   before(async () => {
     await MockRender.App.startup();
     await TestUtils.initializeUiFramework();
-
-    const widgetDef = WidgetDef.create({
-      id: "statusBar",
-      classId: AppStatusBarWidgetControl,
-      defaultState: WidgetState.Open,
-    });
-    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
-
   });
 
   after(async () => {
     TestUtils.terminateUiFramework();
     await MockRender.App.shutdown();
+
   });
 
   it("should show ActivityCenterField", async () => {
-    const { findByText, findByTitle } = render(<StatusBar widgetControl={widgetControl} />);
+    const { findByText, findByTitle } = render(<StatusBar><ActivityCenterField /></StatusBar>);
     const message = "Test";
     const percentage = 50;
     MessageManager.setupActivityMessageValues(message, percentage);
@@ -60,7 +33,7 @@ describe("ActivityCenter", () => {
   });
 
   it("should hide ActivityCenterField", async () => {
-    const { findByText, queryAllByText } = render(<StatusBar widgetControl={widgetControl} />);
+    const { findByText, queryAllByText } = render(<StatusBar><ActivityCenterField /></StatusBar>);
 
     MessageManager.setupActivityMessageValues("Test", 50);
     await findByText(/activityCenter.percentComplete/);
@@ -72,7 +45,7 @@ describe("ActivityCenter", () => {
   });
 
   it("click should be handled", async () => {
-    const { findByTitle } = render(<StatusBar widgetControl={widgetControl} />);
+    const { findByTitle } = render(<StatusBar><ActivityCenterField /></StatusBar>);
 
     MessageManager.setupActivityMessageValues("Test", 50);
     const field = await findByTitle(/activityCenter.moreDetails/);

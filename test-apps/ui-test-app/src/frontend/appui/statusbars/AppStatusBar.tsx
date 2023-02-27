@@ -6,17 +6,17 @@ import "./AppStatusBar.scss";
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import {
-  ActivityCenterField, AnyStatusBarItem, MessageCenterField, SectionsStatusField, SelectionInfoField,
-  SelectionScopeField, SnapModeField, StatusBarComposer, StatusBarItemUtilities, StatusBarSection, StatusBarSeparator, StatusBarWidgetControl,
-  TileLoadingIndicator, ToolAssistanceField, UiFramework, ViewAttributesStatusField,
+  ActivityCenterField, MessageCenterField, SectionsStatusField, SelectionInfoField, SelectionScopeField,
+  SnapModeField, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarSection, StatusBarSeparator,
+  StatusBarWidgetControl, TileLoadingIndicator, ToolAssistanceField, UiFramework, ViewAttributesStatusField,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../..";
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
 
 export class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-  private _statusBarItems: AnyStatusBarItem[] | undefined;
+  private _statusBarItems: StatusBarItem[] | undefined;
 
-  public get statusBarItems(): AnyStatusBarItem[] {
+  public get statusBarItems(): StatusBarItem[] {
     if (!this._statusBarItems) {
       const isHiddenCondition = new ConditionalBooleanValue(() => SampleAppIModelApp.getTestProperty() === "HIDE", [SampleAppUiActionId.setTestProperty]);
 

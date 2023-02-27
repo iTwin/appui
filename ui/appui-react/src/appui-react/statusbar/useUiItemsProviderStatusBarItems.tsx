@@ -7,17 +7,17 @@
  */
 
 import * as React from "react";
-import { StatusBarItemsManager } from "@itwin/appui-abstract";
 import { useActiveStageId } from "../hooks/useActiveStageId";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
 import { UiFramework } from "../UiFramework";
-import { AnyStatusBarItem } from "./StatusBarItem";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { StatusBarItem } from "./StatusBarItem";
+import { StatusBarItemsManager } from "./StatusBarItemsManager";
 
 /** Hook that returns items from [[StatusBarItemsManager]].
  * @public
  */
-export const useUiItemsProviderStatusBarItems = (manager: StatusBarItemsManager): readonly AnyStatusBarItem[] => {
+export const useUiItemsProviderStatusBarItems = (manager: StatusBarItemsManager): readonly StatusBarItem[] => {
   const uiItemProviderIds = useAvailableUiItemsProviders();
   const stageId = useActiveStageId();
   const [items, setItems] = React.useState(manager.items);

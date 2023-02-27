@@ -6,10 +6,10 @@
  * @module StandardUiItemsProvider
  */
 
-import { BaseUiItemsProvider, CommonStatusBarItem, UiItemsManager } from "@itwin/appui-abstract";
 import { DefaultStatusbarItems, StandardStatusbarUiItemsProvider } from "./StandardStatusbarUiItemsProvider";
-
-/* eslint-disable deprecation/deprecation */
+import { StatusBarItem } from "../statusbar/StatusBarItem";
+import { UiItemsManager } from "./UiItemsManager";
+import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
 
 /**
  * Provide standard statusbar fields for the SimpleStatusbarWidget
@@ -37,7 +37,7 @@ export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
     return provider;
   }
 
-  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): CommonStatusBarItem[] {
+  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
     return this.uiItemsProvider.provideStatusBarItems(_stageId, _stageUsage, _stageAppData);
   }
 }

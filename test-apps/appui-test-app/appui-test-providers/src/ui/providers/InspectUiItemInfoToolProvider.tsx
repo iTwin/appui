@@ -3,10 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import {
-  CommonToolbarItem,
-} from "@itwin/appui-abstract";
-import { StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsProvider } from "@itwin/appui-react";
+import { StageUsage, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsProvider } from "@itwin/appui-react";
 import { InspectUiItemInfoTool } from "../../tools/InspectUiItemInfoTool";
 
 export interface InspectUiItemInfoToolProviderProps {
@@ -26,7 +23,7 @@ export class InspectUiItemInfoToolProvider implements UiItemsProvider {
     InspectUiItemInfoTool.register(localizationNamespace);
   }
 
-  public provideToolbarButtonItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): CommonToolbarItem[] {
+  public provideToolbarItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
     /** Add a tool that starts inspect tool  */
     if (stageUsage === StageUsage.General && toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
       return [InspectUiItemInfoTool.getActionButtonDef(this.props?.inspectTool?.itemPriority ?? 2000, this.props?.inspectTool?.groupPriority)];

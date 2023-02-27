@@ -3,10 +3,10 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider,
-  MessageCenterField, StatusBarWidgetControl, WidgetControl,
+  MessageCenterField, StatusBarWidgetControl, WidgetState,
 } from "../../appui-react";
 
 /** @internal */
@@ -15,15 +15,6 @@ export class TestContentControl extends ContentControl {
     super(info, options);
 
     this.reactNode = <div />;
-  }
-}
-
-/** @internal */
-export class TestWidget extends WidgetControl {
-  constructor(info: ConfigurableCreateInfo, options: any) {
-    super(info, options);
-
-    this.reactNode = <TestWidgetElement />;
   }
 }
 
@@ -84,8 +75,7 @@ export class TestFrontstage extends FrontstageProvider {
       usage: "MyUsage",
       contentManipulation: {
         id: "contentManipulation",
-        element: <div />,
-        applicationData: { key: "value" },
+        content: <div />,
       },
       toolSettings: {
         id: "toolSettings",
@@ -95,15 +85,10 @@ export class TestFrontstage extends FrontstageProvider {
           start: [{
             id: "widget3",
             defaultState: WidgetState.Open,
-            control: TestWidget,
-            onWidgetStateChanged: () => { },
-            saveTransientState: () => { },
-            restoreTransientState: () => false,
           }],
           end: [{
             id: "widget4",
             defaultState: WidgetState.Open,
-            control: TestWidget,
           }],
         },
       },
@@ -113,33 +98,31 @@ export class TestFrontstage extends FrontstageProvider {
             {
               id: "widget1",
               defaultState: WidgetState.Open,
-              element: <div />,
+              content: <div />,
             },
             {
               id: "widget6_2",
-              element: < div />,
+              content: < div />,
             },
           ],
           end: [
             {
               id: "widget1",
               defaultState: WidgetState.Open,
-              element: <div />,
+              content: <div />,
             },
             {
               id: "widget2",
               defaultState: WidgetState.Hidden,
-              element: < div />,
+              content: < div />,
             },
           ],
         },
       },
       statusBar: {
         id: "statusBar",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
-        control: AppStatusBarWidgetControl,
-        applicationData: { key: "value" },
       },
     };
   }
@@ -174,8 +157,7 @@ export class TestFrontstage2 extends FrontstageProvider {
       usage: "MyUsage",
       contentManipulation: {
         id: "contentManipulation",
-        element: <div />,
-        applicationData: { key: "value" },
+        content: <div />,
       },
       toolSettings: {
         id: "toolSettings",
@@ -185,15 +167,10 @@ export class TestFrontstage2 extends FrontstageProvider {
           start: [{
             id: "widget3",
             defaultState: WidgetState.Open,
-            control: TestWidget,
-            onWidgetStateChanged: () => { },
-            saveTransientState: () => { },
-            restoreTransientState: () => false,
           }],
           end: [{
             id: "widget4",
             defaultState: WidgetState.Open,
-            control: TestWidget,
           }],
         },
       },
@@ -203,33 +180,31 @@ export class TestFrontstage2 extends FrontstageProvider {
             {
               id: "widget1",
               defaultState: WidgetState.Open,
-              element: <div />,
+              content: <div />,
             },
             {
               id: "widget6_2",
-              element: <div />,
+              content: <div />,
             },
           ],
           end: [
             {
               id: "widget1",
               defaultState: WidgetState.Open,
-              element: <div />,
+              content: <div />,
             },
             {
               id: "widget2",
               defaultState: WidgetState.Hidden,
-              element: <div />,
+              content: <div />,
             },
           ],
         },
       },
       statusBar: {
         id: "statusBar",
-        iconSpec: "icon-placeholder",
+        icon: "icon-placeholder",
         labelKey: "App:widgets.StatusBar",
-        control: AppStatusBarWidgetControl,
-        applicationData: { key: "value" },
       },
     };
   }

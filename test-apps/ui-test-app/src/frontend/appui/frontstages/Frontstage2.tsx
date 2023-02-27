@@ -3,18 +3,15 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { ConditionalBooleanValue, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton, CommandItemDef, ContentGroup, CoreTools, FrontstageConfig, FrontstageProvider, GroupItemDef, NavigationWidgetComposer, SelectionContextToolDefinitions,
-  SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
+  SessionStateActionId, SyncUiEventId, ToolbarComposer, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, WidgetState,
 } from "@itwin/appui-react";
+import { IModelApp } from "@itwin/core-frontend";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { TreeExampleContentControl } from "../contentviews/TreeExampleContent";
-import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
-import {
-  HorizontalPropertyGridContentControl, HorizontalPropertyGridWidgetControl,
-} from "../widgets/PropertyGridDemoWidget";
-import { IModelApp } from "@itwin/core-frontend";
-import { CommonToolbarItem, ConditionalBooleanValue, StandardContentLayouts, ToolbarOrientation, ToolbarUsage, WidgetState } from "@itwin/appui-abstract";
+import { HorizontalPropertyGridContentControl } from "../widgets/PropertyGridDemoWidget";
 
 export class Frontstage2 extends FrontstageProvider {
   public static stageId = "ui-test-app:Test2";
@@ -59,18 +56,17 @@ export class Frontstage2 extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: <FrontstageToolWidget />,
+        content: <FrontstageToolWidget />,
       },
       toolSettings: {
         id: "toolSettings",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: <FrontstageNavigationWidget />,
+        content: <FrontstageNavigationWidget />,
       },
       statusBar: {
         id: "statusBar",
-        control: SmallStatusBarWidgetControl,
       },
       rightPanel: {
         sections: {
@@ -78,9 +74,8 @@ export class Frontstage2 extends FrontstageProvider {
             {
               id: "HorizontalPropertyGrid",
               defaultState: WidgetState.Hidden,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
-              control: HorizontalPropertyGridWidgetControl,
             },
           ],
         },
@@ -142,7 +137,7 @@ class FrontstageToolWidget extends React.Component {
       itemsInColumn: 7,
     });
 
-    const items: CommonToolbarItem[] = [
+    const items: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.clearSelectionItemDef),
       ToolbarHelper.createToolbarItemFromItemDef(20, SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef),
       ToolbarHelper.createToolbarItemFromItemDef(30, SelectionContextToolDefinitions.hideSectionToolGroup),
@@ -156,7 +151,7 @@ class FrontstageToolWidget extends React.Component {
   }
 
   private get _verticalToolbarItems() {
-    const items: CommonToolbarItem[] = [
+    const items: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item3),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item4),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),

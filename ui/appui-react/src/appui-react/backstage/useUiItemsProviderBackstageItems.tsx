@@ -7,10 +7,10 @@
  */
 
 import * as React from "react";
-import { BackstageItemsChangedArgs, BackstageItemsManager } from "@itwin/appui-abstract";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
 import { BackstageItem } from "./BackstageItem";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { BackstageItemsManager } from "./BackstageItemsManager";
 
 /** Hook that returns items from [[BackstageItemsManager]].
  * @public
@@ -33,13 +33,9 @@ export const useUiItemsProviderBackstageItems = (manager: BackstageItemsManager)
   }, [manager, uiItemProviderIds]);
   // handle item changes caused by calls to UiFramework.backstageManager
   React.useEffect(() => {
-    const handleChanged = (args: BackstageItemsChangedArgs) => {
+    return manager.onItemsChanged.addListener((args) => {
       setItems(args.items);
-    };
-    manager.onItemsChanged.addListener(handleChanged);
-    return () => {
-      manager.onItemsChanged.removeListener(handleChanged);
-    };
+    });
   }, [manager]);
   return items;
 };
