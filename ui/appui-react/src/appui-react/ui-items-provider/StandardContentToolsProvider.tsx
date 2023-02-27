@@ -11,7 +11,7 @@ import { DefaultContentTools, StandardContentToolsUiItemsProvider } from "./Stan
 import { UiItemsManager } from "./UiItemsManager";
 import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
 import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import { StatusBarItem } from "../statusbar/StatusBarItem"
+import { StatusBarItem } from "../statusbar/StatusBarItem";
 
 /**
  * Defines options that may be set in frontstage app data to control what group priorities
