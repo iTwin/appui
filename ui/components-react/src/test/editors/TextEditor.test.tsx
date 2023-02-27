@@ -133,6 +133,21 @@ describe("<TextEditor />", () => {
     expect(spyOnCommit.calledOnce).to.be.true;
   });
 
+  it("should call onCommit after value change when shouldCommitOnChange is true", async () => {
+    const propertyRecord = TestUtils.createPrimitiveStringProperty("testName", "MyValue");
+    const convertInfo: PropertyConverterInfo = { name: "" };
+    propertyRecord.property.converter = convertInfo;
+
+    const spyOnCommit = sinon.spy();
+
+    const wrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} shouldCommitOnChange={true}/>);
+    const inputNode = wrapper.container.querySelector("input");
+    expect(inputNode).not.to.be.null;
+
+    await theUserTo.type(inputNode!, "a");
+    expect(spyOnCommit.called).to.be.true;
+  });
+
   describe("Needs IModelApp", () => {
     before(async () => {
       await TestUtils.initializeUiComponents();

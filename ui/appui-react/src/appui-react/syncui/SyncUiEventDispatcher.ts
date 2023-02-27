@@ -9,9 +9,7 @@
 import { UiEventDispatcher, UiSyncEvent } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp, IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
-import { getInstancesCount, SelectionScope } from "@itwin/presentation-common";
-import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
-import { PresentationSelectionScope, SessionStateActionId } from "../redux/SessionState";
+import { SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 
 // cSpell:ignore activecontentchanged, activitymessageupdated, activitymessagecancelled, backstageevent, contentlayoutactivated, contentcontrolactivated,
@@ -71,7 +69,6 @@ export class SyncUiEventDispatcher {
   private static _uiEventDispatcher = new UiEventDispatcher();
   private static _unregisterListenerFunc?: () => void;
   private static _unregisterListenerFuncs: Array<() => void> = [];
-  private static initialized = false;
 
   /** @internal - used for testing only */
   /* istanbul ignore next */
@@ -211,40 +208,6 @@ export class SyncUiEventDispatcher {
 
     iModelConnection.selectionSet.onChanged.removeListener(SyncUiEventDispatcher.selectionChangedHandler);
     iModelConnection.selectionSet.onChanged.addListener(SyncUiEventDispatcher.selectionChangedHandler);
-    (iModelConnection.iModelId) ? UiFramework.setActiveIModelId(iModelConnection.iModelId) : /* istanbul ignore next */ "";
-
-    // listen for changes from presentation rules selection manager (this is done once an iModelConnection is available to ensure Presentation.selection is valid)
-    SyncUiEventDispatcher._unregisterListenerFunc = Presentation.selection.selectionChange.addListener((args: SelectionChangeEventArgs, provider: ISelectionProvider) => {
-      // istanbul ignore if
-      if (args.level !== 0) {
-        // don't need to handle sub-selections
-        return;
-      }
-      const selection = provider.getSelection(args.imodel, args.level);
-      const numSelected = getInstancesCount(selection);
-      UiFramework.dispatchActionToStore(SessionStateActionId.SetNumItemsSelected, numSelected);
-    });
-
-    try {
-      Presentation.selection.scopes.getSelectionScopes(iModelConnection).then((availableScopes: SelectionScope[]) => { // eslint-disable-line @typescript-eslint/no-floating-promises
-        // istanbul ignore else
-        if (availableScopes) {
-          const presentationScopes: PresentationSelectionScope[] = [];
-          availableScopes.map((scope) => presentationScopes.push(scope));
-          UiFramework.dispatchActionToStore(SessionStateActionId.SetAvailableSelectionScopes, presentationScopes);
-        }
-      });
-
-      const activeSelectionScope = Presentation.selection.scopes.activeScope;
-      if (activeSelectionScope) {
-        if (typeof (activeSelectionScope) === "object") {
-          UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, activeSelectionScope.id);
-        } else {
-          UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, activeSelectionScope);
-        }
-      }
-    } catch { }
-
+    iModelConnection.iModelId && UiFramework.setActiveIModelId(iModelConnection.iModelId);
   }
-
 }

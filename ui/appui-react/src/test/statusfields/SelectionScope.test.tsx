@@ -6,8 +6,6 @@ import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
-import { Presentation } from "@itwin/presentation-frontend";
-import { initialize as initializePresentationTesting, terminate as terminatePresentationTesting } from "@itwin/presentation-testing";
 import { render } from "@testing-library/react";
 import { PresentationSelectionScope, SelectionScopeField, SessionStateActionId, StatusBar, UiFramework } from "../../appui-react";
 import TestUtils, { handleError, selectChangeValueByIndex, stubScrollIntoView } from "../TestUtils";
@@ -65,15 +63,12 @@ describe(`SelectionScopeField`, () => {
 
     before(async () => {
       await shutdownIModelApp();
-      Presentation.terminate();
 
-      await initializePresentationTesting();
       await TestUtils.initializeUiFramework();
     });
 
     after(async () => {
       TestUtils.terminateUiFramework();
-      await terminatePresentationTesting();
     });
 
     stubScrollIntoView();

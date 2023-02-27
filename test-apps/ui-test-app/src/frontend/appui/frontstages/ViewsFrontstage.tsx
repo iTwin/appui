@@ -350,15 +350,6 @@ export class ViewsFrontstage extends FrontstageProvider {
         sections: {
           end: [
             {
-              defaultState: WidgetState.Closed,
-              icon: "icon-placeholder",
-              labelKey: "SampleApp:widgets.UnifiedSelectPropertyGrid",
-              id: ViewsFrontstage.unifiedSelectionPropertyGridId,
-              canFloat: {
-                defaultSize: { width: 200, height: 300 },
-              },
-            },
-            {
               id: "VerticalPropertyGrid",
               defaultState: WidgetState.Hidden,
               icon: "icon-placeholder",

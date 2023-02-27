@@ -14,7 +14,6 @@ import {
   QuantityType, SelectionTool, SnapMode,
 } from "@itwin/core-frontend";
 import { UnitSystemKey } from "@itwin/core-quantity";
-import { Presentation } from "@itwin/presentation-frontend";
 import {
   BackstageItem, BackstageItemUtilities, ConditionalBooleanValue, ConditionalStringValue, DialogButtonType, IconSpecUtilities, MessageSeverity, StagePanelLocation,
   StagePanelSection, StandardContentLayouts, StatusBarLabelSide, StatusBarSection, WidgetState,
@@ -62,7 +61,6 @@ export function UnitsFormatDialog() {
   const onRadioChange = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const unitSystem = event.target.value as UnitSystemKey;
     setUnitFormat(unitSystem);
-    Presentation.presentation.activeUnitSystem = unitSystem;
     await IModelApp.quantityFormatter.setActiveUnitSystem(unitSystem);
   }, [setUnitFormat]);
 
@@ -328,7 +326,6 @@ export class AppTools {
       labelKey: "SampleApp:buttons.setLengthFormatMetric",
       execute: async () => {
         await IModelApp.quantityFormatter.setActiveUnitSystem("metric");
-        Presentation.presentation.activeUnitSystem = "metric";
         IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, "Set Length Format to Metric"));
       },
     });
@@ -341,7 +338,6 @@ export class AppTools {
       labelKey: "SampleApp:buttons.setLengthFormatImperial",
       execute: async () => {
         await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-        Presentation.presentation.activeUnitSystem = "imperial";
         IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, "Set Length Format to Imperial"));
       },
     });

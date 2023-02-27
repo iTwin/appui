@@ -16,7 +16,7 @@ function isRefCallback<T>(ref: React.Ref<T>): ref is (_: T | null) => void {
 /** Hook used to combine multiple refs.
  * @internal
  */
-export function useRefs<T>(...refs: ReadonlyArray<React.Ref<T>>) {
+export function useRefs<T>(...refs: ReadonlyArray<React.Ref<T> | undefined>) {
   return React.useCallback((instance: T | null) => {
     for (const ref of refs) {
       // istanbul ignore else

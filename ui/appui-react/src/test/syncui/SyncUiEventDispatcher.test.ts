@@ -8,8 +8,6 @@ import * as moq from "typemoq";
 import { UiSyncEventArgs } from "@itwin/appui-abstract";
 import { IModelRpcProps } from "@itwin/core-common";
 import { IModelApp, IModelConnection, MockRender, ScreenViewport, SelectionSet } from "@itwin/core-frontend";
-import { InstanceKey, RpcRequestsHandler } from "@itwin/presentation-common";
-import { Presentation, SelectionManager, SelectionScopesManager, SelectionScopesManagerProps } from "@itwin/presentation-frontend";
 import {
   ActiveContentChangedEventArgs,
   ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, FrontstageActivatedEventArgs, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventDispatcher,
@@ -18,7 +16,6 @@ import {
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 /* eslint-disable deprecation/deprecation */
-import { createRandomECInstanceKey, createRandomId, createRandomSelectionScope } from "../PresentationTestUtils";
 
 const timeToWaitForUiSyncCallback = 60;
 
@@ -205,29 +202,9 @@ describe("SyncUiEventDispatcher", () => {
   });
 
   describe("ConnectionEvents", () => {
-
     const imodelToken: IModelRpcProps = { key: "" };
     const imodelMock = moq.Mock.ofType<IModelConnection>();
-    const rpcRequestsHandlerMock = moq.Mock.ofType<RpcRequestsHandler>();
-    const source: string = "test";
-    let manager: SelectionScopesManager | undefined;
-    let managerProps: SelectionScopesManagerProps;
     let ss: SelectionSet;
-    let baseSelection: InstanceKey[];
-
-    const getManager = () => {
-      if (!manager)
-        manager = new SelectionScopesManager(managerProps);
-      return manager;
-    };
-
-    const generateSelection = (): InstanceKey[] => {
-      return [
-        createRandomECInstanceKey(),
-        createRandomECInstanceKey(),
-        createRandomECInstanceKey(),
-      ];
-    };
 
     beforeEach(() => {
       imodelMock.reset();
@@ -235,63 +212,6 @@ describe("SyncUiEventDispatcher", () => {
 
       ss = new SelectionSet(imodelMock.object);
       imodelMock.setup((x) => x.selectionSet).returns(() => ss);
-
-      rpcRequestsHandlerMock.reset();
-      manager = undefined;
-      managerProps = {
-        rpcRequestsHandler: rpcRequestsHandlerMock.object,
-      };
-
-      const result = [createRandomSelectionScope()];
-      rpcRequestsHandlerMock
-        .setup(async (x) => x.getSelectionScopes(moq.It.isObjectWith({ imodel: imodelToken, locale: undefined })))
-        .returns(async () => result)
-        .verifiable();
-
-      baseSelection = generateSelection();
-
-      Presentation.setSelectionManager(new SelectionManager({ scopes: getManager() }));
-    });
-
-    it("clearConnectionEvents with no intervening initializeConnectionEvents", () => {
-      SyncUiEventDispatcher.clearConnectionEvents(imodelMock.object);
-      SyncUiEventDispatcher.clearConnectionEvents(imodelMock.object);
-    });
-
-    it("initializeConnectionEvents with undefined activeScope", () => {
-      getManager().activeScope = undefined;
-      SyncUiEventDispatcher.initializeConnectionEvents(imodelMock.object);
-    });
-
-    it("initializeConnectionEvents with string activeScope", () => {
-      getManager().activeScope = "test";
-      SyncUiEventDispatcher.initializeConnectionEvents(imodelMock.object);
-    });
-
-    it("initializeConnectionEvents with random activeScope", () => {
-      getManager().activeScope = createRandomSelectionScope();
-      SyncUiEventDispatcher.initializeConnectionEvents(imodelMock.object);
-    });
-
-    it("handles selection change", () => {
-      SyncUiEventDispatcher.initializeConnectionEvents(imodelMock.object);
-
-      Presentation.selection.addToSelection(source, imodelMock.object, baseSelection);
-
-      ss.add(createRandomId());
-
-      SyncUiEventDispatcher.clearConnectionEvents(imodelMock.object);
-    });
-
-    it("initializeConnectionEvents with blank iModelConnection", () => {
-      imodelMock.setup((x) => x.isBlankConnection()).returns(() => true);
-      SyncUiEventDispatcher.initializeConnectionEvents(imodelMock.object);
-    });
-
-    it("initializeConnectionEvents with blank iModelConnection and an undefined iModelId", () => {
-      imodelMock.setup((x) => x.iModelId).returns(() => undefined);
-      imodelMock.setup((x) => x.isBlankConnection()).returns(() => true);
-      SyncUiEventDispatcher.initializeConnectionEvents(imodelMock.object);
     });
   });
 
@@ -315,6 +235,5 @@ describe("SyncUiEventDispatcher", () => {
       const viewportMock = moq.Mock.ofType<ScreenViewport>();
       IModelApp.viewManager.onSelectedViewportChanged.raiseEvent({ previous: viewportMock.object });
     });
-
   });
 });

@@ -309,6 +309,7 @@ describe("FrontstageDef", () => {
 
     expect(spy).to.not.be.called;
   });
+
   it("should not save size and position if widget is not found", () => {
     let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
     state = addTab(state, "t1");
@@ -321,6 +322,37 @@ describe("FrontstageDef", () => {
     frontstageDef.saveChildWindowSizeAndPosition("pw1", window);
 
     expect(spy).to.be.calledOnceWithExactly("t1");
+  });
+
+  it("should activate a widget def", async () => {
+    const def = new FrontstageDef();
+    await def.initializeFromConfig({
+      id: "old",
+      version: 1,
+      usage: "General",
+      contentGroup: TestUtils.TestContentGroup2,
+      rightPanel: {
+        sections: {
+          start: [{
+            id: "test-widget",
+          }],
+        },
+      },
+    });
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => def);
+
+    const spy = sinon.spy();
+    UiFramework.frontstages.onWidgetStateChangedEvent.addListener(spy);
+
+    // __PUBLISH_EXTRACT_START__ AppUI.WidgetDef.setWidgetState
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    if (!frontstageDef)
+      throw new Error("Active frontstage not found");
+    const widgetDef = frontstageDef.findWidgetDef("test-widget");
+    widgetDef?.setWidgetState(WidgetState.Open);
+    // __PUBLISH_EXTRACT_END__
+
+    expect(spy).to.calledOnceWith();
   });
 
   describe("getWidgetCurrentState", () => {
