@@ -133,7 +133,7 @@
     "@bentley/icons-generic": "^1.0.15",
     "@bentley/icons-generic-webfont": "^1.0.15",
     "@itwin/core-telemetry": "^3.6.0",
-    "@itwin/itwinui-react": "^2.2.1",
+    "@itwin/itwinui-react": "^2.4.3",
     "@itwin/itwinui-variables": "^1.0.0",
     "@itwin/itwinui-icons-react": "^1.8.0",
     "@itwin/itwinui-icons": "^1.14.0",
