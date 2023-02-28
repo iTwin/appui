@@ -469,18 +469,9 @@ export class SampleAppIModelApp {
 
     let iModelConnection: IModelConnection | undefined;
     if (ProcessDetector.isMobileAppFrontend) {
-      const req = await NativeApp.requestDownloadBriefcase(
-        iTwinId,
-        iModelId,
-        { syncMode: SyncMode.PullOnly },
-        IModelVersion.latest(),
-        async (progress: ProgressInfo) => {
-          Logger.logInfo(
-            SampleAppIModelApp.loggerCategory(this),
-            `Progress (${progress.loaded}/${progress.total}) -> ${progress.percent}%`
-          );
-        }
-      );
+      const req = await NativeApp.requestDownloadBriefcase(iTwinId, iModelId, { syncMode: SyncMode.PullOnly }, IModelVersion.latest(), async (progress: ProgressInfo) => { // eslint-disable-line deprecation/deprecation
+        Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Progress (${progress.loaded}/${progress.total}) -> ${progress.percent}%`);
+      });
       await req.downloadPromise;
       iModelConnection = await BriefcaseConnection.openFile({
         fileName: req.fileName,
@@ -592,18 +583,10 @@ export class SampleAppIModelApp {
 
       let iModelConnection: IModelConnection | undefined;
       if (ProcessDetector.isMobileAppFrontend) {
-        const req = await NativeApp.requestDownloadBriefcase(
-          iTwinId,
-          iModelId,
-          { syncMode: SyncMode.PullOnly },
-          IModelVersion.latest(),
-          async (progress: ProgressInfo) => {
-            // eslint-disable-next-line no-console
-            console.log(
-              `Progress (${progress.loaded}/${progress.total}) -> ${progress.percent}%`
-            );
-          }
-        );
+        const req = await NativeApp.requestDownloadBriefcase(iTwinId, iModelId, { syncMode: SyncMode.PullOnly }, IModelVersion.latest(), async (progress: ProgressInfo) => { // eslint-disable-line deprecation/deprecation
+          // eslint-disable-next-line no-console
+          console.log(`Progress (${progress.loaded}/${progress.total}) -> ${progress.percent}%`);
+        });
         await req.downloadPromise;
         iModelConnection = await BriefcaseConnection.openFile({
           fileName: req.fileName,

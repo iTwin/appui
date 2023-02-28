@@ -44,7 +44,7 @@
     "@itwin/core-frontend": "^3.6.0",
     "@itwin/core-orbitgt": "^3.6.0",
     "@itwin/core-quantity": "^3.6.0",
-    "@itwin/appui-abstract": "workspace:*",
+    "@itwin/appui-abstract": "^3.6.0",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",

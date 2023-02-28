@@ -8,24 +8,23 @@
 
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import {
-  BackstageActionItem, BackstageItem, BackstageStageLauncher, ConditionalBooleanValue, ConditionalStringValue, isStageLauncher,
-} from "@itwin/appui-abstract";
-import { BadgeUtilities, Icon, IconHelper } from "@itwin/core-react";
+import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import { BadgeUtilities, Icon } from "@itwin/core-react";
 import { BackstageItem as NZ_BackstageItem } from "@itwin/appui-layout-react";
 import { useBackstageManager } from "./BackstageManager";
 import { UiFramework } from "../UiFramework";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
+import { BackstageActionItem, BackstageItem, BackstageStageLauncher, isBackstageStageLauncher } from "./BackstageItem";
+import { isProviderItem } from "../ui-items-provider/isProviderItem";
 
 /** @internal */
 export interface BackstageComposerActionItemProps {
-  readonly item: BackstageActionItem; // eslint-disable-line deprecation/deprecation
+  readonly item: BackstageActionItem;
 }
 
 /** @internal */
 export function BackstageComposerActionItem({ item }: BackstageComposerActionItemProps) {
   const manager = useBackstageManager();
-  const iconSpec = IconHelper.getIconReactNode(item.icon, item.internalData);
   const handleClick = React.useCallback(() => {
     manager.close();
     item.execute();
@@ -33,15 +32,15 @@ export function BackstageComposerActionItem({ item }: BackstageComposerActionIte
   return (
     <NZ_BackstageItem
       itemId={item.id}
-      providerId={item.providerId}
+      providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      icon={<Icon iconSpec={iconSpec} />}
+      icon={<Icon iconSpec={item.icon} />}
       isActive={ConditionalBooleanValue.getValue(item.isActive)}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      badge={BadgeUtilities.getComponentForBadgeType(item.badgeType)}
+      badge={BadgeUtilities.getComponentForBadgeType(item.badge)}
     >
       {ConditionalStringValue.getValue(item.label)}
     </NZ_BackstageItem>
@@ -50,7 +49,7 @@ export function BackstageComposerActionItem({ item }: BackstageComposerActionIte
 
 /** @internal */
 export interface BackstageComposerStageLauncherProps {
-  readonly item: BackstageStageLauncher; // eslint-disable-line deprecation/deprecation
+  readonly item: BackstageStageLauncher;
 }
 
 /** @internal */
@@ -64,19 +63,18 @@ export function BackstageComposerStageLauncher({ item }: BackstageComposerStageL
   }, [manager, item.stageId]);
   const activeFrontstageId = useActiveFrontstageId();
   const isActive = ConditionalBooleanValue.getValue(item.isActive ?? item.stageId === activeFrontstageId);
-  const iconSpec = IconHelper.getIconReactNode(item.icon, item.internalData);
   return (
     <NZ_BackstageItem
       itemId={item.id}
-      providerId={item.providerId}
+      providerId={isProviderItem(item) ? item.providerId : undefined}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
-      icon={<Icon iconSpec={iconSpec} />}
+      icon={<Icon iconSpec={item.icon} />}
       isActive={isActive}
       isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
       subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      badge={BadgeUtilities.getComponentForBadgeType(item.badgeType)}
+      badge={BadgeUtilities.getComponentForBadgeType(item.badge)}
     >
       {ConditionalStringValue.getValue(item.label)}
     </NZ_BackstageItem>
@@ -88,15 +86,14 @@ export function BackstageComposerStageLauncher({ item }: BackstageComposerStageL
  */
 export interface BackstageComposerItemProps {
   /** Backstage item to render */
-  readonly item: BackstageItem; // eslint-disable-line deprecation/deprecation
-  readonly providerId?: string;
+  readonly item: BackstageItem;
 }
 
 /** Item of [[BackstageComposer]].
  * @internal
  */
 export function BackstageComposerItem({ item }: BackstageComposerItemProps) {
-  if (isStageLauncher(item)) { // eslint-disable-line deprecation/deprecation
+  if (isBackstageStageLauncher(item)) {
     return (
       <BackstageComposerStageLauncher
         item={item}

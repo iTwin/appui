@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { BackstageItem, BackstageItemsManager, ConditionalBooleanValue, isStageLauncher, UiSyncEventArgs } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { CommonProps } from "@itwin/core-react";
 import { BackstageSeparator, Backstage as NZ_Backstage } from "@itwin/appui-layout-react";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
@@ -17,17 +17,23 @@ import { useBackstageManager, useIsBackstageOpen } from "./BackstageManager";
 import { useDefaultBackstageItems } from "./useDefaultBackstageItems";
 import { useUiItemsProviderBackstageItems } from "./useUiItemsProviderBackstageItems";
 import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
+import { BackstageItem, isBackstageStageLauncher } from "./BackstageItem";
+import { BackstageItemsManager } from "./BackstageItemsManager";
 
 // cSpell:ignore safearea
-
-/* eslint-disable deprecation/deprecation */
 
 /** Private function to set up sync event monitoring of backstage items */
 function useBackstageItemSyncEffect(itemsManager: BackstageItemsManager, syncIdsOfInterest: string[]) {
   const isInitialMount = React.useRef(true);
 
   React.useEffect(() => {
-    const handleSyncUiEvent = (args: UiSyncEventArgs) => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      // initialize the display state of any items with syncIds/condition defined
+      itemsManager.refreshAffectedItems(new Set(syncIdsOfInterest));
+    }
+
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
       if (0 === syncIdsOfInterest.length)
         return;
 
@@ -36,24 +42,13 @@ function useBackstageItemSyncEffect(itemsManager: BackstageItemsManager, syncIds
         // process each item that has interest
         itemsManager.refreshAffectedItems(args.eventIds);
       }
-    };
-
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      // initialize the display state of any items with syncIds/condition defined
-      itemsManager.refreshAffectedItems(new Set(syncIdsOfInterest));
-    }
-
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
-    return () => {
-      SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
-    };
+    });
   }, [itemsManager, itemsManager.items, syncIdsOfInterest]);
 }
 
 /** local function to combine items from Stage and from Extensions */
-function combineItems(stageItems: ReadonlyArray<BackstageItem>, addonItems: ReadonlyArray<BackstageItem>, hideSoloStageEntry: boolean) {
-  let items: BackstageItem[] = [];
+function combineItems(stageItems: ReadonlyArray<BackstageItem>, addonItems: ReadonlyArray<BackstageItem>, hideSoloStageEntry: boolean): ReadonlyArray<BackstageItem> {
+  let items: Array<BackstageItem> = [];
   if (stageItems.length) {
     // Walk through each and ensure no duplicate ids are added.
     stageItems.forEach((srcItem) => {
@@ -73,9 +68,9 @@ function combineItems(stageItems: ReadonlyArray<BackstageItem>, addonItems: Read
 
   if (hideSoloStageEntry) {
     // per user request don't show stage launcher if only one stage is available
-    const numberOfFrontstageItems = items.reduce((accumulator, item) => accumulator + (isStageLauncher(item) ? 1 : 0), 0);
+    const numberOfFrontstageItems = items.reduce((accumulator, item) => accumulator + (isBackstageStageLauncher(item) ? 1 : 0), 0);
     if (1 === numberOfFrontstageItems)
-      items = items.filter((item) => !isStageLauncher(item));
+      items = items.filter((item) => !isBackstageStageLauncher(item));
   }
 
   return items;
@@ -164,7 +159,6 @@ export function BackstageComposer(props: BackstageComposerProps) {
 
   const combinedBackstageItems = React.useMemo(() => combineItems(defaultItems, addonItems, !!props.hideSoloStageEntry), [defaultItems, addonItems, props.hideSoloStageEntry]);
   const groups = useGroupedItems(combinedBackstageItems);
-
   return (
     <NZ_Backstage
       className={props.className}

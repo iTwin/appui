@@ -4,12 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
-import {
-  StageUsage, UiItemsManager,
-} from "@itwin/appui-abstract";
 import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
-import { DefaultStatusbarItems, StandardStatusbarItemsProvider } from "../../appui-react";
+import { DefaultStatusbarItems, StageUsage, StandardStatusbarItemsProvider, UiItemsManager } from "../../appui-react";
 
 const testArray: DefaultStatusbarItems[] = [
   {
@@ -73,7 +70,7 @@ describe("StandardStatusbarItemsProvider", () => {
     const provider = StandardStatusbarItemsProvider.register(testProviderId);
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
     // Activity Item is not included by default
-    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General).length).to.eq(8);
+    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General)).length(8);
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });

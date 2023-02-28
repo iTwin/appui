@@ -7,12 +7,13 @@
  */
 
 import * as React from "react";
-import { CommonStatusBarItem, StatusBarItemsChangedArgs, StatusBarItemsManager } from "@itwin/appui-abstract";
+import { StatusBarItem } from "./StatusBarItem";
+import { StatusBarItemsManager } from "./StatusBarItemsManager";
 
 /** Hook that returns items from [[StatusBarItemsManager]].
  * @public
  */
-export const useDefaultStatusBarItems = (manager: StatusBarItemsManager): readonly CommonStatusBarItem[] => { // eslint-disable-line deprecation/deprecation
+export const useDefaultStatusBarItems = (manager: StatusBarItemsManager): readonly StatusBarItem[] => {
   const [items, setItems] = React.useState(manager.items);
   const isInitialMount = React.useRef(true);
   React.useEffect(() => {
@@ -23,14 +24,9 @@ export const useDefaultStatusBarItems = (manager: StatusBarItemsManager): readon
     }
   }, [manager]);
   React.useEffect(() => {
-    // istanbul ignore next
-    const handleChanged = (args: StatusBarItemsChangedArgs) => {
+    return manager.onItemsChanged.addListener((args) => {
       setItems(args.items);
-    };
-    manager.onItemsChanged.addListener(handleChanged);
-    return () => {
-      manager.onItemsChanged.removeListener(handleChanged);
-    };
+    });
   }, [manager]);
   return items;
 };

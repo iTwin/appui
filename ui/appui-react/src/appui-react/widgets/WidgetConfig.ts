@@ -6,25 +6,16 @@
  * @module Widget
  */
 
-import { IconProps } from "@itwin/core-react";
-import { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
-import { CommonWidgetProps } from "./WidgetProps";
+import { Widget } from "./Widget";
 
 /** Configuration from which a widget is created.
  * @public
  */
-export interface WidgetConfig extends Omit<CommonWidgetProps, "getWidgetContent" | "id">, IconProps {
-  readonly id: string;
-  /** if set, it is used to define a key that is used to look up a localized string. This value is used only if label is not explicitly set. */
+export interface WidgetConfig extends Widget {
+  /** If set, it is used to define a key that is used to look up a localized string. This value is used only if label is not explicitly set. */
   readonly labelKey?: string;
-  /** if set, it is used to define a key that is used to look up a localized string. This value is used only if tooltip is not explicitly set. */
+  /** If set, it is used to define a key that is used to look up a localized string. This value is used only if tooltip is not explicitly set. */
   readonly tooltipKey?: string;
-  /** A [[WidgetControl]] providing information about the Widget. */
-  readonly control?: ConfigurableUiControlConstructor;
-  /** A React component for the Widget. */
-  readonly element?: React.ReactNode;
-  /** Control's class id */
-  readonly classId?: string | ConfigurableUiControlConstructor;
   /** @alpha */
   readonly preferredPanelSize?: "fit-content";
 }

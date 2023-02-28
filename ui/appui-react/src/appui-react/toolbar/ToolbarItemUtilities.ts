@@ -6,20 +6,45 @@
  * @module Toolbar
  */
 
-import {  ToolbarItemUtilities as UIA_ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { ToolbarActionItem, ToolbarGroupItem } from "./ToolbarItem";
+import { ToolbarActionItem, ToolbarCustomItem, ToolbarGroupItem } from "./ToolbarItem";
 
-/** Helper class to create StatusBar Item definitions.
+/** Helper class to create toolbar items.
  * @beta
  */
 export namespace ToolbarItemUtilities {
-  /** Creates an Action Button */
+  /** Creates an action item. */
   export function createActionItem(id: ToolbarActionItem["id"], itemPriority: ToolbarActionItem["itemPriority"], icon: ToolbarActionItem["icon"], label: ToolbarActionItem["label"], execute: ToolbarActionItem["execute"], overrides?: Partial<ToolbarActionItem>): ToolbarActionItem {
-    return UIA_ToolbarItemUtilities.createActionButton(id, itemPriority, icon, label, execute, overrides); // eslint-disable-line deprecation/deprecation
+    return {
+      id,
+      itemPriority,
+      icon,
+      label,
+      execute,
+      ...overrides,
+    };
   }
 
-  /** Creates a Group button */
+  /** Creates a group item. */
   export function createGroupItem(id: string, itemPriority: number, icon: ToolbarGroupItem["icon"], label: ToolbarGroupItem["label"], items: ToolbarGroupItem["items"], overrides?: Partial<ToolbarGroupItem>): ToolbarGroupItem {
-    return UIA_ToolbarItemUtilities.createGroupButton(id, itemPriority, icon, label, items, overrides); // eslint-disable-line deprecation/deprecation
+    return {
+      id,
+      itemPriority,
+      icon,
+      label,
+      items,
+      ...overrides,
+    };
+  }
+
+  /** Creates a custom item. */
+  export function createCustomItem(id: string, itemPriority: number, icon: ToolbarCustomItem["icon"], label: ToolbarCustomItem["label"], panelContent?: ToolbarCustomItem["panelContent"], overrides?: Partial<ToolbarCustomItem>): ToolbarCustomItem {
+    return {
+      id,
+      itemPriority,
+      icon,
+      label,
+      panelContent,
+      ...overrides,
+    };
   }
 }

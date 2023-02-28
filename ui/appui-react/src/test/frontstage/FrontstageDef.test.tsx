@@ -5,12 +5,11 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import produce from "immer";
-import { renderHook } from "@testing-library/react-hooks";
-import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsManager, UiItemsProvider, WidgetState } from "@itwin/appui-abstract";
 import { addFloatingWidget, addPanelWidget, addPopoutWidget, addTab, createNineZoneState } from "@itwin/appui-layout-react";
 import { MockRender } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
-import { FrontstageConfig, FrontstageDef, FrontstageProvider, StagePanelDef, StagePanelState, UiFramework, useSpecificWidgetDef, WidgetDef } from "../../appui-react";
+import { renderHook } from "@testing-library/react-hooks";
+import { FrontstageConfig, FrontstageDef, FrontstageProvider, StagePanelDef, StagePanelLocation, StagePanelSection, StagePanelState, UiFramework, UiItemsManager, UiItemsProvider, useSpecificWidgetDef, Widget, WidgetDef, WidgetState } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
@@ -114,23 +113,20 @@ describe("FrontstageDef", () => {
       public readonly id = "WidgetsProvider";
 
       public provideWidgets(_stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) {
-        const widgets: Array<AbstractWidgetProps> = [];
+        const widgets: Widget[] = [];
         widgets.push({ // This should be added to Left stage panel, Start location.
           id: "WidgetsProviderW1",
           label: "WidgetsProvider W1",
-          getWidgetContent: () => "",
         });
         if (location === StagePanelLocation.Right)
           widgets.push({
             id: "WidgetsProviderR1",
             label: "WidgetsProvider R1",
-            getWidgetContent: () => "",
           });
         if (location === StagePanelLocation.Right && section === StagePanelSection.End)
           widgets.push({
             id: "WidgetsProviderRM1",
             label: "WidgetsProvider RM1",
-            getWidgetContent: () => "",
           });
 
         return widgets;

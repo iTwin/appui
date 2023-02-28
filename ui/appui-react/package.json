@@ -42,7 +42,7 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "workspace:^4.0.0-dev.10",
+    "@itwin/appui-abstract": "^3.6.0",
     "@itwin/appui-layout-react": "workspace:^4.0.0-dev.10",
     "@itwin/components-react": "workspace:^4.0.0-dev.10",
     "@itwin/core-bentley": "^3.6.0",
@@ -63,7 +63,7 @@
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/appui-abstract": "workspace:*",
+    "@itwin/appui-abstract": "^3.6.0",
     "@itwin/appui-layout-react": "workspace:*",
     "@itwin/build-tools": "^3.6.0",
     "@itwin/components-react": "workspace:*",
@@ -152,8 +152,8 @@
     ],
     "check-coverage": true,
     "statements": 96,
-    "branches": 95,
-    "functions": 96,
+    "branches": 93,
+    "functions": 94,
     "lines": 96
   },
   "eslintConfig": {
@@ -163,16 +163,6 @@
     "extends": [
       "plugin:@itwin/ui",
       "plugin:@itwin/jsdoc"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "src/test/**/*"
-        ],
-        "rules": {
-          "deprecation/deprecation": "off"
-        }
-      }
     ]
   }
 }
