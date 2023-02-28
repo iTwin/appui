@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { createNineZoneState, DragManager, PanelSide, PanelSideContext } from "../../appui-layout-react";
+import { addFloatingWidget, addTab, createNineZoneState, DragManager, PanelSide, PanelSideContext, useActiveSendBackWidgetIdStore } from "../../appui-layout-react";
 import { PanelOutline, useHidden } from "../../appui-layout-react/outline/PanelOutline";
 import { createDragStartArgs, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { renderHook } from "@testing-library/react-hooks";
@@ -51,17 +51,14 @@ describe("PanelOutline", () => {
 });
 
 describe("useHidden", () => {
-  interface WrapperProps {
+  interface WrapperProps extends TestNineZoneProviderProps {
     side?: PanelSide;
-    dragManagerRef?: React.Ref<DragManager>;
   }
 
-  function Wrapper({ children, dragManagerRef, side }: React.PropsWithChildren<WrapperProps>) {
+  function Wrapper({ children, side, ...other }: React.PropsWithChildren<WrapperProps>) {
     side = side ?? "left";
     return (
-      <TestNineZoneProvider
-        dragManagerRef={dragManagerRef}
-      >
+      <TestNineZoneProvider {...other}>
         <PanelSideContext.Provider value={side}>
           {children}
         </PanelSideContext.Provider>
@@ -99,7 +96,7 @@ describe("useHidden", () => {
     result.current.should.true;
   });
 
-  it("should return `false`", () => {
+  it("should return `false` if target is a current panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
       wrapper: (props) => <Wrapper dragManagerRef={dragManagerRef} {...props} />, // eslint-disable-line react/display-name
@@ -113,5 +110,53 @@ describe("useHidden", () => {
       });
     });
     result.current.should.false;
+  });
+
+  it("should return `false` if sendBackHome state points to a current panel", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(
+      state,
+      "w1",
+      ["t1"],
+      {
+        home: {
+          widgetIndex: 0,
+          widgetId: undefined,
+          side: "left",
+        },
+      },
+    );
+
+    useActiveSendBackWidgetIdStore.setState("w1");
+    const { result } = renderHook(() => useHidden(), {
+      wrapper: (props) => <Wrapper defaultState={state} {...props} />, // eslint-disable-line react/display-name
+    });
+
+    result.current.should.false;
+  });
+
+  it("should return `true` if sendBackHome state points to a different panel", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(
+      state,
+      "w1",
+      ["t1"],
+      {
+        home: {
+          widgetIndex: 0,
+          widgetId: undefined,
+          side: "right",
+        },
+      },
+    );
+
+    useActiveSendBackWidgetIdStore.setState("w1");
+    const { result } = renderHook(() => useHidden(), {
+      wrapper: (props) => <Wrapper defaultState={state} {...props} />, // eslint-disable-line react/display-name
+    });
+
+    result.current.should.true;
   });
 });
