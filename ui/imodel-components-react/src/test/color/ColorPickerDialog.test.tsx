@@ -13,6 +13,7 @@ import { ColorPickerDialog } from "../../imodel-components-react/color/ColorPick
 // cSpell:ignore colorpicker
 
 describe("ColorPickerDialog", () => {
+
   before(async () => {
     await TestUtils.initializeUiIModelComponents();
   });
@@ -23,54 +24,29 @@ describe("ColorPickerDialog", () => {
 
   describe("renders", () => {
     it("should render", () => {
-      const wrapper = render(
-        <ColorPickerDialog
-          dialogTitle="-testing-title-"
-          color={ColorDef.blue}
-          onOkResult={(_selectedColor: ColorDef) => {}}
-          onCancelResult={() => {}}
-        />
-      );
+      const wrapper = render(<ColorPickerDialog dialogTitle="-testing-title-" color={ColorDef.blue} onOkResult={(_selectedColor: ColorDef) => { }} onCancelResult={() => { }} />);
       expect(wrapper.findByText("-testing-title-")).not.to.be.null;
     });
 
     it("should render with presets", () => {
-      const defaultColors = [
-        ColorDef.create(ColorByName.red),
-        ColorDef.create(ColorByName.orange),
-        ColorDef.create(ColorByName.yellow),
-        ColorDef.create(ColorByName.green),
-        ColorDef.create(ColorByName.blue),
-        ColorDef.create(ColorByName.olive),
-      ];
-      const wrapper = render(
-        <ColorPickerDialog
-          dialogTitle="-testing-title-"
-          color={ColorDef.blue}
-          colorPresets={defaultColors}
-          onOkResult={(_selectedColor: ColorDef) => {}}
-          onCancelResult={() => {}}
-        />
-      );
-      expect(
-        wrapper.container.querySelectorAll(".iui-color-swatch").length
-      ).to.eq(6);
+      const defaultColors =
+        [
+          ColorDef.create(ColorByName.red),
+          ColorDef.create(ColorByName.orange),
+          ColorDef.create(ColorByName.yellow),
+          ColorDef.create(ColorByName.green),
+          ColorDef.create(ColorByName.blue),
+          ColorDef.create(ColorByName.olive),
+        ];
+      const wrapper = render(<ColorPickerDialog dialogTitle="-testing-title-" color={ColorDef.blue} colorPresets={defaultColors} onOkResult={(_selectedColor: ColorDef) => { }} onCancelResult={() => { }} />);
+      expect(wrapper.container.querySelectorAll(".iui-color-swatch").length).to.eq(6);
     });
 
     it("should trigger onCancelResult", () => {
       const spyOnCancel = sinon.spy();
 
-      const wrapper = render(
-        <ColorPickerDialog
-          dialogTitle="-testing-title-"
-          color={ColorDef.blue}
-          onOkResult={(_selectedColor: ColorDef) => {}}
-          onCancelResult={spyOnCancel}
-        />
-      );
-      const cancelButton = wrapper.container.querySelector(
-        "button.core-dialog-button.dialog-button-cancel"
-      ) as HTMLElement;
+      const wrapper = render(<ColorPickerDialog dialogTitle="-testing-title-" color={ColorDef.blue} onOkResult={(_selectedColor: ColorDef) => { }} onCancelResult={spyOnCancel} />);
+      const cancelButton = wrapper.container.querySelector("button.core-dialog-button.dialog-button-cancel") as HTMLElement;
       expect(cancelButton).not.to.be.null;
       fireEvent.click(cancelButton);
       expect(spyOnCancel).to.be.calledOnce;
@@ -84,15 +60,7 @@ describe("ColorPickerDialog", () => {
         spyOnOK();
       }
 
-      const wrapper = render(
-        <ColorPickerDialog
-          dialogTitle="-testing-title-"
-          colorInputType="hsl"
-          color={ColorDef.blue}
-          onOkResult={handleOK}
-          onCancelResult={() => {}}
-        />
-      );
+      const wrapper = render(<ColorPickerDialog dialogTitle="-testing-title-" colorInputType="hsl" color={ColorDef.blue} onOkResult={handleOK} onCancelResult={() => { }} />);
       const okButton = wrapper.container.querySelector(
         'button.core-dialog-button.dialog-button-ok[data-iui-variant="cta"]'
       ) as HTMLElement;
@@ -104,36 +72,25 @@ describe("ColorPickerDialog", () => {
     it("should trigger onOkResult with preset color (black)", () => {
       const spyOnOK = sinon.spy();
 
-      const defaultColors = [
-        ColorDef.create(ColorByName.black),
-        ColorDef.create(ColorByName.red),
-        ColorDef.create(ColorByName.orange),
-        ColorDef.create(ColorByName.yellow),
-        ColorDef.create(ColorByName.green),
-        ColorDef.create(ColorByName.blue),
-        ColorDef.create(ColorByName.olive),
-      ];
+      const defaultColors =
+        [
+          ColorDef.create(ColorByName.black),
+          ColorDef.create(ColorByName.red),
+          ColorDef.create(ColorByName.orange),
+          ColorDef.create(ColorByName.yellow),
+          ColorDef.create(ColorByName.green),
+          ColorDef.create(ColorByName.blue),
+          ColorDef.create(ColorByName.olive),
+        ];
 
       function handleOK(color: ColorDef): void {
         expect(color.tbgr).to.be.equal(ColorByName.black);
         spyOnOK();
       }
 
-      const wrapper = render(
-        <ColorPickerDialog
-          dialogTitle="-testing-title-"
-          color={ColorDef.blue}
-          colorPresets={defaultColors}
-          onOkResult={handleOK}
-          onCancelResult={() => {}}
-        />
-      );
-      const panel = wrapper.container.querySelector(
-        ".iui-color-palette-wrapper"
-      ) as HTMLElement;
-      const colorButton = panel.querySelector(
-        ".iui-color-swatch"
-      ) as HTMLElement;
+      const wrapper = render(<ColorPickerDialog dialogTitle="-testing-title-" color={ColorDef.blue} colorPresets={defaultColors} onOkResult={handleOK} onCancelResult={() => { }} />);
+      const panel = wrapper.container.querySelector(".iui-color-palette-wrapper") as HTMLElement;
+      const colorButton = panel.querySelector(".iui-color-swatch") as HTMLElement;
       fireEvent.click(colorButton);
 
       const okButton = wrapper.container.querySelector(
@@ -142,5 +99,6 @@ describe("ColorPickerDialog", () => {
       fireEvent.click(okButton);
       expect(spyOnOK).to.be.calledOnce;
     });
+
   });
 });
