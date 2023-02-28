@@ -36,7 +36,7 @@ export default function transformer(file: FileInfo, api: API) {
         return;
 
       const name: string | undefined = isJSXIdentifier(j, attribute.name) ? frontstageAttrNames[attribute.name.name] : "";
-      if (name || name === "")
+      if (!name || name === "")
         return;
 
       const expressionContainer = j(attribute).find(j.JSXExpressionContainer).get().value;
