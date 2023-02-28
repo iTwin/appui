@@ -627,6 +627,7 @@ export class Popup extends React.Component<PopupProps, PopupState> {
           {this.props.children}
         </FocusTrap>
       </div>,
+      // istanbul ignore next
       this.state.parentDocument.body.querySelector(
         '[data-root-container="iui-root-id"]'
       ) ?? this.state.parentDocument.body
