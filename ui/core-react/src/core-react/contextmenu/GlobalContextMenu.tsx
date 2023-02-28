@@ -85,9 +85,9 @@ export class GlobalContextMenu extends React.PureComponent<GlobalContextMenuProp
             <div className="core-context-menu-global" style={positioningStyle}>
               <CtxMenu
                 {...props} />
-            </div >, 
+            </div >,
             // istanbul ignore next
-            this.state.parentDocument.body.querySelector('[data-root-container="iui-root-id"]') ?? this.state.parentDocument.body)   
+            this.state.parentDocument.body.querySelector('[data-root-container="iui-root-id"]') ?? this.state.parentDocument.body)
         }
       </div>
     );
