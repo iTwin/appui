@@ -15,5 +15,6 @@ import { TextProps } from "./TextProps";
  * @deprecated Use <Text variant='body' /> from iTwinUI-react package.
  */
 export function BodyText(props: TextProps) {
+  {/* eslint-disable-next-line */}
   return <StyledText {...props} mainClassName="uicore-text-body" />;
 }

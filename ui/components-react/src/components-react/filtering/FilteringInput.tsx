@@ -24,7 +24,7 @@ interface FilteringInputState {
   /**
    *  Tells the component if the search was started.
    *  Gets reset to false if search is canceled/cleared or searchText is changed.
-   */
+  */
   searchStarted: boolean;
   /* Used for resetting the state of [[ResultSelector]] component */
   resultSelectorKey: number;
@@ -71,10 +71,7 @@ export enum FilteringInputStatus {
 /** A helper component for filtering trees and stepping through results
  * @public
  */
-export class FilteringInput extends React.PureComponent<
-  FilteringInputProps,
-  FilteringInputState
-> {
+export class FilteringInput extends React.PureComponent<FilteringInputProps, FilteringInputState> {
   private _inputElement = React.createRef<HTMLInputElement>();
   private _searchLabel = UiCore.translate("general.search");
   private _cancelLabel = UiCore.translate("dialog.cancel");
@@ -91,7 +88,8 @@ export class FilteringInput extends React.PureComponent<
 
   private focus() {
     // istanbul ignore next
-    if (this._inputElement.current) this._inputElement.current.focus();
+    if (this._inputElement.current)
+      this._inputElement.current.focus();
   }
 
   private _onSearchButtonClick = () => {
@@ -119,9 +117,11 @@ export class FilteringInput extends React.PureComponent<
   };
 
   private _onFilterKeyDown = (e: React.KeyboardEvent<HTMLElement>): void => {
-    if (e.key !== Key.Enter) return;
+    if (e.key !== Key.Enter)
+      return;
 
-    if (!this.state.searchText) return;
+    if (!this.state.searchText)
+      return;
 
     this.props.onFilterStart(this.state.searchText);
     this.setState({ searchStarted: true });
@@ -138,9 +138,7 @@ export class FilteringInput extends React.PureComponent<
   /** @internal */
   public override componentDidUpdate(prevProps: FilteringInputProps) {
     if (this.props.resultSelectorProps !== prevProps.resultSelectorProps) {
-      this.setState((state) => ({
-        resultSelectorKey: state.resultSelectorKey + 1,
-      }));
+      this.setState((state) => ({ resultSelectorKey: state.resultSelectorKey + 1 }));
     }
   }
 
@@ -148,19 +146,13 @@ export class FilteringInput extends React.PureComponent<
     const status = this.props.status;
     return (
       // TODO: What is filtering-input-preload-images?
-      <div
-        className={classnames(
-          "components-filtering-input",
-          "filtering-input-preload-images",
-          this.props.className
-        )}
+      <div className={classnames("components-filtering-input", "filtering-input-preload-images", this.props.className)}
         style={this.props.style}
         onKeyDown={this._onFilterKeyDown}
         role="presentation"
       >
         <span className="components-filtering-input-input">
-          <Input
-            type="text"
+          <Input type="text"
             placeholder={UiComponents.translate("filteringInput.placeholder")}
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus={this.props.autoFocus}
@@ -168,47 +160,23 @@ export class FilteringInput extends React.PureComponent<
             value={this.state.searchText}
             onChange={this._onInputChanged}
             aria-label={UiCore.translate("general.search")}
-            size="small"
-          />
+            size="small" />
 
           <span className="components-filtering-input-input-components">
-            {status === FilteringInputStatus.FilteringFinished &&
-            this.props.resultSelectorProps ? (
-              <ResultSelector
-                key={this.state.resultSelectorKey}
-                {...this.props.resultSelectorProps}
-              />
-            ) : undefined}
-            {status === FilteringInputStatus.ReadyToFilter ? (
+            {status === FilteringInputStatus.FilteringFinished && this.props.resultSelectorProps ?
+              <ResultSelector key={this.state.resultSelectorKey} {...this.props.resultSelectorProps} /> : undefined}
+            {status === FilteringInputStatus.ReadyToFilter ?
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span
-                className="icon icon-search"
-                onClick={this._onSearchButtonClick}
-                role="button"
-                tabIndex={-1}
-                title={this._searchLabel}
-              />
-            ) : undefined}
-            {status === FilteringInputStatus.FilteringInProgress ? (
+              <span className="icon icon-search" onClick={this._onSearchButtonClick}
+                role="button" tabIndex={-1} title={this._searchLabel} /> : undefined}
+            {status === FilteringInputStatus.FilteringInProgress ?
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span
-                className="icon icon-close"
-                onClick={this._onCancelButtonClick}
-                role="button"
-                tabIndex={-1}
-                title={this._cancelLabel}
-              />
-            ) : undefined}
-            {status === FilteringInputStatus.FilteringFinished ? (
+              <span className="icon icon-close" onClick={this._onCancelButtonClick}
+                role="button" tabIndex={-1} title={this._cancelLabel} /> : undefined}
+            {status === FilteringInputStatus.FilteringFinished ?
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <span
-                className="components-filtering-input-clear icon icon-close"
-                onClick={this._onClearButtonClick}
-                role="button"
-                tabIndex={-1}
-                title={this._clearLabel}
-              />
-            ) : undefined}
+              <span className="components-filtering-input-clear icon icon-close" onClick={this._onClearButtonClick}
+                role="button" tabIndex={-1} title={this._clearLabel} /> : undefined}
           </span>
         </span>
       </div>

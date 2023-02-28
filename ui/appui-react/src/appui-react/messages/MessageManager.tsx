@@ -11,16 +11,8 @@ import * as _ from "lodash";
 import * as React from "react";
 import { XAndY } from "@itwin/core-geometry";
 import {
-  ActivityMessageDetails,
-  IModelApp,
-  MessageBoxIconType,
-  MessageBoxType,
-  MessageBoxValue,
-  OutputMessageAlert,
-  OutputMessagePriority,
-  OutputMessageType,
-  ToolAssistanceInstructions,
-  ToolTipOptions,
+  ActivityMessageDetails, IModelApp, MessageBoxIconType, MessageBoxType, MessageBoxValue, OutputMessageAlert, OutputMessagePriority,
+  OutputMessageType, ToolAssistanceInstructions, ToolTipOptions,
 } from "@itwin/core-frontend";
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
 import { MessageContainer, ReactMessage } from "@itwin/core-react";
@@ -30,10 +22,7 @@ import { ElementTooltip } from "../feedback/ElementTooltip";
 import { UiFramework } from "../UiFramework";
 import { MessageSpan } from "./MessageSpan";
 import { PointerMessage } from "./Pointer";
-import {
-  NotifyMessageDetailsType,
-  NotifyMessageType,
-} from "./ReactNotifyMessageDetails";
+import { NotifyMessageDetailsType, NotifyMessageType } from "./ReactNotifyMessageDetails";
 import { StatusMessageManager } from "./StatusMessageManager";
 import { Text, toaster, ToastOptions } from "@itwin/itwinui-react";
 import { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
@@ -41,8 +30,8 @@ import { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
 class MessageBoxCallbacks {
   constructor(
     public readonly onFulfilled: (result: MessageBoxValue) => void,
-    public readonly onRejected: (result: any) => void
-  ) {}
+    public readonly onRejected: (result: any) => void,
+  ) { }
 
   public handleMessageBoxResult = (result: MessageBoxValue) => {
     this.onFulfilled(result);
@@ -96,42 +85,42 @@ export interface ToolAssistanceChangedEventArgs {
 /** Message Added Event class.
  * @public
  */
-export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> {}
+export class MessageAddedEvent extends UiEvent<MessageAddedEventArgs> { }
 
 /** Messages Updated Event class.
  * @public
  */
-export class MessagesUpdatedEvent extends UiEvent<{}> {}
+export class MessagesUpdatedEvent extends UiEvent<{}> { }
 
 /** Activity Message Added Event class.
  * @public
  */
-export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> {}
+export class ActivityMessageUpdatedEvent extends UiEvent<ActivityMessageEventArgs> { }
 
 /** Activity Message Cancelled Event class.
  * @public
  */
-export class ActivityMessageCancelledEvent extends UiEvent<{}> {}
+export class ActivityMessageCancelledEvent extends UiEvent<{}> { }
 
 /** Input Field Message Added Event class
  * @public
  */
-export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> {}
+export class InputFieldMessageAddedEvent extends UiEvent<InputFieldMessageEventArgs> { }
 
 /** Input Field Message Removed Event class.
  * @public
  */
-export class InputFieldMessageRemovedEvent extends UiEvent<{}> {}
+export class InputFieldMessageRemovedEvent extends UiEvent<{}> { }
 
 /** Open Message Center Event class.
  * @public
  */
-export class OpenMessageCenterEvent extends UiEvent<{}> {}
+export class OpenMessageCenterEvent extends UiEvent<{}> { }
 
 /** Tool Assistance Changed event class
  * @public
  */
-export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> {}
+export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEventArgs> { }
 
 /**
  * Keeps track of the current activity message, and updates whenever
@@ -142,11 +131,7 @@ export class ToolAssistanceChangedEvent extends UiEvent<ToolAssistanceChangedEve
 class OngoingActivityMessage {
   public message: NotifyMessageType = "";
   public percentage: number = 0;
-  public details: ActivityMessageDetails = new ActivityMessageDetails(
-    true,
-    true,
-    true
-  );
+  public details: ActivityMessageDetails = new ActivityMessageDetails(true, true, true);
   public isRestored: boolean = false;
 }
 
@@ -157,8 +142,7 @@ export class MessageManager {
   private static _maxCachedMessages = 500;
   private static _maxDisplayedStickyMessages = 3;
   private static _messages: NotifyMessageDetailsType[] = [];
-  private static _ongoingActivityMessage: OngoingActivityMessage =
-    new OngoingActivityMessage();
+  private static _ongoingActivityMessage: OngoingActivityMessage = new OngoingActivityMessage();
   private static _lastMessage?: NotifyMessageDetailsType;
   private static _activeMessageManager = new StatusMessageManager();
   private static _animateOutToElement: HTMLElement | null;
@@ -170,39 +154,29 @@ export class MessageManager {
   public static readonly onMessagesUpdatedEvent = new MessagesUpdatedEvent();
 
   /** The ActivityMessageUpdatedEvent is fired when an Activity message updates via outputActivityMessage(). */
-  public static readonly onActivityMessageUpdatedEvent =
-    new ActivityMessageUpdatedEvent();
+  public static readonly onActivityMessageUpdatedEvent = new ActivityMessageUpdatedEvent();
 
   /** The ActivityMessageCancelledEvent is fired when an Activity message is cancelled via
    * endActivityMessage(ActivityMessageEndReason.Cancelled) or
    * by the user clicking the 'Cancel' link.
    */
-  public static readonly onActivityMessageCancelledEvent =
-    new ActivityMessageCancelledEvent();
+  public static readonly onActivityMessageCancelledEvent = new ActivityMessageCancelledEvent();
 
-  public static readonly onInputFieldMessageAddedEvent =
-    new InputFieldMessageAddedEvent();
-  public static readonly onInputFieldMessageRemovedEvent =
-    new InputFieldMessageRemovedEvent();
+  public static readonly onInputFieldMessageAddedEvent = new InputFieldMessageAddedEvent();
+  public static readonly onInputFieldMessageRemovedEvent = new InputFieldMessageRemovedEvent();
 
-  public static readonly onOpenMessageCenterEvent =
-    new OpenMessageCenterEvent();
+  public static readonly onOpenMessageCenterEvent = new OpenMessageCenterEvent();
 
   /** The ToolAssistanceChangedEvent is fired when a tool calls IModelApp.notifications.setToolAssistance().
    * @public
    */
-  public static readonly onToolAssistanceChangedEvent =
-    new ToolAssistanceChangedEvent();
+  public static readonly onToolAssistanceChangedEvent = new ToolAssistanceChangedEvent();
 
   /** List of messages as NotifyMessageDetailsType. */
-  public static get messages(): Readonly<NotifyMessageDetailsType[]> {
-    return this._messages;
-  }
+  public static get messages(): Readonly<NotifyMessageDetailsType[]> { return this._messages; }
 
   /** Manager of active messages. */
-  public static get activeMessageManager(): StatusMessageManager {
-    return this._activeMessageManager;
-  }
+  public static get activeMessageManager(): StatusMessageManager { return this._activeMessageManager; }
 
   /** Clear the message list. */
   public static clearMessages(): void {
@@ -225,12 +199,8 @@ export class MessageManager {
   }
 
   /** The maximum number of displayed Sticky messages. */
-  public static get maxDisplayedStickyMessages(): number {
-    return this._maxDisplayedStickyMessages;
-  }
-  public static set maxDisplayedStickyMessages(max: number) {
-    this._maxDisplayedStickyMessages = max;
-  }
+  public static get maxDisplayedStickyMessages(): number { return this._maxDisplayedStickyMessages; }
+  public static set maxDisplayedStickyMessages(max: number) { this._maxDisplayedStickyMessages = max; }
 
   /** Output a message and/or alert to the user.
    * @param  message  Details about the message to output.
@@ -240,18 +210,14 @@ export class MessageManager {
       PointerMessage.showMessage(message);
     } else if (message.msgType === OutputMessageType.InputField) {
       if (message.inputField)
-        MessageManager.displayInputFieldMessage(
-          message.inputField,
-          message.briefMessage,
-          message.detailedMessage,
-          message.priority
-        );
-      else message.msgType = OutputMessageType.Sticky; // Note: Changing the message.msgType here for InputField without inputField
+        MessageManager.displayInputFieldMessage(message.inputField, message.briefMessage, message.detailedMessage, message.priority);
+      else
+        message.msgType = OutputMessageType.Sticky; // Note: Changing the message.msgType here for InputField without inputField
     } else if (message.msgType === OutputMessageType.Alert) {
       if (message.openAlert === OutputMessageAlert.Balloon)
-        message.msgType =
-          OutputMessageType.Sticky; // Note: Changing the message.msgType here for Balloon
-      else MessageManager.showAlertMessageBox(message);
+        message.msgType = OutputMessageType.Sticky; // Note: Changing the message.msgType here for Balloon
+      else
+        MessageManager.showAlertMessageBox(message);
     }
 
     MessageManager.addMessage(message);
@@ -271,15 +237,8 @@ export class MessageManager {
    * @param settings Optionally override all toasts settings (i.e. placement or order).
    * @returns Object with reference to the message (i.e. to close it programmatically) if it was displayed.
    */
-  public static displayMessage(
-    message: NotifyMessageDetailsType,
-    options?: ToastOptions,
-    settings?: ToasterSettings
-  ) {
-    if (
-      message.msgType !== OutputMessageType.Sticky &&
-      message.msgType !== OutputMessageType.Toast
-    ) {
+  public static displayMessage(message: NotifyMessageDetailsType, options?: ToastOptions, settings?: ToasterSettings) {
+    if (message.msgType !== OutputMessageType.Sticky && message.msgType !== OutputMessageType.Toast) {
       return;
     }
     const toastOptions: ToastOptions = {
@@ -292,24 +251,13 @@ export class MessageManager {
       animateOutTo: this._animateOutToElement,
       ...options,
     };
-    toaster.setSettings({
-      placement: "bottom",
-      order: "ascending",
-      ...settings,
-    });
-    const content = (
-      <>
-        {message.briefMessage}
-        {message.detailedMessage && (
-          <Text variant="small">
-            <>
-              {(message.detailedMessage as ReactMessage).reactNode ||
-                message.detailedMessage}
-            </>
-          </Text>
-        )}
-      </>
-    );
+    toaster.setSettings({ placement: "bottom", order: "ascending", ...settings });
+    const content = <>
+      {message.briefMessage}
+      {message.detailedMessage &&
+      <Text variant="small"><>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</></Text>
+      }
+    </>;
     switch (message.priority) {
       case OutputMessagePriority.Warning:
         return toaster.warning(content, toastOptions);
@@ -360,9 +308,7 @@ export class MessageManager {
    * @param details    Details for setup of ActivityMessage
    * @returns true if details is valid and can be used to display ActivityMessage
    */
-  public static setupActivityMessageDetails(
-    details: ActivityMessageDetails
-  ): boolean {
+  public static setupActivityMessageDetails(details: ActivityMessageDetails): boolean {
     this._ongoingActivityMessage.details = details;
     this._ongoingActivityMessage.isRestored = details.showDialogInitially;
     return true;
@@ -374,10 +320,7 @@ export class MessageManager {
    * @param percentComplete The percentage of completion.
    * @return true if the message was displayed, false if the message could not be displayed.
    */
-  public static outputActivityMessage(
-    message: NotifyMessageType,
-    percentComplete: number
-  ): boolean {
+  public static outputActivityMessage(message: NotifyMessageType, percentComplete: number): boolean {
     return MessageManager.setupActivityMessageValues(message, percentComplete);
   }
 
@@ -390,11 +333,7 @@ export class MessageManager {
    *                    is now being restored from the status bar.
    * @returns true if details is valid and can be used to display ActivityMessage
    */
-  public static setupActivityMessageValues(
-    message: NotifyMessageType,
-    percentage: number,
-    restored?: boolean
-  ): boolean {
+  public static setupActivityMessageValues(message: NotifyMessageType, percentage: number, restored?: boolean): boolean {
     this._ongoingActivityMessage.message = message;
     this._ongoingActivityMessage.percentage = percentage;
 
@@ -402,10 +341,7 @@ export class MessageManager {
       message,
       percentage,
       details: this._ongoingActivityMessage.details,
-      restored:
-        restored !== undefined
-          ? restored
-          : this._ongoingActivityMessage.isRestored,
+      restored: (restored !== undefined) ? restored : this._ongoingActivityMessage.isRestored,
     });
 
     this._ongoingActivityMessage.isRestored = false;
@@ -429,8 +365,10 @@ export class MessageManager {
    * @param isCompleted   True if the activity was completed, false if it was canceled
    */
   private static endActivityProcessing(isCompleted: boolean): void {
-    if (isCompleted) this._ongoingActivityMessage.details.onActivityCompleted();
-    else this._ongoingActivityMessage.details.onActivityCancelled();
+    if (isCompleted)
+      this._ongoingActivityMessage.details.onActivityCompleted();
+    else
+      this._ongoingActivityMessage.details.onActivityCancelled();
   }
 
   /**
@@ -441,12 +379,7 @@ export class MessageManager {
    * @param detailedMessage   Optional detailed message text to display.
    * @param priority   Optional message priority which controls icon to display.
    */
-  public static displayInputFieldMessage(
-    target: HTMLElement,
-    messageText: NotifyMessageType,
-    detailedMessage: NotifyMessageType = "",
-    priority = OutputMessagePriority.Error
-  ) {
+  public static displayInputFieldMessage(target: HTMLElement, messageText: NotifyMessageType, detailedMessage: NotifyMessageType = "", priority = OutputMessagePriority.Error) {
     this.onInputFieldMessageAddedEvent.emit({
       target,
       messageText,
@@ -471,11 +404,7 @@ export class MessageManager {
 
   /** Output a prompt to the user. A 'prompt' indicates an action the user should take to proceed. */
   public static outputPrompt(prompt: string): void {
-    UiFramework.dispatchActionToStore(
-      ConfigurableUiActionId.SetToolPrompt,
-      prompt,
-      true
-    );
+    UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetToolPrompt, prompt, true);
   }
 
   /** Gets an icon CSS class name based on a given NotifyMessageDetailsType. */
@@ -488,9 +417,7 @@ export class MessageManager {
   }
 
   /** Gets a MessageSeverity based on a given NotifyMessageDetailsType. */
-  public static getSeverity(
-    details: NotifyMessageDetailsType
-  ): MessageSeverity {
+  public static getSeverity(details: NotifyMessageDetailsType): MessageSeverity {
     let severity = MessageSeverity.None;
 
     switch (details.priority) {
@@ -518,9 +445,7 @@ export class MessageManager {
   }
 
   /** Gets a MessageBoxIconType based on a given NotifyMessageDetailsType. */
-  public static getIconType(
-    details: NotifyMessageDetailsType
-  ): MessageBoxIconType {
+  public static getIconType(details: NotifyMessageDetailsType): MessageBoxIconType {
     let iconType = MessageBoxIconType.NoSymbol;
 
     switch (details.priority) {
@@ -553,66 +478,37 @@ export class MessageManager {
    * @param icon         The MessageBox icon type.
    * @return the response from the user.
    */
-  public static async openMessageBox(
-    mbType: MessageBoxType,
-    message: NotifyMessageType,
-    icon: MessageBoxIconType
-  ): Promise<MessageBoxValue> {
+  public static async openMessageBox(mbType: MessageBoxType, message: NotifyMessageType, icon: MessageBoxIconType): Promise<MessageBoxValue> {
     const title = UiFramework.translate("general.alert");
 
-    return new Promise(
-      (
-        onFulfilled: (result: MessageBoxValue) => void,
-        onRejected: (reason: any) => void
-      ) => {
-        const messageBoxCallbacks = new MessageBoxCallbacks(
-          onFulfilled,
-          onRejected
-        );
-        const messageElement = <MessageSpan message={message} />;
-        UiFramework.dialogs.modal.open(
-          this.standardMessageBox(
-            mbType,
-            icon,
-            title,
-            messageElement,
-            messageBoxCallbacks
-          )
-        );
-      }
-    );
+    return new Promise((onFulfilled: (result: MessageBoxValue) => void, onRejected: (reason: any) => void) => {
+      const messageBoxCallbacks = new MessageBoxCallbacks(onFulfilled, onRejected);
+      const messageElement = <MessageSpan message={message} />;
+      UiFramework.dialogs.modal.open(this.standardMessageBox(mbType, icon, title, messageElement, messageBoxCallbacks));
+    });
   }
 
   /** @internal */
-  public static showAlertMessageBox(
-    messageDetails: NotifyMessageDetailsType
-  ): void {
+  public static showAlertMessageBox(messageDetails: NotifyMessageDetailsType): void {
     const title = UiFramework.translate("general.alert");
     const iconType = this.getIconType(messageDetails);
     const content = (
       <>
         <MessageSpan message={messageDetails.briefMessage} />
-        {messageDetails.detailedMessage && (
-          <p>
-            <MessageSpan message={messageDetails.detailedMessage} />
-          </p>
-        )}
+        {
+          messageDetails.detailedMessage && (
+            <p>
+              <MessageSpan message={messageDetails.detailedMessage} />
+            </p>
+          )
+        }
       </>
     );
-    UiFramework.dialogs.modal.open(
-      this.standardMessageBox(MessageBoxType.Ok, iconType, title, content)
-    );
+    UiFramework.dialogs.modal.open(this.standardMessageBox(MessageBoxType.Ok, iconType, title, content));
   }
 
-  private static standardMessageBox(
-    mbType: MessageBoxType,
-    iconType: MessageBoxIconType,
-    title: string,
-    messageElement: React.ReactNode,
-    callbacks?: MessageBoxCallbacks
-  ): React.ReactNode {
-    const onResult =
-      callbacks !== undefined ? callbacks.handleMessageBoxResult : undefined;
+  private static standardMessageBox(mbType: MessageBoxType, iconType: MessageBoxIconType, title: string, messageElement: React.ReactNode, callbacks?: MessageBoxCallbacks): React.ReactNode {
+    const onResult = (callbacks !== undefined) ? callbacks.handleMessageBoxResult : undefined;
     return (
       <StandardMessageBox
         opened={true}
@@ -630,9 +526,7 @@ export class MessageManager {
    * @param instructions The tool assistance instructions.
    * @public
    */
-  public static setToolAssistance(
-    instructions: ToolAssistanceInstructions | undefined
-  ) {
+  public static setToolAssistance(instructions: ToolAssistanceInstructions | undefined) {
     MessageManager.onToolAssistanceChangedEvent.emit({ instructions });
   }
 
@@ -642,12 +536,7 @@ export class MessageManager {
    * @param location    An optional location, relative to the origin of htmlElement, for the tooltip. If undefined, center of `htmlElement`.
    * @param options     Options that supply additional information about how the tooltip should function.
    */
-  public static openToolTip(
-    htmlElement: HTMLElement,
-    message: NotifyMessageType,
-    location?: XAndY,
-    options?: ToolTipOptions
-  ): void {
+  public static openToolTip(htmlElement: HTMLElement, message: NotifyMessageType, location?: XAndY, options?: ToolTipOptions): void {
     IModelApp.notifications.toolTipLocation.setFrom(location);
     ElementTooltip.showTooltip(htmlElement, message, location, options);
   }
@@ -660,4 +549,5 @@ export class MessageManager {
     MessageManager.hideInputFieldMessage();
     MessageManager.endActivityMessage(false);
   }
+
 }

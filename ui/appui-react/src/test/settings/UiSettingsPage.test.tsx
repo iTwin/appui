@@ -4,27 +4,16 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import { fireEvent, render, prettyDOM } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { SpecialKey } from "@itwin/appui-abstract";
-import {
-  getUiSettingsManagerEntry,
-  UiSettingsPage,
-} from "../../appui-react/settings/ui/UiSettingsPage";
-import TestUtils, {
-  handleError,
-  selectChangeValueByText,
-  storageMock,
-  stubScrollIntoView,
-} from "../TestUtils";
+import { getUiSettingsManagerEntry, UiSettingsPage } from "../../appui-react/settings/ui/UiSettingsPage";
+import TestUtils, { handleError, selectChangeValueByText, storageMock, stubScrollIntoView } from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
 import { ColorTheme } from "../../appui-react/theme/ThemeManager";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
 describe("UiSettingsPage", () => {
-  const localStorageToRestore = Object.getOwnPropertyDescriptor(
-    window,
-    "localStorage"
-  )!;
+  const localStorageToRestore = Object.getOwnPropertyDescriptor(window, "localStorage")!;
   let localStorageMock = storageMock();
 
   before(async () => {
@@ -88,18 +77,10 @@ describe("UiSettingsPage", () => {
     // expect(themeSelect!.value).to.be.eq("light");
 
     const selectButton = wrapper.getByTestId("select-theme");
-    selectChangeValueByText(
-      selectButton,
-      "settings.uiSettingsPage.dark",
-      handleError
-    );
+    selectChangeValueByText(selectButton, "settings.uiSettingsPage.dark", handleError);
     await TestUtils.flushAsyncOperations();
     expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Dark);
-    selectChangeValueByText(
-      selectButton,
-      "settings.uiSettingsPage.light",
-      handleError
-    );
+    selectChangeValueByText(selectButton, "settings.uiSettingsPage.light", handleError);
     await TestUtils.flushAsyncOperations();
     expect(UiFramework.getColorTheme()).to.eq(ColorTheme.Light);
 
@@ -111,48 +92,44 @@ describe("UiSettingsPage", () => {
 
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
-    const thumb =
-      wrapper.container.ownerDocument.querySelector(".iui-slider-thumb");
+    const thumb = wrapper.container.ownerDocument.querySelector(".iui-slider-thumb");
     expect(thumb).to.exist;
     fireEvent.keyDown(thumb!, { key: SpecialKey.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let widgetOpacity = UiFramework.getWidgetOpacity();
-    expect(widgetOpacity).greaterThanOrEqual(0.9);
+    expect (widgetOpacity).greaterThanOrEqual(.9);
     await TestUtils.flushAsyncOperations();
     // trigger sync event processing
-    UiFramework.setWidgetOpacity(0.5);
+    UiFramework.setWidgetOpacity(.5);
     await TestUtils.flushAsyncOperations();
     widgetOpacity = UiFramework.getWidgetOpacity();
-    expect(widgetOpacity).equals(0.5);
+    expect (widgetOpacity).equals(.5);
     wrapper.unmount();
   });
 
   it("renders  set toolbar opacity", async () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
-    const thumb =
-      wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
+    const thumb = wrapper.container.ownerDocument.querySelectorAll(".iui-slider-thumb");
     expect(thumb[0]).to.exist;
-    fireEvent.keyDown(thumb[0], { key: SpecialKey.ArrowRight });
-    fireEvent.keyUp(thumb[0], { key: SpecialKey.ArrowRight });
+    fireEvent.keyDown(thumb[0]!, { key: SpecialKey.ArrowRight });
+    fireEvent.keyUp(thumb[0]!, { key: SpecialKey.ArrowRight });
     await TestUtils.flushAsyncOperations();
     let toolbarOpacity = UiFramework.getToolbarOpacity();
-    expect(toolbarOpacity).greaterThan(0.5);
+    expect (toolbarOpacity).greaterThan(.5);
     await TestUtils.flushAsyncOperations();
     // trigger sync event processing
-    UiFramework.setToolbarOpacity(0.9);
+    UiFramework.setToolbarOpacity(.9);
     await TestUtils.flushAsyncOperations();
     toolbarOpacity = UiFramework.getToolbarOpacity();
-    expect(toolbarOpacity).equals(0.9);
+    expect (toolbarOpacity).equals(.9);
     wrapper.unmount();
   });
 
   it("renders toggle auto-hide", async () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
-    const autoHideSpan = wrapper.getByText(
-      "settings.uiSettingsPage.autoHideTitle"
-    );
+    const autoHideSpan = wrapper.getByText("settings.uiSettingsPage.autoHideTitle");
     const checkbox = getInputBySpanTitle(autoHideSpan);
     expect(checkbox).not.to.be.null;
     fireEvent.click(checkbox!);
@@ -170,9 +147,7 @@ describe("UiSettingsPage", () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
-    const titleSpan = wrapper.getByText(
-      "settings.uiSettingsPage.dragInteractionTitle"
-    );
+    const titleSpan = wrapper.getByText("settings.uiSettingsPage.dragInteractionTitle");
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
@@ -188,9 +163,7 @@ describe("UiSettingsPage", () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
-    const titleSpan = wrapper.getByText(
-      "settings.uiSettingsPage.useProximityOpacityTitle"
-    );
+    const titleSpan = wrapper.getByText("settings.uiSettingsPage.useProximityOpacityTitle");
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
@@ -206,9 +179,7 @@ describe("UiSettingsPage", () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
-    const titleSpan = wrapper.getByText(
-      "settings.uiSettingsPage.snapWidgetOpacityTitle"
-    );
+    const titleSpan = wrapper.getByText("settings.uiSettingsPage.snapWidgetOpacityTitle");
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
@@ -224,9 +195,7 @@ describe("UiSettingsPage", () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
-    const titleSpan = wrapper.getByText(
-      "settings.uiSettingsPage.widgetIconTitle"
-    );
+    const titleSpan = wrapper.getByText("settings.uiSettingsPage.widgetIconTitle");
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
@@ -242,9 +211,7 @@ describe("UiSettingsPage", () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
-    const titleSpan = wrapper.getByText(
-      "settings.uiSettingsPage.animateToolSettingsTitle"
-    );
+    const titleSpan = wrapper.getByText("settings.uiSettingsPage.animateToolSettingsTitle");
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
@@ -260,9 +227,7 @@ describe("UiSettingsPage", () => {
     const wrapper = render(<UiSettingsPage />);
     expect(wrapper).not.to.be.undefined;
 
-    const titleSpan = wrapper.getByText(
-      "settings.uiSettingsPage.useToolAsToolSettingsLabelTitle"
-    );
+    const titleSpan = wrapper.getByText("settings.uiSettingsPage.useToolAsToolSettingsLabelTitle");
     const checkbox = getInputBySpanTitle(titleSpan);
     fireEvent.click(checkbox!);
     await TestUtils.flushAsyncOperations();
@@ -272,4 +237,5 @@ describe("UiSettingsPage", () => {
     expect(checkbox?.checked).to.be.false;
     wrapper.unmount();
   });
+
 });

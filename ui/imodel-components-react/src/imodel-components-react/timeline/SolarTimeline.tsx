@@ -17,25 +17,14 @@ import { Slider, Text, Tooltip } from "@itwin/itwinui-react";
 import { ColorByName, ColorDef, HSVColor } from "@itwin/core-common";
 import { RelativePosition, TimeDisplay } from "@itwin/appui-abstract";
 import { CommonProps, Popup } from "@itwin/core-react";
-import {
-  adjustDateToTimezone,
-  DatePicker,
-  TimeField,
-  TimeSpec,
-  UiComponents,
-} from "@itwin/components-react";
+import { adjustDateToTimezone, DatePicker, TimeField, TimeSpec, UiComponents } from "@itwin/components-react";
 import { HueSlider } from "../color/HueSlider";
 import { SaturationPicker } from "../color/SaturationPicker";
 import { ColorSwatch } from "../color/Swatch";
 import { SolarDataProvider } from "./interfaces";
 import { PlayButton } from "./PlayerButton";
 import { SpeedTimeline } from "./SpeedTimeline";
-import {
-  CustomThumb,
-  getPercentageOfRectangle,
-  RailMarkers,
-  useFocusedThumb,
-} from "./Scrubber";
+import { CustomThumb, getPercentageOfRectangle, RailMarkers, useFocusedThumb } from "./Scrubber";
 import { UiIModelComponents } from "../UiIModelComponents";
 
 // cSpell:ignore millisec solarsettings showticks shadowcolor solartimeline datepicker millisecs
@@ -45,7 +34,7 @@ const millisecPerHour = millisecPerMinute * 60;
 // const millisecPerDay = millisecPerHour * 24;
 const defaultPlaybackDuration = 40 * 1000; // 40 seconds
 const addZero = (i: number) => {
-  return i < 10 ? `0${i}` : i;
+  return (i < 10) ? `0${i}` : i;
 };
 
 interface TimelineProps extends CommonProps {
@@ -61,16 +50,13 @@ interface TimelineProps extends CommonProps {
 }
 function Timeline(props: TimelineProps) {
   const sliderRef = React.useRef<HTMLDivElement>(null);
-  const [sliderContainer, setSliderContainer] =
-    React.useState<HTMLDivElement>();
+  const [sliderContainer, setSliderContainer] = React.useState<HTMLDivElement>();
   const [pointerPercent, setPointerPercent] = React.useState(0);
 
   React.useLayoutEffect(() => {
     // istanbul ignore else
     if (sliderRef.current) {
-      const container = sliderRef.current.querySelector(
-        ".iui-slider-container"
-      );
+      const container = sliderRef.current.querySelector(".iui-slider-container");
       if (container && sliderContainer !== container) {
         setSliderContainer(container as HTMLDivElement);
       }
@@ -98,78 +84,34 @@ function Timeline(props: TimelineProps) {
     setShowRailTooltip(false);
   }, []);
 
-  const handlePointerMove = React.useCallback(
-    (event: React.PointerEvent) => {
-      sliderContainer &&
-        setPointerPercent(
-          getPercentageOfRectangle(
-            sliderContainer.getBoundingClientRect(),
-            event.clientX
-          )
-        );
-    },
-    [sliderContainer]
-  );
+  const handlePointerMove = React.useCallback((event: React.PointerEvent) => {
+    sliderContainer &&
+      setPointerPercent(getPercentageOfRectangle(sliderContainer.getBoundingClientRect(), event.clientX));
+  }, [sliderContainer]);
 
-  const {
-    formatTick,
-    formatTime,
-    onChange,
-    onUpdate,
-    dayStartMs,
-    sunSetOffsetMs,
-    sunRiseOffsetMs,
-    currentTimeOffsetMs,
-    isPlaying,
-  } = props;
+  const { formatTick, formatTime, onChange, onUpdate, dayStartMs, sunSetOffsetMs, sunRiseOffsetMs, currentTimeOffsetMs, isPlaying } = props;
 
   const thumbHasFocus = useFocusedThumb(sliderContainer);
 
   const tickLabel = React.useMemo(() => {
     const showTip = isPlaying || showRailTooltip || thumbHasFocus;
     const totalDuration = sunSetOffsetMs - sunRiseOffsetMs;
-    const percent =
-      isPlaying || thumbHasFocus
-        ? (currentTimeOffsetMs - sunRiseOffsetMs) / totalDuration
-        : pointerPercent;
-    const tooltipText = formatTime(
-      isPlaying || thumbHasFocus
-        ? dayStartMs + currentTimeOffsetMs
-        : dayStartMs + (sunRiseOffsetMs + pointerPercent * totalDuration)
-    );
-    return (
-      <RailMarkers
-        showToolTip={showTip}
-        percent={percent}
-        tooltipText={tooltipText}
-      />
-    );
-  }, [
-    isPlaying,
-    showRailTooltip,
-    thumbHasFocus,
-    sunSetOffsetMs,
-    sunRiseOffsetMs,
-    currentTimeOffsetMs,
-    pointerPercent,
-    formatTime,
-    dayStartMs,
-  ]);
+    const percent = (isPlaying || thumbHasFocus) ? (currentTimeOffsetMs - sunRiseOffsetMs) / totalDuration : pointerPercent;
+    const tooltipText = formatTime((isPlaying || thumbHasFocus) ? (dayStartMs + currentTimeOffsetMs) : (dayStartMs + (sunRiseOffsetMs + (pointerPercent * totalDuration))));
+    return (<RailMarkers showToolTip={showTip} percent={percent} tooltipText={tooltipText} />);
+  }, [isPlaying, showRailTooltip, thumbHasFocus, sunSetOffsetMs, sunRiseOffsetMs, currentTimeOffsetMs, pointerPercent, formatTime, dayStartMs]);
 
-  const className = classnames(
-    "solar-slider",
-    props.className,
-    formatTick && "showticks"
-  );
+  const className = classnames("solar-slider", props.className, formatTick && "showticks");
   const sunRiseFormat = formatTime(dayStartMs + sunRiseOffsetMs);
   const sunSetFormat = formatTime(dayStartMs + sunSetOffsetMs);
   return (
     <div className={className}>
       <Tooltip content={sunRiseFormat}>
-        <span className="sunrise">&#x2600;</span>
+        <span className="sunrise">
+          &#x2600;
+        </span>
       </Tooltip>
-      <Slider
-        ref={sliderRef}
+      <Slider ref={sliderRef}
         className={className}
         step={millisecPerMinute}
         min={sunRiseOffsetMs}
@@ -189,23 +131,25 @@ function Timeline(props: TimelineProps) {
         }}
       />
       <Tooltip content={sunSetFormat}>
-        <span className="sunset">&#x263D;</span>
+        <span className="sunset">
+          &#x263D;
+        </span>
       </Tooltip>
     </div>
   );
 }
 
 interface SolarTimelineComponentProps {
-  dataProvider: SolarDataProvider; // provides date, sunrise, sunset in millisecs, also contains timezone offset from UTC, and updates the display style to current time.
+  dataProvider: SolarDataProvider;  // provides date, sunrise, sunset in millisecs, also contains timezone offset from UTC, and updates the display style to current time.
   onPlayPause?: (playing: boolean) => void; // callback triggered when play/pause button is pressed
-  duration?: number; // playback duration in milliseconds
+  duration?: number;  // playback duration in milliseconds
   speed?: number;
 }
 
 interface SolarTimelineComponentState {
-  isPlaying: boolean; // timeline is currently playing or paused
-  isDateOpened: boolean; // date picker is opened
-  isSettingsOpened: boolean; // settings popup is opened
+  isPlaying: boolean;     // timeline is currently playing or paused
+  isDateOpened: boolean;  // date picker is opened
+  isSettingsOpened: boolean;  // settings popup is opened
   dayStartMs: number;
   sunRiseOffsetMs: number;
   sunSetOffsetMs: number;
@@ -214,35 +158,26 @@ interface SolarTimelineComponentState {
   speed: number;
   loop: boolean;
   shadowColor: ColorDef;
-  duration: number; // playback duration in milliseconds
-  adjustedDuration: number; // playback duration in milliseconds/ speed
+  duration: number;  // playback duration in milliseconds
+  adjustedDuration: number;  // playback duration in milliseconds/ speed
 }
 
 /** Solar Timeline
  * @alpha
  */
-export class SolarTimeline extends React.PureComponent<
-  SolarTimelineComponentProps,
-  SolarTimelineComponentState
-> {
+export class SolarTimeline extends React.PureComponent<SolarTimelineComponentProps, SolarTimelineComponentState> {
   private _datePicker: HTMLElement | null = null;
   private _settings: HTMLElement | null = null;
   private _requestFrame = 0;
   private _unmounted = false;
   private _timeLastCycle = 0;
   private _totalPlayTime = 0;
-  private _settingsPopupTitle = UiIModelComponents.translate(
-    "solarsettings.shadowcolor"
-  );
+  private _settingsPopupTitle = UiIModelComponents.translate("solarsettings.shadowcolor");
   private _playLabel = UiIModelComponents.translate("solartimeline.play");
-  private _settingLabel = UiIModelComponents.translate(
-    "solartimeline.settings"
-  );
+  private _settingLabel = UiIModelComponents.translate("solartimeline.settings");
   private _loopLabel = UiIModelComponents.translate("timeline.repeat");
   private _speedLabel = UiIModelComponents.translate("solartimeline.speed");
-  private _dateTimeLabel = UiIModelComponents.translate(
-    "solartimeline.dateTime"
-  );
+  private _dateTimeLabel = UiIModelComponents.translate("solartimeline.dateTime");
 
   private _months = [
     UiComponents.translate("month.short.january"),
@@ -277,30 +212,16 @@ export class SolarTimeline extends React.PureComponent<
     super(props);
 
     const dayStartMs = this.props.dataProvider.dayStartMs;
-    const sunRiseOffsetMs =
-      this.props.dataProvider.sunrise.getTime() - dayStartMs;
-    const sunSetOffsetMs =
-      this.props.dataProvider.sunset.getTime() - dayStartMs;
+    const sunRiseOffsetMs = this.props.dataProvider.sunrise.getTime() - dayStartMs;
+    const sunSetOffsetMs = this.props.dataProvider.sunset.getTime() - dayStartMs;
     const sunDeltaMs = sunSetOffsetMs - sunRiseOffsetMs;
-    const sunOffsetMs =
-      this.props.dataProvider.timeOfDay.getTime() - dayStartMs;
-    const currentTimeOffsetMs = this.ensureRange(
-      sunOffsetMs,
-      sunRiseOffsetMs,
-      sunSetOffsetMs
-    );
+    const sunOffsetMs = this.props.dataProvider.timeOfDay.getTime() - dayStartMs;
+    const currentTimeOffsetMs = this.ensureRange(sunOffsetMs, sunRiseOffsetMs, sunSetOffsetMs);
     const shadowColor = this.props.dataProvider.shadowColor;
-    const duration = this.props.duration
-      ? this.props.duration
-      : defaultPlaybackDuration;
+    const duration = this.props.duration ? this.props.duration : defaultPlaybackDuration;
     const speed = this.props.speed ? this.props.speed : 2;
     const adjustedDuration = duration / speed;
-    this.setPlaybackTimeBySunTime(
-      currentTimeOffsetMs,
-      sunRiseOffsetMs,
-      sunDeltaMs,
-      adjustedDuration
-    );
+    this.setPlaybackTimeBySunTime(currentTimeOffsetMs, sunRiseOffsetMs, sunDeltaMs, adjustedDuration);
 
     this.state = {
       isDateOpened: false,
@@ -333,17 +254,16 @@ export class SolarTimeline extends React.PureComponent<
     }
 
     const currentTime = new Date().getTime();
-    this._totalPlayTime += currentTime - this._timeLastCycle;
+    this._totalPlayTime += (currentTime - this._timeLastCycle);
     this._timeLastCycle = currentTime;
     let percentComplete = this._totalPlayTime / this.state.adjustedDuration;
-    if (percentComplete > 1) percentComplete = 1;
+    if (percentComplete > 1)
+      percentComplete = 1;
 
     let newPlayingState = true;
 
     // calculate the next sun time base on the percentage playback complete - should be int value as that is step amount for slider
-    let nextSunOffset = Math.floor(
-      this.state.sunRiseOffsetMs + percentComplete * this.state.sunDeltaMs
-    );
+    let nextSunOffset = Math.floor(this.state.sunRiseOffsetMs + (percentComplete * this.state.sunDeltaMs));
 
     if (percentComplete > 0.99) {
       if (!this.state.loop) {
@@ -361,15 +281,10 @@ export class SolarTimeline extends React.PureComponent<
       this.props.dataProvider.onTimeChanged(currentSunTime);
     }
 
-    this.setState(
-      { isPlaying: newPlayingState, currentTimeOffsetMs: nextSunOffset },
-      () => {
-        if (newPlayingState)
-          this._requestFrame = window.requestAnimationFrame(
-            this._updateAnimation
-          );
-      }
-    );
+    this.setState({ isPlaying: newPlayingState, currentTimeOffsetMs: nextSunOffset }, () => {
+      if (newPlayingState)
+        this._requestFrame = window.requestAnimationFrame(this._updateAnimation);
+    });
   };
 
   private _play(sunTimeMs: number) {
@@ -379,17 +294,19 @@ export class SolarTimeline extends React.PureComponent<
     this.setState({ isPlaying: true, currentTimeOffsetMs: sunTimeMs }, () => {
       this._requestFrame = window.requestAnimationFrame(this._updateAnimation);
       // istanbul ignore else
-      if (this.props.onPlayPause) this.props.onPlayPause(true);
+      if (this.props.onPlayPause)
+        this.props.onPlayPause(true);
     });
   }
 
   // user clicked pause button
   private _onPause = () => {
     // istanbul ignore if
-    if (!this.state.isPlaying) return;
+    if (!this.state.isPlaying)
+      return;
 
     const currentTime = new Date().getTime();
-    this._totalPlayTime += currentTime - this._timeLastCycle;
+    this._totalPlayTime += (currentTime - this._timeLastCycle);
 
     // stop requesting frames
     window.cancelAnimationFrame(this._requestFrame);
@@ -398,18 +315,17 @@ export class SolarTimeline extends React.PureComponent<
     this.setState({ isPlaying: false });
 
     // istanbul ignore else
-    if (this.props.onPlayPause) this.props.onPlayPause(false);
+    if (this.props.onPlayPause)
+      this.props.onPlayPause(false);
   };
 
   // user clicked play button
   private _onPlay = () => {
     // istanbul ignore if
-    if (this.state.isPlaying) return;
+    if (this.state.isPlaying)
+      return;
 
-    if (
-      this.state.currentTimeOffsetMs >= this.state.sunSetOffsetMs ||
-      this.state.currentTimeOffsetMs <= this.state.sunRiseOffsetMs
-    ) {
+    if (this.state.currentTimeOffsetMs >= this.state.sunSetOffsetMs || this.state.currentTimeOffsetMs <= this.state.sunRiseOffsetMs) {
       this._totalPlayTime = 0;
       this._play(this.state.sunRiseOffsetMs);
     } else {
@@ -417,62 +333,36 @@ export class SolarTimeline extends React.PureComponent<
     }
   };
 
-  private setPlaybackTimeBySunTime(
-    sunOffsetMs: number,
-    sunRiseOffsetMs: number,
-    sunDeltaMs: number,
-    adjustedDuration?: number
-  ) {
-    this._totalPlayTime =
-      ((sunOffsetMs - sunRiseOffsetMs) / sunDeltaMs) *
-      (adjustedDuration ? adjustedDuration : this.state.adjustedDuration);
+  private setPlaybackTimeBySunTime(sunOffsetMs: number, sunRiseOffsetMs: number, sunDeltaMs: number, adjustedDuration?: number) {
+    this._totalPlayTime = ((sunOffsetMs - sunRiseOffsetMs) / (sunDeltaMs)) * ((adjustedDuration) ? adjustedDuration : this.state.adjustedDuration);
   }
 
   /** note the day passed in is in the time of the current user not in project time because the date picker works in
    * local time  */
   private _onDayClick = (day: Date) => {
-    const selectedDate = new Date(
-      day.getTime() + this.state.currentTimeOffsetMs
-    );
+    const selectedDate = new Date(day.getTime() + this.state.currentTimeOffsetMs);
     this.props.dataProvider.setDateAndTime(selectedDate);
     const dayStartMs = this.props.dataProvider.dayStartMs;
-    const sunRiseOffsetMs =
-      this.props.dataProvider.sunrise.getTime() - dayStartMs;
-    const sunSetOffsetMs =
-      this.props.dataProvider.sunset.getTime() - dayStartMs;
+    const sunRiseOffsetMs = this.props.dataProvider.sunrise.getTime() - dayStartMs;
+    const sunSetOffsetMs = this.props.dataProvider.sunset.getTime() - dayStartMs;
     const sunDeltaMs = sunSetOffsetMs - sunRiseOffsetMs;
 
-    const sunOffsetMs = this.ensureRange(
-      this.state.currentTimeOffsetMs,
-      sunRiseOffsetMs,
-      sunSetOffsetMs
-    );
+    const sunOffsetMs = this.ensureRange(this.state.currentTimeOffsetMs, sunRiseOffsetMs, sunSetOffsetMs);
     this.setPlaybackTimeBySunTime(sunOffsetMs, sunRiseOffsetMs, sunDeltaMs);
 
     /** call dataProvider to update display style */
     if (this.props.dataProvider.onTimeChanged)
       this.props.dataProvider.onTimeChanged(this.props.dataProvider.timeOfDay);
 
-    this.setState(
-      {
-        dayStartMs,
-        sunRiseOffsetMs,
-        sunSetOffsetMs,
-        currentTimeOffsetMs: sunOffsetMs,
-        sunDeltaMs,
-        isDateOpened: false,
-      },
-      () => {
-        this._timeLastCycle = new Date().getTime();
-      }
-    );
+    this.setState({ dayStartMs, sunRiseOffsetMs, sunSetOffsetMs, currentTimeOffsetMs: sunOffsetMs, sunDeltaMs, isDateOpened: false }, () => {
+      this._timeLastCycle = new Date().getTime();
+    });
   };
 
   private _onTimeChanged = (time: TimeSpec) => {
     // compute the current date (with time)
     const dayStartMs = this.props.dataProvider.dayStartMs;
-    const sunTime =
-      time.hours * millisecPerHour + time.minutes * millisecPerMinute;
+    const sunTime = (time.hours * millisecPerHour) + (time.minutes * millisecPerMinute);
     const dateWithNewTime = new Date(dayStartMs + sunTime);
     this.props.dataProvider.setDateAndTime(dateWithNewTime, true);
 
@@ -480,17 +370,9 @@ export class SolarTimeline extends React.PureComponent<
     if (this.props.dataProvider.onTimeChanged)
       this.props.dataProvider.onTimeChanged(dateWithNewTime);
 
-    const currentTimeOffsetMs = this.ensureRange(
-      sunTime,
-      this.state.sunRiseOffsetMs,
-      this.state.sunSetOffsetMs
-    );
+    const currentTimeOffsetMs = this.ensureRange(sunTime, this.state.sunRiseOffsetMs, this.state.sunSetOffsetMs);
 
-    this.setPlaybackTimeBySunTime(
-      currentTimeOffsetMs,
-      this.state.sunRiseOffsetMs,
-      this.state.sunDeltaMs
-    );
+    this.setPlaybackTimeBySunTime(currentTimeOffsetMs, this.state.sunRiseOffsetMs, this.state.sunDeltaMs);
     this._timeLastCycle = new Date().getTime();
 
     // update the timeline
@@ -510,9 +392,7 @@ export class SolarTimeline extends React.PureComponent<
   };
 
   private _onOpenSettingsPopup = () => {
-    this.setState((prevState) => ({
-      isSettingsOpened: !prevState.isSettingsOpened,
-    }));
+    this.setState((prevState) => ({ isSettingsOpened: !prevState.isSettingsOpened }));
   };
 
   private ensureRange(value: number, min: number, max: number): number {
@@ -520,37 +400,32 @@ export class SolarTimeline extends React.PureComponent<
   }
 
   private processSunTimeChange(sunTime: number) {
-    if (sunTime === this.state.currentTimeOffsetMs) return;
+    if (sunTime === this.state.currentTimeOffsetMs)
+      return;
 
-    const currentTimeOffsetMs = this.ensureRange(
-      sunTime,
-      this.state.sunRiseOffsetMs,
-      this.state.sunSetOffsetMs
-    );
+    const currentTimeOffsetMs = this.ensureRange(sunTime, this.state.sunRiseOffsetMs, this.state.sunSetOffsetMs);
 
     if (this.props.dataProvider.onTimeChanged) {
-      const currentSunTime = new Date(
-        this.state.dayStartMs + currentTimeOffsetMs
-      );
+      const currentSunTime = new Date(this.state.dayStartMs + currentTimeOffsetMs);
       this.props.dataProvider.onTimeChanged(currentSunTime);
     }
 
     this.setState({ currentTimeOffsetMs }, () => {
       const currentTime = new Date().getTime();
       this._timeLastCycle = currentTime;
-      const percentComplete =
-        (currentTimeOffsetMs - this.state.sunRiseOffsetMs) /
-        this.state.sunDeltaMs;
+      const percentComplete = (currentTimeOffsetMs - this.state.sunRiseOffsetMs) / this.state.sunDeltaMs;
       this._totalPlayTime = percentComplete * this.state.adjustedDuration;
     });
   }
 
   private _onUpdate = (values: ReadonlyArray<number>) => {
-    if (!this.state.isPlaying) this.processSunTimeChange(values[0]);
+    if (!this.state.isPlaying)
+      this.processSunTimeChange(values[0]);
   };
 
   private _onChange = (values: ReadonlyArray<number>) => {
-    if (!this.state.isPlaying) this.processSunTimeChange(values[0]);
+    if (!this.state.isPlaying)
+      this.processSunTimeChange(values[0]);
   };
 
   private _onSpeedChange = (value: number) => {
@@ -565,64 +440,39 @@ export class SolarTimeline extends React.PureComponent<
   private _formatTime = (millisec: number) => {
     const date = new Date(millisec);
     // convert project date to browser locale date
-    const localTime = adjustDateToTimezone(
-      date,
-      this.props.dataProvider.timeZoneOffset * 60
-    );
+    const localTime = adjustDateToTimezone(date, this.props.dataProvider.timeZoneOffset * 60);
     let hours = localTime.getHours();
     const minutes = addZero(date.getMinutes());
-    const abbrev =
-      hours < 12 ? this._amLabel : hours === 24 ? this._amLabel : this._pmLabel;
-    hours = hours > 12 ? hours - 12 : hours;
+    const abbrev = (hours < 12) ? this._amLabel : (hours === 24) ? this._amLabel : this._pmLabel;
+    hours = (hours > 12) ? hours - 12 : hours;
     return `${hours}:${minutes} ${abbrev}`;
   };
 
   private _onPresetColorPick = (shadowColor: ColorDef) => {
-    this.setState(
-      { shadowColor },
-      () => (this.props.dataProvider.shadowColor = shadowColor)
-    );
+    this.setState({ shadowColor }, () => this.props.dataProvider.shadowColor = shadowColor);
   };
 
   private _handleHueOrSaturationChange = (hueOrSaturation: HSVColor) => {
-    if (hueOrSaturation.s === 0)
-      // for a ColorDef to be created from hsv s can't be 0
+    if (hueOrSaturation.s === 0)  // for a ColorDef to be created from hsv s can't be 0
       hueOrSaturation = hueOrSaturation.clone(undefined, 0.5);
 
     const shadowColor = hueOrSaturation.toColorDef();
-    this.setState(
-      { shadowColor },
-      () => (this.props.dataProvider.shadowColor = shadowColor)
-    );
+    this.setState({ shadowColor }, () => this.props.dataProvider.shadowColor = shadowColor);
   };
 
   public getLocalTime(ticks: number): Date {
     const projectTime = new Date(ticks);
     // convert project date to browser locale date
-    return adjustDateToTimezone(
-      projectTime,
-      this.props.dataProvider.timeZoneOffset * 60
-    );
+    return adjustDateToTimezone(projectTime, this.props.dataProvider.timeZoneOffset * 60);
   }
 
   public override render() {
     const { dataProvider } = this.props;
-    const {
-      speed,
-      loop,
-      currentTimeOffsetMs,
-      sunRiseOffsetMs,
-      sunSetOffsetMs,
-    } = this.state;
-    const localTime = this.getLocalTime(
-      this.state.dayStartMs + this.state.currentTimeOffsetMs
-    );
-    const formattedTime = this._formatTime(
-      dataProvider.dayStartMs + currentTimeOffsetMs
-    );
-    const formattedDate = `${
-      this._months[localTime.getMonth()]
-    }, ${localTime.getDate()}`;
+    const { speed, loop, currentTimeOffsetMs,
+      sunRiseOffsetMs, sunSetOffsetMs } = this.state;
+    const localTime = this.getLocalTime(this.state.dayStartMs + this.state.currentTimeOffsetMs);
+    const formattedTime = this._formatTime(dataProvider.dayStartMs + currentTimeOffsetMs);
+    const formattedDate = `${this._months[localTime.getMonth()]}, ${localTime.getDate()}`;
 
     const colorSwatchStyle: React.CSSProperties = {
       width: `100%`,
@@ -630,62 +480,25 @@ export class SolarTimeline extends React.PureComponent<
     };
 
     return (
-      <div className={"solar-timeline-wrapper"}>
+      <div className={"solar-timeline-wrapper"} >
         <div className="header">
-          <PlayButton
-            tooltip={this._playLabel}
-            className="play-button"
-            isPlaying={this.state.isPlaying}
-            onPlay={this._onPlay}
-            onPause={this._onPause}
-          />
-          <button
-            data-testid="solar-date-time-button"
-            title={this._dateTimeLabel}
-            className="current-date"
-            ref={(element) => (this._datePicker = element)}
-            onClick={this._onOpenDayPicker}
-          >
+          <PlayButton tooltip={this._playLabel} className="play-button" isPlaying={this.state.isPlaying} onPlay={this._onPlay} onPause={this._onPause} />
+          <button data-testid="solar-date-time-button" title={this._dateTimeLabel} className="current-date" ref={(element) => this._datePicker = element} onClick={this._onOpenDayPicker}>
             <span>{formattedDate}</span>
             <span>/</span>
             <span>{formattedTime}</span>
             <span className="icon icon-calendar" />
           </button>
-          <Popup
-            style={{ border: "none" }}
-            offset={11}
-            target={this._datePicker}
-            isOpen={this.state.isDateOpened}
-            onClose={this._onCloseDayPicker}
-            position={RelativePosition.Top}
-          >
-            <div
-              className="components-date-picker-calendar-popup-panel"
-              data-testid="components-date-picker-calendar-popup-panel"
-            >
-              <DatePicker
-                selected={localTime}
-                onDateChange={this._onDayClick}
-                showFocusOutline={false}
-              />
+          <Popup style={{ border: "none" }} offset={11} target={this._datePicker} isOpen={this.state.isDateOpened} onClose={this._onCloseDayPicker} position={RelativePosition.Top}>
+            <div className="components-date-picker-calendar-popup-panel" data-testid="components-date-picker-calendar-popup-panel">
+              <DatePicker selected={localTime} onDateChange={this._onDayClick} showFocusOutline={false} />
               <div className="time-container">
-                <Text variant="body" className="time-label">
-                  {this._timeLabel}
-                </Text>
-                <TimeField
-                  time={{
-                    hours: localTime.getHours(),
-                    minutes: localTime.getMinutes(),
-                    seconds: 0,
-                  }}
-                  timeDisplay={TimeDisplay.H12MC}
-                  onTimeChange={this._onTimeChanged}
-                />
+                <Text variant="body" className="time-label">{this._timeLabel}</Text>
+                <TimeField time={{ hours: localTime.getHours(), minutes: localTime.getMinutes(), seconds: 0 }} timeDisplay={TimeDisplay.H12MC} onTimeChange={this._onTimeChanged} />
               </div>
             </div>
           </Popup>
-          <Timeline
-            className="solar-timeline"
+          <Timeline className="solar-timeline"
             dayStartMs={dataProvider.dayStartMs}
             sunSetOffsetMs={sunSetOffsetMs}
             sunRiseOffsetMs={sunRiseOffsetMs}
@@ -697,111 +510,41 @@ export class SolarTimeline extends React.PureComponent<
           />
           <div className="speed-container">
             <span title={this._speedLabel}>{speed}x</span>
-            <SpeedTimeline
-              className="speed"
-              onChange={this._onSpeedChange}
-              speed={this.state.speed}
-            />
+            <SpeedTimeline className="speed" onChange={this._onSpeedChange} speed={this.state.speed} />
           </div>
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-          <span
-            title={this._loopLabel}
-            className={classnames(
-              "icon",
-              "icon-media-controls-loop",
-              !loop && "no-loop-playback",
-              loop && "loop-playback"
-            )}
-            onClick={this._onToggleLoop}
-            role="button"
-            tabIndex={-1}
+          <span title={this._loopLabel}
+            className={classnames("icon", "icon-media-controls-loop", !loop && "no-loop-playback", loop && "loop-playback")} onClick={this._onToggleLoop}
+            role="button" tabIndex={-1}
           ></span>
-          <button
-            data-testid="shadow-settings-button"
-            title={this._settingLabel}
-            className="shadow-settings-button"
-            ref={(element) => (this._settings = element)}
-            onClick={this._onOpenSettingsPopup}
-          >
+          <button data-testid="shadow-settings-button" title={this._settingLabel} className="shadow-settings-button" ref={(element) => this._settings = element} onClick={this._onOpenSettingsPopup}>
             <span className="icon icon-settings" />
           </button>
-          <Popup
-            className="shadow-settings-popup"
-            target={this._settings}
-            offset={11}
-            isOpen={this.state.isSettingsOpened}
-            onClose={this._onCloseSettingsPopup}
-            position={RelativePosition.Top}
-          >
-            <div className="shadow-settings-popup-container">
-              <div className="shadow-settings-header">
-                {this._settingsPopupTitle}
-              </div>
+          <Popup className="shadow-settings-popup" target={this._settings} offset={11} isOpen={this.state.isSettingsOpened} onClose={this._onCloseSettingsPopup} position={RelativePosition.Top}>
+            <div className="shadow-settings-popup-container" >
+              <div className="shadow-settings-header">{this._settingsPopupTitle}</div>
               <div className="shadow-settings-color">
                 <div className="shadow-settings-color-top">
-                  <SaturationPicker
-                    hsv={this.state.shadowColor.toHSV()}
-                    onSaturationChange={this._handleHueOrSaturationChange}
-                  />
+                  <SaturationPicker hsv={this.state.shadowColor.toHSV()} onSaturationChange={this._handleHueOrSaturationChange} />
                 </div>
                 <div className="shadow-settings-color-bottom">
                   <div className="shadow-settings-color-bottom-left">
-                    <HueSlider
-                      hsv={this.state.shadowColor.toHSV()}
-                      onHueChange={this._handleHueOrSaturationChange}
-                      isHorizontal={true}
-                    />
+                    <HueSlider hsv={this.state.shadowColor.toHSV()} onHueChange={this._handleHueOrSaturationChange} isHorizontal={true} />
                   </div>
                   <div className="shadow-settings-color-bottom-right">
-                    <ColorSwatch
-                      style={colorSwatchStyle}
-                      colorDef={this.state.shadowColor}
-                      round={false}
-                    />
+                    <ColorSwatch style={colorSwatchStyle} colorDef={this.state.shadowColor} round={false} />
                   </div>
                 </div>
               </div>
               <div className="shadow-settings-color-presets">
-                <ColorSwatch
-                  colorDef={this._presetColors[0]}
-                  round={false}
-                  onColorPick={this._onPresetColorPick}
-                />
-                <ColorSwatch
-                  colorDef={this._presetColors[1]}
-                  round={false}
-                  onColorPick={this._onPresetColorPick}
-                />
-                <ColorSwatch
-                  colorDef={this._presetColors[2]}
-                  round={false}
-                  onColorPick={this._onPresetColorPick}
-                />
-                <ColorSwatch
-                  colorDef={this._presetColors[3]}
-                  round={false}
-                  onColorPick={this._onPresetColorPick}
-                />
-                <ColorSwatch
-                  colorDef={this._presetColors[4]}
-                  round={false}
-                  onColorPick={this._onPresetColorPick}
-                />
-                <ColorSwatch
-                  colorDef={this._presetColors[5]}
-                  round={false}
-                  onColorPick={this._onPresetColorPick}
-                />
-                <ColorSwatch
-                  colorDef={this._presetColors[6]}
-                  round={false}
-                  onColorPick={this._onPresetColorPick}
-                />
-                <ColorSwatch
-                  colorDef={this._presetColors[7]}
-                  round={false}
-                  onColorPick={this._onPresetColorPick}
-                />
+                <ColorSwatch colorDef={this._presetColors[0]} round={false} onColorPick={this._onPresetColorPick} />
+                <ColorSwatch colorDef={this._presetColors[1]} round={false} onColorPick={this._onPresetColorPick} />
+                <ColorSwatch colorDef={this._presetColors[2]} round={false} onColorPick={this._onPresetColorPick} />
+                <ColorSwatch colorDef={this._presetColors[3]} round={false} onColorPick={this._onPresetColorPick} />
+                <ColorSwatch colorDef={this._presetColors[4]} round={false} onColorPick={this._onPresetColorPick} />
+                <ColorSwatch colorDef={this._presetColors[5]} round={false} onColorPick={this._onPresetColorPick} />
+                <ColorSwatch colorDef={this._presetColors[6]} round={false} onColorPick={this._onPresetColorPick} />
+                <ColorSwatch colorDef={this._presetColors[7]} round={false} onColorPick={this._onPresetColorPick} />
               </div>
             </div>
           </Popup>

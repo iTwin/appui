@@ -13,5 +13,6 @@ import { TextProps } from "./TextProps";
  * @public
  */
 export function BlockText(props: TextProps) {
+  {/* eslint-disable-next-line */}
   return <StyledText {...props} mainClassName="uicore-text-block" />;
 }

@@ -10,7 +10,7 @@ import "./CursorPrompt.scss";
 import * as React from "react";
 import { ToolAssistanceInstruction } from "@itwin/core-frontend";
 import { PointProps, RelativePosition } from "@itwin/appui-abstract";
-import { BodyText, Icon, Point, Timer } from "@itwin/core-react";
+import { Icon, Point, Timer } from "@itwin/core-react";
 import {
   CursorInformation,
   CursorUpdatedEventArgs,
