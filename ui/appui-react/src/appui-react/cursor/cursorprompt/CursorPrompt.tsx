@@ -11,7 +11,7 @@ import * as React from "react";
 import { ToolAssistanceInstruction } from "@itwin/core-frontend";
 import { PointProps, RelativePosition } from "@itwin/appui-abstract";
 import { Icon, Point, Timer } from "@itwin/core-react";
-import { Text } from '@itwin/itwinui-react';
+import { Text } from "@itwin/itwinui-react";
 import { CursorInformation, CursorUpdatedEventArgs } from "../CursorInformation";
 import { CursorPopupManager } from "../cursorpopup/CursorPopupManager";
 
