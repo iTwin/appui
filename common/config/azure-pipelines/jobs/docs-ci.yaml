@@ -15,7 +15,7 @@ resources:
       type: github
       endpoint: iModelJs
       name: iTwin/itwinjs-core
-      ref: refs/heads/add-appui-docs
+      ref: refs/heads/master
 
 stages:
   - stage: Generate_Docs
