@@ -6,15 +6,21 @@ import * as React from "react";
 import { OpenDialogOptions } from "electron";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig,
-  FrontstageProvider, StageUsage, ToolWidgetComposer, UiFramework,
+  ConfigurableCreateInfo,
+  ContentControl,
+  ContentGroup,
+  FrontstageConfig,
+  FrontstageProvider,
+  StageUsage,
+  ToolWidgetComposer,
+  UiFramework,
 } from "@itwin/appui-react";
 import { Id64String } from "@itwin/core-bentley";
 import { ViewDefinitionProps } from "@itwin/core-common";
 import { IModelConnection } from "@itwin/core-frontend";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { FillCentered } from "@itwin/core-react";
-import { Button, Headline } from "@itwin/itwinui-react";
+import { Button, Text } from "@itwin/itwinui-react";
 
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";

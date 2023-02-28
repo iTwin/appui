@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { CommonProps, UiCore } from "@itwin/core-react";
-import { Button, Input } from "@itwin/itwinui-react";
+import { Input } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 import { ResultSelector, ResultSelectorProps } from "./ResultSelector";
 
@@ -201,15 +201,13 @@ export class FilteringInput extends React.PureComponent<
             ) : undefined}
             {status === FilteringInputStatus.FilteringFinished ? (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              //TODO: iTwinUI button
-              <Button
+              <span
                 className="components-filtering-input-clear icon icon-close"
                 onClick={this._onClearButtonClick}
-                as="span"
+                role="button"
                 tabIndex={-1}
-              >
-                {this._clearLabel}
-              </Button>
+                title={this._clearLabel}
+              />
             ) : undefined}
           </span>
         </span>
