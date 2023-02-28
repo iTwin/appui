@@ -1,0 +1,8 @@
+# start off ignoring everything, and then add back only the files we want
+*
+
+!README.md
+
+!src/**/*.ts
+src/**/__tests__/**
+src/**/__testfixtures__/**
