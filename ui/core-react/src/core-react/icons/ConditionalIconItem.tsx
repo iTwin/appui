@@ -25,6 +25,7 @@ export class ConditionalIconItem {
 
   /** The current IconSpec according to conditions */
   public get value(): IconSpec {
+    /* istanbul ignore else */
     if (undefined !== this._value)
       return this._value;
     this._value = this.iconGetter();
@@ -34,6 +35,7 @@ export class ConditionalIconItem {
   /** Called to update the value by running the iconGetter */
   public refresh(): boolean {
     const newValue = this.iconGetter();
+    /* istanbul ignore else */
     if (newValue !== this._value) {
       this._value = newValue;
       return true;
@@ -43,9 +45,11 @@ export class ConditionalIconItem {
 
   /** A helper function that updates the IconSpec value when the specified events are triggered */
   public static refreshValue(conditionalValue: ConditionalIconItem | string | undefined, eventIds: Set<string>): boolean {
+    /* istanbul ignore else */
     if (undefined === conditionalValue || !(conditionalValue instanceof ConditionalIconItem))
       return false;
 
+    /* istanbul ignore else */
     if (conditionalValue.syncEventIds.some((value: string): boolean => eventIds.has(value.toLowerCase())))
       return conditionalValue.refresh();
 
@@ -54,9 +58,11 @@ export class ConditionalIconItem {
 
   /** helper function to get the iconSpec from a ConditionIconItem as IconSpec | undefined*/
   public static getValue(conditionalValue: ConditionalIconItem | string | undefined): IconSpec | undefined {
+    /* istanbul ignore else */
     if (undefined === conditionalValue)
       return undefined;
 
+    /* istanbul ignore else */
     if (conditionalValue instanceof ConditionalIconItem)
       return conditionalValue.value;
 

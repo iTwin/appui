@@ -6,8 +6,9 @@ import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
+import { ConditionalIconItem } from "../../core-react";
 
-import { Icon } from "../../core-react/icons/IconComponent";
+import { Icon, IconSpec } from "../../core-react/icons/IconComponent";
 
 describe("IconComponent", () => {
   it("Should return null from undefined iconSpec", () => {
