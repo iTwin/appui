@@ -39,8 +39,8 @@
     "@itwin/appui-abstract": "^3.6.0",
     "@itwin/core-bentley": "^3.6.0",
     "@itwin/core-react": "workspace:^4.0.0-dev.10",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   },
   "//devDependencies": [
     "NOTE: All peerDependencies should also be listed as devDependencies since peerDependencies are not considered by npm install",
