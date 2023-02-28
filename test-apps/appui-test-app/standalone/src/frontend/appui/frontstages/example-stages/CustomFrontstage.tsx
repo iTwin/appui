@@ -5,7 +5,7 @@
 import * as React from "react";
 import {
   BackstageAppButton, BackstageManager, ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup,
-  ContentToolWidgetComposer, FrontstageConfig, FrontstageProps, FrontstageProvider,
+  ContentToolWidgetComposer, FrontstageConfig, FrontstageProvider,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
@@ -29,23 +29,20 @@ class CustomContentControl extends ContentControl {
 // __PUBLISH_EXTRACT_END__
 
 // __PUBLISH_EXTRACT_START__ Example_Custom_Frontstage_Provider_1
+// __PUBLISH_EXTRACT_END__
+
+// __PUBLISH_EXTRACT_START__ Example_Custom_Frontstage_Provider_2
 export class CustomFrontstageProvider extends FrontstageProvider {
   public override get id(): string {
     return "example:CustomFrontstage";
   }
-  // eslint-disable-next-line @typescript-eslint/indent
-// __PUBLISH_EXTRACT_END__
-  public override get frontstage(): React.ReactElement<FrontstageProps> { // eslint-disable-line deprecation/deprecation
-    throw new Error("`frontstageConfig` should be used instead.");
-  }
-  // eslint-disable-next-line @typescript-eslint/indent
-// __PUBLISH_EXTRACT_START__ Example_Custom_Frontstage_Provider_2
+
   public override frontstageConfig(): FrontstageConfig {
     const id = this.id;
     const contentGroup = new ContentGroup({
       id: "test-group",
       layout: StandardContentLayouts.singleView,
-      contents: [{id: "custom-content", classId: CustomContentControl }],
+      contents: [{ id: "custom-content", classId: CustomContentControl }],
     });
     return {
       id,
@@ -53,7 +50,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: `${id}-contentManipulationTools`,
-        element: <ContentToolWidgetComposer
+        content: <ContentToolWidgetComposer
           cornerButton={
             <BackstageAppButton label="Toggle Backstage" icon="icon-bentley-systems"
               execute={() => BackstageManager.getBackstageToggleCommand().execute()} />
