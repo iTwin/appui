@@ -8,6 +8,7 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { DragManager, DragManagerContext, useDraggedItem, useIsDraggedType, usePanelTarget, useTabTarget, useTarget, useTargeted } from "../../appui-layout-react";
 import { createDragInfo, createDragStartArgs, setRefValue } from "../Providers";
 import { expect, should } from "chai";
+import { waitFor } from "@testing-library/react";
 
 describe("DragManager", () => {
   describe("handleTargetChanged", () => {
@@ -27,7 +28,7 @@ describe("DragManager", () => {
 });
 
 describe("useTabTarget", () => {
-  it("should clear target when target changes", () => {
+  it("should clear target when target changes", async () => {
     const dragManager = new DragManager();
     const spy = sinon.spy(dragManager, "handleTargetChanged");
     const { result } = renderHook(() => useTabTarget({
@@ -43,7 +44,9 @@ describe("useTabTarget", () => {
 
     dragManager.handleDragStart(createDragStartArgs());
     dragManager.handleDrag(10, 20);
-    result.current[1].should.true;
+    await waitFor(() => {
+      result.current[1].should.true;
+    });
 
     spy.resetHistory();
     elementFromPointStub.restore();
@@ -51,10 +54,12 @@ describe("useTabTarget", () => {
     dragManager.handleDrag(10, 20);
 
     spy.calledOnceWithExactly(undefined).should.true;
-    result.current[1].should.false;
+    await waitFor(() => {
+      result.current[1].should.false;
+    });
   });
 
-  it("should clear target when drag interaction ends", () => {
+  it("should clear target when drag interaction ends", async () => {
     const dragManager = new DragManager();
     const stub = sinon.stub<Parameters<DragManager["onTargetChanged"]["addListener"]>[0]>();
     dragManager.onTargetChanged.addListener(stub);
@@ -71,14 +76,18 @@ describe("useTabTarget", () => {
 
     dragManager.handleDragStart(createDragStartArgs());
     dragManager.handleDrag(10, 20);
-    result.current[1].should.true;
+    await waitFor(() => {
+      result.current[1].should.true;
+    });
 
     stub.resetHistory();
     elementFromPointStub.restore();
     dragManager.handleDragEnd();
 
     sinon.assert.calledOnceWithExactly(stub, undefined);
-    result.current[1].should.false;
+    await waitFor(() => {
+      result.current[1].should.false;
+    });
   });
 });
 
@@ -137,7 +146,7 @@ describe("useWidgetTarget", () => {
 });
 
 describe("useIsDraggedType", () => {
-  it("should return true", () => {
+  it("should return true", async () => {
     const dragManager = new DragManager();
     const { result } = renderHook(() => useIsDraggedType("tab"), {
       wrapper: (props) => <DragManagerContext.Provider value={dragManager} {...props} />, // eslint-disable-line react/display-name
@@ -151,7 +160,9 @@ describe("useIsDraggedType", () => {
         id: "",
       },
     });
-    result.current.should.true;
+    await waitFor(() => {
+      result.current.should.true;
+    });
   });
 });
 

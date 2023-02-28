@@ -11,7 +11,7 @@ import {
   PanelWidgetDragStartAction, useBorders, useMode, VerticalPanelSide,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
-import { addTabs } from "../Utils";
+import { addTabs, withWrapperAndProps } from "../Utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import * as NineZoneModule from "../../appui-layout-react/base/NineZone";
 
@@ -267,7 +267,6 @@ describe("useBorders", () => {
       </TestNineZoneProvider>
     );
   }
-  const wrapper = Wrapper;
 
   describe("top panel", () => {
     it("should render w/o top border in docked tool settings mode", () => {
@@ -275,13 +274,10 @@ describe("useBorders", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "top", "w1", ["t1"]);
-      const { result } = renderHook(() => useBorders("w1"), {
-        initialProps: {
-          defaultState: state,
-          side,
-        },
-        wrapper,
-      });
+      const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
+        defaultState: state,
+        side,
+      }));
       result.current["nz-border-top"].should.false;
     });
   });
@@ -292,13 +288,10 @@ describe("useBorders", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "bottom", "w1", ["t1"]);
-      const { result } = renderHook(() => useBorders("w1"), {
-        initialProps: {
-          defaultState: state,
-          side,
-        },
-        wrapper,
-      });
+      const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
+        defaultState: state,
+        side,
+      }));
       result.current["nz-border-bottom"].should.false;
     });
   });
@@ -310,13 +303,10 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, side, "w2", ["t2"]);
-        const { result } = renderHook(() => useBorders("w2"), {
-          initialProps: {
-            defaultState: state,
-            side,
-          },
-          wrapper,
-        });
+        const { result } = renderHook(() => useBorders("w2"), withWrapperAndProps(Wrapper, {
+          defaultState: state,
+          side,
+        }));
         result.current["nz-border-left"].should.false;
       });
 
@@ -326,13 +316,10 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "left", "w2", ["t2"]);
-        const { result } = renderHook(() => useBorders("w1"), {
-          initialProps: {
-            defaultState: state,
-            side,
-          },
-          wrapper,
-        });
+        const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
+          defaultState: state,
+          side,
+        }));
         result.current["nz-border-left"].should.false;
       });
 
@@ -342,13 +329,10 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "right", "w2", ["t2"]);
-        const { result } = renderHook(() => useBorders("w1"), {
-          initialProps: {
-            defaultState: state,
-            side,
-          },
-          wrapper,
-        });
+        const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
+          defaultState: state,
+          side,
+        }));
         result.current["nz-border-right"].should.false;
       });
     });
@@ -361,13 +345,10 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "top", "w2", ["t2"]);
-        const { result } = renderHook(() => useBorders("w1"), {
-          initialProps: {
-            defaultState: state,
-            side,
-          },
-          wrapper,
-        });
+        const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
+          defaultState: state,
+          side,
+        }));
         result.current["nz-border-top"].should.false;
       });
     });
