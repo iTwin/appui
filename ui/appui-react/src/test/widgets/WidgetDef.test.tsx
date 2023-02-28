@@ -5,26 +5,15 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BadgeType, WidgetState } from "@itwin/appui-abstract";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, UiFramework, WidgetChangedEventArgs, WidgetControl, WidgetDef,
-} from "../../appui-react";
-import TestUtils from "../TestUtils";
+import { BadgeType } from "@itwin/appui-abstract";
 import { SvgList } from "@itwin/itwinui-icons-react";
+import { UiFramework, WidgetChangedEventArgs, WidgetDef, WidgetState } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
+import TestUtils from "../TestUtils";
 
 describe("WidgetDef", () => {
-  class TestWidget extends WidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-
-      this.reactNode = <div />;
-    }
-  }
-
   before(async () => {
     await TestUtils.initializeUiFramework();
-    UiFramework.controls.register("WidgetDefTest", TestWidget);
   });
 
   after(() => {
@@ -36,14 +25,14 @@ describe("WidgetDef", () => {
       id: "w1",
       defaultState: WidgetState.Open,
       priority: 100,
-      iconSpec: "icon-home",
+      icon: "icon-home",
       label: "label",
       tooltip: "tooltip",
-      isFloatingStateSupported: true,
-      isFloatingStateWindowResizable: false,
-      applicationData: "AppData",
-      element: <div />,
-      badgeType: BadgeType.TechnicalPreview,
+      canFloat: {
+        isResizable: false,
+      },
+      badge: BadgeType.TechnicalPreview,
+      content: <div />,
     });
 
     expect(widgetDef.isVisible).to.eq(true);
@@ -54,7 +43,6 @@ describe("WidgetDef", () => {
     expect(widgetDef.isFloatingStateWindowResizable).to.eq(false);
     expect(widgetDef.isToolSettings).to.eq(false);
     expect(widgetDef.isStatusBar).to.eq(false);
-    expect(widgetDef.applicationData).to.eq("AppData");
 
     expect(widgetDef.label).to.eq("label");
     expect(widgetDef.tooltip).to.eq("tooltip");
@@ -71,11 +59,12 @@ describe("WidgetDef", () => {
       id: "w1",
       defaultState: WidgetState.Open,
       priority: 200,
-      iconSpec: <SvgList />,
+      icon: <SvgList />,
       label: "label",
       tooltip: "tooltip",
-      isFloatingStateSupported: true,
-      isFloatingStateWindowResizable: true,
+      canFloat: {
+        isResizable: true,
+      },
     });
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.true;
   });
@@ -85,12 +74,12 @@ describe("WidgetDef", () => {
       id: "w1",
       defaultState: WidgetState.Open,
       priority: 200,
-      iconSpec: "icon-lightbulb",
-      internalData: new Map<string, any>(),
+      icon: "icon-lightbulb",
       label: "label",
       tooltip: "tooltip",
-      isFloatingStateSupported: true,
-      isFloatingStateWindowResizable: true,
+      canFloat: {
+        isResizable: true,
+      },
     });
     expect(widgetDef.iconSpec).to.eq("icon-lightbulb");
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
@@ -103,20 +92,10 @@ describe("WidgetDef", () => {
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
 
   });
-  it("registerControl & widgetControl using same classId", () => {
-    const widgetDef = WidgetDef.create({
-      id: "w1",
-      classId: "WidgetDefTest",
-    });
-
-    expect(widgetDef.getWidgetControl(ConfigurableUiControlType.Widget)).to.not.be.undefined;
-    expect(widgetDef.reactNode).to.not.be.undefined;
-  });
 
   it("labelKey and tooltipKey should return translated string", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      classId: "WidgetDefTest",
       labelKey: "App:label",
       tooltipKey: "App:tooltip",
     });
@@ -128,23 +107,9 @@ describe("WidgetDef", () => {
   it("reactNode supports set and get", () => {
     const widgetDef = WidgetDef.create({
       id: "w1",
-      classId: "WidgetDefTest",
     });
 
     widgetDef.reactNode = <div />;
-    expect(widgetDef.reactNode).to.not.be.undefined;
-  });
-
-  it("widgetControl using constructor classId", () => {
-    const widgetDef = WidgetDef.create({
-      id: "w1",
-      classId: TestWidget,
-    });
-    const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.Widget);
-
-    expect(widgetControl).to.not.be.undefined;
-    if (widgetControl)
-      expect(widgetControl.classId).to.eq("TestWidget");
     expect(widgetDef.reactNode).to.not.be.undefined;
   });
 
@@ -152,8 +117,7 @@ describe("WidgetDef", () => {
     it("should update widget state", () => {
       const widgetDef = WidgetDef.create({
         id: "w1",
-        classId: "WidgetDefTest",
-        badgeType: BadgeType.None,
+        badge: BadgeType.None,
       });
       widgetDef.setWidgetState(WidgetState.Open);
 
@@ -173,15 +137,6 @@ describe("WidgetDef", () => {
 
       sinon.assert.calledOnce(spy);
     });
-  });
-
-  it("getWidgetControl throws an Error when type is incorrect", () => {
-    const widgetDef = WidgetDef.create({
-      id: "w1",
-      classId: "WidgetDefTest",
-    });
-
-    expect(() => widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget)).to.throw(Error);
   });
 
   describe("show", () => {

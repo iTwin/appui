@@ -9,21 +9,20 @@ import splitVerticalIconSvg from "@bentley/icons-generic/icons/window-split-vert
 import singlePaneIconSvg from "@bentley/icons-generic/icons/window.svg";
 
 import {
-  ActivityMessageDetails, ActivityMessageEndReason,
-  IModelApp, MessageBoxIconType, MessageBoxType, MessageBoxValue, NotifyMessageDetails, OutputMessageAlert, OutputMessagePriority, OutputMessageType,
+  ActivityMessageDetails, ActivityMessageEndReason, IModelApp, MessageBoxIconType, MessageBoxType, MessageBoxValue,
+  NotifyMessageDetails, OutputMessageAlert, OutputMessagePriority, OutputMessageType,
   QuantityType, SelectionTool, SnapMode,
 } from "@itwin/core-frontend";
 import { UnitSystemKey } from "@itwin/core-quantity";
 import {
-  AbstractWidgetProps, BackstageItem, BackstageItemUtilities, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue, DialogButtonType,
-  IconSpecUtilities,
-  MessageSeverity, StagePanelLocation, StagePanelSection, StandardContentLayouts, StatusBarLabelSide, StatusBarSection, UiItemsManager, UiItemsProvider, WidgetState,
+  ConditionalBooleanValue, ConditionalStringValue, DialogButtonType, IconSpecUtilities, MessageSeverity, StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import { Dialog, FillCentered, ReactMessage, SvgPath, UnderlinedButton } from "@itwin/core-react";
 import {
-  CommandItemDef, ContentGroup, ContentGroupProps, ContentProps,
-  IModelViewportControl, MessageManager, ReactNotifyMessageDetails, StatusBarDialog, StatusBarItemUtilities, StatusBarLabelIndicator,
-  StatusBarSeparator, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef, UiFramework,
+  BackstageItem, BackstageItemUtilities, CommandItemDef, ContentGroup, ContentGroupProps, ContentProps, IModelViewportControl,
+  MessageManager, ReactNotifyMessageDetails, StagePanelLocation, StagePanelSection, StatusBarDialog, StatusBarItem, StatusBarItemUtilities,
+  StatusBarLabelIndicator, StatusBarLabelSide, StatusBarSection, StatusBarSeparator, SyncUiEventDispatcher, SyncUiEventId,
+  ToolItemDef, UiFramework, UiItemsManager, UiItemsProvider, Widget, WidgetState,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../";
 import { AppUi } from "../appui/AppUi";
@@ -117,19 +116,19 @@ class AppItemsProvider implements UiItemsProvider {
     SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(AppItemsProvider.syncEventId);
   }
 
-  public provideStatusBarItems(_stageId: string, _stageUsage: string): CommonStatusBarItem[] {
-    const statusBarItems: CommonStatusBarItem[] = [];
+  public provideStatusBarItems(_stageId: string, _stageUsage: string): StatusBarItem[] {
+    const statusBarItems: StatusBarItem[] = [];
     const isHiddenCondition = new ConditionalBooleanValue(() => !AppItemsProvider._sampleBackstageItemVisible, [AppItemsProvider.syncEventId]);
-    statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusSeparatorId, StatusBarSection.Left, 11, <StatusBarSeparator />, { isHidden: isHiddenCondition }));
-    statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusFieldId, StatusBarSection.Left, 12, <SampleStatusField />, { isHidden: isHiddenCondition }));
-    statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusField2Id, StatusBarSection.Left, 13,
+    statusBarItems.push(StatusBarItemUtilities.createCustomItem(AppItemsProvider.sampleStatusSeparatorId, StatusBarSection.Left, 11, <StatusBarSeparator />, { isHidden: isHiddenCondition }));
+    statusBarItems.push(StatusBarItemUtilities.createCustomItem(AppItemsProvider.sampleStatusFieldId, StatusBarSection.Left, 12, <SampleStatusField />, { isHidden: isHiddenCondition }));
+    statusBarItems.push(StatusBarItemUtilities.createCustomItem(AppItemsProvider.sampleStatusField2Id, StatusBarSection.Left, 13,
       <StatusBarLabelIndicator
         iconSpec="icon-app-1"
         popup={<TestStatusBarDialog />}
         title="Middle"
       />, { isHidden: isHiddenCondition }));
 
-    statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusField3Id, StatusBarSection.Left, 14,
+    statusBarItems.push(StatusBarItemUtilities.createCustomItem(AppItemsProvider.sampleStatusField3Id, StatusBarSection.Left, 14,
       <StatusBarLabelIndicator
         iconSpec="icon-app-2"
         popup={
@@ -154,8 +153,8 @@ class AppItemsProvider implements UiItemsProvider {
     ];
   }
 
-  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<AbstractWidgetProps> {
-    const widgets: AbstractWidgetProps[] = [];
+  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
     const allowedStages = ["ViewsFrontstage"];
     // Section parameter is ignored. The widget will be added once to the top section of a right panel.
     if (allowedStages.includes(stageId) && location === StagePanelLocation.Right && section === StagePanelSection.Start) {
@@ -163,7 +162,7 @@ class AppItemsProvider implements UiItemsProvider {
         id: "uitestapp-test-wd3",
         icon: " icon-clouds-scattered-day",
         label: "Dynamic Widget 3",
-        getWidgetContent: () => <FillCentered>Dynamic Widget 3 (id: uitestapp-test-wd3)</FillCentered>, // eslint-disable-line react/display-name
+        content: <FillCentered>Dynamic Widget 3 (id: uitestapp-test-wd3)</FillCentered>, // eslint-disable-line react/display-name
         defaultState: WidgetState.Hidden,
       });
     }

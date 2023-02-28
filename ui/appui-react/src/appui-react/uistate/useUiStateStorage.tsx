@@ -18,7 +18,7 @@ export function useUiStateStorageHandler(): UiStateStorage {
 }
 
 /** @internal */
-export const UiStateStorageContext = React.createContext<UiStateStorage>(new LocalStateStorage()); // eslint-disable-line @typescript-eslint/naming-convention
+export const UiStateStorageContext = React.createContext<UiStateStorage>(new LocalStateStorage());
 UiStateStorageContext.displayName = "uifw:UiStateStorageContext";
 
 /** Properties for the [[UiStateStorageHandler]] component.

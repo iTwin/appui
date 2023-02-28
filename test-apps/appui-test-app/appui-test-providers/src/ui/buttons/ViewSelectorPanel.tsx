@@ -3,11 +3,10 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import * as React from "react";
 import "./ViewSelectorPanel.scss";
-import { getListPanel, ListItem, ListItemType, SupportsViewSelectorChange, UiFramework, useActiveViewport, ViewUtilities } from "@itwin/appui-react";
+import * as React from "react";
+import { getListPanel, ListItem, ListItemType, SupportsViewSelectorChange, ToolbarItemUtilities, UiFramework, useActiveViewport, ViewUtilities } from "@itwin/appui-react";
 import { IModelApp, IModelConnection, Viewport } from "@itwin/core-frontend";
-import { CustomToolbarItem } from "@itwin/components-react";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 function ViewSelectorPanel() {
@@ -144,15 +143,9 @@ function ViewSelectorPanel() {
   );
 }
 
-export function getCustomViewSelectorPopupItem(itemPriority: number, groupPriority: number): CustomToolbarItem {
-  return {
-    isCustom: true,
-    id: "appui-test-providers:viewSelector",
-    itemPriority,
-    icon: "icon-saved-view",
-    label: "Load selected view into active content view",
-    panelContentNode: <ViewSelectorPanel />,
-    keepContentsLoaded: true,
+export function getCustomViewSelectorPopupItem(itemPriority: number, groupPriority: number) {
+  return ToolbarItemUtilities.createCustomItem("appui-test-providers:viewSelector", itemPriority, "icon-saved-view", "Load selected view into active content view", <ViewSelectorPanel />, {
+    // keepContentsLoaded: true, // TODO: 4.0
     groupPriority,
-  };
+  });
 }

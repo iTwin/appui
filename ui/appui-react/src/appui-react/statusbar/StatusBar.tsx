@@ -30,6 +30,7 @@ interface StatusBarState {
  * @public
  */
 export interface StatusBarProps extends CommonProps {
+  children?: React.ReactNode;
   widgetControl?: StatusBarWidgetControl;
 }
 
@@ -68,6 +69,7 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
             style={this.props.style}
           >
             {this.props.widgetControl?.getReactNode?.() ?? null}
+            {this.props.children}
           </Footer>
         )}
       </SafeAreaContext.Consumer>

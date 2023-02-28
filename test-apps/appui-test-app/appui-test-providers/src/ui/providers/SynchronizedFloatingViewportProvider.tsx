@@ -24,7 +24,7 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
     UiItemsManager.unregister(SynchronizedFloatingViewportProvider.providerId);
   }
 
-  public provideToolbarButtonItems(
+  public provideToolbarItems(
     _stageId: string,
     stageUsage: string,
     toolbarUsage: ToolbarUsage,

@@ -1089,6 +1089,8 @@ export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "st
     containerClassName?: string;
     containerStyle?: React_2.CSSProperties;
     format?: (num: number | null | undefined, formattedValue: string) => string;
+    // @internal
+    isControlled?: boolean;
     max?: number;
     min?: number;
     onChange?: (value: number | undefined, stringValue: string) => void;

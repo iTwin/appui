@@ -4,12 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
-import {
-  StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsManager,
-} from "@itwin/appui-abstract";
 import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
-import { DefaultContentTools, DefaultContentToolsAppData, StandardContentToolsUiItemsProvider } from "../../appui-react";
+import { DefaultContentTools, DefaultContentToolsAppData, StageUsage, StandardContentToolsUiItemsProvider, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 
 const testAppDataPropsArray: DefaultContentToolsAppData[] = [
   {

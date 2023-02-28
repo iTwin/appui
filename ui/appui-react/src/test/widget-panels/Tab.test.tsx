@@ -41,7 +41,7 @@ describe("WidgetPanelsTab", () => {
     sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
     const widgetDef = WidgetDef.create({
       id: "w1",
-      badgeType: BadgeType.New,
+      badge: BadgeType.New,
     });
     sinon.stub(frontstageDef, "findWidgetDef").returns(widgetDef);
 

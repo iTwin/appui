@@ -6,14 +6,12 @@ import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
   BackstageAppButton, CommandItemDef, ContentGroup, ContentLayoutDef, CoreTools, FrontstageConfig, FrontstageDef,
-  FrontstageProvider, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework, useWidgetDirection,
-  WidgetStateChangedEventArgs,
+  FrontstageProvider, NavigationAidHost, NavigationWidgetComposer, ToolbarComposer, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, useWidgetDirection,
+  WidgetState, WidgetStateChangedEventArgs,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
-import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
-import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { AppToolbarUtilities, NestedFrontstage1 } from "./NestedFrontstage1";
-import { CommonToolbarItem, StandardContentLayouts, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, UiAdmin, WidgetState } from "@itwin/appui-abstract";
+import { StandardContentLayouts, ToolbarItemUtilities, UiAdmin } from "@itwin/appui-abstract";
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
 import { IModelApp } from "@itwin/core-frontend";
@@ -89,18 +87,17 @@ export class Frontstage1 extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: <FrontstageToolWidget />,
+        content: <FrontstageToolWidget />,
       },
       toolSettings: {
         id: "toolSettings",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: < FrontstageNavigationWidget />,
+        content: <FrontstageNavigationWidget />,
       },
       statusBar: {
         id: "statusBar",
-        control: SmallStatusBarWidgetControl,
       },
       topPanel: {
         resizable: false,
@@ -108,11 +105,11 @@ export class Frontstage1 extends FrontstageProvider {
           start: [
             {
               id: "topPanel",
-              element: <h2>Top panel</h2>,
+              content: <h2>Top panel</h2>,
             },
             {
               id: "topMostPanel",
-              element: <>
+              content: <>
                 <h2>TopMost panel</h2>
                 <span>BottomMost panel:</span>
                 & nbsp;
@@ -120,14 +117,14 @@ export class Frontstage1 extends FrontstageProvider {
                   const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
                   const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
                   widgetDef?.setWidgetState(WidgetState.Open);
-                }} > show</button>
+                }}>show</button>
                 & nbsp;
                 < button onClick={() => {
                   const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
                   const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
                   widgetDef?.setWidgetState(WidgetState.Hidden);
                 }
-                }> hide</button >
+                }>hide</button>
               </>,
             },
           ],
@@ -138,9 +135,8 @@ export class Frontstage1 extends FrontstageProvider {
           start: [
             {
               id: "VerticalPropertyGrid",
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-              control: VerticalPropertyGridWidgetControl,
             },
           ],
         },
@@ -152,23 +148,21 @@ export class Frontstage1 extends FrontstageProvider {
           start: [
             {
               id: "RightPanel",
-              element: <RightPanel />,
+              content: <RightPanel />,
             },
           ],
           end: [
             {
               id: "HorizontalPropertyGrid1",
               defaultState: WidgetState.Open,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
-              control: HorizontalPropertyGridWidgetControl,
             },
             {
               id: "VerticalPropertyGrid1",
               defaultState: WidgetState.Hidden,
-              iconSpec: "icon-placeholder",
+              icon: "icon-placeholder",
               labelKey: "SampleApp:widgets.VerticalPropertyGrid",
-              control: VerticalPropertyGridWidgetControl,
             },
           ],
         },
@@ -178,13 +172,13 @@ export class Frontstage1 extends FrontstageProvider {
           start: [
             {
               id: "SampleTimeline",
-              element: <SampleTimelineComponent />,
+              content: <SampleTimelineComponent />,
             },
           ],
           end: [
             {
               id: "BottomMostPanelWidget",
-              element: <h2> BottomMost panel</h2>,
+              content: <h2>BottomMost panel</h2>,
             },
           ],
         },
@@ -264,7 +258,7 @@ class FrontstageToolWidget extends React.Component {
     });
   }
 
-  private _horizontalItems: CommonToolbarItem[] = [
+  private _horizontalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, this._openPopupWindow),
     ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.selectElementCommand),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item1),
@@ -275,7 +269,7 @@ class FrontstageToolWidget extends React.Component {
     ToolbarHelper.createToolbarItemFromItemDef(10, this._openModal),
   ];
 
-  private _verticalItems: CommonToolbarItem[] = [
+  private _verticalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.rotateViewCommand),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
@@ -305,12 +299,12 @@ class FrontstageToolWidget extends React.Component {
 /** Define a NavigationWidget with Buttons to display in the TopRight zone.
  */
 class FrontstageNavigationWidget extends React.Component {
-  private _horizontalItems: CommonToolbarItem[] = [
+  private _horizontalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
   ];
 
-  private _verticalItems: CommonToolbarItem[] = [
+  private _verticalItems: ToolbarItem[] = [
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
     ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
   ];

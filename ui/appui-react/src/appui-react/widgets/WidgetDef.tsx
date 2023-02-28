@@ -7,18 +7,18 @@
  */
 
 import * as React from "react";
-import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent, WidgetState } from "@itwin/appui-abstract";
+import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent } from "@itwin/appui-abstract";
 import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
 import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
 import { WidgetControl } from "./WidgetControl";
-import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 import { IconHelper, IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { WidgetConfig } from "./WidgetConfig";
-
-/* eslint-disable deprecation/deprecation */
+import { WidgetState } from "./WidgetState";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 
 const widgetStateNameMap = new Map<WidgetState, string>([
   [WidgetState.Closed, "Closed"],
@@ -91,9 +91,9 @@ export class WidgetDef {
   private _stateChanged: boolean = false;
   private _widgetType: WidgetType = WidgetType.Rectangular;
   private _applicationData?: any;
-  private _iconSpec?: string | ConditionalStringValue | React.ReactNode;
+  private _icon?: IconSpec;
   private _internalData?: Map<string, any>;
-  private _badgeType?: BadgeType;
+  private _badge?: BadgeType;
   private _onWidgetStateChanged?: () => void;
   private _saveTransientState?: () => void;
   private _restoreTransientState?: () => boolean;
@@ -104,7 +104,7 @@ export class WidgetDef {
   private _defaultFloatingPosition: PointProps | undefined;
 
   private _hideWithUiWhenFloating?: boolean;
-  private _allowedPanelTargets?: ReadonlyArray<"left" | "right" | "bottom" | "top">;
+  private _allowedPanelTargets?: ReadonlyArray<StagePanelLocation>;
   private _initialConfig?: WidgetConfig;
 
   private _tabLocation?: TabLocation;
@@ -137,9 +137,9 @@ export class WidgetDef {
   public get stateChanged(): boolean { return this._stateChanged; }
   public get applicationData(): any | undefined { return this._applicationData; }
   public get isFloating(): boolean { return this.state === WidgetState.Floating; }
-  public get iconSpec(): IconSpec { return this._iconSpec === IconHelper.reactIconKey ? IconHelper.getIconReactNode(this._iconSpec, this._internalData) : this._iconSpec; }
-  public set iconSpec(spec: IconSpec) { this._iconSpec = this._internalData ? IconHelper.getIconData(spec, this._internalData) : spec; }
-  public get badgeType(): BadgeType | undefined { return this._badgeType; }
+  public get iconSpec(): IconSpec { return this._icon === IconHelper.reactIconKey ? IconHelper.getIconReactNode(this._icon, this._internalData) : this._icon; }
+  public set iconSpec(spec: IconSpec) { this._icon = this._internalData ? IconHelper.getIconData(spec, this._internalData) : spec; }
+  public get badgeType(): BadgeType | undefined { return this._badge; }
   public get initialConfig(): WidgetConfig | undefined { return this._initialConfig; }
 
   public get widgetType(): WidgetType { return this._widgetType; }
@@ -190,12 +190,18 @@ export class WidgetDef {
       this._label = UiFramework.localization.getLocalizedString(config.labelKey);
 
     this.setCanPopout(config.canPopout);
-    this.setFloatingContainerId(config.floatingContainerId);
-    this.defaultFloatingPosition = config.defaultFloatingPosition ? config.defaultFloatingPosition as PointProps : undefined;
 
-    this._hideWithUiWhenFloating = !!config.hideWithUiWhenFloating;
+    const canFloat = config.canFloat;
+    this._isFloatingStateSupported = !!canFloat;
+    if (typeof canFloat === "object") {
+      this.setFloatingContainerId(canFloat.containerId);
+      this.defaultFloatingPosition = canFloat.defaultPosition;
+      this._hideWithUiWhenFloating = !!canFloat.hideWithUi;
+      this._isFloatingStateWindowResizable = !!canFloat.isResizable;
+      this._defaultFloatingSize = canFloat.defaultSize;
+    }
 
-    this.allowedPanelTargets = config.allowedPanelTargets;
+    this.allowedPanelTargets = config.allowedPanels;
 
     if (config.priority !== undefined)
       this._priority = config.priority;
@@ -205,42 +211,21 @@ export class WidgetDef {
     else if (config.tooltipKey)
       this._tooltip = UiFramework.localization.getLocalizedString(config.tooltipKey);
 
-    if (config.control !== undefined)
-      this._classId = config.control;
-    else if (config.classId !== undefined)
-      this._classId = config.classId;
-
     if (config.defaultState !== undefined) {
       this._defaultState = config.defaultState;
     }
 
-    if (config.isFloatingStateSupported !== undefined)
-      this._isFloatingStateSupported = config.isFloatingStateSupported;
-    if (config.isFloatingStateWindowResizable !== undefined)
-      this._isFloatingStateWindowResizable = config.isFloatingStateWindowResizable;
+    this._widgetReactNode = config.content;
+    this._icon = config.icon;
 
-    if (config.applicationData !== undefined)
-      this._applicationData = config.applicationData;
-
-    if (config.element !== undefined)
-      this._widgetReactNode = config.element;
-
-    if (config.iconSpec !== undefined)
-      this._iconSpec = config.iconSpec;
-    if (config.internalData)
-      this._internalData = config.internalData;
     // istanbul ignore next
-    if (config.icon !== undefined && this._iconSpec === undefined)
-      this._iconSpec = config.icon;
+    if (config.icon !== undefined && this._icon === undefined)
+      this._icon = config.icon;
 
-    if (config.badgeType !== undefined)
-      this._badgeType = config.badgeType;
+    if (config.badge !== undefined)
+      this._badge = config.badge;
 
     this._preferredPanelSize = config.preferredPanelSize;
-    this._defaultFloatingSize = config.defaultFloatingSize;
-    this._onWidgetStateChanged = config.onWidgetStateChanged;
-    this._saveTransientState = config.saveTransientState;
-    this._restoreTransientState = config.restoreTransientState;
   }
 
   /** @alpha */
@@ -380,12 +365,11 @@ export class WidgetDef {
     return !!this._hideWithUiWhenFloating;
   }
 
-  public get allowedPanelTargets(): ReadonlyArray<"left" | "right" | "bottom" | "top"> | undefined {
+  public get allowedPanelTargets(): ReadonlyArray<StagePanelLocation> | undefined {
     return this._allowedPanelTargets;
   }
 
-  public set allowedPanelTargets(targets: ReadonlyArray<"left" | "right" | "bottom" | "top"> | undefined) {
-
+  public set allowedPanelTargets(targets: ReadonlyArray<StagePanelLocation> | undefined) {
     this._allowedPanelTargets = (targets && targets?.length > 0) ? targets : undefined;
   }
 
