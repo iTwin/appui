@@ -28,12 +28,6 @@
       margin-top: 5px;
     }
   }
-
-  &:focus-visible,
-  &:hover,
-  &:active {
-    background-color: var(--iui-color-background-hover); // TODO: I can't get this to work
-  }
 }
 
 .nz-toolbar-button-app-small {
@@ -69,22 +63,10 @@
       margin-top: 5px;
     }
   }
-
-  &:focus-visible,
-  &:hover,
-  &:active {
-    background-color: var(--iui-color-background-hover); // TODO: I can't get this to work
-  }
 }
 
 button.nz-toolbar-button-button.nz-toolbar-button-icon.nz-toolbar-button-icon-small.nz-toolbar-button-app-small {
   border-width: 0px;
-
-  &:focus-visible,
-  &:hover,
-  &:active {
-    background-color: var(--iui-color-background-hover); // TODO: I can't get this to work
-  }
 
   .core-svg-icon {
     width: $mls-small-button-icon-size;
