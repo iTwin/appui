@@ -38,16 +38,15 @@ export interface ModalFrontstageProps extends CommonProps {
  * @public
  */
 export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
-  private _backButtonTitle = UiFramework.translate(
-    "modalFrontstage.backButtonTitle"
-  );
+  private _backButtonTitle = UiFramework.translate("modalFrontstage.backButtonTitle");
 
   constructor(props: ModalFrontstageProps) {
     super(props);
   }
 
   private _onGoBack = () => {
-    if (this.props.navigateBack) this.props.navigateBack();
+    if (this.props.navigateBack)
+      this.props.navigateBack();
     this.props.closeModal();
   };
 
@@ -55,27 +54,28 @@ export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
     const classNames = classnames(
       "uifw-modal-frontstage",
       this.props.isOpen && "uifw-modal-open",
-      this.props.className
+      this.props.className,
     );
 
     return (
       <>
         <div className={classNames} style={this.props.style}>
           <div className="uifw-modal-app-bar">
-            <BackButton
-              className="nz-toolbar-button-app"
+            <BackButton className="nz-toolbar-button-app"
               onClick={this._onGoBack}
-              icon={<i className="icon icon-progress-backward" />}
+              icon={
+                <i className="icon icon-progress-backward" />
+              }
               title={this._backButtonTitle}
             />
             <Text variant="headline">{this.props.title}</Text>
-            {this.props.appBarRight && (
-              <span className="uifw-modal-app-bar-right">
-                {this.props.appBarRight}
-              </span>
-            )}
+            {this.props.appBarRight &&
+              <span className="uifw-modal-app-bar-right">{this.props.appBarRight}</span>
+            }
           </div>
-          <div className="uifw-modal-stage-content">{this.props.children}</div>
+          <div className="uifw-modal-stage-content">
+            {this.props.children}
+          </div>
         </div>
         <div className="uifw-modal-frontstage-overlay" />
       </>

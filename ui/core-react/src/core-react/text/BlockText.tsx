@@ -5,6 +5,7 @@
 /** @packageDocumentation
  * @module Text
  */
+
 import * as React from "react";
 import { StyledText } from "./StyledText";
 import { TextProps } from "./TextProps";
