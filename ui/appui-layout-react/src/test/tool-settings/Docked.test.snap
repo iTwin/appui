@@ -7,36 +7,15 @@ exports[`DockedToolSettings should render 1`] = `
   <div
     class="nz-toolSettings-handle"
   >
-    <div
-      class="nz-row"
+    <svg
+      fill="var(--iui-color-icon-muted, currentColor)"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <div
-        class="nz-dot"
+      <path
+        d="M7 4a1 1 0 11-2 0 1 1 0 012 0zM6 7a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2zm5-7a1 1 0 11-2 0 1 1 0 012 0zm-1 3a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2z"
       />
-      <div
-        class="nz-dot"
-      />
-    </div>
-    <div
-      class="nz-row"
-    >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
-    <div
-      class="nz-row"
-    >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
+    </svg>
   </div>
   <div>
     <div>
@@ -83,36 +62,15 @@ exports[`DockedToolSettings should render overflow button 1`] = `
   <div
     class="nz-toolSettings-handle"
   >
-    <div
-      class="nz-row"
+    <svg
+      fill="var(--iui-color-icon-muted, currentColor)"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <div
-        class="nz-dot"
+      <path
+        d="M7 4a1 1 0 11-2 0 1 1 0 012 0zM6 7a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2zm5-7a1 1 0 11-2 0 1 1 0 012 0zm-1 3a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2z"
       />
-      <div
-        class="nz-dot"
-      />
-    </div>
-    <div
-      class="nz-row"
-    >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
-    <div
-      class="nz-row"
-    >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
+    </svg>
   </div>
   <div>
     Entry 1
@@ -152,36 +110,15 @@ exports[`DockedToolSettings should render overflown entries 1`] = `
   <div
     class="nz-toolSettings-handle"
   >
-    <div
-      class="nz-row"
+    <svg
+      fill="var(--iui-color-icon-muted, currentColor)"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <div
-        class="nz-dot"
+      <path
+        d="M7 4a1 1 0 11-2 0 1 1 0 012 0zM6 7a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2zm5-7a1 1 0 11-2 0 1 1 0 012 0zm-1 3a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2z"
       />
-      <div
-        class="nz-dot"
-      />
-    </div>
-    <div
-      class="nz-row"
-    >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
-    <div
-      class="nz-row"
-    >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
+    </svg>
   </div>
   <div>
     Entry 1
@@ -248,36 +185,15 @@ exports[`DockedToolSettings should render w/o entries 1`] = `
   <div
     class="nz-toolSettings-handle"
   >
-    <div
-      class="nz-row"
+    <svg
+      fill="var(--iui-color-icon-muted, currentColor)"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <div
-        class="nz-dot"
+      <path
+        d="M7 4a1 1 0 11-2 0 1 1 0 012 0zM6 7a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2zm5-7a1 1 0 11-2 0 1 1 0 012 0zm-1 3a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2z"
       />
-      <div
-        class="nz-dot"
-      />
-    </div>
-    <div
-      class="nz-row"
-    >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
-    <div
-      class="nz-row"
-    >
-      <div
-        class="nz-dot"
-      />
-      <div
-        class="nz-dot"
-      />
-    </div>
+    </svg>
   </div>
 </div>
 `;

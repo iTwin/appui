@@ -16,14 +16,19 @@
   cursor: grab;
   flex-shrink: 0;
 
-  >.nz-row {
+  svg {
+    width: 2em;
+    height: 2em;
+  }
+
+  > .nz-row {
     display: flex;
 
     &:not(:first-child) {
       margin-top: $dot-gap;
     }
 
-    >.nz-dot {
+    > .nz-dot {
       width: $dot-size;
       height: $dot-size;
       border-radius: 50%;
