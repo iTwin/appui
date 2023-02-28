@@ -48,7 +48,7 @@ describe("PanelOutline", () => {
 
   it("should render", () => {
     const { container } = render(<PanelOutline />, {
-      wrapper: (props) => <Wrapper {...props} />, // eslint-disable-line react/display-name
+      wrapper: Wrapper,
     });
     container
       .getElementsByClassName("nz-outline-panelOutline")
@@ -59,9 +59,9 @@ describe("PanelOutline", () => {
     let state = createNineZoneState();
     state = updatePanelState(state, "bottom", { span: true });
     const { container } = render(<PanelOutline />, {
-      wrapper: (props) => (
+      wrapper: (props) => ( // eslint-disable-line react/display-name
         <Wrapper defaultState={state} side="bottom" {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
     container
       .getElementsByClassName("nz-outline-panelOutline nz-span")
@@ -92,9 +92,9 @@ describe("useHidden", () => {
   it("should return `true` if target is not a panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => (
+      wrapper: (props) => ( // eslint-disable-line react/display-name
         <Wrapper dragManagerRef={dragManagerRef} {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
     act(() => {
       dragManagerRef.current?.handleDragStart(createDragStartArgs());
@@ -108,9 +108,9 @@ describe("useHidden", () => {
   it("should return `true` if target is not a current panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => (
+      wrapper: (props) => ( // eslint-disable-line react/display-name
         <Wrapper dragManagerRef={dragManagerRef} {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
     act(() => {
       dragManagerRef.current?.handleDragStart(createDragStartArgs());
@@ -126,9 +126,9 @@ describe("useHidden", () => {
   it("should return `false` if target is a current panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => (
+      wrapper: (props) => ( // eslint-disable-line react/display-name
         <Wrapper dragManagerRef={dragManagerRef} {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
     act(() => {
       dragManagerRef.current?.handleDragStart(createDragStartArgs());
