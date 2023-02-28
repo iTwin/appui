@@ -6,18 +6,13 @@ import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
 import { IModelConnection, MockRender } from "@itwin/core-frontend";
-import { CardContainer, ConfigurableUiControlType, SheetNavigationAid, SheetNavigationAidControl, UiFramework, WidgetDef } from "../../appui-react";
-import TestUtils, { childStructure } from "../TestUtils";
 import { render } from "@testing-library/react";
+import { CardContainer, SheetNavigationAid } from "../../appui-react";
+import TestUtils, { childStructure } from "../TestUtils";
 
 describe("SheetNavigationAid", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
-
-    if (!UiFramework.controls.isRegistered("SheetNavigationAid"))
-      UiFramework.controls.register("SheetNavigationAid", SheetNavigationAidControl);
-
     await MockRender.App.startup();
   });
 
@@ -58,22 +53,5 @@ describe("SheetNavigationAid", () => {
       // ... resolve the async operation after component is unmounted.
       expect(() => resolver([])).to.not.throw();
     });
-  });
-
-  describe("SheetNavigationAidControl", () => {
-    it("SheetNavigationAidControl creates SheetNavigationAid", () => {
-      const widgetDef = WidgetDef.create({
-        id: "w1",
-        classId: "SheetNavigationAid",
-        applicationData: {
-          imodel: UiFramework.getIModelConnection(),
-          viewport: UiFramework.content.getActiveContentControl()?.viewport,
-        },
-      });
-
-      const reactNode = widgetDef.getWidgetControl(ConfigurableUiControlType.NavigationAid);
-      expect(reactNode).to.not.be.undefined;
-    });
-
   });
 });

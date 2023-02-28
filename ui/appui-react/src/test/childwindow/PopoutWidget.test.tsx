@@ -6,16 +6,14 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
-import { WidgetState } from "@itwin/appui-abstract";
-import TestUtils from "../TestUtils";
+import { WidgetDef, WidgetState } from "../../appui-react";
 import { PopoutWidget } from "../../appui-react/childwindow/PopoutWidget";
-import { WidgetDef } from "../../appui-react/widgets/WidgetDef";
+import TestUtils from "../TestUtils";
 
 describe("PopoutWidget", () => {
   const sandbox = sinon.createSandbox();
   const widgetDef = WidgetDef.create({
     id: "w1",
-    classId: "test",
     defaultState: WidgetState.Open,
   });
 

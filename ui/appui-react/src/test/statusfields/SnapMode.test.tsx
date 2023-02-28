@@ -7,42 +7,13 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render } from "@testing-library/react";
 import { MockRender, SnapMode } from "@itwin/core-frontend";
-import { WidgetState } from "@itwin/appui-abstract";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, SnapModeField, StatusBar, StatusBarWidgetControl, UiFramework,
-  WidgetDef,
-} from "../../appui-react";
+import { SnapModeField, StatusBar, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("SnapModeField", () => {
-
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <SnapModeField />
-        </>
-      );
-    }
-  }
-
-  let widgetControl: StatusBarWidgetControl | undefined;
-
   before(async () => {
-    // use mock renderer so standards tools are registered.
     await MockRender.App.startup();
     await TestUtils.initializeUiFramework();
-
-    const widgetDef = WidgetDef.create({
-      id: "statusBar",
-      classId: AppStatusBarWidgetControl,
-      defaultState: WidgetState.Open,
-    });
-    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
   after(async () => {
@@ -52,7 +23,7 @@ describe("SnapModeField", () => {
 
   it("Status Bar with SnapModes Field should render", () => {
     const wrapper = render(<Provider store={TestUtils.store}>
-      <StatusBar widgetControl={widgetControl} />
+      <StatusBar><SnapModeField /></StatusBar>
     </Provider>);
 
     const button = wrapper.container.querySelector(".uifw-statusbar-indicator");
@@ -75,7 +46,7 @@ describe("SnapModeField", () => {
     const snapMode = UiFramework.getAccudrawSnapMode();
     expect(snapMode).to.be.equal(SnapMode.Intersection | SnapMode.NearestKeypoint);
     const wrapper = render(<Provider store={TestUtils.store}>
-      <StatusBar widgetControl={widgetControl} />
+      <StatusBar><SnapModeField /></StatusBar>
     </Provider>);
     const iconContainer = wrapper.container.querySelector(".uifw-icon");
     expect(iconContainer).not.to.be.null;

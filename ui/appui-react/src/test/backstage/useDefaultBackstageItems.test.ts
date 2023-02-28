@@ -2,11 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { BackstageItemsManager } from "@itwin/appui-abstract";
-import { useDefaultBackstageItems } from "../../appui-react";
-import { getActionItem } from "./BackstageComposerItem.test";
-import {renderHook} from "@testing-library/react-hooks";
 import { expect } from "chai";
+import { renderHook } from "@testing-library/react-hooks";
+import { getActionItem } from "./BackstageComposerItem.test";
+import { useDefaultBackstageItems } from "../../appui-react";
+import { BackstageItemsManager } from "../../appui-react/backstage/BackstageItemsManager";
 
 describe("useDefaultBackstageItems", () => {
   it("should return backstage items", () => {
@@ -15,7 +15,7 @@ describe("useDefaultBackstageItems", () => {
       getActionItem(),
     ];
 
-    const {result} = renderHook(() => useDefaultBackstageItems(manager));
+    const { result } = renderHook(() => useDefaultBackstageItems(manager));
 
     expect(result.current).to.have.members(manager.items);
   });
@@ -38,7 +38,7 @@ describe("useDefaultBackstageItems", () => {
       getActionItem(),
     ];
     manager.items = initialItems;
-    const {result, unmount} = renderHook(() => useDefaultBackstageItems(manager));
+    const { result, unmount } = renderHook(() => useDefaultBackstageItems(manager));
 
     unmount();
     manager.items = [];
@@ -57,19 +57,19 @@ describe("useDefaultBackstageItems", () => {
     ];
     const manager2 = new BackstageItemsManager();
     manager2.items = initialManager2Items;
-    const {result, rerender} = renderHook((mgr: BackstageItemsManager) => useDefaultBackstageItems(mgr), {initialProps: manager1});
+    const { result, rerender } = renderHook((mgr: BackstageItemsManager) => useDefaultBackstageItems(mgr), { initialProps: manager1 });
     expect(result.current).to.have.members(manager1.items)
       .and.not.include.members(manager2.items);
 
     rerender(manager2);
 
-    manager2.items=[getActionItem()];
+    manager2.items = [getActionItem()];
     expect(result.current).to.have.members(manager2.items)
       .and.not.include.members(initialManager2Items)
       .and.not.include.members(manager1.items)
       .and.not.include.members(initialManager1Items);
 
-    manager1.items=[getActionItem()];
+    manager1.items = [getActionItem()];
     expect(result.current).to.have.members(manager2.items)
       .and.not.include.members(initialManager2Items)
       .and.not.include.members(manager1.items)

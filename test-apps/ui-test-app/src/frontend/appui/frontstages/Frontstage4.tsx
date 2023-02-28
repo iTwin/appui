@@ -3,17 +3,15 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { IModelApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import {
-  CommonToolbarItem,
   DialogButtonDef, DialogButtonType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertyItem, DialogPropertySyncItem,
-  PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardContentLayouts, StandardTypeNames, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, WidgetState,
+  PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardContentLayouts, StandardTypeNames, ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton,
-  CommandItemDef, ContentGroup, FrontstageConfig, FrontstageProvider,
-  NavigationAidHost, NavigationWidgetComposer, StagePanelState, ToolbarComposer, ToolbarHelper, ToolWidgetComposer, UiFramework,
+  BackstageAppButton, CommandItemDef, ContentGroup, FrontstageConfig, FrontstageProvider, NavigationAidHost, NavigationWidgetComposer,
+  StagePanelState, ToolbarComposer, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolWidgetComposer, UiFramework, WidgetState,
 } from "@itwin/appui-react";
+import { IModelApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { PopupTestDialog } from "../dialogs/PopupTest";
 import { SampleModalDialog } from "../dialogs/SampleModalDialog";
@@ -23,11 +21,6 @@ import { TestModalDialog } from "../dialogs/TestModalDialog";
 import { TestModalDialog2 } from "../dialogs/TestModalDialog2";
 import { TestRadialMenu } from "../dialogs/TestRadialMenu";
 import { TestUiProvider } from "../dialogs/TestUiProviderDialog";
-import { NavigationTreeWidgetControl } from "../widgets/NavigationTreeWidget";
-import {
-  HorizontalPropertyGridWidgetControl, HorizontalPropertyGridWidgetControl2, VerticalPropertyGridWidgetControl,
-} from "../widgets/PropertyGridDemoWidget";
-import { TreeSelectionDemoWidgetControl } from "../widgets/TreeSelectionDemoWidget";
 import { AppToolbarUtilities } from "./NestedFrontstage1";
 import { IconHelper } from "@itwin/core-react";
 
@@ -161,39 +154,38 @@ export class Frontstage4 extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: "contentManipulation",
-        element: this.getToolWidget(),
+        content: this.getToolWidget(),
       },
       toolSettings: {
         id: "toolSettings",
       },
       viewNavigation: {
         id: "viewNavigation",
-        element: this.getNavigationWidget(),
+        content: this.getNavigationWidget(),
       },
       rightPanel: {
         defaultState: StagePanelState.Minimized,
         sections: {
           start: [
-            { id: "w1", iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree", control: NavigationTreeWidgetControl },
-            { id: "w2", iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo", control: TreeSelectionDemoWidgetControl },
+            { id: "w1", icon: "icon-placeholder", labelKey: "SampleApp:widgets.NavigationTree" },
+            { id: "w2", icon: "icon-placeholder", labelKey: "SampleApp:widgets.TreeSelectionDemo" },
           ],
           end: [
-            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid", control: VerticalPropertyGridWidgetControl },
-            { id: "w3", defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl },
-            { id: "w4", defaultState: WidgetState.Open, iconSpec: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid", control: HorizontalPropertyGridWidgetControl2 },
+            { id: "VerticalPropertyGrid", defaultState: WidgetState.Hidden, icon: "icon-placeholder", labelKey: "SampleApp:widgets.VerticalPropertyGrid" },
+            { id: "w3", defaultState: WidgetState.Open, icon: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid" },
+            { id: "w4", defaultState: WidgetState.Open, icon: "icon-placeholder", labelKey: "SampleApp:widgets.HorizontalPropertyGrid" },
           ],
         },
       },
       statusBar: {
         id: "statusBar",
-        classId: "SmallStatusBar",
       },
     };
   }
 
   /** Define a ToolWidget with Buttons to display in the TopLeft zone. */
   private getToolWidget(): React.ReactNode {
-    const horizontalItems: CommonToolbarItem[] = [
+    const horizontalItems: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
       ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
         AppToolbarUtilities.createActionButtonFromItemDef(10, AppTools.tool1),
@@ -208,7 +200,7 @@ export class Frontstage4 extends FrontstageProvider {
       ]),
     ];
 
-    const verticalItems: CommonToolbarItem[] = [
+    const verticalItems: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool1),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.tool2),
       ToolbarItemUtilities.createGroupButton("SampleApp:buttons.anotherGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.anotherGroup"), [
@@ -330,7 +322,7 @@ export class Frontstage4 extends FrontstageProvider {
   /** Define a NavigationWidget with Buttons to display in the TopRight zone.
    */
   private getNavigationWidget(): React.ReactNode {
-    const horizontalItems: CommonToolbarItem[] = [
+    const horizontalItems: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item6),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item5),
       ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [
@@ -345,7 +337,7 @@ export class Frontstage4 extends FrontstageProvider {
       ]),
     ];
 
-    const verticalItems: CommonToolbarItem[] = [
+    const verticalItems: ToolbarItem[] = [
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item8),
       ToolbarHelper.createToolbarItemFromItemDef(10, AppTools.item7),
       ToolbarItemUtilities.createGroupButton("SampleApp:buttons.toolGroup", 10, "icon-placeholder", IModelApp.localization.getLocalizedString("SampleApp:buttons.toolGroup"), [

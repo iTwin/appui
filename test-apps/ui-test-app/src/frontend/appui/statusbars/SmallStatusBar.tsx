@@ -5,15 +5,15 @@
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import {
-  ActivityCenterField, AnyStatusBarItem, MessageCenterField, SnapModeField, StatusBarComposer,
-  StatusBarItemUtilities, StatusBarSection, StatusBarSeparator, StatusBarWidgetControl, ToolAssistanceField, UiFramework,
+  ActivityCenterField, MessageCenterField, SnapModeField, StatusBarComposer, StatusBarItem, StatusBarItemUtilities,
+  StatusBarSection, StatusBarSeparator, StatusBarWidgetControl, ToolAssistanceField, UiFramework,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../..";
 
 export class SmallStatusBarWidgetControl extends StatusBarWidgetControl {
-  private _statusBarItems: AnyStatusBarItem[] | undefined;
+  private _statusBarItems: StatusBarItem[] | undefined;
 
-  private get statusBarItems(): AnyStatusBarItem[] {
+  private get statusBarItems(): StatusBarItem[] {
     if (!this._statusBarItems) {
       const isHiddenCondition = new ConditionalBooleanValue(() => SampleAppIModelApp.getTestProperty() === "HIDE", [SampleAppUiActionId.setTestProperty]);
 

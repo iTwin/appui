@@ -40,17 +40,17 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "workspace:^4.0.0-dev.10",
+    "@itwin/appui-abstract": "^3.6.0",
     "@itwin/core-bentley": "^3.6.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   },
   "//devDependencies": [
     "NOTE: All peerDependencies should also be listed as devDependencies since peerDependencies are not considered by npm install",
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/appui-abstract": "workspace:*",
+    "@itwin/appui-abstract": "^3.6.0",
     "@itwin/build-tools": "^3.6.0",
     "@itwin/core-bentley": "^3.6.0",
     "@itwin/core-common": "^3.6.0",
@@ -132,16 +132,6 @@
     "extends": [
       "plugin:@itwin/ui",
       "plugin:@itwin/jsdoc"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "src/test/**/*"
-        ],
-        "rules": {
-          "deprecation/deprecation": "off"
-        }
-      }
     ]
   }
 }

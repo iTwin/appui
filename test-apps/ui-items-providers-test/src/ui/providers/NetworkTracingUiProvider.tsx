@@ -6,14 +6,10 @@
 
 import * as React from "react";
 import {
-  AbstractWidgetProps, BackstageItem,
-  BackstageItemUtilities, BadgeType,
-  CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities,
-  StagePanelLocation, StagePanelSection,
-  ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage,
+  AbstractWidgetProps, BackstageItem, BackstageItemUtilities, BadgeType, ConditionalBooleanValue, IconSpecUtilities, StagePanelLocation, StagePanelSection, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage,
   UiItemsManager, UiItemsProvider, WidgetState,
 } from "@itwin/appui-abstract";
-import { PropsHelper, StateManager, SyncUiEventDispatcher } from "@itwin/appui-react";
+import { PropsHelper, StateManager, SyncUiEventDispatcher, ToolbarItem } from "@itwin/appui-react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { OpenTraceDialogTool } from "../../tools/OpenTraceDialogTool";
 import { NetworkTracingFrontstage } from "../frontstages/NetworkTracing";
@@ -66,12 +62,12 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
     );
   }
 
-  public provideToolbarButtonItems(
+  public provideToolbarItems(
     stageId: string,
     _stageUsage: string, // don't need to check usage since this provider is for specific stage.
     toolbarUsage: ToolbarUsage,
     toolbarOrientation: ToolbarOrientation
-  ): CommonToolbarItem[] {
+  ): ToolbarItem[] {
     if (
       stageId === NetworkTracingFrontstage.stageId &&
       toolbarUsage === ToolbarUsage.ContentManipulation &&
