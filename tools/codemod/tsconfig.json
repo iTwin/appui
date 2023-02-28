@@ -4,4 +4,7 @@
     "outDir": "lib",
     "jsx": "preserve"
   },
+  "files": [
+    "./codemod.ts"
+  ]
 }
