@@ -106,7 +106,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
    * @param _hollow @deprecated in 4.0. Ignored.
    * @deprecated in 4.0. Please use getIcon method
    */
-    /* istanbul ignore next */
+  /* istanbul ignore next */
   public static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string {
     let iconClassName = "";
 

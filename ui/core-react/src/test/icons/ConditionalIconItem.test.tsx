@@ -6,7 +6,6 @@
 import { expect } from "chai";
 import { ConditionalIconItem } from "../../core-react/icons/ConditionalIconItem";
 import { IconSpec } from "../../core-react/icons/IconComponent";
-import * as React from "react";
 
 const iconSpec1: IconSpec = "icon1.svg";
 const iconSpec2: IconSpec = "icon2.svg";
