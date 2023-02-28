@@ -95,7 +95,6 @@ export function useAnimatePanel() {
     }
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useLayoutEffect(() => {
     if (panel.size !== undefined || panel.collapsed)
       return;
@@ -108,7 +107,8 @@ export function useAnimatePanel() {
       size: newSize,
     });
     setInitializing(true);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [panel.size, panel.collapsed]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useLayoutEffect(() => {
     if (!prepareTransition)
