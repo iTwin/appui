@@ -57,6 +57,24 @@ export function frontstageLocator(page: Page) {
   return page.locator(".uifw-widgetPanels-frontstage");
 }
 
+type OutlineLocatorArgs = { page: Page, side: PanelSide } | { panel: Locator, sectionIndex: 0 | 1 };
+
+export function outlineLocator(args: OutlineLocatorArgs): Locator;
+export function outlineLocator(args: WidgetLocatorArgs): Locator[];
+
+export function outlineLocator(args: OutlineLocatorArgs | WidgetLocatorArgs) {
+  if ("side" in args) {
+    return args.page.locator(`.nz-outline-panelOutline.nz-${args.side}`);
+  }
+
+  if ("sectionIndex" in args) {
+    return args.panel.locator(`.nz-outline-sectionOutline.nz-${args.sectionIndex}`);
+  }
+
+  const widget = widgetLocator(args);
+  return [widget.locator(".nz-outline-widgetOutline"), widget.locator(".nz-outline-tabOutline")];
+}
+
 export interface SavedFrontstageState {
   nineZone: {
     floatingWidgets: {
@@ -107,4 +125,15 @@ export async function openFrontstage(page: Page, frontstageId: string) {
 
   const backstageItem = page.locator(`[data-item-type="backstage-item"][data-item-id="${frontstageId}"]`);
   await backstageItem.click();
+}
+
+export enum WidgetState {
+  Open = 0,
+  Closed = 1,
+  Hidden = 2,
+  Floating = 3,
+}
+
+export async function setWidgetState(page: Page, widgetId: string, widgetState: WidgetState) {
+  await runKeyin(page, `widget setstate ${widgetId} ${widgetState}`);
 }
