@@ -85,6 +85,7 @@ internal;getChildKey(child: React_2.ReactNode, index: number): string
 internal;getCursorClassName(type: CursorType): string
 internal;getOverflown(width: number, docked: ReadonlyArray
 internal;getResizeBy(handle: FloatingWidgetResizeHandle, offset: PointProps): Rectangle
+internal;getSendBackHomeState(state: NineZoneState, widgetId: WidgetState["id"]):
 internal;getTabLocation(state: NineZoneState, id: TabState["id"]): TabLocation | undefined
 internal;getUniqueId(): string
 internal;getWidgetLocation(state: NineZoneState, id: WidgetState["id"]): WidgetLocation | undefined
@@ -230,6 +231,7 @@ internal;TooltipDefaultProps = Pick
 internal;TooltipProps 
 internal;TopPanelSide = "top"
 internal;UiIsVisibleContext: React_2.Context
+internal;useActiveSendBackWidgetIdStore: UseBoundStore
 internal;useActiveTabId(): string
 internal;useBorders(widgetId: WidgetState["id"]):
 internal;useContainersStore: UseBoundStore
@@ -262,6 +264,7 @@ internal;usePanelsAutoCollapse
 internal;UsePanelTargetArgs
 internal;usePointerCaptor: 
 internal;useResizeGrip: 
+internal;useSendBackHomeState():
 internal;useTabInteractions
 internal;UseTabInteractionsArgs
 internal;UseTabTargetArgs

@@ -8,7 +8,7 @@ import * as sinon from "sinon";
 import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { addTab, NineZoneState, TabState, useContainersStore } from "../appui-layout-react";
+import { addTab, NineZoneState, TabState, useActiveSendBackWidgetIdStore, useContainersStore } from "../appui-layout-react";
 
 export { userEvent };
 
@@ -21,9 +21,11 @@ before(() => {
   };
 });
 
-const initialState = useContainersStore.getState();
+const initialSendBackState = useActiveSendBackWidgetIdStore.getState();
+const initialContainersState = useContainersStore.getState();
 beforeEach(() => {
-  useContainersStore.setState(initialState, true);
+  useActiveSendBackWidgetIdStore.setState(initialSendBackState, true);
+  useContainersStore.setState(initialContainersState, true);
 });
 
 /** @internal */
