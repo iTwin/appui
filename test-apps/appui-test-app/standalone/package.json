@@ -19,7 +19,7 @@
     "start:servers": "run-p \"start:webserver\" \"start:backend\"",
     "serve": "serve -s build",
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./build/public/locales/en-PSEUDO",
-    "extract": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../../generated-docs/extract",
+    "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../../generated-docs/extract",
     "test": "",
     "cover": "",
     "docs": "npm run -s extract",
