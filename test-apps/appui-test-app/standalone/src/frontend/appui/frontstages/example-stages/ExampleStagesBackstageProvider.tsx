@@ -8,7 +8,7 @@ import stageIconSvg from "../imodeljs.svg?sprite";
 import { registerViewportFrontstage } from "./ViewportFrontstage";
 
 class ExampleStagesBackstageItemsProvider implements UiItemsProvider {
-  public readonly id = "main-stage-backstageItemProvider";
+  public readonly id = "example-stage-backstageItemProvider";
 
   public provideBackstageItems(): BackstageItem[] {
     return [
