@@ -84,7 +84,6 @@
     "@itwin/core-electron": "^3.6.0",
     "@itwin/core-frontend": "^3.6.0",
     "@itwin/core-geometry": "^3.6.0",
-    "@itwin/core-markup": "^3.6.0",
     "@itwin/core-mobile": "^3.6.0",
     "@itwin/core-orbitgt": "^3.6.0",
     "@itwin/core-quantity": "^3.6.0",
