@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BackstageManager, ConfigurableCreateInfo, ConfigurableUiManager, ContentControl, ContentGroup,
-  ContentToolWidgetComposer, FrontstageConfig, FrontstageProvider,
+  BackstageAppButton, BackstageManager, ConfigurableCreateInfo, ContentControl, ContentGroup,
+  ContentToolWidgetComposer, FrontstageConfig, FrontstageProvider, UiFramework,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
@@ -63,5 +63,5 @@ export class CustomFrontstageProvider extends FrontstageProvider {
 // __PUBLISH_EXTRACT_END__
 
 export function registerCustomFrontstage(): void {
-  ConfigurableUiManager.addFrontstageProvider(new CustomFrontstageProvider());
+  UiFramework.frontstages.addFrontstageProvider(new CustomFrontstageProvider());
 }
