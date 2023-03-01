@@ -19,12 +19,6 @@ function readPackage(pkg) {
     pkg.dependencies["@itwin/core-react"] = "workspace:*"
     pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
   }
-  // `npx update-browserslist-db@latest` do not actually work with rush setup
-  // this will essentially do the same work, when the warning pops, check the
-  // latest version of `caniuse-lite` package, and put it here...
-  if (pkg.dependencies && pkg.dependencies['caniuse-lite']) {
-    pkg.dependencies['caniuse-lite'] = '^1.0.30001458';
-  }
 
   return pkg;
 }
