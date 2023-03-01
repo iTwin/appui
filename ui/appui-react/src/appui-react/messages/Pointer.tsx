@@ -12,7 +12,7 @@ import * as React from "react";
 import { XAndY } from "@itwin/core-geometry";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { MessageSeverity, PointProps, RelativePosition, UiEvent } from "@itwin/appui-abstract";
-import { CommonProps, MessageContainer, Point, Rectangle, SizeProps } from "@itwin/core-react";
+import { CommonProps, Icon, MessageContainer, Point, Rectangle, SizeProps } from "@itwin/core-react";
 import { offsetAndContainInContainer, Tooltip } from "@itwin/appui-layout-react";
 import { MessageManager } from "./MessageManager";
 import { MessageDiv, MessageSpan } from "./MessageSpan";
@@ -143,7 +143,7 @@ export class PointerMessage extends React.Component<PointerMessageProps, Pointer
       >
         <div className="uifw-pointer-message-content">
           {(severity !== MessageSeverity.None) &&
-            <span className="uifw-pointer-message-icon"><i className={`icon ${MessageContainer.getIconClassName(severity, false)}`} /></span>
+            <span className="uifw-pointer-message-icon"><Icon className="icon" iconSpec={`${MessageContainer.getIcon(severity, false)}`} /></span>
           }
           <span className="uifw-pointer-message-text">
             <MessageSpan className="uifw-pointer-message-brief" message={this.state.message} />
