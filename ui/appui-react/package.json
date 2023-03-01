@@ -28,8 +28,8 @@
     "test": "mocha --config ../.mocharc.json \"./lib/cjs/test/**/*.test.js\"",
     "test:watch": "npm -s test -- --reporter min --watch-extensions ts,tsx --watch",
     "docs": "npm run -s docs:extract && npm run -s docs:reference && npm run -s docs:changelog",
-    "docs:changelog": "cpx ./CHANGELOG.md ../../generated-docs/ui/appui-react",
-    "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/ui/appui-react/file.json --excludeGlob=**/declarations.d.ts --tsIndexFile=./appui-react.ts --onlyJson",
+    "docs:changelog": "cpx ./CHANGELOG.md ../../generated-docs/reference/appui-react",
+    "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/appui-react/file.json --excludeGlob=**/declarations.d.ts --tsIndexFile=./appui-react.ts --onlyJson",
     "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src/test --recursive --out=../../generated-docs/extract"
   },
   "keywords": [
