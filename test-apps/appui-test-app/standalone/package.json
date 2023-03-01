@@ -22,7 +22,7 @@
     "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../../generated-docs/extract",
     "test": "",
     "cover": "",
-    "docs": "npm run -s extract",
+    "docs": "npm run -s docs:extract",
     "copy:config": "internal-tools copy-config",
     "build:ios-backend": "npm run -s build:backend && webpack --config ./ios/backend.config --env.outdir=./lib/ios --env.entry=./lib/backend/main.js --env.bundlename=main",
     "install-ios-lib": "node ./ios/scripts/installIosNativeLib.js",
