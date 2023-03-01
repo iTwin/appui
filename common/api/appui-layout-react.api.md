@@ -483,6 +483,21 @@ export function getOverflown(width: number, docked: ReadonlyArray<readonly [stri
 // @internal (undocumented)
 export function getResizeBy(handle: FloatingWidgetResizeHandle, offset: PointProps): Rectangle;
 
+// @internal (undocumented)
+export function getSendBackHomeState(state: NineZoneState, widgetId: WidgetState["id"]): {
+    side: PanelSide;
+    widgetId: string;
+    sectionIndex?: undefined;
+} | {
+    side: PanelSide;
+    widgetId?: undefined;
+    sectionIndex?: undefined;
+} | {
+    side: PanelSide;
+    sectionIndex: number;
+    widgetId?: undefined;
+};
+
 // @internal
 export function getTabLocation(state: NineZoneState, id: TabState["id"]): TabLocation | undefined;
 
@@ -1370,6 +1385,9 @@ export type TopPanelSide = "top";
 export const UiIsVisibleContext: React_2.Context<boolean>;
 
 // @internal (undocumented)
+export const useActiveSendBackWidgetIdStore: UseBoundStore<StoreApi<string | undefined>>;
+
+// @internal (undocumented)
 export function useActiveTabId(): string;
 
 // @internal (undocumented)
@@ -1532,6 +1550,21 @@ export const usePointerCaptor: <T extends HTMLElement>(onPointerDown?: ((args: P
 
 // @internal (undocumented)
 export const useResizeGrip: <T extends HTMLElement>() => [(instance: T | null) => void, boolean, boolean];
+
+// @internal (undocumented)
+export function useSendBackHomeState(): {
+    side: PanelSide;
+    widgetId: string;
+    sectionIndex?: undefined;
+} | {
+    side: PanelSide;
+    widgetId?: undefined;
+    sectionIndex?: undefined;
+} | {
+    side: PanelSide;
+    sectionIndex: number;
+    widgetId?: undefined;
+} | undefined;
 
 // @internal (undocumented)
 export function useTabInteractions<T extends HTMLElement>({ onClick, onDoubleClick, onDragStart, }: UseTabInteractionsArgs): (instance: T | null | undefined) => void;

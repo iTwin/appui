@@ -5,8 +5,9 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
-import { addFloatingWidget, addTab, createNineZoneState, NineZoneDispatch, SendBack, WidgetIdContext } from "../../appui-layout-react";
+import { addFloatingWidget, addTab, createNineZoneState, NineZoneDispatch, SendBack, useActiveSendBackWidgetIdStore, WidgetIdContext } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
+import { expect } from "chai";
 
 describe("SendBack", () => {
   it("should render", () => {
@@ -45,5 +46,24 @@ describe("SendBack", () => {
       type: "FLOATING_WIDGET_SEND_BACK",
       id: "w1",
     });
+  });
+
+  it("should change SendBackHomeState", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(state, "w1", ["t1"]);
+    const { container } = render(
+      <TestNineZoneProvider defaultState={state}>
+        <WidgetIdContext.Provider value="w1">
+          <SendBack />
+        </WidgetIdContext.Provider>
+      </TestNineZoneProvider>,
+    );
+    const button = container.getElementsByClassName("nz-widget-sendBack")[0];
+
+    fireEvent.mouseOver(button);
+    expect(useActiveSendBackWidgetIdStore.getState()).equal("w1");
+    fireEvent.mouseOut(button);
+    expect(useActiveSendBackWidgetIdStore.getState()).equal(undefined);
   });
 });
