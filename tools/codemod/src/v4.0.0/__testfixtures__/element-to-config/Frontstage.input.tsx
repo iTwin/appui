@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-<Frontstage // eslint-disable-line deprecation/deprecation
+<Frontstage
   key={this.props.id}
   id={this.props.id}
   version={this.props.version ?? 1.0}
@@ -11,77 +11,70 @@
   isInFooterMode={true}
   usage={this.props.usage}
   applicationData={this.props.applicationData}
-
   contentManipulationTools={
-    <Zone // eslint-disable-line deprecation/deprecation
+    <Zone
       widgets={
         [
-          <Widget id={`${this.props.id}-contentManipulationTools`} key={`${this.props.id}-contentManipulationTools`} isFreeform={true} // eslint-disable-line deprecation/deprecation
+          <Widget id={`${this.props.id}-contentManipulationTools`} key={`${this.props.id}-contentManipulationTools`} isFreeform={true}
             element={<ContentToolWidgetComposer cornerButton={this.props.cornerButton} />}
           />,
         ]}
     />
   }
   viewNavigationTools={
-    <Zone // eslint-disable-line deprecation/deprecation
+    <Zone
       widgets={
         [
-          <Widget id={`${this.props.id}-viewNavigationTools`} key={`${this.props.id}-viewNavigationTools`} isFreeform={true} // eslint-disable-line deprecation/deprecation
+          <Widget id={`${this.props.id}-viewNavigationTools`} key={`${this.props.id}-viewNavigationTools`} isFreeform={true}
             element={<ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />}
           />,
         ]}
     />
   }
   toolSettings={
-    <Zone // eslint-disable-line deprecation/deprecation
+    <Zone
       widgets={
-        this.props.hideToolSettings ? [] :
-          [
-            <Widget id={`${this.props.id}-toolSettings`} key={`${this.props.id}-toolSettings`} isToolSettings={true} />, // eslint-disable-line deprecation/deprecation
-          ]
+        [
+          <Widget id={`${this.props.id}-toolSettings`} key={`${this.props.id}-toolSettings`} isToolSettings={true} />,
+        ]
       }
     />
   }
   statusBar={
-    <Zone // eslint-disable-line deprecation/deprecation
+    <Zone
       widgets={
-        this.props.hideStatusBar ? [] :
-          [
-            <Widget id={`${this.props.id}-statusBar`} key={`${this.props.id}-statusBar`} isStatusBar={true} // eslint-disable-line deprecation/deprecation
-              control={StatusBarWidgetComposerControl} />,
-          ]
+        [
+          <Widget id={`${this.props.id}-statusBar`} key={`${this.props.id}-statusBar`} isStatusBar={true}
+            control={StatusBarWidgetComposerControl} />,
+        ]
       }
     />
   }
-
   leftPanel={
-    <StagePanel // eslint-disable-line deprecation/deprecation
+    <StagePanel
       size={300}
       pinned={false}
       defaultState={StagePanelState.Minimized}
       {...this.props.leftPanelProps}
     />
   }
-
   topPanel={
-    <StagePanel // eslint-disable-line deprecation/deprecation
+    <StagePanel
       size={90}
       pinned={false}
       defaultState={StagePanelState.Minimized}
       {...this.props.topPanelProps}
     />
   }
-
   rightPanel={
-    <StagePanel // eslint-disable-line deprecation/deprecation
+    <StagePanel
       defaultState={StagePanelState.Open}
       {...this.props.rightPanelProps}
 
     />
   }
-
   bottomPanel={
-    <StagePanel // eslint-disable-line deprecation/deprecation
+    <StagePanel
       size={180}
       defaultState={StagePanelState.Open}
       {...this.props.bottomPanelProps}
