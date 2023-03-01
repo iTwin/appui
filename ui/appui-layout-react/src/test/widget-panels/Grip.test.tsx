@@ -14,6 +14,7 @@ import {
 } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import { withWrapperAndProps } from "../Utils";
 
 describe("WidgetPanelGrip", () => {
   const wrapper = (props: any) => <WidgetPanelContext.Provider
@@ -213,10 +214,7 @@ describe("useResizeGrip", () => {
       defaultState,
       side: "top",
     };
-    const { result } = renderHook(() => useResizeGrip(), {
-      initialProps,
-      wrapper,
-    });
+    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -238,10 +236,7 @@ describe("useResizeGrip", () => {
       defaultState,
       side: "bottom",
     };
-    const { result } = renderHook(() => useResizeGrip(), {
-      initialProps,
-      wrapper,
-    });
+    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -261,10 +256,7 @@ describe("useResizeGrip", () => {
       dispatch,
       side: "bottom",
     };
-    renderHook(() => useResizeGrip(), {
-      initialProps,
-      wrapper,
-    });
+    renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
     dragManagerRef.current?.handleDragStart({
       info: createDragInfo(),
       item: {
@@ -312,10 +304,7 @@ describe("useResizeGrip", () => {
       dispatch,
       side: "left",
     };
-    const { result } = renderHook(() => useResizeGrip(), {
-      initialProps,
-      wrapper,
-    });
+    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -334,10 +323,7 @@ describe("useResizeGrip", () => {
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(() => useResizeGrip(), {
-      initialProps,
-      wrapper,
-    });
+    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -360,10 +346,7 @@ describe("useResizeGrip", () => {
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(() => useResizeGrip(), {
-      initialProps,
-      wrapper,
-    });
+    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
@@ -381,10 +364,7 @@ describe("useResizeGrip", () => {
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(() => useResizeGrip(), {
-      initialProps,
-      wrapper,
-    });
+    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element, { clientX: 200 });
@@ -412,10 +392,7 @@ describe("useResizeGrip", () => {
       side: "left",
       defaultState,
     };
-    const { result } = renderHook(() => useResizeGrip(), {
-      initialProps,
-      wrapper,
-    });
+    const { result } = renderHook(() => useResizeGrip(), withWrapperAndProps(Wrapper, initialProps));
     const element = document.createElement("div");
     result.current[0](element);
     fireEvent.mouseDown(element);
