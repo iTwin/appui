@@ -18,7 +18,7 @@ async function run(codemod: string, paths: string[], debug: boolean, optionOverr
 
   const options = {
     extensions: "ts,tsx",
-    parser: "ts",
+    parser: "tsx",
     babel: true,
     verbose: 1,
     ...optionOverrides,
