@@ -31,21 +31,15 @@ export interface FloatingViewportContentProps {
 /** @beta */
 export function FloatingViewportContent(props: FloatingViewportContentProps) {
   const { contentId, initialViewState, viewportRef, onContextMenu } = props;
-  const { viewState, viewportRef: floatingViewportRef } = useFloatingViewport({
+  const { viewportControl, viewportRef: floatingViewportRef } = useFloatingViewport({
     contentId,
     initialViewState,
+    onContextMenu
   });
   const refs = useRefs(viewportRef, floatingViewportRef);
-  return (
+return (
     <FloatingViewportContentWrapper>
-      <ViewportComponent
-        key={contentId}
-        imodel={viewState.iModel}
-        viewState={viewState}
-        controlId={contentId}
-        onContextMenu={onContextMenu}
-        viewportRef={refs}
-      />
+      {viewportControl}
     </FloatingViewportContentWrapper>
   );
 }
@@ -70,6 +64,8 @@ export interface UseFloatingViewportArgs {
   contentId: string;
   /** The initial view state used to create the viewport, or a function that returns it (will refresh when the function changes) */
   initialViewState: ViewStateProp;
+  /** Callback to use for context menu within the view */
+  onContextMenu?: (e: React.MouseEvent) => boolean;
 }
 
 /** @alpha */
@@ -99,6 +95,9 @@ export function useFloatingViewport(args: UseFloatingViewportArgs) {
   React.useEffect(() => {
     if (viewport && contentControl.current) {
       contentControl.current.viewport = viewport;
+      if (null === contentControl.current.reactNode) {
+        contentControl.current.reactNode = viewportControl;
+      }
       void contentControl.current.viewport.changeView(viewState);
     }
   }, [viewState, viewport]);
@@ -113,8 +112,30 @@ export function useFloatingViewport(args: UseFloatingViewportArgs) {
     return IModelApp.viewManager.onViewClose.addListener(onViewClose);
   }, []);
 
+  const viewportControl = React.useMemo(() => {
+
+    const node = <ViewportComponent
+      key={contentId}
+      imodel={viewState.iModel}
+      viewState={viewState}
+      controlId={contentId}
+      onContextMenu={args.onContextMenu}
+      viewportRef={viewportRef}
+      />;
+
+    let control = node;
+
+    if (!(node as React.ReactElement<any>).key) {
+      const additionalProps: any = { key:contentId };
+      control = React.cloneElement(node, additionalProps);
+    }
+    return control;
+
+  }, [viewportRef, args.onContextMenu, viewState, contentId]);
+
+
   return {
     viewportRef,
-    viewState,
+    viewportControl,
   };
 }
