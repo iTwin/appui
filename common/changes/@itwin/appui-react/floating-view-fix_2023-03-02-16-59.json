@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "ADd ContentViewManager tracking info back into FloatingViewportContent.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
