@@ -64,7 +64,7 @@ export interface UseFloatingViewportArgs {
   contentId: string;
   /** The initial view state used to create the viewport, or a function that returns it (will refresh when the function changes) */
   initialViewState: ViewStateProp;
-  /** Callback to use for context menu within the view */
+  /** Callback used to construct context menu when user right-clicks on canvas/viewport */
   onContextMenu?: (e: React.MouseEvent) => boolean;
 }
 
