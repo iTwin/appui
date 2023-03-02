@@ -9,11 +9,15 @@ import { isJSXIdentifier } from "./typeGuards";
 
 export type ImportChanges = Map<string, string>;
 
-function splitChangePath(change: string): [string, string] {
+function splitChangePath(change: string) {
   const substrings = change.split(".");
-  if (substrings.length !== 2)
-    throw new Error(`Import change '${change}' should define both package and declaration, i.e. '@scope/package.Component'.`)
-  return [substrings[0], substrings[1]];
+  if (substrings.length < 2)
+    throw new Error(`Import change '${change}' should define both package and declaration, i.e. '@scope/package.Component'.`);
+  const pckg = substrings[0];
+  const other = substrings.slice(1);
+  const name = other.join(".");
+  const module = substrings.length > 2 ? substrings[1] : undefined;
+  return { pckg, name, module };
 }
 
 function findReplacement(key: string, changes: ImportChanges) {
@@ -21,8 +25,7 @@ function findReplacement(key: string, changes: ImportChanges) {
   if (!replacement)
     return undefined;
 
-  const [pckg, name] = splitChangePath(replacement);
-  return { pckg, name };
+  return splitChangePath(replacement);
 }
 
 interface MovedSpecifier {
@@ -71,13 +74,13 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
         if (!replacement)
           continue;
 
-        const { pckg, name } = replacement;
+        const { pckg, name, module } = replacement;
         let newImport = newImports.get(pckg);
         if (!newImport) {
           newImport = [];
           newImports.set(pckg, newImport);
         }
-        newImport.push(name);
+        newImport.push(module ? module : name);
       }
 
       // Add specifiers.
@@ -107,6 +110,10 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
           return;
 
         identifier.name = replacement.name;
+        const closingIdentifier = node.value.closingElement?.name;
+        if (closingIdentifier && isJSXIdentifier(j, closingIdentifier)) {
+          closingIdentifier.name = replacement.name;
+        }
       }
     });
 

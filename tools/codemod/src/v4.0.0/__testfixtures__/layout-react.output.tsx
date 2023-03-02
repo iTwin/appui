@@ -13,7 +13,9 @@ import {
 
 function App() {
   return (<>
-    <StatusBarDialog />
+    <StatusBarDialog>
+      <StatusBarDialog.TitleBar />
+    </StatusBarDialog>
     <StatusBarIndicator />
     <StatusBarSeparator />
   </>);

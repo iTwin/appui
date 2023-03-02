@@ -131,4 +131,20 @@ describe("changeImports", () => {
     `,
     "should sort merged specifiers"
   );
+
+  defineInlineTest(
+    createTransform(new Map([
+      ["@itwin/from.A", "@itwin/to.B.C"],
+    ])),
+    {},
+    `
+    import { A } from "@itwin/from";
+    <A />
+    `,
+    `
+    import { B } from "@itwin/to";
+    <B.C />
+    `,
+    "should change to property access in JSX"
+  );
 });
