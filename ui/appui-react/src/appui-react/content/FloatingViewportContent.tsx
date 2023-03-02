@@ -11,7 +11,6 @@ import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
 import { ViewportComponent, ViewStateProp } from "@itwin/imodel-components-react";
 import { FloatingViewportContentControl } from "./ViewportContentControl";
 import { ContentWrapper } from "./ContentLayout";
-import { useRefs } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 
 /**
@@ -30,14 +29,13 @@ export interface FloatingViewportContentProps {
 
 /** @beta */
 export function FloatingViewportContent(props: FloatingViewportContentProps) {
-  const { contentId, initialViewState, viewportRef, onContextMenu } = props;
-  const { viewportControl, viewportRef: floatingViewportRef } = useFloatingViewport({
+  const { contentId, initialViewState, onContextMenu } = props;
+  const { viewportControl } = useFloatingViewport({
     contentId,
     initialViewState,
-    onContextMenu
+    onContextMenu,
   });
-  const refs = useRefs(viewportRef, floatingViewportRef);
-return (
+  return (
     <FloatingViewportContentWrapper>
       {viewportControl}
     </FloatingViewportContentWrapper>
@@ -79,6 +77,27 @@ export function useFloatingViewport(args: UseFloatingViewportArgs) {
     setViewport(v);
   }, []);
 
+  const viewportControl = React.useMemo(() => {
+
+    const node = <ViewportComponent
+      key={contentId}
+      imodel={viewState.iModel}
+      viewState={viewState}
+      controlId={contentId}
+      onContextMenu={args.onContextMenu}
+      viewportRef={viewportRef}
+    />;
+
+    let control = node;
+
+    if (!(node as React.ReactElement<any>).key) {
+      const additionalProps: any = { key:contentId };
+      control = React.cloneElement(node, additionalProps);
+    }
+    return control;
+
+  }, [viewportRef, args.onContextMenu, viewState, contentId]);
+
   React.useEffect(() => {
     if (!contentControl.current) {
       contentControl.current = new FloatingViewportContentControl(contentId, contentId, null);
@@ -100,7 +119,7 @@ export function useFloatingViewport(args: UseFloatingViewportArgs) {
       }
       void contentControl.current.viewport.changeView(viewState);
     }
-  }, [viewState, viewport]);
+  }, [viewState, viewport, viewportControl]);
 
   React.useEffect(() => {
     const onViewClose = (vp: ScreenViewport) => {
@@ -112,30 +131,7 @@ export function useFloatingViewport(args: UseFloatingViewportArgs) {
     return IModelApp.viewManager.onViewClose.addListener(onViewClose);
   }, []);
 
-  const viewportControl = React.useMemo(() => {
-
-    const node = <ViewportComponent
-      key={contentId}
-      imodel={viewState.iModel}
-      viewState={viewState}
-      controlId={contentId}
-      onContextMenu={args.onContextMenu}
-      viewportRef={viewportRef}
-      />;
-
-    let control = node;
-
-    if (!(node as React.ReactElement<any>).key) {
-      const additionalProps: any = { key:contentId };
-      control = React.cloneElement(node, additionalProps);
-    }
-    return control;
-
-  }, [viewportRef, args.onContextMenu, viewState, contentId]);
-
-
   return {
-    viewportRef,
     viewportControl,
   };
 }
