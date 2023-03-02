@@ -2,7 +2,27 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { ASTPath, ArrayExpression, ObjectExpression, API, ExpressionStatement, FileInfo, match, JSCodeshift, ObjectProperty, JSXAttribute, JSXIdentifier, JSXExpressionContainer, Property, JSXEmptyExpression, Expression, JSXElement, JSXNamespacedName, SpreadProperty } from "jscodeshift";
+
+import { ExpressionKind, JSXNamespacedNameKind, LiteralKind, JSXExpressionContainerKind, JSXElementKind, JSXFragmentKind, IdentifierKind } from "ast-types/gen/kinds";
+import { ASTPath, ArrayExpression, ObjectExpression, API, ExpressionStatement, FileInfo, match, JSCodeshift, ObjectProperty, JSXAttribute, JSXIdentifier, JSXExpressionContainer, Property, JSXEmptyExpression, Expression, JSXElement, JSXNamespacedName, SpreadProperty, JSXSpreadAttribute } from "jscodeshift";
+
+interface ConfigProperty extends ObjectProperty {
+}
+
+type AttributeHandle = (j: JSCodeshift, attr: JSXAttribute | JSXSpreadAttribute | ConfigProperty) => ConfigProperty;
+
+const skipAttribute: AttributeHandle = () => [{}, {}];
+
+const renameAttribute: AttributeHandle = function <Key extends string>(j, attr) {
+
+  return [{}, {}];
+}
+const unwrapAttribute: AttributeHandle = (j, attr) => {
+
+  return [{}, {}];
+}
+
+const frontstageAttrHandles = new Map<string, AttributeHandle>();
 
 const frontstageAttrNames = {
   "key": "",
@@ -76,7 +96,7 @@ function transformWidget(j: JSCodeshift, widget: ASTPath<JSXElement>): ObjectExp
     const expression = getAttributeExpression(j, attr);
 
     const property = j.objectProperty(
-      j.identifier(name),
+      skipAttribute(j, attr).name,
       expression,
     );
     properties.push(property);
