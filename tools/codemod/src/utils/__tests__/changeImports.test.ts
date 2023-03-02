@@ -56,7 +56,7 @@ describe("changeImports", () => {
     import { B } from "@itwin/to";
     <B value="x" />
     `,
-    "should update component name in JSX"
+    "should change component name in JSX"
   );
 
   defineInlineTest(
@@ -83,7 +83,7 @@ describe("changeImports", () => {
       </>);
     }
     `,
-    "should update component names in JSX"
+    "should change component names in JSX"
   );
 
   defineInlineTest(
@@ -130,5 +130,51 @@ describe("changeImports", () => {
     import { b, d } from "@itwin/to";
     `,
     "should sort merged specifiers"
+  );
+
+  defineInlineTest(
+    createTransform(new Map([
+      ["@itwin/from.A", "@itwin/to.B.C"],
+    ])),
+    {},
+    `
+    import { A } from "@itwin/from";
+    <A />
+    `,
+    `
+    import { B } from "@itwin/to";
+    <B.C />
+    `,
+    "should change to property access in JSX"
+  );
+
+  defineInlineTest(
+    createTransform(new Map([
+      ["@itwin/from.a", "@itwin/to.b"],
+    ])),
+    {},
+    `
+    import { a } from "@itwin/from";
+    import { b } from "@itwin/to";
+    `,
+    `
+    import { b } from "@itwin/to";
+    `,
+    "should not add duplicate specifiers to existing declaration"
+  );
+
+  defineInlineTest(
+    createTransform(new Map([
+      ["@itwin/from.a", "@itwin/to.c"],
+      ["@itwin/from.b", "@itwin/to.c.d"],
+    ])),
+    {},
+    `
+    import { a, b } from "@itwin/from";
+    `,
+    `
+    import { c } from "@itwin/to";
+    `,
+    "should not add duplicate specifiers"
   );
 });
