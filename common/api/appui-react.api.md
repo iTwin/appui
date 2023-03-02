@@ -5484,16 +5484,9 @@ export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => reado
 export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[];
 
 // @alpha (undocumented)
-export function useFloatingViewport(args: UseFloatingViewportArgs): {
+export function useFloatingViewport(args: FloatingViewportContentProps): {
     viewportControl: JSX.Element;
 };
-
-// @alpha (undocumented)
-export interface UseFloatingViewportArgs {
-    contentId: string;
-    initialViewState: ViewStateProp;
-    onContextMenu?: (e: React_2.MouseEvent) => boolean;
-}
 
 // @internal (undocumented)
 export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void;

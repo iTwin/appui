@@ -12,6 +12,7 @@ import { ViewportComponent, ViewStateProp } from "@itwin/imodel-components-react
 import { FloatingViewportContentControl } from "./ViewportContentControl";
 import { ContentWrapper } from "./ContentLayout";
 import { UiFramework } from "../UiFramework";
+import { useRefs } from "@itwin/core-react";
 
 /**
  * @beta
@@ -57,46 +58,28 @@ export function FloatingViewportContentWrapper({ children }: FloatingViewportCon
 }
 
 /** @alpha */
-export interface UseFloatingViewportArgs {
-  /** viewport/content control uniqueId */
-  contentId: string;
-  /** The initial view state used to create the viewport, or a function that returns it (will refresh when the function changes) */
-  initialViewState: ViewStateProp;
-  /** Callback used to construct context menu when user right-clicks on canvas/viewport */
-  onContextMenu?: (e: React.MouseEvent) => boolean;
-}
-
-/** @alpha */
-export function useFloatingViewport(args: UseFloatingViewportArgs) {
-  const { contentId, initialViewState } = args;
+export function useFloatingViewport(args: FloatingViewportContentProps) {
+  const { contentId, initialViewState, onContextMenu, viewportRef } = args;
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>();
   const contentControl = React.useRef<FloatingViewportContentControl | undefined>();
 
   const viewState = React.useMemo(() => typeof initialViewState === "function" ? initialViewState() : initialViewState, [initialViewState]);
-  const viewportRef = React.useCallback((v: ScreenViewport) => {
+  const ref = React.useCallback((v: ScreenViewport) => {
     setViewport(v);
   }, []);
 
+  const refs = useRefs(ref, viewportRef);
   const viewportControl = React.useMemo(() => {
-
     const node = <ViewportComponent
       key={contentId}
       imodel={viewState.iModel}
       viewState={viewState}
       controlId={contentId}
-      onContextMenu={args.onContextMenu}
-      viewportRef={viewportRef}
+      onContextMenu={onContextMenu}
+      viewportRef={refs}
     />;
-
-    let control = node;
-
-    if (!(node as React.ReactElement<any>).key) {
-      const additionalProps: any = { key:contentId };
-      control = React.cloneElement(node, additionalProps);
-    }
-    return control;
-
-  }, [viewportRef, args.onContextMenu, viewState, contentId]);
+    return node;
+  }, [refs, onContextMenu, viewState, contentId]);
 
   React.useEffect(() => {
     if (!contentControl.current) {
