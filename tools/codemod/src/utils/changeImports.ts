@@ -68,7 +68,7 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
 
     for (const [declaration, declarationSpecifiers] of specifiersByDeclaration) {
       // Figure out new imports.
-      const newImports = new Map<string, Array<string>>();
+      const newImports = new Map<string, Set<string>>();
       for (const specifier of declarationSpecifiers) {
         const replacement = findReplacement(specifier.key, changes);
         if (!replacement)
@@ -77,15 +77,15 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
         const { pckg, name, module } = replacement;
         let newImport = newImports.get(pckg);
         if (!newImport) {
-          newImport = [];
+          newImport = new Set();
           newImports.set(pckg, newImport);
         }
-        newImport.push(module ? module : name);
+        newImport.add(module ? module : name);
       }
 
       // Add specifiers.
       for (const [pckg, specifierNames] of newImports) {
-        const specifiers = specifierNames.map((name) => j.importSpecifier(j.identifier(name)));
+        const specifiers = Array.from(specifierNames).map((name) => j.importSpecifier(j.identifier(name)));
         const newDeclaration = addSpecifiers(j, root, specifiers, pckg);
         newDeclaration && declaration.insertAfter(newDeclaration);
       }
