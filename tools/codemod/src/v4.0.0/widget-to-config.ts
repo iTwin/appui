@@ -2,7 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { ASTPath, API, ExpressionStatement, FileInfo, match, JSCodeshift, ObjectProperty, JSXAttribute, JSXIdentifier } from "jscodeshift";
+import { API, FileInfo, ObjectProperty } from "jscodeshift";
+import { isJSXAttribute, isJSXIdentifier } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
@@ -26,16 +27,4 @@ export default function transformer(file: FileInfo, api: API) {
   });
 
   return root.toSource();
-}
-
-function isExpressionsStatement(j: JSCodeshift, path: any): path is ASTPath<ExpressionStatement> {
-  return j(path).isOfType(j.ExpressionStatement);
-}
-
-function isJSXIdentifier(j: JSCodeshift, path: any): path is JSXIdentifier {
-  return j(path).isOfType(j.JSXIdentifier);
-}
-
-function isJSXAttribute(j: JSCodeshift, path: any): path is JSXAttribute {
-  return j(path).isOfType(j.JSXAttribute);
 }

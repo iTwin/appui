@@ -3,6 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { ASTPath, ImportDeclaration, ImportSpecifier, JSCodeshift, Collection } from "jscodeshift";
+import addSpecifiers from "./addSpecifiers";
 import retainFirstComment from "./retainFirstComment";
 import { isJSXIdentifier } from "./typeGuards";
 
@@ -79,18 +80,18 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
         newImport.push(name);
       }
 
-      // Add new import declarations.
+      // Add specifiers.
       for (const [pckg, specifierNames] of newImports) {
         const specifiers = specifierNames.map((name) => j.importSpecifier(j.identifier(name)));
-        const importDeclaration = j.importDeclaration(specifiers, j.literal(pckg));
-        declaration.insertAfter(importDeclaration);
+        const newDeclaration = addSpecifiers(j, root, specifiers, pckg);
+        newDeclaration && declaration.insertAfter(newDeclaration);
       }
     }
 
     const specifiers = Array.from(specifiersByDeclaration.values()).reduce((acc, curr) => {
       acc.push(...curr);
       return acc;
-    }, [])
+    }, []);
     root.findJSXElements().forEach((node) => {
       const identifier = node.value.openingElement.name;
       if (!isJSXIdentifier(j, identifier))

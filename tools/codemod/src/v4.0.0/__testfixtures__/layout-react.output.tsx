@@ -3,12 +3,12 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import {
+  SafeAreaInsets,
   StatusBarDialog,
   StatusBarDialogProps,
   StatusBarIndicator,
   StatusBarIndicatorProps,
   StatusBarSeparator,
-  SafeAreaInsets,
 } from "@itwin/appui-react";
 
 function App() {
