@@ -14,7 +14,14 @@ export default function addSpecifiers(j: JSCodeshift, root: Collection, specifie
   }
 
   const declaration = existingDeclarations.nodes()[0];
-  declaration.specifiers = sortSpecifiers(j, [...declaration.specifiers || [], ...specifiers]);
+  const existingSpecifiers = declaration.specifiers || [];
+  const newSpecifiers = specifiers.filter((specifier) => !existingSpecifiers.find((existingSpecifier) => {
+    if (isImportSpecifier(j, existingSpecifier)) {
+      return existingSpecifier.imported.name === specifier.imported.name;
+    }
+    return false;
+  }));
+  declaration.specifiers = sortSpecifiers(j, [...declaration.specifiers || [], ...newSpecifiers]);
   return undefined;
 }
 
