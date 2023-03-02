@@ -61,6 +61,7 @@ command({
   },
 })
   .scriptName("npx @itwin/appui-codemod")
-  .example("$0 v4.0.0/widget-to-config src", "")
+  .example("$0 v4.0.0/full src", "Apply all 4.0.0 transforms on `src` path.")
+  .example("$0 v4.0.0/layout-react src", "Apply a specific transform on `src` path.")
   .help()
   .parse();

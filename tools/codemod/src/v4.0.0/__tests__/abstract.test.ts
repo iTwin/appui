@@ -2,14 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { Dialog } from "@itwin/appui-layout-react";
-import { UiItemsProvider } from "@itwin/appui-abstract";
+import { defineTest } from "jscodeshift/src/testUtils";
 
-function App() {
-  return (
-    <>
-      <Dialog />
-      <Frontstage widget={<Widget id="w1" />} />
-    </>
-  );
-}
+describe("abstract", () => {
+  defineTest(__dirname, "./abstract", null, "abstract", { parser: "tsx" });
+});
