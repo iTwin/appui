@@ -12,7 +12,7 @@ import * as React from "react";
 import { Input, InputProps } from "@itwin/itwinui-react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { Icon } from "../../icons/IconComponent";
-import { SvgCaretDownSmall, SvgCaretUpSmall, SvgCaretDown, SvgCaretUp } from "@itwin/itwinui-icons-react";
+import { SvgCaretDown, SvgCaretDownSmall, SvgCaretUp, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
 
 /** Step function prototype for [[NumberInput]] component
  * @public
