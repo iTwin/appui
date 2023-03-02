@@ -17,6 +17,8 @@ import { PlaybackSettings, TimelinePausePlayAction, TimelinePausePlayArgs } from
 import { PlayButton, PlayerButton } from "./PlayerButton";
 import { Scrubber } from "./Scrubber";
 import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";
+import { Icon } from "@itwin/core-react";
+import { SvgCaretLeft, SvgCaretRight, SvgCheckmark, SvgMoreVertical, SvgPlayCircular } from "@itwin/itwinui-icons-react";
 
 // cspell:ignore millisec
 
@@ -405,7 +407,7 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
   private _createMenuItemNode(item: TimelineMenuItemProps, index: number, currentTimelineDuration: number, close: () => void): JSX.Element {
     const label = item.label;
     const checked = currentTimelineDuration === item.timelineDuration;
-    const icon = checked ? <span className="icon icon-checkmark" /> : <span />;
+    const icon = checked ? <span className="icon"><Icon iconSpec={<SvgCheckmark />} /> </span> : <span />;
     return (
       <MenuItem key={index} icon={icon}
         onClick={() => { this._onSetTotalDuration(item.timelineDuration); close(); }} >
@@ -436,7 +438,7 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
       let keyIndex = 0;
       if (this.state.includeRepeat) {
         const checked = this.state.repeat;
-        const icon = checked ? <span className="icon icon-checkmark" /> : <span />;
+        const icon = checked ? <span className="icon"><Icon iconSpec={<SvgCheckmark />} /> </span> : <span />;
         itemNodes.push(<MenuItem key={++keyIndex} onClick={() => { this._onRepeatChanged(); close(); }} icon={icon}>
           {this._repeatLabel}
         </MenuItem>);
@@ -452,9 +454,9 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
 
     return (
       <DropdownMenu menuItems={createMenuItemNodes}>
-        <span data-testid="timeline-settings" className="timeline-settings icon icon-more-vertical-2"
+        <span data-testid="timeline-settings" className="timeline-settings icon"
           role="button" tabIndex={-1} title={UiComponents.translate("button.label.settings")}
-        ></span>
+        ><Icon iconSpec={<SvgMoreVertical />} /></span>
       </DropdownMenu>
     );
   };
@@ -471,12 +473,12 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
       <div data-testid="timeline-component" className={classnames("timeline-component", !!minimized && "minimized", hasDates && "has-dates")} >
         <div className="header">
           <PlayButton className="play-button" isPlaying={this.state.isPlaying} onPlay={this._onPlay} onPause={this._onPause} data-testid="timeline-play" />
-          <PlayerButton className="play-backward" icon="icon-caret-left" onClick={this._onBackward}
+          <PlayerButton className="play-backward" icon={<SvgCaretLeft />} onClick={this._onBackward}
             title={UiIModelComponents.translate("timeline.backward")} />
-          <PlayerButton className="play-button-step" icon="icon-media-controls-circular-play"
+          <PlayerButton className="play-button-step" icon={<SvgPlayCircular />}
             isPlaying={this.state.isPlaying} onPlay={this._onPlay} onPause={this._onPause}
             title={UiIModelComponents.translate("timeline.step")} />
-          <PlayerButton className="play-forward" icon="icon-caret-right" onClick={this._onForward}
+          <PlayerButton className="play-forward" icon={<SvgCaretRight />} onClick={this._onForward}
             title={UiIModelComponents.translate("timeline.backward")} />
           <span className="current-date">{toDateString(currentDate, timeZoneOffset, dateFormatOptions)}</span>
         </div>
