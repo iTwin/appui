@@ -5485,14 +5485,14 @@ export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly 
 
 // @alpha (undocumented)
 export function useFloatingViewport(args: UseFloatingViewportArgs): {
-    viewportRef: (v: ScreenViewport) => void;
-    viewState: ViewState;
+    viewportControl: JSX.Element;
 };
 
 // @alpha (undocumented)
 export interface UseFloatingViewportArgs {
     contentId: string;
     initialViewState: ViewStateProp;
+    onContextMenu?: (e: React_2.MouseEvent) => boolean;
 }
 
 // @internal (undocumented)
