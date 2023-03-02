@@ -17,7 +17,7 @@ export default function transformer(file: FileInfo, api: API) {
     if (!src)
       return;
     src = transform({ ...file, source: src }, api);
-  })
+  });
 
   return src;
 }
