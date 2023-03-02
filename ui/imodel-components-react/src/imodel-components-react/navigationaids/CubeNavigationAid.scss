@@ -96,6 +96,33 @@ $arrow-margin: -3px;
       .cube-bottom {
         background: $grad-end;
       }
+
+      &.cube-dragging {
+        .face-row .face-cell {
+          &.cube-hover,
+          &.cube-active {
+            background: transparent;
+          }
+        }
+
+        .cube-left,
+        .cube-right,
+        .cube-front,
+        .cube-back {
+          background: linear-gradient(
+            var(--iui-color-background),
+            var(--iui-color-background-backdrop)
+          );
+        }
+
+        .cube-top {
+          background: var(--iui-color-background);
+        }
+
+        .cube-bottom {
+          background: var(--iui-color-background-backdrop);
+        }
+      }
     }
   }
 

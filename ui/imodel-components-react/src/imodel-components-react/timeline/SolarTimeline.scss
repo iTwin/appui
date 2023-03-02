@@ -152,13 +152,11 @@ $bottom-position: 4px;
 
     .rail-inner {
       width: 100%;
-      background: var(--iui-color-background-backdrop); // TODO: not used
+      background: var(--iui-color-background-backdrop);
     }
 
     .rail-solar {
-      background: var(
-        --iui-color-background-accent
-      ); // TODO: Where is this applied?
+      background: var(--iui-color-background-accent);
       z-index: 1;
     }
 

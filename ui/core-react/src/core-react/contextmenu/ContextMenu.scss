@@ -158,14 +158,14 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
     }
 
     &:focus {
-      border: 1px solid $buic-background-divider; // TODO: Where is this applied?
+      border: 1px solid $buic-background-divider;
       box-shadow: var(--iui-shadow-1);
       outline: 0px;
 
       > .core-context-menu-item.is-selected,
       > .context-submenu > .core-context-menu-item.is-selected {
         // .is-selected being applied on hover, overriding with hover color
-        background-color: $buic-row-hover; // TODO: Where is this applied?
+        background-color: $buic-row-hover;
       }
     }
 
@@ -226,7 +226,7 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
   }
 
   .core-context-menu-divider {
-    border-bottom: 1px solid var(--iui-color-border-foreground); // TODO: Where is this applied?
+    border-bottom: 1px solid var(--iui-color-border-foreground);
     height: 0px;
   }
 

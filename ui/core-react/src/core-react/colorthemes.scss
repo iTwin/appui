@@ -18,7 +18,7 @@ $accent: var(--iui-color-background-accent);
   );
   --buic-button-gradient2: rgba(var(--iui-color-foreground-body-invert-rgb), 0);
 
-  --buic-background-editable: var(--iui-color-background); // nowhere used?
+  --buic-background-editable: var(--iui-color-background);
 }
 
 @mixin dark-theme {
@@ -28,7 +28,7 @@ $accent: var(--iui-color-background-accent);
     0.25
   );
 
-  --buic-background-editable: var(--iui-color-background); // nowhere used?
+  --buic-background-editable: var(--iui-color-background);
 }
 
 html,

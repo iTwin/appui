@@ -86,7 +86,6 @@ export class ValidationTextbox extends React.PureComponent<ValidationTextboxProp
         className={classnames("uifw-ValidationTextbox", this.props.className)}
         style={divStyle}>
         <Input
-          // status?
           className={this.state.isValid ? validClassNames : invalidClassNames}
           onChange={this._validateText}
           onKeyUp={this._handleKeyUp}

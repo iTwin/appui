@@ -32,7 +32,6 @@ $uicore-font-weight-bold: var(--iui-font-weight-bold);
 /// Font loading helpers -------------------------------------------------------
 /// See: https://www.zachleat.com/web/comprehensive-webfonts
 
-//TODO review this
 $uicore-font-loaded-class: var(--iui-font-sans);
 
 @mixin uicore-font-family {

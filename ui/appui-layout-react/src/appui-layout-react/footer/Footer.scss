@@ -10,7 +10,7 @@
 .nz-footer-footer {
   position: relative;
 
-  > div {
+  >div {
     background-color: var(--iui-color-background);
 
     border: {
@@ -25,7 +25,7 @@
     width: 100%;
     pointer-events: auto;
 
-    > .nz-messages {
+    >.nz-messages {
       position: absolute;
       top: -10px;
       left: 50%;
@@ -34,7 +34,7 @@
       @include uicore-z-index(status-message);
     }
 
-    > .nz-indicators {
+    >.nz-indicators {
       display: flex;
       flex-direction: row;
       height: $footer-height;
@@ -42,19 +42,19 @@
   }
 
   &.nz-safe-area-left {
-    > div {
+    >div {
       @include nz-safe-area-left;
     }
   }
 
   &.nz-safe-area-right {
-    > div {
+    >div {
       @include nz-safe-area-right;
     }
   }
 
   &.nz-safe-area-bottom {
-    > div {
+    >div {
       @include nz-safe-area-bottom;
     }
   }

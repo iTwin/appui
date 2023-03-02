@@ -65,7 +65,7 @@
     align-content: center;
 
     > .nz-balloon {
-      background-color: var(--iui-color-text); // TODO: Where is this applied?
+      background-color: var(--iui-color-text);
       text-align: center;
       cursor: pointer;
       min-width: $min-balloon-width;
@@ -86,7 +86,7 @@
         border-bottom-width: $balloon-arrow-height;
         border-left-width: $balloon-arrow-width;
         border-style: solid;
-        border-color: transparent var(--iui-color-icon); // TODO: Where is this applied?
+        border-color: transparent var(--iui-color-icon);
         transform: rotate(25deg);
       }
 

@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/index";
 
 $button-size: 36px;
-$button-operator-size: $button-size+10px;
+$button-operator-size: $button-size + 10px;
 
 .uifw-position-popup.uifw-calculator-host {
   background-color: $buic-background-window;
@@ -19,10 +19,10 @@ $button-operator-size: $button-size+10px;
     outline: 0px;
   }
 
-  >.uifw-calculator-top {
+  > .uifw-calculator-top {
     margin-bottom: 8px;
 
-    >.uifw-calculator-top-input {
+    > .uifw-calculator-top-input {
       width: 100%;
     }
 
@@ -34,7 +34,7 @@ $button-operator-size: $button-size+10px;
     }
   }
 
-  >.uifw-calculator-button-grid {
+  > .uifw-calculator-button-grid {
     display: grid;
     grid-template-columns: $button-size $button-size $button-size $button-operator-size;
     grid-gap: 6px;
@@ -47,31 +47,29 @@ $button-operator-size: $button-size+10px;
     }
   }
 
-  >.uifw-calculator-bottom-buttons {
+  > .uifw-calculator-bottom-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 0;
 
-    >.uifw-calculator-large-button {
+    > .uifw-calculator-large-button {
       width: 70px;
       font-size: 20px;
     }
 
-    >.uifw-calculator-cancel-button {
-
+    > .uifw-calculator-cancel-button {
       &,
       &:active,
       &:focus {
         border: none;
-        background-color: var(--iui-color-background-negative); // TODO: Should we use this color?
+        background-color: var(--iui-color-background-negative);
         color: var(--iui-color-white);
       }
 
       &:hover {
-        background-color: var(--iui-color-background-negative-hover); // TODO: Should we use this color?
+        background-color: var(--iui-color-background-negative-hover);
         color: var(--iui-color-white);
       }
-
     }
   }
 

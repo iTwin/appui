@@ -85,8 +85,8 @@
   }
 
   &.components-focused:not(.components-disabled) {
-    color: gray; // TODO: Where is this applied?
-    border-color: tan; // TODO: Where is this applied?
+    color: var(--iui-color-text-accent);
+    border-color: var(--iui-color-border-accent);
     border-width: $item-border-width;
     border-style: solid;
 

@@ -13,7 +13,7 @@ $uifw-view-overlay-indent: calc(var(--iui-size-l) * 2);
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: calc(100% - $uifw-view-overlay-indent * 2);
+  width: calc(100% - #{$uifw-view-overlay-indent} * 2);
   height: auto;
   position: absolute;
   bottom: var(--iui-size-s);
@@ -23,7 +23,7 @@ $uifw-view-overlay-indent: calc(var(--iui-size-l) * 2);
   @include uicore-z-index(view-overlay);
 }
 
-$widget-transparency: 0.9; // TODO: This is only used here, should match all widgets.
+$widget-transparency: 0.9;
 
 .uifw-animation-overlay {
   display: flex;
