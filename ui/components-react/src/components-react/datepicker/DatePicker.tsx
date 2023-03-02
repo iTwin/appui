@@ -9,8 +9,9 @@
 import * as React from "react";
 import classnames from "classnames";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { WebFontIcon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
+import { Icon } from "@itwin/core-react";
+import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 import "./DatePicker.scss";
 
@@ -189,11 +190,11 @@ export function DatePicker(props: DatePickerProps) {
     <div className="components-date-picker-calendar">
       <div className="components-date-picker-calendar-header-months">
         <button className={previousButtonClass} title={previousMonthLabel.current} onClick={handleMoveToPreviousMonth}>
-          <WebFontIcon iconName={"icon-chevron-left"} />
+          <Icon iconSpec={<SvgChevronLeft />} />
         </button>
         <span className="components-month-year">{monthsLong.current[displayedMonthIndex]} {displayedYear}</span>
         <button className={nextButtonClass} title={nextMonthLabel.current} onClick={handleMoveToNextMonth}>
-          <WebFontIcon iconName={"icon-chevron-right"} />
+          <Icon iconSpec={<SvgChevronRight />} />
         </button>
       </div>
       <div className="components-date-picker-calendar-header-weekdays">

@@ -35,7 +35,7 @@ describe("StandardMessageBox", () => {
       onResult={spyMethod}
     />;
 
-    const {container} = render(reactNode);
+    const { container} = render(reactNode);
     expect(container.querySelector(".icon.core-message-box-icon")?.classList.length).to.eq(2);
 
     await theUserTo.click(screen.getByRole("button", {name: "dialog.ok"}));
@@ -54,7 +54,7 @@ describe("StandardMessageBox", () => {
     />;
 
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon.icon-info.core-message-box-information"));
+    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon"));
 
     await theUserTo.click(screen.getByRole("button", {name: "dialog.ok"}));
     expect(spyMethod.calledOnce).to.be.true;
@@ -72,7 +72,7 @@ describe("StandardMessageBox", () => {
     />;
 
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon.icon-help.core-message-box-question"));
+    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon"));
 
     await theUserTo.click(screen.getByRole("button", {name: "dialog.yes"}));
     expect(spyMethod.calledOnce).to.be.true;
@@ -88,7 +88,7 @@ describe("StandardMessageBox", () => {
       onResult={spyMethod}
     />;
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon.icon-status-warning.core-message-box-warning"));
+    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon"));
 
     await theUserTo.click(screen.getByRole("button", {name: "dialog.cancel"}));
     expect(spyMethod.calledOnce).to.be.true;
@@ -104,7 +104,7 @@ describe("StandardMessageBox", () => {
       onResult={spyMethod}
     />;
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon.icon-status-error.core-message-box-error"));
+    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon"));
 
     await theUserTo.click(screen.getByRole("button", {name: "dialog.no"}));
     expect(spyMethod.calledOnce).to.be.true;
@@ -120,7 +120,7 @@ describe("StandardMessageBox", () => {
       onResult={spyMethod}
     />;
     render(reactNode);
-    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon.icon-status-warning.core-message-box-warning"));
+    expect(screen.getByTestId("core-dialog-container")).to.satisfy(childStructure(".icon.core-message-box-icon"));
 
     await theUserTo.click(screen.getByRole("button", {name: "dialog.cancel"}));
     expect(spyMethod.calledOnce).to.be.true;

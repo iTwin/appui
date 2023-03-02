@@ -11,6 +11,8 @@ import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "../utils/Props";
 import { UiCore } from "../UiCore";
+import { Icon } from "../icons/IconComponent";
+import { SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 /** Properties for the [[ExpansionToggle]] component
  * @public
@@ -43,7 +45,7 @@ export class ExpansionToggle extends React.PureComponent<ExpansionToggleProps> {
         tabIndex={-1}
         aria-label={label}
       >
-        <i className="toggle icon icon-chevron-right" />
+        <Icon className="toggle icon" iconSpec={<SvgChevronRight />} />
       </div>
     );
   }

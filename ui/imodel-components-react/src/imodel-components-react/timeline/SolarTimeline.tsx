@@ -16,7 +16,7 @@ import { Slider, Tooltip } from "@itwin/itwinui-react";
 
 import { ColorByName, ColorDef, HSVColor } from "@itwin/core-common";
 import { RelativePosition, TimeDisplay } from "@itwin/appui-abstract";
-import { BodyText, CommonProps, Popup } from "@itwin/core-react";
+import { BodyText, CommonProps, Icon, Popup } from "@itwin/core-react";
 import { adjustDateToTimezone, DatePicker, TimeField, TimeSpec, UiComponents } from "@itwin/components-react";
 import { HueSlider } from "../color/HueSlider";
 import { SaturationPicker } from "../color/SaturationPicker";
@@ -26,6 +26,7 @@ import { PlayButton } from "./PlayerButton";
 import { SpeedTimeline } from "./SpeedTimeline";
 import { CustomThumb, getPercentageOfRectangle, RailMarkers, useFocusedThumb } from "./Scrubber";
 import { UiIModelComponents } from "../UiIModelComponents";
+import { SvgCalendar, SvgLoop, SvgSettings } from "@itwin/itwinui-icons-react";
 
 // cSpell:ignore millisec solarsettings showticks shadowcolor solartimeline datepicker millisecs
 
@@ -487,7 +488,7 @@ export class SolarTimeline extends React.PureComponent<SolarTimelineComponentPro
             <span>{formattedDate}</span>
             <span>/</span>
             <span>{formattedTime}</span>
-            <span className="icon icon-calendar" />
+            <span className="icon"><Icon iconSpec={<SvgCalendar />} /></span>
           </button>
           <Popup style={{ border: "none" }} offset={11} target={this._datePicker} isOpen={this.state.isDateOpened} onClose={this._onCloseDayPicker} position={RelativePosition.Top}>
             <div className="components-date-picker-calendar-popup-panel" data-testid="components-date-picker-calendar-popup-panel">
@@ -514,11 +515,11 @@ export class SolarTimeline extends React.PureComponent<SolarTimelineComponentPro
           </div>
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
           <span title={this._loopLabel}
-            className={classnames("icon", "icon-media-controls-loop", !loop && "no-loop-playback", loop && "loop-playback")} onClick={this._onToggleLoop}
+            className={classnames("icon", !loop && "no-loop-playback", loop && "loop-playback")} onClick={this._onToggleLoop}
             role="button" tabIndex={-1}
-          ></span>
+          ><Icon iconSpec={<SvgLoop />} /></span>
           <button data-testid="shadow-settings-button" title={this._settingLabel} className="shadow-settings-button" ref={(element) => this._settings = element} onClick={this._onOpenSettingsPopup}>
-            <span className="icon icon-settings" />
+            <span className="icon"><Icon iconSpec={<SvgSettings />} /></span>
           </button>
           <Popup className="shadow-settings-popup" target={this._settings} offset={11} isOpen={this.state.isSettingsOpened} onClose={this._onCloseSettingsPopup} position={RelativePosition.Top}>
             <div className="shadow-settings-popup-container" >

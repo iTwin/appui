@@ -19,9 +19,10 @@
     "start:servers": "run-p \"start:webserver\" \"start:backend\"",
     "serve": "serve -s build",
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./build/public/locales/en-PSEUDO",
+    "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../../generated-docs/extract",
     "test": "",
     "cover": "",
-    "docs": "",
+    "docs": "npm run -s docs:extract",
     "copy:config": "internal-tools copy-config",
     "build:ios-backend": "npm run -s build:backend && webpack --config ./ios/backend.config --env.outdir=./lib/ios --env.entry=./lib/backend/main.js --env.bundlename=main",
     "install-ios-lib": "node ./ios/scripts/installIosNativeLib.js",
@@ -73,8 +74,8 @@
     "webpack": "^5.64.4"
   },
   "dependencies": {
-    "@bentley/icons-generic": "^1.0.15",
-    "@bentley/icons-generic-webfont": "^1.0.15",
+    "@bentley/icons-generic": "^1.0.34",
+    "@bentley/icons-generic-webfont": "^1.0.34",
     "@itwin/appui-abstract": "^3.6.0",
     "@itwin/appui-layout-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",

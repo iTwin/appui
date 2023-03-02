@@ -15,6 +15,7 @@ import { UiFramework } from "../UiFramework";
 import { CommonProps } from "@itwin/core-react";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { StatusBarDialog } from "../statusbar/dialog/Dialog";
+import { SvgWindowSettings } from "@itwin/itwinui-icons-react";
 
 interface ViewAttributesStatusFieldState {
   viewFlags: ViewFlagProps;
@@ -107,7 +108,7 @@ export class ViewAttributesStatusField extends React.Component<CommonProps, View
   public override render() {
     return (
       <StatusBarLabelIndicator
-        iconSpec="icon-window-settings"
+        iconSpec={<SvgWindowSettings />}
         title={this._title}
         popup={<StatusBarDialog
           titleBar={

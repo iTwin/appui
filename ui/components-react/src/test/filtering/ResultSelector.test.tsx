@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import { ResultSelector } from "../../components-react/filtering/ResultSelector";
 import { render, screen } from "@testing-library/react";
-import TestUtils, { childStructure, userEvent } from "../TestUtils";
+import TestUtils, { userEvent } from "../TestUtils";
 
 describe("ResultSelector", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -18,10 +18,11 @@ describe("ResultSelector", () => {
   });
 
   it("content is '0 of 0' and buttons are disabled when result count is 0", () => {
-    const { container } = render(<ResultSelector onSelectedChanged={() => { }} resultCount={0} />);
-    expect(container).to
-      .satisfy(childStructure(".icon-chevron-left:disabled"))
-      .and.satisfy(childStructure(".icon-chevron-right:disabled"));
+    render(<ResultSelector onSelectedChanged={() => { }} resultCount={0} />);
+    const previousButton = screen.getByTestId("previous-button");
+    expect (previousButton.outerHTML).includes("disabled");
+    const nextButton = screen.getByTestId("next-button");
+    expect (nextButton.outerHTML).includes("disabled");
 
     expect(screen.getByRole("presentation")).that
       .have.property("innerHTML")
@@ -29,10 +30,11 @@ describe("ResultSelector", () => {
   });
 
   it("content is '1 of X' and buttons are not disabled when result count is higher than 0", () => {
-    const { container } = render(<ResultSelector onSelectedChanged={() => { }} resultCount={10} />);
-    expect(container).to
-      .satisfy(childStructure(".icon-chevron-left:not(:disabled)"))
-      .satisfy(childStructure(".icon-chevron-right:not(:disabled)"));
+    render(<ResultSelector onSelectedChanged={() => { }} resultCount={10} />);
+    const previousButton = screen.getByTestId("previous-button");
+    expect (previousButton.outerHTML).not.includes("disabled");
+    const nextButton = screen.getByTestId("next-button");
+    expect (nextButton.outerHTML).not.includes("disabled");
 
     expect(screen.getByRole("presentation")).that
       .have.property("innerHTML")

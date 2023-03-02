@@ -8,6 +8,7 @@ import {
   ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider,
   MessageCenterField, StatusBarWidgetControl, WidgetState,
 } from "../../appui-react";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** @internal */
 export class TestContentControl extends ContentControl {
@@ -121,7 +122,7 @@ export class TestFrontstage extends FrontstageProvider {
       },
       statusBar: {
         id: "statusBar",
-        icon: "icon-placeholder",
+        icon: <SvgPlaceholder />,
         labelKey: "App:widgets.StatusBar",
       },
     };
@@ -203,7 +204,7 @@ export class TestFrontstage2 extends FrontstageProvider {
       },
       statusBar: {
         id: "statusBar",
-        icon: "icon-placeholder",
+        icon: <SvgPlaceholder />,
         labelKey: "App:widgets.StatusBar",
       },
     };

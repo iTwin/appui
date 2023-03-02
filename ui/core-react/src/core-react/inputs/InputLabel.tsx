@@ -6,9 +6,12 @@
  * @module Inputs
  */
 
+import { SvgStatusError, SvgStatusSuccess, SvgStatusWarning } from "@itwin/itwinui-icons-react";
 import classnames from "classnames";
 import * as React from "react";
+import { Icon, IconSpec } from "../icons/IconComponent";
 import { CommonProps } from "../utils/Props";
+import { InputStatus } from "./InputStatus";
 import { LabeledComponentProps, MessagedComponentProps } from "./LabeledComponentProps";
 
 /** Properties for [[InputLabel]] components
@@ -19,6 +22,12 @@ export interface InputLabelProps extends LabeledComponentProps, MessagedComponen
   /** Labeled content */
   children?: React.ReactNode;
 }
+
+const inputLabelIconSpec: { [key: string]: IconSpec } = {
+  [InputStatus.Error]: <SvgStatusError />,
+  [InputStatus.Success]: <SvgStatusSuccess />,
+  [InputStatus.Warning]: <SvgStatusWarning />,
+};
 
 /** Text input wrapper that provides additional styling and labeling
  * @public
@@ -42,7 +51,7 @@ export class InputLabel extends React.PureComponent<InputLabelProps> {
         <div className={classnames("input", { "with-icon": !!status })}>
           {this.props.children}
           {status &&
-            <i className={classnames("icon", `icon-status-${status}`)} />
+            <Icon className="icon" iconSpec={inputLabelIconSpec[`{status}`]} />
           }
         </div>
         {message &&

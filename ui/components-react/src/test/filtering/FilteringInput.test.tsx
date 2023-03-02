@@ -28,7 +28,7 @@ describe("FilteringInput", () => {
         resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
 
     expect(screen.getByRole("textbox")).to.exist;
-    expect(screen.getByRole("button")).to.satisfy(selectorMatches(".icon-search"));
+    expect(screen.getByTestId("filter-input-search")).to.exist;
   });
 
   it("shows 'Cancel' button when filtering status is `FilteringInProgress`", () => {
@@ -39,7 +39,7 @@ describe("FilteringInput", () => {
         onFilterClear={() => { }}
         onFilterStart={() => { }}
         resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
-    expect(screen.getByRole("button")).to.satisfy(selectorMatches(".icon-close"));
+    expect(screen.getByTestId("filter-input-close")).to.exist;
   });
 
   it("shows `ResultSelector` and 'X' button when filtering status is `FilteringFinished` and stepping is enabled", () => {
@@ -51,7 +51,7 @@ describe("FilteringInput", () => {
         onFilterStart={() => { }}
         resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
     expect(screen.getAllByRole("presentation")[1]).to.satisfy(selectorMatches(".components-result-selector-current-result"));
-    expect(screen.getByTitle("general.search")).to.satisfy(selectorMatches(".icon-close"));
+    expect(screen.getByTestId("filter-input-close")).to.exist;
   });
 
   it("doesn't show `ResultSelector` when filtering status is `FilteringFinished` and stepping is disabled", () => {
@@ -62,7 +62,7 @@ describe("FilteringInput", () => {
         onFilterClear={() => { }}
         onFilterStart={() => { }} />);
     expect(screen.queryByRole("presentation")).to.not.satisfy(selectorMatches(".components-result-selector-current-result"));
-    expect(screen.getByTitle("general.search")).to.satisfy(selectorMatches(".icon-close"));
+    expect(screen.getByTestId("filter-input-close")).to.exist;
   });
 
   it("starts search when input is edited and 'Enter' key is pressed", async () => {
@@ -148,7 +148,7 @@ describe("FilteringInput", () => {
         status={FilteringInputStatus.ReadyToFilter} />);
 
     const searchBar = filteringInput.container.querySelector('[class="components-filtering-input-input"]')?.firstChild;
-    const searchIcon = filteringInput.container.querySelector('[class="icon icon-search"]');
+    const searchIcon = filteringInput.getByTestId("filter-input-search");
     expect(searchBar).to.exist;
     expect(searchIcon).to.exist;
 
@@ -169,7 +169,7 @@ describe("FilteringInput", () => {
         status={FilteringInputStatus.ReadyToFilter} />);
 
     expect(filteringInput.container.querySelector('[class="components-result-selector"]'), "ResultSelector found").to.not.exist;
-    expect(filteringInput.container.querySelector('[class="icon icon-search"]'), "Search icon found").to.exist;
+    expect(filteringInput.getByTestId("filter-input-search"), "Search icon found").to.exist;
   });
 
   it("does not render `ResultSelector` but renders `X` button when status is set to `FilteringInProgress`", () => {
@@ -181,7 +181,7 @@ describe("FilteringInput", () => {
         status={FilteringInputStatus.FilteringInProgress} />);
 
     expect(filteringInput.container.querySelector('[class="components-result-selector"]'), "ResultSelector found").to.not.exist;
-    expect(filteringInput.container.querySelector('[class="icon icon-close"]'), "X button found").to.exist;
+    expect(filteringInput.getByTestId("filter-input-close"), "X button found").to.exist;
   });
 
   it("renders `ResultSelector` and 'X' button when status is set to `FilteringFinished` and `resultSelectorProps` are provided ", () => {
@@ -194,7 +194,7 @@ describe("FilteringInput", () => {
         resultSelectorProps={{ onSelectedChanged: () => { }, resultCount: 0 }} />);
 
     expect(filteringInput.container.querySelector('[class="components-result-selector"]'), "ResultSelector found").to.exist;
-    expect(filteringInput.container.querySelector('[class="components-filtering-input-clear icon icon-close"]'), "X button found").to.exist;
+    expect(filteringInput.getByTestId("filter-input-close"), "X button found").to.exist;
   });
 
   it("doesn't render `ResultSelector` but renders 'X' button when status is set to `FilteringFinished` and `resultSelectorProps` are not provided ", () => {
@@ -206,7 +206,7 @@ describe("FilteringInput", () => {
         status={FilteringInputStatus.FilteringFinished} />);
 
     expect(filteringInput.container.querySelector('[class="components-result-selector"]'), "ResultSelector found").to.not.exist;
-    expect(filteringInput.container.querySelector('[class="components-filtering-input-clear icon icon-close"]'), "X button found").to.exist;
+    expect(filteringInput.getByTestId("filter-input-close"), "X button found").to.exist;
   });
 
   it("re-renders ResultSelector(sets activeMatchIndex to 1) when resultSelectorProps are updated when using status property", () => {
@@ -219,7 +219,7 @@ describe("FilteringInput", () => {
         status={FilteringInputStatus.FilteringFinished} />);
 
     expect(filteringInput.getByText("1")).to.exist;
-    const nextButton = filteringInput.container.querySelector('[class="components-result-selector-button icon icon-chevron-right"]');
+    const nextButton = filteringInput.getByTestId("next-button");
     expect(nextButton).to.exist;
     fireEvent.click(nextButton as Element);
 

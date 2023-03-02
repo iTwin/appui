@@ -10,12 +10,13 @@ import "./EnumButtonGroupEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import {
-  ButtonGroupEditorParams, EnumerationChoice, IconDefinition, PropertyEditorParams, PropertyEditorParamTypes, PropertyRecord,
+  ButtonGroupEditorParams, EnumerationChoice, IconDefinition, IconSpecUtilities, PropertyEditorParams, PropertyEditorParamTypes, PropertyRecord,
   PropertyValue, PropertyValueFormat, StandardEditorNames, StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
 import { PropertyEditorProps, TypeEditor } from "./EditorContainer";
 import { PropertyEditorBase, PropertyEditorManager } from "./PropertyEditorManager";
+import svgPlaceholder from "@bentley/icons-generic/icons/placeholder.svg";
 
 // cspell:ignore buttongroup enumbuttongroup
 
@@ -32,6 +33,7 @@ interface EnumButtonGroupEditorState {
 export class EnumButtonGroupEditor extends React.Component<PropertyEditorProps, EnumButtonGroupEditorState> implements TypeEditor {
   private _btnRefs = new Map<string | number, HTMLButtonElement>();
   private _divElement = React.createRef<HTMLDivElement>();
+  private _placeholderIconSpec = IconSpecUtilities.createWebComponentIconSpec(svgPlaceholder);
 
   /** @internal */
   public override readonly state: Readonly<EnumButtonGroupEditorState> = {
@@ -106,7 +108,7 @@ export class EnumButtonGroupEditor extends React.Component<PropertyEditorProps, 
 
       const numChoices = choices.length;
       const enumIcons = new Array<IconDefinition>(numChoices);
-      enumIcons.fill({ iconSpec: "icon icon-placeholder" });
+      enumIcons.fill({ iconSpec: this._placeholderIconSpec });
 
       // istanbul ignore else
       if (propertyRecord.property.editor && propertyRecord.property.editor.params) {

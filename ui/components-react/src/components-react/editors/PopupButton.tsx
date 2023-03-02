@@ -12,6 +12,7 @@ import * as React from "react";
 import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
 import { CommonDivProps, CommonProps, Div, Icon, Popup, UiCore } from "@itwin/core-react";
 import { Button } from "@itwin/itwinui-react";
+import { SvgCheckmark, SvgChevronDown, SvgRemove } from "@itwin/itwinui-icons-react";
 
 /** Properties for [[PopupButton]] component
  * @alpha
@@ -133,7 +134,7 @@ export class PopupButton extends React.PureComponent<PopupButtonProps, PopupButt
             {this.props.label || this.props.placeholder}
           </div>
           <div className={"components-popup-button-arrow"}>
-            <div className={classnames("components-popup-button-arrow-icon", "icon", "icon-chevron-down")} />
+            <div className={classnames("components-popup-button-arrow-icon", "icon")}><Icon iconSpec={<SvgChevronDown />} /></div>
           </div>
         </div>
         <Popup className="components-popup-button-popup" isOpen={this.state.showPopup} position={RelativePosition.Bottom}
@@ -177,7 +178,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         title={UiCore.translate("dialog.ok")}
         onClick={props.onOk}
       >
-        <Icon iconSpec="icon-checkmark" />
+        <Icon iconSpec={<SvgCheckmark />} />
       </Button>
       <Button
         className={classnames("components-popup-large-button", "components-popup-cancel-button")}
@@ -185,7 +186,7 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         title={UiCore.translate("dialog.cancel")}
         onClick={props.onCancel}
       >
-        <Icon iconSpec="icon-remove" />
+        <Icon iconSpec={<SvgRemove />} />
       </Button>
     </div>
   );

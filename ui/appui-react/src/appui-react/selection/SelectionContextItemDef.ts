@@ -6,7 +6,7 @@
  * @module Tools
  */
 
-import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import { SessionStateActionId } from "../redux/SessionState";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { BaseItemState } from "../shared/ItemDefBase";
@@ -14,6 +14,16 @@ import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { GroupItemDef } from "../toolbar/GroupItem";
 import { UiFramework } from "../UiFramework";
 import { HideIsolateEmphasizeActionHandler } from "./HideIsolateEmphasizeManager";
+import svgModelIsolate from "@bentley/icons-generic/icons/model-isolate.svg";
+import svgLayersIsolate from "@bentley/icons-generic/icons/layers-isolate.svg";
+import svgAssetIsolate from "@bentley/icons-generic/icons/asset-isolate.svg";
+import svgIsolate from "@bentley/icons-generic/icons/isolate.svg";
+import svgModelHide from "@bentley/icons-generic/icons/model-hide.svg";
+import svgLayersHide from "@bentley/icons-generic/icons/layers-hide.svg";
+import svgAssetClassificationHide from "@bentley/icons-generic/icons/asset-classification-hide.svg";
+import svgVisibilitySemiTransparent from "@bentley/icons-generic/icons/visibility-semi-transparent.svg";
+import svgVisibilityHide from "@bentley/icons-generic/icons/visibility-hide_2.svg";
+import svgVisibility from "@bentley/icons-generic/icons/visibility.svg";
 
 /** return SyncEventIds that trigger selection state function refresh.
  * @beta
@@ -113,7 +123,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateModelsInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateModel",
-      iconSpec: "icon-model-isolate",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgModelIsolate),
       labelKey: "UiFramework:tools.isolateModels",
       execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsModel(),
     });
@@ -122,7 +132,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateCategoriesInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateCategory",
-      iconSpec: "icon-layers-isolate",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgLayersIsolate),
       labelKey: "UiFramework:tools.isolateCategories",
       execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsCategory(),
     });
@@ -131,7 +141,7 @@ export class SelectionContextToolDefinitions {
   public static get isolateElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateSelected",
-      iconSpec: "icon-asset-isolate",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgAssetIsolate),
       labelKey: "UiFramework:tools.isolateSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelected(),
@@ -142,7 +152,7 @@ export class SelectionContextToolDefinitions {
     return new GroupItemDef({
       groupId: "UiFramework.IsolateSelectionGroup",
       labelKey: "UiFramework:tools.isolate",
-      iconSpec: "icon-isolate",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgIsolate),
       isHidden: getIsHiddenIfSelectionNotActive(),
       items: [this.isolateElementsItemDef, this.isolateCategoriesInSelectionItemDef, this.isolateModelsInSelectionItemDef],
       itemsInColumn: 3,
@@ -152,7 +162,7 @@ export class SelectionContextToolDefinitions {
   public static get hideModelsInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideModel",
-      iconSpec: "icon-model-hide",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgModelHide),
       labelKey: "UiFramework:tools.hideModels",
       execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsModel(),
     });
@@ -161,7 +171,7 @@ export class SelectionContextToolDefinitions {
   public static get hideCategoriesInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideCategory",
-      iconSpec: "icon-layers-hide",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgLayersHide),
       labelKey: "UiFramework:tools.hideCategories",
       execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsCategory(),
     });
@@ -170,7 +180,7 @@ export class SelectionContextToolDefinitions {
   public static get hideElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideSelected",
-      iconSpec: "icon-asset-classification-hide",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgAssetClassificationHide),
       labelKey: "UiFramework:tools.hideSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processHideSelected(),
@@ -181,7 +191,7 @@ export class SelectionContextToolDefinitions {
     return new GroupItemDef({
       groupId: "UiFramework.HideSelectionGroup",
       labelKey: "UiFramework:tools.hide",
-      iconSpec: "icon-visibility-hide-2",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgVisibilityHide),
       isHidden: getIsHiddenIfSelectionNotActive(),
       items: [this.hideElementsItemDef, this.hideCategoriesInSelectionItemDef, this.hideModelsInSelectionItemDef],
       itemsInColumn: 3,
@@ -191,7 +201,7 @@ export class SelectionContextToolDefinitions {
   public static get emphasizeElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.EmphasizeSelected",
-      iconSpec: "icon-visibility-semi-transparent",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgVisibilitySemiTransparent),
       labelKey: "UiFramework:tools.emphasizeSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processEmphasizeSelected(),
@@ -201,7 +211,7 @@ export class SelectionContextToolDefinitions {
   public static get clearHideIsolateEmphasizeElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearHideIsolateEmphasize",
-      iconSpec: "icon-visibility",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgVisibility),
       labelKey: "UiFramework:tools.clearVisibility",
       isHidden: getIsHiddenIfFeatureOverridesActive(),
       execute: async () => {

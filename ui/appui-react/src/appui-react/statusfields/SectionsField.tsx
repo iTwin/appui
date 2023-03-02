@@ -16,6 +16,8 @@ import { Button, ToggleSwitch } from "@itwin/itwinui-react";
 import { useActiveViewport } from "../hooks/useActiveViewport";
 import { UiFramework } from "../UiFramework";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
+import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
 
 /** Sections Status Field Props
  * @beta
@@ -74,6 +76,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
     await IModelApp.tools.run(ViewClipClearTool.toolId, ViewClipDecorationProvider.create());
     setPopupOpen(false);
   };
+  const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgSectionTool);
 
   return (
     <div className="uifw-section-footer-popup-container">
@@ -82,7 +85,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
           <div ref={targetDiv} title={toolTip}>
             <StatusBarLabelIndicator
               className={classes}
-              iconSpec="icon-section-tool"
+              iconSpec={iconSpec}
               onClick={() => setPopupOpen(!isPopupOpen)}
             />
           </div>

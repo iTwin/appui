@@ -11,6 +11,7 @@ import * as React from "react";
 import { PointProps } from "@itwin/appui-abstract";
 import { ContextMenu, Icon, Size, SizeProps } from "@itwin/core-react";
 import { SquareButton, SquareButtonProps } from "./SquareButton";
+import { SvgMore } from "@itwin/itwinui-icons-react";
 
 /** @alpha */
 export interface MenuButtonProps extends SquareButtonProps {
@@ -48,7 +49,7 @@ export class MenuButton extends React.PureComponent<MenuButtonProps, MenuButtonS
     return (
       <div className="uifw-menu-button" style={divStyle} ref={(e) => this.setDivRef(e)}>
         <SquareButton {...buttonProps} className={className} style={style} onClick={this._handleClick}>
-          <Icon iconSpec="icon-more-2" />
+          <Icon iconSpec={<SvgMore />} />
         </SquareButton>
         <ContextMenu
           ref={(el) => { this._menu = el; }}

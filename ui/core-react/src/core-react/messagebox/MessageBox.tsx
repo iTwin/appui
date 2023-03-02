@@ -12,6 +12,10 @@ import * as React from "react";
 import { DialogButtonDef, MessageSeverity } from "@itwin/appui-abstract";
 import { Dialog } from "../dialog/Dialog";
 import { CommonProps } from "../utils/Props";
+import { SvgHelpCircular, SvgHelpCircularHollow, SvgInfoCircular, SvgInfoCircularHollow, SvgStatusError, SvgStatusErrorHollow, SvgStatusRejected,
+  SvgStatusRejectedHollow,
+  SvgStatusSuccess, SvgStatusSuccessHollow, SvgStatusWarning } from "@itwin/itwinui-icons-react";
+import { Icon, IconSpec } from "../icons/IconComponent";
 
 /** Properties for the [[MessageBox]] component
  * @public
@@ -97,46 +101,88 @@ export interface MessageContainerProps extends CommonProps {
  * @public
  */
 export class MessageContainer extends React.PureComponent<MessageContainerProps> {
-  public static getIconClassName(severity: MessageSeverity, hollow?: boolean): string {
+  /** Returns the class name associated with the WebFont icon corresponding to the MessageSeverity.
+   * @param severity MessageSeverity
+   * @param _hollow @deprecated in 4.0. Ignored.
+   * @deprecated in 4.0. Please use getIcon method
+   */
+  /* istanbul ignore next */
+  public static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string {
     let iconClassName = "";
 
     switch (severity) {
       case MessageSeverity.None:
-        iconClassName = " ";
+        iconClassName = "";
         break;
       case MessageSeverity.Success:
-        iconClassName = hollow ? "icon-status-success-hollow" : "icon-status-success" + " core-message-box-success";
+        iconClassName = "core-message-box-success";
         break;
       case MessageSeverity.Information:
-        iconClassName = hollow ? "icon-info-hollow" : "icon-info" + " core-message-box-information";
+        iconClassName = "core-message-box-information";
         break;
       case MessageSeverity.Question:
-        iconClassName = hollow ? "icon-help-hollow" : "icon-help" + " core-message-box-question";
+        iconClassName = "core-message-box-question";
         break;
       case MessageSeverity.Warning:
-        iconClassName = hollow ? "icon-status-warning" : "icon-status-warning" + " core-message-box-warning";  // TODO - need icon-status-warning-hollow icon
+        iconClassName = "core-message-box-warning";  // TODO - need icon-status-warning-hollow icon
         break;
       case MessageSeverity.Error:
-        iconClassName = hollow ? "icon-status-error-hollow" : "icon-status-error" + " core-message-box-error";
+        iconClassName = "core-message-box-error";
         break;
       case MessageSeverity.Fatal:
-        iconClassName = hollow ? "icon-status-rejected" : "icon-status-rejected" + " core-message-box-fatal";
+        iconClassName = "core-message-box-fatal";
         break;
     }
 
     return iconClassName;
   }
 
+  /** Returns the React icon corresponding to the MessageSeverity.
+   * @param severity MessageSeverity
+   * @param hollow set to true to return the hollow form of the icon.
+   * @returns IconSpec
+   */
+  /* ignore for unit tests and replace with visual testing */
+  /* istanbul ignore next */
+  public static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec {
+    let iconSpec: IconSpec = "";
+    switch (severity) {
+      case MessageSeverity.None:
+        iconSpec = "";
+        break;
+      case MessageSeverity.Success:
+        iconSpec = hollow ? <SvgStatusSuccessHollow /> : <SvgStatusSuccess />;
+        break;
+      case MessageSeverity.Information:
+        iconSpec = hollow ? <SvgInfoCircularHollow /> : <SvgInfoCircular />;
+        break;
+      case MessageSeverity.Question:
+        iconSpec = hollow ? <SvgHelpCircularHollow /> : <SvgHelpCircular />;
+        break;
+      case MessageSeverity.Warning:
+        iconSpec = <SvgStatusWarning />; // TODO - need icon-status-warning-hollow icon
+        break;
+      case MessageSeverity.Error:
+        iconSpec = hollow ? <SvgStatusErrorHollow /> : <SvgStatusError />;
+        break;
+      case MessageSeverity.Fatal:
+        iconSpec = hollow ? <SvgStatusRejectedHollow /> : <SvgStatusRejected />;
+        break;
+    }
+    return iconSpec;
+  }
+
   public override render(): JSX.Element {
     const iconClassName = classnames(
       "icon",
-      "core-message-box-icon",
-      MessageContainer.getIconClassName(this.props.severity),
+      "core-message-box-icon"
     );
+
+    const iconSpec = MessageContainer.getIcon(this.props.severity);
 
     return (
       <div className="core-message-box-container">
-        <div className={iconClassName} />
+        <div className={iconClassName} ><Icon iconSpec={iconSpec} /></div>
         <div className={classnames("core-message-box-content", this.props.className)} style={this.props.style}>
           {this.props.children}
         </div>

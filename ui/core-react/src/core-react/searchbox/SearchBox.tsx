@@ -12,6 +12,8 @@ import * as React from "react";
 import { UiCore } from "../UiCore";
 import { CommonProps } from "../utils/Props";
 import { SpecialKey } from "@itwin/appui-abstract";
+import { Icon, IconSpec } from "../icons/IconComponent";
+import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 
 /** Properties for [[SearchBox]] component
  * @public
@@ -61,11 +63,8 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
     const iconClassName = classnames(
       "core-searchbox-icon",
       "icon",
-      {
-        "icon-search": emptyString,
-        "icon-close": !emptyString,
-      },
     );
+    const iconSpec: IconSpec = emptyString ? <SvgSearch /> : <SvgClose />;
     const buttonTitle = UiCore.translate(emptyString ? "general.search" : "general.clear");
     return (
       <div className={searchClassName} style={this.props.style} data-testid="core-searchbox-instance">
@@ -82,7 +81,7 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
         ></input>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
         <div className="core-searchbox-button" onClick={this._handleIconClick} role="button" tabIndex={-1} title={buttonTitle}>
-          <span className={iconClassName} />
+          <span className={iconClassName}><Icon iconSpec={iconSpec} /></span>
         </div>
       </div>
     );

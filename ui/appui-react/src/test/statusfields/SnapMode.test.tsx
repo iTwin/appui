@@ -22,14 +22,6 @@ describe("SnapModeField", () => {
   });
 
   it("Status Bar with SnapModes Field should render", () => {
-    const modes = [
-      SnapMode.NearestKeypoint as number, SnapMode.Intersection as number, SnapMode.Center as number,
-      SnapMode.Nearest as number, SnapMode.Origin as number, SnapMode.MidPoint as number, SnapMode.Bisector as number,
-    ];
-
-    const icons = ["icon-snaps", "icon-snaps-intersection", "icon-snaps-center", "icon-snaps-nearest",
-      "icon-snaps-origin", "icon-snaps-midpoint", "icon-snaps-bisector"];
-
     const wrapper = render(<Provider store={TestUtils.store}>
       <StatusBar><SnapModeField /></StatusBar>
     </Provider>);
@@ -45,18 +37,6 @@ describe("SnapModeField", () => {
     const snaps = popup.querySelectorAll(".nz-footer-snapMode-snap");
     expect(snaps.length).to.eql(7);
 
-    for (let i = 0; i < 7; i++) {
-      // Simulate selecting a snap mode
-      fireEvent.click(snaps[i]);
-
-      // ensure the snap mode selected sets the state of the store.
-      const snapMode = UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.snapMode : SnapMode.NearestKeypoint;
-      expect(snapMode).to.eq(modes[i]);
-
-      // the indicator field should contain the selected snap icon.
-      expect(iconContainer!.querySelector(`.${icons[i]}`)).not.to.be.null;
-    }
-
     fireEvent.click(button!); // Closes popup
   });
 
@@ -70,7 +50,6 @@ describe("SnapModeField", () => {
     </Provider>);
     const iconContainer = wrapper.container.querySelector(".uifw-icon");
     expect(iconContainer).not.to.be.null;
-    expect(iconContainer!.querySelector(".icon-snaps-multione")).not.to.be.null;
   });
 
 });

@@ -140,7 +140,7 @@ describe("<SolarTimeline />", () => {
     // hit play/pause button to start animation
     const playButton = renderedComponent.getByTestId("play-button");
     expect(dataProvider.timeChangeCallbackCalled).to.be.false;
-    expect(renderedComponent.container.getElementsByClassName("icon-media-controls-play").length).to.eq(1);
+    expect(renderedComponent.getAllByTestId("play").length).to.eq(1);
 
     fireEvent.click(playButton);
     try {
@@ -151,7 +151,7 @@ describe("<SolarTimeline />", () => {
       const update1Button = await waitFor(() => renderedComponent.getByTestId("play-button"));
       if (update1Button) {
         expect(dataProvider.timeChangeCallbackCalled).to.be.true;
-        expect(renderedComponent.container.getElementsByClassName("icon-media-controls-pause").length).to.eq(1);
+        expect(renderedComponent.getAllByTestId("pause").length).to.eq(1);
       }
       // hit play/pause button to pause animation
       fireEvent.click(playButton);

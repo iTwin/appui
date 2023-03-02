@@ -13,11 +13,12 @@ import classnames from "classnames";
 import { ConditionalStringValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import { CommonProps } from "../utils/Props";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
+import { ConditionalIconItem } from "./ConditionalIconItem";
 
 /** Prototype for an IconSpec which can be a string, ReactNode or ConditionalStringValue.
  * @public
  */
-export type IconSpec = string | ConditionalStringValue | React.ReactNode;
+export type IconSpec = string | ConditionalStringValue | React.ReactNode | ConditionalIconItem;
 
 /** Properties for the [[Icon]] React component
  * @public

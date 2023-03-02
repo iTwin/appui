@@ -12,8 +12,16 @@ import { SnapMode } from "@itwin/core-frontend";
 import { Snap, SnapModePanel } from "@itwin/appui-layout-react";
 import { ConfigurableUiActions } from "../configurableui/state";
 import { UiFramework } from "../UiFramework";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps, Icon, IconSpec } from "@itwin/core-react";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
+import snapModeKeypoint from "@bentley/icons-generic/icons/snaps.svg";
+import snapModeIntersection from "@bentley/icons-generic/icons/snaps-intersection.svg";
+import snapModeCenter from "@bentley/icons-generic/icons/snaps-center.svg";
+import snapModeNearest from "@bentley/icons-generic/icons/snaps-nearest.svg";
+import snapModeOrigin from "@bentley/icons-generic/icons/snaps-origin.svg";
+import snapModeMidpoint from "@bentley/icons-generic/icons/snaps-midpoint.svg";
+import snapModeBisector from "@bentley/icons-generic/icons/snaps-bisector.svg";
 
 // cSpell:ignore multione
 
@@ -79,7 +87,7 @@ class SnapModeFieldComponent extends React.Component<SnapModeFieldProps, SnapMod
     return (
       <>
         <StatusBarLabelIndicator
-          iconSpec={`icon-${this.getSnapModeIconNameFromMode(this.props.snapMode)}`}
+          iconSpec={`${this.getIconFromIconName(`${this.getSnapModeIconNameFromMode(this.props.snapMode)}`)}`}
           title={this._title}
           label={this._title}
           popup={
@@ -92,18 +100,48 @@ class SnapModeFieldComponent extends React.Component<SnapModeFieldProps, SnapMod
     );
   }
 
+  /** Return an IconSpec with a web component icon to replace the icons that we used to load from the webfont */
+  private getIconFromIconName(iconName: string): IconSpec {
+    let iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
+    switch (iconName) {
+      case "snaps":
+        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
+        break;
+      case "snaps-intersection":
+        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeIntersection);
+        break;
+      case "snaps-center":
+        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeCenter);
+        break;
+      case "snaps-nearest":
+        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeNearest);
+        break;
+      case "snaps-origin":
+        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeOrigin);
+        break;
+      case "snaps-midpoint":
+        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeMidpoint);
+        break;
+      case "snaps-bisector":
+        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeBisector);
+        break;
+    }
+    return iconSpec;
+  }
+
   /** Return array of SnapRow elements, one for each support snap mode. This array will populate the pop-up used
     * to select a SnapMode.
     */
   private getSnapEntries(): JSX.Element[] {
     return this._snapModeFieldArray.map((item: SnapModeFieldEntry, index: number) => {
+      const iconSpec = this.getIconFromIconName(item.iconName);
       return (
         <Snap
           key={`SM_${index}`}
           onClick={() => this._handleSnapModeFieldClick(item.value)}
           isActive={(this.props.snapMode & item.value) === item.value}
           icon={
-            <i className={`icon icon-${item.iconName}`} />
+            <Icon className={`icon`} iconSpec={iconSpec} />
           }
         >
           {item.label}

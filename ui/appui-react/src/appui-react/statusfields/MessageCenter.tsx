@@ -13,7 +13,8 @@ import { MessageManager } from "../messages/MessageManager";
 import { MessageSpan } from "../messages/MessageSpan";
 import { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps, Icon } from "@itwin/core-react";
+import classnames from "classnames";
 
 /** Enum for the [[MessageCenterField]] active tab
  * @internal
@@ -166,13 +167,14 @@ export class MessageCenterField extends React.Component<CommonProps, MessageCent
       /* istanbul ignore else */
       if (this.state.activeTab === MessageCenterActiveTab.AllMessages || this.isProblemStatus(details.priority)) {
 
-        const iconClassName = MessageManager.getIconClassName(details);
+        const iconClassName = classnames("icon", "notifymessage-icon");
+        const iconSpec = MessageManager.getIconSpecFromDetails(details);
         const message = details.briefMessage;
 
         tabRows.push(
           <MessageCenterMessage
             key={index.toString()}
-            icon={<i className={iconClassName} />}
+            icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
           >
             <MessageSpan message={message} />
             {details.detailedMessage &&

@@ -6,7 +6,7 @@
  * @module Tools
  */
 
-// cSpell:ignore keyinbrowser
+import * as React from "react";// cSpell:ignore keyinbrowser
 import {
   FitViewTool, FlyViewTool, IModelApp, MeasureDistanceTool, MeasureLocationTool, PanViewTool, RotateViewTool, SelectionTool, SetupWalkCameraTool,
   ViewClipByElementTool, ViewClipByPlaneTool, ViewClipByRangeTool, ViewClipByShapeTool, ViewClipDecorationProvider, ViewRedoTool, ViewToggleCameraTool,
@@ -22,6 +22,11 @@ import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool";
 import { UiFramework } from "../UiFramework";
 import cameraAnimationIcon from "@itwin/itwinui-icons/icons/camera-animation.svg";
 import cameraAnimationDisabledIcon from "@itwin/itwinui-icons/icons/camera-animation-disabled.svg";
+import svgGyroscope from "@bentley/icons-generic/icons/gyroscope.svg";
+import svgRotateLeft from "@bentley/icons-generic/icons/rotate-left.svg";
+import svgSectionTool from "@bentley/icons-generic/icons/section-tool.svg";
+import svgSelectionClear from "@bentley/icons-generic/icons/selection-clear.svg";
+import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
 
 /** Utility Class that provides definitions of tools provided by the ($core-frontend) core. These definitions can be used to populate the UI.
  * @public
@@ -31,7 +36,7 @@ export class CoreTools {
   public static get keyinPaletteButtonItemDef() {
     return new ToolItemDef({
       toolId: "uif:keyinpalette",
-      iconSpec: "icon-process",
+      iconSpec: <SvgProcess />,
       labelKey: "UiFramework:keyinbrowser.label",
       execute: () => { IModelApp.uiAdmin.showKeyinPalette(); },
     });
@@ -83,8 +88,8 @@ export class CoreTools {
       iconSpec: new ConditionalStringValue(() => {
         const activeContentControl = UiFramework.content.getActiveContentControl();
         if (activeContentControl?.viewport?.view.is2d())
-          return "icon-rotate-left";
-        return "icon-gyroscope";
+          return IconSpecUtilities.createWebComponentIconSpec(svgRotateLeft);
+        return IconSpecUtilities.createWebComponentIconSpec(svgGyroscope);
       }, [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SyncUiEventId.ViewStateChanged]),
       label: RotateViewTool.flyover,
       description: RotateViewTool.description,
@@ -270,7 +275,7 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "sectionTools-group",
       labelKey: "UiFramework:tools.sectionTools",
-      iconSpec: "icon-section-tool",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSectionTool),
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl = UiFramework.content.getActiveContentControl();
         return !!activeContentControl?.viewport?.view.is2d();
@@ -290,7 +295,7 @@ export class CoreTools {
       groupId: "sectionTools-group-with-panel",
       labelKey: "UiFramework:tools.sectionTools",
       panelLabelKey: "UiFramework:tools.sectionPanelLabel",
-      iconSpec: "icon-section-tool",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSectionTool),
       isHidden: new ConditionalBooleanValue(() => {
         const activeContentControl = UiFramework.content.getActiveContentControl();
         return !!activeContentControl?.viewport?.view.is2d();
@@ -351,7 +356,7 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "measureTools-group",
       labelKey: "UiFramework:tools.measureTools",
-      iconSpec: "icon-measure",
+      iconSpec: <SvgMeasure />,
       items: [this.measureDistanceToolItemDef, this.measureLocationToolItemDef],
       itemsInColumn: 2,
     });
@@ -360,7 +365,7 @@ export class CoreTools {
   public static get clearSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearSelection",
-      iconSpec: "icon-selection-clear",
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgSelectionClear),
       labelKey: "UiFramework:buttons.clearSelection",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => {
