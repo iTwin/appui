@@ -5,5 +5,5 @@
 import { defineTest } from "jscodeshift/src/testUtils";
 
 describe("layout-react", () => {
-  defineTest(__dirname, "./layout-react", null, "layout-react", { parser: "ts" });
+  defineTest(__dirname, "./layout-react", null, "layout-react", { parser: "tsx" });
 });

@@ -1,0 +1,17 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
+*--------------------------------------------------------------------------------------------*/
+import { ASTPath, ExpressionStatement, JSCodeshift, JSXAttribute, JSXIdentifier } from "jscodeshift";
+
+export function isExpressionsStatement(j: JSCodeshift, path: any): path is ASTPath<ExpressionStatement> {
+  return j(path).isOfType(j.ExpressionStatement);
+}
+
+export function isJSXIdentifier(j: JSCodeshift, path: any): path is JSXIdentifier {
+  return j(path).isOfType(j.JSXIdentifier);
+}
+
+export function isJSXAttribute(j: JSCodeshift, path: any): path is JSXAttribute {
+  return j(path).isOfType(j.JSXAttribute);
+}

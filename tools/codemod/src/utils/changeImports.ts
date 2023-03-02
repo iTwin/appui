@@ -4,8 +4,25 @@
 *--------------------------------------------------------------------------------------------*/
 import { ASTPath, ImportDeclaration, ImportSpecifier, JSCodeshift, Collection } from "jscodeshift";
 import retainFirstComment from "./retainFirstComment";
+import { isJSXIdentifier } from "./typeGuards";
 
 export type ImportChanges = Map<string, string>;
+
+function splitChangePath(change: string): [string, string] {
+  const substrings = change.split(".");
+  if (substrings.length !== 2)
+    throw new Error(`Import change '${change}' should define both package and declaration, i.e. '@scope/package.Component'.`)
+  return [substrings[0], substrings[1]];
+}
+
+function findReplacement(key: string, changes: ImportChanges) {
+  const replacement = changes.get(key);
+  if (!replacement)
+    return undefined;
+
+  const [pckg, name] = splitChangePath(replacement);
+  return { pckg, name };
+}
 
 interface MovedSpecifier {
   specifier: ImportSpecifier;
@@ -49,11 +66,11 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
       // Figure out new imports.
       const newImports = new Map<string, Array<string>>();
       for (const specifier of declarationSpecifiers) {
-        const replacement = changes.get(specifier.key);
+        const replacement = findReplacement(specifier.key, changes);
         if (!replacement)
           continue;
 
-        const [pckg, name] = replacement.split(".");
+        const { pckg, name } = replacement;
         let newImport = newImports.get(pckg);
         if (!newImport) {
           newImport = [];
@@ -70,6 +87,29 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
       }
     }
 
+    const specifiers = Array.from(specifiersByDeclaration.values()).reduce((acc, curr) => {
+      acc.push(...curr);
+      return acc;
+    }, [])
+    root.findJSXElements().forEach((node) => {
+      const identifier = node.value.openingElement.name;
+      if (!isJSXIdentifier(j, identifier))
+        return;
+
+      const specifier = specifiers.find((s) => s.specifier.local?.name === identifier.name);
+      if (!specifier)
+        return;
+
+      if (specifier.specifier.local?.name === identifier.name) {
+        const replacement = findReplacement(specifier.key, changes);
+        if (!replacement)
+          return;
+
+        identifier.name = replacement.name;
+      }
+    });
+
+    // Remove old declarations.
     importDeclarations.forEach((path) => {
       path.replace();
     });
