@@ -41,6 +41,7 @@ import {
   CustomFrontstageProvider, FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, MessageUiItemsProvider, SynchronizedFloatingViewportStage, WidgetApiStage,
 } from "@itwin/appui-test-providers";
 import { useHandleURLParams } from "./UrlParams";
+import { addExampleFrontstagesToBackstage, registerExampleFrontstages } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -260,6 +261,9 @@ export class SampleAppIModelApp {
     // we create a Frontstage that contains the views that we want.
     let stageId: string;
     const defaultFrontstage = MainFrontstage.stageId;
+
+    registerExampleFrontstages();
+    addExampleFrontstagesToBackstage();
 
     // Reset QuantityFormatter UnitsProvider with new iModelConnection
     // Remove comments once RPC error processing is fixed
