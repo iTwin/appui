@@ -22,9 +22,10 @@ function splitChangePath(change: string) {
 
 function findReplacement(key: string, changes: ImportChanges) {
   const replacement = changes.get(key);
-  if (!replacement)
+  if (replacement === undefined)
     return undefined;
-
+  if (replacement === "")
+    return "removal";
   return splitChangePath(replacement);
 }
 
@@ -36,42 +37,39 @@ interface MovedSpecifier {
 export default function changeImports(j: JSCodeshift, root: Collection, changes: ImportChanges) {
   retainFirstComment(j, root, () => {
     const specifiersByDeclaration = new Map<ASTPath<ImportDeclaration>, MovedSpecifier[]>();
-    const importDeclarations = root
-      .find(ImportDeclaration)
-      .filter((path) => {
-        let api: string;
-        const declaration = path.value;
-        const from = declaration.source.value;
+    root.find(ImportDeclaration).forEach((path) => {
+      let api: string;
+      const declaration = path.value;
+      const from = declaration.source.value;
 
-        let movedSpecifiers: MovedSpecifier[] = [];
-        const specifiers = path.value.specifiers || [];
-        for (const specifier of specifiers) {
-          if (specifier.type === "ImportSpecifier") {
-            api = specifier.imported.name;
-            const key = `${from}.${api}`;
-            if (!changes.has(key))
-              continue;
+      let movedSpecifiers: MovedSpecifier[] = [];
+      const specifiers = path.value.specifiers || [];
+      for (const specifier of specifiers) {
+        if (specifier.type === "ImportSpecifier") {
+          api = specifier.imported.name;
+          const key = `${from}.${api}`;
+          if (!changes.has(key))
+            continue;
 
-            movedSpecifiers.push({
-              specifier,
-              key,
-            });
-          }
+          movedSpecifiers.push({
+            specifier,
+            key,
+          });
         }
+      }
 
-        if (movedSpecifiers.length === 0)
-          return false;
+      if (movedSpecifiers.length === 0)
+        return;
 
-        specifiersByDeclaration.set(path, movedSpecifiers);
-        return true;
-      });
+      specifiersByDeclaration.set(path, movedSpecifiers);
+    });
 
-    for (const [declaration, declarationSpecifiers] of specifiersByDeclaration) {
-      // Figure out new imports.
+    // Add new specifiers.
+    for (const [declaration, movedSpecifiers] of specifiersByDeclaration) {
       const newImports = new Map<string, Set<string>>();
-      for (const specifier of declarationSpecifiers) {
-        const replacement = findReplacement(specifier.key, changes);
-        if (!replacement)
+      for (const movedSpecifier of movedSpecifiers) {
+        const replacement = findReplacement(movedSpecifier.key, changes);
+        if (!replacement || replacement === "removal")
           continue;
 
         const { pckg, name, module } = replacement;
@@ -83,7 +81,6 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
         newImport.add(module ? module : name);
       }
 
-      // Add specifiers.
       for (const [pckg, specifierNames] of newImports) {
         const specifiers = Array.from(specifierNames).map((name) => j.importSpecifier(j.identifier(name)));
         const newDeclaration = addSpecifiers(j, root, specifiers, pckg);
@@ -91,6 +88,7 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
       }
     }
 
+    // Update JSX elements.
     const specifiers = Array.from(specifiersByDeclaration.values()).reduce((acc, curr) => {
       acc.push(...curr);
       return acc;
@@ -106,7 +104,7 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
 
       if (specifier.specifier.local?.name === identifier.name) {
         const replacement = findReplacement(specifier.key, changes);
-        if (!replacement)
+        if (!replacement || replacement === "removal")
           return;
 
         identifier.name = replacement.name;
@@ -117,9 +115,17 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
       }
     });
 
-    // Remove old declarations.
-    importDeclarations.forEach((path) => {
-      path.replace();
-    });
+    // Remove specifiers.
+    for (const [declaration, movedSpecifiers] of specifiersByDeclaration) {
+      const specifiersToRemove: Required<ImportDeclaration>["specifiers"] = movedSpecifiers.map((specifier) => specifier.specifier);
+      declaration.value.specifiers = declaration.value.specifiers?.filter((currentSpecifier) => {
+        return specifiersToRemove.indexOf(currentSpecifier) === -1;
+      });
+
+      // Remove declaration.
+      if (declaration.value.specifiers?.length === 0) {
+        declaration.replace();
+      }
+    }
   });
 }

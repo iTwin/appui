@@ -177,4 +177,33 @@ describe("changeImports", () => {
     `,
     "should not add duplicate specifiers"
   );
+
+  defineInlineTest(
+    createTransform(new Map([
+      ["@itwin/from.a", "@itwin/to.a"],
+    ])),
+    {},
+    `
+    import { a, c } from "@itwin/from";
+    `,
+    `
+    import { c } from "@itwin/from";
+    import { a } from "@itwin/to";
+    `,
+    "should remove changed specifier"
+  );
+
+  defineInlineTest(
+    createTransform(new Map([
+      ["@itwin/from.a", ""],
+    ])),
+    {},
+    `
+    import { a, b } from "@itwin/from";
+    `,
+    `
+    import { b } from "@itwin/from";
+    `,
+    "should remove specifier"
+  );
 });
