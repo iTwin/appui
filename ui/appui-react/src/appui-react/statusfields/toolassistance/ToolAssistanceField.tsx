@@ -48,6 +48,7 @@ import mouseWheelClickIcon from "./mouse-click-wheel.svg";
 import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
 import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
+import { SvgClose, SvgPin} from "@itwin/itwinui-icons-react";
 
 // cSpell:ignore cursorprompt
 
@@ -408,7 +409,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
                     onClick={this._handlePinButtonClick}
                     title={UiFramework.translate("toolAssistance.pin")}
                   >
-                    <i className={"icon icon-pin"} />
+                    <Icon iconSpec={<SvgPin />} />
                   </StatusBarDialog.TitleBarButton>
                 }
                 {this.state.isPinned &&
@@ -416,7 +417,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
                     onClick={this._handleCloseButtonClick}
                     title={UiCore.translate("dialog.close")}
                   >
-                    <i className={"icon icon-close"} />
+                    <Icon iconSpec={<SvgClose />} />
                   </StatusBarDialog.TitleBarButton>
                 }
               </>
@@ -506,7 +507,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       if (instruction.image.length > 0) {
         const svgSource = IconSpecUtilities.getWebComponentSource(instruction.image);
         const className = (svgSource !== undefined) ? "uifw-toolassistance-svg" : "uifw-toolassistance-icon-large";
-        image = <div className={className}><Icon iconSpec={instruction.image} /></div>;
+        image = <div className={className}><Icon iconSpec={svgSource} /></div>;
       }
     } else if (instruction.image === ToolAssistanceImage.Keyboard) {
       if (instruction.keyboardInfo) {
