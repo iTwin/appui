@@ -3,26 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { ExpressionKind, JSXNamespacedNameKind, LiteralKind, JSXExpressionContainerKind, JSXElementKind, JSXFragmentKind, IdentifierKind } from "ast-types/gen/kinds";
-import { ASTPath, ArrayExpression, ObjectExpression, API, ExpressionStatement, FileInfo, match, JSCodeshift, ObjectProperty, JSXAttribute, JSXIdentifier, JSXExpressionContainer, Property, JSXEmptyExpression, Expression, JSXElement, JSXNamespacedName, SpreadProperty, JSXSpreadAttribute } from "jscodeshift";
-
-interface ConfigProperty extends ObjectProperty {
-}
-
-type AttributeHandle = (j: JSCodeshift, attr: JSXAttribute | JSXSpreadAttribute | ConfigProperty) => ConfigProperty;
-
-const skipAttribute: AttributeHandle = () => [{}, {}];
-
-const renameAttribute: AttributeHandle = function <Key extends string>(j, attr) {
-
-  return [{}, {}];
-}
-const unwrapAttribute: AttributeHandle = (j, attr) => {
-
-  return [{}, {}];
-}
-
-const frontstageAttrHandles = new Map<string, AttributeHandle>();
+import { ASTPath, ObjectExpression, API, FileInfo, JSCodeshift, ObjectProperty, JSXAttribute, JSXElement, SpreadProperty } from "jscodeshift";
+import { isArrayExpression, isJSXAttribute, isJSXElement, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier } from "./Utils/TypeCheck";
 
 const frontstageAttrNames = {
   "key": "",
@@ -96,7 +78,7 @@ function transformWidget(j: JSCodeshift, widget: ASTPath<JSXElement>): ObjectExp
     const expression = getAttributeExpression(j, attr);
 
     const property = j.objectProperty(
-      skipAttribute(j, attr).name,
+      j.identifier(name),
       expression,
     );
     properties.push(property);
@@ -111,7 +93,6 @@ function transformZone(j: JSCodeshift, zone: ASTPath<JSXElement>): ObjectExpress
       throw new Error('Unsupported attribute');
     }
 
-    // const name = attr.name.name;
     const value = attr.value;
     if (isJSXExpressionContainer(j, value) && isArrayExpression(j, value.expression)) {
       const elements = value.expression.elements;
@@ -196,28 +177,3 @@ function getAttributeName(j: JSCodeshift, attribute: JSXAttribute, map): string 
   const name = isJSXIdentifier(j, attribute.name) ? map[attribute.name.name] : undefined;
   return name !== "" ? name : undefined;
 }
-
-function isArrayExpression(j: JSCodeshift, path: any): path is ArrayExpression {
-  return j(path).isOfType(j.ArrayExpression);
-}
-
-function isJSXElement(j: JSCodeshift, path: any): path is JSXElement {
-  return j(path).isOfType(j.JSXElement);
-}
-
-function isJSXEmptyExpression(j: JSCodeshift, path: any): path is JSXEmptyExpression {
-  return j(path).isOfType(j.JSXEmptyExpression);
-}
-
-function isJSXExpressionContainer(j: JSCodeshift, path: any): path is JSXExpressionContainer {
-  return j(path).isOfType(j.JSXExpressionContainer);
-}
-
-function isJSXIdentifier(j: JSCodeshift, path: any): path is JSXIdentifier {
-  return j(path).isOfType(j.JSXIdentifier);
-}
-
-function isJSXAttribute(j: JSCodeshift, path: any): path is JSXAttribute {
-  return j(path).isOfType(j.JSXAttribute);
-}
-
