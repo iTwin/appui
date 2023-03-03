@@ -3,25 +3,19 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { API, FileInfo } from "jscodeshift";
-import abstract from "./abstract";
-import layoutReact from "./layout-react";
-import react from "./react";
-import widgetToConfig from "./widget-to-config";
+import changeImports from "../utils/changeImports";
 
-const transforms = [
-  widgetToConfig,
-  layoutReact,
-  abstract,
-  react,
-];
+const importChanges = new Map<string, string>([
+  ["@itwin/appui-react.CommonWidgetProps", "@itwin/appui-react.Widget"],
+  ["@itwin/appui-react.WidgetProps", "@itwin/appui-react.Widget"],
+]);
 
 export default function transformer(file: FileInfo, api: API) {
-  let src = file.source;
-  transforms.forEach((transform) => {
-    if (!src)
-      return;
-    src = transform({ ...file, source: src }, api);
-  });
+  const j = api.jscodeshift;
 
-  return src;
+  const root = j(file.source);
+
+  changeImports(j, root, importChanges);
+
+  return root.toSource();
 }
