@@ -15,7 +15,7 @@ resources:
       type: github
       endpoint: iModelJs
       name: iTwin/itwinjs-core
-      ref: refs/heads/raplemie/docsUpdate
+      ref: refs/heads/master
 
 stages:
   - stage: Generate_Docs
