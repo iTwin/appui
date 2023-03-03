@@ -3,10 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { JSCodeshift, JSXAttribute, ArrayExpression, JSXElement, JSXEmptyExpression, JSXExpressionContainer, JSXIdentifier } from "jscodeshift";
-import { ConfigProperty } from "./ElementToConfig";
+import { ConfigProperty, ElementAttribute } from "./ElementToConfig";
 
-export function isAttrOrProp(j: JSCodeshift, path: any): path is JSXAttribute | ConfigProperty {
-  return (j(path).isOfType(j.ArrayExpression) || path.type === "ConfigProperty");
+export function isAttrOrProp(j: JSCodeshift, path: any): path is ElementAttribute | ConfigProperty {
+
+  return (path.type === "ElementAttribute" || path.type === "ConfigProperty");
 }
 
 export function isArrayExpression(j: JSCodeshift, path: any): path is ArrayExpression {
