@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { ImportSpecifier, JSCodeshift, JSXAttribute, JSXIdentifier } from "jscodeshift";
+import { Identifier, ImportSpecifier, JSCodeshift, JSXAttribute, JSXIdentifier } from "jscodeshift";
 
 type Source = Parameters<JSCodeshift>[0];
 
@@ -16,4 +16,8 @@ export function isJSXAttribute(j: JSCodeshift, source: Source): source is JSXAtt
 
 export function isImportSpecifier(j: JSCodeshift, source: Source): source is ImportSpecifier {
   return j(source).isOfType(j.ImportSpecifier);
+}
+
+export function isIdentifier(j: JSCodeshift, source: Source): source is Identifier {
+  return j(source).isOfType(j.Identifier);
 }

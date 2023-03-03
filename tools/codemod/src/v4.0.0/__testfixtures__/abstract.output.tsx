@@ -3,3 +3,5 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { BackstageItem, isBackstageActionItem, StatusBarItem } from "@itwin/appui-react";
+
+const x: StatusBarItem["id"] = "";
