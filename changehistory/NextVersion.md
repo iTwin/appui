@@ -5,6 +5,7 @@ Table of contents:
 - [NextVersion](#nextversion)
   - [@itwin/appui-layout-react](#itwinappui-layout-react)
   - [@itwin/appui-abstract](#itwinappui-abstract)
+  - [@itwin/appui-react](#itwinappui-react)
 
 ## @itwin/appui-layout-react
 
@@ -75,3 +76,56 @@ AppUI related definitions from `@itwin/appui-abstract` are moved into `@itwin/ap
 | `UiItemProviderOverrides`                 | `UiItemsProviderOverrides`              |
 | `UiItemsManager`                          | `UiItemsManager`                        |
 | `StageUsage`                              | `StageUsage`                            |
+
+## @itwin/appui-react
+
+// TODO: document Element -> Config changes of `FrontstageProvider`.
+
+`CommonWidgetProps` and `WidgetProps` types are replaced by `Widget` interface:
+
+- `allowedPanelTargets` renamed to `allowedPanels`. Array type changed from union of strings to `StagePanelLocation`
+- `isFloatingStateSupported` renamed to `canFloat`. Type changed to union of `boolean` or `CanFloatWidgetOptions`:
+  - `isFloatingStateWindowResizable` can be configured via `canFloat.isResizable`
+  - `floatingContainerId` can be configured via `canFloat.containerId`
+  - `defaultFloatingPosition` can be configured via `canFloat.defaultPosition`
+  - `defaultFloatingSize` can be configured via `canFloat.defaultSize`
+  - `hideWithUiWhenFloating` can be configured via `canFloat.hideWithUi`
+- Removed `onWidgetStateChanged`, `saveTransientState`, `restoreTransientState`
+- Removed `internalData`, `applicationData`
+- `getWidgetContent()` replaced by `content`
+- `icon` type changed to `IconSpec`
+- `id` is now required
+- `badgeType` renamed to `badge`
+
+`WidgetConfig`:
+
+- Removed `control`, `classId` in favor of `content`
+
+`StatusBarItem`:
+
+- `badgeType` renamed to `badge`
+- `icon` type changed to `IconSpec`
+
+`StatusBarCustomItem`:
+
+- `reactNode` renamed to `content`
+
+`ToolbarItem`:
+
+- Removed `applicationData`, `internalData`, `isPressed`
+- `icon` type changed to `IconSpec`
+- `badgeType` renamed to `badge`
+- `parentToolGroupId` renamed to `parentGroupItemId`. Narrowed down the type to accept only `ToolbarActionItem` and `ToolbarGroupItem`
+
+`UiItemsProvider`:
+
+- Properties marked as readonly
+- `provideToolbarButtonItems` renamed to `provideToolbarItems`
+
+`BackstageItem`:
+
+- Removed `applicationData`, `internalData`
+- `badgeType` renamed to `badge`
+- `icon` type changed to `IconSpec`
+
+UI item provider types no longer extend from `ProviderItem`.
