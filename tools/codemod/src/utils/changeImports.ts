@@ -118,7 +118,7 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
       }
     });
 
-    // Update reference types
+    // Update reference types.
     root.find(j.TSTypeReference).forEach((path) => {
       const typeName = path.value.typeName;
       if (!isIdentifier(j, typeName))
@@ -140,6 +140,23 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
           j.tsLiteralType(j.stringLiteral(indexType)),
         );
       }
+    });
+
+    // Update expressions.
+    root.find(j.MemberExpression).forEach((path) => {
+      const object = path.value.object;
+      if (!isIdentifier(j, object))
+        return;
+
+      const specifier = specifiers.find((s) => s.specifier.local?.name === object.name);
+      if (!specifier)
+        return;
+
+      const replacement = findReplacement(specifier.key, changes);
+      if (!replacement || replacement === "removal")
+        return;
+
+      object.name = replacement.name;
     });
 
     // Remove specifiers.

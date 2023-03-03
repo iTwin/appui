@@ -229,4 +229,20 @@ describe("changeImports", () => {
     `,
     "should change to indexed access type"
   );
+
+  defineInlineTest(
+    tsxModule(createTransform(new Map([
+      ["@itwin/from.A", "@itwin/to.B"],
+    ]))),
+    {},
+    `
+    import { A } from "@itwin/from";
+    A.test("x");
+    `,
+    `
+    import { B } from "@itwin/to";
+    B.test("x");
+    `,
+    "should update member expression"
+  );
 });
