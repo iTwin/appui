@@ -129,17 +129,22 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
         return;
 
       const replacement = findReplacement(specifier.key, changes);
-      if (!replacement || replacement === "removal" || !replacement.isIndexedAccessType)
+      if (!replacement || replacement === "removal")
         return;
+
+      if (!replacement.isIndexedAccessType) {
+        typeName.name = replacement.name;
+        return;
+      }
 
       const indexType = replacement.name.split(`["`)[1].split(`"]`)[0];
       const typeAnnotation = j(path).closest(j.TSTypeAnnotation).nodes()[0];
-      if (typeAnnotation) {
-        typeAnnotation.typeAnnotation = j.tsIndexedAccessType(
-          j.tsTypeReference(j.identifier(replacement.module)),
-          j.tsLiteralType(j.stringLiteral(indexType)),
-        );
-      }
+      if (!typeAnnotation)
+        return;
+      typeAnnotation.typeAnnotation = j.tsIndexedAccessType(
+        j.tsTypeReference(j.identifier(replacement.module)),
+        j.tsLiteralType(j.stringLiteral(indexType)),
+      );
     });
 
     // Update expressions.

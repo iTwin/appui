@@ -11,3 +11,4 @@ import {
 
 const x: StatusBarItem["id"] = "";
 StatusBarItemUtilities.createActionItem("item-id");
+const items: StatusBarItem[] = [];
