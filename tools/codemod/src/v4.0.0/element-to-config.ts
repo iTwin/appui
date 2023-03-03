@@ -4,6 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { ASTPath, ObjectExpression, API, FileInfo, JSCodeshift, ObjectProperty, JSXAttribute, JSXElement, SpreadProperty } from "jscodeshift";
+import { isJsxAttribute } from "typescript";
+import { AttributeHandle, ConfigProperty, ConfigToObjectProperty, frontstageAttrHandles, JSXtoElementAttribute } from "./Utils/ElementToConfig";
 import { isArrayExpression, isJSXAttribute, isJSXElement, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier } from "./Utils/TypeCheck";
 
 const frontstageAttrNames = {
@@ -146,15 +148,38 @@ function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXElement>): O
   return j.objectExpression(properties);
 }
 
+function handleJSXElement(j: JSCodeshift, element: ASTPath<JSXElement>, handles: Map<string, AttributeHandle | undefined>): ConfigProperty[] {
+  const props: ConfigProperty[] = [];
+  element.node.openingElement.attributes.forEach((attr) => {
+    if (!isJSXAttribute(j, attr))
+      return;
+
+    const elAttr = JSXtoElementAttribute(j, attr);
+    const attrHandle = handles.get(elAttr.name.name);
+    if (attrHandle === undefined)
+      return;
+    const configProp = attrHandle(j, elAttr);
+    props.push(configProp);
+  });
+  return props;
+}
+
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
 
   const root = j(file.source);
 
   const frontstages = root.findJSXElements("Frontstage");
+  // frontstages.forEach((frontstage) => {
+  //   const config = transformFrontstage(j, frontstage)
+  //   frontstage.replace(config);
+  // });
+
   frontstages.forEach((frontstage) => {
-    const config = transformFrontstage(j, frontstage)
-    frontstage.replace(config);
+    const configProps = handleJSXElement(j, frontstage, frontstageAttrHandles);
+    const props = configProps.map((configProp) => ConfigToObjectProperty(j, configProp));
+    const obj = j.objectExpression(props);
+    frontstage.replace(obj);
   });
 
   return root.toSource({ trailingComma: true });
