@@ -24,7 +24,7 @@
   }
 
   &[data-isactive="true"] > .rule-group-content {
-    border-color: var(--iui-color-border);
+    border-color: var(--iui-color-border-foreground-hover);
   }
 
   &[data-isactive="false"]
@@ -43,7 +43,7 @@
     padding-left: var(--iui-size-s);
     border-left: 1px solid;
     box-sizing: border-box;
-    border-color: var(--iui-color-border);
+    border-color: var(--iui-color-border-subtle);
 
     .rule-group-operator {
       padding: 3px 0;
