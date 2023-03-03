@@ -23,19 +23,19 @@
 
 .virtualized-grid-node {
   > :not(.virtualized-grid-node-category) {
-    background: var(--iui-color-background-1);
+    background: var(--iui-color-background);
   }
 
   .nested-border-middle {
     height: 100%;
     padding: 0 4px;
     box-sizing: border-box;
-    border-left: 1px solid var(--iui-color-background-4);
-    border-right: 1px solid var(--iui-color-background-4);
+    border-left: 1px solid var(--iui-color-border);
+    border-right: 1px solid var(--iui-color-border);
   }
 
   .nested-border-bottom {
-    border-bottom: 1px solid var(--iui-color-background-4);
+    border-bottom: 1px solid var(--iui-color-border);
     padding-bottom: 4px;
   }
 
@@ -67,12 +67,14 @@
 
   .components--hoverable {
     &:hover {
-      // Highlight the whole row of inner-most expandable block
-      margin: 0 -4px;
-      // Compensate the negative margin by adding padding
-      padding: 0 12px;
-
       background: var(--iui-color-background-hover);
+
+      &:not(.components--selected) {
+        // Highlight the whole row of inner-most expandable block
+        margin: 0 -4px;
+        // Compensate the negative margin by adding padding
+        padding: 0 12px;
+      }
     }
   }
 }
