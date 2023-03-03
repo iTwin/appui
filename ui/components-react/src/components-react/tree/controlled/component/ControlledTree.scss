@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
 
 .components-controlledTree-loader {
@@ -23,7 +22,7 @@
 
 .components-controlledTree {
   color: var(--iui-color-text);
-  background-color: $buic-background-control;
+  background-color: var(--iui-color-background);
 
   /**
    * Workaround for horizontal scroll issue.
@@ -71,13 +70,13 @@
   }
 
   @mixin enable-border($edge) {
-    border-#{$edge}: 1px solid $buic-foreground-primary;
+    border-#{$edge}: 1px solid var(--iui-color-icon-accent);
     padding-#{$edge}: 0;
   }
 
   .node-wrapper.is-selected {
     .core-tree-node {
-      background: $buic-row-selection;
+      background: var(--iui-color-background-accent-muted);
       @include enable-border("left");
       @include enable-border("right");
     }

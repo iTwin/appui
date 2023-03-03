@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "../style/themecolors.scss";
 
 .core-tree-expansionToggle {
   &:focus {
@@ -10,16 +9,20 @@
   }
 
   > .toggle {
-
     display: block;
     width: 24px;
     height: 24px;
-    padding: 7px;
+    padding: 6px;
     font-size: 12px;
     box-sizing: border-box;
     transform: rotate(0);
     transition: transform 100ms ease;
     color: var(--iui-color-text);
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
   }
 
   &.is-expanded > .toggle {
