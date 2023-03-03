@@ -5,7 +5,7 @@
 import { ASTPath, ImportDeclaration, ImportSpecifier, JSCodeshift, Collection } from "jscodeshift";
 import addSpecifiers from "./addSpecifiers";
 import retainFirstComment from "./retainFirstComment";
-import { isJSXIdentifier } from "./typeGuards";
+import { isIdentifier, isJSXIdentifier } from "./typeGuards";
 
 export type ImportChanges = Map<string, string>;
 
@@ -16,7 +16,12 @@ function splitChangePath(change: string) {
   const pckg = substrings[0];
   const other = substrings.slice(1);
   const name = other.join(".");
-  const module = substrings.length > 2 ? substrings[1] : undefined;
+  let module = substrings.length > 2 ? substrings[1] : undefined;
+  const isIndexedAccessType = name.includes("[") && name.includes("]");
+  if (isIndexedAccessType) {
+    module = module ?? name.split("[")[0];
+    return { pckg, name, module, isIndexedAccessType: true };
+  }
   return { pckg, name, module };
 }
 
@@ -93,8 +98,8 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
       acc.push(...curr);
       return acc;
     }, []);
-    root.findJSXElements().forEach((node) => {
-      const identifier = node.value.openingElement.name;
+    root.findJSXElements().forEach((path) => {
+      const identifier = path.value.openingElement.name;
       if (!isJSXIdentifier(j, identifier))
         return;
 
@@ -102,16 +107,38 @@ export default function changeImports(j: JSCodeshift, root: Collection, changes:
       if (!specifier)
         return;
 
-      if (specifier.specifier.local?.name === identifier.name) {
-        const replacement = findReplacement(specifier.key, changes);
-        if (!replacement || replacement === "removal")
-          return;
+      const replacement = findReplacement(specifier.key, changes);
+      if (!replacement || replacement === "removal")
+        return;
 
-        identifier.name = replacement.name;
-        const closingIdentifier = node.value.closingElement?.name;
-        if (closingIdentifier && isJSXIdentifier(j, closingIdentifier)) {
-          closingIdentifier.name = replacement.name;
-        }
+      identifier.name = replacement.name;
+      const closingIdentifier = path.value.closingElement?.name;
+      if (closingIdentifier && isJSXIdentifier(j, closingIdentifier)) {
+        closingIdentifier.name = replacement.name;
+      }
+    });
+
+    // Update reference types
+    root.find(j.TSTypeReference).forEach((path) => {
+      const typeName = path.value.typeName;
+      if (!isIdentifier(j, typeName))
+        return;
+
+      const specifier = specifiers.find((s) => s.specifier.local?.name === typeName.name);
+      if (!specifier)
+        return;
+
+      const replacement = findReplacement(specifier.key, changes);
+      if (!replacement || replacement === "removal" || !replacement.isIndexedAccessType)
+        return;
+
+      const indexType = replacement.name.split(`["`)[1].split(`"]`)[0];
+      const typeAnnotation = j(path).closest(j.TSTypeAnnotation).nodes()[0];
+      if (typeAnnotation) {
+        typeAnnotation.typeAnnotation = j.tsIndexedAccessType(
+          j.tsTypeReference(j.identifier(replacement.module)),
+          j.tsLiteralType(j.stringLiteral(indexType)),
+        );
       }
     });
 

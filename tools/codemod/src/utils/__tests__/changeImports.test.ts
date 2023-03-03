@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo } from "jscodeshift";
+import { API, FileInfo, Transform } from "jscodeshift";
 import { defineInlineTest } from "jscodeshift/src/testUtils";
 import changeImports, { ImportChanges } from "../changeImports";
 
@@ -14,6 +14,13 @@ function createTransform(changes: ImportChanges) {
     return root.toSource({
       lineTerminator: "\n",
     });
+  };
+}
+
+function tsxModule(transform: Transform) {
+  return {
+    default: transform,
+    parser: "tsx" as const,
   };
 }
 
@@ -205,5 +212,21 @@ describe("changeImports", () => {
     import { b } from "@itwin/from";
     `,
     "should remove specifier"
+  );
+
+  defineInlineTest(
+    tsxModule(createTransform(new Map([
+      ["@itwin/from.TestId", "@itwin/to.Test[\"id\"]"],
+    ]))),
+    {},
+    `
+    import { TestId } from "@itwin/from";
+    const x: TestId = "";
+    `,
+    `
+    import { Test } from "@itwin/to";
+    const x: Test["id"] = "";
+    `,
+    "should change to indexed access type"
   );
 });
