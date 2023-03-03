@@ -7,12 +7,14 @@ import abstract from "./abstract";
 import layoutReact from "./layout-react";
 import react from "./react";
 import widgetToConfig from "./widget-to-config";
+import widget from "./widget";
 
 const transforms = [
   widgetToConfig,
   layoutReact,
   abstract,
   react,
+  widget,
 ];
 
 export default function transformer(file: FileInfo, api: API) {
