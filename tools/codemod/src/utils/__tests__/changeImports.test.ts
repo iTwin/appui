@@ -243,6 +243,22 @@ describe("changeImports", () => {
     import { B } from "@itwin/to";
     B.test("x");
     `,
-    "should update member expression"
+    "should change member expression"
+  );
+
+  defineInlineTest(
+    tsxModule(createTransform(new Map([
+      ["@itwin/from.A", "@itwin/to.B"],
+    ]))),
+    {},
+    `
+    import { A } from "@itwin/from";
+    const x: A = "";
+    `,
+    `
+    import { B } from "@itwin/to";
+    const x: B = "";
+    `,
+    "should change type name"
   );
 });

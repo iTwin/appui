@@ -6,3 +6,4 @@ import { AbstractStatusBarItemUtilities, BackstageItem, BackstageItemType, Commo
 
 const x: StatusBarItemId = "";
 AbstractStatusBarItemUtilities.createActionItem("item-id");
+const items: CommonStatusBarItem[] = [];
