@@ -12,4 +12,4 @@ These are temporary steps needed before the package is published to the registry
 2. `npm run build`
 3. `npm pack`
 4. *(Optional)* `npm uninstall @itwin/appui-codemod -g`
-5. `npm install itwin-codemods-${packageVersion}.tgz -g`
+5. `npm install itwin-appui-codemod-${packageVersion}.tgz -g`
