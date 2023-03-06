@@ -1,7 +1,3 @@
 {
-  "useWorkspaces": true,
-  "globalOverrides": {
-    "@itwin/itwinui-css": "^1.6.0",
-    "@itwin/itwinui-react": "^2.5.0"
-  }
+  "useWorkspaces": true
 }
