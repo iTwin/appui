@@ -27,15 +27,15 @@ $view-card-height: 150px;
   /* Enable scroll if needed */
   background-color: rgb(0, 0, 0);
   /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, var(--iui-opacity-4));
   /* Black w/ opacity */
 }
 
 .views {
-  background-color: #fefefe;
+  background-color: var(--iui-color-background);
   width: 690px;
   height: 600px;
-  border: 1px solid #888;
+  border: 1px solid var(--iui-color-border);
   position: relative;
   border-radius: 10px;
   display: flex;
@@ -68,7 +68,7 @@ $view-card-height: 150px;
   justify-content: center;
   align-items: center;
   font-size: 1.25em;
-  color: $uicore-gray;
+  color: var(--iui-color-text-muted);
 }
 
 .views-header {
@@ -76,8 +76,8 @@ $view-card-height: 150px;
   padding: 1em;
   display: flex;
   align-items: center;
-  color: $uicore-text-color;
-  border-bottom: 1px solid #eee;
+  color: var(--iui-color-text);
+  border-bottom: 1px solid var(--iui-color-border);
 
   h3 {
     margin: 0;
@@ -95,33 +95,8 @@ $view-card-height: 150px;
   align-items: center;
   margin-top: auto;
   padding: 1em 1.5em;
-  background: #eee;
   display: flex;
 
-  /*
-  .selected-count {
-    display: flex;
-    align-items: center;
-
-    > span {
-      font-weight: 300;
-      font-size: .75em;
-      margin-right: .5em;
-    }
-
-    > div {
-      width: 2em;
-      height: 2em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: $uicore-white;
-      font-size: .75em;
-      border-radius: 50%;
-      background: rgb(148, 147, 147);
-    }
-  }
-*/
   > button {
     margin-left: auto;
     padding-left: 3em;
@@ -136,7 +111,7 @@ $view-card-height: 150px;
       width: 2.5em;
       font-size: 14px;
       transform: translateY(-50%);
-      border-left: 1px solid white;
+      border-left: 1px solid rgba(255,255,255,var(--iui-opacity-4));
     }
   }
 }
@@ -173,31 +148,25 @@ $view-card-height: 150px;
 .view-card {
   width: $view-card-width;
   height: $view-card-height;
-  color: #444;
-  background: #444;
-  border: 4px solid white;
+  color: var(--iui-color-text);
+  background: var(--iui-color-background-zebra);
+  border: 4px solid var(--iui-color-border);
   margin: 1em;
   transition: all 0.4s ease;
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
-  //box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
-  //-webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
-
-  &:hover,
-  &:focus {
-  }
+  border-radius: var(--iui-border-radius-1);
 }
 
 .view-card.isActive {
-  border: 4px solid $uicore-blue;
+  border: 4px solid var(--iui-color-background-accent);
 }
 
 .view-card-content {
   height: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--iui-color-border);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -208,14 +177,14 @@ $view-card-height: 150px;
   overflow: hidden;
   padding: 1em;
   flex: 1;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--iui-color-border);
   box-sizing: border-box;
 }
 
 .view-card-name {
   flex: initial;
   padding: 0.5em;
-  background: $uicore-white;
+  background: var(--iui-color-background);
   font-size: var(--iui-font-size-0);
   text-overflow: ellipsis;
   white-space: nowrap;

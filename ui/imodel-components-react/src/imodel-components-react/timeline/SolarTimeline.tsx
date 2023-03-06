@@ -12,11 +12,11 @@
 import "./SolarTimeline.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Slider, Tooltip } from "@itwin/itwinui-react";
+import { Slider, Text, Tooltip } from "@itwin/itwinui-react";
 
 import { ColorByName, ColorDef, HSVColor } from "@itwin/core-common";
 import { RelativePosition, TimeDisplay } from "@itwin/appui-abstract";
-import { BodyText, CommonProps, Icon, Popup } from "@itwin/core-react";
+import { CommonProps, Icon, Popup } from "@itwin/core-react";
 import { adjustDateToTimezone, DatePicker, TimeField, TimeSpec, UiComponents } from "@itwin/components-react";
 import { HueSlider } from "../color/HueSlider";
 import { SaturationPicker } from "../color/SaturationPicker";
@@ -494,7 +494,7 @@ export class SolarTimeline extends React.PureComponent<SolarTimelineComponentPro
             <div className="components-date-picker-calendar-popup-panel" data-testid="components-date-picker-calendar-popup-panel">
               <DatePicker selected={localTime} onDateChange={this._onDayClick} showFocusOutline={false} />
               <div className="time-container">
-                <BodyText className="time-label">{this._timeLabel}</BodyText>
+                <Text variant="body" className="time-label">{this._timeLabel}</Text>
                 <TimeField time={{ hours: localTime.getHours(), minutes: localTime.getMinutes(), seconds: 0 }} timeDisplay={TimeDisplay.H12MC} onTimeChange={this._onTimeChanged} />
               </div>
             </div>

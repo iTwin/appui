@@ -3,19 +3,18 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .uifw-modal-frontstage {
   height: 100%;
   width: 100%;
   position: absolute;
   box-sizing: border-box;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   pointer-events: none;
   visibility: hidden;
   overflow: hidden;
   background: transparent;
-  transition: background .25s ease, visibility 0s ease 0.275s;
+  transition: background 0.25s ease, visibility 0s ease 0.275s;
 
   display: flex;
   flex-direction: column;
@@ -24,12 +23,12 @@
   @include uicore-z-index(modal-frontstage);
 
   .uifw-modal-app-bar {
-    transition: transform .125s;
+    transition: transform 0.125s;
     padding: 10px;
-    background: $buic-background-titlebar;
+    background: var(--iui-color-background-backdrop);
     height: 60px;
     transform: translateY(-100%);
-
+    box-sizing: initial;
 
     .iui-text-headline {
       display: inline-block;
@@ -39,7 +38,7 @@
     }
 
     .uifw-modal-app-bar-right {
-      color: $buic-foreground-body;
+      color: var(--iui-color-text);
       line-height: 60px;
       vertical-align: center;
       float: right;
@@ -50,7 +49,6 @@
       display: inline-block;
       border-radius: 0; // Turn off circular border from Back.scss in ui-ninezone
     }
-
   }
 
   .uifw-modal-stage-content {
@@ -61,14 +59,13 @@
   &.uifw-modal-open {
     visibility: visible;
     pointer-events: unset;
-    transition: background .25s ease;
+    transition: background 0.25s ease;
 
     .uifw-modal-app-bar {
       transform: translateY(0%);
-      transition: transform .125s ease;
+      transition: transform 0.125s ease;
     }
   }
-
 }
 
 .uifw-modal-frontstage-overlay {
@@ -78,7 +75,7 @@
   top: 0px;
   height: 100%;
   opacity: 0.95;
-  background: $buic-background-4;
+  background: var(--iui-color-background-backdrop);
 
   @include uicore-z-index(modal-frontstage-overlay);
 }

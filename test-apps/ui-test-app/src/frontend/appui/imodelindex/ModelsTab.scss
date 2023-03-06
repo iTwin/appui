@@ -2,9 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/colors";
-
-$border-color: #eeeeee;
 
 /* 3D Models tab */
 .modelstab-container {
@@ -14,7 +11,7 @@ $border-color: #eeeeee;
   padding-bottom: var(--iui-size-m);
   box-sizing: border-box;
   font-size: var(--iui-font-size-1);
-  background: $uicore-gray-c;
+  background: var(--iui-color-background-backdrop);
   position: relative;
   overflow: hidden;
 
@@ -26,7 +23,7 @@ $border-color: #eeeeee;
     padding-left: var(--iui-size-m);
     padding-top: var(--iui-size-m);
     padding-bottom: var(--iui-size-m);
-    border-bottom: 1px solid $uicore-gray-a;
+    border-bottom: 1px solid var(--iui-color-border-subtle);
   }
 
   /* container - flat list of models */
@@ -35,8 +32,8 @@ $border-color: #eeeeee;
     margin-top: var(--iui-size-xs);
     margin-left: var(--iui-size-xs);
     margin-right: var(--iui-size-xs);
-    border: 1px solid $uicore-gray-a;
-    background: $uicore-white;
+    border: 1px solid var(--iui-color-border-subtle);
+    background: var(--iui-color-background);
     overflow-y: auto;
   }
 
@@ -56,13 +53,13 @@ $border-color: #eeeeee;
       flex-direction: column;
       min-width: 175px;
       margin: var(--iui-size-s) var(--iui-size-xs);
-      background: $uicore-white;
+      background: var(--iui-color-white);
       position: relative;
 
       .dc-table-header {
         padding: 10px var(--iui-size-xs);
-        border: 1px solid $uicore-gray-a;
-        color: rgba($uicore-text-color, 0.85);
+        border: 1px solid var(--iui-color-border-subtle);
+        color: var(--iui-color-text);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -84,7 +81,7 @@ $border-color: #eeeeee;
       .dc-table-content {
         flex: 1;
         border-width: 0px 1px 1px 1px;
-        border-color: #dce0e3;
+        border-color: var(--iui-color-border-subtle);
         border-style: solid;
         overflow-y: auto;
       }
@@ -106,19 +103,19 @@ $border-color: #eeeeee;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    background-color: $uicore-white;
-    color: rgba(black, 0.85);
-    border: 1px solid $uicore-blue;
+    background-color: var(--iui-color-white);
+    color: var(--iui-color-text);
+    border: 1px solid var(--iui-color-border-accent);
     border-radius: var(--iui-border-radius-1);
 
     .toast-image {
       width: 48px;
       min-height: 48px;
-      background: $uicore-blue;
+      background: var(--iui-color-background-accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: $uicore-white;
+      color: var(--iui-color-white);
     }
 
     .toast-message {
@@ -129,13 +126,13 @@ $border-color: #eeeeee;
 
       > span:first-child {
         font-size: 14px;
-        color: rgba($uicore-text-color, 0.85);
+        color: var(--iui-color-text);
       }
 
       > span:last-child {
         margin-top: 3px;
         font-size: 12px;
-        color: $uicore-gray;
+        color: var(--iui-color-text-muted);
       }
     }
 
@@ -144,7 +141,7 @@ $border-color: #eeeeee;
       margin-right: var(--iui-size-2xs);
       font-size: 12px;
       text-decoration: underline;
-      color: $uicore-blue;
+      color: var(--iui-color-text-accent);
       cursor: pointer;
     }
 
@@ -152,11 +149,11 @@ $border-color: #eeeeee;
       font-size: 2em;
       margin-left: var(--iui-size-m);
       margin-right: var(--iui-size-s);
-      color: rgba(0, 0, 0, 0.85);
+      color: var(--iui-color-text);
       cursor: pointer;
 
       &:hover {
-        color: rgba(0, 0, 0, 1);
+        color: var(--iui-color-text-hover);
       }
     }
   }

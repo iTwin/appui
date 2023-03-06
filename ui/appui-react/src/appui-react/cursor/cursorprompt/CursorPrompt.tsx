@@ -10,7 +10,8 @@ import "./CursorPrompt.scss";
 import * as React from "react";
 import { ToolAssistanceInstruction } from "@itwin/core-frontend";
 import { PointProps, RelativePosition } from "@itwin/appui-abstract";
-import { BodyText, Icon, Point, Timer } from "@itwin/core-react";
+import { Icon, Point, Timer } from "@itwin/core-react";
+import { Text } from "@itwin/itwinui-react";
 import { CursorInformation, CursorUpdatedEventArgs } from "../CursorInformation";
 import { CursorPopupManager } from "../cursorpopup/CursorPopupManager";
 
@@ -43,7 +44,7 @@ export class CursorPrompt {
     const promptElement = (
       <div className="uifw-cursor-prompt">
         {toolIconSpec && <span className="uifw-cursor-prompt-icon"><Icon iconSpec={toolIconSpec} /></span>}
-        <BodyText className="uifw-cursor-prompt-text">{instruction.text}</BodyText>
+        <Text variant="body" className="uifw-cursor-prompt-text">{instruction.text}</Text>
       </div >
     );
 

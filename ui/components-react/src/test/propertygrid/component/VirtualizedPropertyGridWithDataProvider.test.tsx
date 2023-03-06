@@ -521,11 +521,11 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const category = await findByText("test_category");
         expect(baseElement.querySelector(".iui-expanded")).to.not.exist;
         const node = baseElement.querySelector(".virtualized-grid-node") as HTMLElement;
-        expect(node.style.height).to.be.equal("39px");
+        expect(node.style.height).to.be.equal("42px");
 
         fireEvent.click(category);
         expect(baseElement.querySelector(".iui-expanded")).to.exist;
-        expect(node.style.height).to.be.equal("544px");
+        expect(node.style.height).to.be.equal("547px");
       });
 
       it("updates node height on collapse", async () => {
@@ -538,10 +538,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
         const category = await findByText("test_category");
         const node = baseElement.querySelector(".virtualized-grid-node") as HTMLElement;
-        expect(node.style.height).to.be.equal("544px");
+        expect(node.style.height).to.be.equal("547px");
 
         fireEvent.click(category);
-        expect(node.style.height).to.be.equal("39px");
+        expect(node.style.height).to.be.equal("42px");
       });
     });
   });
@@ -793,7 +793,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitFor( () => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);

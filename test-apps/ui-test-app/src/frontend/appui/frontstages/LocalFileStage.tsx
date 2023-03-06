@@ -14,7 +14,7 @@ import { ViewDefinitionProps } from "@itwin/core-common";
 import { IModelConnection } from "@itwin/core-frontend";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { FillCentered } from "@itwin/core-react";
-import { Button, Headline } from "@itwin/itwinui-react";
+import { Button, Text } from "@itwin/itwinui-react";
 
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -199,7 +199,7 @@ class LocalFilePage extends React.Component<LocalFilePageProps, LocalFilePageSta
       return (
         <>
           <div style={{ position: "absolute", top: "16px", left: "100px" }}>
-            <Headline>{title}</Headline>
+            <Text variant='headline'>{title}</Text>
           </div>
           <FillCentered>
             {!ElectronApp.isValid &&

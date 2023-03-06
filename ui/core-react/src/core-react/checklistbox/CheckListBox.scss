@@ -16,7 +16,7 @@
 
   > .core-chk-listbox-separator {
     height: 1px;
-    background: $buic-inputs-border;
+    background: var(--iui-color-border-foreground);
     margin: 4px 0;
     pointer-events: none;
   }

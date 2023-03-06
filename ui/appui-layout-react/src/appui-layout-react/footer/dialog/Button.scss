@@ -5,16 +5,16 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .nz-footer-dialog-button {
-  color: $buic-foreground-muted;
+  color: var(--iui-color-text-muted);
   cursor: pointer;
   position: relative;
 
   &:hover {
-    color: $buic-foreground-activehover;
+    color: var(--iui-color-text-hover);
   }
 
   &:active {
-    color: $buic-foreground-activehover;
+    color: var(--iui-color-text-hover);
   }
 
   &:focus {

@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/index";
 
 .components-quantity-format-popup-button {
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
   font-size: var(--iui-font-size-1);
   background-color: transparent;
   height: 2.2em;
@@ -18,11 +18,11 @@
   }
 
   svg {
-    fill: $buic-foreground-body;
+    fill: var(--iui-color-icon);
   }
 
   &:hover {
-    color: $buic-foreground-primary-tone;
+    color: var(--iui-color-text-accent-hover);
     cursor: auto;
 
     svg {
