@@ -8,7 +8,7 @@
 /* frontstage */
 .imodelindex {
   background-color: $uicore-gray-b;
-  color: $uicore-text-color;
+  color: var(--iui-color-text);
   height: 100%;
   padding: var(--iui-size-l) 55px;
   display: flex;
@@ -24,7 +24,7 @@
   .imodelindex-header {
     display: flex;
     background: $uicore-gray-c;
-    box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: var(--iui-shadow-1);
 
     /* thumbnail container */
     .thumbnail {
@@ -66,7 +66,7 @@
       border-bottom: 0;
       border-style: solid;
       border-color: $uicore-gray-a;
-      color: rgba($uicore-text-color, 0.85);
+      color: var(--iui-color-text);
       font-size: var(--iui-font-size-1);
 
       /* imodel name */
@@ -89,7 +89,7 @@
       padding: 0 var(--iui-size-xl);
       min-width: 260px;
       box-sizing: border-box;
-      color: rgba($uicore-text-color, 0.65);
+      color: var(--iui-color-icon-muted);
       font-size: var(--iui-font-size-1);
 
       .checkmark-circle {
@@ -101,11 +101,11 @@
         animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 
         &.success {
-          stroke: #7ac142;
+          stroke: var(--iui-color-border-positive);
         }
 
         &.warning {
-          stroke: $uicore-yellow;
+          stroke: var(--iui-color-border-warning);
         }
       }
 
@@ -121,11 +121,11 @@
           scale 0.3s ease-in-out 0.9s both;
 
         &.success {
-          box-shadow: inset 0px 0px 0px #7ac142;
+          box-shadow: inset 0px 0px 0px var(--iui-color-border-positive);
         }
 
         &.warning {
-          box-shadow: inset 0px 0px 0px $uicore-yellow;
+          box-shadow: inset 0px 0px 0px var(--iui-color-border-warning);
         }
       }
 

@@ -15,10 +15,10 @@ $uicore-unbordered-padding: calc(#{$uicore-unbordered-padding} * 0.5);
 
 $uicore-inputs-padding: calc(
   (#{$uicore-inputs-height} - #{$uicore-line-height}) * 0.5
-); // TODO: What should we do here?
+);
 $uicore-inputs-padding-large: calc(
   (#{$uicore-inputs-height-large} - #{$uicore-line-height}) * 0.5
-); // TODO: What should we do here?
+);
 $uicore-inputs-padding-bordered: calc(#{$uicore-inputs-padding} - 2px);
 $uicore-inputs-padding-bordered-large: calc(
   #{$uicore-inputs-padding-large} - 2px
@@ -29,7 +29,7 @@ $uicore-inputs-margin: calc(
 );
 $uicore-inputs-margin-large: calc(
   (#{$uicore-line-height} * 3 - #{$uicore-inputs-height-large}) * 0.5
-); // TODO: What should we do here?
+);
 
 $uicore-inputs-border-color: $buic-inputs-border;
 

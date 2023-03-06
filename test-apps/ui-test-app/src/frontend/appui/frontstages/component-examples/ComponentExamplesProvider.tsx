@@ -26,14 +26,15 @@ import {
   Checkbox,
   ExpandableBlock,
   LabeledInput,
+  Text,
 } from "@itwin/itwinui-react";
 import {
   AutoSuggest,
   AutoSuggestData,
-  BetaBadge, BlockText, BodyText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
+  BetaBadge, BlockText, CheckListBox, CheckListBoxItem, CheckListBoxSeparator,
   DisabledText, ExpandableList, Icon, IconInput,
   Listbox, ListboxItem, LoadingPrompt, LoadingSpinner, LoadingStatus,
-  MutedText, NewBadge, NumberInput, Popup, ReactMessage,
+  NewBadge, NumberInput, Popup, ReactMessage,
   SearchBox, SettingsContainer, SettingsTabEntry,
   UnderlinedButton, VerticalTabs,
 } from "@itwin/core-react";
@@ -838,10 +839,10 @@ export class ComponentExamplesProvider {
     return {
       title: "Text",
       examples: [
-        createComponentExample("BodyText", undefined, <BodyText>This is Body Text</BodyText>),
+        createComponentExample("BodyText", undefined, <Text variant='body'>This is Body Text</Text>),
         createComponentExample("BlockText", undefined, <BlockText>This is Block Text</BlockText>),
         createComponentExample("DisabledText", undefined, <DisabledText>This is Disabled Text</DisabledText>),
-        createComponentExample("MutedText", undefined, <MutedText>This is Muted Text</MutedText>),
+        createComponentExample("MutedText", undefined, <Text variant="body" isMuted>This is Muted Text</Text>),
       ],
     };
   }

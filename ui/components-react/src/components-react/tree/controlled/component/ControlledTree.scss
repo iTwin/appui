@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
 
 .components-controlledTree-loader {
@@ -16,14 +15,14 @@
 
 .components-controlledTree-errorMessage {
   font-style: italic;
-  color: $buic-foreground-muted;
+  color: var(--iui-color-text-muted);
   margin: 0 20%;
   text-align: center;
 }
 
 .components-controlledTree {
-  color: $buic-foreground-body;
-  background-color: $buic-background-control;
+  color: var(--iui-color-text);
+  background-color: var(--iui-color-background);
 
   /**
    * Workaround for horizontal scroll issue.
@@ -71,25 +70,26 @@
   }
 
   @mixin enable-border($edge) {
-    border-#{$edge}: 1px solid $buic-foreground-primary;
+    border-#{$edge}: 1px solid var(--iui-color-icon-accent);
     padding-#{$edge}: 0;
   }
 
   .node-wrapper.is-selected {
     .core-tree-node {
+      background: var(--iui-color-background-accent-muted);
       @include enable-border("left");
       @include enable-border("right");
     }
   }
 
   .node-wrapper.is-selected:first-child,
-  .node-wrapper:not(.is-selected)+.node-wrapper.is-selected {
+  .node-wrapper:not(.is-selected) + .node-wrapper.is-selected {
     .core-tree-node {
       @include enable-border("top");
     }
   }
 
-  .node-wrapper.is-selected+.node-wrapper:not(.is-selected) {
+  .node-wrapper.is-selected + .node-wrapper:not(.is-selected) {
     .core-tree-node {
       @include enable-border("top");
     }

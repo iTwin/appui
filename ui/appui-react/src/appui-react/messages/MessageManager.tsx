@@ -24,7 +24,7 @@ import { MessageSpan } from "./MessageSpan";
 import { PointerMessage } from "./Pointer";
 import { NotifyMessageDetailsType, NotifyMessageType } from "./ReactNotifyMessageDetails";
 import { StatusMessageManager } from "./StatusMessageManager";
-import { Small, toaster, ToastOptions } from "@itwin/itwinui-react";
+import { Text, toaster, ToastOptions } from "@itwin/itwinui-react";
 import { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
 import { SvgInfo, SvgStatusError, SvgStatusSuccess, SvgStatusWarning } from "@itwin/itwinui-icons-react";
 
@@ -256,7 +256,7 @@ export class MessageManager {
     const content = <>
       {message.briefMessage}
       {message.detailedMessage &&
-      <Small><>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</></Small>
+      <Text variant="small"><>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</></Text>
       }
     </>;
     switch (message.priority) {

@@ -11,11 +11,11 @@
   background: none;
   cursor: pointer;
   outline: none;
-  color: $buic-foreground-muted;
+  color: var(--iui-color-text-muted);
 
   @media (hover: hover) {
     &:hover {
-      color: $buic-foreground-activehover;
+      color: var(--iui-color-text-hover);
     }
   }
 }

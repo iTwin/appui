@@ -7,7 +7,7 @@
 button.components-colorpicker-button {
   font-family: var(--iui-font-sans);
   font-size: var(--iui-font-size-1);
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
   box-sizing: border-box;
   border: 1px solid transparent;
   border-radius: var(--iui-border-radius-1);
@@ -22,7 +22,7 @@ button.components-colorpicker-button {
     border-radius: var(--iui-border-radius-1);
 
     > .components-colorpicker-button-color-swatch {
-      border: 1px solid $buic-inputs-border;
+      border: 1px solid var(--iui-color-border-foreground);
       border-radius: var(--iui-border-radius-1);
       width: 1.25em;
       height: 1.25em;
@@ -61,11 +61,11 @@ button.components-colorpicker-button {
 }
 
 .components-colorpicker-popup {
-  border: 1px solid $buic-inputs-border;
+  border: 1px solid var(--iui-color-border-foreground);
   border-radius: 6px;
 
   .components-colorpicker-popup-container {
-    color: $buic-foreground-body;
+    color: var(--iui-color-text);
     background: $buic-background-control;
     border-radius: 6px;
 

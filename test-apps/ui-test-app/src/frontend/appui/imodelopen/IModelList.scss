@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/icons/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
+@import "~@itwin/core-react/lib/cjs/core-react/style/colors";
 
 .cards-content {
   height: 100%;
@@ -33,7 +34,7 @@
     padding: 7px;
     border: 1px solid #ccc;
     font-size: 18px;
-    color: $uicore-icons-light;
+    color: var(--iui-color-icon-muted);
     cursor: pointer;
     -webkit-transition: color background-color 0.2s ease;
     -moz-transition: color background-color 0.2s ease;
@@ -43,7 +44,7 @@
 
   .viewtype:hover,
   .viewtype.active {
-    color: $uicore-white;
+    color: var(--iui-color-white);
     background: $uicore-blue;
   }
 
@@ -145,7 +146,7 @@
     margin-right: 0.5em;
     vertical-align: middle;
     font-size: 1.5em;
-    color: $uicore-icons-light;
+    color: var(--iui-color-icon-muted);
   }
 
   tr:hover {

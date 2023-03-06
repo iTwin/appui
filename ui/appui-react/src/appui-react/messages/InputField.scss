@@ -8,8 +8,8 @@
 .uifw-popup-message-inputField {
   background-color: $buic-background-control;
   padding: 3px 3px 3px 6px;
-  border-radius: 5px;
-  color: $buic-text-color;
+  border-radius: var(--iui-border-radius-1);
+  color: var(--iui-color-text);
   margin: 0px;
   transition: all 3s ease;
   display: flex;
@@ -32,20 +32,20 @@
         padding-right: 3px;
 
         .icon-status-warning {
-          color: $buic-foreground-warning;
+          color: var(--iui-color-text-warning);
         }
 
         .icon-status-warning {
-          color: $buic-foreground-warning;
+          color: var(--iui-color-text-warning);
         }
 
         .icon-status-error {
-          color: $buic-foreground-alert;
+          color: var(--iui-color-text-negative);
         }
       }
 
       .uifw-popup-message-text {
-        color: $buic-foreground-body;
+        color: var(--iui-color-text);
         padding-left: 3px;
         padding-right: 3px;
 
@@ -63,12 +63,12 @@
   .uifw-popup-message-close {
     display: flex;
     align-items: center;
-    color: $buic-foreground-muted;
+    color: var(--iui-color-text-muted);
     cursor: pointer;
 
     &:active,
     &:hover {
-      color: $buic-foreground-activehover;
+      color: var(--iui-color-text-hover);
     }
 
     &:focus {

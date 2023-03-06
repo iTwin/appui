@@ -15,7 +15,7 @@ $border-color: #eee;
   font-size: var(--iui-font-size-1);
   margin: 0 6px 0 var(--iui-size-m);
   padding: var(--iui-size-xs) 0;
-  color: rgba($uicore-text-color, 0.85);
+  color: var(--iui-color-text);
   display: flex;
   align-items: center;
   position: relative;
@@ -45,12 +45,12 @@ $border-color: #eee;
 
   /* hover gets a white background and text with full opacity */
   &:hover {
-    background-color: $uicore-white;
-    color: rgba($uicore-text-color, 1);
+    background-color: var(--iui-color-white);
+    color: var(--iui-color-text-hover);
   }
 
   &.selected {
-    background: $uicore-white;
+    background: var(--iui-color-white);
     outline: $outline-size solid $uicore-blue-5;
     z-index: 1;
   }
@@ -61,8 +61,8 @@ $border-color: #eee;
   width: 148px; // we give it an arbitrary width
   height: 105px; // arbitrary height
   margin: 6px;
-  color: rgba($uicore-text-color, 0.85);
-  background: $uicore-white;
+  color: var(--iui-color-text);
+  background: var(--iui-color-white);
   display: flex;
   padding: 4px;
   flex-direction: column;
@@ -105,7 +105,7 @@ $border-color: #eee;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $uicore-white;
+  background: var(--iui-color-white);
   box-sizing: border-box;
   position: relative;
 
@@ -195,7 +195,7 @@ $border-color: #eee;
   transition: all 0.3s ease-in;
   opacity: 0;
   filter: alpha(opacity=0);
-  color: $uicore-white;
+  color: var(--iui-color-white);
   text-transform: uppercase;
 }
 

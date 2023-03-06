@@ -299,7 +299,7 @@ export function GlobalItwinContextMenuInPopup() {
       }} ref={buttonRef}><SvgMore /></IconButton>
 
       <Popover
-        appendTo={document.body}
+        appendTo={document.body.querySelector('[data-root-container="iui-root-id"]') ?? document.body}
         zIndex={99999}
         content={
           <Menu>

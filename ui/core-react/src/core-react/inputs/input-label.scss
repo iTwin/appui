@@ -22,7 +22,7 @@
     font-weight: var(--iui-font-weight-semibold);
     line-height: var(--iui-size-l);
     text-align: left;
-    color: $buic-text-color;
+    color: var(--iui-color-text);
   }
 
   > .input {
@@ -57,7 +57,7 @@
     display: block;
     font-size: var(--iui-font-size-0);
     line-height: var(--iui-size-l);
-    color: $buic-text-color-muted;
+    color: var(--iui-color-text-muted);
   }
 
   /// Status colors ----------------------------------------------------------
