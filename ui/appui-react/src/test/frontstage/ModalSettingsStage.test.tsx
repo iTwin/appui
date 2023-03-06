@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { FrontstageDef, ModalFrontstage, ModalFrontstageInfo, SettingsModalFrontstage } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
@@ -137,9 +137,9 @@ describe("ModalSettingsStage", () => {
 
     SettingsModalFrontstage.showSettingsStage("page-3");
     const liPage3 = wrapper.container.querySelector(`li[data-for='page-3']`) as HTMLLIElement;
-    expect(liPage3.classList.contains("core-active")).to.be.true;
-
-    await TestUtils.flushAsyncOperations();
+    await waitFor(() => {
+      expect(liPage3.classList.contains("core-active")).to.be.true;
+    });
 
     settingsManager.removeSettingsProvider("AppSettingsProvider");
     UiFramework.frontstages.closeModalFrontstage();
@@ -165,8 +165,10 @@ describe("ModalSettingsStage", () => {
     await TestUtils.flushAsyncOperations();
 
     SettingsModalFrontstage.showSettingsStage("page-3");
-    const liPage3 = wrapper.container.querySelector(`li[data-for='page-3']`) as HTMLLIElement;
-    expect(liPage3.classList.contains("core-active")).to.be.true;
+    await waitFor(() => {
+      const liPage3 = wrapper.container.querySelector(`li[data-for='page-3']`) as HTMLLIElement;
+      expect(liPage3.classList.contains("core-active")).to.be.true;
+    });
 
     settingsManager.removeSettingsProvider("AppSettingsProvider");
     UiFramework.frontstages.closeModalFrontstage();
@@ -189,11 +191,11 @@ describe("ModalSettingsStage", () => {
     SettingsModalFrontstage.showSettingsStage("page2");
 
     const wrapper = render(renderModalFrontstage(true));
-    await TestUtils.flushAsyncOperations();
 
-    await TestUtils.flushAsyncOperations();
-    const liPage2 = wrapper.container.querySelector(`li[data-for='page-2']`) as HTMLLIElement;
-    expect(liPage2.classList.contains("core-active")).to.be.true;
+    await waitFor(() => {
+      const liPage2 = wrapper.container.querySelector(`li[data-for='page-2']`) as HTMLLIElement;
+      expect(liPage2.classList.contains("core-active")).to.be.true;
+    });
 
     settingsManager.removeSettingsProvider("AppSettingsProvider");
     UiFramework.frontstages.closeModalFrontstage();

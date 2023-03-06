@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
@@ -10,7 +10,7 @@ import { ColorByName, ColorDef } from "@itwin/core-common";
 import { CompassMode, IModelApp, IModelAppOptions, ItemField, MockRender } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
-import TestUtils from "../TestUtils";
+import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawFieldContainer";
 import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
@@ -22,6 +22,10 @@ import { UiFramework } from "../../appui-react";
 function requestNextAnimation() { }
 
 describe("AccuDrawFieldContainer", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(IModelApp, "requestNextAnimation")!;
 
   before(async () => {
@@ -154,20 +158,21 @@ describe("AccuDrawFieldContainer", () => {
   it("should emit onAccuDrawSetFieldFocusEvent and show Z field", async () => {
     const spy = sinon.spy();
     const remove = FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
-    const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
+    render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
     expect(IModelApp.accuDraw.hasInputFocus).to.be.false;
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
-    await TestUtils.flushAsyncOperations();
+
+    await waitFor(() => {
+      screen.getByTestId("uifw-accudraw-z");
+    });
 
     IModelApp.accuDraw.setFocusItem(ItemField.Z_Item);
     spy.calledOnce.should.true;
-    const input = wrapper.queryByTestId("uifw-accudraw-z");
-    expect(input).not.to.be.null;
-    expect(document.activeElement === input).to.be.true;
+    await TestUtils.flushAsyncOperations();
+    expect(document.activeElement).to.eq(screen.getByTestId("uifw-accudraw-z"));
     spy.resetHistory();
 
-    await TestUtils.flushAsyncOperations();
     expect(IModelApp.accuDraw.hasInputFocus).to.be.true;
 
     remove();
@@ -212,68 +217,61 @@ describe("AccuDrawFieldContainer", () => {
     remove();
   });
 
-  it("should call onValueChanged & setFieldValueFromUi", () => {
-    const fakeTimers = sinon.useFakeTimers();
+  it("should call onValueChanged & setFieldValueFromUi", async () => {
     const spy = sinon.spy();
     const remove = FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
-    const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
+    render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
-    let input = wrapper.queryByTestId("uifw-accudraw-x");
-    expect(input).not.to.be.null;
-    fireEvent.change(input!, { target: { value: "22.3" } });
-    fakeTimers.tick(300);
-    spy.calledOnce.should.true;
+    await theUserTo.type(screen.getByTestId("uifw-accudraw-x"), "22.3", selectAllBeforeType());
+    await waitFor(() => {
+      spy.calledOnce.should.true;
+    });
     spy.resetHistory();
 
-    input = wrapper.queryByTestId("uifw-accudraw-y");
-    expect(input).not.to.be.null;
-    fireEvent.change(input!, { target: { value: "22.3" } });
-    fakeTimers.tick(300);
-    spy.calledOnce.should.true;
+    await theUserTo.type(screen.getByTestId("uifw-accudraw-y"), "22.3", selectAllBeforeType());
+    await waitFor(() => {
+      spy.calledOnce.should.true;
+    });
     spy.resetHistory();
 
-    input = wrapper.queryByTestId("uifw-accudraw-z");
-    expect(input).to.be.null;
+    expect(screen.queryByTestId("uifw-accudraw-z")).to.be.null;
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
 
-    input = wrapper.queryByTestId("uifw-accudraw-angle");
-    expect(input).not.to.be.null;
-    fireEvent.change(input!, { target: { value: "22.3" } });
-    fakeTimers.tick(300);
-    spy.calledOnce.should.true;
+    await waitFor(async () => {
+      await theUserTo.type(screen.getByTestId("uifw-accudraw-angle"), "22.3", selectAllBeforeType());
+    });
+    await waitFor(() => {
+      spy.calledOnce.should.true;
+    });
     spy.resetHistory();
 
-    input = wrapper.queryByTestId("uifw-accudraw-distance");
-    expect(input).not.to.be.null;
-    fireEvent.change(input!, { target: { value: "22.3" } });
-    fakeTimers.tick(300);
-    spy.calledOnce.should.true;
+    await theUserTo.type(screen.getByTestId("uifw-accudraw-distance"), "22.3", selectAllBeforeType());
+    await waitFor(() => {
+      spy.calledOnce.should.true;
+    });
     spy.resetHistory();
 
     remove();
-    fakeTimers.restore();
   });
 
-  it("should call onValueChanged & setFieldValueFromUi & show the Z field", () => {
-    const fakeTimers = sinon.useFakeTimers();
+  it("should call onValueChanged & setFieldValueFromUi & show the Z field", async () => {
     const spy = sinon.spy();
     const remove = FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
-    const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
+    render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
-    const input = wrapper.queryByTestId("uifw-accudraw-z");
-    expect(input).not.to.be.null;
-    fireEvent.change(input!, { target: { value: "22.3" } });
-    fakeTimers.tick(300);
-    spy.calledOnce.should.true;
-    spy.resetHistory();
+    await waitFor(async () => {
+      await theUserTo.type(screen.getByTestId("uifw-accudraw-z"), "22.3", selectAllBeforeType());
+    });
+    await waitFor(() => {
+      spy.calledOnce.should.true;
+    });
 
     remove();
-    fakeTimers.restore();
   });
 
   it("should set focus to home on Esc", () => {
@@ -332,11 +330,13 @@ describe("AccuDrawFieldContainer", () => {
       const remove = FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
       const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
 
-      const settingsTest = (count: number) => {
+      const settingsTest = async (count: number) => {
         spy.calledOnce.should.true;
 
         let labelElements = wrapper.queryAllByLabelText(labelTest);
-        expect(labelElements.length).to.eq(count);
+        await waitFor(() => {
+          expect(labelElements.length).to.eq(count);
+        });
 
         const inputElements = wrapper.container.querySelectorAll("input");
         expect(inputElements.length).to.eq(count);
@@ -349,8 +349,10 @@ describe("AccuDrawFieldContainer", () => {
 
         FrameworkAccuDraw.uiStateStorage = emptySettings;
         spy.calledTwice.should.true;
-        labelElements = wrapper.queryAllByLabelText(labelTest);
-        expect(labelElements.length).to.eq(0);
+        await waitFor(() => {
+          labelElements = wrapper.queryAllByLabelText(labelTest);
+          expect(labelElements.length).to.eq(0);
+        });
 
         FrameworkAccuDraw.uiStateStorage = undefined;
         spy.calledThrice.should.true;
@@ -362,7 +364,7 @@ describe("AccuDrawFieldContainer", () => {
       expect(wrapper.queryAllByLabelText(labelTest).length).to.eq(0);
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       await TestUtils.flushAsyncOperations();
-      settingsTest(3);
+      await settingsTest(3);
 
       spy.resetHistory();
 
@@ -370,7 +372,7 @@ describe("AccuDrawFieldContainer", () => {
       expect(wrapper.queryAllByLabelText(labelTest).length).to.eq(0);
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       await TestUtils.flushAsyncOperations();
-      settingsTest(2);
+      await settingsTest(2);
 
       remove();
     });
@@ -381,9 +383,11 @@ describe("AccuDrawFieldContainer", () => {
       const remove = FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
       const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
 
-      const settingsTest = (count: number) => {
+      const settingsTest = async (count: number) => {
         const labelElements = wrapper.queryAllByLabelText(labelTest);
-        expect(labelElements.length).to.eq(count);
+        await waitFor(() => {
+          expect(labelElements.length).to.eq(count);
+        });
 
         const inputElements = wrapper.container.querySelectorAll("input");
         expect(inputElements.length).to.eq(count);
@@ -397,11 +401,11 @@ describe("AccuDrawFieldContainer", () => {
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
       await TestUtils.flushAsyncOperations();
-      settingsTest(3);
+      await settingsTest(3);
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
       await TestUtils.flushAsyncOperations();
-      settingsTest(2);
+      await settingsTest(2);
 
       remove();
     });

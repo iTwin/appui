@@ -517,4 +517,15 @@ export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
   };
 }
 
+/**
+ * Create a selectAll option object for userevent.type.
+ * @returns userevent type option parameter which selects all when entering (to replace the content)
+ */
+export function selectAllBeforeType() {
+  return {
+    initialSelectionStart: 0,
+    initialSelectionEnd: Infinity,
+  };
+}
+
 export default TestUtils;   // eslint-disable-line: no-default-export

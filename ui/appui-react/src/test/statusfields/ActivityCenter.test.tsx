@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { MockRender } from "@itwin/core-frontend";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { ActivityCenterField, MessageManager, StatusBar } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
@@ -39,7 +39,9 @@ describe("ActivityCenter", () => {
     await findByText(/activityCenter.percentComplete/);
 
     MessageManager.endActivityMessage(false);
-    expect(queryAllByText(/activityCenter.percentComplete/)).to.length(0);
+    await waitFor(() => {
+      expect(queryAllByText(/activityCenter.percentComplete/)).to.length(0);
+    });
   });
 
   it("click should be handled", async () => {
