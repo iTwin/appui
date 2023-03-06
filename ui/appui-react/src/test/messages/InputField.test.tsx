@@ -20,7 +20,7 @@ describe("InputFieldMessage", () => {
   });
 
   // TODO: These look for the webfont icon classnames. This only tests that an icon is displayed and should be replaced with visual testing
-  it("outputMessage with InputField", () => {
+  it("outputMessage with InputField", async () => {
     let details = new NotifyMessageDetails(OutputMessagePriority.Error, "Input field message.", "Detailed input field message.", OutputMessageType.InputField);
     const divElement = document.createElement("div");
     details.setInputFieldTypeDetails(divElement);
