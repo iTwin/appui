@@ -5,5 +5,5 @@
 import { defineTest } from "jscodeshift/src/testUtils";
 
 describe("widget", () => {
-  defineTest(__dirname, "./widget", null, "widget", { parser: "tsx" });
+  defineTest(__dirname, "./widget", null, "widget/widget", { parser: "tsx" });
 });

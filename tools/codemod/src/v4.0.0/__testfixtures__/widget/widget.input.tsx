@@ -4,7 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 const w: Widget = {
   id: "w-1",
-  badge: BadgeType.New,
+  badgeType: BadgeType.New,
   label: "Widget 1",
-  content: <WidgetContent />,
+  getWidgetContent: () => <WidgetContent />,
+  onWidgetStateChanged: () => { },
+  saveTransientState: () => { },
+  restoreTransientState: () => { },
+  allowedPanelTargets: ["left", "right"],
 };

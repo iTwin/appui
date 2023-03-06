@@ -4,7 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 const w: Widget = {
   id: "w-1",
-  badgeType: BadgeType.New,
+  badge: BadgeType.New,
   label: "Widget 1",
-  getWidgetContent: () => <WidgetContent />,
+  content: <WidgetContent />,
+  allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right]
 };
