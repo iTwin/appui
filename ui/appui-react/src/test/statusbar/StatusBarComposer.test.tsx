@@ -197,9 +197,11 @@ describe("StatusBarComposer", () => {
 
       TestUiProvider.triggerSyncRefresh();
 
-      expect(screen.getByRole("presentation")).to.not.satisfy(childStructure([
-        ".uifw-statusbar-center .icon-hand-2-condition",
-      ]));
+      await waitFor(() => {
+        expect(screen.getByRole("presentation")).to.not.satisfy(childStructure([
+          ".uifw-statusbar-center .icon-hand-2-condition",
+        ]));
+      });
 
       UiItemsManager.unregister(uiProvider.id);
 

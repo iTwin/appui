@@ -3,6 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
+import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import { getActionItem } from "./BackstageComposerItem.test";
 import { useDefaultBackstageItems } from "../../appui-react";
@@ -20,7 +21,7 @@ describe("useDefaultBackstageItems", () => {
     expect(result.current).to.have.members(manager.items);
   });
 
-  it("should update items", () => {
+  it("should update items", async () => {
     const manager = new BackstageItemsManager();
     manager.items = [
       getActionItem(),
@@ -29,7 +30,9 @@ describe("useDefaultBackstageItems", () => {
 
     manager.items = [];
 
-    expect(result.current).to.be.an("array").that.is.empty;
+    await waitFor(() => {
+      expect(result.current).to.be.an("array").that.is.empty;
+    });
   });
 
   it("should remove onItemsChanged listener", () => {
@@ -46,7 +49,7 @@ describe("useDefaultBackstageItems", () => {
     expect(result.current).to.have.members(initialItems);
   });
 
-  it("should handle manager changes", () => {
+  it("should handle manager changes", async () => {
     const manager1 = new BackstageItemsManager();
     const initialManager1Items = [
       getActionItem(),
@@ -64,15 +67,19 @@ describe("useDefaultBackstageItems", () => {
     rerender(manager2);
 
     manager2.items = [getActionItem()];
-    expect(result.current).to.have.members(manager2.items)
-      .and.not.include.members(initialManager2Items)
-      .and.not.include.members(manager1.items)
-      .and.not.include.members(initialManager1Items);
+    await waitFor(() => {
+      expect(result.current).to.have.members(manager2.items)
+        .and.not.include.members(initialManager2Items)
+        .and.not.include.members(manager1.items)
+        .and.not.include.members(initialManager1Items);
+    });
 
     manager1.items = [getActionItem()];
-    expect(result.current).to.have.members(manager2.items)
-      .and.not.include.members(initialManager2Items)
-      .and.not.include.members(manager1.items)
-      .and.not.include.members(initialManager1Items);
+    await waitFor(() => {
+      expect(result.current).to.have.members(manager2.items)
+        .and.not.include.members(initialManager2Items)
+        .and.not.include.members(manager1.items)
+        .and.not.include.members(initialManager1Items);
+    });
   });
 });

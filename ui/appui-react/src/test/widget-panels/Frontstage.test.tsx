@@ -20,7 +20,7 @@ import {
   ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, expandWidget, FrontstageConfig, FrontstageDef,
   FrontstageProvider, getWidgetId, initializeNineZoneState, initializePanel, isFrontstageStateSettingResult, ModalFrontstageComposer,
   packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanelDef, StagePanelLocation, StagePanelSection, UiFramework,
-  UiItemsManager, UiItemsProvider, UiSettingsProviderProps, UiStateStorageHandler, useActiveModalFrontstageInfo, useFrontstageManager,
+  UiItemsManager, UiItemsProvider, UiStateStorageHandler, useActiveModalFrontstageInfo, useFrontstageManager,
   useLayoutStore, useNineZoneDispatch, useSavedFrontstageState, useSaveFrontstageSettings, useUpdateNineZoneSize,
   Widget, WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState, WidgetState,
 } from "../../appui-react";
@@ -482,7 +482,7 @@ describe("Frontstage local storage wrapper", () => {
           setting,
         });
         const frontstageDef = new FrontstageDef();
-        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+        renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         await TestUtils.flushAsyncOperations();
@@ -496,7 +496,7 @@ describe("Frontstage local storage wrapper", () => {
         await UiFramework.setUiStateStorage(uiStateStorage);
 
         const spy = sinon.spy(uiStateStorage, "getSetting");
-        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+        renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         spy.notCalled.should.true;
@@ -513,7 +513,7 @@ describe("Frontstage local storage wrapper", () => {
         await UiFramework.setUiStateStorage(uiStateStorage);
 
         sinon.stub(frontstageDef, "version").get(() => setting.version + 1);
-        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+        renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         await TestUtils.flushAsyncOperations();
@@ -540,7 +540,7 @@ describe("Frontstage local storage wrapper", () => {
         }, StagePanelLocation.Left);
         sinon.stub(frontstageDef, "leftPanel").get(() => leftPanel);
 
-        renderHook<UiSettingsProviderProps, void>(() => useSavedFrontstageState(frontstageDef), {
+        renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         await TestUtils.flushAsyncOperations();
@@ -561,7 +561,7 @@ describe("Frontstage local storage wrapper", () => {
         await UiFramework.setUiStateStorage(uiStateStorage);
 
         const layout = createLayoutStore();
-        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef, layout), {
+        renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
           wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         fakeTimers.tick(1000);
@@ -584,7 +584,7 @@ describe("Frontstage local storage wrapper", () => {
         });
 
         const layout = createLayoutStore(frontstageDef.nineZoneState);
-        renderHook<UiSettingsProviderProps, void>(() => useSaveFrontstageSettings(frontstageDef, layout), {
+        renderHook(() => useSaveFrontstageSettings(frontstageDef, layout), {
           wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
         });
         fakeTimers.tick(1000);
@@ -670,7 +670,7 @@ describe("Frontstage local storage wrapper", () => {
           await UiFramework.setUiStateStorage(uiStateStorage);
 
           const spy = sinon.spy(uiStateStorage, "deleteSetting");
-          renderHook<UiSettingsProviderProps, void>(() => useFrontstageManager(frontstageDef), {
+          renderHook(() => useFrontstageManager(frontstageDef), {
             wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
           });
           InternalFrontstageManager.onFrontstageRestoreLayoutEvent.emit({
@@ -685,7 +685,7 @@ describe("Frontstage local storage wrapper", () => {
           const uiStateStorage = new UiStateStorageStub();
           await UiFramework.setUiStateStorage(uiStateStorage);
 
-          renderHook<UiSettingsProviderProps, void>(() => useFrontstageManager(frontstageDef), {
+          renderHook(() => useFrontstageManager(frontstageDef), {
             wrapper: (props) => <UiStateStorageHandler {...props} />, // eslint-disable-line react/display-name
           });
           const frontstageDef1 = new FrontstageDef();
@@ -784,6 +784,7 @@ describe("Frontstage local storage wrapper", () => {
     describe("initializeNineZoneState", () => {
       it("should initialize widgets", () => {
         const frontstageDef = new FrontstageDef();
+        sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
         sinon.stub(frontstageDef, "leftPanel").get(() => new StagePanelDef());
         sinon.stub(frontstageDef, "rightPanel").get(() => new StagePanelDef());
         sinon.stub(frontstageDef, "topPanel").get(() => new StagePanelDef());
