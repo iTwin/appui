@@ -12,12 +12,13 @@ import * as React from "react";
 import classnames from "classnames";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { CommonProps, Popup, useRefs, WebFontIcon } from "@itwin/core-react";
+import { CommonProps, Icon, Popup, useRefs } from "@itwin/core-react";
 // import { ColorPickerPanel } from "./ColorPickerPanel";
 import { ColorBuilder, ColorInputPanel, ColorPalette, ColorPicker, ColorValue } from "@itwin/itwinui-react";
 import "./ColorPickerPopup.scss";
 import { getCSSColorFromDef } from "./getCSSColorFromDef";
 import { UiIModelComponents } from "../UiIModelComponents";
+import { SvgCaretDownSmall, SvgCaretUpSmall, SvgClose } from "@itwin/itwinui-icons-react";
 
 /** Properties for the [[ColorPickerPopup]] React component
  * @public
@@ -144,8 +145,8 @@ const ForwardRefColorPickerPopup = React.forwardRef<HTMLButtonElement, ColorPick
         <button data-testid="components-colorpicker-popup-button" onClick={togglePopup} className={buttonClassNames} style={buttonStyle}
           disabled={props.disabled} ref={refs} title={togglePopupLabel} >
           <div className="components-colorpicker-button-container">
-            <div className="components-colorpicker-button-color-swatch" style={swatchStyle} />
-            {props.showCaret && <WebFontIcon className="components-caret" iconName={showPopup ? "icon-caret-up" : "icon-caret-down"} iconSize="x-small" />}
+            <div className="components-colorpicker-button-color-swatch" style={swatchStyle} data-testid={showPopup ? "caret-up" : "caret-down"} />
+            {props.showCaret && <Icon className="components-caret" iconSpec={showPopup ? <SvgCaretUpSmall /> : <SvgCaretDownSmall /> } />}
           </div>
         </button>
         <Popup
@@ -159,10 +160,10 @@ const ForwardRefColorPickerPopup = React.forwardRef<HTMLButtonElement, ColorPick
           <div className="components-colorpicker-popup-panel-padding">
             {!props.hideCloseButton &&
               <button title={closeLabel}
-                className={"core-focus-trap-ignore-initial core-dialog-close icon icon-close"}
+                className={"core-focus-trap-ignore-initial core-dialog-close icon"}
                 data-testid="core-dialog-close"
                 onClick={togglePopup}
-              />}
+              ><Icon iconSpec={<SvgClose />}/></button>}
             <ColorPicker selectedColor={ColorValue.fromTbgr(colorDef.tbgr)} onChangeComplete={handleColorChanged} >
               <ColorBuilder />
               {props.colorInputType &&

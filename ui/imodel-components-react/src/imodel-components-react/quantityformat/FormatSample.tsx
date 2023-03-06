@@ -9,9 +9,10 @@
 import * as React from "react";
 import { FormatterSpec } from "@itwin/core-quantity";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { CommonProps, WebFontIcon } from "@itwin/core-react";
+import { CommonProps, Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiIModelComponents } from "../UiIModelComponents";
+import { SvgProgressForward } from "@itwin/itwinui-icons-react";
 
 /** Properties of [[FormatSample]] component.
  * @alpha
@@ -74,8 +75,8 @@ export function FormatSample(props: FormatSampleProps) {
         <Input data-testid="format-sample-input" className={"components-quantity-persistence-input"} value={sampleValue} onChange={handleOnValueChange} onKeyDown={handleKeyDown} onBlur={handleOnValueBlur} size="small" />{activePersistenceUnitLabel}
       </span>
       {!hideLabels && <span className={"uicore-label"}>{formattedLabel.current}</span>}
-      <span>
-        {hideLabels && (formattedValue.length > 0) && <WebFontIcon iconName="icon-progress-forward-2" />}
+      <span data-testid="progress-forward">
+        {hideLabels && (formattedValue.length > 0) && <Icon iconSpec={<SvgProgressForward />} />}
         <span data-testid="format-sample-formatted" className={"uicore-label components-quantity-formatted-sample"}>{formattedValue}</span>
       </span>
     </>

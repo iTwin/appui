@@ -19,7 +19,8 @@ import { UiFramework } from "../UiFramework";
 import { ViewUtilities } from "../utils/ViewUtilities";
 import { NavigationAidControl } from "./NavigationAidControl";
 import { CardContainer, CardSelectedEventArgs, SheetsModalFrontstage } from "./SheetsModalFrontstage";
-import { ProgressRadial } from "@itwin/itwinui-react";
+import { IconButton, ProgressRadial } from "@itwin/itwinui-react";
+import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 /** A Sheet Navigation Aid control.
  * @alpha
@@ -156,12 +157,12 @@ export class SheetNavigationAid extends React.Component<SheetNavigationProps, Sh
           </div>
           <div className="sheet-container">
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-            <div className="sheet-caret icon icon-caret-left" onClick={this._handleOnClickLeftArrow}
-              role="button" tabIndex={-1} title={leftTitle} />
+            <IconButton size="small" styleType="borderless" onClick={this._handleOnClickLeftArrow}
+              tabIndex={-1} title={leftTitle}><SvgChevronLeft /></IconButton>
             <div>{this.state.index + 1} {ofStr} {this.state.sheetData.length}</div>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-            <div className="sheet-caret icon icon-caret-right" onClick={this._handleOnClickRightArrow}
-              role="button" tabIndex={-1} title={rightTitle} />
+            <IconButton size="small" styleType="borderless"  onClick={this._handleOnClickRightArrow}
+              role="button" tabIndex={-1} title={rightTitle}><SvgChevronRight /></IconButton>
           </div>
         </>
       );

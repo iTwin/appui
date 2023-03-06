@@ -48,26 +48,6 @@
     > * {
       text-align: center;
     }
-
-    > .sheet-caret {
-      cursor: pointer;
-      font-size: 15px;
-      filter: drop-shadow(0 1px 0 $buic-foreground-body-reverse);
-      z-index: 1;
-
-      &:active {
-        color: $buic-foreground-body-reverse;
-        filter: drop-shadow(0 0 0 transparent);
-      }
-
-      &:hover {
-        color: $buic-foreground-primary;
-      }
-
-      &:focus {
-        outline: none;
-      }
-    }
   }
 
   > .gradient {

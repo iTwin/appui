@@ -19,7 +19,8 @@ describe("InputFieldMessage", () => {
     TestUtils.terminateUiFramework();
   });
 
-  it("outputMessage with InputField", async () => {
+  // TODO: These look for the webfont icon classnames. This only tests that an icon is displayed and should be replaced with visual testing
+  it("outputMessage with InputField", () => {
     let details = new NotifyMessageDetails(OutputMessagePriority.Error, "Input field message.", "Detailed input field message.", OutputMessageType.InputField);
     const divElement = document.createElement("div");
     details.setInputFieldTypeDetails(divElement);
@@ -28,7 +29,7 @@ describe("InputFieldMessage", () => {
 
     expect(await screen.findByText("Input field message.")).to.exist;
 
-    expect(screen.getByRole("dialog")).to.satisfy(childStructure("i.icon-status-error"));
+    expect(screen.getByRole("dialog")).to.satisfy(childStructure(".uifw-popup-message-icon"));
 
     MessageManager.hideInputFieldMessage();
 
@@ -41,7 +42,7 @@ describe("InputFieldMessage", () => {
     details.setInputFieldTypeDetails(divElement);
     MessageManager.displayInputFieldMessage(details.inputField!, details.briefMessage, details.detailedMessage, details.priority);
 
-    expect(await screen.findByRole("dialog")).to.satisfy(childStructure("i.icon-status-warning"));
+    expect(await screen.findByRole("dialog")).to.satisfy(childStructure(".uifw-popup-message-icon"));
 
     MessageManager.hideInputFieldMessage();
 
@@ -51,7 +52,7 @@ describe("InputFieldMessage", () => {
     MessageManager.displayInputFieldMessage(details.inputField!, details.briefMessage, details.detailedMessage, details.priority);
 
     await waitFor(() =>{
-      expect(screen.getByRole("dialog")).to.satisfy(childStructure("i.icon-info"));
+      expect(screen.getByRole("dialog")).to.satisfy(childStructure(".uifw-popup-message-icon"));
     });
 
     MessageManager.hideInputFieldMessage();
