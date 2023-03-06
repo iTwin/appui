@@ -4,18 +4,18 @@
 *--------------------------------------------------------------------------------------------*/
 import { ExpressionKind } from "ast-types/gen/kinds";
 import { IdentifierKind, JSXElementKind, JSXExpressionContainerKind, JSXFragmentKind, JSXIdentifierKind, LiteralKind } from "ast-types/gen/kinds";
-import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, Expression } from "jscodeshift";
-import { isAttrOrProp, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier } from "./TypeCheck";
+import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, Expression, JSXIdentifier, ObjectExpression } from "jscodeshift";
+import { isAttrOrProp, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier } from "./TypeCheck";
 
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
-  name?: JSXIdentifierKind;
+  name?: JSXIdentifier;
   value: Exclude<JSXAttribute["value"], null> | JSXSpreadAttribute["argument"];
 }
 
 export interface ConfigProperty extends Omit<ObjectProperty, "type" | "key" | "value"> {
   type: "ConfigProperty";
-  name?: ObjectProperty["key"];
+  name?: Identifier; // TODO: check if this type will always be the case
   value: ObjectProperty["value"] | SpreadProperty["argument"];
 }
 
@@ -23,10 +23,15 @@ type NameType = ElementAttribute["name"] | ConfigProperty["name"];
 type ValueType = ElementAttribute["value"] | ConfigProperty["value"];
 
 export type AttributeHandle = (j: JSCodeshift, attr: ElementAttribute | ConfigProperty) => ConfigProperty;
+export type AttributeHandleMap = Map<string | undefined, AttributeHandle | null>;
 
 export function buildConfigProperty(j: JSCodeshift, value: ValueType, name?: NameType): ConfigProperty {
   if (isSpreadExpression(name, value)) {
     const prop: Omit<ObjectProperty, "type"> = j.objectProperty(name, value);
+    if (!isIdentifier(j, prop.key)) {
+      // never
+      throw new Error('Unexpected identifier type');
+    }
     return {
       type: "ConfigProperty",
       name: prop.key,
@@ -59,75 +64,94 @@ export const identity: AttributeHandle = (j, attr) => {
   return buildConfigProperty(j, attr.value, attr.name);
 }
 
-export const unwrapExpressionContainer: AttributeHandle = (j, attr) => {
+export const extractExpression: AttributeHandle = (j, attr) => {
   const expr = isJSXExpressionContainer(j, attr.value) ? attr.value.expression : attr.value;
-  if (isJSXEmptyExpression(j, expr))
+  if (isJSXEmptyExpression(j, expr)) {
     throw new Error("Attribute cannot contain empty expression");
+  }
   return buildConfigProperty(j, expr, attr.name);
 };
 
 
-export const frontstageAttrHandles = new Map<string, AttributeHandle | undefined>([
-  ["key", undefined],
-  ["id", unwrapExpressionContainer],
-  ["version", unwrapExpressionContainer],
-  ["defaultTool", undefined],
-  ["contentGroup", unwrapExpressionContainer],
-  ["isInFooterMode", undefined],
-  ["usage", unwrapExpressionContainer],
-  ["applicationData", undefined],
-  ["contentManipulationTools", chain(rename("contentManipulationTools"), unwrapExpressionContainer)],
-  ["viewNavigationTools", chain(rename("viewNavigation"), unwrapExpressionContainer)],
-  ["toolSettings", unwrapExpressionContainer],
-  ["statusBar", unwrapExpressionContainer],
-  ["leftPanel", unwrapExpressionContainer],
-  ["topPanel", unwrapExpressionContainer],
-  ["rightPanel", unwrapExpressionContainer],
-  ["bottomPanel", unwrapExpressionContainer],
+export const frontstageAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["key", null],
+  ["id", extractExpression],
+  ["version", extractExpression],
+  ["defaultTool", null],
+  ["contentGroup", extractExpression],
+  ["isInFooterMode", null],
+  ["usage", extractExpression],
+  ["applicationData", null],
+  ["contentManipulationTools", chain(rename("contentManipulation"), extractExpression)],
+  ["viewNavigationTools", chain(rename("viewNavigation"), extractExpression)],
+  ["toolSettings", extractExpression],
+  ["statusBar", extractExpression],
+  ["leftPanel", extractExpression],
+  ["topPanel", extractExpression],
+  ["rightPanel", extractExpression],
+  ["bottomPanel", extractExpression],
 ]);
 
-export const widgetAttrHandles = new Map<string, AttributeHandle | undefined>([
-  ["id", unwrapExpressionContainer],
-  ["key", undefined],
-  ["isFreeform", undefined],
-  ["isToolSettings", undefined],
-  ["isStatusBar", undefined],
-  ["element", unwrapExpressionContainer],
-  ["control", unwrapExpressionContainer],
+export const zoneAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["widgets", extractExpression],
 ]);
 
-export const stagePanelAttrHandles = new Map<string, AttributeHandle | undefined>([
-  ["size", unwrapExpressionContainer],
-  ["pinned", unwrapExpressionContainer],
-  ["defaultState", unwrapExpressionContainer],
+export const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["id", extractExpression],
+  ["key", null],
+  ["isFreeform", null],
+  ["isToolSettings", null],
+  ["isStatusBar", null],
+  ["element", extractExpression],
+  ["control", extractExpression],
+]);
+
+export const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["size", extractExpression],
+  ["pinned", extractExpression],
+  ["defaultState", extractExpression],
+  [undefined, identity],
 ]);
 
 function isSpreadExpression(name: NameType | undefined, expr: any): expr is Exclude<JSXAttribute["value"], null> | ObjectProperty["value"] {
   return name ? true : false;
 }
 
-export function JSXtoElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute): ElementAttribute {
+function isIdentifier(j: JSCodeshift, path: any): path is Identifier {
+  return j(path).isOfType(j.Identifier);
+}
 
-  let name: JSXIdentifierKind | undefined;
-  if (isJSXIdentifier(j, jsxAttr.name)) {
-    name = jsxAttr.name;
-  }
-  else {
-    name = undefined;
-  }
-  if (jsxAttr.value === undefined || jsxAttr.value === null) {
-    throw new Error("Attribute must hold value")
+export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JSXSpreadAttribute): ElementAttribute {
+
+  if (isJSXAttribute(j, jsxAttr)) {
+    let name: JSXIdentifier | undefined;
+    if (isJSXIdentifier(j, jsxAttr.name)) {
+      name = jsxAttr.name;
+    }
+    else {
+      throw new Error("Non spread attribute must have name");
+    }
+    if (jsxAttr.value === undefined) {
+      throw new Error("Attribute must hold value")
+    }
+
+    return {
+      type: "ElementAttribute",
+      name: name,
+      value: jsxAttr.value,
+      ...(jsxAttr as Omit<JSXAttribute, "type" | "name">),
+    }
   }
 
   return {
     type: "ElementAttribute",
-    name: name,
-    value: jsxAttr.value!,
-    ...(jsxAttr as Omit<JSXAttribute, "type" | "name">),
+    name: undefined,
+    value: jsxAttr.argument,
+    ...(jsxAttr as Omit<JSXSpreadAttribute, "type">),
   }
 }
 
-export function ConfigToObjectProperty(j: JSCodeshift, prop: ConfigProperty): ObjectProperty | SpreadProperty {
+export function configToObjectProperty(j: JSCodeshift, prop: ConfigProperty): ObjectProperty | SpreadProperty {
 
   if (isSpreadExpression(prop.name, prop.value)) {
     return {
@@ -142,4 +166,9 @@ export function ConfigToObjectProperty(j: JSCodeshift, prop: ConfigProperty): Ob
     argument: prop.value,
     ...(prop as Omit<ConfigProperty, "type" | "name" | "value">),
   }
+}
+
+export function configToObjectExpression(j: JSCodeshift, configProps: ConfigProperty[]): ObjectExpression {
+  const props = configProps.map((configProp) => configToObjectProperty(j, configProp));
+  return j.objectExpression(props);
 }
