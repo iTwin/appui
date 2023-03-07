@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .components-color-swatch {
   font-size: var(--iui-font-size-1);
@@ -11,7 +10,7 @@
   border-width: 1px;
   border-radius: var(--iui-border-radius-1);
   border-style: solid;
-  border-color: $buic-inputs-border;
+  border-color: var(--iui-color-border-subtle);
 
   &.round {
     border-radius: 50%;

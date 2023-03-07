@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .nz-widget-menuTab {
   display: flex;
@@ -40,7 +39,7 @@
     position: absolute;
     right: 0.75em;
     border-style: solid;
-    border-color: $buic-foreground-primary;
+    border-color: var(--iui-color-border-accent);
     border-width: 0 0.15em 0.15em 0;
     width: 0.5em;
     height: 1em;
@@ -53,7 +52,7 @@
 
   @media (hover: hover) {
     &:hover {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent);
     }
   }
 }

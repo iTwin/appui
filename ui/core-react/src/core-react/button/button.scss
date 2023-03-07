@@ -51,7 +51,7 @@
   opacity: $uicore-opacity-disabled;
   background-color: $uicore-gray;
   border: 0;
-  color: $uicore-white;
+  color: var(--iui-color-white);
   cursor: not-allowed;
 }
 

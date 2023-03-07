@@ -12,7 +12,7 @@ import { Centered, CommonProps } from "@itwin/core-react";
 import { MessageManager } from "../messages/MessageManager";
 import { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
-import { ProgressLinear, Small } from "@itwin/itwinui-react";
+import { ProgressLinear, Text } from "@itwin/itwinui-react";
 
 /** Activity Center Field React component.
  * @public
@@ -21,7 +21,9 @@ export function ActivityCenterField(props: CommonProps) {
   const [message, setMessage] = React.useState<NotifyMessageType>("");
   const [percentage, setPercentage] = React.useState<number>(0);
   const [isVisible, setIsVisible] = React.useState<boolean>(true);
-  const [label] = React.useState(UiFramework.translate("activityCenter.percentComplete"));
+  const [label] = React.useState(
+    UiFramework.translate("activityCenter.percentComplete")
+  );
 
   React.useEffect(() => {
     return MessageManager.onActivityMessageUpdatedEvent.addListener((args) => {
@@ -41,9 +43,8 @@ export function ActivityCenterField(props: CommonProps) {
     MessageManager.setupActivityMessageValues(message, percentage, true);
   };
 
-  const isPercentageValid = (percentage > 0 && percentage < 100);
-  if (!isVisible || !isPercentageValid)
-    return null;
+  const isPercentageValid = percentage > 0 && percentage < 100;
+  if (!isVisible || !isPercentageValid) return null;
 
   const moreDetails = UiFramework.translate("activityCenter.moreDetails");
   const tooltip = `${message}-${moreDetails}`;
@@ -66,7 +67,11 @@ export function ActivityCenterField(props: CommonProps) {
           flex: "1",
         }}
         value={percentage}
-        labels={[<Small key={0}>{percentage} {label}</Small>]}
+        labels={[
+          <Text variant="small" key={0}>
+            {percentage} {label}
+          </Text>,
+        ]}
       />
     </Centered>
   );

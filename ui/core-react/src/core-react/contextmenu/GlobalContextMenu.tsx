@@ -59,7 +59,8 @@ export class GlobalContextMenu extends React.PureComponent<GlobalContextMenuProp
       if (!rt) {
         rt = parentDocument.createElement("div");
         rt.id = "core-global-context-menu-root";
-        parentDocument.body.appendChild(rt);
+        // istanbul ignore next
+        (parentDocument.body.querySelector('[data-root-container="iui-root-id"]') ?? parentDocument.body).appendChild(rt);
       }
       rt.appendChild(this._container);
 
@@ -84,7 +85,9 @@ export class GlobalContextMenu extends React.PureComponent<GlobalContextMenuProp
             <div className="core-context-menu-global" style={positioningStyle}>
               <CtxMenu
                 {...props} />
-            </div >, this.state.parentDocument.body)
+            </div >,
+            // istanbul ignore next
+            this.state.parentDocument.body.querySelector('[data-root-container="iui-root-id"]') ?? this.state.parentDocument.body)
         }
       </div>
     );

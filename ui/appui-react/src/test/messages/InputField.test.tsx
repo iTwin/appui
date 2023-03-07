@@ -7,7 +7,7 @@ import * as React from "react";
 import { NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { InputFieldMessage, MessageManager, UiFramework } from "../../appui-react";
 import TestUtils, { childStructure } from "../TestUtils";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 
 describe("InputFieldMessage", () => {
   before(async () => {
@@ -20,27 +20,29 @@ describe("InputFieldMessage", () => {
   });
 
   // TODO: These look for the webfont icon classnames. This only tests that an icon is displayed and should be replaced with visual testing
-  it("outputMessage with InputField", () => {
+  it("outputMessage with InputField", async () => {
     let details = new NotifyMessageDetails(OutputMessagePriority.Error, "Input field message.", "Detailed input field message.", OutputMessageType.InputField);
     const divElement = document.createElement("div");
     details.setInputFieldTypeDetails(divElement);
     render(<InputFieldMessage showCloseButton />);
     MessageManager.displayInputFieldMessage(details.inputField!, details.briefMessage, details.detailedMessage, details.priority);
 
-    expect(screen.getByText("Input field message.")).to.exist;
+    expect(await screen.findByText("Input field message.")).to.exist;
 
     expect(screen.getByRole("dialog")).to.satisfy(childStructure(".uifw-popup-message-icon"));
 
     MessageManager.hideInputFieldMessage();
 
-    expect(screen.queryByText("Input field message.")).to.be.null;
+    await waitFor(() => {
+      expect(screen.queryByText("Input field message.")).to.be.null;
+    });
 
     // Warning icon
     details = new NotifyMessageDetails(OutputMessagePriority.Warning, "Input field message.", "Detailed input field message.", OutputMessageType.InputField);
     details.setInputFieldTypeDetails(divElement);
     MessageManager.displayInputFieldMessage(details.inputField!, details.briefMessage, details.detailedMessage, details.priority);
 
-    expect(screen.getByRole("dialog")).to.satisfy(childStructure(".uifw-popup-message-icon"));
+    expect(await screen.findByRole("dialog")).to.satisfy(childStructure(".uifw-popup-message-icon"));
 
     MessageManager.hideInputFieldMessage();
 
@@ -49,7 +51,9 @@ describe("InputFieldMessage", () => {
     details.setInputFieldTypeDetails(divElement);
     MessageManager.displayInputFieldMessage(details.inputField!, details.briefMessage, details.detailedMessage, details.priority);
 
-    expect(screen.getByRole("dialog")).to.satisfy(childStructure(".uifw-popup-message-icon"));
+    await waitFor(() =>{
+      expect(screen.getByRole("dialog")).to.satisfy(childStructure(".uifw-popup-message-icon"));
+    });
 
     MessageManager.hideInputFieldMessage();
 
@@ -57,7 +61,9 @@ describe("InputFieldMessage", () => {
     details = new NotifyMessageDetails(OutputMessagePriority.Info, "Input field message.", undefined, OutputMessageType.InputField);
     MessageManager.displayInputFieldMessage(details.inputField!, details.briefMessage, details.detailedMessage, details.priority);
 
-    expect(screen.queryByText("Input field message.")).to.be.null;
+    await waitFor(() => {
+      expect(screen.queryByText("Input field message.")).to.be.null;
+    });
   });
 
 });

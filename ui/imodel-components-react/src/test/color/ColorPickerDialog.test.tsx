@@ -61,7 +61,9 @@ describe("ColorPickerDialog", () => {
       }
 
       const wrapper = render(<ColorPickerDialog dialogTitle="-testing-title-" colorInputType="hsl" color={ColorDef.blue} onOkResult={handleOK} onCancelResult={() => { }} />);
-      const okButton = wrapper.container.querySelector("button.core-dialog-button.dialog-button-ok.iui-cta") as HTMLElement;
+      const okButton = wrapper.container.querySelector(
+        'button.core-dialog-button.dialog-button-ok[data-iui-variant="cta"]'
+      ) as HTMLElement;
       expect(okButton).not.to.be.null;
       fireEvent.click(okButton);
       expect(spyOnOK).to.be.calledOnce;
@@ -91,7 +93,9 @@ describe("ColorPickerDialog", () => {
       const colorButton = panel.querySelector(".iui-color-swatch") as HTMLElement;
       fireEvent.click(colorButton);
 
-      const okButton = wrapper.container.querySelector("button.core-dialog-button.dialog-button-ok.iui-cta") as HTMLElement;
+      const okButton = wrapper.container.querySelector(
+        'button.core-dialog-button.dialog-button-ok[data-iui-variant="cta"]'
+      ) as HTMLElement;
       fireEvent.click(okButton);
       expect(spyOnOK).to.be.calledOnce;
     });

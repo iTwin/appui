@@ -17,7 +17,7 @@
     cursor: pointer;
 
     &:after {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent);
     }
   }
 
@@ -27,7 +27,7 @@
     position: relative;
     left: 3px;
     top: 3px;
-    color: $buic-foreground-body;
+    color: var(--iui-color-text);
     width: $size;
     height: $size;
     border-top: $border;

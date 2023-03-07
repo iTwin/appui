@@ -5,5 +5,5 @@
 @import "../style/themecolors";
 
 .core-new-badge {
-  color: $buic-foreground-success;
+  color: var(--iui-color-text-positive);
 }

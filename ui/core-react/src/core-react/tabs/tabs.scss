@@ -31,15 +31,15 @@
         $uicore-unbordered-padding;
       margin: 0;
       line-height: var(--iui-size-l);
-      color: $buic-text-color;
+      color: var(--iui-color-text);
       cursor: pointer;
 
       .uicore-tabs-inline-label {
         &.core-tab-item-disabled {
-          color: $buic-foreground-disabled;
+          color: var(--iui-color-text-disabled);
 
           .uicore-tabs-subLabel {
-            color: $buic-foreground-disabled;
+            color: var(--iui-color-text-disabled);
           }
         }
 
@@ -57,29 +57,20 @@
         z-index: 1;
         transition: all var(--iui-duration-1);
         top: 0;
-        left: 0;
-        background: $buic-foreground-primary;
+        right: 0;
+        background: var(--iui-color-border-accent);
         opacity: 0;
       }
 
       &:hover {
         text-decoration: none;
-        color: $buic-foreground-activehover;
-
-        &::after {
-          opacity: 1;
-        }
+        background-color: var(--iui-color-background-hover);
+        color: var(--iui-color-text-hover);
       }
     }
 
-    &.core-active {
-      > a {
-        font-weight: var(--iui-font-weight-bold);
-
-        &::after {
-          opacity: 1;
-        }
-      }
+    &.core-active a::after {
+      opacity: 1;
     }
 
     .uicore-tabs-label-subLabel-container {
@@ -87,13 +78,12 @@
       flex-direction: column;
       .uicore-tabs-subLabel {
         font-size: var(--iui-font-size-0);
-        font-weight: var(--iui-font-weight-semibold);
       }
     }
     &:not(.core-active) {
       .uicore-tabs-label-subLabel-container {
         .uicore-tabs-subLabel {
-          color: $buic-text-color-muted;
+          color: var(--iui-color-text-muted);
           font-weight: var(--iui-font-weight-light);
         }
       }

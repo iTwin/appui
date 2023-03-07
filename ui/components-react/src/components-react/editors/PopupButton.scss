@@ -15,7 +15,7 @@
   margin: 0;
   padding: 0;
   background-color: $buic-background-control;
-  border: 1px solid $buic-inputs-border;
+  border: 1px solid var(--iui-color-border-foreground);
   border-radius: var(--iui-border-radius-1);
   box-shadow: $buic-inputs-boxshadow 0px 1px 1px inset;
   box-sizing: border-box;
@@ -34,7 +34,7 @@
     padding: 0 3px;
 
     &.components-popup-button-placeholder {
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
   }
 
@@ -47,11 +47,11 @@
       transition: transform 0.2s;
 
       &:hover {
-        color: $buic-foreground-primary;
+        color: var(--iui-color-text-accent);
       }
 
       text-align: center;
-      font-size: $uicore-icons-x-small;
+      font-size: var(--iui-font-size-0);
       line-height: var(--iui-size-l);
     }
   }
@@ -68,7 +68,7 @@
       outline: 0px;
 
       > .components-popup-button-arrow-icon {
-        color: $buic-foreground-primary;
+        color: var(--iui-color-text-accent);
       }
     }
   }
@@ -81,7 +81,7 @@
 }
 
 .components-popup-button-popup {
-  background-color: $buic-background-dialog;
+  background-color: var(--iui-color-background);
 }
 
 .components-editor-popup-content {
@@ -104,13 +104,13 @@
     &:active,
     &:focus {
       border: none;
-      background-color: $uicore-gray;
-      color: $uicore-white;
+      background-color: var(--iui-color-background-negative);
+      color: var(--iui-color-white);
     }
 
     &:hover {
-      background-color: $uicore-gray-5;
-      color: $uicore-white;
+      background-color: var(--iui-color-background-negative-hover);
+      color: var(--iui-color-white);
     }
   }
 }

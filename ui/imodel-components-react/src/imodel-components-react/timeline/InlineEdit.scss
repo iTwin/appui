@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .inline-edit-input {
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
   background: inherit;
   border: 1px solid transparent;
   box-sizing: border-box;
@@ -22,6 +22,6 @@
     background: $buic-background-1;
     border: 1px solid $buic-background-5;
     outline: none;
-    color: $buic-foreground-activehover;
+    color: var(--iui-color-text-hover);
   }
 }

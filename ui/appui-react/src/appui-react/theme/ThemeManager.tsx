@@ -114,11 +114,9 @@ class ThemeManagerComponent extends React.Component<ThemeManagerProps, ThemeMana
     const theme: ThemeType = (this.props.theme === SYSTEM_PREFERRED_COLOR_THEME) ? "os" : this.props.theme as ThemeType;
 
     return (
-      <div style={{ height: "100%" }} ref={this._handleRefSet}>
-        <ThemeProvider theme={theme} themeOptions={{ ownerDocument: this.state.ownerDocument }}>
-          {this.props.children}
-        </ThemeProvider>
-      </div>
+      <ThemeProvider style={{ height: "100%" }} theme={theme} data-root-container={"iui-root-id"} ref={this._handleRefSet}>
+        {this.props.children}
+      </ThemeProvider>
     );
   }
 }

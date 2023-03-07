@@ -9,14 +9,13 @@
   background-origin: border-box;
   border-color: transparent;
   border-style: solid;
+  border-radius: var(--iui-border-radius-1);
   cursor: pointer;
-  transition: background-color 250ms ease;
+  transition: background-color var(--iui-duration-1) ease;
   position: relative;
   background: transparent;
-
   height: 100%;
   width: 100%;
-
   outline-style: solid;
   outline-width: 0;
 
@@ -27,9 +26,8 @@
     display: grid;
     align-content: center;
     justify-content: center;
-    color: $icon-color;
-    filter: $icon-shadow;
-    transition: all 250ms ease;
+    color: var(--iui-color-icon);
+    transition: color var(--iui-duration-1) ease;
 
     img {
       width: $icon-size;
@@ -37,68 +35,39 @@
     }
   }
 
-  &:focus {
-    color: $hovered-icon-color;
-    background-color: $buic-background-focus-overlay;
-
-    svg {
-      opacity: 1;
-    }
+  &:not(.components-disabled) > .components-icon {
+    filter: $icon-shadow;
   }
 
-  &:hover {
-    color: $hovered-icon-color;
-    background-color: $buic-background-hover-overlay;
-
-    svg {
-      opacity: 1;
-    }
-  }
-
-  &:active {
-    color: $active-icon-color;
-    background-color: $buic-background-active-overlay;
-    border: solid 2px $buic-foreground-primary;
-
-    > .components-icon {
-      color: $pressed-icon-color;
-
-      svg {
-        opacity: 1;
-      }
-    }
-  }
-
-  &:active:not(.components-disabled) {
-    background: $buic-background-pressed-overlay;
-    color: $pressed-icon-color;
-    transition-duration: 150ms;
-    transition-timing-function: cubic-bezier(1, 0.1, 1, 0.5);
+  &:focus-visible:not(.components-disabled):not(.components-active),
+  &:hover:not(.components-disabled):not(.components-active),
+  &:active:not(.components-disabled):not(.components-active) {
+    color: var(--iui-color-icon-hover);
+    background-color: var(--iui-color-background-transparent-hover);
   }
 
   &.components-active {
-    color: $active-icon-color;
-    background-color: $buic-background-active-overlay;
-    border: solid 2px $buic-foreground-primary;
+    color: var(--iui-color-icon-accent);
+    background-color: var(--iui-color-background-accent-muted);
+    // background-color: hsl(var(--iui-color-accent-hsl) / var(--iui-opacity-5));
+    border: solid 2px var(--iui-color-border-accent);
 
     &:not(:active):not(.components-disabled) {
       transition-duration: 0s;
 
       > .components-icon {
-        color: $icon-color;
-        transition-duration: 150ms;
+        color: var(--iui-color-icon-accent);
+        transition-duration: var(--iui-duration-1);
         transition-timing-function: cubic-bezier(1, 0.1, 1, 0.5);
-
-        svg {
-          opacity: 1;
-        }
       }
     }
   }
 
   &.components-disabled {
+    cursor: not-allowed;
+
     > .components-icon {
-      color: $disabled-icon-color;
+      color: var(--iui-color-icon-disabled);
     }
 
     &:hover {

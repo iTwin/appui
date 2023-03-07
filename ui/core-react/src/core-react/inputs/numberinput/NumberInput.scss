@@ -7,12 +7,12 @@
 
 .core-number-input-container {
   position: relative;
-  padding:  0;
-  margin:   0;
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 
   input {
-    margin:       0;
+    margin: 0;
     padding-right: 1.5em;
 
     &.iui-input {
@@ -28,11 +28,10 @@
 
   .core-number-input-buttons-container {
     position: absolute;
-    top:      0;
-    right:    0;
-    width:    20px;
-    height:   100%;
-    padding-top: 1.5px;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
     @include uicore-centered;
     flex-direction: column;
 
@@ -43,7 +42,7 @@
       width: 100%;
       @include uicore-centered;
       &:hover {
-        color: $buic-foreground-primary-tone;
+        color: var(--iui-color-text-accent-hover);
         transition-duration: 150ms;
       }
       &.core-number-input-button-up {
@@ -55,11 +54,12 @@
     }
 
     &.core-number-buttons-for-touch {
-      width:    3.5em;
+      width: 3.5em;
       flex-direction: row-reverse;
 
       .core-number-input-button {
         font-size: 1em;
+
         &:hover {
           color: unset;
           transition-duration: unset;
@@ -77,13 +77,12 @@
   &.core-number-input-disabled {
     .core-number-input-button-up {
       pointer-events: none;
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
 
     .core-number-input-button-down {
       pointer-events: none;
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
   }
-
 }
