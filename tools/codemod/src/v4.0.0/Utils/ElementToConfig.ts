@@ -2,10 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { ExpressionKind } from "ast-types/gen/kinds";
-import { IdentifierKind, JSXElementKind, JSXExpressionContainerKind, JSXFragmentKind, JSXIdentifierKind, LiteralKind } from "ast-types/gen/kinds";
-import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, Expression, JSXIdentifier, ObjectExpression } from "jscodeshift";
-import { isAttrOrProp, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier } from "./TypeCheck";
+import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression } from "jscodeshift";
+import { isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier } from "./TypeCheck";
 
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
@@ -47,10 +45,17 @@ export function buildConfigProperty(j: JSCodeshift, value: ValueType, name?: Nam
   };
 }
 
-export function chain(first: AttributeHandle, second: AttributeHandle): AttributeHandle {
+export function chain(...handles: AttributeHandle[]): AttributeHandle {
   return (j, attr) => {
-    const prop = first(j, attr);
-    return second(j, prop);
+    if (handles.length === 1)
+      return identity(j, attr);
+
+    let prop = attr;
+    handles.forEach((handle) => {
+      prop = handle(j, prop);
+    });
+
+    return prop as ConfigProperty;
   };
 }
 
