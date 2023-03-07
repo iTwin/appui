@@ -3,36 +3,19 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { CallExpression, Collection, JSCodeshift } from "jscodeshift";
-import once from "jscodeshift/src/utils/once";
+import { NodeFilter } from "./NodeFilter";
+import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
   interface Collection<N> extends CallExpressionMethods {
   }
 }
 
-type RecursiveMatchNode<T> =
-  | (T extends {}
-    ? {
-      [K in keyof T]?: RecursiveMatchNode<T[K]>;
-    }
-    : T)
-  | ((value: T) => boolean);
-
 interface CallExpressionMethods {
   findCallExpressions(name?: string): Collection<CallExpression>;
 }
 
-export function once<A extends any[]>(fn: (...args: A) => void) {
-  let called = false;
-  return function (...args: A) {
-    if (called)
-      return;
-    called = true;
-    fn(...args);
-  }
-}
-
-function toFilter(name: string | undefined): RecursiveMatchNode<CallExpression> | undefined {
+function toFilter(name: string | undefined): NodeFilter<CallExpression> | undefined {
   const names = name ? name.split('.') : [];
   if (names.length === 2) {
     return {
@@ -49,7 +32,7 @@ function toFilter(name: string | undefined): RecursiveMatchNode<CallExpression> 
   return undefined;
 }
 
-export const registerCallExpression = once((j: JSCodeshift) => {
+function callExpressionPlugin(j: JSCodeshift) {
   const methods: CallExpressionMethods = {
     findCallExpressions(this: Collection, name) {
       const filter = toFilter(name);
@@ -57,4 +40,8 @@ export const registerCallExpression = once((j: JSCodeshift) => {
     }
   };
   j.registerMethods(methods);
-});
+}
+
+export function useCallExpression(j: JSCodeshift) {
+  usePlugin(j, callExpressionPlugin);
+}

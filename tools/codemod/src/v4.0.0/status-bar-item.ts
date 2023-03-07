@@ -3,14 +3,15 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { API, FileInfo, ObjectExpression } from "jscodeshift";
-import { registerCallExpression } from "../utils/CallExpression";
-import { findObjects } from "../utils/objectExpression";
+import { useCallExpression } from "../utils/CallExpression";
+import { useObjectExpression } from "../utils/objectExpression";
 import { renameProperty } from "../utils/objectProperty";
 import { isObjectExpression } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
-  registerCallExpression(j);
+  useCallExpression(j);
+  useObjectExpression(j);
 
   const root = j(file.source);
   const createActionItemOverrides = root.findCallExpressions("StatusBarItemUtilities.createActionItem")
@@ -38,10 +39,10 @@ export default function transformer(file: FileInfo, api: API) {
       return j(overrides).paths();
     });
 
-  const items = findObjects(j, root, "StatusBarItem");
-  const actionItems = findObjects(j, root, "StatusBarActionItem");
-  const labelItems = findObjects(j, root, "StatusBarLabelItem");
-  const customItems = findObjects(j, root, "StatusBarCustomItem");
+  const items = root.findObjectExpressions("StatusBarItem");
+  const actionItems = root.findObjectExpressions("StatusBarActionItem");
+  const labelItems = root.findObjectExpressions("StatusBarLabelItem");
+  const customItems = root.findObjectExpressions("StatusBarCustomItem");
 
   const allCustomItems = j([
     ...customItems.paths(),
