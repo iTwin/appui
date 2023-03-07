@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { ASTPath, API, FileInfo, JSCodeshift, JSXElement } from "jscodeshift";
+import { isSpecifiedJSXElement, isArrayExpression } from "../utils/typeGuards";
 import { AttributeHandle, chain, ConfigProperty, configToObjectExpression, extractExpression, identity, jsxToElementAttribute, rename } from "./Utils/jsxElementAttributeHandles";
-import { isArrayExpression, isSpecifiedJSXElement } from "./Utils/TypeCheck";
 
 const frontstageAttrHandles = new Map<string | undefined, AttributeHandle | null>([
   ["key", null],

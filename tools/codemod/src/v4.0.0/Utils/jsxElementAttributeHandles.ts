@@ -3,8 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression } from "jscodeshift";
-import { isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier } from "./TypeCheck";
-
+import { isIdentifier, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier } from "../../utils/typeGuards";
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
   name?: JSXIdentifier;
@@ -82,10 +81,6 @@ export const extractExpression: AttributeHandle = (j, attr) => {
 
 function isSpreadExpression(name: NameType | undefined, expr: any): expr is JSXSpreadAttribute["argument"] | SpreadProperty["argument"] {
   return name ? false : true;
-}
-
-function isIdentifier(j: JSCodeshift, path: any): path is Identifier {
-  return j(path).isOfType(j.Identifier);
 }
 
 export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JSXSpreadAttribute): ElementAttribute {
