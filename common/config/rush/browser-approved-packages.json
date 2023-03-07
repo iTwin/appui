@@ -347,10 +347,6 @@
       "allowedCategories": [ "integration-testing", "internal" ]
     },
     {
-      "name": "@itwin/ui-items-providers-test",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "@itwin/webgl-compatibility",
       "allowedCategories": [ "frontend", "internal" ]
     },
