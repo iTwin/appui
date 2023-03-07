@@ -4,8 +4,48 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { ASTPath, API, FileInfo, JSCodeshift, JSXElement } from "jscodeshift";
-import { AttributeHandle, ConfigProperty, configToObjectExpression, frontstageAttrHandles, jsxToElementAttribute, stagePanelAttrHandles, widgetAttrHandles, zoneAttrHandles } from "./Utils/jsxElementAttributeHandles";
+import { AttributeHandle, chain, ConfigProperty, configToObjectExpression, extractExpression, identity, jsxToElementAttribute, rename } from "./Utils/jsxElementAttributeHandles";
 import { isArrayExpression, isSpecifiedJSXElement } from "./Utils/TypeCheck";
+
+const frontstageAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["key", null],
+  ["id", extractExpression],
+  ["version", extractExpression],
+  ["defaultTool", null],
+  ["contentGroup", extractExpression],
+  ["isInFooterMode", null],
+  ["usage", extractExpression],
+  ["applicationData", null],
+  ["contentManipulationTools", chain(rename("contentManipulation"), extractExpression)],
+  ["viewNavigationTools", chain(rename("viewNavigation"), extractExpression)],
+  ["toolSettings", extractExpression],
+  ["statusBar", extractExpression],
+  ["leftPanel", extractExpression],
+  ["topPanel", extractExpression],
+  ["rightPanel", extractExpression],
+  ["bottomPanel", extractExpression],
+]);
+
+const zoneAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["widgets", extractExpression],
+]);
+
+const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["id", extractExpression],
+  ["key", null],
+  ["isFreeform", null],
+  ["isToolSettings", null],
+  ["isStatusBar", null],
+  ["element", extractExpression],
+  ["control", extractExpression],
+]);
+
+const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["size", extractExpression],
+  ["pinned", extractExpression],
+  ["defaultState", extractExpression],
+  [undefined, identity],
+]);
 
 function handleJSXElement(j: JSCodeshift, element: ASTPath<JSXElement>, handles: Map<string | undefined, AttributeHandle | null>): ConfigProperty[] {
   const props: ConfigProperty[] = [];
