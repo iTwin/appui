@@ -2,8 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo, MemberExpression } from "jscodeshift";
-import { removeProperty, renameProperty } from "../utils/objectProperty";
+import { API, ASTPath, FileInfo, JSCodeshift, MemberExpression, ObjectExpression, ObjectProperty } from "jscodeshift";
+import { isProperty, removeProperty, renameProperty } from "../utils/objectProperty";
 
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
@@ -18,13 +18,7 @@ export default function transformer(file: FileInfo, api: API) {
     return false;
   });
 
-  // `isFloatingStateSupported` renamed to `canFloat`. Type changed to union of `boolean` or `CanFloatWidgetOptions`:
-  //  `isFloatingStateWindowResizable` can be configured via `canFloat.isResizable`
-  //  `floatingContainerId` can be configured via `canFloat.containerId`
-  //  `defaultFloatingPosition` can be configured via `canFloat.defaultPosition`
-  //  `defaultFloatingSize` can be configured via `canFloat.defaultSize`
-  //  `hideWithUiWhenFloating` can be configured via `canFloat.hideWithUi`
-
+  const objectToProperties = new Map<ASTPath<ObjectExpression>, ObjectProperty[]>();
   widgets.find(j.ObjectProperty).forEach((path) => {
     if (
       removeProperty(j, path, "onWidgetStateChanged") ||
@@ -32,6 +26,7 @@ export default function transformer(file: FileInfo, api: API) {
       removeProperty(j, path, "restoreTransientState") ||
       removeProperty(j, path, "internalData") ||
       removeProperty(j, path, "applicationData") ||
+      renameProperty(j, path, "isFloatingStateSupported", "canFloat") ||
       renameProperty(j, path, "badgeType", "badge")
     )
       return;
@@ -66,7 +61,57 @@ export default function transformer(file: FileInfo, api: API) {
       // TODO: add `StagePanelLocation` to import declaration.
       return;
     }
+
+    const canFloatProperty = getCanFloatProperty(j, path);
+    if (canFloatProperty) {
+      const objectExpression = j(path).closest(j.ObjectExpression).paths()[0];
+      if (!objectExpression)
+        return;
+
+      let objectProperties = objectToProperties.get(objectExpression);
+      if (!objectProperties) {
+        objectExpression.value.properties.push(j.objectProperty(j.identifier("canFloat"), j.literal(false)));
+        objectProperties = [];
+        objectToProperties.set(objectExpression, objectProperties);
+      }
+
+      const newProperty = j.objectProperty(j.identifier(canFloatProperty), path.value.value);
+      objectProperties.push(newProperty);
+      path.replace();
+      return;
+    }
   });
 
+  for (const [objectExpression, properties] of objectToProperties) {
+    if (properties.length === 0)
+      continue;
+    let canFloat = j(objectExpression).find(j.ObjectProperty).filter((path) => {
+      return isProperty(j, path, "canFloat");
+    }).nodes()[0];
+    if (!canFloat) {
+      canFloat = j.objectProperty(j.identifier("canFloat"), j.objectExpression([]));
+      objectExpression.value.properties.push(canFloat);
+    }
+    canFloat.value = j.objectExpression(properties);
+  }
+
   return root.toSource();
+}
+
+function getCanFloatProperty(j: JSCodeshift, path: ASTPath<ObjectProperty>) {
+  if (isProperty(j, path, "isFloatingStateWindowResizable")) {
+    return "isResizable";
+  }
+  if (isProperty(j, path, "floatingContainerId")) {
+    return "containerId";
+  }
+  if (isProperty(j, path, "defaultFloatingPosition")) {
+    return "defaultPosition";
+  }
+  if (isProperty(j, path, "defaultFloatingSize")) {
+    return "defaultSize";
+  }
+  if (isProperty(j, path, "hideWithUiWhenFloating")) {
+    return "hideWithUi";
+  }
 }
