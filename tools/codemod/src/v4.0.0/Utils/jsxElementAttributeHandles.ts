@@ -80,47 +80,6 @@ export const extractExpression: AttributeHandle = (j, attr) => {
   return buildConfigProperty(j, expr, attr.name);
 };
 
-
-export const frontstageAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-  ["key", null],
-  ["id", extractExpression],
-  ["version", extractExpression],
-  ["defaultTool", null],
-  ["contentGroup", extractExpression],
-  ["isInFooterMode", null],
-  ["usage", extractExpression],
-  ["applicationData", null],
-  ["contentManipulationTools", chain(rename("contentManipulation"), extractExpression)],
-  ["viewNavigationTools", chain(rename("viewNavigation"), extractExpression)],
-  ["toolSettings", extractExpression],
-  ["statusBar", extractExpression],
-  ["leftPanel", extractExpression],
-  ["topPanel", extractExpression],
-  ["rightPanel", extractExpression],
-  ["bottomPanel", extractExpression],
-]);
-
-export const zoneAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-  ["widgets", extractExpression],
-]);
-
-export const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-  ["id", extractExpression],
-  ["key", null],
-  ["isFreeform", null],
-  ["isToolSettings", null],
-  ["isStatusBar", null],
-  ["element", extractExpression],
-  ["control", extractExpression],
-]);
-
-export const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-  ["size", extractExpression],
-  ["pinned", extractExpression],
-  ["defaultState", extractExpression],
-  [undefined, identity],
-]);
-
 function isSpreadExpression(name: NameType | undefined, expr: any): expr is JSXSpreadAttribute["argument"] | SpreadProperty["argument"] {
   return name ? false : true;
 }
