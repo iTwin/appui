@@ -4,5 +4,6 @@
 !README.md
 
 !src/**/*.ts
+src/utils/testUtils.ts
 src/**/__tests__/**
 src/**/__testfixtures__/**
