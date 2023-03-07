@@ -164,7 +164,12 @@ export class SampleAppIModelApp {
       const redirectUri = process.env.IMJS_OIDC_BROWSER_TEST_REDIRECT_URI ?? "";
       const urlObj = new URL(redirectUri);
       if (urlObj.pathname === window.location.pathname) {
-        await BrowserAuthorizationCallbackHandler.handleSigninCallback(redirectUri);
+        // Hack: supporting 3.6 and 4.0 (4.0 have expanded options)
+        const is40 = Object.getOwnPropertyNames(BrowserAuthorizationCallbackHandler.prototype).includes("authorityUrl");
+        await BrowserAuthorizationCallbackHandler.handleSigninCallback((is40 ? {
+          redirectUri,
+          clientId: process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID!
+        } : redirectUri) as any);
         return;
       }
 
@@ -441,8 +446,11 @@ export class SampleAppIModelApp {
       for await (const imodel of SampleAppIModelApp.hubClient.iModels.getRepresentationList({
         urlParams: {
           name: iModelName,
-          projectId: iTwin.id,
           $top: 1,
+          ...{
+            projectId: iTwin.id,
+            iTwinId: iTwin.id,
+          } as any // Support 3.6 and 4.0.
         },
         authorization: AccessTokenAdapter.toAuthorizationCallback(accessToken),
       }))

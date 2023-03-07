@@ -97,7 +97,9 @@ export class IModelOpen extends React.Component<IModelOpenProps, IModelOpenState
       const iter = SampleAppIModelApp.hubClient?.iModels.getRepresentationList({
         urlParams: {
           projectId: iTwinId,
-        },
+          iTwinId: iTwinId,
+        } as any // Support 3.6 and 4.0.
+,
         authorization,
       });
       const iModels = await take(iter, top);

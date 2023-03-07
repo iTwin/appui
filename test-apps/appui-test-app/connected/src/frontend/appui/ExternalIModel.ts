@@ -71,7 +71,10 @@ export class ExternalIModel {
       for await (const iModel of hubClient.iModels.getMinimalList({
         urlParams: {
           name: args.iModelName,
-          projectId: createArgs.iTwinId!,
+          ...{
+            projectId: createArgs.iTwinId!,
+            iTwinId: createArgs.iTwinId!,
+          } as any // Support 3.6 and 4.0.
         },
         authorization: AccessTokenAdapter.toAuthorizationCallback(accessToken),
       })) {
