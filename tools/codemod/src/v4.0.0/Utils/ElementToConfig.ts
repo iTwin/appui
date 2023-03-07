@@ -24,8 +24,11 @@ export type AttributeHandle = (j: JSCodeshift, attr: ElementAttribute | ConfigPr
 export type AttributeHandleMap = Map<string | undefined, AttributeHandle | null>;
 
 export function buildConfigProperty(j: JSCodeshift, value: ValueType, name?: NameType): ConfigProperty {
-  if (isSpreadExpression(name, value)) {
-    const prop: Omit<ObjectProperty, "type"> = j.objectProperty(name, value);
+  if (!value) {
+    throw new Error("Element must hold value");
+  }
+  if (!isSpreadExpression(name, value)) {
+    const prop: Omit<ObjectProperty, "type"> = j.objectProperty(name!, value);
     if (!isIdentifier(j, prop.key)) {
       // never
       throw new Error('Unexpected identifier type');
@@ -118,8 +121,8 @@ export const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle
   [undefined, identity],
 ]);
 
-function isSpreadExpression(name: NameType | undefined, expr: any): expr is Exclude<JSXAttribute["value"], null> | ObjectProperty["value"] {
-  return name ? true : false;
+function isSpreadExpression(name: NameType | undefined, expr: any): expr is JSXSpreadAttribute["argument"] | SpreadProperty["argument"] {
+  return name ? false : true;
 }
 
 function isIdentifier(j: JSCodeshift, path: any): path is Identifier {
@@ -136,8 +139,8 @@ export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JS
     else {
       throw new Error("Non spread attribute must have name");
     }
-    if (jsxAttr.value === undefined) {
-      throw new Error("Attribute must hold value")
+    if (jsxAttr.value === null) {
+      throw new Error("Attribute must hold value");
     }
 
     return {
@@ -158,10 +161,10 @@ export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JS
 
 export function configToObjectProperty(j: JSCodeshift, prop: ConfigProperty): ObjectProperty | SpreadProperty {
 
-  if (isSpreadExpression(prop.name, prop.value)) {
+  if (!isSpreadExpression(prop.name, prop.value)) {
     return {
       type: "ObjectProperty",
-      key: prop.name,
+      key: prop.name!,
       ...(prop as Omit<ConfigProperty, "type" | "name">),
     }
   }
