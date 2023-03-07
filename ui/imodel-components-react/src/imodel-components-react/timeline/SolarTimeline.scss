@@ -13,14 +13,14 @@ $bottom-position: 4px;
 
 .solar-timeline-wrapper {
   box-sizing: border-box;
-  background: $buic-background-2;
+  background: var(--iui-color-background);
   width: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
   padding: 8px 16px;
-  color: $buic-foreground-body;
-  font-size: 14px;
+  color: var(--iui-color-text);
+  font-size: var(--iui-font-size-1);
 
   > .header {
     display: flex;
@@ -38,7 +38,7 @@ $bottom-position: 4px;
     > .shadow-settings-button {
       display: flex;
       align-items: center;
-      color: $buic-foreground-body;
+      color: var(--iui-color-icon);
       width: 26px;
       height: 26px;
       background: inherit;
@@ -48,11 +48,12 @@ $bottom-position: 4px;
       cursor: pointer;
 
       &:hover {
-        color: $buic-foreground-activehover;
+        color: var(--iui-color-icon-hover);
       }
 
-      &:focus {
-        outline: none;
+      &:focus-visible {
+        outline: 1px solid var(--iui-color-border-accent);
+        outline-offset: -1px;
       }
     }
 
@@ -65,9 +66,14 @@ $bottom-position: 4px;
       border: none;
       display: flex;
       align-items: center;
-      color: $buic-foreground-body;
-      font-size: 14px;
+      color: var(--iui-color-text);
+      font-size: var(--iui-font-size-1);
       cursor: pointer;
+
+      &:focus-visible {
+        outline: 1px solid var(--iui-color-border-accent);
+        outline-offset: -1px;
+      }
 
       > span:nth-child(2) {
         margin: 0 6px;
@@ -95,13 +101,9 @@ $bottom-position: 4px;
     }
 
     > .loop-playback {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-icon-accent);
       font-size: 16px;
       cursor: pointer;
-
-      &:hover {
-        color: $buic-foreground-primary-tone;
-      }
 
       &:focus {
         outline: none;
@@ -109,12 +111,12 @@ $bottom-position: 4px;
     }
 
     > .no-loop-playback {
-      color: $buic-foreground-body;
+      color: var(--iui-color-icon);
       font-size: 16px;
       cursor: pointer;
 
       &:hover {
-        color: $buic-foreground-activehover;
+        color: var(--iui-color-icon-hover);
       }
 
       &:focus {
@@ -150,11 +152,11 @@ $bottom-position: 4px;
 
     .rail-inner {
       width: 100%;
-      background: $buic-background-5;
+      background: var(--iui-color-background-backdrop);
     }
 
     .rail-solar {
-      background: $buic-foreground-primary;
+      background: var(--iui-color-background-accent);
       z-index: 1;
     }
 
@@ -192,7 +194,7 @@ $bottom-position: 4px;
         height: 10px;
         opacity: 0.25;
         margin: 0 1px;
-        background-color: $buic-foreground-body;
+        background-color: var(--iui-color-text);
       }
     }
 
@@ -222,7 +224,7 @@ $bottom-position: 4px;
     }
 
     .sunrise {
-      color: #ffcf00;
+      color: var(--iui-color-icon-warning);
       margin: 0 24px 0 8px;
     }
   }
@@ -317,7 +319,7 @@ $bottom-position: 4px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 2px;
-    border-top: 1px solid $buic-background-5;
+    border-top: 1px solid var(--iui-color-border-subtle);
   }
 }
 
@@ -325,13 +327,13 @@ $bottom-position: 4px;
   position: absolute;
   top: -8px;
   display: inline-block;
-  border-bottom: 1px dotted #222;
+  border-bottom: 1px dotted rgba(0, 0, 0, var(--iui-opacity-3));
   font-size: 14px;
 }
 
 .solar-tooltip-text {
   width: 100px;
-  background-color: #222;
+  background-color: rgba(0, 0, 0, var(--iui-opacity-3));
   color: #fff;
   // opacity: 0.8;
   text-align: center;
@@ -351,6 +353,7 @@ $bottom-position: 4px;
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #222 transparent transparent transparent;
+    border-color: rgba(0, 0, 0, var(--iui-opacity-3)) transparent transparent
+      transparent;
   }
 }

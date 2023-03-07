@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "../style/themecolors.scss";
 
 $node-font-size: var(--iui-font-size-1);
 
@@ -14,7 +13,7 @@ $node-font-size: var(--iui-font-size-1);
   min-width: 100%;
   font-family: var(--iui-font-sans);
   font-size: $node-font-size;
-  color: $buic-text-color;
+  color: var(--iui-color-text);
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: default;
@@ -74,11 +73,11 @@ $node-font-size: var(--iui-font-size-1);
 
   &:not(.is-hover-disabled) {
     &:hover {
-      background: $buic-row-hover;
+      background: var(--iui-color-background-hover);
     }
   }
 
   &.is-selected {
-    background: $buic-row-selection;
+    background: var(--iui-color-background-accent-muted);
   }
 }

@@ -101,10 +101,10 @@ describe("calculateBackdropFilterBlur", () => {
 describe("getToolbarBackgroundColor", () => {
   it("should calculate the correct toolbar background-color", () => {
     let backgroundColor = getToolbarBackgroundColor(1.0);
-    expect(backgroundColor).to.eq(`rgba(var(--buic-background-2-rgb), 1)`);
+    expect(backgroundColor).to.eq(`hsl(var(--iui-color-background-hsl) / 1)`);
 
-    backgroundColor = getToolbarBackgroundColor(0.50);
-    expect(backgroundColor).to.eq(`rgba(var(--buic-background-2-rgb), 0.5)`);
+    backgroundColor = getToolbarBackgroundColor(0.5);
+    expect(backgroundColor).to.eq(`hsl(var(--iui-color-background-hsl) / 0.5)`);
   });
 });
 

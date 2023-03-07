@@ -2,20 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 $desktop-tool-stripe-width: 2px;
 $desktop-tool-stripe-height: 22px;
 
 $icon-size: 16px;
-$icon-color: $buic-icon-color;
-$hovered-icon-color: $buic-foreground-primary-tone;
-$pressed-icon-color: $buic-icon-color-reverse;
-$active-icon-color: $buic-foreground-primary;
-$disabled-icon-color: $buic-icon-color-disabled;
-$icon-shadow-color: $buic-icon-color-reverse;
-$icon-shadow: drop-shadow(0 1px 0 $icon-shadow-color);
-$no-shadow: drop-shadow(0 0 0 transparent);
 
 $components-enumbuttongroup-editor-item-width: 32px;
 $components-enumbuttongroup-editor-item-height: 32px;
@@ -26,16 +17,11 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
 .components-enumbuttongroup-editor {
   font-family: var(--iui-font-sans);
   font-size: var(--iui-font-size-1);
-  background: $buic-background-control;
+  background: var(--iui-color-background);
   width: fit-content;
-
-  $divider-color: $buic-background-toolbutton-stroke;
-  $border-color: $buic-background-toolbutton-stroke;
-  $border-radius: var(--iui-border-radius-1);
-
-  border-color: $border-color;
+  border-color: var(--iui-color-border-foreground);
   border-width: $components-enumbuttongroup-editor-item-border-width;
-  border-radius: $border-radius;
+  border-radius: var(--iui-border-radius-1);
   border-style: solid;
   overflow: hidden;
   display: flex;
@@ -54,7 +40,7 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
 
       &:before {
         content: "";
-        background-color: $divider-color;
+        background-color: var(--iui-color-border-foreground);
         display: block;
         position: absolute;
         pointer-events: none;
@@ -69,17 +55,15 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
 
 .components-enumbuttongroup-button {
   border-width: 0;
-  background: $buic-background-control;
+  background-color: var(--iui-color-background);
   background-origin: border-box;
-  border-color: $buic-background-control-stroke;
+  border-color: var(--iui-color-border);
   border-style: solid;
   cursor: pointer;
   transition-property: background-color, color;
   transition-duration: 500ms;
   transition-timing-function: ease;
   position: relative;
-  background: $buic-background-control
-    /* linear-gradient(to bottom, $buic-button-gradient1, $buic-button-gradient2) */;
   height: $components-enumbuttongroup-editor-item-height;
   width: $components-enumbuttongroup-editor-item-width;
 
@@ -91,13 +75,8 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
     align-content: center;
     justify-content: center;
     margin: 0;
-    color: $icon-color;
-    filter: $icon-shadow;
+    color: var(--iui-color-icon);
     transition: all 500ms ease;
-
-    svg {
-      filter: $icon-shadow;
-    }
 
     img {
       width: 100%;
@@ -107,51 +86,28 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
 
   &:hover {
     > i {
-      color: $hovered-icon-color;
+      color: var(--iui-color-text-accent-hover);
       transition-duration: 150ms;
     }
   }
 
-  &:active {
-    > i {
-      color: $pressed-icon-color;
-      filter: $no-shadow;
-
-      svg {
-        filter: $no-shadow;
-      }
-    }
-  }
-
-  &:active:not(.nz-is-disabled) {
-    background: $buic-foreground-primary-tone;
-    color: $buic-foreground-body-reverse;
-    transition-duration: 150ms;
-    transition-timing-function: cubic-bezier(1, 0.1, 1, 0.5);
-  }
-
   &.nz-is-active {
-    background: $buic-background-control;
+    background: var(--iui-color-background);
 
-    &:not(:active):not(.nz-is-disabled) {
+    &:not(.nz-is-disabled) {
       transition-duration: 0s;
 
       > i {
-        color: $buic-foreground-primary;
-        filter: $no-shadow;
+        color: var(--iui-color-icon-accent);
         transition-duration: 150ms;
         transition-timing-function: cubic-bezier(1, 0.1, 1, 0.5);
-
-        svg {
-          filter: $no-shadow;
-        }
       }
 
       &:after {
         content: "";
         display: block;
         position: absolute;
-        background: $buic-foreground-primary;
+        background: var(--iui-color-border-accent);
         left: 3px;
         top: (
             $components-enumbuttongroup-editor-item-height -
@@ -166,9 +122,12 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
 
   &.nz-is-disabled {
     pointer-events: none;
+    background-color: var(--iui-color-background-disabled);
+    border-color: var(--iui-color-border-disabled);
+    cursor: not-allowed;
 
     > i {
-      color: $disabled-icon-color;
+      color: var(--iui-color-icon-disabled);
     }
 
     &:hover {

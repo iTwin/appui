@@ -24,7 +24,7 @@ import {
   ToolAssistanceItem,
   ToolAssistanceSeparator,
 } from "@itwin/appui-layout-react";
-import { HorizontalTabs, ToggleSwitch } from "@itwin/itwinui-react";
+import { Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt";
 import { ToolIconChangedEventArgs } from "../../framework/FrameworkFrontstages";
 import { MessageManager, ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
@@ -314,7 +314,8 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       dialogContent = (
         <div>
           {this.state.showMouseTouchTabs &&
-            <HorizontalTabs
+            <Tabs
+              orientation="horizontal"
               tabsClassName="uifw-toolAssistance-tabs"
               labels={[mouseLabel, touchLabel]}
               activeIndex={this.state.mouseTouchTabIndex}

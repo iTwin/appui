@@ -216,7 +216,7 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(pickerButton);
 
     const popupDiv = renderedComponent.getByTestId("core-popup");
-    const inputs = popupDiv.querySelectorAll(".iui-input.iui-small");
+    const inputs = popupDiv.querySelectorAll('.iui-input[data-iui-size="small"]');
     fireEvent.change(inputs[0], { target: { value: "100" } });
     expect((inputs[0] as HTMLInputElement).value).to.eq("100");
     fireEvent.keyDown(inputs[0], { key: SpecialKey.Enter });
@@ -238,7 +238,7 @@ describe("<ColorPickerPopup/>", () => {
     // const popupDiv = renderedComponent.container.querySelector(".iui-color-selection-wrapper") as HTMLElement;
     // expect(popupDiv).not.to.be.null;
     const popupDiv = renderedComponent.getByTestId("core-popup");
-    const inputs = popupDiv.querySelectorAll(".iui-input.iui-small");
+    const inputs = popupDiv.querySelectorAll('.iui-input[data-iui-size="small"]');
     fireEvent.change(inputs[0], { target: { value: "100" } });
     expect((inputs[0] as HTMLInputElement).value).to.eq("100");
     fireEvent.keyDown(inputs[0], { key: SpecialKey.Enter });

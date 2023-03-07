@@ -15,7 +15,7 @@
   white-space: nowrap;
   height: $nz-widget-tab-height;
   border-radius: $nz-widget-tab-border-radius;
-  color: $buic-foreground-disabled;
+  color: var(--iui-color-text-disabled);
   pointer-events: none;
   opacity: $nz-dragged-widget-opacity;
   gap: 6px;

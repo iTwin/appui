@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { ReactMessage, UiCore } from "@itwin/core-react";
-import { ProgressLinear, Small, Text, toaster } from "@itwin/itwinui-react";
+import { ProgressLinear, Text, toaster } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 import { ActivityMessageEventArgs, MessageManager } from "../messages/MessageManager";
 
@@ -88,7 +88,7 @@ function ActivityMessageContent({ initialActivityMessageInfo }: { initialActivit
     <>
       {activityMessageInfo.message && <Text><>{(activityMessageInfo.message as ReactMessage).reactNode || activityMessageInfo.message}</></Text>}
       {!!activityMessageInfo.details?.showPercentInMessage &&
-        <Small>{`${activityMessageInfo.percentage} ${percentCompleteLabel}`}</Small>
+        <Text variant="small">{`${activityMessageInfo.percentage} ${percentCompleteLabel}`}</Text>
       }
       {activityMessageInfo.details?.showProgressBar && <ProgressLinear value={activityMessageInfo?.percentage} />}
     </>

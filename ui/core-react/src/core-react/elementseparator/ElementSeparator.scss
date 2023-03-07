@@ -9,7 +9,7 @@
   @return linear-gradient(
     $orientation,
     transparent calc(50% - 1px),
-    $buic-foreground-primary calc(50%),
+    var(--iui-color-icon-accent) calc(50%),
     transparent calc(50% + 1px));
 }
 

@@ -12,6 +12,7 @@ import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { CommonProps } from "@itwin/core-react";
 import { MessageManager } from "../messages/MessageManager";
+import { Input } from "@itwin/itwinui-react";
 
 /** Enum for Input Status used in [[ValidationTextbox]]
  * @alpha
@@ -84,7 +85,7 @@ export class ValidationTextbox extends React.PureComponent<ValidationTextboxProp
       <div
         className={classnames("uifw-ValidationTextbox", this.props.className)}
         style={divStyle}>
-        <input
+        <Input
           className={this.state.isValid ? validClassNames : invalidClassNames}
           onChange={this._validateText}
           onKeyUp={this._handleKeyUp}
