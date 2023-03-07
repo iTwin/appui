@@ -2,9 +2,10 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo, Transform } from "jscodeshift";
+import { API, FileInfo } from "jscodeshift";
 import { defineInlineTest } from "jscodeshift/src/testUtils";
 import changeImports, { ImportChanges } from "../changeImports";
+import { tsxModule } from "../testUtils";
 
 function createTransform(changes: ImportChanges) {
   return (file: FileInfo, api: API) => {
@@ -14,13 +15,6 @@ function createTransform(changes: ImportChanges) {
     return root.toSource({
       lineTerminator: "\n",
     });
-  };
-}
-
-function tsxModule(transform: Transform) {
-  return {
-    default: transform,
-    parser: "tsx" as const,
   };
 }
 

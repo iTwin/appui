@@ -3,6 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { API, ASTPath, FileInfo, JSCodeshift, MemberExpression, ObjectExpression, ObjectProperty } from "jscodeshift";
+import { findObjects } from "../utils/objectExpression";
 import { isProperty, removeProperty, renameProperty } from "../utils/objectProperty";
 import { isLiteral } from "../utils/typeGuards";
 
@@ -10,14 +11,7 @@ export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
   const root = j(file.source);
 
-  // Determine Widget objects.
-  const widgets = root.find(j.ObjectExpression).filter((path) => {
-    const typeIdentifier = j(path).closest(j.VariableDeclarator).find(j.TSTypeReference).find(j.Identifier).paths()[0];
-    if (typeIdentifier?.value.name === "Widget") {
-      return true;
-    }
-    return false;
-  });
+  const widgets = findObjects(j, root, "Widget");
 
   const objectToProperties = new Map<ASTPath<ObjectExpression>, ObjectProperty[]>();
   widgets.find(j.ObjectProperty).forEach((path) => {
