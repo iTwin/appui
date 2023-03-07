@@ -7,4 +7,8 @@ const w: Widget = {
   badgeType: BadgeType.New,
   label: "Widget 1",
   getWidgetContent: () => <WidgetContent />,
+  onWidgetStateChanged: () => { },
+  saveTransientState: () => { },
+  restoreTransientState: () => { },
+  allowedPanelTargets: ["left", "right"],
 };

@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { ArrayExpression, Identifier, ImportSpecifier, JSCodeshift, JSXAttribute, JSXElement, JSXEmptyExpression, JSXExpressionContainer, JSXIdentifier } from "jscodeshift";
+import { ArrayExpression, Identifier, ImportSpecifier, JSCodeshift, JSXAttribute, JSXElement, JSXEmptyExpression, JSXExpressionContainer, JSXIdentifier, Literal } from "jscodeshift";
 
 type Source = Parameters<JSCodeshift>[0];
 
@@ -40,4 +40,8 @@ export function isJSXEmptyExpression(j: JSCodeshift, path: any): path is JSXEmpt
 
 export function isJSXExpressionContainer(j: JSCodeshift, path: any): path is JSXExpressionContainer {
   return j(path).isOfType(j.JSXExpressionContainer);
+}
+
+export function isLiteral(j: JSCodeshift, source: Source): source is Literal {
+  return j(source).isOfType(j.Literal);
 }
