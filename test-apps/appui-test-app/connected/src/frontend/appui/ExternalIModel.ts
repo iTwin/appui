@@ -74,7 +74,7 @@ export class ExternalIModel {
           ...{
             projectId: createArgs.iTwinId!,
             iTwinId: createArgs.iTwinId!,
-          } as any // Support 3.6 and 4.0.
+          } as any, // Support 3.6 and 4.0.
         },
         authorization: AccessTokenAdapter.toAuthorizationCallback(accessToken),
       })) {

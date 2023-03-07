@@ -168,7 +168,7 @@ export class SampleAppIModelApp {
         const is40 = Object.getOwnPropertyNames(BrowserAuthorizationCallbackHandler.prototype).includes("authorityUrl");
         await BrowserAuthorizationCallbackHandler.handleSigninCallback((is40 ? {
           redirectUri,
-          clientId: process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID!
+          clientId: process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID!,
         } : redirectUri) as any);
         return;
       }
@@ -450,7 +450,7 @@ export class SampleAppIModelApp {
           ...{
             projectId: iTwin.id,
             iTwinId: iTwin.id,
-          } as any // Support 3.6 and 4.0.
+          } as any, // Support 3.6 and 4.0.
         },
         authorization: AccessTokenAdapter.toAuthorizationCallback(accessToken),
       }))
