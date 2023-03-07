@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { ASTPath, API, FileInfo, JSCodeshift, JSXElement } from "jscodeshift";
-import { AttributeHandle, ConfigProperty, configToObjectExpression, frontstageAttrHandles, jsxToElementAttribute, stagePanelAttrHandles, widgetAttrHandles, zoneAttrHandles } from "./Utils/ElementToConfig";
+import { AttributeHandle, ConfigProperty, configToObjectExpression, frontstageAttrHandles, jsxToElementAttribute, stagePanelAttrHandles, widgetAttrHandles, zoneAttrHandles } from "./Utils/jsxElementAttributeHandles";
 import { isArrayExpression, isSpecifiedJSXElement } from "./Utils/TypeCheck";
 
 function handleJSXElement(j: JSCodeshift, element: ASTPath<JSXElement>, handles: Map<string | undefined, AttributeHandle | null>): ConfigProperty[] {

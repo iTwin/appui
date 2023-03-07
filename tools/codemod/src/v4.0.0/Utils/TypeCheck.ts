@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { JSCodeshift, JSXAttribute, ArrayExpression, JSXElement, JSXEmptyExpression, JSXExpressionContainer, JSXIdentifier } from "jscodeshift";
-import { ConfigProperty, ElementAttribute } from "./ElementToConfig";
+import { ConfigProperty, ElementAttribute } from "./jsxElementAttributeHandles";
 
 export function isAttrOrProp(j: JSCodeshift, path: any): path is ElementAttribute | ConfigProperty {
 
