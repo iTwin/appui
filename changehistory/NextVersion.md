@@ -79,8 +79,6 @@ AppUI related definitions from `@itwin/appui-abstract` are moved into `@itwin/ap
 
 ## @itwin/appui-react
 
-// TODO: document Element -> Config changes of `FrontstageProvider`.
-
 `CommonWidgetProps` and `WidgetProps` types are replaced by `Widget` interface:
 
 - `allowedPanelTargets` renamed to `allowedPanels`. Array type changed from union of strings to `StagePanelLocation`
@@ -115,17 +113,24 @@ AppUI related definitions from `@itwin/appui-abstract` are moved into `@itwin/ap
 - Removed `applicationData`, `internalData`, `isPressed`
 - `icon` type changed to `IconSpec`
 - `badgeType` renamed to `badge`
-- `parentToolGroupId` renamed to `parentGroupItemId`. Narrowed down the type to accept only `ToolbarActionItem` and `ToolbarGroupItem`
 
-`UiItemsProvider`:
+`ToolbarActionItem`, `ToolbarGroupItem`:
 
-- Properties marked as readonly
-- `provideToolbarButtonItems` renamed to `provideToolbarItems`
+- `parentToolGroupId` renamed to `parentGroupItemId`.
+
+`ToolbarGroupItem`:
+
+- `items` type narrowed down to accept only `ToolbarActionItem` and `ToolbarGroupItem`.
 
 `BackstageItem`:
 
 - Removed `applicationData`, `internalData`
 - `badgeType` renamed to `badge`
 - `icon` type changed to `IconSpec`
+
+`UiItemsProvider`:
+
+- Properties marked as readonly
+- `provideToolbarButtonItems` renamed to `provideToolbarItems`
 
 UI item provider types no longer extend from `ProviderItem`.
