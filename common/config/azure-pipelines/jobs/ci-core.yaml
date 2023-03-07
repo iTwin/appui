@@ -57,7 +57,7 @@ jobs:
 
     - template: ../templates/core-build.yaml
       parameters:
-        variant: ${{ parameters.variant }}}
+        variant: ${{ parameters.variant }}
 
     # Will run if even there is a failure somewhere else in the pipeline.
     - template: ../templates/publish-test-results.yaml
