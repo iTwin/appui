@@ -3,19 +3,10 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { defineInlineTest, defineTest } from "jscodeshift/src/testUtils";
+import { createInlineTransform, tsxModule } from "../../utils/testUtils";
 import transformer from "../widget";
 
-const transform = {
-  default: (file, api) => {
-    const source = transformer(file, api);
-    const j = api.jscodeshift;
-    const root = j(source);
-    return root.toSource({
-      lineTerminator: "\n",
-    });
-  },
-  parser: "tsx" as const,
-};
+const transform = tsxModule(createInlineTransform(transformer));
 
 describe("widget", () => {
   defineTest(__dirname, "./widget", null, "widget", { parser: "tsx" });
