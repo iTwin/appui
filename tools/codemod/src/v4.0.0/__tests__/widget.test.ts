@@ -64,6 +64,47 @@ describe("widget", () => {
       }
     };
     `, // TODO: a redundant \n https://github.com/benjamn/recast/issues/242
-    "should use `canFloat` options object"
+    "should use `canFloat` options"
+  );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    const w: Widget = {
+      id: "w1",
+      isFloatingStateSupported: true,
+      isFloatingStateWindowResizable: false,
+    };
+    `,
+    `
+    const w: Widget = {
+      id: "w1",
+
+      canFloat: {
+        isResizable: false
+      }
+    };
+    `,
+    "should use `canFloat` options if `isFloatingStateSupported` is true"
+  );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    const w: Widget = {
+      id: "w1",
+      isFloatingStateSupported: false,
+      isFloatingStateWindowResizable: false,
+    };
+    `,
+    `
+    const w: Widget = {
+      id: "w1",
+      canFloat: false
+    };
+    `,
+    "should not use `canFloat` options if `isFloatingStateSupported` is false"
   );
 });
