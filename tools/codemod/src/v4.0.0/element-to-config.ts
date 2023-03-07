@@ -9,7 +9,7 @@ import { isArrayExpression, isSpecifiedJSXElement } from "./Utils/TypeCheck";
 
 function handleJSXElement(j: JSCodeshift, element: ASTPath<JSXElement>, handles: Map<string | undefined, AttributeHandle | null>): ConfigProperty[] {
   const props: ConfigProperty[] = [];
-  element.node.openingElement.attributes.forEach((attr) => {
+  element.node.openingElement.attributes!.forEach((attr) => {
     const elAttr = jsxToElementAttribute(j, attr);
     const key = elAttr.name ? elAttr.name.name : undefined;
     const attrHandle = handles.get(key);
@@ -34,7 +34,7 @@ export default function transformer(file: FileInfo, api: API) {
 
     const zonePropNames = new Set<string>(["contentManipulation", "viewNavigation", "toolSettings", "statusBar"]);
     configProps.forEach((prop) => {
-      if (!zonePropNames.has(prop.name?.name))
+      if (!prop.name || !zonePropNames.has(prop.name.name))
         return;
 
       const zone = prop.value;
@@ -42,7 +42,7 @@ export default function transformer(file: FileInfo, api: API) {
         throw new Error("Expression did not match expected shape");
 
       const zoneConfigProps = handleJSXElement(j, j(zone).get(), zoneAttrHandles);
-      const widgets = zoneConfigProps.find((prop) => prop.name.name === "widgets" ? true : false);
+      const widgets = zoneConfigProps.find((prop) => prop.name && prop.name.name === "widgets" ? true : false);
       if (!widgets || !isArrayExpression(j, widgets.value))
         throw new Error("Expression did not match expected shape");
 
@@ -59,7 +59,7 @@ export default function transformer(file: FileInfo, api: API) {
 
     const stagePanelPropNames = new Set<string>(["leftPanel", "topPanel", "rightPanel", "bottomPanel"]);
     configProps.forEach((prop) => {
-      if (!stagePanelPropNames.has(prop.name?.name))
+      if (!prop.name || !stagePanelPropNames.has(prop.name.name))
         return;
 
       const stagePanel = prop.value;
