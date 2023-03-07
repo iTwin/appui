@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import { API, ASTPath, FileInfo, JSCodeshift, MemberExpression, ObjectExpression, ObjectProperty } from "jscodeshift";
 import { isProperty, removeProperty, renameProperty } from "../utils/objectProperty";
+import { isLiteral } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
@@ -70,7 +71,6 @@ export default function transformer(file: FileInfo, api: API) {
 
       let objectProperties = objectToProperties.get(objectExpression);
       if (!objectProperties) {
-        objectExpression.value.properties.push(j.objectProperty(j.identifier("canFloat"), j.literal(false)));
         objectProperties = [];
         objectToProperties.set(objectExpression, objectProperties);
       }
@@ -89,9 +89,13 @@ export default function transformer(file: FileInfo, api: API) {
       return isProperty(j, path, "canFloat");
     }).nodes()[0];
     if (!canFloat) {
-      canFloat = j.objectProperty(j.identifier("canFloat"), j.objectExpression([]));
-      objectExpression.value.properties.push(canFloat);
+      const newCanFloat = j.objectProperty(j.identifier("canFloat"), j.objectExpression(properties));
+      objectExpression.value.properties.push(newCanFloat);
+      continue;
     }
+
+    if (isLiteral(j, canFloat.value) && canFloat.value.value === false)
+      continue;
     canFloat.value = j.objectExpression(properties);
   }
 
