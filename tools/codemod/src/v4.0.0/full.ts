@@ -6,13 +6,13 @@ import { API, FileInfo } from "jscodeshift";
 import abstract from "./abstract";
 import layoutReact from "./layout-react";
 import react from "./react";
-import widgetToConfig from "./widget-to-config";
+import frontstageToConfig from "./frontstage-to-config";
 import widget from "./widget";
 
 const transforms = [
-  widgetToConfig,
   layoutReact,
   abstract,
+  frontstageToConfig,
   react,
   widget,
 ];
