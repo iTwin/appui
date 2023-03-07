@@ -2,6 +2,8 @@ parameters:
   name: ''
   pool: ''
   nodeVersion: ''
+  variant: 'default'
+
 
 jobs:
 - job:
@@ -54,6 +56,8 @@ jobs:
       condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
 
     - template: ../templates/core-build.yaml
+      parameters:
+        variant: ${{ parameters.variant }}}
 
     # Will run if even there is a failure somewhere else in the pipeline.
     - template: ../templates/publish-test-results.yaml

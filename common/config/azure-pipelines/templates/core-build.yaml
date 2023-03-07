@@ -7,6 +7,9 @@ parameters:
   - name: rushBuildCacheEnabled
     type: number
     default: 1
+  - name: variant
+    type: string
+    default: 'default'
 
 steps:
   - script: node common/scripts/set-rush-write-cache-variables.js
@@ -25,6 +28,11 @@ steps:
   - script: node common/scripts/install-run-rush.js install
     displayName: rush install
     workingDirectory: ${{ parameters.workingDir }}
+    condition: eq(parameters.variant, 'default')
+  - script: node common/scripts/install-run-rush.js install --variant ${{ parameters.variant }}
+    displayName: rush install (variant)
+    workingDirectory: ${{ parameters.workingDir }}
+    condition: ne(parameters.variant, 'default')
   - script: node common/scripts/install-run-rush.js audit
     displayName: rush audit
     workingDirectory: ${{ parameters.workingDir }}
