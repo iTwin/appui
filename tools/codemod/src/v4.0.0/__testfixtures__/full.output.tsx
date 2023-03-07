@@ -7,8 +7,11 @@ import { StatusBarDialog, UiItemsProvider } from "@itwin/appui-react";
 function App() {
   return (<>
     <StatusBarDialog />
-    <Frontstage widget={{
-      id: "w1"
-    }} />
   </>);
+}
+
+function RetFrontstage() {
+  return {
+    id: this.props.id,
+  };
 }

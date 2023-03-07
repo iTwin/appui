@@ -4,16 +4,16 @@
 *--------------------------------------------------------------------------------------------*/
 import { API, FileInfo } from "jscodeshift";
 import abstract from "./abstract";
+import frontstageToConfig from "./frontstage-to-config";
 import layoutReact from "./layout-react";
 import react from "./react";
 import statusBarItem from "./status-bar-item";
-import widgetToConfig from "./widget-to-config";
 import widget from "./widget";
 
 const transforms = [
-  widgetToConfig,
   layoutReact,
   abstract,
+  frontstageToConfig,
   react,
   statusBarItem,
   widget,
