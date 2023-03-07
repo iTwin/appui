@@ -4,6 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 import { defineTest } from "jscodeshift/src/testUtils";
 
-describe("element-to-config", () => {
-  defineTest(__dirname, "./element-to-config", null, "element-to-config/Frontstage", { parser: "tsx" });
+describe("frontstage-to-config", () => {
+  defineTest(__dirname, "./frontstage-to-config", null, "frontstage-to-config/Frontstage", { parser: "tsx" });
 });
