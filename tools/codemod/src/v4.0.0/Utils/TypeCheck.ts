@@ -18,6 +18,10 @@ export function isJSXElement(j: JSCodeshift, path: any): path is JSXElement {
   return j(path).isOfType(j.JSXElement);
 }
 
+export function isSpecifiedJSXElement(j: JSCodeshift, path: any, name: string): path is JSXElement {
+  return isJSXElement(j, path) && isJSXIdentifier(j, path.openingElement.name) && path.openingElement.name.name === name;
+}
+
 export function isJSXEmptyExpression(j: JSCodeshift, path: any): path is JSXEmptyExpression {
   return j(path).isOfType(j.JSXEmptyExpression);
 }

@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { ASTPath, API, FileInfo, JSCodeshift, JSXElement } from "jscodeshift";
-import { AttributeHandle, ConfigProperty, configToObjectExpression, frontstageAttrHandles, jsxToElementAttribute, widgetAttrHandles, zoneAttrHandles } from "./Utils/ElementToConfig";
+import { AttributeHandle, ConfigProperty, configToObjectExpression, frontstageAttrHandles, jsxToElementAttribute, stagePanelAttrHandles, widgetAttrHandles, zoneAttrHandles } from "./Utils/ElementToConfig";
 import { isArrayExpression, isSpecifiedJSXElement } from "./Utils/TypeCheck";
 
 function handleJSXElement(j: JSCodeshift, element: ASTPath<JSXElement>, handles: Map<string | undefined, AttributeHandle | null>): ConfigProperty[] {
@@ -28,57 +28,51 @@ export default function transformer(file: FileInfo, api: API) {
 
   const root = j(file.source);
 
-  // const widgets = root.findJSXElements("Widget");
-  // widgets.forEach((widget) => {
-  //   const configProps = handleJSXElement(j, widget, widgetAttrHandles);
-  //   const props = configProps.map((configProp) => ConfigToObjectProperty(j, configProp));
-  //   const obj = j.objectExpression(props);
-  //   widget.replace(obj);
-  // });
-
-  // const stagePanels = root.findJSXElements("StagePanel");
-  // stagePanels.forEach((stagePanel) => {
-  //   const configProps = handleJSXElement(j, stagePanel, stagePanelAttrHandles);
-  //   const props = configProps.map((configProp) => ConfigToObjectProperty(j, configProp));
-  //   const obj = j.objectExpression(props);
-  //   stagePanel.replace(obj);
-  // });
-
   const frontstages = root.findJSXElements("Frontstage");
   frontstages.forEach((frontstage) => {
     const configProps = handleJSXElement(j, frontstage, frontstageAttrHandles);
 
-    // -----------------------------------------------------------------------------------------------
-    const contentManipulation = configProps.find((prop) => prop.name?.name === "contentManipulation" || prop.name?.name === "viewNavigation");
-    if (!contentManipulation)
-      throw new Error("Couldn't find contentManipulation");
+    const zonePropNames = new Set<string>(["contentManipulation", "viewNavigation", "toolSettings", "statusBar"]);
+    configProps.forEach((prop) => {
+      if (!zonePropNames.has(prop.name?.name))
+        return;
 
-    const zone = contentManipulation.value;
-    if (!isSpecifiedJSXElement(j, zone, "Zone"))
-      throw new Error("Expression did not match expected shape");
+      const zone = prop.value;
+      if (!isSpecifiedJSXElement(j, zone, "Zone"))
+        throw new Error("Expression did not match expected shape");
 
-    const zoneConfigProps = handleJSXElement(j, j(zone).get(), zoneAttrHandles);
-    const widgets = zoneConfigProps.find((prop) => prop.name.name === "widgets" ? true : false);
-    if (!widgets || !isArrayExpression(j, widgets.value))
-      throw new Error("Expression did not match expected shape");
+      const zoneConfigProps = handleJSXElement(j, j(zone).get(), zoneAttrHandles);
+      const widgets = zoneConfigProps.find((prop) => prop.name.name === "widgets" ? true : false);
+      if (!widgets || !isArrayExpression(j, widgets.value))
+        throw new Error("Expression did not match expected shape");
 
-    if (widgets.value.elements.length === 0)
-      throw new Error("Not implemented");
+      if (widgets.value.elements.length === 0)
+        throw new Error("Not implemented");
 
-    const widget = widgets.value.elements[0];
-    if (!isSpecifiedJSXElement(j, widget, "Widget"))
-      throw new Error("Couldn't find contentManipulation");
+      const widget = widgets.value.elements[0];
+      if (!isSpecifiedJSXElement(j, widget, "Widget"))
+        throw new Error("Expression did not match expected shape");
 
-    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetAttrHandles);
-    contentManipulation.value = configToObjectExpression(j, widgetConfigProps); // replace
-    // -----------------------------------------------------------------------------------------------
+      const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetAttrHandles);
+      prop.value = configToObjectExpression(j, widgetConfigProps); // replace
+    });
 
+    const stagePanelPropNames = new Set<string>(["leftPanel", "topPanel", "rightPanel", "bottomPanel"]);
+    configProps.forEach((prop) => {
+      if (!stagePanelPropNames.has(prop.name?.name))
+        return;
+
+      const stagePanel = prop.value;
+      if (!isSpecifiedJSXElement(j, stagePanel, "StagePanel"))
+        throw new Error("Expression did not match expected shape");
+
+      const stagePanelProps = handleJSXElement(j, j(stagePanel).get(), stagePanelAttrHandles);
+      prop.value = configToObjectExpression(j, stagePanelProps); // replace
+    });
 
     const obj = configToObjectExpression(j, configProps);
     frontstage.replace(obj);
   });
-
-
 
   return root.toSource({ trailingComma: true });
 }
