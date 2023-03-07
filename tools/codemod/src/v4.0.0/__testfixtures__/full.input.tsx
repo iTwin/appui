@@ -9,7 +9,12 @@ function App() {
   return (
     <>
       <Dialog />
-      <Frontstage widget={<Widget id="w1" />} />
     </>
+  );
+}
+
+function RetFrontstage() {
+  return (
+    <Frontstage id={this.props.id} />
   );
 }
