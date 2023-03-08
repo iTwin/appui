@@ -19,11 +19,13 @@ describe("toolbar-item", () => {
         applicationData: {},
         internalData: {},
         isPressed: false,
+        badgeType: BadgeType.New,
       };
       `,
       `
       const w: ToolbarItem = {
-        id: "item1"
+        id: "item1",
+        badge: BadgeType.New
       };
       `,
       "should remove properties"
@@ -33,10 +35,15 @@ describe("toolbar-item", () => {
       transform,
       {},
       `
-      ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, { internalData: {} });
+      ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, {
+        internalData: {},
+        badgeType: BadgeType.New,
+      });
       `,
       `
-      ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, {});
+      ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, {
+        badge: BadgeType.New
+      });
       `,
       "should update in `ToolbarItemUtilities.createActionItem`"
     );
@@ -45,10 +52,15 @@ describe("toolbar-item", () => {
       transform,
       {},
       `
-      ToolbarItemUtilities.createGroupItem("item1", 100, "icon", "label", [], { internalData: {} });
+      ToolbarItemUtilities.createGroupItem("item1", 100, "icon", "label", [], {
+        internalData: {},
+        badgeType: BadgeType.New,
+      });
       `,
       `
-      ToolbarItemUtilities.createGroupItem("item1", 100, "icon", "label", [], {});
+      ToolbarItemUtilities.createGroupItem("item1", 100, "icon", "label", [], {
+        badge: BadgeType.New
+      });
       `,
       "should update in `ToolbarItemUtilities.createGroupItem`"
     );
@@ -57,10 +69,15 @@ describe("toolbar-item", () => {
       transform,
       {},
       `
-      ToolbarItemUtilities.createCustomItem("item1", 100, "icon", "label", <Panel />, { internalData: {} });
+      ToolbarItemUtilities.createCustomItem("item1", 100, "icon", "label", <Panel />, {
+        internalData: {},
+        badgeType: BadgeType.New,
+      });
       `,
       `
-      ToolbarItemUtilities.createCustomItem("item1", 100, "icon", "label", <Panel />, {});
+      ToolbarItemUtilities.createCustomItem("item1", 100, "icon", "label", <Panel />, {
+        badge: BadgeType.New
+      });
       `,
       "should update in `ToolbarItemUtilities.createCustomItem`"
     );

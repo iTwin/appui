@@ -27,7 +27,8 @@ export default function transformer(file: FileInfo, api: API) {
   items
     .removeProperty("applicationData")
     .removeProperty("internalData")
-    .removeProperty("isPressed");
+    .removeProperty("isPressed")
+    .renameProperty("badgeType", "badge");
 
   return root.toSource();
 }
