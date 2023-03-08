@@ -4,6 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import { API, FileInfo } from "jscodeshift";
 import abstract from "./abstract";
+import backstageItem from "./backstage-item";
 import frontstageToConfig from "./frontstage-to-config";
 import layoutReact from "./layout-react";
 import react from "./react";
@@ -18,6 +19,7 @@ const transforms = [
   react,
   statusBarItem,
   toolbarItem,
+  backstageItem,
   widget,
 ];
 
