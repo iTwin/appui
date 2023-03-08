@@ -31,3 +31,12 @@ jobs:
         name: $(name)
         demands:
           - Agent.OS -equals $(platform)
+  - template: ci-core.yaml
+    parameters:
+      variant: core-3x
+      name: Node_16
+      nodeVersion: 16.13.0
+      pool:
+        name: $(name)
+        demands:
+          - Agent.OS -equals $(platform)
