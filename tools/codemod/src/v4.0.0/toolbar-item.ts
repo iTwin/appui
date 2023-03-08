@@ -15,19 +15,25 @@ export default function transformer(file: FileInfo, api: API) {
 
   const root = j(file.source);
 
+  const groupItems = root.findObjectExpressions("ToolbarActionItem")
+    .concat(root.findObjectExpressions("ToolbarGroupItem"))
+    .concat(root.findCallExpressions("ToolbarItemUtilities.createActionItem").getArguments(5, objectExpressionFilter(j)))
+    .concat(root.findCallExpressions("ToolbarItemUtilities.createGroupItem").getArguments(5, objectExpressionFilter(j)));
+
   const items = root.findObjectExpressions("CommonToolbarItem")
     .concat(root.findObjectExpressions("ToolbarItem"))
-    .concat(root.findObjectExpressions("ToolbarActionItem"))
-    .concat(root.findObjectExpressions("ToolbarGroupItem"))
+    .concat(groupItems)
     .concat(root.findObjectExpressions("ToolbarCustomItem"))
-    .concat(root.findCallExpressions("ToolbarItemUtilities.createActionItem").getArguments(5, objectExpressionFilter(j)))
-    .concat(root.findCallExpressions("ToolbarItemUtilities.createGroupItem").getArguments(5, objectExpressionFilter(j)))
     .concat(root.findCallExpressions("ToolbarItemUtilities.createCustomItem").getArguments(5, objectExpressionFilter(j)));
 
   items
     .removeProperty("applicationData")
     .removeProperty("internalData")
-    .removeProperty("isPressed");
+    .removeProperty("isPressed")
+    .renameProperty("badgeType", "badge");
+
+  groupItems
+    .renameProperty("parentToolGroupId", "parentGroupItemId");
 
   return root.toSource();
 }
