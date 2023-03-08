@@ -82,4 +82,3 @@ jobs:
         NodeVersion: ${{ parameters.nodeVersion }}
     # The publish script identifies any new packages not previously published and tags the build
     - template: ../templates/publish.yaml
-      condition: eq(variables['variant'], 'default')
