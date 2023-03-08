@@ -8,6 +8,7 @@ import frontstageToConfig from "./frontstage-to-config";
 import layoutReact from "./layout-react";
 import react from "./react";
 import statusBarItem from "./status-bar-item";
+import toolbarItem from "./toolbar-item";
 import widget from "./widget";
 
 const transforms = [
@@ -16,6 +17,7 @@ const transforms = [
   frontstageToConfig,
   react,
   statusBarItem,
+  toolbarItem,
   widget,
 ];
 
