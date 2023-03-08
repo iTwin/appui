@@ -2,11 +2,10 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo, ObjectExpression } from "jscodeshift";
-import { useCallExpression } from "../utils/CallExpression";
+import { API, FileInfo } from "jscodeshift";
+import { objectExpressionFilter, useCallExpression } from "../utils/CallExpression";
 import { useExtensions } from "../utils/Extensions";
 import { useObjectExpression } from "../utils/objectExpression";
-import { isObjectExpression } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
@@ -15,48 +14,19 @@ export default function transformer(file: FileInfo, api: API) {
   useObjectExpression(j);
 
   const root = j(file.source);
-  const createActionItemOverrides = root.findCallExpressions("StatusBarItemUtilities.createActionItem")
-    .map<ObjectExpression>((path) => {
-      const overrides = path.value.arguments[6];
-      if (!isObjectExpression(j, overrides))
-        return undefined;
 
-      return j(overrides).paths();
-    });
-  const createLabelItemOverrides = root.findCallExpressions("StatusBarItemUtilities.createLabelItem")
-    .map<ObjectExpression>((path) => {
-      const overrides = path.value.arguments[6];
-      if (!isObjectExpression(j, overrides))
-        return undefined;
+  const customItems = root.findObjectExpressions("StatusBarCustomItem")
+    .concat(root.findCallExpressions("StatusBarItemUtilities.createCustomItem").getArguments(4, objectExpressionFilter(j)));
 
-      return j(overrides).paths();
-    });
-  const createCustomItemOverrides = root.findCallExpressions("StatusBarItemUtilities.createCustomItem")
-    .map<ObjectExpression>((path) => {
-      const overrides = path.value.arguments[4];
-      if (!isObjectExpression(j, overrides))
-        return undefined;
+  const items = root.findObjectExpressions("StatusBarItem")
+    .concat(root.findObjectExpressions("StatusBarActionItem"))
+    .concat(root.findObjectExpressions("StatusBarLabelItem"))
+    .concat(root.findCallExpressions("StatusBarItemUtilities.createActionItem").getArguments(6, objectExpressionFilter(j)))
+    .concat(root.findCallExpressions("StatusBarItemUtilities.createLabelItem").getArguments(6, objectExpressionFilter(j)))
+    .concat(customItems);
 
-      return j(overrides).paths();
-    });
-
-  const items = root.findObjectExpressions("StatusBarItem");
-  const actionItems = root.findObjectExpressions("StatusBarActionItem");
-  const labelItems = root.findObjectExpressions("StatusBarLabelItem");
-  const customItems = root.findObjectExpressions("StatusBarCustomItem");
-
-  const allCustomItems = customItems
-    .concat(createCustomItemOverrides);
-
-  const allItems = items
-    .concat(actionItems)
-    .concat(labelItems)
-    .concat(createActionItemOverrides)
-    .concat(createLabelItemOverrides)
-    .concat(allCustomItems);
-
-  allItems.renameProperty("badgeType", "badge");
-  allCustomItems.renameProperty("reactNode", "content");
+  items.renameProperty("badgeType", "badge");
+  customItems.renameProperty("reactNode", "content");
 
   return root.toSource();
 }

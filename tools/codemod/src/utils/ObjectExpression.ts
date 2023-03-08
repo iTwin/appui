@@ -14,8 +14,7 @@ interface GlobalMethods {
   findObjectExpressions(name?: string): ObjectExpressionCollection;
 }
 
-export interface ObjectExpressionCollection extends Collection<ObjectExpression>, ObjectExpressionMethods {
-}
+export type ObjectExpressionCollection = Collection<ObjectExpression> & ObjectExpressionMethods;
 
 interface ObjectExpressionMethods {
   removeProperty(name: string, modify?: PropertyModifier): this;

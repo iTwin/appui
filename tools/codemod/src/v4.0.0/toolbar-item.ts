@@ -2,11 +2,10 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo, ObjectExpression } from "jscodeshift";
+import { API, FileInfo } from "jscodeshift";
 import { useExtensions } from "../utils/Extensions";
-import { useCallExpression } from "../utils/CallExpression";
+import { objectExpressionFilter, useCallExpression } from "../utils/CallExpression";
 import { useObjectExpression } from "../utils/ObjectExpression";
-import { isObjectExpression } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
@@ -21,27 +20,9 @@ export default function transformer(file: FileInfo, api: API) {
     .concat(root.findObjectExpressions("ToolbarActionItem"))
     .concat(root.findObjectExpressions("ToolbarGroupItem"))
     .concat(root.findObjectExpressions("ToolbarCustomItem"))
-    .concat(root.findCallExpressions("ToolbarItemUtilities.createActionItem").map<ObjectExpression>((path) => {
-      const overrides = path.value.arguments[5];
-      if (!isObjectExpression(j, overrides))
-        return undefined;
-
-      return j(overrides).paths();
-    }))
-    .concat(root.findCallExpressions("ToolbarItemUtilities.createGroupItem").map<ObjectExpression>((path) => {
-      const overrides = path.value.arguments[5];
-      if (!isObjectExpression(j, overrides))
-        return undefined;
-
-      return j(overrides).paths();
-    }))
-    .concat(root.findCallExpressions("ToolbarItemUtilities.createCustomItem").map<ObjectExpression>((path) => {
-      const overrides = path.value.arguments[5];
-      if (!isObjectExpression(j, overrides))
-        return undefined;
-
-      return j(overrides).paths();
-    }));
+    .concat(root.findCallExpressions("ToolbarItemUtilities.createActionItem").getArguments(5, objectExpressionFilter(j)))
+    .concat(root.findCallExpressions("ToolbarItemUtilities.createGroupItem").getArguments(5, objectExpressionFilter(j)))
+    .concat(root.findCallExpressions("ToolbarItemUtilities.createCustomItem").getArguments(5, objectExpressionFilter(j)));
 
   items
     .removeProperty("applicationData")
