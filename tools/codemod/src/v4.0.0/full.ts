@@ -10,6 +10,7 @@ import layoutReact from "./layout-react";
 import react from "./react";
 import statusBarItem from "./status-bar-item";
 import toolbarItem from "./toolbar-item";
+import uiItemsProvider from "./ui-items-provider";
 import widget from "./widget";
 
 const transforms = [
@@ -20,6 +21,7 @@ const transforms = [
   statusBarItem,
   toolbarItem,
   backstageItem,
+  uiItemsProvider,
   widget,
 ];
 
