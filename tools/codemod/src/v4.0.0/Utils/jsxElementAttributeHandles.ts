@@ -2,8 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression } from "jscodeshift";
-import { isIdentifier, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier } from "../../utils/typeGuards";
+import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression, ArrayExpression, JSXElement, ASTPath } from "jscodeshift";
+import { isArrayExpression, isIdentifier, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isSpecifiedJSXElement } from "../../utils/typeGuards";
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
   name?: JSXIdentifier;
@@ -21,6 +21,27 @@ type ValueType = ElementAttribute["value"] | ConfigProperty["value"];
 
 export type AttributeHandle = (j: JSCodeshift, attr: ElementAttribute | ConfigProperty) => ConfigProperty | undefined;
 export type AttributeHandleMap = Map<string | undefined, AttributeHandle | null>;
+
+export function handleJSXElement(j: JSCodeshift, element: ASTPath<JSXElement>, handles: Map<string | undefined, AttributeHandle | null>): ConfigProperty[] {
+  const props: ConfigProperty[] = [];
+  element.node.openingElement.attributes!.forEach((attr) => {
+    const elAttr = jsxToElementAttribute(j, attr);
+    if (!elAttr)
+      return; // Most likely something wrong on our end
+
+    const key = elAttr.name ? elAttr.name.name : undefined;
+    let attrHandle = handles.get(key);
+    attrHandle = attrHandle !== undefined ? attrHandle : extractExpression;
+    if (attrHandle === null)
+      return;
+
+    const configProp = attrHandle(j, elAttr);
+    if (!configProp)
+      return;
+    props.push(configProp);
+  });
+  return props;
+}
 
 export function buildConfigProperty(j: JSCodeshift, value: ValueType, name?: NameType): ConfigProperty | undefined {
   if (!isSpreadExpression(name, value)) {
@@ -130,4 +151,69 @@ export function configToObjectProperty(j: JSCodeshift, prop: ConfigProperty): Ob
 export function configToObjectExpression(j: JSCodeshift, configProps: ConfigProperty[]): ObjectExpression {
   const props = configProps.map((configProp) => configToObjectProperty(j, configProp));
   return j.objectExpression(props);
+}
+
+export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpression): AttributeHandle {
+  const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+    ["size", extractExpression],
+    ["pinned", extractExpression],
+    ["defaultState", extractExpression],
+    [undefined, identity],
+  ]);
+
+  return (j, attr) => {
+    const stagePanel = attr.value;
+    if (!isSpecifiedJSXElement(j, stagePanel, "StagePanel")) {
+      console.warn("Expression did not match expected shape");
+      return undefined;
+    }
+    const stagePanelProps = handleJSXElement(j, j(stagePanel).get(), stagePanelAttrHandles);
+    const newValue = configToObjectExpression(j, stagePanelProps);
+    return buildConfigProperty(j, newValue, attr.name);
+  };
+}
+
+export function handleAsToolWidget(): AttributeHandle {
+  const zoneAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+    ["widgets", extractExpression],
+  ]);
+  const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+    ["id", extractExpression],
+    ["key", null],
+    ["isFreeform", null],
+    ["isToolSettings", null],
+    ["isStatusBar", null],
+    ["element", extractExpression],
+    ["control", extractExpression],
+  ]);
+
+  return (j, attr) => {
+    const zone = attr.value;
+    if (!isSpecifiedJSXElement(j, zone, "Zone")) {
+      console.warn("Expression did not match expected shape");
+      return undefined;
+    }
+
+    const zoneConfigProps = handleJSXElement(j, j(zone).get(), zoneAttrHandles);
+    const widgets = zoneConfigProps.find((prop) => prop.name && prop.name.name === "widgets" ? true : false);
+    if (!widgets || !isArrayExpression(j, widgets.value)) {
+      console.warn("Expression did not match expected shape");
+      return undefined;
+    }
+
+    if (widgets.value.elements.length === 0) {
+      console.warn("Not implemented");
+      return undefined;
+    }
+
+    const widget = widgets.value.elements[0];
+    if (!isSpecifiedJSXElement(j, widget, "Widget")) {
+      console.warn("Expression did not match expected shape");
+      return undefined;
+    }
+
+    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetAttrHandles);
+    const newValue = configToObjectExpression(j, widgetConfigProps);
+    return buildConfigProperty(j, newValue, attr.name);
+  };
 }
