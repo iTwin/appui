@@ -28,7 +28,7 @@ describe("toolbar-item", () => {
         badge: BadgeType.New
       };
       `,
-      "should remove properties"
+      "should update properties"
     );
 
     defineInlineTest(
