@@ -2,8 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-
 .uifw-statusbar-space-between {
   width: 100%;
   height: 100%;
@@ -32,7 +30,7 @@
 
 .uifw-statusbar-docked {
   width: 100%;
-  background-color: $buic-background-statusbar;
+  background-color: var(--iui-color-background);
 }
 
 .uifw-statusbar-item-container {

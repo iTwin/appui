@@ -47,14 +47,14 @@ $saturation-hue-height: 150px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   column-gap: 2px;
   row-gap: 10px;
-  border-top: 1px solid $buic-inputs-border;
+  border-top: 1px solid var(--iui-color-border-foreground);
   justify-items: center;
 
   .components-colorpicker-panel-swatch {
     width: 2em;
     height: 2em;
     padding: 0;
-    border-color: $buic-inputs-border;
+    border-color: var(--iui-color-border-foreground);
   }
 }
 

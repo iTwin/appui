@@ -314,6 +314,7 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
       if (!isMounted.current)
         return;
       setPopupPanelCount((prev) => {
+        /* istanbul ignore next */
         const nextCount = isOpening ? (prev + 1) : (prev - 1);
         // eslint-disable-next-line no-console
         // console.log(`new popup count = ${nextCount}`);

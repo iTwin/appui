@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/style/colors";
 @import "~@itwin/core-react/lib/cjs/core-react/scrollbar";
 
-$separator-background: #f0f0f0;
+$separator-background: var(--iui-color-border-subtle);
 $ip-highlight-size: 4px;
 $ip-max-dropdown-width: 450px;
 
@@ -41,7 +41,7 @@ $ip-max-dropdown-width: 450px;
     display: block;
     width: 0;
     height: $ip-highlight-size;
-    background-color: $uicore-blue;
+    background-color: var(--iui-color-border-accent);
     margin: auto;
     content: "";
     transition: width 0.4s ease;
@@ -56,7 +56,7 @@ $ip-max-dropdown-width: 450px;
 .ip-content {
   flex: 1;
   padding: 0 0.7em;
-  background: $uicore-blue-highlight;
+  background: var(--iui-color-background-accent-muted);
   display: flex;
   align-items: center;
   outline: none;
@@ -64,7 +64,7 @@ $ip-max-dropdown-width: 450px;
 
   /* change text color on hover */
   &:hover {
-    color: $uicore-blue;
+    color: var(--iui-color-text-accent);
   }
 
   /* current itwin number & name */
@@ -99,7 +99,7 @@ $ip-max-dropdown-width: 450px;
 .ip-highlight {
   flex: initial;
   height: $ip-highlight-size;
-  background: $uicore-gray-8;
+  background: var(--iui-color-background-backdrop);
   transition: background-color 0.4s ease;
 }
 
@@ -114,8 +114,8 @@ $ip-max-dropdown-width: 450px;
 
 /* dropdown (list of iTwins) */
 .ip-dropdown {
-  color: #444;
-  background: #fff;
+  color: var(--iui-color-text);
+  background: var(--iui-color-background);
   min-width: 100%;
   width: 250px;
   max-width: $ip-max-dropdown-width;
@@ -173,7 +173,7 @@ $ip-max-dropdown-width: 450px;
 
       /* hover */
       &:hover {
-        background-color: #eee;
+        background-color: var(--iui-color-background-hover);
       }
     }
   }
@@ -182,7 +182,7 @@ $ip-max-dropdown-width: 450px;
 /* no iTwin MRU's */
 .ip-no-mru {
   display: block;
-  color: $uicore-gray;
+  color: var(--iui-color-text-muted);
   font-size: var(--iui-font-size-1);
   padding: 0.25em 1.25em;
 }
@@ -205,7 +205,7 @@ $ip-max-dropdown-width: 450px;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #eee;
+    background-color: var(--iui-color-background-hover);
   }
 }
 
@@ -214,8 +214,3 @@ $ip-max-dropdown-width: 450px;
   font-size: 22px;
   margin-right: 0.75em;
 }
-
-/*
- .content:hover + .highlight, .highlight:hover {
-  background-color: $uicore-gray;}
-*/

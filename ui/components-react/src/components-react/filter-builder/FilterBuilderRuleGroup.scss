@@ -2,8 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/itwinui-css/scss/style/index";
-@import "~@itwin/itwinui-css/scss/button/disabled";
 
 .filter-builder > .rule-group {
   & > .rule-group-content {
@@ -26,18 +24,14 @@
   }
 
   &[data-isactive="true"] > .rule-group-content {
-    @include themed {
-      border-color: t(iui-color-background-1--light);
-    }
+    border-color: var(--iui-color-border-foreground-hover);
   }
 
   &[data-isactive="false"]
     > .rule-group-content
     > .rule-group-actions
     .iui-button {
-    @include themed {
-      color: t(iui-icons-color);
-    }
+    color: var(--iui-color-icon);
   }
 
   .rule-group-remove-action {
@@ -49,9 +43,7 @@
     padding-left: var(--iui-size-s);
     border-left: 1px solid;
     box-sizing: border-box;
-    @include themed {
-      border-color: t(iui-color-background-border);
-    }
+    border-color: var(--iui-color-border-subtle);
 
     .rule-group-operator {
       padding: 3px 0;

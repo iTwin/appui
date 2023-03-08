@@ -14,28 +14,28 @@
     width: $uifw-popup-border-width;
   }
 
-  background-color: rgba($buic-background-2-rgb, $uifw-popup-opacity);
+  background-color: hsl(var(--iui-color-background-hsl) / $uifw-popup-opacity);
 
   .uifw-pointer-message-content {
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    >.uifw-pointer-message-icon {
+    > .uifw-pointer-message-icon {
       padding-left: 3px;
       padding-right: 3px;
     }
 
-    >.uifw-pointer-message-text {
-      color: $buic-foreground-body;
+    > .uifw-pointer-message-text {
+      color: var(--iui-color-text);
       padding-left: 3px;
       padding-right: 3px;
 
-      >.uifw-pointer-message-brief {
+      > .uifw-pointer-message-brief {
         @include uicore-text(body);
       }
 
-      >.uifw-pointer-message-detailed {
+      > .uifw-pointer-message-detailed {
         @include uicore-text(small);
       }
     }

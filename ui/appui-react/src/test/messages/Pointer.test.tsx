@@ -30,12 +30,12 @@ describe("PointerMessage", () => {
     details = new NotifyMessageDetails(OutputMessagePriority.None, "Brief", "Detailed", OutputMessageType.Pointer);
   });
 
-  it("should display the message", () => {
+  it("should display the message", async () => {
     render(<PointerMessage  />);
 
     notifications.outputMessage(details);
 
-    expect(screen.getByText("Brief")).to.satisfy(selectorMatches(".uifw-pointer-message .nz-content .uifw-pointer-message-content .uifw-pointer-message-text .uifw-pointer-message-brief"));
+    expect(await screen.findByText("Brief")).to.satisfy(selectorMatches(".uifw-pointer-message .nz-content .uifw-pointer-message-content .uifw-pointer-message-text .uifw-pointer-message-brief"));
   });
 
   it("should hide the message", () => {

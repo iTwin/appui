@@ -30,7 +30,7 @@ describe("ElementTooltip", () => {
     expect(ElementTooltip.isTooltipVisible).to.be.false;
   });
 
-  it("showTooltip should support HTMLElement", () => {
+  it("showTooltip should support HTMLElement", async () => {
     const divElement = document.createElement("div");
     render(<ElementTooltip />);
 
@@ -41,7 +41,7 @@ describe("ElementTooltip", () => {
     ElementTooltip.showTooltip(divElement, para, { x: 10, y: 10 });
     expect(ElementTooltip.isTooltipVisible).to.be.true;
 
-    expect(screen.getByText(`HTMLElement message`)).to.exist;
+    expect(await screen.findByText(`HTMLElement message`)).to.exist;
   });
 
 });
