@@ -12,14 +12,17 @@ jobs:
         OS: windows-latest
         platform: Windows_NT
         name: $(win_pool)
+        variant: ''
       "Linux_${{ parameters.name }}":
         OS: ubuntu-latest
         platform: Linux
         name: $(linux_pool)
+        variant: ''
       "MacOS_${{ parameters.name }}":
         OS: macOS-latest
         platform: Darwin
         name: $(mac_pool)
+        variant: ''
       "Windows_${{ parameters.name }}_core_3x":
         OS: windows-latest
         platform: Windows_NT
