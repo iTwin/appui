@@ -5,7 +5,7 @@
 import { API, FileInfo } from "jscodeshift";
 import { objectExpressionFilter, useCallExpression } from "../utils/CallExpression";
 import { useExtensions } from "../utils/Extensions";
-import { useObjectExpression } from "../utils/objectExpression";
+import { useObjectExpression } from "../utils/ObjectExpression";
 
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;

@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { API, ASTPath, FileInfo, JSCodeshift, MemberExpression, ObjectExpression, ObjectProperty } from "jscodeshift";
-import { ObjectExpressionCollection, useObjectExpression } from "../utils/objectExpression";
+import { ObjectExpressionCollection, useObjectExpression } from "../utils/ObjectExpression";
 import { isLiteral } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API) {
