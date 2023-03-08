@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { Collection, JSCodeshift } from "jscodeshift";
-import { fromPaths } from "jscodeshift/src/collection";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
@@ -15,17 +14,18 @@ interface GlobalMethods {
   concat(other: Collection): this;
 }
 
-function plugin(j: JSCodeshift) {
+function extensionsPlugin(j: JSCodeshift) {
   const globalMethods: GlobalMethods = {
     concat(this: Collection, other) {
       const paths = [...this.paths(), ...other.paths()];
-      return fromPaths(paths, this, this.getTypes());
+      const proto = Object.getPrototypeOf(this);
+      const collection = new proto.constructor(paths, this, this.getTypes());
+      return collection;
     },
   };
-
   j.registerMethods(globalMethods);
 }
 
 export function useExtensions(j: JSCodeshift) {
-  usePlugin(j, plugin);
+  usePlugin(j, extensionsPlugin);
 }
