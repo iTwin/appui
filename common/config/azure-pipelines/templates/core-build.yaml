@@ -7,8 +7,6 @@ parameters:
   - name: rushBuildCacheEnabled
     type: number
     default: 1
-  - name: variant
-    type: string
 
 steps:
   - script: node common/scripts/set-rush-write-cache-variables.js
@@ -16,11 +14,11 @@ steps:
   - script: node common/scripts/install-run-rush.js check
     displayName: rush check
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq(${{ parameters.variant }}, ''))
-  - script: node common/scripts/install-run-rush.js check --variant ${{ parameters.variant }}
+    condition: and(succeeded(), eq(variables.variant, ''))
+  - script: node common/scripts/install-run-rush.js check --variant $(variant)
     displayName: rush check (variant)
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), ne('${{ parameters.variant }}', ''))
+    condition: and(succeeded(), ne(variables.variant, ''))
   - task: PythonScript@0
     displayName: "rush change -v"
     inputs:
@@ -32,11 +30,11 @@ steps:
   - script: node common/scripts/install-run-rush.js install
     displayName: rush install
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq(${{ parameters.variant }}, ''))
-  - script: node common/scripts/install-run-rush.js install --variant ${{ parameters.variant }}
+    condition: and(succeeded(), eq(variables.variant, ''))
+  - script: node common/scripts/install-run-rush.js install --variant $(variant)
     displayName: rush install (variant)
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), ne('${{ parameters.variant }}', ''))
+    condition: and(succeeded(), ne(variables.variant, ''))
   - script: node common/scripts/install-run-rush.js audit
     displayName: rush audit
     workingDirectory: ${{ parameters.workingDir }}
@@ -81,4 +79,4 @@ steps:
   - script: node common/scripts/install-run-rush.js docs
     displayName: rush docs
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq(${{ parameters.variant }}, ''))
+    condition: and(succeeded(), eq(variables.variant, ''))
