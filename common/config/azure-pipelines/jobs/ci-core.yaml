@@ -2,25 +2,42 @@ parameters:
   name: ''
   pool: ''
   nodeVersion: ''
-  variant: 'default'
 
 
 jobs:
 - job:
   strategy:
     matrix:
-      "Windows_${{ parameters.name }}_${{ parameters.variant}}":
+      "Windows_${{ parameters.name }}":
         OS: windows-latest
         platform: Windows_NT
         name: $(win_pool)
-      "Linux_${{ parameters.name }}_${{ parameters.variant}}":
+        variant: default
+      "Linux_${{ parameters.name }}":
         OS: ubuntu-latest
         platform: Linux
         name: $(linux_pool)
-      "MacOS_${{ parameters.name }}_${{ parameters.variant}}":
+        variant: default
+      "MacOS_${{ parameters.name }}":
         OS: macOS-latest
         platform: Darwin
         name: $(mac_pool)
+        variant: default
+      "Windows_${{ parameters.name }}_core_3x":
+        OS: windows-latest
+        platform: Windows_NT
+        name: $(win_pool)
+        variant: core-3x
+      "Linux_${{ parameters.name }}_core_3x":
+        OS: ubuntu-latest
+        platform: Linux
+        name: $(linux_pool)
+        variant: core-3x
+      "MacOS_${{ parameters.name }}_core_3x":
+        OS: macOS-latest
+        platform: Darwin
+        name: $(mac_pool)
+        variant: core-3x
 
   timeoutInMinutes: 30
 
@@ -57,7 +74,7 @@ jobs:
 
     - template: ../templates/core-build.yaml
       parameters:
-        variant: ${{ parameters.variant }}
+        variant: $(variant)
 
     # Will run if even there is a failure somewhere else in the pipeline.
     - template: ../templates/publish-test-results.yaml
@@ -65,4 +82,4 @@ jobs:
         NodeVersion: ${{ parameters.nodeVersion }}
     # The publish script identifies any new packages not previously published and tags the build
     - template: ../templates/publish.yaml
-      condition: eq('${{ parameters.variant }}', 'default'))
+      condition: eq(variables['variant'], 'default'))
