@@ -16,7 +16,7 @@ steps:
   - script: node common/scripts/install-run-rush.js check
     displayName: rush check
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq('${{ parameters.variant }}', ''))
+    condition: and(succeeded(), eq(${{ parameters.variant }}, ''))
   - script: node common/scripts/install-run-rush.js check --variant ${{ parameters.variant }}
     displayName: rush check (variant)
     workingDirectory: ${{ parameters.workingDir }}
@@ -32,7 +32,7 @@ steps:
   - script: node common/scripts/install-run-rush.js install
     displayName: rush install
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq('${{ parameters.variant }}', ''))
+    condition: and(succeeded(), eq(${{ parameters.variant }}, ''))
   - script: node common/scripts/install-run-rush.js install --variant ${{ parameters.variant }}
     displayName: rush install (variant)
     workingDirectory: ${{ parameters.workingDir }}
@@ -81,4 +81,4 @@ steps:
   - script: node common/scripts/install-run-rush.js docs
     displayName: rush docs
     workingDirectory: ${{ parameters.workingDir }}
-    condition: and(succeeded(), eq('${{ parameters.variant }}', ''))
+    condition: and(succeeded(), eq(${{ parameters.variant }}, ''))
