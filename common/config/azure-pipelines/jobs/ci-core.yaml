@@ -9,15 +9,15 @@ jobs:
 - job:
   strategy:
     matrix:
-      "Windows_${{ parameters.name }}":
+      "Windows_${{ parameters.name }}_${{ parameters.variant}}":
         OS: windows-latest
         platform: Windows_NT
         name: $(win_pool)
-      "Linux_${{ parameters.name }}":
+      "Linux_${{ parameters.name }}_${{ parameters.variant}}":
         OS: ubuntu-latest
         platform: Linux
         name: $(linux_pool)
-      "MacOS_${{ parameters.name }}":
+      "MacOS_${{ parameters.name }}_${{ parameters.variant}}":
         OS: macOS-latest
         platform: Darwin
         name: $(mac_pool)
@@ -65,3 +65,4 @@ jobs:
         NodeVersion: ${{ parameters.nodeVersion }}
     # The publish script identifies any new packages not previously published and tags the build
     - template: ../templates/publish.yaml
+      condition: eq('${{ parameters.variant }}', 'default'))
