@@ -88,7 +88,7 @@ importers:
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
-      '@itwin/browser-authorization': ^0.5.1
+      '@itwin/browser-authorization': ^0.6.2
       '@itwin/build-tools': ^3.6.0
       '@itwin/components-react': workspace:*
       '@itwin/core-backend': ^3.6.0
@@ -170,7 +170,7 @@ importers:
       '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
       '@itwin/appui-react': link:../../../ui/appui-react
       '@itwin/appui-test-providers': link:../appui-test-providers
-      '@itwin/browser-authorization': 0.5.1_@itwin+core-bentley@3.6.0
+      '@itwin/browser-authorization': 0.6.2_@itwin+core-bentley@3.6.0
       '@itwin/components-react': link:../../../ui/components-react
       '@itwin/core-backend': 3.6.0_ebb9e634fb1b6af793a5621c3a26fc8d
       '@itwin/core-bentley': 3.6.0
@@ -259,7 +259,6 @@ importers:
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
-      '@itwin/browser-authorization': ^0.5.1
       '@itwin/build-tools': ^3.6.0
       '@itwin/components-react': workspace:*
       '@itwin/core-backend': ^3.6.0
@@ -341,7 +340,6 @@ importers:
       '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
       '@itwin/appui-react': link:../../../ui/appui-react
       '@itwin/appui-test-providers': link:../appui-test-providers
-      '@itwin/browser-authorization': 0.5.1_@itwin+core-bentley@3.6.0
       '@itwin/components-react': link:../../../ui/components-react
       '@itwin/core-backend': 3.6.0_ebb9e634fb1b6af793a5621c3a26fc8d
       '@itwin/core-bentley': 3.6.0
@@ -3081,13 +3079,13 @@ packages:
       '@bentley/icons-generic-webfont': 1.0.34
       '@itwin/core-bentley': 3.6.0
 
-  /@itwin/browser-authorization/0.5.1_@itwin+core-bentley@3.6.0:
-    resolution: {integrity: sha512-TI7nd4I5Lc9MrJnf40kk+u4bTCym1xH9IBJNkvVt+7unjUSbRuUaPS6wC6WTu2DoYbIocEIEBWTqNOR67lAHGA==}
+  /@itwin/browser-authorization/0.6.2_@itwin+core-bentley@3.6.0:
+    resolution: {integrity: sha512-ZBi6jBfEf9EvXczJhdJbncTjdFlaKB2ysUoL8+Z1JNmvEPeN+QZu54+XO5vpzzAilAS6w6QD/ISFHQv3wPRbmg==}
     peerDependencies:
       '@itwin/core-bentley': ^3.0.0
     dependencies:
       '@itwin/core-bentley': 3.6.0
-      oidc-client: 1.11.5
+      oidc-client-ts: 2.2.2
     dev: false
 
   /@itwin/build-tools/3.6.0:
@@ -5757,6 +5755,7 @@ packages:
     resolution: {integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+    dev: true
 
   /acorn/8.8.0:
     resolution: {integrity: sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==}
@@ -7130,6 +7129,7 @@ packages:
   /core-js/3.25.0:
     resolution: {integrity: sha512-CVU1xvJEfJGhyCpBrzzzU1kjCfgsGUxhEvwUV2e/cOedYWHdmluamx+knDnmhqALddMG16fZvIqvs9aijsHHaA==}
     requiresBuild: true
+    dev: true
 
   /core-util-is/1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -11134,6 +11134,10 @@ packages:
     resolution: {integrity: sha512-g3UB796vUFIY90VIv/WX3L2c8CS2MdWUww3CNrYmqza1Fg0DURc2K/O4YrnklBdQarSJ/y8JnJYDGc+1iumQjg==}
     dev: true
 
+  /jwt-decode/3.1.2:
+    resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
+    dev: false
+
   /keytar/7.9.0:
     resolution: {integrity: sha512-VPD8mtVtm5JNtA2AErl6Chp06JBfy7diFQ7TQQhdpWOl6MrCRB+eRbvAZUsbGQS9kiMq0coJsy0W0vHpDCkWsQ==}
     requiresBuild: true
@@ -12057,14 +12061,12 @@ packages:
     resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
     dev: true
 
-  /oidc-client/1.11.5:
-    resolution: {integrity: sha512-LcKrKC8Av0m/KD/4EFmo9Sg8fSQ+WFJWBrmtWd+tZkNn3WT/sQG3REmPANE9tzzhbjW6VkTNy4xhAXCfPApAOg==}
+  /oidc-client-ts/2.2.2:
+    resolution: {integrity: sha512-tEpnC1xQX6PMhnDMNEvDhpqnsu0buh29b/sA9a1I5tq6lD87wRAW1rTj49B2+5925I0sQlvU64DoK0Pxeiu7Dg==}
+    engines: {node: '>=12.13.0'}
     dependencies:
-      acorn: 7.4.1
-      base64-js: 1.5.1
-      core-js: 3.25.0
       crypto-js: 4.1.1
-      serialize-javascript: 4.0.0
+      jwt-decode: 3.1.2
     dev: false
 
   /on-finished/2.4.1:
@@ -13450,6 +13452,7 @@ packages:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
     dependencies:
       safe-buffer: 5.2.1
+    dev: true
 
   /range-parser/1.2.0:
     resolution: {integrity: sha512-kA5WQoNVo4t9lNx2kQNFCxKeBl5IbbSNBl1M/tLkw9WCn+hxNBAW5Qh8gdhs63CJnhjJ2zQWFoqPJP2sK1AV5A==}
@@ -14348,6 +14351,7 @@ packages:
     resolution: {integrity: sha512-GaNA54380uFefWghODBWEGisLZFj00nS5ACs6yHa9nLqlLpVLO8ChDGeKRjZnV4Nh4n0Qi7nhYZD/9fCPzEqkw==}
     dependencies:
       randombytes: 2.1.0
+    dev: true
 
   /serialize-javascript/6.0.0:
     resolution: {integrity: sha512-Qr3TosvguFt8ePWqsvRfrKyQXIiW+nGbYpy8XK24NQHE83caxWt+mIymTT19DGFbNWNLfEwsrkSmN64lVWB9ag==}

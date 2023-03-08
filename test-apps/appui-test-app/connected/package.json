@@ -76,7 +76,7 @@
     "@itwin/appui-abstract": "^3.6.0",
     "@itwin/appui-layout-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",
-    "@itwin/browser-authorization": "^0.5.1",
+    "@itwin/browser-authorization": "^0.6.2",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-backend": "^3.6.0",
     "@itwin/core-bentley": "^3.6.0",

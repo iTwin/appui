@@ -164,12 +164,10 @@ export class SampleAppIModelApp {
       const redirectUri = process.env.IMJS_OIDC_BROWSER_TEST_REDIRECT_URI ?? "";
       const urlObj = new URL(redirectUri);
       if (urlObj.pathname === window.location.pathname) {
-        // Hack: supporting 3.6 and 4.0 (4.0 have expanded options)
-        const is40 = Object.getOwnPropertyNames(BrowserAuthorizationCallbackHandler.prototype).includes("authorityUrl");
-        await BrowserAuthorizationCallbackHandler.handleSigninCallback((is40 ? {
+        await BrowserAuthorizationCallbackHandler.handleSigninCallback({
           redirectUri,
           clientId: process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID!,
-        } : redirectUri) as any);
+        });
         return;
       }
 

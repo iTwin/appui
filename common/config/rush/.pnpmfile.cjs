@@ -31,7 +31,6 @@ const forcedDep = {};
     "@itwin/presentation-common",
     "@itwin/webgl-compatibility",
   ], "4.0.0-dev.37"],
-  [["@itwin/browser-authorization"], "^0.6.2"],
   [["@itwin/electron-authorization"], "^0.11.0"],
   [[
     "@itwin/imodels-access-backend",
