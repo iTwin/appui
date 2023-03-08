@@ -8,13 +8,13 @@ import { usePlugin } from "./usePlugin";
 declare module "jscodeshift/src/collection" {
   interface Collection<N> extends GlobalMethods {
   }
-
-  interface Collection<N extends ObjectExpression> extends ObjectExpressionMethods {
-  }
 }
 
 interface GlobalMethods {
-  findObjectExpressions(name?: string): Collection<ObjectExpression>;
+  findObjectExpressions(name?: string): ObjectExpressionCollection;
+}
+
+export interface ObjectExpressionCollection extends Collection<ObjectExpression>, ObjectExpressionMethods {
 }
 
 interface ObjectExpressionMethods {
@@ -43,11 +43,11 @@ function objectExpressionPlugin(j: JSCodeshift) {
           return path;
         }
         return undefined;
-      }, j.ObjectExpression);
+      }, j.ObjectExpression) as unknown as ObjectExpressionCollection;
     },
   };
   const methods: ObjectExpressionMethods = {
-    removeProperty(this: Collection<ObjectExpression>, name, modify) {
+    removeProperty(this: ObjectExpressionCollection, name, modify) {
       return this.forEach((path) => {
         const properties = path.value.properties;
         const index = properties.findIndex((property) => isProperty(property, name));
@@ -57,7 +57,7 @@ function objectExpressionPlugin(j: JSCodeshift) {
         }
       });
     },
-    renameProperty(this: Collection<ObjectExpression>, name, newName, modify) {
+    renameProperty(this: ObjectExpressionCollection, name, newName, modify) {
       return this.forEach((path) => {
         const properties = path.value.properties;
         for (const property of properties) {

@@ -28,5 +28,41 @@ describe("toolbar-item", () => {
       `,
       "should remove properties"
     );
+
+    defineInlineTest(
+      transform,
+      {},
+      `
+      ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, { internalData: {} });
+      `,
+      `
+      ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, {});
+      `,
+      "should update in `ToolbarItemUtilities.createActionItem`"
+    );
+
+    defineInlineTest(
+      transform,
+      {},
+      `
+      ToolbarItemUtilities.createGroupItem("item1", 100, "icon", "label", [], { internalData: {} });
+      `,
+      `
+      ToolbarItemUtilities.createGroupItem("item1", 100, "icon", "label", [], {});
+      `,
+      "should update in `ToolbarItemUtilities.createGroupItem`"
+    );
+
+    defineInlineTest(
+      transform,
+      {},
+      `
+      ToolbarItemUtilities.createCustomItem("item1", 100, "icon", "label", <Panel />, { internalData: {} });
+      `,
+      `
+      ToolbarItemUtilities.createCustomItem("item1", 100, "icon", "label", <Panel />, {});
+      `,
+      "should update in `ToolbarItemUtilities.createCustomItem`"
+    );
   });
 });

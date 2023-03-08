@@ -7,12 +7,18 @@ import { NodeFilter } from "./NodeFilter";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
-  interface Collection<N> extends CallExpressionMethods {
+  interface Collection<N> extends GlobalMethods {
   }
 }
 
+interface GlobalMethods {
+  findCallExpressions(name?: string): CallExpressionCollection;
+}
+
+interface CallExpressionCollection extends Collection<CallExpression>, CallExpressionMethods {
+}
+
 interface CallExpressionMethods {
-  findCallExpressions(name?: string): Collection<CallExpression>;
 }
 
 function toFilter(name: string | undefined): NodeFilter<CallExpression> | undefined {
@@ -33,7 +39,7 @@ function toFilter(name: string | undefined): NodeFilter<CallExpression> | undefi
 }
 
 function callExpressionPlugin(j: JSCodeshift) {
-  const methods: CallExpressionMethods = {
+  const methods: GlobalMethods = {
     findCallExpressions(this: Collection, name) {
       const filter = toFilter(name);
       return this.find(j.CallExpression, filter);
