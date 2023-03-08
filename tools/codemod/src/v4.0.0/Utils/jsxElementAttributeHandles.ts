@@ -7,30 +7,27 @@ import { isIdentifier, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionCont
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
   name?: JSXIdentifier;
-  value: Exclude<JSXAttribute["value"], null> | JSXSpreadAttribute["argument"];
+  value: NonNullable<JSXAttribute["value"]> | JSXSpreadAttribute["argument"];
 }
 
 export interface ConfigProperty extends Omit<ObjectProperty, "type" | "key" | "value"> {
   type: "ConfigProperty";
-  name?: Identifier; // TODO: check if this type will always be the case
+  name?: Identifier;
   value: ObjectProperty["value"] | SpreadProperty["argument"];
 }
 
 type NameType = ElementAttribute["name"] | ConfigProperty["name"];
 type ValueType = ElementAttribute["value"] | ConfigProperty["value"];
 
-export type AttributeHandle = (j: JSCodeshift, attr: ElementAttribute | ConfigProperty) => ConfigProperty;
+export type AttributeHandle = (j: JSCodeshift, attr: ElementAttribute | ConfigProperty) => ConfigProperty | undefined;
 export type AttributeHandleMap = Map<string | undefined, AttributeHandle | null>;
 
-export function buildConfigProperty(j: JSCodeshift, value: ValueType, name?: NameType): ConfigProperty {
-  if (!value) {
-    throw new Error("Element must hold value");
-  }
+export function buildConfigProperty(j: JSCodeshift, value: ValueType, name?: NameType): ConfigProperty | undefined {
   if (!isSpreadExpression(name, value)) {
     const prop: Omit<ObjectProperty, "type"> = j.objectProperty(name!, value);
     if (!isIdentifier(j, prop.key)) {
-      // never
-      throw new Error('Unexpected identifier type');
+      // throw new Error('Unexpected identifier type');
+      return undefined;
     }
     return {
       type: "ConfigProperty",
@@ -52,11 +49,14 @@ export function chain(...handles: AttributeHandle[]): AttributeHandle {
     if (handles.length === 1)
       return identity(j, attr);
 
-    let prop = attr;
+    let prop: ElementAttribute | ConfigProperty | undefined = attr;
     handles.forEach((handle) => {
+      if (!prop)
+        return undefined;
       prop = handle(j, prop);
     });
-
+    if (!prop)
+      return undefined;
     return prop as ConfigProperty;
   };
 }
@@ -74,7 +74,8 @@ export const identity: AttributeHandle = (j, attr) => {
 export const extractExpression: AttributeHandle = (j, attr) => {
   const expr = isJSXExpressionContainer(j, attr.value) ? attr.value.expression : attr.value;
   if (isJSXEmptyExpression(j, expr)) {
-    throw new Error("Attribute cannot contain empty expression");
+    // throw new Error("Attribute cannot contain empty expression");
+    return undefined;
   }
   return buildConfigProperty(j, expr, attr.name);
 };
@@ -83,38 +84,34 @@ function isSpreadExpression(name: NameType | undefined, expr: any): expr is JSXS
   return name ? false : true;
 }
 
-export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JSXSpreadAttribute): ElementAttribute {
-
+export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JSXSpreadAttribute): ElementAttribute | undefined {
   if (isJSXAttribute(j, jsxAttr)) {
-    let name: JSXIdentifier | undefined;
-    if (isJSXIdentifier(j, jsxAttr.name)) {
-      name = jsxAttr.name;
+    if (!isJSXIdentifier(j, jsxAttr.name)) {
+      // throw new Error("Non spread attribute must have name");
+      return undefined;
     }
-    else {
-      throw new Error("Non spread attribute must have name");
-    }
+
     if (jsxAttr.value === null) {
-      throw new Error("Attribute must hold value");
+      // throw new Error("Attribute must hold value");
+      return undefined;
     }
 
     return {
       type: "ElementAttribute",
-      name: name,
-      value: jsxAttr.value,
-      ...(jsxAttr as Omit<JSXAttribute, "type" | "name">),
-    }
+      name: jsxAttr.name,
+      value: jsxAttr.value!,
+      ...(jsxAttr as Omit<JSXAttribute, "type" | "name" | "value">),
+    };
   }
 
   return {
     type: "ElementAttribute",
-    name: undefined,
     value: jsxAttr.argument,
-    ...(jsxAttr as Omit<JSXSpreadAttribute, "type">),
+    ...(jsxAttr as Omit<JSXSpreadAttribute, "type" | "argument">),
   }
 }
 
 export function configToObjectProperty(j: JSCodeshift, prop: ConfigProperty): ObjectProperty | SpreadProperty {
-
   if (!isSpreadExpression(prop.name, prop.value)) {
     return {
       type: "ObjectProperty",
