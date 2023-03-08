@@ -22,7 +22,6 @@
     "@itwin/editor-frontend": "^3.6.0",
     "@itwin/editor-backend": "^3.6.0",
     "@itwin/editor-common": "^3.6.0",
-    "@itwin/electron-authorization": "^0.8.5",
     "@itwin/express-server": "^3.6.0",
     "@itwin/frontend-devtools": "^3.6.0",
     "@itwin/hypermodeling-frontend": "^3.6.0",

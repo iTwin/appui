@@ -279,16 +279,11 @@ importers:
       '@itwin/editor-backend': 4.0.0-dev.37
       '@itwin/editor-common': 4.0.0-dev.37
       '@itwin/editor-frontend': 4.0.0-dev.37
-      '@itwin/electron-authorization': ^0.11.0
       '@itwin/eslint-plugin': ^3.6.0
       '@itwin/express-server': 4.0.0-dev.37
       '@itwin/frontend-devtools': 4.0.0-dev.37
       '@itwin/hypermodeling-frontend': 4.0.0-dev.37
       '@itwin/imodel-components-react': workspace:*
-      '@itwin/imodels-access-backend': ^3.0.0
-      '@itwin/imodels-access-frontend': ^3.0.0
-      '@itwin/imodels-client-authoring': ^3.0.0
-      '@itwin/imodels-client-management': ^3.0.0
       '@itwin/itwinui-icons-react': ^2.1.0
       '@itwin/itwinui-react': ^2.5.0
       '@itwin/itwinui-variables': ^2.0.0
@@ -358,15 +353,10 @@ importers:
       '@itwin/editor-backend': 4.0.0-dev.37_6174b7b123834e784f51a2b1891b8d77
       '@itwin/editor-common': 4.0.0-dev.37_1bc3986eccf6a1b0371624825a118c9a
       '@itwin/editor-frontend': 4.0.0-dev.37_31bcf960fea0a133d617efe4e715f3f8
-      '@itwin/electron-authorization': 0.11.0_565b651d368d9f54012edc12aa8f43bd
       '@itwin/express-server': 4.0.0-dev.37_@itwin+core-backend@4.0.0-dev.37
       '@itwin/frontend-devtools': 4.0.0-dev.37_eddbe1e811e088d743e11ece2ee26187
       '@itwin/hypermodeling-frontend': 4.0.0-dev.37_1f17bf1eda5d0a855c7745aad2e406d4
       '@itwin/imodel-components-react': link:../../../ui/imodel-components-react
-      '@itwin/imodels-access-backend': 3.0.0_191d103de32035dab8932d08c4c2b427
-      '@itwin/imodels-access-frontend': 3.0.0_c9d8f7beeeb25b8c3e7835aad7c4b95d
-      '@itwin/imodels-client-authoring': 3.0.0
-      '@itwin/imodels-client-management': 3.0.0
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 2.5.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 2.0.0

@@ -31,13 +31,6 @@ const forcedDep = {};
     "@itwin/presentation-common",
     "@itwin/webgl-compatibility",
   ], "4.0.0-dev.37"],
-  [["@itwin/electron-authorization"], "^0.11.0"],
-  [[
-    "@itwin/imodels-access-backend",
-    "@itwin/imodels-access-frontend",
-    "@itwin/imodels-client-authoring",
-    "@itwin/imodels-client-management",
-  ], "^3.0.0"],
   [["electron"], "^23.0.0"],
 // Build an object with keys with the above
 // { "@itwin/appui-abstract": "4.0.0-dev.37",

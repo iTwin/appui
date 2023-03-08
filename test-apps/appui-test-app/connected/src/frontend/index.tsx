@@ -445,10 +445,7 @@ export class SampleAppIModelApp {
         urlParams: {
           name: iModelName,
           $top: 1,
-          ...{
-            projectId: iTwin.id,
-            iTwinId: iTwin.id,
-          } as any, // Support 3.6 and 4.0.
+          iTwinId: iTwin.id,
         },
         authorization: AccessTokenAdapter.toAuthorizationCallback(accessToken),
       }))
