@@ -42,13 +42,13 @@ export class Tab extends React.Component<TabProps> {
     const icon = classnames("icon", this.props.icon);
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-      <li className={classes} onClick={this._onClick}>
+      (<li className={classes} onClick={this._onClick}>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a>
           <span className={icon} />
           <span className="text">{this.props.label}</span>
         </a>
-      </li>
+      </li>)
     );
   }
 }

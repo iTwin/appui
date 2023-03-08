@@ -4,11 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  AbstractWidgetProps,
-  StagePanelLocation, StagePanelSection,
+  StagePanelLocation,
+  StagePanelSection,
   StageUsage,
-  UiItemsProvider, WidgetState,
-} from "@itwin/appui-abstract";
+  UiItemsProvider,
+  Widget,
+  WidgetState,
+} from "@itwin/appui-react";
 import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget";
 
 /**
@@ -19,8 +21,8 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
   public readonly id = FloatingWidgetsUiItemsProvider.providerId;
 
   public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation,
-    section?: StagePanelSection): ReadonlyArray<AbstractWidgetProps> {
-    const widgets: AbstractWidgetProps[] = [];
+    section?: StagePanelSection): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
     if (stageUsage === StageUsage.General && location === StagePanelLocation.Left && section === StagePanelSection.Start) {
       widgets.push({
         id: "appui-test-providers:ViewAttributesWidget",

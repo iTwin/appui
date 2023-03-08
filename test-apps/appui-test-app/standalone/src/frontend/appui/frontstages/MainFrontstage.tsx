@@ -8,21 +8,30 @@ import {
   IModelConnection,
   ViewState,
 } from "@itwin/core-frontend";
-import {
-  BackstageItem,
-  BackstageItemUtilities,
-  ContentLayoutProps, StageUsage, StandardContentLayouts, UiItemsManager, UiItemsProvider,
-} from "@itwin/appui-abstract";
+import { ContentLayoutProps, StandardContentLayouts } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
-  ConfigurableUiManager, ContentGroup, ContentGroupProps,
-  ContentGroupProvider, ContentProps, FrontstageProps, IModelViewportControl,
-  SettingsModalFrontstage, StageContentLayout, StageContentLayoutProps,
-  StandardContentToolsUiItemsProvider, StandardFrontstageProps,
+  BackstageItem,
+  BackstageItemUtilities,
+  ConfigurableUiManager,
+  ContentGroup,
+  ContentGroupProps,
+  ContentGroupProvider,
+  ContentProps,
+  FrontstageProps,
+  IModelViewportControl,
+  SettingsModalFrontstage,
+  StageContentLayout,
+  StageContentLayoutProps,
+  StageUsage,
+  StandardContentToolsUiItemsProvider,
+  StandardFrontstageProps,
   StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   UiFramework,
+  UiItemsManager,
+  UiItemsProvider,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { AppUi } from "../AppUi";

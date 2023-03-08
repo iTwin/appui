@@ -8,7 +8,7 @@
 
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import { AbstractDialogDataProvider } from "../ui/dialogs/TestUiProviderDialog";
-import { ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { ToolbarItemUtilities } from "@itwin/appui-react";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 
 /**

@@ -271,7 +271,7 @@ export class PlaceBlockTool extends CreateElementTool {
 
   public async onRestartTool() {
     const tool = new PlaceBlockTool();
-    if (!await tool.run())
+    if (!(await tool.run()))
       return this.exitTool();
   }
 }

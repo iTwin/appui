@@ -6,17 +6,28 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 
 import {
-  BackstageAppButton, BackstageManager, CommandItemDef, ConfigurableUiManager, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageProps,
-  IModelViewportControl, StagePanelState, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
+  BackstageAppButton,
+  BackstageManager,
+  CommandItemDef,
+  ConfigurableUiManager,
+  ContentGroup,
+  ContentGroupProps,
+  ContentGroupProvider,
+  ContentProps,
+  FrontstageProps,
+  IModelViewportControl,
+  StagePanelState,
+  StageUsage,
+  StandardContentToolsUiItemsProvider,
+  StandardFrontstageProps,
+  StandardFrontstageProvider,
   StandardNavigationToolsUiItemsProvider,
   StandardStatusbarUiItemsProvider,
   StateManager,
   UiFramework,
+  UiItemsManager,
 } from "@itwin/appui-react";
-import {
-  ConditionalStringValue,
-  StageUsage, StandardContentLayouts, UiItemsManager,
-} from "@itwin/appui-abstract";
+import { ConditionalStringValue, StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { WidgetApiStageUiItemsProvider } from "../providers/WidgetApiStageUiItemsProvider";
 import { getTestProviderState, setShowCustomViewOverlay, TestProviderState } from "../../store";

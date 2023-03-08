@@ -45,7 +45,7 @@ export class AnalysisAnimationTool extends PrimitiveTool {
   /** Process request to restart the tool. */
   public async onRestartTool() {
     const tool = new AnalysisAnimationTool();
-    if (!await tool.run())
+    if (!(await tool.run()))
       return this.exitTool();
   }
 

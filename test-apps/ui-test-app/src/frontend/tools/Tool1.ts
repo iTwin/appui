@@ -100,7 +100,7 @@ export class Tool1 extends PrimitiveTool {
 
   public async onRestartTool() {
     const tool = new Tool1();
-    if (!await tool.run())
+    if (!(await tool.run()))
       return this.exitTool();
   }
 }

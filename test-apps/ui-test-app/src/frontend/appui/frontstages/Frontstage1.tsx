@@ -5,8 +5,29 @@
 import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
-  ActionItemButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, GroupButton,
-  ModalDialogManager, NavigationWidget, StagePanel, ToolButton, ToolWidget, useWidgetDirection, Widget, WidgetStateChangedEventArgs, Zone, ZoneLocation,
+  ActionItemButton,
+  CommandItemDef,
+  ContentGroup,
+  ContentLayoutDef,
+  ContentLayoutManager,
+  CoreTools,
+  Frontstage,
+  FrontstageDef,
+  FrontstageManager,
+  FrontstageProps,
+  FrontstageProvider,
+  GroupButton,
+  ModalDialogManager,
+  NavigationWidget,
+  StagePanel,
+  ToolButton,
+  ToolWidget,
+  useWidgetDirection,
+  Widget,
+  WidgetState,
+  WidgetStateChangedEventArgs,
+  Zone,
+  ZoneLocation,
   ZoneState,
 } from "@itwin/appui-react";
 import { Direction, Toolbar } from "@itwin/appui-layout-react";
@@ -15,7 +36,7 @@ import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
 import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { TableDemoWidgetControl } from "../widgets/TableDemoWidget";
 import { NestedFrontstage1 } from "./NestedFrontstage1";
-import { StandardContentLayouts, UiAdmin, WidgetState } from "@itwin/appui-abstract";
+import { StandardContentLayouts, UiAdmin } from "@itwin/appui-abstract";
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
 
@@ -137,113 +158,93 @@ export class Frontstage1 extends FrontstageProvider {
 
   public get frontstage(): React.ReactElement<FrontstageProps> {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup1);
-    return (
-      <Frontstage id={this.id}
-        version={1}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={contentGroup}
-        defaultContentId="TestContent1"
-        topLeft={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />,
-            ]}
-          />
-        }
-        topCenter={
-          <Zone
-            allowsMerging
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        topRight={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />,
-            ]}
-          />
-        }
-        centerLeft={
-          <Zone
-            allowsMerging={true}
-            defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget id="VerticalPropertyGrid" iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone
-            allowsMerging={true}
-            defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-            ]}
-          />
-        }
-        /** The HorizontalPropertyGrid in zone 9 should be merged across zones 6 & 9 and take up the height of both zones initially.
-         *  The zones can be resized manually to take up the full height.
-         */
-        centerRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} mergeWithZone={ZoneLocation.BottomRight}
-          />
-        }
-        bottomCenter={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
-              <Widget id="VerticalPropertyGrid1" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
+    return {
+      id: this.id,
+      version: 1,
+      contentGroup: contentGroup,
+      defaultContentId: "TestContent1",
 
-        topMostPanel={
-          <StagePanel
-            widgets={this._topMostPanel.widgets}
-          />
-        }
-        topPanel={
-          <StagePanel
-            resizable={false}
-            widgets={this._topPanel.widgets}
-          />
-        }
-        leftPanel={
-          <StagePanel
-            allowedZones={this._leftPanel.allowedZones}
-          />
-        }
-        rightPanel={
-          <StagePanel
-            allowedZones={this._rightPanel.allowedZones}
-            resizable={false}
-            size={200}
-            widgets={this._rightPanel.widgets}
-          />
-        }
-        bottomPanel={
-          <StagePanel
-            widgets={this._bottomPanel.widgets}
-          />
-        }
-        bottomMostPanel={
-          <StagePanel
-            allowedZones={this._bottomMostPanel.allowedZones}
-            size={100}
-            widgets={this._bottomMostPanel.widgets}
-          />
-        }
-      />
-    );
+      topLeft: <Zone
+        widgets={[
+          <Widget isFreeform={true} element={<FrontstageToolWidget />} />,
+        ]}
+      />,
+
+      topCenter: <Zone
+        allowsMerging
+        widgets={[
+          <Widget isToolSettings={true} />,
+        ]}
+      />,
+
+      topRight: <Zone
+        widgets={[
+          <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />,
+        ]}
+      />,
+
+      centerLeft: <Zone
+        allowsMerging={true}
+        defaultState={ZoneState.Minimized}
+        widgets={[
+          <Widget id="VerticalPropertyGrid" iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
+        ]}
+      />,
+
+      bottomLeft: <Zone
+        allowsMerging={true}
+        defaultState={ZoneState.Minimized}
+        widgets={[
+          <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
+        ]}
+      />,
+
+      centerRight: <Zone defaultState={ZoneState.Open} allowsMerging={true} mergeWithZone={ZoneLocation.BottomRight}
+      />,
+
+      bottomCenter: <Zone defaultState={ZoneState.Open}
+        widgets={[
+          <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />,
+        ]}
+      />,
+
+      bottomRight: <Zone defaultState={ZoneState.Open} allowsMerging={true}
+        widgets={[
+          <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
+          <Widget id="VerticalPropertyGrid1" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
+        ]}
+      />,
+
+      topMostPanel: <StagePanel
+        widgets={this._topMostPanel.widgets}
+      />,
+
+      topPanel: {
+        resizable: false,
+        widgets: this._topPanel.widgets,
+      },
+
+      leftPanel: {
+        allowedZones: this._leftPanel.allowedZones,
+      },
+
+      rightPanel: {
+        allowedZones: this._rightPanel.allowedZones,
+        resizable: false,
+        size: 200,
+        widgets: this._rightPanel.widgets,
+      },
+
+      bottomPanel: {
+        widgets: this._bottomPanel.widgets,
+      },
+
+      bottomMostPanel: <StagePanel
+        allowedZones={this._bottomMostPanel.allowedZones}
+        size={100}
+        widgets={this._bottomMostPanel.widgets}
+      />,
+    };
   }
 }
 /** Define a ToolWidget with Buttons to display in the TopLeft zone.

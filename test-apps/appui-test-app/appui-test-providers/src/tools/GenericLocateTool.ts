@@ -10,8 +10,8 @@ import {
   SelectionMethod, SelectionMode,
 } from "@itwin/core-frontend";
 import { Point3d } from "@itwin/core-geometry";
-import { UiFramework } from "@itwin/appui-react";
-import { IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { ToolbarItemUtilities, UiFramework } from "@itwin/appui-react";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 import genericToolSvg from "./generic-tool.svg";
 

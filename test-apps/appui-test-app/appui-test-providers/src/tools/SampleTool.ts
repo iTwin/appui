@@ -12,17 +12,23 @@ import {
   SurveyLengthDescription, ToolAssistance, ToolAssistanceImage,
 } from "@itwin/core-frontend";
 import {
-  ColorEditorParams, DialogItem, DialogItemValue, DialogPropertySyncItem,
+  ColorEditorParams,
+  DialogItem,
+  DialogItemValue,
+  DialogPropertySyncItem,
   IconSpecUtilities,
   InputEditorSizeParams,
-  PropertyDescription, PropertyEditorParamTypes, StandardEditorNames, SuppressLabelEditorParams, ToolbarItemUtilities,
+  PropertyDescription,
+  PropertyEditorParamTypes,
+  StandardEditorNames,
+  SuppressLabelEditorParams,
 } from "@itwin/appui-abstract";
 
 import { Logger } from "@itwin/core-bentley";
 import { Point3d } from "@itwin/core-geometry";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import { FormatterSpec } from "@itwin/core-quantity";
-import { CursorInformation, MenuItemProps, UiFramework } from "@itwin/appui-react";
+import { CursorInformation, MenuItemProps, ToolbarItemUtilities, UiFramework } from "@itwin/appui-react";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 import sampleToolSvg from "./SampleTool.svg";
 
@@ -451,7 +457,7 @@ export class SampleTool extends PrimitiveTool {
 
   public async onRestartTool() {
     const tool = new SampleTool();
-    if (!await tool.run())
+    if (!(await tool.run()))
       return this.exitTool();
   }
 

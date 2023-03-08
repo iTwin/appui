@@ -9,16 +9,37 @@ import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
 import { RealityDataAccessClient, RealityDataClientOptions } from "@itwin/reality-data-client";
-import { getClassName, UiItemsManager } from "@itwin/appui-abstract";
-import { SafeAreaInsets } from "@itwin/appui-layout-react";
+import { getClassName } from "@itwin/appui-abstract";
 import { TargetOptions, TargetOptionsContext } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/target/TargetOptions";
 import {
-  ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrameworkVersion, FrontstageDeactivatedEventArgs, FrontstageManager,
+  ActionsUnion,
+  AppNotificationManager,
+  AppUiSettings,
+  BackstageComposer,
+  ConfigurableUiContent,
+  createAction,
+  DeepReadonly,
+  FrameworkAccuDraw,
+  FrameworkReducer,
+  FrameworkRootState,
+  FrameworkToolAdmin,
+  FrameworkUiAdmin,
+  FrameworkVersion,
+  FrontstageDeactivatedEventArgs,
+  FrontstageManager,
   IModelViewportControl,
   InitialAppUiSettings,
-  ModalFrontstageClosedEventArgs, SafeAreaContext, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
-  ToolbarDragInteractionContext, UiFramework, UiStateStorageHandler,
+  ModalFrontstageClosedEventArgs,
+  SafeAreaContext,
+  SafeAreaInsets,
+  StateManager,
+  SyncUiEventDispatcher,
+  SYSTEM_PREFERRED_COLOR_THEME,
+  ThemeManager,
+  ToolbarDragInteractionContext,
+  UiFramework,
+  UiItemsManager,
+  UiStateStorageHandler,
 } from "@itwin/appui-react";
 import { Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
 import { BentleyCloudRpcManager, BentleyCloudRpcParams, RpcConfiguration } from "@itwin/core-common";

@@ -13,13 +13,20 @@ import * as React from "react";
 import { IModelApp, IModelConnection, Tool } from "@itwin/core-frontend";
 import { UiItemsProvidersTest } from "@itwin/ui-items-providers-test";
 
-import {
-  IconSpecUtilities, ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
 import { LocalStateStorage } from "@itwin/core-react";
 import {
-  ChildWindowLocationProps, ContentDialog, ContentDialogManager, ContentGroup, ContentLayoutManager, ContentProps,
-  FrontstageManager, StageContentLayout, StageContentLayoutProps, UiFramework,
+  ChildWindowLocationProps,
+  ContentDialog,
+  ContentDialogManager,
+  ContentGroup,
+  ContentLayoutManager,
+  ContentProps,
+  FrontstageManager,
+  StageContentLayout,
+  StageContentLayoutProps,
+  ToolbarItemUtilities,
+  UiFramework,
 } from "@itwin/appui-react";
 import toolIconSvg from "@bentley/icons-generic/icons/window-add.svg";
 import tool2IconSvg from "@bentley/icons-generic/icons/window-maximize.svg";

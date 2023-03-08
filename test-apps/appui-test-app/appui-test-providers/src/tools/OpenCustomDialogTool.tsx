@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
-import { ModalDialogManager } from "@itwin/appui-react";
+import { ModalDialogManager, ToolbarItemUtilities } from "@itwin/appui-react";
 import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog";
-import { ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 import connectedQuerySvg from "../ui/icons/connected-query.svg";
 

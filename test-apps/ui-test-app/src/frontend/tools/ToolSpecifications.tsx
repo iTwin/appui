@@ -17,16 +17,45 @@ import {
 import { UnitSystemKey } from "@itwin/core-quantity";
 import { Presentation } from "@itwin/presentation-frontend";
 import {
-  AbstractWidgetProps, BackstageItem, BackstageItemUtilities, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue, DialogButtonType,
-  MessageSeverity, StagePanelLocation, StagePanelSection, StandardContentLayouts, StatusBarLabelSide, StatusBarSection, UiItemsManager, UiItemsProvider, WidgetState,
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+  DialogButtonType,
+  MessageSeverity,
+  StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import { Dialog, FillCentered, ReactMessage, SvgPath, SvgSprite, UnderlinedButton } from "@itwin/core-react";
 import {
-  Backstage, CommandItemDef, ContentGroup, ContentGroupProps, ContentLayoutManager, ContentProps, ContentViewManager,
-  FrontstageManager, IModelViewportControl, Indicator, MessageManager, ModalDialogManager, ReactNotifyMessageDetails,
-  StatusBarItemUtilities, SyncUiEventDispatcher, SyncUiEventId, ToolItemDef,
+  Backstage,
+  BackstageItem,
+  BackstageItemUtilities,
+  CommandItemDef,
+  ContentGroup,
+  ContentGroupProps,
+  ContentLayoutManager,
+  ContentProps,
+  ContentViewManager,
+  FrontstageManager,
+  IModelViewportControl,
+  Indicator,
+  MessageManager,
+  ModalDialogManager,
+  ReactNotifyMessageDetails,
+  StagePanelLocation,
+  StagePanelSection,
+  StatusBarDialog,
+  StatusBarItem,
+  StatusBarItemUtilities,
+  StatusBarLabelSide,
+  StatusBarSection,
+  StatusBarSeparator,
+  SyncUiEventDispatcher,
+  SyncUiEventId,
+  ToolItemDef,
+  UiItemsManager,
+  UiItemsProvider,
+  Widget,
+  WidgetState,
 } from "@itwin/appui-react";
-import { FooterPopupContentType, FooterSeparator, Dialog as NZ_Dialog, TitleBar } from "@itwin/appui-layout-react";
 import { SampleAppIModelApp } from "../";
 import { AppUi } from "../appui/AppUi";
 import { TestMessageBox } from "../appui/dialogs/TestMessageBox";
@@ -120,10 +149,10 @@ class AppItemsProvider implements UiItemsProvider {
     SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(AppItemsProvider.syncEventId);
   }
 
-  public provideStatusBarItems(_stageId: string, _stageUsage: string): CommonStatusBarItem[] {
-    const statusBarItems: CommonStatusBarItem[] = [];
+  public provideStatusBarItems(_stageId: string, _stageUsage: string): StatusBarItem[] {
+    const statusBarItems: StatusBarItem[] = [];
     const isHiddenCondition = new ConditionalBooleanValue(() => !AppItemsProvider._sampleBackstageItemVisible, [AppItemsProvider.syncEventId]);
-    statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusSeparatorId, StatusBarSection.Left, 11, <FooterSeparator />, { isHidden: isHiddenCondition }));
+    statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusSeparatorId, StatusBarSection.Left, 11, <StatusBarSeparator />, { isHidden: isHiddenCondition }));
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusFieldId, StatusBarSection.Left, 12, <SampleStatusField />, { isHidden: isHiddenCondition }));
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusField2Id, StatusBarSection.Left, 13,
       <Indicator
@@ -136,9 +165,9 @@ class AppItemsProvider implements UiItemsProvider {
     statusBarItems.push(StatusBarItemUtilities.createStatusBarItem(AppItemsProvider.sampleStatusField3Id, StatusBarSection.Left, 14,
       <Indicator
         iconName="icon-app-2"
-        dialog={<NZ_Dialog titleBar={<TitleBar title="Right Test" />}>
+        dialog={<StatusBarDialog titleBar={<StatusBarDialog.TitleBar title="Right Test" />}>
           <TestStatusBarDialog />
-        </NZ_Dialog>}
+        </StatusBarDialog>}
         label="Right"
         isLabelVisible={true}
         toolTip="Right Test"
@@ -155,8 +184,8 @@ class AppItemsProvider implements UiItemsProvider {
     ];
   }
 
-  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<AbstractWidgetProps> {
-    const widgets: AbstractWidgetProps[] = [];
+  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
     const allowedStages = ["ViewsFrontstage"];
     // Section parameter is ignored. The widget will be added once to the top section of a right panel.
     if (allowedStages.includes(stageId) && location === StagePanelLocation.Right && section === StagePanelSection.Start) {

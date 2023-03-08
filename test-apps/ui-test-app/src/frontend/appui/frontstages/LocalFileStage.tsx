@@ -13,15 +13,26 @@ import { OpenDialogOptions } from "electron";
 
 import { FillCentered } from "@itwin/core-react";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageManager,
-  FrontstageProps, FrontstageProvider, ToolWidget, UiFramework, Widget, Zone,
+  ConfigurableCreateInfo,
+  ContentControl,
+  ContentGroup,
+  CoreTools,
+  Frontstage,
+  FrontstageManager,
+  FrontstageProps,
+  FrontstageProvider,
+  StageUsage,
+  ToolWidget,
+  UiFramework,
+  Widget,
+  Zone,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { IModelViewPicker } from "../imodelopen/IModelViewPicker";
 import { LocalFileSupport } from "../LocalFileSupport";
 import { Button, Headline } from "@itwin/itwinui-react";
-import { StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { hasSavedViewLayoutProps } from "../../tools/ImmediateTools";
 import { ViewsFrontstage } from "./ViewsFrontstage";
 
@@ -71,21 +82,16 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
       ],
     });
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={contentGroup}
-        isIModelIndependent={true}
-        usage={StageUsage.Private}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />, // eslint-disable-line react/jsx-key
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      contentGroup: contentGroup,
+      isIModelIndependent: true,
+      usage: StageUsage.Private,
+
+      contentManipulation: {
+        element: <FrontstageToolWidget />,
+      },
+    };
   }
 }
 
@@ -95,9 +101,9 @@ class FrontstageToolWidget extends React.Component {
   public override render() {
     return (
       // eslint-disable-next-line deprecation/deprecation
-      <ToolWidget
+      (<ToolWidget
         appButton={AppTools.backstageToggleCommand}
-      />
+      />)
     );
   }
 }

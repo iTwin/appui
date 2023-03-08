@@ -7,11 +7,19 @@ import { IModelApp } from "@itwin/core-frontend";
 import { KeySet } from "@itwin/presentation-common";
 import { FavoritePropertiesDataProvider } from "@itwin/presentation-components";
 import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
-import { AbstractToolbarProps, CommonToolbarItem, RelativePosition, WidgetState } from "@itwin/appui-abstract";
+import { AbstractToolbarProps, RelativePosition } from "@itwin/appui-abstract";
 import { FavoritePropertiesRenderer, FavoritePropertyList } from "@itwin/components-react";
 import {
-  ActionButtonItemDef, CommandItemDef, CoreTools, ElementTooltip,
-  FrameworkUiAdmin, FrontstageManager, SelectionContextToolDefinitions, ToolbarHelper,
+  ActionButtonItemDef,
+  CommandItemDef,
+  CoreTools,
+  ElementTooltip,
+  FrameworkUiAdmin,
+  FrontstageManager,
+  SelectionContextToolDefinitions,
+  ToolbarHelper,
+  ToolbarItem,
+  WidgetState,
 } from "@itwin/appui-react";
 import { ViewsFrontstage } from "../appui/frontstages/ViewsFrontstage";
 import { appendContent } from "./appendContent";
@@ -99,7 +107,7 @@ export class ElementSelectionListener {
   }
 
   private _toolbar = (useCategoryAndModelsContextTools: boolean): AbstractToolbarProps => {
-    const items: CommonToolbarItem[] = [];
+    const items: ToolbarItem[] = [];
     items.push(ToolbarHelper.createToolbarItemFromItemDef(0, this._openPropertyGridItemDef));
     if (useCategoryAndModelsContextTools) {
       items.push(
