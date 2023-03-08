@@ -16,7 +16,7 @@ const frontstageAttrHandles = new Map<string | undefined, AttributeHandle | null
   ["isInFooterMode", null],
   ["usage", extractExpression],
   ["applicationData", null],
-  ["contentManipulationTools", chain(rename("contentManipulation"), extractExpression)],
+  ["contentManipulationTools", chain(rename("contentManipulation"), extractExpression,)],
   ["viewNavigationTools", chain(rename("viewNavigation"), extractExpression)],
   ["toolSettings", extractExpression],
   ["statusBar", extractExpression],
@@ -51,13 +51,18 @@ function handleJSXElement(j: JSCodeshift, element: ASTPath<JSXElement>, handles:
   const props: ConfigProperty[] = [];
   element.node.openingElement.attributes!.forEach((attr) => {
     const elAttr = jsxToElementAttribute(j, attr);
+    if (!elAttr)
+      return; // Most likely something wrong on our end
+
     const key = elAttr.name ? elAttr.name.name : undefined;
-    const attrHandle = handles.get(key);
+    let attrHandle = handles.get(key);
+    attrHandle = attrHandle !== undefined ? attrHandle : extractExpression;
     if (attrHandle === null)
       return;
-    if (attrHandle === undefined)
-      throw new Error("Handle was not found");
+
     const configProp = attrHandle(j, elAttr);
+    if (!configProp)
+      return;
     props.push(configProp);
   });
   return props;
@@ -78,20 +83,28 @@ export default function transformer(file: FileInfo, api: API) {
         return;
 
       const zone = prop.value;
-      if (!isSpecifiedJSXElement(j, zone, "Zone"))
-        throw new Error("Expression did not match expected shape");
+      if (!isSpecifiedJSXElement(j, zone, "Zone")) {
+        console.warn("Expression did not match expected shape");
+        return;
+      }
 
       const zoneConfigProps = handleJSXElement(j, j(zone).get(), zoneAttrHandles);
       const widgets = zoneConfigProps.find((prop) => prop.name && prop.name.name === "widgets" ? true : false);
-      if (!widgets || !isArrayExpression(j, widgets.value))
-        throw new Error("Expression did not match expected shape");
+      if (!widgets || !isArrayExpression(j, widgets.value)) {
+        console.warn("Expression did not match expected shape");
+        return;
+      }
 
-      if (widgets.value.elements.length === 0)
-        throw new Error("Not implemented");
+      if (widgets.value.elements.length === 0) {
+        console.warn("Not implemented");
+        return;
+      }
 
       const widget = widgets.value.elements[0];
-      if (!isSpecifiedJSXElement(j, widget, "Widget"))
-        throw new Error("Expression did not match expected shape");
+      if (!isSpecifiedJSXElement(j, widget, "Widget")) {
+        console.warn("Expression did not match expected shape");
+        return;
+      }
 
       const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetAttrHandles);
       prop.value = configToObjectExpression(j, widgetConfigProps); // replace
@@ -103,8 +116,10 @@ export default function transformer(file: FileInfo, api: API) {
         return;
 
       const stagePanel = prop.value;
-      if (!isSpecifiedJSXElement(j, stagePanel, "StagePanel"))
-        throw new Error("Expression did not match expected shape");
+      if (!isSpecifiedJSXElement(j, stagePanel, "StagePanel")) {
+        console.warn("Expression did not match expected shape");
+        return;
+      }
 
       const stagePanelProps = handleJSXElement(j, j(stagePanel).get(), stagePanelAttrHandles);
       prop.value = configToObjectExpression(j, stagePanelProps); // replace
