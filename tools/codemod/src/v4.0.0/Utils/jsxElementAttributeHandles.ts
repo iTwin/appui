@@ -26,7 +26,7 @@ export function buildConfigProperty(j: JSCodeshift, value: ValueType, name?: Nam
   if (!isSpreadExpression(name, value)) {
     const prop: Omit<ObjectProperty, "type"> = j.objectProperty(name!, value);
     if (!isIdentifier(j, prop.key)) {
-      // throw new Error('Unexpected identifier type');
+      console.warn('Unexpected identifier type');
       return undefined;
     }
     return {
@@ -74,7 +74,7 @@ export const identity: AttributeHandle = (j, attr) => {
 export const extractExpression: AttributeHandle = (j, attr) => {
   const expr = isJSXExpressionContainer(j, attr.value) ? attr.value.expression : attr.value;
   if (isJSXEmptyExpression(j, expr)) {
-    // throw new Error("Attribute cannot contain empty expression");
+    console.warn("Attribute cannot contain empty expression");
     return undefined;
   }
   return buildConfigProperty(j, expr, attr.name);
@@ -87,12 +87,12 @@ function isSpreadExpression(name: NameType | undefined, expr: any): expr is JSXS
 export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JSXSpreadAttribute): ElementAttribute | undefined {
   if (isJSXAttribute(j, jsxAttr)) {
     if (!isJSXIdentifier(j, jsxAttr.name)) {
-      // throw new Error("Non spread attribute must have name");
+      console.warn("Non spread attribute must have name");
       return undefined;
     }
 
     if (jsxAttr.value === null) {
-      // throw new Error("Attribute must hold value");
+      console.warn("Attribute must hold value");
       return undefined;
     }
 

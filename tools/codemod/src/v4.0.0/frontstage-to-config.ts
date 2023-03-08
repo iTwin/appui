@@ -84,25 +84,25 @@ export default function transformer(file: FileInfo, api: API) {
 
       const zone = prop.value;
       if (!isSpecifiedJSXElement(j, zone, "Zone")) {
-        // throw new Error("Expression did not match expected shape");
+        console.warn("Expression did not match expected shape");
         return;
       }
 
       const zoneConfigProps = handleJSXElement(j, j(zone).get(), zoneAttrHandles);
       const widgets = zoneConfigProps.find((prop) => prop.name && prop.name.name === "widgets" ? true : false);
       if (!widgets || !isArrayExpression(j, widgets.value)) {
-        // throw new Error("Expression did not match expected shape");
+        console.warn("Expression did not match expected shape");
         return;
       }
 
       if (widgets.value.elements.length === 0) {
-        // throw new Error("Not implemented");
+        console.warn("Not implemented");
         return;
       }
 
       const widget = widgets.value.elements[0];
       if (!isSpecifiedJSXElement(j, widget, "Widget")) {
-        // throw new Error("Expression did not match expected shape");
+        console.warn("Expression did not match expected shape");
         return;
       }
 
@@ -117,7 +117,7 @@ export default function transformer(file: FileInfo, api: API) {
 
       const stagePanel = prop.value;
       if (!isSpecifiedJSXElement(j, stagePanel, "StagePanel")) {
-        // throw new Error("Expression did not match expected shape");
+        console.warn("Expression did not match expected shape");
         return;
       }
 
