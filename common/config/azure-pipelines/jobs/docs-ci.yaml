@@ -15,7 +15,7 @@ resources:
       type: github
       endpoint: iModelJs
       name: iTwin/itwinjs-core
-      ref: refs/heads/test-docs-fixes
+      ref: refs/heads/master
 
 stages:
   - stage: Generate_Docs
