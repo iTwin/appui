@@ -82,4 +82,40 @@ describe("toolbar-item", () => {
       "should update in `ToolbarItemUtilities.createCustomItem`"
     );
   });
+
+  describe("ToolbarGroupItem", () => {
+    defineInlineTest(
+      transform,
+      {},
+      `
+      const w: ToolbarGroupItem = {
+        id: "item1",
+        parentToolGroupId: "group1",
+      };
+      `,
+      `
+      const w: ToolbarGroupItem = {
+        id: "item1",
+        parentGroupItemId: "group1",
+      };
+      `,
+      "should rename `parentToolGroupId`"
+    );
+
+    defineInlineTest(
+      transform,
+      {},
+      `
+      ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, {
+        parentToolGroupId: "group1",
+      });
+      `,
+      `
+      ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, {
+        parentGroupItemId: "group1",
+      });
+      `,
+      "should rename `parentToolGroupId` in `ToolbarItemUtilities.createActionItem`"
+    );
+  });
 });
