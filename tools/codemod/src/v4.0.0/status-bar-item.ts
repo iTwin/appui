@@ -4,12 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 import { API, FileInfo, ObjectExpression } from "jscodeshift";
 import { useCallExpression } from "../utils/CallExpression";
+import { useExtensions } from "../utils/Extensions";
 import { useObjectExpression } from "../utils/objectExpression";
-import { renameProperty } from "../utils/objectProperty";
 import { isObjectExpression } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
+  useExtensions(j);
   useCallExpression(j);
   useObjectExpression(j);
 
@@ -44,24 +45,18 @@ export default function transformer(file: FileInfo, api: API) {
   const labelItems = root.findObjectExpressions("StatusBarLabelItem");
   const customItems = root.findObjectExpressions("StatusBarCustomItem");
 
-  const allCustomItems = j([
-    ...customItems.paths(),
-    ...createCustomItemOverrides.paths(),
-  ]);
-  const allItems = j([
-    ...items.paths(),
-    ...actionItems.paths(),
-    ...labelItems.paths(),
-    ...createActionItemOverrides.paths(),
-    ...createLabelItemOverrides.paths(),
-    ...allCustomItems.paths(),
-  ]);
+  const allCustomItems = customItems
+    .concat(createCustomItemOverrides);
 
-  allItems.find(j.ObjectProperty).forEach((path) => {
-    renameProperty(j, path, "badgeType", "badge")
-  });
-  allCustomItems.find(j.ObjectProperty).forEach((path) => {
-    renameProperty(j, path, "reactNode", "content")
-  });
+  const allItems = items
+    .concat(actionItems)
+    .concat(labelItems)
+    .concat(createActionItemOverrides)
+    .concat(createLabelItemOverrides)
+    .concat(allCustomItems);
+
+  allItems.renameProperty("badgeType", "badge");
+  allCustomItems.renameProperty("reactNode", "content");
+
   return root.toSource();
 }
