@@ -52,6 +52,8 @@ function callExpressionPlugin(j: JSCodeshift) {
     getArguments(this: CallExpressionCollection, index, filter) {
       return this.map((path) => {
         const arg = path.value.arguments[index];
+        if (arg === undefined)
+          return undefined;
         if (filter && !filter(arg))
           return undefined;
         return j(arg).paths();
@@ -65,7 +67,6 @@ function callExpressionPlugin(j: JSCodeshift) {
 export function useCallExpression(j: JSCodeshift) {
   usePlugin(j, callExpressionPlugin);
 }
-
 
 export function objectExpressionFilter(j: JSCodeshift): ArgumentsFilter {
   return (arg) => isObjectExpression(j, arg);
