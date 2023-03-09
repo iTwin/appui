@@ -5,7 +5,6 @@
 @import "../z-index";
 @import "../style/themecolors";
 @import "../icons/variables";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 .core-radial-menu {
   visibility: hidden;
@@ -46,8 +45,8 @@
 
         .core-radial-menu-button-content {
           cursor: default;
-          color: $buic-text-color;
-          font-size: $iui-font-size-small;
+          color: var(--iui-color-text);
+          font-size: var(--iui-font-size-0);
           user-select: none;
         }
       }

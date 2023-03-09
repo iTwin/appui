@@ -9,13 +9,13 @@ import { WidgetTarget } from "../../appui-layout-react/target/WidgetTarget";
 import { TestNineZoneProvider } from "../Providers";
 
 interface WrapperProps {
-  state: NineZoneState;
+  defaultState: NineZoneState;
   widgetId: WidgetState["id"];
 }
 
-function Wrapper({ children, state, widgetId }: React.PropsWithChildren<WrapperProps>) {
+function Wrapper({ children, defaultState, widgetId }: React.PropsWithChildren<WrapperProps>) {
   return (
-    <TestNineZoneProvider state={state}>
+    <TestNineZoneProvider defaultState={defaultState}>
       <WidgetIdContext.Provider value={widgetId}>
         {children}
       </WidgetIdContext.Provider>
@@ -31,7 +31,7 @@ describe("WidgetTarget", () => {
     const { container } = render(
       <WidgetTarget />,
       {
-        wrapper: (props) => <Wrapper state={state} widgetId="fw1" {...props} />, // eslint-disable-line react/display-name
+        wrapper: (props) => <Wrapper defaultState={state} widgetId="fw1" {...props} />, // eslint-disable-line react/display-name
       }
     );
     container.getElementsByClassName("nz-target-mergeTarget").length.should.eq(1);

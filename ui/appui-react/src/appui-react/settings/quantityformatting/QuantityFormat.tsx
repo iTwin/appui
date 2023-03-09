@@ -19,11 +19,10 @@ import {
   Dialog, Listbox, ListboxItem, SettingsTabEntry,
   useSaveBeforeActivatingNewSettingsTab, useSaveBeforeClosingSettingsContainer,
 } from "@itwin/core-react";
-import { ModalDialogManager } from "../../dialog/ModalDialogManager";
 import { UiFramework } from "../../UiFramework";
 import { UnitSystemSelector } from "./UnitSystemSelector";
-import { Presentation } from "@itwin/presentation-frontend";
 import { Button } from "@itwin/itwinui-react";
+import { SvgMeasure } from "@itwin/itwinui-icons-react";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();
@@ -53,7 +52,7 @@ export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opt
     page: <QuantityFormatSettingsPage initialQuantityType={initialQuantityType ?? QuantityType.Length}
       availableUnitSystems={availableUnitSystems ?? new Set(["metric", "imperial", "usCustomary", "usSurvey"])} />,
     isDisabled: false,
-    icon: "icon-measure",
+    icon: <SvgMeasure />,
     tooltip: UiFramework.translate("settings.quantity-formatting.tooltip"),
     pageWillHandleCloseRequest: true,
   };
@@ -65,8 +64,7 @@ export function getQuantityFormatsSettingsManagerEntry(itemPriority: number, opt
 export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems }: QuantityFormatterSettingsOptions) {
   const [activeUnitSystemKey, setActiveUnitSystemKey] = React.useState(IModelApp.quantityFormatter.activeUnitSystem);
   const [activeQuantityType, setActiveQuantityType] = React.useState(getQuantityTypeKey(initialQuantityType));
-  const [activeFormatterSpec, setActiveFormatterSpec] =
-    React.useState<FormatterSpec | undefined>(IModelApp.quantityFormatter.findFormatterSpecByQuantityType(getQuantityTypeKey(activeQuantityType)));
+  const [activeFormatterSpec, setActiveFormatterSpec] = React.useState<FormatterSpec | undefined>(IModelApp.quantityFormatter.findFormatterSpecByQuantityType(getQuantityTypeKey(activeQuantityType)));
   const [saveEnabled, setSaveEnabled] = React.useState(false);
   const [clearEnabled, setClearEnabled] = React.useState(IModelApp.quantityFormatter.hasActiveOverride(initialQuantityType, true));
   const newQuantityTypeRef = React.useRef<QuantityTypeKey>();
@@ -116,7 +114,7 @@ export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitS
       const formatProps = activeFormatterSpec.format.toJSON();
       const formatPropsInUse = IModelApp.quantityFormatter.findFormatterSpecByQuantityType(activeQuantityType)!.format.toJSON();
       if (formatPropsInUse && !formatAreEqual(formatProps, formatPropsInUse)) {
-        ModalDialogManager.openDialog(<SaveFormatModalDialog formatProps={formatProps} quantityType={activeQuantityType} onDialogCloseArgs={args} onDialogClose={afterSaveFunction} />, "saveQuantityFormat");
+        UiFramework.dialogs.modal.open(<SaveFormatModalDialog formatProps={formatProps} quantityType={activeQuantityType} onDialogCloseArgs={args} onDialogClose={afterSaveFunction} />, "saveQuantityFormat");
         return;
       }
     }
@@ -141,7 +139,7 @@ export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitS
       const formatPropsInUse = IModelApp.quantityFormatter.findFormatterSpecByQuantityType(activeQuantityType)!.format.toJSON();
       if (formatPropsInUse && !formatAreEqual(formatProps, formatPropsInUse)) {
         newQuantityTypeRef.current = newQuantityType;
-        ModalDialogManager.openDialog(<SaveFormatModalDialog formatProps={formatProps} quantityType={activeQuantityType} onDialogCloseArgs={newQuantityType} onDialogClose={processListboxValueChange} />, "saveQuantityFormat");
+        UiFramework.dialogs.modal.open(<SaveFormatModalDialog formatProps={formatProps} quantityType={activeQuantityType} onDialogCloseArgs={newQuantityType} onDialogClose={processListboxValueChange} />, "saveQuantityFormat");
         return;
       }
     }
@@ -175,7 +173,6 @@ export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitS
   }, [activeQuantityType]);
 
   const processNewUnitSystem = React.useCallback(async (unitSystem: UnitSystemKey) => {
-    Presentation.presentation.activeUnitSystem = unitSystem;
     await IModelApp.quantityFormatter.setActiveUnitSystem(unitSystem);
   }, []);
 
@@ -235,7 +232,7 @@ function SaveFormatModalDialog({ formatProps, quantityType, onDialogCloseArgs, o
 
   const handleClose = React.useCallback(() => {
     setIsOpen(false);
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
     onDialogClose && onDialogClose(onDialogCloseArgs);
   }, [onDialogClose, onDialogCloseArgs]);
 

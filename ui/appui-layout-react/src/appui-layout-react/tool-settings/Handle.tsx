@@ -13,6 +13,7 @@ import { CommonProps, Point, useRefs, useResizeObserver } from "@itwin/core-reac
 import { useDragToolSettings } from "../base/DragManager";
 import { getUniqueId, NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useDrag } from "../widget/TabBar";
+import { SvgDragHandleVertical } from "@itwin/itwinui-icons-react";
 
 /** Properties of [[DockedToolSettingsHandle]] component.
  * @internal
@@ -24,7 +25,7 @@ export interface DockedToolSettingsHandleProps extends CommonProps {
 /** Component that displays tool settings as a bar across the top of the content view.
  * @internal
  */
-export const DockedToolSettingsHandle = React.memo(function DockedToolSettingsHandle(props: DockedToolSettingsHandleProps) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function DockedToolSettingsHandle(props: DockedToolSettingsHandleProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(props.onResize);
   const newFloatingWidgetId = React.useMemo(() => getUniqueId(), []);
@@ -48,24 +49,8 @@ export const DockedToolSettingsHandle = React.memo(function DockedToolSettingsHa
   );
 
   return (
-    <div
-      className={className}
-      ref={refs}
-      style={props.style}
-      title={title}
-    >
-      <div className="nz-row">
-        <div className="nz-dot" />
-        <div className="nz-dot" />
-      </div>
-      <div className="nz-row">
-        <div className="nz-dot" />
-        <div className="nz-dot" />
-      </div>
-      <div className="nz-row">
-        <div className="nz-dot" />
-        <div className="nz-dot" />
-      </div>
+    <div className={className} ref={refs} style={props.style} title={title}>
+      <SvgDragHandleVertical />
     </div>
   );
-});
+}

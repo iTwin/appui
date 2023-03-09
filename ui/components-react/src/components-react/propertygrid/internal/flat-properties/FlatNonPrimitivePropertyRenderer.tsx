@@ -6,7 +6,6 @@
  * @module PropertyGrid
  */
 import "../../../properties/renderers/NonPrimitivePropertyRenderer.scss";
-import _ from "lodash";
 import * as React from "react";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { CommonPropertyRenderer } from "../../../properties/renderers/CommonPropertyRenderer";

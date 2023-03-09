@@ -7,7 +7,8 @@
  */
 
 import * as React from "react";
-import { BackstageItem, BackstageItemsChangedArgs, BackstageItemsManager } from "@itwin/appui-abstract";
+import { BackstageItem } from "./BackstageItem";
+import { BackstageItemsManager } from "./BackstageItemsManager";
 
 /** Hook that returns items from [[BackstageItemsManager]].
  * @internal
@@ -23,13 +24,9 @@ export const useDefaultBackstageItems = (manager: BackstageItemsManager): readon
     }
   }, [manager, manager.items]);
   React.useEffect(() => {
-    const handleChanged = (args: BackstageItemsChangedArgs) => {
+    return manager.onItemsChanged.addListener((args) => {
       setItems(args.items);
-    };
-    manager.onItemsChanged.addListener(handleChanged);
-    return () => {
-      manager.onItemsChanged.removeListener(handleChanged);
-    };
+    });
   }, [manager]);
   return items;
 };

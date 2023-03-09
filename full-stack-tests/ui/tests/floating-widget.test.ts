@@ -2,9 +2,9 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { expect, test } from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
 import assert from 'assert';
-import { expectSavedFrontstageState, floatingWidgetLocator, frontstageLocator, tabLocator, titleBarHandleLocator, widgetLocator } from './Utils';
+import { expectSavedFrontstageState, floatingWidgetLocator, frontstageLocator, outlineLocator, panelLocator, runKeyin, setWidgetState, tabLocator, titleBarHandleLocator, widgetLocator, WidgetState } from './Utils';
 
 test.describe("floating widget", () => {
   test.beforeEach(async ({ page, baseURL }) => {
@@ -22,6 +22,23 @@ test.describe("floating widget", () => {
     await expect(floatingWidget).not.toBeVisible();
 
     await titleBarHandle.dragTo(frontstage, {
+      targetPosition: {
+        x: 300,
+        y: 200,
+      },
+    });
+
+    await expect(floatingWidget).toBeVisible();
+  });
+
+  test("should float a tab", async ({ page }) => {
+    const tab = tabLocator(page, "WR-A");
+    const frontstage = frontstageLocator(page);
+    const floatingWidget = floatingWidgetLocator({ tab });
+
+    await expect(floatingWidget).not.toBeVisible();
+
+    await tab.dragTo(frontstage, {
       targetPosition: {
         x: 300,
         y: 200,
@@ -133,5 +150,94 @@ test.describe("floating widget", () => {
     const bounds = (await widget.boundingBox())!;
     expect(bounds.x + bounds.width).toEqual(frontstageBounds.width);
     expect(bounds.y + bounds.height).toEqual(frontstageBounds.height);
+  });
+});
+
+test.describe("floating widget send back outline", () => {
+  test.beforeEach(async ({ page, baseURL }) => {
+    assert(baseURL);
+    await page.goto(`${baseURL}?frontstage=appui-test-providers:WidgetApi`);
+  });
+
+  test("should show a widget (with tab) outline", async ({ page }) => {
+    const tab = tabLocator(page, "FW-1");
+    const floatingWidget = floatingWidgetLocator({ tab });
+    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+
+    const destTab = tabLocator(page, "WL-A");
+    const [widgetOutline, tabOutline] = outlineLocator({ tab: destTab });
+
+    await expect(widgetOutline).not.toBeVisible();
+    await expect(tabOutline).not.toBeVisible();
+    await sendBackButton.hover();
+    await expect(widgetOutline).toBeVisible();
+    await expect(tabOutline).toBeVisible();
+    await page.mouse.move(0, 0);
+    await expect(widgetOutline).not.toBeVisible();
+    await expect(tabOutline).not.toBeVisible();
+  });
+
+  test("should show a panel outline", async ({ page }) => {
+    await setWidgetState(page, "WL-A", WidgetState.Hidden);
+    await setWidgetState(page, "WL-1", WidgetState.Hidden);
+    await setWidgetState(page, "WL-2", WidgetState.Hidden);
+    await setWidgetState(page, "WL-3", WidgetState.Hidden);
+
+    const tab = tabLocator(page, "FW-1");
+    const floatingWidget = floatingWidgetLocator({ tab });
+    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+
+    const outline = outlineLocator({ page, side: "left" });
+
+    await expect(outline).not.toBeVisible();
+    await sendBackButton.hover();
+    await expect(outline).toBeVisible();
+    await page.mouse.move(0, 0);
+    await expect(outline).not.toBeVisible();
+  });
+
+  test("should show a top section outline", async ({ page }) => {
+    await setWidgetState(page, "WL-A", WidgetState.Hidden);
+
+    const tab = tabLocator(page, "FW-1");
+    const floatingWidget = floatingWidgetLocator({ tab });
+    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+
+    const panel = panelLocator({ page, side: "left" });
+    const outline = outlineLocator({ panel, sectionIndex: 0 })
+
+    await expect(outline).not.toBeVisible();
+    await sendBackButton.hover();
+    await expect(outline).toBeVisible();
+    await page.mouse.move(0, 0);
+    await expect(outline).not.toBeVisible();
+  });
+
+  test("should show a bottom section outline", async ({ page }) => {
+
+    const tab = tabLocator(page, "WL-1");
+    const frontstage = frontstageLocator(page);
+
+    await tab.dragTo(frontstage, {
+      targetPosition: {
+        x: 300,
+        y: 200,
+      },
+    });
+
+    const floatingWidget = floatingWidgetLocator({ tab });
+    const sendBackButton = floatingWidget.locator(".nz-widget-sendBack");
+
+    await setWidgetState(page, "WL-2", WidgetState.Hidden);
+    await setWidgetState(page, "WL-3", WidgetState.Hidden);
+
+    const panel = panelLocator({ page, side: "left" });
+    const outline = outlineLocator({ panel, sectionIndex: 1 });
+
+    await expect(outline).not.toBeVisible();
+    await sendBackButton.hover();
+    await expect(outline).toBeVisible();
+    await page.mouse.move(0, 0);
+    await expect(outline).not.toBeVisible();
   });
 });

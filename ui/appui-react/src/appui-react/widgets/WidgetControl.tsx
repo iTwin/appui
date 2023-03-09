@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { WidgetState } from "@itwin/appui-abstract";
 import { ConfigurableCreateInfo, ConfigurableUiControl, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { WidgetDef } from "./WidgetDef";
+import { WidgetState } from "./WidgetState";
 
 /** The base class for Widget controls.
  * @public

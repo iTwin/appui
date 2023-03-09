@@ -9,11 +9,9 @@
 import * as React from "react";
 import widgetIconSvg from "@bentley/icons-generic/icons/home.svg";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
-import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
+import { Icon, IconSpec, useWidgetOpacityContext } from "@itwin/core-react";
 import { AppButton } from "@itwin/appui-layout-react";
-import { BackstageManager } from "../backstage/BackstageManager";
 import { UiFramework } from "../UiFramework";
-import { UiShowHideManager } from "../utils/UiShowHideManager";
 
 /**
  * Properties for the [[BackstageAppButton]] React component
@@ -21,7 +19,7 @@ import { UiShowHideManager } from "../utils/UiShowHideManager";
  */
 export interface BackstageAppButtonProps {
   /** Icon specification for the App button */
-  icon?: string;
+  icon?: IconSpec;
   /** If specified overrides the default label shown in tooltip. */
   label?: string;
   /** If specified overrides the default action that displays the backstage. */
@@ -33,7 +31,7 @@ export interface BackstageAppButtonProps {
  * @public
  */
 export function BackstageAppButton(props: BackstageAppButtonProps) {
-  const backstageToggleCommand = React.useMemo(() => BackstageManager.getBackstageToggleCommand(props.icon), [props.icon]);
+  const backstageToggleCommand = React.useMemo(() => UiFramework.backstage.getBackstageToggleCommand(props.icon), [props.icon]);
   const backstageLabel = React.useMemo(() => props.label || backstageToggleCommand.tooltip, [backstageToggleCommand.tooltip, props.label]);
   const [icon, setIcon] = React.useState(props.icon ? props.icon : IconSpecUtilities.createWebComponentIconSpec(widgetIconSvg));
   const isInitialMount = React.useRef(true);
@@ -60,7 +58,7 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
 
   let buttonProximityScale: number | undefined;
 
-  if (UiShowHideManager.useProximityOpacity && !UiFramework.isMobile()) {
+  if (UiFramework.visibility.useProximityOpacity && !UiFramework.isMobile()) {
     buttonProximityScale = proximityScale;
   }
 

@@ -22,6 +22,8 @@ export * from "./appui-react/accudraw/MenuButtonPopup";
 
 export * from "./appui-react/backstage/BackstageComposer";
 export * from "./appui-react/backstage/BackstageComposerItem";
+export * from "./appui-react/backstage/BackstageItem";
+export * from "./appui-react/backstage/BackstageItemUtilities";
 export * from "./appui-react/backstage/BackstageManager";
 export * from "./appui-react/backstage/useDefaultBackstageItems";
 export * from "./appui-react/backstage/useUiItemsProviderBackstageItems";
@@ -62,13 +64,24 @@ export * from "./appui-react/dialog/UiDataProvidedDialog";
 export * from "./appui-react/feedback/ValidationTextbox";
 export * from "./appui-react/feedback/ElementTooltip";
 
+export * from "./appui-react/framework/FrameworkBackstage";
+export * from "./appui-react/framework/FrameworkChildWindows";
+export * from "./appui-react/framework/FrameworkContent";
+export * from "./appui-react/framework/FrameworkControls";
+export * from "./appui-react/framework/FrameworkDialogs";
+export * from "./appui-react/framework/FrameworkFrontstages";
+export * from "./appui-react/framework/FrameworkKeyboardShortcuts";
+export * from "./appui-react/framework/FrameworkToolSettings";
+export * from "./appui-react/framework/FrameworkVisibility";
+
 export * from "./appui-react/frontstage/FrontstageConfig";
 export * from "./appui-react/frontstage/FrontstageDef";
 export * from "./appui-react/frontstage/FrontstageManager";
 export * from "./appui-react/frontstage/FrontstageProvider";
-export * from "./appui-react/frontstage/NestedFrontstage";
 export * from "./appui-react/frontstage/ModalFrontstage";
 export * from "./appui-react/frontstage/ModalSettingsStage";
+export * from "./appui-react/frontstage/NestedFrontstage";
+export * from "./appui-react/frontstage/StageUsage";
 export * from "./appui-react/frontstage/StandardFrontstageProvider";
 
 export * from "./appui-react/hooks/useActiveIModelConnection";
@@ -79,15 +92,6 @@ export * from "./appui-react/hooks/useAnalysisAnimationDataProvider";
 export * from "./appui-react/hooks/useScheduleAnimationDataProvider";
 export * from "./appui-react/hooks/useSolarDataProvider";
 export * from "./appui-react/hooks/useUiVisibility";
-
-export * from "./appui-react/imodel-components/spatial-tree/SpatialContainmentTree";
-export * from "./appui-react/imodel-components/category-tree/CategoriesTree";
-export * from "./appui-react/imodel-components/category-tree/CategoryVisibilityHandler";
-export * from "./appui-react/imodel-components/models-tree/ModelsTree";
-export * from "./appui-react/imodel-components/models-tree/ModelsVisibilityHandler";
-export * from "./appui-react/imodel-components/Common";
-export * from "./appui-react/imodel-components/VisibilityTreeEventHandler";
-export * from "./appui-react/imodel-components/VisibilityTreeRenderer";
 
 export * from "./appui-react/keyboardshortcut/KeyboardShortcut";
 export * from "./appui-react/keyboardshortcut/KeyboardShortcutMenu";
@@ -151,6 +155,8 @@ export * from "./appui-react/shared/ToolItemDef";
 
 export * from "./appui-react/stagepanels/StagePanelConfig";
 export * from "./appui-react/stagepanels/StagePanelDef";
+export * from "./appui-react/stagepanels/StagePanelLocation";
+export * from "./appui-react/stagepanels/StagePanelSection";
 
 export * from "./appui-react/statusbar/dialog/Dialog";
 export * from "./appui-react/statusbar/Indicator";
@@ -184,25 +190,32 @@ export * from "./appui-react/timeline/AnalysisAnimationProvider";
 export * from "./appui-react/timeline/SolarTimelineDataProvider";
 
 export * from "./appui-react/toolbar/DragInteraction";
-export * from "./appui-react/toolbar/ToolbarComposer";
 export * from "./appui-react/toolbar/GroupItem";
+export * from "./appui-react/toolbar/ToolbarComposer";
 export * from "./appui-react/toolbar/ToolbarHelper";
-export * from "./appui-react/toolbar/useUiItemsProviderToolbarItems";
+export * from "./appui-react/toolbar/ToolbarItem";
+export * from "./appui-react/toolbar/ToolbarItemUtilities";
 export * from "./appui-react/toolbar/useDefaultToolbarItems";
+export * from "./appui-react/toolbar/useUiItemsProviderToolbarItems";
 
 export * from "./appui-react/tools/CoreToolDefinitions";
 export * from "./appui-react/tools/FrameworkToolAdmin";
 export * from "./appui-react/tools/RestoreLayoutTool";
 export * from "./appui-react/tools/ToolSettingsTools";
 
-export * from "./appui-react/uiadmin/FrameworkUiAdmin";
-
+export * from "./appui-react/ui-items-provider/BaseUiItemsProvider";
+export * from "./appui-react/ui-items-provider/ProviderItem";
 export * from "./appui-react/ui-items-provider/StandardContentToolsProvider";
+export * from "./appui-react/ui-items-provider/StandardContentToolsUiItemsProvider";
 export * from "./appui-react/ui-items-provider/StandardNavigationToolsProvider";
 export * from "./appui-react/ui-items-provider/StandardNavigationToolsUiItemsProvider";
 export * from "./appui-react/ui-items-provider/StandardStatusbarItemsProvider";
 export * from "./appui-react/ui-items-provider/StandardStatusbarUiItemsProvider";
-export * from "./appui-react/ui-items-provider/StandardContentToolsUiItemsProvider";
+export * from "./appui-react/ui-items-provider/UiItemsManager";
+export * from "./appui-react/ui-items-provider/UiItemsProvider";
+
+export * from "./appui-react/uiadmin/FrameworkUiAdmin";
+
 export * from "./appui-react/uiprovider/DefaultDialogGridContainer";
 
 export * from "./appui-react/uistate/AppUiSettings";
@@ -227,17 +240,19 @@ export * from "./appui-react/widget-panels/useTransientState";
 export * from "./appui-react/widgets/BackstageAppButton";
 export * from "./appui-react/widgets/BasicNavigationWidget";
 export * from "./appui-react/widgets/BasicToolWidget";
-export * from "./appui-react/widgets/NavigationWidgetComposer";
-export * from "./appui-react/widgets/ViewToolWidgetComposer";
-export * from "./appui-react/widgets/StatusBarWidgetComposerControl";
 export * from "./appui-react/widgets/ContentToolWidgetComposer";
+export * from "./appui-react/widgets/NavigationWidgetComposer";
 export * from "./appui-react/widgets/StableWidgetDef";
+export * from "./appui-react/widgets/StatusBarWidgetComposerControl";
 export * from "./appui-react/widgets/ToolWidgetComposer";
+export * from "./appui-react/widgets/ViewToolWidgetComposer";
+export * from "./appui-react/widgets/Widget";
 export * from "./appui-react/widgets/WidgetConfig";
 export * from "./appui-react/widgets/WidgetControl";
 export * from "./appui-react/widgets/WidgetDef";
 export * from "./appui-react/widgets/WidgetHost";
 export * from "./appui-react/widgets/WidgetManager";
+export * from "./appui-react/widgets/WidgetState";
 
 export * from "./appui-react/toolsettings/ToolInformation";
 export * from "./appui-react/toolsettings/ToolSettingsManager";

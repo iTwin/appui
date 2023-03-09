@@ -8,10 +8,10 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { ToolbarOrientation, ToolbarUsage } from "@itwin/appui-abstract";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import { NavigationWidgetComposer } from "./NavigationWidgetComposer";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 
 /**
  * Props for [[ViewToolWidgetComposer]].

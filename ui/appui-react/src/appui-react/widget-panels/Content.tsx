@@ -6,12 +6,14 @@
  * @module Widget
  */
 import * as React from "react";
-import { UiItemsManager } from "@itwin/appui-abstract";
 import { ScrollableWidgetContent, TabIdContext } from "@itwin/appui-layout-react";
 import { WidgetDef } from "../widgets/WidgetDef";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
-import { FrontstageNineZoneStateChangedEventArgs, useActiveFrontstageDef } from "../frontstage/FrontstageDef";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { useTransientState } from "./useTransientState";
+import { assert } from "@itwin/core-bentley";
+import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
+import { isProviderItem } from "../ui-items-provider/isProviderItem";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 
 /** @internal */
 export function WidgetContent() {
@@ -27,10 +29,11 @@ export function WidgetContent() {
     widget?.restoreTransientState();
   }, [widget]);
   useTransientState(onSave, onRestore);
+  const providerId = widget?.initialConfig && isProviderItem(widget?.initialConfig) ? widget?.initialConfig.providerId : undefined;
   return (
     <ScrollableWidgetContent
       itemId={itemId}
-      providerId={widget?.initialConfig?.providerId}
+      providerId={providerId}
     >
       {widget?.reactNode}
     </ScrollableWidgetContent>
@@ -40,26 +43,23 @@ export function WidgetContent() {
 /** @internal */
 export function useWidgetDef(): WidgetDef | undefined {
   const tabId = React.useContext(TabIdContext);
+  assert(!!tabId);
+
   const frontstage = useActiveFrontstageDef();
   const [widgetDef, setWidgetDef] = React.useState(() => frontstage?.findWidgetDef(tabId));
 
   React.useEffect(() => {
-    const listener = (args: FrontstageNineZoneStateChangedEventArgs) => {
-      // istanbul ignore next
+    return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((args) => {
       if (args.frontstageDef !== frontstage || !frontstage || frontstage.isStageClosing || frontstage.isApplicationClosing)
         return;
       setWidgetDef(frontstage.findWidgetDef(tabId));
-    };
-    return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(listener);
+    });
   }, [frontstage, tabId]);
 
   React.useEffect(() => {
-    // istanbul ignore next
-    const handlerActivated = () => {
+    return UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
       setWidgetDef(frontstage?.findWidgetDef(tabId));
-    };
-
-    return UiItemsManager.onUiProviderRegisteredEvent.addListener(handlerActivated);
+    });
   }, [frontstage, tabId]);
 
   return widgetDef;

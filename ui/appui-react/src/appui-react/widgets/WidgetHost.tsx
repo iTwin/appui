@@ -6,7 +6,8 @@
  * @module Widget
  */
 
-import { StagePanelLocation, StagePanelSection } from "@itwin/appui-abstract";
+import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { UiFramework } from "../UiFramework";
 import { WidgetDef } from "./WidgetDef";
 

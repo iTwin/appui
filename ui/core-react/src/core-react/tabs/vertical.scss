@@ -6,22 +6,18 @@
 @import "./tabs";
 
 @mixin uicore-tabs-vertical {
-
   @include uicore-tabs;
 
   > li {
-
-    display:        block;
-    margin:         0;
-    padding:        0;
-    width:          100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 
     > a {
-
-      line-height:            $uicore-line-height;
-      padding:                14px 20px;
-      background:             $buic-background-tab-inactive;
-      border-width:           0;
+      line-height: var(--iui-size-l);
+      padding: 14px 20px;
+      border-width: 0;
 
       $bar-size: 2px;
 
@@ -32,33 +28,24 @@
       }
 
       &::after {
-
-        height:             100%;
-        width:              $bar-size;
-        left:               $bar-size;
-        padding-top:        $bar-size;
-        padding-bottom:     $bar-size;
-        background-clip:    content-box;
-        box-sizing:         border-box;
+        height: 100%;
+        width: $bar-size;
+        left: $bar-size;
+        padding-top: $bar-size;
+        padding-bottom: $bar-size;
+        background-clip: content-box;
+        box-sizing: border-box;
       }
 
-      &:focus {
-        background-color: $buic-background-active-overlay;
-        outline: none;
+      &:focus-visible {
+        outline: 1px solid var(--iui-color-border-accent);
+        outline-offset: -1px;
       }
     }
 
-    &.core-active {
-      > a {
-
-        color:              $buic-foreground-primary;
-        background-color:   $buic-background-tab-active;
-
-        &:focus {
-          background-color: $buic-background-active-overlay;
-        }
-      }
+    &.core-active a {
+      color: var(--iui-color-text-accent);
+      background-color: var(--iui-color-background-accent-muted);
     }
   }
-
 }

@@ -14,12 +14,12 @@ import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import popoutToggleSvg from "./window-popout.svg";
 import { Icon } from "@itwin/core-react";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
-import { ActiveTabIdContext } from "./Widget";
+import { useActiveTabId } from "./Widget";
 
 /** @internal */
-export const PopoutToggle = React.memo(function PopoutToggle() { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function PopoutToggle() {
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const activeTabId = React.useContext(ActiveTabIdContext);
+  const activeTabId = useActiveTabId();
   const iconSpec = IconSpecUtilities.createWebComponentIconSpec(popoutToggleSvg);
   const popoutTitle = useLabel("popoutActiveTab");
   return (
@@ -36,5 +36,4 @@ export const PopoutToggle = React.memo(function PopoutToggle() { // eslint-disab
       <Icon iconSpec={iconSpec} />
     </button >
   );
-});
-
+}

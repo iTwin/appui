@@ -8,23 +8,22 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import {
-  AbstractStatusBarActionItem, AbstractStatusBarLabelItem, CommonStatusBarItem, ConditionalBooleanValue, ConditionalStringValue,
-  isAbstractStatusBarActionItem, isAbstractStatusBarLabelItem, StatusBarItemsManager, StatusBarSection, UiSyncEventArgs,
-} from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, ConditionalStringValue, UiSyncEventArgs } from "@itwin/appui-abstract";
 import { CommonProps, useRefs, useResizeObserver } from "@itwin/core-react";
 import { eqlOverflown } from "@itwin/appui-layout-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { StatusBarOverflow } from "./Overflow";
 import { StatusBarOverflowPanel } from "./OverflowPanel";
 import { StatusBarCenterSection, StatusBarLeftSection, StatusBarRightSection, StatusBarSpaceBetween } from "./StatusBar";
-import { isStatusBarItem } from "./StatusBarItem";
+import { isStatusBarActionItem, isStatusBarCustomItem, isStatusBarLabelItem, StatusBarActionItem, StatusBarItem, StatusBarLabelItem, StatusBarSection } from "./StatusBarItem";
 import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems";
 import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
+import { StatusBarItemsManager } from "./StatusBarItemsManager";
+import { isProviderItem } from "../ui-items-provider/isProviderItem";
 
 /** Private  function to generate a value that will allow the proper order to be maintained when items are placed in overflow panel */
-function getCombinedSectionItemPriority(item: CommonStatusBarItem) {
+function getCombinedSectionItemPriority(item: StatusBarItem) {
   let sectionValue = 0;
   if (item.section === StatusBarSection.Center)
     sectionValue = 100000;
@@ -40,7 +39,6 @@ interface DockedStatusBarEntryContextArg {
   readonly onResize: (w: number) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const DockedStatusBarEntryContext = React.createContext<DockedStatusBarEntryContextArg>(null!);
 DockedStatusBarEntryContext.displayName = "nz:DockedStatusBarEntryContext";
 
@@ -94,7 +92,7 @@ interface DockedStatusBarEntryProps {
 
 /** Wrapper for status bar entries so their size can be used to determine if the status bar container can display them or if they will need to be placed in an overflow panel. */
 // eslint-disable-next-line @typescript-eslint/naming-convention, no-shadow
-const DockedStatusBarEntry = React.memo<DockedStatusBarEntryProps>(function DockedStatusbarEntry({ children, entryKey, getOnResize }) {
+function DockedStatusBarEntry({ children, entryKey, getOnResize }: DockedStatusBarEntryProps) {
   const onResize = React.useMemo(() => getOnResize(entryKey), [getOnResize, entryKey]);
   const entry = React.useMemo<DockedStatusBarEntryContextArg>(() => ({
     isOverflown: false,
@@ -105,7 +103,7 @@ const DockedStatusBarEntry = React.memo<DockedStatusBarEntryProps>(function Dock
       {children}
     </DockedStatusBarEntryContext.Provider>
   );
-});
+}
 
 /** Private function to set up sync event monitoring of statusbar items */
 function useStatusBarItemSyncEffect(itemsManager: StatusBarItemsManager, syncIdsOfInterest: string[]) {
@@ -129,32 +127,30 @@ function useStatusBarItemSyncEffect(itemsManager: StatusBarItemsManager, syncIds
   }, [itemsManager, itemsManager.items, syncIdsOfInterest]);
 }
 
-/** function to produce a StatusBarItem component from an AbstractStatusBarLabelItem */
-function generateActionStatusLabelItem(item: AbstractStatusBarLabelItem): React.ReactNode {
-  const label = ConditionalStringValue.getValue(item.label);
+function StatusBarLabelItemComponent(props: StatusBarLabelItem) {
+  const label = ConditionalStringValue.getValue(props.label);
   return (
     <StatusBarLabelIndicator
-      iconSpec={item.icon}
+      iconSpec={props.icon}
       label={label}
     />
   );
 }
 
-/** function to produce a StatusBarItem component from an AbstractStatusBarActionItem */
-function generateActionStatusBarItem(item: AbstractStatusBarActionItem): React.ReactNode {
-  const title = ConditionalStringValue.getValue(item.tooltip);
+function StatusBarActionItemComponent(props: StatusBarActionItem) {
+  const title = ConditionalStringValue.getValue(props.tooltip);
   return (
     <StatusBarLabelIndicator
       title={title}
-      onClick={item.execute}
-      iconSpec={item.icon}
+      onClick={props.execute}
+      iconSpec={props.icon}
     />
   );
 }
 
 /** local function to combine items from Stage and from Extensions */
-function combineItems(stageItems: ReadonlyArray<CommonStatusBarItem>, addonItems: ReadonlyArray<CommonStatusBarItem>) {
-  const items: CommonStatusBarItem[] = [];
+function combineItems(stageItems: ReadonlyArray<StatusBarItem>, addonItems: ReadonlyArray<StatusBarItem>) {
+  const items: StatusBarItem[] = [];
   if (stageItems.length) {
     // Walk through each and ensure no duplicate ids are added.
     stageItems.forEach((srcItem) => {
@@ -225,7 +221,7 @@ function isItemInOverflow(id: string, overflowItemIds: ReadonlyArray<string> | u
  */
 export interface StatusBarComposerProps extends CommonProps {
   /** Status Bar items */
-  items: CommonStatusBarItem[];
+  items: StatusBarItem[];
 
   /** CSS class name override for the overall Status Bar */
   mainClassName?: string;
@@ -319,8 +315,9 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
   };
 
   /** generate a wrapped status bar entry that will report its size. */
-  const getComponent = React.useCallback((item: CommonStatusBarItem, key: string, itemPriority: number,
-    section: StatusBarSection, providerId?: string): React.ReactNode => {
+  const getComponent = React.useCallback((item: StatusBarItem, key: string, itemPriority: number,
+    section: StatusBarSection): React.ReactNode => {
+    const providerId = isProviderItem(item) ? item.providerId : undefined;
     return (
       <DockedStatusBarEntry
         key={key}
@@ -328,9 +325,9 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
         getOnResize={handleEntryResize}
       >
         <DockedStatusBarItem key={key} itemId={item.id} itemPriority={itemPriority} providerId={providerId} section={getSectionName(section)} >
-          {isStatusBarItem(item) && item.reactNode}
-          {isAbstractStatusBarActionItem(item) && generateActionStatusBarItem(item)}
-          {isAbstractStatusBarLabelItem(item) && generateActionStatusLabelItem(item)}
+          {isStatusBarCustomItem(item) && item.content}
+          {isStatusBarActionItem(item) && <StatusBarActionItemComponent {...item} />}
+          {isStatusBarLabelItem(item) && <StatusBarLabelItemComponent {...item} />}
         </DockedStatusBarItem>
       </DockedStatusBarEntry>
     );
@@ -343,7 +340,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
 
     return sectionItems.map((sectionItem) => (
       <React.Fragment key={sectionItem.id}>
-        {getComponent(sectionItem, sectionItem.id, sectionItem.itemPriority, sectionItem.section, sectionItem.providerId)}
+        {getComponent(sectionItem, sectionItem.id, sectionItem.itemPriority, sectionItem.section)}
       </React.Fragment>
     ));
   }, [statusBarItems, overflown, getComponent]);
@@ -355,7 +352,7 @@ export function StatusBarComposer(props: StatusBarComposerProps) {
 
     return itemsInOverflow.map((item) => (
       <React.Fragment key={item.id}>
-        {getComponent(item, item.id, item.itemPriority, item.section, item.providerId)}
+        {getComponent(item, item.id, item.itemPriority, item.section)}
       </React.Fragment>
     ));
   }, [statusBarItems, overflown, getComponent]);

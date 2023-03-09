@@ -8,7 +8,7 @@ import { Rectangle } from "@itwin/core-react";
 import * as ResizeObserverModule from "@itwin/core-react/lib/cjs/core-react/utils/hooks/ResizeObserverPolyfill";
 import { render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import { createNineZoneState, handleToCursorType, MeasureContext, NineZone, NineZoneDispatch, NineZoneLabels, NineZoneLabelsContext, sideToCursorType, useLabel } from "../../appui-layout-react";
+import { createLayoutStore, handleToCursorType, MeasureContext, NineZone, NineZoneDispatch, NineZoneLabels, NineZoneLabelsContext, sideToCursorType, useLabel } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { createRect, flushAsyncOperations, ResizeObserverMock } from "../Utils";
 
@@ -16,7 +16,7 @@ describe("<NineZone />", () => {
   it("renders correctly", () => {
     const { container } = render(<NineZone
       dispatch={sinon.stub()}
-      state={createNineZoneState()}
+      layout={createLayoutStore()}
     >
       9-Zone
     </NineZone>);
@@ -35,7 +35,7 @@ describe("<NineZone />", () => {
     const measurerRef = React.createRef<{ measure: () => Rectangle }>();
     const { container } = render(<NineZone
       dispatch={sinon.stub()}
-      state={createNineZoneState()}
+      layout={createLayoutStore()}
     >
       <Measurer ref={measurerRef} />
     </NineZone>);
@@ -62,7 +62,7 @@ describe("<NineZone />", () => {
     const spy = sinon.stub<NineZoneDispatch>();
     render(<NineZone
       dispatch={spy}
-      state={createNineZoneState()}
+      layout={createLayoutStore()}
     />);
 
     spy.reset();
@@ -96,7 +96,7 @@ describe("<NineZone />", () => {
     const spy = sinon.stub<NineZoneDispatch>();
     render(<NineZone
       dispatch={spy}
-      state={createNineZoneState()}
+      layout={createLayoutStore()}
     />);
 
     spy.reset();

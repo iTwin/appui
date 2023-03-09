@@ -5,12 +5,13 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  BackstageComposerActionItem, BackstageComposerItem, BackstageComposerStageLauncher, FrontstageManager,
+  BackstageActionItem,
+  BackstageComposerActionItem, BackstageComposerItem, BackstageComposerStageLauncher, BackstageStageLauncher, UiFramework,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
-import { BackstageActionItem, BackstageStageLauncher, BadgeType } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
+import { BadgeType } from "@itwin/appui-abstract";
 
 /** @internal */
 export const getActionItem = (item?: Partial<BackstageActionItem>): BackstageActionItem => ({
@@ -72,8 +73,8 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should activate frontstage", async () => {
-      sinon.stub(FrontstageManager, "hasFrontstage").withArgs("Frontstage-1").returns(true);
-      const spy = sinon.stub(FrontstageManager, "setActiveFrontstage");
+      sinon.stub(UiFramework.frontstages, "hasFrontstage").withArgs("Frontstage-1").returns(true);
+      const spy = sinon.stub(UiFramework.frontstages, "setActiveFrontstage");
 
       render(<BackstageComposerStageLauncher item={getStageLauncherItem({ stageId: "Frontstage-1" })} />);
 
@@ -82,7 +83,7 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should not activate if frontstage is not found", async () => {
-      const spy = sinon.stub(FrontstageManager, "setActiveFrontstage");
+      const spy = sinon.stub(UiFramework.frontstages, "setActiveFrontstage");
 
       render(<BackstageComposerStageLauncher item={getStageLauncherItem()} />);
       await theUserTo.click(screen.getByRole("menuitem"));
@@ -99,8 +100,8 @@ describe("BackstageComposerItem", () => {
 
   describe("BackstageComposerItem", () => {
     it("should render stage launcher", async () => {
-      const spy = sinon.spy(FrontstageManager, "setActiveFrontstage");
-      sinon.stub(FrontstageManager, "hasFrontstage").returns(true);
+      const spy = sinon.spy(UiFramework.frontstages, "setActiveFrontstage");
+      sinon.stub(UiFramework.frontstages, "hasFrontstage").returns(true);
       render(<BackstageComposerItem item={getStageLauncherItem()} />);
 
       await theUserTo.click(screen.getByRole("menuitem"));
@@ -118,13 +119,13 @@ describe("BackstageComposerItem", () => {
     });
 
     it("should render with TP badgeType", async () => {
-      render(<BackstageComposerItem item={getActionItem({ badgeType: BadgeType.TechnicalPreview })} />);
+      render(<BackstageComposerItem item={getActionItem({ badge: BadgeType.TechnicalPreview })} />);
 
       expect(screen.getByRole("menuitem")).to.satisfy(childStructure(".nz-badge .core-badge-betaBadge"));
     });
 
     it("should render with New badgeType", async () => {
-      render(<BackstageComposerItem item={getStageLauncherItem({ badgeType: BadgeType.New })} />);
+      render(<BackstageComposerItem item={getStageLauncherItem({ badge: BadgeType.New })} />);
 
       expect(screen.getByRole("menuitem")).to.satisfy(childStructure(".nz-badge .core-new-badge"));
     });

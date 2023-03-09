@@ -1,6 +1,6 @@
 {
   "name": "@itwin/imodel-components-react",
-  "version": "4.0.0-dev.1",
+  "version": "4.0.0-dev.11",
   "description": "iTwin.js UI IModel Components",
   "main": "lib/cjs/imodel-components-react.js",
   "module": "lib/esm/imodel-components-react.js",
@@ -11,8 +11,7 @@
     "url": "https://github.com/iTwin/appui/tree/master/ui/imodel-components-react"
   },
   "scripts": {
-    "build": "npm run -s copy:locale && npm run -s build:cjs",
-    "build:ci": "npm run -s build && npm run -s build:esm",
+    "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
     "build:cjs": "tsc 1>&2 --outDir lib/cjs && npm run -s copy:cjs",
     "build:esm": "tsc 1>&2 --module ES2020 --outDir lib/esm && npm run -s copy:esm",
     "copy:locale": "cpx \"./public/**/*\" ./lib/public",
@@ -21,12 +20,14 @@
     "pseudolocalize": "betools pseudolocalize --englishDir ./public/locales/en --out ./public/locales/en-PSEUDO",
     "clean": "rimraf lib .rush/temp/package-deps*.json",
     "cover": "nyc npm -s test",
-    "docs": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/ui/imodel-components-react/file.json --tsIndexFile=./imodel-components-react.ts --onlyJson",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "lint:fix": "npm run -s lint -- --fix",
     "extract-api": "betools extract-api --entry=imodel-components-react",
     "test": "mocha --config ../.mocharc.json \"./lib/cjs/test/**/*.test.js\"",
-    "test:watch": "npm -s test -- --reporter min --watch-extensions ts,tsx --watch"
+    "test:watch": "npm -s test -- --reporter min --watch-extensions ts,tsx --watch",
+    "docs": "npm run -s docs:reference && npm run -s docs:changelog",
+    "docs:changelog": "cpx ./CHANGELOG.md ../../generated-docs/reference/imodel-components-react",
+    "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/imodel-components-react/file.json --tsIndexFile=./imodel-components-react.ts --onlyJson"
   },
   "keywords": [
     "Bentley",
@@ -38,41 +39,40 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "workspace:^4.0.0-dev.1",
-    "@itwin/components-react": "workspace:^4.0.0-dev.1",
-    "@itwin/core-bentley": "^3.5.1",
-    "@itwin/core-common": "^3.5.1",
-    "@itwin/core-frontend": "^3.5.1",
-    "@itwin/core-geometry": "^3.5.1",
-    "@itwin/core-quantity": "^3.5.1",
-    "@itwin/core-react": "workspace:^4.0.0-dev.1",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "@itwin/appui-abstract": "^3.6.0",
+    "@itwin/components-react": "workspace:^4.0.0-dev.11",
+    "@itwin/core-bentley": "^3.6.0",
+    "@itwin/core-common": "^3.6.0",
+    "@itwin/core-frontend": "^3.6.0",
+    "@itwin/core-geometry": "^3.6.0",
+    "@itwin/core-quantity": "^3.6.0",
+    "@itwin/core-react": "workspace:^4.0.0-dev.11",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   },
   "//devDependencies": [
     "NOTE: All peerDependencies should also be listed as devDependencies since peerDependencies are not considered by npm install",
     "NOTE: All tools used by scripts in this package must be listed as devDependencies"
   ],
   "devDependencies": {
-    "@itwin/appui-abstract": "workspace:*",
-    "@itwin/build-tools": "^3.5.1",
+    "@itwin/appui-abstract": "^3.6.0",
+    "@itwin/build-tools": "^3.6.0",
     "@itwin/components-react": "workspace:*",
-    "@itwin/core-bentley": "^3.5.1",
-    "@itwin/core-common": "^3.5.1",
-    "@itwin/core-frontend": "^3.5.1",
-    "@itwin/core-geometry": "^3.5.1",
-    "@itwin/core-orbitgt": "^3.5.1",
-    "@itwin/core-quantity": "^3.5.1",
+    "@itwin/core-bentley": "^3.6.0",
+    "@itwin/core-common": "^3.6.0",
+    "@itwin/core-frontend": "^3.6.0",
+    "@itwin/core-geometry": "^3.6.0",
+    "@itwin/core-orbitgt": "^3.6.0",
+    "@itwin/core-quantity": "^3.6.0",
     "@itwin/core-react": "workspace:*",
-    "@itwin/eslint-plugin": "^3.5.1",
-    "@itwin/webgl-compatibility": "^3.5.1",
+    "@itwin/eslint-plugin": "^3.6.0",
+    "@itwin/webgl-compatibility": "^3.6.0",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/user-event": "^14.4.2",
     "@types/chai": "4.3.1",
     "@types/chai-as-promised": "^7",
-    "@types/chai-spies": "^1.0.0",
     "@types/chai-string": "^1.4.1",
     "@types/faker": "^4.1.0",
     "@types/mocha": "^8.2.2",
@@ -83,7 +83,6 @@
     "@types/sinon-chai": "^3.2.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7",
-    "chai-spies": "1.0.0",
     "chai-string": "^1.5.0",
     "cpx2": "^3.0.0",
     "eslint": "^7.11.0",
@@ -102,19 +101,18 @@
     "sinon-chai": "^3.2.0",
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
-    "typescript": "~4.4.0",
-    "xmlhttprequest": "^1.8.0"
+    "typescript": "~4.4.0"
   },
   "//dependencies": [
     "NOTE: these dependencies should be only for things that DO NOT APPEAR IN THE API",
     "NOTE: core-frontend should remain UI technology agnostic, so no react/angular dependencies are allowed"
   ],
   "dependencies": {
-    "@bentley/icons-generic-webfont": "^1.0.15",
-    "@itwin/itwinui-css": "0.x",
-    "@itwin/itwinui-react": "~1.42.0",
-    "classnames": "2.3.1",
-    "immer": "9.0.6"
+    "@bentley/icons-generic": "^1.0.34",
+    "@itwin/itwinui-react": "^2.5.0",
+    "@itwin/itwinui-variables": "^2.0.0",
+    "@itwin/itwinui-icons-react": "^2.1.0",
+    "classnames": "2.3.1"
   },
   "nyc": {
     "extends": "./node_modules/@itwin/build-tools/.nycrc",

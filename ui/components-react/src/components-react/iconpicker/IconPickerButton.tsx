@@ -11,7 +11,8 @@ import "./IconPickerButton.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { CommonProps, Popup, SvgSprite } from "@itwin/core-react";
+import { CommonProps, Icon, Popup } from "@itwin/core-react";
+import { SvgChevronDown } from "@itwin/itwinui-icons-react";
 
 /** Properties for the [[IconItem]] React component
  * @internal
@@ -49,7 +50,7 @@ class IconItem extends React.PureComponent<IconItemProps> {
 
     return (
       <button {...otherProps} className={classes} style={this.props.style} onClick={handleClick}>
-        <SvgSprite src={this.props.icon} />
+        <Icon iconSpec={this.props.icon} />
       </button>
     );
   }
@@ -145,8 +146,8 @@ export class IconPickerButton extends React.PureComponent<IconPickerProps, IconP
     return (
       <>
         <button data-testid="components-iconpicker-button" onClick={this._togglePopup} className={buttonClassNames} style={buttonStyle} disabled={this.props.disabled} ref={this._target}>
-          <SvgSprite className="iconpicker-button-sprite" src={this.state.icon} />
-          <span className="icon icon-chevron-down" />
+          <Icon className="iconpicker-button-sprite" iconSpec={this.state.icon} />
+          <span className="icon"> <Icon iconSpec={<SvgChevronDown />} /> </span>
         </button>
         <Popup
           className="components-iconpicker-popup"

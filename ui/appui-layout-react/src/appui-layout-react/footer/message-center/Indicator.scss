@@ -8,7 +8,7 @@
 
 .nz-footer-messageCenter-indicator {
   height: 100%;
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
 
   padding: {
     top: 0;
@@ -31,13 +31,13 @@
     padding-right: $nz-footer-indicator-horizontal-padding-medium;
   }
 
-  >.nz-indicator {
+  > .nz-indicator {
     height: 100%;
     display: flex;
     cursor: pointer;
     align-items: center;
 
-    >.nz-label {
+    > .nz-label {
       font-size: $text-font-size;
       font-size: $text-font-size;
       overflow: hidden;
@@ -53,24 +53,23 @@
       }
     }
 
-    >.nz-container {
+    > .nz-container {
       height: 100%;
       position: relative;
       display: grid;
       align-items: center;
       margin-left: 8px;
 
-      >.nz-balloon {
-        background-color: $buic-foreground-body;
+      > .nz-balloon {
+        background-color: var(--iui-color-icon);
         text-align: center;
         min-width: $min-balloon-width;
         min-height: $min-balloon-height;
         border-radius: 50%;
         padding: $balloon-padding;
-        filter: $icon-shadow;
         position: relative;
 
-        >.nz-arrow {
+        > .nz-arrow {
           position: absolute;
           width: 0;
           bottom: -3px;
@@ -80,19 +79,19 @@
           border-bottom-width: $balloon-arrow-height;
           border-left-width: $balloon-arrow-width;
           border-style: solid;
-          border-color: transparent $buic-foreground-body;
+          border-color: transparent var(--iui-color-icon);
           transform: rotate(25deg);
         }
 
-        >.nz-content {
+        > .nz-content {
           position: relative;
-          color: $buic-text-color-reverse;
+          color: var(--iui-color-background);
           line-height: $min-balloon-height;
           font-size: 11px;
         }
       }
 
-      >.nz-target {
+      > .nz-target {
         height: 100%;
         width: 100%;
         top: 0;
@@ -103,13 +102,13 @@
     }
 
     &:hover {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent);
 
-      >.nz-container>.nz-balloon {
-        background-color: $buic-foreground-primary;
+      > .nz-container > .nz-balloon {
+        background-color: var(--iui-color-text-accent);
 
-        >.nz-arrow {
-          border-color: transparent $buic-foreground-primary;
+        > .nz-arrow {
+          border-color: transparent var(--iui-color-text-accent);
         }
       }
     }

@@ -5,11 +5,11 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { CommandItemDef, KeyboardShortcutManager, KeyboardShortcutMenu, KeyboardShortcutProps } from "../../appui-react";
+import { CommandItemDef, KeyboardShortcutMenu, KeyboardShortcutProps } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { FunctionKey } from "@itwin/appui-abstract";
 import { UiFramework } from "../../appui-react/UiFramework";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 
 describe("KeyboardShortcutMenu", () => {
   const testSpyMethod = sinon.spy();
@@ -73,21 +73,23 @@ describe("KeyboardShortcutMenu", () => {
 
   beforeEach(() => {
     testSpyMethod.resetHistory();
-    KeyboardShortcutManager.shortcutContainer.emptyData();
+    UiFramework.keyboardShortcuts.shortcutContainer.emptyData();
     theUserTo = userEvent.setup();
   });
 
   it("Should render shortcuts and close on Escape", async () => {
-    KeyboardShortcutManager.loadKeyboardShortcuts(keyboardShortcutList);
+    UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
     expect(UiFramework.isContextMenuOpen).to.be.false;
 
     render(
       <KeyboardShortcutMenu />,
     );
 
-    KeyboardShortcutManager.displayShortcutsMenu();
+    UiFramework.keyboardShortcuts.displayMenu();
 
-    expect(screen.getAllByRole("menuitem")).to.have.lengthOf(3);
+    await waitFor(() => {
+      expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(3);
+    });
     expect(UiFramework.isContextMenuOpen).to.be.true;
 
     await theUserTo.type(screen.getAllByTestId("core-context-menu-root")[0], "[Escape]", {skipClick: true}); // Does nothing because of ignoreNextKeyUp=true
@@ -99,15 +101,17 @@ describe("KeyboardShortcutMenu", () => {
   });
 
   it("Should render shortcuts and execute item on click", async () => {
-    KeyboardShortcutManager.loadKeyboardShortcuts(keyboardShortcutList);
+    UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
 
     render(
       <KeyboardShortcutMenu />,
     );
 
-    KeyboardShortcutManager.displayShortcutsMenu();
+    UiFramework.keyboardShortcuts.displayMenu();
 
-    expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(3);
+    await waitFor(() => {
+      expect(screen.queryAllByRole("menuitem")).to.have.lengthOf(3);
+    });
 
     await theUserTo.click(screen.getByRole("menuitem", {name: "A Test"}));
 

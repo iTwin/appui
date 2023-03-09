@@ -6,43 +6,15 @@ import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
-import { Presentation } from "@itwin/presentation-frontend";
-import { initialize as initializePresentationTesting, terminate as terminatePresentationTesting } from "@itwin/presentation-testing";
-import { WidgetState } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, PresentationSelectionScope, SelectionScopeField, SessionStateActionId, StatusBar,
-  StatusBarWidgetControl, UiFramework, WidgetDef,
-} from "../../appui-react";
+import { PresentationSelectionScope, SelectionScopeField, SessionStateActionId, StatusBar, UiFramework } from "../../appui-react";
 import TestUtils, { handleError, selectChangeValueByIndex, stubScrollIntoView } from "../TestUtils";
 
 describe(`SelectionScopeField`, () => {
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <SelectionScopeField />
-        </>
-      );
-    }
-  }
-
-  let widgetControl: StatusBarWidgetControl | undefined;
   describe("Bare tests", () => {
     before(async () => {
       await MockRender.App.startup();
       await TestUtils.initializeUiFramework();
-
-      const widgetDef = WidgetDef.create({
-        id: "statusBar",
-        classId: AppStatusBarWidgetControl,
-        defaultState: WidgetState.Open,
-      });
-      widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
     });
 
     after(async () => {
@@ -52,7 +24,7 @@ describe(`SelectionScopeField`, () => {
 
     it("SelectionScopeField with default data", () => {
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;
@@ -71,7 +43,7 @@ describe(`SelectionScopeField`, () => {
 
       // UiFramework.frameworkState!.sessionState.availableSelectionScopes = 1;
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;
@@ -91,22 +63,12 @@ describe(`SelectionScopeField`, () => {
 
     before(async () => {
       await shutdownIModelApp();
-      Presentation.terminate();
 
-      await initializePresentationTesting();
       await TestUtils.initializeUiFramework();
-
-      const widgetDef = WidgetDef.create({
-        id: "statusBar",
-        classId: AppStatusBarWidgetControl,
-        defaultState: WidgetState.Open,
-      });
-      widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
     });
 
     after(async () => {
       TestUtils.terminateUiFramework();
-      await terminatePresentationTesting();
     });
 
     stubScrollIntoView();
@@ -122,7 +84,7 @@ describe(`SelectionScopeField`, () => {
 
       // UiFramework.frameworkState!.sessionState.availableSelectionScopes = 1;
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;
@@ -143,7 +105,7 @@ describe(`SelectionScopeField`, () => {
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "top-assembly");
 
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;
@@ -151,9 +113,9 @@ describe(`SelectionScopeField`, () => {
       expect(UiFramework.getActiveSelectionScope()).to.be.equal("top-assembly");
       component.getByText("selectionScopeLabels.top-assembly");
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "assembly");
-      component.getByText("selectionScopeLabels.assembly");
+      await component.findByText("selectionScopeLabels.assembly");
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "element");
-      component.getByText("selectionScopeLabels.element");
+      await component.findByText("selectionScopeLabels.element");
     });
 
     it("SelectionScopeField should properly handle override scope labels", async () => {
@@ -166,7 +128,7 @@ describe(`SelectionScopeField`, () => {
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "top-assembly");
 
       const component = render(<Provider store={TestUtils.store}>
-        <StatusBar widgetControl={widgetControl} />
+        <StatusBar><SelectionScopeField /></StatusBar>
       </Provider>);
       expect(component).not.to.be.undefined;
       const selectElement = component.getByTestId("components-selectionScope-selector") as HTMLSelectElement;
@@ -174,9 +136,9 @@ describe(`SelectionScopeField`, () => {
       expect(UiFramework.getActiveSelectionScope()).to.be.equal("top-assembly");
       component.getByText("Functional TopAssembly");
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "assembly");
-      component.getByText("Functional Assembly");
+      await component.findByText("Functional Assembly");
       UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, "element");
-      component.getByText("Functional Element");
+      await component.findByText("Functional Element");
     });
   });
 });

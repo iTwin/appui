@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { StatusBarIndicator, StatusBarIndicatorProps } from "./Indicator";
 import { Icon, IconSpec } from "@itwin/core-react";
-import { StatusBarLabelSide } from "@itwin/appui-abstract";
+import { StatusBarLabelSide } from "./StatusBarItem";
 
 /** Properties of [[StatusBarLabelIndicator]] component.
  * @beta

@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/space";
 
 .uifw-accudraw-field-container {
   padding: 6px;
@@ -24,5 +23,5 @@
   max-width: 250px;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  row-gap: $iui-xs;
+  row-gap: var(--iui-size-2xs);
 }

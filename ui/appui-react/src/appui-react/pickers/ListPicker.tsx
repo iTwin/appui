@@ -13,6 +13,7 @@ import { Columns, GroupColumn, Panel, PopupItem, Title } from "@itwin/components
 import { CommonProps, Icon, SizeProps } from "@itwin/core-react";
 import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
 import { UiFramework } from "../UiFramework";
+import { SvgChevronDown, SvgChevronRight, SvgList } from "@itwin/itwinui-icons-react";
 
 /** Enum for the list picker item type
  * @beta
@@ -101,7 +102,7 @@ interface ExpandableSectionState {
   expanded: boolean;
 }
 
-/** Expandable Section React component used by [[ListPickerBase]]
+/** Expandable Section React component
  * @beta
  */
 export class ExpandableSection extends React.PureComponent<ExpandableSectionProps, ExpandableSectionState> {
@@ -122,7 +123,7 @@ export class ExpandableSection extends React.PureComponent<ExpandableSectionProp
       this.props.className,
     );
 
-    const icon = this.state.expanded ? <i className="icon icon-chevron-down" /> : <i className="icon icon-chevron-right" />;
+    const icon = this.state.expanded ? <Icon iconSpec={<SvgChevronDown />} /> : <Icon iconSpec={<SvgChevronRight />} />;
 
     return (
       <Panel className={className} style={this.props.style} key={this.props.title}>
@@ -218,7 +219,7 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
  */
 function ListPickerPopupItem(props: ListPickerProps) {
   const icon = props.iconSpec ? (/* istanbul ignore next */ typeof props.iconSpec === "string" ? <Icon iconSpec={props.iconSpec} /> :
-    <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>) : <Icon iconSpec="icon-list" />;
+    <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>) : <Icon iconSpec={<SvgList />} />;
 
   return (
     <ToolbarDragInteractionContext.Consumer>

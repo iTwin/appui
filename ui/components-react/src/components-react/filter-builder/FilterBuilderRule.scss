@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/itwinui-css/scss/style/index";
 
 .rule {
   display: grid;
@@ -12,17 +11,11 @@
   .rule-condition {
     display: grid;
     grid-template-columns: minmax(auto, 500px) 150px minmax(auto, 300px);
-    grid-column-gap: $iui-m;
-
-    .rule-property .iui-input {
-      padding-top: 1.5px;
-      padding-bottom: 1.5px;
-      min-height: 27px;
-    }
+    grid-column-gap: var(--iui-size-m);
   }
 
   .rule-remove-action {
-    padding-right: $iui-sm;
+    padding-right: var(--iui-size-s);
     visibility: hidden;
   }
 
@@ -37,5 +30,9 @@
 
   &:first-child {
     padding-top: 14px;
+  }
+
+  &:only-child {
+    padding-top: 3px;
   }
 }

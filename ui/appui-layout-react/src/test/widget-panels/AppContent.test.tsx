@@ -2,30 +2,23 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import { createNineZoneState, NineZoneDispatch, usePanelsAutoCollapse } from "../../appui-layout-react";
-import { setRefValue, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
+import { setRefValue, TestNineZoneProvider } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
-
-const wrapper = (props: TestNineZoneProviderProps) => {
-  return (<TestNineZoneProvider {...props} />);
-};
+import { withWrapperAndProps } from "../Utils";
 
 describe("usePanelsAutoCollapse", () => {
   it("should collapse unpinned panels", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
     state = updatePanelState(state, "right", { pinned: false });
-    const { result } = renderHook(() => usePanelsAutoCollapse(), {
-      wrapper,
-      initialProps: {
-        dispatch,
-        state,
-      },
-    });
+    const { result } = renderHook(() => usePanelsAutoCollapse(), withWrapperAndProps(TestNineZoneProvider, {
+      dispatch,
+      defaultState: state,
+    }));
     const element = document.createElement("div");
     setRefValue(result.current, element);
 
@@ -38,18 +31,15 @@ describe("usePanelsAutoCollapse", () => {
     });
   });
 
-  it("should auto collapse unpinned panels", () => {
+  it("should auto collapse unpinned panels", async () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
     state = updatePanelState(state, "left", { pinned: false });
-    const { result } = renderHook(() => usePanelsAutoCollapse(), {
-      wrapper,
-      initialProps: {
-        dispatch,
-        state,
-        autoCollapseUnpinnedPanels: true,
-      },
-    });
+    const { result } = renderHook(() => usePanelsAutoCollapse(), withWrapperAndProps(TestNineZoneProvider, {
+      dispatch,
+      defaultState: state,
+      autoCollapseUnpinnedPanels: true,
+    }));
     const element = document.createElement("div");
     setRefValue(result.current, element);
 
@@ -64,13 +54,10 @@ describe("usePanelsAutoCollapse", () => {
 
   it("should remove event listeners", () => {
     const state = createNineZoneState();
-    const { result } = renderHook(() => usePanelsAutoCollapse(), {
-      wrapper,
-      initialProps: {
-        state,
-        autoCollapseUnpinnedPanels: true,
-      },
-    });
+    const { result } = renderHook(() => usePanelsAutoCollapse(), withWrapperAndProps(TestNineZoneProvider, {
+      defaultState: state,
+      autoCollapseUnpinnedPanels: true,
+    }));
     const element = document.createElement("div");
     const spy = sinon.spy(element, "removeEventListener");
     setRefValue(result.current, element);

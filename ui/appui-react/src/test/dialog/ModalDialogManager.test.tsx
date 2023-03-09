@@ -7,8 +7,10 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
 import { DialogChangedEventArgs, ModalDialogManager, ModalDialogRenderer, StandardMessageBox } from "../../appui-react";
-import TestUtils from "../TestUtils";
-import { render, screen } from "@testing-library/react";
+import TestUtils, { createStaticInternalPassthroughValidators } from "../TestUtils";
+import { render, screen, waitFor } from "@testing-library/react";
+import { InternalModalDialogManager } from "../../appui-react/dialog/InternalModalDialogManager";
+/* eslint-disable deprecation/deprecation */
 
 describe("ModalDialogManager", () => {
 
@@ -56,7 +58,7 @@ describe("ModalDialogManager", () => {
     expect(ModalDialogManager.dialogCount).to.eq(0);
   });
 
-  it("ModalDialogRenderer component", () => {
+  it("ModalDialogRenderer component", async () => {
     const reactNode = <StandardMessageBox
       opened={false}
       title="My Title"
@@ -69,14 +71,16 @@ describe("ModalDialogManager", () => {
     expect(ModalDialogManager.dialogCount).to.eq(0);
     ModalDialogManager.openDialog(reactNode);
     expect(ModalDialogManager.dialogCount).to.eq(1);
-    expect(screen.getByTestId("core-dialog-root")).to.exist;
+    expect(await screen.findByTestId("core-dialog-root")).to.exist;
 
     ModalDialogManager.closeDialog();
     expect(ModalDialogManager.dialogCount).to.eq(0);
-    expect(screen.queryByTestId("core-dialog-root")).to.be.null;
+    await waitFor(() => {
+      expect(screen.queryByTestId("core-dialog-root")).to.be.null;
+    });
   });
 
-  it("ModalDialogRenderer component with two dialogs", () => {
+  it("ModalDialogRenderer component with two dialogs", async () => {
     const reactNode = <StandardMessageBox
       opened={false}
       title="My Title"
@@ -96,19 +100,39 @@ describe("ModalDialogManager", () => {
 
     ModalDialogManager.openDialog(reactNode);
     expect(ModalDialogManager.dialogCount).to.eq(1);
-    expect(screen.getAllByTestId("core-dialog-root")).to.have.lengthOf(1);
+    expect(await screen.findAllByTestId("core-dialog-root")).to.have.lengthOf(1);
 
     ModalDialogManager.openDialog(reactNode2);
     expect(ModalDialogManager.dialogCount).to.eq(2);
-    expect(screen.getAllByTestId("core-dialog-root")).to.have.lengthOf(2);
+    await waitFor(() => {
+      expect(screen.getAllByTestId("core-dialog-root")).to.have.lengthOf(2);
+    });
 
     ModalDialogManager.closeDialog();
     expect(ModalDialogManager.dialogCount).to.eq(1);
-    expect(screen.getAllByTestId("core-dialog-root")).to.have.lengthOf(1);
+    await waitFor(() => {
+      expect(screen.getAllByTestId("core-dialog-root")).to.have.lengthOf(1);
+    });
 
     ModalDialogManager.closeDialog();
     expect(ModalDialogManager.dialogCount).to.eq(0);
-    expect(screen.queryAllByTestId("core-dialog-root")).to.have.lengthOf(0);
+    await waitFor(() => {
+      expect(screen.queryAllByTestId("core-dialog-root")).to.have.lengthOf(0);
+    });
+  });
+
+  it("calls Internal static for everything", () => {
+    const [validateMethod, validateProp] = createStaticInternalPassthroughValidators(ModalDialogManager, InternalModalDialogManager);
+
+    validateMethod("closeAll");
+    validateMethod(["closeDialog", "close"], "id");
+    validateMethod(["openDialog", "open"], "", "id", document);
+    validateMethod("update");
+    validateProp(["activeDialog", "active"]);
+    validateProp(["dialogCount", "count"]);
+    validateProp("dialogManager");
+    validateProp("dialogs");
+    validateProp("onModalDialogChangedEvent");
   });
 
 });

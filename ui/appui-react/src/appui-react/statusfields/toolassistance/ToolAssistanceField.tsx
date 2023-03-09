@@ -24,9 +24,9 @@ import {
   ToolAssistanceItem,
   ToolAssistanceSeparator,
 } from "@itwin/appui-layout-react";
-import { HorizontalTabs, ToggleSwitch } from "@itwin/itwinui-react";
+import { Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt";
-import { FrontstageManager, ToolIconChangedEventArgs } from "../../frontstage/FrontstageManager";
+import { ToolIconChangedEventArgs } from "../../framework/FrameworkFrontstages";
 import { MessageManager, ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
 import { UiFramework } from "../../UiFramework";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage";
@@ -48,6 +48,7 @@ import mouseWheelClickIcon from "./mouse-click-wheel.svg";
 import touchCursorDragIcon from "./touch-cursor-pan.svg";
 import touchCursorTapIcon from "./touch-cursor-point.svg";
 import { StatusBarDialog } from "../../statusbar/dialog/Dialog";
+import { SvgClose, SvgPin} from "@itwin/itwinui-icons-react";
 
 // cSpell:ignore cursorprompt
 
@@ -149,7 +150,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
   public override async componentDidMount() {
     this._isMounted = true;
     MessageManager.onToolAssistanceChangedEvent.addListener(this._handleToolAssistanceChangedEvent);
-    FrontstageManager.onToolIconChangedEvent.addListener(this._handleToolIconChangedEvent);
+    UiFramework.frontstages.onToolIconChangedEvent.addListener(this._handleToolIconChangedEvent);
 
     // istanbul ignore else
     if (this.props.uiStateStorage)
@@ -164,7 +165,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
   public override componentWillUnmount() {
     this._isMounted = false;
     MessageManager.onToolAssistanceChangedEvent.removeListener(this._handleToolAssistanceChangedEvent);
-    FrontstageManager.onToolIconChangedEvent.removeListener(this._handleToolIconChangedEvent);
+    UiFramework.frontstages.onToolIconChangedEvent.removeListener(this._handleToolIconChangedEvent);
   }
 
   private async restoreSettings() {
@@ -313,7 +314,8 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       dialogContent = (
         <div>
           {this.state.showMouseTouchTabs &&
-            <HorizontalTabs
+            <Tabs
+              orientation="horizontal"
               tabsClassName="uifw-toolAssistance-tabs"
               labels={[mouseLabel, touchLabel]}
               activeIndex={this.state.mouseTouchTabIndex}
@@ -407,7 +409,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
                     onClick={this._handlePinButtonClick}
                     title={UiFramework.translate("toolAssistance.pin")}
                   >
-                    <i className={"icon icon-pin"} />
+                    <Icon iconSpec={<SvgPin />} />
                   </StatusBarDialog.TitleBarButton>
                 }
                 {this.state.isPinned &&
@@ -415,7 +417,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
                     onClick={this._handleCloseButtonClick}
                     title={UiCore.translate("dialog.close")}
                   >
-                    <i className={"icon icon-close"} />
+                    <Icon iconSpec={<SvgClose />} />
                   </StatusBarDialog.TitleBarButton>
                 }
               </>
@@ -503,9 +505,9 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       }
     } else if (typeof instruction.image === "string") {
       if (instruction.image.length > 0) {
-        const svgSource = IconSpecUtilities.getSvgSource(instruction.image); // eslint-disable-line deprecation/deprecation
+        const svgSource = IconSpecUtilities.getWebComponentSource(instruction.image);
         const className = (svgSource !== undefined) ? "uifw-toolassistance-svg" : "uifw-toolassistance-icon-large";
-        image = <div className={className}><Icon iconSpec={instruction.image} /></div>;
+        image = <div className={className}><Icon iconSpec={svgSource} /></div>;
       }
     } else if (instruction.image === ToolAssistanceImage.Keyboard) {
       if (instruction.keyboardInfo) {

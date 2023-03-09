@@ -5,11 +5,7 @@
 /* eslint-disable react/display-name */
 
 import * as React from "react";
-import {
-  AbstractWidgetProps, BackstageItem, BackstageItemUtilities, CommonToolbarItem, StagePanelLocation, StagePanelSection,
-  ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider, WidgetState,
-} from "@itwin/appui-abstract";
-import { ToolbarHelper } from "@itwin/appui-react";
+import { BackstageItem, BackstageItemUtilities, StagePanelLocation, StagePanelSection, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
 import { getToggleCustomOverlayCommandItemDef, WidgetApiStage } from "../frontstages/WidgetApiStage";
 import { FloatingLayoutInfo, LayoutControls, LayoutInfo } from "../widgets/LayoutWidget";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
@@ -37,7 +33,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   }
 
   private getLeftPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: AbstractWidgetProps[] = [];
+    const widgets: Widget[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push({
@@ -46,9 +42,11 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         icon: "icon-app-1",
         canPopout: true,
         defaultState: WidgetState.Open,
-        getWidgetContent: () => <h2>Left WL-A</h2>,
-        hideWithUiWhenFloating: true,
-        allowedPanelTargets: ["left", "right"],
+        content: <h2>Left WL-A</h2>,
+        canFloat: {
+          hideWithUi: true,
+        },
+        allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
       });
     } else if (section === StagePanelSection.End) {
       widgets.push({
@@ -56,7 +54,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         label: "WL-1",
         icon: "icon-smiley-happy",
         canPopout: false,
-        getWidgetContent: () => <h2>Left WL-1</h2>,
+        content: <h2>Left WL-1</h2>,
       });
       widgets.push({
         id: "WL-2",
@@ -64,22 +62,22 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         icon: "icon-smiley-sad",
         defaultState: WidgetState.Open,
         canPopout: true,
-        getWidgetContent: () => <h2>Left WL-2</h2>,
-        allowedPanelTargets: ["left"],
+        content: <h2>Left WL-2</h2>,
+        allowedPanels: [StagePanelLocation.Left],
       });
       widgets.push({
         id: "WL-3",
         label: "WL-3",
         icon: "icon-smiley-happy-very",
         canPopout: true,
-        getWidgetContent: () => <h2>Left WL-3</h2>,
+        content: <h2>Left WL-3</h2>,
       });
     }
     return widgets;
   }
 
   private getRightPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: AbstractWidgetProps[] = [];
+    const widgets: Widget[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push({
@@ -88,8 +86,8 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         icon: "icon-text-align-text-align-left",
         canPopout: true,
         defaultState: WidgetState.Open,
-        getWidgetContent: () => <h2>Right WR-A</h2>,
-        allowedPanelTargets: ["left", "right"],
+        content: <h2>Right WR-A</h2>,
+        allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
       });
       widgets.push({
         id: "WR-B",
@@ -97,7 +95,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         icon: "icon-text-align-text-align-right",
         canPopout: true,
         defaultState: WidgetState.Hidden,
-        getWidgetContent: () => <h2>Right WR-B</h2>,
+        content: <h2>Right WR-B</h2>,
       });
     } else if (section === StagePanelSection.End) {
       widgets.push({
@@ -105,7 +103,7 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         label: "WR-1",
         icon: "icon-text-align-text-align-center",
         canPopout: false,
-        getWidgetContent: () => <h2>Right WR-1</h2>,
+        content: <h2>Right WR-1</h2>,
       });
       widgets.push({
         id: "WR-2",
@@ -113,15 +111,15 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         icon: "icon-text-align-text-align-justify",
         defaultState: WidgetState.Open,
         canPopout: true,
-        getWidgetContent: () => <h2>Right WR-2</h2>,
-        allowedPanelTargets: ["right"],
+        content: <h2>Right WR-2</h2>,
+        allowedPanels: [StagePanelLocation.Right],
       });
       widgets.push({
         id: "WR-3",
         label: "WR-3",
         icon: "icon-user",
         canPopout: true,
-        getWidgetContent: () => <h2>Right WR-3</h2>,
+        content: <h2>Right WR-3</h2>,
       });
       widgets.push({
         id: "WR-4",
@@ -129,14 +127,14 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         icon: "icon-users",
         canPopout: true,
         defaultState: WidgetState.Open,
-        getWidgetContent: () => <h2>Right WR-4</h2>,
+        content: <h2>Right WR-4</h2>,
       });
     }
     return widgets;
   }
 
   private getTopPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: AbstractWidgetProps[] = [];
+    const widgets: Widget[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push({
@@ -144,38 +142,40 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         label: "WT-A",
         canPopout: true,
         defaultState: WidgetState.Open,
-        getWidgetContent: () => <h2>Top WT-A</h2>,
-        defaultFloatingSize: { width: 400, height: 600 },
-        isFloatingStateWindowResizable: true,
+        content: <h2>Top WT-A</h2>,
+        canFloat: {
+          defaultSize: { width: 400, height: 600 },
+          isResizable: true,
+        },
       });
       widgets.push({
         id: "WT-B",
         label: "WT-B",
         canPopout: true,
-        getWidgetContent: () => <h2>Top WT-B</h2>,
-        allowedPanelTargets: ["top", "bottom"],
+        content: <h2>Top WT-B</h2>,
+        allowedPanels: [StagePanelLocation.Top, StagePanelLocation.Bottom],
       });
     } else if (section === StagePanelSection.End) {
       widgets.push({
         id: "WT-1",
         label: "WT-1",
         canPopout: true,
-        getWidgetContent: () => <h2>Top WT-1</h2>,
+        content: <h2>Top WT-1</h2>,
       });
       widgets.push({
         id: "WT-2",
         label: "WT-2",
         canPopout: true,
         defaultState: WidgetState.Open,
-        getWidgetContent: () => <h2>Top WT-2</h2>,
-        allowedPanelTargets: ["top"],
+        content: <h2>Top WT-2</h2>,
+        allowedPanels: [StagePanelLocation.Top],
       });
     }
     return widgets;
   }
 
   private getBottomPanelWidgets(section?: StagePanelSection | undefined) {
-    const widgets: AbstractWidgetProps[] = [];
+    const widgets: Widget[] = [];
 
     if (section === StagePanelSection.Start) {
       widgets.push({
@@ -183,28 +183,28 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
         label: "Floating Info",
         canPopout: true,
         defaultState: WidgetState.Open,
-        getWidgetContent: () => <FloatingLayoutInfo />,
-        allowedPanelTargets: ["top", "bottom"],
+        content: <FloatingLayoutInfo />,
+        allowedPanels: [StagePanelLocation.Top, StagePanelLocation.Bottom],
       });
       widgets.push({
         id: "widget-layout-info",
         label: "Layout Info",
         canPopout: true,
-        getWidgetContent: () => <LayoutInfo />,
-        allowedPanelTargets: ["bottom"],
+        content: <LayoutInfo />,
+        allowedPanels: [StagePanelLocation.Bottom],
       });
     } else if (section === StagePanelSection.End) {
       widgets.push({
         id: "widget-layout-controls",
         label: "Layout Controls",
         defaultState: WidgetState.Open,
-        getWidgetContent: () => <LayoutControls />,
+        content: <LayoutControls />,
       });
     }
     return widgets;
   }
 
-  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<AbstractWidgetProps> {
+  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<Widget> {
     const allowedStages = [WidgetApiStage.stageId];
     if (allowedStages.includes(stageId)) {
       switch (location) {
@@ -223,11 +223,11 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   }
 
   /** provide a toolbar button to set a value in redux store that toggles the display of the custom overlay */
-  public provideToolbarButtonItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): CommonToolbarItem[] {
+  public provideToolbarItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
     const allowedStages = [WidgetApiStage.stageId];
     if (allowedStages.includes(stageId)) {
       if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
-        const items: CommonToolbarItem[] = [];
+        const items: ToolbarItem[] = [];
         items.push(ToolbarHelper.createToolbarItemFromItemDef(17, getToggleCustomOverlayCommandItemDef(), { groupPriority: 3000 }));
         return items;
       }

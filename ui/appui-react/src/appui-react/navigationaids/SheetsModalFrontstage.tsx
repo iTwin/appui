@@ -11,10 +11,11 @@ import classnames from "classnames";
 import * as React from "react";
 import { IModelApp, IModelConnection } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
-import { CommonProps, FlexWrapContainer, ScrollView, SearchBox, UiCore } from "@itwin/core-react";
-import { FrontstageManager, ModalFrontstageInfo } from "../frontstage/FrontstageManager";
+import { CommonProps, FlexWrapContainer, Icon, IconSpec, ScrollView, SearchBox, UiCore } from "@itwin/core-react";
+import { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
 import { SheetData } from "./SheetNavigationAid";
+import { SvgDocument, SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** Data about a sheet card
  * @alpha
@@ -22,7 +23,7 @@ import { SheetData } from "./SheetNavigationAid";
 export interface CardInfo {
   index: number;
   label: string;
-  iconSpec: string;
+  iconSpec: IconSpec;
   isActive: boolean;
   viewId: any;
 }
@@ -67,7 +68,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
    */
   private _storeSheetsAsCards(sheets: SheetData[]) {
     sheets.forEach((sheet: SheetData, index: number) => {
-      this._cards.push({ index, label: sheet.name, iconSpec: "icon-document", viewId: sheet.viewId, isActive: index === this._currentIndex });
+      this._cards.push({ index, label: sheet.name, iconSpec: <SvgDocument />, viewId: sheet.viewId, isActive: index === this._currentIndex });
     });
   }
 
@@ -87,7 +88,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
   // istanbul ignore next
   private _handleSearchValueChanged = (value: string): void => {
     this._searchValue = value;
-    FrontstageManager.updateModalFrontstage();
+    UiFramework.frontstages.updateModalFrontstage();
   };
 }
 
@@ -117,15 +118,13 @@ export class CardContainer extends React.Component<CardContainerProps> {
           {
             this.props.cards.map((card: CardInfo, _index: number) => {
               let includeCard = true;
-              const iconClassName = (typeof card.iconSpec === "string") ? card.iconSpec : /* istanbul ignore next */ "icon-placeholder";
-
               if (this.props.searchValue) {
                 includeCard = this.contains(card.label, this.props.searchValue);
               }
 
               if (includeCard) {
                 return (
-                  <SheetCard key={card.label} label={card.label} index={card.index} iconSpec={iconClassName} isActive={card.isActive} onClick={async () => this._handleCardSelected(card)} />
+                  <SheetCard key={card.label} label={card.label} index={card.index} iconSpec={card.iconSpec} isActive={card.isActive} onClick={async () => this._handleCardSelected(card)} />
                 );
               }
 
@@ -166,7 +165,7 @@ export class CardContainer extends React.Component<CardContainerProps> {
     }
 
     card.isActive = true;
-    FrontstageManager.closeModalFrontstage();
+    UiFramework.frontstages.closeModalFrontstage();
     CardContainer.onCardSelectedEvent.emit({ id: card.viewId, index: card.index });
   }
 }
@@ -177,7 +176,7 @@ export class CardContainer extends React.Component<CardContainerProps> {
 export interface SheetCardProps {
   label: string;
   index: number;
-  iconSpec: string;
+  iconSpec: IconSpec;
   isActive: boolean;
   onClick: () => void;
 }
@@ -213,7 +212,7 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
   };
 
   public override render() {
-    const { label, index, iconSpec } = this.props;
+    const { label, index } = this.props;
 
     const className = classnames(
       "uifw-sheet-card",
@@ -221,17 +220,14 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       this.state.isPressed && "is-pressed",
     );
 
-    const iconClassName = classnames(
-      "icon",
-      (typeof iconSpec === "string") ? iconSpec : /* istanbul ignore next */ "icon-placeholder",
-    );
+    const iconSpec = this.props.iconSpec ? this.props.iconSpec : <SvgPlaceholder />;
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div className={className} onClick={this._onClick} onMouseDown={this._onMouseDown} onMouseLeave={this._onMouseLeave} role="button" tabIndex={-1} >
         {label}
         <div className="sheet-image-container">
-          <div className={iconClassName} />
+          <div className="icon"> <Icon iconSpec={iconSpec} /></div>
         </div >
         <div className="sheet-index">{index + 1}</div>
       </div >

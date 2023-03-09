@@ -5,20 +5,15 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import * as moq from "typemoq";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { IModelApp, MockRender, QuantityType, QuantityTypeKey } from "@itwin/core-frontend";
 import TestUtils, { getButtonWithText, handleError, selectChangeValueByText, stubScrollIntoView } from "../TestUtils";
-import { Presentation, PresentationManager } from "@itwin/presentation-frontend";
 import { getQuantityFormatsSettingsManagerEntry } from "../../appui-react/settings/quantityformatting/QuantityFormat";
 import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager";
 import { FormatProps, UnitSystemKey } from "@itwin/core-quantity";
 import { UiFramework } from "../../appui-react/UiFramework";
-import { mockPresentationManager } from "../PresentationTestUtils";
 
 describe("QuantityFormatSettingsPage", () => {
-
-  let presentationManagerMock: moq.IMock<PresentationManager>;
   const sandbox = sinon.createSandbox();
 
   before(async () => {
@@ -29,14 +24,10 @@ describe("QuantityFormatSettingsPage", () => {
   after(async () => {
     TestUtils.terminateUiFramework();
     await MockRender.App.shutdown();
-    Presentation.terminate();
   });
 
   beforeEach(async () => {
     await IModelApp.quantityFormatter.reinitializeFormatAndParsingsMaps(new Map<UnitSystemKey, Map<QuantityTypeKey, FormatProps>>(), "imperial");
-    presentationManagerMock = mockPresentationManager().presentationManager;
-    presentationManagerMock.setup((x) => x.activeUnitSystem).returns(() => "imperial");
-    Presentation.setPresentationManager(presentationManagerMock.object);
   });
 
   afterEach(() => {
@@ -49,41 +40,33 @@ describe("QuantityFormatSettingsPage", () => {
     const settingsEntry = getQuantityFormatsSettingsManagerEntry(10);
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const unitSystemSpy = sandbox.spy();
-
-    // setup fake setter in the mocked object
-    sandbox.stub(Presentation.presentation, "activeUnitSystem").set(unitSystemSpy);
+    const unitSystemSpy = sandbox.spy(IModelApp.quantityFormatter, "setActiveUnitSystem");
 
     const wrapper = render(settingsEntry.page);
 
     const selectButton = wrapper.getByTestId("unitSystemSelector");
 
     // initial unit system value should be imperial so no change expected for initial change.
-    // fireEvent.change(selectButton, { target: { value: "imperial" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.BritishImperial", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.false;
+    expect(unitSystemSpy).to.be.callCount(0);
 
-    // fireEvent.change(selectButton, { target: { value: "metric" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.Metric", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.true;
+    expect(unitSystemSpy).to.be.callCount(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
-    // fireEvent.change(selectButton, { target: { value: "usCustomary" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.USCustomary", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.true;
+    expect(unitSystemSpy).to.be.callCount(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
-    // fireEvent.change(selectButton, { target: { value: "usSurvey" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.USSurvey", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.true;
+    expect(unitSystemSpy).to.be.callCount(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
-    // fireEvent.change(selectButton, { target: { value: "imperial" } });
     selectChangeValueByText(selectButton, "presentationUnitSystem.BritishImperial", handleError);
-    expect(unitSystemSpy.calledOnce).to.be.true;
+    expect(unitSystemSpy).to.be.callCount(1);
     await TestUtils.flushAsyncOperations();
 
     wrapper.unmount();
@@ -93,17 +76,13 @@ describe("QuantityFormatSettingsPage", () => {
     const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, { initialQuantityType: QuantityType.Length });
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const unitSystemSpy = sandbox.spy();
-
-    // setup fake setter in the mocked object
-    sandbox.stub(Presentation.presentation, "activeUnitSystem").set(unitSystemSpy);
-
     const wrapper = render(settingsEntry.page);
     await IModelApp.quantityFormatter.setActiveUnitSystem("metric", false);
-    await TestUtils.flushAsyncOperations();
 
-    const exampleFormat = wrapper.getByTestId("format-sample-formatted");
-    expect(exampleFormat.textContent).to.eql("1234.56 m");
+    await waitFor(() => {
+      const exampleFormat = wrapper.getByTestId("format-sample-formatted");
+      expect(exampleFormat.textContent).to.eql("1234.56 m");
+    });
 
     wrapper.unmount();
   });
@@ -149,12 +128,14 @@ describe("QuantityFormatSettingsPage", () => {
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
     fireEvent.click(checkbox);
-    await TestUtils.flushAsyncOperations();
 
-    expect(setButton!.hasAttribute("disabled")).to.be.false;
+    await waitFor(() => {
+      expect(setButton!.hasAttribute("disabled")).to.be.false;
+    });
     fireEvent.click(setButton!);
-    await TestUtils.flushAsyncOperations();
-    expect(setButton!.hasAttribute("disabled")).to.be.true;
+    await waitFor(() => {
+      expect(setButton!.hasAttribute("disabled")).to.be.true;
+    });
     expect(clearButton!.hasAttribute("disabled")).to.be.false;
     fireEvent.click(clearButton!);
     await TestUtils.flushAsyncOperations();
@@ -182,7 +163,9 @@ describe("QuantityFormatSettingsPage", () => {
     fireEvent.click(checkbox);
     await TestUtils.flushAsyncOperations();
 
-    expect(setButton!.hasAttribute("disabled")).to.be.false;
+    await waitFor(() => {
+      expect(setButton!.hasAttribute("disabled")).to.be.false;
+    });
 
     const dataValueSelector = `li[data-value='QuantityTypeEnumValue-7']`;
     const categoryEntry = wrapper.container.querySelector(dataValueSelector);
@@ -248,17 +231,23 @@ describe("QuantityFormatSettingsPage", () => {
     await TestUtils.flushAsyncOperations();
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
+    const addListenerSpy = sinon.spy(UiFramework.settingsManager.onProcessSettingsTabActivation, "addListener");
     fireEvent.click(checkbox);
     await TestUtils.flushAsyncOperations();
 
     expect(setButton!.hasAttribute("disabled")).to.be.false;
 
-    UiFramework.settingsManager.onProcessSettingsTabActivation.emit({ requestedSettingsTabId: "unknown", tabSelectionFunc: () => { } });
-    await TestUtils.flushAsyncOperations();
+    // Wait that the handler have been updated, otherwise it compares with the previous version...
+    // Visual change already have been processed but scope didnt upddate.
+    await waitFor(() => {
+      expect(addListenerSpy).to.have.been.called;
+    });
 
+    UiFramework.settingsManager.onProcessSettingsTabActivation.emit({ requestedSettingsTabId: "unknown", tabSelectionFunc: () => { } });
+
+    await screen.findByText(/dialog\.no/);
     const noButton = wrapper.container.querySelector("button.dialog-button-no");
     fireEvent.click(noButton!);
-    await TestUtils.flushAsyncOperations();
 
     wrapper.unmount();
   });

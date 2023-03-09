@@ -6,11 +6,9 @@
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/style/variables";
-@import "~@itwin/itwinui-css/scss/inputs/input";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 .uifw-ValidationTextbox {
-  @include iui-font-family;
+  font-family: var(--iui-font-sans);
   position: relative;
   padding: $uicore-unbordered-padding;
   width: 12em;
@@ -18,7 +16,6 @@
 
   .ValidationTextbox-input {
     position: absolute;
-    @include iui-input;
     min-height: $uicore-component-height-normal;
     padding: $uicore-iui-input-padding;
     width: 12em;
@@ -37,10 +34,10 @@
   .ValidationTextbox-icon {
     position: absolute;
     padding: $uicore-bordered-padding;
-    width: $uicore-line-height;
-    height: $uicore-line-height;
-    line-height: $uicore-line-height;
-    font-size: $uicore-icons-small;
+    width: var(--iui-size-l);
+    height: var(--iui-size-l);
+    line-height: var(--iui-size-l);
+    font-size: var(--iui-font-size-2);
     cursor: pointer;
     top: 0px;
     right: 0px;
@@ -48,7 +45,7 @@
     color: $buic-icon-color;
 
     &:hover {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent);
     }
   }
 }

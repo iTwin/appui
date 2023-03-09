@@ -9,12 +9,11 @@
 @import "../style/opacity";
 @import "../style/themecolors";
 @import "../z-index";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 // cspell:ignore themecolors unbordered
 
 $uicore-menu-padding: $uicore-bordered-padding;
-$uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
+$uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
 
 .core-context-menu-global {
   position: fixed;
@@ -25,10 +24,10 @@ $uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
 }
 
 .core-context-menu {
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
 
   &:hover {
-    color: $buic-foreground-activehover;
+    color: var(--iui-color-text-hover);
     cursor: auto;
   }
 
@@ -40,18 +39,17 @@ $uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
 
   .core-context-menu-container {
     position: absolute;
-    border-radius: 3px;
+    border-radius: var(--iui-border-radius-1);
     padding: 4px 0;
-    box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.2);
-    background-color: $buic-background-1;
+    box-shadow: var(--iui-shadow-1);
+    background-color: var(--iui-color-background);
     text-overflow: ellipsis;
     min-width: max-content;
     max-width: 350px;
     visibility: hidden;
     transform: scaleY(0);
     display: table;
-    border: 1px solid $buic-background-divider;
-    box-shadow: rgba($uicore-black, 0.25) 0px 1px 1px;
+    border: 1px solid var(--iui-color-border);
 
     &.core-context-menu-floating {
       position: fixed;
@@ -109,15 +107,15 @@ $uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
       box-sizing: content-box;
 
       &:hover {
-        background-color: $buic-row-hover;
+        background-color: var(--iui-color-background-hover);
       }
 
       &.core-context-menu-is-selected {
-        background-color: $buic-row-selection;
+        background-color: var(--iui-color-background-accent-muted);
       }
 
       &.core-context-menu-disabled {
-        color: $buic-foreground-disabled;
+        color: var(--iui-color-text-disabled);
       }
 
       &.core-context-menu-hidden {
@@ -128,9 +126,9 @@ $uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
         flex-shrink: 0;
         flex-grow: 0;
         width: $uicore-icons-small;
-        height: $uicore-line-height;
-        font-size: $uicore-icons-small;
-        line-height: $uicore-line-height;
+        height: var(--iui-size-l);
+        font-size: var(--iui-font-size-2);
+        line-height: var(--iui-size-l);
         text-align: center;
         margin-right: $uicore-unbordered-padding;
         opacity: $uicore-opacity-2;
@@ -144,7 +142,7 @@ $uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
       > .core-context-menu-content {
         flex-shrink: 0;
         flex-grow: 1;
-        font-size: $iui-font-size;
+        font-size: var(--iui-font-size-1);
         text-align: left;
       }
 
@@ -161,7 +159,7 @@ $uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
 
     &:focus {
       border: 1px solid $buic-background-divider;
-      box-shadow: rgba($uicore-black, 0.25) 0px 1px 1px;
+      box-shadow: var(--iui-shadow-1);
       outline: 0px;
 
       > .core-context-menu-item.is-selected,
@@ -219,16 +217,16 @@ $uicore-menu-top-bottom-padding: $uicore-menu-padding * 0.6667;
         flex-grow: 0;
         margin-left: $uicore-unbordered-padding;
         width: $uicore-icons-small;
-        height: $uicore-line-height;
-        font-size: $uicore-icons-small * 0.5;
-        line-height: $uicore-line-height;
+        height: var(--iui-size-l);
+        font-size: calc(var(--iui-font-size-2) * 0.5);
+        line-height: var(--iui-size-l);
         text-align: center;
       }
     }
   }
 
   .core-context-menu-divider {
-    border-bottom: 1px solid $buic-inputs-border;
+    border-bottom: 1px solid var(--iui-color-border-foreground);
     height: 0px;
   }
 

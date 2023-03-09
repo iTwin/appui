@@ -2,14 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import {
-  CommonToolbarItem,
-  StageUsage,
-  ToolbarItemUtilities,
-  ToolbarOrientation,
-  ToolbarUsage,
-  UiItemsProvider,
-} from "@itwin/appui-abstract";
+import { ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { StageUsage, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsProvider } from "@itwin/appui-react";
 import { BeDuration } from "@itwin/core-bentley";
 import { ActivityMessageDetails, ActivityMessageEndReason, IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 
@@ -18,7 +12,7 @@ export class MessageUiItemsProvider implements UiItemsProvider {
   public static providerId = "appui-test-providers:MessageUiItemsProvider";
   public readonly id = MessageUiItemsProvider.providerId;
 
-  public provideToolbarButtonItems(_stageId: string, stageUsage: string, usage: ToolbarUsage, orientatipn: ToolbarOrientation): CommonToolbarItem[] {
+  public provideToolbarItems(_stageId: string, stageUsage: string, usage: ToolbarUsage, orientatipn: ToolbarOrientation): ToolbarItem[] {
     if (stageUsage === StageUsage.General && usage === ToolbarUsage.ContentManipulation && orientatipn === ToolbarOrientation.Vertical) {
       return [
         ToolbarItemUtilities.createGroupButton(`${this.id}:group`, 10, "icon-placeholder", "Messages", [

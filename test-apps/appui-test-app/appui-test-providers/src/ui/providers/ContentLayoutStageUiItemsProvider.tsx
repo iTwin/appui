@@ -4,17 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 /* eslint-disable react/display-name */
 
-import {
-  AbstractWidgetProps,
-  BackstageItem, BackstageItemUtilities, CommonStatusBarItem, CommonToolbarItem,
-  StagePanelLocation,
-  StagePanelSection,
-  StageUsage,
-  StatusBarSection,
-  ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider, WidgetState,
-} from "@itwin/appui-abstract";
 import * as React from "react";
-import { StatusBarItemUtilities, ToolbarHelper } from "@itwin/appui-react";
+import { BackstageItem, BackstageItemUtilities, StagePanelLocation, StagePanelSection, StageUsage, StatusBarItem, StatusBarItemUtilities, StatusBarSection, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
 import { getSplitSingleViewportCommandDef, RestoreSavedContentLayoutTool, SaveContentLayoutTool } from "../../tools/ContentLayoutTools";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
@@ -52,53 +43,53 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     UiItemsManager.unregister(ContentLayoutStageUiItemsProvider.providerId);
   }
 
-  public provideToolbarButtonItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): CommonToolbarItem[] {
+  public provideToolbarItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
     const allowedStages = [ContentLayoutStage.stageId];
     if (allowedStages.includes(stageId)) {
       if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
-        const items: CommonToolbarItem[] = [];
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(15, getSplitSingleViewportCommandDef(), { groupPriority: 3000 }));
-        return items;
+        return [
+          ToolbarHelper.createToolbarItemFromItemDef(15, getSplitSingleViewportCommandDef(), { groupPriority: 3000 }),
+        ];
       } else if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Vertical) {
-        const items: CommonToolbarItem[] = [];
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(10, SaveContentLayoutTool.toolItemDef, { groupPriority: 3000 }));
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(15, RestoreSavedContentLayoutTool.toolItemDef, { groupPriority: 3000 }));
-        items.push(getCustomViewSelectorPopupItem(20, 3000));
-        return items;
+        return [
+          ToolbarHelper.createToolbarItemFromItemDef(10, SaveContentLayoutTool.toolItemDef, { groupPriority: 3000 }),
+          ToolbarHelper.createToolbarItemFromItemDef(15, RestoreSavedContentLayoutTool.toolItemDef, { groupPriority: 3000 }),
+          getCustomViewSelectorPopupItem(20, 3000),
+        ];
       }
     }
     return [];
   }
 
   public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation,
-    section?: StagePanelSection): ReadonlyArray<AbstractWidgetProps> {
-    const widgets: AbstractWidgetProps[] = [];
+    section?: StagePanelSection): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
     if (stageUsage === StageUsage.General && location === StagePanelLocation.Bottom && section === StagePanelSection.Start) {
-      const widget: AbstractWidgetProps = {
+      widgets.push({
         id: "appui-test-providers:viewport-widget",
         label: "Viewport",
         icon: "icon-bentley-systems",
         defaultState: WidgetState.Floating,
-        isFloatingStateSupported: true,
-        floatingContainerId: "appui-test-providers:viewport-widget",
-        // eslint-disable-next-line react/display-name
-        getWidgetContent: () => <ViewportWidgetComponent />,
-      };
-
-      widgets.push(widget);
+        canFloat: {
+          containerId: "appui-test-providers:viewport-widget",
+        },
+        content: <ViewportWidgetComponent />,
+      });
     }
     return widgets;
   }
-  public provideStatusBarItems(_stageId: string, stageUsage: string): CommonStatusBarItem[] {
-    const statusBarItems: CommonStatusBarItem[] = [];
+
+  public provideStatusBarItems(_stageId: string, stageUsage: string): StatusBarItem[] {
+    const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General) {
 
       statusBarItems.push(
-        StatusBarItemUtilities.createStatusBarItem("DisplayStyle", StatusBarSection.Center, 400, <DisplayStyleField />),
+        StatusBarItemUtilities.createCustomItem("DisplayStyle", StatusBarSection.Center, 400, <DisplayStyleField />),
       );
     }
     return statusBarItems;
   }
+
   public provideBackstageItems(): BackstageItem[] {
     const label = AppUiTestProviders.translate("backstage.contentLayoutFrontstageLabel");
     return [

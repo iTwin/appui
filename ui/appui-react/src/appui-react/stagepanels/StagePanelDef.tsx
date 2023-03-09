@@ -7,12 +7,15 @@
  */
 
 import produce, { Draft } from "immer";
-import { StagePanelLocation, StagePanelSection, UiEvent } from "@itwin/appui-abstract";
+import { UiEvent } from "@itwin/appui-abstract";
 import { NineZoneState, PanelSide } from "@itwin/appui-layout-react";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { WidgetDef } from "../widgets/WidgetDef";
 import { WidgetHost } from "../widgets/WidgetHost";
 import { StagePanelConfig, StagePanelMaxSizeSpec, StagePanelSectionConfig } from "./StagePanelConfig";
+import { StagePanelLocation } from "./StagePanelLocation";
+import { StagePanelSection } from "./StagePanelSection";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
+import { UiFramework } from "../UiFramework";
 
 /** Enum for StagePanel state.
  * @public
@@ -78,8 +81,8 @@ export class StagePanelDef extends WidgetHost {
   /** Default size of the panel */
   public get size() {
     // istanbul ignore else
-    if (FrontstageManager.activeFrontstageDef) {
-      const [_, size] = FrontstageManager.activeFrontstageDef.getPanelCurrentState(this);
+    if (UiFramework.frontstages.activeFrontstageDef) {
+      const [_, size] = UiFramework.frontstages.activeFrontstageDef.getPanelCurrentState(this);
       return size;
     }
     // istanbul ignore next
@@ -91,7 +94,7 @@ export class StagePanelDef extends WidgetHost {
       return;
 
     // istanbul ignore else
-    const frontstageDef = FrontstageManager.activeFrontstageDef;
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     // istanbul ignore else
     if (frontstageDef && frontstageDef.nineZoneState) {
       const side = toPanelSide(this.location);
@@ -102,7 +105,7 @@ export class StagePanelDef extends WidgetHost {
       size = panel.size;
     }
     this._size = size;
-    FrontstageManager.onPanelSizeChangedEvent.emit({
+    InternalFrontstageManager.onPanelSizeChangedEvent.emit({
       panelDef: this,
       size,
     });
@@ -121,8 +124,8 @@ export class StagePanelDef extends WidgetHost {
   /** Panel state. Defaults to PanelState.Open. */
   public get panelState() {
     // istanbul ignore else
-    if (FrontstageManager.activeFrontstageDef) {
-      const [state] = FrontstageManager.activeFrontstageDef?.getPanelCurrentState(this);
+    if (UiFramework.frontstages.activeFrontstageDef) {
+      const [state] = UiFramework.frontstages.activeFrontstageDef?.getPanelCurrentState(this);
       return state;
     }
     // istanbul ignore next
@@ -132,7 +135,7 @@ export class StagePanelDef extends WidgetHost {
   public set panelState(panelState: StagePanelState) {
     if (panelState === this._panelState)
       return;
-    const frontstageDef = FrontstageManager.activeFrontstageDef;
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     if (frontstageDef && frontstageDef.nineZoneState) {
       const side = toPanelSide(this.location);
       frontstageDef.nineZoneState = produce(frontstageDef.nineZoneState, (nineZone) => {
@@ -154,7 +157,7 @@ export class StagePanelDef extends WidgetHost {
       });
     }
     this._panelState = panelState;
-    FrontstageManager.onPanelStateChangedEvent.emit({
+    UiFramework.frontstages.onPanelStateChangedEvent.emit({
       panelDef: this,
       panelState,
     });

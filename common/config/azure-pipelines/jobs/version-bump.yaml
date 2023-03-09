@@ -27,6 +27,9 @@ parameters:
     - patch
     - releaseCandidate
 
+variables:
+  - group: Caleb - iTwin GitHub Token
+
 trigger: none
 pr: none
 # schedules:
@@ -46,9 +49,9 @@ jobs:
     - checkout: self
 
     - task: NodeTool@0
-      displayName: Use Node 16.x
+      displayName: Use Node 18.x
       inputs:
-        versionSpec: 16.x
+        versionSpec: 18.x
         checkLatest: true
 
     - bash: |
@@ -176,9 +179,9 @@ jobs:
       steps:
       - checkout: self
       - task: NodeTool@0
-        displayName: 'Use Node 16.x'
+        displayName: 'Use Node 18.x'
         inputs:
-          versionSpec: 16.x
+          versionSpec: 18.x
           checkLatest: true
 
       - bash: |

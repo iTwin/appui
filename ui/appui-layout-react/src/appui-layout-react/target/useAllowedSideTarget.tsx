@@ -7,19 +7,23 @@
  */
 import * as React from "react";
 import { DraggedWidgetIdContext } from "../base/DragManager";
-import { DraggedTabStateContext, TabsStateContext, WidgetsStateContext } from "../base/NineZone";
+import { useLayout } from "../base/LayoutStore";
+import { NineZoneState } from "../state/NineZoneState";
 import { PanelSide } from "../widget-panels/Panel";
 
 /** Check the docking side against allowed regions
   * @internal
   */
-export function useAllowedSideTarget(side: PanelSide | undefined, allowedTarget: boolean) {
-  const draggedTab = React.useContext(DraggedTabStateContext);
-  const draggedWidget = React.useContext(DraggedWidgetIdContext);
-  const tabsState = React.useContext(TabsStateContext);
-  const widgetsState = React.useContext(WidgetsStateContext);
+export function useAllowedSideTarget(side: PanelSide) {
+  const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
+  return useLayout((state) => isAllowedSideTarget(state, draggedWidgetId, side));
+}
 
-  if (!side) return allowedTarget;
+/** @internal */
+export function isAllowedSideTarget(state: NineZoneState, draggedWidget: string | undefined, side: PanelSide) {
+  const draggedTab = state.draggedTab;
+  const tabsState = state.tabs;
+  const widgetsState = state.widgets;
 
   let allowedPanelTargets: ReadonlyArray<PanelSide> | undefined;
   if (draggedTab) {

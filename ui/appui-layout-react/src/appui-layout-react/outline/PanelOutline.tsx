@@ -11,24 +11,29 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { useTargeted } from "../base/DragManager";
-import { isHorizontalPanelSide, PanelSideContext, PanelStateContext } from "../widget-panels/Panel";
+import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { isHorizontalPanelState } from "../state/PanelState";
 import { isPanelDropTargetState } from "../state/DropTargetState";
+import { useLayout } from "../base/LayoutStore";
+import { useSendBackHomeState } from "../widget/SendBack";
 
 /** @internal */
 export function PanelOutline() {
-  const panel = React.useContext(PanelStateContext);
-  assert(!!panel);
-  const { side } = panel;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
+  const isHorizontal = isHorizontalPanelSide(side);
+  const span = useLayout((state) => {
+    const panel = state.panels[side];
+    return isHorizontalPanelState(panel) ? panel.span : false;
+  });
   const hidden = useHidden();
   const className = classnames(
     "nz-outline-panelOutline",
     hidden && "nz-hidden",
     `nz-${side}`,
-    isHorizontalPanelState(panel) && panel.span && "nz-span",
+    span && "nz-span",
   );
   const size = useSize();
-  const isHorizontal = isHorizontalPanelSide(side);
   return (
     <div
       className={className}
@@ -44,21 +49,32 @@ export function PanelOutline() {
 export function useHidden() {
   const side = React.useContext(PanelSideContext);
   const targeted = useTargeted();
-  if (!targeted)
-    return true;
+  const activeHomeState = useSendBackHomeState();
 
-  if (!isPanelDropTargetState(targeted))
-    return true;
+  return React.useMemo(() => {
+    if (activeHomeState) {
+      if (activeHomeState.side === side && activeHomeState.widgetId === undefined && activeHomeState.sectionIndex === undefined)
+        return false;
+    }
 
-  if (targeted.side !== side)
-    return true;
+    if (!targeted)
+      return true;
 
-  return false;
+    if (!isPanelDropTargetState(targeted))
+      return true;
+
+    if (targeted.side !== side)
+      return true;
+
+    return false;
+  }, [side, targeted, activeHomeState]);
 }
 
 function useSize() {
-  const panel = React.useContext(PanelStateContext);
-  assert(!!panel);
-  // istanbul ignore next
-  return panel.size !== undefined ? panel.size : panel.minSize;
+  const side = React.useContext(PanelSideContext);
+  assert(!!side);
+  return useLayout((state) => {
+    const panel = state.panels[side];
+    return panel.size !== undefined ? panel.size : panel.minSize;
+  });
 }

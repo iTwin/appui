@@ -2,19 +2,18 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/itwinui-css/scss/style/mixins";
 
 @mixin no-link {
 
   text-decoration:      none;
-  color:                $buic-text-color;
+  color:                var(--iui-color-text);
 
   &:link,
   &:visited,
   &:hover,
   &:active {
 
-    color:              $buic-text-color;
+    color:              var(--iui-color-text);
     text-decoration:    none;
   }
 }

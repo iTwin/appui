@@ -2,10 +2,12 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
-import { addFloatingWidget, addTab, createNineZoneState, FloatingWidgetProvider, getResizeBy, NineZoneDispatch } from "../../appui-layout-react";
+import { renderHook } from "@testing-library/react-hooks";
+import { addFloatingWidget, addTab, createLayoutStore, createNineZoneState, FloatingWidgetProvider, getResizeBy, NineZoneDispatch, useFloatingWidgetId, WidgetIdContext } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("FloatingWidget", () => {
@@ -15,11 +17,10 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -32,11 +33,10 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"], undefined, { minimized: true });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -49,11 +49,10 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"], { hidden: true }, undefined);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -66,11 +65,10 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -83,11 +81,10 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"], undefined, { minimized: true });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -107,12 +104,11 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "w1", ["t1"], undefined, { minimized: true, isFloatingStateWindowResizable: true });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.w1!}
-          widget={state.widgets.w1}
+          id="w1"
         />
       </TestNineZoneProvider>,
     );
@@ -134,12 +130,11 @@ describe("FloatingWidget", () => {
     state = addFloatingWidget(state, "toolSettings", ["nz-tool-settings-tab"], undefined, { minimized: true, isFloatingStateWindowResizable: false });
     const { container } = render(
       <TestNineZoneProvider
-        state={state}
+        defaultState={state}
         dispatch={dispatch}
       >
         <FloatingWidgetProvider
-          floatingWidget={state.floatingWidgets.byId.toolSettings!}
-          widget={state.widgets.toolSettings}
+          id="toolSettings"
         />
       </TestNineZoneProvider>,
     );
@@ -219,5 +214,28 @@ describe("getResizeBy", () => {
       right: 10,
       bottom: 20,
     });
+  });
+});
+
+describe("useFloatingWidgetId", () => {
+  it("should return floating widget id", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(state, "w1", ["t1"]);
+    const { result } = renderHook(() => useFloatingWidgetId(), {
+      wrapper: (props) => ( // eslint-disable-line react/display-name
+        <TestNineZoneProvider layout={createLayoutStore(state)}>
+          <WidgetIdContext.Provider value="w1" {...props} />
+        </TestNineZoneProvider>
+      ),
+    });
+    expect(result.current).to.eq("w1");
+  });
+
+  it("should return `undefined` if WidgetIdContext is not provided", () => {
+    const { result } = renderHook(() => useFloatingWidgetId(), {
+      wrapper: (props) => <TestNineZoneProvider {...props} />, // eslint-disable-line react/display-name
+    });
+    expect(result.current).to.be.undefined;
   });
 });

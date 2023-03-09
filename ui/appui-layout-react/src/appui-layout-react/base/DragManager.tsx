@@ -6,7 +6,7 @@
  * @module Base
  */
 import * as React from "react";
-import * as _ from "lodash";
+import { isEqual } from "lodash";
 import { PointProps } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
 import { Point, SizeProps } from "@itwin/core-react";
@@ -425,7 +425,7 @@ export interface DragProviderProps {
 }
 
 /** @internal */
-export const DragProvider = React.memo<DragProviderProps>(function DragProvider(props) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function DragProvider(props: DragProviderProps) {
   const dragManager = React.useRef(new DragManager());
   React.useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
@@ -456,30 +456,30 @@ export const DragProvider = React.memo<DragProviderProps>(function DragProvider(
       </DraggedWidgetIdProvider>
     </DragManagerContext.Provider>
   );
-});
+}
 
 function DraggedWidgetIdProvider(props: { children?: React.ReactNode }) {
-  const dragged = useDraggedItemId<WidgetDragItem>("widget");
+  const draggedWidgetId = useDraggedItemId<WidgetDragItem>("widget");
   return (
-    <DraggedWidgetIdContext.Provider value={dragged}>
+    <DraggedWidgetIdContext.Provider value={draggedWidgetId}>
       {props.children}
     </DraggedWidgetIdContext.Provider>
   );
 }
 
 function DraggedPanelSideProvider(props: { children?: React.ReactNode }) {
-  const draggedWidget = useDraggedItemId<PanelGripDragItem>("panelGrip");
+  const draggedSide = useDraggedItemId<PanelGripDragItem>("panelGrip");
   return (
-    <DraggedPanelSideContext.Provider value={draggedWidget}>
+    <DraggedPanelSideContext.Provider value={draggedSide}>
       {props.children}
     </DraggedPanelSideContext.Provider>
   );
 }
 
 function DraggedResizeHandleProvider(props: { children?: React.ReactNode }) {
-  const value = useDraggedItemId<ResizeHandleDragItem>("resizeHandle");
+  const draggedHandle = useDraggedItemId<ResizeHandleDragItem>("resizeHandle");
   return (
-    <DraggedResizeHandleContext.Provider value={value}>
+    <DraggedResizeHandleContext.Provider value={draggedHandle}>
       {props.children}
     </DraggedResizeHandleContext.Provider>
   );
@@ -559,7 +559,7 @@ export class DragManager {
     if (!this._dragged.target)
       return false;
 
-    return _.isEqual(this._dragged.target, target);
+    return isEqual(this._dragged.target, target);
   }
 
   public get onDragStart() {

@@ -4,20 +4,16 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, NineZoneState, PanelStateContext } from "../../appui-layout-react";
-import { TestNineZoneProvider } from "../Providers";
+import { addPanelWidget, addTab, createNineZoneState, PanelSideContext } from "../../appui-layout-react";
+import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
 import { SectionTargets } from "../../appui-layout-react/target/SectionTargets";
 
-interface WrapperProps {
-  state: NineZoneState;
-}
-
-function Wrapper({ children, state }: React.PropsWithChildren<WrapperProps>) {
+function Wrapper({ children, ...other }: React.PropsWithChildren<TestNineZoneProviderProps>) {
   return (
-    <TestNineZoneProvider state={state}>
-      <PanelStateContext.Provider value={state.panels.left}>
+    <TestNineZoneProvider {...other}>
+      <PanelSideContext.Provider value="left">
         {children}
-      </PanelStateContext.Provider>
+      </PanelSideContext.Provider>
     </TestNineZoneProvider>
   );
 }
@@ -28,10 +24,9 @@ describe("SectionTargets", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <SectionTargets widgetId="w1" />,
-      {
-        wrapper: (props) => <Wrapper state={state} {...props} />, // eslint-disable-line react/display-name
-      }
+      <Wrapper defaultState={state}>
+        <SectionTargets widgetId="w1" />
+      </Wrapper>,
     );
     container.getElementsByClassName("nz-target-mergeTarget").length.should.eq(1);
     container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(2);

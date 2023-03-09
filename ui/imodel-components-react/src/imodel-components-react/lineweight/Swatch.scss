@@ -3,11 +3,10 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 .components-lineweight-swatch {
-  font-size: $iui-font-size;
-  color: $buic-foreground-body;
+  font-size: var(--iui-font-size-1);
+  color: var(--iui-color-text);
   border: none;
   background: inherit;
   width: 100%;
@@ -28,22 +27,22 @@
   }
 
   &[disabled] {
-    opacity: .2;
+    opacity: 0.2;
     cursor: default;
   }
 
-  >span {
+  > span {
     width: 1.5em;
     text-align: right;
   }
 
-  >div {
+  > div {
     flex: 1;
     background: $buic-foreground-body;
     margin-left: 15px;
   }
 }
 
-.components-lineweight-swatch.hide-label>span {
+.components-lineweight-swatch.hide-label > span {
   display: none;
 }

@@ -4,20 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { createNineZoneState } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { TabOutline } from "../../appui-layout-react/outline/TabOutline";
 
-function Wrapper(props: React.PropsWithChildren<{}>) {
-  const state = createNineZoneState();
-  return (
-    <TestNineZoneProvider state={state}>
-      {props.children}
-    </TestNineZoneProvider>
-  );
-}
-
-const wrapper = Wrapper;
+const wrapper = TestNineZoneProvider;
 
 describe("TabOutline", () => {
   it("should render", () => {

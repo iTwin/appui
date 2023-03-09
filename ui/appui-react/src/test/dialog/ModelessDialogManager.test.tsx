@@ -6,10 +6,12 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import { ConfigurableUiManager, DialogChangedEventArgs, ModelessDialog, ModelessDialogManager, ModelessDialogRenderer } from "../../appui-react";
-import TestUtils, { userEvent } from "../TestUtils";
-import { render, screen } from "@testing-library/react";
+import { DialogChangedEventArgs, ModelessDialog, ModelessDialogManager, ModelessDialogRenderer } from "../../appui-react";
+import TestUtils, { createStaticInternalPassthroughValidators, userEvent } from "../TestUtils";
+import { render, screen, waitFor } from "@testing-library/react";
 import { MockRender } from "@itwin/core-frontend";
+import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
+/* eslint-disable deprecation/deprecation */
 
 describe("ModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -26,7 +28,6 @@ describe("ModelessDialogManager", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework(true);
-    ConfigurableUiManager.initialize();
     await MockRender.App.startup();
 
     ModelessDialogManager.onModelessDialogChangedEvent.addListener(handleModelessDialogChanged);
@@ -73,7 +74,7 @@ describe("ModelessDialogManager", () => {
     logSpyMethod.calledOnce.should.true;
   });
 
-  it("ModelessDialogRenderer component", () => {
+  it("ModelessDialogRenderer component", async () => {
     const dialogId = "Test1";
     const reactNode = <ModelessDialog
       opened={true}
@@ -86,14 +87,16 @@ describe("ModelessDialogManager", () => {
     expect(ModelessDialogManager.dialogCount).to.eq(0);
     ModelessDialogManager.openDialog(reactNode, dialogId);
     expect(ModelessDialogManager.dialogCount).to.eq(1);
-    expect(screen.getByText("My Title")).to.exist;
+    expect(await screen.findByText("My Title")).to.exist;
 
     ModelessDialogManager.closeDialog(dialogId);
     expect(ModelessDialogManager.dialogCount).to.eq(0);
-    expect(screen.queryByText("My Title")).to.be.null;
+    await waitFor(() => {
+      expect(screen.queryByText("My Title")).to.be.null;
+    });
   });
 
-  it("ModelessDialogRenderer component with two dialogs", () => {
+  it("ModelessDialogRenderer component with two dialogs", async () => {
     const dialogId1 = "Test1";
     const reactNode1 = <ModelessDialog
       opened={true}
@@ -114,25 +117,29 @@ describe("ModelessDialogManager", () => {
 
     ModelessDialogManager.openDialog(reactNode1, dialogId1);
     expect(ModelessDialogManager.dialogCount).to.eq(1);
-    expect(screen.getByText("My Title")).to.exist;
+    expect(await screen.findByText("My Title")).to.exist;
 
     ModelessDialogManager.openDialog(reactNode2, dialogId2);
     expect(ModelessDialogManager.dialogCount).to.eq(2);
     expect(screen.getByText("My Title")).to.exist;
-    expect(screen.getByText("My Title 2")).to.exist;
+    expect(await screen.findByText("My Title 2")).to.exist;
 
     ModelessDialogManager.closeDialog(dialogId2);
     expect(ModelessDialogManager.dialogCount).to.eq(1);
     expect(screen.getByText("My Title")).to.exist;
-    expect(screen.queryByText("My Title 2")).to.be.null;
+    await waitFor(() => {
+      expect(screen.queryByText("My Title 2")).to.be.null;
+    });
 
     ModelessDialogManager.closeDialog(dialogId1);
     expect(ModelessDialogManager.dialogCount).to.eq(0);
-    expect(screen.queryByText("My Title")).to.be.null;
+    await waitFor(() => {
+      expect(screen.queryByText("My Title")).to.be.null;
+    });
     expect(screen.queryByText("My Title 2")).to.be.null;
   });
 
-  it("ModelessDialogRenderer component with two dialogs closed in FIFO order", () => {
+  it("ModelessDialogRenderer component with two dialogs closed in FIFO order", async () => {
     const dialogId1 = "Test1";
     const reactNode1 = <ModelessDialog
       opened={true}
@@ -157,18 +164,22 @@ describe("ModelessDialogManager", () => {
 
     ModelessDialogManager.openDialog(reactNode2, dialogId2);
     expect(ModelessDialogManager.dialogCount).to.eq(2);
-    expect(screen.getByText("My Title")).to.exist;
+    expect(await screen.findByText("My Title")).to.exist;
     expect(screen.getByText("My Title 2")).to.exist;
 
     ModelessDialogManager.closeDialog(dialogId1);
     expect(ModelessDialogManager.dialogCount).to.eq(1);
-    expect(screen.queryByText("My Title")).to.be.null;
+    await waitFor(() => {
+      expect(screen.queryByText("My Title")).to.be.null;
+    });
     expect(screen.getByText("My Title 2")).to.exist;
 
     ModelessDialogManager.closeDialog(dialogId2);
     expect(ModelessDialogManager.dialogCount).to.eq(0);
     expect(screen.queryByText("My Title")).to.be.null;
-    expect(screen.queryByText("My Title 2")).to.be.null;
+    await waitFor(() => {
+      expect(screen.queryByText("My Title 2")).to.be.null;
+    });
   });
 
   it("ModelessDialogRenderer component with two dialogs and bring forward", async () => {
@@ -199,7 +210,7 @@ describe("ModelessDialogManager", () => {
     expect(ModelessDialogManager.activeDialog).to.eq(reactNode2);
 
     // Click the 2nd dialog - should stay forward
-    await theUserTo.click(screen.getByText("My Title 2"));
+    await theUserTo.click(await screen.findByText("My Title 2"));
     expect(ModelessDialogManager.activeDialog).to.eq(reactNode2);
 
     // Click the 1st dialog to bring it forward
@@ -215,4 +226,21 @@ describe("ModelessDialogManager", () => {
     expect(ModelessDialogManager.dialogCount).to.eq(0);
   });
 
+  it("calls Internal static for everything", () => {
+    const [validateMethod, validateProp] = createStaticInternalPassthroughValidators(ModelessDialogManager, InternalModelessDialogManager);
+
+    validateMethod("closeAll");
+    validateMethod(["closeDialog", "close"], "id");
+    validateMethod(["getDialogInfo", "getInfo"], "id");
+    validateMethod(["getDialogZIndex", "getZIndex"], "id");
+    validateMethod("handlePointerDownEvent", {} as any, "id", sinon.spy());
+    validateMethod("initialize");
+    validateMethod(["openDialog", "open"], "", "id", document);
+    validateMethod("update");
+    validateProp(["activeDialog", "active"]);
+    validateProp(["dialogCount", "count"]);
+    validateProp("dialogManager");
+    validateProp("dialogs");
+    validateProp("onModelessDialogChangedEvent");
+  });
 });

@@ -21,7 +21,8 @@ export function WidgetPanelsStatusBar(props: CommonProps) {
   const widgetDef = frontstageDef?.statusBar;
   if (!widgetDef)
     return null;
-  const widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
+  const content = widgetDef.reactNode;
+  const widgetControl = content === undefined ? widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl | undefined : undefined;
   const className = classnames(
     "uifw-widgetPanels-statusBar",
     props.className,
@@ -31,6 +32,8 @@ export function WidgetPanelsStatusBar(props: CommonProps) {
       className={className}
       style={props.style}
       widgetControl={widgetControl}
-    />
+    >
+      {widgetDef.reactNode}
+    </StatusBar>
   );
 }

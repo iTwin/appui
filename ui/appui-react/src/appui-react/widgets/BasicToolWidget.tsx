@@ -8,7 +8,6 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "@itwin/appui-abstract";
 import { CoreTools } from "../tools/CoreToolDefinitions";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
@@ -16,8 +15,9 @@ import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { ToolWidgetComposer } from "./ToolWidgetComposer";
 import { BackstageAppButton } from "./BackstageAppButton";
 import { useUiVisibility } from "../hooks/useUiVisibility";
+import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 
-/** Properties that can be used to append items to the default set of toolbar items of [[ReviewToolWidget]].
+/** Properties that can be used to append items to the default set of toolbar items.
  * @public
  */
 export interface BasicToolWidgetProps {
@@ -26,9 +26,9 @@ export interface BasicToolWidgetProps {
   /** Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix to imported symbol Id. */
   icon?: string;
   /** optional set of additional items to include in horizontal toolbar */
-  additionalHorizontalItems?: CommonToolbarItem[];
+  additionalHorizontalItems?: ToolbarItem[];
   /** optional set of additional items to include in vertical toolbar */
-  additionalVerticalItems?: CommonToolbarItem[];
+  additionalVerticalItems?: ToolbarItem[];
 }
 
 /** Default Tool Widget for standard "review" applications. Provides standard tools to review, and measure elements.
@@ -37,8 +37,8 @@ export interface BasicToolWidgetProps {
  */
 export function BasicToolWidget(props: BasicToolWidgetProps) {
   const getHorizontalToolbarItems = React.useCallback(
-    (useCategoryAndModelsContextTools: boolean): CommonToolbarItem[] => {
-      const items: CommonToolbarItem[] = [];
+    (useCategoryAndModelsContextTools: boolean): ToolbarItem[] => {
+      const items: ToolbarItem[] = [];
       if (useCategoryAndModelsContextTools) {
         items.push(
           ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.clearSelectionItemDef),
@@ -62,8 +62,8 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
     }, [props.additionalHorizontalItems]);
 
   const getVerticalToolbarItems = React.useCallback(
-    (): CommonToolbarItem[] => {
-      const items: CommonToolbarItem[] = [];
+    (): ToolbarItem[] => {
+      const items: ToolbarItem[] = [];
       items.push(
         ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.selectElementCommand),
         ToolbarHelper.createToolbarItemFromItemDef(20, CoreTools.measureToolGroup),

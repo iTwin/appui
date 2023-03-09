@@ -6,9 +6,11 @@
  * @module Tools
  */
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, Tool } from "@itwin/core-frontend";
-import { FrontstageManager } from "../frontstage/FrontstageManager";
 import { FrontstageDef } from "../frontstage/FrontstageDef";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { UiFramework } from "../UiFramework";
+import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
 
 /**
  * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
@@ -17,7 +19,7 @@ import { UiFramework } from "../UiFramework";
  */
 export class RestoreFrontstageLayoutTool extends Tool {
   public static override toolId = "RestoreFrontstageLayout";
-  public static override iconSpec = "icon-view-layouts";
+  public static override iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgViewLayouts);
 
   // istanbul ignore next
   public static override get minArgs() { return 0; }
@@ -28,9 +30,9 @@ export class RestoreFrontstageLayoutTool extends Tool {
     let frontstageDef: FrontstageDef | undefined;
 
     if (frontstageId) {
-      frontstageDef = await FrontstageManager.getFrontstageDef(frontstageId);
+      frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageId);
     } else {
-      frontstageDef = FrontstageManager.activeFrontstageDef;
+      frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     }
 
     if (frontstageDef)
@@ -51,10 +53,10 @@ export class RestoreFrontstageLayoutTool extends Tool {
  */
 export class RestoreAllFrontstagesTool extends Tool {
   public static override toolId = "RestoreAllFrontstages";
-  public static override iconSpec = "icon-view-layouts";
+  public static override iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgViewLayouts);
 
   public override async run() {
-    const frontstages = FrontstageManager.frontstageDefs;
+    const frontstages = InternalFrontstageManager.frontstageDefs;
     for (const [, frontstage] of frontstages) {
       frontstage.restoreLayout();
     }

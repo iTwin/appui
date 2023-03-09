@@ -9,22 +9,25 @@
 import "./TabTarget.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
-import { CursorTypeContext, DraggedTabContext } from "../base/NineZone";
+import { CursorTypeContext } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
 import { WidgetState } from "../state/WidgetState";
-import { WidgetIdContext, WidgetStateContext } from "../widget/Widget";
+import { WidgetIdContext } from "../widget/Widget";
 import { TabIdContext } from "../widget/ContentRenderer";
-import { assert } from "@itwin/core-bentley";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
 import { TabDropTargetState } from "../state/DropTargetState";
+import { useLayout } from "../base/LayoutStore";
+import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 /** @internal */
 export function TabTarget() {
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = React.useContext(DraggedTabContext);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
+  assert(!!widgetId);
   const tabIndex = useTabIndex();
   const [ref, targeted] = useTarget<HTMLDivElement>(useTargetArgs(widgetId, tabIndex));
   const allowedTarget = useAllowedWidgetTarget(widgetId);
@@ -47,12 +50,13 @@ export function TabTarget() {
 }
 
 function useTabIndex() {
-  const widget = React.useContext(WidgetStateContext);
-  assert(!!widget);
+  const widgetId = React.useContext(WidgetIdContext);
   const tabId = React.useContext(TabIdContext);
-  return React.useMemo(() => {
+  assert(!!widgetId);
+  return useLayout((state) => {
+    const widget = getWidgetState(state, widgetId);
     return widget.tabs.findIndex((id) => id === tabId);
-  }, [widget, tabId]);
+  });
 }
 
 function useTargetArgs(widgetId: WidgetState["id"], tabIndex: number) {

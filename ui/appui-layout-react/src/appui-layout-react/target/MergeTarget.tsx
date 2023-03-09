@@ -10,11 +10,12 @@ import "./MergeTarget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
-import { CursorTypeContext, DraggedTabContext } from "../base/NineZone";
+import { CursorTypeContext } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
 import { WidgetState } from "../state/WidgetState";
 import { WidgetDropTargetState } from "../state/DropTargetState";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
+import { useLayout } from "../base/LayoutStore";
 
 /** @internal */
 export interface MergeTargetProps {
@@ -25,8 +26,8 @@ export interface MergeTargetProps {
 export function MergeTarget(props: MergeTargetProps) {
   const { widgetId } = props;
   const cursorType = React.useContext(CursorTypeContext);
-  const draggedTab = React.useContext(DraggedTabContext);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
+  const draggedTab = useLayout((state) => !!state.draggedTab);
   const [ref, targeted] = useTarget<HTMLDivElement>(useTargetArgs(widgetId));
   const allowedTarget = useAllowedWidgetTarget(widgetId);
   // istanbul ignore next

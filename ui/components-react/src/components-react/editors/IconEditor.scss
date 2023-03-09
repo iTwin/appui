@@ -3,14 +3,13 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 $components-color-editor-item-height: 100%;
 
 .components-icon-editor {
-  font-family: $iui-font-family;
-  font-size: $iui-font-size;
-  color: $buic-foreground-body;
+  font-family: var(--iui-font-sans);
+  font-size: var(--iui-font-size-1);
+  color: var(--iui-color-text);
   border: none;
   box-sizing: border-box;
   height: $components-color-editor-item-height;

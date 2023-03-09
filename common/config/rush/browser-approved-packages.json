@@ -100,7 +100,7 @@
     },
     {
       "name": "@itwin/appui-abstract",
-      "allowedCategories": [ "edit", "extensions", "frontend", "internal", "tools" ]
+      "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "@itwin/appui-layout-react",
@@ -295,6 +295,10 @@
       "allowedCategories": [ "extensions", "frontend", "internal" ]
     },
     {
+      "name": "@itwin/itwinui-variables",
+      "allowedCategories": [ "frontend", "internal" ]
+    },
+    {
       "name": "@itwin/linear-referencing-common",
       "allowedCategories": [ "backend" ]
     },
@@ -327,24 +331,8 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "@itwin/presentation-backend",
-      "allowedCategories": [ "integration-testing", "internal", "tools" ]
-    },
-    {
       "name": "@itwin/presentation-common",
-      "allowedCategories": [ "backend", "common", "extensions", "frontend", "integration-testing", "internal", "tools" ]
-    },
-    {
-      "name": "@itwin/presentation-components",
-      "allowedCategories": [ "frontend", "internal", "tools" ]
-    },
-    {
-      "name": "@itwin/presentation-frontend",
-      "allowedCategories": [ "frontend", "integration-testing", "internal", "tools" ]
-    },
-    {
-      "name": "@itwin/presentation-testing",
-      "allowedCategories": [ "frontend", "internal" ]
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "@itwin/projects-client",
@@ -357,10 +345,6 @@
     {
       "name": "@itwin/service-authorization",
       "allowedCategories": [ "integration-testing", "internal" ]
-    },
-    {
-      "name": "@itwin/ui-items-providers-test",
-      "allowedCategories": [ "internal" ]
     },
     {
       "name": "@itwin/webgl-compatibility",
@@ -1113,6 +1097,10 @@
     {
       "name": "yargs",
       "allowedCategories": [ "backend", "common", "internal", "tools" ]
+    },
+    {
+      "name": "zustand",
+      "allowedCategories": [ "frontend" ]
     }
   ]
 }

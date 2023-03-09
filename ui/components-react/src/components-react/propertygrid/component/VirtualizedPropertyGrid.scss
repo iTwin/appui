@@ -23,19 +23,19 @@
 
 .virtualized-grid-node {
   > :not(.virtualized-grid-node-category) {
-    background: var(--iui-color-background-1);
+    background: var(--iui-color-background);
   }
 
   .nested-border-middle {
     height: 100%;
     padding: 0 4px;
     box-sizing: border-box;
-    border-left: 1px solid var(--iui-color-background-4);
-    border-right: 1px solid var(--iui-color-background-4);
+    border-left: 1px solid var(--iui-color-border);
+    border-right: 1px solid var(--iui-color-border);
   }
 
   .nested-border-bottom {
-    border-bottom: 1px solid var(--iui-color-background-4);
+    border-bottom: 1px solid var(--iui-color-border);
     padding-bottom: 4px;
   }
 
@@ -50,7 +50,7 @@
         // Compensate the negative margin by adding padding
         padding: 0 12px;
 
-        background: $buic-row-hover;
+        background: var(--iui-color-background-hover);
       }
     }
   }
@@ -61,11 +61,20 @@
     // Compensate the negative margin by adding padding (minus one for border)
     padding: 0px 11px;
 
-    background-color: $buic-row-selection;
-    border: 1px solid $buic-foreground-primary;
+    background-color: var(--iui-color-background-accent-muted);
+    border: 1px solid var(--iui-color-border-accent);
+  }
 
+  .components--hoverable {
     &:hover {
-      background: $buic-row-hover;
+      background: var(--iui-color-background-hover);
+
+      &:not(.components--selected) {
+        // Highlight the whole row of inner-most expandable block
+        margin: 0 -4px;
+        // Compensate the negative margin by adding padding
+        padding: 0 12px;
+      }
     }
   }
 }
@@ -82,7 +91,7 @@
 .virtualized-grid-node-custom-category {
   padding-top: 4px;
 
-  .iui-expandable-content>div {
+  .iui-expandable-content > div {
     padding: 0 4px 4px 4px;
   }
 }

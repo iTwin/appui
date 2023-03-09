@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
 import { Format, FormatProps, FormatterSpec, FormatTraits, getTraitString, UnitProps, UnitsProvider } from "@itwin/core-quantity";
 import { Checkbox } from "@itwin/itwinui-react";
@@ -118,9 +118,10 @@ describe("FormatPanel", () => {
       provideSecondaryChildren={provideSecondaryChildren}
     />);
 
-    await TestUtils.flushAsyncOperations();
-    const spanElement = renderedComponent.getByTestId("format-sample-formatted") as HTMLSpanElement;
-    expect(spanElement.textContent).to.be.eql(`123.45 m`);
+    await waitFor(() => {
+      const spanElement = renderedComponent.getByTestId("format-sample-formatted") as HTMLSpanElement;
+      expect(spanElement.textContent).to.be.eql(`123.45 m`);
+    });
   });
 
   it("should use generic format spec generator is not specified", async () => {
@@ -147,7 +148,7 @@ describe("FormatSample", () => {
     const pu = await unitsProvider.findUnitByName("Units.M");
     const formatterSpec = await provideFormatSpec(initialFormatProps, pu, unitsProvider, "numeric");
     const renderedComponent = render(<FormatSample formatSpec={formatterSpec} hideLabels />);
-    expect(renderedComponent.container.querySelector(".icon-progress-forward-2")).to.not.be.null;
+    expect(renderedComponent.getByTestId("progress-forward")).to.not.be.null;
   });
 });
 

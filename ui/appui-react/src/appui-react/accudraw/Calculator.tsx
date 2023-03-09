@@ -14,6 +14,7 @@ import { CommonProps, Icon, IconInput, Omit } from "@itwin/core-react";
 import { Button, Input } from "@itwin/itwinui-react";
 import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine";
 import { SquareButton, SquareButtonProps } from "./SquareButton";
+import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
 
 import backspaceIcon from "./backspace.svg";
 
@@ -148,13 +149,13 @@ export class Calculator extends React.PureComponent<CalculatorProps, CalculatorS
             styleType="cta"
             onClick={this._handleOk}
           >
-            <Icon iconSpec="icon-checkmark" />
+            <Icon iconSpec={<SvgCheckmark />} />
           </Button>
           <Button
             className={classnames("uifw-calculator-large-button", "uifw-calculator-cancel-button")}
             onClick={this._handleCancel}
           >
-            <Icon iconSpec="icon-remove" />
+            <Icon iconSpec={<SvgRemove />} />
           </Button>
         </div>
       </div>

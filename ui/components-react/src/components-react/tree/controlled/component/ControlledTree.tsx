@@ -13,7 +13,6 @@ import { SelectionMode } from "../../../common/selection/SelectionModes";
 import { UiComponents } from "../../../UiComponents";
 import { HighlightableTreeProps } from "../../HighlightingEngine";
 import { TreeImageLoader } from "../../ImageLoader";
-import { toRxjsObservable } from "../Observable";
 import { TreeEventDispatcher } from "../TreeEventDispatcher";
 import { TreeEvents } from "../TreeEvents";
 import { computeVisibleNodes, isTreeModelNode, TreeModel, TreeModelNode, TreeModelNodePlaceholder, VisibleTreeNodes } from "../TreeModel";
@@ -55,10 +54,7 @@ export interface ControlledTreeProps extends CommonProps {
   spinnerRenderer?: () => React.ReactElement;
   /** Custom renderer to be used when there is no data to show in tree. */
   noDataRenderer?: () => React.ReactElement;
-  /**
-   * Callback that is invoked when rendered items range changes.
-   * @beta
-   */
+  /** Callback that is invoked when rendered items range changes. */
   onItemsRendered?: (items: RenderedItemsRange) => void;
   /** Width of the tree renderer. */
   width: number;
@@ -108,7 +104,7 @@ export function ControlledTree(props: ControlledTreeProps) {
 function useRootNodeLoader(visibleNodes: VisibleTreeNodes, nodeLoader: ITreeNodeLoader): boolean {
   React.useEffect(() => {
     if (visibleNodes.getNumRootNodes() === undefined) {
-      const subscription = toRxjsObservable(nodeLoader.loadNode(visibleNodes.getModel().getRootNode(), 0)).subscribe();
+      const subscription = nodeLoader.loadNode(visibleNodes.getModel().getRootNode(), 0).subscribe();
       return () => subscription.unsubscribe();
     }
 

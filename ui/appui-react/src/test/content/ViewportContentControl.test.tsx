@@ -8,12 +8,14 @@ import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { MockRender, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, ConfigurableUiManager, ContentGroup, ContentLayoutManager, ContentViewManager,
-  FloatingContentControl, FloatingViewportContentControl, FrontstageConfig, FrontstageManager, FrontstageProvider, SupportsViewSelectorChange,
+  ConfigurableCreateInfo, ConfigurableUiControlType, ContentGroup,
+  FloatingContentControl, FloatingViewportContentControl, FrontstageConfig, FrontstageProvider, SupportsViewSelectorChange,
+  UiFramework,
   ViewportContentControl,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 const mySessionStorage = storageMock();
 
@@ -32,9 +34,8 @@ describe("ViewportContentControl", () => {
     await TestUtils.initializeUiFramework();
     await MockRender.App.startup();
 
-    ConfigurableUiManager.initialize();
-    FrontstageManager.isInitialized = false;
-    FrontstageManager.initialize();
+    InternalFrontstageManager.isInitialized = false;
+    InternalFrontstageManager.initialize();
   });
 
   after(async () => {
@@ -84,7 +85,7 @@ describe("ViewportContentControl", () => {
         contentGroup,
         viewNavigation: {
           id: "viewNavigation",
-          element: <>NavigationWidget</>,
+          content: <>NavigationWidget</>,
         },
       };
     }
@@ -96,20 +97,20 @@ describe("ViewportContentControl", () => {
     viewportMock.reset();
     viewportMock.setup((viewport) => viewport.view).returns(() => viewMock.object);
 
-    FrontstageManager.clearFrontstageProviders();
-    await FrontstageManager.setActiveFrontstageDef(undefined);
+    UiFramework.frontstages.clearFrontstageProviders();
+    await UiFramework.frontstages.setActiveFrontstageDef(undefined);
   });
 
   it("Frontstage should support ViewportContentControl", async () => {
     const frontstageProvider = new Frontstage1();
-    FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.id);
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageProvider.id);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(ContentLayoutManager.activeLayout?.id).to.eq("uia:singleView");
+      expect(UiFramework.content.layouts.activeLayout?.id).to.eq("uia:singleView");
 
-      const contentControl = ContentViewManager.getActiveContentControl();
+      const contentControl = UiFramework.content.getActiveContentControl();
       expect(contentControl).to.not.be.undefined;
 
       if (contentControl) {
@@ -125,14 +126,14 @@ describe("ViewportContentControl", () => {
 
   it("ViewportContentControl should return proper navigation aid for class name", async () => {
     const frontstageProvider = new Frontstage1();
-    FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.id);
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageProvider.id);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(ContentLayoutManager.activeLayout?.id).to.eq("uia:singleView");
+      expect(UiFramework.content.layouts.activeLayout?.id).to.eq("uia:singleView");
 
-      const contentControl = ContentViewManager.getActiveContentControl();
+      const contentControl = UiFramework.content.getActiveContentControl();
       expect(contentControl).to.not.be.undefined;
 
       if (contentControl) {
@@ -153,14 +154,14 @@ describe("ViewportContentControl", () => {
     }
   });
 
-  it("FrontstageManager.setActiveFrontstageDef should cause onActiveContentChangedEvent", async () => {
+  it("UiFramework.frontstages.setActiveFrontstageDef should cause onActiveContentChangedEvent", async () => {
     const spyMethod = sinon.spy();
-    const remove = ContentViewManager.onActiveContentChangedEvent.addListener(spyMethod);
+    const remove = UiFramework.content.onActiveContentChangedEvent.addListener(spyMethod);
 
     const frontstageProvider = new Frontstage1();
-    FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(Frontstage1.stageId);
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(Frontstage1.stageId);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     await TestUtils.flushAsyncOperations();
     expect(spyMethod.called).to.be.true;
@@ -186,35 +187,35 @@ describe("ViewportContentControl", () => {
     }
 
     const frontstageProvider = new Frontstage1();
-    FrontstageManager.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.id);
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageProvider.id);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(ContentLayoutManager.activeLayout?.id).to.eq("uia:singleView");
-      const contentControl = ContentViewManager.getActiveContentControl();
+      expect(UiFramework.content.layouts.activeLayout?.id).to.eq("uia:singleView");
+      const contentControl = UiFramework.content.getActiveContentControl();
       expect(contentControl).to.not.be.undefined;
 
       const floatingControl = new TestFloatingContentControl();
 
-      ContentViewManager.addFloatingContentControl(floatingControl);
-      ContentViewManager.setActiveContent(floatingControl.reactNode);
+      UiFramework.content.addFloatingContentControl(floatingControl);
+      UiFramework.content.setActive(floatingControl.reactNode);
 
-      let activeControl = ContentViewManager.getActiveContentControl();
+      let activeControl = UiFramework.content.getActiveContentControl();
       expect(activeControl).to.be.eql(floatingControl);
 
-      ContentViewManager.dropFloatingContentControl(floatingControl);
+      UiFramework.content.dropFloatingContentControl(floatingControl);
 
       const floatingViewportControl = new TestFloatingViewportContentControl();
-      ContentViewManager.addFloatingContentControl(floatingViewportControl);
+      UiFramework.content.addFloatingContentControl(floatingViewportControl);
       floatingViewportControl.reactNode = floatingViewportNode;
 
-      ContentViewManager.setActiveContent(floatingViewportControl.reactNode);
+      UiFramework.content.setActive(floatingViewportControl.reactNode);
 
-      activeControl = ContentViewManager.getActiveContentControl();
+      activeControl = UiFramework.content.getActiveContentControl();
       expect(activeControl).to.be.eql(floatingViewportControl);
 
-      ContentViewManager.dropFloatingContentControl(floatingViewportControl);
+      UiFramework.content.dropFloatingContentControl(floatingViewportControl);
     }
   });
 

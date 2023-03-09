@@ -8,10 +8,10 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { ToolbarOrientation, ToolbarUsage } from "@itwin/appui-abstract";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
 import { ToolWidgetComposer } from "./ToolWidgetComposer";
 import { useUiVisibility } from "../hooks/useUiVisibility";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 
 /**
  * Props for [[ContentToolWidgetComposer]].
@@ -32,14 +32,14 @@ export interface ContentToolWidgetComposerProps {
  * ```
  * ToolWidget with corner button
  * ```
- * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"} />;
+ * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />} />;
  * <ContentToolWidgetComposer cornerButton={cornerButton} />
  * ```
  * ToolWidget with custom corner button
  * ```
- * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"}
+ * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />}
  *   label="Toggle Backstage display",
- *   execute={() => BackstageManager.getBackstageToggleCommand().execute()} />;
+ *   execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
  * <ContentToolWidgetComposer cornerButton={cornerButton} />
  * ```
  *

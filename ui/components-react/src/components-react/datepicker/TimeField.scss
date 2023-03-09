@@ -11,13 +11,13 @@
   align-items: center;
   justify-content: flex-start;
   background-color: $buic-background-control;
-  border: 1px solid $buic-inputs-border;
-  border-radius: 3px;
+  border: 1px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
   box-shadow: var(--buic-inputs-boxshadow) 0px 1px 1px inset;
   box-sizing: border-box;
 
   &.has-error {
-    color: $buic-foreground-alert;
+    color: var(--iui-color-text-negative);
   }
 
   .components-time-input {
@@ -35,10 +35,11 @@
 
     &:focus {
       outline: 0px;
-      border: 1px solid $buic-inputs-border;
-      border-radius: 3px;
+      border: 1px solid var(--iui-color-border-foreground);
+      border-radius: var(--iui-border-radius-1);
       border-color: var(--buic-foreground-focus-border);
-      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
+        var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
       z-index: 1;
       /* bump z-index so drop shadow in not cut off by AM/PM */
     }
@@ -56,10 +57,11 @@
 
     &:focus {
       outline: 0px;
-      border: 1px solid $buic-inputs-border;
-      border-radius: 3px;
+      border: 1px solid var(--iui-color-border-foreground);
+      border-radius: var(--iui-border-radius-1);
       border-color: var(--buic-foreground-focus-border);
-      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px, var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
+      box-shadow: var(--buic-focus-boxshadow-gradient1) 0px 1px 1px,
+        var(--buic-focus-boxshadow-gradient2) 0px 0px 0px 2px;
     }
   }
 

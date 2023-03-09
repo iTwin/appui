@@ -6,15 +6,15 @@ import { render } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { FrontstageDef, FrontstageManager, WidgetDef, WidgetPanelsStatusBar } from "../../appui-react";
+import { FrontstageDef, UiFramework, WidgetDef, WidgetPanelsStatusBar } from "../../appui-react";
 import { childStructure } from "../TestUtils";
 
 describe("WidgetPanelsStatusBar", () => {
   it("should not render widget control", () => {
     const frontstageDef = new FrontstageDef();
-    const widget = WidgetDef.create({ id: "w1", element: <div title="my-control"></div> });
+    const widget = WidgetDef.create({ id: "w1", content: <div title="my-control"></div> });
     sinon.stub(frontstageDef, "statusBar").get(() => widget);
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => frontstageDef);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
     const { container } = render(<WidgetPanelsStatusBar />);
     expect(container).to.satisfy(childStructure([
       ".uifw-widgetPanels-statusBar .nz-messages + .nz-indicators",
@@ -22,7 +22,7 @@ describe("WidgetPanelsStatusBar", () => {
   });
 
   it("should not render", () => {
-    sinon.stub(FrontstageManager, "activeFrontstageDef").get(() => undefined);
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => undefined);
     const { container } = render(<WidgetPanelsStatusBar />);
     expect(container.childNodes).lengthOf(0);
   });

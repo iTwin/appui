@@ -68,6 +68,13 @@ export class TextEditor extends React.PureComponent<PropertyEditorProps, TextEdi
     if (this._isMounted)
       this.setState({
         inputValue: e.target.value,
+      }, async () => {
+        if (this.props.shouldCommitOnChange && this.props.onCommit && this.props.propertyRecord) {
+          const newValue = await this.getPropertyValue();
+          // istanbul ignore else
+          if (newValue)
+            this.props.onCommit({ propertyRecord: this.props.propertyRecord, newValue });
+        }
       });
   };
 

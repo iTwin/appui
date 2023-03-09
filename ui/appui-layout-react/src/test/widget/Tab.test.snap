@@ -17,7 +17,7 @@ exports[`WidgetTab should render active 1`] = `
 
 exports[`WidgetTab should render badge 1`] = `
 <div
-  class="nz-widget-tab"
+  class="nz-widget-tab nz-active"
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
@@ -37,7 +37,7 @@ exports[`WidgetTab should render badge 1`] = `
 
 exports[`WidgetTab should render first inactive 1`] = `
 <div
-  class="nz-widget-tab nz-first-inactive"
+  class="nz-widget-tab nz-active nz-first-inactive"
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
@@ -52,7 +52,7 @@ exports[`WidgetTab should render first inactive 1`] = `
 
 exports[`WidgetTab should render last not overflown 1`] = `
 <div
-  class="nz-widget-tab"
+  class="nz-widget-tab nz-active"
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
@@ -67,7 +67,7 @@ exports[`WidgetTab should render last not overflown 1`] = `
 
 exports[`WidgetTab should render minimized 1`] = `
 <div
-  class="nz-widget-tab nz-minimized"
+  class="nz-widget-tab nz-active nz-minimized"
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
@@ -82,15 +82,26 @@ exports[`WidgetTab should render minimized 1`] = `
 
 exports[`WidgetTab should render tab with icon only 1`] = `
 <div
-  class="nz-widget-tab"
+  class="nz-widget-tab nz-active"
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
   title=""
 >
   <i
-    class="icon icon-placeholder"
-  />
+    class="icon core-svg-icon"
+  >
+    <svg
+      fill="var(--iui-color-icon-muted, currentColor)"
+      height="1rem"
+      viewBox="0 0 16 16"
+      width="1rem"
+    >
+      <path
+        d="M0 0v16h16V0zm14.857 1.943v12.114L8.8 8zM8 7.2L1.943 1.143h12.114zm-.8.8l-6.057 6.057V1.943zm.8.8l6.057 6.057H1.943z"
+      />
+    </svg>
+  </i>
   <div
     class="nz-target-tabTarget nz-hidden"
   />
@@ -99,15 +110,26 @@ exports[`WidgetTab should render tab with icon only 1`] = `
 
 exports[`WidgetTab should render tab with text and icon 1`] = `
 <div
-  class="nz-widget-tab"
+  class="nz-widget-tab nz-active"
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
   title=""
 >
   <i
-    class="icon icon-placeholder"
-  />
+    class="icon core-svg-icon"
+  >
+    <svg
+      fill="var(--iui-color-icon-muted, currentColor)"
+      height="1rem"
+      viewBox="0 0 16 16"
+      width="1rem"
+    >
+      <path
+        d="M0 0v16h16V0zm14.857 1.943v12.114L8.8 8zM8 7.2L1.943 1.143h12.114zm-.8.8l-6.057 6.057V1.943zm.8.8l6.057 6.057H1.943z"
+      />
+    </svg>
+  </i>
   <span />
   <div
     class="nz-target-tabTarget nz-hidden"

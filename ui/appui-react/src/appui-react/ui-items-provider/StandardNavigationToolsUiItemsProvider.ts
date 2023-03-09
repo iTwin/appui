@@ -6,11 +6,10 @@
  * @module StandardUiItemsProvider
  */
 
-import {
-  CommonToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsProvider,
-} from "@itwin/appui-abstract";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
+import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { CoreTools } from "../tools/CoreToolDefinitions";
+import { UiItemsProvider } from "./UiItemsProvider";
 
 /**
  * Defines what tools to include from the provider. If any tools in the horizontal or vertical group are
@@ -41,8 +40,8 @@ export class StandardNavigationToolsUiItemsProvider implements UiItemsProvider {
 
   constructor(private defaultNavigationTools?: DefaultNavigationTools) { }
 
-  public provideToolbarButtonItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): CommonToolbarItem[] {
-    const items: CommonToolbarItem[] = [];
+  public provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
+    const items: ToolbarItem[] = [];
     if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Horizontal) {
 
       if (!this.defaultNavigationTools || !this.defaultNavigationTools.horizontal || this.defaultNavigationTools.horizontal.rotateView)

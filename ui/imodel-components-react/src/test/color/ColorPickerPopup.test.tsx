@@ -47,9 +47,9 @@ describe("<ColorPickerPopup/>", () => {
     expect(renderedComponent.getByTestId("components-colorpicker-popup-button")).to.exist;
     const pickerButton = renderedComponent.getByTestId("components-colorpicker-popup-button");
     expect(pickerButton.tagName).to.be.equal("BUTTON");
-    expect(renderedComponent.container.querySelector(".icon-caret-down")).not.to.be.null;
+    expect(renderedComponent.getByTestId("caret-down")).not.to.be.null;
     fireEvent.click(pickerButton);
-    expect(renderedComponent.container.querySelector(".icon-caret-up")).not.to.be.null;
+    expect(renderedComponent.getByTestId("caret-up")).not.to.be.null;
 
     const panel = renderedComponent.getByTestId("core-popup");
     const colorSwatch = panel.querySelector(".iui-color-swatch") as HTMLElement;
@@ -216,7 +216,7 @@ describe("<ColorPickerPopup/>", () => {
     fireEvent.click(pickerButton);
 
     const popupDiv = renderedComponent.getByTestId("core-popup");
-    const inputs = popupDiv.querySelectorAll(".iui-input.iui-small");
+    const inputs = popupDiv.querySelectorAll('.iui-input[data-iui-size="small"]');
     fireEvent.change(inputs[0], { target: { value: "100" } });
     expect((inputs[0] as HTMLInputElement).value).to.eq("100");
     fireEvent.keyDown(inputs[0], { key: SpecialKey.Enter });
@@ -238,7 +238,7 @@ describe("<ColorPickerPopup/>", () => {
     // const popupDiv = renderedComponent.container.querySelector(".iui-color-selection-wrapper") as HTMLElement;
     // expect(popupDiv).not.to.be.null;
     const popupDiv = renderedComponent.getByTestId("core-popup");
-    const inputs = popupDiv.querySelectorAll(".iui-input.iui-small");
+    const inputs = popupDiv.querySelectorAll('.iui-input[data-iui-size="small"]');
     fireEvent.change(inputs[0], { target: { value: "100" } });
     expect((inputs[0] as HTMLInputElement).value).to.eq("100");
     fireEvent.keyDown(inputs[0], { key: SpecialKey.Enter });

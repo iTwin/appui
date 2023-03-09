@@ -9,12 +9,12 @@ import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
 import { RealityDataAccessClient, RealityDataClientOptions } from "@itwin/reality-data-client";
-import { getClassName, UiItemsManager } from "@itwin/appui-abstract";
+import { getClassName } from "@itwin/appui-abstract";
 import {
   ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, FrontstageManager, IModelViewportControl, InitialAppUiSettings,
+  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, IModelViewportControl, InitialAppUiSettings,
   ModalFrontstageClosedEventArgs, SafeAreaContext, SafeAreaInsets, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
-  ToolbarDragInteractionContext, UiFramework, UiShowHideManager, UiStateStorageHandler,
+  ToolbarDragInteractionContext, UiFramework, UiItemsManager, UiStateStorageHandler,
 } from "@itwin/appui-react";
 import { assert, Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
 import { BentleyCloudRpcManager, BentleyCloudRpcParams, RpcConfiguration } from "@itwin/core-common";
@@ -28,8 +28,6 @@ import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 // import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
 // import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
-import { createFavoritePropertiesStorage, DefaultFavoritePropertiesStorageTypes, Presentation } from "@itwin/presentation-frontend";
-import { IModelsClient } from "@itwin/imodels-client-management";
 import { getSupportedRpcs } from "../common/rpcs";
 import { loggerCategory, TestAppConfiguration } from "../common/TestAppConfiguration";
 import { AppUi } from "./appui/AppUi";
@@ -39,9 +37,10 @@ import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTa
 // import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import {
   AbstractUiItemsProvider, ApplicationLayoutContext, ApplicationLayoutProvider, AppUiTestProviders, ContentLayoutStage, CustomContentFrontstage,
-  CustomFrontstageProvider, FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, MessageUiItemsProvider, WidgetApiStage,
+  CustomFrontstageProvider, FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, MessageUiItemsProvider, SynchronizedFloatingViewportStage, WidgetApiStage,
 } from "@itwin/appui-test-providers";
 import { useHandleURLParams } from "./UrlParams";
+import { addExampleFrontstagesToBackstage, registerExampleFrontstages } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -133,7 +132,6 @@ export class SampleAppIModelApp {
   public static sampleAppNamespace?: string;
   public static iModelParams: SampleIModelParams | undefined;
   public static testAppConfiguration: TestAppConfiguration | undefined;
-  public static hubClient?: IModelsClient;
   private static _appStateManager: StateManager | undefined;
 
   public static get store(): Store<RootState> {
@@ -186,17 +184,6 @@ export class SampleAppIModelApp {
   public static async initialize() {
     await UiFramework.initialize(undefined, undefined);
 
-    // initialize Presentation
-    await Presentation.initialize({
-      presentation: {
-        activeLocale: IModelApp.localization.getLanguageList()[0],
-      },
-      favorites: {
-        storage: createFavoritePropertiesStorage(DefaultFavoritePropertiesStorageTypes.BrowserLocalStorage),
-      },
-    });
-    Presentation.selection.scopes.activeScope = "top-assembly";
-
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
     IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
 
@@ -205,7 +192,6 @@ export class SampleAppIModelApp {
 
     // default to showing imperial formatted units
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-    Presentation.presentation.activeUnitSystem = "imperial";
     await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)); // pass true to save per imodel
 
     await FrontendDevTools.initialize();
@@ -229,7 +215,7 @@ export class SampleAppIModelApp {
     UiFramework.registerUserSettingsProvider(new AppUiSettings(defaults));
 
     UiFramework.useDefaultPopoutUrl = true;
-    UiShowHideManager.autoHideUi = false;
+    UiFramework.visibility.autoHideUi = false;
 
     // initialize state from all registered UserSettingsProviders
     await UiFramework.initializeStateFromUserSettingsProviders();
@@ -246,7 +232,7 @@ export class SampleAppIModelApp {
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     CustomFrontstageProvider.register(AppUiTestProviders.localizationNamespace);
-
+    SynchronizedFloatingViewportStage.register(AppUiTestProviders.localizationNamespace);
     // try starting up event loop if not yet started so key-in palette can be opened
     IModelApp.startEventLoop();
   }
@@ -274,6 +260,9 @@ export class SampleAppIModelApp {
     let stageId: string;
     const defaultFrontstage = MainFrontstage.stageId;
 
+    registerExampleFrontstages();
+    addExampleFrontstagesToBackstage();
+
     // Reset QuantityFormatter UnitsProvider with new iModelConnection
     // Remove comments once RPC error processing is fixed
     // const schemaLocater = new ECSchemaRpcLocater(iModelConnection);
@@ -298,9 +287,9 @@ export class SampleAppIModelApp {
       }
     }
 
-    const frontstageDef = await FrontstageManager.getFrontstageDef(stageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(stageId);
     if (frontstageDef) {
-      FrontstageManager.setActiveFrontstageDef(frontstageDef).then(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
+      UiFramework.frontstages.setActiveFrontstageDef(frontstageDef).then(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
         // Frontstage & ScreenViewports are ready
         Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Frontstage & ScreenViewports are ready`);
       });
@@ -359,8 +348,8 @@ export class SampleAppIModelApp {
   }
 
   public static async showFrontstage(frontstageId: string) {
-    const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageId);
-    await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageId);
+    await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   }
 }
 
@@ -396,11 +385,11 @@ const SampleAppViewer = () => {
   };
 
   React.useEffect(() => {
-    FrontstageManager.onFrontstageDeactivatedEvent.addListener(_handleFrontstageDeactivatedEvent);
-    FrontstageManager.onModalFrontstageClosedEvent.addListener(_handleModalFrontstageClosedEvent);
+    UiFramework.frontstages.onFrontstageDeactivatedEvent.addListener(_handleFrontstageDeactivatedEvent);
+    UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(_handleModalFrontstageClosedEvent);
     return () => {
-      FrontstageManager.onFrontstageDeactivatedEvent.removeListener(_handleFrontstageDeactivatedEvent);
-      FrontstageManager.onModalFrontstageClosedEvent.removeListener(_handleModalFrontstageClosedEvent);
+      UiFramework.frontstages.onFrontstageDeactivatedEvent.removeListener(_handleFrontstageDeactivatedEvent);
+      UiFramework.frontstages.onModalFrontstageClosedEvent.removeListener(_handleModalFrontstageClosedEvent);
     };
   }, []);
 
@@ -456,7 +445,6 @@ async function main() {
   Logger.initializeToConsole();
   Logger.setLevelDefault(LogLevel.Warning);
   Logger.setLevel(loggerCategory, LogLevel.Info);
-  Logger.setLevel("ui-framework.UiFramework", LogLevel.Info);
   Logger.setLevel("ViewportComponent", LogLevel.Info);
 
   ToolAdmin.exceptionHandler = async (err: any) => Promise.resolve(UnexpectedErrors.handle(err));
@@ -475,8 +463,6 @@ async function main() {
     BingMaps: SampleAppIModelApp.testAppConfiguration.bingMapsKey ? { key: "key", value: SampleAppIModelApp.testAppConfiguration.bingMapsKey } : undefined,
     MapboxImagery: SampleAppIModelApp.testAppConfiguration.mapBoxKey ? { key: "access_token", value: SampleAppIModelApp.testAppConfiguration.mapBoxKey } : undefined,
   };
-
-  // const iModelClient = new IModelsClient({ api: { baseUrl: `https://${process.env.IMJS_URL_PREFIX ?? ""}api.bentley.com/imodels` } });
 
   const realityDataClientOptions: RealityDataClientOptions = {
     /** API Version. v1 by default */

@@ -13,18 +13,18 @@
     @include uicore-buttons-button;
 
     padding:            $uicore-button-padding-bordered $uicore-bordered-padding;
-    border-color:       $buic-foreground-disabled;
+    border-color:       var(--iui-color-border-foreground);
     background-color:   transparent;
-    color:              $buic-text-color;
+    color:              var(--iui-color-text);
 
     &:hover {
 
-      border-color:       $buic-foreground-body;
-      color:              $buic-foreground-activehover;
+      border-color:       var(--iui-color-border-foreground-hover);
+      color:              var(--iui-color-text-hover);
     }
 
     &:active, &:focus {
 
-      border-color:       $buic-foreground-activehover;
+      border-color:       var(--iui-color-border-foreground-hover);
     }
 }

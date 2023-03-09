@@ -10,9 +10,9 @@
   box-sizing: border-box;
   border-color: $buic-background-widget-stroke;
   border-width: 1px;
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   border-style: solid;
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
   background: $buic-background-window;
   position: relative;
   display: flex;
@@ -20,12 +20,12 @@
   align-items: center;
   justify-content: center;
 
-  >.sheet-title {
+  > .sheet-title {
     font-size: 12px;
     font-weight: bold;
   }
 
-  >.sheet-name {
+  > .sheet-name {
     cursor: pointer;
     font-size: 11px;
     z-index: 1;
@@ -38,40 +38,24 @@
     }
   }
 
-  >.sheet-container {
+  > .sheet-container {
     flex: 1 1 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 11px;
 
-    >* {
+    > * {
       text-align: center;
-    }
-
-    >.sheet-caret {
-      cursor: pointer;
-      font-size: 15px;
-      filter: drop-shadow(0 1px 0 $buic-foreground-body-reverse);
-      z-index: 1;
-
-      &:active {
-        color: $buic-foreground-body-reverse;
-        filter: drop-shadow(0 0 0 transparent);
-      }
-
-      &:hover {
-        color: $buic-foreground-primary;
-      }
-
-      &:focus {
-        outline: none;
-      }
     }
   }
 
-  >.gradient {
-    background: linear-gradient(to bottom, $buic-button-gradient1, $buic-button-gradient2);
+  > .gradient {
+    background: linear-gradient(
+      to bottom,
+      $buic-button-gradient1,
+      $buic-button-gradient2
+    );
     position: absolute;
     width: 100%;
     height: 100%;

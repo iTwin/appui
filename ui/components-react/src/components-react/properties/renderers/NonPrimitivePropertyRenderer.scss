@@ -10,7 +10,7 @@
   display: grid;
   grid-row-gap: 10px;
 
-  border-radius: 3px;
+  border-radius: var(--iui-border-radius-1);
   border: solid 1px $uicore-gray-9;
 
   background-color: #ffffff;

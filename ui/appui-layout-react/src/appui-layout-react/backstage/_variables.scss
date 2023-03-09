@@ -3,14 +3,13 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/itwinui-css/scss/style/typography";
 
 // backstage common values
 $nz-backstage-width: 300px;
-$nz-backstage-overlay-background: rgba(#222, 0.60);
+$nz-backstage-overlay-background: rgba(0,0,0,var(--iui-opacity-4));
 
-$nz-backstage-item-font-size: $iui-font-size-leading;
-$nz-backstage-subtitle-font-size: $iui-font-size;
+$nz-backstage-item-font-size: var(--iui-font-size-2);
+$nz-backstage-subtitle-font-size: var(--iui-font-size-1);
 
 $nz-backstage-item-spacing: 24px;
 $nz-backstage-item-spacing-medium: 20px;
@@ -25,8 +24,8 @@ $nz-backstage-divider-height: 1px;
 $nz-backstage-header-divider-width: 2px;
 
 $nz-backstage-background: $buic-background-window;
-$nz-backstage-item-color: $buic-text-color;
-$nz-backstage-item-color-disabled: $buic-text-color-disabled;
+$nz-backstage-item-color: var(--iui-color-text);
+$nz-backstage-item-color-disabled: var(--iui-color-text-disabled);
 $nz-backstage-item-active-background: $buic-background-tab-inactive;
 $nz-backstage-item-hover-background: $buic-row-hover;
 $nz-backstage-highlight-bar-background: $buic-foreground-primary;

@@ -2,27 +2,28 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
-@import "~@itwin/itwinui-css/scss/style/variables";
 
 // 40px is used to ensure scrubber is not drawn behind a widget tab
+
+$uifw-view-overlay-indent: calc(var(--iui-size-l) * 2);
+
 .uifw-view-overlay {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: calc(100% - 80px);
+  width: calc(100% - #{$uifw-view-overlay-indent} * 2);
   height: auto;
   position: absolute;
-  bottom: 10px;
-  left: 40px;
-  right: 40px;
+  bottom: var(--iui-size-s);
+  left: $uifw-view-overlay-indent;
+  right: $uifw-view-overlay-indent;
   pointer-events: none;
   @include uicore-z-index(view-overlay);
 }
 
-$widget-transparency: 0.90;
+$widget-transparency: 0.9;
 
 .uifw-animation-overlay {
   display: flex;
@@ -31,14 +32,15 @@ $widget-transparency: 0.90;
   width: 80%;
   max-width: 1000px;
   height: auto;
-  background: $buic-background-dialog;
-  border: 1px solid $buic-background-dialog-stroke;
-  border-radius: $iui-border-radius;
+  background: var(--iui-color-background);
+  border: 1px solid var(--iui-color-border);
+  border-radius: var(--iui-border-radius-1);
   // overflow: hidden;
   opacity: $widget-transparency;
+  transition: opacity var(--iui-duration-1) ease;
   pointer-events: auto;
 
   &:hover {
-    opacity: 1.00;
+    opacity: 1;
   }
 }

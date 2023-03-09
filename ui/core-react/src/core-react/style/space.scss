@@ -2,16 +2,12 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/itwinui-css/scss/style/space";
-
-// @warn "space.scss is deprecated. Use '~@itwin/itwinui-css/scss/style/space' instead.";
-
-$uicore-xxs:           $iui-xxs;    // 2px
-$uicore-xs:            $iui-xs;     // 4px
-$uicore-s:             $iui-s;      // 8px
-$uicore-sm:            $iui-sm;     // 12px
-$uicore-m:             $iui-m;      // 16px
-$uicore-l:             $iui-l;      // 24px
-$uicore-xl:            $iui-xl;     // 32px
-$uicore-xxl:           $iui-xxl;    // 64px
-$uicore-3xl:           $iui-3xl;    // 96px
+$uicore-xxs: var(--iui-size-3xs); // 2px
+$uicore-xs: var(--iui-size-2xs); // 4px
+$uicore-s: var(--iui-size-xs); // 8px
+$uicore-sm: var(--iui-size-s); // 12px
+$uicore-m: var(--iui-size-m); // 16px
+$uicore-l: var(--iui-size-l); // 24px
+$uicore-xl: var(--iui-size-xl); // 32px
+$uicore-xxl: var(--iui-size-2xl); // 64px
+$uicore-3xl: var(--iui-size-3xl); // 96px

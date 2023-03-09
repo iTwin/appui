@@ -136,7 +136,7 @@ export function BetaBadge(props: CommonProps): JSX.Element;
 // @public
 export function BlockText(props: TextProps): JSX.Element;
 
-// @public
+// @public @deprecated
 export function BodyText(props: TextProps): JSX.Element;
 
 // @internal
@@ -228,6 +228,19 @@ export interface CommonDivProps extends React_2.AllHTMLAttributes<HTMLDivElement
 export interface CommonProps extends ClassNameProps {
     itemId?: string;
     style?: React_2.CSSProperties;
+}
+
+// @public
+export class ConditionalIconItem {
+    constructor(iconGetter: () => IconSpec, syncEventIds: string[], value?: IconSpec);
+    static getValue(conditionalValue: ConditionalIconItem | string | undefined): IconSpec | undefined;
+    // (undocumented)
+    readonly iconGetter: () => IconSpec;
+    refresh(): boolean;
+    static refreshValue(conditionalValue: ConditionalIconItem | string | undefined, eventIds: Set<string>): boolean;
+    // (undocumented)
+    readonly syncEventIds: string[];
+    get value(): IconSpec;
 }
 
 // @public
@@ -760,7 +773,7 @@ export interface IconProps extends CommonProps {
 }
 
 // @public
-export type IconSpec = string | ConditionalStringValue | React_2.ReactNode;
+export type IconSpec = string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem;
 
 // @public
 export class ImageCheckBox extends React_2.PureComponent<ImageCheckBoxProps> {
@@ -1020,8 +1033,9 @@ export interface MessageBoxProps extends CommonProps {
 
 // @public
 export class MessageContainer extends React_2.PureComponent<MessageContainerProps> {
-    // (undocumented)
-    static getIconClassName(severity: MessageSeverity, hollow?: boolean): string;
+    static getIcon(severity: MessageSeverity, hollow?: boolean): IconSpec;
+    // @deprecated
+    static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string;
     // (undocumented)
     render(): JSX.Element;
 }
@@ -1052,7 +1066,7 @@ export interface MessageRendererProps extends ClassNameProps {
 // @public
 export type MessageType = string | HTMLElement | ReactMessage;
 
-// @public
+// @public @deprecated
 export function MutedText(props: TextProps): JSX.Element;
 
 // @internal
@@ -1089,6 +1103,8 @@ export interface NumberInputProps extends Omit<InputProps_2, "min" | "max" | "st
     containerClassName?: string;
     containerStyle?: React_2.CSSProperties;
     format?: (num: number | null | undefined, formattedValue: string) => string;
+    // @internal
+    isControlled?: boolean;
     max?: number;
     min?: number;
     onChange?: (value: number | undefined, stringValue: string) => void;
@@ -1550,7 +1566,7 @@ export enum SortDirection {
 // @public
 export type StepFunctionProp = number | ((direction: string) => number | undefined);
 
-// @public
+// @public @deprecated
 export function StyledText(props: StyledTextProps): JSX.Element;
 
 // @public
@@ -1569,17 +1585,6 @@ export interface SvgPathProps extends CommonProps {
     paths: string[];
     viewBoxHeight: number;
     viewBoxWidth: number;
-}
-
-// @public @deprecated
-export class SvgSprite extends React_2.PureComponent<SvgSpriteProps> {
-    // (undocumented)
-    render(): JSX.Element;
-}
-
-// @public @deprecated
-export interface SvgSpriteProps extends CommonProps {
-    src: string;
 }
 
 // @public
@@ -1870,7 +1875,7 @@ export const useProximityToMouse: (elementSet: WidgetElementSet, snap?: boolean,
 export function useRefEffect<T>(callback: (instance: T | null) => (void | (() => void)), deps: ReadonlyArray<any>): (instance: T | null) => void;
 
 // @internal
-export function useRefs<T>(...refs: ReadonlyArray<React_2.Ref<T>>): (instance: T | null) => void;
+export function useRefs<T>(...refs: ReadonlyArray<React_2.Ref<T> | undefined>): (instance: T | null) => void;
 
 // @internal
 export function useRefState<T>(): [React_2.Ref<T>, T | undefined];

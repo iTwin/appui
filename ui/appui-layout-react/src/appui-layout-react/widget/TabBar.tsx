@@ -9,15 +9,16 @@
 import "./TabBar.scss";
 import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
 import { Point, Timer } from "@itwin/core-react";
 import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
 import { PointerCaptorArgs, PointerCaptorEvent, usePointerCaptor } from "../base/usePointerCaptor";
 import { TabBarButtons } from "./Buttons";
-import { FloatingWidgetIdContext } from "./FloatingWidget";
 import { WidgetTabs } from "./Tabs";
 import { WidgetIdContext } from "./Widget";
 import { useDoubleClick } from "../widget-panels/Grip";
+import { useFloatingWidgetId } from "./FloatingWidget";
 
 /** @internal */
 export interface WidgetTabBarProps {
@@ -25,10 +26,11 @@ export interface WidgetTabBarProps {
 }
 
 /** @internal */
-export const WidgetTabBar = React.memo(function WidgetTabBar(props: WidgetTabBarProps) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+export function WidgetTabBar(props: WidgetTabBarProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const id = React.useContext(WidgetIdContext);
-  const floatingWidgetId = React.useContext(FloatingWidgetIdContext);
+  const floatingWidgetId = useFloatingWidgetId();
+  assert(!!id);
   const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
   const handleDoubleClick = React.useCallback(() => {
     floatingWidgetId && dispatch({
@@ -90,7 +92,7 @@ export const WidgetTabBar = React.memo(function WidgetTabBar(props: WidgetTabBar
       <TabBarButtons />
     </div>
   );
-});
+}
 
 /** Hook to control drag interactions.
  * Starts drag interaction after pointer moves or after timeout.

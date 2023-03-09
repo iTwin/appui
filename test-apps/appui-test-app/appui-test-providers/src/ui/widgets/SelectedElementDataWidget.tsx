@@ -3,33 +3,22 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { WidgetState } from "@itwin/appui-abstract";
-import { useSpecificWidgetDef } from "@itwin/appui-react";
+import { UiFramework, useSpecificWidgetDef, WidgetState } from "@itwin/appui-react";
 import { Centered } from "@itwin/core-react";
-import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@itwin/presentation-frontend";
 import * as React from "react";
 
 /** Hook used to return ids from selected element */
-export function useIdOfSelectedElements(className?: string) {
-  const [locatedIds, setLocatedIds] = React.useState<string[]>([]);
+export function useIdOfSelectedElements() {
+  const [locatedIds, setLocatedIds] = React.useState<string[]>([]); // TODO: IModelApp
 
   React.useEffect(() => {
-    return Presentation.selection.selectionChange.addListener(async (evt: SelectionChangeEventArgs, selectionProvider: ISelectionProvider) => {
-      const selection = selectionProvider.getSelection(evt.imodel, evt.level);
-      if (selection.isEmpty) {
-        setLocatedIds([]);
-      } else {
-        if (selection.instanceKeys.size !== 0) {
-          const selectIds: string[] = [];
-          selection.instanceKeys.forEach((currentIds: Set<string>, key: string) => {
-            if (!className || className && key === className)
-              selectIds.push(...currentIds);
-          });
-          setLocatedIds(selectIds);
-        }
-      }
+    const iModel = UiFramework.getIModelConnection();
+    return iModel?.selectionSet.onChanged.addListener((ev) => {
+      const selection = ev.set;
+      const selectIds = Array.from(selection.elements);
+      setLocatedIds(selectIds);
     });
-  }, [className]);
+  }, []);
 
   return locatedIds;
 }

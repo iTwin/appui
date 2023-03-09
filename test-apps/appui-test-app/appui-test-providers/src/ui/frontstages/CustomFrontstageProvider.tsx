@@ -4,14 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton,
-  BackstageManager,
-  ConfigurableCreateInfo,
-  ConfigurableUiManager,
-  ContentControl,
-  ContentGroup, ContentToolWidgetComposer, CoreTools, FrontstageConfig, FrontstageManager, FrontstageProvider, StagePanelState, StandardContentToolsUiItemsProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, StatusBarWidgetComposerControl, ViewToolWidgetComposer,
+  BackstageAppButton, ConfigurableCreateInfo, ContentControl, ContentGroup,
+  ContentToolWidgetComposer, CoreTools, FrontstageConfig, FrontstageProvider, StagePanelState,
+  StandardContentToolsUiItemsProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider,
+  StatusBarComposer, UiFramework, UiItemsManager, ViewToolWidgetComposer,
 } from "@itwin/appui-react";
-import { StandardContentLayouts, UiItemsManager } from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { CustomStageUiItemsProvider } from "../providers/CustomStageUiItemsProvider";
 
 class CustomContentControl extends ContentControl {
@@ -51,23 +49,23 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: `${id}-contentManipulationTools`,
-        element: <ContentToolWidgetComposer
+        content: <ContentToolWidgetComposer
           cornerButton={
             <BackstageAppButton label="Toggle Backstage" icon="icon-bentley-systems"
-              execute={() => BackstageManager.getBackstageToggleCommand().execute()} />
+              execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />
           }
         />,
       },
       viewNavigation: {
         id: `${id}-viewNavigationTools`,
-        element: <ViewToolWidgetComposer />,
+        content: <ViewToolWidgetComposer />,
       },
       toolSettings: {
         id: `${id}-toolSettings`,
       },
       statusBar: {
         id: `${id}-statusBar`,
-        control: StatusBarWidgetComposerControl,
+        content: <StatusBarComposer key={UiFramework.frontstages.activeFrontstageId} items={[]} />,
       },
       leftPanel: {
         size: 500,
@@ -77,7 +75,7 @@ export class CustomFrontstageProvider extends FrontstageProvider {
             {
               id: "widget-1",
               label: "Widget 1",
-              element: <>Frontstage provided widget: <b>widget-1</b></>,
+              content: <>Frontstage provided widget: <b>widget-1</b></>,
             },
           ],
         },
@@ -106,8 +104,8 @@ export class CustomFrontstageProvider extends FrontstageProvider {
     // Provides standard status fields for stage
     UiItemsManager.register(new StandardStatusbarUiItemsProvider(), { providerId: "widget-api-stage-standardStatusItems", stageIds: [CustomFrontstageProvider.stageId] });
 
-    ConfigurableUiManager.addFrontstageProvider(new CustomFrontstageProvider());
-    FrontstageManager.onFrontstageActivatedEvent.addListener(({ activatedFrontstageDef }) => {
+    UiFramework.frontstages.addFrontstageProvider(new CustomFrontstageProvider());
+    UiFramework.frontstages.onFrontstageActivatedEvent.addListener(({ activatedFrontstageDef }) => {
       if (activatedFrontstageDef.id !== CustomFrontstageProvider.stageId)
         return;
       const defaultTool = CoreTools.selectElementCommand;

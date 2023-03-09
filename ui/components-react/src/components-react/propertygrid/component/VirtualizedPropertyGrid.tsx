@@ -37,7 +37,7 @@ import { CommonPropertyGridProps, PropertyGridCommons } from "./PropertyGridComm
 import { PropertyGridEventsRelatedPropsSupplier } from "./PropertyGridEventsRelatedPropsSupplier";
 
 /** Properties for [[VirtualizedPropertyGrid]] React component
- * @beta
+ * @public
  */
 export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
   model: IPropertyGridModel;
@@ -82,7 +82,7 @@ export interface PropertyGridInternalContext {
 
 /**
  * Context of the surrounding [VirtualizedPropertyGrid]($components-react) component.
- * @beta
+ * @public
  */
 export interface VirtualizedPropertyGridContext {
   orientation: Orientation;
@@ -128,7 +128,7 @@ const [
 
 /**
  * VirtualizedPropertyGrid React component.
- * @beta
+ * @public
  */
 export class VirtualizedPropertyGrid extends React.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {
   private _listRef = React.createRef<VariableSizeList>();
@@ -209,7 +209,7 @@ export class VirtualizedPropertyGrid extends React.Component<VirtualizedProperty
    * @returns current height of node.
    */
   private calculateNodeHeight(node: FlatGridItem) {
-    const categoryHeaderHeight = 35;
+    const categoryHeaderHeight = 38;
     const categoryHeaderPadding = 4;
     const categoryPropertyHeight = 27;
     const bottomBorderPadding = 5;
