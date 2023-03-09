@@ -160,6 +160,17 @@
     ],
     "rules": {
       "@itwin/no-internal": "error"
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/test/**/*.test.ts",
+          "**/test/**/*.test.tsx"
+        ],
+        "rules": {
+          "@itwin/no-internal": "off"
+        }
+      }
+    ]
   }
 }
