@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .player-button {
   width: 38px;
@@ -13,19 +12,17 @@
   font-size: 16px;
   outline: none;
   border-radius: var(--iui-border-radius-1);
-  border: solid 1px $buic-background-5;
-  // background-image: linear-gradient(to bottom, $buic-background-1, $buic-background-2);
-  background-image: linear-gradient(
-      to bottom,
-      $buic-background-3,
-      $buic-background-3
-    ),
-    linear-gradient(to bottom, $buic-background-1, $buic-background-1);
-  color: $buic-foreground-body;
-
+  border: solid 1px var(--iui-color-border-foreground);
+  background-color: var(--iui-color-background);
+  color: var(--iui-color-icon);
   cursor: pointer;
 
   &:hover {
-    color: $buic-foreground-activehover;
+    color: var(--iui-color-icon-hover);
+  }
+
+  &:focus-visible {
+    outline: 1px solid var(--iui-color-border-accent);
+    outline-offset: -1px;
   }
 }

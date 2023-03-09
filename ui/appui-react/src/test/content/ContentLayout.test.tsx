@@ -12,7 +12,7 @@ import {
   FloatingContentControl, FrontstageConfig, FrontstageProvider, UiFramework,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ContentLayout", () => {
 
@@ -365,7 +365,9 @@ describe("SingleContentLayout", () => {
 
     UiFramework.content.setActive(floatingControl.reactNode, true);
 
-    expect(screen.getByText("Test").parentElement).to.satisfy(childStructure("div+.uifw-contentlayout-overlay-inactive"));
+    await waitFor(() => {
+      expect(screen.getByText("Test").parentElement).to.satisfy(childStructure("div+.uifw-contentlayout-overlay-inactive"));
+    });
 
     UiFramework.content.dropFloatingContentControl(floatingControl);
   });

@@ -136,7 +136,7 @@ export function BetaBadge(props: CommonProps): JSX.Element;
 // @public
 export function BlockText(props: TextProps): JSX.Element;
 
-// @public
+// @public @deprecated
 export function BodyText(props: TextProps): JSX.Element;
 
 // @internal
@@ -1066,7 +1066,7 @@ export interface MessageRendererProps extends ClassNameProps {
 // @public
 export type MessageType = string | HTMLElement | ReactMessage;
 
-// @public
+// @public @deprecated
 export function MutedText(props: TextProps): JSX.Element;
 
 // @internal
@@ -1566,7 +1566,7 @@ export enum SortDirection {
 // @public
 export type StepFunctionProp = number | ((direction: string) => number | undefined);
 
-// @public
+// @public @deprecated
 export function StyledText(props: StyledTextProps): JSX.Element;
 
 // @public

@@ -18,8 +18,9 @@
   width: $nz-backstage-width;
   height: 100%;
   font-size: $nz-backstage-item-font-size;
-  color: $nz-backstage-item-color;
-  background-color: $nz-backstage-background;
+  color: var(--iui-color-text);
+  background-color: var(--iui-color-background);
+  border-right: 1px solid var(--iui-color-border);
   transform: translateX(-100%);
   box-sizing: border-box;
 
@@ -48,8 +49,7 @@
   }
 
   > .nz-header {
-    border-bottom: $nz-backstage-header-divider-width solid
-      $nz-backstage-divider-color;
+    border-bottom: $nz-backstage-header-divider-width solid var(--iui-color-border-subtle);
   }
 
   > .nz-footer {

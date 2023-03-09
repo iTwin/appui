@@ -8,7 +8,7 @@ import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import { MockRender, ToolAssistance, ToolAssistanceImage, ToolAssistanceInputMethod } from "@itwin/core-frontend";
 import { LocalStateStorage } from "@itwin/core-react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import {
   AppNotificationManager, CursorPopupManager, StatusBar, ToolAssistanceField, UiFramework,
 } from "../../../appui-react";
@@ -16,15 +16,13 @@ import TestUtils, { selectorMatches, storageMock, userEvent } from "../../TestUt
 
 describe(`ToolAssistanceField`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
+  beforeEach(async () => {
     theUserTo = userEvent.setup();
-  });
-  const uiSettingsStorage = new LocalStateStorage({ localStorage: storageMock() } as Window);
-
-  before(async () => {
+    CursorPopupManager.clearPopups();
     await uiSettingsStorage.saveSetting("ToolAssistance", "showPromptAtCursor", true);
     await uiSettingsStorage.saveSetting("ToolAssistance", "mouseTouchTabIndex", 0);
   });
+  const uiSettingsStorage = new LocalStateStorage({ localStorage: storageMock() } as Window);
 
   before(async () => {
     await TestUtils.initializeUiFramework();
@@ -38,7 +36,7 @@ describe(`ToolAssistanceField`, () => {
 
   // cSpell:Ignore TOOLPROMPT
 
-  it("Status Bar with ToolAssistanceField should mount", () => {
+  it("Status Bar with ToolAssistanceField should mount", async () => {
     render(<StatusBar>
       <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
     </StatusBar>);
@@ -46,7 +44,9 @@ describe(`ToolAssistanceField`, () => {
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
     notifications.outputPrompt(helloWorld);
-    expect(screen.getByText("Hello World!")).to.satisfy(selectorMatches(".nz-indicator .nz-content"));
+    await waitFor(() => {
+      expect(screen.getByText("Hello World!")).to.satisfy(selectorMatches(".nz-indicator .nz-content"));
+    });
   });
 
   it("Status Bar with ToolAssistanceField should display prompt", async () => {
@@ -56,7 +56,7 @@ describe(`ToolAssistanceField`, () => {
     const notifications = new AppNotificationManager();
     notifications.outputPrompt(helloWorld);
 
-    const prompt = wrapper.getByText("Hello World!");
+    const prompt = await wrapper.findByText("Hello World!");
     expect(prompt).to.exist;
   });
 
@@ -240,7 +240,7 @@ describe(`ToolAssistanceField`, () => {
     )).lengthOf(4);
   });
 
-  it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", () => {
+  it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", async () => {
     const spyMethod = sinon.spy(Logger, "logError");
     render(<StatusBar>
       <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -252,10 +252,12 @@ describe(`ToolAssistanceField`, () => {
 
     notifications.setToolAssistance(instructions);
 
-    spyMethod.called.should.true;
+    await waitFor(() => {
+      spyMethod.called.should.true;
+    });
   });
 
-  it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", () => {
+  it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", async () => {
     const spyMethod = sinon.spy(Logger, "logError");
     render(<StatusBar>
       <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -267,7 +269,9 @@ describe(`ToolAssistanceField`, () => {
 
     notifications.setToolAssistance(instructions);
 
-    spyMethod.called.should.true;
+    await waitFor(() => {
+      spyMethod.called.should.true;
+    });
   });
 
   it("createModifierKeyInstruction should generate valid instruction", async () => {
@@ -315,7 +319,7 @@ describe(`ToolAssistanceField`, () => {
     expect(screen.getByRole("dialog").querySelectorAll("div.uifw-toolassistance-icon-large")).lengthOf(0);
   });
 
-  it("invalid modifier key info along with image should log error", () => {
+  it("invalid modifier key info along with image should log error", async () => {
     const spyMethod = sinon.spy(Logger, "logError");
     render(<StatusBar>
       <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
@@ -326,7 +330,9 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
-    spyMethod.called.should.true;
+    await waitFor(() => {
+      spyMethod.called.should.true;
+    });
   });
 
   it("should close on outside click", async () => {
@@ -386,7 +392,7 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
-    await theUserTo.click(screen.getByText("toolAssistance.promptAtCursor"));
+    await theUserTo.click(await screen.findByText("toolAssistance.promptAtCursor"));
 
     expect(screen.getByRole<HTMLInputElement>("switch").checked).to.be.false;
   });
@@ -407,12 +413,14 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
-    spyMethod.called.should.true;
+    await waitFor(() => {
+      spyMethod.called.should.true;
+    });
 
     CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(spyMethod);
   });
 
-  it("cursorPrompt should open when tool icon changes", () => {
+  it("cursorPrompt should open when tool icon changes", async () => {
     render(<StatusBar>
       <ToolAssistanceField
         uiStateStorage={uiSettingsStorage}
@@ -438,7 +446,9 @@ describe(`ToolAssistanceField`, () => {
     // emit after instructions set
     UiFramework.frontstages.onToolIconChangedEvent.emit({ iconSpec: "icon-placeholder" });
 
-    spyMethod.called.should.true;
+    await waitFor(() => {
+      spyMethod.called.should.true;
+    });
 
     CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(spyMethod);
   });

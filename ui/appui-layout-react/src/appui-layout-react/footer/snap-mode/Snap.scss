@@ -11,12 +11,12 @@
   padding: 4px 8px;
   align-items: center;
   cursor: pointer;
-  color: $buic-text-color;
+  color: var(--iui-color-text);
   position: relative;
 
   >.nz-icon {
     grid-row: 1;
-    color: $buic-icon-color;
+    color: var(--iui-color-icon);
   }
 
   >.nz-label {
@@ -24,13 +24,13 @@
   }
 
   &.nz-active {
-    color: $buic-foreground-primary;
+    color: var(--iui-color-text-accent);
 
     &:before {
       content: '';
       display: block;
       position: absolute;
-      background-color: $buic-foreground-primary;
+      background-color: currentColor;
       left: 0;
       top: 0;
       bottom: 0;
@@ -39,7 +39,7 @@
   }
 
   &:hover {
-    color: $buic-foreground-primary-tone;
+    color: var(--iui-color-text-accent-hover);
   }
 
   &:focus {

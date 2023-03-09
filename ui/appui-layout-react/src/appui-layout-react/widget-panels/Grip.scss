@@ -71,7 +71,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
   .nz-collapsed & {
     display: flex;
     background-color: $buic-background-5;
-    border: 1px solid $buic-text-color-muted;
+    border: 1px solid var(--iui-color-border-subtle);
     border-radius: 999px;
     box-sizing: border-box;
     opacity: 1;
@@ -119,6 +119,6 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
   }
 
   .nz-line-grip-detail {
-     background-color: $buic-text-color-muted;
+     background-color: var(--iui-color-border-subtle);
   }
 }

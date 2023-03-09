@@ -387,19 +387,23 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       props.buttonCluster.forEach((button: DialogButtonDef, index: number) => {
         let buttonText = "";
         let buttonClass = classnames("core-dialog-button", `dialog-button-${button.type}`, button.className);
+        let styleType: "default" | "cta" | "high-visibility" | "borderless" | undefined;
 
         switch (button.type) {
           case DialogButtonType.OK:
             buttonText = UiCore.translate("dialog.ok");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
           case DialogButtonType.Retry:
             buttonText = UiCore.translate("dialog.retry");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
           case DialogButtonType.Yes:
             buttonText = UiCore.translate("dialog.yes");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
           case DialogButtonType.No:
             buttonText = UiCore.translate("dialog.no");
@@ -415,18 +419,29 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             break;
           case DialogButtonType.Next:
             buttonText = UiCore.translate("dialog.next");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
           case DialogButtonType.Previous:
             buttonText = UiCore.translate("dialog.previous");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
         }
 
-        if (button.label)
-          buttonText = button.label;
+        if (button.label) buttonText = button.label;
 
-        buttons.push(<Button className={buttonClass} disabled={button.disabled} key={index.toString()} onClick={button.onClick}>{buttonText}</Button>);
+        buttons.push(
+          <Button
+            className={buttonClass}
+            disabled={button.disabled}
+            styleType={styleType}
+            key={index.toString()}
+            onClick={button.onClick}
+          >
+            {buttonText}
+          </Button>
+        );
       });
     }
     return buttons;

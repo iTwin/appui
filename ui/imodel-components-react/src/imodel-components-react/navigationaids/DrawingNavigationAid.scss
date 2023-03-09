@@ -12,7 +12,8 @@
 .components-drawing-navigation-aid {
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 0 1px $buic-inputs-border, 0 0 0 2px $buic-text-color;
+  box-shadow: 0 0 0 1px var(--iui-color-border-foreground),
+    0 0 0 2px var(--iui-color-text);
   height: 96px;
   width: 96px;
 
@@ -86,10 +87,10 @@
       cursor: pointer;
       background-color: $buic-background-control;
       opacity: 0.5;
-      color: $buic-foreground-body;
+      color: var(--iui-color-text);
 
       &.checked {
-        color: $buic-foreground-primary;
+        color: var(--iui-color-text-accent);
       }
 
       &:hover {

@@ -264,7 +264,7 @@ export function getButtonWithText(container: HTMLElement, label: string, onError
     onError && onError(`Couldn't find any '${selector}' buttons`);
 
   const button = [...buttons].find((btn) => {
-    const span = btn.querySelector("span.iui-button-label");
+    const span = btn.querySelector("span");
     return span!.textContent === label;
   });
   if (!button)
@@ -514,6 +514,17 @@ export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
       }
     }
     return true;
+  };
+}
+
+/**
+ * Create a selectAll option object for userevent.type.
+ * @returns userevent type option parameter which selects all when entering (to replace the content)
+ */
+export function selectAllBeforeType() {
+  return {
+    initialSelectionStart: 0,
+    initialSelectionEnd: Infinity,
   };
 }
 
