@@ -10,7 +10,7 @@ import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { StatusBarActionItem, StatusBarCustomItem, StatusBarLabelItem, StatusBarLabelSide, StatusBarSection } from "./StatusBarItem";
 
-/** Helper class to create Abstract StatusBar Item definitions.
+/** Utility functions for creating and maintaining StatusBar items.
  * @public
  */
 export namespace StatusBarItemUtilities {
