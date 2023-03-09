@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/components-react",
+      "comment": "Clean dependencies",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/components-react"
+}

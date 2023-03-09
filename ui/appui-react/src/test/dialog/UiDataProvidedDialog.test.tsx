@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { DialogButtonDef, DialogButtonType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertyItem, DialogPropertySyncItem, PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardTypeNames } from "@itwin/appui-abstract";
 import { UiDataProvidedDialog } from "../../appui-react";
 import TestUtils, { getButtonWithText, handleError } from "../TestUtils";
@@ -171,8 +171,10 @@ describe("UiDataProvidedDialog", () => {
       inputs[1].focus();
       fireEvent.change(inputs[1], { target: { value: "test-city" } });
       inputs[1].blur();
-      await TestUtils.flushAsyncOperations();
-      expect(okButton.disabled).to.be.false;
+
+      await waitFor(() => {
+        expect(okButton.disabled).to.be.false;
+      });
       fireEvent.click(okButton);
       expect(spyOK.calledOnce).to.be.true;
 
@@ -218,8 +220,10 @@ describe("UiDataProvidedDialog", () => {
       inputs[1].focus();
       fireEvent.change(inputs[1], { target: { value: "test-city" } });
       inputs[1].blur();
-      await TestUtils.flushAsyncOperations();
-      expect(okButton.disabled).to.be.false;
+
+      await waitFor(() => {
+        expect(okButton.disabled).to.be.false;
+      });
       fireEvent.click(okButton);
       expect(spyOK.calledOnce).to.be.true;
 

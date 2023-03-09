@@ -17,19 +17,19 @@ ul.core-listbox {
   display: flex;
   flex-direction: column;
   overflow: auto;
-  color: $buic-foreground-body;
-  border: 1px solid $buic-foreground-disabled; // default border: disabled or muted foreground
+  color: var(--iui-color-text);
+  border: 1px solid var(--iui-color-border);
   position: relative; // required to properly set scrollTop position
 
   @include uicore-touch-scrolling;
   @include uicore-scrollbar();
 
   &:focus {
-    border-color: $buic-foreground-focus;
+    border-color: var(--iui-color-border-accent);
 
     li.core-listbox-item.focused {
-      background-color: $buic-row-hover;
-      border: 1px solid $buic-foreground-primary;
+      background-color: var(--iui-color-background-accent-muted);
+      border: 1px solid var(--iui-color-border-accent);
     }
   }
 
@@ -39,16 +39,16 @@ ul.core-listbox {
     padding-left: 4px;
 
     &[aria-selected="true"] {
-      background-color: $buic-row-selection;
+      background-color: var(--iui-color-background-accent-muted);
     }
 
     &[aria-disabled="true"] {
       pointer-events: none;
-      color: $buic-foreground-disabled;
+      color: var(--iui-color-text-disabled);
     }
 
     &:hover {
-      background-color: $buic-row-hover;
+      background-color: var(--iui-color-background-hover);
     }
   }
 }

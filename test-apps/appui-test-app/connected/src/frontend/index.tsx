@@ -164,7 +164,10 @@ export class SampleAppIModelApp {
       const redirectUri = process.env.IMJS_OIDC_BROWSER_TEST_REDIRECT_URI ?? "";
       const urlObj = new URL(redirectUri);
       if (urlObj.pathname === window.location.pathname) {
-        await BrowserAuthorizationCallbackHandler.handleSigninCallback(redirectUri);
+        await BrowserAuthorizationCallbackHandler.handleSigninCallback({
+          redirectUri,
+          clientId: process.env.IMJS_OIDC_BROWSER_TEST_CLIENT_ID!,
+        });
         return;
       }
 
@@ -441,8 +444,8 @@ export class SampleAppIModelApp {
       for await (const imodel of SampleAppIModelApp.hubClient.iModels.getRepresentationList({
         urlParams: {
           name: iModelName,
-          projectId: iTwin.id,
           $top: 1,
+          iTwinId: iTwin.id,
         },
         authorization: AccessTokenAdapter.toAuthorizationCallback(accessToken),
       }))

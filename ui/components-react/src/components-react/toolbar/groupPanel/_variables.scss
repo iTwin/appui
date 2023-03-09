@@ -10,7 +10,7 @@ $panel-padding-left: 16px;
 $panel-padding-right: 8px;
 $panel-padding-top: $panel-padding-right;
 $panel-padding-bottom: 12px;
-$title-color: $buic-text-color;
+$title-color: var(--iui-color-text);
 $back-arrow-thickness: 2px;
 $back-arrow-size-val: 6;
 $title-horizontal-margin: 20px;

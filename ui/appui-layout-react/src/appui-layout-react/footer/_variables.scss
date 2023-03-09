@@ -13,7 +13,7 @@ $text-font-size-small: 12px;
 $icon-size: 16px;
 $icon-size-medium: 14px;
 $icon-size-small: 14px;
-$icon-color: $buic-icon-color;
+$icon-color: var(--iui-color-icon);
 $icon-shadow: drop-shadow(0 1px $buic-icon-color-reverse);
 
 $space-between-text-and-icon: 12px;

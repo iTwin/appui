@@ -9,6 +9,7 @@ import { BodyText } from "../../core-react";
 
 describe("<BodyText />", () => {
   it("renders correctly", () => {
+    {/* eslint-disable-next-line */}
     render(<BodyText>Tested content</BodyText>);
 
     expect(screen.getByText("Tested content", {selector: "span.uicore-text-body"})).to.exist;

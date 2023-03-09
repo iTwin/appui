@@ -45,7 +45,7 @@
 
         .core-radial-menu-button-content {
           cursor: default;
-          color: $buic-text-color;
+          color: var(--iui-color-text);
           font-size: var(--iui-font-size-0);
           user-select: none;
         }

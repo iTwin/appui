@@ -72,12 +72,6 @@
       "shouldPublish": false
     },
     {
-      "packageName": "@itwin/ui-items-providers-test",
-      "projectFolder": "test-apps/ui-items-providers-test",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
       "packageName": "appui-connected-app",
       "projectFolder": "test-apps/appui-test-app/connected",
       "reviewCategory": "internal",
@@ -96,16 +90,14 @@
       "shouldPublish": false
     },
     {
-      "packageName": "ui-test-app",
-      "projectFolder": "test-apps/ui-test-app",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
       "packageName": "ui-end-to-end-tests",
       "projectFolder": "full-stack-tests/ui",
       "reviewCategory": "internal",
       "shouldPublish": false
     }
-  ]
+  ],
+  "variants": [{
+    "variantName": "core-3x",
+    "description": "Build this repo using iTwin.js core 3.6.x"
+  }]
 }

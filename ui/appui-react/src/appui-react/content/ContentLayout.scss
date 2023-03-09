@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/base/base";
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
-@import "~@itwin/core-react/lib/cjs/core-react/style/colors";
 
 $resizer-size: 6px;
 $resizer-size-large: 14px;
@@ -22,13 +21,14 @@ $resizer-size-large: 14px;
   }
 
   .Resizer {
-    background: rgb(180, 180, 180);
+    background-color: var(--iui-color-border);
     box-sizing: border-box;
     background-clip: padding-box;
     margin: 0;
+    transition: all var(--iui-duration-1) ease;
 
     &:hover {
-      transition: all 2s ease;
+      background-color: var(--iui-color-border-accent);
     }
 
     &.horizontal {
@@ -89,7 +89,7 @@ div.uifw-contentlayout-full-size div.SplitPane div.Pane {
     pointer-events: none;
 
     &.uifw-contentlayout-overlay-active {
-      border-color: $uicore-orange;
+      border-color: var(--iui-color-border-warning);
     }
 
     &.uifw-contentlayout-overlay-inactive {
