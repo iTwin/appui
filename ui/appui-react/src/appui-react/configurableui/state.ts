@@ -7,7 +7,8 @@
  */
 
 import { SnapMode } from "@itwin/core-frontend";
-import { ActionsUnion, createAction } from "../redux/redux-ts";
+import type { ActionsUnion} from "../redux/redux-ts";
+import { createAction } from "../redux/redux-ts";
 import { SYSTEM_PREFERRED_COLOR_THEME, TOOLBAR_OPACITY_DEFAULT, WIDGET_OPACITY_DEFAULT } from "../theme/ThemeManager";
 
 // cSpell:ignore configurableui snapmode toolprompt

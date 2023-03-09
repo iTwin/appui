@@ -4,7 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
-import { ChildWindowManager, OpenChildWindowInfo, UiFramework } from "../../appui-react";
+import type { OpenChildWindowInfo} from "../../appui-react";
+import { ChildWindowManager, UiFramework } from "../../appui-react";
 import { copyStyles } from "../../appui-react/childwindow/CopyStyles";
 import { InternalChildWindowManager } from "../../appui-react/childwindow/InternalChildWindowManager";
 import TestUtils from "../TestUtils";

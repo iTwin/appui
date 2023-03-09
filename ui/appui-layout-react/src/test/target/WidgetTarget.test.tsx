@@ -4,7 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addFloatingWidget, addTab, createNineZoneState, NineZoneState, WidgetIdContext, WidgetState } from "../../appui-layout-react";
+import type { NineZoneState, WidgetState } from "../../appui-layout-react";
+import { addFloatingWidget, addTab, createNineZoneState, WidgetIdContext } from "../../appui-layout-react";
 import { WidgetTarget } from "../../appui-layout-react/target/WidgetTarget";
 import { TestNineZoneProvider } from "../Providers";
 

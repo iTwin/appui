@@ -5,9 +5,10 @@
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
 import * as sinon from "sinon";
+import type { NineZoneDispatch} from "../../appui-layout-react";
 import {
   addFloatingWidget,
-  addTab, createNineZoneState, NineZoneDispatch, Widget, WidgetIdContext,
+  addTab, createNineZoneState, Widget, WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 

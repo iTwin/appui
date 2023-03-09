@@ -9,13 +9,15 @@
 import "./MessageBox.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { DialogButtonDef, MessageSeverity } from "@itwin/appui-abstract";
+import type { DialogButtonDef} from "@itwin/appui-abstract";
+import { MessageSeverity } from "@itwin/appui-abstract";
 import { Dialog } from "../dialog/Dialog";
-import { CommonProps } from "../utils/Props";
+import type { CommonProps } from "../utils/Props";
 import { SvgHelpCircular, SvgHelpCircularHollow, SvgInfoCircular, SvgInfoCircularHollow, SvgStatusError, SvgStatusErrorHollow, SvgStatusRejected,
   SvgStatusRejectedHollow,
   SvgStatusSuccess, SvgStatusSuccessHollow, SvgStatusWarning } from "@itwin/itwinui-icons-react";
-import { Icon, IconSpec } from "../icons/IconComponent";
+import type { IconSpec } from "../icons/IconComponent";
+import { Icon } from "../icons/IconComponent";
 
 /** Properties for the [[MessageBox]] component
  * @public

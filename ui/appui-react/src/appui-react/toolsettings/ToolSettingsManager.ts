@@ -6,9 +6,9 @@
  * @module ToolSettings
  */
 
-import { InteractiveTool } from "@itwin/core-frontend";
-import { DialogItem, UiEvent } from "@itwin/appui-abstract";
-import { SyncToolSettingsPropertiesEvent } from "../framework/FrameworkToolSettings";
+import type { InteractiveTool } from "@itwin/core-frontend";
+import type { DialogItem, UiEvent } from "@itwin/appui-abstract";
+import type { SyncToolSettingsPropertiesEvent } from "../framework/FrameworkToolSettings";
 import { InternalToolSettingsManager as internal } from "./InternalToolSettingsManager";
 
 /** Tool Settings Manager class. Used to generate UI components for Tool Settings.

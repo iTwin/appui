@@ -7,7 +7,8 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import userEvent from "@testing-library/user-event";
-import { ElementSeparator, RatioChangeResult } from "../../core-react/elementseparator/ElementSeparator";
+import type { RatioChangeResult } from "../../core-react/elementseparator/ElementSeparator";
+import { ElementSeparator } from "../../core-react/elementseparator/ElementSeparator";
 import { Orientation } from "../../core-react/enums/Orientation";
 import { classesFromElement } from "../TestUtils";
 

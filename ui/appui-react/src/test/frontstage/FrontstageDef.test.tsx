@@ -9,7 +9,8 @@ import { addFloatingWidget, addPanelWidget, addPopoutWidget, addTab, createNineZ
 import { MockRender } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { renderHook } from "@testing-library/react-hooks";
-import { FrontstageConfig, FrontstageDef, FrontstageProvider, StagePanelDef, StagePanelLocation, StagePanelSection, StagePanelState, UiFramework, UiItemsManager, UiItemsProvider, useSpecificWidgetDef, Widget, WidgetDef, WidgetState } from "../../appui-react";
+import type { FrontstageConfig, UiItemsProvider, Widget} from "../../appui-react";
+import { FrontstageDef, FrontstageProvider, StagePanelDef, StagePanelLocation, StagePanelSection, StagePanelState, UiFramework, UiItemsManager, useSpecificWidgetDef, WidgetDef, WidgetState } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 

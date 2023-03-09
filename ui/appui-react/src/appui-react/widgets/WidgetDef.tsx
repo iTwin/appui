@@ -6,18 +6,21 @@
  * @module Widget
  */
 
-import * as React from "react";
-import { BadgeType, ConditionalStringValue, PointProps, StringGetter, UiError, UiEvent } from "@itwin/appui-abstract";
-import { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
-import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
+import type * as React from "react";
+import type { BadgeType, ConditionalStringValue, PointProps, StringGetter} from "@itwin/appui-abstract";
+import { UiError, UiEvent } from "@itwin/appui-abstract";
+import type { FloatingWidgetState, PanelSide } from "@itwin/appui-layout-react";
+import type { ConfigurableUiControlConstructor} from "../configurableui/ConfigurableUiControl";
+import { ConfigurableCreateInfo, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { UiFramework } from "../UiFramework";
 import { PropsHelper } from "../utils/PropsHelper";
-import { WidgetControl } from "./WidgetControl";
-import { IconHelper, IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
+import type { WidgetControl } from "./WidgetControl";
+import type { IconSpec, Rectangle, SizeProps } from "@itwin/core-react";
+import { IconHelper } from "@itwin/core-react";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
-import { WidgetConfig } from "./WidgetConfig";
+import type { WidgetConfig } from "./WidgetConfig";
 import { WidgetState } from "./WidgetState";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StatusBarWidgetComposerControl } from "./StatusBarWidgetComposerControl";
 
 const widgetStateNameMap = new Map<WidgetState, string>([

@@ -6,10 +6,11 @@
  * @module Widget
  */
 
-import * as React from "react";
-import { ConfigurableCreateInfo, ConfigurableUiControl, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
-import { WidgetDef } from "./WidgetDef";
-import { WidgetState } from "./WidgetState";
+import type * as React from "react";
+import type { ConfigurableCreateInfo} from "../configurableui/ConfigurableUiControl";
+import { ConfigurableUiControl, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
+import type { WidgetDef } from "./WidgetDef";
+import type { WidgetState } from "./WidgetState";
 
 /** The base class for Widget controls.
  * @public

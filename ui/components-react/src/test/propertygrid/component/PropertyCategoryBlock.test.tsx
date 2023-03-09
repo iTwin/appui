@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
 import { PropertyCategoryBlock } from "../../../components-react/propertygrid/component/PropertyCategoryBlock";
-import { PropertyCategory } from "../../../components-react/propertygrid/PropertyDataProvider";
+import type { PropertyCategory } from "../../../components-react/propertygrid/PropertyDataProvider";
 import { render, screen } from "@testing-library/react";
 import { selectorMatches, userEvent } from "../../TestUtils";
 

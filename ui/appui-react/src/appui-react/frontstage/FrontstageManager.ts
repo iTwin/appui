@@ -6,16 +6,16 @@
  * @module Frontstage
  */
 
-import { IModelConnection, Tool } from "@itwin/core-frontend";
-import { WidgetState } from "../widgets/WidgetState";
-import { ContentGroup } from "../content/ContentGroup";
-import { ContentLayoutDef } from "../content/ContentLayout";
-import { WidgetDef } from "../widgets/WidgetDef";
-import { ToolInformation } from "../toolsettings/ToolInformation";
-import { ToolUiProvider } from "../toolsettings/ToolUiProvider";
-import { FrontstageDef } from "./FrontstageDef";
-import { FrontstageProvider } from "./FrontstageProvider";
-import { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
+import type { IModelConnection, Tool } from "@itwin/core-frontend";
+import type { WidgetState } from "../widgets/WidgetState";
+import type { ContentGroup } from "../content/ContentGroup";
+import type { ContentLayoutDef } from "../content/ContentLayout";
+import type { WidgetDef } from "../widgets/WidgetDef";
+import type { ToolInformation } from "../toolsettings/ToolInformation";
+import type { ToolUiProvider } from "../toolsettings/ToolUiProvider";
+import type { FrontstageDef } from "./FrontstageDef";
+import type { FrontstageProvider } from "./FrontstageProvider";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { InternalFrontstageManager as internal } from "./InternalFrontstageManager";
 
 /** Frontstage Manager class.

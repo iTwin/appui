@@ -6,13 +6,15 @@
  * @module ContentView
  */
 
-import * as React from "react";
-import { ScreenViewport } from "@itwin/core-frontend";
-import { ContentLayoutProps, UiError } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
+import type * as React from "react";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import type { ContentLayoutProps} from "@itwin/appui-abstract";
+import { UiError } from "@itwin/appui-abstract";
+import type { ConfigurableUiControlConstructor} from "../configurableui/ConfigurableUiControl";
+import { ConfigurableCreateInfo, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { UiFramework } from "../UiFramework";
-import { ContentControl } from "./ContentControl";
-import { FrontstageConfig } from "../frontstage/FrontstageConfig";
+import type { ContentControl } from "./ContentControl";
+import type { FrontstageConfig } from "../frontstage/FrontstageConfig";
 import { InternalConfigurableUiManager } from "../configurableui/InternalConfigurableUiManager";
 
 /** Properties for content displayed in a content view

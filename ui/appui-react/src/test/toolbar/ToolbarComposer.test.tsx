@@ -9,9 +9,10 @@ import * as sinon from "sinon";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
+import type { FrontstageConfig,
+  ToolbarItem, UiItemsProvider} from "../../appui-react";
 import {
-  CommandItemDef, CustomItemDef, FrontstageConfig, FrontstageProvider, GroupItemDef, StageUsage, ToolbarComposer, ToolbarHelper,
-  ToolbarItem, ToolbarOrientation, ToolbarUsage, ToolItemDef, UiFramework, UiItemsManager, UiItemsProvider,
+  CommandItemDef, CustomItemDef, FrontstageProvider, GroupItemDef, StageUsage, ToolbarComposer, ToolbarHelper, ToolbarOrientation, ToolbarUsage, ToolItemDef, UiFramework, UiItemsManager,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 

@@ -6,7 +6,7 @@
  * @module Backstage
  */
 
-import { BackstageActionItem, BackstageStageLauncher } from "./BackstageItem";
+import type { BackstageActionItem, BackstageStageLauncher } from "./BackstageItem";
 
 /** Utilities for creating and maintaining backstage items
  * @beta

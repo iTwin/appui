@@ -9,10 +9,12 @@
 import "./FilteringInput.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, Icon, UiCore } from "@itwin/core-react";
+import type { CommonProps} from "@itwin/core-react";
+import { Icon, UiCore } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
-import { ResultSelector, ResultSelectorProps } from "./ResultSelector";
+import type { ResultSelectorProps } from "./ResultSelector";
+import { ResultSelector } from "./ResultSelector";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 

@@ -7,7 +7,8 @@ import { render } from "@testing-library/react";
 import { addPanelWidget, addTab, createNineZoneState, DraggedWidgetIdContext, PanelSideContext } from "../../appui-layout-react";
 import { renderHook } from "@testing-library/react-hooks";
 import { useTargetDirection } from "../../appui-layout-react/target/SectionTarget";
-import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
+import type { TestNineZoneProviderProps } from "../Providers";
+import { TestNineZoneProvider } from "../Providers";
 import { SectionTargets } from "../../appui-layout-react/target/SectionTargets";
 import { createDraggedTabState } from "../../appui-layout-react/state/internal/TabStateHelpers";
 

@@ -6,9 +6,9 @@
  * @module ContentView
  */
 
-import { ContentLayoutProps } from "@itwin/appui-abstract";
-import { ContentGroup, ContentGroupProps } from "./ContentGroup";
-import { ContentLayoutDef } from "./ContentLayout";
+import type { ContentLayoutProps } from "@itwin/appui-abstract";
+import type { ContentGroup, ContentGroupProps } from "./ContentGroup";
+import type { ContentLayoutDef } from "./ContentLayout";
 import { InternalContentLayoutManager as internal } from "./InternalContentLayoutManager";
 
 /** ContentLayout Manager class.

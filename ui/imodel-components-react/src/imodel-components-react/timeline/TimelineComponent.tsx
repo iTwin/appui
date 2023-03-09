@@ -9,11 +9,14 @@
 import "./TimelineComponent.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { GenericUiEventArgs, UiAdmin } from "@itwin/appui-abstract";
-import { DateFormatOptions, toDateString, toTimeString, UiComponents } from "@itwin/components-react";
+import type { GenericUiEventArgs} from "@itwin/appui-abstract";
+import { UiAdmin } from "@itwin/appui-abstract";
+import type { DateFormatOptions} from "@itwin/components-react";
+import { toDateString, toTimeString, UiComponents } from "@itwin/components-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { InlineEdit } from "./InlineEdit";
-import { PlaybackSettings, TimelinePausePlayAction, TimelinePausePlayArgs } from "./interfaces";
+import type { PlaybackSettings, TimelinePausePlayArgs } from "./interfaces";
+import { TimelinePausePlayAction } from "./interfaces";
 import { PlayButton, PlayerButton } from "./PlayerButton";
 import { Scrubber } from "./Scrubber";
 import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";

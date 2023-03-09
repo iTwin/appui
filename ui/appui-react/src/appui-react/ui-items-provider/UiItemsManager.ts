@@ -6,16 +6,17 @@
  * @module UiProvider
  */
 
-import { BeUiEvent, Logger, MarkRequired } from "@itwin/core-bentley";
-import { BackstageItem } from "../backstage/BackstageItem";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { StagePanelSection } from "../stagepanels/StagePanelSection";
-import { StatusBarItem } from "../statusbar/StatusBarItem";
-import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import type { MarkRequired } from "@itwin/core-bentley";
+import { BeUiEvent, Logger } from "@itwin/core-bentley";
+import type { BackstageItem } from "../backstage/BackstageItem";
+import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import type { StagePanelSection } from "../stagepanels/StagePanelSection";
+import type { StatusBarItem } from "../statusbar/StatusBarItem";
+import type { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { UiFramework } from "../UiFramework";
-import { Widget } from "../widgets/Widget";
-import { ProviderItem } from "./ProviderItem";
-import { UiItemsProvider } from "./UiItemsProvider";
+import type { Widget } from "../widgets/Widget";
+import type { ProviderItem } from "./ProviderItem";
+import type { UiItemsProvider } from "./UiItemsProvider";
 
 /** UiItemsProvider register event args.
  * @beta

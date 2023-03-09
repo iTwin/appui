@@ -7,9 +7,9 @@
  */
 
 import * as React from "react";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { DialogRendererBase } from "./DialogManagerBase";
-import { ModelessDialogInfo } from "../framework/FrameworkDialogs";
+import type { ModelessDialogInfo } from "../framework/FrameworkDialogs";
 import { InternalModelessDialogManager as internal } from "./InternalModelessDialogManager";
 
 // cSpell:ignore ZINDEX modeless

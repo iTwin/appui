@@ -10,7 +10,7 @@ import "./SectionTargets.scss";
 import * as React from "react";
 import { TargetContainer } from "./TargetContainer";
 import { SectionTarget, useTargetDirection } from "./SectionTarget";
-import { WidgetState } from "../state/WidgetState";
+import type { WidgetState } from "../state/WidgetState";
 import { MergeTarget } from "./MergeTarget";
 
 /** @internal */

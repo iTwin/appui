@@ -6,10 +6,10 @@
  * @module ConfigurableUi
  */
 
-import { FrontstageProvider } from "../frontstage/FrontstageProvider";
-import { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
+import type { FrontstageProvider } from "../frontstage/FrontstageProvider";
+import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
 import { UiFramework } from "../UiFramework";
-import { ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
+import type { ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
 import { InternalConfigurableUiManager as internal } from "./InternalConfigurableUiManager";
 
 /** Configurable Ui Manager maintains controls, Frontstages, Content Groups, Content Layouts, Tasks and Workflows.

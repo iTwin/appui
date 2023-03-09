@@ -8,11 +8,12 @@
 
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { DialogItem, DialogPropertySyncItem, UiLayoutDataProvider } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
+import type { DialogItem, DialogPropertySyncItem} from "@itwin/appui-abstract";
+import { UiLayoutDataProvider } from "@itwin/appui-abstract";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
 import { ComponentGenerator } from "../uiprovider/ComponentGenerator";
 import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
-import { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
+import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 import { ToolUiProvider } from "./ToolUiProvider";
 import { UiFramework } from "../UiFramework";
 

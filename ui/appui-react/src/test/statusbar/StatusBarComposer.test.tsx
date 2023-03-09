@@ -8,9 +8,10 @@ import * as sinon from "sinon";
 import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import type { StatusBarItem, UiItemsProvider} from "../../appui-react";
 import {
-  FrontstageDef, StageUsage, StatusBar, StatusBarComposer, StatusBarItem, StatusBarItemUtilities, StatusBarLabelSide, StatusBarSection,
-  SyncUiEventDispatcher, UiFramework, UiItemsManager, UiItemsProvider,
+  FrontstageDef, StageUsage, StatusBar, StatusBarComposer, StatusBarItemUtilities, StatusBarLabelSide, StatusBarSection,
+  SyncUiEventDispatcher, UiFramework, UiItemsManager,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
 

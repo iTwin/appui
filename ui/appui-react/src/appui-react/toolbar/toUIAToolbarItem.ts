@@ -6,9 +6,10 @@
  * @module Toolbar
  */
 
-import { CommonToolbarItem as UIA_CommonToolbarItem } from "@itwin/appui-abstract";
-import { CustomToolbarItem } from "@itwin/components-react";
-import { isToolbarCustomItem, ToolbarItem } from "./ToolbarItem";
+import type { CommonToolbarItem as UIA_CommonToolbarItem } from "@itwin/appui-abstract";
+import type { CustomToolbarItem } from "@itwin/components-react";
+import type { ToolbarItem } from "./ToolbarItem";
+import { isToolbarCustomItem } from "./ToolbarItem";
 
 /** @internal */
 export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {

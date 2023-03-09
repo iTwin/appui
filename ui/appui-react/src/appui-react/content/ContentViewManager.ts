@@ -6,8 +6,8 @@
  * @module ContentView
  */
 
-import * as React from "react";
-import { ContentControl } from "./ContentControl";
+import type * as React from "react";
+import type { ContentControl } from "./ContentControl";
 import { InternalContentViewManager as internal } from "./InternalContentViewManager";
 
 /** Content View Manager class.

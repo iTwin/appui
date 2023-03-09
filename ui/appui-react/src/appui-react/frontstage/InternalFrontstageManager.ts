@@ -7,24 +7,29 @@
  */
 
 import { Logger } from "@itwin/core-bentley";
-import { IModelApp, IModelConnection, InteractiveTool, SelectedViewportChangedArgs, StartOrResume, Tool } from "@itwin/core-frontend";
+import type { IModelConnection, SelectedViewportChangedArgs, StartOrResume, Tool } from "@itwin/core-frontend";
+import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
-import { Size } from "@itwin/core-react";
+import type { Size } from "@itwin/core-react";
 import { ContentControlActivatedEvent } from "../content/ContentControl";
-import { ContentGroup } from "../content/ContentGroup";
-import { ContentLayoutActivatedEvent, ContentLayoutDef } from "../content/ContentLayout";
+import type { ContentGroup } from "../content/ContentGroup";
+import type { ContentLayoutDef } from "../content/ContentLayout";
+import { ContentLayoutActivatedEvent } from "../content/ContentLayout";
 import { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
 import { PanelSizeChangedEvent, PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
-import { WidgetChangedEventArgs, WidgetDef, WidgetEventArgs, WidgetStateChangedEvent } from "../widgets/WidgetDef";
+import type { WidgetChangedEventArgs, WidgetDef, WidgetEventArgs} from "../widgets/WidgetDef";
+import { WidgetStateChangedEvent } from "../widgets/WidgetDef";
 import { ToolInformation } from "../toolsettings/ToolInformation";
-import { ToolUiProvider } from "../toolsettings/ToolUiProvider";
-import { FrontstageDef, FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs } from "./FrontstageDef";
-import { FrontstageProvider } from "./FrontstageProvider";
+import type { ToolUiProvider } from "../toolsettings/ToolUiProvider";
+import type { FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs } from "./FrontstageDef";
+import { FrontstageDef } from "./FrontstageDef";
+import type { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
-import { WidgetState } from "../widgets/WidgetState";
-import { FrontstageActivatedEvent, FrontstageDeactivatedEvent, FrontstageReadyEvent, ModalFrontstageChangedEvent, ModalFrontstageClosedEvent, ModalFrontstageInfo, ModalFrontstageItem, ModalFrontstageRequestedCloseEvent, ToolActivatedEvent, ToolIconChangedEvent } from "../framework/FrameworkFrontstages";
-import { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
+import type { WidgetState } from "../widgets/WidgetState";
+import type { ModalFrontstageInfo, ModalFrontstageItem} from "../framework/FrameworkFrontstages";
+import { FrontstageActivatedEvent, FrontstageDeactivatedEvent, FrontstageReadyEvent, ModalFrontstageChangedEvent, ModalFrontstageClosedEvent, ModalFrontstageRequestedCloseEvent, ToolActivatedEvent, ToolIconChangedEvent } from "../framework/FrameworkFrontstages";
+import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 
 /** Frontstage Manager class.
  * @internal

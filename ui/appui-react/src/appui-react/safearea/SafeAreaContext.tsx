@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { SafeAreaInsets } from "./SafeAreaInsets";
+import type { SafeAreaInsets } from "./SafeAreaInsets";
 
 /**
  * Context used to manage safe area (feature used by devices with non-rectangular screens).

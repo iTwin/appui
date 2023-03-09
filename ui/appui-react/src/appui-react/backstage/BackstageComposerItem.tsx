@@ -14,7 +14,8 @@ import { BackstageItem as NZ_BackstageItem } from "@itwin/appui-layout-react";
 import { useBackstageManager } from "./BackstageManager";
 import { UiFramework } from "../UiFramework";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
-import { BackstageActionItem, BackstageItem, BackstageStageLauncher, isBackstageStageLauncher } from "./BackstageItem";
+import type { BackstageActionItem, BackstageItem, BackstageStageLauncher} from "./BackstageItem";
+import { isBackstageStageLauncher } from "./BackstageItem";
 import { isProviderItem } from "../ui-items-provider/isProviderItem";
 
 /** @internal */

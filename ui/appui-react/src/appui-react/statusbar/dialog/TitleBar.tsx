@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { TitleBar } from "@itwin/appui-layout-react";
 
 /** Properties of [[StatusBarDialogTitleBar]] component.

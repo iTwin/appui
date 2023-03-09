@@ -7,9 +7,10 @@
  * @module ChildWindowManager
  */
 
-import * as React from "react";
-import { ChildWindowLocationProps, OpenChildWindowInfo } from "../framework/FrameworkChildWindows";
-import { CreateRoot, InternalChildWindowManager } from "./InternalChildWindowManager";
+import type * as React from "react";
+import type { ChildWindowLocationProps, OpenChildWindowInfo } from "../framework/FrameworkChildWindows";
+import type { CreateRoot} from "./InternalChildWindowManager";
+import { InternalChildWindowManager } from "./InternalChildWindowManager";
 
 /** Supports opening a child browser window from the main application window. The child window is managed by the main application
  * and is running in the same security context. The application must deliver the html file iTwinPopup.html along side its index.html.

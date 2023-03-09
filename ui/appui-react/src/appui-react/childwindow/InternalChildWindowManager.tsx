@@ -20,7 +20,7 @@ import { ModalDialogRenderer } from "../dialog/ModalDialogManager";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
 import { ThemeManager } from "../theme/ThemeManager";
 import { UiFramework } from "../UiFramework";
-import { ChildWindowLocationProps, FrameworkChildWindows, OpenChildWindowInfo } from "../framework/FrameworkChildWindows";
+import type { ChildWindowLocationProps, FrameworkChildWindows, OpenChildWindowInfo } from "../framework/FrameworkChildWindows";
 
 const childHtml = `<!DOCTYPE html>
 <html>
