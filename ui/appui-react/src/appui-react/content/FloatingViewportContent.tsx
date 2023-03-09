@@ -30,12 +30,7 @@ export interface FloatingViewportContentProps {
 
 /** @beta */
 export function FloatingViewportContent(props: FloatingViewportContentProps) {
-  const { contentId, initialViewState, onContextMenu } = props;
-  const { viewportControl } = useFloatingViewport({
-    contentId,
-    initialViewState,
-    onContextMenu,
-  });
+  const { viewportControl } = useFloatingViewport(props);
   return (
     <FloatingViewportContentWrapper>
       {viewportControl}
