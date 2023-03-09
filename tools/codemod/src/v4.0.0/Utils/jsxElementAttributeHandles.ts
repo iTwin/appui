@@ -2,8 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression, ArrayExpression, JSXElement, ASTPath } from "jscodeshift";
-import { isArrayExpression, isIdentifier, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isSpecifiedJSXElement } from "../../utils/typeGuards";
+import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression, ArrayExpression, JSXElement, ASTPath, Expression, JSXExpressionContainer } from "jscodeshift";
+import { isArrayExpression, isIdentifier, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../../utils/typeGuards";
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
   name?: JSXIdentifier;
@@ -24,7 +24,7 @@ export type AttributeHandleMap = Map<string | undefined, AttributeHandle | null>
 
 export function handleJSXElement(j: JSCodeshift, element: ASTPath<JSXElement>, handles: Map<string | undefined, AttributeHandle | null>): ConfigProperty[] {
   const props: ConfigProperty[] = [];
-  element.node.openingElement.attributes!.forEach((attr) => {
+  element.node.openingElement.attributes?.forEach((attr) => {
     const elAttr = jsxToElementAttribute(j, attr);
     if (!elAttr)
       return; // Most likely something wrong on our end
@@ -72,7 +72,7 @@ export function chain(...handles: AttributeHandle[]): AttributeHandle {
 
     let prop: ElementAttribute | ConfigProperty | undefined = attr;
     handles.forEach((handle) => {
-      if (!prop)
+      if (!prop) // TODO: Fix bad logic here
         return undefined;
       prop = handle(j, prop);
     });
@@ -158,6 +158,7 @@ export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpressio
     ["size", extractExpression],
     ["pinned", extractExpression],
     ["defaultState", extractExpression],
+    ["widgets", null],
     [undefined, identity],
   ]);
 
@@ -167,8 +168,71 @@ export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpressio
       console.warn("Expression did not match expected shape");
       return undefined;
     }
+
     const stagePanelProps = handleJSXElement(j, j(stagePanel).get(), stagePanelAttrHandles);
+
+    const widgetsAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
+    let widgets: ArrayExpression | undefined = undefined;
+    if (widgetsAttr) {
+      const widgetElAttr = jsxToElementAttribute(j, widgetsAttr);
+      let widgetExpr: Expression | undefined = undefined;
+      if (widgetElAttr)
+        widgetExpr = extractExpression(j, widgetElAttr)?.value;
+      if (!widgetExpr || !isArrayExpression(j, widgetExpr))
+        console.warn("Expression did not match expected shape");
+      else
+        widgets = widgetExpr;
+    }
+
+    if (widgets || start || end) {
+      const startWidgets = j.arrayExpression([]);
+      const endWidgets = j.arrayExpression([]);
+      if (widgets)
+        startWidgets.elements.push(...widgets.elements);
+      if (start)
+        startWidgets.elements.push(...start.elements);
+      if (end)
+        endWidgets.elements.push(...end.elements);
+
+      const sectionsObjProps: ObjectProperty[] = [];
+      if (startWidgets.elements.length !== 0)
+        sectionsObjProps.push(j.objectProperty(j.identifier("start"), startWidgets));
+      if (endWidgets.elements.length !== 0)
+        sectionsObjProps.push(j.objectProperty(j.identifier("end"), endWidgets));
+
+      if (sectionsObjProps.length !== 0) {
+        const sectionsObj = j.objectExpression(sectionsObjProps);
+        const sectionsProp = buildConfigProperty(j, sectionsObj, j.identifier("sections"));
+        if (sectionsProp)
+          stagePanelProps.push(sectionsProp);
+      }
+    }
+
     const newValue = configToObjectExpression(j, stagePanelProps);
+    return buildConfigProperty(j, newValue, attr.name);
+  };
+}
+
+export function handleAsWidget(): AttributeHandle {
+  const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+    ["id", extractExpression],
+    ["key", null],
+    ["isFreeform", null],
+    ["isToolSettings", null],
+    ["isStatusBar", null],
+    ["element", extractExpression],
+    ["control", extractExpression],
+  ]);
+
+  return (j, attr) => {
+    const widget = attr.value;
+    if (!isSpecifiedJSXElement(j, widget, "Widget")) {
+      console.warn("Expression did not match expected shape");
+      return undefined;
+    }
+
+    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetAttrHandles);
+    const newValue = configToObjectExpression(j, widgetConfigProps);
     return buildConfigProperty(j, newValue, attr.name);
   };
 }
@@ -190,7 +254,7 @@ export function handleAsToolWidget(): AttributeHandle {
   return (j, attr) => {
     const zone = attr.value;
     if (!isSpecifiedJSXElement(j, zone, "Zone")) {
-      console.warn("Expression did not match expected shape");
+      unsupportedExpressionWarning(zone.type, [j.JSXElement.toString()]);
       return undefined;
     }
 
@@ -216,4 +280,20 @@ export function handleAsToolWidget(): AttributeHandle {
     const newValue = configToObjectExpression(j, widgetConfigProps);
     return buildConfigProperty(j, newValue, attr.name);
   };
+}
+
+export function unsupportedExpressionWarning(received?: string, expected?: string[]) {
+  let message = "Expression did not match expected types. "
+  if (expected) {
+    message += "\n\tExpected types: ";
+    expected.forEach((type) => message += type);
+  }
+  if (received) {
+    message += "\n\tReceived type: ";
+    message += received;
+  }
+}
+
+export function getJSXAttributeExpression(j: JSCodeshift, attr: JSXAttribute): JSXAttribute["value"] | JSXExpressionContainer["expression"] {
+  return isJSXExpressionContainer(j, attr.value) ? attr.value.expression : attr.value;
 }
