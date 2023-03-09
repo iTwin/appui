@@ -15,7 +15,7 @@ import { useUiVisibility } from "../hooks/useUiVisibility";
 import { NavigationWidgetComposer } from "./NavigationWidgetComposer";
 import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 
-/** Properties that can be used to append items to the default set of toolbar items of [[DefaultNavigationWidget]].
+/** Properties that can be used to append items to the default set of toolbar items.
  * @public
  */
 export interface BasicNavigationWidgetProps {
