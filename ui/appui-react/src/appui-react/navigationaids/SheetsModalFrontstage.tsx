@@ -220,7 +220,7 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       this.state.isPressed && "is-pressed",
     );
 
-    const iconSpec = this.props.iconSpec ? this.props.iconSpec : SvgPlaceholder;
+    const iconSpec = this.props.iconSpec ? this.props.iconSpec : <SvgPlaceholder />;
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
