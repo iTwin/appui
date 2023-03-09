@@ -12,12 +12,6 @@
     display: grid;
     grid-template-columns: minmax(auto, 500px) 150px minmax(auto, 300px);
     grid-column-gap: var(--iui-size-m);
-
-    .rule-property .iui-input {
-      padding-top: 1.5px;
-      padding-bottom: 1.5px;
-      min-height: 27px;
-    }
   }
 
   .rule-remove-action {

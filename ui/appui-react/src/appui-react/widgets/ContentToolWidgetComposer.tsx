@@ -8,10 +8,10 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { ToolbarOrientation, ToolbarUsage } from "@itwin/appui-abstract";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
 import { ToolWidgetComposer } from "./ToolWidgetComposer";
 import { useUiVisibility } from "../hooks/useUiVisibility";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 
 /**
  * Props for [[ContentToolWidgetComposer]].
@@ -32,12 +32,12 @@ export interface ContentToolWidgetComposerProps {
  * ```
  * ToolWidget with corner button
  * ```
- * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"} />;
+ * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />} />;
  * <ContentToolWidgetComposer cornerButton={cornerButton} />
  * ```
  * ToolWidget with custom corner button
  * ```
- * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"}
+ * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />}
  *   label="Toggle Backstage display",
  *   execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
  * <ContentToolWidgetComposer cornerButton={cornerButton} />
@@ -56,8 +56,8 @@ export function ContentToolWidgetComposer(props: ContentToolWidgetComposerProps)
   return (
     <ToolWidgetComposer className={className}
       cornerItem={cornerButton}
-      horizontalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />} // eslint-disable-line deprecation/deprecation
-      verticalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />} // eslint-disable-line deprecation/deprecation
+      horizontalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
+      verticalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
     />
   );
 }

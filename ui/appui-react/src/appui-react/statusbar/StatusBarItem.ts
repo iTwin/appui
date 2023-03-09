@@ -7,99 +7,113 @@
  */
 
 import * as React from "react";
-import {
-  AbstractStatusBarActionItem,
-  AbstractStatusBarCustomItem,
-  AbstractStatusBarItem,
-  AbstractStatusBarLabelItem,
-  isAbstractStatusBarActionItem,
-  isAbstractStatusBarCustomItem,
-  isAbstractStatusBarLabelItem,
-  CommonStatusBarItem as UIA_CommonStatusBarItem,
-  StatusBarLabelSide as UIA_StatusBarLabelSide,
-  StatusBarSection as UIA_StatusBarSection,
-} from "@itwin/appui-abstract";
+import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import { IconSpec } from "@itwin/core-react";
 
 /** Status bar Groups/Sections from Left to Right
- * @beta
- */
-export type StatusBarSection = UIA_StatusBarSection; // eslint-disable-line deprecation/deprecation
-
-/** Status bar Groups/Sections from Left to Right
- * @beta
- */
-export const StatusBarSection = UIA_StatusBarSection; // eslint-disable-line @typescript-eslint/no-redeclare, deprecation/deprecation
-
-/** Defines which side of Icon where label is placed
- * @beta
- */
-export type StatusBarLabelSide = UIA_StatusBarLabelSide; // eslint-disable-line deprecation/deprecation
-
-/** Defines which side of Icon where label is placed
- * @beta
- */
-export const StatusBarLabelSide = UIA_StatusBarLabelSide; // eslint-disable-line @typescript-eslint/no-redeclare, deprecation/deprecation
-
-/** Describes the data needed to insert a button into the status bar.
- * @beta
- */
-export type CommonStatusBarItem = AbstractStatusBarItem; // eslint-disable-line deprecation/deprecation
-
-/** Describes the data needed to insert an action item into the status bar.
- * @beta
- */
-export type StatusBarActionItem = AbstractStatusBarActionItem; // eslint-disable-line deprecation/deprecation
-
-/** Describes the data needed to insert a label item with an optional icon into the status bar.
- * @beta
- */
-export type StatusBarLabelItem = AbstractStatusBarLabelItem; // eslint-disable-line deprecation/deprecation
-
-/** Describes the data needed to insert an item into the StatusBar.
- * @deprecated in 3.6. Use [[StatusBarCustomItem]] instead.
  * @public
  */
-export interface StatusBarItem extends AbstractStatusBarCustomItem { // eslint-disable-line deprecation/deprecation
-  /** React node for the StatusBar item. */
-  readonly reactNode: React.ReactNode;
+export enum StatusBarSection {
+  /** area for tool assistance and messages */
+  Message = 0,
+  /** area for tool assistance and messages */
+  Left = 0,
+  /** items specific to stage/task */
+  Stage = 1,
+  /** items specific to stage/task */
+  Center = 1,
+  /** Select scope and selection info */
+  Selection = 2,
+  /** Select scope and selection info */
+  Right = 2,
+  /** items that only show based on context */
+  Context = 3,
+}
+
+/** Defines which side of Icon where label is placed
+ * @public
+ */
+export enum StatusBarLabelSide {
+  /** Label is placed left side of icon. This is the default if not specified */
+  Left,
+  /** Label is placed on right side of icon. */
+  Right,
+}
+
+/** Describes the data needed to insert a button into the status bar.
+ * @public
+ */
+export interface CommonStatusBarItem {
+  /** Required unique id of the item. To ensure uniqueness it is suggested that a namespace prefix of the extension name be used. */
+  readonly id: string;
+  /** Describes badge. Renders no badge if not specified. */
+  readonly badge?: BadgeType;
+  /** Describes if the item is visible or hidden. The default is for the item to be visible. */
+  readonly isHidden?: boolean | ConditionalBooleanValue;
+  /** Describes if the item is enabled or disabled. The default is for the item to be enabled. */
+  readonly isDisabled?: boolean | ConditionalBooleanValue;
+  /** Priority within a section (recommend using values 1 through 100). */
+  readonly itemPriority: number;
+  /** status bar section */
+  readonly section: StatusBarSection;
+}
+
+/** Describes the data needed to insert an action item into the status bar.
+ * @public
+ */
+export interface StatusBarActionItem extends CommonStatusBarItem {
+  /** method to execute when icon is pressed */
+  readonly execute: () => void;
+  /** Icon of a status bar item. */
+  readonly icon?: IconSpec;
+  /** Label. */
+  readonly label?: string | ConditionalStringValue;
+  /** tooltip. */
+  readonly tooltip?: string | ConditionalStringValue;
+}
+
+/** Describes the data needed to insert a label item with an optional icon into the status bar.
+ * @public
+ */
+export interface StatusBarLabelItem extends CommonStatusBarItem {
+  /** Icon of a status bar item. */
+  readonly icon?: IconSpec;
+  /** Label. */
+  readonly label: string | ConditionalStringValue;
+  /** Defines which side of icon to display label if icon is defined. */
+  readonly labelSide?: StatusBarLabelSide;
 }
 
 /** Describes the data needed to insert an item into the StatusBar.
- * @beta
+ * @public
  */
-export type StatusBarCustomItem = StatusBarItem; // eslint-disable-line deprecation/deprecation
+export interface StatusBarCustomItem extends CommonStatusBarItem {
+  /** Content of the StatusBar item. */
+  readonly content: React.ReactNode;
+}
 
 /** Describes the data needed to insert a button into the status bar.
- * @public  // TODO: 4.x cleanup
+ * @public
  */
-// eslint-disable-next-line deprecation/deprecation
-export type AnyStatusBarItem = UIA_CommonStatusBarItem; // TODO: Rename to StatusBarItem.
+export type StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem;
 
 /** StatusBarActionItem type guard.
- * @beta
+ * @public
  */
-export function isStatusBarActionItem(item: AnyStatusBarItem): item is StatusBarActionItem {
-  return isAbstractStatusBarActionItem(item); // eslint-disable-line deprecation/deprecation
+export function isStatusBarActionItem(item: StatusBarItem): item is StatusBarActionItem {
+  return "execute" in item;
 }
 
 /** StatusBarLabelItem type guard.
- * @beta
+ * @public
  */
-export function isStatusBarLabelItem(item: AnyStatusBarItem): item is StatusBarLabelItem {
-  return isAbstractStatusBarLabelItem(item); // eslint-disable-line deprecation/deprecation
+export function isStatusBarLabelItem(item: StatusBarItem): item is StatusBarLabelItem {
+  return !isStatusBarActionItem(item) && "label" in item;
 }
 
 /** StatusBarCustomItem type guard.
- * @beta
- */
-export function isStatusBarCustomItem(item: AnyStatusBarItem): item is StatusBarCustomItem {
-  return isStatusBarItem(item); // eslint-disable-line deprecation/deprecation
-}
-
-/** StatusBarItem type guard.
- * @deprecated in 3.6. Use [[isStatusBarCustomItem]] instead.
  * @public
  */
-export const isStatusBarItem = (item: UIA_CommonStatusBarItem): item is StatusBarItem => { // eslint-disable-line deprecation/deprecation
-  return isAbstractStatusBarCustomItem(item) && ("reactNode" in item); // eslint-disable-line deprecation/deprecation
-};
+export function isStatusBarCustomItem(item: StatusBarItem): item is StatusBarCustomItem {
+  return "content" in item;
+}

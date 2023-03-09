@@ -17,10 +17,14 @@
       "extensions",
       "integration-testing"
     ],
-    "ignoredNpmScopes": ["@types"]
+    "ignoredNpmScopes": [
+      "@types"
+    ]
   },
   "gitPolicy": {
-    "allowedEmailRegExps": ["[^@]+@users\\.noreply\\.github\\.com"],
+    "allowedEmailRegExps": [
+      "[^@]+@users\\.noreply\\.github\\.com"
+    ],
     "sampleEmail": "mrexample@users.noreply.github.com"
   },
   "repository": {
@@ -28,12 +32,6 @@
     "defaultBranch": "master"
   },
   "projects": [
-    {
-      "packageName": "@itwin/appui-abstract",
-      "projectFolder": "ui/appui-abstract",
-      "reviewCategory": "frontend",
-      "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
     {
       "packageName": "@itwin/core-react",
       "projectFolder": "ui/core-react",
@@ -71,12 +69,6 @@
       "shouldPublish": false
     },
     {
-      "packageName": "@itwin/ui-items-providers-test",
-      "projectFolder": "test-apps/ui-items-providers-test",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
       "packageName": "appui-connected-app",
       "projectFolder": "test-apps/appui-test-app/connected",
       "reviewCategory": "internal",
@@ -95,16 +87,14 @@
       "shouldPublish": false
     },
     {
-      "packageName": "ui-test-app",
-      "projectFolder": "test-apps/ui-test-app",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
       "packageName": "ui-end-to-end-tests",
       "projectFolder": "full-stack-tests/ui",
       "reviewCategory": "internal",
       "shouldPublish": false
     }
-  ]
+  ],
+  "variants": [{
+    "variantName": "core-3x",
+    "description": "Build this repo using iTwin.js core 3.6.x"
+  }]
 }

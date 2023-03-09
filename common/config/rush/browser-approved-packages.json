@@ -100,7 +100,7 @@
     },
     {
       "name": "@itwin/appui-abstract",
-      "allowedCategories": [ "edit", "extensions", "frontend", "internal", "tools" ]
+      "allowedCategories": [ "frontend", "internal" ]
     },
     {
       "name": "@itwin/appui-layout-react",
@@ -345,10 +345,6 @@
     {
       "name": "@itwin/service-authorization",
       "allowedCategories": [ "integration-testing", "internal" ]
-    },
-    {
-      "name": "@itwin/ui-items-providers-test",
-      "allowedCategories": [ "internal" ]
     },
     {
       "name": "@itwin/webgl-compatibility",

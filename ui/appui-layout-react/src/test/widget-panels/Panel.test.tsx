@@ -5,7 +5,7 @@
 import produce from "immer";
 import * as React from "react";
 import * as sinon from "sinon";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { act } from "@testing-library/react-hooks";
 import {
   addPanelWidget, addTab, createLayoutStore, createNineZoneState, DraggedPanelSideContext, DragManager, NineZoneDispatch,
@@ -184,7 +184,7 @@ describe("WidgetPanelProvider", () => {
     container.firstChild!.should.matchSnapshot();
   });
 
-  it("should transition when collapsed", () => {
+  it("should transition when collapsed", async () => {
     const fakeTimers = sinon.useFakeTimers();
     let state = createNineZoneState();
     state = addTab(state, "t1");
@@ -216,14 +216,16 @@ describe("WidgetPanelProvider", () => {
     // Invoke raf callbacks.
     fakeTimers.tick(1);
 
-    Array.from(panel.classList.values()).should.contain("nz-transition");
+    await waitFor(() => {
+      Array.from(panel.classList.values()).should.contain("nz-transition");
+    });
     panel.style.width.should.eq("300px");
 
     fireEvent.transitionEnd(panel);
     Array.from(panel.classList.values()).should.not.contain("nz-transition");
   });
 
-  it("should transition to panel size when opened", () => {
+  it("should transition to panel size when opened", async () => {
     const fakeTimers = sinon.useFakeTimers();
     let state = createNineZoneState();
     state = addTab(state, "t1");
@@ -257,11 +259,13 @@ describe("WidgetPanelProvider", () => {
     // Invoke raf callbacks.
     fakeTimers.tick(1);
 
-    Array.from(panel.classList.values()).should.contain("nz-transition");
+    await waitFor(() => {
+      Array.from(panel.classList.values()).should.contain("nz-transition");
+    });
     panel.style.width.should.eq("300px");
   });
 
-  it("should transition when size changes", () => {
+  it("should transition when size changes", async () => {
     const fakeTimers = sinon.useFakeTimers();
     let state = createNineZoneState();
     state = addTab(state, "t1");
@@ -294,11 +298,13 @@ describe("WidgetPanelProvider", () => {
     // Invoke raf callbacks.
     fakeTimers.tick(1);
 
-    Array.from(panel.classList.values()).should.contain("nz-transition");
+    await waitFor(() => {
+      Array.from(panel.classList.values()).should.contain("nz-transition");
+    });
     panel.style.width.should.eq("300px");
   });
 
-  it("should restart transition when initializing", () => {
+  it("should restart transition when initializing", async () => {
     const fakeTimers = sinon.useFakeTimers();
     let state = createNineZoneState();
     state = addTab(state, "t1");
@@ -318,9 +324,7 @@ describe("WidgetPanelProvider", () => {
         state = produce(state, (draft) => {
           draft.panels.left.size = 150;
         });
-        act(() => {
-          layout.setState(state);
-        });
+        layout.setState(state);
       }
     };
     const { container } = render(
@@ -345,7 +349,9 @@ describe("WidgetPanelProvider", () => {
     // Invoke raf callbacks.
     fakeTimers.tick(1);
 
-    Array.from(panel.classList.values()).should.contain("nz-transition");
+    await waitFor(() => {
+      Array.from(panel.classList.values()).should.contain("nz-transition");
+    });
     panel.style.width.should.eq("400px");
   });
 
@@ -391,7 +397,7 @@ describe("WidgetPanelProvider", () => {
     panel.style.width.should.eq("300px");
   });
 
-  it("should not resize when collapsing", () => {
+  it("should not resize when collapsing", async () => {
     const fakeTimers = sinon.useFakeTimers();
     let state = createNineZoneState();
     state = addTab(state, "t1");
@@ -428,7 +434,9 @@ describe("WidgetPanelProvider", () => {
     // Invoke raf callbacks.
     fakeTimers.tick(1);
 
-    Array.from(panel.classList.values()).should.contain("nz-transition");
+    await waitFor(() => {
+      Array.from(panel.classList.values()).should.contain("nz-transition");
+    });
     panel.style.width.should.eq("0px");
 
     stub.reset();
@@ -478,7 +486,7 @@ describe("WidgetPanelProvider", () => {
     panel.style.width.should.eq("300px");
   });
 
-  it("should persist content size when collapsing", () => {
+  it("should persist content size when collapsing", async () => {
     const fakeTimers = sinon.useFakeTimers();
     let state = createNineZoneState();
     state = addTab(state, "t1");
@@ -513,7 +521,9 @@ describe("WidgetPanelProvider", () => {
     // Invoke raf callbacks.
     fakeTimers.tick(1);
 
-    Array.from(panel.classList.values()).should.contain("nz-transition");
+    await waitFor(() => {
+      Array.from(panel.classList.values()).should.contain("nz-transition");
+    });
     panel.style.height.should.eq("0px");
     content.style.minHeight.should.eq("200px");
   });

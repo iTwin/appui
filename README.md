@@ -19,7 +19,7 @@ Each package has its own **node_modules** directory that contains symbolic links
 ## Prerequisites
 
 - [Git](https://git-scm.com/)
-- [Node](https://nodejs.org/en/): an installation of the latest security patch of Node 16. The Node installation also includes the **npm** package manager.
+- [Node](https://nodejs.org/en/): an installation of the latest security patch of Node 18. The Node installation also includes the **npm** package manager.
 - [Rush](https://github.com/Microsoft/web-build-tools/wiki/Rush): to install `npm install -g @microsoft/rush`
 - [TypeScript](https://www.typescriptlang.org/): this is listed as a devDependency, so if you're building it from source, you will get it with `rush install`.
 - [Visual Studio Code](https://code.visualstudio.com/): an optional dependency, but the repository structure is optimized for its use
@@ -30,6 +30,7 @@ Each package has its own **node_modules** directory that contains symbolic links
 
 1. Clone repository (first time) with `git clone` or pull updates to the repository (subsequent times) with `git pull`
 2. Install dependencies: `rush install`
+    - Check variant version with: `rush install --variant core-3x` (see [variant](#itwinjs-core-3x-compatibility) for clarifications)
 3. Clean: `rush clean`
 4. Rebuild source: `rush rebuild`
 5. Run tests: `rush cover`
@@ -49,7 +50,7 @@ For incremental builds, the `rush build` command can be used to only build packa
 3. Ensure linting passes when run locally: `rush lint`
 4. Locally commit changes: `git commit` (or use the Visual Studio Code user interface)
 5. Repeat steps 1-4 until ready to push changes
-6. Check for API signature changes: `rush extract-api`. This will update the signature files, located in `common/api`. __Note:__ before doing this, first do the following:
+6. Check for API signature changes: `rush extract-api`. This will update the signature files, located in `common/api`. **Note:** before doing this, first do the following:
     - Be sure that your branch is up to date with the target branch (i.e. `git merge origin/master`)
     - Cleanup your build output: `rush clean`
     - Rebuild the project: `rush build`
@@ -80,6 +81,29 @@ Use these instructions to update dependencies and devDependencies on external pa
 1. Edit the appropriate `package.json` file to update the semantic version range
 2. Run `rush check` to make sure that you are specifying consistent versions across the repository
 3. Run `rush update` to make sure the newer version of the module specified in #1 is installed
+
+**Note:** Also see the [variant info](#external-dependencies-check).
+
+## iTwin.js core 3.x compatibility
+
+AppUi 4.0 version must keep compatibility with iTwin.js core version ^3.6.0 to facilitate migration, in order to do so, a rush variant have been created.
+
+### Validating code for the variant
+
+Once we are clear with the change we have, it is a good idea to validate that they work as expected in the variant test app, this will also be done in the CI pipeline.
+
+Simply replace step 2 of the [Build Instructions](#build-instructions) with:
+
+- Install dependencies: `rush install --variant core-3x`
+
+and follow the same instructions for the build and coverage steps.
+
+### External dependencies check
+
+The external dependencies must be updated in this variant with the following commands.
+
+1. Run `rush check --variant core-3x`
+2. Run `rush update --variant core-3x`
 
 ## Other NPM Scripts
 

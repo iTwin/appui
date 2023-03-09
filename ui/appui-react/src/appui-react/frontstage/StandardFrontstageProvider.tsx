@@ -7,15 +7,15 @@
  */
 
 import * as React from "react";
-import { StageUsage } from "@itwin/appui-abstract";
 import { ContentGroup, ContentGroupProps, ContentGroupProvider } from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
-import { StatusBarWidgetComposerControl } from "../widgets/StatusBarWidgetComposerControl";
 import { StagePanelState } from "../stagepanels/StagePanelDef";
 import { FrontstageConfig } from "./FrontstageConfig";
 import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
+import { StageUsage } from "./StageUsage";
+import { StatusBarComposer } from "../statusbar/StatusBarComposer";
 
 /** Properties of a [[WidgetPanelProps]] component
  * @public
@@ -32,16 +32,16 @@ export interface StandardFrontstageProps {
   /* version id that is used to store state of stage */
   version?: number;
   // Usage of stage. To allow generic UiItemProvides to populate this stage set to `StageUsage.General`.
-  usage: StageUsage | string; // eslint-disable-line deprecation/deprecation
+  usage: StageUsage | string;
   /** Definition of available content groups or a function that provides them */
   contentGroupProps: ContentGroupProps | ContentGroupProvider;
   /** Specify button to use to open backstage. Leave undefined for no backstage button.
    * ```
-   * <BackstageAppButton icon={"icon-bentley-systems"} />
+   * <BackstageAppButton icon={<SvgBentleySystems />} />
    * ```
    * Custom corner button definition
    * ```
-   * const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"}
+   * const cornerButton = <BackstageAppButton icon={<SvgBentleySystems />}
    *   label="Toggle Backstage display",
    *   execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
    * ```
@@ -90,18 +90,18 @@ export class StandardFrontstageProvider extends FrontstageProvider {
       usage: this.props.usage,
       contentManipulation: {
         id: `${this.props.id}-contentManipulationTools`,
-        element: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
+        content: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
       },
       viewNavigation: {
         id: `${this.props.id}-viewNavigationTools`,
-        element: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
+        content: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
       },
       toolSettings: this.props.hideToolSettings ? undefined : {
         id: `${this.props.id}-toolSettings`,
       },
       statusBar: this.props.hideStatusBar ? undefined : {
         id: `${this.props.id}-statusBar`,
-        control: StatusBarWidgetComposerControl,
+        content: <StatusBarComposer items={[]} />,
       },
       leftPanel: {
         size: 300,

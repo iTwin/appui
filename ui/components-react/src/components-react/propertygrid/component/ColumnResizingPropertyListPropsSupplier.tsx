@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import _ from "lodash";
 import * as React from "react";
 import { Orientation, RatioChangeResult, UiGeometry } from "@itwin/core-react";
 import { PropertyListProps } from "./PropertyList";

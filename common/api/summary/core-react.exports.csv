@@ -14,6 +14,7 @@ internal;BadgeUtilities
 internal;BetaBadge(props: CommonProps): JSX.Element
 public;BlockText(props: TextProps): JSX.Element
 public;BodyText(props: TextProps): JSX.Element
+deprecated;BodyText(props: TextProps): JSX.Element
 internal;calculateBackdropFilterBlur: (proximityScale: number) => number
 internal;calculateBoxShadowOpacity: (proximityScale: number) => number
 internal;calculateProximityScale: (proximity: number, snap?: boolean, threshold?: number) => number
@@ -30,6 +31,7 @@ public;ClassNameProps
 internal;CloseSettingsContainerEvent 
 public;CommonDivProps 
 public;CommonProps 
+public;ConditionalIconItem
 public;ContextMenu 
 public;ContextMenuDirection
 public;ContextMenuDivider 
@@ -86,7 +88,7 @@ public;IconHelper
 public;IconInput: (props: IconInputProps) => JSX.Element | null
 public;IconInputProps 
 public;IconProps 
-public;IconSpec = string | ConditionalStringValue | React_2.ReactNode
+public;IconSpec = string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem
 public;ImageCheckBox 
 public;ImageCheckBoxProps 
 public;InputLabel 
@@ -126,6 +128,7 @@ public;MessageRenderer(props: MessageRendererProps): JSX.Element | null
 public;MessageRendererProps 
 public;MessageType = string | HTMLElement | ReactMessage
 public;MutedText(props: TextProps): JSX.Element
+deprecated;MutedText(props: TextProps): JSX.Element
 internal;NewBadge(props: CommonProps): JSX.Element
 public;NoChildrenProps
 public;NodeCheckboxProps
@@ -176,6 +179,7 @@ public;SizeProps
 public;SortDirection
 public;StepFunctionProp = number | ((direction: string) => number | undefined)
 public;StyledText(props: StyledTextProps): JSX.Element
+deprecated;StyledText(props: StyledTextProps): JSX.Element
 public;StyledTextProps 
 public;SvgPath 
 public;SvgPathProps 

@@ -5,50 +5,42 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, StageUsage, UiItemsManager, UiItemsProvider, WidgetState } from "@itwin/appui-abstract";
-import { WidgetDef, WidgetManager } from "../../appui-react";
+import { StagePanelLocation, StagePanelSection, StageUsage, UiItemsManager, UiItemsProvider, Widget, WidgetDef, WidgetManager, WidgetState } from "../../appui-react";
 import { TestUtils } from "../TestUtils";
 
 class TestUiProvider implements UiItemsProvider {
   public readonly id = "TestUiProvider-Widget";
 
-  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, _section?: StagePanelSection): ReadonlyArray<AbstractWidgetProps> {
-    const widgets: AbstractWidgetProps[] = [];
+  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, _section?: StagePanelSection): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
     if (stageId === "TestStage" && location === StagePanelLocation.Right) {
       widgets.push({
         id: "test2",
-        getWidgetContent: () => "Hello World!",
-        saveTransientState: () => { },
-        restoreTransientState: () => false,
+        content: "Hello World!",
       });
     } else if (stageId === "TestStage") {
       widgets.push({
         id: "test3",
-        getWidgetContent: () => "Hello World!",
-        saveTransientState: () => { },
-        restoreTransientState: () => false,
+        content: "Hello World!",
       });
     } else if (stageId === "TestStageWithFloatingWidgets" && location === StagePanelLocation.Right) {
       widgets.push({
         id: "test-floating-1",
-        getWidgetContent: () => "Hello World!",
-        saveTransientState: () => { },
-        restoreTransientState: () => false,
-        defaultState: WidgetState.Floating,
-        defaultFloatingPosition: { x: 100, y: 200 },
-        defaultFloatingSize: { width: 400, height: 200 },
-        floatingContainerId: "my-floating-container",
-        isFloatingStateSupported: true,
-        isFloatingStateWindowResizable: false,
+        content: "Hello World!",
         priority: 0,
+        defaultState: WidgetState.Floating,
+        canFloat: {
+          defaultPosition: { x: 100, y: 200 },
+          defaultSize: { width: 400, height: 200 },
+          containerId: "my-floating-container",
+          isResizable: false,
+        },
       });
       widgets.push({
         id: "test-floating-2",
-        getWidgetContent: () => "Hello World 2!",
-        saveTransientState: () => { },
-        restoreTransientState: () => false,
+        content: "Hello World 2!",
         defaultState: WidgetState.Floating,
-        isFloatingStateSupported: true,
+        canFloat: true,
         priority: 100,
       });
 

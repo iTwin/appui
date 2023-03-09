@@ -8,13 +8,11 @@
 @import "../text/block";
 @import "../z-index";
 @import "../scrollbar";
-@import "~@itwin/itwinui-css/scss/style/typography";
-@import "~@itwin/itwinui-css/scss/text/mixins";
 
 // cspell:ignore titlebar outoffocus nwse
 
 .core-dialog {
-  @include iui-font-family;
+  font-family: var(--iui-font-sans);
 
   display: none;
   position: fixed;
@@ -105,17 +103,17 @@
       display: flex;
       flex-grow: 1;
       flex-direction: column;
-      border: 1px solid $buic-background-dialog-stroke;
+      border: 1px solid var(--iui-color-border);
       border-radius: var(--iui-border-radius-1);
-      background-color: $buic-background-dialog;
-      color: $buic-text-color;
+      background-color: var(--iui-color-background);
+      color: var(--iui-color-text);
       padding: 0;
 
       > .core-dialog-head {
         flex-shrink: 0;
         align-items: center;
-        background-color: $buic-background-titlebar; /* $buic-background-titlebar-outoffocus; */
-        color: $buic-text-color;
+        background-color: var(--iui-color-background-backdrop);
+        color: var(--iui-color-text);
         display: flex;
         padding: 4px;
 
@@ -127,17 +125,28 @@
         > .core-dialog-title {
           flex: 1 1;
 
-          @include iui-text(leading);
+          padding: 0;
+          border: none;
+          vertical-align: baseline;
+          font-size: var(--iui-font-size-2);
+          font-weight: var(--iui-font-weight-normal);
+          line-height: var(--iui-size-l);
 
           margin: 0;
           margin-left: 4px;
         }
 
         &.core-dialog-modal {
-          background-color: $buic-background-dialog;
+          background-color: var(--iui-color-background);
 
           > .core-dialog-title {
-            @include iui-text(subheading);
+            margin: 0;
+            padding: 0;
+            border: none;
+            vertical-align: baseline;
+            font-size: var(--iui-font-size-3);
+            font-weight: var(--iui-font-weight-normal);
+            line-height: calc(1.5 * var(--iui-size-l));
           }
         }
 
@@ -148,16 +157,16 @@
           line-height: var(--iui-font-size-4);
           flex: 0 0 $uicore-icons-medium;
           text-align: center;
-          color: $buic-text-color-muted;
+          color: var(--iui-color-icon);
           border: none;
           background-color: transparent;
 
           &:hover,
           &:focus {
-            color: $buic-foreground-activehover;
+            color: var(--iui-color-icon-hover);
           }
           &:focus {
-            outline: 1px solid $buic-foreground-focus;
+            outline: 1px solid var(--iui-color-border-accent);
           }
         }
       }
@@ -197,14 +206,6 @@
           }
         }
       }
-
-      /*
-      &:focus-within {
-        .core-dialog-head {
-          background-color: $buic-background-titlebar;
-        }
-      }
-      */
     }
 
     $dialog-resize-bar-width: 8px;

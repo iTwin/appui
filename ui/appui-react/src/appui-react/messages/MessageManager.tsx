@@ -7,7 +7,7 @@
  */
 
 import classnames from "classnames";
-import * as _ from "lodash";
+import { isEqual } from "lodash";
 import * as React from "react";
 import { XAndY } from "@itwin/core-geometry";
 import {
@@ -15,7 +15,7 @@ import {
   OutputMessageType, ToolAssistanceInstructions, ToolTipOptions,
 } from "@itwin/core-frontend";
 import { MessageSeverity, UiEvent } from "@itwin/appui-abstract";
-import { MessageContainer, ReactMessage } from "@itwin/core-react";
+import { IconSpec, MessageContainer, ReactMessage } from "@itwin/core-react";
 import { ConfigurableUiActionId } from "../configurableui/state";
 import { StandardMessageBox } from "../dialog/StandardMessageBox";
 import { ElementTooltip } from "../feedback/ElementTooltip";
@@ -24,8 +24,9 @@ import { MessageSpan } from "./MessageSpan";
 import { PointerMessage } from "./Pointer";
 import { NotifyMessageDetailsType, NotifyMessageType } from "./ReactNotifyMessageDetails";
 import { StatusMessageManager } from "./StatusMessageManager";
-import { Small, toaster, ToastOptions } from "@itwin/itwinui-react";
+import { Text, toaster, ToastOptions } from "@itwin/itwinui-react";
 import { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
+import { SvgInfo, SvgStatusError, SvgStatusSuccess, SvgStatusWarning } from "@itwin/itwinui-icons-react";
 
 class MessageBoxCallbacks {
   constructor(
@@ -255,7 +256,7 @@ export class MessageManager {
     const content = <>
       {message.briefMessage}
       {message.detailedMessage &&
-      <Small><>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</></Small>
+      <Text variant="small"><>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</></Text>
       }
     </>;
     switch (message.priority) {
@@ -275,7 +276,7 @@ export class MessageManager {
    * @param  message  Details about the message to output.
    */
   public static addMessage(message: NotifyMessageDetailsType): void {
-    if (!_.isEqual(message, this._lastMessage)) {
+    if (!isEqual(message, this._lastMessage)) {
       this.addToMessageCenter(message);
       this._lastMessage = message;
     }
@@ -407,10 +408,34 @@ export class MessageManager {
     UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetToolPrompt, prompt, true);
   }
 
-  /** Gets an icon CSS class name based on a given NotifyMessageDetailsType. */
+  /** Extracts the message severity from the message details and returns the corresponding React icon.
+   * @param details NotifyMessageDetailsType
+   * @returns IconSpec
+   */
+  public static getIconSpecFromDetails(details: NotifyMessageDetailsType): IconSpec {
+    const severity = MessageManager.getSeverity(details);
+    let iconSpec: IconSpec = <SvgStatusSuccess />;
+    switch (severity) {
+      case MessageSeverity.Error:
+      case MessageSeverity.Fatal:
+        iconSpec =  <SvgStatusError />;
+        break;
+      case MessageSeverity.Warning:
+        iconSpec =  <SvgStatusWarning />;
+        break;
+      case MessageSeverity.Information:
+        iconSpec =  <SvgInfo />;
+        break;
+    }
+    return iconSpec;
+  }
+  /** Gets an icon CSS class name based on a given NotifyMessageDetailsType.
+   * @public
+   * @deprecated in 4.0. Please use getIconSpecFromDetails instead.
+   */
   public static getIconClassName(details: NotifyMessageDetailsType): string {
     const severity = MessageManager.getSeverity(details);
-    const className = MessageContainer.getIconClassName(severity, false);
+    const className = MessageContainer.getIconClassName(severity, false); // eslint-disable-line deprecation/deprecation
     const iconClassName = classnames("icon", "notifymessage-icon", className);
 
     return iconClassName;

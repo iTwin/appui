@@ -28,7 +28,6 @@ import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 // import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
 // import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
-import { IModelsClient } from "@itwin/imodels-client-management";
 import { getSupportedRpcs } from "../common/rpcs";
 import { loggerCategory, TestAppConfiguration } from "../common/TestAppConfiguration";
 import { AppUi } from "./appui/AppUi";
@@ -41,6 +40,7 @@ import {
   CustomFrontstageProvider, FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, MessageUiItemsProvider, SynchronizedFloatingViewportStage, WidgetApiStage,
 } from "@itwin/appui-test-providers";
 import { useHandleURLParams } from "./UrlParams";
+import { addExampleFrontstagesToBackstage, registerExampleFrontstages } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -132,7 +132,6 @@ export class SampleAppIModelApp {
   public static sampleAppNamespace?: string;
   public static iModelParams: SampleIModelParams | undefined;
   public static testAppConfiguration: TestAppConfiguration | undefined;
-  public static hubClient?: IModelsClient;
   private static _appStateManager: StateManager | undefined;
 
   public static get store(): Store<RootState> {
@@ -260,6 +259,9 @@ export class SampleAppIModelApp {
     // we create a Frontstage that contains the views that we want.
     let stageId: string;
     const defaultFrontstage = MainFrontstage.stageId;
+
+    registerExampleFrontstages();
+    addExampleFrontstagesToBackstage();
 
     // Reset QuantityFormatter UnitsProvider with new iModelConnection
     // Remove comments once RPC error processing is fixed
@@ -461,8 +463,6 @@ async function main() {
     BingMaps: SampleAppIModelApp.testAppConfiguration.bingMapsKey ? { key: "key", value: SampleAppIModelApp.testAppConfiguration.bingMapsKey } : undefined,
     MapboxImagery: SampleAppIModelApp.testAppConfiguration.mapBoxKey ? { key: "access_token", value: SampleAppIModelApp.testAppConfiguration.mapBoxKey } : undefined,
   };
-
-  // const iModelClient = new IModelsClient({ api: { baseUrl: `https://${process.env.IMJS_URL_PREFIX ?? ""}api.bentley.com/imodels` } });
 
   const realityDataClientOptions: RealityDataClientOptions = {
     /** API Version. v1 by default */

@@ -7,24 +7,23 @@
  */
 
 import * as React from "react";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
 import { Logger } from "@itwin/core-bentley";
-import {
-  ActionButton, CommonToolbarItem, ConditionalBooleanValue, GroupButton, ToolbarItemsManager, ToolbarItemUtilities, UiSyncEventArgs,
-} from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
-import { Direction, ToolbarItem, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
 import { ToolbarDragInteractionContext } from "./DragInteraction";
 import { useDefaultToolbarItems } from "./useDefaultToolbarItems";
 import { useUiItemsProviderToolbarItems } from "./useUiItemsProviderToolbarItems";
-import { ToolActivatedEventArgs } from "../framework/FrameworkFrontstages";
-import { ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
+import { isToolbarActionItem, isToolbarGroupItem, ToolbarActionItem, ToolbarGroupItem, ToolbarItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
+import { ToolbarItemsManager } from "./ToolbarItemsManager";
+import { toUIAToolbarItem } from "./toUIAToolbarItem";
 
 /** Private function to set up sync event monitoring of toolbar items */
 function useToolbarItemSyncEffect(uiDataProvider: ToolbarItemsManager, syncIdsOfInterest: string[]) {
   React.useEffect(() => {
-    const handleSyncUiEvent = (args: UiSyncEventArgs) => {
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
       if (0 === syncIdsOfInterest.length)
         return;
 
@@ -33,40 +32,29 @@ function useToolbarItemSyncEffect(uiDataProvider: ToolbarItemsManager, syncIdsOf
         // process each item that has interest
         uiDataProvider.refreshAffectedItems(args.eventIds);
       }
-    };
-
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
-    return () => {
-      SyncUiEventDispatcher.onSyncUiEvent.removeListener(handleSyncUiEvent);
-    };
+    });
   }, [uiDataProvider, syncIdsOfInterest, uiDataProvider.items]);
 
   React.useEffect(() => {
-    const handleToolActivatedEvent = ({ toolId }: ToolActivatedEventArgs) => {
+    return UiFramework.frontstages.onToolActivatedEvent.addListener(({ toolId }) => {
       uiDataProvider.setActiveToolId(toolId);
-    };
-
-    UiFramework.frontstages.onToolActivatedEvent.addListener(handleToolActivatedEvent);
-
-    return () => {
-      UiFramework.frontstages.onToolActivatedEvent.removeListener(handleToolActivatedEvent);
-    };
+    });
   }, [uiDataProvider, uiDataProvider.items]);
 }
 
-function nestedAddItemToSpecifiedParentGroup(items: ReadonlyArray<ActionButton | GroupButton>, groupChildren: Array<ActionButton | GroupButton>): Array<ActionButton | GroupButton> {
-  const outItems: Array<ActionButton | GroupButton> = [];
+function nestedAddItemToSpecifiedParentGroup(items: ReadonlyArray<ToolbarActionItem | ToolbarGroupItem>, groupChildren: Array<ToolbarActionItem | ToolbarGroupItem>): Array<ToolbarActionItem | ToolbarGroupItem> {
+  const outItems: Array<ToolbarActionItem | ToolbarGroupItem> = [];
   for (const toolbarItem of items) {
-    if (!ToolbarItemUtilities.isGroupButton(toolbarItem)) {
+    if (!isToolbarGroupItem(toolbarItem)) {
       outItems.push(toolbarItem);
       continue;
     }
 
-    const newChildren: Array<ActionButton | GroupButton> = nestedAddItemToSpecifiedParentGroup(toolbarItem.items, groupChildren);
+    const newChildren: Array<ToolbarActionItem | ToolbarGroupItem> = nestedAddItemToSpecifiedParentGroup(toolbarItem.items, groupChildren);
     const foundIndices: number[] = [];
 
     groupChildren.forEach((entry, index) => {
-      if (entry.parentToolGroupId === toolbarItem.id) {
+      if (entry.parentGroupItemId === toolbarItem.id) {
         foundIndices.push(index);
       }
     });
@@ -88,19 +76,19 @@ function nestedAddItemToSpecifiedParentGroup(items: ReadonlyArray<ActionButton |
   return outItems;
 }
 
-function addItemToSpecifiedParentGroup(items: readonly CommonToolbarItem[], groupChildren: Array<ActionButton | GroupButton>): CommonToolbarItem[] {
-  const outItems: CommonToolbarItem[] = [];
+function addItemToSpecifiedParentGroup(items: readonly ToolbarItem[], groupChildren: Array<ToolbarActionItem | ToolbarGroupItem>): ToolbarItem[] {
+  const outItems: ToolbarItem[] = [];
   for (const toolbarItem of items) {
-    if (!ToolbarItemUtilities.isGroupButton(toolbarItem)) {
+    if (!isToolbarGroupItem(toolbarItem)) {
       outItems.push(toolbarItem);
       continue;
     }
 
-    const newChildren: Array<ActionButton | GroupButton> = nestedAddItemToSpecifiedParentGroup(toolbarItem.items, groupChildren);
+    const newChildren: Array<ToolbarActionItem | ToolbarGroupItem> = nestedAddItemToSpecifiedParentGroup(toolbarItem.items, groupChildren);
     const foundIndices: number[] = [];
 
     groupChildren.forEach((entry, index) => {
-      if (entry.parentToolGroupId === toolbarItem.id) {
+      if (entry.parentGroupItemId === toolbarItem.id) {
         foundIndices.push(index);
       }
     });
@@ -122,10 +110,10 @@ function addItemToSpecifiedParentGroup(items: readonly CommonToolbarItem[], grou
   return outItems;
 }
 
-function cloneGroup(inGroup: GroupButton): GroupButton {
-  const childItems: Array<ActionButton | GroupButton> = [];
+function cloneGroup(inGroup: ToolbarGroupItem): ToolbarGroupItem {
+  const childItems: Array<ToolbarActionItem | ToolbarGroupItem> = [];
   inGroup.items.forEach((item) => {
-    if (ToolbarItemUtilities.isGroupButton(item))
+    if (isToolbarGroupItem(item))
       childItems.push(cloneGroup(item));
     else
       childItems.push(item);
@@ -140,12 +128,12 @@ function getItemSortValue(item: ToolbarItem) {
   return groupValue * 10000 + item.itemPriority;
 }
 
-function getSortedChildren(group: GroupButton): ReadonlyArray<ActionButton | GroupButton> {
+function getSortedChildren(group: ToolbarGroupItem): ReadonlyArray<ToolbarActionItem | ToolbarGroupItem> {
   const sortedChildren = group.items
     .filter((item) => !(ConditionalBooleanValue.getValue(item.isHidden)))
     .sort((a, b) => getItemSortValue(a) - getItemSortValue(b))
     .map((i) => {
-      if (ToolbarItemUtilities.isGroupButton(i)) {
+      if (isToolbarGroupItem(i)) {
         return { ...i, items: getSortedChildren(i) };
       }
       return i;
@@ -154,17 +142,17 @@ function getSortedChildren(group: GroupButton): ReadonlyArray<ActionButton | Gro
 }
 
 /** local function to combine items from Stage and from Extensions */
-function combineItems(defaultItems: ReadonlyArray<CommonToolbarItem>, addonItems: ReadonlyArray<CommonToolbarItem>) {
-  let items: CommonToolbarItem[] = [];
-  const groupChildren: Array<ActionButton | GroupButton> = [];
+function combineItems(defaultItems: ReadonlyArray<ToolbarItem>, addonItems: ReadonlyArray<ToolbarItem>): ToolbarItem[] {
+  let items: ToolbarItem[] = [];
+  const groupChildren: Array<ToolbarActionItem | ToolbarGroupItem> = [];
 
   // istanbul ignore else
   if (defaultItems.length) {
-    defaultItems.forEach((srcItem: CommonToolbarItem) => {
+    defaultItems.forEach((srcItem: ToolbarItem) => {
       if (-1 === items.findIndex((item) => item.id === srcItem.id)) {
         // if the default item is a group that an addon may insert into copy it so we don't mess with original
-        const toolbarItem = ToolbarItemUtilities.isGroupButton(srcItem) ? cloneGroup(srcItem) : srcItem;
-        if (toolbarItem.parentToolGroupId && (ToolbarItemUtilities.isGroupButton(toolbarItem) || ToolbarItemUtilities.isActionButton(toolbarItem)))
+        const toolbarItem = isToolbarGroupItem(srcItem) ? cloneGroup(srcItem) : srcItem;
+        if ((isToolbarGroupItem(toolbarItem) || isToolbarActionItem(toolbarItem)) && toolbarItem.parentGroupItemId)
           groupChildren.push(toolbarItem);
         else
           items.push(toolbarItem);
@@ -173,11 +161,11 @@ function combineItems(defaultItems: ReadonlyArray<CommonToolbarItem>, addonItems
   }
   // istanbul ignore else
   if (addonItems.length) {
-    addonItems.forEach((srcItem: CommonToolbarItem) => {
+    addonItems.forEach((srcItem: ToolbarItem) => {
       if (-1 === items.findIndex((item) => item.id === srcItem.id)) {
         // if the default item is a group that an addon may insert into copy it so we don't mess with original
-        const toolbarItem = ToolbarItemUtilities.isGroupButton(srcItem) ? cloneGroup(srcItem) : srcItem;
-        if (toolbarItem.parentToolGroupId && (ToolbarItemUtilities.isGroupButton(toolbarItem) || ToolbarItemUtilities.isActionButton(toolbarItem)))
+        const toolbarItem = isToolbarGroupItem(srcItem) ? cloneGroup(srcItem) : srcItem;
+        if ((isToolbarGroupItem(toolbarItem) || isToolbarActionItem(toolbarItem)) && toolbarItem.parentGroupItemId)
           groupChildren.push(toolbarItem);
         else
           items.push(toolbarItem);
@@ -190,8 +178,8 @@ function combineItems(defaultItems: ReadonlyArray<CommonToolbarItem>, addonItems
     items = addItemToSpecifiedParentGroup(items, groupChildren);
 
     if (groupChildren.length) {
-      groupChildren.forEach((toolbarItem: ActionButton | GroupButton) => {
-        Logger.logWarning("ToolbarComposer", `Requested Parent Group [${toolbarItem.parentToolGroupId!}] not found, so item [${toolbarItem.id}] is added directly to toolbar.`);
+      groupChildren.forEach((toolbarItem) => {
+        Logger.logWarning("ToolbarComposer", `Requested Parent Group [${toolbarItem.parentGroupItemId!}] not found, so item [${toolbarItem.id}] is added directly to toolbar.`);
         items.push(toolbarItem);
       });
     }
@@ -201,7 +189,7 @@ function combineItems(defaultItems: ReadonlyArray<CommonToolbarItem>, addonItems
     .filter((item) => !(ConditionalBooleanValue.getValue(item.isHidden)))
     .sort((a, b) => getItemSortValue(a) - getItemSortValue(b))
     .map((i) => {
-      if (ToolbarItemUtilities.isGroupButton(i)) {
+      if (isToolbarGroupItem(i)) {
         return { ...i, items: getSortedChildren(i) };
       }
       return i;
@@ -229,10 +217,10 @@ const useProximityOpacitySetting = () => {
  * @public
  */
 export interface ExtensibleToolbarProps {
-  items: CommonToolbarItem[];
-  usage: ToolbarUsage; // eslint-disable-line deprecation/deprecation
+  items: ToolbarItem[];
+  usage: ToolbarUsage;
   /** Toolbar orientation. */
-  orientation: ToolbarOrientation; // eslint-disable-line deprecation/deprecation
+  orientation: ToolbarOrientation;
 }
 
 /**
@@ -258,7 +246,10 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
   const addonSyncIdsOfInterest = React.useMemo(() => ToolbarItemsManager.getSyncIdsOfInterest(addonItems), [addonItems]);
   useToolbarItemSyncEffect(addonItemsManager, addonSyncIdsOfInterest);
 
-  const toolbarItems = React.useMemo(() => combineItems(defaultItems, addonItems), [defaultItems, addonItems]);
+  const toolbarItems = React.useMemo(() => {
+    const items = combineItems(defaultItems, addonItems);
+    return items.map((item) => toUIAToolbarItem(item));
+  }, [defaultItems, addonItems]);
 
   const toolbarOrientation = orientation === ToolbarOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
   const expandsTo = toolbarOrientation === Orientation.Horizontal ? Direction.Bottom : usage === ToolbarUsage.ViewNavigation ? Direction.Left : Direction.Right;

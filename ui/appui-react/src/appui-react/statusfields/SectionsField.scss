@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/itwinui-css/scss/style/typography";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .uifw-sections-footer-contents {
@@ -24,13 +23,13 @@
 }
 
 .uifw-sections-label {
-  @include iui-font-family;
-  color: $buic-text-color;
+  font-family: var(--iui-font-sans);
+  color: var(--iui-color-text);
   font-size: var(--iui-font-size-1);
   align-self: center;
   margin: var(--iui-size-xs);
 
   &.disabled {
-    color: $buic-text-color-disabled;
+    color: var(--iui-color-text-disabled);
   }
 }

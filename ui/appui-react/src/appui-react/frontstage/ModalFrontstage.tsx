@@ -9,10 +9,11 @@
 import "./ModalFrontstage.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps, Icon } from "@itwin/core-react";
 import { BackButton } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
-import { Headline } from "@itwin/itwinui-react";
+import { Text } from "@itwin/itwinui-react";
+import { SvgProgressBackwardCircular } from "@itwin/itwinui-icons-react";
 
 /**
  * Properties for the [[ModalFrontstage]] React component
@@ -64,11 +65,11 @@ export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
             <BackButton className="nz-toolbar-button-app"
               onClick={this._onGoBack}
               icon={
-                <i className="icon icon-progress-backward" />
+                <Icon iconSpec={<SvgProgressBackwardCircular />} />
               }
               title={this._backButtonTitle}
             />
-            <Headline>{this.props.title}</Headline>
+            <Text variant="headline">{this.props.title}</Text>
             {this.props.appBarRight &&
               <span className="uifw-modal-app-bar-right">{this.props.appBarRight}</span>
             }

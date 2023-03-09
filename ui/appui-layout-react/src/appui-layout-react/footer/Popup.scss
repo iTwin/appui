@@ -9,11 +9,11 @@
 .nz-footer-popup {
   border: unset;
   font-size: var(--iui-font-size-1);
-  background-color: $buic-background-dialog;
+  background-color: var(--iui-color-background);
 
   &.core-popup.arrow::after,
   &.core-popup.arrow::before {
-    color: $buic-background-dialog;
+    color: var(--iui-color-background);
   }
 
   @include uicore-z-index(status-popup);

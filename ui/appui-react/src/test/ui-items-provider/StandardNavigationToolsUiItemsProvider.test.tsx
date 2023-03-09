@@ -4,12 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
-import {
-  StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsManager,
-} from "@itwin/appui-abstract";
 import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
-import { DefaultNavigationTools, StandardNavigationToolsUiItemsProvider } from "../../appui-react";
+import { DefaultNavigationTools, StageUsage, StandardNavigationToolsUiItemsProvider, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 
 const testToolsArray: DefaultNavigationTools[] = [
   {

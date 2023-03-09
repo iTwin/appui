@@ -8,7 +8,8 @@
 
 import * as React from "react";
 import { DateFormatter, RelativePosition, SpecialKey, TimeDisplay } from "@itwin/appui-abstract";
-import { BodyText, CommonProps, Popup } from "@itwin/core-react";
+import { CommonProps, Popup } from "@itwin/core-react";
+import { Text } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 import { DatePicker } from "./DatePicker";
 import { DateField } from "./DateField";
@@ -114,7 +115,7 @@ export function DatePickerPopupButton({ displayEditField, timeDisplay, selected,
           <DatePicker selected={workingDate} onDateChange={handleOnDateChanged} showFocusOutline={showFocusOutline} />
           {timeDisplay &&
             <div className="time-container">
-              <BodyText className="time-label">{timeLabelRef.current}</BodyText>
+              <Text variant="body" className="time-label">{timeLabelRef.current}</Text>
               <TimeField time={timeSpec} timeDisplay={timeDisplay} onTimeChange={handleOnTimeChanged} />
             </div>
           }
