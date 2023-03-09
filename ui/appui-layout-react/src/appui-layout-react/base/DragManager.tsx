@@ -6,7 +6,7 @@
  * @module Base
  */
 import * as React from "react";
-import * as _ from "lodash";
+import { isEqual } from "lodash";
 import { PointProps } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
 import { Point, SizeProps } from "@itwin/core-react";
@@ -559,7 +559,7 @@ export class DragManager {
     if (!this._dragged.target)
       return false;
 
-    return _.isEqual(this._dragged.target, target);
+    return isEqual(this._dragged.target, target);
   }
 
   public get onDragStart() {

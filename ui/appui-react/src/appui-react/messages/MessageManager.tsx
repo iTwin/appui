@@ -7,7 +7,7 @@
  */
 
 import classnames from "classnames";
-import * as _ from "lodash";
+import { isEqual } from "lodash";
 import * as React from "react";
 import { XAndY } from "@itwin/core-geometry";
 import {
@@ -276,7 +276,7 @@ export class MessageManager {
    * @param  message  Details about the message to output.
    */
   public static addMessage(message: NotifyMessageDetailsType): void {
-    if (!_.isEqual(message, this._lastMessage)) {
+    if (!isEqual(message, this._lastMessage)) {
       this.addToMessageCenter(message);
       this._lastMessage = message;
     }
