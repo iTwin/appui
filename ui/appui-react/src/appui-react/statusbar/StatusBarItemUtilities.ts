@@ -10,20 +10,6 @@ import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { StatusBarActionItem, StatusBarCustomItem, StatusBarLabelItem, StatusBarLabelSide, StatusBarSection } from "./StatusBarItem";
 
-/** Utility methods for creating and maintaining StatusBar items.
- * @public
- */
-export class StatusBarItemUtilities {
-  /** Creates a StatusBar item
-   * @deprecated in 3.6 Use [[StatusBarItemUtilities.createCustomItem]] instead.
-   */
-  public static createStatusBarItem = (id: string, section: UIA_StatusBarSection, itemPriority: number, reactNode: React.ReactNode, itemProps?: Partial<StatusBarItem>): StatusBarItem => ({ // eslint-disable-line deprecation/deprecation
-    id, section, itemPriority, reactNode,
-    isCustom: true,
-    ...itemProps ? itemProps : {},
-  });
-}
-
 /** Helper class to create Abstract StatusBar Item definitions.
  * @public
  */
