@@ -95,5 +95,9 @@
       "reviewCategory": "internal",
       "shouldPublish": false
     }
-  ]
+  ],
+  "variants": [{
+    "variantName": "core-3x",
+    "description": "Build this repo using iTwin.js core 3.6.x"
+  }]
 }
