@@ -12,7 +12,6 @@ export default function transformer(file: FileInfo, api: API) {
   const j = api.jscodeshift;
 
   const root = j(file.source);
-
   const frontstages = root.findJSXElements("Frontstage");
   frontstages.forEach((frontstage) => {
     const frontstageAttrHandles = new Map<string | undefined, AttributeHandle | null>([
