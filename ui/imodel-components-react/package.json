@@ -72,7 +72,6 @@
     "@testing-library/user-event": "^14.4.2",
     "@types/chai": "4.3.1",
     "@types/chai-as-promised": "^7",
-    "@types/chai-spies": "^1.0.0",
     "@types/chai-string": "^1.4.1",
     "@types/faker": "^4.1.0",
     "@types/mocha": "^8.2.2",
@@ -83,7 +82,6 @@
     "@types/sinon-chai": "^3.2.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7",
-    "chai-spies": "1.0.0",
     "chai-string": "^1.5.0",
     "cpx2": "^3.0.0",
     "eslint": "^7.11.0",
@@ -102,8 +100,7 @@
     "sinon-chai": "^3.2.0",
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
-    "typescript": "~4.4.0",
-    "xmlhttprequest": "^1.8.0"
+    "typescript": "~4.4.0"
   },
   "//dependencies": [
     "NOTE: these dependencies should be only for things that DO NOT APPEAR IN THE API",
@@ -114,8 +111,7 @@
     "@itwin/itwinui-react": "^2.5.0",
     "@itwin/itwinui-variables": "^2.0.0",
     "@itwin/itwinui-icons-react": "^2.1.0",
-    "classnames": "2.3.1",
-    "immer": "9.0.6"
+    "classnames": "2.3.1"
   },
   "nyc": {
     "extends": "./node_modules/@itwin/build-tools/.nycrc",

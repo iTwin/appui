@@ -9,11 +9,11 @@
 import "./FilteringInput.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Key } from "ts-key-enum";
 import { CommonProps, Icon, UiCore } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 import { ResultSelector, ResultSelectorProps } from "./ResultSelector";
+import { SpecialKey } from "@itwin/appui-abstract";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 
 /** [[FilteringInput]] React Component state
@@ -118,7 +118,7 @@ export class FilteringInput extends React.PureComponent<FilteringInputProps, Fil
   };
 
   private _onFilterKeyDown = (e: React.KeyboardEvent<HTMLElement>): void => {
-    if (e.key !== Key.Enter)
+    if (e.key !== SpecialKey.Enter)
       return;
 
     if (!this.state.searchText)

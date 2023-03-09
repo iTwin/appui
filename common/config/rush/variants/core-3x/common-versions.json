@@ -31,6 +31,7 @@
     "@itwin/webgl-compatibility": "^3.6.0",
     "@types/react": "^17.0.37",
     "axe-core": "4.1.2",
+    "caniuse-lite": "^1.0.30001458",
     "electron": "^22.0.0",
     "event-stream": "~4.0.1",
     "flatbuffers": "~1.12.0",

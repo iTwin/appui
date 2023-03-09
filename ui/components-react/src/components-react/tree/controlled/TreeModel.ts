@@ -7,7 +7,7 @@
  */
 
 import { immerable } from "immer";
-import _ from "lodash";
+import { cloneDeep } from "lodash";
 import { assert } from "@itwin/core-bentley";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
@@ -468,7 +468,7 @@ export class MutableTreeModel implements TreeModel {
         isVisible: !!input.item.isCheckboxVisible,
       },
 
-      item: _.cloneDeep(input.item),
+      item: cloneDeep(input.item),
     };
   }
 }
