@@ -42,6 +42,10 @@ export function isJSXExpressionContainer(j: JSCodeshift, path: any): path is JSX
   return j(path).isOfType(j.JSXExpressionContainer);
 }
 
+export function isSpecifiedJSXAttribute(j: JSCodeshift, path: any, name: string): path is JSXAttribute {
+  return isJSXAttribute(j, path) && isJSXIdentifier(j, path.name) && path.name.name === name;
+}
+
 export function isLiteral(j: JSCodeshift, source: Source): source is Literal {
   return j(source).isOfType(j.Literal);
 }
