@@ -57,6 +57,37 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transform rightPanel correctly"
+    "transforms rightPanel correctly"
+  );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    <Frontstage
+      viewNavigationTools = {
+        <Zone
+          widgets={[
+            <Widget id={"viewNavigation"} />,
+          ]}
+        />
+      }
+      topRight = {
+        <Zone
+          widgets={[
+            <Widget id={"topRight"} />,
+          ]}
+        />
+      }
+    />
+    `,
+    `
+    ({
+      viewNavigation: {
+        id: "viewNavigation",
+      },
+    })
+    `,
+    "correctly chooses default tool widget handler"
   );
 });

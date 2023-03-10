@@ -43,8 +43,28 @@ export default function transformer(file: FileInfo, api: API) {
       ["bottomMostPanel", null],
     ]);
 
-    // TODO: Check if zone and tool attributes do not overlap
+    // Remove same purpose attribute handler
+    const contentManipulationTools = getJSXAttribute(j, frontstage, "contentManipulationTools");
+    const topLeft = getJSXAttribute(j, frontstage, "topLeft");
+    if (contentManipulationTools && topLeft)
+      frontstageAttrHandles.set("topLeft", null);
 
+    const viewNavigationTools = getJSXAttribute(j, frontstage, "viewNavigationTools");
+    const topRight = getJSXAttribute(j, frontstage, "topRight");
+    if (viewNavigationTools && topRight)
+      frontstageAttrHandles.set("topRight", null);
+
+    const toolSettings = getJSXAttribute(j, frontstage, "toolSettings");
+    const topCenter = getJSXAttribute(j, frontstage, "topCenter");
+    if (toolSettings && topCenter)
+      frontstageAttrHandles.set("topCenter", null);
+
+    const statusBar = getJSXAttribute(j, frontstage, "statusBar");
+    const bottomCenter = getJSXAttribute(j, frontstage, "bottomCenter");
+    if (statusBar && bottomCenter)
+      frontstageAttrHandles.set("bottomCenter", null);
+
+    // Extract relevant widget information for converting stage panels to it's config form
     const rightPanelStart = getPanelWidgets(j, frontstage, "centerRight");
     const rightPanelEnd = getPanelWidgets(j, frontstage, "bottomRight");
     frontstageAttrHandles.set("rightPanel", chain(extractExpression, handleAsStagePanel(rightPanelStart, rightPanelEnd)));
@@ -59,8 +79,8 @@ export default function transformer(file: FileInfo, api: API) {
     const bottomPanelEnd = getPanelWidgets(j, frontstage, "bottomMostPanel");
     frontstageAttrHandles.set("bottomPanel", chain(extractExpression, handleAsStagePanel(undefined, bottomPanelEnd)));
 
+    // Construct frontstage config
     const configProps = handleJSXElement(j, frontstage, frontstageAttrHandles);
-
     const obj = configToObjectExpression(j, configProps);
     frontstage.replace(obj);
   });
@@ -68,8 +88,12 @@ export default function transformer(file: FileInfo, api: API) {
   return root.toSource({ trailingComma: true });
 }
 
+function getJSXAttribute(j: JSCodeshift, element: ASTPath<JSXElement>, attrName: string) {
+  return element.node.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, attrName)) as JSXAttribute | undefined;
+}
+
 function getPanelWidgets(j: JSCodeshift, frontstage: ASTPath<JSXElement>, attrName: string) {
-  const attr = frontstage.node.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, attrName)) as JSXAttribute | undefined;
+  const attr = getJSXAttribute(j, frontstage, attrName);
   const attrExpr = attr ? getJSXAttributeExpression(j, attr) : undefined;
   if (attrExpr && (isSpecifiedJSXElement(j, attrExpr, "Zone") || isSpecifiedJSXElement(j, attrExpr, "StagePanel"))) {
     const widgetsAttr = attrExpr.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
