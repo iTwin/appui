@@ -10,6 +10,7 @@ const transform = tsxModule(createInlineTransform(transformer));
 
 describe("frontstage-to-config", () => {
   defineTest(__dirname, "./frontstage-to-config", null, "frontstage-to-config/Frontstage", { parser: "tsx" });
+  defineTest(__dirname, "./frontstage-to-config", null, "frontstage-to-config/Frontstage1", { parser: "tsx" });
 
   defineInlineTest(
     transform,
@@ -43,8 +44,15 @@ describe("frontstage-to-config", () => {
     ({
       rightPanel: {
         sections: {
-          start: [<Widget id={1}/>, <Widget id={2}/>],
-          end: [<Widget id={3}/>],
+          start: [{
+            id: 1,
+          }, {
+            id: 2,
+          }],
+
+          end: [{
+            id: 3,
+          }],
         },
       },
     })

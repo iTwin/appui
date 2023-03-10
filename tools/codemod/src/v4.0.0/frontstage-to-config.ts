@@ -20,6 +20,13 @@ export default function transformer(file: FileInfo, api: API) {
       ["id", extractExpression],
       ["version", extractExpression],
       ["defaultTool", null],
+      ["defaultContentId", null],
+      ["applicationData", null],
+      ["isImodelIndependent", null],
+      ["topLeft", chain(rename("contentManipulation"), extractExpression, handleAsToolWidget())],
+      ["topCenter", chain(rename("toolSettings"), extractExpression, handleAsToolWidget())],
+      ["topRight", chain(rename("viewNavigation"), extractExpression, handleAsToolWidget())],
+      ["bottomCenter", chain(rename("statusBar"), extractExpression, handleAsToolWidget())],
       ["contentGroup", extractExpression],
       ["isInFooterMode", null],
       ["usage", extractExpression],
@@ -30,15 +37,27 @@ export default function transformer(file: FileInfo, api: API) {
       ["statusBar", chain(extractExpression, handleAsToolWidget())],
       ["centerRight", null],
       ["bottomRight", null],
-      ["leftPanel", chain(extractExpression, handleAsStagePanel())],
-      ["topPanel", chain(extractExpression, handleAsStagePanel())],
-      ["bottomPanel", chain(extractExpression, handleAsStagePanel())],
+      ["centerLeft", null],
+      ["bottomLeft", null],
+      ["topMostPanel", null],
+      ["bottomMostPanel", null],
     ]);
+
+    // TODO: Check if zone and tool attributes do not overlap
 
     const rightPanelStart = getPanelWidgets(j, frontstage, "centerRight");
     const rightPanelEnd = getPanelWidgets(j, frontstage, "bottomRight");
-
     frontstageAttrHandles.set("rightPanel", chain(extractExpression, handleAsStagePanel(rightPanelStart, rightPanelEnd)));
+
+    const leftPanelStart = getPanelWidgets(j, frontstage, "centerLeft");
+    const leftPanelEnd = getPanelWidgets(j, frontstage, "bottomLeft");
+    frontstageAttrHandles.set("leftPanel", chain(extractExpression, handleAsStagePanel(leftPanelStart, leftPanelEnd)));
+
+    const topPanelEnd = getPanelWidgets(j, frontstage, "topMostPanel");
+    frontstageAttrHandles.set("topPanel", chain(extractExpression, handleAsStagePanel(undefined, topPanelEnd)));
+
+    const bottomPanelEnd = getPanelWidgets(j, frontstage, "bottomMostPanel");
+    frontstageAttrHandles.set("bottomPanel", chain(extractExpression, handleAsStagePanel(undefined, bottomPanelEnd)));
 
     const configProps = handleJSXElement(j, frontstage, frontstageAttrHandles);
 
@@ -52,7 +71,7 @@ export default function transformer(file: FileInfo, api: API) {
 function getPanelWidgets(j: JSCodeshift, frontstage: ASTPath<JSXElement>, attrName: string) {
   const attr = frontstage.node.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, attrName)) as JSXAttribute | undefined;
   const attrExpr = attr ? getJSXAttributeExpression(j, attr) : undefined;
-  if (attrExpr && isSpecifiedJSXElement(j, attrExpr, "Zone")) {
+  if (attrExpr && (isSpecifiedJSXElement(j, attrExpr, "Zone") || isSpecifiedJSXElement(j, attrExpr, "StagePanel"))) {
     const widgetsAttr = attrExpr.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
     const widgetsExpr = widgetsAttr ? getJSXAttributeExpression(j, widgetsAttr) : undefined;
     if (widgetsExpr && isArrayExpression(j, widgetsExpr)) {

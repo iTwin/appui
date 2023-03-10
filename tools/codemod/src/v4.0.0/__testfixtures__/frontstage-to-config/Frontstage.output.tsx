@@ -10,12 +10,12 @@
 
   contentManipulation: {
     id: `${this.props.id}-contentManipulationTools`,
-    element: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
+    content: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
   },
 
   viewNavigation: {
     id: `${this.props.id}-viewNavigationTools`,
-    element: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
+    content: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
   },
 
   toolSettings: {
