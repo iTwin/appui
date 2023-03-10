@@ -8,6 +8,7 @@ import backstageItem from "./backstage-item";
 import frontstageToConfig from "./frontstage-to-config";
 import layoutReact from "./layout-react";
 import react from "./react";
+import statics from "./statics";
 import statusBarItem from "./status-bar-item";
 import toolbarItem from "./toolbar-item";
 import uiItemsProvider from "./ui-items-provider";
@@ -23,6 +24,7 @@ const transforms = [
   backstageItem,
   uiItemsProvider,
   widget,
+  statics,
 ];
 
 export default function transformer(file: FileInfo, api: API) {

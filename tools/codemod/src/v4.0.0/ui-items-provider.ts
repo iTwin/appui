@@ -12,7 +12,7 @@ export default function transformer(file: FileInfo, api: API) {
 
   root.find(j.ClassMethod).forEach((path) => {
     const key = path.value.key;
-    if (isIdentifier(j, key) && key.name === "provideToolbarButtonItems") {
+    if (isIdentifier(key) && key.name === "provideToolbarButtonItems") {
       key.name = "provideToolbarItems";
     }
   });

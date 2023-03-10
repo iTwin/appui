@@ -3,7 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression, ArrayExpression, JSXElement, ASTPath, Expression, JSXExpressionContainer } from "jscodeshift";
-import { isArrayExpression, isIdentifier, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../../utils/typeGuards";
+import { isArrayExpression, isIdentifier, isIdentifierType, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../../utils/typeGuards";
+
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
   name?: JSXIdentifier;
@@ -46,7 +47,7 @@ export function handleJSXElement(j: JSCodeshift, element: ASTPath<JSXElement>, h
 export function buildConfigProperty(j: JSCodeshift, value: ValueType, name?: NameType): ConfigProperty | undefined {
   if (!isSpreadExpression(name, value)) {
     const prop: Omit<ObjectProperty, "type"> = j.objectProperty(name!, value);
-    if (!isIdentifier(j, prop.key)) {
+    if (!isIdentifierType(j, prop.key)) {
       console.warn('Unexpected identifier type');
       return undefined;
     }
