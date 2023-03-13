@@ -154,21 +154,22 @@ export function configToObjectExpression(j: JSCodeshift, configProps: ConfigProp
   return j.objectExpression(props);
 }
 
+const widgetDefaultAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["id", extractExpression],
+  ["key", null],
+  ["iconSpec", chain(rename("icon"), extractExpression)],
+  ["labelKey", extractExpression],
+  ["defaultState", extractExpression],
+  ["fillZone", null],
+  ["isFreeform", null],
+  ["isToolSettings", null],
+  ["isStatusBar", null],
+  ["mergeWithZone", null],
+  ["element", chain(rename("content"), extractExpression)],
+  ["control", extractExpression],
+]);
+
 export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpression): AttributeHandle {
-  const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-    ["id", extractExpression],
-    ["key", null],
-    ["iconSpec", chain(rename("icon"), extractExpression)],
-    ["labelKey", extractExpression],
-    ["defaultState", extractExpression],
-    ["fillZone", null],
-    ["isFreeform", null],
-    ["isToolSettings", null],
-    ["isStatusBar", null],
-    ["mergeWithZone", null],
-    ["element", chain(rename("content"), extractExpression)],
-    ["control", extractExpression],
-  ]);
 
   const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
     ["allowedZones", null],
@@ -213,13 +214,13 @@ export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpressio
 
       startWidgets.elements.forEach((elem, index) => {
         if (isSpecifiedJSXElement(j, elem, "Widget")) {
-          const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetAttrHandles);
+          const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetDefaultAttrHandles);
           startWidgets.elements[index] = configToObjectExpression(j, elemConfigProps);
         }
       });
       endWidgets.elements.forEach((elem, index) => {
         if (isSpecifiedJSXElement(j, elem, "Widget")) {
-          const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetAttrHandles);
+          const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetDefaultAttrHandles);
           endWidgets.elements[index] = configToObjectExpression(j, elemConfigProps);
         }
       });
@@ -244,20 +245,6 @@ export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpressio
 }
 
 export function handleAsWidget(): AttributeHandle {
-  const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-    ["id", extractExpression],
-    ["key", null],
-    ["iconSpec", chain(rename("icon"), extractExpression)],
-    ["labelKey", extractExpression],
-    ["defaultState", extractExpression],
-    ["fillZone", null],
-    ["isFreeform", null],
-    ["isToolSettings", null],
-    ["isStatusBar", null],
-    ["element", chain(rename("content"), extractExpression)],
-    ["control", extractExpression],
-  ]);
-
   return (j, attr) => {
     const widget = attr.value;
     if (!isSpecifiedJSXElement(j, widget, "Widget")) {
@@ -265,7 +252,7 @@ export function handleAsWidget(): AttributeHandle {
       return undefined;
     }
 
-    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetAttrHandles);
+    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetDefaultAttrHandles);
     const newValue = configToObjectExpression(j, widgetConfigProps);
     return buildConfigProperty(j, newValue, attr.name);
   };
@@ -274,19 +261,6 @@ export function handleAsWidget(): AttributeHandle {
 export function handleAsToolWidget(): AttributeHandle {
   const zoneAttrHandles = new Map<string | undefined, AttributeHandle | null>([
     ["widgets", extractExpression],
-  ]);
-  const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-    ["id", extractExpression],
-    ["key", null],
-    ["iconSpec", chain(rename("icon"), extractExpression)],
-    ["labelKey", extractExpression],
-    ["defaultState", extractExpression],
-    ["fillZone", null],
-    ["isFreeform", null],
-    ["isToolSettings", null],
-    ["isStatusBar", null],
-    ["element", chain(rename("content"), extractExpression)],
-    ["control", extractExpression],
   ]);
 
   return (j, attr) => {
@@ -314,7 +288,7 @@ export function handleAsToolWidget(): AttributeHandle {
       return undefined;
     }
 
-    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetAttrHandles);
+    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetDefaultAttrHandles);
     const newValue = configToObjectExpression(j, widgetConfigProps);
     return buildConfigProperty(j, newValue, attr.name);
   };
