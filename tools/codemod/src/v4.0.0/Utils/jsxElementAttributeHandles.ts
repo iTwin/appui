@@ -169,6 +169,13 @@ const widgetDefaultAttrHandles = new Map<string | undefined, AttributeHandle | n
   ["control", extractExpression],
 ]);
 
+function pushExpression(j: JSCodeshift, elements: ArrayExpression["elements"], expression: Expression): void {
+  if (isArrayExpression(j, expression))
+    elements.push(...expression.elements);
+  else
+    elements.push(j.spreadElement(expression as any));
+}
+
 export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpression): AttributeHandle {
 
   const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
@@ -190,27 +197,22 @@ export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpressio
     const stagePanelProps = handleJSXElement(j, j(stagePanel).get(), stagePanelAttrHandles);
 
     const widgetsAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
-    let widgets: ArrayExpression | undefined = undefined;
+    let widgets: Expression | undefined = undefined;
     if (widgetsAttr) {
       const widgetElAttr = jsxToElementAttribute(j, widgetsAttr);
-      let widgetExpr: Expression | undefined = undefined;
       if (widgetElAttr)
-        widgetExpr = extractExpression(j, widgetElAttr)?.value;
-      if (!widgetExpr || !isArrayExpression(j, widgetExpr))
-        console.warn("Expression did not match expected shape");
-      else
-        widgets = widgetExpr;
+        widgets = extractExpression(j, widgetElAttr)?.value;
     }
 
     if (widgets || start || end) {
       const startWidgets = j.arrayExpression([]);
       const endWidgets = j.arrayExpression([]);
       if (widgets)
-        startWidgets.elements.push(...widgets.elements);
+        pushExpression(j, startWidgets.elements, widgets);
       if (start)
-        startWidgets.elements.push(...start.elements);
+        pushExpression(j, startWidgets.elements, start);
       if (end)
-        endWidgets.elements.push(...end.elements);
+        pushExpression(j, endWidgets.elements, end);
 
       startWidgets.elements.forEach((elem, index) => {
         if (isSpecifiedJSXElement(j, elem, "Widget")) {

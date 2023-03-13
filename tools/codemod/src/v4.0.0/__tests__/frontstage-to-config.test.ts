@@ -65,6 +65,50 @@ describe("frontstage-to-config", () => {
     {},
     `
     <Frontstage
+      centerRight = {
+        <Zone
+          widgets = {[
+            <Widget id={2}/>,
+          ]}
+        />
+      }
+      bottomRight = {
+        <Zone
+          widgets = {[
+            <Widget id={3}/>,
+          ]}
+        />
+      }
+      rightPanel = {
+        <StagePanel
+          widgets = { this.props.widgets }
+        />
+      }
+    />
+    `,
+    `
+    ({
+      rightPanel: {
+        sections: {
+          start: [...this.props.widgets, {
+            id: 2,
+          }],
+
+          end: [{
+            id: 3,
+          }],
+        },
+      },
+    })
+    `,
+    "transforms rightPanel correctly"
+  );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    <Frontstage
       viewNavigationTools = {
         <Zone
           widgets={[
@@ -90,4 +134,6 @@ describe("frontstage-to-config", () => {
     `,
     "correctly chooses default tool widget handler"
   );
+
+
 });
