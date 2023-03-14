@@ -86,6 +86,7 @@ export function toExpressionKind(j: JSCodeshift, name: string): ExpressionKind {
   const parts = name.split(".");
   const obj = parts.slice(0, -1).join(".");
   const prop = parts[parts.length - 1];
-  const expr = j.memberExpression(j.identifier(obj), j.identifier(prop));
-  return expr;
+  if (parts.length === 1)
+    return j.identifier(prop);
+  return j.memberExpression(j.identifier(obj), j.identifier(prop));
 }

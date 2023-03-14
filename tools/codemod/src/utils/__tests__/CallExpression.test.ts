@@ -2,32 +2,21 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, Collection, FileInfo, JSCodeshift } from "jscodeshift";
-import { applyTransform } from "jscodeshift/src/testUtils";
 import { useCallExpression } from "../CallExpression";
-import { tsxModule } from "../testUtils";
+import { createApplyTransform, createDefineInlineTest } from "../testUtils";
 
-function testCallExpression(source: string, transform: (j: JSCodeshift, root: Collection) => void) {
-  return applyTransform(
-    tsxModule((file: FileInfo, api: API) => {
-      const j = api.jscodeshift;
-      useCallExpression(j);
+const applyTransform = createApplyTransform((j) => {
+  useCallExpression(j);
+});
 
-      const root = j(file.source);
-      transform(j, root);
-      return root.toSource({
-        lineTerminator: "\n",
-      });
-    }),
-    {},
-    { source },
-  );
-}
+const defineInlineTest = createDefineInlineTest((j) => {
+  useCallExpression(j);
+});
 
 describe("CallExpression", () => {
   describe("findCallExpressions", () => {
     it("should find call expression with 1 identifier", () => {
-      testCallExpression(
+      applyTransform(
         `
         A();
         B();
@@ -41,7 +30,7 @@ describe("CallExpression", () => {
     });
 
     it("should find call expression with 2 identifiers", () => {
-      testCallExpression(
+      applyTransform(
         `
         A.x();
         A();
@@ -55,7 +44,7 @@ describe("CallExpression", () => {
     });
 
     it("should find call expression with 3 identifiers", () => {
-      testCallExpression(
+      applyTransform(
         `
         A.x.y();
         A.x();
@@ -70,7 +59,7 @@ describe("CallExpression", () => {
     });
 
     it("should find multiple call expressions", () => {
-      testCallExpression(
+      applyTransform(
         `
         A.x();
         B.x();
@@ -85,7 +74,7 @@ describe("CallExpression", () => {
     });
 
     it("should contain `CallExpression` type in empty collection", () => {
-      testCallExpression(
+      applyTransform(
         `
         B.x();
         `,
@@ -96,5 +85,27 @@ describe("CallExpression", () => {
         },
       );
     });
+  });
+
+  describe("renameTo", () => {
+    defineInlineTest(
+      (_, root) => {
+        const expressions = root.findCallExpressions("A");
+        expressions.renameTo("B");
+      },
+      `A();`,
+      `B();`,
+      "should rename call expression"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        const expressions = root.findCallExpressions("A.x");
+        expressions.renameTo("B.x");
+      },
+      `A.x();`,
+      `B.x();`,
+      "should rename call expression w/ member expression"
+    );
   });
 });
