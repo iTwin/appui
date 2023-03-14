@@ -176,7 +176,7 @@ function pushExpression(j: JSCodeshift, elements: ArrayExpression["elements"], e
     elements.push(j.spreadElement(expression as any));
 }
 
-export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpression): AttributeHandle {
+export function handleAsStagePanel(start?: Expression, end?: Expression): AttributeHandle {
   const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
     ["allowedZones", null],
     ["size", extractExpression],

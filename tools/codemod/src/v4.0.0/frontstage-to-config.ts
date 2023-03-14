@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { API, ArrayExpression, ASTPath, FileInfo, JSCodeshift, JSXAttribute, JSXElement } from "jscodeshift";
+import { API, ArrayExpression, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement } from "jscodeshift";
 import { isArrayExpression, isJSXAttribute, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
 import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, rename } from "./Utils/jsxElementAttributeHandles";
 
@@ -120,14 +120,14 @@ function getJSXAttribute(j: JSCodeshift, element: ASTPath<JSXElement>, attrName:
   return element.node.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, attrName)) as JSXAttribute | undefined;
 }
 
-function getPanelWidgets(j: JSCodeshift, frontstage: ASTPath<JSXElement>, attrName: string) {
+function getPanelWidgets(j: JSCodeshift, frontstage: ASTPath<JSXElement>, attrName: string): Expression | undefined {
   const attr = getJSXAttribute(j, frontstage, attrName);
   const attrExpr = attr ? getJSXAttributeExpression(j, attr) : undefined;
   if (attrExpr && (isSpecifiedJSXElement(j, attrExpr, "Zone") || isSpecifiedJSXElement(j, attrExpr, "StagePanel"))) {
     const widgetsAttr = attrExpr.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
-    const widgetsExpr = widgetsAttr ? getJSXAttributeExpression(j, widgetsAttr) : undefined;
-    if (widgetsExpr && isArrayExpression(j, widgetsExpr)) {
-      return widgetsExpr;
+    if (widgetsAttr) {
+      const expr = getJSXAttributeExpression(j, widgetsAttr);
+      return expr ? expr : undefined;
     }
   }
   return undefined;

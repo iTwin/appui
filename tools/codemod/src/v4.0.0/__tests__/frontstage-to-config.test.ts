@@ -67,9 +67,7 @@ describe("frontstage-to-config", () => {
     <Frontstage
       centerRight = {
         <Zone
-          widgets = {[
-            <Widget id={2}/>,
-          ]}
+          widgets = { this.props.widgets2 }
         />
       }
       bottomRight = {
@@ -81,7 +79,7 @@ describe("frontstage-to-config", () => {
       }
       rightPanel = {
         <StagePanel
-          widgets = { this.props.widgets }
+          widgets = { this.props.widgets1 }
         />
       }
     />
@@ -90,9 +88,7 @@ describe("frontstage-to-config", () => {
     ({
       rightPanel: {
         sections: {
-          start: [...this.props.widgets, {
-            id: 2,
-          }],
+          start: [...this.props.widgets1, ...this.props.widgets2],
 
           end: [{
             id: 3,
