@@ -155,28 +155,71 @@ export function configToObjectExpression(j: JSCodeshift, configProps: ConfigProp
   return j.objectExpression(props);
 }
 
-export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpression): AttributeHandle {
-  const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-    ["id", extractExpression],
-    ["key", null],
-    ["iconSpec", chain(rename("icon"), extractExpression)],
-    ["labelKey", extractExpression],
-    ["defaultState", extractExpression],
-    ["fillZone", null],
-    ["isFreeform", null],
-    ["isToolSettings", null],
-    ["isStatusBar", null],
-    ["mergeWithZone", null],
-    ["element", chain(rename("content"), extractExpression)],
-    ["control", extractExpression],
-  ]);
+export const unknownAttributeWarning: AttributeHandle = (j, attr) => {
+  console.warn(`Attribute handle not implemented for ${attr.name?.name}`);
+  return identity(j, attr);
+}
 
+const widgetDefaultAttrHandles = new Map<string | undefined, AttributeHandle | null>([
+  ["id", extractExpression],
+  ["key", null],
+  ["iconSpec", chain(rename("icon"), extractExpression)],
+  ["labelKey", extractExpression],
+  ["tooltipKey", extractExpression],
+  ["preferredPanelSize", extractExpression],
+  ["icon", chain(extractExpression, unknownAttributeWarning)],
+  ["classId", chain(extractExpression, unknownAttributeWarning)],
+  ["label", chain(extractExpression, unknownAttributeWarning)],
+  ["tooltip", chain(extractExpression, unknownAttributeWarning)],
+  ["defaultState", extractExpression],
+  ["fillZone", null],
+  ["isFreeform", null],
+  ["isToolSettings", null],
+  ["isStatusBar", null],
+  ["canPopout", extractExpression],
+  ["mergeWithZone", null],
+  ["applicationData", null],
+  ["floatingContainerId", chain(extractExpression, unknownAttributeWarning)],
+  ["isFloatingStateSupported", chain(rename("canFloat"), extractExpression)],
+  ["isFloatingStateWindowResizable", chain(extractExpression, unknownAttributeWarning)],
+  ["defaultFloatingPosition", chain(extractExpression, unknownAttributeWarning)],
+  ["priority", extractExpression],
+  ["syncEventIds", chain(extractExpression, unknownAttributeWarning)],
+  ["stateFunc", chain(extractExpression, unknownAttributeWarning)],
+  ["badgeType", chain(rename("badge"), extractExpression)],
+  ["onWidgetStateChanged", chain(extractExpression, unknownAttributeWarning)],
+  ["saveTransientState", chain(extractExpression, unknownAttributeWarning)],
+  ["restoreTransientState", chain(extractExpression, unknownAttributeWarning)],
+  ["defaultFloatingSize", chain(extractExpression, unknownAttributeWarning)],
+  ["hideWithUiWhenFloating", chain(extractExpression, unknownAttributeWarning)],
+  ["allowedPanelTargets", chain(extractExpression, unknownAttributeWarning)],
+  ["providerId", chain(extractExpression, unknownAttributeWarning)],
+  ["element", chain(rename("content"), extractExpression)],
+  ["control", null],
+  [undefined, identity],
+]);
+
+function pushExpression(j: JSCodeshift, elements: ArrayExpression["elements"], expression: Expression): void {
+  if (isArrayExpression(j, expression))
+    elements.push(...expression.elements);
+  else
+    elements.push(j.spreadElement(expression as any));
+}
+
+export function handleAsStagePanel(start?: Expression, end?: Expression): AttributeHandle {
   const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
     ["allowedZones", null],
+    ["applicationData", null],
+    ["header", chain(extractExpression, unknownAttributeWarning)], // What is this?
+    ["resizable", extractExpression],
+    ["maxSize", extractExpression],
+    ["minSize", extractExpression],
     ["size", extractExpression],
     ["pinned", extractExpression],
     ["defaultState", extractExpression],
     ["widgets", null],
+    ["panelZones", null],
+    ["runtimeProps", chain(extractExpression, unknownAttributeWarning)],
     [undefined, identity],
   ]);
 
@@ -188,39 +231,73 @@ export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpressio
     }
 
     const stagePanelProps = handleJSXElement(j, j(stagePanel).get(), stagePanelAttrHandles);
-
     const widgetsAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
-    let widgets: ArrayExpression | undefined = undefined;
+    let widgets: Expression | undefined = undefined;
     if (widgetsAttr) {
       const widgetElAttr = jsxToElementAttribute(j, widgetsAttr);
-      let widgetExpr: Expression | undefined = undefined;
       if (widgetElAttr)
-        widgetExpr = extractExpression(j, widgetElAttr)?.value;
-      if (!widgetExpr || !isArrayExpression(j, widgetExpr))
-        console.warn("Expression did not match expected shape");
-      else
-        widgets = widgetExpr;
+        widgets = extractExpression(j, widgetElAttr)?.value;
     }
 
-    if (widgets || start || end) {
+    const panelZonesAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "panelZones")) as JSXAttribute | undefined;
+    let panelZonesStart: Expression | undefined = undefined;
+    let panelZonesMiddle: Expression | undefined = undefined;
+    let panelZonesEnd: Expression | undefined = undefined;
+    if (panelZonesAttr) {
+      j(panelZonesAttr).find(j.ObjectProperty).forEach((prop) => {
+        if (isIdentifier(j, prop.node.key)) {
+          const name = prop.node.key.name;
+          if (name === "start") {
+            j(prop).find(j.ObjectProperty).forEach((innerProp) => {
+              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+                panelZonesStart = innerProp.node.value;
+              }
+            });
+          }
+          else if (name === "middle") {
+            j(prop).find(j.ObjectProperty).forEach((innerProp) => {
+              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+                panelZonesMiddle = innerProp.node.value;
+              }
+            });
+          }
+          else if (name === "end") {
+            j(prop).find(j.ObjectProperty).forEach((innerProp) => {
+              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+                panelZonesEnd = innerProp.node.value;
+              }
+            });
+          }
+        }
+      });
+    }
+
+
+    if (widgets || panelZonesStart || panelZonesMiddle || panelZonesEnd || start || end) {
       const startWidgets = j.arrayExpression([]);
       const endWidgets = j.arrayExpression([]);
       if (widgets)
-        startWidgets.elements.push(...widgets.elements);
+        pushExpression(j, startWidgets.elements, widgets);
+      if (panelZonesStart)
+        pushExpression(j, startWidgets.elements, panelZonesStart);
+      if (panelZonesMiddle)
+        pushExpression(j, endWidgets.elements, panelZonesMiddle);
+      if (panelZonesEnd)
+        pushExpression(j, endWidgets.elements, panelZonesEnd);
       if (start)
-        startWidgets.elements.push(...start.elements);
+        pushExpression(j, startWidgets.elements, start);
       if (end)
-        endWidgets.elements.push(...end.elements);
+        pushExpression(j, endWidgets.elements, end);
 
       startWidgets.elements.forEach((elem, index) => {
         if (isSpecifiedJSXElement(j, elem, "Widget")) {
-          const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetAttrHandles);
+          const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetDefaultAttrHandles);
           startWidgets.elements[index] = configToObjectExpression(j, elemConfigProps);
         }
       });
       endWidgets.elements.forEach((elem, index) => {
         if (isSpecifiedJSXElement(j, elem, "Widget")) {
-          const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetAttrHandles);
+          const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetDefaultAttrHandles);
           endWidgets.elements[index] = configToObjectExpression(j, elemConfigProps);
         }
       });
@@ -245,20 +322,6 @@ export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpressio
 }
 
 export function handleAsWidget(): AttributeHandle {
-  const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-    ["id", extractExpression],
-    ["key", null],
-    ["iconSpec", chain(rename("icon"), extractExpression)],
-    ["labelKey", extractExpression],
-    ["defaultState", extractExpression],
-    ["fillZone", null],
-    ["isFreeform", null],
-    ["isToolSettings", null],
-    ["isStatusBar", null],
-    ["element", chain(rename("content"), extractExpression)],
-    ["control", extractExpression],
-  ]);
-
   return (j, attr) => {
     const widget = attr.value;
     if (!isSpecifiedJSXElement(j, widget, "Widget")) {
@@ -266,7 +329,7 @@ export function handleAsWidget(): AttributeHandle {
       return undefined;
     }
 
-    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetAttrHandles);
+    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetDefaultAttrHandles);
     const newValue = configToObjectExpression(j, widgetConfigProps);
     return buildConfigProperty(j, newValue, attr.name);
   };
@@ -275,19 +338,6 @@ export function handleAsWidget(): AttributeHandle {
 export function handleAsToolWidget(): AttributeHandle {
   const zoneAttrHandles = new Map<string | undefined, AttributeHandle | null>([
     ["widgets", extractExpression],
-  ]);
-  const widgetAttrHandles = new Map<string | undefined, AttributeHandle | null>([
-    ["id", extractExpression],
-    ["key", null],
-    ["iconSpec", chain(rename("icon"), extractExpression)],
-    ["labelKey", extractExpression],
-    ["defaultState", extractExpression],
-    ["fillZone", null],
-    ["isFreeform", null],
-    ["isToolSettings", null],
-    ["isStatusBar", null],
-    ["element", chain(rename("content"), extractExpression)],
-    ["control", extractExpression],
   ]);
 
   return (j, attr) => {
@@ -315,7 +365,7 @@ export function handleAsToolWidget(): AttributeHandle {
       return undefined;
     }
 
-    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetAttrHandles);
+    const widgetConfigProps = handleJSXElement(j, j(widget).get(), widgetDefaultAttrHandles);
     const newValue = configToObjectExpression(j, widgetConfigProps);
     return buildConfigProperty(j, newValue, attr.name);
   };

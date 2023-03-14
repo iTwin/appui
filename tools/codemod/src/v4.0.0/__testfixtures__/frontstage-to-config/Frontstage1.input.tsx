@@ -32,7 +32,7 @@
   bottomCenter={
     <Zone defaultState={ZoneState.Open}
       widgets={[
-        <Widget id={"statusBar"} isStatusBar={true} control={SmallStatusBarWidgetControl} />,
+        <Widget id={"statusBar"} isStatusBar={true} />,
       ]}
     />
   }
@@ -41,7 +41,7 @@
       allowsMerging={true}
       defaultState={ZoneState.Minimized}
       widgets={[
-        <Widget id="VerticalPropertyGrid" iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
+        <Widget id="VerticalPropertyGrid" iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" />,
       ]}
     />
   }
@@ -52,8 +52,8 @@
   bottomRight={
     <Zone defaultState={ZoneState.Open} allowsMerging={true}
       widgets={[
-        <Widget id="HorizontalPropertyGrid1" defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
-        <Widget id="VerticalPropertyGrid1" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
+        <Widget id="HorizontalPropertyGrid1" defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" fillZone={true} />,
+        <Widget id="VerticalPropertyGrid1" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" />,
       ]}
     />
   }

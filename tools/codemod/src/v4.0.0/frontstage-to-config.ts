@@ -3,9 +3,9 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { API, ArrayExpression, ASTPath, FileInfo, JSCodeshift, JSXAttribute, JSXElement } from "jscodeshift";
+import { API, ArrayExpression, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement } from "jscodeshift";
 import { isArrayExpression, isJSXAttribute, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
-import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, rename } from "./Utils/jsxElementAttributeHandles";
+import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, identity, rename, unknownAttributeWarning } from "./Utils/jsxElementAttributeHandles";
 
 
 export default function transformer(file: FileInfo, api: API) {
@@ -40,6 +40,8 @@ export default function transformer(file: FileInfo, api: API) {
       ["bottomLeft", null],
       ["topMostPanel", null],
       ["bottomMostPanel", null],
+      ["runtimeProps", chain(extractExpression, unknownAttributeWarning)],
+      [undefined, identity],
     ]);
 
     // Remove same purpose attribute handler
@@ -66,16 +68,44 @@ export default function transformer(file: FileInfo, api: API) {
     // Extract relevant widget information for converting stage panels to it's config form
     const rightPanelStart = getPanelWidgets(j, frontstage, "centerRight");
     const rightPanelEnd = getPanelWidgets(j, frontstage, "bottomRight");
+    let rightPanel = getJSXAttribute(j, frontstage, "rightPanel");
+    if ((rightPanelStart || rightPanelEnd) && !rightPanel) {
+      const openingElement = j.jsxOpeningElement(j.jsxIdentifier("StagePanel"));
+      const jsxElement = j.jsxElement(openingElement);
+      rightPanel = j.jsxAttribute(j.jsxIdentifier("rightPanel"), jsxElement)
+      frontstage.node.openingElement.attributes?.push(rightPanel);
+    }
     frontstageAttrHandles.set("rightPanel", chain(extractExpression, handleAsStagePanel(rightPanelStart, rightPanelEnd)));
 
     const leftPanelStart = getPanelWidgets(j, frontstage, "centerLeft");
     const leftPanelEnd = getPanelWidgets(j, frontstage, "bottomLeft");
+    let leftPanel = getJSXAttribute(j, frontstage, "leftPanel");
+    if ((leftPanelStart || leftPanelEnd) && !leftPanel) {
+      const openingElement = j.jsxOpeningElement(j.jsxIdentifier("StagePanel"));
+      const jsxElement = j.jsxElement(openingElement);
+      leftPanel = j.jsxAttribute(j.jsxIdentifier("leftPanel"), jsxElement)
+      frontstage.node.openingElement.attributes?.push(leftPanel);
+    }
     frontstageAttrHandles.set("leftPanel", chain(extractExpression, handleAsStagePanel(leftPanelStart, leftPanelEnd)));
 
     const topPanelEnd = getPanelWidgets(j, frontstage, "topMostPanel");
+    let topPanel = getJSXAttribute(j, frontstage, "topPanel");
+    if (topPanelEnd && !topPanel) {
+      const openingElement = j.jsxOpeningElement(j.jsxIdentifier("StagePanel"));
+      const jsxElement = j.jsxElement(openingElement);
+      topPanel = j.jsxAttribute(j.jsxIdentifier("topPanel"), jsxElement)
+      frontstage.node.openingElement.attributes?.push(topPanel);
+    }
     frontstageAttrHandles.set("topPanel", chain(extractExpression, handleAsStagePanel(undefined, topPanelEnd)));
 
     const bottomPanelEnd = getPanelWidgets(j, frontstage, "bottomMostPanel");
+    let bottomPanel = getJSXAttribute(j, frontstage, "bottomPanel");
+    if (bottomPanelEnd && !bottomPanel) {
+      const openingElement = j.jsxOpeningElement(j.jsxIdentifier("StagePanel"));
+      const jsxElement = j.jsxElement(openingElement);
+      bottomPanel = j.jsxAttribute(j.jsxIdentifier("bottomPanel"), jsxElement)
+      frontstage.node.openingElement.attributes?.push(bottomPanel);
+    }
     frontstageAttrHandles.set("bottomPanel", chain(extractExpression, handleAsStagePanel(undefined, bottomPanelEnd)));
 
     // Construct frontstage config
@@ -91,14 +121,14 @@ function getJSXAttribute(j: JSCodeshift, element: ASTPath<JSXElement>, attrName:
   return element.node.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, attrName)) as JSXAttribute | undefined;
 }
 
-function getPanelWidgets(j: JSCodeshift, frontstage: ASTPath<JSXElement>, attrName: string) {
+function getPanelWidgets(j: JSCodeshift, frontstage: ASTPath<JSXElement>, attrName: string): Expression | undefined {
   const attr = getJSXAttribute(j, frontstage, attrName);
   const attrExpr = attr ? getJSXAttributeExpression(j, attr) : undefined;
   if (attrExpr && (isSpecifiedJSXElement(j, attrExpr, "Zone") || isSpecifiedJSXElement(j, attrExpr, "StagePanel"))) {
     const widgetsAttr = attrExpr.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
-    const widgetsExpr = widgetsAttr ? getJSXAttributeExpression(j, widgetsAttr) : undefined;
-    if (widgetsExpr && isArrayExpression(j, widgetsExpr)) {
-      return widgetsExpr;
+    if (widgetsAttr) {
+      const expr = getJSXAttributeExpression(j, widgetsAttr);
+      return expr ? expr : undefined;
     }
   }
   return undefined;

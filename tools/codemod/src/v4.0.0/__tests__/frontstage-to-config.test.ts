@@ -57,7 +57,116 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transforms rightPanel correctly"
+    "transforms rightPanel correctly1"
+  );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    <Frontstage
+      centerRight = {
+        <Zone
+          widgets = { this.props.widgets2 }
+        />
+      }
+      bottomRight = {
+        <Zone
+          widgets = {[
+            <Widget id={3}/>,
+          ]}
+        />
+      }
+      rightPanel = {
+        <StagePanel
+          widgets = { this.props.widgets1 }
+        />
+      }
+    />
+    `,
+    `
+    ({
+      rightPanel: {
+        sections: {
+          start: [...this.props.widgets1, ...this.props.widgets2],
+
+          end: [{
+            id: 3,
+          }],
+        },
+      },
+    })
+    `,
+    "transforms rightPanel correctly2"
+  );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    <Frontstage
+      bottomRight = {
+        <Zone
+          widgets = {[
+            <Widget id={3}/>,
+          ]}
+        />
+      }
+    />
+    `,
+    `
+    ({
+      rightPanel: {
+        sections: {
+          end: [{
+            id: 3,
+          }],
+        },
+      },
+    })
+    `,
+    "transforms rightPanel correctly3"
+  );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    <Frontstage
+      rightPanel = {
+        <StagePanel
+          panelZones = {{
+            start: {
+              widgets: [
+                <Widget id={1}/>,
+              ],
+            },
+            end: {
+              widgets: [
+                <Widget id={2}/>,
+              ],
+            },
+          }}
+        />
+      }
+    />
+    `,
+    `
+    ({
+      rightPanel: {
+        sections: {
+          start: [{
+            id: 1,
+          }],
+
+          end: [{
+            id: 2,
+          }],
+        },
+      },
+    })
+    `,
+    "transforms rightPanel correctly4"
   );
 
   defineInlineTest(
@@ -90,4 +199,21 @@ describe("frontstage-to-config", () => {
     `,
     "correctly chooses default tool widget handler"
   );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    <Frontstage
+      {...this.props}
+    />
+    `,
+    `
+    ({
+      ...this.props,
+    })
+    `,
+    "correctly handles spread attribute"
+  );
+
 });
