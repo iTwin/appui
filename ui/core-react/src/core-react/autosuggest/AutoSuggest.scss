@@ -4,14 +4,13 @@
 *--------------------------------------------------------------------------------------------*/
 @import "../scrollbar";
 @import "../inputs/variables";
-@import "../style/variables";
 
 .uicore-autosuggest__container {
   position: relative;
 }
 
 .uicore-autosuggest__input {
-  min-height: $uicore-component-height-normal !important;
+  min-height: 28px !important;
   padding: $uicore-iui-input-padding !important;
 }
 
