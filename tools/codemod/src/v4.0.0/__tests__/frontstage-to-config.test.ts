@@ -200,5 +200,20 @@ describe("frontstage-to-config", () => {
     "correctly chooses default tool widget handler"
   );
 
+  defineInlineTest(
+    transform,
+    {},
+    `
+    <Frontstage
+      {...this.props}
+    />
+    `,
+    `
+    ({
+      ...this.props,
+    })
+    `,
+    "correctly handles spread attribute"
+  );
 
 });

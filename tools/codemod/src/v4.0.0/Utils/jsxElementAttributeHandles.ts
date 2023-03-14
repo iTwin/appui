@@ -195,6 +195,7 @@ const widgetDefaultAttrHandles = new Map<string | undefined, AttributeHandle | n
   ["providerId", chain(extractExpression, unknownAttributeWarning)],
   ["element", chain(rename("content"), extractExpression)],
   ["control", null],
+  [undefined, identity],
 ]);
 
 function pushExpression(j: JSCodeshift, elements: ArrayExpression["elements"], expression: Expression): void {
