@@ -67,16 +67,44 @@ export default function transformer(file: FileInfo, api: API) {
     // Extract relevant widget information for converting stage panels to it's config form
     const rightPanelStart = getPanelWidgets(j, frontstage, "centerRight");
     const rightPanelEnd = getPanelWidgets(j, frontstage, "bottomRight");
+    let rightPanel = getJSXAttribute(j, frontstage, "rightPanel");
+    if ((rightPanelStart || rightPanelEnd) && !rightPanel) {
+      const openingElement = j.jsxOpeningElement(j.jsxIdentifier("StagePanel"));
+      const jsxElement = j.jsxElement(openingElement);
+      rightPanel = j.jsxAttribute(j.jsxIdentifier("rightPanel"), jsxElement)
+      frontstage.node.openingElement.attributes?.push(rightPanel);
+    }
     frontstageAttrHandles.set("rightPanel", chain(extractExpression, handleAsStagePanel(rightPanelStart, rightPanelEnd)));
 
     const leftPanelStart = getPanelWidgets(j, frontstage, "centerLeft");
     const leftPanelEnd = getPanelWidgets(j, frontstage, "bottomLeft");
+    let leftPanel = getJSXAttribute(j, frontstage, "leftPanel");
+    if ((leftPanelStart || leftPanelEnd) && !leftPanel) {
+      const openingElement = j.jsxOpeningElement(j.jsxIdentifier("StagePanel"));
+      const jsxElement = j.jsxElement(openingElement);
+      leftPanel = j.jsxAttribute(j.jsxIdentifier("leftPanel"), jsxElement)
+      frontstage.node.openingElement.attributes?.push(leftPanel);
+    }
     frontstageAttrHandles.set("leftPanel", chain(extractExpression, handleAsStagePanel(leftPanelStart, leftPanelEnd)));
 
     const topPanelEnd = getPanelWidgets(j, frontstage, "topMostPanel");
+    let topPanel = getJSXAttribute(j, frontstage, "topPanel");
+    if (topPanelEnd && !topPanel) {
+      const openingElement = j.jsxOpeningElement(j.jsxIdentifier("StagePanel"));
+      const jsxElement = j.jsxElement(openingElement);
+      topPanel = j.jsxAttribute(j.jsxIdentifier("topPanel"), jsxElement)
+      frontstage.node.openingElement.attributes?.push(topPanel);
+    }
     frontstageAttrHandles.set("topPanel", chain(extractExpression, handleAsStagePanel(undefined, topPanelEnd)));
 
     const bottomPanelEnd = getPanelWidgets(j, frontstage, "bottomMostPanel");
+    let bottomPanel = getJSXAttribute(j, frontstage, "bottomPanel");
+    if (bottomPanelEnd && !bottomPanel) {
+      const openingElement = j.jsxOpeningElement(j.jsxIdentifier("StagePanel"));
+      const jsxElement = j.jsxElement(openingElement);
+      bottomPanel = j.jsxAttribute(j.jsxIdentifier("bottomPanel"), jsxElement)
+      frontstage.node.openingElement.attributes?.push(bottomPanel);
+    }
     frontstageAttrHandles.set("bottomPanel", chain(extractExpression, handleAsStagePanel(undefined, bottomPanelEnd)));
 
     // Construct frontstage config

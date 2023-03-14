@@ -109,6 +109,34 @@ describe("frontstage-to-config", () => {
     {},
     `
     <Frontstage
+      bottomRight = {
+        <Zone
+          widgets = {[
+            <Widget id={3}/>,
+          ]}
+        />
+      }
+    />
+    `,
+    `
+    ({
+      rightPanel: {
+        sections: {
+          end: [{
+            id: 3,
+          }],
+        },
+      },
+    })
+    `,
+    "transforms rightPanel correctly"
+  );
+
+  defineInlineTest(
+    transform,
+    {},
+    `
+    <Frontstage
       viewNavigationTools = {
         <Zone
           widgets={[
