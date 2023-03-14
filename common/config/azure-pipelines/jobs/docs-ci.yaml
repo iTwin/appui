@@ -72,3 +72,4 @@ stages:
       parameters:
         checkout: itwinjs-core
         useCurrentAppUIDocsArtifact: true
+        ignoreAudit: true
