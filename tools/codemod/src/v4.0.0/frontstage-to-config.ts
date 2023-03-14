@@ -5,7 +5,7 @@
 
 import { API, ArrayExpression, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement } from "jscodeshift";
 import { isArrayExpression, isJSXAttribute, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
-import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, rename } from "./Utils/jsxElementAttributeHandles";
+import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, rename, unknownAttributeWarning } from "./Utils/jsxElementAttributeHandles";
 
 
 export default function transformer(file: FileInfo, api: API) {
@@ -41,6 +41,7 @@ export default function transformer(file: FileInfo, api: API) {
       ["bottomLeft", null],
       ["topMostPanel", null],
       ["bottomMostPanel", null],
+      ["runtimeProps", chain(extractExpression, unknownAttributeWarning)],
     ]);
 
     // Remove same purpose attribute handler

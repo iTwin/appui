@@ -154,19 +154,47 @@ export function configToObjectExpression(j: JSCodeshift, configProps: ConfigProp
   return j.objectExpression(props);
 }
 
+export const unknownAttributeWarning: AttributeHandle = (j, attr) => {
+  console.warn(`Attribute handle not implemented for ${attr.name?.name}`);
+  return identity(j, attr);
+}
+
 const widgetDefaultAttrHandles = new Map<string | undefined, AttributeHandle | null>([
   ["id", extractExpression],
   ["key", null],
   ["iconSpec", chain(rename("icon"), extractExpression)],
   ["labelKey", extractExpression],
+  ["tooltipKey", extractExpression],
+  ["preferredPanelSize", extractExpression],
+  ["icon", chain(extractExpression, unknownAttributeWarning)],
+  ["classId", chain(extractExpression, unknownAttributeWarning)],
+  ["label", chain(extractExpression, unknownAttributeWarning)],
+  ["tooltip", chain(extractExpression, unknownAttributeWarning)],
   ["defaultState", extractExpression],
   ["fillZone", null],
   ["isFreeform", null],
   ["isToolSettings", null],
   ["isStatusBar", null],
+  ["canPopout", extractExpression],
   ["mergeWithZone", null],
+  ["applicationData", null],
+  ["floatingContainerId", chain(extractExpression, unknownAttributeWarning)],
+  ["isFloatingStateSupported", chain(rename("canFloat"), extractExpression)],
+  ["isFloatingStateWindowResizable", chain(extractExpression, unknownAttributeWarning)],
+  ["defaultFloatingPosition", chain(extractExpression, unknownAttributeWarning)],
+  ["priority", extractExpression],
+  ["syncEventIds", chain(extractExpression, unknownAttributeWarning)],
+  ["stateFunc", chain(extractExpression, unknownAttributeWarning)],
+  ["badgeType", chain(rename("badge"), extractExpression)],
+  ["onWidgetStateChanged", chain(extractExpression, unknownAttributeWarning)],
+  ["saveTransientState", chain(extractExpression, unknownAttributeWarning)],
+  ["restoreTransientState", chain(extractExpression, unknownAttributeWarning)],
+  ["defaultFloatingSize", chain(extractExpression, unknownAttributeWarning)],
+  ["hideWithUiWhenFloating", chain(extractExpression, unknownAttributeWarning)],
+  ["allowedPanelTargets", chain(extractExpression, unknownAttributeWarning)],
+  ["providerId", chain(extractExpression, unknownAttributeWarning)],
   ["element", chain(rename("content"), extractExpression)],
-  ["control", extractExpression],
+  ["control", null],
 ]);
 
 function pushExpression(j: JSCodeshift, elements: ArrayExpression["elements"], expression: Expression): void {
@@ -179,11 +207,17 @@ function pushExpression(j: JSCodeshift, elements: ArrayExpression["elements"], e
 export function handleAsStagePanel(start?: Expression, end?: Expression): AttributeHandle {
   const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
     ["allowedZones", null],
+    ["applicationData", null],
+    ["header", chain(extractExpression, unknownAttributeWarning)], // What is this?
+    ["resizable", extractExpression],
+    ["maxSize", extractExpression],
+    ["minSize", extractExpression],
     ["size", extractExpression],
     ["pinned", extractExpression],
     ["defaultState", extractExpression],
     ["widgets", null],
     ["panelZones", null],
+    ["runtimeProps", chain(extractExpression, unknownAttributeWarning)],
     [undefined, identity],
   ]);
 
@@ -205,6 +239,7 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
 
     const panelZonesAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "panelZones")) as JSXAttribute | undefined;
     let panelZonesStart: Expression | undefined = undefined;
+    let panelZonesMiddle: Expression | undefined = undefined;
     let panelZonesEnd: Expression | undefined = undefined;
     if (panelZonesAttr) {
       j(panelZonesAttr).find(j.ObjectProperty).forEach((prop) => {
@@ -214,6 +249,13 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
               if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesStart = innerProp.node.value;
+              }
+            });
+          }
+          else if (name === "middle") {
+            j(prop).find(j.ObjectProperty).forEach((innerProp) => {
+              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+                panelZonesMiddle = innerProp.node.value;
               }
             });
           }
@@ -229,13 +271,15 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
     }
 
 
-    if (widgets || panelZonesStart || panelZonesEnd || start || end) {
+    if (widgets || panelZonesStart || panelZonesMiddle || panelZonesEnd || start || end) {
       const startWidgets = j.arrayExpression([]);
       const endWidgets = j.arrayExpression([]);
       if (widgets)
         pushExpression(j, startWidgets.elements, widgets);
       if (panelZonesStart)
         pushExpression(j, startWidgets.elements, panelZonesStart);
+      if (panelZonesMiddle)
+        pushExpression(j, endWidgets.elements, panelZonesMiddle);
       if (panelZonesEnd)
         pushExpression(j, endWidgets.elements, panelZonesEnd);
       if (start)

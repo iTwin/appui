@@ -44,8 +44,7 @@
     <Zone
       widgets={
         [
-          <Widget id={`${this.props.id}-statusBar`} key={`${this.props.id}-statusBar`} isStatusBar={true}
-            control={StatusBarWidgetComposerControl} />,
+          <Widget id={`${this.props.id}-statusBar`} key={`${this.props.id}-statusBar`} isStatusBar={true} />,
         ]
       }
     />

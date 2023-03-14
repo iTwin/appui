@@ -24,7 +24,6 @@
 
   statusBar: {
     id: `${this.props.id}-statusBar`,
-    control: StatusBarWidgetComposerControl,
   },
 
   leftPanel: {
