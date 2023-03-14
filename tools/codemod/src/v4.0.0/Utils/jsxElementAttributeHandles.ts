@@ -177,13 +177,13 @@ function pushExpression(j: JSCodeshift, elements: ArrayExpression["elements"], e
 }
 
 export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpression): AttributeHandle {
-
   const stagePanelAttrHandles = new Map<string | undefined, AttributeHandle | null>([
     ["allowedZones", null],
     ["size", extractExpression],
     ["pinned", extractExpression],
     ["defaultState", extractExpression],
     ["widgets", null],
+    ["panelZones", null],
     [undefined, identity],
   ]);
 
@@ -195,7 +195,6 @@ export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpressio
     }
 
     const stagePanelProps = handleJSXElement(j, j(stagePanel).get(), stagePanelAttrHandles);
-
     const widgetsAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
     let widgets: Expression | undefined = undefined;
     if (widgetsAttr) {
@@ -204,11 +203,41 @@ export function handleAsStagePanel(start?: ArrayExpression, end?: ArrayExpressio
         widgets = extractExpression(j, widgetElAttr)?.value;
     }
 
-    if (widgets || start || end) {
+    const panelZonesAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "panelZones")) as JSXAttribute | undefined;
+    let panelZonesStart: Expression | undefined = undefined;
+    let panelZonesEnd: Expression | undefined = undefined;
+    if (panelZonesAttr) {
+      j(panelZonesAttr).find(j.ObjectProperty).forEach((prop) => {
+        if (isIdentifier(j, prop.node.key)) {
+          const name = prop.node.key.name;
+          if (name === "start") {
+            j(prop).find(j.ObjectProperty).forEach((innerProp) => {
+              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+                panelZonesStart = innerProp.node.value;
+              }
+            });
+          }
+          else if (name === "end") {
+            j(prop).find(j.ObjectProperty).forEach((innerProp) => {
+              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+                panelZonesEnd = innerProp.node.value;
+              }
+            });
+          }
+        }
+      });
+    }
+
+
+    if (widgets || panelZonesStart || panelZonesEnd || start || end) {
       const startWidgets = j.arrayExpression([]);
       const endWidgets = j.arrayExpression([]);
       if (widgets)
         pushExpression(j, startWidgets.elements, widgets);
+      if (panelZonesStart)
+        pushExpression(j, startWidgets.elements, panelZonesStart);
+      if (panelZonesEnd)
+        pushExpression(j, endWidgets.elements, panelZonesEnd);
       if (start)
         pushExpression(j, startWidgets.elements, start);
       if (end)
