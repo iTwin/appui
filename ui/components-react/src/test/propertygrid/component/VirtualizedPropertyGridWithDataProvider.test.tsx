@@ -21,6 +21,7 @@ import { PropertyCategoryRendererManager } from "../../../components-react/prope
 import {
   IPropertyDataProvider, PropertyCategory, PropertyData, PropertyDataChangeEvent,
 } from "../../../components-react/propertygrid/PropertyDataProvider";
+import { SimplePropertyDataProvider } from "../../../components-react/propertygrid/SimplePropertyDataProvider";
 import { ResolvablePromise } from "../../test-helpers/misc";
 import TestUtils from "../../TestUtils";
 
@@ -1290,6 +1291,43 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
       expect(scrollToItemFake).to.not.have.been.called;
+    });
+  });
+});
+
+describe("Learning Snippets", () => {
+  describe("VirtualizedPropertyGridWithDataProvider", () => {
+    it("renders with `SimplePropertyDataProvider`", async () => {
+      // __PUBLISH_EXTRACT_START__ AppUI.VirtualizedPropertyGridWithDataProvider.UsageExample
+      function MyPropertiesComponent() {
+        // the component gets completely re-rendered, losing all its internal state, when data provider changes,
+        // so we have to make it doesn't change unnecessarily
+        const [dataProvider] = React.useState<IPropertyDataProvider>(() => {
+          const provider = new SimplePropertyDataProvider();
+          provider.addCategory({ name: "my-category", label: "My Category", expand: true });
+          provider.addProperty(PropertyRecord.fromString("123", "My Property"), 0);
+          return provider;
+        });
+
+        // width and height should generally we computed using ResizeObserver API or one of its derivatives
+        const [width] = React.useState(400);
+        const [height] = React.useState(600);
+
+        return (
+          <VirtualizedPropertyGridWithDataProvider
+            dataProvider={dataProvider}
+            width={width}
+            height={height}
+          />
+        );
+      }
+      // __PUBLISH_EXTRACT_END__
+      const { getByText } = render(
+        <MyPropertiesComponent />,
+      );
+      await waitFor(
+        () => getByText("My Property")
+      );
     });
   });
 });

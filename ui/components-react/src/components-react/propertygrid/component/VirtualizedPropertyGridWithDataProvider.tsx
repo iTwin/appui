@@ -21,18 +21,23 @@ import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid";
  * @public
  */
 export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
+  /** Property data provider used by the property grid */
   dataProvider: IPropertyDataProvider;
+  /** Properties for highlighting property data in the grid. */
   highlight?: HighlightingComponentProps & {
     filteredTypes?: FilteredType[];
   };
+  /** Custom property category renderer manager. Defaults to [[PropertyCategoryRendererManager.defaultManager]]. */
   propertyCategoryRendererManager?: PropertyCategoryRendererManager;
+  /** Width of the property grid component. */
   width: number;
+  /** Height of the property grid component. */
   height: number;
 }
 
 /**
- * VirtualizedPropertyGrid React Component which takes dataProvider and
- * sets up default implementations for IPropertyGridModelSource nad IPropertyGridEventHandler
+ * [[VirtualizedPropertyGrid]] React Component which takes a data provider and
+ * sets up default implementations for [[IPropertyGridModelSource]] and [[IPropertyGridEventHandler]]
  * @public
  */
 export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps) {

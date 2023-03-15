@@ -10,8 +10,8 @@ import "./VirtualizedPropertyGrid.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { areEqual, ListChildComponentProps, VariableSizeList } from "react-window";
-import { assert } from "@itwin/core-bentley";
 import { PropertyRecord } from "@itwin/appui-abstract";
+import { assert } from "@itwin/core-bentley";
 import { Orientation, RatioChangeResult } from "@itwin/core-react";
 import { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import { createContextWithMandatoryProvider } from "../../common/UseContextWithMandatoryProvider";
@@ -40,14 +40,21 @@ import { PropertyGridEventsRelatedPropsSupplier } from "./PropertyGridEventsRela
  * @public
  */
 export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
+  /** Property grid view model that defines what needs to be rendered */
   model: IPropertyGridModel;
+  /** Handler of the events raised from the property grid */
   eventHandler: IPropertyGridEventHandler;
+  /** Property data provider used by the property grid */
   dataProvider: IPropertyDataProvider;
+  /** Properties for highlighting property data in the grid. */
   highlight?: HighlightingComponentProps & {
     filteredTypes?: FilteredType[];
   };
+  /** Custom property category renderer manager. Defaults to [[PropertyCategoryRendererManager.defaultManager]]. */
   propertyCategoryRendererManager?: PropertyCategoryRendererManager;
+  /** Width of the property grid component. */
   width: number;
+  /** Height of the property grid component. */
   height: number;
 }
 
