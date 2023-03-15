@@ -173,7 +173,7 @@ describe("Frontstage local storage wrapper", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({ localization: new EmptyLocalization() });
+    await MockRender.App.startup();
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });

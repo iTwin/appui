@@ -16,7 +16,7 @@ import TestUtils from "../TestUtils";
 describe("BackstageManager", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup();
   });
   after(async () => {
     await MockRender.App.shutdown();
@@ -164,7 +164,7 @@ describe("useIsBackstageOpen", () => {
 describe("useBackstageManager", () => {
   it("returns UiFramework.backstageManager instance", async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup();
 
     const {result} = renderHook(() => useBackstageManager());
     expect(result.current).to.equal(UiFramework.backstageManager); // eslint-disable-line deprecation/deprecation

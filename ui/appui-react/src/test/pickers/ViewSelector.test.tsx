@@ -46,7 +46,7 @@ describe("ViewSelector", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup();
     await TestUtils.flushAsyncOperations();
   });
 
