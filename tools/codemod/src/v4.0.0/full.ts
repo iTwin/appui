@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo } from "jscodeshift";
+import type { API, FileInfo, Options } from "jscodeshift";
 import abstract from "./abstract";
 import backstageItem from "./backstage-item";
 import frontstageToConfig from "./frontstage-to-config";
@@ -27,12 +27,12 @@ const transforms = [
   statics,
 ];
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API, options: Options) {
   let src = file.source;
   transforms.forEach((transform) => {
     if (!src)
       return;
-    src = transform({ ...file, source: src }, api);
+    src = transform({ ...file, source: src }, api, options);
   });
 
   return src;

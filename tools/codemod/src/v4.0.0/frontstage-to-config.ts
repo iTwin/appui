@@ -3,12 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { API, ArrayExpression, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement } from "jscodeshift";
-import { isArrayExpression, isJSXAttribute, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
+import type { API, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement, Options } from "jscodeshift";
+import { isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
 import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, identity, rename, unknownAttributeWarning } from "./Utils/jsxElementAttributeHandles";
 
-
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
 
   const root = j(file.source);
@@ -114,7 +113,7 @@ export default function transformer(file: FileInfo, api: API) {
     frontstage.replace(obj);
   });
 
-  return root.toSource({ trailingComma: true });
+  return root.toSource(options.printOptions);
 }
 
 function getJSXAttribute(j: JSCodeshift, element: ASTPath<JSXElement>, attrName: string) {

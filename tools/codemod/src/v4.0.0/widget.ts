@@ -2,11 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, ASTPath, FileInfo, JSCodeshift, MemberExpression, ObjectExpression, ObjectProperty } from "jscodeshift";
+import type { API, ASTPath, FileInfo, JSCodeshift, MemberExpression, ObjectExpression, ObjectProperty, Options } from "jscodeshift";
 import { ObjectExpressionCollection, useObjectExpression } from "../utils/ObjectExpression";
 import { isLiteral } from "../utils/typeGuards";
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
   useObjectExpression(j);
 
@@ -74,7 +74,7 @@ export default function transformer(file: FileInfo, api: API) {
     canFloat.value = j.objectExpression(properties);
   }
 
-  return root.toSource();
+  return root.toSource(options.printOptions);
 }
 
 function handleCanFloatProperty(j: JSCodeshift, objectToProperties: Map<ASTPath<ObjectExpression>, ObjectProperty[]>, canFloatProperty: string): Parameters<ObjectExpressionCollection["removeProperty"]>[1] {
