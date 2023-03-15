@@ -37,6 +37,7 @@ async function run(codemod: string, paths: string[], debug: boolean, optionOverr
     parser: "tsx",
     babel: true,
     verbose: 1,
+    ignorePattern: "**/node_modules/**",
     ...optionOverrides,
     printOptions: toPrintOptions(optionOverrides),
   };
