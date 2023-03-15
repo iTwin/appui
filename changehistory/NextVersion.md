@@ -6,6 +6,8 @@ Table of contents:
   - [@itwin/appui-layout-react](#itwinappui-layout-react)
   - [@itwin/appui-abstract](#itwinappui-abstract)
   - [@itwin/appui-react](#itwinappui-react)
+  - [Webfont Dependency Removed](#@bentley/icons-generic-webfont)
+
 
 ## @itwin/appui-layout-react
 
@@ -134,3 +136,7 @@ AppUI related definitions from `@itwin/appui-abstract` are moved into `@itwin/ap
 - `provideToolbarButtonItems` renamed to `provideToolbarItems`
 
 UI item provider types no longer extend from `ProviderItem`.
+
+## @bentley/icons-generic-webfont
+
+With the 4.0 release, AppUi has removed its dependency on the icons-generic-webfont package in favor of React or SVG icons. Webfont icons and their identifying names are still supported by the AppUi platform, but applications or packages that use a webfont for icons will have to include the webfont package in their direct dependencies.
