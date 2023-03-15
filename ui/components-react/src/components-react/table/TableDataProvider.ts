@@ -9,6 +9,7 @@
 import { BeEvent } from "@itwin/core-bentley";
 
 /** An event broadcasted on table data changes
- * @public  @deprecated
+ * @deprecated in 3.5. Use the Table component in @itwin/itwinui-react instead, which does not use this class.
+ * @public
  */
 export class TableDataChangeEvent extends BeEvent<() => void> { }

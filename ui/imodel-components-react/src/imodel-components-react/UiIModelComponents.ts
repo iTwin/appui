@@ -6,7 +6,6 @@
  * @module Common
  */
 
-import { enablePatches } from "immer";
 import { Logger } from "@itwin/core-bentley";
 import { IModelApp } from "@itwin/core-frontend";
 import { getClassName } from "@itwin/appui-abstract";
@@ -29,7 +28,6 @@ export class UiIModelComponents {
       return;
     }
 
-    enablePatches();
     await IModelApp.localization?.registerNamespace(UiIModelComponents.localizationNamespace);
 
     if (!IModelApp.localization) {

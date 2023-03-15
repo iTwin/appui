@@ -102,7 +102,7 @@ interface ExpandableSectionState {
   expanded: boolean;
 }
 
-/** Expandable Section React component used by [[ListPickerBase]]
+/** Expandable Section React component
  * @beta
  */
 export class ExpandableSection extends React.PureComponent<ExpandableSectionProps, ExpandableSectionState> {
