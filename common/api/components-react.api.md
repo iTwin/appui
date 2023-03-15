@@ -3530,21 +3530,14 @@ export interface VirtualizedPropertyGridContext {
 
 // @public
 export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
-    // (undocumented)
     dataProvider: IPropertyDataProvider;
-    // (undocumented)
     eventHandler: IPropertyGridEventHandler;
-    // (undocumented)
     height: number;
-    // (undocumented)
     highlight?: HighlightingComponentProps & {
         filteredTypes?: FilteredType[];
     };
-    // (undocumented)
     model: IPropertyGridModel;
-    // (undocumented)
     propertyCategoryRendererManager?: PropertyCategoryRendererManager;
-    // (undocumented)
     width: number;
 }
 
@@ -3553,17 +3546,12 @@ export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedProper
 
 // @public
 export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
-    // (undocumented)
     dataProvider: IPropertyDataProvider;
-    // (undocumented)
     height: number;
-    // (undocumented)
     highlight?: HighlightingComponentProps & {
         filteredTypes?: FilteredType[];
     };
-    // (undocumented)
     propertyCategoryRendererManager?: PropertyCategoryRendererManager;
-    // (undocumented)
     width: number;
 }
 
