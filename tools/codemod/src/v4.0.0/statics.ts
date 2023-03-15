@@ -2,11 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo } from "jscodeshift";
+import type { API, FileInfo, Options } from "jscodeshift";
 import { useCallExpression } from "../utils/CallExpression";
 import changeImports from "../utils/changeImports";
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
   useCallExpression(j);
 
@@ -71,5 +71,5 @@ export default function transformer(file: FileInfo, api: API) {
     ["@itwin/appui-react.UiFramework.backstageManager", "@itwin/appui-react.UiFramework.backstage"],
   ]));
 
-  return root.toSource();
+  return root.toSource(options.printOptions);
 }

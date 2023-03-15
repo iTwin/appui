@@ -2,12 +2,12 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo } from "jscodeshift";
+import type { API, FileInfo, Options } from "jscodeshift";
 import { useExtensions } from "../utils/Extensions";
 import { objectExpressionFilter, useCallExpression } from "../utils/CallExpression";
 import { useObjectExpression } from "../utils/ObjectExpression";
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
   useExtensions(j);
   useObjectExpression(j);
@@ -27,5 +27,5 @@ export default function transformer(file: FileInfo, api: API) {
     .removeProperty("internalData")
     .renameProperty("badgeType", "badge");
 
-  return root.toSource();
+  return root.toSource(options.printOptions);
 }

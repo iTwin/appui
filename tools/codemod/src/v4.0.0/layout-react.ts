@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo } from "jscodeshift";
+import type { API, FileInfo, Options } from "jscodeshift";
 import changeImports from "../utils/changeImports";
 
 const importChanges = new Map<string, string>([
@@ -21,12 +21,12 @@ const importChanges = new Map<string, string>([
   ["@itwin/appui-layout-react.TitleBarProps", "@itwin/appui-react.StatusBarDialogTitleBarProps"],
 ]);
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
 
   const root = j(file.source);
 
   changeImports(j, root, importChanges);
 
-  return root.toSource();
+  return root.toSource(options.printOptions);
 }
