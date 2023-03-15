@@ -6,8 +6,7 @@ Table of contents:
   - [@itwin/appui-layout-react](#itwinappui-layout-react)
   - [@itwin/appui-abstract](#itwinappui-abstract)
   - [@itwin/appui-react](#itwinappui-react)
-  - [Webfont Dependency Removed](#@bentley/icons-generic-webfont)
-
+  - [@bentley/icons-generic-webfont](#bentleyicons-generic-webfont)
 
 ## @itwin/appui-layout-react
 
