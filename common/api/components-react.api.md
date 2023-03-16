@@ -2108,6 +2108,11 @@ export class PropertyGridCommons {
 }
 
 // @public
+export interface PropertyGridContentHighlightProps extends HighlightingComponentProps {
+    filteredTypes?: FilteredType[];
+}
+
+// @public
 export interface PropertyGridContextMenuArgs {
     event: React.MouseEvent;
     propertyRecord: PropertyRecord;
@@ -3491,9 +3496,7 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     gridWidth: number;
     // (undocumented)
-    highlight?: HighlightingComponentProps & {
-        filteredTypes?: FilteredType[];
-    };
+    highlight?: PropertyGridContentHighlightProps;
     // (undocumented)
     isPropertyHoverEnabled: boolean;
     // (undocumented)
@@ -3533,9 +3536,7 @@ export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
     dataProvider: IPropertyDataProvider;
     eventHandler: IPropertyGridEventHandler;
     height: number;
-    highlight?: HighlightingComponentProps & {
-        filteredTypes?: FilteredType[];
-    };
+    highlight?: PropertyGridContentHighlightProps;
     model: IPropertyGridModel;
     propertyCategoryRendererManager?: PropertyCategoryRendererManager;
     width: number;
@@ -3548,9 +3549,7 @@ export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedProper
 export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
     dataProvider: IPropertyDataProvider;
     height: number;
-    highlight?: HighlightingComponentProps & {
-        filteredTypes?: FilteredType[];
-    };
+    highlight?: PropertyGridContentHighlightProps;
     propertyCategoryRendererManager?: PropertyCategoryRendererManager;
     width: number;
 }

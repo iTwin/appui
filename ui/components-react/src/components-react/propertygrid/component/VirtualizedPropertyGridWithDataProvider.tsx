@@ -9,12 +9,10 @@
 
 import React from "react";
 import { DelayedSpinner } from "../../common/DelayedSpinner";
-import { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
-import { FilteredType } from "../dataproviders/filterers/PropertyDataFiltererBase";
 import { usePropertyGridEventHandler, usePropertyGridModel, usePropertyGridModelSource } from "../internal/PropertyGridHooks";
 import { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager";
 import { IPropertyDataProvider } from "../PropertyDataProvider";
-import { CommonPropertyGridProps } from "./PropertyGridCommons";
+import { CommonPropertyGridProps, PropertyGridContentHighlightProps } from "./PropertyGridCommons";
 import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid";
 
 /** Properties for [[VirtualizedPropertyGridWithDataProvider]] React component
@@ -24,9 +22,7 @@ export interface VirtualizedPropertyGridWithDataProviderProps extends CommonProp
   /** Property data provider used by the property grid */
   dataProvider: IPropertyDataProvider;
   /** Properties for highlighting property data in the grid. */
-  highlight?: HighlightingComponentProps & {
-    filteredTypes?: FilteredType[];
-  };
+  highlight?: PropertyGridContentHighlightProps;
   /** Custom property category renderer manager. Defaults to [[PropertyCategoryRendererManager.defaultManager]]. */
   propertyCategoryRendererManager?: PropertyCategoryRendererManager;
   /** Width of the property grid component. */

@@ -13,7 +13,6 @@ import { areEqual, ListChildComponentProps, VariableSizeList } from "react-windo
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import { Orientation, RatioChangeResult } from "@itwin/core-react";
-import { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import { createContextWithMandatoryProvider } from "../../common/UseContextWithMandatoryProvider";
 import { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
@@ -33,7 +32,7 @@ import { IPropertyDataProvider, PropertyCategory } from "../PropertyDataProvider
 import { ColumnResizingPropertyListPropsSupplier } from "./ColumnResizingPropertyListPropsSupplier";
 import { FlatItemNestedBorderWrapper } from "./FlatItemNestedBorderWrapper";
 import { PropertyCategoryBlock } from "./PropertyCategoryBlock";
-import { CommonPropertyGridProps, PropertyGridCommons } from "./PropertyGridCommons";
+import { CommonPropertyGridProps, PropertyGridCommons, PropertyGridContentHighlightProps } from "./PropertyGridCommons";
 import { PropertyGridEventsRelatedPropsSupplier } from "./PropertyGridEventsRelatedPropsSupplier";
 
 /** Properties for [[VirtualizedPropertyGrid]] React component
@@ -47,9 +46,7 @@ export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
   /** Property data provider used by the property grid */
   dataProvider: IPropertyDataProvider;
   /** Properties for highlighting property data in the grid. */
-  highlight?: HighlightingComponentProps & {
-    filteredTypes?: FilteredType[];
-  };
+  highlight?: PropertyGridContentHighlightProps;
   /** Custom property category renderer manager. Defaults to [[PropertyCategoryRendererManager.defaultManager]]. */
   propertyCategoryRendererManager?: PropertyCategoryRendererManager;
   /** Width of the property grid component. */
@@ -122,9 +119,7 @@ export interface VirtualizedPropertyGridContext {
   onResizeHandleDragChanged: (newValue: boolean) => void;
   onResizeHandleHoverChanged: (newValue: boolean) => void;
 
-  highlight?: HighlightingComponentProps & {
-    filteredTypes?: FilteredType[];
-  };
+  highlight?: PropertyGridContentHighlightProps;
 }
 
 const [
