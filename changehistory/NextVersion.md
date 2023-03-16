@@ -7,6 +7,8 @@ Table of contents:
   - [@itwin/appui-abstract](#itwinappui-abstract)
   - [@itwin/appui-react](#itwinappui-react)
     - [Static manager classes](#static-manager-classes)
+  - [@itwin/core-react](#itwincore-react)
+  - [@itwin/components-react](#itwincomponents-react)
   - [@bentley/icons-generic-webfont](#bentleyicons-generic-webfont)
 
 ## @itwin/appui-layout-react
@@ -83,41 +85,81 @@ AppUI related definitions from `@itwin/appui-abstract` are moved into `@itwin/ap
 
 A number of previously deprecated **UI1.0** related APIs and components are removed:
 
-| API from *@itwin/appui-react* |
-| ----------------------------- |
-| `FrameworkVersion`            |
-| `FrameworkVersionContext`     |
-| `FrameworkVersionId`          |
-| `FrameworkVersionProps`       |
-| `ListPickerBase`              |
-| `useFrameworkVersion`         |
-| `NineZoneChangeHandler`       |
-| `StagePanelChangeHandler`     |
-| `WidgetStateFunc`             |
-| `ZoneDefProvider`             |
-| `Zone`                        |
-| `ZoneDef`                     |
+| API                       |
+| ------------------------- |
+| `FrameworkVersion`        |
+| `FrameworkVersionContext` |
+| `FrameworkVersionId`      |
+| `FrameworkVersionProps`   |
+| `ListPickerBase`          |
+| `useFrameworkVersion`     |
+| `NineZoneChangeHandler`   |
+| `StagePanelChangeHandler` |
+| `WidgetStateFunc`         |
+| `ZoneDefProvider`         |
+| `Zone`                    |
+| `ZoneDef`                 |
 
 Previously deprecated pseudo components used by the `FrontstageProvider` are removed as well in favor of their corresponding configuration interfaces:
 
-| Component from *@itwin/appui-react* | Replacement in *@itwin/appui-react* |
-| ----------------------------------- | ----------------------------------- |
-| `Frontstage`                        | `FrontstageConfig`                  |
-| `Widget`                            | `WidgetConfig`                      |
-| `StagePanel`                        | `StagePanelConfig`                  |
+| Component    | Replacement        |
+| ------------ | ------------------ |
+| `Frontstage` | `FrontstageConfig` |
+| `Widget`     | `WidgetConfig`     |
+| `StagePanel` | `StagePanelConfig` |
 
-Other previously deprecated removals and their replacements:
+Other previously deprecated removals and their replacements (if available):
 
-| API from *@itwin/appui-react* | Replacement in *@itwin/appui-react*        |
-| ----------------------------- | ------------------------------------------ |
-| `ActionItemButton`            | `ToolbarActionItem`                        |
-| `ActivityMessagePopup`        | Activity messages are set-up automatically |
-| `Backstage`                   | `BackstageComposer`                        |
-| `BackstageEvent`              | `UiFramework.backstage.onToggled`          |
-| `GroupButton`                 | `ToolbarGroupItem`                         |
-| `Indicator`                   | `StatusBarIndicator`                       |
-| `ToolButton`                  | `ToolbarItem`                              |
-| `withSafeArea`                | `SafeAreaContext`                          |
+| API                                  | Replacement                                |
+| ------------------------------------ | ------------------------------------------ |
+| `ActionItemButton`                   | `ToolbarActionItem`                        |
+| `ActivityMessagePopup`               | Activity messages are set-up automatically |
+| `Backstage`                          | `BackstageComposer`                        |
+| `BackstageEvent`                     | `UiFramework.backstage.onToggled`          |
+| `GroupButton`                        | `ToolbarGroupItem`                         |
+| `Indicator`                          | `StatusBarIndicator`                       |
+| `ToolButton`                         | `ToolbarItem`                              |
+| `withSafeArea`                       | `SafeAreaContext`                          |
+| `ClearEmphasisStatusField`           |                                            |
+| `ConditionalField`                   |                                            |
+| `ConditionalFieldProps`              |                                            |
+| `FooterModeField`                    |                                            |
+| `FooterModeFieldProps`               |                                            |
+| `MessageCenterFieldProps`            | `CommonProps` from *@itwin/core-react*     |
+| `PromptField`                        |                                            |
+| `StatusBarWidgetControlArgs`         |                                            |
+| `StatusFieldProps`                   |                                            |
+| `withMessageCenterFieldProps`        |                                            |
+| `withStatusFieldProps`               |                                            |
+| `Category`                           |                                            |
+| `CategoryTree`                       |                                            |
+| `CategoryTreeProps`                  |                                            |
+| `CategoryVisibilityHandler`          |                                            |
+| `CategoryVisibilityHandlerParams`    |                                            |
+| `ClassGroupingOption`                |                                            |
+| `createVisibilityTreeNodeRenderer`   |                                            |
+| `getCategories`                      |                                            |
+| `IVisibilityHandler`                 |                                            |
+| `ModelsTree`                         |                                            |
+| `ModelsTreeNodeType`                 |                                            |
+| `ModelsTreeProps`                    |                                            |
+| `ModelsTreeSelectionPredicate`       |                                            |
+| `ModelsVisibilityHandler`            |                                            |
+| `ModelsVisibilityHandlerProps`       |                                            |
+| `SpatialContainmentTree`             |                                            |
+| `SpatialContainmentTreeProps`        |                                            |
+| `toggleAllCategories`                |                                            |
+| `useVisibilityTreeFiltering`         |                                            |
+| `useVisibilityTreeRenderer`          |                                            |
+| `VisibilityChangeListener`           |                                            |
+| `VisibilityStatus`                   |                                            |
+| `VisibilityTreeEventHandler`         |                                            |
+| `VisibilityTreeEventHandlerParams`   |                                            |
+| `VisibilityTreeFilterInfo`           |                                            |
+| `visibilityTreeNodeCheckboxRenderer` |                                            |
+| `VisibilityTreeNoFilteredData`       |                                            |
+| `VisibilityTreeNoFilteredDataProps`  |                                            |
+| `VisibilityTreeSelectionPredicate`   |                                            |
 
 `CommonWidgetProps` and `WidgetProps` types are replaced by `Widget` interface:
 
@@ -240,6 +282,153 @@ Below is a list of the changes from this move, some of these new access point ma
 | UiFramework.childWindowManager.closeAllChildWindows | UiFramework.childWindows.closeAll                   |
 | UiFramework.childWindowManager.closeChildWindow     | UiFramework.childWindows.close                      |
 | UiFramework.backstageManager                        | UiFramework.backstage                               |
+
+## @itwin/core-react
+
+| Removed API              |
+| ------------------------ |
+| FeaturedTile             |
+| Field                    |
+| FieldDef                 |
+| FieldDefinitions         |
+| FieldEditor              |
+| FieldProps               |
+| FieldValues              |
+| Form                     |
+| FormContext              |
+| FormContextState         |
+| FormProps                |
+| Headline                 |
+| HorizontalTabs           |
+| Input                    |
+| InputProps               |
+| LabeledInput             |
+| LabeledInputProps        |
+| LabeledSelect            |
+| LabeledSelect            |
+| LabeledTextarea          |
+| LabeledTextareaProps     |
+| LabeledThemedSelect      |
+| LabeledThemedSelectProps |
+| LabeledToggle            |
+| LabeledToggleProps       |
+| LeadingText              |
+| LeadingText2             |
+| MessageSeverity          |
+| MinimalFeaturedTile      |
+| MinimalTile              |
+| OptionsType              |
+| OptionType               |
+| PointProps               |
+| ProgressBar              |
+| ProgressBarProps         |
+| ProgressSpinner          |
+| ProgressSpinnerProps     |
+| Radio                    |
+| RadioProps               |
+| Select                   |
+| SelectOption             |
+| SelectProps              |
+| Slider                   |
+| SliderProps              |
+| SmallText                |
+| Spinner                  |
+| SpinnerProps             |
+| SpinnerSize              |
+| Subheading               |
+| Subheading2              |
+| Textarea                 |
+| TextareaProps            |
+| ThemedSelect             |
+| ThemedSelectProps        |
+| Tile                     |
+| TileProps                |
+| Title                    |
+| Title2                   |
+| Toggle                   |
+| ToggleButtonType         |
+| ToggleProps              |
+| Tooltip                  |
+| TooltipPlacement         |
+| TooltipProps             |
+| SvgSprite                |
+| SvgSpriteProps           |
+
+## @itwin/components-react
+
+Removed `Table`, `Breadcrumb` and other previously deprecated APIs and components:
+
+| Removed API                             |
+| --------------------------------------- |
+| BeDragDropContext                       |
+| Breadcrumb                              |
+| BreadcrumbDetails                       |
+| BreadcrumbDetailsProps                  |
+| BreadcrumbMode                          |
+| BreadcrumbNode                          |
+| BreadcrumbNodeProps                     |
+| BreadcrumbPath                          |
+| BreadcrumbProps                         |
+| BreadcrumbTreeUtils                     |
+| BreadcrumbUpdateEvent                   |
+| BreadcrumbUpdateEventArgs               |
+| CellItem                                |
+| CellProps                               |
+| ColumnDescription                       |
+| ColumnFilterDescriptor                  |
+| CompositeFilterDescriptor               |
+| CompositeFilterDescriptorCollection     |
+| DistinctValueCollection                 |
+| DistinctValuesFilterDescriptor          |
+| FieldFilterDescriptor                   |
+| FilterableColumn                        |
+| FilterableTable                         |
+| FilterCompositionLogicalOperator        |
+| FilterDescriptor                        |
+| FilterDescriptorCollection              |
+| FilterDescriptorCollectionBase          |
+| FilterOperator                          |
+| FilterRenderer                          |
+| MutableTableDataProvider                |
+| OperatorValueFilterDescriptor           |
+| OperatorValueFilterDescriptorCollection |
+| ReactDataGridColumn                     |
+| RowItem                                 |
+| RowProps                                |
+| ShowHideDialog                          |
+| ShowHideDialogProps                     |
+| ShowHideID                              |
+| ShowHideItem                            |
+| ShowHideMenu                            |
+| ShowHideMenuProps                       |
+| SimpleTableDataProvider                 |
+| Table                                   |
+| TableCell                               |
+| TableCellContent                        |
+| TableCellContentProps                   |
+| TableCellContextMenuArgs                |
+| TableCellEditorState                    |
+| TableCellProps                          |
+| TableCellUpdatedArgs                    |
+| TableDataChangesListener                |
+| TableDataProvider                       |
+| TableDistinctValue                      |
+| TableIconCellContent                    |
+| TableIconCellContentProps               |
+| TableProps                              |
+| TableSelectionTarget                    |
+| IconPickerButton                        |
+| IconPickerProps                         |
+| MutableTreeDataProvider                 |
+| PropertyGridCategory                    |
+| ThemedEnumEditor                        |
+| ThemedEnumEditorProps                   |
+| ThemedEnumPropertyEditor                |
+| TreeDataChangesListener                 |
+
+| Deprecated API       |
+| -------------------- |
+| TableDataChangeEvent |
 
 ## @bentley/icons-generic-webfont
 
