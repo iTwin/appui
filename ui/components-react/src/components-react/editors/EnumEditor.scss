@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/variables";
+@import "./variables";
 
 .components-enum-editor {
   width: 100%;
@@ -14,7 +14,7 @@
   .components-enum-editor {
     &.iui-select {
       >.iui-select-button {
-        min-height: $uicore-component-height-small !important;
+        min-height: $editor-component-height-small !important;
         padding-top: 0px !important;
         padding-bottom: 0px !important;
       }
