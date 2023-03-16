@@ -160,6 +160,7 @@ Other previously deprecated removals and their replacements (if available):
 | `VisibilityTreeNoFilteredData`       |                                            |
 | `VisibilityTreeNoFilteredDataProps`  |                                            |
 | `VisibilityTreeSelectionPredicate`   |                                            |
+| `UseFloatingViewportArgs`            | `FloatingViewportContentProps`             |
 
 `CommonWidgetProps` and `WidgetProps` types are replaced by `Widget` interface:
 
@@ -353,6 +354,20 @@ Below is a list of the changes from this move, some of these new access point ma
 | TooltipProps             |
 | SvgSprite                |
 | SvgSpriteProps           |
+| Button                   |
+| ButtonProps              |
+| ButtonSize               |
+| ButtonType               |
+| Checkbox                 |
+| CheckboxProps            |
+| DialogButtonDef          |
+| DialogButtonStyle        |
+| DialogButtonType         |
+| ExpandableBlock          |
+| ExpandableBlockProps     |
+| SplitButton              |
+| SplitButtonProps         |
+| UiEvent                  |
 
 ## @itwin/components-react
 
