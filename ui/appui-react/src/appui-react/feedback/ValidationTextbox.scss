@@ -5,7 +5,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/icons/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/style/variables";
 
 .uifw-ValidationTextbox {
   font-family: var(--iui-font-sans);
@@ -16,7 +15,7 @@
 
   .ValidationTextbox-input {
     position: absolute;
-    min-height: $uicore-component-height-normal;
+    min-height: 28px;
     padding: $uicore-iui-input-padding;
     width: 12em;
     left: 0px;

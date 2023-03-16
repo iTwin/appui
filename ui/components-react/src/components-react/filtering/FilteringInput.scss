@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/style/variables";
 
 .components-filtering-input {
   display: flex;
@@ -20,7 +19,7 @@
 
   // The input itself
   input {
-    min-height: $uicore-component-height-normal;
+    min-height: 28px;
     padding: $uicore-iui-input-padding;
     box-sizing: border-box;
   }

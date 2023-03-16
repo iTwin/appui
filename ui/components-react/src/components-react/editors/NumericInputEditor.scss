@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/variables";
 @import "./variables";
 
 .components-smallEditor-host {
@@ -10,7 +9,7 @@
   .components-numeric-input-editor {
 
     &.iui-input {
-      min-height: $uicore-component-height-small !important;
+      min-height: $editor-component-height-small !important;
       padding-top: 0px !important;
       padding-bottom: 0px !important;
     }

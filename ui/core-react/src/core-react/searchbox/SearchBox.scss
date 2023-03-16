@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 @import "../style/themecolors";
-@import "../style/variables";
 
 .core-searchbox {
   font-family: var(--iui-font-sans);
@@ -11,13 +10,13 @@
   align-items: center;
   position: relative;
   //default values (height, width, font-size, color)
-  height: $uicore-component-height-normal;
+  height: 28px;
   width: 12em;
   font-size: var(--iui-font-size-1);
   color: var(--iui-color-text);
 
   input {
-    min-height: $uicore-component-height-normal;
+    min-height: 28px;
     padding: var(--iui-size-3xs) 2em var(--iui-size-3xs) 12px; //12px from design guide
     height: 100%;
     margin: 0;
