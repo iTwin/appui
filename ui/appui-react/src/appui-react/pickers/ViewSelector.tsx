@@ -15,6 +15,7 @@ import { connectIModelConnection } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
 import { ViewUtilities } from "../utils/ViewUtilities";
 import { ListItem, ListItemType, ListPicker } from "./ListPicker";
+import { debounce } from "lodash";
 
 // cSpell:ignore Spatials
 
@@ -45,6 +46,7 @@ export interface ViewSelectorProps {
   showSheets: boolean;
   showUnknown: boolean;
   searchBox?: boolean;
+  panelOnly?: boolean;
 }
 
 /** State for the [[ViewSelector]] component
@@ -59,6 +61,7 @@ interface ViewSelectorState {
   showSheets: boolean;
   showUnknown: boolean;
   searchBox: boolean;
+  panelOnly: boolean;
 }
 
 /** Default properties of [[ViewSelector]] component.
@@ -117,7 +120,8 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       showDrawings: props.showDrawings,
       showSheets: props.showSheets,
       showUnknown: props.showUnknown,
-      searchBox: props.searchBox! ? props.searchBox : true,
+      searchBox: props.searchBox ? props.searchBox : true,
+      panelOnly: props.panelOnly ? props.panelOnly : false,
     };
   }
 
@@ -157,7 +161,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       name: UiFramework.translate("viewTypes.spatialViews"),
       enabled: false,
       type: ListItemType.Container,
-      children: views3dFiltered! ? views3dFiltered : views3d,
+      children: views3dFiltered ? views3dFiltered : views3d,
     };
 
     const views2dContainer: ListItem = {
@@ -165,7 +169,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       name: UiFramework.translate("viewTypes.drawings"),
       enabled: false,
       type: ListItemType.Container,
-      children: views2dFiltered! ? views2dFiltered : views2d,
+      children: views2dFiltered ? views2dFiltered : views2d,
     };
 
     const sheetContainer: ListItem = {
@@ -173,7 +177,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       name: UiFramework.translate("viewTypes.sheets"),
       enabled: false,
       type: ListItemType.Container,
-      children: sheetsFiltered! ? sheetsFiltered : sheets,
+      children: sheetsFiltered ? sheetsFiltered : sheets,
     };
 
     const containers = [views3dContainer, views2dContainer, sheetContainer];
@@ -186,7 +190,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
         name: UiFramework.translate("viewTypes.others"),
         enabled: false,
         type: ListItemType.Container,
-        children: unknownFiltered! ? unknownFiltered : unknown,
+        children: unknownFiltered ? unknownFiltered : unknown,
       };
 
       if (unknown.length !== 0)
@@ -212,10 +216,10 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
     const views2d: ListItem[] = [];
     const sheets: ListItem[] = [];
     const unknown: ListItem[] = [];
-    let views3dFiltered: ListItem[];
-    let views2dFiltered: ListItem[];
-    let sheetsFiltered: ListItem[];
-    let unknownFiltered: ListItem[];
+    let views3dFiltered: ListItem[] | undefined;
+    let views2dFiltered: ListItem[] | undefined;
+    let sheetsFiltered: ListItem[] | undefined;
+    let unknownFiltered: ListItem[] | undefined;
 
     if (this.props.imodel && this.props.imodel.views.getViewList) {
       const query = { wantPrivate: false };
@@ -242,14 +246,14 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       });
 
       if(this._searchInput.length > 0){
-        views3dFiltered = views3d.filter((view) => view.name!.toLowerCase().includes(this._searchInput.toLowerCase()));
-        views2dFiltered = views2d.filter((view) => view.name!.toLowerCase().includes(this._searchInput.toLowerCase()));
-        sheetsFiltered = sheets.filter((view) => view.name!.toLowerCase().includes(this._searchInput.toLowerCase()));
-        unknownFiltered = unknown.filter((view) => view.name!. toLowerCase().includes(this._searchInput.toLowerCase()));
+        views3dFiltered = views3d.filter((view) => view.name?.toLowerCase().includes(this._searchInput.toLowerCase()));
+        views2dFiltered = views2d.filter((view) => view.name?.toLowerCase().includes(this._searchInput.toLowerCase()));
+        sheetsFiltered = sheets.filter((view) => view.name?.toLowerCase().includes(this._searchInput.toLowerCase()));
+        unknownFiltered = unknown.filter((view) => view.name?. toLowerCase().includes(this._searchInput.toLowerCase()));
       }
     }
 
-    this.setStateContainers(views3d, views2d, sheets, unknown, views3dFiltered!, views2dFiltered!, sheetsFiltered!, unknownFiltered!);
+    this.setStateContainers(views3d, views2d, sheets, unknown, views3dFiltered, views2dFiltered, sheetsFiltered, unknownFiltered);
   }
 
   /**
@@ -357,10 +361,11 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
         iconSpec={"icon-saved-view"}
         onExpanded={this._onExpanded}
         searchBox={this.state.searchBox}
-        onSearchValueChange={(search: string) => {
+        onSearchValueChange={debounce((search: string) => {
           this._searchInput = search;
           void this.loadViews();
-        }}
+        }, 300)}
+        panelOnly={this.state.panelOnly}
       />
     );
   }

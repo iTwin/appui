@@ -137,7 +137,7 @@ describe("ViewSelector", () => {
             onResize: () => { },
           }}
         >
-          <ViewSelector imodel={imodelMock2.object} />
+          <ViewSelector imodel={imodelMock2.object} panelOnly={true}/>
         </ToolbarItemContext.Provider>
       </Provider>
     );
@@ -161,10 +161,10 @@ describe("ViewSelector", () => {
     await waitFor(async () => theUserTo.click(screen.getByRole("button")));
     await theUserTo.type(screen.getByRole("searchbox"), "none");
 
-    expect(screen.queryByText("viewTypes.spatialViews")).to.be.null;
-    expect(screen.queryByText("viewTypes.drawings")).to.be.null;
-    expect(screen.queryByText("viewTypes.sheets")).to.be.null;
-    expect(screen.queryByText("viewTypes.others")).to.be.null;
+    expect(screen.queryByText("viewTypes.spatialViews")!.children).to.be.empty;
+    expect(screen.queryByText("viewTypes.drawings")!.children).to.be.empty;
+    expect(screen.queryByText("viewTypes.sheets")!.children).to.be.empty;
+    expect(screen.queryByText("viewTypes.others")!.children).to.be.empty;
 
   });
 });

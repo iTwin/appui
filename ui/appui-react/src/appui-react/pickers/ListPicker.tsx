@@ -47,6 +47,7 @@ export interface ListPickerProps {
   onSizeKnown?: (size: SizeProps) => void;
   searchBox?: boolean;
   onSearchValueChange?: (search: string) => void;
+  panelOnly?: boolean;
 }
 
 /** Properties for the [[ListPickerItem]] component
@@ -229,12 +230,12 @@ function ListPickerPopupItem(props: ListPickerProps) {
   return (
     <ToolbarDragInteractionContext.Consumer>
       {(isEnabled) => {
-        return <PopupItem
+        return (props.panelOnly === true ? getListPanel(props) : <PopupItem
           hideIndicator={isEnabled}
           icon={icon}
           title={props.title}
           panel={getListPanel(props)}
-        />;
+        />);
       }}
     </ToolbarDragInteractionContext.Consumer>
   );
