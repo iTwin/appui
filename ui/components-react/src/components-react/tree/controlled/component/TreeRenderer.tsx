@@ -280,7 +280,7 @@ function getNodeKey(node: TreeModelNode | TreeModelNodePlaceholder): string {
 }
 
 const Node = React.memo<React.FC<ListChildComponentProps>>( // eslint-disable-line @typescript-eslint/naming-convention
-  (props: ListChildComponentProps) => {
+  function Node(props: ListChildComponentProps) {
     const { index, style } = props;
 
     const {
