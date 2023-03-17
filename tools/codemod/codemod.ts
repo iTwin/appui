@@ -17,13 +17,18 @@ const defaultOptions: PrintOptions = {
 };
 
 export function toPrintOptions(options: Options): PrintOptions {
-  const printOptions = options.printOptions;
+  let printOptions = options.printOptions;
   if (!printOptions) {
     return defaultOptions;
   }
-  if (typeof printOptions === "string")
-    return JSON.parse(options.printOptions);
-  return options.printOptions;
+
+  if (typeof printOptions === "string") {
+    printOptions = JSON.parse(options.printOptions);
+  }
+  return {
+    ...defaultOptions,
+    ...printOptions,
+  };
 }
 
 async function run(codemod: string, paths: string[], debug: boolean, optionOverrides: Options) {
