@@ -15,6 +15,7 @@ import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridConta
 import { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 import { ToolUiProvider } from "./ToolUiProvider";
 import { UiFramework } from "../UiFramework";
+import { UnexpectedErrors } from "@itwin/core-bentley";
 
 /** @internal */
 
@@ -27,7 +28,7 @@ class ToolSettingsUiDataProvider extends UiLayoutDataProvider {
   // send property changes from UI back to tool
   public override applyUiPropertyChange = (syncItem: DialogPropertySyncItem) => {
     // istanbul ignore next
-    IModelApp.toolAdmin.activeTool && IModelApp.toolAdmin.activeTool.applyToolSettingPropertyChange(syncItem);
+    IModelApp.toolAdmin.activeTool?.applyToolSettingPropertyChange(syncItem).catch((err) => UnexpectedErrors.handle(err));
   };
 }
 
