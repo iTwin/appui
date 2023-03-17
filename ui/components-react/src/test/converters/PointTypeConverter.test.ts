@@ -215,7 +215,7 @@ class TestAsyncComponentConverter extends TypeConverter {
 
 class TestPartialAsyncComponentConverter extends TypeConverter {
   public static NAME = "test-partial-async-component-converter";
-  public override convertToString(value?: Primitives.Value) {
+  public override convertToString(value?: Primitives.Value): string | Promise<string> {
     const result = `_${(value ?? "").toString()}_`;
     return (value && value.toString() === "100") ? Promise.resolve(result) : result;
   }
