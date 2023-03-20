@@ -5,9 +5,11 @@
 import type { API, FileInfo, Options } from "jscodeshift";
 import { useCallExpression } from "../utils/CallExpression";
 import changeImports from "../utils/changeImports";
+import { useExtensions } from "../utils/Extensions";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
+  useExtensions(j);
   useCallExpression(j);
 
   const root = j(file.source);
@@ -56,9 +58,9 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
   root.findCallExpressions("UiFramework.childWindowManager.findChildWindowId").renameTo("UiFramework.childWindows.findId");
   root.findCallExpressions("UiFramework.childWindowManager.closeAllChildWindows").renameTo("UiFramework.childWindows.closeAll");
   root.findCallExpressions("UiFramework.childWindowManager.closeChildWindow").renameTo("UiFramework.childWindows.close");
+  root.rename("@itwin/appui-react:FrontstageManager", "@itwin/appui-react:UiFramework.frontstages");
 
   changeImports(j, root, new Map<string, string>([
-    ["@itwin/appui-react.FrontstageManager", "@itwin/appui-react.UiFramework.frontstages"],
     ["@itwin/appui-react.ConfigurableUiManager", "@itwin/appui-react.UiFramework.controls"],
     ["@itwin/appui-react.KeyboardShortcutManager", "@itwin/appui-react.UiFramework.keyboardShortcuts"],
     ["@itwin/appui-react.ToolSettingsManager", "@itwin/appui-react.UiFramework.toolSettings"],
@@ -68,7 +70,7 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
     ["@itwin/appui-react.ModalDialogManager", "@itwin/appui-react.UiFramework.dialogs.modal"],
     ["@itwin/appui-react.ModelessDialogManager", "@itwin/appui-react.UiFramework.dialogs.modeless"],
     ["@itwin/appui-react.UiShowHideManager", "@itwin/appui-react.UiFramework.visibility"],
-    ["@itwin/appui-react.UiFramework.backstageManager", "@itwin/appui-react.UiFramework.backstage"],
+    ["@itwin/appui-react.UiFramework.backstageManager", "@itwin/appui.react.UiFramework.backstage"],
   ]));
 
   return root.toSource(options.printOptions);

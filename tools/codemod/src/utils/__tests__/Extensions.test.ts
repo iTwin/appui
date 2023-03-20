@@ -41,7 +41,7 @@ describe("Extensions", () => {
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.a.x", "@itwin/from.a.y");
+        root.rename("@itwin/from:a.x", "@itwin/from:a.y");
       },
       `a.x;`,
       `a.y;`,
@@ -50,7 +50,7 @@ describe("Extensions", () => {
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.a", "@itwin/from.b");
+        root.rename("@itwin/from:a", "@itwin/from:b");
       },
       `
       a;
@@ -63,7 +63,7 @@ describe("Extensions", () => {
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.a", "@itwin/from.b");
+        root.rename("@itwin/from:a", "@itwin/from:b");
       },
       `
       a.y;
@@ -76,7 +76,7 @@ describe("Extensions", () => {
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.a", "@itwin/from.b");
+        root.rename("@itwin/from:a", "@itwin/from:b");
       },
       `
       x.a;
@@ -89,99 +89,181 @@ describe("Extensions", () => {
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.a", "@itwin/from.b");
+        root.rename("@itwin/from:a", "@itwin/from:b");
       },
       `
       import { a } from "@itwin/from";
+      a;
       `,
       `
       import { b } from "@itwin/from";
+      b;
       `,
       `should rename a specifier`
     );
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.a", "@itwin/to.b");
+        root.rename("@itwin/from:a", "@itwin/to:b");
       },
       `
       import { a } from "@itwin/from";
+      a;
       `,
       `
       import { b } from "@itwin/to";
+      b;
       `,
       `should rename a declaration`
     );
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.b", "@itwin/to.b");
+        root.rename("@itwin/from:b", "@itwin/to:b");
       },
       `
       import { b } from "@itwin/from";
       import { a } from "@itwin/to";
+      b;
       `,
       `
       import { a, b } from "@itwin/to";
+      b;
       `,
       `should merge declarations`
     );
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.aa", "@itwin/to.bc");
-        root.rename("@itwin/from.ab", "@itwin/to.ba");
-        root.rename("@itwin/from.ac", "@itwin/to.bb");
+        root.rename("@itwin/from:aa", "@itwin/to:bc");
+        root.rename("@itwin/from:ab", "@itwin/to:ba");
+        root.rename("@itwin/from:ac", "@itwin/to:bb");
       },
       `
       import { aa, ab, ac } from "@itwin/from";
+      aa;
+      ab;
+      ac;
       `,
       `
       import { ba, bb, bc } from "@itwin/to";
+      bc;
+      ba;
+      bb;
       `,
       `should sort moved specifiers`,
     );
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.a", "@itwin/to.b");
+        root.rename("@itwin/from:a", "@itwin/to:b");
       },
       `
       import { a } from "@itwin/from";
       import { b } from "@itwin/to";
+      a;
       `,
       `
       import { b } from "@itwin/to";
+      b;
       `,
       "should not add duplicate specifiers to existing declaration"
     );
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.a", "@itwin/to.a");
+        root.rename("@itwin/from:a", "@itwin/to:a");
       },
       `
       import { a, c } from "@itwin/from";
+      a;
       `,
       `
       import { c } from "@itwin/from";
       import { a } from "@itwin/to";
+      a;
       `,
       "should remove changed specifier"
     );
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from.a", "@itwin/to.a");
+        root.rename("@itwin/from:a", "@itwin/from:b");
       },
       `
-      import { a, c } from "@itwin/from";
+      import { a } from "@itwin/from";
+      a;
       `,
       `
-      import { c } from "@itwin/from";
-      import { a } from "@itwin/to";
+      import { b } from "@itwin/from";
+      b;
       `,
-      "should remove changed specifier"
+      `should rename a specifier`
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:a", "@itwin/to:b");
+      },
+      `
+      import { c } from "@itwin/to";
+      c;
+      `,
+      `
+      import { c } from "@itwin/to";
+      c;
+      `,
+      "should not update specifiers if nothing to rename"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:a", "@itwin/to:b");
+      },
+      `
+      /** @copyright */
+      import { a } from "@itwin/from";
+      a;
+      `,
+      `
+      /** @copyright */
+      import { b } from "@itwin/to";
+      b;
+      `,
+      "should retain first comment"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:a.x", "@itwin/to:b.y");
+      },
+      `
+      import { a as c } from "@itwin/from";
+      c.x;
+      `,
+      `
+      import { b } from "@itwin/to";
+      b.y;
+      `,
+      "should update renamed specifier"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:a.x", "@itwin/to:b.y");
+      },
+      `
+      import { a } from "@itwin/from";
+      a.x;
+      a.y;
+      `,
+      `
+      import { a } from "@itwin/from";
+      import { b } from "@itwin/to";
+      b.y;
+      a.y;
+      `,
+      "should not remove used specifiers"
     );
   });
 });

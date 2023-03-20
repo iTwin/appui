@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { ASTPath, ImportDeclaration, ImportSpecifier, JSCodeshift, Collection } from "jscodeshift";
+import type { ASTPath, ImportDeclaration, ImportSpecifier, JSCodeshift, Collection } from "jscodeshift";
 import addSpecifiers from "./addSpecifiers";
 import retainFirstComment from "./retainFirstComment";
 import { isIdentifier, isJSXIdentifier } from "./typeGuards";
@@ -42,7 +42,7 @@ interface MovedSpecifier {
 export default function changeImports(j: JSCodeshift, root: Collection, changes: ImportChanges) {
   retainFirstComment(j, root, () => {
     const specifiersByDeclaration = new Map<ASTPath<ImportDeclaration>, MovedSpecifier[]>();
-    root.find(ImportDeclaration).forEach((path) => {
+    root.find(j.ImportDeclaration).forEach((path) => {
       let api: string;
       const declaration = path.value;
       const from = declaration.source.value;

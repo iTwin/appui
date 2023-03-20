@@ -39,18 +39,4 @@ describe("statics", () => {
     `,
     "should update `FrontstageManager`"
   );
-
-  defineInlineTest(
-    `
-    import { FrontstageManager } from "@itwin/appui-react";
-    await FrontstageManager.getFrontstageDef(stageId);
-    FrontstageManager.activeFrontstageDef;
-    `,
-    `
-    import { UiFramework } from "@itwin/appui-react";
-    await UiFramework.frontstages.getFrontstageDef(stageId);
-    UiFramework.frontstages.activeFrontstageDef;
-    `,
-    "should update `FrontstageManager`"
-  );
 });

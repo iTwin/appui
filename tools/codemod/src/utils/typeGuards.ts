@@ -2,7 +2,10 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { ArrayExpression, ASTNode, ASTPath, Identifier, ImportSpecifier, JSCodeshift, JSXAttribute, JSXElement, JSXEmptyExpression, JSXExpressionContainer, JSXIdentifier, Literal, ObjectExpression } from "jscodeshift";
+import type {
+  ArrayExpression, ASTNode, ASTPath, CallExpression, Identifier, ImportSpecifier, JSCodeshift, JSXAttribute, JSXElement, JSXEmptyExpression,
+  JSXExpressionContainer, JSXIdentifier, Literal, MemberExpression, ObjectExpression,
+} from "jscodeshift";
 
 type Source = Parameters<JSCodeshift>[0];
 
@@ -52,6 +55,18 @@ export function isObjectExpression(j: JSCodeshift, source: Source): source is Ob
 
 export function isIdentifier(source: ASTNode): source is Identifier {
   return source.type === "Identifier";
+}
+
+export function isIdentifierPath(source: ASTPath): source is ASTPath<Identifier> {
+  return isIdentifier(source.value);
+}
+
+export function isCallExpression(source: ASTNode): source is CallExpression {
+  return source.type === "CallExpression";
+}
+
+export function isMemberExpression(source: ASTNode): source is MemberExpression {
+  return source.type === "MemberExpression";
 }
 
 export function isIdentifierType(j: JSCodeshift, source: Source): source is Identifier {
