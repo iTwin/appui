@@ -5,16 +5,18 @@
 import { API, FileInfo } from "jscodeshift";
 import { defineInlineTest } from "jscodeshift/src/testUtils";
 import changeImports, { ImportChanges } from "../changeImports";
-import { tsxModule } from "../testUtils";
 
 function createTransform(changes: ImportChanges) {
-  return (file: FileInfo, api: API) => {
-    const j = api.jscodeshift;
-    const root = j(file.source);
-    changeImports(j, root, changes);
-    return root.toSource({
-      lineTerminator: "\n",
-    });
+  return {
+    default: (file: FileInfo, api: API) => {
+      const j = api.jscodeshift;
+      const root = j(file.source);
+      changeImports(j, root, changes);
+      return root.toSource({
+        lineTerminator: "\n",
+      });
+    },
+    parser: "tsx" as const,
   };
 }
 
@@ -209,9 +211,9 @@ describe("changeImports", () => {
   );
 
   defineInlineTest(
-    tsxModule(createTransform(new Map([
+    createTransform(new Map([
       ["@itwin/from.TestId", "@itwin/to.Test[\"id\"]"],
-    ]))),
+    ])),
     {},
     `
     import { TestId } from "@itwin/from";
@@ -225,9 +227,9 @@ describe("changeImports", () => {
   );
 
   defineInlineTest(
-    tsxModule(createTransform(new Map([
+    createTransform(new Map([
       ["@itwin/from.A", "@itwin/to.B"],
-    ]))),
+    ])),
     {},
     `
     import { A } from "@itwin/from";
@@ -241,9 +243,9 @@ describe("changeImports", () => {
   );
 
   defineInlineTest(
-    tsxModule(createTransform(new Map([
+    createTransform(new Map([
       ["@itwin/from.A", "@itwin/to.B"],
-    ]))),
+    ])),
     {},
     `
     import { A } from "@itwin/from";

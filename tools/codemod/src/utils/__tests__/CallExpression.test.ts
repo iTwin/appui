@@ -2,18 +2,33 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { useCallExpression } from "../CallExpression";
-import { createApplyTransform, createDefineInlineTest } from "../testUtils";
+import { toExpressionName, useCallExpression } from "../CallExpression";
+import { createApplyCollectionTransform, createDefineInlineCollectionTest } from "../testUtils";
 
-const applyTransform = createApplyTransform((j) => {
+const applyTransform = createApplyCollectionTransform((j) => {
   useCallExpression(j);
 });
 
-const defineInlineTest = createDefineInlineTest((j) => {
+const defineInlineTest = createDefineInlineCollectionTest((j) => {
   useCallExpression(j);
 });
 
 describe("CallExpression", () => {
+  describe("toExpressionName", () => {
+    it("member expressions", () => {
+      applyTransform(
+        `x.y.z;`,
+        (j, root) => {
+          expect(toExpressionName(root.find(j.MemberExpression, { property: { name: "y" } }).nodes()[0])).toBe("x.y");
+          expect(toExpressionName(root.find(j.MemberExpression, { property: { name: "z" } }).nodes()[0])).toBe("x.y.z");
+          expect(toExpressionName(root.find(j.Identifier, { name: "x" }).nodes()[0])).toBe("x");
+          expect(toExpressionName(root.find(j.Identifier, { name: "y" }).nodes()[0])).toBe("y");
+          expect(toExpressionName(root.find(j.Identifier, { name: "z" }).nodes()[0])).toBe("z");
+        }
+      );
+    });
+  });
+
   describe("findCallExpressions", () => {
     it("should find call expression with 1 identifier", () => {
       applyTransform(
