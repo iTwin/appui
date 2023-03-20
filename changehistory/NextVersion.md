@@ -33,7 +33,7 @@ All APIs are marked as internal. `@itwin/appui-layout-react` package is consider
 
 ## @itwin/appui-abstract
 
-AppUI related definitions from `@itwin/appui-abstract` are moved into `@itwin/appui-react`.
+AppUi related definitions from `@itwin/appui-abstract` are moved into `@itwin/appui-react`.
 
 | API from *@itwin/appui-abstract*          | Replacement in *@itwin/appui-react*     |
 | ----------------------------------------- | --------------------------------------- |

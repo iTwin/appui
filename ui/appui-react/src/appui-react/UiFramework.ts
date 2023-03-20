@@ -288,7 +288,7 @@ export class UiFramework {
   /** Determines if UiFramework has been initialized */
   public static get initialized(): boolean { return UiFramework._initialized; }
 
-  /** Property that returns the SettingManager used by AppUI-based applications.
+  /** Property that returns the SettingManager used by AppUi-based applications.
    * @public
    */
   public static get settingsManager() {

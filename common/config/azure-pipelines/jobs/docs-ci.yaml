@@ -59,10 +59,10 @@ stages:
               TargetFolder: $(Build.StagingDirectory)/docs
 
           - task: PublishBuildArtifacts@1
-            displayName: "Publish Artifact: AppUI Docs"
+            displayName: "Publish Artifact: AppUi Docs"
             inputs:
               PathtoPublish: "$(Build.StagingDirectory)/docs/"
-              ArtifactName: "AppUI Docs"
+              ArtifactName: "AppUi Docs"
 
   - stage: Validate_Docs
     dependsOn: Generate_Docs

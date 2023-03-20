@@ -10,17 +10,17 @@ steps:
   # UI Tests
   #-------
   - task: PublishTestResults@2
-    displayName: "Publish AppUI-Layout-React Test Results"
+    displayName: "Publish AppUi-Layout-React Test Results"
     inputs:
       testResultsFiles: "ui/appui-layout-react/lib/test/junit_results.xml"
-      testRunTitle: "AppUI-Layout-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
+      testRunTitle: "AppUi-Layout-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
   - task: PublishTestResults@2
-    displayName: "Publish AppUI-React Test Results"
+    displayName: "Publish AppUi-React Test Results"
     inputs:
       testResultsFiles: "ui/appui-react/lib/test/junit_results.xml"
-      testRunTitle: "AppUI-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
+      testRunTitle: "AppUi-React Tests - $(Agent.OS) - ${{ parameters.NodeVersion }}"
       searchFolder: ${{ parameters.workingDir }}
     condition: succeededOrFailed()
   - task: PublishTestResults@2

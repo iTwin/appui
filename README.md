@@ -1,4 +1,4 @@
-﻿# AppUI
+﻿# AppUi
 
 Copyright © Bentley Systems, Incorporated. All rights reserved. See [LICENSE.md](./LICENSE.md) for license terms and full copyright notice.
 
@@ -8,9 +8,7 @@ If you have questions, or wish to contribute to iTwin.js, see our [Contributing 
 
 ## About this Repository
 
-[![Build status](https://dev.azure.com/imodeljs/imodeljs/_apis/build/status/iModel.js)](https://dev.azure.com/imodeljs/imodeljs/_build/latest?definitionId=12)
-
-This repository is a [monorepo](https://en.wikipedia.org/wiki/Monorepo) that holds the source code to multiple iTwin.js npm packages. It is built using [Rush](http://rushjs.io/).
+This repository is a [monorepo](https://en.wikipedia.org/wiki/Monorepo) that holds the source code to multiple iTwin.js AppUi npm packages. It is built using [Rush](http://rushjs.io/).
 
 See [rush.json](./rush.json) for the complete list of packages.
 
@@ -24,7 +22,7 @@ Each package has its own **node_modules** directory that contains symbolic links
 - [TypeScript](https://www.typescriptlang.org/): this is listed as a devDependency, so if you're building it from source, you will get it with `rush install`.
 - [Visual Studio Code](https://code.visualstudio.com/): an optional dependency, but the repository structure is optimized for its use
 
-> See [supported platforms](./docs/learning/SupportedPlatforms.md) for further information.
+> See [supported platforms](https://www.itwinjs.org/learning/supportedplatforms/) for further information.
 
 ## Build Instructions
 
@@ -62,7 +60,7 @@ For incremental builds, the `rush build` command can be used to only build packa
 11. Add and commit the changelog JSON files and any API signature updates.
 12. Publish changes on the branch and open a pull request.
 
-If using the command line, steps 8 through 11 above can be completed in one step by running `rushchange.bat` from the imodeljs root directory.
+If using the command line, steps 8 through 11 above can be completed in one step by running `rushchange.bat` from the root directory.
 Only use `rushchange.bat` if none of the changes require a changelog entry.
 > Note: The CI build will break if changes are pushed without running `rush change` and `rush extract-api` (if the API was changed). The fix will be to complete steps 6 through 11.
 
@@ -108,4 +106,4 @@ The external dependencies must be updated in this variant with the following com
 ## Other NPM Scripts
 
 1. Build TypeDoc documentation for all packages: `rush docs`
-2. Build TypeDoc documentation for a single package: `cd core\backend` and then `npm run docs`
+2. Build TypeDoc documentation for a single package: `cd ui\core-react` and then `npm run docs`

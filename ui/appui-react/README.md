@@ -4,9 +4,9 @@ Copyright © Bentley Systems, Incorporated. All rights reserved. See LICENSE.md 
 
 ## Description
 
-The __@itwin/appui-react__ package contains application fragments for Login, Project, iModel and View selection, and configuration of the application UI including the Backstage, Frontstages, Widgets, etc.
+The __@itwin/appui-react__ package contains application fragments for View selection, and configuration of the application UI including the Backstage, Frontstages, Widgets, etc.
 
-The AppUI React package is a portion of the iTwin.js User Interface library. It consists of major fragments of code that combine the
+The AppUi React package is a portion of the iTwin.js User Interface library. It consists of major fragments of code that combine the
 functionality from the `@itwin/core-frontend` with the core-react, imodel-components and appui-layout-react packages to implement substantial
 functionality that can be used within an iTwin.js application.
 
@@ -18,4 +18,4 @@ sub-framework is contained in a separate folder.
 
 ## Documentation
 
-See the [iTwin.js](https://www.itwinjs.org) documentation for more information.
+See the [iTwin.js](https://www.itwinjs.org/learning/ui/appui-react/) documentation for more information.

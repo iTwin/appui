@@ -50,13 +50,6 @@ global.DOMRect.fromRect = function (rect) {
 const { JSDOM } = require('jsdom');
 global.DOMParser = new JSDOM().window.DOMParser;
 
-// Fix node's module loader to strip ?sprite from SVG imports
-const m = require("module");
-const origLoader = m._load;
-m._load = (request, parent, isMain) => {
-  return origLoader(request.replace("?sprite", ""), parent, isMain);
-};
-
 // setup chai
 const chai = require("chai");
 chai.should();

@@ -9,13 +9,7 @@
   "approvedPackagesPolicy": {
     "reviewCategories": [
       "frontend",
-      "backend",
-      "common",
-      "tools",
-      "edit",
-      "internal",
-      "extensions",
-      "integration-testing"
+      "internal"
     ],
     "ignoredNpmScopes": [
       "@types"
