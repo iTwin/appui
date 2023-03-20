@@ -265,5 +265,50 @@ describe("Extensions", () => {
       `,
       "should not remove used specifiers"
     );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:TestId", "@itwin/to:Test[\"id\"]");
+      },
+      `
+      import { TestId } from "@itwin/from";
+      const x: TestId = "";
+      `,
+      `
+      import { Test } from "@itwin/to";
+      const x: Test["id"] = "";
+      `,
+      "should change to indexed access type"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:A", "@itwin/to:B");
+      },
+      `
+      import { A } from "@itwin/from";
+      <A value="x" />
+      `,
+      `
+      import { B } from "@itwin/to";
+      <B value="x" />
+      `,
+      "should change component name in JSX"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:A", "@itwin/to:B.C");
+      },
+      `
+      import { A } from "@itwin/from";
+      <A />
+      `,
+      `
+      import { B } from "@itwin/to";
+      <B.C />
+      `,
+      "should change to property access in JSX"
+    );
   });
 });

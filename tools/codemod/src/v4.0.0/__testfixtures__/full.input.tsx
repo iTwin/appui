@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { Dialog } from "@itwin/appui-layout-react";
-import { UiItemsProvider } from "@itwin/appui-abstract";
 
 function App() {
   return (

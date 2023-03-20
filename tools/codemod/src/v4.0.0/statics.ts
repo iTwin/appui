@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 import type { API, FileInfo, Options } from "jscodeshift";
 import { useCallExpression } from "../utils/CallExpression";
-import changeImports from "../utils/changeImports";
 import { useExtensions } from "../utils/Extensions";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
@@ -14,64 +13,61 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
 
   const root = j(file.source);
   root.findCallExpressions("FrontstageManager.initialize").remove();
-  root.findCallExpressions("FrontstageManager.setActiveLayout").renameTo("UiFramework.content.layouts.setActive");
-  root.findCallExpressions("FrontstageManager.setActiveContentGroup").renameTo("UiFramework.content.layouts.setActiveContentGroup");
+  root.rename("FrontstageManager.setActiveLayout", "UiFramework.content.layouts.setActive");
+  root.rename("FrontstageManager.setActiveContentGroup", "UiFramework.content.layouts.setActiveContentGroup");
 
-  root.findCallExpressions("ConfigurableUiManager.addFrontstageProvider").renameTo("UiFramework.frontstages.addFrontstageProvider");
-  root.findCallExpressions("ConfigurableUiManager.loadKeyboardShortcuts").renameTo("UiFramework.keyboardShortcuts.loadKeyboardShortcuts");
-  root.findCallExpressions("ConfigurableUiManager.registerControl").renameTo("UiFramework.controls.register");
-  root.findCallExpressions("ConfigurableUiManager.isControlRegistered").renameTo("UiFramework.controls.isRegistered");
-  root.findCallExpressions("ConfigurableUiManager.createControl").renameTo("UiFramework.controls.create");
-  root.findCallExpressions("ConfigurableUiManager.unregisterControl").renameTo("UiFramework.controls.unregister");
+  root.rename("ConfigurableUiManager.addFrontstageProvider", "UiFramework.frontstages.addFrontstageProvider");
+  root.rename("ConfigurableUiManager.loadKeyboardShortcuts", "UiFramework.keyboardShortcuts.loadKeyboardShortcuts");
+  root.rename("ConfigurableUiManager.registerControl", "UiFramework.controls.register");
+  root.rename("ConfigurableUiManager.isControlRegistered", "UiFramework.controls.isRegistered");
+  root.rename("ConfigurableUiManager.createControl", "UiFramework.controls.create");
+  root.rename("ConfigurableUiManager.unregisterControl", "UiFramework.controls.unregister");
   root.findCallExpressions("ConfigurableUiManager.initialize").remove();
   root.findCallExpressions("ConfigurableUiManager.loadTasks").remove();
   root.findCallExpressions("ConfigurableUiManager.loadWorkflow").remove();
   root.findCallExpressions("ConfigurableUiManager.loadWorkflows").remove();
   root.findCallExpressions("KeyboardShortcutManager.initialize").remove();
   root.findCallExpressions("ToolSettingsManager.initialize").remove();
-  root.findCallExpressions("ContentLayoutManager.getLayoutKey").renameTo("UiFramework.content.layouts.getKey");
-  root.findCallExpressions("ContentLayoutManager.getLayoutForGroup").renameTo("UiFramework.content.layouts.getForGroup");
-  root.findCallExpressions("ContentLayoutManager.findLayout").renameTo("UiFramework.content.layouts.find");
-  root.findCallExpressions("ContentLayoutManager.addLayout").renameTo("UiFramework.content.layouts.add");
-  root.findCallExpressions("ContentLayoutManager.setActiveLayout").renameTo("UiFramework.content.layouts.setActive");
-  root.findCallExpressions("ContentLayoutManager.refreshActiveLayout").renameTo("UiFramework.content.layouts.refreshActive");
+  root.rename("ContentLayoutManager.getLayoutKey", "UiFramework.content.layouts.getKey");
+  root.rename("ContentLayoutManager.getLayoutForGroup", "UiFramework.content.layouts.getForGroup");
+  root.rename("ContentLayoutManager.findLayout", "UiFramework.content.layouts.find");
+  root.rename("ContentLayoutManager.addLayout", "UiFramework.content.layouts.add");
+  root.rename("ContentLayoutManager.setActiveLayout", "UiFramework.content.layouts.setActive");
+  root.rename("ContentLayoutManager.refreshActiveLayout", "UiFramework.content.layouts.refreshActive");
   root.findCallExpressions("ContentDialogManager.initialize").remove();
-  root.findCallExpressions("ContentDialogManager.openDialog").renameTo("UiFramework.content.dialogs.open");
-  root.findCallExpressions("ContentDialogManager.closeDialog").renameTo("UiFramework.content.dialogs.close");
-  root.findCallExpressions("ContentDialogManager.activeDialog").renameTo("UiFramework.content.dialogs.active");
-  root.findCallExpressions("ContentDialogManager.dialogCount").renameTo("UiFramework.content.dialogs.count");
-  root.findCallExpressions("ContentDialogManager.getDialogZIndex").renameTo("UiFramework.content.dialogs.getZIndex");
-  root.findCallExpressions("ContentDialogManager.getDialogInfo").renameTo("UiFramework.content.dialogs.getInfo");
-  root.findCallExpressions("ModalDialogManager.openDialog").renameTo("UiFramework.dialogs.modal.open");
-  root.findCallExpressions("ModalDialogManager.closeDialog").renameTo("UiFramework.dialogs.modal.close");
-  root.findCallExpressions("ModalDialogManager.activeDialog").renameTo("UiFramework.dialogs.modal.active");
-  root.findCallExpressions("ModalDialogManager.dialogCount").renameTo("UiFramework.dialogs.modal.count");
-  root.findCallExpressions("ModalDialogManager.dialogCount").renameTo("UiFramework.dialogs.modal.count");
+  root.rename("ContentDialogManager.openDialog", "UiFramework.content.dialogs.open");
+  root.rename("ContentDialogManager.closeDialog", "UiFramework.content.dialogs.close");
+  root.rename("ContentDialogManager.activeDialog", "UiFramework.content.dialogs.active");
+  root.rename("ContentDialogManager.dialogCount", "UiFramework.content.dialogs.count");
+  root.rename("ContentDialogManager.getDialogZIndex", "UiFramework.content.dialogs.getZIndex");
+  root.rename("ContentDialogManager.getDialogInfo", "UiFramework.content.dialogs.getInfo");
+  root.rename("ModalDialogManager.openDialog", "UiFramework.dialogs.modal.open");
+  root.rename("ModalDialogManager.closeDialog", "UiFramework.dialogs.modal.close");
+  root.rename("ModalDialogManager.activeDialog", "UiFramework.dialogs.modal.active");
+  root.rename("ModalDialogManager.dialogCount", "UiFramework.dialogs.modal.count");
+  root.rename("ModalDialogManager.dialogCount", "UiFramework.dialogs.modal.count");
   root.findCallExpressions("ModelessDialogManager.initialize").remove();
-  root.findCallExpressions("ModelessDialogManager.openDialog").renameTo("UiFramework.dialogs.modeless.open");
-  root.findCallExpressions("ModelessDialogManager.closeDialog").renameTo("UiFramework.dialogs.modeless.close");
-  root.findCallExpressions("ModelessDialogManager.activeDialog").renameTo("UiFramework.dialogs.modeless.active");
-  root.findCallExpressions("ModelessDialogManager.dialogCount").renameTo("UiFramework.dialogs.modeless.count");
-  root.findCallExpressions("ModelessDialogManager.getDialogZIndex").renameTo("UiFramework.dialogs.modeless.getZIndex");
-  root.findCallExpressions("ModelessDialogManager.getDialogInfo").renameTo("UiFramework.dialogs.modeless.getInfo");
-  root.findCallExpressions("UiFramework.childWindowManager.openChildWindow").renameTo("UiFramework.childWindows.open");
-  root.findCallExpressions("UiFramework.childWindowManager.findChildWindowId").renameTo("UiFramework.childWindows.findId");
-  root.findCallExpressions("UiFramework.childWindowManager.closeAllChildWindows").renameTo("UiFramework.childWindows.closeAll");
-  root.findCallExpressions("UiFramework.childWindowManager.closeChildWindow").renameTo("UiFramework.childWindows.close");
+  root.rename("ModelessDialogManager.openDialog", "UiFramework.dialogs.modeless.open");
+  root.rename("ModelessDialogManager.closeDialog", "UiFramework.dialogs.modeless.close");
+  root.rename("ModelessDialogManager.activeDialog", "UiFramework.dialogs.modeless.active");
+  root.rename("ModelessDialogManager.dialogCount", "UiFramework.dialogs.modeless.count");
+  root.rename("ModelessDialogManager.getDialogZIndex", "UiFramework.dialogs.modeless.getZIndex");
+  root.rename("ModelessDialogManager.getDialogInfo", "UiFramework.dialogs.modeless.getInfo");
+  root.rename("UiFramework.childWindowManager.openChildWindow", "UiFramework.childWindows.open");
+  root.rename("UiFramework.childWindowManager.findChildWindowId", "UiFramework.childWindows.findId");
+  root.rename("UiFramework.childWindowManager.closeAllChildWindows", "UiFramework.childWindows.closeAll");
+  root.rename("UiFramework.childWindowManager.closeChildWindow", "UiFramework.childWindows.close");
   root.rename("@itwin/appui-react:FrontstageManager", "@itwin/appui-react:UiFramework.frontstages");
-
-  changeImports(j, root, new Map<string, string>([
-    ["@itwin/appui-react.ConfigurableUiManager", "@itwin/appui-react.UiFramework.controls"],
-    ["@itwin/appui-react.KeyboardShortcutManager", "@itwin/appui-react.UiFramework.keyboardShortcuts"],
-    ["@itwin/appui-react.ToolSettingsManager", "@itwin/appui-react.UiFramework.toolSettings"],
-    ["@itwin/appui-react.ContentLayoutManager", "@itwin/appui-react.UiFramework.content.layouts"],
-    ["@itwin/appui-react.ContentDialogManager", "@itwin/appui-react.UiFramework.content.dialogs"],
-    ["@itwin/appui-react.ContentViewManager", "@itwin/appui-react.UiFramework.content"],
-    ["@itwin/appui-react.ModalDialogManager", "@itwin/appui-react.UiFramework.dialogs.modal"],
-    ["@itwin/appui-react.ModelessDialogManager", "@itwin/appui-react.UiFramework.dialogs.modeless"],
-    ["@itwin/appui-react.UiShowHideManager", "@itwin/appui-react.UiFramework.visibility"],
-    ["@itwin/appui-react.UiFramework.backstageManager", "@itwin/appui.react.UiFramework.backstage"],
-  ]));
+  root.rename("@itwin/appui-react:ConfigurableUiManager", "@itwin/appui-react:UiFramework.controls");
+  root.rename("@itwin/appui-react:KeyboardShortcutManager", "@itwin/appui-react:UiFramework.keyboardShortcuts");
+  root.rename("@itwin/appui-react:ToolSettingsManager", "@itwin/appui-react:UiFramework.toolSettings");
+  root.rename("@itwin/appui-react:ContentLayoutManager", "@itwin/appui-react:UiFramework.content.layouts");
+  root.rename("@itwin/appui-react:ContentDialogManager", "@itwin/appui-react:UiFramework.content.dialogs");
+  root.rename("@itwin/appui-react:ContentViewManager", "@itwin/appui-react:UiFramework.content");
+  root.rename("@itwin/appui-react:ModalDialogManager", "@itwin/appui-react:UiFramework.dialogs.modal");
+  root.rename("@itwin/appui-react:ModelessDialogManager", "@itwin/appui-react:UiFramework.dialogs.modeless");
+  root.rename("@itwin/appui-react:UiShowHideManager", "@itwin/appui-react:UiFramework.visibility");
+  root.rename("@itwin/appui-react:UiFramework.backstageManager", "@itwin/appui:react.UiFramework.backstage");
 
   return root.toSource(options.printOptions);
 }

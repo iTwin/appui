@@ -2,12 +2,13 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import type { Collection, JSCodeshift } from "jscodeshift";
+import type { ASTNode, Collection, JSCodeshift } from "jscodeshift";
 import { sortSpecifiers } from "./addSpecifiers";
 import { toExpressionKind, toExpressionName, useCallExpression } from "./CallExpression";
 import { useImportDeclaration } from "./ImportDeclaration";
 import { useImportSpecifier } from "./ImportSpecifier";
 import retainFirstComment from "./retainFirstComment";
+import { isJSXIdentifier } from "./typeGuards";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
@@ -54,7 +55,7 @@ function extensionsPlugin(j: JSCodeshift) {
 
       retainFirstComment(j, this, () => {
         let updateSpecifiers = false;
-        if (source.identifier) {
+        if (source.isIdentifier) {
           const rootIdentifiers = this.find(j.Identifier)
             .filter((path) => {
               const expression = toExpressionName(path.value);
@@ -87,6 +88,20 @@ function extensionsPlugin(j: JSCodeshift) {
             updateSpecifiers = true;
           });
         }
+
+        this.findJSXElements(sourceExpr).forEach((path) => {
+          const identifier = path.value.openingElement.name as ASTNode;
+          if (!isJSXIdentifier(identifier)) {
+            return;
+          }
+
+          identifier.name = target.expr;
+          const closingIdentifier = path.value.closingElement?.name;
+          if (closingIdentifier && isJSXIdentifier(closingIdentifier)) {
+            closingIdentifier.name = target.expr;
+          }
+          updateSpecifiers = true;
+        });
 
         if (!updateSpecifiers)
           return;
@@ -151,16 +166,12 @@ function parseRename(rename: string) {
 function parseExpression(expr: string) {
   const substrings = expr.split(".");
   let specifier = substrings[0];
-  if (substrings.length === 1) {
-    return { specifier, expr, identifier: true };
-  }
-
   const isIndexedAccessType = expr.includes("[") && expr.includes("]");
+  const isIdentifier = substrings.length === 1;
   if (isIndexedAccessType) {
-    specifier = specifier ?? expr.split("[")[0];
-    return { specifier, expr, isIndexedAccessType: true };
+    specifier = expr.split("[")[0];
   }
-  return { specifier, expr };
+  return { specifier, expr, isIndexedAccessType, isIdentifier };
 }
 
 function updateExpressionSpecifier(expr: string, specifier: string) {

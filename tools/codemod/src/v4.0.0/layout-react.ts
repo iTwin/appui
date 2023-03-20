@@ -3,30 +3,26 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import type { API, FileInfo, Options } from "jscodeshift";
-import changeImports from "../utils/changeImports";
-
-const importChanges = new Map<string, string>([
-  ["@itwin/appui-layout-react.Dialog", "@itwin/appui-react.StatusBarDialog"],
-  ["@itwin/appui-layout-react.DialogProps", "@itwin/appui-react.StatusBarDialogProps"],
-  ["@itwin/appui-layout-react.FooterIndicator", "@itwin/appui-react.StatusBarIndicator"],
-  ["@itwin/appui-layout-react.FooterIndicatorProps", "@itwin/appui-react.StatusBarIndicatorProps"],
-  ["@itwin/appui-layout-react.FooterPopup", ""],
-  ["@itwin/appui-layout-react.FooterPopupProps", ""],
-  ["@itwin/appui-layout-react.FooterPopupContentType", ""],
-  ["@itwin/appui-layout-react.FooterPopupDefaultProps", ""],
-  ["@itwin/appui-layout-react.FooterSeparator", "@itwin/appui-react.StatusBarSeparator"],
-  ["@itwin/appui-layout-react.FooterSeparatorProps", ""],
-  ["@itwin/appui-layout-react.SafeAreaInsets", "@itwin/appui-react.SafeAreaInsets"],
-  ["@itwin/appui-layout-react.TitleBar", "@itwin/appui-react.StatusBarDialog.TitleBar"],
-  ["@itwin/appui-layout-react.TitleBarProps", "@itwin/appui-react.StatusBarDialogTitleBarProps"],
-]);
+import { useExtensions } from "../utils/Extensions";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
+  useExtensions(j);
 
   const root = j(file.source);
-
-  changeImports(j, root, importChanges);
+  root.rename("@itwin/appui-layout-react:Dialog", "@itwin/appui-react:StatusBarDialog");
+  root.rename("@itwin/appui-layout-react:DialogProps", "@itwin/appui-react:StatusBarDialogProps");
+  root.rename("@itwin/appui-layout-react:FooterIndicator", "@itwin/appui-react:StatusBarIndicator");
+  root.rename("@itwin/appui-layout-react:FooterIndicatorProps", "@itwin/appui-react:StatusBarIndicatorProps");
+  root.rename("@itwin/appui-layout-react:FooterPopup", "");
+  root.rename("@itwin/appui-layout-react:FooterPopupProps", "");
+  root.rename("@itwin/appui-layout-react:FooterPopupContentType", "");
+  root.rename("@itwin/appui-layout-react:FooterPopupDefaultProps", "");
+  root.rename("@itwin/appui-layout-react:FooterSeparator", "@itwin/appui-react:StatusBarSeparator");
+  root.rename("@itwin/appui-layout-react:FooterSeparatorProps", "");
+  root.rename("@itwin/appui-layout-react:SafeAreaInsets", "@itwin/appui-react:SafeAreaInsets");
+  root.rename("@itwin/appui-layout-react:TitleBar", "@itwin/appui-react:StatusBarDialog.TitleBar");
+  root.rename("@itwin/appui-layout-react:TitleBarProps", "@itwin/appui-react:StatusBarDialogTitleBarProps");
 
   return root.toSource(options.printOptions);
 }

@@ -3,13 +3,13 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import type {
-  ArrayExpression, ASTNode, ASTPath, CallExpression, Identifier, ImportSpecifier, JSCodeshift, JSXAttribute, JSXElement, JSXEmptyExpression,
+  ArrayExpression, ASTNode, CallExpression, Identifier, ImportSpecifier, JSCodeshift, JSXAttribute, JSXElement, JSXEmptyExpression,
   JSXExpressionContainer, JSXIdentifier, Literal, MemberExpression, ObjectExpression,
 } from "jscodeshift";
 
 type Source = Parameters<JSCodeshift>[0];
 
-export function isJSXIdentifier(j: JSCodeshift, source: Source): source is JSXIdentifier {
+export function isJSXIdentifierType(j: JSCodeshift, source: Source): source is JSXIdentifier {
   return j(source).isOfType(j.JSXIdentifier);
 }
 
@@ -30,7 +30,7 @@ export function isJSXElement(j: JSCodeshift, path: any): path is JSXElement {
 }
 
 export function isSpecifiedJSXElement(j: JSCodeshift, path: any, name: string): path is JSXElement {
-  return isJSXElement(j, path) && isJSXIdentifier(j, path.openingElement.name) && path.openingElement.name.name === name;
+  return isJSXElement(j, path) && isJSXIdentifierType(j, path.openingElement.name) && path.openingElement.name.name === name;
 }
 
 export function isJSXEmptyExpression(j: JSCodeshift, path: any): path is JSXEmptyExpression {
@@ -42,7 +42,7 @@ export function isJSXExpressionContainer(j: JSCodeshift, path: any): path is JSX
 }
 
 export function isSpecifiedJSXAttribute(j: JSCodeshift, path: any, name: string): path is JSXAttribute {
-  return isJSXAttribute(j, path) && isJSXIdentifier(j, path.name) && path.name.name === name;
+  return isJSXAttribute(j, path) && isJSXIdentifierType(j, path.name) && path.name.name === name;
 }
 
 export function isLiteral(j: JSCodeshift, source: Source): source is Literal {
@@ -53,12 +53,12 @@ export function isObjectExpression(j: JSCodeshift, source: Source): source is Ob
   return j(source).isOfType(j.ObjectExpression);
 }
 
-export function isIdentifier(source: ASTNode): source is Identifier {
-  return source.type === "Identifier";
+export function isJSXIdentifier(source: ASTNode): source is JSXIdentifier {
+  return source.type === "JSXIdentifier";
 }
 
-export function isIdentifierPath(source: ASTPath): source is ASTPath<Identifier> {
-  return isIdentifier(source.value);
+export function isIdentifier(source: ASTNode): source is Identifier {
+  return source.type === "Identifier";
 }
 
 export function isCallExpression(source: ASTNode): source is CallExpression {
