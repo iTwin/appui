@@ -2,17 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { defineInlineTest } from "jscodeshift/src/testUtils";
-import { createInlineTransform, tsxModule } from "../../utils/testUtils";
+import { createDefineInlineTest } from "../../utils/testUtils";
 import transformer from "../status-bar-item";
 
-const transform = tsxModule(createInlineTransform(transformer));
+const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("status-bar-item", () => {
   describe("StatusBarItem", () => {
     defineInlineTest(
-      transform,
-      {},
       `
       const w: StatusBarItem = {
         id: "item1",
@@ -29,8 +26,6 @@ describe("status-bar-item", () => {
     );
 
     defineInlineTest(
-      transform,
-      {},
       `
       const w: StatusBarActionItem = {
         id: "item1",
@@ -49,8 +44,6 @@ describe("status-bar-item", () => {
 
   describe("StatusBarActionItem", () => {
     defineInlineTest(
-      transform,
-      {},
       `
       const w: StatusBarActionItem = {
         id: "item1",
@@ -67,8 +60,6 @@ describe("status-bar-item", () => {
     );
 
     defineInlineTest(
-      transform,
-      {},
       `
       StatusBarItemUtilities.createActionItem("item1", StatusBarSection.Center, 100, "icon", "tooltip", () => { }, { badgeType: BadgeType.New });
       `,
@@ -81,8 +72,6 @@ describe("status-bar-item", () => {
 
   describe("StatusBarLabelItem", () => {
     defineInlineTest(
-      transform,
-      {},
       `
       const w: StatusBarLabelItem = {
         id: "item1",
@@ -99,8 +88,6 @@ describe("status-bar-item", () => {
     );
 
     defineInlineTest(
-      transform,
-      {},
       `
       StatusBarItemUtilities.createLabelItem("item1", StatusBarSection.Center, 100, "icon", "label", StatusBarLabelSide.Right, { badgeType: BadgeType.New });
       `,
@@ -113,8 +100,6 @@ describe("status-bar-item", () => {
 
   describe("StatusBarCustomItem", () => {
     defineInlineTest(
-      transform,
-      {},
       `
       const w: StatusBarCustomItem = {
         id: "item1",
@@ -131,8 +116,6 @@ describe("status-bar-item", () => {
     );
 
     defineInlineTest(
-      transform,
-      {},
       `
       const w: StatusBarCustomItem = {
         id: "item1",
@@ -149,8 +132,6 @@ describe("status-bar-item", () => {
     );
 
     defineInlineTest(
-      transform,
-      {},
       `
       StatusBarItemUtilities.createCustomItem("item1", StatusBarSection.Center, 100, <ToolAssistance />, {
         badgeType: BadgeType.New,

@@ -2,16 +2,13 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { defineInlineTest } from "jscodeshift/src/testUtils";
-import { createInlineTransform, tsxModule } from "../../utils/testUtils";
+import { createDefineInlineTest } from "../../utils/testUtils";
 import transformer from "../ui-items-provider";
 
-const transform = tsxModule(createInlineTransform(transformer));
+const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("ui-items-provider", () => {
   defineInlineTest(
-    transform,
-    {},
     `
     export class CustomUiItemsProvider implements UiItemsProvider {
       public provideToolbarButtonItems(_stageId: string): ToolbarItem[] {

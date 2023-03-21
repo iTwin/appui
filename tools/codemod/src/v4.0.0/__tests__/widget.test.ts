@@ -2,18 +2,16 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { defineInlineTest, defineTest } from "jscodeshift/src/testUtils";
-import { createInlineTransform, tsxModule } from "../../utils/testUtils";
+import { defineTest } from "jscodeshift/src/testUtils";
+import { createDefineInlineTest } from "../../utils/testUtils";
 import transformer from "../widget";
 
-const transform = tsxModule(createInlineTransform(transformer));
+const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("widget", () => {
   defineTest(__dirname, "./widget", null, "widget", { parser: "tsx" });
 
   defineInlineTest(
-    transform,
-    {},
     `
     const w: Widget = {
       id: "w1",
@@ -30,8 +28,6 @@ describe("widget", () => {
   );
 
   defineInlineTest(
-    transform,
-    {},
     `
     const w: Widget = {
       id: "w1",
@@ -51,16 +47,14 @@ describe("widget", () => {
         containerId: "123",
         defaultPosition: { x: 10, y: 20 },
         defaultSize: { width: 100, height: 200 },
-        hideWithUi: true
-      }
+        hideWithUi: true,
+      },
     };
     `, // TODO: a redundant \n https://github.com/benjamn/recast/issues/242
     "should use `canFloat` options"
   );
 
   defineInlineTest(
-    transform,
-    {},
     `
     const w: Widget = {
       id: "w1",
@@ -73,16 +67,14 @@ describe("widget", () => {
       id: "w1",
 
       canFloat: {
-        isResizable: false
-      }
+        isResizable: false,
+      },
     };
     `,
     "should use `canFloat` options if `isFloatingStateSupported` is true"
   );
 
   defineInlineTest(
-    transform,
-    {},
     `
     const w: Widget = {
       id: "w1",
@@ -93,7 +85,7 @@ describe("widget", () => {
     `
     const w: Widget = {
       id: "w1",
-      canFloat: false
+      canFloat: false,
     };
     `,
     "should not use `canFloat` options if `isFloatingStateSupported` is false"

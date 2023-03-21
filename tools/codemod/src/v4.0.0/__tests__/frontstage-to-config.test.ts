@@ -2,19 +2,17 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { defineInlineTest, defineTest } from "jscodeshift/src/testUtils";
-import { tsxModule, createInlineTransform } from "../../utils/testUtils";
+import { defineTest } from "jscodeshift/src/testUtils";
+import { defaultOptions, createDefineInlineTest } from "../../utils/testUtils";
 import transformer from "../frontstage-to-config";
 
-const transform = tsxModule(createInlineTransform(transformer));
+const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("frontstage-to-config", () => {
-  defineTest(__dirname, "./frontstage-to-config", null, "frontstage-to-config/Frontstage", { parser: "tsx" });
-  defineTest(__dirname, "./frontstage-to-config", null, "frontstage-to-config/Frontstage1", { parser: "tsx" });
+  defineTest(__dirname, "./frontstage-to-config", defaultOptions, "frontstage-to-config/Frontstage", { parser: "tsx" });
+  defineTest(__dirname, "./frontstage-to-config", defaultOptions, "frontstage-to-config/Frontstage1", { parser: "tsx" });
 
   defineInlineTest(
-    transform,
-    {},
     `
     <Frontstage
       centerRight = {
@@ -61,8 +59,6 @@ describe("frontstage-to-config", () => {
   );
 
   defineInlineTest(
-    transform,
-    {},
     `
     <Frontstage
       centerRight = {
@@ -101,8 +97,6 @@ describe("frontstage-to-config", () => {
   );
 
   defineInlineTest(
-    transform,
-    {},
     `
     <Frontstage
       bottomRight = {
@@ -129,8 +123,6 @@ describe("frontstage-to-config", () => {
   );
 
   defineInlineTest(
-    transform,
-    {},
     `
     <Frontstage
       rightPanel = {
@@ -170,8 +162,6 @@ describe("frontstage-to-config", () => {
   );
 
   defineInlineTest(
-    transform,
-    {},
     `
     <Frontstage
       viewNavigationTools = {
@@ -201,8 +191,6 @@ describe("frontstage-to-config", () => {
   );
 
   defineInlineTest(
-    transform,
-    {},
     `
     <Frontstage
       {...this.props}

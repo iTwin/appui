@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression, ArrayExpression, JSXElement, ASTPath, Expression, JSXExpressionContainer } from "jscodeshift";
-import { isArrayExpression, isIdentifier, isIdentifierType, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../../utils/typeGuards";
+import { isArrayExpression, isIdentifierType, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifierType, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../../utils/typeGuards";
 
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
@@ -109,7 +109,7 @@ function isSpreadExpression(name: NameType | undefined, expr: any): expr is JSXS
 
 export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JSXSpreadAttribute): ElementAttribute | undefined {
   if (isJSXAttribute(j, jsxAttr)) {
-    if (!isJSXIdentifier(j, jsxAttr.name)) {
+    if (!isJSXIdentifierType(j, jsxAttr.name)) {
       console.warn("Non spread attribute must have name");
       return undefined;
     }
@@ -245,25 +245,25 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
     let panelZonesEnd: Expression | undefined = undefined;
     if (panelZonesAttr) {
       j(panelZonesAttr).find(j.ObjectProperty).forEach((prop) => {
-        if (isIdentifier(j, prop.node.key)) {
+        if (isIdentifierType(j, prop.node.key)) {
           const name = prop.node.key.name;
           if (name === "start") {
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
-              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+              if (isIdentifierType(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesStart = innerProp.node.value;
               }
             });
           }
           else if (name === "middle") {
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
-              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+              if (isIdentifierType(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesMiddle = innerProp.node.value;
               }
             });
           }
           else if (name === "end") {
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
-              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+              if (isIdentifierType(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesEnd = innerProp.node.value;
               }
             });

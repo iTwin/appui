@@ -2,17 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { defineInlineTest } from "jscodeshift/src/testUtils";
-import { createInlineTransform, tsxModule } from "../../utils/testUtils";
+import { createDefineInlineTest } from "../../utils/testUtils";
 import transformer from "../toolbar-item";
 
-const transform = tsxModule(createInlineTransform(transformer));
+const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("toolbar-item", () => {
   describe("ToolbarItem", () => {
     defineInlineTest(
-      transform,
-      {},
       `
       const w: ToolbarItem = {
         id: "item1",
@@ -25,15 +22,13 @@ describe("toolbar-item", () => {
       `
       const w: ToolbarItem = {
         id: "item1",
-        badge: BadgeType.New
+        badge: BadgeType.New,
       };
       `,
       "should update properties"
     );
 
     defineInlineTest(
-      transform,
-      {},
       `
       ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, {
         internalData: {},
@@ -42,15 +37,13 @@ describe("toolbar-item", () => {
       `,
       `
       ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, {
-        badge: BadgeType.New
+        badge: BadgeType.New,
       });
       `,
       "should update in `ToolbarItemUtilities.createActionItem`"
     );
 
     defineInlineTest(
-      transform,
-      {},
       `
       ToolbarItemUtilities.createGroupItem("item1", 100, "icon", "label", [], {
         internalData: {},
@@ -59,15 +52,13 @@ describe("toolbar-item", () => {
       `,
       `
       ToolbarItemUtilities.createGroupItem("item1", 100, "icon", "label", [], {
-        badge: BadgeType.New
+        badge: BadgeType.New,
       });
       `,
       "should update in `ToolbarItemUtilities.createGroupItem`"
     );
 
     defineInlineTest(
-      transform,
-      {},
       `
       ToolbarItemUtilities.createCustomItem("item1", 100, "icon", "label", <Panel />, {
         internalData: {},
@@ -76,7 +67,7 @@ describe("toolbar-item", () => {
       `,
       `
       ToolbarItemUtilities.createCustomItem("item1", 100, "icon", "label", <Panel />, {
-        badge: BadgeType.New
+        badge: BadgeType.New,
       });
       `,
       "should update in `ToolbarItemUtilities.createCustomItem`"
@@ -85,8 +76,6 @@ describe("toolbar-item", () => {
 
   describe("ToolbarGroupItem", () => {
     defineInlineTest(
-      transform,
-      {},
       `
       const w: ToolbarGroupItem = {
         id: "item1",
@@ -103,8 +92,6 @@ describe("toolbar-item", () => {
     );
 
     defineInlineTest(
-      transform,
-      {},
       `
       ToolbarItemUtilities.createActionItem("item1", 100, "icon", "label", () => { }, {
         parentToolGroupId: "group1",
