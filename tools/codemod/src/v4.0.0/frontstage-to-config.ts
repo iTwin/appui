@@ -5,7 +5,7 @@
 
 import { API, ArrayExpression, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement } from "jscodeshift";
 import { isArrayExpression, isJSXAttribute, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
-import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, identity, rename, unknownAttributeWarning } from "./Utils/jsxElementAttributeHandles";
+import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, identity, rename, unknownAttributeWarning } from "../utils/jsxElementAttributeHandles";
 
 
 export default function transformer(file: FileInfo, api: API) {

@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression, ArrayExpression, JSXElement, ASTPath, Expression, JSXExpressionContainer } from "jscodeshift";
-import { isArrayExpression, isIdentifier, isIdentifierType, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../../utils/typeGuards";
+import { isArrayExpression, isIdentifier, isIdentifierType, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "./typeGuards";
 
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
