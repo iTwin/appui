@@ -62,26 +62,3 @@ function createCollectionTransform(transformer: CollectionTransformer): Transfor
     return root.toSource(options.printOptions);
   };
 }
-
-// export function createInlineTransform(transform: Transform): Transform {
-//   return (file, api, options) => {
-//     options = { ...defaultOptions, ...options };
-//     const source = transform(file, api, options);
-//     if (!source || typeof source !== "string")
-//       return;
-
-//     const j = api.jscodeshift;
-//     const root = j(source);
-//     return root.toSource({
-//       lineTerminator: "\n",
-//       ...options.printOptions,
-//     });
-//   };
-// }
-
-// export function tsxModule(transform: Transform) {
-//   return {
-//     default: transform,
-//     parser: "tsx" as const,
-//   };
-// }
