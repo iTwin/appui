@@ -4,5 +4,9 @@
     "definitionName": "lockStepVersion",
     "version": "4.0.0-dev.10",
     "nextBump": "prerelease"
+  },
+  {
+    "policyName": "monorepo-individual",
+    "definitionName": "individualVersion"
   }
 ]
