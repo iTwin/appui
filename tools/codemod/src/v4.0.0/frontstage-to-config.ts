@@ -3,9 +3,9 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import type { API, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement, Options } from "jscodeshift";
+import { API, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement, Options } from "jscodeshift";
 import { isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
-import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, identity, rename, unknownAttributeWarning } from "./Utils/jsxElementAttributeHandles";
+import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, identity, rename, unknownAttributeWarning } from "../utils/jsxElementAttributeHandles";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;

@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression, ArrayExpression, JSXElement, ASTPath, Expression, JSXExpressionContainer } from "jscodeshift";
-import { isArrayExpression, isIdentifierType, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifierType, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../../utils/typeGuards";
+import { isArrayExpression, isIdentifier, isIdentifierType, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isJSXIdentifierType, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "./typeGuards";
 
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
@@ -245,25 +245,25 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
     let panelZonesEnd: Expression | undefined = undefined;
     if (panelZonesAttr) {
       j(panelZonesAttr).find(j.ObjectProperty).forEach((prop) => {
-        if (isIdentifierType(j, prop.node.key)) {
+        if (isIdentifier(prop.node.key)) {
           const name = prop.node.key.name;
           if (name === "start") {
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
-              if (isIdentifierType(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+              if (isIdentifier(innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesStart = innerProp.node.value;
               }
             });
           }
           else if (name === "middle") {
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
-              if (isIdentifierType(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+              if (isIdentifier(innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesMiddle = innerProp.node.value;
               }
             });
           }
           else if (name === "end") {
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
-              if (isIdentifierType(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+              if (isIdentifier(innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesEnd = innerProp.node.value;
               }
             });

@@ -12,8 +12,9 @@ describe("frontstage-to-config", () => {
   defineTest(__dirname, "./frontstage-to-config", defaultOptions, "frontstage-to-config/Frontstage", { parser: "tsx" });
   defineTest(__dirname, "./frontstage-to-config", defaultOptions, "frontstage-to-config/Frontstage1", { parser: "tsx" });
 
-  defineInlineTest(
-    `
+  describe("panel transformations", () => {
+    defineInlineTest(
+      `
     <Frontstage
       centerRight = {
         <Zone
@@ -38,7 +39,7 @@ describe("frontstage-to-config", () => {
       }
     />
     `,
-    `
+      `
     ({
       rightPanel: {
         sections: {
@@ -55,11 +56,11 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transforms rightPanel correctly1"
-  );
+      "adds all widgets to a single panel"
+    );
 
-  defineInlineTest(
-    `
+    defineInlineTest(
+      `
     <Frontstage
       centerRight = {
         <Zone
@@ -80,7 +81,7 @@ describe("frontstage-to-config", () => {
       }
     />
     `,
-    `
+      `
     ({
       rightPanel: {
         sections: {
@@ -93,11 +94,11 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transforms rightPanel correctly2"
-  );
+      "uses spread operator"
+    );
 
-  defineInlineTest(
-    `
+    defineInlineTest(
+      `
     <Frontstage
       bottomRight = {
         <Zone
@@ -108,7 +109,7 @@ describe("frontstage-to-config", () => {
       }
     />
     `,
-    `
+      `
     ({
       rightPanel: {
         sections: {
@@ -119,11 +120,11 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transforms rightPanel correctly3"
-  );
+      "creates a new panel"
+    );
 
-  defineInlineTest(
-    `
+    defineInlineTest(
+      `
     <Frontstage
       rightPanel = {
         <StagePanel
@@ -143,7 +144,7 @@ describe("frontstage-to-config", () => {
       }
     />
     `,
-    `
+      `
     ({
       rightPanel: {
         sections: {
@@ -158,8 +159,9 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transforms rightPanel correctly4"
-  );
+      "transforms panel zones correctly"
+    );
+  });
 
   defineInlineTest(
     `
