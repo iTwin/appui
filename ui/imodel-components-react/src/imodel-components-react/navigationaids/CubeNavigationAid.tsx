@@ -15,7 +15,7 @@ import { CommonProps, Icon, IconSpec } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { ViewportComponentEvents, ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
 import { Cube, Face } from "./Cube";
-import { SvgCaretDownSmall, SvgCaretLeftSmall, SvgCaretRightSmall, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
+import { SvgCaretDown, SvgCaretLeft, SvgCaretRight, SvgCaretUp } from "@itwin/itwinui-icons-react";
 
 /** @public */
 export enum CubeNavigationHitBoxX {
@@ -767,10 +767,10 @@ enum Pointer {
 }
 
 const pointerIconSpec: { [key: number]: IconSpec } = {
-  [Pointer.Up]: <SvgCaretDownSmall />,
-  [Pointer.Down]: <SvgCaretUpSmall />,
-  [Pointer.Left]: <SvgCaretRightSmall />,
-  [Pointer.Right]: <SvgCaretLeftSmall />,
+  [Pointer.Up]: <SvgCaretDown />,
+  [Pointer.Down]: <SvgCaretUp />,
+  [Pointer.Left]: <SvgCaretRight />,
+  [Pointer.Right]: <SvgCaretLeft />,
 };
 
 const pointerClass: { [key: number]: string } = {
