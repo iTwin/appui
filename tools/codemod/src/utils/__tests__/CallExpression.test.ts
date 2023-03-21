@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { toExpressionName, useCallExpression } from "../CallExpression";
-import { createApplyCollectionTransform, createDefineInlineCollectionTest } from "../testUtils";
+import { createApplyCollectionTransform, createDefineInlineCollectionTest } from "../TestUtils";
 
 const applyTransform = createApplyCollectionTransform((j) => {
   useCallExpression(j);

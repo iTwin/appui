@@ -5,7 +5,7 @@
 
 import { API, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement, Options } from "jscodeshift";
 import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, identity, rename, unknownAttributeWarning } from "../utils/jsxElementAttributeHandles";
-import { isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
+import { isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/TypeGuards";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;

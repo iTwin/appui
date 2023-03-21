@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { createApplyCollectionTransform, createDefineInlineCollectionTest } from "../testUtils";
+import { createApplyCollectionTransform, createDefineInlineCollectionTest } from "../TestUtils";
 import { useExtensions } from "../Extensions";
 
 const applyTransform = createApplyCollectionTransform((j) => {
