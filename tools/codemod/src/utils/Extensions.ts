@@ -3,10 +3,9 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import type { ASTNode, Collection, JSCodeshift } from "jscodeshift";
-import { sortSpecifiers } from "./addSpecifiers";
 import { toExpressionKind, toExpressionName, useCallExpression } from "./CallExpression";
 import { useImportDeclaration } from "./ImportDeclaration";
-import { useImportSpecifier } from "./ImportSpecifier";
+import { sortSpecifiers, useImportSpecifier } from "./ImportSpecifier";
 import retainFirstComment from "./retainFirstComment";
 import { isJSXIdentifier } from "./typeGuards";
 import { usePlugin } from "./usePlugin";

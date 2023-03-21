@@ -2,7 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import type { Collection, ImportSpecifier, JSCodeshift } from "jscodeshift";
+import type { Collection, ImportDeclaration, ImportSpecifier, JSCodeshift } from "jscodeshift";
+import { isImportSpecifier } from "./typeGuards";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
@@ -60,4 +61,19 @@ export function findRootIdentifiers(j: JSCodeshift, collection: Collection, name
         && path.name !== "local"
         && path.name !== "imported";
     });
+}
+
+export function sortSpecifiers(j: JSCodeshift, specifiers: Required<ImportDeclaration>["specifiers"]) {
+  return specifiers.sort((a, b) => {
+    if (a.type !== b.type) {
+      if (a.type === "ImportDefaultSpecifier")
+        return 1;
+      if (b.type === "ImportDefaultSpecifier")
+        return -1;
+    }
+    if (isImportSpecifier(j, a) && isImportSpecifier(j, b)) {
+      return a.imported.name.localeCompare(b.imported.name);
+    }
+    return 0;
+  });
 }
