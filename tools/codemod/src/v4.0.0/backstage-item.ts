@@ -4,8 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import type { API, FileInfo, Options } from "jscodeshift";
 import { useExtensions } from "../utils/Extensions";
-import { objectExpressionFilter, useCallExpression } from "../utils/CallExpression";
+import { useCallExpression } from "../utils/CallExpression";
 import { useObjectExpression } from "../utils/ObjectExpression";
+import { isObjectExpression } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
@@ -19,8 +20,8 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
     .concat(root.findObjectExpressions("BackstageItem"))
     .concat(root.findObjectExpressions("BackstageActionItem"))
     .concat(root.findObjectExpressions("BackstageStageLauncher"))
-    .concat(root.findCallExpressions("BackstageItemUtilities.createStageLauncher").getArguments(6, objectExpressionFilter(j)))
-    .concat(root.findCallExpressions("BackstageItemUtilities.createActionItem").getArguments(7, objectExpressionFilter(j)));
+    .concat(root.findCallExpressions("BackstageItemUtilities.createStageLauncher").getArguments(6, (arg) => isObjectExpression(j, arg)))
+    .concat(root.findCallExpressions("BackstageItemUtilities.createActionItem").getArguments(7, (arg) => isObjectExpression(j, arg)));
 
   items
     .removeProperty("applicationData")

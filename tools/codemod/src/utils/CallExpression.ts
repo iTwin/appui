@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import type { ASTPath, CallExpression, Collection, Identifier, JSCodeshift, MemberExpression } from "jscodeshift";
-import { isCallExpression, isIdentifier, isMemberExpression, isObjectExpression } from "./typeGuards";
+import { isCallExpression, isIdentifier, isMemberExpression } from "./typeGuards";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
@@ -57,10 +57,6 @@ function callExpressionPlugin(j: JSCodeshift) {
 
 export function useCallExpression(j: JSCodeshift) {
   usePlugin(j, callExpressionPlugin);
-}
-
-export function objectExpressionFilter(j: JSCodeshift): ArgumentsFilter {
-  return (arg) => isObjectExpression(j, arg);
 }
 
 export type ExpressionKind = MemberExpression["object"];

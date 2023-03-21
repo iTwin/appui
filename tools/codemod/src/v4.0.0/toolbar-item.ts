@@ -4,8 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import type { API, FileInfo, Options } from "jscodeshift";
 import { useExtensions } from "../utils/Extensions";
-import { objectExpressionFilter, useCallExpression } from "../utils/CallExpression";
+import { useCallExpression } from "../utils/CallExpression";
 import { useObjectExpression } from "../utils/ObjectExpression";
+import { isObjectExpression } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
@@ -17,14 +18,14 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
 
   const groupItems = root.findObjectExpressions("ToolbarActionItem")
     .concat(root.findObjectExpressions("ToolbarGroupItem"))
-    .concat(root.findCallExpressions("ToolbarItemUtilities.createActionItem").getArguments(5, objectExpressionFilter(j)))
-    .concat(root.findCallExpressions("ToolbarItemUtilities.createGroupItem").getArguments(5, objectExpressionFilter(j)));
+    .concat(root.findCallExpressions("ToolbarItemUtilities.createActionItem").getArguments(5, (arg) => isObjectExpression(j, arg)))
+    .concat(root.findCallExpressions("ToolbarItemUtilities.createGroupItem").getArguments(5, (arg) => isObjectExpression(j, arg)));
 
   const items = root.findObjectExpressions("CommonToolbarItem")
     .concat(root.findObjectExpressions("ToolbarItem"))
     .concat(groupItems)
     .concat(root.findObjectExpressions("ToolbarCustomItem"))
-    .concat(root.findCallExpressions("ToolbarItemUtilities.createCustomItem").getArguments(5, objectExpressionFilter(j)));
+    .concat(root.findCallExpressions("ToolbarItemUtilities.createCustomItem").getArguments(5, (arg) => isObjectExpression(j, arg)));
 
   items
     .removeProperty("applicationData")
