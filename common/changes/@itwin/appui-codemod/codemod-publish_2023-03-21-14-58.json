@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-codemod",
+      "comment": "Initial @itwin/appui-codemod.",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@itwin/appui-codemod"
+}

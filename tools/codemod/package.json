@@ -1,6 +1,6 @@
 {
   "name": "@itwin/appui-codemod",
-  "version": "0.0.0",
+  "version": "0.0.0-dev.0",
   "bin": "./lib/codemod.js",
   "description": "Codemod scripts for AppUI.",
   "license": "MIT",
@@ -9,8 +9,12 @@
     "url": "https://github.com/iTwin/appui/tree/master/codemod"
   },
   "scripts": {
-    "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "clean": "",
+    "cover": "",
+    "docs": "",
+    "lint": "",
+    "test": "jest"
   },
   "keywords": [
     "appui",

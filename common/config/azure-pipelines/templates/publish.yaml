@@ -6,7 +6,7 @@ parameters:
 steps:
   - powershell: |
       $commitMsg = '$(Build.SourceVersionMessage)'
-      if ($commitMsg -match '^(\d+.\d+.\d+)(-dev.\d+)?$') {
+      if (($commitMsg -match '^(\d+.\d+.\d+)(-dev.\d+)?$') -or ($commitMsg -eq "Bump 'monorepo-individual'")) {
         Write-Host `'$commitMsg`'` is a version bump
         Write-Host '##vso[task.setvariable variable=ShouldPublish;]True'
       } else {

@@ -75,7 +75,7 @@
       "packageName": "@itwin/appui-codemod",
       "projectFolder": "tools/codemod",
       "reviewCategory": "tools",
-      "shouldPublish": true
+      "versionPolicyName": "monorepo-individual"
     },
     {
       "packageName": "internal-tools",
