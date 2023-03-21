@@ -12,10 +12,11 @@ describe("frontstage-to-config", () => {
   defineTest(__dirname, "./frontstage-to-config", null, "frontstage-to-config/Frontstage", { parser: "tsx" });
   defineTest(__dirname, "./frontstage-to-config", null, "frontstage-to-config/Frontstage1", { parser: "tsx" });
 
-  defineInlineTest(
-    transform,
-    {},
-    `
+  describe("panel transformations", () => {
+    defineInlineTest(
+      transform,
+      {},
+      `
     <Frontstage
       centerRight = {
         <Zone
@@ -40,7 +41,7 @@ describe("frontstage-to-config", () => {
       }
     />
     `,
-    `
+      `
     ({
       rightPanel: {
         sections: {
@@ -57,13 +58,13 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transforms rightPanel correctly1"
-  );
+      "adds all widgets to a single panel"
+    );
 
-  defineInlineTest(
-    transform,
-    {},
-    `
+    defineInlineTest(
+      transform,
+      {},
+      `
     <Frontstage
       centerRight = {
         <Zone
@@ -84,7 +85,7 @@ describe("frontstage-to-config", () => {
       }
     />
     `,
-    `
+      `
     ({
       rightPanel: {
         sections: {
@@ -97,13 +98,13 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transforms rightPanel correctly2"
-  );
+      "uses spread operator"
+    );
 
-  defineInlineTest(
-    transform,
-    {},
-    `
+    defineInlineTest(
+      transform,
+      {},
+      `
     <Frontstage
       bottomRight = {
         <Zone
@@ -114,7 +115,7 @@ describe("frontstage-to-config", () => {
       }
     />
     `,
-    `
+      `
     ({
       rightPanel: {
         sections: {
@@ -125,13 +126,13 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transforms rightPanel correctly3"
-  );
+      "creates a new panel"
+    );
 
-  defineInlineTest(
-    transform,
-    {},
-    `
+    defineInlineTest(
+      transform,
+      {},
+      `
     <Frontstage
       rightPanel = {
         <StagePanel
@@ -151,7 +152,7 @@ describe("frontstage-to-config", () => {
       }
     />
     `,
-    `
+      `
     ({
       rightPanel: {
         sections: {
@@ -166,8 +167,9 @@ describe("frontstage-to-config", () => {
       },
     })
     `,
-    "transforms rightPanel correctly4"
-  );
+      "transforms panel zones correctly"
+    );
+  });
 
   defineInlineTest(
     transform,
