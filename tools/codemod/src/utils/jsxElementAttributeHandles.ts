@@ -245,25 +245,25 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
     let panelZonesEnd: Expression | undefined = undefined;
     if (panelZonesAttr) {
       j(panelZonesAttr).find(j.ObjectProperty).forEach((prop) => {
-        if (isIdentifier(j, prop.node.key)) {
+        if (isIdentifier(prop.node.key)) {
           const name = prop.node.key.name;
           if (name === "start") {
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
-              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+              if (isIdentifier(innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesStart = innerProp.node.value;
               }
             });
           }
           else if (name === "middle") {
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
-              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+              if (isIdentifier(innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesMiddle = innerProp.node.value;
               }
             });
           }
           else if (name === "end") {
             j(prop).find(j.ObjectProperty).forEach((innerProp) => {
-              if (isIdentifier(j, innerProp.node.key) && innerProp.node.key.name === "widgets") {
+              if (isIdentifier(innerProp.node.key) && innerProp.node.key.name === "widgets") {
                 panelZonesEnd = innerProp.node.value;
               }
             });
