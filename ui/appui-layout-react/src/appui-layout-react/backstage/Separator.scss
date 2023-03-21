@@ -6,5 +6,5 @@
 
 .nz-backstage-separator {
   height: $nz-backstage-divider-height;
-  background-color: $nz-backstage-divider-color;
+  background-color: var(--iui-color-border-subtle);
 }

@@ -13,7 +13,7 @@ $itwinpicker-max-width: 450px;
 /* iTwin picker maximum width */
 $open-background: #fcfdfd;
 $open-color: #6d6e77;
-$content-background: $uicore-white;
+$content-background: var(--iui-color-white);
 $border-color: #e7e9ec;
 
 /* application bar*/

@@ -13,6 +13,7 @@ import { CommonProps, Point, useRefs, useResizeObserver } from "@itwin/core-reac
 import { useDragToolSettings } from "../base/DragManager";
 import { getUniqueId, NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useDrag } from "../widget/TabBar";
+import { SvgDragHandleVertical } from "@itwin/itwinui-icons-react";
 
 /** Properties of [[DockedToolSettingsHandle]] component.
  * @internal
@@ -48,24 +49,8 @@ export function DockedToolSettingsHandle(props: DockedToolSettingsHandleProps) {
   );
 
   return (
-    <div
-      className={className}
-      ref={refs}
-      style={props.style}
-      title={title}
-    >
-      <div className="nz-row">
-        <div className="nz-dot" />
-        <div className="nz-dot" />
-      </div>
-      <div className="nz-row">
-        <div className="nz-dot" />
-        <div className="nz-dot" />
-      </div>
-      <div className="nz-row">
-        <div className="nz-dot" />
-        <div className="nz-dot" />
-      </div>
+    <div className={className} ref={refs} style={props.style} title={title}>
+      <SvgDragHandleVertical />
     </div>
   );
 }

@@ -20,7 +20,7 @@ import { TypeConverter } from "../converters/TypeConverter";
 import { DatePicker } from "../datepicker/DatePicker";
 import { TypeConverterManager } from "../converters/TypeConverterManager";
 import { DateTimeTypeConverterBase } from "../converters/DateTimeTypeConverter";
-import { BodyText } from "@itwin/core-react";
+import { Text } from "@itwin/itwinui-react";
 import { adjustDateToTimezone } from "../common/DateUtils";
 
 // cSpell:ignore datepicker
@@ -290,7 +290,7 @@ export class DateTimeEditor extends React.PureComponent<DateTimeEditorProps, Dat
                 <DatePicker selected={date} onDateChange={this._handleChange} showFocusOutline={false} />
                 {this.state.timeDisplay &&
                   <div className="time-container">
-                    <BodyText className="time-label">{"Time"}</BodyText>
+                    <Text variant="body" className="time-label">{"Time"}</Text>
                     <TimeField time={timeSpec} timeDisplay={this.state.timeDisplay} onTimeChange={this._handleTimeChange} />
                   </div>
                 }

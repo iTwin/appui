@@ -234,6 +234,7 @@ beta;PropertyFilterRuleOperator
 public;PropertyGrid 
 deprecated;PropertyGrid 
 internal;PropertyGridCommons
+public;PropertyGridContentHighlightProps 
 public;PropertyGridContextMenuArgs
 public;PropertyGridEventHandler
 internal;PropertyGridEventsRelatedProps = Pick

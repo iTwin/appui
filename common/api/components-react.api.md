@@ -2108,6 +2108,11 @@ export class PropertyGridCommons {
 }
 
 // @public
+export interface PropertyGridContentHighlightProps extends HighlightingComponentProps {
+    filteredTypes?: FilteredType[];
+}
+
+// @public
 export interface PropertyGridContextMenuArgs {
     event: React.MouseEvent;
     propertyRecord: PropertyRecord;
@@ -3491,9 +3496,7 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     gridWidth: number;
     // (undocumented)
-    highlight?: HighlightingComponentProps & {
-        filteredTypes?: FilteredType[];
-    };
+    highlight?: PropertyGridContentHighlightProps;
     // (undocumented)
     isPropertyHoverEnabled: boolean;
     // (undocumented)
@@ -3530,21 +3533,12 @@ export interface VirtualizedPropertyGridContext {
 
 // @public
 export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
-    // (undocumented)
     dataProvider: IPropertyDataProvider;
-    // (undocumented)
     eventHandler: IPropertyGridEventHandler;
-    // (undocumented)
     height: number;
-    // (undocumented)
-    highlight?: HighlightingComponentProps & {
-        filteredTypes?: FilteredType[];
-    };
-    // (undocumented)
+    highlight?: PropertyGridContentHighlightProps;
     model: IPropertyGridModel;
-    // (undocumented)
     propertyCategoryRendererManager?: PropertyCategoryRendererManager;
-    // (undocumented)
     width: number;
 }
 
@@ -3553,17 +3547,10 @@ export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedProper
 
 // @public
 export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
-    // (undocumented)
     dataProvider: IPropertyDataProvider;
-    // (undocumented)
     height: number;
-    // (undocumented)
-    highlight?: HighlightingComponentProps & {
-        filteredTypes?: FilteredType[];
-    };
-    // (undocumented)
+    highlight?: PropertyGridContentHighlightProps;
     propertyCategoryRendererManager?: PropertyCategoryRendererManager;
-    // (undocumented)
     width: number;
 }
 

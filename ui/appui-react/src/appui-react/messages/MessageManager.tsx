@@ -7,7 +7,7 @@
  */
 
 import classnames from "classnames";
-import * as _ from "lodash";
+import { isEqual } from "lodash";
 import * as React from "react";
 import { XAndY } from "@itwin/core-geometry";
 import {
@@ -24,7 +24,7 @@ import { MessageSpan } from "./MessageSpan";
 import { PointerMessage } from "./Pointer";
 import { NotifyMessageDetailsType, NotifyMessageType } from "./ReactNotifyMessageDetails";
 import { StatusMessageManager } from "./StatusMessageManager";
-import { Small, toaster, ToastOptions } from "@itwin/itwinui-react";
+import { Text, toaster, ToastOptions } from "@itwin/itwinui-react";
 import { ToasterSettings } from "@itwin/itwinui-react/cjs/core/Toast/Toaster";
 import { SvgInfo, SvgStatusError, SvgStatusSuccess, SvgStatusWarning } from "@itwin/itwinui-icons-react";
 
@@ -256,7 +256,7 @@ export class MessageManager {
     const content = <>
       {message.briefMessage}
       {message.detailedMessage &&
-      <Small><>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</></Small>
+      <Text variant="small"><>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</></Text>
       }
     </>;
     switch (message.priority) {
@@ -276,7 +276,7 @@ export class MessageManager {
    * @param  message  Details about the message to output.
    */
   public static addMessage(message: NotifyMessageDetailsType): void {
-    if (!_.isEqual(message, this._lastMessage)) {
+    if (!isEqual(message, this._lastMessage)) {
       this.addToMessageCenter(message);
       this._lastMessage = message;
     }

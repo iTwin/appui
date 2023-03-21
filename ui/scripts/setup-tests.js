@@ -67,8 +67,6 @@ try {
   chaiJestSnapshot = require("chai-jest-snapshot");
   chai.use(chaiJestSnapshot);
 } catch (e) { }
-const spies = require("chai-spies");
-chai.use(spies);
 const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 try {
@@ -107,7 +105,6 @@ beforeEach(function () {
     chaiJestSnapshot.setTestName(currentTest.fullTitle());
   }
 
-  chai.spy.restore();
 });
 
 let rhtl;
@@ -128,6 +125,3 @@ afterEach(async () => {
     sinon.restore();
   } catch (e) { }
 });
-
-// This is required by our I18n module (specifically the i18next-http-backend package).
-global.XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;

@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .nz-toolSettings-docked {
   height: 2.5em;
@@ -10,8 +9,8 @@
 
   display: flex;
   position: relative;
-  background: $buic-background-widget;
-  border: 1px solid $buic-background-widget-stroke;
+  background: var(--iui-color-background);
+  border: 1px solid var(--iui-color-border);
 
   >.nz-container {
     display: flex;

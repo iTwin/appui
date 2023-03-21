@@ -4510,7 +4510,7 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     // (undocumented)
     provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[];
     // (undocumented)
-    provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[];
+    provideToolbarItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[];
     static register(providerId: string, defaultContentTools?: DefaultContentTools, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean): StandardContentToolsProvider;
 }
 
@@ -4576,7 +4576,7 @@ export interface StandardMessageBoxProps extends CommonProps {
 export class StandardNavigationToolsProvider extends BaseUiItemsProvider {
     constructor(providerId: string, defaultNavigationTools?: DefaultNavigationTools | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean);
     // (undocumented)
-    provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[];
+    provideToolbarItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[];
     static register(providerId: string, defaultNavigationTools?: DefaultNavigationTools, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean): StandardNavigationToolsProvider;
 }
 
@@ -5484,16 +5484,9 @@ export const useDefaultStatusBarItems: (manager: StatusBarItemsManager) => reado
 export const useDefaultToolbarItems: (manager: ToolbarItemsManager) => readonly ToolbarItem[];
 
 // @alpha (undocumented)
-export function useFloatingViewport(args: UseFloatingViewportArgs): {
-    viewportRef: (v: ScreenViewport) => void;
-    viewState: ViewState;
+export function useFloatingViewport(args: FloatingViewportContentProps): {
+    viewportControl: JSX.Element;
 };
-
-// @alpha (undocumented)
-export interface UseFloatingViewportArgs {
-    contentId: string;
-    initialViewState: ViewStateProp;
-}
 
 // @internal (undocumented)
 export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean): void;

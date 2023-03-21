@@ -31,7 +31,6 @@
 
     >.nz-icons {
       font-size: $icon-size;
-      filter: $icon-shadow;
       display: flex;
       align-items: center;
     }
@@ -58,14 +57,14 @@
       bottom: $padding;
       filter: $icon-shadow;
 
-      @include triangle-bottom-right($triangle-width, $color: $buic-foreground-body);
+      @include triangle-bottom-right($triangle-width, $color: var(--iui-color-icon));
     }
 
     &:hover {
-      color: $buic-foreground-primary;
+      color: var(--iui-color-text-accent-hover);
 
       >.nz-triangle {
-        @include triangle-bottom-right($triangle-width, $color: $buic-foreground-primary);
+        @include triangle-bottom-right($triangle-width, $color: var(--iui-color-text-accent-hover));
       }
     }
 

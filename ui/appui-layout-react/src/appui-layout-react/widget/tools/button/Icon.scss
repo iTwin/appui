@@ -17,7 +17,7 @@
     > * {
       width: $mls-icon-size;
       height: $mls-icon-size;
-      color: $icon-color;
+      color: var(--iui-color-icon);
       filter: $icon-shadow;
       display: inline-block;
     }
@@ -37,29 +37,12 @@
         height: $mls-small-button-icon-size;
       }
     }
-
-    &:active {
-      > .nz-icon {
-        > * {
-          color: $hovered-icon-color;
-        }
-      }
-    }
   }
 
   &:hover {
     > .nz-icon {
       > * {
-        color: $hovered-icon-color;
-      }
-    }
-  }
-
-  &:active {
-    > .nz-icon {
-      > * {
-        color: $pressed-icon-color;
-        filter: $no-shadow;
+        color: var(--iui-color-icon-hover);
       }
     }
   }

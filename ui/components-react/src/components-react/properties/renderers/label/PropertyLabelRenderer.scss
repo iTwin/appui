@@ -55,7 +55,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  color: $buic-text-color;
+  color: var(--iui-color-text);
   font-size: 14px;
   height: 100%;
   width: 100%;
@@ -83,6 +83,6 @@
   }
 
   &:hover {
-    color: $buic-text-color-hover;
+    color: var(--iui-color-text-hover);
   }
 }

@@ -48,11 +48,9 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
 
   public provideStatusBarItems(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
     const statusBarItems: StatusBarItem[] = [];
-    // istanbul ignore else
     if (!this._defaultItems || this._defaultItems.messageCenter) {
       statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.MessageCenter", StatusBarSection.Left, 10, <MessageCenterField />));
     }
-    // istanbul ignore else
     if (!this._defaultItems || this._defaultItems.toolAssistance) {
       if (!this._defaultItems || this._defaultItems.preToolAssistanceSeparator)
         statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.PreToolAssistance", StatusBarSection.Left, 15, <StatusBarSeparator />));
@@ -62,26 +60,21 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
       if (!this._defaultItems || this._defaultItems.postToolAssistanceSeparator)
         statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.PostToolAssistance", StatusBarSection.Left, 25, <StatusBarSeparator />));
     }
-    // istanbul ignore else
     if (this._defaultItems?.activityCenter) {
       statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.ActivityCenter", StatusBarSection.Left, 30, <ActivityCenterField />));
     }
-    // istanbul ignore else
     if (!this._defaultItems || this._defaultItems.accuSnapModePicker) {
       statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.SnapMode", StatusBarSection.Center, 10, <SnapModeField />));
     }
 
-    // istanbul ignore else
     if (!this._defaultItems || this._defaultItems.tileLoadIndicator) {
       statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.TileLoadIndicator", StatusBarSection.Right, 10, <TileLoadingIndicator />));
     }
 
-    // istanbul ignore else
     if (!this._defaultItems || this._defaultItems.selectionScope) {
       statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.SelectionScope", StatusBarSection.Right, 20, <SelectionScopeField />));
     }
 
-    // istanbul ignore else
     if (!this._defaultItems || this._defaultItems.selectionInfo) {
       statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.SelectionInfo", StatusBarSection.Right, 30, <SelectionInfoField />));
     }
