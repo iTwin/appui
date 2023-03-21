@@ -5,7 +5,7 @@
 import type { ASTNode, Collection, JSCodeshift } from "jscodeshift";
 import { toExpressionKind, toExpressionName, useCallExpression } from "./CallExpression";
 import { useImportDeclaration } from "./ImportDeclaration";
-import { sortSpecifiers, useImportSpecifier } from "./ImportSpecifier";
+import { findRootIdentifiers, sortSpecifiers, useImportSpecifier } from "./ImportSpecifier";
 import retainFirstComment from "./retainFirstComment";
 import { isJSXIdentifier } from "./typeGuards";
 import { usePlugin } from "./usePlugin";
@@ -55,17 +55,7 @@ function extensionsPlugin(j: JSCodeshift) {
       retainFirstComment(j, this, () => {
         let updateSpecifiers = false;
         if (source.isIdentifier) {
-          const rootIdentifiers = this.find(j.Identifier)
-            .filter((path) => {
-              const expression = toExpressionName(path.value);
-              return expression === sourceExpr;
-            })
-            .filter((path) => {
-              return path.name !== "property"
-                && path.name !== "local"
-                && path.name !== "imported";
-            });
-          rootIdentifiers.forEach((path) => {
+          findRootIdentifiers(j, this, sourceExpr).forEach((path) => {
             const callee = toExpressionKind(j, target.expr);
             path.replace(callee);
             updateSpecifiers = true;
@@ -77,11 +67,10 @@ function extensionsPlugin(j: JSCodeshift) {
             updateSpecifiers = true;
           }
 
-          const memberExpressions = this.find(j.MemberExpression).filter((path) => {
+          this.find(j.MemberExpression).filter((path) => {
             const expression = toExpressionName(path.value);
             return expression === sourceExpr;
-          });
-          memberExpressions.forEach((path) => {
+          }).forEach((path) => {
             const callee = toExpressionKind(j, target.expr);
             path.replace(callee);
             updateSpecifiers = true;
