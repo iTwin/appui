@@ -94,7 +94,7 @@ export function ViewportComponent(props: ViewportProps) {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
     if (currentScreenViewport && viewManager.selectedView === currentScreenViewport) {
-      currentScreenViewport.view.setRotationAboutPoint(ViewState.getStandardViewMatrix(args.standardRotation));
+      currentScreenViewport.view.setRotationAboutPoint(ViewState.getStandardViewMatrix(args.standardRotation)); // CHANGETO: StandardView.getStandardViewMatrix
       currentScreenViewport.synchWithView();
     }
   };
@@ -118,15 +118,6 @@ export function ViewportComponent(props: ViewportProps) {
     // istanbul ignore else
     if (tentativePoint.isActive)
       return tentativePoint.getPoint();
-
-    // istanbul ignore else
-    if (undefined !== vp.viewCmdTargetCenter) {
-      const testPt = vp.worldToView(vp.viewCmdTargetCenter);
-      const viewRect = vp.viewRect;
-      if (viewRect.containsPoint(testPt))
-        return vp.viewCmdTargetCenter;
-      vp.viewCmdTargetCenter = undefined;
-    }
 
     // istanbul ignore else
     if (null !== lastTargetPoint) {
