@@ -7,7 +7,6 @@ import { toExpressionKind, toExpressionName, useCallExpression } from "./CallExp
 import { useImportDeclaration } from "./ImportDeclaration";
 import { findRootIdentifiers, sortSpecifiers, useImportSpecifier } from "./ImportSpecifier";
 import retainFirstComment from "./retainFirstComment";
-import { isJSXIdentifier } from "./typeGuards";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
@@ -79,13 +78,13 @@ function extensionsPlugin(j: JSCodeshift) {
 
         this.findJSXElements(sourceExpr).forEach((path) => {
           const identifier = path.value.openingElement.name as ASTNode;
-          if (!isJSXIdentifier(identifier)) {
+          if (identifier.type !== "JSXIdentifier") {
             return;
           }
 
           identifier.name = target.expr;
           const closingIdentifier = path.value.closingElement?.name;
-          if (closingIdentifier && isJSXIdentifier(closingIdentifier)) {
+          if (closingIdentifier && closingIdentifier.type === "JSXIdentifier") {
             closingIdentifier.name = target.expr;
           }
           updateSpecifiers = true;

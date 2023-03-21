@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import type { Collection, ImportDeclaration, ImportSpecifier, JSCodeshift } from "jscodeshift";
-import { isImportSpecifier } from "./typeGuards";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
@@ -71,7 +70,7 @@ export function sortSpecifiers(j: JSCodeshift, specifiers: Required<ImportDeclar
       if (b.type === "ImportDefaultSpecifier")
         return -1;
     }
-    if (isImportSpecifier(j, a) && isImportSpecifier(j, b)) {
+    if (a.type === "ImportSpecifier" && b.type === "ImportSpecifier") {
       return a.imported.name.localeCompare(b.imported.name);
     }
     return 0;

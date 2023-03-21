@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { API, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement, Options } from "jscodeshift";
-import { isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
 import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, identity, rename, unknownAttributeWarning } from "../utils/jsxElementAttributeHandles";
+import { isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
@@ -117,16 +117,16 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
 }
 
 function getJSXAttribute(j: JSCodeshift, element: ASTPath<JSXElement>, attrName: string) {
-  return element.node.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, attrName)) as JSXAttribute | undefined;
+  return element.node.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(val, attrName)) as JSXAttribute | undefined;
 }
 
 function getPanelWidgets(j: JSCodeshift, frontstage: ASTPath<JSXElement>, attrName: string): Expression | undefined {
   const attr = getJSXAttribute(j, frontstage, attrName);
-  const attrExpr = attr ? getJSXAttributeExpression(j, attr) : undefined;
-  if (attrExpr && (isSpecifiedJSXElement(j, attrExpr, "Zone") || isSpecifiedJSXElement(j, attrExpr, "StagePanel"))) {
-    const widgetsAttr = attrExpr.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
+  const attrExpr = attr ? getJSXAttributeExpression(attr) : undefined;
+  if (attrExpr && (isSpecifiedJSXElement(attrExpr, "Zone") || isSpecifiedJSXElement(attrExpr, "StagePanel"))) {
+    const widgetsAttr = attrExpr.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(val, "widgets")) as JSXAttribute | undefined;
     if (widgetsAttr) {
-      const expr = getJSXAttributeExpression(j, widgetsAttr);
+      const expr = getJSXAttributeExpression(widgetsAttr);
       return expr ? expr : undefined;
     }
   }

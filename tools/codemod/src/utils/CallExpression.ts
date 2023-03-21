@@ -3,7 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import type { ASTPath, CallExpression, Collection, Identifier, JSCodeshift, MemberExpression } from "jscodeshift";
-import { isCallExpression, isIdentifier, isMemberExpression } from "./typeGuards";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
@@ -64,15 +63,15 @@ export type ExpressionKind = MemberExpression["object"];
 export function toExpressionName(kind: ExpressionKind) {
   let name = "";
   while (kind) {
-    if (isIdentifier(kind)) {
+    if (kind.type === "Identifier") {
       name = `${kind.name}${name}`;
       break;
     }
-    if (isCallExpression(kind)) {
+    if (kind.type === "CallExpression") {
       kind = kind.callee;
       continue;
     }
-    if (isMemberExpression(kind) && isIdentifier(kind.property)) {
+    if (kind.type === "MemberExpression" && kind.property.type === "Identifier") {
       name = `.${kind.property.name}${name}`
       kind = kind.object;
       continue;
@@ -96,11 +95,11 @@ export function isRootIdentifier(j: JSCodeshift, path: ASTPath<Identifier>) {
   let currPath: ASTPath = path.parent;
   while (currPath) {
     const currValue = currPath.value;
-    if (isMemberExpression(currValue)) {
+    if (currValue.type === "MemberExpression") {
       if (currValue.object === prevPath.value)
         return true;
       return false;
-    } else if (isCallExpression(currValue)) {
+    } else if (currValue.type === "CallExpression") {
       prevPath = currPath;
       currPath = currPath.parent;
       continue;
