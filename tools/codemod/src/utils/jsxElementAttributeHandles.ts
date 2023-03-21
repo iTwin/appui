@@ -53,7 +53,7 @@ export function buildConfigProperty(j: JSCodeshift, value: ValueType, name?: Nam
     }
     return {
       type: "ConfigProperty",
-      name: prop.key,
+      name: j.identifier(prop.key.name),
       ...prop,
     };
   }
@@ -95,8 +95,8 @@ export const identity: AttributeHandle = (j, attr) => {
 }
 
 export const extractExpression: AttributeHandle = (j, attr) => {
-  const expr = isJSXExpressionContainer(j, attr.value) ? attr.value.expression : attr.value;
-  if (isJSXEmptyExpression(j, expr)) {
+  const expr = isJSXExpressionContainer(attr.value) ? attr.value.expression : attr.value;
+  if (isJSXEmptyExpression(expr)) {
     console.warn("Attribute cannot contain empty expression");
     return undefined;
   }
@@ -108,8 +108,8 @@ function isSpreadExpression(name: NameType | undefined, expr: any): expr is JSXS
 }
 
 export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JSXSpreadAttribute): ElementAttribute | undefined {
-  if (isJSXAttribute(j, jsxAttr)) {
-    if (!isJSXIdentifierType(j, jsxAttr.name)) {
+  if (isJSXAttribute(jsxAttr)) {
+    if (!isJSXIdentifierType(jsxAttr.name)) {
       console.warn("Non spread attribute must have name");
       return undefined;
     }
@@ -200,8 +200,8 @@ const widgetDefaultAttrHandles = new Map<string | undefined, AttributeHandle | n
 ]);
 
 function pushExpression(j: JSCodeshift, elements: ArrayExpression["elements"], expression: Expression): void {
-  if (isArrayExpression(j, expression))
-    elements.push(...expression.elements);
+  if (isArrayExpression(expression as any))
+    elements.push(...(expression as ArrayExpression).elements);
   else
     elements.push(j.spreadElement(expression as any));
 }
@@ -225,13 +225,13 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
 
   return (j, attr) => {
     const stagePanel = attr.value;
-    if (!isSpecifiedJSXElement(j, stagePanel, "StagePanel")) {
+    if (!isSpecifiedJSXElement(stagePanel, "StagePanel")) {
       console.warn("Expression did not match expected shape");
       return undefined;
     }
 
     const stagePanelProps = handleJSXElement(j, j(stagePanel).get(), stagePanelAttrHandles);
-    const widgetsAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
+    const widgetsAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(val, "widgets")) as JSXAttribute | undefined;
     let widgets: Expression | undefined = undefined;
     if (widgetsAttr) {
       const widgetElAttr = jsxToElementAttribute(j, widgetsAttr);
@@ -239,7 +239,7 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
         widgets = extractExpression(j, widgetElAttr)?.value;
     }
 
-    const panelZonesAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "panelZones")) as JSXAttribute | undefined;
+    const panelZonesAttr = stagePanel.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(val, "panelZones")) as JSXAttribute | undefined;
     let panelZonesStart: Expression | undefined = undefined;
     let panelZonesMiddle: Expression | undefined = undefined;
     let panelZonesEnd: Expression | undefined = undefined;
@@ -290,13 +290,13 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
         pushExpression(j, endWidgets.elements, end);
 
       startWidgets.elements.forEach((elem, index) => {
-        if (isSpecifiedJSXElement(j, elem, "Widget")) {
+        if (elem && isSpecifiedJSXElement(elem, "Widget")) {
           const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetDefaultAttrHandles);
           startWidgets.elements[index] = configToObjectExpression(j, elemConfigProps);
         }
       });
       endWidgets.elements.forEach((elem, index) => {
-        if (isSpecifiedJSXElement(j, elem, "Widget")) {
+        if (elem && isSpecifiedJSXElement(elem, "Widget")) {
           const elemConfigProps = handleJSXElement(j, j(elem).get(), widgetDefaultAttrHandles);
           endWidgets.elements[index] = configToObjectExpression(j, elemConfigProps);
         }
@@ -324,7 +324,7 @@ export function handleAsStagePanel(start?: Expression, end?: Expression): Attrib
 export function handleAsWidget(): AttributeHandle {
   return (j, attr) => {
     const widget = attr.value;
-    if (!isSpecifiedJSXElement(j, widget, "Widget")) {
+    if (!isSpecifiedJSXElement(widget, "Widget")) {
       console.warn("Expression did not match expected shape");
       return undefined;
     }
@@ -342,14 +342,14 @@ export function handleAsToolWidget(): AttributeHandle {
 
   return (j, attr) => {
     const zone = attr.value;
-    if (!isSpecifiedJSXElement(j, zone, "Zone")) {
+    if (!isSpecifiedJSXElement(zone, "Zone")) {
       unsupportedExpressionWarning(zone.type, [j.JSXElement.toString()]);
       return undefined;
     }
 
     const zoneConfigProps = handleJSXElement(j, j(zone).get(), zoneAttrHandles);
     const widgets = zoneConfigProps.find((prop) => prop.name && prop.name.name === "widgets" ? true : false);
-    if (!widgets || !isArrayExpression(j, widgets.value)) {
+    if (!widgets || !isArrayExpression(widgets.value)) {
       console.warn("Expression did not match expected shape");
       return undefined;
     }
@@ -360,7 +360,7 @@ export function handleAsToolWidget(): AttributeHandle {
     }
 
     const widget = widgets.value.elements[0];
-    if (!isSpecifiedJSXElement(j, widget, "Widget")) {
+    if (!widget || !isSpecifiedJSXElement(widget, "Widget")) {
       console.warn("Expression did not match expected shape");
       return undefined;
     }
@@ -384,5 +384,5 @@ export function unsupportedExpressionWarning(received?: string, expected?: strin
 }
 
 export function getJSXAttributeExpression(j: JSCodeshift, attr: JSXAttribute): JSXAttribute["value"] | JSXExpressionContainer["expression"] {
-  return isJSXExpressionContainer(j, attr.value) ? attr.value.expression : attr.value;
+  return attr.value && isJSXExpressionContainer(attr.value) ? attr.value.expression : attr.value;
 }

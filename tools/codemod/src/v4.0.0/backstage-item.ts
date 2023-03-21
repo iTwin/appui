@@ -20,8 +20,8 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
     .concat(root.findObjectExpressions("BackstageItem"))
     .concat(root.findObjectExpressions("BackstageActionItem"))
     .concat(root.findObjectExpressions("BackstageStageLauncher"))
-    .concat(root.findCallExpressions("BackstageItemUtilities.createStageLauncher").getArguments(6, (arg) => isObjectExpression(j, arg)))
-    .concat(root.findCallExpressions("BackstageItemUtilities.createActionItem").getArguments(7, (arg) => isObjectExpression(j, arg)));
+    .concat(root.findCallExpressions("BackstageItemUtilities.createStageLauncher").getArguments(6, (arg) => isObjectExpression(arg)))
+    .concat(root.findCallExpressions("BackstageItemUtilities.createActionItem").getArguments(7, (arg) => isObjectExpression(arg)));
 
   items
     .removeProperty("applicationData")

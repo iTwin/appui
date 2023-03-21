@@ -71,7 +71,7 @@ export function sortSpecifiers(j: JSCodeshift, specifiers: Required<ImportDeclar
       if (b.type === "ImportDefaultSpecifier")
         return -1;
     }
-    if (isImportSpecifier(j, a) && isImportSpecifier(j, b)) {
+    if (isImportSpecifier(a) && isImportSpecifier(b)) {
       return a.imported.name.localeCompare(b.imported.name);
     }
     return 0;

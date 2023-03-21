@@ -17,13 +17,13 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
   const root = j(file.source);
 
   const customItems = root.findObjectExpressions("StatusBarCustomItem")
-    .concat(root.findCallExpressions("StatusBarItemUtilities.createCustomItem").getArguments(4, (arg) => isObjectExpression(j, arg)));
+    .concat(root.findCallExpressions("StatusBarItemUtilities.createCustomItem").getArguments(4, (arg) => isObjectExpression(arg)));
 
   const items = root.findObjectExpressions("StatusBarItem")
     .concat(root.findObjectExpressions("StatusBarActionItem"))
     .concat(root.findObjectExpressions("StatusBarLabelItem"))
-    .concat(root.findCallExpressions("StatusBarItemUtilities.createActionItem").getArguments(6, (arg) => isObjectExpression(j, arg)))
-    .concat(root.findCallExpressions("StatusBarItemUtilities.createLabelItem").getArguments(6, (arg) => isObjectExpression(j, arg)))
+    .concat(root.findCallExpressions("StatusBarItemUtilities.createActionItem").getArguments(6, (arg) => isObjectExpression(arg)))
+    .concat(root.findCallExpressions("StatusBarItemUtilities.createLabelItem").getArguments(6, (arg) => isObjectExpression(arg)))
     .concat(customItems);
 
   items.renameProperty("badgeType", "badge");

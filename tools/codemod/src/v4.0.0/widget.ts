@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import type { API, ASTPath, FileInfo, JSCodeshift, MemberExpression, ObjectExpression, ObjectProperty, Options } from "jscodeshift";
 import { ObjectExpressionCollection, useObjectExpression } from "../utils/ObjectExpression";
-import { isLiteral } from "../utils/typeGuards";
+import { isBooleanLiteral } from "../utils/typeGuards";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
@@ -69,7 +69,7 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
       continue;
     }
 
-    if (isLiteral(j, canFloat.value) && canFloat.value.value === false)
+    if (isBooleanLiteral(canFloat.value) && canFloat.value.value === false)
       continue;
     canFloat.value = j.objectExpression(properties);
   }

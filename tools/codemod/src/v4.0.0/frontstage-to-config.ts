@@ -117,14 +117,14 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
 }
 
 function getJSXAttribute(j: JSCodeshift, element: ASTPath<JSXElement>, attrName: string) {
-  return element.node.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, attrName)) as JSXAttribute | undefined;
+  return element.node.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(val, attrName)) as JSXAttribute | undefined;
 }
 
 function getPanelWidgets(j: JSCodeshift, frontstage: ASTPath<JSXElement>, attrName: string): Expression | undefined {
   const attr = getJSXAttribute(j, frontstage, attrName);
   const attrExpr = attr ? getJSXAttributeExpression(j, attr) : undefined;
-  if (attrExpr && (isSpecifiedJSXElement(j, attrExpr, "Zone") || isSpecifiedJSXElement(j, attrExpr, "StagePanel"))) {
-    const widgetsAttr = attrExpr.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(j, val, "widgets")) as JSXAttribute | undefined;
+  if (attrExpr && (isSpecifiedJSXElement(attrExpr, "Zone") || isSpecifiedJSXElement(attrExpr, "StagePanel"))) {
+    const widgetsAttr = attrExpr.openingElement.attributes?.find((val) => isSpecifiedJSXAttribute(val, "widgets")) as JSXAttribute | undefined;
     if (widgetsAttr) {
       const expr = getJSXAttributeExpression(j, widgetsAttr);
       return expr ? expr : undefined;
