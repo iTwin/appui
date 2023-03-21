@@ -2,20 +2,17 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo } from "jscodeshift";
-import changeImports from "../utils/changeImports";
+import type { API, FileInfo, Options } from "jscodeshift";
+import { useExtensions } from "../utils/Extensions";
 
-const importChanges = new Map<string, string>([
-  ["@itwin/appui-react.CommonWidgetProps", "@itwin/appui-react.Widget"],
-  ["@itwin/appui-react.WidgetProps", "@itwin/appui-react.Widget"],
-]);
-
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
+  useExtensions(j);
 
   const root = j(file.source);
 
-  changeImports(j, root, importChanges);
+  root.rename("@itwin/appui-react:CommonWidgetProps", "@itwin/appui-react:Widget");
+  root.rename("@itwin/appui-react:WidgetProps", "@itwin/appui-react:Widget");
 
-  return root.toSource();
+  return root.toSource(options.printOptions);
 }

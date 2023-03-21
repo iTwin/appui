@@ -2,11 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { Collection, ImportDeclaration, ImportSpecifier, JSCodeshift } from "jscodeshift";
+import type { Collection, ImportDeclaration, ImportSpecifier, JSCodeshift } from "jscodeshift";
 import { isImportSpecifier } from "./typeGuards";
 
 export default function addSpecifiers(j: JSCodeshift, root: Collection, specifiers: ImportSpecifier[], pckg: string) {
-  const existingDeclarations = root.find(ImportDeclaration, (declaration) => {
+  const existingDeclarations = root.find(j.ImportDeclaration, (declaration) => {
     return declaration.source.value === pckg;
   });
   if (existingDeclarations.size() === 0) {

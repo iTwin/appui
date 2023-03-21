@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { JSCodeshift, Collection } from "jscodeshift";
+import type { JSCodeshift, Collection } from "jscodeshift";
 
 function getFirstNode(j: JSCodeshift, root: Collection) {
   return root.find(j.Program).get("body", 0).node;

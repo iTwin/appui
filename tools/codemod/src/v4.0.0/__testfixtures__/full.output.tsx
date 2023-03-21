@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { StatusBarDialog, UiItemsProvider } from "@itwin/appui-react";
+import { StatusBarDialog } from "@itwin/appui-react";
 
 function App() {
   return (<>

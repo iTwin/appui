@@ -2,10 +2,10 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { API, FileInfo } from "jscodeshift";
+import type { API, FileInfo, Options } from "jscodeshift";
 import { isIdentifier } from "../utils/typeGuards";
 
-export default function transformer(file: FileInfo, api: API) {
+export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
 
   const root = j(file.source);
@@ -17,5 +17,5 @@ export default function transformer(file: FileInfo, api: API) {
     }
   });
 
-  return root.toSource();
+  return root.toSource(options.printOptions);
 }

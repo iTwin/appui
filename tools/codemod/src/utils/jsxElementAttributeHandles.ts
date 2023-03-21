@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { JSCodeshift, ObjectProperty, JSXAttribute, SpreadProperty, JSXSpreadAttribute, Identifier, JSXIdentifier, ObjectExpression, ArrayExpression, JSXElement, ASTPath, Expression, JSXExpressionContainer } from "jscodeshift";
-import { isArrayExpression, isIdentifier, isIdentifierType, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "./typeGuards";
+import { isArrayExpression, isIdentifier, isIdentifierType, isJSXAttribute, isJSXEmptyExpression, isJSXExpressionContainer, isJSXIdentifier, isJSXIdentifierType, isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "./typeGuards";
 
 export interface ElementAttribute extends Omit<JSXAttribute, "type" | "name" | "value"> {
   type: "ElementAttribute";
@@ -109,7 +109,7 @@ function isSpreadExpression(name: NameType | undefined, expr: any): expr is JSXS
 
 export function jsxToElementAttribute(j: JSCodeshift, jsxAttr: JSXAttribute | JSXSpreadAttribute): ElementAttribute | undefined {
   if (isJSXAttribute(j, jsxAttr)) {
-    if (!isJSXIdentifier(j, jsxAttr.name)) {
+    if (!isJSXIdentifierType(j, jsxAttr.name)) {
       console.warn("Non spread attribute must have name");
       return undefined;
     }
