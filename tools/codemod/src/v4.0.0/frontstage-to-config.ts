@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-
 import { API, ASTPath, Expression, FileInfo, JSCodeshift, JSXAttribute, JSXElement, Options } from "jscodeshift";
 import { AttributeHandle, chain, configToObjectExpression, extractExpression, getJSXAttributeExpression, handleAsStagePanel, handleAsToolWidget, handleJSXElement, identity, rename, unknownAttributeWarning } from "../utils/jsxElementAttributeHandles";
 import { isSpecifiedJSXAttribute, isSpecifiedJSXElement } from "../utils/TypeGuards";

@@ -15,150 +15,150 @@ describe("frontstage-to-config", () => {
   describe("panel transformations", () => {
     defineInlineTest(
       `
-    <Frontstage
-      centerRight = {
-        <Zone
-          widgets = {[
-            <Widget id={2}/>,
-          ]}
-        />
-      }
-      bottomRight = {
-        <Zone
-          widgets = {[
-            <Widget id={3}/>,
-          ]}
-        />
-      }
-      rightPanel = {
-        <StagePanel
-          widgets = {[
-            <Widget id={1}/>,
-          ]}
-        />
-      }
-    />
-    `,
+      <Frontstage
+        centerRight = {
+          <Zone
+            widgets = {[
+              <Widget id={2}/>,
+            ]}
+          />
+        }
+        bottomRight = {
+          <Zone
+            widgets = {[
+              <Widget id={3}/>,
+            ]}
+          />
+        }
+        rightPanel = {
+          <StagePanel
+            widgets = {[
+              <Widget id={1}/>,
+            ]}
+          />
+        }
+      />
+      `,
       `
-    ({
-      rightPanel: {
-        sections: {
-          start: [{
-            id: 1,
-          }, {
-            id: 2,
-          }],
+      ({
+        rightPanel: {
+          sections: {
+            start: [{
+              id: 1,
+            }, {
+              id: 2,
+            }],
 
-          end: [{
-            id: 3,
-          }],
+            end: [{
+              id: 3,
+            }],
+          },
         },
-      },
-    })
-    `,
+      })
+      `,
       "adds all widgets to a single panel"
     );
 
     defineInlineTest(
       `
-    <Frontstage
-      centerRight = {
-        <Zone
-          widgets = { this.props.widgets2 }
-        />
-      }
-      bottomRight = {
-        <Zone
-          widgets = {[
-            <Widget id={3}/>,
-          ]}
-        />
-      }
-      rightPanel = {
-        <StagePanel
-          widgets = { this.props.widgets1 }
-        />
-      }
-    />
-    `,
+      <Frontstage
+        centerRight = {
+          <Zone
+            widgets = { this.props.widgets2 }
+          />
+        }
+        bottomRight = {
+          <Zone
+            widgets = {[
+              <Widget id={3}/>,
+            ]}
+          />
+        }
+        rightPanel = {
+          <StagePanel
+            widgets = { this.props.widgets1 }
+          />
+        }
+      />
+      `,
       `
-    ({
-      rightPanel: {
-        sections: {
-          start: [...this.props.widgets1, ...this.props.widgets2],
+      ({
+        rightPanel: {
+          sections: {
+            start: [...this.props.widgets1, ...this.props.widgets2],
 
-          end: [{
-            id: 3,
-          }],
+            end: [{
+              id: 3,
+            }],
+          },
         },
-      },
-    })
-    `,
+      })
+      `,
       "uses spread operator"
     );
 
     defineInlineTest(
       `
-    <Frontstage
-      bottomRight = {
-        <Zone
-          widgets = {[
-            <Widget id={3}/>,
-          ]}
-        />
-      }
-    />
-    `,
+      <Frontstage
+        bottomRight = {
+          <Zone
+            widgets = {[
+              <Widget id={3}/>,
+            ]}
+          />
+        }
+      />
+      `,
       `
-    ({
-      rightPanel: {
-        sections: {
-          end: [{
-            id: 3,
-          }],
+      ({
+        rightPanel: {
+          sections: {
+            end: [{
+              id: 3,
+            }],
+          },
         },
-      },
-    })
-    `,
+      })
+      `,
       "creates a new panel"
     );
 
     defineInlineTest(
       `
-    <Frontstage
-      rightPanel = {
-        <StagePanel
-          panelZones = {{
-            start: {
-              widgets: [
-                <Widget id={1}/>,
-              ],
-            },
-            end: {
-              widgets: [
-                <Widget id={2}/>,
-              ],
-            },
-          }}
-        />
-      }
-    />
-    `,
+      <Frontstage
+        rightPanel = {
+          <StagePanel
+            panelZones = {{
+              start: {
+                widgets: [
+                  <Widget id={1}/>,
+                ],
+              },
+              end: {
+                widgets: [
+                  <Widget id={2}/>,
+                ],
+              },
+            }}
+          />
+        }
+      />
+      `,
       `
-    ({
-      rightPanel: {
-        sections: {
-          start: [{
-            id: 1,
-          }],
+      ({
+        rightPanel: {
+          sections: {
+            start: [{
+              id: 1,
+            }],
 
-          end: [{
-            id: 2,
-          }],
+            end: [{
+              id: 2,
+            }],
+          },
         },
-      },
-    })
-    `,
+      })
+      `,
       "transforms panel zones correctly"
     );
   });
@@ -205,5 +205,4 @@ describe("frontstage-to-config", () => {
     `,
     "correctly handles spread attribute"
   );
-
 });
