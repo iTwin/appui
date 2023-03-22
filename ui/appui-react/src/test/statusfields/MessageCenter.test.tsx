@@ -4,7 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import { EmptyLocalization } from "@itwin/core-common";
 import { MockRender, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
 import { MessageCenterField, MessageManager, StatusBar } from "../../appui-react";
@@ -18,7 +17,7 @@ describe(`MessageCenter`, () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({ localization: new EmptyLocalization() });
+    await MockRender.App.startup();
   });
 
   after(async () => {

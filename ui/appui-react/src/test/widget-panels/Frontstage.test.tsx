@@ -15,7 +15,6 @@ import { Size, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-re
 import { addFloatingWidget, addPanelWidget, addTab, createLayoutStore, createNineZoneState, getUniqueId, NineZoneState, toolSettingsTabId } from "@itwin/appui-layout-react";
 import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
 import { IModelApp, MockRender, NoRenderApp } from "@itwin/core-frontend";
-import { EmptyLocalization } from "@itwin/core-common";
 import {
   ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, expandWidget, FrontstageConfig, FrontstageDef,
   FrontstageProvider, getWidgetId, initializeNineZoneState, initializePanel, isFrontstageStateSettingResult, ModalFrontstageComposer,
@@ -173,7 +172,7 @@ describe("Frontstage local storage wrapper", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({ localization: new EmptyLocalization() });
+    await MockRender.App.startup();
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });

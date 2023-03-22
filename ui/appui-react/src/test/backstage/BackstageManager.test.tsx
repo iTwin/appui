@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { EmptyLocalization } from "@itwin/core-common";
 import { MockRender } from "@itwin/core-frontend";
 import { renderHook } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react";
@@ -16,7 +15,7 @@ import TestUtils from "../TestUtils";
 describe("BackstageManager", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup();
   });
   after(async () => {
     await MockRender.App.shutdown();
@@ -164,7 +163,7 @@ describe("useIsBackstageOpen", () => {
 describe("useBackstageManager", () => {
   it("returns UiFramework.backstageManager instance", async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup();
 
     const {result} = renderHook(() => useBackstageManager());
     expect(result.current).to.equal(UiFramework.backstageManager); // eslint-disable-line deprecation/deprecation
