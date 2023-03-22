@@ -17,7 +17,7 @@ declare module "jscodeshift/src/collection" {
 interface GlobalMethods {
   contains(other: Collection): boolean;
   concat(other: Collection): this;
-  rename(from: string, to: string): this;
+  rename(source: string, target: string): this;
 }
 
 function extensionsPlugin(j: JSCodeshift) {
@@ -52,18 +52,18 @@ function extensionsPlugin(j: JSCodeshift) {
       const sourceExpr = updateExpressionSpecifier(source.expr, sourceLocalSpecifierName);
 
       retainFirstComment(j, this, () => {
-        let updateSpecifiers = false;
+        let renamed = false;
         if (source.isIdentifier) {
           findRootIdentifiers(j, this, sourceExpr).forEach((path) => {
             const callee = toExpressionKind(j, target.expr);
             path.replace(callee);
-            updateSpecifiers = true;
+            renamed = true;
           });
         } else {
           const callExpressions = this.findCallExpressions(sourceExpr);
           callExpressions.renameTo(target.expr);
           if (callExpressions.size() > 0) {
-            updateSpecifiers = true;
+            renamed = true;
           }
 
           this.find(j.MemberExpression).filter((path) => {
@@ -72,7 +72,7 @@ function extensionsPlugin(j: JSCodeshift) {
           }).forEach((path) => {
             const callee = toExpressionKind(j, target.expr);
             path.replace(callee);
-            updateSpecifiers = true;
+            renamed = true;
           });
         }
 
@@ -87,27 +87,28 @@ function extensionsPlugin(j: JSCodeshift) {
           if (closingIdentifier && closingIdentifier.type === "JSXIdentifier") {
             closingIdentifier.name = target.expr;
           }
-          updateSpecifiers = true;
+          renamed = true;
         });
 
-        if (!updateSpecifiers)
-          return;
-
-        const targetDeclarations = this.findImportDeclarations(target.module);
-        const targetSpecifiers = targetDeclarations.findSpecifiers(target.specifier);
-        const isMoved = target.specifier === sourceLocalSpecifierName;
-        if (isMoved || !sourceSpecifiers.isUsed()) {
+        if (renamed && sourceLocalSpecifierName === target.specifier) {
+          sourceSpecifiers.remove();
+        } else if (!sourceSpecifiers.isUsed()) {
           sourceSpecifiers.remove();
         }
 
+        const targetDeclarations = this.findImportDeclarations(target.module);
+        const targetSpecifiers = targetDeclarations.findSpecifiers(target.specifier);
+
         // Add new declaration.
-        if (targetDeclarations.size() === 0 && target.module) {
-          const newDeclaration = j.importDeclaration([j.importSpecifier(j.identifier(target.specifier))], j.literal(target.module));
+        if (targetDeclarations.size() === 0 && renamed) {
+          const newDeclaration = j.importDeclaration([
+            j.importSpecifier(j.identifier(target.specifier))
+          ], j.literal(target.module));
           sourceDeclarations.insertAfter(newDeclaration);
         }
 
         // Use existing target declaration.
-        if (targetDeclarations.size() > 0 && targetSpecifiers.size() === 0) {
+        if (targetDeclarations.size() > 0 && targetSpecifiers.size() === 0 && renamed) {
           const targetDeclaration = targetDeclarations.nodes()[0];
           targetDeclaration.specifiers = sortSpecifiers(j, [
             ...targetDeclaration.specifiers ?? [],
@@ -122,7 +123,6 @@ function extensionsPlugin(j: JSCodeshift) {
             path.replace();
         });
       });
-
 
       return this;
     }

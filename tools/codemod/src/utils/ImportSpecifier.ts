@@ -33,7 +33,13 @@ function importSpecifierPlugin(j: JSCodeshift) {
       const node = this.nodes()[0];
       if (!node)
         return "";
-      return node.local?.name || "";
+
+      if (node.local)
+        return node.local.name;
+      if (node.imported)
+        return node.imported.name;
+
+      return "";
     },
     isUsed(this: ImportSpecifierCollection) {
       const root = this.closest(j.Program);

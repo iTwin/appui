@@ -188,21 +188,6 @@ describe("Extensions", () => {
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from:a", "@itwin/from:b");
-      },
-      `
-      import { a } from "@itwin/from";
-      a;
-      `,
-      `
-      import { b } from "@itwin/from";
-      b;
-      `,
-      `should rename a specifier`
-    );
-
-    defineInlineTest(
-      (_, root) => {
         root.rename("@itwin/from:a", "@itwin/to:b");
       },
       `
@@ -255,13 +240,13 @@ describe("Extensions", () => {
       `
       import { a } from "@itwin/from";
       a.x;
-      a.y;
+      a.z;
       `,
       `
       import { a } from "@itwin/from";
       import { b } from "@itwin/to";
       b.y;
-      a.y;
+      a.z;
       `,
       "should not remove used specifiers"
     );
@@ -309,6 +294,52 @@ describe("Extensions", () => {
       <B.C />
       `,
       "should change to property access in JSX"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:a", "@itwin/to:b");
+      },
+      `
+      import { a, b, c } from "@itwin/from";
+      c;
+      `,
+      `
+      import { b, c } from "@itwin/from";
+      c;
+      `,
+      "should remove unused source specifier"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:a.x", "@itwin/from:a.y");
+      },
+      `
+      import { a } from "@itwin/from";
+      a;
+      `,
+      `
+      import { a } from "@itwin/from";
+      a;
+      `,
+      "should not update if expression is not matched"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:a", "@itwin/to:b");
+        root.rename("@itwin/to:b", "@itwin/to:c");
+      },
+      `
+      import { a } from "@itwin/from";
+      a;
+      `,
+      `
+      import { c } from "@itwin/to";
+      c;
+      `,
+      "should rename multiple times"
     );
   });
 });
