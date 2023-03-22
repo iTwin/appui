@@ -11,7 +11,6 @@ import TestUtils, { userEvent } from "../TestUtils";
 import { Provider } from "react-redux";
 import { ToolbarItemContext } from "@itwin/components-react";
 import { render, screen, waitFor } from "@testing-library/react";
-import { EmptyLocalization } from "@itwin/core-common";
 
 // cSpell:ignore Spatials
 
@@ -46,7 +45,7 @@ describe("ViewSelector", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup();
     await TestUtils.flushAsyncOperations();
   });
 
