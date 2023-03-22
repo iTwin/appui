@@ -8,10 +8,12 @@
 
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CommonProps, Orientation } from "@itwin/core-react";
+import { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import { matchLinks } from "../../common/Links";
 import { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
 import { PropertyValueRendererManager } from "../../properties/ValueRendererManager";
+import { FilteredType } from "../dataproviders/filterers/PropertyDataFiltererBase";
 import { PropertyCategory } from "../PropertyDataProvider";
 
 /** Arguments for the Property Editing event callback
@@ -82,6 +84,18 @@ export interface CommonPropertyGridProps extends CommonProps {
    * to render an action button for the property or not.
    */
   actionButtonRenderers?: ActionButtonRenderer[];
+}
+
+/**
+ * Properties for highlighting text in property grid.
+ * @public
+ */
+export interface PropertyGridContentHighlightProps extends HighlightingComponentProps {
+  /**
+   * Specifies what the highlighting should be applied on - category labels, property labels and / or property values.
+   * Defaults to "nowhere".
+   */
+  filteredTypes?: FilteredType[];
 }
 
 /** @internal */
