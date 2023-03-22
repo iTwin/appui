@@ -1229,7 +1229,7 @@ export interface ItemStyle {
 
 // @public
 export const ItemStyleProvider: {
-    createStyle: ({ colorOverrides, isBold, isItalic }: ItemStyle, isSelected?: boolean | undefined) => CSSProperties;
+    createStyle: ({ colorOverrides, isBold, isItalic }: ItemStyle, isSelected?: boolean) => CSSProperties;
 };
 
 // @public
@@ -2790,7 +2790,7 @@ export interface TitleProps extends CommonProps {
 }
 
 // @public
-export const toDateString: (date: Date, timeZoneOffset?: number | undefined, formatOptions?: DateFormatOptions | undefined) => string;
+export const toDateString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string;
 
 // @public
 export class ToggleEditor extends React_2.PureComponent<PropertyEditorProps, ToggleEditorState> implements TypeEditor {
@@ -2961,7 +2961,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
 export function toRxjsObservable<T>(observable: Observable<T>): Observable_2<T>;
 
 // @public
-export const toTimeString: (date: Date, timeZoneOffset?: number | undefined, formatOptions?: DateFormatOptions | undefined) => string;
+export const toTimeString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string;
 
 // @internal (undocumented)
 export function toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition;
@@ -3267,7 +3267,7 @@ export interface TreeNodeLoadResult {
 }
 
 // @public
-export const TreeNodeRenderer: React_2.MemoExoticComponent<(props: TreeNodeRendererProps) => JSX.Element>;
+export const TreeNodeRenderer: React_2.NamedExoticComponent<TreeNodeRendererProps>;
 
 // @public
 export interface TreeNodeRendererProps extends CommonProps {
@@ -3403,7 +3403,7 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 }
 
 // @public
-export const useAsyncValue: <T extends unknown>(value: T | PromiseLike<T>) => T | undefined;
+export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
 // @beta
 export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (() => Promise<TReturn>)): {
@@ -3569,10 +3569,10 @@ export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNode
 }
 
 // @public
-export const withContextStyle: (node: React_2.ReactNode, context?: PropertyValueRendererContext | undefined) => React_2.ReactNode;
+export const withContextStyle: (node: React_2.ReactNode, context?: PropertyValueRendererContext) => React_2.ReactNode;
 
 // @public
-export const withLinks: (stringValue: string, links?: LinkElementsInfo | undefined, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode;
+export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode;
 
 // (No @packageDocumentation comment for this package)
 

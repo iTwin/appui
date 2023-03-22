@@ -575,11 +575,11 @@ export interface BaseItemState {
 
 // @public
 export class BaseUiItemsProvider implements UiItemsProvider {
-    constructor(_providerId: string, isSupportedStage?: ((stageId: string, stageUsage: string, stageAppData?: any, provider?: UiItemsProvider | undefined) => boolean) | undefined);
+    constructor(_providerId: string, isSupportedStage?: ((stageId: string, stageUsage: string, stageAppData?: any, provider?: UiItemsProvider) => boolean) | undefined);
     // (undocumented)
     get id(): string;
     // (undocumented)
-    isSupportedStage?: ((stageId: string, stageUsage: string, stageAppData?: any, provider?: UiItemsProvider | undefined) => boolean) | undefined;
+    isSupportedStage?: ((stageId: string, stageUsage: string, stageAppData?: any, provider?: UiItemsProvider) => boolean) | undefined;
     // (undocumented)
     onUnregister(): void;
     // (undocumented)
