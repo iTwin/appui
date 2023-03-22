@@ -32,10 +32,10 @@ const forcedDep = {};
     "@itwin/webgl-compatibility",
   ], "4.0.0-dev.37"],
   [["electron"], "^23.0.0"],
-// Build an object with keys with the above
-// { "@itwin/appui-abstract": "4.0.0-dev.37",
-//      ...
-//   "electron": "^23.0.0"}
+  // Build an object with keys with the above
+  // { "@itwin/appui-abstract": "4.0.0-dev.37",
+  //      ...
+  //   "electron": "^23.0.0"}
 ].forEach(versions => {
   const v = versions[1];
   versions[0].forEach(p => forcedDep[p] = v)
@@ -46,7 +46,7 @@ function readPackage(pkg) {
     (pkg.name == "typedoc") &&
     pkg.dependencies
   ) {
-    pkg.dependencies["typescript"] = "~4.7.0";
+    pkg.dependencies["typescript"] = "~4.9.0";
   }
 
   // Hacky mess: For external packages to this monorepo that have peer dependencies on packages
@@ -62,11 +62,11 @@ function readPackage(pkg) {
     pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
   }
 
-  for(const dep of Object.keys(forcedDep)) {
-    if(pkg.dependencies?.[dep]) {
+  for (const dep of Object.keys(forcedDep)) {
+    if (pkg.dependencies?.[dep]) {
       pkg.dependencies[dep] = forcedDep[dep];
     }
-    if(pkg.devDependencies?.[dep]) {
+    if (pkg.devDependencies?.[dep]) {
       pkg.devDependencies[dep] = forcedDep[dep];
     }
   }
