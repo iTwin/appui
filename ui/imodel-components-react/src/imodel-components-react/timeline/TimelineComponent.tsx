@@ -19,6 +19,7 @@ import { Scrubber } from "./Scrubber";
 import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";
 import { Icon } from "@itwin/core-react";
 import { SvgCaretLeft, SvgCaretRight, SvgCheckmark, SvgMoreVertical, SvgPlayCircular } from "@itwin/itwinui-icons-react";
+import { maxSizeModifiers } from "./TimelinePopperOptions";
 
 // cspell:ignore millisec
 
@@ -453,7 +454,7 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
     };
 
     return (
-      <DropdownMenu menuItems={createMenuItemNodes}>
+      <DropdownMenu menuItems={createMenuItemNodes} placement="top-start" popperOptions={{modifiers: maxSizeModifiers}}>
         <span data-testid="timeline-settings" className="timeline-settings icon"
           role="button" tabIndex={-1} title={UiComponents.translate("button.label.settings")}
         ><Icon iconSpec={<SvgMoreVertical />} /></span>
