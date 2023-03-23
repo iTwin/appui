@@ -46,7 +46,7 @@ describe("StructPropertyValueRenderer", () => {
 
       const element = renderer.render(structProperty, { containerType: PropertyContainerType.Table, orientation: Orientation.Vertical, onDialogOpen: dialogSpy });
       render(<>{element}</>);
-      await theUserTo.click(screen.getByRole("link", {name: "View {struct} in more detail."}));
+      await theUserTo.click(screen.getByTitle("View {struct} in more detail."));
       expect(dialogSpy).to.have.been.calledWithMatch((arg: any) => arg?.content?.props?.orientation === Orientation.Vertical);
     });
 
