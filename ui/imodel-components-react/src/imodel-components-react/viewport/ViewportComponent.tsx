@@ -12,6 +12,7 @@ import { Point3d, Transform } from "@itwin/core-geometry";
 import { NpcCenter } from "@itwin/core-common";
 import {
   IModelApp, IModelConnection, ScreenViewport,
+  StandardView,
   TentativePoint, ToolSettings, ViewManager,
   Viewport, ViewState,
 } from "@itwin/core-frontend";
@@ -94,7 +95,7 @@ export function ViewportComponent(props: ViewportProps) {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
     if (currentScreenViewport && viewManager.selectedView === currentScreenViewport) {
-      currentScreenViewport.view.setRotationAboutPoint(ViewState.getStandardViewMatrix(args.standardRotation)); // CHANGETO: StandardView.getStandardViewMatrix
+      currentScreenViewport.view.setRotationAboutPoint(StandardView.getStandardRotation(args.standardRotation));
       currentScreenViewport.synchWithView();
     }
   };
