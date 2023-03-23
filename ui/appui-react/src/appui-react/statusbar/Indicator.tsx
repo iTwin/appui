@@ -6,11 +6,9 @@
  * @module StatusBar
  */
 
-import "./Indicator.scss";
-import classnames from "classnames";
 import * as React from "react";
 import { CommonProps } from "@itwin/core-react";
-import { FooterIndicator, FooterPopup } from "@itwin/appui-layout-react";
+import { StatusBar } from "./StatusBar";
 
 /** Properties of [[StatusBarIndicator]] component.
  * @beta
@@ -39,33 +37,24 @@ export function StatusBarIndicator(props: StatusBarIndicatorProps) {
     props.onClick?.();
   };
   const target = React.useRef<HTMLDivElement>(null);
-  const classNames = classnames(
-    "uifw-statusbar-indicator",
-    hasClickAction && "uifw-action",
-    props.className,
-  );
   return (
     <>
-      <FooterIndicator
+      <StatusBar.Field
         ref={target}
-        className={classNames}
+        className={props.className}
         title={props.title}
         style={props.style}
-        onClick={handleOnIndicatorClick}
-        {...{
-          role: "button",
-          tabIndex: -1,
-        }}
+        onClick={hasClickAction ? handleOnIndicatorClick : undefined}
       >
         {props.children}
-      </FooterIndicator>
-      {props.popup && <FooterPopup
+      </StatusBar.Field>
+      {props.popup && <StatusBar.Popup
         target={target.current}
         onClose={() => setIsOpen(false)}
         isOpen={isOpen}
       >
         {props.popup}
-      </FooterPopup>}
+      </StatusBar.Popup>}
     </>
   );
 }
