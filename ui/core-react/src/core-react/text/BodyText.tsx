@@ -12,7 +12,7 @@ import { TextProps } from "./TextProps";
 
 /** Styled body text React functional component
  * @public
- * @deprecated Use <Text variant='body' /> from iTwinUI-react package.
+ * @deprecated in 4.0 Use \<Text variant='body' /\> from iTwinUI-react package.
  */
 export function BodyText(props: TextProps) {
   {/* eslint-disable-next-line */}

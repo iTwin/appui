@@ -34,6 +34,7 @@ export interface TreeNodeContentProps extends CommonProps {
  */
 export function TreeNodeContent(props: TreeNodeContentProps) {
   const { node, valueRendererManager, onLabelRendered, highlightProps } = props;
+  // eslint-disable-next-line @typescript-eslint/promise-function-async
   const label = React.useMemo(() => getLabel(node, valueRendererManager, highlightProps), [node, valueRendererManager, highlightProps]);
   React.useEffect(() => {
     onLabelRendered && onLabelRendered(node);

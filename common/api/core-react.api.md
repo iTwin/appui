@@ -261,7 +261,7 @@ export class ContextMenu extends React_2.PureComponent<ContextMenuProps, Context
     // (undocumented)
     focus: () => void;
     // @internal (undocumented)
-    static getCSSClassNameFromDirection: (direction?: ContextMenuDirection | undefined) => string;
+    static getCSSClassNameFromDirection: (direction?: ContextMenuDirection) => string;
     // (undocumented)
     getRect: () => DOMRect;
     // (undocumented)
@@ -362,7 +362,7 @@ export interface ContextMenuProps extends CommonProps {
 export class ContextSubMenu extends React_2.Component<ContextSubMenuProps, ContextSubMenuState> {
     constructor(props: ContextSubMenuProps);
     // (undocumented)
-    close: (propagate?: boolean | undefined) => void;
+    close: (propagate?: boolean) => void;
     // (undocumented)
     componentDidMount(): void;
     // (undocumented)
