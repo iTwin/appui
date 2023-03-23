@@ -445,7 +445,7 @@ export class ToolWithSettings extends PrimitiveTool {
 
   public async onRestartTool() {
     const tool = new ToolWithSettings();
-    if (!await tool.run())
+    if (!(await tool.run()))
       return this.exitTool();
   }
 

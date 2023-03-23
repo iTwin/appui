@@ -3,10 +3,19 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
+import { IconSpecUtilities } from "@itwin/appui-abstract";
+
 import {
-  AbstractStatusBarItemUtilities,
-  CommonStatusBarItem, CommonToolbarItem, IconSpecUtilities, StageUsage, StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsProvider,
-} from "@itwin/appui-abstract";
+  StageUsage,
+  StatusBarItem,
+  StatusBarItemUtilities,
+  StatusBarSection,
+  ToolbarItem,
+  ToolbarOrientation,
+  ToolbarUsage,
+  UiItemsProvider,
+} from "@itwin/appui-react";
+
 import { SampleTool } from "../../tools/SampleTool";
 import { UnitsPopupUiDataProvider } from "../dialogs/UnitsPopup";
 import { IModelApp } from "@itwin/core-frontend";
@@ -35,7 +44,7 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     SampleTool.register(localizationNamespace);
   }
 
-  public provideToolbarButtonItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): CommonToolbarItem[] {
+  public provideToolbarItems(_stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
     /** Add a tool that displays tool settings  */
     if (stageUsage === StageUsage.General && toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
       return [SampleTool.getActionButtonDef(this.props?.sampleTool?.itemPriority ?? 1000, this.props?.sampleTool?.groupPriority)];
@@ -48,14 +57,14 @@ export class AbstractUiItemsProvider implements UiItemsProvider {
     return [];
   }
 
-  public provideStatusBarItems(_stageId: string, stageUsage: string): CommonStatusBarItem[] {
+  public provideStatusBarItems(_stageId: string, stageUsage: string): StatusBarItem[] {
     const unitsIcon = IconSpecUtilities.createWebComponentIconSpec(statusFieldSvg);
-    const statusBarItems: CommonStatusBarItem[] = [];
+    const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General) {
 
       statusBarItems.push(
         /** Add a status bar item that will open a dialog allow the user to set the active unit system used to display quantity values.  */
-        AbstractStatusBarItemUtilities.createActionItem("AppUiTestProviders:UnitsStatusBarItem",
+        StatusBarItemUtilities.createActionItem("AppUiTestProviders:UnitsStatusBarItem",
           this.props?.unitsStatusBarItem?.section ?? StatusBarSection.Center,
           this.props?.unitsStatusBarItem?.itemPriority ?? 100,
           unitsIcon, AppUiTestProviders.translate("StatusBar.UnitsFlyover"),

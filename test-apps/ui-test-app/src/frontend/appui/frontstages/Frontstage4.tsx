@@ -5,12 +5,38 @@
 import * as React from "react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import {
-  DialogButtonDef, DialogButtonType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertyItem, DialogPropertySyncItem,
-  PropertyChangeResult, PropertyChangeStatus, PropertyDescription, StandardContentLayouts, StandardTypeNames, WidgetState,
+  DialogButtonDef,
+  DialogButtonType,
+  DialogItem,
+  DialogItemValue,
+  DialogLayoutDataProvider,
+  DialogPropertyItem,
+  DialogPropertySyncItem,
+  PropertyChangeResult,
+  PropertyChangeStatus,
+  PropertyDescription,
+  StandardContentLayouts,
+  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import {
-  ActionItemButton, CommandItemDef, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, GroupButton, ModalDialogManager,
-  ModelessDialogManager, NavigationWidget, StagePanel, StagePanelState, ToolButton, ToolWidget, Widget, Zone, ZoneState,
+  ActionItemButton,
+  CommandItemDef,
+  ContentGroup,
+  CoreTools,
+  Frontstage,
+  FrontstageProps,
+  FrontstageProvider,
+  GroupButton,
+  NavigationWidget,
+  StagePanel,
+  StagePanelState,
+  ToolbarGroupItem,
+  ToolButton,
+  ToolWidget,
+  Widget,
+  WidgetState,
+  Zone,
+  ZoneState,
 } from "@itwin/appui-react";
 import { Direction, Toolbar } from "@itwin/appui-layout-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -157,79 +183,76 @@ export class Frontstage4 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        defaultContentId="TestContent1"
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={this.getToolWidget()} />,
-            ]}
-          />
-        }
-        toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        viewNavigationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={this.getNavigationWidget()} />,
-            ]}
-          />
-        }
-        centerRight={
-          <Zone defaultState={ZoneState.Minimized} allowsMerging={false}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.BreadcrumbDemo" control={BreadcrumbDemoWidgetControl} />,
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TreeSelectionDemo" control={TreeSelectionDemoWidgetControl} />,
-            ]}
-          />
-        }
-        rightPanel={<StagePanel
-          defaultState={StagePanelState.Minimized}
-          panelZones={{
-            start: {
-              widgets: [
-                <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
-                <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.BreadcrumbDemo" control={BreadcrumbDemoWidgetControl} />,
-                <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TreeSelectionDemo" control={TreeSelectionDemoWidgetControl} />,
-              ],
-            },
-            end: {
-              widgets: [
-                <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-                <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl2} />,
-                <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-              ],
-            },
-          }}
-        />}
-        statusBar={
-          <Zone
-            widgets={[
-              <Widget isStatusBar={true} classId="SmallStatusBar" />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-              <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      contentGroup: myContentGroup,
+
+      contentManipulation: {
+        content: this.getToolWidget(),
+      },
+
+      toolSettings: {},
+
+      viewNavigation: {
+        content: this.getNavigationWidget(),
+      },
+
+      rightPanel: {
+        defaultState: StagePanelState.Minimized,
+
+        sections: {
+          start: [{
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.NavigationTree",
+          }, {
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.BreadcrumbDemo",
+          }, {
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.TreeSelectionDemo",
+          }, {
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.NavigationTree",
+          }, {
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.BreadcrumbDemo",
+          }, {
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.TreeSelectionDemo",
+          }],
+
+          end: [{
+            id: "VerticalPropertyGrid",
+            defaultState: WidgetState.Hidden,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+          }, {
+            defaultState: WidgetState.Open,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+          }, {
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.TableDemo",
+          }, {
+            id: "VerticalPropertyGrid",
+            defaultState: WidgetState.Hidden,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+          }, {
+            defaultState: WidgetState.Open,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+          }, {
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.TableDemo",
+          }],
+        },
+      },
+
+      statusBar: {
+        classId: "SmallStatusBar",
+      },
+    };
   }
 
   /** Define a ToolWidget with Buttons to display in the TopLeft zone. */
@@ -240,7 +263,7 @@ export class Frontstage4 extends FrontstageProvider {
         items={
           <>
             <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-            <GroupButton
+            <ToolbarGroupItem
               labelKey="SampleApp:buttons.toolGroup"
               iconSpec="icon-placeholder"
               items={[
@@ -260,7 +283,7 @@ export class Frontstage4 extends FrontstageProvider {
           <>
             <ToolButton toolId={AppTools.tool1.id} iconSpec={AppTools.tool1.iconSpec} labelKey={AppTools.tool1.label} execute={AppTools.tool1.execute} />
             <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-            <GroupButton
+            <ToolbarGroupItem
               labelKey="SampleApp:buttons.anotherGroup"
               iconSpec="icon-placeholder"
               items={[
@@ -315,14 +338,14 @@ export class Frontstage4 extends FrontstageProvider {
   }
 
   private _closeModal = () => {
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
   };
 
   private get _spinnerTestDialogItem() {
     const id = "spinners";
     return new CommandItemDef({
       iconSpec: "icon-placeholder", labelKey: "SampleApp:buttons.spinnerTestDialog",
-      execute: () => { ModelessDialogManager.openDialog(<SpinnerTestDialog opened={true} onClose={() => ModelessDialogManager.closeDialog(id)} />, id); },
+      execute: () => { UiFramework.dialogs.modeless.open(<SpinnerTestDialog opened={true} onClose={() => UiFramework.dialogs.modeless.close(id)} />, id); },
     });
   }
 
@@ -332,7 +355,7 @@ export class Frontstage4 extends FrontstageProvider {
       iconSpec: "icon-placeholder",
       labelKey: "SampleApp:buttons.sampleModelessDialog",
       execute: () => {
-        ModelessDialogManager.openDialog(
+        UiFramework.dialogs.modeless.open(
           <SampleModelessDialog
             dialogId={dialogId}
             onClose={() => this._handleModelessClose(dialogId)}
@@ -342,7 +365,7 @@ export class Frontstage4 extends FrontstageProvider {
   }
 
   private _handleModelessClose = (dialogId: string) => {
-    ModelessDialogManager.closeDialog(dialogId);
+    UiFramework.dialogs.modeless.close(dialogId);
     IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, `Closed modeless dialog: ${dialogId}`));
   };
 
@@ -352,7 +375,7 @@ export class Frontstage4 extends FrontstageProvider {
       labelKey: "SampleApp:buttons.sampleModalDialog",
       // eslint-disable-next-line no-console
       execute: () => {
-        ModalDialogManager.openDialog(
+        UiFramework.dialogs.modal.open(
           <SampleModalDialog
             onResult={(result) => this._handleModalResult(result)}
           />);
@@ -361,7 +384,7 @@ export class Frontstage4 extends FrontstageProvider {
   }
 
   private _handleModalResult(result: DialogButtonType) {
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
     IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, `Modal dialog result: ${result}`));
   }
 
@@ -396,13 +419,13 @@ export class Frontstage4 extends FrontstageProvider {
           <>
             <ToolButton toolId={AppTools.item6.id} iconSpec={AppTools.item6.iconSpec} labelKey={AppTools.item6.label} />
             <ToolButton toolId={AppTools.item5.id} iconSpec={AppTools.item5.iconSpec} labelKey={AppTools.item5.label} />
-            <ToolButton toolId="openDialog" label="open modal" iconSpec="icon-placeholder" execute={() => ModalDialogManager.openDialog(this.modalDialog())} />
-            <ToolButton toolId="openDialog2" label="open modal 2" iconSpec="icon-placeholder" execute={() => ModalDialogManager.openDialog(this.modalDialog2())} />
+            <ToolButton toolId="openDialog" label="open modal" iconSpec="icon-placeholder" execute={() => UiFramework.dialogs.modal.open(this.modalDialog())} />
+            <ToolButton toolId="openDialog2" label="open modal 2" iconSpec="icon-placeholder" execute={() => UiFramework.dialogs.modal.open(this.modalDialog2())} />
             <ToolButton toolId="openDynamicModal" label="open dynamic modal" iconSpec="icon-tools" execute={this.handleOpenDynamicModal} />
-            <ToolButton toolId="openRadial" iconSpec="icon-placeholder" execute={() => ModalDialogManager.openDialog(this.radialMenu())} />
-            <ToolButton toolId="popupTest" iconSpec="icon-placeholder" execute={() => ModalDialogManager.openDialog(this.testPopup())} />
+            <ToolButton toolId="openRadial" iconSpec="icon-placeholder" execute={() => UiFramework.dialogs.modal.open(this.radialMenu())} />
+            <ToolButton toolId="popupTest" iconSpec="icon-placeholder" execute={() => UiFramework.dialogs.modal.open(this.testPopup())} />
             <ToolButton toolId="uiProviderModalTest" iconSpec="icon-placeholder" execute={this.handleOpenUiProviderDialogModal} />
-            <ToolButton toolId="reactSelectModalTest" iconSpec="icon-lightbulb" execute={() => ModalDialogManager.openDialog(this.testReactSelectDialog())} />
+            <ToolButton toolId="reactSelectModalTest" iconSpec="icon-lightbulb" execute={() => UiFramework.dialogs.modal.open(this.testReactSelectDialog())} />
           </>
         }
       />;
@@ -414,7 +437,7 @@ export class Frontstage4 extends FrontstageProvider {
           <>
             <ToolButton toolId={AppTools.item8.id} iconSpec={AppTools.item8.iconSpec} labelKey={AppTools.item8.label} />
             <ToolButton toolId={AppTools.item7.id} iconSpec={AppTools.item7.iconSpec} labelKey={AppTools.item7.label} />
-            <GroupButton
+            <ToolbarGroupItem
               labelKey="SampleApp:buttons.toolGroup"
               iconSpec="icon-placeholder"
               items={[

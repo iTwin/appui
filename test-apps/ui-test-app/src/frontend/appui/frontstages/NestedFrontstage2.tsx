@@ -3,10 +3,24 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { WidgetState } from "@itwin/appui-abstract";
 import {
-  ActionItemButton, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, GroupButton, NavigationWidget,
-  NestedFrontstage, ToolButton, ToolWidget, Widget, Zone, ZoneLocation, ZoneState,
+  ActionItemButton,
+  ContentGroup,
+  CoreTools,
+  Frontstage,
+  FrontstageProps,
+  FrontstageProvider,
+  GroupButton,
+  NavigationWidget,
+  NestedFrontstage,
+  ToolbarGroupItem,
+  ToolButton,
+  ToolWidget,
+  Widget,
+  WidgetState,
+  Zone,
+  ZoneLocation,
+  ZoneState,
 } from "@itwin/appui-react";
 import { Direction, Toolbar } from "@itwin/appui-layout-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -26,55 +40,40 @@ export class NestedFrontstage2 extends FrontstageProvider {
   public get frontstage(): React.ReactElement<FrontstageProps> {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup2);
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.rotateViewCommand}
-        contentGroup={contentGroup}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />,
-            ]}
-          />
-        }
-        toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        viewNavigationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />,
-            ]}
-          />
-        }
-        /** The HorizontalPropertyGrid in zone 9 should be merged across zones 6 & 9 and take up the height of both zones initially.
-         *  The zones can be resized manually to take up the full height.
-         */
-        centerRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} mergeWithZone={ZoneLocation.BottomRight}
-          />
-        }
-        statusBar={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.StatusBar" control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget defaultState={WidgetState.Closed} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
-              <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      contentGroup: contentGroup,
+
+      contentManipulation: {
+        content: <FrontstageToolWidget />,
+      },
+
+      toolSettings: {},
+
+      viewNavigation: {
+        content: <FrontstageNavigationWidget />,
+      },
+
+      statusBar: {
+        icon: "icon-placeholder",
+        labelKey: "SampleApp:widgets.StatusBar",
+      },
+
+      rightPanel: {
+        sections: {
+          end: [{
+            defaultState: WidgetState.Closed,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+          }, {
+            id: "VerticalPropertyGrid",
+            defaultState: WidgetState.Hidden,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+          }],
+        },
+      },
+    };
   }
 }
 
@@ -102,7 +101,7 @@ class FrontstageToolWidget extends React.Component {
           <ActionItemButton actionItem={CoreTools.rotateViewCommand} />
           <ToolButton toolId={AppTools.tool1.id} iconSpec={AppTools.tool1.iconSpec} labelKey={AppTools.tool1.label} execute={AppTools.tool1.execute} />
           <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-          <GroupButton
+          <ToolbarGroupItem
             labelKey="SampleApp:buttons.anotherGroup"
             iconSpec="icon-placeholder"
             items={[AppTools.tool1, AppTools.tool2, AppTools.item3, AppTools.item4, AppTools.item5, AppTools.item6, AppTools.item7, AppTools.item8]}

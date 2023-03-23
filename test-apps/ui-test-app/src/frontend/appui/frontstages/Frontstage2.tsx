@@ -6,11 +6,23 @@ import * as React from "react";
 import {
   BaseItemState,
   CommandItemDef,
-  ContentGroup, ContentViewManager, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, GroupItemDef, ItemList, NavigationWidget,
+  ContentGroup,
+  CoreTools,
+  Frontstage,
+  FrontstageProps,
+  FrontstageProvider,
+  GroupItemDef,
+  ItemList,
+  NavigationWidget,
   SelectionContextToolDefinitions,
   SessionStateActionId,
   SyncUiEventId,
-  ToolWidget, UiFramework, Widget, Zone, ZoneState,
+  ToolWidget,
+  UiFramework,
+  Widget,
+  WidgetState,
+  Zone,
+  ZoneState,
 } from "@itwin/appui-react";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { TreeExampleContentControl } from "../contentviews/TreeExampleContent";
@@ -19,7 +31,7 @@ import {
   HorizontalPropertyGridContentControl, HorizontalPropertyGridWidgetControl,
 } from "../widgets/PropertyGridDemoWidget";
 import { IModelApp } from "@itwin/core-frontend";
-import { ConditionalBooleanValue, StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, StandardContentLayouts } from "@itwin/appui-abstract";
 
 /* eslint-disable react/jsx-key, deprecation/deprecation */
 
@@ -60,49 +72,32 @@ export class Frontstage2 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        applicationData={{ key: "value" }}
+    return {
+      id: this.id,
+      contentGroup: myContentGroup,
 
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />,
-            ]}
-          />
-        }
-        toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        viewNavigationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />,
-            ]}
-          />
-        }
-        statusBar={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone allowsMerging={true} defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
-      />
-    );
+      contentManipulation: {
+        content: <FrontstageToolWidget />,
+      },
+
+      toolSettings: {},
+
+      viewNavigation: {
+        content: <FrontstageNavigationWidget />,
+      },
+
+      statusBar: {},
+
+      rightPanel: {
+        sections: {
+          end: [{
+            defaultState: WidgetState.Hidden,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+          }],
+        },
+      },
+    };
   }
 }
 
@@ -111,7 +106,7 @@ function getSelectionContextSyncEventIds(): string[] {
 }
 
 function isSelectionSetEmpty(): boolean {
-  const activeContentControl = ContentViewManager.getActiveContentControl();
+  const activeContentControl = UiFramework.content.getActiveContentControl();
   let selectionCount = 0;
   if (!UiFramework.frameworkStateKey)
     selectionCount = UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState.sessionState.numItemsSelected;

@@ -5,7 +5,7 @@
 import * as React from "react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import { Dialog, Icon } from "@itwin/core-react";
-import { Calculator, ModalDialogManager } from "@itwin/appui-react";
+import { Calculator, StatusBarDialog } from "@itwin/appui-react";
 
 export interface CalculatorDialogProps {
   opened: boolean;
@@ -27,7 +27,7 @@ export class CalculatorDialog extends React.Component<CalculatorDialogProps, Cal
 
   public override render(): JSX.Element {
     return (
-      <Dialog
+      (<StatusBarDialog
         title={"Calculator"}
         opened={this.state.opened}
         modal={false}
@@ -37,7 +37,7 @@ export class CalculatorDialog extends React.Component<CalculatorDialogProps, Cal
         maxHeight={500}
       >
         <Calculator resultIcon={<Icon iconSpec="icon-placeholder" />} onOk={this._handleOk} onCancel={this._handleClose} />
-      </Dialog>
+      </StatusBarDialog>)
     );
   }
 
@@ -48,7 +48,7 @@ export class CalculatorDialog extends React.Component<CalculatorDialogProps, Cal
 
   private _handleClose = () => {
     this.setState({ opened: false }, () => {
-      ModalDialogManager.closeDialog();
+      UiFramework.dialogs.modal.close();
     });
   };
 

@@ -3,10 +3,19 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
+import { IconSpecUtilities } from "@itwin/appui-abstract";
+
 import {
   BackstageItem,
-  BackstageItemUtilities, CommonToolbarItem, IconSpecUtilities, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider,
-} from "@itwin/appui-abstract";
+  BackstageItemUtilities,
+  ToolbarItem,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
+  UiItemsManager,
+  UiItemsProvider,
+} from "@itwin/appui-react";
+
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { UiItemsProvidersTest } from "../../ui-items-providers-test";
 import { CustomFrontstage } from "../frontstages/CustomContent";
@@ -27,12 +36,12 @@ export class CustomContentUiProvider implements UiItemsProvider {
     UiItemsManager.unregister(CustomContentUiProvider.providerId);
   }
 
-  public provideToolbarButtonItems(
+  public provideToolbarItems(
     stageId: string,
     _stageUsage: string, // don't need to check usage since this provider is for specific stage.
     toolbarUsage: ToolbarUsage,
     toolbarOrientation: ToolbarOrientation
-  ): CommonToolbarItem[] {
+  ): ToolbarItem[] {
     if (
       stageId === CustomFrontstage.stageId &&
       toolbarUsage === ToolbarUsage.ContentManipulation &&
@@ -40,7 +49,7 @@ export class CustomContentUiProvider implements UiItemsProvider {
     ) {
       const iconData = IconSpecUtilities.createWebComponentIconSpec(visibilitySemiTransparentSvg);
 
-      const getSvgTestButton = ToolbarItemUtilities.createActionButton(
+      const getSvgTestButton = ToolbarItemUtilities.createActionItem(
         "custom-visibility-tool",
         -1,
         iconData,

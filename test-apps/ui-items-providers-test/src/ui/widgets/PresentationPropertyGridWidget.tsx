@@ -53,11 +53,11 @@ function FavoriteActionButton({ field, imodel }: { field: Field, imodel: IModelC
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-    <div onClick={onActionButtonClicked}>
+    (<div onClick={onActionButtonClicked}>
       {isFavorite ?
         <Icon iconSpec="icon-star" /> :
         <Icon iconSpec="icon-star" />}
-    </div>
+    </div>)
   );
 }
 

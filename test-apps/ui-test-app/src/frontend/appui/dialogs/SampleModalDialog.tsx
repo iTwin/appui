@@ -5,7 +5,7 @@
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
 import { Dialog } from "@itwin/core-react";
-import { ModalDialogManager } from "@itwin/appui-react";
+import { StatusBarDialog } from "@itwin/appui-react";
 import { DialogButtonType } from "@itwin/appui-abstract";
 
 export interface SampleModalDialogProps {
@@ -21,7 +21,7 @@ export class SampleModalDialog extends React.Component<SampleModalDialogProps> {
 
   public override render(): JSX.Element {
     return (
-      <Dialog
+      (<StatusBarDialog
         title={this._title}
         opened={true}
         modal={true}
@@ -34,11 +34,9 @@ export class SampleModalDialog extends React.Component<SampleModalDialogProps> {
           { type: DialogButtonType.OK, onClick: this._handleOK },
           { type: DialogButtonType.Cancel, onClick: this._handleCancel },
         ]}
-      >
-        Lorem ipsum dolor sit amet, posse imperdiet ius in, mundi cotidieque ei per.
-        Vel scripta ornatus assentior cu. Duo nonumy equidem te, per ad malis deserunt consetetur.
-        In per invidunt conceptam. Ea pri aeque corrumpit. Eum ea ipsum perfecto vulputate, an cum oblique ornatus.
-      </Dialog >
+      >Lorem ipsum dolor sit amet, posse imperdiet ius in, mundi cotidieque ei per.
+                Vel scripta ornatus assentior cu. Duo nonumy equidem te, per ad malis deserunt consetetur.
+                In per invidunt conceptam. Ea pri aeque corrumpit. Eum ea ipsum perfecto vulputate, an cum oblique ornatus.</StatusBarDialog >)
     );
   }
 
@@ -52,6 +50,6 @@ export class SampleModalDialog extends React.Component<SampleModalDialogProps> {
 
   private _closeDialog = (followUp: () => void) => {
     followUp && followUp();
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
   };
 }

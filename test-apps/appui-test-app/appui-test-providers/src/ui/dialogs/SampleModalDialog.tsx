@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 
-import { ModalDialogManager } from "@itwin/appui-react";
+import { StatusBarDialog } from "@itwin/appui-react";
 import { Dialog } from "@itwin/core-react";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
@@ -17,7 +17,7 @@ export function SampleModalDialog() {
   const title = React.useRef(AppUiTestProviders.translate("Dialogs.SampleModal.title"));
 
   const closeDialog = React.useCallback(() => {
-    ModalDialogManager.closeDialog();
+    UiFramework.dialogs.modal.close();
   }, []);
 
   const handleOK = React.useCallback(() => {
@@ -31,7 +31,7 @@ export function SampleModalDialog() {
   }, [closeDialog]);
 
   return (
-    <Dialog
+    (<StatusBarDialog
       title={title.current}
       opened={true}
       modal={true}
@@ -44,10 +44,8 @@ export function SampleModalDialog() {
         { type: DialogButtonType.OK, onClick: handleOK },
         { type: DialogButtonType.Cancel, onClick: handleCancel },
       ]}
-    >
-      Lorem ipsum dolor sit amet, posse imperdiet ius in, mundi cotidieque ei per.
-      Vel scripta ornatus assentior cu. Duo nonumy equidem te, per ad malis deserunt consetetur.
-      In per invidunt conceptam. Ea pri aeque corrumpit. Eum ea ipsum perfecto vulputate, an cum oblique ornatus.
-    </Dialog >
+    >Lorem ipsum dolor sit amet, posse imperdiet ius in, mundi cotidieque ei per.
+            Vel scripta ornatus assentior cu. Duo nonumy equidem te, per ad malis deserunt consetetur.
+            In per invidunt conceptam. Ea pri aeque corrumpit. Eum ea ipsum perfecto vulputate, an cum oblique ornatus.</StatusBarDialog >)
   );
 }

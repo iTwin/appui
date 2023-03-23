@@ -30,6 +30,6 @@ export const SampleExpandableBlock: React.FC<ExpandableBlockProps> = (props: Exp
 
   return (
     // eslint-disable-next-line deprecation/deprecation
-    <ExpandableBlock {...props} isExpanded={expanded} onClick={handleClick} onKeyDown={handleKeyDown} />
+    (<ExpandableBlock {...props} isExpanded={expanded} onClick={handleClick} onKeyDown={handleKeyDown} />)
   );
 };

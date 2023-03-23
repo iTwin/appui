@@ -5,8 +5,28 @@
 import * as React from "react";
 import { PlaybackSettings, TimelineComponent, TimelinePausePlayAction, TimelinePausePlayArgs } from "@itwin/imodel-components-react";
 import {
-  ActionItemButton, CommandItemDef, ContentGroup, ContentLayoutDef, ContentLayoutManager, CoreTools, Frontstage, FrontstageDef, FrontstageManager, FrontstageProps, FrontstageProvider, GroupButton,
-  ModalDialogManager, NavigationWidget, StagePanel, ToolButton, ToolWidget, useWidgetDirection, Widget, WidgetStateChangedEventArgs, Zone, ZoneLocation,
+  ActionItemButton,
+  CommandItemDef,
+  ContentGroup,
+  ContentLayoutDef,
+  CoreTools,
+  Frontstage,
+  FrontstageDef,
+  FrontstageProps,
+  FrontstageProvider,
+  GroupButton,
+  NavigationWidget,
+  StagePanel,
+  ToolbarGroupItem,
+  ToolButton,
+  ToolWidget,
+  UiFramework,
+  useWidgetDirection,
+  Widget,
+  WidgetState,
+  WidgetStateChangedEventArgs,
+  Zone,
+  ZoneLocation,
   ZoneState,
 } from "@itwin/appui-react";
 import { Direction, Toolbar } from "@itwin/appui-layout-react";
@@ -15,7 +35,7 @@ import { SmallStatusBarWidgetControl } from "../statusbars/SmallStatusBar";
 import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { TableDemoWidgetControl } from "../widgets/TableDemoWidget";
 import { NestedFrontstage1 } from "./NestedFrontstage1";
-import { StandardContentLayouts, UiAdmin, WidgetState } from "@itwin/appui-abstract";
+import { StandardContentLayouts, UiAdmin } from "@itwin/appui-abstract";
 import { AppUi } from "../AppUi";
 import { TestModalDialog } from "../dialogs/TestModalDialog";
 
@@ -24,7 +44,7 @@ import { TestModalDialog } from "../dialogs/TestModalDialog";
 function RightPanel() {
   const direction = useWidgetDirection();
   const [state, setState] = React.useState(() => {
-    const frontstageDef = FrontstageManager.activeFrontstageDef!;
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef!;
     const widgetDef = frontstageDef.findWidgetDef("VerticalPropertyGrid")!;
     return WidgetState[widgetDef.state];
   });
@@ -33,9 +53,9 @@ function RightPanel() {
       if (args.widgetDef.id === "VerticalPropertyGrid")
         setState(WidgetState[args.widgetState]);
     };
-    FrontstageManager.onWidgetStateChangedEvent.addListener(listener);
+    UiFramework.frontstages.onWidgetStateChangedEvent.addListener(listener);
     return () => {
-      FrontstageManager.onWidgetStateChangedEvent.removeListener(listener);
+      UiFramework.frontstages.onWidgetStateChangedEvent.removeListener(listener);
     };
   });
   return (
@@ -91,13 +111,13 @@ export class Frontstage1 extends FrontstageProvider {
         <span>BottomMost panel:</span>
         &nbsp;
         <button onClick={() => {
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
+          const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
           widgetDef?.setWidgetState(WidgetState.Open);
         }}>show</button>
         &nbsp;
         <button onClick={() => {
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
+          const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
           const widgetDef = frontstageDef?.findWidgetDef("BottomMostPanelWidget");
           widgetDef?.setWidgetState(WidgetState.Hidden);
         }}>hide</button>
@@ -137,113 +157,74 @@ export class Frontstage1 extends FrontstageProvider {
 
   public get frontstage(): React.ReactElement<FrontstageProps> {
     const contentGroup = new ContentGroup(AppUi.TestContentGroup1);
-    return (
-      <Frontstage id={this.id}
-        version={1}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={contentGroup}
-        defaultContentId="TestContent1"
-        topLeft={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />,
-            ]}
-          />
-        }
-        topCenter={
-          <Zone
-            allowsMerging
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        topRight={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageNavigationWidget />} />,
-            ]}
-          />
-        }
-        centerLeft={
-          <Zone
-            allowsMerging={true}
-            defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget id="VerticalPropertyGrid" iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone
-            allowsMerging={true}
-            defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-            ]}
-          />
-        }
-        /** The HorizontalPropertyGrid in zone 9 should be merged across zones 6 & 9 and take up the height of both zones initially.
-         *  The zones can be resized manually to take up the full height.
-         */
-        centerRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true} mergeWithZone={ZoneLocation.BottomRight}
-          />
-        }
-        bottomCenter={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone defaultState={ZoneState.Open} allowsMerging={true}
-            widgets={[
-              <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} fillZone={true} />,
-              <Widget id="VerticalPropertyGrid1" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
+    return {
+      id: this.id,
+      version: 1,
+      contentGroup: contentGroup,
 
-        topMostPanel={
-          <StagePanel
-            widgets={this._topMostPanel.widgets}
-          />
-        }
-        topPanel={
-          <StagePanel
-            resizable={false}
-            widgets={this._topPanel.widgets}
-          />
-        }
-        leftPanel={
-          <StagePanel
-            allowedZones={this._leftPanel.allowedZones}
-          />
-        }
-        rightPanel={
-          <StagePanel
-            allowedZones={this._rightPanel.allowedZones}
-            resizable={false}
-            size={200}
-            widgets={this._rightPanel.widgets}
-          />
-        }
-        bottomPanel={
-          <StagePanel
-            widgets={this._bottomPanel.widgets}
-          />
-        }
-        bottomMostPanel={
-          <StagePanel
-            allowedZones={this._bottomMostPanel.allowedZones}
-            size={100}
-            widgets={this._bottomMostPanel.widgets}
-          />
-        }
-      />
-    );
+      contentManipulation: {
+        content: <FrontstageToolWidget />,
+      },
+
+      toolSettings: {},
+
+      viewNavigation: {
+        content: <FrontstageNavigationWidget />,
+      },
+
+      statusBar: {},
+
+      topPanel: {
+        resizable: false,
+
+        sections: {
+          start: [...this._topPanel.widgets],
+          end: [...this._topMostPanel.widgets],
+        },
+      },
+
+      leftPanel: {
+        sections: {
+          start: [{
+            id: "VerticalPropertyGrid",
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+          }],
+
+          end: [{
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.TableDemo",
+          }],
+        },
+      },
+
+      rightPanel: {
+        resizable: false,
+        size: 200,
+
+        sections: {
+          start: [...this._rightPanel.widgets],
+
+          end: [{
+            defaultState: WidgetState.Open,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+          }, {
+            id: "VerticalPropertyGrid1",
+            defaultState: WidgetState.Hidden,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+          }],
+        },
+      },
+
+      bottomPanel: {
+        sections: {
+          start: [...this._bottomPanel.widgets],
+          end: [...this._bottomMostPanel.widgets],
+        },
+      },
+    };
   }
 }
 /** Define a ToolWidget with Buttons to display in the TopLeft zone.
@@ -266,7 +247,7 @@ class FrontstageToolWidget extends React.Component {
       labelKey: "SampleApp:buttons.openNestedFrontstage1",
       execute: async () => {
         const frontstage1Def = await FrontstageToolWidget.getFrontstage1Def();
-        await FrontstageManager.openNestedFrontstage(frontstage1Def);
+        await UiFramework.frontstages.openNestedFrontstage(frontstage1Def);
       },
     });
   }
@@ -277,11 +258,11 @@ class FrontstageToolWidget extends React.Component {
       iconSpec: "icon-placeholder",
       labelKey: "SampleApp:buttons.switchLayout",
       execute: async () => {
-        const activeFrontstageDef = FrontstageManager.activeFrontstageDef;
+        const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
         if (activeFrontstageDef) {
           const contentLayout = new ContentLayoutDef(StandardContentLayouts.twoHorizontalSplit);
           if (contentLayout && activeFrontstageDef.contentGroup) {
-            await ContentLayoutManager.setActiveLayout(contentLayout, activeFrontstageDef.contentGroup);
+            await UiFramework.content.layouts.setActive(contentLayout, activeFrontstageDef.contentGroup);
           }
         }
       },
@@ -313,7 +294,7 @@ class FrontstageToolWidget extends React.Component {
     return new CommandItemDef({
       iconSpec: "icon-smiley-happy",
       label: "Open Modal Dialog",
-      execute: () => ModalDialogManager.openDialog(<TestModalDialog />),
+      execute: () => UiFramework.dialogs.modal.open(<TestModalDialog />),
     });
   }
 
@@ -343,7 +324,7 @@ class FrontstageToolWidget extends React.Component {
           <ActionItemButton actionItem={CoreTools.rotateViewCommand} />
           <ToolButton toolId={AppTools.tool1.id} iconSpec={AppTools.tool1.iconSpec} labelKey={AppTools.tool1.label} execute={AppTools.tool1.execute} />
           <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-          <GroupButton
+          <ToolbarGroupItem
             labelKey="SampleApp:buttons.anotherGroup"
             iconSpec="icon-placeholder"
             items={

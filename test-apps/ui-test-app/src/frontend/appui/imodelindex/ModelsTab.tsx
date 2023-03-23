@@ -424,10 +424,10 @@ export class ModelsTab extends React.Component<ModelsProps, ModelsState> {
       );
     } else if (this.state.docCodes) {
       return (
-        <div className="documentcode-container">
+        (<div className="documentcode-container">
           {this.state.docCodes.map((pair: DocCodeCategory) => (
             // eslint-disable-next-line react/jsx-key
-            <div className="dc-table" >
+            (<div className="dc-table" >
               <div className="dc-table-header">
                 <Checkbox checked={pair.checked} onClick={this._onDocCodeCheckedStatesChanged.bind(this, pair)} />
                 <span className="dc-table-title">{pair.name}</span>
@@ -439,9 +439,9 @@ export class ModelsTab extends React.Component<ModelsProps, ModelsState> {
                   ))}
                 </CheckListBox>
               </div>
-            </div>
+            </div>)
           ))}
-        </div>
+        </div>)
       );
     } else {
       return (

@@ -13,15 +13,25 @@ import { OpenDialogOptions } from "electron";
 
 import { FillCentered } from "@itwin/core-react";
 import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, CoreTools, Frontstage, FrontstageManager,
-  FrontstageProps, FrontstageProvider, ToolWidget, UiFramework, Widget, Zone,
+  ConfigurableCreateInfo,
+  ContentControl,
+  ContentGroup,
+  CoreTools,
+  Frontstage,
+  FrontstageProps,
+  FrontstageProvider,
+  StageUsage,
+  ToolWidget,
+  UiFramework,
+  Widget,
+  Zone,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../..";
 import { AppTools } from "../../tools/ToolSpecifications";
 import { IModelViewPicker } from "../imodelopen/IModelViewPicker";
 import { LocalFileSupport } from "../LocalFileSupport";
 import { Button, Headline } from "@itwin/itwinui-react";
-import { StageUsage, StandardContentLayouts } from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { hasSavedViewLayoutProps } from "../../tools/ImmediateTools";
 import { ViewsFrontstage } from "./ViewsFrontstage";
 
@@ -33,11 +43,11 @@ class LocalFileOpenControl extends ContentControl {
   }
 
   private _handleClose = () => {
-    FrontstageManager.closeModalFrontstage();
+    UiFramework.frontstages.closeModalFrontstage();
   };
 
   private _handleViewsSelected = async (iModelConnection: IModelConnection, views: Id64String[]) => {
-    FrontstageManager.closeModalFrontstage();
+    UiFramework.frontstages.closeModalFrontstage();
     await SampleAppIModelApp.openViews(iModelConnection, views);
   };
 }
@@ -53,9 +63,9 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
   public static async open() {
     if (LocalFileSupport.localFilesSupported()) {
       const frontstageProvider = new LocalFileOpenFrontstage();
-      FrontstageManager.addFrontstageProvider(frontstageProvider);
-      const frontstageDef = await FrontstageManager.getFrontstageDef(frontstageProvider.frontstage.props.id);
-      await FrontstageManager.setActiveFrontstageDef(frontstageDef);
+      UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageProvider.frontstage.props.id);
+      await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
     }
   }
 
@@ -71,21 +81,16 @@ export class LocalFileOpenFrontstage extends FrontstageProvider {
       ],
     });
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={contentGroup}
-        isIModelIndependent={true}
-        usage={StageUsage.Private}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />, // eslint-disable-line react/jsx-key
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      contentGroup: contentGroup,
+      isIModelIndependent: true,
+      usage: StageUsage.Private,
+
+      contentManipulation: {
+        content: <FrontstageToolWidget />,
+      },
+    };
   }
 }
 
@@ -95,9 +100,9 @@ class FrontstageToolWidget extends React.Component {
   public override render() {
     return (
       // eslint-disable-next-line deprecation/deprecation
-      <ToolWidget
+      (<ToolWidget
         appButton={AppTools.backstageToggleCommand}
-      />
+      />)
     );
   }
 }

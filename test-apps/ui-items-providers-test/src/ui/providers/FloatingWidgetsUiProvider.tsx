@@ -4,11 +4,14 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  AbstractWidgetProps,
-  StagePanelLocation, StagePanelSection,
+  StagePanelLocation,
+  StagePanelSection,
   StageUsage,
-  UiItemsManager, UiItemsProvider, WidgetState,
-} from "@itwin/appui-abstract";
+  UiItemsManager,
+  UiItemsProvider,
+  Widget,
+  WidgetState,
+} from "@itwin/appui-react";
 import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget";
 
 /**
@@ -27,21 +30,23 @@ export class FloatingWidgetsUiProvider implements UiItemsProvider {
   }
 
   public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation,
-    section?: StagePanelSection): ReadonlyArray<AbstractWidgetProps> {
-    const widgets: AbstractWidgetProps[] = [];
+    section?: StagePanelSection): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
     if (stageUsage === StageUsage.General && location === StagePanelLocation.Left && section === StagePanelSection.Start) {
-      const widget: AbstractWidgetProps = {
+      const widget: Widget = {
         id: "ui-item-provider-test:ViewAttributesWidget",
         label: "View Attributes",
         icon: "icon-window-settings",
         defaultState: WidgetState.Floating,
-        isFloatingStateSupported: true,
-        floatingContainerId: "ui-item-provider-test:ViewAttributesWidget",
-        hideWithUiWhenFloating: true,
-        // eslint-disable-next-line react/display-name
-        getWidgetContent: () => {
-          return <ViewAttributesWidgetComponent />;
+
+        canFloat: {
+          containerId: "ui-item-provider-test:ViewAttributesWidget",
+          hideWithUi: true,
         },
+
+        // eslint-disable-next-line react/display-name
+        content: <ViewAttributesWidgetComponent />,
+
         canPopout: true,
       };
 

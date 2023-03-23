@@ -91,18 +91,18 @@ export class ITwinDropdown extends React.Component<ITwinDropdownProps, ITwinDrop
       );
     } else {
       return (
-        <ul style={ulStyle}>
+        (<ul style={ulStyle}>
           {iTwins && iTwins.map((iTwin: ITwin, i: number) => (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-            <li style={liStyle} key={i} onClick={() => this._onItemClick(iTwin)}>
+            (<li style={liStyle} key={i} onClick={() => this._onItemClick(iTwin)}>
               <span className="ip-icon icon icon-placeholder" />
               <div className="ip-details">
                 <span>{iTwin.code}</span>
                 <span>{iTwin.name}</span>
               </div>
-            </li>
+            </li>)
           ))}
-        </ul>
+        </ul>)
       );
     }
   }

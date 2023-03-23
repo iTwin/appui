@@ -10,9 +10,8 @@
 
 import { BeButtonEvent, EventHandled, IModelApp, PrimitiveTool } from "@itwin/core-frontend";
 
-import {
-  IconSpecUtilities, ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
+import { ToolbarItemUtilities } from "@itwin/appui-react";
 import inspectIconSvg from "@bentley/icons-generic/icons/search.svg";
 
 export class InspectUiItemInfoTool extends PrimitiveTool {
@@ -110,7 +109,7 @@ export class InspectUiItemInfoTool extends PrimitiveTool {
 
   public async onRestartTool() {
     const tool = new InspectUiItemInfoTool();
-    if (!await tool.run())
+    if (!(await tool.run()))
       return this.exitTool();
   }
 
@@ -135,7 +134,7 @@ export class InspectUiItemInfoTool extends PrimitiveTool {
     const overrides = {
       groupPriority,
     };
-    return ToolbarItemUtilities.createActionButton(InspectUiItemInfoTool.toolId, itemPriority, InspectUiItemInfoTool.iconSpec, InspectUiItemInfoTool.flyover,
+    return ToolbarItemUtilities.createActionItem(InspectUiItemInfoTool.toolId, itemPriority, InspectUiItemInfoTool.iconSpec, InspectUiItemInfoTool.flyover,
       async () => { await IModelApp.tools.run(InspectUiItemInfoTool.toolId); }, overrides);
   }
 }

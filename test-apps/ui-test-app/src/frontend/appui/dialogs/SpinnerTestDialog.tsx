@@ -28,7 +28,7 @@ export class SpinnerTestDialog extends React.Component<SpinnerTestDialogProps, S
 
   public override render(): JSX.Element {
     return (
-      <Dialog
+      (<StatusBarDialog
         title={this._title}
         opened={this.state.opened}
         modal={false}
@@ -95,7 +95,7 @@ export class SpinnerTestDialog extends React.Component<SpinnerTestDialogProps, S
             </div>
           </span>
         </div>
-      </Dialog >
+      </StatusBarDialog >)
     );
   }
 

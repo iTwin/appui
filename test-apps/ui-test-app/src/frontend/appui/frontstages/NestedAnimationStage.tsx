@@ -30,19 +30,14 @@ export class NestedAnimationStage extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={<FrontstageToolWidget />} />, // eslint-disable-line react/jsx-key
-            ]}
-          />
-        }
-      />
-    );
+    return {
+      id: this.id,
+      contentGroup: myContentGroup,
+
+      contentManipulation: {
+        content: <FrontstageToolWidget />,
+      },
+    };
   }
 }
 
@@ -52,9 +47,9 @@ class FrontstageToolWidget extends React.Component {
   public override render() {
     return (
       // eslint-disable-next-line deprecation/deprecation
-      <ToolWidget
+      (<ToolWidget
         appButton={NestedFrontstage.backToPreviousFrontstageCommand}
-      />
+      />)
     );
   }
 }

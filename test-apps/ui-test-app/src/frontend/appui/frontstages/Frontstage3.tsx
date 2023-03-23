@@ -3,10 +3,26 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { StandardContentLayouts, WidgetState } from "@itwin/appui-abstract";
+import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  ActionItemButton, ContentGroup, CoreTools, Frontstage, FrontstageProps, FrontstageProvider, GroupButton, IModelViewportControl,
-  NavigationWidget, ToolButton, ToolWidget, UiFramework, Widget, Zone, ZoneLocation, ZoneState,
+  ActionItemButton,
+  ContentGroup,
+  CoreTools,
+  Frontstage,
+  FrontstageProps,
+  FrontstageProvider,
+  GroupButton,
+  IModelViewportControl,
+  NavigationWidget,
+  ToolbarGroupItem,
+  ToolButton,
+  ToolWidget,
+  UiFramework,
+  Widget,
+  WidgetState,
+  Zone,
+  ZoneLocation,
+  ZoneState,
 } from "@itwin/appui-react";
 import { Direction, Toolbar } from "@itwin/appui-layout-react";
 import { AppTools } from "../../tools/ToolSpecifications";
@@ -59,70 +75,51 @@ export class Frontstage3 extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage
-        id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        contentManipulationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={this.getToolWidget()} />,
-            ]}
-          />
-        }
-        toolSettings={
-          <Zone
-            widgets={[
-              <Widget isToolSettings={true} />,
-            ]}
-          />
-        }
-        viewNavigationTools={
-          <Zone
-            widgets={[
-              <Widget isFreeform={true} element={this.getNavigationWidget()} />,
-            ]}
-          />
-        }
-        centerRight={
-          <Zone allowsMerging={true} defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.NavigationTree" control={NavigationTreeWidgetControl} />,
-            ]}
-          />
-        }
-        bottomLeft={
-          <Zone allowsMerging={true} defaultState={ZoneState.Minimized}
-            widgets={[
-              <Widget iconSpec="icon-placeholder" labelKey="SampleApp:widgets.TableDemo" control={TableDemoWidgetControl} />,
-            ]}
-          />
-        }
-        statusBar={
-          <Zone defaultState={ZoneState.Open}
-            widgets={[
-              <Widget isStatusBar={true} control={SmallStatusBarWidgetControl} />,
-            ]}
-          />
-        }
-        bottomRight={
-          <Zone allowsMerging={true} defaultState={ZoneState.Minimized} mergeWithZone={ZoneLocation.CenterRight}
-            widgets={[
-              <Widget id="VerticalPropertyGrid" defaultState={WidgetState.Hidden} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.VerticalPropertyGrid" control={VerticalPropertyGridWidgetControl} />,
-              <Widget defaultState={WidgetState.Open} iconSpec="icon-placeholder" labelKey="SampleApp:widgets.HorizontalPropertyGrid" control={HorizontalPropertyGridWidgetControl} />,
-            ]}
-          />
-        }
-      // bottomPanel={
-      //   <StagePanel
-      //     widgets={[
-      //       <Widget iconSpec="icon-placeholder" label="Large Table" control={TableExampleWidgetControl} />,
-      //     ]}
-      //   />
-      // }
-      />
-    );
+    return {
+      id: this.id,
+      contentGroup: myContentGroup,
+
+      contentManipulation: {
+        content: this.getToolWidget(),
+      },
+
+      toolSettings: {},
+
+      viewNavigation: {
+        content: this.getNavigationWidget(),
+      },
+
+      statusBar: {},
+
+      rightPanel: {
+        sections: {
+          start: [{
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.NavigationTree",
+          }],
+
+          end: [{
+            id: "VerticalPropertyGrid",
+            defaultState: WidgetState.Hidden,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+          }, {
+            defaultState: WidgetState.Open,
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+          }],
+        },
+      },
+
+      leftPanel: {
+        sections: {
+          end: [{
+            icon: "icon-placeholder",
+            labelKey: "SampleApp:widgets.TableDemo",
+          }],
+        },
+      },
+    };
   }
 
   /** Define a ToolWidget with Buttons to display in the TopLeft zone.
@@ -136,7 +133,7 @@ export class Frontstage3 extends FrontstageProvider {
           <>
             <ActionItemButton actionItem={AppTools.item1} />
             <ActionItemButton actionItem={AppTools.item2} />
-            <GroupButton
+            <ToolbarGroupItem
               labelKey="SampleApp:buttons.toolGroup"
               iconSpec="icon-placeholder"
               items={[AppTools.tool1, AppTools.tool2, AppTools.infoMessageCommand, AppTools.warningMessageCommand, AppTools.errorMessageCommand, AppTools.noIconMessageCommand, AppTools.item6, AppTools.item7, AppTools.item8]}
@@ -154,7 +151,7 @@ export class Frontstage3 extends FrontstageProvider {
           <>
             <ToolButton toolId={AppTools.tool1.id} iconSpec={AppTools.tool1.iconSpec} labelKey={AppTools.tool1.label} execute={AppTools.tool1.execute} />
             <ToolButton toolId={AppTools.tool2.id} iconSpec={AppTools.tool2.iconSpec} labelKey={AppTools.tool2.label} execute={AppTools.tool2.execute} />
-            <GroupButton
+            <ToolbarGroupItem
               labelKey="SampleApp:buttons.toolGroup"
               iconSpec="icon-placeholder"
               items={[
@@ -188,7 +185,7 @@ export class Frontstage3 extends FrontstageProvider {
           <>
             <ToolButton toolId={AppTools.item5.id} iconSpec={AppTools.item5.iconSpec} labelKey={AppTools.item5.label} execute={AppTools.item5.execute} />
             <ToolButton toolId={AppTools.item6.id} iconSpec={AppTools.item6.iconSpec} labelKey={AppTools.item6.label} execute={AppTools.item6.execute} />
-            <GroupButton
+            <ToolbarGroupItem
               labelKey="SampleApp:buttons.toolGroup"
               iconSpec="icon-placeholder"
               items={[AppTools.infoMessageCommand, AppTools.warningMessageCommand, AppTools.errorMessageCommand]}

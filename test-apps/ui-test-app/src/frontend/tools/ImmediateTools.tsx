@@ -13,13 +13,17 @@ import * as React from "react";
 import { IModelApp, IModelConnection, Tool } from "@itwin/core-frontend";
 import { UiItemsProvidersTest } from "@itwin/ui-items-providers-test";
 
-import {
-  IconSpecUtilities, ToolbarItemUtilities,
-} from "@itwin/appui-abstract";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
 import { LocalStateStorage } from "@itwin/core-react";
 import {
-  ChildWindowLocationProps, ContentDialog, ContentDialogManager, ContentGroup, ContentLayoutManager, ContentProps,
-  FrontstageManager, StageContentLayout, StageContentLayoutProps, UiFramework,
+  ChildWindowLocationProps,
+  ContentDialog,
+  ContentGroup,
+  ContentProps,
+  StageContentLayout,
+  StageContentLayoutProps,
+  ToolbarItemUtilities,
+  UiFramework,
 } from "@itwin/appui-react";
 import toolIconSvg from "@bentley/icons-generic/icons/window-add.svg";
 import tool2IconSvg from "@bentley/icons-generic/icons/window-maximize.svg";
@@ -99,12 +103,12 @@ export class SaveContentLayoutTool extends Tool {
   }
 
   public override async run(): Promise<boolean> {
-    if (FrontstageManager.activeFrontstageDef && ContentLayoutManager.activeLayout && ContentLayoutManager.activeContentGroup) {
+    if (UiFramework.frontstages.activeFrontstageDef && UiFramework.content.layouts.activeLayout && UiFramework.content.layouts.activeContentGroup) {
       const localSettings = new LocalStateStorage();
 
       // Create props for the Layout, ContentGroup and ViewStates
-      const savedViewLayoutProps = StageContentLayout.viewLayoutToProps(ContentLayoutManager.activeLayout,
-        ContentLayoutManager.activeContentGroup, true, (contentProps: ContentProps) => {
+      const savedViewLayoutProps = StageContentLayout.viewLayoutToProps(UiFramework.content.layouts.activeLayout,
+        UiFramework.content.layouts.activeContentGroup, true, (contentProps: ContentProps) => {
           if (contentProps.applicationData) {
             if (contentProps.applicationData.iModelConnection)
               delete contentProps.applicationData.iModelConnection;
@@ -116,11 +120,11 @@ export class SaveContentLayoutTool extends Tool {
       if (savedViewLayoutProps.contentLayoutProps)
         delete savedViewLayoutProps.contentLayoutProps;
 
-      if (FrontstageManager.activeFrontstageDef.contentGroupProvider)
-        savedViewLayoutProps.contentGroupProps = FrontstageManager.activeFrontstageDef.contentGroupProvider.prepareToSaveProps(savedViewLayoutProps.contentGroupProps);
+      if (UiFramework.frontstages.activeFrontstageDef.contentGroupProvider)
+        savedViewLayoutProps.contentGroupProps = UiFramework.frontstages.activeFrontstageDef.contentGroupProvider.prepareToSaveProps(savedViewLayoutProps.contentGroupProps);
 
       await localSettings.saveSetting("ContentGroupLayout",
-        getIModelSpecificKey(FrontstageManager.activeFrontstageDef.id, UiFramework.getIModelConnection()),
+        getIModelSpecificKey(UiFramework.frontstages.activeFrontstageDef.id, UiFramework.getIModelConnection()),
         savedViewLayoutProps);
     }
     return true;
@@ -141,16 +145,16 @@ export class RestoreSavedContentLayoutTool extends Tool {
   }
 
   public override async run(): Promise<boolean> {
-    if (FrontstageManager.activeFrontstageDef) {
-      const savedViewLayoutProps = await getSavedViewLayoutProps(FrontstageManager.activeFrontstageDef.id, UiFramework.getIModelConnection());
+    if (UiFramework.frontstages.activeFrontstageDef) {
+      const savedViewLayoutProps = await getSavedViewLayoutProps(UiFramework.frontstages.activeFrontstageDef.id, UiFramework.getIModelConnection());
       if (savedViewLayoutProps) {
         let contentGroupProps = savedViewLayoutProps.contentGroupProps;
-        if (FrontstageManager.activeFrontstageDef.contentGroupProvider)
-          contentGroupProps = FrontstageManager.activeFrontstageDef.contentGroupProvider.applyUpdatesToSavedProps(savedViewLayoutProps.contentGroupProps);
+        if (UiFramework.frontstages.activeFrontstageDef.contentGroupProvider)
+          contentGroupProps = UiFramework.frontstages.activeFrontstageDef.contentGroupProvider.applyUpdatesToSavedProps(savedViewLayoutProps.contentGroupProps);
         const contentGroup = new ContentGroup(contentGroupProps);
 
         // activate the layout
-        await ContentLayoutManager.setActiveContentGroup(contentGroup);
+        await UiFramework.content.layouts.setActiveContentGroup(contentGroup);
 
         // emphasize the elements
         StageContentLayout.emphasizeElementsFromProps(contentGroup, savedViewLayoutProps);
@@ -173,11 +177,11 @@ export class RemoveSavedContentLayoutTool extends Tool {
   }
 
   public override async run(): Promise<boolean> {
-    if (FrontstageManager.activeFrontstageDef) {
+    if (UiFramework.frontstages.activeFrontstageDef) {
       const localSettings = new LocalStateStorage();
 
       await localSettings.deleteSetting("ContentGroupLayout",
-        getIModelSpecificKey(FrontstageManager.activeFrontstageDef.id, UiFramework.getIModelConnection()));
+        getIModelSpecificKey(UiFramework.frontstages.activeFrontstageDef.id, UiFramework.getIModelConnection()));
     }
     return true;
   }
@@ -204,7 +208,7 @@ export class OpenComponentExamplesPopoutTool extends Tool {
     };
     const connection = UiFramework.getIModelConnection();
     if (connection)
-      UiFramework.childWindowManager.openChildWindow("ComponentExamples", "Component Examples",
+      UiFramework.childWindows.open("ComponentExamples", "Component Examples",
         <ComponentExamplesPage categories={[...ComponentExamplesProvider.categories, ...ITwinUIExamplesProvider.categories]} hideThemeOption />,
         location, UiFramework.useDefaultPopoutUrl);
   }
@@ -227,7 +231,7 @@ export class OpenComponentExamplesPopoutTool extends Tool {
       groupPriority,
     };
     const iconSpec = IconSpecUtilities.createWebComponentIconSpec(toolIconSvg);
-    return ToolbarItemUtilities.createActionButton(OpenComponentExamplesPopoutTool.toolId, itemPriority, iconSpec, OpenComponentExamplesPopoutTool.flyover,
+    return ToolbarItemUtilities.createActionItem(OpenComponentExamplesPopoutTool.toolId, itemPriority, iconSpec, OpenComponentExamplesPopoutTool.flyover,
       async () => { await IModelApp.tools.run(OpenComponentExamplesPopoutTool.toolId); }, overrides);
   }
 }
@@ -250,7 +254,7 @@ export class OpenCustomPopoutTool extends Tool {
       left: 0,
       top: 0,
     };
-    UiFramework.childWindowManager.openChildWindow("CustomPopout", "Custom Popout", <PopupTestPanel />, location /* , UiFramework.useDefaultPopoutUrl*/);
+    UiFramework.childWindows.open("CustomPopout", "Custom Popout", <PopupTestPanel />, location /* , UiFramework.useDefaultPopoutUrl*/);
   }
 
   public static override get flyover(): string {
@@ -270,7 +274,7 @@ export class OpenCustomPopoutTool extends Tool {
     const overrides = {
       groupPriority,
     };
-    return ToolbarItemUtilities.createActionButton(OpenCustomPopoutTool.toolId, itemPriority, OpenCustomPopoutTool.iconSpec, OpenCustomPopoutTool.flyover,
+    return ToolbarItemUtilities.createActionItem(OpenCustomPopoutTool.toolId, itemPriority, OpenCustomPopoutTool.iconSpec, OpenCustomPopoutTool.flyover,
       async () => { await IModelApp.tools.run(OpenCustomPopoutTool.toolId); }, overrides);
   }
 }
@@ -294,7 +298,7 @@ export class OpenViewPopoutTool extends Tool {
       left: 0,
       top: 0,
     };
-    UiFramework.childWindowManager.openChildWindow("ViewPopout", "View Popout", <PopupTestView contentId="ui-test-app:popout-test" showViewPicker />, location);
+    UiFramework.childWindows.open("ViewPopout", "View Popout", <PopupTestView contentId="ui-test-app:popout-test" showViewPicker />, location);
   }
 
   public static override get flyover(): string {
@@ -314,7 +318,7 @@ export class OpenViewPopoutTool extends Tool {
     const overrides = {
       groupPriority,
     };
-    return ToolbarItemUtilities.createActionButton(OpenViewPopoutTool.toolId, itemPriority, OpenViewPopoutTool.iconSpec, OpenViewPopoutTool.flyover,
+    return ToolbarItemUtilities.createActionItem(OpenViewPopoutTool.toolId, itemPriority, OpenViewPopoutTool.iconSpec, OpenViewPopoutTool.flyover,
       async () => { await IModelApp.tools.run(OpenViewPopoutTool.toolId); }, overrides);
   }
 }
@@ -323,7 +327,7 @@ export class OpenViewPopoutTool extends Tool {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function IModelViewDialog({ x, y, id, title }: { x?: number, y?: number, id: string, title: string }) {
   const handleClose = React.useCallback(() => {
-    ContentDialogManager.closeDialog(id);
+    UiFramework.content.dialogs.close(id);
   }, [id]);
 
   return (
@@ -364,7 +368,7 @@ export class OpenViewDialogTool extends Tool {
     OpenViewDialogTool._counter = OpenViewDialogTool._counter + 1;
     let x: number | undefined;
     let y: number | undefined;
-    const stage = FrontstageManager.activeFrontstageDef;
+    const stage = UiFramework.frontstages.activeFrontstageDef;
     if (stage && stage.nineZoneState) {
       const floatingContentCount = stage.floatingContentControls?.length ?? 0;
       // we should not really every support more than 8 floating views
@@ -373,7 +377,7 @@ export class OpenViewDialogTool extends Tool {
         y = (.3 * stage.nineZoneState.size.height) + (40 * (floatingContentCount - 1));
       }
     }
-    ContentDialogManager.openDialog(<IModelViewDialog x={x} y={y} id={OpenViewDialogTool.dialogId}
+    UiFramework.content.dialogs.open(<IModelViewDialog x={x} y={y} id={OpenViewDialogTool.dialogId}
       title={`IModel View (${OpenViewDialogTool._counter})`} />, OpenViewDialogTool.dialogId);
   }
 
@@ -394,7 +398,7 @@ export class OpenViewDialogTool extends Tool {
     const overrides = {
       groupPriority,
     };
-    return ToolbarItemUtilities.createActionButton(OpenViewDialogTool.toolId, itemPriority, OpenViewDialogTool.iconSpec, OpenViewDialogTool.flyover,
+    return ToolbarItemUtilities.createActionItem(OpenViewDialogTool.toolId, itemPriority, OpenViewDialogTool.iconSpec, OpenViewDialogTool.flyover,
       async () => { await IModelApp.tools.run(OpenViewDialogTool.toolId); }, overrides);
   }
 }

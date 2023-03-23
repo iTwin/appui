@@ -11,8 +11,12 @@ import classnames from "classnames";
 import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { DisplayStyle2dState, DisplayStyle3dState, DisplayStyleState, ScreenViewport } from "@itwin/core-frontend";
-import { ContentControl, ContentControlActivatedEventArgs, ContentViewManager, FrontstageManager } from "@itwin/appui-react";
-import { FooterIndicator } from "@itwin/appui-layout-react";
+import {
+  ContentControl,
+  ContentControlActivatedEventArgs,
+  StatusBarIndicator,
+  UiFramework,
+} from "@itwin/appui-react";
 import { Select, SelectOption } from "@itwin/itwinui-react";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { CommonProps } from "@itwin/core-react";
@@ -69,9 +73,9 @@ export function DisplayStyleField(props: CommonProps) {
     };
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    setStateFromActiveContent(ContentViewManager.getActiveContentControl());
+    setStateFromActiveContent(UiFramework.content.getActiveContentControl());
 
-    return FrontstageManager.onContentControlActivatedEvent.addListener(handleContentControlActivatedEvent);
+    return UiFramework.frontstages.onContentControlActivatedEvent.addListener(handleContentControlActivatedEvent);
   }, [setStateFromActiveContent]);
 
   const handleDisplayStyleSelected = React.useCallback(async (newValue: string) => {
@@ -92,7 +96,7 @@ export function DisplayStyleField(props: CommonProps) {
     return null;
 
   return (
-    <FooterIndicator
+    (<StatusBarIndicator
       className={classnames("uifw-statusFields-displayStyle", props.className)}
       style={props.style}
       isInFooterMode={true}
@@ -101,6 +105,6 @@ export function DisplayStyleField(props: CommonProps) {
         title={tooltip} aria-label={label}
         className="uifw-statusFields-displayStyle-selector"
         size="small" />
-    </FooterIndicator >
+    </StatusBarIndicator >)
   );
 }

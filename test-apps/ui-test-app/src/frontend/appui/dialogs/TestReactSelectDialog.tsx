@@ -5,7 +5,7 @@
 /* eslint-disable deprecation/deprecation */
 import * as React from "react";
 import { Dialog, LabeledThemedSelect, ThemedSelect } from "@itwin/core-react";
-import { ModalDialogManager } from "@itwin/appui-react";
+import { StatusBarDialog } from "@itwin/appui-react";
 import { DialogButtonType } from "@itwin/appui-abstract";
 
 enum ColorOptions {
@@ -61,30 +61,31 @@ export class TestReactSelectDialog extends React.Component<TestReactSelectDialog
     };
   }
   public override render(): JSX.Element {
-    return (<Dialog
-      title={"React-Select Modal Dialog"}
-      opened={this.state.opened}
-      resizable={this.state.resizable}
-      movable={this.state.movable}
-      modal={this.state.overlay}
-      buttonCluster={[
-        { type: DialogButtonType.OK, onClick: this._handleOK },
-        { type: DialogButtonType.Cancel, onClick: this._handleCancel },
-      ]}
-      onClose={this._handleCancel}
-      onEscape={this._handleCancel}
-      minHeight={300}
-      maxHeight={600}
-      maxWidth={600}
-    >
-      <div className="modal-react-select-dialog">
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <div><label className="label-data">Color: </label><ThemedSelect options={colorChoices} /></div>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <div><label className="label-data">Choose Cities: </label><ThemedSelect isMulti={true} isSearchable={true} options={cityChoices} /></div>
-        <div><LabeledThemedSelect label={"Labeled ThemedSelect Multi"} isMulti={true} isSearchable={true} options={cityChoices} /></div>
-      </div>
-    </Dialog>
+    return (
+      (<StatusBarDialog
+        title={"React-Select Modal Dialog"}
+        opened={this.state.opened}
+        resizable={this.state.resizable}
+        movable={this.state.movable}
+        modal={this.state.overlay}
+        buttonCluster={[
+          { type: DialogButtonType.OK, onClick: this._handleOK },
+          { type: DialogButtonType.Cancel, onClick: this._handleCancel },
+        ]}
+        onClose={this._handleCancel}
+        onEscape={this._handleCancel}
+        minHeight={300}
+        maxHeight={600}
+        maxWidth={600}
+      >
+        <div className="modal-react-select-dialog">
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <div><label className="label-data">Color: </label><ThemedSelect options={colorChoices} /></div>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <div><label className="label-data">Choose Cities: </label><ThemedSelect isMulti={true} isSearchable={true} options={cityChoices} /></div>
+          <div><LabeledThemedSelect label={"Labeled ThemedSelect Multi"} isMulti={true} isSearchable={true} options={cityChoices} /></div>
+        </div>
+      </StatusBarDialog>)
     );
   }
 
@@ -106,7 +107,7 @@ export class TestReactSelectDialog extends React.Component<TestReactSelectDialog
       opened: false,
     }, () => {
       if (!this.state.opened)
-        ModalDialogManager.closeDialog();
+        UiFramework.dialogs.modal.close();
       followUp();
     });
   };

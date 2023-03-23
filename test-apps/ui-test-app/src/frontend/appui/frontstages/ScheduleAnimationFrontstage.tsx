@@ -28,12 +28,9 @@ export class ScheduleAnimationFrontstage extends FrontstageProvider {
       },
     );
 
-    return (
-      <Frontstage id={this.id}
-        defaultTool={CoreTools.selectElementCommand}
-        contentGroup={myContentGroup}
-        applicationData={{ key: "value" }}
-      />
-    );
+    return {
+      id: this.id,
+      contentGroup: myContentGroup,
+    };
   }
 }

@@ -59,12 +59,12 @@ export class NavigationItem extends React.Component<NavigationItemProps> {
     const icon = classnames("icon", this.props.icon);
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-      <li className={classes} onClick={this._onClick}>
+      (<li className={classes} onClick={this._onClick}>
         <span className={icon} />
         <span className="label">{this.props.label}</span>
         {this.props.highlightStyle === NavigationHighlightStyle.movingbar && this.props.index === 0 && this.renderMovebarIndicator()}
         {this.props.highlightStyle === NavigationHighlightStyle.bar && this.renderBarIndicator()}
-      </li>
+      </li>)
     );
   }
 
@@ -74,11 +74,11 @@ export class NavigationItem extends React.Component<NavigationItemProps> {
     const icon = classnames("icon", this.props.icon);
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-      <li className={classes} onClick={this._onClick}>
+      (<li className={classes} onClick={this._onClick}>
         <span className={icon} />
         <span className="label">{this.props.label}</span>
         <div className="open-navbar-barindicator"></div>
-      </li>
+      </li>)
     );
   }
 

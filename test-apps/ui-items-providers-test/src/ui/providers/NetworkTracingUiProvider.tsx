@@ -6,17 +6,34 @@
 
 import * as React from "react";
 import {
-  AbstractWidgetProps, AbstractZoneLocation, BackstageItem,
-  BackstageItemUtilities, BadgeType,
-  CommonStatusBarItem,
-  CommonToolbarItem, ConditionalBooleanValue, IconSpecUtilities,
-  StagePanelLocation, StagePanelSection,
-  StatusBarSection,
-  ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage,
-  UiItemsManager, UiItemsProvider, WidgetState,
+  AbstractZoneLocation,
+  BadgeType,
+  ConditionalBooleanValue,
+  IconSpecUtilities,
 } from "@itwin/appui-abstract";
 import { CustomToolbarItem } from "@itwin/components-react";
-import { FrontstageManager, Indicator, PropsHelper, StateManager, StatusBarItemUtilities, SyncUiEventDispatcher, UiFramework } from "@itwin/appui-react";
+import {
+  BackstageItem,
+  BackstageItemUtilities,
+  Indicator,
+  PropsHelper,
+  StagePanelLocation,
+  StagePanelSection,
+  StateManager,
+  StatusBarItem,
+  StatusBarItemUtilities,
+  StatusBarSection,
+  SyncUiEventDispatcher,
+  ToolbarItem,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
+  UiFramework,
+  UiItemsManager,
+  UiItemsProvider,
+  Widget,
+  WidgetState,
+} from "@itwin/appui-react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { PresentationPropertyGridWidget, PresentationPropertyGridWidgetControl } from "../widgets/PresentationPropertyGridWidget";
 import { OpenTraceDialogTool } from "../../tools/OpenTraceDialogTool";
@@ -51,7 +68,7 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
 
   // Listen for selection changes and when nothing is selection hide the Widget by calling widgetDef.setWidgetState
   private _onPresentationSelectionChanged = async (evt: SelectionChangeEventArgs, selectionProvider: ISelectionProvider) => {
-    const widgetDef = FrontstageManager.activeFrontstageDef?.findWidgetDef("ui-item-provider-test:elementDataListWidget");
+    const widgetDef = UiFramework.frontstages.activeFrontstageDef?.findWidgetDef("ui-item-provider-test:elementDataListWidget");
     if (widgetDef) {
       const selection = selectionProvider.getSelection(evt.imodel, evt.level);
       if (selection.isEmpty) {
@@ -90,12 +107,12 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
     );
   }
 
-  public provideToolbarButtonItems(
+  public provideToolbarItems(
     stageId: string,
     _stageUsage: string, // don't need to check usage since this provider is for specific stage.
     toolbarUsage: ToolbarUsage,
     toolbarOrientation: ToolbarOrientation
-  ): CommonToolbarItem[] {
+  ): ToolbarItem[] {
     if (
       stageId === NetworkTracingFrontstage.stageId &&
       toolbarUsage === ToolbarUsage.ContentManipulation &&
@@ -118,7 +135,7 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
       const getConnectedButton = OpenTraceDialogTool.getActionButtonDef(10);
 
       /** Sample group entry that hides if isTraceAvailable is set to false  */
-      const getDownstreamButton = ToolbarItemUtilities.createActionButton(
+      const getDownstreamButton = ToolbarItemUtilities.createActionItem(
         "trace-tool-downstream",
         15, /* order within group button */
         IconSpecUtilities.createWebComponentIconSpec(downstreamQuerySvg),
@@ -128,12 +145,12 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
         },
         {
           isHidden: isTracingNotAvailableCondition,
-          badgeType: BadgeType.TechnicalPreview,
+          badge: BadgeType.TechnicalPreview,
         }
       );
 
       /** Sample group entry that disables if isTraceAvailable is set to false  */
-      const getUpstreamButton = ToolbarItemUtilities.createActionButton(
+      const getUpstreamButton = ToolbarItemUtilities.createActionItem(
         "trace-tool-upstream",
         20, /* order within group button */
         IconSpecUtilities.createWebComponentIconSpec(upstreamQuerySvg),
@@ -143,7 +160,7 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
         },
         {
           isDisabled: isTracingNotAvailableCondition,
-          badgeType: BadgeType.TechnicalPreview,
+          badge: BadgeType.TechnicalPreview,
         }
       );
 
@@ -151,18 +168,18 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
        * result as it opens a sample dialog. The other two entries are used to show that the display state of
        * group button entries can be maintained by conditional values.
        */
-      const groupSpec = ToolbarItemUtilities.createGroupButton(
+      const groupSpec = ToolbarItemUtilities.createGroupItem(
         "trace-tool-group", 230,
         IconSpecUtilities.createWebComponentIconSpec(queryMultiSvg),
         UiItemsProvidersTest.translate("trace-tool-group"),
         [getConnectedButton, getDownstreamButton, getUpstreamButton],
         {
-          badgeType: BadgeType.TechnicalPreview,
+          badge: BadgeType.TechnicalPreview,
         }
       );
 
       /** The following test tool toggles the value Redux store and dispatches sync event that triggers tool refresh */
-      const toggleTracingSpec = ToolbarItemUtilities.createActionButton(
+      const toggleTracingSpec = ToolbarItemUtilities.createActionItem(
         "trace-tool-toggle", 235, "icon-activity", "Toggle isTraceAvailable",
         (): void => {
           NetworkTracingUiProvider.toggleTraceTool();
@@ -170,14 +187,14 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
       );
 
       /** The following test tool hides/shows based on value in Redux store via `isTraceAvailableCondition` */
-      const getStandaloneButton = ToolbarItemUtilities.createActionButton(
+      const getStandaloneButton = ToolbarItemUtilities.createActionItem(
         "trace-tool-standalone", 232, "icon-symbol", UiItemsProvidersTest.translate("tools.trace-tool-standalone"),
         (): void => {
           IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, "trace-tool-standalone activated", undefined, OutputMessageType.Toast));
         },
         {
           isHidden: isTracingNotAvailableCondition,
-          badgeType: BadgeType.TechnicalPreview,
+          badge: BadgeType.TechnicalPreview,
         }
       );
 
@@ -198,23 +215,24 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
   }
 
   public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation,
-    section?: StagePanelSection, zoneLocation?: AbstractZoneLocation, _stageAppData?: any): ReadonlyArray<AbstractWidgetProps> {
-    const widgets: AbstractWidgetProps[] = [];
+    section?: StagePanelSection, zoneLocation?: AbstractZoneLocation, _stageAppData?: any): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
     if ((stageId === NetworkTracingFrontstage.stageId || stageId === "ui-test-app:no-widget-frontstage" || stageId === "ViewsFrontstage") &&
       (location === StagePanelLocation.Right && section === StagePanelSection.Start && UiFramework.uiVersion !== "1") ||
       zoneLocation === AbstractZoneLocation.BottomRight) {
       /** This widget when only be displayed when there is an element selected. */
-      const widget: AbstractWidgetProps = {
+      const widget: Widget = {
         ...{
           id: "ui-item-provider-test:elementDataListWidget",
           label: "Data",
           defaultState: WidgetState.Hidden,
-          isFloatingStateSupported: true,
-          hideWithUiWhenFloating: true,
-          // eslint-disable-next-line react/display-name
-          getWidgetContent: () => {
-            return <SelectedElementDataWidgetComponent />;
+
+          canFloat: {
+            hideWithUi: true,
           },
+
+          // eslint-disable-next-line react/display-name
+          content: <SelectedElementDataWidgetComponent />,
         }, ...PropsHelper.getAbstractPropsForReactIcon(<SvgApple />),
       };
       widgets.push(widget);
@@ -222,18 +240,20 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
 
     if (stageId === NetworkTracingFrontstage.stageId &&
       (location === StagePanelLocation.Right && section === StagePanelSection.End)) {
-      const widget: AbstractWidgetProps = {
+      const widget: Widget = {
         id: PresentationPropertyGridWidgetControl.id,
         label: PresentationPropertyGridWidgetControl.label,
         icon: PresentationPropertyGridWidgetControl.iconSpec,
         defaultState: WidgetState.Open,
-        isFloatingStateSupported: true,
-        defaultFloatingSize: { width: 400, height: 600 },
-        isFloatingStateWindowResizable: true,
-        // eslint-disable-next-line react/display-name
-        getWidgetContent: () => {
-          return <PresentationPropertyGridWidget />;
+
+        canFloat: {
+          isResizable: true,
+          defaultSize: { width: 400, height: 600 },
         },
+
+        // eslint-disable-next-line react/display-name
+        content: <PresentationPropertyGridWidget />,
+
         canPopout: true,
       };
 
@@ -247,12 +267,12 @@ export class NetworkTracingUiProvider implements UiItemsProvider {
     const iconProps = PropsHelper.getAbstractPropsForReactIcon(<SvgApple />);
     return [
       // use 200 to group it with secondary stages in ui-test-app
-      BackstageItemUtilities.createStageLauncher(NetworkTracingFrontstage.stageId, 200, 1, label, "from provider", iconProps.icon, { internalData: iconProps.internalData }),
+      BackstageItemUtilities.createStageLauncher(NetworkTracingFrontstage.stageId, 200, 1, label, "from provider", iconProps.icon, {}),
     ];
   }
 
-  public provideStatusBarItems(stageId: string, _stageUsage: string): CommonStatusBarItem[] {
-    const statusBarItems: CommonStatusBarItem[] = [];
+  public provideStatusBarItems(stageId: string, _stageUsage: string): StatusBarItem[] {
+    const statusBarItems: StatusBarItem[] = [];
     if (stageId === NetworkTracingFrontstage.stageId) {
       statusBarItems.push(
         StatusBarItemUtilities.createStatusBarItem("Test:Visibility", StatusBarSection.Center, 50, <Indicator iconSpec={<SvgList />} isLabelVisible={false} label="Searchable Tree" opened={false} dialog={<VisibilityTreeComponent />} />),

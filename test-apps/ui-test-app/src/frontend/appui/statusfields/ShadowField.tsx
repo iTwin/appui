@@ -11,8 +11,12 @@ import classnames from "classnames";
 import * as React from "react";
 import { RenderMode } from "@itwin/core-common";
 import { ScreenViewport } from "@itwin/core-frontend";
-import { ContentControl, ContentControlActivatedEventArgs, ContentViewManager, FrontstageManager } from "@itwin/appui-react";
-import { FooterIndicator } from "@itwin/appui-layout-react";
+import {
+  ContentControl,
+  ContentControlActivatedEventArgs,
+  StatusBarIndicator,
+  UiFramework,
+} from "@itwin/appui-react";
 import { Checkbox } from "@itwin/itwinui-react";
 import { CommonProps } from "@itwin/core-react";
 
@@ -48,12 +52,12 @@ export class ShadowField extends React.Component<CommonProps, ShadowFieldState> 
   };
 
   public override componentDidMount() {
-    FrontstageManager.onContentControlActivatedEvent.addListener(this._handleContentControlActivatedEvent);
-    this.setStateFromActiveContent(ContentViewManager.getActiveContentControl());
+    UiFramework.frontstages.onContentControlActivatedEvent.addListener(this._handleContentControlActivatedEvent);
+    this.setStateFromActiveContent(UiFramework.content.getActiveContentControl());
   }
 
   public override componentWillUnmount() {
-    FrontstageManager.onContentControlActivatedEvent.removeListener(this._handleContentControlActivatedEvent);
+    UiFramework.frontstages.onContentControlActivatedEvent.removeListener(this._handleContentControlActivatedEvent);
   }
 
   private _onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,12 +100,12 @@ export class ShadowField extends React.Component<CommonProps, ShadowFieldState> 
     }
 
     return (
-      <FooterIndicator
+      (<StatusBarIndicator
         className={classnames("uifw-statusFields-shadowField", this.props.className)}
         style={this.props.style}
       >
         <Checkbox style={cbStyle} label="Shadows" checked={isChecked} onChange={this._onChange} disabled={isDisabled} className="statusfield-checkbox" />
-      </FooterIndicator >
+      </StatusBarIndicator >)
     );
   }
 }

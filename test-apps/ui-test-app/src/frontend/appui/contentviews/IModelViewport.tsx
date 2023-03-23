@@ -4,8 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiManager, ContentViewManager, IModelViewportControlOptions,
-  IModelViewportControl as UIFW_IModelViewportControl, ViewSelector, ViewUtilities,
+  ConfigurableCreateInfo,
+  IModelViewportControl as UIFW_IModelViewportControl,
+  IModelViewportControlOptions,
+  UiFramework,
+  ViewSelector,
+  ViewUtilities,
 } from "@itwin/appui-react";
 // uncomment following to test overriding default view overlay
 // import { ScreenViewport } from "@itwin/core-frontend";
@@ -110,7 +114,7 @@ class MockIModelViewport extends React.Component<MockIModelViewportProps> {
   }
 
   private _onMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    this.drawCanvas(event, ContentViewManager.isMouseDown);
+    this.drawCanvas(event, UiFramework.content.isMouseDown);
   };
 
   private _onMouseLeave = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -132,4 +136,4 @@ class MockIModelViewport extends React.Component<MockIModelViewportProps> {
   };
 }
 
-ConfigurableUiManager.registerControl(IModelViewportControl.id, IModelViewportControl);
+UiFramework.controls.register(IModelViewportControl.id, IModelViewportControl);

@@ -8,7 +8,7 @@
 
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import { AbstractDialogDataProvider } from "../ui/dialogs/TestUiProviderDialog";
-import { ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { ToolbarItemUtilities } from "@itwin/appui-react";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 
 /**
@@ -53,7 +53,7 @@ export class OpenAbstractDialogTool extends Tool {
       groupPriority,
     };
 
-    return ToolbarItemUtilities.createActionButton(OpenAbstractDialogTool.toolId, itemPriority, OpenAbstractDialogTool.iconSpec, OpenAbstractDialogTool.flyover,
+    return ToolbarItemUtilities.createActionItem(OpenAbstractDialogTool.toolId, itemPriority, OpenAbstractDialogTool.iconSpec, OpenAbstractDialogTool.flyover,
       async () => { await IModelApp.tools.run(OpenAbstractDialogTool.toolId); },
       overrides);
   }

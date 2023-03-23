@@ -10,8 +10,11 @@ import { viewWithUnifiedSelection } from "@itwin/presentation-components";
 import { TimelineComponent, TimelineDataProvider, ViewportComponent } from "@itwin/imodel-components-react";
 import { LoadingSpinner } from "@itwin/core-react";
 import {
-  AnalysisAnimationTimelineDataProvider, ConfigurableCreateInfo, ConfigurableUiManager, ContentViewManager, ScheduleAnimationTimelineDataProvider,
-  UiFramework, ViewportContentControl,
+  AnalysisAnimationTimelineDataProvider,
+  ConfigurableCreateInfo,
+  ScheduleAnimationTimelineDataProvider,
+  UiFramework,
+  ViewportContentControl,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../..";
 
@@ -113,7 +116,7 @@ class ScheduleAnimationViewport extends React.Component<ScheduleAnimationViewpor
 
   private _onAnimationFractionChanged = (animationFraction: number) => {
     if (this.state.dataProvider && undefined === this.state.dataProvider.viewport) {
-      const activeContentControl = ContentViewManager.getActiveContentControl();
+      const activeContentControl = UiFramework.content.getActiveContentControl();
       if (activeContentControl && activeContentControl.viewport) {
         if (this.state.viewId === activeContentControl.viewport.view.id)
           this.state.dataProvider.viewport = activeContentControl.viewport; // eslint-disable-line react/no-direct-mutation-state
@@ -189,4 +192,4 @@ class ScheduleAnimationViewport extends React.Component<ScheduleAnimationViewpor
   }
 }
 
-ConfigurableUiManager.registerControl("ScheduleAnimationControl", ScheduleAnimationViewportControl);
+UiFramework.controls.register("ScheduleAnimationControl", ScheduleAnimationViewportControl);

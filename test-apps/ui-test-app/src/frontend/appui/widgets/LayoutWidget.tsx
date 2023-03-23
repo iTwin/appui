@@ -5,9 +5,14 @@
 import * as React from "react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import {
-  FrontstageDef, FrontstageManager, StagePanelState, useActiveFrontstageDef,
+  FrontstageDef,
+  StagePanelLocation,
+  StagePanelState,
+  UiFramework,
+  useActiveFrontstageDef,
+  WidgetState,
 } from "@itwin/appui-react";
-import { SpecialKey, StagePanelLocation, WidgetState } from "@itwin/appui-abstract";
+import { SpecialKey } from "@itwin/appui-abstract";
 import { NumberInput, RectangleProps } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 
@@ -23,7 +28,7 @@ function usePanelSize(location: StagePanelLocation) {
     setSize(panelDef?.size);
   }, [panelDef]);
   React.useEffect(() => {
-    const remove = FrontstageManager.onPanelSizeChangedEvent.addListener((e) => {
+    const remove = UiFramework.frontstages.onPanelSizeChangedEvent.addListener((e) => {
       if (e.panelDef.location === location)
         setSize(e.size);
     });
@@ -39,7 +44,7 @@ function usePanelState(location: StagePanelLocation) {
     setState(panelDef?.panelState);
   }, [panelDef]);
   React.useEffect(() => {
-    const remove = FrontstageManager.onPanelStateChangedEvent.addListener((e) => {
+    const remove = UiFramework.frontstages.onPanelStateChangedEvent.addListener((e) => {
       if (e.panelDef.location === location)
         setState(e.panelState);
     });
@@ -92,7 +97,7 @@ function PanelSelect({
     { label: StagePanelLocation[StagePanelLocation.Bottom], value: StagePanelLocation[StagePanelLocation.Bottom] },
   ]);
   return (
-    <Select style={{ width: "160px" }}
+    (<Select style={{ width: "160px" }}
       options={options}
       value={StagePanelLocation[location]}
       onChange={(value) => {
@@ -100,7 +105,7 @@ function PanelSelect({
         onChange(newLocation);
       }}
       size="small"
-    />
+    />)
   );
 }
 
@@ -179,7 +184,7 @@ function useWidgetState(id: string) {
     setState(widgetDef?.state);
   }, [widgetDef]);
   React.useEffect(() => {
-    const remove = FrontstageManager.onWidgetStateChangedEvent.addListener((e) => {
+    const remove = UiFramework.frontstages.onWidgetStateChangedEvent.addListener((e) => {
       if (e.widgetDef.id === id)
         setState(e.widgetState);
     });
@@ -203,7 +208,7 @@ function WidgetInfo({
     setIsFloating(frontstageDef ? frontstageDef.isFloatingWidget(id) : false);
     setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
 
-    return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((e) => {
+    return UiFramework.frontstages.onFrontstageNineZoneStateChangedEvent.addListener((e) => {
       if (e.frontstageDef === frontstageDef) {
         setIsFloating(frontstageDef ? frontstageDef.isFloatingWidget(id) : false);
         setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
@@ -236,38 +241,34 @@ function WidgetInfo({
       setYPos(value);
   }, []);
 
-  return (
-    <>
-      {state !== undefined && <div>state={WidgetState[state]}</div>}
-      {<div>Location={isFloating ? "Floating" : isPopout ? "Pop-out" : "Panel"}</div>}
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <div style={{ display: "flex" }}>
-          <span>X:</span>
-          <NumberInput style={{ width: "60px" }} disabled={isFloating} value={xPos} step={5} onChange={handleXChanged} />
-        </div>
-        <div style={{ display: "flex" }}>
-          <span>Y:</span>
-          <NumberInput style={{ width: "60px" }} disabled={isFloating} value={yPos} step={5} onChange={handleYChanged} />
-        </div>
-        <Button disabled={isFloating} onClick={handleFloatClick} >Float</Button>
-        <Button disabled={isPopout || !widgetDef?.canPopout} onClick={handlePopoutClick} >Pop Out</Button>
+  return (<>
+    {state !== undefined && <div>state={WidgetState[state]}</div>}
+    {<div>Location={isFloating ? "Floating" : isPopout ? "Pop-out" : "Panel"}</div>}
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex" }}>
+        <span>X:</span>
+        <NumberInput style={{ width: "60px" }} disabled={isFloating} value={xPos} step={5} onChange={handleXChanged} />
       </div>
-      <Button disabled={!(isFloating || isPopout)} onClick={handleDockClick} >Dock</Button>
-    </>
-  );
+      <div style={{ display: "flex" }}>
+        <span>Y:</span>
+        <NumberInput style={{ width: "60px" }} disabled={isFloating} value={yPos} step={5} onChange={handleYChanged} />
+      </div>
+      <Button disabled={isFloating} onClick={handleFloatClick} >Float</Button>
+      <Button disabled={isPopout || !widgetDef?.canPopout} onClick={handlePopoutClick} >Pop Out</Button>
+    </div>
+    <Button disabled={!(isFloating || isPopout)} onClick={handleDockClick} >Dock</Button>
+  </>);
 }
 
 function FrontstageControls() {
-  return (
-    <>
-      <b>Frontstage controls</b>
-      <br />
-      <button onClick={() => {
-        const frontstageDef = FrontstageManager.activeFrontstageDef;
-        frontstageDef?.restoreLayout();
-      }}>Restore layout</button>
-    </>
-  );
+  return (<>
+    <b>Frontstage controls</b>
+    <br />
+    <button onClick={() => {
+      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+      frontstageDef?.restoreLayout();
+    }}>Restore layout</button>
+  </>);
 }
 
 function PanelStateSelect({
@@ -310,7 +311,7 @@ function WidgetStateSelect({
     { label: WidgetState[WidgetState.Unloaded], value: WidgetState[WidgetState.Unloaded] },
   ]);
   return (
-    <Select style={{ width: "160px" }}
+    (<Select style={{ width: "160px" }}
       placeholder="State"
       options={options}
       value={state === undefined ? "placeholder" : WidgetState[state]}
@@ -319,7 +320,7 @@ function WidgetStateSelect({
         onChange(newState);
       }}
       size="small"
-    />
+    />)
   );
 }
 
@@ -332,7 +333,7 @@ function PanelControls({
   const [sizeValue, setSizeValue] = React.useState<string>("");
   const handleSubmitValue = () => {
     setSizeValue("");
-    const frontstageDef = FrontstageManager.activeFrontstageDef;
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
     const panelDef = frontstageDef?.getStagePanelDef(location);
     if (!panelDef)
       return;
@@ -340,55 +341,53 @@ function PanelControls({
       return;
     panelDef.size = Number(sizeValue);
   };
-  return (
-    <>
-      <Input
-        type="number"
-        placeholder="Size"
-        value={sizeValue}
-        size="small"
-        style={{
-          display: "inline-block",
-          width: "auto",
-        }}
-        onChange={(e) => {
-          setSizeValue(e.target.value);
-        }}
-        onBlur={handleSubmitValue}
-        onKeyDown={(e) => {
-          switch (e.key) {
-            case SpecialKey.Enter: {
-              handleSubmitValue();
-              break;
-            }
-            case SpecialKey.Escape: {
-              setSizeValue("");
-              break;
-            }
+  return (<>
+    <Input
+      type="number"
+      placeholder="Size"
+      value={sizeValue}
+      size="small"
+      style={{
+        display: "inline-block",
+        width: "auto",
+      }}
+      onChange={(e) => {
+        setSizeValue(e.target.value);
+      }}
+      onBlur={handleSubmitValue}
+      onKeyDown={(e) => {
+        switch (e.key) {
+          case SpecialKey.Enter: {
+            handleSubmitValue();
+            break;
           }
-        }}
-      />
-      <button onClick={() => {
-        const frontstageDef = FrontstageManager.activeFrontstageDef;
+          case SpecialKey.Escape: {
+            setSizeValue("");
+            break;
+          }
+        }
+      }}
+    />
+    <button onClick={() => {
+      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+      const panelDef = frontstageDef?.getStagePanelDef(location);
+      if (!panelDef)
+        return;
+      panelDef.size = undefined;
+    }}>setSize(undefined)</button>
+    <br />
+    <PanelStateSelect
+      state={state}
+      onChange={(newState) => {
+        setState(undefined);
+        const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
         const panelDef = frontstageDef?.getStagePanelDef(location);
         if (!panelDef)
           return;
-        panelDef.size = undefined;
-      }}>setSize(undefined)</button>
-      <br />
-      <PanelStateSelect
-        state={state}
-        onChange={(newState) => {
-          setState(undefined);
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
-          const panelDef = frontstageDef?.getStagePanelDef(location);
-          if (!panelDef)
-            return;
-          panelDef.panelState = newState;
-        }}
-      />
-    </>
-  );
+        panelDef.panelState = newState;
+      }}
+    />
+  </>);
 }
 
 function WidgetControls({
@@ -397,30 +396,28 @@ function WidgetControls({
   id: string;
 }) {
   const [state, setState] = React.useState<WidgetState | undefined>(undefined);
-  return (
-    <>
-      <WidgetStateSelect
-        state={state}
-        onChange={(s) => {
-          setState(undefined);
-          const frontstageDef = FrontstageManager.activeFrontstageDef;
-          const widgetDef = frontstageDef?.findWidgetDef(id);
-          widgetDef?.setWidgetState(s);
-        }}
-      />
-      <br />
-      <button onClick={() => {
-        const frontstageDef = FrontstageManager.activeFrontstageDef;
+  return (<>
+    <WidgetStateSelect
+      state={state}
+      onChange={(s) => {
+        setState(undefined);
+        const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
         const widgetDef = frontstageDef?.findWidgetDef(id);
-        widgetDef?.show();
-      }}>Show</button>
-      <button onClick={() => {
-        const frontstageDef = FrontstageManager.activeFrontstageDef;
-        const widgetDef = frontstageDef?.findWidgetDef(id);
-        widgetDef?.expand();
-      }}>Expand</button>
-    </>
-  );
+        widgetDef?.setWidgetState(s);
+      }}
+    />
+    <br />
+    <button onClick={() => {
+      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+      const widgetDef = frontstageDef?.findWidgetDef(id);
+      widgetDef?.show();
+    }}>Show</button>
+    <button onClick={() => {
+      const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+      const widgetDef = frontstageDef?.findWidgetDef(id);
+      widgetDef?.expand();
+    }}>Expand</button>
+  </>);
 }
 
 function SelectPanelControls() {
@@ -537,7 +534,7 @@ export function FloatingLayoutInfo() {
   const [floatingWidgetId, setFloatingWidgetId] = React.useState<string | undefined>(floatingIds?.length ? floatingIds[0] : undefined);
   const [bounds, setBounds] = React.useState<RectangleProps>(() => getFloatingWidgetContainerBounds(frontstageDef, floatingWidgetId));
   React.useEffect(() => {
-    return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((e) => {
+    return UiFramework.frontstages.onFrontstageNineZoneStateChangedEvent.addListener((e) => {
       if (e.frontstageDef === frontstageDef) {
         const allIds = frontstageDef ? frontstageDef.getFloatingWidgetContainerIds() : [];
         setFloatingIds(allIds);

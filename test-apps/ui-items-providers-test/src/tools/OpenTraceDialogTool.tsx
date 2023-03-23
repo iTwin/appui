@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
-import { ModalDialogManager } from "@itwin/appui-react";
+import { ToolbarItemUtilities } from "@itwin/appui-react";
 import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog";
-import { IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import { IconSpecUtilities } from "@itwin/appui-abstract";
 import { UiItemsProvidersTest } from "../ui-items-providers-test";
 import connectedQuerySvg from "../ui/icons/connected-query.svg";
 
@@ -29,7 +29,7 @@ export class OpenTraceDialogTool extends Tool {
   public static override get maxArgs() { return 0; }
 
   public override async run(): Promise<boolean> {
-    ModalDialogManager.openDialog(<SampleModalDialog />);
+    UiFramework.dialogs.modal.open(<SampleModalDialog />);
     return true;
   }
 
@@ -51,7 +51,7 @@ export class OpenTraceDialogTool extends Tool {
       groupPriority,
     };
     const iconSpec = IconSpecUtilities.createWebComponentIconSpec(`${this.iconSpec}`);
-    return ToolbarItemUtilities.createActionButton(OpenTraceDialogTool.toolId, itemPriority, iconSpec, OpenTraceDialogTool.flyover,
+    return ToolbarItemUtilities.createActionItem(OpenTraceDialogTool.toolId, itemPriority, iconSpec, OpenTraceDialogTool.flyover,
       async () => { await IModelApp.tools.run(OpenTraceDialogTool.toolId); },
       overrides);
   }

@@ -9,7 +9,7 @@ import { IModelApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/c
 import { ColorPickerButton } from "@itwin/imodel-components-react";
 import { Dialog } from "@itwin/core-react";
 import { DialogButtonType } from "@itwin/appui-abstract";
-import { ModalDialogManager } from "@itwin/appui-react";
+import { StatusBarDialog } from "@itwin/appui-react";
 
 export interface TestModalDialog2Props {
   opened: boolean;
@@ -64,7 +64,7 @@ export class TestModalDialog2 extends React.Component<TestModalDialog2Props, Tes
   public override render(): JSX.Element {
 
     return (
-      <Dialog
+      (<StatusBarDialog
         title={"Modal Dialog"}
         opened={true}
         resizable={this.state.resizable}
@@ -96,7 +96,7 @@ export class TestModalDialog2 extends React.Component<TestModalDialog2Props, Tes
             <ColorPickerButton className="color-picker-text" initialColor={this.state.colors2[3]} onColorPick={(color: ColorDef) => this._handleColorChange2(color, 3)} /><span className="label-data">Color4</span>
           </div>
         </div >
-      </Dialog >
+      </StatusBarDialog >)
     );
     // cspell:enable
   }
@@ -115,5 +115,5 @@ export class TestModalDialog2 extends React.Component<TestModalDialog2Props, Tes
     });
   };
 
-  private _closeDialog = (_followUp: () => void) => ModalDialogManager.closeDialog();
+  private _closeDialog = (_followUp: () => void) => UiFramework.dialogs.modal.close();
 }
