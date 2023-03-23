@@ -86,6 +86,7 @@ import { PlaybackSettings } from '@itwin/imodel-components-react';
 import { Point } from '@itwin/core-react';
 import { Point2d } from '@itwin/core-geometry';
 import { PointProps } from '@itwin/appui-abstract';
+import { PopupProps } from '@itwin/core-react';
 import { Primitives } from '@itwin/appui-abstract';
 import { PropertyDescription } from '@itwin/appui-abstract';
 import { PropertyRecord } from '@itwin/appui-abstract';
@@ -4645,6 +4646,14 @@ export class StatusBar extends React_2.Component<StatusBarProps, StatusBarState>
     componentWillUnmount(): void;
     // (undocumented)
     render(): React_2.ReactNode;
+}
+
+// @public
+export namespace StatusBar {
+    const // @beta
+    Field: React_2.ForwardRefExoticComponent<StatusBarFieldProps & React_2.RefAttributes<HTMLDivElement>>;
+    const // @beta
+    Popup: typeof StatusBarPopup;
 }
 
 // @public
