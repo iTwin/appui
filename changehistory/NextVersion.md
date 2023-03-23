@@ -25,21 +25,21 @@ Consult the documentation below for guidance on handling API changes.
 
 All APIs are marked as internal. `@itwin/appui-layout-react` package is considered as internal implementation detail of the `@itwin/appui-react` package and should not be used directly.
 
-| API from *@itwin/appui-layout-react* | Replacement in *@itwin/appui-react*  |
-| ------------------------------------ | ------------------------------------ |
-| `Dialog`                             | `StatusBarDialog`                    |
-| `DialogProps`                        | `StatusBarDialogProps`               |
-| `FooterIndicator`                    | `StatusBarIndicator`                 |
-| `FooterIndicatorProps`               | `StatusBarIndicatorProps`            |
-| `FooterPopup`                        | `popup` prop of `StatusBarIndicator` |
-| `FooterPopupProps`                   | Removed                              |
-| `FooterPopupContentType`             | Removed                              |
-| `FooterPopupDefaultProps`            | Removed                              |
-| `FooterSeparator`                    | `StatusBarSeparator`                 |
-| `FooterSeparatorProps`               | Removed                              |
-| `SafeAreaInsets`                     | `SafeAreaInsets`                     |
-| `TitleBar`                           | `StatusBarDialog.TitleBar`           |
-| `TitleBarProps`                      | `StatusBarDialogTitleBarProps`       |
+| API from *@itwin/appui-layout-react* | Replacement in *@itwin/appui-react*                       |
+| ------------------------------------ | --------------------------------------------------------- |
+| `Dialog`                             | `StatusBarDialog`                                         |
+| `DialogProps`                        | `StatusBarDialogProps`                                    |
+| `FooterIndicator`                    | `StatusBarIndicator` or `StatusBar.Field`                 |
+| `FooterIndicatorProps`               | `StatusBarIndicatorProps`                                 |
+| `FooterPopup`                        | `popup` prop of `StatusBarIndicator` or `StatusBar.Popup` |
+| `FooterPopupProps`                   | Removed                                                   |
+| `FooterPopupContentType`             | Removed                                                   |
+| `FooterPopupDefaultProps`            | Removed                                                   |
+| `FooterSeparator`                    | `StatusBarSeparator`                                      |
+| `FooterSeparatorProps`               | Removed                                                   |
+| `SafeAreaInsets`                     | `SafeAreaInsets`                                          |
+| `TitleBar`                           | `StatusBarDialog.TitleBar`                                |
+| `TitleBarProps`                      | `StatusBarDialogTitleBarProps`                            |
 
 ## @itwin/appui-abstract
 
