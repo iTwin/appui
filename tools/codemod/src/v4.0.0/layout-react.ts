@@ -14,15 +14,17 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
   root.rename("@itwin/appui-layout-react:DialogProps", "@itwin/appui-react:StatusBarDialogProps");
   root.rename("@itwin/appui-layout-react:FooterIndicator", "@itwin/appui-react:StatusBarIndicator");
   root.rename("@itwin/appui-layout-react:FooterIndicatorProps", "@itwin/appui-react:StatusBarIndicatorProps");
-  root.rename("@itwin/appui-layout-react:FooterPopup", "");
-  root.rename("@itwin/appui-layout-react:FooterPopupProps", "");
-  root.rename("@itwin/appui-layout-react:FooterPopupContentType", "");
-  root.rename("@itwin/appui-layout-react:FooterPopupDefaultProps", "");
   root.rename("@itwin/appui-layout-react:FooterSeparator", "@itwin/appui-react:StatusBarSeparator");
-  root.rename("@itwin/appui-layout-react:FooterSeparatorProps", "");
   root.rename("@itwin/appui-layout-react:SafeAreaInsets", "@itwin/appui-react:SafeAreaInsets");
   root.rename("@itwin/appui-layout-react:TitleBar", "@itwin/appui-react:StatusBarDialog.TitleBar");
   root.rename("@itwin/appui-layout-react:TitleBarProps", "@itwin/appui-react:StatusBarDialogTitleBarProps");
+
+  root.findImportDeclarations("@itwin/appui-layout-react")
+    .removeSpecifier("FooterPopup")
+    .removeSpecifier("FooterPopupProps")
+    .removeSpecifier("FooterPopupContentType")
+    .removeSpecifier("FooterPopupDefaultProps")
+    .removeSpecifier("FooterSeparatorProps");
 
   return root.toSource(options.printOptions);
 }

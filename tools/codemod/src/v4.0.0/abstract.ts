@@ -12,7 +12,6 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
   const root = j(file.source);
 
   root.rename("@itwin/appui-abstract:BackstageItem", "@itwin/appui-react:BackstageItem");
-  root.rename("@itwin/appui-abstract:BackstageItemType", "");
   root.rename("@itwin/appui-abstract:isActionItem", "@itwin/appui-react:isBackstageActionItem");
   root.rename("@itwin/appui-abstract:isStageLauncher", "@itwin/appui-react:isBackstageStageLauncher");
   root.rename("@itwin/appui-abstract:BackstageItemUtilities", "@itwin/appui-react:BackstageItemUtilities");
@@ -53,6 +52,8 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
   root.rename("@itwin/appui-abstract:UiItemProviderOverrides", "@itwin/appui-react:UiItemsProviderOverrides");
   root.rename("@itwin/appui-abstract:UiItemsManager", "@itwin/appui-react:UiItemsManager");
   root.rename("@itwin/appui-abstract:StageUsage", "@itwin/appui-react:StageUsage");
+
+  root.findImportDeclarations("@itwin/appui-abstract").removeSpecifier("BackstageItemType");
 
   return root.toSource(options.printOptions);
 }

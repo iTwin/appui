@@ -5,12 +5,18 @@
 import type { JSCodeshift, Collection } from "jscodeshift";
 
 function getFirstNode(j: JSCodeshift, root: Collection) {
-  return root.find(j.Program).get("body", 0).node;
+  const program = root.find(j.Program);
+  if (program.size() === 0)
+    return undefined;
+  return program.get("body", 0).node;
 }
 
 // https://github.com/facebook/jscodeshift/blob/main/recipes/retain-first-comment.md
 export default function retainFirstComment(j: JSCodeshift, root: Collection, transform: () => void) {
   const initialFirstNode = getFirstNode(j, root);
+  if (!initialFirstNode)
+    return;
+
   const { comments } = initialFirstNode;
 
   transform();

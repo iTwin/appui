@@ -42,6 +42,9 @@ function extensionsPlugin(j: JSCodeshift) {
       useImportSpecifier(j);
       useCallExpression(j);
 
+      if (sourceStr === "" || targetStr === "")
+        throw new Error(`Expected non empty strings in rename("${sourceStr}", "${targetStr}")`);
+
       const source = parseRename(sourceStr);
       const target = parseRename(targetStr);
 
@@ -53,23 +56,24 @@ function extensionsPlugin(j: JSCodeshift) {
 
       retainFirstComment(j, this, () => {
         let renamed = false;
+
+        const callExpressions = this.findCallExpressions(sourceExpr);
+        callExpressions.renameTo(target.expr);
+        if (callExpressions.size() > 0) {
+          renamed = true;
+        }
+
+        this.find(j.MemberExpression).filter((path) => {
+          const expression = toExpressionName(path.value);
+          return expression === sourceExpr;
+        }).forEach((path) => {
+          const callee = toExpressionKind(j, target.expr);
+          path.replace(callee);
+          renamed = true;
+        });
+
         if (source.isIdentifier) {
           findRootIdentifiers(j, this, sourceExpr).forEach((path) => {
-            const callee = toExpressionKind(j, target.expr);
-            path.replace(callee);
-            renamed = true;
-          });
-        } else {
-          const callExpressions = this.findCallExpressions(sourceExpr);
-          callExpressions.renameTo(target.expr);
-          if (callExpressions.size() > 0) {
-            renamed = true;
-          }
-
-          this.find(j.MemberExpression).filter((path) => {
-            const expression = toExpressionName(path.value);
-            return expression === sourceExpr;
-          }).forEach((path) => {
             const callee = toExpressionKind(j, target.expr);
             path.replace(callee);
             renamed = true;
@@ -89,12 +93,6 @@ function extensionsPlugin(j: JSCodeshift) {
           }
           renamed = true;
         });
-
-        if (renamed && sourceLocalSpecifierName === target.specifier) {
-          sourceSpecifiers.remove();
-        } else if (!sourceSpecifiers.isUsed()) {
-          sourceSpecifiers.remove();
-        }
 
         const targetDeclarations = this.findImportDeclarations(target.module);
         const targetSpecifiers = targetDeclarations.findSpecifiers(target.specifier);
@@ -116,16 +114,15 @@ function extensionsPlugin(j: JSCodeshift) {
           ]);
         }
 
-        // Remove empty source declarations.
-        sourceDeclarations.forEach((path) => {
-          const specifiers = path.value.specifiers || [];
-          if (specifiers.length === 0)
-            path.replace();
-        });
+        if (renamed && sourceLocalSpecifierName === target.specifier) {
+          sourceDeclarations.removeSpecifier(source.specifier);
+        } else if (!sourceSpecifiers.isUsed()) {
+          sourceDeclarations.removeSpecifier(source.specifier);
+        }
       });
 
       return this;
-    }
+    },
   };
   j.registerMethods(globalMethods);
 }

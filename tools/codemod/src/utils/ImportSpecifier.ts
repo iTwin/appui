@@ -42,7 +42,7 @@ function importSpecifierPlugin(j: JSCodeshift) {
       return "";
     },
     isUsed(this: ImportSpecifierCollection) {
-      const root = this.closest(j.Program);
+      const root = this.closest(j.File);
       const name = this.getLocalName();
       const identifiers = findRootIdentifiers(j, root, name);
       return identifiers.size() > 0;
