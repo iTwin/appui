@@ -7,7 +7,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { IModelConnection, MockRender } from "@itwin/core-frontend";
+import { IModelApp, IModelConnection, NoRenderApp } from "@itwin/core-frontend";
 import { CardContainer, CardInfo, SheetCard, SheetData, SheetsModalFrontstage, UiFramework } from "../../appui-react";
 import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
 
@@ -20,11 +20,11 @@ describe("SheetsModalFrontstage", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

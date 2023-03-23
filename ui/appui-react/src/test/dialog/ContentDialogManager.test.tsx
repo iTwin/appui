@@ -9,7 +9,7 @@ import { Logger } from "@itwin/core-bentley";
 import { ContentDialog, ContentDialogManager, ContentDialogRenderer, DialogChangedEventArgs } from "../../appui-react";
 import TestUtils, { createStaticInternalPassthroughValidators, userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalContentDialogManager } from "../../appui-react/dialog/InternalContentDialogManager";
 /* eslint-disable deprecation/deprecation */
 
@@ -29,14 +29,14 @@ describe("ContentDialogManager", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework(true);
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     ContentDialogManager.onContentDialogChangedEvent.addListener(handleContentDialogChanged);
   });
 
   after(async () => {
     ContentDialogManager.onContentDialogChangedEvent.removeListener(handleContentDialogChanged);
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework(); // clear out the framework key
   });
 

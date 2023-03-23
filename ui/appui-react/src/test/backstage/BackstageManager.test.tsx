@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { EmptyLocalization } from "@itwin/core-common";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { renderHook } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react";
 import { expect } from "chai";
@@ -16,10 +16,10 @@ import TestUtils from "../TestUtils";
 describe("BackstageManager", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await NoRenderApp.startup({localization: new EmptyLocalization()});
   });
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 
@@ -164,12 +164,12 @@ describe("useIsBackstageOpen", () => {
 describe("useBackstageManager", () => {
   it("returns UiFramework.backstageManager instance", async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await NoRenderApp.startup({localization: new EmptyLocalization()});
 
     const {result} = renderHook(() => useBackstageManager());
     expect(result.current).to.equal(UiFramework.backstageManager); // eslint-disable-line deprecation/deprecation
 
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 });

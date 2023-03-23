@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 
-import { IModelApp, IModelAppOptions, MockRender, Tool } from "@itwin/core-frontend";
+import { IModelApp, IModelAppOptions, NoRenderApp, Tool } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { clearKeyinPaletteHistory, FrameworkUiAdmin, KeyinEntry, KeyinPalettePanel, UiFramework } from "../../appui-react";
@@ -37,11 +37,11 @@ describe("<KeyinPalettePanel>", () => {
     await TestUtils.initializeUiFramework();
     // use mock renderer so standards tools are registered.
     const opts: IModelAppOptions = { uiAdmin: new FrameworkUiAdmin() };
-    await MockRender.App.startup(opts);
+    await NoRenderApp.startup(opts);
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
 
     // restore the overriden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);

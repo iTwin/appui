@@ -14,7 +14,7 @@ import { BentleyError, Logger } from "@itwin/core-bentley";
 import { Size, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-react";
 import { addFloatingWidget, addPanelWidget, addTab, createLayoutStore, createNineZoneState, getUniqueId, NineZoneState, toolSettingsTabId } from "@itwin/appui-layout-react";
 import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
-import { IModelApp, MockRender, NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { EmptyLocalization } from "@itwin/core-common";
 import {
   ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, expandWidget, FrontstageConfig, FrontstageDef,
@@ -173,7 +173,7 @@ describe("Frontstage local storage wrapper", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({ localization: new EmptyLocalization() });
+    await NoRenderApp.startup({ localization: new EmptyLocalization() });
     Object.defineProperty(window, "localStorage", {
       get: () => localStorageMock,
     });
@@ -181,7 +181,7 @@ describe("Frontstage local storage wrapper", () => {
 
   after(async () => {
     Object.defineProperty(window, "localStorage", localStorageToRestore);
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

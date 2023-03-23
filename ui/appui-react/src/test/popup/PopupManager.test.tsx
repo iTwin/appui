@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import { IModelApp, IModelAppOptions, LengthDescription, MockRender } from "@itwin/core-frontend";
+import { IModelApp, IModelAppOptions, LengthDescription, NoRenderApp } from "@itwin/core-frontend";
 import {
   AbstractToolbarProps, BadgeType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertyItem,
   DialogPropertySyncItem,
@@ -41,11 +41,11 @@ describe("PopupManager", () => {
     await TestUtils.initializeUiFramework();
     // use mock renderer so standards tools are registered.
     const opts: IModelAppOptions = { uiAdmin: new FrameworkUiAdmin() };
-    await MockRender.App.startup(opts);
+    await NoRenderApp.startup(opts);
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     // restore the overriden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);
     Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);

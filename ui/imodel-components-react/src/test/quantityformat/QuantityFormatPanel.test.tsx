@@ -7,7 +7,7 @@ import * as sinon from "sinon";
 import * as React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { IModelApp, MockRender, QuantityType } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
 import { FormatProps, FormatType, ShowSignOption } from "@itwin/core-quantity";
 import { BearingQuantityType } from "./BearingQuantityType";
 import { SpecialKey } from "@itwin/appui-abstract";
@@ -30,11 +30,11 @@ describe("QuantityInput", () => {
       get: () => requestNextAnimation,
     });
     await TestUtils.initializeUiIModelComponents();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);
   });

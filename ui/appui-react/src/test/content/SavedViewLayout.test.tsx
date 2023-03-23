@@ -6,7 +6,7 @@ import { Point3d, Range3d, Vector3d, YawPitchRollAngles } from "@itwin/core-geom
 import {
   CategorySelectorProps, DisplayStyleProps, EcefLocation, HydrateViewStateResponseProps, IModelReadRpcInterface, ModelSelectorProps, SheetProps, SpatialViewDefinitionProps, ViewStateProps,
 } from "@itwin/core-common";
-import { DrawingViewState, EmphasizeElements, IModelConnection, MockRender, ScreenViewport, SheetViewState, SpatialViewState, SubCategoriesCache, ViewState } from "@itwin/core-frontend";
+import { DrawingViewState, EmphasizeElements, IModelApp, IModelConnection, NoRenderApp, ScreenViewport, SheetViewState, SpatialViewState, SubCategoriesCache, ViewState } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { expect } from "chai";
 import * as React from "react";
@@ -124,7 +124,7 @@ describe("StageContentLayout", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     // Required for StageContentLayout
     UiFramework.controls.register("TestViewport", TestViewportContentControl);
@@ -135,7 +135,7 @@ describe("StageContentLayout", () => {
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     sinon.restore();
     TestUtils.terminateUiFramework();
   });

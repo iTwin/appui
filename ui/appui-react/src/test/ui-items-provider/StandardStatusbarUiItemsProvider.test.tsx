@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import TestUtils from "../TestUtils";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { DefaultStatusbarItems, StageUsage, StandardStatusbarUiItemsProvider, UiItemsManager } from "../../appui-react";
 
 const testArray: DefaultStatusbarItems[] = [
@@ -56,11 +56,11 @@ describe("StandardStatusbarUiItemsProvider", () => {
   // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
     sinon.reset();
   });

@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
 import { render, waitFor } from "@testing-library/react";
-import { IModelApp, MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { Format, FormatProps, FormatterSpec, FormatTraits, getTraitString, UnitProps, UnitsProvider } from "@itwin/core-quantity";
 import { Checkbox } from "@itwin/itwinui-react";
 import { TestUtils } from "../TestUtils";
@@ -96,11 +96,11 @@ describe("FormatPanel", () => {
       get: () => requestNextAnimation,
     });
     await TestUtils.initializeUiIModelComponents();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
     Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);
   });

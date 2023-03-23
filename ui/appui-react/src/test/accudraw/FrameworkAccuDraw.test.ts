@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import * as sinon from "sinon";
 import { expect } from "chai";
-import { BeButtonEvent, CompassMode, CurrentState, IModelApp, IModelAppOptions, ItemField, MockRender, RotationMode } from "@itwin/core-frontend";
+import { BeButtonEvent, CompassMode, CurrentState, IModelApp, IModelAppOptions, ItemField, NoRenderApp, RotationMode } from "@itwin/core-frontend";
 import TestUtils, { storageMock } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
@@ -35,11 +35,11 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
       const opts: IModelAppOptions = {};
       opts.accuDraw = new FrameworkAccuDraw();
       opts.uiAdmin = new FrameworkUiAdmin();
-      await MockRender.App.startup(opts);
+      await NoRenderApp.startup(opts);
     });
 
     after(async () => {
-      await MockRender.App.shutdown();
+      await IModelApp.shutdown();
       TestUtils.terminateUiFramework();
     });
 

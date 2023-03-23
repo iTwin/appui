@@ -9,7 +9,7 @@ import * as moq from "typemoq";
 import * as sinon from "sinon";
 import { IModelRpcProps } from "@itwin/core-common";
 import { Id64String, Logger } from "@itwin/core-bentley";
-import { IModelApp, IModelConnection, MockRender, SelectionSet, ViewState } from "@itwin/core-frontend";
+import { IModelApp, IModelConnection, NoRenderApp, SelectionSet, ViewState } from "@itwin/core-frontend";
 import { ColorTheme, CursorMenuData, SettingsModalFrontstage, UiFramework, UserSettingsProvider } from "../appui-react";
 import { LocalStateStorage, UiStateStorage } from "@itwin/core-react";
 import TestUtils, { storageMock } from "./TestUtils";
@@ -107,12 +107,12 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("calling initialize without I18N will use IModelApp.i18n", async () => {
-      await MockRender.App.startup();
+      await NoRenderApp.startup();
 
       await UiFramework.initialize(TestUtils.store);
       expect(UiFramework.localization).to.eq(IModelApp.localization);
 
-      await MockRender.App.shutdown();
+      await IModelApp.shutdown();
     });
 
     it("test default frameworkState key", async () => {

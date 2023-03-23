@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
 
-import { IModelConnection, MockRender, SelectionSet } from "@itwin/core-frontend";
+import { IModelApp, IModelConnection, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import { IModelRpcProps } from "@itwin/core-common";
 import { SyncUiEventDispatcher, UiFramework, useActiveIModelConnection } from "../../appui-react";
@@ -19,11 +19,11 @@ describe("useActiveIModelConnection", () => {
     await TestUtils.initializeUiFramework();
 
     // use mock renderer so standards tools are registered.
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

@@ -5,7 +5,7 @@
 import { fireEvent, render } from "@testing-library/react";
 import * as sinon from "sinon";
 import * as React from "react";
-import { CompassMode, IModelApp, IModelAppOptions, MockRender } from "@itwin/core-frontend";
+import { CompassMode, IModelApp, IModelAppOptions, NoRenderApp } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { TestUtils } from "../TestUtils";
@@ -19,11 +19,11 @@ describe("AccuDrawDialog", () => {
 
     const opts: IModelAppOptions = {};
     opts.accuDraw = new FrameworkAccuDraw();
-    await MockRender.App.startup(opts);
+    await NoRenderApp.startup(opts);
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

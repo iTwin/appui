@@ -6,7 +6,7 @@ import * as React from "react";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
 import { BeEvent } from "@itwin/core-bentley";
-import { IModelApp, MockRender, ScreenViewport, Viewport } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, ScreenViewport, Viewport } from "@itwin/core-frontend";
 import { TileLoadingIndicator } from "../../../appui-react";
 import TestUtils from "../../TestUtils";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
@@ -16,11 +16,11 @@ describe("TileLoadingIndicator", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

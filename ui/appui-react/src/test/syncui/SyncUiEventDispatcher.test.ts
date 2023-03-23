@@ -7,7 +7,7 @@ import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { UiSyncEventArgs } from "@itwin/appui-abstract";
 import { IModelRpcProps } from "@itwin/core-common";
-import { IModelApp, IModelConnection, MockRender, ScreenViewport, SelectionSet } from "@itwin/core-frontend";
+import { IModelApp, IModelConnection, NoRenderApp, ScreenViewport, SelectionSet } from "@itwin/core-frontend";
 import {
   ActiveContentChangedEventArgs,
   ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, FrontstageActivatedEventArgs, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventDispatcher,
@@ -218,12 +218,12 @@ describe("SyncUiEventDispatcher", () => {
   describe("SelectedViewportChanged", () => {
     before(async () => {
       await TestUtils.initializeUiFramework();
-      await MockRender.App.startup();
+      await NoRenderApp.startup();
       SyncUiEventDispatcher.initialize();
     });
 
     after(async () => {
-      await MockRender.App.shutdown();
+      await IModelApp.shutdown();
       TestUtils.terminateUiFramework();
     });
 

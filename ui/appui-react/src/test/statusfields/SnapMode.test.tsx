@@ -6,19 +6,19 @@ import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render } from "@testing-library/react";
-import { MockRender, SnapMode } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, SnapMode } from "@itwin/core-frontend";
 import { SnapModeField, StatusBar, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("SnapModeField", () => {
   before(async () => {
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
   });
 
   after(async () => {
     TestUtils.terminateUiFramework();
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
   });
 
   it("Status Bar with SnapModes Field should render", () => {

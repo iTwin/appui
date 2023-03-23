@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { IModelApp, MockRender, QuantityType, QuantityTypeKey } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, QuantityType, QuantityTypeKey } from "@itwin/core-frontend";
 import TestUtils, { getButtonWithText, handleError, selectChangeValueByText, stubScrollIntoView } from "../TestUtils";
 import { getQuantityFormatsSettingsManagerEntry } from "../../appui-react/settings/quantityformatting/QuantityFormat";
 import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager";
@@ -18,12 +18,12 @@ describe("QuantityFormatSettingsPage", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
     TestUtils.terminateUiFramework();
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
   });
 
   beforeEach(async () => {

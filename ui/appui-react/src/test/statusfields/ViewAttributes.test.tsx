@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Provider } from "react-redux";
-import { IModelApp, MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
 import { StatusBar, ViewAttributesStatusField } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
@@ -19,11 +19,11 @@ describe(`ViewAttributes`, () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
-import { MockRender, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo, ConfigurableUiControlType, ContentGroup,
   FloatingContentControl, FloatingViewportContentControl, FrontstageConfig, FrontstageProvider, SupportsViewSelectorChange,
@@ -32,14 +32,14 @@ describe("ViewportContentControl", () => {
     });
 
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     InternalFrontstageManager.isInitialized = false;
     InternalFrontstageManager.initialize();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
 
     // restore the overriden property getter

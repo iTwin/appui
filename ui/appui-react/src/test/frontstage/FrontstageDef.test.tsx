@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import produce from "immer";
 import { addFloatingWidget, addPanelWidget, addPopoutWidget, addTab, createNineZoneState } from "@itwin/appui-layout-react";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { renderHook } from "@testing-library/react-hooks";
 import { FrontstageConfig, FrontstageDef, FrontstageProvider, StagePanelDef, StagePanelLocation, StagePanelSection, StagePanelState, UiFramework, UiItemsManager, UiItemsProvider, useSpecificWidgetDef, Widget, WidgetDef, WidgetState } from "../../appui-react";
@@ -20,11 +20,11 @@ describe("FrontstageDef", () => {
   before(async () => {
     Object.defineProperty(window, "localStorage", { get: () => localStorageMock });
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
     Object.defineProperty(window, "localStorage", localStorageToRestore);
   });

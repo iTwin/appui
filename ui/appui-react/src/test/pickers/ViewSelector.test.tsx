@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
-import { DrawingViewState, IModelConnection, MockRender, SheetViewState, SpatialViewState } from "@itwin/core-frontend";
+import { DrawingViewState, IModelApp, IModelConnection, NoRenderApp, SheetViewState, SpatialViewState } from "@itwin/core-frontend";
 import { ViewSelector } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { Provider } from "react-redux";
@@ -46,12 +46,12 @@ describe("ViewSelector", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await NoRenderApp.startup({localization: new EmptyLocalization()});
     await TestUtils.flushAsyncOperations();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     await TestUtils.flushAsyncOperations();
     TestUtils.terminateUiFramework();
   });

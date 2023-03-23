@@ -7,7 +7,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
-import { CompassMode, IModelApp, IModelAppOptions, ItemField, MockRender } from "@itwin/core-frontend";
+import { CompassMode, IModelApp, IModelAppOptions, ItemField, NoRenderApp } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
@@ -40,11 +40,11 @@ describe("AccuDrawFieldContainer", () => {
     const opts: IModelAppOptions = {};
     opts.accuDraw = new FrameworkAccuDraw();
     opts.uiAdmin = new FrameworkUiAdmin();
-    await MockRender.App.startup(opts);
+    await NoRenderApp.startup(opts);
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
 
     Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);
 

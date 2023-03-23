@@ -11,7 +11,7 @@ import { render } from "@testing-library/react";
 import { Logger } from "@itwin/core-bentley";
 import { WidgetState } from "@itwin/appui-abstract";
 import { Size } from "@itwin/core-react";
-import { IModelApp, IModelConnection, MockRender, ScreenViewport, SpatialViewState } from "@itwin/core-frontend";
+import { IModelApp, IModelConnection, NoRenderApp, ScreenViewport, SpatialViewState } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo, ConfigurableUiContent, ContentGroup, ContentLayoutDef, CoreTools, FrontstageDef, FrontstageManager,
   ModalFrontstageRequestedCloseEventArgs, RestoreFrontstageLayoutTool, SettingsModalFrontstage,
@@ -33,14 +33,14 @@ describe("FrontstageManager", () => {
     });
 
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
 
     FrontstageManager.initialize();
     FrontstageManager.clearFrontstageProviders();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
 
     // restore the overriden property getter

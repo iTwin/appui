@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";
 import { SectionsStatusField } from "../../appui-react";
@@ -18,11 +18,11 @@ describe(`SectionsField`, () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

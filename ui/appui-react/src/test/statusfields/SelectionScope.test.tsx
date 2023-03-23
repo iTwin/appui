@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
-import { IModelApp, MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import { PresentationSelectionScope, SelectionScopeField, SessionStateActionId, StatusBar, UiFramework } from "../../appui-react";
 import TestUtils, { handleError, selectChangeValueByIndex, stubScrollIntoView } from "../TestUtils";
@@ -13,13 +13,13 @@ import TestUtils, { handleError, selectChangeValueByIndex, stubScrollIntoView } 
 describe(`SelectionScopeField`, () => {
   describe("Bare tests", () => {
     before(async () => {
-      await MockRender.App.startup();
+      await NoRenderApp.startup();
       await TestUtils.initializeUiFramework();
     });
 
     after(async () => {
       TestUtils.terminateUiFramework();
-      await MockRender.App.shutdown();
+      await IModelApp.shutdown();
     });
 
     it("SelectionScopeField with default data", () => {

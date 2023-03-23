@@ -5,20 +5,20 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { MockRender } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { ActivityCenterField, MessageManager, StatusBar } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("ActivityCenter", () => {
   before(async () => {
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
     await TestUtils.initializeUiFramework();
   });
 
   after(async () => {
     TestUtils.terminateUiFramework();
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
 
   });
 

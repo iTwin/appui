@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { MockRender, ScreenViewport, Viewport } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, ScreenViewport, Viewport } from "@itwin/core-frontend";
 import * as moq from "typemoq";
 import { HideIsolateEmphasizeActionHandler } from "../../appui-react/selection/HideIsolateEmphasizeManager";
 import TestUtils from "../TestUtils";
@@ -81,12 +81,12 @@ describe("Use Custom HideIsolateEmphasizeActionHandler", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
     UiFramework.setHideIsolateEmphasizeActionHandler(new TestHideIsolateEmphasizeManager());
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

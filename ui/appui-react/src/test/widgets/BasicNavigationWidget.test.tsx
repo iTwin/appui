@@ -6,7 +6,7 @@ import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { Matrix3d } from "@itwin/core-geometry";
-import { MockRender, OrthographicViewState, ScreenViewport } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, OrthographicViewState, ScreenViewport } from "@itwin/core-frontend";
 import { BasicNavigationWidget, CommandItemDef, ToolbarHelper, UiFramework, ViewportContentControl } from "../../appui-react";
 import TestUtils, { childStructure } from "../TestUtils";
 import { render } from "@testing-library/react";
@@ -23,11 +23,11 @@ describe("BasicNavigationWidget", () => {
   });
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

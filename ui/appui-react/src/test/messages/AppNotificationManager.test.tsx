@@ -7,7 +7,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  ActivityMessageDetails, ActivityMessageEndReason, MessageBoxIconType, MessageBoxType, MessageBoxValue, MockRender, NotifyMessageDetails, OutputMessageAlert,
+  ActivityMessageDetails, ActivityMessageEndReason, IModelApp, MessageBoxIconType, MessageBoxType, MessageBoxValue, NoRenderApp, NotifyMessageDetails, OutputMessageAlert,
   OutputMessagePriority, OutputMessageType,
 } from "@itwin/core-frontend";
 import { AppNotificationManager, ElementTooltip, MessageManager, ModalDialogRenderer, UiFramework } from "../../appui-react";
@@ -19,11 +19,11 @@ describe("AppNotificationManager", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
 

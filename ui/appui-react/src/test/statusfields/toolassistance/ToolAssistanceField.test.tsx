@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import { MockRender, ToolAssistance, ToolAssistanceImage, ToolAssistanceInputMethod } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, ToolAssistance, ToolAssistanceImage, ToolAssistanceInputMethod } from "@itwin/core-frontend";
 import { LocalStateStorage } from "@itwin/core-react";
 import { render, screen, waitFor } from "@testing-library/react";
 import {
@@ -26,12 +26,12 @@ describe(`ToolAssistanceField`, () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup();
+    await NoRenderApp.startup();
   });
 
   after(async () => {
     TestUtils.terminateUiFramework();
-    await MockRender.App.shutdown();
+    await IModelApp.shutdown();
   });
 
   // cSpell:Ignore TOOLPROMPT
