@@ -60,9 +60,9 @@ describe("<ColorPickerButton/>", () => {
     const renderedComponent = render(<ColorPickerButton initialColor={colorDef} onColorPick={handleColorPick} dropDownTitle="test-title" showCaret />);
     const button = renderedComponent.getByTestId("components-colorpicker-button");
     expect(button.getAttribute("data-value")).to.eq("rgb(0,0,255)");  // blue
-    expect(renderedComponent.container.querySelector(".icon-caret-down")).not.to.be.null;
+    expect(renderedComponent.getByTestId("caret-down")).not.to.be.null;
     fireEvent.click(button);
-    expect(renderedComponent.container.querySelector(".icon-caret-up")).not.to.be.null;
+    expect(renderedComponent.getByTestId("caret-up")).not.to.be.null;
 
     const popupDiv = renderedComponent.getByTestId("components-colorpicker-popup-colors");
     expect(popupDiv).not.to.be.undefined;

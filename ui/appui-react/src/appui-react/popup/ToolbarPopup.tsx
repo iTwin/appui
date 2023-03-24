@@ -7,17 +7,19 @@
  */
 
 import * as React from "react";
-import { CommonToolbarItem, OnCancelFunc, OnItemExecutedFunc, RelativePosition, SpecialKey } from "@itwin/appui-abstract";
+import { OnCancelFunc, OnItemExecutedFunc, RelativePosition, SpecialKey } from "@itwin/appui-abstract";
 import { DivWithOutsideClick, FocusTrap, Orientation, Point, Size, SizeProps } from "@itwin/core-react";
 import { Direction, Toolbar, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import { PopupManager, PopupPropsBase } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
+import { ToolbarItem } from "../toolbar/ToolbarItem";
+import { toUIAToolbarItem } from "../toolbar/toUIAToolbarItem";
 
 /** Props for a popup toolbar
  * @beta */
 export interface ToolbarPopupProps extends PopupPropsBase {
-  items: CommonToolbarItem[];
+  items: ToolbarItem[];
   relativePosition: RelativePosition;
   orientation: Orientation;
   onCancel: OnCancelFunc;
@@ -63,7 +65,7 @@ export class ToolbarPopup extends React.PureComponent<ToolbarPopupProps, Toolbar
     let point = PopupManager.getPopupPosition(this.props.el, this.props.pt, new Point(), this.state.size);
     const popupRect = CursorPopup.getPopupRect(point, this.props.offset, this.state.size, this.props.relativePosition);
     point = new Point(popupRect.left, popupRect.top);
-
+    const items = this.props.items.map((item) => toUIAToolbarItem(item));
     return (
       <PositionPopup key={this.props.id}
         className="uifw-no-border"
@@ -75,7 +77,7 @@ export class ToolbarPopup extends React.PureComponent<ToolbarPopupProps, Toolbar
             <Toolbar
               expandsTo={Direction.Bottom}
               panelAlignment={ToolbarPanelAlignment.Start}
-              items={this.props.items}
+              items={items}
               useDragInteraction={true}
               toolbarOpacitySetting={ToolbarOpacitySetting.Defaults}
               onItemExecuted={this.props.onItemExecuted}

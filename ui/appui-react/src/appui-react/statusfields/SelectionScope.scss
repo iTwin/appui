@@ -26,7 +26,7 @@
 
   > .uifw-statusFields-selectionScope-selector {
     min-width: 140px;
-    &.iui-select.iui-small {
+    &.iui-select[data-iui-size="small"] {
       width: auto;
     }
 

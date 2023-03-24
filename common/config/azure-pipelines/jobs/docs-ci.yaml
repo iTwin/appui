@@ -64,11 +64,12 @@ stages:
               PathtoPublish: "$(Build.StagingDirectory)/docs/"
               ArtifactName: "AppUI Docs"
 
-    # - stage: Validate_Docs
-    #   dependsOn: Generate_Docs
-    #   condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'PullRequest', 'Manual'))
-    #   jobs:
-    #   - template: common/config/azure-pipelines/jobs/docs-build.yaml@itwinjs-core
-    #     parameters:
-    #       checkout: itwinjs-core
-    #       useCurrentPresentationDocsArtifact: true
+  - stage: Validate_Docs
+    dependsOn: Generate_Docs
+    condition: and(succeeded(), in(variables['Build.Reason'], 'IndividualCI', 'PullRequest', 'Manual'))
+    jobs:
+    - template: common/config/azure-pipelines/jobs/docs-build.yaml@itwinjs-core
+      parameters:
+        checkout: itwinjs-core
+        useCurrentAppUIDocsArtifact: true
+        ignoreAudit: true

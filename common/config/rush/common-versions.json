@@ -3,6 +3,7 @@
   "preferredVersions": {
     "@types/react": "^17.0.37",
     "axe-core": "4.1.2",
+    "caniuse-lite": "^1.0.30001458",
     "event-stream": "~4.0.1",
     "flatbuffers": "~1.12.0",
     "lint-staged": "^10.2.11",
@@ -10,6 +11,6 @@
     "object-is": "1.0.2",
     "ssri": "^6.0.1",
     "tsutils": "~3.17.1",
-    "typescript": "~4.4.0"
+    "typescript": "~5.0.2"
   }
 }

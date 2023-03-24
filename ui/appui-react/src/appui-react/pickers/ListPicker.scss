@@ -12,7 +12,7 @@ $no-shadow: none;
 $shadow: drop-shadow(0 1px 0 $buic-text-color-reverse);
 $space-after-label: 16px;
 $space-before-label: 16px;
-$label-color: $buic-text-color;
+$label-color: var(--iui-color-text);
 $border-color: $buic-background-control-stroke;
 $item-height: 32px;
 
@@ -85,7 +85,7 @@ $item-height: 32px;
 }
 
 .ListPicker-item {
-  $label-color: $buic-text-color;
+  $label-color: var(--iui-color-text);
   $pressed-label-color: $buic-foreground-activehover;
   $hovered-label-color: $buic-foreground-primary-tone;
   $focused-label-color: $buic-foreground-primary-tone;
@@ -135,7 +135,7 @@ $item-height: 32px;
   }
 
   &:active {
-    background: $buic-row-selection;
+    background: var(--iui-color-background-hover);
     color: $pressed-label-color;
 
     > .icon,
@@ -187,7 +187,7 @@ $item-height: 32px;
 }
 
 .ListPickerWidget-item {
-  $label-color: $buic-text-color;
+  $label-color: var(--iui-color-text);
   $pressed-label-color: $buic-foreground-activehover;
   $hovered-label-color: $buic-foreground-primary;
   $focused-label-color: $buic-foreground-primary;
@@ -289,7 +289,7 @@ $item-height: 32px;
 
   white-space: nowrap;
   text-align: center;
-  color: $buic-text-color;
+  color: var(--iui-color-text);
   filter: drop-shadow(0 1px 0 $buic-text-color-reverse);
   margin-bottom: 9px;
   margin-left: $horizontal-margin;

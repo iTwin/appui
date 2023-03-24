@@ -33,7 +33,7 @@ export class NavigationPropertyValueRenderer implements IPropertyValueRenderer {
   }
 }
 
-function convertRecordToString(record: PropertyRecord) {
+function convertRecordToString(record: PropertyRecord): string | Promise<string> {
   const primitive = record.value as PrimitiveValue;
   if (primitive.displayValue)
     return primitive.displayValue;

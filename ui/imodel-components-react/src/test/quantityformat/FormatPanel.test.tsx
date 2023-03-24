@@ -148,7 +148,7 @@ describe("FormatSample", () => {
     const pu = await unitsProvider.findUnitByName("Units.M");
     const formatterSpec = await provideFormatSpec(initialFormatProps, pu, unitsProvider, "numeric");
     const renderedComponent = render(<FormatSample formatSpec={formatterSpec} hideLabels />);
-    expect(renderedComponent.container.querySelector(".icon-progress-forward-2")).to.not.be.null;
+    expect(renderedComponent.getByTestId("progress-forward")).to.not.be.null;
   });
 });
 

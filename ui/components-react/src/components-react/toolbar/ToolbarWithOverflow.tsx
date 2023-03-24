@@ -13,7 +13,7 @@ import {
   ActionButton, CommonToolbarItem, ConditionalBooleanValue, ConditionalStringValue, CustomButtonDefinition,
   GroupButton, OnItemExecutedFunc, ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import { BadgeUtilities, CommonProps, IconHelper, NoChildrenProps, useRefs } from "@itwin/core-react";
+import { BadgeUtilities, CommonProps, Icon, IconHelper, NoChildrenProps, useRefs } from "@itwin/core-react";
 import { ToolbarButtonItem } from "./Item";
 import { ToolbarItems } from "./Items";
 import { ItemWrapper, useResizeObserverSingleDimension } from "./ItemWrapper";
@@ -24,6 +24,7 @@ import { PopupItemsPanel } from "./PopupItemsPanel";
 import { PopupItemWithDrag } from "./PopupItemWithDrag";
 import { Direction, DirectionHelpers, OrthogonalDirection, OrthogonalDirectionHelpers } from "./utilities/Direction";
 import { UiComponents } from "../UiComponents";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** Describes the data needed to insert a custom `React` button into an ToolbarWithOverflow.
  * @public
@@ -150,7 +151,7 @@ function CustomItem({ item, addGroupSeparator }: { item: CustomToolbarItem, addG
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const icon = React.useMemo(() => (item.icon &&
     IconHelper.getIconReactNode(item.icon, item.internalData)) || /* istanbul ignore next */
-    <i className="icon icon-placeholder" />, [item.icon, item.internalData]);
+    <Icon className="icon" iconSpec={<SvgPlaceholder />} />, [item.icon, item.internalData]);
   const isDisabled = React.useMemo(() => ConditionalBooleanValue.getValue(item.isDisabled), [item.isDisabled]);
   const title = React.useMemo(() => /* istanbul ignore next */ ConditionalStringValue.getValue(item.label) ?? item.id, [item.id, item.label]);
   const badge = React.useMemo(() => BadgeUtilities.getComponentForBadgeType(item.badgeType), [item.badgeType]);
@@ -313,6 +314,7 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
       if (!isMounted.current)
         return;
       setPopupPanelCount((prev) => {
+        /* istanbul ignore next */
         const nextCount = isOpening ? (prev + 1) : (prev - 1);
         // eslint-disable-next-line no-console
         // console.log(`new popup count = ${nextCount}`);

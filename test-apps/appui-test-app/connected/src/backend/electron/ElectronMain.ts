@@ -15,7 +15,7 @@ import * as editorBuiltInCommands from "@itwin/editor-backend";
 const mainWindowName = "mainWindow";
 
 /** Initializes Electron backend */
-export async function initializeElectron(opts?: IModelHostOptions) {
+export async function initializeElectron(imho?: IModelHostOptions) {
   const opt = {
     electronHost: {
       webResourcesPath: join(__dirname, "..", "..", "..", "build"),
@@ -25,24 +25,21 @@ export async function initializeElectron(opts?: IModelHostOptions) {
     nativeHost: {
       applicationName: "appui-test-app",
     },
-    iModelHost: opts,
+    iModelHost: imho,
   };
 
-  let authClient;
   if (process.env.IMJS_OIDC_ELECTRON_TEST_CLIENT_ID && process.env.IMJS_OIDC_ELECTRON_TEST_REDIRECT_URI && process.env.IMJS_OIDC_ELECTRON_TEST_SCOPES) {
-    authClient = new ElectronMainAuthorization({
+    const authClient = new ElectronMainAuthorization({
       clientId: process.env.IMJS_OIDC_ELECTRON_TEST_CLIENT_ID,
       redirectUri: process.env.IMJS_OIDC_ELECTRON_TEST_REDIRECT_URI,
       scope: process.env.IMJS_OIDC_ELECTRON_TEST_SCOPES,
     });
     await authClient.signInSilent();
-    if (opt.iModelHost?.authorizationClient)
+    if (opt.iModelHost)
       opt.iModelHost.authorizationClient = authClient;
   }
 
   await ElectronHost.startup(opt);
-  // if (authClient)
-  //  await authClient.signInSilent();
   EditCommandAdmin.registerModule(editorBuiltInCommands);
 
   // Handle custom keyboard shortcuts

@@ -2,9 +2,9 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { EmptyLocalization } from "@itwin/core-common";
 import { MockRender } from "@itwin/core-frontend";
 import { renderHook } from "@testing-library/react-hooks";
+import { waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { UiFramework } from "../../appui-react";
@@ -15,7 +15,7 @@ import TestUtils from "../TestUtils";
 describe("BackstageManager", () => {
   before(async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup();
   });
   after(async () => {
     await MockRender.App.shutdown();
@@ -133,14 +133,18 @@ describe("useIsBackstageOpen", () => {
     expect(result.current).to.be.false;
   });
 
-  it("should update isOpen", () => {
+  it("should update isOpen", async () => {
     const manager = new BackstageManager();
     const {result} = renderHook(() => useIsBackstageOpen(manager));
 
     manager.open();
-    expect(result.current).to.be.true;
+    await waitFor(() => {
+      expect(result.current).to.be.true;
+    });
     manager.close();
-    expect(result.current).to.be.false;
+    await waitFor(() => {
+      expect(result.current).to.be.false;
+    });
   });
 
   it("should remove onToggled listener", () => {
@@ -159,7 +163,7 @@ describe("useIsBackstageOpen", () => {
 describe("useBackstageManager", () => {
   it("returns UiFramework.backstageManager instance", async () => {
     await TestUtils.initializeUiFramework();
-    await MockRender.App.startup({localization: new EmptyLocalization()});
+    await MockRender.App.startup();
 
     const {result} = renderHook(() => useBackstageManager());
     expect(result.current).to.equal(UiFramework.backstageManager); // eslint-disable-line deprecation/deprecation

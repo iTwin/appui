@@ -5,7 +5,7 @@
 @import "~@itwin/core-react/lib/cjs/core-react/index";
 
 .components-date-picker-calendar-popup-button {
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
   font-size: var(--iui-font-size-1);
   background-color: transparent;
   height: 2.2em;
@@ -18,11 +18,11 @@
   }
 
   svg {
-    fill: $buic-foreground-body;
+    fill: var(--iui-color-icon);
   }
 
   &:hover {
-    color: $buic-foreground-primary-tone;
+    color: var(--iui-color-text-accent-hover);
     cursor: auto;
 
     svg {
@@ -31,7 +31,7 @@
   }
 
   &:focus {
-    box-shadow: $uicore-button-focus-boxshadow;
+    box-shadow: $buic-focus-boxshadow 0px 0px 0px 2px;
     outline: none;
   }
 }
@@ -46,7 +46,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    border-top: 2px solid $buic-inputs-border;
+    border-top: 2px solid var(--iui-color-border-foreground);
     padding-top: 8px;
     padding-bottom: 8px;
 

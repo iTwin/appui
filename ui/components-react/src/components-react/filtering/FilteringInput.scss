@@ -4,10 +4,6 @@
 *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/inputs/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-@import "~@itwin/core-react/lib/cjs/core-react/style/variables";
-@import "~@itwin/itwinui-css/scss/button/button";
-@import "~@itwin/itwinui-css/scss/button/default";
-@import "~@itwin/itwinui-css/scss/inputs/input";
 
 .components-filtering-input {
   display: flex;
@@ -23,7 +19,7 @@
 
   // The input itself
   input {
-    min-height: $uicore-component-height-normal;
+    min-height: 28px;
     padding: $uicore-iui-input-padding;
     box-sizing: border-box;
   }
@@ -40,7 +36,7 @@
   top: 1px;
   bottom: 0px;
 
-  >.icon {
+  > .icon {
     align-self: center;
     border: none;
     outline: none;
@@ -48,18 +44,12 @@
 }
 
 @mixin filtering-button-base {
-  @include iui-button;
-  @include iui-button-default;
   margin-left: 6px;
-}
-
-.components-filtering-input-button {
-  @include filtering-button-base;
 }
 
 .components-filtering-input-clear {
   @include filtering-button-base;
-  color: $buic-text-color-muted;
+  color: var(--iui-color-text-muted);
   font-size: "12px";
 }
 

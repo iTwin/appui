@@ -87,7 +87,7 @@ describe("ListPicker", () => {
         </ToolbarItemContext.Provider>
       </Provider>
     );
-    expect(screen.getByRole("button", {name: "Test"})).to.satisfy(childStructure(".components-icon .icon-list"));
+    expect(screen.getByRole("button", {name: "Test"})).to.satisfy(childStructure(".components-icon .icon.core-svg-icon"));
   });
 
   it("should support items and functions", async () => {

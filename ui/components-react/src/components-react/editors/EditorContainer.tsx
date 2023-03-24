@@ -36,6 +36,11 @@ export interface PropertyEditorProps extends CommonProps {
   onBlur?: (event: React.FocusEvent) => void;
   /** Indicates whether the Property Editor should set focus */
   setFocus?: boolean;
+  /**
+   * Indicates whether value change should call onCommit().
+   * @internal
+   */
+  shouldCommitOnChange?: boolean;
 }
 
 /** [[EditorContainer]] React component properties
@@ -55,6 +60,11 @@ export interface EditorContainerProps extends CommonProps {
 
   /** @internal */
   ignoreEditorBlur?: boolean;
+  /**
+  * Indicates whether value change should call onCommit().
+  * @internal
+  */
+  shouldCommitOnChange?: boolean;
 }
 
 /** @internal */
@@ -92,6 +102,7 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
       setFocus: this.props.setFocus !== undefined ? this.props.setFocus : true,
       className: this.props.className,
       style: this.props.style,
+      shouldCommitOnChange: this.props.shouldCommitOnChange,
     };
 
     const propDescription = this.props.propertyRecord.property;

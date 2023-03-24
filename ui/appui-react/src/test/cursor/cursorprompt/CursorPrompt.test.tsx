@@ -13,7 +13,7 @@ import { CursorPopup } from "../../../appui-react/cursor/cursorpopup/CursorPopup
 import { CursorPopupManager, CursorPopupRenderer } from "../../../appui-react/cursor/cursorpopup/CursorPopupManager";
 import { CursorPrompt } from "../../../appui-react/cursor/cursorprompt/CursorPrompt";
 import { selectorMatches } from "../../TestUtils";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 
 describe("CursorPrompt", () => {
 
@@ -29,14 +29,16 @@ describe("CursorPrompt", () => {
     cursorPrompt.display("icon-placeholder", ToolAssistance.createInstruction("icon-placeholder", "Prompt string"));
 
     expect(CursorPopupManager.popupCount).to.eq(1);
-    expect(screen.getByText("Prompt string")).to.satisfy(selectorMatches(".uifw-cursor-prompt *"));
+    expect(await screen.findByText("Prompt string")).to.satisfy(selectorMatches(".uifw-cursor-prompt *"));
 
     cursorPrompt.close(false);
   });
 
-  it("should display, update and close", () => {
+  it("should display, update and close", async () => {
     const offset = new Point(20, 20);
-    const fakeTimers = sinon.useFakeTimers();
+    const cursor = { x: 6, y: 6 };
+    CursorInformation.cursorPosition = cursor;
+    const fakeTimers = sinon.useFakeTimers({ shouldAdvanceTime: true });
     const { container } = render(<CursorPopupRenderer />);
     expect(CursorPopupManager.popupCount).to.eq(0);
     CursorPopup.fadeOutTime = 50;
@@ -45,9 +47,9 @@ describe("CursorPrompt", () => {
     cursorPrompt.display("icon-placeholder", ToolAssistance.createInstruction("icon-placeholder", "Prompt string"), offset, RelativePosition.BottomRight);
 
     expect(CursorPopupManager.popupCount).to.eq(1);
-    expect(screen.getByText("Prompt string")).to.satisfy(selectorMatches(".uifw-cursor-prompt *"));
+    expect(await screen.findByText("Prompt string")).to.satisfy(selectorMatches(".uifw-cursor-prompt *"));
 
-    const styleForOffset = {top: `${offset.y + 6}px`, left: `${offset.x + 6}px`};
+    const styleForOffset = {top: `${offset.y + cursor.y}px`, left: `${offset.x + cursor.x}px`};
     expect(container.querySelector<HTMLElement>(".uifw-cursorpopup")?.style).to.include(styleForOffset);
 
     const move = new Point(50, 60);
@@ -56,7 +58,9 @@ describe("CursorPrompt", () => {
 
     const moved = move.offset(offset);
     const styleForMoved = {top: `${moved.y}px`, left: `${moved.x}px`};
-    expect(container.querySelector<HTMLElement>(".uifw-cursorpopup")?.style).to.include(styleForMoved);
+    await waitFor(() => {
+      expect(container.querySelector<HTMLElement>(".uifw-cursorpopup")?.style).to.include(styleForMoved);
+    });
 
     fakeTimers.tick(40);
     expect(CursorPopupManager.popupCount).to.eq(1);
@@ -74,7 +78,7 @@ describe("CursorPrompt", () => {
     cursorPrompt.display("icon-placeholder", ToolAssistance.createInstruction("icon-placeholder", "Prompt string"));
 
     expect(CursorPopupManager.popupCount).to.eq(1);
-    expect(screen.getByText("Prompt string")).to.satisfy(selectorMatches(".uifw-cursor-prompt *"));
+    expect(await screen.findByText("Prompt string")).to.satisfy(selectorMatches(".uifw-cursor-prompt *"));
 
     cursorPrompt.display("icon-placeholder", ToolAssistance.createInstruction("icon-placeholder", ""));
 

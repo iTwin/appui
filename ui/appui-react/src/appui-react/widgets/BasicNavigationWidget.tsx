@@ -8,21 +8,21 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { CommonToolbarItem, ToolbarOrientation, ToolbarUsage } from "@itwin/appui-abstract";
 import { CoreTools } from "../tools/CoreToolDefinitions";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import { NavigationWidgetComposer } from "./NavigationWidgetComposer";
+import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 
-/** Properties that can be used to append items to the default set of toolbar items of [[DefaultNavigationWidget]].
+/** Properties that can be used to append items to the default set of toolbar items.
  * @public
  */
 export interface BasicNavigationWidgetProps {
   /** optional set of additional items to include in horizontal toolbar */
-  additionalHorizontalItems?: CommonToolbarItem[];
+  additionalHorizontalItems?: ToolbarItem[];
   /** optional set of additional items to include in vertical toolbar */
-  additionalVerticalItems?: CommonToolbarItem[];
+  additionalVerticalItems?: ToolbarItem[];
 }
 
 /** Basic Navigation Widget that provides standard tools to manipulate views containing element data.
@@ -32,8 +32,8 @@ export interface BasicNavigationWidgetProps {
 export function BasicNavigationWidget(props: BasicNavigationWidgetProps) {
 
   const getHorizontalToolbarItems = React.useCallback(
-    (): CommonToolbarItem[] => {
-      const items: CommonToolbarItem[] = ToolbarHelper.createToolbarItemsFromItemDefs([
+    (): ToolbarItem[] => {
+      const items: ToolbarItem[] = ToolbarHelper.createToolbarItemsFromItemDefs([
         CoreTools.rotateViewCommand,
         CoreTools.panViewCommand,
         CoreTools.fitViewCommand,
@@ -47,8 +47,8 @@ export function BasicNavigationWidget(props: BasicNavigationWidgetProps) {
     }, [props.additionalHorizontalItems]);
 
   const getVerticalToolbarItems = React.useCallback(
-    (): CommonToolbarItem[] => {
-      const items: CommonToolbarItem[] = [];
+    (): ToolbarItem[] => {
+      const items: ToolbarItem[] = [];
       items.push(
         ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.walkViewCommand),
         ToolbarHelper.createToolbarItemFromItemDef(20, CoreTools.toggleCameraViewCommand),
@@ -79,8 +79,8 @@ export function BasicNavigationWidget(props: BasicNavigationWidgetProps) {
 
   return (
     <NavigationWidgetComposer className={className}
-      horizontalToolbar={<ToolbarComposer items={horizontalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />} // eslint-disable-line deprecation/deprecation
-      verticalToolbar={<ToolbarComposer items={verticalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />} // eslint-disable-line deprecation/deprecation
+      horizontalToolbar={<ToolbarComposer items={horizontalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Horizontal} />}
+      verticalToolbar={<ToolbarComposer items={verticalItems} usage={ToolbarUsage.ViewNavigation} orientation={ToolbarOrientation.Vertical} />}
     />
   );
 }

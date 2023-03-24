@@ -17,7 +17,7 @@
 
     /* match margin on other select controls so it spaces properly in grid */
     &.uicore-disabled {
-      color: $buic-text-color-disabled;
+      color: var(--iui-color-text-disabled);
     }
   }
 
@@ -26,10 +26,6 @@
     flex-direction: row;
     align-items: center;
     gap: 4px;
-  }
-
-  > label.core-checkbox.core-checkbox-no-label {
-    min-height: 1.57em;
   }
 
   > button.components-quantityFormat-more-button {
@@ -45,7 +41,7 @@
 
   > a.components-quantityFormat-more-less {
     font-size: var(--iui-font-size-1);
-    color: $buic-foreground-alert;
+    color: var(--iui-color-text-negative);
     -webkit-transition: text-decoration 1s ease;
     -moz-transition: text-decoration 1s ease;
     -o-transition: text-decoration 1s ease;

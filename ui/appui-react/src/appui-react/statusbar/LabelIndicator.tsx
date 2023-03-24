@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { StatusBarIndicator, StatusBarIndicatorProps } from "./Indicator";
 import { Icon, IconSpec } from "@itwin/core-react";
-import { StatusBarLabelSide } from "@itwin/appui-abstract";
+import { StatusBarLabelSide } from "./StatusBarItem";
 
 /** Properties of [[StatusBarLabelIndicator]] component.
  * @beta
@@ -22,7 +22,7 @@ export interface StatusBarLabelIndicatorProps extends Omit<StatusBarIndicatorPro
   /** Indicator label. */
   label?: string;
   /** Side to display label. */
-  labelSide?: StatusBarLabelSide; // eslint-disable-line deprecation/deprecation
+  labelSide?: StatusBarLabelSide;
 }
 
 /** [[StatusBar]] indicator that shows a label with an icon.
@@ -32,7 +32,7 @@ export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps) {
   const { className, iconSpec, label, labelSide, ...other } = props;
   const classNames = classnames(
     "uifw-statusbar-labelIndicator",
-    labelSide === StatusBarLabelSide.Right && "uifw-reversed", // eslint-disable-line deprecation/deprecation
+    labelSide === StatusBarLabelSide.Right && "uifw-reversed",
     className,
   );
   return (

@@ -16,6 +16,8 @@ import { CommonProps } from "../utils/Props";
 import { Omit } from "../utils/typeUtils";
 import { FocusTrap } from "../focustrap/FocusTrap";
 import { Button } from "@itwin/itwinui-react";
+import { Icon } from "../icons/IconComponent";
+import { SvgClose } from "@itwin/itwinui-icons-react";
 
 // cspell:ignore focustrap
 
@@ -265,10 +267,11 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         onPointerDown={this._handleStartMove}>
         <div className={"core-dialog-title"} data-testid="core-dialog-title" style={titleStyle}>{title}</div>
         <button
-          className={"core-focus-trap-ignore-initial core-dialog-close icon icon-close"}
+          className={"core-focus-trap-ignore-initial core-dialog-close icon"}
           data-testid="core-dialog-close"
-          onClick={onClose}
-        />
+          onClick={onClose}>
+          <Icon iconSpec={<SvgClose />} />
+        </button>
       </div>
     );
 
@@ -384,19 +387,23 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       props.buttonCluster.forEach((button: DialogButtonDef, index: number) => {
         let buttonText = "";
         let buttonClass = classnames("core-dialog-button", `dialog-button-${button.type}`, button.className);
+        let styleType: "default" | "cta" | "high-visibility" | "borderless" | undefined;
 
         switch (button.type) {
           case DialogButtonType.OK:
             buttonText = UiCore.translate("dialog.ok");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
           case DialogButtonType.Retry:
             buttonText = UiCore.translate("dialog.retry");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
           case DialogButtonType.Yes:
             buttonText = UiCore.translate("dialog.yes");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
           case DialogButtonType.No:
             buttonText = UiCore.translate("dialog.no");
@@ -412,18 +419,29 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             break;
           case DialogButtonType.Next:
             buttonText = UiCore.translate("dialog.next");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
           case DialogButtonType.Previous:
             buttonText = UiCore.translate("dialog.previous");
-            buttonClass = classnames(buttonClass, button.buttonStyle || "iui-cta");
+            buttonClass = classnames(buttonClass, button.buttonStyle);
+            styleType = "cta";
             break;
         }
 
-        if (button.label)
-          buttonText = button.label;
+        if (button.label) buttonText = button.label;
 
-        buttons.push(<Button className={buttonClass} disabled={button.disabled} key={index.toString()} onClick={button.onClick}>{buttonText}</Button>);
+        buttons.push(
+          <Button
+            className={buttonClass}
+            disabled={button.disabled}
+            styleType={styleType}
+            key={index.toString()}
+            onClick={button.onClick}
+          >
+            {buttonText}
+          </Button>
+        );
       });
     }
     return buttons;

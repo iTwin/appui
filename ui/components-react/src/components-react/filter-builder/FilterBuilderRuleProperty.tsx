@@ -65,6 +65,7 @@ export function PropertyFilterBuilderRuleProperty(props: PropertyFilterBuilderRu
       inputProps={{
         placeholder: UiComponents.translate("filterBuilder.chooseProperty"),
         disabled: isDisabled,
+        size: "small",
       }}
       itemRenderer={itemRenderer}
       enableVirtualization={true}

@@ -2,11 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
-
 .timeline-component {
   box-sizing: border-box;
-  background: $buic-background-2;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -38,13 +35,13 @@
       font-size: 14px;
       min-width: 180px;
       padding: 8px;
-      color: $buic-foreground-body;
+      color: var(--iui-color-text);
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
       border-radius: var(--iui-border-radius-1);
-      border: solid 1px $buic-background-5;
-      background-color: $buic-background-1;
+      border: solid 1px var(--iui-color-border);
+      background-color: var(--iui-color-background);
       text-align: center;
       box-sizing: border-box;
       display: flex;
@@ -77,7 +74,7 @@
     .start-time,
     .end-time {
       font-size: 12px;
-      color: $buic-foreground-muted;
+      color: var(--iui-color-text-muted);
       text-align: center;
       min-height: inherit;
     }
@@ -86,7 +83,7 @@
     .duration-end-time {
       font-size: 14px;
       width: 40px;
-      color: $buic-foreground-body;
+      color: var(--iui-color-text);
       text-align: center;
       min-height: inherit;
     }
@@ -94,7 +91,7 @@
     .start-date,
     .end-date {
       font-size: 12px;
-      color: $buic-foreground-muted;
+      color: var(--iui-color-text-muted);
       padding-bottom: 4px;
     }
 
@@ -110,11 +107,11 @@
 .timeline-settings {
   margin-left: auto;
   font-size: 14px;
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
   cursor: pointer;
 
   &:hover {
-    color: $buic-foreground-activehover;
+    color: var(--iui-color-text-hover);
   }
 
   &:focus {
@@ -160,5 +157,22 @@
     height: 1px;
     background: #dce0e3;
     transform: translateY(-50%);
+  }
+}
+
+.timeline-component-max-sized-scrolling-menu {
+  display: flex;
+  max-height: 100%;
+  > .tippy-box {
+    display: flex;
+    > .tippy-content {
+      display: flex;
+      > div {
+        display: flex;
+        > .iui-menu {
+          overflow: auto;
+        }
+      }
+    }
   }
 }

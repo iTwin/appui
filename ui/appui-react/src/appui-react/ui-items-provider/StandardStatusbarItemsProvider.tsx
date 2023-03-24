@@ -6,28 +6,20 @@
  * @module StandardUiItemsProvider
  */
 
-import * as React from "react";
-import { BaseUiItemsProvider, CommonStatusBarItem, StatusBarSection, UiItemsManager } from "@itwin/appui-abstract";
-import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
-import { ToolAssistanceField } from "../statusfields/toolassistance/ToolAssistanceField";
-import { MessageCenterField } from "../statusfields/MessageCenter";
-import { ActivityCenterField } from "../statusfields/ActivityCenter";
-import { SnapModeField } from "../statusfields/SnapMode";
-import { SelectionInfoField } from "../statusfields/SelectionInfo";
-import { TileLoadingIndicator } from "../statusfields/tileloading/TileLoadingIndicator";
-import { SelectionScopeField } from "../statusfields/SelectionScope";
-import { DefaultStatusbarItems } from "./StandardStatusbarUiItemsProvider";
-import { StatusBarSeparator } from "../statusbar/Separator";
-
-/* eslint-disable deprecation/deprecation */
+import { DefaultStatusbarItems, StandardStatusbarUiItemsProvider } from "./StandardStatusbarUiItemsProvider";
+import { StatusBarItem } from "../statusbar/StatusBarItem";
+import { UiItemsManager } from "./UiItemsManager";
+import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
 
 /**
  * Provide standard statusbar fields for the SimpleStatusbarWidget
  * @public
  */
 export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
-  constructor(providerId: string, private _defaultItems?: DefaultStatusbarItems, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
+  private uiItemsProvider: StandardStatusbarUiItemsProvider;
+  constructor(providerId: string, _defaultItems?: DefaultStatusbarItems | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
     super(providerId, isSupportedStage);
+    this.uiItemsProvider = new StandardStatusbarUiItemsProvider(_defaultItems);
   }
 
   /**
@@ -45,39 +37,7 @@ export class StandardStatusbarItemsProvider extends BaseUiItemsProvider {
     return provider;
   }
 
-  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): CommonStatusBarItem[] {
-    const statusBarItems: CommonStatusBarItem[] = [];
-    if (!this._defaultItems || this._defaultItems.messageCenter) {
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.MessageCenter", StatusBarSection.Left, 10, <MessageCenterField />));
-    }
-    if (!this._defaultItems || this._defaultItems.toolAssistance) {
-      if (!this._defaultItems || this._defaultItems.preToolAssistanceSeparator)
-        statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.PreToolAssistance", StatusBarSection.Left, 15, <StatusBarSeparator />));
-
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.ToolAssistance", StatusBarSection.Left, 20, <ToolAssistanceField />));
-
-      if (!this._defaultItems || this._defaultItems.postToolAssistanceSeparator)
-        statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.PostToolAssistance", StatusBarSection.Left, 25, <StatusBarSeparator />));
-    }
-    if (this._defaultItems?.activityCenter) {
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.ActivityCenter", StatusBarSection.Left, 30, <ActivityCenterField />));
-    }
-    if (!this._defaultItems || this._defaultItems.accuSnapModePicker) {
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.SnapMode", StatusBarSection.Center, 10, <SnapModeField />));
-    }
-
-    if (!this._defaultItems || this._defaultItems.tileLoadIndicator) {
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.TileLoadIndicator", StatusBarSection.Right, 10, <TileLoadingIndicator />));
-    }
-
-    if (!this._defaultItems || this._defaultItems.selectionScope) {
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.SelectionScope", StatusBarSection.Right, 20, <SelectionScopeField />));
-    }
-
-    if (!this._defaultItems || this._defaultItems.selectionInfo) {
-      statusBarItems.push(StatusBarItemUtilities.createStatusBarItem("uifw.SelectionInfo", StatusBarSection.Right, 30, <SelectionInfoField />));
-    }
-
-    return statusBarItems;
+  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
+    return this.uiItemsProvider.provideStatusBarItems(_stageId, _stageUsage, _stageAppData);
   }
 }

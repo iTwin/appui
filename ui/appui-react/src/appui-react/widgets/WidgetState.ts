@@ -6,14 +6,13 @@
  * @module Widget
  */
 
-import { WidgetState as UIA_WidgetState } from "@itwin/appui-abstract";
-
 /** Widget state enum.
- * @public // TODO: 4.x cleanup
+ * @public
  */
-export type WidgetState = UIA_WidgetState; // eslint-disable-line deprecation/deprecation
-
-/** Widget state enum.
- * @public // TODO: 4.x cleanup
- */
-export const WidgetState = UIA_WidgetState; // eslint-disable-line @typescript-eslint/no-redeclare, deprecation/deprecation
+export enum WidgetState {
+  Open = 0,
+  Closed = 1,
+  Hidden = 2,
+  Floating = 3,
+  Unloaded = 4
+}

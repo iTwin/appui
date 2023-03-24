@@ -608,6 +608,8 @@ export interface EditorContainerProps extends CommonProps {
     onCommit: (args: PropertyUpdatedArgs) => void;
     propertyRecord: PropertyRecord;
     setFocus?: boolean;
+    // @internal
+    shouldCommitOnChange?: boolean;
     title?: string;
 }
 
@@ -1227,7 +1229,7 @@ export interface ItemStyle {
 
 // @public
 export const ItemStyleProvider: {
-    createStyle: ({ colorOverrides, isBold, isItalic }: ItemStyle, isSelected?: boolean | undefined) => CSSProperties;
+    createStyle: ({ colorOverrides, isBold, isItalic }: ItemStyle, isSelected?: boolean) => CSSProperties;
 };
 
 // @public
@@ -2003,6 +2005,8 @@ export interface PropertyEditorProps extends CommonProps {
     onCommit?: (args: PropertyUpdatedArgs) => void;
     propertyRecord?: PropertyRecord;
     setFocus?: boolean;
+    // @internal
+    shouldCommitOnChange?: boolean;
 }
 
 // @beta
@@ -2101,6 +2105,11 @@ export class PropertyGridCommons {
         end: number;
     }>;
     static handleLinkClick(text: string): void;
+}
+
+// @public
+export interface PropertyGridContentHighlightProps extends HighlightingComponentProps {
+    filteredTypes?: FilteredType[];
 }
 
 // @public
@@ -2781,7 +2790,7 @@ export interface TitleProps extends CommonProps {
 }
 
 // @public
-export const toDateString: (date: Date, timeZoneOffset?: number | undefined, formatOptions?: DateFormatOptions | undefined) => string;
+export const toDateString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string;
 
 // @public
 export class ToggleEditor extends React_2.PureComponent<PropertyEditorProps, ToggleEditorState> implements TypeEditor {
@@ -2952,7 +2961,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
 export function toRxjsObservable<T>(observable: Observable<T>): Observable_2<T>;
 
 // @public
-export const toTimeString: (date: Date, timeZoneOffset?: number | undefined, formatOptions?: DateFormatOptions | undefined) => string;
+export const toTimeString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string;
 
 // @internal (undocumented)
 export function toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition;
@@ -3258,7 +3267,7 @@ export interface TreeNodeLoadResult {
 }
 
 // @public
-export const TreeNodeRenderer: React_2.MemoExoticComponent<(props: TreeNodeRendererProps) => JSX.Element>;
+export const TreeNodeRenderer: React_2.NamedExoticComponent<TreeNodeRendererProps>;
 
 // @public
 export interface TreeNodeRendererProps extends CommonProps {
@@ -3394,7 +3403,7 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 }
 
 // @public
-export const useAsyncValue: <T extends unknown>(value: T | PromiseLike<T>) => T | undefined;
+export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
 // @beta
 export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (() => Promise<TReturn>)): {
@@ -3487,9 +3496,7 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     gridWidth: number;
     // (undocumented)
-    highlight?: HighlightingComponentProps & {
-        filteredTypes?: FilteredType[];
-    };
+    highlight?: PropertyGridContentHighlightProps;
     // (undocumented)
     isPropertyHoverEnabled: boolean;
     // (undocumented)
@@ -3526,21 +3533,12 @@ export interface VirtualizedPropertyGridContext {
 
 // @public
 export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
-    // (undocumented)
     dataProvider: IPropertyDataProvider;
-    // (undocumented)
     eventHandler: IPropertyGridEventHandler;
-    // (undocumented)
     height: number;
-    // (undocumented)
-    highlight?: HighlightingComponentProps & {
-        filteredTypes?: FilteredType[];
-    };
-    // (undocumented)
+    highlight?: PropertyGridContentHighlightProps;
     model: IPropertyGridModel;
-    // (undocumented)
     propertyCategoryRendererManager?: PropertyCategoryRendererManager;
-    // (undocumented)
     width: number;
 }
 
@@ -3549,17 +3547,10 @@ export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedProper
 
 // @public
 export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
-    // (undocumented)
     dataProvider: IPropertyDataProvider;
-    // (undocumented)
     height: number;
-    // (undocumented)
-    highlight?: HighlightingComponentProps & {
-        filteredTypes?: FilteredType[];
-    };
-    // (undocumented)
+    highlight?: PropertyGridContentHighlightProps;
     propertyCategoryRendererManager?: PropertyCategoryRendererManager;
-    // (undocumented)
     width: number;
 }
 
@@ -3578,10 +3569,10 @@ export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNode
 }
 
 // @public
-export const withContextStyle: (node: React_2.ReactNode, context?: PropertyValueRendererContext | undefined) => React_2.ReactNode;
+export const withContextStyle: (node: React_2.ReactNode, context?: PropertyValueRendererContext) => React_2.ReactNode;
 
 // @public
-export const withLinks: (stringValue: string, links?: LinkElementsInfo | undefined, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode;
+export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode;
 
 // (No @packageDocumentation comment for this package)
 

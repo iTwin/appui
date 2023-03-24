@@ -10,10 +10,9 @@ import "./VirtualizedPropertyGrid.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { areEqual, ListChildComponentProps, VariableSizeList } from "react-window";
-import { assert } from "@itwin/core-bentley";
 import { PropertyRecord } from "@itwin/appui-abstract";
+import { assert } from "@itwin/core-bentley";
 import { Orientation, RatioChangeResult } from "@itwin/core-react";
-import { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import { createContextWithMandatoryProvider } from "../../common/UseContextWithMandatoryProvider";
 import { PropertyUpdatedArgs } from "../../editors/EditorContainer";
 import { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer";
@@ -33,21 +32,26 @@ import { IPropertyDataProvider, PropertyCategory } from "../PropertyDataProvider
 import { ColumnResizingPropertyListPropsSupplier } from "./ColumnResizingPropertyListPropsSupplier";
 import { FlatItemNestedBorderWrapper } from "./FlatItemNestedBorderWrapper";
 import { PropertyCategoryBlock } from "./PropertyCategoryBlock";
-import { CommonPropertyGridProps, PropertyGridCommons } from "./PropertyGridCommons";
+import { CommonPropertyGridProps, PropertyGridCommons, PropertyGridContentHighlightProps } from "./PropertyGridCommons";
 import { PropertyGridEventsRelatedPropsSupplier } from "./PropertyGridEventsRelatedPropsSupplier";
 
 /** Properties for [[VirtualizedPropertyGrid]] React component
  * @public
  */
 export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
+  /** Property grid view model that defines what needs to be rendered */
   model: IPropertyGridModel;
+  /** Handler of the events raised from the property grid */
   eventHandler: IPropertyGridEventHandler;
+  /** Property data provider used by the property grid */
   dataProvider: IPropertyDataProvider;
-  highlight?: HighlightingComponentProps & {
-    filteredTypes?: FilteredType[];
-  };
+  /** Properties for highlighting property data in the grid. */
+  highlight?: PropertyGridContentHighlightProps;
+  /** Custom property category renderer manager. Defaults to [[PropertyCategoryRendererManager.defaultManager]]. */
   propertyCategoryRendererManager?: PropertyCategoryRendererManager;
+  /** Width of the property grid component. */
   width: number;
+  /** Height of the property grid component. */
   height: number;
 }
 
@@ -115,9 +119,7 @@ export interface VirtualizedPropertyGridContext {
   onResizeHandleDragChanged: (newValue: boolean) => void;
   onResizeHandleHoverChanged: (newValue: boolean) => void;
 
-  highlight?: HighlightingComponentProps & {
-    filteredTypes?: FilteredType[];
-  };
+  highlight?: PropertyGridContentHighlightProps;
 }
 
 const [
@@ -209,7 +211,7 @@ export class VirtualizedPropertyGrid extends React.Component<VirtualizedProperty
    * @returns current height of node.
    */
   private calculateNodeHeight(node: FlatGridItem) {
-    const categoryHeaderHeight = 35;
+    const categoryHeaderHeight = 38;
     const categoryHeaderPadding = 4;
     const categoryPropertyHeight = 27;
     const bottomBorderPadding = 5;

@@ -8,7 +8,7 @@
 
 import "./ModalSettingsStage.scss";
 import * as React from "react";
-import { BackstageItemUtilities, ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import settingsIconSvg from "@bentley/icons-generic/icons/settings.svg";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import { Logger } from "@itwin/core-bentley";
@@ -17,6 +17,7 @@ import { ModalFrontstageInfo, ModalFrontstageRequestedCloseEventArgs } from "../
 import { UiFramework } from "../UiFramework";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { StageUsage } from "./StageUsage";
+import { BackstageItemUtilities } from "../backstage/BackstageItemUtilities";
 
 function ModalSettingsStage({ initialSettingsTabId }: { initialSettingsTabId?: string }) {
   const id = UiFramework.frontstages.activeFrontstageDef?.id ?? "none";
@@ -67,7 +68,7 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
   private static noSettingsAvailable = () => new ConditionalBooleanValue(() => 0 === UiFramework.settingsManager.providers.length, [SyncUiEventId.SettingsProvidersChanged]);
 
   public static getBackstageActionItem(groupPriority: number, itemPriority: number) {
-    return BackstageItemUtilities.createActionItem(SettingsModalFrontstage.id, groupPriority, itemPriority, () => UiFramework.frontstages.openModalFrontstage(new SettingsModalFrontstage()), // eslint-disable-line deprecation/deprecation
+    return BackstageItemUtilities.createActionItem(SettingsModalFrontstage.id, groupPriority, itemPriority, () => UiFramework.frontstages.openModalFrontstage(new SettingsModalFrontstage()),
       UiFramework.translate("settings.settingsStageLabel"),
       undefined, IconSpecUtilities.createWebComponentIconSpec(settingsIconSvg), { isHidden: SettingsModalFrontstage.noSettingsAvailable() });
   }

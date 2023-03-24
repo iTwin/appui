@@ -11,7 +11,8 @@ import classnames from "classnames";
 import * as React from "react";
 import { Input, InputProps } from "@itwin/itwinui-react";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { WebFontIcon } from "../../icons/WebFontIcon";
+import { Icon } from "../../icons/IconComponent";
+import { SvgCaretDown, SvgCaretDownSmall, SvgCaretUp, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
 
 /** Step function prototype for [[NumberInput]] component
  * @public
@@ -48,12 +49,17 @@ export interface NumberInputProps extends Omit<InputProps, "min" | "max" | "step
   showTouchButtons?: boolean;
   /** Provides ability to return reference to HTMLInputElement */
   ref?: React.Ref<HTMLInputElement>;
+  /**
+   * Makes this component behave as controlled component.
+   * @internal
+   */
+  isControlled?: boolean;
 }
 
 const ForwardRefNumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
   function ForwardRefNumberInput(props, ref) {
     const { containerClassName, value, min, max, precision, format, parse,
-      onChange, onBlur, onKeyDown, step, snap, showTouchButtons, containerStyle, ...otherProps } = props;
+      onChange, onBlur, onKeyDown, step, snap, showTouchButtons, containerStyle, isControlled, ...otherProps } = props;
     const currentValueRef = React.useRef(value);
 
     /**
@@ -109,8 +115,10 @@ const ForwardRefNumberInput = React.forwardRef<HTMLInputElement, NumberInputProp
     }, [formatInternal, value]);
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-      setFormattedValue(event.currentTarget.value);
-    }, []);
+      const newVal = event.currentTarget.value;
+      setFormattedValue(newVal);
+      isControlled && onChange && onChange(parseInternal(newVal), newVal);
+    }, [isControlled, onChange, parseInternal]);
 
     const updateValue = React.useCallback((newVal: number) => {
       const newFormattedVal = formatInternal(newVal);
@@ -198,17 +206,20 @@ const ForwardRefNumberInput = React.forwardRef<HTMLInputElement, NumberInputProp
       isDisabled && "core-number-input-disabled",
     );
 
+    const caretUp = showTouchButtons ? <SvgCaretUp /> : <SvgCaretUpSmall />;
+    const caretDown = showTouchButtons ? <SvgCaretDown /> : <SvgCaretDownSmall />;
+
     return (
       <div className={containerClasses} style={containerStyle} >
         <Input ref={ref} value={formattedValue} onChange={handleChange} onKeyDown={handleKeyDown} onFocus={handleFocus} onBlur={handleBlur} size="small" {...otherProps} />
         <div className={classnames("core-number-input-buttons-container", showTouchButtons && "core-number-buttons-for-touch")}>
           { /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-          <div className="core-number-input-button core-number-input-button-up" tabIndex={-1} onClick={handleUpClick}>
-            <WebFontIcon iconName="icon-caret-up" />
+          <div className="core-number-input-button core-number-input-button-up" tabIndex={-1} onClick={handleUpClick} role="presentation" >
+            <Icon iconSpec={caretUp} />
           </div>
           { /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-          <div className="core-number-input-button core-number-input-button-down" tabIndex={-1} onClick={handleDownClick}>
-            <WebFontIcon iconName="icon-caret-down" />
+          <div className="core-number-input-button core-number-input-button-down" tabIndex={-1} onClick={handleDownClick} role="presentation" >
+            <Icon iconSpec={caretDown} />
           </div>
         </div>
       </div>

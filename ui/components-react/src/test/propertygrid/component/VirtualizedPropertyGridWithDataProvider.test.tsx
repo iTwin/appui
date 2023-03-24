@@ -21,6 +21,7 @@ import { PropertyCategoryRendererManager } from "../../../components-react/prope
 import {
   IPropertyDataProvider, PropertyCategory, PropertyData, PropertyDataChangeEvent,
 } from "../../../components-react/propertygrid/PropertyDataProvider";
+import { SimplePropertyDataProvider } from "../../../components-react/propertygrid/SimplePropertyDataProvider";
 import { ResolvablePromise } from "../../test-helpers/misc";
 import TestUtils from "../../TestUtils";
 
@@ -521,11 +522,11 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         const category = await findByText("test_category");
         expect(baseElement.querySelector(".iui-expanded")).to.not.exist;
         const node = baseElement.querySelector(".virtualized-grid-node") as HTMLElement;
-        expect(node.style.height).to.be.equal("39px");
+        expect(node.style.height).to.be.equal("42px");
 
         fireEvent.click(category);
         expect(baseElement.querySelector(".iui-expanded")).to.exist;
-        expect(node.style.height).to.be.equal("544px");
+        expect(node.style.height).to.be.equal("547px");
       });
 
       it("updates node height on collapse", async () => {
@@ -538,10 +539,10 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
         const category = await findByText("test_category");
         const node = baseElement.querySelector(".virtualized-grid-node") as HTMLElement;
-        expect(node.style.height).to.be.equal("544px");
+        expect(node.style.height).to.be.equal("547px");
 
         fireEvent.click(category);
-        expect(node.style.height).to.be.equal("39px");
+        expect(node.style.height).to.be.equal("42px");
       });
     });
   });
@@ -793,7 +794,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />,
       );
 
-      await waitFor( () => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
+      await waitFor(() => expect(container.querySelectorAll(".components--clickable").length).to.be.greaterThan(0));
 
       const clickableComponents = container.querySelectorAll(".components--clickable");
       expect(clickableComponents.length).to.be.greaterThan(0);
@@ -1290,6 +1291,43 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
       expect(scrollToItemFake).to.not.have.been.called;
+    });
+  });
+});
+
+describe("Learning Snippets", () => {
+  describe("VirtualizedPropertyGridWithDataProvider", () => {
+    it("renders with `SimplePropertyDataProvider`", async () => {
+      // __PUBLISH_EXTRACT_START__ AppUI.VirtualizedPropertyGridWithDataProvider.UsageExample
+      function MyPropertiesComponent() {
+        // the component gets completely re-rendered, losing all its internal state, when data provider changes,
+        // so we have to make it doesn't change unnecessarily
+        const [dataProvider] = React.useState<IPropertyDataProvider>(() => {
+          const provider = new SimplePropertyDataProvider();
+          provider.addCategory({ name: "my-category", label: "My Category", expand: true });
+          provider.addProperty(PropertyRecord.fromString("123", "My Property"), 0);
+          return provider;
+        });
+
+        // width and height should generally we computed using ResizeObserver API or one of its derivatives
+        const [width] = React.useState(400);
+        const [height] = React.useState(600);
+
+        return (
+          <VirtualizedPropertyGridWithDataProvider
+            dataProvider={dataProvider}
+            width={width}
+            height={height}
+          />
+        );
+      }
+      // __PUBLISH_EXTRACT_END__
+      const { getByText } = render(
+        <MyPropertiesComponent />,
+      );
+      await waitFor(
+        () => getByText("My Property")
+      );
     });
   });
 });

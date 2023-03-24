@@ -4,42 +4,14 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-// import * as sinon from "sinon";
 import { Provider } from "react-redux";
-import { WidgetState } from "@itwin/appui-abstract";
-import { render } from "@testing-library/react";
-import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, SelectionInfoField, SessionStateActionId, StatusBar, StatusBarWidgetControl,
-  UiFramework, WidgetDef,
-} from "../../appui-react";
+import { render, waitFor } from "@testing-library/react";
+import { SelectionInfoField, SessionStateActionId, StatusBar, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe(`SelectionInfoField`, () => {
-  class AppStatusBarWidgetControl extends StatusBarWidgetControl {
-    constructor(info: ConfigurableCreateInfo, options: any) {
-      super(info, options);
-    }
-
-    public getReactNode(): React.ReactNode {
-      return (
-        <>
-          <SelectionInfoField />
-        </>
-      );
-    }
-  }
-
-  let widgetControl: StatusBarWidgetControl | undefined;
-
   before(async () => {
     await TestUtils.initializeUiFramework();
-
-    const widgetDef = WidgetDef.create({
-      id: "statusBar",
-      classId: AppStatusBarWidgetControl,
-      defaultState: WidgetState.Open,
-    });
-    widgetControl = widgetDef.getWidgetControl(ConfigurableUiControlType.StatusBarWidget) as StatusBarWidgetControl;
   });
 
   after(() => {
@@ -49,7 +21,7 @@ describe(`SelectionInfoField`, () => {
   it("SelectionInfoField should render with 0", () => {
     UiFramework.frameworkState!.sessionState.numItemsSelected = 0;
     const component = render(<Provider store={TestUtils.store}>
-      <StatusBar widgetControl={widgetControl} />
+      <StatusBar><SelectionInfoField /></StatusBar>
     </Provider>);
     expect(component).not.to.be.undefined;
     const foundText = component.getAllByText("0");
@@ -59,20 +31,22 @@ describe(`SelectionInfoField`, () => {
   it("SelectionInfoField should render with 1", () => {
     UiFramework.frameworkState!.sessionState.numItemsSelected = 1;
     const component = render(<Provider store={TestUtils.store}>
-      <StatusBar widgetControl={widgetControl} />
+      <StatusBar><SelectionInfoField /></StatusBar>
     </Provider>);
     expect(component).not.to.be.undefined;
     const foundText = component.getAllByText("1");
     expect(foundText).not.to.be.undefined;
   });
 
-  it("SelectionInfoField should update after Redux action", () => {
+  it("SelectionInfoField should update after Redux action", async () => {
     const component = render(<Provider store={TestUtils.store}>
-      <StatusBar widgetControl={widgetControl} />
+      <StatusBar><SelectionInfoField /></StatusBar>
     </Provider>);
     expect(component).not.to.be.undefined;
     UiFramework.dispatchActionToStore(SessionStateActionId.SetNumItemsSelected, 99);
-    const foundText = component.getAllByText("99");
-    expect(foundText).not.to.be.undefined;
+    await waitFor(() => {
+      const foundText = component.getAllByText("99");
+      expect(foundText).not.to.be.undefined;
+    });
   });
 });

@@ -2,19 +2,19 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
- @import "../icons/variables";
- @import "../style/colors";
- @import "../style/themecolors";
- @import "../style/baseline";
+@import "../icons/variables";
+@import "../style/colors";
+@import "../style/baseline";
 
 .core-message-box-container {
   display: flex;
-  color: $buic-foreground-body;
+  color: var(--iui-color-text);
 
   .core-message-box-icon {
     flex: 0 0;
     font-size: $uicore-icons-medium;
-    padding: 0 $uicore-unbordered-padding $uicore-unbordered-padding $uicore-unbordered-padding;
+    padding: 0 $uicore-unbordered-padding $uicore-unbordered-padding
+      $uicore-unbordered-padding;
     margin-top: 10px;
   }
 
@@ -22,23 +22,33 @@
     display: flex;
     align-items: center;
     flex: 1 1;
+
+    a {
+      // iTwinUI anchor link style
+      color: var(--iui-color-text-accent);
+      -webkit-tap-highlight-color: hsl(
+        var(--iui-color-accent-hsl) / var(--iui-opacity-6)
+      );
+      border-radius: var(--iui-border-radius-1);
+      cursor: pointer;
+      text-decoration: none;
+    }
   }
 }
 
 .core-message-box-success {
-  color: $buic-foreground-success;
+  color: var(--iui-color-text-positive);
 }
-.core-message-box-information {
-  color: $buic-foreground-primary;
-}
+.core-message-box-information,
 .core-message-box-question {
-  color: $uicore-yellow;
+  color: var(--iui-color-text-informational);
 }
 .core-message-box-warning {
-  color: $buic-foreground-warning;
+  color: var(--iui-color-text-warning);
 }
-.core-message-box-error, .core-message-box-fatal {
-  color: $buic-foreground-alert;
+.core-message-box-error,
+.core-message-box-fatal {
+  color: var(--iui-color-text-negative);
 }
 
 .notifymessage-icon {

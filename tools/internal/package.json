@@ -20,10 +20,10 @@
     "url": "http://www.bentley.com"
   },
   "dependencies": {
-    "yargs": "^17.4.0"
+    "yargs": "^17.6.2"
   },
   "devDependencies": {
-    "@itwin/build-tools": "^3.6.0",
+    "@itwin/build-tools": "^3.6.2",
     "mocha": "^10.0.0"
   }
 }

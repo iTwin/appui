@@ -11,10 +11,11 @@ import classnames from "classnames";
 import * as React from "react";
 import { Angle, AxisIndex, AxisOrder, Geometry, Matrix3d, Point2d, Vector2d, Vector3d, XYAndZ } from "@itwin/core-geometry";
 import { IModelApp, IModelConnection, Viewport } from "@itwin/core-frontend";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps, Icon, IconSpec } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { ViewportComponentEvents, ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
 import { Cube, Face } from "./Cube";
+import { SvgCaretDown, SvgCaretLeft, SvgCaretRight, SvgCaretUp } from "@itwin/itwinui-icons-react";
 
 /** @public */
 export enum CubeNavigationHitBoxX {
@@ -23,7 +24,7 @@ export enum CubeNavigationHitBoxX {
   Left = -1,
 }
 /** @internal
- * @deprecated Use [[CubeNavigationHitBoxX]] */
+ * @deprecated in 2.x. Use [[CubeNavigationHitBoxX]] */
 export enum HitBoxX {
   None = 0,
   Right = 1,
@@ -37,7 +38,7 @@ export enum CubeNavigationHitBoxY {
   Front = -1,
 }
 /** @internal
- * @deprecated Use [[CubeNavigationHitBoxY]] */
+ * @deprecated in 2.x. Use [[CubeNavigationHitBoxY]] */
 export enum HitBoxY {
   None = 0,
   Back = 1,
@@ -51,7 +52,7 @@ export enum CubeNavigationHitBoxZ {
   Bottom = -1,
 }
 /** @internal
- * @deprecated [[CubeNavigationHitBoxZ]] */
+ * @deprecated in 2.x. [[CubeNavigationHitBoxZ]] */
 export enum HitBoxZ {
   None = 0,
   Top = 1,
@@ -596,6 +597,11 @@ export interface NavCubeFaceProps extends React.AllHTMLAttributes<HTMLDivElement
 
 /** @internal */
 export class NavCubeFace extends React.Component<NavCubeFaceProps> {
+  private includeCell(vector: Vector3d): boolean {
+    const { x, y, z } = vector;
+    const omittedCell = (y === 0 && x !== 0 && z !== 0) || (y !== 0 && x === 0 && z !== 0) || (y !== 0 && x !== 0 && z === 0);
+    return !omittedCell;
+  }
   public override render(): React.ReactNode {
     const { face, hoverMap, onFaceCellClick, onFaceCellHoverChange, label } = this.props;
     return (
@@ -604,19 +610,32 @@ export class NavCubeFace extends React.Component<NavCubeFaceProps> {
           return (
             <FaceRow key={y} center={y === 0}>
               {[-1, 0, 1].map((x: number) => {
-                return (
-                  <FaceCell
-                    key={x}
-                    onFaceCellHoverChange={onFaceCellHoverChange}
-                    onFaceCellClick={onFaceCellClick}
-                    hoverMap={hoverMap}
-                    vector={NavCubeFace.faceCellToPos(face, x, y)}
-                    face={face}
-                    center={x === 0}>
-                    {x === 0 && y === 0 &&
-                      label}
-                  </FaceCell>
-                );
+                const vector = NavCubeFace.faceCellToPos(face, x, y);
+                if (this.includeCell(vector)) {
+                  // return a fully functional cell
+                  return (
+                    <FaceCell
+                      key={x}
+                      onFaceCellHoverChange={onFaceCellHoverChange}
+                      onFaceCellClick={onFaceCellClick}
+                      hoverMap={hoverMap}
+                      vector={vector}
+                      face={face}
+                      center={x === 0}>
+                      {x === 0 && y === 0 &&
+                       label}
+                    </FaceCell>
+                  );
+                } else {
+                  // return a placeholder cell
+                  return (
+                    <FaceCell
+                      key={x}
+                      vector={vector}
+                      face={face}
+                      center={x === 0}/>
+                  );
+                }
               })}
             </FaceRow>
           );
@@ -656,9 +675,9 @@ class FaceRow extends React.Component<FaceRowProps> {
 /** @internal */
 export interface FaceCellProps extends React.AllHTMLAttributes<HTMLDivElement> {
   center?: boolean;
-  onFaceCellClick: (vector: Vector3d, face: Face) => void;
-  onFaceCellHoverChange: (vector: Vector3d, state: CubeHover) => void;
-  hoverMap: { [key: string]: CubeHover };
+  onFaceCellClick?: (vector: Vector3d, face: Face) => void;
+  onFaceCellHoverChange?: (vector: Vector3d, state: CubeHover) => void;
+  hoverMap?: { [key: string]: CubeHover };
   vector: Vector3d;
   face: Face;
 }
@@ -670,8 +689,8 @@ export class FaceCell extends React.Component<FaceCellProps> {
     const { center, children, onFaceCellClick, onFaceCellHoverChange, hoverMap, face, vector, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
     const { x, y, z } = vector;
     const n = `${x}-${y}-${z}`;
-    const hover = hoverMap[n] === CubeHover.Hover;
-    const active = hoverMap[n] === CubeHover.Active;
+    const hover = hoverMap && hoverMap[n] === CubeHover.Hover;
+    const active = hoverMap && hoverMap[n] === CubeHover.Active;
     const classNames = classnames(
       "face-cell",
       center && "cube-center",
@@ -697,11 +716,11 @@ export class FaceCell extends React.Component<FaceCellProps> {
   }
   private _handleMouseOver = () => {
     const { vector } = this.props;
-    this.props.onFaceCellHoverChange(vector, CubeHover.Hover);
+    this.props.onFaceCellHoverChange && this.props.onFaceCellHoverChange(vector, CubeHover.Hover);
   };
   private _handleMouseOut = () => {
     const { vector } = this.props;
-    this.props.onFaceCellHoverChange(vector, CubeHover.None);
+    this.props.onFaceCellHoverChange && this.props.onFaceCellHoverChange(vector, CubeHover.None);
   };
   private _handleMouseDown = (event: React.MouseEvent) => {
     const { clientX, clientY } = event;
@@ -725,16 +744,16 @@ export class FaceCell extends React.Component<FaceCellProps> {
   private handlePointerDown(x: number, y: number) {
     const { vector } = this.props;
     this._startMouse = Point2d.create(x, y);
-    this.props.onFaceCellHoverChange(vector, CubeHover.Active);
+    this.props.onFaceCellHoverChange && this.props.onFaceCellHoverChange(vector, CubeHover.Active);
   }
 
   private handlePointerUp(x: number, y: number) {
     const { vector, face } = this.props;
-    this.props.onFaceCellHoverChange(vector, CubeHover.None);
+    this.props.onFaceCellHoverChange && this.props.onFaceCellHoverChange(vector, CubeHover.None);
     const mouse = Point2d.create(x, y);
     if (this._startMouse && this._startMouse.isAlmostEqual(mouse)) {
       const isFace = Math.abs(vector.x) + Math.abs(vector.y) + Math.abs(vector.z) === 1;
-      this.props.onFaceCellClick(vector, isFace ? face : Face.None);
+      this.props.onFaceCellClick && this.props.onFaceCellClick(vector, isFace ? face : Face.None);
     }
   }
 }
@@ -747,11 +766,11 @@ enum Pointer {
   Right,
 }
 
-const pointerIconClass: { [key: number]: string } = {
-  [Pointer.Up]: "icon-caret-down",
-  [Pointer.Down]: "icon-caret-up",
-  [Pointer.Left]: "icon-caret-right",
-  [Pointer.Right]: "icon-caret-left",
+const pointerIconSpec: { [key: number]: IconSpec } = {
+  [Pointer.Up]: <SvgCaretDown />,
+  [Pointer.Down]: <SvgCaretUp />,
+  [Pointer.Left]: <SvgCaretRight />,
+  [Pointer.Right]: <SvgCaretLeft />,
 };
 
 const pointerClass: { [key: number]: string } = {
@@ -775,14 +794,13 @@ class PointerButton extends React.Component<PointerProps> {
     const classes = classnames(
       "cube-pointer", "icon",
       pointerClass[pointerType],
-      pointerIconClass[pointerType],
       visible && "cube-visible",
     );
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div className={classes} role="button" tabIndex={-1} title={title} {...props}
-        onClick={this._handleClick} />
+        onClick={this._handleClick}><Icon iconSpec={pointerIconSpec[pointerType]} /> </div>
     );
   }
   private _handleClick = (event: React.MouseEvent) => {

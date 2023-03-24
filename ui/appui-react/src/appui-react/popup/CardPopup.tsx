@@ -11,7 +11,7 @@ import * as React from "react";
 import classnames from "classnames";
 import { CommonToolbarItem, OnCancelFunc, OnItemExecutedFunc, PropertyRecord, RelativePosition, SpecialKey } from "@itwin/appui-abstract";
 import { DivWithOutsideClick, FocusTrap, Orientation, Point, Size, SizeProps } from "@itwin/core-react";
-import { Leading } from "@itwin/itwinui-react";
+import { Text } from "@itwin/itwinui-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import { isReactContent, PopupContentType, PopupManager, PopupPropsBase } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
@@ -103,11 +103,11 @@ export function Card(props: CardProps) {
   // istanbul ignore else
   if (props.title) {
     if (typeof props.title === "string")
-      titleNode = <Leading>{props.title}</Leading>;
+      titleNode = <Text variant="leading">{props.title}</Text>;
     else {
       const propertyValueRendererManager = PropertyValueRendererManager.defaultManager;
       const titleValue = propertyValueRendererManager.render(props.title);
-      titleNode = <Leading>{titleValue}</Leading>;
+      titleNode = <Text variant="leading">{titleValue}</Text>;
     }
   }
 

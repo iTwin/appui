@@ -10,8 +10,9 @@ import "./ResultSelector.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { CommonProps } from "@itwin/core-react";
+import { CommonProps, Icon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
+import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
 /** [[ResultSelector]] React Component state
  * @internal
@@ -121,9 +122,10 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
   public override render() {
     return (
       <span className={classnames("components-result-selector", this.props.className)} style={this.props.style}>
-        <button className={classnames("components-result-selector-button", "icon", "icon-chevron-left")}
+        <button className={classnames("components-result-selector-button", "icon")}
+          data-testid="previous-button"
           onClick={this._onClickPrevious}
-          disabled={this.props.resultCount <= 0} />
+          disabled={this.props.resultCount <= 0}><Icon iconSpec={<SvgChevronLeft />} /></button>
 
         <span style={{ pointerEvents: this.props.resultCount ? "auto" : "none" }}
           className="components-result-selector-current-result"
@@ -140,9 +142,9 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
           <span>{this.props.resultCount}</span>
         </span>
 
-        <button className="components-result-selector-button icon icon-chevron-right"
+        <button className="components-result-selector-button icon" data-testid="next-button"
           onClick={this._onClickNext}
-          disabled={this.props.resultCount <= 0} />
+          disabled={this.props.resultCount <= 0}><Icon iconSpec={<SvgChevronRight />}/></button>
       </span>
     );
   }
