@@ -5,20 +5,21 @@
 /** @packageDocumentation
  * @module Timeline
  */
-
-import "./TimelineComponent.scss";
-import classnames from "classnames";
-import * as React from "react";
 import { GenericUiEventArgs, UiAdmin } from "@itwin/appui-abstract";
 import { DateFormatOptions, toDateString, toTimeString, UiComponents } from "@itwin/components-react";
+import { Icon } from "@itwin/core-react";
+import { SvgCaretLeft, SvgCaretRight, SvgCheckmark, SvgMoreVertical, SvgPlayCircular } from "@itwin/itwinui-icons-react";
+import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";
+import classnames from "classnames";
+import * as React from "react";
+
 import { UiIModelComponents } from "../UiIModelComponents";
 import { InlineEdit } from "./InlineEdit";
 import { PlaybackSettings, TimelinePausePlayAction, TimelinePausePlayArgs } from "./interfaces";
 import { PlayButton, PlayerButton } from "./PlayerButton";
 import { Scrubber } from "./Scrubber";
-import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";
-import { Icon } from "@itwin/core-react";
-import { SvgCaretLeft, SvgCaretRight, SvgCheckmark, SvgMoreVertical, SvgPlayCircular } from "@itwin/itwinui-icons-react";
+
+import "./TimelineComponent.scss";
 
 // cspell:ignore millisec
 
@@ -453,7 +454,35 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
     };
 
     return (
-      <DropdownMenu menuItems={createMenuItemNodes}>
+      <DropdownMenu menuItems={createMenuItemNodes} placement="top-start" popperOptions={{
+        modifiers: [
+          {
+            name: "hide", // When the timeline is no longer visible, hide the popper.
+          },
+          {
+            name: "preventOverflow",
+            options: {
+              altAxis: true, // Allow the popper to go below the reference element and use as much space as needed.
+            },
+          },
+          {
+            name: "computeStyles",
+            options: {
+              roundOffsets: ({ x, y }: { x: number, y: number }) => ({
+                x,
+                y: Math.max(y, 0), // Ensure that the top of the popper will not go over the top of the document.
+              }),
+            },
+          },
+          {
+            name: "setPopperClass", // Ensure we target only THIS popper with a class
+            enabled: true,
+            phase: "beforeWrite",
+            fn({ state }) {
+              state.attributes.popper.class = "timeline-component-max-sized-scrolling-menu";
+            },
+          },
+        ]}}>
         <span data-testid="timeline-settings" className="timeline-settings icon"
           role="button" tabIndex={-1} title={UiComponents.translate("button.label.settings")}
         ><Icon iconSpec={<SvgMoreVertical />} /></span>

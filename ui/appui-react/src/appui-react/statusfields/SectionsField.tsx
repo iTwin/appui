@@ -38,7 +38,7 @@ export function SectionsStatusField(props: SectionsStatusFieldProps) {
   const [showIndicator, setShowIndicator] = React.useState(false);
   const [isPopupOpen, setPopupOpen] = React.useState(false);
   const targetDiv = React.useRef<HTMLDivElement>(null);
-  const classes = (showIndicator) ? "uifw-indicator-fade-in" : "uifw-indicator-fade-out";
+  const classes = (showIndicator) ? "uifw-field-fade-in" : "uifw-field-fade-out";
   const [hasManipulatorsShown, setHasManipulatorsShown] = React.useState(false);
 
   React.useEffect(() => {

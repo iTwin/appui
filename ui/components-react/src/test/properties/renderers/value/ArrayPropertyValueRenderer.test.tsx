@@ -57,7 +57,7 @@ describe("ArrayPropertyValueRenderer", () => {
       const element = renderer.render(arrayProperty, { containerType: PropertyContainerType.Table, orientation: Orientation.Vertical, onDialogOpen: dialogSpy });
       render(<div>{element}</div>);
 
-      await theUserTo.click(screen.getByRole("link", {name: "View [] in more detail."}));
+      await theUserTo.click(screen.getByTitle("View [] in more detail."));
       expect(dialogSpy).to.have.been.calledWithMatch((arg: any) => arg?.content?.props?.orientation === Orientation.Vertical);
     });
 
