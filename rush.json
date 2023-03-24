@@ -9,7 +9,8 @@
   "approvedPackagesPolicy": {
     "reviewCategories": [
       "frontend",
-      "internal"
+      "internal",
+      "tools"
     ],
     "ignoredNpmScopes": [
       "@types"
