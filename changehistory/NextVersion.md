@@ -3,6 +3,7 @@
 Table of contents:
 
 - [Migration strategy](#migration-strategy)
+- [iTwinUI 2.0](#itwinui-20)
 - [@itwin/appui-layout-react](#itwinappui-layout-react)
 - [@itwin/appui-abstract](#itwinappui-abstract)
 - [@itwin/appui-react](#itwinappui-react)
@@ -20,6 +21,11 @@ For regular use cases it should be enough to run the tool with full 4.0.0 transf
 
 After running the tool review the changes and make required adjustments.
 Consult the documentation below for guidance on handling API changes.
+
+## iTwinUI 2.0
+
+With the 4.0 release, AppUI has updated its [@itwin/itwinui-react](https://www.npmjs.com/package/@itwin/itwinui-react) dependency to the 2.0 version.
+Since AppUI uses iTwinUI to style container elements to which application specific content is provided this adds a prerequisite for consumers of AppUI 4.0 to upgrade to iTwinUI 2.0.
 
 ## @itwin/appui-layout-react
 
