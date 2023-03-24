@@ -452,6 +452,7 @@ beta;StandardStatusbarUiItemsProvider
 public;StateManager
 public;StateType
 public;StatusBar 
+public;StatusBar
 public;StatusBarActionItem 
 public;StatusBarCenterSection(props: CommonDivProps): JSX.Element
 public;StatusBarComposer(props: StatusBarComposerProps): JSX.Element

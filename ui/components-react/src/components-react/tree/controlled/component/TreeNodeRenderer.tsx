@@ -58,7 +58,7 @@ export interface TreeNodeRendererProps extends CommonProps {
  * Default component for rendering tree node.
  * @public
  */
-export const TreeNodeRenderer = React.memo((props: TreeNodeRendererProps) => {
+export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(props: TreeNodeRendererProps) {
   const label = (
     <TreeNodeContent
       key={props.node.id}

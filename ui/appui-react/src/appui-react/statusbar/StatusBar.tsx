@@ -16,6 +16,8 @@ import { StatusBarWidgetControl } from "./StatusBarWidgetControl";
 import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
 import { ActivityMessageRenderer } from "../messages/ActivityMessage";
 import { UiFramework } from "../UiFramework";
+import { StatusBarField } from "./Field";
+import { StatusBarPopup } from "./Popup";
 
 // cspell:ignore safearea
 
@@ -174,4 +176,19 @@ export function StatusBarCenterSection(props: CommonDivProps) {
 export function StatusBarRightSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
   return <Div {...divProps} mainClassName={className ? className : "uifw-statusbar-right"} />;
+}
+
+/** Components used in a [[StatusBar]].
+ * @public
+ */
+export namespace StatusBar {
+  /** Field of a [[StatusBar]].
+   * @beta
+   */
+  export const Field = StatusBarField;
+
+  /** Popup of a [[StatusBar]].
+   * @beta
+   */
+  export const Popup = StatusBarPopup;
 }
