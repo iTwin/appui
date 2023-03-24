@@ -1,0 +1,17 @@
+{
+  "name": "@itwin/appui-codemod",
+  "entries": [
+    {
+      "version": "0.0.0",
+      "tag": "@itwin/appui-codemod_v0.0.0",
+      "date": "Fri, 24 Mar 2023 11:59:16 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Initial @itwin/appui-codemod."
+          }
+        ]
+      }
+    }
+  ]
+}
