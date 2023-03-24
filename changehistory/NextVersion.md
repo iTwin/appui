@@ -2,14 +2,24 @@
 
 Table of contents:
 
-- [NextVersion](#nextversion)
-  - [@itwin/appui-layout-react](#itwinappui-layout-react)
-  - [@itwin/appui-abstract](#itwinappui-abstract)
-  - [@itwin/appui-react](#itwinappui-react)
-    - [Static manager classes](#static-manager-classes)
-  - [@itwin/core-react](#itwincore-react)
-  - [@itwin/components-react](#itwincomponents-react)
-  - [@bentley/icons-generic-webfont](#bentleyicons-generic-webfont)
+- [Migration strategy](#migration-strategy)
+- [@itwin/appui-layout-react](#itwinappui-layout-react)
+- [@itwin/appui-abstract](#itwinappui-abstract)
+- [@itwin/appui-react](#itwinappui-react)
+  - [Static manager classes](#static-manager-classes)
+- [@itwin/core-react](#itwincore-react)
+- [@itwin/components-react](#itwincomponents-react)
+- [@bentley/icons-generic-webfont](#bentleyicons-generic-webfont)
+
+## Migration strategy
+
+[@itwin/appui-codemod](../tools/codemod/README.md) tool exists to facilitate the migration.
+For regular use cases it should be enough to run the tool with full 4.0.0 transformations:
+
+`npx @itwin/appui-codemod v4.0.0/full ./my-app/`
+
+After running the tool review the changes and make required adjustments.
+Consult the documentation below for guidance on handling API changes.
 
 ## @itwin/appui-layout-react
 
