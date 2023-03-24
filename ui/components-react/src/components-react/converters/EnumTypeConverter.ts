@@ -15,7 +15,7 @@ import { TypeConverterManager } from "./TypeConverterManager";
  * @public
  */
 export class EnumTypeConverter extends TypeConverter {
-  public override convertPropertyToString(propertyDescription: PropertyDescription, value?: Primitives.Enum) {
+  public override convertPropertyToString(propertyDescription: PropertyDescription, value?: Primitives.Enum): string | Promise<string> {
     if (value === undefined)
       return "";
 

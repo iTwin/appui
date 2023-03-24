@@ -27,7 +27,7 @@ describe("<UnderlinedButton />", () => {
         Test text
       </UnderlinedButton>);
 
-    expect(classesFromElement(screen.getByRole("link", {name:title}))).to.include("test-class");
+    expect(classesFromElement(screen.getByTitle(title))).to.include("test-class");
   });
 
   it("handles onClick", async () => {

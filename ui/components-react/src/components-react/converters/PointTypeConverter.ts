@@ -27,13 +27,13 @@ export abstract class BasePointTypeConverter extends TypeConverter {
     this.componentConverterName = componentConverterName;
   }
 
-  private formatValue(value: number | string) {
+  private formatValue(value: number | string): string | Promise<string> {
     if (typeof value === "string")
       value = parseFloat(value);
     return TypeConverterManager.getConverter(this.componentConverterName).convertToString(value);
   }
 
-  public override convertToString(value?: Primitives.Point) {
+  public override convertToString(value?: Primitives.Point): string | Promise<string> {
     if (!value)
       return "";
 
@@ -41,7 +41,7 @@ export abstract class BasePointTypeConverter extends TypeConverter {
     if (Array.isArray(value)) {
       if (value.length === 0)
         return "";
-      components = (value as Array<string | number>).map((c) => this.formatValue(c));
+      components = (value as Array<string | number>).map((c): string | Promise<string> => this.formatValue(c));
     } else {
       components = [this.formatValue(value.x), this.formatValue(value.y)];
       if (undefined !== (value as any).z)
