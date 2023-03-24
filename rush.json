@@ -33,6 +33,42 @@
   },
   "projects": [
     {
+      "packageName": "ui-end-to-end-tests",
+      "projectFolder": "full-stack-tests/ui",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "appui-connected-app",
+      "projectFolder": "test-apps/appui-test-app/connected",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "appui-standalone-app",
+      "projectFolder": "test-apps/appui-test-app/standalone",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@itwin/appui-test-providers",
+      "projectFolder": "test-apps/appui-test-app/appui-test-providers",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@itwin/appui-codemod",
+      "projectFolder": "tools/codemod",
+      "reviewCategory": "tools",
+      "versionPolicyName": "monorepo-individual"
+    },
+    {
+      "packageName": "internal-tools",
+      "projectFolder": "tools/internal",
+      "reviewCategory": "internal",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@itwin/core-react",
       "projectFolder": "ui/core-react",
       "reviewCategory": "frontend",
@@ -61,40 +97,12 @@
       "projectFolder": "ui/appui-react",
       "reviewCategory": "frontend",
       "versionPolicyName": "prerelease-monorepo-lockStep"
-    },
-    {
-      "packageName": "internal-tools",
-      "projectFolder": "tools/internal",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "appui-connected-app",
-      "projectFolder": "test-apps/appui-test-app/connected",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "appui-standalone-app",
-      "projectFolder": "test-apps/appui-test-app/standalone",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "@itwin/appui-test-providers",
-      "projectFolder": "test-apps/appui-test-app/appui-test-providers",
-      "reviewCategory": "internal",
-      "shouldPublish": false
-    },
-    {
-      "packageName": "ui-end-to-end-tests",
-      "projectFolder": "full-stack-tests/ui",
-      "reviewCategory": "internal",
-      "shouldPublish": false
     }
   ],
-  "variants": [{
-    "variantName": "core-3x",
-    "description": "Build this repo using iTwin.js core 3.6.x"
-  }]
+  "variants": [
+    {
+      "variantName": "core-3x",
+      "description": "Build this repo using iTwin.js core 3.6.x"
+    }
+  ]
 }
