@@ -87,5 +87,19 @@ describe("ImportDeclaration", () => {
       `,
       `should not fail if declaration is removed`,
     );
+
+    defineInlineTest(
+      (_, root) => {
+        root.findImportDeclarations("@itwin/from")
+          .removeSpecifier("a");
+      },
+      `
+      x;
+      `,
+      `
+      x;
+      `,
+      `should not fail if declaration is not found`,
+    );
   });
 });
