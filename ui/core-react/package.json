@@ -29,7 +29,7 @@
     "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/core-react/file.json --excludeGlob=**/declarations.d.ts --tsIndexFile=./core-react.ts --onlyJson"
   },
   "keywords": [
-    "AppUi",
+    "AppUI",
     "Bentley",
     "BIM",
     "iModel",

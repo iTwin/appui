@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Expose AppUi specific types previously defined in @itwin/appui-abstract.",
+      "comment": "Expose AppUI specific types previously defined in @itwin/appui-abstract.",
       "type": "none"
     }
   ],

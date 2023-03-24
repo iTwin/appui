@@ -30,7 +30,7 @@
     "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src/test --recursive --out=../../generated-docs/extract"
   },
   "keywords": [
-    "AppUi",
+    "AppUI",
     "Bentley",
     "BIM",
     "iModel"

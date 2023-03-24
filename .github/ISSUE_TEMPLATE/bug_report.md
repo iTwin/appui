@@ -7,7 +7,7 @@ assignees: ""
 ---
 
 <!--
-Thanks for helping us improve iTwin.js AppUi! Please describe what the expected behavior is vs what actually happens.
+Thanks for helping us improve iTwin.js AppUI! Please describe what the expected behavior is vs what actually happens.
 -->
 
 **Describe the bug**
@@ -32,7 +32,7 @@ If applicable, add screenshots to help explain your problem.
 - OS: [e.g. iOS]
 - Browser [e.g. chrome, safari]
 - Version [e.g. 22]
-- iTwin.js AppUi Version [e.g. 4.0.0]
+- iTwin.js AppUI Version [e.g. 4.0.0]
 - iTwin.js Version [e.g. 3.6.2]
 
 **Additional context**

@@ -33,7 +33,7 @@ All APIs are marked as internal. `@itwin/appui-layout-react` package is consider
 
 ## @itwin/appui-abstract
 
-AppUi related definitions from `@itwin/appui-abstract` are moved into `@itwin/appui-react`.
+AppUI related definitions from `@itwin/appui-abstract` are moved into `@itwin/appui-react`.
 
 | API from *@itwin/appui-abstract*          | Replacement in *@itwin/appui-react*     |
 | ----------------------------------------- | --------------------------------------- |
@@ -447,4 +447,4 @@ Removed `Table`, `Breadcrumb` and other previously deprecated APIs and component
 
 ## @bentley/icons-generic-webfont
 
-With the 4.0 release, AppUi has removed its dependency on the icons-generic-webfont package in favor of React or SVG icons. Webfont icons and their identifying names are still supported by the AppUi platform, but applications or packages that use a webfont for icons will have to include the webfont package in their direct dependencies.
+With the 4.0 release, AppUI has removed its dependency on the icons-generic-webfont package in favor of React or SVG icons. Webfont icons and their identifying names are still supported by the AppUI platform, but applications or packages that use a webfont for icons will have to include the webfont package in their direct dependencies.

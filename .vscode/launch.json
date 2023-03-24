@@ -76,7 +76,7 @@
       ]
     },
     {
-      "name": "[UI] Tests: AppUi React",
+      "name": "[UI] Tests: AppUI React",
       "presentation": {
         "group": "4_UI"
       },

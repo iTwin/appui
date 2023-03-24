@@ -1,4 +1,4 @@
-﻿# AppUi
+﻿# AppUI
 
 Copyright © Bentley Systems, Incorporated. All rights reserved. See [LICENSE.md](./LICENSE.md) for license terms and full copyright notice.
 
@@ -8,7 +8,7 @@ If you have questions, or wish to contribute to iTwin.js, see our [Contributing 
 
 ## About this Repository
 
-This repository is a [monorepo](https://en.wikipedia.org/wiki/Monorepo) that holds the source code to multiple iTwin.js AppUi npm packages. It is built using [Rush](http://rushjs.io/).
+This repository is a [monorepo](https://en.wikipedia.org/wiki/Monorepo) that holds the source code to multiple iTwin.js AppUI npm packages. It is built using [Rush](http://rushjs.io/).
 
 See [rush.json](./rush.json) for the complete list of packages.
 
@@ -84,7 +84,7 @@ Use these instructions to update dependencies and devDependencies on external pa
 
 ## iTwin.js core 3.x compatibility
 
-AppUi 4.0 version must keep compatibility with iTwin.js core version ^3.6.0 to facilitate migration, in order to do so, a rush variant have been created.
+AppUI 4.0 version must keep compatibility with iTwin.js core version ^3.6.0 to facilitate migration, in order to do so, a rush variant have been created.
 
 ### Validating code for the variant
 

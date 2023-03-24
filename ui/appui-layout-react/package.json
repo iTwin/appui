@@ -27,7 +27,7 @@
     "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/appui-layout-react/file.json --excludeGlob=**/declarations.d.ts --tsIndexFile=./appui-layout-react.ts --onlyJson"
   },
   "keywords": [
-    "AppUi",
+    "AppUI",
     "Bentley",
     "BIM",
     "iModel"

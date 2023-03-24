@@ -18,7 +18,7 @@
     "preinstall": "echo ERROR: use 'rush install' instead && exit 1"
   },
   "keywords": [
-    "AppUi",
+    "AppUI",
     "Bentley",
     "BIM",
     "iModel",

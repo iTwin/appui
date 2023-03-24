@@ -1,6 +1,6 @@
-# Contributing to AppUi
+# Contributing to AppUI
 
-Welcome, and thank you for your interest in contributing to AppUi!
+Welcome, and thank you for your interest in contributing to AppUI!
 
 There are many ways to contribute.
 The goal of this document is to provide a high-level overview of how you can get involved.
@@ -18,7 +18,7 @@ Your comments and feedback are welcome. For general comments or discussion pleas
 
 ## Reporting Issues
 
-Have you identified a reproducible problem in iTwin.js AppUi?
+Have you identified a reproducible problem in iTwin.js AppUI?
 Have a feature request?
 We want to hear about it!
 Here's how you can make reporting your issue as effective as possible.
@@ -48,7 +48,7 @@ The more information you can provide, the more likely someone will be successful
 Please include the following with each issue:
 
 - A short description of the issue that becomes the title
-- Versions of relevant iTwin.js core and AppUi packages
+- Versions of relevant iTwin.js core and AppUI packages
 - Minimal steps to reproduce the issue or a code snippet that demonstrates the issue
 - What you expected to see, versus what you actually saw
 - Images that help explain the issue
@@ -65,7 +65,7 @@ You may be asked to clarify things or try different approaches, so please follow
 
 ## Contributions
 
-We'd love to accept your contributions to iTwin.js AppUi.
+We'd love to accept your contributions to iTwin.js AppUI.
 There are just a few guidelines you need to follow.
 
 ### Contributor License Agreement (CLA)

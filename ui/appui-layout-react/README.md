@@ -4,7 +4,7 @@ Copyright © Bentley Systems, Incorporated. All rights reserved. See LICENSE.md 
 
 ## Description
 
-The __@itwin/appui-layout-react__ package contains internal React components for the AppUi-react panels, widget UI and other purposes and is not expected to be used directly by applications.
+The __@itwin/appui-layout-react__ package contains internal React components for the AppUI-react panels, widget UI and other purposes and is not expected to be used directly by applications.
 
 ## Documentation
 
