@@ -21,7 +21,6 @@ import { Scrubber } from "./Scrubber";
 
 import "./TimelineComponent.scss";
 
-
 // cspell:ignore millisec
 
 const slowSpeed = 60 * 1000;
@@ -483,7 +482,7 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
               state.attributes.popper.class = "timeline-component-max-sized-scrolling-menu";
             },
           },
-      ]}}>
+        ]}}>
         <span data-testid="timeline-settings" className="timeline-settings icon"
           role="button" tabIndex={-1} title={UiComponents.translate("button.label.settings")}
         ><Icon iconSpec={<SvgMoreVertical />} /></span>
