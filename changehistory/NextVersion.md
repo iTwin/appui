@@ -25,7 +25,7 @@ Consult the documentation below for guidance on handling API changes.
 ## iTwinUI 2.0
 
 With the 4.0 release, AppUI has updated its [@itwin/itwinui-react](https://www.npmjs.com/package/@itwin/itwinui-react) dependency to the 2.0 version.
-Since AppUI uses iTwinUI to style container elements to which application specific content is provided this adds a prerequisite for consumers of AppUI 4.0 to upgrade to iTwinUI 2.0.
+Since AppUI uses iTwinUI to style elements that can contain application-specific content, consumers of AppUI 4.0 must upgrade to iTwinUI 2.0 or later.
 
 ## @itwin/appui-layout-react
 
