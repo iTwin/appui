@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 ({
   id: this.id,
+  contentGroup,
   version: 1,
-  contentGroup: contentGroup,
 
   contentManipulation: {
     id: "contentManipulation",
