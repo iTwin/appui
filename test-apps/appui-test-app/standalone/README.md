@@ -1,4 +1,4 @@
-# AppUi Test App
+# AppUI Test App
 
 ## About this Application
 

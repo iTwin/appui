@@ -29,6 +29,7 @@
     "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/imodel-components-react/file.json --tsIndexFile=./imodel-components-react.ts --onlyJson"
   },
   "keywords": [
+    "AppUI",
     "Bentley",
     "BIM",
     "iModel"
