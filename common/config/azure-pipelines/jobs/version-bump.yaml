@@ -55,7 +55,7 @@ jobs:
         checkLatest: true
 
     - bash: |
-        git config --local user.email imodeljs-admin@users.noreply.github.com
+        git config --local user.email 38288322+imodeljs-admin@users.noreply.github.com
         git config --local user.name imodeljs-admin
       displayName: Setup Git
 
@@ -93,17 +93,11 @@ jobs:
               # Remove old frontmatter
               (Get-Content $sourceFile | Select-Object -Skip 3) | Set-Content $sourceFile
 
-              # Copy NextVersion to index.md
-              Copy-Item $sourceFile docs/changehistory/index.md -Force
-
               # Add relevant frontmatter
               "---`ndeltaDoc: true`nversion: '$(getVersion.version)'`n---`n" + (Get-Content $sourceFile | Out-String) | Set-Content $sourceFile
 
               # Rename NextVersion
               Rename-Item -Path $sourceFile -NewName "$(getVersion.version).md"
-
-              # Add link to leftNav.md
-              (Get-Content -Path docs/changehistory/leftNav.md) -replace '### Versions', "### Versions`n- [$(getVersion.version)](./$(getVersion.version).md)`n" | Set-Content -Path docs/changehistory/leftNav.md
 
               # Create new NextVersion.md
               New-Item $sourceFile
@@ -111,9 +105,6 @@ jobs:
               # Update NextVersion.md with template
               "---`npublish: false`n---`n# NextVersion`n" + (Get-Content $sourceFile | Out-String) | Set-Content $sourceFile
           }
-
-          # Change header tab in docSite.json
-          (Get-Content 'docs/config/docSites.json') -replace '\".*?\":\s.?\"changehistory\"', "`"v$(getVersion.version)`": `"changehistory`"" | Set-Content 'docs/config/docSites.json'
 
         failOnStderr: true
         displayName: NextVersion.md rename and replace
@@ -125,7 +116,7 @@ jobs:
     - bash: |
         echo Committing version bump $(getVersion.version)...
 
-        git commit -m "$(getVersion.version)" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
+        git commit -m "$(getVersion.version)" --author="imodeljs-admin <38288322+imodeljs-admin@users.noreply.github.com>"
       displayName: Commit version bump
 
     - ${{ if or(eq(parameters.BumpType, 'minor'), eq(parameters.BumpType, 'patch')) }}:
@@ -146,7 +137,7 @@ jobs:
       steps:
       - checkout: self
       - bash: |
-          git config --local user.email imodeljs-admin@users.noreply.github.com
+          git config --local user.email 38288322+imodeljs-admin@users.noreply.github.com
           git config --local user.name imodeljs-admin
         displayName: Setup Git
 
@@ -185,7 +176,7 @@ jobs:
           checkLatest: true
 
       - bash: |
-          git config --local user.email imodeljs-admin@users.noreply.github.com
+          git config --local user.email 38288322+imodeljs-admin@users.noreply.github.com
           git config --local user.name imodeljs-admin
         displayName: 'Setup Git'
 
@@ -235,7 +226,7 @@ jobs:
           Write-Host The new version is $newVersion
           Write-Host Committing version bump...
 
-          git commit -m "$newVersion" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
+          git commit -m "$newVersion" --author="imodeljs-admin <38288322+imodeljs-admin@users.noreply.github.com>"
 
           git status
         displayName: Get version and committing

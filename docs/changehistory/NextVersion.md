@@ -1,3 +1,6 @@
+---
+publish: false
+---
 # NextVersion
 
 Table of contents:
