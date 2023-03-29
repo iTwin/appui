@@ -3,6 +3,7 @@
 Table of contents:
 
 - [Migration strategy](#migration-strategy)
+- [iTwinUI 2.0](#itwinui-20)
 - [@itwin/appui-layout-react](#itwinappui-layout-react)
 - [@itwin/appui-abstract](#itwinappui-abstract)
 - [@itwin/appui-react](#itwinappui-react)
@@ -20,6 +21,11 @@ For regular use cases it should be enough to run the tool with full 4.0.0 transf
 
 After running the tool review the changes and make required adjustments.
 Consult the documentation below for guidance on handling API changes.
+
+## iTwinUI 2.0
+
+With the 4.0 release, AppUI has updated its [@itwin/itwinui-react](https://www.npmjs.com/package/@itwin/itwinui-react) dependency to the 2.0 version.
+Since AppUI uses iTwinUI to style elements that can contain application-specific content, consumers of AppUI 4.0 must upgrade to iTwinUI 2.0 or later.
 
 ## @itwin/appui-layout-react
 
@@ -457,4 +463,4 @@ Removed `Table`, `Breadcrumb` and other previously deprecated APIs and component
 
 ## @bentley/icons-generic-webfont
 
-With the 4.0 release, AppUi has removed its dependency on the icons-generic-webfont package in favor of React or SVG icons. Webfont icons and their identifying names are still supported by the AppUi platform, but applications or packages that use a webfont for icons will have to include the webfont package in their direct dependencies.
+With the 4.0 release, AppUI has removed its dependency on the icons-generic-webfont package in favor of React or SVG icons. Webfont icons and their identifying names are still supported by the AppUI platform, but applications or packages that use a webfont for icons will have to include the webfont package in their direct dependencies.

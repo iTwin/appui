@@ -9,7 +9,7 @@
       "presentation": {
         "group": "__TOP__"
       },
-      "type": "pwa-node",
+      "type": "node",
       "request": "attach",
       "processId": "${command:PickProcess}"
     },
@@ -20,7 +20,7 @@
         "group": "4_UI"
       },
       "cwd": "${workspaceFolder}/ui/components-react",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/ui/components-react/node_modules/mocha/bin/_mocha",
       "args": [
@@ -43,7 +43,7 @@
         "group": "4_UI"
       },
       "cwd": "${workspaceFolder}/ui/core-react",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/ui/core-react/node_modules/mocha/bin/_mocha",
       "args": [
@@ -62,7 +62,7 @@
         "group": "4_UI"
       },
       "cwd": "${workspaceFolder}/ui/imodel-components-react",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/ui/imodel-components-react/node_modules/mocha/bin/_mocha",
       "args": [
@@ -76,12 +76,12 @@
       ]
     },
     {
-      "name": "[UI] Tests: AppUi React",
+      "name": "[UI] Tests: AppUI React",
       "presentation": {
         "group": "4_UI"
       },
       "cwd": "${workspaceFolder}/ui/appui-react",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/ui/appui-react/node_modules/mocha/bin/_mocha",
       "args": [
@@ -101,7 +101,7 @@
         "group": "4_UI"
       },
       "cwd": "${workspaceFolder}/ui/appui-layout-react",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/ui/appui-layout-react/node_modules/mocha/bin/_mocha",
       "args": [
@@ -122,7 +122,7 @@
         "hidden": true
       },
       "cwd": "${workspaceFolder}/test-apps/appui-test-app/standalone",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/test-apps/appui-test-app/standalone/lib/backend/main.js",
       "outFiles": [
@@ -138,7 +138,7 @@
       "presentation": {
         "hidden": true
       },
-      "type": "pwa-chrome",
+      "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000/",
       "outFiles": [
@@ -155,7 +155,7 @@
         "hidden": true
       },
       "cwd": "${workspaceFolder}/test-apps/appui-test-app/standalone",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "runtimeExecutable": "${workspaceFolder}/test-apps/appui-test-app/standalone/node_modules/.bin/electron",
       "runtimeArgs": [
@@ -180,7 +180,7 @@
       "presentation": {
         "hidden": true
       },
-      "type": "pwa-chrome",
+      "type": "chrome",
       "request": "attach",
       "port": 9223,
       "outFiles": [
@@ -197,7 +197,7 @@
         "hidden": true
       },
       "cwd": "${workspaceFolder}/test-apps/appui-test-app/connected",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/test-apps/appui-test-app/connected/lib/backend/main.js",
       "outFiles": [
@@ -213,7 +213,7 @@
       "presentation": {
         "hidden": true
       },
-      "type": "pwa-chrome",
+      "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000/",
       "outFiles": [
@@ -260,28 +260,4 @@
       ]
     },
   ],
-  "inputs": [
-    {
-      "id": "integrationTestEnvironment",
-      "description": "Select test frontend environment",
-      "type": "pickString",
-      "default": "chrome",
-      "options": [
-        "chrome",
-        "electron"
-      ]
-    },
-    {
-      "id": "rpcTestEnvironment",
-      "description": "Select RPC integration test environment",
-      "type": "pickString",
-      "default": "chrome",
-      "options": [
-        "chrome",
-        "electron",
-        "direct",
-        "chrome-websocket"
-      ]
-    }
-  ]
 }

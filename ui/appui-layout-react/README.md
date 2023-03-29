@@ -4,36 +4,11 @@ Copyright © Bentley Systems, Incorporated. All rights reserved. See LICENSE.md 
 
 ## Description
 
-The __@itwin/appui-layout-react__ package contains React components for 9-Zone UI and other purposes.
+The __@itwin/appui-layout-react__ package contains internal React components for the AppUI-react panels, widget UI and other purposes and is not expected to be used directly by applications.
 
 ## Documentation
 
-See the [iTwin.js](https://www.itwinjs.org) documentation for more information.
-
-## Usage
-
-### Installation
-
-```shell
-npm install @itwin/appui-layout-react
-```
-
-### Basic Usage
-
-```javascript
-import BackButton from "@itwin/appui-layout-react";
-
-<BackButton />
-```
-
-### Components
-
-* Buttons
-  * App
-  * Back
-  * Button
-  * Close
-* ...
+See the [iTwin.js](https://www.itwinjs.org/learning/ui/) documentation for more information.
 
 ### Coding Guidelines
 

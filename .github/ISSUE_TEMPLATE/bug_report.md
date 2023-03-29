@@ -7,7 +7,7 @@ assignees: ""
 ---
 
 <!--
-Thanks for helping us improve iTwin.js! Please describe what the expected behavior is vs what actually happens.
+Thanks for helping us improve iTwin.js AppUI! Please describe what the expected behavior is vs what actually happens.
 -->
 
 **Describe the bug**
@@ -32,7 +32,8 @@ If applicable, add screenshots to help explain your problem.
 - OS: [e.g. iOS]
 - Browser [e.g. chrome, safari]
 - Version [e.g. 22]
-- iTwin.js Version [e.g. 2.5.3]
+- iTwin.js AppUI Version [e.g. 4.0.0]
+- iTwin.js Version [e.g. 3.6.2]
 
 **Additional context**
 Add any other context about the problem here.
@@ -43,7 +44,7 @@ If you can also contribute a fix, we'd absolutely appreciate it!
 
 Check out the contributor guide to get started:
 
-https://github.com/iTwin/itwinjs-core/blob/master/CONTRIBUTING.md
+https://github.com/iTwin/appui/blob/master/CONTRIBUTING.md
 
 Just let us know you're working on it and we'd be happy to provide advice and feedback.
 
