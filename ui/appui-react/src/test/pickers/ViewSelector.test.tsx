@@ -88,7 +88,7 @@ describe("ViewSelector", () => {
             onResize: () => { },
           }}
         >
-          <ViewSelector imodel={imodelMock.object} listenForShowUpdates={true} />
+          <ViewSelector imodel={imodelMock.object} listenForShowUpdates={true} searchBox={false}/>
         </ToolbarItemContext.Provider>
       </Provider>
     );
@@ -136,11 +136,34 @@ describe("ViewSelector", () => {
             onResize: () => { },
           }}
         >
-          <ViewSelector imodel={imodelMock2.object} />
+          <ViewSelector imodel={imodelMock2.object} panelOnly={true}/>
         </ToolbarItemContext.Provider>
       </Provider>
     );
 
     await waitFor(() => expect(screen.getByText("spatial2")).to.exist);
+  });
+  it("should filter views based on search input",async () => {
+    render(
+      <Provider store={TestUtils.store}>
+        <ToolbarItemContext.Provider
+          value={{
+            hasOverflow: false,
+            useHeight: false,
+            onResize: () => { },
+          }}
+        >
+          <ViewSelector imodel={imodelMock.object} searchBox={true}/>
+        </ToolbarItemContext.Provider>
+      </Provider>
+    );
+    await waitFor(async () => theUserTo.click(screen.getByRole("button")));
+    await theUserTo.type(screen.getByRole("searchbox"), "none");
+
+    expect(screen.queryByText("viewTypes.spatialViews")!.children).to.be.empty;
+    expect(screen.queryByText("viewTypes.drawings")!.children).to.be.empty;
+    expect(screen.queryByText("viewTypes.sheets")!.children).to.be.empty;
+    expect(screen.queryByText("viewTypes.others")!.children).to.be.empty;
+
   });
 });

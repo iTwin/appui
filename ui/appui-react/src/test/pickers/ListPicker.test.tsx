@@ -81,6 +81,7 @@ describe("ListPicker", () => {
           <ListPicker
             title={title}
             items={listItems}
+            searchBox={true}
             setEnabled={setEnabled}
           />
         </ToolbarItemContext.Provider>
