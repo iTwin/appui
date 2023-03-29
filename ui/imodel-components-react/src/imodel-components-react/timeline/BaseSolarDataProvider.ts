@@ -169,7 +169,6 @@ export class BaseSolarDataProvider implements SolarDataProvider {
     return this._projectSunsetMs;
   }
 
-  // instanbul ignore next
   public onTimeChanged = (_time: Date) => {
     // to be implemented by derived class
   };

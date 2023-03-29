@@ -26,7 +26,7 @@ describe("SnapModeField", () => {
       <StatusBar><SnapModeField /></StatusBar>
     </Provider>);
 
-    const button = wrapper.container.querySelector(".uifw-statusbar-indicator");
+    const button = wrapper.container.querySelector(".uifw-statusbar-field");
     expect(button).not.to.be.null;
     fireEvent.click(button!);
 

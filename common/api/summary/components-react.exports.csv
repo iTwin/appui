@@ -302,7 +302,7 @@ internal;TimeFieldProps
 internal;TimeSpec
 internal;Title(props: TitleProps): JSX.Element
 internal;TitleProps 
-public;toDateString: (date: Date, timeZoneOffset?: number | undefined, formatOptions?: DateFormatOptions | undefined) => string
+public;toDateString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string
 public;ToggleEditor 
 public;TogglePropertyEditor 
 public;Toolbar(props: ToolbarProps): JSX.Element
@@ -324,7 +324,7 @@ public;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
 internal;ToolbarWithOverflowDirectionContext: React_2.Context
 public;ToolbarWithOverflowProps 
 internal;toRxjsObservable
-public;toTimeString: (date: Date, timeZoneOffset?: number | undefined, formatOptions?: DateFormatOptions | undefined) => string
+public;toTimeString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string
 internal;toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition
 public;TreeActions
 public;TreeCheckboxStateChangeEventArgs
@@ -356,7 +356,7 @@ public;TreeNodeItem
 public;TreeNodeItemData = ImmediatelyLoadedTreeNodeItem & DelayLoadedTreeNodeItem
 public;TreeNodeLoader
 public;TreeNodeLoadResult
-public;TreeNodeRenderer: React_2.MemoExoticComponent
+public;TreeNodeRenderer: React_2.NamedExoticComponent
 public;TreeNodeRendererProps 
 public;TreeRenderer 
 public;TreeRendererAttributes
@@ -370,7 +370,7 @@ public;TypeEditor
 public;UiComponents
 public;Unsubscribable
 public;UrlPropertyValueRenderer 
-public;useAsyncValue: 
+public;useAsyncValue
 beta;useDebouncedAsyncValue
 public;usePagedTreeNodeLoader
 public;usePropertyData(props:
@@ -392,5 +392,5 @@ public;VirtualizedPropertyGridProps
 public;VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): JSX.Element
 public;VirtualizedPropertyGridWithDataProviderProps 
 public;VisibleTreeNodes 
-public;withContextStyle: (node: React_2.ReactNode, context?: PropertyValueRendererContext | undefined) => React_2.ReactNode
-public;withLinks: (stringValue: string, links?: LinkElementsInfo | undefined, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode
+public;withContextStyle: (node: React_2.ReactNode, context?: PropertyValueRendererContext) => React_2.ReactNode
+public;withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: ((text: string) => React_2.ReactNode) | undefined) => React_2.ReactNode

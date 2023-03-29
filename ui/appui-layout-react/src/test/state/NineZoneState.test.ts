@@ -325,7 +325,7 @@ describe("NineZoneStateReducer", () => {
         dragBy: new Point(10, 20).toProps(),
         floatingWidgetId: "fw1",
       });
-      newState.floatingWidgets.byId.fw1!.bounds.should.eql({
+      newState.floatingWidgets.byId.fw1.bounds.should.eql({
         left: 10,
         top: 120,
         right: 210,
@@ -708,7 +708,7 @@ describe("NineZoneStateReducer", () => {
         id: "fw1",
         resizeBy: new Rectangle(0, 10, 20, 40).toProps(),
       });
-      newState.floatingWidgets.byId.fw1!.bounds.should.eql({
+      newState.floatingWidgets.byId.fw1.bounds.should.eql({
         left: 0,
         top: 90,
         right: 220,
@@ -744,7 +744,7 @@ describe("NineZoneStateReducer", () => {
         id: "fw1",
         resizeBy: new Rectangle(10).toProps(),
       });
-      newState.floatingWidgets.byId.fw1!.userSized!.should.eq(true);
+      newState.floatingWidgets.byId.fw1.userSized!.should.eq(true);
     });
 
     it("should maintain min size when resizing (top-left)", () => {
@@ -758,7 +758,7 @@ describe("NineZoneStateReducer", () => {
         id: "fw1",
         resizeBy: new Rectangle(-800, -800),
       });
-      newState.floatingWidgets.byId.fw1!.bounds.should.eql({
+      newState.floatingWidgets.byId.fw1.bounds.should.eql({
         left: 500 - 200, // 200 is widget min width
         top: 900 - 120, // 120 is widget min height
         right: 500,
@@ -777,7 +777,7 @@ describe("NineZoneStateReducer", () => {
         id: "fw1",
         resizeBy: new Rectangle(0, 0, -800, -800),
       });
-      newState.floatingWidgets.byId.fw1!.bounds.should.eql({
+      newState.floatingWidgets.byId.fw1.bounds.should.eql({
         left: 100,
         top: 300,
         right: 100 + 200,
@@ -798,7 +798,7 @@ describe("NineZoneStateReducer", () => {
         id: "fw1",
         bounds: { top: 50, left: 30, bottom: 250, right: 350 },
       });
-      newState.floatingWidgets.byId.fw1!.bounds.should.eql({
+      newState.floatingWidgets.byId.fw1.bounds.should.eql({
         left: 30,
         top: 50,
         right: 350,
@@ -832,8 +832,8 @@ describe("NineZoneStateReducer", () => {
         type: "FLOATING_WIDGET_CLEAR_USER_SIZED",
         id: "fw1",
       });
-      newState.floatingWidgets.byId.fw1!.userSized!.should.eq(false);
-      newState.tabs.t1!.userSized!.should.eq(false);
+      newState.floatingWidgets.byId.fw1.userSized!.should.eq(false);
+      newState.tabs.t1.userSized!.should.eq(false);
     });
   });
 
@@ -847,7 +847,7 @@ describe("NineZoneStateReducer", () => {
         id: "fw1",
         userSized: true,
       });
-      newState.floatingWidgets.byId.fw1!.userSized!.should.eq(true);
+      newState.floatingWidgets.byId.fw1.userSized!.should.eq(true);
     });
   });
 

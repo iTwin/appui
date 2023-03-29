@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { createStore, StoreApi, useStore } from "zustand";
-import shallow from "zustand/shallow";
+import { shallow } from "zustand/shallow";
 import { assert } from "@itwin/core-bentley";
 import { createNineZoneState, NineZoneState } from "../state/NineZoneState";
 

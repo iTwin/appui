@@ -1,6 +1,6 @@
 {
   "name": "@itwin/appui-layout-react",
-  "version": "4.0.0-dev.12",
+  "version": "4.0.0-dev.13",
   "description": "iTwin.js Nine-zone React UI components",
   "main": "lib/cjs/appui-layout-react.js",
   "module": "lib/esm/appui-layout-react.js",
@@ -27,6 +27,7 @@
     "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/appui-layout-react/file.json --excludeGlob=**/declarations.d.ts --tsIndexFile=./appui-layout-react.ts --onlyJson"
   },
   "keywords": [
+    "AppUI",
     "Bentley",
     "BIM",
     "iModel"
@@ -38,7 +39,7 @@
   "peerDependencies": {
     "@itwin/appui-abstract": ">=3.6.2",
     "@itwin/core-bentley": ">=3.6.2",
-    "@itwin/core-react": "workspace:^4.0.0-dev.12",
+    "@itwin/core-react": "workspace:^4.0.0-dev.13",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   },
@@ -84,7 +85,7 @@
     "sinon-chai": "^3.2.0",
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
-    "typescript": "~4.4.0"
+    "typescript": "~5.0.2"
   },
   "//dependencies": [
     "NOTE: these dependencies should be only for things that DO NOT APPEAR IN THE API",
@@ -97,7 +98,7 @@
     "immer": "9.0.6",
     "lodash": "^4.17.10",
     "react-transition-group": "^4.4.2",
-    "zustand": "^4.1.5"
+    "zustand": "^4.3.6"
   },
   "nyc": {
     "extends": "./node_modules/@itwin/build-tools/.nycrc",

@@ -2,6 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
@@ -120,7 +121,7 @@ describe("PropertyValueRendererManager", () => {
 
     it("does not render unknown type", () => {
       const property = TestUtils.createStructProperty("TestStruct");
-      property.value.valueFormat = 10;
+      property.value.valueFormat = 10 as PropertyValueFormat;
 
       const value = manager.render(property);
 

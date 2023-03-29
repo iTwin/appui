@@ -49,14 +49,14 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
       }
       if (!noChangeRequired) {
         if (args.viewport.view.is2d() && threeDViewDefinitions.length > 0) {
-          activeIModelConnection?.views.load(threeDViewDefinitions[0].id).then((newViewStateForMainVP: ViewState) => {
+          await activeIModelConnection?.views.load(threeDViewDefinitions[0].id).then((newViewStateForMainVP: ViewState) => {
             mainViewportOnFrontstage?.changeView(newViewStateForMainVP);
             // add the listener back
             ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
           });
         } else if (args.viewport.view.is3d() && twoDViewDefinitions.length > 0) {
           // Main viewport is still 3d while we have loaded 3d in floating viewport, make it opposite (2d)
-          activeIModelConnection?.views.load(twoDViewDefinitions[0].id).then((newViewStateForMainVP: ViewState) => {
+          await activeIModelConnection?.views.load(twoDViewDefinitions[0].id).then((newViewStateForMainVP: ViewState) => {
             mainViewportOnFrontstage?.changeView(newViewStateForMainVP);
             // add the listener back
             ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
@@ -73,14 +73,14 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
       if (!noChangeRequired) {
         if (args.viewport.view.is2d() && threeDViewDefinitions.length > 0) {
 
-          activeIModelConnection?.views.load(threeDViewDefinitions[0].id).then((newViewStateForFloatingVP: ViewState) => {
+          await activeIModelConnection?.views.load(threeDViewDefinitions[0].id).then((newViewStateForFloatingVP: ViewState) => {
             //  floatingPIPViewport?.viewport?.changeView(newViewStateForFloatingVP);
             setInitialViewState(newViewStateForFloatingVP);
             // add the listener back
             ViewportComponentEvents.onViewIdChangedEvent.addListener(handleViewIdChange);
           });
         } else if (args.viewport.view.is3d() && twoDViewDefinitions.length > 0) {
-          activeIModelConnection?.views.load(twoDViewDefinitions[0].id).then((newViewStateForFloatingVP: ViewState) => {
+          await activeIModelConnection?.views.load(twoDViewDefinitions[0].id).then((newViewStateForFloatingVP: ViewState) => {
             // floatingPIPViewport?.viewport?.changeView(newViewStateForFloatingVP);
             setInitialViewState(newViewStateForFloatingVP);
             // add the listener back

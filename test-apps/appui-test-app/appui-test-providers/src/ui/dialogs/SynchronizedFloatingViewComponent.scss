@@ -10,14 +10,3 @@
     height: calc(100% - 27px);
   }
 }
-
-// .ViewDefinitionSelector {
-//   position: absolute;
-//   top: 5px;
-//   right: 5px;
-// }
-
-.iui-popover.tippy-box[data-reference-hidden] {
-visibility: inherit!important;
-  pointer-events: inherit!important;
-}

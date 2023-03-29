@@ -9,7 +9,7 @@
 import "./SendBack.scss";
 import classnames from "classnames";
 import * as React from "react";
-import create from "zustand";
+import { create } from "zustand";
 import { assert } from "@itwin/core-bentley";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
