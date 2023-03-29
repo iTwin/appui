@@ -3151,6 +3151,8 @@ export interface ListPickerProps {
     // (undocumented)
     onSizeKnown?: (size: SizeProps) => void;
     // (undocumented)
+    panelOnly?: boolean;
+    // (undocumented)
     searchBox?: boolean;
     // (undocumented)
     setEnabled: (item: ListItem, enabled: boolean) => any;
@@ -5649,7 +5651,7 @@ export class ViewSelector extends React_2.Component<ViewSelectorProps, ViewSelec
     static readonly defaultProps: ViewSelectorDefaultProps;
     loadViews(): Promise<void>;
     static readonly onViewSelectorChangedEvent: ViewSelectorChangedEvent;
-    render(): JSX.Element | null;
+    render(): JSX.Element;
     static updateShowSettings(showSpatials: boolean, showDrawings: boolean, showSheets: boolean, showUnknown: boolean): void;
     updateState(viewId?: any): Promise<void>;
 }
@@ -5679,6 +5681,8 @@ export interface ViewSelectorProps {
     imodel?: IModelConnection;
     // (undocumented)
     listenForShowUpdates?: boolean;
+    // (undocumented)
+    panelOnly?: boolean;
     // (undocumented)
     searchBox?: boolean;
     // (undocumented)
