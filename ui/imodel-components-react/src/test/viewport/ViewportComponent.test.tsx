@@ -98,7 +98,6 @@ describe("ViewportComponent", () => {
   viewportMock.setup((x) => x.onViewChanged).returns(() => onViewChanged);
   viewportMock.setup((x) => x.worldToView).returns(() => (_input: Readonly<WritableXAndY>, _out?: Point3d | undefined) => worldToViewPoint);
   viewportMock.setup((x) => x.viewRect).returns(() => viewRect);
-  viewportMock.object.viewCmdTargetCenter = undefined;
   viewportMock.setup((x) => x.pickNearestVisibleGeometry).returns(() => (_pickPoint: Point3d, _radius: number, _allowNonLocatable?: boolean | undefined, _out?: Point3d | undefined) => nearestVisibleGeometryPoint);
   viewportMock.setup((x) => x.getWorldFrustum).returns(() => (_box?: Frustum | undefined) => new Frustum());
 
@@ -115,7 +114,6 @@ describe("ViewportComponent", () => {
     viewState = new SpatialViewState(viewDefinitionProps, imodelMock.object, moq.Mock.ofType<CategorySelectorState>().object, moq.Mock.ofType<DisplayStyle3dState>().object, moq.Mock.ofType<ModelSelectorState>().object);
     globalViewId = "id1";
     tentativePointIsActive = false;
-    viewportMock.object.viewCmdTargetCenter = undefined;
     worldToViewPoint = Point3d.create(50, 50);
     nearestVisibleGeometryPoint = Point3d.create(30, 30);
     viewRect = new ViewRect(0, 0, 100, 100);
@@ -266,7 +264,6 @@ describe("ViewportComponent", () => {
       const rot2 = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.Y);
       render(<ViewportComponent imodel={imodelMock.object} viewState={viewState} viewManagerOverride={viewManager.object} tentativePointOverride={tentativePointMock.object} screenViewportOverride={ScreenViewportMock} />);
       await TestUtils.flushAsyncOperations();
-      viewportMock.object.viewCmdTargetCenter = undefined;
       worldToViewPoint = Point3d.create(200, 200);
       ViewportComponentEvents.onCubeRotationChangeEvent.emit({ rotMatrix: rot, face: Face.Front }); // memoized
       ViewportComponentEvents.onCubeRotationChangeEvent.emit({ rotMatrix: rot2, face: Face.Front });
@@ -275,7 +272,6 @@ describe("ViewportComponent", () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
       render(<ViewportComponent imodel={imodelMock.object} viewState={viewState} viewManagerOverride={viewManager.object} tentativePointOverride={tentativePointMock.object} screenViewportOverride={ScreenViewportMock} />);
       await TestUtils.flushAsyncOperations();
-      viewportMock.object.viewCmdTargetCenter = Point3d.create(0, 0);
       ViewportComponentEvents.onCubeRotationChangeEvent.emit({ rotMatrix: rot, face: Face.Front });
     });
     it("should register cubeRotationChangeEvent with vp.viewCmdTargetCenter defined with tentativePoint active", async () => {
@@ -288,7 +284,6 @@ describe("ViewportComponent", () => {
     });
     it("should register cubeRotationChangeEvent with vp.viewCmdTargetCenter defined where viewRect does not contain worldToView point", async () => {
       const rot = Matrix3d.create90DegreeRotationAroundAxis(AxisIndex.X);
-      viewportMock.object.viewCmdTargetCenter = Point3d.create(0, 0);
       worldToViewPoint = Point3d.create(200, 200);
       render(<ViewportComponent imodel={imodelMock.object} viewState={viewState} viewManagerOverride={viewManager.object} tentativePointOverride={tentativePointMock.object} screenViewportOverride={ScreenViewportMock} />);
       await TestUtils.flushAsyncOperations();
