@@ -348,8 +348,6 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
    *  Renders ViewSelector component
    */
   public override render() {
-    // if (!this.state.initialized)
-    //   return null;
     const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgSavedView);
 
     const { imodel, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
