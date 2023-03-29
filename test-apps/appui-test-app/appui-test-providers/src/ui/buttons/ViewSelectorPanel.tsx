@@ -4,9 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 
 import "./ViewSelectorPanel.scss";
-import { IModelConnectedViewSelector } from "@itwin/appui-react";
+import { IModelConnectedViewSelector, ToolbarItemUtilities } from "@itwin/appui-react";
 import * as React from "react";
-import { ToolbarItemUtilities } from "@itwin/appui-react";
 
 export function getCustomViewSelectorPopupItem(itemPriority: number, groupPriority: number) {
   return ToolbarItemUtilities.createCustomItem("appui-test-providers:viewSelector", itemPriority, "icon-saved-view", "Load selected view into active content view", <IModelConnectedViewSelector panelOnly={true} />, {
