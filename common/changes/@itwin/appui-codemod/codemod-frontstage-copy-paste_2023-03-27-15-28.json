@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-codemod",
+      "comment": "Extended jsx element to config transformation handling for more complex cases and made transformations less destructive",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-codemod"
+}

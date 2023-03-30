@@ -4,13 +4,17 @@
 *--------------------------------------------------------------------------------------------*/
 ({
   id: this.props.id,
-  version: this.props.version ?? 1.0,
-  contentGroup: contentGroup,
+  contentGroup,
   usage: this.props.usage,
+  version: this.props.version ?? 1.0,
 
   contentManipulation: {
     id: `${this.props.id}-contentManipulationTools`,
     content: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
+  },
+
+  toolSettings: {
+    id: `${this.props.id}-toolSettings`,
   },
 
   viewNavigation: {
@@ -18,26 +22,22 @@
     content: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
   },
 
-  toolSettings: {
-    id: `${this.props.id}-toolSettings`,
-  },
-
   statusBar: {
     id: `${this.props.id}-statusBar`,
   },
 
-  leftPanel: {
-    size: 300,
-    pinned: false,
+  topPanel: {
     defaultState: StagePanelState.Minimized,
-    ...this.props.leftPanelProps,
+    pinned: false,
+    size: 90,
+    ...this.props.topPanelProps,
   },
 
-  topPanel: {
-    size: 90,
-    pinned: false,
+  leftPanel: {
     defaultState: StagePanelState.Minimized,
-    ...this.props.topPanelProps,
+    pinned: false,
+    size: 300,
+    ...this.props.leftPanelProps,
   },
 
   rightPanel: {
@@ -46,8 +46,8 @@
   },
 
   bottomPanel: {
-    size: 180,
     defaultState: StagePanelState.Open,
+    size: 180,
     ...this.props.bottomPanelProps,
   },
 })
