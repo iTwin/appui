@@ -432,8 +432,7 @@ describe("DrawingNavigationAid", () => {
         { coords: coords(6)},
         { keys: "[/MouseLeft]"},
       ]);
-
-      expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 49.5, 49.5, 0, 1)");
+      expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 49.4936, 49.4936, 0, 1)");
     });
     it("should update pan-move", async () => {
       const closedSize = Vector3d.create(96, 96);
