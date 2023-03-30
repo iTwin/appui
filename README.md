@@ -84,11 +84,11 @@ Use these instructions to update dependencies and devDependencies on external pa
 
 ## iTwin.js core 3.x compatibility
 
-AppUI 4.0 version must keep compatibility with iTwin.js core version ^3.6.0 to facilitate migration, in order to do so, a rush variant have been created.
+AppUI 4.0 version must keep compatibility with iTwin.js core version ^3.7.0 to facilitate migration, in order to do so, a rush variant has been created.
 
 ### Validating code for the variant
 
-Once we are clear with the change we have, it is a good idea to validate that they work as expected in the variant test app, this will also be done in the CI pipeline.
+Once we are clear with the changes we have, it is a good idea to validate that they work as expected in the variant test app, this will also be done in the CI pipeline.
 
 Simply replace step 2 of the [Build Instructions](#build-instructions) with:
 

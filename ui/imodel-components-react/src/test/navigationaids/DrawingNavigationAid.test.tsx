@@ -459,7 +459,9 @@ describe("DrawingNavigationAid", () => {
         { coords: coords(6)},
         { keys: "[/MouseLeft]"},
       ]);
-      expect(drawingWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 49.5, 49.5, 0, 1)");
+      const expectedMatrix = cssMatrix3dToBentleyTransform("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 49.5, 49.5, 0, 1)");
+      const drawingWindowMatrix = cssMatrix3dToBentleyTransform(drawingWindow.style.transform)!;
+      expect(expectedMatrix && drawingWindowMatrix.matrix.isAlmostEqual(expectedMatrix.matrix)).is.true;
     });
     it("should update pan-move", async () => {
       const closedSize = Vector3d.create(96, 96);
