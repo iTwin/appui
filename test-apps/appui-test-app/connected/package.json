@@ -27,7 +27,6 @@
     "copy:ios-frontend": "mkdir -p ./lib/ios && rm -rf ./lib/ios/www && cp -R ./build ./lib/ios/www",
     "build:ios": "npm run -s install-ios-lib && npm run -s build:frontend && npm run -s build:ios-backend && npm run -s copy:ios-frontend"
   },
-  "repository": {},
   "keywords": [
     "Bentley",
     "BIM",
@@ -45,7 +44,7 @@
     "@bentley/react-scripts": "^5.0.3",
     "@itwin/build-tools": "^3.7.0",
     "@itwin/core-webpack-tools": "^3.7.0",
-    "@itwin/eslint-plugin": "^3.6.0",
+    "@itwin/eslint-plugin": "^3.7.0",
     "@itwin/projects-client": "^0.6.0",
     "@types/lorem-ipsum": "^1.0.2",
     "@types/node": "18.11.5",

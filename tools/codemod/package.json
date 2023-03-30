@@ -6,7 +6,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iTwin/appui/tree/master/codemod"
+    "url": "https://github.com/iTwin/appui.git",
+    "directory": "tools/codemod"
   },
   "scripts": {
     "build": "tsc",
@@ -36,10 +37,5 @@
     "@types/yargs": "^17.0.22",
     "jest": "^29.4.2",
     "ts-jest": "^29.0.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/iTwin/appui.git",
-    "directory": "tools/codemod"
-}
+  }
 }

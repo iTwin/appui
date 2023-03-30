@@ -8,7 +8,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iTwin/appui/tree/master/ui/appui-layout-react"
+    "url": "https://github.com/iTwin/appui.git",
+    "directory": "ui/appui-layout-react"
   },
   "scripts": {
     "build": "npm run -s build:cjs && npm run -s build:esm",
@@ -52,7 +53,7 @@
     "@itwin/build-tools": "^3.7.0",
     "@itwin/core-bentley": "^3.7.0",
     "@itwin/core-react": "workspace:*",
-    "@itwin/eslint-plugin": "^3.6.0",
+    "@itwin/eslint-plugin": "^3.7.0",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
@@ -123,10 +124,5 @@
       "plugin:@itwin/ui",
       "plugin:@itwin/jsdoc"
     ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/iTwin/appui.git",
-    "directory": "ui/appui-layout-react"
   }
 }

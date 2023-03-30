@@ -8,7 +8,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iTwin/appui/tree/master/ui/imodel-components-react"
+    "url": "https://github.com/iTwin/appui.git",
+    "directory": "ui/imodel-components-react"
   },
   "scripts": {
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
@@ -65,7 +66,7 @@
     "@itwin/core-orbitgt": "^3.7.0",
     "@itwin/core-quantity": "^3.7.0",
     "@itwin/core-react": "workspace:*",
-    "@itwin/eslint-plugin": "^3.6.0",
+    "@itwin/eslint-plugin": "^3.7.0",
     "@itwin/webgl-compatibility": "^3.7.0",
     "@testing-library/dom": "^8.11.2",
     "@testing-library/react": "^12.0.0",
@@ -136,10 +137,5 @@
       "plugin:@itwin/ui",
       "plugin:@itwin/jsdoc"
     ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/iTwin/appui.git",
-    "directory": "ui/imodel-components-react"
   }
 }

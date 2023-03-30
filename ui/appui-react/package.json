@@ -8,7 +8,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iTwin/appui/tree/master/ui/appui-react"
+    "url": "https://github.com/iTwin/appui.git",
+    "directory": "ui/appui-react"
   },
   "scripts": {
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
@@ -75,7 +76,7 @@
     "@itwin/core-quantity": "^3.7.0",
     "@itwin/core-react": "workspace:*",
     "@itwin/ecschema-metadata": "^3.7.0",
-    "@itwin/eslint-plugin": "^3.6.0",
+    "@itwin/eslint-plugin": "^3.7.0",
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/webgl-compatibility": "^3.7.0",
     "@testing-library/dom": "^8.11.2",
@@ -158,10 +159,5 @@
       "plugin:@itwin/ui",
       "plugin:@itwin/jsdoc"
     ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/iTwin/appui.git",
-    "directory": "ui/appui-react"
   }
 }
