@@ -4,14 +4,14 @@
 *--------------------------------------------------------------------------------------------*/
 import { defineTest } from "jscodeshift/src/testUtils";
 import { defaultOptions, createDefineInlineTest } from "../../utils/testUtils";
-import transformer from "../frontstage-to-config";
+import transformer from "../element-to-config";
 
 const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("frontstage-to-config", () => {
-  defineTest(__dirname, "./frontstage-to-config", defaultOptions, "frontstage-to-config/Frontstage", { parser: "tsx" });
-  defineTest(__dirname, "./frontstage-to-config", defaultOptions, "frontstage-to-config/Frontstage1", { parser: "tsx" });
-  defineTest(__dirname, "./frontstage-to-config", defaultOptions, "frontstage-to-config/Full", { parser: "tsx" });
+  defineTest(__dirname, "./element-to-config", defaultOptions, "element-to-config/Frontstage", { parser: "tsx" });
+  defineTest(__dirname, "./element-to-config", defaultOptions, "element-to-config/FrontstageStagePanel", { parser: "tsx" });
+  defineTest(__dirname, "./element-to-config", defaultOptions, "element-to-config/Full", { parser: "tsx" });
 
   describe("panel transformations", () => {
     defineInlineTest(
