@@ -1,7 +1,13 @@
-import { ObjectExpression, ObjectProperty, JSCodeshift, ASTPath, JSXElement, JSXIdentifier, JSXExpressionContainer, Identifier, ArrayExpression, ArrowFunctionExpression, AssignmentExpression, AwaitExpression, BigIntLiteral, BinaryExpression, BindExpression, BooleanLiteral, CallExpression, ChainExpression, ClassExpression, ComprehensionExpression, ConditionalExpression, DirectiveLiteral, DoExpression, FunctionExpression, GeneratorExpression, Import, ImportExpression, JSXFragment, JSXMemberExpression, JSXText, Literal, LogicalExpression, MemberExpression, MetaProperty, NewExpression, NullLiteral, NumericLiteral, OptionalCallExpression, OptionalMemberExpression, ParenthesizedExpression, PrivateName, RegExpLiteral, SequenceExpression, StringLiteral, Super, TaggedTemplateExpression, TemplateLiteral, ThisExpression, TSAsExpression, TSNonNullExpression, TSTypeAssertion, TSTypeParameter, TypeCastExpression, UnaryExpression, UpdateExpression, YieldExpression, SpreadProperty, ASTNode, ArrayPattern, AssignmentPattern, ObjectPattern, PropertyPattern, RestElement, SpreadElementPattern, SpreadPropertyPattern, TSParameterProperty, Property } from "jscodeshift";
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
+*--------------------------------------------------------------------------------------------*/
+import { ObjectExpression, ObjectProperty, JSCodeshift, ASTPath, JSXElement, JSXIdentifier, Identifier, JSXMemberExpression, MemberExpression, SpreadProperty, ASTNode, RestElement, Property, Collection, ExpressionStatement, ArrayExpression, ConditionalExpression } from "jscodeshift";
+import { ObjectExpressionCollection, useObjectExpression } from "./ObjectExpression";
+import { isSpecifiedJSXElement } from "./typeGuards";
 
-export type ExpressionKind = Identifier | FunctionExpression | ThisExpression | ArrayExpression | ObjectExpression | Literal | SequenceExpression | UnaryExpression | BinaryExpression | AssignmentExpression | MemberExpression | UpdateExpression | LogicalExpression | ConditionalExpression | NewExpression | CallExpression | ArrowFunctionExpression | YieldExpression | GeneratorExpression | ComprehensionExpression | ClassExpression | Super | TaggedTemplateExpression | TemplateLiteral | MetaProperty | AwaitExpression | ImportExpression | ChainExpression | OptionalCallExpression | OptionalMemberExpression | JSXIdentifier | JSXExpressionContainer | JSXElement | JSXFragment | JSXMemberExpression | JSXText | PrivateName | TypeCastExpression | DoExpression | BindExpression | ParenthesizedExpression | DirectiveLiteral | StringLiteral | NumericLiteral | BigIntLiteral | NullLiteral | BooleanLiteral | RegExpLiteral | Import | TSAsExpression | TSNonNullExpression | TSTypeParameter | TSTypeAssertion;
-export type PatternKind = Identifier | RestElement | SpreadElementPattern | PropertyPattern | ObjectPattern | ArrayPattern | AssignmentPattern | SpreadPropertyPattern | JSXIdentifier | PrivateName | TSAsExpression | TSNonNullExpression | TSTypeParameter | TSTypeAssertion | TSParameterProperty;
+export type ExpressionKind = ExpressionStatement["expression"];
+export type PatternKind = RestElement["argument"];
 export interface ConfigExpression extends ObjectExpression {
   configName: JSXIdentifier | JSXMemberExpression; // TODO: figure out a better way to store
 }
@@ -88,10 +94,6 @@ export function jsxElementToUniFormat(j: JSCodeshift, element: ASTPath<JSXElemen
   };
 }
 
-export function objectExpressionToUniFormat() {
-
-}
-
 export function uniFormatToObjectExpression(j: JSCodeshift, uni: UniFormat) {
   const props: (ObjectProperty | SpreadProperty)[] = [];
   uni.attrMap.forEach((value, key) => {
@@ -125,4 +127,250 @@ export function getObjectProperty(j: JSCodeshift, expression: ObjectExpression, 
 
 export function createEmptyConfig(j: JSCodeshift, configName: JSXIdentifier): ConfigExpression {
   return { ...j.objectExpression([]), configName };
+}
+
+export function handleToolWidget(j: JSCodeshift, expression: ExpressionKind): ExpressionKind {
+  function handleExpression(expr: ExpressionKind): ExpressionKind {
+    let newExpr: ExpressionKind | undefined = undefined;
+    if (!newExpr && expr.type === "ConditionalExpression")
+      newExpr = handleConditionalExpression(j, expr, handleExpression);
+    if (!newExpr && expr.type === "ArrayExpression")
+      newExpr = takeFirstArrayExpressionElement(j, expr);
+    if (!newExpr) {
+      // TODO: log warning
+      return expr;
+    }
+    return newExpr;
+  }
+  return handleExpression(expression);
+}
+
+export function buildDefaultStagePanelConfigExpression(j: JSCodeshift): ConfigExpression {
+  return { ...j.objectExpression([]), configName: j.jsxIdentifier("StagePanel") };
+}
+
+export function extractSectionsFromPanelZones(j: JSCodeshift, expression: ObjectExpression) {
+  const result: [ExpressionKind | undefined, ExpressionKind | undefined] = [undefined, undefined]
+
+  const start = getObjectProperty(j, expression, "start")?.value;
+  if (start && start.type === "ObjectExpression") {
+    const startWidgets = getObjectProperty(j, start, "widgets")?.value;
+    if (startWidgets && isExpressionKind(startWidgets))
+      result[0] = startWidgets;
+  }
+  else if (start && isExpressionKind(start)) {
+    result[0] = j.memberExpression(start, j.identifier("widgets"));
+  }
+
+  const middle = getObjectProperty(j, expression, "middle")?.value;
+  if (middle && middle.type === "ObjectExpression") {
+    const middleWidgets = getObjectProperty(j, middle, "widgets")?.value;
+    if (middleWidgets && isExpressionKind(middleWidgets)) {
+      if (result[0])
+        result[0] = concatExpressions(j, result[0], middleWidgets);
+      else
+        result[0] = middleWidgets;
+    }
+  }
+  else if (middle && isExpressionKind(middle)) {
+    const middleMemberExpr = j.memberExpression(middle, j.identifier("widgets"))
+    if (result[0])
+      result[0] = concatExpressions(j, result[0], middleMemberExpr);
+    else
+      result[0] = middleMemberExpr;
+  }
+
+  const end = getObjectProperty(j, expression, "end")?.value;
+  if (end && end.type === "ObjectExpression") {
+    const endWidgets = getObjectProperty(j, end, "widgets")?.value;
+    if (endWidgets && isExpressionKind(endWidgets))
+      result[1] = endWidgets;
+  }
+  else if (end && isExpressionKind(end)) {
+    result[1] = j.memberExpression(end, j.identifier("widgets"));
+  }
+
+  return result;
+}
+
+export function appendStagePanelSection(j: JSCodeshift, stagePanel: ConfigExpression, sectionToAppend: "start" | "end", exprToAppend: ExpressionKind): "Success" | undefined {
+  let sections = getObjectProperty(j, stagePanel, "sections");
+  if (!sections) {
+    sections = j.objectProperty(j.identifier("sections"), j.objectExpression([]));
+    stagePanel.properties.push(sections);
+  }
+  if (sections.value.type !== "ObjectExpression") {
+    // TODO: log warning
+    return undefined;
+  }
+
+  let section = getObjectProperty(j, sections.value, sectionToAppend);
+  if (!section) {
+    section = j.objectProperty(j.identifier(sectionToAppend), j.arrayExpression([]));
+    sections.value.properties.push(section);
+  }
+  if (!isExpressionKind(section.value)) {
+    // TODO: log warning
+    return undefined;
+  }
+
+  section.value = concatExpressions(j, section.value, exprToAppend);
+  return "Success";
+}
+
+export function getStagePanelSectionProperty(j: JSCodeshift, stagePanel: ConfigExpression, sectionToGet: "start" | "end"): ObjectProperty | Property | undefined {
+  const sections = getObjectProperty(j, stagePanel, "sections");
+  if (!sections)
+    return undefined;
+  if (sections.value.type !== "ObjectExpression") {
+    // TODO: log warning
+    return undefined;
+  }
+
+  const section = getObjectProperty(j, sections.value, sectionToGet);
+  if (!section)
+    return undefined;
+  if (!isExpressionKind(section.value)) {
+    // TODO: log warning
+    return undefined;
+  }
+
+  return section;
+}
+
+export function replaceWidgetObjectExpression(j: JSCodeshift, widget: Collection<ObjectExpression>) {
+  useObjectExpression(j);
+  const objectToProperties = new Map<ASTPath<ObjectExpression>, ObjectProperty[]>();
+  (widget as ObjectExpressionCollection)
+    .removeProperty("key", (_path, property) => {
+      const idProp = getObjectProperty(j, _path.node, "id");
+      if (idProp === undefined && property.type === "ObjectProperty") {
+        const newIdProp = j.objectProperty(j.identifier("id"), property.value);
+        _path.node.properties.push(newIdProp);
+      }
+    })
+    .removeProperty("onWidgetStateChanged")
+    .removeProperty("saveTransientState")
+    .removeProperty("restoreTransientState")
+    .removeProperty("internalData")
+    .removeProperty("applicationData")
+    .removeProperty("control")
+    .removeProperty("isFreeform")
+    .removeProperty("isToolSettings")
+    .removeProperty("isStatusBar")
+    .removeProperty("fillZone")
+    .removeProperty("syncEventIds")
+    .removeProperty("stateFunc")
+    .renameProperty("iconSpec", "icon")
+    .renameProperty("isFloatingStateSupported", "canFloat")
+    .renameProperty("badgeType", "badge")
+    .renameProperty("element", "content")
+    .renameProperty("allowedPanelTargets", "allowedPanels", (_path, property) => {
+      if (property.type !== "ObjectProperty")
+        return;
+
+      const allowedPanelsExpr = property.value;
+      if (allowedPanelsExpr.type !== "ArrayExpression")
+        return;
+
+      const newElements: MemberExpression[] = [];
+      j(allowedPanelsExpr).find(j.Literal).forEach((literal) => {
+        const value = literal.value.value;
+        switch (value) {
+          case "left":
+          case "right":
+          case "bottom":
+          case "top": {
+            const capitalized = value.charAt(0).toUpperCase() + value.slice(1);
+            newElements.push(j.memberExpression(j.identifier("StagePanelLocation"), j.identifier(capitalized)));
+            break;
+          }
+        }
+      });
+      allowedPanelsExpr.elements = newElements;
+      // TODO: add `StagePanelLocation` to import declaration.
+    })
+    .removeProperty("isFloatingStateWindowResizable", handleCanFloatProperty(j, objectToProperties, "isResizable"))
+    .removeProperty("floatingContainerId", handleCanFloatProperty(j, objectToProperties, "containerId"))
+    .removeProperty("defaultFloatingPosition", handleCanFloatProperty(j, objectToProperties, "defaultPosition"))
+    .removeProperty("defaultFloatingSize", handleCanFloatProperty(j, objectToProperties, "defaultSize"))
+    .removeProperty("hideWithUiWhenFloating", handleCanFloatProperty(j, objectToProperties, "hideWithUi"));
+
+  objectToProperties.forEach((properties, objectExpression) => {
+    if (properties.length === 0)
+      return;
+    const canFloat = objectExpression.value.properties.find((property) => {
+      if (property.type === "ObjectProperty" && property.key.type === "Identifier" && property.key.name === "canFloat")
+        return true;
+      return false;
+    }) as ObjectProperty | undefined;
+
+    if (!canFloat) {
+      const newCanFloat = j.objectProperty(j.identifier("canFloat"), j.objectExpression(properties));
+      objectExpression.value.properties.push(newCanFloat);
+      return;
+    }
+
+    if (canFloat.value.type === "BooleanLiteral" && canFloat.value.value === false)
+      return;
+    canFloat.value = j.objectExpression(properties);
+  });
+}
+
+export function handleCanFloatProperty(j: JSCodeshift, objectToProperties: Map<ASTPath<ObjectExpression>, ObjectProperty[]>, canFloatProperty: string): Parameters<ObjectExpressionCollection["removeProperty"]>[1] {
+  return (path, property) => {
+    let objectProperties = objectToProperties.get(path);
+    if (!objectProperties) {
+      objectProperties = [];
+      objectToProperties.set(path, objectProperties);
+    }
+
+    if (property.type === "ObjectProperty") {
+      const newProperty = j.objectProperty(j.identifier(canFloatProperty), property.value);
+      objectProperties.push(newProperty);
+    }
+  };
+}
+
+export function takeFirstArrayExpressionElement(j: JSCodeshift, expression: ArrayExpression): ExpressionKind | undefined {
+  const elements = expression.elements;
+  if (elements.length === 0)
+    return j.identifier("undefined");
+  if (elements.length > 1) {
+    // TODO: log warning
+  }
+  const element = elements[0];
+  if (element === null) {
+    // TODO: log warning
+    return undefined;
+  }
+  if (element.type === "SpreadElement") {
+    // TODO: log warning
+    return j.memberExpression(element.argument, j.literal(0), true);
+  }
+  if (element.type === "RestElement") {
+    // TODO: log warning
+    return undefined;
+  }
+  return element;
+}
+
+export function handleConditionalExpression(j: JSCodeshift, expression: ConditionalExpression, handle: (expr: ExpressionKind) => ExpressionKind): ConditionalExpression {
+  const consequent = handle(expression.consequent);
+  const alternate = handle(expression.alternate);
+  return j.conditionalExpression(expression.test, consequent, alternate);
+}
+
+export function concatExpressions(j: JSCodeshift, expression1: ExpressionKind | undefined, expression2: ExpressionKind | undefined): ArrayExpression {
+  const result = j.arrayExpression([]);
+  if (expression1?.type === "ArrayExpression")
+    result.elements.push(...expression1.elements);
+  else if (expression1)
+    result.elements.push(j.spreadElement(expression1));
+  if (expression2?.type === "ArrayExpression")
+    result.elements.push(...expression2.elements);
+  else if (expression2)
+    result.elements.push(j.spreadElement(expression2));
+
+  return result;
 }
