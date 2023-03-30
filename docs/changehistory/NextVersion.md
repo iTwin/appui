@@ -17,7 +17,7 @@ Table of contents:
 
 ## Migration strategy
 
-[@itwin/appui-codemod](../tools/codemod/README.md) tool exists to facilitate the migration.
+[@itwin/appui-codemod](https://www.npmjs.com/package/@itwin/appui-codemod) tool exists to facilitate the migration.
 For regular use cases it should be enough to run the tool with full 4.0.0 transformations:
 
 `npx @itwin/appui-codemod v4.0.0/full ./my-app/`
