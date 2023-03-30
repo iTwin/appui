@@ -7,7 +7,7 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
-import { AxisIndex, Matrix3d, Point3d, Vector3d } from "@itwin/core-geometry";
+import { AxisIndex, Matrix3d, Point3d, Transform, Vector3d } from "@itwin/core-geometry";
 import { DrawingViewState, IModelConnection, ScreenViewport, ViewManager, ViewState, ViewState3d } from "@itwin/core-frontend";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { TestUtils } from "../TestUtils";
@@ -36,6 +36,29 @@ function coords(x: number, y?: number) {
     clientY: y ?? x,
   };
 }
+
+const cssMatrix3dToBentleyTransform = (mStr: string) => {
+  const mat = mStr.match(/matrix3d\(([-\de\. ,]+)\)/);
+  if (mat !== null && mat[1] !== undefined) {
+    const params = mat[1].split(",");
+    if (params.length !== 16)
+      return undefined;
+    const p = [];
+    for (const param of params) {
+      const n = parseFloat(param);
+      if (isNaN(n)) {
+        return undefined;
+      }
+      p.push(n);
+    }
+    return Transform.createRowValues(
+      p[0], p[4], p[8], p[12],
+      p[1], p[5], p[9], p[13],
+      p[2], p[6], p[10], p[14],
+    );
+  }
+  return undefined;
+};
 
 describe("DrawingNavigationAid", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -284,10 +307,14 @@ describe("DrawingNavigationAid", () => {
       it("should update onViewRotationChangeEvent", async () => {
         const component = render(<DrawingNavigationAid iModelConnection={connection.object} viewport={vp.object} />);
         const viewWindow = component.getByTestId("drawing-view-window");
-        expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
+        const expectedMatrix = cssMatrix3dToBentleyTransform("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
+        const viewWindowMatrix = cssMatrix3dToBentleyTransform(viewWindow.style.transform)!;
+        expect(expectedMatrix && viewWindowMatrix.matrix.isAlmostEqual(expectedMatrix.matrix)).is.true;
         ViewportComponentEvents.onViewRotationChangeEvent.emit({ viewport: vp.object });
         await waitFor(() => {
-          expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
+          const expectedMatrix = cssMatrix3dToBentleyTransform("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
+          const viewWindowMatrix = cssMatrix3dToBentleyTransform(viewWindow.style.transform)!;
+          expect(expectedMatrix && viewWindowMatrix.matrix.isAlmostEqual(expectedMatrix?.matrix)).is.true;
         });
       });
       it("should update onViewRotationChangeEvent with rotateMinimapWithView", async () => {
