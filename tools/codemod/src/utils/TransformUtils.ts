@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import { ObjectExpression, ObjectProperty, JSCodeshift, ASTPath, JSXElement, JSXIdentifier, Identifier, JSXMemberExpression, MemberExpression, SpreadProperty, ASTNode, RestElement, Property, Collection, ExpressionStatement, ArrayExpression, ConditionalExpression } from "jscodeshift";
 import { ObjectExpressionCollection, useObjectExpression } from "./ObjectExpression";
-import { isSpecifiedJSXElement } from "./typeGuards";
+import { transformAbstractWidget } from "../v4.0.0/widget";
 
 export type ExpressionKind = ExpressionStatement["expression"];
 export type PatternKind = RestElement["argument"];
@@ -240,8 +240,7 @@ export function getStagePanelSectionProperty(j: JSCodeshift, stagePanel: ConfigE
 
 export function replaceWidgetObjectExpression(j: JSCodeshift, widget: Collection<ObjectExpression>) {
   useObjectExpression(j);
-  const objectToProperties = new Map<ASTPath<ObjectExpression>, ObjectProperty[]>();
-  (widget as ObjectExpressionCollection)
+  transformAbstractWidget(j, widget as ObjectExpressionCollection)
     .removeProperty("key", (_path, property) => {
       const idProp = getObjectProperty(j, _path.node, "id");
       if (idProp === undefined && property.type === "ObjectProperty") {
@@ -249,11 +248,6 @@ export function replaceWidgetObjectExpression(j: JSCodeshift, widget: Collection
         _path.node.properties.push(newIdProp);
       }
     })
-    .removeProperty("onWidgetStateChanged")
-    .removeProperty("saveTransientState")
-    .removeProperty("restoreTransientState")
-    .removeProperty("internalData")
-    .removeProperty("applicationData")
     .removeProperty("control")
     .removeProperty("isFreeform")
     .removeProperty("isToolSettings")
@@ -264,57 +258,7 @@ export function replaceWidgetObjectExpression(j: JSCodeshift, widget: Collection
     .renameProperty("iconSpec", "icon")
     .renameProperty("isFloatingStateSupported", "canFloat")
     .renameProperty("badgeType", "badge")
-    .renameProperty("element", "content")
-    .renameProperty("allowedPanelTargets", "allowedPanels", (_path, property) => {
-      if (property.type !== "ObjectProperty")
-        return;
-
-      const allowedPanelsExpr = property.value;
-      if (allowedPanelsExpr.type !== "ArrayExpression")
-        return;
-
-      const newElements: MemberExpression[] = [];
-      j(allowedPanelsExpr).find(j.Literal).forEach((literal) => {
-        const value = literal.value.value;
-        switch (value) {
-          case "left":
-          case "right":
-          case "bottom":
-          case "top": {
-            const capitalized = value.charAt(0).toUpperCase() + value.slice(1);
-            newElements.push(j.memberExpression(j.identifier("StagePanelLocation"), j.identifier(capitalized)));
-            break;
-          }
-        }
-      });
-      allowedPanelsExpr.elements = newElements;
-      // TODO: add `StagePanelLocation` to import declaration.
-    })
-    .removeProperty("isFloatingStateWindowResizable", handleCanFloatProperty(j, objectToProperties, "isResizable"))
-    .removeProperty("floatingContainerId", handleCanFloatProperty(j, objectToProperties, "containerId"))
-    .removeProperty("defaultFloatingPosition", handleCanFloatProperty(j, objectToProperties, "defaultPosition"))
-    .removeProperty("defaultFloatingSize", handleCanFloatProperty(j, objectToProperties, "defaultSize"))
-    .removeProperty("hideWithUiWhenFloating", handleCanFloatProperty(j, objectToProperties, "hideWithUi"));
-
-  objectToProperties.forEach((properties, objectExpression) => {
-    if (properties.length === 0)
-      return;
-    const canFloat = objectExpression.value.properties.find((property) => {
-      if (property.type === "ObjectProperty" && property.key.type === "Identifier" && property.key.name === "canFloat")
-        return true;
-      return false;
-    }) as ObjectProperty | undefined;
-
-    if (!canFloat) {
-      const newCanFloat = j.objectProperty(j.identifier("canFloat"), j.objectExpression(properties));
-      objectExpression.value.properties.push(newCanFloat);
-      return;
-    }
-
-    if (canFloat.value.type === "BooleanLiteral" && canFloat.value.value === false)
-      return;
-    canFloat.value = j.objectExpression(properties);
-  });
+    .renameProperty("element", "content");
 }
 
 export function handleCanFloatProperty(j: JSCodeshift, objectToProperties: Map<ASTPath<ObjectExpression>, ObjectProperty[]>, canFloatProperty: string): Parameters<ObjectExpressionCollection["removeProperty"]>[1] {

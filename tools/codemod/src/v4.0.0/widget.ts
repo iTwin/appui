@@ -11,15 +11,7 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
 
   const root = j(file.source);
 
-  const objectToProperties = new Map<ASTPath<ObjectExpression>, ObjectProperty[]>();
-  root.findObjectExpressions("Widget")
-    .removeProperty("onWidgetStateChanged")
-    .removeProperty("saveTransientState")
-    .removeProperty("restoreTransientState")
-    .removeProperty("internalData")
-    .removeProperty("applicationData")
-    .renameProperty("isFloatingStateSupported", "canFloat")
-    .renameProperty("badgeType", "badge")
+  transformAbstractWidget(j, root.findObjectExpressions("Widget"))
     .renameProperty("getWidgetContent", "content", (_path, property) => {
       const functionExpression = j(property).find(j.ArrowFunctionExpression);
       const element = functionExpression.find(j.JSXElement).nodes()[0];
@@ -27,7 +19,36 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
         return;
 
       functionExpression.at(0).replaceWith(element);
-    })
+    });
+
+  return root.toSource(options.printOptions);
+}
+
+function handleCanFloatProperty(j: JSCodeshift, objectToProperties: Map<ASTPath<ObjectExpression>, ObjectProperty[]>, canFloatProperty: string): Parameters<ObjectExpressionCollection["removeProperty"]>[1] {
+  return (path, property) => {
+    let objectProperties = objectToProperties.get(path);
+    if (!objectProperties) {
+      objectProperties = [];
+      objectToProperties.set(path, objectProperties);
+    }
+
+    if (property.type === "ObjectProperty") {
+      const newProperty = j.objectProperty(j.identifier(canFloatProperty), property.value);
+      objectProperties.push(newProperty);
+    }
+  };
+}
+
+export function transformAbstractWidget(j: JSCodeshift, widgets: ObjectExpressionCollection) {
+  const objectToProperties = new Map<ASTPath<ObjectExpression>, ObjectProperty[]>();
+  widgets
+    .removeProperty("onWidgetStateChanged")
+    .removeProperty("saveTransientState")
+    .removeProperty("restoreTransientState")
+    .removeProperty("internalData")
+    .removeProperty("applicationData")
+    .renameProperty("isFloatingStateSupported", "canFloat")
+    .renameProperty("badgeType", "badge")
     .renameProperty("allowedPanelTargets", "allowedPanels", (_path, property) => {
       const arrayExpression = j(property).find(j.ArrayExpression);
       const newElements: MemberExpression[] = [];
@@ -73,20 +94,5 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
     canFloat.value = j.objectExpression(properties);
   }
 
-  return root.toSource(options.printOptions);
-}
-
-function handleCanFloatProperty(j: JSCodeshift, objectToProperties: Map<ASTPath<ObjectExpression>, ObjectProperty[]>, canFloatProperty: string): Parameters<ObjectExpressionCollection["removeProperty"]>[1] {
-  return (path, property) => {
-    let objectProperties = objectToProperties.get(path);
-    if (!objectProperties) {
-      objectProperties = [];
-      objectToProperties.set(path, objectProperties);
-    }
-
-    if (property.type === "ObjectProperty") {
-      const newProperty = j.objectProperty(j.identifier(canFloatProperty), property.value);
-      objectProperties.push(newProperty);
-    }
-  };
+  return widgets;
 }
