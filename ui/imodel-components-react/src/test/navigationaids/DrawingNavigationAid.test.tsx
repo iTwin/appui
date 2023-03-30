@@ -307,14 +307,10 @@ describe("DrawingNavigationAid", () => {
       it("should update onViewRotationChangeEvent", async () => {
         const component = render(<DrawingNavigationAid iModelConnection={connection.object} viewport={vp.object} />);
         const viewWindow = component.getByTestId("drawing-view-window");
-        const expectedMatrix = cssMatrix3dToBentleyTransform("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
-        const viewWindowMatrix = cssMatrix3dToBentleyTransform(viewWindow.style.transform)!;
-        expect(expectedMatrix && viewWindowMatrix.matrix.isAlmostEqual(expectedMatrix.matrix)).is.true;
+        expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 47.5, 47.5, 0, 1)");
         ViewportComponentEvents.onViewRotationChangeEvent.emit({ viewport: vp.object });
         await waitFor(() => {
-          const expectedMatrix = cssMatrix3dToBentleyTransform("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
-          const viewWindowMatrix = cssMatrix3dToBentleyTransform(viewWindow.style.transform)!;
-          expect(expectedMatrix && viewWindowMatrix.matrix.isAlmostEqual(expectedMatrix?.matrix)).is.true;
+          expect(viewWindow.style.transform).to.equal("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 32, 32, 0, 1)");
         });
       });
       it("should update onViewRotationChangeEvent with rotateMinimapWithView", async () => {
