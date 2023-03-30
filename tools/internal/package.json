@@ -23,7 +23,12 @@
     "yargs": "^17.6.2"
   },
   "devDependencies": {
-    "@itwin/build-tools": "^3.6.2",
+    "@itwin/build-tools": "^3.7.0",
     "mocha": "^10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iTwin/appui.git",
+    "directory": "tools/internal"
   }
 }
