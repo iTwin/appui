@@ -1140,7 +1140,7 @@ export type OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent;
 // @internal
 export function percentInRange(percent: number): number;
 
-// @internal
+// @public
 export class Point implements PointProps {
     constructor(x?: number, y?: number);
     static create(pointProps: PointProps): Point;

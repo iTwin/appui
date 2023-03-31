@@ -140,7 +140,7 @@ public;OmitChildrenProp
 public;Orientation
 public;OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent
 internal;percentInRange(percent: number): number
-internal;Point 
+public;Point 
 public;Popup 
 public;PopupContextMenu(props: PopupContextMenuProps): JSX.Element
 public;PopupContextMenuProps 

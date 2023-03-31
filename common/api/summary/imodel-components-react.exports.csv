@@ -1,7 +1,7 @@
 sep=;
 Release Tag;API Item
-beta;AlphaSlider 
-beta;AlphaSliderProps 
+public;AlphaSlider 
+public;AlphaSliderProps 
 public;AnimationFractionChangeHandler = (animationFraction: number) => void
 alpha;BaseSolarDataProvider 
 alpha;BaseTimelineDataProvider 
