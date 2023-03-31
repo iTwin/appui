@@ -55,9 +55,15 @@ jobs:
         checkLatest: true
 
     - bash: |
-        git config --local user.email 38288322+imodeljs-admin@users.noreply.github.com
+        git config --local user.email imodeljs-admin@users.noreply.github.com
         git config --local user.name imodeljs-admin
       displayName: Setup Git
+
+    - script: node common/scripts/install-run-rush.js install
+      displayName: rush install
+
+    - bash: node common/scripts/install-run-rush.js audit
+      displayName: rush audit
 
     # Can be run on any branch to do a standard version bump. Which is currently -dev bumps.
     - ${{ if or(eq(parameters.BumpType, 'nightly'), eq(parameters.BumpType, 'releaseCandidate')) }}:
@@ -116,7 +122,7 @@ jobs:
     - bash: |
         echo Committing version bump $(getVersion.version)...
 
-        git commit -m "$(getVersion.version)" --author="imodeljs-admin <38288322+imodeljs-admin@users.noreply.github.com>"
+        git commit -m "$(getVersion.version)" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
       displayName: Commit version bump
 
     - ${{ if or(eq(parameters.BumpType, 'minor'), eq(parameters.BumpType, 'patch')) }}:
@@ -137,7 +143,7 @@ jobs:
       steps:
       - checkout: self
       - bash: |
-          git config --local user.email 38288322+imodeljs-admin@users.noreply.github.com
+          git config --local user.email imodeljs-admin@users.noreply.github.com
           git config --local user.name imodeljs-admin
         displayName: Setup Git
 
@@ -176,7 +182,7 @@ jobs:
           checkLatest: true
 
       - bash: |
-          git config --local user.email 38288322+imodeljs-admin@users.noreply.github.com
+          git config --local user.email imodeljs-admin@users.noreply.github.com
           git config --local user.name imodeljs-admin
         displayName: 'Setup Git'
 
@@ -226,7 +232,7 @@ jobs:
           Write-Host The new version is $newVersion
           Write-Host Committing version bump...
 
-          git commit -m "$newVersion" --author="imodeljs-admin <38288322+imodeljs-admin@users.noreply.github.com>"
+          git commit -m "$newVersion" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
 
           git status
         displayName: Get version and committing
