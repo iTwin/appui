@@ -9,7 +9,7 @@
 import { PointProps } from "@itwin/appui-abstract";
 
 /** Describes and provides methods to work with 2d points.
- * @internal
+ * @public
  */
 export class Point implements PointProps {
   /** Creates point from [[PointProps]]. */
