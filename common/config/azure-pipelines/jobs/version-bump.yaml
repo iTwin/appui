@@ -59,6 +59,12 @@ jobs:
         git config --local user.name imodeljs-admin
       displayName: Setup Git
 
+    - script: node common/scripts/install-run-rush.js install
+      displayName: rush install
+
+    - bash: node common/scripts/install-run-rush.js audit
+      displayName: rush audit
+
     # Can be run on any branch to do a standard version bump. Which is currently -dev bumps.
     - ${{ if or(eq(parameters.BumpType, 'nightly'), eq(parameters.BumpType, 'releaseCandidate')) }}:
       - bash: 'node common/scripts/install-run-rush version --bump'
@@ -93,17 +99,11 @@ jobs:
               # Remove old frontmatter
               (Get-Content $sourceFile | Select-Object -Skip 3) | Set-Content $sourceFile
 
-              # Copy NextVersion to index.md
-              Copy-Item $sourceFile docs/changehistory/index.md -Force
-
               # Add relevant frontmatter
               "---`ndeltaDoc: true`nversion: '$(getVersion.version)'`n---`n" + (Get-Content $sourceFile | Out-String) | Set-Content $sourceFile
 
               # Rename NextVersion
               Rename-Item -Path $sourceFile -NewName "$(getVersion.version).md"
-
-              # Add link to leftNav.md
-              (Get-Content -Path docs/changehistory/leftNav.md) -replace '### Versions', "### Versions`n- [$(getVersion.version)](./$(getVersion.version).md)`n" | Set-Content -Path docs/changehistory/leftNav.md
 
               # Create new NextVersion.md
               New-Item $sourceFile
@@ -111,9 +111,6 @@ jobs:
               # Update NextVersion.md with template
               "---`npublish: false`n---`n# NextVersion`n" + (Get-Content $sourceFile | Out-String) | Set-Content $sourceFile
           }
-
-          # Change header tab in docSite.json
-          (Get-Content 'docs/config/docSites.json') -replace '\".*?\":\s.?\"changehistory\"', "`"v$(getVersion.version)`": `"changehistory`"" | Set-Content 'docs/config/docSites.json'
 
         failOnStderr: true
         displayName: NextVersion.md rename and replace
