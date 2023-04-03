@@ -386,7 +386,7 @@ export interface ContextSubMenuProps extends Omit<ContextMenuItemProps, "label">
     onHotKeyParsed?: (hotKey: string) => void;
 }
 
-// @internal
+// @public
 export enum Corner {
     // (undocumented)
     BottomLeft = 3,
@@ -1337,7 +1337,7 @@ export interface ReactMessage {
     reactNode: React_2.ReactNode;
 }
 
-// @internal
+// @public
 export class Rectangle implements RectangleProps {
     constructor(left?: number, top?: number, right?: number, bottom?: number);
     // (undocumented)
@@ -1534,7 +1534,7 @@ export const shallowDiffers: (a: {
     [key: string]: any;
 } | undefined) => boolean;
 
-// @internal
+// @public
 export class Size implements SizeProps {
     constructor(width?: number, height?: number);
     static create(size: SizeProps): Size;
@@ -1770,7 +1770,6 @@ export class UiCore {
     // @internal (undocumented)
     static get packageName(): string;
     static terminate(): void;
-    // @internal
     static translate(key: string | string[]): string;
 }
 
