@@ -73,7 +73,7 @@ export class UiCore {
   }
 
   /** Calls localization.getLocalizedStringWithNamespace with the "UiCore" namespace. Do NOT include the namespace in the key.
-   * @internal
+   * @public
    */
   public static translate(key: string | string[]): string {
     if (!UiCore._localization) {

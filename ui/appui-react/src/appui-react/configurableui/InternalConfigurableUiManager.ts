@@ -26,26 +26,26 @@ import { InternalModalDialogManager } from "../dialog/InternalModalDialogManager
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 
 /** Ui Activity Event Args interface.
- * @internal
+ * @public
  */
 export interface UiActivityEventArgs {
   event: Event;
 }
 
 /** Ui Activity Event class.
- * @internal
+ * @public
  */
 export class UiActivityEvent extends BeUiEvent<UiActivityEventArgs> { }
 
 /** Ui Interval Event Args interface
- * @internal
+ * @public
  */
 export interface UiIntervalEventArgs {
   idleTimeout?: number;
 }
 
 /** Ui Interval Event class.
- * @internal
+ * @public
  */
 export class UiIntervalEvent extends BeUiEvent<UiIntervalEventArgs> { }
 

@@ -349,7 +349,7 @@ export class UiFramework {
     return UiFramework.backstage as BackstageManager;
   }
 
-  /** @alpha */
+  /** @public */
   public static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler {
     // istanbul ignore next
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
@@ -357,7 +357,7 @@ export class UiFramework {
     return UiFramework._hideIsolateEmphasizeActionHandler;
   }
 
-  /** @alpha */
+  /** @public */
   public static setHideIsolateEmphasizeActionHandler(handler: HideIsolateEmphasizeActionHandler | undefined) {
     // istanbul ignore else
     if (handler)
