@@ -22,7 +22,7 @@ export interface RectangleProps {
 }
 
 /** Available corners of [[Rectangle]].
- * @internal
+ * @public
  */
 export enum Corner {
   TopLeft,
@@ -32,7 +32,7 @@ export enum Corner {
 }
 
 /** Describes and provides methods to work with 2d bounds.
- * @internal
+ * @public
  */
 export class Rectangle implements RectangleProps {
   /** Creates rectangle from [[RectangleProps]]. */
