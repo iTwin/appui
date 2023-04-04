@@ -996,10 +996,9 @@ export function expandWidget(state: NineZoneState, id: TabState["id"]) {
     const widget = draft.widgets[location.widgetId];
     if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
-      panel.widgets.forEach((wId) => {
-        const w = draft.widgets[wId];
-        w.minimized = true;
-      });
+      panel.splitterPercent =
+        panel.widgets.findIndex((wId) => wId === location.widgetId) === 0 ?
+          100 : 0;
     }
     widget.minimized = false;
   });
