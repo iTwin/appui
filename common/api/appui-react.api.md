@@ -4857,7 +4857,6 @@ export enum SyncUiEventId {
     BackstageEvent = "backstageevent",
     ContentControlActivated = "contentcontrolactivated",
     ContentLayoutActivated = "contentlayoutactivated",
-    // @alpha
     FeatureOverridesChanged = "featureoverrideschanged",
     FrontstageActivating = "frontstageactivating",
     FrontstageReady = "frontstageready",

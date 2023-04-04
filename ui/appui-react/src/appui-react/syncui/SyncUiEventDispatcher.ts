@@ -59,9 +59,7 @@ export enum SyncUiEventId {
   /** The current object the reads and write UI State has changed. */
   UiStateStorageChanged = "uistatestoragechanged",
   ShowHideManagerSettingChange = "show-hide-setting-change",
-  /** The list of feature overrides applied has been changed
-   * @alpha
-  */
+  /** The list of feature overrides applied has been changed */
   FeatureOverridesChanged = "featureoverrideschanged",
 }
 
