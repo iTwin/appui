@@ -40,7 +40,7 @@ public;ContextMenuItemProps
 public;ContextMenuProps 
 public;ContextSubMenu 
 public;ContextSubMenuProps 
-public;Corner
+internal;Corner
 internal;CrossAxisArrowKeyFunc = (forward: boolean) => void
 public;Dialog 
 public;DialogAlignment
@@ -140,7 +140,7 @@ public;OmitChildrenProp
 public;Orientation
 public;OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent
 internal;percentInRange(percent: number): number
-public;Point 
+internal;Point 
 public;Popup 
 public;PopupContextMenu(props: PopupContextMenuProps): JSX.Element
 public;PopupContextMenuProps 
@@ -157,7 +157,7 @@ public;RadialMenuProps
 public;RadialSizeType = ProgressRadialProps["size"]
 public;RatioChangeResult
 public;ReactMessage
-public;Rectangle 
+internal;Rectangle 
 public;RectangleProps
 public;RenderPropsArgs
 public;ResizableContainerObserver({ onResize, children }:
@@ -174,7 +174,7 @@ public;SettingsProvidersChangedEventArgs
 public;SettingsTabEntry
 public;SettingsTabsProvider
 internal;shallowDiffers: (a:
-public;Size 
+internal;Size 
 public;SizeProps
 public;SortDirection
 public;StepFunctionProp = number | ((direction: string) => number | undefined)

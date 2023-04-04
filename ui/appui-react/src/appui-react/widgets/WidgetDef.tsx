@@ -405,14 +405,14 @@ export class WidgetDef {
 
   /** Opens the widget and makes it visible to the user.
    * I.e. opens the stage panel or brings the floating widget to front of the screen.
-   * @public
+   * @alpha
    */
   public show() {
     InternalFrontstageManager.onWidgetShowEvent.emit({ widgetDef: this });
   }
 
   /** Opens the widget and expands it to fill full size of the stage panel.
-   * @public
+   * @alpha
    */
   public expand() {
     InternalFrontstageManager.onWidgetExpandEvent.emit({ widgetDef: this });

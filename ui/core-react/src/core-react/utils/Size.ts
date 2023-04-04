@@ -15,7 +15,7 @@ export interface SizeProps {
 }
 
 /** Describes and provides methods to work with 2d dimensions.
- * @public
+ * @internal
  */
 export class Size implements SizeProps {
   /** Creates a size from [[SizeProps]]. */
