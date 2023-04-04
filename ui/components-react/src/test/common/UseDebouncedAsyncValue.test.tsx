@@ -54,22 +54,41 @@ describe("useDebouncedAsyncValue", () => {
     expect(result.current.value).to.eq(2);
   });
 
-  it("rethrows exceptions capturable by react error boundary", async () => {
-    const promise = Promise.reject(new Error("test error"));
-    function TestComponent() {
-      useDebouncedAsyncValue(async () => promise);
-      return null;
-    }
-    const errorSpy = sinon.spy();
-    render(
-      <TestErrorBoundary onError={errorSpy}>
-        <TestComponent />
-      </TestErrorBoundary>
-    );
-    await waitFor(() => {
-      expect(errorSpy).to.be.calledOnce
-        .and.calledWith(sinon.match((error: Error) => error.message === "test error"));
+  describe("rethrows exceptions capturable by react error boundary", () => {
+    it("rethrows `Error` exceptions", async () => {
+      const promise = Promise.reject(new Error("test error"));
+      function TestComponent() {
+        useDebouncedAsyncValue(async () => promise);
+        return null;
+      }
+      const errorSpy = sinon.spy();
+      render(
+        <TestErrorBoundary onError={errorSpy}>
+          <TestComponent />
+        </TestErrorBoundary>
+      );
+      await waitFor(() => {
+        expect(errorSpy).to.be.calledOnce
+          .and.calledWith(sinon.match((error: Error) => error.message === "test error"));
+      });
+    });
+
+    it("throws generic `Error` when promise rejects with `undefined`", async () => {
+      const promise = Promise.reject(undefined);
+      function TestComponent() {
+        useDebouncedAsyncValue(async () => promise);
+        return null;
+      }
+      const errorSpy = sinon.spy();
+      render(
+        <TestErrorBoundary onError={errorSpy}>
+          <TestComponent />
+        </TestErrorBoundary>
+      );
+      await waitFor(() => {
+        expect(errorSpy).to.be.calledOnce
+          .and.calledWith(sinon.match((error: Error) => error.message === "Exception in `useDebouncedAsyncValue`"));
+      });
     });
   });
-
 });
