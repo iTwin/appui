@@ -614,7 +614,9 @@ export class UiFramework {
     UiFramework.dispatchActionToStore(ConfigurableUiActionId.UseToolAsToolSettingsLabel, value, true);
   }
 
-  /** @public */
+  /** When `true`, panels will close as soon as the mouse leave the panel.
+   * When `false` (default), panels will close on next click outside the panel.
+   * @public */
   public static get autoCollapseUnpinnedPanels(): boolean {
     return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.autoCollapseUnpinnedPanels : /* istanbul ignore next */ false;
   }
