@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "add FeatureOverridesChanged SyncUIEvent to SyncUIEventDispatcher",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

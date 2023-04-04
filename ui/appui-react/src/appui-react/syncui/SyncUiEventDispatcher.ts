@@ -59,6 +59,10 @@ export enum SyncUiEventId {
   /** The current object the reads and write UI State has changed. */
   UiStateStorageChanged = "uistatestoragechanged",
   ShowHideManagerSettingChange = "show-hide-setting-change",
+  /** The list of feature overrides applied has been changed
+   * @alpha
+  */
+  FeatureOverridesChanged = "featureoverrideschanged",
 }
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
@@ -119,6 +123,11 @@ export class SyncUiEventDispatcher {
     SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.ViewStateChanged);
   }
 
+  // istanbul ignore next
+  private static _dispatchFeatureOverridesChange() {
+    SyncUiEventDispatcher._uiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.FeatureOverridesChanged);
+  }
+
   /** Initializes the Monitoring of Events that trigger dispatching sync events */
   public static initialize() {
     // clear any registered listeners - this should only be encountered in unit test scenarios
@@ -176,11 +185,17 @@ export class SyncUiEventDispatcher {
           // istanbul ignore next
           if (args.previous.onViewChanged && typeof args.previous.onViewChanged.removeListener === "function")  // not set during unit test
             args.previous.onViewChanged.removeListener(SyncUiEventDispatcher._dispatchViewChange);
+          // istanbul ignore next
+          if (args.previous.onFeatureOverridesChanged && typeof args.previous.onFeatureOverridesChanged.removeListener === "function")  // not set during unit test
+            args.previous.onFeatureOverridesChanged.removeListener(SyncUiEventDispatcher._dispatchFeatureOverridesChange);
         }
         // istanbul ignore next
         if (args.current) {
           if (args.current.onViewChanged && typeof args.current.onViewChanged.addListener === "function") // not set during unit test
             args.current.onViewChanged.addListener(SyncUiEventDispatcher._dispatchViewChange);
+          // istanbul ignore next
+          if (args.current.onFeatureOverridesChanged && typeof args.current.onFeatureOverridesChanged.addListener === "function") // not set during unit test
+            args.current.onFeatureOverridesChanged.addListener(SyncUiEventDispatcher._dispatchFeatureOverridesChange);
         }
       }));
     }
