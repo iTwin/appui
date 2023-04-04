@@ -97,7 +97,7 @@
   "variants": [
     {
       "variantName": "core-3x",
-      "description": "Build this repo using iTwin.js core 3.6.x"
+      "description": "Build this repo using iTwin.js core 3.7.x"
     }
   ]
 }

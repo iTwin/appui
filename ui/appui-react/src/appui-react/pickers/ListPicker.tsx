@@ -10,7 +10,7 @@ import "./ListPicker.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Columns, GroupColumn, Panel, PopupItem, Title } from "@itwin/components-react";
-import { CommonProps, Icon, SizeProps } from "@itwin/core-react";
+import { CommonProps, Icon, SearchBox, SizeProps } from "@itwin/core-react";
 import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
 import { UiFramework } from "../UiFramework";
 import { SvgChevronDown, SvgChevronRight, SvgList } from "@itwin/itwinui-icons-react";
@@ -46,6 +46,9 @@ export interface ListPickerProps {
   setEnabled: (item: ListItem, enabled: boolean) => any;
   onExpanded?: (expand: boolean) => void;
   onSizeKnown?: (size: SizeProps) => void;
+  searchBox?: boolean;
+  onSearchValueChange?: (search: string) => void;
+  panelOnly?: boolean;
 }
 
 /** Properties for the [[ListPickerItem]] component
@@ -203,6 +206,10 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
       <Title>
         {props.title}
       </Title>
+      {
+        props.searchBox && props.onSearchValueChange &&
+          <SearchBox className="ListPickerSearchBox" onValueChanged={props.onSearchValueChange}/>
+      }
       <Columns>
         <GroupColumn className="ListPicker-column">
           {props.items.map(listItemToElement)}
@@ -224,12 +231,12 @@ function ListPickerPopupItem(props: ListPickerProps) {
   return (
     <ToolbarDragInteractionContext.Consumer>
       {(isEnabled) => {
-        return <PopupItem
+        return (props.panelOnly === true ? getListPanel(props) : <PopupItem
           hideIndicator={isEnabled}
           icon={icon}
           title={props.title}
           panel={getListPanel(props)}
-        />;
+        />);
       }}
     </ToolbarDragInteractionContext.Consumer>
   );

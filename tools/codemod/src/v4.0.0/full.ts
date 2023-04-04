@@ -5,7 +5,7 @@
 import type { API, FileInfo, Options } from "jscodeshift";
 import abstract from "./abstract";
 import backstageItem from "./backstage-item";
-import frontstageToConfig from "./frontstage-to-config";
+import frontstageToConfig from "./element-to-config";
 import layoutReact from "./layout-react";
 import react from "./react";
 import statics from "./statics";
