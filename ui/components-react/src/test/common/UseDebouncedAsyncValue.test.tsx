@@ -3,10 +3,13 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import { waitFor } from "@testing-library/react";
+import React from "react";
+import sinon from "sinon";
+import { render, waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import { useDebouncedAsyncValue } from "../../components-react/common/UseDebouncedAsyncValue";
 import { ResolvablePromise } from "../test-helpers/misc";
+import { TestErrorBoundary } from "../TestUtils";
 
 describe("useDebouncedAsyncValue", () => {
 
@@ -51,4 +54,41 @@ describe("useDebouncedAsyncValue", () => {
     expect(result.current.value).to.eq(2);
   });
 
+  describe("rethrows exceptions capturable by react error boundary", () => {
+    it("rethrows `Error` exceptions", async () => {
+      const promise = Promise.reject(new Error("test error"));
+      function TestComponent() {
+        useDebouncedAsyncValue(async () => promise);
+        return null;
+      }
+      const errorSpy = sinon.spy();
+      render(
+        <TestErrorBoundary onError={errorSpy}>
+          <TestComponent />
+        </TestErrorBoundary>
+      );
+      await waitFor(() => {
+        expect(errorSpy).to.be.calledOnce
+          .and.calledWith(sinon.match((error: Error) => error.message === "test error"));
+      });
+    });
+
+    it("throws generic `Error` when promise rejects with `undefined`", async () => {
+      const promise = Promise.reject(undefined);
+      function TestComponent() {
+        useDebouncedAsyncValue(async () => promise);
+        return null;
+      }
+      const errorSpy = sinon.spy();
+      render(
+        <TestErrorBoundary onError={errorSpy}>
+          <TestComponent />
+        </TestErrorBoundary>
+      );
+      await waitFor(() => {
+        expect(errorSpy).to.be.calledOnce
+          .and.calledWith(sinon.match((error: Error) => error.message === "Exception in `useDebouncedAsyncValue`"));
+      });
+    });
+  });
 });

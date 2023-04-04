@@ -7,9 +7,9 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
+import { defer } from "rxjs/internal/observable/defer";
 import { publish } from "rxjs/internal/operators/publish";
 import { refCount } from "rxjs/internal/operators/refCount";
-import { defer } from "rxjs/internal/observable/defer";
 import { scheduleSubscription, SubscriptionScheduler } from "./SubscriptionScheduler";
 
 /**
@@ -18,6 +18,7 @@ import { scheduleSubscription, SubscriptionScheduler } from "./SubscriptionSched
  * The first promise will always be executed.
  * Any promises following the first while it is executing will be scheduled (and unscheduled), leaving only the last promise to be resolved.
  * Once the first promise finishes resolving, the last passed promise starts resolving.
+ * @throws if/when `valueToBeResolved` promise is rejected. The error is thrown in the React's render loop, so it can be caught using an error boundary.
  * @beta
  */
 export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (() => Promise<TReturn>)) {
@@ -25,6 +26,13 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
 
   const [value, setValue] = useState<TReturn>();
   const [inProgress, setInProgress] = useState(false);
+  const [errorState, setErrorState] = useState<{
+    error: Error | undefined;
+    hasError: boolean;
+  }>({
+    error: undefined,
+    hasError: false,
+  });
 
   useEffect(() => {
     if (!valueToBeResolved) {
@@ -46,10 +54,17 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
           setValue(data);
           setInProgress(false);
         },
+        error: (err) => {
+          setErrorState({ error: err, hasError: true });
+          setInProgress(false);
+        },
       });
 
     return () => { subscription.unsubscribe(); };
   }, [valueToBeResolved, scheduler]);
+
+  if (errorState.hasError)
+    throw errorState.error ?? new Error("Exception in `useDebouncedAsyncValue`");
 
   return { value, inProgress };
 }

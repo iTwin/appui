@@ -20,12 +20,13 @@
     color: var(--iui-color-text);
 
     svg {
+      display: block;
       width: 12px;
       height: 12px;
     }
   }
 
   &.is-expanded > .toggle {
-    transform: rotate( 90deg );
+    transform: rotate(90deg);
   }
 }
