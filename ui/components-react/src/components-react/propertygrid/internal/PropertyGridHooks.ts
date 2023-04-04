@@ -16,6 +16,7 @@ import { IPropertyGridModelSource, PropertyGridModelSource } from "./PropertyGri
 
 /**
  * Custom hook that gets [[PropertyData]] from given [[IPropertyDataProvider]] and subscribes to further data changes.
+ * @throws if/when `IPropertyDataProvider.getData()` promise is rejected. The error is thrown in the React's render loop, so it can be caught using an error boundary.
  * @public
  */
 export function usePropertyData(props: { dataProvider: IPropertyDataProvider }) {
@@ -35,6 +36,7 @@ export function usePropertyData(props: { dataProvider: IPropertyDataProvider }) 
 
 /**
  * Custom hook that creates a [[PropertyGridModelSource]] and subscribes it to data updates from the data provider.
+ * @throws if/when `IPropertyDataProvider.getData()` promise is rejected. The error is thrown in the React's render loop, so it can be caught using an error boundary.
  * @public
  */
 export function usePropertyGridModelSource(props: { dataProvider: IPropertyDataProvider }) {
