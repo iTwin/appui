@@ -1151,7 +1151,8 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
   React.useEffect(() => {
     const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
       assert(!!frontstageDef.nineZoneState);
-      frontstageDef.nineZoneState = showWidget(frontstageDef.nineZoneState, widgetDef.id);
+      let nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
+      frontstageDef.nineZoneState = showWidget(nineZoneState, widgetDef.id);
     });
     InternalFrontstageManager.onWidgetShowEvent.addListener(listener);
     return () => {
@@ -1161,7 +1162,8 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
   React.useEffect(() => {
     const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
       assert(!!frontstageDef.nineZoneState);
-      let nineZoneState = showWidget(frontstageDef.nineZoneState, widgetDef.id);
+      let nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
+      nineZoneState = showWidget(nineZoneState, widgetDef.id);
       nineZoneState = expandWidget(nineZoneState, widgetDef.id);
       frontstageDef.nineZoneState = nineZoneState;
     });
