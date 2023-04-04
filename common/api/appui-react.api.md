@@ -5202,7 +5202,6 @@ export interface UiDataProvidedDialogProps {
 // @public
 export class UiFramework {
     static get animateToolSettings(): boolean;
-    // (undocumented)
     static get autoCollapseUnpinnedPanels(): boolean;
     // @beta
     static get backstage(): FrameworkBackstage;
