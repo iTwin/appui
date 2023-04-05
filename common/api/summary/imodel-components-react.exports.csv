@@ -9,10 +9,6 @@ beta;ColorEditor
 beta;ColorPickerButton: (props: ColorPickerProps) => JSX.Element | null
 beta;ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType }: ColorPickerDialogProps): JSX.Element
 beta;ColorPickerDialogProps
-public;ColorPickerPanel({ activeColor, onColorChange, colorPresets, colorInputType }: ColorPickerPanelProps): JSX.Element
-deprecated;ColorPickerPanel({ activeColor, onColorChange, colorPresets, colorInputType }: ColorPickerPanelProps): JSX.Element
-public;ColorPickerPanelProps
-deprecated;ColorPickerPanelProps
 public;ColorPickerPopup: (props: ColorPickerPopupProps) => JSX.Element | null
 public;ColorPickerPopupProps 
 beta;ColorPickerProps 
@@ -55,21 +51,12 @@ alpha;FormatUnits(props: FormatUnitsProps): JSX.Element
 alpha;FormatUnitsProps 
 internal;getCSSColorFromDef(colorDef: ColorDef): string
 internal;getPercentageOfRectangle(rect: DOMRect, pointer: number): number
-internal;HitBoxX
-deprecated;HitBoxX
-internal;HitBoxY
-deprecated;HitBoxY
-internal;HitBoxZ
-deprecated;HitBoxZ
 beta;HueSlider({ isHorizontal, onHueChange, hsv, className, style }: HueSliderProps): JSX.Element
 beta;HueSliderProps 
 internal;InlineEdit 
 public;LineWeightSwatch 
 public;LineWeightSwatchProps 
 internal;MapMode
-internal;Milestone
-deprecated;Milestone
-public;MilestoneRange
 alpha;MiscFormatOptions(props: MiscFormatOptionsProps): JSX.Element
 alpha;MiscFormatOptionsProps 
 internal;NavCubeFace 
