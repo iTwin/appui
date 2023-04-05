@@ -13,7 +13,7 @@ describe("PrimitivePropertyLabelRenderer ", () => {
   it("renders correctly when offset is not provided", () => {
     const { container } = render(<PrimitivePropertyLabelRenderer>Title</PrimitivePropertyLabelRenderer>);
 
-    expect(container.firstElementChild).that.satisfy(styleMatch({paddingLeft: "0px"}));
+    expect(container.firstElementChild).that.satisfy(styleMatch({ paddingLeft: "0px" }));
     expect(screen.getByText("Title")).to.exist;
   });
 
@@ -21,7 +21,7 @@ describe("PrimitivePropertyLabelRenderer ", () => {
     const { container } = render(<PrimitivePropertyLabelRenderer className="test-class" offset={50}>Title</PrimitivePropertyLabelRenderer>);
 
     expect(container.firstElementChild).that
-      .satisfy(styleMatch({paddingLeft: "50px"}))
+      .satisfy(styleMatch({ paddingLeft: "50px" }))
       .satisfy(selectorMatches(".test-class"));
   });
 
@@ -29,7 +29,7 @@ describe("PrimitivePropertyLabelRenderer ", () => {
 
 describe("NonPrimitivePropertyLabelRenderer  ", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   it("renders correctly", () => {
@@ -44,7 +44,7 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
       </NonPrimitivePropertyLabelRenderer>);
 
     expect(screen.getByRole("presentation")).to
-      .satisfy(childStructure("i.icon"))
+      .satisfy(childStructure("svg"))
       .satisfy(selectorMatches(".test-class-name"))
       .not.satisfy(childStructure(".components-expanded"));
     expect(screen.getByText("Title")).to.exist;
