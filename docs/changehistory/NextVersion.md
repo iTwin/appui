@@ -183,38 +183,38 @@ Other previously deprecated removals and their replacements (if available):
 
 `CommonWidgetProps` and `WidgetProps` types are replaced by `Widget` interface:
 
-- `allowedPanelTargets` renamed to `allowedPanels`. Array type changed from union of strings to `StagePanelLocation`
+- `allowedPanelTargets` renamed to `allowedPanels`. Array type changed from union of strings to `StagePanelLocation`.
 - `isFloatingStateSupported` renamed to `canFloat`. Type changed to union of `boolean` or `CanFloatWidgetOptions`:
-  - `isFloatingStateWindowResizable` can be configured via `canFloat.isResizable`
-  - `floatingContainerId` can be configured via `canFloat.containerId`
-  - `defaultFloatingPosition` can be configured via `canFloat.defaultPosition`
-  - `defaultFloatingSize` can be configured via `canFloat.defaultSize`
-  - `hideWithUiWhenFloating` can be configured via `canFloat.hideWithUi`
-- Removed `onWidgetStateChanged`, `saveTransientState`, `restoreTransientState`
-- Removed `internalData`, `applicationData`
-- `getWidgetContent()` replaced by `content`
-- `icon` type changed to `IconSpec`
-- `id` is now required
-- `badgeType` renamed to `badge`
+  - `isFloatingStateWindowResizable` can be configured via `canFloat.isResizable`.
+  - `floatingContainerId` can be configured via `canFloat.containerId`.
+  - `defaultFloatingPosition` can be configured via `canFloat.defaultPosition`.
+  - `defaultFloatingSize` can be configured via `canFloat.defaultSize`.
+  - `hideWithUiWhenFloating` can be configured via `canFloat.hideWithUi`.
+- Removed `onWidgetStateChanged`, `saveTransientState`, `restoreTransientState`.
+- Removed `internalData`, `applicationData`.
+- `getWidgetContent()` replaced by `content`.
+- `icon` type changed to `IconSpec`.
+- `id` is now required.
+- `badgeType` renamed to `badge`.
 
 `WidgetConfig`:
 
-- Removed `control`, `classId` in favor of `content`
+- Removed `control`, `classId` in favor of `content`.
 
 `StatusBarItem`:
 
-- `badgeType` renamed to `badge`
-- `icon` type changed to `IconSpec`
+- `badgeType` renamed to `badge`.
+- `icon` type changed to `IconSpec`.
 
 `StatusBarCustomItem`:
 
-- `reactNode` renamed to `content`
+- `reactNode` renamed to `content`.
 
 `ToolbarItem`:
 
-- Removed `applicationData`, `internalData`, `isPressed`
-- `icon` type changed to `IconSpec`
-- `badgeType` renamed to `badge`
+- Removed `applicationData`, `internalData`, `isPressed`.
+- `icon` type changed to `IconSpec`.
+- `badgeType` renamed to `badge`.
 
 `ToolbarActionItem`, `ToolbarGroupItem`:
 
@@ -226,16 +226,26 @@ Other previously deprecated removals and their replacements (if available):
 
 `BackstageItem`:
 
-- Removed `applicationData`, `internalData`
-- `badgeType` renamed to `badge`
-- `icon` type changed to `IconSpec`
+- Removed `applicationData`, `internalData`.
+- `badgeType` renamed to `badge`.
+- `icon` type changed to `IconSpec`.
 
 `UiItemsProvider`:
 
-- Properties marked as readonly
-- `provideToolbarButtonItems` renamed to `provideToolbarItems`
+- Properties marked as readonly.
+- `provideToolbarButtonItems` renamed to `provideToolbarItems`.
 
 UI item provider types no longer extend from `ProviderItem`.
+
+`IModelConnectedViewport`:
+
+- No longer automatically support unified selection.
+  - Use `viewWithUnifiedSelection` from `@itwin/presentation-components` package to wrap `IModelConnectedViewport` to add unified selection support.
+
+`IModelViewportControl`:
+
+- No longer automatically support unified selection.
+  - Can be extended to provide a `IModelConnectedViewport` wrapped in `viewWithUnifiedSelection` to add unified selection.
 
 ### Static manager classes
 
@@ -387,6 +397,62 @@ Below is a list of the changes from this move, some of these new access point ma
 | SplitButton              |
 | SplitButtonProps         |
 | UiEvent                  |
+
+### SCSS variables
+
+Along typescript code changes, SCSS code was cleaned of previously deprecated variables. Note that in most cases, these were representing iTwinUI css variables, which should be used directly instead.
+
+Note that these are NOT handled in the codemod.
+
+| Removed | iTwinUI 2.0 replacement |
+|---|---|
+**Spaces**
+| $uicore-xxs | var(--iui-size-3xs) |
+| $uicore-xs | var(--iui-size-2xs) |
+| $uicore-s | var(--iui-size-xs) |
+| $uicore-sm | var(--iui-size-s) |
+| $uicore-m | var(--iui-size-m) |
+| $uicore-l | var(--iui-size-l) |
+| $uicore-xl | var(--iui-size-xl) |
+| $uicore-xxl | var(--iui-size-2xl) |
+| $uicore-3xl | var(--iui-size-3xl) |
+**Speeds**
+| $uicore-speed-fast | var(--iui-duration-1) |
+| $uicore-speed | var(--iui-duration-2) |
+| $uicore-speed-slow | var(--iui-duration-3) |
+**Typograpy**
+| $uicore-sans | var(--iui-font-sans) |
+| $uicore-monospace | var(--iui-font-mono) |
+| $uicore-font-family | var(--iui-font-sans) |
+| $uicore-font-size | var(--iui-font-size-1) |
+| $uicore-font-size-small | var(--iui-font-size-0) |
+| $uicore-font-size-leading | var(--iui-font-size-2) |
+| $uicore-font-size-subheading | var(--iui-font-size-3) |
+| $uicore-font-size-title | var(--iui-font-size-4) |
+| $uicore-font-size-headline | var(--iui-font-size-5) |
+| $uicore-cap-size | var(--iui-font-size-1) |
+| $uicore-cap-size-small | var(--iui-font-size-0) |
+| $uicore-cap-size-leading | var(--iui-font-size-2) |
+| $uicore-cap-size-subheading | var(--iui-font-size-3) |
+| $uicore-cap-size-title | var(--iui-font-size-4) |
+| $uicore-cap-size-headline | var(--iui-font-size-5) |
+| $uicore-font-weight-light | var(--iui-font-weight-light) |
+| $uicore-font-weight-normal | var(--iui-font-weight-normal) |
+| $uicore-font-weight-semibold | var(--iui-font-weight-semibold) |
+| $uicore-font-weight-bold | var(--iui-font-weight-bold) |
+| $uicore-font-loaded-class | var(--iui-font-sans) |
+| `@mixin` uicore-font-family | `{ font-family: var(--iui-font-sans) }` |
+| $uicore-border-radius | var(--iui-border-radius-1) |
+
+Some variables were removed but not replaced:
+
+| Variable | Value |
+| --- | --- |
+| $uicore-component-height-small | 24px |
+| $uicore-component-height-normal | 28px |
+| $uicore-component-height-large | 32px |
+
+Buttons and Checkbox classes and variables were removed and should be replaced by their iTwinUI counterparts. See this [PR](https://github.com/iTwin/appui/pull/204/files) files for more details.
 
 ## @itwin/components-react
 
