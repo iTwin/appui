@@ -355,6 +355,7 @@ public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
 internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
+public;PanelPinnedChangedEvent
 internal;PanelSizeChangedEvent 
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
@@ -409,6 +410,7 @@ beta;SessionStateActionsProps
 public;SessionStateActionsUnion = ActionsUnion
 beta;sessionStateMapDispatchToProps:
 public;SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly
+internal;setPanelPinned: (base:
 internal;setPanelSize: (base:
 beta;SettingsModalFrontstage 
 internal;setWidgetLabel(state: NineZoneState, id: TabState["id"], label: string): NineZoneState
