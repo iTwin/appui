@@ -77,7 +77,7 @@ export class InternalUiShowHideManager {
     InternalUiShowHideManager._isUiVisible = visible;
   }
 
-  /** @internal */
+  /** @public */
   public static setAutoHideUi(value: boolean) {
     InternalUiShowHideManager._autoHideUi = value;
   }

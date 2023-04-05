@@ -349,7 +349,7 @@ export class UiFramework {
     return UiFramework.backstage as BackstageManager;
   }
 
-  /** @alpha */
+  /** @public */
   public static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler {
     // istanbul ignore next
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
@@ -357,7 +357,7 @@ export class UiFramework {
     return UiFramework._hideIsolateEmphasizeActionHandler;
   }
 
-  /** @alpha */
+  /** @public */
   public static setHideIsolateEmphasizeActionHandler(handler: HideIsolateEmphasizeActionHandler | undefined) {
     // istanbul ignore else
     if (handler)
@@ -614,7 +614,9 @@ export class UiFramework {
     UiFramework.dispatchActionToStore(ConfigurableUiActionId.UseToolAsToolSettingsLabel, value, true);
   }
 
-  /** @alpha */
+  /** When `true`, panels will close as soon as the mouse leave the panel.
+   * When `false` (default), panels will close on next click outside the panel.
+   * @public */
   public static get autoCollapseUnpinnedPanels(): boolean {
     return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.autoCollapseUnpinnedPanels : /* istanbul ignore next */ false;
   }
@@ -622,7 +624,7 @@ export class UiFramework {
   /** Method used to enable the automatic closing of an unpinned widget panel as soon as the
    * mouse leaves the widget panel. The default behavior is to require a mouse click outside
    * the panel before it is closed.
-   * @alpha */
+   * @public */
 
   public static setAutoCollapseUnpinnedPanels(value: boolean) {
     if (UiFramework.autoCollapseUnpinnedPanels === value)

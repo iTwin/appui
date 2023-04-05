@@ -38,7 +38,7 @@ import { ViewManager } from '@itwin/core-frontend';
 import { Viewport } from '@itwin/core-frontend';
 import { ViewState } from '@itwin/core-frontend';
 
-// @beta
+// @public
 export class AlphaSlider extends React_2.PureComponent<AlphaSliderProps> {
     // @internal
     constructor(props: AlphaSliderProps);
@@ -48,7 +48,7 @@ export class AlphaSlider extends React_2.PureComponent<AlphaSliderProps> {
     render(): React_2.ReactNode;
 }
 
-// @beta
+// @public
 export interface AlphaSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
     alpha: number;
     isHorizontal?: boolean;
