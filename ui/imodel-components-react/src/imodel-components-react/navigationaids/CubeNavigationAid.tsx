@@ -23,13 +23,6 @@ export enum CubeNavigationHitBoxX {
   Right = 1,
   Left = -1,
 }
-/** @internal
- * @deprecated in 2.x. Use [[CubeNavigationHitBoxX]] */
-export enum HitBoxX {
-  None = 0,
-  Right = 1,
-  Left = -1,
-}
 
 /** @public */
 export enum CubeNavigationHitBoxY {
@@ -37,23 +30,9 @@ export enum CubeNavigationHitBoxY {
   Back = 1,
   Front = -1,
 }
-/** @internal
- * @deprecated in 2.x. Use [[CubeNavigationHitBoxY]] */
-export enum HitBoxY {
-  None = 0,
-  Back = 1,
-  Front = -1,
-}
 
 /** @public */
 export enum CubeNavigationHitBoxZ {
-  None = 0,
-  Top = 1,
-  Bottom = -1,
-}
-/** @internal
- * @deprecated in 2.x. [[CubeNavigationHitBoxZ]] */
-export enum HitBoxZ {
   None = 0,
   Top = 1,
   Bottom = -1,
