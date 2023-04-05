@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix bug where pinned stage panel def prop is out of sync with its react element. Fix layout info widget not updating info on change stage panel def change.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
