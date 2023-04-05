@@ -14,7 +14,7 @@ import { ContentControlActivatedEvent } from "../content/ContentControl";
 import { ContentGroup } from "../content/ContentGroup";
 import { ContentLayoutActivatedEvent, ContentLayoutDef } from "../content/ContentLayout";
 import { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
-import { PanelSizeChangedEvent, PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
+import { PanelPinnedChangedEvent, PanelSizeChangedEvent, PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { WidgetChangedEventArgs, WidgetDef, WidgetEventArgs, WidgetStateChangedEvent } from "../widgets/WidgetDef";
 import { ToolInformation } from "../toolsettings/ToolInformation";
@@ -188,10 +188,15 @@ export class InternalFrontstageManager {
   /** @internal */
   public static readonly onFrontstageRestoreLayoutEvent = new UiEvent<FrontstageEventArgs>();
 
-  /** Get Widget State Changed event.
+  /** Get panel state changed event.
    * @alpha
    */
   public static readonly onPanelStateChangedEvent = new PanelStateChangedEvent();
+
+  /** Get panel pinned changed event.
+   * @alpha
+   */
+  public static readonly onPanelPinnedChangedEvent = new UiEvent<PanelPinnedChangedEvent>();
 
   /** @internal */
   public static readonly onPanelSizeChangedEvent = new PanelSizeChangedEvent();

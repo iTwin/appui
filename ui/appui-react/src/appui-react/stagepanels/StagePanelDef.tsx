@@ -49,6 +49,11 @@ export interface PanelSizeChangedEventArgs {
 /** @internal */
 export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> { }
 
+export interface PanelPinnedChangedEvent {
+  panelDef: StagePanelDef;
+  pinned: boolean;
+}
+
 /**
  * A StagePanelDef represents each Stage Panel within a Frontstage.
  * @public
@@ -99,10 +104,6 @@ export class StagePanelDef extends WidgetHost {
     if (frontstageDef && frontstageDef.nineZoneState) {
       const side = toPanelSide(this.location);
       frontstageDef.nineZoneState = setPanelSize(frontstageDef.nineZoneState, side, size);
-      const panel = frontstageDef.nineZoneState.panels[side];
-      if (panel.size === this._size)
-        return;
-      size = panel.size;
     }
     this._size = size;
     InternalFrontstageManager.onPanelSizeChangedEvent.emit({
@@ -116,7 +117,32 @@ export class StagePanelDef extends WidgetHost {
   public get resizable(): boolean { return this._resizable; }
 
   /** Indicates whether the panel is pinned. */
-  public get pinned(): boolean { return this._pinned; }
+  public get pinned(): boolean {
+    if (UiFramework.frontstages.activeFrontstageDef) {
+      const state = UiFramework.frontstages.activeFrontstageDef.getPanelCurrentState(this);
+      return state[2];
+    }
+    // istanbul ignore next
+    return false;
+  }
+
+  public set pinned(pinned: boolean) {
+    if (this._pinned === pinned)
+      return;
+
+    // istanbul ignore else
+    const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+    // istanbul ignore else
+    if (frontstageDef && frontstageDef.nineZoneState) {
+      const side = toPanelSide(this.location);
+      frontstageDef.nineZoneState = setPanelPinned(frontstageDef.nineZoneState, side, pinned);
+    }
+    this._pinned = pinned;
+    UiFramework.frontstages.onPanelPinnedChangedEvent.emit({
+      panelDef: this,
+      pinned,
+    });
+  }
 
   /** Location of panel. */
   public get location(): StagePanelLocation { return this._location; }
@@ -257,4 +283,14 @@ export const setPanelSize = produce((
 ) => {
   const panel = nineZone.panels[side];
   panel.size = size === undefined ? size : Math.min(Math.max(size, panel.minSize), panel.maxSize);
+});
+
+/** @internal */
+export const setPanelPinned = produce((
+  nineZone: Draft<NineZoneState>,
+  side: PanelSide,
+  pinned: boolean,
+) => {
+  const panel = nineZone.panels[side];
+  panel.pinned = pinned;
 });

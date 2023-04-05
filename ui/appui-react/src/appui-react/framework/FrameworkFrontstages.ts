@@ -14,7 +14,7 @@ import { ContentLayoutActivatedEvent } from "../content/ContentLayout";
 import { FrontstageDef } from "../frontstage/FrontstageDef";
 import { FrontstageProvider } from "../frontstage/FrontstageProvider";
 import { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
-import { PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
+import { PanelPinnedChangedEvent, PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
 import { WidgetDef, WidgetStateChangedEvent } from "../widgets/WidgetDef";
 import { WidgetState } from "../widgets/WidgetState";
 
@@ -210,10 +210,15 @@ export interface FrameworkFrontstages {
   /** Get Widget State Changed event. */
   readonly onWidgetStateChangedEvent: WidgetStateChangedEvent;
 
-  /** Get Widget State Changed event.
+  /** Get Panel State Changed event.
    * @alpha
    */
   readonly onPanelStateChangedEvent: PanelStateChangedEvent;
+
+  /** Get Panel Pinned Changed event.
+   * @alpha
+   */
+  readonly onPanelPinnedChangedEvent: UiEvent<PanelPinnedChangedEvent>;
 
   /** Clears the Frontstage map.
    */

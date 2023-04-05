@@ -182,6 +182,16 @@ export class FrontstageDef {
             });
           }
         });
+
+        for (const panelSide of panelSides) {
+          const panel = state.panels[panelSide];
+          const location = this.toStagePanelLocation(panelSide);
+          const panelDef = this.getStagePanelDef(location);
+          if (panelDef) {
+            panelDef.size = panel.size;
+            panelDef.pinned = panel.pinned;
+          }
+        }
       } else {
         this._nineZoneState = state;
       }
@@ -576,16 +586,16 @@ export class FrontstageDef {
   /** Used only in UI 2.0 to determine StagePanelState and size from NinezoneState
    *  @internal
    */
-  public getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number] {
+  public getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number, boolean] {
     // istanbul ignore next
     if (this.nineZoneState) {
       const side = toPanelSide(panelDef.location);
       const panel = this.nineZoneState.panels[side];
       if (panel)
-        return [panel.collapsed ? StagePanelState.Minimized : StagePanelState.Open, panel.size ?? 0];
-      return [StagePanelState.Off, 0];
+        return [panel.collapsed ? StagePanelState.Minimized : StagePanelState.Open, panel.size ?? 0, panel.pinned];
+      return [StagePanelState.Off, 0, false];
     }
-    return [panelDef.defaultState, panelDef.defaultSize ?? 0];
+    return [panelDef.defaultState, panelDef.defaultSize ?? 0, true];
   }
 
   public isPopoutWidget(widgetId: string) {
