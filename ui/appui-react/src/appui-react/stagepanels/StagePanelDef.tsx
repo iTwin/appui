@@ -27,7 +27,7 @@ export enum StagePanelState {
   Popup,
 }
 
-/** Panel State Changed Event Args interface.
+/** Panel state changed event args interface.
  * @public
  */
 export interface PanelStateChangedEventArgs {
@@ -35,7 +35,7 @@ export interface PanelStateChangedEventArgs {
   panelState: StagePanelState;
 }
 
-/** Panel State Changed Event class.
+/** Panel state changed event class.
  * @beta
  */
 export class PanelStateChangedEvent extends UiEvent<PanelStateChangedEventArgs> { }
@@ -49,6 +49,9 @@ export interface PanelSizeChangedEventArgs {
 /** @internal */
 export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> { }
 
+/** Panel pinned changed event args interface.
+ * @public
+ */
 export interface PanelPinnedChangedEvent {
   panelDef: StagePanelDef;
   pinned: boolean;
