@@ -1151,7 +1151,7 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
   React.useEffect(() => {
     const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
       assert(!!frontstageDef.nineZoneState);
-      let nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
+      const nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
       frontstageDef.nineZoneState = showWidget(nineZoneState, widgetDef.id);
     });
     InternalFrontstageManager.onWidgetShowEvent.addListener(listener);
