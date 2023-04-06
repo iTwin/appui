@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { Id64String, Logger } from "@itwin/core-bentley";
-import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
+import { FuzzySearch, IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IconSpecUtilities, UiEvent } from "@itwin/appui-abstract";
 import { SupportsViewSelectorChange } from "../content/ContentControl";
 import { connectIModelConnection } from "../redux/connectIModel";
@@ -221,6 +221,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
     let views2dFiltered: ListItem[] | undefined;
     let sheetsFiltered: ListItem[] | undefined;
     let unknownFiltered: ListItem[] | undefined;
+    const fuzzy = new FuzzySearch<ListItem>();
 
     if (this.props.imodel && this.props.imodel.views.getViewList) {
       const query = { wantPrivate: false };
@@ -247,10 +248,18 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       });
 
       if(this._searchInput.length > 0){
-        views3dFiltered = views3d.filter((view) => view.name?.toLowerCase().includes(this._searchInput.toLowerCase()));
-        views2dFiltered = views2d.filter((view) => view.name?.toLowerCase().includes(this._searchInput.toLowerCase()));
-        sheetsFiltered = sheets.filter((view) => view.name?.toLowerCase().includes(this._searchInput.toLowerCase()));
-        unknownFiltered = unknown.filter((view) => view.name?. toLowerCase().includes(this._searchInput.toLowerCase()));
+        const views3dFuzzySearchResults = fuzzy.search(views3d, ["name"], this._searchInput).results as ListItem[];
+        const views2dFuzzySearchResults = fuzzy.search(views2d, ["name"], this._searchInput).results as ListItem[];
+        const sheetsFuzzySearchResults = fuzzy.search(sheets, ["name"], this._searchInput).results as ListItem[];
+        const unknownFuzzySearchResults = fuzzy.search(unknown, ["name"], this._searchInput).results as ListItem[];
+        views3dFiltered=[];
+        views2dFiltered=[];
+        sheetsFiltered=[];
+        unknownFiltered=[];
+        views3dFuzzySearchResults.forEach(function (result) {views3dFiltered?.push(result.item);});
+        views2dFuzzySearchResults.forEach(function (result) {views2dFiltered?.push(result.item);});
+        sheetsFuzzySearchResults.forEach(function (result) {sheetsFiltered?.push(result.item);});
+        unknownFuzzySearchResults.forEach(function (result) {unknownFiltered?.push(result.item);});
       }
     }
 
