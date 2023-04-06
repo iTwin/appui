@@ -107,6 +107,11 @@ export class StagePanelDef extends WidgetHost {
     if (frontstageDef && frontstageDef.nineZoneState) {
       const side = toPanelSide(this.location);
       frontstageDef.nineZoneState = setPanelSize(frontstageDef.nineZoneState, side, size);
+      const panel = frontstageDef.nineZoneState.panels[side];
+      if (panel.size !== size) {
+        this._size = panel.size;
+        return;
+      }
     }
     this._size = size;
     InternalFrontstageManager.onPanelSizeChangedEvent.emit({
@@ -211,17 +216,17 @@ export class StagePanelDef extends WidgetHost {
 
     if (!config)
       return;
-    this._size = config.size;
+    this.size = config.size;
     this._defaultSize = config.size;
     this._maxSizeSpec = config.maxSize;
     this._minSize = config.minSize;
     if (config.defaultState !== undefined) {
-      this._panelState = config.defaultState;
       this._defaultState = config.defaultState;
+      this.panelState = config.defaultState;
     }
     this._resizable = config.resizable ?? true;
     if (config.pinned !== undefined)
-      this._pinned = config.pinned;
+      this.pinned = config.pinned;
 
     const sections = config.sections;
     this._start.initializeFromConfig(sections?.start);
