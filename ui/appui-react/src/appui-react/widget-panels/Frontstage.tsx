@@ -996,10 +996,9 @@ export function expandWidget(state: NineZoneState, id: TabState["id"]) {
     const widget = draft.widgets[location.widgetId];
     if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
-      panel.widgets.forEach((wId) => {
-        const w = draft.widgets[wId];
-        w.minimized = true;
-      });
+      panel.splitterPercent =
+        panel.widgets.findIndex((wId) => wId === location.widgetId) === 0 ?
+          100 : 0;
     }
     widget.minimized = false;
   });
@@ -1152,7 +1151,8 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
   React.useEffect(() => {
     const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
       assert(!!frontstageDef.nineZoneState);
-      frontstageDef.nineZoneState = showWidget(frontstageDef.nineZoneState, widgetDef.id);
+      const nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
+      frontstageDef.nineZoneState = showWidget(nineZoneState, widgetDef.id);
     });
     InternalFrontstageManager.onWidgetShowEvent.addListener(listener);
     return () => {
@@ -1162,7 +1162,8 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
   React.useEffect(() => {
     const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
       assert(!!frontstageDef.nineZoneState);
-      let nineZoneState = showWidget(frontstageDef.nineZoneState, widgetDef.id);
+      let nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
+      nineZoneState = showWidget(nineZoneState, widgetDef.id);
       nineZoneState = expandWidget(nineZoneState, widgetDef.id);
       frontstageDef.nineZoneState = nineZoneState;
     });

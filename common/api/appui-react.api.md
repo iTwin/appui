@@ -5819,7 +5819,6 @@ export class WidgetDef {
     get defaultState(): WidgetState;
     // @internal (undocumented)
     get defaultTabLocation(): TabLocation;
-    // @alpha
     expand(): void;
     // (undocumented)
     get floatingContainerId(): string | undefined;
@@ -5872,7 +5871,6 @@ export class WidgetDef {
     setTooltip(v: string | ConditionalStringValue | StringGetter): void;
     // (undocumented)
     setWidgetState(newState: WidgetState): void;
-    // @alpha
     show(): void;
     // (undocumented)
     get state(): WidgetState;

@@ -10,6 +10,7 @@ Table of contents:
 - [@itwin/appui-layout-react](#itwinappui-layout-react)
 - [@itwin/appui-abstract](#itwinappui-abstract)
 - [@itwin/appui-react](#itwinappui-react)
+  - [Component changes](#component-changes)
   - [Static manager classes](#static-manager-classes)
 - [@itwin/core-react](#itwincore-react)
 - [@itwin/components-react](#itwincomponents-react)
@@ -197,45 +198,13 @@ Other previously deprecated removals and their replacements (if available):
 - `id` is now required.
 - `badgeType` renamed to `badge`.
 
-`WidgetConfig`:
-
-- Removed `control`, `classId` in favor of `content`.
-
-`StatusBarItem`:
-
-- `badgeType` renamed to `badge`.
-- `icon` type changed to `IconSpec`.
-
-`StatusBarCustomItem`:
-
-- `reactNode` renamed to `content`.
-
-`ToolbarItem`:
-
-- Removed `applicationData`, `internalData`, `isPressed`.
-- `icon` type changed to `IconSpec`.
-- `badgeType` renamed to `badge`.
-
-`ToolbarActionItem`, `ToolbarGroupItem`:
-
-- `parentToolGroupId` renamed to `parentGroupItemId`.
-
-`ToolbarGroupItem`:
-
-- `items` type narrowed down to accept only `ToolbarActionItem` and `ToolbarGroupItem`.
+### Component changes
 
 `BackstageItem`:
 
 - Removed `applicationData`, `internalData`.
 - `badgeType` renamed to `badge`.
 - `icon` type changed to `IconSpec`.
-
-`UiItemsProvider`:
-
-- Properties marked as readonly.
-- `provideToolbarButtonItems` renamed to `provideToolbarItems`.
-
-UI item provider types no longer extend from `ProviderItem`.
 
 `IModelConnectedViewport`:
 
@@ -246,6 +215,45 @@ UI item provider types no longer extend from `ProviderItem`.
 
 - No longer automatically support unified selection.
   - Can be extended to provide a `IModelConnectedViewport` wrapped in `viewWithUnifiedSelection` to add unified selection.
+
+`StatusBarCustomItem`:
+
+- `reactNode` renamed to `content`.
+
+`StatusBarItem`:
+
+- `badgeType` renamed to `badge`.
+- `icon` type changed to `IconSpec`.
+
+`ToolbarActionItem`, `ToolbarGroupItem`:
+
+- `parentToolGroupId` renamed to `parentGroupItemId`.
+
+`ToolbarGroupItem`:
+
+- `items` type narrowed down to accept only `ToolbarActionItem` and `ToolbarGroupItem`.
+
+`ToolbarItem`:
+
+- Removed `applicationData`, `internalData`, `isPressed`.
+- `icon` type changed to `IconSpec`.
+- `badgeType` renamed to `badge`.
+
+`UiItemsProvider`:
+
+- Properties marked as readonly.
+- `provideToolbarButtonItems` renamed to `provideToolbarItems`.
+
+UI item provider types no longer extend from `ProviderItem`.
+
+`WidgetConfig`:
+
+- Removed `control`, `classId` in favor of `content`.
+
+`WidgetDef`:
+
+- `show` method will now open the widget if it is hidden as the documentation mention.
+- `expand` method will also now open the widget, and will correctly expand the widget section to take most of the space in the panel.
 
 ### Static manager classes
 
