@@ -387,8 +387,8 @@ public;ReducerMapActions
 beta;ReducerRegistry
 beta;ReducerRegistryInstance: ReducerRegistry
 internal;removeMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState
-alpha;RestoreAllFrontstagesTool 
-alpha;RestoreFrontstageLayoutTool 
+public;RestoreAllFrontstagesTool 
+public;RestoreFrontstageLayoutTool 
 internal;restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedNineZoneState): NineZoneState
 internal;RotationData
 public;SafeAreaContext: React_2.Context
@@ -552,7 +552,7 @@ public;UiVisibilityEventArgs
 alpha;UnitSystemSelector(props: UnitSystemSelectorProps): JSX.Element
 beta;UnitSystemSelectorProps
 internal;useActiveContentControlId(): string | undefined
-internal;useActiveFrontstageDef(): FrontstageDef | undefined
+public;useActiveFrontstageDef(): FrontstageDef | undefined
 public;useActiveFrontstageId: () => string
 public;useActiveIModelConnection(): IModelConnection | undefined
 internal;useActiveModalFrontstageInfo(): ModalFrontstageInfo | undefined

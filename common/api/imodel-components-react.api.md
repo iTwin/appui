@@ -38,7 +38,7 @@ import { ViewManager } from '@itwin/core-frontend';
 import { Viewport } from '@itwin/core-frontend';
 import { ViewState } from '@itwin/core-frontend';
 
-// @beta
+// @public
 export class AlphaSlider extends React_2.PureComponent<AlphaSliderProps> {
     // @internal
     constructor(props: AlphaSliderProps);
@@ -48,7 +48,7 @@ export class AlphaSlider extends React_2.PureComponent<AlphaSliderProps> {
     render(): React_2.ReactNode;
 }
 
-// @beta
+// @public
 export interface AlphaSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
     alpha: number;
     isHorizontal?: boolean;
@@ -185,20 +185,6 @@ export interface ColorPickerDialogProps {
     onCancelResult: () => void;
     // (undocumented)
     onOkResult: (selectedColor: ColorDef) => void;
-}
-
-// @public @deprecated
-export function ColorPickerPanel({ activeColor, onColorChange, colorPresets, colorInputType }: ColorPickerPanelProps): JSX.Element;
-
-// @public @deprecated
-export interface ColorPickerPanelProps {
-    // (undocumented)
-    activeColor: ColorDef;
-    colorInputType?: "HSL" | "RGB";
-    // (undocumented)
-    colorPresets?: ColorDef[];
-    // (undocumented)
-    onColorChange: (selectedColor: ColorDef) => void;
 }
 
 // @public
@@ -590,36 +576,6 @@ export function getCSSColorFromDef(colorDef: ColorDef): string;
 // @internal (undocumented)
 export function getPercentageOfRectangle(rect: DOMRect, pointer: number): number;
 
-// @internal @deprecated (undocumented)
-export enum HitBoxX {
-    // (undocumented)
-    Left = -1,
-    // (undocumented)
-    None = 0,
-    // (undocumented)
-    Right = 1
-}
-
-// @internal @deprecated (undocumented)
-export enum HitBoxY {
-    // (undocumented)
-    Back = 1,
-    // (undocumented)
-    Front = -1,
-    // (undocumented)
-    None = 0
-}
-
-// @internal @deprecated (undocumented)
-export enum HitBoxZ {
-    // (undocumented)
-    Bottom = -1,
-    // (undocumented)
-    None = 0,
-    // (undocumented)
-    Top = 1
-}
-
 // @beta
 export function HueSlider({ isHorizontal, onHueChange, hsv, className, style }: HueSliderProps): JSX.Element;
 
@@ -665,28 +621,6 @@ export enum MapMode {
     Closed = "map-closed",
     // (undocumented)
     Opened = "map-opened"
-}
-
-// @internal @deprecated
-export interface Milestone {
-    // (undocumented)
-    children?: Milestone[];
-    date: Date;
-    description?: string;
-    id: string;
-    label?: string;
-    // (undocumented)
-    parentId?: string;
-    range?: MilestoneRange;
-    readonly?: boolean;
-}
-
-// @public
-export interface MilestoneRange {
-    // (undocumented)
-    end: Date;
-    // (undocumented)
-    start: Date;
 }
 
 // @alpha

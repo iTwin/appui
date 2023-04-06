@@ -10,7 +10,6 @@ export { UiIModelComponents } from "./imodel-components-react/UiIModelComponents
 export * from "./imodel-components-react/color/AlphaSlider";
 export * from "./imodel-components-react/color/ColorPickerButton";
 export * from "./imodel-components-react/color/ColorPickerDialog";
-export * from "./imodel-components-react/color/ColorPickerPanel";
 export * from "./imodel-components-react/color/ColorPickerPopup";
 export * from "./imodel-components-react/color/getCSSColorFromDef";
 export * from "./imodel-components-react/color/HueSlider";

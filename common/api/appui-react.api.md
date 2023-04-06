@@ -3825,7 +3825,7 @@ export const ReducerRegistryInstance: ReducerRegistry;
 // @internal
 export function removeMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState;
 
-// @alpha
+// @public
 export class RestoreAllFrontstagesTool extends Tool {
     // (undocumented)
     static iconSpec: string;
@@ -3835,7 +3835,7 @@ export class RestoreAllFrontstagesTool extends Tool {
     static toolId: string;
 }
 
-// @alpha
+// @public
 export class RestoreFrontstageLayoutTool extends Tool {
     // (undocumented)
     static iconSpec: string;
@@ -5064,6 +5064,7 @@ export enum SyncUiEventId {
     BackstageEvent = "backstageevent",
     ContentControlActivated = "contentcontrolactivated",
     ContentLayoutActivated = "contentlayoutactivated",
+    FeatureOverridesChanged = "featureoverrideschanged",
     FrontstageActivating = "frontstageactivating",
     FrontstageReady = "frontstageready",
     ModalDialogChanged = "modaldialogchanged",
@@ -5409,7 +5410,6 @@ export interface UiDataProvidedDialogProps {
 // @public
 export class UiFramework {
     static get animateToolSettings(): boolean;
-    // @alpha (undocumented)
     static get autoCollapseUnpinnedPanels(): boolean;
     // @beta
     static get backstage(): FrameworkBackstage;
@@ -5460,7 +5460,7 @@ export class UiFramework {
     static getUiStateStorage(): UiStateStorage;
     // (undocumented)
     static getWidgetOpacity(): number;
-    // @alpha (undocumented)
+    // (undocumented)
     static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler;
     static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
     static get initialized(): boolean;
@@ -5497,7 +5497,6 @@ export class UiFramework {
     static setActiveSelectionScope(selectionScopeId: string): void;
     // (undocumented)
     static setAnimateToolSettings(value: boolean): void;
-    // @alpha
     static setAutoCollapseUnpinnedPanels(value: boolean): void;
     // (undocumented)
     static setColorTheme(theme: string): void;
@@ -5507,7 +5506,7 @@ export class UiFramework {
     static setDefaultViewId(viewId: string, immediateSync?: boolean): void;
     // (undocumented)
     static setDefaultViewState(viewState: ViewState, immediateSync?: boolean): void;
-    // @alpha (undocumented)
+    // (undocumented)
     static setHideIsolateEmphasizeActionHandler(handler: HideIsolateEmphasizeActionHandler | undefined): void;
     // (undocumented)
     static setIModelConnection(iModelConnection: IModelConnection | undefined, immediateSync?: boolean): void;
@@ -5669,7 +5668,7 @@ export interface UnitSystemSelectorProps {
 // @internal (undocumented)
 export function useActiveContentControlId(): string | undefined;
 
-// @internal (undocumented)
+// @public (undocumented)
 export function useActiveFrontstageDef(): FrontstageDef | undefined;
 
 // @public
