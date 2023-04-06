@@ -2338,7 +2338,7 @@ export class FrontstageDef {
     // (undocumented)
     getFloatingWidgetContainerIds(): string[];
     // @internal
-    getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number];
+    getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number, boolean];
     // @beta
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
     // @internal
