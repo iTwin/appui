@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `widgetDef.expand` method.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
