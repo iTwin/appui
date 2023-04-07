@@ -296,7 +296,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
  * @public
  * @deprecated in 4.0. Use [ToolbarWithOverflow]($appui-react) instead.
  */
-export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
+export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint-disable-line deprecation/deprecation
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
   const useDragInteraction = !!props.useDragInteraction;
   const panelAlignment = props.panelAlignment ? props.panelAlignment : ToolbarPanelAlignment.Start;
