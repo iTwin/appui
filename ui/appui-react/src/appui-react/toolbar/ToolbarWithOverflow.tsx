@@ -10,7 +10,7 @@ import "./Toolbar.scss";
 import * as React from "react";
 import { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow as CR_ToolbarWithOverflow } from "@itwin/components-react";
+import { ToolbarWithOverflow as CR_ToolbarWithOverflow, Direction, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
 import { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 
@@ -45,9 +45,9 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
     return items.map((item) => toUIAToolbarItem(item));
   }, [items]);
   return (
-    <CR_ToolbarWithOverflow
+    <CR_ToolbarWithOverflow // eslint-disable-line deprecation/deprecation
       items={uiaItems}
       {...other}
     />
-  )
+  );
 }

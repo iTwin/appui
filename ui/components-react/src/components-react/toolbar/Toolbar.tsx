@@ -51,7 +51,7 @@ function getItemWrapperClass(child: React.ReactNode) {
  * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
  * @public
  */
-export function Toolbar(props: ToolbarProps) {
+export function Toolbar(props: ToolbarProps) { // eslint-disable-line deprecation/deprecation
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
   const useDragInteraction = !!props.useDragInteraction;
   const panelAlignment = props.panelAlignment ? props.panelAlignment : ToolbarPanelAlignment.Start;
