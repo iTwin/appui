@@ -13,6 +13,7 @@ Table of contents:
   - [Component changes](#component-changes)
   - [Static manager classes](#static-manager-classes)
 - [@itwin/core-react](#itwincore-react)
+  - [SCSS variables](#scss-variables)
 - [@itwin/components-react](#itwincomponents-react)
 - [@bentley/icons-generic-webfont](#bentleyicons-generic-webfont)
 
@@ -412,53 +413,53 @@ Along typescript code changes, SCSS code was cleaned of previously deprecated va
 
 Note that these are NOT handled in the codemod.
 
-| Removed | iTwinUI 2.0 replacement |
-|---|---|
-**Spaces**
-| $uicore-xxs | var(--iui-size-3xs) |
-| $uicore-xs | var(--iui-size-2xs) |
-| $uicore-s | var(--iui-size-xs) |
-| $uicore-sm | var(--iui-size-s) |
-| $uicore-m | var(--iui-size-m) |
-| $uicore-l | var(--iui-size-l) |
-| $uicore-xl | var(--iui-size-xl) |
-| $uicore-xxl | var(--iui-size-2xl) |
-| $uicore-3xl | var(--iui-size-3xl) |
-**Speeds**
-| $uicore-speed-fast | var(--iui-duration-1) |
-| $uicore-speed | var(--iui-duration-2) |
-| $uicore-speed-slow | var(--iui-duration-3) |
-**Typograpy**
-| $uicore-sans | var(--iui-font-sans) |
-| $uicore-monospace | var(--iui-font-mono) |
-| $uicore-font-family | var(--iui-font-sans) |
-| $uicore-font-size | var(--iui-font-size-1) |
-| $uicore-font-size-small | var(--iui-font-size-0) |
-| $uicore-font-size-leading | var(--iui-font-size-2) |
-| $uicore-font-size-subheading | var(--iui-font-size-3) |
-| $uicore-font-size-title | var(--iui-font-size-4) |
-| $uicore-font-size-headline | var(--iui-font-size-5) |
-| $uicore-cap-size | var(--iui-font-size-1) |
-| $uicore-cap-size-small | var(--iui-font-size-0) |
-| $uicore-cap-size-leading | var(--iui-font-size-2) |
-| $uicore-cap-size-subheading | var(--iui-font-size-3) |
-| $uicore-cap-size-title | var(--iui-font-size-4) |
-| $uicore-cap-size-headline | var(--iui-font-size-5) |
-| $uicore-font-weight-light | var(--iui-font-weight-light) |
-| $uicore-font-weight-normal | var(--iui-font-weight-normal) |
-| $uicore-font-weight-semibold | var(--iui-font-weight-semibold) |
-| $uicore-font-weight-bold | var(--iui-font-weight-bold) |
-| $uicore-font-loaded-class | var(--iui-font-sans) |
-| `@mixin` uicore-font-family | `{ font-family: var(--iui-font-sans) }` |
-| $uicore-border-radius | var(--iui-border-radius-1) |
+| Removed                      | iTwinUI 2.0 replacement                 |
+| ---------------------------- | --------------------------------------- |
+| **Spaces**                   |
+| $uicore-xxs                  | var(--iui-size-3xs)                     |
+| $uicore-xs                   | var(--iui-size-2xs)                     |
+| $uicore-s                    | var(--iui-size-xs)                      |
+| $uicore-sm                   | var(--iui-size-s)                       |
+| $uicore-m                    | var(--iui-size-m)                       |
+| $uicore-l                    | var(--iui-size-l)                       |
+| $uicore-xl                   | var(--iui-size-xl)                      |
+| $uicore-xxl                  | var(--iui-size-2xl)                     |
+| $uicore-3xl                  | var(--iui-size-3xl)                     |
+| **Speeds**                   |                                         |
+| $uicore-speed-fast           | var(--iui-duration-1)                   |
+| $uicore-speed                | var(--iui-duration-2)                   |
+| $uicore-speed-slow           | var(--iui-duration-3)                   |
+| **Typograpy**                |                                         |
+| $uicore-sans                 | var(--iui-font-sans)                    |
+| $uicore-monospace            | var(--iui-font-mono)                    |
+| $uicore-font-family          | var(--iui-font-sans)                    |
+| $uicore-font-size            | var(--iui-font-size-1)                  |
+| $uicore-font-size-small      | var(--iui-font-size-0)                  |
+| $uicore-font-size-leading    | var(--iui-font-size-2)                  |
+| $uicore-font-size-subheading | var(--iui-font-size-3)                  |
+| $uicore-font-size-title      | var(--iui-font-size-4)                  |
+| $uicore-font-size-headline   | var(--iui-font-size-5)                  |
+| $uicore-cap-size             | var(--iui-font-size-1)                  |
+| $uicore-cap-size-small       | var(--iui-font-size-0)                  |
+| $uicore-cap-size-leading     | var(--iui-font-size-2)                  |
+| $uicore-cap-size-subheading  | var(--iui-font-size-3)                  |
+| $uicore-cap-size-title       | var(--iui-font-size-4)                  |
+| $uicore-cap-size-headline    | var(--iui-font-size-5)                  |
+| $uicore-font-weight-light    | var(--iui-font-weight-light)            |
+| $uicore-font-weight-normal   | var(--iui-font-weight-normal)           |
+| $uicore-font-weight-semibold | var(--iui-font-weight-semibold)         |
+| $uicore-font-weight-bold     | var(--iui-font-weight-bold)             |
+| $uicore-font-loaded-class    | var(--iui-font-sans)                    |
+| `@mixin` uicore-font-family  | `{ font-family: var(--iui-font-sans) }` |
+| $uicore-border-radius        | var(--iui-border-radius-1)              |
 
 Some variables were removed but not replaced:
 
-| Variable | Value |
-| --- | --- |
-| $uicore-component-height-small | 24px |
-| $uicore-component-height-normal | 28px |
-| $uicore-component-height-large | 32px |
+| Variable                        | Value |
+| ------------------------------- | ----- |
+| $uicore-component-height-small  | 24px  |
+| $uicore-component-height-normal | 28px  |
+| $uicore-component-height-large  | 32px  |
 
 Buttons and Checkbox classes and variables were removed and should be replaced by their iTwinUI counterparts. See this [PR](https://github.com/iTwin/appui/pull/204/files) files for more details.
 
@@ -534,9 +535,15 @@ Removed `Table`, `Breadcrumb` and other previously deprecated APIs and component
 | ThemedEnumPropertyEditor                |
 | TreeDataChangesListener                 |
 
-| Deprecated API       |
-| -------------------- |
-| TableDataChangeEvent |
+| Deprecated API             | Replacement                                          |
+| -------------------------- | ---------------------------------------------------- |
+| `TableDataChangeEvent`     |                                                      |
+| `ToolbarProps`             | `ToolbarProps` from *@itwin/appui-react*             |
+| `Toolbar`                  | `Toolbar` from *@itwin/appui-react*                  |
+| `CustomToolbarItem`        | `ToolbarCustomItem` from *@itwin/appui-react*        |
+| `ToolbarItem`              | `ToolbarItem` from *@itwin/appui-react*              |
+| `ToolbarWithOverflowProps` | `ToolbarWithOverflowProps` from *@itwin/appui-react* |
+| `ToolbarWithOverflow`      | `ToolbarWithOverflow` from *@itwin/appui-react*      |
 
 ## @bentley/icons-generic-webfont
 
