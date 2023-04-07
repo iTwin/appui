@@ -3,11 +3,13 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { Dialog } from "@itwin/appui-layout-react";
+import { ToolbarWithOverflow } from "@itwin/components-react";
 
 function App() {
   return (
     <>
       <Dialog />
+      <ToolbarWithOverflow />
     </>
   );
 }
