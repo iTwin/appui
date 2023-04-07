@@ -18,6 +18,7 @@ import { Direction, OrthogonalDirection, OrthogonalDirectionHelpers } from "./ut
 import { getToolbarDirection, ToolbarItemComponent, ToolbarItemContext, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflowDirectionContext } from "./ToolbarWithOverflow";
 
 /** Properties of [[Toolbar]] component.
+ * @deprecated in 4.0. Use [ToolbarProps]($appui-react) instead.
  * @public
  */
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
@@ -46,7 +47,8 @@ function getItemWrapperClass(child: React.ReactNode) {
   return "";
 }
 
-/** Component that displays tool settings as a bar across the top of the content view.
+/** Component that displays toolbar items.
+ * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
  * @public
  */
 export function Toolbar(props: ToolbarProps) {

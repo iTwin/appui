@@ -28,6 +28,7 @@ import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** Describes the data needed to insert a custom `React` button into an ToolbarWithOverflow.
  * @public
+ * @deprecated in 4.0. Use [ToolbarCustomItem]($appui-react) instead.
  */
 export interface CustomToolbarItem extends CustomButtonDefinition {
   /** defines the content to display in popup panel */
@@ -54,6 +55,7 @@ export function useToolbarPopupAutoHideContext() {
 
 /** Describes toolbar item.
  * @public
+ * @deprecated in 4.0. Use [ToolbarItem]($appui-react) instead.
  */
 export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
 
@@ -70,7 +72,7 @@ export const getToolbarDirection = (expandsTo: Direction): OrthogonalDirection =
   return OrthogonalDirectionHelpers.inverse(orthogonalDirection);
 };
 
-/** Available alignment modes of [[ToolbarWithOverflow]] panels.
+/** Available alignment modes of [[Toolbar]] panels.
  * @public
  */
 export enum ToolbarPanelAlignment {
