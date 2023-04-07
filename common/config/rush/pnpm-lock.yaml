@@ -603,7 +603,6 @@ importers:
       typescript: ~5.0.2
     dependencies:
       '@bentley/icons-generic': 1.0.34
-      '@itwin/core-telemetry': 4.0.0-dev.37_aa7fb3f680b611b9ce5b52986dcf1e2d
       '@itwin/itwinui-icons': 1.16.0
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 2.7.0_react-dom@17.0.2+react@17.0.2
@@ -624,6 +623,7 @@ importers:
       '@itwin/core-orbitgt': 4.0.0-dev.37
       '@itwin/core-quantity': 4.0.0-dev.37_@itwin+core-bentley@4.0.0-dev.37
       '@itwin/core-react': link:../core-react
+      '@itwin/core-telemetry': 4.0.0-dev.37_aa7fb3f680b611b9ce5b52986dcf1e2d
       '@itwin/ecschema-metadata': 4.0.0-dev.37_9b2fdedb5fa7d398d71e330037f49c2c
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/imodel-components-react': link:../imodel-components-react
