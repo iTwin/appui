@@ -6,7 +6,6 @@
  * @module Toolbar
  */
 
-import "./Toolbar.scss";
 import * as React from "react";
 import { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import { CommonProps, NoChildrenProps } from "@itwin/core-react";
