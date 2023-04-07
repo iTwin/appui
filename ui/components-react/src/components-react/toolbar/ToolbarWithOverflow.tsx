@@ -271,6 +271,7 @@ function getItemWrapperClass(child: React.ReactNode) {
 
 /** Properties of [[ToolbarWithOverflow]] component.
  * @public
+ * @deprecated in 4.0. Use [ToolbarWithOverflowProps]($appui-react) instead.
  */
 export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
@@ -293,6 +294,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
 
 /** Component that displays tool settings as a bar across the top of the content view.
  * @public
+ * @deprecated in 4.0. Use [ToolbarWithOverflow]($appui-react) instead.
  */
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;

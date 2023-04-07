@@ -18,8 +18,8 @@ import { Direction, OrthogonalDirection, OrthogonalDirectionHelpers } from "./ut
 import { getToolbarDirection, ToolbarItemComponent, ToolbarItemContext, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflowDirectionContext } from "./ToolbarWithOverflow";
 
 /** Properties of [[Toolbar]] component.
- * @deprecated in 4.0. Use [ToolbarProps]($appui-react) instead.
  * @public
+ * @deprecated in 4.0. Use [ToolbarProps]($appui-react) instead.
  */
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
@@ -48,8 +48,8 @@ function getItemWrapperClass(child: React.ReactNode) {
 }
 
 /** Component that displays toolbar items.
- * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
  * @public
+ * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
  */
 export function Toolbar(props: ToolbarProps) { // eslint-disable-line deprecation/deprecation
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
