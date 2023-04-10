@@ -498,6 +498,7 @@ public;ToolAssistanceChangedEventArgs
 public;ToolAssistanceField 
 internal;ToolAssistanceFieldDefaultProps = Pick
 public;ToolAssistanceFieldProps 
+beta;Toolbar(props: ToolbarProps): JSX.Element
 public;TOOLBAR_OPACITY_DEFAULT = 0.5
 public;ToolbarActionItem 
 public;ToolbarButtonHelper
@@ -511,7 +512,10 @@ beta;ToolbarItemUtilities
 public;ToolbarOrientation
 beta;ToolbarPopup 
 beta;ToolbarPopupProps 
+beta;ToolbarProps 
 public;ToolbarUsage
+beta;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
+beta;ToolbarWithOverflowProps 
 public;ToolIconChangedEvent 
 public;ToolIconChangedEventArgs
 public;ToolInformation

@@ -39,6 +39,7 @@ import { DialogPropertySyncItem } from '@itwin/appui-abstract';
 import { DialogProps } from '@itwin/core-react';
 import { DialogProps as DialogProps_2 } from '@itwin/appui-abstract';
 import { DialogRow } from '@itwin/appui-abstract';
+import { Direction } from '@itwin/components-react';
 import { DisplayStyle3dState } from '@itwin/core-frontend';
 import { EmphasizeElementsProps } from '@itwin/core-common';
 import { FloatingWidgetState } from '@itwin/appui-layout-react';
@@ -69,6 +70,7 @@ import { NineZoneAction } from '@itwin/appui-layout-react';
 import { NineZoneDispatch } from '@itwin/appui-layout-react';
 import { NineZoneLabels } from '@itwin/appui-layout-react';
 import { NineZoneState } from '@itwin/appui-layout-react';
+import { NoChildrenProps } from '@itwin/core-react';
 import { NotificationManager } from '@itwin/core-frontend';
 import { NotifyMessageDetails } from '@itwin/core-frontend';
 import { Omit as Omit_2 } from '@itwin/core-react';
@@ -116,6 +118,8 @@ import { Tool } from '@itwin/core-frontend';
 import { ToolAdmin } from '@itwin/core-frontend';
 import { ToolAssistanceInstruction } from '@itwin/core-frontend';
 import { ToolAssistanceInstructions } from '@itwin/core-frontend';
+import { ToolbarOpacitySetting } from '@itwin/components-react';
+import { ToolbarPanelAlignment } from '@itwin/components-react';
 import { ToolTipOptions } from '@itwin/core-frontend';
 import { UiAdmin } from '@itwin/appui-abstract';
 import { UiDataProvider } from '@itwin/appui-abstract';
@@ -4954,6 +4958,9 @@ export interface ToolAssistanceFieldProps extends CommonProps {
     uiStateStorage?: UiStateStorage;
 }
 
+// @beta
+export function Toolbar(props: ToolbarProps): JSX.Element;
+
 // @public
 export const TOOLBAR_OPACITY_DEFAULT = 0.5;
 
@@ -5048,10 +5055,36 @@ export interface ToolbarPopupProps extends PopupPropsBase {
     relativePosition: RelativePosition;
 }
 
+// @beta
+export interface ToolbarProps extends CommonProps, NoChildrenProps {
+    expandsTo?: Direction;
+    items: ToolbarItem[];
+    onItemExecuted?: OnItemExecutedFunc;
+    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    panelAlignment?: ToolbarPanelAlignment;
+    toolbarOpacitySetting?: ToolbarOpacitySetting;
+    useDragInteraction?: boolean;
+}
+
 // @public
 export enum ToolbarUsage {
     ContentManipulation = 0,
     ViewNavigation = 1
+}
+
+// @beta
+export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element;
+
+// @beta
+export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
+    expandsTo?: Direction;
+    items: ToolbarItem[];
+    onItemExecuted?: OnItemExecutedFunc;
+    onKeyDown?: (e: React_2.KeyboardEvent) => void;
+    overflowExpandsTo?: Direction;
+    panelAlignment?: ToolbarPanelAlignment;
+    toolbarOpacitySetting?: ToolbarOpacitySetting;
+    useDragInteraction?: boolean;
 }
 
 // @public

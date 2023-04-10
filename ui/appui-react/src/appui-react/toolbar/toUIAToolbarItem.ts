@@ -13,7 +13,7 @@ import { isToolbarCustomItem, ToolbarItem } from "./ToolbarItem";
 /** @internal */
 export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
   if (isToolbarCustomItem(item)) {
-    const customItem: CustomToolbarItem = {
+    const customItem: CustomToolbarItem = { // eslint-disable-line deprecation/deprecation
       ...item,
       isCustom: true,
       icon: item.icon as string,
@@ -21,5 +21,5 @@ export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
     };
     return customItem;
   }
-  return item as UIA_CommonToolbarItem; // TODO: 4.0
+  return item as UIA_CommonToolbarItem;
 }
