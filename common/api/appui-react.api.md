@@ -2090,7 +2090,7 @@ export interface FrameworkFrontstages {
     readonly onModalFrontstageClosedEvent: ModalFrontstageClosedEvent;
     readonly onNavigationAidActivatedEvent: NavigationAidActivatedEvent;
     // @alpha
-    readonly onPanelPinnedChangedEvent: UiEvent<PanelPinnedChangedEvent>;
+    readonly onPanelPinnedChangedEvent: UiEvent<PanelPinnedChangedEventArgs>;
     // @alpha
     readonly onPanelStateChangedEvent: PanelStateChangedEvent;
     readonly onToolActivatedEvent: ToolActivatedEvent;
@@ -3542,7 +3542,7 @@ export class OpenMessageCenterEvent extends UiEvent<{}> {
 export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
 
 // @public
-export interface PanelPinnedChangedEvent {
+export interface PanelPinnedChangedEventArgs {
     // (undocumented)
     panelDef: StagePanelDef;
     // (undocumented)

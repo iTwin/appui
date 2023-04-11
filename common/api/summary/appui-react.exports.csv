@@ -355,7 +355,7 @@ public;NotifyMessageType = MessageType
 public;OpenChildWindowInfo
 public;OpenMessageCenterEvent 
 internal;packNineZoneState(state: NineZoneState): SavedNineZoneState
-public;PanelPinnedChangedEvent
+public;PanelPinnedChangedEventArgs
 internal;PanelSizeChangedEvent 
 internal;PanelSizeChangedEventArgs
 beta;PanelStateChangedEvent 
