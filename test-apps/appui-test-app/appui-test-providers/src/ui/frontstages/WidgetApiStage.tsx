@@ -6,7 +6,7 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, CoreTools, FrontstageConfig,
   IModelViewportControl, StagePanelState, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps,
   StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, StateManager, UiFramework, UiItemsManager,
 } from "@itwin/appui-react";
@@ -124,6 +124,7 @@ export class WidgetApiStage {
       version: 1.1,
       contentGroupProps: WidgetApiStage._contentGroupProvider,
       cornerButton,
+      defaultTool: CoreTools.measureDistanceToolItemDef,
       usage: StageUsage.General,
       topPanelProps: {
         resizable: true,

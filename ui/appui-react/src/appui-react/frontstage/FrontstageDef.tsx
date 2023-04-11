@@ -75,6 +75,7 @@ export class FrontstageDef {
   private _contentGroupProvider?: ContentGroupProvider;
   private _floatingContentControls?: ContentControl[];
   private _savedWidgetDefs?: SavedWidgets;
+  private _appDefaultToolId?: string;
 
   public get id(): string { return this._id; }
   public get usage(): string { return this._usage !== undefined ? this._usage : StageUsage.General; }
@@ -253,7 +254,12 @@ export class FrontstageDef {
   }
 
   /** Handles when the Frontstage becomes inactive */
-  protected async _onDeactivated() { }
+  protected async _onDeactivated() {
+    if (this._appDefaultToolId) {
+      IModelApp.toolAdmin.defaultToolId = this._appDefaultToolId;
+      this._appDefaultToolId = undefined;
+    }
+  }
 
   /** Handles when the Frontstage becomes inactive */
   public async onDeactivated() {
@@ -316,7 +322,20 @@ export class FrontstageDef {
   }
 
   /** Handles when the Frontstage becomes active */
-  protected _onFrontstageReady(): void { }
+  protected _onFrontstageReady(): void {
+    if (!IModelApp.toolAdmin || !IModelApp.viewManager || !this._initialConfig)
+      return;
+
+    const defaultTool = this._initialConfig.defaultTool;
+    if (!defaultTool) {
+      void IModelApp.toolAdmin.startDefaultTool();
+      return;
+    }
+
+    this._appDefaultToolId = IModelApp.toolAdmin.defaultToolId;
+    IModelApp.toolAdmin.defaultToolId = defaultTool.toolId;
+    defaultTool.execute();
+  }
 
   /** Handles when the Frontstage becomes active */
   public onFrontstageReady(): void {

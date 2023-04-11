@@ -10,6 +10,7 @@ import { CommonProps } from "@itwin/core-react";
 import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import { WidgetConfig } from "../widgets/WidgetConfig";
+import { ToolItemDef } from "../shared/ToolItemDef";
 
 /** Configuration from which a frontstage is created.
  * @public
@@ -26,6 +27,8 @@ export interface FrontstageConfig extends CommonProps {
    * Increasing the value will make sure to reinitialize App layout instead of restoring to old layout.
    */
   readonly version: number;
+  /** Tool that is started once the Frontstage is activated. */
+  readonly defaultTool?: ToolItemDef;
 
   /** The top-left corner that shows tools typically used to query and modify content. */
   readonly contentManipulation?: WidgetConfig;
