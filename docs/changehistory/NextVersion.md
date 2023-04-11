@@ -256,6 +256,11 @@ UI item provider types no longer extend from `ProviderItem`.
 - `show` method will now open the widget if it is hidden as the documentation mention.
 - `expand` method will also now open the widget, and will correctly expand the widget section to take most of the space in the panel.
 
+`SelectionScopeField`:
+
+- Fixed to correctly update options of a `Select` component after store changes.
+- Fallback selection scope labels are removed and no longer applied.
+
 ### Static manager classes
 
 In an effort to reduce usage complexity and discoverability of this package, many `*Manager` classes are now exposed through the `UiFramework` entry point. The direct classes access is being deprecated.
