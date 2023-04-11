@@ -254,12 +254,7 @@ export class FrontstageDef {
   }
 
   /** Handles when the Frontstage becomes inactive */
-  protected async _onDeactivated() {
-    if (this._toolAdminDefaultToolId) {
-      IModelApp.toolAdmin.defaultToolId = this._toolAdminDefaultToolId;
-      this._toolAdminDefaultToolId = undefined;
-    }
-  }
+  protected async _onDeactivated() { }
 
   /** Handles when the Frontstage becomes inactive */
   public async onDeactivated() {
@@ -286,6 +281,11 @@ export class FrontstageDef {
     if (this._floatingContentControls) {
       InternalContentDialogManager.closeAll();
       this._floatingContentControls = undefined;
+    }
+
+    if (this._toolAdminDefaultToolId) {
+      IModelApp.toolAdmin.defaultToolId = this._toolAdminDefaultToolId;
+      this._toolAdminDefaultToolId = undefined;
     }
 
     await this._onDeactivated();
@@ -322,20 +322,7 @@ export class FrontstageDef {
   }
 
   /** Handles when the Frontstage becomes active */
-  protected _onFrontstageReady(): void {
-    if (!IModelApp.toolAdmin || !IModelApp.viewManager || !this._initialConfig)
-      return;
-
-    const defaultTool = this._initialConfig.defaultTool;
-    if (!defaultTool) {
-      void IModelApp.toolAdmin.startDefaultTool();
-      return;
-    }
-
-    this._toolAdminDefaultToolId = IModelApp.toolAdmin.defaultToolId;
-    IModelApp.toolAdmin.defaultToolId = defaultTool.toolId;
-    defaultTool.execute();
-  }
+  protected _onFrontstageReady(): void { }
 
   /** Handles when the Frontstage becomes active */
   public onFrontstageReady(): void {
@@ -350,6 +337,17 @@ export class FrontstageDef {
     // istanbul ignore else
     if (this.contentGroup)
       this.contentGroup.onFrontstageReady();
+
+    if (IModelApp.toolAdmin && IModelApp.viewManager && this._initialConfig) {
+      const defaultTool = this._initialConfig.defaultTool;
+      if (defaultTool) {
+        this._toolAdminDefaultToolId = IModelApp.toolAdmin.defaultToolId;
+        IModelApp.toolAdmin.defaultToolId = defaultTool.toolId;
+        defaultTool.execute();
+      } else {
+        void IModelApp.toolAdmin.startDefaultTool();
+      }
+    }
 
     this._onFrontstageReady();
   }
