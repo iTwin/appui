@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { connect } from "react-redux";
 import { FooterIndicator } from "@itwin/appui-layout-react";
-import { Select, SelectOption } from "@itwin/itwinui-react";
+import { Select } from "@itwin/itwinui-react";
 import { PresentationSelectionScope } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 import { CommonProps } from "@itwin/core-react";
@@ -20,7 +20,6 @@ import { CommonProps } from "@itwin/core-react";
  * @public
  */
 interface SelectionScopeFieldProps extends CommonProps {
-
   activeSelectionScope: string;
   availableSelectionScopes: PresentationSelectionScope[];
 }
@@ -33,47 +32,39 @@ interface SelectionScopeFieldProps extends CommonProps {
  * in the Redux state.
  * @public
  */
-class SelectionScopeFieldComponent extends React.Component<SelectionScopeFieldProps> {
-  private _label = UiFramework.translate("selectionScopeField.label");
-  private _toolTip = UiFramework.translate("selectionScopeField.toolTip");
-  private _scopeOptions: SelectOption<string>[] = [];
+function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
+  const [label] = React.useState(UiFramework.translate("selectionScopeField.label"));
+  const [toolTip] = React.useState(UiFramework.translate("selectionScopeField.toolTip"));
 
-  constructor(props: SelectionScopeFieldProps) {
-    super(props);
-    this._scopeOptions = this.props.availableSelectionScopes.map((scope: PresentationSelectionScope) => {
-      const label = !!scope.label ? scope.label : UiFramework.translate(`selectionScopeLabels.${scope.id}`);
-      return { value: scope.id, label };
-    });
-  }
+  const options = React.useMemo(() => props.availableSelectionScopes.map((scope) => {
+    return { value: scope.id, label: scope.label };
+  }), [props.availableSelectionScopes]);
 
-  private _updateSelectValue = (newValue: string) => {
+  const updateSelectValue = (newValue: string) => {
     // istanbul ignore else
     if (newValue) {
       UiFramework.setActiveSelectionScope(newValue);
     }
   };
 
-  public override render(): React.ReactNode {
-
-    return (
-      <FooterIndicator
-        className={classnames("uifw-statusFields-selectionScope", this.props.className)}
-        style={this.props.style}
-      >
-        <label className="uifw-statusFields-selectionScope-label">
-          {this._label}:
-        </label>
-        <Select
-          className="uifw-statusFields-selectionScope-selector"
-          value={this.props.activeSelectionScope}
-          options={this._scopeOptions}
-          onChange={this._updateSelectValue}
-          data-testid="components-selectionScope-selector"
-          title={this._toolTip}
-          size="small" />
-      </FooterIndicator >
-    );
-  }
+  return (
+    <FooterIndicator
+      className={classnames("uifw-statusFields-selectionScope", props.className)}
+      style={props.style}
+    >
+      <label className="uifw-statusFields-selectionScope-label">
+        {label}:
+      </label>
+      <Select
+        className="uifw-statusFields-selectionScope-selector"
+        value={props.activeSelectionScope}
+        options={options}
+        onChange={updateSelectValue}
+        data-testid="components-selectionScope-selector"
+        title={toolTip}
+        size="small" />
+    </FooterIndicator >
+  );
 }
 
 /** Function used by Redux to map state data in Redux store to props that are used to render this component. */
