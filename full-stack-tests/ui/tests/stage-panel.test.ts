@@ -2,10 +2,9 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { expect, Page, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import assert from 'assert';
-import { frontstageLocator, panelLocator, tabLocator, widgetLocator } from './Utils';
-
+import { panelLocator, tabLocator, widgetLocator } from './Utils';
 
 test.describe("stage panel def", () => {
   test.beforeEach(async ({ page, baseURL }) => {

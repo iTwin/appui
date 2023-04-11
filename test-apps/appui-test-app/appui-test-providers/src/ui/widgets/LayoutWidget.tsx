@@ -57,11 +57,10 @@ function usePanelPinned(location: StagePanelLocation) {
     setPinned(panelDef?.pinned);
   }, [panelDef]);
   React.useEffect(() => {
-    const remove = UiFramework.frontstages.onPanelPinnedChangedEvent.addListener((e) => {
+    return UiFramework.frontstages.onPanelPinnedChangedEvent.addListener((e) => {
       if (e.panelDef.location === location)
         setPinned(e.pinned);
     });
-    return remove;
   }, [location]);
   return pinned;
 }
