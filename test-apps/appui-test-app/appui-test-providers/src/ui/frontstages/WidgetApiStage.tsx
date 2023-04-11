@@ -6,7 +6,7 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, CoreTools, FrontstageConfig,
+  BackstageAppButton, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
   IModelViewportControl, StagePanelState, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps,
   StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, StateManager, UiFramework, UiItemsManager,
 } from "@itwin/appui-react";
@@ -15,7 +15,7 @@ import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { WidgetApiStageUiItemsProvider } from "../providers/WidgetApiStageUiItemsProvider";
 import { getTestProviderState, setShowCustomViewOverlay, TestProviderState } from "../../store";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
+import { IModelApp, MeasureDistanceTool, ScreenViewport } from "@itwin/core-frontend";
 
 /**
  * The WidgetApiStageContentGroupProvider class method `provideContentGroup` returns a ContentGroup that displays
@@ -124,7 +124,7 @@ export class WidgetApiStage {
       version: 1.1,
       contentGroupProps: WidgetApiStage._contentGroupProvider,
       cornerButton,
-      defaultTool: CoreTools.measureDistanceToolItemDef,
+      defaultTool: MeasureDistanceTool.toolId,
       usage: StageUsage.General,
       topPanelProps: {
         resizable: true,

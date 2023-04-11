@@ -2280,7 +2280,7 @@ export interface FrontstageConfig extends CommonProps {
     readonly bottomPanel?: StagePanelConfig;
     readonly contentGroup: ContentGroup | ContentGroupProvider;
     readonly contentManipulation?: WidgetConfig;
-    readonly defaultTool?: ToolItemDef;
+    readonly defaultTool?: string;
     readonly id: string;
     readonly leftPanel?: StagePanelConfig;
     readonly rightPanel?: StagePanelConfig;
@@ -4542,7 +4542,7 @@ export interface StandardFrontstageProps {
     bottomPanelProps?: WidgetPanelProps;
     contentGroupProps: ContentGroupProps | ContentGroupProvider;
     cornerButton?: React_2.ReactNode;
-    defaultTool?: ToolItemDef;
+    defaultTool?: string;
     hideNavigationAid?: boolean;
     hideStatusBar?: boolean;
     hideToolSettings?: boolean;

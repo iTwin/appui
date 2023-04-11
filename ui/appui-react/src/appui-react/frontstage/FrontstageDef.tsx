@@ -342,8 +342,8 @@ export class FrontstageDef {
       const defaultTool = this._initialConfig.defaultTool;
       if (defaultTool) {
         this._toolAdminDefaultToolId = IModelApp.toolAdmin.defaultToolId;
-        IModelApp.toolAdmin.defaultToolId = defaultTool.toolId;
-        defaultTool.execute();
+        IModelApp.toolAdmin.defaultToolId = defaultTool;
+        void IModelApp.tools.run(defaultTool);
       } else {
         void IModelApp.toolAdmin.startDefaultTool();
       }
