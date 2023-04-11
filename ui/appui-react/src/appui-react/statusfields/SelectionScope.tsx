@@ -33,8 +33,8 @@ interface SelectionScopeFieldProps extends CommonProps {
  * @public
  */
 function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
-  const [label] = React.useState(UiFramework.translate("selectionScopeField.label"));
-  const [toolTip] = React.useState(UiFramework.translate("selectionScopeField.toolTip"));
+  const label = React.useRef(UiFramework.translate("selectionScopeField.label"));
+  const toolTip = React.useRef(UiFramework.translate("selectionScopeField.toolTip"));
 
   const options = React.useMemo(() => props.availableSelectionScopes.map((scope) => {
     return { value: scope.id, label: scope.label };
@@ -53,7 +53,7 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
       style={props.style}
     >
       <label className="uifw-statusFields-selectionScope-label">
-        {label}:
+        {label.current}:
       </label>
       <Select
         className="uifw-statusFields-selectionScope-selector"
@@ -61,7 +61,7 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
         options={options}
         onChange={updateSelectValue}
         data-testid="components-selectionScope-selector"
-        title={toolTip}
+        title={toolTip.current}
         size="small" />
     </FooterIndicator >
   );
