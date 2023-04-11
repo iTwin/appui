@@ -12,6 +12,7 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Component changes](#component-changes)
   - [Static manager classes](#static-manager-classes)
+  - [SelectionScopeField](#selectionscopefield)
 - [@itwin/core-react](#itwincore-react)
   - [SCSS variables](#scss-variables)
 - [@itwin/components-react](#itwincomponents-react)
@@ -321,6 +322,11 @@ Below is a list of the changes from this move, some of these new access point ma
 | UiFramework.childWindowManager.closeAllChildWindows | UiFramework.childWindows.closeAll                   |
 | UiFramework.childWindowManager.closeChildWindow     | UiFramework.childWindows.close                      |
 | UiFramework.backstageManager                        | UiFramework.backstage                               |
+
+### SelectionScopeField
+
+`SelectionScopeField` is fixed to correctly update options of a `Select` component after store changes.
+Fallback selection scope labels are removed and no longer applied.
 
 ## @itwin/core-react
 
