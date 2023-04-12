@@ -2275,6 +2275,7 @@ export interface FrontstageConfig extends CommonProps {
     readonly bottomPanel?: StagePanelConfig;
     readonly contentGroup: ContentGroup | ContentGroupProvider;
     readonly contentManipulation?: WidgetConfig;
+    readonly defaultTool?: string;
     readonly id: string;
     readonly leftPanel?: StagePanelConfig;
     readonly rightPanel?: StagePanelConfig;
@@ -3954,7 +3955,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<React_2.ClassAttributes<SelectionScopeFieldComponent> & SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
 
 // @public
 export interface SessionState {
@@ -4153,7 +4154,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
 export function showWidget(state: NineZoneState, id: TabState["id"]): NineZoneState;
 
 // @public
-export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_3<React_2.ClassAttributes<SnapModeFieldComponent> & SnapModeFieldProps, "setSnapMode" | "snapMode">>;
+export const SnapModeField: ConnectedComponent<typeof SnapModeFieldComponent, Omit_3<SnapModeFieldProps, "snapMode">>;
 
 // @alpha
 export class SolarTimelineDataProvider extends BaseSolarDataProvider {
@@ -4355,6 +4356,7 @@ export interface StandardFrontstageProps {
     bottomPanelProps?: WidgetPanelProps;
     contentGroupProps: ContentGroupProps | ContentGroupProvider;
     cornerButton?: React_2.ReactNode;
+    defaultTool?: string;
     hideNavigationAid?: boolean;
     hideStatusBar?: boolean;
     hideToolSettings?: boolean;
