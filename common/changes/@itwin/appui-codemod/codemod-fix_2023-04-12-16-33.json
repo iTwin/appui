@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-codemod",
+      "comment": "Avoid adding duplicate specifiers.",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@itwin/appui-codemod"
+}
