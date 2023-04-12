@@ -27,7 +27,7 @@ function callExpressionPlugin(j: JSCodeshift) {
   const globalMethods: GlobalMethods = {
     findCallExpressions(this: Collection, name) {
       return this.find(j.CallExpression, (expr) => {
-        const expression = toExpressionName(expr.callee);
+        const expression = toExpressionName(expr);
         return expression === name;
       }) as CallExpressionCollection;
     }
@@ -44,7 +44,7 @@ function callExpressionPlugin(j: JSCodeshift) {
       });
     },
     renameTo(this: CallExpressionCollection, name) {
-      const callee = toExpressionKind(j, name);
+      const callee = toExpression(j, name);
       return this.forEach((path) => {
         path.value.callee = callee;
       });
@@ -58,10 +58,9 @@ export function useCallExpression(j: JSCodeshift) {
   usePlugin(j, callExpressionPlugin);
 }
 
-export type ExpressionKind = MemberExpression["object"];
-
-export function toExpressionName(kind: ExpressionKind) {
+export function toExpressionName(expression: CallExpression | MemberExpression | Identifier) {
   let name = "";
+  let kind: MemberExpression["object"] = expression;
   while (kind) {
     if (kind.type === "Identifier") {
       name = `${kind.name}${name}`;
@@ -81,13 +80,17 @@ export function toExpressionName(kind: ExpressionKind) {
   return name;
 }
 
-export function toExpressionKind(j: JSCodeshift, name: string): ExpressionKind {
+export function toExpression(j: JSCodeshift, name: string): MemberExpression | Identifier {
   const parts = name.split(".");
-  const obj = parts.slice(0, -1).join(".");
-  const prop = parts[parts.length - 1];
-  if (parts.length === 1)
-    return j.identifier(prop);
-  return j.memberExpression(j.identifier(obj), j.identifier(prop));
+  if (parts.length === 1) {
+    return j.identifier(parts[0]);
+  }
+
+  const last = parts[parts.length - 1];
+  const exceptLast = parts.slice(0, parts.length - 1);
+  const exceptLastName = exceptLast.join(".");
+  const expr = toExpression(j, exceptLastName);
+  return j.memberExpression(expr, j.identifier(last));
 }
 
 export function isRootIdentifier(j: JSCodeshift, path: ASTPath<Identifier>) {
