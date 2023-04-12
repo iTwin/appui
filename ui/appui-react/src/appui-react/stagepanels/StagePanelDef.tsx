@@ -110,6 +110,7 @@ export class StagePanelDef extends WidgetHost {
       const panel = frontstageDef.nineZoneState.panels[side];
       if (panel.size === this._size)
         return;
+      size = panel.size;
     }
     this._size = size;
     InternalFrontstageManager.onPanelSizeChangedEvent.emit({
@@ -282,7 +283,7 @@ export function toPanelSide(location: StagePanelLocation): PanelSide {
 }
 
 /** @internal */
-export const setPanelSize = produce((
+export const setPanelSize: (nineZone: NineZoneState, side: PanelSide, size: number | undefined) => NineZoneState = produce((
   nineZone: Draft<NineZoneState>,
   side: PanelSide,
   size: number | undefined,
@@ -292,7 +293,7 @@ export const setPanelSize = produce((
 });
 
 /** @internal */
-export const setPanelPinned = produce((
+export const setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState = produce((
   nineZone: Draft<NineZoneState>,
   side: PanelSide,
   pinned: boolean,
