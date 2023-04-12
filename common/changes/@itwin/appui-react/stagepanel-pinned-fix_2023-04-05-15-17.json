@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix StagePanelDef state being out of sync issue. Add event for listening to changes of StagePanelDef pinned state.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

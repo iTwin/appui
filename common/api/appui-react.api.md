@@ -46,7 +46,6 @@ import { FloatingWidgetState } from '@itwin/appui-layout-react';
 import { FunctionKey } from '@itwin/appui-abstract';
 import { GroupButton } from '@itwin/appui-abstract';
 import { GuidString } from '@itwin/core-bentley';
-import { HorizontalPanelSide } from '@itwin/appui-layout-react';
 import { IconProps } from '@itwin/core-react';
 import { IconSpec } from '@itwin/core-react';
 import { Id64String } from '@itwin/core-bentley';
@@ -55,8 +54,6 @@ import { IModelConnection } from '@itwin/core-frontend';
 import { InferableComponentEnhancerWithProps } from 'react-redux';
 import { InteractiveTool } from '@itwin/core-frontend';
 import { ItemField } from '@itwin/core-frontend';
-import { JSXElementConstructor } from 'react';
-import { Key } from 'react';
 import { LayoutFragmentProps } from '@itwin/appui-abstract';
 import { LayoutStore } from '@itwin/appui-layout-react';
 import { Localization } from '@itwin/core-common';
@@ -95,8 +92,6 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import { PropertyUpdatedArgs } from '@itwin/components-react';
 import { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
-import { ReactNode } from 'react';
-import { ReactText } from 'react';
 import { Rectangle } from '@itwin/core-react';
 import { RectangleProps } from '@itwin/core-react';
 import { RelativePosition } from '@itwin/appui-abstract';
@@ -131,14 +126,12 @@ import { UiStateStorageResult } from '@itwin/core-react';
 import { UiStateStorageStatus } from '@itwin/core-react';
 import { UiSyncEvent } from '@itwin/appui-abstract';
 import { UnitSystemKey } from '@itwin/core-quantity';
-import { VerticalPanelSide } from '@itwin/appui-layout-react';
 import { ViewFlagProps } from '@itwin/core-common';
 import { Viewport } from '@itwin/core-frontend';
 import { ViewportComponent } from '@itwin/imodel-components-react';
 import { ViewState } from '@itwin/core-frontend';
 import { ViewStateProp } from '@itwin/imodel-components-react';
 import { ViewStateProps } from '@itwin/core-common';
-import { WritableDraft } from 'immer/dist/internal';
 import { XAndY } from '@itwin/core-geometry';
 
 // @beta
@@ -2094,6 +2087,8 @@ export interface FrameworkFrontstages {
     readonly onModalFrontstageClosedEvent: ModalFrontstageClosedEvent;
     readonly onNavigationAidActivatedEvent: NavigationAidActivatedEvent;
     // @alpha
+    readonly onPanelPinnedChangedEvent: UiEvent<PanelPinnedChangedEventArgs>;
+    // @alpha
     readonly onPanelStateChangedEvent: PanelStateChangedEvent;
     readonly onToolActivatedEvent: ToolActivatedEvent;
     readonly onToolIconChangedEvent: ToolIconChangedEvent;
@@ -2341,7 +2336,7 @@ export class FrontstageDef {
     // (undocumented)
     getFloatingWidgetContainerIds(): string[];
     // @internal
-    getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number];
+    getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number, boolean];
     // @beta
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
     // @internal
@@ -3544,6 +3539,14 @@ export class OpenMessageCenterEvent extends UiEvent<{}> {
 // @internal
 export function packNineZoneState(state: NineZoneState): SavedNineZoneState;
 
+// @public
+export interface PanelPinnedChangedEventArgs {
+    // (undocumented)
+    panelDef: StagePanelDef;
+    // (undocumented)
+    pinned: boolean;
+}
+
 // @internal (undocumented)
 export class PanelSizeChangedEvent extends UiEvent<PanelSizeChangedEventArgs> {
 }
@@ -4053,200 +4056,10 @@ export const sessionStateMapDispatchToProps: {
 export function SessionStateReducer(state: SessionState | undefined, action: SessionStateActionsUnion): DeepReadonly<SessionState>;
 
 // @internal (undocumented)
-export const setPanelSize: (base: {
-    readonly draggedTab: {
-        readonly tabId: string;
-        readonly position: {
-            readonly x: number;
-            readonly y: number;
-        };
-        readonly home: {
-            readonly widgetIndex: number;
-            readonly widgetId: string | undefined;
-            readonly side: PanelSide;
-        };
-    } | undefined;
-    readonly floatingWidgets: {
-        readonly byId: {
-            readonly [x: string]: {
-                readonly bounds: {
-                    readonly left: number;
-                    readonly top: number;
-                    readonly right: number;
-                    readonly bottom: number;
-                };
-                readonly id: string;
-                readonly home: {
-                    readonly widgetIndex: number;
-                    readonly widgetId: string | undefined;
-                    readonly side: PanelSide;
-                };
-                readonly userSized?: boolean | undefined;
-                readonly hidden?: boolean | undefined;
-            };
-        };
-        readonly allIds: readonly string[];
-    };
-    readonly popoutWidgets: {
-        readonly byId: {
-            readonly [x: string]: {
-                readonly bounds: {
-                    readonly left: number;
-                    readonly top: number;
-                    readonly right: number;
-                    readonly bottom: number;
-                };
-                readonly id: string;
-                readonly home: {
-                    readonly widgetIndex: number;
-                    readonly widgetId: string | undefined;
-                    readonly side: PanelSide;
-                };
-            };
-        };
-        readonly allIds: readonly string[];
-    };
-    readonly panels: {
-        readonly bottom: {
-            readonly span: boolean;
-            readonly side: HorizontalPanelSide;
-            readonly collapseOffset: number;
-            readonly collapsed: boolean;
-            readonly maxSize: number;
-            readonly minSize: number;
-            readonly pinned: boolean;
-            readonly resizable: boolean;
-            readonly size: number | undefined;
-            readonly widgets: readonly string[];
-            readonly maxWidgetCount: number;
-            readonly splitterPercent: number | undefined;
-        };
-        readonly left: {
-            readonly side: VerticalPanelSide;
-            readonly collapseOffset: number;
-            readonly collapsed: boolean;
-            readonly maxSize: number;
-            readonly minSize: number;
-            readonly pinned: boolean;
-            readonly resizable: boolean;
-            readonly size: number | undefined;
-            readonly widgets: readonly string[];
-            readonly maxWidgetCount: number;
-            readonly splitterPercent: number | undefined;
-        };
-        readonly right: {
-            readonly side: VerticalPanelSide;
-            readonly collapseOffset: number;
-            readonly collapsed: boolean;
-            readonly maxSize: number;
-            readonly minSize: number;
-            readonly pinned: boolean;
-            readonly resizable: boolean;
-            readonly size: number | undefined;
-            readonly widgets: readonly string[];
-            readonly maxWidgetCount: number;
-            readonly splitterPercent: number | undefined;
-        };
-        readonly top: {
-            readonly span: boolean;
-            readonly side: HorizontalPanelSide;
-            readonly collapseOffset: number;
-            readonly collapsed: boolean;
-            readonly maxSize: number;
-            readonly minSize: number;
-            readonly pinned: boolean;
-            readonly resizable: boolean;
-            readonly size: number | undefined;
-            readonly widgets: readonly string[];
-            readonly maxWidgetCount: number;
-            readonly splitterPercent: number | undefined;
-        };
-    };
-    readonly tabs: {
-        readonly [x: string]: {
-            readonly id: string;
-            readonly label: string;
-            readonly iconSpec?: boolean | ReactText | {
-                readonly stringGetter: () => string;
-                readonly syncEventIds: readonly string[];
-                readonly value: string;
-                readonly refresh: () => boolean;
-            } | {
-                readonly type: string | JSXElementConstructor<any>;
-                readonly props: any;
-                readonly key: Key | null;
-            } | {} | {
-                readonly [Symbol.iterator]: () => Iterator<ReactNode, any, undefined>;
-            } | {
-                readonly key: Key | null;
-                readonly children: boolean | ReactText | {
-                    readonly type: string | JSXElementConstructor<any>;
-                    readonly props: any;
-                    readonly key: Key | null;
-                } | {} | {
-                    readonly [Symbol.iterator]: () => Iterator<ReactNode, any, undefined>;
-                } | any | null | undefined;
-                readonly type: string | JSXElementConstructor<any>;
-                readonly props: any;
-            } | {
-                readonly iconGetter: () => IconSpec;
-                readonly syncEventIds: readonly string[];
-                readonly value: boolean | ReactText | {
-                    readonly stringGetter: () => string;
-                    readonly syncEventIds: readonly string[];
-                    readonly value: string;
-                    readonly refresh: () => boolean;
-                } | {
-                    readonly type: string | JSXElementConstructor<any>;
-                    readonly props: any;
-                    readonly key: Key | null;
-                } | {} | {
-                    readonly [Symbol.iterator]: () => Iterator<ReactNode, any, undefined>;
-                } | {
-                    readonly key: Key | null;
-                    readonly children: boolean | ReactText | {
-                        readonly type: string | JSXElementConstructor<any>;
-                        readonly props: any;
-                        readonly key: Key | null;
-                    } | {} | {
-                        readonly [Symbol.iterator]: () => Iterator<ReactNode, any, undefined>;
-                    } | any | null | undefined;
-                    readonly type: string | JSXElementConstructor<any>;
-                    readonly props: any;
-                } | any | null | undefined;
-                readonly refresh: () => boolean;
-            } | null | undefined;
-            readonly preferredFloatingWidgetSize?: {
-                readonly width: number;
-                readonly height: number;
-            } | undefined;
-            readonly preferredPanelWidgetSize?: "fit-content" | undefined;
-            readonly allowedPanelTargets?: readonly PanelSide[] | undefined;
-            readonly canPopout?: boolean | undefined;
-            readonly userSized?: boolean | undefined;
-            readonly isFloatingStateWindowResizable?: boolean | undefined;
-            readonly hideWithUiWhenFloating?: boolean | undefined;
-        };
-    };
-    readonly toolSettings: {
-        readonly type: "docked";
-    } | {
-        readonly type: "widget";
-    };
-    readonly widgets: {
-        readonly [x: string]: {
-            readonly activeTabId: string;
-            readonly id: string;
-            readonly minimized: boolean;
-            readonly tabs: readonly string[];
-            readonly isFloatingStateWindowResizable?: boolean | undefined;
-        };
-    };
-    readonly size: {
-        readonly width: number;
-        readonly height: number;
-    };
-}, side: PanelSide, size: number | undefined) => WritableDraft<NineZoneState>;
+export const setPanelPinned: (nineZone: NineZoneState, side: PanelSide, pinned: boolean) => NineZoneState;
+
+// @internal (undocumented)
+export const setPanelSize: (nineZone: NineZoneState, side: PanelSide, size: number | undefined) => NineZoneState;
 
 // @beta
 export class SettingsModalFrontstage implements ModalFrontstageInfo {
@@ -4440,6 +4253,7 @@ export class StagePanelDef extends WidgetHost {
     get panelState(): StagePanelState;
     set panelState(panelState: StagePanelState);
     get pinned(): boolean;
+    set pinned(pinned: boolean);
     get resizable(): boolean;
     get size(): number | undefined;
     set size(size: number | undefined);
