@@ -127,7 +127,7 @@ export function Card(props: CardProps) {
       {props.items &&
         <>
           <div className="uifw-card-separator" />
-          <ToolbarWithOverflow
+          <ToolbarWithOverflow // eslint-disable-line deprecation/deprecation
             expandsTo={Direction.Bottom}
             panelAlignment={ToolbarPanelAlignment.Start}
             items={props.items}
