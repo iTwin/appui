@@ -47,6 +47,7 @@ describe("StagePanelDef", () => {
   });
 
   it("should initialize pinned", () => {
+    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => undefined);
     const panelDef = StagePanelDef.create({ resizable: false, pinned: false }, StagePanelLocation.Left);
     expect(panelDef.pinned).to.false;
   });
