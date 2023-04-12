@@ -75,6 +75,7 @@ export class FrontstageDef {
   private _contentGroupProvider?: ContentGroupProvider;
   private _floatingContentControls?: ContentControl[];
   private _savedWidgetDefs?: SavedWidgets;
+  private _toolAdminDefaultToolId?: string;
 
   public get id(): string { return this._id; }
   public get usage(): string { return this._usage !== undefined ? this._usage : StageUsage.General; }
@@ -182,6 +183,16 @@ export class FrontstageDef {
             });
           }
         });
+
+        for (const panelSide of panelSides) {
+          const panel = state.panels[panelSide];
+          const location = this.toStagePanelLocation(panelSide);
+          const panelDef = this.getStagePanelDef(location);
+          if (panelDef) {
+            panelDef.size = panel.size;
+            panelDef.pinned = panel.pinned;
+          }
+        }
       } else {
         this._nineZoneState = state;
       }
@@ -282,6 +293,11 @@ export class FrontstageDef {
       this._floatingContentControls = undefined;
     }
 
+    if (this._toolAdminDefaultToolId) {
+      IModelApp.toolAdmin.defaultToolId = this._toolAdminDefaultToolId;
+      this._toolAdminDefaultToolId = undefined;
+    }
+
     await this._onDeactivated();
     this._isStageClosing = false;
   }
@@ -331,6 +347,17 @@ export class FrontstageDef {
     // istanbul ignore else
     if (this.contentGroup)
       this.contentGroup.onFrontstageReady();
+
+    if (IModelApp.toolAdmin && IModelApp.viewManager && this._initialConfig) {
+      const defaultTool = this._initialConfig.defaultTool;
+      if (defaultTool) {
+        this._toolAdminDefaultToolId = IModelApp.toolAdmin.defaultToolId;
+        IModelApp.toolAdmin.defaultToolId = defaultTool;
+        void IModelApp.tools.run(defaultTool);
+      } else {
+        void IModelApp.toolAdmin.startDefaultTool();
+      }
+    }
 
     this._onFrontstageReady();
   }
@@ -576,16 +603,16 @@ export class FrontstageDef {
   /** Used only in UI 2.0 to determine StagePanelState and size from NinezoneState
    *  @internal
    */
-  public getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number] {
+  public getPanelCurrentState(panelDef: StagePanelDef): [StagePanelState, number, boolean] {
     // istanbul ignore next
     if (this.nineZoneState) {
       const side = toPanelSide(panelDef.location);
       const panel = this.nineZoneState.panels[side];
       if (panel)
-        return [panel.collapsed ? StagePanelState.Minimized : StagePanelState.Open, panel.size ?? 0];
-      return [StagePanelState.Off, 0];
+        return [panel.collapsed ? StagePanelState.Minimized : StagePanelState.Open, panel.size ?? 0, panel.pinned];
+      return [StagePanelState.Off, 0, false];
     }
-    return [panelDef.defaultState, panelDef.defaultSize ?? 0];
+    return [panelDef.defaultState, panelDef.defaultSize ?? 0, true];
   }
 
   public isPopoutWidget(widgetId: string) {

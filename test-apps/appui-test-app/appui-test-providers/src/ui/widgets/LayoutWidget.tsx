@@ -50,11 +50,26 @@ function usePanelState(location: StagePanelLocation) {
   return state;
 }
 
+function usePanelPinned(location: StagePanelLocation) {
+  const panelDef = usePanelDef(location);
+  const [pinned, setPinned] = React.useState(panelDef?.pinned);
+  React.useEffect(() => {
+    setPinned(panelDef?.pinned);
+  }, [panelDef]);
+  React.useEffect(() => {
+    return UiFramework.frontstages.onPanelPinnedChangedEvent.addListener((e) => {
+      if (e.panelDef.location === location)
+        setPinned(e.pinned);
+    });
+  }, [location]);
+  return pinned;
+}
+
 function usePanelInfo(location: StagePanelLocation) {
   const panelDef = usePanelDef(location);
   const state = usePanelState(location);
   const size = usePanelSize(location);
-  const [pinned] = React.useState(panelDef?.pinned);
+  const pinned = usePanelPinned(location);
   const [resizable] = React.useState(panelDef?.resizable);
   return {
     size,
