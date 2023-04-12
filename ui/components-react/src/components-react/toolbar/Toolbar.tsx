@@ -19,6 +19,7 @@ import { getToolbarDirection, ToolbarItemComponent, ToolbarItemContext, ToolbarO
 
 /** Properties of [[Toolbar]] component.
  * @public
+ * @deprecated in 4.0. Use [ToolbarProps]($appui-react) instead.
  */
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
@@ -46,10 +47,11 @@ function getItemWrapperClass(child: React.ReactNode) {
   return "";
 }
 
-/** Component that displays tool settings as a bar across the top of the content view.
+/** Component that displays toolbar items.
  * @public
+ * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
  */
-export function Toolbar(props: ToolbarProps) {
+export function Toolbar(props: ToolbarProps) { // eslint-disable-line deprecation/deprecation
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
   const useDragInteraction = !!props.useDragInteraction;
   const panelAlignment = props.panelAlignment ? props.panelAlignment : ToolbarPanelAlignment.Start;

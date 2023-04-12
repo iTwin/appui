@@ -15,7 +15,7 @@ import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { WidgetApiStageUiItemsProvider } from "../providers/WidgetApiStageUiItemsProvider";
 import { getTestProviderState, setShowCustomViewOverlay, TestProviderState } from "../../store";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
+import { IModelApp, MeasureDistanceTool, ScreenViewport } from "@itwin/core-frontend";
 
 /**
  * The WidgetApiStageContentGroupProvider class method `provideContentGroup` returns a ContentGroup that displays
@@ -124,6 +124,7 @@ export class WidgetApiStage {
       version: 1.1,
       contentGroupProps: WidgetApiStage._contentGroupProvider,
       cornerButton,
+      defaultTool: MeasureDistanceTool.toolId,
       usage: StageUsage.General,
       topPanelProps: {
         resizable: true,

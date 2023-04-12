@@ -33,6 +33,11 @@ export interface StandardFrontstageProps {
   version?: number;
   // Usage of stage. To allow generic UiItemProvides to populate this stage set to `StageUsage.General`.
   usage: StageUsage | string;
+  /** The defaultTool is is started when then frontstage loads and whenever any other tools exit.
+   * Most of the time, this is the Element Selection Tool (SelectionTool.toolId).
+   * Your app can specify its own tool or another core tool as default with this property.
+   */
+  defaultTool?: string;
   /** Definition of available content groups or a function that provides them */
   contentGroupProps: ContentGroupProps | ContentGroupProvider;
   /** Specify button to use to open backstage. Leave undefined for no backstage button.
@@ -88,6 +93,7 @@ export class StandardFrontstageProvider extends FrontstageProvider {
       version: this.props.version ?? 1.0,
       contentGroup,
       usage: this.props.usage,
+      defaultTool: this.props.defaultTool,
       contentManipulation: {
         id: `${this.props.id}-contentManipulationTools`,
         content: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,

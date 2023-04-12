@@ -28,6 +28,7 @@ import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** Describes the data needed to insert a custom `React` button into an ToolbarWithOverflow.
  * @public
+ * @deprecated in 4.0. Use [ToolbarCustomItem]($appui-react) instead.
  */
 export interface CustomToolbarItem extends CustomButtonDefinition {
   /** defines the content to display in popup panel */
@@ -54,14 +55,15 @@ export function useToolbarPopupAutoHideContext() {
 
 /** Describes toolbar item.
  * @public
+ * @deprecated in 4.0. Use [ToolbarItem]($appui-react) instead.
  */
-export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
+export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem; // eslint-disable-line deprecation/deprecation
 
 /** CustomToolbarItem type guard.
  * @internal
  */
-export function isCustomToolbarItem(item: ToolbarItem): item is CustomToolbarItem {
-  return !!(item as CustomToolbarItem).isCustom && ("panelContentNode" in item);
+export function isCustomToolbarItem(item: ToolbarItem): item is CustomToolbarItem { // eslint-disable-line deprecation/deprecation
+  return !!(item as CustomToolbarItem).isCustom && ("panelContentNode" in item); // eslint-disable-line deprecation/deprecation
 }
 
 /** @internal */
@@ -70,7 +72,7 @@ export const getToolbarDirection = (expandsTo: Direction): OrthogonalDirection =
   return OrthogonalDirectionHelpers.inverse(orthogonalDirection);
 };
 
-/** Available alignment modes of [[ToolbarWithOverflow]] panels.
+/** Available alignment modes of [[Toolbar]] panels.
  * @public
  */
 export enum ToolbarPanelAlignment {
@@ -147,7 +149,7 @@ export const ToolbarWithOverflowDirectionContext = React.createContext<ToolbarOv
 });
 
 /** @internal */
-function CustomItem({ item, addGroupSeparator }: { item: CustomToolbarItem, addGroupSeparator: boolean }) {
+function CustomItem({ item, addGroupSeparator }: { item: CustomToolbarItem, addGroupSeparator: boolean }) { // eslint-disable-line deprecation/deprecation
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const icon = React.useMemo(() => (item.icon &&
     IconHelper.getIconReactNode(item.icon, item.internalData)) || /* istanbul ignore next */
@@ -234,7 +236,7 @@ function ActionItem({ item, addGroupSeparator }: { item: ActionButton, addGroupS
 }
 
 /** @internal */
-export function ToolbarItemComponent({ item, addGroupSeparator }: { item: ToolbarItem, addGroupSeparator: boolean }) {
+export function ToolbarItemComponent({ item, addGroupSeparator }: { item: ToolbarItem, addGroupSeparator: boolean }) { // eslint-disable-line deprecation/deprecation
   if (ToolbarItemUtilities.isGroupButton(item)) {
     return <GroupPopupItem item={item} addGroupSeparator={addGroupSeparator} />;
   } else if (isCustomToolbarItem(item)) {
@@ -269,6 +271,7 @@ function getItemWrapperClass(child: React.ReactNode) {
 
 /** Properties of [[ToolbarWithOverflow]] component.
  * @public
+ * @deprecated in 4.0. Use [ToolbarWithOverflowProps]($appui-react) instead.
  */
 export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
   /** Describes to which direction the popup panels are expanded. Defaults to: [[Direction.Bottom]] */
@@ -291,8 +294,9 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
 
 /** Component that displays tool settings as a bar across the top of the content view.
  * @public
+ * @deprecated in 4.0. Use [ToolbarWithOverflow]($appui-react) instead.
  */
-export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
+export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) { // eslint-disable-line deprecation/deprecation
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
   const useDragInteraction = !!props.useDragInteraction;
   const panelAlignment = props.panelAlignment ? props.panelAlignment : ToolbarPanelAlignment.Start;

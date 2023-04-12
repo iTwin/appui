@@ -385,7 +385,7 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
     get reactNode(): React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export interface CustomToolbarItem extends CustomButtonDefinition {
     keepContentsLoaded?: boolean;
     panelContentNode?: React_2.ReactNode;
@@ -2820,7 +2820,7 @@ export class TogglePropertyEditor extends PropertyEditorBase {
     get reactNode(): React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export function Toolbar(props: ToolbarProps): JSX.Element;
 
 // @public
@@ -2841,7 +2841,7 @@ export interface ToolbarButtonItemProps extends CommonProps {
     title: string;
 }
 
-// @public
+// @public @deprecated
 export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
 
 // @internal (undocumented)
@@ -2928,7 +2928,7 @@ export interface ToolbarPopupContextProps {
     readonly setSelectedItem?: (buttonItem: ActionButton) => void;
 }
 
-// @public
+// @public @deprecated
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
     expandsTo?: Direction;
     items: CommonToolbarItem[];
@@ -2939,13 +2939,13 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
     useDragInteraction?: boolean;
 }
 
-// @public
+// @public @deprecated
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element;
 
 // @internal
 export const ToolbarWithOverflowDirectionContext: React_2.Context<ToolbarOverflowContextProps>;
 
-// @public
+// @public @deprecated
 export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     expandsTo?: Direction;
     items: CommonToolbarItem[];
