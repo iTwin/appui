@@ -2,7 +2,8 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { toExpressionName, useCallExpression } from "../CallExpression";
+import { toExpression, toExpressionName, useCallExpression } from "../CallExpression";
+import { findRootIdentifiers } from "../ImportSpecifier";
 import { createApplyCollectionTransform, createDefineInlineCollectionTest } from "../TestUtils";
 
 const applyTransform = createApplyCollectionTransform((j) => {
@@ -123,4 +124,20 @@ describe("CallExpression", () => {
       "should rename call expression w/ member expression"
     );
   });
+});
+
+describe("toExpressionKind", () => {
+  defineInlineTest(
+    (j, root) => {
+      const expression = toExpression(j, "a.b.c");
+      const identifier = root.find(j.Identifier);
+      identifier.replaceWith(expression);
+
+      const rootIdentifiers = findRootIdentifiers(j, root, "a");
+      expect(rootIdentifiers.size()).toBe(1);
+    },
+    `x;`,
+    `a.b.c;`,
+    "should return root identifier"
+  );
 });

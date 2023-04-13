@@ -11,6 +11,7 @@ Table of contents:
 - [@itwin/appui-abstract](#itwinappui-abstract)
 - [@itwin/appui-react](#itwinappui-react)
   - [Component changes](#component-changes)
+  - [Components relocated](#components-relocated)
   - [Static manager classes](#static-manager-classes)
 - [@itwin/core-react](#itwincore-react)
   - [SCSS variables](#scss-variables)
@@ -260,6 +261,12 @@ UI item provider types no longer extend from `ProviderItem`.
 
 - Fixed to correctly update options of a `Select` component after store changes.
 - Fallback selection scope labels are removed and no longer applied.
+
+### Components relocated
+
+[ModelsTree]($appui-react) and [CategoryTree]($appui-react) were moved to [@itwin/tree-widget-react](https://github.com/iTwin/viewer-components-react/tree/master/packages/itwin/tree-widget) package and deprecated in the `@itwin/appui-react` package 3.6 release. They were removed from `@itwin/appui-react` in 4.0.
+
+[SpatialContainmentTree]($appui-react) were deprecated in favor of `SpatialContainmentTree` from [@itwin/breakdown-trees-react](https://github.com/iTwin/viewer-components-react/tree/master/packages/itwin/breakdown-trees) package in the 3.6 release. [SpatialContainmentTree]($appui-react) was removed from `@itwin/appui-react` in 4.0.
 
 ### Static manager classes
 
