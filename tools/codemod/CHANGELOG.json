@@ -2,6 +2,18 @@
   "name": "@itwin/appui-codemod",
   "entries": [
     {
+      "version": "0.0.3",
+      "tag": "@itwin/appui-codemod_v0.0.3",
+      "date": "Thu, 13 Apr 2023 07:45:17 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Avoid adding duplicate specifiers."
+          }
+        ]
+      }
+    },
+    {
       "version": "0.0.2",
       "tag": "@itwin/appui-codemod_v0.0.2",
       "date": "Tue, 11 Apr 2023 21:25:03 GMT",
