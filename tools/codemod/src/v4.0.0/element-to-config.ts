@@ -3,9 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { FileInfo, API, Options, ASTPath, JSCodeshift, JSXElement, ObjectProperty, SpreadProperty } from "jscodeshift";
-import { ConfigExpression, jsxElementToUniFormat, buildProperty, handleToolWidget, createEmptyConfig, isSpecifiedConfigExpression, isExpressionKind, extractSectionsFromPanelZones, ExpressionKind, uniFormatToObjectExpression, getStagePanelSectionProperty, appendStagePanelSection, replaceWidgetObjectExpression, concatExpressions } from "../utils/TransformUtils";
+import { FileInfo, API, Options, ASTPath, JSCodeshift, JSXElement, ObjectProperty, SpreadProperty, Collection, JSXIdentifier, ObjectExpression, Property } from "jscodeshift";
+import { ConfigExpression, jsxElementToUniFormat, buildProperty, isSpecifiedConfigExpression, isExpressionKind, ExpressionKind, uniFormatToObjectExpression, concatExpressions, getObjectProperty, handleConditionalExpression, takeFirstArrayExpressionElement } from "../utils/TransformUtils";
 import { isSpecifiedJSXElement } from "../utils/typeGuards";
+import { useObjectExpression, ObjectExpressionCollection } from "../utils/ObjectExpression";
+import { transformAbstractWidget } from "./widget";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
@@ -408,4 +410,136 @@ export function handleSideStagePanelZone(j: JSCodeshift, expression: ExpressionK
     return undefined;
   }
   return expression;
+}
+
+export function createEmptyConfig(j: JSCodeshift, configName: JSXIdentifier): ConfigExpression {
+  return { ...j.objectExpression([]), configName };
+}
+
+export function handleToolWidget(j: JSCodeshift, expression: ExpressionKind): ExpressionKind {
+  function handleExpression(expr: ExpressionKind): ExpressionKind {
+    let newExpr: ExpressionKind | undefined = undefined;
+    if (!newExpr && expr.type === "ConditionalExpression")
+      newExpr = handleConditionalExpression(j, expr, handleExpression);
+    if (!newExpr && expr.type === "ArrayExpression")
+      newExpr = takeFirstArrayExpressionElement(j, expr);
+    if (!newExpr) {
+      // TODO: log warning
+      return expr;
+    }
+    return newExpr;
+  }
+  return handleExpression(expression);
+}
+
+export function extractSectionsFromPanelZones(j: JSCodeshift, expression: ObjectExpression) {
+  const result: [ExpressionKind | undefined, ExpressionKind | undefined] = [undefined, undefined]
+
+  const start = getObjectProperty(j, expression, "start")?.value;
+  if (start && start.type === "ObjectExpression") {
+    const startWidgets = getObjectProperty(j, start, "widgets")?.value;
+    if (startWidgets && isExpressionKind(startWidgets))
+      result[0] = startWidgets;
+  }
+  else if (start && isExpressionKind(start)) {
+    result[0] = j.memberExpression(start, j.identifier("widgets"));
+  }
+
+  const middle = getObjectProperty(j, expression, "middle")?.value;
+  if (middle && middle.type === "ObjectExpression") {
+    const middleWidgets = getObjectProperty(j, middle, "widgets")?.value;
+    if (middleWidgets && isExpressionKind(middleWidgets)) {
+      if (result[0])
+        result[0] = concatExpressions(j, result[0], middleWidgets);
+      else
+        result[0] = middleWidgets;
+    }
+  }
+  else if (middle && isExpressionKind(middle)) {
+    const middleMemberExpr = j.memberExpression(middle, j.identifier("widgets"))
+    if (result[0])
+      result[0] = concatExpressions(j, result[0], middleMemberExpr);
+    else
+      result[0] = middleMemberExpr;
+  }
+
+  const end = getObjectProperty(j, expression, "end")?.value;
+  if (end && end.type === "ObjectExpression") {
+    const endWidgets = getObjectProperty(j, end, "widgets")?.value;
+    if (endWidgets && isExpressionKind(endWidgets))
+      result[1] = endWidgets;
+  }
+  else if (end && isExpressionKind(end)) {
+    result[1] = j.memberExpression(end, j.identifier("widgets"));
+  }
+
+  return result;
+}
+
+export function appendStagePanelSection(j: JSCodeshift, stagePanel: ConfigExpression, sectionToAppend: "start" | "end", exprToAppend: ExpressionKind): "Success" | undefined {
+  let sections = getObjectProperty(j, stagePanel, "sections");
+  if (!sections) {
+    sections = j.objectProperty(j.identifier("sections"), j.objectExpression([]));
+    stagePanel.properties.push(sections);
+  }
+  if (sections.value.type !== "ObjectExpression") {
+    // TODO: log warning
+    return undefined;
+  }
+
+  let section = getObjectProperty(j, sections.value, sectionToAppend);
+  if (!section) {
+    section = j.objectProperty(j.identifier(sectionToAppend), j.arrayExpression([]));
+    sections.value.properties.push(section);
+  }
+  if (!isExpressionKind(section.value)) {
+    // TODO: log warning
+    return undefined;
+  }
+
+  section.value = concatExpressions(j, section.value, exprToAppend);
+  return "Success";
+}
+
+export function getStagePanelSectionProperty(j: JSCodeshift, stagePanel: ConfigExpression, sectionToGet: "start" | "end"): ObjectProperty | Property | undefined {
+  const sections = getObjectProperty(j, stagePanel, "sections");
+  if (!sections)
+    return undefined;
+  if (sections.value.type !== "ObjectExpression") {
+    // TODO: log warning
+    return undefined;
+  }
+
+  const section = getObjectProperty(j, sections.value, sectionToGet);
+  if (!section)
+    return undefined;
+  if (!isExpressionKind(section.value)) {
+    // TODO: log warning
+    return undefined;
+  }
+
+  return section;
+}
+
+export function replaceWidgetObjectExpression(j: JSCodeshift, widget: Collection<ObjectExpression>) {
+  useObjectExpression(j);
+  transformAbstractWidget(j, widget as ObjectExpressionCollection)
+    .removeProperty("key", (_path, property) => {
+      const idProp = getObjectProperty(j, _path.node, "id");
+      if (idProp === undefined && property.type === "ObjectProperty") {
+        const newIdProp = j.objectProperty(j.identifier("id"), property.value);
+        _path.node.properties.push(newIdProp);
+      }
+    })
+    .removeProperty("control")
+    .removeProperty("isFreeform")
+    .removeProperty("isToolSettings")
+    .removeProperty("isStatusBar")
+    .removeProperty("fillZone")
+    .removeProperty("syncEventIds")
+    .removeProperty("stateFunc")
+    .renameProperty("iconSpec", "icon")
+    .renameProperty("isFloatingStateSupported", "canFloat")
+    .renameProperty("badgeType", "badge")
+    .renameProperty("element", "content");
 }
