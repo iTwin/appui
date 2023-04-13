@@ -531,7 +531,6 @@ export function replaceWidgetObjectExpression(j: JSCodeshift, widget: Collection
         _path.node.properties.push(newIdProp);
       }
     })
-    .removeProperty("control")
     .removeProperty("isFreeform")
     .removeProperty("isToolSettings")
     .removeProperty("isStatusBar")

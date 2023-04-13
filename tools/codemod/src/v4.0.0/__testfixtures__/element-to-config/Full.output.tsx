@@ -41,12 +41,14 @@ function frontstage(rightStagePanel) {
       defaultState: WidgetState.Open,
       icon: "icon-placeholder",
       labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+      control: HorizontalPropertyGridWidgetControl,
     },
     {
       id: "VerticalPropertyGrid1",
       defaultState: WidgetState.Hidden,
       icon: "icon-placeholder",
       labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+      control: VerticalPropertyGridWidgetControl,
     },
   ];
   const topMostStagePanelWidgets = [{
