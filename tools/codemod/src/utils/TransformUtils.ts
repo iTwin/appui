@@ -3,8 +3,6 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { ObjectExpression, ObjectProperty, JSCodeshift, ASTPath, JSXElement, JSXIdentifier, Identifier, JSXMemberExpression, MemberExpression, SpreadProperty, ASTNode, RestElement, Property, Collection, ExpressionStatement, ArrayExpression, ConditionalExpression } from "jscodeshift";
-import { ObjectExpressionCollection, useObjectExpression } from "./ObjectExpression";
-import { transformAbstractWidget } from "../v4.0.0/widget";
 
 export type ExpressionKind = ExpressionStatement["expression"];
 export type PatternKind = RestElement["argument"];
@@ -29,14 +27,8 @@ export interface UniFormat {
   spreadAttr: ExpressionKind[];
 }
 
-export const expressionKindTypes = new Set(["Identifier", "FunctionExpression", "ThisExpression", "ArrayExpression", "ObjectExpression", "Literal", "SequenceExpression", "UnaryExpression", "BinaryExpression", "AssignmentExpression", "MemberExpression", "UpdateExpression", "LogicalExpression", "ConditionalExpression", "NewExpression", "CallExpression", "ArrowFunctionExpression", "YieldExpression", "GeneratorExpression", "ComprehensionExpression", "ClassExpression", "Super", "TaggedTemplateExpression", "TemplateLiteral", "MetaProperty", "AwaitExpression", "ImportExpression", "ChainExpression", "OptionalCallExpression", "OptionalMemberExpression", "JSXIdentifier", "JSXExpressionContainer", "JSXElement", "JSXFragment", "JSXMemberExpression", "JSXText", "PrivateName", "TypeCastExpression", "DoExpression", "BindExpression", "ParenthesizedExpression", "DirectiveLiteral", "StringLiteral", "NumericLiteral", "BigIntLiteral", "NullLiteral", "BooleanLiteral", "RegExpLiteral", "Import", "TSAsExpression", "TSNonNullExpression", "TSTypeParameter", "TSTypeAssertion"]);
-export function isExpressionKind(source: ASTNode): source is ExpressionKind {
-  return expressionKindTypes.has(source.type);
-}
-
-export const patternKindTypes = new Set(["Identifier", "RestElement", "SpreadElementPattern", "PropertyPattern", "ObjectPattern", "ArrayPattern", "AssignmentPattern", "SpreadPropertyPattern", "JSXIdentifier", "PrivateName", "TSAsExpression", "TSNonNullExpression", "TSTypeParameter", "TSTypeAssertion", "TSParameterProperty"]);
-export function isPatternKind(source: ASTNode): source is PatternKind {
-  return patternKindTypes.has(source.type);
+export function isExpressionKind(j: JSCodeshift, source: ASTNode): source is ExpressionKind {
+  return j(source).isOfType(j.Expression);
 }
 
 export function isSpecifiedConfigExpression(source: ASTNode, name: string): source is ConfigExpression {

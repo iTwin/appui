@@ -132,9 +132,9 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
         const start = getStagePanelSectionProperty(j, topPanelEnd, "start")?.value;
         const end = getStagePanelSectionProperty(j, topPanelEnd, "end")?.value;
         let successfulAppend: boolean = true;
-        if (start && isExpressionKind(start) && isSpecifiedConfigExpression(topPanelExpr, "StagePanel"))
+        if (start && isExpressionKind(j, start) && isSpecifiedConfigExpression(topPanelExpr, "StagePanel"))
           successfulAppend = appendStagePanelSection(j, topPanelExpr, "end", start) && successfulAppend ? true : false;
-        if (end && isExpressionKind(end) && isSpecifiedConfigExpression(topPanelExpr, "StagePanel"))
+        if (end && isExpressionKind(j, end) && isSpecifiedConfigExpression(topPanelExpr, "StagePanel"))
           successfulAppend = appendStagePanelSection(j, topPanelExpr, "end", end) && successfulAppend ? true : false;
         if ((start || end) && successfulAppend)
           handledExpressions.add("topMostPanel");
@@ -223,9 +223,9 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
         const start = getStagePanelSectionProperty(j, bottomPanelEnd, "start")?.value;
         const end = getStagePanelSectionProperty(j, bottomPanelEnd, "end")?.value;
         let successfulAppend: boolean = true;
-        if (start && isExpressionKind(start) && isSpecifiedConfigExpression(bottomPanelExpr, "StagePanel"))
+        if (start && isExpressionKind(j, start) && isSpecifiedConfigExpression(bottomPanelExpr, "StagePanel"))
           successfulAppend = appendStagePanelSection(j, bottomPanelExpr, "end", start) && successfulAppend ? true : false;
-        if (end && isExpressionKind(end) && isSpecifiedConfigExpression(bottomPanelExpr, "StagePanel"))
+        if (end && isExpressionKind(j, end) && isSpecifiedConfigExpression(bottomPanelExpr, "StagePanel"))
           successfulAppend = appendStagePanelSection(j, bottomPanelExpr, "end", end) && successfulAppend ? true : false;
         if ((start || end) && successfulAppend)
           handledExpressions.add("bottomMostPanel");
@@ -438,24 +438,24 @@ export function extractSectionsFromPanelZones(j: JSCodeshift, expression: Object
   const start = getObjectProperty(j, expression, "start")?.value;
   if (start && start.type === "ObjectExpression") {
     const startWidgets = getObjectProperty(j, start, "widgets")?.value;
-    if (startWidgets && isExpressionKind(startWidgets))
+    if (startWidgets && isExpressionKind(j, startWidgets))
       result[0] = startWidgets;
   }
-  else if (start && isExpressionKind(start)) {
+  else if (start && isExpressionKind(j, start)) {
     result[0] = j.memberExpression(start, j.identifier("widgets"));
   }
 
   const middle = getObjectProperty(j, expression, "middle")?.value;
   if (middle && middle.type === "ObjectExpression") {
     const middleWidgets = getObjectProperty(j, middle, "widgets")?.value;
-    if (middleWidgets && isExpressionKind(middleWidgets)) {
+    if (middleWidgets && isExpressionKind(j, middleWidgets)) {
       if (result[0])
         result[0] = concatExpressions(j, result[0], middleWidgets);
       else
         result[0] = middleWidgets;
     }
   }
-  else if (middle && isExpressionKind(middle)) {
+  else if (middle && isExpressionKind(j, middle)) {
     const middleMemberExpr = j.memberExpression(middle, j.identifier("widgets"))
     if (result[0])
       result[0] = concatExpressions(j, result[0], middleMemberExpr);
@@ -466,10 +466,10 @@ export function extractSectionsFromPanelZones(j: JSCodeshift, expression: Object
   const end = getObjectProperty(j, expression, "end")?.value;
   if (end && end.type === "ObjectExpression") {
     const endWidgets = getObjectProperty(j, end, "widgets")?.value;
-    if (endWidgets && isExpressionKind(endWidgets))
+    if (endWidgets && isExpressionKind(j, endWidgets))
       result[1] = endWidgets;
   }
-  else if (end && isExpressionKind(end)) {
+  else if (end && isExpressionKind(j, end)) {
     result[1] = j.memberExpression(end, j.identifier("widgets"));
   }
 
@@ -492,7 +492,7 @@ export function appendStagePanelSection(j: JSCodeshift, stagePanel: ConfigExpres
     section = j.objectProperty(j.identifier(sectionToAppend), j.arrayExpression([]));
     sections.value.properties.push(section);
   }
-  if (!isExpressionKind(section.value)) {
+  if (!isExpressionKind(j, section.value)) {
     // TODO: log warning
     return undefined;
   }
@@ -513,7 +513,7 @@ export function getStagePanelSectionProperty(j: JSCodeshift, stagePanel: ConfigE
   const section = getObjectProperty(j, sections.value, sectionToGet);
   if (!section)
     return undefined;
-  if (!isExpressionKind(section.value)) {
+  if (!isExpressionKind(j, section.value)) {
     // TODO: log warning
     return undefined;
   }
