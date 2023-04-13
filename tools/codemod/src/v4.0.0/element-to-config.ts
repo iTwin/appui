@@ -6,26 +6,36 @@
 import { FileInfo, API, Options, ASTPath, JSCodeshift, JSXElement, ObjectProperty, SpreadProperty, Collection, JSXIdentifier, ObjectExpression, Property } from "jscodeshift";
 import { ConfigExpression, jsxElementToUniFormat, buildProperty, isSpecifiedConfigExpression, isExpressionKind, ExpressionKind, uniFormatToObjectExpression, concatExpressions, getObjectProperty, handleConditionalExpression, takeFirstArrayExpressionElement } from "../utils/TransformUtils";
 import { isSpecifiedJSXElement } from "../utils/typeGuards";
+import { useImportDeclaration } from "../utils/ImportDeclaration";
+import { useImportSpecifier } from "../utils/ImportSpecifier";
 import { useObjectExpression, ObjectExpressionCollection } from "../utils/ObjectExpression";
 import { transformAbstractWidget } from "./widget";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
-  const root = j(file.source);
+  useImportDeclaration(j);
+  useImportSpecifier(j);
 
-  root.findJSXElements("Widget").forEach((widget) => {
+  const root = j(file.source);
+  const appuiReactImportDec = root.findImportDeclarations("@itwin/appui-react");
+
+  const widgetName = appuiReactImportDec.findSpecifiers("Widget").getLocalName();
+  widgetName !== "" && root.findJSXElements(widgetName).forEach((widget) => {
     const widgetConfig = transformWidget(j, widget);
     widget.replace(widgetConfig);
   });
-  root.findJSXElements("Zone").forEach((zone) => {
+  const zoneName = appuiReactImportDec.findSpecifiers("Zone").getLocalName();
+  zoneName !== "" && root.findJSXElements(zoneName).forEach((zone) => {
     const zoneConfig = transformZone(j, zone);
     zone.replace(zoneConfig);
   });
-  root.findJSXElements("StagePanel").forEach((stagePanel) => {
+  const stagePanelName = appuiReactImportDec.findSpecifiers("StagePanel").getLocalName();
+  stagePanelName !== "" && root.findJSXElements(stagePanelName).forEach((stagePanel) => {
     const stagePanelConfig = transformStagePanel(j, stagePanel);
     stagePanel.replace(stagePanelConfig);
   });
-  root.findJSXElements("Frontstage").forEach((frontstage) => {
+  const frontstageName = appuiReactImportDec.findSpecifiers("Frontstage").getLocalName();
+  frontstageName !== "" && root.findJSXElements(frontstageName).forEach((frontstage) => {
     const frontstageConfig = transformFrontstage(j, frontstage);
     frontstage.replace(frontstageConfig);
   });
@@ -403,6 +413,7 @@ export function handleSideStagePanel(j: JSCodeshift, expression: ExpressionKind)
 }
 
 export function handleSideStagePanelZone(j: JSCodeshift, expression: ExpressionKind): ExpressionKind | undefined {
+
   if (isSpecifiedJSXElement(expression, "Zone")) {
     expression = transformZone(j, j(expression).getAST()[0]);
   }

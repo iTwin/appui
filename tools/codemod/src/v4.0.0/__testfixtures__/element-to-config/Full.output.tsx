@@ -5,7 +5,7 @@
 import * as React from "react";
 import {
   ContentGroup, Frontstage,
-  StagePanel, Widget, Zone, ZoneLocation,
+  StagePanel as Panel, Widget, Zone, ZoneLocation,
   ZoneState,
 } from "@itwin/appui-react";
 import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
