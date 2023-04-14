@@ -12,8 +12,8 @@ export interface PopoutDialogProps {
   dialogId: string;
 }
 
-export function PopoutDialog () {
+export function PopoutDialog() {
   return (
     <div className="test-popout-dialog"> <ViewsTable /> </div>
-  )
+  );
 }

@@ -20,30 +20,31 @@ export function ViewsTable() {
 
   React.useEffect(() => {
     if (activeIModelConnection) {
-    getViewDefinitions(activeIModelConnection).then ((result) => {
-      setIModelViews(result);
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      getViewDefinitions(activeIModelConnection).then ((result) => {
+        setIModelViews(result);
       });
     }
   }, [activeIModelConnection]);
 
   const viewData = React.useMemo(() => {
     return iModelViews.map((spec) => (
-      ( {id: spec.id!, class: spec.class, label: spec.label} )
+      ( {id: spec.id!, class: spec.class, label: spec.label} ) // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
     ));
   }, [iModelViews]);
 
   const columns = React.useMemo((): Column<Record<string, unknown>>[] => [{
     Header: "View Id",
-    accessor: "id"
+    accessor: "id",
   }, {
     Header: "Class Name",
-    accessor: "class"
+    accessor: "class",
   }, {
     Header: "Label",
-    accessor: "label"
+    accessor: "label",
   }], []);
 
   return (
     <Table columns={columns} data={viewData} emptyTableContent="No views to display." />
-  )
+  );
 }

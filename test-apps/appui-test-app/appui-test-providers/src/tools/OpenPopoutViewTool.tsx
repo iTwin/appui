@@ -3,12 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { ChildWindowLocationProps, ContentDialog, UiFramework } from "@itwin/appui-react";
+import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
 import windowPopoutSvg from "@bentley/icons-generic/icons/window-new.svg";
 import { PopupTestView } from "../ui/dialogs/PopupTestView";
-import { ThemeManager } from "@itwin/appui-react";
 
 export class OpenPopoutViewTool extends Tool {
   private static _counter = 0;
@@ -33,7 +32,7 @@ export class OpenPopoutViewTool extends Tool {
       left: 0,
       top: 0,
     };
-    UiFramework.childWindows.open("ViewPopout", "View Popout", <ThemeManager><PopupTestView contentId="appui-test-app:popout-test" showViewPicker={true} /></ThemeManager>, location);
+    UiFramework.childWindows.open("ViewPopout", "View Popout", <PopupTestView contentId="appui-test-app:popout-test" showViewPicker={true} />, location);
   }
 
   public static override get flyover(): string {

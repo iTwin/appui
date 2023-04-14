@@ -5,7 +5,7 @@
 /* eslint-disable react/display-name */
 
 import * as React from "react";
-import { BackstageItem, BackstageItemUtilities, StagePanelLocation, StagePanelSection, StageUsage, StatusBarItem, StatusBarItemUtilities, StatusBarSection, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
+import { BackstageItem, BackstageItemUtilities, StagePanelLocation, StagePanelSection, StageUsage, StatusBarItem, StatusBarItemUtilities, StatusBarSection, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
 import { PopoutWindowsFrontstage } from "../frontstages/PopoutWindowsFrontstage";
@@ -58,7 +58,7 @@ export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
     return widgets;
   }
 
-public provideToolbarItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
+  public provideToolbarItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
     const allowedStages = [PopoutWindowsFrontstage.stageId];
     if (allowedStages.includes(stageId)) {
       if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {

@@ -22,7 +22,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
   const [initialViewState, setInitialViewState] = React.useState<ViewState | undefined>(undefined);
   const [twoDViewDefinitions, settwoDViewDefinitions] = React.useState<SynchronizedViewDefInterfaceLocal[]>([]);
   const [threeDViewDefinitions, setthreeDViewDefinitions] = React.useState<SynchronizedViewDefInterfaceLocal[]>([]);
-  const [noViewsMessage, setNoViewsMessage] = React.useState("No 2D views available.")
+  const [noViewsMessage, setNoViewsMessage] = React.useState("No 2D views available.");
 
   const handleViewIdChange = React.useCallback(async (args: ViewIdChangedEventArgs) => {
     if (args.newId === args.oldId)
@@ -152,13 +152,13 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
         </div>
       </div>
     );
-    } else {
-      return (
-        <div className="test-popup-test-view" ref={divRef}>
-          <div className="no-views-message">
-            {noViewsMessage}
-          </div>
+  } else {
+    return (
+      <div className="test-popup-test-view" ref={divRef}>
+        <div className="no-views-message">
+          {noViewsMessage}
         </div>
-      );
-        }
+      </div>
+    );
+  }
 }
