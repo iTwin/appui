@@ -57,6 +57,10 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
 
   const handledExpressions = new Set(["key", "applicationData", "defaultTool", "defaultContentId", "isInFooterMode", "isIModelIndependent", "runtimeProps"]);
 
+  const appuiReactImportDec = j(frontstage).closest(j.File).findImportDeclarations("@itwin/appui-react");
+  const zoneName = appuiReactImportDec.findSpecifiers("Zone").getLocalName();
+  const stagePanelName = appuiReactImportDec.findSpecifiers("StagePanel").getLocalName();
+
   const idExpr = attrMap.getAttributeExpression("id") ?? attrMap.getAttributeExpression("key");
   if (idExpr) {
     const id = buildProperty(j, "id", idExpr);
@@ -134,7 +138,7 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
   let topPanelEnd = attrMap.getAttributeExpression("topMostPanel");
   if (topPanelExpr || topPanelEnd) {
     if (topPanelExpr) {
-      topPanelExpr = handleSideStagePanel(j, topPanelExpr);
+      topPanelExpr = handleSideStagePanel(j, topPanelExpr, stagePanelName);
       if (topPanelExpr)
         handledExpressions.add("topPanel");
     }
@@ -142,7 +146,7 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
       topPanelExpr = createEmptyConfig(j, j.jsxIdentifier("StagePanel"));
     }
     if (topPanelExpr && topPanelEnd) {
-      topPanelEnd = handleSideStagePanel(j, topPanelEnd);
+      topPanelEnd = handleSideStagePanel(j, topPanelEnd, stagePanelName);
       if (topPanelEnd && isSpecifiedConfigExpression(topPanelEnd, "StagePanel")) {
         handledExpressions.add("topMostPanel");
         const start = getStagePanelSectionProperty(j, topPanelEnd, "start")?.value;
@@ -167,21 +171,21 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
   let leftPanelEnd = attrMap.getAttributeExpression("bottomLeft");
   if (leftPanelExpr || leftPanelStart || leftPanelEnd) {
     if (leftPanelExpr) {
-      leftPanelExpr = handleSideStagePanel(j, leftPanelExpr);
+      leftPanelExpr = handleSideStagePanel(j, leftPanelExpr, stagePanelName);
       if (leftPanelExpr)
         handledExpressions.add("leftPanel");
     }
     else {
       leftPanelExpr = createEmptyConfig(j, j.jsxIdentifier("StagePanel"));
     }
-    leftPanelStart = leftPanelStart ? handleSideStagePanelZone(j, leftPanelStart) : undefined;
+    leftPanelStart = leftPanelStart ? handleSideStagePanelZone(j, leftPanelStart, zoneName) : undefined;
     let successfulAppend: boolean = true;
     if (leftPanelExpr && leftPanelStart)
       successfulAppend = appendStagePanelSection(j, leftPanelExpr as ConfigExpression, "start", leftPanelStart) && successfulAppend ? true : false;
     if (leftPanelExpr && successfulAppend)
       handledExpressions.add("centerLeft");
     successfulAppend = true;
-    leftPanelEnd = leftPanelEnd ? handleSideStagePanelZone(j, leftPanelEnd) : undefined;
+    leftPanelEnd = leftPanelEnd ? handleSideStagePanelZone(j, leftPanelEnd, zoneName) : undefined;
     if (leftPanelExpr && leftPanelEnd)
       successfulAppend = appendStagePanelSection(j, leftPanelExpr as ConfigExpression, "end", leftPanelEnd) && successfulAppend ? true : false;
     if (leftPanelExpr && successfulAppend)
@@ -197,21 +201,21 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
   let rightPanelEnd = attrMap.getAttributeExpression("bottomRight");
   if (rightPanelExpr || rightPanelStart || rightPanelEnd) {
     if (rightPanelExpr) {
-      rightPanelExpr = handleSideStagePanel(j, rightPanelExpr);
+      rightPanelExpr = handleSideStagePanel(j, rightPanelExpr, stagePanelName);
       if (rightPanelExpr)
         handledExpressions.add("rightPanel");
     }
     else {
       rightPanelExpr = createEmptyConfig(j, j.jsxIdentifier("StagePanel"));
     }
-    rightPanelStart = rightPanelStart ? handleSideStagePanelZone(j, rightPanelStart) : undefined;
+    rightPanelStart = rightPanelStart ? handleSideStagePanelZone(j, rightPanelStart, zoneName) : undefined;
     let successfulAppend: boolean = true;
     if (rightPanelExpr && rightPanelStart)
       successfulAppend = appendStagePanelSection(j, rightPanelExpr as ConfigExpression, "start", rightPanelStart) && successfulAppend ? true : false;
     if (rightPanelExpr && successfulAppend)
       handledExpressions.add("centerRight");
     successfulAppend = true;
-    rightPanelEnd = rightPanelEnd ? handleSideStagePanelZone(j, rightPanelEnd) : undefined;
+    rightPanelEnd = rightPanelEnd ? handleSideStagePanelZone(j, rightPanelEnd, zoneName) : undefined;
     if (rightPanelExpr && rightPanelEnd)
       successfulAppend = appendStagePanelSection(j, rightPanelExpr as ConfigExpression, "end", rightPanelEnd) && successfulAppend ? true : false;
     if (rightPanelExpr && successfulAppend)
@@ -226,7 +230,7 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
   let bottomPanelEnd = attrMap.getAttributeExpression("bottomMostPanel");
   if (bottomPanelExpr || bottomPanelEnd) {
     if (bottomPanelExpr) {
-      bottomPanelExpr = handleSideStagePanel(j, bottomPanelExpr);
+      bottomPanelExpr = handleSideStagePanel(j, bottomPanelExpr, stagePanelName);
       if (bottomPanelExpr)
         handledExpressions.add("bottomPanel");
     }
@@ -234,7 +238,7 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
       bottomPanelExpr = createEmptyConfig(j, j.jsxIdentifier("StagePanel"));
     }
     if (bottomPanelExpr && bottomPanelEnd) {
-      bottomPanelEnd = handleSideStagePanel(j, bottomPanelEnd);
+      bottomPanelEnd = handleSideStagePanel(j, bottomPanelEnd, stagePanelName);
       if (bottomPanelEnd && isSpecifiedConfigExpression(bottomPanelEnd, "StagePanel")) {
         const start = getStagePanelSectionProperty(j, bottomPanelEnd, "start")?.value;
         const end = getStagePanelSectionProperty(j, bottomPanelEnd, "end")?.value;
@@ -408,8 +412,8 @@ export function transformWidget(j: JSCodeshift, widget: ASTPath<JSXElement>): Co
   return { ...widgetObj, configName: uni.name };
 }
 
-export function handleSideStagePanel(j: JSCodeshift, expression: ExpressionKind): ConfigExpression | undefined {
-  if (isSpecifiedJSXElement(expression, "StagePanel")) {
+export function handleSideStagePanel(j: JSCodeshift, expression: ExpressionKind, panelName: string): ConfigExpression | undefined {
+  if (isSpecifiedJSXElement(expression, panelName)) {
     expression = transformFrontstage(j, j(expression).getAST()[0]);
   }
   if (isSpecifiedConfigExpression(expression, "StagePanel")) {
@@ -418,9 +422,8 @@ export function handleSideStagePanel(j: JSCodeshift, expression: ExpressionKind)
   return undefined;
 }
 
-export function handleSideStagePanelZone(j: JSCodeshift, expression: ExpressionKind): ExpressionKind | undefined {
-
-  if (isSpecifiedJSXElement(expression, "Zone")) {
+export function handleSideStagePanelZone(j: JSCodeshift, expression: ExpressionKind, panelZoneName: string): ExpressionKind | undefined {
+  if (isSpecifiedJSXElement(expression, panelZoneName)) {
     expression = transformZone(j, j(expression).getAST()[0]);
   }
   if (expression.type === "Identifier" && expression.name === "undefined") {
