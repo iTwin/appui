@@ -12,6 +12,7 @@ import { PopoutWindowsFrontstage } from "../frontstages/PopoutWindowsFrontstage"
 import { DisplayStyleField } from "../statusfields/DisplayStyleField";
 import { OpenPopoutViewTool } from "../../tools/OpenPopoutViewTool";
 import { OpenPopoutDialogTool } from "../../tools/OpenPopoutDialogTool";
+import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget";
 
 /**
  * The PopoutWindowsStageUiItemsProvider provides additional items only to the `PopoutWindowsFrontstage` frontstage.
@@ -38,7 +39,26 @@ export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
     UiItemsManager.unregister(PopoutWindowsStageUiItemsProvider.providerId);
   }
 
-  public provideToolbarItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
+  public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<Widget> {
+    const widgets: Widget[] = [];
+    if (stageUsage === StageUsage.General && location === StagePanelLocation.Left && section === StagePanelSection.Start) {
+      widgets.push({
+        id: "appui-test-providers:ViewAttributesWidget",
+        label: "View Attributes",
+        icon: "icon-window-settings",
+        defaultState: WidgetState.Open,
+        canFloat: {
+          containerId: "appui-test-providers:ViewAttributesWidget",
+        },
+        content: <ViewAttributesWidgetComponent />,
+        canPopout: true,
+        allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
+      });
+    }
+    return widgets;
+  }
+
+public provideToolbarItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
     const allowedStages = [PopoutWindowsFrontstage.stageId];
     if (allowedStages.includes(stageId)) {
       if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {

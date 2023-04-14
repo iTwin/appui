@@ -32,7 +32,7 @@ export function ViewsTable() {
     ));
   }, [iModelViews]);
 
-  const columns = React.useMemo((): Column<ViewDataItem>[] => [{
+  const columns = React.useMemo((): Column<Record<string, unknown>>[] => [{
     Header: "View Id",
     accessor: "id"
   }, {
