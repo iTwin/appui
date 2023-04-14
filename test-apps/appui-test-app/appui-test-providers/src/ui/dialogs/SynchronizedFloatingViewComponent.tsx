@@ -22,6 +22,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
   const [initialViewState, setInitialViewState] = React.useState<ViewState | undefined>(undefined);
   const [twoDViewDefinitions, settwoDViewDefinitions] = React.useState<SynchronizedViewDefInterfaceLocal[]>([]);
   const [threeDViewDefinitions, setthreeDViewDefinitions] = React.useState<SynchronizedViewDefInterfaceLocal[]>([]);
+  const [noViewsMessage, setNoViewsMessage] = React.useState("No 2D views available.")
 
   const handleViewIdChange = React.useCallback(async (args: ViewIdChangedEventArgs) => {
     if (args.newId === args.oldId)
@@ -97,7 +98,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
     if (!activeIModelConnection) return;
     const acceptedSpatialViewClasses = ["BisCore:SpatialViewDefinition", "BisCore:OrthographicViewDefinition"];
 
-    const acceptedDrawingViewClasses = ["BisCore:DrawingViewDefinition"];
+    const acceptedDrawingViewClasses = ["BisCore:DrawingViewDefinition", "BisCore:SheetViewDefinition"];
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getViewDefinitions(activeIModelConnection).then((viewDefinitions: SynchronizedViewDefInterfaceLocal[]) => {
 
@@ -112,6 +113,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
       // Set initial view state
       const mainViewportOnFrontstage = UiFramework.content.getActiveContentControl();
       const isMainViewport3d = mainViewportOnFrontstage?.viewport?.view.is3d();
+      setNoViewsMessage(isMainViewport3d ? "No 2d views available." : "No 3d views available.");
       let initialViewIdToLoad;
 
       if (isMainViewport3d && localTwoTwoDViewDefs && localTwoTwoDViewDefs.length > 0) {
@@ -141,12 +143,22 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
 
   }, [activeIModelConnection, handleViewIdChange]);
 
-  return (
-    <div className="test-popup-test-view" ref={divRef}>
-      <div id="floatingviewportcontainerdiv">
-        {initialViewState &&
-          <FloatingViewportContent contentId={contentId} initialViewState={initialViewState} />}
+  if (initialViewState) {
+    return (
+      <div className="test-popup-test-view" ref={divRef}>
+        <div id="floatingviewportcontainerdiv">
+          {initialViewState &&
+            <FloatingViewportContent contentId={contentId} initialViewState={initialViewState} />}
+        </div>
       </div>
-    </div>
-  );
+    );
+    } else {
+      return (
+        <div className="test-popup-test-view" ref={divRef}>
+          <div className="no-views-message">
+            {noViewsMessage}
+          </div>
+        </div>
+      );
+        }
 }

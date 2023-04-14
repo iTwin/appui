@@ -2,19 +2,12 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-.test-popup-test-view {
-  /* width: 100%; */
+.test-popout-dialog {
+  box-sizing: border-box;
   height: 100%;
   position: relative;
-  #floatingviewportcontainerdiv{
-    height: calc(100% - 27px);
-  }
+  margin: auto;
+  width: 100%;
+  overflow-y: scroll;
 }
 
-.no-views-message {
-  height: 50%;
-  margin: auto;
-  width: 50%;
-  padding: 25%;
-  text-align: center;
-}

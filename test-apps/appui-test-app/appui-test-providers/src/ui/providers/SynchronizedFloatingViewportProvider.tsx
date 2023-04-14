@@ -39,7 +39,6 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
       toolbarOrientation === ToolbarOrientation.Horizontal
     ) {
       toolbarItems.push(getCustomViewSelectorPopupItem(20, 3000));
-      OpenSynchronizedViewTool.register("ThisTestApp");
       toolbarItems.push(OpenSynchronizedViewTool.getActionButtonDef(10, 10));
     }
     return toolbarItems;
