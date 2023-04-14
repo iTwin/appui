@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "change core-element-separator z-index from 1 to 2",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
