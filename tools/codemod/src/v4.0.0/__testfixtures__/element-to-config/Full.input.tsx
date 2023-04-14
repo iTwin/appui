@@ -5,15 +5,17 @@
 import * as React from "react";
 import {
   ContentGroup, Frontstage,
-  StagePanel, Widget, Zone, ZoneLocation,
+  StagePanel as Panel, Widget, Zone, ZoneLocation,
   ZoneState,
 } from "@itwin/appui-react";
+import { StagePanel } from "./randomDir";
 import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { AppUi } from "../AppUi";
 
 function main() {
   const rightStagePanelWidgets = [<Widget element={<RightPanel />} />,];
-  const rightStagePanel = <StagePanel
+  const myPanel = <StagePanel size={200} />;
+  const rightStagePanel = <Panel
     allowedZones={[2, 9]}
     resizable={false}
     size={200}
@@ -39,9 +41,9 @@ function frontstage(rightStagePanel) {
     ]}
   />;
   const topMostStagePanelWidgets = [<Widget element={<h2>Top most panel</h2>} />,];
-  const topMostStagePanel = <StagePanel widgets={topMostStagePanelWidgets} />;
+  const topMostStagePanel = <Panel widgets={topMostStagePanelWidgets} />;
   const topStagePanelWidgets = [<Widget element={<h2>Top panel</h2>} />,];
-  const topStagePanel = <StagePanel resizable={false} widgets={topStagePanelWidgets} />;
+  const topStagePanel = <Panel resizable={false} widgets={topStagePanelWidgets} />;
 
   return (
     <Frontstage
