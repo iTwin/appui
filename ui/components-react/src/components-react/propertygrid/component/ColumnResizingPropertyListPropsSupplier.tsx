@@ -38,8 +38,8 @@ export interface ColumnResizingPropertyListPropsSupplierState {
  */
 export class ColumnResizingPropertyListPropsSupplier extends React.Component<ColumnResizingPropertyListPropsSupplierProps, ColumnResizingPropertyListPropsSupplierState> {
   private readonly _initialRatio = 0.25;
-  private readonly _defaultMinRatio = 0.15;
-  private readonly _defaultMaxRatio = 0.6;
+  private readonly _defaultMinRatio = 0.01;
+  private readonly _defaultMaxRatio = 0.99;
   private _minRatio = this._defaultMinRatio;
   private _maxRatio = this._defaultMaxRatio;
 
@@ -50,9 +50,9 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<Col
   };
 
   public static defaultProps: Partial<ColumnResizingPropertyListPropsSupplierProps> = {
-    minLabelWidth: 100,
-    minValueWidth: 100,
-    actionButtonWidth: 90,
+    minLabelWidth: 10,
+    minValueWidth: 10,
+    actionButtonWidth: 0,
   };
 
   private _onColumnRatioChanged = (ratio: number): RatioChangeResult => {
