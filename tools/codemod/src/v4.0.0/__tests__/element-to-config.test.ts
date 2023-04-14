@@ -42,7 +42,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, StagePanel, Zone, Widget } from "@itwin/appui-react";
       ({
         rightPanel: {
           sections: {
@@ -86,7 +85,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, StagePanel, Zone, Widget } from "@itwin/appui-react";
       ({
         rightPanel: {
           sections: {
@@ -116,7 +114,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, Zone, Widget } from "@itwin/appui-react";
       ({
         rightPanel: {
           sections: {
@@ -158,7 +155,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, StagePanel, Widget } from "@itwin/appui-react";
       ({
         rightPanel: {
           sections: {
@@ -193,7 +189,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, StagePanel } from "@itwin/appui-react";
       ({
         rightPanel: {
           sections: {
@@ -228,7 +223,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, StagePanel, Widget } from "@itwin/appui-react";
       ({
         topPanel: {
           sections: {
@@ -264,7 +258,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, StagePanel, Widget } from "@itwin/appui-react";
       ({
         topPanel: {
           sections: {
@@ -291,7 +284,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { StagePanel, Widget } from "@itwin/appui-react";
       ({
         sections: {
           start: [{
@@ -332,7 +324,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, Zone, Widget } from "@itwin/appui-react";
       ({
         viewNavigation: {
           id: "viewNavigation",
@@ -354,7 +345,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, Zone } from "@itwin/appui-react";
       ({
         contentManipulation: props.widgets,
       })
@@ -373,7 +363,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, Zone, Widget } from "@itwin/appui-react";
       ({
         viewNavigation: {
           id: 1,
@@ -394,7 +383,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, Zone } from "@itwin/appui-react";
       ({
         viewNavigation: props.widgets[0],
       })
@@ -413,7 +401,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, Zone } from "@itwin/appui-react";
       ({
         toolSettings: undefined,
       })
@@ -432,7 +419,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, Zone } from "@itwin/appui-react";
       ({
         viewNavigation: this.props.hidden ? undefined : this.props.widget,
       })
@@ -451,7 +437,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage } from "@itwin/appui-react";
       ({
         bottomRight: this.bottomRight,
         rightPanel: this.rightPanel,
@@ -476,7 +461,6 @@ describe("frontstage-to-config", () => {
       />
       `,
       `
-      import { Frontstage, StagePanel, Widget } from "@itwin/appui-react";
       ({
         bottomPanel: {
           sections: {
@@ -504,7 +488,6 @@ describe("frontstage-to-config", () => {
     />
     `,
     `
-    import { Frontstage } from "@itwin/appui-react";
     ({
       id,
       version,
@@ -520,7 +503,6 @@ describe("frontstage-to-config", () => {
     />
     `,
     `
-    import { Frontstage } from "@itwin/appui-react";
     ({
       contentManipulation: contentManipulationTools,
     })
@@ -537,7 +519,6 @@ describe("frontstage-to-config", () => {
     />
     `,
     `
-    import { Frontstage } from "@itwin/appui-react";
     ({
       id: 1,
       ...this.props,

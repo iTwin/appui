@@ -2,7 +2,6 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { Frontstage, StagePanel, Zone, Widget } from "@itwin/appui-react";
 ({
   id: this.props.id,
   contentGroup,
@@ -51,4 +50,4 @@ import { Frontstage, StagePanel, Zone, Widget } from "@itwin/appui-react";
     size: 180,
     ...this.props.bottomPanelProps,
   },
-})
+});

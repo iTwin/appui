@@ -40,6 +40,12 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
     frontstage.replace(frontstageConfig);
   });
 
+  appuiReactImportDec
+    .removeSpecifier("Widget")
+    .removeSpecifier("Zone")
+    .removeSpecifier("StagePanel")
+    .removeSpecifier("Frontstage");
+
   return root.toSource(options.printOptions);
 }
 
