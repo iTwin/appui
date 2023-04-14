@@ -32,30 +32,44 @@ describe("Extensions", () => {
   describe("rename", () => {
     defineInlineTest(
       (_, root) => {
-        root.rename("a", "b");
+        root.rename("@itwin/from:a", "@itwin/to:b");
       },
-      `a();`,
-      `b();`,
+      `
+      import { a } from "@itwin/from";
+      a();
+      `,
+      `
+      import { b } from "@itwin/to";
+      b();
+      `,
       `should rename call expression`
     );
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from:a.x", "@itwin/from:a.y");
+        root.rename("@itwin/from:a.x", "@itwin/to:a.y");
       },
-      `a.x;`,
-      `a.y;`,
+      `
+      import { a } from "@itwin/from";
+      a.x;
+      `,
+      `
+      import { a } from "@itwin/to";
+      a.y;
+      `,
       "should rename member expression"
     );
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from:a", "@itwin/from:b");
+        root.rename("@itwin/from:a", "@itwin/to:b");
       },
       `
+      import { a } from "@itwin/from";
       a;
       `,
       `
+      import { b } from "@itwin/to";
       b;
       `,
       "should rename identifier"
@@ -63,12 +77,14 @@ describe("Extensions", () => {
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from:a", "@itwin/from:b");
+        root.rename("@itwin/from:a", "@itwin/to:b");
       },
       `
+      import { a } from "@itwin/from";
       a.y;
       `,
       `
+      import { b } from "@itwin/to";
       b.y;
       `,
       "should rename root identifiers"
@@ -340,6 +356,37 @@ describe("Extensions", () => {
       c;
       `,
       "should rename multiple times"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/from:a", "@itwin/to:b");
+      },
+      `
+      import { a } from "@itwin/x";
+      a;
+      `,
+      `
+      import { a } from "@itwin/x";
+      a;
+      `,
+      "should not modify specifiers of other modules"
+    );
+
+    defineInlineTest(
+      (_, root) => {
+        root.rename("@itwin/x:a", "@itwin/y:b.c.d");
+        root.rename("@itwin/y:b.e", "@itwin/y:b.f");
+      },
+      `
+      import { a } from "@itwin/x";
+      a;
+      `,
+      `
+      import { b } from "@itwin/y";
+      b.c.d;
+      `,
+      "should not remove specifier (nested member expression)"
     );
   });
 });

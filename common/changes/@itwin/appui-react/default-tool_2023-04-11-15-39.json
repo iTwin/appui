@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Add `defaultTool` prop to `FrontstageConfig` and `StandardFrontstageProps`.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

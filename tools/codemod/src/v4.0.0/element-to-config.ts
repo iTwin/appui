@@ -3,30 +3,48 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { FileInfo, API, Options, ASTPath, JSCodeshift, JSXElement, ObjectProperty, SpreadProperty } from "jscodeshift";
-import { ConfigExpression, jsxElementToUniFormat, buildProperty, handleToolWidget, createEmptyConfig, isSpecifiedConfigExpression, isExpressionKind, extractSectionsFromPanelZones, ExpressionKind, uniFormatToObjectExpression, getStagePanelSectionProperty, appendStagePanelSection, replaceWidgetObjectExpression, concatExpressions } from "../utils/TransformUtils";
+import { FileInfo, API, Options, ASTPath, JSCodeshift, JSXElement, ObjectProperty, SpreadProperty, Collection, JSXIdentifier, ObjectExpression, Property } from "jscodeshift";
+import { ConfigExpression, jsxElementToUniFormat, buildProperty, isSpecifiedConfigExpression, isExpressionKind, ExpressionKind, uniFormatToObjectExpression, concatExpressions, getObjectProperty, handleConditionalExpression, takeFirstArrayExpressionElement } from "../utils/TransformUtils";
 import { isSpecifiedJSXElement } from "../utils/typeGuards";
+import { useImportDeclaration } from "../utils/ImportDeclaration";
+import { useImportSpecifier } from "../utils/ImportSpecifier";
+import { useObjectExpression, ObjectExpressionCollection } from "../utils/ObjectExpression";
+import { transformAbstractWidget } from "./widget";
 
 export default function transformer(file: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift;
-  const root = j(file.source);
+  useImportDeclaration(j);
+  useImportSpecifier(j);
 
-  root.findJSXElements("Widget").forEach((widget) => {
+  const root = j(file.source);
+  const appuiReactImportDec = root.findImportDeclarations("@itwin/appui-react");
+
+  const widgetName = appuiReactImportDec.findSpecifiers("Widget").getLocalName();
+  widgetName !== "" && root.findJSXElements(widgetName).forEach((widget) => {
     const widgetConfig = transformWidget(j, widget);
     widget.replace(widgetConfig);
   });
-  root.findJSXElements("Zone").forEach((zone) => {
+  const zoneName = appuiReactImportDec.findSpecifiers("Zone").getLocalName();
+  zoneName !== "" && root.findJSXElements(zoneName).forEach((zone) => {
     const zoneConfig = transformZone(j, zone);
     zone.replace(zoneConfig);
   });
-  root.findJSXElements("StagePanel").forEach((stagePanel) => {
+  const stagePanelName = appuiReactImportDec.findSpecifiers("StagePanel").getLocalName();
+  stagePanelName !== "" && root.findJSXElements(stagePanelName).forEach((stagePanel) => {
     const stagePanelConfig = transformStagePanel(j, stagePanel);
     stagePanel.replace(stagePanelConfig);
   });
-  root.findJSXElements("Frontstage").forEach((frontstage) => {
+  const frontstageName = appuiReactImportDec.findSpecifiers("Frontstage").getLocalName();
+  frontstageName !== "" && root.findJSXElements(frontstageName).forEach((frontstage) => {
     const frontstageConfig = transformFrontstage(j, frontstage);
     frontstage.replace(frontstageConfig);
   });
+
+  appuiReactImportDec
+    .removeSpecifier("Widget")
+    .removeSpecifier("Zone")
+    .removeSpecifier("StagePanel")
+    .removeSpecifier("Frontstage");
 
   return root.toSource(options.printOptions);
 }
@@ -38,6 +56,10 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
   const frontstageProps: (ObjectProperty | SpreadProperty)[] = [];
 
   const handledExpressions = new Set(["key", "applicationData", "defaultTool", "defaultContentId", "isInFooterMode", "isIModelIndependent", "runtimeProps"]);
+
+  const appuiReactImportDec = j(frontstage).closest(j.File).findImportDeclarations("@itwin/appui-react");
+  const zoneName = appuiReactImportDec.findSpecifiers("Zone").getLocalName();
+  const stagePanelName = appuiReactImportDec.findSpecifiers("StagePanel").getLocalName();
 
   const idExpr = attrMap.getAttributeExpression("id") ?? attrMap.getAttributeExpression("key");
   if (idExpr) {
@@ -116,7 +138,7 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
   let topPanelEnd = attrMap.getAttributeExpression("topMostPanel");
   if (topPanelExpr || topPanelEnd) {
     if (topPanelExpr) {
-      topPanelExpr = handleSideStagePanel(j, topPanelExpr);
+      topPanelExpr = handleSideStagePanel(j, topPanelExpr, stagePanelName);
       if (topPanelExpr)
         handledExpressions.add("topPanel");
     }
@@ -124,15 +146,15 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
       topPanelExpr = createEmptyConfig(j, j.jsxIdentifier("StagePanel"));
     }
     if (topPanelExpr && topPanelEnd) {
-      topPanelEnd = handleSideStagePanel(j, topPanelEnd);
+      topPanelEnd = handleSideStagePanel(j, topPanelEnd, stagePanelName);
       if (topPanelEnd && isSpecifiedConfigExpression(topPanelEnd, "StagePanel")) {
         handledExpressions.add("topMostPanel");
         const start = getStagePanelSectionProperty(j, topPanelEnd, "start")?.value;
         const end = getStagePanelSectionProperty(j, topPanelEnd, "end")?.value;
         let successfulAppend: boolean = true;
-        if (start && isExpressionKind(start) && isSpecifiedConfigExpression(topPanelExpr, "StagePanel"))
+        if (start && isExpressionKind(j, start) && isSpecifiedConfigExpression(topPanelExpr, "StagePanel"))
           successfulAppend = appendStagePanelSection(j, topPanelExpr, "end", start) && successfulAppend ? true : false;
-        if (end && isExpressionKind(end) && isSpecifiedConfigExpression(topPanelExpr, "StagePanel"))
+        if (end && isExpressionKind(j, end) && isSpecifiedConfigExpression(topPanelExpr, "StagePanel"))
           successfulAppend = appendStagePanelSection(j, topPanelExpr, "end", end) && successfulAppend ? true : false;
         if ((start || end) && successfulAppend)
           handledExpressions.add("topMostPanel");
@@ -149,21 +171,21 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
   let leftPanelEnd = attrMap.getAttributeExpression("bottomLeft");
   if (leftPanelExpr || leftPanelStart || leftPanelEnd) {
     if (leftPanelExpr) {
-      leftPanelExpr = handleSideStagePanel(j, leftPanelExpr);
+      leftPanelExpr = handleSideStagePanel(j, leftPanelExpr, stagePanelName);
       if (leftPanelExpr)
         handledExpressions.add("leftPanel");
     }
     else {
       leftPanelExpr = createEmptyConfig(j, j.jsxIdentifier("StagePanel"));
     }
-    leftPanelStart = leftPanelStart ? handleSideStagePanelZone(j, leftPanelStart) : undefined;
+    leftPanelStart = leftPanelStart ? handleSideStagePanelZone(j, leftPanelStart, zoneName) : undefined;
     let successfulAppend: boolean = true;
     if (leftPanelExpr && leftPanelStart)
       successfulAppend = appendStagePanelSection(j, leftPanelExpr as ConfigExpression, "start", leftPanelStart) && successfulAppend ? true : false;
     if (leftPanelExpr && successfulAppend)
       handledExpressions.add("centerLeft");
     successfulAppend = true;
-    leftPanelEnd = leftPanelEnd ? handleSideStagePanelZone(j, leftPanelEnd) : undefined;
+    leftPanelEnd = leftPanelEnd ? handleSideStagePanelZone(j, leftPanelEnd, zoneName) : undefined;
     if (leftPanelExpr && leftPanelEnd)
       successfulAppend = appendStagePanelSection(j, leftPanelExpr as ConfigExpression, "end", leftPanelEnd) && successfulAppend ? true : false;
     if (leftPanelExpr && successfulAppend)
@@ -179,21 +201,21 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
   let rightPanelEnd = attrMap.getAttributeExpression("bottomRight");
   if (rightPanelExpr || rightPanelStart || rightPanelEnd) {
     if (rightPanelExpr) {
-      rightPanelExpr = handleSideStagePanel(j, rightPanelExpr);
+      rightPanelExpr = handleSideStagePanel(j, rightPanelExpr, stagePanelName);
       if (rightPanelExpr)
         handledExpressions.add("rightPanel");
     }
     else {
       rightPanelExpr = createEmptyConfig(j, j.jsxIdentifier("StagePanel"));
     }
-    rightPanelStart = rightPanelStart ? handleSideStagePanelZone(j, rightPanelStart) : undefined;
+    rightPanelStart = rightPanelStart ? handleSideStagePanelZone(j, rightPanelStart, zoneName) : undefined;
     let successfulAppend: boolean = true;
     if (rightPanelExpr && rightPanelStart)
       successfulAppend = appendStagePanelSection(j, rightPanelExpr as ConfigExpression, "start", rightPanelStart) && successfulAppend ? true : false;
     if (rightPanelExpr && successfulAppend)
       handledExpressions.add("centerRight");
     successfulAppend = true;
-    rightPanelEnd = rightPanelEnd ? handleSideStagePanelZone(j, rightPanelEnd) : undefined;
+    rightPanelEnd = rightPanelEnd ? handleSideStagePanelZone(j, rightPanelEnd, zoneName) : undefined;
     if (rightPanelExpr && rightPanelEnd)
       successfulAppend = appendStagePanelSection(j, rightPanelExpr as ConfigExpression, "end", rightPanelEnd) && successfulAppend ? true : false;
     if (rightPanelExpr && successfulAppend)
@@ -208,7 +230,7 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
   let bottomPanelEnd = attrMap.getAttributeExpression("bottomMostPanel");
   if (bottomPanelExpr || bottomPanelEnd) {
     if (bottomPanelExpr) {
-      bottomPanelExpr = handleSideStagePanel(j, bottomPanelExpr);
+      bottomPanelExpr = handleSideStagePanel(j, bottomPanelExpr, stagePanelName);
       if (bottomPanelExpr)
         handledExpressions.add("bottomPanel");
     }
@@ -216,14 +238,14 @@ export function transformFrontstage(j: JSCodeshift, frontstage: ASTPath<JSXEleme
       bottomPanelExpr = createEmptyConfig(j, j.jsxIdentifier("StagePanel"));
     }
     if (bottomPanelExpr && bottomPanelEnd) {
-      bottomPanelEnd = handleSideStagePanel(j, bottomPanelEnd);
+      bottomPanelEnd = handleSideStagePanel(j, bottomPanelEnd, stagePanelName);
       if (bottomPanelEnd && isSpecifiedConfigExpression(bottomPanelEnd, "StagePanel")) {
         const start = getStagePanelSectionProperty(j, bottomPanelEnd, "start")?.value;
         const end = getStagePanelSectionProperty(j, bottomPanelEnd, "end")?.value;
         let successfulAppend: boolean = true;
-        if (start && isExpressionKind(start) && isSpecifiedConfigExpression(bottomPanelExpr, "StagePanel"))
+        if (start && isExpressionKind(j, start) && isSpecifiedConfigExpression(bottomPanelExpr, "StagePanel"))
           successfulAppend = appendStagePanelSection(j, bottomPanelExpr, "end", start) && successfulAppend ? true : false;
-        if (end && isExpressionKind(end) && isSpecifiedConfigExpression(bottomPanelExpr, "StagePanel"))
+        if (end && isExpressionKind(j, end) && isSpecifiedConfigExpression(bottomPanelExpr, "StagePanel"))
           successfulAppend = appendStagePanelSection(j, bottomPanelExpr, "end", end) && successfulAppend ? true : false;
         if ((start || end) && successfulAppend)
           handledExpressions.add("bottomMostPanel");
@@ -390,8 +412,8 @@ export function transformWidget(j: JSCodeshift, widget: ASTPath<JSXElement>): Co
   return { ...widgetObj, configName: uni.name };
 }
 
-export function handleSideStagePanel(j: JSCodeshift, expression: ExpressionKind): ConfigExpression | undefined {
-  if (isSpecifiedJSXElement(expression, "StagePanel")) {
+export function handleSideStagePanel(j: JSCodeshift, expression: ExpressionKind, panelName: string): ConfigExpression | undefined {
+  if (isSpecifiedJSXElement(expression, panelName)) {
     expression = transformFrontstage(j, j(expression).getAST()[0]);
   }
   if (isSpecifiedConfigExpression(expression, "StagePanel")) {
@@ -400,12 +422,143 @@ export function handleSideStagePanel(j: JSCodeshift, expression: ExpressionKind)
   return undefined;
 }
 
-export function handleSideStagePanelZone(j: JSCodeshift, expression: ExpressionKind): ExpressionKind | undefined {
-  if (isSpecifiedJSXElement(expression, "Zone")) {
+export function handleSideStagePanelZone(j: JSCodeshift, expression: ExpressionKind, panelZoneName: string): ExpressionKind | undefined {
+  if (isSpecifiedJSXElement(expression, panelZoneName)) {
     expression = transformZone(j, j(expression).getAST()[0]);
   }
   if (expression.type === "Identifier" && expression.name === "undefined") {
     return undefined;
   }
   return expression;
+}
+
+export function createEmptyConfig(j: JSCodeshift, configName: JSXIdentifier): ConfigExpression {
+  return { ...j.objectExpression([]), configName };
+}
+
+export function handleToolWidget(j: JSCodeshift, expression: ExpressionKind): ExpressionKind {
+  function handleExpression(expr: ExpressionKind): ExpressionKind {
+    let newExpr: ExpressionKind | undefined = undefined;
+    if (!newExpr && expr.type === "ConditionalExpression")
+      newExpr = handleConditionalExpression(j, expr, handleExpression);
+    if (!newExpr && expr.type === "ArrayExpression")
+      newExpr = takeFirstArrayExpressionElement(j, expr);
+    if (!newExpr) {
+      // TODO: log warning
+      return expr;
+    }
+    return newExpr;
+  }
+  return handleExpression(expression);
+}
+
+export function extractSectionsFromPanelZones(j: JSCodeshift, expression: ObjectExpression) {
+  const result: [ExpressionKind | undefined, ExpressionKind | undefined] = [undefined, undefined]
+
+  const start = getObjectProperty(j, expression, "start")?.value;
+  if (start && start.type === "ObjectExpression") {
+    const startWidgets = getObjectProperty(j, start, "widgets")?.value;
+    if (startWidgets && isExpressionKind(j, startWidgets))
+      result[0] = startWidgets;
+  }
+  else if (start && isExpressionKind(j, start)) {
+    result[0] = j.memberExpression(start, j.identifier("widgets"));
+  }
+
+  const middle = getObjectProperty(j, expression, "middle")?.value;
+  if (middle && middle.type === "ObjectExpression") {
+    const middleWidgets = getObjectProperty(j, middle, "widgets")?.value;
+    if (middleWidgets && isExpressionKind(j, middleWidgets)) {
+      if (result[0])
+        result[0] = concatExpressions(j, result[0], middleWidgets);
+      else
+        result[0] = middleWidgets;
+    }
+  }
+  else if (middle && isExpressionKind(j, middle)) {
+    const middleMemberExpr = j.memberExpression(middle, j.identifier("widgets"))
+    if (result[0])
+      result[0] = concatExpressions(j, result[0], middleMemberExpr);
+    else
+      result[0] = middleMemberExpr;
+  }
+
+  const end = getObjectProperty(j, expression, "end")?.value;
+  if (end && end.type === "ObjectExpression") {
+    const endWidgets = getObjectProperty(j, end, "widgets")?.value;
+    if (endWidgets && isExpressionKind(j, endWidgets))
+      result[1] = endWidgets;
+  }
+  else if (end && isExpressionKind(j, end)) {
+    result[1] = j.memberExpression(end, j.identifier("widgets"));
+  }
+
+  return result;
+}
+
+export function appendStagePanelSection(j: JSCodeshift, stagePanel: ConfigExpression, sectionToAppend: "start" | "end", exprToAppend: ExpressionKind): "Success" | undefined {
+  let sections = getObjectProperty(j, stagePanel, "sections");
+  if (!sections) {
+    sections = j.objectProperty(j.identifier("sections"), j.objectExpression([]));
+    stagePanel.properties.push(sections);
+  }
+  if (sections.value.type !== "ObjectExpression") {
+    // TODO: log warning
+    return undefined;
+  }
+
+  let section = getObjectProperty(j, sections.value, sectionToAppend);
+  if (!section) {
+    section = j.objectProperty(j.identifier(sectionToAppend), j.arrayExpression([]));
+    sections.value.properties.push(section);
+  }
+  if (!isExpressionKind(j, section.value)) {
+    // TODO: log warning
+    return undefined;
+  }
+
+  section.value = concatExpressions(j, section.value, exprToAppend);
+  return "Success";
+}
+
+export function getStagePanelSectionProperty(j: JSCodeshift, stagePanel: ConfigExpression, sectionToGet: "start" | "end"): ObjectProperty | Property | undefined {
+  const sections = getObjectProperty(j, stagePanel, "sections");
+  if (!sections)
+    return undefined;
+  if (sections.value.type !== "ObjectExpression") {
+    // TODO: log warning
+    return undefined;
+  }
+
+  const section = getObjectProperty(j, sections.value, sectionToGet);
+  if (!section)
+    return undefined;
+  if (!isExpressionKind(j, section.value)) {
+    // TODO: log warning
+    return undefined;
+  }
+
+  return section;
+}
+
+export function replaceWidgetObjectExpression(j: JSCodeshift, widget: Collection<ObjectExpression>) {
+  useObjectExpression(j);
+  transformAbstractWidget(j, widget as ObjectExpressionCollection)
+    .removeProperty("key", (_path, property) => {
+      const idProp = getObjectProperty(j, _path.node, "id");
+      if (idProp === undefined && property.type === "ObjectProperty") {
+        const newIdProp = j.objectProperty(j.identifier("id"), property.value);
+        _path.node.properties.push(newIdProp);
+      }
+    })
+    .removeProperty("isFreeform")
+    .removeProperty("isToolSettings")
+    .removeProperty("isStatusBar")
+    .removeProperty("fillZone")
+    .removeProperty("syncEventIds")
+    .removeProperty("stateFunc")
+    .renameProperty("iconSpec", "icon")
+    .renameProperty("isFloatingStateSupported", "canFloat")
+    .renameProperty("badgeType", "badge")
+    .renameProperty("element", "content");
 }

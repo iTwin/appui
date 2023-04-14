@@ -67,7 +67,7 @@ jobs:
 
     # Can be run on any branch to do a standard version bump. Which is currently -dev bumps.
     - ${{ if or(eq(parameters.BumpType, 'nightly'), eq(parameters.BumpType, 'releaseCandidate')) }}:
-      - bash: 'node common/scripts/install-run-rush version --bump'
+      - bash: 'node common/scripts/install-run-rush version --version-policy prerelease-monorepo-lockStep --bump'
         displayName: Rush version --bump
 
     # Support two separate bump types on release branches

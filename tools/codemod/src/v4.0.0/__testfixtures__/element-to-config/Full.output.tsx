@@ -3,11 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import {
-  ContentGroup, Frontstage,
-  StagePanel, Widget, Zone, ZoneLocation,
-  ZoneState,
-} from "@itwin/appui-react";
+import { ContentGroup, ZoneLocation, ZoneState } from "@itwin/appui-react";
+import { StagePanel } from "./randomDir";
 import { HorizontalPropertyGridWidgetControl, VerticalPropertyGridWidgetControl } from "../widgets/PropertyGridDemoWidget";
 import { AppUi } from "../AppUi";
 
@@ -15,6 +12,7 @@ function main() {
   const rightStagePanelWidgets = [{
     content: <RightPanel />,
   },];
+  const myPanel = <StagePanel size={200} />;
   const rightStagePanel = {
     resizable: false,
     size: 200,
@@ -41,12 +39,14 @@ function frontstage(rightStagePanel) {
       defaultState: WidgetState.Open,
       icon: "icon-placeholder",
       labelKey: "SampleApp:widgets.HorizontalPropertyGrid",
+      control: HorizontalPropertyGridWidgetControl,
     },
     {
       id: "VerticalPropertyGrid1",
       defaultState: WidgetState.Hidden,
       icon: "icon-placeholder",
       labelKey: "SampleApp:widgets.VerticalPropertyGrid",
+      control: VerticalPropertyGridWidgetControl,
     },
   ];
   const topMostStagePanelWidgets = [{

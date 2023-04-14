@@ -16,6 +16,7 @@ describe("frontstage-to-config", () => {
   describe("panel transformations", () => {
     defineInlineTest(
       `
+      import { Frontstage, StagePanel, Zone, Widget } from "@itwin/appui-react";
       <Frontstage
         centerRight = {
           <Zone
@@ -62,6 +63,7 @@ describe("frontstage-to-config", () => {
 
     defineInlineTest(
       `
+      import { Frontstage, StagePanel, Zone, Widget } from "@itwin/appui-react";
       <Frontstage
         centerRight = {
           <Zone
@@ -100,6 +102,7 @@ describe("frontstage-to-config", () => {
 
     defineInlineTest(
       `
+      import { Frontstage, Zone, Widget } from "@itwin/appui-react";
       <Frontstage
         bottomRight = {
           <Zone
@@ -126,6 +129,7 @@ describe("frontstage-to-config", () => {
 
     defineInlineTest(
       `
+      import { Frontstage, StagePanel, Widget } from "@itwin/appui-react";
       <Frontstage
         rightPanel = {
           <StagePanel
@@ -171,6 +175,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { Frontstage, StagePanel } from "@itwin/appui-react";
       <Frontstage
         rightPanel = {
           <StagePanel
@@ -197,6 +202,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { Frontstage, StagePanel, Widget } from "@itwin/appui-react";
       <Frontstage
         topMostPanel = {
           <StagePanel
@@ -239,6 +245,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { Frontstage, StagePanel, Widget } from "@itwin/appui-react";
       <Frontstage
         topMostPanel = {
           <StagePanel
@@ -267,6 +274,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { StagePanel, Widget } from "@itwin/appui-react";
       <StagePanel
         unknownAttribute = { unknownAttributeExpression }
         panelZones = {{
@@ -297,6 +305,7 @@ describe("frontstage-to-config", () => {
   describe("tool widget transformations", () => {
     defineInlineTest(
       `
+      import { Frontstage, Zone, Widget } from "@itwin/appui-react";
       <Frontstage
         viewNavigationTools = {
           <Zone
@@ -325,6 +334,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { Frontstage, Zone } from "@itwin/appui-react";
       <Frontstage
         contentManipulationTools = {
           <Zone
@@ -343,6 +353,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { Frontstage, Zone, Widget } from "@itwin/appui-react";
       <Frontstage
         viewNavigationTools = {
           <Zone
@@ -362,6 +373,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { Frontstage, Zone } from "@itwin/appui-react";
       <Frontstage
         viewNavigationTools = {
           <Zone
@@ -379,6 +391,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { Frontstage, Zone } from "@itwin/appui-react";
       <Frontstage
       toolSettings = {
           <Zone
@@ -396,6 +409,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { Frontstage, Zone } from "@itwin/appui-react";
       <Frontstage
         viewNavigationTools = {
           <Zone
@@ -416,6 +430,7 @@ describe("frontstage-to-config", () => {
   describe("unhandled attribute transformations", () => {
     defineInlineTest(
       `
+      import { Frontstage } from "@itwin/appui-react";
       <Frontstage
         bottomRight = { this.bottomRight }
         rightPanel = { this.rightPanel }
@@ -431,6 +446,7 @@ describe("frontstage-to-config", () => {
     );
     defineInlineTest(
       `
+      import { Frontstage, StagePanel, Widget } from "@itwin/appui-react";
       <Frontstage
         bottomMostPanel = {
           <StagePanel
@@ -465,6 +481,7 @@ describe("frontstage-to-config", () => {
 
   defineInlineTest(
     `
+    import { Frontstage } from "@itwin/appui-react";
     <Frontstage
       id
       version = {version}
@@ -480,6 +497,7 @@ describe("frontstage-to-config", () => {
   );
   defineInlineTest(
     `
+    import { Frontstage } from "@itwin/appui-react";
     <Frontstage
       contentManipulationTools
     />
@@ -493,6 +511,7 @@ describe("frontstage-to-config", () => {
   );
   defineInlineTest(
     `
+    import { Frontstage } from "@itwin/appui-react";
     <Frontstage
       id = {1}
       {...this.props}

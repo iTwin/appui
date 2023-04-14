@@ -50,4 +50,4 @@
     size: 180,
     ...this.props.bottomPanelProps,
   },
-})
+});
