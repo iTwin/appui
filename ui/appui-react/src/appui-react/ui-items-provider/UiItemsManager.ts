@@ -16,6 +16,7 @@ import { UiFramework } from "../UiFramework";
 import { Widget } from "../widgets/Widget";
 import { ProviderItem } from "./ProviderItem";
 import { UiItemsProvider } from "./UiItemsProvider";
+import { createAbstractUiItemsManagerAdapter } from "./AbstractUiItemsManager";
 
 /** UiItemsProvider register event args.
  * @beta
@@ -59,6 +60,7 @@ interface UiItemProviderEntry {
  */
 export class UiItemsManager {
   private static _registeredUiItemsProviders: Map<string, UiItemProviderEntry> = new Map<string, UiItemProviderEntry>();
+  private static _abstractAdapter = createAbstractUiItemsManagerAdapter();
 
   /** For use in unit testing
    * @internal */
@@ -97,6 +99,9 @@ export class UiItemsManager {
    * @param uiProvider the UI items provider to register.
    */
   public static register(uiProvider: UiItemsProvider, overrides?: UiItemsProviderOverrides): void {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.register(uiProvider, overrides);
+
     const providerId = overrides?.providerId ?? uiProvider.id;
 
     if (UiItemsManager.getUiItemsProvider(providerId)) {
@@ -220,6 +225,9 @@ export class UiItemsManager {
    * @returns An array of widgets.
    */
   public static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<ProviderItem<Widget>> {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.getWidgets(stageId, stageUsage, location, section);
+
     const widgets: ProviderItem<Widget>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
