@@ -87,6 +87,9 @@ export class UiItemsManager {
    * @param providerId id of the UiItemsProvider to get
    */
   public static getUiItemsProvider(providerId: string): UiItemsProvider | undefined {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.getUiItemsProvider(providerId);
+
     return UiItemsManager._registeredUiItemsProviders.get(providerId)?.provider;
   }
 

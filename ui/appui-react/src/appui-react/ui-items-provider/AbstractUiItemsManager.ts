@@ -10,9 +10,10 @@
 
 import type { UiItemsManager, UiItemsProviderOverrides } from "./UiItemsManager";
 import * as abstract from "@itwin/appui-abstract";
+import { assert } from "@itwin/core-bentley";
 import type {
   // @ts-ignore Removed in 4.0
-  UiItemsManager as AbstractUiItemsManager,
+  UiItemsManager as AbstractUiItemsManagerType,
   // @ts-ignore Removed in 4.0
   UiItemsProvider as AbstractUiItemsProvider,
   // @ts-ignore Removed in 4.0
@@ -27,10 +28,9 @@ import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { Widget } from "../widgets/Widget";
 import { ProviderItem } from "./ProviderItem";
 import { UiItemsProvider } from "./UiItemsProvider";
-import { assert } from "@itwin/core-bentley";
 
 // @ts-ignore Removed in 4.0
-const AbstractUiItemsManager: typeof AbstractUiItemsManager | undefined = abstract.UiItemsManager;
+const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined = abstract.UiItemsManager;
 // @ts-ignore Removed in 4.0
 const AbstractStagePanelLocation: typeof AbstractStagePanelLocation | undefined = abstract.StagePanelLocation;
 // @ts-ignore Removed in 4.0
@@ -43,10 +43,25 @@ export function createAbstractUiItemsManagerAdapter() {
   return new AbstractUiItemsManagerAdapter(AbstractUiItemsManager);
 }
 
-type Target = Pick<typeof UiItemsManager, "getWidgets" | "register">;
+type Target = Pick<typeof UiItemsManager, "getWidgets" | "register" | "getUiItemsProvider">;
 
 class AbstractUiItemsManagerAdapter implements Target {
-  constructor(private readonly _adaptee: typeof AbstractUiItemsManager) {
+  constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {
+  }
+
+  public getUiItemsProvider(providerId: string): UiItemsProvider | undefined {
+    const abstractProvider = this._adaptee.getUiItemsProvider(providerId);
+    if (!abstractProvider)
+      return undefined;
+
+    return {
+      id: abstractProvider.id,
+      onUnregister: abstractProvider.onUnregister,
+      // provideBackstageItems: provider.provideBackstageItems,
+      // provideStatusBarItems: provider.provideStatusBarItems,
+      // provideToolbarButtonItems: provider.provideStatusBarItems,
+      provideWidgets: fromAbstractProvideWidgets(abstractProvider.provideWidgets),
+    };
   }
 
   public register(provider: UiItemsProvider, overrides?: UiItemsProviderOverrides | undefined): void {
@@ -156,8 +171,21 @@ function toAbstractProvideWidgets(provideWidgets: UiItemsProvider["provideWidget
   };
 }
 
+function fromAbstractProvideWidgets(provideWidgets: AbstractUiItemsProvider["provideWidgets"]): UiItemsProvider["provideWidgets"] {
+  if (!provideWidgets)
+    return undefined;
+  // @ts-ignore Possibly 'any'
+  return (stageId, stageUsage, location, section) => {
+    const abstractLocation = toAbstractStagePanelLocation(location);
+    const abstractSection = section === undefined ? undefined : toAbstractStagePanelSection(section);
+    const abstractWidgets = provideWidgets(stageId, stageUsage, abstractLocation, abstractSection);
+    const widgets = abstractWidgets.map((abstractWidget) => fromAbstractWidget(abstractWidget));
+    return widgets;
+  };
+}
+
 function fromAbstractStagePanelLocation(location: AbstractStagePanelLocation): StagePanelLocation {
-  assert(!!AbstractStagePanelLocation);
+  assert(AbstractStagePanelLocation !== undefined);
   switch (location) {
     case AbstractStagePanelLocation.Left:
       return StagePanelLocation.Left;
@@ -173,11 +201,33 @@ function fromAbstractStagePanelLocation(location: AbstractStagePanelLocation): S
   return StagePanelLocation.Right;
 }
 
+function toAbstractStagePanelLocation(location: StagePanelLocation): AbstractStagePanelLocation {
+  assert(AbstractStagePanelLocation !== undefined);
+  switch (location) {
+    case StagePanelLocation.Left:
+      return AbstractStagePanelLocation.Left;
+    case StagePanelLocation.Top:
+      return AbstractStagePanelLocation.Top;
+    case StagePanelLocation.Bottom:
+      return AbstractStagePanelLocation.Bottom;
+  }
+  return AbstractStagePanelLocation.Right;
+}
+
 function fromAbstractStagePanelSection(section: AbstractStagePanelSection): StagePanelSection {
-  assert(!!AbstractStagePanelSection);
+  assert(AbstractStagePanelSection !== undefined);
   switch (section) {
     case AbstractStagePanelSection.End:
       return StagePanelSection.End;
   }
   return StagePanelSection.Start;
+}
+
+function toAbstractStagePanelSection(section: StagePanelSection): AbstractStagePanelSection {
+  assert(AbstractStagePanelSection !== undefined);
+  switch (section) {
+    case StagePanelSection.End:
+      return AbstractStagePanelSection.End;
+  }
+  return AbstractStagePanelSection.Start;
 }
