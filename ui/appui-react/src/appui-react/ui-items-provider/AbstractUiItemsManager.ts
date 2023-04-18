@@ -8,8 +8,8 @@
 
 /* eslint-disable deprecation/deprecation */
 
-import type { UiItemsManager, UiItemsProviderOverrides } from "./UiItemsManager";
 import * as abstract from "@itwin/appui-abstract";
+import { IconHelper, IconSpec } from "@itwin/core-react";
 import type {
   // @ts-ignore Removed in 4.0
   UiItemsManager as AbstractUiItemsManagerType,
@@ -24,6 +24,7 @@ import type {
   // @ts-ignore Removed in 4.0
   CommonStatusBarItem as AbstractStatusBarItem,
 } from "@itwin/appui-abstract";
+import type { UiItemsManager, UiItemsProviderOverrides } from "./UiItemsManager";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { Widget } from "../widgets/Widget";
@@ -130,6 +131,20 @@ class AbstractUiItemsManagerAdapter implements Target {
   }
 }
 
+function fromAbstractStatusBarItem(item: AbstractStatusBarItem): StatusBarItem {
+  if (abstract.isAbstractStatusBarActionItem(item)) {
+    return {
+      ...item,
+    };
+  }
+  if (abstract.isAbstractStatusBarLabelItem(item)) {
+    return {
+      ...item,
+    };
+  }
+  return item as unknown as StatusBarItem;
+}
+
 function fromAbstractWidget(widget: AbstractWidget): Widget {
   const allowedPanels = widget.allowedPanelTargets
     // @ts-ignore Possibly 'any'
@@ -143,7 +158,9 @@ function fromAbstractWidget(widget: AbstractWidget): Widget {
       // @ts-ignore Possibly 'any'
       return map[target];
     });
+  const icon = fromAbstractIcon(widget.icon, widget.internalData);
   return {
+    ...widget,
     id: widget.id ?? "",
     content: widget.getWidgetContent(),
     allowedPanels,
@@ -155,27 +172,8 @@ function fromAbstractWidget(widget: AbstractWidget): Widget {
       hideWithUi: widget.hideWithUiWhenFloating,
       isResizable: widget.isFloatingStateWindowResizable,
     },
-    canPopout: widget.canPopout,
-    defaultState: widget.defaultState,
-    icon: widget.icon,
-    label: widget.label,
-    priority: widget.priority,
-    tooltip: widget.tooltip,
+    icon,
   };
-}
-
-function fromAbstractStatusBarItem(item: AbstractStatusBarItem): StatusBarItem {
-  if (abstract.isAbstractStatusBarActionItem(item)) {
-    return {
-      ...item,
-    };
-  }
-  if (abstract.isAbstractStatusBarLabelItem(item)) {
-    return {
-      ...item,
-    };
-  }
-  return item as unknown as StatusBarItem;
 }
 
 function toAbstractWidget(widget: Widget): AbstractWidget {
@@ -191,23 +189,22 @@ function toAbstractWidget(widget: Widget): AbstractWidget {
       // @ts-ignore Possibly 'any'
       return map[location];
     });
+  const internalData = new Map();
+  const icon = IconHelper.getIconData(widget.icon, internalData);
   return {
+    ...widget,
     id: widget.id ?? "",
     getWidgetContent: () => widget.content,
     allowedPanelTargets,
     badgeType: widget.badge,
-    canPopout: widget.canPopout,
     defaultFloatingPosition: typeof widget.canFloat === "object" ? widget.canFloat.defaultPosition : undefined,
     defaultFloatingSize: typeof widget.canFloat === "object" ? widget.canFloat.defaultSize : undefined,
-    defaultState: widget.defaultState,
     floatingContainerId: typeof widget.canFloat === "object" ? widget.canFloat.containerId : undefined,
     hideWithUiWhenFloating: typeof widget.canFloat === "object" ? widget.canFloat.hideWithUi : undefined,
-    icon: widget.icon as any, // TODO:
     isFloatingStateSupported: !!widget.canFloat,
     isFloatingStateWindowResizable: typeof widget.canFloat === "object" ? widget.canFloat.isResizable : undefined,
-    label: widget.label,
-    priority: widget.priority,
-    tooltip: widget.tooltip,
+    icon,
+    internalData,
   };
 }
 
@@ -330,4 +327,15 @@ function toAbstractStagePanelSection(section: StagePanelSection): AbstractStageP
       return AbstractStagePanelSection.End;
   }
   return AbstractStagePanelSection.Start;
+}
+
+function fromAbstractIcon(icon: string | abstract.ConditionalStringValue | undefined, internalData: Map<string, any> | undefined): IconSpec {
+  if (!icon)
+    return undefined;
+  const iconString = abstract.ConditionalStringValue.getValue(icon);
+  if (!iconString)
+    return undefined;
+  if (iconString === IconHelper.reactIconKey && internalData)
+    return internalData.get(IconHelper.reactIconKey) as React.ReactNode;
+  return iconString;
 }

@@ -5,9 +5,11 @@
 /* eslint-disable deprecation/deprecation */
 
 import * as React from "react";
+import * as sinon from "sinon";
 import { expect } from "chai";
 import { StagePanelLocation, StageUsage, StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 import * as abstract from "@itwin/appui-abstract";
+import { IconHelper } from "@itwin/core-react";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager = abstract.UiItemsManager;
@@ -204,33 +206,114 @@ describe.only("UiItemsManager", () => {
       UiItemsManager.register({
         id: "provider1",
         provideWidgets: () => [
-          { id: "w1" },
+          {
+            id: "w1",
+            allowedPanels: [StagePanelLocation.Left],
+            badge: abstract.BadgeType.New,
+            canFloat: {
+              isResizable: true,
+            },
+            icon: <div className="w1-icon" />,
+            content: <div className="w1-content" />,
+          },
         ],
       });
       AbstractUiItemsManager.register({
         id: "provider2",
-        provideWidgets: () => [
-          {
-            id: "w2",
-            getWidgetContent: () => null,
-          },
-        ],
+        provideWidgets: () => {
+          const internalData = new Map();
+          const icon = IconHelper.getIconData(<div className="w2-icon" />, internalData);
+          return [
+            {
+              id: "w2",
+              allowedPanelTargets: ["right"],
+              badgeType: abstract.BadgeType.TechnicalPreview,
+              isFloatingStateWindowResizable: true,
+              canFloat: true,
+              icon,
+              internalData,
+              getWidgetContent: () => <div className="w2-content" />,
+            },
+          ]
+        },
       });
-
       {
         const widgets = UiItemsManager.getWidgets("stage1", StageUsage.General, StagePanelLocation.Left);
-        const widgetIds = widgets.map((w) => w.id);
-        widgetIds.should.eql(["w1", "w2"]);
+        sinon.assert.match(widgets[0], {
+          id: "w1",
+          badge: abstract.BadgeType.New,
+          allowedPanels: [StagePanelLocation.Left],
+          content: {
+            props: {
+              className: "w1-content",
+            },
+          },
+          icon: {
+            props: {
+              className: "w1-icon",
+            },
+          },
+        });
+        sinon.assert.match(widgets[1], {
+          id: "w2",
+          badge: abstract.BadgeType.TechnicalPreview,
+          allowedPanels: [StagePanelLocation.Right],
+          content: {
+            props: {
+              className: "w2-content",
+            },
+          },
+          icon: {
+            props: {
+              className: "w2-icon",
+            },
+          },
+        });
       }
       {
         const widgets = AbstractUiItemsManager.getWidgets("stage1", StageUsage.General, StagePanelLocation.Left);
-        const widgetIds = widgets
-          // @ts-ignore Possibly 'any'
-          .map((w) => {
-            return w.id || "";
-          });
-        widgetIds.should.eql(["w1", "w2"]);
+        sinon.assert.match(widgets[0], {
+          id: "w1",
+          badgeType: abstract.BadgeType.New,
+          allowedPanelTargets: ["left"],
+        });
+        sinon.assert.match(widgets[0].getWidgetContent(), {
+          props: {
+            className: "w1-content",
+          },
+        });
+        sinon.assert.match(widgets[0].getWidgetContent(), {
+          props: {
+            className: "w1-content",
+          },
+        });
+        sinon.assert.match(IconHelper.getIconReactNode(widgets[0].icon, widgets[0].internalData), expectIconSpec({
+          className: "w1-icon",
+        }));
+        sinon.assert.match(widgets[1], {
+          id: "w2",
+          badgeType: abstract.BadgeType.TechnicalPreview,
+          allowedPanelTargets: ["right"],
+        });
+        sinon.assert.match(widgets[1].getWidgetContent(), {
+          props: {
+            className: "w2-content",
+          },
+        });
+        sinon.assert.match(IconHelper.getIconReactNode(widgets[1].icon, widgets[1].internalData), expectIconSpec({
+          className: "w2-icon",
+        }));
       }
     });
   });
 });
+
+function expectIconSpec(props: Object) {
+  return {
+    props: {
+      iconSpec: {
+        props,
+      },
+    },
+  };
+}
