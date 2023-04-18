@@ -150,7 +150,10 @@ export class UiItemsManager {
    * @param toolbarOrientation orientation of the toolbar
    * @returns an array of error messages. The array will be empty if the load is successful, otherwise it is a list of one or more problems.
    */
-  public static getToolbarButtonItems(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>> {
+  public static getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>> {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.getToolbarButtonItems(stageId, stageUsage, usage, orientation);
+
     const buttonItems: ProviderItem<ToolbarItem>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry: UiItemProviderEntry) => {
@@ -158,7 +161,7 @@ export class UiItemsManager {
       const providerId = entry.overrides?.providerId ?? uiProvider.id;
       // istanbul ignore else
       if (uiProvider.provideToolbarItems && this.allowItemsFromProvider(entry, stageId, stageUsage)) {
-        uiProvider.provideToolbarItems(stageId, stageUsage, toolbarUsage, toolbarOrientation)
+        uiProvider.provideToolbarItems(stageId, stageUsage, usage, orientation)
           .forEach((spec: ToolbarItem) => {
             // ignore duplicate ids
             if (-1 === buttonItems.findIndex((existingItem) => spec.id === existingItem.id))

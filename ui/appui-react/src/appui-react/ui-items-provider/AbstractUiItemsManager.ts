@@ -10,7 +10,6 @@
 
 import type { UiItemsManager, UiItemsProviderOverrides } from "./UiItemsManager";
 import * as abstract from "@itwin/appui-abstract";
-import { assert } from "@itwin/core-bentley";
 import type {
   // @ts-ignore Removed in 4.0
   UiItemsManager as AbstractUiItemsManagerType,
@@ -28,13 +27,15 @@ import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { Widget } from "../widgets/Widget";
 import { ProviderItem } from "./ProviderItem";
 import { UiItemsProvider } from "./UiItemsProvider";
+import { ToolbarUsage, ToolbarOrientation, ToolbarItem } from "../toolbar/ToolbarItem";
+import { toUIAToolbarItem } from "../toolbar/toUIAToolbarItem";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined = abstract.UiItemsManager;
 // @ts-ignore Removed in 4.0
-const AbstractStagePanelLocation: typeof AbstractStagePanelLocation | undefined = abstract.StagePanelLocation;
+const AbstractStagePanelLocation = abstract.StagePanelLocation;
 // @ts-ignore Removed in 4.0
-const AbstractStagePanelSection: typeof AbstractStagePanelSection | undefined = abstract.StagePanelSection;
+const AbstractStagePanelSection = abstract.StagePanelSection;
 
 /** @internal */
 export function createAbstractUiItemsManagerAdapter() {
@@ -43,10 +44,22 @@ export function createAbstractUiItemsManagerAdapter() {
   return new AbstractUiItemsManagerAdapter(AbstractUiItemsManager);
 }
 
-type Target = Pick<typeof UiItemsManager, "getWidgets" | "register" | "getUiItemsProvider">;
+type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "register" | "getUiItemsProvider">;
 
 class AbstractUiItemsManagerAdapter implements Target {
   constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {
+  }
+
+  public register(provider: UiItemsProvider, overrides?: UiItemsProviderOverrides | undefined): void {
+    const abstractProvider: AbstractUiItemsProvider = {
+      id: provider.id,
+      onUnregister: provider.onUnregister,
+      // provideBackstageItems: provider.provideBackstageItems,
+      // provideStatusBarItems: provider.provideStatusBarItems,
+      provideToolbarButtonItems: toAbstractProvideToolbarItems(provider.provideToolbarItems),
+      provideWidgets: toAbstractProvideWidgets(provider.provideWidgets),
+    };
+    return this._adaptee.register(abstractProvider, overrides);
   }
 
   public getUiItemsProvider(providerId: string): UiItemsProvider | undefined {
@@ -59,21 +72,20 @@ class AbstractUiItemsManagerAdapter implements Target {
       onUnregister: abstractProvider.onUnregister,
       // provideBackstageItems: provider.provideBackstageItems,
       // provideStatusBarItems: provider.provideStatusBarItems,
-      // provideToolbarButtonItems: provider.provideStatusBarItems,
+      provideToolbarItems: fromAbstractProvideToolbarItems(abstractProvider.provideToolbarButtonItems),
       provideWidgets: fromAbstractProvideWidgets(abstractProvider.provideWidgets),
     };
   }
 
-  public register(provider: UiItemsProvider, overrides?: UiItemsProviderOverrides | undefined): void {
-    const abstractProvider: AbstractUiItemsProvider = {
-      id: provider.id,
-      onUnregister: provider.onUnregister,
-      // provideBackstageItems: provider.provideBackstageItems,
-      // provideStatusBarItems: provider.provideStatusBarItems,
-      // provideToolbarButtonItems: provider.provideStatusBarItems,
-      provideWidgets: toAbstractProvideWidgets(provider.provideWidgets),
-    };
-    return this._adaptee.register(abstractProvider, overrides);
+  public getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): readonly ProviderItem<ToolbarItem>[] {
+    const abstractWidgets = this._adaptee.getToolbarButtonItems(stageId, stageUsage, usage, orientation);
+    const widgets = abstractWidgets.map((abstractWidget) => {
+      return {
+        ...abstractWidget,
+        providerId: abstractWidget.providerId || "",
+      };
+    });
+    return widgets;
   }
 
   public getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): readonly ProviderItem<Widget>[] {
@@ -158,6 +170,27 @@ function toAbstractWidget(widget: Widget): AbstractWidget {
   };
 }
 
+function toAbstractProvideToolbarItems(provideItems: UiItemsProvider["provideToolbarItems"]): AbstractUiItemsProvider["provideToolbarButtonItems"] {
+  if (!provideItems)
+    return undefined;
+  // @ts-ignore Possibly 'any'
+  return (stageId, stageUsage, usage, orientation, _appData) => {
+    const items = provideItems(stageId, stageUsage, usage, orientation);
+    const abstractItems = items.map((item) => toUIAToolbarItem(item));
+    return abstractItems;
+  };
+}
+
+function fromAbstractProvideToolbarItems(provideItems: AbstractUiItemsProvider["provideToolbarButtonItems"]): UiItemsProvider["provideToolbarItems"] {
+  if (!provideItems)
+    return undefined;
+  // @ts-ignore Possibly 'any'
+  return (stageId, stageUsage, usage, orientation) => {
+    const abstractItems = provideItems(stageId, stageUsage, usage, orientation);
+    return abstractItems;
+  };
+}
+
 function toAbstractProvideWidgets(provideWidgets: UiItemsProvider["provideWidgets"]): AbstractUiItemsProvider["provideWidgets"] {
   if (!provideWidgets)
     return undefined;
@@ -185,7 +218,6 @@ function fromAbstractProvideWidgets(provideWidgets: AbstractUiItemsProvider["pro
 }
 
 function fromAbstractStagePanelLocation(location: AbstractStagePanelLocation): StagePanelLocation {
-  assert(AbstractStagePanelLocation !== undefined);
   switch (location) {
     case AbstractStagePanelLocation.Left:
       return StagePanelLocation.Left;
@@ -202,7 +234,6 @@ function fromAbstractStagePanelLocation(location: AbstractStagePanelLocation): S
 }
 
 function toAbstractStagePanelLocation(location: StagePanelLocation): AbstractStagePanelLocation {
-  assert(AbstractStagePanelLocation !== undefined);
   switch (location) {
     case StagePanelLocation.Left:
       return AbstractStagePanelLocation.Left;
@@ -215,7 +246,6 @@ function toAbstractStagePanelLocation(location: StagePanelLocation): AbstractSta
 }
 
 function fromAbstractStagePanelSection(section: AbstractStagePanelSection): StagePanelSection {
-  assert(AbstractStagePanelSection !== undefined);
   switch (section) {
     case AbstractStagePanelSection.End:
       return StagePanelSection.End;
@@ -224,7 +254,6 @@ function fromAbstractStagePanelSection(section: AbstractStagePanelSection): Stag
 }
 
 function toAbstractStagePanelSection(section: StagePanelSection): AbstractStagePanelSection {
-  assert(AbstractStagePanelSection !== undefined);
   switch (section) {
     case StagePanelSection.End:
       return AbstractStagePanelSection.End;

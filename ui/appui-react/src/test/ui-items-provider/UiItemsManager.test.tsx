@@ -5,7 +5,7 @@
 /* eslint-disable deprecation/deprecation */
 
 import { expect } from "chai";
-import { StagePanelLocation, StageUsage, UiItemsManager } from "../../appui-react";
+import { StagePanelLocation, StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 import * as abstract from "@itwin/appui-abstract";
 
 // @ts-ignore Removed in 4.0
@@ -27,6 +27,19 @@ describe.only("UiItemsManager", () => {
 
     const provider = UiItemsManager.getUiItemsProvider("provider1");
     expect(provider?.id).to.eq("provider1");
+  });
+
+  it("should provide toolbar items", () => {
+    UiItemsManager.register({
+      id: "provider1",
+      provideToolbarItems: () => [
+        { id: "t1", itemPriority: 0 },
+      ],
+    });
+
+    const items = UiItemsManager.getToolbarButtonItems("stage1", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
+    const itemIds = items.map((item) => item.id);
+    itemIds.should.eql(["t1"]);
   });
 
   it("should provide widgets", () => {
@@ -66,6 +79,33 @@ describe.only("UiItemsManager", () => {
         const provider2 = AbstractUiItemsManager.getUiItemsProvider("provider2");
         expect(provider1?.id).to.eq("provider1");
         expect(provider2?.id).to.eq("provider2");
+      }
+    });
+
+    it("should provide toolbar items", () => {
+      UiItemsManager.register({
+        id: "provider1",
+        provideToolbarItems: () => [
+          { id: "t1", itemPriority: 0 },
+        ],
+      });
+      AbstractUiItemsManager.register({
+        id: "provider2",
+        provideToolbarButtonItems: () => [
+          { id: "t2", itemPriority: 0, isCustom: true },
+        ],
+      });
+
+      {
+        const items = UiItemsManager.getToolbarButtonItems("stage1", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
+        const itemIds = items.map((item) => item.id);
+        itemIds.should.eql(["t1", "t2"]);
+      }
+
+      {
+        const items = AbstractUiItemsManager.getToolbarButtonItems("stage1", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
+        const itemIds = items.map((item) => item.id);
+        itemIds.should.eql(["t1", "t2"]);
       }
     });
 
