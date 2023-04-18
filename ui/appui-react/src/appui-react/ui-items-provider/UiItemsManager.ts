@@ -203,6 +203,9 @@ export class UiItemsManager {
    * @returns An array of BackstageItem that will be used to create controls for the backstage menu.
    */
   public static getBackstageItems(): ReadonlyArray<ProviderItem<BackstageItem>> {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.getBackstageItems();
+
     const backstageItems: ProviderItem<BackstageItem>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry: UiItemProviderEntry) => {

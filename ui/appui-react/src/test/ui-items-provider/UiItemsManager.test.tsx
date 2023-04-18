@@ -29,6 +29,19 @@ describe.only("UiItemsManager", () => {
     expect(provider?.id).to.eq("provider1");
   });
 
+  it("should provide backstage items", () => {
+    UiItemsManager.register({
+      id: "provider1",
+      provideBackstageItems: () => [
+        { id: "b1", groupPriority: 0, itemPriority: 0, label: "B1", execute: () => { } },
+      ],
+    });
+
+    const items = UiItemsManager.getBackstageItems();
+    const itemIds = items.map((item) => item.id);
+    itemIds.should.eql(["b1"]);
+  });
+
   it("should provide toolbar items", () => {
     UiItemsManager.register({
       id: "provider1",
@@ -79,6 +92,32 @@ describe.only("UiItemsManager", () => {
         const provider2 = AbstractUiItemsManager.getUiItemsProvider("provider2");
         expect(provider1?.id).to.eq("provider1");
         expect(provider2?.id).to.eq("provider2");
+      }
+    });
+
+    it("should provide backstage items", () => {
+      UiItemsManager.register({
+        id: "provider1",
+        provideBackstageItems: () => [
+          { id: "b1", groupPriority: 0, itemPriority: 0, label: "B1", execute: () => { } },
+        ],
+      });
+      AbstractUiItemsManager.register({
+        id: "provider2",
+        provideBackstageItems: () => [
+          { id: "b1", groupPriority: 0, itemPriority: 0, label: "B1", execute: () => { } },
+        ],
+      });
+
+      {
+        const items = UiItemsManager.getBackstageItems();
+        const itemIds = items.map((item) => item.id);
+        itemIds.should.eql(["b1"]);
+      }
+      {
+        const items = AbstractUiItemsManager.getBackstageItems();
+        const itemIds = items.map((item) => item.id);
+        itemIds.should.eql(["b1"]);
       }
     });
 

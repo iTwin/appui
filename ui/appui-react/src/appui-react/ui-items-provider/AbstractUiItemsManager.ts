@@ -29,6 +29,7 @@ import { ProviderItem } from "./ProviderItem";
 import { UiItemsProvider } from "./UiItemsProvider";
 import { ToolbarUsage, ToolbarOrientation, ToolbarItem } from "../toolbar/ToolbarItem";
 import { toUIAToolbarItem } from "../toolbar/toUIAToolbarItem";
+import { BackstageItem } from "../backstage/BackstageItem";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined = abstract.UiItemsManager;
@@ -44,7 +45,7 @@ export function createAbstractUiItemsManagerAdapter() {
   return new AbstractUiItemsManagerAdapter(AbstractUiItemsManager);
 }
 
-type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "register" | "getUiItemsProvider">;
+type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "getBackstageItems" | "register" | "getUiItemsProvider">;
 
 class AbstractUiItemsManagerAdapter implements Target {
   constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {
@@ -54,12 +55,23 @@ class AbstractUiItemsManagerAdapter implements Target {
     const abstractProvider: AbstractUiItemsProvider = {
       id: provider.id,
       onUnregister: provider.onUnregister,
-      // provideBackstageItems: provider.provideBackstageItems,
+      provideBackstageItems: toAbstractBackstageItems(provider.provideBackstageItems),
       // provideStatusBarItems: provider.provideStatusBarItems,
       provideToolbarButtonItems: toAbstractProvideToolbarItems(provider.provideToolbarItems),
       provideWidgets: toAbstractProvideWidgets(provider.provideWidgets),
     };
     return this._adaptee.register(abstractProvider, overrides);
+  }
+
+  public getBackstageItems(): readonly ProviderItem<BackstageItem>[] {
+    const abstractItems = this._adaptee.getBackstageItems();
+    const items = abstractItems.map((item) => {
+      return {
+        ...item,
+        providerId: item.providerId ? item.providerId : "",
+      };
+    });
+    return items;
   }
 
   public getUiItemsProvider(providerId: string): UiItemsProvider | undefined {
@@ -70,7 +82,7 @@ class AbstractUiItemsManagerAdapter implements Target {
     return {
       id: abstractProvider.id,
       onUnregister: abstractProvider.onUnregister,
-      // provideBackstageItems: provider.provideBackstageItems,
+      provideBackstageItems: abstractProvider.provideBackstageItems,
       // provideStatusBarItems: provider.provideStatusBarItems,
       provideToolbarItems: fromAbstractProvideToolbarItems(abstractProvider.provideToolbarButtonItems),
       provideWidgets: fromAbstractProvideWidgets(abstractProvider.provideWidgets),
@@ -167,6 +179,16 @@ function toAbstractWidget(widget: Widget): AbstractWidget {
     label: widget.label,
     priority: widget.priority,
     tooltip: widget.tooltip,
+  };
+}
+
+function toAbstractBackstageItems(provideItems: UiItemsProvider["provideBackstageItems"]): AbstractUiItemsProvider["provideBackstageItems"] {
+  if (!provideItems)
+    return undefined;
+  // @ts-ignore Possibly 'any'
+  return () => {
+    const items = provideItems();
+    return items;
   };
 }
 
