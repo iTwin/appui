@@ -21,6 +21,8 @@ import type {
   StagePanelLocation as AbstractStagePanelLocation,
   // @ts-ignore Removed in 4.0
   StagePanelSection as AbstractStagePanelSection,
+  // @ts-ignore Removed in 4.0
+  CommonStatusBarItem as AbstractStatusBarItem,
 } from "@itwin/appui-abstract";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
@@ -30,6 +32,7 @@ import { UiItemsProvider } from "./UiItemsProvider";
 import { ToolbarUsage, ToolbarOrientation, ToolbarItem } from "../toolbar/ToolbarItem";
 import { toUIAToolbarItem } from "../toolbar/toUIAToolbarItem";
 import { BackstageItem } from "../backstage/BackstageItem";
+import { StatusBarItem } from "../statusbar/StatusBarItem";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined = abstract.UiItemsManager;
@@ -45,7 +48,7 @@ export function createAbstractUiItemsManagerAdapter() {
   return new AbstractUiItemsManagerAdapter(AbstractUiItemsManager);
 }
 
-type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "getBackstageItems" | "register" | "getUiItemsProvider">;
+type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "getStatusBarItems" | "getBackstageItems" | "register" | "getUiItemsProvider">;
 
 class AbstractUiItemsManagerAdapter implements Target {
   constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {
@@ -55,12 +58,27 @@ class AbstractUiItemsManagerAdapter implements Target {
     const abstractProvider: AbstractUiItemsProvider = {
       id: provider.id,
       onUnregister: provider.onUnregister,
-      provideBackstageItems: toAbstractBackstageItems(provider.provideBackstageItems),
-      // provideStatusBarItems: provider.provideStatusBarItems,
+      provideBackstageItems: toAbstractProvideBackstageItems(provider.provideBackstageItems),
+      provideStatusBarItems: toAbstractProvideStatusBarItems(provider.provideStatusBarItems),
       provideToolbarButtonItems: toAbstractProvideToolbarItems(provider.provideToolbarItems),
       provideWidgets: toAbstractProvideWidgets(provider.provideWidgets),
     };
     return this._adaptee.register(abstractProvider, overrides);
+  }
+
+  public getUiItemsProvider(providerId: string): UiItemsProvider | undefined {
+    const abstractProvider = this._adaptee.getUiItemsProvider(providerId);
+    if (!abstractProvider)
+      return undefined;
+
+    return {
+      id: abstractProvider.id,
+      onUnregister: abstractProvider.onUnregister,
+      provideBackstageItems: abstractProvider.provideBackstageItems,
+      provideStatusBarItems: fromAbstractProvideStatusBarItems(abstractProvider.provideStatusBarItems),
+      provideToolbarItems: fromAbstractProvideToolbarItems(abstractProvider.provideToolbarButtonItems),
+      provideWidgets: fromAbstractProvideWidgets(abstractProvider.provideWidgets),
+    };
   }
 
   public getBackstageItems(): readonly ProviderItem<BackstageItem>[] {
@@ -74,19 +92,16 @@ class AbstractUiItemsManagerAdapter implements Target {
     return items;
   }
 
-  public getUiItemsProvider(providerId: string): UiItemsProvider | undefined {
-    const abstractProvider = this._adaptee.getUiItemsProvider(providerId);
-    if (!abstractProvider)
-      return undefined;
-
-    return {
-      id: abstractProvider.id,
-      onUnregister: abstractProvider.onUnregister,
-      provideBackstageItems: abstractProvider.provideBackstageItems,
-      // provideStatusBarItems: provider.provideStatusBarItems,
-      provideToolbarItems: fromAbstractProvideToolbarItems(abstractProvider.provideToolbarButtonItems),
-      provideWidgets: fromAbstractProvideWidgets(abstractProvider.provideWidgets),
-    };
+  public getStatusBarItems(stageId: string, stageUsage: string): readonly ProviderItem<StatusBarItem>[] {
+    const abstractItems = this._adaptee.getStatusBarItems(stageId, stageUsage);
+    const items = abstractItems.map((abstractItem) => {
+      const item = fromAbstractStatusBarItem(abstractItem);
+      return {
+        ...item,
+        providerId: abstractItem.providerId ? abstractItem.providerId : "",
+      };
+    });
+    return items;
   }
 
   public getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): readonly ProviderItem<ToolbarItem>[] {
@@ -149,6 +164,20 @@ function fromAbstractWidget(widget: AbstractWidget): Widget {
   };
 }
 
+function fromAbstractStatusBarItem(item: AbstractStatusBarItem): StatusBarItem {
+  if (abstract.isAbstractStatusBarActionItem(item)) {
+    return {
+      ...item,
+    };
+  }
+  if (abstract.isAbstractStatusBarLabelItem(item)) {
+    return {
+      ...item,
+    };
+  }
+  return item as unknown as StatusBarItem;
+}
+
 function toAbstractWidget(widget: Widget): AbstractWidget {
   const allowedPanelTargets = widget.allowedPanels
     // @ts-ignore Possibly 'any'
@@ -182,12 +211,22 @@ function toAbstractWidget(widget: Widget): AbstractWidget {
   };
 }
 
-function toAbstractBackstageItems(provideItems: UiItemsProvider["provideBackstageItems"]): AbstractUiItemsProvider["provideBackstageItems"] {
+function toAbstractProvideBackstageItems(provideItems: UiItemsProvider["provideBackstageItems"]): AbstractUiItemsProvider["provideBackstageItems"] {
   if (!provideItems)
     return undefined;
   // @ts-ignore Possibly 'any'
   return () => {
     const items = provideItems();
+    return items;
+  };
+}
+
+function toAbstractProvideStatusBarItems(provideItems: UiItemsProvider["provideStatusBarItems"]): AbstractUiItemsProvider["provideStatusBarItems"] {
+  if (!provideItems)
+    return undefined;
+  // @ts-ignore Possibly 'any'
+  return (stageId, stageUsage) => {
+    const items = provideItems(stageId, stageUsage);
     return items;
   };
 }
@@ -199,6 +238,16 @@ function toAbstractProvideToolbarItems(provideItems: UiItemsProvider["provideToo
   return (stageId, stageUsage, usage, orientation, _appData) => {
     const items = provideItems(stageId, stageUsage, usage, orientation);
     const abstractItems = items.map((item) => toUIAToolbarItem(item));
+    return abstractItems;
+  };
+}
+
+function fromAbstractProvideStatusBarItems(provideItems: AbstractUiItemsProvider["provideStatusBarItems"]): UiItemsProvider["provideStatusBarItems"] {
+  if (!provideItems)
+    return undefined;
+  // @ts-ignore Possibly 'any'
+  return (stageId, stageUsage) => {
+    const abstractItems = provideItems(stageId, stageUsage);
     return abstractItems;
   };
 }

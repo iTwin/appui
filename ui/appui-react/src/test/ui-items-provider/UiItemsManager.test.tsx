@@ -4,8 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 /* eslint-disable deprecation/deprecation */
 
+import * as React from "react";
 import { expect } from "chai";
-import { StagePanelLocation, StageUsage, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
+import { StagePanelLocation, StageUsage, StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 import * as abstract from "@itwin/appui-abstract";
 
 // @ts-ignore Removed in 4.0
@@ -27,6 +28,19 @@ describe.only("UiItemsManager", () => {
 
     const provider = UiItemsManager.getUiItemsProvider("provider1");
     expect(provider?.id).to.eq("provider1");
+  });
+
+  it("should provide status bar items", () => {
+    UiItemsManager.register({
+      id: "provider1",
+      provideStatusBarItems: () => [
+        { id: "s1", content: <div></div>, itemPriority: 0, section: StatusBarSection.Center },
+      ],
+    });
+
+    const items = UiItemsManager.getStatusBarItems("stage1", StageUsage.General);
+    const itemIds = items.map((item) => item.id);
+    itemIds.should.eql(["s1"]);
   });
 
   it("should provide backstage items", () => {
@@ -95,6 +109,36 @@ describe.only("UiItemsManager", () => {
       }
     });
 
+    it("should provide status bar items", () => {
+      UiItemsManager.register({
+        id: "provider1",
+        provideStatusBarItems: () => [
+          { id: "s1", content: <div></div>, itemPriority: 0, section: StatusBarSection.Center },
+        ],
+      });
+      AbstractUiItemsManager.register({
+        id: "provider2",
+        provideStatusBarItems: () => [
+          { id: "s2", itemPriority: 0, section: StatusBarSection.Center, isCustom: true },
+        ],
+      });
+
+      {
+        const items = UiItemsManager.getStatusBarItems("stage1", StageUsage.General);
+        const itemIds = items.map((item) => item.id);
+        itemIds.should.eql(["s1", "s2"]);
+      }
+      {
+        const items = AbstractUiItemsManager.getStatusBarItems("stage1", StageUsage.General);
+        const itemIds = items
+          // @ts-ignore Possibly 'any'
+          .map((item) =>
+            item.id,
+          );
+        itemIds.should.eql(["s1", "s2"]);
+      }
+    });
+
     it("should provide backstage items", () => {
       UiItemsManager.register({
         id: "provider1",
@@ -105,19 +149,23 @@ describe.only("UiItemsManager", () => {
       AbstractUiItemsManager.register({
         id: "provider2",
         provideBackstageItems: () => [
-          { id: "b1", groupPriority: 0, itemPriority: 0, label: "B1", execute: () => { } },
+          { id: "b2", groupPriority: 0, itemPriority: 0, label: "B1", execute: () => { } },
         ],
       });
 
       {
         const items = UiItemsManager.getBackstageItems();
         const itemIds = items.map((item) => item.id);
-        itemIds.should.eql(["b1"]);
+        itemIds.should.eql(["b1", "b2"]);
       }
       {
         const items = AbstractUiItemsManager.getBackstageItems();
-        const itemIds = items.map((item) => item.id);
-        itemIds.should.eql(["b1"]);
+        const itemIds = items
+          // @ts-ignore Possibly 'any'
+          .map((item) =>
+            item.id,
+          );
+        itemIds.should.eql(["b1", "b2"]);
       }
     });
 
@@ -143,7 +191,11 @@ describe.only("UiItemsManager", () => {
 
       {
         const items = AbstractUiItemsManager.getToolbarButtonItems("stage1", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
-        const itemIds = items.map((item) => item.id);
+        const itemIds = items
+          // @ts-ignore Possibly 'any'
+          .map((item) =>
+            item.id,
+          );
         itemIds.should.eql(["t1", "t2"]);
       }
     });

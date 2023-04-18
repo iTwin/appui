@@ -179,6 +179,9 @@ export class UiItemsManager {
    * @returns An array of CommonStatusBarItem that will be used to create controls for the status bar.
    */
   public static getStatusBarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<StatusBarItem>> {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.getStatusBarItems(stageId, stageUsage);
+
     const statusBarItems: ProviderItem<StatusBarItem>[] = [];
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry: UiItemProviderEntry) => {
