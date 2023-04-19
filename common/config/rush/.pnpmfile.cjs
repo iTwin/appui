@@ -1,51 +1,51 @@
 const forcedDep = {};
 // Until iTwin.js 4.0 is actually released and we have proper versions range in packages.
 [
-  [[
-    "@itwin/appui-abstract",
-    "@itwin/build-tools",
-    "@itwin/core-backend",
-    "@itwin/core-bentley",
-    "@itwin/core-common",
-    "@itwin/core-electron",
-    "@itwin/core-frontend",
-    "@itwin/core-geometry",
-    "@itwin/core-i18n",
-    "@itwin/core-markup",
-    "@itwin/core-mobile",
-    "@itwin/core-orbitgt",
-    "@itwin/core-quantity",
-    "@itwin/core-telemetry",
-    "@itwin/core-webpack-tools",
-    "@itwin/ecschema-metadata",
-    "@itwin/ecschema-rpcinterface-common",
-    "@itwin/ecschema-rpcinterface-impl",
-    "@itwin/editor-frontend",
-    "@itwin/editor-backend",
-    "@itwin/editor-common",
-    "@itwin/express-server",
-    "@itwin/frontend-devtools",
-    "@itwin/hypermodeling-frontend",
-    "@itwin/map-layers",
-    "@itwin/map-layers-auth",
-    "@itwin/presentation-common",
-    "@itwin/webgl-compatibility",
-  ], "4.0.0-dev.37"],
+  [
+    [
+      "@itwin/appui-abstract",
+      "@itwin/core-backend",
+      "@itwin/core-bentley",
+      "@itwin/core-common",
+      "@itwin/core-electron",
+      "@itwin/core-frontend",
+      "@itwin/core-geometry",
+      "@itwin/core-i18n",
+      "@itwin/core-markup",
+      "@itwin/core-mobile",
+      "@itwin/core-orbitgt",
+      "@itwin/core-quantity",
+      "@itwin/core-telemetry",
+      "@itwin/core-webpack-tools",
+      "@itwin/ecschema-metadata",
+      "@itwin/ecschema-rpcinterface-common",
+      "@itwin/ecschema-rpcinterface-impl",
+      "@itwin/editor-frontend",
+      "@itwin/editor-backend",
+      "@itwin/editor-common",
+      "@itwin/express-server",
+      "@itwin/frontend-devtools",
+      "@itwin/hypermodeling-frontend",
+      "@itwin/map-layers",
+      "@itwin/map-layers-auth",
+      "@itwin/presentation-common",
+      "@itwin/webgl-compatibility",
+    ],
+    "4.0.0-dev.37",
+  ],
+  [["@itwin/build-tools"], "4.0.0-dev.77"],
   [["electron"], "^23.0.0"],
   // Build an object with keys with the above
   // { "@itwin/appui-abstract": "4.0.0-dev.37",
   //      ...
   //   "electron": "^23.0.0"}
-].forEach(versions => {
+].forEach((versions) => {
   const v = versions[1];
-  versions[0].forEach(p => forcedDep[p] = v)
+  versions[0].forEach((p) => (forcedDep[p] = v));
 });
 
 function readPackage(pkg) {
-  if (
-    (pkg.name == "typedoc") &&
-    pkg.dependencies
-  ) {
+  if (pkg.name == "typedoc" && pkg.dependencies) {
     pkg.dependencies["typescript"] = "~4.9.0";
   }
 
@@ -58,7 +58,7 @@ function readPackage(pkg) {
     pkg.dependencies["@itwin/appui-layout-react"] = "workspace:*";
     pkg.dependencies["@itwin/appui-react"] = "workspace:*";
     pkg.dependencies["@itwin/components-react"] = "workspace:*";
-    pkg.dependencies["@itwin/core-react"] = "workspace:*"
+    pkg.dependencies["@itwin/core-react"] = "workspace:*";
     pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
   }
 
