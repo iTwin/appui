@@ -9,21 +9,21 @@
 /* eslint-disable deprecation/deprecation */
 
 import * as abstract from "@itwin/appui-abstract";
-import { BeUiEvent, assert } from "@itwin/core-bentley";
+import { assert, BeUiEvent } from "@itwin/core-bentley";
 import { IconHelper, IconSpec } from "@itwin/core-react";
 import type {
+  // @ts-ignore Removed in 4.0
+  BackstageItem as AbstractBackstageItem,
+  // @ts-ignore Removed in 4.0
+  CommonStatusBarItem as AbstractStatusBarItem,
+  // @ts-ignore Removed in 4.0
+  CommonToolbarItem as AbstractToolbarItem,
   // @ts-ignore Removed in 4.0
   UiItemsManager as AbstractUiItemsManagerType,
   // @ts-ignore Removed in 4.0
   UiItemsProvider as AbstractUiItemsProvider,
   // @ts-ignore Removed in 4.0
   AbstractWidgetProps as AbstractWidget,
-  // @ts-ignore Removed in 4.0
-  CommonStatusBarItem as AbstractStatusBarItem,
-  // @ts-ignore Removed in 4.0
-  BackstageItem as AbstractBackstageItem,
-  // @ts-ignore Removed in 4.0
-  CommonToolbarItem as AbstractToolbarItem,
 } from "@itwin/appui-abstract";
 import type { UiItemsManager, UiItemsProviderOverrides, UiItemsProviderRegisteredEventArgs } from "./UiItemsManager";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
@@ -31,9 +31,9 @@ import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { Widget } from "../widgets/Widget";
 import { ProviderItem } from "./ProviderItem";
 import { UiItemsProvider } from "./UiItemsProvider";
-import { ToolbarUsage, ToolbarOrientation, ToolbarItem, isToolbarActionItem, isToolbarGroupItem } from "../toolbar/ToolbarItem";
+import { isToolbarActionItem, isToolbarGroupItem, ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { BackstageItem } from "../backstage/BackstageItem";
-import { StatusBarItem, isStatusBarCustomItem } from "../statusbar/StatusBarItem";
+import { isStatusBarCustomItem, StatusBarItem } from "../statusbar/StatusBarItem";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined = abstract.UiItemsManager;
@@ -42,11 +42,11 @@ const isAbstractStatusBarCustomItem = abstract.isAbstractStatusBarCustomItem;
 // @ts-ignore Removed in 4.0
 type AbstractStagePanelLocation = abstract.StagePanelLocation;
 // @ts-ignore Removed in 4.0
-const AbstractStagePanelLocation = abstract.StagePanelLocation;
+const AbstractStagePanelLocation = abstract.StagePanelLocation; // eslint-disable-line @typescript-eslint/no-redeclare
 // @ts-ignore Removed in 4.0
 type AbstractStagePanelSection = abstract.StagePanelSection;
 // @ts-ignore Removed in 4.0
-const AbstractStagePanelSection = abstract.StagePanelSection;
+const AbstractStagePanelSection = abstract.StagePanelSection; // eslint-disable-line @typescript-eslint/no-redeclare
 
 const AbstractToolbarItemUtilities = abstract.ToolbarItemUtilities;
 
@@ -59,8 +59,7 @@ export function createAbstractUiItemsManagerAdapter() {
   return new AbstractUiItemsManagerAdapter(AbstractUiItemsManager);
 }
 
-type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "getStatusBarItems" | "getBackstageItems" | "register"
-  | "getUiItemsProvider" | "registeredProviderIds" | "hasRegisteredProviders" | "unregister" | "onUiProviderRegisteredEvent">;
+type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "getStatusBarItems" | "getBackstageItems" | "register" | "getUiItemsProvider" | "registeredProviderIds" | "hasRegisteredProviders" | "unregister" | "onUiProviderRegisteredEvent">;
 
 class AbstractUiItemsManagerAdapter implements Target {
   constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {
@@ -70,7 +69,7 @@ class AbstractUiItemsManagerAdapter implements Target {
     if (!("emit" in this._adaptee.onUiProviderRegisteredEvent)) {
       (this._adaptee.onUiProviderRegisteredEvent as any).emit = (args: UiItemsProviderRegisteredEventArgs) => {
         this._adaptee.onUiProviderRegisteredEvent.raiseEvent(args);
-      }
+      };
     }
     return this._adaptee.onUiProviderRegisteredEvent as BeUiEvent<UiItemsProviderRegisteredEventArgs>;
   }

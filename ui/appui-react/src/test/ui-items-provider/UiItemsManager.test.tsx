@@ -15,7 +15,7 @@ import { BackstageItemUtilities, StagePanelLocation, StageUsage, StatusBarItemUt
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager = abstract.UiItemsManager;
 
-describe.only("UiItemsManager", () => {
+describe("UiItemsManager", () => {
   afterEach(() => {
     UiItemsManager.clearAllProviders();
 
@@ -184,7 +184,7 @@ describe.only("UiItemsManager", () => {
           const icon = IconHelper.getIconData(<div className="s4-icon" />, internalData);
           return [
             { id: "s3", itemPriority: 0, section: StatusBarSection.Right, isCustom: true, reactNode: <div className="s3-content" /> },
-            { id: "s4", itemPriority: 0, section: StatusBarSection.Right, execute: execute4, icon, internalData, badgeType: abstract.BadgeType.TechnicalPreview, },
+            { id: "s4", itemPriority: 0, section: StatusBarSection.Right, execute: execute4, icon, internalData, badgeType: abstract.BadgeType.TechnicalPreview },
           ];
         },
       });
@@ -244,7 +244,7 @@ describe.only("UiItemsManager", () => {
             },
           },
         });
-        let s2 = items[1];
+        const s2 = items[1];
         assert(!!abstract.isAbstractStatusBarActionItem(s2));
         sinon.assert.match(s2, {
           id: "s2",
@@ -263,7 +263,7 @@ describe.only("UiItemsManager", () => {
             },
           },
         });
-        let s4 = items[3];
+        const s4 = items[3];
         assert(!!abstract.isAbstractStatusBarActionItem(s4));
         sinon.assert.match(s4, {
           id: "s4",
@@ -301,7 +301,7 @@ describe.only("UiItemsManager", () => {
               internalData,
               badgeType: abstract.BadgeType.TechnicalPreview,
             }),
-          ]
+          ];
         },
       });
 
@@ -380,7 +380,7 @@ describe.only("UiItemsManager", () => {
           return [
             { id: "t2", itemPriority: 0, isCustom: true, badgeType: abstract.BadgeType.TechnicalPreview },
             { id: "t3", itemPriority: 0, execute: execute3, label: "t3-label", icon, internalData, parentToolGroupId: "p2" },
-          ]
+          ];
         },
       });
 
@@ -474,7 +474,7 @@ describe.only("UiItemsManager", () => {
               internalData,
               getWidgetContent: () => <div className="w2-content" />,
             },
-          ]
+          ];
         },
       });
       {

@@ -161,8 +161,8 @@ export class UiItemsManager {
    * an action or specify a registered ToolId into toolbar.
    * @param stageId a string identifier the active stage.
    * @param stageUsage the StageUsage of the active stage.
-   * @param toolbarUsage usage of the toolbar
-   * @param toolbarOrientation orientation of the toolbar
+   * @param usage usage of the toolbar
+   * @param orientation orientation of the toolbar
    * @returns an array of error messages. The array will be empty if the load is successful, otherwise it is a list of one or more problems.
    */
   public static getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>> {
