@@ -59,10 +59,14 @@ export function createAbstractUiItemsManagerAdapter() {
   return new AbstractUiItemsManagerAdapter(AbstractUiItemsManager);
 }
 
-type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "getStatusBarItems" | "getBackstageItems" | "register" | "getUiItemsProvider" | "registeredProviderIds" | "hasRegisteredProviders" | "unregister" | "onUiProviderRegisteredEvent">;
+type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "getStatusBarItems" | "getBackstageItems" | "register" | "getUiItemsProvider" | "registeredProviderIds" | "hasRegisteredProviders" | "unregister" | "onUiProviderRegisteredEvent" | "clearAllProviders">;
 
 class AbstractUiItemsManagerAdapter implements Target {
   constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {
+  }
+
+  public clearAllProviders(): void {
+    return this._adaptee.clearAllProviders();
   }
 
   public get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs> {

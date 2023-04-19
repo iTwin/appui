@@ -18,10 +18,6 @@ const AbstractUiItemsManager = abstract.UiItemsManager;
 describe("UiItemsManager", () => {
   afterEach(() => {
     UiItemsManager.clearAllProviders();
-
-    if (!AbstractUiItemsManager)
-      return;
-    AbstractUiItemsManager.clearAllProviders();
   });
 
   it("should register a provider", () => {

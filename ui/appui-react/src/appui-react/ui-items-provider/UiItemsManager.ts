@@ -66,6 +66,9 @@ export class UiItemsManager {
   /** For use in unit testing
    * @internal */
   public static clearAllProviders() {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.clearAllProviders();
+
     UiItemsManager._registeredUiItemsProviders.clear();
   }
 
