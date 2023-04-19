@@ -232,8 +232,6 @@ beta;PropertyFilterRule
 beta;PropertyFilterRuleGroup
 beta;PropertyFilterRuleGroupOperator
 beta;PropertyFilterRuleOperator
-public;PropertyGrid 
-deprecated;PropertyGrid 
 internal;PropertyGridCommons
 public;PropertyGridContentHighlightProps 
 public;PropertyGridContextMenuArgs
@@ -245,8 +243,6 @@ internal;PropertyGridInternalContext
 public;PropertyGridModelChangeEvent 
 public;PropertyGridModelChangeListener = () => void
 public;PropertyGridModelSource 
-public;PropertyGridProps 
-deprecated;PropertyGridProps 
 internal;PropertyLabelRenderer 
 public;PropertyLabelRendererProps
 public;PropertyList 
@@ -288,8 +284,6 @@ public;StructPropertyValueRenderer
 public;Subscribable
 public;Subscription 
 public;TableArrayValueRenderer 
-public;TableDataChangeEvent 
-deprecated;TableDataChangeEvent 
 public;TableNonPrimitiveValueRenderer 
 public;TableNonPrimitiveValueRendererProps 
 public;TableRowStyleProvider:
