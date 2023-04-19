@@ -31,7 +31,8 @@ import { UiItemsProvider } from "./UiItemsProvider";
 import { ToolbarUsage, ToolbarOrientation, ToolbarItem } from "../toolbar/ToolbarItem";
 import { toUIAToolbarItem } from "../toolbar/toUIAToolbarItem";
 import { BackstageItem } from "../backstage/BackstageItem";
-import { StatusBarItem } from "../statusbar/StatusBarItem";
+import { StatusBarItem, isStatusBarCustomItem } from "../statusbar/StatusBarItem";
+import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined = abstract.UiItemsManager;
@@ -137,18 +138,54 @@ class AbstractUiItemsManagerAdapter implements Target {
   }
 }
 
-function fromAbstractStatusBarItem(item: AbstractStatusBarItem): StatusBarItem {
-  if (abstract.isAbstractStatusBarActionItem(item)) {
+function fromAbstractStatusBarItem(abstractItem: AbstractStatusBarItem): StatusBarItem {
+  let item = getOriginalData<StatusBarItem>(abstractItem);
+  if (item)
+    return item;
+
+  if (abstract.isAbstractStatusBarCustomItem(abstractItem)) {
+    const content: React.ReactNode | undefined = (abstractItem as any).reactNode;
     return {
-      ...item,
+      ...abstractItem,
+      badge: abstractItem.badgeType,
+      content,
+    };
+  } else {
+    const icon = fromAbstractIcon(abstractItem.icon, abstractItem.internalData);
+    item = {
+      ...abstractItem,
+      badge: abstractItem.badgeType,
+      icon,
     };
   }
-  if (abstract.isAbstractStatusBarLabelItem(item)) {
-    return {
+  setOriginalData(item, abstractItem);
+  return item;
+}
+
+function toAbstractStatusBarItem(item: StatusBarItem): AbstractStatusBarItem {
+  let abstractItem = getOriginalData<AbstractStatusBarItem>(item);
+  if (abstractItem)
+    return abstractItem;
+
+  if (isStatusBarCustomItem(item)) {
+    abstractItem = {
       ...item,
+      badgeType: item.badge,
+      isCustom: true,
+      reactNode: item.content,
+    } as AbstractStatusBarItem;
+  } else {
+    const internalData = new Map();
+    const icon = IconHelper.getIconData(item.icon, internalData);
+    abstractItem = {
+      ...item,
+      badgeType: item.badge,
+      icon,
+      internalData,
     };
   }
-  return item as unknown as StatusBarItem;
+  setOriginalData(abstractItem, item);
+  return abstractItem;
 }
 
 function fromAbstractWidget(abstractWidget: AbstractWidget): Widget {
@@ -274,7 +311,8 @@ function toAbstractProvideStatusBarItems(provideItems: UiItemsProvider["provideS
   // @ts-ignore Possibly 'any'
   return (stageId, stageUsage) => {
     const items = provideItems(stageId, stageUsage);
-    return items;
+    const abstractItems = items.map((item) => toAbstractStatusBarItem(item));
+    return abstractItems;
   };
 }
 
@@ -289,26 +327,6 @@ function toAbstractProvideToolbarItems(provideItems: UiItemsProvider["provideToo
   };
 }
 
-function fromAbstractProvideStatusBarItems(provideItems: AbstractUiItemsProvider["provideStatusBarItems"]): UiItemsProvider["provideStatusBarItems"] {
-  if (!provideItems)
-    return undefined;
-  // @ts-ignore Possibly 'any'
-  return (stageId, stageUsage) => {
-    const abstractItems = provideItems(stageId, stageUsage);
-    return abstractItems;
-  };
-}
-
-function fromAbstractProvideToolbarItems(provideItems: AbstractUiItemsProvider["provideToolbarButtonItems"]): UiItemsProvider["provideToolbarItems"] {
-  if (!provideItems)
-    return undefined;
-  // @ts-ignore Possibly 'any'
-  return (stageId, stageUsage, usage, orientation) => {
-    const abstractItems = provideItems(stageId, stageUsage, usage, orientation);
-    return abstractItems;
-  };
-}
-
 function toAbstractProvideWidgets(provideWidgets: UiItemsProvider["provideWidgets"]): AbstractUiItemsProvider["provideWidgets"] {
   if (!provideWidgets)
     return undefined;
@@ -319,6 +337,27 @@ function toAbstractProvideWidgets(provideWidgets: UiItemsProvider["provideWidget
     const widgets = provideWidgets(stageId, stageUsage, location, section);
     const abstractWidgets = widgets.map((widget) => toAbstractWidget(widget));
     return abstractWidgets;
+  };
+}
+
+function fromAbstractProvideStatusBarItems(provideItems: AbstractUiItemsProvider["provideStatusBarItems"]): UiItemsProvider["provideStatusBarItems"] {
+  if (!provideItems)
+    return undefined;
+  // @ts-ignore Possibly 'any'
+  return (stageId, stageUsage) => {
+    const abstractItems = provideItems(stageId, stageUsage);
+    const items = abstractItems.map((abstractItem) => fromAbstractStatusBarItem(abstractItem));
+    return items;
+  };
+}
+
+function fromAbstractProvideToolbarItems(provideItems: AbstractUiItemsProvider["provideToolbarButtonItems"]): UiItemsProvider["provideToolbarItems"] {
+  if (!provideItems)
+    return undefined;
+  // @ts-ignore Possibly 'any'
+  return (stageId, stageUsage, usage, orientation) => {
+    const abstractItems = provideItems(stageId, stageUsage, usage, orientation);
+    return abstractItems;
   };
 }
 

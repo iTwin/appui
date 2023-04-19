@@ -7,9 +7,10 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { expect } from "chai";
-import { BackstageItemUtilities, StagePanelLocation, StageUsage, StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 import * as abstract from "@itwin/appui-abstract";
+import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
+import { BackstageItemUtilities, StagePanelLocation, StageUsage, StatusBarItemUtilities, StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager = abstract.UiItemsManager;
@@ -36,13 +37,16 @@ describe.only("UiItemsManager", () => {
     UiItemsManager.register({
       id: "provider1",
       provideStatusBarItems: () => [
-        { id: "s1", content: <div></div>, itemPriority: 0, section: StatusBarSection.Center },
+        StatusBarItemUtilities.createActionItem("s1", StatusBarSection.Center, 0, "", "", () => { }),
       ],
     });
 
     const items = UiItemsManager.getStatusBarItems("stage1", StageUsage.General);
-    const itemIds = items.map((item) => item.id);
-    itemIds.should.eql(["s1"]);
+    sinon.assert.match(items, [
+      sinon.match({
+        id: "s1",
+      }),
+    ]);
   });
 
   it("should provide backstage items", () => {
@@ -122,34 +126,116 @@ describe.only("UiItemsManager", () => {
     });
 
     it("should provide status bar items", () => {
+      const execute2 = sinon.stub();
+      const execute4 = sinon.stub();
       UiItemsManager.register({
         id: "provider1",
         provideStatusBarItems: () => [
-          { id: "s1", content: <div></div>, itemPriority: 0, section: StatusBarSection.Center },
+          StatusBarItemUtilities.createCustomItem("s1", StatusBarSection.Left, 0, <div className="s1-content" />, {
+            badge: abstract.BadgeType.New,
+          }),
+          StatusBarItemUtilities.createActionItem("s2", StatusBarSection.Center, 0, "", "s2-tooltip", execute2, {
+            icon: <div className="s2-icon" />,
+          }),
         ],
       });
       AbstractUiItemsManager.register({
         id: "provider2",
-        provideStatusBarItems: () => [
-          { id: "s2", itemPriority: 0, section: StatusBarSection.Center, isCustom: true },
-        ],
+        provideStatusBarItems: () => {
+          const internalData = new Map();
+          const icon = IconHelper.getIconData(<div className="s4-icon" />, internalData);
+          return [
+            { id: "s3", itemPriority: 0, section: StatusBarSection.Right, isCustom: true, reactNode: <div className="s3-content" /> },
+            { id: "s4", itemPriority: 0, section: StatusBarSection.Right, execute: execute4, icon, internalData, badgeType: abstract.BadgeType.TechnicalPreview, },
+          ];
+        },
       });
 
       {
         const items = UiItemsManager.getStatusBarItems("stage1", StageUsage.General);
-        const itemIds = items.map((item) => item.id);
-        itemIds.should.eql(["s1", "s2"]);
+        sinon.assert.match(items[0], {
+          id: "s1",
+          section: StatusBarSection.Left,
+          badge: abstract.BadgeType.New,
+          content: {
+            props: {
+              className: "s1-content",
+            },
+          },
+        });
+        sinon.assert.match(items[1], {
+          id: "s2",
+          section: StatusBarSection.Center,
+          execute: execute2,
+          icon: {
+            props: {
+              className: "s2-icon",
+            },
+          },
+        });
+        sinon.assert.match(items[2], {
+          id: "s3",
+          section: StatusBarSection.Right,
+          content: {
+            props: {
+              className: "s3-content",
+            },
+          },
+        });
+        sinon.assert.match(items[3], {
+          id: "s4",
+          section: StatusBarSection.Right,
+          badge: abstract.BadgeType.TechnicalPreview,
+          execute: execute4,
+          icon: {
+            props: {
+              className: "s4-icon",
+            },
+          },
+        });
       }
       {
         const items = AbstractUiItemsManager.getStatusBarItems("stage1", StageUsage.General);
-        sinon.assert.match(items, [
-          sinon.match({
-            id: "s1",
-          }),
-          sinon.match({
-            id: "s2",
-          }),
-        ]);
+        sinon.assert.match(items[0], {
+          id: "s1",
+          section: StatusBarSection.Left,
+          badgeType: abstract.BadgeType.New,
+          reactNode: {
+            props: {
+              className: "s1-content",
+            },
+          },
+        });
+        let s2 = items[1];
+        assert(!!abstract.isAbstractStatusBarActionItem(s2));
+        sinon.assert.match(s2, {
+          id: "s2",
+          section: StatusBarSection.Center,
+          execute: execute2,
+        });
+        sinon.assert.match(IconHelper.getIconReactNode(s2.icon, s2.internalData), expectIconSpec({
+          className: "s2-icon",
+        }));
+        sinon.assert.match(items[2], {
+          id: "s3",
+          section: StatusBarSection.Right,
+          reactNode: {
+            props: {
+              className: "s3-content",
+            },
+          },
+        });
+        let s4 = items[3];
+        assert(!!abstract.isAbstractStatusBarActionItem(s4));
+        sinon.assert.match(s4, {
+          id: "s4",
+          section: StatusBarSection.Right,
+          badgeType: abstract.BadgeType.TechnicalPreview,
+          execute: execute4,
+        });
+        sinon.assert.match(IconHelper.getIconReactNode(s4.icon, s4.internalData), expectIconSpec({
+          className: "s4-icon",
+        }));
       }
     });
 
