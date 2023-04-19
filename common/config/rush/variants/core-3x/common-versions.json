@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/common-versions.schema.json",
   "preferredVersions": {
     "@itwin/appui-abstract": "^3.7.0",
-    "@itwin/build-tools": "^3.7.0",
+    "@itwin/build-tools": "4.0.0-dev.78",
     "@itwin/core-backend": "^3.7.0",
     "@itwin/core-bentley": "^3.7.0",
     "@itwin/core-common": "^3.7.0",
