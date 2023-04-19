@@ -10,7 +10,7 @@ import { expect } from "chai";
 import * as abstract from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import { IconHelper } from "@itwin/core-react";
-import { BackstageItemUtilities, StagePanelLocation, StageUsage, StatusBarItemUtilities, StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
+import { BackstageItemUtilities, StagePanelLocation, StageUsage, StatusBarItemUtilities, StatusBarSection, ToolbarItemUtilities, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager = abstract.UiItemsManager;
@@ -78,8 +78,11 @@ describe.only("UiItemsManager", () => {
     });
 
     const items = UiItemsManager.getToolbarButtonItems("stage1", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
-    const itemIds = items.map((item) => item.id);
-    itemIds.should.eql(["t1"]);
+    sinon.assert.match(items, [
+      sinon.match({
+        id: "t1",
+      }),
+    ]);
   });
 
   it("should provide widgets", () => {
@@ -323,35 +326,84 @@ describe.only("UiItemsManager", () => {
     });
 
     it("should provide toolbar items", () => {
+      const execute1 = sinon.stub();
+      const execute3 = sinon.stub();
       UiItemsManager.register({
         id: "provider1",
         provideToolbarItems: () => [
-          { id: "t1", itemPriority: 0 },
+          ToolbarItemUtilities.createActionItem("t1", 0, <div className="t1-icon" />, "t1-label", execute1, {
+            badge: abstract.BadgeType.New,
+            parentGroupItemId: "p1",
+          }),
         ],
       });
       AbstractUiItemsManager.register({
         id: "provider2",
-        provideToolbarButtonItems: () => [
-          { id: "t2", itemPriority: 0, isCustom: true },
-        ],
+        provideToolbarButtonItems: () => {
+          const internalData = new Map();
+          const icon = IconHelper.getIconData(<div className="t3-icon" />, internalData);
+          return [
+            { id: "t2", itemPriority: 0, isCustom: true, badgeType: abstract.BadgeType.TechnicalPreview },
+            { id: "t3", itemPriority: 0, execute: execute3, label: "t3-label", icon, internalData, parentToolGroupId: "p2" },
+          ]
+        },
       });
 
       {
         const items = UiItemsManager.getToolbarButtonItems("stage1", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
-        const itemIds = items.map((item) => item.id);
-        itemIds.should.eql(["t1", "t2"]);
+        sinon.assert.match(items[0], {
+          id: "t1",
+          badge: abstract.BadgeType.New,
+          label: "t1-label",
+          execute: execute1,
+          parentGroupItemId: "p1",
+          icon: {
+            props: {
+              className: "t1-icon",
+            },
+          },
+        });
+        sinon.assert.match(items[1], {
+          id: "t2",
+          badge: abstract.BadgeType.TechnicalPreview,
+        });
+        sinon.assert.match(items[2], {
+          id: "t3",
+          execute: execute3,
+          parentGroupItemId: "p2",
+          label: "t3-label",
+          icon: {
+            props: {
+              className: "t3-icon",
+            },
+          },
+        });
       }
-
       {
         const items = AbstractUiItemsManager.getToolbarButtonItems("stage1", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
-        sinon.assert.match(items, [
-          sinon.match({
-            id: "t1",
-          }),
-          sinon.match({
-            id: "t2",
-          }),
-        ]);
+        sinon.assert.match(items[0], {
+          id: "t1",
+          badgeType: abstract.BadgeType.New,
+          label: "t1-label",
+          execute: execute1,
+          parentToolGroupId: "p1",
+        });
+        sinon.assert.match(IconHelper.getIconReactNode(items[0].icon, items[0].internalData), expectIconSpec({
+          className: "t1-icon",
+        }));
+        sinon.assert.match(items[1], {
+          id: "t2",
+          badgeType: abstract.BadgeType.TechnicalPreview,
+        });
+        sinon.assert.match(items[2], {
+          id: "t3",
+          execute: execute3,
+          parentToolGroupId: "p2",
+          label: "t3-label",
+        });
+        sinon.assert.match(IconHelper.getIconReactNode(items[2].icon, items[2].internalData), expectIconSpec({
+          className: "t3-icon",
+        }));
       }
     });
 
