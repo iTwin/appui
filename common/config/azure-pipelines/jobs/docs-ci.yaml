@@ -15,7 +15,7 @@ resources:
       type: github
       endpoint: iModelJs
       name: iTwin/itwinjs-core
-      ref: refs/heads/master
+      ref: refs/heads/bdp/docs/bemetalsmith-5.0
 
 stages:
   - stage: Generate_Docs
