@@ -144,7 +144,9 @@ class AbstractUiItemsManagerAdapter implements Target {
   }
 
   public getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): readonly ProviderItem<Widget>[] {
-    const abstractWidgets = this._adaptee.getWidgets(stageId, stageUsage, location, section);
+    const abstractLocation = toAbstractStagePanelLocation(location);
+    const abstractSection = section === undefined ? undefined : toAbstractStagePanelSection(section);
+    const abstractWidgets = this._adaptee.getWidgets(stageId, stageUsage, abstractLocation, abstractSection);
     const widgets = abstractWidgets
       // @ts-ignore Possibly 'any'
       .map((abstractWidget) => {
@@ -238,7 +240,6 @@ class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
     const items = abstractItems.map((abstractItem) => fromAbstractStatusBarItem(abstractItem));
     return items;
   }
-
 
   public provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) {
     if (!this._adaptee.provideWidgets)
