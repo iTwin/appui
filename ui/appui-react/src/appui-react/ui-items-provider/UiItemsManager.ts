@@ -60,6 +60,7 @@ interface UiItemProviderEntry {
  */
 export class UiItemsManager {
   private static _registeredUiItemsProviders: Map<string, UiItemProviderEntry> = new Map<string, UiItemProviderEntry>();
+  private static _onUiProviderRegisteredEvent = new BeUiEvent<UiItemsProviderRegisteredEventArgs>();
   private static _abstractAdapter = createAbstractUiItemsManagerAdapter();
 
   /** For use in unit testing
@@ -69,16 +70,27 @@ export class UiItemsManager {
   }
 
   /** Event raised any time a UiProvider is registered or unregistered. */
-  public static readonly onUiProviderRegisteredEvent = new BeUiEvent<UiItemsProviderRegisteredEventArgs>();
+  public static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs> {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.onUiProviderRegisteredEvent;
+
+    return this._onUiProviderRegisteredEvent;
+  }
 
   /** Return number of registered UiProvider. */
-  public static get registeredProviderIds() {
+  public static get registeredProviderIds(): string[] {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.registeredProviderIds;
+
     const ids = [...UiItemsManager._registeredUiItemsProviders.keys()];
     return ids;
   }
 
   /** Return true if there is any registered UiProvider. */
   public static get hasRegisteredProviders(): boolean {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.hasRegisteredProviders;
+
     return this._registeredUiItemsProviders.size > 0;
   }
 
@@ -119,6 +131,9 @@ export class UiItemsManager {
 
   /** Remove a specific UiItemsProvider from the list of available providers. */
   public static unregister(providerId: string): void {
+    if (this._abstractAdapter)
+      return this._abstractAdapter.unregister(providerId);
+
     const provider = UiItemsManager.getUiItemsProvider(providerId);
     if (!provider)
       return;

@@ -128,6 +128,41 @@ describe.only("UiItemsManager", () => {
       }
     });
 
+    it("should un-register a provider", () => {
+      UiItemsManager.register({
+        id: "provider1",
+      });
+      AbstractUiItemsManager.register({
+        id: "provider2",
+      });
+
+      UiItemsManager.registeredProviderIds.should.eql(["provider1", "provider2"]);
+      AbstractUiItemsManager.registeredProviderIds.should.eql(["provider1", "provider2"]);
+
+      UiItemsManager.unregister("provider2");
+      AbstractUiItemsManager.unregister("provider1");
+
+      UiItemsManager.registeredProviderIds.should.eql([]);
+      AbstractUiItemsManager.registeredProviderIds.should.eql([]);
+    });
+
+    it("should emit events", () => {
+      const spy = sinon.spy();
+      const abstractSpy = sinon.spy();
+      UiItemsManager.onUiProviderRegisteredEvent.addListener(spy);
+      AbstractUiItemsManager.onUiProviderRegisteredEvent.addListener(abstractSpy);
+
+      UiItemsManager.register({
+        id: "provider1",
+      });
+      AbstractUiItemsManager.register({
+        id: "provider2",
+      });
+
+      sinon.assert.calledTwice(spy);
+      sinon.assert.calledTwice(abstractSpy);
+    });
+
     it("should provide status bar items", () => {
       const execute2 = sinon.stub();
       const execute4 = sinon.stub();

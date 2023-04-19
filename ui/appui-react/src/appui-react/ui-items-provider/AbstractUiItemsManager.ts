@@ -9,7 +9,7 @@
 /* eslint-disable deprecation/deprecation */
 
 import * as abstract from "@itwin/appui-abstract";
-import { assert } from "@itwin/core-bentley";
+import { BeUiEvent, assert } from "@itwin/core-bentley";
 import { IconHelper, IconSpec } from "@itwin/core-react";
 import type {
   // @ts-ignore Removed in 4.0
@@ -25,7 +25,7 @@ import type {
   // @ts-ignore Removed in 4.0
   CommonToolbarItem as AbstractToolbarItem,
 } from "@itwin/appui-abstract";
-import type { UiItemsManager, UiItemsProviderOverrides } from "./UiItemsManager";
+import type { UiItemsManager, UiItemsProviderOverrides, UiItemsProviderRegisteredEventArgs } from "./UiItemsManager";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
 import { Widget } from "../widgets/Widget";
@@ -59,10 +59,32 @@ export function createAbstractUiItemsManagerAdapter() {
   return new AbstractUiItemsManagerAdapter(AbstractUiItemsManager);
 }
 
-type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "getStatusBarItems" | "getBackstageItems" | "register" | "getUiItemsProvider">;
+type Target = Pick<typeof UiItemsManager, "getWidgets" | "getToolbarButtonItems" | "getStatusBarItems" | "getBackstageItems" | "register"
+  | "getUiItemsProvider" | "registeredProviderIds" | "hasRegisteredProviders" | "unregister" | "onUiProviderRegisteredEvent">;
 
 class AbstractUiItemsManagerAdapter implements Target {
   constructor(private readonly _adaptee: typeof AbstractUiItemsManagerType) {
+  }
+
+  public get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs> {
+    if (!("emit" in this._adaptee.onUiProviderRegisteredEvent)) {
+      (this._adaptee.onUiProviderRegisteredEvent as any).emit = (args: UiItemsProviderRegisteredEventArgs) => {
+        this._adaptee.onUiProviderRegisteredEvent.raiseEvent(args);
+      }
+    }
+    return this._adaptee.onUiProviderRegisteredEvent as BeUiEvent<UiItemsProviderRegisteredEventArgs>;
+  }
+
+  public unregister(providerId: string): void {
+    return this._adaptee.unregister(providerId);
+  }
+
+  public get hasRegisteredProviders(): boolean {
+    return this._adaptee.hasRegisteredProviders;
+  }
+
+  public get registeredProviderIds(): string[] {
+    return this._adaptee.registeredProviderIds;
   }
 
   public register(provider: UiItemsProvider, overrides?: UiItemsProviderOverrides | undefined): void {
