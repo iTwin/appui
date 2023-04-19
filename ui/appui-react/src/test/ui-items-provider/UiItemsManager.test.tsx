@@ -7,7 +7,7 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { expect } from "chai";
-import { StagePanelLocation, StageUsage, StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
+import { BackstageItemUtilities, StagePanelLocation, StageUsage, StatusBarSection, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 import * as abstract from "@itwin/appui-abstract";
 import { IconHelper } from "@itwin/core-react";
 
@@ -49,13 +49,20 @@ describe.only("UiItemsManager", () => {
     UiItemsManager.register({
       id: "provider1",
       provideBackstageItems: () => [
-        { id: "b1", groupPriority: 0, itemPriority: 0, label: "B1", execute: () => { } },
+        BackstageItemUtilities.createActionItem("b1", 0, 0, () => { }, "b1-label"),
+        BackstageItemUtilities.createStageLauncher("b2", 0, 0, "b2-label"),
       ],
     });
 
     const items = UiItemsManager.getBackstageItems();
-    const itemIds = items.map((item) => item.id);
-    itemIds.should.eql(["b1"]);
+    sinon.assert.match(items, [
+      sinon.match({
+        id: "b1",
+      }),
+      sinon.match({
+        id: "b2",
+      }),
+    ]);
   });
 
   it("should provide toolbar items", () => {
@@ -80,8 +87,11 @@ describe.only("UiItemsManager", () => {
     });
 
     const widgets = UiItemsManager.getWidgets("stage1", StageUsage.General, StagePanelLocation.Left);
-    const widgetIds = widgets.map((w) => w.id);
-    widgetIds.should.eql(["w1"]);
+    sinon.assert.match(widgets, [
+      sinon.match({
+        id: "w1",
+      }),
+    ]);
   });
 
   // Validate use-case where appui-react@4.0 is used with appui-abstract@3.7
@@ -132,42 +142,97 @@ describe.only("UiItemsManager", () => {
       }
       {
         const items = AbstractUiItemsManager.getStatusBarItems("stage1", StageUsage.General);
-        const itemIds = items
-          // @ts-ignore Possibly 'any'
-          .map((item) =>
-            item.id,
-          );
-        itemIds.should.eql(["s1", "s2"]);
+        sinon.assert.match(items, [
+          sinon.match({
+            id: "s1",
+          }),
+          sinon.match({
+            id: "s2",
+          }),
+        ]);
       }
     });
 
     it("should provide backstage items", () => {
+      const execute = sinon.stub();
       UiItemsManager.register({
         id: "provider1",
         provideBackstageItems: () => [
-          { id: "b1", groupPriority: 0, itemPriority: 0, label: "B1", execute: () => { } },
+          BackstageItemUtilities.createActionItem("b1", 0, 0, execute, "b1-label", undefined, undefined, {
+            icon: <div className="b1-icon" />,
+            badge: abstract.BadgeType.New,
+          }),
+          BackstageItemUtilities.createStageLauncher("b2", 0, 0, "b2-label"),
         ],
       });
       AbstractUiItemsManager.register({
         id: "provider2",
-        provideBackstageItems: () => [
-          { id: "b2", groupPriority: 0, itemPriority: 0, label: "B1", execute: () => { } },
-        ],
+        provideBackstageItems: () => {
+          const internalData = new Map();
+          const icon = IconHelper.getIconData(<div className="b4-icon" />, internalData);
+          return [
+            abstract.BackstageItemUtilities.createActionItem("b3", 0, 0, execute, "b3-label"),
+            abstract.BackstageItemUtilities.createStageLauncher("b4", 0, 0, "b4-label", undefined, undefined, {
+              icon,
+              internalData,
+              badgeType: abstract.BadgeType.TechnicalPreview,
+            }),
+          ]
+        },
       });
 
       {
         const items = UiItemsManager.getBackstageItems();
-        const itemIds = items.map((item) => item.id);
-        itemIds.should.eql(["b1", "b2"]);
+        sinon.assert.match(items[0], {
+          id: "b1",
+          label: "b1-label",
+          execute,
+          badge: abstract.BadgeType.New,
+        });
+        sinon.assert.match(items[1], {
+          id: "b2",
+          stageId: "b2",
+        });
+        sinon.assert.match(items[2], {
+          id: "b3",
+          label: "b3-label",
+        });
+        sinon.assert.match(items[3], {
+          id: "b4",
+          badge: abstract.BadgeType.TechnicalPreview,
+          icon: {
+            props: {
+              className: "b4-icon",
+            },
+          },
+        });
       }
       {
         const items = AbstractUiItemsManager.getBackstageItems();
-        const itemIds = items
-          // @ts-ignore Possibly 'any'
-          .map((item) =>
-            item.id,
-          );
-        itemIds.should.eql(["b1", "b2"]);
+        sinon.assert.match(items[0], {
+          id: "b1",
+          label: "b1-label",
+          execute,
+          badgeType: abstract.BadgeType.New,
+        });
+        sinon.assert.match(IconHelper.getIconReactNode(items[0].icon, items[0].internalData), expectIconSpec({
+          className: "b1-icon",
+        }));
+        sinon.assert.match(items[1], {
+          id: "b2",
+          stageId: "b2",
+        });
+        sinon.assert.match(items[2], {
+          id: "b3",
+          label: "b3-label",
+        });
+        sinon.assert.match(items[3], {
+          id: "b4",
+          badgeType: abstract.BadgeType.TechnicalPreview,
+        });
+        sinon.assert.match(IconHelper.getIconReactNode(items[3].icon, items[3].internalData), expectIconSpec({
+          className: "b4-icon",
+        }));
       }
     });
 
@@ -193,12 +258,14 @@ describe.only("UiItemsManager", () => {
 
       {
         const items = AbstractUiItemsManager.getToolbarButtonItems("stage1", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
-        const itemIds = items
-          // @ts-ignore Possibly 'any'
-          .map((item) =>
-            item.id,
-          );
-        itemIds.should.eql(["t1", "t2"]);
+        sinon.assert.match(items, [
+          sinon.match({
+            id: "t1",
+          }),
+          sinon.match({
+            id: "t2",
+          }),
+        ]);
       }
     });
 
