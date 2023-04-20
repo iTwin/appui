@@ -19,6 +19,7 @@ exports[`PanelWidget should render 1`] = `
         data-item-id="t1"
         data-item-type="widget-tab"
         role="tab"
+        tabindex="0"
         title=""
       >
         <span />
@@ -101,6 +102,7 @@ exports[`PanelWidget should render horizontal with fit-content 1`] = `
         data-item-id="t1"
         data-item-type="widget-tab"
         role="tab"
+        tabindex="0"
         title=""
       >
         <span />
@@ -172,6 +174,7 @@ exports[`PanelWidget should render minimized 1`] = `
         data-item-id="t1"
         data-item-type="widget-tab"
         role="tab"
+        tabindex="0"
         title=""
       >
         <span />
@@ -254,6 +257,7 @@ exports[`PanelWidget should render with fit-content 1`] = `
         data-item-id="t1"
         data-item-type="widget-tab"
         role="tab"
+        tabindex="0"
         title=""
       >
         <span />
