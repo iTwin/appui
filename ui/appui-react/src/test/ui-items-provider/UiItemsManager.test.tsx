@@ -14,6 +14,8 @@ import { BackstageItemUtilities, StagePanelLocation, StageUsage, StatusBarItemUt
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager = abstract.UiItemsManager;
+// @ts-ignore Removed in 4.0
+const AbstractStagePanelLocation = abstract.StagePanelLocation;
 
 describe("UiItemsManager", () => {
   afterEach(() => {
@@ -539,6 +541,44 @@ describe("UiItemsManager", () => {
         sinon.assert.match(IconHelper.getIconReactNode(widgets[1].icon, widgets[1].internalData), expectIconSpec({
           className: "w2-icon",
         }));
+      }
+    });
+
+    it("should provide TopMost widgets", () => {
+      AbstractUiItemsManager.register({
+        id: "provider1",
+        provideWidgets: (_stageId, _stageUsage, location) => {
+          if (location === AbstractStagePanelLocation.Top) {
+            return [{
+              id: "w1",
+              getWidgetContent: () => null,
+            }];
+          }
+          if (location === AbstractStagePanelLocation.TopMost) {
+            return [{
+              id: "w2",
+              getWidgetContent: () => null,
+            }];
+          }
+          return [];
+        },
+      });
+      {
+        const widgets = UiItemsManager.getWidgets("stage1", StageUsage.General, StagePanelLocation.Top);
+        sinon.assert.match(widgets, [
+          sinon.match({ id: "w1" }),
+          sinon.match({ id: "w2" }),
+        ]);
+      }
+      {
+        const widgets = AbstractUiItemsManager.getWidgets("stage1", StageUsage.General, AbstractStagePanelLocation.Top);
+        sinon.assert.match(widgets, [
+          sinon.match({ id: "w1" }),
+        ]);
+        const topMostWidgets = AbstractUiItemsManager.getWidgets("stage1", StageUsage.General, AbstractStagePanelLocation.TopMost);
+        sinon.assert.match(topMostWidgets, [
+          sinon.match({ id: "w2" }),
+        ]);
       }
     });
   });

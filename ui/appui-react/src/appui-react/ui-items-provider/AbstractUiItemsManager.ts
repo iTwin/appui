@@ -144,9 +144,24 @@ class AbstractUiItemsManagerAdapter implements Target {
   }
 
   public getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): readonly ProviderItem<Widget>[] {
-    const abstractLocation = toAbstractStagePanelLocation(location);
-    const abstractSection = section === undefined ? undefined : toAbstractStagePanelSection(section);
-    const abstractWidgets = this._adaptee.getWidgets(stageId, stageUsage, abstractLocation, abstractSection);
+    const abstractLocations = toAbstractStagePanelLocation(location);
+    const abstractSections = section === undefined ? [undefined] as const : toAbstractStagePanelSection(section);
+    const combos: [AbstractStagePanelLocation, AbstractStagePanelSection | undefined][] = [];
+    abstractLocations.forEach((abstractLocation) => {
+      abstractSections.forEach((abstractSection) => {
+        combos.push([abstractLocation, abstractSection]);
+      });
+    });
+    let abstractWidgets = combos.reduce<AbstractWidget[]>((acc, [abstractLocation, abstractSection]) => {
+      const w = this._adaptee.getWidgets(stageId, stageUsage, abstractLocation, abstractSection);
+      acc.push(...w);
+      return acc;
+    }, []);
+    abstractWidgets = abstractWidgets.reduce<AbstractWidget[]>((acc, abstractWidget) => {
+      if (-1 === acc.findIndex((w) => w.id === abstractWidget.id))
+        acc.push(abstractWidget);
+      return acc;
+    }, []);
     const widgets = abstractWidgets
       // @ts-ignore Possibly 'any'
       .map((abstractWidget) => {
@@ -245,9 +260,25 @@ class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
     if (!this._adaptee.provideWidgets)
       return [];
 
-    const abstractLocation = toAbstractStagePanelLocation(location);
-    const abstractSection = section === undefined ? undefined : toAbstractStagePanelSection(section);
-    const abstractWidgets = this._adaptee.provideWidgets(stageId, stageUsage, abstractLocation, abstractSection);
+    const abstractLocations = toAbstractStagePanelLocation(location);
+    const abstractSections = section === undefined ? [undefined] as const : toAbstractStagePanelSection(section);
+    const combos: [AbstractStagePanelLocation, AbstractStagePanelSection | undefined][] = [];
+    abstractLocations.forEach((abstractLocation) => {
+      abstractSections.forEach((abstractSection) => {
+        combos.push([abstractLocation, abstractSection]);
+      });
+    });
+    let abstractWidgets = combos.reduce<AbstractWidget[]>((acc, [abstractLocation, abstractSection]) => {
+      assert(!!this._adaptee.provideWidgets);
+      const w = this._adaptee.provideWidgets(stageId, stageUsage, abstractLocation, abstractSection);
+      acc.push(...w);
+      return acc;
+    }, []);
+    abstractWidgets = abstractWidgets.reduce<AbstractWidget[]>((acc, abstractWidget) => {
+      if (-1 === acc.findIndex((w) => w.id === abstractWidget.id))
+        acc.push(abstractWidget);
+      return acc;
+    }, []);
     const widgets = abstractWidgets.map((abstractWidget) => fromAbstractWidget(abstractWidget));
     return widgets;
   }
@@ -497,16 +528,16 @@ function fromAbstractStagePanelLocation(location: AbstractStagePanelLocation): S
   return StagePanelLocation.Right;
 }
 
-function toAbstractStagePanelLocation(location: StagePanelLocation): AbstractStagePanelLocation {
+function toAbstractStagePanelLocation(location: StagePanelLocation): AbstractStagePanelLocation[] {
   switch (location) {
     case StagePanelLocation.Left:
-      return AbstractStagePanelLocation.Left;
+      return [AbstractStagePanelLocation.Left];
     case StagePanelLocation.Top:
-      return AbstractStagePanelLocation.Top;
+      return [AbstractStagePanelLocation.Top, AbstractStagePanelLocation.TopMost];
     case StagePanelLocation.Bottom:
-      return AbstractStagePanelLocation.Bottom;
+      return [AbstractStagePanelLocation.Bottom, AbstractStagePanelLocation.BottomMost];
   }
-  return AbstractStagePanelLocation.Right;
+  return [AbstractStagePanelLocation.Right];
 }
 
 function fromAbstractStagePanelSection(section: AbstractStagePanelSection): StagePanelSection {
@@ -517,12 +548,12 @@ function fromAbstractStagePanelSection(section: AbstractStagePanelSection): Stag
   return StagePanelSection.Start;
 }
 
-function toAbstractStagePanelSection(section: StagePanelSection): AbstractStagePanelSection {
+function toAbstractStagePanelSection(section: StagePanelSection): AbstractStagePanelSection[] {
   switch (section) {
     case StagePanelSection.End:
-      return AbstractStagePanelSection.End;
+      return [AbstractStagePanelSection.End];
   }
-  return AbstractStagePanelSection.Start;
+  return [AbstractStagePanelSection.Start, AbstractStagePanelSection.Middle];
 }
 
 function fromAbstractIcon(icon: string | abstract.ConditionalStringValue | undefined, internalData: Map<string, any> | undefined): IconSpec {
