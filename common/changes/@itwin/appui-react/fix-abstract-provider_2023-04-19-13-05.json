@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Use UiItemsManager from @itwin/appui-abstract when available.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

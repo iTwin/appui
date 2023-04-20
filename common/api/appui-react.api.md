@@ -5193,11 +5193,11 @@ export class UiItemsManager {
     static clearAllProviders(): void;
     static getBackstageItems(): ReadonlyArray<ProviderItem<BackstageItem>>;
     static getStatusBarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<StatusBarItem>>;
-    static getToolbarButtonItems(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>>;
+    static getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>>;
     static getUiItemsProvider(providerId: string): UiItemsProvider | undefined;
     static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<ProviderItem<Widget>>;
     static get hasRegisteredProviders(): boolean;
-    static readonly onUiProviderRegisteredEvent: BeUiEvent<UiItemsProviderRegisteredEventArgs>;
+    static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs>;
     static register(uiProvider: UiItemsProvider, overrides?: UiItemsProviderOverrides): void;
     static get registeredProviderIds(): string[];
     static unregister(providerId: string): void;
