@@ -30,7 +30,7 @@ type CreateRoot = (container: Element | DocumentFragment) => {
 
 /**
  * [[UiFramework.childWindows]] interface.
- * @beta
+ * @public
  */
 export interface FrameworkChildWindows {
   /**

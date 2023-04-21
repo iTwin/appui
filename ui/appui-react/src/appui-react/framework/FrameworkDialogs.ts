@@ -70,7 +70,7 @@ export interface FrameworkStackedDialog<DialogInfoType> extends FrameworkDialog 
 
 /**
  * [[UiFramework.dialogs]] interface.
- * @beta
+ * @public
  */
 export interface FrameworkDialogs {
   /**

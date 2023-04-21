@@ -2082,20 +2082,6 @@ export enum PropertyFilterRuleOperator {
     Like = 8
 }
 
-// @public @deprecated
-export class PropertyGrid extends React_2.Component<PropertyGridProps, PropertyGridState> {
-    // @internal
-    constructor(props: PropertyGridProps);
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: PropertyGridProps): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // @internal (undocumented)
-    render(): JSX.Element;
-}
-
 // @internal (undocumented)
 export class PropertyGridCommons {
     // (undocumented)
@@ -2172,11 +2158,6 @@ export class PropertyGridModelSource implements IPropertyGridModelSource {
     onModelChanged: PropertyGridModelChangeEvent;
     // (undocumented)
     setPropertyData(data: PropertyData): void;
-}
-
-// @public @deprecated
-export interface PropertyGridProps extends CommonPropertyGridProps {
-    dataProvider: IPropertyDataProvider;
 }
 
 // @internal (undocumented)
@@ -2668,10 +2649,6 @@ export interface Subscription extends Unsubscribable {
 export class TableArrayValueRenderer extends React_2.PureComponent<TableSpecificValueRendererProps> {
     // @internal (undocumented)
     render(): JSX.Element;
-}
-
-// @public @deprecated
-export class TableDataChangeEvent extends BeEvent<() => void> {
 }
 
 // @public
