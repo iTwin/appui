@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Remove SvgSprite component and support",
+      "comment": "Remove SvgSprite component and support.",
       "type": "none"
     }
   ],

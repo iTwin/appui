@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Refactor to use iTwinUI instead of deprecated core-react",
+      "comment": "Refactor to use iTwinUI instead of deprecated core-react.",
       "type": "none"
     }
   ],

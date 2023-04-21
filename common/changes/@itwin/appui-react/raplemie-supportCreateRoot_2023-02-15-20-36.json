@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Support React18 in child windows",
+      "comment": "Support React18 in child windows.",
       "type": "none"
     }
   ],

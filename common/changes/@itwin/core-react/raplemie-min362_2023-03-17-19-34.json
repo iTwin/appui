@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Bump minimum of core to 3.6.2",
+      "comment": "Bump minimum of core packages to 3.7.0.",
       "type": "none"
     }
   ],

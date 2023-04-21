@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Update typings for React18",
+      "comment": "Update typings for React18.",
       "type": "none"
     }
   ],

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Update tests to be ready for React18",
+      "comment": "",
       "type": "none"
     }
   ],

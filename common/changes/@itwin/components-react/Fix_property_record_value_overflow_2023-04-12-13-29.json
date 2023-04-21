@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Fix property value overflow",
+      "comment": "Fix property value overflow.",
       "type": "none"
     }
   ],

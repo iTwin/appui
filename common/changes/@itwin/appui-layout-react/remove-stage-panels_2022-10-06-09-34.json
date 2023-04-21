@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Remove StagePanel components.",
+      "comment": "",
       "type": "none"
     }
   ],
