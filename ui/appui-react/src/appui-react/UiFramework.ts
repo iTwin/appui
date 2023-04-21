@@ -87,7 +87,7 @@ export interface TrackingTime {
 export class UiFramework {
   /**
    * Operation on the backstage component.
-   * @beta
+   * @public
    */
   public static get backstage(): FrameworkBackstage {
     // istanbul ignore next
@@ -98,7 +98,7 @@ export class UiFramework {
 
   /**
    * Manage access to the child windows.
-   * @beta
+   * @public
    */
   public static get childWindows(): FrameworkChildWindows {
     return this._childWindowManager;
@@ -106,7 +106,7 @@ export class UiFramework {
 
   /**
    * Manage registered controls
-   * @beta
+   * @public
    */
   public static get controls(): FrameworkControls {
     return InternalConfigurableUiManager;
@@ -114,7 +114,7 @@ export class UiFramework {
 
   /**
    * Manage access to frontstages and related helper methods.
-   * @beta
+   * @public
    */
   public static get frontstages(): FrameworkFrontstages {
     return InternalFrontstageManager;
@@ -122,7 +122,7 @@ export class UiFramework {
 
   /**
    * Manage access and behavior of the tool settings.
-   * @beta
+   * @public
    */
   public static get toolSettings(): FrameworkToolSettings {
     return InternalToolSettingsManager;
@@ -130,7 +130,7 @@ export class UiFramework {
 
   /**
    * Manage content presented by the frontstages.
-   * @beta
+   * @public
    */
   public static get content(): FrameworkContent {
     return InternalContentViewManager;
@@ -138,7 +138,7 @@ export class UiFramework {
 
   /**
    * Manage displayed dialogs.
-   * @beta
+   * @public
    */
   public static get dialogs(): FrameworkDialogs {
     return {
@@ -149,7 +149,7 @@ export class UiFramework {
 
   /**
    * Manages global keyboard shortcuts
-   * @beta
+   * @public
    */
   public static get keyboardShortcuts(): FrameworkKeyboardShortcuts {
     return InternalKeyboardShortcutManager;
@@ -157,7 +157,7 @@ export class UiFramework {
 
   /**
    * Manages UI visibility (Show/Hide)
-   * @beta
+   * @public
    */
   public static get visibility(): FrameworkVisibility {
     return InternalUiShowHideManager;
@@ -180,7 +180,7 @@ export class UiFramework {
   /** Registers class that will be informed when the UserSettingsStorage location has been set or changed. This allows
    * classes to load any previously saved settings from the new storage location. Common storage locations are the browser's
    * local storage, or the iTwin Product Settings cloud storage available via the SettingsAdmin see `IModelApp.settingsAdmin`.
-   * @beta
+   * @public
    */
   public static registerUserSettingsProvider(entry: UserSettingsProvider) {
     if (this._uiSettingsProviderRegistry.has(entry.providerId))

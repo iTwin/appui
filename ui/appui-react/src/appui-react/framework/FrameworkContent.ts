@@ -55,7 +55,7 @@ export interface ContentDialogInfo {
 
 /**
  * [[UiFramework.content]] interface
- * @beta
+ * @public
  */
 export interface FrameworkContent {
   /** Gets the [[MouseDownChangedEvent]] */
@@ -128,7 +128,7 @@ export interface FrameworkContent {
 
   /**
    * Manage content layouts.
-   * @beta
+   * @public
    */
   readonly layouts: {
     /** build a layout key that is unique for group layout combination */

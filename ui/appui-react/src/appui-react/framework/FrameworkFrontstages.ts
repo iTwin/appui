@@ -163,7 +163,7 @@ export interface ModalFrontstageItem {
 
 /**
  * [[UiFramework.frontstages]] interface
- * @beta
+ * @public
  */
 export interface FrameworkFrontstages {
   /** Returns true if Frontstage is loading its controls. If false the Frontstage content and controls have been created. */

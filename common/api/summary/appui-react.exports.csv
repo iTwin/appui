@@ -191,24 +191,24 @@ alpha;FloatingViewportContentWrapperProps
 alpha;FocusToolSettings 
 beta;FrameworkAccuDraw 
 public;FrameworkBackstage
-beta;FrameworkChildWindows
-beta;FrameworkContent
-beta;FrameworkControls
+public;FrameworkChildWindows
+public;FrameworkContent
+public;FrameworkControls
 beta;FrameworkDialog
-beta;FrameworkDialogs
-beta;FrameworkFrontstages
+public;FrameworkDialogs
+public;FrameworkFrontstages
 public;FrameworkKeyboardShortcut 
 public;FrameworkKeyboardShortcutContainer
-beta;FrameworkKeyboardShortcuts
+public;FrameworkKeyboardShortcuts
 public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
 beta;FrameworkStackedDialog
 public;FrameworkState
 internal;FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef): NineZoneState
 alpha;FrameworkToolAdmin 
-beta;FrameworkToolSettings
+public;FrameworkToolSettings
 public;FrameworkUiAdmin 
-beta;FrameworkVisibility
+public;FrameworkVisibility
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
 public;FrontstageActivatedEventArgs

@@ -1863,7 +1863,7 @@ export interface FrameworkBackstage {
     toggle(): void;
 }
 
-// @beta
+// @public
 export interface FrameworkChildWindows {
     close(childWindowId: string, processWindowClose?: boolean): boolean;
     closeAll(): void;
@@ -1871,14 +1871,16 @@ export interface FrameworkChildWindows {
     findId(contentWindow: Window | undefined | null): string | undefined;
     open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean): boolean;
     readonly openChildWindows: OpenChildWindowInfo[];
+    // @beta
     useCreateRoot(createRootFn: CreateRoot): void;
 }
 
-// @beta
+// @public
 export interface FrameworkContent {
     // (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
     contentSupportsCamera(content: ContentControl | undefined): boolean;
+    // @beta
     readonly dialogs: FrameworkStackedDialog<ContentDialogInfo> & {
         readonly onContentDialogChangedEvent: ContentDialogChangedEvent;
     };
@@ -1916,7 +1918,7 @@ export interface FrameworkContent {
     setMouseDown(mouseDown: boolean): void;
 }
 
-// @beta
+// @public
 export interface FrameworkControls {
     closeUi(): void;
     create(classId: string, uniqueId: string, options?: any, controlId?: string): ConfigurableUiElement | undefined;
@@ -1936,17 +1938,19 @@ export interface FrameworkDialog {
     update(): void;
 }
 
-// @beta
+// @public
 export interface FrameworkDialogs {
+    // @beta
     readonly modal: FrameworkDialog & {
         readonly onModalDialogChangedEvent: ModalDialogChangedEvent;
     };
+    // @beta
     readonly modeless: FrameworkStackedDialog<ModelessDialogInfo> & {
         readonly onModelessDialogChangedEvent: ModelessDialogChangedEvent;
     };
 }
 
-// @beta
+// @public
 export interface FrameworkFrontstages {
     readonly activeFrontstageDef: FrontstageDef | undefined;
     readonly activeFrontstageId: string;
@@ -2023,7 +2027,7 @@ export interface FrameworkKeyboardShortcutContainer {
     showShortcutsMenu(): void;
 }
 
-// @beta
+// @public
 export interface FrameworkKeyboardShortcuts {
     closeMenu(): void;
     readonly cursorX: number;
@@ -2077,7 +2081,7 @@ export class FrameworkToolAdmin extends ToolAdmin {
     processShortcutKey(e: KeyboardEvent, wentDown: boolean): Promise<boolean>;
 }
 
-// @beta
+// @public
 export interface FrameworkToolSettings {
     readonly activeToolDescription: string;
     activeToolLabel: string;
@@ -2130,7 +2134,7 @@ export class FrameworkUiAdmin extends UiAdmin {
     showToolbar(toolbarProps: AbstractToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition?: RelativePosition, htmlElement?: HTMLElement): boolean;
 }
 
-// @beta
+// @public
 export interface FrameworkVisibility {
     autoHideUi: boolean;
     handleContentMouseMove(_event?: React.MouseEvent<HTMLElement, MouseEvent>): void;
@@ -4788,24 +4792,18 @@ export interface UiDataProvidedDialogProps {
 export class UiFramework {
     static get animateToolSettings(): boolean;
     static get autoCollapseUnpinnedPanels(): boolean;
-    // @beta
     static get backstage(): FrameworkBackstage;
-    // @beta
     static get childWindows(): FrameworkChildWindows;
     // (undocumented)
     static closeCursorMenu(): void;
-    // @beta
     static get content(): FrameworkContent;
-    // @beta
     static get controls(): FrameworkControls;
-    // @beta
     static get dialogs(): FrameworkDialogs;
     // (undocumented)
     static dispatchActionToStore(type: string, payload: any, immediateSync?: boolean): void;
     static get frameworkState(): FrameworkState | undefined;
     // (undocumented)
     static get frameworkStateKey(): string;
-    // @beta
     static get frontstages(): FrameworkFrontstages;
     // (undocumented)
     static getAccudrawSnapMode(): SnapMode;
@@ -4844,7 +4842,6 @@ export class UiFramework {
     static get isContextMenuOpen(): boolean;
     // (undocumented)
     static isMobile(): boolean;
-    // @beta
     static get keyboardShortcuts(): FrameworkKeyboardShortcuts;
     // @internal
     static get localization(): Localization;
@@ -4860,7 +4857,6 @@ export class UiFramework {
     static postTelemetry(eventName: string, eventId?: GuidString, iTwinId?: GuidString, iModeId?: GuidString, changeSetId?: string, time?: TrackingTime, additionalProperties?: {
         [key: string]: any;
     }): Promise<void>;
-    // @beta
     static registerUserSettingsProvider(entry: UserSettingsProvider): boolean;
     // (undocumented)
     static setAccudrawSnapMode(snapMode: SnapMode): void;
@@ -4902,7 +4898,6 @@ export class UiFramework {
     static get showWidgetIcon(): boolean;
     static get store(): Store<any>;
     static terminate(): void;
-    // @beta
     static get toolSettings(): FrameworkToolSettings;
     // @internal
     static translate(key: string | string[]): string;
@@ -4912,7 +4907,6 @@ export class UiFramework {
     static get useDragInteraction(): boolean;
     static get useToolAsToolSettingsLabel(): boolean;
     static get viewOverlayDisplay(): boolean;
-    // @beta
     static get visibility(): FrameworkVisibility;
     // @alpha (undocumented)
     static get widgetManager(): WidgetManager;
