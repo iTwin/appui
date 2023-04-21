@@ -19,7 +19,7 @@ import { SvgError } from "@itwin/itwinui-illustrations-react";
 
 function WidgetFallback() {
   return (
-    <div id="error-message" role="alert" style={{ padding: "5px" }}>
+    <div role="alert" style={{ padding: "5px" }}>
       <p>Something went wrong...</p>
       <SvgError />
     </div>

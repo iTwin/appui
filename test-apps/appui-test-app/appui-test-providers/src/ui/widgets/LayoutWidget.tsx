@@ -495,7 +495,7 @@ function WidgetContentThrowError() {
   return (
     <>
       <h2>Throw error button</h2>
-      <Button id="error-button" onClick={() => setShouldThrow(true)}> Click Me </Button>
+      <Button onClick={() => setShouldThrow(true)}>Click Me</Button>
     </>
   );
 }
