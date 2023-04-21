@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflow } from "@itwin/components-react";
+import { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
 import { Logger } from "@itwin/core-bentley";
 import { Orientation } from "@itwin/core-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
@@ -18,7 +18,7 @@ import { useDefaultToolbarItems } from "./useDefaultToolbarItems";
 import { useUiItemsProviderToolbarItems } from "./useUiItemsProviderToolbarItems";
 import { isToolbarActionItem, isToolbarGroupItem, ToolbarActionItem, ToolbarGroupItem, ToolbarItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
 import { ToolbarItemsManager } from "./ToolbarItemsManager";
-import { toUIAToolbarItem } from "./toUIAToolbarItem";
+import { ToolbarWithOverflow } from "./ToolbarWithOverflow";
 
 /** Private function to set up sync event monitoring of toolbar items */
 function useToolbarItemSyncEffect(uiDataProvider: ToolbarItemsManager, syncIdsOfInterest: string[]) {
@@ -246,9 +246,8 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
   const addonSyncIdsOfInterest = React.useMemo(() => ToolbarItemsManager.getSyncIdsOfInterest(addonItems), [addonItems]);
   useToolbarItemSyncEffect(addonItemsManager, addonSyncIdsOfInterest);
 
-  const toolbarItems = React.useMemo(() => {
-    const items = combineItems(defaultItems, addonItems);
-    return items.map((item) => toUIAToolbarItem(item));
+  const items = React.useMemo(() => {
+    return combineItems(defaultItems, addonItems);
   }, [defaultItems, addonItems]);
 
   const toolbarOrientation = orientation === ToolbarOrientation.Horizontal ? Orientation.Horizontal : Orientation.Vertical;
@@ -260,7 +259,7 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
   return <ToolbarWithOverflow
     expandsTo={expandsTo}
     panelAlignment={panelAlignment}
-    items={toolbarItems}
+    items={items}
     useDragInteraction={isDragEnabled}
     toolbarOpacitySetting={useProximityOpacity && !UiFramework.isMobile() ? ToolbarOpacitySetting.Proximity : /* istanbul ignore next */ ToolbarOpacitySetting.Defaults}
   />;

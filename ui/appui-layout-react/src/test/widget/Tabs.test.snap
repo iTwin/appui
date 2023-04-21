@@ -38,6 +38,7 @@ exports[`WidgetTabs should render 1`] = `
     data-item-id="t1"
     data-item-type="widget-tab"
     role="tab"
+    tabindex="0"
     title=""
   >
     <span />
@@ -78,6 +79,7 @@ exports[`WidgetTabs should render overflow panel 1`] = `
     data-item-id="t1"
     data-item-type="widget-tab"
     role="tab"
+    tabindex="0"
     title=""
   >
     <span />
@@ -118,6 +120,7 @@ exports[`WidgetTabs should render tabs with icons 1`] = `
     data-item-id="t1"
     data-item-type="widget-tab"
     role="tab"
+    tabindex="0"
     title=""
   >
     <span />

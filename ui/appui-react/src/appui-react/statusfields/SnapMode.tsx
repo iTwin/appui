@@ -10,7 +10,6 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { SnapMode } from "@itwin/core-frontend";
 import { Snap, SnapModePanel } from "@itwin/appui-layout-react";
-import { ConfigurableUiActions } from "../configurableui/state";
 import { UiFramework } from "../UiFramework";
 import { CommonProps, Icon, IconSpec } from "@itwin/core-react";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
@@ -29,7 +28,6 @@ import snapModeBisector from "@bentley/icons-generic/icons/snaps-bisector.svg";
  */
 interface SnapModeFieldProps extends CommonProps {
   snapMode: number;
-  setSnapMode: (mode: number) => any;
 }
 
 /** Define the properties that will be used to represent the available snap modes. */
@@ -39,16 +37,40 @@ interface SnapModeFieldEntry {
   iconName: string;
 }
 
-interface SnapModeFieldState {
-  target: HTMLElement | null;
+function getIconFromIconName(iconName: string): IconSpec {
+  let iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
+  switch (iconName) {
+    case "snaps":
+      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
+      break;
+    case "snaps-intersection":
+      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeIntersection);
+      break;
+    case "snaps-center":
+      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeCenter);
+      break;
+    case "snaps-nearest":
+      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeNearest);
+      break;
+    case "snaps-origin":
+      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeOrigin);
+      break;
+    case "snaps-midpoint":
+      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeMidpoint);
+      break;
+    case "snaps-bisector":
+      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeBisector);
+      break;
+  }
+  return iconSpec;
 }
 
 /**
  * Snap Mode Field React component. This component is designed to be specified in a status bar definition. It will
  * display the active snap mode that AccuSnap will use and allow the user to select a new snap mode.
  */
-class SnapModeFieldComponent extends React.Component<SnapModeFieldProps, SnapModeFieldState> {
-  private _snapModeFieldArray: SnapModeFieldEntry[] = [
+function SnapModeFieldComponent(props: SnapModeFieldProps) {
+  const snapModes: SnapModeFieldEntry[] = React.useMemo(() => [
     { label: UiFramework.translate("snapModeField.keypoint"), value: SnapMode.NearestKeypoint as number, iconName: "snaps" },
     { label: UiFramework.translate("snapModeField.intersection"), value: SnapMode.Intersection as number, iconName: "snaps-intersection" },
     { label: UiFramework.translate("snapModeField.center"), value: SnapMode.Center as number, iconName: "snaps-center" },
@@ -56,20 +78,11 @@ class SnapModeFieldComponent extends React.Component<SnapModeFieldProps, SnapMod
     { label: UiFramework.translate("snapModeField.origin"), value: SnapMode.Origin as number, iconName: "snaps-origin" },
     { label: UiFramework.translate("snapModeField.midpoint"), value: SnapMode.MidPoint as number, iconName: "snaps-midpoint" },
     { label: UiFramework.translate("snapModeField.bisector"), value: SnapMode.Bisector as number, iconName: "snaps-bisector" },
-  ];
-  private _title = UiFramework.translate("snapModeField.snapMode");
-
-  public override readonly state: SnapModeFieldState = {
-    target: null,
-  };
-
-  constructor(props: SnapModeFieldProps) {
-    super(props);
-  }
+  ], []);
 
   /** Return icon class name for a specific snapMode. */
-  private getSnapModeIconNameFromMode(snapMode: number): string {
-    for (const mode of this._snapModeFieldArray) {
+  const getSnapModeIconNameFromMode = React.useCallback(function (snapMode: number): string {
+    for (const mode of snapModes) {
       if (mode.value === snapMode)
         return mode.iconName;
     }
@@ -80,87 +93,32 @@ class SnapModeFieldComponent extends React.Component<SnapModeFieldProps, SnapMod
 
     /* istanbul ignore next */
     return "placeholder";
-  }
+  }, [snapModes]);
 
-  /** Standard React render method. */
-  public override render(): React.ReactNode {
-    return (
-      <>
-        <StatusBarLabelIndicator
-          iconSpec={`${this.getIconFromIconName(`${this.getSnapModeIconNameFromMode(this.props.snapMode)}`)}`}
-          title={this._title}
-          label={this._title}
-          popup={
-            <SnapModePanel title={this._title}>
-              {this.getSnapEntries()}
-            </SnapModePanel>
-          }
-        />
-      </>
-    );
-  }
-
-  /** Return an IconSpec with a web component icon to replace the icons that we used to load from the webfont */
-  private getIconFromIconName(iconName: string): IconSpec {
-    let iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
-    switch (iconName) {
-      case "snaps":
-        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
-        break;
-      case "snaps-intersection":
-        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeIntersection);
-        break;
-      case "snaps-center":
-        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeCenter);
-        break;
-      case "snaps-nearest":
-        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeNearest);
-        break;
-      case "snaps-origin":
-        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeOrigin);
-        break;
-      case "snaps-midpoint":
-        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeMidpoint);
-        break;
-      case "snaps-bisector":
-        iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeBisector);
-        break;
-    }
-    return iconSpec;
-  }
-
-  /** Return array of SnapRow elements, one for each support snap mode. This array will populate the pop-up used
-    * to select a SnapMode.
-    */
-  private getSnapEntries(): JSX.Element[] {
-    return this._snapModeFieldArray.map((item: SnapModeFieldEntry, index: number) => {
-      const iconSpec = this.getIconFromIconName(item.iconName);
-      return (
-        <Snap
-          key={`SM_${index}`}
-          onClick={() => this._handleSnapModeFieldClick(item.value)}
-          isActive={(this.props.snapMode & item.value) === item.value}
-          icon={
-            <Icon className={`icon`} iconSpec={iconSpec} />
-          }
-        >
-          {item.label}
-        </Snap >
-      );
-    });
-  }
-
-  /** Called when user clicks on a Snap Mode entry in the pop-up window. */
-  private _handleSnapModeFieldClick = (snapModeField: number) => {
-    this.props.setSnapMode(snapModeField);
-  };
-
+  const title = UiFramework.translate("snapModeField.snapMode");
+  return (
+    <StatusBarLabelIndicator
+      iconSpec={getIconFromIconName(getSnapModeIconNameFromMode(props.snapMode))}
+      title={title}
+      label={title}
+      popup={
+        <SnapModePanel title={title}>
+          {snapModes.map((item, index) => <Snap
+            key={`SM_${index}`}
+            onClick={() => UiFramework.setAccudrawSnapMode(item.value)}
+            isActive={(props.snapMode & item.value) === item.value}
+            icon={
+              <Icon className={`icon`} iconSpec={getIconFromIconName(item.iconName)} />
+            }
+          >
+            {item.label}
+          </Snap >
+          )}
+        </SnapModePanel>
+      }
+    />
+  );
 }
-
-// Used by Redux to map dispatch functions to props entry. This requires SnapModeFieldProps interface above to include a setSnapMode entry */
-const mapDispatch = {
-  setSnapMode: ConfigurableUiActions.setSnapMode,
-};
 
 /** Function used by Redux to map state data in Redux store to props that are used to render this component. */
 function mapStateToProps(state: any) {
@@ -179,4 +137,4 @@ function mapStateToProps(state: any) {
  * This Field React component is Redux connected.
  * @public
  */ // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SnapModeField = connect(mapStateToProps, mapDispatch)(SnapModeFieldComponent);
+export const SnapModeField = connect(mapStateToProps)(SnapModeFieldComponent);

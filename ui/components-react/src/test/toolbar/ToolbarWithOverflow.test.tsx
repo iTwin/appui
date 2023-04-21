@@ -12,6 +12,7 @@ import { CustomToolbarItem, ToolbarOpacitySetting, ToolbarPanelAlignment, Toolba
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import TestUtils from "../TestUtils";
 
+/* eslint-disable deprecation/deprecation */
 // cSpell:ignore testid
 
 function createBubbledEvent(type: string, props = {}) {
@@ -165,8 +166,8 @@ describe("<ToolbarWithOverflow />", () => {
       renderedComponent.rerender(<ToolbarPopupAutoHideContext.Provider value={isHidden}><ToolbarWithOverflow items={toolbarItems} /></ToolbarPopupAutoHideContext.Provider>);
       // renderedComponent.debug();
       const overflowPopup = renderedComponent.getByTestId("core-popup");
-      expect (overflowPopup).not.to.be.null;
-      expect (overflowPopup.className).to.contain("nz-hidden");
+      expect(overflowPopup).not.to.be.null;
+      expect(overflowPopup.className).to.contain("nz-hidden");
     });
 
     it("will render with 3 items + overflow containing group", () => {
@@ -446,8 +447,8 @@ describe("<ToolbarWithOverflow />", () => {
       isHidden = true;
       renderedComponent.rerender(<ToolbarPopupAutoHideContext.Provider value={isHidden}><ToolbarWithOverflow items={toolbarItems} /></ToolbarPopupAutoHideContext.Provider>);
       const corePopup = renderedComponent.getByTestId("core-popup");
-      expect (corePopup).not.to.be.null;
-      expect (corePopup.className).to.contain("nz-hidden");
+      expect(corePopup).not.to.be.null;
+      expect(corePopup.className).to.contain("nz-hidden");
     });
 
     it("should open panel when popup item clicked", () => {

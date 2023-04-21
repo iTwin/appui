@@ -15,14 +15,26 @@ describe("statics", () => {
   );
 
   defineInlineTest(
-    `FrontstageManager.setActiveLayout();`,
-    `UiFramework.content.layouts.setActive();`,
+    `
+    import { FrontstageManager } from "@itwin/appui-react";
+    FrontstageManager.setActiveLayout();
+    `,
+    `
+    import { UiFramework } from "@itwin/appui-react";
+    UiFramework.content.layouts.setActive();
+    `,
     "should update `FrontstageManager.setActiveLayout`"
   );
 
   defineInlineTest(
-    `FrontstageManager.setActiveContentGroup();`,
-    `UiFramework.content.layouts.setActiveContentGroup();`,
+    `
+    import { FrontstageManager } from "@itwin/appui-react";
+    FrontstageManager.setActiveContentGroup();
+    `,
+    `
+    import { UiFramework } from "@itwin/appui-react";
+    UiFramework.content.layouts.setActiveContentGroup();
+    `,
     "should update `FrontstageManager.setActiveContentGroup`"
   );
 

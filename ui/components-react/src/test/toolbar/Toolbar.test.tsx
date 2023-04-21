@@ -15,6 +15,7 @@ import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import { BackArrow } from "../../components-react/toolbar/groupPanel/BackArrow";
 import { GroupTool } from "../../components-react/toolbar/groupPanel/tool/Tool";
 
+/* eslint-disable deprecation/deprecation */
 // cSpell:ignore testid
 
 function createBubbledEvent(type: string, props = {}) {

@@ -13,7 +13,7 @@ import { getClassName } from "@itwin/appui-abstract";
 import {
   ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
   FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, IModelViewportControl, InitialAppUiSettings,
-  ModalFrontstageClosedEventArgs, SafeAreaContext, SafeAreaInsets, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
+  ModalFrontstageClosedEventArgs, PresentationSelectionScope, SafeAreaContext, SafeAreaInsets, SessionStateActionId, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
   ToolbarDragInteractionContext, UiFramework, UiItemsManager, UiStateStorageHandler,
 } from "@itwin/appui-react";
 import { assert, Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
@@ -193,6 +193,13 @@ export class SampleAppIModelApp {
     // default to showing imperial formatted units
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
     await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)); // pass true to save per imodel
+
+    const availableScopes: PresentationSelectionScope[] = [
+      { id: "element", label: "Element" },
+      { id: "assembly", label: "Assembly" },
+      { id: "top-assembly", label: "Top Assembly" },
+    ];
+    UiFramework.dispatchActionToStore(SessionStateActionId.SetAvailableSelectionScopes, availableScopes);
 
     await FrontendDevTools.initialize();
     await HyperModeling.initialize();
