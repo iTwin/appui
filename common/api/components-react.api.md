@@ -311,6 +311,8 @@ export interface ControlledSelectableContentProps {
     // (undocumented)
     children: SelectableContentDefinition[];
     // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
     onSelectedContentIdChanged?: (contentId: string) => void;
     // (undocumented)
     selectAriaLabel?: string;
@@ -2389,6 +2391,8 @@ export interface SelectableContentProps {
     children: SelectableContentDefinition[];
     // (undocumented)
     defaultSelectedContentId: string;
+    // (undocumented)
+    disabled?: boolean;
     // (undocumented)
     selectAriaLabel?: string;
 }
