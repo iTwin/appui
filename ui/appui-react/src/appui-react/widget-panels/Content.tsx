@@ -14,6 +14,17 @@ import { assert } from "@itwin/core-bentley";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
+import { ErrorBoundary } from "react-error-boundary";
+import { SvgError } from "@itwin/itwinui-illustrations-react";
+
+function WidgetFallback() {
+  return (
+    <div id="error-message" role="alert" style={{ padding: "5px" }}>
+      <p>Something went wrong...</p>
+      <SvgError />
+    </div>
+  );
+}
 
 /** @internal */
 export function WidgetContent() {
@@ -35,7 +46,9 @@ export function WidgetContent() {
       itemId={itemId}
       providerId={providerId}
     >
-      {widget?.reactNode}
+      <ErrorBoundary FallbackComponent={WidgetFallback}>
+        {widget?.reactNode}
+      </ErrorBoundary>
     </ScrollableWidgetContent>
   );
 }
