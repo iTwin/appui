@@ -489,7 +489,6 @@ function SelectWidgetControls() {
 function WidgetContentThrowError() {
   const [shouldThrow, setShouldThrow] = React.useState(false);
   if (shouldThrow) {
-    setShouldThrow(false);
     throw new Error("Simulated error was thrown.");
   }
   return (

@@ -16,12 +16,12 @@ import { isProviderItem } from "../ui-items-provider/isProviderItem";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { ErrorBoundary } from "react-error-boundary";
 import { SvgError } from "@itwin/itwinui-illustrations-react";
+import { NonIdealState } from "@itwin/itwinui-react";
 
 function WidgetFallback() {
   return (
-    <div role="alert" style={{ padding: "5px" }}>
-      <p>Something went wrong...</p>
-      <SvgError />
+    <div role="alert" style={{ position: 'relative', minHeight: 400 }}>
+      <NonIdealState svg={<SvgError />} heading="Something went wrong..." />
     </div>
   );
 }
