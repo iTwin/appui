@@ -128,9 +128,6 @@ export class FrameworkUiAdmin extends UiAdmin {
    * @return true if the Command Palette was displayed, false if it could not be displayed.
    */
   public override showKeyinPalette(htmlElement?: HTMLElement): boolean {
-    if (!this.featureFlags.allowKeyinPalette)
-      return false;
-
     // istanbul ignore next
     const el = htmlElement ? htmlElement : UiFramework.controls.getWrapperElement();
 
@@ -144,9 +141,6 @@ export class FrameworkUiAdmin extends UiAdmin {
 
   /** Hides the Key-in Palette. */
   public override hideKeyinPalette(): boolean {
-    if (!this.featureFlags.allowKeyinPalette)
-      return false;
-
     return PopupManager.hideKeyinPalette();
   }
 

@@ -223,15 +223,6 @@ describe("FrameworkUiAdmin", () => {
     expect(uiAdmin.hideMenuButton("test")).to.be.true;
   });
 
-  it("showKeyinPalette should return true", () => {
-    const wrapper = render(<div id="uifw-configurableui-wrapper" />);
-    expect(uiAdmin.showKeyinPalette(wrapper.container)).to.be.false;
-    expect(uiAdmin.hideKeyinPalette()).to.be.false;
-    uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
-    expect(uiAdmin.showKeyinPalette(wrapper.container)).to.be.true;
-    expect(uiAdmin.hideKeyinPalette()).to.be.true;
-  });
-
   it("showCalculator should return true", () => {
     const wrapper = render(<div id="uifw-configurableui-wrapper" />);
     const spyCommit = sinon.fake();

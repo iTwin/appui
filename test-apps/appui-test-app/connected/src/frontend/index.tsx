@@ -230,7 +230,6 @@ export class SampleAppIModelApp {
     await UiFramework.initialize(undefined, undefined);
 
     IModelApp.toolAdmin.defaultToolId = SelectionTool.toolId;
-    IModelApp.uiAdmin.updateFeatureFlags({ allowKeyinPalette: true });
 
     // store name of this registered control in Redux store so it can be access by extensions
     UiFramework.setDefaultIModelViewportControlId(IModelViewportControl.id);
