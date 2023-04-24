@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Refactored many tests to remove enzyme and snaphot testing",
+      "comment": "",
       "type": "none"
     }
   ],

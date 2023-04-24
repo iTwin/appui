@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/imodel-components-react",
-      "comment": "Remove Enzyme related tests and packages",
+      "comment": "",
       "type": "none"
     }
   ],

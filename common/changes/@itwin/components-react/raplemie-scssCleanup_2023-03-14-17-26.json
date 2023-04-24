@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Clean SCSS",
+      "comment": "Clean SCSS.",
       "type": "none"
     }
   ],
