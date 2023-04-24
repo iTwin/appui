@@ -95,7 +95,6 @@ export * from "./components-react/properties/ItemStyle";
 export * from "./components-react/propertygrid/PropertyCategoryRendererManager";
 export * from "./components-react/propertygrid/PropertyDataProvider";
 export * from "./components-react/propertygrid/SimplePropertyDataProvider";
-export * from "./components-react/propertygrid/component/PropertyGrid";
 export * from "./components-react/propertygrid/component/VirtualizedPropertyGrid";
 export * from "./components-react/propertygrid/component/VirtualizedPropertyGridWithDataProvider";
 export * from "./components-react/propertygrid/component/PropertyCategoryBlock";
@@ -122,8 +121,6 @@ export * from "./components-react/propertygrid/dataproviders/filterers/LabelProp
 export * from "./components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase";
 
 export * from "./components-react/selectable-content/SelectableContent";
-
-export * from "./components-react/table/TableDataProvider";
 
 // TODO: toolbar/groupPanel components needs a refactor.
 export * from "./components-react/toolbar/groupPanel/tool/Tool";

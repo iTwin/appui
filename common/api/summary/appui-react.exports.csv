@@ -82,8 +82,6 @@ alpha;CardInfo
 alpha;CardSelectedEvent 
 alpha;CardSelectedEventArgs
 public;ChildWindowLocationProps
-public;ChildWindowManager
-deprecated;ChildWindowManager
 internal;clearKeyinPaletteHistory(): void
 public;ColorTheme
 public;CombinedReducerState
@@ -105,8 +103,6 @@ public;class ConfigurableUiControl
 public;ConfigurableUiControlConstructor = new (info: ConfigurableCreateInfo, options: any) => ConfigurableUiElement
 public;ConfigurableUiControlType
 public;ConfigurableUiElement
-public;ConfigurableUiManager
-deprecated;ConfigurableUiManager
 public;ConfigurableUiReducer(state: ConfigurableUiState | undefined, action: ConfigurableUiActionsUnion): ConfigurableUiState
 public;ConfigurableUiState
 public;connectIModelConnection: (mapStateToProps?: any, mapDispatchToProps?: any) => InferableComponentEnhancerWithProps
@@ -118,8 +114,6 @@ public;ContentControlActivatedEventArgs
 public;ContentDialog(props: ContentDialogProps): JSX.Element
 public;ContentDialogChangedEvent 
 public;ContentDialogInfo
-public;ContentDialogManager
-deprecated;ContentDialogManager
 public;ContentDialogProps 
 public;ContentDialogRenderer 
 public;ContentGroup
@@ -130,13 +124,9 @@ public;ContentLayoutActivatedEvent
 public;ContentLayoutActivatedEventArgs
 public;ContentLayoutComponentProps 
 public;ContentLayoutDef
-public;ContentLayoutManager
-deprecated;ContentLayoutManager
 public;ContentProps
 public;ContentToolWidgetComposer(props: ContentToolWidgetComposerProps): JSX.Element
 public;ContentToolWidgetComposerProps
-public;ContentViewManager
-deprecated;ContentViewManager
 internal;ContentWrapper(props: ContentWrapperProps): JSX.Element
 public;CoreTools
 public;createAction
@@ -201,24 +191,24 @@ alpha;FloatingViewportContentWrapperProps
 alpha;FocusToolSettings 
 beta;FrameworkAccuDraw 
 public;FrameworkBackstage
-beta;FrameworkChildWindows
-beta;FrameworkContent
-beta;FrameworkControls
+public;FrameworkChildWindows
+public;FrameworkContent
+public;FrameworkControls
 beta;FrameworkDialog
-beta;FrameworkDialogs
-beta;FrameworkFrontstages
+public;FrameworkDialogs
+public;FrameworkFrontstages
 public;FrameworkKeyboardShortcut 
 public;FrameworkKeyboardShortcutContainer
-beta;FrameworkKeyboardShortcuts
+public;FrameworkKeyboardShortcuts
 public;FrameworkReducer: (state: CombinedReducerState
 beta;FrameworkRootState
 beta;FrameworkStackedDialog
 public;FrameworkState
 internal;FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef): NineZoneState
 alpha;FrameworkToolAdmin 
-beta;FrameworkToolSettings
+public;FrameworkToolSettings
 public;FrameworkUiAdmin 
-beta;FrameworkVisibility
+public;FrameworkVisibility
 internal;FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings"
 public;FrontstageActivatedEvent 
 public;FrontstageActivatedEventArgs
@@ -227,8 +217,6 @@ public;FrontstageDeactivatedEvent
 public;FrontstageDeactivatedEventArgs
 public;FrontstageDef
 internal;FrontstageEventArgs
-public;FrontstageManager
-deprecated;FrontstageManager
 internal;FrontstageNineZoneStateChangedEventArgs 
 public;class FrontstageProvider
 public;FrontstageReadyEvent 
@@ -287,8 +275,6 @@ public;ItemMap
 public;ItemProps 
 public;KeyboardShortcut 
 public;KeyboardShortcutContainer
-public;KeyboardShortcutManager
-deprecated;KeyboardShortcutManager
 public;KeyboardShortcutMenu 
 public;KeyboardShortcutMenuEvent 
 public;KeyboardShortcutMenuState
@@ -318,8 +304,6 @@ public;MessageCenterField
 public;MessageManager
 public;MessagesUpdatedEvent 
 public;ModalDialogChangedEvent 
-public;ModalDialogManager
-deprecated;ModalDialogManager
 public;ModalDialogRenderer 
 public;ModalFrontstage 
 public;ModalFrontstageChangedEvent 
@@ -335,8 +319,6 @@ alpha;ModalFrontstageRequestedCloseEventArgs
 public;ModelessDialog 
 public;ModelessDialogChangedEvent 
 public;ModelessDialogInfo
-public;ModelessDialogManager
-deprecated;ModelessDialogManager
 public;ModelessDialogProps 
 public;ModelessDialogRenderer 
 public;MouseDownChangedEvent 
@@ -469,9 +451,9 @@ beta;StatusBarIndicatorProps
 public;StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem
 internal;StatusBarItemProps 
 public;StatusBarItemUtilities
-beta;createActionItem(id: string, section: StatusBarSection, itemPriority: number, icon: string | ConditionalStringValue, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial
+beta;createActionItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial
 beta;createCustomItem(id: string, section: StatusBarSection, itemPriority: number, content: React_2.ReactNode, overrides?: Partial
-beta;createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: string | ConditionalStringValue, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial
+beta;createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial
 beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): JSX.Element
 beta;StatusBarLabelIndicatorProps 
 public;StatusBarLabelItem 
@@ -529,8 +511,6 @@ public;ToolSettingsEntry
 internal;ToolSettingsGrid({ settings }: ToolSettingsGridProps): JSX.Element
 public;ToolSettingsGridContainer({ componentGenerator }:
 internal;ToolSettingsGridProps
-public;ToolSettingsManager
-deprecated;ToolSettingsManager
 internal;ToolSettingsWidgetContent(): JSX.Element
 public;ToolUiProvider 
 public;ToolWidgetComposer(props: ToolWidgetComposerProps): JSX.Element
@@ -546,9 +526,6 @@ public;UiItemsProviderOverrides = MarkRequired
 public;UiItemsProviderRegisteredEventArgs
 beta;UiSettingsPage(): JSX.Element
 public;UiSettingsProviderProps
-public;UiShowHideManager
-deprecated;UiShowHideManager
-internal;UiShowHideSettingsProvider 
 internal;UiStateStorageContext: React_2.Context
 public;UiStateStorageHandler(props: UiSettingsProviderProps): JSX.Element
 public;UiVisibilityChangedEvent 
