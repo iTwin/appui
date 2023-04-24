@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Fix tree node chevron alignment",
+      "comment": "Fix tree node chevron alignment.",
       "type": "none"
     }
   ],

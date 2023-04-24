@@ -7,7 +7,7 @@
     },
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Remove deprecated Backstage components.",
+      "comment": "",
       "type": "none"
     }
   ],

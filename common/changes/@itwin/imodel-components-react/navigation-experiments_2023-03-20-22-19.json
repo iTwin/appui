@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/imodel-components-react",
-      "comment": "Update CubeNavigationAid in line with current design goals.",
+      "comment": "",
       "type": "none"
     }
   ],

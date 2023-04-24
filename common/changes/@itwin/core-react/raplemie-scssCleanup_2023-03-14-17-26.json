@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Remove deprecated SCSS files",
+      "comment": "Remove deprecated SCSS files.",
       "type": "none"
     }
   ],

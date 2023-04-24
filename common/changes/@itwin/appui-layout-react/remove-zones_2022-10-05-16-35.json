@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Remove Zone components.",
+      "comment": "",
       "type": "none"
     }
   ],

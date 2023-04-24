@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Fix floating widget offset issue.",
+      "comment": "",
       "type": "none"
     }
   ],
