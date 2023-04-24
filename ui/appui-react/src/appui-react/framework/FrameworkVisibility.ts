@@ -7,7 +7,7 @@
  */
 /**
  * [[UiFramework.visibility]] interface
- * @beta
+ * @public
  */
 export interface FrameworkVisibility {
   /** Determines if the Ui is visible */
