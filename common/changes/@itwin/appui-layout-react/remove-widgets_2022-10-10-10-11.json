@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Remove UI1.0 Widget components.",
+      "comment": "",
       "type": "none"
     }
   ],

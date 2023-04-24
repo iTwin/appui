@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Bring panel handle on top of panel splitter",
+      "comment": "",
       "type": "none"
     }
   ],

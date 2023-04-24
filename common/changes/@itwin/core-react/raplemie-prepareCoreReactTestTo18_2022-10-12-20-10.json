@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Prepare tests for react18",
+      "comment": "",
       "type": "none"
     }
   ],

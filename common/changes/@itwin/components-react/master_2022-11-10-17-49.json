@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/components-react",
-      "comment": "Remove Enzyme tests and packages",
+      "comment": "",
       "type": "none"
     }
   ],

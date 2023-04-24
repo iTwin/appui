@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "peerDependency allow react: ^18.0.0",
+      "comment": "peerDependency allow react: ^18.0.0.",
       "type": "none"
     }
   ],
