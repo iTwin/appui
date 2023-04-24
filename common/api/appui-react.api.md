@@ -525,8 +525,8 @@ export type BackstageItem = BackstageActionItem | BackstageStageLauncher;
 
 // @beta
 export namespace BackstageItemUtilities {
-    export function createActionItem(itemId: string, groupPriority: number, itemPriority: number, execute: () => void, label: string, subtitle?: string, iconSpec?: string, overrides?: Partial<BackstageActionItem>): BackstageActionItem;
-    export function createStageLauncher(frontstageId: string, groupPriority: number, itemPriority: number, label: string, subtitle?: string, iconSpec?: string, overrides?: Partial<BackstageStageLauncher>): BackstageStageLauncher;
+    export function createActionItem(itemId: string, groupPriority: number, itemPriority: number, execute: () => void, label: string, subtitle?: string, icon?: IconSpec, overrides?: Partial<BackstageActionItem>): BackstageActionItem;
+    export function createStageLauncher(frontstageId: string, groupPriority: number, itemPriority: number, label: string, subtitle?: string, icon?: IconSpec, overrides?: Partial<BackstageStageLauncher>): BackstageStageLauncher;
 }
 
 // @public
@@ -4317,11 +4317,11 @@ export interface StatusBarItemProps extends CommonProps {
 // @public
 export namespace StatusBarItemUtilities {
     // @beta
-    export function createActionItem(id: string, section: StatusBarSection, itemPriority: number, icon: string | ConditionalStringValue, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial<StatusBarActionItem>): StatusBarActionItem;
+    export function createActionItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial<StatusBarActionItem>): StatusBarActionItem;
     // @beta
     export function createCustomItem(id: string, section: StatusBarSection, itemPriority: number, content: React_2.ReactNode, overrides?: Partial<StatusBarCustomItem>): StatusBarCustomItem;
     // @beta
-    export function createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: string | ConditionalStringValue, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial<StatusBarLabelItem>): StatusBarLabelItem;
+    export function createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial<StatusBarLabelItem>): StatusBarLabelItem;
 }
 
 // @beta

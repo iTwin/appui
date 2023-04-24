@@ -6,6 +6,7 @@
  * @module Backstage
  */
 
+import { IconSpec } from "@itwin/core-react";
 import { BackstageActionItem, BackstageStageLauncher } from "./BackstageItem";
 
 /** Utilities for creating and maintaining backstage items
@@ -13,10 +14,10 @@ import { BackstageActionItem, BackstageStageLauncher } from "./BackstageItem";
  */
 export namespace BackstageItemUtilities {
   /** Creates a stage launcher backstage item. */
-  export function createStageLauncher(frontstageId: string, groupPriority: number, itemPriority: number, label: string, subtitle?: string, iconSpec?: string, overrides?: Partial<BackstageStageLauncher>): BackstageStageLauncher {
+  export function createStageLauncher(frontstageId: string, groupPriority: number, itemPriority: number, label: string, subtitle?: string, icon?: IconSpec, overrides?: Partial<BackstageStageLauncher>): BackstageStageLauncher {
     return {
       groupPriority,
-      icon: iconSpec,
+      icon,
       id: frontstageId,
       itemPriority,
       label,
@@ -27,11 +28,11 @@ export namespace BackstageItemUtilities {
   }
 
   /** Creates an action backstage item. */
-  export function createActionItem(itemId: string, groupPriority: number, itemPriority: number, execute: () => void, label: string, subtitle?: string, iconSpec?: string, overrides?: Partial<BackstageActionItem>): BackstageActionItem {
+  export function createActionItem(itemId: string, groupPriority: number, itemPriority: number, execute: () => void, label: string, subtitle?: string, icon?: IconSpec, overrides?: Partial<BackstageActionItem>): BackstageActionItem {
     return {
       execute,
       groupPriority,
-      icon: iconSpec,
+      icon,
       id: itemId,
       itemPriority,
       label,

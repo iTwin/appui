@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Allow ReactNode icon argument in item utilities.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
