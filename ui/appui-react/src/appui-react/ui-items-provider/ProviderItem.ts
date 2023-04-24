@@ -7,7 +7,7 @@
  */
 
 /** Properties of an item provided by UiItemsProvider.
- * @beta
+ * @public
  */
 export type ProviderItem<T> = T & {
   readonly providerId: string;

@@ -391,7 +391,7 @@ export function addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageD
 // @internal (undocumented)
 export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDef>, side: PanelSide, widgetId: WidgetId): NineZoneState;
 
-// @beta
+// @public
 export interface AllowedUiItemsProviderOverrides {
     providerId?: string;
     stageIds?: string[];
@@ -3750,7 +3750,7 @@ export class PropsHelper {
     static isShallowEqual(newObj: any, prevObj: any): boolean;
 }
 
-// @beta
+// @public
 export type ProviderItem<T> = T & {
     readonly providerId: string;
 };
@@ -5187,7 +5187,7 @@ export class UiFramework {
     static get widgetManager(): WidgetManager;
 }
 
-// @beta
+// @public
 export class UiItemsManager {
     // @internal
     static clearAllProviders(): void;
@@ -5213,10 +5213,10 @@ export interface UiItemsProvider {
     readonly provideWidgets?: (stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection) => ReadonlyArray<Widget>;
 }
 
-// @beta
+// @public
 export type UiItemsProviderOverrides = MarkRequired<AllowedUiItemsProviderOverrides, "providerId" | "stageUsages"> | MarkRequired<AllowedUiItemsProviderOverrides, "providerId" | "stageIds"> | MarkRequired<AllowedUiItemsProviderOverrides, "stageIds"> | MarkRequired<AllowedUiItemsProviderOverrides, "stageUsages"> | MarkRequired<AllowedUiItemsProviderOverrides, "providerId" | "stageUsages" | "stageIds">;
 
-// @beta
+// @public
 export interface UiItemsProviderRegisteredEventArgs {
     // (undocumented)
     providerId: string;

@@ -36,7 +36,7 @@ public;ActivityMessageUpdatedEvent
 internal;addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState
 internal;addPanelWidgets(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation): NineZoneState
 internal;addWidgets(state: NineZoneState, widgets: ReadonlyArray
-beta;AllowedUiItemsProviderOverrides
+public;AllowedUiItemsProviderOverrides
 public;AnalysisAnimationTimelineDataProvider 
 public;AnyItemDef = GroupItemDef | CommandItemDef | ToolItemDef | ActionButtonItemDef
 public;AnyToolbarItemDef = AnyItemDef | CustomItemDef
@@ -376,7 +376,7 @@ beta;PositionPopupContent(props: CommonDivProps): JSX.Element
 beta;PositionPopupProps 
 public;PresentationSelectionScope
 public;PropsHelper
-beta;ProviderItem
+public;ProviderItem
 beta;QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems }: QuantityFormatterSettingsOptions): JSX.Element
 beta;QuantityFormatterSettingsOptions
 public;ReactContent
@@ -540,10 +540,10 @@ internal;TrackingTime
 public;UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps): JSX.Element
 public;UiDataProvidedDialogProps
 public;UiFramework
-beta;UiItemsManager
+public;UiItemsManager
 public;UiItemsProvider
-beta;UiItemsProviderOverrides = MarkRequired
-beta;UiItemsProviderRegisteredEventArgs
+public;UiItemsProviderOverrides = MarkRequired
+public;UiItemsProviderRegisteredEventArgs
 beta;UiSettingsPage(): JSX.Element
 public;UiSettingsProviderProps
 public;UiShowHideManager
