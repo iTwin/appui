@@ -9,7 +9,7 @@ import { ConfigurableUiControlConstructor, ConfigurableUiElement } from "../conf
 
 /**
  * [[UiFramework.controls]] interface
- * @beta
+ * @public
  */
 export interface FrameworkControls {
 

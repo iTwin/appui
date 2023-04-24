@@ -23,7 +23,7 @@ export class SyncToolSettingsPropertiesEvent extends UiEvent<SyncToolSettingsPro
 
 /**
  * [[UiFramework.toolSettings]] interface
- * @beta
+ * @public
  */
 export interface FrameworkToolSettings {
   /** clear cached Tool Settings properties. */

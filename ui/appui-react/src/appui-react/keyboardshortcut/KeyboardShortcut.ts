@@ -12,7 +12,6 @@ import { ItemDefBase } from "../shared/ItemDefBase";
 import { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
 import { UiFramework } from "../UiFramework";
 import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
-import { InternalKeyboardShortcutManager as internal } from "./InternalKeyboardShortcut";
 
 /** Keyboard Shortcut used to execute an action
  * @public
@@ -201,67 +200,3 @@ export class KeyboardShortcutContainer {
     });
   }
 }
-
-/** Keyboard Shortcut Manager
- * @public
- * @deprecated in 3.7. Use `UiFramework.keyboardShortcuts` property.
- */
-export class KeyboardShortcutManager {
-  /** Initialize the Keyboard Shortcut manager
-   * @deprecated in 3.7. This is called internally.
-  */
-  public static initialize(): void {
-    internal.initialize();
-  }
-
-  /** Loads Keyboard Shortcuts into the managed list */
-  public static loadKeyboardShortcuts(shortcutList: KeyboardShortcutProps[]) {
-    return internal.loadShortcuts(shortcutList);
-  }
-
-  /** Loads a Keyboard Shortcut into the managed list */
-  public static loadKeyboardShortcut(shortcutProps: KeyboardShortcutProps) {
-    return internal.loadShortcut(shortcutProps);
-  }
-
-  /** Processes a keystroke and invokes a matching Keyboard Shortcut */
-  public static processKey(keyboardKey: string, isAltKeyPressed: boolean = false, isCtrlKeyPressed: boolean = false, isShiftKeyPressed: boolean = false): boolean {
-    return internal.processKey(keyboardKey, isAltKeyPressed, isCtrlKeyPressed, isShiftKeyPressed);
-  }
-
-  /** Returns the managed list of Keyboard Shortcuts */
-  public static get shortcutContainer(): KeyboardShortcutContainer {
-    return internal.shortcutContainer;
-  }
-
-  /** Returns a Keyboard Shortcut from the managed lists */
-  public static getShortcut(keyMapKey: string): KeyboardShortcut | undefined {
-    return internal.getShortcut(keyMapKey);
-  }
-
-  /** Determines if focus is set to Home */
-  public static get isFocusOnHome(): boolean {
-    return internal.isFocusOnHome;
-  }
-
-  /** Sets focus to Home */
-  public static setFocusToHome(): void {
-    return internal.setFocusToHome();
-  }
-
-  /** Displays the Keyboard Shortcuts menu at the cursor */
-  public static displayShortcutsMenu(): void {
-    return internal.displayMenu();
-  }
-
-  /** Closes the Keyboard Shortcuts menu */
-  public static closeShortcutsMenu(): void {
-    return internal.closeMenu();
-  }
-
-  /** Returns the cursor X position, which is mouseEvent.pageX. */
-  public static get cursorX(): number { return internal.cursorX; }
-  /** Returns the cursor Y position, which is mouseEvent.pageY. */
-  public static get cursorY(): number { return internal.cursorY; }
-}
-
