@@ -20,7 +20,7 @@ import { NonIdealState } from "@itwin/itwinui-react";
 
 function WidgetFallback() {
   return (
-    <div role="alert" style={{ position: 'relative', minHeight: 400 }}>
+    <div role="alert" style={{ position: "relative", minHeight: 400 }}>
       <NonIdealState svg={<SvgError />} heading="Something went wrong..." />
     </div>
   );
