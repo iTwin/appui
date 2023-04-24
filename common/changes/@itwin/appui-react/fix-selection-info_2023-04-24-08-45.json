@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix SelectionInfoField by displaying selection set size.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
