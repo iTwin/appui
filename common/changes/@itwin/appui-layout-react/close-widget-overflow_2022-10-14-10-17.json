@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Close widget overflow popup when panel is collapsed.",
+      "comment": "",
       "type": "none"
     }
   ],

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "SnapModeField now emit syncEvent",
+      "comment": "SnapModeField now emit syncEvent.",
       "type": "none"
     }
   ],

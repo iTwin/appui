@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Remove deprecated components and API",
+      "comment": "Remove deprecated components and API.",
       "type": "none"
     }
   ],

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Use --buic-toolbar-opacity to set the opacity of toolbar items.",
+      "comment": "",
       "type": "none"
     }
   ],

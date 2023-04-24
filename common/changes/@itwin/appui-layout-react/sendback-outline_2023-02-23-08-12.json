@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Added functionality to floating widget send back button to display an outline of it's home send back",
+      "comment": "Added functionality to floating widget send back button to display an outline of it's home send back.",
       "type": "none"
     }
   ],

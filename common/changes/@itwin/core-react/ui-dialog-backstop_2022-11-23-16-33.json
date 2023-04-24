@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Change core-dialog-hidden class so that modeless dialogs will be compatible with iTwinUI components.",
+      "comment": "",
       "type": "none"
     }
   ],
