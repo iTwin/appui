@@ -8,10 +8,11 @@ import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageManager, StageUsage, UiFramework,
+  BackstageAppButton, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, StageUsage, UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { StandardFrontstageProps, StandardFrontstageProvider } from "../../appui-react/frontstage/StandardFrontstageProvider";
+import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 async function getSavedViewLayoutProps() {
   return Promise.resolve({
@@ -113,7 +114,7 @@ describe("ContentGroupProvider", () => {
   });
 
   beforeEach(() => {
-    sinon.stub(FrontstageManager, "activeToolSettingsProvider").get(() => undefined); // eslint-disable-line deprecation/deprecation
+    sinon.stub(InternalFrontstageManager, "activeToolSettingsProvider").get(() => undefined);
     UiFramework.frontstages.clearFrontstageProviders();
   });
 
