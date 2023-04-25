@@ -486,6 +486,19 @@ function SelectWidgetControls() {
   );
 }
 
+function WidgetContentThrowError() {
+  const [shouldThrow, setShouldThrow] = React.useState(false);
+  if (shouldThrow) {
+    throw new Error("Simulated error was thrown.");
+  }
+  return (
+    <>
+      <h2>Throw error button</h2>
+      <Button onClick={() => setShouldThrow(true)}>Click Me</Button>
+    </>
+  );
+}
+
 const widgetContentStyle: React.CSSProperties = {
   padding: "5px",
   boxSizing: "border-box",
@@ -513,6 +526,7 @@ export function LayoutControls() {
       <FrontstageControls />
       <SelectPanelControls />
       <SelectWidgetControls />
+      <WidgetContentThrowError />
     </WidgetContent>
   );
 }
