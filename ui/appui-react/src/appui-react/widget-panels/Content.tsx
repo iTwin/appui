@@ -17,11 +17,13 @@ import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManag
 import { ErrorBoundary } from "react-error-boundary";
 import { SvgError } from "@itwin/itwinui-illustrations-react";
 import { NonIdealState } from "@itwin/itwinui-react";
+import { UiFramework } from "../UiFramework";
 
 function WidgetFallback() {
+  const errorMessage = UiFramework.translate("widget.errorMessage.unknownError");
   return (
     <div role="alert" style={{ position: "relative", minHeight: 400 }}>
-      <NonIdealState svg={<SvgError />} heading="Something went wrong..." />
+      <NonIdealState svg={<SvgError />} heading={errorMessage} />
     </div>
   );
 }
