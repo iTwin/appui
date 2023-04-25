@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Promotoe UiItemsManager/Provider APIs.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
