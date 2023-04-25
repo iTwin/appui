@@ -291,6 +291,10 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
+      "name": "@itwin/itwinui-illustrations-react",
+      "allowedCategories": [ "frontend" ]
+    },
+    {
       "name": "@itwin/itwinui-react",
       "allowedCategories": [ "extensions", "frontend", "internal" ]
     },
@@ -897,6 +901,10 @@
     {
       "name": "react-dom",
       "allowedCategories": [ "extensions", "frontend", "internal" ]
+    },
+    {
+      "name": "react-error-boundary",
+      "allowedCategories": [ "frontend" ]
     },
     {
       "name": "react-highlight-words",

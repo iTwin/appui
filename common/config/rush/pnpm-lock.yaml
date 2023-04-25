@@ -553,6 +553,7 @@ importers:
       '@itwin/imodel-components-react': workspace:*
       '@itwin/itwinui-icons': ^1.14.0
       '@itwin/itwinui-icons-react': ^2.1.0
+      '@itwin/itwinui-illustrations-react': ^2.0.1
       '@itwin/itwinui-react': ^2.5.0
       '@itwin/itwinui-variables': ^2.0.0
       '@itwin/webgl-compatibility': 4.0.0-dev.37
@@ -591,6 +592,7 @@ importers:
       raf: ^3.4.0
       react: ^17.0.0
       react-dom: ^17.0.0
+      react-error-boundary: 4.0.3
       react-redux: ^7.2.2
       react-test-renderer: ^17.0.0
       redux: ^4.1.0
@@ -605,11 +607,13 @@ importers:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons': 1.16.0
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
+      '@itwin/itwinui-illustrations-react': 2.0.1_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-react': 2.7.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 2.0.0
       classnames: 2.3.1
       immer: 9.0.6
       lodash: 4.17.21
+      react-error-boundary: 4.0.3_react@17.0.2
       rxjs: 6.6.7
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.37_@itwin+core-bentley@4.0.0-dev.37
@@ -14282,6 +14286,15 @@ packages:
       '@babel/runtime': 7.21.0
       react: 17.0.2
     dev: true
+
+  /react-error-boundary/4.0.3_react@17.0.2:
+    resolution: {integrity: sha512-IzNKP/ViHWp2QRDgsDMirEcf0XLsLueN6Wgzm1TVwgbAH+paX8Z42VyKvZcFFRHgd+rPK2P4TLrOrHC/dommew==}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.21.0
+      react: 17.0.2
+    dev: false
 
   /react-error-overlay/6.0.11:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}

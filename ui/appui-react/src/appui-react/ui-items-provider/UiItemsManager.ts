@@ -19,14 +19,14 @@ import { UiItemsProvider } from "./UiItemsProvider";
 import { createAbstractUiItemsManagerAdapter } from "./AbstractUiItemsManager";
 
 /** UiItemsProvider register event args.
- * @beta
+ * @public
  */
 export interface UiItemsProviderRegisteredEventArgs {
   providerId: string;
 }
 
 /** UiItemsProvider overrides allows the application that registers a provider to limit when it is allowed to provide items
- * @beta
+ * @public
  */
 export interface AllowedUiItemsProviderOverrides {
   /** allows providerId to be overridden in the items manager for cases where the same provider needs to provide different content to different stages */
@@ -40,7 +40,7 @@ export interface AllowedUiItemsProviderOverrides {
 /** Allowed overrides applied to a UiItemsProvider the application that registers a provider to limit when it is allowed to provide items.
  * Note that if an override `providerId` is specified then either `stageIds` or `stageUsages` must be defined to limit when the provider's
  * items are allowed.
- * @beta
+ * @public
  */
 export type UiItemsProviderOverrides =
   MarkRequired<AllowedUiItemsProviderOverrides, "providerId" | "stageUsages"> |
@@ -56,7 +56,7 @@ interface UiItemProviderEntry {
 }
 
 /** Controls registering of UiItemsProviders and calls the provider's methods when populating different parts of the User Interface.
- * @beta
+ * @public
  */
 export class UiItemsManager {
   private static _registeredUiItemsProviders: Map<string, UiItemProviderEntry> = new Map<string, UiItemProviderEntry>();

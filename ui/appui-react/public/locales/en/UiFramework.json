@@ -273,6 +273,9 @@
       "toolSettingsHandle": "Undock tool settings",
       "unpinPanel": "Unpin widget panel",
       "popoutActiveTab": "Pop out active widget tab"
+    },
+    "errorMessage": {
+      "unknownError": "Something went wrong..."
     }
   },
   "statusBar": {
