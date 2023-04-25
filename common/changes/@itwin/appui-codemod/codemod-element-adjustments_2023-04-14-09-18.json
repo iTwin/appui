@@ -1,0 +1,20 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-codemod",
+      "comment": "No longer remove `control` attribute from `Widget` element.",
+      "type": "none"
+    },
+    {
+      "packageName": "@itwin/appui-codemod",
+      "comment": "Now only transform local names of imported `Frontstage`, `StagePanel`, `Zone` and `Widget` elements.",
+      "type": "none"
+    },
+    {
+      "packageName": "@itwin/appui-codemod",
+      "comment": "Remove import specifiers  of imported `Frontstage`, `StagePanel`, `Zone` and `Widget` elements.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-codemod"
+}

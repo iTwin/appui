@@ -25,6 +25,7 @@ import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+import { SpecialKey } from "@itwin/appui-abstract";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -110,6 +111,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
       role="tab"
       style={props.style}
       title={label}
+      tabIndex={0}
     >
       {(showWidgetIcon || showIconOnly) && iconSpec && <Icon iconSpec={iconSpec} />}
       {showLabel && <span>{label}</span>}
@@ -257,8 +259,16 @@ export function useTabInteractions<T extends HTMLElement>({
         handleDoubleClick();
       clickCount.current = 0;
     });
+    const keydown = (e: KeyboardEvent) => {
+      if(e.key === SpecialKey.Space || e.key === SpecialKey.Enter) {
+        handleClick();
+      }
+    };
+    const instance = ref.current;
+    instance && instance.addEventListener("keydown", keydown);
     return () => {
       timer.setOnExecute(undefined);
+      instance && instance.removeEventListener("keydown", keydown);
     };
   }, [handleClick, handleDoubleClick]);
   return refs;

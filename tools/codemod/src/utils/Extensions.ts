@@ -3,7 +3,7 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import type { ASTNode, Collection, JSCodeshift } from "jscodeshift";
-import { toExpressionKind, toExpressionName, useCallExpression } from "./CallExpression";
+import { toExpression, toExpressionName, useCallExpression } from "./CallExpression";
 import { useImportDeclaration } from "./ImportDeclaration";
 import { findRootIdentifiers, sortSpecifiers, useImportSpecifier } from "./ImportSpecifier";
 import retainFirstComment from "./retainFirstComment";
@@ -51,6 +51,11 @@ function extensionsPlugin(j: JSCodeshift) {
       const sourceDeclarations = this.findImportDeclarations(source.module);
       const sourceSpecifiers = sourceDeclarations.findSpecifiers(source.specifier);
 
+      const targetDeclarations = this.findImportDeclarations(target.module);
+      const targetSpecifiers = targetDeclarations.findSpecifiers(target.specifier);
+      if (sourceSpecifiers.size() + targetSpecifiers.size() === 0)
+        return this;
+
       const sourceLocalSpecifierName = sourceSpecifiers.getLocalName() || source.specifier;
       const sourceExpr = updateExpressionSpecifier(source.expr, sourceLocalSpecifierName);
 
@@ -67,14 +72,14 @@ function extensionsPlugin(j: JSCodeshift) {
           const expression = toExpressionName(path.value);
           return expression === sourceExpr;
         }).forEach((path) => {
-          const callee = toExpressionKind(j, target.expr);
+          const callee = toExpression(j, target.expr);
           path.replace(callee);
           renamed = true;
         });
 
         if (source.isIdentifier) {
           findRootIdentifiers(j, this, sourceExpr).forEach((path) => {
-            const callee = toExpressionKind(j, target.expr);
+            const callee = toExpression(j, target.expr);
             path.replace(callee);
             renamed = true;
           });

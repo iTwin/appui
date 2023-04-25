@@ -1,6 +1,31 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Fri, 17 Mar 2023 17:52:32 GMT and should not be manually modified.
+This log was last generated on Wed, 12 Apr 2023 13:12:42 GMT and should not be manually modified.
+
+## 3.7.2
+Wed, 12 Apr 2023 13:12:42 GMT
+
+_Version update only_
+
+## 3.7.1
+Mon, 03 Apr 2023 15:15:37 GMT
+
+_Version update only_
+
+## 3.7.0
+Wed, 29 Mar 2023 15:02:27 GMT
+
+### Updates
+
+- Fixed expected test case result.
+- Fix large timeline menu displaying outside visible area
+- Update Navigation Aids in line with current design goals.
+- Update @deprecated comments
+
+## 3.6.3
+Mon, 27 Mar 2023 16:26:47 GMT
+
+_Version update only_
 
 ## 3.6.2
 Fri, 17 Mar 2023 17:52:32 GMT
@@ -187,7 +212,7 @@ Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
 
-- Fix for losing viewport content after clicking PW link 
+- Fix for losing viewport content after clicking PW link
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT

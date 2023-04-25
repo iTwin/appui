@@ -4,13 +4,18 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
+import * as sinon from "sinon";
 import { Provider } from "react-redux";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { MockRender, SnapMode } from "@itwin/core-frontend";
-import { SnapModeField, StatusBar, UiFramework } from "../../appui-react";
-import TestUtils from "../TestUtils";
+import { SnapModeField, StatusBar, SyncUiEventDispatcher, UiFramework } from "../../appui-react";
+import TestUtils, { userEvent } from "../TestUtils";
 
 describe("SnapModeField", () => {
+  let theUserTo: ReturnType<typeof userEvent.setup>;
+  beforeEach(()=>{
+    theUserTo = userEvent.setup();
+  });
   before(async () => {
     await MockRender.App.startup();
     await TestUtils.initializeUiFramework();
@@ -50,6 +55,23 @@ describe("SnapModeField", () => {
     </Provider>);
     const iconContainer = wrapper.container.querySelector(".uifw-icon");
     expect(iconContainer).not.to.be.null;
+  });
+
+  it("should change snapMode and dispatch SyncEvent on click", async () => {
+    const spy = sinon.spy();
+    SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
+    render(<Provider store={TestUtils.store}>
+      <StatusBar><SnapModeField /></StatusBar>
+    </Provider>);
+    await theUserTo.click(screen.getByRole("button"));
+    await theUserTo.click(screen.getByText("snapModeField.bisector"));
+
+    expect(UiFramework.getAccudrawSnapMode()).to.equal(SnapMode.Bisector);
+    expect(spy).to.have.been.calledWith({
+      eventIds: sinon.match.set.contains(
+        new Set(["configurableui:set_snapmode"])
+      ),
+    });
   });
 
 });
