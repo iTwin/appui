@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-layout-react",
-      "comment": "Using iTwinUI-variables",
+      "comment": "Using iTwinUI-variables.",
       "type": "none"
     }
   ],

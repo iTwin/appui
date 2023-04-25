@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "React to toolbar changes.",
+      "comment": "Allow ReactNode icon argument in item utilities.",
       "type": "none"
     }
   ],

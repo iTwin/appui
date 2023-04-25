@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "React to toolbar changes.",
+      "comment": "Fix SelectionInfoField by displaying selection set size.",
       "type": "none"
     }
   ],

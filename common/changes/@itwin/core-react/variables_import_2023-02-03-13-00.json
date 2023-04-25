@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Fix '@itwin/itwinui-variables' css import.",
+      "comment": "",
       "type": "none"
     }
   ],

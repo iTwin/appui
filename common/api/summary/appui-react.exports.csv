@@ -451,9 +451,9 @@ beta;StatusBarIndicatorProps
 public;StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem
 internal;StatusBarItemProps 
 public;StatusBarItemUtilities
-beta;createActionItem(id: string, section: StatusBarSection, itemPriority: number, icon: string | ConditionalStringValue, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial
+beta;createActionItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, tooltip: string | ConditionalStringValue, execute: () => void, overrides?: Partial
 beta;createCustomItem(id: string, section: StatusBarSection, itemPriority: number, content: React_2.ReactNode, overrides?: Partial
-beta;createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: string | ConditionalStringValue, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial
+beta;createLabelItem(id: string, section: StatusBarSection, itemPriority: number, icon: IconSpec, label: string | ConditionalStringValue, labelSide?: StatusBarLabelSide, overrides?: Partial
 beta;StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps): JSX.Element
 beta;StatusBarLabelIndicatorProps 
 public;StatusBarLabelItem 

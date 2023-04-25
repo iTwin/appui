@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/core-react",
-      "comment": "Update iTwinUI-react to v2.x",
+      "comment": "Update iTwinUI-react to v2.x.",
       "type": "none"
     }
   ],
