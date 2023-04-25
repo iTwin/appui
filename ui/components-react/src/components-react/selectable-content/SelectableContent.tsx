@@ -31,6 +31,7 @@ export interface ControlledSelectableContentProps {
   onSelectedContentIdChanged?: (contentId: string) => void;
   children: SelectableContentDefinition[];
   selectAriaLabel?: string;
+  disabled?: boolean;
 }
 
 /**
@@ -40,7 +41,7 @@ export interface ControlledSelectableContentProps {
  * @public
  */
 export function ControlledSelectableContent(props: ControlledSelectableContentProps) {
-  const { onSelectedContentIdChanged } = props;
+  const { onSelectedContentIdChanged, disabled } = props;
 
   const onContentIdSelected = React.useCallback((newValue: string): void => {
     onSelectedContentIdChanged && onSelectedContentIdChanged(newValue);
@@ -63,6 +64,7 @@ export function ControlledSelectableContent(props: ControlledSelectableContentPr
             aria-label={props.selectAriaLabel}
             value={selectedContent.id}
             options={options}
+            disabled={disabled}
           />
         }
       </div>
@@ -81,6 +83,7 @@ export interface SelectableContentProps {
   defaultSelectedContentId: string;
   children: SelectableContentDefinition[];
   selectAriaLabel?: string;
+  disabled?: boolean;
 }
 
 /**
@@ -95,7 +98,7 @@ export function SelectableContent(props: SelectableContentProps) {
     setSelectedContentId(id);
   }, []);
   return (
-    <ControlledSelectableContent selectedContentId={selectedContentId} onSelectedContentIdChanged={onSelectedContentIdChanged} selectAriaLabel={props.selectAriaLabel}>
+    <ControlledSelectableContent selectedContentId={selectedContentId} onSelectedContentIdChanged={onSelectedContentIdChanged} selectAriaLabel={props.selectAriaLabel} disabled={props.disabled}>
       {props.children}
     </ControlledSelectableContent>
   );

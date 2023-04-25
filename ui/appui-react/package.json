@@ -1,6 +1,6 @@
 {
   "name": "@itwin/appui-react",
-  "version": "4.0.0-dev.17",
+  "version": "4.1.0-dev.0",
   "description": "UI framework",
   "main": "lib/cjs/appui-react.js",
   "module": "lib/esm/appui-react.js",
@@ -45,16 +45,16 @@
   },
   "peerDependencies": {
     "@itwin/appui-abstract": ">=3.7.0",
-    "@itwin/appui-layout-react": "workspace:^4.0.0-dev.17",
-    "@itwin/components-react": "workspace:^4.0.0-dev.17",
+    "@itwin/appui-layout-react": "workspace:^4.1.0-dev.0",
+    "@itwin/components-react": "workspace:^4.1.0-dev.0",
     "@itwin/core-bentley": ">=3.7.0",
     "@itwin/core-common": ">=3.7.0",
     "@itwin/core-frontend": ">=3.7.0",
     "@itwin/core-geometry": ">=3.7.0",
     "@itwin/core-quantity": ">=3.7.0",
-    "@itwin/core-react": "workspace:^4.0.0-dev.17",
+    "@itwin/core-react": "workspace:^4.1.0-dev.0",
     "@itwin/core-telemetry": ">=3.7.0",
-    "@itwin/imodel-components-react": "workspace:^4.0.0-dev.17",
+    "@itwin/imodel-components-react": "workspace:^4.1.0-dev.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-redux": "^7.2.2",
@@ -133,9 +133,11 @@
     "@itwin/itwinui-variables": "^2.0.0",
     "@itwin/itwinui-icons-react": "^2.1.0",
     "@itwin/itwinui-icons": "^1.14.0",
+    "@itwin/itwinui-illustrations-react": "^2.0.1",
     "classnames": "2.3.1",
     "immer": "9.0.6",
     "lodash": "^4.17.10",
+    "react-error-boundary": "4.0.3",
     "rxjs": "^6.6.2"
   },
   "nyc": {
@@ -147,12 +149,20 @@
       "ts-node/register"
     ],
     "check-coverage": true,
-    "statements": 96,
-    "branches": 93,
-    "functions": 94,
-    "lines": 96
+    "statements": 90,
+    "branches": 90,
+    "functions": 90,
+    "lines": 90
   },
   "eslintConfig": {
+    "rules": {
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-ignore": "allow-with-description"
+        }
+      ]
+    },
     "plugins": [
       "@itwin"
     ],

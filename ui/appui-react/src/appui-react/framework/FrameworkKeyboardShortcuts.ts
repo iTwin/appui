@@ -93,7 +93,7 @@ export interface FrameworkKeyboardShortcutContainer {
 
 /**
  * [[UiFramework.keyboardShortcuts]] interface
- * @beta
+ * @public
  */
 export interface FrameworkKeyboardShortcuts {
   /** Loads Keyboard Shortcuts into the managed list */
