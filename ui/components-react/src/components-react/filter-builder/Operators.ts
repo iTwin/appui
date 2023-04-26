@@ -6,7 +6,8 @@
  * @module PropertyFilterBuilder
  */
 
-import { PropertyDescription, StandardTypeNames } from "@itwin/appui-abstract";
+import type { PropertyDescription} from "@itwin/appui-abstract";
+import { StandardTypeNames } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents";
 
 /**

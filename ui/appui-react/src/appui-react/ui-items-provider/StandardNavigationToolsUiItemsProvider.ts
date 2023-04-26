@@ -7,9 +7,10 @@
  */
 
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
-import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import type { ToolbarItem} from "../toolbar/ToolbarItem";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { CoreTools } from "../tools/CoreToolDefinitions";
-import { UiItemsProvider } from "./UiItemsProvider";
+import type { UiItemsProvider } from "./UiItemsProvider";
 
 /**
  * Defines what tools to include from the provider. If any tools in the horizontal or vertical group are

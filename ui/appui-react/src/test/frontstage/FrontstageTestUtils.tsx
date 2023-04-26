@@ -4,8 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, FrontstageConfig, FrontstageProvider,
+import type {
+  ConfigurableCreateInfo, FrontstageConfig} from "../../appui-react";
+import { ContentControl, ContentGroup, FrontstageProvider,
   MessageCenterField, StatusBarWidgetControl, WidgetState,
 } from "../../appui-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";

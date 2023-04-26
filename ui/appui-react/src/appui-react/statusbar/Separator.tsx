@@ -9,7 +9,7 @@
 import "./Separator.scss";
 import * as React from "react";
 import classnames from "classnames";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 
 /** Component used to separate status fields in a status bar.
  * @public

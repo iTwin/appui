@@ -6,7 +6,7 @@
  * @module Frontstage
  */
 
-import { FrontstageConfig } from "./FrontstageConfig";
+import type { FrontstageConfig } from "./FrontstageConfig";
 
 /** Provides a definition required to create a Frontstage.
  * @public

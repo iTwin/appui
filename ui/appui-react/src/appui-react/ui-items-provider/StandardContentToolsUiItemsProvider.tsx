@@ -8,13 +8,15 @@
 
 import * as React from "react";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
-import { StatusBarItem, StatusBarSection } from "../statusbar/StatusBarItem";
+import type { StatusBarItem} from "../statusbar/StatusBarItem";
+import { StatusBarSection } from "../statusbar/StatusBarItem";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { SectionsStatusField } from "../statusfields/SectionsField";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
-import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import type { ToolbarItem} from "../toolbar/ToolbarItem";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { CoreTools } from "../tools/CoreToolDefinitions";
-import { UiItemsProvider } from "./UiItemsProvider";
+import type { UiItemsProvider } from "./UiItemsProvider";
 
 /**
  * Defines what tools to include from the provider. If any tools in the horizontal or vertical group are

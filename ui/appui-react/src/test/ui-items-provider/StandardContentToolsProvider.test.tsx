@@ -6,8 +6,9 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
-import {
-  DefaultContentTools, DefaultContentToolsAppData, StageUsage, StandardContentToolsProvider, ToolbarOrientation, ToolbarUsage, UiItemsManager,
+import type {
+  DefaultContentTools, DefaultContentToolsAppData} from "../../appui-react";
+import { StageUsage, StandardContentToolsProvider, ToolbarOrientation, ToolbarUsage, UiItemsManager,
 } from "../../appui-react";
 
 const testAppDataPropsArray: DefaultContentToolsAppData[] = [

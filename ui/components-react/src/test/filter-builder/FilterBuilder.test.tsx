@@ -7,13 +7,15 @@ import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
 import * as React from "react";
 import sinon from "sinon";
-import { PropertyDescription, PropertyValueFormat } from "@itwin/appui-abstract";
+import type { PropertyDescription} from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilder } from "../../components-react/filter-builder/FilterBuilder";
-import { buildPropertyFilter, PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
+import type { PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
+import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState";
 import { PropertyFilterRuleGroupOperator, PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
-import { PropertyFilter } from "../../components-react/filter-builder/Types";
+import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 
 chai.use(chaiSubset);
 

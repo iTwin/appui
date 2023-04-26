@@ -7,8 +7,9 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { act } from "@testing-library/react-hooks";
+import type { DragManager, NineZoneDispatch} from "../../appui-layout-react";
 import {
-  addPanelWidget, addTab, createLayoutStore, createNineZoneState, DraggedPanelSideContext, DragManager, NineZoneDispatch,
+  addPanelWidget, addTab, createLayoutStore, createNineZoneState, DraggedPanelSideContext,
   WidgetPanelProvider,
 } from "../../appui-layout-react";
 import { createDragInfo, TestNineZoneProvider } from "../Providers";

@@ -4,9 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
+import type {
+  BackstageActionItem, BackstageStageLauncher} from "../../appui-react";
 import {
-  BackstageActionItem,
-  BackstageComposerActionItem, BackstageComposerItem, BackstageComposerStageLauncher, BackstageStageLauncher, UiFramework,
+  BackstageComposerActionItem, BackstageComposerItem, BackstageComposerStageLauncher, UiFramework,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
 import { render, screen } from "@testing-library/react";

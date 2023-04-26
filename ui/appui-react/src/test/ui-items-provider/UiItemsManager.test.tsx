@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable deprecation/deprecation, @typescript-eslint/ban-ts-comment */
 
 import * as React from "react";
 import * as sinon from "sinon";

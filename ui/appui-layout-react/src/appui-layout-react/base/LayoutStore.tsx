@@ -7,10 +7,12 @@
  */
 
 import * as React from "react";
-import { createStore, StoreApi, useStore } from "zustand";
+import type { StoreApi} from "zustand";
+import { createStore, useStore } from "zustand";
 import { shallow } from "zustand/shallow";
 import { assert } from "@itwin/core-bentley";
-import { createNineZoneState, NineZoneState } from "../state/NineZoneState";
+import type { NineZoneState } from "../state/NineZoneState";
+import { createNineZoneState } from "../state/NineZoneState";
 
 /** @internal */
 export type LayoutState = NineZoneState;

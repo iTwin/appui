@@ -6,8 +6,9 @@
  * @module StandardUiItemsProvider
  */
 
-import { DefaultStatusbarItems, StandardStatusbarUiItemsProvider } from "./StandardStatusbarUiItemsProvider";
-import { StatusBarItem } from "../statusbar/StatusBarItem";
+import type { DefaultStatusbarItems} from "./StandardStatusbarUiItemsProvider";
+import { StandardStatusbarUiItemsProvider } from "./StandardStatusbarUiItemsProvider";
+import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import { UiItemsManager } from "./UiItemsManager";
 import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
 

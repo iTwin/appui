@@ -10,7 +10,7 @@ import { PropertyRenderer } from "../../../components-react/properties/renderers
 import { PropertyValueRendererManager } from "../../../components-react/properties/ValueRendererManager";
 import TestUtils, { selectorMatches, styleMatch, userEvent } from "../../TestUtils";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { PropertyRecord } from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 
 describe("PropertyRenderer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

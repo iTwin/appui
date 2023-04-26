@@ -7,9 +7,9 @@
  */
 
 import { FunctionKey, SpecialKey, UiError } from "@itwin/appui-abstract";
-import { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
+import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import { ItemDefBase } from "../shared/ItemDefBase";
-import { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
+import type { KeyboardShortcutProps } from "../framework/FrameworkKeyboardShortcuts";
 import { UiFramework } from "../UiFramework";
 import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
 

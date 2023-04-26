@@ -7,13 +7,16 @@
  */
 
 import * as React from "react";
-import { DateFormatter, RelativePosition, SpecialKey, TimeDisplay } from "@itwin/appui-abstract";
-import { CommonProps, Popup } from "@itwin/core-react";
+import type { DateFormatter, TimeDisplay } from "@itwin/appui-abstract";
+import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
+import type { CommonProps} from "@itwin/core-react";
+import { Popup } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents";
 import { DatePicker } from "./DatePicker";
 import { DateField } from "./DateField";
-import { TimeField, TimeSpec } from "./TimeField";
+import type { TimeSpec } from "./TimeField";
+import { TimeField } from "./TimeField";
 import "./DatePickerPopupButton.scss";
 
 /** Props used by [[DatePickerPopupButton]] component.

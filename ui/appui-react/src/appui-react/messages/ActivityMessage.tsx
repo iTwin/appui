@@ -7,10 +7,12 @@
  */
 
 import * as React from "react";
-import { ReactMessage, UiCore } from "@itwin/core-react";
+import type { ReactMessage} from "@itwin/core-react";
+import { UiCore } from "@itwin/core-react";
 import { ProgressLinear, Text, toaster } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
-import { ActivityMessageEventArgs, MessageManager } from "../messages/MessageManager";
+import type { ActivityMessageEventArgs} from "../messages/MessageManager";
+import { MessageManager } from "../messages/MessageManager";
 
 interface UseActivityMessageProps {
   cancelActivityMessage?: () => void;

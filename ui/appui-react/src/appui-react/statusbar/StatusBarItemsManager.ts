@@ -8,7 +8,7 @@
 
 import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
-import { StatusBarItem } from "./StatusBarItem";
+import type { StatusBarItem } from "./StatusBarItem";
 
 type InstanceOrArray<T> = T | ReadonlyArray<T>;
 

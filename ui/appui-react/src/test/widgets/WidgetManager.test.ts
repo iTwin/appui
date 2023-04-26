@@ -5,7 +5,8 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import { StagePanelLocation, StagePanelSection, StageUsage, UiItemsManager, UiItemsProvider, Widget, WidgetDef, WidgetManager, WidgetState } from "../../appui-react";
+import type { UiItemsProvider, Widget} from "../../appui-react";
+import { StagePanelLocation, StagePanelSection, StageUsage, UiItemsManager, WidgetDef, WidgetManager, WidgetState } from "../../appui-react";
 import { TestUtils } from "../TestUtils";
 
 class TestUiProvider implements UiItemsProvider {

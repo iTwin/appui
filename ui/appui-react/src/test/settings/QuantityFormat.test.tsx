@@ -6,11 +6,12 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { IModelApp, MockRender, QuantityType, QuantityTypeKey } from "@itwin/core-frontend";
+import type { QuantityTypeKey } from "@itwin/core-frontend";
+import { IModelApp, MockRender, QuantityType } from "@itwin/core-frontend";
 import TestUtils, { getButtonWithText, handleError, selectChangeValueByText, stubScrollIntoView } from "../TestUtils";
 import { getQuantityFormatsSettingsManagerEntry } from "../../appui-react/settings/quantityformatting/QuantityFormat";
 import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager";
-import { FormatProps, UnitSystemKey } from "@itwin/core-quantity";
+import type { FormatProps, UnitSystemKey } from "@itwin/core-quantity";
 import { UiFramework } from "../../appui-react/UiFramework";
 
 describe("QuantityFormatSettingsPage", () => {

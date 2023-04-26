@@ -6,9 +6,10 @@
 import * as React from "react";
 import sinon from "sinon";
 import { render } from "@testing-library/react";
+import type { ActiveRuleGroupContextProps, PropertyFilterBuilderContextProps, PropertyFilterBuilderRuleRenderingContextProps} from "../../components-react/filter-builder/FilterBuilderContext";
 import {
-  ActiveRuleGroupContext, ActiveRuleGroupContextProps, PropertyFilterBuilderContext, PropertyFilterBuilderContextProps,
-  PropertyFilterBuilderRuleRenderingContext, PropertyFilterBuilderRuleRenderingContextProps,
+  ActiveRuleGroupContext, PropertyFilterBuilderContext,
+  PropertyFilterBuilderRuleRenderingContext,
 } from "../../components-react/filter-builder/FilterBuilderContext";
 import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
 

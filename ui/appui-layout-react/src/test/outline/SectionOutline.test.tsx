@@ -4,8 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, render } from "@testing-library/react";
-import { addTab, createNineZoneState, DragManager, PanelSideContext } from "../../appui-layout-react";
-import { createDragInfo, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
+import type { DragManager} from "../../appui-layout-react";
+import { addTab, createNineZoneState, PanelSideContext } from "../../appui-layout-react";
+import type { TestNineZoneProviderProps } from "../Providers";
+import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { SectionOutline } from "../../appui-layout-react/outline/SectionOutline";
 import { expect } from "chai";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";

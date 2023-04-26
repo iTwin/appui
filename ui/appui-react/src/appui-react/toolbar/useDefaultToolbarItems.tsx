@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { ToolbarItem } from "./ToolbarItem";
-import { ToolbarItemsManager } from "./ToolbarItemsManager";
+import type { ToolbarItem } from "./ToolbarItem";
+import type { ToolbarItemsManager } from "./ToolbarItemsManager";
 
 /** Hook that returns items from [[ToolbarItemsManager]].
  * @public

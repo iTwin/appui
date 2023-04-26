@@ -8,11 +8,12 @@
 
 import "./ContentDialog.scss";
 import * as React from "react";
-import { Dialog, DialogProps } from "@itwin/core-react";
-import { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
+import type { DialogProps } from "@itwin/core-react";
+import { Dialog } from "@itwin/core-react";
+import type { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
 import { SyncUiEventDispatcher, SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
-import { UiSyncEventArgs } from "@itwin/appui-abstract";
+import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import classnames from "classnames";
 
 // istanbul ignore next

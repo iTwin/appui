@@ -6,10 +6,10 @@
  * @module Frontstage
  */
 
-import { CommonProps } from "@itwin/core-react";
-import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
-import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
-import { WidgetConfig } from "../widgets/WidgetConfig";
+import type { CommonProps } from "@itwin/core-react";
+import type { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
+import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
+import type { WidgetConfig } from "../widgets/WidgetConfig";
 
 /** Configuration from which a frontstage is created.
  * @public
