@@ -63,6 +63,7 @@ interface ViewSelectorState {
   showUnknown: boolean;
   searchBox: boolean;
   panelOnly: boolean;
+  expand: boolean;
 }
 
 /** Default properties of [[ViewSelector]] component.
@@ -123,6 +124,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       showUnknown: props.showUnknown,
       searchBox: props.searchBox ? props.searchBox : true,
       panelOnly: props.panelOnly ? props.panelOnly : false,
+      expand: false,
     };
   }
 
@@ -231,7 +233,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
         const viewItem: ListItem = {
           key: spec.id,
           name: spec.name,
-          enabled: false,
+          enabled: spec.id === IModelApp.viewManager.selectedView?.view.id ? true : false,
           type: ListItemType.Item,
         };
 
@@ -372,9 +374,11 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
         searchBox={this.state.searchBox}
         onSearchValueChange={debounce((search: string) => {
           this._searchInput = search;
+          if(this.state.expand === false && this._searchInput.length > 0) this.setState({expand: true});
           void this.loadViews();
         }, 300)}
         panelOnly={this.state.panelOnly}
+        expanded={this.state.expand}
       />
     );
   }
