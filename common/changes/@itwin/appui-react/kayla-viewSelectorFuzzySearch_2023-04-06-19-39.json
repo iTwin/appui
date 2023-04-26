@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Implemented fuzzy search for ViewSelector",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

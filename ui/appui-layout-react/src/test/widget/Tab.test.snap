@@ -6,6 +6,7 @@ exports[`WidgetTab should render active 1`] = `
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
+  tabindex="0"
   title=""
 >
   <span />
@@ -21,6 +22,7 @@ exports[`WidgetTab should render badge 1`] = `
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
+  tabindex="0"
   title=""
 >
   <span />
@@ -41,6 +43,7 @@ exports[`WidgetTab should render first inactive 1`] = `
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
+  tabindex="0"
   title=""
 >
   <span />
@@ -56,6 +59,7 @@ exports[`WidgetTab should render last not overflown 1`] = `
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
+  tabindex="0"
   title=""
 >
   <span />
@@ -71,6 +75,7 @@ exports[`WidgetTab should render minimized 1`] = `
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
+  tabindex="0"
   title=""
 >
   <span />
@@ -86,6 +91,7 @@ exports[`WidgetTab should render tab with icon only 1`] = `
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
+  tabindex="0"
   title=""
 >
   <i
@@ -114,6 +120,7 @@ exports[`WidgetTab should render tab with text and icon 1`] = `
   data-item-id="t1"
   data-item-type="widget-tab"
   role="tab"
+  tabindex="0"
   title=""
 >
   <i

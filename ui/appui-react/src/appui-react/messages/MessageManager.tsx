@@ -254,9 +254,9 @@ export class MessageManager {
     };
     toaster.setSettings({ placement: "bottom", order: "ascending", ...settings });
     const content = <>
-      {message.briefMessage}
+      {(message.briefMessage as ReactMessage).reactNode || message.briefMessage}
       {message.detailedMessage &&
-      <Text variant="small"><>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</></Text>
+      <Text variant="small" style={{display: "block"}}>{(message.detailedMessage as ReactMessage).reactNode || message.detailedMessage}</Text>
       }
     </>;
     switch (message.priority) {

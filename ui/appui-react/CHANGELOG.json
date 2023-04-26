@@ -2,6 +2,45 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "3.7.2",
+      "tag": "@itwin/appui-react_v3.7.2",
+      "date": "Wed, 12 Apr 2023 13:12:42 GMT",
+      "comments": {}
+    },
+    {
+      "version": "3.7.1",
+      "tag": "@itwin/appui-react_v3.7.1",
+      "date": "Mon, 03 Apr 2023 15:15:36 GMT",
+      "comments": {}
+    },
+    {
+      "version": "3.7.0",
+      "tag": "@itwin/appui-react_v3.7.0",
+      "date": "Wed, 29 Mar 2023 15:02:27 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix Popout widget window title"
+          },
+          {
+            "comment": "Fix react briefMessage in toasts"
+          },
+          {
+            "comment": "Move `Manager` classes under `UiFramework`"
+          },
+          {
+            "comment": "update @deprecated comments."
+          }
+        ]
+      }
+    },
+    {
+      "version": "3.6.3",
+      "tag": "@itwin/appui-react_v3.6.3",
+      "date": "Mon, 27 Mar 2023 16:26:47 GMT",
+      "comments": {}
+    },
+    {
       "version": "3.6.2",
       "tag": "@itwin/appui-react_v3.6.2",
       "date": "Fri, 17 Mar 2023 17:52:32 GMT",
