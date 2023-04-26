@@ -1,10 +1,5 @@
 lockfileVersion: 5.3
 
-overrides:
-  typedoc: 0.23.28
-  typescript: ^5.0.2
-  typedoc-plugin-merge-modules: ^4.0.1
-
 importers:
 
   .:
@@ -21,7 +16,7 @@ importers:
       '@itwin/appui-abstract': ^3.7.0
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^3.7.0
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': ^3.7.0
       '@itwin/core-common': ^3.7.0
@@ -48,7 +43,7 @@ importers:
       react-redux: ^7.2.2
       react-select: 3.2.0
       rimraf: ^3.0.2
-      typescript: ^5.0.2
+      typescript: ~5.0.2
     dependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
@@ -73,7 +68,7 @@ importers:
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
       react-select: 3.2.0_react-dom@17.0.2+react@17.0.2
     devDependencies:
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': 3.7.4
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@types/react': 17.0.53
       '@types/react-redux': 7.1.25
@@ -94,7 +89,7 @@ importers:
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
       '@itwin/browser-authorization': ^0.6.2
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^3.7.0
       '@itwin/components-react': workspace:*
       '@itwin/core-backend': ^3.7.0
       '@itwin/core-bentley': ^3.7.0
@@ -165,7 +160,7 @@ importers:
       redux: ^4.1.0
       rimraf: ^3.0.2
       semver: ^7.3.5
-      typescript: ^5.0.2
+      typescript: ~5.0.2
       webpack: ^5.76.0
     dependencies:
       '@bentley/icons-generic': 1.0.34
@@ -225,7 +220,7 @@ importers:
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-webpack-tools': 3.7.0_webpack@5.76.3
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/projects-client': 0.6.0
@@ -262,7 +257,7 @@ importers:
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^3.7.0
       '@itwin/components-react': workspace:*
       '@itwin/core-backend': ^3.7.0
       '@itwin/core-bentley': ^3.7.0
@@ -328,7 +323,7 @@ importers:
       rimraf: ^3.0.2
       semver: ^7.3.5
       serve: ^14.1.2
-      typescript: ^5.0.2
+      typescript: ~5.0.2
       webpack: ^5.76.0
     dependencies:
       '@bentley/icons-generic': 1.0.34
@@ -381,7 +376,7 @@ importers:
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-webpack-tools': 3.7.0_webpack@5.76.3
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/projects-client': 0.6.0
@@ -418,7 +413,7 @@ importers:
       jest: ^29.4.2
       jscodeshift: ^0.14.0
       ts-jest: ^29.0.5
-      typescript: ^5.0.2
+      typescript: ~5.0.2
       yargs: ^17.6.2
     dependencies:
       jscodeshift: 0.14.0
@@ -434,19 +429,19 @@ importers:
 
   ../../tools/internal:
     specifiers:
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^3.7.0
       mocha: ^10.0.0
       yargs: ^17.6.2
     dependencies:
       yargs: 17.7.1
     devDependencies:
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': 3.7.4
       mocha: 10.2.0
 
   ../../ui/appui-layout-react:
     specifiers:
       '@itwin/appui-abstract': ^3.7.0
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^3.7.0
       '@itwin/core-bentley': ^3.7.0
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^3.7.0
@@ -488,7 +483,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ^5.0.2
+      typescript: ~5.0.2
       zustand: ^4.3.6
     dependencies:
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -500,7 +495,7 @@ importers:
       zustand: 4.3.6_immer@9.0.6+react@17.0.2
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-react': link:../core-react
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
@@ -543,7 +538,7 @@ importers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': ^3.7.0
       '@itwin/appui-layout-react': workspace:*
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^3.7.0
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': ^3.7.0
       '@itwin/core-common': ^3.7.0
@@ -607,7 +602,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ^5.0.2
+      typescript: ~5.0.2
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons': 1.16.0
@@ -623,7 +618,7 @@ importers:
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/appui-layout-react': link:../appui-layout-react
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 3.7.4
       '@itwin/components-react': link:../components-react
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
@@ -683,7 +678,7 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': ^3.7.0
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^3.7.0
       '@itwin/core-bentley': ^3.7.0
       '@itwin/core-common': ^3.7.0
       '@itwin/core-geometry': ^3.7.0
@@ -741,7 +736,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ^5.0.2
+      typescript: ~5.0.2
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -758,7 +753,7 @@ importers:
       shortid: 2.2.16
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
       '@itwin/core-geometry': 3.7.0
@@ -810,7 +805,7 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': ^3.7.0
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^3.7.0
       '@itwin/core-bentley': ^3.7.0
       '@itwin/core-common': ^3.7.0
       '@itwin/core-geometry': ^3.7.0
@@ -857,7 +852,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ^5.0.2
+      typescript: ~5.0.2
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -870,7 +865,7 @@ importers:
       resize-observer-polyfill: 1.5.1
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
       '@itwin/core-geometry': 3.7.0
@@ -915,7 +910,7 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': ^3.7.0
-      '@itwin/build-tools': 4.0.0-dev.87
+      '@itwin/build-tools': ^3.7.0
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': ^3.7.0
       '@itwin/core-common': ^3.7.0
@@ -964,7 +959,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ^5.0.2
+      typescript: ~5.0.2
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -973,7 +968,7 @@ importers:
       classnames: 2.3.1
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
-      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
+      '@itwin/build-tools': 3.7.4
       '@itwin/components-react': link:../components-react
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
@@ -3095,11 +3090,11 @@ packages:
       oidc-client-ts: 2.2.2
     dev: false
 
-  /@itwin/build-tools/4.0.0-dev.87:
-    resolution: {integrity: sha512-O1ZJeycHnbzXwwSbMZ1ljdHPPFcNdLs1mFAK0vEBo7hxxD1DkC+uqDBi7wzjzU4vw+Qg0sie3/U2EP5XEiUNDg==}
+  /@itwin/build-tools/3.7.4:
+    resolution: {integrity: sha512-0IBnxpN01lZuk2eCdYk+R7nlxsoiGbwAeVW2/wbqn1J9B9IVHVYaMiF6JNgG+d1w+ueQas0c45vZYGFi79e0oA==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor': 7.34.4
+      '@microsoft/api-extractor': 7.23.2
       chalk: 3.0.0
       cpx2: 3.0.2
       cross-spawn: 7.0.3
@@ -3109,37 +3104,12 @@ packages:
       mocha-junit-reporter: 2.2.0_mocha@10.2.0
       rimraf: 3.0.2
       tree-kill: 1.2.2
-      typedoc: 0.23.28_typescript@5.0.2
-      typedoc-plugin-merge-modules: 4.1.0_typedoc@0.23.28
-      typescript: 5.0.2
+      typedoc: 0.22.18_typescript@4.4.4
+      typedoc-plugin-merge-modules: 3.1.0_typedoc@0.22.18
+      typescript: 4.4.4
       wtfnode: 0.9.1
       yargs: 17.7.1
     transitivePeerDependencies:
-      - '@types/node'
-      - supports-color
-    dev: true
-
-  /@itwin/build-tools/4.0.0-dev.87_@types+node@18.11.5:
-    resolution: {integrity: sha512-O1ZJeycHnbzXwwSbMZ1ljdHPPFcNdLs1mFAK0vEBo7hxxD1DkC+uqDBi7wzjzU4vw+Qg0sie3/U2EP5XEiUNDg==}
-    hasBin: true
-    dependencies:
-      '@microsoft/api-extractor': 7.34.4_@types+node@18.11.5
-      chalk: 3.0.0
-      cpx2: 3.0.2
-      cross-spawn: 7.0.3
-      fs-extra: 8.1.0
-      glob: 7.2.3
-      mocha: 10.2.0
-      mocha-junit-reporter: 2.2.0_mocha@10.2.0
-      rimraf: 3.0.2
-      tree-kill: 1.2.2
-      typedoc: 0.23.28_typescript@5.0.2
-      typedoc-plugin-merge-modules: 4.1.0_typedoc@0.23.28
-      typescript: 5.0.2
-      wtfnode: 0.9.1
-      yargs: 17.7.1
-    transitivePeerDependencies:
-      - '@types/node'
       - supports-color
     dev: true
 
@@ -4360,64 +4330,30 @@ packages:
     dependencies:
       '@babel/runtime': 7.21.0
 
-  /@microsoft/api-extractor-model/7.26.4:
-    resolution: {integrity: sha512-PDCgCzXDo+SLY5bsfl4bS7hxaeEtnXj7XtuzEE+BtALp7B5mK/NrS2kHWU69pohgsRmEALycQdaQPXoyT2i5MQ==}
+  /@microsoft/api-extractor-model/7.17.3:
+    resolution: {integrity: sha512-ETslFxVEZTEK6mrOARxM34Ll2W/5H2aTk9Pe9dxsMCnthE8O/CaStV4WZAGsvvZKyjelSWgPVYGowxGVnwOMlQ==}
     dependencies:
-      '@microsoft/tsdoc': 0.14.2
+      '@microsoft/tsdoc': 0.14.1
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.55.2
-    transitivePeerDependencies:
-      - '@types/node'
+      '@rushstack/node-core-library': 3.45.5
     dev: true
 
-  /@microsoft/api-extractor-model/7.26.4_@types+node@18.11.5:
-    resolution: {integrity: sha512-PDCgCzXDo+SLY5bsfl4bS7hxaeEtnXj7XtuzEE+BtALp7B5mK/NrS2kHWU69pohgsRmEALycQdaQPXoyT2i5MQ==}
-    dependencies:
-      '@microsoft/tsdoc': 0.14.2
-      '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.55.2_@types+node@18.11.5
-    transitivePeerDependencies:
-      - '@types/node'
-    dev: true
-
-  /@microsoft/api-extractor/7.34.4:
-    resolution: {integrity: sha512-HOdcci2nT40ejhwPC3Xja9G+WSJmWhCUKKryRfQYsmE9cD+pxmBaKBKCbuS9jUcl6bLLb4Gz+h7xEN5r0QiXnQ==}
+  /@microsoft/api-extractor/7.23.2:
+    resolution: {integrity: sha512-0LABOAmsHDomKihjoqLvY0mR1dh7R7fqB0O6qrjqAgQGBPxlRJCDH1tzFzlDS2OdeCxhMtFB3xd8EAr44huujg==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor-model': 7.26.4
-      '@microsoft/tsdoc': 0.14.2
+      '@microsoft/api-extractor-model': 7.17.3
+      '@microsoft/tsdoc': 0.14.1
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.55.2
-      '@rushstack/rig-package': 0.3.18
-      '@rushstack/ts-command-line': 4.13.2
+      '@rushstack/node-core-library': 3.45.5
+      '@rushstack/rig-package': 0.3.11
+      '@rushstack/ts-command-line': 4.11.0
       colors: 1.2.5
       lodash: 4.17.21
-      resolve: 1.22.1
+      resolve: 1.17.0
       semver: 7.3.8
       source-map: 0.6.1
-      typescript: 5.0.2
-    transitivePeerDependencies:
-      - '@types/node'
-    dev: true
-
-  /@microsoft/api-extractor/7.34.4_@types+node@18.11.5:
-    resolution: {integrity: sha512-HOdcci2nT40ejhwPC3Xja9G+WSJmWhCUKKryRfQYsmE9cD+pxmBaKBKCbuS9jUcl6bLLb4Gz+h7xEN5r0QiXnQ==}
-    hasBin: true
-    dependencies:
-      '@microsoft/api-extractor-model': 7.26.4_@types+node@18.11.5
-      '@microsoft/tsdoc': 0.14.2
-      '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.55.2_@types+node@18.11.5
-      '@rushstack/rig-package': 0.3.18
-      '@rushstack/ts-command-line': 4.13.2
-      colors: 1.2.5
-      lodash: 4.17.21
-      resolve: 1.22.1
-      semver: 7.3.8
-      source-map: 0.6.1
-      typescript: 5.0.2
-    transitivePeerDependencies:
-      - '@types/node'
+      typescript: 4.4.4
     dev: true
 
   /@microsoft/tsdoc-config/0.16.2:
@@ -4427,6 +4363,10 @@ packages:
       ajv: 6.12.6
       jju: 1.4.0
       resolve: 1.19.0
+    dev: true
+
+  /@microsoft/tsdoc/0.14.1:
+    resolution: {integrity: sha512-6Wci+Tp3CgPt/B9B0a3J4s3yMgLNSku6w5TV6mN+61C71UqsRBv2FUibBf3tPGlNxebgPHMEUzKpb1ggE8KCKw==}
     dev: true
 
   /@microsoft/tsdoc/0.14.2:
@@ -4644,50 +4584,29 @@ packages:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
 
-  /@rushstack/node-core-library/3.55.2:
-    resolution: {integrity: sha512-SaLe/x/Q/uBVdNFK5V1xXvsVps0y7h1sN7aSJllQyFbugyOaxhNRF25bwEDnicARNEjJw0pk0lYnJQ9Kr6ev0A==}
-    peerDependencies:
-      '@types/node': '*'
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
+  /@rushstack/node-core-library/3.45.5:
+    resolution: {integrity: sha512-KbN7Hp9vH3bD3YJfv6RnVtzzTAwGYIBl7y2HQLY4WEQqRbvE3LgI78W9l9X+cTAXCX//p0EeoiUYNTFdqJrMZg==}
     dependencies:
+      '@types/node': 12.20.24
       colors: 1.2.5
       fs-extra: 7.0.1
       import-lazy: 4.0.0
       jju: 1.4.0
-      resolve: 1.22.1
+      resolve: 1.17.0
       semver: 7.3.8
+      timsort: 0.3.0
       z-schema: 5.0.5
     dev: true
 
-  /@rushstack/node-core-library/3.55.2_@types+node@18.11.5:
-    resolution: {integrity: sha512-SaLe/x/Q/uBVdNFK5V1xXvsVps0y7h1sN7aSJllQyFbugyOaxhNRF25bwEDnicARNEjJw0pk0lYnJQ9Kr6ev0A==}
-    peerDependencies:
-      '@types/node': '*'
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
+  /@rushstack/rig-package/0.3.11:
+    resolution: {integrity: sha512-uI1/g5oQPtyrT9nStoyX/xgZSLa2b+srRFaDk3r1eqC7zA5th4/bvTGl2QfV3C9NcP+coSqmk5mFJkUfH6i3Lw==}
     dependencies:
-      '@types/node': 18.11.5
-      colors: 1.2.5
-      fs-extra: 7.0.1
-      import-lazy: 4.0.0
-      jju: 1.4.0
-      resolve: 1.22.1
-      semver: 7.3.8
-      z-schema: 5.0.5
-    dev: true
-
-  /@rushstack/rig-package/0.3.18:
-    resolution: {integrity: sha512-SGEwNTwNq9bI3pkdd01yCaH+gAsHqs0uxfGvtw9b0LJXH52qooWXnrFTRRLG1aL9pf+M2CARdrA9HLHJys3jiQ==}
-    dependencies:
-      resolve: 1.22.1
+      resolve: 1.17.0
       strip-json-comments: 3.1.1
     dev: true
 
-  /@rushstack/ts-command-line/4.13.2:
-    resolution: {integrity: sha512-bCU8qoL9HyWiciltfzg7GqdfODUeda/JpI0602kbN5YH22rzTxyqYvv7aRLENCM7XCQ1VRs7nMkEqgJUOU8Sag==}
+  /@rushstack/ts-command-line/4.11.0:
+    resolution: {integrity: sha512-ptG9L0mjvJ5QtK11GsAFY+jGfsnqHDS6CY6Yw1xT7a9bhjfNYnf6UPwjV+pF6UgiucfNcMDNW9lkDLxvZKKxMg==}
     dependencies:
       '@types/argparse': 1.0.38
       argparse: 1.0.10
@@ -5311,6 +5230,10 @@ packages:
     dependencies:
       '@types/node': 18.11.5
       form-data: 3.0.1
+
+  /@types/node/12.20.24:
+    resolution: {integrity: sha512-yxDeaQIAJlMav7fH5AQqPH1u8YIuhYJXYBzxaQ4PifsU0GDO38MSdmEDeRlIxrKbC6NbEaaEHDanWb+y30U8SQ==}
+    dev: true
 
   /@types/node/16.18.18:
     resolution: {integrity: sha512-fwGw1uvQAzabxL1pyoknPlJIF2t7+K90uTqynleKRx24n3lYcxWa3+KByLhgkF8GEAK2c7hC8Ki0RkNM5H15jQ==}
@@ -6165,10 +6088,6 @@ packages:
   /ansi-regex/6.0.1:
     resolution: {integrity: sha512-n5M855fKb2SsfMIiFFoVrABHJC8QtHwVx+mHWP3QcEqBHYienj5dHSgjbxtC0WEZXYt4wcD6zrQElDPhFuZgfA==}
     engines: {node: '>=12'}
-    dev: true
-
-  /ansi-sequence-parser/1.1.0:
-    resolution: {integrity: sha512-lEm8mt52to2fT8GhciPCGeCXACSz2UwIN4X2e2LJSnZ5uAbn2/dsYdOmUXq0AtWS5cpAupysIneExOgH0Vd2TQ==}
     dev: true
 
   /ansi-styles/2.2.1:
@@ -9680,6 +9599,17 @@ packages:
       once: 1.4.0
       path-is-absolute: 1.0.1
 
+  /glob/8.1.0:
+    resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      fs.realpath: 1.0.0
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 5.1.6
+      once: 1.4.0
+    dev: true
+
   /glob2base/0.0.12:
     resolution: {integrity: sha1-nUGbPijxLoOjYhZKJ3BVkiycDVY=}
     engines: {node: '>= 0.10'}
@@ -12454,13 +12384,6 @@ packages:
       brace-expansion: 2.0.1
     dev: true
 
-  /minimatch/7.4.6:
-    resolution: {integrity: sha512-sBz8G/YjVniEz6lKPNpKxXwazJe4c19fEfV2GDMX6AjFz+MX9uDWIZW8XreVhkFW3fkIdTv/gxWr/Kks5FFAVw==}
-    engines: {node: '>=10'}
-    dependencies:
-      brace-expansion: 2.0.1
-    dev: true
-
   /minimist/1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
@@ -14904,6 +14827,12 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /resolve/1.17.0:
+    resolution: {integrity: sha512-ic+7JYiV8Vi2yzQGFWOkiZD5Z9z7O2Zhm9XMaTxdJExKasieFCr+yXZ/WmXsckHiKl12ar0y6XiXDx3m4RHn1w==}
+    dependencies:
+      path-parse: 1.0.7
+    dev: true
+
   /resolve/1.19.0:
     resolution: {integrity: sha512-rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==}
     dependencies:
@@ -15312,13 +15241,12 @@ packages:
     resolution: {integrity: sha512-QHsz8GgQIGKlRi24yFc6a6lN69Idnx634w49ay6+jA5yFh7a1UY+4Rp6HPx/L/1zcEDPEij8cIsiqR6bQsE5VQ==}
     dev: true
 
-  /shiki/0.14.1:
-    resolution: {integrity: sha512-+Jz4nBkCBe0mEDqo1eKRcCdjRtrCjozmcbTUjbPTX7OOJfEbTZzlUWlZtGe3Gb5oV1/jnojhG//YZc3rs9zSEw==}
+  /shiki/0.10.1:
+    resolution: {integrity: sha512-VsY7QJVzU51j5o1+DguUd+6vmCmZ5v/6gYu4vyYAhzjuNQU6P/vmSy4uQaOhvje031qQMiW0d2BwgMH52vqMng==}
     dependencies:
-      ansi-sequence-parser: 1.1.0
       jsonc-parser: 3.2.0
       vscode-oniguruma: 1.7.0
-      vscode-textmate: 8.0.0
+      vscode-textmate: 5.2.0
     dev: true
 
   /shortid/2.2.16:
@@ -16116,6 +16044,10 @@ packages:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
     dev: true
 
+  /timsort/0.3.0:
+    resolution: {integrity: sha512-qsdtZH+vMoCARQtyod4imc2nIJwg9Cc7lPRrw9CzF8ZKR0khdr8+2nX80PBhET3tcyTtJDxAffGh2rXH4tyU8A==}
+    dev: true
+
   /tiny-invariant/1.3.1:
     resolution: {integrity: sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==}
     dev: false
@@ -16432,26 +16364,27 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typedoc-plugin-merge-modules/4.1.0_typedoc@0.23.28:
-    resolution: {integrity: sha512-0Qax5eSaiP86zX9LlQQWANjtgkMfSHt6/LRDsWXfK45Ifc3lrgjZG4ieE87BMi3p12r/F0qW9sHQRB18tIs0fg==}
+  /typedoc-plugin-merge-modules/3.1.0_typedoc@0.22.18:
+    resolution: {integrity: sha512-DAHDZD+KG3mRm+hJFAMh/pO98CQ3W/BFA81FzWpc1kos66mLRIa7QVO30yBREkZNZMsTA7fgGEjEN2GO2cgi3A==}
     peerDependencies:
-      typedoc: 0.23.x || 0.24.x
+      typedoc: 0.21.x || 0.22.x
     dependencies:
-      typedoc: 0.23.28_typescript@5.0.2
+      typedoc: 0.22.18_typescript@4.4.4
     dev: true
 
-  /typedoc/0.23.28_typescript@5.0.2:
-    resolution: {integrity: sha512-9x1+hZWTHEQcGoP7qFmlo4unUoVJLB0H/8vfO/7wqTnZxg4kPuji9y3uRzEu0ZKez63OJAUmiGhUrtukC6Uj3w==}
-    engines: {node: '>= 14.14'}
+  /typedoc/0.22.18_typescript@4.4.4:
+    resolution: {integrity: sha512-NK9RlLhRUGMvc6Rw5USEYgT4DVAUFk7IF7Q6MYfpJ88KnTZP7EneEa4RcP+tX1auAcz7QT1Iy0bUSZBYYHdoyA==}
+    engines: {node: '>= 12.10.0'}
     hasBin: true
     peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x
+      typescript: 4.0.x || 4.1.x || 4.2.x || 4.3.x || 4.4.x || 4.5.x || 4.6.x || 4.7.x
     dependencies:
+      glob: 8.1.0
       lunr: 2.3.9
       marked: 4.3.0
-      minimatch: 7.4.6
-      shiki: 0.14.1
-      typescript: 5.0.2
+      minimatch: 5.1.6
+      shiki: 0.10.1
+      typescript: 4.4.4
     dev: true
 
   /typemoq/2.1.0:
@@ -16462,6 +16395,12 @@ packages:
       circular-json: 0.3.3
       lodash: 4.17.21
       postinstall-build: 5.0.3
+    dev: true
+
+  /typescript/4.4.4:
+    resolution: {integrity: sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
     dev: true
 
   /typescript/5.0.2:
@@ -16698,8 +16637,8 @@ packages:
     resolution: {integrity: sha512-L9WMGRfrjOhgHSdOYgCt/yRMsXzLDJSL7BPrOZt73gU0iWO4mpqzqQzOz5srxqTvMBaR0XZTSrVWo4j55Rc6cA==}
     dev: true
 
-  /vscode-textmate/8.0.0:
-    resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
+  /vscode-textmate/5.2.0:
+    resolution: {integrity: sha512-Uw5ooOQxRASHgu6C7GVvUxisKXfSgW4oFlO+aa+PAkgmH89O3CXxEEzNRNtHSqtXFTl0nAC1uYj0GMSH27uwtQ==}
     dev: true
 
   /w3c-hr-time/1.0.2:

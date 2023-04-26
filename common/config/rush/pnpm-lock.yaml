@@ -1,5 +1,10 @@
 lockfileVersion: 5.3
 
+overrides:
+  typedoc: 0.23.28
+  typescript: ^5.0.2
+  typedoc-plugin-merge-modules: ^4.0.1
+
 importers:
 
   .:
@@ -16,7 +21,7 @@ importers:
       '@itwin/appui-abstract': 4.0.0-dev.37
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-common': 4.0.0-dev.37
@@ -43,7 +48,7 @@ importers:
       react-redux: ^7.2.2
       react-select: 3.2.0
       rimraf: ^3.0.2
-      typescript: ~5.0.2
+      typescript: ^5.0.2
     dependencies:
       '@itwin/appui-abstract': 4.0.0-dev.37_@itwin+core-bentley@4.0.0-dev.37
       '@itwin/appui-layout-react': link:../../../ui/appui-layout-react
@@ -68,7 +73,7 @@ importers:
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
       react-select: 3.2.0_react-dom@17.0.2+react@17.0.2
     devDependencies:
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@types/react': 17.0.53
       '@types/react-redux': 7.1.25
@@ -89,7 +94,7 @@ importers:
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
       '@itwin/browser-authorization': ^0.6.2
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/components-react': workspace:*
       '@itwin/core-backend': 4.0.0-dev.37
       '@itwin/core-bentley': 4.0.0-dev.37
@@ -160,7 +165,7 @@ importers:
       redux: ^4.1.0
       rimraf: ^3.0.2
       semver: ^7.3.5
-      typescript: ~5.0.2
+      typescript: ^5.0.2
       webpack: ^5.76.0
     dependencies:
       '@bentley/icons-generic': 1.0.34
@@ -220,7 +225,7 @@ importers:
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
-      '@itwin/build-tools': 4.0.0-dev.77_@types+node@18.11.5
+      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
       '@itwin/core-webpack-tools': 4.0.0-dev.37_webpack@5.76.3
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/projects-client': 0.6.0
@@ -257,7 +262,7 @@ importers:
       '@itwin/appui-layout-react': workspace:*
       '@itwin/appui-react': workspace:*
       '@itwin/appui-test-providers': workspace:*
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/components-react': workspace:*
       '@itwin/core-backend': 4.0.0-dev.37
       '@itwin/core-bentley': 4.0.0-dev.37
@@ -323,7 +328,7 @@ importers:
       rimraf: ^3.0.2
       semver: ^7.3.5
       serve: ^14.1.2
-      typescript: ~5.0.2
+      typescript: ^5.0.2
       webpack: ^5.76.0
     dependencies:
       '@bentley/icons-generic': 1.0.34
@@ -376,7 +381,7 @@ importers:
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
-      '@itwin/build-tools': 4.0.0-dev.77_@types+node@18.11.5
+      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
       '@itwin/core-webpack-tools': 4.0.0-dev.37_webpack@5.76.3
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/projects-client': 0.6.0
@@ -413,7 +418,7 @@ importers:
       jest: ^29.4.2
       jscodeshift: ^0.14.0
       ts-jest: ^29.0.5
-      typescript: ~5.0.2
+      typescript: ^5.0.2
       yargs: ^17.6.2
     dependencies:
       jscodeshift: 0.14.0
@@ -429,19 +434,19 @@ importers:
 
   ../../tools/internal:
     specifiers:
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       mocha: ^10.0.0
       yargs: ^17.6.2
     dependencies:
       yargs: 17.7.1
     devDependencies:
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       mocha: 10.2.0
 
   ../../ui/appui-layout-react:
     specifiers:
       '@itwin/appui-abstract': 4.0.0-dev.37
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-react': workspace:*
       '@itwin/eslint-plugin': ^3.7.0
@@ -483,7 +488,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ~5.0.2
+      typescript: ^5.0.2
       zustand: ^4.3.6
     dependencies:
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -495,7 +500,7 @@ importers:
       zustand: 4.3.6_immer@9.0.6+react@17.0.2
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.37_@itwin+core-bentley@4.0.0-dev.37
-      '@itwin/build-tools': 4.0.0-dev.77_@types+node@18.11.5
+      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-react': link:../core-react
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
@@ -538,7 +543,7 @@ importers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.37
       '@itwin/appui-layout-react': workspace:*
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-common': 4.0.0-dev.37
@@ -602,7 +607,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ~5.0.2
+      typescript: ^5.0.2
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons': 1.16.0
@@ -618,7 +623,7 @@ importers:
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.37_@itwin+core-bentley@4.0.0-dev.37
       '@itwin/appui-layout-react': link:../appui-layout-react
-      '@itwin/build-tools': 4.0.0-dev.77_@types+node@18.11.5
+      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
       '@itwin/components-react': link:../components-react
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-common': 4.0.0-dev.37_0926a2764322c96f4a9384f173a9023a
@@ -678,7 +683,7 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.37
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-common': 4.0.0-dev.37
       '@itwin/core-geometry': 4.0.0-dev.37
@@ -736,7 +741,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ~5.0.2
+      typescript: ^5.0.2
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -753,7 +758,7 @@ importers:
       shortid: 2.2.16
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.37_@itwin+core-bentley@4.0.0-dev.37
-      '@itwin/build-tools': 4.0.0-dev.77_@types+node@18.11.5
+      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-common': 4.0.0-dev.37_0926a2764322c96f4a9384f173a9023a
       '@itwin/core-geometry': 4.0.0-dev.37
@@ -805,7 +810,7 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.37
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-common': 4.0.0-dev.37
       '@itwin/core-geometry': 4.0.0-dev.37
@@ -852,7 +857,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ~5.0.2
+      typescript: ^5.0.2
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -865,7 +870,7 @@ importers:
       resize-observer-polyfill: 1.5.1
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.37_@itwin+core-bentley@4.0.0-dev.37
-      '@itwin/build-tools': 4.0.0-dev.77_@types+node@18.11.5
+      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-common': 4.0.0-dev.37_0926a2764322c96f4a9384f173a9023a
       '@itwin/core-geometry': 4.0.0-dev.37
@@ -910,7 +915,7 @@ importers:
     specifiers:
       '@bentley/icons-generic': ^1.0.34
       '@itwin/appui-abstract': 4.0.0-dev.37
-      '@itwin/build-tools': 4.0.0-dev.77
+      '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/components-react': workspace:*
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-common': 4.0.0-dev.37
@@ -959,7 +964,7 @@ importers:
       sinon-chai: ^3.2.0
       ts-node: ^10.8.2
       typemoq: ^2.1.0
-      typescript: ~5.0.2
+      typescript: ^5.0.2
     dependencies:
       '@bentley/icons-generic': 1.0.34
       '@itwin/itwinui-icons-react': 2.1.0_react-dom@17.0.2+react@17.0.2
@@ -968,7 +973,7 @@ importers:
       classnames: 2.3.1
     devDependencies:
       '@itwin/appui-abstract': 4.0.0-dev.37_@itwin+core-bentley@4.0.0-dev.37
-      '@itwin/build-tools': 4.0.0-dev.77_@types+node@18.11.5
+      '@itwin/build-tools': 4.0.0-dev.87_@types+node@18.11.5
       '@itwin/components-react': link:../components-react
       '@itwin/core-bentley': 4.0.0-dev.37
       '@itwin/core-common': 4.0.0-dev.37_0926a2764322c96f4a9384f173a9023a
@@ -3091,8 +3096,8 @@ packages:
       oidc-client-ts: 2.2.2
     dev: false
 
-  /@itwin/build-tools/4.0.0-dev.77:
-    resolution: {integrity: sha512-UPWWH2bJR3OlrW3OI0H/xEyf1IaXl8rwbHW7fnImN7Oxn/eTmGc0p4bJJg0E/hjNKIjqAC34qOsTU2DhcrgA5A==}
+  /@itwin/build-tools/4.0.0-dev.87:
+    resolution: {integrity: sha512-O1ZJeycHnbzXwwSbMZ1ljdHPPFcNdLs1mFAK0vEBo7hxxD1DkC+uqDBi7wzjzU4vw+Qg0sie3/U2EP5XEiUNDg==}
     hasBin: true
     dependencies:
       '@microsoft/api-extractor': 7.34.4
@@ -3105,7 +3110,7 @@ packages:
       mocha-junit-reporter: 2.2.0_mocha@10.2.0
       rimraf: 3.0.2
       tree-kill: 1.2.2
-      typedoc: 0.23.28
+      typedoc: 0.23.28_typescript@5.0.2
       typedoc-plugin-merge-modules: 4.0.1_typedoc@0.23.28
       typescript: 5.0.2
       wtfnode: 0.9.1
@@ -3115,8 +3120,8 @@ packages:
       - supports-color
     dev: true
 
-  /@itwin/build-tools/4.0.0-dev.77_@types+node@18.11.5:
-    resolution: {integrity: sha512-UPWWH2bJR3OlrW3OI0H/xEyf1IaXl8rwbHW7fnImN7Oxn/eTmGc0p4bJJg0E/hjNKIjqAC34qOsTU2DhcrgA5A==}
+  /@itwin/build-tools/4.0.0-dev.87_@types+node@18.11.5:
+    resolution: {integrity: sha512-O1ZJeycHnbzXwwSbMZ1ljdHPPFcNdLs1mFAK0vEBo7hxxD1DkC+uqDBi7wzjzU4vw+Qg0sie3/U2EP5XEiUNDg==}
     hasBin: true
     dependencies:
       '@microsoft/api-extractor': 7.34.4_@types+node@18.11.5
@@ -3129,7 +3134,7 @@ packages:
       mocha-junit-reporter: 2.2.0_mocha@10.2.0
       rimraf: 3.0.2
       tree-kill: 1.2.2
-      typedoc: 0.23.28
+      typedoc: 0.23.28_typescript@5.0.2
       typedoc-plugin-merge-modules: 4.0.1_typedoc@0.23.28
       typescript: 5.0.2
       wtfnode: 0.9.1
@@ -4355,7 +4360,7 @@ packages:
       resolve: 1.22.1
       semver: 7.3.8
       source-map: 0.6.1
-      typescript: 4.8.4
+      typescript: 5.0.2
     transitivePeerDependencies:
       - '@types/node'
     dev: true
@@ -4375,7 +4380,7 @@ packages:
       resolve: 1.22.1
       semver: 7.3.8
       source-map: 0.6.1
-      typescript: 4.8.4
+      typescript: 5.0.2
     transitivePeerDependencies:
       - '@types/node'
     dev: true
@@ -16397,19 +16402,21 @@ packages:
     peerDependencies:
       typedoc: 0.23.x
     dependencies:
-      typedoc: 0.23.28
+      typedoc: 0.23.28_typescript@5.0.2
     dev: true
 
-  /typedoc/0.23.28:
+  /typedoc/0.23.28_typescript@5.0.2:
     resolution: {integrity: sha512-9x1+hZWTHEQcGoP7qFmlo4unUoVJLB0H/8vfO/7wqTnZxg4kPuji9y3uRzEu0ZKez63OJAUmiGhUrtukC6Uj3w==}
     engines: {node: '>= 14.14'}
     hasBin: true
+    peerDependencies:
+      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x
     dependencies:
       lunr: 2.3.9
       marked: 4.3.0
       minimatch: 7.4.6
       shiki: 0.14.1
-      typescript: 4.9.5
+      typescript: 5.0.2
     dev: true
 
   /typemoq/2.1.0:
@@ -16420,18 +16427,6 @@ packages:
       circular-json: 0.3.3
       lodash: 4.17.21
       postinstall-build: 5.0.3
-    dev: true
-
-  /typescript/4.8.4:
-    resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-    dev: true
-
-  /typescript/4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
     dev: true
 
   /typescript/5.0.2:

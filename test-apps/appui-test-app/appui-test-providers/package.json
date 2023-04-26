@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@itwin/build-tools": "4.0.0-dev.87",
+    "@itwin/build-tools": "^3.7.0",
     "@itwin/eslint-plugin": "^3.7.0",
     "@types/react": "^17.0.37",
     "@types/react-select": "3.0.26",

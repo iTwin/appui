@@ -33,8 +33,12 @@ const forcedDep = {};
     ],
     "4.0.0-dev.37",
   ],
-  [["@itwin/build-tools"], "4.0.0-dev.77"],
+  [["@itwin/build-tools"], "4.0.0-dev.87"],
   [["electron"], "^23.0.0"],
+  [["typedoc"], "0.23.28"],
+  [["typescript"], "^5.0.2"],
+  [["typedoc-plugin-merge-modules"], "^4.0.1"],
+
   // Build an object with keys with the above
   // { "@itwin/appui-abstract": "4.0.0-dev.37",
   //      ...
