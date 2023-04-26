@@ -393,24 +393,33 @@ export class CubeNavigationAid extends React.Component<CubeNavigationAidProps, C
 
   private getArrowRotationAndFace(arrow: Pointer): { newRotation: Matrix3d, face: Face } {
     const localRotationAxis = Vector3d.create(0, 0, 0);
+    const currentRotation = this.state.endRotMatrix;
+    CubeNavigationAid.snapWorldToViewMatrixToCubeFeatures(currentRotation, DEFAULT_TOLERANCE, currentRotation);
+
+    const currentFace = CubeNavigationAid._getMatrixFace(currentRotation);
+    const navigationRoutes = currentFace !== Face.None && cubeNavigationRoutes[currentFace];
+    let face = Face.None;
     switch (arrow) {
       case Pointer.Up:
         localRotationAxis.x = -1.0;
+        face = navigationRoutes ? navigationRoutes.up : Face.None;
         break;
       case Pointer.Down:
         localRotationAxis.x = 1.0;
+        face = navigationRoutes ? navigationRoutes.down : Face.None;
         break;
       case Pointer.Left:
         localRotationAxis.y = -1.0;
+        face = navigationRoutes ? navigationRoutes.left : Face.None;
         break;
       default:
         localRotationAxis.y = 1.0;
+        face = navigationRoutes ? navigationRoutes.right : Face.None;
         break;
     }
     const localRotation = Matrix3d.createRotationAroundVector(localRotationAxis, Angle.createDegrees(-90))!;
-    const newRotation = localRotation.multiplyMatrixMatrix(this.state.endRotMatrix);
+    const newRotation = localRotation.multiplyMatrixMatrix(currentRotation);
     CubeNavigationAid.snapWorldToViewMatrixToCubeFeatures(newRotation, DEFAULT_TOLERANCE, newRotation);
-    const face = CubeNavigationAid._getMatrixFace(newRotation);
     return { newRotation, face };
   }
 
