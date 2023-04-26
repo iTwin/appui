@@ -15,7 +15,7 @@ resources:
       type: github
       endpoint: iModelJs
       name: iTwin/itwinjs-core
-      ref: refs/heads/bdp/typedoc-0.23 # temporary solution until docs update PR completes in core.
+      ref: refs/heads/master
 
 stages:
   - stage: Generate_Docs
