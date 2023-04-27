@@ -1,9 +1,5 @@
 lockfileVersion: 5.3
 
-overrides:
-  typedoc: 0.23.28
-  typescript: ^5.0.2
-  typedoc-plugin-merge-modules: ^4.0.1
 
 importers:
 
