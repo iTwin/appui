@@ -673,7 +673,11 @@ async function main() {
 
   await SampleAppIModelApp.initialize();
 
-  ReactDOM.render(<SampleAppViewer2 />, document.getElementById("root") as HTMLElement);
+  ReactDOM.render(
+    <React.StrictMode>
+      <SampleAppViewer2 />
+    </React.StrictMode>,
+    document.getElementById("root") as HTMLElement);
 }
 
 // Entry point - run the main function
