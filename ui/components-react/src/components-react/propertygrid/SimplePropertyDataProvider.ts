@@ -20,11 +20,30 @@ export class SimplePropertyDataProvider implements IPropertyDataProvider, Proper
   public categories: PropertyCategory[] = [];
   public records: { [categoryName: string]: PropertyRecord[] } = {};
   public onDataChanged = new PropertyDataChangeEvent();
+  private _propertyData: PropertyData;
+
+  constructor() {
+    this._propertyData = this.createPropertyData();
+  }
+
+  private createPropertyData(): PropertyData {
+    return {
+      label: this.label,
+      description: this.description,
+      categories: this.categories,
+      records: this.records,
+    };
+  }
+
+  private updatePropertyData() {
+    this._propertyData = this.createPropertyData();
+    this.onDataChanged.raiseEvent();
+  }
 
   public addCategory(category: PropertyCategory): number {
     const categoryIdx = this.categories.push(category) - 1;
     this.records[this.categories[categoryIdx].name] = [];
-    this.onDataChanged.raiseEvent();
+    this.updatePropertyData();
     return categoryIdx;
   }
 
@@ -37,7 +56,7 @@ export class SimplePropertyDataProvider implements IPropertyDataProvider, Proper
 
   public addProperty(propertyRecord: PropertyRecord, categoryIdx: number): void {
     this.records[this.categories[categoryIdx].name].push(propertyRecord);
-    this.onDataChanged.raiseEvent();
+    this.updatePropertyData();
   }
 
   public removeProperty(propertyRecord: PropertyRecord, categoryIdx: number): boolean {
@@ -50,7 +69,7 @@ export class SimplePropertyDataProvider implements IPropertyDataProvider, Proper
     // istanbul ignore else
     if (index >= 0) {
       this.records[this.categories[categoryIdx].name].splice(index, 1);
-      this.onDataChanged.raiseEvent();
+      this.updatePropertyData();
       result = true;
     }
     return result;
@@ -72,6 +91,6 @@ export class SimplePropertyDataProvider implements IPropertyDataProvider, Proper
   }
 
   public async getData(): Promise<PropertyData> {
-    return this;
+    return this._propertyData;
   }
 }

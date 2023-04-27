@@ -2460,6 +2460,7 @@ export class ShortDateTypeConverter extends DateTimeTypeConverterBase {
 
 // @public
 export class SimplePropertyDataProvider implements IPropertyDataProvider, PropertyData {
+    constructor();
     // (undocumented)
     addCategory(category: PropertyCategory): number;
     // (undocumented)
