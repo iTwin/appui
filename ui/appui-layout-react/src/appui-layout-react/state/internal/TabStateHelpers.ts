@@ -8,8 +8,8 @@
 
 import produce from "immer";
 import { UiError } from "@itwin/appui-abstract";
-import { NineZoneState } from "../NineZoneState";
-import { DraggedTabState, TabsState, TabState } from "../TabState";
+import type { NineZoneState } from "../NineZoneState";
+import type { DraggedTabState, TabsState, TabState } from "../TabState";
 import { toolSettingsTabId } from "../ToolSettingsState";
 import { category } from "./NineZoneStateHelpers";
 

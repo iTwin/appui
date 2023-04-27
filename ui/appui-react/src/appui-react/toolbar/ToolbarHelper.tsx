@@ -5,17 +5,19 @@
 /** @packageDocumentation
  * @module Toolbar
  */
-import * as React from "react";
-import {
-  ActionButton, CommonToolbarItem, ConditionalStringValue, CustomButtonDefinition, GroupButton, StringGetter,
+import type * as React from "react";
+import type {
+  ActionButton, CommonToolbarItem, CustomButtonDefinition, GroupButton, StringGetter} from "@itwin/appui-abstract";
+import { ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { IconHelper } from "@itwin/core-react";
-import { AnyItemDef } from "../shared/AnyItemDef";
+import type { AnyItemDef } from "../shared/AnyItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { CustomItemDef } from "../shared/CustomItemDef";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { GroupItemDef } from "./GroupItem";
-import { isToolbarActionItem, isToolbarGroupItem, ToolbarActionItem, ToolbarCustomItem, ToolbarGroupItem, ToolbarItem } from "./ToolbarItem";
+import type { ToolbarActionItem, ToolbarCustomItem, ToolbarGroupItem, ToolbarItem } from "./ToolbarItem";
+import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem";
 
 /** Helper functions for defining an ToolbarComposer.
  * @public

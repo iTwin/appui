@@ -9,9 +9,10 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useDisposable } from "@itwin/core-react";
 import { useRerender } from "../../common/UseRerender";
-import { TreeDataProvider } from "../TreeDataProvider";
-import { TreeEventHandler, TreeEventHandlerParams } from "./TreeEventHandler";
-import { TreeModel } from "./TreeModel";
+import type { TreeDataProvider } from "../TreeDataProvider";
+import type { TreeEventHandlerParams } from "./TreeEventHandler";
+import { TreeEventHandler } from "./TreeEventHandler";
+import type { TreeModel } from "./TreeModel";
 import { TreeModelSource } from "./TreeModelSource";
 import { PagedTreeNodeLoader, TreeNodeLoader } from "./TreeNodeLoader";
 

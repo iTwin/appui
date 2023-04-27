@@ -9,10 +9,11 @@
 import { SvgStatusError, SvgStatusSuccess, SvgStatusWarning } from "@itwin/itwinui-icons-react";
 import classnames from "classnames";
 import * as React from "react";
-import { Icon, IconSpec } from "../icons/IconComponent";
-import { CommonProps } from "../utils/Props";
+import type { IconSpec } from "../icons/IconComponent";
+import { Icon } from "../icons/IconComponent";
+import type { CommonProps } from "../utils/Props";
 import { InputStatus } from "./InputStatus";
-import { LabeledComponentProps, MessagedComponentProps } from "./LabeledComponentProps";
+import type { LabeledComponentProps, MessagedComponentProps } from "./LabeledComponentProps";
 
 /** Properties for [[InputLabel]] components
  * @public

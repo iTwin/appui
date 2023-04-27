@@ -5,7 +5,7 @@
 /** @packageDocumentation
  * @module ConfigurableUi
  */
-import { ConfigurableUiControlConstructor, ConfigurableUiElement } from "../configurableui/ConfigurableUiControl";
+import type { ConfigurableUiControlConstructor, ConfigurableUiElement } from "../configurableui/ConfigurableUiControl";
 
 /**
  * [[UiFramework.controls]] interface

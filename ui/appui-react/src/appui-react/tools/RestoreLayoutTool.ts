@@ -6,7 +6,7 @@
  * @module Tools
  */
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, Tool } from "@itwin/core-frontend";
-import { FrontstageDef } from "../frontstage/FrontstageDef";
+import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { UiFramework } from "../UiFramework";
 import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";

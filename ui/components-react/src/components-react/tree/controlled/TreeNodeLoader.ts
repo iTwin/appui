@@ -6,7 +6,7 @@
  * @module Tree
  */
 
-import { Observable as RxjsObservable } from "rxjs/internal/Observable";
+import type { Observable as RxjsObservable } from "rxjs/internal/Observable";
 import { defer } from "rxjs/internal/observable/defer";
 import { from } from "rxjs/internal/observable/from";
 import { of } from "rxjs/internal/observable/of";
@@ -20,13 +20,16 @@ import { toArray } from "rxjs/internal/operators/toArray";
 import { UiError } from "@itwin/appui-abstract";
 import { scheduleSubscription, SubscriptionScheduler } from "../../common/SubscriptionScheduler";
 import { UiComponents } from "../../UiComponents";
-import {
-  ImmediatelyLoadedTreeNodeItem, isTreeDataProviderInterface, isTreeDataProviderMethod, isTreeDataProviderPromise, isTreeDataProviderRaw,
-  TreeDataProvider, TreeDataProviderRaw, TreeNodeItem,
+import type {
+  ImmediatelyLoadedTreeNodeItem,
+  TreeDataProvider, TreeDataProviderRaw, TreeNodeItem} from "../TreeDataProvider";
+import { isTreeDataProviderInterface, isTreeDataProviderMethod, isTreeDataProviderPromise, isTreeDataProviderRaw,
 } from "../TreeDataProvider";
-import { Observable, toRxjsObservable } from "./Observable";
-import { isTreeModelNode, MutableTreeModel, TreeModelNode, TreeModelNodeInput, TreeModelRootNode, TreeNodeItemData } from "./TreeModel";
-import { TreeModelSource } from "./TreeModelSource";
+import type { Observable} from "./Observable";
+import { toRxjsObservable } from "./Observable";
+import type { MutableTreeModel, TreeModelNode, TreeModelNodeInput, TreeModelRootNode, TreeNodeItemData } from "./TreeModel";
+import { isTreeModelNode } from "./TreeModel";
+import type { TreeModelSource } from "./TreeModelSource";
 
 /**
  * Data structure that describes node load result

@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { DialogRendererBase } from "./DialogManagerBase";
 import { InternalModelessDialogManager as internal } from "./InternalModelessDialogManager";
 

@@ -4,9 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, WidgetIdContext, WidgetState } from "../../appui-layout-react";
+import type { WidgetState } from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, WidgetIdContext } from "../../appui-layout-react";
 import { TitleBarTarget } from "../../appui-layout-react/target/TitleBarTarget";
-import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
+import type { TestNineZoneProviderProps } from "../Providers";
+import { TestNineZoneProvider } from "../Providers";
 
 interface WrapperProps extends TestNineZoneProviderProps {
   widgetId: WidgetState["id"];

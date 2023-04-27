@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { StatusBarItem } from "./StatusBarItem";
-import { StatusBarItemsManager } from "./StatusBarItemsManager";
+import type { StatusBarItem } from "./StatusBarItem";
+import type { StatusBarItemsManager } from "./StatusBarItemsManager";
 
 /** Hook that returns items from [[StatusBarItemsManager]].
  * @public

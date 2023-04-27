@@ -6,9 +6,9 @@
  * @module Base
  */
 
-import { SizeProps } from "@itwin/core-react";
-import { PanelSide } from "../widget-panels/Panel";
-import { FloatingWidgetState, WidgetState } from "./WidgetState";
+import type { SizeProps } from "@itwin/core-react";
+import type { PanelSide } from "../widget-panels/Panel";
+import type { FloatingWidgetState, WidgetState } from "./WidgetState";
 
 /** @internal */
 export interface TabDropTargetState {

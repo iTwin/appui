@@ -6,11 +6,11 @@
  * @module Item
  */
 
-import { ConditionalStringValue, OnItemExecutedFunc, StringGetter } from "@itwin/appui-abstract";
+import type { ConditionalStringValue, OnItemExecutedFunc, StringGetter } from "@itwin/appui-abstract";
 import { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
-import { AnyItemDef } from "../shared/AnyItemDef";
-import { GroupItemProps } from "../shared/GroupItemProps";
-import { ItemDefBase } from "../shared/ItemDefBase";
+import type { AnyItemDef } from "../shared/AnyItemDef";
+import type { GroupItemProps } from "../shared/GroupItemProps";
+import type { ItemDefBase } from "../shared/ItemDefBase";
 import { ItemList, ItemMap } from "../shared/ItemMap";
 import { PropsHelper } from "../utils/PropsHelper";
 

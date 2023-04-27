@@ -8,11 +8,13 @@ import * as sinon from "sinon";
 import { Rectangle } from "@itwin/core-react";
 import { fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
+import type { DragManager,
+  NineZoneDispatch, PanelSide} from "../../appui-layout-react";
 import {
-  addPanelWidget, addTab, createNineZoneState, DragManager,
-  NineZoneDispatch, PanelSide, PanelSideContext, useResizeGrip, WidgetPanelContext, WidgetPanelGrip,
+  addPanelWidget, addTab, createNineZoneState, PanelSideContext, useResizeGrip, WidgetPanelContext, WidgetPanelGrip,
 } from "../../appui-layout-react";
-import { createDragInfo, TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
+import type { TestNineZoneProviderProps } from "../Providers";
+import { createDragInfo, TestNineZoneProvider } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import { withWrapperAndProps } from "../Utils";
 

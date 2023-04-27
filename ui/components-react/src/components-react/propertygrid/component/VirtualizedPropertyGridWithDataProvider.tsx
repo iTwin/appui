@@ -10,9 +10,9 @@
 import React from "react";
 import { DelayedSpinner } from "../../common/DelayedSpinner";
 import { usePropertyGridEventHandler, usePropertyGridModel, usePropertyGridModelSource } from "../internal/PropertyGridHooks";
-import { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager";
-import { IPropertyDataProvider } from "../PropertyDataProvider";
-import { CommonPropertyGridProps, PropertyGridContentHighlightProps } from "./PropertyGridCommons";
+import type { PropertyCategoryRendererManager } from "../PropertyCategoryRendererManager";
+import type { IPropertyDataProvider } from "../PropertyDataProvider";
+import type { CommonPropertyGridProps, PropertyGridContentHighlightProps } from "./PropertyGridCommons";
 import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid";
 
 /** Properties for [[VirtualizedPropertyGridWithDataProvider]] React component

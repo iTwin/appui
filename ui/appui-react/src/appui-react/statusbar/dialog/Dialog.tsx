@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Dialog } from "@itwin/appui-layout-react";
 import { StatusBarDialogTitleBar } from "./TitleBar";
 import { StatusBarDialogTitleBarButton } from "./Button";

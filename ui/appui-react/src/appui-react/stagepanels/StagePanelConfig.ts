@@ -6,8 +6,8 @@
  * @module Frontstage
  */
 
-import { WidgetConfig } from "../widgets/WidgetConfig";
-import { StagePanelState as StagePanelState } from "./StagePanelDef";
+import type { WidgetConfig } from "../widgets/WidgetConfig";
+import type { StagePanelState as StagePanelState } from "./StagePanelDef";
 
 /** Configuration from which a stage panel is created.
  * @public

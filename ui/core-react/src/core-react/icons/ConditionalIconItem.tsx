@@ -6,7 +6,7 @@
  * @module Icon
  */
 
-import { IconSpec } from "./IconComponent";
+import type { IconSpec } from "./IconComponent";
 
 /** Class used to return an icon. The icon is variable and can be changed in response to subscribed event ids.
  * @public
