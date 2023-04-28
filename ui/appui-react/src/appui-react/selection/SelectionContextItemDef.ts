@@ -9,7 +9,7 @@
 import { ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
 import { SessionStateActionId } from "../redux/SessionState";
 import { CommandItemDef } from "../shared/CommandItemDef";
-import { BaseItemState } from "../shared/ItemDefBase";
+import type { BaseItemState } from "../shared/ItemDefBase";
 import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { GroupItemDef } from "../toolbar/GroupItem";
 import { UiFramework } from "../UiFramework";

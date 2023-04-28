@@ -13,11 +13,11 @@ import { assert } from "@itwin/core-bentley";
 import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
 import { CursorTypeContext } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
-import { WidgetState } from "../state/WidgetState";
+import type { WidgetState } from "../state/WidgetState";
 import { WidgetIdContext } from "../widget/Widget";
 import { TabOutline } from "../outline/TabOutline";
 import { useAllowedWidgetTarget } from "./useAllowedWidgetTarget";
-import { WidgetDropTargetState } from "../state/DropTargetState";
+import type { WidgetDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";
 import { useSendBackHomeState } from "../widget/SendBack";
 

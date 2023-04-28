@@ -7,8 +7,8 @@
  */
 
 import * as React from "react";
-import { BackstageItem } from "./BackstageItem";
-import { BackstageItemsManager } from "./BackstageItemsManager";
+import type { BackstageItem } from "./BackstageItem";
+import type { BackstageItemsManager } from "./BackstageItemsManager";
 
 /** Hook that returns items from [[BackstageItemsManager]].
  * @internal

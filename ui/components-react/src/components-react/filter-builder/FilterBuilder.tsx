@@ -7,16 +7,17 @@
  */
 
 import * as React from "react";
-import { PropertyDescription } from "@itwin/appui-abstract";
+import type { PropertyDescription } from "@itwin/appui-abstract";
+import type { PropertyFilterBuilderContextProps,
+  PropertyFilterBuilderRuleRenderingContextProps} from "./FilterBuilderContext";
 import {
-  ActiveRuleGroupContext, PropertyFilterBuilderContext, PropertyFilterBuilderContextProps, PropertyFilterBuilderRuleRenderingContext,
-  PropertyFilterBuilderRuleRenderingContextProps, useActiveRuleGroupContextProps,
+  ActiveRuleGroupContext, PropertyFilterBuilderContext, PropertyFilterBuilderRuleRenderingContext, useActiveRuleGroupContextProps,
 } from "./FilterBuilderContext";
 import { PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
-import { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
-import { PropertyFilterBuilderRuleValueProps } from "./FilterBuilderRuleValue";
+import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
+import type { PropertyFilterBuilderRuleValueProps } from "./FilterBuilderRuleValue";
 import { buildPropertyFilter, usePropertyFilterBuilderState } from "./FilterBuilderState";
-import { PropertyFilter } from "./Types";
+import type { PropertyFilter } from "./Types";
 
 /**
  * Props for [[PropertyFilterBuilder]] component.

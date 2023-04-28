@@ -7,13 +7,15 @@ import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
 import sinon from "sinon";
 import * as React from "react";
-import {
-  BasePropertyEditorParams, InputEditorSizeParams, PropertyEditorParamTypes,
-  RangeEditorParams, SpecialKey, StandardEditorNames,
+import type {
+  BasePropertyEditorParams, InputEditorSizeParams,
+  RangeEditorParams} from "@itwin/appui-abstract";
+import { PropertyEditorParamTypes, SpecialKey, StandardEditorNames,
 } from "@itwin/appui-abstract";
 import { NumericInputEditor } from "../../components-react/editors/NumericInputEditor";
 import TestUtils, { MineDataController, styleMatch, userEvent } from "../TestUtils";
-import { EditorContainer, PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
+import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
+import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
 
 describe("<NumericInputEditor />", () => {

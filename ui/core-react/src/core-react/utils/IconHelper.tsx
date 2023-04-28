@@ -8,7 +8,8 @@
 
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
-import { Icon, IconSpec } from "../icons/IconComponent";
+import type { IconSpec } from "../icons/IconComponent";
+import { Icon } from "../icons/IconComponent";
 
 /** Icon Helper Class used to store the data needed to generate an <Icon> for use in any control that shows an icon.
  * @public

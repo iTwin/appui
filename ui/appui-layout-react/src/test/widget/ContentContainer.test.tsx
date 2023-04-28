@@ -5,8 +5,9 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { BeEvent } from "@itwin/core-bentley";
+import type { TabState, WidgetContentManagerContextArgs} from "../../appui-layout-react";
 import {
-  addPanelWidget, addTab, createNineZoneState, TabState, WidgetContentContainer, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetIdContext,
+  addPanelWidget, addTab, createNineZoneState, WidgetContentContainer, WidgetContentManagerContext, WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 

@@ -6,9 +6,11 @@
  * @module SyncUi
  */
 
-import { UiEventDispatcher, UiSyncEvent } from "@itwin/appui-abstract";
+import type { UiSyncEvent } from "@itwin/appui-abstract";
+import { UiEventDispatcher } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { IModelApp, IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
+import type { IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import { SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 

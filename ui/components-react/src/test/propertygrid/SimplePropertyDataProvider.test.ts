@@ -4,8 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-import { PrimitiveValue, PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
-import { PropertyCategory, SimplePropertyDataProvider } from "../../components-react";
+import type { PrimitiveValue, PropertyRecord} from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
+import type { PropertyCategory, PropertyData } from "../../components-react";
+import { SimplePropertyDataProvider } from "../../components-react";
 import TestUtils from "../TestUtils";
 
 class SamplePropertyDataProvider extends SimplePropertyDataProvider {
@@ -92,5 +94,46 @@ describe("SimplePropertyDataProvider", () => {
     const record2 = records[1];
     const propertyDescription = record2.property;
     expect(propertyDescription.displayLabel).to.equal("Test-New");
+  });
+
+  it("getData should return same object when no data changes", async () => {
+    const tested = new SimplePropertyDataProvider();
+    const first = await tested.getData();
+    const second = await tested.getData();
+    expect(first).to.equal(second);
+  });
+
+  it("getData should return different object when data changes", async () => {
+    const tested = new SimplePropertyDataProvider();
+    const initial = await tested.getData();
+    tested.addCategory({name: "Name1", label: "Label1", expand: false});
+    const categoryAdded = await tested.getData();
+    expect(initial).to.not.equal(categoryAdded);
+
+    const property = TestUtils.createPrimitiveStringProperty("String1", "string1");
+    tested.addProperty(property, 0);
+    const propertyAdded = await tested.getData();
+    expect(categoryAdded).to.not.equal(propertyAdded);
+
+    tested.removeProperty(property, 0);
+    const propertyRemoved = await tested.getData();
+    expect(propertyAdded).to.not.equal(propertyRemoved);
+  });
+
+  it("getData should return different object when onDataChanged is called", (done) => {
+    const tested = new SimplePropertyDataProvider();
+    let initial: PropertyData | undefined;
+    tested.getData().then((data) => {
+      initial = data;
+    }).catch(() => expect.fail("getData threw"));
+
+    tested.onDataChanged.addListener(() => {
+      tested.getData().then((data) => {
+        expect(initial).to.not.equal(data);
+        done();
+      }).catch(() => { expect.fail("onDataChanged getData threw"); });
+    });
+
+    tested.addCategory({name: "Name1", label: "Label1", expand: false});
   });
 });

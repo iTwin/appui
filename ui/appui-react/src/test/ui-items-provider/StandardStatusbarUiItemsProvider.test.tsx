@@ -6,7 +6,8 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import TestUtils from "../TestUtils";
 import { MockRender } from "@itwin/core-frontend";
-import { DefaultStatusbarItems, StageUsage, StandardStatusbarUiItemsProvider, UiItemsManager } from "../../appui-react";
+import type { DefaultStatusbarItems} from "../../appui-react";
+import { StageUsage, StandardStatusbarUiItemsProvider, UiItemsManager } from "../../appui-react";
 
 const testArray: DefaultStatusbarItems[] = [
   {

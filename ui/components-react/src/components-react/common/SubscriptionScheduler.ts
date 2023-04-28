@@ -6,8 +6,8 @@
  * @module Common
  */
 
-import { Observable } from "rxjs/internal/Observable";
-import { ConnectableObservable } from "rxjs/internal/observable/ConnectableObservable";
+import type { Observable } from "rxjs/internal/Observable";
+import type { ConnectableObservable } from "rxjs/internal/observable/ConnectableObservable";
 import { defer } from "rxjs/internal/observable/defer";
 import { EMPTY } from "rxjs/internal/observable/empty";
 import { iif } from "rxjs/internal/observable/iif";

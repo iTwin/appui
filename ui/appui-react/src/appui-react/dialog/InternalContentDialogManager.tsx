@@ -6,13 +6,14 @@
  * @module Dialog
  */
 
-import * as React from "react";
+import type * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import { getCssVariableAsNumber } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import { DialogManagerBase } from "./DialogManagerBase";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
-import { ContentDialogChangedEvent, ContentDialogInfo } from "../framework/FrameworkContent";
+import type { ContentDialogInfo } from "../framework/FrameworkContent";
+import { ContentDialogChangedEvent } from "../framework/FrameworkContent";
 
 // cSpell:ignore ZINDEX modeless
 

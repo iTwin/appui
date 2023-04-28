@@ -8,15 +8,16 @@
 
 import "./FilterBuilderRule.scss";
 import * as React from "react";
-import { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
+import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { SvgDelete } from "@itwin/itwinui-icons-react";
 import { IconButton } from "@itwin/itwinui-react";
 import { PropertyFilterBuilderContext, PropertyFilterBuilderRuleRenderingContext } from "./FilterBuilderContext";
 import { PropertyFilterBuilderRuleOperator } from "./FilterBuilderRuleOperator";
 import { PropertyFilterBuilderRuleProperty } from "./FilterBuilderRuleProperty";
 import { PropertyFilterBuilderRuleValue } from "./FilterBuilderRuleValue";
-import { PropertyFilterBuilderRule } from "./FilterBuilderState";
-import { isUnaryPropertyFilterOperator, PropertyFilterRuleOperator } from "./Operators";
+import type { PropertyFilterBuilderRule } from "./FilterBuilderState";
+import type { PropertyFilterRuleOperator } from "./Operators";
+import { isUnaryPropertyFilterOperator } from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderRuleRenderer]] component.

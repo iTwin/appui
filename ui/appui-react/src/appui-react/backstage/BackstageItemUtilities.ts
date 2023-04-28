@@ -6,8 +6,8 @@
  * @module Backstage
  */
 
-import { IconSpec } from "@itwin/core-react";
-import { BackstageActionItem, BackstageStageLauncher } from "./BackstageItem";
+import type { IconSpec } from "@itwin/core-react";
+import type { BackstageActionItem, BackstageStageLauncher } from "./BackstageItem";
 
 /** Utilities for creating and maintaining backstage items
  * @beta

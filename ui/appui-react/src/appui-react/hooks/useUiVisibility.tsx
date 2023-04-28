@@ -7,7 +7,8 @@
  */
 
 import { useEffect, useState } from "react";
-import { UiFramework, UiVisibilityEventArgs } from "../UiFramework";
+import type { UiVisibilityEventArgs } from "../UiFramework";
+import { UiFramework } from "../UiFramework";
 
 /** @internal */
 // istanbul ignore next

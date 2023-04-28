@@ -6,7 +6,8 @@ import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { Backstage, BackstageProps, SafeAreaInsets } from "../../appui-layout-react";
+import type { BackstageProps} from "../../appui-layout-react";
+import { Backstage, SafeAreaInsets } from "../../appui-layout-react";
 import { selectorMatches, userEvent } from "../Utils";
 
 describe("<Backstage />", () => {

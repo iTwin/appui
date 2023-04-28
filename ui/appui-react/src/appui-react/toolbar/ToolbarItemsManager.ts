@@ -8,7 +8,8 @@
 
 import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
-import { isToolbarGroupItem, ToolbarActionItem, ToolbarGroupItem, ToolbarItem } from "./ToolbarItem";
+import type { ToolbarActionItem, ToolbarGroupItem, ToolbarItem } from "./ToolbarItem";
+import { isToolbarGroupItem } from "./ToolbarItem";
 
 function isInstance<T>(args: T | ReadonlyArray<T>): args is T {
   return !Array.isArray(args);

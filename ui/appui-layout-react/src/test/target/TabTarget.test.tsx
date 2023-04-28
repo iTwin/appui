@@ -4,8 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, DraggedWidgetIdContext, WidgetIdContext, WidgetState } from "../../appui-layout-react";
-import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
+import type { WidgetState } from "../../appui-layout-react";
+import { addPanelWidget, addTab, createNineZoneState, DraggedWidgetIdContext, WidgetIdContext } from "../../appui-layout-react";
+import type { TestNineZoneProviderProps } from "../Providers";
+import { TestNineZoneProvider } from "../Providers";
 import { TabTarget } from "../../appui-layout-react/target/TabTarget";
 import { renderHook } from "@testing-library/react-hooks";
 import { useAllowedWidgetTarget } from "../../appui-layout-react/target/useAllowedWidgetTarget";

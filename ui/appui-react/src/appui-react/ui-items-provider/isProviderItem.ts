@@ -6,7 +6,7 @@
  * @module UiProvider
  */
 
-import { ProviderItem } from "./ProviderItem";
+import type { ProviderItem } from "./ProviderItem";
 
 /** @internal */
 export function isProviderItem<T extends object>(item: T): item is ProviderItem<T> {

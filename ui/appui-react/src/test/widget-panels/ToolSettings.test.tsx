@@ -8,8 +8,9 @@ import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
 import * as sinon from "sinon";
+import type { ToolSettingsEntry} from "../../appui-react";
 import {
-  ConfigurableCreateInfo, FrontstageDef, ToolSettingsContent, ToolSettingsDockedContent, ToolSettingsEntry, ToolSettingsGrid,
+  ConfigurableCreateInfo, FrontstageDef, ToolSettingsContent, ToolSettingsDockedContent, ToolSettingsGrid,
   ToolUiProvider, UiFramework, useHorizontalToolSettingNodes, useToolSettingsNode, WidgetDef, WidgetPanelsToolSettings,
 } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";

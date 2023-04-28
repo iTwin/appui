@@ -10,10 +10,11 @@ import "./TileLoadingIndicator.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import { IModelApp, ScreenViewport, Viewport } from "@itwin/core-frontend";
+import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import { ProgressLinear } from "@itwin/itwinui-react";
 import { UiFramework } from "../../UiFramework";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 
 /** State for the [[TileLoadingIndicator]] component
  * @internal

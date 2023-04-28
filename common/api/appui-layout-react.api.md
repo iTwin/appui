@@ -7,17 +7,17 @@
 /// <reference types="react" />
 
 import { BeEvent } from '@itwin/core-bentley';
-import { CommonProps } from '@itwin/core-react';
-import { IconSpec } from '@itwin/core-react';
-import { NoChildrenProps } from '@itwin/core-react';
-import { OmitChildrenProp } from '@itwin/core-react';
+import type { CommonProps } from '@itwin/core-react';
+import type { IconSpec } from '@itwin/core-react';
+import type { NoChildrenProps } from '@itwin/core-react';
+import type { OmitChildrenProp } from '@itwin/core-react';
 import { Point } from '@itwin/core-react';
-import { PointProps } from '@itwin/appui-abstract';
-import { PopupProps } from '@itwin/core-react';
+import type { PointProps } from '@itwin/appui-abstract';
+import type { PopupProps } from '@itwin/core-react';
 import * as React_2 from 'react';
 import { Rectangle } from '@itwin/core-react';
-import { RectangleProps } from '@itwin/core-react';
-import { SizeProps } from '@itwin/core-react';
+import type { RectangleProps } from '@itwin/core-react';
+import type { SizeProps } from '@itwin/core-react';
 import { StoreApi } from 'zustand';
 import { UseBoundStore } from 'zustand';
 

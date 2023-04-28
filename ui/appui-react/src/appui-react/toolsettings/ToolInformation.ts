@@ -9,7 +9,7 @@
 import { UiError } from "@itwin/appui-abstract";
 import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { UiFramework } from "../UiFramework";
-import { ToolUiProvider } from "./ToolUiProvider";
+import type { ToolUiProvider } from "./ToolUiProvider";
 
 /** Provides information about a tool with a given id, including the ToolUiProvider.
  * @public
