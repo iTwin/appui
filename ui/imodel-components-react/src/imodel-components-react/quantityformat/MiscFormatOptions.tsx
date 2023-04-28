@@ -9,10 +9,11 @@
 import classnames from "classnames";
 import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Checkbox } from "@itwin/itwinui-react";
-import { Format, FormatProps, FormatTraits, FormatType, getTraitString, parseFormatType, parseScientificType,
-  parseShowSignOption, ScientificType, scientificTypeToString, ShowSignOption, showSignOptionToString,
+import type { FormatProps, ShowSignOption} from "@itwin/core-quantity";
+import { Format, FormatTraits, FormatType, getTraitString, parseFormatType, parseScientificType,
+  parseShowSignOption, ScientificType, scientificTypeToString, showSignOptionToString,
 } from "@itwin/core-quantity";
 import { SignOptionSelector } from "./misc/SignOption";
 import { ThousandsSeparator } from "./misc/ThousandsSeparator";

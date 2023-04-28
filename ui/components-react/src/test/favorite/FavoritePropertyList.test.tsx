@@ -7,7 +7,7 @@ import * as faker from "faker";
 import * as React from "react";
 import * as sinon from "sinon";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import { PropertyCategory, PropertyData } from "../../components-react/propertygrid/PropertyDataProvider";
+import type { PropertyCategory, PropertyData } from "../../components-react/propertygrid/PropertyDataProvider";
 import { FavoritePropertyList } from "../../components-react/favorite/FavoritePropertyList";
 import TestUtils, { childStructure } from "../TestUtils";
 import { Orientation } from "@itwin/core-react";

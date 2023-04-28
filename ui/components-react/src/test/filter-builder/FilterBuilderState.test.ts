@@ -5,11 +5,13 @@
 
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
-import { PropertyDescription, PropertyValue, PropertyValueFormat } from "@itwin/appui-abstract";
+import type { PropertyDescription, PropertyValue} from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import {
-  PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup, PropertyFilterBuilderRuleGroupItem, usePropertyFilterBuilderState,
+import type {
+  PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup, PropertyFilterBuilderRuleGroupItem} from "../../components-react/filter-builder/FilterBuilderState";
+import { usePropertyFilterBuilderState,
 } from "../../components-react/filter-builder/FilterBuilderState";
 import { PropertyFilterRuleGroupOperator, PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";

@@ -6,10 +6,11 @@
  * @module StatusBar
  */
 
-import * as React from "react";
-import { ConditionalStringValue } from "@itwin/appui-abstract";
-import { IconSpec } from "@itwin/core-react";
-import { StatusBarActionItem, StatusBarCustomItem, StatusBarLabelItem, StatusBarLabelSide, StatusBarSection } from "./StatusBarItem";
+import type * as React from "react";
+import type { ConditionalStringValue } from "@itwin/appui-abstract";
+import type { IconSpec } from "@itwin/core-react";
+import type { StatusBarActionItem, StatusBarCustomItem, StatusBarLabelItem, StatusBarSection } from "./StatusBarItem";
+import { StatusBarLabelSide } from "./StatusBarItem";
 
 /** Utility functions for creating and maintaining StatusBar items.
  * @public

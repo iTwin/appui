@@ -5,7 +5,8 @@
 /** @packageDocumentation
  * @module Dialog
  */
-import { DialogChangedEvent, DialogInfo } from "../dialog/DialogManagerBase";
+import type { DialogInfo } from "../dialog/DialogManagerBase";
+import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 
 /** Modal Dialog Changed Event class.
  * @public

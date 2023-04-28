@@ -12,7 +12,8 @@ import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigation
 import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
 import { UiFramework } from "../UiFramework";
-import { ConfigurableCreateInfo, ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
+import type { ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
+import { ConfigurableCreateInfo } from "./ConfigurableUiControl";
 import { MessageManager } from "../messages/MessageManager";
 import { PopupManager } from "../popup/PopupManager";
 import { ActivityTracker } from "./ActivityTracker";

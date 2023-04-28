@@ -12,7 +12,8 @@ import * as React from "react";
 import { DraggedWidgetIdContext, usePanelTarget } from "../base/DragManager";
 import { CursorTypeContext, getUniqueId } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
-import { isHorizontalPanelSide, PanelSide } from "../widget-panels/Panel";
+import type { PanelSide } from "../widget-panels/Panel";
+import { isHorizontalPanelSide } from "../widget-panels/Panel";
 import { useAllowedPanelTarget } from "./useAllowedPanelTarget";
 import { useLayout } from "../base/LayoutStore";
 

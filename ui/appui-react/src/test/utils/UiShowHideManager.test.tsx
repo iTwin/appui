@@ -6,8 +6,9 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
-import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, ContentLayout, ContentLayoutDef, UiFramework,
+import type {
+  ConfigurableCreateInfo} from "../../appui-react";
+import { ContentControl, ContentGroup, ContentLayout, ContentLayoutDef, UiFramework,
 } from "../../appui-react";
 import { TestFrontstage } from "../frontstage/FrontstageTestUtils";
 import TestUtils, { storageMock } from "../TestUtils";

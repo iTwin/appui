@@ -6,7 +6,8 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { BeEvent } from "@itwin/core-bentley";
 import { act, render } from "@testing-library/react";
-import { ScrollableWidgetContent, TabIdContext, TabState, WidgetContentManagerContext } from "../../appui-layout-react";
+import type { TabState} from "../../appui-layout-react";
+import { ScrollableWidgetContent, TabIdContext, WidgetContentManagerContext } from "../../appui-layout-react";
 
 describe("ScrollableWidgetContent", () => {
   it("should save and restore scroll position", () => {

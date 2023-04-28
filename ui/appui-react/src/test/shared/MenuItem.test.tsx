@@ -7,7 +7,8 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
-import { MenuItem, MenuItemHelpers, MenuItemProps } from "../../appui-react/shared/MenuItem";
+import type { MenuItemProps } from "../../appui-react/shared/MenuItem";
+import { MenuItem, MenuItemHelpers } from "../../appui-react/shared/MenuItem";
 import TestUtils, { childStructure, selectorMatches } from "../TestUtils";
 
 describe("MenuItem", () => {

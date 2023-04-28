@@ -9,7 +9,8 @@
 import "./ModalFrontstage.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, Icon } from "@itwin/core-react";
+import type { CommonProps} from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import { BackButton } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
 import { Text } from "@itwin/itwinui-react";

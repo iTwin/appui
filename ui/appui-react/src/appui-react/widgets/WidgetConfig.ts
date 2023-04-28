@@ -6,7 +6,7 @@
  * @module Widget
  */
 
-import { Widget } from "./Widget";
+import type { Widget } from "./Widget";
 
 /** Configuration from which a widget is created.
  * @public
