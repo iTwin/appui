@@ -68,7 +68,7 @@ importers:
       react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
       react-select: 3.2.0_react-dom@17.0.2+react@17.0.2
     devDependencies:
-      '@itwin/build-tools': 3.7.0
+      '@itwin/build-tools': 3.7.4
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@types/react': 17.0.53
       '@types/react-redux': 7.1.25
@@ -220,7 +220,7 @@ importers:
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
-      '@itwin/build-tools': 3.7.0
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-webpack-tools': 3.7.0_webpack@5.76.3
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/projects-client': 0.6.0
@@ -376,7 +376,7 @@ importers:
     devDependencies:
       '@axe-core/react': 4.3.1
       '@bentley/react-scripts': 5.0.4_react@17.0.2+typescript@5.0.2
-      '@itwin/build-tools': 3.7.0
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-webpack-tools': 3.7.0_webpack@5.76.3
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/projects-client': 0.6.0
@@ -435,7 +435,7 @@ importers:
     dependencies:
       yargs: 17.7.1
     devDependencies:
-      '@itwin/build-tools': 3.7.0
+      '@itwin/build-tools': 3.7.4
       mocha: 10.2.0
 
   ../../ui/appui-layout-react:
@@ -495,7 +495,7 @@ importers:
       zustand: 4.3.6_immer@9.0.6+react@17.0.2
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
-      '@itwin/build-tools': 3.7.0
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-react': link:../core-react
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
@@ -618,7 +618,7 @@ importers:
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/appui-layout-react': link:../appui-layout-react
-      '@itwin/build-tools': 3.7.0
+      '@itwin/build-tools': 3.7.4
       '@itwin/components-react': link:../components-react
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
@@ -753,7 +753,7 @@ importers:
       shortid: 2.2.16
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
-      '@itwin/build-tools': 3.7.0
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
       '@itwin/core-geometry': 3.7.0
@@ -865,7 +865,7 @@ importers:
       resize-observer-polyfill: 1.5.1
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
-      '@itwin/build-tools': 3.7.0
+      '@itwin/build-tools': 3.7.4
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
       '@itwin/core-geometry': 3.7.0
@@ -968,7 +968,7 @@ importers:
       classnames: 2.3.1
     devDependencies:
       '@itwin/appui-abstract': 3.7.0_@itwin+core-bentley@3.7.0
-      '@itwin/build-tools': 3.7.0
+      '@itwin/build-tools': 3.7.4
       '@itwin/components-react': link:../components-react
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-common': 3.7.0_d3cf7b747b827c7a0a662ddd00c672b6
@@ -3090,8 +3090,8 @@ packages:
       oidc-client-ts: 2.2.2
     dev: false
 
-  /@itwin/build-tools/3.7.0:
-    resolution: {integrity: sha512-RV30bHmPtN0/4gUTa1R1wUuMpuvPM9f1nFQFcICe/wfniIQc3ZyeTpEwjF4SfWFcqS90p6sCzwqYaDtVW6XbQw==}
+  /@itwin/build-tools/3.7.4:
+    resolution: {integrity: sha512-0IBnxpN01lZuk2eCdYk+R7nlxsoiGbwAeVW2/wbqn1J9B9IVHVYaMiF6JNgG+d1w+ueQas0c45vZYGFi79e0oA==}
     hasBin: true
     dependencies:
       '@microsoft/api-extractor': 7.23.2
@@ -7001,7 +7001,7 @@ packages:
     dev: true
 
   /charenc/0.0.2:
-    resolution: {integrity: sha1-wKHS86cJLgN3S/qD8UwPxXkKhmc=}
+    resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
     dev: true
 
   /check-error/1.0.2:
@@ -7261,7 +7261,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   /confusing-browser-globals/1.0.11:
     resolution: {integrity: sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==}
@@ -7440,7 +7440,7 @@ packages:
     dev: true
 
   /crypt/0.0.2:
-    resolution: {integrity: sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=}
+    resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
     dev: true
 
   /crypto-js/4.1.1:

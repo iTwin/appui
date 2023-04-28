@@ -16,7 +16,7 @@ function readPackage(pkg) {
     pkg.dependencies["@itwin/appui-layout-react"] = "workspace:*";
     pkg.dependencies["@itwin/appui-react"] = "workspace:*";
     pkg.dependencies["@itwin/components-react"] = "workspace:*";
-    pkg.dependencies["@itwin/core-react"] = "workspace:*"
+    pkg.dependencies["@itwin/core-react"] = "workspace:*";
     pkg.dependencies["@itwin/imodel-components-react"] = "workspace:*";
   }
 
