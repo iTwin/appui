@@ -4,15 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
-<<<<<<< HEAD
 import { PrimitiveValue, PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
-import { PropertyCategory, SimplePropertyDataProvider } from "../../components-react";
-=======
-import type { PrimitiveValue, PropertyRecord} from "@itwin/appui-abstract";
-import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { PropertyCategory, PropertyData } from "../../components-react";
-import { SimplePropertyDataProvider } from "../../components-react";
->>>>>>> 4c5b01714 (SimplePropertyDataProvider return objects on getData (#302))
+import { PropertyCategory, PropertyData, SimplePropertyDataProvider } from "../../components-react";
 import TestUtils from "../TestUtils";
 
 class SamplePropertyDataProvider extends SimplePropertyDataProvider {
