@@ -1740,6 +1740,8 @@ export interface EmphasizeElementsChangedArgs {
 // @beta
 export class ExpandableSection extends React_2.PureComponent<ExpandableSectionProps, ExpandableSectionState> {
     constructor(props: ExpandableSectionProps);
+    // (undocumented)
+    componentDidUpdate(prevProps: Readonly<ExpandableSectionProps>): Promise<void>;
     render(): JSX.Element;
 }
 
@@ -2936,6 +2938,8 @@ export interface ListPickerItemProps extends CommonProps {
 
 // @beta
 export interface ListPickerProps {
+    // (undocumented)
+    expanded?: boolean;
     // (undocumented)
     iconSpec?: string | React_2.ReactNode;
     // (undocumented)
