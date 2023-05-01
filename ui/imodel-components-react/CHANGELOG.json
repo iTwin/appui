@@ -2,6 +2,51 @@
   "name": "@itwin/imodel-components-react",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@itwin/imodel-components-react_v4.0.0",
+      "date": "Mon, 01 May 2023 13:32:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Promote APIs in use by apps."
+          },
+          {
+            "comment": "Styling change: use larger arrows for the Navigation Cube."
+          },
+          {
+            "comment": "Using iTwinUI-variables."
+          },
+          {
+            "comment": "Update iTwinUI-react to v2.x."
+          },
+          {
+            "comment": "Clean dependencies."
+          },
+          {
+            "comment": "Refactor to use iTwinUI instead of deprecated core-react."
+          },
+          {
+            "comment": "Bump minimum of core packages to 3.7.0."
+          },
+          {
+            "comment": "peerDependency allow react: ^18.0.0."
+          },
+          {
+            "comment": "Clean SCSS."
+          },
+          {
+            "comment": "Remove components and interfaces that were deprecated in 2.x and 3.0."
+          },
+          {
+            "comment": "Update package.json dependencies and repo documentation."
+          },
+          {
+            "comment": "Remove webfont icons from components."
+          }
+        ]
+      }
+    },
+    {
       "version": "3.7.2",
       "tag": "@itwin/imodel-components-react_v3.7.2",
       "date": "Wed, 12 Apr 2023 13:12:42 GMT",

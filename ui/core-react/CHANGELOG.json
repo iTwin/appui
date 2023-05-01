@@ -2,6 +2,57 @@
   "name": "@itwin/core-react",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@itwin/core-react_v4.0.0",
+      "date": "Mon, 01 May 2023 13:32:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Promote APIs in use by apps."
+          },
+          {
+            "comment": "Using iTwinUI-variables."
+          },
+          {
+            "comment": "Update iTwinUI-react to v2.x."
+          },
+          {
+            "comment": "Fix tree node chevron alignment."
+          },
+          {
+            "comment": "Clean dependencies."
+          },
+          {
+            "comment": "Remove deprecated components and API."
+          },
+          {
+            "comment": "Bump minimum of core packages to 3.7.0."
+          },
+          {
+            "comment": "peerDependency allow react: ^18.0.0."
+          },
+          {
+            "comment": "Update typings for React18."
+          },
+          {
+            "comment": "Remove deprecated SCSS files."
+          },
+          {
+            "comment": "Remove SvgSprite component and support."
+          },
+          {
+            "comment": "Remove deprecated components."
+          },
+          {
+            "comment": "Update package.json dependencies and repo documentation."
+          },
+          {
+            "comment": "Remove webfont icons from components. Add ConditionIconComponent to allow IconSpec to be used conditionally instead of just a string."
+          }
+        ]
+      }
+    },
+    {
       "version": "3.7.2",
       "tag": "@itwin/core-react_v3.7.2",
       "date": "Wed, 12 Apr 2023 13:12:42 GMT",

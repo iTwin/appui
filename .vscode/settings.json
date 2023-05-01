@@ -2,26 +2,14 @@
 {
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "search.exclude": {
-    "**/node_modules": true,
+    "**/node_modules": false,
     "**/bower_components": true,
     "**/.nyc_output": true,
     "**/.rush": true
   },
-  "files.exclude": {
-    "**/.nyc_output": true,
-    "**/.rush": true,
-    "**/*.build.log": true,
-    "**/*.build.error.log": true,
-    "**/generated-docs": true,
-    "**/package-deps.json": true,
-    "**/node_modules": true,
-    "**/test-apps/**/build": true,
-    "**/out": true,
-    "**/lib": true,
-    "common/temp": true
-  },
+  "files.exclude": {},
   "files.trimTrailingWhitespace": true,
   "files.associations": {
     "*.snap": "javascript",
@@ -77,7 +65,7 @@
   "eslint.options": {
     "configFile": "./package.json",
     "useEslintrc": false,
-    "resolvePluginsRelativeTo": "./node_modules/@itwin/eslint-plugin"
+    "resolvePluginsRelativeTo": "/code/appui/common/temp/node_modules/@itwin/eslint-plugin",
   },
   "importSorter.importStringConfiguration.quoteMark": "double",
   "importSorter.generalConfiguration.sortImportsInDirectory": false,
@@ -118,5 +106,12 @@
   "cSpell.words": [
     "Discoverability"
   ],
-  "typescript.tsdk": "common/temp/node_modules/typescript/lib",
+  "javascript.format.enable": false,
+  "json.format.enable": false,
+  "typescript.format.enable": false,
+  "typescriptHero.imports.organizeOnSave": false,
+  "editor.formatOnPaste": false,
+  "githubPullRequests.ignoredPullRequestBranches": [
+    "master"
+  ]
 }
