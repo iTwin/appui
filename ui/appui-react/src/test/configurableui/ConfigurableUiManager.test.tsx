@@ -7,8 +7,9 @@ import { expect } from "chai";
 import * as React from "react";
 import { MockRender } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, ContentGroupProps, MessageManager, PopupManager, UiFramework, WidgetControl,
+import type {
+  ConfigurableCreateInfo, ContentGroupProps} from "../../appui-react";
+import { ContentControl, ContentGroup, MessageManager, PopupManager, UiFramework, WidgetControl,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { InternalConfigurableUiManager } from "../../appui-react/configurableui/InternalConfigurableUiManager";

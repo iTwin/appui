@@ -10,9 +10,9 @@ import * as React from "react";
 import { useActiveStageId } from "../hooks/useActiveStageId";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
 import { UiFramework } from "../UiFramework";
-import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
+import type { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import { ToolbarItemsManager } from "./ToolbarItemsManager";
+import type { ToolbarItemsManager } from "./ToolbarItemsManager";
 
 /** Hook that returns items from [[ToolbarItemsManager]].
  * @public

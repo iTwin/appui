@@ -7,10 +7,11 @@
  */
 
 import * as React from "react";
-import { OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { ToolbarWithOverflow as CR_ToolbarWithOverflow, Direction, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
-import { ToolbarItem } from "./ToolbarItem";
+import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
+import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
+import type { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
+import { ToolbarWithOverflow as CR_ToolbarWithOverflow } from "@itwin/components-react";
+import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 
 /** Component that displays toolbar items.

@@ -7,9 +7,10 @@
  */
 
 import { useEffect, useState } from "react";
-import { UiSyncEventArgs } from "@itwin/appui-abstract";
-import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
+import type { UiSyncEventArgs } from "@itwin/appui-abstract";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
+import type { ActiveContentChangedEventArgs } from "../framework/FrameworkContent";
 import { SyncUiEventDispatcher, SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
 

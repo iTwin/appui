@@ -7,10 +7,10 @@
  */
 
 import * as React from "react";
-import { PropertyDescription } from "@itwin/appui-abstract";
-import { PropertyFilterBuilderActions } from "./FilterBuilderState";
-import { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
-import { PropertyFilterBuilderRuleValueProps } from "./FilterBuilderRuleValue";
+import type { PropertyDescription } from "@itwin/appui-abstract";
+import type { PropertyFilterBuilderActions } from "./FilterBuilderState";
+import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
+import type { PropertyFilterBuilderRuleValueProps } from "./FilterBuilderRuleValue";
 
 /**
  * Data structure that describes [[PropertyFilterBuilderContext]] value.

@@ -6,9 +6,9 @@
  * @module Item
  */
 
-import * as React from "react";
+import type * as React from "react";
 import { ActionButtonItemDef } from "./ActionButtonItemDef";
-import { CustomItemProps } from "./CustomItemProps";
+import type { CustomItemProps } from "./CustomItemProps";
 
 /** An Item that renders a React component.
  * @public

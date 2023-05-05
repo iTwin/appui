@@ -8,8 +8,9 @@ import * as sinon from "sinon";
 import { ToolbarItemContext } from "@itwin/components-react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 
+import type { ListItem} from "../../appui-react";
 import {
-  ExpandableSection, ListItem, ListItemType, ListPicker, ListPickerItem,
+  ExpandableSection, ListItemType, ListPicker, ListPickerItem,
 } from "../../appui-react";
 import TestUtils, { childStructure, selectorMatches, userEvent } from "../TestUtils";
 import { Provider } from "react-redux";

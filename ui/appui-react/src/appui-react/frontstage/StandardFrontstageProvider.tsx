@@ -7,14 +7,15 @@
  */
 
 import * as React from "react";
-import { ContentGroup, ContentGroupProps, ContentGroupProvider } from "../content/ContentGroup";
+import type { ContentGroupProps} from "../content/ContentGroup";
+import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
 import { ViewToolWidgetComposer } from "../widgets/ViewToolWidgetComposer";
 import { StagePanelState } from "../stagepanels/StagePanelDef";
-import { FrontstageConfig } from "./FrontstageConfig";
-import { StagePanelConfig } from "../stagepanels/StagePanelConfig";
-import { StageUsage } from "./StageUsage";
+import type { FrontstageConfig } from "./FrontstageConfig";
+import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
+import type { StageUsage } from "./StageUsage";
 import { StatusBarComposer } from "../statusbar/StatusBarComposer";
 
 /** Properties of a [[WidgetPanelProps]] component

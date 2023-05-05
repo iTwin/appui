@@ -11,7 +11,7 @@ import { BooleanEditor } from "../../components-react/editors/BooleanEditor";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
 import TestUtils, { MineDataController, userEvent } from "../TestUtils";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager";
-import { PrimitiveValue } from "@itwin/appui-abstract";
+import type { PrimitiveValue } from "@itwin/appui-abstract";
 
 const testId = "components-checkbox-editor";
 

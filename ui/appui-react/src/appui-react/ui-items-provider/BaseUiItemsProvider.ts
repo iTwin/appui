@@ -7,13 +7,13 @@
  */
 
 import { StageUsage } from "../frontstage/StageUsage";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { StagePanelSection } from "../stagepanels/StagePanelSection";
-import { StatusBarItem } from "../statusbar/StatusBarItem";
-import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import { Widget } from "../widgets/Widget";
+import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import type { StagePanelSection } from "../stagepanels/StagePanelSection";
+import type { StatusBarItem } from "../statusbar/StatusBarItem";
+import type { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import type { Widget } from "../widgets/Widget";
 import { UiItemsManager } from "./UiItemsManager";
-import { UiItemsProvider } from "./UiItemsProvider";
+import type { UiItemsProvider } from "./UiItemsProvider";
 
 /** Base implementation of a UiItemsProvider. The base class allows the user to pass in a function that is used to determine if the
  * active stage should be provided items. Derived provider classes should override the `xxxInternal` methods to provide items.

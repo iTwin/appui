@@ -8,7 +8,7 @@
 
 import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
 import { BeEvent } from "@itwin/core-bentley";
-import { BackstageItem } from "./BackstageItem";
+import type { BackstageItem } from "./BackstageItem";
 
 /** Arguments of [[BackstageItemsManager.onChanged]] event.
  * @internal

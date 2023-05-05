@@ -5,8 +5,8 @@
 import * as faker from "faker";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
-import { MutableTreeModelNode, TreeModelNodeInput, TreeNodeItemData } from "../../../components-react";
-import { TreeNodeItem } from "../../../components-react/tree/TreeDataProvider";
+import type { MutableTreeModelNode, TreeModelNodeInput, TreeNodeItemData } from "../../../components-react";
+import type { TreeNodeItem } from "../../../components-react/tree/TreeDataProvider";
 
 /** @internal */
 export function createTreeNodeInput(id: string): TreeModelNodeInput {

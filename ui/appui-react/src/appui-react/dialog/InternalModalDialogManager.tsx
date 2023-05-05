@@ -6,7 +6,7 @@
  * @module Dialog
  */
 
-import * as React from "react";
+import type * as React from "react";
 import { DialogManagerBase } from "./DialogManagerBase";
 import { ModalDialogChangedEvent } from "../framework/FrameworkDialogs";
 

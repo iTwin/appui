@@ -7,12 +7,14 @@
  */
 
 import * as React from "react";
-import { ScreenViewport } from "@itwin/core-frontend";
-import { ViewClassFullNameChangedEventArgs, ViewportComponentEvents } from "@itwin/imodel-components-react";
-import { CommonProps, useProximityToMouse, useWidgetOpacityContext, WidgetElementSet, WidgetOpacityContext } from "@itwin/core-react";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import type { ViewClassFullNameChangedEventArgs} from "@itwin/imodel-components-react";
+import { ViewportComponentEvents } from "@itwin/imodel-components-react";
+import type { CommonProps} from "@itwin/core-react";
+import { useProximityToMouse, useWidgetOpacityContext, WidgetElementSet, WidgetOpacityContext } from "@itwin/core-react";
 import { NavigationArea } from "@itwin/appui-layout-react";
-import { ContentControl, ContentControlActivatedEventArgs } from "../content/ContentControl";
-import { NavigationAidControl } from "../navigationaids/NavigationAidControl";
+import type { ContentControl, ContentControlActivatedEventArgs } from "../content/ContentControl";
+import type { NavigationAidControl } from "../navigationaids/NavigationAidControl";
 import { UiFramework } from "../UiFramework";
 
 function createNavigationAidControl(activeContentControl: ContentControl | undefined, navigationAidId: string, activeViewport: ScreenViewport | undefined): NavigationAidControl | undefined {

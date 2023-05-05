@@ -11,17 +11,20 @@ import produce from "immer";
 import { render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { BentleyError, Logger } from "@itwin/core-bentley";
-import { Size, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-react";
-import { addFloatingWidget, addPanelWidget, addTab, createLayoutStore, createNineZoneState, getUniqueId, NineZoneState, toolSettingsTabId } from "@itwin/appui-layout-react";
+import type { UiStateStorageResult} from "@itwin/core-react";
+import { Size, UiStateStorageStatus } from "@itwin/core-react";
+import type { NineZoneState} from "@itwin/appui-layout-react";
+import { addFloatingWidget, addPanelWidget, addTab, createLayoutStore, createNineZoneState, getUniqueId, toolSettingsTabId } from "@itwin/appui-layout-react";
 import { createDraggedTabState } from "@itwin/appui-layout-react/lib/cjs/appui-layout-react/state/internal/TabStateHelpers";
 import { IModelApp, MockRender, NoRenderApp } from "@itwin/core-frontend";
+import type { FrontstageConfig, UiItemsProvider,
+  Widget, WidgetPanelsFrontstageState} from "../../appui-react";
 import {
-  ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, expandWidget, FrontstageConfig, FrontstageDef,
+  ActiveFrontstageDefProvider, addMissingWidgets, addPanelWidgets, addWidgets, appendWidgets, expandWidget, FrontstageDef,
   FrontstageProvider, getWidgetId, initializeNineZoneState, initializePanel, isFrontstageStateSettingResult, ModalFrontstageComposer,
   packNineZoneState, restoreNineZoneState, setWidgetState, showWidget, StagePanelDef, StagePanelLocation, StagePanelSection, UiFramework,
-  UiItemsManager, UiItemsProvider, UiStateStorageHandler, useActiveModalFrontstageInfo, useFrontstageManager,
-  useLayoutStore, useNineZoneDispatch, useSavedFrontstageState, useSaveFrontstageSettings, useUpdateNineZoneSize,
-  Widget, WidgetDef, WidgetPanelsFrontstage, WidgetPanelsFrontstageState, WidgetState,
+  UiItemsManager, UiStateStorageHandler, useActiveModalFrontstageInfo, useFrontstageManager,
+  useLayoutStore, useNineZoneDispatch, useSavedFrontstageState, useSaveFrontstageSettings, useUpdateNineZoneSize, WidgetDef, WidgetPanelsFrontstage, WidgetState,
 } from "../../appui-react";
 import TestUtils, { childStructure, storageMock, stubRaf, styleMatch, UiStateStorageStub } from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";

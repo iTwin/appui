@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { PopupProps } from "@itwin/core-react";
+import type { PopupProps } from "@itwin/core-react";
 import { FooterPopup } from "@itwin/appui-layout-react";
 
 /** Popup component used in [[StatusBar]] component.

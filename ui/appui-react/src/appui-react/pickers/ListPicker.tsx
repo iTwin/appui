@@ -10,7 +10,8 @@ import "./ListPicker.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Columns, GroupColumn, Panel, PopupItem, Title } from "@itwin/components-react";
-import { CommonProps, Icon, SearchBox, SizeProps } from "@itwin/core-react";
+import type { CommonProps, SizeProps } from "@itwin/core-react";
+import { Icon, SearchBox } from "@itwin/core-react";
 import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction";
 import { UiFramework } from "../UiFramework";
 import { SvgChevronDown, SvgChevronRight, SvgList } from "@itwin/itwinui-icons-react";
@@ -49,6 +50,7 @@ export interface ListPickerProps {
   searchBox?: boolean;
   onSearchValueChange?: (search: string) => void;
   panelOnly?: boolean;
+  expanded?: boolean;
 }
 
 /** Properties for the [[ListPickerItem]] component
@@ -113,6 +115,12 @@ export class ExpandableSection extends React.PureComponent<ExpandableSectionProp
   constructor(props: ExpandableSectionProps) {
     super(props);
     this.state = { expanded: !!this.props.expanded };
+  }
+
+  public override async componentDidUpdate(prevProps: Readonly<ExpandableSectionProps>) {
+    if(this.props.expanded !== prevProps.expanded){
+      this.setState({expanded: true});
+    }
   }
 
   private _onClick = () => {
@@ -185,7 +193,7 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
               key={itemIndex.toString()}
               title={item.name}
               className="ListPickerInnerContainer"
-              expanded={expandSingleSection()}
+              expanded={props.expanded === true ? !expandSingleSection() : expandSingleSection()}
             >
               <GroupColumn>
                 {item.children!.map(listItemToElement)}

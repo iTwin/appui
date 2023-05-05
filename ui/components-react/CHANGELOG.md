@@ -1,6 +1,31 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Wed, 12 Apr 2023 13:12:42 GMT and should not be manually modified.
+This log was last generated on Mon, 01 May 2023 13:32:16 GMT and should not be manually modified.
+
+## 4.0.0
+Mon, 01 May 2023 13:32:16 GMT
+
+### Updates
+
+- Added ability to disable selector in `SelectableContent`
+- VirtualizedPropertyGrid: Fixed non-primitive property expander style.
+- Fix property value overflow.
+- Using iTwinUI-variables.
+- Update iTwinUI-react to v2.x.
+- Deprecate Toolbar components.
+- Fixed `useDebouncedAsyncValue` to re-throw errors in React render loop in case provided promise is rejected. Also affects `usePropertyData` and `usePropertyGridModelSource` hooks.
+- Promote 'ControlledTree' related APIs from 'internal' to 'public'.
+- Clean dependencies.
+- Refactor to use iTwinUI instead of deprecated core-react.
+- Remove deprecated components.
+- Bump minimum of core packages to 3.7.0.
+- peerDependency allow react: ^18.0.0.
+- Update typings for React18.
+- Clean SCSS.
+- `SimplePropertyDataProvider` correctly updates when used in `VirtualizedPropertyGridWithDataProvider`
+- Support React18 in FavoritePropertiesRenderer.
+- Update package.json dependencies and repo documentation.
+- Remove webfont icons from components.
 
 ## 3.7.2
 Wed, 12 Apr 2023 13:12:42 GMT
@@ -327,7 +352,7 @@ Mon, 24 Jan 2022 14:00:52 GMT
 - Remove react 16 peer dependency.
 - Remove itwinUi css overrides.
 - UiFramework and UiIModelComponent initialize method no longer take localization argument, uses IModelApp.localization internally.
-- Replaced ui-core Slider with one from iTwinUi-react.
+- Replaced ui-core Slider with one from iTwinUi-react. 
 - Update to latest types/react package
 - Skip test causing CI job failures
 - Lock down and update version numbers so docs will build.
@@ -625,7 +650,7 @@ Mon, 24 May 2021 15:58:39 GMT
 - Improved Multi-Value column filtering in the Table component
 - Move `VirtualizedPropertyGrid` related types from @alpha to @beta.
 - Fixed getting distinct values when Table rows are updated
-- Update to latest classnames package
+- Update to latest classnames package 
 
 ## 2.15.6
 Wed, 26 May 2021 15:55:19 GMT
@@ -1091,7 +1116,7 @@ Thu, 28 May 2020 22:48:59 GMT
 ### Updates
 
 - Fix toolbar overflow panel display.
-- Update to only show group separators if toolbar is not transparent.
+- Update to only show group separators if toolbar is not transparent. 
 - Fix toolbar error when scaling up UI.
 - Property grid horizontal layout updated according to UX requirements.
 - Fixed Table filter renderers after react-select version upgrade
@@ -1563,7 +1588,7 @@ Wed, 19 Dec 2018 18:26:14 GMT
 - Added DragDrop tests, added component withDragDrop HOC tests
 - Synchronizing navigation aids with view definition changes
 - Simplified property pane tooltips and improved Property Pane performance.
-- Simplified struct and array tooltips in Table component.
+- Simplified struct and array tooltips in Table component. 
 - Fix BeInspireTree's event listening functions to handle array inputs
 - Fix BeInspireTree's muting events with allowed number of triggers
 - Cache BeInspireTree.visible() result for better performance
@@ -1693,7 +1718,7 @@ Thu, 08 Nov 2018 17:59:21 GMT
 
 ### Updates
 
-- Deprecated dev-cors-proxy-server and use of it.
+- Deprecated dev-cors-proxy-server and use of it. 
 - Fix: Do not start search if input field is empty
 - Use strongly typed enums for identifying keyboard keys
 - PropertyGrid property editing and unit tests

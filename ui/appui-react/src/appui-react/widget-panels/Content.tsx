@@ -7,7 +7,7 @@
  */
 import * as React from "react";
 import { ScrollableWidgetContent, TabIdContext } from "@itwin/appui-layout-react";
-import { WidgetDef } from "../widgets/WidgetDef";
+import type { WidgetDef } from "../widgets/WidgetDef";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { useTransientState } from "./useTransientState";
 import { assert } from "@itwin/core-bentley";

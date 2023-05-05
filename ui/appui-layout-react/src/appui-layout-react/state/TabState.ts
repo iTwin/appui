@@ -7,11 +7,12 @@
  */
 
 import produce from "immer";
-import { PointProps, UiError } from "@itwin/appui-abstract";
-import { IconSpec, SizeProps } from "@itwin/core-react";
-import { PanelSide } from "../widget-panels/Panel";
-import { NineZoneState } from "./NineZoneState";
-import { FloatingWidgetHomeState, WidgetState } from "./WidgetState";
+import type { PointProps} from "@itwin/appui-abstract";
+import { UiError } from "@itwin/appui-abstract";
+import type { IconSpec, SizeProps } from "@itwin/core-react";
+import type { PanelSide } from "../widget-panels/Panel";
+import type { NineZoneState } from "./NineZoneState";
+import type { FloatingWidgetHomeState, WidgetState } from "./WidgetState";
 import { getTabLocation } from "./TabLocation";
 import { category } from "./internal/NineZoneStateHelpers";
 import { createTabState } from "./internal/TabStateHelpers";

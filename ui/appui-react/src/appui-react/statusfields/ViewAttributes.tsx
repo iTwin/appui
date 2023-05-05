@@ -8,11 +8,12 @@
 
 import "./ViewAttributes.scss";
 import * as React from "react";
-import { ViewFlagProps, ViewFlags } from "@itwin/core-common";
+import type { ViewFlagProps} from "@itwin/core-common";
+import { ViewFlags } from "@itwin/core-common";
 import { IModelApp } from "@itwin/core-frontend";
 import { Checkbox } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";
 import { StatusBarDialog } from "../statusbar/dialog/Dialog";
 import { SvgWindowSettings } from "@itwin/itwinui-icons-react";

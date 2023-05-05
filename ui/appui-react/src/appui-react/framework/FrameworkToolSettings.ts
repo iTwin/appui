@@ -5,8 +5,9 @@
 /** @packageDocumentation
  * @module ToolSettings
  */
-import { DialogItem, DialogPropertySyncItem, UiEvent } from "@itwin/appui-abstract";
-import { InteractiveTool } from "@itwin/core-frontend";
+import type { DialogItem, DialogPropertySyncItem} from "@itwin/appui-abstract";
+import { UiEvent } from "@itwin/appui-abstract";
+import type { InteractiveTool } from "@itwin/core-frontend";
 
 /** Sync Tool Settings Properties Event Args interface.
  * @public

@@ -7,8 +7,10 @@
  */
 
 import * as React from "react";
-import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
-import { ViewportComponent, ViewStateProp } from "@itwin/imodel-components-react";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
+import type { ViewStateProp } from "@itwin/imodel-components-react";
+import { ViewportComponent } from "@itwin/imodel-components-react";
 import { FloatingViewportContentControl } from "./ViewportContentControl";
 import { ContentWrapper } from "./ContentLayout";
 import { UiFramework } from "../UiFramework";

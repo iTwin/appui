@@ -8,11 +8,12 @@
 
 import { UiError } from "@itwin/appui-abstract";
 import produce from "immer";
-import { HorizontalPanelSide, isHorizontalPanelSide, PanelSide, VerticalPanelSide } from "../widget-panels/Panel";
+import type { HorizontalPanelSide, PanelSide, VerticalPanelSide } from "../widget-panels/Panel";
+import { isHorizontalPanelSide } from "../widget-panels/Panel";
 import { category } from "./internal/NineZoneStateHelpers";
 import { addWidgetState } from "./internal/WidgetStateHelpers";
-import { NineZoneState } from "./NineZoneState";
-import { WidgetState } from "./WidgetState";
+import type { NineZoneState } from "./NineZoneState";
+import type { WidgetState } from "./WidgetState";
 
 /** @internal */
 export interface PanelState {

@@ -7,10 +7,11 @@
  */
 
 import * as React from "react";
-import { OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { Toolbar as CR_Toolbar, Direction, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
-import { ToolbarItem } from "./ToolbarItem";
+import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
+import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
+import type { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
+import { Toolbar as CR_Toolbar } from "@itwin/components-react";
+import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";
 
 /** Properties of [[Toolbar]] component.

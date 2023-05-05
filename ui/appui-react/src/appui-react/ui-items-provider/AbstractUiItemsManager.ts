@@ -6,11 +6,13 @@
  * @module UiProvider
  */
 
-/* eslint-disable deprecation/deprecation */
+/* eslint-disable deprecation/deprecation, @typescript-eslint/ban-ts-comment */
 
 import * as abstract from "@itwin/appui-abstract";
-import { assert, BeUiEvent } from "@itwin/core-bentley";
-import { IconHelper, IconSpec } from "@itwin/core-react";
+import type { BeUiEvent } from "@itwin/core-bentley";
+import { assert } from "@itwin/core-bentley";
+import type { IconSpec } from "@itwin/core-react";
+import { IconHelper } from "@itwin/core-react";
 import type {
   // @ts-ignore Removed in 4.0
   BackstageItem as AbstractBackstageItem,
@@ -31,12 +33,14 @@ import type {
 import type { UiItemsManager, UiItemsProviderOverrides, UiItemsProviderRegisteredEventArgs } from "./UiItemsManager";
 import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import { StagePanelSection } from "../stagepanels/StagePanelSection";
-import { Widget } from "../widgets/Widget";
-import { ProviderItem } from "./ProviderItem";
-import { UiItemsProvider } from "./UiItemsProvider";
-import { isToolbarActionItem, isToolbarGroupItem, ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
-import { BackstageItem } from "../backstage/BackstageItem";
-import { isStatusBarCustomItem, StatusBarItem } from "../statusbar/StatusBarItem";
+import type { Widget } from "../widgets/Widget";
+import type { ProviderItem } from "./ProviderItem";
+import type { UiItemsProvider } from "./UiItemsProvider";
+import type { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import { isToolbarActionItem, isToolbarGroupItem } from "../toolbar/ToolbarItem";
+import type { BackstageItem } from "../backstage/BackstageItem";
+import type { StatusBarItem } from "../statusbar/StatusBarItem";
+import { isStatusBarCustomItem } from "../statusbar/StatusBarItem";
 
 // @ts-ignore Removed in 4.0
 const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined = abstract.UiItemsManager;

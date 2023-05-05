@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
-import { PropertyRecord } from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { PropertyValueRendererManager } from "../../../../components-react/properties/ValueRendererManager";

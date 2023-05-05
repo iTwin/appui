@@ -12,9 +12,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { FooterIndicator } from "@itwin/appui-layout-react";
 import { Select } from "@itwin/itwinui-react";
-import { PresentationSelectionScope } from "../redux/SessionState";
+import type { PresentationSelectionScope } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 
 /** Defines properties supported by the SelectionScopeField Component.
  * @public

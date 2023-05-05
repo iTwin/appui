@@ -6,7 +6,8 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
-import { DialogChangedEventArgs, ModalDialogRenderer, StandardMessageBox, UiFramework } from "../../appui-react";
+import type { DialogChangedEventArgs} from "../../appui-react";
+import { ModalDialogRenderer, StandardMessageBox, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 

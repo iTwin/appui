@@ -11,8 +11,8 @@ import { useActiveStageId } from "../hooks/useActiveStageId";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
 import { UiFramework } from "../UiFramework";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import { StatusBarItem } from "./StatusBarItem";
-import { StatusBarItemsManager } from "./StatusBarItemsManager";
+import type { StatusBarItem } from "./StatusBarItem";
+import type { StatusBarItemsManager } from "./StatusBarItemsManager";
 
 /** Hook that returns items from [[StatusBarItemsManager]].
  * @public

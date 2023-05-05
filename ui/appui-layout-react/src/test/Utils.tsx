@@ -4,11 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import * as sinon from "sinon";
+import type * as sinon from "sinon";
 import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { addTab, NineZoneState, TabState, useActiveSendBackWidgetIdStore, useContainersStore } from "../appui-layout-react";
+import type { NineZoneState, TabState} from "../appui-layout-react";
+import { addTab, useActiveSendBackWidgetIdStore, useContainersStore } from "../appui-layout-react";
 
 export { userEvent };
 
