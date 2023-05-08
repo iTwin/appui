@@ -287,6 +287,8 @@ export interface CubeNavigationAidProps extends CommonProps {
     // @internal (undocumented)
     onAnimationEnd?: () => void;
     // (undocumented)
+    useOldRotationMethod?: boolean;
+    // (undocumented)
     viewport?: Viewport;
 }
 
