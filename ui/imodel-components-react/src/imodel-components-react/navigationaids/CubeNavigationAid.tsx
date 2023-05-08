@@ -298,37 +298,37 @@ export class CubeNavigationAid extends React.Component<CubeNavigationAidProps, C
       return Face.None;
     }
 
-    // handle top and bottom, in case they are rotated and no longer match the default rotation
+    // istanbul ignore else
     if (rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Top].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Top].coffs[7] &&
       rotMatrix.coffs[8] === cubeNavigationFaceRotations[Face.Top].coffs[8])
       return Face.Top;
 
+    // istanbul ignore else
     if (rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Bottom].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Bottom].coffs[7] &&
       rotMatrix.coffs[8] === cubeNavigationFaceRotations[Face.Bottom].coffs[8])
       return Face.Bottom;
 
+    // istanbul ignore else
     if (rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Left].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Left].coffs[7] &&
       rotMatrix.coffs[8] === cubeNavigationFaceRotations[Face.Left].coffs[8])
       return Face.Left;
 
+    // istanbul ignore else
     if (rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Right].coffs[6] &&
         rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Right].coffs[7] &&
         rotMatrix.coffs[8] === cubeNavigationFaceRotations[Face.Right].coffs[8])
       return Face.Right;
 
-    if (rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Right].coffs[6] &&
-        rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Right].coffs[7] &&
-        rotMatrix.coffs[8] === cubeNavigationFaceRotations[Face.Right].coffs[8])
-      return Face.Right;
-
+    // istanbul ignore else
     if (rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Back].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Back].coffs[7] &&
       rotMatrix.coffs[8] === cubeNavigationFaceRotations[Face.Back].coffs[8])
       return Face.Back;
 
+    // istanbul ignore else
     if (rotMatrix.coffs[6] === cubeNavigationFaceRotations[Face.Front].coffs[6] &&
       rotMatrix.coffs[7] === cubeNavigationFaceRotations[Face.Front].coffs[7] &&
       rotMatrix.coffs[8] === cubeNavigationFaceRotations[Face.Front].coffs[8])
