@@ -106,7 +106,7 @@ describe("CubeNavigationAid", () => {
       it(`${shouldStr} change from top to back when arrow clicked`, async () => {
         sinon.replaceGetter(IModelApp, "toolAdmin", () => ({markupView: lockedViewport}) as ToolAdmin);
         const animationEnd = sinon.fake();
-        const component = render(<CubeNavigationAid iModelConnection={connection.object} animationTime={.1} onAnimationEnd={animationEnd} viewport={lockedViewport} />);
+        const component = render(<CubeNavigationAid iModelConnection={connection.object} animationTime={.1} onAnimationEnd={animationEnd} viewport={lockedViewport} useOldRotationMethod={true} />);
 
         const topFace = component.getByTestId("components-cube-face-top");
         const pointerButton = component.getByTestId("cube-pointer-button-up");
@@ -126,7 +126,7 @@ describe("CubeNavigationAid", () => {
       it(`${shouldStr} change from top to left when arrow clicked`, async () => {
         sinon.replaceGetter(IModelApp, "toolAdmin", () => ({markupView: lockedViewport}) as ToolAdmin);
         const animationEnd = sinon.fake();
-        const component = render(<CubeNavigationAid iModelConnection={connection.object} animationTime={.1} onAnimationEnd={animationEnd} viewport={lockedViewport} />);
+        const component = render(<CubeNavigationAid iModelConnection={connection.object} animationTime={.1} onAnimationEnd={animationEnd} viewport={lockedViewport} useOldRotationMethod={true}/>);
 
         const topFace = component.getByTestId("components-cube-face-top");
         const pointerButton = component.getByTestId("cube-pointer-button-left");
@@ -146,7 +146,7 @@ describe("CubeNavigationAid", () => {
       it(`${shouldStr} change from top to right when arrow clicked`, async () => {
         sinon.replaceGetter(IModelApp, "toolAdmin", () => ({markupView: lockedViewport}) as ToolAdmin);
         const animationEnd = sinon.fake();
-        const component = render(<CubeNavigationAid iModelConnection={connection.object} animationTime={.1} onAnimationEnd={animationEnd} viewport={lockedViewport} />);
+        const component = render(<CubeNavigationAid iModelConnection={connection.object} animationTime={.1} onAnimationEnd={animationEnd} viewport={lockedViewport} useOldRotationMethod={true}/>);
 
         const topFace = component.getByTestId("components-cube-face-top");
         const pointerButton = component.getByTestId("cube-pointer-button-right");

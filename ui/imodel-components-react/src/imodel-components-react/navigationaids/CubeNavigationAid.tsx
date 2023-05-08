@@ -96,6 +96,7 @@ export interface CubeNavigationAidProps extends CommonProps {
   onAnimationEnd?: () => void;
   /** @internal */
   animationTime?: number;
+  useOldRotationMethod?: boolean;
 }
 
 /** @public */
@@ -357,9 +358,9 @@ export class CubeNavigationAid extends React.Component<CubeNavigationAidProps, C
     let y = CubeNavigationAid.correctSmallNumber(zVector.y, tolerance);
     let z = CubeNavigationAid.correctSmallNumber(zVector.z, tolerance);
 
-    const xx = Math.abs(x);
-    const yy = Math.abs(y);
-    const zz = Math.abs(z);
+    const xx = x === -0? Math.abs(x) : x;
+    const yy = y === -0 ? Math.abs(y) : y;
+    const zz = z === -0 ? Math.abs(z) : z;
 
     // adjust any adjacent pair of near equal values to the first.
     // istanbul ignore next
@@ -383,15 +384,17 @@ export class CubeNavigationAid extends React.Component<CubeNavigationAidProps, C
    * @param tolerance tolerance for cleaning up fuzz.  The default (1.0e-6) is appropriate if very dirty viewing operations are expected.
    * @param result optional result.
    */
-  private static snapWorldToViewMatrixToCubeFeatures(worldToView: Matrix3d, tolerance: number, result?: Matrix3d): Matrix3d {
+  private static snapWorldToViewMatrixToCubeFeatures(worldToView: Matrix3d, tolerance: number, result?: Matrix3d, useOldRotation?: boolean): Matrix3d {
     const oldZ = worldToView.rowZ();
     const newZ = CubeNavigationAid.snapVectorToCubeFeatures(oldZ, tolerance);
+    const useOldRotationMethod = !!useOldRotation;
     // If newZ is true up or down, it will have true 0 for x and y.
     // special case this to take x direction from the input.
+    // This methodology results in always "righting" the face when rotation from an upside-down cube. The behavior was deprecated in response to https://github.com/iTwin/appui/issues/259
     // istanbul ignore next
-    if (newZ.x === 0.0 && newZ.y === 0) {
-      const perpVector = worldToView.rowX();
-      result = Matrix3d.createRigidFromColumns(newZ, perpVector, AxisOrder.ZXY, result)!;
+    if (!useOldRotationMethod || (newZ.x === 0.0 && newZ.y === 0)) {
+    const perpVector = worldToView.rowX();
+    result = Matrix3d.createRigidFromColumns(newZ, perpVector, AxisOrder.ZXY, result)!;
     } else {
       result = Matrix3d.createRigidViewAxesZTowardsEye(newZ.x, newZ.y, newZ.z, result);
     }
@@ -419,7 +422,7 @@ export class CubeNavigationAid extends React.Component<CubeNavigationAidProps, C
     }
     const localRotation = Matrix3d.createRotationAroundVector(localRotationAxis, Angle.createDegrees(-90))!;
     const newRotation = localRotation.multiplyMatrixMatrix(this.state.endRotMatrix);
-    CubeNavigationAid.snapWorldToViewMatrixToCubeFeatures(newRotation, DEFAULT_TOLERANCE, newRotation);
+    CubeNavigationAid.snapWorldToViewMatrixToCubeFeatures(newRotation, DEFAULT_TOLERANCE, newRotation, this.props.useOldRotationMethod);
     const face = CubeNavigationAid._getMatrixFace(newRotation);
     return { newRotation, face };
   }
