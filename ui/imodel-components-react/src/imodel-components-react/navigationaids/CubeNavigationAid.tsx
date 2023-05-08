@@ -397,8 +397,8 @@ export class CubeNavigationAid extends React.Component<CubeNavigationAidProps, C
     // This methodology results in always "righting" the face when rotation from an upside-down cube. The behavior was deprecated in response to https://github.com/iTwin/appui/issues/259
     // istanbul ignore next
     if (!useOldRotationMethod || (newZ.x === 0.0 && newZ.y === 0)) {
-    const perpVector = worldToView.rowX();
-    result = Matrix3d.createRigidFromColumns(newZ, perpVector, AxisOrder.ZXY, result)!;
+      const perpVector = worldToView.rowX();
+      result = Matrix3d.createRigidFromColumns(newZ, perpVector, AxisOrder.ZXY, result)!;
     } else {
       result = Matrix3d.createRigidViewAxesZTowardsEye(newZ.x, newZ.y, newZ.z, result);
     }
