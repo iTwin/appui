@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Promotoe UiItemsManager/Provider APIs.",
+      "comment": "Added auto-expand functionality for ViewSelector search results. Fixed ViewSelector current view highlight bug.",
       "type": "none"
     }
   ],

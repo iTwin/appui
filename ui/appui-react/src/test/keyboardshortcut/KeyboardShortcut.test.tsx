@@ -5,8 +5,9 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Point } from "@itwin/core-react";
+import type { KeyboardShortcutProps} from "../../appui-react";
 import {
-  AccuDrawKeyboardShortcuts, CommandItemDef, KeyboardShortcut, KeyboardShortcutContainer, KeyboardShortcutProps, SyncUiEventDispatcher, UiFramework,
+  AccuDrawKeyboardShortcuts, CommandItemDef, KeyboardShortcut, KeyboardShortcutContainer, SyncUiEventDispatcher, UiFramework,
 } from "../../appui-react";
 import { CursorInformation } from "../../appui-react/cursor/CursorInformation";
 import { KeyboardShortcutMenu } from "../../appui-react/keyboardshortcut/KeyboardShortcutMenu";

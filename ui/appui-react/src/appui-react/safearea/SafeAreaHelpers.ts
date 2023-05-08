@@ -6,8 +6,8 @@
  * @module Utilities
  */
 
-import { SafeAreaInsets as LayoutSafeAreaInsets } from "@itwin/appui-layout-react";
-import { SafeAreaInsets } from "./SafeAreaInsets";
+import type { SafeAreaInsets as LayoutSafeAreaInsets } from "@itwin/appui-layout-react";
+import type { SafeAreaInsets } from "./SafeAreaInsets";
 
 /** @internal */
 export function toLayoutSafeAreaInsets(safeAreaInsets: SafeAreaInsets | undefined): LayoutSafeAreaInsets | undefined {

@@ -6,9 +6,9 @@
  * @module Timeline
  */
 
-import { ColorDef } from "@itwin/core-common";
-import { ScreenViewport } from "@itwin/core-frontend";
-import { GenericUiEventArgs } from "@itwin/appui-abstract";
+import type { ColorDef } from "@itwin/core-common";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import type { GenericUiEventArgs } from "@itwin/appui-abstract";
 
 /** The timeline scale.
  * @public

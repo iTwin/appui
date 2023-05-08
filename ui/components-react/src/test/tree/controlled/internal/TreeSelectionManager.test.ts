@@ -7,14 +7,16 @@ import * as faker from "faker";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { SelectionHandler } from "../../../../components-react/common/selection/SelectionHandler";
+import type { SelectionHandler } from "../../../../components-react/common/selection/SelectionHandler";
 import { SelectionMode } from "../../../../components-react/common/selection/SelectionModes";
-import {
-  IndividualSelection, isRangeSelection, RangeSelection, TreeSelectionManager,
+import type {
+  IndividualSelection, RangeSelection} from "../../../../components-react/tree/controlled/internal/TreeSelectionManager";
+import { isRangeSelection, TreeSelectionManager,
 } from "../../../../components-react/tree/controlled/internal/TreeSelectionManager";
-import { TreeActions } from "../../../../components-react/tree/controlled/TreeActions";
+import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions";
+import type { TreeModel, TreeModelNode, TreeModelNodePlaceholder, VisibleTreeNodes} from "../../../../components-react/tree/controlled/TreeModel";
 import {
-  isTreeModelNode, TreeModel, TreeModelNode, TreeModelNodePlaceholder, VisibleTreeNodes,
+  isTreeModelNode,
 } from "../../../../components-react/tree/controlled/TreeModel";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
 

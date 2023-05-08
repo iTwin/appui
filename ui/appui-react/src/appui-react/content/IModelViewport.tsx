@@ -7,12 +7,13 @@
  */
 
 import * as React from "react";
-import { Id64String } from "@itwin/core-bentley";
-import { IModelConnection, ScreenViewport, ViewState } from "@itwin/core-frontend";
-import { ViewportComponent, ViewStateProp } from "@itwin/imodel-components-react";
+import type { Id64String } from "@itwin/core-bentley";
+import type { IModelConnection, ScreenViewport, ViewState } from "@itwin/core-frontend";
+import type { ViewStateProp } from "@itwin/imodel-components-react";
+import { ViewportComponent } from "@itwin/imodel-components-react";
 import { FillCentered } from "@itwin/core-react";
 
-import { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
 import { connectIModelConnectionAndViewState } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
 import { DefaultViewOverlay } from "./DefaultViewOverlay";
@@ -20,7 +21,7 @@ import { ViewportContentControl } from "./ViewportContentControl";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
 import { UiError } from "@itwin/appui-abstract";
 import { useSelector } from "react-redux";
-import { FrameworkState } from "../redux/FrameworkState";
+import type { FrameworkState } from "../redux/FrameworkState";
 
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @public

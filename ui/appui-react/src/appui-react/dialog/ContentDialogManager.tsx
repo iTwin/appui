@@ -6,7 +6,7 @@
  * @module Dialog
  */
 
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import * as React from "react";
 import { DialogRendererBase } from "./DialogManagerBase";
 import { InternalContentDialogManager as internal } from "./InternalContentDialogManager";

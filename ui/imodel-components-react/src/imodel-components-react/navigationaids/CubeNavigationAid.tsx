@@ -9,11 +9,15 @@
 import "./CubeNavigationAid.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Angle, AxisIndex, AxisOrder, Geometry, Matrix3d, Point2d, Vector2d, Vector3d, XYAndZ } from "@itwin/core-geometry";
-import { IModelApp, IModelConnection, Viewport } from "@itwin/core-frontend";
-import { CommonProps, Icon, IconSpec } from "@itwin/core-react";
+import type { XYAndZ } from "@itwin/core-geometry";
+import { Angle, AxisIndex, AxisOrder, Geometry, Matrix3d, Point2d, Vector2d, Vector3d } from "@itwin/core-geometry";
+import type { IModelConnection, Viewport } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
+import type { CommonProps, IconSpec } from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { ViewportComponentEvents, ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
+import type { ViewRotationChangeEventArgs } from "../viewport/ViewportComponentEvents";
+import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents";
 import { Cube, Face } from "./Cube";
 import { SvgCaretDown, SvgCaretLeft, SvgCaretRight, SvgCaretUp } from "@itwin/itwinui-icons-react";
 

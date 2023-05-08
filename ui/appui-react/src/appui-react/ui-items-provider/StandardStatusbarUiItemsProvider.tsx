@@ -16,8 +16,9 @@ import { SelectionInfoField } from "../statusfields/SelectionInfo";
 import { TileLoadingIndicator } from "../statusfields/tileloading/TileLoadingIndicator";
 import { SelectionScopeField } from "../statusfields/SelectionScope";
 import { StatusBarSeparator } from "../statusbar/Separator";
-import { UiItemsProvider } from "./UiItemsProvider";
-import { StatusBarItem, StatusBarSection } from "../statusbar/StatusBarItem";
+import type { UiItemsProvider } from "./UiItemsProvider";
+import type { StatusBarItem} from "../statusbar/StatusBarItem";
+import { StatusBarSection } from "../statusbar/StatusBarItem";
 
 /**
  * Defines what items to include from the provider. If any items are

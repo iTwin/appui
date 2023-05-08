@@ -4,15 +4,17 @@ import React from "react";
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import {
+import type {
   ArrayValue, BasePropertyEditorParams, ButtonGroupEditorParams, CustomFormattedNumberParams, DisplayMessageType, ImageCheckBoxParams,
-  MessagePresenter, MessageSeverity, ParseResults, Primitives, PrimitiveValue, PropertyDescription, PropertyEditorInfo, PropertyEditorParamTypes,
-  PropertyRecord, PropertyValue, PropertyValueFormat, StandardEditorNames, StandardTypeNames, StructValue, UiAdmin,
+  MessagePresenter, ParseResults, Primitives, PrimitiveValue, PropertyDescription, PropertyEditorInfo, PropertyValue, StructValue} from "@itwin/appui-abstract";
+import { MessageSeverity, PropertyEditorParamTypes,
+  PropertyRecord, PropertyValueFormat, StandardEditorNames, StandardTypeNames, UiAdmin,
 } from "@itwin/appui-abstract";
 import { ITwinLocalization } from "@itwin/core-i18n";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { AsyncValueProcessingResult, DataControllerBase, UiComponents } from "../components-react";
+import type { AsyncValueProcessingResult} from "../components-react";
+import { DataControllerBase, UiComponents } from "../components-react";
 
 export { userEvent };
 

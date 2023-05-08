@@ -6,8 +6,8 @@
  * @module Backstage
  */
 
-import { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
-import { IconSpec } from "@itwin/core-react";
+import type { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import type { IconSpec } from "@itwin/core-react";
 
 /** Describes the data needed to insert a button into the backstage menu.
  * @public

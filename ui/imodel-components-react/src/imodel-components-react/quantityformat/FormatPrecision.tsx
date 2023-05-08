@@ -7,8 +7,9 @@
  */
 
 import * as React from "react";
-import { CommonProps } from "@itwin/core-react";
-import { FormatProps, FormatType, parseFormatType } from "@itwin/core-quantity";
+import type { CommonProps } from "@itwin/core-react";
+import type { FormatProps} from "@itwin/core-quantity";
+import { FormatType, parseFormatType } from "@itwin/core-quantity";
 import { DecimalPrecisionSelector } from "./misc/DecimalPrecision";
 import { FractionPrecisionSelector } from "./misc/FractionPrecision";
 import { UiIModelComponents } from "../UiIModelComponents";

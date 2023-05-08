@@ -8,14 +8,18 @@
 
 // Cspell:ignore popout
 import produce from "immer";
-import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
+import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react";
 import { createTabsState, updateTabState } from "./internal/TabStateHelpers";
-import { addFloatingWidget, addPopoutWidget, FloatingWidgetsState, PopoutWidgetsState, WidgetsState } from "./WidgetState";
-import { PanelsState } from "./PanelState";
-import { ToolSettingsState } from "./ToolSettingsState";
+import type { FloatingWidgetsState, PopoutWidgetsState, WidgetsState } from "./WidgetState";
+import { addFloatingWidget, addPopoutWidget } from "./WidgetState";
+import type { PanelsState } from "./PanelState";
+import type { ToolSettingsState } from "./ToolSettingsState";
 import { createPanelsState } from "./internal/PanelStateHelpers";
-import { DraggedTabState, removeTabFromWidget, TabsState } from "./TabState";
-import { PointProps, UiError } from "@itwin/appui-abstract";
+import type { DraggedTabState, TabsState } from "./TabState";
+import { removeTabFromWidget } from "./TabState";
+import type { PointProps} from "@itwin/appui-abstract";
+import { UiError } from "@itwin/appui-abstract";
 import { getUniqueId } from "../base/NineZone";
 import { category, convertPopoutWidgetContainerToFloating } from "./internal/NineZoneStateHelpers";
 import { NineZoneStateReducer } from "./NineZoneStateReducer";

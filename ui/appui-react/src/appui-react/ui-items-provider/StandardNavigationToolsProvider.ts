@@ -6,9 +6,10 @@
  * @module StandardUiItemsProvider
  */
 
-import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import type { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
-import { DefaultNavigationTools, StandardNavigationToolsUiItemsProvider } from "./StandardNavigationToolsUiItemsProvider";
+import type { DefaultNavigationTools} from "./StandardNavigationToolsUiItemsProvider";
+import { StandardNavigationToolsUiItemsProvider } from "./StandardNavigationToolsUiItemsProvider";
 import { UiItemsManager } from "./UiItemsManager";
 
 /**

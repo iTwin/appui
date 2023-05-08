@@ -6,13 +6,13 @@
  * @module ContentView
  */
 
-import * as React from "react";
+import type * as React from "react";
 import { UiEvent } from "@itwin/appui-abstract";
 import { ViewUtilities } from "../utils/ViewUtilities";
-import { ContentControl } from "./ContentControl";
+import type { ContentControl } from "./ContentControl";
 import { InternalContentLayoutManager } from "./InternalContentLayoutManager";
 import { IModelApp } from "@itwin/core-frontend";
-import { ContentGroup } from "./ContentGroup";
+import type { ContentGroup } from "./ContentGroup";
 import { Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
 import { ActiveContentChangedEvent, MouseDownChangedEvent } from "../framework/FrameworkContent";

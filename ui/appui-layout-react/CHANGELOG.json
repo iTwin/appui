@@ -2,6 +2,57 @@
   "name": "@itwin/appui-layout-react",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@itwin/appui-layout-react_v4.0.0",
+      "date": "Mon, 01 May 2023 13:32:15 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Remove footer message components."
+          },
+          {
+            "comment": "Use zustand instead of context to manage layout state."
+          },
+          {
+            "comment": "Using iTwinUI-variables."
+          },
+          {
+            "comment": "Update iTwinUI-react to v2.x."
+          },
+          {
+            "comment": "Mark all components as @internal."
+          },
+          {
+            "comment": "Remove isInFooterMode prop from some components."
+          },
+          {
+            "comment": "Clean dependencies."
+          },
+          {
+            "comment": "Bump minimum of core packages to 3.7.0."
+          },
+          {
+            "comment": "peerDependency allow react: ^18.0.0."
+          },
+          {
+            "comment": "Update typings for React18."
+          },
+          {
+            "comment": "Remove UI1.0 components."
+          },
+          {
+            "comment": "Added functionality to floating widget send back button to display an outline of it's home send back."
+          },
+          {
+            "comment": "Update package.json dependencies and repo documentation."
+          },
+          {
+            "comment": "Remove webfont icons from components."
+          }
+        ]
+      }
+    },
+    {
       "version": "3.7.2",
       "tag": "@itwin/appui-layout-react_v3.7.2",
       "date": "Wed, 12 Apr 2023 13:12:42 GMT",

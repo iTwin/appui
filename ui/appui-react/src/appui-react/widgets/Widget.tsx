@@ -6,10 +6,10 @@
  * @module Widget
  */
 
-import { BadgeType, ConditionalStringValue, PointProps } from "@itwin/appui-abstract";
-import { IconSpec, SizeProps } from "@itwin/core-react";
-import { StagePanelLocation } from "../stagepanels/StagePanelLocation";
-import { WidgetState } from "./WidgetState";
+import type { BadgeType, ConditionalStringValue, PointProps } from "@itwin/appui-abstract";
+import type { IconSpec, SizeProps } from "@itwin/core-react";
+import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
+import type { WidgetState } from "./WidgetState";
 
 /** Describes options of a floating widget.
  * @public

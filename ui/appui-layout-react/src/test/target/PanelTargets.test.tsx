@@ -6,7 +6,8 @@ import * as React from "react";
 import { render } from "@testing-library/react";
 import { addPanelWidget, addTab, createNineZoneState, PanelSideContext } from "../../appui-layout-react";
 import { PanelTargets } from "../../appui-layout-react/target/PanelTargets";
-import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
+import type { TestNineZoneProviderProps } from "../Providers";
+import { TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 

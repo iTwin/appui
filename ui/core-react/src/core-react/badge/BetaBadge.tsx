@@ -8,7 +8,7 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps } from "../utils/Props";
+import type { CommonProps } from "../utils/Props";
 import { Badge } from "./Badge";
 import betaBadgeIcon from "./technical-preview-badge.svg";
 

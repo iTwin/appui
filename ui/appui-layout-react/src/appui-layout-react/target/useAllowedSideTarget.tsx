@@ -8,8 +8,8 @@
 import * as React from "react";
 import { DraggedWidgetIdContext } from "../base/DragManager";
 import { useLayout } from "../base/LayoutStore";
-import { NineZoneState } from "../state/NineZoneState";
-import { PanelSide } from "../widget-panels/Panel";
+import type { NineZoneState } from "../state/NineZoneState";
+import type { PanelSide } from "../widget-panels/Panel";
 
 /** Check the docking side against allowed regions
   * @internal

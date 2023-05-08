@@ -9,7 +9,8 @@
 import * as React from "react";
 import widgetIconSvg from "@bentley/icons-generic/icons/home.svg";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
-import { Icon, IconSpec, useWidgetOpacityContext } from "@itwin/core-react";
+import type { IconSpec} from "@itwin/core-react";
+import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
 import { AppButton } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
 

@@ -3,18 +3,21 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import { Point3d, Range3d, Vector3d, YawPitchRollAngles } from "@itwin/core-geometry";
-import {
-  CategorySelectorProps, DisplayStyleProps, EcefLocation, HydrateViewStateResponseProps, IModelReadRpcInterface, ModelSelectorProps, SheetProps, SpatialViewDefinitionProps, ViewStateProps,
+import type {
+  CategorySelectorProps, DisplayStyleProps, HydrateViewStateResponseProps, ModelSelectorProps, SheetProps, SpatialViewDefinitionProps, ViewStateProps} from "@itwin/core-common";
+import { EcefLocation, IModelReadRpcInterface,
 } from "@itwin/core-common";
-import { DrawingViewState, EmphasizeElements, IModelConnection, MockRender, ScreenViewport, SheetViewState, SpatialViewState, SubCategoriesCache, ViewState } from "@itwin/core-frontend";
+import type { ScreenViewport, ViewState } from "@itwin/core-frontend";
+import { DrawingViewState, EmphasizeElements, IModelConnection, MockRender, SheetViewState, SpatialViewState, SubCategoriesCache } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
-import {
-  ConfigurableCreateInfo, ContentGroup, ContentLayoutDef, ContentProps, FrontstageConfig,
-  FrontstageProvider, StageContentLayout, StageContentLayoutProps, UiFramework, ViewportContentControl,
+import type {
+  ConfigurableCreateInfo, ContentProps, FrontstageConfig, StageContentLayoutProps} from "../../appui-react";
+import { ContentGroup, ContentLayoutDef,
+  FrontstageProvider, StageContentLayout, UiFramework, ViewportContentControl,
 } from "../../appui-react";
 import { ViewUtilities } from "../../appui-react/utils/ViewUtilities";
 import TestUtils from "../TestUtils";
