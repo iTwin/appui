@@ -74,14 +74,14 @@ $text-font-color: var(--iui-color-text);
     display: flex;
     align-items: baseline;
 
-    .multiline-property-span {
+    .content {
       overflow: hidden;
       text-overflow: ellipsis;
     }
   }
 
   .expanded {
-    white-space: pre-wrap;
+    white-space: pre;
     margin-top: 4px;
     margin-bottom: 4px;
 
