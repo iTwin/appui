@@ -123,16 +123,7 @@ describe("MultilineTextRenderer", () => {
   });
 
   describe("expanded", () => {
-    it("doesn't show \"See less\" button when text fits in one line", () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 50);
-      const { queryByText } = render(<MultilineTextRenderer isExpanded={true} />);
-      expect((queryByText("property.collapse") as HTMLElement).style.display).to.be.equal("none");
-    });
-
-    it("shows \"See less\" button when text overflows", () => {
-      sinon.stub(HTMLElement.prototype, "clientWidth").get(() => 50);
-      sinon.stub(HTMLElement.prototype, "scrollWidth").get(() => 100);
+    it("shows \"See less\" button when text component is expanded", () => {
       const { getByText } = render(<MultilineTextRenderer isExpanded={true} />);
       expect(getByText("property.collapse")).to.be.not.null;
     });
