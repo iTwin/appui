@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/imodel-components-react",
-      "comment": "Change arrow-click rotation logic to allow toation to rotated faces.",
+      "comment": "Change arrow-click rotation logic to allow rotation to rotated faces.",
       "type": "none"
     }
   ],
