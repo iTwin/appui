@@ -98,7 +98,7 @@ export const MultilineTextRenderer: React.FC<MultilineTextRenderer> = (props) =>
         {props.children}
         <button
           className="expand-toggle"
-          style={{ display: (contentOverflows && props.isExpanded) ? "inline-block" : "none" }}
+          style={{ display: props.isExpanded ? "inline-block" : "none" }}
           onClick={handleExpansionToggleClick}
         >
           {UiComponents.translate("property.collapse")}
