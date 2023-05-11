@@ -283,6 +283,8 @@ export interface CubeNavigationAidProps extends CommonProps {
     // @internal (undocumented)
     animationTime?: number;
     // (undocumented)
+    favorHeadsUpRotation?: boolean;
+    // (undocumented)
     iModelConnection: IModelConnection;
     // @internal (undocumented)
     onAnimationEnd?: () => void;
