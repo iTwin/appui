@@ -510,7 +510,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       if (instruction.image.length > 0) {
         const svgSource = IconSpecUtilities.getWebComponentSource(instruction.image);
         const className = (svgSource !== undefined) ? "uifw-toolassistance-svg" : "uifw-toolassistance-icon-large";
-        image = <div className={className}><Icon iconSpec={svgSource} /></div>;
+        image = <div className={className}><Icon iconSpec={svgSource ?? instruction.image} /></div>;
       }
     } else if (instruction.image === ToolAssistanceImage.Keyboard) {
       if (instruction.keyboardInfo) {
