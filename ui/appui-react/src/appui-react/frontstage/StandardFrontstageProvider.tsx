@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import type { ContentGroupProps} from "../content/ContentGroup";
+import type { ContentGroupProps } from "../content/ContentGroup";
 import { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
 import { FrontstageProvider } from "./FrontstageProvider";
 import { ContentToolWidgetComposer } from "../widgets/ContentToolWidgetComposer";
@@ -75,7 +75,7 @@ export interface StandardFrontstageProps {
 
 /**
  * FrontstageProvider that provides an "empty" stage. All tool buttons, statusbar items, and widgets must
- * be provided by one or more item providers, see [UiItemsProvider]($appui-abstract).
+ * be provided by one or more item providers, see [[UiItemsProvider]].
  * @public
  */
 export class StandardFrontstageProvider extends FrontstageProvider {
