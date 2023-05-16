@@ -847,12 +847,24 @@
       "allowedCategories": [ "integration-testing", "internal" ]
     },
     {
+      "name": "postcss",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "postcss-flexbugs-fixes",
       "allowedCategories": [ "internal" ]
     },
     {
       "name": "postcss-loader",
       "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "postcss-scss",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "postcss-value-parser",
+      "allowedCategories": [ "tools" ]
     },
     {
       "name": "puppeteer",
@@ -1048,7 +1060,7 @@
     },
     {
       "name": "ts-node",
-      "allowedCategories": [ "frontend", "internal" ]
+      "allowedCategories": [ "frontend", "internal", "tools" ]
     },
     {
       "name": "typedoc",
