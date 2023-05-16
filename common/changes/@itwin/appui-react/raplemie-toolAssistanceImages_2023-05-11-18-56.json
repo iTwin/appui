@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "ToolAssistanceField: Display as class if image is not svg (IE: webfont class image)",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
