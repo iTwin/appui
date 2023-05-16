@@ -101,7 +101,7 @@ describe("UiItemsManager", () => {
 
   // Validate use-case where appui-react@4.0 is used with appui-abstract@3.7
   describe("AbstractUiItemsManager", () => {
-    if (!AbstractUiItemsManager)
+    if (!AbstractUiItemsManager || !("isAbstractStatusBarActionItem" in abstract) || !("BackstageItemUtilities" in abstract))
       return;
 
     it("should register a provider", () => {
@@ -243,7 +243,8 @@ describe("UiItemsManager", () => {
           },
         });
         const s2 = items[1];
-        assert(!!abstract.isAbstractStatusBarActionItem(s2));
+        if (("isAbstractStatusBarActionItem" in abstract))
+          assert(!!(abstract.isAbstractStatusBarActionItem as any)(s2)); // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
         sinon.assert.match(s2, {
           id: "s2",
           section: StatusBarSection.Center,
@@ -262,7 +263,8 @@ describe("UiItemsManager", () => {
           },
         });
         const s4 = items[3];
-        assert(!!abstract.isAbstractStatusBarActionItem(s4));
+        if ("isAbstractStatusBarActionItem" in abstract)
+          assert(!!(abstract.isAbstractStatusBarActionItem as any)(s4)); // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
         sinon.assert.match(s4, {
           id: "s4",
           section: StatusBarSection.Right,
@@ -292,9 +294,13 @@ describe("UiItemsManager", () => {
         provideBackstageItems: () => {
           const internalData = new Map();
           const icon = IconHelper.getIconData(<div className="b4-icon" />, internalData);
+          if (!("BackstageItemUtilities" in abstract))
+            return [];
           return [
-            abstract.BackstageItemUtilities.createActionItem("b3", 0, 0, execute, "b3-label"),
-            abstract.BackstageItemUtilities.createStageLauncher("b4", 0, 0, "b4-label", undefined, undefined, {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            (abstract.BackstageItemUtilities as any).createActionItem("b3", 0, 0, execute, "b3-label"),
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            (abstract.BackstageItemUtilities as any).createStageLauncher("b4", 0, 0, "b4-label", undefined, undefined, {
               icon,
               internalData,
               badgeType: abstract.BadgeType.TechnicalPreview,
@@ -547,7 +553,7 @@ describe("UiItemsManager", () => {
     it("should provide TopMost widgets", () => {
       AbstractUiItemsManager.register({
         id: "provider1",
-        provideWidgets: (_stageId, _stageUsage, location) => {
+        provideWidgets: (_stageId: any, _stageUsage: any, location: any) => {
           if (location === AbstractStagePanelLocation.Top) {
             return [{
               id: "w1",

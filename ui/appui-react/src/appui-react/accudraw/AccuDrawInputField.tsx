@@ -12,7 +12,7 @@ import * as React from "react";
 import type { ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec} from "@itwin/core-react";
 import { Icon, useRefs } from "@itwin/core-react";
-import { isLetter, SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "@itwin/appui-abstract";
 import { Input } from "@itwin/itwinui-react";
 import type { AccuDrawSetFieldFocusEventArgs, AccuDrawSetFieldValueToUiEventArgs} from "./FrameworkAccuDraw";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
@@ -48,6 +48,10 @@ export interface AccuDrawInputFieldProps extends CommonProps {
   onEscPressed?: () => void;
   /** Provides ability to return reference to HTMLInputElement */
   ref?: React.Ref<HTMLInputElement>;
+}
+
+function isLetter(char: string): boolean {
+  return char.length === 1 && char.toLowerCase() !== char.toUpperCase();
 }
 
 const ForwardRefAccuDrawInput = React.forwardRef<HTMLInputElement, AccuDrawInputFieldProps>(

@@ -184,7 +184,6 @@ function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGro
     return <PopupItemWithDrag
       key={item.id}
       itemId={item.id}
-      providerId={item.providerId}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
@@ -198,7 +197,6 @@ function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGro
   return <PopupItem
     key={item.id}
     itemId={item.id}
-    providerId={item.providerId}
     itemPriority={item.itemPriority}
     groupPriority={item.groupPriority}
     icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
@@ -223,7 +221,6 @@ function ActionItem({ item, addGroupSeparator }: { item: ActionButton, addGroupS
 
   return <ToolbarButtonItem
     itemId={item.id}
-    providerId={item.providerId}
     itemPriority={item.itemPriority}
     groupPriority={item.groupPriority}
     key={item.id}

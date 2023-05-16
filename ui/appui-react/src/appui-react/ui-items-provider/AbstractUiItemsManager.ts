@@ -113,7 +113,7 @@ class AbstractUiItemsManagerAdapter implements Target {
 
   public getBackstageItems(): readonly ProviderItem<BackstageItem>[] {
     const abstractItems = this._adaptee.getBackstageItems();
-    const items = abstractItems.map((abstractItem) => {
+    const items = abstractItems.map((abstractItem: any) => {
       const item = fromAbstractBackstageItem(abstractItem);
       return {
         ...item,
@@ -125,7 +125,7 @@ class AbstractUiItemsManagerAdapter implements Target {
 
   public getStatusBarItems(stageId: string, stageUsage: string): readonly ProviderItem<StatusBarItem>[] {
     const abstractItems = this._adaptee.getStatusBarItems(stageId, stageUsage);
-    const items = abstractItems.map((abstractItem) => {
+    const items = abstractItems.map((abstractItem: any) => {
       const item = fromAbstractStatusBarItem(abstractItem);
       return {
         ...item,
@@ -137,7 +137,7 @@ class AbstractUiItemsManagerAdapter implements Target {
 
   public getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): readonly ProviderItem<ToolbarItem>[] {
     const abstractItems = this._adaptee.getToolbarButtonItems(stageId, stageUsage, usage, orientation);
-    const items = abstractItems.map((abstractItem) => {
+    const items = abstractItems.map((abstractItem: any) => {
       const item = fromAbstractToolbarItem(abstractItem);
       return {
         ...item,
@@ -247,7 +247,7 @@ class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
       return [];
 
     const abstractItems = this._adaptee.provideBackstageItems();
-    const items = abstractItems.map((abstractItem) => fromAbstractBackstageItem(abstractItem));
+    const items = abstractItems.map((abstractItem: any) => fromAbstractBackstageItem(abstractItem));
     return items;
   }
 
@@ -256,7 +256,7 @@ class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
       return [];
 
     const abstractItems = this._adaptee.provideStatusBarItems(stageId, stageUsage);
-    const items = abstractItems.map((abstractItem) => fromAbstractStatusBarItem(abstractItem));
+    const items = abstractItems.map((abstractItem: any) => fromAbstractStatusBarItem(abstractItem));
     return items;
   }
 
@@ -292,7 +292,7 @@ class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
       return [];
 
     const abstractItems = this._adaptee.provideToolbarButtonItems(stageId, stageUsage, usage, orientation);
-    const items = abstractItems.map((abstractItem) => fromAbstractToolbarItem(abstractItem));
+    const items = abstractItems.map((abstractItem: any) => fromAbstractToolbarItem(abstractItem));
     return items;
   }
 }
@@ -426,6 +426,9 @@ function fromAbstractBackstageItem(abstractItem: AbstractBackstageItem): Backsta
     badge: abstractItem.badgeType,
     icon,
   };
+  if (!item) {
+    throw new Error("Failed to convert AbstractBackstageItem to BackstageItem");
+  }
   setOriginalData(item, abstractItem);
   return item;
 }
@@ -450,7 +453,9 @@ function fromAbstractStatusBarItem(abstractItem: AbstractStatusBarItem): StatusB
       icon,
     };
   }
-  assert(!!item);
+  if (!item) {
+    throw new Error("Failed to convert AbstractStatusBarItem to StatusBarItem");
+  }
   setOriginalData(item, abstractItem);
   return item;
 }
@@ -474,6 +479,9 @@ function fromAbstractToolbarItem(abstractItem: AbstractToolbarItem): ToolbarItem
       parentGroupItemId: abstractItem.parentToolGroupId,
       icon,
     };
+  }
+  if (!item) {
+    throw new Error("Failed to convert AbstractToolbarItem to ToolbarItem");
   }
   setOriginalData(item, abstractItem);
   return item;
@@ -512,6 +520,9 @@ function fromAbstractWidget(abstractWidget: AbstractWidget): Widget {
     },
     icon,
   };
+  if (!widget) {
+    throw new Error("Failed to convert AbstractWidget to Widget");
+  }
   setOriginalData(widget, abstractWidget);
   return widget;
 }

@@ -9,7 +9,6 @@ import * as moq from "typemoq";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
 import { Logger } from "@itwin/core-bentley";
-import { WidgetState } from "@itwin/appui-abstract";
 import { Size } from "@itwin/core-react";
 import type { IModelConnection, ScreenViewport, SpatialViewState } from "@itwin/core-frontend";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
@@ -23,6 +22,20 @@ import TestUtils, { storageMock } from "../TestUtils";
 import { TestFrontstage, TestFrontstage2, TestFrontstage3 } from "./FrontstageTestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 /* eslint-disable deprecation/deprecation */
+
+/** Copied from appui-abstract, which was removed in 4.0 */
+enum WidgetState {
+  /** Widget tab is visible and active and its contents are visible */
+  Open,
+  /** Widget tab is visible but its contents are not visible */
+  Closed,
+  /** Widget tab nor its contents are visible */
+  Hidden,
+  /** Widget tab is in a 'floating' state and is not docked in zone's tab stack */
+  Floating,
+  /** Widget tab is visible but its contents are not loaded */
+  Unloaded,
+}
 
 const mySessionStorage = storageMock();
 
