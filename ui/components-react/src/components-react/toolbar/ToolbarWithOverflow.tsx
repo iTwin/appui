@@ -11,10 +11,12 @@ import classnames from "classnames";
 import * as React from "react";
 import type {
   ActionButton, CommonToolbarItem, CustomButtonDefinition,
-  GroupButton, OnItemExecutedFunc} from "@itwin/appui-abstract";
-import { ConditionalBooleanValue, ConditionalStringValue, ToolbarItemUtilities,
+  GroupButton, OnItemExecutedFunc
 } from "@itwin/appui-abstract";
-import type { CommonProps, NoChildrenProps} from "@itwin/core-react";
+import {
+  ConditionalBooleanValue, ConditionalStringValue, ToolbarItemUtilities,
+} from "@itwin/appui-abstract";
+import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import { BadgeUtilities, Icon, IconHelper, useRefs } from "@itwin/core-react";
 import { ToolbarButtonItem } from "./Item";
 import { ToolbarItems } from "./Items";
@@ -180,11 +182,12 @@ function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGro
   const title = ConditionalStringValue.getValue(item.label)!;
   const badge = BadgeUtilities.getComponentForBadgeType(item.badgeType);
   const panel = React.useMemo(() => <PopupItemsPanel groupItem={item} activateOnPointerUp={false} />, [item]);
+  const providerId = "providerId" in item ? item.providerId as string : undefined;
   if (useDragInteraction) {
     return <PopupItemWithDrag
       key={item.id}
       itemId={item.id}
-      providerId={item.providerId}
+      providerId={providerId}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
@@ -198,7 +201,7 @@ function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGro
   return <PopupItem
     key={item.id}
     itemId={item.id}
-    providerId={item.providerId}
+    providerId={providerId}
     itemPriority={item.itemPriority}
     groupPriority={item.groupPriority}
     icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
@@ -221,9 +224,10 @@ function ActionItem({ item, addGroupSeparator }: { item: ActionButton, addGroupS
     onItemExecuted(item);
   }, [item, onItemExecuted]);
 
+  const providerId = "providerId" in item ? item.providerId as string : undefined;
   return <ToolbarButtonItem
     itemId={item.id}
-    providerId={item.providerId}
+    providerId={providerId}
     itemPriority={item.itemPriority}
     groupPriority={item.groupPriority}
     key={item.id}
