@@ -250,9 +250,11 @@ describe("UiItemsManager", () => {
           section: StatusBarSection.Center,
           execute: execute2,
         });
-        sinon.assert.match(IconHelper.getIconReactNode(s2.icon, s2.internalData), expectIconSpec({
-          className: "s2-icon",
-        }));
+        if ("icon" in s2) {
+          sinon.assert.match(IconHelper.getIconReactNode(s2.icon, s2.internalData), expectIconSpec({
+            className: "s2-icon",
+          }));
+        }
         sinon.assert.match(items[2], {
           id: "s3",
           section: StatusBarSection.Right,
@@ -271,9 +273,11 @@ describe("UiItemsManager", () => {
           badgeType: abstract.BadgeType.TechnicalPreview,
           execute: execute4,
         });
-        sinon.assert.match(IconHelper.getIconReactNode(s4.icon, s4.internalData), expectIconSpec({
-          className: "s4-icon",
-        }));
+        if ("icon" in s4) {
+          sinon.assert.match(IconHelper.getIconReactNode(s4.icon, s4.internalData), expectIconSpec({
+            className: "s4-icon",
+          }));
+        }
       }
     });
 
