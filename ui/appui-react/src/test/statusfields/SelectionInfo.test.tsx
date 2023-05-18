@@ -5,21 +5,34 @@
 import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
+import * as sinon from "sinon";
+import { IModelConnection, MockRender, SelectionSet, SelectionSetEventType } from "@itwin/core-frontend";
 import { render, waitFor } from "@testing-library/react";
 import { SelectionInfoField, SessionStateActionId, StatusBar, UiFramework } from "../../appui-react";
-import TestUtils from "../TestUtils";
+import TestUtils, { createBlankConnection } from "../TestUtils";
 
-describe(`SelectionInfoField`, () => {
-  before(async () => {
+
+/* eslint-disable deprecation/deprecation */
+
+describe("SelectionInfoField", () => {
+  let iModel: IModelConnection;
+
+  beforeEach(async () => {
+    await MockRender.App.startup();
     await TestUtils.initializeUiFramework();
+
+    iModel = createBlankConnection();
+    const selectionSet = new SelectionSet(iModel);
+    sinon.stub(iModel, "selectionSet").get(() => selectionSet);
+    UiFramework.setIModelConnection(iModel);
   });
 
-  after(() => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
+    await MockRender.App.shutdown();
   });
 
   it("SelectionInfoField should render with 0", () => {
-    UiFramework.frameworkState!.sessionState.numItemsSelected = 0;
     const component = render(<Provider store={TestUtils.store}>
       <StatusBar><SelectionInfoField /></StatusBar>
     </Provider>);
@@ -29,7 +42,7 @@ describe(`SelectionInfoField`, () => {
   });
 
   it("SelectionInfoField should render with 1", () => {
-    UiFramework.frameworkState!.sessionState.numItemsSelected = 1;
+    sinon.stub(iModel.selectionSet, "size").get(() => 1);
     const component = render(<Provider store={TestUtils.store}>
       <StatusBar><SelectionInfoField /></StatusBar>
     </Provider>);
@@ -43,7 +56,8 @@ describe(`SelectionInfoField`, () => {
       <StatusBar><SelectionInfoField /></StatusBar>
     </Provider>);
     expect(component).not.to.be.undefined;
-    UiFramework.dispatchActionToStore(SessionStateActionId.SetNumItemsSelected, 99);
+    sinon.stub(iModel.selectionSet, "size").get(() => 99);
+    iModel.selectionSet.onChanged.raiseEvent({ set: iModel.selectionSet, added: [], type: SelectionSetEventType.Add });
     await waitFor(() => {
       const foundText = component.getAllByText("99");
       expect(foundText).not.to.be.undefined;
