@@ -2,6 +2,90 @@
   "name": "@itwin/imodel-components-react",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@itwin/imodel-components-react_v4.0.0",
+      "date": "Mon, 01 May 2023 13:32:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Promote APIs in use by apps."
+          },
+          {
+            "comment": "Styling change: use larger arrows for the Navigation Cube."
+          },
+          {
+            "comment": "Using iTwinUI-variables."
+          },
+          {
+            "comment": "Update iTwinUI-react to v2.x."
+          },
+          {
+            "comment": "Clean dependencies."
+          },
+          {
+            "comment": "Refactor to use iTwinUI instead of deprecated core-react."
+          },
+          {
+            "comment": "Bump minimum of core packages to 3.7.0."
+          },
+          {
+            "comment": "peerDependency allow react: ^18.0.0."
+          },
+          {
+            "comment": "Clean SCSS."
+          },
+          {
+            "comment": "Remove components and interfaces that were deprecated in 2.x and 3.0."
+          },
+          {
+            "comment": "Update package.json dependencies and repo documentation."
+          },
+          {
+            "comment": "Remove webfont icons from components."
+          }
+        ]
+      }
+    },
+    {
+      "version": "3.7.2",
+      "tag": "@itwin/imodel-components-react_v3.7.2",
+      "date": "Wed, 12 Apr 2023 13:12:42 GMT",
+      "comments": {}
+    },
+    {
+      "version": "3.7.1",
+      "tag": "@itwin/imodel-components-react_v3.7.1",
+      "date": "Mon, 03 Apr 2023 15:15:37 GMT",
+      "comments": {}
+    },
+    {
+      "version": "3.7.0",
+      "tag": "@itwin/imodel-components-react_v3.7.0",
+      "date": "Wed, 29 Mar 2023 15:02:27 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fixed expected test case result."
+          },
+          {
+            "comment": "Fix large timeline menu displaying outside visible area"
+          },
+          {
+            "comment": "Update Navigation Aids in line with current design goals."
+          },
+          {
+            "comment": "Update @deprecated comments"
+          }
+        ]
+      }
+    },
+    {
+      "version": "3.6.3",
+      "tag": "@itwin/imodel-components-react_v3.6.3",
+      "date": "Mon, 27 Mar 2023 16:26:47 GMT",
+      "comments": {}
+    },
+    {
       "version": "3.6.2",
       "tag": "@itwin/imodel-components-react_v3.6.2",
       "date": "Fri, 17 Mar 2023 17:52:32 GMT",

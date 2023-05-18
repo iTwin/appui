@@ -5,11 +5,12 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import * as ReactAutosuggest from "react-autosuggest";
+import type * as ReactAutosuggest from "react-autosuggest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Logger } from "@itwin/core-bentley";
-import { AutoSuggest, AutoSuggestData } from "../../core-react";
+import type { AutoSuggestData } from "../../core-react";
+import { AutoSuggest } from "../../core-react";
 
 describe("AutoSuggest", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

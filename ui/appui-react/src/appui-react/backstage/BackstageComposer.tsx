@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { BackstageSeparator, Backstage as NZ_Backstage } from "@itwin/appui-layout-react";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
@@ -17,7 +17,8 @@ import { useBackstageManager, useIsBackstageOpen } from "./BackstageManager";
 import { useDefaultBackstageItems } from "./useDefaultBackstageItems";
 import { useUiItemsProviderBackstageItems } from "./useUiItemsProviderBackstageItems";
 import { toLayoutSafeAreaInsets } from "../safearea/SafeAreaHelpers";
-import { BackstageItem, isBackstageStageLauncher } from "./BackstageItem";
+import type { BackstageItem} from "./BackstageItem";
+import { isBackstageStageLauncher } from "./BackstageItem";
 import { BackstageItemsManager } from "./BackstageItemsManager";
 
 // cSpell:ignore safearea

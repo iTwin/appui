@@ -10,11 +10,13 @@ import "./Tab.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { CommonProps, Icon, Point, Rectangle, Timer, useRefs, useResizeObserver } from "@itwin/core-react";
+import type { CommonProps} from "@itwin/core-react";
+import { Icon, Point, Rectangle, Timer, useRefs, useResizeObserver } from "@itwin/core-react";
 import { useDragTab } from "../base/DragManager";
 import { MeasureContext, NineZoneDispatchContext, ShowWidgetIconContext, TabNodeContext } from "../base/NineZone";
-import { TabState } from "../state/TabState";
-import { PointerCaptorArgs, PointerCaptorEvent, usePointerCaptor } from "../base/usePointerCaptor";
+import type { TabState } from "../state/TabState";
+import type { PointerCaptorArgs, PointerCaptorEvent} from "../base/usePointerCaptor";
+import { usePointerCaptor } from "../base/usePointerCaptor";
 import { PanelSideContext } from "../widget-panels/Panel";
 import { WidgetTabsEntryContext } from "./Tabs";
 import { restrainInitialWidgetSize, WidgetContext, WidgetIdContext } from "./Widget";
@@ -25,6 +27,7 @@ import { WidgetOverflowContext } from "./Overflow";
 import { useLayout, useLayoutStore } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
+import { SpecialKey } from "@itwin/appui-abstract";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -110,6 +113,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
       role="tab"
       style={props.style}
       title={label}
+      tabIndex={0}
     >
       {(showWidgetIcon || showIconOnly) && iconSpec && <Icon iconSpec={iconSpec} />}
       {showLabel && <span>{label}</span>}
@@ -257,8 +261,16 @@ export function useTabInteractions<T extends HTMLElement>({
         handleDoubleClick();
       clickCount.current = 0;
     });
+    const keydown = (e: KeyboardEvent) => {
+      if(e.key === SpecialKey.Space || e.key === SpecialKey.Enter) {
+        handleClick();
+      }
+    };
+    const instance = ref.current;
+    instance && instance.addEventListener("keydown", keydown);
     return () => {
       timer.setOnExecute(undefined);
+      instance && instance.removeEventListener("keydown", keydown);
     };
   }, [handleClick, handleDoubleClick]);
   return refs;

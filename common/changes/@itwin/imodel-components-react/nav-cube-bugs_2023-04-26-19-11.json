@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/imodel-components-react",
+      "comment": "Refactor the logic to get the arrow tool tip to use the cubeNavigationRoutes.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/imodel-components-react"
+}

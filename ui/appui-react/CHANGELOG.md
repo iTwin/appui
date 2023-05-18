@@ -1,6 +1,78 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Fri, 17 Mar 2023 17:52:32 GMT and should not be manually modified.
+This log was last generated on Mon, 01 May 2023 13:32:16 GMT and should not be manually modified.
+
+## 4.0.0
+Mon, 01 May 2023 13:32:16 GMT
+
+### Updates
+
+- Promote APIs in use by apps.
+- Remove deprecated APIs.
+- Remove FrontstageProps, StagePanelProps, WidgetProps.
+- Removed unused localization strings.
+- Move @itwin/core-telemetry to peerDependencies.
+- Add `defaultTool` prop to `FrontstageConfig` and `StandardFrontstageProps`.
+- Use UiItemsManager from @itwin/appui-abstract when available.
+- Fix SelectionInfoField by displaying selection set size.
+- Fix stale options of SelectionScopeField.
+- Remove selection scope fallback labels.
+- Allow ReactNode icon argument in item utilities.
+- Add ContentViewManager tracking info back into FloatingViewportContent.
+- Using iTwinUI-variables.
+- Update iTwinUI-react to v2.x.
+- Maintain widget panel location after frontstage is changed.
+- Expose status bar components (marked as @internal in appui-layout-react).
+- Added search functionality to ViewSelector. Added test to ViewSelector tests for search functionality.
+- Fixed ViewSelector rendering bug.
+- Removed Trees component from appui-react.
+- Add Toolbar components.
+- Fix floating viewport content to properly synchronize active ViewportComponent with the selected view.
+- Promotoe UiItemsManager/Provider APIs.
+- Remove StatusBarContext related code.
+- Clean dependencies.
+- Refactor to use iTwinUI instead of deprecated core-react.
+- React to toolbar changes.
+- Removed react-dnd dependency.
+- Bump minimum of core packages to 3.7.0.
+- peerDependency allow react: ^18.0.0.
+- Update typings for React18.
+- Clean SCSS.
+- SnapModeField now emit syncEvent.
+- Support React18 in child windows.
+- Fix `widgetDef.expand` method.
+- Frontstage provider to return FrontstageProps instead of a ReactElement.
+- Remove UI1.0 components.
+- Add SafeAreaInsets enum.
+- Fix StagePanelDef state being out of sync issue. Add event for listening to changes of StagePanelDef pinned state.
+- Expose StatusBar.Popup and StatusBar.Field components.
+- Update package.json dependencies and repo documentation.
+- Remove webfont icons from components.
+
+## 3.7.2
+Wed, 12 Apr 2023 13:12:42 GMT
+
+_Version update only_
+
+## 3.7.1
+Mon, 03 Apr 2023 15:15:36 GMT
+
+_Version update only_
+
+## 3.7.0
+Wed, 29 Mar 2023 15:02:27 GMT
+
+### Updates
+
+- Fix Popout widget window title
+- Fix react briefMessage in toasts
+- Move `Manager` classes under `UiFramework`
+- update @deprecated comments.
+
+## 3.6.3
+Mon, 27 Mar 2023 16:26:47 GMT
+
+_Version update only_
 
 ## 3.6.2
 Fri, 17 Mar 2023 17:52:32 GMT

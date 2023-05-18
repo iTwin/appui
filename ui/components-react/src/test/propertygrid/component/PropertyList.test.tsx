@@ -6,7 +6,7 @@ import { expect } from "chai";
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
 import TestUtils from "../../TestUtils";
-import { PropertyList } from "../../../components-react/propertygrid/component/PropertyList";
+import { getPropertyKey, PropertyList } from "../../../components-react/propertygrid/component/PropertyList";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 
@@ -89,6 +89,38 @@ describe("PropertyList", () => {
     const arrayProperty = clickableComponents[2];
     fireEvent.contextMenu(arrayProperty);
     expect(onPropertyRightClicked).to.not.be.called;
+  });
+
+  it("should call onEditCommit", async () => {
+    const primitiveRecord = TestUtils.createPrimitiveStringProperty("primitive", "value");
+    const structRecord = TestUtils.createStructProperty("struct", { testProperty: TestUtils.createPrimitiveStringProperty("test", "value") });
+    const arrayRecord = TestUtils.createArrayProperty("array", [TestUtils.createPrimitiveStringProperty("test", "value")]);
+
+    const spyMethod = sinon.spy();
+    const category={ name: "Cat1", label: "Category 1", expand: true };
+    const editingPropertyKey = getPropertyKey(category, primitiveRecord);
+    const propertyList = render(
+      <PropertyList
+        orientation={Orientation.Horizontal}
+        width={800}
+        properties={[
+          primitiveRecord,
+          structRecord,
+          arrayRecord,
+        ]}
+        onEditCommit={spyMethod}
+        category={category}
+        editingPropertyKey={editingPropertyKey}
+      />,
+    );
+
+    const inputNode = propertyList.container.querySelector("input");
+    expect(inputNode).not.to.be.null;
+
+    fireEvent.keyDown(inputNode as HTMLElement, { key: "A" });
+    fireEvent.keyDown(inputNode as HTMLElement, { key: "Enter" });
+    await TestUtils.flushAsyncOperations();
+    expect(spyMethod.calledOnce).to.be.true;
   });
 
 });

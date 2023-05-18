@@ -5,7 +5,8 @@
 /** @packageDocumentation
  * @module Dialog
  */
-import { DialogChangedEvent, DialogInfo } from "../dialog/DialogManagerBase";
+import type { DialogInfo } from "../dialog/DialogManagerBase";
+import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 
 /** Modal Dialog Changed Event class.
  * @public
@@ -70,7 +71,7 @@ export interface FrameworkStackedDialog<DialogInfoType> extends FrameworkDialog 
 
 /**
  * [[UiFramework.dialogs]] interface.
- * @beta
+ * @public
  */
 export interface FrameworkDialogs {
   /**

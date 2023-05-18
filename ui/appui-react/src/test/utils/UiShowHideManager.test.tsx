@@ -6,17 +6,15 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
-import {
-  ConfigurableCreateInfo, ContentControl, ContentGroup, ContentLayout, ContentLayoutDef, UiFramework,
-  UiShowHideManager,
-  UiShowHideSettingsProvider,
+import type {
+  ConfigurableCreateInfo} from "../../appui-react";
+import { ContentControl, ContentGroup, ContentLayout, ContentLayoutDef, UiFramework,
 } from "../../appui-react";
 import { TestFrontstage } from "../frontstage/FrontstageTestUtils";
-import TestUtils, { createStaticInternalPassthroughValidators, storageMock } from "../TestUtils";
+import TestUtils, { storageMock } from "../TestUtils";
 import { LocalStateStorage } from "@itwin/core-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { INACTIVITY_TIME_DEFAULT, InternalUiShowHideManager } from "../../appui-react/utils/InternalUiShowHideManager";
-/* eslint-disable deprecation/deprecation */
+import { INACTIVITY_TIME_DEFAULT, InternalUiShowHideManager, UiShowHideSettingsProvider } from "../../appui-react/utils/InternalUiShowHideManager";
 
 describe("UiShowHideManager localStorage Wrapper", () => {
 
@@ -46,100 +44,100 @@ describe("UiShowHideManager localStorage Wrapper", () => {
     describe("getters and setters", () => {
 
       it("autoHideUi should return default of true", () => {
-        expect(UiShowHideManager.autoHideUi).to.be.true;
+        expect(InternalUiShowHideManager.autoHideUi).to.be.true;
       });
 
       it("autoHideUi should set & return correct value", () => {
-        UiShowHideManager.autoHideUi = true;
-        expect(UiShowHideManager.autoHideUi).to.be.true;
-        UiShowHideManager.autoHideUi = false;
-        expect(UiShowHideManager.autoHideUi).to.be.false;
+        InternalUiShowHideManager.autoHideUi = true;
+        expect(InternalUiShowHideManager.autoHideUi).to.be.true;
+        InternalUiShowHideManager.autoHideUi = false;
+        expect(InternalUiShowHideManager.autoHideUi).to.be.false;
       });
 
       it("showHidePanels should return default of false", () => {
-        expect(UiShowHideManager.showHidePanels).to.be.false;
+        expect(InternalUiShowHideManager.showHidePanels).to.be.false;
       });
 
       it("showHidePanels should set & return correct value", () => {
         const spyMethod = sinon.spy();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spyMethod);
 
-        UiShowHideManager.showHidePanels = true;
-        expect(UiShowHideManager.showHidePanels).to.be.true;
+        InternalUiShowHideManager.showHidePanels = true;
+        expect(InternalUiShowHideManager.showHidePanels).to.be.true;
         spyMethod.calledOnce.should.true;
 
-        UiShowHideManager.showHidePanels = false;
-        expect(UiShowHideManager.showHidePanels).to.be.false;
+        InternalUiShowHideManager.showHidePanels = false;
+        expect(InternalUiShowHideManager.showHidePanels).to.be.false;
         spyMethod.calledTwice.should.true;
 
         remove();
       });
 
       it("showHideFooter should return default of false", () => {
-        expect(UiShowHideManager.showHideFooter).to.be.false;
+        expect(InternalUiShowHideManager.showHideFooter).to.be.false;
       });
 
       it("showHideFooter should set & return correct value", () => {
         const spyMethod = sinon.spy();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spyMethod);
 
-        UiShowHideManager.showHideFooter = true;
-        expect(UiShowHideManager.showHideFooter).to.be.true;
+        InternalUiShowHideManager.showHideFooter = true;
+        expect(InternalUiShowHideManager.showHideFooter).to.be.true;
         spyMethod.calledOnce.should.true;
 
-        UiShowHideManager.showHideFooter = false;
-        expect(UiShowHideManager.showHideFooter).to.be.false;
+        InternalUiShowHideManager.showHideFooter = false;
+        expect(InternalUiShowHideManager.showHideFooter).to.be.false;
         spyMethod.calledTwice.should.true;
 
         remove();
       });
 
       it("useProximityOpacity should return default of false", () => {
-        expect(UiShowHideManager.useProximityOpacity).to.be.false;
+        expect(InternalUiShowHideManager.useProximityOpacity).to.be.false;
       });
 
       it("useProximityOpacity should set & return correct value", () => {
         const spyMethod = sinon.spy();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spyMethod);
 
-        UiShowHideManager.useProximityOpacity = false;
-        expect(UiShowHideManager.useProximityOpacity).to.be.false;
+        InternalUiShowHideManager.useProximityOpacity = false;
+        expect(InternalUiShowHideManager.useProximityOpacity).to.be.false;
         spyMethod.calledOnce.should.true;
 
-        UiShowHideManager.useProximityOpacity = true;
-        expect(UiShowHideManager.useProximityOpacity).to.be.true;
+        InternalUiShowHideManager.useProximityOpacity = true;
+        expect(InternalUiShowHideManager.useProximityOpacity).to.be.true;
         spyMethod.calledTwice.should.true;
 
         remove();
       });
 
       it("snapWidgetOpacity should return default of false", () => {
-        expect(UiShowHideManager.snapWidgetOpacity).to.be.false;
+        expect(InternalUiShowHideManager.snapWidgetOpacity).to.be.false;
       });
 
       it("snapWidgetOpacity should set & return correct value", () => {
         const spyMethod = sinon.spy();
         const remove = UiFramework.onUiVisibilityChanged.addListener(spyMethod);
 
-        UiShowHideManager.snapWidgetOpacity = true;
-        expect(UiShowHideManager.snapWidgetOpacity).to.be.true;
+        InternalUiShowHideManager.snapWidgetOpacity = true;
+        expect(InternalUiShowHideManager.snapWidgetOpacity).to.be.true;
         spyMethod.calledOnce.should.true;
 
-        UiShowHideManager.snapWidgetOpacity = false;
-        expect(UiShowHideManager.snapWidgetOpacity).to.be.false;
+        InternalUiShowHideManager.snapWidgetOpacity = false;
+        expect(InternalUiShowHideManager.snapWidgetOpacity).to.be.false;
         spyMethod.calledTwice.should.true;
 
         remove();
       });
 
       it("inactivityTime should return default", () => {
-        expect(UiShowHideManager.inactivityTime).to.eq(INACTIVITY_TIME_DEFAULT);
+        expect(InternalUiShowHideManager.inactivityTime).to.eq(INACTIVITY_TIME_DEFAULT);
       });
 
       it("inactivityTime should set & return correct value", () => {
         const testValue = 10000;
-        UiShowHideManager.inactivityTime = testValue;
-        expect(UiShowHideManager.inactivityTime).to.eq(testValue);
+        InternalUiShowHideManager.inactivityTime = testValue;
+        expect(InternalUiShowHideManager.inactivityTime).to.eq(testValue);
       });
     });
 
@@ -147,8 +145,8 @@ describe("UiShowHideManager localStorage Wrapper", () => {
 
       it("activating Frontstage should show UI", async () => {
         UiFramework.setIsUiVisible(false);
-        expect(UiShowHideManager.isUiVisible).to.eq(false);
-        UiShowHideManager.autoHideUi = true;
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
+        InternalUiShowHideManager.autoHideUi = true;
 
         const frontstageProvider = new TestFrontstage();
         UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
@@ -156,7 +154,7 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
         await TestUtils.flushAsyncOperations();
-        expect(UiShowHideManager.isUiVisible).to.eq(true);
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(true);
       });
     });
 
@@ -184,67 +182,67 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       it("Mouse move in content view should show the UI then hide after inactivity", () => {
         const fakeTimers = sinon.useFakeTimers();
         UiFramework.setIsUiVisible(false);
-        UiShowHideManager.autoHideUi = true;
-        UiShowHideManager.inactivityTime = 20;
-        expect(UiShowHideManager.isUiVisible).to.eq(false);
+        InternalUiShowHideManager.autoHideUi = true;
+        InternalUiShowHideManager.inactivityTime = 20;
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
 
         const component = render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
         const container = component.getByTestId("single-content-container");
         container.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window }));
 
         fakeTimers.tick(0);
-        expect(UiShowHideManager.isUiVisible).to.eq(true);
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(true);
 
         fakeTimers.tick(1000);
         fakeTimers.restore();
-        expect(UiShowHideManager.isUiVisible).to.eq(false);
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
       });
 
       it("Mouse move in content view should do nothing if autoHideUi is off", async () => {
         UiFramework.setIsUiVisible(false);
-        UiShowHideManager.autoHideUi = false;
-        expect(UiShowHideManager.isUiVisible).to.eq(false);
+        InternalUiShowHideManager.autoHideUi = false;
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
 
         const component = render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
         const container = component.getByTestId("single-content-container");
         container.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window }));
 
         await TestUtils.flushAsyncOperations();
-        expect(UiShowHideManager.isUiVisible).to.eq(false);
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
       });
     });
 
     describe("Widget Mouse Events", () => {
       it("Mouse enter in widget should show the UI", async () => {
         UiFramework.setIsUiVisible(false);
-        UiShowHideManager.autoHideUi = true;
-        expect(UiShowHideManager.isUiVisible).to.eq(false);
+        InternalUiShowHideManager.autoHideUi = true;
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
 
         // const component = render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
         // const container = component.getByTestId("single-content-container");
         // container.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true, cancelable: true, view: window }));
 
         // TEMP
-        UiShowHideManager.handleWidgetMouseEnter();
+        InternalUiShowHideManager.handleWidgetMouseEnter();
 
         await TestUtils.flushAsyncOperations();
-        expect(UiShowHideManager.isUiVisible).to.eq(true);
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(true);
       });
 
       it("Mouse enter in widget should do nothing if autoHideUi is off", async () => {
         UiFramework.setIsUiVisible(false);
-        UiShowHideManager.autoHideUi = false;
-        expect(UiShowHideManager.isUiVisible).to.eq(false);
+        InternalUiShowHideManager.autoHideUi = false;
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
 
         // const component = render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
         // const container = component.getByTestId("single-content-container");
         // container.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true, cancelable: true, view: window }));
 
         // TEMP
-        UiShowHideManager.handleWidgetMouseEnter();
+        InternalUiShowHideManager.handleWidgetMouseEnter();
 
         await TestUtils.flushAsyncOperations();
-        expect(UiShowHideManager.isUiVisible).to.eq(false);
+        expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
       });
     });
   });
@@ -261,42 +259,21 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       const uiShowHideSettingsProvider = new UiShowHideSettingsProvider();
       await uiShowHideSettingsProvider.loadUserSettings(UiFramework.getUiStateStorage());
 
-      expect(UiShowHideManager.autoHideUi).to.eq(false);
-      expect(UiShowHideManager.useProximityOpacity).to.eq(false);
-      expect(UiShowHideManager.snapWidgetOpacity).to.eq(false);
+      expect(InternalUiShowHideManager.autoHideUi).to.eq(false);
+      expect(InternalUiShowHideManager.useProximityOpacity).to.eq(false);
+      expect(InternalUiShowHideManager.snapWidgetOpacity).to.eq(false);
 
-      UiShowHideManager.setAutoHideUi(true);
-      UiShowHideManager.setUseProximityOpacity(true);
-      UiShowHideManager.setSnapWidgetOpacity(true);
-      expect(UiShowHideManager.autoHideUi).to.eq(true);
-      expect(UiShowHideManager.useProximityOpacity).to.eq(true);
-      expect(UiShowHideManager.snapWidgetOpacity).to.eq(true);
+      InternalUiShowHideManager.setAutoHideUi(true);
+      InternalUiShowHideManager.setUseProximityOpacity(true);
+      InternalUiShowHideManager.setSnapWidgetOpacity(true);
+      expect(InternalUiShowHideManager.autoHideUi).to.eq(true);
+      expect(InternalUiShowHideManager.useProximityOpacity).to.eq(true);
+      expect(InternalUiShowHideManager.snapWidgetOpacity).to.eq(true);
 
       TestUtils.terminateUiFramework();
 
     });
 
-  });
-
-  it("calls Internal static for everything", () => {
-    const [validateMethod, validateProp] = createStaticInternalPassthroughValidators(UiShowHideManager, InternalUiShowHideManager);
-
-    validateMethod("handleContentMouseMove", {} as any);
-    validateMethod("handleFrontstageReady");
-    validateMethod("handleWidgetMouseEnter", {} as any);
-    validateMethod("setAutoHideUi", true);
-    validateMethod("setSnapWidgetOpacity", true);
-    validateMethod("setUseProximityOpacity", true);
-    validateMethod("showUiAndCancelTimer");
-    validateMethod("showUiAndResetTimer");
-    validateMethod("terminate");
-    validateProp("autoHideUi", true);
-    validateProp("inactivityTime", true);
-    validateProp("isUiVisible", true);
-    validateProp("showHideFooter", true);
-    validateProp("showHidePanels", true);
-    validateProp("snapWidgetOpacity", true);
-    validateProp("useProximityOpacity", true);
   });
 
 });

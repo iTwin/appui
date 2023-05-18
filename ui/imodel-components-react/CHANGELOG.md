@@ -1,6 +1,49 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Fri, 17 Mar 2023 17:52:32 GMT and should not be manually modified.
+This log was last generated on Mon, 01 May 2023 13:32:16 GMT and should not be manually modified.
+
+## 4.0.0
+Mon, 01 May 2023 13:32:16 GMT
+
+### Updates
+
+- Promote APIs in use by apps.
+- Styling change: use larger arrows for the Navigation Cube.
+- Using iTwinUI-variables.
+- Update iTwinUI-react to v2.x.
+- Clean dependencies.
+- Refactor to use iTwinUI instead of deprecated core-react.
+- Bump minimum of core packages to 3.7.0.
+- peerDependency allow react: ^18.0.0.
+- Clean SCSS.
+- Remove components and interfaces that were deprecated in 2.x and 3.0.
+- Update package.json dependencies and repo documentation.
+- Remove webfont icons from components.
+
+## 3.7.2
+Wed, 12 Apr 2023 13:12:42 GMT
+
+_Version update only_
+
+## 3.7.1
+Mon, 03 Apr 2023 15:15:37 GMT
+
+_Version update only_
+
+## 3.7.0
+Wed, 29 Mar 2023 15:02:27 GMT
+
+### Updates
+
+- Fixed expected test case result.
+- Fix large timeline menu displaying outside visible area
+- Update Navigation Aids in line with current design goals.
+- Update @deprecated comments
+
+## 3.6.3
+Mon, 27 Mar 2023 16:26:47 GMT
+
+_Version update only_
 
 ## 3.6.2
 Fri, 17 Mar 2023 17:52:32 GMT

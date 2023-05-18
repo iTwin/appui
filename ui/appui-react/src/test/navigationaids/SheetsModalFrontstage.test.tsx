@@ -7,8 +7,10 @@ import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { IModelConnection, MockRender } from "@itwin/core-frontend";
-import { CardContainer, CardInfo, SheetCard, SheetData, SheetsModalFrontstage, UiFramework } from "../../appui-react";
+import type { IModelConnection} from "@itwin/core-frontend";
+import { MockRender } from "@itwin/core-frontend";
+import type { CardInfo, SheetData} from "../../appui-react";
+import { CardContainer, SheetCard, SheetsModalFrontstage, UiFramework } from "../../appui-react";
 import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
 
 describe("SheetsModalFrontstage", () => {

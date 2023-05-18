@@ -319,6 +319,24 @@ describe(`ToolAssistanceField`, () => {
     expect(screen.getByRole("dialog").querySelectorAll("div.uifw-toolassistance-icon-large")).lengthOf(0);
   });
 
+  it("should support webfont icons in string-based instruction.image", async () => {
+    render(<StatusBar>
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+    </StatusBar>);
+
+    const notifications = new AppNotificationManager();
+    const mainInstruction = ToolAssistance.createInstruction("icon-my-test-icon", "This is the prompt");
+
+    const instructions = ToolAssistance.createInstructions(mainInstruction);
+
+    notifications.setToolAssistance(instructions);
+
+    await theUserTo.click(screen.getByRole("button"));
+
+    expect(screen.getByRole("dialog").querySelectorAll("div.uifw-toolassistance-svg")).lengthOf(0);
+    expect(screen.getByRole("dialog").querySelectorAll("div.uifw-toolassistance-icon-large .icon-my-test-icon")).lengthOf(1);
+  });
+
   it("invalid modifier key info along with image should log error", async () => {
     const spyMethod = sinon.spy(Logger, "logError");
     render(<StatusBar>

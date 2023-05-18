@@ -6,8 +6,9 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import { ContentDialog, ContentDialogManager, ContentDialogRenderer, DialogChangedEventArgs } from "../../appui-react";
-import TestUtils, { createStaticInternalPassthroughValidators, userEvent } from "../TestUtils";
+import type { DialogChangedEventArgs} from "../../appui-react";
+import { ContentDialog, ContentDialogRenderer, UiFramework } from "../../appui-react";
+import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MockRender } from "@itwin/core-frontend";
 import { InternalContentDialogManager } from "../../appui-react/dialog/InternalContentDialogManager";
@@ -31,16 +32,16 @@ describe("ContentDialogManager", () => {
     await TestUtils.initializeUiFramework(true);
     await MockRender.App.startup();
 
-    ContentDialogManager.onContentDialogChangedEvent.addListener(handleContentDialogChanged);
+    UiFramework.content.dialogs.onContentDialogChangedEvent.addListener(handleContentDialogChanged);
   });
 
   after(async () => {
-    ContentDialogManager.onContentDialogChangedEvent.removeListener(handleContentDialogChanged);
+    UiFramework.content.dialogs.onContentDialogChangedEvent.removeListener(handleContentDialogChanged);
     await MockRender.App.shutdown();
     TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
-  it("ContentDialogManager methods", () => {
+  it("UiFramework.content.dialogs methods", () => {
     const dialogId = "Test1";
     const reactNode = <ContentDialog
       opened={true}
@@ -49,30 +50,30 @@ describe("ContentDialogManager", () => {
       <div />
     </ContentDialog>;
 
-    expect(ContentDialogManager.dialogCount).to.eq(0);
-    ContentDialogManager.openDialog(reactNode, dialogId);
+    expect(UiFramework.content.dialogs.count).to.eq(0);
+    UiFramework.content.dialogs.open(reactNode, dialogId);
     expect(spyMethod.calledOnce).to.be.true;
 
-    expect(ContentDialogManager.activeDialog).to.eq(reactNode);
+    expect(UiFramework.content.dialogs.active).to.eq(reactNode);
 
-    expect(ContentDialogManager.dialogCount).to.eq(1);
-    ContentDialogManager.openDialog(reactNode, dialogId);
-    expect(ContentDialogManager.dialogCount).to.eq(1);
+    expect(UiFramework.content.dialogs.count).to.eq(1);
+    UiFramework.content.dialogs.open(reactNode, dialogId);
+    expect(UiFramework.content.dialogs.count).to.eq(1);
 
-    expect(ContentDialogManager.dialogs.length).to.eq(1);
-    expect(ContentDialogManager.dialogs[0].reactNode).to.eq(reactNode);
+    expect(UiFramework.content.dialogs.dialogs.length).to.eq(1);
+    expect(UiFramework.content.dialogs.dialogs[0].reactNode).to.eq(reactNode);
 
-    ContentDialogManager.update();
+    UiFramework.content.dialogs.update();
     expect(spyMethod.calledTwice).to.be.true;
 
-    ContentDialogManager.closeDialog(dialogId);
+    UiFramework.content.dialogs.close(dialogId);
     expect(spyMethod.calledThrice).to.be.true;
-    expect(ContentDialogManager.dialogCount).to.eq(0);
+    expect(UiFramework.content.dialogs.count).to.eq(0);
   });
 
-  it("closeDialog should log error if passed a bad id", () => {
+  it("close should log error if passed a bad id", () => {
     const logSpyMethod = sinon.spy(Logger, "logError");
-    ContentDialogManager.closeDialog("bad");
+    UiFramework.content.dialogs.close("bad");
     logSpyMethod.calledOnce.should.true;
   });
 
@@ -87,14 +88,14 @@ describe("ContentDialogManager", () => {
 
     render(<ContentDialogRenderer />);
 
-    expect(ContentDialogManager.dialogCount).to.eq(0);
-    ContentDialogManager.openDialog(reactNode, dialogId);
-    expect(ContentDialogManager.dialogCount).to.eq(1);
+    expect(UiFramework.content.dialogs.count).to.eq(0);
+    UiFramework.content.dialogs.open(reactNode, dialogId);
+    expect(UiFramework.content.dialogs.count).to.eq(1);
 
     expect(await screen.findByRole("button", {name: "MyTestButton"})).to.exist;
 
-    ContentDialogManager.closeDialog(dialogId);
-    expect(ContentDialogManager.dialogCount).to.eq(0);
+    UiFramework.content.dialogs.close(dialogId);
+    expect(UiFramework.content.dialogs.count).to.eq(0);
 
     await waitFor(() => {
       expect(screen.queryByRole("button", { name: "MyTestButton" })).to.be.null;
@@ -120,26 +121,26 @@ describe("ContentDialogManager", () => {
 
     render(<ContentDialogRenderer />);
 
-    expect(ContentDialogManager.dialogCount).to.eq(0);
+    expect(UiFramework.content.dialogs.count).to.eq(0);
 
-    ContentDialogManager.openDialog(reactNode1, dialogId1);
-    expect(ContentDialogManager.dialogCount).to.eq(1);
+    UiFramework.content.dialogs.open(reactNode1, dialogId1);
+    expect(UiFramework.content.dialogs.count).to.eq(1);
     expect(await screen.findByRole("button", {name: "MyTestButton"})).to.exist;
 
-    ContentDialogManager.openDialog(reactNode2, dialogId2);
-    expect(ContentDialogManager.dialogCount).to.eq(2);
+    UiFramework.content.dialogs.open(reactNode2, dialogId2);
+    expect(UiFramework.content.dialogs.count).to.eq(2);
     expect(screen.getByRole("button", {name: "MyTestButton"})).to.exist;
     expect(await screen.findByRole("button", {name: "MySecondTestButton"})).to.exist;
 
-    ContentDialogManager.closeDialog(dialogId2);
-    expect(ContentDialogManager.dialogCount).to.eq(1);
+    UiFramework.content.dialogs.close(dialogId2);
+    expect(UiFramework.content.dialogs.count).to.eq(1);
     expect(screen.getByRole("button", {name: "MyTestButton"})).to.exist;
     await waitFor(() => {
       expect(screen.queryByRole("button", { name: "MySecondTestButton" })).to.be.null;
     });
 
-    ContentDialogManager.closeDialog(dialogId1);
-    expect(ContentDialogManager.dialogCount).to.eq(0);
+    UiFramework.content.dialogs.close(dialogId1);
+    expect(UiFramework.content.dialogs.count).to.eq(0);
     await waitFor(() => {
       expect(screen.queryByRole("button", { name: "MyTestButton" })).to.be.null;
     });
@@ -165,28 +166,28 @@ describe("ContentDialogManager", () => {
 
     render(<ContentDialogRenderer />);
 
-    expect(ContentDialogManager.dialogCount).to.eq(0);
+    expect(UiFramework.content.dialogs.count).to.eq(0);
 
-    ContentDialogManager.openDialog(reactNode1, dialogId1);
-    expect(ContentDialogManager.dialogCount).to.eq(1);
-    expect(ContentDialogManager.getDialogInfo(dialogId1)).not.to.be.undefined;
+    UiFramework.content.dialogs.open(reactNode1, dialogId1);
+    expect(UiFramework.content.dialogs.count).to.eq(1);
+    expect(UiFramework.content.dialogs.getInfo(dialogId1)).not.to.be.undefined;
 
     expect(await screen.findByRole("button", {name: "MyTestButton"})).to.exist;
 
-    ContentDialogManager.openDialog(reactNode2, dialogId2);
-    expect(ContentDialogManager.dialogCount).to.eq(2);
+    UiFramework.content.dialogs.open(reactNode2, dialogId2);
+    expect(UiFramework.content.dialogs.count).to.eq(2);
     expect(screen.getByRole("button", {name: "MyTestButton"})).to.exist;
     expect(await screen.findByRole("button", {name: "MySecondTestButton"})).to.exist;
 
-    ContentDialogManager.closeDialog(dialogId1);
-    expect(ContentDialogManager.dialogCount).to.eq(1);
+    UiFramework.content.dialogs.close(dialogId1);
+    expect(UiFramework.content.dialogs.count).to.eq(1);
     await waitFor(() => {
       expect(screen.queryByRole("button", { name: "MyTestButton" })).to.be.null;
     });
     expect(screen.getByRole("button", {name: "MySecondTestButton"})).to.exist;
 
-    ContentDialogManager.closeDialog(dialogId2);
-    expect(ContentDialogManager.dialogCount).to.eq(0);
+    UiFramework.content.dialogs.close(dialogId2);
+    expect(UiFramework.content.dialogs.count).to.eq(0);
     expect(screen.queryByRole("button", {name: "MyTestButton"})).to.be.null;
     await waitFor(() => {
       expect(screen.queryByRole("button", { name: "MySecondTestButton" })).to.be.null;
@@ -212,48 +213,30 @@ describe("ContentDialogManager", () => {
 
     render(<ContentDialogRenderer />);
 
-    expect(ContentDialogManager.dialogCount).to.eq(0);
+    expect(UiFramework.content.dialogs.count).to.eq(0);
 
-    ContentDialogManager.openDialog(reactNode1, dialogId1);
+    UiFramework.content.dialogs.open(reactNode1, dialogId1);
     await waitFor(() => {
-      expect(ContentDialogManager.activeDialog).to.eq(reactNode1);
+      expect(UiFramework.content.dialogs.active).to.eq(reactNode1);
     });
 
-    ContentDialogManager.openDialog(reactNode2, dialogId2);
+    UiFramework.content.dialogs.open(reactNode2, dialogId2);
     await waitFor(() => {
-      expect(ContentDialogManager.activeDialog).to.eq(reactNode2);
+      expect(UiFramework.content.dialogs.active).to.eq(reactNode2);
     });
 
     // Click the 2nd dialog - should stay forward
     await theUserTo.click(await screen.findByRole("button", {name: "MySecondTestButton"}));
-    expect(ContentDialogManager.activeDialog).to.eq(reactNode2);
+    expect(UiFramework.content.dialogs.active).to.eq(reactNode2);
 
     // Click the 1st dialog to bring it forward
     await theUserTo.click(screen.getByRole("button", {name: "MyTestButton"}));
-    expect(ContentDialogManager.activeDialog).to.eq(reactNode1);
+    expect(UiFramework.content.dialogs.active).to.eq(reactNode1);
 
-    ContentDialogManager.closeDialog(dialogId1);
-    expect(ContentDialogManager.activeDialog).to.eq(reactNode2);
+    UiFramework.content.dialogs.close(dialogId1);
+    expect(UiFramework.content.dialogs.active).to.eq(reactNode2);
 
-    ContentDialogManager.closeDialog(dialogId2);
-  });
-
-  it("calls Internal static for everything", () => {
-    const [validateMethod, validateProp] = createStaticInternalPassthroughValidators(ContentDialogManager, InternalContentDialogManager);
-
-    validateMethod("closeAll");
-    validateMethod(["closeDialog", "close"], "id");
-    validateMethod(["getDialogInfo", "getInfo"], "id");
-    validateMethod(["getDialogZIndex", "getZIndex"], "id");
-    validateMethod("handlePointerDownEvent", {} as any, "id", sinon.spy());
-    validateMethod("initialize");
-    validateMethod(["openDialog", "open"], "", "id", document);
-    validateMethod("update");
-    validateProp(["activeDialog", "active"]);
-    validateProp(["dialogCount", "count"]);
-    validateProp("dialogManager");
-    validateProp("dialogs");
-    validateProp("onContentDialogChangedEvent");
+    UiFramework.content.dialogs.close(dialogId2);
   });
 
 });

@@ -1,6 +1,50 @@
 # Change Log - @itwin/appui-layout-react
 
-This log was last generated on Fri, 17 Mar 2023 17:52:32 GMT and should not be manually modified.
+This log was last generated on Mon, 01 May 2023 13:32:15 GMT and should not be manually modified.
+
+## 4.0.0
+Mon, 01 May 2023 13:32:15 GMT
+
+### Updates
+
+- Remove footer message components.
+- Use zustand instead of context to manage layout state.
+- Using iTwinUI-variables.
+- Update iTwinUI-react to v2.x.
+- Mark all components as @internal.
+- Remove isInFooterMode prop from some components.
+- Clean dependencies.
+- Bump minimum of core packages to 3.7.0.
+- peerDependency allow react: ^18.0.0.
+- Update typings for React18.
+- Remove UI1.0 components.
+- Added functionality to floating widget send back button to display an outline of it's home send back.
+- Update package.json dependencies and repo documentation.
+- Remove webfont icons from components.
+
+## 3.7.2
+Wed, 12 Apr 2023 13:12:42 GMT
+
+_Version update only_
+
+## 3.7.1
+Mon, 03 Apr 2023 15:15:36 GMT
+
+_Version update only_
+
+## 3.7.0
+Wed, 29 Mar 2023 15:02:27 GMT
+
+### Updates
+
+- Fix grip overlapping scrollbars
+- Allow focus on widget tabs and keyboard tab navigation
+- update @deprecated comments.
+
+## 3.6.3
+Mon, 27 Mar 2023 16:26:47 GMT
+
+_Version update only_
 
 ## 3.6.2
 Fri, 17 Mar 2023 17:52:32 GMT

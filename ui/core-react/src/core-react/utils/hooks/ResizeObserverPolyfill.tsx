@@ -8,7 +8,7 @@
 import * as ResizeObserverPolyfill from "resize-observer-polyfill";
 
 /** @internal */
-export type ResizeObserverType = typeof import("resize-observer-polyfill").default;
+export type ResizeObserverType = typeof import("resize-observer-polyfill").default; // eslint-disable-line @typescript-eslint/consistent-type-imports
 
 function getModule(mod: any) {
   /* istanbul ignore if */

@@ -6,10 +6,11 @@
  * @module Item
  */
 
-import { CommandHandler, OnItemExecutedFunc } from "@itwin/appui-abstract";
-import { Orientation, SizeProps } from "@itwin/core-react";
+import type { CommandHandler, OnItemExecutedFunc } from "@itwin/appui-abstract";
+import type { SizeProps } from "@itwin/core-react";
+import { Orientation } from "@itwin/core-react";
 import { ItemDefBase } from "./ItemDefBase";
-import { ItemProps } from "./ItemProps";
+import type { ItemProps } from "./ItemProps";
 
 /** Abstract base class that is used by classes to execute an action when pressed.
  * @public

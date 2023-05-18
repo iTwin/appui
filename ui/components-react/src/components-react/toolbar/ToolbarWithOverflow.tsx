@@ -9,11 +9,15 @@
 import "./Toolbar.scss";
 import classnames from "classnames";
 import * as React from "react";
-import {
-  ActionButton, CommonToolbarItem, ConditionalBooleanValue, ConditionalStringValue, CustomButtonDefinition,
-  GroupButton, OnItemExecutedFunc, ToolbarItemUtilities,
+import type {
+  ActionButton, CommonToolbarItem, CustomButtonDefinition,
+  GroupButton, OnItemExecutedFunc,
 } from "@itwin/appui-abstract";
-import { BadgeUtilities, CommonProps, Icon, IconHelper, NoChildrenProps, useRefs } from "@itwin/core-react";
+import {
+  ConditionalBooleanValue, ConditionalStringValue, ToolbarItemUtilities,
+} from "@itwin/appui-abstract";
+import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
+import { BadgeUtilities, Icon, IconHelper, useRefs } from "@itwin/core-react";
 import { ToolbarButtonItem } from "./Item";
 import { ToolbarItems } from "./Items";
 import { ItemWrapper, useResizeObserverSingleDimension } from "./ItemWrapper";
@@ -178,11 +182,13 @@ function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGro
   const title = ConditionalStringValue.getValue(item.label)!;
   const badge = BadgeUtilities.getComponentForBadgeType(item.badgeType);
   const panel = React.useMemo(() => <PopupItemsPanel groupItem={item} activateOnPointerUp={false} />, [item]);
+  // istanbul ignore next
+  const providerId = "providerId" in item ? item.providerId as string : undefined;
   if (useDragInteraction) {
     return <PopupItemWithDrag
       key={item.id}
       itemId={item.id}
-      providerId={item.providerId}
+      providerId={providerId}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
@@ -196,7 +202,7 @@ function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGro
   return <PopupItem
     key={item.id}
     itemId={item.id}
-    providerId={item.providerId}
+    providerId={providerId}
     itemPriority={item.itemPriority}
     groupPriority={item.groupPriority}
     icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
@@ -219,9 +225,11 @@ function ActionItem({ item, addGroupSeparator }: { item: ActionButton, addGroupS
     onItemExecuted(item);
   }, [item, onItemExecuted]);
 
+  // istanbul ignore next
+  const providerId = "providerId" in item ? item.providerId as string : undefined;
   return <ToolbarButtonItem
     itemId={item.id}
-    providerId={item.providerId}
+    providerId={providerId}
     itemPriority={item.itemPriority}
     groupPriority={item.groupPriority}
     key={item.id}

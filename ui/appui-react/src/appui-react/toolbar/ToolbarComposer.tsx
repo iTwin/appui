@@ -16,7 +16,8 @@ import { UiFramework } from "../UiFramework";
 import { ToolbarDragInteractionContext } from "./DragInteraction";
 import { useDefaultToolbarItems } from "./useDefaultToolbarItems";
 import { useUiItemsProviderToolbarItems } from "./useUiItemsProviderToolbarItems";
-import { isToolbarActionItem, isToolbarGroupItem, ToolbarActionItem, ToolbarGroupItem, ToolbarItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
+import type { ToolbarActionItem, ToolbarGroupItem, ToolbarItem} from "./ToolbarItem";
+import { isToolbarActionItem, isToolbarGroupItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
 import { ToolbarItemsManager } from "./ToolbarItemsManager";
 import { ToolbarWithOverflow } from "./ToolbarWithOverflow";
 

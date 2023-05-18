@@ -11,9 +11,9 @@ import "./IconComponent.scss";
 import * as React from "react";
 import classnames from "classnames";
 import { ConditionalStringValue, IconSpecUtilities } from "@itwin/appui-abstract";
-import { CommonProps } from "../utils/Props";
+import type { CommonProps } from "../utils/Props";
 import DOMPurify, * as DOMPurifyNS from "dompurify";
-import { ConditionalIconItem } from "./ConditionalIconItem";
+import type { ConditionalIconItem } from "./ConditionalIconItem";
 
 /** Prototype for an IconSpec which can be a string, ReactNode or ConditionalStringValue.
  * @public

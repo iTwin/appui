@@ -1,6 +1,53 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Fri, 17 Mar 2023 17:52:32 GMT and should not be manually modified.
+This log was last generated on Mon, 01 May 2023 13:32:16 GMT and should not be manually modified.
+
+## 4.0.0
+Mon, 01 May 2023 13:32:16 GMT
+
+### Updates
+
+- Added ability to disable selector in `SelectableContent`
+- VirtualizedPropertyGrid: Fixed non-primitive property expander style.
+- Fix property value overflow.
+- Using iTwinUI-variables.
+- Update iTwinUI-react to v2.x.
+- Deprecate Toolbar components.
+- Fixed `useDebouncedAsyncValue` to re-throw errors in React render loop in case provided promise is rejected. Also affects `usePropertyData` and `usePropertyGridModelSource` hooks.
+- Promote 'ControlledTree' related APIs from 'internal' to 'public'.
+- Clean dependencies.
+- Refactor to use iTwinUI instead of deprecated core-react.
+- Remove deprecated components.
+- Bump minimum of core packages to 3.7.0.
+- peerDependency allow react: ^18.0.0.
+- Update typings for React18.
+- Clean SCSS.
+- `SimplePropertyDataProvider` correctly updates when used in `VirtualizedPropertyGridWithDataProvider`
+- Support React18 in FavoritePropertiesRenderer.
+- Update package.json dependencies and repo documentation.
+- Remove webfont icons from components.
+
+## 3.7.2
+Wed, 12 Apr 2023 13:12:42 GMT
+
+_Version update only_
+
+## 3.7.1
+Mon, 03 Apr 2023 15:15:36 GMT
+
+_Version update only_
+
+## 3.7.0
+Wed, 29 Mar 2023 15:02:27 GMT
+
+### Updates
+
+- Update @deprecated comments.
+
+## 3.6.3
+Mon, 27 Mar 2023 16:26:47 GMT
+
+_Version update only_
 
 ## 3.6.2
 Fri, 17 Mar 2023 17:52:32 GMT

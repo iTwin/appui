@@ -14,9 +14,9 @@ import { assert } from "@itwin/core-bentley";
 import { NineZoneDispatchContext, useLabel } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
 import { useFloatingWidgetId } from "./FloatingWidget";
-import { WidgetState } from "../state/WidgetState";
+import type { WidgetState } from "../state/WidgetState";
 import { getWidgetPanelSectionId } from "../state/PanelState";
-import { NineZoneState } from "../state/NineZoneState";
+import type { NineZoneState } from "../state/NineZoneState";
 
 /** @internal */
 export const useActiveSendBackWidgetIdStore = create<WidgetState["id"] | undefined>(() => undefined);

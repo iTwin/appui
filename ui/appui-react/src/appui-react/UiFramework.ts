@@ -8,22 +8,27 @@
 
 // cSpell:ignore configurableui clientservices
 
-import { Store } from "redux";
-import { GuidString, Logger, ProcessDetector } from "@itwin/core-bentley";
-import { Localization, RpcActivity } from "@itwin/core-common";
-import { IModelApp, IModelConnection, SnapMode, ViewState } from "@itwin/core-frontend";
+import type { Store } from "redux";
+import type { GuidString} from "@itwin/core-bentley";
+import { Logger, ProcessDetector } from "@itwin/core-bentley";
+import type { Localization, RpcActivity } from "@itwin/core-common";
+import type { IModelConnection, ViewState } from "@itwin/core-frontend";
+import { IModelApp, SnapMode } from "@itwin/core-frontend";
 import { TelemetryEvent } from "@itwin/core-telemetry";
 import { getClassName, UiAdmin, UiError, UiEvent } from "@itwin/appui-abstract";
-import { LocalStateStorage, SettingsManager, UiStateStorage } from "@itwin/core-react";
+import type { UiStateStorage } from "@itwin/core-react";
+import { LocalStateStorage, SettingsManager } from "@itwin/core-react";
 import { UiIModelComponents } from "@itwin/imodel-components-react";
 import { BackstageManager } from "./backstage/BackstageManager";
-import { ChildWindowManager } from "./childwindow/ChildWindowManager";
+import { InternalChildWindowManager } from "./childwindow/InternalChildWindowManager";
 import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager";
 import { ConfigurableUiActionId } from "./configurableui/state";
-import { FrameworkState } from "./redux/FrameworkState";
-import { CursorMenuData, PresentationSelectionScope, SessionStateActionId } from "./redux/SessionState";
+import type { FrameworkState } from "./redux/FrameworkState";
+import type { CursorMenuData, PresentationSelectionScope} from "./redux/SessionState";
+import { SessionStateActionId } from "./redux/SessionState";
 import { StateManager } from "./redux/StateManager";
-import { HideIsolateEmphasizeActionHandler, HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager";
+import type { HideIsolateEmphasizeActionHandler} from "./selection/HideIsolateEmphasizeManager";
+import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager";
 import { SYSTEM_PREFERRED_COLOR_THEME, TOOLBAR_OPACITY_DEFAULT, WIDGET_OPACITY_DEFAULT } from "./theme/ThemeManager";
 import * as keyinPaletteTools from "./tools/KeyinPaletteTools";
 import * as openSettingTools from "./tools/OpenSettingsTool";
@@ -37,15 +42,15 @@ import { InternalModalDialogManager } from "./dialog/InternalModalDialogManager"
 import { InternalModelessDialogManager } from "./dialog/InternalModelessDialogManager";
 import { InternalKeyboardShortcutManager } from "./keyboardshortcut/InternalKeyboardShortcut";
 import { InternalToolSettingsManager } from "./toolsettings/InternalToolSettingsManager";
-import { FrameworkBackstage } from "./framework/FrameworkBackstage";
-import { FrameworkChildWindows } from "./framework/FrameworkChildWindows";
-import { FrameworkControls } from "./framework/FrameworkControls";
-import { FrameworkFrontstages } from "./framework/FrameworkFrontstages";
-import { FrameworkToolSettings } from "./framework/FrameworkToolSettings";
-import { FrameworkContent } from "./framework/FrameworkContent";
-import { FrameworkDialogs } from "./framework/FrameworkDialogs";
-import { FrameworkKeyboardShortcuts } from "./framework/FrameworkKeyboardShortcuts";
-import { FrameworkVisibility } from "./framework/FrameworkVisibility";
+import type { FrameworkBackstage } from "./framework/FrameworkBackstage";
+import type { FrameworkChildWindows } from "./framework/FrameworkChildWindows";
+import type { FrameworkControls } from "./framework/FrameworkControls";
+import type { FrameworkFrontstages } from "./framework/FrameworkFrontstages";
+import type { FrameworkToolSettings } from "./framework/FrameworkToolSettings";
+import type { FrameworkContent } from "./framework/FrameworkContent";
+import type { FrameworkDialogs } from "./framework/FrameworkDialogs";
+import type { FrameworkKeyboardShortcuts } from "./framework/FrameworkKeyboardShortcuts";
+import type { FrameworkVisibility } from "./framework/FrameworkVisibility";
 import { SyncUiEventDispatcher, SyncUiEventId } from "./syncui/SyncUiEventDispatcher";
 
 // cSpell:ignore Mobi
@@ -87,7 +92,7 @@ export interface TrackingTime {
 export class UiFramework {
   /**
    * Operation on the backstage component.
-   * @beta
+   * @public
    */
   public static get backstage(): FrameworkBackstage {
     // istanbul ignore next
@@ -98,7 +103,7 @@ export class UiFramework {
 
   /**
    * Manage access to the child windows.
-   * @beta
+   * @public
    */
   public static get childWindows(): FrameworkChildWindows {
     return this._childWindowManager;
@@ -106,7 +111,7 @@ export class UiFramework {
 
   /**
    * Manage registered controls
-   * @beta
+   * @public
    */
   public static get controls(): FrameworkControls {
     return InternalConfigurableUiManager;
@@ -114,7 +119,7 @@ export class UiFramework {
 
   /**
    * Manage access to frontstages and related helper methods.
-   * @beta
+   * @public
    */
   public static get frontstages(): FrameworkFrontstages {
     return InternalFrontstageManager;
@@ -122,7 +127,7 @@ export class UiFramework {
 
   /**
    * Manage access and behavior of the tool settings.
-   * @beta
+   * @public
    */
   public static get toolSettings(): FrameworkToolSettings {
     return InternalToolSettingsManager;
@@ -130,7 +135,7 @@ export class UiFramework {
 
   /**
    * Manage content presented by the frontstages.
-   * @beta
+   * @public
    */
   public static get content(): FrameworkContent {
     return InternalContentViewManager;
@@ -138,7 +143,7 @@ export class UiFramework {
 
   /**
    * Manage displayed dialogs.
-   * @beta
+   * @public
    */
   public static get dialogs(): FrameworkDialogs {
     return {
@@ -149,7 +154,7 @@ export class UiFramework {
 
   /**
    * Manages global keyboard shortcuts
-   * @beta
+   * @public
    */
   public static get keyboardShortcuts(): FrameworkKeyboardShortcuts {
     return InternalKeyboardShortcutManager;
@@ -157,7 +162,7 @@ export class UiFramework {
 
   /**
    * Manages UI visibility (Show/Hide)
-   * @beta
+   * @public
    */
   public static get visibility(): FrameworkVisibility {
     return InternalUiShowHideManager;
@@ -174,20 +179,13 @@ export class UiFramework {
   private static _uiStateStorage: UiStateStorage = new LocalStateStorage();
   private static _settingsManager?: SettingsManager;
   private static _uiSettingsProviderRegistry: Map<string, UserSettingsProvider> = new Map<string, UserSettingsProvider>();
-  private static _childWindowManager = new ChildWindowManager(); // eslint-disable-line deprecation/deprecation
+  private static _childWindowManager = new InternalChildWindowManager();
   public static useDefaultPopoutUrl = false;
-
-  /** @public
-   * @deprecated in 3.7. Use `childWindows` property, name realignment.
-  */
-  public static get childWindowManager(): ChildWindowManager { // eslint-disable-line deprecation/deprecation
-    return UiFramework.childWindows as ChildWindowManager; // eslint-disable-line deprecation/deprecation
-  }
 
   /** Registers class that will be informed when the UserSettingsStorage location has been set or changed. This allows
    * classes to load any previously saved settings from the new storage location. Common storage locations are the browser's
    * local storage, or the iTwin Product Settings cloud storage available via the SettingsAdmin see `IModelApp.settingsAdmin`.
-   * @beta
+   * @public
    */
   public static registerUserSettingsProvider(entry: UserSettingsProvider) {
     if (this._uiSettingsProviderRegistry.has(entry.providerId))
@@ -340,13 +338,6 @@ export class UiFramework {
   /** The internationalization service namespace. */
   public static get localizationNamespace(): string {
     return "UiFramework";
-  }
-
-  /** @public
-   * @deprecated in 3.7. Use `backstage` alternate property, name realignment.
-  */
-  public static get backstageManager(): BackstageManager {
-    return UiFramework.backstage as BackstageManager;
   }
 
   /** @public */

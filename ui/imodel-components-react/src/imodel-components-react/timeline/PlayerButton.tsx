@@ -5,7 +5,8 @@
 import "./PlayerButton.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps, Icon } from "@itwin/core-react";
+import type { CommonProps} from "@itwin/core-react";
+import { Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { SvgPause, SvgPlay } from "@itwin/itwinui-icons-react";
 

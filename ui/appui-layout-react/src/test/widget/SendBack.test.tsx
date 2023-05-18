@@ -5,7 +5,8 @@
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
-import { addFloatingWidget, addTab, createNineZoneState, NineZoneDispatch, SendBack, useActiveSendBackWidgetIdStore, WidgetIdContext } from "../../appui-layout-react";
+import type { NineZoneDispatch} from "../../appui-layout-react";
+import { addFloatingWidget, addTab, createNineZoneState, SendBack, useActiveSendBackWidgetIdStore, WidgetIdContext } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { expect } from "chai";
 

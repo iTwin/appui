@@ -6,13 +6,15 @@
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
-import { PropertyDescription, PropertyValue, PropertyValueFormat } from "@itwin/appui-abstract";
+import type { PropertyDescription, PropertyValue} from "@itwin/appui-abstract";
+import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { fireEvent } from "@testing-library/react";
+import type { PropertyFilterBuilderRuleRendererProps} from "../../components-react/filter-builder/FilterBuilderRule";
 import {
-  PropertyFilterBuilderRuleRenderer, PropertyFilterBuilderRuleRendererProps,
+  PropertyFilterBuilderRuleRenderer,
 } from "../../components-react/filter-builder/FilterBuilderRule";
-import { PropertyFilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator";
-import { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
+import type { PropertyFilterBuilderRuleOperatorProps } from "../../components-react/filter-builder/FilterBuilderRuleOperator";
+import type { PropertyFilterBuilderRuleValueProps } from "../../components-react/filter-builder/FilterBuilderRuleValue";
 import { PropertyFilterBuilderActions } from "../../components-react/filter-builder/FilterBuilderState";
 import { PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";

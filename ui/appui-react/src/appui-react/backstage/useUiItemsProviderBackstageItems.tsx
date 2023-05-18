@@ -8,9 +8,9 @@
 
 import * as React from "react";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
-import { BackstageItem } from "./BackstageItem";
+import type { BackstageItem } from "./BackstageItem";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
-import { BackstageItemsManager } from "./BackstageItemsManager";
+import type { BackstageItemsManager } from "./BackstageItemsManager";
 
 /** Hook that returns items from [[BackstageItemsManager]].
  * @public

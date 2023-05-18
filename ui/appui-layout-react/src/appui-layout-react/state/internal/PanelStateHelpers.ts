@@ -7,9 +7,9 @@
  */
 
 import produce from "immer";
-import { HorizontalPanelSide, PanelSide, VerticalPanelSide } from "../../widget-panels/Panel";
-import { NineZoneState } from "../NineZoneState";
-import { HorizontalPanelState, PanelsState, VerticalPanelState } from "../PanelState";
+import type { HorizontalPanelSide, PanelSide, VerticalPanelSide } from "../../widget-panels/Panel";
+import type { NineZoneState } from "../NineZoneState";
+import type { HorizontalPanelState, PanelsState, VerticalPanelState } from "../PanelState";
 
 function createPanelState(side: PanelSide) {
   return {

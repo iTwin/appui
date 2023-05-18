@@ -5,10 +5,10 @@
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
-import { FunctionKey, SpecialKey } from "@itwin/appui-abstract";
-import { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
-import { ItemDefBase } from "../shared/ItemDefBase";
-import { ItemProps } from "../shared/ItemProps";
+import type { FunctionKey, SpecialKey } from "@itwin/appui-abstract";
+import type { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
+import type { ItemDefBase } from "../shared/ItemDefBase";
+import type { ItemProps } from "../shared/ItemProps";
 
 /** Properties for a Keyboard Shortcut
  * @public
@@ -93,7 +93,7 @@ export interface FrameworkKeyboardShortcutContainer {
 
 /**
  * [[UiFramework.keyboardShortcuts]] interface
- * @beta
+ * @public
  */
 export interface FrameworkKeyboardShortcuts {
   /** Loads Keyboard Shortcuts into the managed list */

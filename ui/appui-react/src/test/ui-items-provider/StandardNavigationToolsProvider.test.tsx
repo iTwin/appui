@@ -5,7 +5,8 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { MockRender } from "@itwin/core-frontend";
-import { DefaultNavigationTools, StageUsage, StandardNavigationToolsProvider, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
+import type { DefaultNavigationTools} from "../../appui-react";
+import { StageUsage, StandardNavigationToolsProvider, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 const testToolsArray: DefaultNavigationTools[] = [

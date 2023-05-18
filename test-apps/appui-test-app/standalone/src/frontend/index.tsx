@@ -497,7 +497,12 @@ async function main() {
   await SampleAppIModelApp.startup(opts);
   await SampleAppIModelApp.initialize();
 
-  ReactDOM.render(<SampleAppViewer />, document.getElementById("root") as HTMLElement);
+  ReactDOM.render(
+    <React.StrictMode>
+      <SampleAppViewer />
+    </React.StrictMode>,
+    document.getElementById("root") as HTMLElement
+  );
 }
 
 // Entry point - run the main function

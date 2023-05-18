@@ -8,7 +8,7 @@
 import * as React from "react";
 import { getWidgetLocation, isFloatingWidgetLocation, isPopoutWidgetLocation } from "../state/WidgetLocation";
 import { isAllowedSideTarget } from "./useAllowedSideTarget";
-import { WidgetState } from "../state/WidgetState";
+import type { WidgetState } from "../state/WidgetState";
 import { useLayout } from "../base/LayoutStore";
 import { DraggedWidgetIdContext } from "../base/DragManager";
 

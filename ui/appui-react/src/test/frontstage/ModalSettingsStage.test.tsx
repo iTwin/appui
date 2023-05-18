@@ -6,10 +6,12 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { render, waitFor } from "@testing-library/react";
-import { FrontstageDef, ModalFrontstage, ModalFrontstageInfo, SettingsModalFrontstage } from "../../appui-react";
+import type { ModalFrontstageInfo} from "../../appui-react";
+import { FrontstageDef, ModalFrontstage, SettingsModalFrontstage } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { UiFramework } from "../../appui-react/UiFramework";
-import { SettingsManager, SettingsTabEntry, SettingsTabsProvider, useSaveBeforeActivatingNewSettingsTab, useSaveBeforeClosingSettingsContainer } from "@itwin/core-react";
+import type { SettingsManager, SettingsTabEntry, SettingsTabsProvider} from "@itwin/core-react";
+import { useSaveBeforeActivatingNewSettingsTab, useSaveBeforeClosingSettingsContainer } from "@itwin/core-react";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 

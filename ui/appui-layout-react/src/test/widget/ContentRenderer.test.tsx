@@ -7,7 +7,8 @@ import * as sinon from "sinon";
 import { BeEvent } from "@itwin/core-bentley";
 import { render } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { TabIdContext, TabState, useContainersStore, useTransientState, WidgetContentManager, WidgetContentManagerContext, WidgetContentManagerContextArgs, WidgetContentRenderer } from "../../appui-layout-react";
+import type { TabState, WidgetContentManagerContextArgs} from "../../appui-layout-react";
+import { TabIdContext, useContainersStore, useTransientState, WidgetContentManager, WidgetContentManagerContext, WidgetContentRenderer } from "../../appui-layout-react";
 
 describe("WidgetContentRenderer", () => {
   const wrapper = WidgetContentManager;

@@ -7,13 +7,16 @@
  */
 
 import * as React from "react";
-import { OnCancelFunc, OnItemExecutedFunc, RelativePosition, SpecialKey } from "@itwin/appui-abstract";
-import { DivWithOutsideClick, FocusTrap, Orientation, Point, Size, SizeProps } from "@itwin/core-react";
+import type { OnCancelFunc, OnItemExecutedFunc, RelativePosition} from "@itwin/appui-abstract";
+import { SpecialKey } from "@itwin/appui-abstract";
+import type { Orientation, SizeProps } from "@itwin/core-react";
+import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
 import { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
-import { PopupManager, PopupPropsBase } from "./PopupManager";
+import type { PopupPropsBase } from "./PopupManager";
+import { PopupManager } from "./PopupManager";
 import { PositionPopup } from "./PositionPopup";
-import { ToolbarItem } from "../toolbar/ToolbarItem";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { Toolbar } from "../toolbar/Toolbar";
 
 /** Props for a popup toolbar
