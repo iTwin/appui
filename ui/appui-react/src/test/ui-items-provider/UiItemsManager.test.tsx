@@ -243,6 +243,7 @@ describe("UiItemsManager", () => {
           },
         });
         const s2 = items[1];
+        // @ts-ignore Possibly 'any'
         assert(!!abstract.isAbstractStatusBarActionItem(s2));
         sinon.assert.match(s2, {
           id: "s2",
@@ -262,6 +263,7 @@ describe("UiItemsManager", () => {
           },
         });
         const s4 = items[3];
+        // @ts-ignore Possibly 'any'
         assert(!!abstract.isAbstractStatusBarActionItem(s4));
         sinon.assert.match(s4, {
           id: "s4",
@@ -293,7 +295,9 @@ describe("UiItemsManager", () => {
           const internalData = new Map();
           const icon = IconHelper.getIconData(<div className="b4-icon" />, internalData);
           return [
+            // @ts-ignore Possibly 'any'
             abstract.BackstageItemUtilities.createActionItem("b3", 0, 0, execute, "b3-label"),
+            // @ts-ignore Possibly 'any'
             abstract.BackstageItemUtilities.createStageLauncher("b4", 0, 0, "b4-label", undefined, undefined, {
               icon,
               internalData,
@@ -547,6 +551,7 @@ describe("UiItemsManager", () => {
     it("should provide TopMost widgets", () => {
       AbstractUiItemsManager.register({
         id: "provider1",
+        // @ts-ignore Possibly 'any'
         provideWidgets: (_stageId, _stageUsage, location) => {
           if (location === AbstractStagePanelLocation.Top) {
             return [{
