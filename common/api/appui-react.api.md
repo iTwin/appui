@@ -3701,8 +3701,17 @@ export class SelectionContextToolDefinitions {
     static get isolateSelectionToolGroup(): GroupItemDef;
 }
 
-// @public
-export const SelectionInfoField: ConnectedComponent<typeof SelectionInfoFieldComponent, Omit_3<React_2.ClassAttributes<SelectionInfoFieldComponent> & SelectionInfoFieldProps, "selectionCount">>;
+// @beta
+export function SelectionCountField(props: SelectionCountFieldProps): JSX.Element;
+
+// @beta
+export interface SelectionCountFieldProps extends CommonProps {
+    // (undocumented)
+    count: number;
+}
+
+// @public @deprecated
+export function SelectionInfoField(props: CommonProps): JSX.Element;
 
 // @public
 export enum SelectionScope {
@@ -3719,7 +3728,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "activeSelectionScope" | "availableSelectionScopes">>;
 
 // @public
 export interface SessionState {
@@ -5071,6 +5080,15 @@ export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: L
 
 // @public
 export function useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined;
+
+// @beta
+export function useSelectionSetSize(args: UseSelectionSetSizeArgs): number;
+
+// @beta
+export interface UseSelectionSetSizeArgs {
+    // (undocumented)
+    iModel: IModelConnection | undefined;
+}
 
 // @beta
 export function useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined;

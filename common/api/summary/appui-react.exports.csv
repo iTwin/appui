@@ -382,7 +382,10 @@ beta;SectionsStatusField(props: SectionsStatusFieldProps): JSX.Element
 beta;SectionsStatusFieldProps 
 beta;selectionContextStateFunc(state: Readonly
 public;SelectionContextToolDefinitions
-public;SelectionInfoField: ConnectedComponent
+beta;SelectionCountField(props: SelectionCountFieldProps): JSX.Element
+beta;SelectionCountFieldProps 
+public;SelectionInfoField(props: CommonProps): JSX.Element
+deprecated;SelectionInfoField(props: CommonProps): JSX.Element
 public;SelectionScope
 public;SelectionScopeField: ConnectedComponent
 public;SessionState
@@ -558,6 +561,8 @@ public;UserSettingsProvider
 internal;useSavedFrontstageState(frontstageDef: FrontstageDef): void
 internal;useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: LayoutStore): void
 public;useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined
+beta;useSelectionSetSize(args: UseSelectionSetSizeArgs): number
+beta;UseSelectionSetSizeArgs
 beta;useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined
 public;useSpecificWidgetDef(widgetId: string): WidgetDef | undefined
 internal;useStatusBarEntry(): DockedStatusBarEntryContextArg
