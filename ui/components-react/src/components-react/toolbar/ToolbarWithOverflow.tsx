@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type {
   ActionButton, CommonToolbarItem, CustomButtonDefinition,
-  GroupButton, OnItemExecutedFunc
+  GroupButton, OnItemExecutedFunc,
 } from "@itwin/appui-abstract";
 import {
   ConditionalBooleanValue, ConditionalStringValue, ToolbarItemUtilities,

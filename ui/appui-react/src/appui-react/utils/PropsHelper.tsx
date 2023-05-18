@@ -6,6 +6,8 @@
  * @module Utilities
  */
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
 import { Icon, IconHelper } from "@itwin/core-react";
@@ -18,8 +20,6 @@ import type {
 } from "@itwin/appui-abstract";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
-
-
 
 /** A set of helper methods for various props
  * @public

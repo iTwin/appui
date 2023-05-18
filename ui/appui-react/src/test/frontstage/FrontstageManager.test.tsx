@@ -12,9 +12,10 @@ import { Logger } from "@itwin/core-bentley";
 import { Size } from "@itwin/core-react";
 import type { IModelConnection, ScreenViewport, SpatialViewState } from "@itwin/core-frontend";
 import { IModelApp, MockRender } from "@itwin/core-frontend";
+import type { ModalFrontstageRequestedCloseEventArgs } from "../../appui-react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiContent, ContentGroup, ContentLayoutDef, CoreTools, FrontstageDef, ModalFrontstageRequestedCloseEventArgs, RestoreFrontstageLayoutTool, SettingsModalFrontstage,
-  ToolUiProvider, UiFramework, WidgetState,
+  ConfigurableCreateInfo, ConfigurableUiContent, ContentGroup, ContentLayoutDef, CoreTools, FrontstageDef, RestoreFrontstageLayoutTool,
+  SettingsModalFrontstage, ToolUiProvider, UiFramework, WidgetState,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { TestFrontstage, TestFrontstage2, TestFrontstage3 } from "./FrontstageTestUtils";
