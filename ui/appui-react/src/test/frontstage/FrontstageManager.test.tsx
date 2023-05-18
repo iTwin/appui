@@ -9,13 +9,12 @@ import * as moq from "typemoq";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
 import { Logger } from "@itwin/core-bentley";
-import { WidgetState } from "@itwin/appui-abstract";
 import { Size } from "@itwin/core-react";
 import { IModelApp, IModelConnection, MockRender, ScreenViewport, SpatialViewState } from "@itwin/core-frontend";
 import {
   ConfigurableCreateInfo, ConfigurableUiContent, ContentGroup, ContentLayoutDef, CoreTools, FrontstageDef,
   ModalFrontstageRequestedCloseEventArgs, RestoreFrontstageLayoutTool, SettingsModalFrontstage,
-  ToolUiProvider, UiFramework,
+  ToolUiProvider, UiFramework, WidgetState
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { TestFrontstage, TestFrontstage2, TestFrontstage3 } from "./FrontstageTestUtils";

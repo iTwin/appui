@@ -38,18 +38,20 @@ import { isToolbarActionItem, isToolbarGroupItem, ToolbarItem, ToolbarOrientatio
 import { BackstageItem } from "../backstage/BackstageItem";
 import { isStatusBarCustomItem, StatusBarItem } from "../statusbar/StatusBarItem";
 
+const _abstract = abstract;
+
 // @ts-ignore Removed in 4.0
-const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined = abstract.UiItemsManager;
+const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined = _abstract.UiItemsManager;
 // @ts-ignore Removed in 4.0
-const isAbstractStatusBarCustomItem = abstract.isAbstractStatusBarCustomItem;
+const isAbstractStatusBarCustomItem = _abstract.isAbstractStatusBarCustomItem;
 // @ts-ignore Removed in 4.0
-type AbstractStagePanelLocation = abstract.StagePanelLocation;
+type AbstractStagePanelLocation = _abstract.StagePanelLocation;
 // @ts-ignore Removed in 4.0
-const AbstractStagePanelLocation = abstract.StagePanelLocation; // eslint-disable-line @typescript-eslint/no-redeclare
+const AbstractStagePanelLocation = _abstract.StagePanelLocation; // eslint-disable-line @typescript-eslint/no-redeclare
 // @ts-ignore Removed in 4.0
-type AbstractStagePanelSection = abstract.StagePanelSection;
+type AbstractStagePanelSection = _abstract.StagePanelSection;
 // @ts-ignore Removed in 4.0
-const AbstractStagePanelSection = abstract.StagePanelSection; // eslint-disable-line @typescript-eslint/no-redeclare
+const AbstractStagePanelSection = _abstract.StagePanelSection; // eslint-disable-line @typescript-eslint/no-redeclare
 
 const AbstractToolbarItemUtilities = abstract.ToolbarItemUtilities;
 
@@ -109,6 +111,7 @@ class AbstractUiItemsManagerAdapter implements Target {
 
   public getBackstageItems(): readonly ProviderItem<BackstageItem>[] {
     const abstractItems = this._adaptee.getBackstageItems();
+    // @ts-ignore Possibly 'any'
     const items = abstractItems.map((abstractItem) => {
       const item = fromAbstractBackstageItem(abstractItem);
       return {
@@ -121,6 +124,7 @@ class AbstractUiItemsManagerAdapter implements Target {
 
   public getStatusBarItems(stageId: string, stageUsage: string): readonly ProviderItem<StatusBarItem>[] {
     const abstractItems = this._adaptee.getStatusBarItems(stageId, stageUsage);
+    // @ts-ignore Possibly 'any'
     const items = abstractItems.map((abstractItem) => {
       const item = fromAbstractStatusBarItem(abstractItem);
       return {
@@ -133,6 +137,7 @@ class AbstractUiItemsManagerAdapter implements Target {
 
   public getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): readonly ProviderItem<ToolbarItem>[] {
     const abstractItems = this._adaptee.getToolbarButtonItems(stageId, stageUsage, usage, orientation);
+    // @ts-ignore Possibly 'any'
     const items = abstractItems.map((abstractItem) => {
       const item = fromAbstractToolbarItem(abstractItem);
       return {
@@ -243,6 +248,7 @@ class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
       return [];
 
     const abstractItems = this._adaptee.provideBackstageItems();
+    // @ts-ignore Possibly 'any'
     const items = abstractItems.map((abstractItem) => fromAbstractBackstageItem(abstractItem));
     return items;
   }
@@ -252,6 +258,7 @@ class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
       return [];
 
     const abstractItems = this._adaptee.provideStatusBarItems(stageId, stageUsage);
+    // @ts-ignore Possibly 'any'
     const items = abstractItems.map((abstractItem) => fromAbstractStatusBarItem(abstractItem));
     return items;
   }
@@ -288,6 +295,7 @@ class AbstractToUiItemsProviderAdapter implements UiItemsProvider {
       return [];
 
     const abstractItems = this._adaptee.provideToolbarButtonItems(stageId, stageUsage, usage, orientation);
+    // @ts-ignore Possibly 'any'
     const items = abstractItems.map((abstractItem) => fromAbstractToolbarItem(abstractItem));
     return items;
   }
@@ -422,6 +430,7 @@ function fromAbstractBackstageItem(abstractItem: AbstractBackstageItem): Backsta
     badge: abstractItem.badgeType,
     icon,
   };
+  assert(!!item);
   setOriginalData(item, abstractItem);
   return item;
 }
@@ -508,6 +517,7 @@ function fromAbstractWidget(abstractWidget: AbstractWidget): Widget {
     },
     icon,
   };
+  assert(!!widget);
   setOriginalData(widget, abstractWidget);
   return widget;
 }

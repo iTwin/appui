@@ -178,11 +178,13 @@ function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGro
   const title = ConditionalStringValue.getValue(item.label)!;
   const badge = BadgeUtilities.getComponentForBadgeType(item.badgeType);
   const panel = React.useMemo(() => <PopupItemsPanel groupItem={item} activateOnPointerUp={false} />, [item]);
+  // istanbul ignore next
+  const providerId = "providerId" in item ? item.providerId as string : undefined;
   if (useDragInteraction) {
     return <PopupItemWithDrag
       key={item.id}
       itemId={item.id}
-      providerId={item.providerId}
+      providerId={providerId}
       itemPriority={item.itemPriority}
       groupPriority={item.groupPriority}
       icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
@@ -196,7 +198,7 @@ function GroupPopupItem({ item, addGroupSeparator }: { item: GroupButton, addGro
   return <PopupItem
     key={item.id}
     itemId={item.id}
-    providerId={item.providerId}
+    providerId={providerId}
     itemPriority={item.itemPriority}
     groupPriority={item.groupPriority}
     icon={IconHelper.getIconReactNode(item.icon, item.internalData)}
@@ -219,9 +221,11 @@ function ActionItem({ item, addGroupSeparator }: { item: ActionButton, addGroupS
     onItemExecuted(item);
   }, [item, onItemExecuted]);
 
+  // istanbul ignore next
+  const providerId = "providerId" in item ? item.providerId as string : undefined;
   return <ToolbarButtonItem
     itemId={item.id}
-    providerId={item.providerId}
+    providerId={providerId}
     itemPriority={item.itemPriority}
     groupPriority={item.groupPriority}
     key={item.id}
