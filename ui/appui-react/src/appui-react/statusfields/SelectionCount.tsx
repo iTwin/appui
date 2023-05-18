@@ -14,7 +14,7 @@ import { Icon } from "@itwin/core-react";
 import { FooterIndicator } from "@itwin/appui-layout-react";
 import { SvgCursor } from "@itwin/itwinui-icons-react";
 
-/** Properties for the [[SelectionCount]] component.
+/** Properties for the [[SelectionCountField]] component.
  * @beta
  */
 export interface SelectionCountFieldProps extends CommonProps {

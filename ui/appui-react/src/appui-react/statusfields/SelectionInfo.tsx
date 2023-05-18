@@ -11,7 +11,6 @@ import type { CommonProps } from "@itwin/core-react";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { SelectionCountField } from "./SelectionCount";
 import { useActiveIModelConnection } from "../hooks/useActiveIModelConnection";
-import { UiFramework } from "../UiFramework";
 
 /** Arguments for [[useSelectionSetSize]] hook.
  * @beta

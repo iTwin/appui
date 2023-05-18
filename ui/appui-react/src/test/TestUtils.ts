@@ -17,10 +17,7 @@ import { PropertyRecord, PropertyValueFormat, StandardContentLayouts, StandardTy
 import type { UiStateStorage, UiStateStorageResult } from "@itwin/core-react";
 import { UiStateStorageStatus } from "@itwin/core-react";
 
-import type {
-  ActionsUnion, DeepReadonly,
-  FrameworkState
-} from "../appui-react";
+import type { ActionsUnion, DeepReadonly, FrameworkState } from "../appui-react";
 import {
   combineReducers, ContentGroup, createAction, FrameworkReducer, SyncUiEventDispatcher, UiFramework,
 } from "../appui-react";
@@ -452,10 +449,12 @@ export function selectAllBeforeType() {
   };
 }
 
+/** @returns Blank connection used in the tests. */
 export function createBlankConnection(name = "test-blank-connection",
   location = Cartographic.fromDegrees({ longitude: -75.686694, latitude: 40.065757, height: 0 }),
   extents = new Range3d(-1000, -1000, -100, 1000, 1000, 100),
-  iTwinId = Guid.createValue()): BlankConnection {
+  iTwinId = Guid.createValue(),
+): BlankConnection {
   return BlankConnection.create({ name, location, extents, iTwinId });
 }
 

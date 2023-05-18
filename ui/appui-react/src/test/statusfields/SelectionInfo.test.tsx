@@ -6,11 +6,11 @@ import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import * as sinon from "sinon";
-import { IModelConnection, MockRender, SelectionSet, SelectionSetEventType } from "@itwin/core-frontend";
+import type { IModelConnection } from "@itwin/core-frontend";
+import { MockRender, SelectionSet, SelectionSetEventType } from "@itwin/core-frontend";
 import { render, waitFor } from "@testing-library/react";
-import { SelectionInfoField, SessionStateActionId, StatusBar, UiFramework } from "../../appui-react";
+import { SelectionInfoField, StatusBar, UiFramework } from "../../appui-react";
 import TestUtils, { createBlankConnection } from "../TestUtils";
-
 
 /* eslint-disable deprecation/deprecation */
 
