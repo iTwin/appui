@@ -14,7 +14,7 @@ import { IModelApp, IModelConnection, MockRender, ScreenViewport, SpatialViewSta
 import {
   ConfigurableCreateInfo, ConfigurableUiContent, ContentGroup, ContentLayoutDef, CoreTools, FrontstageDef,
   ModalFrontstageRequestedCloseEventArgs, RestoreFrontstageLayoutTool, SettingsModalFrontstage,
-  ToolUiProvider, UiFramework, WidgetState
+  ToolUiProvider, UiFramework, WidgetState,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { TestFrontstage, TestFrontstage2, TestFrontstage3 } from "./FrontstageTestUtils";
