@@ -15,9 +15,21 @@ import { IModelOpen } from "../imodelopen/IModelOpen";
 class IModelOpenControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
+    let envUrlPrefix: "dev" | "qa" | "" | undefined = undefined;
+    switch (process.env.IMJS_URL_PREFIX) {
+      case "qa-":
+        envUrlPrefix = "qa";
+        break;
+      case "dev-":
+        envUrlPrefix = "dev";
+        break;
+      case "":
+        envUrlPrefix = "";
+        break;
+    }
 
     if (IModelApp.authorizationClient)
-      this.reactNode = <IModelOpen onIModelSelected={this._onOpenIModel} />;
+      this.reactNode = <IModelOpen onIModelSelected={this._onOpenIModel} urlPrefix={envUrlPrefix} />;
   }
 
   // called when an imodel has been selected in IModelOpen stage

@@ -40,7 +40,7 @@ export class OpenPopoutDialogTool extends Tool {
   }
 
   public static override get flyover(): string {
-    return AppUiTestProviders.translate("tools.open-popout-dialog-tool");
+    return "open popout dialog";
   }
 
   // if supporting localized key-ins return a localized string

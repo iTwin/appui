@@ -69,6 +69,13 @@ To set the environment variables, either set them directly within the terminal y
 * IMJS_CESIUM_ION_KEY
   * If defined, the API key supplying access to Cesium ION assets.
 
+For convenience, the following variables are supported:
+
+* IMJS_ITWIN_ID
+  * Set the iTwin Id to open when the app starts. The iTwin Name variable should not be set if this Id is specified.
+* IMJS_IMODEL_ID
+  * Set the iModel Id to open when the app starts. The iModel Name variable should not be set if this Id is specified.
+
 ### Electron-only
 
 * IMJS_NO_DEV_TOOLS

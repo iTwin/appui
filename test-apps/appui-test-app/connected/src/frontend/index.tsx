@@ -483,7 +483,12 @@ export class SampleAppIModelApp {
       return { iTwinId, iModelId, viewIds, stageId };
     }
 
-    if (process.env.IMJS_UITESTAPP_IMODEL_ID && process.env.IMJS_UITESTAPP_ITWIN_ID) {
+    if (process.env.IMJS_IMODEL_ID && process.env.IMJS_ITWIN_ID) {
+      const envITwinId = process.env.IMJS_ITWIN_ID;
+      const envIModelId = process.env.IMJS_IMODEL_ID;
+      const viewIds = process.env.IMJS_UITESTAPP_IMODEL_VIEWID ? [process.env.IMJS_UITESTAPP_IMODEL_VIEWID] : undefined;
+      return { iTwinId: envITwinId, iModelId: envIModelId, viewIds };
+    } else if (process.env.IMJS_UITESTAPP_IMODEL_ID && process.env.IMJS_UITESTAPP_ITWIN_ID) {
       const envITwinId = process.env.IMJS_UITESTAPP_ITWIN_ID;
       const envIModelId = process.env.IMJS_UITESTAPP_IMODEL_ID;
       const viewIds = process.env.IMJS_UITESTAPP_IMODEL_VIEWID ? [process.env.IMJS_UITESTAPP_IMODEL_VIEWID] : undefined;
