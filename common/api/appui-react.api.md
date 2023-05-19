@@ -3710,7 +3710,7 @@ export interface SelectionCountFieldProps extends CommonProps {
     count: number;
 }
 
-// @public @deprecated
+// @public
 export function SelectionInfoField(props: CommonProps): JSX.Element;
 
 // @public
@@ -3728,7 +3728,7 @@ export enum SelectionScope {
 }
 
 // @public
-export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "activeSelectionScope" | "availableSelectionScopes">>;
+export const SelectionScopeField: ConnectedComponent<typeof SelectionScopeFieldComponent, Omit_3<SelectionScopeFieldProps, "availableSelectionScopes" | "activeSelectionScope">>;
 
 // @public
 export interface SessionState {

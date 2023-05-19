@@ -8,10 +8,6 @@ import type * as sinon from "sinon";
 import { fireEvent, prettyDOM } from "@testing-library/react";
 import { expect } from "chai";
 
-import { Guid } from "@itwin/core-bentley";
-import { Range3d } from "@itwin/core-geometry";
-import { Cartographic } from "@itwin/core-common";
-import { BlankConnection } from "@itwin/core-frontend";
 import type { ContentLayoutProps, PrimitiveValue, PropertyDescription, PropertyEditorInfo } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat, StandardContentLayouts, StandardTypeNames } from "@itwin/appui-abstract";
 import type { UiStateStorage, UiStateStorageResult } from "@itwin/core-react";
@@ -447,15 +443,6 @@ export function selectAllBeforeType() {
     initialSelectionStart: 0,
     initialSelectionEnd: Infinity,
   };
-}
-
-/** @returns Blank connection used in the tests. */
-export function createBlankConnection(name = "test-blank-connection",
-  location = Cartographic.fromDegrees({ longitude: -75.686694, latitude: 40.065757, height: 0 }),
-  extents = new Range3d(-1000, -1000, -100, 1000, 1000, 100),
-  iTwinId = Guid.createValue(),
-): BlankConnection {
-  return BlankConnection.create({ name, location, extents, iTwinId });
 }
 
 export default TestUtils;   // eslint-disable-line: no-default-export

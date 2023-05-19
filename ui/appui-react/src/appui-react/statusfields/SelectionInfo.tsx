@@ -8,50 +8,26 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import type { IModelConnection } from "@itwin/core-frontend";
 import { SelectionCountField } from "./SelectionCount";
-import { useActiveIModelConnection } from "../hooks/useActiveIModelConnection";
-
-/** Arguments for [[useSelectionSetSize]] hook.
- * @beta
- */
-export interface UseSelectionSetSizeArgs {
-  iModel: IModelConnection | undefined;
-}
-
-/** React hook that returns element count of a selection set.
- * @beta
- */
-export function useSelectionSetSize(args: UseSelectionSetSizeArgs): number {
-  const [size, setSize] = React.useState(0);
-  const { iModel } = args;
-  React.useEffect(() => {
-    if (!iModel) {
-      setSize(0);
-      return;
-    }
-    setSize(iModel.selectionSet.size);
-  }, [iModel]);
-  React.useEffect(() => {
-    if (!iModel)
-      return;
-    return iModel.selectionSet.onChanged.addListener((ev) => {
-      setSize(ev.set.size);
-    });
-  }, [iModel]);
-  return size;
-}
+import { useSelector } from "react-redux";
+import { UiFramework } from "../UiFramework";
+import type { FrameworkState } from "../redux/FrameworkState";
 
 /**
  * SelectionInfo Status Field React component. This component is designed to be specified in a status bar definition.
- * It is used to display the number of selected items based on the Presentation Rules Selection Manager.
+ * It is used to display the number of items in a selection set.
  * This React component is Redux connected.
+ * @note Use [[SelectionCountField]] to display custom selection count.
  * @public
- * @deprecated in 4.0. Use [[SelectionCountField]] with [[useSelectionSetSize]] instead.
  */
 export function SelectionInfoField(props: CommonProps) {
-  const iModel = useActiveIModelConnection();
-  const count = useSelectionSetSize({ iModel });
+  const count = useSelector((state: any) => {
+    const frameworkState: FrameworkState | undefined = state[UiFramework.frameworkStateKey];
+    if (!frameworkState)
+      return 0;
+
+    return frameworkState.sessionState.numItemsSelected;
+  });
   return (
     <SelectionCountField
       className={props.className}

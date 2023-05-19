@@ -385,7 +385,6 @@ public;SelectionContextToolDefinitions
 beta;SelectionCountField(props: SelectionCountFieldProps): JSX.Element
 beta;SelectionCountFieldProps 
 public;SelectionInfoField(props: CommonProps): JSX.Element
-deprecated;SelectionInfoField(props: CommonProps): JSX.Element
 public;SelectionScope
 public;SelectionScopeField: ConnectedComponent
 public;SessionState
