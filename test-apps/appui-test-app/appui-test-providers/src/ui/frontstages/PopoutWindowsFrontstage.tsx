@@ -49,7 +49,7 @@ export class PopoutWindowsFrontstageGroupProvider extends ContentGroupProvider {
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
+  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> {
     const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, UiFramework.getIModelConnection());
     if (savedViewLayoutProps) {
       const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;

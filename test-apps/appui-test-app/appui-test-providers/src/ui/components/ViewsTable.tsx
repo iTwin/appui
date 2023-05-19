@@ -29,7 +29,7 @@ export function ViewsTable() {
 
   const viewData = React.useMemo(() => {
     return iModelViews.map((spec) => (
-      ( {id: spec.id!, class: spec.class, label: spec.label} ) // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
+      ( {id: spec.id, class: spec.class, label: spec.label} )
     ));
   }, [iModelViews]);
 

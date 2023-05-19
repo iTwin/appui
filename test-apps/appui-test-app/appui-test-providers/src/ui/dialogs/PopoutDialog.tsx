@@ -8,10 +8,6 @@ import * as React from "react";
 import { ViewsTable } from "../components/ViewsTable";
 import "./PopoutDialog.scss";
 
-export interface PopoutDialogProps {
-  dialogId: string;
-}
-
 export function PopoutDialog() {
   return (
     <div className="test-popout-dialog"> <ViewsTable /> </div>

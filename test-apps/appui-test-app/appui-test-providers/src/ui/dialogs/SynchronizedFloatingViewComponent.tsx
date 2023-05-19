@@ -145,7 +145,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
 
   if (initialViewState) {
     return (
-      <div className="test-popup-test-view" ref={divRef}>
+      <div className="test-syncrhonized-test-view" ref={divRef}>
         <div id="floatingviewportcontainerdiv">
           {initialViewState &&
             <FloatingViewportContent contentId={contentId} initialViewState={initialViewState} />}
