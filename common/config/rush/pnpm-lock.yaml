@@ -40,7 +40,6 @@ importers:
       eslint: ^7.11.0
       react: ^17.0.0
       react-dom: ^17.0.0
-      react-table: ^7.7.0
       rimraf: ^3.0.2
       typescript: ^5.0.2
     dependencies:
@@ -64,7 +63,6 @@ importers:
       classnames: 2.3.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-table: 7.8.0_react@17.0.2
     devDependencies:
       '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
