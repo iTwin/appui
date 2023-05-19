@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Minor change to make sure styling is consistent in pop-out windows.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
