@@ -5,7 +5,6 @@
 import * as React from "react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import { ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
-import { AppUiTestProviders } from "../AppUiTestProviders";
 import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { PopoutDialog } from "../ui/dialogs/PopoutDialog";

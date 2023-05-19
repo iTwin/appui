@@ -79,7 +79,7 @@ export function IModelOpen(props: IModelOpenProps) {
           <div className="idp-scrolling-content">
             {currentITwin && <IModelGrid accessToken={accessToken} projectId={currentITwin.id} onThumbnailClick={onImodelSelect}
               apiOverrides={{ serverEnvironmentPrefix: serverPrefix  }} />}
-              </div>
+          </div>
         </div>
       </div>
     </>
