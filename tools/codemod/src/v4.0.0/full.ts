@@ -52,6 +52,10 @@ function renameValue(from: string, to: string): Plugin {
           node.value = to;
         if (node.value === `#{${from}}`)
           node.value = to;
+        if (node.value === `#{${from}`)
+          node.value = `#{${to}`;
+        if (node.value === `${from}}`)
+          node.value = `${to}}`;
       });
       decl.value = parsed.toString();
     }

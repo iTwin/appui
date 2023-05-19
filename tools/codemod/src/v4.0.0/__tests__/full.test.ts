@@ -19,6 +19,12 @@ describe("full", () => {
     );
 
     defineInlineCssTest(
+      `.btn { transition-duration: calc(2s - #{$uicore-speed-slow + $uicore-speed-fast}); }`,
+      `.btn { transition-duration: calc(2s - #{var(--iui-duration-3) + var(--iui-duration-1)}); }`,
+      "should replace variables inside interpolation"
+    );
+
+    defineInlineCssTest(
       `.btn { @include uicore-font-family; }`,
       `.btn { font-family: var(--iui-font-sans); }`,
       "should replace mixin"
