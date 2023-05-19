@@ -3701,8 +3701,17 @@ export class SelectionContextToolDefinitions {
     static get isolateSelectionToolGroup(): GroupItemDef;
 }
 
+// @beta
+export function SelectionCountField(props: SelectionCountFieldProps): JSX.Element;
+
+// @beta
+export interface SelectionCountFieldProps extends CommonProps {
+    // (undocumented)
+    count: number;
+}
+
 // @public
-export const SelectionInfoField: ConnectedComponent<typeof SelectionInfoFieldComponent, Omit_3<React_2.ClassAttributes<SelectionInfoFieldComponent> & SelectionInfoFieldProps, "selectionCount">>;
+export function SelectionInfoField(props: CommonProps): JSX.Element;
 
 // @public
 export enum SelectionScope {
@@ -5071,6 +5080,15 @@ export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: L
 
 // @public
 export function useScheduleAnimationDataProvider(viewport: ScreenViewport | undefined): ScheduleAnimationTimelineDataProvider | undefined;
+
+// @beta
+export function useSelectionSetSize(args: UseSelectionSetSizeArgs): number;
+
+// @beta
+export interface UseSelectionSetSizeArgs {
+    // (undocumented)
+    iModel: IModelConnection | undefined;
+}
 
 // @beta
 export function useSolarDataProvider(viewport: ScreenViewport | undefined): SolarDataProvider | undefined;
