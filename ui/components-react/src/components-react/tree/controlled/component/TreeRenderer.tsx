@@ -210,18 +210,6 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
     variableSizeListRef.current.scrollToItem(index);
   }, [nodeHighlightingProps]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const innerElementType = React.useCallback(
-    // eslint-disable-next-line react/display-name
-    React.forwardRef((props: ListChildComponentProps, innerRef: React.Ref<HTMLDivElement>) => (
-      <div
-        ref={innerRef}
-        {...props}
-      />
-    )),
-    [],
-  );
-
   const handleKeyDown = React.useCallback((e: React.KeyboardEvent) => {
     props.treeActions.onTreeKeyDown(e);
   }, [props.treeActions]);
@@ -251,7 +239,6 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
           estimatedItemSize={25}
           overscanCount={10}
           itemKey={itemKey}
-          innerElementType={innerElementType}
           onItemsRendered={handleRenderedItemsChange}
         >
           {Node}

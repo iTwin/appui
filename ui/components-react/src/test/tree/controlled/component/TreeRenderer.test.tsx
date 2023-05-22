@@ -10,7 +10,7 @@ import sinon from "sinon";
 import * as moq from "typemoq";
 import type { PrimitiveValue} from "@itwin/appui-abstract";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { act, fireEvent, render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import type { TreeNodeRendererProps } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer";
 import type { TreeRendererProps } from "../../../../components-react/tree/controlled/component/TreeRenderer";
 import { TreeRenderer } from "../../../../components-react/tree/controlled/component/TreeRenderer";
