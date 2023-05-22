@@ -109,9 +109,6 @@ interface TreeRendererContext {
   /** Callback used detect when label is rendered. It is used by TreeRenderer for scrolling to active match. */
   onLabelRendered?: (node: TreeModelNode) => void;
 
-  /** A callback that node calls after rendering to report its width */
-  onNodeWidthMeasured?: (width: number) => void;
-
   /** Callback used when an editor closes */
   onNodeEditorClosed?: () => void;
 }
@@ -179,10 +176,6 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
     visibleNodes: props.visibleNodes,
     onLabelRendered,
     highlightingEngine,
-    onNodeWidthMeasured: (width: number) => {
-      if (width > minContainerWidth.current)
-        minContainerWidth.current = width;
-    },
     onNodeEditorClosed: () => {
       setFocusToSelected(coreTreeRef);
       props.onNodeEditorClosed && props.onNodeEditorClosed();
@@ -294,7 +287,6 @@ const Node = React.memo<React.FC<ListChildComponentProps>>( // eslint-disable-li
       nodeLoader,
       onLabelRendered,
       highlightingEngine,
-      onNodeWidthMeasured,
       onNodeEditorClosed,
     } = useTreeRendererContext(Node);
     const node = visibleNodes.getAtIndex(index)!;
@@ -303,13 +295,6 @@ const Node = React.memo<React.FC<ListChildComponentProps>>( // eslint-disable-li
 
     // Mark selected node's wrapper to make detecting consecutively selected nodes with css selectors possible
     const className = classnames("node-wrapper", { "is-selected": isTreeModelNode(node) && node.isSelected });
-
-    const ref = React.useRef<HTMLDivElement>(null);
-    React.useEffect(() => {
-      // istanbul ignore else
-      if (onNodeWidthMeasured && ref.current)
-        onNodeWidthMeasured(ref.current.offsetWidth);
-    }, [onNodeWidthMeasured]);
 
     const isEditing = React.useRef(false);
     React.useEffect(() => {
@@ -327,7 +312,7 @@ const Node = React.memo<React.FC<ListChildComponentProps>>( // eslint-disable-li
     }, [node, onNodeEditorClosed]);
 
     return (
-      <div className={className} style={style} ref={ref}>
+      <div className={className} style={style}>
         {React.useMemo(() => {
           if (isTreeModelNode(node)) {
             const nodeHighlightProps = highlightingEngine ? highlightingEngine.createRenderProps(node) : undefined;

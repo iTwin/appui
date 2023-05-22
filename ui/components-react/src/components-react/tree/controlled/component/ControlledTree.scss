@@ -26,11 +26,11 @@
 
   /**
    * Workaround for horizontal scroll issue.
-   * based on https://github.com/bvaughn/react-virtualized/issues/1248
+   * based on https://github.com/bvaughn/react-window/issues/681
    */
   .ReactVirtualized__Grid,
   .ReactWindow__VariableSizeList {
-    overflow: auto !important;
+    overflow: scroll !important;
     background-color: inherit;
 
     @include uicore-scrollbar;
