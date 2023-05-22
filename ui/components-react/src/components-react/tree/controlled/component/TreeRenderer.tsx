@@ -162,7 +162,6 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
   }
 
   const coreTreeRef = React.useRef<CoreTree>(null);
-  const minContainerWidth = React.useRef<number>(0);
   const onLabelRendered = useScrollToActiveMatch(coreTreeRef, props.nodeHighlightingProps);
   const highlightingEngine = React.useMemo(
     () => props.nodeHighlightingProps && new HighlightingEngine(props.nodeHighlightingProps),
@@ -181,12 +180,6 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
       props.onNodeEditorClosed && props.onNodeEditorClosed();
     },
   }), [props, onLabelRendered, highlightingEngine]);
-
-  const prevTreeWidth = React.useRef<number>(0);
-  if (props.width !== prevTreeWidth.current) {
-    minContainerWidth.current = 0;
-    prevTreeWidth.current = props.width;
-  }
 
   const itemKey = React.useCallback(
     (index: number) => getNodeKey(props.visibleNodes.getAtIndex(index)!),
@@ -220,11 +213,10 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const innerElementType = React.useCallback(
     // eslint-disable-next-line react/display-name
-    React.forwardRef(({ style, ...rest }: ListChildComponentProps, innerRef: React.Ref<HTMLDivElement>) => (
+    React.forwardRef((props: ListChildComponentProps, innerRef: React.Ref<HTMLDivElement>) => (
       <div
         ref={innerRef}
-        style={{ ...style, minWidth: minContainerWidth.current }}
-        {...rest}
+        {...props}
       />
     )),
     [],

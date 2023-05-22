@@ -293,26 +293,6 @@ describe("TreeRenderer", () => {
     expect(spy).to.be.called;
   });
 
-  it("resizes scrollable content width to be as wide as the widest node after scrolling", () => {
-    const node1 = createRandomMutableTreeModelNode();
-    const node2 = createRandomMutableTreeModelNode();
-    visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 2);
-    visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node1);
-    visibleNodesMock.setup((x) => x.getAtIndex(1)).returns(() => node2);
-    visibleNodesMock.setup((x) => x.getIndexOfNode(node2.id)).returns(() => 1);
-
-    sinon.stub(HTMLElement.prototype, "offsetWidth").get(() => 123);
-
-    const ref = React.createRef<TreeRenderer>();
-    const { container } = render(<TreeRenderer ref={ref} {...defaultProps} height={50} />);
-
-    const innerContainerInitial = container.querySelector<HTMLDivElement>(".ReactWindow__VariableSizeList > div")!;
-    expect(innerContainerInitial.style.minWidth).to.be.equal("0");
-
-    act(() => ref.current!.scrollToNode(node2.id));
-    expect(innerContainerInitial.style.minWidth).to.be.equal("123px");
-  });
-
   describe("scrollToNode", () => {
     let scrollToItemFake: sinon.SinonSpy;
 
