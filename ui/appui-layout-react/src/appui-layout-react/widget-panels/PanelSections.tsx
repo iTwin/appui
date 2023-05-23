@@ -6,7 +6,6 @@
  * @module WidgetPanels
  */
 
-import "./Panel.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
