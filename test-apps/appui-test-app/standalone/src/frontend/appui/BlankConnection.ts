@@ -31,7 +31,7 @@ export async function openBlankConnection() {
 function createBlankConnection() {
   return BlankConnection.create({
     name: "Exton PA",
-    location: Cartographic.fromDegrees({longitude: -75.686694, latitude: 40.065757, height: 0}),
+    location: Cartographic.fromDegrees({ longitude: -75.686694, latitude: 40.065757, height: 0 }),
     extents: new Range3d(-1000, -1000, -100, 1000, 1000, 100),
   });
 }
@@ -48,7 +48,7 @@ async function createBlankViewState(iModel: IModelConnection) {
 
   viewState.displayStyle.backgroundColor = ColorDef.white;
   const flags = viewState.viewFlags.copy({
-    grid: false,
+    grid: true,
     renderMode: RenderMode.SmoothShade,
     backgroundMap: false,
   });
