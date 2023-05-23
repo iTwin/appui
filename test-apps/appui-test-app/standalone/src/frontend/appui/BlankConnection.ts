@@ -28,7 +28,7 @@ export async function openBlankConnection() {
   await SampleAppIModelApp.setViewIdAndOpenMainStage(connection, [viewState.id]);
 }
 
-function createBlankConnection() {
+export function createBlankConnection() {
   return BlankConnection.create({
     name: "Exton PA",
     location: Cartographic.fromDegrees({ longitude: -75.686694, latitude: 40.065757, height: 0 }),
@@ -36,7 +36,7 @@ function createBlankConnection() {
   });
 }
 
-async function createBlankViewState(iModel: IModelConnection) {
+export function createBlankViewState(iModel: IModelConnection) {
   const ext = iModel.projectExtents;
   const viewState = SpatialViewState.createBlank(
     iModel,

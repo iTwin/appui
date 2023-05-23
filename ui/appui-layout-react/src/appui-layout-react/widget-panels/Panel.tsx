@@ -10,7 +10,7 @@ import "./Panel.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import type { RectangleProps} from "@itwin/core-react";
+import type { CommonProps, RectangleProps } from "@itwin/core-react";
 import { useRefs } from "@itwin/core-react";
 import { DraggedPanelSideContext } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
@@ -144,7 +144,7 @@ export function WidgetPanelProvider({ side }: WidgetPanelProviderProps) {
 }
 
 /** @internal */
-export function WidgetPanel() {
+export function WidgetPanel(props: CommonProps) {
   const side = React.useContext(PanelSideContext);
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   assert(!!side);
@@ -170,11 +170,13 @@ export function WidgetPanel() {
     if (isHorizontal)
       return {
         height: `${size}px`,
+        ...props.style,
       };
     return {
       width: `${size}px`,
+      ...props.style,
     };
-  }, [size, isHorizontal]);
+  }, [size, isHorizontal, props.style]);
   const contentStyle = React.useMemo(() => {
     if (contentSize === undefined)
       return undefined;
@@ -220,6 +222,7 @@ export function WidgetPanel() {
     spanTop && "nz-span-top",
     spanBottom && "nz-span-bottom",
     transition && `nz-${transition}`,
+    props.className,
   );
 
   const singleSection = panel.widgets.length === 1;

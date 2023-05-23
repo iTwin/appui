@@ -1,0 +1,48 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
+*--------------------------------------------------------------------------------------------*/
+.page {
+  display: grid;
+  height: 100%;
+  grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+  grid-template-rows: minmax(0, auto) 1fr minmax(0, auto);
+}
+
+.tools {
+  padding: 15px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.content {
+  min-width: 150px;
+  min-height: 150px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+
+.sidePanel {
+  position: relative;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+
+.panel {
+  height: 100%;
+
+  // TODO: fix in Panels.scss
+  :global(.nz-widgetPanels-vertical) {
+    display: flex;
+
+    &:not(:first-child) {
+      flex: 1;
+    }
+  }
+}

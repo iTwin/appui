@@ -41,6 +41,8 @@ import {
 } from "@itwin/appui-test-providers";
 import { useHandleURLParams } from "./UrlParams";
 import { addExampleFrontstagesToBackstage, registerExampleFrontstages } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { CustomLayout } from "./appui/CustomLayout";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -403,7 +405,7 @@ const SampleAppViewer = () => {
   useHandleURLParams();
 
   return (
-    <Provider store={SampleAppIModelApp.store} >
+    <Provider store={SampleAppIModelApp.store}>
       <ThemeManager>
         <SafeAreaContext.Provider value={SafeAreaInsets.All}>
           <AppDragInteraction>
@@ -412,12 +414,14 @@ const SampleAppViewer = () => {
                 <AppViewerContent />
               </ApplicationLayoutProvider>
             </UiStateStorageHandler>
-          </AppDragInteraction >
-        </SafeAreaContext.Provider >
-      </ThemeManager >
-    </Provider >
+          </AppDragInteraction>
+        </SafeAreaContext.Provider>
+      </ThemeManager>
+    </Provider>
   );
 };
+
+
 
 function AppViewerContent() {
   const applicationLayout = React.useContext(ApplicationLayoutContext);
@@ -441,6 +445,21 @@ function AppViewerContent() {
 window.addEventListener("beforeunload", async () => { // eslint-disable-line @typescript-eslint/no-misused-promises
   await SampleAppIModelApp.closeCurrentIModel();
 });
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <SampleAppViewer />,
+  },
+  {
+    path: "/layout",
+    element: <CustomLayout />,
+  },
+]);
+
+export function Router() {
+  return <RouterProvider router={router} />;
+}
 
 // main entry point.
 async function main() {
@@ -498,7 +517,7 @@ async function main() {
 
   ReactDOM.render(
     <React.StrictMode>
-      <SampleAppViewer />
+      <Router />
     </React.StrictMode>,
     document.getElementById("root") as HTMLElement
   );
