@@ -13,7 +13,7 @@ import { NineZoneDispatchContext } from "../base/NineZone";
 import { PanelWidget } from "../widget/PanelWidget";
 import { isHorizontalPanelState } from "../state/PanelState";
 import { useLayout } from "../base/LayoutStore";
-import { PanelSideContext, isHorizontalPanelSide } from "./Panel";
+import { isHorizontalPanelSide, PanelSideContext } from "./Panel";
 
 // istanbul ignore next
 function PanelSplitter() {
