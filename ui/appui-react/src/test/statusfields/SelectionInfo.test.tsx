@@ -9,12 +9,14 @@ import { render, waitFor } from "@testing-library/react";
 import { SelectionInfoField, SessionStateActionId, StatusBar, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
-describe(`SelectionInfoField`, () => {
-  before(async () => {
+/* eslint-disable deprecation/deprecation */
+
+describe("SelectionInfoField", () => {
+  beforeEach(async () => {
     await TestUtils.initializeUiFramework();
   });
 
-  after(() => {
+  afterEach(async () => {
     TestUtils.terminateUiFramework();
   });
 
