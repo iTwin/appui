@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Mon, 01 May 2023 13:32:16 GMT and should not be manually modified.
+This log was last generated on Fri, 19 May 2023 12:24:30 GMT and should not be manually modified.
+
+## 4.0.1
+Fri, 19 May 2023 12:24:30 GMT
+
+### Updates
+
+- ToolAssistanceField: Display as class if image is not svg (IE: webfont class image)
 
 ## 4.0.0
 Mon, 01 May 2023 13:32:16 GMT
