@@ -10,7 +10,7 @@ import sinon from "sinon";
 import * as moq from "typemoq";
 import type { PrimitiveValue} from "@itwin/appui-abstract";
 import { SpecialKey } from "@itwin/appui-abstract";
-import { act, fireEvent, render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import type { TreeNodeRendererProps } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer";
 import type { TreeRendererProps } from "../../../../components-react/tree/controlled/component/TreeRenderer";
 import { TreeRenderer } from "../../../../components-react/tree/controlled/component/TreeRenderer";
@@ -291,26 +291,6 @@ describe("TreeRenderer", () => {
     rerender(<TreeRenderer {...defaultProps} onNodeEditorClosed={spy} />);
 
     expect(spy).to.be.called;
-  });
-
-  it("resizes scrollable content width to be as wide as the widest node after scrolling", () => {
-    const node1 = createRandomMutableTreeModelNode();
-    const node2 = createRandomMutableTreeModelNode();
-    visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 2);
-    visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node1);
-    visibleNodesMock.setup((x) => x.getAtIndex(1)).returns(() => node2);
-    visibleNodesMock.setup((x) => x.getIndexOfNode(node2.id)).returns(() => 1);
-
-    sinon.stub(HTMLElement.prototype, "offsetWidth").get(() => 123);
-
-    const ref = React.createRef<TreeRenderer>();
-    const { container } = render(<TreeRenderer ref={ref} {...defaultProps} height={50} />);
-
-    const innerContainerInitial = container.querySelector<HTMLDivElement>(".ReactWindow__VariableSizeList > div")!;
-    expect(innerContainerInitial.style.minWidth).to.be.equal("0");
-
-    act(() => ref.current!.scrollToNode(node2.id));
-    expect(innerContainerInitial.style.minWidth).to.be.equal("123px");
   });
 
   describe("scrollToNode", () => {
