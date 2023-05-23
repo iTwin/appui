@@ -17,7 +17,7 @@ import { TileLoadingIndicator } from "../statusfields/tileloading/TileLoadingInd
 import { SelectionScopeField } from "../statusfields/SelectionScope";
 import { StatusBarSeparator } from "../statusbar/Separator";
 import type { UiItemsProvider } from "./UiItemsProvider";
-import type { StatusBarItem} from "../statusbar/StatusBarItem";
+import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import { StatusBarSection } from "../statusbar/StatusBarItem";
 
 /**
@@ -77,7 +77,7 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
     }
 
     if (!this._defaultItems || this._defaultItems.selectionInfo) {
-      statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.SelectionInfo", StatusBarSection.Right, 30, <SelectionInfoField />));
+      statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.SelectionInfo", StatusBarSection.Right, 30, <SelectionInfoField />)); // eslint-disable-line deprecation/deprecation
     }
 
     return statusBarItems;

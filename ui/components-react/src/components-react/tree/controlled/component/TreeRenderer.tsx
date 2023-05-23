@@ -109,9 +109,6 @@ interface TreeRendererContext {
   /** Callback used detect when label is rendered. It is used by TreeRenderer for scrolling to active match. */
   onLabelRendered?: (node: TreeModelNode) => void;
 
-  /** A callback that node calls after rendering to report its width */
-  onNodeWidthMeasured?: (width: number) => void;
-
   /** Callback used when an editor closes */
   onNodeEditorClosed?: () => void;
 }
@@ -165,7 +162,6 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
   }
 
   const coreTreeRef = React.useRef<CoreTree>(null);
-  const minContainerWidth = React.useRef<number>(0);
   const onLabelRendered = useScrollToActiveMatch(coreTreeRef, props.nodeHighlightingProps);
   const highlightingEngine = React.useMemo(
     () => props.nodeHighlightingProps && new HighlightingEngine(props.nodeHighlightingProps),
@@ -179,21 +175,11 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
     visibleNodes: props.visibleNodes,
     onLabelRendered,
     highlightingEngine,
-    onNodeWidthMeasured: (width: number) => {
-      if (width > minContainerWidth.current)
-        minContainerWidth.current = width;
-    },
     onNodeEditorClosed: () => {
       setFocusToSelected(coreTreeRef);
       props.onNodeEditorClosed && props.onNodeEditorClosed();
     },
   }), [props, onLabelRendered, highlightingEngine]);
-
-  const prevTreeWidth = React.useRef<number>(0);
-  if (props.width !== prevTreeWidth.current) {
-    minContainerWidth.current = 0;
-    prevTreeWidth.current = props.width;
-  }
 
   const itemKey = React.useCallback(
     (index: number) => getNodeKey(props.visibleNodes.getAtIndex(index)!),
@@ -224,19 +210,6 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
     variableSizeListRef.current.scrollToItem(index);
   }, [nodeHighlightingProps]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const innerElementType = React.useCallback(
-    // eslint-disable-next-line react/display-name
-    React.forwardRef(({ style, ...rest }: ListChildComponentProps, innerRef: React.Ref<HTMLDivElement>) => (
-      <div
-        ref={innerRef}
-        style={{ ...style, minWidth: minContainerWidth.current }}
-        {...rest}
-      />
-    )),
-    [],
-  );
-
   const handleKeyDown = React.useCallback((e: React.KeyboardEvent) => {
     props.treeActions.onTreeKeyDown(e);
   }, [props.treeActions]);
@@ -266,7 +239,6 @@ const TreeRendererInner = React.forwardRef<TreeRendererAttributes, TreeRendererP
           estimatedItemSize={25}
           overscanCount={10}
           itemKey={itemKey}
-          innerElementType={innerElementType}
           onItemsRendered={handleRenderedItemsChange}
         >
           {Node}
@@ -294,7 +266,6 @@ const Node = React.memo<React.FC<ListChildComponentProps>>( // eslint-disable-li
       nodeLoader,
       onLabelRendered,
       highlightingEngine,
-      onNodeWidthMeasured,
       onNodeEditorClosed,
     } = useTreeRendererContext(Node);
     const node = visibleNodes.getAtIndex(index)!;
@@ -303,13 +274,6 @@ const Node = React.memo<React.FC<ListChildComponentProps>>( // eslint-disable-li
 
     // Mark selected node's wrapper to make detecting consecutively selected nodes with css selectors possible
     const className = classnames("node-wrapper", { "is-selected": isTreeModelNode(node) && node.isSelected });
-
-    const ref = React.useRef<HTMLDivElement>(null);
-    React.useEffect(() => {
-      // istanbul ignore else
-      if (onNodeWidthMeasured && ref.current)
-        onNodeWidthMeasured(ref.current.offsetWidth);
-    }, [onNodeWidthMeasured]);
 
     const isEditing = React.useRef(false);
     React.useEffect(() => {
@@ -327,7 +291,7 @@ const Node = React.memo<React.FC<ListChildComponentProps>>( // eslint-disable-li
     }, [node, onNodeEditorClosed]);
 
     return (
-      <div className={className} style={style} ref={ref}>
+      <div className={className} style={style}>
         {React.useMemo(() => {
           if (isTreeModelNode(node)) {
             const nodeHighlightProps = highlightingEngine ? highlightingEngine.createRenderProps(node) : undefined;
