@@ -11,7 +11,6 @@ import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { NineZoneDispatchContext } from "../base/NineZone";
 import { PanelWidget } from "../widget/PanelWidget";
-import { isHorizontalPanelState } from "../state/PanelState";
 import { useLayout } from "../base/LayoutStore";
 import { isHorizontalPanelSide, PanelSideContext } from "./Panel";
 
@@ -99,7 +98,6 @@ export function PanelSections() {
 
   const panel = useLayout((state) => {
     const p = state.panels[side];
-    const span = isHorizontalPanelState(p) ? p.span : false;
     return {
       splitterPercent: p.splitterPercent,
       widgets: p.widgets,
