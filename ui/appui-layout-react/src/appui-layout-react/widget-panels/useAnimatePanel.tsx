@@ -152,6 +152,7 @@ export function useAnimatePanel() {
   }, [initializing]);
 
   const handleTransitionEnd = React.useCallback((e: React.TransitionEvent<HTMLDivElement>) => {
+    // istanbul ignore if
     if (e.target !== ref.current)
       return;
 
