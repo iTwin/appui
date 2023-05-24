@@ -2,18 +2,14 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-.test-syncrhonized-test-view {
-  height: 100%;
-  position: relative;
-  #floatingviewportcontainerdiv{
-    height: calc(100% - 27px);
-  }
-}
+/* eslint-disable react/display-name */
 
-.no-views-message {
-  height: 25%;
-  margin: auto;
-  width: 50%;
-  padding: 25%;
-  text-align: center;
+import * as React from "react";
+import { ViewsTable } from "../components/ViewsTable";
+import "./PopoutDialog.scss";
+
+export function PopoutDialog() {
+  return (
+    <div className="test-popout-dialog"> <ViewsTable /> </div>
+  );
 }
