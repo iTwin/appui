@@ -151,7 +151,10 @@ export function useAnimatePanel() {
     setInitializing(false);
   }, [initializing]);
 
-  const handleTransitionEnd = React.useCallback(() => {
+  const handleTransitionEnd = React.useCallback((e: React.TransitionEvent<HTMLDivElement>) => {
+    if (e.target !== ref.current)
+      return;
+
     maxPanelSize.current = undefined;
     collapsing.current = undefined;
     animateFrom.current = undefined;

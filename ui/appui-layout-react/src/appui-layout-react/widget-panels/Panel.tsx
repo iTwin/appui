@@ -142,12 +142,7 @@ export function WidgetPanel() {
         className={className}
         ref={ref}
         style={style}
-        onTransitionEnd={(e) => {
-          if (e.target !== elementRef.current)
-            return;
-
-          handleTransitionEnd();
-        }}
+        onTransitionEnd={handleTransitionEnd}
       >
         <div
           className="nz-content"
