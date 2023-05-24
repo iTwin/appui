@@ -101,11 +101,8 @@ export function PanelSections() {
     const p = state.panels[side];
     const span = isHorizontalPanelState(p) ? p.span : false;
     return {
-      collapsed: p.collapsed,
       splitterPercent: p.splitterPercent,
       widgets: p.widgets,
-      resizable: p.resizable,
-      span,
     };
   }, true);
 
