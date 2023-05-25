@@ -34,12 +34,12 @@ importers:
       '@reduxjs/toolkit': ^1.5.0
       '@types/react': ^17.0.37
       '@types/react-redux': ^7.1.18
+      '@types/react-table': ^7.7.0
       classnames: 2.3.1
       cpx2: ^3.0.0
       eslint: ^7.11.0
       react: ^17.0.0
       react-dom: ^17.0.0
-      react-redux: ^7.2.2
       rimraf: ^3.0.2
       typescript: ^5.0.2
     dependencies:
@@ -59,16 +59,16 @@ importers:
       '@itwin/itwinui-react': 2.7.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 2.0.0
       '@itwin/webgl-compatibility': 4.0.0-dev.104
-      '@reduxjs/toolkit': 1.9.3_react-redux@7.2.9+react@17.0.2
+      '@reduxjs/toolkit': 1.9.3_react@17.0.2
       classnames: 2.3.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
     devDependencies:
       '@itwin/build-tools': 4.0.0-dev.87
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@types/react': 17.0.53
       '@types/react-redux': 7.1.25
+      '@types/react-table': 7.7.14
       cpx2: 3.0.2
       eslint: 7.32.0
       rimraf: 3.0.2
@@ -2928,7 +2928,7 @@ packages:
       rimraf: 3.0.2
       tree-kill: 1.2.2
       typedoc: 0.23.28_typescript@5.0.2
-      typedoc-plugin-merge-modules: 4.0.1_typedoc@0.23.28
+      typedoc-plugin-merge-modules: 4.1.0_typedoc@0.23.28
       typescript: 5.0.2
       wtfnode: 0.9.1
       yargs: 17.7.1
@@ -2952,7 +2952,7 @@ packages:
       rimraf: 3.0.2
       tree-kill: 1.2.2
       typedoc: 0.23.28_typescript@5.0.2
-      typedoc-plugin-merge-modules: 4.0.1_typedoc@0.23.28
+      typedoc-plugin-merge-modules: 4.1.0_typedoc@0.23.28
       typescript: 5.0.2
       wtfnode: 0.9.1
       yargs: 17.7.1
@@ -4312,7 +4312,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.21.0
 
-  /@reduxjs/toolkit/1.9.3_react-redux@7.2.9+react@17.0.2:
+  /@reduxjs/toolkit/1.9.3_react@17.0.2:
     resolution: {integrity: sha512-GU2TNBQVofL09VGmuSioNPQIu6Ml0YLf4EJhgj0AvBadRlCGzUWet8372LjvO4fqKZF2vH1xU0htAa7BrK9pZg==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18
@@ -4325,7 +4325,6 @@ packages:
     dependencies:
       immer: 9.0.19
       react: 17.0.2
-      react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
       redux: 4.2.1
       redux-thunk: 2.4.2_redux@4.2.1
       reselect: 4.1.7
@@ -5104,7 +5103,6 @@ packages:
     resolution: {integrity: sha512-TYrv7onCiakaG1uAu/UpQ9FojNEt/4/ht87EgJQaEGFoWV606ZLWUZAcUHzMxgc3v1mywP1cDyz3qB4ho3hWOw==}
     dependencies:
       '@types/react': 17.0.53
-    dev: false
 
   /@types/react-test-renderer/18.0.0:
     resolution: {integrity: sha512-C7/5FBJ3g3sqUahguGi03O79b8afNeSD6T8/GU50oQrJCU0bVCCGQHaGKUbg2Ce8VQEEqTw8/HiS6lXHHdgkdQ==}
@@ -6764,7 +6762,7 @@ packages:
     dev: true
 
   /charenc/0.0.2:
-    resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
+    resolution: {integrity: sha1-wKHS86cJLgN3S/qD8UwPxXkKhmc=}
     dev: true
 
   /check-error/1.0.2:
@@ -7208,7 +7206,7 @@ packages:
     dev: true
 
   /crypt/0.0.2:
-    resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
+    resolution: {integrity: sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=}
     dev: true
 
   /crypto-js/4.1.1:
@@ -14911,8 +14909,8 @@ packages:
     resolution: {integrity: sha512-QHsz8GgQIGKlRi24yFc6a6lN69Idnx634w49ay6+jA5yFh7a1UY+4Rp6HPx/L/1zcEDPEij8cIsiqR6bQsE5VQ==}
     dev: true
 
-  /shiki/0.14.1:
-    resolution: {integrity: sha512-+Jz4nBkCBe0mEDqo1eKRcCdjRtrCjozmcbTUjbPTX7OOJfEbTZzlUWlZtGe3Gb5oV1/jnojhG//YZc3rs9zSEw==}
+  /shiki/0.14.2:
+    resolution: {integrity: sha512-ltSZlSLOuSY0M0Y75KA+ieRaZ0Trf5Wl3gutE7jzLuIcWxLp5i/uEnLoQWNvgKXQ5OMpGkJnVMRLAuzjc0LJ2A==}
     dependencies:
       ansi-sequence-parser: 1.1.0
       jsonc-parser: 3.2.0
@@ -16030,10 +16028,10 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typedoc-plugin-merge-modules/4.0.1_typedoc@0.23.28:
-    resolution: {integrity: sha512-peuoWT/xcpEO71kNuaTBAS2IVwc8qm5tiIXnJc0vW/Cy9HHoVGkYecarkwtLBl5VmrhZjZN6LQNriqYfgHA1+A==}
+  /typedoc-plugin-merge-modules/4.1.0_typedoc@0.23.28:
+    resolution: {integrity: sha512-0Qax5eSaiP86zX9LlQQWANjtgkMfSHt6/LRDsWXfK45Ifc3lrgjZG4ieE87BMi3p12r/F0qW9sHQRB18tIs0fg==}
     peerDependencies:
-      typedoc: 0.23.x
+      typedoc: 0.23.x || 0.24.x
     dependencies:
       typedoc: 0.23.28_typescript@5.0.2
     dev: true
@@ -16048,7 +16046,7 @@ packages:
       lunr: 2.3.9
       marked: 4.3.0
       minimatch: 7.4.6
-      shiki: 0.14.1
+      shiki: 0.14.2
       typescript: 5.0.2
     dev: true
 
