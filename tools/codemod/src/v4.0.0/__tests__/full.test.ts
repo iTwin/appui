@@ -32,6 +32,25 @@ describe("full", () => {
 
     defineInlineCssTest(
       `
+      /* Copyright. */
+      @import "~@itwin/core-react/lib/cjs/core-react/button/blue";
+
+      .btn { }
+      `,
+      `
+      /* Copyright. */
+
+      .btn { }
+      `,
+      "should replace imports"
+    );
+
+    defineInlineCssTest(
+      `
+        @import "~@itwin/core-react/lib/cjs/core-react/button";
+        @import "abc";
+        @import "~@itwin/core-react/lib/esm/core-react/style/speed";
+
         /* Test. */
         .btn {
           // color: $uicore-xxs;
@@ -44,6 +63,8 @@ describe("full", () => {
         }
       `,
       `
+        @import "abc";
+
         /* Test. */
         .btn {
           // color: $uicore-xxs;

@@ -62,6 +62,69 @@ function renameValue(from: string, to: string): Plugin {
   };
 }
 
+function removeImport(importParam: string): Plugin {
+  return {
+    postcssPlugin: `remove-import ${importParam}`,
+    AtRule(rule) {
+      if (rule.name !== "import")
+        return;
+      const noQuotes = rule.params.slice(1, -1);
+      if (noQuotes !== importParam)
+        return;
+      rule.remove();
+    }
+  };
+}
+
+function toModulePaths(getPath: (module: string) => string) {
+  return ["cjs", "esm"].map((module) => getPath(module));
+}
+
+const importPathsToRemove = [
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/blue-large`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/blue`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/button`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/disabled-large`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/disabled`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/hollow-large`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/hollow`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/primary-large`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/primary`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/button/variables`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/checkbox/checkbox`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/inputs/labeled-input`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/inputs/labeled-textarea`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/inputs/textarea`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/progress-indicators`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/progress-indicators/progress-bar`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/progress-indicators/progress-spinner`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/radio`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/radio/radio`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/select`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/select/labeled-select`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/select/labeled-themed-select`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/select/select`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/select/themed-select`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/select`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/style/data-viz`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/style/itwinui-overrides`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/style/space`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/style/speed`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/style/typography`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/style/variables`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/tabs/horizontal`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/text/headline`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/text/headline-2`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/text/leading`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/text/small`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/text/subheading-2`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/text/subheading`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/text/title-2`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/text/title`),
+  ...toModulePaths((module) => `~@itwin/core-react/lib/${module}/core-react/tiles/tile`),
+];
+
 export const cssPlugin: AcceptedPlugin = postcss([
   renameValue("$uicore-xxs", "var(--iui-size-3xs)"),
   renameValue("$uicore-xs", "var(--iui-size-2xs)"),
@@ -111,6 +174,7 @@ export const cssPlugin: AcceptedPlugin = postcss([
         value: "var(--iui-font-sans)",
       });
       rule.replaceWith(declaration);
-    }
+    },
   },
+  ...importPathsToRemove.map((importPath) => removeImport(importPath)),
 ]);
