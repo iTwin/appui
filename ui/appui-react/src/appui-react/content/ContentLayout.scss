@@ -40,6 +40,7 @@ $resizer-size-large: 14px;
         position: relative;
         display: flex;
         height: 8px;
+        width: 100%;
         top: -4px;
         z-index: 1;
         transition: background-color 0.2s ease-out;
@@ -63,9 +64,10 @@ $resizer-size-large: 14px;
     }
 
     &.vertical {
-      width: $resizer-size;
-      min-width: $resizer-size;
+      width: 1px;
+      min-width: 1px;
       cursor: ew-resize;
+      height: 100%;
 
       >.nz-resizer-grip {
         background-color: transparent;
@@ -73,8 +75,9 @@ $resizer-size-large: 14px;
         justify-content: center;
         position: relative;
         display: flex;
+        height: 100%;
         width: 8px;
-        right: -4px;
+        left: -4px;
         z-index: 1;
         transition: background-color 0.2s ease-out;
 
@@ -82,7 +85,7 @@ $resizer-size-large: 14px;
           background-color: var(--iui-color-border-accent);
         }
 
-        &:before {
+        &:after {
           content: '';
           position: absolute;
           width: 16px;
