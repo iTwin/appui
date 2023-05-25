@@ -67,11 +67,27 @@ $resizer-size-large: 14px;
       min-width: $resizer-size;
       cursor: ew-resize;
 
-      &:before {
-        content: '';
-        position: absolute;
-        width: 20px;
-        height: 100%;
+      >.nz-resizer-grip {
+        background-color: transparent;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        display: flex;
+        width: 8px;
+        right: -4px;
+        z-index: 1;
+        transition: background-color 0.2s ease-out;
+
+        &:hover {
+          background-color: var(--iui-color-border-accent);
+        }
+
+        &:before {
+          content: '';
+          position: absolute;
+          width: 16px;
+          height: 100%;
+        }
       }
 
       @include for-tablet-landscape-down {
