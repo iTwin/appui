@@ -46,7 +46,6 @@ Added `SelectionCountField` component to increase the configurability of an exis
 
 ### Fixes
 
-- Fixed `ToolAssistanceField` icon display if provided icon is not an **svg**
 - Fixed `CubeNavigationAid` rotation logic to allow rotation to rotated faces
 - Fixed `CubeNavigationAid` arrow tooltips
 - Fixed stage panel transitions
