@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Make content control resize grip handles visually more like side panel grip handles.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
