@@ -34,12 +34,12 @@ importers:
       '@reduxjs/toolkit': ^1.5.0
       '@types/react': ^17.0.37
       '@types/react-redux': ^7.1.18
+      '@types/react-table': ^7.7.0
       classnames: 2.3.1
       cpx2: ^3.0.0
       eslint: ^7.11.0
       react: ^17.0.0
       react-dom: ^17.0.0
-      react-redux: ^7.2.2
       rimraf: ^3.0.2
       typescript: ~5.0.2
     dependencies:
@@ -59,16 +59,16 @@ importers:
       '@itwin/itwinui-react': 2.7.0_react-dom@17.0.2+react@17.0.2
       '@itwin/itwinui-variables': 2.0.0
       '@itwin/webgl-compatibility': 3.7.0
-      '@reduxjs/toolkit': 1.9.3_react-redux@7.2.9+react@17.0.2
+      '@reduxjs/toolkit': 1.9.3_react@17.0.2
       classnames: 2.3.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
     devDependencies:
       '@itwin/build-tools': 3.7.4
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@types/react': 17.0.53
       '@types/react-redux': 7.1.25
+      '@types/react-table': 7.7.14
       cpx2: 3.0.2
       eslint: 7.32.0
       rimraf: 3.0.2
@@ -4378,7 +4378,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.21.0
 
-  /@reduxjs/toolkit/1.9.3_react-redux@7.2.9+react@17.0.2:
+  /@reduxjs/toolkit/1.9.3_react@17.0.2:
     resolution: {integrity: sha512-GU2TNBQVofL09VGmuSioNPQIu6Ml0YLf4EJhgj0AvBadRlCGzUWet8372LjvO4fqKZF2vH1xU0htAa7BrK9pZg==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18
@@ -4391,7 +4391,6 @@ packages:
     dependencies:
       immer: 9.0.19
       react: 17.0.2
-      react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
       redux: 4.2.1
       redux-thunk: 2.4.2_redux@4.2.1
       reselect: 4.1.7
@@ -5149,7 +5148,6 @@ packages:
     resolution: {integrity: sha512-TYrv7onCiakaG1uAu/UpQ9FojNEt/4/ht87EgJQaEGFoWV606ZLWUZAcUHzMxgc3v1mywP1cDyz3qB4ho3hWOw==}
     dependencies:
       '@types/react': 17.0.53
-    dev: false
 
   /@types/react-test-renderer/18.0.0:
     resolution: {integrity: sha512-C7/5FBJ3g3sqUahguGi03O79b8afNeSD6T8/GU50oQrJCU0bVCCGQHaGKUbg2Ce8VQEEqTw8/HiS6lXHHdgkdQ==}

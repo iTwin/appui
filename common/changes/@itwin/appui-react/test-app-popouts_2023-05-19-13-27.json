@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "ToolAssistanceField: Display as class if image is not svg (IE: webfont class image)",
+      "comment": "Allow iModelOpen to go to dev, qa, or prod based on the URL prefix set in the env.",
       "type": "none"
     }
   ],

@@ -238,7 +238,8 @@ jobs:
           Write-Host The new version is $newVersion
           Write-Host Committing version bump...
 
-          git commit -m "$newVersion" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
+          # Message is not newVersion because we don't want to publish the dev.0 nightly build.
+          git commit -m "Update master to $newVersion" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
 
           git status
         displayName: Get version and committing
