@@ -33,6 +33,21 @@ describe("full", () => {
     defineInlineCssTest(
       `
       /* Copyright. */
+      @import "@itwin/core-react/lib/cjs/core-react/button/blue";
+
+      .btn { }
+      `,
+      `
+      /* Copyright. */
+
+      .btn { }
+      `,
+      "should replace import"
+    );
+
+    defineInlineCssTest(
+      `
+      /* Copyright. */
       @import "~@itwin/core-react/lib/cjs/core-react/button/blue";
 
       .btn { }
@@ -42,14 +57,14 @@ describe("full", () => {
 
       .btn { }
       `,
-      "should replace imports"
+      "should replace tilde import"
     );
 
     defineInlineCssTest(
       `
         @import "~@itwin/core-react/lib/cjs/core-react/button";
-        @import "abc";
-        @import "~@itwin/core-react/lib/esm/core-react/style/speed";
+        @import "~@itwin/core-react/lib/cjs/core-react/button/purple";
+        @import "@itwin/core-react/lib/esm/core-react/style/speed";
 
         /* Test. */
         .btn {
@@ -63,7 +78,7 @@ describe("full", () => {
         }
       `,
       `
-        @import "abc";
+        @import "~@itwin/core-react/lib/cjs/core-react/button/purple";
 
         /* Test. */
         .btn {
