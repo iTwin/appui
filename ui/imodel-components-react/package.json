@@ -41,13 +41,13 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": ">=3.7.0",
+    "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
     "@itwin/components-react": "workspace:^4.1.0-dev.0",
-    "@itwin/core-bentley": ">=3.7.0",
-    "@itwin/core-common": ">=3.7.0",
-    "@itwin/core-frontend": ">=3.7.0",
-    "@itwin/core-geometry": ">=3.7.0",
-    "@itwin/core-quantity": ">=3.7.0",
+    "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
+    "@itwin/core-common": "^3.7.0 || ^4.0.0",
+    "@itwin/core-frontend": "^3.7.0 || ^4.0.0",
+    "@itwin/core-geometry": "^3.7.0 || ^4.0.0",
+    "@itwin/core-quantity": "^3.7.0 || ^4.0.0",
     "@itwin/core-react": "workspace:^4.1.0-dev.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"

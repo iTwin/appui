@@ -2,14 +2,11 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-@import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/_variables";
-
-.uifw-statusFields-selectionInfo {
-  .icon {
-    color: $icon-color;
-    font-size: $icon-size;
-    padding-right: 4px;
-  }
-
-  min-width: 6em;
+.test-popout-dialog {
+  box-sizing: border-box;
+  height: 100%;
+  margin: auto;
+  width: 100%;
+  overflow-y: scroll;
 }
+

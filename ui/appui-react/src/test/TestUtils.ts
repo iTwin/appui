@@ -8,15 +8,14 @@ import type * as sinon from "sinon";
 import { fireEvent, prettyDOM } from "@testing-library/react";
 import { expect } from "chai";
 
-import type { ContentLayoutProps, PrimitiveValue, PropertyDescription, PropertyEditorInfo} from "@itwin/appui-abstract";
+import type { ContentLayoutProps, PrimitiveValue, PropertyDescription, PropertyEditorInfo } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat, StandardContentLayouts, StandardTypeNames } from "@itwin/appui-abstract";
-import type { UiStateStorage, UiStateStorageResult} from "@itwin/core-react";
+import type { UiStateStorage, UiStateStorageResult } from "@itwin/core-react";
 import { UiStateStorageStatus } from "@itwin/core-react";
 
-import type {
-  ActionsUnion, DeepReadonly,
-  FrameworkState} from "../appui-react";
-import { combineReducers, ContentGroup, createAction, FrameworkReducer, SyncUiEventDispatcher, UiFramework,
+import type { ActionsUnion, DeepReadonly, FrameworkState } from "../appui-react";
+import {
+  combineReducers, ContentGroup, createAction, FrameworkReducer, SyncUiEventDispatcher, UiFramework,
 } from "../appui-react";
 import { TestContentControl } from "./frontstage/FrontstageTestUtils";
 import userEvent from "@testing-library/user-event";
@@ -401,7 +400,7 @@ export function childStructure(selectors: string | string[]) {
       .filter((selector) => !e.querySelector(selector));
     // \b\b\b... removes default "[Function : " part to get clear message in output.
     const message = `\b\b\b\b\b\b\b\b\b\b element.querySelector(\n'${failedSelectors.join("'\n AND \n'")}'\n); but is: \n${prettyDOM(e)}`;
-    Object.defineProperty(satisfier, "name", {value: message});
+    Object.defineProperty(satisfier, "name", { value: message });
     return failedSelectors.length === 0;
   };
   return satisfier;
@@ -411,7 +410,7 @@ export function childStructure(selectors: string | string[]) {
  * Type to allow CSSStyleDeclaration to be a regexp that will be matched against the
  * property instead of the string value.
  */
- type Matchable<T> = { [P in keyof T]: T[P] | RegExp; };
+type Matchable<T> = { [P in keyof T]: T[P] | RegExp; };
 
 /**
   * Function to generate a `satisfy` function
@@ -421,10 +420,10 @@ export function childStructure(selectors: string | string[]) {
 export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
   return (e: HTMLElement) => {
     expect(e).to.be.instanceOf(HTMLElement).and.have.property("style");
-    for(const prop in style) {
-      if(Object.prototype.hasOwnProperty.call(style, prop)) {
+    for (const prop in style) {
+      if (Object.prototype.hasOwnProperty.call(style, prop)) {
         const value = style[prop];
-        if(value instanceof RegExp) {
+        if (value instanceof RegExp) {
           expect(e.style, `property ${prop}`).to.have.property(prop).that.match(value);
         } else {
           expect(e.style).to.have.property(prop, value);

@@ -12,7 +12,7 @@ import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { SynchronizedFloatingViewportProvider } from "../providers/SynchronizedFloatingViewportProvider";
 
 /**
- * The ContentLayoutStageContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
+ * The SynchronizedFloatingViewportContentGroupProvider provides a class with the primary method `provideContentGroup` to provide a ContentGroup
  * to a stage when the stage is activated. This provider will look to see if the user saved out a ContentGroup to use when a stage and
  * specific iModel is opened. See `SaveContentLayoutTool` in `ContentLayoutTools.tsx` to see tool that saved the layout and ViewStates.
  * If no saved state was found `UiFramework.getDefaultViewState` is used to specify the ViewState and `StandardContentLayouts.singleView`
@@ -91,7 +91,7 @@ export class SynchronizedFloatingViewportContentGroupProvider extends ContentGro
 }
 
 /**
- * The ContentLayoutStage provides a register method that registers a FrontstageProvider that is used to activate a stage.
+ * The SynchronizedFloatingViewport stage provides a register method that registers a FrontstageProvider that is used to activate a stage.
  * It also register "standard" providers to provide tool buttons and statusbar items. Finally it registers a UiItemsProvider
  * that provides tools that are only intended to be used in this stage. This stage also uses a ContentGroupProvider to provide a
  * ContentGroup to use when the stage is activated. Using a ContentGroupProvider allows async code to be run as a stage is activated
