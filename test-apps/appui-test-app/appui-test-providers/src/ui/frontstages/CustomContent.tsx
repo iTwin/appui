@@ -9,7 +9,7 @@ import {
   UiFramework,
   UiItemsManager,
 } from "@itwin/appui-react";
-import { ContentLayoutProps, LayoutFragmentProps, StandardContentLayouts } from "@itwin/appui-abstract";
+import { ContentLayoutProps, StandardContentLayouts } from "@itwin/appui-abstract";
 import { CustomContentStageUiProvider } from "../providers/CustomContentStageUiProvider";
 import { SampleContentControl } from "../content/SampleContentControl";
 
@@ -21,18 +21,9 @@ import { SampleContentControl } from "../content/SampleContentControl";
 export class CustomContentGroupProvider extends ContentGroupProvider {
   public override async contentGroup(): Promise<ContentGroup> {
     // copy and then modify standard layout so the content is always shown - note we could have just copied the standard and created a new one in line
-
-    const twoVerticalSplit: LayoutFragmentProps = {
-      verticalSplit: {
-        ...StandardContentLayouts.twoVerticalSplit.verticalSplit!,
-        percentage: 0.5
-      }
-    };
-
     const twoHorizontalSplit: ContentLayoutProps = {
       ...StandardContentLayouts.twoHorizontalSplit, horizontalSplit: {
         ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
-        bottom: twoVerticalSplit,
         minSizeBottom: 100,
         percentage: 0.80,
       },
