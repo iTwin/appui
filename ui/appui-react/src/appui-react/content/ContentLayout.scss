@@ -5,9 +5,6 @@
 @import "~@itwin/core-react/lib/cjs/core-react/base/base";
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 
-$resizer-size: 6px;
-$resizer-size-large: 14px;
-
 #uifw-contentlayout-div {
   position: absolute;
   top: 0;
@@ -30,24 +27,13 @@ $resizer-size-large: 14px;
     &.horizontal {
       height: 1px;
       min-height: 1px;
-      cursor: ns-resize;
       width: 100%;
+      cursor: ns-resize;
 
       >.nz-resizer-grip {
-        background-color: transparent;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        display: flex;
         height: 5px;
         width: 100%;
         top: -2px;
-        z-index: 1;
-        transition: background-color 0.2s ease-out;
-
-        &:hover {
-          background-color: var(--iui-color-border-accent);
-        }
 
         &:before {
           content: '';
@@ -56,34 +42,18 @@ $resizer-size-large: 14px;
           height: 11px;
         }
       }
-
-      @include for-tablet-landscape-down {
-        height: $resizer-size-large;
-        min-height: $resizer-size-large;
-      }
     }
 
     &.vertical {
       width: 1px;
       min-width: 1px;
-      cursor: ew-resize;
       height: 100%;
+      cursor: ew-resize;
 
       >.nz-resizer-grip {
-        background-color: transparent;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        display: flex;
         height: 100%;
         width: 5px;
         left: -2px;
-        z-index: 1;
-        transition: background-color 0.2s ease-out;
-
-        &:hover {
-          background-color: var(--iui-color-border-accent);
-        }
 
         &:before {
           content: '';
@@ -92,18 +62,32 @@ $resizer-size-large: 14px;
           height: 100%;
         }
       }
+    }
 
-      @include for-tablet-landscape-down {
-        width: $resizer-size-large;
-        min-width: $resizer-size-large;
+    &.horizontal,
+    &.vertical {
+      >.nz-resizer-grip {
+        background-color: transparent;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        display: flex;
+        z-index: 1;
+        transition: background-color var(--iui-duration-1) ease;
+
+        &:hover {
+          background-color: var(--iui-color-border-accent);
+        }
       }
     }
 
     &.disabled {
       cursor: not-allowed;
 
-      &:hover {
-        border-color: transparent;
+      >.nz-resizer-grip {
+        &:hover {
+          border-color: transparent;
+        }
       }
     }
   }
