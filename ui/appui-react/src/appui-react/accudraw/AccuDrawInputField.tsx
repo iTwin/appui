@@ -10,14 +10,19 @@ import "./AccuDrawInputField.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { ItemField } from "@itwin/core-frontend";
-import type { CommonProps, IconSpec} from "@itwin/core-react";
+import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, useRefs } from "@itwin/core-react";
-import { isLetter, SpecialKey } from "@itwin/appui-abstract";
+import { SpecialKey } from "@itwin/appui-abstract";
 import { Input } from "@itwin/itwinui-react";
-import type { AccuDrawSetFieldFocusEventArgs, AccuDrawSetFieldValueToUiEventArgs} from "./FrameworkAccuDraw";
+import type { AccuDrawSetFieldFocusEventArgs, AccuDrawSetFieldValueToUiEventArgs } from "./FrameworkAccuDraw";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import { UiFramework } from "../UiFramework";
 import { SvgLock } from "@itwin/itwinui-icons-react";
+
+function isLetter(char: string): boolean {
+  return char.length === 1 && char.toLowerCase() !== char.toUpperCase();
+}
+
 /** Properties for [[AccuDrawInputField]] component
  * @beta
  */

@@ -28,7 +28,7 @@
   }
 
   &.nz-transition {
-    transition-duration: 0.3s;
+    transition-duration: var(--iui-duration-2);
     transition-timing-function: ease-in;
   }
 
@@ -80,7 +80,7 @@
       left: 0;
 
       >.nz-grip.nz-grip {
-        right: calc(#{$nz-grip-width} * -0.5);;
+        right: calc(#{$nz-grip-width} * -0.5);
         transform: translate(0, -50%);
       }
     }
@@ -102,7 +102,8 @@
           }
         }
       }
-      > .nz-grip-container > .nz-grip {
+
+      >.nz-grip-container>.nz-grip {
         right: 0
       }
     }
@@ -135,7 +136,7 @@
         }
       }
 
-      > .nz-grip-container > .nz-grip {
+      >.nz-grip-container>.nz-grip {
         left: 0;
       }
     }
@@ -203,7 +204,8 @@
           }
         }
       }
-      > .nz-grip-container > .nz-grip {
+
+      >.nz-grip-container>.nz-grip {
         bottom: 0;
       }
     }

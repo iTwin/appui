@@ -8,7 +8,8 @@
     "customContentFrontstageLabel": "Custom Content",
     "contentLayoutFrontstageLabel": "Content Layout",
     "widgetApiTestFrontstageLabel": "Exercise Widget Api",
-    "SynchronizeFloatingViewFrontstageLabel": "Synchronized Floating View"
+    "SynchronizeFloatingViewFrontstageLabel": "Synchronized Floating View",
+    "PopoutWindowsFrontstageLabel": "Popout Windows"
     },
   "StatusBar": {
     "Units": "Units",

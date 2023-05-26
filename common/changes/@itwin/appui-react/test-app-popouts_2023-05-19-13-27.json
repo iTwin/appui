@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Allow iModelOpen to go to dev, qa, or prod based on the URL prefix set in the env.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
