@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-codemod",
+      "comment": "Add codemods for CSS files.",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@itwin/appui-codemod"
+}
