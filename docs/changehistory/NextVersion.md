@@ -7,7 +7,6 @@ Table of contents:
 
 - [iTwin.js version range](#itwinjs-version-range)
 - [@itwin/appui-react](#itwinappui-react)
-  - [Release tags](#release-tags)
   - [Widget error handling](#widget-error-handling)
   - [Added `SelectionCountField` component](#added-selectioncountfield-component)
   - [`ViewSelector` changes](#viewselector-changes)
@@ -20,15 +19,6 @@ Table of contents:
 The supported range of iTwin.js versions has been revised from the vague `>=3.7.0` to the more precise `^3.7.0 || ^4.0.0`.
 
 ## @itwin/appui-react
-
-### Release tags
-
-APIs promoted to **@public**:
-- `AllowedUiItemsProviderOverrides`
-- `ProviderItem`
-- `UiItemsManager`
-- `UiItemsProviderOverrides`
-- `UiItemsProviderRegisteredEventArgs`
 
 ### Widget error handling
 
