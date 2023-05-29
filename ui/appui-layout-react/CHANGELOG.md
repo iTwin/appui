@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-layout-react
 
-This log was last generated on Fri, 19 May 2023 12:24:30 GMT and should not be manually modified.
+This log was last generated on Mon, 29 May 2023 14:05:04 GMT and should not be manually modified.
+
+## 4.1.0
+Mon, 29 May 2023 14:05:04 GMT
+
+### Updates
+
+- Fix stage panel transition.
 
 ## 4.0.1
 Fri, 19 May 2023 12:24:30 GMT
