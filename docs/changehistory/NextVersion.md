@@ -10,6 +10,7 @@ Table of contents:
   - [Widget error handling](#widget-error-handling)
   - [Added `SelectionCountField` component](#added-selectioncountfield-component)
   - [`ViewSelector` changes](#viewselector-changes)
+  - [`SplitPane` resize handle visual changes](#splitpane-resize-handle-visual-changes)
   - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
 - [@itwin/components-react](#itwincomponents-react)
@@ -33,6 +34,10 @@ Added `SelectionCountField` component to increase the configurability of an exis
 - Implemented fuzzy search for `ViewSelector`
 - Added auto-expand functionality for `ViewSelector` search results
 - Fixed `ViewSelector` current view highlight bug
+
+### `SplitPane` resize handle visual changes
+
+Made content control resize grip handles visually more like side panel grip handles. Previous grip handle representation used as a part of `VerticalSplit` and `HorizontalSplit` unnecessarily took up too much screen space.
 
 ### Fixes
 
