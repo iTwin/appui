@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-codemod
 
-This log was last generated on Thu, 13 Apr 2023 07:45:17 GMT and should not be manually modified.
+This log was last generated on Mon, 29 May 2023 09:30:28 GMT and should not be manually modified.
+
+## 0.1.0
+Mon, 29 May 2023 09:30:28 GMT
+
+### Minor changes
+
+- Add codemods for CSS files.
 
 ## 0.0.3
 Thu, 13 Apr 2023 07:45:17 GMT
