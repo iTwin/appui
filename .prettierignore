@@ -1,3 +1,6 @@
 # Build outputs
 lib
 build
+
+# Rush.js specific
+common/temp
