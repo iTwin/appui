@@ -1,6 +1,17 @@
-# Build outputs
+# build output
 lib
 build
 
-# Rush.js specific
+# rush specific
+.rush
+common/api
+common/config/rush
 common/temp
+CHANGELOG.json
+CHANGELOG.md
+
+# pnpm specific
+pnpm-lock.yaml
+
+# codemod specific
+__testfixtures__
