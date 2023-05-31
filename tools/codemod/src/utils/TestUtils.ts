@@ -4,6 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import type { Collection, JSCodeshift, Transform } from "jscodeshift";
 import { applyTransform, defineInlineTest } from "jscodeshift/src/testUtils";
+import postcss from "postcss";
+import { parse, stringify } from "postcss-scss";
 
 export const defaultOptions = {
   printOptions: {
@@ -28,6 +30,19 @@ export function createDefineInlineTest(transform: Transform) {
       expectedOutputSource,
       testName,
     );
+  };
+};
+
+export function createDefineInlineCssTest(plugins: postcss.AcceptedPlugin[]) {
+  return (inputCss: string, expectedOutputCss: string, testName: string) => {
+    it(testName, () => {
+      const processor = postcss(plugins);
+      const result = processor.process(inputCss, {
+        parser: parse,
+        stringifier: stringify,
+      });
+      expect(result.css).toEqual(expectedOutputCss);
+    });
   };
 };
 
