@@ -34,9 +34,11 @@ jobs:
 
           # Stage explicit files;
           #   - Files resolved due to taking master's version
+          git add **/package.json **/version-policies.json docs/changehistory/NextVersion.md
           #   - All changelogs to remove duplicates from master
           #     - They would be duplicated if the same PR is backported to the release branch
-          git add **/package.json **/version-policies.json common/changes docs/changehistory/NextVersion.md
+          #       (On a separate command so it can fail because none exists without blocking masters version files)
+          git add common/changes
 
           commitMessage=$(git log --format=%B -n 1 $commitid)
           git commit -m "$commitMessage Changelogs"
