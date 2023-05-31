@@ -5,10 +5,10 @@
 import * as React from "react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import {
-  FrontstageDef, StagePanelLocation, StagePanelState, UiFramework, useActiveFrontstageDef, WidgetState,
+  FrontstageDef, StagePanelLocation, StagePanelState, UiFramework, useActiveFrontstageDef, WidgetState, MessageManager
 } from "@itwin/appui-react";
-import { SpecialKey } from "@itwin/appui-abstract";
-import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
+import { DialogButtonDef, DialogButtonType, SpecialKey } from "@itwin/appui-abstract";
+import { NumberInput, Rectangle, RectangleProps, Dialog } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import { ApplicationLayoutContext, ApplicationMode } from "../ApplicationLayout";
 import { InternalFrontstageManager } from "@itwin/appui-react/lib/esm/appui-react/frontstage/InternalFrontstageManager";
@@ -499,6 +499,30 @@ function WidgetContentThrowError() {
   );
 }
 
+function ShowAlert() {
+  const [opened, setOpened] = React.useState(false);
+  const buttonCluster: DialogButtonDef[] = new Array<DialogButtonDef>();
+  buttonCluster.push({ type: DialogButtonType.OK, onClick: () => setOpened(false) });
+
+  return (
+    <>
+      <h2>Show dialog</h2>
+      <Button onClick={() => setOpened(true)}>Click Me</Button>
+      <Dialog
+        title="Sample Title"
+        buttonCluster={buttonCluster}
+        opened={opened}
+        onClose={() => setOpened(false)}
+        onEscape={() => setOpened(false)}
+        modal={true}
+        style={{ zIndex: 2000 }}
+      >
+        {"Content"}
+      </Dialog>
+    </>
+  );
+}
+
 const widgetContentStyle: React.CSSProperties = {
   padding: "5px",
   boxSizing: "border-box",
@@ -527,6 +551,7 @@ export function LayoutControls() {
       <SelectPanelControls />
       <SelectWidgetControls />
       <WidgetContentThrowError />
+      <ShowAlert />
     </WidgetContent>
   );
 }
