@@ -1,14 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
 import { expect } from "chai";
 import { render } from "@testing-library/react";
 import { FilteredText } from "../../core-react";
 
-const value = "That he's mad, tis true, tis true tis pity, And pity tis, tis true";
+const value =
+  "That he's mad, tis true, tis true tis pity, And pity tis, tis true";
 const matches = [
   { start: 15, end: 18 },
   { start: 25, end: 28 },
@@ -18,7 +19,6 @@ const matches = [
 ];
 
 describe("<FilteredText />", () => {
-
   it("should render", async () => {
     const wrapper = render(<FilteredText value={"Hello World!"} />);
     const foundText = await wrapper.findAllByText("Hello World!");
@@ -32,7 +32,13 @@ describe("<FilteredText />", () => {
   });
 
   it("should render matches with specified class name", async () => {
-    const wrapper = render(<FilteredText value={value} matches={matches} matchClassName={"matching-tis"} />);
+    const wrapper = render(
+      <FilteredText
+        value={value}
+        matches={matches}
+        matchClassName={"matching-tis"}
+      />
+    );
     const foundTis = await wrapper.findAllByText("tis");
     expect(foundTis.length).to.eq(5);
     const foundMatches = foundTis[0].className.match("matching-tis");
@@ -40,13 +46,20 @@ describe("<FilteredText />", () => {
   });
 
   it("should render matches with specified style", async () => {
-    const wrapper = render(<FilteredText value={value} matches={matches} matchStyle={{ color: "orange" }} />);
+    const wrapper = render(
+      <FilteredText
+        value={value}
+        matches={matches}
+        matchStyle={{ color: "orange" }}
+      />
+    );
     const foundTis = await wrapper.findAllByText("tis");
     expect(foundTis.length).to.eq(5);
-    const foundMatches = foundTis[0].className.match("uicore-filtered-text-match");
+    const foundMatches = foundTis[0].className.match(
+      "uicore-filtered-text-match"
+    );
     expect(foundMatches).not.to.be.null;
     const matchColor = foundTis[0].style.color;
     expect(matchColor).to.eq("orange");
   });
-
 });

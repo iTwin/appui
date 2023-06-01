@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { Orientation } from "@itwin/core-react";
 import { expect } from "chai";
 import sinon from "sinon";
@@ -10,17 +10,21 @@ import { PropertyGridCommons } from "../../../../components-react/propertygrid/c
 
 /* eslint-disable @typescript-eslint/naming-convention */
 describe("PropertyGrid Commons", () => {
-
   describe("getLinks", () => {
-
     it("detects url link", () => {
-      const testLinkWithIndexes = { link: "Link: https://www.testLink.com", linkIndexes: { start: 6, end: 30 } };
+      const testLinkWithIndexes = {
+        link: "Link: https://www.testLink.com",
+        linkIndexes: { start: 6, end: 30 },
+      };
       const linkResult = PropertyGridCommons.getLinks(testLinkWithIndexes.link);
       expect(linkResult.length).to.be.equal(1);
-      expect(linkResult[0].start).to.be.equal(testLinkWithIndexes.linkIndexes.start);
-      expect(linkResult[0].end).to.be.equal(testLinkWithIndexes.linkIndexes.end);
+      expect(linkResult[0].start).to.be.equal(
+        testLinkWithIndexes.linkIndexes.start
+      );
+      expect(linkResult[0].end).to.be.equal(
+        testLinkWithIndexes.linkIndexes.end
+      );
     });
-
   });
 
   describe("getCurrentOrientation", () => {
@@ -32,7 +36,15 @@ describe("PropertyGrid Commons", () => {
 
   describe("handleLinkClick", () => {
     const locationMockRef: moq.IMock<Location> = moq.Mock.ofInstance(location);
-    let spy: sinon.SinonStub<[(string | URL | undefined)?, (string | undefined)?, (string | undefined)?, (boolean | undefined)?], Window | null>;
+    let spy: sinon.SinonStub<
+      [
+        (string | URL | undefined)?,
+        (string | undefined)?,
+        (string | undefined)?,
+        (boolean | undefined)?
+      ],
+      Window | null
+    >;
 
     before(() => {
       location = locationMockRef.object;
@@ -73,12 +85,18 @@ describe("PropertyGrid Commons", () => {
 
     it("sets location href value to value got in the text if it is an email link", async () => {
       PropertyGridCommons.handleLinkClick("someOtherLink@mail.com");
-      expect(locationMockRef.object.href).to.be.equal("mailto:someOtherLink@mail.com");
+      expect(locationMockRef.object.href).to.be.equal(
+        "mailto:someOtherLink@mail.com"
+      );
     });
 
     it("sets location href value to value got in the text if it is an ProjectWise Explorer link", async () => {
-      PropertyGridCommons.handleLinkClick("pw://server.bentley.com:datasource-01/Documents/ProjectName");
-      expect(locationMockRef.object.href).to.be.equal("pw://server.bentley.com:datasource-01/Documents/ProjectName");
+      PropertyGridCommons.handleLinkClick(
+        "pw://server.bentley.com:datasource-01/Documents/ProjectName"
+      );
+      expect(locationMockRef.object.href).to.be.equal(
+        "pw://server.bentley.com:datasource-01/Documents/ProjectName"
+      );
     });
 
     it("calls window.open.focus if window.open returns not null", () => {
@@ -94,5 +112,4 @@ describe("PropertyGrid Commons", () => {
       windowMock.verify((x) => x.focus(), moq.Times.once());
     });
   });
-
 });

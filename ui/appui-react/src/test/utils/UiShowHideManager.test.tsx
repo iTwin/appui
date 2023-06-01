@@ -1,24 +1,34 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { render } from "@testing-library/react";
-import type {
-  ConfigurableCreateInfo} from "../../appui-react";
-import { ContentControl, ContentGroup, ContentLayout, ContentLayoutDef, UiFramework,
+import type { ConfigurableCreateInfo } from "../../appui-react";
+import {
+  ContentControl,
+  ContentGroup,
+  ContentLayout,
+  ContentLayoutDef,
+  UiFramework,
 } from "../../appui-react";
 import { TestFrontstage } from "../frontstage/FrontstageTestUtils";
 import TestUtils, { storageMock } from "../TestUtils";
 import { LocalStateStorage } from "@itwin/core-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import { INACTIVITY_TIME_DEFAULT, InternalUiShowHideManager, UiShowHideSettingsProvider } from "../../appui-react/utils/InternalUiShowHideManager";
+import {
+  INACTIVITY_TIME_DEFAULT,
+  InternalUiShowHideManager,
+  UiShowHideSettingsProvider,
+} from "../../appui-react/utils/InternalUiShowHideManager";
 
 describe("UiShowHideManager localStorage Wrapper", () => {
-
-  const localStorageToRestore = Object.getOwnPropertyDescriptor(window, "localStorage")!;
+  const localStorageToRestore = Object.getOwnPropertyDescriptor(
+    window,
+    "localStorage"
+  )!;
   const localStorageMock = storageMock();
 
   before(async () => {
@@ -32,7 +42,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
   });
 
   describe("UiShowHideManager", () => {
-
     beforeEach(async () => {
       await TestUtils.initializeUiFramework();
     });
@@ -42,7 +51,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
     });
 
     describe("getters and setters", () => {
-
       it("autoHideUi should return default of true", () => {
         expect(InternalUiShowHideManager.autoHideUi).to.be.true;
       });
@@ -131,7 +139,9 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       });
 
       it("inactivityTime should return default", () => {
-        expect(InternalUiShowHideManager.inactivityTime).to.eq(INACTIVITY_TIME_DEFAULT);
+        expect(InternalUiShowHideManager.inactivityTime).to.eq(
+          INACTIVITY_TIME_DEFAULT
+        );
       });
 
       it("inactivityTime should set & return correct value", () => {
@@ -142,7 +152,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
     });
 
     describe("Frontstage Activate", () => {
-
       it("activating Frontstage should show UI", async () => {
         UiFramework.setIsUiVisible(false);
         expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
@@ -150,7 +159,9 @@ describe("UiShowHideManager localStorage Wrapper", () => {
 
         const frontstageProvider = new TestFrontstage();
         UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-        const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageProvider.id);
+        const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+          frontstageProvider.id
+        );
         await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
         await TestUtils.flushAsyncOperations();
@@ -159,7 +170,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
     });
 
     describe("Content Mouse Events", () => {
-
       class TestContentControl extends ContentControl {
         constructor(info: ConfigurableCreateInfo, options: any) {
           super(info, options);
@@ -186,9 +196,20 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         InternalUiShowHideManager.inactivityTime = 20;
         expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
 
-        const component = render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
+        const component = render(
+          <ContentLayout
+            contentGroup={myContentGroup}
+            contentLayout={myContentLayout}
+          />
+        );
         const container = component.getByTestId("single-content-container");
-        container.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window }));
+        container.dispatchEvent(
+          new MouseEvent("mousemove", {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+          })
+        );
 
         fakeTimers.tick(0);
         expect(InternalUiShowHideManager.isUiVisible).to.eq(true);
@@ -203,9 +224,20 @@ describe("UiShowHideManager localStorage Wrapper", () => {
         InternalUiShowHideManager.autoHideUi = false;
         expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
 
-        const component = render(<ContentLayout contentGroup={myContentGroup} contentLayout={myContentLayout} />);
+        const component = render(
+          <ContentLayout
+            contentGroup={myContentGroup}
+            contentLayout={myContentLayout}
+          />
+        );
         const container = component.getByTestId("single-content-container");
-        container.dispatchEvent(new MouseEvent("mousemove", { bubbles: true, cancelable: true, view: window }));
+        container.dispatchEvent(
+          new MouseEvent("mousemove", {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+          })
+        );
 
         await TestUtils.flushAsyncOperations();
         expect(InternalUiShowHideManager.isUiVisible).to.eq(false);
@@ -248,16 +280,23 @@ describe("UiShowHideManager localStorage Wrapper", () => {
   });
 
   describe("UiShowHideSettingsProvider ", () => {
-
     it("should get and set defaults", async () => {
       const settingsStorage = new LocalStateStorage();
       await UiShowHideSettingsProvider.storeAutoHideUi(false, settingsStorage);
-      await UiShowHideSettingsProvider.storeUseProximityOpacity(false, settingsStorage);
-      await UiShowHideSettingsProvider.storeSnapWidgetOpacity(false, settingsStorage);
+      await UiShowHideSettingsProvider.storeUseProximityOpacity(
+        false,
+        settingsStorage
+      );
+      await UiShowHideSettingsProvider.storeSnapWidgetOpacity(
+        false,
+        settingsStorage
+      );
       await TestUtils.initializeUiFramework();
 
       const uiShowHideSettingsProvider = new UiShowHideSettingsProvider();
-      await uiShowHideSettingsProvider.loadUserSettings(UiFramework.getUiStateStorage());
+      await uiShowHideSettingsProvider.loadUserSettings(
+        UiFramework.getUiStateStorage()
+      );
 
       expect(InternalUiShowHideManager.autoHideUi).to.eq(false);
       expect(InternalUiShowHideManager.useProximityOpacity).to.eq(false);
@@ -271,9 +310,6 @@ describe("UiShowHideManager localStorage Wrapper", () => {
       expect(InternalUiShowHideManager.snapWidgetOpacity).to.eq(true);
 
       TestUtils.terminateUiFramework();
-
     });
-
   });
-
 });

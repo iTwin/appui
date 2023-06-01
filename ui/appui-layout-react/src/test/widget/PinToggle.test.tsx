@@ -1,12 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
-import type { NineZoneDispatch} from "../../appui-layout-react";
-import { createNineZoneState, PanelSideContext, PinToggle } from "../../appui-layout-react";
+import type { NineZoneDispatch } from "../../appui-layout-react";
+import {
+  createNineZoneState,
+  PanelSideContext,
+  PinToggle,
+} from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 
@@ -58,14 +62,11 @@ describe("PinToggle", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     const state = createNineZoneState();
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <PanelSideContext.Provider value="left">
           <PinToggle />
         </PanelSideContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     const button = container.getElementsByClassName("nz-widget-pinToggle")[0];
     fireEvent.click(button);

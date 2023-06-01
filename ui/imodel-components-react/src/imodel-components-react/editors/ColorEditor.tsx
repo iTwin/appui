@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -11,12 +11,22 @@ import classnames from "classnames";
 import * as React from "react";
 import { ColorDef } from "@itwin/core-common";
 import type {
-  ColorEditorParams, PropertyEditorParams, PropertyRecord, PropertyValue} from "@itwin/appui-abstract";
-import { PropertyEditorParamTypes, PropertyValueFormat,
-  StandardEditorNames, StandardTypeNames,
+  ColorEditorParams,
+  PropertyEditorParams,
+  PropertyRecord,
+  PropertyValue,
+} from "@itwin/appui-abstract";
+import {
+  PropertyEditorParamTypes,
+  PropertyValueFormat,
+  StandardEditorNames,
+  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import type { PropertyEditorProps, TypeEditor } from "@itwin/components-react";
-import { PropertyEditorBase, PropertyEditorManager } from "@itwin/components-react";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "@itwin/components-react";
 import { ColorPickerButton } from "../color/ColorPickerButton";
 
 /** @internal */
@@ -31,8 +41,12 @@ interface ColorEditorState {
 /** ColorEditor React component that is a property editor with text input
  * @beta
  */
-export class ColorEditor extends React.PureComponent<PropertyEditorProps, ColorEditorState> implements TypeEditor {
-  private _buttonElement: React.RefObject<HTMLButtonElement> = React.createRef();
+export class ColorEditor
+  extends React.PureComponent<PropertyEditorProps, ColorEditorState>
+  implements TypeEditor
+{
+  private _buttonElement: React.RefObject<HTMLButtonElement> =
+    React.createRef();
 
   /** @internal */
   public override readonly state: Readonly<ColorEditorState> = {
@@ -68,7 +82,11 @@ export class ColorEditor extends React.PureComponent<PropertyEditorProps, ColorE
 
   private setFocus(): void {
     // istanbul ignore else
-    if (this._buttonElement && this._buttonElement.current && !this.state.isDisabled) {
+    if (
+      this._buttonElement &&
+      this._buttonElement.current &&
+      !this.state.isDisabled
+    ) {
       this._buttonElement.current.focus();
     }
   }
@@ -76,18 +94,21 @@ export class ColorEditor extends React.PureComponent<PropertyEditorProps, ColorE
   private _onColorPick = (color: ColorDef) => {
     const propertyRecord = this.props.propertyRecord as PropertyRecord;
 
-    this.setState({
-      colorValue: color.tbgr,
-    }, async () => {
-      // istanbul ignore else
-      if (propertyRecord && this.props.onCommit) {
-        const propertyValue = await this.getPropertyValue();
+    this.setState(
+      {
+        colorValue: color.tbgr,
+      },
+      async () => {
         // istanbul ignore else
-        if (propertyValue !== undefined) {
-          this.props.onCommit({ propertyRecord, newValue: propertyValue });
+        if (propertyRecord && this.props.onCommit) {
+          const propertyValue = await this.getPropertyValue();
+          // istanbul ignore else
+          if (propertyValue !== undefined) {
+            this.props.onCommit({ propertyRecord, newValue: propertyValue });
+          }
         }
       }
-    });
+    );
   };
 
   /** @internal */
@@ -110,19 +131,26 @@ export class ColorEditor extends React.PureComponent<PropertyEditorProps, ColorE
       const colorValue = record.value.value as number;
       let numColumns = 4;
       const availableColors = new Array<ColorDef>();
-      const readonly = record && undefined !== record.isReadonly ? record.isReadonly : /* istanbul ignore next */ false;
-      const isDisabled = record ? record.isDisabled : /* istanbul ignore next */ undefined;
+      const readonly =
+        record && undefined !== record.isReadonly
+          ? record.isReadonly
+          : /* istanbul ignore next */ false;
+      const isDisabled = record
+        ? record.isDisabled
+        : /* istanbul ignore next */ undefined;
 
       if (record.property.editor && record.property.editor.params) {
-        const colorParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.ColorData) as ColorEditorParams;
+        const colorParams = record.property.editor.params.find(
+          (param: PropertyEditorParams) =>
+            param.type === PropertyEditorParamTypes.ColorData
+        ) as ColorEditorParams;
         // istanbul ignore else
         if (colorParams) {
           colorParams.colorValues.forEach((colorNumber: number) => {
             availableColors.push(ColorDef.create(colorNumber));
           });
           // istanbul ignore else
-          if (colorParams.numColumns)
-            numColumns = colorParams.numColumns;
+          if (colorParams.numColumns) numColumns = colorParams.numColumns;
         }
       }
       this.setState(
@@ -131,7 +159,7 @@ export class ColorEditor extends React.PureComponent<PropertyEditorProps, ColorE
           if (this.props.setFocus) {
             this.setFocus();
           }
-        },
+        }
       );
     }
   }
@@ -140,15 +168,24 @@ export class ColorEditor extends React.PureComponent<PropertyEditorProps, ColorE
   public override render() {
     const colorDef = ColorDef.create(this.state.colorValue);
     return (
-      <div className={classnames("components-color-editor", this.props.className)} style={this.props.style}>
-        <ColorPickerButton ref={this._buttonElement}
+      <div
+        className={classnames("components-color-editor", this.props.className)}
+        style={this.props.style}
+      >
+        <ColorPickerButton
+          ref={this._buttonElement}
           initialColor={colorDef}
-          colorDefs={this.state.availableColors.length > 0 ? this.state.availableColors : [colorDef]}
+          colorDefs={
+            this.state.availableColors.length > 0
+              ? this.state.availableColors
+              : [colorDef]
+          }
           numColumns={this.state.numColumns}
           disabled={this.state.isDisabled ? true : false}
           readonly={this.state.readonly}
           onColorPick={this._onColorPick}
-          data-testid="components-color-editor" />
+          data-testid="components-color-editor"
+        />
       </div>
     );
   }
@@ -164,4 +201,8 @@ export class ColorPropertyEditor extends PropertyEditorBase {
   }
 }
 
-PropertyEditorManager.registerEditor(StandardTypeNames.Number, ColorPropertyEditor, StandardEditorNames.ColorPicker);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Number,
+  ColorPropertyEditor,
+  StandardEditorNames.ColorPicker
+);

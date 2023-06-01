@@ -1,17 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
 
 import "./EditorContainer.scss";
 import * as React from "react";
-import type { PropertyRecord, PropertyValue} from "@itwin/appui-abstract";
+import type { PropertyRecord, PropertyValue } from "@itwin/appui-abstract";
 import { SpecialKey, UiAdmin } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import type { AsyncErrorMessage, PropertyEditorBase} from "./PropertyEditorManager";
+import type {
+  AsyncErrorMessage,
+  PropertyEditorBase,
+} from "./PropertyEditorManager";
 import { PropertyEditorManager } from "./PropertyEditorManager";
 
 /** Arguments for the Property Updated event callback
@@ -63,9 +66,9 @@ export interface EditorContainerProps extends CommonProps {
   /** @internal */
   ignoreEditorBlur?: boolean;
   /**
-  * Indicates whether value change should call onCommit().
-  * @internal
-  */
+   * Indicates whether value change should call onCommit().
+   * @internal
+   */
   shouldCommitOnChange?: boolean;
 }
 
@@ -88,12 +91,11 @@ export interface TypeEditor {
  * @public
  */
 export class EditorContainer extends React.PureComponent<EditorContainerProps> {
-
   private _editorRef: TypeEditor | undefined;
   private _propertyEditor: PropertyEditorBase | undefined;
 
   private createEditor(): React.ReactNode {
-    const editorRef = (ref: TypeEditor | undefined) => this._editorRef = ref;
+    const editorRef = (ref: TypeEditor | undefined) => (this._editorRef = ref);
 
     const editorProps: CloneProps = {
       ref: editorRef,
@@ -109,8 +111,15 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
 
     const propDescription = this.props.propertyRecord.property;
 
-    const editorName = propDescription.editor !== undefined ? propDescription.editor.name : undefined;
-    this._propertyEditor = PropertyEditorManager.createEditor(propDescription.typename, editorName, propDescription.dataController);
+    const editorName =
+      propDescription.editor !== undefined
+        ? propDescription.editor.name
+        : undefined;
+    this._propertyEditor = PropertyEditorManager.createEditor(
+      propDescription.typename,
+      editorName,
+      propDescription.dataController
+    );
     const editorNode: React.ReactNode = this._propertyEditor.reactNode;
 
     let clonedNode: React.ReactNode = null;
@@ -124,7 +133,11 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
 
   private _handleEditorBlur = (_e: React.FocusEvent) => {
     // istanbul ignore else
-    if (!this.props.ignoreEditorBlur && this._propertyEditor && this._propertyEditor.containerHandlesBlur)
+    if (
+      !this.props.ignoreEditorBlur &&
+      this._propertyEditor &&
+      this._propertyEditor.containerHandlesBlur
+    )
       this._handleContainerCommit(); // eslint-disable-line @typescript-eslint/no-floating-promises
   };
 
@@ -148,7 +161,10 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
         this.onPressTab(e);
         break;
       default:
-        if (this._propertyEditor && this._propertyEditor.containerStopsKeydownPropagation)
+        if (
+          this._propertyEditor &&
+          this._propertyEditor.containerStopsKeydownPropagation
+        )
           e.stopPropagation();
     }
   };
@@ -168,8 +184,7 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
     // istanbul ignore else
     if (this._propertyEditor && this._propertyEditor.containerHandlesEnter) {
       // istanbul ignore else
-      if (this._editorRef && this._editorRef.hasFocus)
-        e.stopPropagation();
+      if (this._editorRef && this._editorRef.hasFocus) e.stopPropagation();
       this._handleContainerCommit(); // eslint-disable-line @typescript-eslint/no-floating-promises
     }
   }
@@ -188,9 +203,19 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
       const htmlElement = this._editorRef && this._editorRef.htmlElement;
       // istanbul ignore else
       if (htmlElement)
-        UiAdmin.messagePresenter.displayInputFieldMessage(htmlElement, errorMessage.severity, errorMessage.briefMessage, errorMessage.detailedMessage);
+        UiAdmin.messagePresenter.displayInputFieldMessage(
+          htmlElement,
+          errorMessage.severity,
+          errorMessage.briefMessage,
+          errorMessage.detailedMessage
+        );
       else
-        UiAdmin.messagePresenter.displayMessage(errorMessage.severity, errorMessage.briefMessage, errorMessage.detailedMessage, errorMessage.messageType);
+        UiAdmin.messagePresenter.displayMessage(
+          errorMessage.severity,
+          errorMessage.briefMessage,
+          errorMessage.detailedMessage,
+          errorMessage.messageType
+        );
     }
   }
 
@@ -199,7 +224,10 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
 
     // istanbul ignore else
     if (this._propertyEditor && this.props.propertyRecord) {
-      const validateResult = await this._propertyEditor.validateValue(value, this.props.propertyRecord);
+      const validateResult = await this._propertyEditor.validateValue(
+        value,
+        this.props.propertyRecord
+      );
 
       if (validateResult.encounteredError) {
         this.displayOutputMessage(validateResult.errorMessage);
@@ -217,10 +245,11 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
   };
 
   private _handleContainerCommit = async (): Promise<void> => {
-    const newValue = this._editorRef && await this._editorRef.getPropertyValue();
+    const newValue =
+      this._editorRef && (await this._editorRef.getPropertyValue());
     // istanbul ignore else
     if (newValue !== undefined) {
-      this._commit({ propertyRecord: this.props.propertyRecord, newValue });  // eslint-disable-line @typescript-eslint/no-floating-promises
+      this._commit({ propertyRecord: this.props.propertyRecord, newValue }); // eslint-disable-line @typescript-eslint/no-floating-promises
     }
   };
 
@@ -231,7 +260,10 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
       let doCommit = true;
       // istanbul ignore else
       if (this._propertyEditor && args.propertyRecord) {
-        const commitResult = await this._propertyEditor.commitValue(newValue, args.propertyRecord);
+        const commitResult = await this._propertyEditor.commitValue(
+          newValue,
+          args.propertyRecord
+        );
         if (commitResult.encounteredError) {
           this.displayOutputMessage(commitResult.errorMessage);
           doCommit = false;
@@ -255,7 +287,8 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
   /** @internal */
   public override render() {
     return (
-      <span className="components-editor-container"
+      <span
+        className="components-editor-container"
         onBlur={this._handleContainerBlur}
         onKeyDown={this._handleKeyDown}
         onClick={this._handleClick}

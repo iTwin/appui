@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -31,8 +31,11 @@ export class ExpansionToggle extends React.PureComponent<ExpansionToggleProps> {
     const className = classnames(
       "core-tree-expansionToggle",
       this.props.isExpanded && "is-expanded",
-      this.props.className);
-    const label = UiCore.translate(this.props.isExpanded ? "tree.collapse" : "tree.expand");
+      this.props.className
+    );
+    const label = UiCore.translate(
+      this.props.isExpanded ? "tree.collapse" : "tree.expand"
+    );
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events

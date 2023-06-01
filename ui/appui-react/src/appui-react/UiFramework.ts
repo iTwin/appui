@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -9,7 +9,7 @@
 // cSpell:ignore configurableui clientservices
 
 import type { Store } from "redux";
-import type { GuidString} from "@itwin/core-bentley";
+import type { GuidString } from "@itwin/core-bentley";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { Localization, RpcActivity } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
@@ -24,17 +24,27 @@ import { InternalChildWindowManager } from "./childwindow/InternalChildWindowMan
 import { InternalConfigurableUiManager } from "./configurableui/InternalConfigurableUiManager";
 import { ConfigurableUiActionId } from "./configurableui/state";
 import type { FrameworkState } from "./redux/FrameworkState";
-import type { CursorMenuData, PresentationSelectionScope} from "./redux/SessionState";
+import type {
+  CursorMenuData,
+  PresentationSelectionScope,
+} from "./redux/SessionState";
 import { SessionStateActionId } from "./redux/SessionState";
 import { StateManager } from "./redux/StateManager";
-import type { HideIsolateEmphasizeActionHandler} from "./selection/HideIsolateEmphasizeManager";
+import type { HideIsolateEmphasizeActionHandler } from "./selection/HideIsolateEmphasizeManager";
 import { HideIsolateEmphasizeManager } from "./selection/HideIsolateEmphasizeManager";
-import { SYSTEM_PREFERRED_COLOR_THEME, TOOLBAR_OPACITY_DEFAULT, WIDGET_OPACITY_DEFAULT } from "./theme/ThemeManager";
+import {
+  SYSTEM_PREFERRED_COLOR_THEME,
+  TOOLBAR_OPACITY_DEFAULT,
+  WIDGET_OPACITY_DEFAULT,
+} from "./theme/ThemeManager";
 import * as keyinPaletteTools from "./tools/KeyinPaletteTools";
 import * as openSettingTools from "./tools/OpenSettingsTool";
 import * as restoreLayoutTools from "./tools/RestoreLayoutTool";
 import * as toolSettingTools from "./tools/ToolSettingsTools";
-import { InternalUiShowHideManager, UiShowHideSettingsProvider } from "./utils/InternalUiShowHideManager";
+import {
+  InternalUiShowHideManager,
+  UiShowHideSettingsProvider,
+} from "./utils/InternalUiShowHideManager";
 import { WidgetManager } from "./widgets/WidgetManager";
 import { InternalFrontstageManager } from "./frontstage/InternalFrontstageManager";
 import { InternalContentViewManager } from "./content/InternalContentViewManager";
@@ -51,7 +61,10 @@ import type { FrameworkContent } from "./framework/FrameworkContent";
 import type { FrameworkDialogs } from "./framework/FrameworkDialogs";
 import type { FrameworkKeyboardShortcuts } from "./framework/FrameworkKeyboardShortcuts";
 import type { FrameworkVisibility } from "./framework/FrameworkVisibility";
-import { SyncUiEventDispatcher, SyncUiEventId } from "./syncui/SyncUiEventDispatcher";
+import {
+  SyncUiEventDispatcher,
+  SyncUiEventId,
+} from "./syncui/SyncUiEventDispatcher";
 
 // cSpell:ignore Mobi
 
@@ -75,7 +88,7 @@ export interface UiVisibilityEventArgs {
 /** UiVisibility Event class.
  * @public
  */
-export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> { }
+export class UiVisibilityChangedEvent extends UiEvent<UiVisibilityEventArgs> {}
 
 /** TrackingTime time argument used by our feature tracking manager as an option argument to the TelemetryClient
  * @internal
@@ -97,7 +110,10 @@ export class UiFramework {
   public static get backstage(): FrameworkBackstage {
     // istanbul ignore next
     if (!UiFramework._backstageManager)
-      throw new UiError(UiFramework.loggerCategory(this), UiFramework._complaint);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        UiFramework._complaint
+      );
     return UiFramework._backstageManager;
   }
 
@@ -171,14 +187,17 @@ export class UiFramework {
   private static _initialized = false;
   private static _store?: Store<any>;
   private static _complaint = "UiFramework not initialized";
-  private static _frameworkStateKeyInStore: string = "frameworkState";  // default name
+  private static _frameworkStateKeyInStore: string = "frameworkState"; // default name
   private static _backstageManager?: BackstageManager;
   private static _widgetManager?: WidgetManager;
   private static _hideIsolateEmphasizeActionHandler?: HideIsolateEmphasizeActionHandler;
   /** this provides a default state storage handler */
   private static _uiStateStorage: UiStateStorage = new LocalStateStorage();
   private static _settingsManager?: SettingsManager;
-  private static _uiSettingsProviderRegistry: Map<string, UserSettingsProvider> = new Map<string, UserSettingsProvider>();
+  private static _uiSettingsProviderRegistry: Map<
+    string,
+    UserSettingsProvider
+  > = new Map<string, UserSettingsProvider>();
   private static _childWindowManager = new InternalChildWindowManager();
   public static useDefaultPopoutUrl = false;
 
@@ -188,8 +207,7 @@ export class UiFramework {
    * @public
    */
   public static registerUserSettingsProvider(entry: UserSettingsProvider) {
-    if (this._uiSettingsProviderRegistry.has(entry.providerId))
-      return false;
+    if (this._uiSettingsProviderRegistry.has(entry.providerId)) return false;
 
     this._uiSettingsProviderRegistry.set(entry.providerId, entry);
     return true;
@@ -205,7 +223,10 @@ export class UiFramework {
    * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
    */
-  public static async initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void> {
+  public static async initialize(
+    store: Store<any> | undefined,
+    frameworkStateKey?: string
+  ): Promise<void> {
     return this.initializeEx(store, frameworkStateKey);
   }
 
@@ -216,9 +237,15 @@ export class UiFramework {
    *
    * @internal
    */
-  public static async initializeEx(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void> {
+  public static async initializeEx(
+    store: Store<any> | undefined,
+    frameworkStateKey?: string
+  ): Promise<void> {
     if (UiFramework._initialized) {
-      Logger.logInfo(UiFramework.loggerCategory(UiFramework), `UiFramework.initialize already called`);
+      Logger.logInfo(
+        UiFramework.loggerCategory(UiFramework),
+        `UiFramework.initialize already called`
+      );
       return;
     }
 
@@ -233,23 +260,30 @@ export class UiFramework {
       UiFramework._frameworkStateKeyInStore = frameworkStateKey;
 
     // set up namespace and register all tools from package
-    const frameworkNamespace = IModelApp.localization?.registerNamespace(UiFramework.localizationNamespace);
+    const frameworkNamespace = IModelApp.localization?.registerNamespace(
+      UiFramework.localizationNamespace
+    );
     [
       restoreLayoutTools,
       keyinPaletteTools,
       openSettingTools,
       toolSettingTools,
-    ].forEach((tool) => IModelApp.tools.registerModule(tool, this.localizationNamespace));
+    ].forEach((tool) =>
+      IModelApp.tools.registerModule(tool, this.localizationNamespace)
+    );
 
     UiFramework._backstageManager = new BackstageManager();
-    UiFramework._hideIsolateEmphasizeActionHandler = new HideIsolateEmphasizeManager();  // this allows user to override the default HideIsolateEmphasizeManager implementation.
+    UiFramework._hideIsolateEmphasizeActionHandler =
+      new HideIsolateEmphasizeManager(); // this allows user to override the default HideIsolateEmphasizeManager implementation.
     UiFramework._widgetManager = new WidgetManager();
 
     // Initialize ui-imodel-components, ui-components, ui-core & ui-abstract
     await UiIModelComponents.initialize();
 
     UiFramework.settingsManager.onSettingsProvidersChanged.addListener(() => {
-      SyncUiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.SettingsProvidersChanged);
+      SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventId.SettingsProvidersChanged
+      );
     });
 
     // Initialize the MessagePresenter interface in UiAdmin for Editor notifications
@@ -269,10 +303,11 @@ export class UiFramework {
   public static terminate() {
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
-    if (StateManager.isInitialized(true))
-      StateManager.clearStore();
+    if (StateManager.isInitialized(true)) StateManager.clearStore();
     // istanbul ignore next
-    IModelApp.localization?.unregisterNamespace(UiFramework.localizationNamespace);
+    IModelApp.localization?.unregisterNamespace(
+      UiFramework.localizationNamespace
+    );
     UiFramework._backstageManager = undefined;
     UiFramework._widgetManager = undefined;
     UiFramework._hideIsolateEmphasizeActionHandler = undefined;
@@ -284,7 +319,9 @@ export class UiFramework {
   }
 
   /** Determines if UiFramework has been initialized */
-  public static get initialized(): boolean { return UiFramework._initialized; }
+  public static get initialized(): boolean {
+    return UiFramework._initialized;
+  }
 
   /** Property that returns the SettingManager used by AppUI-based applications.
    * @public
@@ -314,12 +351,14 @@ export class UiFramework {
 
   /** The Redux store */
   public static get store(): Store<any> {
-    if (UiFramework._store)
-      return UiFramework._store;
+    if (UiFramework._store) return UiFramework._store;
 
     // istanbul ignore else
     if (!StateManager.isInitialized(true))
-      throw new UiError(UiFramework.loggerCategory(this), `Error trying to access redux store before either store or StateManager has been initialized.`);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        `Error trying to access redux store before either store or StateManager has been initialized.`
+      );
 
     // istanbul ignore next
     return StateManager.store;
@@ -327,11 +366,14 @@ export class UiFramework {
 
   /** The internationalization service created by the app.
    * @internal
-  */
+   */
   public static get localization(): Localization {
     // istanbul ignore next
     if (!IModelApp.localization)
-      throw new UiError(UiFramework.loggerCategory(this), `IModelApp.localization has not been defined.`);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        `IModelApp.localization has not been defined.`
+      );
     return IModelApp.localization;
   }
 
@@ -344,24 +386,32 @@ export class UiFramework {
   public static get hideIsolateEmphasizeActionHandler(): HideIsolateEmphasizeActionHandler {
     // istanbul ignore next
     if (!UiFramework._hideIsolateEmphasizeActionHandler)
-      throw new UiError(UiFramework.loggerCategory(this), UiFramework._complaint);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        UiFramework._complaint
+      );
     return UiFramework._hideIsolateEmphasizeActionHandler;
   }
 
   /** @public */
-  public static setHideIsolateEmphasizeActionHandler(handler: HideIsolateEmphasizeActionHandler | undefined) {
+  public static setHideIsolateEmphasizeActionHandler(
+    handler: HideIsolateEmphasizeActionHandler | undefined
+  ) {
     // istanbul ignore else
-    if (handler)
-      UiFramework._hideIsolateEmphasizeActionHandler = handler;
+    if (handler) UiFramework._hideIsolateEmphasizeActionHandler = handler;
     else
-      UiFramework._hideIsolateEmphasizeActionHandler = new HideIsolateEmphasizeManager();
+      UiFramework._hideIsolateEmphasizeActionHandler =
+        new HideIsolateEmphasizeManager();
   }
 
   /** @alpha */
   public static get widgetManager(): WidgetManager {
     // istanbul ignore next
     if (!UiFramework._widgetManager)
-      throw new UiError(UiFramework.loggerCategory(this), UiFramework._complaint);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        UiFramework._complaint
+      );
     return UiFramework._widgetManager;
   }
 
@@ -369,7 +419,9 @@ export class UiFramework {
    * @internal
    */
   public static translate(key: string | string[]): string {
-    return IModelApp.localization.getLocalizedString(key, { ns: UiFramework.localizationNamespace });
+    return IModelApp.localization.getLocalizedString(key, {
+      ns: UiFramework.localizationNamespace,
+    });
   }
 
   /** @internal */
@@ -380,101 +432,159 @@ export class UiFramework {
   /** @internal */
   public static loggerCategory(obj: any): string {
     const className = getClassName(obj);
-    const category = UiFramework.packageName + (className ? `.${className}` : "");
+    const category =
+      UiFramework.packageName + (className ? `.${className}` : "");
     return category;
   }
 
-  public static dispatchActionToStore(type: string, payload: any, immediateSync = false) {
+  public static dispatchActionToStore(
+    type: string,
+    payload: any,
+    immediateSync = false
+  ) {
     UiFramework.store.dispatch({ type, payload });
-    if (immediateSync)
-      SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
-    else
-      SyncUiEventDispatcher.dispatchSyncUiEvent(type);
+    if (immediateSync) SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(type);
+    else SyncUiEventDispatcher.dispatchSyncUiEvent(type);
   }
 
   public static setAccudrawSnapMode(snapMode: SnapMode) {
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetSnapMode, snapMode, true);
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetSnapMode,
+      snapMode,
+      true
+    );
   }
 
   public static getAccudrawSnapMode(): SnapMode {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.snapMode : /* istanbul ignore next */ SnapMode.NearestKeypoint;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState.snapMode
+      : /* istanbul ignore next */ SnapMode.NearestKeypoint;
   }
 
   public static getActiveSelectionScope(): string {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.sessionState.activeSelectionScope : /* istanbul ignore next */ "element";
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.sessionState.activeSelectionScope
+      : /* istanbul ignore next */ "element";
   }
 
   public static setActiveSelectionScope(selectionScopeId: string): void {
     // istanbul ignore else
     if (UiFramework.frameworkState) {
-      const foundIndex = UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex((selectionScope: PresentationSelectionScope) => selectionScope.id === selectionScopeId);
+      const foundIndex =
+        UiFramework.frameworkState.sessionState.availableSelectionScopes.findIndex(
+          (selectionScope: PresentationSelectionScope) =>
+            selectionScope.id === selectionScopeId
+        );
       if (-1 !== foundIndex) {
-        const scope = UiFramework.frameworkState.sessionState.availableSelectionScopes[foundIndex];
-        UiFramework.dispatchActionToStore(SessionStateActionId.SetSelectionScope, scope.id);
+        const scope =
+          UiFramework.frameworkState.sessionState.availableSelectionScopes[
+            foundIndex
+          ];
+        UiFramework.dispatchActionToStore(
+          SessionStateActionId.SetSelectionScope,
+          scope.id
+        );
       }
     }
   }
 
   /** @public */
   public static openCursorMenu(menuData: CursorMenuData | undefined): void {
-    UiFramework.dispatchActionToStore(SessionStateActionId.UpdateCursorMenu, menuData);
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.UpdateCursorMenu,
+      menuData
+    );
   }
 
   /** @public */
   public static closeCursorMenu(): void {
-    UiFramework.dispatchActionToStore(SessionStateActionId.UpdateCursorMenu, undefined);
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.UpdateCursorMenu,
+      undefined
+    );
   }
 
   /** @public */
   public static getCursorMenuData(): CursorMenuData | undefined {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.sessionState.cursorMenuData : /* istanbul ignore next */ undefined;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.sessionState.cursorMenuData
+      : /* istanbul ignore next */ undefined;
   }
 
   public static getActiveIModelId(): string {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.sessionState.iModelId : /* istanbul ignore next */  "";
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.sessionState.iModelId
+      : /* istanbul ignore next */ "";
   }
 
   public static setActiveIModelId(iModelId: string): void {
-    UiFramework.dispatchActionToStore(SessionStateActionId.SetActiveIModelId, iModelId);
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetActiveIModelId,
+      iModelId
+    );
   }
 
-  public static setIModelConnection(iModelConnection: IModelConnection | undefined, immediateSync = false) {
+  public static setIModelConnection(
+    iModelConnection: IModelConnection | undefined,
+    immediateSync = false
+  ) {
     const oldConnection = UiFramework.getIModelConnection();
     if (oldConnection !== iModelConnection) {
       if (oldConnection?.iModelId)
-        InternalFrontstageManager.clearFrontstageDefsForIModelId(oldConnection.iModelId);
-      oldConnection && undefined === iModelConnection && SyncUiEventDispatcher.clearConnectionEvents(oldConnection);
-      iModelConnection && SyncUiEventDispatcher.initializeConnectionEvents(iModelConnection);
-      UiFramework.dispatchActionToStore(SessionStateActionId.SetIModelConnection, iModelConnection, immediateSync);
+        InternalFrontstageManager.clearFrontstageDefsForIModelId(
+          oldConnection.iModelId
+        );
+      oldConnection &&
+        undefined === iModelConnection &&
+        SyncUiEventDispatcher.clearConnectionEvents(oldConnection);
+      iModelConnection &&
+        SyncUiEventDispatcher.initializeConnectionEvents(iModelConnection);
+      UiFramework.dispatchActionToStore(
+        SessionStateActionId.SetIModelConnection,
+        iModelConnection,
+        immediateSync
+      );
     }
     UiFramework.setActiveIModelId(iModelConnection?.iModelId ?? "");
   }
 
   public static getIModelConnection(): IModelConnection | undefined {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.sessionState.iModelConnection : /* istanbul ignore next */  undefined;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.sessionState.iModelConnection
+      : /* istanbul ignore next */ undefined;
   }
 
   /** Called by iModelApp to initialize saved UI state from registered UseSettingsProviders
    * @public
    */
-  public static async initializeStateFromUserSettingsProviders(immediateSync = false) {
+  public static async initializeStateFromUserSettingsProviders(
+    immediateSync = false
+  ) {
     // let any registered providers to load values from the new storage location
     const providerKeys = [...this._uiSettingsProviderRegistry.keys()];
     for await (const key of providerKeys) {
-      await this._uiSettingsProviderRegistry.get(key)!.loadUserSettings(UiFramework._uiStateStorage);
+      await this._uiSettingsProviderRegistry
+        .get(key)!
+        .loadUserSettings(UiFramework._uiStateStorage);
     }
 
     // istanbul ignore next
     if (immediateSync)
-      SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(SyncUiEventId.UiStateStorageChanged);
+      SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
+        SyncUiEventId.UiStateStorageChanged
+      );
     else
-      SyncUiEventDispatcher.dispatchSyncUiEvent(SyncUiEventId.UiStateStorageChanged);
+      SyncUiEventDispatcher.dispatchSyncUiEvent(
+        SyncUiEventId.UiStateStorageChanged
+      );
   }
 
   /** @public */
-  public static async setUiStateStorage(storage: UiStateStorage, immediateSync = false) {
-    if (UiFramework._uiStateStorage === storage)
-      return;
+  public static async setUiStateStorage(
+    storage: UiStateStorage,
+    immediateSync = false
+  ) {
+    if (UiFramework._uiStateStorage === storage) return;
 
     UiFramework._uiStateStorage = storage;
     await this.initializeStateFromUserSettingsProviders(immediateSync);
@@ -489,35 +599,59 @@ export class UiFramework {
     return UiFramework._uiStateStorage;
   }
 
-  public static setDefaultIModelViewportControlId(iModelViewportControlId: string, immediateSync = false) {
-    UiFramework.dispatchActionToStore(SessionStateActionId.SetDefaultIModelViewportControlId, iModelViewportControlId, immediateSync);
+  public static setDefaultIModelViewportControlId(
+    iModelViewportControlId: string,
+    immediateSync = false
+  ) {
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetDefaultIModelViewportControlId,
+      iModelViewportControlId,
+      immediateSync
+    );
   }
 
   public static getDefaultIModelViewportControlId(): string | undefined {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.sessionState.defaultIModelViewportControlId : /* istanbul ignore next */  undefined;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.sessionState.defaultIModelViewportControlId
+      : /* istanbul ignore next */ undefined;
   }
 
   public static setDefaultViewId(viewId: string, immediateSync = false) {
-    UiFramework.dispatchActionToStore(SessionStateActionId.SetDefaultViewId, viewId, immediateSync);
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetDefaultViewId,
+      viewId,
+      immediateSync
+    );
   }
 
   public static getDefaultViewId(): string | undefined {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.sessionState.defaultViewId : /* istanbul ignore next */  undefined;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.sessionState.defaultViewId
+      : /* istanbul ignore next */ undefined;
   }
 
-  public static setDefaultViewState(viewState: ViewState, immediateSync = false) {
-    UiFramework.dispatchActionToStore(SessionStateActionId.SetDefaultViewState, viewState, immediateSync);
+  public static setDefaultViewState(
+    viewState: ViewState,
+    immediateSync = false
+  ) {
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetDefaultViewState,
+      viewState,
+      immediateSync
+    );
   }
   public static getDefaultViewState(): ViewState | undefined {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.sessionState.defaultViewState : /* istanbul ignore next */  undefined;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.sessionState.defaultViewState
+      : /* istanbul ignore next */ undefined;
   }
 
   /** @public */
   public static getAvailableSelectionScopes(): PresentationSelectionScope[] {
-    return UiFramework.frameworkState ?
-      UiFramework.frameworkState.sessionState.availableSelectionScopes :
-      /* istanbul ignore next */
-      [{ id: "element", label: "Element" } as PresentationSelectionScope];
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.sessionState.availableSelectionScopes
+      : /* istanbul ignore next */
+        [{ id: "element", label: "Element" } as PresentationSelectionScope];
   }
 
   public static getIsUiVisible() {
@@ -532,14 +666,19 @@ export class UiFramework {
   }
 
   public static setColorTheme(theme: string) {
-    if (UiFramework.getColorTheme() === theme)
-      return;
+    if (UiFramework.getColorTheme() === theme) return;
 
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetTheme, theme, true);
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetTheme,
+      theme,
+      true
+    );
   }
 
   public static getColorTheme(): string {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.theme : /* istanbul ignore next */ SYSTEM_PREFERRED_COLOR_THEME;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState.theme
+      : /* istanbul ignore next */ SYSTEM_PREFERRED_COLOR_THEME;
   }
 
   /** UiFramework.setToolbarOpacity() sets the non-hovered opacity to the value specified. Used by UI 2.0 and later.
@@ -547,69 +686,99 @@ export class UiFramework {
    * @public
    */
   public static setToolbarOpacity(opacity: number) {
-    if (UiFramework.getToolbarOpacity() === opacity)
-      return;
+    if (UiFramework.getToolbarOpacity() === opacity) return;
 
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetToolbarOpacity, opacity, true);
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetToolbarOpacity,
+      opacity,
+      true
+    );
   }
 
   /** UiFramework.getToolbarOpacity() returns a number between 0 and 1 that is the non-hovered opacity for toolbars.
    * @public
    */
   public static getToolbarOpacity(): number {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.toolbarOpacity : /* istanbul ignore next */ TOOLBAR_OPACITY_DEFAULT;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState.toolbarOpacity
+      : /* istanbul ignore next */ TOOLBAR_OPACITY_DEFAULT;
   }
 
   public static setWidgetOpacity(opacity: number) {
-    if (UiFramework.getWidgetOpacity() === opacity)
-      return;
+    if (UiFramework.getWidgetOpacity() === opacity) return;
 
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetWidgetOpacity, opacity, true);
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetWidgetOpacity,
+      opacity,
+      true
+    );
   }
 
   public static getWidgetOpacity(): number {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.widgetOpacity : /* istanbul ignore next */ WIDGET_OPACITY_DEFAULT;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState.widgetOpacity
+      : /* istanbul ignore next */ WIDGET_OPACITY_DEFAULT;
   }
 
-  public static isMobile() {  // eslint-disable-line @itwin/prefer-get
+  public static isMobile() {
+    // eslint-disable-line @itwin/prefer-get
     return ProcessDetector.isMobileBrowser;
   }
 
   public static get showWidgetIcon(): boolean {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.showWidgetIcon : /* istanbul ignore next */ false;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState.showWidgetIcon
+      : /* istanbul ignore next */ false;
   }
 
   public static setShowWidgetIcon(value: boolean) {
-    if (UiFramework.showWidgetIcon === value)
-      return;
+    if (UiFramework.showWidgetIcon === value) return;
 
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetShowWidgetIcon, value, true);
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetShowWidgetIcon,
+      value,
+      true
+    );
   }
   /** Animate Tool Settings on appear  */
   public static get animateToolSettings(): boolean {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.animateToolSettings : /* istanbul ignore next */ false;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState.animateToolSettings
+      : /* istanbul ignore next */ false;
   }
   public static setAnimateToolSettings(value: boolean) {
-    if (UiFramework.animateToolSettings === value)
-      return;
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.AnimateToolSettings, value, true);
+    if (UiFramework.animateToolSettings === value) return;
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.AnimateToolSettings,
+      value,
+      true
+    );
   }
 
   /** Use Tool Name As Tool Settings Widget Tab Label */
   public static get useToolAsToolSettingsLabel(): boolean {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.useToolAsToolSettingsLabel : /* istanbul ignore next */ false;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState
+          .useToolAsToolSettingsLabel
+      : /* istanbul ignore next */ false;
   }
   public static setUseToolAsToolSettingsLabel(value: boolean) {
-    if (UiFramework.useToolAsToolSettingsLabel === value)
-      return;
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.UseToolAsToolSettingsLabel, value, true);
+    if (UiFramework.useToolAsToolSettingsLabel === value) return;
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.UseToolAsToolSettingsLabel,
+      value,
+      true
+    );
   }
 
   /** When `true`, panels will close as soon as the mouse leave the panel.
    * When `false` (default), panels will close on next click outside the panel.
    * @public */
   public static get autoCollapseUnpinnedPanels(): boolean {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.autoCollapseUnpinnedPanels : /* istanbul ignore next */ false;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState
+          .autoCollapseUnpinnedPanels
+      : /* istanbul ignore next */ false;
   }
 
   /** Method used to enable the automatic closing of an unpinned widget panel as soon as the
@@ -618,41 +787,61 @@ export class UiFramework {
    * @public */
 
   public static setAutoCollapseUnpinnedPanels(value: boolean) {
-    if (UiFramework.autoCollapseUnpinnedPanels === value)
-      return;
+    if (UiFramework.autoCollapseUnpinnedPanels === value) return;
 
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.AutoCollapseUnpinnedPanels, value, true);
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
+      value,
+      true
+    );
   }
 
   public static get useDragInteraction(): boolean {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.useDragInteraction : false;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState.useDragInteraction
+      : false;
   }
 
   public static setUseDragInteraction(useDragInteraction: boolean) {
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetDragInteraction, useDragInteraction, true);
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetDragInteraction,
+      useDragInteraction,
+      true
+    );
   }
 
   /** Returns the variable controlling whether the overlay is displayed in a Viewport
    * @public
    */
   public static get viewOverlayDisplay() {
-    return UiFramework.frameworkState ? UiFramework.frameworkState.configurableUiState.viewOverlayDisplay : /* istanbul ignore next */ true;
+    return UiFramework.frameworkState
+      ? UiFramework.frameworkState.configurableUiState.viewOverlayDisplay
+      : /* istanbul ignore next */ true;
   }
   /** Set the variable that controls display of the view overlay. Applies to all viewports in the app
- * @public
- */
+   * @public
+   */
   public static setViewOverlayDisplay(display: boolean) {
-    if (UiFramework.viewOverlayDisplay === display)
-      return;
-    UiFramework.dispatchActionToStore(ConfigurableUiActionId.SetViewOverlayDisplay, display);
+    if (UiFramework.viewOverlayDisplay === display) return;
+    UiFramework.dispatchActionToStore(
+      ConfigurableUiActionId.SetViewOverlayDisplay,
+      display
+    );
   }
   /** Send logging message to the telemetry system
    * @internal
    */
   // istanbul ignore next
-  public static async postTelemetry(eventName: string, eventId?: GuidString, iTwinId?: GuidString, iModeId?: GuidString, changeSetId?: string, time?: TrackingTime, additionalProperties?: { [key: string]: any }): Promise<void> {
-    if (!IModelApp.authorizationClient)
-      return;
+  public static async postTelemetry(
+    eventName: string,
+    eventId?: GuidString,
+    iTwinId?: GuidString,
+    iModeId?: GuidString,
+    changeSetId?: string,
+    time?: TrackingTime,
+    additionalProperties?: { [key: string]: any }
+  ): Promise<void> {
+    if (!IModelApp.authorizationClient) return;
 
     try {
       const activity: RpcActivity = {
@@ -660,11 +849,20 @@ export class UiFramework {
         activityId: "",
         applicationId: IModelApp.applicationId,
         applicationVersion: IModelApp.applicationVersion,
-        accessToken: (await IModelApp.authorizationClient.getAccessToken()) ?? "",
+        accessToken:
+          (await IModelApp.authorizationClient.getAccessToken()) ?? "",
       };
-      const telemetryEvent = new TelemetryEvent(eventName, eventId, iTwinId, iModeId, changeSetId, time, additionalProperties);
+      const telemetryEvent = new TelemetryEvent(
+        eventName,
+        eventId,
+        iTwinId,
+        iModeId,
+        changeSetId,
+        time,
+        additionalProperties
+      );
       await IModelApp.telemetry.postTelemetry(activity, telemetryEvent);
-    } catch { }
+    } catch {}
   }
   /** Determines whether a ContextMenu is open
    * @alpha

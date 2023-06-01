@@ -1,19 +1,38 @@
 import { expect } from "chai";
 import React from "react";
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import type {
-  ArrayValue, BasePropertyEditorParams, ButtonGroupEditorParams, CustomFormattedNumberParams, DisplayMessageType, ImageCheckBoxParams,
-  MessagePresenter, ParseResults, Primitives, PrimitiveValue, PropertyDescription, PropertyEditorInfo, PropertyValue, StructValue} from "@itwin/appui-abstract";
-import { MessageSeverity, PropertyEditorParamTypes,
-  PropertyRecord, PropertyValueFormat, StandardEditorNames, StandardTypeNames, UiAdmin,
+  ArrayValue,
+  BasePropertyEditorParams,
+  ButtonGroupEditorParams,
+  CustomFormattedNumberParams,
+  DisplayMessageType,
+  ImageCheckBoxParams,
+  MessagePresenter,
+  ParseResults,
+  Primitives,
+  PrimitiveValue,
+  PropertyDescription,
+  PropertyEditorInfo,
+  PropertyValue,
+  StructValue,
+} from "@itwin/appui-abstract";
+import {
+  MessageSeverity,
+  PropertyEditorParamTypes,
+  PropertyRecord,
+  PropertyValueFormat,
+  StandardEditorNames,
+  StandardTypeNames,
+  UiAdmin,
 } from "@itwin/appui-abstract";
 import { ITwinLocalization } from "@itwin/core-i18n";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { AsyncValueProcessingResult} from "../components-react";
+import type { AsyncValueProcessingResult } from "../components-react";
 import { DataControllerBase, UiComponents } from "../components-react";
 
 export { userEvent };
@@ -38,9 +57,19 @@ export class TestUtils {
       TestUtils._uiComponentsInitialized = true;
 
       const mp: MessagePresenter = {
-        displayMessage: (_severity: MessageSeverity, _briefMessage: HTMLElement | string, _detailedMessage?: HTMLElement | string, _messageType?: DisplayMessageType.Toast): void => { },
-        displayInputFieldMessage: (_inputField: HTMLElement, _severity: MessageSeverity, _briefMessage: HTMLElement | string, _detailedMessage?: HTMLElement | string): void => { },
-        closeInputFieldMessage: (): void => { },
+        displayMessage: (
+          _severity: MessageSeverity,
+          _briefMessage: HTMLElement | string,
+          _detailedMessage?: HTMLElement | string,
+          _messageType?: DisplayMessageType.Toast
+        ): void => {},
+        displayInputFieldMessage: (
+          _inputField: HTMLElement,
+          _severity: MessageSeverity,
+          _briefMessage: HTMLElement | string,
+          _detailedMessage?: HTMLElement | string
+        ): void => {},
+        closeInputFieldMessage: (): void => {},
       };
       UiAdmin.messagePresenter = mp;
     }
@@ -56,7 +85,11 @@ export class TestUtils {
     return new Promise((resolve) => setTimeout(resolve));
   }
 
-  public static createPropertyRecord(value: any, column: { key: string, label: string }, typename: string) {
+  public static createPropertyRecord(
+    value: any,
+    column: { key: string; label: string },
+    typename: string
+  ) {
     const v: PrimitiveValue = {
       valueFormat: PropertyValueFormat.Primitive,
       value,
@@ -70,7 +103,13 @@ export class TestUtils {
     return new PropertyRecord(v, pd);
   }
 
-  public static createPrimitiveStringProperty(name: string, rawValue: string, displayValue: string = rawValue.toString(), editorInfo?: PropertyEditorInfo, autoExpand?: boolean) {
+  public static createPrimitiveStringProperty(
+    name: string,
+    rawValue: string,
+    displayValue: string = rawValue.toString(),
+    editorInfo?: PropertyEditorInfo,
+    autoExpand?: boolean
+  ) {
     const value: PrimitiveValue = {
       displayValue,
       value: rawValue,
@@ -83,19 +122,22 @@ export class TestUtils {
       typename: StandardTypeNames.String,
     };
 
-    if (editorInfo)
-      description.editor = editorInfo;
+    if (editorInfo) description.editor = editorInfo;
 
     const property = new PropertyRecord(value, description);
     property.isReadonly = false;
     property.autoExpand = autoExpand;
-    if (property.autoExpand === undefined)
-      delete property.autoExpand;
+    if (property.autoExpand === undefined) delete property.autoExpand;
 
     return property;
   }
 
-  public static createPrimitiveDoubleProperty(name: string, rawValue: number, displayValue: string = rawValue.toString(), editorInfo?: PropertyEditorInfo) {
+  public static createPrimitiveDoubleProperty(
+    name: string,
+    rawValue: number,
+    displayValue: string = rawValue.toString(),
+    editorInfo?: PropertyEditorInfo
+  ) {
     const value: PrimitiveValue = {
       displayValue,
       value: rawValue,
@@ -108,8 +150,7 @@ export class TestUtils {
       typename: StandardTypeNames.Double,
     };
 
-    if (editorInfo)
-      description.editor = editorInfo;
+    if (editorInfo) description.editor = editorInfo;
 
     const property = new PropertyRecord(value, description);
     property.isReadonly = false;
@@ -123,9 +164,12 @@ export class TestUtils {
     return record;
   }
 
-  public static createArrayProperty(name: string, items?: PropertyRecord[], autoExpand?: boolean) {
-    if (!items)
-      items = [];
+  public static createArrayProperty(
+    name: string,
+    items?: PropertyRecord[],
+    autoExpand?: boolean
+  ) {
+    if (!items) items = [];
 
     const value: ArrayValue = {
       items,
@@ -144,9 +188,12 @@ export class TestUtils {
     return property;
   }
 
-  public static createStructProperty(name: string, members?: { [name: string]: PropertyRecord }, autoExpand?: boolean) {
-    if (!members)
-      members = {};
+  public static createStructProperty(
+    name: string,
+    members?: { [name: string]: PropertyRecord },
+    autoExpand?: boolean
+  ) {
+    if (!members) members = {};
 
     const value: StructValue = {
       members,
@@ -220,27 +267,36 @@ export class TestUtils {
   }
 
   public static blueEnumValueIsEnabled = true;
-  public static toggleBlueEnumValueEnabled() { TestUtils.blueEnumValueIsEnabled = !TestUtils.blueEnumValueIsEnabled; }
-  public static addEnumButtonGroupEditorSpecification(propertyRecord: PropertyRecord) {
+  public static toggleBlueEnumValueEnabled() {
+    TestUtils.blueEnumValueIsEnabled = !TestUtils.blueEnumValueIsEnabled;
+  }
+  public static addEnumButtonGroupEditorSpecification(
+    propertyRecord: PropertyRecord
+  ) {
     propertyRecord.property.editor = {
       name: "enum-buttongroup",
-      params: [{
-        type: PropertyEditorParamTypes.ButtonGroupData,
-        buttons: [
-          { iconSpec: "icon-yellow" },
-          { iconSpec: "icon-red" },
-          { iconSpec: "icon-green" },
-          {
-            iconSpec: "icon-blue",
-            isEnabledFunction: () => TestUtils.blueEnumValueIsEnabled,
-          },
-        ],
-      } as ButtonGroupEditorParams,
+      params: [
+        {
+          type: PropertyEditorParamTypes.ButtonGroupData,
+          buttons: [
+            { iconSpec: "icon-yellow" },
+            { iconSpec: "icon-red" },
+            { iconSpec: "icon-green" },
+            {
+              iconSpec: "icon-blue",
+              isEnabledFunction: () => TestUtils.blueEnumValueIsEnabled,
+            },
+          ],
+        } as ButtonGroupEditorParams,
       ],
     };
   }
 
-  public static createBooleanProperty(name: string, booleanValue: boolean, editor?: string) {
+  public static createBooleanProperty(
+    name: string,
+    booleanValue: boolean,
+    editor?: string
+  ) {
     const value: PrimitiveValue = {
       displayValue: "",
       value: booleanValue,
@@ -260,7 +316,10 @@ export class TestUtils {
     return propertyRecord;
   }
 
-  public static createImageCheckBoxProperty(name: string, booleanValue: boolean) {
+  public static createImageCheckBoxProperty(
+    name: string,
+    booleanValue: boolean
+  ) {
     const value: PrimitiveValue = {
       displayValue: "",
       value: booleanValue,
@@ -275,21 +334,27 @@ export class TestUtils {
     const propertyRecord = new PropertyRecord(value, description);
     propertyRecord.property.editor = {
       name: "image-check-box",
-      params: [{
-        type: PropertyEditorParamTypes.CheckBoxImages,
-        imageOff: "icon-visibility-hide-2",
-        imageOn: "icon-visibility",
-      } as ImageCheckBoxParams,
+      params: [
+        {
+          type: PropertyEditorParamTypes.CheckBoxImages,
+          imageOff: "icon-visibility-hide-2",
+          imageOn: "icon-visibility",
+        } as ImageCheckBoxParams,
       ],
     };
     propertyRecord.isReadonly = false;
     return propertyRecord;
   }
 
-  private static _formatLength = (numberValue: number): string => numberValue.toFixed(2);
+  private static _formatLength = (numberValue: number): string =>
+    numberValue.toFixed(2);
 
-  public static createCustomNumberProperty(propertyName: string, numVal: number, displayVal?: string, editorParams?: BasePropertyEditorParams[]) {
-
+  public static createCustomNumberProperty(
+    propertyName: string,
+    numVal: number,
+    displayVal?: string,
+    editorParams?: BasePropertyEditorParams[]
+  ) {
     const value: PrimitiveValue = {
       displayValue: displayVal,
       value: numVal,
@@ -309,7 +374,9 @@ export class TestUtils {
             parseFunction: (stringValue: string): ParseResults => {
               const rtnValue = Number.parseFloat(stringValue);
               if (Number.isNaN(rtnValue)) {
-                return { parseError: `Unable to parse ${stringValue} into a valid length` };
+                return {
+                  parseError: `Unable to parse ${stringValue} into a valid length`,
+                };
               } else {
                 return { value: rtnValue };
               }
@@ -330,8 +397,12 @@ export class TestUtils {
     return propertyRecord;
   }
 
-  public static createNumericProperty(propertyName: string, numericValue: number, editorName: string, editorParams?: BasePropertyEditorParams[]) {
-
+  public static createNumericProperty(
+    propertyName: string,
+    numericValue: number,
+    editorName: string,
+    editorParams?: BasePropertyEditorParams[]
+  ) {
     const value: PrimitiveValue = {
       displayValue: "",
       value: numericValue,
@@ -356,9 +427,13 @@ export class TestUtils {
   public static createNavigationProperty(
     name: string,
     value: Primitives.InstanceKey,
-    displayValue?: string,
+    displayValue?: string
   ): PropertyRecord {
-    const property = TestUtils.createPrimitiveStringProperty(name, "", displayValue);
+    const property = TestUtils.createPrimitiveStringProperty(
+      name,
+      "",
+      displayValue
+    );
     property.property.typename = StandardTypeNames.Navigation;
     (property.value as PrimitiveValue).value = value;
     return property;
@@ -367,9 +442,13 @@ export class TestUtils {
   public static createURIProperty(
     name: string,
     value: string,
-    displayValue?: string,
+    displayValue?: string
   ): PropertyRecord {
-    const property = TestUtils.createPrimitiveStringProperty(name, value, displayValue);
+    const property = TestUtils.createPrimitiveStringProperty(
+      name,
+      value,
+      displayValue
+    );
     property.property.typename = StandardTypeNames.URL;
     return property;
   }
@@ -377,14 +456,24 @@ export class TestUtils {
 
 /** @internal */
 export class MineDataController extends DataControllerBase {
-  public override async validateValue(_newValue: PropertyValue, _record: PropertyRecord): Promise<AsyncValueProcessingResult> {
-    return { encounteredError: true, errorMessage: { severity: MessageSeverity.Error, briefMessage: "Test" } };
+  public override async validateValue(
+    _newValue: PropertyValue,
+    _record: PropertyRecord
+  ): Promise<AsyncValueProcessingResult> {
+    return {
+      encounteredError: true,
+      errorMessage: { severity: MessageSeverity.Error, briefMessage: "Test" },
+    };
   }
 }
 
 /** Returns tag, id and classes of the information used by CSS selectors */
 function getPartialSelectorInfo(e: HTMLElement) {
-  return `${e.tagName}${e.id ? `#${e.id}` : ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
+  return `${e.tagName}${e.id ? `#${e.id}` : ""}${Array.from(
+    e.classList.values()
+  )
+    .map((c) => `.${c}`)
+    .join("")}`;
 }
 
 /** Returns the full list of classes and tag chain for an element up to HTML */
@@ -406,7 +495,9 @@ function currentSelectorInfo(e: HTMLElement) {
 export function selectorMatches(selectors: string) {
   const satisfier = (e: HTMLElement) => {
     // \b\b\b... removes default "[Function : " part to get clear message in output.
-    const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(e)}'\n\n${prettyDOM()}`;
+    const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(
+      e
+    )}'\n\n${prettyDOM()}`;
     Object.defineProperty(satisfier, "name", { value: message });
     return e.matches(selectors);
   };
@@ -421,7 +512,9 @@ export function selectorMatches(selectors: string) {
 export function childStructure(selectors: string) {
   const satisfier = (e: HTMLElement) => {
     // \b\b\b... removes default "[Function : " part to get clear message in output.
-    const message = `\b\b\b\b\b\b\b\b\b\belement.querySelector('${selectors}'); but is: \n${prettyDOM(e)}`;
+    const message = `\b\b\b\b\b\b\b\b\b\belement.querySelector('${selectors}'); but is: \n${prettyDOM(
+      e
+    )}`;
     Object.defineProperty(satisfier, "name", { value: message });
     return !!e.querySelector(selectors);
   };
@@ -432,7 +525,7 @@ export function childStructure(selectors: string) {
  * Type to allow CSSStyleDeclaration to be a regexp that will be matched against the
  * property instead of the string value.
  */
-type Matchable<T> = { [P in keyof T]: T[P] | RegExp; };
+type Matchable<T> = { [P in keyof T]: T[P] | RegExp };
 
 /**
  * Function to generate a `satisfy` function
@@ -446,7 +539,9 @@ export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
       if (Object.prototype.hasOwnProperty.call(style, prop)) {
         const value = style[prop];
         if (value instanceof RegExp) {
-          expect(e.style, `property ${prop}`).to.have.property(prop).that.match(value);
+          expect(e.style, `property ${prop}`)
+            .to.have.property(prop)
+            .that.match(value);
         } else {
           expect(e.style).to.have.property(prop, value);
         }
@@ -483,19 +578,23 @@ export interface TestErrorBoundaryState {
  * });
  * ```
  */
-export class TestErrorBoundary extends React.Component<TestErrorBoundaryProps, TestErrorBoundaryState> {
+export class TestErrorBoundary extends React.Component<
+  TestErrorBoundaryProps,
+  TestErrorBoundaryState
+> {
   public constructor(props: TestErrorBoundaryProps) {
     super(props);
     this.state = {};
   }
   // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
-  static getDerivedStateFromError(): TestErrorBoundaryState { return { hasError: true }; }
+  static getDerivedStateFromError(): TestErrorBoundaryState {
+    return { hasError: true };
+  }
   public override componentDidCatch(error: Error, info: any) {
     this.props.onError(error, info.componentStack);
   }
   public override render() {
-    if (this.state.hasError)
-      return null;
+    if (this.state.hasError) return null;
     return this.props.children;
   }
 }
@@ -504,6 +603,9 @@ export class TestErrorBoundary extends React.Component<TestErrorBoundaryProps, T
  * Simplified type for `sinon.SinonSpy`.
  * @internal
  */
-export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<Parameters<T>, ReturnType<T>>;
+export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
+  Parameters<T>,
+  ReturnType<T>
+>;
 
-export default TestUtils;   // eslint-disable-line: no-default-export
+export default TestUtils; // eslint-disable-line: no-default-export

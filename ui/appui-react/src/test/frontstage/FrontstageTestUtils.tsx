@@ -1,13 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
-  ConfigurableCreateInfo, FrontstageConfig} from "../../appui-react";
-import { ContentControl, ContentGroup, FrontstageProvider,
-  MessageCenterField, StatusBarWidgetControl, WidgetState,
+  ConfigurableCreateInfo,
+  FrontstageConfig,
+} from "../../appui-react";
+import {
+  ContentControl,
+  ContentGroup,
+  FrontstageProvider,
+  MessageCenterField,
+  StatusBarWidgetControl,
+  WidgetState,
 } from "../../appui-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
@@ -22,11 +29,9 @@ export class TestContentControl extends ContentControl {
 
 /** @internal */
 export class TestWidgetElement extends React.Component {
-  public override componentDidMount() {
-  }
+  public override componentDidMount() {}
 
-  public override componentWillUnmount() {
-  }
+  public override componentWillUnmount() {}
 
   public override render() {
     return <div />;
@@ -56,19 +61,17 @@ export class TestFrontstage extends FrontstageProvider {
   }
 
   public override frontstageConfig(): FrontstageConfig {
-    const contentGroup = new ContentGroup(
-      {
-        id: "test-group",
-        layout: StandardContentLayouts.singleView,
-        contents: [
-          {
-            id: "main",
-            classId: TestContentControl,
-            applicationData: { label: "Content 1a", bgColor: "black" },
-          },
-        ],
-      },
-    );
+    const contentGroup = new ContentGroup({
+      id: "test-group",
+      layout: StandardContentLayouts.singleView,
+      contents: [
+        {
+          id: "main",
+          classId: TestContentControl,
+          applicationData: { label: "Content 1a", bgColor: "black" },
+        },
+      ],
+    });
 
     return {
       id: this.id,
@@ -84,14 +87,18 @@ export class TestFrontstage extends FrontstageProvider {
       },
       leftPanel: {
         sections: {
-          start: [{
-            id: "widget3",
-            defaultState: WidgetState.Open,
-          }],
-          end: [{
-            id: "widget4",
-            defaultState: WidgetState.Open,
-          }],
+          start: [
+            {
+              id: "widget3",
+              defaultState: WidgetState.Open,
+            },
+          ],
+          end: [
+            {
+              id: "widget4",
+              defaultState: WidgetState.Open,
+            },
+          ],
         },
       },
       rightPanel: {
@@ -104,7 +111,7 @@ export class TestFrontstage extends FrontstageProvider {
             },
             {
               id: "widget6_2",
-              content: < div />,
+              content: <div />,
             },
           ],
           end: [
@@ -116,7 +123,7 @@ export class TestFrontstage extends FrontstageProvider {
             {
               id: "widget2",
               defaultState: WidgetState.Hidden,
-              content: < div />,
+              content: <div />,
             },
           ],
         },
@@ -138,19 +145,17 @@ export class TestFrontstage2 extends FrontstageProvider {
   }
 
   public override frontstageConfig(): FrontstageConfig {
-    const contentGroup = new ContentGroup(
-      {
-        id: "test-group",
-        layout: StandardContentLayouts.singleView,
-        contents: [
-          {
-            id: "main",
-            classId: TestContentControl,
-            applicationData: { label: "Content 1a", bgColor: "black" },
-          },
-        ],
-      },
-    );
+    const contentGroup = new ContentGroup({
+      id: "test-group",
+      layout: StandardContentLayouts.singleView,
+      contents: [
+        {
+          id: "main",
+          classId: TestContentControl,
+          applicationData: { label: "Content 1a", bgColor: "black" },
+        },
+      ],
+    });
 
     return {
       id: this.id,
@@ -166,14 +171,18 @@ export class TestFrontstage2 extends FrontstageProvider {
       },
       leftPanel: {
         sections: {
-          start: [{
-            id: "widget3",
-            defaultState: WidgetState.Open,
-          }],
-          end: [{
-            id: "widget4",
-            defaultState: WidgetState.Open,
-          }],
+          start: [
+            {
+              id: "widget3",
+              defaultState: WidgetState.Open,
+            },
+          ],
+          end: [
+            {
+              id: "widget4",
+              defaultState: WidgetState.Open,
+            },
+          ],
         },
       },
       rightPanel: {
@@ -220,17 +229,16 @@ export class TestFrontstage3 extends FrontstageProvider {
   }
 
   public override frontstageConfig(): FrontstageConfig {
-    const contentGroup = new ContentGroup(
-      {
-        id: "test-group",
-        layout: StandardContentLayouts.singleView,
-        contents: [
-          {
-            id: "main", classId: TestContentControl,
-          },
-        ],
-      },
-    );
+    const contentGroup = new ContentGroup({
+      id: "test-group",
+      layout: StandardContentLayouts.singleView,
+      contents: [
+        {
+          id: "main",
+          classId: TestContentControl,
+        },
+      ],
+    });
 
     return {
       id: this.id,

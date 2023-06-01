@@ -1,16 +1,24 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
 
 import * as React from "react";
 import type { Id64String } from "@itwin/core-bentley";
-import type { IModelConnection, ScreenViewport, ViewState } from "@itwin/core-frontend";
+import type {
+  IModelConnection,
+  ScreenViewport,
+  ViewState,
+} from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
-import { ConfigurableCreateInfo, ConfigurableUiControl, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
+import {
+  ConfigurableCreateInfo,
+  ConfigurableUiControl,
+  ConfigurableUiControlType,
+} from "../configurableui/ConfigurableUiControl";
 
 /** ControlControl Activated Event Args interface.
  * @public
@@ -23,7 +31,7 @@ export interface ContentControlActivatedEventArgs {
 /** ContentControl Activated Event class.
  * @public
  */
-export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> { }
+export class ContentControlActivatedEvent extends UiEvent<ContentControlActivatedEventArgs> {}
 
 /** Interface to be implemented when the ContentControl supports ViewSelector changes
  * @public
@@ -32,7 +40,12 @@ export interface SupportsViewSelectorChange {
   /** Returns true if this control supports reacting to ViewSelector changes. */
   supportsViewSelectorChange: boolean;
   /** Process a ViewSelector change. */
-  processViewSelectorChange(iModel: IModelConnection, viewDefinitionId: Id64String, viewState: ViewState, name: string): Promise<void>;
+  processViewSelectorChange(
+    iModel: IModelConnection,
+    viewDefinitionId: Id64String,
+    viewState: ViewState,
+    name: string
+  ): Promise<void>;
 }
 
 /** The base class for Frontstage content controls.
@@ -51,20 +64,24 @@ export class ContentControl extends ConfigurableUiControl {
   }
 
   /** Called when this ContentControl is activated */
-  public onActivated(): void {
-  }
+  public onActivated(): void {}
 
   /** Called when this ContentControl is deactivated */
-  public onDeactivated(): void {
-  }
+  public onDeactivated(): void {}
 
   /** Gets the type of ConfigurableUiControl, which is 'Content' in this case */
-  public getType(): ConfigurableUiControlType { return ConfigurableUiControlType.Content; }
+  public getType(): ConfigurableUiControlType {
+    return ConfigurableUiControlType.Content;
+  }
 
   /** Returns true if this control is a Viewport control. */
-  public get isViewport(): boolean { return false; }
+  public get isViewport(): boolean {
+    return false;
+  }
   /** Returns the ScreenViewport if isViewport is true */
-  public get viewport(): ScreenViewport | undefined { return undefined; }
+  public get viewport(): ScreenViewport | undefined {
+    return undefined;
+  }
 
   protected getKeyedReactNode(): React.ReactNode {
     if (!this._keyAdded && React.isValidElement(this._reactNode)) {
@@ -88,13 +105,14 @@ export class ContentControl extends ConfigurableUiControl {
     return this.getReactNode();
   }
 
-  public set reactNode(r: React.ReactNode) { this._reactNode = r; }
+  public set reactNode(r: React.ReactNode) {
+    this._reactNode = r;
+  }
 
   /** Get the NavigationAidControl associated with this ContentControl */
   public get navigationAidControl(): string {
     return "";
   }
-
 }
 
 /**

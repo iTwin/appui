@@ -1,14 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
 
 import * as React from "react";
 import { TextEditor } from "./TextEditor";
-import type { DisplayMessageType, MessageSeverity, PropertyDescription, PropertyRecord, PropertyValue} from "@itwin/appui-abstract";
+import type {
+  DisplayMessageType,
+  MessageSeverity,
+  PropertyDescription,
+  PropertyRecord,
+  PropertyValue,
+} from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
 
 /** Asynchronous Error Message returned as part of [[AsyncValueProcessingResult]]
@@ -34,15 +40,20 @@ export interface AsyncValueProcessingResult {
  * @public
  */
 export interface DataController {
-  validateValue(newValue: PropertyValue, record: PropertyRecord): Promise<AsyncValueProcessingResult>;
-  commitValue(newValue: PropertyValue, record: PropertyRecord): Promise<AsyncValueProcessingResult>;
+  validateValue(
+    newValue: PropertyValue,
+    record: PropertyRecord
+  ): Promise<AsyncValueProcessingResult>;
+  commitValue(
+    newValue: PropertyValue,
+    record: PropertyRecord
+  ): Promise<AsyncValueProcessingResult>;
 }
 
 /** PropertyEditor is the base class for all property editors.
  * @public
  */
 export abstract class PropertyEditorBase implements DataController {
-
   public get containerHandlesBlur(): boolean {
     return true;
   }
@@ -63,33 +74,47 @@ export abstract class PropertyEditorBase implements DataController {
 
   public abstract get reactNode(): React.ReactNode;
 
-  public applyEditorParams(_property: PropertyDescription, _record: PropertyRecord): void { }
+  public applyEditorParams(
+    _property: PropertyDescription,
+    _record: PropertyRecord
+  ): void {}
 
-  public async commitValue(newValue: PropertyValue, record: PropertyRecord): Promise<AsyncValueProcessingResult> {
+  public async commitValue(
+    newValue: PropertyValue,
+    record: PropertyRecord
+  ): Promise<AsyncValueProcessingResult> {
     if (this.customDataController)
       return this.customDataController.commitValue(newValue, record);
 
     return { encounteredError: false };
   }
 
-  public async validateValue(newValue: PropertyValue, record: PropertyRecord): Promise<AsyncValueProcessingResult> {
+  public async validateValue(
+    newValue: PropertyValue,
+    record: PropertyRecord
+  ): Promise<AsyncValueProcessingResult> {
     if (this.customDataController)
       return this.customDataController.validateValue(newValue, record);
 
     return { encounteredError: false };
   }
-
 }
 
 /** DataControllerBase is the base class for all Data Controllers.
  * @public
  */
 export abstract class DataControllerBase implements DataController {
-  public async commitValue(_newValue: PropertyValue, _record: PropertyRecord): Promise<AsyncValueProcessingResult> {
+  public async commitValue(
+    _newValue: PropertyValue,
+    _record: PropertyRecord
+  ): Promise<AsyncValueProcessingResult> {
     return { encounteredError: false };
   }
 
-  public async validateValue(_newValue: PropertyValue, _record: PropertyRecord): Promise<AsyncValueProcessingResult> {
+  public async validateValue(
+    _newValue: PropertyValue,
+    _record: PropertyRecord
+  ): Promise<AsyncValueProcessingResult> {
     return { encounteredError: false };
   }
 }
@@ -98,29 +123,49 @@ export abstract class DataControllerBase implements DataController {
  * @public
  */
 export class PropertyEditorManager {
-  private static _editors: { [index: string]: (new () => PropertyEditorBase) } = {};
-  private static _dataControllers: { [index: string]: (new () => DataControllerBase) } = {};
+  private static _editors: { [index: string]: new () => PropertyEditorBase } =
+    {};
+  private static _dataControllers: {
+    [index: string]: new () => DataControllerBase;
+  } = {};
 
-  public static registerEditor(editType: string, editor: new () => PropertyEditorBase, editorName?: string): void {
-    const fullEditorName = PropertyEditorManager.getFullEditorName(editType, editorName);
+  public static registerEditor(
+    editType: string,
+    editor: new () => PropertyEditorBase,
+    editorName?: string
+  ): void {
+    const fullEditorName = PropertyEditorManager.getFullEditorName(
+      editType,
+      editorName
+    );
 
     if (PropertyEditorManager._editors.hasOwnProperty(fullEditorName)) {
       const nameOfEditor = PropertyEditorManager._editors[fullEditorName].name;
-      throw Error(`PropertyEditorManager.registerEditor error: type '${fullEditorName}' already registered to '${nameOfEditor}'`);
+      throw Error(
+        `PropertyEditorManager.registerEditor error: type '${fullEditorName}' already registered to '${nameOfEditor}'`
+      );
     }
     PropertyEditorManager._editors[fullEditorName] = editor;
   }
 
-  private static getFullEditorName(editType: string, editorName?: string): string {
+  private static getFullEditorName(
+    editType: string,
+    editorName?: string
+  ): string {
     let fullEditorName = editType;
-    if (editorName)
-      fullEditorName += `:${editorName}`;
+    if (editorName) fullEditorName += `:${editorName}`;
     return fullEditorName;
   }
 
-  public static registerDataController(controllerName: string, controller: new () => DataControllerBase): void {
+  public static registerDataController(
+    controllerName: string,
+    controller: new () => DataControllerBase
+  ): void {
     if (PropertyEditorManager._dataControllers.hasOwnProperty(controllerName)) {
-      throw Error(`PropertyEditorManager.registerDataController error: type '${controllerName}' already registered to '${(typeof PropertyEditorManager._dataControllers[controllerName]).toString()}'`);
+      throw Error(
+        `PropertyEditorManager.registerDataController error: type '${controllerName}' already registered to '${(typeof PropertyEditorManager
+          ._dataControllers[controllerName]).toString()}'`
+      );
     }
     PropertyEditorManager._dataControllers[controllerName] = controller;
   }
@@ -133,29 +178,45 @@ export class PropertyEditorManager {
     }
   }
 
-  public static createEditor(editType: string, editorName?: string, dataControllerName?: string): PropertyEditorBase {
-    const fullEditorName = PropertyEditorManager.getFullEditorName(editType, editorName);
+  public static createEditor(
+    editType: string,
+    editorName?: string,
+    dataControllerName?: string
+  ): PropertyEditorBase {
+    const fullEditorName = PropertyEditorManager.getFullEditorName(
+      editType,
+      editorName
+    );
 
     let editor: PropertyEditorBase;
     if (PropertyEditorManager._editors.hasOwnProperty(fullEditorName))
       editor = new PropertyEditorManager._editors[fullEditorName]();
     else if (PropertyEditorManager._editors.hasOwnProperty(editType))
       editor = new PropertyEditorManager._editors[editType]();
-    else
-      editor = new BasicPropertyEditor();
+    else editor = new BasicPropertyEditor();
 
     if (dataControllerName) {
-      if (PropertyEditorManager._dataControllers.hasOwnProperty(dataControllerName))
-        editor.customDataController = new PropertyEditorManager._dataControllers[dataControllerName]();
+      if (
+        PropertyEditorManager._dataControllers.hasOwnProperty(
+          dataControllerName
+        )
+      )
+        editor.customDataController =
+          new PropertyEditorManager._dataControllers[dataControllerName]();
       else
-        throw Error(`PropertyEditorManager.createEditor error: data controller '${dataControllerName}' is not registered`);
+        throw Error(
+          `PropertyEditorManager.createEditor error: data controller '${dataControllerName}' is not registered`
+        );
     }
 
     return editor;
   }
 
   public static hasCustomEditor(editType: string, editorName: string): boolean {
-    const fullEditorName = PropertyEditorManager.getFullEditorName(editType, editorName);
+    const fullEditorName = PropertyEditorManager.getFullEditorName(
+      editType,
+      editorName
+    );
     return PropertyEditorManager._editors.hasOwnProperty(fullEditorName);
   }
 }
@@ -170,5 +231,11 @@ export class BasicPropertyEditor extends PropertyEditorBase {
   }
 }
 
-PropertyEditorManager.registerEditor(StandardTypeNames.Text, BasicPropertyEditor);
-PropertyEditorManager.registerEditor(StandardTypeNames.String, BasicPropertyEditor);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Text,
+  BasicPropertyEditor
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.String,
+  BasicPropertyEditor
+);

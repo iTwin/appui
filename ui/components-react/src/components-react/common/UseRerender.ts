@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { useRef, useState } from "react";
 
@@ -25,10 +25,18 @@ export function useRerender(): RerenderData<() => void>;
  * Makes component able to rerender itself while preserving some data between rerenders.
  * @param initialContext Data that component receives on first render cycle.
  */
-export function useRerender<T>(initialContext: T): RerenderData<(newContext: T) => void>;
+export function useRerender<T>(
+  initialContext: T
+): RerenderData<(newContext: T) => void>;
 /** @internal */
-export function useRerender<T>(initialContext?: T): RerenderData<(newContext?: T) => void> {
-  const data = useRef({ numRerenders: 0, rerenderRequested: false, context: initialContext }).current;
+export function useRerender<T>(
+  initialContext?: T
+): RerenderData<(newContext?: T) => void> {
+  const data = useRef({
+    numRerenders: 0,
+    rerenderRequested: false,
+    context: initialContext,
+  }).current;
   if (data.rerenderRequested) {
     data.numRerenders += 1;
     data.rerenderRequested = false;

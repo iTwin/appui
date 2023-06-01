@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module IconPicker
@@ -11,14 +11,16 @@ import "./IconPickerButton.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { RelativePosition } from "@itwin/appui-abstract";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon, Popup } from "@itwin/core-react";
 import { SvgChevronDown } from "@itwin/itwinui-icons-react";
 
 /** Properties for the [[IconItem]] React component
  * @internal
  */
-interface IconItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
+interface IconItemProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    CommonProps {
   /** icon specification */
   icon: string;
   /** function to run when user selects icon */
@@ -38,19 +40,24 @@ class IconItem extends React.PureComponent<IconItemProps> {
   public override render() {
     const {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      onClick, icon, // do not pass on item specific props
+      onClick,
+      icon, // do not pass on item specific props
       ...otherProps
     } = this.props;
 
     const handleClick = (_e: React.MouseEvent) => {
-      if (onClick)
-        onClick();
+      if (onClick) onClick();
     };
 
     const classes = classnames("components-icon-swatch", this.props.className);
 
     return (
-      <button {...otherProps} className={classes} style={this.props.style} onClick={handleClick}>
+      <button
+        {...otherProps}
+        className={classes}
+        style={this.props.style}
+        onClick={handleClick}
+      >
         <Icon iconSpec={this.props.icon} />
       </button>
     );
@@ -61,7 +68,9 @@ class IconItem extends React.PureComponent<IconItemProps> {
  * @internal
  */
 // istanbul ignore next
-export interface IconPickerProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
+export interface IconPickerProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    CommonProps {
   /** active string */
   icon: string;
   /** available icons */
@@ -88,7 +97,10 @@ interface IconPickerState {
  * @internal
  */
 // istanbul ignore next
-export class IconPickerButton extends React.PureComponent<IconPickerProps, IconPickerState> {
+export class IconPickerButton extends React.PureComponent<
+  IconPickerProps,
+  IconPickerState
+> {
   private _target = React.createRef<HTMLButtonElement>();
 
   /** @internal */
@@ -104,8 +116,7 @@ export class IconPickerButton extends React.PureComponent<IconPickerProps, IconP
   }
 
   private _togglePopup = () => {
-    if (this.props.readonly)
-      return;
+    if (this.props.readonly) return;
 
     this.setState((prevState) => ({ showPopup: !prevState.showPopup }));
   };
@@ -115,22 +126,31 @@ export class IconPickerButton extends React.PureComponent<IconPickerProps, IconP
   };
 
   private _handleIconPicked = (icon: string) => {
-    this.setState(
-      { showPopup: false, icon },
-      () => {
-        // istanbul ignore else
-        if (this.props.onIconChange)
-          this.props.onIconChange(icon);
-      });
+    this.setState({ showPopup: false, icon }, () => {
+      // istanbul ignore else
+      if (this.props.onIconChange) this.props.onIconChange(icon);
+    });
   };
 
   private renderPopup(title: string | undefined) {
-    const containerStyle: React.CSSProperties = { gridTemplateColumns: `repeat(${this.props.numColumns}, 1fr)` };
+    const containerStyle: React.CSSProperties = {
+      gridTemplateColumns: `repeat(${this.props.numColumns}, 1fr)`,
+    };
     return (
       <div className="components-iconpicker-popup-container">
         {title && <h4>{title}</h4>}
-        <div data-testid="components-iconpicker-popup-icons" className="components-iconpicker-popup-icons" style={containerStyle}>
-          {this.props.icons.map((icon: string, index: number) => <IconItem key={index} icon={icon} onClick={this._handleIconPicked.bind(this, icon)} />)}
+        <div
+          data-testid="components-iconpicker-popup-icons"
+          className="components-iconpicker-popup-icons"
+          style={containerStyle}
+        >
+          {this.props.icons.map((icon: string, index: number) => (
+            <IconItem
+              key={index}
+              icon={icon}
+              onClick={this._handleIconPicked.bind(this, icon)}
+            />
+          ))}
         </div>
       </div>
     );
@@ -139,27 +159,41 @@ export class IconPickerButton extends React.PureComponent<IconPickerProps, IconP
   /** @internal */
   public override render() {
     const buttonStyle = { ...this.props.style } as React.CSSProperties;
-    const buttonClassNames = classnames("components-iconpicker-button",
+    const buttonClassNames = classnames(
+      "components-iconpicker-button",
       this.props.readonly && "readonly",
-      this.props.className,
+      this.props.className
     );
 
     return (
       <>
-        <button data-testid="components-iconpicker-button" onClick={this._togglePopup} className={buttonClassNames} style={buttonStyle} disabled={this.props.disabled} ref={this._target}>
-          <Icon className="iconpicker-button-sprite" iconSpec={this.state.icon} />
-          <span className="icon"> <Icon iconSpec={<SvgChevronDown />} /> </span>
+        <button
+          data-testid="components-iconpicker-button"
+          onClick={this._togglePopup}
+          className={buttonClassNames}
+          style={buttonStyle}
+          disabled={this.props.disabled}
+          ref={this._target}
+        >
+          <Icon
+            className="iconpicker-button-sprite"
+            iconSpec={this.state.icon}
+          />
+          <span className="icon">
+            {" "}
+            <Icon iconSpec={<SvgChevronDown />} />{" "}
+          </span>
         </button>
         <Popup
           className="components-iconpicker-popup"
           isOpen={this.state.showPopup}
           position={RelativePosition.BottomLeft}
           onClose={this._closePopup}
-          target={this._target.current}>
+          target={this._target.current}
+        >
           {this.renderPopup(this.props.dropDownTitle)}
         </Popup>
       </>
     );
   }
-
 }

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -10,9 +10,15 @@ import "./ContentRenderer.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { assert } from "@itwin/core-bentley";
-import { ToolSettingsNodeContext, WidgetContentNodeContext } from "../base/NineZone";
+import {
+  ToolSettingsNodeContext,
+  WidgetContentNodeContext,
+} from "../base/NineZone";
 import type { TabState } from "../state/TabState";
-import { useContainersStore, WidgetContentManagerContext } from "./ContentManager";
+import {
+  useContainersStore,
+  WidgetContentManagerContext,
+} from "./ContentManager";
 import { toolSettingsTabId } from "../state/ToolSettingsState";
 import { useLayout } from "../base/LayoutStore";
 
@@ -26,12 +32,10 @@ export function WidgetContentRenderers() {
   return (
     <>
       {tabIds.map((tabId) => {
-        const children = tabId === toolSettingsTabId ? toolSettingsContent : widgetContent;
+        const children =
+          tabId === toolSettingsTabId ? toolSettingsContent : widgetContent;
         return (
-          <WidgetContentRenderer
-            key={tabId}
-            tabId={tabId}
-          >
+          <WidgetContentRenderer key={tabId} tabId={tabId}>
             {children}
           </WidgetContentRenderer>
         );
@@ -77,16 +81,22 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
     <TabIdContext.Provider value={props.tabId}>
       {props.children}
     </TabIdContext.Provider>,
-    container.current,
+    container.current
   );
 }
 
 /** @internal */
-export const TabIdContext = React.createContext<TabState["id"] | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const TabIdContext = React.createContext<TabState["id"] | undefined>(
+  undefined
+); // eslint-disable-line @typescript-eslint/naming-convention
 TabIdContext.displayName = "nz:TabIdContext";
 
 /** @internal */
-export function useTabTransientState(tabId: string, onSave?: () => void, onRestore?: () => void) {
+export function useTabTransientState(
+  tabId: string,
+  onSave?: () => void,
+  onRestore?: () => void
+) {
   const widgetContentManager = React.useContext(WidgetContentManagerContext);
   React.useEffect(() => {
     return widgetContentManager.onSaveTransientState.addListener((id) => {

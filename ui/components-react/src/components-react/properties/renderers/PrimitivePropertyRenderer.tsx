@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
@@ -26,7 +26,7 @@ export interface PrimitiveRendererProps extends SharedRendererProps {
   /** Multiplier of how much the property is indented to the right */
   indentation?: number;
   /** Properties used for highlighting
-  */
+   */
   highlight?: HighlightingComponentProps;
 }
 
@@ -42,20 +42,39 @@ export class PrimitivePropertyRenderer extends React.Component<PrimitiveRenderer
   public override render() {
     const { indentation, highlight, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
     const displayLabel = this.props.propertyRecord.property.displayLabel;
-    const offset = CommonPropertyRenderer.getLabelOffset(indentation, props.orientation, props.width, props.columnRatio, props.columnInfo?.minLabelWidth);
+    const offset = CommonPropertyRenderer.getLabelOffset(
+      indentation,
+      props.orientation,
+      props.width,
+      props.columnRatio,
+      props.columnInfo?.minLabelWidth
+    );
 
-    const activeMatchIndex = this.props.propertyRecord.property.name === highlight?.activeHighlight?.highlightedItemIdentifier ? highlight.activeHighlight.highlightIndex : undefined;
-    const label = highlight ?
-      (HighlightedText({ text: displayLabel, searchText: highlight.highlightedText, activeMatchIndex })) :
-      displayLabel;
+    const activeMatchIndex =
+      this.props.propertyRecord.property.name ===
+      highlight?.activeHighlight?.highlightedItemIdentifier
+        ? highlight.activeHighlight.highlightIndex
+        : undefined;
+    const label = highlight
+      ? HighlightedText({
+          text: displayLabel,
+          searchText: highlight.highlightedText,
+          activeMatchIndex,
+        })
+      : displayLabel;
 
     return (
       <PropertyView
         {...props}
         labelElement={
-          <PrimitivePropertyLabelRenderer offset={offset} renderColon={this.props.orientation === Orientation.Horizontal} tooltip={displayLabel}>
+          <PrimitivePropertyLabelRenderer
+            offset={offset}
+            renderColon={this.props.orientation === Orientation.Horizontal}
+            tooltip={displayLabel}
+          >
             {label}
-          </PrimitivePropertyLabelRenderer>}
+          </PrimitivePropertyLabelRenderer>
+        }
       />
     );
   }

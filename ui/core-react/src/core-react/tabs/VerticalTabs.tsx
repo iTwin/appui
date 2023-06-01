@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tabs
  */
@@ -16,6 +16,10 @@ import { Orientation } from "../enums/Orientation";
  */
 export function VerticalTabs(props: TabsProps) {
   return (
-    <Tabs mainClassName="uicore-tabs-vertical" orientation={Orientation.Vertical} {...props} />
+    <Tabs
+      mainClassName="uicore-tabs-vertical"
+      orientation={Orientation.Vertical}
+      {...props}
+    />
   );
 }

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module State
  */
@@ -14,7 +14,7 @@ import { Logger } from "@itwin/core-bentley";
 import { UiError } from "@itwin/appui-abstract";
 import type { FrameworkState } from "./FrameworkState";
 import { FrameworkReducer } from "./FrameworkState";
-import type { NameToReducerMap} from "./ReducerRegistry";
+import type { NameToReducerMap } from "./ReducerRegistry";
 import { ReducerRegistryInstance } from "./ReducerRegistry";
 
 /** Generic 'root' state for the appui-react package. Since this state contains common values needed by many applications
@@ -45,10 +45,13 @@ export class StateManager {
   constructor(defaultReducers?: NameToReducerMap) {
     if (defaultReducers) {
       this._defaultReducers = defaultReducers;
-      const keys = (Object.keys(defaultReducers));
+      const keys = Object.keys(defaultReducers);
       // ensure frameworkState is included in the set of defaultReducers
       if (-1 === keys.findIndex((key) => key === "frameworkState"))
-        this._defaultReducers = { ...defaultReducers, frameworkState: FrameworkReducer };
+        this._defaultReducers = {
+          ...defaultReducers,
+          frameworkState: FrameworkReducer,
+        };
     } else {
       this._defaultReducers = { frameworkState: FrameworkReducer };
     }
@@ -56,16 +59,23 @@ export class StateManager {
     const dynamicallyRegisteredReducers = ReducerRegistryInstance.getReducers();
     let allReducers: any = this.combineDynamicAndDefaultReducers(
       dynamicallyRegisteredReducers,
-      this._defaultReducers,
+      this._defaultReducers
     );
 
     // create the Redux Store.
     // istanbul ignore next
     // eslint-disable-next-line deprecation/deprecation
-    this._store = createStore(allReducers, (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__());
+    this._store = createStore(
+      allReducers,
+      (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+        (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+    );
 
     ReducerRegistryInstance.setChangeListener((newDynamicReducers) => {
-      allReducers = this.combineDynamicAndDefaultReducers(newDynamicReducers, this._defaultReducers);
+      allReducers = this.combineDynamicAndDefaultReducers(
+        newDynamicReducers,
+        this._defaultReducers
+      );
       this._store.replaceReducer(allReducers);
     });
     StateManager._singletonStore = this._store;
@@ -78,7 +88,10 @@ export class StateManager {
   public static isInitialized(suppressErrorLog = false): boolean {
     if (!StateManager._singletonStore) {
       if (!suppressErrorLog)
-        Logger.logError(StateManager._LOG_CATEGORY, "Accessing store before it is created.");
+        Logger.logError(
+          StateManager._LOG_CATEGORY,
+          "Accessing store before it is created."
+        );
       return false;
     } else {
       return true;
@@ -90,7 +103,10 @@ export class StateManager {
     if (StateManager.isInitialized()) {
       return StateManager._singletonStore!;
     } else {
-      throw new UiError(StateManager._LOG_CATEGORY, `Redux Store has not been initialized`);
+      throw new UiError(
+        StateManager._LOG_CATEGORY,
+        `Redux Store has not been initialized`
+      );
     }
   }
 
@@ -105,7 +121,7 @@ export class StateManager {
 
   private combineDynamicAndDefaultReducers(
     dynamicallyRegisteredReducers: ReducersMapObject,
-    defaultReducers: ReducersMapObject,
+    defaultReducers: ReducersMapObject
   ) {
     const allReducers = {
       ...defaultReducers,
@@ -121,5 +137,4 @@ export class StateManager {
   public static clearStore() {
     StateManager._singletonStore = undefined;
   }
-
 }

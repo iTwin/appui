@@ -1,14 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { act, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
 
-import type {
-  DragManager,
-  PanelSide} from "../../appui-layout-react";
+import type { DragManager, PanelSide } from "../../appui-layout-react";
 import {
   addFloatingWidget,
   addTab,
@@ -21,12 +19,8 @@ import {
   useHidden,
 } from "../../appui-layout-react/outline/PanelOutline";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
-import type {
-  TestNineZoneProviderProps} from "../Providers";
-import {
-  createDragStartArgs,
-  TestNineZoneProvider,
-} from "../Providers";
+import type { TestNineZoneProviderProps } from "../Providers";
+import { createDragStartArgs, TestNineZoneProvider } from "../Providers";
 
 describe("PanelOutline", () => {
   interface WrapperProps extends TestNineZoneProviderProps {
@@ -61,9 +55,9 @@ describe("PanelOutline", () => {
     let state = createNineZoneState();
     state = updatePanelState(state, "bottom", { span: true });
     const { container } = render(<PanelOutline />, {
-      wrapper: (props) => ( // eslint-disable-line react/display-name
-        <Wrapper defaultState={state} side="bottom" {...props} />
-      ),
+      wrapper: (
+        props // eslint-disable-line react/display-name
+      ) => <Wrapper defaultState={state} side="bottom" {...props} />,
     });
     container
       .getElementsByClassName("nz-outline-panelOutline nz-span")
@@ -94,9 +88,9 @@ describe("useHidden", () => {
   it("should return `true` if target is not a panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => ( // eslint-disable-line react/display-name
-        <Wrapper dragManagerRef={dragManagerRef} {...props} />
-      ),
+      wrapper: (
+        props // eslint-disable-line react/display-name
+      ) => <Wrapper dragManagerRef={dragManagerRef} {...props} />,
     });
     act(() => {
       dragManagerRef.current?.handleDragStart(createDragStartArgs());
@@ -110,9 +104,9 @@ describe("useHidden", () => {
   it("should return `true` if target is not a current panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => ( // eslint-disable-line react/display-name
-        <Wrapper dragManagerRef={dragManagerRef} {...props} />
-      ),
+      wrapper: (
+        props // eslint-disable-line react/display-name
+      ) => <Wrapper dragManagerRef={dragManagerRef} {...props} />,
     });
     act(() => {
       dragManagerRef.current?.handleDragStart(createDragStartArgs());
@@ -128,9 +122,9 @@ describe("useHidden", () => {
   it("should return `false` if target is a current panel", () => {
     const dragManagerRef = React.createRef<DragManager>();
     const { result } = renderHook(() => useHidden(), {
-      wrapper: (props) => ( // eslint-disable-line react/display-name
-        <Wrapper dragManagerRef={dragManagerRef} {...props} />
-      ),
+      wrapper: (
+        props // eslint-disable-line react/display-name
+      ) => <Wrapper dragManagerRef={dragManagerRef} {...props} />,
     });
     act(() => {
       dragManagerRef.current?.handleDragStart(createDragStartArgs());

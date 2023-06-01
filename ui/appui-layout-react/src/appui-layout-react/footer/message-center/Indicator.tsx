@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module MessageCenter
  */
@@ -34,10 +34,21 @@ export interface MessageCenterProps extends FooterIndicatorProps {
  */
 export class MessageCenter extends React.PureComponent<MessageCenterProps> {
   public override render() {
-    const { children, className, indicatorRef, label, onClick, targetRef, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const {
+      children,
+      className,
+      indicatorRef,
+      label,
+      onClick,
+      targetRef,
+      ...props
+    } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
     return (
       <FooterIndicator
-        className={classnames("nz-footer-messageCenter-indicator", this.props.className)}
+        className={classnames(
+          "nz-footer-messageCenter-indicator",
+          this.props.className
+        )}
         {...props}
       >
         <div // eslint-disable-line jsx-a11y/click-events-have-key-events
@@ -47,20 +58,13 @@ export class MessageCenter extends React.PureComponent<MessageCenterProps> {
           role="button"
           tabIndex={-1}
         >
-          {label !== undefined &&
-            <span className="nz-label">{label}</span>
-          }
+          {label !== undefined && <span className="nz-label">{label}</span>}
           <div className="nz-container">
             <div className="nz-balloon">
               <div className="nz-arrow" />
-              <div className="nz-content">
-                {children}
-              </div>
+              <div className="nz-content">{children}</div>
             </div>
-            <div
-              className="nz-target"
-              ref={targetRef}
-            />
+            <div className="nz-target" ref={targetRef} />
           </div>
         </div>
       </FooterIndicator>

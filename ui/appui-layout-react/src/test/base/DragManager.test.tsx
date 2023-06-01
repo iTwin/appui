@@ -1,11 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { DragManager, DragManagerContext, useDraggedItem, useIsDraggedType, usePanelTarget, useTabTarget, useTarget, useTargeted } from "../../appui-layout-react";
+import {
+  DragManager,
+  DragManagerContext,
+  useDraggedItem,
+  useIsDraggedType,
+  usePanelTarget,
+  useTabTarget,
+  useTarget,
+  useTargeted,
+} from "../../appui-layout-react";
 import { createDragInfo, createDragStartArgs, setRefValue } from "../Providers";
 import { expect, should } from "chai";
 import { waitFor } from "@testing-library/react";
@@ -19,10 +28,16 @@ describe("DragManager", () => {
         side: "left",
         newWidgetId: "w1",
       });
-      const spy = sinon.stub<Parameters<DragManager["onDragStart"]["addListener"]>[0]>();
+      const spy =
+        sinon.stub<Parameters<DragManager["onDragStart"]["addListener"]>[0]>();
       sut.onDragStart.addListener(spy);
       sut.handleDragStart(createDragStartArgs());
-      sinon.assert.calledOnceWithExactly(spy, sinon.match.any, sinon.match.any, undefined);
+      sinon.assert.calledOnceWithExactly(
+        spy,
+        sinon.match.any,
+        sinon.match.any,
+        undefined
+      );
     });
   });
 });
@@ -31,15 +46,23 @@ describe("useTabTarget", () => {
   it("should clear target when target changes", async () => {
     const dragManager = new DragManager();
     const spy = sinon.spy(dragManager, "handleTargetChanged");
-    const { result } = renderHook(() => useTabTarget({
-      tabIndex: 0,
-      widgetId: "w1",
-    }), {
-      wrapper: (props) => <DragManagerContext.Provider value={dragManager} {...props} />, // eslint-disable-line react/display-name
-    });
+    const { result } = renderHook(
+      () =>
+        useTabTarget({
+          tabIndex: 0,
+          widgetId: "w1",
+        }),
+      {
+        wrapper: (props) => (
+          <DragManagerContext.Provider value={dragManager} {...props} />
+        ), // eslint-disable-line react/display-name
+      }
+    );
 
     const element = document.createElement("div");
-    const elementFromPointStub = sinon.stub(document, "elementFromPoint").returns(element);
+    const elementFromPointStub = sinon
+      .stub(document, "elementFromPoint")
+      .returns(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());
@@ -50,7 +73,9 @@ describe("useTabTarget", () => {
 
     spy.resetHistory();
     elementFromPointStub.restore();
-    sinon.stub(document, "elementFromPoint").returns(document.createElement("div"));
+    sinon
+      .stub(document, "elementFromPoint")
+      .returns(document.createElement("div"));
     dragManager.handleDrag(10, 20);
 
     spy.calledOnceWithExactly(undefined).should.true;
@@ -61,17 +86,28 @@ describe("useTabTarget", () => {
 
   it("should clear target when drag interaction ends", async () => {
     const dragManager = new DragManager();
-    const stub = sinon.stub<Parameters<DragManager["onTargetChanged"]["addListener"]>[0]>();
+    const stub =
+      sinon.stub<
+        Parameters<DragManager["onTargetChanged"]["addListener"]>[0]
+      >();
     dragManager.onTargetChanged.addListener(stub);
-    const { result } = renderHook(() => useTabTarget({
-      tabIndex: 0,
-      widgetId: "w1",
-    }), {
-      wrapper: (props) => <DragManagerContext.Provider value={dragManager} {...props} />, // eslint-disable-line react/display-name
-    });
+    const { result } = renderHook(
+      () =>
+        useTabTarget({
+          tabIndex: 0,
+          widgetId: "w1",
+        }),
+      {
+        wrapper: (props) => (
+          <DragManagerContext.Provider value={dragManager} {...props} />
+        ), // eslint-disable-line react/display-name
+      }
+    );
 
     const element = document.createElement("div");
-    const elementFromPointStub = sinon.stub(document, "elementFromPoint").returns(element);
+    const elementFromPointStub = sinon
+      .stub(document, "elementFromPoint")
+      .returns(element);
     setRefValue(result.current[0], element);
 
     dragManager.handleDragStart(createDragStartArgs());
@@ -95,12 +131,18 @@ describe("usePanelTarget", () => {
   it("should clear target", () => {
     const dragManager = new DragManager();
     const spy = sinon.spy(dragManager, "handleTargetChanged");
-    const { result } = renderHook(() => usePanelTarget({
-      side: "left",
-      newWidgetId: "w1",
-    }), {
-      wrapper: (props) => <DragManagerContext.Provider value={dragManager} {...props} />, // eslint-disable-line react/display-name
-    });
+    const { result } = renderHook(
+      () =>
+        usePanelTarget({
+          side: "left",
+          newWidgetId: "w1",
+        }),
+      {
+        wrapper: (props) => (
+          <DragManagerContext.Provider value={dragManager} {...props} />
+        ), // eslint-disable-line react/display-name
+      }
+    );
 
     const element = document.createElement("div");
     sinon.stub(document, "elementFromPoint").returns(element);
@@ -122,12 +164,18 @@ describe("useWidgetTarget", () => {
   it("should clear target", () => {
     const dragManager = new DragManager();
     const spy = sinon.spy(dragManager, "handleTargetChanged");
-    const { result } = renderHook(() => useTarget({
-      type: "widget",
-      widgetId: "0",
-    }), {
-      wrapper: (props) => <DragManagerContext.Provider value={dragManager} {...props} />, // eslint-disable-line react/display-name
-    });
+    const { result } = renderHook(
+      () =>
+        useTarget({
+          type: "widget",
+          widgetId: "0",
+        }),
+      {
+        wrapper: (props) => (
+          <DragManagerContext.Provider value={dragManager} {...props} />
+        ), // eslint-disable-line react/display-name
+      }
+    );
 
     const element = document.createElement("div");
     sinon.stub(document, "elementFromPoint").returns(element);
@@ -149,7 +197,9 @@ describe("useIsDraggedType", () => {
   it("should return true", async () => {
     const dragManager = new DragManager();
     const { result } = renderHook(() => useIsDraggedType("tab"), {
-      wrapper: (props) => <DragManagerContext.Provider value={dragManager} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => (
+        <DragManagerContext.Provider value={dragManager} {...props} />
+      ), // eslint-disable-line react/display-name
     });
     result.current.should.false;
 
@@ -170,7 +220,9 @@ describe("useDraggedItem", () => {
   it("should return dragged item", () => {
     const dragManager = new DragManager();
     const { result } = renderHook(() => useDraggedItem(), {
-      wrapper: (props) => <DragManagerContext.Provider value={dragManager} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => (
+        <DragManagerContext.Provider value={dragManager} {...props} />
+      ), // eslint-disable-line react/display-name
     });
     should().equal(result.current, undefined);
 
@@ -208,7 +260,9 @@ describe("useTargeted", () => {
   it("returns a targeted object", () => {
     const dragManager = new DragManager();
     const { result } = renderHook(() => useTargeted(), {
-      wrapper: (props) => <DragManagerContext.Provider value={dragManager} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => (
+        <DragManagerContext.Provider value={dragManager} {...props} />
+      ), // eslint-disable-line react/display-name
     });
     expect(result.current).to.be.undefined;
 

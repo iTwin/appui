@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Backstage
  */
@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
-import type { SafeAreaInsets} from "../base/SafeAreaInsets";
+import type { SafeAreaInsets } from "../base/SafeAreaInsets";
 import { SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
 
 /** Properties of [[Backstage]] component.
@@ -59,29 +59,30 @@ export class Backstage extends React.PureComponent<BackstageProps> {
     const overlayClassName = classnames(
       "nz-backstage-backstage_overlay",
       this.props.isOpen && "nz-open",
-      this.props.showOverlay && "nz-overlay");
+      this.props.showOverlay && "nz-overlay"
+    );
     const backstageClassName = classnames(
       "nz-backstage-backstage",
       this.props.isOpen && "nz-open",
-      this.props.safeAreaInsets && SafeAreaInsetsHelpers.getCssClassNames(this.props.safeAreaInsets),
-      this.props.className);
+      this.props.safeAreaInsets &&
+        SafeAreaInsetsHelpers.getCssClassNames(this.props.safeAreaInsets),
+      this.props.className
+    );
     return (
       <>
-        <div className={overlayClassName} onClick={this._onClose} role="presentation" />
+        <div
+          className={overlayClassName}
+          onClick={this._onClose}
+          role="presentation"
+        />
         <div className={backstageClassName} style={this.props.style}>
-          {this.props.header &&
-            <div className="nz-header">
-              {this.props.header}
-            </div>
-          }
-          <ul role="menu">
-            {this.props.children}
-          </ul>
-          {this.props.footer &&
-            <div className="nz-footer">
-              {this.props.footer}
-            </div>
-          }
+          {this.props.header && (
+            <div className="nz-header">{this.props.header}</div>
+          )}
+          <ul role="menu">{this.props.children}</ul>
+          {this.props.footer && (
+            <div className="nz-footer">{this.props.footer}</div>
+          )}
         </div>
       </>
     );

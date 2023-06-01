@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 // Generates map from array.
 // Key of each entry is ($array entry value: result of $fn call).
@@ -19,9 +19,9 @@
   $map: ();
   @each $item in $array {
     $kvp: (
-      $item: call($fn, $args...)
+      $item: call($fn, $args...),
     );
-    $map: map-merge($map, $kvp)
+    $map: map-merge($map, $kvp);
   }
   @return $map;
 }
@@ -43,9 +43,10 @@
   $result: $initialArg;
   @each $item in $array {
     $result: call($fn, $result);
-    $kvp: ($item: $result);
-    $map: map-merge($map, $kvp)
+    $kvp: (
+      $item: $result,
+    );
+    $map: map-merge($map, $kvp);
   }
   @return $map;
 }
-

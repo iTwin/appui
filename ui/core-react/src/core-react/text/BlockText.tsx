@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Text
  */
@@ -14,6 +14,8 @@ import type { TextProps } from "./TextProps";
  * @public
  */
 export function BlockText(props: TextProps) {
-  {/* eslint-disable-next-line */}
+  {
+    /* eslint-disable-next-line */
+  }
   return <StyledText {...props} mainClassName="uicore-text-block" />;
 }

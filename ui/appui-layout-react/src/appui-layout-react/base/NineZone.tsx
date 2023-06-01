@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -14,10 +14,15 @@ import type { PanelSide } from "../widget-panels/Panel";
 import { WidgetContentManager } from "../widget/ContentManager";
 import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
 import { FloatingWidget } from "../widget/FloatingWidget";
-import { DraggedPanelSideContext, DraggedResizeHandleContext, DraggedWidgetIdContext, DragProvider } from "./DragManager";
+import {
+  DraggedPanelSideContext,
+  DraggedResizeHandleContext,
+  DraggedWidgetIdContext,
+  DragProvider,
+} from "./DragManager";
 import { WidgetTab } from "../widget/Tab";
 import type { NineZoneAction } from "../state/NineZoneAction";
-import type { LayoutStore} from "./LayoutStore";
+import type { LayoutStore } from "./LayoutStore";
 import { LayoutStoreContext, useLayout } from "./LayoutStore";
 
 /** @internal */
@@ -61,10 +66,7 @@ export function NineZone(props: NineZoneProps) {
     return Rectangle.create(measurerRef.current.getBoundingClientRect());
   }, []);
   return (
-    <NineZoneProvider
-      measure={measure}
-      {...providerProps}
-    >
+    <NineZoneProvider measure={measure} {...providerProps}>
       <Measurer ref={measurerRef} />
       {props.children}
     </NineZoneProvider>
@@ -87,12 +89,20 @@ export function NineZoneProvider(props: NineZoneProviderProps) {
         <NineZoneLabelsContext.Provider value={props.labels}>
           <UiIsVisibleContext.Provider value={!!props.uiIsVisible}>
             <ShowWidgetIconContext.Provider value={!!props.showWidgetIcon}>
-              <AutoCollapseUnpinnedPanelsContext.Provider value={!!props.autoCollapseUnpinnedPanels}>
+              <AutoCollapseUnpinnedPanelsContext.Provider
+                value={!!props.autoCollapseUnpinnedPanels}
+              >
                 <WidgetContentNodeContext.Provider value={props.widgetContent}>
-                  <ToolSettingsNodeContext.Provider value={props.toolSettingsContent}>
+                  <ToolSettingsNodeContext.Provider
+                    value={props.toolSettingsContent}
+                  >
                     <TabNodeContext.Provider value={props.tab || tab}>
-                      <FloatingWidgetNodeContext.Provider value={props.floatingWidget || floatingWidget}>
-                        <AnimateDockedToolSettingsContext.Provider value={!!props.animateDockedToolSettings}>
+                      <FloatingWidgetNodeContext.Provider
+                        value={props.floatingWidget || floatingWidget}
+                      >
+                        <AnimateDockedToolSettingsContext.Provider
+                          value={!!props.animateDockedToolSettings}
+                        >
                           <DragProvider>
                             <CursorTypeProvider>
                               <WidgetContentManager>
@@ -117,19 +127,26 @@ export function NineZoneProvider(props: NineZoneProviderProps) {
 }
 
 /** @internal */
-export const NineZoneDispatchContext = React.createContext<NineZoneDispatch>(null!); // eslint-disable-line @typescript-eslint/naming-convention
+export const NineZoneDispatchContext = React.createContext<NineZoneDispatch>(
+  null!
+); // eslint-disable-line @typescript-eslint/naming-convention
 NineZoneDispatchContext.displayName = "nz:NineZoneDispatchContext";
 
 /** @internal */
-export const NineZoneLabelsContext = React.createContext<NineZoneLabels | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const NineZoneLabelsContext = React.createContext<
+  NineZoneLabels | undefined
+>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 NineZoneLabelsContext.displayName = "nz:NineZoneLabelsContext";
 
 /** @internal */
-export const CursorTypeContext = React.createContext<CursorType | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const CursorTypeContext = React.createContext<CursorType | undefined>(
+  undefined
+); // eslint-disable-line @typescript-eslint/naming-convention
 CursorTypeContext.displayName = "nz:CursorTypeContext";
 
 /** @internal */
-export const WidgetContentNodeContext = React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const WidgetContentNodeContext =
+  React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 WidgetContentNodeContext.displayName = "nz:WidgetContentNodeContext";
 
 /** @internal */
@@ -137,15 +154,20 @@ export const ShowWidgetIconContext = React.createContext<boolean>(false); // esl
 ShowWidgetIconContext.displayName = "nz:ShowWidgetIconContext";
 
 /** @internal */
-export const AutoCollapseUnpinnedPanelsContext = React.createContext<boolean>(false); // eslint-disable-line @typescript-eslint/naming-convention
-AutoCollapseUnpinnedPanelsContext.displayName = "nz:AutoCollapseUnpinnedPanelsContext";
+export const AutoCollapseUnpinnedPanelsContext =
+  React.createContext<boolean>(false); // eslint-disable-line @typescript-eslint/naming-convention
+AutoCollapseUnpinnedPanelsContext.displayName =
+  "nz:AutoCollapseUnpinnedPanelsContext";
 
 /** @internal */
-export const AnimateDockedToolSettingsContext = React.createContext<boolean>(false); // eslint-disable-line @typescript-eslint/naming-convention
-AnimateDockedToolSettingsContext.displayName = "nz:AnimateDockedToolSettingsContext";
+export const AnimateDockedToolSettingsContext =
+  React.createContext<boolean>(false); // eslint-disable-line @typescript-eslint/naming-convention
+AnimateDockedToolSettingsContext.displayName =
+  "nz:AnimateDockedToolSettingsContext";
 
 /** @internal */
-export const ToolSettingsNodeContext = React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const ToolSettingsNodeContext =
+  React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 ToolSettingsNodeContext.displayName = "nz:ToolSettingsNodeContext";
 
 /** @internal */
@@ -153,7 +175,8 @@ export const TabNodeContext = React.createContext<React.ReactNode>(undefined); /
 TabNodeContext.displayName = "nz:TabNodeContext";
 
 /** @internal */
-export const FloatingWidgetNodeContext = React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const FloatingWidgetNodeContext =
+  React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 FloatingWidgetNodeContext.displayName = "nz:FloatingWidgetNodeContext";
 
 /** @internal */
@@ -170,12 +193,9 @@ function CursorTypeProvider(props: { children?: React.ReactNode }) {
   const draggedPanelSide = React.useContext(DraggedPanelSideContext);
   const draggedResizeHandle = React.useContext(DraggedResizeHandleContext);
   let type: CursorType | undefined;
-  if (draggedTab || draggedWidgetId)
-    type = "grabbing";
-  else if (draggedPanelSide)
-    type = sideToCursorType(draggedPanelSide);
-  else if (draggedResizeHandle)
-    type = handleToCursorType(draggedResizeHandle);
+  if (draggedTab || draggedWidgetId) type = "grabbing";
+  else if (draggedPanelSide) type = sideToCursorType(draggedPanelSide);
+  else if (draggedResizeHandle) type = handleToCursorType(draggedResizeHandle);
   return (
     <CursorTypeContext.Provider value={type}>
       {props.children}
@@ -183,23 +203,27 @@ function CursorTypeProvider(props: { children?: React.ReactNode }) {
   );
 }
 
-const Measurer = React.forwardRef<HTMLDivElement>(function Measurer(_, ref) { // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
-  const size = React.useRef<{ height?: number, width?: number }>({});
+const Measurer = React.forwardRef<HTMLDivElement>(function Measurer(_, ref) {
+  // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
+  const size = React.useRef<{ height?: number; width?: number }>({});
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const handleResize = React.useCallback((width: number, height: number) => {
-    // istanbul ignore next
-    if (size.current.width === width && size.current.height === height)
-      return;
-    size.current.height = height;
-    size.current.width = width;
-    dispatch({
-      type: "RESIZE",
-      size: {
-        height,
-        width,
-      },
-    });
-  }, [dispatch]);
+  const handleResize = React.useCallback(
+    (width: number, height: number) => {
+      // istanbul ignore next
+      if (size.current.width === width && size.current.height === height)
+        return;
+      size.current.height = height;
+      size.current.width = width;
+      dispatch({
+        type: "RESIZE",
+        size: {
+          height,
+          width,
+        },
+      });
+    },
+    [dispatch]
+  );
   const roRef = useResizeObserver(handleResize);
   const refs = useRefs(ref, roRef);
   return (
@@ -230,7 +254,9 @@ export function sideToCursorType(side: PanelSide): CursorType {
 }
 
 /** @internal */
-export function handleToCursorType(handle: FloatingWidgetResizeHandle): CursorType {
+export function handleToCursorType(
+  handle: FloatingWidgetResizeHandle
+): CursorType {
   switch (handle) {
     case "bottom":
     case "top":

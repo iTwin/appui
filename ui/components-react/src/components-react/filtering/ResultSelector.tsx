@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Filtering
  */
@@ -10,7 +10,7 @@ import "./ResultSelector.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { SpecialKey } from "@itwin/appui-abstract";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
@@ -40,7 +40,10 @@ export interface ResultSelectorProps extends CommonProps {
 /** Component for stepping through results/entries
  * @public
  */
-export class ResultSelector extends React.PureComponent<ResultSelectorProps, ResultSelectorState> {
+export class ResultSelector extends React.PureComponent<
+  ResultSelectorProps,
+  ResultSelectorState
+> {
   private _ofLabel = UiComponents.translate("general.of");
 
   /** @internal */
@@ -60,7 +63,9 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
     }
     if (this.state.selectedResultId > 1) {
       this.props.onSelectedChanged(this.state.selectedResultId - 1);
-      this.setState((state) => ({ selectedResultId: state.selectedResultId - 1 }));
+      this.setState((state) => ({
+        selectedResultId: state.selectedResultId - 1,
+      }));
     }
   };
 
@@ -71,7 +76,9 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
     }
     if (this.state.selectedResultId < this.props.resultCount) {
       this.props.onSelectedChanged(this.state.selectedResultId + 1);
-      this.setState((state) => ({ selectedResultId: state.selectedResultId + 1 }));
+      this.setState((state) => ({
+        selectedResultId: state.selectedResultId + 1,
+      }));
     }
   };
 
@@ -79,7 +86,9 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
     return this.props.resultCount.toString().length;
   }
 
-  private _onSelectedResultChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  private _onSelectedResultChanged = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (event.target.value.length <= this._maxSelectedResultInputLength)
       this.setState({ selectedResultEdit: event.target.value });
   };
@@ -88,10 +97,12 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
     let selectedId = +this.state.selectedResultEdit;
     if (selectedId > this.props.resultCount)
       selectedId = this.props.resultCount;
-    else if (selectedId < 1)
-      selectedId = 1;
+    else if (selectedId < 1) selectedId = 1;
 
-    this.setState({ selectedResultInEditMode: false, selectedResultId: selectedId });
+    this.setState({
+      selectedResultInEditMode: false,
+      selectedResultId: selectedId,
+    });
     this.props.onSelectedChanged(selectedId);
   };
 
@@ -103,8 +114,7 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
   };
 
   private _onSelectedResultKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === SpecialKey.Enter)
-      this._onSelectedResultConfirmed();
+    if (event.key === SpecialKey.Enter) this._onSelectedResultConfirmed();
   };
 
   /** @internal */
@@ -122,30 +132,56 @@ export class ResultSelector extends React.PureComponent<ResultSelectorProps, Res
   /** @internal */
   public override render() {
     return (
-      <span className={classnames("components-result-selector", this.props.className)} style={this.props.style}>
-        <button className={classnames("components-result-selector-button", "icon")}
+      <span
+        className={classnames(
+          "components-result-selector",
+          this.props.className
+        )}
+        style={this.props.style}
+      >
+        <button
+          className={classnames("components-result-selector-button", "icon")}
           data-testid="previous-button"
           onClick={this._onClickPrevious}
-          disabled={this.props.resultCount <= 0}><Icon iconSpec={<SvgChevronLeft />} /></button>
+          disabled={this.props.resultCount <= 0}
+        >
+          <Icon iconSpec={<SvgChevronLeft />} />
+        </button>
 
-        <span style={{ pointerEvents: this.props.resultCount ? "auto" : "none" }}
+        <span
+          style={{ pointerEvents: this.props.resultCount ? "auto" : "none" }}
           className="components-result-selector-current-result"
-          onClick={this._onSelectedResultClick} role="presentation">
-          {this.state.selectedResultInEditMode ?
-            <input type="number"
-              style={{ width: `${this.state.selectedResultEdit.length * 0.60 + 1}em` }}
+          onClick={this._onSelectedResultClick}
+          role="presentation"
+        >
+          {this.state.selectedResultInEditMode ? (
+            <input
+              type="number"
+              style={{
+                width: `${this.state.selectedResultEdit.length * 0.6 + 1}em`,
+              }}
               value={this.state.selectedResultEdit}
               onChange={this._onSelectedResultChanged}
               onBlur={this._onSelectedResultConfirmed}
-              onKeyDown={this._onSelectedResultKeyDown} /> :
-            this.state.selectedResultId}
-          <span style={{ marginLeft: "5px", marginRight: "5px" }}>{this._ofLabel}</span>
+              onKeyDown={this._onSelectedResultKeyDown}
+            />
+          ) : (
+            this.state.selectedResultId
+          )}
+          <span style={{ marginLeft: "5px", marginRight: "5px" }}>
+            {this._ofLabel}
+          </span>
           <span>{this.props.resultCount}</span>
         </span>
 
-        <button className="components-result-selector-button icon" data-testid="next-button"
+        <button
+          className="components-result-selector-button icon"
+          data-testid="next-button"
           onClick={this._onClickNext}
-          disabled={this.props.resultCount <= 0}><Icon iconSpec={<SvgChevronRight />}/></button>
+          disabled={this.props.resultCount <= 0}
+        >
+          <Icon iconSpec={<SvgChevronRight />} />
+        </button>
       </span>
     );
   }

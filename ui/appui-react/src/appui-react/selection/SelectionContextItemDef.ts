@@ -1,12 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tools
  */
 
-import { ConditionalBooleanValue, IconSpecUtilities } from "@itwin/appui-abstract";
+import {
+  ConditionalBooleanValue,
+  IconSpecUtilities,
+} from "@itwin/appui-abstract";
 import { SessionStateActionId } from "../redux/SessionState";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import type { BaseItemState } from "../shared/ItemDefBase";
@@ -29,14 +32,23 @@ import svgVisibility from "@bentley/icons-generic/icons/visibility.svg";
  * @beta
  */
 export function getFeatureOverrideSyncEventIds(): string[] {
-  return [SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId];
+  return [
+    SyncUiEventId.ActiveContentChanged,
+    SyncUiEventId.ActiveViewportChanged,
+    HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId,
+  ];
 }
 
 /** return SyncEventIds that trigger selection state function refresh.
  * @beta
  */
 export function getSelectionContextSyncEventIds(): string[] {
-  return [SyncUiEventId.SelectionSetChanged, SyncUiEventId.ActiveContentChanged, SyncUiEventId.ActiveViewportChanged, SessionStateActionId.SetNumItemsSelected];
+  return [
+    SyncUiEventId.SelectionSetChanged,
+    SyncUiEventId.ActiveContentChanged,
+    SyncUiEventId.ActiveViewportChanged,
+    SessionStateActionId.SetNumItemsSelected,
+  ];
 }
 
 /** return SyncEventIds that trigger selection state function refresh.
@@ -47,11 +59,18 @@ export function isNoSelectionActive(): boolean {
   let selectionCount = 0;
   // istanbul ignore if
   if (!UiFramework.frameworkStateKey)
-    selectionCount = UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState.sessionState.numItemsSelected;
+    selectionCount =
+      UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState
+        .sessionState.numItemsSelected;
 
   // istanbul ignore if
-  if (activeContentControl && /* istanbul ignore next */ activeContentControl.viewport
-    && (/* istanbul ignore next */ activeContentControl.viewport.view.iModel.selectionSet.size > 0 || /* istanbul ignore next */ selectionCount > 0))
+  if (
+    activeContentControl &&
+    /* istanbul ignore next */ activeContentControl.viewport &&
+    /* istanbul ignore next */ (activeContentControl.viewport.view.iModel
+      .selectionSet.size > 0 ||
+      /* istanbul ignore next */ selectionCount > 0)
+  )
     return false;
   return true;
 }
@@ -63,7 +82,9 @@ export function areNoFeatureOverridesActive(): boolean {
   const activeContentControl = UiFramework.content.getActiveContentControl();
   // istanbul ignore next
   if (activeContentControl && activeContentControl.viewport)
-    return !UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(activeContentControl.viewport);
+    return !UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
+      activeContentControl.viewport
+    );
 
   return true;
 }
@@ -72,27 +93,38 @@ export function areNoFeatureOverridesActive(): boolean {
  * @beta
  */
 export function getIsHiddenIfFeatureOverridesActive(): ConditionalBooleanValue {
-  return new ConditionalBooleanValue(areNoFeatureOverridesActive, getFeatureOverrideSyncEventIds());
+  return new ConditionalBooleanValue(
+    areNoFeatureOverridesActive,
+    getFeatureOverrideSyncEventIds()
+  );
 }
 
 /** return ConditionalBooleanValue object used to show items if selection set is active.
  * @beta
  */
 export function getIsHiddenIfSelectionNotActive(): ConditionalBooleanValue {
-  return new ConditionalBooleanValue(isNoSelectionActive, getSelectionContextSyncEventIds());
+  return new ConditionalBooleanValue(
+    isNoSelectionActive,
+    getSelectionContextSyncEventIds()
+  );
 }
 
 /** return state with isVisible set to true is SectionSet is active.
  * @beta
  */
 // istanbul ignore next
-export function featureOverridesActiveStateFunc(state: Readonly<BaseItemState>): BaseItemState {
+export function featureOverridesActiveStateFunc(
+  state: Readonly<BaseItemState>
+): BaseItemState {
   const activeContentControl = UiFramework.content.getActiveContentControl();
   let isVisible = false;
 
   // istanbul ignore next
   if (activeContentControl && activeContentControl.viewport)
-    isVisible = UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(activeContentControl.viewport);
+    isVisible =
+      UiFramework.hideIsolateEmphasizeActionHandler.areFeatureOverridesActive(
+        activeContentControl.viewport
+      );
 
   return { ...state, isVisible };
 }
@@ -101,15 +133,24 @@ export function featureOverridesActiveStateFunc(state: Readonly<BaseItemState>):
  * @beta
  */
 // istanbul ignore next
-export function selectionContextStateFunc(state: Readonly<BaseItemState>): BaseItemState {
+export function selectionContextStateFunc(
+  state: Readonly<BaseItemState>
+): BaseItemState {
   const activeContentControl = UiFramework.content.getActiveContentControl();
   let isVisible = false;
 
   let selectionCount = 0;
   if (!UiFramework.frameworkStateKey)
-    selectionCount = UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState.sessionState.numItemsSelected;
+    selectionCount =
+      UiFramework.store.getState()[UiFramework.frameworkStateKey].frameworkState
+        .sessionState.numItemsSelected;
 
-  if (activeContentControl && activeContentControl.viewport && (activeContentControl.viewport.view.iModel.selectionSet.size > 0 || selectionCount > 0))
+  if (
+    activeContentControl &&
+    activeContentControl.viewport &&
+    (activeContentControl.viewport.view.iModel.selectionSet.size > 0 ||
+      selectionCount > 0)
+  )
     isVisible = true;
   return { ...state, isVisible };
 }
@@ -119,13 +160,13 @@ export function selectionContextStateFunc(state: Readonly<BaseItemState>): BaseI
  */
 // istanbul ignore next
 export class SelectionContextToolDefinitions {
-
   public static get isolateModelsInSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.IsolateModel",
       iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgModelIsolate),
       labelKey: "UiFramework:tools.isolateModels",
-      execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsModel(),
+      execute: async () =>
+        UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsModel(),
     });
   }
 
@@ -134,7 +175,8 @@ export class SelectionContextToolDefinitions {
       commandId: "UiFramework.IsolateCategory",
       iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgLayersIsolate),
       labelKey: "UiFramework:tools.isolateCategories",
-      execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsCategory(),
+      execute: async () =>
+        UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelectedElementsCategory(),
     });
   }
 
@@ -144,7 +186,8 @@ export class SelectionContextToolDefinitions {
       iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgAssetIsolate),
       labelKey: "UiFramework:tools.isolateSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
-      execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelected(),
+      execute: async () =>
+        UiFramework.hideIsolateEmphasizeActionHandler.processIsolateSelected(),
     });
   }
 
@@ -154,7 +197,11 @@ export class SelectionContextToolDefinitions {
       labelKey: "UiFramework:tools.isolate",
       iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgIsolate),
       isHidden: getIsHiddenIfSelectionNotActive(),
-      items: [this.isolateElementsItemDef, this.isolateCategoriesInSelectionItemDef, this.isolateModelsInSelectionItemDef],
+      items: [
+        this.isolateElementsItemDef,
+        this.isolateCategoriesInSelectionItemDef,
+        this.isolateModelsInSelectionItemDef,
+      ],
       itemsInColumn: 3,
     });
   }
@@ -164,7 +211,8 @@ export class SelectionContextToolDefinitions {
       commandId: "UiFramework.HideModel",
       iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgModelHide),
       labelKey: "UiFramework:tools.hideModels",
-      execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsModel(),
+      execute: async () =>
+        UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsModel(),
     });
   }
 
@@ -173,17 +221,21 @@ export class SelectionContextToolDefinitions {
       commandId: "UiFramework.HideCategory",
       iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgLayersHide),
       labelKey: "UiFramework:tools.hideCategories",
-      execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsCategory(),
+      execute: async () =>
+        UiFramework.hideIsolateEmphasizeActionHandler.processHideSelectedElementsCategory(),
     });
   }
 
   public static get hideElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.HideSelected",
-      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgAssetClassificationHide),
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(
+        svgAssetClassificationHide
+      ),
       labelKey: "UiFramework:tools.hideSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
-      execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processHideSelected(),
+      execute: async () =>
+        UiFramework.hideIsolateEmphasizeActionHandler.processHideSelected(),
     });
   }
 
@@ -193,7 +245,11 @@ export class SelectionContextToolDefinitions {
       labelKey: "UiFramework:tools.hide",
       iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgVisibilityHide),
       isHidden: getIsHiddenIfSelectionNotActive(),
-      items: [this.hideElementsItemDef, this.hideCategoriesInSelectionItemDef, this.hideModelsInSelectionItemDef],
+      items: [
+        this.hideElementsItemDef,
+        this.hideCategoriesInSelectionItemDef,
+        this.hideModelsInSelectionItemDef,
+      ],
       itemsInColumn: 3,
     });
   }
@@ -201,10 +257,13 @@ export class SelectionContextToolDefinitions {
   public static get emphasizeElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.EmphasizeSelected",
-      iconSpec: IconSpecUtilities.createWebComponentIconSpec(svgVisibilitySemiTransparent),
+      iconSpec: IconSpecUtilities.createWebComponentIconSpec(
+        svgVisibilitySemiTransparent
+      ),
       labelKey: "UiFramework:tools.emphasizeSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
-      execute: async () => UiFramework.hideIsolateEmphasizeActionHandler.processEmphasizeSelected(),
+      execute: async () =>
+        UiFramework.hideIsolateEmphasizeActionHandler.processEmphasizeSelected(),
     });
   }
 
@@ -221,5 +280,4 @@ export class SelectionContextToolDefinitions {
       },
     });
   }
-
 }

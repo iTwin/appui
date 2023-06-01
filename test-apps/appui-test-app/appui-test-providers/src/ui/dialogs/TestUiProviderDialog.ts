@@ -1,12 +1,28 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { ColorByName, ColorDef } from "@itwin/core-common";
-import { IModelApp, LengthDescription, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
 import {
-  ColorEditorParams, DialogButtonDef, DialogButtonType, DialogItem, DialogItemValue, DialogLayoutDataProvider, DialogPropertySyncItem, InputEditorSizeParams, PropertyDescription,
-  PropertyEditorParamTypes, StandardEditorNames, StandardTypeNames, SuppressLabelEditorParams,
+  IModelApp,
+  LengthDescription,
+  NotifyMessageDetails,
+  OutputMessagePriority,
+} from "@itwin/core-frontend";
+import {
+  ColorEditorParams,
+  DialogButtonDef,
+  DialogButtonType,
+  DialogItem,
+  DialogItemValue,
+  DialogLayoutDataProvider,
+  DialogPropertySyncItem,
+  InputEditorSizeParams,
+  PropertyDescription,
+  PropertyEditorParamTypes,
+  StandardEditorNames,
+  StandardTypeNames,
+  SuppressLabelEditorParams,
 } from "@itwin/appui-abstract";
 
 enum ColorOptions {
@@ -18,11 +34,10 @@ enum ColorOptions {
 }
 
 export class AbstractDialogDataProvider extends DialogLayoutDataProvider {
-
   public override supplyButtonData(): DialogButtonDef[] | undefined {
     const buttons: DialogButtonDef[] = [];
-    buttons.push({ type: DialogButtonType.OK, onClick: () => { } });
-    buttons.push({ type: DialogButtonType.Cancel, onClick: () => { } });
+    buttons.push({ type: DialogButtonType.OK, onClick: () => {} });
+    buttons.push({ type: DialogButtonType.Cancel, onClick: () => {} });
     return buttons;
   }
 
@@ -47,7 +62,9 @@ export class AbstractDialogDataProvider extends DialogLayoutDataProvider {
     };
   };
 
-  private _optionsValue: DialogItemValue = { value: ColorOptions.Blue as number };
+  private _optionsValue: DialogItemValue = {
+    value: ColorOptions.Blue as number,
+  };
 
   public get option(): ColorOptions {
     return this._optionsValue.value as ColorOptions;
@@ -66,20 +83,21 @@ export class AbstractDialogDataProvider extends DialogLayoutDataProvider {
       typename: "number",
       editor: {
         name: "color-picker",
-        params: [{
-          type: PropertyEditorParamTypes.ColorData,
-          colorValues: [
-            ColorByName.blue,
-            ColorByName.red,
-            ColorByName.green,
-            ColorByName.yellow,
-            ColorByName.black,
-            ColorByName.gray,
-            ColorByName.purple,
-            ColorByName.pink,
-          ],
-          numColumns: 3,
-        } as ColorEditorParams,
+        params: [
+          {
+            type: PropertyEditorParamTypes.ColorData,
+            colorValues: [
+              ColorByName.blue,
+              ColorByName.red,
+              ColorByName.green,
+              ColorByName.yellow,
+              ColorByName.black,
+              ColorByName.gray,
+              ColorByName.purple,
+              ColorByName.pink,
+            ],
+            numColumns: 3,
+          } as ColorEditorParams,
         ],
       },
     };
@@ -111,10 +129,11 @@ export class AbstractDialogDataProvider extends DialogLayoutDataProvider {
       displayLabel: "",
       typename: "boolean",
       editor: {
-        params: [{
-          type: PropertyEditorParamTypes.SuppressEditorLabel,
-          suppressLabelPlaceholder: true,
-        } as SuppressLabelEditorParams,
+        params: [
+          {
+            type: PropertyEditorParamTypes.SuppressEditorLabel,
+            suppressLabelPlaceholder: true,
+          } as SuppressLabelEditorParams,
         ],
       },
     };
@@ -135,7 +154,7 @@ export class AbstractDialogDataProvider extends DialogLayoutDataProvider {
   private static _lengthName = "length";
 
   // if _lengthValue also sets up display value then the "number-custom" type editor would not need to format the value before initially displaying it.
-  private _lengthValue: DialogItemValue = { value: 1.5 };  // value in meters
+  private _lengthValue: DialogItemValue = { value: 1.5 }; // value in meters
 
   public get length(): number {
     return this._lengthValue.value as number;
@@ -217,11 +236,12 @@ export class AbstractDialogDataProvider extends DialogLayoutDataProvider {
       displayLabel: "State",
       typename: StandardTypeNames.String,
       editor: {
-        params: [{
-          type: PropertyEditorParamTypes.InputEditorSize,
-          size: 4,
-          /* maxLength: 60,*/
-        } as InputEditorSizeParams,
+        params: [
+          {
+            type: PropertyEditorParamTypes.InputEditorSize,
+            size: 4,
+            /* maxLength: 60,*/
+          } as InputEditorSizeParams,
         ],
       },
     };
@@ -239,36 +259,84 @@ export class AbstractDialogDataProvider extends DialogLayoutDataProvider {
 
   public override supplyDialogItems(): DialogItem[] {
     const dialogItems = new Array<DialogItem>();
-    dialogItems.push({ value: this._optionsValue, property: AbstractDialogDataProvider._getEnumAsPicklistDescription(), editorPosition: { rowPriority: 0, columnIndex: 2 } });
-    dialogItems.push({ value: this._colorValue, property: AbstractDialogDataProvider._getColorDescription(), editorPosition: { rowPriority: 0, columnIndex: 4 } });
-    dialogItems.push({ value: this._weightValue, property: AbstractDialogDataProvider._getWeightDescription(), editorPosition: { rowPriority: 3, columnIndex: 2 } });
-    dialogItems.push({ value: this._lockValue, property: AbstractDialogDataProvider._getLockToggleDescription(), editorPosition: { rowPriority: 5, columnIndex: 2 } });
-    dialogItems.push({ value: this._cityValue, property: AbstractDialogDataProvider._getCityDescription(), editorPosition: { rowPriority: 10, columnIndex: 2 } });
-    dialogItems.push({ value: this._stateValue, property: AbstractDialogDataProvider._getStateDescription(), editorPosition: { rowPriority: 10, columnIndex: 4 } });
-    const lengthLock: DialogItem = { value: this._useLengthValue, property: AbstractDialogDataProvider._getUseLengthDescription(), editorPosition: { rowPriority: 20, columnIndex: 0 } };
-    dialogItems.push({ value: this._lengthValue, property: this._lengthDescription, editorPosition: { rowPriority: 20, columnIndex: 2 }, isDisabled: false, lockProperty: lengthLock });
+    dialogItems.push({
+      value: this._optionsValue,
+      property: AbstractDialogDataProvider._getEnumAsPicklistDescription(),
+      editorPosition: { rowPriority: 0, columnIndex: 2 },
+    });
+    dialogItems.push({
+      value: this._colorValue,
+      property: AbstractDialogDataProvider._getColorDescription(),
+      editorPosition: { rowPriority: 0, columnIndex: 4 },
+    });
+    dialogItems.push({
+      value: this._weightValue,
+      property: AbstractDialogDataProvider._getWeightDescription(),
+      editorPosition: { rowPriority: 3, columnIndex: 2 },
+    });
+    dialogItems.push({
+      value: this._lockValue,
+      property: AbstractDialogDataProvider._getLockToggleDescription(),
+      editorPosition: { rowPriority: 5, columnIndex: 2 },
+    });
+    dialogItems.push({
+      value: this._cityValue,
+      property: AbstractDialogDataProvider._getCityDescription(),
+      editorPosition: { rowPriority: 10, columnIndex: 2 },
+    });
+    dialogItems.push({
+      value: this._stateValue,
+      property: AbstractDialogDataProvider._getStateDescription(),
+      editorPosition: { rowPriority: 10, columnIndex: 4 },
+    });
+    const lengthLock: DialogItem = {
+      value: this._useLengthValue,
+      property: AbstractDialogDataProvider._getUseLengthDescription(),
+      editorPosition: { rowPriority: 20, columnIndex: 0 },
+    };
+    dialogItems.push({
+      value: this._lengthValue,
+      property: this._lengthDescription,
+      editorPosition: { rowPriority: 20, columnIndex: 2 },
+      isDisabled: false,
+      lockProperty: lengthLock,
+    });
     return dialogItems;
   }
 
   private showColorInfoFromUi(updatedValue: DialogPropertySyncItem) {
     const tempColorDef = ColorDef.create(updatedValue.value.value as number);
-    const msg = `Property '${updatedValue.propertyName}' updated to value ${tempColorDef.toRgbString()}`;
-    IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, msg));
+    const msg = `Property '${
+      updatedValue.propertyName
+    }' updated to value ${tempColorDef.toRgbString()}`;
+    IModelApp.notifications.outputMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Info, msg)
+    );
   }
 
   private showInfoFromUi(updatedValue: DialogPropertySyncItem) {
     const msg = `Property '${updatedValue.propertyName}' updated to value ${updatedValue.value.value}`;
-    IModelApp.notifications.outputMessage(new NotifyMessageDetails(OutputMessagePriority.Info, msg));
+    IModelApp.notifications.outputMessage(
+      new NotifyMessageDetails(OutputMessagePriority.Info, msg)
+    );
   }
 
   private syncLengthState() {
-    const syncItem: DialogPropertySyncItem = { value: this._lengthValue, propertyName: AbstractDialogDataProvider._lengthName, isDisabled: !this.useLength };
+    const syncItem: DialogPropertySyncItem = {
+      value: this._lengthValue,
+      propertyName: AbstractDialogDataProvider._lengthName,
+      isDisabled: !this.useLength,
+    };
     this.fireSyncPropertiesEvent([syncItem]);
   }
 
   /** Used to send changes from UI */
-  public override applyUiPropertyChange = (updatedValue: DialogPropertySyncItem): void => {
-    if (updatedValue.propertyName === AbstractDialogDataProvider._useLengthName) {
+  public override applyUiPropertyChange = (
+    updatedValue: DialogPropertySyncItem
+  ): void => {
+    if (
+      updatedValue.propertyName === AbstractDialogDataProvider._useLengthName
+    ) {
       this.useLength = updatedValue.value.value as boolean;
       this.showInfoFromUi(updatedValue);
       this.syncLengthState();
@@ -279,22 +347,34 @@ export class AbstractDialogDataProvider extends DialogLayoutDataProvider {
         this.option = updatedValue.value.value as ColorOptions;
         this.showInfoFromUi(updatedValue);
       }
-    } else if (updatedValue.propertyName === AbstractDialogDataProvider._lockToggleName) {
+    } else if (
+      updatedValue.propertyName === AbstractDialogDataProvider._lockToggleName
+    ) {
       this.lock = updatedValue.value.value as boolean;
       this.showInfoFromUi(updatedValue);
-    } else if (updatedValue.propertyName === AbstractDialogDataProvider._cityName) {
+    } else if (
+      updatedValue.propertyName === AbstractDialogDataProvider._cityName
+    ) {
       this.city = updatedValue.value.value as string;
       this.showInfoFromUi(updatedValue);
-    } else if (updatedValue.propertyName === AbstractDialogDataProvider._stateName) {
+    } else if (
+      updatedValue.propertyName === AbstractDialogDataProvider._stateName
+    ) {
       this.stateName = updatedValue.value.value as string;
       this.showInfoFromUi(updatedValue);
-    } else if (updatedValue.propertyName === AbstractDialogDataProvider._lengthName) {
+    } else if (
+      updatedValue.propertyName === AbstractDialogDataProvider._lengthName
+    ) {
       this.length = updatedValue.value.value as number;
       this.showInfoFromUi(updatedValue);
-    } else if (updatedValue.propertyName === AbstractDialogDataProvider._colorName) {
+    } else if (
+      updatedValue.propertyName === AbstractDialogDataProvider._colorName
+    ) {
       this.colorValue = updatedValue.value.value as number;
       this.showColorInfoFromUi(updatedValue);
-    } else if (updatedValue.propertyName === AbstractDialogDataProvider._weightName) {
+    } else if (
+      updatedValue.propertyName === AbstractDialogDataProvider._weightName
+    ) {
       this.weight = updatedValue.value.value as number;
       this.showInfoFromUi(updatedValue);
     } else {

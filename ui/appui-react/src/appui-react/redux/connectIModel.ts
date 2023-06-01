@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 /** @packageDocumentation
  * @module State
@@ -15,12 +15,11 @@ import { UiFramework } from "../UiFramework";
  */
 const iModeMapStateToProps = (mapStateToProps: any) => {
   return (state: any, ownProps: any) => {
-    const frameworkState = state[UiFramework.frameworkStateKey];  // since app sets up key, don't hard-code name
+    const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
 
     /* istanbul ignore next */
     if (!frameworkState) {
-      if (mapStateToProps)
-        return mapStateToProps(state, ownProps);
+      if (mapStateToProps) return mapStateToProps(state, ownProps);
       return {};
     }
 
@@ -49,21 +48,19 @@ const iModeMapStateToProps = (mapStateToProps: any) => {
 const iModelAndViewMapStateToProps = (mapStateToProps: any) => {
   // istanbul ignore next
   return (state: any, ownProps: any) => {
-    const frameworkState = state[UiFramework.frameworkStateKey];  // since app sets up key, don't hard-code name
+    const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
 
     /* istanbul ignore next */
-    if (!frameworkState)
-      return {};
+    if (!frameworkState) return {};
 
     const props = {
       ...ownProps,
-      iModelConnection: frameworkState.sessionState.iModelConnection,   // this prop is required by Unified Selection (TODO: standardize on use)
-      iModel: frameworkState.sessionState.iModelConnection,             // this prop is needed by many components
-      imodel: frameworkState.sessionState.iModelConnection,             // this prop is needed by ViewportProps
+      iModelConnection: frameworkState.sessionState.iModelConnection, // this prop is required by Unified Selection (TODO: standardize on use)
+      iModel: frameworkState.sessionState.iModelConnection, // this prop is needed by many components
+      imodel: frameworkState.sessionState.iModelConnection, // this prop is needed by ViewportProps
       viewState: frameworkState.sessionState.defaultViewState,
     };
-    if (mapStateToProps)
-      return mapStateToProps(state, props);
+    if (mapStateToProps) return mapStateToProps(state, props);
 
     return props;
   };
@@ -74,7 +71,10 @@ const iModelAndViewMapStateToProps = (mapStateToProps: any) => {
  * @param mapDispatchToProps data passed to Redux connect function.
  * @public
  */
-export const connectIModelConnection = (mapStateToProps?: any, mapDispatchToProps?: any) => {
+export const connectIModelConnection = (
+  mapStateToProps?: any,
+  mapDispatchToProps?: any
+) => {
   return connect(iModeMapStateToProps(mapStateToProps), mapDispatchToProps);
 };
 
@@ -97,6 +97,12 @@ export const connectIModelConnection = (mapStateToProps?: any, mapDispatchToProp
  *  this.props.setNumItemsSelected(30);
  *
  */
-export const connectIModelConnectionAndViewState = (mapStateToProps?: any, mapDispatchToProps?: any) => {
-  return connect(iModelAndViewMapStateToProps(mapStateToProps), mapDispatchToProps);
+export const connectIModelConnectionAndViewState = (
+  mapStateToProps?: any,
+  mapDispatchToProps?: any
+) => {
+  return connect(
+    iModelAndViewMapStateToProps(mapStateToProps),
+    mapDispatchToProps
+  );
 };

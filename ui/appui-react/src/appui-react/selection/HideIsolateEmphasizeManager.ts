@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tools
  */
@@ -10,7 +10,13 @@ import type { GuidString } from "@itwin/core-bentley";
 import { BeEvent } from "@itwin/core-bentley";
 import type { GeometricElementProps } from "@itwin/core-common";
 import { FeatureAppearance } from "@itwin/core-common";
-import type { FeatureOverrideProvider, FeatureSymbology, IModelConnection, ScreenViewport, Viewport } from "@itwin/core-frontend";
+import type {
+  FeatureOverrideProvider,
+  FeatureSymbology,
+  IModelConnection,
+  ScreenViewport,
+  Viewport,
+} from "@itwin/core-frontend";
 import { EmphasizeElements, IModelApp } from "@itwin/core-frontend";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { UiFramework } from "../UiFramework";
@@ -32,16 +38,46 @@ export enum HideIsolateEmphasizeAction {
 }
 
 const featureIdMap = new Map<HideIsolateEmphasizeAction, GuidString>([
-  [HideIsolateEmphasizeAction.EmphasizeSelectedElements, "d74eb93f-deae-4700-8da6-1013a8a7aa26"],
-  [HideIsolateEmphasizeAction.IsolateSelectedElements, "24327638-1611-45fa-a379-fa73329098ec"],
-  [HideIsolateEmphasizeAction.IsolateSelectedCategories, "e58081ab-2c33-4a15-924f-71082b58ca3b"],
-  [HideIsolateEmphasizeAction.IsolateSelectedModels, "3475921e-7dd1-4547-993e-a3e284ef8b62"],
-  [HideIsolateEmphasizeAction.HideSelectedElements, "2ca673ec-001a-4890-bc25-18bc88358fe0"],
-  [HideIsolateEmphasizeAction.HideSelectedModels, "8b41e859-ae17-4e19-b220-87a5cf9f8242"],
-  [HideIsolateEmphasizeAction.HideSelectedCategories, "c5d6916b-e8d7-4796-bae9-a5303712d46b"],
-  [HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized, "7b135c8a-3f3c-4297-b36c-b0ac51f1d8de"],
-  [HideIsolateEmphasizeAction.ClearOverrideModels, "6e519b94-edab-4b13-9ce7-0bcdfa27ccfe"],
-  [HideIsolateEmphasizeAction.ClearOverrideCategories, "9d2be3c6-6992-4c30-84eb-10f6b9379d06"],
+  [
+    HideIsolateEmphasizeAction.EmphasizeSelectedElements,
+    "d74eb93f-deae-4700-8da6-1013a8a7aa26",
+  ],
+  [
+    HideIsolateEmphasizeAction.IsolateSelectedElements,
+    "24327638-1611-45fa-a379-fa73329098ec",
+  ],
+  [
+    HideIsolateEmphasizeAction.IsolateSelectedCategories,
+    "e58081ab-2c33-4a15-924f-71082b58ca3b",
+  ],
+  [
+    HideIsolateEmphasizeAction.IsolateSelectedModels,
+    "3475921e-7dd1-4547-993e-a3e284ef8b62",
+  ],
+  [
+    HideIsolateEmphasizeAction.HideSelectedElements,
+    "2ca673ec-001a-4890-bc25-18bc88358fe0",
+  ],
+  [
+    HideIsolateEmphasizeAction.HideSelectedModels,
+    "8b41e859-ae17-4e19-b220-87a5cf9f8242",
+  ],
+  [
+    HideIsolateEmphasizeAction.HideSelectedCategories,
+    "c5d6916b-e8d7-4796-bae9-a5303712d46b",
+  ],
+  [
+    HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized,
+    "7b135c8a-3f3c-4297-b36c-b0ac51f1d8de",
+  ],
+  [
+    HideIsolateEmphasizeAction.ClearOverrideModels,
+    "6e519b94-edab-4b13-9ce7-0bcdfa27ccfe",
+  ],
+  [
+    HideIsolateEmphasizeAction.ClearOverrideCategories,
+    "9d2be3c6-6992-4c30-84eb-10f6b9379d06",
+  ],
 ]);
 
 /** Selection Context Action Event Argument
@@ -59,9 +95,15 @@ export interface EmphasizeElementsChangedArgs {
  */
 // istanbul ignore next
 class ModelOverrideProvider implements FeatureOverrideProvider {
-  constructor(public modelIds: string[], public defaultAppearance: FeatureAppearance) { }
+  constructor(
+    public modelIds: string[],
+    public defaultAppearance: FeatureAppearance
+  ) {}
 
-  public addFeatureOverrides(overrides: FeatureSymbology.Overrides, _viewport: Viewport): void {
+  public addFeatureOverrides(
+    overrides: FeatureSymbology.Overrides,
+    _viewport: Viewport
+  ): void {
     overrides.setDefaultOverrides(this.defaultAppearance, true);
     // Override with nothing so that we keep the model looking normal and override the default appearance of everything else
     const appearance = FeatureAppearance.fromJSON({});
@@ -76,9 +118,15 @@ class ModelOverrideProvider implements FeatureOverrideProvider {
  */
 // istanbul ignore next
 class SubCategoryOverrideProvider implements FeatureOverrideProvider {
-  constructor(public subCategoryIds: string[], public defaultAppearance: FeatureAppearance) { }
+  constructor(
+    public subCategoryIds: string[],
+    public defaultAppearance: FeatureAppearance
+  ) {}
 
-  public addFeatureOverrides(overrides: FeatureSymbology.Overrides, _viewport: Viewport): void {
+  public addFeatureOverrides(
+    overrides: FeatureSymbology.Overrides,
+    _viewport: Viewport
+  ): void {
     overrides.setDefaultOverrides(this.defaultAppearance, true);
     // Override with nothing so that we keep the category looking normal and override the default appearance of everything else
     const appearance = FeatureAppearance.fromJSON({});
@@ -93,7 +141,9 @@ class SubCategoryOverrideProvider implements FeatureOverrideProvider {
  * @public
  */
 export abstract class HideIsolateEmphasizeActionHandler {
-  public static emphasizeElementsChanged = new BeEvent<(args: EmphasizeElementsChangedArgs) => void>();
+  public static emphasizeElementsChanged = new BeEvent<
+    (args: EmphasizeElementsChangedArgs) => void
+  >();
 
   /** String Id sent to allow UI to refresh its display state.  */
   public static get hideIsolateEmphasizeUiSyncId() {
@@ -186,16 +236,18 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
   }
 
   /** Get sub categories that relate to the category Id */
-  private static async _getSubCategories(iModelConnection: IModelConnection, categoryIds: string[]) {
+  private static async _getSubCategories(
+    iModelConnection: IModelConnection,
+    categoryIds: string[]
+  ) {
     const allSubcats: string[] = [];
     const request = iModelConnection.subcategories.load(categoryIds);
-    if (request)
-      await request.promise;
+    if (request) await request.promise;
 
     for (const categoryId of categoryIds) {
-      const subcats = iModelConnection.subcategories.getSubCategories(categoryId);
-      if (subcats)
-        allSubcats.push(...subcats);
+      const subcats =
+        iModelConnection.subcategories.getSubCategories(categoryId);
+      if (subcats) allSubcats.push(...subcats);
     }
     return allSubcats;
   }
@@ -206,13 +258,18 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public static async emphasizeSelectedCategory(vp: Viewport) {
     const ids = vp.iModel.hilited.subcategories.toId64Array();
-    if (ids.length === 0)
-      return;
+    if (ids.length === 0) return;
 
-    const defaultAppearance = EmphasizeElements.getOrCreate(vp).createDefaultAppearance();
+    const defaultAppearance =
+      EmphasizeElements.getOrCreate(vp).createDefaultAppearance();
     EmphasizeElements.clear(vp);
-    const subcats = await HideIsolateEmphasizeManager._getSubCategories(vp.iModel, ids);
-    vp.addFeatureOverrideProvider(new SubCategoryOverrideProvider(subcats, defaultAppearance));
+    const subcats = await HideIsolateEmphasizeManager._getSubCategories(
+      vp.iModel,
+      ids
+    );
+    vp.addFeatureOverrideProvider(
+      new SubCategoryOverrideProvider(subcats, defaultAppearance)
+    );
   }
 
   /**
@@ -221,8 +278,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   private static hideSelectedModel(vp: Viewport) {
     const ids = vp.iModel.hilited.models.toId64Array();
-    if (ids.length === 0)
-      return;
+    if (ids.length === 0) return;
 
     vp.changeModelDisplay(ids, false);
   }
@@ -233,12 +289,14 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   private static emphasizeSelectedModel(vp: Viewport) {
     const ids = vp.iModel.hilited.models.toId64Array();
-    if (ids.length === 0)
-      return;
+    if (ids.length === 0) return;
 
-    const defaultAppearance = EmphasizeElements.getOrCreate(vp).createDefaultAppearance();
+    const defaultAppearance =
+      EmphasizeElements.getOrCreate(vp).createDefaultAppearance();
     EmphasizeElements.clear(vp);
-    vp.addFeatureOverrideProvider(new ModelOverrideProvider(ids, defaultAppearance));
+    vp.addFeatureOverrideProvider(
+      new ModelOverrideProvider(ids, defaultAppearance)
+    );
   }
 
   /**
@@ -273,7 +331,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    * @param vp Viewport to affect
    * @param emphasisSilhouette defaults to true
    */
-  public static async emphasizeSelected(vp: Viewport, emphasisSilhouette = true) {
+  public static async emphasizeSelected(
+    vp: Viewport,
+    emphasisSilhouette = true
+  ) {
     if (HideIsolateEmphasizeManager.categorySelected(vp)) {
       await HideIsolateEmphasizeManager.emphasizeSelectedCategory(vp);
       return;
@@ -295,8 +356,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public static async isolateSelectedModel(vp: Viewport) {
     const ids = vp.iModel.hilited.models.toId64Array();
-    if (ids.length === 0)
-      return;
+    if (ids.length === 0) return;
 
     await vp.replaceViewedModels(ids);
   }
@@ -309,8 +369,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
     const ids = vp.iModel.hilited.subcategories.toId64Set();
     const categoriesToDrop: string[] = [];
     vp.view.categorySelector.categories.forEach((categoryId: string) => {
-      if (!ids.has(categoryId))
-        categoriesToDrop.push(categoryId);
+      if (!ids.has(categoryId)) categoriesToDrop.push(categoryId);
     });
     vp.changeCategoryDisplay(categoriesToDrop, false);
     vp.changeCategoryDisplay(ids, true);
@@ -319,18 +378,18 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
   private static async getSelectionSetElementModels(iModel: IModelConnection) {
     const props = await iModel.elements.getProps(iModel.selectionSet.elements);
     const modelIds = new Set<string>();
-    for (const prop of props)
-      if (prop.model)
-        modelIds.add(prop.model);
+    for (const prop of props) if (prop.model) modelIds.add(prop.model);
     return modelIds;
   }
 
-  private static async getSelectionSetElementCategories(iModel: IModelConnection) {
-    const props = (await iModel.elements.getProps(iModel.selectionSet.elements)) as GeometricElementProps[];
+  private static async getSelectionSetElementCategories(
+    iModel: IModelConnection
+  ) {
+    const props = (await iModel.elements.getProps(
+      iModel.selectionSet.elements
+    )) as GeometricElementProps[];
     const categoryIds = new Set<string>();
-    for (const prop of props)
-      if (prop.category)
-        categoryIds.add(prop.category);
+    for (const prop of props) if (prop.category) categoryIds.add(prop.category);
     return categoryIds;
   }
 
@@ -353,10 +412,14 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    * @param vp Viewport to affect
    */
   public static async isolateSelectedElementsModel(vp: Viewport) {
-    const modelsToKeep = new Set(await HideIsolateEmphasizeManager.getSelectionSetElementModels(vp.iModel));
+    const modelsToKeep = new Set(
+      await HideIsolateEmphasizeManager.getSelectionSetElementModels(vp.iModel)
+    );
 
     if (vp.view.isSpatialView()) {
-      const modelsToTurnOff = [...vp.view.modelSelector.models].filter((modelId: string) => !modelsToKeep.has(modelId));
+      const modelsToTurnOff = [...vp.view.modelSelector.models].filter(
+        (modelId: string) => !modelsToKeep.has(modelId)
+      );
       this.updateModelOverride(vp, modelsToTurnOff);
     }
 
@@ -368,8 +431,14 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    * @param vp Viewport to affect
    */
   public static async isolateSelectedElementsCategory(vp: Viewport) {
-    const categoriesToKeep = new Set(await HideIsolateEmphasizeManager.getSelectionSetElementCategories(vp.iModel));
-    const categoriesToTurnOff = [...vp.view.categorySelector.categories].filter((categoryId: string) => !categoriesToKeep.has(categoryId));
+    const categoriesToKeep = new Set(
+      await HideIsolateEmphasizeManager.getSelectionSetElementCategories(
+        vp.iModel
+      )
+    );
+    const categoriesToTurnOff = [...vp.view.categorySelector.categories].filter(
+      (categoryId: string) => !categoriesToKeep.has(categoryId)
+    );
     vp.changeCategoryDisplay(categoriesToTurnOff, false);
     vp.changeCategoryDisplay(categoriesToKeep, true);
     this.updateCategoryOverride(vp, categoriesToTurnOff);
@@ -395,7 +464,8 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    * @param vp Viewport to affect
    */
   public static async hideSelectedElementsModel(vp: Viewport) {
-    const modelIds = await HideIsolateEmphasizeManager.getSelectionSetElementModels(vp.iModel);
+    const modelIds =
+      await HideIsolateEmphasizeManager.getSelectionSetElementModels(vp.iModel);
     vp.changeModelDisplay(modelIds, false);
     this.updateModelOverride(vp, [...modelIds]);
   }
@@ -418,7 +488,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public static isOverrideModels(vp: Viewport): boolean {
     const ids = this._overrideModelIds.get(vp);
-    return (ids) ? [...ids].length > 0 : false;
+    return ids ? [...ids].length > 0 : false;
   }
 
   /**
@@ -427,7 +497,7 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public static isOverrideCategories(vp: Viewport): boolean {
     const ids = this._overrideCategoryIds.get(vp);
-    return (ids) ? [...ids].length > 0 : false;
+    return ids ? [...ids].length > 0 : false;
   }
 
   /**
@@ -435,7 +505,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    * @param vp Viewport to affect
    */
   public static async hideSelectedElementsCategory(vp: Viewport) {
-    const categoryIds = await HideIsolateEmphasizeManager.getSelectionSetElementCategories(vp.iModel);
+    const categoryIds =
+      await HideIsolateEmphasizeManager.getSelectionSetElementCategories(
+        vp.iModel
+      );
     vp.changeCategoryDisplay(categoryIds, false);
     this.updateCategoryOverride(vp, [...categoryIds]);
   }
@@ -455,41 +528,64 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
   /** Checks to see if any featureOverrideProviders are active */
   public areFeatureOverridesActive(vp: Viewport): boolean {
     // Check all the emphasize possibilities
-    const emphasizeElementsProvider = vp.findFeatureOverrideProviderOfType<EmphasizeElements>(EmphasizeElements);
-    if (undefined !== emphasizeElementsProvider && emphasizeElementsProvider.isActive(vp))
+    const emphasizeElementsProvider =
+      vp.findFeatureOverrideProviderOfType<EmphasizeElements>(
+        EmphasizeElements
+      );
+    if (
+      undefined !== emphasizeElementsProvider &&
+      emphasizeElementsProvider.isActive(vp)
+    )
       return true;
 
-    const modelOverrideProvider = vp.findFeatureOverrideProviderOfType<ModelOverrideProvider>(ModelOverrideProvider);
-    if (undefined !== modelOverrideProvider && modelOverrideProvider.modelIds.length > 0)
+    const modelOverrideProvider =
+      vp.findFeatureOverrideProviderOfType<ModelOverrideProvider>(
+        ModelOverrideProvider
+      );
+    if (
+      undefined !== modelOverrideProvider &&
+      modelOverrideProvider.modelIds.length > 0
+    )
       return true;
 
-    const subCategoryOverrideProvider = vp.findFeatureOverrideProviderOfType<SubCategoryOverrideProvider>(SubCategoryOverrideProvider);
-    if (undefined !== subCategoryOverrideProvider && subCategoryOverrideProvider.subCategoryIds.length > 0)
+    const subCategoryOverrideProvider =
+      vp.findFeatureOverrideProviderOfType<SubCategoryOverrideProvider>(
+        SubCategoryOverrideProvider
+      );
+    if (
+      undefined !== subCategoryOverrideProvider &&
+      subCategoryOverrideProvider.subCategoryIds.length > 0
+    )
       return true;
 
     // Check hide/isolate possibilities
-    if (HideIsolateEmphasizeManager.isOverrideCategories(vp))
-      return true;
+    if (HideIsolateEmphasizeManager.isOverrideCategories(vp)) return true;
 
-    if (HideIsolateEmphasizeManager.isOverrideModels(vp))
-      return true;
+    if (HideIsolateEmphasizeManager.isOverrideModels(vp)) return true;
 
     return false;
   }
 
   /**
-     * Function that is run when `IsolateSelectedElementsModel` tool button is pressed
-     */
+   * Function that is run when `IsolateSelectedElementsModel` tool button is pressed
+   */
   public async processIsolateSelectedElementsModel(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
 
     await HideIsolateEmphasizeManager.isolateSelectedElementsModel(vp);
 
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.IsolateSelectedModels });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.IsolateSelectedModels, featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedModels)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.IsolateSelectedModels,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.IsolateSelectedModels,
+      featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedModels)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
   }
 
   /**
@@ -497,14 +593,21 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public async processIsolateSelectedElementsCategory(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
 
     await HideIsolateEmphasizeManager.isolateSelectedElementsCategory(vp);
 
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.IsolateSelectedCategories });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.IsolateSelectedCategories, featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedCategories)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.IsolateSelectedCategories,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.IsolateSelectedCategories,
+      featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedCategories)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
   }
 
   /**
@@ -512,18 +615,24 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public async processIsolateSelected(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
     HideIsolateEmphasizeManager.isolateSelected(vp);
 
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.IsolateSelectedElements });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.IsolateSelectedElements, featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedElements)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.IsolateSelectedElements,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.IsolateSelectedElements,
+      featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedElements)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
 
     // clear out selection now that any callbacks have processed
     const selection = vp.view.iModel.selectionSet;
-    if (selection.isActive)
-      selection.emptyAll();
+    if (selection.isActive) selection.emptyAll();
   }
 
   /**
@@ -531,14 +640,21 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public async processHideSelectedElementsModel(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
 
     await HideIsolateEmphasizeManager.hideSelectedElementsModel(vp);
 
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.HideSelectedModels });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.HideSelectedModels, featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedModels)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.HideSelectedModels,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.HideSelectedModels,
+      featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedModels)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
   }
 
   /**
@@ -546,14 +662,21 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public async processHideSelectedElementsCategory(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
 
     await HideIsolateEmphasizeManager.hideSelectedElementsCategory(vp);
 
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.HideSelectedCategories });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.HideSelectedCategories, featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedCategories)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.HideSelectedCategories,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.HideSelectedCategories,
+      featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedCategories)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
   }
 
   /**
@@ -561,19 +684,25 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public async processHideSelected(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
 
     HideIsolateEmphasizeManager.hideSelected(vp);
 
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.HideSelectedElements });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.HideSelectedCategories, featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedElements)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.HideSelectedElements,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.HideSelectedCategories,
+      featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedElements)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
 
     // clear out selection now that any callbacks have processed
     const selection = vp.view.iModel.selectionSet;
-    if (selection.isActive)
-      selection.emptyAll();
+    if (selection.isActive) selection.emptyAll();
   }
 
   /**
@@ -581,18 +710,24 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public async processEmphasizeSelected(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
 
     await HideIsolateEmphasizeManager.emphasizeSelected(vp);
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.EmphasizeSelectedElements });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.EmphasizeSelectedElements, featureIdMap.get(HideIsolateEmphasizeAction.EmphasizeSelectedElements)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.EmphasizeSelectedElements,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.EmphasizeSelectedElements,
+      featureIdMap.get(HideIsolateEmphasizeAction.EmphasizeSelectedElements)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
 
     // clear out selection now that any callbacks have processed
     const selection = vp.view.iModel.selectionSet;
-    if (selection.isActive)
-      selection.emptyAll();
+    if (selection.isActive) selection.emptyAll();
   }
 
   /**
@@ -600,13 +735,20 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public async processClearEmphasize(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
     HideIsolateEmphasizeManager.clearEmphasize(vp);
 
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized, featureIdMap.get(HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized,
+      featureIdMap.get(HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
   }
 
   /**
@@ -614,13 +756,20 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public async processClearOverrideModels(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
     HideIsolateEmphasizeManager.clearOverrideModels(vp);
 
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.ClearOverrideModels });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.ClearOverrideModels, featureIdMap.get(HideIsolateEmphasizeAction.ClearOverrideModels)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.ClearOverrideModels,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.ClearOverrideModels,
+      featureIdMap.get(HideIsolateEmphasizeAction.ClearOverrideModels)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
   }
 
   /**
@@ -628,13 +777,20 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
    */
   public async processClearOverrideCategories(): Promise<void> {
     const vp = IModelApp.viewManager.selectedView;
-    if (!vp)
-      return;
+    if (!vp) return;
     HideIsolateEmphasizeManager.clearOverrideCategories(vp);
 
-    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({ viewport: vp, action: HideIsolateEmphasizeAction.ClearOverrideCategories });
-    UiFramework.postTelemetry(HideIsolateEmphasizeAction.ClearOverrideCategories, featureIdMap.get(HideIsolateEmphasizeAction.ClearOverrideCategories)); // eslint-disable-line @typescript-eslint/no-floating-promises
-    SyncUiEventDispatcher.dispatchSyncUiEvent(HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId);
+    HideIsolateEmphasizeActionHandler.emphasizeElementsChanged.raiseEvent({
+      viewport: vp,
+      action: HideIsolateEmphasizeAction.ClearOverrideCategories,
+    });
+    UiFramework.postTelemetry(
+      HideIsolateEmphasizeAction.ClearOverrideCategories,
+      featureIdMap.get(HideIsolateEmphasizeAction.ClearOverrideCategories)
+    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    SyncUiEventDispatcher.dispatchSyncUiEvent(
+      HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
+    );
   }
 
   /**

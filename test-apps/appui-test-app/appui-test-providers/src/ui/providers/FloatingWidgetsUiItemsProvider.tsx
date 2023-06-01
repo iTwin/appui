@@ -1,10 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget";
-import { StagePanelLocation, StagePanelSection, StageUsage, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
+import {
+  StagePanelLocation,
+  StagePanelSection,
+  StageUsage,
+  UiItemsProvider,
+  Widget,
+  WidgetState,
+} from "@itwin/appui-react";
 
 /**
  * Test UiItemsProvider that provide FloatingWidgets in any General usage stage.
@@ -13,9 +20,18 @@ export class FloatingWidgetsUiItemsProvider implements UiItemsProvider {
   public static providerId = "appui-test-providers:FloatingWidgetsUiProvider";
   public readonly id = FloatingWidgetsUiItemsProvider.providerId;
 
-  public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<Widget> {
+  public provideWidgets(
+    _stageId: string,
+    stageUsage: string,
+    location: StagePanelLocation,
+    section?: StagePanelSection
+  ): ReadonlyArray<Widget> {
     const widgets: Widget[] = [];
-    if (stageUsage === StageUsage.General && location === StagePanelLocation.Left && section === StagePanelSection.Start) {
+    if (
+      stageUsage === StageUsage.General &&
+      location === StagePanelLocation.Left &&
+      section === StagePanelSection.Start
+    ) {
       widgets.push({
         id: "appui-test-providers:ViewAttributesWidget",
         label: "View Attributes",

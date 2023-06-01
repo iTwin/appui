@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -45,7 +45,8 @@ function getIconFromIconName(iconName: string): IconSpec {
       iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeKeypoint);
       break;
     case "snaps-intersection":
-      iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeIntersection);
+      iconSpec =
+        IconSpecUtilities.createWebComponentIconSpec(snapModeIntersection);
       break;
     case "snaps-center":
       iconSpec = IconSpecUtilities.createWebComponentIconSpec(snapModeCenter);
@@ -71,50 +72,88 @@ function getIconFromIconName(iconName: string): IconSpec {
  * display the active snap mode that AccuSnap will use and allow the user to select a new snap mode.
  */
 function SnapModeFieldComponent(props: SnapModeFieldProps) {
-  const snapModes: SnapModeFieldEntry[] = React.useMemo(() => [
-    { label: UiFramework.translate("snapModeField.keypoint"), value: SnapMode.NearestKeypoint as number, iconName: "snaps" },
-    { label: UiFramework.translate("snapModeField.intersection"), value: SnapMode.Intersection as number, iconName: "snaps-intersection" },
-    { label: UiFramework.translate("snapModeField.center"), value: SnapMode.Center as number, iconName: "snaps-center" },
-    { label: UiFramework.translate("snapModeField.nearest"), value: SnapMode.Nearest as number, iconName: "snaps-nearest" },
-    { label: UiFramework.translate("snapModeField.origin"), value: SnapMode.Origin as number, iconName: "snaps-origin" },
-    { label: UiFramework.translate("snapModeField.midpoint"), value: SnapMode.MidPoint as number, iconName: "snaps-midpoint" },
-    { label: UiFramework.translate("snapModeField.bisector"), value: SnapMode.Bisector as number, iconName: "snaps-bisector" },
-  ], []);
+  const snapModes: SnapModeFieldEntry[] = React.useMemo(
+    () => [
+      {
+        label: UiFramework.translate("snapModeField.keypoint"),
+        value: SnapMode.NearestKeypoint as number,
+        iconName: "snaps",
+      },
+      {
+        label: UiFramework.translate("snapModeField.intersection"),
+        value: SnapMode.Intersection as number,
+        iconName: "snaps-intersection",
+      },
+      {
+        label: UiFramework.translate("snapModeField.center"),
+        value: SnapMode.Center as number,
+        iconName: "snaps-center",
+      },
+      {
+        label: UiFramework.translate("snapModeField.nearest"),
+        value: SnapMode.Nearest as number,
+        iconName: "snaps-nearest",
+      },
+      {
+        label: UiFramework.translate("snapModeField.origin"),
+        value: SnapMode.Origin as number,
+        iconName: "snaps-origin",
+      },
+      {
+        label: UiFramework.translate("snapModeField.midpoint"),
+        value: SnapMode.MidPoint as number,
+        iconName: "snaps-midpoint",
+      },
+      {
+        label: UiFramework.translate("snapModeField.bisector"),
+        value: SnapMode.Bisector as number,
+        iconName: "snaps-bisector",
+      },
+    ],
+    []
+  );
 
   /** Return icon class name for a specific snapMode. */
-  const getSnapModeIconNameFromMode = React.useCallback(function (snapMode: number): string {
-    for (const mode of snapModes) {
-      if (mode.value === snapMode)
-        return mode.iconName;
-    }
+  const getSnapModeIconNameFromMode = React.useCallback(
+    function (snapMode: number): string {
+      for (const mode of snapModes) {
+        if (mode.value === snapMode) return mode.iconName;
+      }
 
-    /* istanbul ignore else */
-    if (snapMode > 0)
-      return "snaps-multione";
+      /* istanbul ignore else */
+      if (snapMode > 0) return "snaps-multione";
 
-    /* istanbul ignore next */
-    return "placeholder";
-  }, [snapModes]);
+      /* istanbul ignore next */
+      return "placeholder";
+    },
+    [snapModes]
+  );
 
   const title = UiFramework.translate("snapModeField.snapMode");
   return (
     <StatusBarLabelIndicator
-      iconSpec={getIconFromIconName(getSnapModeIconNameFromMode(props.snapMode))}
+      iconSpec={getIconFromIconName(
+        getSnapModeIconNameFromMode(props.snapMode)
+      )}
       title={title}
       label={title}
       popup={
         <SnapModePanel title={title}>
-          {snapModes.map((item, index) => <Snap
-            key={`SM_${index}`}
-            onClick={() => UiFramework.setAccudrawSnapMode(item.value)}
-            isActive={(props.snapMode & item.value) === item.value}
-            icon={
-              <Icon className={`icon`} iconSpec={getIconFromIconName(item.iconName)} />
-            }
-          >
-            {item.label}
-          </Snap >
-          )}
+          {snapModes.map((item, index) => (
+            <Snap
+              key={`SM_${index}`}
+              onClick={() => UiFramework.setAccudrawSnapMode(item.value)}
+              isActive={(props.snapMode & item.value) === item.value}
+              icon={
+                <Icon
+                  className={`icon`}
+                  iconSpec={getIconFromIconName(item.iconName)}
+                />
+              }
+            >
+              {item.label}
+            </Snap>
+          ))}
         </SnapModePanel>
       }
     />
@@ -123,10 +162,9 @@ function SnapModeFieldComponent(props: SnapModeFieldProps) {
 
 /** Function used by Redux to map state data in Redux store to props that are used to render this component. */
 function mapStateToProps(state: any) {
-  const frameworkState = state[UiFramework.frameworkStateKey];  // since app sets up key, don't hard-code name
+  const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
   /* istanbul ignore next */
-  if (!frameworkState)
-    return undefined;
+  if (!frameworkState) return undefined;
 
   return { snapMode: frameworkState.configurableUiState.snapMode };
 }

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/geometry";
 @import "variables";
 
@@ -16,20 +16,20 @@
   pointer-events: auto;
 
   &:hover {
-    >.nz-triangle {
+    > .nz-triangle {
       @include triangle-bottom-right-color($hovered-icon-color);
     }
   }
 
   &:active {
-    >.nz-triangle {
+    > .nz-triangle {
       filter: $no-shadow;
 
       @include triangle-bottom-right-color($pressed-icon-color);
     }
   }
 
-  >.nz-triangle {
+  > .nz-triangle {
     border-radius: 0;
     position: absolute;
     right: $margin-from-triangle-to-stroke;
@@ -37,6 +37,10 @@
     filter: $arrow-shadow;
     pointer-events: none;
 
-    @include triangle-bottom-right($width: $triangle-width, $height: $triangle-height, $color: $buic-icon-color);
+    @include triangle-bottom-right(
+      $width: $triangle-width,
+      $height: $triangle-height,
+      $color: $buic-icon-color
+    );
   }
 }

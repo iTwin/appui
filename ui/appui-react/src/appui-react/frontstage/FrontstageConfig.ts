@@ -1,13 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Frontstage
  */
 
 import type { CommonProps } from "@itwin/core-react";
-import type { ContentGroup, ContentGroupProvider } from "../content/ContentGroup";
+import type {
+  ContentGroup,
+  ContentGroupProvider,
+} from "../content/ContentGroup";
 import type { StagePanelConfig } from "../stagepanels/StagePanelConfig";
 import type { WidgetConfig } from "../widgets/WidgetConfig";
 

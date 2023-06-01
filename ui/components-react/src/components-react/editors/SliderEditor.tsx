@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -10,14 +10,24 @@ import "./SliderEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type {
-  PropertyEditorParams, PropertyValue, SliderEditorParams} from "@itwin/appui-abstract";
-import { PropertyEditorParamTypes, PropertyValueFormat, StandardEditorNames, StandardTypeNames,
+  PropertyEditorParams,
+  PropertyValue,
+  SliderEditorParams,
+} from "@itwin/appui-abstract";
+import {
+  PropertyEditorParamTypes,
+  PropertyValueFormat,
+  StandardEditorNames,
+  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
 import type { TooltipProps } from "@itwin/itwinui-react";
 import { Slider } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import { PropertyEditorBase, PropertyEditorManager } from "./PropertyEditorManager";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "./PropertyEditorManager";
 import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
 
 /** @internal */
@@ -41,7 +51,10 @@ interface SliderEditorState {
 /** SliderEditor React component that is a property editor with numeric input & up/down buttons
  * @public
  */
-export class SliderEditor extends React.PureComponent<PropertyEditorProps, SliderEditorState> implements TypeEditor {
+export class SliderEditor
+  extends React.PureComponent<PropertyEditorProps, SliderEditorState>
+  implements TypeEditor
+{
   private _isMounted = false;
   private _enterKey = false;
   private _divElement = React.createRef<HTMLDivElement>();
@@ -110,8 +123,7 @@ export class SliderEditor extends React.PureComponent<PropertyEditorProps, Slide
   }
 
   private internalFormatTooltip = (value: number, step = 1) => {
-    if (Number.isInteger(step))
-      return value.toFixed(0);
+    if (Number.isInteger(step)) return value.toFixed(0);
 
     const stepString = step.toString();
     const decimalIndex = stepString.indexOf(".");
@@ -138,44 +150,76 @@ export class SliderEditor extends React.PureComponent<PropertyEditorProps, Slide
     let tickLabels: string[] | undefined;
     let minLabel: React.ReactNode | undefined;
     let maxLabel: React.ReactNode | undefined;
-    let trackDisplayMode: "auto" | "none" | "odd-segments" | "even-segments" | undefined;
+    let trackDisplayMode:
+      | "auto"
+      | "none"
+      | "odd-segments"
+      | "even-segments"
+      | undefined;
     let thumbMode: "allow-crossing" | "inhibit-crossing" | undefined;
 
     const isDisabled = record ? record.isDisabled : undefined;
 
-    if (record && record.property && record.property.editor && record.property.editor.params) {
-      const sliderParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.Slider) as SliderEditorParams;
+    if (
+      record &&
+      record.property &&
+      record.property.editor &&
+      record.property.editor.params
+    ) {
+      const sliderParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.Slider
+      ) as SliderEditorParams;
       // istanbul ignore else
       if (sliderParams) {
         min = sliderParams.minimum;
         max = sliderParams.maximum;
         size = sliderParams.size;
         step = sliderParams.step;
-        thumbMode = 1 === sliderParams.mode ? "allow-crossing" : "inhibit-crossing";
+        thumbMode =
+          1 === sliderParams.mode ? "allow-crossing" : "inhibit-crossing";
         trackDisplayMode = !sliderParams.reversed ? "auto" : "odd-segments";
         showTooltip = sliderParams.showTooltip;
         tooltipBelow = sliderParams.tooltipBelow;
         formatTooltip = sliderParams.formatTooltip;
 
-        minLabel = !sliderParams.showMinMax ? "" : sliderParams.minIconSpec ? <Icon iconSpec={sliderParams.minIconSpec} /> : undefined;
-        maxLabel = !sliderParams.showMinMax ? "" : sliderParams.maxIconSpec ? <Icon iconSpec={sliderParams.maxIconSpec} /> : undefined;
+        minLabel = !sliderParams.showMinMax ? (
+          ""
+        ) : sliderParams.minIconSpec ? (
+          <Icon iconSpec={sliderParams.minIconSpec} />
+        ) : undefined;
+        maxLabel = !sliderParams.showMinMax ? (
+          ""
+        ) : sliderParams.maxIconSpec ? (
+          <Icon iconSpec={sliderParams.maxIconSpec} />
+        ) : undefined;
 
         if (sliderParams.showTicks) {
-          const count = sliderParams.getTickCount ? sliderParams.getTickCount() : 0;
+          const count = sliderParams.getTickCount
+            ? sliderParams.getTickCount()
+            : 0;
           if (count) {
             tickLabels = [];
             const increment = (max - min) / count;
             for (let i = 0; i <= count; i++) {
-              const value = (i * increment) + min;
+              const value = i * increment + min;
               if (sliderParams.showTickLabels) {
-                const label = sliderParams.formatTick ? sliderParams.formatTick(value) : this.internalFormatTooltip(value, step);
+                const label = sliderParams.formatTick
+                  ? sliderParams.formatTick(value)
+                  : this.internalFormatTooltip(value, step);
                 tickLabels.push(label);
               } else {
                 tickLabels.push("");
               }
             }
           } else if (sliderParams.getTickValues) {
-            tickLabels = sliderParams.getTickValues().map((val: number) => sliderParams.formatTick ? sliderParams.formatTick(val) : this.internalFormatTooltip(val, step));
+            tickLabels = sliderParams
+              .getTickValues()
+              .map((val: number) =>
+                sliderParams.formatTick
+                  ? sliderParams.formatTick(val)
+                  : this.internalFormatTooltip(val, step)
+              );
           }
         }
       }
@@ -184,10 +228,16 @@ export class SliderEditor extends React.PureComponent<PropertyEditorProps, Slide
     // istanbul ignore else
     if (this._isMounted)
       this.setState({
-        value: initialValue, isDisabled,
+        value: initialValue,
+        isDisabled,
         size,
-        min, max, step, trackDisplayMode,
-        showTooltip, tooltipBelow, formatTooltip,
+        min,
+        max,
+        step,
+        trackDisplayMode,
+        showTooltip,
+        tooltipBelow,
+        formatTooltip,
         minLabel,
         maxLabel,
         tickLabels,
@@ -205,8 +255,7 @@ export class SliderEditor extends React.PureComponent<PropertyEditorProps, Slide
       this._enterKey = false;
     } else {
       // istanbul ignore else
-      if (this.props.onCancel)
-        this.props.onCancel();
+      if (this.props.onCancel) this.props.onCancel();
     }
   };
 
@@ -227,19 +276,32 @@ export class SliderEditor extends React.PureComponent<PropertyEditorProps, Slide
       const propertyValue = await this.getPropertyValue();
       // istanbul ignore else
       if (propertyValue !== undefined) {
-        this.props.onCommit({ propertyRecord: this.props.propertyRecord, newValue: propertyValue });
+        this.props.onCommit({
+          propertyRecord: this.props.propertyRecord,
+          newValue: propertyValue,
+        });
       }
     }
   };
 
   private tooltipProps = (_index: number, val: number) => {
-    const content = this.state.formatTooltip ? this.state.formatTooltip(val) : this.internalFormatTooltip(val, this.state.step);
-    return { placement: this.state.tooltipBelow ? "bottom" : "top", content, visible: this.state.showTooltip } as Partial<Omit<TooltipProps, "children">>;
+    const content = this.state.formatTooltip
+      ? this.state.formatTooltip(val)
+      : this.internalFormatTooltip(val, this.state.step);
+    return {
+      placement: this.state.tooltipBelow ? "bottom" : "top",
+      content,
+      visible: this.state.showTooltip,
+    } as Partial<Omit<TooltipProps, "children">>;
   };
 
   /** @internal */
   public override render(): React.ReactNode {
-    const className = classnames("components-cell-editor", "components-slider-editor", this.props.className);
+    const className = classnames(
+      "components-cell-editor",
+      "components-slider-editor",
+      this.props.className
+    );
     const minSize = this.state.size ? this.state.size : 100;
     const style: React.CSSProperties = {
       ...this.props.style,
@@ -267,11 +329,19 @@ export class SliderEditor extends React.PureComponent<PropertyEditorProps, Slide
 
     return (
       <div className={className} ref={this._divElement}>
-        <PopupButton label={this.state.value} onClose={this._handleClose} onEnter={this._handleEnter}
-          setFocus={this.props.setFocus} focusTarget=".core-slider-handle">
+        <PopupButton
+          label={this.state.value}
+          onClose={this._handleClose}
+          onEnter={this._handleEnter}
+          setFocus={this.props.setFocus}
+          focusTarget=".core-slider-handle"
+        >
           <PopupContent>
             {popupContent}
-            <PopupOkCancelButtons onOk={this._handleOk} onCancel={this._handleCancel} />
+            <PopupOkCancelButtons
+              onOk={this._handleOk}
+              onCancel={this._handleCancel}
+            />
           </PopupContent>
         </PopupButton>
       </div>
@@ -289,7 +359,23 @@ export class SliderPropertyEditor extends PropertyEditorBase {
   }
 }
 
-PropertyEditorManager.registerEditor(StandardTypeNames.Number, SliderPropertyEditor, StandardEditorNames.Slider);
-PropertyEditorManager.registerEditor(StandardTypeNames.Int, SliderPropertyEditor, StandardEditorNames.Slider);
-PropertyEditorManager.registerEditor(StandardTypeNames.Float, SliderPropertyEditor, StandardEditorNames.Slider);
-PropertyEditorManager.registerEditor(StandardTypeNames.Double, SliderPropertyEditor, StandardEditorNames.Slider);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Number,
+  SliderPropertyEditor,
+  StandardEditorNames.Slider
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Int,
+  SliderPropertyEditor,
+  StandardEditorNames.Slider
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Float,
+  SliderPropertyEditor,
+  StandardEditorNames.Slider
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Double,
+  SliderPropertyEditor,
+  StandardEditorNames.Slider
+);

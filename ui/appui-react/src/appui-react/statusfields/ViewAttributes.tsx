@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
 
 import "./ViewAttributes.scss";
 import * as React from "react";
-import type { ViewFlagProps} from "@itwin/core-common";
+import type { ViewFlagProps } from "@itwin/core-common";
 import { ViewFlags } from "@itwin/core-common";
 import { IModelApp } from "@itwin/core-frontend";
 import { Checkbox } from "@itwin/itwinui-react";
@@ -27,7 +27,10 @@ interface ViewAttributesStatusFieldState {
 /** Widget for showing Checkboxes for View Attributes
  * @beta
  */
-export class ViewAttributesStatusField extends React.Component<CommonProps, ViewAttributesStatusFieldState> {
+export class ViewAttributesStatusField extends React.Component<
+  CommonProps,
+  ViewAttributesStatusFieldState
+> {
   private _title = UiFramework.translate("listTools.viewAttributes");
 
   constructor(props: CommonProps) {
@@ -47,7 +50,9 @@ export class ViewAttributesStatusField extends React.Component<CommonProps, View
   // istanbul ignore next
   private updateState() {
     if (IModelApp.viewManager.selectedView) {
-      const viewFlags: ViewFlagProps = { ...IModelApp.viewManager.selectedView.view.viewFlags.toJSON() };
+      const viewFlags: ViewFlagProps = {
+        ...IModelApp.viewManager.selectedView.view.viewFlags.toJSON(),
+      };
       const cameraOn = IModelApp.viewManager.selectedView.isCameraOn;
 
       this.setState({
@@ -60,8 +65,12 @@ export class ViewAttributesStatusField extends React.Component<CommonProps, View
   // istanbul ignore next
   private _handleViewFlagClick = (flagName: string) => {
     if (IModelApp.viewManager.selectedView) {
-      const props: ViewFlagProps = IModelApp.viewManager.selectedView.viewFlags.toJSON();
-      (props as any)[flagName] = (props as any)[flagName] === undefined ? true : !(props as any)[flagName];
+      const props: ViewFlagProps =
+        IModelApp.viewManager.selectedView.viewFlags.toJSON();
+      (props as any)[flagName] =
+        (props as any)[flagName] === undefined
+          ? true
+          : !(props as any)[flagName];
       const viewFlags = ViewFlags.fromJSON(props);
       IModelApp.viewManager.selectedView.viewFlags = viewFlags;
       this.updateState();
@@ -69,7 +78,10 @@ export class ViewAttributesStatusField extends React.Component<CommonProps, View
   };
 
   private _handleToggleCamera = async () => {
-    await IModelApp.tools.run("View.ToggleCamera", IModelApp.viewManager.selectedView);
+    await IModelApp.tools.run(
+      "View.ToggleCamera",
+      IModelApp.viewManager.selectedView
+    );
     this.updateState();
   };
 
@@ -81,28 +93,98 @@ export class ViewAttributesStatusField extends React.Component<CommonProps, View
   }
 
   private getViewFlagItem(flagName: string, value: boolean, labelKey?: string) {
-    return <Checkbox key={flagName} label={labelKey ? IModelApp.localization.getLocalizedString(labelKey) : /* istanbul ignore next */ this.stylizeName(flagName)} onClick={() => this._handleViewFlagClick(flagName)} defaultChecked={value} />;
+    return (
+      <Checkbox
+        key={flagName}
+        label={
+          labelKey
+            ? IModelApp.localization.getLocalizedString(labelKey)
+            : /* istanbul ignore next */ this.stylizeName(flagName)
+        }
+        onClick={() => this._handleViewFlagClick(flagName)}
+        defaultChecked={value}
+      />
+    );
   }
 
   private getFlagState(flagName: string) {
-    return this.state.viewFlags.hasOwnProperty(flagName) ? /* istanbul ignore next */ (this.state.viewFlags as any)[flagName] : false;
+    return this.state.viewFlags.hasOwnProperty(flagName)
+      ? /* istanbul ignore next */ (this.state.viewFlags as any)[flagName]
+      : false;
   }
 
   private getToggleCameraItem() {
-    return <Checkbox key={"toggleCamera"} label={IModelApp.localization.getLocalizedString("UiFramework:listTools.camera")} onClick={this._handleToggleCamera} defaultChecked={this.state.cameraOn} />;
+    return (
+      <Checkbox
+        key={"toggleCamera"}
+        label={IModelApp.localization.getLocalizedString(
+          "UiFramework:listTools.camera"
+        )}
+        onClick={this._handleToggleCamera}
+        defaultChecked={this.state.cameraOn}
+      />
+    );
   }
 
   private getViewFlags() {
     const items: JSX.Element[] = [];
-    items.push(this.getViewFlagItem("acs", this.getFlagState("acs"), "UiFramework:listTools.acs"));
+    items.push(
+      this.getViewFlagItem(
+        "acs",
+        this.getFlagState("acs"),
+        "UiFramework:listTools.acs"
+      )
+    );
     items.push(this.getToggleCameraItem());
-    items.push(this.getViewFlagItem("noConstruct", !this.getFlagState("noConstruct"), "UiFramework:listTools.constructions"));
-    items.push(this.getViewFlagItem("hidEdges", this.getFlagState("hidEdges"), "UiFramework:listTools.hidEdges"));
-    items.push(this.getViewFlagItem("monochrome", this.getFlagState("monochrome"), "UiFramework:listTools.monochrome"));
-    items.push(this.getViewFlagItem("visEdges", this.getFlagState("visEdges"), "UiFramework:listTools.visEdges"));
-    items.push(this.getViewFlagItem("ambientOcclusion", this.getFlagState("ambientOcclusion"), "UiFramework:listTools.ambientOcclusion"));
-    items.push(this.getViewFlagItem("shadows", this.getFlagState("shadows"), "UiFramework:listTools.shadows"));
-    items.push(this.getViewFlagItem("backgroundMap", this.getFlagState("backgroundMap"), "UiFramework:listTools.backgroundMap"));
+    items.push(
+      this.getViewFlagItem(
+        "noConstruct",
+        !this.getFlagState("noConstruct"),
+        "UiFramework:listTools.constructions"
+      )
+    );
+    items.push(
+      this.getViewFlagItem(
+        "hidEdges",
+        this.getFlagState("hidEdges"),
+        "UiFramework:listTools.hidEdges"
+      )
+    );
+    items.push(
+      this.getViewFlagItem(
+        "monochrome",
+        this.getFlagState("monochrome"),
+        "UiFramework:listTools.monochrome"
+      )
+    );
+    items.push(
+      this.getViewFlagItem(
+        "visEdges",
+        this.getFlagState("visEdges"),
+        "UiFramework:listTools.visEdges"
+      )
+    );
+    items.push(
+      this.getViewFlagItem(
+        "ambientOcclusion",
+        this.getFlagState("ambientOcclusion"),
+        "UiFramework:listTools.ambientOcclusion"
+      )
+    );
+    items.push(
+      this.getViewFlagItem(
+        "shadows",
+        this.getFlagState("shadows"),
+        "UiFramework:listTools.shadows"
+      )
+    );
+    items.push(
+      this.getViewFlagItem(
+        "backgroundMap",
+        this.getFlagState("backgroundMap"),
+        "UiFramework:listTools.backgroundMap"
+      )
+    );
     return <div className="uifw-view-attributes-contents">{items}</div>;
   }
 
@@ -111,12 +193,13 @@ export class ViewAttributesStatusField extends React.Component<CommonProps, View
       <StatusBarLabelIndicator
         iconSpec={<SvgWindowSettings />}
         title={this._title}
-        popup={<StatusBarDialog
-          titleBar={
-            <StatusBarDialog.TitleBar title={this._title} />
-          }>
-          {this.getViewFlags()}
-        </StatusBarDialog>}
+        popup={
+          <StatusBarDialog
+            titleBar={<StatusBarDialog.TitleBar title={this._title} />}
+          >
+            {this.getViewFlags()}
+          </StatusBarDialog>
+        }
       />
     );
   }

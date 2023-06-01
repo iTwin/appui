@@ -1,16 +1,35 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { ColorByName } from "@itwin/core-common";
 import type {
-  ArrayValue, BasePropertyEditorParams, ButtonGroupEditorParams, ColorEditorParams, CustomFormattedNumberParams, DisplayMessageType,
-  ImageCheckBoxParams, MessagePresenter, ParseResults,
-  Primitives, PrimitiveValue, PropertyDescription, PropertyEditorInfo, PropertyValue, StructValue} from "@itwin/appui-abstract";
-import { MessageSeverity, PropertyEditorParamTypes, PropertyRecord, PropertyValueFormat,
-  StandardEditorNames, StandardTypeNames, UiAdmin,
+  ArrayValue,
+  BasePropertyEditorParams,
+  ButtonGroupEditorParams,
+  ColorEditorParams,
+  CustomFormattedNumberParams,
+  DisplayMessageType,
+  ImageCheckBoxParams,
+  MessagePresenter,
+  ParseResults,
+  Primitives,
+  PrimitiveValue,
+  PropertyDescription,
+  PropertyEditorInfo,
+  PropertyValue,
+  StructValue,
 } from "@itwin/appui-abstract";
-import type { AsyncValueProcessingResult} from "@itwin/components-react";
+import {
+  MessageSeverity,
+  PropertyEditorParamTypes,
+  PropertyRecord,
+  PropertyValueFormat,
+  StandardEditorNames,
+  StandardTypeNames,
+  UiAdmin,
+} from "@itwin/appui-abstract";
+import type { AsyncValueProcessingResult } from "@itwin/components-react";
 import { DataControllerBase } from "@itwin/components-react";
 import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents";
 import { prettyDOM } from "@testing-library/react";
@@ -28,9 +47,19 @@ export class TestUtils {
       TestUtils._uiIModelComponentsInitialized = true;
 
       const mp: MessagePresenter = {
-        displayMessage: (_severity: MessageSeverity, _briefMessage: HTMLElement | string, _detailedMessage?: HTMLElement | string, _messageType?: DisplayMessageType.Toast): void => { },
-        displayInputFieldMessage: (_inputField: HTMLElement, _severity: MessageSeverity, _briefMessage: HTMLElement | string, _detailedMessage?: HTMLElement | string): void => { },
-        closeInputFieldMessage: (): void => { },
+        displayMessage: (
+          _severity: MessageSeverity,
+          _briefMessage: HTMLElement | string,
+          _detailedMessage?: HTMLElement | string,
+          _messageType?: DisplayMessageType.Toast
+        ): void => {},
+        displayInputFieldMessage: (
+          _inputField: HTMLElement,
+          _severity: MessageSeverity,
+          _briefMessage: HTMLElement | string,
+          _detailedMessage?: HTMLElement | string
+        ): void => {},
+        closeInputFieldMessage: (): void => {},
       };
       UiAdmin.messagePresenter = mp;
     }
@@ -46,7 +75,11 @@ export class TestUtils {
     return new Promise((resolve) => setTimeout(resolve));
   }
 
-  public static createPropertyRecord(value: any, column: {key: string, label: string}, typename: string) {
+  public static createPropertyRecord(
+    value: any,
+    column: { key: string; label: string },
+    typename: string
+  ) {
     const v: PrimitiveValue = {
       valueFormat: PropertyValueFormat.Primitive,
       value,
@@ -60,7 +93,13 @@ export class TestUtils {
     return new PropertyRecord(v, pd);
   }
 
-  public static createPrimitiveStringProperty(name: string, rawValue: string, displayValue: string = rawValue.toString(), editorInfo?: PropertyEditorInfo, autoExpand?: boolean) {
+  public static createPrimitiveStringProperty(
+    name: string,
+    rawValue: string,
+    displayValue: string = rawValue.toString(),
+    editorInfo?: PropertyEditorInfo,
+    autoExpand?: boolean
+  ) {
     const value: PrimitiveValue = {
       displayValue,
       value: rawValue,
@@ -73,14 +112,12 @@ export class TestUtils {
       typename: StandardTypeNames.String,
     };
 
-    if (editorInfo)
-      description.editor = editorInfo;
+    if (editorInfo) description.editor = editorInfo;
 
     const property = new PropertyRecord(value, description);
     property.isReadonly = false;
     property.autoExpand = autoExpand;
-    if (property.autoExpand === undefined)
-      delete property.autoExpand;
+    if (property.autoExpand === undefined) delete property.autoExpand;
 
     return property;
   }
@@ -91,9 +128,12 @@ export class TestUtils {
     return record;
   }
 
-  public static createArrayProperty(name: string, items?: PropertyRecord[], autoExpand?: boolean) {
-    if (!items)
-      items = [];
+  public static createArrayProperty(
+    name: string,
+    items?: PropertyRecord[],
+    autoExpand?: boolean
+  ) {
+    if (!items) items = [];
 
     const value: ArrayValue = {
       items,
@@ -112,9 +152,12 @@ export class TestUtils {
     return property;
   }
 
-  public static createStructProperty(name: string, members?: { [name: string]: PropertyRecord }, autoExpand?: boolean) {
-    if (!members)
-      members = {};
+  public static createStructProperty(
+    name: string,
+    members?: { [name: string]: PropertyRecord },
+    autoExpand?: boolean
+  ) {
+    if (!members) members = {};
 
     const value: StructValue = {
       members,
@@ -188,27 +231,36 @@ export class TestUtils {
   }
 
   public static blueEnumValueIsEnabled = true;
-  public static toggleBlueEnumValueEnabled() { TestUtils.blueEnumValueIsEnabled = !TestUtils.blueEnumValueIsEnabled; }
-  public static addEnumButtonGroupEditorSpecification(propertyRecord: PropertyRecord) {
+  public static toggleBlueEnumValueEnabled() {
+    TestUtils.blueEnumValueIsEnabled = !TestUtils.blueEnumValueIsEnabled;
+  }
+  public static addEnumButtonGroupEditorSpecification(
+    propertyRecord: PropertyRecord
+  ) {
     propertyRecord.property.editor = {
       name: "enum-buttongroup",
-      params: [{
-        type: PropertyEditorParamTypes.ButtonGroupData,
-        buttons: [
-          { iconSpec: "icon-yellow" },
-          { iconSpec: "icon-red" },
-          { iconSpec: "icon-green" },
-          {
-            iconSpec: "icon-blue",
-            isEnabledFunction: () => TestUtils.blueEnumValueIsEnabled,
-          },
-        ],
-      } as ButtonGroupEditorParams,
+      params: [
+        {
+          type: PropertyEditorParamTypes.ButtonGroupData,
+          buttons: [
+            { iconSpec: "icon-yellow" },
+            { iconSpec: "icon-red" },
+            { iconSpec: "icon-green" },
+            {
+              iconSpec: "icon-blue",
+              isEnabledFunction: () => TestUtils.blueEnumValueIsEnabled,
+            },
+          ],
+        } as ButtonGroupEditorParams,
       ],
     };
   }
 
-  public static createBooleanProperty(name: string, booleanValue: boolean, editor?: string) {
+  public static createBooleanProperty(
+    name: string,
+    booleanValue: boolean,
+    editor?: string
+  ) {
     const value: PrimitiveValue = {
       displayValue: "",
       value: booleanValue,
@@ -228,7 +280,10 @@ export class TestUtils {
     return propertyRecord;
   }
 
-  public static createImageCheckBoxProperty(name: string, booleanValue: boolean) {
+  public static createImageCheckBoxProperty(
+    name: string,
+    booleanValue: boolean
+  ) {
     const value: PrimitiveValue = {
       displayValue: "",
       value: booleanValue,
@@ -243,18 +298,18 @@ export class TestUtils {
     const propertyRecord = new PropertyRecord(value, description);
     propertyRecord.property.editor = {
       name: "image-check-box",
-      params: [{
-        type: PropertyEditorParamTypes.CheckBoxImages,
-        imageOff: "icon-visibility-hide-2",
-        imageOn: "icon-visibility",
-      } as ImageCheckBoxParams,
+      params: [
+        {
+          type: PropertyEditorParamTypes.CheckBoxImages,
+          imageOff: "icon-visibility-hide-2",
+          imageOn: "icon-visibility",
+        } as ImageCheckBoxParams,
       ],
     };
     propertyRecord.isReadonly = false;
     return propertyRecord;
   }
   public static createColorProperty(propertyName: string, colorValue: number) {
-
     const value: PrimitiveValue = {
       displayValue: "",
       value: colorValue,
@@ -292,7 +347,6 @@ export class TestUtils {
   }
 
   public static createWeightProperty(propertyName: string, weight: number) {
-
     const value: PrimitiveValue = {
       displayValue: "",
       value: weight,
@@ -313,10 +367,15 @@ export class TestUtils {
     return propertyRecord;
   }
 
-  private static _formatLength = (numberValue: number): string => numberValue.toFixed(2);
+  private static _formatLength = (numberValue: number): string =>
+    numberValue.toFixed(2);
 
-  public static createCustomNumberProperty(propertyName: string, numVal: number, displayVal?: string, editorParams?: BasePropertyEditorParams[]) {
-
+  public static createCustomNumberProperty(
+    propertyName: string,
+    numVal: number,
+    displayVal?: string,
+    editorParams?: BasePropertyEditorParams[]
+  ) {
     const value: PrimitiveValue = {
       displayValue: displayVal,
       value: numVal,
@@ -336,7 +395,9 @@ export class TestUtils {
             parseFunction: (stringValue: string): ParseResults => {
               const rtnValue = Number.parseFloat(stringValue);
               if (Number.isNaN(rtnValue)) {
-                return { parseError: `Unable to parse ${stringValue} into a valid length` };
+                return {
+                  parseError: `Unable to parse ${stringValue} into a valid length`,
+                };
               } else {
                 return { value: rtnValue };
               }
@@ -357,8 +418,12 @@ export class TestUtils {
     return propertyRecord;
   }
 
-  public static createNumericProperty(propertyName: string, numericValue: number, editorName: string, editorParams?: BasePropertyEditorParams[]) {
-
+  public static createNumericProperty(
+    propertyName: string,
+    numericValue: number,
+    editorName: string,
+    editorParams?: BasePropertyEditorParams[]
+  ) {
     const value: PrimitiveValue = {
       displayValue: "",
       value: numericValue,
@@ -383,9 +448,13 @@ export class TestUtils {
   public static createNavigationProperty(
     name: string,
     value: Primitives.InstanceKey,
-    displayValue?: string,
+    displayValue?: string
   ): PropertyRecord {
-    const property = TestUtils.createPrimitiveStringProperty(name, "", displayValue);
+    const property = TestUtils.createPrimitiveStringProperty(
+      name,
+      "",
+      displayValue
+    );
     property.property.typename = StandardTypeNames.Navigation;
     (property.value as PrimitiveValue).value = value;
     return property;
@@ -394,9 +463,13 @@ export class TestUtils {
   public static createURIProperty(
     name: string,
     value: string,
-    displayValue?: string,
+    displayValue?: string
   ): PropertyRecord {
-    const property = TestUtils.createPrimitiveStringProperty(name, value, displayValue);
+    const property = TestUtils.createPrimitiveStringProperty(
+      name,
+      value,
+      displayValue
+    );
     property.property.typename = StandardTypeNames.URL;
     return property;
   }
@@ -404,21 +477,31 @@ export class TestUtils {
 
 /** @internal */
 export class MineDataController extends DataControllerBase {
-  public override async validateValue(_newValue: PropertyValue, _record: PropertyRecord): Promise<AsyncValueProcessingResult> {
-    return { encounteredError: true, errorMessage: { severity: MessageSeverity.Error, briefMessage: "Test" } };
+  public override async validateValue(
+    _newValue: PropertyValue,
+    _record: PropertyRecord
+  ): Promise<AsyncValueProcessingResult> {
+    return {
+      encounteredError: true,
+      errorMessage: { severity: MessageSeverity.Error, briefMessage: "Test" },
+    };
   }
 }
 
 /** Returns tag, id and classes of the information used by CSS selectors */
 function getPartialSelectorInfo(e: HTMLElement) {
-  return `${e.tagName}${e.id ? `#${e.id}`: ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
+  return `${e.tagName}${e.id ? `#${e.id}` : ""}${Array.from(
+    e.classList.values()
+  )
+    .map((c) => `.${c}`)
+    .join("")}`;
 }
 
 /** Returns the full list of classes and tag chain for an element up to HTML */
 function currentSelectorInfo(e: HTMLElement) {
   let w = e;
   const chain = [getPartialSelectorInfo(w)];
-  while(w.parentElement) {
+  while (w.parentElement) {
     w = w.parentElement;
     chain.unshift(getPartialSelectorInfo(w));
   }
@@ -433,8 +516,10 @@ function currentSelectorInfo(e: HTMLElement) {
 export function selectorMatches(selectors: string) {
   const satisfier = (e: HTMLElement) => {
     // \b\b\b... removes default "[Function : " part to get clear message in output.
-    const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(e)}'\n\n${prettyDOM()}`;
-    Object.defineProperty(satisfier, "name",  {value: message});
+    const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(
+      e
+    )}'\n\n${prettyDOM()}`;
+    Object.defineProperty(satisfier, "name", { value: message });
     return e.matches(selectors);
   };
   return satisfier;
@@ -447,8 +532,8 @@ export function selectorMatches(selectors: string) {
  */
 export function styleMatch(style: Partial<CSSStyleDeclaration>) {
   return (e: HTMLElement) => {
-    for(const prop in style) {
-      if(Object.prototype.hasOwnProperty.call(style, prop)) {
+    for (const prop in style) {
+      if (Object.prototype.hasOwnProperty.call(style, prop)) {
         expect(e.style).to.have.property(prop, style[prop]);
       }
     }
@@ -456,4 +541,4 @@ export function styleMatch(style: Partial<CSSStyleDeclaration>) {
   };
 }
 
-export default TestUtils;   // eslint-disable-line: no-default-export
+export default TestUtils; // eslint-disable-line: no-default-export

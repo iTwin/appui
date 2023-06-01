@@ -1,11 +1,27 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /* eslint-disable react/display-name */
 
 import * as React from "react";
-import { BackstageItem, BackstageItemUtilities, StagePanelLocation, StagePanelSection, StageUsage, StatusBarItem, StatusBarItemUtilities, StatusBarSection, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
+import {
+  BackstageItem,
+  BackstageItemUtilities,
+  StagePanelLocation,
+  StagePanelSection,
+  StageUsage,
+  StatusBarItem,
+  StatusBarItemUtilities,
+  StatusBarSection,
+  ToolbarItem,
+  ToolbarOrientation,
+  ToolbarUsage,
+  UiItemsManager,
+  UiItemsProvider,
+  Widget,
+  WidgetState,
+} from "@itwin/appui-react";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { getCustomViewSelectorPopupItem } from "../buttons/ViewSelectorPanel";
 import { PopoutWindowsFrontstage } from "../frontstages/PopoutWindowsFrontstage";
@@ -23,7 +39,8 @@ import { ViewAttributesWidgetComponent } from "../widgets/ViewAttributesWidget";
  * display to allow user to play the animation.
  */
 export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
-  public static providerId = "appui-test-providers:popout-windows-stage-items-provider";
+  public static providerId =
+    "appui-test-providers:popout-windows-stage-items-provider";
   public readonly id = PopoutWindowsStageUiItemsProvider.providerId;
 
   constructor(localizationNamespace: string) {
@@ -32,16 +49,28 @@ export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
   }
 
   public static register(localizationNamespace: string) {
-    UiItemsManager.register(new PopoutWindowsStageUiItemsProvider(localizationNamespace), { stageIds: [PopoutWindowsFrontstage.stageId] });
+    UiItemsManager.register(
+      new PopoutWindowsStageUiItemsProvider(localizationNamespace),
+      { stageIds: [PopoutWindowsFrontstage.stageId] }
+    );
   }
 
   public static unregister() {
     UiItemsManager.unregister(PopoutWindowsStageUiItemsProvider.providerId);
   }
 
-  public provideWidgets(_stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<Widget> {
+  public provideWidgets(
+    _stageId: string,
+    stageUsage: string,
+    location: StagePanelLocation,
+    section?: StagePanelSection
+  ): ReadonlyArray<Widget> {
     const widgets: Widget[] = [];
-    if (stageUsage === StageUsage.General && location === StagePanelLocation.Left && section === StagePanelSection.Start) {
+    if (
+      stageUsage === StageUsage.General &&
+      location === StagePanelLocation.Left &&
+      section === StagePanelSection.Start
+    ) {
       widgets.push({
         id: "appui-test-providers:ViewAttributesWidget",
         label: "View Attributes",
@@ -58,38 +87,63 @@ export class PopoutWindowsStageUiItemsProvider implements UiItemsProvider {
     return widgets;
   }
 
-  public provideToolbarItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
+  public provideToolbarItems(
+    stageId: string,
+    _stageUsage: string,
+    toolbarUsage: ToolbarUsage,
+    toolbarOrientation: ToolbarOrientation
+  ): ToolbarItem[] {
     const allowedStages = [PopoutWindowsFrontstage.stageId];
     if (allowedStages.includes(stageId)) {
-      if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
+      if (
+        toolbarUsage === ToolbarUsage.ContentManipulation &&
+        toolbarOrientation === ToolbarOrientation.Horizontal
+      ) {
         return [
           OpenPopoutViewTool.getActionButtonDef(20, 3000),
           OpenPopoutDialogTool.getActionButtonDef(25, 3000),
         ];
-      } else if (toolbarUsage === ToolbarUsage.ViewNavigation && toolbarOrientation === ToolbarOrientation.Vertical) {
-        return [
-          getCustomViewSelectorPopupItem(20, 3000),
-        ];
+      } else if (
+        toolbarUsage === ToolbarUsage.ViewNavigation &&
+        toolbarOrientation === ToolbarOrientation.Vertical
+      ) {
+        return [getCustomViewSelectorPopupItem(20, 3000)];
       }
     }
     return [];
   }
 
-  public provideStatusBarItems(_stageId: string, stageUsage: string): StatusBarItem[] {
+  public provideStatusBarItems(
+    _stageId: string,
+    stageUsage: string
+  ): StatusBarItem[] {
     const statusBarItems: StatusBarItem[] = [];
     if (stageUsage === StageUsage.General) {
-
       statusBarItems.push(
-        StatusBarItemUtilities.createCustomItem("DisplayStyle", StatusBarSection.Center, 400, <DisplayStyleField />),
+        StatusBarItemUtilities.createCustomItem(
+          "DisplayStyle",
+          StatusBarSection.Center,
+          400,
+          <DisplayStyleField />
+        )
       );
     }
     return statusBarItems;
   }
 
   public provideBackstageItems(): BackstageItem[] {
-    const label = AppUiTestProviders.translate("backstage.PopoutWindowsFrontstageLabel");
+    const label = AppUiTestProviders.translate(
+      "backstage.PopoutWindowsFrontstageLabel"
+    );
     return [
-      BackstageItemUtilities.createStageLauncher(PopoutWindowsFrontstage.stageId, 300, 2, label, undefined, undefined),
+      BackstageItemUtilities.createStageLauncher(
+        PopoutWindowsFrontstage.stageId,
+        300,
+        2,
+        label,
+        undefined,
+        undefined
+      ),
     ];
   }
 }

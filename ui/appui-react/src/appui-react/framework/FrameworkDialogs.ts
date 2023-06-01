@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
@@ -11,12 +11,12 @@ import { DialogChangedEvent } from "../dialog/DialogManagerBase";
 /** Modal Dialog Changed Event class.
  * @public
  */
-export class ModalDialogChangedEvent extends DialogChangedEvent { }
+export class ModalDialogChangedEvent extends DialogChangedEvent {}
 
 /** Modeless Dialog Changed Event class.
  * @public
  */
-export class ModelessDialogChangedEvent extends DialogChangedEvent { }
+export class ModelessDialogChangedEvent extends DialogChangedEvent {}
 
 /** @public */
 export interface ModelessDialogInfo {
@@ -59,9 +59,14 @@ export interface FrameworkDialog {
  * FrameworkDialog that manages the top most content.
  * @beta
  */
-export interface FrameworkStackedDialog<DialogInfoType> extends FrameworkDialog {
+export interface FrameworkStackedDialog<DialogInfoType>
+  extends FrameworkDialog {
   /** Handle a pointer down event on a modeless dialog */
-  handlePointerDownEvent(_event: React.PointerEvent, id: string, updateFunc: () => void): void;
+  handlePointerDownEvent(
+    _event: React.PointerEvent,
+    id: string,
+    updateFunc: () => void
+  ): void;
 
   /** Get the z-index for a modeless dialog */
   getZIndex(id: string): number;

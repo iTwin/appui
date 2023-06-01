@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Backstage
  */
@@ -13,12 +13,13 @@ import type { BackstageItemsManager } from "./BackstageItemsManager";
 /** Hook that returns items from [[BackstageItemsManager]].
  * @internal
  */
-export const useDefaultBackstageItems = (manager: BackstageItemsManager): readonly BackstageItem[] => {
+export const useDefaultBackstageItems = (
+  manager: BackstageItemsManager
+): readonly BackstageItem[] => {
   const [items, setItems] = React.useState(manager.items);
   const isInitialMount = React.useRef(true);
   React.useEffect(() => {
-    if (isInitialMount.current)
-      isInitialMount.current = false;
+    if (isInitialMount.current) isInitialMount.current = false;
     else {
       setItems(manager.items);
     }

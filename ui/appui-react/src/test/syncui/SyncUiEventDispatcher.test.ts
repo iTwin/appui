@@ -1,21 +1,26 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
 import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import type { IModelRpcProps } from "@itwin/core-common";
-import type { IModelConnection, ScreenViewport} from "@itwin/core-frontend";
+import type { IModelConnection, ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp, MockRender, SelectionSet } from "@itwin/core-frontend";
 import type {
   ActiveContentChangedEventArgs,
-  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, FrontstageActivatedEventArgs, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, NavigationAidActivatedEventArgs,
-  ToolActivatedEventArgs, WidgetStateChangedEventArgs} from "../../appui-react";
-import { SyncUiEventDispatcher,
-  UiFramework,
+  ContentControlActivatedEventArgs,
+  ContentLayoutActivatedEventArgs,
+  FrontstageActivatedEventArgs,
+  FrontstageReadyEventArgs,
+  ModalFrontstageChangedEventArgs,
+  NavigationAidActivatedEventArgs,
+  ToolActivatedEventArgs,
+  WidgetStateChangedEventArgs,
 } from "../../appui-react";
+import { SyncUiEventDispatcher, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
 /* eslint-disable deprecation/deprecation */
 
@@ -40,15 +45,34 @@ describe("SyncUiEventDispatcher", () => {
     eventIds.add("cat");
     eventIds.add("rabbit");
 
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog", "cat", "rabbit"])).to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog", "cat"])).to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog"])).to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["cat", "rabbit"])).to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["rabbit"])).to.be.true;
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, [
+        "dog",
+        "cat",
+        "rabbit",
+      ])
+    ).to.be.true;
+    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog", "cat"]))
+      .to.be.true;
+    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["dog"])).to.be
+      .true;
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["cat", "rabbit"])
+    ).to.be.true;
+    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["rabbit"])).to.be
+      .true;
     // idsOfInterest are now case insensitive - the set of eventIds held by the dispacther are in lower case.
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["Rabbit"])).to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["DOG", "cAT", "Rabbit"])).to.be.true;
-    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["horse"])).to.be.false;
+    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["Rabbit"])).to.be
+      .true;
+    expect(
+      SyncUiEventDispatcher.hasEventOfInterest(eventIds, [
+        "DOG",
+        "cAT",
+        "Rabbit",
+      ])
+    ).to.be.true;
+    expect(SyncUiEventDispatcher.hasEventOfInterest(eventIds, ["horse"])).to.be
+      .false;
 
     const dummyImodelId = "dummy";
     UiFramework.setActiveIModelId(dummyImodelId);
@@ -101,7 +125,8 @@ describe("SyncUiEventDispatcher", () => {
 
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
-      callbackHasExpectedEventIds = args.eventIds.has("event1") && args.eventIds.has("event2");
+      callbackHasExpectedEventIds =
+        args.eventIds.has("event1") && args.eventIds.has("event2");
     };
 
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
@@ -124,7 +149,10 @@ describe("SyncUiEventDispatcher", () => {
 
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       callbackCalled = true;
-      callbackHasExpectedEventIds = args.eventIds.has("event1") && args.eventIds.has("event2") && args.eventIds.has("event3");
+      callbackHasExpectedEventIds =
+        args.eventIds.has("event1") &&
+        args.eventIds.has("event2") &&
+        args.eventIds.has("event3");
     };
 
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
@@ -150,42 +178,58 @@ describe("SyncUiEventDispatcher", () => {
     SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.frontstages.onContentControlActivatedEvent.emit({} as ContentControlActivatedEventArgs);
+    UiFramework.frontstages.onContentControlActivatedEvent.emit(
+      {} as ContentControlActivatedEventArgs
+    );
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.frontstages.onContentLayoutActivatedEvent.emit({} as ContentLayoutActivatedEventArgs);
+    UiFramework.frontstages.onContentLayoutActivatedEvent.emit(
+      {} as ContentLayoutActivatedEventArgs
+    );
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.frontstages.onFrontstageActivatedEvent.emit({} as FrontstageActivatedEventArgs);
+    UiFramework.frontstages.onFrontstageActivatedEvent.emit(
+      {} as FrontstageActivatedEventArgs
+    );
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.frontstages.onFrontstageReadyEvent.emit({} as FrontstageReadyEventArgs);
+    UiFramework.frontstages.onFrontstageReadyEvent.emit(
+      {} as FrontstageReadyEventArgs
+    );
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.frontstages.onModalFrontstageChangedEvent.emit({} as ModalFrontstageChangedEventArgs);
+    UiFramework.frontstages.onModalFrontstageChangedEvent.emit(
+      {} as ModalFrontstageChangedEventArgs
+    );
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.frontstages.onNavigationAidActivatedEvent.emit({} as NavigationAidActivatedEventArgs);
+    UiFramework.frontstages.onNavigationAidActivatedEvent.emit(
+      {} as NavigationAidActivatedEventArgs
+    );
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.frontstages.onToolActivatedEvent.emit({} as ToolActivatedEventArgs);
+    UiFramework.frontstages.onToolActivatedEvent.emit(
+      {} as ToolActivatedEventArgs
+    );
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.frontstages.onWidgetStateChangedEvent.emit({} as WidgetStateChangedEventArgs);
+    UiFramework.frontstages.onWidgetStateChangedEvent.emit(
+      {} as WidgetStateChangedEventArgs
+    );
     fakeTimers.runAll();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
@@ -195,7 +239,9 @@ describe("SyncUiEventDispatcher", () => {
     expect(handleSyncUiEvent.calledOnce).to.be.true;
 
     handleSyncUiEvent.resetHistory();
-    UiFramework.content.onActiveContentChangedEvent.emit({} as ActiveContentChangedEventArgs);
+    UiFramework.content.onActiveContentChangedEvent.emit(
+      {} as ActiveContentChangedEventArgs
+    );
     fakeTimers.runAll();
     fakeTimers.restore();
     expect(handleSyncUiEvent.calledOnce).to.be.true;
@@ -235,7 +281,9 @@ describe("SyncUiEventDispatcher", () => {
 
     it("handles onSelectedViewportChanged with previous", () => {
       const viewportMock = moq.Mock.ofType<ScreenViewport>();
-      IModelApp.viewManager.onSelectedViewportChanged.raiseEvent({ previous: viewportMock.object });
+      IModelApp.viewManager.onSelectedViewportChanged.raiseEvent({
+        previous: viewportMock.object,
+      });
     });
   });
 });

@@ -1,10 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
-import { ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import {
+  ConditionalBooleanValue,
+  IconSpecUtilities,
+  ToolbarItemUtilities,
+} from "@itwin/appui-abstract";
 import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { PopoutDialog } from "../ui/dialogs/PopoutDialog";
@@ -19,13 +23,16 @@ export class OpenPopoutDialogTool extends Tool {
   public static override iconSpec = windowAddSvg;
 
   // istanbul ignore next
-  public static override get minArgs() { return 0; }
+  public static override get minArgs() {
+    return 0;
+  }
   // istanbul ignore next
-  public static override get maxArgs() { return 0; }
+  public static override get maxArgs() {
+    return 0;
+  }
 
   public override async run(): Promise<boolean> {
-    if (UiFramework.childWindows.find("DialogPopout"))
-      return false;
+    if (UiFramework.childWindows.find("DialogPopout")) return false;
 
     const location: ChildWindowLocationProps = {
       width: 800,
@@ -34,7 +41,12 @@ export class OpenPopoutDialogTool extends Tool {
       top: 100,
     };
 
-    UiFramework.childWindows.open("DialogPopout", "Dialog Popout", <PopoutDialog />, location);
+    UiFramework.childWindows.open(
+      "DialogPopout",
+      "Dialog Popout",
+      <PopoutDialog />,
+      location
+    );
     return true;
   }
 
@@ -51,14 +63,27 @@ export class OpenPopoutDialogTool extends Tool {
     return "open popout dialog";
   }
 
-  public static getActionButtonDef(itemPriority: number, groupPriority?: number, isHidden?: ConditionalBooleanValue) {
+  public static getActionButtonDef(
+    itemPriority: number,
+    groupPriority?: number,
+    isHidden?: ConditionalBooleanValue
+  ) {
     const overrides = {
       groupPriority,
       isHidden,
     };
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(`${this.iconSpec}`);
-    return ToolbarItemUtilities.createActionButton(OpenPopoutDialogTool.toolId, itemPriority, iconSpec, OpenPopoutDialogTool.flyover,
-      async () => { await IModelApp.tools.run(OpenPopoutDialogTool.toolId); },
-      overrides);
+    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
+      `${this.iconSpec}`
+    );
+    return ToolbarItemUtilities.createActionButton(
+      OpenPopoutDialogTool.toolId,
+      itemPriority,
+      iconSpec,
+      OpenPopoutDialogTool.flyover,
+      async () => {
+        await IModelApp.tools.run(OpenPopoutDialogTool.toolId);
+      },
+      overrides
+    );
   }
 }

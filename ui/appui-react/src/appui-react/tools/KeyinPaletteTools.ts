@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tools
  */
@@ -18,12 +18,17 @@ import { IconSpecUtilities } from "@itwin/appui-abstract";
  */
 export class ClearKeyinPaletteHistoryTool extends Tool {
   public static override toolId = "ClearKeyinPaletteHistory";
-  public static override iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgRemove);
+  public static override iconSpec =
+    IconSpecUtilities.createWebComponentIconSpec(svgRemove);
 
   // istanbul ignore next
-  public static override get minArgs() { return 0; }
+  public static override get minArgs() {
+    return 0;
+  }
   // istanbul ignore next
-  public static override get maxArgs() { return 0; }
+  public static override get maxArgs() {
+    return 0;
+  }
 
   public override async run(): Promise<boolean> {
     clearKeyinPaletteHistory();

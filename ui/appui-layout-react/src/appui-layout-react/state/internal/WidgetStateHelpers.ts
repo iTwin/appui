@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -9,18 +9,35 @@
 import { castDraft, produce } from "immer";
 import { UiError } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState";
-import type { FloatingWidgetState, PopoutWidgetState, WidgetState } from "../WidgetState";
+import type {
+  FloatingWidgetState,
+  PopoutWidgetState,
+  WidgetState,
+} from "../WidgetState";
 import { getTabLocation } from "../TabLocation";
 import type { PanelWidgetLocation } from "../WidgetLocation";
-import { getWidgetLocation, isFloatingWidgetLocation, isPanelWidgetLocation, isPopoutWidgetLocation } from "../WidgetLocation";
+import {
+  getWidgetLocation,
+  isFloatingWidgetLocation,
+  isPanelWidgetLocation,
+  isPopoutWidgetLocation,
+} from "../WidgetLocation";
 import type { RectangleProps } from "@itwin/core-react";
 import { Point, Rectangle } from "@itwin/core-react";
-import { category, setRectangleProps, toRectangleProps } from "./NineZoneStateHelpers";
+import {
+  category,
+  setRectangleProps,
+  toRectangleProps,
+} from "./NineZoneStateHelpers";
 import { updatePanelState } from "./PanelStateHelpers";
 import { updateTabState } from "./TabStateHelpers";
 
 /** @internal */
-export function createWidgetState(id: WidgetState["id"], tabs: WidgetState["tabs"], args?: Partial<WidgetState>): WidgetState {
+export function createWidgetState(
+  id: WidgetState["id"],
+  tabs: WidgetState["tabs"],
+  args?: Partial<WidgetState>
+): WidgetState {
   if (tabs.length === 0)
     throw new UiError(category, "Widget must contain tabs");
   return {
@@ -33,7 +50,11 @@ export function createWidgetState(id: WidgetState["id"], tabs: WidgetState["tabs
 }
 
 /** @internal */
-export function updateWidgetState(state: NineZoneState, id: WidgetState["id"], args: Partial<WidgetState>) {
+export function updateWidgetState(
+  state: NineZoneState,
+  id: WidgetState["id"],
+  args: Partial<WidgetState>
+) {
   return produce(state, (draft) => {
     const widget = getWidgetState(draft, id);
     draft.widgets[id] = {
@@ -44,18 +65,29 @@ export function updateWidgetState(state: NineZoneState, id: WidgetState["id"], a
 }
 
 /** @internal */
-export function addWidgetState(state: NineZoneState, id: WidgetState["id"], tabs: WidgetState["tabs"], args?: Partial<WidgetState>) {
-  if (id in state.widgets)
-    throw new UiError(category, "Widget already exists");
+export function addWidgetState(
+  state: NineZoneState,
+  id: WidgetState["id"],
+  tabs: WidgetState["tabs"],
+  args?: Partial<WidgetState>
+) {
+  if (id in state.widgets) throw new UiError(category, "Widget already exists");
 
   const widget = createWidgetState(id, tabs, args);
   for (const tabId of widget.tabs) {
     if (!(tabId in state.tabs))
-      throw new UiError(category, "Tab does not exist", undefined, () => ({ tabId }));
+      throw new UiError(category, "Tab does not exist", undefined, () => ({
+        tabId,
+      }));
 
     const location = getTabLocation(state, tabId);
     if (location)
-      throw new UiError(category, "Tab is already in a widget", undefined, () => ({ tabId, widgetId: location.widgetId }));
+      throw new UiError(
+        category,
+        "Tab is already in a widget",
+        undefined,
+        () => ({ tabId, widgetId: location.widgetId })
+      );
   }
   return produce(state, (draft) => {
     draft.widgets[id] = castDraft(widget);
@@ -63,20 +95,24 @@ export function addWidgetState(state: NineZoneState, id: WidgetState["id"], tabs
 }
 
 /** @internal */
-export function removeWidget(state: NineZoneState, id: WidgetState["id"]): NineZoneState {
+export function removeWidget(
+  state: NineZoneState,
+  id: WidgetState["id"]
+): NineZoneState {
   const location = getWidgetLocation(state, id);
-  if (!location)
-    throw new UiError(category, "Widget not found");
+  if (!location) throw new UiError(category, "Widget not found");
 
   if (isFloatingWidgetLocation(location))
     return removeFloatingWidget(state, id);
-  if (isPopoutWidgetLocation(location))
-    return removePopoutWidget(state, id);
+  if (isPopoutWidgetLocation(location)) return removePopoutWidget(state, id);
   return removePanelWidget(state, id, location);
 }
 
 /** @internal */
-export function removeWidgetState(state: NineZoneState, id: WidgetState["id"]): NineZoneState {
+export function removeWidgetState(
+  state: NineZoneState,
+  id: WidgetState["id"]
+): NineZoneState {
   assertWidgetState(state, id);
   return produce(state, (draft) => {
     delete draft.widgets[id];
@@ -84,7 +120,10 @@ export function removeWidgetState(state: NineZoneState, id: WidgetState["id"]): 
 }
 
 /** @internal */
-export function createFloatingWidgetState(id: FloatingWidgetState["id"], args?: Partial<FloatingWidgetState>): FloatingWidgetState {
+export function createFloatingWidgetState(
+  id: FloatingWidgetState["id"],
+  args?: Partial<FloatingWidgetState>
+): FloatingWidgetState {
   // istanbul ignore next
   const bounds = toRectangleProps(args?.bounds);
   return {
@@ -101,7 +140,10 @@ export function createFloatingWidgetState(id: FloatingWidgetState["id"], args?: 
 }
 
 /** @internal */
-export function createPopoutWidgetState(id: PopoutWidgetState["id"], args?: Partial<PopoutWidgetState>): PopoutWidgetState {
+export function createPopoutWidgetState(
+  id: PopoutWidgetState["id"],
+  args?: Partial<PopoutWidgetState>
+): PopoutWidgetState {
   const bounds = toRectangleProps(args?.bounds);
   return {
     home: {
@@ -116,7 +158,11 @@ export function createPopoutWidgetState(id: PopoutWidgetState["id"], args?: Part
 }
 
 /** @internal */
-export function updateFloatingWidgetState(state: NineZoneState, id: FloatingWidgetState["id"], args: Partial<FloatingWidgetState>) {
+export function updateFloatingWidgetState(
+  state: NineZoneState,
+  id: FloatingWidgetState["id"],
+  args: Partial<FloatingWidgetState>
+) {
   if (!(id in state.floatingWidgets.byId))
     throw new UiError(category, "Floating widget does not exist");
 
@@ -127,15 +173,17 @@ export function updateFloatingWidgetState(state: NineZoneState, id: FloatingWidg
       ...floatingWidget,
       ...other,
     };
-    if (bounds)
-      setRectangleProps(floatingWidget.bounds, bounds);
+    if (bounds) setRectangleProps(floatingWidget.bounds, bounds);
   });
 }
 
 /** Removes floating widget from the UI and deletes the widget state.
  * @internal
  */
-export function removeFloatingWidget(state: NineZoneState, id: FloatingWidgetState["id"]): NineZoneState {
+export function removeFloatingWidget(
+  state: NineZoneState,
+  id: FloatingWidgetState["id"]
+): NineZoneState {
   if (!(id in state.floatingWidgets.byId))
     throw new UiError(category, "Floating widget does not exist");
 
@@ -150,7 +198,10 @@ export function removeFloatingWidget(state: NineZoneState, id: FloatingWidgetSta
 /** Removes floating widget from the UI and deletes the widget state.
  * @internal
  */
-export function removePopoutWidget(state: NineZoneState, id: PopoutWidgetState["id"]) {
+export function removePopoutWidget(
+  state: NineZoneState,
+  id: PopoutWidgetState["id"]
+) {
   if (!(id in state.popoutWidgets.byId))
     throw new UiError(category, "Popout widget does not exist");
 
@@ -163,10 +214,13 @@ export function removePopoutWidget(state: NineZoneState, id: PopoutWidgetState["
 }
 
 /** @internal */
-export function removePanelWidget(state: NineZoneState, id: WidgetState["id"], location?: PanelWidgetLocation): NineZoneState {
+export function removePanelWidget(
+  state: NineZoneState,
+  id: WidgetState["id"],
+  location?: PanelWidgetLocation
+): NineZoneState {
   location = location || findPanelWidget(state, id);
-  if (!location)
-    throw new UiError(category, "Panel widget not found");
+  if (!location) throw new UiError(category, "Panel widget not found");
 
   const panel = state.panels[location.side];
   const widgets = [...panel.widgets];
@@ -191,25 +245,33 @@ export function removePanelWidget(state: NineZoneState, id: WidgetState["id"], l
 
 function findPanelWidget(state: NineZoneState, id: WidgetState["id"]) {
   const location = getWidgetLocation(state, id);
-  if (location && isPanelWidgetLocation(location))
-    return location;
+  if (location && isPanelWidgetLocation(location)) return location;
   return undefined;
 }
 
 /** @internal */
 export function assertWidgetState(state: NineZoneState, id: WidgetState["id"]) {
   if (!(id in state.widgets))
-    throw new UiError(category, "Widget does not exist", undefined, () => ({ id }));
+    throw new UiError(category, "Widget does not exist", undefined, () => ({
+      id,
+    }));
 }
 
 /** @internal */
-export function getWidgetState<T extends NineZoneState>(state: T, id: WidgetState["id"]): T["widgets"][0] {
+export function getWidgetState<T extends NineZoneState>(
+  state: T,
+  id: WidgetState["id"]
+): T["widgets"][0] {
   assertWidgetState(state, id);
   return state.widgets[id] as T["widgets"][0];
 }
 
 /** @internal */
-export function setWidgetActiveTabId(state: NineZoneState, widgetId: WidgetState["id"], tabId: WidgetState["activeTabId"]): NineZoneState {
+export function setWidgetActiveTabId(
+  state: NineZoneState,
+  widgetId: WidgetState["id"],
+  tabId: WidgetState["activeTabId"]
+): NineZoneState {
   const widget = getWidgetState(state, widgetId);
   if (!widget.tabs.includes(tabId))
     throw new UiError(category, "Tab is not in a widget");
@@ -221,7 +283,9 @@ export function setWidgetActiveTabId(state: NineZoneState, widgetId: WidgetState
   const floatingWidget = state.floatingWidgets.byId[widgetId];
   if (floatingWidget) {
     const activeTab = state.tabs[tabId];
-    const preferredFloatingWidgetSize = Rectangle.create(floatingWidget.bounds).getSize();
+    const preferredFloatingWidgetSize = Rectangle.create(
+      floatingWidget.bounds
+    ).getSize();
     state = updateTabState(state, activeTab.id, {
       preferredFloatingWidgetSize,
     });
@@ -230,7 +294,9 @@ export function setWidgetActiveTabId(state: NineZoneState, widgetId: WidgetState
 }
 
 /** @internal */
-export function getNewFloatingWidgetBounds(state: NineZoneState): RectangleProps {
+export function getNewFloatingWidgetBounds(
+  state: NineZoneState
+): RectangleProps {
   // Matches min size (to handle auto-sized floating widgets correctly).
   const size = { height: 120, width: 200 };
   const initialPosition = new Point(360, 340);
@@ -245,7 +311,8 @@ export function getNewFloatingWidgetBounds(state: NineZoneState): RectangleProps
     bounds = bounds.offset(initialPosition);
   } else {
     // Position is relative to last floating widget if available.
-    const widgetId = state.floatingWidgets.allIds[state.floatingWidgets.allIds.length - 1];
+    const widgetId =
+      state.floatingWidgets.allIds[state.floatingWidgets.allIds.length - 1];
     const widget = state.floatingWidgets.byId[widgetId];
     const widgetBounds = Rectangle.create(widget.bounds);
 
@@ -254,7 +321,10 @@ export function getNewFloatingWidgetBounds(state: NineZoneState): RectangleProps
     bounds = bounds.offset(topLeft);
 
     // Bottom right of new bounds should also be outside of a floating widget.
-    const widgetBottomRight = new Point(widgetBounds.right, widgetBounds.bottom);
+    const widgetBottomRight = new Point(
+      widgetBounds.right,
+      widgetBounds.bottom
+    );
     const minBottomRight = widgetBottomRight.offset(offset);
     const x = Math.max(0, minBottomRight.x - bounds.right);
     const y = Math.max(0, minBottomRight.y - bounds.bottom);
@@ -266,7 +336,10 @@ export function getNewFloatingWidgetBounds(state: NineZoneState): RectangleProps
     bounds = bounds.setPosition({ x: bounds.left, y: widgetsBounds.top });
   }
   if (bounds.right >= widgetsBounds.right) {
-    bounds = bounds.setPosition({ x: widgetsBounds.left, y: widgetsBounds.top });
+    bounds = bounds.setPosition({
+      x: widgetsBounds.left,
+      y: widgetsBounds.top,
+    });
   }
   bounds = bounds.containIn(widgetsBounds);
   return bounds.toProps();

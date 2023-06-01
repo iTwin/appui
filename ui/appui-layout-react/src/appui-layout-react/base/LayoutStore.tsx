@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
 
 import * as React from "react";
-import type { StoreApi} from "zustand";
+import type { StoreApi } from "zustand";
 import { createStore, useStore } from "zustand";
 import { shallow } from "zustand/shallow";
 import { assert } from "@itwin/core-bentley";
@@ -21,7 +21,9 @@ export type LayoutState = NineZoneState;
 export type LayoutStore = StoreApi<NineZoneState>;
 
 /** @internal */
-export const LayoutStoreContext = React.createContext<LayoutStore | undefined>(undefined);
+export const LayoutStoreContext = React.createContext<LayoutStore | undefined>(
+  undefined
+);
 LayoutStoreContext.displayName = "appui:LayoutStoreContext";
 
 /** @internal */
@@ -37,7 +39,10 @@ export function useLayoutStore() {
 }
 
 /** @internal */
-export function useLayout<SelectorOutput>(selector: (state: LayoutState) => SelectorOutput, multipleSlices = false) {
+export function useLayout<SelectorOutput>(
+  selector: (state: LayoutState) => SelectorOutput,
+  multipleSlices = false
+) {
   const store = useLayoutStore();
   return useStore(store, selector, multipleSlices ? shallow : undefined);
 }

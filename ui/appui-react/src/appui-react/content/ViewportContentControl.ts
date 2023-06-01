@@ -1,17 +1,28 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
 
 import type { Id64String } from "@itwin/core-bentley";
-import type { IModelConnection, ScreenViewport, ViewState} from "@itwin/core-frontend";
-import {
-  DrawingViewState, IModelApp, OrthographicViewState, SheetViewState, SpatialViewState,
+import type {
+  IModelConnection,
+  ScreenViewport,
+  ViewState,
 } from "@itwin/core-frontend";
-import { ConfigurableCreateInfo, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
+import {
+  DrawingViewState,
+  IModelApp,
+  OrthographicViewState,
+  SheetViewState,
+  SpatialViewState,
+} from "@itwin/core-frontend";
+import {
+  ConfigurableCreateInfo,
+  ConfigurableUiControlType,
+} from "../configurableui/ConfigurableUiControl";
 import { CubeNavigationAidControl } from "../navigationaids/CubeNavigationAidControl";
 import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigationAidControl";
 import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
@@ -25,7 +36,10 @@ import { ContentControl } from "./ContentControl";
  * that is managed by the `ViewManager`.
  * @public
  */
-export class ViewportContentControl extends ContentControl implements SupportsViewSelectorChange {
+export class ViewportContentControl
+  extends ContentControl
+  implements SupportsViewSelectorChange
+{
   private _viewport: ScreenViewport | undefined;
   private _isReady: Promise<void>;
   private _viewportReadyCallback?: () => void;
@@ -37,19 +51,27 @@ export class ViewportContentControl extends ContentControl implements SupportsVi
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
 
-    this._isReady = new Promise<void>((onSuccess: () => void, _onFailure: () => void): void => {
-      this._viewportReadyCallback = onSuccess;
-    });
+    this._isReady = new Promise<void>(
+      (onSuccess: () => void, _onFailure: () => void): void => {
+        this._viewportReadyCallback = onSuccess;
+      }
+    );
   }
 
   /** Gets the type of ConfigurableUiControl, which is 'Viewport' in this case */
-  public override getType(): ConfigurableUiControlType { return ConfigurableUiControlType.Viewport; }
+  public override getType(): ConfigurableUiControlType {
+    return ConfigurableUiControlType.Viewport;
+  }
 
   /** Returns true if this control is a Viewport control. */
-  public override get isViewport(): boolean { return true; }
+  public override get isViewport(): boolean {
+    return true;
+  }
 
   /** The underlying ScreenViewport */
-  public override get viewport(): ScreenViewport | undefined { return this._viewport; }
+  public override get viewport(): ScreenViewport | undefined {
+    return this._viewport;
+  }
   public override set viewport(v: ScreenViewport | undefined) {
     this._viewport = v;
     this.setIsReady();
@@ -66,7 +88,9 @@ export class ViewportContentControl extends ContentControl implements SupportsVi
 
   /** Returns a promise that resolves when the control is ready for usage.
    */
-  public override get isReady(): Promise<void> { return this._isReady; }
+  public override get isReady(): Promise<void> {
+    return this._isReady;
+  }
 
   /** Called when this ContentControl is activated */
   public override onActivated(): void {
@@ -79,7 +103,9 @@ export class ViewportContentControl extends ContentControl implements SupportsVi
 
     // istanbul ignore else
     if (this.viewport) {
-      navigationAidId = this._getNavigationAid(this.viewport.view.classFullName);
+      navigationAidId = this._getNavigationAid(
+        this.viewport.view.classFullName
+      );
     }
 
     return navigationAidId;
@@ -111,23 +137,45 @@ export class ViewportContentControl extends ContentControl implements SupportsVi
   };
 
   /** Returns true if this control supports processing ViewSelector changes. */
-  public get supportsViewSelectorChange(): boolean { return true; }
+  public get supportsViewSelectorChange(): boolean {
+    return true;
+  }
 
   /** Process a ViewSelector change. */
   // istanbul ignore next
-  public async processViewSelectorChange(iModel: IModelConnection, viewDefinitionId: Id64String, viewState: ViewState, name: string): Promise<void> {
+  public async processViewSelectorChange(
+    iModel: IModelConnection,
+    viewDefinitionId: Id64String,
+    viewState: ViewState,
+    name: string
+  ): Promise<void> {
     if (this.viewport) {
-      if (IModelApp.viewManager && this.viewport === IModelApp.viewManager.selectedView)
+      if (
+        IModelApp.viewManager &&
+        this.viewport === IModelApp.viewManager.selectedView
+      )
         this.viewport.changeView(viewState);
     } else {
-      this.reactNode = this.getReactElementForViewSelectorChange(iModel, viewDefinitionId, viewState, name);
+      this.reactNode = this.getReactElementForViewSelectorChange(
+        iModel,
+        viewDefinitionId,
+        viewState,
+        name
+      );
     }
     UiFramework.content.refreshActive(this.reactNode);
   }
 
   /** Get the React.Element for a ViewSelector change. */
   // istanbul ignore next
-  public getReactElementForViewSelectorChange(_iModel: IModelConnection, _viewDefinitionId: Id64String, _viewState: ViewState, _name: string): React.ReactNode { return null; }
+  public getReactElementForViewSelectorChange(
+    _iModel: IModelConnection,
+    _viewDefinitionId: Id64String,
+    _viewState: ViewState,
+    _name: string
+  ): React.ReactNode {
+    return null;
+  }
 }
 
 /**

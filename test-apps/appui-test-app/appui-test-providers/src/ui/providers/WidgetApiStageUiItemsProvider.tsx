@@ -1,13 +1,33 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /* eslint-disable react/display-name */
 
 import * as React from "react";
-import { BackstageItem, BackstageItemUtilities, StagePanelLocation, StagePanelSection, ToolbarHelper, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider, Widget, WidgetState } from "@itwin/appui-react";
-import { getToggleCustomOverlayCommandItemDef, WidgetApiStage } from "../frontstages/WidgetApiStage";
-import { FloatingLayoutInfo, LayoutControls, LayoutInfo } from "../widgets/LayoutWidget";
+import {
+  BackstageItem,
+  BackstageItemUtilities,
+  StagePanelLocation,
+  StagePanelSection,
+  ToolbarHelper,
+  ToolbarItem,
+  ToolbarOrientation,
+  ToolbarUsage,
+  UiItemsManager,
+  UiItemsProvider,
+  Widget,
+  WidgetState,
+} from "@itwin/appui-react";
+import {
+  getToggleCustomOverlayCommandItemDef,
+  WidgetApiStage,
+} from "../frontstages/WidgetApiStage";
+import {
+  FloatingLayoutInfo,
+  LayoutControls,
+  LayoutInfo,
+} from "../widgets/LayoutWidget";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
 import { SetWidgetStateTool } from "../../tools/UiLayoutTools";
 
@@ -20,7 +40,10 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   public readonly id = WidgetApiStageUiItemsProvider.providerId;
 
   public static register(localizationNamespace: string) {
-    UiItemsManager.register(new WidgetApiStageUiItemsProvider(localizationNamespace), { stageIds: [WidgetApiStage.stageId] });
+    UiItemsManager.register(
+      new WidgetApiStageUiItemsProvider(localizationNamespace),
+      { stageIds: [WidgetApiStage.stageId] }
+    );
     SetWidgetStateTool.register(localizationNamespace);
   }
 
@@ -204,7 +227,12 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
     return widgets;
   }
 
-  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, section?: StagePanelSection | undefined): ReadonlyArray<Widget> {
+  public provideWidgets(
+    stageId: string,
+    _stageUsage: string,
+    location: StagePanelLocation,
+    section?: StagePanelSection | undefined
+  ): ReadonlyArray<Widget> {
     const allowedStages = [WidgetApiStage.stageId];
     if (allowedStages.includes(stageId)) {
       switch (location) {
@@ -223,12 +251,26 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
   }
 
   /** provide a toolbar button to set a value in redux store that toggles the display of the custom overlay */
-  public provideToolbarItems(stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): ToolbarItem[] {
+  public provideToolbarItems(
+    stageId: string,
+    _stageUsage: string,
+    toolbarUsage: ToolbarUsage,
+    toolbarOrientation: ToolbarOrientation
+  ): ToolbarItem[] {
     const allowedStages = [WidgetApiStage.stageId];
     if (allowedStages.includes(stageId)) {
-      if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
+      if (
+        toolbarUsage === ToolbarUsage.ContentManipulation &&
+        toolbarOrientation === ToolbarOrientation.Horizontal
+      ) {
         const items: ToolbarItem[] = [];
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(17, getToggleCustomOverlayCommandItemDef(), { groupPriority: 3000 }));
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            17,
+            getToggleCustomOverlayCommandItemDef(),
+            { groupPriority: 3000 }
+          )
+        );
         return items;
       }
     }
@@ -237,10 +279,18 @@ export class WidgetApiStageUiItemsProvider implements UiItemsProvider {
 
   /** Add entry to activate this stage in the backstage. */
   public provideBackstageItems(): BackstageItem[] {
-    const label = AppUiTestProviders.translate("backstage.widgetApiTestFrontstageLabel");
+    const label = AppUiTestProviders.translate(
+      "backstage.widgetApiTestFrontstageLabel"
+    );
     return [
-      BackstageItemUtilities.createStageLauncher(WidgetApiStage.stageId, 300, 2, label, undefined, undefined),
+      BackstageItemUtilities.createStageLauncher(
+        WidgetApiStage.stageId,
+        300,
+        2,
+        label,
+        undefined,
+        undefined
+      ),
     ];
   }
-
 }

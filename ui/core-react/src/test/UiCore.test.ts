@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
@@ -9,7 +9,6 @@ import { UiCore } from "../core-react/UiCore";
 import TestUtils from "./TestUtils";
 
 describe("UiCore", () => {
-
   beforeEach(() => {
     TestUtils.terminateUiCore();
   });
@@ -56,5 +55,4 @@ describe("UiCore", () => {
     spyLogger.calledOnce.should.true;
     (Logger.logInfo as any).restore();
   });
-
 });

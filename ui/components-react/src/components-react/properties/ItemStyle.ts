@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
@@ -9,7 +9,8 @@
 import type { CSSProperties } from "react";
 
 /** Converts a color value from a number to an HTML/CSS hex string */
-const colorDecimalToHex = (decimal: number) => `#${decimal.toString(16).padStart(6, "0")}`;
+const colorDecimalToHex = (decimal: number) =>
+  `#${decimal.toString(16).padStart(6, "0")}`;
 
 /** Style properties for styled item like [[TreeNodeItem]]
  * @public
@@ -37,9 +38,11 @@ export interface ItemColorOverrides {
   backgroundColorSelected?: number;
 }
 
-function getBackgroundColor(isSelected: boolean, colorOverrides?: ItemColorOverrides) {
-  if (!colorOverrides)
-    return undefined;
+function getBackgroundColor(
+  isSelected: boolean,
+  colorOverrides?: ItemColorOverrides
+) {
+  if (!colorOverrides) return undefined;
 
   if (isSelected)
     return colorOverrides.backgroundColorSelected !== undefined
@@ -52,17 +55,18 @@ function getBackgroundColor(isSelected: boolean, colorOverrides?: ItemColorOverr
   return undefined;
 }
 
-function getForegroundColor(isSelected: boolean, colorOverrides?: ItemColorOverrides) {
-  if (!colorOverrides)
-    return undefined;
+function getForegroundColor(
+  isSelected: boolean,
+  colorOverrides?: ItemColorOverrides
+) {
+  if (!colorOverrides) return undefined;
 
   if (isSelected)
     return colorOverrides.colorSelected !== undefined
       ? colorDecimalToHex(colorOverrides.colorSelected)
       : undefined;
 
-  if (colorOverrides.color)
-    return colorDecimalToHex(colorOverrides.color);
+  if (colorOverrides.color) return colorDecimalToHex(colorOverrides.color);
 
   return undefined;
 }
@@ -76,7 +80,10 @@ export const ItemStyleProvider = {
   /**
    * Create CSS style from [[ItemStyle]]
    */
-  createStyle: ({ colorOverrides, isBold, isItalic }: ItemStyle, isSelected?: boolean): CSSProperties => ({
+  createStyle: (
+    { colorOverrides, isBold, isItalic }: ItemStyle,
+    isSelected?: boolean
+  ): CSSProperties => ({
     color: getForegroundColor(!!isSelected, colorOverrides),
     backgroundColor: getBackgroundColor(!!isSelected, colorOverrides),
     fontWeight: isBold ? "bold" : undefined,
@@ -93,8 +100,13 @@ export const TableRowStyleProvider = {
   /**
    * Create CSS style from [[ItemStyle]]
    */
-  createStyle: ({ color, backgroundColor }: ItemColorOverrides): CSSProperties => ({
+  createStyle: ({
+    color,
+    backgroundColor,
+  }: ItemColorOverrides): CSSProperties => ({
     color: color ? colorDecimalToHex(color) : undefined,
-    backgroundColor: backgroundColor ? colorDecimalToHex(backgroundColor) : undefined,
+    backgroundColor: backgroundColor
+      ? colorDecimalToHex(backgroundColor)
+      : undefined,
   }),
 };

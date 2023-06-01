@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 
 /**
@@ -36,8 +36,7 @@ export function useEventListener(
 
     const eventListener = (event: Event) => {
       // istanbul ignore else
-      if (savedHandler.current)
-        savedHandler.current(event);
+      if (savedHandler.current) savedHandler.current(event);
     };
     element.addEventListener(eventName, eventListener);
     return () => {

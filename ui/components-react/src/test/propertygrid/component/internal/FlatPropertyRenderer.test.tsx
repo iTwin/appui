@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
@@ -33,25 +33,33 @@ describe("FlatPropertyRenderer", () => {
     const originalValue = "OriginalValue";
     const recordValue = "ChangedValue";
 
-    propertyRecord = TestUtils.createPrimitiveStringProperty("Label", originalValue);
+    propertyRecord = TestUtils.createPrimitiveStringProperty(
+      "Label",
+      originalValue
+    );
 
     const { rerender } = render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
     expect(screen.getByTitle(originalValue)).to.exist;
 
     rerender(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
-        propertyRecord={TestUtils.createPrimitiveStringProperty("Label", recordValue)}
+        propertyRecord={TestUtils.createPrimitiveStringProperty(
+          "Label",
+          recordValue
+        )}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
     expect(screen.getByTitle(recordValue)).to.exist;
     expect(screen.queryByTitle(originalValue)).to.be.null;
@@ -59,8 +67,8 @@ describe("FlatPropertyRenderer", () => {
 
   it("uses provided propertyValueRendererManager", async () => {
     class RendererManager extends PropertyValueRendererManager {
-      public override render({ }) {
-        return ("Test");
+      public override render({}) {
+        return "Test";
       }
     }
 
@@ -70,8 +78,9 @@ describe("FlatPropertyRenderer", () => {
         propertyRecord={propertyRecord}
         propertyValueRendererManager={new RendererManager()}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
     expect(getByText("Test")).to.be.not.null;
   });
@@ -81,10 +90,15 @@ describe("FlatPropertyRenderer", () => {
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={TestUtils.createPrimitiveStringProperty("Label", "abc")}
-        highlight={{ highlightedText: "b", applyOnLabel: true, applyOnValue: true }}
+        highlight={{
+          highlightedText: "b",
+          applyOnLabel: true,
+          applyOnValue: true,
+        }}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
     const highlightedNodes = container.querySelectorAll("mark");
     expect(highlightedNodes.length).to.eq(2);
   });
@@ -97,14 +111,18 @@ describe("FlatPropertyRenderer", () => {
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
-    expect(screen.getByTitle("EmptyArray"))
-      .satisfy(selectorMatches([
-        ".components-primitive-property-label-renderer",
-        ".components-property-label-renderer",
-      ].join(" ")));
+    expect(screen.getByTitle("EmptyArray")).satisfy(
+      selectorMatches(
+        [
+          ".components-primitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
   });
 
   it("highlights matches in empty array values", () => {
@@ -112,31 +130,42 @@ describe("FlatPropertyRenderer", () => {
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={TestUtils.createArrayProperty("EmptyArray")}
-        highlight={{ highlightedText: "rr", applyOnLabel: true, applyOnValue: true }}
+        highlight={{
+          highlightedText: "rr",
+          applyOnLabel: true,
+          applyOnValue: true,
+        }}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
     const highlightedNode = container.querySelector("mark");
     expect(highlightedNode).to.be.not.null;
     expect(highlightedNode!.textContent).to.eq("rr");
   });
 
   it("renders struct as a non primitive value", () => {
-    propertyRecord = TestUtils.createArrayProperty("StringArray", [TestUtils.createPrimitiveStringProperty("Label", "Model")]);
+    propertyRecord = TestUtils.createArrayProperty("StringArray", [
+      TestUtils.createPrimitiveStringProperty("Label", "Model"),
+    ]);
 
     render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
-    expect(screen.getByTitle("StringArray (1)"))
-      .satisfy(selectorMatches([
-        ".components-nonprimitive-property-label-renderer",
-        ".components-property-label-renderer",
-      ].join(" ")));
+    expect(screen.getByTitle("StringArray (1)")).satisfy(
+      selectorMatches(
+        [
+          ".components-nonprimitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
   });
 
   it("renders array as a non primitive value", () => {
@@ -147,14 +176,18 @@ describe("FlatPropertyRenderer", () => {
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
-    expect(screen.getByTitle("Struct"))
-      .satisfy(selectorMatches([
-        ".components-nonprimitive-property-label-renderer",
-        ".components-property-label-renderer",
-      ].join(" ")));
+    expect(screen.getByTitle("Struct")).satisfy(
+      selectorMatches(
+        [
+          ".components-nonprimitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" ")
+      )
+    );
   });
 
   it("renders an editor correctly", () => {
@@ -164,11 +197,13 @@ describe("FlatPropertyRenderer", () => {
         propertyRecord={propertyRecord}
         isEditing={true}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
-    expect(screen.getByRole("textbox"))
-      .satisfy(selectorMatches(".components-text-editor"));
+    expect(screen.getByRole("textbox")).satisfy(
+      selectorMatches(".components-text-editor")
+    );
   });
 
   it("calls onEditCommit on Enter key when editing", async () => {
@@ -181,8 +216,9 @@ describe("FlatPropertyRenderer", () => {
         isEditing={true}
         onEditCommit={spyMethod}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
     const inputNode = propertyRenderer.container.querySelector("input");
     expect(inputNode).not.to.be.null;
@@ -200,8 +236,9 @@ describe("FlatPropertyRenderer", () => {
         propertyRecord={propertyRecord}
         isEditing={true}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
     const inputNode = propertyRenderer.container.querySelector("input");
     expect(inputNode).not.to.be.null;
@@ -219,8 +256,9 @@ describe("FlatPropertyRenderer", () => {
         isEditing={true}
         onEditCancel={spyMethod}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
     const inputNode = propertyRenderer.container.querySelector("input");
     expect(inputNode).not.to.be.null;
@@ -236,8 +274,9 @@ describe("FlatPropertyRenderer", () => {
         propertyRecord={propertyRecord}
         isEditing={true}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
     await theUserTo.type(screen.getByRole("textbox"), "{Enter}");
     expect(screen.getByRole("textbox")).to.exist;
@@ -250,8 +289,9 @@ describe("FlatPropertyRenderer", () => {
         propertyRecord={propertyRecord}
         isEditing={true}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
     await theUserTo.type(screen.getByRole("textbox"), "{Escape}");
     expect(screen.getByRole("textbox")).to.exist;
@@ -263,15 +303,19 @@ describe("FlatPropertyRenderer", () => {
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
-    expect(screen.getByText("Model"))
-      .satisfy(selectorMatches([
-        "div.components-property-record-value",
-        "span",
-        "span[title='Model']",
-      ].join(" > ")));
+    expect(screen.getByText("Model")).satisfy(
+      selectorMatches(
+        [
+          "div.components-property-record-value",
+          "span",
+          "span[title='Model']",
+        ].join(" > ")
+      )
+    );
   });
 
   it("does not wrap valueElement in span if it's not a string", async () => {
@@ -283,34 +327,40 @@ describe("FlatPropertyRenderer", () => {
       render: () => <div>My value</div>,
     };
 
-    PropertyValueRendererManager.defaultManager.registerRenderer("mycustomRenderer", myCustomRenderer);
+    PropertyValueRendererManager.defaultManager.registerRenderer(
+      "mycustomRenderer",
+      myCustomRenderer
+    );
     render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         isExpanded={false}
-        onExpansionToggled={() => { }}
-      />);
+        onExpansionToggled={() => {}}
+      />
+    );
 
-    expect(screen.getByText("My value"))
-      .satisfy(selectorMatches([
-        "div.components-property-record-value",
-        "span",
-        "div",
-      ].join(" > ")));
+    expect(screen.getByText("My value")).satisfy(
+      selectorMatches(
+        ["div.components-property-record-value", "span", "div"].join(" > ")
+      )
+    );
   });
 
   describe("onHeightChanged", () => {
     const record = TestUtils.createPrimitiveStringProperty("test", "test");
 
-    function renderFlatPropertyRenderer(isEditing: boolean, onHeightChanged?: (newHeight: number) => void) {
+    function renderFlatPropertyRenderer(
+      isEditing: boolean,
+      onHeightChanged?: (newHeight: number) => void
+    ) {
       return (
         <FlatPropertyRenderer
           orientation={Orientation.Horizontal}
           propertyRecord={record}
           isExpanded={false}
           isEditing={isEditing}
-          onExpansionToggled={() => { }}
+          onExpansionToggled={() => {}}
           onHeightChanged={onHeightChanged}
         />
       );
@@ -318,7 +368,9 @@ describe("FlatPropertyRenderer", () => {
 
     it("gets called when entering editing state", () => {
       const onHeightChanged = sinon.fake();
-      const { rerender } = render(renderFlatPropertyRenderer(false, onHeightChanged));
+      const { rerender } = render(
+        renderFlatPropertyRenderer(false, onHeightChanged)
+      );
       expect(onHeightChanged).to.have.not.been.called;
       rerender(renderFlatPropertyRenderer(true, onHeightChanged));
       expect(onHeightChanged).to.have.been.calledOnceWith(27);

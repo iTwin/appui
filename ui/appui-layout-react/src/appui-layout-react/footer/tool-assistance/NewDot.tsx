@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolAssistance
  */
@@ -18,13 +18,9 @@ export class NewDot extends React.PureComponent<CommonProps> {
   public override render() {
     const className = classnames(
       "nz-footer-toolAssistance-newDot",
-      this.props.className);
-
-    return (
-      <span
-        className={className}
-        style={this.props.style}
-      />
+      this.props.className
     );
+
+    return <span className={className} style={this.props.style} />;
   }
 }

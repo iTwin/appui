@@ -1,16 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
 
 import * as React from "react";
-import { MessageBoxIconType, MessageBoxType, MessageBoxValue } from "@itwin/core-frontend";
-import type { DialogButtonDef} from "@itwin/appui-abstract";
+import {
+  MessageBoxIconType,
+  MessageBoxType,
+  MessageBoxValue,
+} from "@itwin/core-frontend";
+import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType, MessageSeverity } from "@itwin/appui-abstract";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { MessageBox } from "@itwin/core-react";
 import { DialogManagerBase } from "./DialogManagerBase";
 import { UiFramework } from "../UiFramework";
@@ -43,8 +47,10 @@ interface StandardMessageBoxState {
 /** StandardMessageBox React component displays a standard icon, message text and a standard button set in the lower right.
  * @public
  */
-export class StandardMessageBox extends React.PureComponent<StandardMessageBoxProps, StandardMessageBoxState> {
-
+export class StandardMessageBox extends React.PureComponent<
+  StandardMessageBoxProps,
+  StandardMessageBoxState
+> {
   /** @internal */
   public override readonly state: Readonly<StandardMessageBoxState>;
 
@@ -61,19 +67,49 @@ export class StandardMessageBox extends React.PureComponent<StandardMessageBoxPr
     switch (this.props.messageBoxType) {
       case MessageBoxType.Ok:
       case MessageBoxType.LargeOk:
-        buttonCluster.push({ type: DialogButtonType.OK, onClick: () => { this._handleButton(MessageBoxValue.Ok); } });
+        buttonCluster.push({
+          type: DialogButtonType.OK,
+          onClick: () => {
+            this._handleButton(MessageBoxValue.Ok);
+          },
+        });
         break;
       case MessageBoxType.OkCancel:
       case MessageBoxType.MediumAlert:
-        buttonCluster.push({ type: DialogButtonType.OK, onClick: () => { this._handleButton(MessageBoxValue.Ok); } });
-        buttonCluster.push({ type: DialogButtonType.Cancel, onClick: () => { this._handleButton(MessageBoxValue.Cancel); } });
+        buttonCluster.push({
+          type: DialogButtonType.OK,
+          onClick: () => {
+            this._handleButton(MessageBoxValue.Ok);
+          },
+        });
+        buttonCluster.push({
+          type: DialogButtonType.Cancel,
+          onClick: () => {
+            this._handleButton(MessageBoxValue.Cancel);
+          },
+        });
         break;
       case MessageBoxType.YesNo:
       case MessageBoxType.YesNoCancel:
-        buttonCluster.push({ type: DialogButtonType.Yes, onClick: () => { this._handleButton(MessageBoxValue.Yes); } });
-        buttonCluster.push({ type: DialogButtonType.No, onClick: () => { this._handleButton(MessageBoxValue.No); } });
+        buttonCluster.push({
+          type: DialogButtonType.Yes,
+          onClick: () => {
+            this._handleButton(MessageBoxValue.Yes);
+          },
+        });
+        buttonCluster.push({
+          type: DialogButtonType.No,
+          onClick: () => {
+            this._handleButton(MessageBoxValue.No);
+          },
+        });
         if (MessageBoxType.YesNoCancel === this.props.messageBoxType)
-          buttonCluster.push({ type: DialogButtonType.Cancel, onClick: () => { this._handleButton(MessageBoxValue.Cancel); } });
+          buttonCluster.push({
+            type: DialogButtonType.Cancel,
+            onClick: () => {
+              this._handleButton(MessageBoxValue.Cancel);
+            },
+          });
         break;
     }
 
@@ -118,25 +154,26 @@ export class StandardMessageBox extends React.PureComponent<StandardMessageBoxPr
   private _handleButton = (buttonType: MessageBoxValue) => {
     this._closeDialog(() => {
       // istanbul ignore else
-      if (this.props.onResult)
-        this.props.onResult(buttonType);
+      if (this.props.onResult) this.props.onResult(buttonType);
     });
   };
 
   private _handleCancel = () => {
     this._closeDialog(() => {
       // istanbul ignore else
-      if (this.props.onResult)
-        this.props.onResult(MessageBoxValue.Cancel);
+      if (this.props.onResult) this.props.onResult(MessageBoxValue.Cancel);
     });
   };
 
   private _closeDialog = (followUp: () => void) => {
-    this.setState((_prevState) => ({
-      opened: false,
-    }), () => {
-      UiFramework.dialogs.modal.close();
-      followUp();
-    });
+    this.setState(
+      (_prevState) => ({
+        opened: false,
+      }),
+      () => {
+        UiFramework.dialogs.modal.close();
+        followUp();
+      }
+    );
   };
 }

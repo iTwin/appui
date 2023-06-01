@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect } from "chai";
@@ -11,11 +11,11 @@ import { withIsPressed } from "../../core-react";
 
 describe("withIsPressed", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
-  const WithIsPressedDiv = withIsPressed((props) => (<div {...props} />)); // eslint-disable-line @typescript-eslint/naming-convention
+  const WithIsPressedDiv = withIsPressed((props) => <div {...props} />); // eslint-disable-line @typescript-eslint/naming-convention
 
   it("mousedown event", async () => {
     let iAmPressed = false;
@@ -26,8 +26,17 @@ describe("withIsPressed", () => {
       spyMethod();
     }
 
-    render(<WithIsPressedDiv isPressed={iAmPressed} onIsPressedChange={handlePressedChange} data-testid="tested" />);
-    await theUserTo.pointer({keys: "[MouseLeft>]", target: screen.getByTestId("tested")});
+    render(
+      <WithIsPressedDiv
+        isPressed={iAmPressed}
+        onIsPressedChange={handlePressedChange}
+        data-testid="tested"
+      />
+    );
+    await theUserTo.pointer({
+      keys: "[MouseLeft>]",
+      target: screen.getByTestId("tested"),
+    });
 
     expect(spyMethod.calledOnce).to.be.true;
     expect(iAmPressed).to.eq(true);
@@ -42,8 +51,17 @@ describe("withIsPressed", () => {
       spyMethod();
     }
 
-    render(<WithIsPressedDiv isPressed={iAmPressed} onIsPressedChange={handlePressedChange} data-testid="tested" />);
-    await theUserTo.pointer({keys: "[MouseLeft>]", target: screen.getByTestId("tested")});
+    render(
+      <WithIsPressedDiv
+        isPressed={iAmPressed}
+        onIsPressedChange={handlePressedChange}
+        data-testid="tested"
+      />
+    );
+    await theUserTo.pointer({
+      keys: "[MouseLeft>]",
+      target: screen.getByTestId("tested"),
+    });
 
     spyMethod.resetHistory();
 
@@ -62,8 +80,18 @@ describe("withIsPressed", () => {
       spyMethod();
     }
 
-    render(<WithIsPressedDiv isPressed={iAmPressed} onIsPressedChange={handlePressedChange} data-testid="tested" />);
-    await theUserTo.pointer(["[MouseLeft>]", {target: screen.getByTestId("tested")}, "[/MouseLeft]"]);
+    render(
+      <WithIsPressedDiv
+        isPressed={iAmPressed}
+        onIsPressedChange={handlePressedChange}
+        data-testid="tested"
+      />
+    );
+    await theUserTo.pointer([
+      "[MouseLeft>]",
+      { target: screen.getByTestId("tested") },
+      "[/MouseLeft]",
+    ]);
 
     expect(spyMethod.calledOnce).to.be.false;
     expect(iAmPressed).to.eq(false);
@@ -78,12 +106,17 @@ describe("withIsPressed", () => {
       spyMethod();
     }
 
-    render(<WithIsPressedDiv isPressed={iAmPressed} onIsPressedChange={handlePressedChange} data-testid="tested" />);
+    render(
+      <WithIsPressedDiv
+        isPressed={iAmPressed}
+        onIsPressedChange={handlePressedChange}
+        data-testid="tested"
+      />
+    );
     await theUserTo.hover(screen.getByTestId("tested"));
     await theUserTo.unhover(screen.getByTestId("tested"));
 
     expect(spyMethod.calledOnce).to.be.true;
     expect(iAmPressed).to.eq(false);
   });
-
 });

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -10,8 +10,15 @@ import type { PointProps } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import type { HorizontalPanelSide, PanelSide } from "../widget-panels/Panel";
 import type { TabState } from "./TabState";
-import type { FloatingWidgetState, PopoutWidgetState, WidgetState } from "./WidgetState";
-import type { TabDragDropTargetState, WidgetDragDropTargetState } from "./DropTargetState";
+import type {
+  FloatingWidgetState,
+  PopoutWidgetState,
+  WidgetState,
+} from "./WidgetState";
+import type {
+  TabDragDropTargetState,
+  WidgetDragDropTargetState,
+} from "./DropTargetState";
 
 /** @internal */
 export interface ResizeAction {
@@ -194,29 +201,29 @@ export interface ToolSettingsDockAction {
 
 /** @internal */
 export type NineZoneAction =
-  ResizeAction |
-  PanelToggleCollapsedAction |
-  PanelSetCollapsedAction |
-  PanelSetSizeAction |
-  PanelSetSplitterPercentAction |
-  PanelToggleSpanAction |
-  PanelTogglePinnedAction |
-  PanelInitializeAction |
-  FloatingWidgetResizeAction |
-  FloatingWidgetSetBoundsAction |
-  FloatingWidgetBringToFrontAction |
-  FloatingWidgetSendBackAction |
-  FloatingWidgetClearUserSizedAction |
-  FloatingWidgetSetUserSizedAction |
-  PopoutWidgetSendBackAction |
-  PanelWidgetDragStartAction |
-  WidgetDragAction |
-  WidgetDragEndAction |
-  WidgetTabClickAction |
-  WidgetTabDoubleClickAction |
-  WidgetTabDragStartAction |
-  WidgetTabDragAction |
-  WidgetTabDragEndAction |
-  WidgetTabPopoutAction |
-  ToolSettingsDragStartAction |
-  ToolSettingsDockAction;
+  | ResizeAction
+  | PanelToggleCollapsedAction
+  | PanelSetCollapsedAction
+  | PanelSetSizeAction
+  | PanelSetSplitterPercentAction
+  | PanelToggleSpanAction
+  | PanelTogglePinnedAction
+  | PanelInitializeAction
+  | FloatingWidgetResizeAction
+  | FloatingWidgetSetBoundsAction
+  | FloatingWidgetBringToFrontAction
+  | FloatingWidgetSendBackAction
+  | FloatingWidgetClearUserSizedAction
+  | FloatingWidgetSetUserSizedAction
+  | PopoutWidgetSendBackAction
+  | PanelWidgetDragStartAction
+  | WidgetDragAction
+  | WidgetDragEndAction
+  | WidgetTabClickAction
+  | WidgetTabDoubleClickAction
+  | WidgetTabDragStartAction
+  | WidgetTabDragAction
+  | WidgetTabDragEndAction
+  | WidgetTabPopoutAction
+  | ToolSettingsDragStartAction
+  | ToolSettingsDockAction;

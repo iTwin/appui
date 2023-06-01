@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -9,12 +9,15 @@
 import "./EnumEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { EnumerationChoice, PropertyValue} from "@itwin/appui-abstract";
+import type { EnumerationChoice, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import { PropertyEditorBase, PropertyEditorManager } from "./PropertyEditorManager";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "./PropertyEditorManager";
 import { UiComponents } from "../UiComponents";
 
 /** @internal */
@@ -26,9 +29,12 @@ interface EnumEditorState {
 }
 
 /** EnumEditor React component that is a property editor with select input
-  * @public
-  */
-export class EnumEditor extends React.PureComponent<PropertyEditorProps, EnumEditorState> implements TypeEditor {
+ * @public
+ */
+export class EnumEditor
+  extends React.PureComponent<PropertyEditorProps, EnumEditorState>
+  implements TypeEditor
+{
   private _isMounted = false;
   private _ariaLabel = UiComponents.translate("editor.enum");
   private _divElement = React.createRef<HTMLDivElement>();
@@ -77,23 +83,27 @@ export class EnumEditor extends React.PureComponent<PropertyEditorProps, EnumEdi
       let selectValue: string | number;
 
       // istanbul ignore if
-      if (this.state.valueIsNumber)
-        selectValue = parseInt(newValue, 10);
-      else
-        selectValue = newValue;
+      if (this.state.valueIsNumber) selectValue = parseInt(newValue, 10);
+      else selectValue = newValue;
 
-      this.setState({
-        selectValue,
-      }, async () => {
-        // istanbul ignore else
-        if (this.props.propertyRecord && this.props.onCommit) {
-          const propertyValue = await this.getPropertyValue();
+      this.setState(
+        {
+          selectValue,
+        },
+        async () => {
           // istanbul ignore else
-          if (propertyValue) {
-            this.props.onCommit({ propertyRecord: this.props.propertyRecord, newValue: propertyValue });
+          if (this.props.propertyRecord && this.props.onCommit) {
+            const propertyValue = await this.getPropertyValue();
+            // istanbul ignore else
+            if (propertyValue) {
+              this.props.onCommit({
+                propertyRecord: this.props.propertyRecord,
+                newValue: propertyValue,
+              });
+            }
           }
         }
-      });
+      );
     }
   };
 
@@ -121,7 +131,10 @@ export class EnumEditor extends React.PureComponent<PropertyEditorProps, EnumEdi
     let valueIsNumber: boolean = false;
 
     // istanbul ignore else
-    if (propertyRecord && propertyRecord.value.valueFormat === PropertyValueFormat.Primitive) {
+    if (
+      propertyRecord &&
+      propertyRecord.value.valueFormat === PropertyValueFormat.Primitive
+    ) {
       const primitiveValue = propertyRecord.value.value;
       if (typeof primitiveValue === "string") {
         initialValue = primitiveValue;
@@ -152,13 +165,25 @@ export class EnumEditor extends React.PureComponent<PropertyEditorProps, EnumEdi
 
     // istanbul ignore else
     if (this._isMounted)
-      this.setState({ selectValue: initialValue, valueIsNumber, options, parentDiv: this._divElement.current });
+      this.setState({
+        selectValue: initialValue,
+        valueIsNumber,
+        options,
+        parentDiv: this._divElement.current,
+      });
   }
 
   /** @internal */
   public override render() {
-    const className = classnames("components-cell-editor", "components-enum-editor", this.props.className);
-    const selectValue = this.state.selectValue !== undefined ? this.state.selectValue.toString() : /* istanbul ignore next */ undefined;
+    const className = classnames(
+      "components-cell-editor",
+      "components-enum-editor",
+      this.props.className
+    );
+    const selectValue =
+      this.state.selectValue !== undefined
+        ? this.state.selectValue.toString()
+        : /* istanbul ignore next */ undefined;
 
     // set min-width to show about 4 characters + down arrow
     const minWidthStyle: React.CSSProperties = {
@@ -178,16 +203,17 @@ export class EnumEditor extends React.PureComponent<PropertyEditorProps, EnumEdi
           options={this.state.options}
           setFocus={this.props.setFocus}
           aria-label={this._ariaLabel}
-          size="small" />
+          size="small"
+        />
       </div>
     );
   }
 }
 
 /** Enum Property Button Group Editor registered for the "enum" type name.
-  * It uses the [[EnumEditor]] React component.
-  * @public
-  */
+ * It uses the [[EnumEditor]] React component.
+ * @public
+ */
 export class EnumPropertyEditor extends PropertyEditorBase {
   // istanbul ignore next
   public override get containerHandlesEnter(): boolean {
@@ -202,4 +228,7 @@ export class EnumPropertyEditor extends PropertyEditorBase {
   }
 }
 
-PropertyEditorManager.registerEditor(StandardTypeNames.Enum, EnumPropertyEditor);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Enum,
+  EnumPropertyEditor
+);

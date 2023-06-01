@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -25,7 +25,11 @@ export function Div(props: DivProps) {
   const { mainClassName, className, style, children, ...divProps } = props;
 
   return (
-    <div {...divProps} className={classnames(mainClassName, className)} style={style} >
+    <div
+      {...divProps}
+      className={classnames(mainClassName, className)}
+      style={style}
+    >
       {children}
     </div>
   );

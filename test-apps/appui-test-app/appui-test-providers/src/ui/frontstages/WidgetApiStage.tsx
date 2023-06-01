@@ -1,21 +1,47 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { useSelector } from "react-redux";
 
 import {
-  BackstageAppButton, CommandItemDef, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig,
-  IModelViewportControl, StagePanelState, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps,
-  StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, StateManager, UiFramework, UiItemsManager,
+  BackstageAppButton,
+  CommandItemDef,
+  ContentGroup,
+  ContentGroupProps,
+  ContentGroupProvider,
+  ContentProps,
+  FrontstageConfig,
+  IModelViewportControl,
+  StagePanelState,
+  StageUsage,
+  StandardContentToolsUiItemsProvider,
+  StandardFrontstageProps,
+  StandardFrontstageProvider,
+  StandardNavigationToolsUiItemsProvider,
+  StandardStatusbarUiItemsProvider,
+  StateManager,
+  UiFramework,
+  UiItemsManager,
 } from "@itwin/appui-react";
-import { ConditionalStringValue, StandardContentLayouts } from "@itwin/appui-abstract";
+import {
+  ConditionalStringValue,
+  StandardContentLayouts,
+} from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
 import { WidgetApiStageUiItemsProvider } from "../providers/WidgetApiStageUiItemsProvider";
-import { getTestProviderState, setShowCustomViewOverlay, TestProviderState } from "../../store";
+import {
+  getTestProviderState,
+  setShowCustomViewOverlay,
+  TestProviderState,
+} from "../../store";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
-import { IModelApp, MeasureDistanceTool, ScreenViewport } from "@itwin/core-frontend";
+import {
+  IModelApp,
+  MeasureDistanceTool,
+  ScreenViewport,
+} from "@itwin/core-frontend";
 
 /**
  * The WidgetApiStageContentGroupProvider class method `provideContentGroup` returns a ContentGroup that displays
@@ -31,47 +57,63 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
   };
 
   public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps) => {
-      const newContent = { ...content };
-      if (newContent.applicationData)
-        delete newContent.applicationData;
-      return newContent;
-    });
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps, index) => {
-      const newContent = { ...content };
-
-      if (newContent.classId === IModelViewportControl.id) {
-        newContent.applicationData = {
-          ...newContent.applicationData,
-          supplyViewOverlay: index === 0 ? WidgetApiStageContentGroupProvider.supplyViewOverlay : undefined,
-          isPrimaryView: true,
-          featureOptions:
-          {
-            defaultViewOverlay: {
-              enableScheduleAnimationViewOverlay: true,
-              enableAnalysisTimelineViewOverlay: true,
-              enableSolarTimelineViewOverlay: true,
-            },
-          },
-        };
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps) => {
+        const newContent = { ...content };
+        if (newContent.applicationData) delete newContent.applicationData;
+        return newContent;
       }
-      return newContent;
-    });
+    );
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> {
-    const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, UiFramework.getIModelConnection());
+  public override applyUpdatesToSavedProps(
+    contentGroupProps: ContentGroupProps
+  ) {
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps, index) => {
+        const newContent = { ...content };
+
+        if (newContent.classId === IModelViewportControl.id) {
+          newContent.applicationData = {
+            ...newContent.applicationData,
+            supplyViewOverlay:
+              index === 0
+                ? WidgetApiStageContentGroupProvider.supplyViewOverlay
+                : undefined,
+            isPrimaryView: true,
+            featureOptions: {
+              defaultViewOverlay: {
+                enableScheduleAnimationViewOverlay: true,
+                enableAnalysisTimelineViewOverlay: true,
+                enableSolarTimelineViewOverlay: true,
+              },
+            },
+          };
+        }
+        return newContent;
+      }
+    );
+    return { ...contentGroupProps, contents: newContentsArray };
+  }
+
+  public override async contentGroup(
+    config: FrontstageConfig
+  ): Promise<ContentGroup> {
+    const savedViewLayoutProps = await getSavedViewLayoutProps(
+      config.id,
+      UiFramework.getIModelConnection()
+    );
     if (savedViewLayoutProps) {
-      const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
+      const viewState =
+        savedViewLayoutProps.contentGroupProps.contents[0].applicationData
+          ?.viewState;
       if (viewState) {
         UiFramework.setDefaultViewState(viewState);
       }
-      const contentGroupProps = this.applyUpdatesToSavedProps(savedViewLayoutProps.contentGroupProps);
+      const contentGroupProps = this.applyUpdatesToSavedProps(
+        savedViewLayoutProps.contentGroupProps
+      );
       return new ContentGroup(contentGroupProps);
     }
 
@@ -83,12 +125,12 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
           id: "primaryContent",
           classId: IModelViewportControl.id,
           applicationData: {
-            supplyViewOverlay: WidgetApiStageContentGroupProvider.supplyViewOverlay,
+            supplyViewOverlay:
+              WidgetApiStageContentGroupProvider.supplyViewOverlay,
             isPrimaryView: true,
             viewState: UiFramework.getDefaultViewState,
             iModelConnection: UiFramework.getIModelConnection,
-            featureOptions:
-            {
+            featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,
                 enableAnalysisTimelineViewOverlay: true,
@@ -105,7 +147,8 @@ export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
 export class WidgetApiStage {
   public static stageId = "appui-test-providers:WidgetApi";
 
-  private static _contentGroupProvider = new WidgetApiStageContentGroupProvider();
+  private static _contentGroupProvider =
+    new WidgetApiStageContentGroupProvider();
 
   public static supplyAppData(_id: string, _applicationData?: any) {
     return {
@@ -116,8 +159,16 @@ export class WidgetApiStage {
 
   public static register(localizationNamespace: string) {
     // set up custom corner button where we specify icon, label, and action
-    const cornerButton = <BackstageAppButton key="appui-test-providers-WidgetApi-backstage" label="Toggle Backstage" icon={"icon-bentley-systems"}
-      execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
+    const cornerButton = (
+      <BackstageAppButton
+        key="appui-test-providers-WidgetApi-backstage"
+        label="Toggle Backstage"
+        icon={"icon-bentley-systems"}
+        execute={() =>
+          UiFramework.backstage.getBackstageToggleCommand().execute()
+        }
+      />
+    );
 
     const widgetApiStageProps: StandardFrontstageProps = {
       id: WidgetApiStage.stageId,
@@ -138,31 +189,44 @@ export class WidgetApiStage {
       },
     };
 
-    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(widgetApiStageProps));
+    UiFramework.frontstages.addFrontstageProvider(
+      new StandardFrontstageProvider(widgetApiStageProps)
+    );
     this.registerToolProviders(localizationNamespace);
   }
 
   private static registerToolProviders(localizationNamespace: string) {
-
     // Provides standard tools for ToolWidget in stage
-    UiItemsManager.register(new StandardContentToolsUiItemsProvider({
-      vertical: {
-        selectElement: true,
-      },
-      horizontal: {
-        clearSelection: true,
-        clearDisplayOverrides: true,
-        hide: "group",
-        isolate: "group",
-        emphasize: "element",
-      },
-    }), { providerId: "widget-api-stage-standardContentTools", stageIds: [WidgetApiStage.stageId] });
+    UiItemsManager.register(
+      new StandardContentToolsUiItemsProvider({
+        vertical: {
+          selectElement: true,
+        },
+        horizontal: {
+          clearSelection: true,
+          clearDisplayOverrides: true,
+          hide: "group",
+          isolate: "group",
+          emphasize: "element",
+        },
+      }),
+      {
+        providerId: "widget-api-stage-standardContentTools",
+        stageIds: [WidgetApiStage.stageId],
+      }
+    );
 
     // Provides standard tools for NavigationWidget in stage
-    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), { providerId: "widget-api-stage-standardNavigationTools", stageIds: [WidgetApiStage.stageId] });
+    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), {
+      providerId: "widget-api-stage-standardNavigationTools",
+      stageIds: [WidgetApiStage.stageId],
+    });
 
     // Provides standard status fields for stage
-    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), { providerId: "widget-api-stage-standardStatusItems", stageIds: [WidgetApiStage.stageId] });
+    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), {
+      providerId: "widget-api-stage-standardStatusItems",
+      stageIds: [WidgetApiStage.stageId],
+    });
 
     // Provides example widgets stage and tool to toggle display of Custom overlay.
     WidgetApiStageUiItemsProvider.register(localizationNamespace);
@@ -174,13 +238,30 @@ export function getToggleCustomOverlayCommandItemDef() {
   const commandId = "testHideShowItems";
   return new CommandItemDef({
     commandId,
-    iconSpec: new ConditionalStringValue(() => getTestProviderState().showCustomViewOverlay ? "icon-zoom-out" : "icon-zoom-in", [AppUiTestProviders.syncEventIdHideCustomViewOverlay]),
-    label: new ConditionalStringValue(() => getTestProviderState().showCustomViewOverlay ? "Hide overlay" : "Show overlay", [AppUiTestProviders.syncEventIdHideCustomViewOverlay]),
+    iconSpec: new ConditionalStringValue(
+      () =>
+        getTestProviderState().showCustomViewOverlay
+          ? "icon-zoom-out"
+          : "icon-zoom-in",
+      [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+    ),
+    label: new ConditionalStringValue(
+      () =>
+        getTestProviderState().showCustomViewOverlay
+          ? "Hide overlay"
+          : "Show overlay",
+      [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+    ),
 
     execute: () => {
-      const showCustomViewOverlay = getTestProviderState().showCustomViewOverlay;
-      StateManager.store.dispatch(setShowCustomViewOverlay(!showCustomViewOverlay));
-      IModelApp.toolAdmin.dispatchUiSyncEvent(AppUiTestProviders.syncEventIdHideCustomViewOverlay);
+      const showCustomViewOverlay =
+        getTestProviderState().showCustomViewOverlay;
+      StateManager.store.dispatch(
+        setShowCustomViewOverlay(!showCustomViewOverlay)
+      );
+      IModelApp.toolAdmin.dispatchUiSyncEvent(
+        AppUiTestProviders.syncEventIdHideCustomViewOverlay
+      );
     },
   });
 }
@@ -191,23 +272,31 @@ export function getToggleCustomOverlayCommandItemDef() {
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function MyCustomViewOverlay() {
+  const showOverlay = useSelector(
+    (state: { testProviderState: TestProviderState }) => {
+      return !!state.testProviderState.showCustomViewOverlay;
+    }
+  );
 
-  const showOverlay = useSelector((state: { testProviderState: TestProviderState }) => {
-    return !!state.testProviderState.showCustomViewOverlay;
-  });
-
-  return showOverlay ?
+  return showOverlay ? (
     <div className="uifw-view-overlay">
-      <div className="my-custom-control" style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-        backgroundColor: "rgba(255, 255, 255, 0.5)",
-      }}>
+      <div
+        className="my-custom-control"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+        }}
+      >
         <div>Hello From View Overlay</div>
-        <div>(turn off using Hide/Show Overlay tool in horizontal toolbar at top-left)</div>
+        <div>
+          (turn off using Hide/Show Overlay tool in horizontal toolbar at
+          top-left)
+        </div>
       </div>
-    </div> : null;
+    </div>
+  ) : null;
 }

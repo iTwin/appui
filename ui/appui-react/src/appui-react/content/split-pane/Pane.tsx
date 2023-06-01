@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
@@ -26,16 +26,12 @@ export interface PaneProps {
  * @internal
  */
 export function Pane(props: PaneProps) {
-  const {
-    children,
-    className,
-    split,
-    style,
-    size,
-    eleRef,
-  } = props;
+  const { children, className, split, style, size, eleRef } = props;
 
-  const paneClasses = React.useMemo(() => classnames("Pane", split, className), [split, className]);
+  const paneClasses = React.useMemo(
+    () => classnames("Pane", split, className),
+    [split, className]
+  );
 
   const paneStyle = React.useMemo(() => {
     const baseStyle: Partial<React.CSSProperties> = {
@@ -66,4 +62,3 @@ export function Pane(props: PaneProps) {
     </div>
   );
 }
-

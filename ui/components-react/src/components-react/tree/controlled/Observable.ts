@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -32,7 +32,7 @@ export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T> {
  *
  * @public
  */
-export interface Observable<T> extends Subscribable<T> { } // eslint-disable-line @typescript-eslint/no-empty-interface
+export interface Observable<T> extends Subscribable<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
 /**
  * Subscribable interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
@@ -41,10 +41,26 @@ export interface Observable<T> extends Subscribable<T> { } // eslint-disable-lin
  */
 export interface Subscribable<T> {
   subscribe(observer?: Observer<T>): Subscription;
-  subscribe(next: null | undefined, error: null | undefined, complete: () => void): Subscription;
-  subscribe(next: null | undefined, error: (error: any) => void, complete?: () => void): Subscription;
-  subscribe(next: (value: T) => void, error: null | undefined, complete: () => void): Subscription; // eslint-disable-line @typescript-eslint/unified-signatures
-  subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription;
+  subscribe(
+    next: null | undefined,
+    error: null | undefined,
+    complete: () => void
+  ): Subscription;
+  subscribe(
+    next: null | undefined,
+    error: (error: any) => void,
+    complete?: () => void
+  ): Subscription;
+  subscribe(
+    next: (value: T) => void,
+    error: null | undefined,
+    complete: () => void
+  ): Subscription; // eslint-disable-line @typescript-eslint/unified-signatures
+  subscribe(
+    next?: (value: T) => void,
+    error?: (error: any) => void,
+    complete?: () => void
+  ): Subscription;
 }
 
 /**
@@ -52,7 +68,10 @@ export interface Subscribable<T> {
  * This interface ensures that consumers are not required to have rxjs as dependency.
  * @public
  */
-export declare type Observer<T> = NextObserver<T> | ErrorObserver<T> | CompletionObserver<T>;
+export declare type Observer<T> =
+  | NextObserver<T>
+  | ErrorObserver<T>
+  | CompletionObserver<T>;
 
 /**
  * Unsubscribable interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
@@ -111,6 +130,10 @@ export interface CompletionObserver<T> {
 }
 
 /** @internal */
-export function toRxjsObservable<T>(observable: Observable<T>): RxjsObservable<T> {
-  return new RxjsObservable((subscriber) => { observable.subscribe(subscriber); });
+export function toRxjsObservable<T>(
+  observable: Observable<T>
+): RxjsObservable<T> {
+  return new RxjsObservable((subscriber) => {
+    observable.subscribe(subscriber);
+  });
 }

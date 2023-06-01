@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -12,24 +12,51 @@ import { render, screen } from "@testing-library/react";
 
 describe("Calculator", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
   it("should render with icon", () => {
     render(<Calculator resultIcon={<div>TestIcon</div>} />);
 
-    expect(screen.getByText("TestIcon")).to.satisfy(selectorMatches(".core-iconInput-icon div"));
+    expect(screen.getByText("TestIcon")).to.satisfy(
+      selectorMatches(".core-iconInput-icon div")
+    );
   });
 
   it("renders correctly", () => {
     render(<Calculator />);
 
     // Sorting only for cleaner error output.
-    expect(screen.getAllByRole("button").map((e) => e.textContent).filter((e) => e !== "").sort())
-      .to.include.members([
-        "AC", "C", "÷", "×", "−", "+", "±", ".", "=", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-      ].sort());
+    expect(
+      screen
+        .getAllByRole("button")
+        .map((e) => e.textContent)
+        .filter((e) => e !== "")
+        .sort()
+    ).to.include.members(
+      [
+        "AC",
+        "C",
+        "÷",
+        "×",
+        "−",
+        "+",
+        "±",
+        ".",
+        "=",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+      ].sort()
+    );
   });
 
   it("should support initialValue", () => {
@@ -41,7 +68,7 @@ describe("Calculator", () => {
   it("clicking on 1 button should put it in display", async () => {
     render(<Calculator engine={new CalculatorEngine()} />);
 
-    await theUserTo.click(screen.getByRole("button", {name: "1"}));
+    await theUserTo.click(screen.getByRole("button", { name: "1" }));
 
     expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("1");
   });
@@ -49,19 +76,19 @@ describe("Calculator", () => {
   it("clicking on buttons, operator and equals should give correct result", async () => {
     render(<Calculator engine={new CalculatorEngine()} />);
 
-    await theUserTo.click(screen.getByRole("button", {name: "1"}));
+    await theUserTo.click(screen.getByRole("button", { name: "1" }));
     expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("1");
 
-    await theUserTo.click(screen.getByRole("button", {name: "0"}));
+    await theUserTo.click(screen.getByRole("button", { name: "0" }));
     expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("10");
 
-    await theUserTo.click(screen.getByRole("button", {name: "×"}));
+    await theUserTo.click(screen.getByRole("button", { name: "×" }));
     expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("10");
 
-    await theUserTo.click(screen.getByRole("button", {name: "2"}));
+    await theUserTo.click(screen.getByRole("button", { name: "2" }));
     expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("2");
 
-    await theUserTo.click(screen.getByRole("button", {name: "="}));
+    await theUserTo.click(screen.getByRole("button", { name: "=" }));
     expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("20");
   });
 
@@ -69,27 +96,31 @@ describe("Calculator", () => {
     const spyMethod = sinon.spy();
     render(<Calculator engine={new CalculatorEngine()} onOk={spyMethod} />);
 
-    await theUserTo.click(screen.getByRole("button", {name: "5"}));
-    const okButton = screen.getAllByRole("button").find((e)=> e.matches(".uifw-calculator-ok-button"));
+    await theUserTo.click(screen.getByRole("button", { name: "5" }));
+    const okButton = screen
+      .getAllByRole("button")
+      .find((e) => e.matches(".uifw-calculator-ok-button"));
     expect(okButton).to.exist;
     await theUserTo.click(okButton!);
 
     expect(spyMethod).to.have.been.calledWith(5);
   });
 
-  it("clicking on Cancel button should fire onCancel",async () => {
+  it("clicking on Cancel button should fire onCancel", async () => {
     const spyMethod = sinon.spy();
     render(<Calculator engine={new CalculatorEngine()} onCancel={spyMethod} />);
-    await theUserTo.click(screen.getByRole("button", {name: "5"}));
+    await theUserTo.click(screen.getByRole("button", { name: "5" }));
 
-    const cancelButton = screen.getAllByRole("button").find((e)=> e.matches(".uifw-calculator-cancel-button"));
+    const cancelButton = screen
+      .getAllByRole("button")
+      .find((e) => e.matches(".uifw-calculator-cancel-button"));
     expect(cancelButton).to.exist;
     await theUserTo.click(cancelButton!);
 
     expect(spyMethod).to.have.been.called;
   });
 
-  it("Pressing Esc should fire onCancel",async () => {
+  it("Pressing Esc should fire onCancel", async () => {
     const spyMethod = sinon.spy();
     render(<Calculator engine={new CalculatorEngine()} onCancel={spyMethod} />);
 
@@ -153,7 +184,7 @@ describe("Calculator", () => {
     expect(screen.getByDisplayValue("880.5")).to.exist;
   });
 
-  it("pressing keys and Enter should give correct result",async  () => {
+  it("pressing keys and Enter should give correct result", async () => {
     const spyMethod = sinon.spy();
     render(<Calculator engine={new CalculatorEngine()} onOk={spyMethod} />);
 
@@ -222,11 +253,10 @@ describe("Calculator", () => {
   it("(Coverage only) - Supports empty internal ref", () => {
     const ref = React.createRef<Calculator>();
 
-    const {unmount} = render(<Calculator ref={ref} />);
+    const { unmount } = render(<Calculator ref={ref} />);
     const refCopy = ref.current;
     unmount();
 
     expect(refCopy?.componentDidMount()).to.not.throw;
   });
-
 });

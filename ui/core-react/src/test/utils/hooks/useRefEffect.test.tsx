@@ -1,16 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as sinon from "sinon";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { useRefEffect } from "../../../core-react/utils/hooks/useRefEffect";
 
 describe("useRefEffect", () => {
   it("should invoke callback", () => {
-    const callback = sinon.spy((_: string | null) => { });
+    const callback = sinon.spy((_: string | null) => {});
     const { result } = renderHook(() => useRefEffect(callback, []));
-    act(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
+    act(() => {
+      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current("abc");
     });
 
@@ -18,9 +19,12 @@ describe("useRefEffect", () => {
   });
 
   it("should invoke cleanup", () => {
-    const cleanups = new Array<{ instance: string | null, cleanup: sinon.SinonSpy<[], void> }>();
+    const cleanups = new Array<{
+      instance: string | null;
+      cleanup: sinon.SinonSpy<[], void>;
+    }>();
     const createCleanup = (instance: string | null) => {
-      const cleanup = sinon.spy(() => { });
+      const cleanup = sinon.spy(() => {});
       cleanups.push({ instance, cleanup });
       return cleanup;
     };
@@ -29,10 +33,12 @@ describe("useRefEffect", () => {
       return cleanup;
     });
     const { result } = renderHook(() => useRefEffect(callback, []));
-    act(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
+    act(() => {
+      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current("abc");
     });
-    act(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
+    act(() => {
+      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current("abcd");
     });
 

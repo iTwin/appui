@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AutoSuggest
  */
@@ -32,12 +32,16 @@ export type GetAutoSuggestDataFunc = (value: string) => AutoSuggestData[];
 /** Prototype for async function returning AutoSuggestData
  * @public
  */
-export type AsyncGetAutoSuggestDataFunc = (value: string) => Promise<AutoSuggestData[]>;
+export type AsyncGetAutoSuggestDataFunc = (
+  value: string
+) => Promise<AutoSuggestData[]>;
 
 /** Properties for the [[AutoSuggest]] component.
  * @public
  */
-export interface AutoSuggestProps extends React.InputHTMLAttributes<HTMLInputElement>, CommonProps {
+export interface AutoSuggestProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    CommonProps {
   /** Optional input value override. */
   value?: string;
   /** Options for dropdown. */
@@ -83,7 +87,10 @@ interface AutoSuggestState {
 /** Auto Suggest React component. Uses the react-autosuggest component internally.
  * @public
  */
-export class AutoSuggest extends React.PureComponent<AutoSuggestProps, AutoSuggestState> {
+export class AutoSuggest extends React.PureComponent<
+  AutoSuggestProps,
+  AutoSuggestState
+> {
   private _isMounted = false;
 
   constructor(props: AutoSuggestProps) {
@@ -111,7 +118,10 @@ export class AutoSuggest extends React.PureComponent<AutoSuggestProps, AutoSugge
   }
 
   public override componentDidUpdate(prevProps: AutoSuggestProps) {
-    if (this.props.value !== prevProps.value || this.props.options !== prevProps.options) {
+    if (
+      this.props.value !== prevProps.value ||
+      this.props.options !== prevProps.options
+    ) {
       this.setState((_prevState, props) => ({
         inputValue: this.getLabel(props.value),
       }));
@@ -123,8 +133,7 @@ export class AutoSuggest extends React.PureComponent<AutoSuggestProps, AutoSugge
 
     if (e.target.tagName === "LI" && e.target.textContent)
       newValue = e.target.textContent;
-    else if (e.target.value)
-      newValue = e.target.value;
+    else if (e.target.value) newValue = e.target.value;
 
     this.setState({
       inputValue: newValue,
@@ -133,39 +142,47 @@ export class AutoSuggest extends React.PureComponent<AutoSuggestProps, AutoSugge
 
   private _onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     // istanbul ignore else
-    if (this.props.onInputFocus)
-      this.props.onInputFocus(e);
+    if (this.props.onInputFocus) this.props.onInputFocus(e);
   };
 
   /** Autosuggest will call this function every time you need to update suggestions. */
-  private _onSuggestionsFetchRequested = async (request: ReactAutosuggest.SuggestionsFetchRequestedParams): Promise<void> => {
+  private _onSuggestionsFetchRequested = async (
+    request: ReactAutosuggest.SuggestionsFetchRequestedParams
+  ): Promise<void> => {
     const value = request.value;
     const suggestions = await this._getSuggestions(value);
 
-    if (this._isMounted)
-      this.setState({ suggestions });
+    if (this._isMounted) this.setState({ suggestions });
   };
 
   /** Autosuggest will call this function every time you need to clear suggestions. */
   private _onSuggestionsClearRequested = () => {
     this.setState({ suggestions: [] });
-    this.props.onSuggestionsClearRequested && this.props.onSuggestionsClearRequested();
+    this.props.onSuggestionsClearRequested &&
+      this.props.onSuggestionsClearRequested();
   };
 
-  private _onSuggestionSelected = (_event: React.FormEvent<any>, data: ReactAutosuggest.SuggestionSelectedEventData<AutoSuggestData>): void => {
+  private _onSuggestionSelected = (
+    _event: React.FormEvent<any>,
+    data: ReactAutosuggest.SuggestionSelectedEventData<AutoSuggestData>
+  ): void => {
     this.props.onSuggestionSelected(data.suggestion);
   };
 
   /** Teach Autosuggest how to calculate suggestions for any given input value. */
-  private _getSuggestions = async (value: string): Promise<AutoSuggestData[]> => {
+  private _getSuggestions = async (
+    value: string
+  ): Promise<AutoSuggestData[]> => {
     if (typeof this.props.options === "function")
       return Promise.resolve(this.props.options(value));
 
-    if (this.props.getSuggestions)
-      return this.props.getSuggestions(value);
+    if (this.props.getSuggestions) return this.props.getSuggestions(value);
 
     if (this.props.options === undefined) {
-      Logger.logError(UiCore.loggerCategory(this), `props.options or props.getSuggestions should be provided`);
+      Logger.logError(
+        UiCore.loggerCategory(this),
+        `props.options or props.getSuggestions should be provided`
+      );
       return Promise.resolve([]);
     }
 
@@ -173,22 +190,24 @@ export class AutoSuggest extends React.PureComponent<AutoSuggestProps, AutoSugge
     const inputLength = inputValue.length;
 
     return Promise.resolve(
-      inputLength === 0 ?
-      /* istanbul ignore next */[] :
-        this.props.options.filter((data: AutoSuggestData) => {
-          return data.label.toLowerCase().includes(inputValue) || data.value.toLowerCase().includes(inputValue);
-        })
+      inputLength === 0
+        ? /* istanbul ignore next */ []
+        : this.props.options.filter((data: AutoSuggestData) => {
+            return (
+              data.label.toLowerCase().includes(inputValue) ||
+              data.value.toLowerCase().includes(inputValue)
+            );
+          })
     );
   };
 
   /** When suggestion is clicked, Autosuggest needs to populate the input based on the clicked suggestion.  */
-  private _getSuggestionValue = (suggestion: AutoSuggestData) => suggestion.label;
+  private _getSuggestionValue = (suggestion: AutoSuggestData) =>
+    suggestion.label;
 
   /** Render each suggestion. */
   private _renderSuggestion = (suggestion: AutoSuggestData) => (
-    <span>
-      {suggestion.label}
-    </span>
+    <span>{suggestion.label}</span>
   );
 
   private getLabel(value: string | undefined): string {
@@ -197,11 +216,15 @@ export class AutoSuggest extends React.PureComponent<AutoSuggestProps, AutoSugge
     if (this.props.getLabel) {
       label = this.props.getLabel(value);
     } else if (this.props.options instanceof Array) {
-      const entry = this.props.options.find((data: AutoSuggestData) => data.value === value);
-      if (entry)
-        label = entry.label;
+      const entry = this.props.options.find(
+        (data: AutoSuggestData) => data.value === value
+      );
+      if (entry) label = entry.label;
     } else {
-      Logger.logError(UiCore.loggerCategory(this), `props.getLabel should be provided when props.options is a function`);
+      Logger.logError(
+        UiCore.loggerCategory(this),
+        `props.getLabel should be provided when props.options is a function`
+      );
     }
 
     return label;
@@ -211,18 +234,15 @@ export class AutoSuggest extends React.PureComponent<AutoSuggestProps, AutoSugge
     switch (e.key) {
       case SpecialKey.Enter:
         // istanbul ignore else
-        if (this.props.onPressEnter)
-          this.props.onPressEnter(e);
+        if (this.props.onPressEnter) this.props.onPressEnter(e);
         break;
       case SpecialKey.Escape:
         // istanbul ignore else
-        if (this.props.onPressEscape)
-          this.props.onPressEscape(e);
+        if (this.props.onPressEscape) this.props.onPressEscape(e);
         break;
       case SpecialKey.Tab:
         // istanbul ignore else
-        if (this.props.onPressTab)
-          this.props.onPressTab(e);
+        if (this.props.onPressTab) this.props.onPressTab(e);
         break;
     }
   };
@@ -246,12 +266,26 @@ export class AutoSuggest extends React.PureComponent<AutoSuggestProps, AutoSugge
 
   public override render(): JSX.Element {
     const { inputValue, suggestions } = this.state;
-    const { value, onChange, placeholder, options, onSuggestionSelected, setFocus, alwaysRenderSuggestions, // eslint-disable-line @typescript-eslint/no-unused-vars
-      onPressEnter, onPressEscape, onPressTab, onInputFocus, getLabel, // eslint-disable-line @typescript-eslint/no-unused-vars
-      getSuggestions,  // eslint-disable-line deprecation/deprecation, @typescript-eslint/no-unused-vars
-      renderInputComponent, renderSuggestionsContainer, onSuggestionsClearRequested,  // eslint-disable-line @typescript-eslint/no-unused-vars
-      ...props } = this.props;
-    const inputPlaceholder = (!inputValue) ? placeholder : undefined;
+    const {
+      value,
+      onChange,
+      placeholder,
+      options,
+      onSuggestionSelected,
+      setFocus,
+      alwaysRenderSuggestions, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onPressEnter,
+      onPressEscape,
+      onPressTab,
+      onInputFocus,
+      getLabel, // eslint-disable-line @typescript-eslint/no-unused-vars
+      getSuggestions, // eslint-disable-line deprecation/deprecation, @typescript-eslint/no-unused-vars
+      renderInputComponent,
+      renderSuggestionsContainer,
+      onSuggestionsClearRequested, // eslint-disable-line @typescript-eslint/no-unused-vars
+      ...props
+    } = this.props;
+    const inputPlaceholder = !inputValue ? placeholder : undefined;
 
     const inputProps: ReactAutosuggest.InputProps<AutoSuggestData> = {
       ...props,
@@ -265,7 +299,11 @@ export class AutoSuggest extends React.PureComponent<AutoSuggestProps, AutoSugge
     return (
       // The onKeyDown event handler is only being used to capture bubbled events
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div className={this.props.className} style={this.props.style} onKeyDown={this._handleKeyDown}>
+      <div
+        className={this.props.className}
+        style={this.props.style}
+        onKeyDown={this._handleKeyDown}
+      >
         <ReactAutosuggest
           theme={this._theme}
           suggestions={suggestions}

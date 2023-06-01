@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -26,9 +26,11 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
   Component: React.ComponentType<ComponentProps>,
   defaultOnOutsideClick?: (event: MouseEvent) => any,
   useCapture: boolean = true,
-  usePointerEvents: boolean = true,
+  usePointerEvents: boolean = true
 ) => {
-  return class WithOnOutsideClick extends React.PureComponent<ComponentProps & WithOnOutsideClickProps> {
+  return class WithOnOutsideClick extends React.PureComponent<
+    ComponentProps & WithOnOutsideClickProps
+  > {
     /** @internal */
     public outsideClickContainerDiv?: HTMLDivElement | null = null;
     /** @internal */
@@ -54,19 +56,24 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
       // istanbul ignore else
       if (e.target instanceof Node && e.target.nodeType === Node.ELEMENT_NODE) {
         // istanbul ignore else
-        if (!this.props.closeOnNestedPopupOutsideClick && this.isInCorePopup(e.target as HTMLElement))
+        if (
+          !this.props.closeOnNestedPopupOutsideClick &&
+          this.isInCorePopup(e.target as HTMLElement)
+        )
           return;
       }
 
-      if (this.props.onOutsideClick)
-        return this.props.onOutsideClick(e);
-      else if (defaultOnOutsideClick)
-        return defaultOnOutsideClick(e);
+      if (this.props.onOutsideClick) return this.props.onOutsideClick(e);
+      else if (defaultOnOutsideClick) return defaultOnOutsideClick(e);
     }
 
     /** @internal */
     public handleDocumentClick = (e: MouseEvent) => {
-      if (!this.outsideClickContainerDiv || !(e.target instanceof Node) || this.outsideClickContainerDiv.contains(e.target))
+      if (
+        !this.outsideClickContainerDiv ||
+        !(e.target instanceof Node) ||
+        this.outsideClickContainerDiv.contains(e.target)
+      )
         return;
 
       return this.onOutsideClick(e);
@@ -78,7 +85,9 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
       // istanbul ignore else
       if (this.outsideClickContainerDiv) {
         // typically e.target test for instance of Node, but this is not working from pop out windows
-        this.isDownOutside = !!e.target && !this.outsideClickContainerDiv.contains(e.target as any);
+        this.isDownOutside =
+          !!e.target &&
+          !this.outsideClickContainerDiv.contains(e.target as any);
       }
     };
 
@@ -88,7 +97,9 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
       // istanbul ignore else
       if (this.outsideClickContainerDiv) {
         // typically e.target test for instance of Node, but this is not working from pop out windows
-        isUpOutside = !!e.target && !this.outsideClickContainerDiv.contains(e.target as any);
+        isUpOutside =
+          !!e.target &&
+          !this.outsideClickContainerDiv.contains(e.target as any);
       }
 
       const isOutsideClick = isUpOutside && this.isDownOutside;
@@ -96,7 +107,9 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
       isOutsideClick && this.onOutsideClick(e);
     };
 
-    public handleOutsideClickContainerDivSet = (outsideClickContainerDiv: HTMLDivElement | null) => {
+    public handleOutsideClickContainerDivSet = (
+      outsideClickContainerDiv: HTMLDivElement | null
+    ) => {
       this.outsideClickContainerDiv = outsideClickContainerDiv;
     };
 
@@ -108,27 +121,52 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
     public override componentDidMount() {
       const outsideClickParentDocument = this.getParentDocument();
       if (usePointerEvents) {
-        outsideClickParentDocument.addEventListener("pointerdown", this.handleDocumentPointerDown, useCapture);
-        outsideClickParentDocument.addEventListener("pointerup", this.handleDocumentPointerUp, useCapture);
+        outsideClickParentDocument.addEventListener(
+          "pointerdown",
+          this.handleDocumentPointerDown,
+          useCapture
+        );
+        outsideClickParentDocument.addEventListener(
+          "pointerup",
+          this.handleDocumentPointerUp,
+          useCapture
+        );
       } else
-        outsideClickParentDocument.addEventListener("click", this.handleDocumentClick, useCapture);
+        outsideClickParentDocument.addEventListener(
+          "click",
+          this.handleDocumentClick,
+          useCapture
+        );
     }
 
     /** @internal */
     public override componentWillUnmount() {
       const outsideClickParentDocument = this.getParentDocument();
       if (usePointerEvents) {
-        outsideClickParentDocument.removeEventListener("pointerdown", this.handleDocumentPointerDown, useCapture);
-        outsideClickParentDocument.removeEventListener("pointerup", this.handleDocumentPointerUp, useCapture);
+        outsideClickParentDocument.removeEventListener(
+          "pointerdown",
+          this.handleDocumentPointerDown,
+          useCapture
+        );
+        outsideClickParentDocument.removeEventListener(
+          "pointerup",
+          this.handleDocumentPointerUp,
+          useCapture
+        );
       } else
-        outsideClickParentDocument.removeEventListener("click", this.handleDocumentClick, useCapture);
+        outsideClickParentDocument.removeEventListener(
+          "click",
+          this.handleDocumentClick,
+          useCapture
+        );
     }
 
     public override render() {
-      const { onOutsideClick, closeOnNestedPopupOutsideClick, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+      const { onOutsideClick, closeOnNestedPopupOutsideClick, ...props } =
+        this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
       return (
         <div ref={this.handleOutsideClickContainerDivSet}>
-          <Component {...props as ComponentProps} />
+          <Component {...(props as ComponentProps)} />
         </div>
       );
     }

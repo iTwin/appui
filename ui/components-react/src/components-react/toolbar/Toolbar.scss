@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "variables";
 
@@ -10,10 +10,10 @@
   position: relative;
 
   &.components-horizontal {
-    width: 100%
+    width: 100%;
   }
 
   &.components-vertical {
-    height: 100%
+    height: 100%;
   }
 }

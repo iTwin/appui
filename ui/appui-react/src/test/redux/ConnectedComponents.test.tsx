@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { fireEvent, render } from "@testing-library/react";
 import { connectIModelConnection } from "../../appui-react/redux/connectIModel";
-import type { SessionStateActionsProps} from "../../appui-react/redux/SessionState";
+import type { SessionStateActionsProps } from "../../appui-react/redux/SessionState";
 import { sessionStateMapDispatchToProps } from "../../appui-react/redux/SessionState";
 import { UiFramework } from "../../appui-react/UiFramework";
 import TestUtils from "../TestUtils";
@@ -52,38 +52,57 @@ describe("ConnectedContent", () => {
       };
 
       public override render() {
-        return <div>
-          <button data-testid="testButton" title="test" onClick={this._onClick} />
-          <span data-testid="numItemsSelected">{this.props.numItemsSelected}</span>
-          <br />
-          <span data-testid="defaultViewId">{this.props.defaultViewId}</span>
-          <br />
-          <span data-testid="defaultIModelViewportControlId">{this.props.defaultIModelViewportControlId}</span>
-        </div>;
+        return (
+          <div>
+            <button
+              data-testid="testButton"
+              title="test"
+              onClick={this._onClick}
+            />
+            <span data-testid="numItemsSelected">
+              {this.props.numItemsSelected}
+            </span>
+            <br />
+            <span data-testid="defaultViewId">{this.props.defaultViewId}</span>
+            <br />
+            <span data-testid="defaultIModelViewportControlId">
+              {this.props.defaultIModelViewportControlId}
+            </span>
+          </div>
+        );
       }
     }
 
     function localMapStateToProps(state: any) {
-      const frameworkState = state[UiFramework.frameworkStateKey];  // since app sets up key, don't hard-code name
+      const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
 
       /* istanbul ignore next */
-      if (!frameworkState)
-        return {};
+      if (!frameworkState) return {};
 
       return {
         numItemsSelected: frameworkState.sessionState.numItemsSelected,
         defaultViewId: frameworkState.sessionState.defaultViewId,
-        defaultIModelViewportControlId: frameworkState.sessionState.defaultIModelViewportControlId,
+        defaultIModelViewportControlId:
+          frameworkState.sessionState.defaultIModelViewportControlId,
       };
     }
 
-    const ConnectControl = connectIModelConnection(localMapStateToProps, sessionStateMapDispatchToProps)(TestComponent); // eslint-disable-line @typescript-eslint/naming-convention
-    const renderedComponent = render(<Provider store={TestUtils.store} ><ConnectControl /></Provider>);
+    const ConnectControl = connectIModelConnection(
+      localMapStateToProps,
+      sessionStateMapDispatchToProps
+    )(TestComponent); // eslint-disable-line @typescript-eslint/naming-convention
+    const renderedComponent = render(
+      <Provider store={TestUtils.store}>
+        <ConnectControl />
+      </Provider>
+    );
 
     expect(renderedComponent).not.to.be.undefined;
 
     // simulate selecting toolId
-    const buttonElement = renderedComponent.getByTestId("testButton") as HTMLButtonElement;
+    const buttonElement = renderedComponent.getByTestId(
+      "testButton"
+    ) as HTMLButtonElement;
     fireEvent.click(buttonElement);
     expect(numClicks).to.be.eq(1);
     fireEvent.click(buttonElement);
@@ -91,9 +110,15 @@ describe("ConnectedContent", () => {
     fireEvent.click(buttonElement);
     expect(numClicks).to.be.eq(3);
 
-    const span1 = renderedComponent.getByTestId("numItemsSelected") as HTMLSpanElement;
-    const span2 = renderedComponent.getByTestId("defaultViewId") as HTMLSpanElement;
-    const span3 = renderedComponent.getByTestId("defaultIModelViewportControlId") as HTMLSpanElement;
+    const span1 = renderedComponent.getByTestId(
+      "numItemsSelected"
+    ) as HTMLSpanElement;
+    const span2 = renderedComponent.getByTestId(
+      "defaultViewId"
+    ) as HTMLSpanElement;
+    const span3 = renderedComponent.getByTestId(
+      "defaultIModelViewportControlId"
+    ) as HTMLSpanElement;
     expect(span1.innerHTML).to.be.eq(numSelected.toString());
     expect(span2.innerHTML).to.be.eq(defaultViewId);
     expect(span3.innerHTML).to.be.eq(viewportControlId);

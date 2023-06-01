@@ -1,9 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
-import { UiFramework, useSpecificWidgetDef, WidgetState } from "@itwin/appui-react";
+import {
+  UiFramework,
+  useSpecificWidgetDef,
+  WidgetState,
+} from "@itwin/appui-react";
 import { Centered } from "@itwin/core-react";
 import * as React from "react";
 
@@ -26,7 +30,9 @@ export function useIdOfSelectedElements() {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function SelectedElementDataWidgetComponent() {
   const idList = useIdOfSelectedElements();
-  const widgetDef = useSpecificWidgetDef("appui-test-providers:elementDataListWidget");
+  const widgetDef = useSpecificWidgetDef(
+    "appui-test-providers:elementDataListWidget"
+  );
 
   React.useEffect(() => {
     // using setTimeout to give time for frontstage to load before calling setWidgetState

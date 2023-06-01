@@ -1,12 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
 import * as React from "react";
-import { ScrollableWidgetContent, TabIdContext } from "@itwin/appui-layout-react";
+import {
+  ScrollableWidgetContent,
+  TabIdContext,
+} from "@itwin/appui-layout-react";
 import type { WidgetDef } from "../widgets/WidgetDef";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef";
 import { useTransientState } from "./useTransientState";
@@ -20,7 +23,9 @@ import { NonIdealState } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework";
 
 function WidgetFallback() {
-  const errorMessage = UiFramework.translate("widget.errorMessage.unknownError");
+  const errorMessage = UiFramework.translate(
+    "widget.errorMessage.unknownError"
+  );
   return (
     <div role="alert" style={{ position: "relative", minHeight: 400 }}>
       <NonIdealState svg={<SvgError />} heading={errorMessage} />
@@ -42,12 +47,12 @@ export function WidgetContent() {
     widget?.restoreTransientState();
   }, [widget]);
   useTransientState(onSave, onRestore);
-  const providerId = widget?.initialConfig && isProviderItem(widget?.initialConfig) ? widget?.initialConfig.providerId : undefined;
+  const providerId =
+    widget?.initialConfig && isProviderItem(widget?.initialConfig)
+      ? widget?.initialConfig.providerId
+      : undefined;
   return (
-    <ScrollableWidgetContent
-      itemId={itemId}
-      providerId={providerId}
-    >
+    <ScrollableWidgetContent itemId={itemId} providerId={providerId}>
       <ErrorBoundary FallbackComponent={WidgetFallback}>
         {widget?.reactNode}
       </ErrorBoundary>
@@ -61,14 +66,23 @@ export function useWidgetDef(): WidgetDef | undefined {
   assert(!!tabId);
 
   const frontstage = useActiveFrontstageDef();
-  const [widgetDef, setWidgetDef] = React.useState(() => frontstage?.findWidgetDef(tabId));
+  const [widgetDef, setWidgetDef] = React.useState(() =>
+    frontstage?.findWidgetDef(tabId)
+  );
 
   React.useEffect(() => {
-    return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((args) => {
-      if (args.frontstageDef !== frontstage || !frontstage || frontstage.isStageClosing || frontstage.isApplicationClosing)
-        return;
-      setWidgetDef(frontstage.findWidgetDef(tabId));
-    });
+    return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
+      (args) => {
+        if (
+          args.frontstageDef !== frontstage ||
+          !frontstage ||
+          frontstage.isStageClosing ||
+          frontstage.isApplicationClosing
+        )
+          return;
+        setWidgetDef(frontstage.findWidgetDef(tabId));
+      }
+    );
   }, [frontstage, tabId]);
 
   React.useEffect(() => {

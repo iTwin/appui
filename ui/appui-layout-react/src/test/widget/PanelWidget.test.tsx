@@ -1,15 +1,26 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import type { HorizontalPanelSide, NineZoneDispatch, PanelSide,
-  PanelWidgetDragStartAction, VerticalPanelSide} from "../../appui-layout-react";
+import type {
+  HorizontalPanelSide,
+  NineZoneDispatch,
+  PanelSide,
+  PanelWidgetDragStartAction,
+  VerticalPanelSide,
+} from "../../appui-layout-react";
 import {
-  addPanelWidget, addTab, createNineZoneState, PanelSideContext, PanelWidget, useBorders, useMode,
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  PanelSideContext,
+  PanelWidget,
+  useBorders,
+  useMode,
 } from "../../appui-layout-react";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { TestNineZoneProvider } from "../Providers";
@@ -38,11 +49,9 @@ describe("PanelWidget", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <Provider
-        defaultState={state}
-      >
+      <Provider defaultState={state}>
         <PanelWidget widgetId="w1" />
-      </Provider>,
+      </Provider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -52,11 +61,9 @@ describe("PanelWidget", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"], { minimized: true });
     const { container } = render(
-      <Provider
-        defaultState={state}
-      >
+      <Provider defaultState={state}>
         <PanelWidget widgetId="w1" />
-      </Provider>,
+      </Provider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -68,11 +75,9 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     const { container } = render(
-      <Provider
-        defaultState={state}
-      >
+      <Provider defaultState={state}>
         <PanelWidget widgetId="w1" />
-      </Provider>,
+      </Provider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -84,12 +89,9 @@ describe("PanelWidget", () => {
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     state = addPanelWidget(state, "top", "w2", ["t2"]);
     const { container } = render(
-      <Provider
-        defaultState={state}
-        side="top"
-      >
+      <Provider defaultState={state} side="top">
         <PanelWidget widgetId="w1" />
-      </Provider>,
+      </Provider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -102,14 +104,11 @@ describe("PanelWidget", () => {
       state = addTab(state, "t1");
       state = addPanelWidget(state, "left", "w1", ["t1"]);
       const { container } = render(
-        <TestNineZoneProvider
-          defaultState={state}
-          dispatch={dispatch}
-        >
+        <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
           <PanelSideContext.Provider value="left">
             <PanelWidget widgetId="w1" />
           </PanelSideContext.Provider>
-        </TestNineZoneProvider>,
+        </TestNineZoneProvider>
       );
 
       const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
@@ -119,11 +118,14 @@ describe("PanelWidget", () => {
         fireEvent.mouseMove(handle);
       });
 
-      sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
-        type: "PANEL_WIDGET_DRAG_START",
-        id: "w1",
-        newFloatingWidgetId: "newId",
-      }));
+      sinon.assert.calledOnceWithExactly(
+        dispatch,
+        sinon.match({
+          type: "PANEL_WIDGET_DRAG_START",
+          id: "w1",
+          newFloatingWidgetId: "newId",
+        })
+      );
     });
 
     it("should adjust bounds to keep widget under pointer", () => {
@@ -132,14 +134,11 @@ describe("PanelWidget", () => {
       state = addTab(state, "t1");
       state = addPanelWidget(state, "left", "w1", ["t1"]);
       const { container } = render(
-        <TestNineZoneProvider
-          defaultState={state}
-          dispatch={dispatch}
-        >
+        <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
           <PanelSideContext.Provider value="left">
             <PanelWidget widgetId="w1" />
           </PanelSideContext.Provider>
-        </TestNineZoneProvider>,
+        </TestNineZoneProvider>
       );
 
       const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
@@ -171,14 +170,11 @@ describe("PanelWidget", () => {
       });
       state = addPanelWidget(state, "left", "w1", ["t1"]);
       const { container } = render(
-        <TestNineZoneProvider
-          defaultState={state}
-          dispatch={dispatch}
-        >
+        <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
           <PanelSideContext.Provider value="left">
             <PanelWidget widgetId="w1" />
           </PanelSideContext.Provider>
-        </TestNineZoneProvider>,
+        </TestNineZoneProvider>
       );
 
       const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
@@ -203,13 +199,11 @@ describe("PanelWidget", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <PanelWidget widgetId="w1" />
         </PanelSideContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
 
     const widget = container.getElementsByClassName("nz-widget-panelWidget")[0];
@@ -223,14 +217,15 @@ describe("PanelWidget", () => {
 
     sinon.assert.calledOnce(spy);
   });
-
 });
 
 describe("useMode", () => {
   it("should force fill", () => {
     let state = createNineZoneState();
     state = updatePanelState(state, "left", { maxWidgetCount: 3 });
-    state = addTabs(state, ["t1", "t2", "t3"], { preferredPanelWidgetSize: "fit-content" });
+    state = addTabs(state, ["t1", "t2", "t3"], {
+      preferredPanelWidgetSize: "fit-content",
+    });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     state = addPanelWidget(state, "left", "w3", ["t3"], { minimized: true });
@@ -243,7 +238,9 @@ describe("useMode", () => {
   it("should only force fill last widget", () => {
     let state = createNineZoneState();
     state = updatePanelState(state, "left", { maxWidgetCount: 3 });
-    state = addTabs(state, ["t1", "t2", "t3"], { preferredPanelWidgetSize: "fit-content" });
+    state = addTabs(state, ["t1", "t2", "t3"], {
+      preferredPanelWidgetSize: "fit-content",
+    });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     state = addPanelWidget(state, "left", "w3", ["t3"]);
@@ -276,10 +273,13 @@ describe("useBorders", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "top", "w1", ["t1"]);
-      const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
-        defaultState: state,
-        side,
-      }));
+      const { result } = renderHook(
+        () => useBorders("w1"),
+        withWrapperAndProps(Wrapper, {
+          defaultState: state,
+          side,
+        })
+      );
       result.current["nz-border-top"].should.false;
     });
   });
@@ -290,10 +290,13 @@ describe("useBorders", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "bottom", "w1", ["t1"]);
-      const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
-        defaultState: state,
-        side,
-      }));
+      const { result } = renderHook(
+        () => useBorders("w1"),
+        withWrapperAndProps(Wrapper, {
+          defaultState: state,
+          side,
+        })
+      );
       result.current["nz-border-bottom"].should.false;
     });
   });
@@ -305,10 +308,13 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, side, "w2", ["t2"]);
-        const { result } = renderHook(() => useBorders("w2"), withWrapperAndProps(Wrapper, {
-          defaultState: state,
-          side,
-        }));
+        const { result } = renderHook(
+          () => useBorders("w2"),
+          withWrapperAndProps(Wrapper, {
+            defaultState: state,
+            side,
+          })
+        );
         result.current["nz-border-left"].should.false;
       });
 
@@ -318,10 +324,13 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "left", "w2", ["t2"]);
-        const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
-          defaultState: state,
-          side,
-        }));
+        const { result } = renderHook(
+          () => useBorders("w1"),
+          withWrapperAndProps(Wrapper, {
+            defaultState: state,
+            side,
+          })
+        );
         result.current["nz-border-left"].should.false;
       });
 
@@ -331,10 +340,13 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "right", "w2", ["t2"]);
-        const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
-          defaultState: state,
-          side,
-        }));
+        const { result } = renderHook(
+          () => useBorders("w1"),
+          withWrapperAndProps(Wrapper, {
+            defaultState: state,
+            side,
+          })
+        );
         result.current["nz-border-right"].should.false;
       });
     });
@@ -347,10 +359,13 @@ describe("useBorders", () => {
         state = addTabs(state, ["t1", "t2"]);
         state = addPanelWidget(state, side, "w1", ["t1"]);
         state = addPanelWidget(state, "top", "w2", ["t2"]);
-        const { result } = renderHook(() => useBorders("w1"), withWrapperAndProps(Wrapper, {
-          defaultState: state,
-          side,
-        }));
+        const { result } = renderHook(
+          () => useBorders("w1"),
+          withWrapperAndProps(Wrapper, {
+            defaultState: state,
+            side,
+          })
+        );
         result.current["nz-border-top"].should.false;
       });
     });

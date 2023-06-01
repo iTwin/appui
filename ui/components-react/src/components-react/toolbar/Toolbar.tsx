@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -10,12 +10,24 @@ import "./Toolbar.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type {
-  CommonToolbarItem, OnItemExecutedFunc,
+  CommonToolbarItem,
+  OnItemExecutedFunc,
 } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import { ToolbarItems } from "./Items";
-import { Direction, OrthogonalDirection, OrthogonalDirectionHelpers } from "./utilities/Direction";
-import { getToolbarDirection, ToolbarItemComponent, ToolbarItemContext, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarWithOverflowDirectionContext } from "./ToolbarWithOverflow";
+import {
+  Direction,
+  OrthogonalDirection,
+  OrthogonalDirectionHelpers,
+} from "./utilities/Direction";
+import {
+  getToolbarDirection,
+  ToolbarItemComponent,
+  ToolbarItemContext,
+  ToolbarOpacitySetting,
+  ToolbarPanelAlignment,
+  ToolbarWithOverflowDirectionContext,
+} from "./ToolbarWithOverflow";
 
 /** Properties of [[Toolbar]] component.
  * @public
@@ -51,17 +63,20 @@ function getItemWrapperClass(child: React.ReactNode) {
  * @public
  * @deprecated in 4.0. Use [Toolbar]($appui-react) instead.
  */
-export function Toolbar(props: ToolbarProps) { // eslint-disable-line deprecation/deprecation
+export function Toolbar(props: ToolbarProps) {
+  // eslint-disable-line deprecation/deprecation
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
   const useDragInteraction = !!props.useDragInteraction;
-  const panelAlignment = props.panelAlignment ? props.panelAlignment : ToolbarPanelAlignment.Start;
+  const panelAlignment = props.panelAlignment
+    ? props.panelAlignment
+    : ToolbarPanelAlignment.Start;
   const [popupPanelCount, setPopupPanelCount] = React.useState(0);
 
   const handlePopupPanelOpenClose = React.useCallback((isOpening: boolean) => {
     // use setTimeout to avoid warning about setting state in Toolbar from render method of PopupItem/PopupItemWithDrag
     setTimeout(() => {
       setPopupPanelCount((prev) => {
-        const nextCount = isOpening ? (prev + 1) : (prev - 1);
+        const nextCount = isOpening ? prev + 1 : prev - 1;
         // eslint-disable-next-line no-console
         // console.log(`new popup count = ${nextCount}`);
         return nextCount < 0 ? /* istanbul ignore next */ 0 : nextCount;
@@ -73,7 +88,8 @@ export function Toolbar(props: ToolbarProps) { // eslint-disable-line deprecatio
     return props.items.map((item, index) => {
       let addGroupSeparator = false;
       if (index > 0)
-        addGroupSeparator = item.groupPriority !== props.items[index - 1].groupPriority;
+        addGroupSeparator =
+          item.groupPriority !== props.items[index - 1].groupPriority;
       return (
         <ToolbarItemComponent
           key={item.id}
@@ -88,48 +104,67 @@ export function Toolbar(props: ToolbarProps) { // eslint-disable-line deprecatio
   const className = classnames(
     "components-toolbar-overflow-sizer",
     OrthogonalDirectionHelpers.getCssClassName(direction),
-    props.className);
+    props.className
+  );
 
   // needed to construct DOM structure identical to ToolbarWithOverflow so same css can be applied.
   const wrapperClassName = classnames(
     "components-toolbar-item-container",
-    OrthogonalDirectionHelpers.getCssClassName(direction),
+    OrthogonalDirectionHelpers.getCssClassName(direction)
   );
 
   return (
-    <ToolbarWithOverflowDirectionContext.Provider value={
-      {
-        expandsTo, direction, overflowExpandsTo: Direction.Right, panelAlignment, useDragInteraction,
-        toolbarOpacitySetting: props.toolbarOpacitySetting ? props.toolbarOpacitySetting : ToolbarOpacitySetting.Proximity,
+    <ToolbarWithOverflowDirectionContext.Provider
+      value={{
+        expandsTo,
+        direction,
+        overflowExpandsTo: Direction.Right,
+        panelAlignment,
+        useDragInteraction,
+        toolbarOpacitySetting: props.toolbarOpacitySetting
+          ? props.toolbarOpacitySetting
+          : ToolbarOpacitySetting.Proximity,
         overflowDirection: OrthogonalDirection.Horizontal,
-        openPopupCount: popupPanelCount, onPopupPanelOpenClose: handlePopupPanelOpenClose, overflowDisplayActive: false,
-        onItemExecuted: props.onItemExecuted ? props.onItemExecuted : /* istanbul ignore next */ () => { },
-        onKeyDown: props.onKeyDown ? props.onKeyDown : /* istanbul ignore next */ (_e: React.KeyboardEvent) => { },
-      }
-    }>
+        openPopupCount: popupPanelCount,
+        onPopupPanelOpenClose: handlePopupPanelOpenClose,
+        overflowDisplayActive: false,
+        onItemExecuted: props.onItemExecuted
+          ? props.onItemExecuted
+          : /* istanbul ignore next */ () => {},
+        onKeyDown: props.onKeyDown
+          ? props.onKeyDown
+          : /* istanbul ignore next */ (_e: React.KeyboardEvent) => {},
+      }}
+    >
       <ToolbarItemContext.Provider
         value={{
           hasOverflow: false,
           useHeight: false,
-          onResize: /* istanbul ignore next */ () => { },
+          onResize: /* istanbul ignore next */ () => {},
         }}
       >
-        {(availableNodes.length > 0) &&
+        {availableNodes.length > 0 && (
           <div
             className={className}
             style={props.style}
             onKeyDown={props.onKeyDown}
             role="presentation"
           >
-            <ToolbarItems
-              className="components-items"
-              direction={direction}
-            >
-              {availableNodes.map((child, index) => <div key={index} className={`${wrapperClassName} ${getItemWrapperClass(child)}`}>{child}</div>)}
+            <ToolbarItems className="components-items" direction={direction}>
+              {availableNodes.map((child, index) => (
+                <div
+                  key={index}
+                  className={`${wrapperClassName} ${getItemWrapperClass(
+                    child
+                  )}`}
+                >
+                  {child}
+                </div>
+              ))}
             </ToolbarItems>
           </div>
-        }
+        )}
       </ToolbarItemContext.Provider>
-    </ToolbarWithOverflowDirectionContext.Provider >
+    </ToolbarWithOverflowDirectionContext.Provider>
   );
 }

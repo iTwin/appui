@@ -29,13 +29,8 @@
         "--no-timeouts",
         "lib/cjs/test/**/*.test.js"
       ],
-      "skipFiles": [
-        "<node_internals>/**/*.js",
-        "node_modules/rxjs/**/*"
-      ],
-      "outFiles": [
-        "${workspaceFolder}/{core,ui}/*/lib/**/*.js"
-      ]
+      "skipFiles": ["<node_internals>/**/*.js", "node_modules/rxjs/**/*"],
+      "outFiles": ["${workspaceFolder}/{core,ui}/*/lib/**/*.js"]
     },
     {
       "name": "[UI] Tests: Core React",
@@ -52,9 +47,7 @@
         "--no-timeouts",
         "lib/cjs/test/**/*.test.js"
       ],
-      "outFiles": [
-        "${workspaceFolder}/{core,ui}/*/lib/**/*.js"
-      ]
+      "outFiles": ["${workspaceFolder}/{core,ui}/*/lib/**/*.js"]
     },
     {
       "name": "[UI] Tests: IModel Components React",
@@ -71,9 +64,7 @@
         "--no-timeouts",
         "lib/cjs/test/**/*.test.js"
       ],
-      "outFiles": [
-        "${workspaceFolder}/{core,ui}/*/lib/cjs/**/*.js"
-      ]
+      "outFiles": ["${workspaceFolder}/{core,ui}/*/lib/cjs/**/*.js"]
     },
     {
       "name": "[UI] Tests: AppUI React",
@@ -110,14 +101,12 @@
         "--no-timeouts",
         "lib/cjs/test/**/*.test.js"
       ],
-      "outFiles": [
-        "${workspaceFolder}/ui/*/lib/**/*.js"
-      ],
+      "outFiles": ["${workspaceFolder}/ui/*/lib/**/*.js"],
       "outputCapture": "std"
     },
     // TEST APPS
-    { /* PARTIAL */
-      "name": "[BACKEND] appui-test-app/standalone (chrome)",
+    {
+      /* PARTIAL */ "name": "[BACKEND] appui-test-app/standalone (chrome)",
       "presentation": {
         "hidden": true
       },
@@ -133,8 +122,8 @@
         "[FRONTEND] appui-test-app/standalone (chrome)"
       ]
     },
-    { /* PARTIAL */
-      "name": "[FRONTEND] appui-test-app/standalone (chrome)",
+    {
+      /* PARTIAL */ "name": "[FRONTEND] appui-test-app/standalone (chrome)",
       "presentation": {
         "hidden": true
       },
@@ -149,8 +138,8 @@
         "[BACKEND] appui-test-app/standalone (chrome)"
       ]
     },
-    { /* PARTIAL */
-      "name": "[BACKEND] appui-test-app/standalone (electron)",
+    {
+      /* PARTIAL */ "name": "[BACKEND] appui-test-app/standalone (electron)",
       "presentation": {
         "hidden": true
       },
@@ -175,8 +164,8 @@
         "[FRONTEND] appui-test-app/standalone (electron)"
       ]
     },
-    { /* PARTIAL */
-      "name": "[FRONTEND] appui-test-app/standalone (electron)",
+    {
+      /* PARTIAL */ "name": "[FRONTEND] appui-test-app/standalone (electron)",
       "presentation": {
         "hidden": true
       },
@@ -191,8 +180,8 @@
         "[BACKEND] appui-test-app/standalone (electron)"
       ]
     },
-    { /* PARTIAL */
-      "name": "[BACKEND] appui-test-app/connected (chrome)",
+    {
+      /* PARTIAL */ "name": "[BACKEND] appui-test-app/connected (chrome)",
       "presentation": {
         "hidden": true
       },
@@ -208,8 +197,8 @@
         "[FRONTEND] appui-test-app/connected (chrome)"
       ]
     },
-    { /* PARTIAL */
-      "name": "[FRONTEND] appui-test-app/connected (chrome)",
+    {
+      /* PARTIAL */ "name": "[FRONTEND] appui-test-app/connected (chrome)",
       "presentation": {
         "hidden": true
       },
@@ -223,7 +212,7 @@
       "cascadeTerminateToConfigurations": [
         "[BACKEND] appui-test-app/connected (chrome)"
       ]
-    },
+    }
   ],
   "compounds": [
     {
@@ -258,6 +247,6 @@
         "[BACKEND] appui-test-app/standalone (electron)",
         "[FRONTEND] appui-test-app/standalone (electron)"
       ]
-    },
-  ],
+    }
+  ]
 }

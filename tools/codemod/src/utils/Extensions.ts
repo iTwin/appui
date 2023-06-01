@@ -1,17 +1,24 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import type { ASTNode, Collection, JSCodeshift } from "jscodeshift";
-import { toExpression, toExpressionName, useCallExpression } from "./CallExpression";
+import {
+  toExpression,
+  toExpressionName,
+  useCallExpression,
+} from "./CallExpression";
 import { useImportDeclaration } from "./ImportDeclaration";
-import { findRootIdentifiers, sortSpecifiers, useImportSpecifier } from "./ImportSpecifier";
+import {
+  findRootIdentifiers,
+  sortSpecifiers,
+  useImportSpecifier,
+} from "./ImportSpecifier";
 import retainFirstComment from "./retainFirstComment";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
-  interface Collection<N> extends GlobalMethods {
-  }
+  interface Collection<N> extends GlobalMethods {}
 }
 
 interface GlobalMethods {
@@ -26,8 +33,7 @@ function extensionsPlugin(j: JSCodeshift) {
       const paths = this.paths();
       const otherPaths = other.paths();
       for (const path of paths) {
-        if (otherPaths.indexOf(path) >= 0)
-          return true;
+        if (otherPaths.indexOf(path) >= 0) return true;
       }
       return false;
     },
@@ -43,21 +49,30 @@ function extensionsPlugin(j: JSCodeshift) {
       useCallExpression(j);
 
       if (sourceStr === "" || targetStr === "")
-        throw new Error(`Expected non empty strings in rename("${sourceStr}", "${targetStr}")`);
+        throw new Error(
+          `Expected non empty strings in rename("${sourceStr}", "${targetStr}")`
+        );
 
       const source = parseRename(sourceStr);
       const target = parseRename(targetStr);
 
       const sourceDeclarations = this.findImportDeclarations(source.module);
-      const sourceSpecifiers = sourceDeclarations.findSpecifiers(source.specifier);
+      const sourceSpecifiers = sourceDeclarations.findSpecifiers(
+        source.specifier
+      );
 
       const targetDeclarations = this.findImportDeclarations(target.module);
-      const targetSpecifiers = targetDeclarations.findSpecifiers(target.specifier);
-      if (sourceSpecifiers.size() + targetSpecifiers.size() === 0)
-        return this;
+      const targetSpecifiers = targetDeclarations.findSpecifiers(
+        target.specifier
+      );
+      if (sourceSpecifiers.size() + targetSpecifiers.size() === 0) return this;
 
-      const sourceLocalSpecifierName = sourceSpecifiers.getLocalName() || source.specifier;
-      const sourceExpr = updateExpressionSpecifier(source.expr, sourceLocalSpecifierName);
+      const sourceLocalSpecifierName =
+        sourceSpecifiers.getLocalName() || source.specifier;
+      const sourceExpr = updateExpressionSpecifier(
+        source.expr,
+        sourceLocalSpecifierName
+      );
 
       retainFirstComment(j, this, () => {
         let renamed = false;
@@ -68,14 +83,16 @@ function extensionsPlugin(j: JSCodeshift) {
           renamed = true;
         }
 
-        this.find(j.MemberExpression).filter((path) => {
-          const expression = toExpressionName(path.value);
-          return expression === sourceExpr;
-        }).forEach((path) => {
-          const callee = toExpression(j, target.expr);
-          path.replace(callee);
-          renamed = true;
-        });
+        this.find(j.MemberExpression)
+          .filter((path) => {
+            const expression = toExpressionName(path.value);
+            return expression === sourceExpr;
+          })
+          .forEach((path) => {
+            const callee = toExpression(j, target.expr);
+            path.replace(callee);
+            renamed = true;
+          });
 
         if (source.isIdentifier) {
           findRootIdentifiers(j, this, sourceExpr).forEach((path) => {
@@ -100,21 +117,28 @@ function extensionsPlugin(j: JSCodeshift) {
         });
 
         const targetDeclarations = this.findImportDeclarations(target.module);
-        const targetSpecifiers = targetDeclarations.findSpecifiers(target.specifier);
+        const targetSpecifiers = targetDeclarations.findSpecifiers(
+          target.specifier
+        );
 
         // Add new declaration.
         if (targetDeclarations.size() === 0 && renamed) {
-          const newDeclaration = j.importDeclaration([
-            j.importSpecifier(j.identifier(target.specifier))
-          ], j.literal(target.module));
+          const newDeclaration = j.importDeclaration(
+            [j.importSpecifier(j.identifier(target.specifier))],
+            j.literal(target.module)
+          );
           sourceDeclarations.insertAfter(newDeclaration);
         }
 
         // Use existing target declaration.
-        if (targetDeclarations.size() > 0 && targetSpecifiers.size() === 0 && renamed) {
+        if (
+          targetDeclarations.size() > 0 &&
+          targetSpecifiers.size() === 0 &&
+          renamed
+        ) {
           const targetDeclaration = targetDeclarations.nodes()[0];
           targetDeclaration.specifiers = sortSpecifiers(j, [
-            ...targetDeclaration.specifiers ?? [],
+            ...(targetDeclaration.specifiers ?? []),
             j.importSpecifier(j.identifier(target.specifier)),
           ]);
         }
@@ -141,7 +165,7 @@ function parseRename(rename: string) {
   if (substrings.length === 1) {
     return {
       module: "",
-      ...parseExpression(rename)
+      ...parseExpression(rename),
     };
   }
   const module = substrings[0];

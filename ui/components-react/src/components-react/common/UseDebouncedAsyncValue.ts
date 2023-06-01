@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -10,7 +10,10 @@ import { useEffect, useMemo, useState } from "react";
 import { defer } from "rxjs/internal/observable/defer";
 import { publish } from "rxjs/internal/operators/publish";
 import { refCount } from "rxjs/internal/operators/refCount";
-import { scheduleSubscription, SubscriptionScheduler } from "./SubscriptionScheduler";
+import {
+  scheduleSubscription,
+  SubscriptionScheduler,
+} from "./SubscriptionScheduler";
 
 /**
  * Custom hook for working with promise values.
@@ -21,7 +24,9 @@ import { scheduleSubscription, SubscriptionScheduler } from "./SubscriptionSched
  * @throws if/when `valueToBeResolved` promise is rejected. The error is thrown in the React's render loop, so it can be caught using an error boundary.
  * @beta
  */
-export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (() => Promise<TReturn>)) {
+export function useDebouncedAsyncValue<TReturn>(
+  valueToBeResolved: undefined | (() => Promise<TReturn>)
+) {
   const scheduler = useMemo(() => new SubscriptionScheduler<TReturn>(), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [value, setValue] = useState<TReturn>();
@@ -44,11 +49,7 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
     setInProgress(true);
     // schedule and subscribe to the observable emitting value from valueToBeResolved promise
     const subscription = defer(valueToBeResolved)
-      .pipe(
-        publish(),
-        refCount(),
-        scheduleSubscription(scheduler),
-      )
+      .pipe(publish(), refCount(), scheduleSubscription(scheduler))
       .subscribe({
         next: (data) => {
           setValue(data);
@@ -60,11 +61,15 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
         },
       });
 
-    return () => { subscription.unsubscribe(); };
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [valueToBeResolved, scheduler]);
 
   if (errorState.hasError)
-    throw errorState.error ?? new Error("Exception in `useDebouncedAsyncValue`");
+    throw (
+      errorState.error ?? new Error("Exception in `useDebouncedAsyncValue`")
+    );
 
   return { value, inProgress };
 }

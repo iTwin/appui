@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module LineWeight
  */
@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import type { ColorDef } from "@itwin/core-common";
 import { RelativePosition, SpecialKey } from "@itwin/appui-abstract";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { ElementResizeObserver, Popup } from "@itwin/core-react";
 import { LineWeightSwatch } from "./Swatch";
 
@@ -20,7 +20,9 @@ import { LineWeightSwatch } from "./Swatch";
 /** Properties for the [[WeightPickerButton]] React component
  * @public
  */
-export interface WeightPickerProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
+export interface WeightPickerProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    CommonProps {
   /** active weight */
   activeWeight: number;
   /** available weights */
@@ -48,10 +50,13 @@ interface WeightPickerState {
 /** WeightPickerButton component
  * @public
  */
-export class WeightPickerButton extends React.PureComponent<WeightPickerProps, WeightPickerState> {
+export class WeightPickerButton extends React.PureComponent<
+  WeightPickerProps,
+  WeightPickerState
+> {
   private _target = React.createRef<HTMLDivElement>();
   private _weightsContainer: HTMLDivElement | null = null;
-  private _focusTarget = React.createRef<HTMLButtonElement>();  // weight button that should receive focus after popup is open
+  private _focusTarget = React.createRef<HTMLButtonElement>(); // weight button that should receive focus after popup is open
 
   /** @internal */
   constructor(props: WeightPickerProps) {
@@ -70,13 +75,11 @@ export class WeightPickerButton extends React.PureComponent<WeightPickerProps, W
   };
 
   private _togglePopup = () => {
-    if (this.props.readonly)
-      return;
+    if (this.props.readonly) return;
     this.setState((prevState) => ({ showPopup: !prevState.showPopup }));
   };
 
-  private _onPopupOpened = () => {
-  };
+  private _onPopupOpened = () => {};
 
   private _closePopup = () => {
     this.setState((_prevState) => ({ showPopup: false }));
@@ -100,20 +103,32 @@ export class WeightPickerButton extends React.PureComponent<WeightPickerProps, W
   private moveFocusInPopup(moveUp: boolean, event: React.KeyboardEvent<any>) {
     const activeElement = document.activeElement;
     // istanbul ignore else
-    if (this._weightsContainer && activeElement && activeElement.tagName === "BUTTON") {
+    if (
+      this._weightsContainer &&
+      activeElement &&
+      activeElement.tagName === "BUTTON"
+    ) {
       const values = activeElement.id.split("-");
       // istanbul ignore else
       if (values.length === 4 && values[2] === "lineweight") {
         const weight = parseInt(values[3], 10);
-        const foundIndex = this.props.weights.findIndex((val) => val === weight);
+        const foundIndex = this.props.weights.findIndex(
+          (val) => val === weight
+        );
         // istanbul ignore next
-        if (foundIndex < 0)
-          return;
+        if (foundIndex < 0) return;
 
-        const nextWeight = moveUp ? (foundIndex <= 0 ? this.props.weights[this.props.weights.length - 1] : this.props.weights[foundIndex - 1]) :
-          (foundIndex < this.props.weights.length - 1 ? this.props.weights[foundIndex + 1] : this.props.weights[0]);
+        const nextWeight = moveUp
+          ? foundIndex <= 0
+            ? this.props.weights[this.props.weights.length - 1]
+            : this.props.weights[foundIndex - 1]
+          : foundIndex < this.props.weights.length - 1
+          ? this.props.weights[foundIndex + 1]
+          : this.props.weights[0];
 
-        const focusLocation = this._weightsContainer.querySelector(`#${this.buildIdForWeight(nextWeight)}`) as HTMLButtonElement;
+        const focusLocation = this._weightsContainer.querySelector(
+          `#${this.buildIdForWeight(nextWeight)}`
+        ) as HTMLButtonElement;
         // istanbul ignore else
         if (focusLocation) {
           focusLocation.focus();
@@ -143,7 +158,7 @@ export class WeightPickerButton extends React.PureComponent<WeightPickerProps, W
                 this.props.onLineWeightPick(weight);
             }
           }
-        } catch { }
+        } catch {}
       }
       this._closePopup();
     } else {
@@ -167,22 +182,29 @@ export class WeightPickerButton extends React.PureComponent<WeightPickerProps, W
       <div className="components-weightpicker-popup-container">
         {title && <h4>{title}</h4>}
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-        <ul data-testid="components-weightpicker-popup-lines" className="components-weightpicker-popup-lines" onKeyDown={this._handleKeyDown} ref={this._setWeightContainer}>
+        <ul
+          data-testid="components-weightpicker-popup-lines"
+          className="components-weightpicker-popup-lines"
+          onKeyDown={this._handleKeyDown}
+          ref={this._setWeightContainer}
+        >
           {this.props.weights.map((weight, index) => {
             const classNames = classnames(
               "components-weightpicker-swatch",
-              weight === this.props.activeWeight && "active",
+              weight === this.props.activeWeight && "active"
             );
-            return (<LineWeightSwatch
-              className={classNames}
-              key={index}
-              colorDef={this.props.colorDef}
-              id={this.buildIdForWeight(weight)}
-              hideLabel={this.props.hideLabel}
-              onClick={this._handleWeightPicked.bind(this, weight)}
-              weight={weight} />);
-          })
-          }
+            return (
+              <LineWeightSwatch
+                className={classNames}
+                key={index}
+                colorDef={this.props.colorDef}
+                id={this.buildIdForWeight(weight)}
+                hideLabel={this.props.hideLabel}
+                onClick={this._handleWeightPicked.bind(this, weight)}
+                weight={weight}
+              />
+            );
+          })}
         </ul>
       </div>
     );
@@ -192,12 +214,12 @@ export class WeightPickerButton extends React.PureComponent<WeightPickerProps, W
   public override render() {
     const buttonClassNames = classnames(
       "components-weightpicker-button",
-      this.props.className,
+      this.props.className
     );
 
     return (
       <>
-        <div ref={this._target} style={this.props.style} >
+        <div ref={this._target} style={this.props.style}>
           <LineWeightSwatch
             data-testid="components-weightpicker-button"
             className={buttonClassNames}
@@ -208,10 +230,12 @@ export class WeightPickerButton extends React.PureComponent<WeightPickerProps, W
             hideLabel={this.props.hideLabel}
             aria-haspopup="listbox"
             aria-expanded={this.state.showPopup}
-            onClick={this._togglePopup} />
+            onClick={this._togglePopup}
+          />
         </div>
-        <ElementResizeObserver watchedElement={this.state.targetElement} render=
-          {({ width }) => (
+        <ElementResizeObserver
+          watchedElement={this.state.targetElement}
+          render={({ width }) => (
             <Popup
               className="components-weightpicker-popup"
               style={{ width: `${width}px` }}

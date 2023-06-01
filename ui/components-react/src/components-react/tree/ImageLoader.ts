@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -22,8 +22,7 @@ export interface ITreeImageLoader extends IImageLoader {
 export class TreeImageLoader implements ITreeImageLoader {
   /** Loads image data from either [[TreeNodeItem]] */
   public load(item: TreeNodeItem): LoadedImage | undefined {
-    if (!item.icon)
-      return undefined;
+    if (!item.icon) return undefined;
 
     return {
       sourceType: "webfont-icon",

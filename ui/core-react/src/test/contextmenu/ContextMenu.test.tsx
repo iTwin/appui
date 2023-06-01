@@ -1,20 +1,27 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType, ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
-import { ContextMenu, ContextMenuDirection, ContextMenuDivider, ContextMenuItem, ContextSubMenu, GlobalContextMenu } from "../../core-react";
+import {
+  ContextMenu,
+  ContextMenuDirection,
+  ContextMenuDivider,
+  ContextMenuItem,
+  ContextSubMenu,
+  GlobalContextMenu,
+} from "../../core-react";
 import { TildeFinder } from "../../core-react/contextmenu/TildeFinder";
 import { classesFromElement } from "../TestUtils";
 import userEvent from "@testing-library/user-event";
 
 describe("ContextMenu", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -22,24 +29,26 @@ describe("ContextMenu", () => {
     it("renders open correctly", () => {
       const component = render(<ContextMenu opened={true} />);
       expect(component.getByTestId("core-context-menu-container")).to.exist;
-      expect(component.getByTestId("core-context-menu-container").className).to.contain("opened");
+      expect(
+        component.getByTestId("core-context-menu-container").className
+      ).to.contain("opened");
     });
     it("renders close correctly", () => {
       const component = render(<ContextMenu opened={false} />);
-      expect(component.getByTestId("core-context-menu-container").className).to.not.contain("opened");
+      expect(
+        component.getByTestId("core-context-menu-container").className
+      ).to.not.contain("opened");
     });
     it("renders with ContextMenuItem correctly", () => {
       const component = render(
         <ContextMenu opened={true}>
           <ContextMenuItem> Test </ContextMenuItem>
-        </ContextMenu>);
+        </ContextMenu>
+      );
       expect(component.getByTestId("core-context-menu-item")).to.exist;
     });
     it("renders with text children correctly", () => {
-      const component = render(
-        <ContextMenu opened={true}>
-          Test
-        </ContextMenu>);
+      const component = render(<ContextMenu opened={true}>Test</ContextMenu>);
       expect(component.queryByTestId("core-context-menu-item")).to.not.exist;
       expect(component.getByText("Test")).to.exist;
     });
@@ -47,7 +56,8 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextMenu opened={true}>
           <div data-testid="core-context-menu-test-div">Test</div>
-        </ContextMenu>);
+        </ContextMenu>
+      );
       expect(component.getByTestId("core-context-menu-test-div")).to.exist;
     });
     it("should call onOutsideClick on window mouseup", () => {
@@ -55,7 +65,8 @@ describe("ContextMenu", () => {
       render(
         <ContextMenu opened={true} onOutsideClick={spyMethod}>
           <ContextMenuItem> Test </ContextMenuItem>
-        </ContextMenu>);
+        </ContextMenu>
+      );
 
       const mouseUp = new MouseEvent("mouseup");
       sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
@@ -68,7 +79,8 @@ describe("ContextMenu", () => {
       render(
         <ContextMenu onOutsideClick={spyMethod}>
           <ContextMenuItem> Test </ContextMenuItem>
-        </ContextMenu>);
+        </ContextMenu>
+      );
 
       const mouseUp = new MouseEvent("mouseup");
       sinon.stub(mouseUp, "target").get(() => document.createElement("div"));
@@ -81,20 +93,26 @@ describe("ContextMenu", () => {
         <ContextMenu selectedIndex={0}>
           <ContextMenuItem> Test 1 </ContextMenuItem>
           <ContextMenuItem> Test 2 </ContextMenuItem>
-        </ContextMenu>);
+        </ContextMenu>
+      );
 
       let items = component.getAllByTestId("core-context-menu-item");
-      let idx = items.findIndex((value) => value.className.indexOf("is-selected") !== -1);
+      let idx = items.findIndex(
+        (value) => value.className.indexOf("is-selected") !== -1
+      );
       expect(idx).to.equal(0);
 
       component.rerender(
         <ContextMenu selectedIndex={1}>
           <ContextMenuItem> Test 1 </ContextMenuItem>
           <ContextMenuItem> Test 2 </ContextMenuItem>
-        </ContextMenu>);
+        </ContextMenu>
+      );
 
       items = component.getAllByTestId("core-context-menu-item");
-      idx = items.findIndex((value) => value.className.indexOf("is-selected") !== -1);
+      idx = items.findIndex(
+        (value) => value.className.indexOf("is-selected") !== -1
+      );
       expect(idx).to.equal(1);
     });
 
@@ -107,8 +125,7 @@ describe("ContextMenu", () => {
       });
       it("should handle one-level Left press", async () => {
         const handleEsc = sinon.fake();
-        render(
-          <ContextMenu opened={true} onEsc={handleEsc} />);
+        render(<ContextMenu opened={true} onEsc={handleEsc} />);
         await theUserTo.keyboard("{ArrowLeft}");
         expect(handleEsc).to.be.calledOnce;
       });
@@ -117,8 +134,9 @@ describe("ContextMenu", () => {
         const targetSelect = sinon.fake();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
-            <ContextMenuItem  onSelect={targetSelect}>Item 1</ContextMenuItem>
-          </ContextMenu>);
+            <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
+          </ContextMenu>
+        );
         await theUserTo.keyboard("{ArrowDown}{Enter}");
         expect(handleSelect).to.be.calledOnce;
         expect(targetSelect).to.be.calledOnce;
@@ -130,7 +148,8 @@ describe("ContextMenu", () => {
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
             <ContextMenuItem>Item 2</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("{ArrowDown}{ArrowDown}{ArrowDown}{Enter}");
         expect(handleSelect).to.be.calledOnce;
         expect(targetSelect).to.be.calledOnce;
@@ -142,7 +161,8 @@ describe("ContextMenu", () => {
           <ContextMenu opened={true} onSelect={handleSelect}>
             <ContextMenuItem onSelect={targetSelect}>Item 1</ContextMenuItem>
             <ContextMenuItem>Item 2</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("{ArrowUp}{ArrowUp}{ArrowUp}{Enter}");
         expect(handleSelect).to.be.calledOnce;
         expect(targetSelect).to.be.calledOnce;
@@ -152,11 +172,14 @@ describe("ContextMenu", () => {
         const targetSelect = sinon.fake();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
-            <ContextSubMenu label="Item 1" >
+            <ContextSubMenu label="Item 1">
               <ContextMenuItem>Item 1.1</ContextMenuItem>
-              <ContextMenuItem onSelect={targetSelect}>Item 1.2</ContextMenuItem>
+              <ContextMenuItem onSelect={targetSelect}>
+                Item 1.2
+              </ContextMenuItem>
             </ContextSubMenu>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("{ArrowDown}{ArrowRight}{ArrowDown}{Enter}");
         expect(handleSelect).to.be.calledOnce;
         expect(targetSelect).to.be.calledOnce;
@@ -166,13 +189,16 @@ describe("ContextMenu", () => {
         const targetSelect = sinon.fake();
         render(
           <ContextMenu opened={true} onSelect={handleSelect}>
-            <ContextSubMenu label="Item 1" >
+            <ContextSubMenu label="Item 1">
               <ContextMenuItem>Item 1.1</ContextMenuItem>
               <ContextMenuItem>Item 1.2</ContextMenuItem>
             </ContextSubMenu>
             <ContextMenuItem onSelect={targetSelect}>Item 2</ContextMenuItem>
-          </ContextMenu>);
-        await theUserTo.keyboard("{ArrowDown}{ArrowRight}{ArrowLeft}{ArrowDown}{Enter}");
+          </ContextMenu>
+        );
+        await theUserTo.keyboard(
+          "{ArrowDown}{ArrowRight}{ArrowLeft}{ArrowDown}{Enter}"
+        );
         expect(handleSelect).to.be.calledOnce;
         expect(targetSelect).to.be.calledOnce;
       });
@@ -180,9 +206,12 @@ describe("ContextMenu", () => {
         const onSelectFake = sinon.fake();
         render(
           <ContextMenu opened={true}>
-            <ContextMenuItem onSelect={onSelectFake}>~First item</ContextMenuItem>
+            <ContextMenuItem onSelect={onSelectFake}>
+              ~First item
+            </ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("f");
         expect(onSelectFake).to.have.been.calledOnce;
       });
@@ -190,9 +219,12 @@ describe("ContextMenu", () => {
         const onSelectFake = sinon.fake();
         render(
           <ContextMenu opened={true}>
-            <ContextMenuItem onSelect={onSelectFake} disabled={true}>~First item</ContextMenuItem>
+            <ContextMenuItem onSelect={onSelectFake} disabled={true}>
+              ~First item
+            </ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
       });
@@ -200,9 +232,12 @@ describe("ContextMenu", () => {
         const onSelectFake = sinon.fake();
         render(
           <ContextMenu opened={true}>
-            <ContextMenuItem onSelect={onSelectFake} hidden={true}>~First item</ContextMenuItem>
+            <ContextMenuItem onSelect={onSelectFake} hidden={true}>
+              ~First item
+            </ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
       });
@@ -210,9 +245,12 @@ describe("ContextMenu", () => {
         const onSelectFake = sinon.fake();
         render(
           <ContextMenu opened={true} ignoreNextKeyUp={true}>
-            <ContextMenuItem onSelect={onSelectFake}>~First item</ContextMenuItem>
+            <ContextMenuItem onSelect={onSelectFake}>
+              ~First item
+            </ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
         await theUserTo.keyboard("f");
@@ -227,7 +265,8 @@ describe("ContextMenu", () => {
               <ContextMenuItem>~Second first item</ContextMenuItem>
             </ContextSubMenu>
             <ContextMenuItem>~Second item</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("f");
         expect(onSelectFake).to.have.been.calledOnce;
       });
@@ -235,12 +274,17 @@ describe("ContextMenu", () => {
         const onSelectFake = sinon.fake();
         render(
           <ContextMenu opened={true}>
-            <ContextSubMenu label="~First item" onSelect={onSelectFake} disabled={true}>
+            <ContextSubMenu
+              label="~First item"
+              onSelect={onSelectFake}
+              disabled={true}
+            >
               <ContextMenuItem>~First first item</ContextMenuItem>
               <ContextMenuItem>~Second first item</ContextMenuItem>
             </ContextSubMenu>
             <ContextMenuItem>~Second item</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
       });
@@ -248,12 +292,17 @@ describe("ContextMenu", () => {
         const onSelectFake = sinon.fake();
         render(
           <ContextMenu opened={true}>
-            <ContextSubMenu label="~First item" onSelect={onSelectFake} hidden={true}>
+            <ContextSubMenu
+              label="~First item"
+              onSelect={onSelectFake}
+              hidden={true}
+            >
               <ContextMenuItem>~First first item</ContextMenuItem>
               <ContextMenuItem>~Second first item</ContextMenuItem>
             </ContextSubMenu>
             <ContextMenuItem>~Second item</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("f");
         expect(onSelectFake).to.not.have.been.called;
       });
@@ -262,8 +311,11 @@ describe("ContextMenu", () => {
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
-            <ContextMenuItem  onSelect={onSelectFake}>~Second item</ContextMenuItem>
-          </ContextMenu>);
+            <ContextMenuItem onSelect={onSelectFake}>
+              ~Second item
+            </ContextMenuItem>
+          </ContextMenu>
+        );
         await theUserTo.keyboard("s{Enter}");
         expect(onSelectFake).to.have.been.calledOnce;
       });
@@ -276,7 +328,8 @@ describe("ContextMenu", () => {
               <ContextMenuItem>~Second first item</ContextMenuItem>
             </ContextSubMenu>
             <ContextMenuItem>~Second item</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("f{enter}");
         expect(onSelectFake).to.have.been.calledOnce;
       });
@@ -287,8 +340,11 @@ describe("ContextMenu", () => {
             <ContextMenuItem>~First item</ContextMenuItem>
             <ContextMenuItem>~Second item</ContextMenuItem>
             <ContextMenuItem>~Third item</ContextMenuItem>
-            <ContextMenuItem onSelect={onSelectFake}>~Fourth item</ContextMenuItem>
-          </ContextMenu>);
+            <ContextMenuItem onSelect={onSelectFake}>
+              ~Fourth item
+            </ContextMenuItem>
+          </ContextMenu>
+        );
         await theUserTo.keyboard("ff{enter}");
         expect(onSelectFake).to.have.been.calledOnce;
       });
@@ -297,77 +353,129 @@ describe("ContextMenu", () => {
         render(
           <ContextMenu opened={true} hotkeySelect={false}>
             <ContextMenuItem>~First item</ContextMenuItem>
-            <ContextMenuItem onSelect={onSelectFake}>~Second item</ContextMenuItem>
+            <ContextMenuItem onSelect={onSelectFake}>
+              ~Second item
+            </ContextMenuItem>
             <ContextMenuItem>~Third item</ContextMenuItem>
             <ContextMenuItem>~Fourth item</ContextMenuItem>
-          </ContextMenu>);
+          </ContextMenu>
+        );
         await theUserTo.keyboard("ffs{enter}");
         expect(onSelectFake).to.have.been.calledOnce;
-
       });
     });
 
     describe("direction", () => {
       it("should render bottom right by default", () => {
         const component = render(<ContextMenu opened={true} />);
-        expect(component.container.querySelector(".core-context-menu-bottom")).not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right")).not.to.be.null;
+        expect(component.container.querySelector(".core-context-menu-bottom"))
+          .not.to.be.null;
+        expect(component.container.querySelector(".core-context-menu-right"))
+          .not.to.be.null;
       });
       it("should render no direction for None", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.None} />);
-        expect(component.container.querySelector(".core-context-menu-bottom")).to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right")).to.be.null;
+        const component = render(
+          <ContextMenu opened={true} direction={ContextMenuDirection.None} />
+        );
+        expect(component.container.querySelector(".core-context-menu-bottom"))
+          .to.be.null;
+        expect(component.container.querySelector(".core-context-menu-right")).to
+          .be.null;
       });
       it("should render top left", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.TopLeft} />);
-        expect(component.container.querySelector(".core-context-menu-top")).not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-left")).not.to.be.null;
+        const component = render(
+          <ContextMenu opened={true} direction={ContextMenuDirection.TopLeft} />
+        );
+        expect(component.container.querySelector(".core-context-menu-top")).not
+          .to.be.null;
+        expect(component.container.querySelector(".core-context-menu-left")).not
+          .to.be.null;
       });
       it("should render top", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.Top} />);
-        expect(component.container.querySelector(".core-context-menu-top")).not.to.be.null;
+        const component = render(
+          <ContextMenu opened={true} direction={ContextMenuDirection.Top} />
+        );
+        expect(component.container.querySelector(".core-context-menu-top")).not
+          .to.be.null;
       });
       it("should render top right", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.TopRight} />);
-        expect(component.container.querySelector(".core-context-menu-top")).not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right")).not.to.be.null;
+        const component = render(
+          <ContextMenu
+            opened={true}
+            direction={ContextMenuDirection.TopRight}
+          />
+        );
+        expect(component.container.querySelector(".core-context-menu-top")).not
+          .to.be.null;
+        expect(component.container.querySelector(".core-context-menu-right"))
+          .not.to.be.null;
       });
       it("should render left", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.Left} />);
-        expect(component.container.querySelector(".core-context-menu-left")).not.to.be.null;
+        const component = render(
+          <ContextMenu opened={true} direction={ContextMenuDirection.Left} />
+        );
+        expect(component.container.querySelector(".core-context-menu-left")).not
+          .to.be.null;
       });
       it("should render center", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.Center} />);
-        expect(component.container.querySelector(".core-context-menu-center")).not.to.be.null;
+        const component = render(
+          <ContextMenu opened={true} direction={ContextMenuDirection.Center} />
+        );
+        expect(component.container.querySelector(".core-context-menu-center"))
+          .not.to.be.null;
       });
       it("should render right", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.Right} />);
-        expect(component.container.querySelector(".core-context-menu-right")).not.to.be.null;
+        const component = render(
+          <ContextMenu opened={true} direction={ContextMenuDirection.Right} />
+        );
+        expect(component.container.querySelector(".core-context-menu-right"))
+          .not.to.be.null;
       });
       it("should render bottom left", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.BottomLeft} />);
-        expect(component.container.querySelector(".core-context-menu-bottom")).not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-left")).not.to.be.null;
+        const component = render(
+          <ContextMenu
+            opened={true}
+            direction={ContextMenuDirection.BottomLeft}
+          />
+        );
+        expect(component.container.querySelector(".core-context-menu-bottom"))
+          .not.to.be.null;
+        expect(component.container.querySelector(".core-context-menu-left")).not
+          .to.be.null;
       });
       it("should render bottom", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.Bottom} />);
-        expect(component.container.querySelector(".core-context-menu-bottom")).not.to.be.null;
+        const component = render(
+          <ContextMenu opened={true} direction={ContextMenuDirection.Bottom} />
+        );
+        expect(component.container.querySelector(".core-context-menu-bottom"))
+          .not.to.be.null;
       });
       it("should render bottom right", () => {
-        const component = render(<ContextMenu opened={true} direction={ContextMenuDirection.BottomRight} />);
-        expect(component.container.querySelector(".core-context-menu-bottom")).not.to.be.null;
-        expect(component.container.querySelector(".core-context-menu-right")).not.to.be.null;
+        const component = render(
+          <ContextMenu
+            opened={true}
+            direction={ContextMenuDirection.BottomRight}
+          />
+        );
+        expect(component.container.querySelector(".core-context-menu-bottom"))
+          .not.to.be.null;
+        expect(component.container.querySelector(".core-context-menu-right"))
+          .not.to.be.null;
       });
     });
   });
 
   describe("<GlobalContextMenu />", () => {
     it("renders correctly", () => {
-      const component = render(<GlobalContextMenu opened={true} identifier="test" x="0" y="0" />);
+      const component = render(
+        <GlobalContextMenu opened={true} identifier="test" x="0" y="0" />
+      );
       expect(component.getByTestId("core-context-menu-root")).to.exist;
     });
     it("mounts and unmounts correctly", () => {
-      const wrapper = render(<GlobalContextMenu opened={true} identifier="test" x="0" y="0" />);
+      const wrapper = render(
+        <GlobalContextMenu opened={true} identifier="test" x="0" y="0" />
+      );
       wrapper.unmount();
     });
     it("mounts and unmounts without an identifier correctly", () => {
@@ -390,16 +498,25 @@ describe("ContextMenu", () => {
     });
 
     it("renders with icon correctly", () => {
-      const component = render(<ContextMenuItem icon="icon-placeholder">Test</ContextMenuItem>);
-      expect(component.container.querySelector(".icon-placeholder")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-icon")).not.to.be.null;
+      const component = render(
+        <ContextMenuItem icon="icon-placeholder">Test</ContextMenuItem>
+      );
+      expect(component.container.querySelector(".icon-placeholder")).not.to.be
+        .null;
+      expect(component.container.querySelector(".core-context-menu-icon")).not
+        .to.be.null;
     });
 
     it("renders with iconRight correctly", () => {
-      const component = render(<ContextMenuItem iconRight="icon-checkmark">Test</ContextMenuItem>);
-      expect(component.container.querySelector(".icon-checkmark")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-icon")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-icon-right")).not.to.be.null;
+      const component = render(
+        <ContextMenuItem iconRight="icon-checkmark">Test</ContextMenuItem>
+      );
+      expect(component.container.querySelector(".icon-checkmark")).not.to.be
+        .null;
+      expect(component.container.querySelector(".core-context-menu-icon")).not
+        .to.be.null;
+      expect(component.container.querySelector(".core-context-menu-icon-right"))
+        .not.to.be.null;
     });
 
     it("handles props changes correctly", () => {
@@ -419,60 +536,104 @@ describe("ContextMenu", () => {
     });
 
     it("renders disabled correctly", () => {
-      const component = render(<ContextMenuItem disabled={true}>Test</ContextMenuItem>);
-      expect(component.container.querySelector(".core-context-menu-disabled")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-item[aria-disabled]")).not.to.be.null;
+      const component = render(
+        <ContextMenuItem disabled={true}>Test</ContextMenuItem>
+      );
+      expect(component.container.querySelector(".core-context-menu-disabled"))
+        .not.to.be.null;
+      expect(
+        component.container.querySelector(
+          ".core-context-menu-item[aria-disabled]"
+        )
+      ).not.to.be.null;
     });
 
     it("renders disabled by condition correctly", () => {
-      const isDisabled = new ConditionalBooleanValue(() => true, ["Test:CustomId"]);
-      const component = render(<ContextMenuItem disabled={isDisabled}>Test</ContextMenuItem>);
-      expect(component.container.querySelector(".core-context-menu-disabled")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-item[aria-disabled]")).not.to.be.null;
+      const isDisabled = new ConditionalBooleanValue(
+        () => true,
+        ["Test:CustomId"]
+      );
+      const component = render(
+        <ContextMenuItem disabled={isDisabled}>Test</ContextMenuItem>
+      );
+      expect(component.container.querySelector(".core-context-menu-disabled"))
+        .not.to.be.null;
+      expect(
+        component.container.querySelector(
+          ".core-context-menu-item[aria-disabled]"
+        )
+      ).not.to.be.null;
     });
 
     it("renders hidden correctly", () => {
-      const component = render(<ContextMenuItem hidden={true}>Test</ContextMenuItem>);
-      expect(component.container.querySelector(".core-context-menu-hidden")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-item[aria-hidden]")).not.to.be.null;
+      const component = render(
+        <ContextMenuItem hidden={true}>Test</ContextMenuItem>
+      );
+      expect(component.container.querySelector(".core-context-menu-hidden")).not
+        .to.be.null;
+      expect(
+        component.container.querySelector(
+          ".core-context-menu-item[aria-hidden]"
+        )
+      ).not.to.be.null;
     });
 
     it("renders hidden by condition correctly", () => {
-      const isHidden = new ConditionalBooleanValue(() => true, ["Test:CustomId"]);
-      const component = render(<ContextMenuItem hidden={isHidden}>Test</ContextMenuItem>);
-      expect(component.container.querySelector(".core-context-menu-hidden")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-item[aria-hidden]")).not.to.be.null;
+      const isHidden = new ConditionalBooleanValue(
+        () => true,
+        ["Test:CustomId"]
+      );
+      const component = render(
+        <ContextMenuItem hidden={isHidden}>Test</ContextMenuItem>
+      );
+      expect(component.container.querySelector(".core-context-menu-hidden")).not
+        .to.be.null;
+      expect(
+        component.container.querySelector(
+          ".core-context-menu-item[aria-hidden]"
+        )
+      ).not.to.be.null;
     });
 
     it("renders badge correctly", () => {
-      const component = render(<ContextMenuItem badgeType={BadgeType.New}>Test</ContextMenuItem>);
+      const component = render(
+        <ContextMenuItem badgeType={BadgeType.New}>Test</ContextMenuItem>
+      );
       expect(component.container.querySelector(".core-badge")).not.to.be.null;
     });
 
     it("onClick handled correctly", async () => {
       const handleClick = sinon.fake();
-      const component = render(<ContextMenuItem onClick={handleClick}>Test</ContextMenuItem>);
+      const component = render(
+        <ContextMenuItem onClick={handleClick}>Test</ContextMenuItem>
+      );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.click(item);
       handleClick.should.have.been.calledOnce;
     });
     it("onSelect handled correctly on click", async () => {
       const handleSelect = sinon.fake();
-      const component = render(<ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>);
+      const component = render(
+        <ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>
+      );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.click(item);
       handleSelect.should.have.been.calledOnce;
     });
     it("onHover handled correctly", async () => {
       const handleHover = sinon.fake();
-      const component = render(<ContextMenuItem onHover={handleHover}>Test</ContextMenuItem>);
+      const component = render(
+        <ContextMenuItem onHover={handleHover}>Test</ContextMenuItem>
+      );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.hover(item);
       handleHover.should.have.been.calledOnce;
     });
     it("onSelect handled correctly on Enter", async () => {
       const handleSelect = sinon.fake();
-      const component = render(<ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>);
+      const component = render(
+        <ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>
+      );
       const item = component.getByTestId("core-context-menu-item");
       item.focus();
       await theUserTo.keyboard("{Enter}");
@@ -480,7 +641,9 @@ describe("ContextMenu", () => {
     });
     it("onSelect not called on Escape", async () => {
       const handleSelect = sinon.fake();
-      const component = render(<ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>);
+      const component = render(
+        <ContextMenuItem onSelect={handleSelect}>Test</ContextMenuItem>
+      );
       const item = component.getByTestId("core-context-menu-item");
       item.focus();
       await theUserTo.keyboard("{Escape}");
@@ -488,7 +651,11 @@ describe("ContextMenu", () => {
     });
     it("onSelect not called when disabled", async () => {
       const handleSelect = sinon.fake();
-      const component = render(<ContextMenuItem onSelect={handleSelect} disabled={true}>Test</ContextMenuItem>);
+      const component = render(
+        <ContextMenuItem onSelect={handleSelect} disabled={true}>
+          Test
+        </ContextMenuItem>
+      );
       const item = component.getByTestId("core-context-menu-item");
       await theUserTo.type(item, "{Enter}");
       handleSelect.should.not.have.been.called;
@@ -502,7 +669,8 @@ describe("ContextMenu", () => {
           <ContextSubMenu label="test">
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
-        </ContextMenu>);
+        </ContextMenu>
+      );
       expect(component.getByText("test")).to.exist;
     });
     it("renders disabled correctly", () => {
@@ -511,20 +679,35 @@ describe("ContextMenu", () => {
           <ContextSubMenu label="test" disabled={true}>
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
-        </ContextMenu>);
-      expect(component.container.querySelector(".core-context-menu-disabled")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-item[aria-disabled]")).not.to.be.null;
+        </ContextMenu>
+      );
+      expect(component.container.querySelector(".core-context-menu-disabled"))
+        .not.to.be.null;
+      expect(
+        component.container.querySelector(
+          ".core-context-menu-item[aria-disabled]"
+        )
+      ).not.to.be.null;
     });
     it("renders disabled by condition correctly", () => {
-      const isDisabled = new ConditionalBooleanValue(() => true, ["Test:CustomId"]);
+      const isDisabled = new ConditionalBooleanValue(
+        () => true,
+        ["Test:CustomId"]
+      );
       const component = render(
         <ContextMenu opened={true}>
           <ContextSubMenu label="test" disabled={isDisabled}>
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
-        </ContextMenu>);
-      expect(component.container.querySelector(".core-context-menu-disabled")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-item[aria-disabled]")).not.to.be.null;
+        </ContextMenu>
+      );
+      expect(component.container.querySelector(".core-context-menu-disabled"))
+        .not.to.be.null;
+      expect(
+        component.container.querySelector(
+          ".core-context-menu-item[aria-disabled]"
+        )
+      ).not.to.be.null;
     });
     it("renders hidden correctly", () => {
       const component = render(
@@ -532,20 +715,35 @@ describe("ContextMenu", () => {
           <ContextSubMenu label="test" hidden={true}>
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
-        </ContextMenu>);
-      expect(component.container.querySelector(".core-context-menu-hidden")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-item[aria-hidden]")).not.to.be.null;
+        </ContextMenu>
+      );
+      expect(component.container.querySelector(".core-context-menu-hidden")).not
+        .to.be.null;
+      expect(
+        component.container.querySelector(
+          ".core-context-menu-item[aria-hidden]"
+        )
+      ).not.to.be.null;
     });
     it("renders hidden by condition correctly", () => {
-      const isHidden = new ConditionalBooleanValue(() => true, ["Test:CustomId"]);
+      const isHidden = new ConditionalBooleanValue(
+        () => true,
+        ["Test:CustomId"]
+      );
       const component = render(
         <ContextMenu opened={true}>
           <ContextSubMenu label="test" hidden={isHidden}>
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
-        </ContextMenu>);
-      expect(component.container.querySelector(".core-context-menu-hidden")).not.to.be.null;
-      expect(component.container.querySelector(".core-context-menu-item[aria-hidden]")).not.to.be.null;
+        </ContextMenu>
+      );
+      expect(component.container.querySelector(".core-context-menu-hidden")).not
+        .to.be.null;
+      expect(
+        component.container.querySelector(
+          ".core-context-menu-item[aria-hidden]"
+        )
+      ).not.to.be.null;
     });
     it("renders badge correctly", () => {
       const component = render(
@@ -553,7 +751,8 @@ describe("ContextMenu", () => {
           <ContextSubMenu label="test" badgeType={BadgeType.TechnicalPreview}>
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
-        </ContextMenu>);
+        </ContextMenu>
+      );
       expect(component.container.querySelector(".core-badge")).not.to.be.null;
     });
     it("onHover handled correctly", async () => {
@@ -561,7 +760,8 @@ describe("ContextMenu", () => {
       const component = render(
         <ContextSubMenu label="test" onHover={handleHover}>
           <ContextMenuItem> Test </ContextMenuItem>
-        </ContextSubMenu>);
+        </ContextSubMenu>
+      );
       const item = component.getByTestId("core-context-submenu");
       await theUserTo.hover(item);
       handleHover.should.have.been.calledOnce;
@@ -573,7 +773,8 @@ describe("ContextMenu", () => {
           <ContextSubMenu label="test" onHover={handleHover}>
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
-        </ContextMenu>);
+        </ContextMenu>
+      );
       const item = component.getByTestId("core-context-submenu");
       await theUserTo.hover(item);
       handleHover.should.not.have.been.calledOnce;
@@ -585,7 +786,8 @@ describe("ContextMenu", () => {
           <ContextSubMenu label="test" onClick={handleClick}>
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
-        </ContextMenu>);
+        </ContextMenu>
+      );
       const item = component.getByTestId("core-context-submenu-container");
       await theUserTo.click(item);
       handleClick.should.have.been.calledOnce;
@@ -593,92 +795,201 @@ describe("ContextMenu", () => {
     it("onFocus handled correctly", () => {
       const component = render(
         <ContextMenu opened={true}>
-          <ContextSubMenu label="test" >
+          <ContextSubMenu label="test">
             <ContextMenuItem> Test </ContextMenuItem>
           </ContextSubMenu>
-        </ContextMenu>);
+        </ContextMenu>
+      );
       const item = component.getByTestId("core-context-menu-item");
       item.focus();
       expect(document.activeElement).to.eq(item);
     });
     it("should support changing direction (COVERAGE ONLY)", () => {
       // THIS TEST IS ONLY ADDING COVERAGE, AS STATED ABOVE, THE DIRECTION DO NOT CHANGE HERE!
-      const {rerender} = render(
+      const { rerender } = render(
         <ContextSubMenu label="test" autoflip={true}>
           <ContextMenuItem>Test</ContextMenuItem>
-        </ContextSubMenu>);
-      expect(classesFromElement(screen.getByRole("menu"))).to.include("core-context-menu-bottom");
+        </ContextSubMenu>
+      );
+      expect(classesFromElement(screen.getByRole("menu"))).to.include(
+        "core-context-menu-bottom"
+      );
 
-      rerender(<ContextSubMenu label="test" autoflip={true} direction={ContextMenuDirection.Right}>
-        <ContextMenuItem>Test</ContextMenuItem>
-      </ContextSubMenu>);
-      expect(classesFromElement(screen.getByRole("menu"))).to.include("core-context-menu-right");
+      rerender(
+        <ContextSubMenu
+          label="test"
+          autoflip={true}
+          direction={ContextMenuDirection.Right}
+        >
+          <ContextMenuItem>Test</ContextMenuItem>
+        </ContextSubMenu>
+      );
+      expect(classesFromElement(screen.getByRole("menu"))).to.include(
+        "core-context-menu-right"
+      );
     });
     it("handles label change correctly", () => {
       const component = render(
         <ContextSubMenu label="Test ~A">
           <ContextMenuItem>Test Item</ContextMenuItem>
-        </ContextSubMenu>);
+        </ContextSubMenu>
+      );
       expect(component.getByText("Test")).to.exist;
       expect(component.getByText("A")).to.exist;
       component.rerender(
         <ContextSubMenu label="Test ~B">
           <ContextMenuItem>Test Item</ContextMenuItem>
-        </ContextSubMenu>);
+        </ContextSubMenu>
+      );
       expect(component.getByText("Test")).to.exist;
       expect(component.getByText("B")).to.exist;
     });
-
   });
 
   describe("ContextMenu.autoFlip", () => {
     it("should handle rect overflowing right side of window", () => {
-      expect(ContextMenu.autoFlip(ContextMenuDirection.TopRight, DOMRect.fromRect({ x: 51, y: 25, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.TopLeft);
-      expect(ContextMenu.autoFlip(ContextMenuDirection.Right, DOMRect.fromRect({ x: 51, y: 25, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.Left);
-      expect(ContextMenu.autoFlip(ContextMenuDirection.BottomRight, DOMRect.fromRect({ x: 51, y: 25, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.BottomLeft);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.TopRight,
+          DOMRect.fromRect({ x: 51, y: 25, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.TopLeft);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.Right,
+          DOMRect.fromRect({ x: 51, y: 25, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.Left);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.BottomRight,
+          DOMRect.fromRect({ x: 51, y: 25, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.BottomLeft);
     });
     it("should handle rect overflowing left side of window", () => {
-      expect(ContextMenu.autoFlip(ContextMenuDirection.TopLeft, DOMRect.fromRect({ x: -1, y: 25, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.TopRight);
-      expect(ContextMenu.autoFlip(ContextMenuDirection.Left, DOMRect.fromRect({ x: -1, y: 25, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.Right);
-      expect(ContextMenu.autoFlip(ContextMenuDirection.BottomLeft, DOMRect.fromRect({ x: -1, y: 25, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.BottomRight);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.TopLeft,
+          DOMRect.fromRect({ x: -1, y: 25, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.TopRight);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.Left,
+          DOMRect.fromRect({ x: -1, y: 25, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.Right);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.BottomLeft,
+          DOMRect.fromRect({ x: -1, y: 25, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.BottomRight);
     });
     it("should handle rect overflowing bottom side of window", () => {
-      expect(ContextMenu.autoFlip(ContextMenuDirection.BottomLeft, DOMRect.fromRect({ x: 25, y: 51, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.TopLeft);
-      expect(ContextMenu.autoFlip(ContextMenuDirection.Bottom, DOMRect.fromRect({ x: 25, y: 51, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.Top);
-      expect(ContextMenu.autoFlip(ContextMenuDirection.BottomRight, DOMRect.fromRect({ x: 25, y: 51, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.TopRight);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.BottomLeft,
+          DOMRect.fromRect({ x: 25, y: 51, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.TopLeft);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.Bottom,
+          DOMRect.fromRect({ x: 25, y: 51, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.Top);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.BottomRight,
+          DOMRect.fromRect({ x: 25, y: 51, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.TopRight);
     });
     it("should handle rect overflowing top side of window", () => {
-      expect(ContextMenu.autoFlip(ContextMenuDirection.TopLeft, DOMRect.fromRect({ x: 25, y: -1, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.BottomLeft);
-      expect(ContextMenu.autoFlip(ContextMenuDirection.Top, DOMRect.fromRect({ x: 25, y: -1, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.Bottom);
-      expect(ContextMenu.autoFlip(ContextMenuDirection.TopRight, DOMRect.fromRect({ x: 25, y: -1, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.BottomRight);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.TopLeft,
+          DOMRect.fromRect({ x: 25, y: -1, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.BottomLeft);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.Top,
+          DOMRect.fromRect({ x: 25, y: -1, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.Bottom);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.TopRight,
+          DOMRect.fromRect({ x: 25, y: -1, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.BottomRight);
     });
     it("should handle rect overflowing top left side of window", () => {
-      expect(ContextMenu.autoFlip(ContextMenuDirection.TopLeft, DOMRect.fromRect({ x: -1, y: -1, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.BottomRight);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.TopLeft,
+          DOMRect.fromRect({ x: -1, y: -1, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.BottomRight);
     });
     it("should handle rect overflowing top right side of window", () => {
-      expect(ContextMenu.autoFlip(ContextMenuDirection.TopRight, DOMRect.fromRect({ x: 51, y: -1, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.BottomLeft);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.TopRight,
+          DOMRect.fromRect({ x: 51, y: -1, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.BottomLeft);
     });
     it("should handle rect overflowing bottom left side of window", () => {
-      expect(ContextMenu.autoFlip(ContextMenuDirection.BottomLeft, DOMRect.fromRect({ x: -1, y: 51, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.TopRight);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.BottomLeft,
+          DOMRect.fromRect({ x: -1, y: 51, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.TopRight);
     });
     it("should handle rect overflowing bottom right side of window", () => {
-      expect(ContextMenu.autoFlip(ContextMenuDirection.BottomRight, DOMRect.fromRect({ x: 51, y: 51, height: 50, width: 50 }), 100, 100))
-        .to.equal(ContextMenuDirection.TopLeft);
+      expect(
+        ContextMenu.autoFlip(
+          ContextMenuDirection.BottomRight,
+          DOMRect.fromRect({ x: 51, y: 51, height: 50, width: 50 }),
+          100,
+          100
+        )
+      ).to.equal(ContextMenuDirection.TopLeft);
     });
   });
 
@@ -707,7 +1018,9 @@ describe("ContextMenu", () => {
     });
     it("should find remove tilde and add underline in array", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(["te", "~s", "t"]);
-      const node = (tildeFindRet.node as Array<Array<React.ReactElement<any>>>)[1][1];
+      const node = (
+        tildeFindRet.node as Array<Array<React.ReactElement<any>>>
+      )[1][1];
       expect(node.type).to.equal("u");
       expect(node.props.children).to.equal("s");
     });
@@ -721,7 +1034,10 @@ describe("ContextMenu", () => {
     });
     it("should remove tilde and add underline in node", () => {
       const tildeFindRet = TildeFinder.findAfterTilde(<span>~s</span>);
-      const node = ((tildeFindRet.node as React.ReactElement<any>).props.children as React.ReactNode[])[1] as React.ReactElement<any>;
+      const node = (
+        (tildeFindRet.node as React.ReactElement<any>).props
+          .children as React.ReactNode[]
+      )[1] as React.ReactElement<any>;
       expect(node.type).to.equal("u");
       expect(node.props.children).to.equal("s");
     });
@@ -743,5 +1059,4 @@ describe("ContextMenu", () => {
       expect(tildeFindRet.node).to.equal(node);
     });
   });
-
 });

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -21,10 +21,13 @@ export interface WidgetOpacityContextProps {
  * @internal
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const WidgetOpacityContext = React.createContext<WidgetOpacityContextProps>({
-  onElementRef: /* istanbul ignore next */ (_elementRef: React.RefObject<Element>) => void {},
-  proximityScale: 1.0,
-});
+export const WidgetOpacityContext =
+  React.createContext<WidgetOpacityContextProps>({
+    onElementRef: /* istanbul ignore next */ (
+      _elementRef: React.RefObject<Element>
+    ) => void {},
+    proximityScale: 1.0,
+  });
 
 /** Hook for using [[WidgetOpacityContext]]
  * @internal

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -16,8 +16,17 @@ import type { FloatingWidgetResizeHandle } from "../widget/FloatingWidget";
 import type { WidgetState } from "../state/WidgetState";
 import type { TabState } from "../state/TabState";
 import { getUniqueId } from "./NineZone";
-import type { DropTargetState, PanelDropTargetState, TabDragDropTargetState, TabDropTargetState, WidgetDragDropTargetState } from "../state/DropTargetState";
-import { isTabDragDropTargetState, isWidgetDragDropTargetState } from "../state/DropTargetState";
+import type {
+  DropTargetState,
+  PanelDropTargetState,
+  TabDragDropTargetState,
+  TabDropTargetState,
+  WidgetDragDropTargetState,
+} from "../state/DropTargetState";
+import {
+  isTabDragDropTargetState,
+  isWidgetDragDropTargetState,
+} from "../state/DropTargetState";
 
 /** @internal */
 export interface DragStartArgs {
@@ -46,43 +55,55 @@ export function useDragTab(args: UseDragTabArgs) {
       id: tabId,
     };
   }, [tabId]);
-  const handleDrag = React.useCallback<DragEventHandler>((_item, info) => {
-    const dragBy = info.lastPointerPosition.getOffsetTo(info.pointerPosition);
-    onDrag && onDrag(dragBy);
-  }, [onDrag]);
-  const handleDragEnd = React.useCallback<DragEventHandler>((_item, info, target) => {
-    // istanbul ignore next
-    if (!onDragEnd)
-      return;
+  const handleDrag = React.useCallback<DragEventHandler>(
+    (_item, info) => {
+      const dragBy = info.lastPointerPosition.getOffsetTo(info.pointerPosition);
+      onDrag && onDrag(dragBy);
+    },
+    [onDrag]
+  );
+  const handleDragEnd = React.useCallback<DragEventHandler>(
+    (_item, info, target) => {
+      // istanbul ignore next
+      if (!onDragEnd) return;
 
-    let tabTarget: TabDragDropTargetState;
-    if (target && isTabDragDropTargetState(target)) {
-      tabTarget = target;
-    } else {
-      const tabInfo = info as TabDragInfo;
-      const newFloatingWidgetId = getUniqueId();
-      const size = tabInfo.widgetSize;
-      tabTarget = {
-        type: "floatingWidget",
-        newFloatingWidgetId,
-        size,
-      };
-    }
-    onDragEnd(tabTarget);
-  }, [onDragEnd]);
+      let tabTarget: TabDragDropTargetState;
+      if (target && isTabDragDropTargetState(target)) {
+        tabTarget = target;
+      } else {
+        const tabInfo = info as TabDragInfo;
+        const newFloatingWidgetId = getUniqueId();
+        const size = tabInfo.widgetSize;
+        tabTarget = {
+          type: "floatingWidget",
+          newFloatingWidgetId,
+          size,
+        };
+      }
+      onDragEnd(tabTarget);
+    },
+    [onDragEnd]
+  );
   const onDragStart = useDragItem({
     item,
     onDrag: handleDrag,
     onDragEnd: handleDragEnd,
   });
-  const handleDragStart = React.useCallback(({ initialPointerPosition, pointerPosition, widgetSize }: TabDragStartArgs) => {
-    onDragStart({
+  const handleDragStart = React.useCallback(
+    ({
       initialPointerPosition,
       pointerPosition,
-      lastPointerPosition: initialPointerPosition,
       widgetSize,
-    });
-  }, [onDragStart]);
+    }: TabDragStartArgs) => {
+      onDragStart({
+        initialPointerPosition,
+        pointerPosition,
+        lastPointerPosition: initialPointerPosition,
+        widgetSize,
+      });
+    },
+    [onDragStart]
+  );
   return handleDragStart;
 }
 
@@ -91,7 +112,11 @@ type UpdateWidgetDragItemFn = (id: WidgetDragItem["id"]) => void;
 /** @internal */
 export interface UseDragWidgetArgs {
   widgetId: WidgetState["id"];
-  onDragStart?: (updateWidget: UpdateWidgetDragItemFn, initialPointerPosition: Point, pointerPosition: Point) => void;
+  onDragStart?: (
+    updateWidget: UpdateWidgetDragItemFn,
+    initialPointerPosition: Point,
+    pointerPosition: Point
+  ) => void;
   onDrag?: (dragBy: Point) => void;
   onDragEnd?: (target: WidgetDragDropTargetState) => void;
 }
@@ -106,31 +131,46 @@ export function useDragWidget(args: UseDragWidgetArgs) {
       id: widgetId,
     };
   }, [widgetId]);
-  const handleDragStart = React.useCallback<DragEventHandler>((item, info) => {
-    onDragStart && onDragStart((id) => {
-      item.id = id;
-      dragManager.handleDragUpdate();
-    }, info.initialPointerPosition, info.pointerPosition);
-  }, [dragManager, onDragStart]);
-  const handleDrag = React.useCallback<DragEventHandler>((_item, info) => {
-    const dragBy = info.lastPointerPosition.getOffsetTo(info.pointerPosition);
-    onDrag && onDrag(dragBy);
-  }, [onDrag]);
-  const handleDragEnd = React.useCallback<DragEventHandler>((_item, _info, target) => {
-    if (!onDragEnd)
-      return;
+  const handleDragStart = React.useCallback<DragEventHandler>(
+    (item, info) => {
+      onDragStart &&
+        onDragStart(
+          (id) => {
+            item.id = id;
+            dragManager.handleDragUpdate();
+          },
+          info.initialPointerPosition,
+          info.pointerPosition
+        );
+    },
+    [dragManager, onDragStart]
+  );
+  const handleDrag = React.useCallback<DragEventHandler>(
+    (_item, info) => {
+      const dragBy = info.lastPointerPosition.getOffsetTo(info.pointerPosition);
+      onDrag && onDrag(dragBy);
+    },
+    [onDrag]
+  );
+  const handleDragEnd = React.useCallback<DragEventHandler>(
+    (_item, _info, target) => {
+      if (!onDragEnd) return;
 
-    let widgetTarget: WidgetDragDropTargetState;
-    if (target && isWidgetDragDropTargetState(target)) {
-      widgetTarget = target;
-    } else {
-      widgetTarget = {
-        type: "window",
-      };
-    }
-    onDragEnd(widgetTarget);
-  }, [onDragEnd]);
-  const isDragItem = React.useCallback<NonNullable<UseDragItemArgs<WidgetDragItem>["isDragItem"]>>((item, dragged) => {
+      let widgetTarget: WidgetDragDropTargetState;
+      if (target && isWidgetDragDropTargetState(target)) {
+        widgetTarget = target;
+      } else {
+        widgetTarget = {
+          type: "window",
+        };
+      }
+      onDragEnd(widgetTarget);
+    },
+    [onDragEnd]
+  );
+  const isDragItem = React.useCallback<
+    NonNullable<UseDragItemArgs<WidgetDragItem>["isDragItem"]>
+  >((item, dragged) => {
     return !!item && defaultIsDragItem(item, dragged);
   }, []);
   const onItemDragStart = useDragItem({
@@ -140,13 +180,16 @@ export function useDragWidget(args: UseDragWidgetArgs) {
     onDrag: handleDrag,
     onDragEnd: handleDragEnd,
   });
-  const handleWidgetDragStart = React.useCallback(({ initialPointerPosition, pointerPosition }: DragStartArgs) => {
-    onItemDragStart({
-      initialPointerPosition,
-      pointerPosition,
-      lastPointerPosition: initialPointerPosition,
-    });
-  }, [onItemDragStart]);
+  const handleWidgetDragStart = React.useCallback(
+    ({ initialPointerPosition, pointerPosition }: DragStartArgs) => {
+      onItemDragStart({
+        initialPointerPosition,
+        pointerPosition,
+        lastPointerPosition: initialPointerPosition,
+      });
+    },
+    [onItemDragStart]
+  );
   return handleWidgetDragStart;
 }
 
@@ -166,9 +209,12 @@ export function useDragPanelGrip(args: UseDragPanelGripArgs) {
       id: side,
     };
   }, [side]);
-  const handleDrag = React.useCallback<DragEventHandler>((_item, info) => {
-    onDrag && onDrag(info.pointerPosition, info.lastPointerPosition);
-  }, [onDrag]);
+  const handleDrag = React.useCallback<DragEventHandler>(
+    (_item, info) => {
+      onDrag && onDrag(info.pointerPosition, info.lastPointerPosition);
+    },
+    [onDrag]
+  );
   const handleDragEnd = React.useCallback<DragEventHandler>(() => {
     onDragEnd && onDragEnd();
   }, [onDragEnd]);
@@ -177,13 +223,16 @@ export function useDragPanelGrip(args: UseDragPanelGripArgs) {
     onDrag: handleDrag,
     onDragEnd: handleDragEnd,
   });
-  const handleDragStart = React.useCallback(({ initialPointerPosition }: DragStartArgs) => {
-    onItemDragStart({
-      initialPointerPosition,
-      pointerPosition: initialPointerPosition,
-      lastPointerPosition: initialPointerPosition,
-    });
-  }, [onItemDragStart]);
+  const handleDragStart = React.useCallback(
+    ({ initialPointerPosition }: DragStartArgs) => {
+      onItemDragStart({
+        initialPointerPosition,
+        pointerPosition: initialPointerPosition,
+        lastPointerPosition: initialPointerPosition,
+      });
+    },
+    [onItemDragStart]
+  );
   return handleDragStart;
 }
 
@@ -204,24 +253,37 @@ export function useDragResizeHandle(args: UseDragResizeHandleArgs) {
       widgetId,
     };
   }, [handle, widgetId]);
-  const isDragItem = React.useCallback<NonNullable<UseDragItemArgs<ResizeHandleDragItem>["isDragItem"]>>((item, draggedItem) => {
-    return !!item && isResizeHandleDragItem(draggedItem) && defaultIsDragItem(item, draggedItem) && item.widgetId === draggedItem.widgetId;
+  const isDragItem = React.useCallback<
+    NonNullable<UseDragItemArgs<ResizeHandleDragItem>["isDragItem"]>
+  >((item, draggedItem) => {
+    return (
+      !!item &&
+      isResizeHandleDragItem(draggedItem) &&
+      defaultIsDragItem(item, draggedItem) &&
+      item.widgetId === draggedItem.widgetId
+    );
   }, []);
-  const handleDrag = React.useCallback<DragEventHandler>((_item, info) => {
-    onDrag && onDrag(info.pointerPosition);
-  }, [onDrag]);
+  const handleDrag = React.useCallback<DragEventHandler>(
+    (_item, info) => {
+      onDrag && onDrag(info.pointerPosition);
+    },
+    [onDrag]
+  );
   const onItemDragStart = useDragItem<ResizeHandleDragItem>({
     item: resizeHandleItem,
     isDragItem,
     onDrag: handleDrag,
   });
-  const handleDragStart = React.useCallback(({ initialPointerPosition }: DragStartArgs) => {
-    onItemDragStart({
-      initialPointerPosition,
-      pointerPosition: initialPointerPosition,
-      lastPointerPosition: initialPointerPosition,
-    });
-  }, [onItemDragStart]);
+  const handleDragStart = React.useCallback(
+    ({ initialPointerPosition }: DragStartArgs) => {
+      onItemDragStart({
+        initialPointerPosition,
+        pointerPosition: initialPointerPosition,
+        lastPointerPosition: initialPointerPosition,
+      });
+    },
+    [onItemDragStart]
+  );
   return handleDragStart;
 }
 
@@ -242,37 +304,48 @@ export function useDragToolSettings(args: UseDragToolSettingsArgs) {
   const onDragStart = useDragItem({
     item,
   });
-  const handleDragStart = React.useCallback(({ initialPointerPosition }: DragStartArgs) => {
-    onDragStart({
-      initialPointerPosition,
-      pointerPosition: initialPointerPosition,
-      lastPointerPosition: initialPointerPosition,
-    });
-  }, [onDragStart]);
+  const handleDragStart = React.useCallback(
+    ({ initialPointerPosition }: DragStartArgs) => {
+      onDragStart({
+        initialPointerPosition,
+        pointerPosition: initialPointerPosition,
+        lastPointerPosition: initialPointerPosition,
+      });
+    },
+    [onDragStart]
+  );
   return handleDragStart;
 }
 
 /** @internal */
-export function useTarget<T extends Element>(target: DropTargetState): [
+export function useTarget<T extends Element>(
+  target: DropTargetState
+): [
   React.Ref<T>,
-  boolean,  // targeted
+  boolean // targeted
 ] {
   const dragManager = React.useContext(DragManagerContext);
   const [targeted, setTargeted] = React.useState(false);
   const targetedRef = React.useRef(false);
-  const onTargeted = React.useCallback((doTarget: boolean) => {
-    const isTargeted = dragManager.isTargeted(target);
-    if (doTarget && !isTargeted) {
-      dragManager.handleTargetChanged(target);
-    } else if (!doTarget && isTargeted) {
-      dragManager.handleTargetChanged(undefined);
-    }
-    setTargeted(doTarget);
-  }, [dragManager, target]);
+  const onTargeted = React.useCallback(
+    (doTarget: boolean) => {
+      const isTargeted = dragManager.isTargeted(target);
+      if (doTarget && !isTargeted) {
+        dragManager.handleTargetChanged(target);
+      } else if (!doTarget && isTargeted) {
+        dragManager.handleTargetChanged(undefined);
+      }
+      setTargeted(doTarget);
+    },
+    [dragManager, target]
+  );
   const ref = React.useRef<T>(null);
   React.useEffect(() => {
     return dragManager.onDrag.addListener((_item, info) => {
-      const targetedElement = document.elementFromPoint(info.pointerPosition.x, info.pointerPosition.y);
+      const targetedElement = document.elementFromPoint(
+        info.pointerPosition.x,
+        info.pointerPosition.y
+      );
       const newTargeted = targetedElement === ref.current;
       newTargeted !== targetedRef.current && onTargeted(newTargeted);
       targetedRef.current = newTargeted;
@@ -294,16 +367,21 @@ export interface UseTabTargetArgs {
 }
 
 /** @internal */
-export function useTabTarget<T extends Element>(args: UseTabTargetArgs): [
+export function useTabTarget<T extends Element>(
+  args: UseTabTargetArgs
+): [
   React.Ref<T>,
-  boolean,  // targeted
+  boolean // targeted
 ] {
   const { tabIndex, widgetId } = args;
-  const target = React.useMemo<TabDropTargetState>(() => ({
-    type: "tab",
-    tabIndex,
-    widgetId,
-  }), [tabIndex, widgetId]);
+  const target = React.useMemo<TabDropTargetState>(
+    () => ({
+      type: "tab",
+      tabIndex,
+      widgetId,
+    }),
+    [tabIndex, widgetId]
+  );
   return useTarget(target);
 }
 
@@ -314,16 +392,21 @@ export interface UsePanelTargetArgs {
 }
 
 /** @internal */
-export function usePanelTarget<T extends Element>(args: UsePanelTargetArgs): [
+export function usePanelTarget<T extends Element>(
+  args: UsePanelTargetArgs
+): [
   React.Ref<T>,
-  boolean,  // targeted
+  boolean // targeted
 ] {
   const { side, newWidgetId } = args;
-  const target = React.useMemo<PanelDropTargetState>(() => ({
-    type: "panel",
-    side,
-    newWidgetId,
-  }), [side, newWidgetId]);
+  const target = React.useMemo<PanelDropTargetState>(
+    () => ({
+      type: "panel",
+      side,
+      newWidgetId,
+    }),
+    [side, newWidgetId]
+  );
   return useTarget(target);
 }
 
@@ -344,33 +427,40 @@ function defaultIsDragItem(item: DragItem, dragged: DragItem) {
 export function useDragItem<T extends DragItem>(args: UseDragItemArgs<T>) {
   const dragManager = React.useContext(DragManagerContext);
   const { item, isDragItem, onDragStart, onDrag, onDragEnd } = args;
-  const handleDragStart = React.useCallback((info: DragInfo) => {
-    item && dragManager.handleDragStart({
-      item,
-      info,
-    });
-  }, [dragManager, item]);
+  const handleDragStart = React.useCallback(
+    (info: DragInfo) => {
+      item &&
+        dragManager.handleDragStart({
+          item,
+          info,
+        });
+    },
+    [dragManager, item]
+  );
   React.useEffect(() => {
     return dragManager.onDragStart.addListener((draggedItem, info, target) => {
-      const handleEvent = isDragItem ? isDragItem(item, draggedItem) : defaultIsDragItem(item, draggedItem);
-      if (!handleEvent)
-        return;
+      const handleEvent = isDragItem
+        ? isDragItem(item, draggedItem)
+        : defaultIsDragItem(item, draggedItem);
+      if (!handleEvent) return;
       onDragStart && onDragStart(draggedItem, info, target);
     });
   }, [dragManager, onDragStart, item, isDragItem]);
   React.useEffect(() => {
     return dragManager.onDrag.addListener((draggedItem, info, target) => {
-      const handleEvent = isDragItem ? isDragItem(item, draggedItem) : defaultIsDragItem(item, draggedItem);
-      if (!handleEvent)
-        return;
+      const handleEvent = isDragItem
+        ? isDragItem(item, draggedItem)
+        : defaultIsDragItem(item, draggedItem);
+      if (!handleEvent) return;
       onDrag && onDrag(draggedItem, info, target);
     });
   }, [dragManager, onDrag, item, isDragItem]);
   React.useEffect(() => {
     return dragManager.onDragEnd.addListener((draggedItem, info, target) => {
-      const handleEvent = isDragItem ? isDragItem(item, draggedItem) : defaultIsDragItem(item, draggedItem);
-      if (!handleEvent)
-        return;
+      const handleEvent = isDragItem
+        ? isDragItem(item, draggedItem)
+        : defaultIsDragItem(item, draggedItem);
+      if (!handleEvent) return;
       onDragEnd && onDragEnd(draggedItem, info, target);
     });
   }, [dragManager, onDragEnd, item, isDragItem]);
@@ -380,7 +470,9 @@ export function useDragItem<T extends DragItem>(args: UseDragItemArgs<T>) {
 /** @internal */
 export function useDraggedItem() {
   const dragManager = React.useContext(DragManagerContext);
-  const [draggedItem, setDraggedItem] = React.useState<DragItem | undefined>(dragManager.draggedItem?.item);
+  const [draggedItem, setDraggedItem] = React.useState<DragItem | undefined>(
+    dragManager.draggedItem?.item
+  );
   React.useEffect(() => {
     return dragManager.onDragStart.addListener((item) => {
       setDraggedItem(item);
@@ -402,7 +494,11 @@ export function useDraggedItem() {
 /** @internal */
 export function useIsDraggedItem(item: DragItem) {
   const draggedItem = useDraggedItem();
-  return !!draggedItem && draggedItem.id === item.id && draggedItem.type === item.type;
+  return (
+    !!draggedItem &&
+    draggedItem.id === item.id &&
+    draggedItem.type === item.type
+  );
 }
 
 /** @internal */
@@ -412,7 +508,9 @@ export function useIsDraggedType(type: DragItem["type"]) {
 }
 
 /** @internal */
-export function useDraggedItemId<T extends DragItem>(type: T["type"]): T["id"] | undefined {
+export function useDraggedItemId<T extends DragItem>(
+  type: T["type"]
+): T["id"] | undefined {
   const draggedItem = useDraggedItem();
 
   if (draggedItem && draggedItem.type === type) {
@@ -509,7 +607,11 @@ interface ResizeHandleDragItem {
 }
 
 /** @internal */
-export type DragItem = TabDragItem | WidgetDragItem | PanelGripDragItem | ResizeHandleDragItem;
+export type DragItem =
+  | TabDragItem
+  | WidgetDragItem
+  | PanelGripDragItem
+  | ResizeHandleDragItem;
 
 function isResizeHandleDragItem(item: DragItem): item is ResizeHandleDragItem {
   return item.type === "resizeHandle";
@@ -538,8 +640,14 @@ interface Dragged {
   target: DropTargetState | undefined;
 }
 
-type DragEventHandler = (item: DragItem, info: DragInfo, target: DropTargetState | undefined) => void;
-type DropTargetChangedEventHandler = (target: DropTargetState | undefined) => void;
+type DragEventHandler = (
+  item: DragItem,
+  info: DragInfo,
+  target: DropTargetState | undefined
+) => void;
+type DropTargetChangedEventHandler = (
+  target: DropTargetState | undefined
+) => void;
 
 /** @internal */
 export class DragManager {
@@ -548,18 +656,17 @@ export class DragManager {
   private _onDragUpdateEmitter = new BeEvent<DragEventHandler>();
   private _onDragEmitter = new BeEvent<DragEventHandler>();
   private _onDragEndEmitter = new BeEvent<DragEventHandler>();
-  private _onTargetChangedEmitter = new BeEvent<DropTargetChangedEventHandler>();
+  private _onTargetChangedEmitter =
+    new BeEvent<DropTargetChangedEventHandler>();
 
   public get draggedItem() {
     return this._dragged;
   }
 
   public isTargeted(target: DropTargetState) {
-    if (!this._dragged)
-      return false;
+    if (!this._dragged) return false;
 
-    if (!this._dragged.target)
-      return false;
+    if (!this._dragged.target) return false;
 
     return isEqual(this._dragged.target, target);
   }
@@ -590,30 +697,39 @@ export class DragManager {
       info,
       target: undefined,
     };
-    this._onDragStartEmitter.raiseEvent(this._dragged.item, this._dragged.info, this._dragged.target);
+    this._onDragStartEmitter.raiseEvent(
+      this._dragged.item,
+      this._dragged.info,
+      this._dragged.target
+    );
   }
 
   public handleDragUpdate() {
     // istanbul ignore next
-    if (!this._dragged)
-      return;
+    if (!this._dragged) return;
 
-    this._onDragUpdateEmitter.raiseEvent(this._dragged.item, this._dragged.info, this._dragged.target);
+    this._onDragUpdateEmitter.raiseEvent(
+      this._dragged.item,
+      this._dragged.info,
+      this._dragged.target
+    );
   }
 
   public handleDrag(x: number, y: number) {
-    if (!this._dragged)
-      return;
+    if (!this._dragged) return;
 
     this._dragged.info.lastPointerPosition = this._dragged.info.pointerPosition;
     this._dragged.info.pointerPosition = new Point(x, y);
 
-    this._onDragEmitter.raiseEvent(this._dragged.item, this._dragged.info, this._dragged.target);
+    this._onDragEmitter.raiseEvent(
+      this._dragged.item,
+      this._dragged.info,
+      this._dragged.target
+    );
   }
 
   public handleDragEnd() {
-    if (!this._dragged)
-      return;
+    if (!this._dragged) return;
 
     const item = this._dragged.item;
     const info = this._dragged.info;
@@ -624,8 +740,7 @@ export class DragManager {
   }
 
   public handleTargetChanged(target: DropTargetState | undefined) {
-    if (!this._dragged)
-      return;
+    if (!this._dragged) return;
     this._dragged.target = target;
     this._onTargetChangedEmitter.raiseEvent(target);
   }
@@ -636,15 +751,21 @@ export const DragManagerContext = React.createContext<DragManager>(null!); // es
 DragManagerContext.displayName = "nz:DragManagerContext";
 
 /** @internal */
-export const DraggedWidgetIdContext = React.createContext<WidgetState["id"] | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const DraggedWidgetIdContext = React.createContext<
+  WidgetState["id"] | undefined
+>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 DraggedWidgetIdContext.displayName = "nz:DraggedWidgetIdContext";
 
 /** @internal */
-export const DraggedPanelSideContext = React.createContext<PanelSide | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const DraggedPanelSideContext = React.createContext<
+  PanelSide | undefined
+>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 DraggedPanelSideContext.displayName = "nz:DraggedPanelSideContext";
 
 /** @internal */
-export const DraggedResizeHandleContext = React.createContext<FloatingWidgetResizeHandle | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const DraggedResizeHandleContext = React.createContext<
+  FloatingWidgetResizeHandle | undefined
+>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
 DraggedResizeHandleContext.displayName = "nz:DraggedResizeHandleContext";
 
 /** @internal */

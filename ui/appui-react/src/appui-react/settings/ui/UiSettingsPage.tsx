@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Settings
  */
@@ -13,11 +13,17 @@ import "./UiSettingsPage.scss";
 import * as React from "react";
 import type { SettingsTabEntry } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework";
-import { ColorTheme, SYSTEM_PREFERRED_COLOR_THEME } from "../../theme/ThemeManager";
-import { SyncUiEventDispatcher, SyncUiEventId } from "../../syncui/SyncUiEventDispatcher";
+import {
+  ColorTheme,
+  SYSTEM_PREFERRED_COLOR_THEME,
+} from "../../theme/ThemeManager";
+import {
+  SyncUiEventDispatcher,
+  SyncUiEventId,
+} from "../../syncui/SyncUiEventDispatcher";
 import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
-import type { SelectOption} from "@itwin/itwinui-react";
+import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
 
 /** UiSettingsPage displaying the active UI settings. This page lets users set the following settings.
@@ -35,53 +41,147 @@ import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
  * @beta
  */
 export function UiSettingsPage() {
-  const themeTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.themeTitle"));
-  const themeDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.themeDescription"));
-  const autoHideTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.autoHideTitle"));
-  const autoHideDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.autoHideDescription"));
-  const dragInteractionTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.dragInteractionTitle"));
-  const dragInteractionDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.dragInteractionDescription"));
-  const useProximityOpacityTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.useProximityOpacityTitle"));
-  const useProximityOpacityDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.useProximityOpacityDescription"));
-  const snapWidgetOpacityTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.snapWidgetOpacityTitle"));
-  const snapWidgetOpacityDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.snapWidgetOpacityDescription"));
-  const darkLabel = React.useRef(UiFramework.translate("settings.uiSettingsPage.dark"));
-  const lightLabel = React.useRef(UiFramework.translate("settings.uiSettingsPage.light"));
-  const systemPreferredLabel = React.useRef(UiFramework.translate("settings.uiSettingsPage.systemPreferred"));
-  const widgetOpacityTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.widgetOpacityTitle"));
-  const widgetOpacityDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.widgetOpacityDescription"));
-  const widgetIconTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.widgetIconTitle"));
-  const widgetIconDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.widgetIconDescription"));
-  const autoCollapseUnpinnedPanelsTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.autoCollapseUnpinnedPanelsTitle"));
-  const autoCollapseUnpinnedPanelsDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.autoCollapseUnpinnedPanelsDescription"));
-  const animateToolSettingsTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.animateToolSettingsTitle"));
-  const animateToolSettingsDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.animateToolSettingsDescription"));
-  const useToolAsToolSettingsLabelTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.useToolAsToolSettingsLabelTitle"));
-  const useToolAsToolSettingsLabelDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.useToolAsToolSettingsLabelDescription"));
-  const toolbarOpacityTitle = React.useRef(UiFramework.translate("settings.uiSettingsPage.toolbarOpacityTitle"));
-  const toolbarOpacityDescription = React.useRef(UiFramework.translate("settings.uiSettingsPage.toolbarOpacityDescription"));
+  const themeTitle = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.themeTitle")
+  );
+  const themeDescription = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.themeDescription")
+  );
+  const autoHideTitle = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.autoHideTitle")
+  );
+  const autoHideDescription = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.autoHideDescription")
+  );
+  const dragInteractionTitle = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.dragInteractionTitle")
+  );
+  const dragInteractionDescription = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.dragInteractionDescription")
+  );
+  const useProximityOpacityTitle = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.useProximityOpacityTitle")
+  );
+  const useProximityOpacityDescription = React.useRef(
+    UiFramework.translate(
+      "settings.uiSettingsPage.useProximityOpacityDescription"
+    )
+  );
+  const snapWidgetOpacityTitle = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.snapWidgetOpacityTitle")
+  );
+  const snapWidgetOpacityDescription = React.useRef(
+    UiFramework.translate(
+      "settings.uiSettingsPage.snapWidgetOpacityDescription"
+    )
+  );
+  const darkLabel = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.dark")
+  );
+  const lightLabel = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.light")
+  );
+  const systemPreferredLabel = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.systemPreferred")
+  );
+  const widgetOpacityTitle = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.widgetOpacityTitle")
+  );
+  const widgetOpacityDescription = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.widgetOpacityDescription")
+  );
+  const widgetIconTitle = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.widgetIconTitle")
+  );
+  const widgetIconDescription = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.widgetIconDescription")
+  );
+  const autoCollapseUnpinnedPanelsTitle = React.useRef(
+    UiFramework.translate(
+      "settings.uiSettingsPage.autoCollapseUnpinnedPanelsTitle"
+    )
+  );
+  const autoCollapseUnpinnedPanelsDescription = React.useRef(
+    UiFramework.translate(
+      "settings.uiSettingsPage.autoCollapseUnpinnedPanelsDescription"
+    )
+  );
+  const animateToolSettingsTitle = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.animateToolSettingsTitle")
+  );
+  const animateToolSettingsDescription = React.useRef(
+    UiFramework.translate(
+      "settings.uiSettingsPage.animateToolSettingsDescription"
+    )
+  );
+  const useToolAsToolSettingsLabelTitle = React.useRef(
+    UiFramework.translate(
+      "settings.uiSettingsPage.useToolAsToolSettingsLabelTitle"
+    )
+  );
+  const useToolAsToolSettingsLabelDescription = React.useRef(
+    UiFramework.translate(
+      "settings.uiSettingsPage.useToolAsToolSettingsLabelDescription"
+    )
+  );
+  const toolbarOpacityTitle = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.toolbarOpacityTitle")
+  );
+  const toolbarOpacityDescription = React.useRef(
+    UiFramework.translate("settings.uiSettingsPage.toolbarOpacityDescription")
+  );
 
   const [theme, setTheme] = React.useState(() => UiFramework.getColorTheme());
-  const [useDragInteraction, setUseDragInteraction] = React.useState(() => UiFramework.useDragInteraction);
-  const [showWidgetIcon, setShowWidgetIcon] = React.useState(() => UiFramework.showWidgetIcon);
-  const [autoCollapseUnpinnedPanels, setAutoCollapseUnpinnedPanels] = React.useState(() => UiFramework.autoCollapseUnpinnedPanels);
-  const [animateToolSettings, setAnimateToolSettings] = React.useState(() => UiFramework.animateToolSettings);
-  const [useToolAsToolSettingsLabel, setUseToolAsToolSettingsLabel] = React.useState(() => UiFramework.useToolAsToolSettingsLabel);
-  const [widgetOpacity, setWidgetOpacity] = React.useState(() => UiFramework.getWidgetOpacity());
-  const [autoHideUi, setAutoHideUi] = React.useState(() => UiFramework.visibility.autoHideUi);
-  const [useProximityOpacity, setUseProximityOpacity] = React.useState(() => UiFramework.visibility.useProximityOpacity);
-  const [snapWidgetOpacity, setSnapWidgetOpacity] = React.useState(() => UiFramework.visibility.snapWidgetOpacity);
-  const [toolbarOpacity, setToolbarOpacity] = React.useState(() => UiFramework.getToolbarOpacity());
+  const [useDragInteraction, setUseDragInteraction] = React.useState(
+    () => UiFramework.useDragInteraction
+  );
+  const [showWidgetIcon, setShowWidgetIcon] = React.useState(
+    () => UiFramework.showWidgetIcon
+  );
+  const [autoCollapseUnpinnedPanels, setAutoCollapseUnpinnedPanels] =
+    React.useState(() => UiFramework.autoCollapseUnpinnedPanels);
+  const [animateToolSettings, setAnimateToolSettings] = React.useState(
+    () => UiFramework.animateToolSettings
+  );
+  const [useToolAsToolSettingsLabel, setUseToolAsToolSettingsLabel] =
+    React.useState(() => UiFramework.useToolAsToolSettingsLabel);
+  const [widgetOpacity, setWidgetOpacity] = React.useState(() =>
+    UiFramework.getWidgetOpacity()
+  );
+  const [autoHideUi, setAutoHideUi] = React.useState(
+    () => UiFramework.visibility.autoHideUi
+  );
+  const [useProximityOpacity, setUseProximityOpacity] = React.useState(
+    () => UiFramework.visibility.useProximityOpacity
+  );
+  const [snapWidgetOpacity, setSnapWidgetOpacity] = React.useState(
+    () => UiFramework.visibility.snapWidgetOpacity
+  );
+  const [toolbarOpacity, setToolbarOpacity] = React.useState(() =>
+    UiFramework.getToolbarOpacity()
+  );
 
   React.useEffect(() => {
-    const syncIdsOfInterest = ["configurableui:set_theme", "configurableui:set_widget_opacity", "configurableui:set-show-widget-icon",
-      "configurableui:set-drag-interaction", "configurableui:set-framework-version",
-      "configurableui:set-auto-collapse-unpinned-panels", "configurableui:set-animate-tool-settings",
-      "configurableui:set-use-tool-as-tool-settings-label", "configurableui:set-toolbar-opacity", SyncUiEventId.ShowHideManagerSettingChange];
+    const syncIdsOfInterest = [
+      "configurableui:set_theme",
+      "configurableui:set_widget_opacity",
+      "configurableui:set-show-widget-icon",
+      "configurableui:set-drag-interaction",
+      "configurableui:set-framework-version",
+      "configurableui:set-auto-collapse-unpinned-panels",
+      "configurableui:set-animate-tool-settings",
+      "configurableui:set-use-tool-as-tool-settings-label",
+      "configurableui:set-toolbar-opacity",
+      SyncUiEventId.ShowHideManagerSettingChange,
+    ];
 
     const handleSyncUiEvent = (args: UiSyncEventArgs) => {
       // istanbul ignore else
-      if (syncIdsOfInterest.some((value: string): boolean => args.eventIds.has(value))) {
+      if (
+        syncIdsOfInterest.some((value: string): boolean =>
+          args.eventIds.has(value)
+        )
+      ) {
         if (UiFramework.getColorTheme() !== theme)
           setTheme(UiFramework.getColorTheme());
         if (UiFramework.visibility.autoHideUi !== autoHideUi)
@@ -90,7 +190,9 @@ export function UiSettingsPage() {
           setUseDragInteraction(UiFramework.useDragInteraction);
         if (UiFramework.showWidgetIcon !== showWidgetIcon)
           setShowWidgetIcon(UiFramework.showWidgetIcon);
-        if (UiFramework.autoCollapseUnpinnedPanels !== autoCollapseUnpinnedPanels)
+        if (
+          UiFramework.autoCollapseUnpinnedPanels !== autoCollapseUnpinnedPanels
+        )
           setAutoCollapseUnpinnedPanels(UiFramework.autoCollapseUnpinnedPanels);
         if (UiFramework.getWidgetOpacity() !== widgetOpacity)
           setWidgetOpacity(UiFramework.getWidgetOpacity());
@@ -102,17 +204,33 @@ export function UiSettingsPage() {
           setSnapWidgetOpacity(UiFramework.visibility.snapWidgetOpacity);
         if (UiFramework.animateToolSettings !== animateToolSettings)
           setAnimateToolSettings(UiFramework.animateToolSettings);
-        if (UiFramework.useToolAsToolSettingsLabel !== useToolAsToolSettingsLabel)
+        if (
+          UiFramework.useToolAsToolSettingsLabel !== useToolAsToolSettingsLabel
+        )
           setUseToolAsToolSettingsLabel(UiFramework.useToolAsToolSettingsLabel);
         if (UiFramework.getToolbarOpacity() !== toolbarOpacity)
           setToolbarOpacity(UiFramework.getToolbarOpacity());
       }
     };
     return SyncUiEventDispatcher.onSyncUiEvent.addListener(handleSyncUiEvent);
-  }, [autoCollapseUnpinnedPanels, autoHideUi, showWidgetIcon, snapWidgetOpacity, theme,
-    useDragInteraction, useProximityOpacity, widgetOpacity, animateToolSettings, useToolAsToolSettingsLabel, toolbarOpacity]);
+  }, [
+    autoCollapseUnpinnedPanels,
+    autoHideUi,
+    showWidgetIcon,
+    snapWidgetOpacity,
+    theme,
+    useDragInteraction,
+    useProximityOpacity,
+    widgetOpacity,
+    animateToolSettings,
+    useToolAsToolSettingsLabel,
+    toolbarOpacity,
+  ]);
 
-  const defaultThemeOption = { label: systemPreferredLabel.current, value: SYSTEM_PREFERRED_COLOR_THEME };
+  const defaultThemeOption = {
+    label: systemPreferredLabel.current,
+    value: SYSTEM_PREFERRED_COLOR_THEME,
+  };
   const themeOptions: SelectOption<string>[] = [
     defaultThemeOption,
     { label: lightLabel.current, value: ColorTheme.Light },
@@ -143,12 +261,15 @@ export function UiSettingsPage() {
     UiFramework.setAutoCollapseUnpinnedPanels(!autoCollapseUnpinnedPanels);
   }, [autoCollapseUnpinnedPanels]);
 
-  const onWidgetOpacityChange = React.useCallback(async (values: readonly number[]) => {
-    // istanbul ignore else
-    if (values.length > 0) {
-      UiFramework.setWidgetOpacity(values[0]);
-    }
-  }, []);
+  const onWidgetOpacityChange = React.useCallback(
+    async (values: readonly number[]) => {
+      // istanbul ignore else
+      if (values.length > 0) {
+        UiFramework.setWidgetOpacity(values[0]);
+      }
+    },
+    []
+  );
 
   const onToggleDragInteraction = React.useCallback(async () => {
     UiFramework.setUseDragInteraction(!useDragInteraction);
@@ -163,18 +284,26 @@ export function UiSettingsPage() {
     UiFramework.setUseToolAsToolSettingsLabel(!useToolAsToolSettingsLabel);
   }, [useToolAsToolSettingsLabel]);
 
-  const onToolbarOpacityChange = React.useCallback(async (values: readonly number[]) => {
-    // istanbul ignore else
-    if (values.length > 0) {
-      UiFramework.setToolbarOpacity(values[0]);
-    }
-  }, []);
+  const onToolbarOpacityChange = React.useCallback(
+    async (values: readonly number[]) => {
+      // istanbul ignore else
+      if (values.length > 0) {
+        UiFramework.setToolbarOpacity(values[0]);
+      }
+    },
+    []
+  );
 
   return (
     <div className="uifw-settings">
-      <SettingsItem title={themeTitle.current} description={themeDescription.current}
+      <SettingsItem
+        title={themeTitle.current}
+        description={themeDescription.current}
         settingUi={
-          <div data-testid="select-theme-container" className="select-theme-container">
+          <div
+            data-testid="select-theme-container"
+            className="select-theme-container"
+          >
             <Select
               value={currentTheme}
               onChange={onThemeChange}
@@ -185,40 +314,113 @@ export function UiSettingsPage() {
           </div>
         }
       />
-      <SettingsItem title={autoHideTitle.current} description={autoHideDescription.current}
-        settingUi={<ToggleSwitch checked={autoHideUi} onChange={onAutoHideChange} />}
-      />
-      <SettingsItem title={dragInteractionTitle.current} description={dragInteractionDescription.current}
-        settingUi={<ToggleSwitch checked={useDragInteraction} onChange={onToggleDragInteraction} />}
-      />
-      <SettingsItem title={useProximityOpacityTitle.current} description={useProximityOpacityDescription.current}
-        settingUi={<ToggleSwitch checked={useProximityOpacity} onChange={onUseProximityOpacityChange} />}
-      />
-      <SettingsItem title={snapWidgetOpacityTitle.current} description={snapWidgetOpacityDescription.current}
-        settingUi={<ToggleSwitch checked={snapWidgetOpacity} onChange={onSnapWidgetOpacityChange} />}
-      />
-      <SettingsItem title={widgetIconTitle.current} description={widgetIconDescription.current}
-        settingUi={<ToggleSwitch checked={showWidgetIcon} onChange={onWidgetIconChange} />}
-      />
-      <SettingsItem title={autoCollapseUnpinnedPanelsTitle.current} description={autoCollapseUnpinnedPanelsDescription.current}
-        settingUi={<ToggleSwitch checked={autoCollapseUnpinnedPanels} onChange={onAutoCollapseUnpinnedPanelsChange} />}
-      />
-      <SettingsItem title={animateToolSettingsTitle.current} description={animateToolSettingsDescription.current}
-        settingUi={<ToggleSwitch checked={animateToolSettings} onChange={OnToggleAnimateToolSettings} />}
-      />
-      <SettingsItem title={useToolAsToolSettingsLabelTitle.current} description={useToolAsToolSettingsLabelDescription.current}
-        settingUi={<ToggleSwitch checked={useToolAsToolSettingsLabel} onChange={OnToggleUseToolAsToolSettingsLabel} />}
-      />
-      <SettingsItem title={toolbarOpacityTitle.current} description={toolbarOpacityDescription.current}
+      <SettingsItem
+        title={autoHideTitle.current}
+        description={autoHideDescription.current}
         settingUi={
-          <Slider style={{ flex: "1" }} values={[toolbarOpacity]} step={0.05} onChange={onToolbarOpacityChange}
-            min={0.20} max={1.0} maxLabel="1.0" tickLabels={["", "", "", "", ""]} />
+          <ToggleSwitch checked={autoHideUi} onChange={onAutoHideChange} />
         }
       />
-      <SettingsItem title={widgetOpacityTitle.current} description={widgetOpacityDescription.current}
+      <SettingsItem
+        title={dragInteractionTitle.current}
+        description={dragInteractionDescription.current}
         settingUi={
-          <Slider style={{ flex: "1" }} values={[widgetOpacity]} step={0.05} onChange={onWidgetOpacityChange}
-            min={0.20} max={1.0} maxLabel="1.0" tickLabels={["", "", "", "", ""]} />
+          <ToggleSwitch
+            checked={useDragInteraction}
+            onChange={onToggleDragInteraction}
+          />
+        }
+      />
+      <SettingsItem
+        title={useProximityOpacityTitle.current}
+        description={useProximityOpacityDescription.current}
+        settingUi={
+          <ToggleSwitch
+            checked={useProximityOpacity}
+            onChange={onUseProximityOpacityChange}
+          />
+        }
+      />
+      <SettingsItem
+        title={snapWidgetOpacityTitle.current}
+        description={snapWidgetOpacityDescription.current}
+        settingUi={
+          <ToggleSwitch
+            checked={snapWidgetOpacity}
+            onChange={onSnapWidgetOpacityChange}
+          />
+        }
+      />
+      <SettingsItem
+        title={widgetIconTitle.current}
+        description={widgetIconDescription.current}
+        settingUi={
+          <ToggleSwitch
+            checked={showWidgetIcon}
+            onChange={onWidgetIconChange}
+          />
+        }
+      />
+      <SettingsItem
+        title={autoCollapseUnpinnedPanelsTitle.current}
+        description={autoCollapseUnpinnedPanelsDescription.current}
+        settingUi={
+          <ToggleSwitch
+            checked={autoCollapseUnpinnedPanels}
+            onChange={onAutoCollapseUnpinnedPanelsChange}
+          />
+        }
+      />
+      <SettingsItem
+        title={animateToolSettingsTitle.current}
+        description={animateToolSettingsDescription.current}
+        settingUi={
+          <ToggleSwitch
+            checked={animateToolSettings}
+            onChange={OnToggleAnimateToolSettings}
+          />
+        }
+      />
+      <SettingsItem
+        title={useToolAsToolSettingsLabelTitle.current}
+        description={useToolAsToolSettingsLabelDescription.current}
+        settingUi={
+          <ToggleSwitch
+            checked={useToolAsToolSettingsLabel}
+            onChange={OnToggleUseToolAsToolSettingsLabel}
+          />
+        }
+      />
+      <SettingsItem
+        title={toolbarOpacityTitle.current}
+        description={toolbarOpacityDescription.current}
+        settingUi={
+          <Slider
+            style={{ flex: "1" }}
+            values={[toolbarOpacity]}
+            step={0.05}
+            onChange={onToolbarOpacityChange}
+            min={0.2}
+            max={1.0}
+            maxLabel="1.0"
+            tickLabels={["", "", "", "", ""]}
+          />
+        }
+      />
+      <SettingsItem
+        title={widgetOpacityTitle.current}
+        description={widgetOpacityDescription.current}
+        settingUi={
+          <Slider
+            style={{ flex: "1" }}
+            values={[widgetOpacity]}
+            step={0.05}
+            onChange={onWidgetOpacityChange}
+            min={0.2}
+            max={1.0}
+            maxLabel="1.0"
+            tickLabels={["", "", "", "", ""]}
+          />
         }
       />
     </div>
@@ -240,9 +442,7 @@ function SettingsItem(props: SettingsItemProps) {
         <span className="title">{title}</span>
         <span className="description">{description}</span>
       </div>
-      <div className="panel right-panel">
-        {settingUi}
-      </div>
+      <div className="panel right-panel">{settingUi}</div>
     </div>
   );
 }
@@ -252,9 +452,12 @@ function SettingsItem(props: SettingsItemProps) {
  * @param itemPriority - Used to define the order of the entry in the Settings Stage
  * @beta
  */
-export function getUiSettingsManagerEntry(itemPriority: number): SettingsTabEntry {
+export function getUiSettingsManagerEntry(
+  itemPriority: number
+): SettingsTabEntry {
   return {
-    itemPriority, tabId: "uifw:UiStateStorage",
+    itemPriority,
+    tabId: "uifw:UiStateStorage",
     label: UiFramework.translate("settings.uiSettingsPage.label"),
     icon: IconSpecUtilities.createWebComponentIconSpec(widowSettingsIconSvg),
     page: <UiSettingsPage />,

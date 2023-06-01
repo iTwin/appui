@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -15,7 +15,7 @@ import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { ToolWidgetComposer } from "./ToolWidgetComposer";
 import { BackstageAppButton } from "./BackstageAppButton";
 import { useUiVisibility } from "../hooks/useUiVisibility";
-import type { ToolbarItem} from "../toolbar/ToolbarItem";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 
 /** Properties that can be used to append items to the default set of toolbar items.
@@ -42,62 +42,121 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
       const items: ToolbarItem[] = [];
       if (useCategoryAndModelsContextTools) {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.clearSelectionItemDef),
-          ToolbarHelper.createToolbarItemFromItemDef(20, SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef),
-          ToolbarHelper.createToolbarItemFromItemDef(30, SelectionContextToolDefinitions.hideSectionToolGroup),
-          ToolbarHelper.createToolbarItemFromItemDef(40, SelectionContextToolDefinitions.isolateSelectionToolGroup),
-          ToolbarHelper.createToolbarItemFromItemDef(50, SelectionContextToolDefinitions.emphasizeElementsItemDef),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            10,
+            CoreTools.clearSelectionItemDef
+          ),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            20,
+            SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef
+          ),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            30,
+            SelectionContextToolDefinitions.hideSectionToolGroup
+          ),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            40,
+            SelectionContextToolDefinitions.isolateSelectionToolGroup
+          ),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            50,
+            SelectionContextToolDefinitions.emphasizeElementsItemDef
+          )
         );
       } else {
         items.push(
-          ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.clearSelectionItemDef),
-          ToolbarHelper.createToolbarItemFromItemDef(20, SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef),
-          ToolbarHelper.createToolbarItemFromItemDef(30, SelectionContextToolDefinitions.hideElementsItemDef),
-          ToolbarHelper.createToolbarItemFromItemDef(40, SelectionContextToolDefinitions.isolateElementsItemDef),
-          ToolbarHelper.createToolbarItemFromItemDef(50, SelectionContextToolDefinitions.emphasizeElementsItemDef),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            10,
+            CoreTools.clearSelectionItemDef
+          ),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            20,
+            SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef
+          ),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            30,
+            SelectionContextToolDefinitions.hideElementsItemDef
+          ),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            40,
+            SelectionContextToolDefinitions.isolateElementsItemDef
+          ),
+          ToolbarHelper.createToolbarItemFromItemDef(
+            50,
+            SelectionContextToolDefinitions.emphasizeElementsItemDef
+          )
         );
       }
       if (props.additionalHorizontalItems)
         items.push(...props.additionalHorizontalItems);
       return items;
-    }, [props.additionalHorizontalItems]);
+    },
+    [props.additionalHorizontalItems]
+  );
 
-  const getVerticalToolbarItems = React.useCallback(
-    (): ToolbarItem[] => {
-      const items: ToolbarItem[] = [];
-      items.push(
-        ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.selectElementCommand),
-        ToolbarHelper.createToolbarItemFromItemDef(20, CoreTools.measureToolGroup),
-        ToolbarHelper.createToolbarItemFromItemDef(30, CoreTools.sectionToolGroup),
-      );
-      if (props.additionalVerticalItems)
-        items.push(...props.additionalVerticalItems);
-      return items;
-    }, [props.additionalVerticalItems]);
+  const getVerticalToolbarItems = React.useCallback((): ToolbarItem[] => {
+    const items: ToolbarItem[] = [];
+    items.push(
+      ToolbarHelper.createToolbarItemFromItemDef(
+        10,
+        CoreTools.selectElementCommand
+      ),
+      ToolbarHelper.createToolbarItemFromItemDef(
+        20,
+        CoreTools.measureToolGroup
+      ),
+      ToolbarHelper.createToolbarItemFromItemDef(30, CoreTools.sectionToolGroup)
+    );
+    if (props.additionalVerticalItems)
+      items.push(...props.additionalVerticalItems);
+    return items;
+  }, [props.additionalVerticalItems]);
 
-  const [horizontalItems, setHorizontalItems] = React.useState(() => getHorizontalToolbarItems(!!props.showCategoryAndModelsContextTools));
-  const [verticalItems, setVerticalItems] = React.useState(() => getVerticalToolbarItems());
+  const [horizontalItems, setHorizontalItems] = React.useState(() =>
+    getHorizontalToolbarItems(!!props.showCategoryAndModelsContextTools)
+  );
+  const [verticalItems, setVerticalItems] = React.useState(() =>
+    getVerticalToolbarItems()
+  );
 
   const isInitialMount = React.useRef(true);
   React.useEffect(() => {
-    if (isInitialMount.current)
-      isInitialMount.current = false;
+    if (isInitialMount.current) isInitialMount.current = false;
     else {
-      setHorizontalItems(getHorizontalToolbarItems(!!props.showCategoryAndModelsContextTools));
+      setHorizontalItems(
+        getHorizontalToolbarItems(!!props.showCategoryAndModelsContextTools)
+      );
       setVerticalItems(getVerticalToolbarItems());
     }
-  }, [props.showCategoryAndModelsContextTools, props.additionalHorizontalItems, props.additionalVerticalItems, getHorizontalToolbarItems, getVerticalToolbarItems]);
+  }, [
+    props.showCategoryAndModelsContextTools,
+    props.additionalHorizontalItems,
+    props.additionalVerticalItems,
+    getHorizontalToolbarItems,
+    getVerticalToolbarItems,
+  ]);
 
   const uiIsVisible = useUiVisibility();
   // istanbul ignore next
-  const className = classnames(
-    !uiIsVisible && "nz-hidden",
-  );
+  const className = classnames(!uiIsVisible && "nz-hidden");
   return (
-    <ToolWidgetComposer className={className}
+    <ToolWidgetComposer
+      className={className}
       cornerItem={<BackstageAppButton icon={props.icon} />}
-      horizontalToolbar={<ToolbarComposer items={horizontalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
-      verticalToolbar={<ToolbarComposer items={verticalItems} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
+      horizontalToolbar={
+        <ToolbarComposer
+          items={horizontalItems}
+          usage={ToolbarUsage.ContentManipulation}
+          orientation={ToolbarOrientation.Horizontal}
+        />
+      }
+      verticalToolbar={
+        <ToolbarComposer
+          items={verticalItems}
+          usage={ToolbarUsage.ContentManipulation}
+          orientation={ToolbarOrientation.Vertical}
+        />
+      }
     />
   );
 }

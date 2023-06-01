@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Settings
  */
@@ -38,7 +38,7 @@ export interface SettingsTabEntry {
 /** Event class for [[this.onSettingsProvidersChanged]] which is emitted when a new SettingsTabsProvider is added or removed.
  * @public
  */
-export class SettingsProvidersChangedEvent extends BeUiEvent<SettingsProvidersChangedEventArgs> { }
+export class SettingsProvidersChangedEvent extends BeUiEvent<SettingsProvidersChangedEventArgs> {}
 
 /** Arguments of [[this.onSettingsProvidersChanged]] event.
  * @public
@@ -51,7 +51,7 @@ export interface SettingsProvidersChangedEventArgs {
  * settings page to save its settings before activating the new SettingTab.
  * @public
  */
-export class ProcessSettingsTabActivationEvent extends BeUiEvent<ProcessSettingsTabActivationEventArgs> { }
+export class ProcessSettingsTabActivationEvent extends BeUiEvent<ProcessSettingsTabActivationEventArgs> {}
 
 /** Arguments of [[this.onProcessSettingsTabActivation]] event.
  * @public
@@ -65,12 +65,12 @@ export interface ProcessSettingsTabActivationEventArgs {
  * settings page to save its settings before calling the function to close the container.
  * @public
  */
-export class ProcessSettingsContainerCloseEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> { }
+export class ProcessSettingsContainerCloseEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {}
 
 /** Event class for [[this.onCloseSettingsContainer]] which is monitored by the settings container and indicates that some out process want to close the settings container.
  * @internal
  */
-export class CloseSettingsContainerEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> { }
+export class CloseSettingsContainerEvent extends BeUiEvent<ProcessSettingsContainerCloseEventArgs> {}
 
 /** Arguments of [[this.onProcessSettingsContainerClose]] event.
  * @public
@@ -83,7 +83,7 @@ export interface ProcessSettingsContainerCloseEventArgs {
 /** Event class for [[this.onActivateSettingsTab]] which is emitted when API call needs to set the active settings tab (ie via Tool key-in).
  * @public
  */
-export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> { }
+export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {}
 
 /** Arguments of [[this.onActivateSettingsTab]] event.
  * @public
@@ -99,7 +99,10 @@ export interface ActivateSettingsTabEventArgs {
 export interface SettingsTabsProvider {
   /** Id of provider, used to remove registration. */
   readonly id: string;
-  getSettingEntries(stageId: string, stageUsage: string): ReadonlyArray<SettingsTabEntry> | undefined;
+  getSettingEntries(
+    stageId: string,
+    stageUsage: string
+  ): ReadonlyArray<SettingsTabEntry> | undefined;
 }
 
 /** Settings Manager class. Hold registration of settings providers and supplies events for the provided settings pages to listen.
@@ -110,17 +113,20 @@ export class SettingsManager {
 
   /** Event raised when SettingsProviders are changed.
    */
-  public readonly onSettingsProvidersChanged = new SettingsProvidersChangedEvent();
+  public readonly onSettingsProvidersChanged =
+    new SettingsProvidersChangedEvent();
 
   /** Event raised solely for a settings page to monitor so it can save its settings before continuing tab activation.
    * See React hook function `useSaveBeforeActivatingNewSettingsTab`.
    */
-  public readonly onProcessSettingsTabActivation = new ProcessSettingsTabActivationEvent();
+  public readonly onProcessSettingsTabActivation =
+    new ProcessSettingsTabActivationEvent();
 
   /** Event raised when the settings container will be closed. Any setting page component that is 'modal' should register to
    * listen to this event so that it can save its state before closing. See React hook function `useSaveBeforeClosingSettingsContainer`.
    */
-  public readonly onProcessSettingsContainerClose = new ProcessSettingsContainerCloseEvent();
+  public readonly onProcessSettingsContainerClose =
+    new ProcessSettingsContainerCloseEvent();
 
   /** Event raised to change the active settings tab shown in UI. Monitored by the SettingsContainer.
    * @internal
@@ -133,7 +139,9 @@ export class SettingsManager {
   public readonly onCloseSettingsContainer = new CloseSettingsContainerEvent();
 
   /** @public */
-  public get providers(): ReadonlyArray<SettingsTabsProvider> { return this._providers; }
+  public get providers(): ReadonlyArray<SettingsTabsProvider> {
+    return this._providers;
+  }
   public set providers(p: ReadonlyArray<SettingsTabsProvider>) {
     this._providers = p;
     this.onSettingsProvidersChanged.emit({ providers: p });
@@ -149,20 +157,25 @@ export class SettingsManager {
   /** Called by application when the Settings Container is to be closed. The function to invoke to actually close the Settings Container is
    * passed in and executed once the active settings tab/page has a chance to save its settings.
    */
-  public closeSettingsContainer(closeFunc: (args: any) => void, closeFuncArgs?: any) {
+  public closeSettingsContainer(
+    closeFunc: (args: any) => void,
+    closeFuncArgs?: any
+  ) {
     this.onCloseSettingsContainer.emit({ closeFunc, closeFuncArgs });
   }
 
   public addSettingsProvider(settingsProvider: SettingsTabsProvider): void {
-    const foundProvider = this._providers.find((p) => p.id === settingsProvider.id);
+    const foundProvider = this._providers.find(
+      (p) => p.id === settingsProvider.id
+    );
     if (!foundProvider) {
-      const updatedProviders = [
-        ...this.providers,
-        settingsProvider,
-      ];
+      const updatedProviders = [...this.providers, settingsProvider];
       this.providers = updatedProviders;
     } else {
-      Logger.logInfo(UiCore.loggerCategory(this), `Settings Provider with id of ${settingsProvider.id} has already been registered`);
+      Logger.logInfo(
+        UiCore.loggerCategory(this),
+        `Settings Provider with id of ${settingsProvider.id} has already been registered`
+      );
     }
   }
 
@@ -178,7 +191,10 @@ export class SettingsManager {
   }
 
   /** Get an array of SettingsTabEntry objects to populate the settings container. */
-  public getSettingEntries(stageId: string, stageUsage: string): Array<SettingsTabEntry> {
+  public getSettingEntries(
+    stageId: string,
+    stageUsage: string
+  ): Array<SettingsTabEntry> {
     const allSettingEntries: SettingsTabEntry[] = [];
     // Consult the registered SettingsProviders
     this._providers.forEach((p) => {

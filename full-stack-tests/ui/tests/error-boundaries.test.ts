@@ -1,11 +1,10 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { expect, Page, test } from '@playwright/test';
-import assert from 'assert';
-import { tabLocator, widgetLocator } from './Utils';
-
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import { expect, Page, test } from "@playwright/test";
+import assert from "assert";
+import { tabLocator, widgetLocator } from "./Utils";
 
 test.describe("error boundary", () => {
   test.beforeEach(async ({ page, baseURL }) => {
@@ -24,5 +23,4 @@ test.describe("error boundary", () => {
     await button.click();
     await expect(error).toBeVisible();
   });
-
 });

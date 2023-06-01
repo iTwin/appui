@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -9,10 +9,17 @@
 import "./WeightEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { PropertyRecord, PropertyValue} from "@itwin/appui-abstract";
-import { PropertyValueFormat, StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";
+import type { PropertyRecord, PropertyValue } from "@itwin/appui-abstract";
+import {
+  PropertyValueFormat,
+  StandardEditorNames,
+  StandardTypeNames,
+} from "@itwin/appui-abstract";
 import type { PropertyEditorProps, TypeEditor } from "@itwin/components-react";
-import { PropertyEditorBase, PropertyEditorManager } from "@itwin/components-react";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "@itwin/components-react";
 import { WeightPickerButton } from "../lineweight/WeightPickerButton";
 
 // cspell:ignore lineweight
@@ -27,7 +34,10 @@ interface WeightEditorState {
 /** WeightEditor React component that is a property editor for picking a weight using a [[WeightPickerButton]] component
  * @public
  */
-export class WeightEditor extends React.PureComponent<PropertyEditorProps, WeightEditorState> implements TypeEditor {
+export class WeightEditor
+  extends React.PureComponent<PropertyEditorProps, WeightEditorState>
+  implements TypeEditor
+{
   private _control: any | null = null;
   private _isMounted = false;
   private _availableWeights: number[] = [];
@@ -93,18 +103,21 @@ export class WeightEditor extends React.PureComponent<PropertyEditorProps, Weigh
   private _onLineWeightPick = (weight: number) => {
     const propertyRecord = this.props.propertyRecord as PropertyRecord;
 
-    this.setState({
-      weightValue: weight,
-    }, async () => {
-      // istanbul ignore else
-      if (propertyRecord && this.props.onCommit) {
-        const propertyValue = await this.getPropertyValue();
+    this.setState(
+      {
+        weightValue: weight,
+      },
+      async () => {
         // istanbul ignore else
-        if (propertyValue !== undefined) {
-          this.props.onCommit({ propertyRecord, newValue: propertyValue });
+        if (propertyRecord && this.props.onCommit) {
+          const propertyValue = await this.getPropertyValue();
+          // istanbul ignore else
+          if (propertyValue !== undefined) {
+            this.props.onCommit({ propertyRecord, newValue: propertyValue });
+          }
         }
       }
-    });
+    );
   };
 
   /** @internal */
@@ -134,32 +147,40 @@ export class WeightEditor extends React.PureComponent<PropertyEditorProps, Weigh
       initialValue = record.value.value as number;
     }
 
-    const readonly = record && undefined !== record.isReadonly ? record.isReadonly : false;
+    const readonly =
+      record && undefined !== record.isReadonly ? record.isReadonly : false;
     const isDisabled = record ? record.isDisabled : undefined;
 
     // istanbul ignore else
     if (this._isMounted)
-      this.setState(
-        { weightValue: initialValue, readonly, isDisabled },
-        () => {
-          if (this.props.setFocus) {
-            this.setFocus();
-          }
-        },
-      );
+      this.setState({ weightValue: initialValue, readonly, isDisabled }, () => {
+        if (this.props.setFocus) {
+          this.setFocus();
+        }
+      });
   }
 
   /** @internal */
   public override render() {
     return (
-      <div className={classnames("components-weight-editor", this.props.className)} style={this.props.style} ref={this._divElement}>
-        <WeightPickerButton ref={(control) => this._control = control}
+      <div
+        className={classnames("components-weight-editor", this.props.className)}
+        style={this.props.style}
+        ref={this._divElement}
+      >
+        <WeightPickerButton
+          ref={(control) => (this._control = control)}
           activeWeight={this.state.weightValue}
-          weights={this._availableWeights.length > 0 ? /* istanbul ignore next */ this._availableWeights : undefined}
+          weights={
+            this._availableWeights.length > 0
+              ? /* istanbul ignore next */ this._availableWeights
+              : undefined
+          }
           disabled={this.state.isDisabled ? true : false}
           readonly={this.state.readonly}
           onLineWeightPick={this._onLineWeightPick}
-          data-testid="components-weight-editor" />
+          data-testid="components-weight-editor"
+        />
       </div>
     );
   }
@@ -176,4 +197,8 @@ export class WeightPropertyEditor extends PropertyEditorBase {
   }
 }
 
-PropertyEditorManager.registerEditor(StandardTypeNames.Number, WeightPropertyEditor, StandardEditorNames.WeightPicker);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Number,
+  WeightPropertyEditor,
+  StandardEditorNames.WeightPicker
+);

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module NavigationAids
  */
@@ -19,9 +19,16 @@ export class DrawingNavigationAidControl extends NavigationAidControl {
 
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
-    this.reactNode = <DrawingNavigationAid iModelConnection={options.imodel} viewport={options.viewport} />;
+    this.reactNode = (
+      <DrawingNavigationAid
+        iModelConnection={options.imodel}
+        viewport={options.viewport}
+      />
+    );
   }
 
   // istanbul ignore next
-  public override getSize(): string | undefined { return "96px"; }
+  public override getSize(): string | undefined {
+    return "96px";
+  }
 }

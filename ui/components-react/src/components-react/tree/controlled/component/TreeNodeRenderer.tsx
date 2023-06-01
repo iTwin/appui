@@ -1,13 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
 
 import * as React from "react";
-import type { CommonProps, NodeCheckboxProps, NodeCheckboxRenderer} from "@itwin/core-react";
+import type {
+  CommonProps,
+  NodeCheckboxProps,
+  NodeCheckboxRenderer,
+} from "@itwin/core-react";
 import { TreeNode } from "@itwin/core-react";
 import { ImageRenderer } from "../../../common/ImageRenderer";
 import { PropertyValueRendererManager } from "../../../properties/ValueRendererManager";
@@ -59,7 +63,9 @@ export interface TreeNodeRendererProps extends CommonProps {
  * Default component for rendering tree node.
  * @public
  */
-export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(props: TreeNodeRendererProps) {
+export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
+  props: TreeNodeRendererProps
+) {
   const label = (
     <TreeNodeContent
       key={props.node.id}
@@ -73,30 +79,39 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(props: Tree
   );
 
   function onExpansionToggle() {
-    if (props.node.isExpanded)
-      props.treeActions.onNodeCollapsed(props.node.id);
-    else
-      props.treeActions.onNodeExpanded(props.node.id);
+    if (props.node.isExpanded) props.treeActions.onNodeCollapsed(props.node.id);
+    else props.treeActions.onNodeExpanded(props.node.id);
   }
 
-  const createCheckboxProps = (checkboxInfo: CheckBoxInfo): NodeCheckboxProps => ({
+  const createCheckboxProps = (
+    checkboxInfo: CheckBoxInfo
+  ): NodeCheckboxProps => ({
     state: checkboxInfo.state,
     tooltip: checkboxInfo.tooltip,
     isDisabled: checkboxInfo.isDisabled,
-    onClick: (newState) => props.treeActions.onNodeCheckboxClicked(props.node.id, newState),
+    onClick: (newState) =>
+      props.treeActions.onNodeCheckboxClicked(props.node.id, newState),
   });
 
   return (
     <TreeNode
       data-testid={TreeComponentTestId.Node}
       className={props.className}
-      checkboxProps={props.node.checkbox.isVisible ? createCheckboxProps(props.node.checkbox) : undefined}
+      checkboxProps={
+        props.node.checkbox.isVisible
+          ? createCheckboxProps(props.node.checkbox)
+          : undefined
+      }
       style={props.style}
       isExpanded={props.node.isExpanded}
       isSelected={props.node.isSelected}
       isLoading={props.node.isLoading}
       isLeaf={props.node.numChildren === 0}
-      icon={props.imageLoader ? <TreeNodeIcon node={props.node} imageLoader={props.imageLoader} /> : undefined}
+      icon={
+        props.imageLoader ? (
+          <TreeNodeIcon node={props.node} imageLoader={props.imageLoader} />
+        ) : undefined
+      }
       label={label}
       level={props.node.depth}
       onClick={(event) => props.treeActions.onNodeClicked(props.node.id, event)}
@@ -119,8 +134,7 @@ function TreeNodeIcon(props: TreeNodeIconProps) {
   const { imageLoader, node } = props;
   const image = imageLoader.load(node.item);
 
-  if (!image)
-    return null;
+  if (!image) return null;
 
   const renderer = new ImageRenderer();
   return <>{renderer.render(image)}</>;

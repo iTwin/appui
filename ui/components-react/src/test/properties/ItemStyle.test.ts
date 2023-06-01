@@ -1,10 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
-import type { ItemColorOverrides, ItemStyle} from "../../components-react/properties/ItemStyle";
-import { ItemStyleProvider, TableRowStyleProvider } from "../../components-react/properties/ItemStyle";
+import type {
+  ItemColorOverrides,
+  ItemStyle,
+} from "../../components-react/properties/ItemStyle";
+import {
+  ItemStyleProvider,
+  TableRowStyleProvider,
+} from "../../components-react/properties/ItemStyle";
 
 describe("ItemStyleProvider", () => {
   describe("createStyle", () => {
@@ -23,8 +29,8 @@ describe("ItemStyleProvider", () => {
     it("returns style with overriden colors", () => {
       const style: ItemStyle = {
         colorOverrides: {
-          backgroundColor: 0xFF0000,
-          color: 0xAA0000,
+          backgroundColor: 0xff0000,
+          color: 0xaa0000,
         },
       };
 
@@ -46,8 +52,8 @@ describe("ItemStyleProvider", () => {
     it("returns style with overriden selection colors when cell is selected", () => {
       const style: ItemStyle = {
         colorOverrides: {
-          backgroundColorSelected: 0xFF0000,
-          colorSelected: 0xAA0000,
+          backgroundColorSelected: 0xff0000,
+          colorSelected: 0xaa0000,
         },
       };
 
@@ -72,8 +78,8 @@ describe("TableRowStyleProvider", () => {
   describe("createStyle", () => {
     it("returns correct style", () => {
       const colorOverrides: ItemColorOverrides = {
-        backgroundColor: 0xFF0000,
-        color: 0xAA0000,
+        backgroundColor: 0xff0000,
+        color: 0xaa0000,
       };
 
       const style = TableRowStyleProvider.createStyle(colorOverrides);

@@ -1,13 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Timeline
  */
 
 import { Point3d } from "@itwin/core-geometry";
-import { calculateSunriseOrSunset, Cartographic, ColorByName, ColorDef } from "@itwin/core-common";
+import {
+  calculateSunriseOrSunset,
+  Cartographic,
+  ColorByName,
+  ColorDef,
+} from "@itwin/core-common";
 import type { IModelConnection, ScreenViewport } from "@itwin/core-frontend";
 import type { SolarDataProvider } from "./interfaces";
 
@@ -26,7 +31,7 @@ export class BaseSolarDataProvider implements SolarDataProvider {
   protected _cartographicCenter: Cartographic;
   protected _shadowColor = ColorDef.create(ColorByName.gray);
 
-  public longitude: number = -75.17035;  // long/lat of Philadelphia
+  public longitude: number = -75.17035; // long/lat of Philadelphia
   public latitude: number = 39.954927;
   public viewId = ""; // View Id used to determine sunrise and sunset
   public supportsTimelineAnimation = false; // set to true when provider determines animation data is available.
@@ -43,41 +48,53 @@ export class BaseSolarDataProvider implements SolarDataProvider {
 
   // projectTimeZoneOffset = zone offset in hours
   protected initializeData(projectTimeZoneOffset: number, initialTime?: Date) {
-    if (!initialTime)
-      initialTime = new Date(Date.now()); // users local time
+    if (!initialTime) initialTime = new Date(Date.now()); // users local time
 
     this._zoneOffsetMs = projectTimeZoneOffset * millisecPerHour;
-    const year=initialTime.getFullYear();
-    const month=initialTime.getMonth();
-    const date=initialTime.getDate();
-    const hours=initialTime.getHours();
-    const minutes=initialTime.getMinutes();
+    const year = initialTime.getFullYear();
+    const month = initialTime.getMonth();
+    const date = initialTime.getDate();
+    const hours = initialTime.getHours();
+    const minutes = initialTime.getMinutes();
     const initialUtcMs = Date.UTC(year, month, date, hours, minutes, 0, 0);
     const initialProjectMs = initialUtcMs - this._zoneOffsetMs;
-    this._projectDateTime = new Date (initialProjectMs);
+    this._projectDateTime = new Date(initialProjectMs);
 
     const utcDayMs = Date.UTC(year, month, date, 0, 0, 0, 0);
     const utcDay = new Date(utcDayMs);
     this._projectDayStartMS = utcDayMs - this._zoneOffsetMs;
-    this._projectDay = new Date (this._projectDayStartMS);
-    this._projectSunrise = calculateSunriseOrSunset(utcDay, this._cartographicCenter, true);
-    this._projectSunset = calculateSunriseOrSunset(utcDay, this._cartographicCenter, false);
+    this._projectDay = new Date(this._projectDayStartMS);
+    this._projectSunrise = calculateSunriseOrSunset(
+      utcDay,
+      this._cartographicCenter,
+      true
+    );
+    this._projectSunset = calculateSunriseOrSunset(
+      utcDay,
+      this._cartographicCenter,
+      false
+    );
     this._projectSunriseMs = this._projectSunrise.getTime();
     this._projectSunsetMs = this._projectSunset.getTime();
   }
 
-  constructor(viewport?: ScreenViewport, longitude?: number, latitude?: number) {
+  constructor(
+    viewport?: ScreenViewport,
+    longitude?: number,
+    latitude?: number
+  ) {
     this._viewport = viewport;
-    if (longitude)
-      this.longitude = longitude;
-    if (latitude)
-      this.latitude = latitude;
+    if (longitude) this.longitude = longitude;
+    if (latitude) this.latitude = latitude;
 
-    if (viewport)
-      this.viewId = viewport.view.id;
+    if (viewport) this.viewId = viewport.view.id;
 
     // project location
-    this._cartographicCenter = Cartographic.fromDegrees({longitude: this.longitude, latitude: this.latitude, height: 0.0});
+    this._cartographicCenter = Cartographic.fromDegrees({
+      longitude: this.longitude,
+      latitude: this.latitude,
+      height: 0.0,
+    });
     this._projectTimeZoneOffset = this.getZone(this._cartographicCenter);
 
     this.initializeData(this._projectTimeZoneOffset);
@@ -131,18 +148,25 @@ export class BaseSolarDataProvider implements SolarDataProvider {
   public getCartographicCenter(iModel: IModelConnection): Cartographic {
     if (iModel.isGeoLocated) {
       const projectExtents = iModel.projectExtents;
-      const projectCenter = Point3d.createAdd2Scaled(projectExtents.low, .5, projectExtents.high, .5);
+      const projectCenter = Point3d.createAdd2Scaled(
+        projectExtents.low,
+        0.5,
+        projectExtents.high,
+        0.5
+      );
       return iModel.spatialToCartographicFromEcef(projectCenter);
     }
-    return Cartographic.fromDegrees({longitude: this.longitude, latitude: this.latitude, height: 0.0});
+    return Cartographic.fromDegrees({
+      longitude: this.longitude,
+      latitude: this.latitude,
+      height: 0.0,
+    });
   }
 
   public set viewport(viewport: ScreenViewport | undefined) {
     this._viewport = viewport;
-    if (viewport)
-      this.viewId = viewport.view.id;
-    else
-      this.viewId = "";
+    if (viewport) this.viewId = viewport.view.id;
+    else this.viewId = "";
   }
 
   public get viewport(): ScreenViewport | undefined {
@@ -150,7 +174,7 @@ export class BaseSolarDataProvider implements SolarDataProvider {
   }
 
   protected getZone(location: Cartographic) {
-    return Math.floor(.5 + location.longitudeDegrees / 15.0);
+    return Math.floor(0.5 + location.longitudeDegrees / 15.0);
   }
 
   public get sunrise(): Date {

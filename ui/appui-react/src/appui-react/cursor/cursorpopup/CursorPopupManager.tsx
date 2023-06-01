@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Cursor
  */
 
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import type { PointProps} from "@itwin/appui-abstract";
+import type { PointProps } from "@itwin/appui-abstract";
 import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Point, Size } from "@itwin/core-react";
@@ -39,7 +39,7 @@ export interface CursorPopupUpdatePositionEventArgs {
 /** CursorPopup Update Position Event class.
  * @internal
  */
-export class CursorPopupUpdatePositionEvent extends UiEvent<CursorPopupUpdatePositionEventArgs> { }
+export class CursorPopupUpdatePositionEvent extends UiEvent<CursorPopupUpdatePositionEventArgs> {}
 
 /** CursorPopup FadeOut Event Args interface.
  * @internal
@@ -51,7 +51,7 @@ export interface CursorPopupFadeOutEventArgs {
 /** CursorPopup FadeOut Event class.
  * @internal
  */
-export class CursorPopupFadeOutEvent extends UiEvent<CursorPopupFadeOutEventArgs> { }
+export class CursorPopupFadeOutEvent extends UiEvent<CursorPopupFadeOutEventArgs> {}
 
 /** Information maintained by CursorPopupManager about a CursorPopup
  * @internal
@@ -71,7 +71,7 @@ interface CursorPopupInfo {
 /** Cursor Popups Changed Event class.
  * @internal
  */
-class CursorPopupsChangedEvent extends UiEvent<{}> { }
+class CursorPopupsChangedEvent extends UiEvent<{}> {}
 
 /** CursorPopup component
  * @public
@@ -80,20 +80,27 @@ export class CursorPopupManager {
   private static _popups: CursorPopupInfo[] = new Array<CursorPopupInfo>();
 
   /** @internal */
-  public static readonly onCursorPopupUpdatePositionEvent = new CursorPopupUpdatePositionEvent();
+  public static readonly onCursorPopupUpdatePositionEvent =
+    new CursorPopupUpdatePositionEvent();
   /** @internal */
-  public static readonly onCursorPopupFadeOutEvent = new CursorPopupFadeOutEvent();
+  public static readonly onCursorPopupFadeOutEvent =
+    new CursorPopupFadeOutEvent();
   /** @internal */
-  public static readonly onCursorPopupsChangedEvent = new CursorPopupsChangedEvent();
+  public static readonly onCursorPopupsChangedEvent =
+    new CursorPopupsChangedEvent();
   /** @internal */
   public static clearPopups() {
     this._popups.length = 0;
     CursorPopupManager._emitPopupsChangedEvent();
   }
 
-  public static get popups() { return this._popups; }
+  public static get popups() {
+    return this._popups;
+  }
 
-  public static get popupCount() { return this._popups.length; }
+  public static get popupCount() {
+    return this._popups.length;
+  }
 
   private static _emitPopupsChangedEvent(): void {
     CursorPopupManager.onCursorPopupsChangedEvent.emit({});
@@ -106,8 +113,18 @@ export class CursorPopupManager {
 
   /** Called to open popup with a new set of properties
    */
-  public static open(id: string, content: React.ReactNode, pt: PointProps, offset: PointProps, relativePosition: RelativePosition, priority: number = 0, options?: CursorPopupOptions) {
-    const popupInfo = CursorPopupManager._popups.find((info: CursorPopupInfo) => id === info.id);
+  public static open(
+    id: string,
+    content: React.ReactNode,
+    pt: PointProps,
+    offset: PointProps,
+    relativePosition: RelativePosition,
+    priority: number = 0,
+    options?: CursorPopupOptions
+  ) {
+    const popupInfo = CursorPopupManager._popups.find(
+      (info: CursorPopupInfo) => id === info.id
+    );
     if (popupInfo) {
       popupInfo.content = content;
       popupInfo.offset = Point.create(offset);
@@ -116,7 +133,15 @@ export class CursorPopupManager {
       popupInfo.priority = priority;
       popupInfo.options = options;
     } else {
-      const newPopupInfo: CursorPopupInfo = { id, content, offset: Point.create(offset), relativePosition, options, renderRelativePosition: relativePosition, priority };
+      const newPopupInfo: CursorPopupInfo = {
+        id,
+        content,
+        offset: Point.create(offset),
+        relativePosition,
+        options,
+        renderRelativePosition: relativePosition,
+        priority,
+      };
       CursorPopupManager.pushPopup(newPopupInfo);
     }
 
@@ -125,8 +150,17 @@ export class CursorPopupManager {
 
   /** Called to update popup with a new set of properties
    */
-  public static update(id: string, content: React.ReactNode, pt: PointProps, offset: PointProps, relativePosition: RelativePosition, priority: number = 0) {
-    const popupInfo = CursorPopupManager._popups.find((info: CursorPopupInfo) => id === info.id);
+  public static update(
+    id: string,
+    content: React.ReactNode,
+    pt: PointProps,
+    offset: PointProps,
+    relativePosition: RelativePosition,
+    priority: number = 0
+  ) {
+    const popupInfo = CursorPopupManager._popups.find(
+      (info: CursorPopupInfo) => id === info.id
+    );
     if (popupInfo) {
       popupInfo.content = content;
       popupInfo.offset = Point.create(offset);
@@ -134,7 +168,10 @@ export class CursorPopupManager {
       popupInfo.renderRelativePosition = relativePosition;
       popupInfo.priority = priority;
     } else {
-      Logger.logError(UiFramework.loggerCategory(this), `update: Could not find popup with id of '${id}'`);
+      Logger.logError(
+        UiFramework.loggerCategory(this),
+        `update: Could not find popup with id of '${id}'`
+      );
     }
 
     CursorPopupManager.updatePosition(pt);
@@ -150,15 +187,15 @@ export class CursorPopupManager {
   /** Called when tool wants to close the popup
    */
   public static close(id: string, apply: boolean, fadeOut?: boolean) {
-    const popupInfo = CursorPopupManager._popups.find((info: CursorPopupInfo) => id === info.id);
+    const popupInfo = CursorPopupManager._popups.find(
+      (info: CursorPopupInfo) => id === info.id
+    );
 
     if (popupInfo) {
       if (popupInfo.options) {
-        if (apply && popupInfo.options.onApply)
-          popupInfo.options.onApply();
+        if (apply && popupInfo.options.onApply) popupInfo.options.onApply();
 
-        if (popupInfo.options.onClose)
-          popupInfo.options.onClose();
+        if (popupInfo.options.onClose) popupInfo.options.onClose();
       }
 
       if (fadeOut) {
@@ -166,17 +203,21 @@ export class CursorPopupManager {
         setTimeout(() => {
           CursorPopupManager.removePopup(id);
         }, CursorPopup.fadeOutTime);
-
       } else {
         CursorPopupManager.removePopup(id);
       }
     } else {
-      Logger.logError(UiFramework.loggerCategory(this), `close: Could not find popup with id of '${id}'`);
+      Logger.logError(
+        UiFramework.loggerCategory(this),
+        `close: Could not find popup with id of '${id}'`
+      );
     }
   }
 
   private static removePopup(id: string): void {
-    const index = CursorPopupManager._popups.findIndex((popupInfo: CursorPopupInfo) => id === popupInfo.id);
+    const index = CursorPopupManager._popups.findIndex(
+      (popupInfo: CursorPopupInfo) => id === popupInfo.id
+    );
     // istanbul ignore else
     if (index >= 0) {
       CursorPopupManager._popups.splice(index, 1);
@@ -188,7 +229,10 @@ export class CursorPopupManager {
     CursorPopupManager.popups.forEach((popupInfo: CursorPopupInfo) => {
       popupInfo.renderRelativePosition = popupInfo.relativePosition;
 
-      const flipped = CursorPopupManager.validateRenderRelativePosition(pt, popupInfo);
+      const flipped = CursorPopupManager.validateRenderRelativePosition(
+        pt,
+        popupInfo
+      );
 
       // If flipped, call again to validate again.
       if (flipped) {
@@ -197,17 +241,34 @@ export class CursorPopupManager {
     });
   }
 
-  private static validateRenderRelativePosition(pt: Point, popupInfo: CursorPopupInfo): boolean {
-    const popupRect = CursorPopup.getPopupRect(pt, Point.create(popupInfo.offset), popupInfo.popupSize, popupInfo.renderRelativePosition);
-    const { outPos, flipped } = CursorPopupManager.autoFlip(popupInfo.renderRelativePosition, popupRect, window.innerWidth, window.innerHeight);
+  private static validateRenderRelativePosition(
+    pt: Point,
+    popupInfo: CursorPopupInfo
+  ): boolean {
+    const popupRect = CursorPopup.getPopupRect(
+      pt,
+      Point.create(popupInfo.offset),
+      popupInfo.popupSize,
+      popupInfo.renderRelativePosition
+    );
+    const { outPos, flipped } = CursorPopupManager.autoFlip(
+      popupInfo.renderRelativePosition,
+      popupRect,
+      window.innerWidth,
+      window.innerHeight
+    );
 
-    if (flipped)
-      popupInfo.renderRelativePosition = outPos;
+    if (flipped) popupInfo.renderRelativePosition = outPos;
 
     return flipped;
   }
 
-  private static autoFlip(inPos: RelativePosition, rect: RectangleProps, windowWidth: number, windowHeight: number): { outPos: RelativePosition, flipped: boolean } {
+  private static autoFlip(
+    inPos: RelativePosition,
+    rect: RectangleProps,
+    windowWidth: number,
+    windowHeight: number
+  ): { outPos: RelativePosition; flipped: boolean } {
     let flipped = false;
     let outPos = inPos;
 
@@ -281,7 +342,6 @@ export class CursorPopupManager {
 
     return { outPos, flipped };
   }
-
 }
 
 /** State for the [[CursorPopupRenderer]] React component */
@@ -292,8 +352,10 @@ interface CursorPopupRendererState {
 /** CursorPopupRenderer React component.
  * @public
  */
-export class CursorPopupRenderer extends React.Component<any, CursorPopupRendererState> {
-
+export class CursorPopupRenderer extends React.Component<
+  any,
+  CursorPopupRendererState
+> {
   constructor(props: any) {
     super(props);
 
@@ -303,14 +365,9 @@ export class CursorPopupRenderer extends React.Component<any, CursorPopupRendere
   }
 
   public override render(): React.ReactNode {
-    if (CursorPopupManager.popupCount <= 0)
-      return null;
+    if (CursorPopupManager.popupCount <= 0) return null;
 
-    return (
-      <>
-        {this.renderPositions()}
-      </>
-    );
+    return <>{this.renderPositions()}</>;
   }
 
   private _handleSizeKnown(popupInfo: CursorPopupInfo, size: SizeProps) {
@@ -325,15 +382,19 @@ export class CursorPopupRenderer extends React.Component<any, CursorPopupRendere
 
     for (let position = begin; position <= end; position++) {
       renderedPosition = this.renderRelativePosition(position);
-      if (renderedPosition)
-        positions.push(renderedPosition);
+      if (renderedPosition) positions.push(renderedPosition);
     }
 
     return positions;
   }
 
-  private renderRelativePosition(relativePosition: RelativePosition): React.ReactNode {
-    const filteredInfo = CursorPopupManager.popups.filter((popupInfo: CursorPopupInfo) => popupInfo.renderRelativePosition === relativePosition);
+  private renderRelativePosition(
+    relativePosition: RelativePosition
+  ): React.ReactNode {
+    const filteredInfo = CursorPopupManager.popups.filter(
+      (popupInfo: CursorPopupInfo) =>
+        popupInfo.renderRelativePosition === relativePosition
+    );
 
     if (filteredInfo.length > 0) {
       let totalDimension = 0;
@@ -344,21 +405,32 @@ export class CursorPopupRenderer extends React.Component<any, CursorPopupRendere
         relativePosition === RelativePosition.BottomLeft;
 
       const positionPopups = filteredInfo
-        .sort((a: CursorPopupInfo, b: CursorPopupInfo): number => ascending ? a.priority - b.priority : b.priority - a.priority)
+        .sort((a: CursorPopupInfo, b: CursorPopupInfo): number =>
+          ascending ? a.priority - b.priority : b.priority - a.priority
+        )
         .map((popupInfo: CursorPopupInfo, index: number) => {
-
-          const title = (popupInfo.options !== undefined) ? popupInfo.options.title : "";
-          const shadow = (popupInfo.options !== undefined) ? popupInfo.options.shadow : false;
+          const title =
+            popupInfo.options !== undefined ? popupInfo.options.title : "";
+          const shadow =
+            popupInfo.options !== undefined ? popupInfo.options.shadow : false;
           let offset = popupInfo.offset;
 
           if (index > 0)
-            offset = this.adjustOffset(offset, popupInfo.renderRelativePosition, totalDimension);
+            offset = this.adjustOffset(
+              offset,
+              popupInfo.renderRelativePosition,
+              totalDimension
+            );
 
           if (popupInfo.popupSize)
-            totalDimension += this.getDimension(popupInfo.popupSize, relativePosition);
+            totalDimension += this.getDimension(
+              popupInfo.popupSize,
+              relativePosition
+            );
 
           return (
-            <CursorPopup key={popupInfo.id}
+            <CursorPopup
+              key={popupInfo.id}
               id={popupInfo.id}
               content={popupInfo.content}
               pt={this.state.pt}
@@ -366,7 +438,10 @@ export class CursorPopupRenderer extends React.Component<any, CursorPopupRendere
               relativePosition={popupInfo.renderRelativePosition}
               title={title}
               shadow={shadow}
-              onSizeKnown={(size: SizeProps) => this._handleSizeKnown(popupInfo, size)} />
+              onSizeKnown={(size: SizeProps) =>
+                this._handleSizeKnown(popupInfo, size)
+              }
+            />
           );
         });
 
@@ -380,7 +455,10 @@ export class CursorPopupRenderer extends React.Component<any, CursorPopupRendere
     return null;
   }
 
-  private getDimension(popupSize: Size, relativePosition: RelativePosition): number {
+  private getDimension(
+    popupSize: Size,
+    relativePosition: RelativePosition
+  ): number {
     let dimension = 0;
 
     switch (relativePosition) {
@@ -401,7 +479,11 @@ export class CursorPopupRenderer extends React.Component<any, CursorPopupRendere
     return dimension;
   }
 
-  private adjustOffset(offset: Point, relativePosition: RelativePosition, dimension: number): Point {
+  private adjustOffset(
+    offset: Point,
+    relativePosition: RelativePosition,
+    dimension: number
+  ): Point {
     let outOffset = Point.create(offset.toProps());
 
     switch (relativePosition) {
@@ -423,20 +505,30 @@ export class CursorPopupRenderer extends React.Component<any, CursorPopupRendere
   }
 
   public override componentDidMount(): void {
-    CursorPopupManager.onCursorPopupsChangedEvent.addListener(this._handlePopupChangedEvent);
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(this._handleCursorPopupUpdatePositionEvent);
+    CursorPopupManager.onCursorPopupsChangedEvent.addListener(
+      this._handlePopupChangedEvent
+    );
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(
+      this._handleCursorPopupUpdatePositionEvent
+    );
   }
 
   public override componentWillUnmount(): void {
-    CursorPopupManager.onCursorPopupsChangedEvent.removeListener(this._handlePopupChangedEvent);
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(this._handleCursorPopupUpdatePositionEvent);
+    CursorPopupManager.onCursorPopupsChangedEvent.removeListener(
+      this._handlePopupChangedEvent
+    );
+    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(
+      this._handleCursorPopupUpdatePositionEvent
+    );
   }
 
   private _handlePopupChangedEvent = (_args: any) => {
     this.forceUpdate();
   };
 
-  private _handleCursorPopupUpdatePositionEvent = (args: CursorPopupUpdatePositionEventArgs) => {
+  private _handleCursorPopupUpdatePositionEvent = (
+    args: CursorPopupUpdatePositionEventArgs
+  ) => {
     this.setState({ pt: Point.create(args.pt) });
   };
 }

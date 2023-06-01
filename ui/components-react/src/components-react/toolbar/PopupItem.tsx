@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -12,7 +12,11 @@ import * as React from "react";
 import type { ActionButton, RelativePosition } from "@itwin/appui-abstract";
 import { Popup, useRefState } from "@itwin/core-react";
 import type { ToolbarButtonItemProps } from "./Item";
-import { useToolbarPopupAutoHideContext, useToolbarWithOverflowDirectionContext, useToolItemEntryContext } from "./ToolbarWithOverflow";
+import {
+  useToolbarPopupAutoHideContext,
+  useToolbarWithOverflowDirectionContext,
+  useToolItemEntryContext,
+} from "./ToolbarWithOverflow";
 import { toToolbarPopupRelativePosition } from "./PopupItemWithDrag";
 
 /** @public */
@@ -26,12 +30,15 @@ export interface ToolbarPopupContextProps {
  * @public
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const ToolbarPopupContext = React.createContext<ToolbarPopupContextProps>({
-  /** function used to close popup panel */
-  closePanel: /* istanbul ignore next */ () => { },
-  /** if popup panel is a GroupButton then this is call to set the selected action item within the panel */
-  setSelectedItem: /* istanbul ignore next */  (_buttonItem: ActionButton) => { },
-});
+export const ToolbarPopupContext =
+  React.createContext<ToolbarPopupContextProps>({
+    /** function used to close popup panel */
+    closePanel: /* istanbul ignore next */ () => {},
+    /** if popup panel is a GroupButton then this is call to set the selected action item within the panel */
+    setSelectedItem: /* istanbul ignore next */ (
+      _buttonItem: ActionButton
+    ) => {},
+  });
 
 /**
  * React hook used to retrieve the ToolbarPopupContext.
@@ -59,28 +66,35 @@ export interface PopupItemProps extends ToolbarButtonItemProps {
  */
 export function PopupItem(props: PopupItemProps) {
   const [isPanelShown, setPanelShown] = React.useState(false);
-  const { expandsTo, overflowExpandsTo, panelAlignment, onPopupPanelOpenClose } = useToolbarWithOverflowDirectionContext();
-  const processPanelOpenClose = React.useCallback((isOpening: boolean) => {
-    setPanelShown((prev) => {
-      // istanbul ignore else
-      if (prev !== isOpening)
-        onPopupPanelOpenClose(isOpening);
-      return isOpening;
-    });
-  }, [setPanelShown, onPopupPanelOpenClose]);
+  const {
+    expandsTo,
+    overflowExpandsTo,
+    panelAlignment,
+    onPopupPanelOpenClose,
+  } = useToolbarWithOverflowDirectionContext();
+  const processPanelOpenClose = React.useCallback(
+    (isOpening: boolean) => {
+      setPanelShown((prev) => {
+        // istanbul ignore else
+        if (prev !== isOpening) onPopupPanelOpenClose(isOpening);
+        return isOpening;
+      });
+    },
+    [setPanelShown, onPopupPanelOpenClose]
+  );
 
   // handle open and closing overflow panel
   const onButtonClick = React.useCallback(() => {
     processPanelOpenClose(!isPanelShown);
     // istanbul ignore next
-    if (props.onClick)
-      props.onClick();
+    if (props.onClick) props.onClick();
   }, [props, isPanelShown, processPanelOpenClose]);
   const className = classnames(
     "components-toolbar-button-item",
     "components-toolbar-expandable-button",
     props.isDisabled && "components-disabled",
-    props.className);
+    props.className
+  );
 
   const [targetRef, target] = useRefState<HTMLButtonElement>();
   // istanbul ignore next
@@ -92,9 +106,11 @@ export function PopupItem(props: PopupItemProps) {
 
   const { hideIndicator, panel } = props;
   return (
-    <ToolbarPopupContext.Provider value={{
-      closePanel: () => processPanelOpenClose(false),
-    }}>
+    <ToolbarPopupContext.Provider
+      value={{
+        closePanel: () => processPanelOpenClose(false),
+      }}
+    >
       <button
         data-item-id={props.itemId}
         data-item-type="tool-button-popup"
@@ -102,27 +118,26 @@ export function PopupItem(props: PopupItemProps) {
         data-item-priority={props.itemPriority}
         data-item-provider-id={props.providerId}
         ref={targetRef}
-        disabled={props.isDisabled}  // this is needed to prevent focusing/keyboard access to disabled buttons
+        disabled={props.isDisabled} // this is needed to prevent focusing/keyboard access to disabled buttons
         onClick={onButtonClick}
         onKeyDown={props.onKeyDown}
         className={className}
         style={props.style}
         title={props.title}
       >
-        <div className="components-icon">
-          {props.icon}
-        </div>
-        {props.badge &&
-          <div className="components-badge">
-            {props.badge}
-          </div>
-        }
-        {hideIndicator ? /* istanbul ignore next */ undefined : <div className="components-triangle" />}
+        <div className="components-icon">{props.icon}</div>
+        {props.badge && <div className="components-badge">{props.badge}</div>}
+        {hideIndicator ? /* istanbul ignore next */ undefined : (
+          <div className="components-triangle" />
+        )}
       </button>
       <PopupItemPopup
         isOpen={isPanelShown}
         onClose={handleClose}
-        position={toToolbarPopupRelativePosition(expandsToDirection, panelAlignment)}
+        position={toToolbarPopupRelativePosition(
+          expandsToDirection,
+          panelAlignment
+        )}
         target={target}
         keepContentsMounted={props.keepContentsMounted}
       >
@@ -147,12 +162,10 @@ export function PopupItemPopup(props: PopupItemPopupProps) {
   const isHidden = useToolbarPopupAutoHideContext();
   const className = classnames(
     "components-toolbar-popupItem_popupItemPopup",
-    isHidden && "nz-hidden");
+    isHidden && "nz-hidden"
+  );
 
-  return <Popup
-    className={className}
-    offset={0}
-    showShadow={false}
-    {...props}
-  />;
+  return (
+    <Popup className={className} offset={0} showShadow={false} {...props} />
+  );
 }

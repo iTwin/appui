@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Timeline
  */
@@ -32,7 +32,7 @@ export class ScheduleAnimationTimelineDataProvider extends BaseTimelineDataProvi
     if (this.supportsTimelineAnimation && script) {
       // for now just initial settings
       this.updateSettings({
-        duration: 20 * 1000,      // this is playback duration
+        duration: 20 * 1000, // this is playback duration
         loop: true,
       });
 
@@ -42,9 +42,9 @@ export class ScheduleAnimationTimelineDataProvider extends BaseTimelineDataProvi
 
       if (this._viewport) {
         if (this._viewport.timePoint)
-          this.animationFraction = (this._viewport.timePoint - timeRange.low) / timeRange.length();
-        else
-          this.animationFraction = 0;
+          this.animationFraction =
+            (this._viewport.timePoint - timeRange.low) / timeRange.length();
+        else this.animationFraction = 0;
       }
 
       return true;
@@ -58,7 +58,8 @@ export class ScheduleAnimationTimelineDataProvider extends BaseTimelineDataProvi
     if (this._viewport) {
       const script = this._viewport.displayStyle.scheduleScript;
       if (script)
-        this._viewport.timePoint = script.duration.fractionToPoint(animationFraction);
+        this._viewport.timePoint =
+          script.duration.fractionToPoint(animationFraction);
     }
   };
 

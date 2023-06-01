@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -14,7 +14,10 @@ import type { ContentLayoutActivatedEvent } from "../content/ContentLayout";
 import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import type { FrontstageProvider } from "../frontstage/FrontstageProvider";
 import type { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
-import type { PanelPinnedChangedEventArgs, PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
+import type {
+  PanelPinnedChangedEventArgs,
+  PanelStateChangedEvent,
+} from "../stagepanels/StagePanelDef";
 import type { WidgetDef, WidgetStateChangedEvent } from "../widgets/WidgetDef";
 import type { WidgetState } from "../widgets/WidgetState";
 
@@ -29,7 +32,7 @@ export interface FrontstageActivatedEventArgs {
 /** Frontstage Activated Event class.
  * @public
  */
-export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> { }
+export class FrontstageActivatedEvent extends UiEvent<FrontstageActivatedEventArgs> {}
 
 /** Frontstage Deactivated Event Args interface.
  * @public
@@ -51,7 +54,7 @@ export interface FrontstageDeactivatedEventArgs {
 /** Frontstage Deactivated Event class.
  * @public
  */
-export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> { }
+export class FrontstageDeactivatedEvent extends UiEvent<FrontstageDeactivatedEventArgs> {}
 
 /** Frontstage Ready Event Args interface.
  * @public
@@ -63,7 +66,7 @@ export interface FrontstageReadyEventArgs {
 /** Frontstage Ready Event class.
  * @public
  */
-export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> { }
+export class FrontstageReadyEvent extends UiEvent<FrontstageReadyEventArgs> {}
 
 /** Modal Frontstage Changed Event Args interface.
  * @public
@@ -75,7 +78,7 @@ export interface ModalFrontstageChangedEventArgs {
 /** Modal Frontstage Stack Changed Event class.
  * @public
  */
-export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> { }
+export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {}
 
 /** Modal Frontstage Closed Event Args interface.
  * @public
@@ -99,7 +102,7 @@ export interface ModalFrontstageClosedEventArgs {
  * any unsaved data.
  * @alpha
  */
-export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> { }
+export class ModalFrontstageRequestedCloseEvent extends UiEvent<ModalFrontstageRequestedCloseEventArgs> {}
 
 /** Modal Frontstage RequestedClose Event Args interface.
  * @alpha
@@ -114,7 +117,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
 /** Modal Frontstage Closed Event class.
  * @public
  */
-export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> { }
+export class ModalFrontstageClosedEvent extends UiEvent<ModalFrontstageClosedEventArgs> {}
 
 /** Tool Activated Event Args interface.
  * @public
@@ -126,7 +129,7 @@ export interface ToolActivatedEventArgs {
 /** Tool Activated Event class.
  * @public
  */
-export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> { }
+export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {}
 
 /** Tool Icon Changed Event Args interface.
  * @public
@@ -138,7 +141,7 @@ export interface ToolIconChangedEventArgs {
 /** Tool Icon Changed Event class.
  * @public
  */
-export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> { }
+export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}
 
 /** Modal Frontstage information interface.
  * @public
@@ -263,7 +266,9 @@ export interface FrameworkFrontstages {
    * @param  frontstageDef  FrontstageDef to set active.
    * @returns A Promise that is fulfilled when the [[FrontstageDef]] is ready.
    */
-  setActiveFrontstageDef(frontstageDef: FrontstageDef | undefined): Promise<void>;
+  setActiveFrontstageDef(
+    frontstageDef: FrontstageDef | undefined
+  ): Promise<void>;
 
   /** Deactivates the active FrontstageDef.
    */
@@ -310,7 +315,10 @@ export interface FrameworkFrontstages {
    * @param navigationAidId  Id of the Navigation Aid to set as active
    * @param iModelConnection IModelConnection to query for view data
    */
-  setActiveNavigationAid(navigationAidId: string, iModelConnection: IModelConnection): void;
+  setActiveNavigationAid(
+    navigationAidId: string,
+    iModelConnection: IModelConnection
+  ): void;
 
   /** Sets the state of the widget with the given id
    * @param widgetId  Id of the Widget for which to set the state

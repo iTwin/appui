@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { Id64 } from "@itwin/core-bentley";
@@ -14,21 +14,32 @@ import sinon from "sinon";
 import * as moq from "typemoq";
 
 describe("UrlPropertyValueRenderer", () => {
-
   describe("render", () => {
     it("renders URI property wrapped in an anchored tag from value", () => {
       const renderer = new UrlPropertyValueRenderer();
-      const property = TestUtils.createURIProperty("Category", "Test Uri Value: pw:\\wsp-aus-pw.bentley.com:wsp-aus-pw-10\Documents\Southern Program Alliance");
+      const property = TestUtils.createURIProperty(
+        "Category",
+        "Test Uri Value: pw:\\wsp-aus-pw.bentley.com:wsp-aus-pw-10DocumentsSouthern Program Alliance"
+      );
 
       const element = renderer.render(property);
       const elementRender = render(<>{element}</>);
 
-      expect(elementRender.container.getElementsByClassName("core-underlined-button")[0].textContent).to.be.eq("Test Uri Value: pw:\\wsp-aus-pw.bentley.com:wsp-aus-pw-10\Documents\Southern Program Alliance");
+      expect(
+        elementRender.container.getElementsByClassName(
+          "core-underlined-button"
+        )[0].textContent
+      ).to.be.eq(
+        "Test Uri Value: pw:\\wsp-aus-pw.bentley.com:wsp-aus-pw-10DocumentsSouthern Program Alliance"
+      );
     });
 
     it("renders URI property wrapped in an anchored tag if custom LinkElementsInfo is specified in the PropertyRecord", () => {
       const renderer = new UrlPropertyValueRenderer();
-      const property: PropertyRecord = TestUtils.createURIProperty("Category", "Test www.test.com");
+      const property: PropertyRecord = TestUtils.createURIProperty(
+        "Category",
+        "Test www.test.com"
+      );
 
       property.links = {
         onClick: sinon.spy(),
@@ -38,14 +49,23 @@ describe("UrlPropertyValueRenderer", () => {
       const element = renderer.render(property);
       const elementRender = render(<>{element}</>);
 
-      expect(elementRender.container.getElementsByClassName("core-underlined-button")[0].textContent).to.be.eq("Test");
+      expect(
+        elementRender.container.getElementsByClassName(
+          "core-underlined-button"
+        )[0].textContent
+      ).to.be.eq("Test");
     });
 
     it("renders URI property with highlighting and in anchored tag", () => {
       const renderer = new UrlPropertyValueRenderer();
-      const stringProperty = TestUtils.createURIProperty("Label", "Test property");
+      const stringProperty = TestUtils.createURIProperty(
+        "Label",
+        "Test property"
+      );
 
-      const highlightNode = (text: string) => <span>{`${text} Highlighted`}</span>;
+      const highlightNode = (text: string) => (
+        <span>{`${text} Highlighted`}</span>
+      );
       const renderContext: PropertyValueRendererContext = {
         textHighlighter: highlightNode,
       };
@@ -54,7 +74,11 @@ describe("UrlPropertyValueRenderer", () => {
       const renderedElement = render(<>{element}</>);
 
       renderedElement.getByText("Test property Highlighted");
-      expect(renderedElement.container.getElementsByClassName("core-underlined-button")).to.not.be.empty;
+      expect(
+        renderedElement.container.getElementsByClassName(
+          "core-underlined-button"
+        )
+      ).to.not.be.empty;
     });
 
     it("throws when trying to render array property", () => {
@@ -64,8 +88,17 @@ describe("UrlPropertyValueRenderer", () => {
     });
 
     describe("onClick", () => {
-      const locationMockRef: moq.IMock<Location> = moq.Mock.ofInstance(location);
-      let spy: sinon.SinonStub<[(string | URL | undefined)?, (string | undefined)?, (string | undefined)?, (boolean | undefined)?], Window | null>;
+      const locationMockRef: moq.IMock<Location> =
+        moq.Mock.ofInstance(location);
+      let spy: sinon.SinonStub<
+        [
+          (string | URL | undefined)?,
+          (string | undefined)?,
+          (string | undefined)?,
+          (boolean | undefined)?
+        ],
+        Window | null
+      >;
 
       before(() => {
         location = locationMockRef.object;
@@ -81,14 +114,19 @@ describe("UrlPropertyValueRenderer", () => {
 
       it("opens window using the whole URI value, when link which doesn't start with pw: or mailto: is clicked", () => {
         const renderer = new UrlPropertyValueRenderer();
-        const stringProperty = TestUtils.createURIProperty("Label", "Random Test property");
+        const stringProperty = TestUtils.createURIProperty(
+          "Label",
+          "Random Test property"
+        );
         spy = sinon.stub(window, "open");
         spy.returns(null);
 
         const element = renderer.render(stringProperty);
         const renderedElement = render(<>{element}</>);
 
-        const linkElement = renderedElement.container.getElementsByClassName("core-underlined-button")[0];
+        const linkElement = renderedElement.container.getElementsByClassName(
+          "core-underlined-button"
+        )[0];
 
         expect(linkElement.textContent).to.be.eq("Random Test property");
 
@@ -98,12 +136,17 @@ describe("UrlPropertyValueRenderer", () => {
 
       it("sets location.href to the whole URI value, when link starting with pw: is clicked", () => {
         const renderer = new UrlPropertyValueRenderer();
-        const stringProperty = TestUtils.createURIProperty("Label", "pw:Test property");
+        const stringProperty = TestUtils.createURIProperty(
+          "Label",
+          "pw:Test property"
+        );
 
         const element = renderer.render(stringProperty);
         const renderedElement = render(<>{element}</>);
 
-        const linkElement = renderedElement.container.getElementsByClassName("core-underlined-button")[0];
+        const linkElement = renderedElement.container.getElementsByClassName(
+          "core-underlined-button"
+        )[0];
         expect(linkElement.textContent).to.be.eq("pw:Test property");
 
         fireEvent.click(linkElement);
@@ -112,12 +155,17 @@ describe("UrlPropertyValueRenderer", () => {
 
       it("sets location.href to the whole URI value, when link starting with mailto: is clicked", () => {
         const renderer = new UrlPropertyValueRenderer();
-        const stringProperty = TestUtils.createURIProperty("Label", "mailto:Test property");
+        const stringProperty = TestUtils.createURIProperty(
+          "Label",
+          "mailto:Test property"
+        );
 
         const element = renderer.render(stringProperty);
         const renderedElement = render(<>{element}</>);
 
-        const linkElement = renderedElement.container.getElementsByClassName("core-underlined-button")[0];
+        const linkElement = renderedElement.container.getElementsByClassName(
+          "core-underlined-button"
+        )[0];
 
         expect(linkElement.textContent).to.be.eq("mailto:Test property");
 
@@ -127,7 +175,10 @@ describe("UrlPropertyValueRenderer", () => {
 
       it("calls window.open.focus if window.open returns not null", () => {
         const renderer = new UrlPropertyValueRenderer();
-        const stringProperty = TestUtils.createURIProperty("Label", "Random Test property");
+        const stringProperty = TestUtils.createURIProperty(
+          "Label",
+          "Random Test property"
+        );
         const windowMock = moq.Mock.ofType<Window>();
         windowMock.setup((x) => x.focus());
 
@@ -137,7 +188,9 @@ describe("UrlPropertyValueRenderer", () => {
         const element = renderer.render(stringProperty);
         const renderedElement = render(<>{element}</>);
 
-        const linkElement = renderedElement.container.getElementsByClassName("core-underlined-button")[0];
+        const linkElement = renderedElement.container.getElementsByClassName(
+          "core-underlined-button"
+        )[0];
 
         expect(linkElement.textContent).to.be.eq("Random Test property");
 
@@ -159,8 +212,14 @@ describe("UrlPropertyValueRenderer", () => {
       const renderer = new UrlPropertyValueRenderer();
       const arrayProperty = TestUtils.createArrayProperty("LabelArray");
       const structProperty = TestUtils.createStructProperty("NameStruct");
-      const doubleProperty = TestUtils.createPrimitiveDoubleProperty("Label", 123.456);
-      const navigationProperty = TestUtils.createNavigationProperty("Category", { className: "", id: Id64.fromUint32Pair(1, 0) });
+      const doubleProperty = TestUtils.createPrimitiveDoubleProperty(
+        "Label",
+        123.456
+      );
+      const navigationProperty = TestUtils.createNavigationProperty(
+        "Category",
+        { className: "", id: Id64.fromUint32Pair(1, 0) }
+      );
       expect(renderer.canRender(arrayProperty)).to.be.false;
       expect(renderer.canRender(structProperty)).to.be.false;
       expect(renderer.canRender(doubleProperty)).to.be.false;

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
@@ -23,7 +23,7 @@ export interface DialogChangedEventArgs {
 /** Dialog Changed Event class.
  * @public
  */
-export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> { }
+export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {}
 
 /** Information maintained by a Dialog Manager about a dialog
  * @public
@@ -55,22 +55,32 @@ export class DialogManagerBase {
     DialogManagerBase._topZIndex = DialogManagerBase.getDialogZIndexDefault();
   }
 
-  public static get topZIndex(): number { return DialogManagerBase._topZIndex; }
+  public static get topZIndex(): number {
+    return DialogManagerBase._topZIndex;
+  }
 
-  public static set topZIndex(zIndex: number) { DialogManagerBase._topZIndex = zIndex; }
-  public get dialogs() { return this._dialogs; }
+  public static set topZIndex(zIndex: number) {
+    DialogManagerBase._topZIndex = zIndex;
+  }
+  public get dialogs() {
+    return this._dialogs;
+  }
 
-  public get onDialogChangedEvent(): DialogChangedEvent { return this._onDialogChangedEvent; }
+  public get onDialogChangedEvent(): DialogChangedEvent {
+    return this._onDialogChangedEvent;
+  }
 
   public static getDialogZIndexDefault(): number {
     const variable = "--uicore-z-index-dialog";
     const value = getCssVariableAsNumber(variable);
 
     // istanbul ignore next
-    if (!isNaN(value))
-      return value;
+    if (!isNaN(value)) return value;
 
-    Logger.logError(UiFramework.loggerCategory(this), `'${variable}' CSS variable not found`);
+    Logger.logError(
+      UiFramework.loggerCategory(this),
+      `'${variable}' CSS variable not found`
+    );
     return ZINDEX_DEFAULT;
   }
 
@@ -80,9 +90,12 @@ export class DialogManagerBase {
    * @param id The unique Id the identifies the dialog.
    * @param parentDocument Optional document required when displaying a dialog in a child popup window.
    */
-  public openDialog(dialog: React.ReactNode, id?: string, parentDocument?: Document): void {
-    if (!id)
-      id = `Dialog-${++DialogManagerBase._sId}`;
+  public openDialog(
+    dialog: React.ReactNode,
+    id?: string,
+    parentDocument?: Document
+  ): void {
+    if (!id) id = `Dialog-${++DialogManagerBase._sId}`;
 
     // istanbul ignore next
     const owningDoc = parentDocument ?? document;
@@ -97,8 +110,7 @@ export class DialogManagerBase {
 
   public closeDialog(dialog?: React.ReactNode): void {
     let targetDialog = dialog;
-    if (!dialog)
-      targetDialog = this.activeDialog;
+    if (!dialog) targetDialog = this.activeDialog;
 
     this.removeDialog(targetDialog);
     this.emitDialogChangedEvent();
@@ -115,14 +127,16 @@ export class DialogManagerBase {
     const index = this._dialogs.findIndex((dialogInfo: DialogInfo) => {
       return dialog === dialogInfo.reactNode;
     });
-    if (index >= 0)
-      this._dialogs.splice(index, 1);
+    if (index >= 0) this._dialogs.splice(index, 1);
     if (this._dialogs.length < 1)
       DialogManagerBase.topZIndex = DialogManagerBase.getDialogZIndexDefault();
   }
 
   public emitDialogChangedEvent(): void {
-    this._onDialogChangedEvent.emit({ dialogCount: this.dialogCount, activeDialog: this.activeDialog });
+    this._onDialogChangedEvent.emit({
+      dialogCount: this.dialogCount,
+      activeDialog: this.activeDialog,
+    });
   }
 
   public update(): void {
@@ -156,7 +170,10 @@ interface DialogRendererState {
 /** DialogRenderer React component.
  * @internal
  */
-export class DialogRendererBase extends React.PureComponent<DialogRendererProps, DialogRendererState> {
+export class DialogRendererBase extends React.PureComponent<
+  DialogRendererProps,
+  DialogRendererState
+> {
   /** @internal */
   public override readonly state: DialogRendererState = {
     parentDocument: null,
@@ -167,35 +184,40 @@ export class DialogRendererBase extends React.PureComponent<DialogRendererProps,
   };
 
   public override render(): React.ReactNode {
-    if (this.props.dialogManager.dialogCount <= 0)
-      return null;
+    if (this.props.dialogManager.dialogCount <= 0) return null;
 
     return (
-      <div className="appui-react-dialog-render-container" ref={this._handleRefSet}>
+      <div
+        className="appui-react-dialog-render-container"
+        ref={this._handleRefSet}
+      >
         {this.state.parentDocument &&
-          this.props.dialogManager.dialogs.filter((info) => info.parentDocument === this.state.parentDocument)
+          this.props.dialogManager.dialogs
+            .filter((info) => info.parentDocument === this.state.parentDocument)
             .map((dialogInfo: DialogInfo) => {
               return (
-                <React.Fragment key={dialogInfo.id} >
+                <React.Fragment key={dialogInfo.id}>
                   {dialogInfo.reactNode}
                 </React.Fragment>
               );
-            })
-        }
+            })}
       </div>
     );
   }
 
   public override componentDidMount(): void {
-    this.props.dialogManager.onDialogChangedEvent.addListener(this._handleDialogChangedEvent);
+    this.props.dialogManager.onDialogChangedEvent.addListener(
+      this._handleDialogChangedEvent
+    );
   }
 
   public override componentWillUnmount(): void {
-    this.props.dialogManager.onDialogChangedEvent.removeListener(this._handleDialogChangedEvent);
+    this.props.dialogManager.onDialogChangedEvent.removeListener(
+      this._handleDialogChangedEvent
+    );
   }
 
   private _handleDialogChangedEvent = (_args: DialogChangedEventArgs) => {
     this.forceUpdate();
   };
-
 }

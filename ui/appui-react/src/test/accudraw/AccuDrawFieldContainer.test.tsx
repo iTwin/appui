@@ -1,14 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
-import type { IModelAppOptions} from "@itwin/core-frontend";
-import { CompassMode, IModelApp, ItemField, MockRender } from "@itwin/core-frontend";
+import type { IModelAppOptions } from "@itwin/core-frontend";
+import {
+  CompassMode,
+  IModelApp,
+  ItemField,
+  MockRender,
+} from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
@@ -20,14 +25,17 @@ import { UiFramework } from "../../appui-react";
 
 // cspell:ignore uiadmin
 
-function requestNextAnimation() { }
+function requestNextAnimation() {}
 
 describe("AccuDrawFieldContainer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
-  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(IModelApp, "requestNextAnimation")!;
+  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
+    IModelApp,
+    "requestNextAnimation"
+  )!;
 
   before(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
@@ -47,7 +55,11 @@ describe("AccuDrawFieldContainer", () => {
   after(async () => {
     await MockRender.App.shutdown();
 
-    Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);
+    Object.defineProperty(
+      IModelApp,
+      "requestNextAnimation",
+      rnaDescriptorToRestore
+    );
 
     TestUtils.terminateUiFramework();
   });
@@ -64,7 +76,8 @@ describe("AccuDrawFieldContainer", () => {
 
   it("should emit onAccuDrawSetFieldValueToUiEvent", () => {
     const spy = sinon.spy();
-    const remove = FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(spy);
+    const remove =
+      FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
     IModelApp.accuDraw.onFieldValueChange(ItemField.X_Item);
@@ -87,7 +100,8 @@ describe("AccuDrawFieldContainer", () => {
 
   it("should emit onAccuDrawSetFieldLockEvent", () => {
     const spy = sinon.spy();
-    const remove = FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
+    const remove =
+      FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     IModelApp.accuDraw.setFieldLock(ItemField.X_Item, true);
     spy.calledOnce.should.true;
@@ -109,8 +123,11 @@ describe("AccuDrawFieldContainer", () => {
 
   it("should emit onAccuDrawSetFieldFocusEvent", async () => {
     const spy = sinon.spy();
-    const remove = FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
-    const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
+    const remove =
+      FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
+    const wrapper = render(
+      <AccuDrawFieldContainer orientation={Orientation.Vertical} />
+    );
     expect(IModelApp.accuDraw.hasInputFocus).to.be.false;
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
@@ -158,8 +175,14 @@ describe("AccuDrawFieldContainer", () => {
 
   it("should emit onAccuDrawSetFieldFocusEvent and show Z field", async () => {
     const spy = sinon.spy();
-    const remove = FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
-    render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
+    const remove =
+      FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
+    render(
+      <AccuDrawFieldContainer
+        orientation={Orientation.Vertical}
+        showZOverride={true}
+      />
+    );
     expect(IModelApp.accuDraw.hasInputFocus).to.be.false;
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
@@ -181,8 +204,11 @@ describe("AccuDrawFieldContainer", () => {
 
   it("should emit onAccuDrawGrabFieldFocusEvent", async () => {
     const spySet = sinon.spy();
-    const removeSet = FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spySet);
-    const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
+    const removeSet =
+      FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spySet);
+    const wrapper = render(
+      <AccuDrawFieldContainer orientation={Orientation.Vertical} />
+    );
     expect(IModelApp.accuDraw.hasInputFocus).to.be.false;
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
@@ -198,7 +224,8 @@ describe("AccuDrawFieldContainer", () => {
     expect(document.activeElement === input).to.be.false;
 
     const spyGrab = sinon.spy();
-    const removeGrab = FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spyGrab);
+    const removeGrab =
+      FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.addListener(spyGrab);
     IModelApp.accuDraw.grabInputFocus();
     spyGrab.calledOnce.should.true;
     expect(document.activeElement === input).to.be.true;
@@ -209,7 +236,8 @@ describe("AccuDrawFieldContainer", () => {
 
   it("should emit onAccuDrawSetModeEvent", () => {
     const spy = sinon.spy();
-    const remove = FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
+    const remove =
+      FrameworkAccuDraw.onAccuDrawSetCompassModeEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
     spy.calledOnce.should.true;
@@ -220,18 +248,27 @@ describe("AccuDrawFieldContainer", () => {
 
   it("should call onValueChanged & setFieldValueFromUi", async () => {
     const spy = sinon.spy();
-    const remove = FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
+    const remove =
+      FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
     render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
-    await theUserTo.type(screen.getByTestId("uifw-accudraw-x"), "22.3", selectAllBeforeType());
+    await theUserTo.type(
+      screen.getByTestId("uifw-accudraw-x"),
+      "22.3",
+      selectAllBeforeType()
+    );
     await waitFor(() => {
       spy.calledOnce.should.true;
     });
     spy.resetHistory();
 
-    await theUserTo.type(screen.getByTestId("uifw-accudraw-y"), "22.3", selectAllBeforeType());
+    await theUserTo.type(
+      screen.getByTestId("uifw-accudraw-y"),
+      "22.3",
+      selectAllBeforeType()
+    );
     await waitFor(() => {
       spy.calledOnce.should.true;
     });
@@ -242,14 +279,22 @@ describe("AccuDrawFieldContainer", () => {
     IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
 
     await waitFor(async () => {
-      await theUserTo.type(screen.getByTestId("uifw-accudraw-angle"), "22.3", selectAllBeforeType());
+      await theUserTo.type(
+        screen.getByTestId("uifw-accudraw-angle"),
+        "22.3",
+        selectAllBeforeType()
+      );
     });
     await waitFor(() => {
       spy.calledOnce.should.true;
     });
     spy.resetHistory();
 
-    await theUserTo.type(screen.getByTestId("uifw-accudraw-distance"), "22.3", selectAllBeforeType());
+    await theUserTo.type(
+      screen.getByTestId("uifw-accudraw-distance"),
+      "22.3",
+      selectAllBeforeType()
+    );
     await waitFor(() => {
       spy.calledOnce.should.true;
     });
@@ -260,13 +305,23 @@ describe("AccuDrawFieldContainer", () => {
 
   it("should call onValueChanged & setFieldValueFromUi & show the Z field", async () => {
     const spy = sinon.spy();
-    const remove = FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
-    render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
+    const remove =
+      FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
+    render(
+      <AccuDrawFieldContainer
+        orientation={Orientation.Vertical}
+        showZOverride={true}
+      />
+    );
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
     await waitFor(async () => {
-      await theUserTo.type(screen.getByTestId("uifw-accudraw-z"), "22.3", selectAllBeforeType());
+      await theUserTo.type(
+        screen.getByTestId("uifw-accudraw-z"),
+        "22.3",
+        selectAllBeforeType()
+      );
     });
     await waitFor(() => {
       spy.calledOnce.should.true;
@@ -277,7 +332,9 @@ describe("AccuDrawFieldContainer", () => {
 
   it("should set focus to home on Esc", () => {
     const spy = sinon.spy(UiFramework.keyboardShortcuts, "setFocusToHome");
-    const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
+    const wrapper = render(
+      <AccuDrawFieldContainer orientation={Orientation.Vertical} />
+    );
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
@@ -328,8 +385,14 @@ describe("AccuDrawFieldContainer", () => {
 
       const spy = sinon.spy();
       FrameworkAccuDraw.uiStateStorage = undefined;
-      const remove = FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
-      const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
+      const remove =
+        FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
+      const wrapper = render(
+        <AccuDrawFieldContainer
+          orientation={Orientation.Vertical}
+          showZOverride={true}
+        />
+      );
 
       const settingsTest = async (count: number) => {
         spy.calledOnce.should.true;
@@ -342,7 +405,9 @@ describe("AccuDrawFieldContainer", () => {
         const inputElements = wrapper.container.querySelectorAll("input");
         expect(inputElements.length).to.eq(count);
         for (const inputElement of inputElements) {
-          expect(inputElement.getAttribute("style")).to.eq("display: inline; background-color: rgb(255, 0, 0); color: rgb(0, 0, 0);");
+          expect(inputElement.getAttribute("style")).to.eq(
+            "display: inline; background-color: rgb(255, 0, 0); color: rgb(0, 0, 0);"
+          );
         }
 
         const iElements = wrapper.container.querySelectorAll(`i.${iconTest}`);
@@ -381,8 +446,14 @@ describe("AccuDrawFieldContainer", () => {
     it("should support FrameworkAccuDraw.uiStateStorage - set before render", async () => {
       const spy = sinon.spy();
       FrameworkAccuDraw.uiStateStorage = fullSettings;
-      const remove = FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
-      const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
+      const remove =
+        FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
+      const wrapper = render(
+        <AccuDrawFieldContainer
+          orientation={Orientation.Vertical}
+          showZOverride={true}
+        />
+      );
 
       const settingsTest = async (count: number) => {
         const labelElements = wrapper.queryAllByLabelText(labelTest);
@@ -393,7 +464,9 @@ describe("AccuDrawFieldContainer", () => {
         const inputElements = wrapper.container.querySelectorAll("input");
         expect(inputElements.length).to.eq(count);
         for (const inputElement of inputElements) {
-          expect(inputElement.getAttribute("style")).to.eq("display: inline; background-color: rgb(255, 0, 0); color: rgb(0, 0, 0);");
+          expect(inputElement.getAttribute("style")).to.eq(
+            "display: inline; background-color: rgb(255, 0, 0); color: rgb(0, 0, 0);"
+          );
         }
 
         const iElements = wrapper.container.querySelectorAll(`i.${iconTest}`);
@@ -428,14 +501,21 @@ describe("AccuDrawFieldContainer", () => {
         xForegroundColor: "rgba(0, 0, 255, 0.5)",
       };
 
-      const wrapper = render(<AccuDrawFieldContainer orientation={Orientation.Vertical} showZOverride={true} />);
+      const wrapper = render(
+        <AccuDrawFieldContainer
+          orientation={Orientation.Vertical}
+          showZOverride={true}
+        />
+      );
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
       FrameworkAccuDraw.uiStateStorage = backgroundSettings;
       await TestUtils.flushAsyncOperations();
       let input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).not.to.be.null;
-      expect(input!.getAttribute("style")).to.eq("background-color: rgb(255, 0, 0);");
+      expect(input!.getAttribute("style")).to.eq(
+        "background-color: rgb(255, 0, 0);"
+      );
 
       FrameworkAccuDraw.uiStateStorage = foregroundSettings;
       await TestUtils.flushAsyncOperations();
@@ -447,15 +527,17 @@ describe("AccuDrawFieldContainer", () => {
       await TestUtils.flushAsyncOperations();
       input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).not.to.be.null;
-      expect(input!.getAttribute("style")).to.eq("background-color: rgba(255, 0, 0, 0.5);");
+      expect(input!.getAttribute("style")).to.eq(
+        "background-color: rgba(255, 0, 0, 0.5);"
+      );
 
       FrameworkAccuDraw.uiStateStorage = fgStringSettings;
       await TestUtils.flushAsyncOperations();
       input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).not.to.be.null;
-      expect(input!.getAttribute("style")).to.eq("color: rgba(0, 0, 255, 0.5);");
+      expect(input!.getAttribute("style")).to.eq(
+        "color: rgba(0, 0, 255, 0.5);"
+      );
     });
-
   });
-
 });

@@ -1,13 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Item
  */
 
 import type * as React from "react";
-import type { BadgeType, ConditionalBooleanValue, ConditionalStringValue, StringGetter } from "@itwin/appui-abstract";
+import type {
+  BadgeType,
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+  StringGetter,
+} from "@itwin/appui-abstract";
 import { PropsHelper } from "../utils/PropsHelper";
 import type { ItemProps } from "./ItemProps";
 import type { IconSpec } from "@itwin/core-react";
@@ -16,10 +21,10 @@ import type { IconSpec } from "@itwin/core-react";
  * @public
  */
 export interface BaseItemState {
-  isVisible?: boolean;        // Default - true
-  isEnabled?: boolean;        // Default - true
-  isActive?: boolean;         // Default - false
-  isPressed?: boolean;        // Default - false
+  isVisible?: boolean; // Default - true
+  isEnabled?: boolean; // Default - true
+  isActive?: boolean; // Default - false
+  isPressed?: boolean; // Default - false
 }
 
 /** The base class for Items.
@@ -32,8 +37,12 @@ export abstract class ItemDefBase {
 
   public isPressed: boolean = false;
   private _isActive: boolean = false;
-  public get isActive(): boolean { return this._isActive; }
-  public set isActive(v: boolean) { this._isActive = v; }
+  public get isActive(): boolean {
+    return this._isActive;
+  }
+  public set isActive(v: boolean) {
+    this._isActive = v;
+  }
   public applicationData?: any;
 
   public isHidden?: boolean | ConditionalBooleanValue;
@@ -48,28 +57,35 @@ export abstract class ItemDefBase {
     me.isHidden = itemProps.isHidden;
     me.isDisabled = itemProps.isDisabled;
 
-    me.isPressed = (itemProps.isPressed !== undefined) ? itemProps.isPressed : false;
-    me.isActive = (itemProps.isActive !== undefined) ? itemProps.isActive : false;
+    me.isPressed =
+      itemProps.isPressed !== undefined ? itemProps.isPressed : false;
+    me.isActive = itemProps.isActive !== undefined ? itemProps.isActive : false;
 
     me.badgeType = itemProps.badgeType;
 
     if (itemProps.applicationData !== undefined)
       me.applicationData = itemProps.applicationData;
-    if (itemProps.iconSpec)
-      me.iconSpec = itemProps.iconSpec;
-    if (itemProps.icon)
-      me.iconSpec = itemProps.icon;
+    if (itemProps.iconSpec) me.iconSpec = itemProps.iconSpec;
+    if (itemProps.icon) me.iconSpec = itemProps.icon;
 
     me._label = PropsHelper.getStringSpec(itemProps.label, itemProps.labelKey);
-    me._tooltip = PropsHelper.getStringSpec(itemProps.tooltip, itemProps.tooltipKey);
-    me._description = PropsHelper.getStringSpec(itemProps.description, itemProps.descriptionKey);
+    me._tooltip = PropsHelper.getStringSpec(
+      itemProps.tooltip,
+      itemProps.tooltipKey
+    );
+    me._description = PropsHelper.getStringSpec(
+      itemProps.description,
+      itemProps.descriptionKey
+    );
   }
 
   constructor(itemProps: ItemProps) {
     ItemDefBase.initializeDef(this, itemProps);
   }
 
-  public get trayId() { return undefined; }
+  public get trayId() {
+    return undefined;
+  }
   public abstract get id(): string;
 
   /** Get the label string */

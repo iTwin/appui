@@ -1,12 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { render } from "@testing-library/react";
 import * as React from "react";
 import * as sinon from "sinon";
 import {
-  addPanelWidget, addTab, createNineZoneState, PanelSideContext, ShowWidgetIconContext, WidgetIdContext, WidgetTabs,
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  PanelSideContext,
+  ShowWidgetIconContext,
+  WidgetIdContext,
+  WidgetTabs,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { addTabs } from "../Utils";
@@ -17,15 +23,13 @@ describe("WidgetTabs", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <WidgetTabs />
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -34,17 +38,17 @@ describe("WidgetTabs", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2", "t3"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
-    sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({ width: 100 }));
+    sinon
+      .stub(Element.prototype, "getBoundingClientRect")
+      .returns(DOMRect.fromRect({ width: 100 }));
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <WidgetTabs />
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -53,11 +57,11 @@ describe("WidgetTabs", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2", "t3"]);
     state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
-    sinon.stub(Element.prototype, "getBoundingClientRect").returns(DOMRect.fromRect({ width: 300 }));
+    sinon
+      .stub(Element.prototype, "getBoundingClientRect")
+      .returns(DOMRect.fromRect({ width: 300 }));
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <ShowWidgetIconContext.Provider value={true}>
           <PanelSideContext.Provider value="left">
             <WidgetIdContext.Provider value="w1">
@@ -65,7 +69,7 @@ describe("WidgetTabs", () => {
             </WidgetIdContext.Provider>
           </PanelSideContext.Provider>
         </ShowWidgetIconContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -75,15 +79,13 @@ describe("WidgetTabs", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "top", "w1", ["t1"], { minimized: true });
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="top">
           <WidgetIdContext.Provider value="w1">
             <WidgetTabs />
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });

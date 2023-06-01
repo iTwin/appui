@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Timeline
  */
@@ -27,8 +27,7 @@ export function SpeedTimeline(props: SpeedProps) {
   // istanbul ignore next - WIP
   const onChange = (values: ReadonlyArray<number>) => {
     const value = values[0];
-    if (props.onChange && (value >= 1 && value <= 6))
-      props.onChange(value);
+    if (props.onChange && value >= 1 && value <= 6) props.onChange(value);
   };
 
   const tooltipProps = React.useCallback(() => {
@@ -47,7 +46,8 @@ export function SpeedTimeline(props: SpeedProps) {
         onChange={onChange}
         values={[props.speed]}
         trackDisplayMode="none"
-        tooltipProps={tooltipProps} />
+        tooltipProps={tooltipProps}
+      />
     </div>
   );
 }

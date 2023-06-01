@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { getUserColor } from "../../core-react";
 
@@ -15,7 +15,7 @@ describe("getUserColor", () => {
     expect(getUserColor(email)).to.eq("#6ab9ec");
   });
   it("should return color if not passed a string", () => {
-    const email = ["test1", "test2"] as unknown as string;  // Test invalid data
+    const email = ["test1", "test2"] as unknown as string; // Test invalid data
     expect(getUserColor(email)).to.eq("#6ab9ec");
   });
 });

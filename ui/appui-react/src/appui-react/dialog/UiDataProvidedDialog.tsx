@@ -1,14 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
 
 import * as React from "react";
 import { Dialog } from "@itwin/core-react";
-import type { DialogButtonDef, DialogLayoutDataProvider } from "@itwin/appui-abstract";
+import type {
+  DialogButtonDef,
+  DialogLayoutDataProvider,
+} from "@itwin/appui-abstract";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import { getUniqueId } from "@itwin/appui-layout-react";
 import { DefaultDialogGridContainer } from "../uiprovider/DefaultDialogGridContainer";
@@ -48,16 +51,19 @@ export interface UiDataProvidedDialogProps {
 /** Component to show dialog populated from properties supplied via uiDataProvider
  * @public
  */
-export function UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogProps }: UiDataProvidedDialogProps) {
+export function UiDataProvidedDialog({
+  uiDataProvider,
+  id,
+  isModal,
+  ...dialogProps
+}: UiDataProvidedDialogProps) {
   const dialogId = React.useRef(id ? id : getUniqueId());
   const dialogIsModal = React.useRef(isModal);
   const onOK = React.useRef<() => void>();
   const onCancel = React.useRef<() => void>();
   const closeDialog = () => {
-    if (dialogIsModal.current)
-      UiFramework.dialogs.modal.close();
-    else
-      UiFramework.dialogs.modeless.close(dialogId.current);
+    if (dialogIsModal.current) UiFramework.dialogs.modal.close();
+    else UiFramework.dialogs.modeless.close(dialogId.current);
   };
 
   const handleOk = React.useCallback(() => {
@@ -70,29 +76,36 @@ export function UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogPro
     closeDialog();
   }, []);
 
-  const generateButtonCluster = React.useCallback((buttons: DialogButtonDef[] | undefined) => {
-    // istanbul ignore else
-    if (buttons) {
-      for (const button of buttons) {
-        if (DialogButtonType.Cancel === button.type) {
-          onCancel.current = button.onClick;
-          button.onClick = handleCancel;
-          continue;
-        }
-        if (DialogButtonType.OK === button.type) {
-          onOK.current = button.onClick;
-          button.onClick = handleOk;
-          continue;
+  const generateButtonCluster = React.useCallback(
+    (buttons: DialogButtonDef[] | undefined) => {
+      // istanbul ignore else
+      if (buttons) {
+        for (const button of buttons) {
+          if (DialogButtonType.Cancel === button.type) {
+            onCancel.current = button.onClick;
+            button.onClick = handleCancel;
+            continue;
+          }
+          if (DialogButtonType.OK === button.type) {
+            onOK.current = button.onClick;
+            button.onClick = handleOk;
+            continue;
+          }
         }
       }
-    }
-    return buttons;
-  }, [handleCancel, handleOk]);
-  const [buttonCluster, setButtonCluster] = React.useState(() => generateButtonCluster(uiDataProvider.supplyButtonData()));
+      return buttons;
+    },
+    [handleCancel, handleOk]
+  );
+  const [buttonCluster, setButtonCluster] = React.useState(() =>
+    generateButtonCluster(uiDataProvider.supplyButtonData())
+  );
 
   React.useEffect(() => {
     const handleReloaded = () => {
-      setButtonCluster(generateButtonCluster(uiDataProvider.supplyButtonData()));
+      setButtonCluster(
+        generateButtonCluster(uiDataProvider.supplyButtonData())
+      );
     };
     uiDataProvider.onItemsReloadedEvent.addListener(handleReloaded);
     return () => {
@@ -102,24 +115,32 @@ export function UiDataProvidedDialog({ uiDataProvider, id, isModal, ...dialogPro
 
   React.useEffect(() => {
     const handleButtonReloaded = () => {
-      setButtonCluster(generateButtonCluster(uiDataProvider.supplyButtonData()));
+      setButtonCluster(
+        generateButtonCluster(uiDataProvider.supplyButtonData())
+      );
     };
     uiDataProvider.onButtonsReloadedEvent.addListener(handleButtonReloaded);
     return () => {
-      uiDataProvider.onButtonsReloadedEvent.removeListener(handleButtonReloaded);
+      uiDataProvider.onButtonsReloadedEvent.removeListener(
+        handleButtonReloaded
+      );
     };
   }, [generateButtonCluster, uiDataProvider]);
 
   const handleClose = React.useCallback(() => closeDialog(), []);
 
-  return (<Dialog {...dialogProps}
-    opened={true}
-    modal={isModal}
-    buttonCluster={buttonCluster}
-    onClose={handleClose}
-    onEscape={handleClose}
-  >
-    <DefaultDialogGridContainer componentGenerator={new ComponentGenerator(uiDataProvider)} />
-  </Dialog>
+  return (
+    <Dialog
+      {...dialogProps}
+      opened={true}
+      modal={isModal}
+      buttonCluster={buttonCluster}
+      onClose={handleClose}
+      onEscape={handleClose}
+    >
+      <DefaultDialogGridContainer
+        componentGenerator={new ComponentGenerator(uiDataProvider)}
+      />
+    </Dialog>
   );
 }

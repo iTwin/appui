@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/z-index";
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "../prefix";
@@ -49,7 +49,8 @@
   }
 
   > .nz-header {
-    border-bottom: $nz-backstage-header-divider-width solid var(--iui-color-border-subtle);
+    border-bottom: $nz-backstage-header-divider-width solid
+      var(--iui-color-border-subtle);
   }
 
   > .nz-footer {

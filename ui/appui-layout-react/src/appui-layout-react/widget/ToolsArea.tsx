@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -37,28 +37,34 @@ export interface ToolsAreaProps extends CommonProps, NoChildrenProps {
  */
 export class ToolsArea extends React.PureComponent<ToolsAreaProps> {
   public override render() {
-    const button = React.isValidElement<ToolbarButtonProps>(this.props.button) ? React.cloneElement(this.props.button, { small: true }) : null;  // ensure button is small
-    const className = classnames(
-      "nz-tools-widget",
-      this.props.className);
+    const button = React.isValidElement<ToolbarButtonProps>(this.props.button)
+      ? React.cloneElement(this.props.button, { small: true })
+      : null; // ensure button is small
+    const className = classnames("nz-tools-widget", this.props.className);
 
     return (
       <div className={className} style={this.props.style}>
         <div className="nz-vertical-tool-area">
-          <div className="nz-app-button"
+          <div
+            className="nz-app-button"
             onMouseEnter={this.props.onMouseEnter}
-            onMouseLeave={this.props.onMouseLeave} >
+            onMouseLeave={this.props.onMouseLeave}
+          >
             {button}
           </div>
-          <div className="nz-vertical-toolbar-container"
+          <div
+            className="nz-vertical-toolbar-container"
             onMouseEnter={this.props.onMouseEnter}
-            onMouseLeave={this.props.onMouseLeave}>
+            onMouseLeave={this.props.onMouseLeave}
+          >
             {this.props.verticalToolbar}
           </div>
         </div>
-        <div className="nz-horizontal-toolbar-container"
+        <div
+          className="nz-horizontal-toolbar-container"
           onMouseEnter={this.props.onMouseEnter}
-          onMouseLeave={this.props.onMouseLeave}>
+          onMouseLeave={this.props.onMouseLeave}
+        >
           {this.props.horizontalToolbar}
         </div>
       </div>

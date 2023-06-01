@@ -1,11 +1,11 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
-import type { NineZoneDispatch} from "../../appui-layout-react";
+import type { NineZoneDispatch } from "../../appui-layout-react";
 import { Dock, NineZoneDispatchContext } from "../../appui-layout-react";
 
 describe("Dock", () => {
@@ -19,7 +19,7 @@ describe("Dock", () => {
     const { container } = render(
       <NineZoneDispatchContext.Provider value={dispatch}>
         <Dock />
-      </NineZoneDispatchContext.Provider>,
+      </NineZoneDispatchContext.Provider>
     );
     const button = container.getElementsByClassName("nz-widget-dock")[0];
     fireEvent.click(button);

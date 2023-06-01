@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -13,25 +13,70 @@ import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
-import type { RectangleProps, SizeProps, UiStateStorageResult} from "@itwin/core-react";
+import type {
+  RectangleProps,
+  SizeProps,
+  UiStateStorageResult,
+} from "@itwin/core-react";
 import { Rectangle, Size, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
 import type {
-  FloatingWidgetHomeState, LayoutStore, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, PanelSide, TabState} from "@itwin/appui-layout-react";
-import {
-  addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createLayoutStore, createNineZoneState, floatingWidgetBringToFront, FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
-  isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, NineZone, NineZoneStateReducer,
-  panelSides, removeTab, removeTabFromWidget, toolSettingsTabId, WidgetPanels,
+  FloatingWidgetHomeState,
+  LayoutStore,
+  NineZoneAction,
+  NineZoneDispatch,
+  NineZoneLabels,
+  NineZoneState,
+  PanelSide,
+  TabState,
 } from "@itwin/appui-layout-react";
-import type { FrontstageDef, FrontstageEventArgs } from "../frontstage/FrontstageDef";
+import {
+  addFloatingWidget,
+  addPanelWidget,
+  addTab,
+  addTabToWidget,
+  convertAllPopupWidgetContainersToFloating,
+  createLayoutStore,
+  createNineZoneState,
+  floatingWidgetBringToFront,
+  FloatingWidgets,
+  getTabLocation,
+  getUniqueId,
+  getWidgetPanelSectionId,
+  insertPanelWidget,
+  insertTabToWidget,
+  isFloatingTabLocation,
+  isHorizontalPanelSide,
+  isPanelTabLocation,
+  isPopoutTabLocation,
+  NineZone,
+  NineZoneStateReducer,
+  panelSides,
+  removeTab,
+  removeTabFromWidget,
+  toolSettingsTabId,
+  WidgetPanels,
+} from "@itwin/appui-layout-react";
+import type {
+  FrontstageDef,
+  FrontstageEventArgs,
+} from "../frontstage/FrontstageDef";
 import type { StagePanelMaxSizeSpec } from "../stagepanels/StagePanelConfig";
 import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
-import type { TabLocation, WidgetDef, WidgetEventArgs, WidgetStateChangedEventArgs } from "../widgets/WidgetDef";
+import type {
+  TabLocation,
+  WidgetDef,
+  WidgetEventArgs,
+  WidgetStateChangedEventArgs,
+} from "../widgets/WidgetDef";
 import { WidgetContent } from "./Content";
 import { WidgetPanelsFrontstageContent } from "./FrontstageContent";
-import { ModalFrontstageComposer, useActiveModalFrontstageInfo } from "./ModalFrontstageComposer";
+import {
+  ModalFrontstageComposer,
+  useActiveModalFrontstageInfo,
+} from "./ModalFrontstageComposer";
 import { WidgetPanelsStatusBar } from "./StatusBar";
 import { WidgetPanelsTab } from "./Tab";
 import { WidgetPanelsToolbars } from "./Toolbars";
@@ -76,24 +121,39 @@ const widgetPanelsFrontstage = <WidgetPanelsFrontstageComponent />;
 
 /** @internal */
 export function useLayoutStore() {
-  const [def, setDef] = React.useState(UiFramework.frontstages.activeFrontstageDef);
-  const [layout, setLayout] = React.useState(() => createLayoutStore(def?.nineZoneState));
+  const [def, setDef] = React.useState(
+    UiFramework.frontstages.activeFrontstageDef
+  );
+  const [layout, setLayout] = React.useState(() =>
+    createLayoutStore(def?.nineZoneState)
+  );
   React.useEffect(() => {
-    return UiFramework.frontstages.onFrontstageActivatedEvent.addListener((args) => {
-      unstable_batchedUpdates(() => {
-        setDef(args.activatedFrontstageDef);
-        setLayout(createLayoutStore(args.activatedFrontstageDef.nineZoneState));
-      });
-    });
+    return UiFramework.frontstages.onFrontstageActivatedEvent.addListener(
+      (args) => {
+        unstable_batchedUpdates(() => {
+          setDef(args.activatedFrontstageDef);
+          setLayout(
+            createLayoutStore(args.activatedFrontstageDef.nineZoneState)
+          );
+        });
+      }
+    );
   }, []);
   React.useEffect(() => {
-    return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((args) => {
-      if (args.frontstageDef !== def || def.isStageClosing || def.isApplicationClosing)
-        return;
-      unstable_batchedUpdates(() => { // https://github.com/pmndrs/zustand/blob/main/docs/guides/event-handler-in-pre-react-18.md
-        layout.setState(args.state || defaultNineZone);
-      });
-    });
+    return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
+      (args) => {
+        if (
+          args.frontstageDef !== def ||
+          def.isStageClosing ||
+          def.isApplicationClosing
+        )
+          return;
+        unstable_batchedUpdates(() => {
+          // https://github.com/pmndrs/zustand/blob/main/docs/guides/event-handler-in-pre-react-18.md
+          layout.setState(args.state || defaultNineZone);
+        });
+      }
+    );
   }, [def, layout]);
   return [layout, def] as const;
 }
@@ -105,21 +165,28 @@ export function useUpdateNineZoneSize(frontstageDef: FrontstageDef) {
   React.useEffect(() => {
     const size = InternalFrontstageManager.nineZoneSize;
     let state = frontstageDef.nineZoneState;
-    if (!size || !state)
-      return;
-    state = FrameworkStateReducer(state, {
-      type: "RESIZE",
-      size: {
-        height: size.height,
-        width: size.width,
+    if (!size || !state) return;
+    state = FrameworkStateReducer(
+      state,
+      {
+        type: "RESIZE",
+        size: {
+          height: size.height,
+          width: size.width,
+        },
       },
-    }, frontstageDef);
+      frontstageDef
+    );
     frontstageDef.nineZoneState = state;
   }, [frontstageDef]);
 }
 
 /** @internal */
-export function FrameworkStateReducer(state: NineZoneState, action: NineZoneAction, frontstageDef: FrontstageDef) {
+export function FrameworkStateReducer(
+  state: NineZoneState,
+  action: NineZoneAction,
+  frontstageDef: FrontstageDef
+) {
   state = NineZoneStateReducer(state, action);
   if (action.type === "RESIZE") {
     state = produce(state, (draft) => {
@@ -128,9 +195,16 @@ export function FrameworkStateReducer(state: NineZoneState, action: NineZoneActi
         const location = toStagePanelLocation(panelSide);
         const panelDef = frontstageDef.getStagePanelDef(location);
         if (panelDef?.maxSizeSpec) {
-          panel.maxSize = getPanelMaxSize(panelDef.maxSizeSpec, panelSide, action.size);
+          panel.maxSize = getPanelMaxSize(
+            panelDef.maxSizeSpec,
+            panelSide,
+            action.size
+          );
           if (panel.size) {
-            panel.size = Math.min(Math.max(panel.size, panel.minSize), panel.maxSize);
+            panel.size = Math.min(
+              Math.max(panel.size, panel.minSize),
+              panel.maxSize
+            );
           }
         }
       }
@@ -141,31 +215,43 @@ export function FrameworkStateReducer(state: NineZoneState, action: NineZoneActi
 
 /** @internal */
 export function useNineZoneDispatch(frontstageDef: FrontstageDef) {
-  const dispatch = React.useCallback<NineZoneDispatch>((action) => {
-    if (action.type === "RESIZE") {
-      InternalFrontstageManager.nineZoneSize = Size.create(action.size);
-    }
-    // istanbul ignore if
-    if (action.type === "TOOL_SETTINGS_DRAG_START") {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      UiFramework.postTelemetry("Tool Settings Undocking", "28B04E07-AE73-4533-A0BA-8E2A8DC99ADF");
-    }
-    // istanbul ignore if
-    if (action.type === "TOOL_SETTINGS_DOCK") {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      UiFramework.postTelemetry("Tool Settings Docking to Settings Bar", "BEDE684B-B3DB-4637-B3AF-DC3CBA223F94");
-    }
-    if (action.type === "WIDGET_TAB_POPOUT") {
-      const tabId = action.id;
-      frontstageDef.popoutWidget(tabId);
-      return;
-    }
+  const dispatch = React.useCallback<NineZoneDispatch>(
+    (action) => {
+      if (action.type === "RESIZE") {
+        InternalFrontstageManager.nineZoneSize = Size.create(action.size);
+      }
+      // istanbul ignore if
+      if (action.type === "TOOL_SETTINGS_DRAG_START") {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        UiFramework.postTelemetry(
+          "Tool Settings Undocking",
+          "28B04E07-AE73-4533-A0BA-8E2A8DC99ADF"
+        );
+      }
+      // istanbul ignore if
+      if (action.type === "TOOL_SETTINGS_DOCK") {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        UiFramework.postTelemetry(
+          "Tool Settings Docking to Settings Bar",
+          "BEDE684B-B3DB-4637-B3AF-DC3CBA223F94"
+        );
+      }
+      if (action.type === "WIDGET_TAB_POPOUT") {
+        const tabId = action.id;
+        frontstageDef.popoutWidget(tabId);
+        return;
+      }
 
-    const state = frontstageDef.nineZoneState;
-    if (!state)
-      return;
-    frontstageDef.nineZoneState = FrameworkStateReducer(state, action, frontstageDef);
-  }, [frontstageDef]);
+      const state = frontstageDef.nineZoneState;
+      if (!state) return;
+      frontstageDef.nineZoneState = FrameworkStateReducer(
+        state,
+        action,
+        frontstageDef
+      );
+    },
+    [frontstageDef]
+  );
   return dispatch;
 }
 
@@ -186,8 +272,7 @@ export function WidgetPanelsFrontstage() {
     };
   }, [frontstageDef]);
 
-  if (!frontstageDef)
-    return null;
+  if (!frontstageDef) return null;
   return (
     <ActiveFrontstageDefProvider
       frontstageDef={frontstageDef}
@@ -206,7 +291,10 @@ interface ActiveFrontstageDefProviderProps {
 }
 
 /** @internal */
-export function ActiveFrontstageDefProvider({ frontstageDef, layout }: ActiveFrontstageDefProviderProps) {
+export function ActiveFrontstageDefProvider({
+  frontstageDef,
+  layout,
+}: ActiveFrontstageDefProviderProps) {
   const dispatch = useNineZoneDispatch(frontstageDef);
   useUpdateNineZoneSize(frontstageDef);
   useSavedFrontstageState(frontstageDef);
@@ -218,18 +306,22 @@ export function ActiveFrontstageDefProvider({ frontstageDef, layout }: ActiveFro
     const frameworkState = (state as any)[UiFramework.frameworkStateKey];
     return !!frameworkState.configurableUiState.showWidgetIcon;
   });
-  const autoCollapseUnpinnedPanels = useSelector((state: FrameworkRootState) => {
-    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
-    return !!frameworkState.configurableUiState.autoCollapseUnpinnedPanels;
-  });
+  const autoCollapseUnpinnedPanels = useSelector(
+    (state: FrameworkRootState) => {
+      const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+      return !!frameworkState.configurableUiState.autoCollapseUnpinnedPanels;
+    }
+  );
   const animateToolSettings = useSelector((state: FrameworkRootState) => {
     const frameworkState = (state as any)[UiFramework.frameworkStateKey];
     return !!frameworkState.configurableUiState.animateToolSettings;
   });
-  const useToolAsToolSettingsLabel = useSelector((state: FrameworkRootState) => {
-    const frameworkState = (state as any)[UiFramework.frameworkStateKey];
-    return !!frameworkState.configurableUiState.useToolAsToolSettingsLabel;
-  });
+  const useToolAsToolSettingsLabel = useSelector(
+    (state: FrameworkRootState) => {
+      const frameworkState = (state as any)[UiFramework.frameworkStateKey];
+      return !!frameworkState.configurableUiState.useToolAsToolSettingsLabel;
+    }
+  );
   useFrontstageManager(frontstageDef, useToolAsToolSettingsLabel);
 
   const handleKeyDown = useEscapeSetFocusToHome();
@@ -261,24 +353,39 @@ export function ActiveFrontstageDefProvider({ frontstageDef, layout }: ActiveFro
 
 /** @internal */
 export function useLabels() {
-  return React.useMemo<NineZoneLabels>(() => ({
-    dockToolSettingsTitle: UiFramework.translate("widget.tooltips.dockToolSettings"),
-    moreWidgetsTitle: UiFramework.translate("widget.tooltips.moreWidgets"),
-    moreToolSettingsTitle: UiFramework.translate("widget.tooltips.moreToolSettings"),
-    pinPanelTitle: UiFramework.translate("widget.tooltips.pinPanel"),
-    resizeGripTitle: UiFramework.translate("widget.tooltips.resizeGrip"),
-    sendWidgetHomeTitle: UiFramework.translate("widget.tooltips.sendHome"),
-    toolSettingsHandleTitle: UiFramework.translate("widget.tooltips.toolSettingsHandle"),
-    unpinPanelTitle: UiFramework.translate("widget.tooltips.unpinPanel"),
-    popoutActiveTab: UiFramework.translate("widget.tooltips.popoutActiveTab"),
-  }), []);
+  return React.useMemo<NineZoneLabels>(
+    () => ({
+      dockToolSettingsTitle: UiFramework.translate(
+        "widget.tooltips.dockToolSettings"
+      ),
+      moreWidgetsTitle: UiFramework.translate("widget.tooltips.moreWidgets"),
+      moreToolSettingsTitle: UiFramework.translate(
+        "widget.tooltips.moreToolSettings"
+      ),
+      pinPanelTitle: UiFramework.translate("widget.tooltips.pinPanel"),
+      resizeGripTitle: UiFramework.translate("widget.tooltips.resizeGrip"),
+      sendWidgetHomeTitle: UiFramework.translate("widget.tooltips.sendHome"),
+      toolSettingsHandleTitle: UiFramework.translate(
+        "widget.tooltips.toolSettingsHandle"
+      ),
+      unpinPanelTitle: UiFramework.translate("widget.tooltips.unpinPanel"),
+      popoutActiveTab: UiFramework.translate("widget.tooltips.popoutActiveTab"),
+    }),
+    []
+  );
 }
 
 /** @internal */
-export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDef>, side: PanelSide, widgetId: WidgetId): NineZoneState {
-  const visibleWidgets = widgets.filter((w) => w.isVisible && (w.defaultState !== WidgetState.Floating));
-  if (visibleWidgets.length === 0)
-    return state;
+export function addWidgets(
+  state: NineZoneState,
+  widgets: ReadonlyArray<WidgetDef>,
+  side: PanelSide,
+  widgetId: WidgetId
+): NineZoneState {
+  const visibleWidgets = widgets.filter(
+    (w) => w.isVisible && w.defaultState !== WidgetState.Floating
+  );
+  if (visibleWidgets.length === 0) return state;
 
   const tabs = new Array<string>();
   for (const widget of visibleWidgets) {
@@ -291,7 +398,9 @@ export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDe
       canPopout: widget.canPopout,
       isFloatingStateWindowResizable: widget.isFloatingStateWindowResizable,
       hideWithUiWhenFloating: !!widget.hideWithUiWhenFloating,
-      allowedPanelTargets: widget.allowedPanelTargets?.map((location) => toPanelSide(location)),
+      allowedPanelTargets: widget.allowedPanelTargets?.map((location) =>
+        toPanelSide(location)
+      ),
     });
     tabs.push(widget.id);
   }
@@ -311,9 +420,13 @@ export function addWidgets(state: NineZoneState, widgets: ReadonlyArray<WidgetDe
 
 /** @internal */
 // istanbul ignore next
-export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<WidgetDef>, location: StagePanelLocation, section: StagePanelSection): NineZoneState {
-  if (widgetDefs.length === 0)
-    return state;
+export function appendWidgets(
+  state: NineZoneState,
+  widgetDefs: ReadonlyArray<WidgetDef>,
+  location: StagePanelLocation,
+  section: StagePanelSection
+): NineZoneState {
+  if (widgetDefs.length === 0) return state;
 
   const side = toPanelSide(location);
 
@@ -321,10 +434,17 @@ export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<Wi
   for (const widgetDef of widgetDefs) {
     const label = getWidgetLabel(widgetDef.label);
     const saveTab = state.tabs[widgetDef.id];
-    const preferredPanelWidgetSize = saveTab ? saveTab.preferredPanelWidgetSize : widgetDef.preferredPanelSize;
-    const preferredFloatingWidgetSize = saveTab ? saveTab.preferredFloatingWidgetSize : widgetDef.defaultFloatingSize;
+    const preferredPanelWidgetSize = saveTab
+      ? saveTab.preferredPanelWidgetSize
+      : widgetDef.preferredPanelSize;
+    const preferredFloatingWidgetSize = saveTab
+      ? saveTab.preferredFloatingWidgetSize
+      : widgetDef.defaultFloatingSize;
     // if a defaultFloatingSize is specified then this mean the widget can't determine its intrinsic size and must be explicitly sized
-    const userSized = saveTab ? (saveTab.userSized || !!widgetDef.defaultFloatingSize && !!saveTab.preferredFloatingWidgetSize)
+    const userSized = saveTab
+      ? saveTab.userSized ||
+        (!!widgetDef.defaultFloatingSize &&
+          !!saveTab.preferredFloatingWidgetSize)
       : !!widgetDef.defaultFloatingSize;
     state = addTab(state, widgetDef.id, {
       label,
@@ -335,13 +455,23 @@ export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<Wi
       userSized,
       isFloatingStateWindowResizable: widgetDef.isFloatingStateWindowResizable,
       hideWithUiWhenFloating: !!widgetDef.hideWithUiWhenFloating,
-      allowedPanelTargets: widgetDef.allowedPanelTargets?.map((l) => toPanelSide(l)),
+      allowedPanelTargets: widgetDef.allowedPanelTargets?.map((l) =>
+        toPanelSide(l)
+      ),
     });
 
-    if (widgetDef.isFloatingStateSupported && widgetDef.defaultState === WidgetState.Floating) {
-      const floatingContainerId = widgetDef.floatingContainerId ?? getUniqueId();
+    if (
+      widgetDef.isFloatingStateSupported &&
+      widgetDef.defaultState === WidgetState.Floating
+    ) {
+      const floatingContainerId =
+        widgetDef.floatingContainerId ?? getUniqueId();
       const widgetContainerId = getWidgetId(location, section);
-      const home: FloatingWidgetHomeState = { side, widgetId: widgetContainerId, widgetIndex: 0 };
+      const home: FloatingWidgetHomeState = {
+        side,
+        widgetId: widgetContainerId,
+        widgetIndex: 0,
+      };
       const preferredPosition = widgetDef.defaultFloatingPosition;
 
       if (floatingContainerId in state.widgets) {
@@ -349,31 +479,53 @@ export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<Wi
       } else {
         const tab = state.tabs[widgetDef.id];
 
-        const size = { height: 200, width: 300, ...tab.preferredFloatingWidgetSize };
-        const preferredPoint = preferredPosition ?? { x: (state.size.width - size.width) / 2, y: (state.size.height - size.height) / 2 };
+        const size = {
+          height: 200,
+          width: 300,
+          ...tab.preferredFloatingWidgetSize,
+        };
+        const preferredPoint = preferredPosition ?? {
+          x: (state.size.width - size.width) / 2,
+          y: (state.size.height - size.height) / 2,
+        };
         const nzBounds = Rectangle.createFromSize(state.size);
         const bounds = Rectangle.createFromSize(size).offset(preferredPoint);
         const containedBounds = bounds.containIn(nzBounds);
 
-        state = addFloatingWidget(state, floatingContainerId, [widgetDef.id], {
-          bounds: containedBounds.toProps(),
-          home,
-          userSized,
-        }, {
-          isFloatingStateWindowResizable: widgetDef.isFloatingStateWindowResizable,
-        });
+        state = addFloatingWidget(
+          state,
+          floatingContainerId,
+          [widgetDef.id],
+          {
+            bounds: containedBounds.toProps(),
+            home,
+            userSized,
+          },
+          {
+            isFloatingStateWindowResizable:
+              widgetDef.isFloatingStateWindowResizable,
+          }
+        );
       }
     } else {
       const preferredWidgetIndex: number = section;
-      const widgetPanelSectionId = getWidgetPanelSectionId(side, preferredWidgetIndex);
+      const widgetPanelSectionId = getWidgetPanelSectionId(
+        side,
+        preferredWidgetIndex
+      );
       if (widgetPanelSectionId in state.widgets) {
         state = addTabToWidget(state, widgetDef.id, widgetPanelSectionId);
       } else {
         const panel = state.panels[side];
         if (panel.widgets.length < panel.maxWidgetCount) {
-          state = addPanelWidget(state, side, widgetPanelSectionId, [widgetDef.id]);
+          state = addPanelWidget(state, side, widgetPanelSectionId, [
+            widgetDef.id,
+          ]);
         } else {
-          const widgetIndex = Math.min(preferredWidgetIndex, panel.widgets.length - 1);
+          const widgetIndex = Math.min(
+            preferredWidgetIndex,
+            panel.widgets.length - 1
+          );
           const widgetId = panel.widgets[widgetIndex];
           state = addTabToWidget(state, widgetDef.id, widgetId);
         }
@@ -384,16 +536,24 @@ export function appendWidgets(state: NineZoneState, widgetDefs: ReadonlyArray<Wi
   return state;
 }
 
-function processPopoutWidgets(initialState: NineZoneState, frontstageDef: FrontstageDef): NineZoneState {
+function processPopoutWidgets(
+  initialState: NineZoneState,
+  frontstageDef: FrontstageDef
+): NineZoneState {
   // istanbul ignore next
-  if (!initialState.popoutWidgets)
-    return initialState;
+  if (!initialState.popoutWidgets) return initialState;
 
   // istanbul ignore next - not unit testing electron case that reopens popout windows
   if (initialState.popoutWidgets && ProcessDetector.isElectronAppFrontend) {
-    if (initialState.popoutWidgets.allIds.length && ProcessDetector.isElectronAppFrontend) {
+    if (
+      initialState.popoutWidgets.allIds.length &&
+      ProcessDetector.isElectronAppFrontend
+    ) {
       for (const widgetContainerId of initialState.popoutWidgets.allIds) {
-        frontstageDef.openPopoutWidgetContainer(initialState, widgetContainerId);
+        frontstageDef.openPopoutWidgetContainer(
+          initialState,
+          widgetContainerId
+        );
       }
     }
     return initialState;
@@ -405,31 +565,108 @@ function processPopoutWidgets(initialState: NineZoneState, frontstageDef: Fronts
 /** Adds frontstageDef widgets that are missing in NineZoneState.
  * @internal
  */
-export function addMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState {
+export function addMissingWidgets(
+  frontstageDef: FrontstageDef,
+  initialState: NineZoneState
+): NineZoneState {
   let state = initialState;
 
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.leftPanel?.getPanelSectionDef(StagePanelSection.Start).widgetDefs, state), StagePanelLocation.Left, StagePanelSection.Start);
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.leftPanel?.getPanelSectionDef(StagePanelSection.End).widgetDefs, state), StagePanelLocation.Left, StagePanelSection.End);
+  state = appendWidgets(
+    state,
+    determineNewWidgets(
+      frontstageDef.leftPanel?.getPanelSectionDef(StagePanelSection.Start)
+        .widgetDefs,
+      state
+    ),
+    StagePanelLocation.Left,
+    StagePanelSection.Start
+  );
+  state = appendWidgets(
+    state,
+    determineNewWidgets(
+      frontstageDef.leftPanel?.getPanelSectionDef(StagePanelSection.End)
+        .widgetDefs,
+      state
+    ),
+    StagePanelLocation.Left,
+    StagePanelSection.End
+  );
 
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.rightPanel?.getPanelSectionDef(StagePanelSection.Start).widgetDefs, state), StagePanelLocation.Right, StagePanelSection.Start);
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.rightPanel?.getPanelSectionDef(StagePanelSection.End).widgetDefs, state), StagePanelLocation.Right, StagePanelSection.End);
+  state = appendWidgets(
+    state,
+    determineNewWidgets(
+      frontstageDef.rightPanel?.getPanelSectionDef(StagePanelSection.Start)
+        .widgetDefs,
+      state
+    ),
+    StagePanelLocation.Right,
+    StagePanelSection.Start
+  );
+  state = appendWidgets(
+    state,
+    determineNewWidgets(
+      frontstageDef.rightPanel?.getPanelSectionDef(StagePanelSection.End)
+        .widgetDefs,
+      state
+    ),
+    StagePanelLocation.Right,
+    StagePanelSection.End
+  );
 
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.topPanel?.getPanelSectionDef(StagePanelSection.Start).widgetDefs, state), StagePanelLocation.Top, StagePanelSection.Start);
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.topPanel?.getPanelSectionDef(StagePanelSection.End).widgetDefs, state), StagePanelLocation.Top, StagePanelSection.End);
+  state = appendWidgets(
+    state,
+    determineNewWidgets(
+      frontstageDef.topPanel?.getPanelSectionDef(StagePanelSection.Start)
+        .widgetDefs,
+      state
+    ),
+    StagePanelLocation.Top,
+    StagePanelSection.Start
+  );
+  state = appendWidgets(
+    state,
+    determineNewWidgets(
+      frontstageDef.topPanel?.getPanelSectionDef(StagePanelSection.End)
+        .widgetDefs,
+      state
+    ),
+    StagePanelLocation.Top,
+    StagePanelSection.End
+  );
 
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.bottomPanel?.getPanelSectionDef(StagePanelSection.Start).widgetDefs, state), StagePanelLocation.Bottom, StagePanelSection.Start);
-  state = appendWidgets(state, determineNewWidgets(frontstageDef.bottomPanel?.getPanelSectionDef(StagePanelSection.End).widgetDefs, state), StagePanelLocation.Bottom, StagePanelSection.End);
+  state = appendWidgets(
+    state,
+    determineNewWidgets(
+      frontstageDef.bottomPanel?.getPanelSectionDef(StagePanelSection.Start)
+        .widgetDefs,
+      state
+    ),
+    StagePanelLocation.Bottom,
+    StagePanelSection.Start
+  );
+  state = appendWidgets(
+    state,
+    determineNewWidgets(
+      frontstageDef.bottomPanel?.getPanelSectionDef(StagePanelSection.End)
+        .widgetDefs,
+      state
+    ),
+    StagePanelLocation.Bottom,
+    StagePanelSection.End
+  );
 
   return state;
 }
 
 /** Hide widgets with Hidden defaultState. */
-function hideWidgets(state: NineZoneState, frontstageDef: FrontstageDef): NineZoneState {
+function hideWidgets(
+  state: NineZoneState,
+  frontstageDef: FrontstageDef
+): NineZoneState {
   const tabs = Object.values(state.tabs);
   for (const tab of tabs) {
     const widgetDef = frontstageDef.findWidgetDef(tab.id);
-    if (!widgetDef)
-      continue;
+    if (!widgetDef) continue;
 
     if (widgetDef.defaultState === WidgetState.Hidden) {
       state = hideWidget(state, widgetDef);
@@ -442,14 +679,15 @@ function hideWidgets(state: NineZoneState, frontstageDef: FrontstageDef): NineZo
 /** Removes NineZoneState widgets that are missing in frontstageDef.
  * @internal
  */
-export function removeMissingWidgets(frontstageDef: FrontstageDef, initialState: NineZoneState): NineZoneState {
+export function removeMissingWidgets(
+  frontstageDef: FrontstageDef,
+  initialState: NineZoneState
+): NineZoneState {
   let state = initialState;
   for (const [, tab] of Object.entries(state.tabs)) {
-    if (tab.id === toolSettingsTabId)
-      continue;
+    if (tab.id === toolSettingsTabId) continue;
     const widgetDef = frontstageDef.findWidgetDef(tab.id);
-    if (widgetDef)
-      continue;
+    if (widgetDef) continue;
     state = removeTab(state, tab.id);
   }
   return state;
@@ -460,14 +698,14 @@ function getWidgetLabel(label: string) {
 }
 
 type WidgetId =
-  "leftStart" |
-  "leftEnd" |
-  "rightStart" |
-  "rightEnd" |
-  "topStart" |
-  "topEnd" |
-  "bottomStart" |
-  "bottomEnd";
+  | "leftStart"
+  | "leftEnd"
+  | "rightStart"
+  | "rightEnd"
+  | "topStart"
+  | "topEnd"
+  | "bottomStart"
+  | "bottomEnd";
 
 function toStagePanelLocation(side: PanelSide): StagePanelLocation {
   switch (side) {
@@ -483,33 +721,36 @@ function toStagePanelLocation(side: PanelSide): StagePanelLocation {
 }
 
 /** @internal */
-export function getWidgetId(location: StagePanelLocation, section: StagePanelSection): WidgetId {
+export function getWidgetId(
+  location: StagePanelLocation,
+  section: StagePanelSection
+): WidgetId {
   switch (location) {
     case StagePanelLocation.Left: {
-      if (section === StagePanelSection.Start)
-        return "leftStart";
+      if (section === StagePanelSection.Start) return "leftStart";
       return "leftEnd";
     }
     case StagePanelLocation.Right: {
-      if (section === StagePanelSection.Start)
-        return "rightStart";
+      if (section === StagePanelSection.Start) return "rightStart";
       return "rightEnd";
     }
     case StagePanelLocation.Top: {
-      if (section === StagePanelSection.Start)
-        return "topStart";
+      if (section === StagePanelSection.Start) return "topStart";
       return "topEnd";
     }
     case StagePanelLocation.Bottom: {
-      if (section === StagePanelSection.Start)
-        return "bottomStart";
+      if (section === StagePanelSection.Start) return "bottomStart";
       return "bottomEnd";
     }
   }
 }
 
 /** @internal */
-export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: StagePanelLocation, section: StagePanelSection): ReadonlyArray<WidgetDef> {
+export function getPanelSectionWidgets(
+  frontstageDef: FrontstageDef,
+  location: StagePanelLocation,
+  section: StagePanelSection
+): ReadonlyArray<WidgetDef> {
   const stagePanel = frontstageDef.getStagePanelDef(location);
   const panelSection = stagePanel?.getPanelSectionDef(section);
   return panelSection?.widgetDefs || [];
@@ -519,32 +760,50 @@ export function getPanelSectionWidgets(frontstageDef: FrontstageDef, location: S
 export function addPanelWidgets(
   state: NineZoneState,
   frontstageDef: FrontstageDef,
-  location: StagePanelLocation,
+  location: StagePanelLocation
 ): NineZoneState {
   const side = toPanelSide(location);
 
   const start = getWidgetId(location, StagePanelSection.Start);
-  const startWidgets = getPanelSectionWidgets(frontstageDef, location, StagePanelSection.Start);
-  state = addWidgets(state, determineNewWidgets(startWidgets, state), side, start);
+  const startWidgets = getPanelSectionWidgets(
+    frontstageDef,
+    location,
+    StagePanelSection.Start
+  );
+  state = addWidgets(
+    state,
+    determineNewWidgets(startWidgets, state),
+    side,
+    start
+  );
 
   const end = getWidgetId(location, StagePanelSection.End);
-  const endWidgets = getPanelSectionWidgets(frontstageDef, location, StagePanelSection.End);
+  const endWidgets = getPanelSectionWidgets(
+    frontstageDef,
+    location,
+    StagePanelSection.End
+  );
   state = addWidgets(state, determineNewWidgets(endWidgets, state), side, end);
   return state;
 }
 
 /** @internal */
-export function isFrontstageStateSettingResult(settingsResult: UiStateStorageResult): settingsResult is {
+export function isFrontstageStateSettingResult(
+  settingsResult: UiStateStorageResult
+): settingsResult is {
   status: UiStateStorageStatus.Success;
   setting: WidgetPanelsFrontstageState;
 } {
-  if (settingsResult.status === UiStateStorageStatus.Success)
-    return true;
+  if (settingsResult.status === UiStateStorageStatus.Success) return true;
   return false;
 }
 
 /** @internal */
-export function initializePanel(state: NineZoneState, frontstageDef: FrontstageDef, location: StagePanelLocation) {
+export function initializePanel(
+  state: NineZoneState,
+  frontstageDef: FrontstageDef,
+  location: StagePanelLocation
+) {
   const panelSide = toPanelSide(location);
 
   state = addPanelWidgets(state, frontstageDef, location);
@@ -555,32 +814,46 @@ export function initializePanel(state: NineZoneState, frontstageDef: FrontstageD
     panel.pinned = panelDef?.pinned ?? panel.pinned;
     panel.resizable = panelDef?.resizable ?? panel.resizable;
     if (panelDef?.maxSizeSpec) {
-      panel.maxSize = getPanelMaxSize(panelDef.maxSizeSpec, panelSide, state.size);
+      panel.maxSize = getPanelMaxSize(
+        panelDef.maxSizeSpec,
+        panelSide,
+        state.size
+      );
     }
 
     const size = panelDef?.size;
-    panel.size = size === undefined ? size : Math.min(Math.max(size, panel.minSize), panel.maxSize);
+    panel.size =
+      size === undefined
+        ? size
+        : Math.min(Math.max(size, panel.minSize), panel.maxSize);
   });
   return state;
 }
 
-function getPanelMaxSize(maxSizeSpec: StagePanelMaxSizeSpec, panel: PanelSide, nineZoneSize: SizeProps) {
+function getPanelMaxSize(
+  maxSizeSpec: StagePanelMaxSizeSpec,
+  panel: PanelSide,
+  nineZoneSize: SizeProps
+) {
   if (typeof maxSizeSpec === "number") {
     return maxSizeSpec;
   }
-  const size = isHorizontalPanelSide(panel) ? nineZoneSize.height : nineZoneSize.width;
-  return maxSizeSpec.percentage / 100 * size;
+  const size = isHorizontalPanelSide(panel)
+    ? nineZoneSize.height
+    : nineZoneSize.width;
+  return (maxSizeSpec.percentage / 100) * size;
 }
 
 const stateVersion = 13; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
 /** @internal */
-export function initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneState {
+export function initializeNineZoneState(
+  frontstageDef: FrontstageDef
+): NineZoneState {
   let nineZone = defaultNineZone;
   nineZone = produce(nineZone, (stateDraft) => {
     // istanbul ignore next
-    if (!InternalFrontstageManager.nineZoneSize)
-      return;
+    if (!InternalFrontstageManager.nineZoneSize) return;
     stateDraft.size = {
       height: InternalFrontstageManager.nineZoneSize.height,
       width: InternalFrontstageManager.nineZoneSize.width,
@@ -590,25 +863,43 @@ export function initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneS
   nineZone = initializePanel(nineZone, frontstageDef, StagePanelLocation.Left);
   nineZone = initializePanel(nineZone, frontstageDef, StagePanelLocation.Right);
   nineZone = initializePanel(nineZone, frontstageDef, StagePanelLocation.Top);
-  nineZone = initializePanel(nineZone, frontstageDef, StagePanelLocation.Bottom);
+  nineZone = initializePanel(
+    nineZone,
+    frontstageDef,
+    StagePanelLocation.Bottom
+  );
   nineZone = produce(nineZone, (stateDraft) => {
     for (const [, panel] of Object.entries(stateDraft.panels)) {
-      const expanded = panel.widgets.find((widgetId) => stateDraft.widgets[widgetId].minimized === false);
-      const firstWidget = panel.widgets.length > 0 ? stateDraft.widgets[panel.widgets[0]] : undefined;
+      const expanded = panel.widgets.find(
+        (widgetId) => stateDraft.widgets[widgetId].minimized === false
+      );
+      const firstWidget =
+        panel.widgets.length > 0
+          ? stateDraft.widgets[panel.widgets[0]]
+          : undefined;
       // istanbul ignore next
       if (!expanded && firstWidget) {
         firstWidget.minimized = false;
       }
     }
-    stateDraft.panels.left.collapsed = isPanelCollapsed(frontstageDef.leftPanel?.panelState);
-    stateDraft.panels.right.collapsed = isPanelCollapsed(frontstageDef.rightPanel?.panelState);
-    stateDraft.panels.top.collapsed = isPanelCollapsed(frontstageDef.topPanel?.panelState);
-    stateDraft.panels.bottom.collapsed = isPanelCollapsed(frontstageDef.bottomPanel?.panelState);
+    stateDraft.panels.left.collapsed = isPanelCollapsed(
+      frontstageDef.leftPanel?.panelState
+    );
+    stateDraft.panels.right.collapsed = isPanelCollapsed(
+      frontstageDef.rightPanel?.panelState
+    );
+    stateDraft.panels.top.collapsed = isPanelCollapsed(
+      frontstageDef.topPanel?.panelState
+    );
+    stateDraft.panels.bottom.collapsed = isPanelCollapsed(
+      frontstageDef.bottomPanel?.panelState
+    );
 
     const toolSettingsWidgetDef = frontstageDef.toolSettings;
     if (toolSettingsWidgetDef) {
       const toolSettingsTab = stateDraft.tabs[toolSettingsTabId];
-      toolSettingsTab.preferredPanelWidgetSize = toolSettingsWidgetDef.preferredPanelSize;
+      toolSettingsTab.preferredPanelWidgetSize =
+        toolSettingsWidgetDef.preferredPanelSize;
     }
   });
   nineZone = addMissingWidgets(frontstageDef, nineZone);
@@ -623,7 +914,10 @@ export function initializeNineZoneState(frontstageDef: FrontstageDef): NineZoneS
  * @note Restores tab labels.
  * @internal
  */
-export function restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedNineZoneState): NineZoneState {
+export function restoreNineZoneState(
+  frontstageDef: FrontstageDef,
+  saved: SavedNineZoneState
+): NineZoneState {
   let restored: NineZoneState = {
     ...saved,
     tabs: defaultNineZone.tabs,
@@ -635,10 +929,14 @@ export function restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedN
 
     const widgetDef = frontstageDef.findWidgetDef(tab.id);
     if (!widgetDef) {
-      Logger.logInfo(UiFramework.loggerCategory(restoreNineZoneState), "WidgetDef is not found for saved tab.", () => ({
-        frontstageId: frontstageDef.id,
-        tabId: tab.id,
-      }));
+      Logger.logInfo(
+        UiFramework.loggerCategory(restoreNineZoneState),
+        "WidgetDef is not found for saved tab.",
+        () => ({
+          frontstageId: frontstageDef.id,
+          tabId: tab.id,
+        })
+      );
       restored = removeTab(restored, tab.id);
       continue;
     }
@@ -649,31 +947,46 @@ export function restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedN
         hideWithUiWhenFloating: widgetDef.hideWithUiWhenFloating,
         iconSpec: widgetDef.iconSpec,
         canPopout: widgetDef.canPopout,
-        isFloatingStateWindowResizable: widgetDef.isFloatingStateWindowResizable,
-        allowedPanelTargets: widgetDef.allowedPanelTargets?.map((location) => toPanelSide(location)),
+        isFloatingStateWindowResizable:
+          widgetDef.isFloatingStateWindowResizable,
+        allowedPanelTargets: widgetDef.allowedPanelTargets?.map((location) =>
+          toPanelSide(location)
+        ),
       };
     });
   }
   restored = produce(restored, (draft) => {
     // remove center panel section if one is found in left or right panels
-    const oldLeftMiddleIndex = saved.panels.left.widgets.findIndex((value) => value === "leftMiddle");
+    const oldLeftMiddleIndex = saved.panels.left.widgets.findIndex(
+      (value) => value === "leftMiddle"
+    );
     // istanbul ignore next
     if (-1 !== oldLeftMiddleIndex) {
-      draft.panels.left.widgets = saved.panels.left.widgets.filter((value) => value !== "leftMiddle");
+      draft.panels.left.widgets = saved.panels.left.widgets.filter(
+        (value) => value !== "leftMiddle"
+      );
       if ("leftEnd" in draft.widgets) {
-        draft.widgets.leftMiddle.tabs.forEach((tab) => draft.widgets.leftEnd.tabs.push(tab));
+        draft.widgets.leftMiddle.tabs.forEach((tab) =>
+          draft.widgets.leftEnd.tabs.push(tab)
+        );
       } else {
         draft.widgets.leftEnd = { ...draft.widgets.leftMiddle };
         delete draft.widgets.leftMiddle;
       }
     }
 
-    const oldRightMiddleIndex = saved.panels.right.widgets.findIndex((value) => value === "rightMiddle");
+    const oldRightMiddleIndex = saved.panels.right.widgets.findIndex(
+      (value) => value === "rightMiddle"
+    );
     // istanbul ignore next
     if (-1 !== oldRightMiddleIndex) {
-      draft.panels.right.widgets = saved.panels.right.widgets.filter((value) => value !== "rightMiddle");
+      draft.panels.right.widgets = saved.panels.right.widgets.filter(
+        (value) => value !== "rightMiddle"
+      );
       if ("rightEnd" in draft.widgets) {
-        draft.widgets.rightMiddle.tabs.forEach((tab) => draft.widgets.rightEnd.tabs.push(tab));
+        draft.widgets.rightMiddle.tabs.forEach((tab) =>
+          draft.widgets.rightEnd.tabs.push(tab)
+        );
       } else {
         draft.widgets.rightEnd = { ...draft.widgets.rightMiddle };
         delete draft.widgets.rightMiddle;
@@ -683,14 +996,22 @@ export function restoreNineZoneState(frontstageDef: FrontstageDef, saved: SavedN
     return;
   });
 
-  if (InternalFrontstageManager.nineZoneSize && (0 !== InternalFrontstageManager.nineZoneSize.height || 0 !== InternalFrontstageManager.nineZoneSize.width)) {
-    restored = FrameworkStateReducer(restored, {
-      type: "RESIZE",
-      size: {
-        height: InternalFrontstageManager.nineZoneSize.height,
-        width: InternalFrontstageManager.nineZoneSize.width,
+  if (
+    InternalFrontstageManager.nineZoneSize &&
+    (0 !== InternalFrontstageManager.nineZoneSize.height ||
+      0 !== InternalFrontstageManager.nineZoneSize.width)
+  ) {
+    restored = FrameworkStateReducer(
+      restored,
+      {
+        type: "RESIZE",
+        size: {
+          height: InternalFrontstageManager.nineZoneSize.height,
+          width: InternalFrontstageManager.nineZoneSize.width,
+        },
       },
-    }, frontstageDef);
+      frontstageDef
+    );
   }
   return restored;
 }
@@ -707,8 +1028,7 @@ export function packNineZoneState(state: NineZoneState): SavedNineZoneState {
   };
   packed = produce(packed, (draft) => {
     for (const [, tab] of Object.entries(state.tabs)) {
-      if (tab.id === toolSettingsTabId)
-        continue;
+      if (tab.id === toolSettingsTabId) continue;
 
       draft.tabs[tab.id] = {
         id: tab.id,
@@ -737,8 +1057,7 @@ function packSavedWidgets(frontstageDef: FrontstageDef): SavedWidgets {
         draft.popoutBounds = widgetDef.popoutBounds.toProps();
       }
     });
-    if (widget === initialWidget)
-      continue;
+    if (widget === initialWidget) continue;
 
     savedWidgets.push(widget);
   }
@@ -746,8 +1065,7 @@ function packSavedWidgets(frontstageDef: FrontstageDef): SavedWidgets {
   // Add previously saved widgets.
   const prevSavedWidgets = frontstageDef.savedWidgetDefs || [];
   for (const prevWidget of prevSavedWidgets) {
-    if (savedWidgets.find((w) => w.id === prevWidget.id))
-      continue;
+    if (savedWidgets.find((w) => w.id === prevWidget.id)) continue;
 
     savedWidgets.push(prevWidget);
   }
@@ -766,8 +1084,7 @@ function restoreSavedWidgets(frontstage: FrontstageDef) {
   for (const savedWidget of savedWidgets) {
     const widgetId = savedWidget.id;
     const widgetDef = frontstage.findWidgetDef(widgetId);
-    if (!widgetDef)
-      continue;
+    if (!widgetDef) continue;
 
     if (savedWidget.tabLocation) {
       widgetDef.tabLocation = { ...savedWidget.tabLocation };
@@ -809,7 +1126,10 @@ export interface SavedWidget {
 export type SavedWidgets = ReadonlyArray<SavedWidget>;
 
 // We don't save tab labels or if widget is allowed to "pop-out".
-type SavedTabState = Omit<TabState, "label" | "canPopout" | "isFloatingStateWindowResizable" | "iconSpec">;
+type SavedTabState = Omit<
+  TabState,
+  "label" | "canPopout" | "isFloatingStateWindowResizable" | "iconSpec"
+>;
 
 interface SavedTabsState {
   readonly [id: string]: SavedTabState;
@@ -827,7 +1147,10 @@ interface SavedNineZoneState extends Omit<NineZoneState, "tabs"> {
   //  readonly widgets: SavedWidgetsState;
 }
 
-function addHiddenWidget(state: NineZoneState, widgetDef: WidgetDef): NineZoneState {
+function addHiddenWidget(
+  state: NineZoneState,
+  widgetDef: WidgetDef
+): NineZoneState {
   const tabLocation = widgetDef.tabLocation || widgetDef.defaultTabLocation;
   const tabId = widgetDef.id;
   const { widgetId, tabIndex } = tabLocation;
@@ -853,21 +1176,30 @@ function addHiddenWidget(state: NineZoneState, widgetDef: WidgetDef): NineZoneSt
 
   // Add to existing panel section.
   if (panel.widgets.length >= panel.maxWidgetCount) {
-    const sectionIndex = Math.min(panel.maxWidgetCount - 1, tabLocation.widgetIndex);
+    const sectionIndex = Math.min(
+      panel.maxWidgetCount - 1,
+      tabLocation.widgetIndex
+    );
     const sectionId = panel.widgets[sectionIndex];
     return insertTabToWidget(state, tabId, sectionId, tabLocation.tabIndex);
   }
 
   // Create a new panel section.
   const newSectionId = getUniqueId();
-  return insertPanelWidget(state, panel.side, newSectionId, [tabId], tabLocation.widgetIndex);
+  return insertPanelWidget(
+    state,
+    panel.side,
+    newSectionId,
+    [tabId],
+    tabLocation.widgetIndex
+  );
 }
 
 /** @internal */
 export function setWidgetState(
   state: NineZoneState,
   widgetDef: WidgetDef,
-  widgetState: WidgetState,
+  widgetState: WidgetState
 ) {
   if (widgetState === WidgetState.Hidden) {
     return hideWidget(state, widgetDef);
@@ -886,7 +1218,8 @@ export function setWidgetState(
       widget.activeTabId = id;
 
       if (isFloatingTabLocation(location)) {
-        const floatingWidget = draft.floatingWidgets.byId[location.floatingWidgetId];
+        const floatingWidget =
+          draft.floatingWidgets.byId[location.floatingWidgetId];
         floatingWidget.hidden = false;
         // istanbul ignore else
       } else if (isPanelTabLocation(location)) {
@@ -926,8 +1259,7 @@ export function setWidgetState(
     }
 
     assert(!!location);
-    if (isFloatingTabLocation(location))
-      return state;
+    if (isFloatingTabLocation(location)) return state;
 
     // Widget is not floating.
     state = removeTabFromWidget(state, id);
@@ -940,8 +1272,7 @@ export function setWidgetState(
 /** Stores widget location and hides it in the UI. */
 function hideWidget(state: NineZoneState, widgetDef: WidgetDef) {
   const location = getTabLocation(state, widgetDef.id);
-  if (!location)
-    return state;
+  if (!location) return state;
   // istanbul ignore else
   if (isFloatingTabLocation(location)) {
     const floatingWidget = state.floatingWidgets.byId[location.widgetId];
@@ -956,8 +1287,12 @@ function hideWidget(state: NineZoneState, widgetDef: WidgetDef) {
   } else if (!isPopoutTabLocation(location)) {
     const widgetId = location.widgetId;
     const side = isPanelTabLocation(location) ? location.side : "left";
-    const widgetIndex = isPanelTabLocation(location) ? state.panels[side].widgets.indexOf(widgetId) : 0;
-    const tabIndex = state.widgets[location.widgetId].tabs.indexOf(widgetDef.id);
+    const widgetIndex = isPanelTabLocation(location)
+      ? state.panels[side].widgets.indexOf(widgetId)
+      : 0;
+    const tabIndex = state.widgets[location.widgetId].tabs.indexOf(
+      widgetDef.id
+    );
     widgetDef.tabLocation = {
       side,
       tabIndex,
@@ -971,8 +1306,7 @@ function hideWidget(state: NineZoneState, widgetDef: WidgetDef) {
 /** @internal */
 export function showWidget(state: NineZoneState, id: TabState["id"]) {
   const location = getTabLocation(state, id);
-  if (!location)
-    return state;
+  if (!location) return state;
   state = produce(state, (draft) => {
     const widget = draft.widgets[location.widgetId];
     widget.activeTabId = id;
@@ -991,25 +1325,28 @@ export function showWidget(state: NineZoneState, id: TabState["id"]) {
 /** @internal */
 export function expandWidget(state: NineZoneState, id: TabState["id"]) {
   const location = getTabLocation(state, id);
-  if (!location)
-    return state;
+  if (!location) return state;
 
   return produce(state, (draft) => {
     const widget = draft.widgets[location.widgetId];
     if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
       panel.splitterPercent =
-        panel.widgets.findIndex((wId) => wId === location.widgetId) === 0 ?
-          100 : 0;
+        panel.widgets.findIndex((wId) => wId === location.widgetId) === 0
+          ? 100
+          : 0;
     }
     widget.minimized = false;
   });
 }
 
 /** @internal */
-export function setWidgetLabel(state: NineZoneState, id: TabState["id"], label: string) {
-  if (!(id in state.tabs))
-    return state;
+export function setWidgetLabel(
+  state: NineZoneState,
+  id: TabState["id"],
+  label: string
+) {
+  if (!(id in state.tabs)) return state;
 
   return produce(state, (draft) => {
     const tab = draft.tabs[id];
@@ -1024,7 +1361,9 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   const isMountedRef = React.useRef(false);
   React.useEffect(() => {
     isMountedRef.current = true;
-    return () => { isMountedRef.current = false; };
+    return () => {
+      isMountedRef.current = false;
+    };
   }, []);
   React.useEffect(() => {
     uiStateStorageRef.current = uiStateStorage;
@@ -1032,19 +1371,30 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   React.useEffect(() => {
     async function fetchFrontstageState() {
       if (frontstageDef.nineZoneState) {
-        frontstageDef.nineZoneState = processPopoutWidgets(frontstageDef.nineZoneState, frontstageDef);
+        frontstageDef.nineZoneState = processPopoutWidgets(
+          frontstageDef.nineZoneState,
+          frontstageDef
+        );
         return;
       }
       const id = frontstageDef.id;
       const version = frontstageDef.version;
-      const settingResult = await uiStateStorageRef.current.getSetting(FRONTSTAGE_SETTINGS_NAMESPACE, getFrontstageStateSettingName(id));
-      if (!isMountedRef.current)
-        return;
+      const settingResult = await uiStateStorageRef.current.getSetting(
+        FRONTSTAGE_SETTINGS_NAMESPACE,
+        getFrontstageStateSettingName(id)
+      );
+      if (!isMountedRef.current) return;
 
       if (isFrontstageStateSettingResult(settingResult)) {
         const setting = settingResult.setting;
-        if (setting.version >= version && setting.stateVersion >= stateVersion) {
-          const restored = restoreNineZoneState(frontstageDef, setting.nineZone);
+        if (
+          setting.version >= version &&
+          setting.stateVersion >= stateVersion
+        ) {
+          const restored = restoreNineZoneState(
+            frontstageDef,
+            setting.nineZone
+          );
 
           frontstageDef.savedWidgetDefs = setting.widgets;
           restoreSavedWidgets(frontstageDef);
@@ -1064,26 +1414,35 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
 }
 
 /** @internal */
-export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: LayoutStore) {
+export function useSaveFrontstageSettings(
+  frontstageDef: FrontstageDef,
+  store: LayoutStore
+) {
   const uiSettingsStorage = useUiStateStorageHandler();
   const saveSetting = React.useMemo(() => {
-    const debounced = debounce(async (frontstage: FrontstageDef, state: NineZoneState) => {
-      const id = frontstage.id;
-      const widgets = packSavedWidgets(frontstage);
-      frontstage.savedWidgetDefs = widgets;
-      const setting: WidgetPanelsFrontstageState = {
-        id,
-        version: frontstage.version,
-        stateVersion,
-        nineZone: packNineZoneState(state),
-        widgets,
-      };
-      await uiSettingsStorage.saveSetting(FRONTSTAGE_SETTINGS_NAMESPACE, getFrontstageStateSettingName(id), setting);
-    }, 1000);
+    const debounced = debounce(
+      async (frontstage: FrontstageDef, state: NineZoneState) => {
+        const id = frontstage.id;
+        const widgets = packSavedWidgets(frontstage);
+        frontstage.savedWidgetDefs = widgets;
+        const setting: WidgetPanelsFrontstageState = {
+          id,
+          version: frontstage.version,
+          stateVersion,
+          nineZone: packNineZoneState(state),
+          widgets,
+        };
+        await uiSettingsStorage.saveSetting(
+          FRONTSTAGE_SETTINGS_NAMESPACE,
+          getFrontstageStateSettingName(id),
+          setting
+        );
+      },
+      1000
+    );
 
     const save = (frontstage: FrontstageDef, state: NineZoneState) => {
-      if (state.draggedTab)
-        return;
+      if (state.draggedTab) return;
       debounced(frontstage, state);
     };
     save.cancel = debounced.cancel;
@@ -1109,12 +1468,17 @@ export function useSaveFrontstageSettings(frontstageDef: FrontstageDef, store: L
 export const FRONTSTAGE_SETTINGS_NAMESPACE = "uifw-frontstageSettings";
 
 /** @internal */
-export function getFrontstageStateSettingName(frontstageId: WidgetPanelsFrontstageState["id"]) {
+export function getFrontstageStateSettingName(
+  frontstageId: WidgetPanelsFrontstageState["id"]
+) {
   return `frontstageState[${frontstageId}]`;
 }
 
 // istanbul ignore next
-function debounce<T extends (...args: any[]) => any>(func: T, duration: number) {
+function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  duration: number
+) {
   let timeout: number | undefined;
   const debounced = (...args: Parameters<T>) => {
     const handler = () => {
@@ -1130,45 +1494,73 @@ function debounce<T extends (...args: any[]) => any>(func: T, duration: number) 
   return debounced;
 }
 
-const createListener = <T extends (...args: any[]) => void>(frontstageDef: FrontstageDef, listener: T) => {
+const createListener = <T extends (...args: any[]) => void>(
+  frontstageDef: FrontstageDef,
+  listener: T
+) => {
   return (...args: Parameters<T>) => {
-    if (!frontstageDef.nineZoneState)
-      return;
+    if (!frontstageDef.nineZoneState) return;
     listener(...args);
   };
 };
 
 /** @internal */
-export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsToolSettingsLabel?: boolean) {
+export function useFrontstageManager(
+  frontstageDef: FrontstageDef,
+  useToolAsToolSettingsLabel?: boolean
+) {
   React.useEffect(() => {
-    const listener = createListener(frontstageDef, ({ widgetDef, widgetState }: WidgetStateChangedEventArgs) => {
-      assert(!!frontstageDef.nineZoneState);
-      frontstageDef.nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, widgetState);
-    });
+    const listener = createListener(
+      frontstageDef,
+      ({ widgetDef, widgetState }: WidgetStateChangedEventArgs) => {
+        assert(!!frontstageDef.nineZoneState);
+        frontstageDef.nineZoneState = setWidgetState(
+          frontstageDef.nineZoneState,
+          widgetDef,
+          widgetState
+        );
+      }
+    );
     UiFramework.frontstages.onWidgetStateChangedEvent.addListener(listener);
     return () => {
-      UiFramework.frontstages.onWidgetStateChangedEvent.removeListener(listener);
+      UiFramework.frontstages.onWidgetStateChangedEvent.removeListener(
+        listener
+      );
     };
   }, [frontstageDef]);
   React.useEffect(() => {
-    const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
-      assert(!!frontstageDef.nineZoneState);
-      const nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
-      frontstageDef.nineZoneState = showWidget(nineZoneState, widgetDef.id);
-    });
+    const listener = createListener(
+      frontstageDef,
+      ({ widgetDef }: WidgetEventArgs) => {
+        assert(!!frontstageDef.nineZoneState);
+        const nineZoneState = setWidgetState(
+          frontstageDef.nineZoneState,
+          widgetDef,
+          WidgetState.Open
+        );
+        frontstageDef.nineZoneState = showWidget(nineZoneState, widgetDef.id);
+      }
+    );
     InternalFrontstageManager.onWidgetShowEvent.addListener(listener);
     return () => {
       InternalFrontstageManager.onWidgetShowEvent.removeListener(listener);
     };
   }, [frontstageDef]);
   React.useEffect(() => {
-    const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
-      assert(!!frontstageDef.nineZoneState);
-      let nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
-      nineZoneState = showWidget(nineZoneState, widgetDef.id);
-      nineZoneState = expandWidget(nineZoneState, widgetDef.id);
-      frontstageDef.nineZoneState = nineZoneState;
-    });
+    const listener = createListener(
+      frontstageDef,
+      ({ widgetDef }: WidgetEventArgs) => {
+        assert(!!frontstageDef.nineZoneState);
+        let nineZoneState = setWidgetState(
+          frontstageDef.nineZoneState,
+          widgetDef,
+          WidgetState.Open
+        );
+        nineZoneState = showWidget(nineZoneState, widgetDef.id);
+        nineZoneState = expandWidget(nineZoneState, widgetDef.id);
+        frontstageDef.nineZoneState = nineZoneState;
+      }
+    );
     InternalFrontstageManager.onWidgetExpandEvent.addListener(listener);
     return () => {
       InternalFrontstageManager.onWidgetExpandEvent.removeListener(listener);
@@ -1178,56 +1570,91 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
   React.useEffect(() => {
     const listener = (args: FrontstageEventArgs) => {
       // TODO: track restoring frontstages to support workflows:  i.e. prevent loading frontstage OR saving layout when delete is pending
-      void uiSettingsStorage.deleteSetting(FRONTSTAGE_SETTINGS_NAMESPACE, getFrontstageStateSettingName(args.frontstageDef.id));
+      void uiSettingsStorage.deleteSetting(
+        FRONTSTAGE_SETTINGS_NAMESPACE,
+        getFrontstageStateSettingName(args.frontstageDef.id)
+      );
       if (frontstageDef.id === args.frontstageDef.id) {
-        args.frontstageDef.nineZoneState = initializeNineZoneState(frontstageDef);
+        args.frontstageDef.nineZoneState =
+          initializeNineZoneState(frontstageDef);
       } else {
         args.frontstageDef.nineZoneState = undefined;
       }
     };
-    InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(listener);
+    InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
+      listener
+    );
     return () => {
-      InternalFrontstageManager.onFrontstageRestoreLayoutEvent.removeListener(listener);
+      InternalFrontstageManager.onFrontstageRestoreLayoutEvent.removeListener(
+        listener
+      );
     };
   }, [uiSettingsStorage, frontstageDef]);
   React.useEffect(() => {
-    const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
-      assert(!!frontstageDef.nineZoneState);
-      const label = widgetDef.label;
-      frontstageDef.nineZoneState = setWidgetLabel(frontstageDef.nineZoneState, widgetDef.id, label);
-    });
+    const listener = createListener(
+      frontstageDef,
+      ({ widgetDef }: WidgetEventArgs) => {
+        assert(!!frontstageDef.nineZoneState);
+        const label = widgetDef.label;
+        frontstageDef.nineZoneState = setWidgetLabel(
+          frontstageDef.nineZoneState,
+          widgetDef.id,
+          label
+        );
+      }
+    );
     InternalFrontstageManager.onWidgetLabelChangedEvent.addListener(listener);
     return () => {
-      InternalFrontstageManager.onWidgetLabelChangedEvent.removeListener(listener);
+      InternalFrontstageManager.onWidgetLabelChangedEvent.removeListener(
+        listener
+      );
     };
   }, [frontstageDef]);
 
   const defaultLabel = React.useMemo(
-    () => UiFramework.translate("widget.labels.toolSettings"), []
+    () => UiFramework.translate("widget.labels.toolSettings"),
+    []
   );
   React.useEffect(() => {
     const updateLabel = createListener(frontstageDef, () => {
       const toolId = UiFramework.frontstages.activeToolId;
       assert(!!frontstageDef.nineZoneState);
-      const label = useToolAsToolSettingsLabel ?
-        IModelApp.tools.find(toolId)?.flyover || defaultLabel : defaultLabel;
-      frontstageDef.nineZoneState = setWidgetLabel(frontstageDef.nineZoneState, toolSettingsTabId, label);
+      const label = useToolAsToolSettingsLabel
+        ? IModelApp.tools.find(toolId)?.flyover || defaultLabel
+        : defaultLabel;
+      frontstageDef.nineZoneState = setWidgetLabel(
+        frontstageDef.nineZoneState,
+        toolSettingsTabId,
+        label
+      );
     });
     // Whenever the frontstageDef or the useTool... changes, keep the label up to date.
     updateLabel();
     // If useTool... is true, listen for events to keep up the label up to date.
     if (useToolAsToolSettingsLabel) {
       UiFramework.frontstages.onFrontstageReadyEvent.addListener(updateLabel);
-      InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(updateLabel);
+      InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
+        updateLabel
+      );
       UiFramework.frontstages.onToolActivatedEvent.addListener(updateLabel);
-      UiFramework.frontstages.onToolSettingsReloadEvent.addListener(updateLabel);
+      UiFramework.frontstages.onToolSettingsReloadEvent.addListener(
+        updateLabel
+      );
     }
     return () => {
       if (useToolAsToolSettingsLabel) {
-        UiFramework.frontstages.onFrontstageReadyEvent.removeListener(updateLabel);
-        InternalFrontstageManager.onFrontstageRestoreLayoutEvent.removeListener(updateLabel);
-        UiFramework.frontstages.onToolActivatedEvent.removeListener(updateLabel);
-        UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(updateLabel);
+        UiFramework.frontstages.onFrontstageReadyEvent.removeListener(
+          updateLabel
+        );
+        InternalFrontstageManager.onFrontstageRestoreLayoutEvent.removeListener(
+          updateLabel
+        );
+        UiFramework.frontstages.onToolActivatedEvent.removeListener(
+          updateLabel
+        );
+        UiFramework.frontstages.onToolSettingsReloadEvent.removeListener(
+          updateLabel
+        );
       }
     };
   }, [frontstageDef, useToolAsToolSettingsLabel, defaultLabel]);
@@ -1241,8 +1668,7 @@ export function useItemsManager(frontstageDef: FrontstageDef) {
     def.updateWidgetDefs();
     restoreSavedWidgets(def);
     let state = def.nineZoneState;
-    if (!state)
-      return;
+    if (!state) return;
     state = addMissingWidgets(def, state);
     state = removeMissingWidgets(def, state);
     state = hideWidgets(state, def); // TODO: should only apply to widgets provided by registered provider in onUiProviderRegisteredEvent.
@@ -1250,9 +1676,11 @@ export function useItemsManager(frontstageDef: FrontstageDef) {
   };
 
   React.useEffect(() => {
-    const remove = UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
-      refreshNineZoneState(frontstageDef);
-    });
+    const remove = UiItemsManager.onUiProviderRegisteredEvent.addListener(
+      () => {
+        refreshNineZoneState(frontstageDef);
+      }
+    );
     // Need to refresh anytime frontstageDef changes because uiItemsProvider may have added something to
     // another stage before it was possibly unloaded in this stage.
     refreshNineZoneState(frontstageDef);
@@ -1261,7 +1689,10 @@ export function useItemsManager(frontstageDef: FrontstageDef) {
 }
 
 // istanbul ignore next
-function determineNewWidgets(defs: readonly WidgetDef[] | undefined, state: NineZoneState) {
+function determineNewWidgets(
+  defs: readonly WidgetDef[] | undefined,
+  state: NineZoneState
+) {
   defs = defs || [];
   const uniqueDefs = defs.filter((def, index, array) => {
     return index === array.findIndex((def1) => def.id === def1.id);

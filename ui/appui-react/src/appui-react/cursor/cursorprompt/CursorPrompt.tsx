@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Notification
  */
@@ -9,7 +9,7 @@
 import "./CursorPrompt.scss";
 import * as React from "react";
 import type { ToolAssistanceInstruction } from "@itwin/core-frontend";
-import type { PointProps} from "@itwin/appui-abstract";
+import type { PointProps } from "@itwin/appui-abstract";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Icon, Point, Timer } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
@@ -32,11 +32,15 @@ export class CursorPrompt {
     this._timer = new Timer(timeOut);
   }
 
-  public display(toolIconSpec: string, instruction: ToolAssistanceInstruction, offset: PointProps = { x: 20, y: 20 }, relativePosition: RelativePosition = RelativePosition.BottomRight) {
+  public display(
+    toolIconSpec: string,
+    instruction: ToolAssistanceInstruction,
+    offset: PointProps = { x: 20, y: 20 },
+    relativePosition: RelativePosition = RelativePosition.BottomRight
+  ) {
     if (!instruction.text) {
       // istanbul ignore else
-      if (this._timer.isRunning)
-        this.close(false);
+      if (this._timer.isRunning) this.close(false);
       return;
     }
 
@@ -45,9 +49,15 @@ export class CursorPrompt {
 
     const promptElement = (
       <div className="uifw-cursor-prompt">
-        {toolIconSpec && <span className="uifw-cursor-prompt-icon"><Icon iconSpec={toolIconSpec} /></span>}
-        <Text variant="body" className="uifw-cursor-prompt-text">{instruction.text}</Text>
-      </div >
+        {toolIconSpec && (
+          <span className="uifw-cursor-prompt-icon">
+            <Icon iconSpec={toolIconSpec} />
+          </span>
+        )}
+        <Text variant="body" className="uifw-cursor-prompt-text">
+          {instruction.text}
+        </Text>
+      </div>
     );
 
     this._startCursorPopup(promptElement);
@@ -64,19 +74,30 @@ export class CursorPrompt {
   }
 
   private _startCursorPopup = (promptElement: React.ReactElement) => {
-    CursorPopupManager.open(this._popupId, promptElement, CursorInformation.cursorPosition, this._offset, this._relativePosition, 0, { shadow: true });
+    CursorPopupManager.open(
+      this._popupId,
+      promptElement,
+      CursorInformation.cursorPosition,
+      this._offset,
+      this._relativePosition,
+      0,
+      { shadow: true }
+    );
 
     if (!CursorInformation.onCursorUpdatedEvent.has(this._handleCursorUpdated))
-      CursorInformation.onCursorUpdatedEvent.addListener(this._handleCursorUpdated);
+      CursorInformation.onCursorUpdatedEvent.addListener(
+        this._handleCursorUpdated
+      );
   };
 
   private _endCursorPopup = (fadeOut?: boolean) => {
     CursorPopupManager.close(this._popupId, false, fadeOut);
-    CursorInformation.onCursorUpdatedEvent.removeListener(this._handleCursorUpdated);
+    CursorInformation.onCursorUpdatedEvent.removeListener(
+      this._handleCursorUpdated
+    );
   };
 
   private _handleCursorUpdated = (args: CursorUpdatedEventArgs) => {
     CursorPopupManager.updatePosition(args.newPt);
   };
-
 }

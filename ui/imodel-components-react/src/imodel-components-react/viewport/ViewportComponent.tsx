@@ -1,29 +1,37 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Viewport
  */
 
 import * as React from "react";
-import type { Id64String} from "@itwin/core-bentley";
+import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
-import type { Point3d} from "@itwin/core-geometry";
+import type { Point3d } from "@itwin/core-geometry";
 import { Transform } from "@itwin/core-geometry";
 import { NpcCenter } from "@itwin/core-common";
-import type { IModelConnection,
-  TentativePoint, ViewManager,
-  Viewport} from "@itwin/core-frontend";
+import type {
+  IModelConnection,
+  TentativePoint,
+  ViewManager,
+  Viewport,
+} from "@itwin/core-frontend";
 import {
-  IModelApp, ScreenViewport, ToolSettings, ViewState,
+  IModelApp,
+  ScreenViewport,
+  ToolSettings,
+  ViewState,
 } from "@itwin/core-frontend";
 
 import type { CommonProps } from "@itwin/core-react";
 import type {
-  CubeRotationChangeEventArgs, DrawingViewportChangeEventArgs, StandardRotationChangeEventArgs} from "./ViewportComponentEvents";
-import { ViewportComponentEvents,
+  CubeRotationChangeEventArgs,
+  DrawingViewportChangeEventArgs,
+  StandardRotationChangeEventArgs,
 } from "./ViewportComponentEvents";
+import { ViewportComponentEvents } from "./ViewportComponentEvents";
 
 /** Type for a ViewState prop
  * @public
@@ -62,10 +70,24 @@ export interface ViewportProps extends CommonProps {
  * @public
  */
 export function ViewportComponent(props: ViewportProps) {
-  const { viewState, imodel, viewDefinitionId, getViewOverlay, viewManagerOverride,
-    tentativePointOverride, onContextMenu, style, className, screenViewportOverride, controlId, viewportRef } = props;
+  const {
+    viewState,
+    imodel,
+    viewDefinitionId,
+    getViewOverlay,
+    viewManagerOverride,
+    tentativePointOverride,
+    onContextMenu,
+    style,
+    className,
+    screenViewportOverride,
+    controlId,
+    viewportRef,
+  } = props;
   // istanbul ignore next
-  const viewManagerRef = React.useRef(viewManagerOverride ?? IModelApp.viewManager);
+  const viewManagerRef = React.useRef(
+    viewManagerOverride ?? IModelApp.viewManager
+  );
   const tentativePointOverrideRef = React.useRef(tentativePointOverride);
   const screenViewportCreated = React.useRef(false);
   const viewportDiv = React.useRef<HTMLDivElement>(null);
@@ -77,39 +99,60 @@ export function ViewportComponent(props: ViewportProps) {
   // istanbul ignore next
   const handleViewChanged = (vp: Viewport) => {
     // istanbul ignore next
-    if (!(vp.iModel.isOpen || vp.iModel.isBlank))
-      return;
+    if (!(vp.iModel.isOpen || vp.iModel.isBlank)) return;
     ViewportComponentEvents.setViewMatrix(vp);
     if (viewClassFullName.current !== vp.view.classFullName) {
       setTimeout(() => {
-        ViewportComponentEvents.onViewClassFullNameChangedEvent.emit({ viewport: vp, oldName: viewClassFullName.current, newName: vp.view.classFullName });
+        ViewportComponentEvents.onViewClassFullNameChangedEvent.emit({
+          viewport: vp,
+          oldName: viewClassFullName.current,
+          newName: vp.view.classFullName,
+        });
         viewClassFullName.current = vp.view.classFullName;
       });
     }
     if (viewId.current !== vp.view.id) {
       setTimeout(() => {
-        ViewportComponentEvents.onViewIdChangedEvent.emit({ viewport: vp, oldId: viewId.current, newId: vp.view.id });
+        ViewportComponentEvents.onViewIdChangedEvent.emit({
+          viewport: vp,
+          oldId: viewId.current,
+          newId: vp.view.id,
+        });
         viewId.current = vp.view.id;
       });
     }
   };
 
-  const handleStandardRotationChangeEvent = (args: StandardRotationChangeEventArgs) => {
+  const handleStandardRotationChangeEvent = (
+    args: StandardRotationChangeEventArgs
+  ) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
-    if (currentScreenViewport && viewManager.selectedView === currentScreenViewport) {
-      currentScreenViewport.view.setRotationAboutPoint(ViewState.getStandardViewMatrix(args.standardRotation));
+    if (
+      currentScreenViewport &&
+      viewManager.selectedView === currentScreenViewport
+    ) {
+      currentScreenViewport.view.setRotationAboutPoint(
+        ViewState.getStandardViewMatrix(args.standardRotation)
+      );
       currentScreenViewport.synchWithView();
     }
   };
 
-  const handleDrawingViewportChangeEvent = (args: DrawingViewportChangeEventArgs) => {
+  const handleDrawingViewportChangeEvent = (
+    args: DrawingViewportChangeEventArgs
+  ) => {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
-    if (currentScreenViewport && viewManager.selectedView === currentScreenViewport) {
+    if (
+      currentScreenViewport &&
+      viewManager.selectedView === currentScreenViewport
+    ) {
       currentScreenViewport.view.setOrigin(args.origin);
       currentScreenViewport.view.setRotation(args.rotation);
-      currentScreenViewport.synchWithView({ noSaveInUndo: args.complete !== true });
+      currentScreenViewport.synchWithView({
+        noSaveInUndo: args.complete !== true,
+      });
     }
   };
 
@@ -118,17 +161,16 @@ export function ViewportComponent(props: ViewportProps) {
   const getRotatePoint = (vp: ScreenViewport): Point3d => {
     const lastTargetPoint = targetPoint.current;
     // istanbul ignore next
-    const tentativePoint = tentativePointOverrideRef.current ?? IModelApp.tentativePoint;
+    const tentativePoint =
+      tentativePointOverrideRef.current ?? IModelApp.tentativePoint;
     // istanbul ignore else
-    if (tentativePoint.isActive)
-      return tentativePoint.getPoint();
+    if (tentativePoint.isActive) return tentativePoint.getPoint();
 
     // istanbul ignore else
     if (undefined !== vp.viewCmdTargetCenter) {
       const testPt = vp.worldToView(vp.viewCmdTargetCenter);
       const viewRect = vp.viewRect;
-      if (viewRect.containsPoint(testPt))
-        return vp.viewCmdTargetCenter;
+      if (viewRect.containsPoint(testPt)) return vp.viewCmdTargetCenter;
       vp.viewCmdTargetCenter = undefined;
     }
 
@@ -138,13 +180,16 @@ export function ViewportComponent(props: ViewportProps) {
       const viewRect = vp.viewRect.clone();
       viewRect.scaleAboutCenter(0.25, 0.25);
       // istanbul ignore next hard to reach because of mocks
-      if (viewRect.containsPoint(testPt))
-        return lastTargetPoint;
+      if (viewRect.containsPoint(testPt)) return lastTargetPoint;
       targetPoint.current = null;
     }
 
-    const visiblePoint = vp.pickNearestVisibleGeometry(vp.npcToWorld(NpcCenter), vp.pixelsFromInches(ToolSettings.viewToolPickRadiusInches));
-    targetPoint.current = (undefined !== visiblePoint ? visiblePoint : vp.view.getTargetPoint());
+    const visiblePoint = vp.pickNearestVisibleGeometry(
+      vp.npcToWorld(NpcCenter),
+      vp.pixelsFromInches(ToolSettings.viewToolPickRadiusInches)
+    );
+    targetPoint.current =
+      undefined !== visiblePoint ? visiblePoint : vp.view.getTargetPoint();
     // istanbul ignore next
     return targetPoint.current ?? vp.view.getCenter();
   };
@@ -153,14 +198,22 @@ export function ViewportComponent(props: ViewportProps) {
     const viewManager = viewManagerRef.current;
     const currentScreenViewport = screenViewportRef.current;
     // istanbul ignore else
-    if (currentScreenViewport && viewManager.selectedView === currentScreenViewport) {
+    if (
+      currentScreenViewport &&
+      viewManager.selectedView === currentScreenViewport
+    ) {
       const rotMatrix = args.rotMatrix;
       // istanbul ignore else
       if (currentScreenViewport.rotation !== rotMatrix) {
         const inverse = rotMatrix.transpose(); // rotation is from current nav cube state...
         const center = getRotatePoint(currentScreenViewport);
-        const targetMatrix = inverse.multiplyMatrixMatrix(currentScreenViewport.view.getRotation());
-        const worldTransform = Transform.createFixedPointAndMatrix(center, targetMatrix);
+        const targetMatrix = inverse.multiplyMatrixMatrix(
+          currentScreenViewport.view.getRotation()
+        );
+        const worldTransform = Transform.createFixedPointAndMatrix(
+          center,
+          targetMatrix
+        );
         const frustum = currentScreenViewport.getWorldFrustum();
         frustum.multiply(worldTransform);
         currentScreenViewport.view.setupFromFrustum(frustum);
@@ -176,9 +229,15 @@ export function ViewportComponent(props: ViewportProps) {
       screenViewport.onViewChanged.removeListener(handleViewChanged);
       screenViewportRef.current = null;
       screenViewportCreated.current = false;
-      ViewportComponentEvents.onDrawingViewportChangeEvent.removeListener(handleDrawingViewportChangeEvent);
-      ViewportComponentEvents.onCubeRotationChangeEvent.removeListener(handleCubeRotationChangeEvent);
-      ViewportComponentEvents.onStandardRotationChangeEvent.removeListener(handleStandardRotationChangeEvent);
+      ViewportComponentEvents.onDrawingViewportChangeEvent.removeListener(
+        handleDrawingViewportChangeEvent
+      );
+      ViewportComponentEvents.onCubeRotationChangeEvent.removeListener(
+        handleCubeRotationChangeEvent
+      );
+      ViewportComponentEvents.onStandardRotationChangeEvent.removeListener(
+        handleStandardRotationChangeEvent
+      );
       viewManager.dropViewport(screenViewport, true);
     }
   };
@@ -194,15 +253,26 @@ export function ViewportComponent(props: ViewportProps) {
     }
   };
 
-  const getScreenViewport = (parentDiv: HTMLDivElement, inViewState: ViewState) => {
+  const getScreenViewport = (
+    parentDiv: HTMLDivElement,
+    inViewState: ViewState
+  ) => {
     // istanbul ignore next
-    const screenViewportFactory = screenViewportOverride ? screenViewportOverride : ScreenViewport;
+    const screenViewportFactory = screenViewportOverride
+      ? screenViewportOverride
+      : ScreenViewport;
     const parentWindow = parentDiv.ownerDocument.defaultView as Window;
     parentWindow.addEventListener("unload", handleWindowUnload, true); // listener clear after being called
     ViewportComponentEvents.initialize();
-    ViewportComponentEvents.onDrawingViewportChangeEvent.addListener(handleDrawingViewportChangeEvent);
-    ViewportComponentEvents.onCubeRotationChangeEvent.addListener(handleCubeRotationChangeEvent);
-    ViewportComponentEvents.onStandardRotationChangeEvent.addListener(handleStandardRotationChangeEvent);
+    ViewportComponentEvents.onDrawingViewportChangeEvent.addListener(
+      handleDrawingViewportChangeEvent
+    );
+    ViewportComponentEvents.onCubeRotationChangeEvent.addListener(
+      handleCubeRotationChangeEvent
+    );
+    ViewportComponentEvents.onStandardRotationChangeEvent.addListener(
+      handleStandardRotationChangeEvent
+    );
     const screenViewport = screenViewportFactory.create(parentDiv, inViewState);
     screenViewportCreated.current = true;
     viewClassFullName.current = screenViewport.view.classFullName;
@@ -213,22 +283,28 @@ export function ViewportComponent(props: ViewportProps) {
 
   React.useEffect(() => {
     isMounted.current = true;
-    Logger.logInfo("ViewportComponent", `mounting ViewportComponent for controlId=${controlId}`);
+    Logger.logInfo(
+      "ViewportComponent",
+      `mounting ViewportComponent for controlId=${controlId}`
+    );
 
     return () => {
       isMounted.current = false;
-      Logger.logInfo("ViewportComponent", `un-mounting ViewportComponent for controlId=${controlId}`);
+      Logger.logInfo(
+        "ViewportComponent",
+        `un-mounting ViewportComponent for controlId=${controlId}`
+      );
       handleDisconnectFromViewManager();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [initialViewState, setInitialViewState] = React.useState<ViewState | undefined>(() => {
+  const [initialViewState, setInitialViewState] = React.useState<
+    ViewState | undefined
+  >(() => {
     if (viewState) {
-      if (typeof viewState === "function")
-        return viewState().clone();
-      else
-        return viewState.clone();
+      if (typeof viewState === "function") return viewState().clone();
+      else return viewState.clone();
     }
     return undefined;
   });
@@ -240,10 +316,8 @@ export function ViewportComponent(props: ViewportProps) {
     async function fetchInitialViewstate() {
       let currentViewState: ViewState | undefined;
       if (viewState) {
-        if (typeof viewState === "function")
-          currentViewState = viewState();
-        else
-          currentViewState = viewState;
+        if (typeof viewState === "function") currentViewState = viewState();
+        else currentViewState = viewState;
       } else if (viewDefinitionId && imodel) {
         try {
           currentViewState = await imodel.views.load(viewDefinitionId);
@@ -256,15 +330,20 @@ export function ViewportComponent(props: ViewportProps) {
           Logger.logError("ViewportComponent", `Viewstate failed to load`);
         }
       } else {
-        Logger.logError("ViewportComponent", `A Viewstate or a viewId and imodel must be provided`);
+        Logger.logError(
+          "ViewportComponent",
+          `A Viewstate or a viewId and imodel must be provided`
+        );
       }
       // istanbul ignore next
-      if (isMounted.current && (currentViewState?.iModel.isOpen || currentViewState?.iModel.isBlank)) {
+      if (
+        isMounted.current &&
+        (currentViewState?.iModel.isOpen || currentViewState?.iModel.isBlank)
+      ) {
         setInitialViewState(currentViewState?.clone());
       }
     }
-    if (undefined === initialViewState)
-      fetchInitialViewstate(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    if (undefined === initialViewState) fetchInitialViewstate(); // eslint-disable-line @typescript-eslint/no-floating-promises
   }, [imodel, initialViewState, viewDefinitionId, viewState]);
 
   const [viewOverlay, setViewOverlay] = React.useState<React.ReactNode>(null);
@@ -274,15 +353,21 @@ export function ViewportComponent(props: ViewportProps) {
     const parentDiv = viewportDiv.current;
     const viewManager = viewManagerRef.current;
     // istanbul ignore next
-    if (parentDiv && initialViewState && (initialViewState?.iModel.isOpen || initialViewState?.iModel.isBlank)) {
+    if (
+      parentDiv &&
+      initialViewState &&
+      (initialViewState?.iModel.isOpen || initialViewState?.iModel.isBlank)
+    ) {
       if (!screenViewportCreated.current) {
         const screenViewport = getScreenViewport(parentDiv, initialViewState);
         screenViewportRef.current = screenViewport;
 
-        if (viewportRef)
-          viewportRef(screenViewport);
+        if (viewportRef) viewportRef(screenViewport);
 
-        Logger.logInfo("ViewportComponent", `processing viewManager.addViewport for controlId=${controlId}`);
+        Logger.logInfo(
+          "ViewportComponent",
+          `processing viewManager.addViewport for controlId=${controlId}`
+        );
         viewManager.addViewport(screenViewport);
 
         // overlay component is set up once a ScreenViewport is available. The overlay component must handle any view changes itself.
@@ -295,24 +380,28 @@ export function ViewportComponent(props: ViewportProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [controlId, initialViewState, viewportRef]);
 
-  const handleContextMenu = React.useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    if (onContextMenu)
-      onContextMenu(e);
-  }, [onContextMenu]);
+  const handleContextMenu = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (onContextMenu) onContextMenu(e);
+    },
+    [onContextMenu]
+  );
 
   const parentDivStyle: React.CSSProperties = {
-    height: "100%", width: "100%", position: "relative",
+    height: "100%",
+    width: "100%",
+    position: "relative",
   };
 
   const viewportDivStyle: React.CSSProperties = {
     ...style,
-    height: "100%", width: "100%",
+    height: "100%",
+    width: "100%",
   };
 
   return (
-    <div style={parentDivStyle} data-item-id={controlId}
-    >
+    <div style={parentDivStyle} data-item-id={controlId}>
       <>
         <div
           ref={viewportDiv}

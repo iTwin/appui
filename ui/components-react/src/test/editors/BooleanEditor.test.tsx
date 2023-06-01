@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import { render, screen } from "@testing-library/react";
@@ -17,7 +17,7 @@ const testId = "components-checkbox-editor";
 
 describe("<BooleanEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -49,28 +49,41 @@ describe("<BooleanEditor />", () => {
 
     await theUserTo.click(screen.getByTestId(testId));
     expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.true;
-    expect(spyOnCommit).to.have.been.calledWith(sinon.match({newValue: sinon.match({value: true})}));
+    expect(spyOnCommit).to.have.been.calledWith(
+      sinon.match({ newValue: sinon.match({ value: true }) })
+    );
     spyOnCommit.resetHistory();
 
     await theUserTo.click(screen.getByTestId(testId));
     expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
-    expect(spyOnCommit).to.have.been.calledWith(sinon.match({newValue: sinon.match({value: false})}));
+    expect(spyOnCommit).to.have.been.calledWith(
+      sinon.match({ newValue: sinon.match({ value: false }) })
+    );
   });
 
   it("onCommit should be called for Space", async () => {
     const propertyRecord = TestUtils.createBooleanProperty("Test2", false);
     const spyOnCommit = sinon.spy();
-    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
+    render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+      />
+    );
 
     screen.getByTestId(testId).focus();
     await theUserTo.keyboard(" ");
 
-    expect(spyOnCommit).to.have.been.calledOnceWith(sinon.match({newValue: sinon.match({value: true})}));
+    expect(spyOnCommit).to.have.been.calledOnceWith(
+      sinon.match({ newValue: sinon.match({ value: true }) })
+    );
   });
 
   it("new props update checkbox state", async () => {
     const record = TestUtils.createBooleanProperty("Test", false);
-    const {rerender} = render(<BooleanEditor propertyRecord={record} />);
+    const { rerender } = render(<BooleanEditor propertyRecord={record} />);
 
     expect(screen.getByTestId<HTMLInputElement>(testId).checked).to.be.false;
 
@@ -86,7 +99,14 @@ describe("<BooleanEditor />", () => {
     propertyRecord.property.dataController = "myData";
 
     const spyOnCommit = sinon.spy();
-    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
+    render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+      />
+    );
 
     await theUserTo.click(screen.getByTestId(testId));
 
@@ -98,9 +118,10 @@ describe("<BooleanEditor />", () => {
   it("implements TypeEditor", async () => {
     const record = TestUtils.createBooleanProperty("Test", false);
     const ref = React.createRef<BooleanEditor>();
-    render(<BooleanEditor propertyRecord={record} setFocus={true} ref={ref}/>);
+    render(<BooleanEditor propertyRecord={record} setFocus={true} ref={ref} />);
 
-    expect((await ref.current?.getPropertyValue() as PrimitiveValue).value).to.be.false;
+    expect(((await ref.current?.getPropertyValue()) as PrimitiveValue).value).to
+      .be.false;
     expect(ref.current?.hasFocus).to.be.true;
     expect(ref.current?.htmlElement).to.equal(screen.getByRole("checkbox"));
   });

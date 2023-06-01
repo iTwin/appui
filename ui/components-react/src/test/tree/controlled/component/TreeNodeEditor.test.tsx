@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
@@ -19,11 +19,7 @@ describe("TreeNodeEditor", () => {
 
   it("renders editor", () => {
     const { getByTestId } = render(
-      <TreeNodeEditor
-        node={testNode}
-        onCommit={() => { }}
-        onCancel={() => { }}
-      />,
+      <TreeNodeEditor node={testNode} onCommit={() => {}} onCancel={() => {}} />
     );
 
     getByTestId("editor-container");
@@ -32,43 +28,38 @@ describe("TreeNodeEditor", () => {
   it("calls onCommit callback when change is committed", async () => {
     const spy = sinon.spy();
     const { getByTestId } = render(
-      <TreeNodeEditor
-        node={testNode}
-        onCommit={spy}
-        onCancel={() => { }}
-      />,
+      <TreeNodeEditor node={testNode} onCommit={spy} onCancel={() => {}} />
     );
 
     const editorContainer = getByTestId("editor-container");
-    act(() => { fireEvent.keyDown(editorContainer, { key: "Enter", code: 13 }); });
-    await waitFor(() => { expect(spy).to.be.calledOnce; });
+    act(() => {
+      fireEvent.keyDown(editorContainer, { key: "Enter", code: 13 });
+    });
+    await waitFor(() => {
+      expect(spy).to.be.calledOnce;
+    });
   });
 
   it("calls onCancel callback when editing is canceled", async () => {
     const spy = sinon.spy();
     const { getByTestId } = render(
-      <TreeNodeEditor
-        node={testNode}
-        onCommit={() => { }}
-        onCancel={spy}
-      />,
+      <TreeNodeEditor node={testNode} onCommit={() => {}} onCancel={spy} />
     );
 
     const editorContainer = getByTestId("editor-container");
-    act(() => { fireEvent.keyDown(editorContainer, { key: "Escape", code: 27 }); });
-    await waitFor(() => { expect(spy).to.be.calledOnce; });
+    act(() => {
+      fireEvent.keyDown(editorContainer, { key: "Escape", code: 27 });
+    });
+    await waitFor(() => {
+      expect(spy).to.be.calledOnce;
+    });
   });
 
   it("renders editor with label PropertyRecord", () => {
     const { getByTestId } = render(
-      <TreeNodeEditor
-        node={testNode}
-        onCommit={() => { }}
-        onCancel={() => { }}
-      />,
+      <TreeNodeEditor node={testNode} onCommit={() => {}} onCancel={() => {}} />
     );
 
     getByTestId("editor-container");
   });
-
 });

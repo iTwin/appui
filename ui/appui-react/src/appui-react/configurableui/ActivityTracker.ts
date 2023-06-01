@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ConfigurableUi
  */
@@ -50,7 +50,10 @@ export class ActivityTracker {
 
     this._bindEvents();
 
-    this._intervalId = setInterval(this._trackUiInterval, this._intervalTimeout);
+    this._intervalId = setInterval(
+      this._trackUiInterval,
+      this._intervalTimeout
+    );
   }
 
   /** Terminates the time tracker and removes event listeners
@@ -78,7 +81,9 @@ export class ActivityTracker {
   };
 
   private _trackUiInterval = (): void => {
-    InternalConfigurableUiManager.onUiIntervalEvent.emit({ idleTimeout: this._idleTimeout });
+    InternalConfigurableUiManager.onUiIntervalEvent.emit({
+      idleTimeout: this._idleTimeout,
+    });
   };
 
   private _trackUiActivity = (event: Event): void => {

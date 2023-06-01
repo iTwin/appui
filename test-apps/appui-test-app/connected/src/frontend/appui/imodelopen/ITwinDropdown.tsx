@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import "./ITwinDropdown.scss";
 import classnames from "classnames";
 import * as React from "react";
@@ -25,7 +25,10 @@ interface ITwinDropdownState {
 /**
  * List of iTwins in a dropdown
  */
-export class ITwinDropdown extends React.Component<ITwinDropdownProps, ITwinDropdownState> {
+export class ITwinDropdown extends React.Component<
+  ITwinDropdownProps,
+  ITwinDropdownState
+> {
   private _itemHeight: number = 3.25; // each item (iTwin) height is (n-em) in the dropdown
   private _target: HTMLElement | null = null;
 
@@ -49,7 +52,9 @@ export class ITwinDropdown extends React.Component<ITwinDropdownProps, ITwinDrop
   };
 
   private _splitterClicked = (_event: React.MouseEvent<HTMLElement>) => {
-    this.setState((prevState) => ({ isDropdownOpen: !prevState.isDropdownOpen }));
+    this.setState((prevState) => ({
+      isDropdownOpen: !prevState.isDropdownOpen,
+    }));
   };
 
   private _handleOnOutsideClick = () => {
@@ -82,20 +87,27 @@ export class ITwinDropdown extends React.Component<ITwinDropdownProps, ITwinDrop
 
     if (iTwins && iTwins.length === 0) {
       return (
-        <div className="ip-no-mru" style={ulStyle}><p>Most recently used iTwins appear here.</p></div>
+        <div className="ip-no-mru" style={ulStyle}>
+          <p>Most recently used iTwins appear here.</p>
+        </div>
       );
     } else {
       return (
         <ul style={ulStyle}>
-          {iTwins && iTwins.map((iTwin: ITwin, i: number) => (
-            <li style={liStyle} key={i} onClick={() => this._onItemClick(iTwin)}>
-              <span className="ip-icon icon icon-placeholder" />
-              <div className="ip-details">
-                <span>{iTwin.code}</span>
-                <span>{iTwin.name}</span>
-              </div>
-            </li>
-          ))}
+          {iTwins &&
+            iTwins.map((iTwin: ITwin, i: number) => (
+              <li
+                style={liStyle}
+                key={i}
+                onClick={() => this._onItemClick(iTwin)}
+              >
+                <span className="ip-icon icon icon-placeholder" />
+                <div className="ip-details">
+                  <span>{iTwin.code}</span>
+                  <span>{iTwin.name}</span>
+                </div>
+              </li>
+            ))}
         </ul>
       );
     }
@@ -103,22 +115,38 @@ export class ITwinDropdown extends React.Component<ITwinDropdownProps, ITwinDrop
 
   private renderDropdown() {
     return (
-      <Popup isOpen={this.state.isDropdownOpen} position={RelativePosition.Bottom} onClose={this._handleOnOutsideClick} target={this._target}>
-        <div className="ip-dropdown">
-          {this.renderITwins()}
-        </div>
+      <Popup
+        isOpen={this.state.isDropdownOpen}
+        position={RelativePosition.Bottom}
+        onClose={this._handleOnOutsideClick}
+        target={this._target}
+      >
+        <div className="ip-dropdown">{this.renderITwins()}</div>
       </Popup>
     );
   }
 
   public override render() {
-    const splitterClassName = classnames("ip-splitter icon icon-chevron-down", this.state.isDropdownOpen && "opened");
+    const splitterClassName = classnames(
+      "ip-splitter icon icon-chevron-down",
+      this.state.isDropdownOpen && "opened"
+    );
     return (
       <div className="ip">
-        <div className="ip-content" onClick={this._splitterClicked} ref={(element) => { this._target = element; }}>
+        <div
+          className="ip-content"
+          onClick={this._splitterClicked}
+          ref={(element) => {
+            this._target = element;
+          }}
+        >
           <div>
-            <span className="number">{this.props.currentITwin ? this.props.currentITwin.code : ""}</span>
-            <span className="name">{this.props.currentITwin ? this.props.currentITwin.name : ""}</span>
+            <span className="number">
+              {this.props.currentITwin ? this.props.currentITwin.code : ""}
+            </span>
+            <span className="name">
+              {this.props.currentITwin ? this.props.currentITwin.name : ""}
+            </span>
           </div>
           <span className={splitterClassName} />
         </div>

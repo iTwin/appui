@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module LineWeight
  */
@@ -16,7 +16,9 @@ import { getCSSColorFromDef } from "../color/getCSSColorFromDef";
 /** Properties for the [[LineWeightSwatch]] React component
  * @public
  */
-export interface LineWeightSwatchProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, CommonProps {
+export interface LineWeightSwatchProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    CommonProps {
   /** color specification */
   weight: number;
   /** color specification */
@@ -47,9 +49,15 @@ export class LineWeightSwatch extends React.PureComponent<LineWeightSwatchProps>
 
   public override render() {
     const {
-      onClick, colorDef, weight, hideLabel, className, // do not pass on color swatch specific props
+      onClick,
+      colorDef,
+      weight,
+      hideLabel,
+      className, // do not pass on color swatch specific props
       // eslint-disable-next-line comma-dangle
-      disabled, readonly, ...otherProps // pass-through props
+      disabled,
+      readonly,
+      ...otherProps // pass-through props
     } = this.props;
 
     let rgbaString = "";
@@ -58,39 +66,44 @@ export class LineWeightSwatch extends React.PureComponent<LineWeightSwatchProps>
       rgbaString = getCSSColorFromDef(colorDef);
     }
 
-    const buttonStyle: React.CSSProperties = colorDef ?
-      {
-        ...this.props.style,
-        color: rgbaString,
-      } :
-      {
-        ...this.props.style,
-      };
+    const buttonStyle: React.CSSProperties = colorDef
+      ? {
+          ...this.props.style,
+          color: rgbaString,
+        }
+      : {
+          ...this.props.style,
+        };
 
-    const svgStyle: React.CSSProperties = colorDef ?
-      {
-        height: `${weight}px`,
-        background: rgbaString,
-      } :
-      {
-        height: `${weight}px`,
-      };
+    const svgStyle: React.CSSProperties = colorDef
+      ? {
+          height: `${weight}px`,
+          background: rgbaString,
+        }
+      : {
+          height: `${weight}px`,
+        };
 
     const handleClick = (_e: React.MouseEvent) => {
       // istanbul ignore else
-      if (onClick)
-        onClick();
+      if (onClick) onClick();
     };
 
     const classes = classnames(
       "components-lineweight-swatch",
       hideLabel && "hide-label",
       readonly && "readonly",
-      className,
+      className
     );
 
     return (
-      <button {...otherProps} style={buttonStyle} className={classes} onClick={handleClick} disabled={disabled}>
+      <button
+        {...otherProps}
+        style={buttonStyle}
+        className={classes}
+        onClick={handleClick}
+        disabled={disabled}
+      >
         {!hideLabel && <span>{weight.toFixed(0)}</span>}
         <div style={svgStyle} />
       </button>

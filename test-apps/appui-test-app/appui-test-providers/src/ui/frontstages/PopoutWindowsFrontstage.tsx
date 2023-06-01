@@ -1,11 +1,24 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
-  StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager,
+  BackstageAppButton,
+  ContentGroup,
+  ContentGroupProps,
+  ContentGroupProvider,
+  ContentProps,
+  FrontstageConfig,
+  IModelViewportControl,
+  StageUsage,
+  StandardContentToolsUiItemsProvider,
+  StandardFrontstageProps,
+  StandardFrontstageProvider,
+  StandardNavigationToolsUiItemsProvider,
+  StandardStatusbarUiItemsProvider,
+  UiFramework,
+  UiItemsManager,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
@@ -17,46 +30,59 @@ import { PopoutWindowsStageUiItemsProvider } from "../providers/PopoutWindowsSta
  */
 export class PopoutWindowsFrontstageGroupProvider extends ContentGroupProvider {
   public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps) => {
-      const newContent = { ...content };
-      if (newContent.applicationData)
-        delete newContent.applicationData;
-      return newContent;
-    });
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps) => {
-      const newContent = { ...content };
-
-      if (newContent.classId === IModelViewportControl.id) {
-        newContent.applicationData = {
-          ...newContent.applicationData,
-          isPrimaryView: true,
-          featureOptions:
-          {
-            defaultViewOverlay: {
-              enableScheduleAnimationViewOverlay: true,
-              enableAnalysisTimelineViewOverlay: true,
-              enableSolarTimelineViewOverlay: true,
-            },
-          },
-        };
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps) => {
+        const newContent = { ...content };
+        if (newContent.applicationData) delete newContent.applicationData;
+        return newContent;
       }
-      return newContent;
-    });
+    );
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> {
-    const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, UiFramework.getIModelConnection());
+  public override applyUpdatesToSavedProps(
+    contentGroupProps: ContentGroupProps
+  ) {
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps) => {
+        const newContent = { ...content };
+
+        if (newContent.classId === IModelViewportControl.id) {
+          newContent.applicationData = {
+            ...newContent.applicationData,
+            isPrimaryView: true,
+            featureOptions: {
+              defaultViewOverlay: {
+                enableScheduleAnimationViewOverlay: true,
+                enableAnalysisTimelineViewOverlay: true,
+                enableSolarTimelineViewOverlay: true,
+              },
+            },
+          };
+        }
+        return newContent;
+      }
+    );
+    return { ...contentGroupProps, contents: newContentsArray };
+  }
+
+  public override async contentGroup(
+    config: FrontstageConfig
+  ): Promise<ContentGroup> {
+    const savedViewLayoutProps = await getSavedViewLayoutProps(
+      config.id,
+      UiFramework.getIModelConnection()
+    );
     if (savedViewLayoutProps) {
-      const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
+      const viewState =
+        savedViewLayoutProps.contentGroupProps.contents[0].applicationData
+          ?.viewState;
       if (viewState) {
         UiFramework.setDefaultViewState(viewState);
       }
-      const contentGroupProps = this.applyUpdatesToSavedProps(savedViewLayoutProps.contentGroupProps);
+      const contentGroupProps = this.applyUpdatesToSavedProps(
+        savedViewLayoutProps.contentGroupProps
+      );
       return new ContentGroup(contentGroupProps);
     }
 
@@ -71,8 +97,7 @@ export class PopoutWindowsFrontstageGroupProvider extends ContentGroupProvider {
             isPrimaryView: true,
             viewState: UiFramework.getDefaultViewState,
             iModelConnection: UiFramework.getIModelConnection,
-            featureOptions:
-            {
+            featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,
                 enableAnalysisTimelineViewOverlay: true,
@@ -97,7 +122,8 @@ export class PopoutWindowsFrontstageGroupProvider extends ContentGroupProvider {
 export class PopoutWindowsFrontstage {
   public static stageId = "appui-test-providers:PopoutWindowsFrontstage";
 
-  private static _contentGroupProvider = new PopoutWindowsFrontstageGroupProvider();
+  private static _contentGroupProvider =
+    new PopoutWindowsFrontstageGroupProvider();
 
   public static supplyAppData(_id: string, _applicationData?: any) {
     return {
@@ -108,8 +134,16 @@ export class PopoutWindowsFrontstage {
 
   public static register(localizationNamespace: string) {
     // set up custom corner button where we specify icon, label, and action
-    const cornerButton = <BackstageAppButton key="appui-test-providers-popout-windows-backstage" label="Toggle Backstage" icon={"icon-bentley-systems"}
-      execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
+    const cornerButton = (
+      <BackstageAppButton
+        key="appui-test-providers-popout-windows-backstage"
+        label="Toggle Backstage"
+        icon={"icon-bentley-systems"}
+        execute={() =>
+          UiFramework.backstage.getBackstageToggleCommand().execute()
+        }
+      />
+    );
 
     const popoutWindowStageProps: StandardFrontstageProps = {
       id: PopoutWindowsFrontstage.stageId,
@@ -119,30 +153,44 @@ export class PopoutWindowsFrontstage {
       usage: StageUsage.General,
     };
 
-    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(popoutWindowStageProps));
+    UiFramework.frontstages.addFrontstageProvider(
+      new StandardFrontstageProvider(popoutWindowStageProps)
+    );
     this.registerToolProviders(localizationNamespace);
   }
 
   private static registerToolProviders(localizationNamespace: string) {
     // Provides standard tools for ToolWidget in stage
-    UiItemsManager.register(new StandardContentToolsUiItemsProvider({
-      vertical: {
-        selectElement: true,
-      },
-      horizontal: {
-        clearSelection: true,
-        clearDisplayOverrides: true,
-        hide: "group",
-        isolate: "group",
-        emphasize: "element",
-      },
-    }), { providerId: "popout-window-stage-standardContentTools", stageIds: [PopoutWindowsFrontstage.stageId] });
+    UiItemsManager.register(
+      new StandardContentToolsUiItemsProvider({
+        vertical: {
+          selectElement: true,
+        },
+        horizontal: {
+          clearSelection: true,
+          clearDisplayOverrides: true,
+          hide: "group",
+          isolate: "group",
+          emphasize: "element",
+        },
+      }),
+      {
+        providerId: "popout-window-stage-standardContentTools",
+        stageIds: [PopoutWindowsFrontstage.stageId],
+      }
+    );
 
     // Provides standard tools for NavigationWidget in stage
-    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), { providerId: "popout-windows-stage-standardNavigationTools", stageIds: [PopoutWindowsFrontstage.stageId] });
+    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), {
+      providerId: "popout-windows-stage-standardNavigationTools",
+      stageIds: [PopoutWindowsFrontstage.stageId],
+    });
 
     // Provides standard status fields for stage
-    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), { providerId: "popout-windows-stage-standardStatusItems", stageIds: [PopoutWindowsFrontstage.stageId] });
+    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), {
+      providerId: "popout-windows-stage-standardStatusItems",
+      stageIds: [PopoutWindowsFrontstage.stageId],
+    });
 
     // Provides example widgets stage
     PopoutWindowsStageUiItemsProvider.register(localizationNamespace);

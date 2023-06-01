@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -11,7 +11,12 @@ import type { RectangleProps } from "@itwin/core-react";
 import produce from "immer";
 import type { PanelSide } from "../widget-panels/Panel";
 import { category } from "./internal/NineZoneStateHelpers";
-import { addWidgetState, createFloatingWidgetState, createPopoutWidgetState, getNewFloatingWidgetBounds } from "./internal/WidgetStateHelpers";
+import {
+  addWidgetState,
+  createFloatingWidgetState,
+  createPopoutWidgetState,
+  getNewFloatingWidgetBounds,
+} from "./internal/WidgetStateHelpers";
 import type { NineZoneState } from "./NineZoneState";
 import type { TabState } from "./TabState";
 
@@ -27,7 +32,9 @@ export interface WidgetState {
 }
 
 /** @internal */
-export interface WidgetsState { readonly [id: string]: WidgetState }
+export interface WidgetsState {
+  readonly [id: string]: WidgetState;
+}
 
 /** @internal */
 export interface FloatingWidgetHomeState {
@@ -66,8 +73,12 @@ export interface PopoutWidgetsState {
 }
 
 /** @internal */
-export function addFloatingWidget(state: NineZoneState, id: FloatingWidgetState["id"], tabs: WidgetState["tabs"], floatingWidgetArgs?: Partial<FloatingWidgetState>,
-  widgetArgs?: Partial<WidgetState>,
+export function addFloatingWidget(
+  state: NineZoneState,
+  id: FloatingWidgetState["id"],
+  tabs: WidgetState["tabs"],
+  floatingWidgetArgs?: Partial<FloatingWidgetState>,
+  widgetArgs?: Partial<WidgetState>
 ): NineZoneState {
   if (id in state.floatingWidgets.byId)
     throw new UiError(category, "Floating widget already exists");
@@ -89,11 +100,20 @@ export function addFloatingWidget(state: NineZoneState, id: FloatingWidgetState[
 }
 
 /** @internal */
-export function addPopoutWidget(state: NineZoneState, id: PopoutWidgetState["id"], tabs: WidgetState["tabs"], popoutWidgetArgs?: Partial<PopoutWidgetState>,
-  widgetArgs?: Partial<WidgetState>,
+export function addPopoutWidget(
+  state: NineZoneState,
+  id: PopoutWidgetState["id"],
+  tabs: WidgetState["tabs"],
+  popoutWidgetArgs?: Partial<PopoutWidgetState>,
+  widgetArgs?: Partial<WidgetState>
 ): NineZoneState {
   if (tabs.length !== 1)
-    throw new UiError(category, "Popout widget should contain one tab only", undefined, () => ({ tabs }));
+    throw new UiError(
+      category,
+      "Popout widget should contain one tab only",
+      undefined,
+      () => ({ tabs })
+    );
 
   const popoutWidget = createPopoutWidgetState(id, popoutWidgetArgs);
   state = addWidgetState(state, id, tabs, widgetArgs);
@@ -104,7 +124,10 @@ export function addPopoutWidget(state: NineZoneState, id: PopoutWidgetState["id"
 }
 
 /** @internal */
-export function floatingWidgetBringToFront(state: NineZoneState, floatingWidgetId: FloatingWidgetState["id"]): NineZoneState {
+export function floatingWidgetBringToFront(
+  state: NineZoneState,
+  floatingWidgetId: FloatingWidgetState["id"]
+): NineZoneState {
   return produce(state, (draft) => {
     const idIndex = draft.floatingWidgets.allIds.indexOf(floatingWidgetId);
     const spliced = draft.floatingWidgets.allIds.splice(idIndex, 1);

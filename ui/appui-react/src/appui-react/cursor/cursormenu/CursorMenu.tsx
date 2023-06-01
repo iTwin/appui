@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Cursor
  */
 
 import * as React from "react";
 import type { UiSyncEventArgs } from "@itwin/appui-abstract";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { GlobalContextMenu } from "@itwin/core-react"; // ContextSubMenu,
 import { SessionStateActionId } from "../../redux/SessionState";
 import type { MenuItemProps } from "../../shared/MenuItem";
@@ -31,8 +31,11 @@ interface CursorPopupMenuState {
  * @alpha
  */
 // istanbul ignore next
-export class CursorPopupMenu extends React.PureComponent<CommonProps, CursorPopupMenuState> {
-  private _componentUnmounting = false;  // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
+export class CursorPopupMenu extends React.PureComponent<
+  CommonProps,
+  CursorPopupMenuState
+> {
+  private _componentUnmounting = false; // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
   private _hostChildWindowId?: string;
 
   /** @internal */
@@ -45,14 +48,22 @@ export class CursorPopupMenu extends React.PureComponent<CommonProps, CursorPopu
 
   private _handleSyncUiEvent = (args: UiSyncEventArgs): void => {
     /* istanbul ignore next */
-    if (this._componentUnmounting)
-      return;
+    if (this._componentUnmounting) return;
 
     /* istanbul ignore else */
-    if (SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [SessionStateActionId.UpdateCursorMenu])) {
+    if (
+      SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [
+        SessionStateActionId.UpdateCursorMenu,
+      ])
+    ) {
       const menuData = UiFramework.getCursorMenuData();
       if (menuData && this._hostChildWindowId === menuData.childWindowId) {
-        this.setState({ menuVisible: menuData.items && menuData.items.length > 0, items: menuData.items, menuX: menuData.position.x, menuY: menuData.position.y });
+        this.setState({
+          menuVisible: menuData.items && menuData.items.length > 0,
+          items: menuData.items,
+          menuX: menuData.position.x,
+          menuY: menuData.position.y,
+        });
       } else {
         this.setState({ menuVisible: false, items: undefined });
       }
@@ -72,7 +83,10 @@ export class CursorPopupMenu extends React.PureComponent<CommonProps, CursorPopu
     const parentWindow = popupDiv?.ownerDocument.defaultView ?? undefined;
     // if the window is not a pop out set to undefined
     this._hostChildWindowId = UiFramework.childWindows.findId(parentWindow);
-    Logger.logInfo(UiFramework.loggerCategory(UiFramework), `Cursor Menu for ${this._hostChildWindowId ?? "main"} window`);
+    Logger.logInfo(
+      UiFramework.loggerCategory(UiFramework),
+      `Cursor Menu for ${this._hostChildWindowId ?? "main"} window`
+    );
   };
 
   public override render(): React.ReactNode {
@@ -81,7 +95,7 @@ export class CursorPopupMenu extends React.PureComponent<CommonProps, CursorPopu
 
     return (
       <div className="uifw-cursor-menu-container-div" ref={this._handleRefSet}>
-        {items && items.length > 0 && menuVisible &&
+        {items && items.length > 0 && menuVisible && (
           <GlobalContextMenu
             className={this.props.className}
             style={this.props.style}
@@ -94,9 +108,11 @@ export class CursorPopupMenu extends React.PureComponent<CommonProps, CursorPopu
             edgeLimit={false}
             autoflip={true}
           >
-            {MenuItemHelpers.createMenuItemNodes(MenuItemHelpers.createMenuItems(items, this._itemPicked))}
+            {MenuItemHelpers.createMenuItemNodes(
+              MenuItemHelpers.createMenuItems(items, this._itemPicked)
+            )}
           </GlobalContextMenu>
-        }
+        )}
       </div>
     );
   }

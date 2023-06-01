@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as fs from "fs";
 import * as path from "path";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
@@ -15,12 +15,14 @@ import { RpcManager } from "@itwin/core-common";
 import { ECSchemaRpcInterface } from "@itwin/ecschema-rpcinterface-common";
 import { ECSchemaRpcImpl } from "@itwin/ecschema-rpcinterface-impl";
 
-(async () => { // eslint-disable-line @typescript-eslint/no-floating-promises
+(async () => {
+  // eslint-disable-line @typescript-eslint/no-floating-promises
   try {
     // Load .env file first
     if (fs.existsSync(path.join(process.cwd(), ".env"))) {
-      require("dotenv-expand")( // eslint-disable-line @typescript-eslint/no-var-requires
-        require("dotenv").config(), // eslint-disable-line @typescript-eslint/no-var-requires
+      require("dotenv-expand")(
+        // eslint-disable-line @typescript-eslint/no-var-requires
+        require("dotenv").config() // eslint-disable-line @typescript-eslint/no-var-requires
       );
     }
 
@@ -33,7 +35,9 @@ import { ECSchemaRpcImpl } from "@itwin/ecschema-rpcinterface-impl";
     if (ProcessDetector.isElectronAppBackend) {
       await initializeElectron();
     } else if (ProcessDetector.isMobileAppBackend) {
-      await MobileHost.startup({ mobileHost: { rpcInterfaces: getSupportedRpcs() } });
+      await MobileHost.startup({
+        mobileHost: { rpcInterfaces: getSupportedRpcs() },
+      });
     } else {
       await initializeWeb();
     }

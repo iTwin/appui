@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect } from "chai";
@@ -12,11 +12,7 @@ import { useTargeted } from "../../../core-react/utils/hooks/useTargeted";
 const Targeted = () => {
   const ref = React.useRef<HTMLButtonElement>(null);
   const targeted = useTargeted(ref);
-  return (
-    <button ref={ref} >
-      Targeted: {`${targeted}`}
-    </button>
-  );
+  return <button ref={ref}>Targeted: {`${targeted}`}</button>;
 };
 
 describe("useTargeted", () => {

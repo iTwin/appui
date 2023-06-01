@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolSettings
  */
@@ -9,7 +9,7 @@
 import "./Panel.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Popup } from "@itwin/core-react";
 
 /** Properties of [[ToolSettingsOverflowPanel]] component.
@@ -27,11 +27,10 @@ export interface ToolSettingsOverflowPanelProps extends CommonProps {
  * @internal
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export function ToolSettingsOverflowPanel(props: ToolSettingsOverflowPanelProps) {
-  const className = classnames(
-    "nz-toolSettings-panel",
-    props.className,
-  );
+export function ToolSettingsOverflowPanel(
+  props: ToolSettingsOverflowPanelProps
+) {
+  const className = classnames("nz-toolSettings-panel", props.className);
   return (
     <Popup
       className={className}

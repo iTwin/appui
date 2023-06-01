@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ConfigurableUi
  */
@@ -19,10 +19,11 @@ export interface ConfigurableUiElement {
  * @public
  */
 export class ConfigurableCreateInfo {
-  constructor(public readonly classId: string,
+  constructor(
+    public readonly classId: string,
     public readonly uniqueId: string,
-    public readonly id: string) {
-  }
+    public readonly id: string
+  ) {}
 }
 
 /** The base class for all ConfigurableUi elements
@@ -37,23 +38,32 @@ export class ConfigurableBase implements ConfigurableUiElement {
   constructor(info: ConfigurableCreateInfo, options: any) {
     this._uniqueId = info.uniqueId;
     this._classId = info.classId;
-    this._name = (options && options.hasOwnProperty("name")) ? options.name : info.uniqueId;
+    this._name =
+      options && options.hasOwnProperty("name") ? options.name : info.uniqueId;
     this._appDataOptions = options;
   }
 
   /** @internal */
-  public get uniqueId(): string { return this._uniqueId; }
+  public get uniqueId(): string {
+    return this._uniqueId;
+  }
 
   /** allow options set via appData to be seen by API calls */
-  public get applicationData(): any { return this._appDataOptions; }
+  public get applicationData(): any {
+    return this._appDataOptions;
+  }
 
   /** Gets the class Id of configurable element */
-  public get classId(): string { return this._classId; }
+  public get classId(): string {
+    return this._classId;
+  }
 
   /** Get internal name of configurable element. If no name is defined in configuration
    * then the name will match the UniqueId.
    */
-  public get name(): string { return this._name; }
+  public get name(): string {
+    return this._name;
+  }
 }
 
 /** The type of the ConfigurableUiControl.
@@ -71,7 +81,10 @@ export enum ConfigurableUiControlType {
 /** Prototype for ConfigurableUiControl constructor
  * @public
  */
-export type ConfigurableUiControlConstructor = new (info: ConfigurableCreateInfo, options: any) => ConfigurableUiElement;
+export type ConfigurableUiControlConstructor = new (
+  info: ConfigurableCreateInfo,
+  options: any
+) => ConfigurableUiElement;
 
 /** The abstract base class for all Frontstage controls.
  * @public
@@ -101,20 +114,24 @@ export abstract class ConfigurableUiControl extends ConfigurableBase {
 
   /** @internal
    */
-  public initialize(): void { this.onInitialize(); }
+  public initialize(): void {
+    this.onInitialize();
+  }
 
   /** Called to initialize the ConfigurableUiControl. */
-  public onInitialize(): void { }
+  public onInitialize(): void {}
 
   /** Called when Frontstage is deactivated. */
-  public onFrontstageDeactivated(): void { }
+  public onFrontstageDeactivated(): void {}
 
   /** Called when Frontstage is ready. */
-  public onFrontstageReady(): void { }
+  public onFrontstageReady(): void {}
 
   /** Returns the ID of this ConfigurableUiControl.
    */
-  public get controlId(): string { return this._cid; }
+  public get controlId(): string {
+    return this._cid;
+  }
 
   /** Get the type of this control.
    */
@@ -122,5 +139,7 @@ export abstract class ConfigurableUiControl extends ConfigurableBase {
 
   /** Returns a promise that resolves when the control is ready for usage.
    */
-  public get isReady(): Promise<void> { return Promise.resolve(); }
+  public get isReady(): Promise<void> {
+    return Promise.resolve();
+  }
 }

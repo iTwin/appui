@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -31,15 +31,20 @@ export class SparseTree<T extends Node> {
     return this._idToNode[nodeId];
   }
 
-  public getChildOffset(parentId: string | undefined, childId: string): number | undefined {
+  public getChildOffset(
+    parentId: string | undefined,
+    childId: string
+  ): number | undefined {
     const children = this.getChildren(parentId);
-    if (!children)
-      return undefined;
+    if (!children) return undefined;
 
     return children.getIndex(childId);
   }
 
-  public getChildren(parentId: string | undefined, createIfNotExist: boolean = false): SparseArray<string> | undefined {
+  public getChildren(
+    parentId: string | undefined,
+    createIfNotExist: boolean = false
+  ): SparseArray<string> | undefined {
     if (parentId === undefined) {
       return this._rootNodes;
     }
@@ -51,7 +56,11 @@ export class SparseTree<T extends Node> {
     return this._parentToChildren[parentId];
   }
 
-  public setChildren(parentId: string | undefined, children: T[], offset: number) {
+  public setChildren(
+    parentId: string | undefined,
+    children: T[],
+    offset: number
+  ) {
     const existingChildren = this.getChildren(parentId, true)!;
     children.forEach((child, index) => {
       const existingChildId = existingChildren.get(offset + index);
@@ -70,7 +79,11 @@ export class SparseTree<T extends Node> {
     this._idToNode[child.id] = child;
   }
 
-  public setNodeId(parentId: string | undefined, index: number, newId: string): boolean {
+  public setNodeId(
+    parentId: string | undefined,
+    index: number,
+    newId: string
+  ): boolean {
     const previousNodeId = this.getChildren(parentId)?.get(index);
     if (previousNodeId === undefined) {
       return false;
@@ -103,7 +116,7 @@ export class SparseTree<T extends Node> {
     sourceParentId: string | undefined,
     sourceNodeId: string,
     targetParentId: string | undefined,
-    targetIndex: number,
+    targetIndex: number
   ): void {
     const sourceNodeSiblings = this.getChildren(sourceParentId);
     assert(sourceNodeSiblings !== undefined);
@@ -130,10 +143,12 @@ export class SparseTree<T extends Node> {
     children.setLength(numChildren);
   }
 
-  public removeChild(parentId: string | undefined, child: string | number): void {
+  public removeChild(
+    parentId: string | undefined,
+    child: string | number
+  ): void {
     const children = this.getChildren(parentId);
-    if (children === undefined)
-      return;
+    if (children === undefined) return;
 
     if (typeof child === "string") {
       const childIndex = children.getIndex(child);
@@ -151,7 +166,10 @@ export class SparseTree<T extends Node> {
     }
   }
 
-  public deleteSubtree(parentId: string | undefined, deleteParent: boolean = true) {
+  public deleteSubtree(
+    parentId: string | undefined,
+    deleteParent: boolean = true
+  ) {
     const children = this.getChildren(parentId);
     if (children !== undefined) {
       for (const [childId] of children.iterateValues()) {
@@ -201,8 +219,7 @@ export class SparseArray<T> implements Iterable<T | undefined> {
    */
   public getIndex(lookupValue: T): number | undefined {
     for (const [value, index] of this._array) {
-      if (value === lookupValue)
-        return index;
+      if (value === lookupValue) return index;
     }
     return undefined;
   }
@@ -281,7 +298,8 @@ export class SparseArray<T> implements Iterable<T | undefined> {
   }
 
   private lowerBound(index: number): {
-    index: number; equal: boolean;
+    index: number;
+    equal: boolean;
   } {
     return lowerBound(index, this._array, SparseArray.compare);
   }

@@ -1,13 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
-import type { NineZoneDispatch} from "../../appui-layout-react";
+import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  DockedToolSettingsHandle, DragManager, DragManagerContext, NineZoneDispatchContext,
+  DockedToolSettingsHandle,
+  DragManager,
+  DragManagerContext,
+  NineZoneDispatchContext,
 } from "../../appui-layout-react";
 
 describe("DockedToolSettingsHandle", () => {
@@ -19,14 +22,18 @@ describe("DockedToolSettingsHandle", () => {
         <DragManagerContext.Provider value={dragManager}>
           <DockedToolSettingsHandle />
         </DragManagerContext.Provider>
-      </NineZoneDispatchContext.Provider>,
+      </NineZoneDispatchContext.Provider>
     );
-    const handle = container.getElementsByClassName("nz-toolSettings-handle")[0];
+    const handle = container.getElementsByClassName(
+      "nz-toolSettings-handle"
+    )[0];
     fireEvent.mouseDown(handle);
     fireEvent.mouseMove(document);
 
-    dispatch.calledOnceWithExactly(sinon.match({
-      type: "TOOL_SETTINGS_DRAG_START",
-    })).should.true;
+    dispatch.calledOnceWithExactly(
+      sinon.match({
+        type: "TOOL_SETTINGS_DRAG_START",
+      })
+    ).should.true;
   });
 });
