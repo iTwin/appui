@@ -14,7 +14,7 @@ import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
 /* eslint-disable deprecation/deprecation */
 
-describe("ModelessDialogManager", () => {
+describe("InternalModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const spyMethod = sinon.spy();
   beforeEach(()=>{
@@ -35,7 +35,7 @@ describe("ModelessDialogManager", () => {
   });
 
   after(async () => {
-    ModelessDialogManager.onModelessDialogChangedEvent.removeListener(handleModelessDialogChanged);
+    InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(handleModelessDialogChanged);
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework(); // clear out the framework key
   });

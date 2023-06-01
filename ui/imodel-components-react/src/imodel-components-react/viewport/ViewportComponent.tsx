@@ -16,7 +16,9 @@ import type { IModelConnection,
   TentativePoint, ViewManager,
   Viewport} from "@itwin/core-frontend";
 import {
-  IModelApp, ScreenViewport, ToolSettings, ViewState,
+  IModelApp, ScreenViewport,
+  StandardView,
+  ToolSettings, ViewState,
 } from "@itwin/core-frontend";
 
 import type { CommonProps } from "@itwin/core-react";

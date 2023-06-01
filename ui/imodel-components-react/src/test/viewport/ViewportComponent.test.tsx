@@ -14,7 +14,7 @@ import type { SpatialViewDefinitionProps } from "@itwin/core-common";
 import { Frustum } from "@itwin/core-common";
 import type {
   CategorySelectorState, DisplayStyle3dState, IModelConnection, ModelSelectorState, OrthographicViewState, TentativePoint, ViewManager, Viewport, ViewState} from "@itwin/core-frontend";
-import { EntityState, NoRenderApp, ScreenViewport,
+import { EntityState, IModelApp, NoRenderApp, ScreenViewport,
   SpatialViewState, StandardViewId, ViewRect,
 } from "@itwin/core-frontend";
 import { fireEvent, render } from "@testing-library/react";

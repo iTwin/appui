@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import type { IModelApp, IModelAppOptions} from "@itwin/core-frontend";
-import { NoRenderApp } from "@itwin/core-frontend";
+import type { IModelAppOptions} from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawWidget } from "../../appui-react/accudraw/AccuDrawWidget";
 import { TestUtils } from "../TestUtils";

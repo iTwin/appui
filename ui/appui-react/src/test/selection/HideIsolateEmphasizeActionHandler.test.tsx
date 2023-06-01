@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
-import { NoRenderApp } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import * as moq from "typemoq";
 import { HideIsolateEmphasizeActionHandler } from "../../appui-react/selection/HideIsolateEmphasizeManager";
 import TestUtils from "../TestUtils";

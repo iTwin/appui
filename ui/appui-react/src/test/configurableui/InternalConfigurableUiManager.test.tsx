@@ -21,7 +21,7 @@ class TableExampleContentControl extends ContentControl {
   }
 }
 
-describe("ConfigurableUiManager", () => {
+describe("InternalConfigurableUiManager", () => {
 
   before(async () => {
     await TestUtils.initializeUiFramework();
@@ -32,7 +32,7 @@ describe("ConfigurableUiManager", () => {
   });
 
   after(async () => {
-    ConfigurableUiManager.unregisterControl("TableExampleContent");
+    InternalConfigurableUiManager.unregister("TableExampleContent");
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework();
   });
