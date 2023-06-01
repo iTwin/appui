@@ -100,7 +100,7 @@ jobs:
               (Get-Content $sourceFile | Select-Object -Skip 3) | Set-Content $sourceFile
 
               # Add relevant frontmatter
-              "---`ndeltaDoc: true`nversion: '$(getVersion.version)'`n---`n" + (Get-Content $sourceFile | Out-String) | Set-Content $sourceFile
+              "---`ndeltaDoc: true`nversion: `"$(getVersion.version)`"`n---`n" + (Get-Content $sourceFile | Out-String) | Set-Content $sourceFile
 
               # Rename NextVersion
               Rename-Item -Path $sourceFile -NewName "$(getVersion.version).md"
@@ -223,7 +223,7 @@ jobs:
           $sourceFile = 'docs/changehistory/NextVersion.md'
 
           # Overwrite everything with just the header
-          "---`npublish: false`n---`n# NextVersion`n" | Set-Content $sourceFile
+          "---`npublish: false`n---`n`n# NextVersion" | Set-Content $sourceFile
         displayName: 'Clear current NextVersion.md'
 
       - bash: git add .
