@@ -6,6 +6,9 @@ build
 .rush
 common/api
 common/config/rush
+common/scripts/install-run-rush.js
+common/scripts/install-run-rushx.js
+common/scripts/install-run.js
 common/temp
 CHANGELOG.json
 CHANGELOG.md
