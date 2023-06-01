@@ -8,8 +8,9 @@
 
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
+import { StandardTypeNames } from "@itwin/appui-abstract";
 import { Select } from "@itwin/itwinui-react";
-import type { PropertyFilterRuleOperator } from "./Operators";
+import { PropertyFilterRuleOperator } from "./Operators";
 import { getPropertyFilterOperatorLabel, getPropertyFilterOperators } from "./Operators";
 
 /**
@@ -33,7 +34,9 @@ export function PropertyFilterBuilderRuleOperator(props: PropertyFilterBuilderRu
   const { operator, property, onChange } = props;
 
   const availableOperators = React.useMemo(() => getPropertyFilterOperators(property), [property]);
-  const selectedOperator = availableOperators.find((op) => op === operator) ?? availableOperators[0];
+  const selectedOperator = (property.typename === StandardTypeNames.String || property.typename === StandardTypeNames.Text)
+    ? PropertyFilterRuleOperator.Like
+    : availableOperators.find((op) => op === operator) ?? availableOperators[0];
 
   React.useEffect(() => {
     onChange(selectedOperator);
