@@ -1,0 +1,12 @@
+/*---------------------------------------------------------------------------------------------
+* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+* See LICENSE.md in the project root for license terms and full copyright notice.
+*--------------------------------------------------------------------------------------------*/
+.uifw-statusFields-selectionCount {
+  gap: 4px;
+  min-width: 6em;
+
+  .icon {
+    color: var(--iui-color-icon);
+  }
+}

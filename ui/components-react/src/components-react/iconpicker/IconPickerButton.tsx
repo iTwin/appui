@@ -11,7 +11,8 @@ import "./IconPickerButton.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { RelativePosition } from "@itwin/appui-abstract";
-import { CommonProps, Icon, Popup } from "@itwin/core-react";
+import type { CommonProps} from "@itwin/core-react";
+import { Icon, Popup } from "@itwin/core-react";
 import { SvgChevronDown } from "@itwin/itwinui-icons-react";
 
 /** Properties for the [[IconItem]] React component

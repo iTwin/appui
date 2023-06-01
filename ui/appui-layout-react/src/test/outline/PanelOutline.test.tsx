@@ -6,12 +6,13 @@ import { act, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import * as React from "react";
 
+import type {
+  DragManager,
+  PanelSide} from "../../appui-layout-react";
 import {
   addFloatingWidget,
   addTab,
   createNineZoneState,
-  DragManager,
-  PanelSide,
   PanelSideContext,
   useActiveSendBackWidgetIdStore,
 } from "../../appui-layout-react";
@@ -20,10 +21,11 @@ import {
   useHidden,
 } from "../../appui-layout-react/outline/PanelOutline";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
+import type {
+  TestNineZoneProviderProps} from "../Providers";
 import {
   createDragStartArgs,
   TestNineZoneProvider,
-  TestNineZoneProviderProps,
 } from "../Providers";
 
 describe("PanelOutline", () => {

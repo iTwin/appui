@@ -5,12 +5,13 @@
 import * as React from "react";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
 import {
-  FrontstageDef, FrontstageManager, StagePanelLocation, StagePanelState, UiFramework, useActiveFrontstageDef, WidgetState,
+  FrontstageDef, StagePanelLocation, StagePanelState, UiFramework, useActiveFrontstageDef, WidgetState,
 } from "@itwin/appui-react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { NumberInput, Rectangle, RectangleProps } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import { ApplicationLayoutContext, ApplicationMode } from "../ApplicationLayout";
+import { InternalFrontstageManager } from "@itwin/appui-react/lib/esm/appui-react/frontstage/InternalFrontstageManager";
 
 function usePanelDef(location: StagePanelLocation) {
   const frontstageDef = useActiveFrontstageDef();
@@ -25,7 +26,7 @@ function usePanelSize(location: StagePanelLocation) {
   }, [panelDef]);
   React.useEffect(() => {
     // eslint-disable-next-line deprecation/deprecation
-    const remove = FrontstageManager.onPanelSizeChangedEvent.addListener((e) => {
+    const remove = InternalFrontstageManager.onPanelSizeChangedEvent.addListener((e) => {
       if (e.panelDef.location === location)
         setSize(e.size);
     });
@@ -50,11 +51,26 @@ function usePanelState(location: StagePanelLocation) {
   return state;
 }
 
+function usePanelPinned(location: StagePanelLocation) {
+  const panelDef = usePanelDef(location);
+  const [pinned, setPinned] = React.useState(panelDef?.pinned);
+  React.useEffect(() => {
+    setPinned(panelDef?.pinned);
+  }, [panelDef]);
+  React.useEffect(() => {
+    return UiFramework.frontstages.onPanelPinnedChangedEvent.addListener((e) => {
+      if (e.panelDef.location === location)
+        setPinned(e.pinned);
+    });
+  }, [location]);
+  return pinned;
+}
+
 function usePanelInfo(location: StagePanelLocation) {
   const panelDef = usePanelDef(location);
   const state = usePanelState(location);
   const size = usePanelSize(location);
-  const [pinned] = React.useState(panelDef?.pinned);
+  const pinned = usePanelPinned(location);
   const [resizable] = React.useState(panelDef?.resizable);
   return {
     size,
@@ -202,8 +218,7 @@ function WidgetInfo({
     setIsFloating(frontstageDef ? frontstageDef.isFloatingWidget(id) : false);
     setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
 
-    // eslint-disable-next-line deprecation/deprecation
-    return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((e) => {
+    return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((e: any) => {
       if (e.frontstageDef === frontstageDef) {
         setIsFloating(frontstageDef ? frontstageDef.isFloatingWidget(id) : false);
         setIsPopout(frontstageDef ? frontstageDef.isPopoutWidget(id) : false);
@@ -471,6 +486,19 @@ function SelectWidgetControls() {
   );
 }
 
+function WidgetContentThrowError() {
+  const [shouldThrow, setShouldThrow] = React.useState(false);
+  if (shouldThrow) {
+    throw new Error("Simulated error was thrown.");
+  }
+  return (
+    <>
+      <h2>Throw error button</h2>
+      <Button onClick={() => setShouldThrow(true)}>Click Me</Button>
+    </>
+  );
+}
+
 const widgetContentStyle: React.CSSProperties = {
   padding: "5px",
   boxSizing: "border-box",
@@ -498,6 +526,7 @@ export function LayoutControls() {
       <FrontstageControls />
       <SelectPanelControls />
       <SelectWidgetControls />
+      <WidgetContentThrowError />
     </WidgetContent>
   );
 }
@@ -560,7 +589,7 @@ export function FloatingLayoutInfo() {
   const [bounds, setBounds] = React.useState<RectangleProps>(() => getFloatingWidgetContainerBounds(frontstageDef, floatingWidgetId));
   React.useEffect(() => {
     // eslint-disable-next-line deprecation/deprecation
-    return FrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((e) => {
+    return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener((e: any) => {
       if (e.frontstageDef !== frontstageDef)
         return;
 

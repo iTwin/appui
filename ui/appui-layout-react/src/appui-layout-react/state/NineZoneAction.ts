@@ -6,12 +6,12 @@
  * @module Base
  */
 
-import { PointProps } from "@itwin/appui-abstract";
-import { RectangleProps, SizeProps } from "@itwin/core-react";
-import { HorizontalPanelSide, PanelSide } from "../widget-panels/Panel";
-import { TabState } from "./TabState";
-import { FloatingWidgetState, PopoutWidgetState, WidgetState } from "./WidgetState";
-import { TabDragDropTargetState, WidgetDragDropTargetState } from "./DropTargetState";
+import type { PointProps } from "@itwin/appui-abstract";
+import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import type { HorizontalPanelSide, PanelSide } from "../widget-panels/Panel";
+import type { TabState } from "./TabState";
+import type { FloatingWidgetState, PopoutWidgetState, WidgetState } from "./WidgetState";
+import type { TabDragDropTargetState, WidgetDragDropTargetState } from "./DropTargetState";
 
 /** @internal */
 export interface ResizeAction {

@@ -16,6 +16,7 @@ import { UiFramework } from "@itwin/appui-react";
 export interface IModelOpenProps {
   onIModelSelected?: (iModelInfo: BasicIModelInfo) => void;
   initialIModels?: IModelInfo[];
+  urlPrefix?: "dev" | "qa" | "";
 }
 
 /**
@@ -25,6 +26,7 @@ export function IModelOpen(props: IModelOpenProps) {
   const [recentITwins, setRecentITwins] = React.useState<Array<ITwin>>([]);
   const [currentITwin, setCurrentITwin] = React.useState<ITwin | undefined>();
   const [accessToken, setAccessToken] = React.useState("");
+  const serverPrefix: "dev" | "qa" | "" | undefined = props.urlPrefix;
 
   React.useEffect(() => {
     async function fetchAccessToken() {
@@ -76,7 +78,7 @@ export function IModelOpen(props: IModelOpenProps) {
         <div className="open-content">
           <div className="idp-scrolling-content">
             {currentITwin && <IModelGrid accessToken={accessToken} projectId={currentITwin.id} onThumbnailClick={onImodelSelect}
-              apiOverrides={{ serverEnvironmentPrefix: "qa" }} />}
+              apiOverrides={{ serverEnvironmentPrefix: serverPrefix  }} />}
           </div>
         </div>
       </div>

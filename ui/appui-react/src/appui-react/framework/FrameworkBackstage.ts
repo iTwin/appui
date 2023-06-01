@@ -6,9 +6,9 @@
  * @module Backstage
  */
 
-import { BeEvent } from "@itwin/core-bentley";
-import { IconSpec } from "@itwin/core-react";
-import { CommandItemDef } from "../shared/CommandItemDef";
+import type { BeEvent } from "@itwin/core-bentley";
+import type { IconSpec } from "@itwin/core-react";
+import type { CommandItemDef } from "../shared/CommandItemDef";
 
 /** Arguments of [[Backstage.onToggled]].
  * @public

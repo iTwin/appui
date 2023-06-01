@@ -2,6 +2,189 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "4.0.1",
+      "tag": "@itwin/appui-react_v4.0.1",
+      "date": "Fri, 19 May 2023 12:24:30 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "ToolAssistanceField: Display as class if image is not svg (IE: webfont class image)"
+          }
+        ]
+      }
+    },
+    {
+      "version": "4.0.0",
+      "tag": "@itwin/appui-react_v4.0.0",
+      "date": "Mon, 01 May 2023 13:32:16 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Promote APIs in use by apps."
+          },
+          {
+            "comment": "Remove deprecated APIs."
+          },
+          {
+            "comment": "Remove FrontstageProps, StagePanelProps, WidgetProps."
+          },
+          {
+            "comment": "Removed unused localization strings."
+          },
+          {
+            "comment": "Move @itwin/core-telemetry to peerDependencies."
+          },
+          {
+            "comment": "Add `defaultTool` prop to `FrontstageConfig` and `StandardFrontstageProps`."
+          },
+          {
+            "comment": "Use UiItemsManager from @itwin/appui-abstract when available."
+          },
+          {
+            "comment": "Fix SelectionInfoField by displaying selection set size."
+          },
+          {
+            "comment": "Fix stale options of SelectionScopeField."
+          },
+          {
+            "comment": "Remove selection scope fallback labels."
+          },
+          {
+            "comment": "Allow ReactNode icon argument in item utilities."
+          },
+          {
+            "comment": "Add ContentViewManager tracking info back into FloatingViewportContent."
+          },
+          {
+            "comment": "Using iTwinUI-variables."
+          },
+          {
+            "comment": "Update iTwinUI-react to v2.x."
+          },
+          {
+            "comment": "Maintain widget panel location after frontstage is changed."
+          },
+          {
+            "comment": "Expose status bar components (marked as @internal in appui-layout-react)."
+          },
+          {
+            "comment": "Added search functionality to ViewSelector. Added test to ViewSelector tests for search functionality."
+          },
+          {
+            "comment": "Fixed ViewSelector rendering bug."
+          },
+          {
+            "comment": "Removed Trees component from appui-react."
+          },
+          {
+            "comment": "Add Toolbar components."
+          },
+          {
+            "comment": "Fix floating viewport content to properly synchronize active ViewportComponent with the selected view."
+          },
+          {
+            "comment": "Promotoe UiItemsManager/Provider APIs."
+          },
+          {
+            "comment": "Remove StatusBarContext related code."
+          },
+          {
+            "comment": "Clean dependencies."
+          },
+          {
+            "comment": "Refactor to use iTwinUI instead of deprecated core-react."
+          },
+          {
+            "comment": "React to toolbar changes."
+          },
+          {
+            "comment": "Removed react-dnd dependency."
+          },
+          {
+            "comment": "Bump minimum of core packages to 3.7.0."
+          },
+          {
+            "comment": "peerDependency allow react: ^18.0.0."
+          },
+          {
+            "comment": "Update typings for React18."
+          },
+          {
+            "comment": "Clean SCSS."
+          },
+          {
+            "comment": "SnapModeField now emit syncEvent."
+          },
+          {
+            "comment": "Support React18 in child windows."
+          },
+          {
+            "comment": "Fix `widgetDef.expand` method."
+          },
+          {
+            "comment": "Frontstage provider to return FrontstageProps instead of a ReactElement."
+          },
+          {
+            "comment": "Remove UI1.0 components."
+          },
+          {
+            "comment": "Add SafeAreaInsets enum."
+          },
+          {
+            "comment": "Fix StagePanelDef state being out of sync issue. Add event for listening to changes of StagePanelDef pinned state."
+          },
+          {
+            "comment": "Expose StatusBar.Popup and StatusBar.Field components."
+          },
+          {
+            "comment": "Update package.json dependencies and repo documentation."
+          },
+          {
+            "comment": "Remove webfont icons from components."
+          }
+        ]
+      }
+    },
+    {
+      "version": "3.7.2",
+      "tag": "@itwin/appui-react_v3.7.2",
+      "date": "Wed, 12 Apr 2023 13:12:42 GMT",
+      "comments": {}
+    },
+    {
+      "version": "3.7.1",
+      "tag": "@itwin/appui-react_v3.7.1",
+      "date": "Mon, 03 Apr 2023 15:15:36 GMT",
+      "comments": {}
+    },
+    {
+      "version": "3.7.0",
+      "tag": "@itwin/appui-react_v3.7.0",
+      "date": "Wed, 29 Mar 2023 15:02:27 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix Popout widget window title"
+          },
+          {
+            "comment": "Fix react briefMessage in toasts"
+          },
+          {
+            "comment": "Move `Manager` classes under `UiFramework`"
+          },
+          {
+            "comment": "update @deprecated comments."
+          }
+        ]
+      }
+    },
+    {
+      "version": "3.6.3",
+      "tag": "@itwin/appui-react_v3.6.3",
+      "date": "Mon, 27 Mar 2023 16:26:47 GMT",
+      "comments": {}
+    },
+    {
       "version": "3.6.2",
       "tag": "@itwin/appui-react_v3.6.2",
       "date": "Fri, 17 Mar 2023 17:52:32 GMT",

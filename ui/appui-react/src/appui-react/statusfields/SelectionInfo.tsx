@@ -6,59 +6,33 @@
  * @module StatusBar
  */
 
-import "./SelectionInfo.scss";
-import classnames from "classnames";
 import * as React from "react";
-import { connect } from "react-redux";
-import { CommonProps, Icon } from "@itwin/core-react";
-import { FooterIndicator } from "@itwin/appui-layout-react";
+import type { CommonProps } from "@itwin/core-react";
+import { SelectionCountField } from "./SelectionCount";
+import { useSelector } from "react-redux";
 import { UiFramework } from "../UiFramework";
-import { SvgCursor } from "@itwin/itwinui-icons-react";
+import type { FrameworkState } from "../redux/FrameworkState";
 
-/** Defines properties supported by the SelectionInfo Field Component.
- */
-interface SelectionInfoFieldProps extends CommonProps {
-  selectionCount: number;
-}
-
-/**
- * Status Field React component. This component is designed to be specified in a status bar definition.
- * It is used to display the number of selected items based on the Presentation Rules Selection Manager.
- */
-class SelectionInfoFieldComponent extends React.Component<SelectionInfoFieldProps> {
-
-  constructor(props: SelectionInfoFieldProps) {
-    super(props);
-  }
-
-  public override render(): React.ReactNode {
-    return (
-      <FooterIndicator
-        className={classnames("uifw-statusFields-selectionInfo", this.props.className)}
-        style={this.props.style}
-      >
-        {<Icon iconSpec={<SvgCursor />} />}
-        {this.props.selectionCount.toString()}
-      </FooterIndicator>
-    );
-  }
-}
-
-/** Function used by Redux to map state data in Redux store to props that are used to render this component. */
-function mapStateToProps(state: any) {
-  const frameworkState = state[UiFramework.frameworkStateKey];  // since app sets up key, don't hard-code name
-  /* istanbul ignore next */
-  if (!frameworkState)
-    return undefined;
-
-  return { selectionCount: frameworkState.sessionState.numItemsSelected };
-}
-
-// we declare the variable and export that rather than using export default.
 /**
  * SelectionInfo Status Field React component. This component is designed to be specified in a status bar definition.
- * It is used to display the number of selected items based on the Presentation Rules Selection Manager.
+ * It is used to display the number of items in a selection set.
  * This React component is Redux connected.
+ * @note Use [[SelectionCountField]] to display custom selection count.
  * @public
- */ // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SelectionInfoField = connect(mapStateToProps)(SelectionInfoFieldComponent);
+ */
+export function SelectionInfoField(props: CommonProps) {
+  const count = useSelector((state: any) => {
+    const frameworkState: FrameworkState | undefined = state[UiFramework.frameworkStateKey];
+    if (!frameworkState)
+      return 0;
+
+    return frameworkState.sessionState.numItemsSelected;
+  });
+  return (
+    <SelectionCountField
+      className={props.className}
+      style={props.style}
+      count={count}
+    />
+  );
+}

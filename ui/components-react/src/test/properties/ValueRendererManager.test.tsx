@@ -2,12 +2,13 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { PropertyValueFormat } from "@itwin/appui-abstract";
+import type { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
-import { IPropertyValueRenderer, PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
+import type { IPropertyValueRenderer} from "../../components-react/properties/ValueRendererManager";
+import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
 import { UiComponents } from "../../components-react/UiComponents";
 import TestUtils from "../TestUtils";
 

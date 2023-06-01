@@ -10,14 +10,16 @@ import "./ToolAssistanceField.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
+import type { ToolAssistanceInstruction, ToolAssistanceInstructions, ToolAssistanceKeyboardInfo,
+  ToolAssistanceSection} from "@itwin/core-frontend";
 import {
-  IModelApp, ToolAssistanceImage, ToolAssistanceInputMethod, ToolAssistanceInstruction, ToolAssistanceInstructions, ToolAssistanceKeyboardInfo,
-  ToolAssistanceSection,
+  IModelApp, ToolAssistanceImage, ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
+import type {
+  CommonProps, UiStateStorage, UiStateStorageResult} from "@itwin/core-react";
 import {
-  CommonProps,
-  FillCentered, Icon, LocalStateStorage, UiCore, UiStateEntry, UiStateStorage, UiStateStorageResult, UiStateStorageStatus,
+  FillCentered, Icon, LocalStateStorage, UiCore, UiStateEntry, UiStateStorageStatus,
 } from "@itwin/core-react";
 import {
   FooterPopup, ToolAssistanceInstruction as NZ_ToolAssistanceInstruction, ToolAssistance, ToolAssistanceDialog,
@@ -26,8 +28,9 @@ import {
 } from "@itwin/appui-layout-react";
 import { Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt";
-import { ToolIconChangedEventArgs } from "../../framework/FrameworkFrontstages";
-import { MessageManager, ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
+import type { ToolIconChangedEventArgs } from "../../framework/FrameworkFrontstages";
+import type { ToolAssistanceChangedEventArgs } from "../../messages/MessageManager";
+import { MessageManager } from "../../messages/MessageManager";
 import { UiFramework } from "../../UiFramework";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage";
 
@@ -507,7 +510,7 @@ export class ToolAssistanceField extends React.Component<ToolAssistanceFieldProp
       if (instruction.image.length > 0) {
         const svgSource = IconSpecUtilities.getWebComponentSource(instruction.image);
         const className = (svgSource !== undefined) ? "uifw-toolassistance-svg" : "uifw-toolassistance-icon-large";
-        image = <div className={className}><Icon iconSpec={svgSource} /></div>;
+        image = <div className={className}><Icon iconSpec={svgSource ?? instruction.image} /></div>;
       }
     } else if (instruction.image === ToolAssistanceImage.Keyboard) {
       if (instruction.keyboardInfo) {

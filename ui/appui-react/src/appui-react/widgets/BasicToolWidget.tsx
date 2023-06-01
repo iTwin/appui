@@ -15,7 +15,8 @@ import { ToolbarHelper } from "../toolbar/ToolbarHelper";
 import { ToolWidgetComposer } from "./ToolWidgetComposer";
 import { BackstageAppButton } from "./BackstageAppButton";
 import { useUiVisibility } from "../hooks/useUiVisibility";
-import { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import type { ToolbarItem} from "../toolbar/ToolbarItem";
+import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 
 /** Properties that can be used to append items to the default set of toolbar items.
  * @public

@@ -67,7 +67,7 @@ jobs:
 
     # Can be run on any branch to do a standard version bump. Which is currently -dev bumps.
     - ${{ if or(eq(parameters.BumpType, 'nightly'), eq(parameters.BumpType, 'releaseCandidate')) }}:
-      - bash: 'node common/scripts/install-run-rush version --bump'
+      - bash: 'node common/scripts/install-run-rush version --version-policy prerelease-monorepo-lockStep --bump'
         displayName: Rush version --bump
 
     # Support two separate bump types on release branches
@@ -147,6 +147,9 @@ jobs:
           git config --local user.name imodeljs-admin
         displayName: Setup Git
 
+      - bash: git fetch origin $(Build.SourceBranchName)
+        displayName: Fetching source branch
+
       - bash: git checkout --track origin/$(Build.SourceBranchName)
         displayName: Switching to source branch
 
@@ -185,6 +188,9 @@ jobs:
           git config --local user.email imodeljs-admin@users.noreply.github.com
           git config --local user.name imodeljs-admin
         displayName: 'Setup Git'
+
+      - bash: git fetch origin $(Build.SourceBranchName)
+        displayName: Fetching source branch
 
       - bash: git checkout --track origin/$(Build.SourceBranchName)
         displayName: Switching to source branch
@@ -232,7 +238,8 @@ jobs:
           Write-Host The new version is $newVersion
           Write-Host Committing version bump...
 
-          git commit -m "$newVersion" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
+          # Message is not newVersion because we don't want to publish the dev.0 nightly build.
+          git commit -m "Update master to $newVersion" --author="imodeljs-admin <imodeljs-admin@users.noreply.github.com>"
 
           git status
         displayName: Get version and committing

@@ -6,10 +6,20 @@
  * @module Utilities
  */
 
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 import * as React from "react";
-import { Icon, IconHelper, IconSpec } from "@itwin/core-react";
+import type { IconSpec } from "@itwin/core-react";
+import { Icon, IconHelper } from "@itwin/core-react";
+import type {
+  StringGetter,
+  // @ts-ignore Removed in 4.0
+  AbstractWidgetProps as UIA_AbstractWidgetProps,
+  // @ts-ignore Removed in 4.0
+  CommonBackstageItem as UIA_CommonBackstageItem,
+} from "@itwin/appui-abstract";
+import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { UiFramework } from "../UiFramework";
-import { ConditionalStringValue, StringGetter, AbstractWidgetProps as UIA_AbstractWidgetProps, CommonBackstageItem as UIA_CommonBackstageItem } from "@itwin/appui-abstract";
 
 /** A set of helper methods for various props
  * @public

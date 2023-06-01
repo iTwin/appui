@@ -9,12 +9,12 @@
 import "./AlphaSlider.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { SpecialKey } from "@itwin/appui-abstract";
 
 /** Properties for the [[AlphaSlider]] React component
- * @beta
+ * @public
  */
 export interface AlphaSliderProps extends React.HTMLAttributes<HTMLDivElement>, CommonProps {
   /** true if slider is oriented horizontal, else vertical orientation is assumed */
@@ -26,7 +26,7 @@ export interface AlphaSliderProps extends React.HTMLAttributes<HTMLDivElement>, 
 }
 
 /** AlphaSlider component used to set the alpha value.
- * @beta
+ * @public
  */
 export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
   private _container: HTMLDivElement | null = null;

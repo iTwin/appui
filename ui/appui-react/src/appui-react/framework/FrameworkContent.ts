@@ -6,12 +6,13 @@
  * @module ContentView
  */
 
-import { ContentLayoutProps, UiEvent } from "@itwin/appui-abstract";
-import { ContentControl } from "../content/ContentControl";
-import { ContentGroup, ContentGroupProps } from "../content/ContentGroup";
-import { ContentLayoutDef } from "../content/ContentLayout";
+import type { ContentLayoutProps} from "@itwin/appui-abstract";
+import { UiEvent } from "@itwin/appui-abstract";
+import type { ContentControl } from "../content/ContentControl";
+import type { ContentGroup, ContentGroupProps } from "../content/ContentGroup";
+import type { ContentLayoutDef } from "../content/ContentLayout";
 import { DialogChangedEvent } from "../dialog/DialogManagerBase";
-import { FrameworkStackedDialog } from "./FrameworkDialogs";
+import type { FrameworkStackedDialog } from "./FrameworkDialogs";
 
 /** [[MouseDownChangedEvent]] Args interface.
  * @public
@@ -55,7 +56,7 @@ export interface ContentDialogInfo {
 
 /**
  * [[UiFramework.content]] interface
- * @beta
+ * @public
  */
 export interface FrameworkContent {
   /** Gets the [[MouseDownChangedEvent]] */
@@ -128,7 +129,7 @@ export interface FrameworkContent {
 
   /**
    * Manage content layouts.
-   * @beta
+   * @public
    */
   readonly layouts: {
     /** build a layout key that is unique for group layout combination */

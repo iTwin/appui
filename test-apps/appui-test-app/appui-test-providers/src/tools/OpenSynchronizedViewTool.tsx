@@ -43,12 +43,12 @@ export class OpenSynchronizedViewTool extends Tool {
   }
 
   public static override get flyover(): string {
-    return "open view dialog";
+    return "open synchronized view dialog";
   }
 
   // if supporting localized key-ins return a localized string
   public static override get keyin(): string {
-    return "open view dialog";
+    return "open synchronized view dialog";
   }
 
   public static override get englishKeyin(): string {

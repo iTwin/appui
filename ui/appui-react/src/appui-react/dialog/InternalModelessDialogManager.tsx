@@ -6,12 +6,13 @@
  * @module Dialog
  */
 
-import * as React from "react";
+import type * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework";
 import { DialogManagerBase } from "./DialogManagerBase";
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
-import { ModelessDialogChangedEvent, ModelessDialogInfo } from "../framework/FrameworkDialogs";
+import type { ModelessDialogInfo } from "../framework/FrameworkDialogs";
+import { ModelessDialogChangedEvent } from "../framework/FrameworkDialogs";
 
 // cSpell:ignore ZINDEX modeless
 

@@ -5,7 +5,8 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { BackstageComposer, BackstageItem, BackstageItemUtilities, SyncUiEventDispatcher, UiFramework, UiItemsManager, UiItemsProvider, useGroupedItems } from "../../appui-react";
+import type { BackstageItem, UiItemsProvider} from "../../appui-react";
+import { BackstageComposer, BackstageItemUtilities, SyncUiEventDispatcher, UiFramework, UiItemsManager, useGroupedItems } from "../../appui-react";
 import TestUtils, { selectorMatches, userEvent } from "../TestUtils";
 import { getActionItem, getStageLauncherItem } from "./BackstageComposerItem.test";
 import { act, render, screen } from "@testing-library/react";

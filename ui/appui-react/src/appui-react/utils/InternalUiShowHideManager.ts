@@ -6,9 +6,11 @@
  * @module Utilities
  */
 
-import { UiStateStorage, UiStateStorageStatus } from "@itwin/core-react";
+import type { UiStateStorage} from "@itwin/core-react";
+import { UiStateStorageStatus } from "@itwin/core-react";
 import { SyncUiEventDispatcher, SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
-import { UiFramework, UserSettingsProvider } from "../UiFramework";
+import type { UserSettingsProvider } from "../UiFramework";
+import { UiFramework } from "../UiFramework";
 
 /** Class that maintain UiShowHide user settings between sessions
  * @internal
@@ -77,7 +79,7 @@ export class InternalUiShowHideManager {
     InternalUiShowHideManager._isUiVisible = visible;
   }
 
-  /** @internal */
+  /** @public */
   public static setAutoHideUi(value: boolean) {
     InternalUiShowHideManager._autoHideUi = value;
   }

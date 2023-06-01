@@ -7,7 +7,7 @@ import { expect } from "chai";
 import * as React from "react";
 import { UiError } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
-import { LoadedBinaryImage } from "../../components-react/common/IImageLoader";
+import type { LoadedBinaryImage } from "../../components-react/common/IImageLoader";
 import { ImageRenderer } from "../../components-react/common/ImageRenderer";
 import { UiCore } from "@itwin/core-react";
 import { EmptyLocalization } from "@itwin/core-common";

@@ -6,9 +6,11 @@
  * @module SyncUi
  */
 
-import { UiEventDispatcher, UiSyncEvent } from "@itwin/appui-abstract";
+import type { UiSyncEvent } from "@itwin/appui-abstract";
+import { UiEventDispatcher } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { IModelApp, IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
+import type { IModelConnection, SelectedViewportChangedArgs, SelectionSetEvent } from "@itwin/core-frontend";
+import { IModelApp } from "@itwin/core-frontend";
 import { SessionStateActionId } from "../redux/SessionState";
 import { UiFramework } from "../UiFramework";
 
@@ -222,5 +224,10 @@ export class SyncUiEventDispatcher {
     iModelConnection.selectionSet.onChanged.removeListener(SyncUiEventDispatcher.selectionChangedHandler);
     iModelConnection.selectionSet.onChanged.addListener(SyncUiEventDispatcher.selectionChangedHandler);
     iModelConnection.iModelId && UiFramework.setActiveIModelId(iModelConnection.iModelId);
+
+    SyncUiEventDispatcher._unregisterListenerFunc = iModelConnection.selectionSet.onChanged.addListener((ev) => {
+      const numSelected = ev.set.elements.size;
+      UiFramework.dispatchActionToStore(SessionStateActionId.SetNumItemsSelected, numSelected);
+    });
   }
 }

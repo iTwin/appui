@@ -6,8 +6,8 @@
  * @module Tree
  */
 
-import { PageOptions } from "../common/PageOptions";
-import { ITreeDataProvider, TreeNodeItem } from "./TreeDataProvider";
+import type { PageOptions } from "../common/PageOptions";
+import type { ITreeDataProvider, TreeNodeItem } from "./TreeDataProvider";
 
 /**
  * Used by [[SimpleTreeDataProvider]].

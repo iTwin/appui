@@ -10,8 +10,9 @@ import "./PanelWidget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { WidgetState } from "../state/WidgetState";
-import { isHorizontalPanelSide, PanelSide, PanelSideContext } from "../widget-panels/Panel";
+import type { WidgetState } from "../state/WidgetState";
+import type { PanelSide} from "../widget-panels/Panel";
+import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
 import { WidgetContentContainer } from "./ContentContainer";
 import { WidgetTabBar } from "./TabBar";
 import { Widget, WidgetProvider } from "./Widget";
@@ -20,7 +21,7 @@ import { WidgetTarget } from "../target/WidgetTarget";
 import { isHorizontalPanelState } from "../state/PanelState";
 import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
-import { NineZoneState } from "../state/NineZoneState";
+import type { NineZoneState } from "../state/NineZoneState";
 
 /** @internal */
 export interface PanelWidgetProps {

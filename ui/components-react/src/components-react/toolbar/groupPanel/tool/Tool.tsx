@@ -9,8 +9,9 @@
 import "./Tool.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { ActionButton, GroupButton } from "@itwin/appui-abstract";
-import { CommonProps, useTargeted } from "@itwin/core-react";
+import type { ActionButton, GroupButton } from "@itwin/appui-abstract";
+import type { CommonProps } from "@itwin/core-react";
+import { useTargeted } from "@itwin/core-react";
 
 /** Properties of [[GroupTool]] component.
  * @internal
@@ -67,6 +68,8 @@ export function GroupTool(props: GroupToolProps) {
       props.onPointerUp(props.item);
   }, [props]);
 
+  // istanbul ignore next
+  const providerId = "providerId" in props.item ? props.item.providerId : undefined;
   return (
     <div
       className={itemClassName}
@@ -76,7 +79,7 @@ export function GroupTool(props: GroupToolProps) {
       data-item-id={props.item.id}
       data-item-type="popup-tool-panel-item"
       data-item-priority={props.item.itemPriority}
-      data-item-provider-id={props.item.providerId}
+      data-item-provider-id={providerId}
       ref={ref}
       style={props.style}
       role="button"

@@ -9,14 +9,15 @@
 
 import * as React from "react";
 // eslint-disable-next-line no-duplicate-imports
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { assert } from "@itwin/core-bentley";
-import { PrimitiveValue, PropertyRecord, PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
-import { useRerender } from "../../../common/UseRerender";
+import type { PrimitiveValue, PropertyRecord} from "@itwin/appui-abstract";
+import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import { TypeConverterManager } from "../../../converters/TypeConverterManager";
 import { UiComponents } from "../../../UiComponents";
-import { IPropertyValueRenderer, PropertyValueRendererContext } from "../../ValueRendererManager";
+import type { IPropertyValueRenderer, PropertyValueRendererContext } from "../../ValueRendererManager";
 import { useRenderedStringValue } from "./PrimitivePropertyValueRenderer";
+import classnames from "classnames";
 
 /** @internal */
 export class MultilineTextPropertyValueRenderer implements IPropertyValueRenderer {
@@ -63,24 +64,19 @@ interface MultilineTextRenderer {
 
 /** @internal */
 export const MultilineTextRenderer: React.FC<MultilineTextRenderer> = (props) => { // eslint-disable-line @typescript-eslint/no-redeclare
-  const { rerenderContext, numRerenders, rerender } = useRerender({ contentOverflows: false });
   const spanRef = useRef<HTMLSpanElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
   const previousHeightRef = useRef(0);
-  useLayoutEffect(() => {
+  const [contentOverflows, setContentOverflows] = useState<boolean>(false);
+  useLayoutEffect(() => { // eslint-disable-line react-hooks/exhaustive-deps
     assert(divRef.current !== null && spanRef.current !== null);
 
-    const contentOverflows = spanRef.current.clientWidth < spanRef.current.scrollWidth;
-    if (numRerenders === 0 && contentOverflows) {
-      rerender({ contentOverflows });
-    }
+    setContentOverflows(spanRef.current.clientWidth < spanRef.current.scrollWidth);
 
-    if (numRerenders === 1 || !contentOverflows) {
-      const currentHeight = Math.max(divRef.current.offsetHeight, 27);
-      if (currentHeight !== previousHeightRef.current) {
-        props.onHeightChanged?.(currentHeight);
-        previousHeightRef.current = currentHeight;
-      }
+    const currentHeight = Math.max(divRef.current.offsetHeight, 27);
+    if (currentHeight !== previousHeightRef.current) {
+      props.onHeightChanged?.(currentHeight);
+      previousHeightRef.current = currentHeight;
     }
   });
 
@@ -95,21 +91,21 @@ export const MultilineTextRenderer: React.FC<MultilineTextRenderer> = (props) =>
     <div ref={divRef} className="multiline">
       <span
         ref={spanRef}
-        className={(numRerenders !== 0 && props.isExpanded) ? "expanded" : ""}
+        className={classnames("content", { expanded: props.isExpanded })}
         style={props.style}
         title={props.isExpanded ? undefined : props.stringValue}
       >
         {props.children}
         <button
           className="expand-toggle"
-          style={{ display: (rerenderContext.contentOverflows && props.isExpanded) ? "inline-block" : "none" }}
+          style={{ display: props.isExpanded ? "inline-block" : "none" }}
           onClick={handleExpansionToggleClick}
         >
           {UiComponents.translate("property.collapse")}
         </button>
       </span>
       {
-        rerenderContext.contentOverflows && !props.isExpanded &&
+        contentOverflows && !props.isExpanded &&
         <button className="expand-toggle" onClick={handleExpansionToggleClick}>
           {UiComponents.translate("property.expand")}
         </button>

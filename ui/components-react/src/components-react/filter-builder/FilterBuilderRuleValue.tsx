@@ -7,8 +7,10 @@
  */
 
 import * as React from "react";
-import { PropertyDescription, PropertyRecord, PropertyValue, PropertyValueFormat } from "@itwin/appui-abstract";
-import { EditorContainer, PropertyUpdatedArgs } from "../editors/EditorContainer";
+import type { PropertyDescription, PropertyValue} from "@itwin/appui-abstract";
+import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
+import type { PropertyUpdatedArgs } from "../editors/EditorContainer";
+import { EditorContainer } from "../editors/EditorContainer";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.

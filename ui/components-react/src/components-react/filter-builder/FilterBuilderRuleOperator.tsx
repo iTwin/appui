@@ -7,9 +7,10 @@
  */
 
 import * as React from "react";
-import { PropertyDescription } from "@itwin/appui-abstract";
+import type { PropertyDescription } from "@itwin/appui-abstract";
 import { Select } from "@itwin/itwinui-react";
-import { getPropertyFilterOperatorLabel, getPropertyFilterOperators, PropertyFilterRuleOperator } from "./Operators";
+import type { PropertyFilterRuleOperator } from "./Operators";
+import { getPropertyFilterOperatorLabel, getPropertyFilterOperators } from "./Operators";
 
 /**
  * Props for [[PropertyFilterBuilderRuleOperator]] component.

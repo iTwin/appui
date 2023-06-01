@@ -8,14 +8,17 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import { ConditionalBooleanValue, ConditionalStringValue, UiSyncEventArgs } from "@itwin/appui-abstract";
-import { CommonProps, useRefs, useResizeObserver } from "@itwin/core-react";
+import type { UiSyncEventArgs } from "@itwin/appui-abstract";
+import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import type { CommonProps} from "@itwin/core-react";
+import { useRefs, useResizeObserver } from "@itwin/core-react";
 import { eqlOverflown } from "@itwin/appui-layout-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher";
 import { StatusBarOverflow } from "./Overflow";
 import { StatusBarOverflowPanel } from "./OverflowPanel";
 import { StatusBarCenterSection, StatusBarLeftSection, StatusBarRightSection, StatusBarSpaceBetween } from "./StatusBar";
-import { isStatusBarActionItem, isStatusBarCustomItem, isStatusBarLabelItem, StatusBarActionItem, StatusBarItem, StatusBarLabelItem, StatusBarSection } from "./StatusBarItem";
+import type { StatusBarActionItem, StatusBarItem, StatusBarLabelItem} from "./StatusBarItem";
+import { isStatusBarActionItem, isStatusBarCustomItem, isStatusBarLabelItem, StatusBarSection } from "./StatusBarItem";
 import { useDefaultStatusBarItems } from "./useDefaultStatusBarItems";
 import { useUiItemsProviderStatusBarItems } from "./useUiItemsProviderStatusBarItems";
 import { StatusBarLabelIndicator } from "../statusbar/LabelIndicator";

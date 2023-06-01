@@ -41,7 +41,7 @@ import { IModelOpenFrontstage } from "./appui/frontstages/IModelOpenFrontstage";
 import { SignInFrontstage } from "./appui/frontstages/SignInFrontstage";
 import {
   AbstractUiItemsProvider, AppUiTestProviders, ContentLayoutStage, CustomContentFrontstage,
-  FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, SynchronizedFloatingViewportStage, WidgetApiStage,
+  FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, PopoutWindowsFrontstage, SynchronizedFloatingViewportStage, WidgetApiStage,
 } from "@itwin/appui-test-providers";
 
 // Initialize my application gateway configuration for the frontend
@@ -271,6 +271,7 @@ export class SampleAppIModelApp {
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     SynchronizedFloatingViewportStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
+    PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
 
     // try starting up event loop if not yet started so key-in palette can be opened
     IModelApp.startEventLoop();
@@ -482,7 +483,12 @@ export class SampleAppIModelApp {
       return { iTwinId, iModelId, viewIds, stageId };
     }
 
-    if (process.env.IMJS_UITESTAPP_IMODEL_ID && process.env.IMJS_UITESTAPP_ITWIN_ID) {
+    if (process.env.IMJS_IMODEL_ID && process.env.IMJS_ITWIN_ID) {
+      const envITwinId = process.env.IMJS_ITWIN_ID;
+      const envIModelId = process.env.IMJS_IMODEL_ID;
+      const viewIds = process.env.IMJS_UITESTAPP_IMODEL_VIEWID ? [process.env.IMJS_UITESTAPP_IMODEL_VIEWID] : undefined;
+      return { iTwinId: envITwinId, iModelId: envIModelId, viewIds };
+    } else if (process.env.IMJS_UITESTAPP_IMODEL_ID && process.env.IMJS_UITESTAPP_ITWIN_ID) {
       const envITwinId = process.env.IMJS_UITESTAPP_ITWIN_ID;
       const envIModelId = process.env.IMJS_UITESTAPP_IMODEL_ID;
       const viewIds = process.env.IMJS_UITESTAPP_IMODEL_VIEWID ? [process.env.IMJS_UITESTAPP_IMODEL_VIEWID] : undefined;
@@ -673,7 +679,11 @@ async function main() {
 
   await SampleAppIModelApp.initialize();
 
-  ReactDOM.render(<SampleAppViewer2 />, document.getElementById("root") as HTMLElement);
+  ReactDOM.render(
+    <React.StrictMode>
+      <SampleAppViewer2 />
+    </React.StrictMode>,
+    document.getElementById("root") as HTMLElement);
 }
 
 // Entry point - run the main function

@@ -6,8 +6,9 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
+import type { NineZoneDispatch} from "../../appui-layout-react";
 import {
-  addFloatingWidget, addPanelWidget, addTab, createNineZoneState, FloatingWidgetProvider, NineZoneDispatch,
+  addFloatingWidget, addPanelWidget, addTab, createNineZoneState, FloatingWidgetProvider,
   TabIdContext, useDrag, WidgetIdContext,
 } from "../../appui-layout-react";
 import * as NineZoneModule from "../../appui-layout-react/base/NineZone";

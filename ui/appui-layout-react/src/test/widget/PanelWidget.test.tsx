@@ -6,11 +6,13 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
+import type { HorizontalPanelSide, NineZoneDispatch, PanelSide,
+  PanelWidgetDragStartAction, VerticalPanelSide} from "../../appui-layout-react";
 import {
-  addPanelWidget, addTab, createNineZoneState, HorizontalPanelSide, NineZoneDispatch, PanelSide, PanelSideContext, PanelWidget,
-  PanelWidgetDragStartAction, useBorders, useMode, VerticalPanelSide,
+  addPanelWidget, addTab, createNineZoneState, PanelSideContext, PanelWidget, useBorders, useMode,
 } from "../../appui-layout-react";
-import { TestNineZoneProvider, TestNineZoneProviderProps } from "../Providers";
+import type { TestNineZoneProviderProps } from "../Providers";
+import { TestNineZoneProvider } from "../Providers";
 import { addTabs, withWrapperAndProps } from "../Utils";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
 import * as NineZoneModule from "../../appui-layout-react/base/NineZone";

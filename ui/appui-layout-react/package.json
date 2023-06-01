@@ -1,6 +1,6 @@
 {
   "name": "@itwin/appui-layout-react",
-  "version": "4.0.0-dev.15",
+  "version": "4.2.0-dev.0",
   "description": "iTwin.js Nine-zone React UI components",
   "main": "lib/cjs/appui-layout-react.js",
   "module": "lib/esm/appui-layout-react.js",
@@ -21,6 +21,7 @@
     "cover": "nyc npm -s test",
     "extract-api": "betools extract-api --entry=appui-layout-react",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
+    "lint:fix": "npm run -s lint -- --fix",
     "test": "mocha --config ../.mocharc.json \"./lib/cjs/test/**/*.test.js\"",
     "test:watch": "npm -s test -- --reporter min --watch-extensions ts,tsx --watch",
     "docs": "npm run -s docs:reference && npm run -s docs:changelog",
@@ -38,9 +39,9 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": ">=3.7.0",
-    "@itwin/core-bentley": ">=3.7.0",
-    "@itwin/core-react": "workspace:^4.0.0-dev.15",
+    "@itwin/appui-abstract": "^3.7.0 || ^4.0.0",
+    "@itwin/core-bentley": "^3.7.0 || ^4.0.0",
+    "@itwin/core-react": "workspace:^4.2.0-dev.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   },
@@ -123,6 +124,10 @@
     "extends": [
       "plugin:@itwin/ui",
       "plugin:@itwin/jsdoc"
-    ]
+    ],
+    "rules": {
+      "@typescript-eslint/consistent-type-imports": "error",
+      "no-duplicate-imports": "off"
+    }
   }
 }

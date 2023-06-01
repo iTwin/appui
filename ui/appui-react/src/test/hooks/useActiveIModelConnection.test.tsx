@@ -8,9 +8,10 @@ import { Provider } from "react-redux";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
 
-import { IModelApp, IModelConnection, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
+import type { IModelApp, IModelConnection} from "@itwin/core-frontend";
+import { NoRenderApp, SelectionSet } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
-import { IModelRpcProps } from "@itwin/core-common";
+import type { IModelRpcProps } from "@itwin/core-common";
 import { SyncUiEventDispatcher, UiFramework, useActiveIModelConnection } from "../../appui-react";
 import TestUtils from "../TestUtils";
 

@@ -38,6 +38,7 @@ internal;convertPrimitiveRecordToString(record: PropertyRecord): string | Promis
 alpha;CustomNumberEditor 
 alpha;CustomNumberPropertyEditor 
 public;CustomToolbarItem 
+deprecated;CustomToolbarItem 
 public;DataController
 public;class DataControllerBase 
 internal;DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className }: DateFieldProps): JSX.Element
@@ -231,8 +232,6 @@ beta;PropertyFilterRule
 beta;PropertyFilterRuleGroup
 beta;PropertyFilterRuleGroupOperator
 beta;PropertyFilterRuleOperator
-public;PropertyGrid 
-deprecated;PropertyGrid 
 internal;PropertyGridCommons
 public;PropertyGridContentHighlightProps 
 public;PropertyGridContextMenuArgs
@@ -244,8 +243,6 @@ internal;PropertyGridInternalContext
 public;PropertyGridModelChangeEvent 
 public;PropertyGridModelChangeListener = () => void
 public;PropertyGridModelSource 
-public;PropertyGridProps 
-deprecated;PropertyGridProps 
 internal;PropertyLabelRenderer 
 public;PropertyLabelRendererProps
 public;PropertyList 
@@ -287,8 +284,6 @@ public;StructPropertyValueRenderer
 public;Subscribable
 public;Subscription 
 public;TableArrayValueRenderer 
-public;TableDataChangeEvent 
-deprecated;TableDataChangeEvent 
 public;TableNonPrimitiveValueRenderer 
 public;TableNonPrimitiveValueRendererProps 
 public;TableRowStyleProvider:
@@ -306,9 +301,11 @@ public;toDateString: (date: Date, timeZoneOffset?: number, formatOptions?: DateF
 public;ToggleEditor 
 public;TogglePropertyEditor 
 public;Toolbar(props: ToolbarProps): JSX.Element
+deprecated;Toolbar(props: ToolbarProps): JSX.Element
 public;ToolbarButtonItem: React_2.MemoExoticComponent
 public;ToolbarButtonItemProps 
 public;ToolbarItem = ActionButton | GroupButton | CustomToolbarItem
+deprecated;ToolbarItem = ActionButton | GroupButton | CustomToolbarItem
 internal;ToolbarItemComponent({ item, addGroupSeparator }:
 internal;ToolbarItemContext: React_2.Context
 internal;ToolbarItemContextArgs
@@ -320,9 +317,12 @@ public;ToolbarPopupAutoHideContext: React_2.Context
 public;ToolbarPopupContext: React_2.Context
 public;ToolbarPopupContextProps
 public;ToolbarProps 
+deprecated;ToolbarProps 
 public;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
+deprecated;ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element
 internal;ToolbarWithOverflowDirectionContext: React_2.Context
 public;ToolbarWithOverflowProps 
+deprecated;ToolbarWithOverflowProps 
 internal;toRxjsObservable
 public;toTimeString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string
 internal;toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition

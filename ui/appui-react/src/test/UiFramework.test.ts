@@ -7,11 +7,15 @@
 import { expect } from "chai";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
-import { IModelRpcProps } from "@itwin/core-common";
-import { Id64String, Logger } from "@itwin/core-bentley";
-import { IModelApp, IModelConnection, NoRenderApp, SelectionSet, ViewState } from "@itwin/core-frontend";
-import { ColorTheme, CursorMenuData, SettingsModalFrontstage, UiFramework, UserSettingsProvider } from "../appui-react";
-import { LocalStateStorage, UiStateStorage } from "@itwin/core-react";
+import type { IModelRpcProps } from "@itwin/core-common";
+import type { Id64String} from "@itwin/core-bentley";
+import { Logger } from "@itwin/core-bentley";
+import type { IModelConnection, ViewState } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
+import type { CursorMenuData, UserSettingsProvider } from "../appui-react";
+import { ColorTheme, SettingsModalFrontstage, UiFramework } from "../appui-react";
+import type { UiStateStorage } from "@itwin/core-react";
+import { LocalStateStorage } from "@itwin/core-react";
 import TestUtils, { storageMock } from "./TestUtils";
 import { OpenSettingsTool } from "../appui-react/tools/OpenSettingsTool";
 

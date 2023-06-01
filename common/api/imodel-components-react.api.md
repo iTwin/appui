@@ -8,37 +8,37 @@
 
 import { Cartographic } from '@itwin/core-common';
 import { ColorDef } from '@itwin/core-common';
-import { CommonProps } from '@itwin/core-react';
-import { DateFormatOptions } from '@itwin/components-react';
-import { FormatProps } from '@itwin/core-quantity';
+import type { CommonProps } from '@itwin/core-react';
+import type { DateFormatOptions } from '@itwin/components-react';
+import type { FormatProps } from '@itwin/core-quantity';
 import { FormatterSpec } from '@itwin/core-quantity';
-import { GenericUiEventArgs } from '@itwin/appui-abstract';
+import type { GenericUiEventArgs } from '@itwin/appui-abstract';
 import { HSVColor } from '@itwin/core-common';
-import { Id64String } from '@itwin/core-bentley';
-import { IModelConnection } from '@itwin/core-frontend';
-import { InputProps } from '@itwin/itwinui-react';
+import type { Id64String } from '@itwin/core-bentley';
+import type { IModelConnection } from '@itwin/core-frontend';
+import type { InputProps } from '@itwin/itwinui-react';
 import { Matrix3d } from '@itwin/core-geometry';
 import { Point2d } from '@itwin/core-geometry';
 import { Point3d } from '@itwin/core-geometry';
 import { PropertyEditorBase } from '@itwin/components-react';
-import { PropertyEditorProps } from '@itwin/components-react';
-import { PropertyValue } from '@itwin/appui-abstract';
-import { QuantityTypeArg } from '@itwin/core-frontend';
+import type { PropertyEditorProps } from '@itwin/components-react';
+import type { PropertyValue } from '@itwin/appui-abstract';
+import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
 import { ScreenViewport } from '@itwin/core-frontend';
-import { StandardViewId } from '@itwin/core-frontend';
-import { TentativePoint } from '@itwin/core-frontend';
-import { TypeEditor } from '@itwin/components-react';
+import type { StandardViewId } from '@itwin/core-frontend';
+import type { TentativePoint } from '@itwin/core-frontend';
+import type { TypeEditor } from '@itwin/components-react';
 import { UiEvent } from '@itwin/appui-abstract';
-import { UnitProps } from '@itwin/core-quantity';
-import { UnitsProvider } from '@itwin/core-quantity';
+import type { UnitProps } from '@itwin/core-quantity';
+import type { UnitsProvider } from '@itwin/core-quantity';
 import { Vector3d } from '@itwin/core-geometry';
-import { ViewManager } from '@itwin/core-frontend';
-import { Viewport } from '@itwin/core-frontend';
+import type { ViewManager } from '@itwin/core-frontend';
+import type { Viewport } from '@itwin/core-frontend';
 import { ViewState } from '@itwin/core-frontend';
 
-// @beta
+// @public
 export class AlphaSlider extends React_2.PureComponent<AlphaSliderProps> {
     // @internal
     constructor(props: AlphaSliderProps);
@@ -48,7 +48,7 @@ export class AlphaSlider extends React_2.PureComponent<AlphaSliderProps> {
     render(): React_2.ReactNode;
 }
 
-// @beta
+// @public
 export interface AlphaSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
     alpha: number;
     isHorizontal?: boolean;
@@ -187,20 +187,6 @@ export interface ColorPickerDialogProps {
     onOkResult: (selectedColor: ColorDef) => void;
 }
 
-// @public @deprecated
-export function ColorPickerPanel({ activeColor, onColorChange, colorPresets, colorInputType }: ColorPickerPanelProps): JSX.Element;
-
-// @public @deprecated
-export interface ColorPickerPanelProps {
-    // (undocumented)
-    activeColor: ColorDef;
-    colorInputType?: "HSL" | "RGB";
-    // (undocumented)
-    colorPresets?: ColorDef[];
-    // (undocumented)
-    onColorChange: (selectedColor: ColorDef) => void;
-}
-
 // @public
 export const ColorPickerPopup: (props: ColorPickerPopupProps) => JSX.Element | null;
 
@@ -296,6 +282,8 @@ export class CubeNavigationAid extends React_2.Component<CubeNavigationAidProps,
 export interface CubeNavigationAidProps extends CommonProps {
     // @internal (undocumented)
     animationTime?: number;
+    // (undocumented)
+    favorHeadsUpRotation?: boolean;
     // (undocumented)
     iModelConnection: IModelConnection;
     // @internal (undocumented)
@@ -590,36 +578,6 @@ export function getCSSColorFromDef(colorDef: ColorDef): string;
 // @internal (undocumented)
 export function getPercentageOfRectangle(rect: DOMRect, pointer: number): number;
 
-// @internal @deprecated (undocumented)
-export enum HitBoxX {
-    // (undocumented)
-    Left = -1,
-    // (undocumented)
-    None = 0,
-    // (undocumented)
-    Right = 1
-}
-
-// @internal @deprecated (undocumented)
-export enum HitBoxY {
-    // (undocumented)
-    Back = 1,
-    // (undocumented)
-    Front = -1,
-    // (undocumented)
-    None = 0
-}
-
-// @internal @deprecated (undocumented)
-export enum HitBoxZ {
-    // (undocumented)
-    Bottom = -1,
-    // (undocumented)
-    None = 0,
-    // (undocumented)
-    Top = 1
-}
-
 // @beta
 export function HueSlider({ isHorizontal, onHueChange, hsv, className, style }: HueSliderProps): JSX.Element;
 
@@ -665,28 +623,6 @@ export enum MapMode {
     Closed = "map-closed",
     // (undocumented)
     Opened = "map-opened"
-}
-
-// @internal @deprecated
-export interface Milestone {
-    // (undocumented)
-    children?: Milestone[];
-    date: Date;
-    description?: string;
-    id: string;
-    label?: string;
-    // (undocumented)
-    parentId?: string;
-    range?: MilestoneRange;
-    readonly?: boolean;
-}
-
-// @public
-export interface MilestoneRange {
-    // (undocumented)
-    end: Date;
-    // (undocumented)
-    start: Date;
 }
 
 // @alpha

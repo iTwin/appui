@@ -1,6 +1,53 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Fri, 17 Mar 2023 17:52:32 GMT and should not be manually modified.
+This log was last generated on Fri, 19 May 2023 12:24:31 GMT and should not be manually modified.
+
+## 4.0.1
+Fri, 19 May 2023 12:24:31 GMT
+
+_Version update only_
+
+## 4.0.0
+Mon, 01 May 2023 13:32:16 GMT
+
+### Updates
+
+- Promote APIs in use by apps.
+- Using iTwinUI-variables.
+- Update iTwinUI-react to v2.x.
+- Fix tree node chevron alignment.
+- Clean dependencies.
+- Remove deprecated components and API.
+- Bump minimum of core packages to 3.7.0.
+- peerDependency allow react: ^18.0.0.
+- Update typings for React18.
+- Remove deprecated SCSS files.
+- Remove SvgSprite component and support.
+- Remove deprecated components.
+- Update package.json dependencies and repo documentation.
+- Remove webfont icons from components. Add ConditionIconComponent to allow IconSpec to be used conditionally instead of just a string.
+
+## 3.7.2
+Wed, 12 Apr 2023 13:12:42 GMT
+
+_Version update only_
+
+## 3.7.1
+Mon, 03 Apr 2023 15:15:37 GMT
+
+_Version update only_
+
+## 3.7.0
+Wed, 29 Mar 2023 15:02:27 GMT
+
+### Updates
+
+- Update @deprecated comments.
+
+## 3.6.3
+Mon, 27 Mar 2023 16:26:47 GMT
+
+_Version update only_
 
 ## 3.6.2
 Fri, 17 Mar 2023 17:52:32 GMT

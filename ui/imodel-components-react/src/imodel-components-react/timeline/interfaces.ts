@@ -6,41 +6,9 @@
  * @module Timeline
  */
 
-import { ColorDef } from "@itwin/core-common";
-import { ScreenViewport } from "@itwin/core-frontend";
-import { GenericUiEventArgs } from "@itwin/appui-abstract";
-
-/**
- * A range of time which can be used to focus in on activities scheduled around a milestone.
- * @public
- */
-export interface MilestoneRange {
-  start: Date;
-  end: Date;
-}
-
-/**
- * A Milestone event that is to be noted in the timeline.
- * @internal
- * @deprecated in 3.0. Obsolete.
- */
-export interface Milestone {
-  /** uniqueId of milestone */
-  id: string;
-  /** milestone date */
-  date: Date;
-  parentId?: string;
-  /** Milestone label that is display if space allows */
-  label?: string;
-  /** Milestone description that is show as tooltip */
-  description?: string;
-  /** animation range that includes milestone */
-  range?: MilestoneRange;
-  /** Set to true if read only. */
-  readonly?: boolean;
-  // eslint-disable-next-line deprecation/deprecation
-  children?: Milestone[];
-}
+import type { ColorDef } from "@itwin/core-common";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import type { GenericUiEventArgs } from "@itwin/appui-abstract";
 
 /** The timeline scale.
  * @public

@@ -5,14 +5,16 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
-import { UiSyncEventArgs } from "@itwin/appui-abstract";
-import { IModelRpcProps } from "@itwin/core-common";
-import { IModelApp, IModelConnection, NoRenderApp, ScreenViewport, SelectionSet } from "@itwin/core-frontend";
-import {
+import type { UiSyncEventArgs } from "@itwin/appui-abstract";
+import type { IModelRpcProps } from "@itwin/core-common";
+import type { IModelConnection, ScreenViewport} from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
+import type {
   ActiveContentChangedEventArgs,
-  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, FrontstageActivatedEventArgs, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, NavigationAidActivatedEventArgs, SyncUiEventDispatcher,
-  ToolActivatedEventArgs,
-  UiFramework, WidgetStateChangedEventArgs,
+  ContentControlActivatedEventArgs, ContentLayoutActivatedEventArgs, FrontstageActivatedEventArgs, FrontstageReadyEventArgs, ModalFrontstageChangedEventArgs, NavigationAidActivatedEventArgs,
+  ToolActivatedEventArgs, WidgetStateChangedEventArgs} from "../../appui-react";
+import { SyncUiEventDispatcher,
+  UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 /* eslint-disable deprecation/deprecation */

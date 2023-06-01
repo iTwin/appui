@@ -19,31 +19,31 @@ $node-font-size: var(--iui-font-size-1);
   cursor: default;
   padding: 1px 1px 0px 1px;
 
-  > .contents {
+  >.contents {
     display: flex;
     align-items: center;
     width: 100%;
+    gap: 5px;
 
-    > .iui-progress-indicator-radial {
+    >.iui-progress-indicator-radial {
       margin: 0 4px;
     }
 
-    > .expansion-toggle {
+    >.expansion-toggle {
       display: inline-block;
       margin-top: auto;
       margin-bottom: auto;
     }
 
-    > .core-image-checkbox {
+    >.core-image-checkbox {
       top: -1px;
     }
   }
 
   &-icon {
     width: 16px;
-    margin: 0 5px;
 
-    > .bui-webfont-icon {
+    >.bui-webfont-icon {
       display: inline-block;
       width: 16px;
       text-align: center;

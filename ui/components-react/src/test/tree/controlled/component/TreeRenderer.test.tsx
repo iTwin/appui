@@ -8,17 +8,21 @@ import { VariableSizeList } from "react-window";
 import { Observable } from "rxjs/internal/Observable";
 import sinon from "sinon";
 import * as moq from "typemoq";
-import { PrimitiveValue, SpecialKey } from "@itwin/appui-abstract";
-import { act, fireEvent, render } from "@testing-library/react";
-import { TreeNodeRendererProps } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer";
-import { TreeRenderer, TreeRendererProps } from "../../../../components-react/tree/controlled/component/TreeRenderer";
+import type { PrimitiveValue} from "@itwin/appui-abstract";
+import { SpecialKey } from "@itwin/appui-abstract";
+import { fireEvent, render } from "@testing-library/react";
+import type { TreeNodeRendererProps } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer";
+import type { TreeRendererProps } from "../../../../components-react/tree/controlled/component/TreeRenderer";
+import { TreeRenderer } from "../../../../components-react/tree/controlled/component/TreeRenderer";
 import { from } from "../../../../components-react/tree/controlled/Observable";
-import { TreeActions } from "../../../../components-react/tree/controlled/TreeActions";
+import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions";
+import type { TreeModel, TreeModelNode, TreeModelNodePlaceholder, TreeModelRootNode, VisibleTreeNodes} from "../../../../components-react/tree/controlled/TreeModel";
 import {
-  computeVisibleNodes, MutableTreeModel, TreeModel, TreeModelNode, TreeModelNodePlaceholder, TreeModelRootNode, VisibleTreeNodes,
+  computeVisibleNodes, MutableTreeModel,
 } from "../../../../components-react/tree/controlled/TreeModel";
-import { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
-import { HighlightableTreeProps, HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
+import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
+import type { HighlightableTreeProps} from "../../../../components-react/tree/HighlightingEngine";
+import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
 import TestUtils from "../../../TestUtils";
 import { createRandomMutableTreeModelNode } from "../TreeHelpers";
 
@@ -287,26 +291,6 @@ describe("TreeRenderer", () => {
     rerender(<TreeRenderer {...defaultProps} onNodeEditorClosed={spy} />);
 
     expect(spy).to.be.called;
-  });
-
-  it("resizes scrollable content width to be as wide as the widest node after scrolling", () => {
-    const node1 = createRandomMutableTreeModelNode();
-    const node2 = createRandomMutableTreeModelNode();
-    visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 2);
-    visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node1);
-    visibleNodesMock.setup((x) => x.getAtIndex(1)).returns(() => node2);
-    visibleNodesMock.setup((x) => x.getIndexOfNode(node2.id)).returns(() => 1);
-
-    sinon.stub(HTMLElement.prototype, "offsetWidth").get(() => 123);
-
-    const ref = React.createRef<TreeRenderer>();
-    const { container } = render(<TreeRenderer ref={ref} {...defaultProps} height={50} />);
-
-    const innerContainerInitial = container.querySelector<HTMLDivElement>(".ReactWindow__VariableSizeList > div")!;
-    expect(innerContainerInitial.style.minWidth).to.be.equal("0");
-
-    act(() => ref.current!.scrollToNode(node2.id));
-    expect(innerContainerInitial.style.minWidth).to.be.equal("123px");
   });
 
   describe("scrollToNode", () => {

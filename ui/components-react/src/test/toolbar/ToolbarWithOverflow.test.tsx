@@ -6,12 +6,15 @@
 import { expect } from "chai";
 import React from "react";
 import * as sinon from "sinon";
-import { ActionButton, BadgeType, CommonToolbarItem, GroupButton, SpecialKey, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import type { ActionButton, CommonToolbarItem, GroupButton} from "@itwin/appui-abstract";
+import { BadgeType, SpecialKey, ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { CustomToolbarItem, ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarPanelAlignmentHelpers, ToolbarPopupAutoHideContext, ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow";
+import type { CustomToolbarItem} from "../../components-react/toolbar/ToolbarWithOverflow";
+import { ToolbarOpacitySetting, ToolbarPanelAlignment, ToolbarPanelAlignmentHelpers, ToolbarPopupAutoHideContext, ToolbarWithOverflow } from "../../components-react/toolbar/ToolbarWithOverflow";
 import { Direction } from "../../components-react/toolbar/utilities/Direction";
 import TestUtils from "../TestUtils";
 
+/* eslint-disable deprecation/deprecation */
 // cSpell:ignore testid
 
 function createBubbledEvent(type: string, props = {}) {
@@ -165,8 +168,8 @@ describe("<ToolbarWithOverflow />", () => {
       renderedComponent.rerender(<ToolbarPopupAutoHideContext.Provider value={isHidden}><ToolbarWithOverflow items={toolbarItems} /></ToolbarPopupAutoHideContext.Provider>);
       // renderedComponent.debug();
       const overflowPopup = renderedComponent.getByTestId("core-popup");
-      expect (overflowPopup).not.to.be.null;
-      expect (overflowPopup.className).to.contain("nz-hidden");
+      expect(overflowPopup).not.to.be.null;
+      expect(overflowPopup.className).to.contain("nz-hidden");
     });
 
     it("will render with 3 items + overflow containing group", () => {
@@ -446,8 +449,8 @@ describe("<ToolbarWithOverflow />", () => {
       isHidden = true;
       renderedComponent.rerender(<ToolbarPopupAutoHideContext.Provider value={isHidden}><ToolbarWithOverflow items={toolbarItems} /></ToolbarPopupAutoHideContext.Provider>);
       const corePopup = renderedComponent.getByTestId("core-popup");
-      expect (corePopup).not.to.be.null;
-      expect (corePopup.className).to.contain("nz-hidden");
+      expect(corePopup).not.to.be.null;
+      expect(corePopup.className).to.contain("nz-hidden");
     });
 
     it("should open panel when popup item clicked", () => {

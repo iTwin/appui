@@ -68,6 +68,8 @@ export function Resizer(props: ResizerProps) {
           onDoubleClick(event.nativeEvent);
         }
       }}
-    />
+    >
+      <div className="nz-resizer-grip" />
+    </span>
   );
 }

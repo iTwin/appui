@@ -6,7 +6,7 @@
  * @module Toolbar
  */
 
-import { ToolbarActionItem, ToolbarCustomItem, ToolbarGroupItem } from "./ToolbarItem";
+import type { ToolbarActionItem, ToolbarCustomItem, ToolbarGroupItem } from "./ToolbarItem";
 
 /** Helper class to create toolbar items.
  * @beta

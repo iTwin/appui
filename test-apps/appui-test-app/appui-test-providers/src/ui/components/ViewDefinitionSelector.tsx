@@ -42,9 +42,8 @@ export default function ViewDefinitionSelector(props: ViewDefinitionSelectorProp
     );
   }, [props.imodel]);
   return (
-    <div className="ViewDefinitionSelector">
+    <div>
       <Select onChange={props.onViewDefinitionSelected} value={props.selectedViewDefinition}
-        popoverProps={{ popperOptions: { strategy: "absolute" } }}
         options={selectOptions} size="small" />
     </div>
   );

@@ -3,8 +3,9 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { Orientation, RatioChangeResult, UiGeometry } from "@itwin/core-react";
-import { PropertyListProps } from "./PropertyList";
+import type { RatioChangeResult} from "@itwin/core-react";
+import { Orientation, UiGeometry } from "@itwin/core-react";
+import type { PropertyListProps } from "./PropertyList";
 
 /** @internal */
 export type ColumnResizeRelatedPropertyListProps = Required<Pick<PropertyListProps, "onColumnChanged" | "columnRatio" | "isResizeHandleHovered" | "onResizeHandleHoverChanged" | "isResizeHandleBeingDragged" | "onResizeHandleDragChanged" | "columnInfo" | "orientation" | "width">>;

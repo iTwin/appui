@@ -6,11 +6,13 @@
  * @module Base
  */
 
-import { Draft, produce } from "immer";
-import { PointProps } from "@itwin/appui-abstract";
-import { NineZoneState } from "../NineZoneState";
-import { FloatingWidgetHomeState, FloatingWidgetState } from "../WidgetState";
-import { Rectangle, RectangleProps, SizeProps } from "@itwin/core-react";
+import type { Draft} from "immer";
+import { produce } from "immer";
+import type { PointProps } from "@itwin/appui-abstract";
+import type { NineZoneState } from "../NineZoneState";
+import type { FloatingWidgetHomeState, FloatingWidgetState } from "../WidgetState";
+import type { RectangleProps, SizeProps } from "@itwin/core-react";
+import { Rectangle } from "@itwin/core-react";
 import { toolSettingsTabId } from "../ToolSettingsState";
 import { getWidgetState, updateFloatingWidgetState } from "./WidgetStateHelpers";
 

@@ -7,12 +7,14 @@
  */
 
 import * as React from "react";
-import { CommonProps } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
-import { DecimalPrecision, FormatProps, FormatType, formatTypeToString, FractionalPrecision, parseFormatType,
+import type { FormatProps} from "@itwin/core-quantity";
+import { DecimalPrecision, FormatType, formatTypeToString, FractionalPrecision, parseFormatType,
   ScientificType, scientificTypeToString,
 } from "@itwin/core-quantity";
-import { Select, SelectOption } from "@itwin/itwinui-react";
+import type { SelectOption } from "@itwin/itwinui-react";
+import { Select } from "@itwin/itwinui-react";
 
 /** Properties of [[FormatTypeSelector]] component.
  * @alpha

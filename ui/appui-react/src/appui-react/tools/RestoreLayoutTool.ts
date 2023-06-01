@@ -6,7 +6,7 @@
  * @module Tools
  */
 import { IModelApp, NotifyMessageDetails, OutputMessagePriority, Tool } from "@itwin/core-frontend";
-import { FrontstageDef } from "../frontstage/FrontstageDef";
+import type { FrontstageDef } from "../frontstage/FrontstageDef";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager";
 import { UiFramework } from "../UiFramework";
 import svgViewLayouts from "@bentley/icons-generic/icons/view-layouts.svg";
@@ -15,7 +15,7 @@ import { IconSpecUtilities } from "@itwin/appui-abstract";
 /**
  * Immediate tool that will reset the layout to that specified in the stage definition. A stage Id
  * may be passed in, if not the active stage is used. The stage Id is case sensitive.
- * @alpha
+ * @public
  */
 export class RestoreFrontstageLayoutTool extends Tool {
   public static override toolId = "RestoreFrontstageLayout";
@@ -49,7 +49,7 @@ export class RestoreFrontstageLayoutTool extends Tool {
 
 /**
  * Immediate tool that will reset the layout of all frontstages to that specified in the stage definition.
- * @alpha
+ * @public
  */
 export class RestoreAllFrontstagesTool extends Tool {
   public static override toolId = "RestoreAllFrontstages";

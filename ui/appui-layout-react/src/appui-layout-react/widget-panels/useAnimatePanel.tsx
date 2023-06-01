@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { SizeProps } from "@itwin/core-react";
+import type { SizeProps } from "@itwin/core-react";
 import { DraggedPanelSideContext } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
@@ -151,7 +151,11 @@ export function useAnimatePanel() {
     setInitializing(false);
   }, [initializing]);
 
-  const handleTransitionEnd = React.useCallback(() => {
+  const handleTransitionEnd = React.useCallback((e: React.TransitionEvent<HTMLDivElement>) => {
+    // istanbul ignore if
+    if (e.target !== ref.current)
+      return;
+
     maxPanelSize.current = undefined;
     collapsing.current = undefined;
     animateFrom.current = undefined;

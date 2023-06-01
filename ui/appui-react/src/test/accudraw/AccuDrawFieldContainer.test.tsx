@@ -7,14 +7,15 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
-import { CompassMode, IModelApp, IModelAppOptions, ItemField, NoRenderApp } from "@itwin/core-frontend";
+import type { IModelAppOptions} from "@itwin/core-frontend";
+import { CompassMode, IModelApp, ItemField, NoRenderApp } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import TestUtils, { selectAllBeforeType, userEvent } from "../TestUtils";
 import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw";
 import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawFieldContainer";
 import { FrameworkUiAdmin } from "../../appui-react/uiadmin/FrameworkUiAdmin";
-import { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings";
+import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings";
 import { UiFramework } from "../../appui-react";
 
 // cspell:ignore uiadmin

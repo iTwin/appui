@@ -7,14 +7,17 @@
  */
 
 import * as React from "react";
-import { Id64String, Logger } from "@itwin/core-bentley";
-import { IModelApp, IModelConnection, ViewState } from "@itwin/core-frontend";
+import type { Id64String} from "@itwin/core-bentley";
+import { Logger } from "@itwin/core-bentley";
+import type { IModelConnection, ViewState } from "@itwin/core-frontend";
+import { FuzzySearch, IModelApp } from "@itwin/core-frontend";
 import { IconSpecUtilities, UiEvent } from "@itwin/appui-abstract";
-import { SupportsViewSelectorChange } from "../content/ContentControl";
+import type { SupportsViewSelectorChange } from "../content/ContentControl";
 import { connectIModelConnection } from "../redux/connectIModel";
 import { UiFramework } from "../UiFramework";
 import { ViewUtilities } from "../utils/ViewUtilities";
-import { ListItem, ListItemType, ListPicker } from "./ListPicker";
+import type { ListItem} from "./ListPicker";
+import { ListItemType, ListPicker } from "./ListPicker";
 import { debounce } from "lodash";
 import svgSavedView from "@bentley/icons-generic/icons/saved-view.svg";
 
@@ -63,6 +66,7 @@ interface ViewSelectorState {
   showUnknown: boolean;
   searchBox: boolean;
   panelOnly: boolean;
+  expand: boolean;
 }
 
 /** Default properties of [[ViewSelector]] component.
@@ -123,6 +127,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       showUnknown: props.showUnknown,
       searchBox: props.searchBox ? props.searchBox : true,
       panelOnly: props.panelOnly ? props.panelOnly : false,
+      expand: false,
     };
   }
 
@@ -221,6 +226,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
     let views2dFiltered: ListItem[] | undefined;
     let sheetsFiltered: ListItem[] | undefined;
     let unknownFiltered: ListItem[] | undefined;
+    const fuzzy = new FuzzySearch<ListItem>();
 
     if (this.props.imodel && this.props.imodel.views.getViewList) {
       const query = { wantPrivate: false };
@@ -230,7 +236,7 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
         const viewItem: ListItem = {
           key: spec.id,
           name: spec.name,
-          enabled: false,
+          enabled: spec.id === IModelApp.viewManager.selectedView?.view.id ? true : false,
           type: ListItemType.Item,
         };
 
@@ -247,10 +253,18 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
       });
 
       if(this._searchInput.length > 0){
-        views3dFiltered = views3d.filter((view) => view.name?.toLowerCase().includes(this._searchInput.toLowerCase()));
-        views2dFiltered = views2d.filter((view) => view.name?.toLowerCase().includes(this._searchInput.toLowerCase()));
-        sheetsFiltered = sheets.filter((view) => view.name?.toLowerCase().includes(this._searchInput.toLowerCase()));
-        unknownFiltered = unknown.filter((view) => view.name?. toLowerCase().includes(this._searchInput.toLowerCase()));
+        const views3dFuzzySearchResults = fuzzy.search(views3d, ["name"], this._searchInput).results as ListItem[];
+        const views2dFuzzySearchResults = fuzzy.search(views2d, ["name"], this._searchInput).results as ListItem[];
+        const sheetsFuzzySearchResults = fuzzy.search(sheets, ["name"], this._searchInput).results as ListItem[];
+        const unknownFuzzySearchResults = fuzzy.search(unknown, ["name"], this._searchInput).results as ListItem[];
+        views3dFiltered=[];
+        views2dFiltered=[];
+        sheetsFiltered=[];
+        unknownFiltered=[];
+        views3dFuzzySearchResults.forEach(function (result) {views3dFiltered?.push(result.item);});
+        views2dFuzzySearchResults.forEach(function (result) {views2dFiltered?.push(result.item);});
+        sheetsFuzzySearchResults.forEach(function (result) {sheetsFiltered?.push(result.item);});
+        unknownFuzzySearchResults.forEach(function (result) {unknownFiltered?.push(result.item);});
       }
     }
 
@@ -363,9 +377,11 @@ export class ViewSelector extends React.Component<ViewSelectorProps, ViewSelecto
         searchBox={this.state.searchBox}
         onSearchValueChange={debounce((search: string) => {
           this._searchInput = search;
+          if(this.state.expand === false && this._searchInput.length > 0) this.setState({expand: true});
           void this.loadViews();
         }, 300)}
         panelOnly={this.state.panelOnly}
+        expanded={this.state.expand}
       />
     );
   }

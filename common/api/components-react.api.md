@@ -6,41 +6,41 @@
 
 /// <reference types="react" />
 
-import { ActionButton } from '@itwin/appui-abstract';
+import type { ActionButton } from '@itwin/appui-abstract';
 import { AlternateDateFormats } from '@itwin/appui-abstract';
 import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
 import { CheckBoxState } from '@itwin/core-react';
-import { CommonProps } from '@itwin/core-react';
-import { CommonToolbarItem } from '@itwin/appui-abstract';
-import { CSSProperties } from 'react';
-import { CustomButtonDefinition } from '@itwin/appui-abstract';
-import { DateFormatter } from '@itwin/appui-abstract';
-import { DisplayMessageType } from '@itwin/appui-abstract';
-import { EnumerationChoice } from '@itwin/appui-abstract';
-import { GroupButton } from '@itwin/appui-abstract';
-import { IconDefinition } from '@itwin/appui-abstract';
-import { Id64String } from '@itwin/core-bentley';
-import { IDisposable } from '@itwin/core-bentley';
+import type { CommonProps } from '@itwin/core-react';
+import type { CommonToolbarItem } from '@itwin/appui-abstract';
+import type { CSSProperties } from 'react';
+import type { CustomButtonDefinition } from '@itwin/appui-abstract';
+import type { DateFormatter } from '@itwin/appui-abstract';
+import type { DisplayMessageType } from '@itwin/appui-abstract';
+import type { EnumerationChoice } from '@itwin/appui-abstract';
+import type { GroupButton } from '@itwin/appui-abstract';
+import type { IconDefinition } from '@itwin/appui-abstract';
+import type { Id64String } from '@itwin/core-bentley';
+import type { IDisposable } from '@itwin/core-bentley';
 import { immerable } from 'immer';
-import { LinkElementsInfo } from '@itwin/appui-abstract';
-import { Localization } from '@itwin/core-common';
-import { MessageSeverity } from '@itwin/appui-abstract';
-import { NoChildrenProps } from '@itwin/core-react';
-import { NodeCheckboxRenderer } from '@itwin/core-react';
+import type { LinkElementsInfo } from '@itwin/appui-abstract';
+import type { Localization } from '@itwin/core-common';
+import type { MessageSeverity } from '@itwin/appui-abstract';
+import type { NoChildrenProps } from '@itwin/core-react';
+import type { NodeCheckboxRenderer } from '@itwin/core-react';
 import { Observable as Observable_2 } from 'rxjs/internal/Observable';
-import { OnItemExecutedFunc } from '@itwin/appui-abstract';
+import type { OnItemExecutedFunc } from '@itwin/appui-abstract';
 import { Orientation } from '@itwin/core-react';
-import { ParseResults } from '@itwin/appui-abstract';
-import { Primitives } from '@itwin/appui-abstract';
-import { PropertyDescription } from '@itwin/appui-abstract';
+import type { ParseResults } from '@itwin/appui-abstract';
+import type { Primitives } from '@itwin/appui-abstract';
+import type { PropertyDescription } from '@itwin/appui-abstract';
 import { PropertyRecord } from '@itwin/appui-abstract';
-import { PropertyValue } from '@itwin/appui-abstract';
-import { RatioChangeResult } from '@itwin/core-react';
+import type { PropertyValue } from '@itwin/appui-abstract';
+import type { RatioChangeResult } from '@itwin/core-react';
 import * as React_2 from 'react';
 import { ReactNode } from 'react';
 import { RelativePosition } from '@itwin/appui-abstract';
-import { SelectOption } from '@itwin/itwinui-react';
+import type { SelectOption } from '@itwin/itwinui-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
 import { TimeFormat } from '@itwin/core-react';
 
@@ -311,6 +311,8 @@ export interface ControlledSelectableContentProps {
     // (undocumented)
     children: SelectableContentDefinition[];
     // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
     onSelectedContentIdChanged?: (contentId: string) => void;
     // (undocumented)
     selectAriaLabel?: string;
@@ -385,7 +387,7 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
     get reactNode(): React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export interface CustomToolbarItem extends CustomButtonDefinition {
     keepContentsLoaded?: boolean;
     panelContentNode?: React_2.ReactNode;
@@ -2082,20 +2084,6 @@ export enum PropertyFilterRuleOperator {
     Like = 8
 }
 
-// @public @deprecated
-export class PropertyGrid extends React_2.Component<PropertyGridProps, PropertyGridState> {
-    // @internal
-    constructor(props: PropertyGridProps);
-    // @internal (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentDidUpdate(prevProps: PropertyGridProps): void;
-    // @internal (undocumented)
-    componentWillUnmount(): void;
-    // @internal (undocumented)
-    render(): JSX.Element;
-}
-
 // @internal (undocumented)
 export class PropertyGridCommons {
     // (undocumented)
@@ -2172,11 +2160,6 @@ export class PropertyGridModelSource implements IPropertyGridModelSource {
     onModelChanged: PropertyGridModelChangeEvent;
     // (undocumented)
     setPropertyData(data: PropertyData): void;
-}
-
-// @public @deprecated
-export interface PropertyGridProps extends CommonPropertyGridProps {
-    dataProvider: IPropertyDataProvider;
 }
 
 // @internal (undocumented)
@@ -2390,6 +2373,8 @@ export interface SelectableContentProps {
     // (undocumented)
     defaultSelectedContentId: string;
     // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
     selectAriaLabel?: string;
 }
 
@@ -2475,6 +2460,7 @@ export class ShortDateTypeConverter extends DateTimeTypeConverterBase {
 
 // @public
 export class SimplePropertyDataProvider implements IPropertyDataProvider, PropertyData {
+    constructor();
     // (undocumented)
     addCategory(category: PropertyCategory): number;
     // (undocumented)
@@ -2670,10 +2656,6 @@ export class TableArrayValueRenderer extends React_2.PureComponent<TableSpecific
     render(): JSX.Element;
 }
 
-// @public @deprecated
-export class TableDataChangeEvent extends BeEvent<() => void> {
-}
-
 // @public
 export class TableNonPrimitiveValueRenderer extends React_2.PureComponent<TableNonPrimitiveValueRendererProps> {
     // @internal (undocumented)
@@ -2820,7 +2802,7 @@ export class TogglePropertyEditor extends PropertyEditorBase {
     get reactNode(): React_2.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export function Toolbar(props: ToolbarProps): JSX.Element;
 
 // @public
@@ -2841,7 +2823,7 @@ export interface ToolbarButtonItemProps extends CommonProps {
     title: string;
 }
 
-// @public
+// @public @deprecated
 export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
 
 // @internal (undocumented)
@@ -2928,7 +2910,7 @@ export interface ToolbarPopupContextProps {
     readonly setSelectedItem?: (buttonItem: ActionButton) => void;
 }
 
-// @public
+// @public @deprecated
 export interface ToolbarProps extends CommonProps, NoChildrenProps {
     expandsTo?: Direction;
     items: CommonToolbarItem[];
@@ -2939,13 +2921,13 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
     useDragInteraction?: boolean;
 }
 
-// @public
+// @public @deprecated
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps): JSX.Element;
 
 // @internal
 export const ToolbarWithOverflowDirectionContext: React_2.Context<ToolbarOverflowContextProps>;
 
-// @public
+// @public @deprecated
 export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     expandsTo?: Direction;
     items: CommonToolbarItem[];

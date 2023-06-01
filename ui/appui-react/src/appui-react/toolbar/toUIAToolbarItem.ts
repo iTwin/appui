@@ -6,14 +6,15 @@
  * @module Toolbar
  */
 
-import { CommonToolbarItem as UIA_CommonToolbarItem } from "@itwin/appui-abstract";
-import { CustomToolbarItem } from "@itwin/components-react";
-import { isToolbarCustomItem, ToolbarItem } from "./ToolbarItem";
+import type { CommonToolbarItem as UIA_CommonToolbarItem } from "@itwin/appui-abstract";
+import type { CustomToolbarItem } from "@itwin/components-react";
+import type { ToolbarItem } from "./ToolbarItem";
+import { isToolbarCustomItem } from "./ToolbarItem";
 
 /** @internal */
 export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
   if (isToolbarCustomItem(item)) {
-    const customItem: CustomToolbarItem = {
+    const customItem: CustomToolbarItem = { // eslint-disable-line deprecation/deprecation
       ...item,
       isCustom: true,
       icon: item.icon as string,
@@ -21,5 +22,5 @@ export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
     };
     return customItem;
   }
-  return item as UIA_CommonToolbarItem; // TODO: 4.0
+  return item as UIA_CommonToolbarItem;
 }

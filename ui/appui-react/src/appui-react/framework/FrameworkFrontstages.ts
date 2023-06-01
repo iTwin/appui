@@ -6,17 +6,17 @@
  * @module Frontstage
  */
 import { UiEvent } from "@itwin/appui-abstract";
-import { IModelConnection, Tool } from "@itwin/core-frontend";
-import { ToolInformation } from "../toolsettings/ToolInformation";
-import { TimeTracker } from "../configurableui/TimeTracker";
-import { ContentControlActivatedEvent } from "../content/ContentControl";
-import { ContentLayoutActivatedEvent } from "../content/ContentLayout";
-import { FrontstageDef } from "../frontstage/FrontstageDef";
-import { FrontstageProvider } from "../frontstage/FrontstageProvider";
-import { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
-import { PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
-import { WidgetDef, WidgetStateChangedEvent } from "../widgets/WidgetDef";
-import { WidgetState } from "../widgets/WidgetState";
+import type { IModelConnection, Tool } from "@itwin/core-frontend";
+import type { ToolInformation } from "../toolsettings/ToolInformation";
+import type { TimeTracker } from "../configurableui/TimeTracker";
+import type { ContentControlActivatedEvent } from "../content/ContentControl";
+import type { ContentLayoutActivatedEvent } from "../content/ContentLayout";
+import type { FrontstageDef } from "../frontstage/FrontstageDef";
+import type { FrontstageProvider } from "../frontstage/FrontstageProvider";
+import type { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
+import type { PanelPinnedChangedEventArgs, PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
+import type { WidgetDef, WidgetStateChangedEvent } from "../widgets/WidgetDef";
+import type { WidgetState } from "../widgets/WidgetState";
 
 /** Frontstage Activated Event Args interface.
  * @public
@@ -163,7 +163,7 @@ export interface ModalFrontstageItem {
 
 /**
  * [[UiFramework.frontstages]] interface
- * @beta
+ * @public
  */
 export interface FrameworkFrontstages {
   /** Returns true if Frontstage is loading its controls. If false the Frontstage content and controls have been created. */
@@ -210,10 +210,15 @@ export interface FrameworkFrontstages {
   /** Get Widget State Changed event. */
   readonly onWidgetStateChangedEvent: WidgetStateChangedEvent;
 
-  /** Get Widget State Changed event.
+  /** Get panel state changed event.
    * @alpha
    */
   readonly onPanelStateChangedEvent: PanelStateChangedEvent;
+
+  /** Get panel pinned changed event.
+   * @alpha
+   */
+  readonly onPanelPinnedChangedEvent: UiEvent<PanelPinnedChangedEventArgs>;
 
   /** Clears the Frontstage map.
    */

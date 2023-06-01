@@ -7,13 +7,13 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
-import { RectangleProps } from "@itwin/core-react";
+import type { RectangleProps } from "@itwin/core-react";
 import produce from "immer";
-import { PanelSide } from "../widget-panels/Panel";
+import type { PanelSide } from "../widget-panels/Panel";
 import { category } from "./internal/NineZoneStateHelpers";
 import { addWidgetState, createFloatingWidgetState, createPopoutWidgetState, getNewFloatingWidgetBounds } from "./internal/WidgetStateHelpers";
-import { NineZoneState } from "./NineZoneState";
-import { TabState } from "./TabState";
+import type { NineZoneState } from "./NineZoneState";
+import type { TabState } from "./TabState";
 
 /** State of a stacked widget, which can contain multiple tabs. I.e. in a panel section or a floating widget.
  * @internal

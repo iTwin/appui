@@ -54,11 +54,13 @@ $text-font-color: var(--iui-color-text);
 
 .components-property-record-value {
   @include record-cell;
+  overflow: hidden;
 
   & > span {
     white-space: nowrap;
     text-overflow: ellipsis;
     width: 100%;
+    overflow: hidden;
   }
 
   .core-underlined-button {
@@ -71,6 +73,11 @@ $text-font-color: var(--iui-color-text);
   .multiline {
     display: flex;
     align-items: baseline;
+
+    .content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .expanded {

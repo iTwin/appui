@@ -13,20 +13,22 @@ import produce from "immer";
 import * as React from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { assert, Logger, ProcessDetector } from "@itwin/core-bentley";
-import { Rectangle, RectangleProps, Size, SizeProps, UiStateStorageResult, UiStateStorageStatus } from "@itwin/core-react";
+import type { RectangleProps, SizeProps, UiStateStorageResult} from "@itwin/core-react";
+import { Rectangle, Size, UiStateStorageStatus } from "@itwin/core-react";
 import { ToolbarPopupAutoHideContext } from "@itwin/components-react";
+import type {
+  FloatingWidgetHomeState, LayoutStore, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, PanelSide, TabState} from "@itwin/appui-layout-react";
 import {
-  addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createLayoutStore, createNineZoneState, floatingWidgetBringToFront,
-  FloatingWidgetHomeState, FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
-  isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, LayoutStore, NineZone, NineZoneAction, NineZoneDispatch, NineZoneLabels, NineZoneState, NineZoneStateReducer, PanelSide,
-  panelSides, removeTab, removeTabFromWidget, TabState, toolSettingsTabId, WidgetPanels,
+  addFloatingWidget, addPanelWidget, addTab, addTabToWidget, convertAllPopupWidgetContainersToFloating, createLayoutStore, createNineZoneState, floatingWidgetBringToFront, FloatingWidgets, getTabLocation, getUniqueId, getWidgetPanelSectionId, insertPanelWidget, insertTabToWidget, isFloatingTabLocation,
+  isHorizontalPanelSide, isPanelTabLocation, isPopoutTabLocation, NineZone, NineZoneStateReducer,
+  panelSides, removeTab, removeTabFromWidget, toolSettingsTabId, WidgetPanels,
 } from "@itwin/appui-layout-react";
-import { FrontstageDef, FrontstageEventArgs } from "../frontstage/FrontstageDef";
-import { StagePanelMaxSizeSpec } from "../stagepanels/StagePanelConfig";
+import type { FrontstageDef, FrontstageEventArgs } from "../frontstage/FrontstageDef";
+import type { StagePanelMaxSizeSpec } from "../stagepanels/StagePanelConfig";
 import { StagePanelState, toPanelSide } from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
 import { useUiStateStorageHandler } from "../uistate/useUiStateStorage";
-import { TabLocation, WidgetDef, WidgetEventArgs, WidgetStateChangedEventArgs } from "../widgets/WidgetDef";
+import type { TabLocation, WidgetDef, WidgetEventArgs, WidgetStateChangedEventArgs } from "../widgets/WidgetDef";
 import { WidgetContent } from "./Content";
 import { WidgetPanelsFrontstageContent } from "./FrontstageContent";
 import { ModalFrontstageComposer, useActiveModalFrontstageInfo } from "./ModalFrontstageComposer";
@@ -35,7 +37,7 @@ import { WidgetPanelsTab } from "./Tab";
 import { WidgetPanelsToolbars } from "./Toolbars";
 import { ToolSettingsContent, WidgetPanelsToolSettings } from "./ToolSettings";
 import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome";
-import { FrameworkRootState } from "../redux/StateManager";
+import type { FrameworkRootState } from "../redux/StateManager";
 import { useSelector } from "react-redux";
 import { useUiVisibility } from "../hooks/useUiVisibility";
 import { IModelApp } from "@itwin/core-frontend";
@@ -996,10 +998,9 @@ export function expandWidget(state: NineZoneState, id: TabState["id"]) {
     const widget = draft.widgets[location.widgetId];
     if (isPanelTabLocation(location)) {
       const panel = draft.panels[location.side];
-      panel.widgets.forEach((wId) => {
-        const w = draft.widgets[wId];
-        w.minimized = true;
-      });
+      panel.splitterPercent =
+        panel.widgets.findIndex((wId) => wId === location.widgetId) === 0 ?
+          100 : 0;
     }
     widget.minimized = false;
   });
@@ -1152,7 +1153,8 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
   React.useEffect(() => {
     const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
       assert(!!frontstageDef.nineZoneState);
-      frontstageDef.nineZoneState = showWidget(frontstageDef.nineZoneState, widgetDef.id);
+      const nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
+      frontstageDef.nineZoneState = showWidget(nineZoneState, widgetDef.id);
     });
     InternalFrontstageManager.onWidgetShowEvent.addListener(listener);
     return () => {
@@ -1162,7 +1164,8 @@ export function useFrontstageManager(frontstageDef: FrontstageDef, useToolAsTool
   React.useEffect(() => {
     const listener = createListener(frontstageDef, ({ widgetDef }: WidgetEventArgs) => {
       assert(!!frontstageDef.nineZoneState);
-      let nineZoneState = showWidget(frontstageDef.nineZoneState, widgetDef.id);
+      let nineZoneState = setWidgetState(frontstageDef.nineZoneState, widgetDef, WidgetState.Open);
+      nineZoneState = showWidget(nineZoneState, widgetDef.id);
       nineZoneState = expandWidget(nineZoneState, widgetDef.id);
       frontstageDef.nineZoneState = nineZoneState;
     });
