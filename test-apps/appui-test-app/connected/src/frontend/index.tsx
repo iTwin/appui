@@ -298,8 +298,8 @@ export class SampleAppIModelApp {
             };
       BentleyCloudRpcManager.initializeClient(
         rpcParams,
-        opts.iModelApp!.rpcInterfaces!
-      ); // eslint-disable-line deprecation/deprecation
+        opts.iModelApp!.rpcInterfaces! // eslint-disable-line deprecation/deprecation
+      );
 
       await IModelApp.startup({
         ...iModelAppOpts,
@@ -503,14 +503,15 @@ export class SampleAppIModelApp {
     }
 
     if (frontstageDef) {
-      UiFramework.frontstages.setActiveFrontstageDef(frontstageDef).then(() => {
-        // eslint-disable-line @typescript-eslint/no-floating-promises
-        // Frontstage & ScreenViewports are ready
-        Logger.logInfo(
-          SampleAppIModelApp.loggerCategory(this),
-          `Frontstage & ScreenViewports are ready`
-        );
-      });
+      void UiFramework.frontstages
+        .setActiveFrontstageDef(frontstageDef)
+        .then(() => {
+          // Frontstage & ScreenViewports are ready
+          Logger.logInfo(
+            SampleAppIModelApp.loggerCategory(this),
+            `Frontstage & ScreenViewports are ready`
+          );
+        });
     } else {
       throw new Error(`Frontstage with id "${stageId}" does not exist`);
     }
@@ -771,8 +772,8 @@ const SampleAppViewer2 = () => {
   React.useEffect(() => {
     // Load the correct Frontstage based on whether or not you're authorized.
     isAuthorized
-      ? SampleAppIModelApp.showSignedIn()
-      : SampleAppIModelApp.showSignInPage(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      ? void SampleAppIModelApp.showSignedIn()
+      : void SampleAppIModelApp.showSignInPage();
   }, [isAuthorized]);
 
   const _onAccessTokenChanged = () => {

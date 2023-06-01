@@ -68,9 +68,9 @@ export function Icon(props: IconProps) {
       };
 
       const sanitizedIconString = sanitizer.sanitize(svgDiv, sanitizerConfig);
-      // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
-      // eslint-disable-next-line @typescript-eslint/naming-convention, jam3/no-sanitizer-with-danger
       const webComponentNode = (
+        // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
+        // eslint-disable-next-line @typescript-eslint/naming-convention, jam3/no-sanitizer-with-danger
         <div dangerouslySetInnerHTML={{ __html: sanitizedIconString }}></div>
       );
       return (

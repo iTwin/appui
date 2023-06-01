@@ -74,8 +74,8 @@ export class PropsHelper {
   public static getAbstractPropsForReactIcon(
     iconSpec: IconSpec,
     internalData?: Map<string, any>
+    // eslint-disable-next-line deprecation/deprecation
   ): Partial<UIA_AbstractWidgetProps> | Partial<UIA_CommonBackstageItem> {
-    // eslint-disable-line deprecation/deprecation
     // istanbul ignore else
     if (!iconSpec || !React.isValidElement(iconSpec)) return {};
 

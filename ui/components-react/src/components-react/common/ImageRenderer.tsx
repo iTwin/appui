@@ -29,10 +29,10 @@ export class ImageRenderer {
     // istanbul ignore next
     if (!match) return "";
 
+    // eslint-disable-next-line deprecation/deprecation
     return btoa(
       match
         .map((a) => {
-          // eslint-disable-line deprecation/deprecation
           return String.fromCharCode(parseInt(a, 16));
         })
         .join("")

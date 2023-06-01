@@ -720,8 +720,8 @@ export class UiFramework {
       : /* istanbul ignore next */ WIDGET_OPACITY_DEFAULT;
   }
 
+  // eslint-disable-next-line @itwin/prefer-get
   public static isMobile() {
-    // eslint-disable-line @itwin/prefer-get
     return ProcessDetector.isMobileBrowser;
   }
 

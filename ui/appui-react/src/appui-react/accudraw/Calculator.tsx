@@ -129,17 +129,18 @@ export class Calculator extends React.PureComponent<
   }
 
   public override render() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { className, resultIcon, onOk, onCancel, initialValue, ...props } =
-      this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+      this.props;
 
     const classNames = classnames("uifw-calculator", className);
 
-    const topSection = this.props.resultIcon ? (
+    const topSection = resultIcon ? (
       <IconInput
         containerClassName="uifw-calculator-top-input"
         value={this.state.displayValue}
         readOnly={true}
-        icon={this.props.resultIcon}
+        icon={resultIcon}
       />
     ) : (
       <Input value={this.state.displayValue} readOnly={true} size="small" />

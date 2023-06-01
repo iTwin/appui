@@ -33,10 +33,10 @@ export function usePropertyData(props: {
   }, [dataProvider]);
 
   // forcedUpdate is added to dependency list to re-memo getData promise when onDataChanged emits an event.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useDebouncedAsyncValue(
     useCallback(
       async () => dataProvider.getData(),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [dataProvider, forcedUpdate]
     )
   );
@@ -54,9 +54,9 @@ export function usePropertyGridModelSource(props: {
   const { dataProvider } = { ...props };
 
   // Model source needs to be recreated if data provider changes
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const modelSource = useMemo(
     () => new PropertyGridModelSource(new MutableGridItemFactory()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [dataProvider]
   );
 

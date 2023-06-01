@@ -30,8 +30,9 @@ export function useRefs<T>(...refs: ReadonlyArray<React.Ref<T> | undefined>) {
         }
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [...refs]
-  ); // eslint-disable-line react-hooks/exhaustive-deps
+  );
 }
 
 /** Used to combine multiple refs for a class component.

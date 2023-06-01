@@ -160,8 +160,8 @@ describe("<ColorPickerPopup/>", () => {
   it("captureClicks property should stop mouse click propagation", async () => {
     const spyOnClick = sinon.spy();
 
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     const renderedComponent = render(
+      /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
       <div onClick={spyOnClick}>
         <ColorPickerPopup
           initialColor={colorDef}
@@ -187,8 +187,8 @@ describe("<ColorPickerPopup/>", () => {
   it("mouse click should propagate if captureClicks not set to true", async () => {
     const spyOnClick = sinon.spy();
 
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     const renderedComponent = render(
+      /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
       <div onClick={spyOnClick}>
         <ColorPickerPopup
           initialColor={colorDef}

@@ -622,9 +622,9 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       }
 
       before(() => {
-        // eslint-disable-next-line react/display-name
         PropertyCategoryRendererManager.defaultManager.addRenderer(
           "test_renderer",
+          // eslint-disable-next-line react/display-name
           () => () => <>Custom renderer</>
         );
       });

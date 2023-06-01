@@ -195,11 +195,11 @@ export class FrameworkAccuDraw
   }
   public static set displayNotifications(v: boolean) {
     FrameworkAccuDraw._displayNotifications = v;
-    UiFramework.getUiStateStorage().saveSetting(
+    void UiFramework.getUiStateStorage().saveSetting(
       this._settingsNamespace,
       this._notificationsKey,
       v
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
   }
 
   /* @internal */

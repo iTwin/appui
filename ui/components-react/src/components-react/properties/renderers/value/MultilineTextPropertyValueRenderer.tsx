@@ -70,7 +70,7 @@ const MultilineTextPropertyValueRendererImpl: React.FC<
   );
 };
 
-interface MultilineTextRenderer {
+interface MultilineTextRendererProps {
   stringValue?: string;
   isExpanded?: boolean;
   onExpansionToggled?: () => void;
@@ -81,16 +81,15 @@ interface MultilineTextRenderer {
 }
 
 /** @internal */
-export const MultilineTextRenderer: React.FC<MultilineTextRenderer> = (
+export const MultilineTextRenderer: React.FC<MultilineTextRendererProps> = (
   props
 ) => {
-  // eslint-disable-line @typescript-eslint/no-redeclare
   const spanRef = useRef<HTMLSpanElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
   const previousHeightRef = useRef(0);
   const [contentOverflows, setContentOverflows] = useState<boolean>(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
-    // eslint-disable-line react-hooks/exhaustive-deps
     assert(divRef.current !== null && spanRef.current !== null);
 
     setContentOverflows(

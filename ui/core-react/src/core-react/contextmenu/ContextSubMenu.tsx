@@ -76,8 +76,8 @@ export class ContextSubMenu extends React.Component<
   public override render(): JSX.Element {
     const {
       label,
-      opened,
-      direction,
+      opened, // eslint-disable-line @typescript-eslint/no-unused-vars
+      direction, // eslint-disable-line @typescript-eslint/no-unused-vars
       onOutsideClick,
       onEsc,
       autoflip,
@@ -90,11 +90,11 @@ export class ContextSubMenu extends React.Component<
       icon,
       disabled,
       hidden,
-      onHover,
+      onHover, // eslint-disable-line @typescript-eslint/no-unused-vars
       isSelected,
       onHotKeyParsed, // eslint-disable-line @typescript-eslint/no-unused-vars
       children,
-      onClick,
+      onClick, // eslint-disable-line @typescript-eslint/no-unused-vars
       className,
       badgeType,
       ...props

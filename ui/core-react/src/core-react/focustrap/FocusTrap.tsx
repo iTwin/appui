@@ -271,21 +271,21 @@ export function FocusTrap(props: FocusTrapProps) {
   if (!props.children) return null;
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
       <div
         data-testid="focus-trap-div"
         onFocus={cycleFocusToEnd}
         ref={focusContainer}
+        /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
         tabIndex={0}
         // eslint-disable-next-line @typescript-eslint/naming-convention
         style={{ outline: "none", WebkitTapHighlightColor: "rgba(0,0,0,0)" }}
       >
         {props.children}
       </div>
-      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
       <div
         data-testid="focus-trap-limit-div"
         onFocus={cycleFocusToStart}
+        /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
         tabIndex={0}
       />
     </>

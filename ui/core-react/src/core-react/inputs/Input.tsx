@@ -34,9 +34,10 @@ const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>( // eslin
       style,
       setFocus,
       nativeKeyHandler,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       size,
       ...otherProps
-    } = props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    } = props;
     const inputElementRef = React.useRef<HTMLInputElement>(null);
     const refs = useRefs(inputElementRef, ref); // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
 

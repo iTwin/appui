@@ -579,10 +579,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.IsolateSelectedModels,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.IsolateSelectedModels,
       featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedModels)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -601,10 +601,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.IsolateSelectedCategories,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.IsolateSelectedCategories,
       featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedCategories)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -622,10 +622,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.IsolateSelectedElements,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.IsolateSelectedElements,
       featureIdMap.get(HideIsolateEmphasizeAction.IsolateSelectedElements)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -648,10 +648,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.HideSelectedModels,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.HideSelectedModels,
       featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedModels)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -670,10 +670,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.HideSelectedCategories,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.HideSelectedCategories,
       featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedCategories)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -692,10 +692,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.HideSelectedElements,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.HideSelectedCategories,
       featureIdMap.get(HideIsolateEmphasizeAction.HideSelectedElements)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -717,10 +717,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.EmphasizeSelectedElements,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.EmphasizeSelectedElements,
       featureIdMap.get(HideIsolateEmphasizeAction.EmphasizeSelectedElements)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -742,10 +742,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized,
       featureIdMap.get(HideIsolateEmphasizeAction.ClearHiddenIsolatedEmphasized)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -763,10 +763,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.ClearOverrideModels,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.ClearOverrideModels,
       featureIdMap.get(HideIsolateEmphasizeAction.ClearOverrideModels)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );
@@ -784,10 +784,10 @@ export class HideIsolateEmphasizeManager extends HideIsolateEmphasizeActionHandl
       viewport: vp,
       action: HideIsolateEmphasizeAction.ClearOverrideCategories,
     });
-    UiFramework.postTelemetry(
+    void UiFramework.postTelemetry(
       HideIsolateEmphasizeAction.ClearOverrideCategories,
       featureIdMap.get(HideIsolateEmphasizeAction.ClearOverrideCategories)
-    ); // eslint-disable-line @typescript-eslint/no-floating-promises
+    );
     SyncUiEventDispatcher.dispatchSyncUiEvent(
       HideIsolateEmphasizeActionHandler.hideIsolateEmphasizeUiSyncId
     );

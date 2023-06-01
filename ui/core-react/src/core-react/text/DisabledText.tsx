@@ -13,8 +13,6 @@ import type { TextProps } from "./TextProps";
  * @public
  */
 export function DisabledText(props: TextProps) {
-  {
-    /* eslint-disable-next-line */
-  }
+  // eslint-disable-next-line deprecation/deprecation
   return <StyledText {...props} mainClassName="uicore-text-disabled" />;
 }

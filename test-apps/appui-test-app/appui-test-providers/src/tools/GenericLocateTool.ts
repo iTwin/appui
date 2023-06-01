@@ -123,9 +123,9 @@ export class GenericLocateTool extends PrimitiveTool {
       // Process and exit tool
       iModelConnection.selectionSet.elements.forEach(
         (elementId: string, _val: string, _set: Set<string>) => {
-          this.process(elementId);
+          void this.process(elementId);
         }
-      ); // eslint-disable-line @typescript-eslint/no-floating-promises
+      );
       await IModelApp.toolAdmin.startDefaultTool();
     } else {
       // Empty all before starting tool

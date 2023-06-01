@@ -162,8 +162,9 @@ export const withOnOutsideClick = <ComponentProps extends {}>(
     }
 
     public override render() {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { onOutsideClick, closeOnNestedPopupOutsideClick, ...props } =
-        this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+        this.props;
       return (
         <div ref={this.handleOutsideClickContainerDivSet}>
           <Component {...(props as ComponentProps)} />

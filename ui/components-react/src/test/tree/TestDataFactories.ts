@@ -35,8 +35,8 @@ export class TestTreeDataProvider implements ITreeDataProvider {
         `Attempted to resolve a non-deferred load for node ${nodeId}`
       );
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     if (!this._delayedLoads[nodeId])
-      // eslint-disable-line @typescript-eslint/no-misused-promises
       throw new Error(
         `Deferred load for node '${nodeId}' has not been initiated`
       );
@@ -61,8 +61,8 @@ export class TestTreeDataProvider implements ITreeDataProvider {
     const nodesToDelayLoad = children.filter((node) => node.delayedLoad);
     await Promise.all(
       nodesToDelayLoad.map((node) => {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         if (!this._delayedLoads[node.id])
-          // eslint-disable-line @typescript-eslint/no-misused-promises
           this._delayedLoads[node.id] =
             new ResolvablePromise<DelayLoadedTreeNodeItem>();
 

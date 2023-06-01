@@ -915,13 +915,13 @@ export class FaceCell extends React.Component<FaceCellProps> {
     const {
       center,
       children,
-      onFaceCellClick,
-      onFaceCellHoverChange,
+      onFaceCellClick, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onFaceCellHoverChange, // eslint-disable-line @typescript-eslint/no-unused-vars
       hoverMap,
       face,
       vector,
       ...props
-    } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    } = this.props;
     const { x, y, z } = vector;
     const n = `${x}-${y}-${z}`;
     const hover = hoverMap && hoverMap[n] === CubeHover.Hover;
@@ -933,9 +933,8 @@ export class FaceCell extends React.Component<FaceCellProps> {
       active && "cube-active"
     );
 
-    // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
     return (
-      <div
+      <div // eslint-disable-line jsx-a11y/mouse-events-have-key-events
         onMouseDown={this._handleMouseDown}
         onMouseUp={this._handleMouseUp}
         onMouseOver={this._handleMouseOver}

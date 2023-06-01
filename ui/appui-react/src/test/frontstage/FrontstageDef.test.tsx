@@ -90,17 +90,17 @@ describe("FrontstageDef", () => {
   it("setActiveFrontstage should throw Error on invalid content layout", () => {
     const frontstageProvider = new BadLayoutFrontstage();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-    expect(
+    void expect(
       UiFramework.frontstages.setActiveFrontstage("BadLayout")
-    ).to.be.rejectedWith(Error); // eslint-disable-line @typescript-eslint/no-floating-promises
+    ).to.be.rejectedWith(Error);
   });
 
   it("setActiveFrontstage should throw Error on invalid content group", () => {
     const frontstageProvider = new BadGroupFrontstage();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-    expect(
+    void expect(
       UiFramework.frontstages.setActiveFrontstage("BadGroup")
-    ).to.be.rejectedWith(Error); // eslint-disable-line @typescript-eslint/no-floating-promises
+    ).to.be.rejectedWith(Error);
   });
 
   describe("restoreLayout", () => {

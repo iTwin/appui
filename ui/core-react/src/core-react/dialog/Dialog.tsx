@@ -220,9 +220,9 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       opened,
       title,
       footer,
-      buttonCluster,
+      buttonCluster, // eslint-disable-line @typescript-eslint/no-unused-vars
       onClose,
-      onEscape,
+      onEscape, // eslint-disable-line @typescript-eslint/no-unused-vars
       onOutsideClick, // eslint-disable-line @typescript-eslint/no-unused-vars
       minWidth,
       minHeight,
@@ -245,7 +245,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       alignment,
       inset,
       trapFocus,
-      modelessId,
+      modelessId, // eslint-disable-line @typescript-eslint/no-unused-vars
       onModelessPointerDown, // eslint-disable-line @typescript-eslint/no-unused-vars
       hideHeader,
       header,

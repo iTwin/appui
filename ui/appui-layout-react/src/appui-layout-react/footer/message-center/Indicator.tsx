@@ -42,13 +42,10 @@ export class MessageCenter extends React.PureComponent<MessageCenterProps> {
       onClick,
       targetRef,
       ...props
-    } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    } = this.props;
     return (
       <FooterIndicator
-        className={classnames(
-          "nz-footer-messageCenter-indicator",
-          this.props.className
-        )}
+        className={classnames("nz-footer-messageCenter-indicator", className)}
         {...props}
       >
         <div // eslint-disable-line jsx-a11y/click-events-have-key-events

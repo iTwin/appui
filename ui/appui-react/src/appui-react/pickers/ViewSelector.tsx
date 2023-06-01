@@ -432,11 +432,11 @@ export class ViewSelector extends React.Component<
   // istanbul ignore next
   private _onExpanded = (expand: boolean) => {
     if (expand)
-      this.updateState(
+      void this.updateState(
         IModelApp.viewManager.selectedView
           ? IModelApp.viewManager.selectedView.view.id
           : undefined
-      ); // eslint-disable-line @typescript-eslint/no-floating-promises
+      );
   };
 
   /**

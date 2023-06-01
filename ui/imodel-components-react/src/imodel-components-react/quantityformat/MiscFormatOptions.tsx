@@ -276,21 +276,18 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
 
   return (
     <>
-      {
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        enableMinimumProperties && !showOptions && (
-          <a
-            onClick={handleToggleButtonClick}
-            onKeyUp={handleKeyUpOnLink}
-            className={"components-quantityFormat-more-less"}
-            role="link"
-            data-testid="quantityFormat-more"
-            tabIndex={0}
-          >
-            {moreLabel.current}
-          </a>
-        )
-      }
+      {enableMinimumProperties && !showOptions && (
+        <a // eslint-disable-line jsx-a11y/anchor-is-valid
+          onClick={handleToggleButtonClick}
+          onKeyUp={handleKeyUpOnLink}
+          className={"components-quantityFormat-more-less"}
+          role="link"
+          data-testid="quantityFormat-more"
+          tabIndex={0}
+        >
+          {moreLabel.current}
+        </a>
+      )}
       {(!enableMinimumProperties || showOptions) && (
         <>
           <span className={"uicore-label"}>{signOptionLabel.current}</span>
@@ -426,21 +423,18 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
 
           {props.children}
 
-          {
-            // eslint-disable-next-line jsx-a11y/anchor-is-valid
-            enableMinimumProperties && showOptions && (
-              <a
-                onClick={handleToggleButtonClick}
-                onKeyUp={handleKeyUpOnLink}
-                className={"components-quantityFormat-more-less"}
-                role="link"
-                data-testid="quantityFormat-less"
-                tabIndex={0}
-              >
-                {lessLabel.current}
-              </a>
-            )
-          }
+          {enableMinimumProperties && showOptions && (
+            <a // eslint-disable-line jsx-a11y/anchor-is-valid
+              onClick={handleToggleButtonClick}
+              onKeyUp={handleKeyUpOnLink}
+              className={"components-quantityFormat-more-less"}
+              role="link"
+              data-testid="quantityFormat-less"
+              tabIndex={0}
+            >
+              {lessLabel.current}
+            </a>
+          )}
         </>
       )}
     </>

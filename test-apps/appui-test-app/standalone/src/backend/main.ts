@@ -15,13 +15,12 @@ import { RpcManager } from "@itwin/core-common";
 import { ECSchemaRpcInterface } from "@itwin/ecschema-rpcinterface-common";
 import { ECSchemaRpcImpl } from "@itwin/ecschema-rpcinterface-impl";
 
-(async () => {
-  // eslint-disable-line @typescript-eslint/no-floating-promises
+void (async () => {
   try {
     // Load .env file first
     if (fs.existsSync(path.join(process.cwd(), ".env"))) {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       require("dotenv-expand")(
-        // eslint-disable-line @typescript-eslint/no-var-requires
         require("dotenv").config() // eslint-disable-line @typescript-eslint/no-var-requires
       );
     }

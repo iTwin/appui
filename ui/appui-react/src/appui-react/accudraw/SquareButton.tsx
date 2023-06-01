@@ -14,8 +14,8 @@ import type { ButtonProps } from "@itwin/itwinui-react";
 import { Button } from "@itwin/itwinui-react";
 
 /** @alpha */
-export interface SquareButtonProps
-  extends Omit<ButtonProps, "size" | "styleType"> {} // eslint-disable-line @typescript-eslint/no-empty-interface
+export interface SquareButtonProps // eslint-disable-line @typescript-eslint/no-empty-interface
+  extends Omit<ButtonProps, "size" | "styleType"> {}
 
 /** @alpha */
 export class SquareButton extends React.PureComponent<SquareButtonProps> {

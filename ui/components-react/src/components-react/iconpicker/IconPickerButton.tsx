@@ -39,7 +39,6 @@ class IconItem extends React.PureComponent<IconItemProps> {
 
   public override render() {
     const {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       onClick,
       icon, // do not pass on item specific props
       ...otherProps
@@ -58,7 +57,7 @@ class IconItem extends React.PureComponent<IconItemProps> {
         style={this.props.style}
         onClick={handleClick}
       >
-        <Icon iconSpec={this.props.icon} />
+        <Icon iconSpec={icon} />
       </button>
     );
   }

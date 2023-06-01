@@ -14,8 +14,8 @@ import { isToolbarCustomItem } from "./ToolbarItem";
 /** @internal */
 export function toUIAToolbarItem(item: ToolbarItem): UIA_CommonToolbarItem {
   if (isToolbarCustomItem(item)) {
+    // eslint-disable-next-line deprecation/deprecation
     const customItem: CustomToolbarItem = {
-      // eslint-disable-line deprecation/deprecation
       ...item,
       isCustom: true,
       icon: item.icon as string,

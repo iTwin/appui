@@ -97,11 +97,11 @@ export function MessageRenderer(props: MessageRendererProps) {
       sanitizedHtml = sanitizer.sanitize(props.message.outerHTML);
     }
 
-    // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
-    // eslint-disable-next-line @typescript-eslint/naming-convention, jam3/no-sanitizer-with-danger
     messageNode = (
       <OutElement
         className={props.className}
+        // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
+        // eslint-disable-next-line jam3/no-sanitizer-with-danger
         dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
       />
     );

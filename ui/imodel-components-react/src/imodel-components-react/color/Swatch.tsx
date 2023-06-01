@@ -51,9 +51,10 @@ export function ColorSwatch(props: ColorSwatchProps) {
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onColorPick,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     colorDef,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     round, // do not pass on color swatch specific props
-    // eslint-disable-next-line comma-dangle
     ...otherProps // pass-through props
   } = props;
 

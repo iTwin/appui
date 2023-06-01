@@ -237,8 +237,8 @@ export class SampleAppIModelApp {
     };
     BentleyCloudRpcManager.initializeClient(
       rpcParams,
-      opts.iModelApp!.rpcInterfaces!
-    ); // eslint-disable-line deprecation/deprecation
+      opts.iModelApp!.rpcInterfaces! // eslint-disable-line deprecation/deprecation
+    );
     if (ProcessDetector.isElectronAppFrontend) {
       await ElectronApp.startup({ ...opts, iModelApp: iModelAppOpts });
       NativeAppLogger.initialize();
@@ -413,14 +413,15 @@ export class SampleAppIModelApp {
       stageId
     );
     if (frontstageDef) {
-      UiFramework.frontstages.setActiveFrontstageDef(frontstageDef).then(() => {
-        // eslint-disable-line @typescript-eslint/no-floating-promises
-        // Frontstage & ScreenViewports are ready
-        Logger.logInfo(
-          SampleAppIModelApp.loggerCategory(this),
-          `Frontstage & ScreenViewports are ready`
-        );
-      });
+      void UiFramework.frontstages
+        .setActiveFrontstageDef(frontstageDef)
+        .then(() => {
+          // Frontstage & ScreenViewports are ready
+          Logger.logInfo(
+            SampleAppIModelApp.loggerCategory(this),
+            `Frontstage & ScreenViewports are ready`
+          );
+        });
     } else {
       throw new Error(`Frontstage with id "${stageId}" does not exist`);
     }

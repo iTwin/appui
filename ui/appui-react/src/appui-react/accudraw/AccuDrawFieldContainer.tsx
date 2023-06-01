@@ -63,11 +63,11 @@ const defaultDistanceIcon =
 /** AccuDraw Ui Field Container displays [[AccuDrawInputField]] for each field
  * @beta */
 export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {
     className,
     style,
     orientation,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     uiSettingsStorage,
     showZOverride,
     ...otherProps

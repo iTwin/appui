@@ -76,17 +76,17 @@ export class ContextMenuItem extends React.PureComponent<
   public override render(): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {
-      onClick,
+      onClick, // eslint-disable-line @typescript-eslint/no-unused-vars
       className,
       style,
-      onSelect,
+      onSelect, // eslint-disable-line @typescript-eslint/no-unused-vars
       icon,
       disabled,
       hidden,
-      onHover,
+      onHover, // eslint-disable-line @typescript-eslint/no-unused-vars
       isSelected,
-      parentMenu,
-      onHotKeyParsed,
+      parentMenu, // eslint-disable-line @typescript-eslint/no-unused-vars
+      onHotKeyParsed, // eslint-disable-line @typescript-eslint/no-unused-vars
       badgeType,
       iconRight,
       hideIconContainer,

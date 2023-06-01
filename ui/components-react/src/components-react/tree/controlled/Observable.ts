@@ -52,10 +52,11 @@ export interface Subscribable<T> {
     complete?: () => void
   ): Subscription;
   subscribe(
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
     next: (value: T) => void,
     error: null | undefined,
     complete: () => void
-  ): Subscription; // eslint-disable-line @typescript-eslint/unified-signatures
+  ): Subscription;
   subscribe(
     next?: (value: T) => void,
     error?: (error: any) => void,

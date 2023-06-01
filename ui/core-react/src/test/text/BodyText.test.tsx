@@ -9,9 +9,7 @@ import { BodyText } from "../../core-react";
 
 describe("<BodyText />", () => {
   it("renders correctly", () => {
-    {
-      /* eslint-disable-next-line */
-    }
+    // eslint-disable-next-line deprecation/deprecation
     render(<BodyText>Tested content</BodyText>);
 
     expect(

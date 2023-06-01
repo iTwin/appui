@@ -77,9 +77,10 @@ export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem; // esl
  * @internal
  */
 export function isCustomToolbarItem(
+  // eslint-disable-next-line deprecation/deprecation
   item: ToolbarItem
+  // eslint-disable-next-line deprecation/deprecation
 ): item is CustomToolbarItem {
-  // eslint-disable-line deprecation/deprecation
   return !!(item as CustomToolbarItem).isCustom && "panelContentNode" in item; // eslint-disable-line deprecation/deprecation
 }
 
@@ -176,10 +177,10 @@ function CustomItem({
   item,
   addGroupSeparator,
 }: {
+  // eslint-disable-next-line deprecation/deprecation
   item: CustomToolbarItem;
   addGroupSeparator: boolean;
 }) {
-  // eslint-disable-line deprecation/deprecation
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const icon = React.useMemo(
     () =>
@@ -318,10 +319,10 @@ export function ToolbarItemComponent({
   item,
   addGroupSeparator,
 }: {
+  // eslint-disable-next-line deprecation/deprecation
   item: ToolbarItem;
   addGroupSeparator: boolean;
 }) {
-  // eslint-disable-line deprecation/deprecation
   if (ToolbarItemUtilities.isGroupButton(item)) {
     return <GroupPopupItem item={item} addGroupSeparator={addGroupSeparator} />;
   } else if (isCustomToolbarItem(item)) {
@@ -381,8 +382,8 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
  * @public
  * @deprecated in 4.0. Use [ToolbarWithOverflow]($appui-react) instead.
  */
+// eslint-disable-next-line deprecation/deprecation
 export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
-  // eslint-disable-line deprecation/deprecation
   const expandsTo = props.expandsTo ? props.expandsTo : Direction.Bottom;
   const useDragInteraction = !!props.useDragInteraction;
   const panelAlignment = props.panelAlignment
