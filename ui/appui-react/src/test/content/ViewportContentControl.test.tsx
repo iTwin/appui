@@ -6,10 +6,14 @@ import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import * as moq from "typemoq";
-import { IModelApp, NoRenderApp, ScreenViewport, ViewState3d } from "@itwin/core-frontend";
+import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import type {
+  ConfigurableCreateInfo, FrontstageConfig, SupportsViewSelectorChange,
+} from "../../appui-react";
 import {
-  ConfigurableCreateInfo, ConfigurableUiControlType, ContentGroup,
-  FloatingContentControl, FloatingViewportContentControl, FrontstageConfig, FrontstageProvider, SupportsViewSelectorChange,
+  ConfigurableUiControlType, ContentGroup,
+  FloatingContentControl, FloatingViewportContentControl, FrontstageProvider,
   UiFramework,
   ViewportContentControl,
 } from "../../appui-react";

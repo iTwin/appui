@@ -13,12 +13,12 @@ import type { Point3d} from "@itwin/core-geometry";
 import { Transform } from "@itwin/core-geometry";
 import { NpcCenter } from "@itwin/core-common";
 import type { IModelConnection,
-  TentativePoint, ViewManager,
-  Viewport} from "@itwin/core-frontend";
+  TentativePoint, ViewManager, Viewport, ViewState,
+} from "@itwin/core-frontend";
 import {
   IModelApp, ScreenViewport,
   StandardView,
-  ToolSettings, ViewState,
+  ToolSettings,
 } from "@itwin/core-frontend";
 
 import type { CommonProps } from "@itwin/core-react";
