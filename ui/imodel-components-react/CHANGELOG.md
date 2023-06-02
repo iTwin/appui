@@ -1,6 +1,14 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Fri, 19 May 2023 12:24:31 GMT and should not be manually modified.
+This log was last generated on Mon, 29 May 2023 14:05:04 GMT and should not be manually modified.
+
+## 4.1.0
+Mon, 29 May 2023 14:05:04 GMT
+
+### Updates
+
+- Refactor the logic to get the arrow tool tip to use the cubeNavigationRoutes.
+- Change arrow-click rotation logic to allow rotation to rotated faces.
 
 ## 4.0.1
 Fri, 19 May 2023 12:24:31 GMT
