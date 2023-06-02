@@ -117,13 +117,51 @@ describe("usePropertyFilterBuilderState", () => {
     const { actions } = result.current;
 
     let rootGroup = result.current.state.rootGroup;
-    expect(rootGroup.items).to.have.lengthOf(1);
+    rootGroup.items.push({ id: "testId", groupId: "groupId" });
+    expect(rootGroup.items).to.have.lengthOf(2);
     actions.removeItem([rootGroup.items[0].id]);
 
     rootGroup = result.current.state.rootGroup;
     expect(rootGroup).to.containSubset({
       operator: PropertyFilterRuleGroupOperator.And,
-      items: [],
+      items: [{ id: "testId", groupId: "groupId" }],
+    });
+  });
+
+  it("clears rule instead of removing it when only one rule is left in the root group", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { actions } = result.current;
+
+    let rootGroup = result.current.state.rootGroup;
+    expect(rootGroup.items).to.have.lengthOf(1);
+    rootGroup.items[0].operator = PropertyFilterRuleOperator.IsTrue;
+    (rootGroup.items[0] as PropertyFilterBuilderRule).value = { valueFormat: PropertyValueFormat.Primitive };
+    (rootGroup.items[0] as PropertyFilterBuilderRule).property = { name: "testName", displayLabel: "testLabel", typename: "testTypename" };
+    actions.removeItem([rootGroup.items[0].id]);
+
+    rootGroup = result.current.state.rootGroup;
+    expect(rootGroup).to.containSubset({
+      operator: PropertyFilterRuleGroupOperator.And,
+      items: [{ operator: undefined, value: undefined, property: undefined }],
+    });
+  });
+
+  it("makes empty rule when removing rulegroup from the root group and it is the only item in the root group", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { actions } = result.current;
+
+    let rootGroup = result.current.state.rootGroup;
+    expect(rootGroup.items).to.have.lengthOf(1);
+    rootGroup.items[0].operator = PropertyFilterRuleOperator.IsTrue;
+    (rootGroup.items[0] as PropertyFilterBuilderRuleGroup).id = "testId",
+    (rootGroup.items[0] as PropertyFilterBuilderRuleGroup).operator = PropertyFilterRuleGroupOperator.Or;
+    (rootGroup.items[0] as PropertyFilterBuilderRuleGroup).items = [{ id: "testItemId", groupId: "testItemGroupId" }];
+    actions.removeItem([rootGroup.items[0].id]);
+
+    rootGroup = result.current.state.rootGroup;
+    expect(rootGroup).to.containSubset({
+      operator: PropertyFilterRuleGroupOperator.And,
+      items: [{ operator: undefined, value: undefined, property: undefined, items: undefined }],
     });
   });
 
