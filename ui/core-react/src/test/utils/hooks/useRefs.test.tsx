@@ -18,7 +18,6 @@ describe("useRefs", () => {
       return useRefs(ref, mutableRef, callbackRef);
     });
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current("abc");
     });
 
@@ -39,7 +38,6 @@ describe("mergeRefs", () => {
       return mergeRefs(ref, mutableRef, callbackRef);
     });
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current("abc");
     });
 

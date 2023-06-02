@@ -71,7 +71,6 @@ const initialState: ConfigurableUiState = {
  * @public
  */
 export const ConfigurableUiActions = {
-  // eslint-disable-line @typescript-eslint/naming-convention
   setSnapMode: (snapMode: number) =>
     createAction(ConfigurableUiActionId.SetSnapMode, snapMode),
   setTheme:

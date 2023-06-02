@@ -88,7 +88,7 @@ export function WidgetContentRenderer(props: WidgetContentRendererProps) {
 /** @internal */
 export const TabIdContext = React.createContext<TabState["id"] | undefined>(
   undefined
-); // eslint-disable-line @typescript-eslint/naming-convention
+);
 TabIdContext.displayName = "nz:TabIdContext";
 
 /** @internal */

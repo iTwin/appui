@@ -141,7 +141,6 @@ export class CubeFace extends React.Component<CubeFaceProps> {
     const transform = `matrix3d(${list.join(", ")})`;
     const s: React.CSSProperties = {
       transform,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       WebkitTransform: transform,
       ...style,
     };

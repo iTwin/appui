@@ -78,5 +78,4 @@ export class ReducerRegistry {
 /** ReducerRegistryInstance singleton instance of Reducer Registry
  * @beta
  */
-/* eslint-disable @typescript-eslint/naming-convention */
 export const ReducerRegistryInstance = new ReducerRegistry();

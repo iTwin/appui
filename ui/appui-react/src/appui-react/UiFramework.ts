@@ -342,7 +342,6 @@ export class UiFramework {
    */
   public static get frameworkState(): FrameworkState | undefined {
     try {
-      // eslint-disable-next-line dot-notation
       return UiFramework.store.getState()[UiFramework.frameworkStateKey];
     } catch (_e) {
       return undefined;

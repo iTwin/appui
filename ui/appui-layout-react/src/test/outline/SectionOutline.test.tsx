@@ -49,7 +49,7 @@ describe("SectionOutline", () => {
     const { container } = render(<SectionOutline sectionIndex={0} />, {
       wrapper: (props) => (
         <Wrapper defaultState={state} dragManagerRef={dragManager} {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
 
     act(() => {

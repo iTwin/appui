@@ -90,13 +90,13 @@ export class EnumButtonGroupEditor
 
   /** @internal */
   public override componentDidMount() {
-    this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void this.setStateFromProps();
   }
 
   /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
-      this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this.setStateFromProps();
     }
   }
 

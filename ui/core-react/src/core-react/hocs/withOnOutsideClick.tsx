@@ -22,7 +22,6 @@ export interface WithOnOutsideClickProps {
  * @public
  */
 export const withOnOutsideClick = <ComponentProps extends {}>(
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   Component: React.ComponentType<ComponentProps>,
   defaultOnOutsideClick?: (event: MouseEvent) => any,
   useCapture: boolean = true,

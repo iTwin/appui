@@ -12,7 +12,6 @@ export function useWidgetDef(id: string) {
   const frontstageDef = useActiveFrontstageDef();
   return frontstageDef?.findWidgetDef(id);
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function ToggleCameraItem() {
   const activeViewport = useActiveViewport();
   const [cameraOn, setCameraOn] = React.useState(activeViewport?.isCameraOn);
@@ -41,7 +40,6 @@ export function ToggleCameraItem() {
     />
   );
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function ViewFlagItem(flagName: string) {
   const activeViewport = useActiveViewport();
 
@@ -111,7 +109,6 @@ export function ViewFlagItem(flagName: string) {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function ViewAttributesWidgetComponent() {
   const items: JSX.Element[] = [];
   items.push(ViewFlagItem("acs"));

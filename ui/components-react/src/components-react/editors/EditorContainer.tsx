@@ -138,7 +138,7 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
       this._propertyEditor &&
       this._propertyEditor.containerHandlesBlur
     )
-      this._handleContainerCommit(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this._handleContainerCommit();
   };
 
   private _handleContainerBlur = (e: React.FocusEvent) => {
@@ -185,7 +185,7 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
     if (this._propertyEditor && this._propertyEditor.containerHandlesEnter) {
       // istanbul ignore else
       if (this._editorRef && this._editorRef.hasFocus) e.stopPropagation();
-      this._handleContainerCommit(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this._handleContainerCommit();
     }
   }
 
@@ -193,7 +193,7 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
     // istanbul ignore else
     if (this._propertyEditor && this._propertyEditor.containerHandlesTab) {
       e.stopPropagation();
-      this._handleContainerCommit(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this._handleContainerCommit();
     }
   }
 
@@ -241,7 +241,7 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
   }
 
   private _handleEditorCommit = (args: PropertyUpdatedArgs): void => {
-    this._commit(args); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void this._commit(args);
   };
 
   private _handleContainerCommit = async (): Promise<void> => {
@@ -249,7 +249,10 @@ export class EditorContainer extends React.PureComponent<EditorContainerProps> {
       this._editorRef && (await this._editorRef.getPropertyValue());
     // istanbul ignore else
     if (newValue !== undefined) {
-      this._commit({ propertyRecord: this.props.propertyRecord, newValue }); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this._commit({
+        propertyRecord: this.props.propertyRecord,
+        newValue,
+      });
     }
   };
 

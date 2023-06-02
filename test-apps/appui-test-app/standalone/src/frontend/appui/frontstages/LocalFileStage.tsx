@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
 import { IModelReadRpcInterface, ViewQueryParams } from "@itwin/core-common";
@@ -32,7 +31,7 @@ import {
 } from "@itwin/appui-react";
 import { SampleAppIModelApp, SampleAppUiActionId } from "../..";
 import { LocalFileSupport } from "../LocalFileSupport";
-import { Button, Headline } from "@itwin/itwinui-react";
+import { Button, Text } from "@itwin/itwinui-react";
 import {
   ConditionalBooleanValue,
   StandardContentLayouts,
@@ -293,7 +292,7 @@ function LocalFilePage(props: LocalFilePageProps) {
   return (
     <>
       <div style={{ position: "absolute", top: "16px", left: "100px" }}>
-        <Headline>{title.current}</Headline>
+        <Text variant="headline">{title.current}</Text>
       </div>
       <FillCentered>
         {!isElectronApp.current && (

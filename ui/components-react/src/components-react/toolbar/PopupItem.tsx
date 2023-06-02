@@ -29,7 +29,6 @@ export interface ToolbarPopupContextProps {
  * Context used by Toolbar items in popups to close the popup panel.
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ToolbarPopupContext =
   React.createContext<ToolbarPopupContextProps>({
     /** function used to close popup panel */

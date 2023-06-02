@@ -248,7 +248,7 @@ export class SyncUiEventDispatcher {
 
             // if this is the first view being opened up start the default tool so tool admin is happy.
             if (undefined === args.previous) {
-              IModelApp.toolAdmin.startDefaultTool(); // eslint-disable-line @typescript-eslint/no-floating-promises
+              void IModelApp.toolAdmin.startDefaultTool();
             } else {
               // istanbul ignore next
               if (

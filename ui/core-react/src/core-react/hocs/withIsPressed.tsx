@@ -22,7 +22,6 @@ export interface WithIsPressedProps {
  * @public
  */
 export const withIsPressed = <ComponentProps extends {}>(
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   Component: React.ComponentType<ComponentProps>
 ) => {
   return class WithIsPressed extends React.PureComponent<

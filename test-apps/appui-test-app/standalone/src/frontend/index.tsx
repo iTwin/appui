@@ -608,7 +608,6 @@ function AppViewerContent() {
 
 // If we are using a browser, close the current iModel before leaving
 window.addEventListener("beforeunload", async () => {
-  // eslint-disable-line @typescript-eslint/no-misused-promises
   await SampleAppIModelApp.closeCurrentIModel();
 });
 
@@ -643,7 +642,7 @@ async function main() {
   Logger.logInfo(
     "Configuration",
     JSON.stringify(SampleAppIModelApp.testAppConfiguration)
-  ); // eslint-disable-line no-console
+  );
 
   const mapLayerOpts = {
     BingMaps: SampleAppIModelApp.testAppConfiguration.bingMapsKey
@@ -696,4 +695,4 @@ async function main() {
 }
 
 // Entry point - run the main function
-main(); // eslint-disable-line @typescript-eslint/no-floating-promises
+void main();

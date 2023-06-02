@@ -33,7 +33,7 @@ describe("UiStateEntry", () => {
   describe("saveSetting", () => {
     const localUiSettings = new LocalStateStorage({
       localStorage: storageMock(),
-    } as Window); // eslint-disable-line deprecation/deprecation
+    } as Window);
 
     it("Should save setting correctly", async () => {
       const uiSetting = new UiStateEntry<boolean>(

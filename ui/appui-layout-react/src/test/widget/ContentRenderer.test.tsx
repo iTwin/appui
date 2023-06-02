@@ -63,7 +63,6 @@ describe("useTransientState", () => {
     const onSave =
       sinon.stub<NonNullable<Parameters<typeof useTransientState>[0]>>();
     renderHook(() => useTransientState(onSave), {
-      // eslint-disable-next-line react/display-name
       wrapper: (props: { children?: React.ReactNode }) => (
         <WidgetContentManagerContext.Provider value={widgetContentManager}>
           <TabIdContext.Provider value="t1">
@@ -73,7 +72,6 @@ describe("useTransientState", () => {
       ),
     });
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       onSaveTransientState.raiseEvent("t1");
     });
     sinon.assert.calledOnceWithExactly(onSave);
@@ -91,7 +89,6 @@ describe("useTransientState", () => {
     const onRestore =
       sinon.stub<NonNullable<Parameters<typeof useTransientState>[1]>>();
     renderHook(() => useTransientState(undefined, onRestore), {
-      // eslint-disable-next-line react/display-name
       wrapper: (props: { children?: React.ReactNode }) => (
         <WidgetContentManagerContext.Provider value={widgetContentManager}>
           <TabIdContext.Provider value="t1">
@@ -101,7 +98,6 @@ describe("useTransientState", () => {
       ),
     });
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       onRestoreTransientState.raiseEvent("t1");
     });
     sinon.assert.calledOnceWithExactly(onRestore);

@@ -24,7 +24,6 @@ export interface FrameworkState {
  * @public
  */
 export const FrameworkReducer = combineReducers({
-  // eslint-disable-line @typescript-eslint/naming-convention
   configurableUiState: ConfigurableUiReducer,
   sessionState: SessionStateReducer,
 });

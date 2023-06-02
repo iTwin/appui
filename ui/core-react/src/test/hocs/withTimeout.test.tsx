@@ -9,7 +9,7 @@ import * as sinon from "sinon";
 import { withTimeout } from "../../core-react";
 
 describe("withTimeout", () => {
-  const WithTimeoutDiv = withTimeout((props) => <div {...props} />); // eslint-disable-line @typescript-eslint/naming-convention
+  const WithTimeoutDiv = withTimeout((props) => <div {...props} />);
 
   it("should start timer on mount", async () => {
     const spy = sinon.spy();

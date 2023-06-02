@@ -917,7 +917,6 @@ describe("GridCategory", () => {
       );
 
       // Test current gridCategory descendants against flattened propertyCategory
-      // eslint-disable-next-line deprecation/deprecation
       const descendants = gridCategory.getDescendantsAndSelf();
       const flattenedPropertyCategories = GridUtils.flattenPropertyCategories(
         [propertyCategory],
@@ -934,7 +933,6 @@ describe("GridCategory", () => {
       );
 
       // Test current gridCategory children parent-child category relationship (recursive)
-      // eslint-disable-next-line deprecation/deprecation
       const childCategories = gridCategory.getChildren();
       const childPropertyCategories = propertyCategory.childCategories ?? [];
       expect(childCategories.length).to.be.equal(
@@ -971,7 +969,6 @@ describe("GridCategory", () => {
           gridItemFactory
         );
 
-        // eslint-disable-next-line deprecation/deprecation
         const childCategories = gridCategory.getChildren();
         expect(gridCategory.getDescendantsAndSelf()).to.deep.equal([
           gridCategory,

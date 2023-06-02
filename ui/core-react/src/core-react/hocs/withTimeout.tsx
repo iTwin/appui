@@ -23,7 +23,6 @@ export interface WithTimeoutProps {
  * @public
  */
 export const withTimeout = <ComponentProps extends {}>(
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   Component: React.ComponentType<ComponentProps>
 ) => {
   return class WithTimeout extends React.PureComponent<

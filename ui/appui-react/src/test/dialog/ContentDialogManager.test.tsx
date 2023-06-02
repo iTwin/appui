@@ -16,7 +16,6 @@ import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MockRender } from "@itwin/core-frontend";
 import { InternalContentDialogManager } from "../../appui-react/dialog/InternalContentDialogManager";
-/* eslint-disable deprecation/deprecation */
 
 describe("ContentDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

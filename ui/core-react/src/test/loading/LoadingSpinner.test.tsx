@@ -8,8 +8,6 @@ import * as React from "react";
 import { LoadingSpinner } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<LoadingSpinner />", () => {
   it("renders with message correctly", () => {
     render(<LoadingSpinner message="test" />);

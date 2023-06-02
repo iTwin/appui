@@ -169,8 +169,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
       "BisCore:DrawingViewDefinition",
       "BisCore:SheetViewDefinition",
     ];
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getViewDefinitions(activeIModelConnection).then(
+    void getViewDefinitions(activeIModelConnection).then(
       (viewDefinitions: SynchronizedViewDefInterfaceLocal[]) => {
         const localThreeTwoDViewDefs = viewDefinitions.filter((def: any) => {
           return acceptedSpatialViewClasses.indexOf(def.class) > -1;
@@ -206,8 +205,7 @@ export function SynchronizedFloatingView({ contentId }: { contentId: string }) {
 
         if (initialViewIdToLoad) {
           // This block is twisted beyond recognition. We need a better way to fit view from core team here.
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
-          activeIModelConnection.views
+          void activeIModelConnection.views
             .load(initialViewIdToLoad)
             .then((viewState: ViewState) => {
               setInitialViewState(viewState);

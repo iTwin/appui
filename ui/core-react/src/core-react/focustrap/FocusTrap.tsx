@@ -277,7 +277,6 @@ export function FocusTrap(props: FocusTrapProps) {
         ref={focusContainer}
         /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
         tabIndex={0}
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         style={{ outline: "none", WebkitTapHighlightColor: "rgba(0,0,0,0)" }}
       >
         {props.children}

@@ -73,7 +73,7 @@ export interface ListboxContextProps {
 // istanbul ignore next
 export const ListboxContext = React.createContext<ListboxContextProps>({
   onListboxValueChange: (_newValue: ListboxValue | undefined) => {},
-}); // eslint-disable-line @typescript-eslint/naming-convention
+});
 
 function makeId(...args: Array<string | number | null | undefined>) {
   return args.filter((val) => val != null).join("--");
@@ -193,10 +193,9 @@ export function Listbox(props: ListboxProps) {
       if (itemIndex >= 0 && itemIndex < optionValues.length) {
         const newSelection = optionValues[itemIndex];
         const listElement = listRef.current as HTMLUListElement;
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        const optionToFocus = listElement.querySelector(
+        const optionToFocus = listElement.querySelector<HTMLLIElement>(
           `li[data-value="${newSelection.value}"]`
-        ) as HTMLLIElement | null;
+        );
         // istanbul ignore else
         if (optionToFocus && listElement) {
           let newScrollTop = listElement.scrollTop;

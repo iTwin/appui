@@ -61,10 +61,10 @@ function WidgetPanelsComponent(props: CommonProps) {
 }
 
 /** @internal */
-export const ContentNodeContext = React.createContext<React.ReactNode>(null); // eslint-disable-line @typescript-eslint/naming-convention
+export const ContentNodeContext = React.createContext<React.ReactNode>(null);
 ContentNodeContext.displayName = "nz:ContentNodeContext";
 
 /** @internal */
 export const CenterContentNodeContext =
-  React.createContext<React.ReactNode>(null); // eslint-disable-line @typescript-eslint/naming-convention
+  React.createContext<React.ReactNode>(null);
 CenterContentNodeContext.displayName = "nz:CenterContentNodeContext";

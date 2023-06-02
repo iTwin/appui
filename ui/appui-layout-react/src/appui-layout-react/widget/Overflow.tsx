@@ -78,7 +78,7 @@ interface WidgetOverflowContextArgs {
 /** @internal */
 export const WidgetOverflowContext = React.createContext<
   WidgetOverflowContextArgs | undefined
->(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+>(undefined);
 WidgetOverflowContext.displayName = "nz:WidgetOverflowContext";
 
 function usePanelPopup(onClose: () => void) {

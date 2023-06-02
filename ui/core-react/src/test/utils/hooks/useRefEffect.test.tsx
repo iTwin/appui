@@ -11,7 +11,6 @@ describe("useRefEffect", () => {
     const callback = sinon.spy((_: string | null) => {});
     const { result } = renderHook(() => useRefEffect(callback, []));
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current("abc");
     });
 
@@ -34,11 +33,9 @@ describe("useRefEffect", () => {
     });
     const { result } = renderHook(() => useRefEffect(callback, []));
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current("abc");
     });
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current("abcd");
     });
 

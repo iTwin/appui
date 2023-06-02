@@ -146,7 +146,7 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
           30,
           <SelectionInfoField />
         )
-      ); // eslint-disable-line deprecation/deprecation
+      );
     }
 
     return statusBarItems;

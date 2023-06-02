@@ -117,4 +117,4 @@ export function classesFromElement(e: Element | null | undefined) {
   return Array.from(e!.classList.values());
 }
 
-export default TestUtils; // eslint-disable-line: no-default-export
+export default TestUtils;

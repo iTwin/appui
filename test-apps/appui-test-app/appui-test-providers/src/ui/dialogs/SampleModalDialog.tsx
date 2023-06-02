@@ -12,7 +12,6 @@ import { AppUiTestProviders } from "../../AppUiTestProviders";
 /**
  *  This is an example of how to create a React-based modal dialog that can be opened via a toolbutton or a key-in.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function SampleModalDialog() {
   const title = React.useRef(
     AppUiTestProviders.translate("Dialogs.SampleModal.title")

@@ -37,7 +37,6 @@ import {
   TestFrontstage3,
 } from "./FrontstageTestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
-/* eslint-disable deprecation/deprecation */
 
 const mySessionStorage = storageMock();
 
@@ -313,8 +312,7 @@ describe("FrontstageManager", () => {
 
       InternalFrontstageManager.isInitialized = false;
       InternalFrontstageManager.initialize();
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      IModelApp.viewManager.setSelectedView(viewportMock.object);
+      void IModelApp.viewManager.setSelectedView(viewportMock.object);
     });
 
     it("CoreTools.selectElementCommand", async () => {

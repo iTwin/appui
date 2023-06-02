@@ -27,7 +27,7 @@ export interface InputProps
 }
 
 // Defined using following pattern (const Input at bottom) to ensure useful API documentation is extracted
-const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>( // eslint-disable-line deprecation/deprecation
+const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>(
   function ForwardRefInput(props, ref) {
     const {
       className,
@@ -82,4 +82,4 @@ const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>( // eslin
 /** Basic text input, is a wrapper for the `<input type="text">` HTML element.
  * @internal
  */
-export const Input: (props: InputProps) => JSX.Element | null = ForwardRefInput; // eslint-disable-line deprecation/deprecation
+export const Input: (props: InputProps) => JSX.Element | null = ForwardRefInput;

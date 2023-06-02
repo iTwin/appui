@@ -31,8 +31,6 @@ export const DockedToolSettingsOverflow = React.forwardRef<
   HTMLDivElement,
   DockedToolSettingsOverflowProps
 >(function DockedToolSettingsOverflow(props, ref) {
-  // eslint-disable-line @typescript-eslint/naming-convention, react/display-name
-  // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const roRef = useResizeObserver<HTMLDivElement>(props.onResize);
   const refs = useRefs(roRef, ref);
   const className = classnames("nz-toolSettings-overflow", props.className);

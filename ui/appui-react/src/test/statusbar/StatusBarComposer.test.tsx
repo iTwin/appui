@@ -280,7 +280,7 @@ describe("StatusBarComposer", () => {
       });
       sinon
         .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
+        .get(() => frontstageDef);
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem(
@@ -334,7 +334,7 @@ describe("StatusBarComposer", () => {
       });
       sinon
         .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
+        .get(() => frontstageDef);
 
       const items: StatusBarItem[] = [
         StatusBarItemUtilities.createCustomItem(
@@ -437,7 +437,7 @@ describe("StatusBarComposer", () => {
       });
       sinon
         .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
+        .get(() => frontstageDef);
 
       // make sure we have enough size to render without overflow
       sinon
@@ -510,7 +510,7 @@ describe("StatusBarComposer", () => {
       });
       sinon
         .stub(UiFramework.frontstages, "activeFrontstageDef")
-        .get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
+        .get(() => frontstageDef);
 
       // make sure we have enough size to render without overflow
       sinon
@@ -573,7 +573,6 @@ describe("StatusBarComposer", () => {
     });
 
     it("will render 4 items without overflow", () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sinon
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -670,7 +669,6 @@ describe("StatusBarComposer", () => {
     });
 
     it("will render 1 item with overflow - 4 in overflow panel", async () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sinon
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {

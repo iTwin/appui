@@ -22,7 +22,6 @@ import {
   WidgetElementSet,
 } from "../../../core-react/utils/hooks/useProximityToMouse";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const ProximityToMouse = () => {
   const ref = React.useRef<HTMLDivElement>(null);
   const elementSet = new WidgetElementSet();

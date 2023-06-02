@@ -354,7 +354,6 @@ describe("FilteringDataProvider", () => {
     };
 
     it("Should return expected filtered data if filter is enabled and there are matches", async () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const expectedFilteredData = {
         label: originalPropertyData.label,
         description: originalPropertyData.description,

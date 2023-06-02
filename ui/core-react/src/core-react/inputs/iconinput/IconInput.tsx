@@ -16,7 +16,6 @@ import { Input } from "../Input"; // NEEDSWORK - for nativeKeyHandler
  * @public
  */
 export interface IconInputProps extends Omit<InputProps, "size"> {
-  // eslint-disable-line deprecation/deprecation
   /** Icon displayed to the left of the Input field within the IconInput component */
   icon: React.ReactNode;
   /** CSS class name for the IconInput component container div */
@@ -40,7 +39,6 @@ const ForwardRefIconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
       <div
         className={classnames("core-iconInput-container", containerClassName)}
       >
-        {/* eslint-disable-next-line deprecation/deprecation */}
         <Input ref={ref} {...otherProps} />
         <div className="core-iconInput-icon">{icon}</div>
       </div>

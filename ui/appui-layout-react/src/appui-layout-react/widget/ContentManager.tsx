@@ -79,5 +79,5 @@ export interface WidgetContentManagerContextArgs {
 
 /** @internal */
 export const WidgetContentManagerContext =
-  React.createContext<WidgetContentManagerContextArgs>(null!); // eslint-disable-line @typescript-eslint/naming-convention
+  React.createContext<WidgetContentManagerContextArgs>(null!);
 WidgetContentManagerContext.displayName = "nz:WidgetContentManagerContext";

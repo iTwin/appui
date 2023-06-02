@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 import { UiFramework } from "@itwin/appui-react";
 import { Logger } from "@itwin/core-bentley";
 import { Cartographic, ColorDef, RenderMode } from "@itwin/core-common";

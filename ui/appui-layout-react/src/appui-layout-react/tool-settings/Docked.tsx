@@ -22,7 +22,6 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 export function onOverflowLabelAndEditorResize() {}
 
 /** This component takes a DockedToolSetting "wrapper" component and extract only the label and editor components from it */
-// eslint-disable-next-line @typescript-eslint/naming-convention, no-shadow
 function OverflowLabelAndEditor({ wrapper }: { wrapper: React.ReactNode }) {
   assert(React.isValidElement(wrapper));
   const entryValue = React.useMemo<DockedToolSettingsEntryContextArgs>(
@@ -126,7 +125,6 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
         return acc;
       }, [])
     : [];
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const PanelContainer = props.panelContainer
     ? props.panelContainer
     : DefaultPanelContainer;
@@ -372,7 +370,6 @@ interface DockedToolSettingsEntryContextArgs {
   readonly onResize: (w: number) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const DockedToolSettingsEntryContext =
   React.createContext<DockedToolSettingsEntryContextArgs>(null!);
 DockedToolSettingsEntryContext.displayName =

@@ -33,7 +33,7 @@ export function IModelOpen(props: IModelOpenProps) {
       const token = await IModelApp.getAccessToken();
       setAccessToken(token);
     }
-    fetchAccessToken(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void fetchAccessToken();
   }, []);
 
   React.useEffect(() => {
@@ -47,7 +47,7 @@ export function IModelOpen(props: IModelOpenProps) {
         if (iTwins.length) setCurrentITwin(iTwins[0]);
       } catch {}
     }
-    fetchProjects(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void fetchProjects();
   }, [accessToken]);
 
   const selectITwin = React.useCallback(async (iTwin: ITwin) => {

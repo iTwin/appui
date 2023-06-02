@@ -532,8 +532,7 @@ describe("<TimelineComponent showDuration={true} />", () => {
     fakeTimers = sinon.useFakeTimers();
     const dataProvider = new TestTimelineDataProvider();
     const spyOnPlayPause = sinon.spy();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const renderedComponent = render(
+    render(
       <TimelineComponent
         initialDuration={dataProvider.initialDuration}
         totalDuration={dataProvider.duration}
@@ -711,7 +710,6 @@ describe("<TimelineComponent showDuration={true} />", () => {
   it("should call onForward on forward button click", () => {
     const dataProvider = new TestTimelineDataProvider();
     const spyOnJump = sinon.spy();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const renderedComponent = render(
       <TimelineComponent
         initialDuration={dataProvider.initialDuration}
@@ -731,7 +729,6 @@ describe("<TimelineComponent showDuration={true} />", () => {
   it("should call onBackward on back button click", () => {
     const dataProvider = new TestTimelineDataProvider();
     const spyOnJump = sinon.spy();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const renderedComponent = render(
       <TimelineComponent
         initialDuration={dataProvider.initialDuration}

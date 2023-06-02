@@ -213,7 +213,6 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("ensure update prop is handled", async () => {
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     const renderedComponent = render(
       <div>
         <ColorPickerPopup
@@ -248,7 +247,6 @@ describe("<ColorPickerPopup/>", () => {
   it("ensure closing X is shown", async () => {
     const spyOnClick = sinon.spy();
 
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     const renderedComponent = render(
       <div>
         <ColorPickerPopup
@@ -280,7 +278,6 @@ describe("<ColorPickerPopup/>", () => {
   it("ensure closing X is NOT shown", async () => {
     const spyOnClick = sinon.spy();
 
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     const renderedComponent = render(
       <div>
         <ColorPickerPopup
@@ -308,7 +305,6 @@ describe("<ColorPickerPopup/>", () => {
     const spyOnClick = sinon.spy();
     const spyOnChange = sinon.spy();
 
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     const renderedComponent = render(
       <div>
         <ColorPickerPopup
@@ -341,7 +337,6 @@ describe("<ColorPickerPopup/>", () => {
     const spyOnClick = sinon.spy();
     const spyOnChange = sinon.spy();
 
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     const renderedComponent = render(
       <div>
         <ColorPickerPopup
@@ -373,7 +368,6 @@ describe("<ColorPickerPopup/>", () => {
   });
 
   it("should not show swatches", async () => {
-    /* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
     const renderedComponent = render(
       <div>
         <ColorPickerPopup

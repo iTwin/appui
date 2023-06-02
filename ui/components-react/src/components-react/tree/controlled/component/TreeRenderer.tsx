@@ -298,7 +298,7 @@ function getNodeKey(node: TreeModelNode | TreeModelNodePlaceholder): string {
   return `${node.parentId || ""}-${node.childIndex}`;
 }
 
-const Node = React.memo<React.FC<ListChildComponentProps>>(function Node( // eslint-disable-line @typescript-eslint/naming-convention
+const Node = React.memo<React.FC<ListChildComponentProps>>(function Node(
   props: ListChildComponentProps
 ) {
   const { index, style } = props;

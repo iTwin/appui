@@ -7,8 +7,6 @@ import React from "react";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { SelectableContent } from "../../components-react/selectable-content/SelectableContent";
 
-/* eslint-disable react/display-name */
-
 describe("<SelectableContent />", () => {
   it("lists all given content components in select box", async () => {
     const { getByText, getByTestId, queryAllByText } = render(

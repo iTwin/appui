@@ -44,7 +44,6 @@ describe("useActiveIModelConnection", () => {
     const ss = new SelectionSet(imodelMock.object);
     imodelMock.setup((x) => x.selectionSet).returns(() => ss);
 
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const HookTester = () => {
       const activeIModelConnection = useActiveIModelConnection();
       // I expected the following to work

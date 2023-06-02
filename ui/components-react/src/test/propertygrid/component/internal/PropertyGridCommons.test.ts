@@ -8,7 +8,6 @@ import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyGridCommons } from "../../../../components-react/propertygrid/component/PropertyGridCommons";
 
-/* eslint-disable @typescript-eslint/naming-convention */
 describe("PropertyGrid Commons", () => {
   describe("getLinks", () => {
     it("detects url link", () => {

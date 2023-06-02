@@ -39,7 +39,6 @@ describe("DockedToolSettings", () => {
   });
 
   it("should render overflow button", () => {
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     sinon
       .stub(Element.prototype, "getBoundingClientRect")
       .callsFake(function (this: HTMLElement) {
@@ -64,7 +63,6 @@ describe("DockedToolSettings", () => {
   });
 
   it("should render overflown entries", () => {
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     sinon
       .stub(Element.prototype, "getBoundingClientRect")
       .callsFake(function (this: HTMLElement) {
@@ -95,7 +93,6 @@ describe("DockedToolSettings", () => {
   });
 
   it("should render panel container", () => {
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     sinon
       .stub(Element.prototype, "getBoundingClientRect")
       .callsFake(function (this: HTMLElement) {
@@ -131,7 +128,6 @@ describe("DockedToolSettings", () => {
   });
 
   it("should close overflow panel on outside click", () => {
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     sinon
       .stub(Element.prototype, "getBoundingClientRect")
       .callsFake(function (this: HTMLElement) {
@@ -175,7 +171,6 @@ describe("DockedToolSettings", () => {
 
   it("should recalculate overflow on resize", async () => {
     let width = 100;
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     sinon
       .stub(Element.prototype, "getBoundingClientRect")
       .callsFake(function (this: HTMLElement) {
@@ -196,7 +191,7 @@ describe("DockedToolSettings", () => {
       .stub(ResizeObserverMock.prototype, "observe")
       .callsFake(function (this: ResizeObserverMock, element: Element) {
         if (element.classList.contains("nz-toolSettings-docked")) {
-          resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
+          resizeObserver = this;
           target = element;
         }
       });
@@ -234,7 +229,6 @@ describe("DockedToolSettings", () => {
 
   it("should recalculate overflow on entry resize", async () => {
     let width = 50;
-    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     sinon
       .stub(Element.prototype, "getBoundingClientRect")
       .callsFake(function (this: HTMLElement) {
@@ -259,7 +253,7 @@ describe("DockedToolSettings", () => {
           element.classList.contains("nz-toolSettings-setting") &&
           queryByText(element, "Entry 1")
         ) {
-          resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
+          resizeObserver = this;
           target = element;
         }
       });

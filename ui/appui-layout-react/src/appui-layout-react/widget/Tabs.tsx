@@ -126,7 +126,7 @@ interface WidgetTabsEntryContextArgs {
 /** @internal */
 export const WidgetTabsEntryContext = React.createContext<
   WidgetTabsEntryContextArgs | undefined
->(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+>(undefined);
 WidgetTabsEntryContext.displayName = "nz:WidgetTabsEntryContext";
 
 /** @internal */

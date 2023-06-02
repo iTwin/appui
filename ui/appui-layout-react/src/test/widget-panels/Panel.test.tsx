@@ -163,7 +163,7 @@ describe("WidgetPanelProvider", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
     });
 
     const panel = container.getElementsByClassName(
@@ -208,7 +208,7 @@ describe("WidgetPanelProvider", () => {
     });
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
     });
 
     const panel = container.getElementsByClassName(
@@ -247,7 +247,7 @@ describe("WidgetPanelProvider", () => {
     });
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
     });
 
     const panel = container.getElementsByClassName(
@@ -305,7 +305,7 @@ describe("WidgetPanelProvider", () => {
     const { container } = render(<WidgetPanelProvider side="left" />, {
       wrapper: (props) => (
         <TestNineZoneProvider layout={layout} dispatch={dispatch} {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
 
     const panel = container.getElementsByClassName(
@@ -340,7 +340,7 @@ describe("WidgetPanelProvider", () => {
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
       wrapper: (props) => (
-        <TestNineZoneProvider // eslint-disable-line react/display-name
+        <TestNineZoneProvider
           layout={layout}
           dragManagerRef={dragManager}
           {...props}
@@ -380,12 +380,7 @@ describe("WidgetPanelProvider", () => {
     });
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => (
-        <TestNineZoneProvider // eslint-disable-line react/display-name
-          layout={layout}
-          {...props}
-        />
-      ),
+      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
     });
     const panel = container.getElementsByClassName(
       "nz-widgetPanels-panel"
@@ -435,12 +430,7 @@ describe("WidgetPanelProvider", () => {
     });
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="left" />, {
-      wrapper: (props) => (
-        <TestNineZoneProvider // eslint-disable-line react/display-name
-          layout={layout}
-          {...props}
-        />
-      ),
+      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
     });
 
     const panel = container.getElementsByClassName(
@@ -469,12 +459,7 @@ describe("WidgetPanelProvider", () => {
 
     const layout = createLayoutStore(state);
     const { container } = render(<WidgetPanelProvider side="top" />, {
-      wrapper: (props) => (
-        <TestNineZoneProvider // eslint-disable-line react/display-name
-          layout={layout}
-          {...props}
-        />
-      ),
+      wrapper: (props) => <TestNineZoneProvider layout={layout} {...props} />,
     });
 
     const panel = container.getElementsByClassName(
@@ -518,7 +503,7 @@ describe("WidgetPanelProvider", () => {
     const { container } = render(<WidgetPanelProvider side="left" />, {
       wrapper: (props) => (
         <TestNineZoneProvider defaultState={state} {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
 
     const panel = container.getElementsByClassName("nz-widgetPanels-panel")[0];

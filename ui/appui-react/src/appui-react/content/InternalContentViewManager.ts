@@ -191,8 +191,7 @@ export class InternalContentViewManager {
               activeContentControl.viewport !==
                 IModelApp.viewManager.selectedView
             ) {
-              // eslint-disable-next-line @typescript-eslint/no-floating-promises
-              IModelApp.viewManager.setSelectedView(
+              void IModelApp.viewManager.setSelectedView(
                 activeContentControl.viewport
               );
             }

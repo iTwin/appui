@@ -90,7 +90,7 @@ describe("ConnectedContent", () => {
     const ConnectControl = connectIModelConnection(
       localMapStateToProps,
       sessionStateMapDispatchToProps
-    )(TestComponent); // eslint-disable-line @typescript-eslint/naming-convention
+    )(TestComponent);
     const renderedComponent = render(
       <Provider store={TestUtils.store}>
         <ConnectControl />

@@ -50,9 +50,8 @@ export interface WidgetProps extends CommonProps {
 }
 
 /** @internal */
-export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-disable-line react/display-name, @typescript-eslint/naming-convention
+export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
   function Widget(props, forwardedRef) {
-    // eslint-disable-line @typescript-eslint/naming-convention
     const dispatch = React.useContext(NineZoneDispatchContext);
     const side = React.useContext(PanelSideContext);
     const id = React.useContext(WidgetIdContext);
@@ -184,7 +183,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
 /** @internal */
 export const WidgetIdContext = React.createContext<
   WidgetState["id"] | undefined
->(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+>(undefined);
 WidgetIdContext.displayName = "nz:WidgetIdContext";
 
 /** @internal */
@@ -193,7 +192,7 @@ export interface WidgetContextArgs {
 }
 
 /** @internal */
-export const WidgetContext = React.createContext<WidgetContextArgs>(null!); // eslint-disable-line @typescript-eslint/naming-convention
+export const WidgetContext = React.createContext<WidgetContextArgs>(null!);
 WidgetContext.displayName = "nz:WidgetContext";
 
 const minWidth = 200;

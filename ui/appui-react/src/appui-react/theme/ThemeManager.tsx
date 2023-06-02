@@ -148,4 +148,4 @@ class ThemeManagerComponent extends React.Component<
  * This React component is Redux connected.
  * @public
  */
-export const ThemeManager = connect(mapStateToProps)(ThemeManagerComponent); // eslint-disable-line @typescript-eslint/naming-convention
+export const ThemeManager = connect(mapStateToProps)(ThemeManagerComponent);

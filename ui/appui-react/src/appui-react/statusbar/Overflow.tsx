@@ -31,7 +31,6 @@ export const StatusBarOverflow = React.forwardRef<
   HTMLDivElement,
   StatusBarOverflowProps
 >(function StatusBarOverflow(props, ref) {
-  // eslint-disable-line @typescript-eslint/no-shadow, @typescript-eslint/naming-convention
   const roRef = useResizeObserver<HTMLDivElement>(props.onResize);
   const refs = useRefs(roRef, ref);
   const className = classnames("uifw-statusbar-overflow", props.className);

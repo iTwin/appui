@@ -13,7 +13,7 @@ import {
 import { Id64, Id64String } from "@itwin/core-bentley";
 import { useRefState } from "@itwin/core-react";
 import ViewDefinitionSelector from "../components/ViewDefinitionSelector";
-// eslint-disable-next-line @typescript-eslint/naming-convention
+
 export function ViewportWidgetComponent() {
   const activeIModelConnection = useActiveIModelConnection();
   const [viewState, setViewState] = React.useState(
@@ -40,12 +40,11 @@ export function ViewportWidgetComponent() {
           const newViewState = await activeIModelConnection?.views.load(
             defaultViewId
           );
-          // eslint-disable-next-line react-hooks/exhaustive-deps
           newViewState && setViewState(newViewState.clone());
         }
       }
     }
-    setupView(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void setupView();
   }, [activeIModelConnection, viewState]);
 
   React.useEffect(() => {
