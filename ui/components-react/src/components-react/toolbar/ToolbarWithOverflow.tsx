@@ -185,10 +185,8 @@ function CustomItem({
   const icon = React.useMemo(
     () =>
       (item.icon &&
-        IconHelper.getIconReactNode(
-          item.icon,
-          item.internalData
-        )) /* istanbul ignore next */ || (
+        IconHelper.getIconReactNode(item.icon, item.internalData)) || (
+        // istanbul ignore next
         <Icon className="icon" iconSpec={<SvgPlaceholder />} />
       ),
     [item.icon, item.internalData]

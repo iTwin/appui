@@ -250,6 +250,7 @@ export function TimeField({
 
   const handleMinutesOnKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
+      // istanbul ignore else
       if (event.key === SpecialKey.ArrowDown) {
         const newMinutes = minutes === 0 ? 59 : minutes - 1;
         setMinutesText(newMinutes.toString().padStart(2, "0"));
@@ -268,7 +269,7 @@ export function TimeField({
         setMinutesText(newMinutes.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, minutes: newMinutes });
         event.preventDefault();
-      } /* istanbul ignore next */ else if (event.key === SpecialKey.Enter) {
+      } else if (event.key === SpecialKey.Enter) {
         const newMinutes = getValidInt(minutesText, 0, 59, minutes);
         setMinutesText(newMinutes.toString().padStart(2, "0"));
         updateTimeSpec({ ...timeSpec, minutes: newMinutes });

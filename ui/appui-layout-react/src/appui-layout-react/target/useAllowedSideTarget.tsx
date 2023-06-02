@@ -43,10 +43,10 @@ export function isAllowedSideTarget(
     allowedPanelTargets = activeTab.allowedPanelTargets;
     widget.tabs.forEach((tabId) => {
       const tab = tabsState[tabId];
-      if (!allowedPanelTargets) allowedPanelTargets = tab.allowedPanelTargets;
-      /* istanbul ignore else */ else if (
-        tab.allowedPanelTargets !== undefined
-      ) {
+      // istanbul ignore else
+      if (!allowedPanelTargets) {
+        allowedPanelTargets = tab.allowedPanelTargets;
+      } else if (tab.allowedPanelTargets !== undefined) {
         const tabPanelTargets = tab.allowedPanelTargets;
         allowedPanelTargets = allowedPanelTargets.filter((x) =>
           tabPanelTargets.includes(x)
