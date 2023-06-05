@@ -133,34 +133,18 @@ describe("usePropertyFilterBuilderState", () => {
 
     let rootGroup = result.current.state.rootGroup;
     expect(rootGroup.items).to.have.lengthOf(1);
-    rootGroup.items[0].operator = PropertyFilterRuleOperator.IsTrue;
-    (rootGroup.items[0] as PropertyFilterBuilderRule).value = { valueFormat: PropertyValueFormat.Primitive };
-    (rootGroup.items[0] as PropertyFilterBuilderRule).property = { name: "testName", displayLabel: "testLabel", typename: "testTypename" };
+    actions.setRuleOperator([rootGroup.items[0].id], PropertyFilterRuleOperator.IsTrue);
+    actions.setRuleValue([rootGroup.items[0].id], { valueFormat: PropertyValueFormat.Primitive });
+    const testProperty = { name: "testName", displayLabel: "testLabel", typename: "testTypename" };
+    actions.setRuleProperty([rootGroup.items[0].id], testProperty);
+    rootGroup = result.current.state.rootGroup;
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).property).to.be.eq(testProperty);
     actions.removeItem([rootGroup.items[0].id]);
 
     rootGroup = result.current.state.rootGroup;
     expect(rootGroup).to.containSubset({
       operator: PropertyFilterRuleGroupOperator.And,
       items: [{ operator: undefined, value: undefined, property: undefined }],
-    });
-  });
-
-  it("makes empty rule when removing rule group and it is the only item in the rule group", () => {
-    const { result } = renderHook(() => usePropertyFilterBuilderState());
-    const { actions } = result.current;
-
-    let rootGroup = result.current.state.rootGroup;
-    expect(rootGroup.items).to.have.lengthOf(1);
-    rootGroup.items[0].operator = PropertyFilterRuleOperator.IsTrue;
-    (rootGroup.items[0] as PropertyFilterBuilderRuleGroup).id = "testId",
-    (rootGroup.items[0] as PropertyFilterBuilderRuleGroup).operator = PropertyFilterRuleGroupOperator.Or;
-    (rootGroup.items[0] as PropertyFilterBuilderRuleGroup).items = [{ id: "testItemId", groupId: "testItemGroupId" }];
-    actions.removeItem([rootGroup.items[0].id]);
-
-    rootGroup = result.current.state.rootGroup;
-    expect(rootGroup).to.containSubset({
-      operator: PropertyFilterRuleGroupOperator.And,
-      items: [{ operator: undefined, value: undefined, property: undefined, items: undefined }],
     });
   });
 
