@@ -208,6 +208,11 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
     expect(removeItemSpy).to.be.calledOnceWith(defaultProps.path);
   });
 
+  it("does not render remove rule buttom when there is only one rule in the rule group", () => {
+    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} isOnlyRuleInRuleGroup/>);
+    expect(container.querySelector(".rule-remove-action")?.firstElementChild).to.be.null;
+  });
+
   it("dispatches operator change when operator is changed", () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
     const operatorRendererSpy = sinon.spy();

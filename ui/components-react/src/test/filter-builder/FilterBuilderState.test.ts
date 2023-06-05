@@ -115,16 +115,15 @@ describe("usePropertyFilterBuilderState", () => {
   it("removes rule from root group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { actions } = result.current;
+    actions.addItem([], "RULE");
 
     let rootGroup = result.current.state.rootGroup;
-    rootGroup.items.push({ id: "testId", groupId: "groupId" });
     expect(rootGroup.items).to.have.lengthOf(2);
     actions.removeItem([rootGroup.items[0].id]);
 
     rootGroup = result.current.state.rootGroup;
     expect(rootGroup).to.containSubset({
-      operator: PropertyFilterRuleGroupOperator.And,
-      items: [{ id: "testId", groupId: "groupId" }],
+      items: [{ groupId: rootGroup.id }],
     });
   });
 
