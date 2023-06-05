@@ -19,7 +19,6 @@ import { PropertyFilterBuilderActions } from "../../components-react/filter-buil
 import { PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
-import { UiComponents } from "../../components-react";
 
 describe("PropertyFilterBuilderRuleRenderer", () => {
   const defaultProps: PropertyFilterBuilderRuleRendererProps = {
