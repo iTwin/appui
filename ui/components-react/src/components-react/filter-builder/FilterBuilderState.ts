@@ -98,13 +98,7 @@ export class PropertyFilterBuilderActions {
       if (itemIndex === -1)
         return;
       if (parentGroup.items.length === 1) {
-        if (isPropertyFilterBuilderRuleGroup(parentGroup.items[0]))
-          parentGroup.items[0] = createEmptyRule(parentGroup.id);
-        else {
-          parentGroup.items[0].operator = undefined;
-          parentGroup.items[0].value = undefined;
-          parentGroup.items[0].property = undefined;
-        }
+        parentGroup.items[0] = createEmptyRule(parentGroup.id)
         return;
       }
       parentGroup.items.splice(itemIndex, 1);
