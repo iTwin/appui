@@ -128,7 +128,7 @@ describe("usePropertyFilterBuilderState", () => {
     });
   });
 
-  it("clears rule instead of removing it when only one rule is left in the root group", () => {
+  it("clears rule instead of removing it when only one rule is left in the rule group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { actions } = result.current;
 
@@ -146,7 +146,7 @@ describe("usePropertyFilterBuilderState", () => {
     });
   });
 
-  it("makes empty rule when removing rulegroup from the root group and it is the only item in the root group", () => {
+  it("makes empty rule when removing rule group and it is the only item in the rule group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { actions } = result.current;
 
@@ -411,17 +411,6 @@ describe("usePropertyFilterBuilderState", () => {
       actions.removeItem([getNestingRule().id, getNestingRule().items[1].id]);
       await waitFor(() => {
         expect(getNestingRule().items).to.have.lengthOf(1);
-      });
-    });
-
-    it("removes group when last rule is removed", async () => {
-      const { result, getNestingRule, getNestedRulePath } = await getStateWithNestedRule();
-      const { actions } = result.current;
-
-      actions.removeItem(getNestedRulePath());
-
-      await waitFor(() => {
-        expect(getNestingRule()).to.be.undefined;
       });
     });
   });
