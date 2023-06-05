@@ -170,7 +170,7 @@ export function WidgetPanel() {
 /** @internal */
 export const PanelSideContext = React.createContext<PanelSide | undefined>(
   undefined
-); // eslint-disable-line @typescript-eslint/naming-convention
+);
 PanelSideContext.displayName = "nz:PanelSideContext";
 
 /** @internal */

@@ -158,7 +158,7 @@ export function UnitDescr(props: UnitDescrProps) {
         }
       }
     }
-    fetchAllowableUnitSelections(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void fetchAllowableUnitSelections();
   }, [index, label, name, parentUnitName, unitsProvider]);
 
   const handleOnUnitChange = React.useCallback(

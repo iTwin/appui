@@ -48,7 +48,6 @@ import {
  * a single content view and also defines a custom view overlay. The display of the view overlay in its applicationData.
  */
 export class WidgetApiStageContentGroupProvider extends ContentGroupProvider {
-  /* eslint-disable react/jsx-key */
   public static supplyViewOverlay = (viewport: ScreenViewport) => {
     if (viewport.view) {
       return <MyCustomViewOverlay />;
@@ -270,7 +269,6 @@ export function getToggleCustomOverlayCommandItemDef() {
  * Simple View overlay that just displays static React component. The display of the overlay is controlled
  * based on a variable in the Redux store which can be seen in file `..\appui-test-providers\src\store\index.ts`.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function MyCustomViewOverlay() {
   const showOverlay = useSelector(
     (state: { testProviderState: TestProviderState }) => {

@@ -43,7 +43,6 @@ export interface ToolbarOverflowPanelProps extends CommonProps {
 /** Displays overflown tool settings.
  * @internal
  */
-// eslint-disable-next-line react/display-name
 export function ToolbarOverflowPanel(props: ToolbarOverflowPanelProps) {
   const {
     toolbarOpacitySetting,

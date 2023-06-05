@@ -87,10 +87,10 @@ describe("BackstageManager", () => {
 
   it("getBackstageToggleCommand generates toggle button", () => {
     const command = BackstageManager.getBackstageToggleCommand();
-    const initialState = UiFramework.backstage.isOpen; // eslint-disable-line deprecation/deprecation
+    const initialState = UiFramework.backstage.isOpen;
     command.execute();
 
-    expect(UiFramework.backstage.isOpen).to.eq(!initialState); // eslint-disable-line deprecation/deprecation
+    expect(UiFramework.backstage.isOpen).to.eq(!initialState);
   });
 
   it("getBackstageToggleCommand handles icon override", () => {
@@ -178,7 +178,7 @@ describe("useBackstageManager", () => {
     await MockRender.App.startup();
 
     const { result } = renderHook(() => useBackstageManager());
-    expect(result.current).to.equal(UiFramework.backstage); // eslint-disable-line deprecation/deprecation
+    expect(result.current).to.equal(UiFramework.backstage);
 
     await MockRender.App.shutdown();
     TestUtils.terminateUiFramework();

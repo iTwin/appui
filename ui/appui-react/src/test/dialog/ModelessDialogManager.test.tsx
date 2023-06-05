@@ -16,7 +16,6 @@ import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MockRender } from "@itwin/core-frontend";
 import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
-/* eslint-disable deprecation/deprecation */
 
 describe("ModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;

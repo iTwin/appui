@@ -15,7 +15,7 @@ describe("withIsPressed", () => {
     theUserTo = userEvent.setup();
   });
 
-  const WithIsPressedDiv = withIsPressed((props) => <div {...props} />); // eslint-disable-line @typescript-eslint/naming-convention
+  const WithIsPressedDiv = withIsPressed((props) => <div {...props} />);
 
   it("mousedown event", async () => {
     let iAmPressed = false;

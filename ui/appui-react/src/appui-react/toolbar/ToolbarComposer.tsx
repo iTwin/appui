@@ -296,7 +296,7 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
   );
   React.useEffect(() => {
     setDefaultItemsManager(new ToolbarItemsManager(props.items));
-  }, [props.items]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [props.items]);
 
   // process default items
   const defaultItems = useDefaultToolbarItems(defaultItemsManager);

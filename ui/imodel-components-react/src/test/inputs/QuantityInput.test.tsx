@@ -139,8 +139,6 @@ describe("QuantityInput", () => {
       overrideLengthFormats
     );
     await TestUtils.flushAsyncOperations();
-    // eslint-disable-next-line no-console
-    // console.log(`input.value = ${input.value}`);
     expect(input.value).to.eq("39.3701 in");
     await IModelApp.quantityFormatter.clearOverrideFormats(QuantityType.Length);
     await TestUtils.flushAsyncOperations();

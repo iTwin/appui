@@ -41,7 +41,7 @@ describe("WidgetTarget", () => {
     const { container } = render(<WidgetTarget />, {
       wrapper: (props) => (
         <Wrapper defaultState={state} widgetId="fw1" {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
     container
       .getElementsByClassName("nz-target-mergeTarget")

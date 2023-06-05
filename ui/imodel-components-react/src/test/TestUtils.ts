@@ -541,4 +541,4 @@ export function styleMatch(style: Partial<CSSStyleDeclaration>) {
   };
 }
 
-export default TestUtils; // eslint-disable-line: no-default-export
+export default TestUtils;

@@ -7,7 +7,7 @@
  */
 
 /** @internal */
-export enum CalculatorOperator { // eslint-disable-line: completed-docs
+export enum CalculatorOperator {
   None,
   Clear,
   ClearAll,

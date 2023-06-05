@@ -54,7 +54,6 @@ export interface RootState {
   testDifferentFrameworkKey?: FrameworkState;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const SampleAppActions = {
   // eslint-disable-next-line jsdoc/require-jsdoc
   example: () => createAction("SampleApp:EXAMPLE"),
@@ -516,4 +515,4 @@ export function selectAllBeforeType() {
   };
 }
 
-export default TestUtils; // eslint-disable-line: no-default-export
+export default TestUtils;

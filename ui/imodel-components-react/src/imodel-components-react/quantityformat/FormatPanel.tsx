@@ -124,7 +124,7 @@ export function FormatPanel(props: FormatPanelProps) {
       }
       isMounted.current && setFormatSpec(newFormatSpec);
     }
-    if (!formatSpec) fetchFormatSpec(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    if (!formatSpec) void fetchFormatSpec();
   }, [
     formatProps,
     formatSpec,

@@ -34,13 +34,11 @@ export interface RulesetSelectorState {
 export default function ViewDefinitionSelector(
   props: ViewDefinitionSelectorProps
 ) {
-  // eslint-disable-line @typescript-eslint/naming-convention
   const [selectOptions, setSelectOptions] = React.useState<
     SelectOption<string>[]
   >([]);
   React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getViewDefinitions(props.imodel).then((result) => {
+    void getViewDefinitions(props.imodel).then((result) => {
       const options = result.map((definition) => ({
         value: definition.id,
         label: definition.label,

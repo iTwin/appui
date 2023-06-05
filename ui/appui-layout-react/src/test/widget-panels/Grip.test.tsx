@@ -197,10 +197,7 @@ describe("useResizeGrip", () => {
     const { children, side, defaultState, ...nzProps } = props;
     const nineZone = defaultState || createNineZoneState();
     return (
-      <TestNineZoneProvider // eslint-disable-line react/display-name
-        defaultState={nineZone}
-        {...nzProps}
-      >
+      <TestNineZoneProvider defaultState={nineZone} {...nzProps}>
         <WidgetPanelContext.Provider
           value={{ getBounds: () => new Rectangle() }}
         >

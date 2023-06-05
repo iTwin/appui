@@ -8,8 +8,6 @@ import { fireEvent, render } from "@testing-library/react";
 import { Input } from "../../core-react/inputs/Input";
 import * as sinon from "sinon";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("<Input />", () => {
   it("renders", () => {
     const input = render(<Input />);

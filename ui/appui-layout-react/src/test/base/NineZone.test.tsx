@@ -35,7 +35,7 @@ describe("<NineZone />", () => {
   });
 
   it("should measure NineZone bounds", () => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention, react/display-name
+    // eslint-disable-next-line react/display-name
     const Measurer = React.forwardRef<{ measure: () => Rectangle }>(
       (_, ref) => {
         const measure = React.useContext(MeasureContext);
@@ -75,7 +75,7 @@ describe("<NineZone />", () => {
     sinon
       .stub(ResizeObserverMock.prototype, "observe")
       .callsFake(function (this: ResizeObserverMock, element: Element) {
-        resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
+        resizeObserver = this;
         measurer = element;
       });
 
@@ -117,7 +117,7 @@ describe("<NineZone />", () => {
     sinon
       .stub(ResizeObserverMock.prototype, "observe")
       .callsFake(function (this: ResizeObserverMock, element: Element) {
-        resizeObserver = this; // eslint-disable-line @typescript-eslint/no-this-alias
+        resizeObserver = this;
         measurer = element;
       });
 
@@ -160,7 +160,6 @@ describe("useLabel", () => {
     const labels: NineZoneLabels = {
       dockToolSettingsTitle: "test",
     };
-    // eslint-disable-next-line react/display-name
     const { result } = renderHook(() => useLabel("dockToolSettingsTitle"), {
       wrapper: (props: {}) => (
         <NineZoneLabelsContext.Provider value={labels} {...props} />

@@ -747,25 +747,25 @@ export class DragManager {
 }
 
 /** @internal */
-export const DragManagerContext = React.createContext<DragManager>(null!); // eslint-disable-line: completed-docs @typescript-eslint/naming-convention
+export const DragManagerContext = React.createContext<DragManager>(null!);
 DragManagerContext.displayName = "nz:DragManagerContext";
 
 /** @internal */
 export const DraggedWidgetIdContext = React.createContext<
   WidgetState["id"] | undefined
->(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+>(undefined);
 DraggedWidgetIdContext.displayName = "nz:DraggedWidgetIdContext";
 
 /** @internal */
 export const DraggedPanelSideContext = React.createContext<
   PanelSide | undefined
->(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+>(undefined);
 DraggedPanelSideContext.displayName = "nz:DraggedPanelSideContext";
 
 /** @internal */
 export const DraggedResizeHandleContext = React.createContext<
   FloatingWidgetResizeHandle | undefined
->(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+>(undefined);
 DraggedResizeHandleContext.displayName = "nz:DraggedResizeHandleContext";
 
 /** @internal */

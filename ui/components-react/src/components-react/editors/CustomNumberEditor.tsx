@@ -180,7 +180,7 @@ export class CustomNumberEditor
   /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
-    this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void this.setStateFromProps();
   }
 
   /** @internal */
@@ -191,7 +191,7 @@ export class CustomNumberEditor
   /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
-      this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this.setStateFromProps();
     }
   }
 
@@ -229,8 +229,6 @@ export class CustomNumberEditor
         UiComponents.loggerCategory(this),
         "PropertyRecord must be defined to use CustomNumberPropertyEditor"
       );
-      // eslint-disable-next-line no-console
-      // console.log("PropertyRecord must be defined to use CustomNumberPropertyEditor");
       return;
     }
     // istanbul ignore else
@@ -250,8 +248,6 @@ export class CustomNumberEditor
         UiComponents.loggerCategory(this),
         `CustomFormattedNumberParams must be defined for property ${record.property.name}`
       );
-      // eslint-disable-next-line no-console
-      // console.log(`CustomFormattedNumberParams must be defined for property ${record!.property!.name}`);
       return;
     }
 
@@ -357,7 +353,6 @@ export class CustomNumberEditor
     );
 
     const inputProps: Omit<InputProps, "size"> = {
-      // eslint-disable-line deprecation/deprecation
       className,
       style: this.props.style ? this.props.style : minWidthStyle,
       readOnly,

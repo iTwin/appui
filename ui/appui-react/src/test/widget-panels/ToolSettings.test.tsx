@@ -204,7 +204,6 @@ describe("useHorizontalToolSettingNodes", () => {
   it("should not return undefined if activeToolSettingsProvider is unset", () => {
     const { result } = renderHook(() => useHorizontalToolSettingNodes());
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       UiFramework.frontstages.onToolActivatedEvent.emit({ toolId: "t1" });
     });
     (result.current === undefined).should.false;
@@ -240,7 +239,6 @@ describe("useHorizontalToolSettingNodes", () => {
     const sut = renderHook(() => useHorizontalToolSettingNodes());
 
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       sinon
         .stub(InternalFrontstageManager, "activeToolSettingsProvider")
         .get(

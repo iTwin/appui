@@ -30,9 +30,7 @@ describe("useWidgetDirection", () => {
 
     const layout = createLayoutStore();
     const { result } = renderHook(() => useWidgetDirection(), {
-      wrapper: (
-        { children } // eslint-disable-line react/display-name
-      ) => (
+      wrapper: ({ children }) => (
         <NineZone layout={layout} dispatch={() => {}}>
           {children}
         </NineZone>
@@ -49,9 +47,7 @@ describe("useWidgetDirection", () => {
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     const layout = createLayoutStore(state);
     const { result } = renderHook(() => useWidgetDirection(), {
-      wrapper: (
-        { children } // eslint-disable-line react/display-name
-      ) => (
+      wrapper: ({ children }) => (
         <Provider store={TestUtils.store}>
           <NineZone layout={layout} dispatch={() => {}}>
             <TabIdContext.Provider value="t1">{children}</TabIdContext.Provider>
@@ -70,9 +66,7 @@ describe("useWidgetDirection", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const layout = createLayoutStore(state);
     const { result } = renderHook(() => useWidgetDirection(), {
-      wrapper: (
-        { children } // eslint-disable-line react/display-name
-      ) => (
+      wrapper: ({ children }) => (
         <Provider store={TestUtils.store}>
           <NineZone layout={layout} dispatch={() => {}}>
             <TabIdContext.Provider value="t1">{children}</TabIdContext.Provider>

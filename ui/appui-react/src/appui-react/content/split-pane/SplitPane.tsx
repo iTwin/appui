@@ -286,7 +286,6 @@ export function SplitPane(props: SplitPaneProps) {
               return;
             }
             // Integer division
-            // eslint-disable-next-line no-bitwise
             positionDelta = ~~(positionDelta / step) * step;
           }
           let sizeDelta = isPrimaryFirst ? positionDelta : -positionDelta;

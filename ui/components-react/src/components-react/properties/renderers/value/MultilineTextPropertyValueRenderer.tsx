@@ -8,7 +8,6 @@
  */
 
 import * as React from "react";
-// eslint-disable-next-line no-duplicate-imports
 import { useLayoutEffect, useRef, useState } from "react";
 import { assert } from "@itwin/core-bentley";
 import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";

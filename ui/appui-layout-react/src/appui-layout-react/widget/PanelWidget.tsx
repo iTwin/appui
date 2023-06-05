@@ -32,9 +32,8 @@ export interface PanelWidgetProps {
 }
 
 /** @internal */
-export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( // eslint-disable-line react/display-name
+export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>(
   function PanelWidget({ widgetId }, ref) {
-    // eslint-disable-line @typescript-eslint/naming-convention
     const side = React.useContext(PanelSideContext);
     assert(!!side);
     const widgetsLength = useLayout((state) => {

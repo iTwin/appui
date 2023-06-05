@@ -55,7 +55,7 @@ describe("useTabTarget", () => {
       {
         wrapper: (props) => (
           <DragManagerContext.Provider value={dragManager} {...props} />
-        ), // eslint-disable-line react/display-name
+        ),
       }
     );
 
@@ -100,7 +100,7 @@ describe("useTabTarget", () => {
       {
         wrapper: (props) => (
           <DragManagerContext.Provider value={dragManager} {...props} />
-        ), // eslint-disable-line react/display-name
+        ),
       }
     );
 
@@ -140,7 +140,7 @@ describe("usePanelTarget", () => {
       {
         wrapper: (props) => (
           <DragManagerContext.Provider value={dragManager} {...props} />
-        ), // eslint-disable-line react/display-name
+        ),
       }
     );
 
@@ -173,7 +173,7 @@ describe("useWidgetTarget", () => {
       {
         wrapper: (props) => (
           <DragManagerContext.Provider value={dragManager} {...props} />
-        ), // eslint-disable-line react/display-name
+        ),
       }
     );
 
@@ -199,7 +199,7 @@ describe("useIsDraggedType", () => {
     const { result } = renderHook(() => useIsDraggedType("tab"), {
       wrapper: (props) => (
         <DragManagerContext.Provider value={dragManager} {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
     result.current.should.false;
 
@@ -222,7 +222,7 @@ describe("useDraggedItem", () => {
     const { result } = renderHook(() => useDraggedItem(), {
       wrapper: (props) => (
         <DragManagerContext.Provider value={dragManager} {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
     should().equal(result.current, undefined);
 
@@ -262,7 +262,7 @@ describe("useTargeted", () => {
     const { result } = renderHook(() => useTargeted(), {
       wrapper: (props) => (
         <DragManagerContext.Provider value={dragManager} {...props} />
-      ), // eslint-disable-line react/display-name
+      ),
     });
     expect(result.current).to.be.undefined;
 

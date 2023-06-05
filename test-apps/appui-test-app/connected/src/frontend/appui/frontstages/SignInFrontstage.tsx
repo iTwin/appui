@@ -39,7 +39,7 @@ class SignInControl extends ContentControl {
       IModelApp.authorizationClient instanceof BrowserAuthorizationClient ||
       IModelApp.authorizationClient instanceof ElectronRendererAuthorization
     ) {
-      IModelApp.authorizationClient.signIn(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void IModelApp.authorizationClient.signIn();
     }
   };
 

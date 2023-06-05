@@ -121,8 +121,7 @@ export class DateTimeEditor
         );
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      this.processDateChange(this.state.typeConverter, newValue);
+      void this.processDateChange(this.state.typeConverter, newValue);
     }
   };
 
@@ -142,7 +141,7 @@ export class DateTimeEditor
   /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
-    this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void this.setStateFromProps();
   }
 
   /** @internal */
@@ -153,7 +152,7 @@ export class DateTimeEditor
   /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
-      this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this.setStateFromProps();
     }
   }
 

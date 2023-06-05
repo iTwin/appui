@@ -56,7 +56,6 @@ export interface CustomToolbarItem extends CustomButtonDefinition {
  * Context used by Toolbar items to know if popup panel should be hidden - via AutoHide.
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ToolbarPopupAutoHideContext = React.createContext<boolean>(false);
 
 /**
@@ -153,7 +152,6 @@ export interface ToolbarOverflowContextProps {
  * Context used by Toolbar component to provide Direction to child components.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ToolbarWithOverflowDirectionContext =
   React.createContext<ToolbarOverflowContextProps>({
     expandsTo: Direction.Bottom,
@@ -409,8 +407,6 @@ export function ToolbarWithOverflow(props: ToolbarWithOverflowProps) {
       setPopupPanelCount((prev) => {
         /* istanbul ignore next */
         const nextCount = isOpening ? prev + 1 : prev - 1;
-        // eslint-disable-next-line no-console
-        // console.log(`new popup count = ${nextCount}`);
         return nextCount < 0 ? /* istanbul ignore next */ 0 : nextCount;
       });
     });
@@ -800,7 +796,6 @@ export interface ToolbarItemContextArgs {
 /** Interface toolbars use to define context for its items.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ToolbarItemContext = React.createContext<ToolbarItemContextArgs>(
   null!
 );

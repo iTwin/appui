@@ -106,7 +106,6 @@ export interface SessionStateActionsProps {
  * @public
  */
 export const SessionStateActions = {
-  // eslint-disable-line @typescript-eslint/naming-convention
   setActiveIModelId:
     // istanbul ignore next
     (iModelId: string) =>

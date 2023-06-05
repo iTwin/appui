@@ -38,7 +38,6 @@ function usePanelSize(location: StagePanelLocation) {
     setSize(panelDef?.size);
   }, [panelDef]);
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
     const remove =
       InternalFrontstageManager.onPanelSizeChangedEvent.addListener((e) => {
         if (e.panelDef.location === location) setSize(e.size);
@@ -684,7 +683,6 @@ export function FloatingLayoutInfo() {
     getFloatingWidgetContainerBounds(frontstageDef, floatingWidgetId)
   );
   React.useEffect(() => {
-    // eslint-disable-next-line deprecation/deprecation
     return InternalFrontstageManager.onFrontstageNineZoneStateChangedEvent.addListener(
       (e: any) => {
         if (e.frontstageDef !== frontstageDef) return;

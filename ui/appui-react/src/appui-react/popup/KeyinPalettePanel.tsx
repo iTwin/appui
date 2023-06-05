@@ -39,8 +39,10 @@ export function clearKeyinPaletteHistory() {
   const uiSettingsStorage = UiFramework.getUiStateStorage();
   // istanbul ignore else
   if (uiSettingsStorage) {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    uiSettingsStorage.deleteSetting(KEYIN_PALETTE_NAMESPACE, KEYIN_HISTORY_KEY);
+    void uiSettingsStorage.deleteSetting(
+      KEYIN_PALETTE_NAMESPACE,
+      KEYIN_HISTORY_KEY
+    );
   }
 }
 
@@ -87,13 +89,12 @@ export function KeyinPalettePanel({
       }
     }
 
-    fetchState(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void fetchState();
   }, [uiSettingsStorage]);
 
   // istanbul ignore next
   const storeHistoryKeyins = React.useCallback(
     async (value: string[]) => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       const result = await uiSettingsStorage.saveSetting(
         KEYIN_PALETTE_NAMESPACE,
         KEYIN_HISTORY_KEY,

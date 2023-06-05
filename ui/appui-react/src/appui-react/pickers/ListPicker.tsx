@@ -30,7 +30,7 @@ import {
  * @beta
  */
 export enum ListItemType {
-  Item = 0, // eslint-disable-line @typescript-eslint/no-shadow
+  Item = 0,
   Separator = 1,
   Container = 2,
 }

@@ -8,7 +8,6 @@ import { expect } from "chai";
 import * as React from "react";
 import { useTargeted } from "../../../core-react/utils/hooks/useTargeted";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const Targeted = () => {
   const ref = React.useRef<HTMLButtonElement>(null);
   const targeted = useTargeted(ref);

@@ -30,7 +30,6 @@ import { CommonProps } from "@itwin/core-react";
  * This component is designed to be specified in a status bar definition to select the display style in the active IModel view.
  * It is used to enable/disable display of shadows.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function DisplayStyleField(props: CommonProps) {
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>();
   const [displayStyles, setDisplayStyles] = React.useState(
@@ -105,8 +104,9 @@ export function DisplayStyleField(props: CommonProps) {
       );
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    setStateFromActiveContent(UiFramework.content.getActiveContentControl());
+    void setStateFromActiveContent(
+      UiFramework.content.getActiveContentControl()
+    );
 
     return UiFramework.frontstages.onContentControlActivatedEvent.addListener(
       handleContentControlActivatedEvent

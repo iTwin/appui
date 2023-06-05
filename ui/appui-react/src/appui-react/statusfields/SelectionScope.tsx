@@ -92,7 +92,7 @@ function mapStateToProps(state: any) {
  * display the active selection scope that is used by the PresentationManager to determine what elements are added to the selection nap mode.
  * This React component is Redux connected.
  * @public
- */ // eslint-disable-next-line @typescript-eslint/naming-convention
+ */
 export const SelectionScopeField = connect(mapStateToProps)(
   SelectionScopeFieldComponent
 );

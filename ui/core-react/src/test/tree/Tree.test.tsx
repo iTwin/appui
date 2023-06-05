@@ -9,8 +9,6 @@ import * as sinon from "sinon";
 import { Tree } from "../../core-react";
 import { classesFromElement } from "../TestUtils";
 
-/* eslint-disable @typescript-eslint/unbound-method */
-
 describe("<Tree />", () => {
   const createRect = (
     x0: number,

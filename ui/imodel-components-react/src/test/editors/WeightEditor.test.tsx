@@ -54,7 +54,6 @@ describe("<WeightEditor />", () => {
     // ====== Example of how to see contents of portal <Popup> component ==========
     // const portalDiv = await waitForElement(() => renderedComponent.getByTestId("core-popup"));
     // expect(portalDiv).not.to.be.undefined;
-    // eslint-disable-next-line no-console
     // console.log(portalDiv.outerHTML);
     // =================================
 

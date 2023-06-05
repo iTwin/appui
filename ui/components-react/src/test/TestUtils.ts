@@ -608,4 +608,4 @@ export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
   ReturnType<T>
 >;
 
-export default TestUtils; // eslint-disable-line: no-default-export
+export default TestUtils;

@@ -25,7 +25,6 @@ export interface UnitSystemSelectorProps {
  * @alpha
  */
 export function UnitSystemSelector(props: UnitSystemSelectorProps) {
-  // eslint-disable-line @typescript-eslint/naming-convention
   const label = React.useRef(
     UiFramework.translate("presentationUnitSystem.selector-label")
   );

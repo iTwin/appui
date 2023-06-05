@@ -175,7 +175,7 @@ describe("ModalSettingsStage", () => {
     });
     sinon
       .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
+      .get(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     // const modalFrontstage = new SettingsModalFrontstage();
@@ -225,7 +225,7 @@ describe("ModalSettingsStage", () => {
     });
     sinon
       .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
+      .get(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     SettingsModalFrontstage.showSettingsStage("page-3");
@@ -258,7 +258,7 @@ describe("ModalSettingsStage", () => {
     });
     sinon
       .stub(UiFramework.frontstages, "activeFrontstageDef")
-      .get(() => frontstageDef); // eslint-disable-line deprecation/deprecation
+      .get(() => frontstageDef);
 
     settingsManager.addSettingsProvider(new TestSettingsProvider());
     SettingsModalFrontstage.showSettingsStage("page2");

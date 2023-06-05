@@ -91,7 +91,7 @@ export const connectIModelConnection = (
  *    myData: string;
  *  }
  *
- *  export const ConnectControl = connectIModelConnection(null, sessionStateMapDispatchToProps)(ComponentClass); // eslint-disable-line @typescript-eslint/naming-convention
+ *  export const ConnectControl = connectIModelConnection(null, sessionStateMapDispatchToProps)(ComponentClass);
  *
  *  //  this then allows connected control to update the store using a call like shown below.
  *  this.props.setNumItemsSelected(30);

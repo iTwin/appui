@@ -54,12 +54,7 @@ describe("MenuTab", () => {
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     const { container } = render(<WidgetMenuTab />, {
       wrapper: (props) => (
-        <Wrapper // eslint-disable-line react/display-name
-          defaultState={state}
-          widgetId="w1"
-          tabId="t1"
-          {...props}
-        />
+        <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
       ),
     });
     container.getElementsByClassName("nz-widget-menuTab").length.should.eq(1);
@@ -75,12 +70,7 @@ describe("MenuTab", () => {
       </ShowWidgetIconContext.Provider>,
       {
         wrapper: (props) => (
-          <Wrapper // eslint-disable-line react/display-name
-            defaultState={state}
-            widgetId="w1"
-            tabId="t1"
-            {...props}
-          />
+          <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
         ),
       }
     );
@@ -102,12 +92,7 @@ describe("MenuTab", () => {
       </WidgetOverflowContext.Provider>,
       {
         wrapper: (props) => (
-          <Wrapper // eslint-disable-line react/display-name
-            defaultState={state}
-            widgetId="w1"
-            tabId="t1"
-            {...props}
-          />
+          <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
         ),
       }
     );

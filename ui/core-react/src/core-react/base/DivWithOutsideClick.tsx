@@ -15,4 +15,4 @@ import type { CommonDivProps } from "../utils/Props";
  */
 export const DivWithOutsideClick = withOnOutsideClick(
   (props: CommonDivProps) => <div {...props} />
-); // eslint-disable-line @typescript-eslint/naming-convention
+);

@@ -17,7 +17,7 @@ describe("WithOnOutsideClick", async () => {
 
   const WithOnOutsideClickDiv = withOnOutsideClick<{
     children?: React.ReactNode;
-  }>((props) => <div {...props} />, undefined, true, false); // eslint-disable-line @typescript-eslint/naming-convention
+  }>((props) => <div {...props} />, undefined, true, false);
 
   const defaultOnClose = sinon.spy();
   const WithOnOutsideClickAndDefaultDiv = withOnOutsideClick(
@@ -25,20 +25,20 @@ describe("WithOnOutsideClick", async () => {
     defaultOnClose,
     true,
     false
-  ); // eslint-disable-line @typescript-eslint/naming-convention
+  );
 
   const WithOnOutsidePointerDiv = withOnOutsideClick(
     (props) => <div {...props} />,
     undefined,
     true
-  ); // eslint-disable-line @typescript-eslint/naming-convention
+  );
 
   const WithOnOutsidePointerAndDefaultDiv = withOnOutsideClick(
     (props) => <div {...props} />,
     defaultOnClose,
     true,
     true
-  ); // eslint-disable-line @typescript-eslint/naming-convention
+  );
 
   it("should handle document click", async () => {
     const spyOnClose = sinon.spy();

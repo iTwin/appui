@@ -40,7 +40,7 @@ export class PrimitivePropertyRenderer extends React.Component<PrimitiveRenderer
 
   /** @internal */
   public override render() {
-    const { indentation, highlight, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { indentation, highlight, ...props } = this.props;
     const displayLabel = this.props.propertyRecord.property.displayLabel;
     const offset = CommonPropertyRenderer.getLabelOffset(
       indentation,

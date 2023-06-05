@@ -14,8 +14,6 @@ import {
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
-/* eslint-disable deprecation/deprecation */
-
 describe("SelectionInfoField", () => {
   beforeEach(async () => {
     await TestUtils.initializeUiFramework();

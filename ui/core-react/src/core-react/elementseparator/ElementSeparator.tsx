@@ -15,7 +15,7 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react"; // eslint-disable-line no-duplicate-imports
+} from "react";
 import classnames from "classnames";
 import { Orientation } from "../enums/Orientation";
 import type { CommonProps } from "../utils/Props";
@@ -232,7 +232,6 @@ function getStyle(
 /** A movable button, which allows to change the ratio between left element and right element
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ElementSeparator = (props: ElementSeparatorProps) => {
   const label = useRef(UiCore.translate("elementSeparator.label"));
   const [hasHoverHappened, setHasHoverHappened] = useState(false);

@@ -425,7 +425,7 @@ export class ViewSelector extends React.Component<
     });
 
     // Set state to show enabled the view that got selected
-    this.updateState(item.key); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void this.updateState(item.key);
   };
 
   // Hook on the category selector being expanded so that we may initialize if needed
@@ -475,4 +475,4 @@ export class ViewSelector extends React.Component<
 export const IModelConnectedViewSelector = connectIModelConnection(
   null,
   null
-)(ViewSelector); // eslint-disable-line @typescript-eslint/naming-convention
+)(ViewSelector);

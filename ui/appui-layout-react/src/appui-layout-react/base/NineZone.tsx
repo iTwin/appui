@@ -59,7 +59,7 @@ export interface NineZoneLabels {
 
 /** @internal */
 export function NineZone(props: NineZoneProps) {
-  const { children, ...providerProps } = props; // eslint-disable-line @typescript-eslint/no-unused-vars
+  const { children, ...providerProps } = props;
   const measurerRef = React.useRef<HTMLDivElement>(null);
   const measure = React.useCallback<() => Rectangle>(() => {
     assert(!!measurerRef.current);
@@ -68,7 +68,7 @@ export function NineZone(props: NineZoneProps) {
   return (
     <NineZoneProvider measure={measure} {...providerProps}>
       <Measurer ref={measurerRef} />
-      {props.children}
+      {children}
     </NineZoneProvider>
   );
 }
@@ -129,62 +129,62 @@ export function NineZoneProvider(props: NineZoneProviderProps) {
 /** @internal */
 export const NineZoneDispatchContext = React.createContext<NineZoneDispatch>(
   null!
-); // eslint-disable-line @typescript-eslint/naming-convention
+);
 NineZoneDispatchContext.displayName = "nz:NineZoneDispatchContext";
 
 /** @internal */
 export const NineZoneLabelsContext = React.createContext<
   NineZoneLabels | undefined
->(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+>(undefined);
 NineZoneLabelsContext.displayName = "nz:NineZoneLabelsContext";
 
 /** @internal */
 export const CursorTypeContext = React.createContext<CursorType | undefined>(
   undefined
-); // eslint-disable-line @typescript-eslint/naming-convention
+);
 CursorTypeContext.displayName = "nz:CursorTypeContext";
 
 /** @internal */
 export const WidgetContentNodeContext =
-  React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+  React.createContext<React.ReactNode>(undefined);
 WidgetContentNodeContext.displayName = "nz:WidgetContentNodeContext";
 
 /** @internal */
-export const ShowWidgetIconContext = React.createContext<boolean>(false); // eslint-disable-line @typescript-eslint/naming-convention
+export const ShowWidgetIconContext = React.createContext<boolean>(false);
 ShowWidgetIconContext.displayName = "nz:ShowWidgetIconContext";
 
 /** @internal */
 export const AutoCollapseUnpinnedPanelsContext =
-  React.createContext<boolean>(false); // eslint-disable-line @typescript-eslint/naming-convention
+  React.createContext<boolean>(false);
 AutoCollapseUnpinnedPanelsContext.displayName =
   "nz:AutoCollapseUnpinnedPanelsContext";
 
 /** @internal */
 export const AnimateDockedToolSettingsContext =
-  React.createContext<boolean>(false); // eslint-disable-line @typescript-eslint/naming-convention
+  React.createContext<boolean>(false);
 AnimateDockedToolSettingsContext.displayName =
   "nz:AnimateDockedToolSettingsContext";
 
 /** @internal */
 export const ToolSettingsNodeContext =
-  React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+  React.createContext<React.ReactNode>(undefined);
 ToolSettingsNodeContext.displayName = "nz:ToolSettingsNodeContext";
 
 /** @internal */
-export const TabNodeContext = React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const TabNodeContext = React.createContext<React.ReactNode>(undefined);
 TabNodeContext.displayName = "nz:TabNodeContext";
 
 /** @internal */
 export const FloatingWidgetNodeContext =
-  React.createContext<React.ReactNode>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+  React.createContext<React.ReactNode>(undefined);
 FloatingWidgetNodeContext.displayName = "nz:FloatingWidgetNodeContext";
 
 /** @internal */
-export const MeasureContext = React.createContext<() => Rectangle>(null!); // eslint-disable-line @typescript-eslint/naming-convention
+export const MeasureContext = React.createContext<() => Rectangle>(null!);
 MeasureContext.displayName = "nz:MeasureContext";
 
 /** @internal */
-export const UiIsVisibleContext = React.createContext<boolean>(false); // eslint-disable-line @typescript-eslint/naming-convention
+export const UiIsVisibleContext = React.createContext<boolean>(false);
 UiIsVisibleContext.displayName = "nz:UiIsVisibleContext";
 
 function CursorTypeProvider(props: { children?: React.ReactNode }) {
@@ -204,7 +204,6 @@ function CursorTypeProvider(props: { children?: React.ReactNode }) {
 }
 
 const Measurer = React.forwardRef<HTMLDivElement>(function Measurer(_, ref) {
-  // eslint-disable-line @typescript-eslint/naming-convention, no-shadow
   const size = React.useRef<{ height?: number; width?: number }>({});
   const dispatch = React.useContext(NineZoneDispatchContext);
   const handleResize = React.useCallback(

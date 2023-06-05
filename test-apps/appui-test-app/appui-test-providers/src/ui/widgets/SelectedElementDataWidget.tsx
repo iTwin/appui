@@ -27,7 +27,6 @@ export function useIdOfSelectedElements() {
   return locatedIds;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function SelectedElementDataWidgetComponent() {
   const idList = useIdOfSelectedElements();
   const widgetDef = useSpecificWidgetDef(

@@ -21,9 +21,7 @@ import { createDraggedTabState } from "../../appui-layout-react/state/internal/T
 describe("useTargetDirection", () => {
   it("should return `horizontal`", () => {
     const { result } = renderHook(() => useTargetDirection(), {
-      wrapper: (
-        props // eslint-disable-line react/display-name
-      ) => (
+      wrapper: (props) => (
         <PanelSideContext.Provider value="bottom">
           {props.children}
         </PanelSideContext.Provider>
@@ -34,9 +32,7 @@ describe("useTargetDirection", () => {
 
   it("should return `vertical`", () => {
     const { result } = renderHook(() => useTargetDirection(), {
-      wrapper: (
-        props // eslint-disable-line react/display-name
-      ) => (
+      wrapper: (props) => (
         <PanelSideContext.Provider value="left">
           {props.children}
         </PanelSideContext.Provider>
@@ -83,7 +79,7 @@ describe("useAllowedPanelTarget", () => {
     state = addTab(state, "t3");
     state = addPanelWidget(state, "left", "w2", ["t3"]);
     const { container } = render(<SectionTargets widgetId="w2" />, {
-      wrapper: (props) => <DragWidgetWrapper defaultState={state} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => <DragWidgetWrapper defaultState={state} {...props} />,
     });
     container.getElementsByClassName("nz-hidden").length.should.eq(3);
   });
@@ -96,7 +92,7 @@ describe("useAllowedPanelTarget", () => {
     state = addTab(state, "t2");
     state = addPanelWidget(state, "left", "w1", ["t2"]);
     const { container } = render(<SectionTargets widgetId="w1" />, {
-      wrapper: (props) => <DragTabWrapper defaultState={state} {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => <DragTabWrapper defaultState={state} {...props} />,
     });
     container.getElementsByClassName("nz-hidden").length.should.eq(3);
   });

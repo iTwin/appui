@@ -90,7 +90,7 @@ export class GlobalContextMenu extends React.PureComponent<
       top: y,
     };
 
-    const CtxMenu = contextMenuComponent || ContextMenu; // eslint-disable-line @typescript-eslint/naming-convention
+    const CtxMenu = contextMenuComponent || ContextMenu;
 
     return (
       <div ref={this._handleRefSet} style={{ display: "none" }}>

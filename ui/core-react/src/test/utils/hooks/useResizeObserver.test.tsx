@@ -51,7 +51,6 @@ describe("useResizeObserver", () => {
     const { result } = renderHook(() => useResizeObserver());
     const element = document.createElement("div");
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current(element);
     });
     await TestUtils.flushAsyncOperations();
@@ -66,11 +65,9 @@ describe("useResizeObserver", () => {
     const { result } = renderHook(() => useResizeObserver());
     const element = document.createElement("div");
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current(element);
     });
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current(null);
     });
     await TestUtils.flushAsyncOperations();
@@ -86,7 +83,6 @@ describe("useResizeObserver", () => {
     const { result } = renderHook(() => useResizeObserver(spy));
     const element = document.createElement("div");
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current(element);
     });
     await TestUtils.flushAsyncOperations();
@@ -117,7 +113,6 @@ describe("useResizeObserver", () => {
     const { result } = renderHook(() => useResizeObserver(spy));
     const element = document.createElement("div");
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current(element);
     });
     await TestUtils.flushAsyncOperations();
@@ -149,7 +144,6 @@ describe("useResizeObserver", () => {
     const { result } = renderHook(() => useResizeObserver(spy));
     const element = document.createElement("div");
     act(() => {
-      // eslint-disable-line @typescript-eslint/no-floating-promises
       result.current(element);
     });
 

@@ -323,7 +323,6 @@ describe("FlatPropertyRenderer", () => {
 
     const myCustomRenderer = {
       canRender: () => true,
-      // eslint-disable-next-line react/display-name
       render: () => <div>My value</div>,
     };
 

@@ -343,7 +343,7 @@ export function ViewportComponent(props: ViewportProps) {
         setInitialViewState(currentViewState?.clone());
       }
     }
-    if (undefined === initialViewState) fetchInitialViewstate(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    if (undefined === initialViewState) void fetchInitialViewstate();
   }, [imodel, initialViewState, viewDefinitionId, viewState]);
 
   const [viewOverlay, setViewOverlay] = React.useState<React.ReactNode>(null);

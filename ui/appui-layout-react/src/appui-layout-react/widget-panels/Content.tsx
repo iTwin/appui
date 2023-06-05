@@ -29,8 +29,6 @@ export const WidgetPanelsContent = React.forwardRef<
   HTMLDivElement,
   WidgetPanelsContentProps
 >(function WidgetPanelsContent(props, ref) {
-  // eslint-disable-line react/display-name
-  // eslint-disable-line @typescript-eslint/no-shadow
   const className = classnames(
     "nz-widgetPanels-content",
     props.pinnedLeft && "nz-pinned-left",

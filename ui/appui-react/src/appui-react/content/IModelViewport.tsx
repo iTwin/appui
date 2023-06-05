@@ -33,7 +33,7 @@ import type { FrameworkState } from "../redux/FrameworkState";
 export const IModelConnectedViewport = connectIModelConnectionAndViewState(
   null,
   null
-)(ViewportComponent); // eslint-disable-line @typescript-eslint/naming-convention
+)(ViewportComponent);
 
 /** [[IModelViewportControl]] options. These options are set in the applicationData property of the [[ContentProps]].
  * @public

@@ -115,7 +115,6 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render 6 items without overflow", () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -137,7 +136,6 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render 6 items without overflow - simulate horizontal toolbar at bottom right of window.", () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -164,7 +162,6 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render 3 items with overflow - simulate horizontal toolbar right of window.", () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -205,7 +202,6 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render with 3 items + overflow", () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -240,7 +236,6 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will auto-hide rendered with 3 items + overflow", () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -344,7 +339,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -427,7 +421,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -498,7 +491,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -569,7 +561,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -645,7 +636,6 @@ describe("<ToolbarWithOverflow />", () => {
     ];
 
     it("will render 6 items without overflow", () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -670,7 +660,6 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render 6 items without overflow - simulate vertical bar in Navigation Area", () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -695,7 +684,6 @@ describe("<ToolbarWithOverflow />", () => {
     });
 
     it("will render with 3 items + overflow", () => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -734,7 +722,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -772,7 +759,6 @@ describe("<ToolbarWithOverflow />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -820,7 +806,6 @@ describe("<ToolbarWithOverflow />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -875,7 +860,6 @@ describe("<ToolbarWithOverflow />", () => {
 
       const toolbarItems: CommonToolbarItem[] = [getCustomDefWithPopupPanel()];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -939,7 +923,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -1264,7 +1247,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -1560,7 +1542,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -1772,7 +1753,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -1861,7 +1841,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2024,7 +2003,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2123,7 +2101,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2186,7 +2163,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2276,7 +2252,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2363,7 +2338,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2434,7 +2408,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2494,7 +2467,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2580,7 +2552,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2662,7 +2633,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2753,7 +2723,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {
@@ -2915,7 +2884,6 @@ describe("<ToolbarWithOverflow />", () => {
         ),
       ];
 
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
       sandbox
         .stub(Element.prototype, "getBoundingClientRect")
         .callsFake(function (this: HTMLElement) {

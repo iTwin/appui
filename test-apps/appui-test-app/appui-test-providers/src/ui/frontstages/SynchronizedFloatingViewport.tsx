@@ -73,7 +73,6 @@ export class SynchronizedFloatingViewportContentGroupProvider extends ContentGro
   public override async contentGroup(
     config: FrontstageConfig
   ): Promise<ContentGroup> {
-    // eslint-disable-line deprecation/deprecation
     const savedViewLayoutProps = await getSavedViewLayoutProps(
       config.id,
       UiFramework.getIModelConnection()

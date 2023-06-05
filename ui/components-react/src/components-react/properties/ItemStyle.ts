@@ -75,7 +75,6 @@ function getForegroundColor(
  * Style provider for stylable items like [[TreeNodeItem]]
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ItemStyleProvider = {
   /**
    * Create CSS style from [[ItemStyle]]
@@ -95,7 +94,6 @@ export const ItemStyleProvider = {
  * Style provider for table rows
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const TableRowStyleProvider = {
   /**
    * Create CSS style from [[ItemStyle]]

@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
 /** @packageDocumentation
  * @module Icon
  */
@@ -70,7 +69,7 @@ export function Icon(props: IconProps) {
       const sanitizedIconString = sanitizer.sanitize(svgDiv, sanitizerConfig);
       const webComponentNode = (
         // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
-        // eslint-disable-next-line @typescript-eslint/naming-convention, jam3/no-sanitizer-with-danger
+        // eslint-disable-next-line jam3/no-sanitizer-with-danger
         <div dangerouslySetInnerHTML={{ __html: sanitizedIconString }}></div>
       );
       return (
