@@ -28,7 +28,7 @@ export interface PropertyFilterBuilderRuleRendererProps {
   path: string[];
   /** Rule to render. */
   rule: PropertyFilterBuilderRule;
-  isOnlyRuleInRuleGroup?: boolean;
+  isOnlyRuleInGroup?: boolean;
 }
 
 /**
@@ -77,7 +77,7 @@ export function PropertyFilterBuilderRuleRenderer(props: PropertyFilterBuilderRu
         ? <IconButton onClick={removeRule} styleType="borderless" size="small">
           <SvgDelete />
         </IconButton>
-        : undefined}
+        : null}
     </div>
     <div className="rule-condition">
       <PropertyFilterBuilderRuleProperty
