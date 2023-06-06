@@ -115,9 +115,11 @@ export class PropertyFilterBuilderActions {
         (item) => item.id === itemId
       );
       if (itemIndex === -1) return;
+      if (parentGroup.items.length === 1) {
+        parentGroup.items[0] = createEmptyRule(parentGroup.id);
+        return;
+      }
       parentGroup.items.splice(itemIndex, 1);
-      if (parentGroup.items.length === 0)
-        removeItemFromGroup(state, pathToParent);
     }
 
     this.updateState((state) => {

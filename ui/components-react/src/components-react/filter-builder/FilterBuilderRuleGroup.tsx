@@ -99,6 +99,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
               key={item.id}
               path={path}
               item={item}
+              isRemovable={group.items.length > 1}
             />
           ))}
         </div>
@@ -181,12 +182,14 @@ export function PropertyFilterBuilderRuleGroupOperator(
 interface PropertyFilterBuilderGroupOrRuleProps {
   path: string[];
   item: PropertyFilterBuilderRuleGroupItem;
+  isRemovable?: boolean;
 }
 
 const PropertyFilterBuilderGroupOrRule = React.memo(
   function PropertyFilterBuilderGroupOrRule({
     path,
     item,
+    isRemovable,
   }: PropertyFilterBuilderGroupOrRuleProps) {
     const itemPath = [...path, item.id];
 
@@ -194,6 +197,12 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
       return (
         <PropertyFilterBuilderRuleGroupRenderer path={itemPath} group={item} />
       );
-    return <PropertyFilterBuilderRuleRenderer path={itemPath} rule={item} />;
+    return (
+      <PropertyFilterBuilderRuleRenderer
+        path={itemPath}
+        rule={item}
+        isRemovable={isRemovable}
+      />
+    );
   }
 );
