@@ -183,16 +183,15 @@ export function buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupIte
 }
 
 function buildPropertyFilterFromRuleGroup(rootGroup: PropertyFilterBuilderRuleGroup): PropertyFilter | undefined {
-  if (rootGroup.items.length === 0)
-    return undefined;
-
   const rules = new Array<PropertyFilter>();
   for (const item of rootGroup.items) {
     const rule = buildPropertyFilter(item);
-    if (!rule)
-      return undefined;
-    rules.push(rule);
+    if (rule)
+      rules.push(rule);
   }
+
+  if (rules.length === 0)
+    return undefined;
 
   if (rules.length === 1)
     return rules[0];
@@ -208,7 +207,7 @@ function buildPropertyFilterFromRule(rule: PropertyFilterBuilderRule): PropertyF
   if (!property || operator === undefined)
     return undefined;
 
-  if (!isUnaryPropertyFilterOperator(operator) && (value === undefined || value.valueFormat !== PropertyValueFormat.Primitive || value.value === undefined))
+  if (!isUnaryPropertyFilterOperator(operator) && (!value || value.valueFormat !== PropertyValueFormat.Primitive || !value.value))
     return undefined;
 
   return { property, operator, value };
