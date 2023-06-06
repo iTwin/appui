@@ -265,7 +265,12 @@ describe("PropertyFilterBuilder", () => {
       const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
         operator: PropertyFilterRuleGroupOperator.And,
-        items: [defaultRule, { ...defaultRule, operator: undefined }, { ...defaultRule, property: undefined }, { ...defaultRule, value: undefined }],
+        items: [
+          defaultRule,
+          { ...defaultRule, operator: undefined },
+          { ...defaultRule, property: undefined },
+          { ...defaultRule, value: undefined },
+        ],
       };
       expect(buildPropertyFilter(ruleGroup)).to.containSubset({
         operator: defaultRule.operator,
