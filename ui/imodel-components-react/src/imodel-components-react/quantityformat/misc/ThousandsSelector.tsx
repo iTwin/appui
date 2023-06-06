@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module QuantityFormat
  */
@@ -27,18 +27,34 @@ export interface ThousandsSelectorProps extends CommonProps {
 export function ThousandsSelector(props: ThousandsSelectorProps) {
   const { separator, disabled, onChange, ...otherProps } = props;
   const uomDefaultEntries = React.useRef<SelectOption<string>[]>([
-    { value: ",", label: UiIModelComponents.translate("QuantityFormat.thousand_separator.comma") },
-    { value: ".", label: UiIModelComponents.translate("QuantityFormat.thousand_separator.point") },
+    {
+      value: ",",
+      label: UiIModelComponents.translate(
+        "QuantityFormat.thousand_separator.comma"
+      ),
+    },
+    {
+      value: ".",
+      label: UiIModelComponents.translate(
+        "QuantityFormat.thousand_separator.point"
+      ),
+    },
   ]);
 
-  const handleOnChange = React.useCallback((newValue: string) => {
-    onChange && onChange(newValue);
-  }, [onChange]);
+  const handleOnChange = React.useCallback(
+    (newValue: string) => {
+      onChange && onChange(newValue);
+    },
+    [onChange]
+  );
 
   const separatorOptions = React.useMemo(() => {
     const completeListOfEntries: SelectOption<string>[] = [];
     // istanbul ignore next (only used if format already has a character that does not match standard options)
-    if (undefined === uomDefaultEntries.current.find((option) => option.value === separator)) {
+    if (
+      undefined ===
+      uomDefaultEntries.current.find((option) => option.value === separator)
+    ) {
       completeListOfEntries.push({ value: separator, label: separator });
     }
     completeListOfEntries.push(...uomDefaultEntries.current);
@@ -46,6 +62,13 @@ export function ThousandsSelector(props: ThousandsSelectorProps) {
   }, [separator]);
 
   return (
-    <Select options={separatorOptions} disabled={disabled} value={separator} onChange={handleOnChange} size="small" {...otherProps} />
+    <Select
+      options={separatorOptions}
+      disabled={disabled}
+      value={separator}
+      onChange={handleOnChange}
+      size="small"
+      {...otherProps}
+    />
   );
 }

@@ -1,19 +1,24 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
-import type { PropertyDescription, PropertyValue} from "@itwin/appui-abstract";
+import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import type {
-  PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup, PropertyFilterBuilderRuleGroupItem} from "../../components-react/filter-builder/FilterBuilderState";
-import { usePropertyFilterBuilderState,
+  PropertyFilterBuilderRule,
+  PropertyFilterBuilderRuleGroup,
+  PropertyFilterBuilderRuleGroupItem,
 } from "../../components-react/filter-builder/FilterBuilderState";
-import { PropertyFilterRuleGroupOperator, PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
+import { usePropertyFilterBuilderState } from "../../components-react/filter-builder/FilterBuilderState";
+import {
+  PropertyFilterRuleGroupOperator,
+  PropertyFilterRuleOperator,
+} from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 
 chai.use(chaiSubset);
@@ -32,9 +37,11 @@ describe("usePropertyFilterBuilderState", () => {
     const { state } = result.current;
     expect(state.rootGroup).to.containSubset({
       operator: PropertyFilterRuleGroupOperator.And,
-      items: [{
-        groupId: state.rootGroup.id,
-      }],
+      items: [
+        {
+          groupId: state.rootGroup.id,
+        },
+      ],
     });
   });
 
@@ -46,11 +53,14 @@ describe("usePropertyFilterBuilderState", () => {
     const rootGroup = result.current.state.rootGroup;
     expect(rootGroup).to.containSubset({
       operator: PropertyFilterRuleGroupOperator.And,
-      items: [{
-        groupId: rootGroup.id,
-      }, {
-        groupId: rootGroup.id,
-      }],
+      items: [
+        {
+          groupId: rootGroup.id,
+        },
+        {
+          groupId: rootGroup.id,
+        },
+      ],
     });
   });
 
@@ -71,15 +81,20 @@ describe("usePropertyFilterBuilderState", () => {
     const rootGroup = result.current.state.rootGroup;
     expect(rootGroup).to.containSubset({
       operator: PropertyFilterRuleGroupOperator.And,
-      items: [{
-        groupId: rootGroup.id,
-      }, {
-        groupId: rootGroup.id,
-        operator: PropertyFilterRuleGroupOperator.And,
-        items: [{
-          groupId: nestedGroup!.id,
-        }],
-      }],
+      items: [
+        {
+          groupId: rootGroup.id,
+        },
+        {
+          groupId: rootGroup.id,
+          operator: PropertyFilterRuleGroupOperator.And,
+          items: [
+            {
+              groupId: nestedGroup!.id,
+            },
+          ],
+        },
+      ],
     });
   });
 
@@ -92,13 +107,16 @@ describe("usePropertyFilterBuilderState", () => {
       const rootGroup = result.current.state.rootGroup;
       expect(rootGroup).to.containSubset({
         operator: PropertyFilterRuleGroupOperator.And,
-        items: [{
-          groupId: rootGroup.id,
-        }, {
-          groupId: rootGroup.id,
-          operator: PropertyFilterRuleGroupOperator.And,
-          items: [],
-        }],
+        items: [
+          {
+            groupId: rootGroup.id,
+          },
+          {
+            groupId: rootGroup.id,
+            operator: PropertyFilterRuleGroupOperator.And,
+            items: [],
+          },
+        ],
       });
     });
   });
@@ -133,12 +151,23 @@ describe("usePropertyFilterBuilderState", () => {
 
     let rootGroup = result.current.state.rootGroup;
     expect(rootGroup.items).to.have.lengthOf(1);
-    actions.setRuleOperator([rootGroup.items[0].id], PropertyFilterRuleOperator.IsTrue);
-    actions.setRuleValue([rootGroup.items[0].id], { valueFormat: PropertyValueFormat.Primitive });
-    const testProperty = { name: "testName", displayLabel: "testLabel", typename: "testTypename" };
+    actions.setRuleOperator(
+      [rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsTrue
+    );
+    actions.setRuleValue([rootGroup.items[0].id], {
+      valueFormat: PropertyValueFormat.Primitive,
+    });
+    const testProperty = {
+      name: "testName",
+      displayLabel: "testLabel",
+      typename: "testTypename",
+    };
     actions.setRuleProperty([rootGroup.items[0].id], testProperty);
     rootGroup = result.current.state.rootGroup;
-    expect((rootGroup.items[0] as PropertyFilterBuilderRule).property).to.be.eq(testProperty);
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).property).to.be.eq(
+      testProperty
+    );
     actions.removeItem([rootGroup.items[0].id]);
 
     rootGroup = result.current.state.rootGroup;
@@ -170,16 +199,20 @@ describe("usePropertyFilterBuilderState", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
 
-    expect(state.rootGroup.operator).to.be.eq(PropertyFilterRuleGroupOperator.And);
+    expect(state.rootGroup.operator).to.be.eq(
+      PropertyFilterRuleGroupOperator.And
+    );
     actions.setRuleGroupOperator([], PropertyFilterRuleGroupOperator.Or);
 
     await waitFor(() => {
       const rootGroup = result.current.state.rootGroup;
       expect(rootGroup).to.containSubset({
         operator: PropertyFilterRuleGroupOperator.Or,
-        items: [{
-          groupId: rootGroup.id,
-        }],
+        items: [
+          {
+            groupId: rootGroup.id,
+          },
+        ],
       });
     });
   });
@@ -187,7 +220,10 @@ describe("usePropertyFilterBuilderState", () => {
   it("does not change state when setting non existing group operator", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
-    actions.setRuleGroupOperator(["invalidGroup"], PropertyFilterRuleGroupOperator.Or);
+    actions.setRuleGroupOperator(
+      ["invalidGroup"],
+      PropertyFilterRuleGroupOperator.Or
+    );
 
     const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
@@ -197,16 +233,22 @@ describe("usePropertyFilterBuilderState", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
 
-    const property: PropertyDescription = { name: "prop", displayLabel: "Prop", typename: "string" };
+    const property: PropertyDescription = {
+      name: "prop",
+      displayLabel: "Prop",
+      typename: "string",
+    };
     actions.setRuleProperty([state.rootGroup.items[0].id], property);
 
     await waitFor(() => {
       const rootGroup = result.current.state.rootGroup;
       expect(rootGroup).to.containSubset({
-        items: [{
-          groupId: rootGroup.id,
-          property,
-        }],
+        items: [
+          {
+            groupId: rootGroup.id,
+            property,
+          },
+        ],
       });
     });
   });
@@ -215,7 +257,11 @@ describe("usePropertyFilterBuilderState", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
 
-    const property: PropertyDescription = { name: "prop", displayLabel: "Prop", typename: "string" };
+    const property: PropertyDescription = {
+      name: "prop",
+      displayLabel: "Prop",
+      typename: "string",
+    };
     actions.setRuleProperty(["invalidRule"], property);
 
     const { state: newState } = result.current;
@@ -226,15 +272,20 @@ describe("usePropertyFilterBuilderState", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
 
-    actions.setRuleOperator([state.rootGroup.items[0].id], PropertyFilterRuleOperator.IsEqual);
+    actions.setRuleOperator(
+      [state.rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsEqual
+    );
 
     await waitFor(() => {
       const rootGroup = result.current.state.rootGroup;
       expect(rootGroup).to.containSubset({
-        items: [{
-          groupId: rootGroup.id,
-          operator: PropertyFilterRuleOperator.IsEqual,
-        }],
+        items: [
+          {
+            groupId: rootGroup.id,
+            operator: PropertyFilterRuleOperator.IsEqual,
+          },
+        ],
       });
     });
   });
@@ -243,24 +294,33 @@ describe("usePropertyFilterBuilderState", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
 
-    const value: PropertyValue = { valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING" };
+    const value: PropertyValue = {
+      valueFormat: PropertyValueFormat.Primitive,
+      value: "test string",
+      displayValue: "TEST STRING",
+    };
     actions.setRuleValue([state.rootGroup.items[0].id], value);
     await waitFor(() => {
-      const rule = result.current.state.rootGroup.items[0] as PropertyFilterBuilderRule;
+      const rule = result.current.state.rootGroup
+        .items[0] as PropertyFilterBuilderRule;
       expect(rule.value).to.be.deep.eq(value);
-
     });
 
-    actions.setRuleOperator([state.rootGroup.items[0].id], PropertyFilterRuleOperator.IsNull);
+    actions.setRuleOperator(
+      [state.rootGroup.items[0].id],
+      PropertyFilterRuleOperator.IsNull
+    );
 
     await waitFor(() => {
       const rootGroup = result.current.state.rootGroup;
       expect(rootGroup).to.containSubset({
-        items: [{
-          groupId: rootGroup.id,
-          operator: PropertyFilterRuleOperator.IsNull,
-          value: undefined,
-        }],
+        items: [
+          {
+            groupId: rootGroup.id,
+            operator: PropertyFilterRuleOperator.IsNull,
+            value: undefined,
+          },
+        ],
       });
     });
   });
@@ -269,7 +329,10 @@ describe("usePropertyFilterBuilderState", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
 
-    actions.setRuleOperator(["invalidRule"], PropertyFilterRuleOperator.IsEqual);
+    actions.setRuleOperator(
+      ["invalidRule"],
+      PropertyFilterRuleOperator.IsEqual
+    );
 
     const { state: newState } = result.current;
     expect(state).to.be.eq(newState);
@@ -279,16 +342,22 @@ describe("usePropertyFilterBuilderState", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
 
-    const value: PropertyValue = { valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING" };
+    const value: PropertyValue = {
+      valueFormat: PropertyValueFormat.Primitive,
+      value: "test string",
+      displayValue: "TEST STRING",
+    };
     actions.setRuleValue([state.rootGroup.items[0].id], value);
 
     await waitFor(() => {
       const rootGroup = result.current.state.rootGroup;
       expect(rootGroup).to.containSubset({
-        items: [{
-          groupId: rootGroup.id,
-          value,
-        }],
+        items: [
+          {
+            groupId: rootGroup.id,
+            value,
+          },
+        ],
       });
     });
   });
@@ -297,7 +366,11 @@ describe("usePropertyFilterBuilderState", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
 
-    const value: PropertyValue = { valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING" };
+    const value: PropertyValue = {
+      valueFormat: PropertyValueFormat.Primitive,
+      value: "test string",
+      displayValue: "TEST STRING",
+    };
     actions.setRuleValue(["invalidRule"], value);
 
     const { state: newState } = result.current;
@@ -308,7 +381,11 @@ describe("usePropertyFilterBuilderState", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { state, actions } = result.current;
 
-    const property: PropertyDescription = { name: "prop", displayLabel: "Prop", typename: "string" };
+    const property: PropertyDescription = {
+      name: "prop",
+      displayLabel: "Prop",
+      typename: "string",
+    };
     actions.setRuleProperty([], property);
 
     const { state: newState } = result.current;
@@ -320,8 +397,11 @@ describe("usePropertyFilterBuilderState", () => {
       const { result } = renderHook(() => usePropertyFilterBuilderState());
       const { actions } = result.current;
 
-      const getNestingRule = () => result.current.state.rootGroup.items[1] as PropertyFilterBuilderRuleGroup;
-      const getNestedRule = () => getNestingRule().items[0] as PropertyFilterBuilderRule;
+      const getNestingRule = () =>
+        result.current.state.rootGroup
+          .items[1] as PropertyFilterBuilderRuleGroup;
+      const getNestedRule = () =>
+        getNestingRule().items[0] as PropertyFilterBuilderRule;
       const getNestedRulePath = () => [getNestingRule().id, getNestedRule().id];
 
       actions.addItem([], "RULE_GROUP");
@@ -335,10 +415,15 @@ describe("usePropertyFilterBuilderState", () => {
 
     describe("nested rule", () => {
       it("sets property", async () => {
-        const { result, getNestingRule, getNestedRule, getNestedRulePath } = await getStateWithNestedRule();
+        const { result, getNestingRule, getNestedRule, getNestedRulePath } =
+          await getStateWithNestedRule();
         const { actions } = result.current;
 
-        const property: PropertyDescription = { name: "prop", displayLabel: "Prop", typename: "string" };
+        const property: PropertyDescription = {
+          name: "prop",
+          displayLabel: "Prop",
+          typename: "string",
+        };
         actions.setRuleProperty(getNestedRulePath(), property);
 
         await waitFor(() => {
@@ -351,10 +436,14 @@ describe("usePropertyFilterBuilderState", () => {
       });
 
       it("sets operator", async () => {
-        const { result, getNestingRule, getNestedRule, getNestedRulePath } = await getStateWithNestedRule();
+        const { result, getNestingRule, getNestedRule, getNestedRulePath } =
+          await getStateWithNestedRule();
         const { actions } = result.current;
 
-        actions.setRuleOperator(getNestedRulePath(), PropertyFilterRuleOperator.IsEqual);
+        actions.setRuleOperator(
+          getNestedRulePath(),
+          PropertyFilterRuleOperator.IsEqual
+        );
 
         await waitFor(() => {
           const rule = getNestedRule();
@@ -366,10 +455,15 @@ describe("usePropertyFilterBuilderState", () => {
       });
 
       it("sets value", async () => {
-        const { result, getNestingRule, getNestedRule, getNestedRulePath } = await getStateWithNestedRule();
+        const { result, getNestingRule, getNestedRule, getNestedRulePath } =
+          await getStateWithNestedRule();
         const { actions } = result.current;
 
-        const value: PropertyValue = { valueFormat: PropertyValueFormat.Primitive, value: "test string", displayValue: "TEST STRING" };
+        const value: PropertyValue = {
+          valueFormat: PropertyValueFormat.Primitive,
+          value: "test string",
+          displayValue: "TEST STRING",
+        };
         actions.setRuleValue(getNestedRulePath(), value);
 
         await waitFor(() => {

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import type { SizeProps } from "@itwin/core-react";
@@ -14,28 +14,26 @@ describe("<Tooltip />", () => {
   it("renders correctly", () => {
     const { container } = render(<Tooltip />);
 
-    expect(container.firstElementChild).to
-      .satisfy(styleMatch({left: "0px", top: "0px"}))
+    expect(container.firstElementChild)
+      .to.satisfy(styleMatch({ left: "0px", top: "0px" }))
       .satisfy(selectorMatches(".nz-popup-tooltip"));
   });
 
   it("renders with icon", () => {
-    render(<Tooltip icon={<i data-testid="Icon"/>} />);
+    render(<Tooltip icon={<i data-testid="Icon" />} />);
 
     expect(screen.getByTestId("Icon")).to.satisfy(selectorMatches("div i"));
   });
 
   it("should notify about size change", () => {
     const spy = sinon.spy();
-    const { rerender } = render(
-      <Tooltip
-        onSizeChanged={spy}
-      />,
-    );
+    const { rerender } = render(<Tooltip onSizeChanged={spy} />);
 
-    sinon.stub(Element.prototype, "getBoundingClientRect").returns(createRect(10, 1, 50, 22));
+    sinon
+      .stub(Element.prototype, "getBoundingClientRect")
+      .returns(createRect(10, 1, 50, 22));
 
-    rerender(<Tooltip onSizeChanged={spy} position={{x: 0, y: 0}} />);
+    rerender(<Tooltip onSizeChanged={spy} position={{ x: 0, y: 0 }} />);
 
     const size: SizeProps = {
       height: 21,
@@ -55,7 +53,7 @@ describe("<Tooltip />", () => {
       {
         height: 200,
         width: 100,
-      },
+      }
     );
     sut.x.should.eq(20);
     sut.y.should.eq(31);
@@ -76,7 +74,7 @@ describe("<Tooltip />", () => {
       {
         x: 0,
         y: 0,
-      },
+      }
     );
     sut.x.should.eq(80);
     sut.y.should.eq(12);

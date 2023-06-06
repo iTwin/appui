@@ -1,8 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { BackstageItem, BackstageItemUtilities, StageUsage, ToolbarItem, ToolbarOrientation, ToolbarUsage, UiItemsManager, UiItemsProvider } from "@itwin/appui-react";
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import {
+  BackstageItem,
+  BackstageItemUtilities,
+  StageUsage,
+  ToolbarItem,
+  ToolbarOrientation,
+  ToolbarUsage,
+  UiItemsManager,
+  UiItemsProvider,
+} from "@itwin/appui-react";
 import { OpenSynchronizedViewTool } from "../../tools/OpenSynchronizedViewTool";
 import { SynchronizedFloatingViewportStage } from "../frontstages/SynchronizedFloatingViewport";
 import { AppUiTestProviders } from "../../AppUiTestProviders";
@@ -17,7 +26,10 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
   }
 
   public static register(localizationNamespace: string) {
-    UiItemsManager.register(new SynchronizedFloatingViewportProvider(localizationNamespace), { stageIds: [SynchronizedFloatingViewportStage.stageId] });
+    UiItemsManager.register(
+      new SynchronizedFloatingViewportProvider(localizationNamespace),
+      { stageIds: [SynchronizedFloatingViewportStage.stageId] }
+    );
   }
 
   public static unregister() {
@@ -28,10 +40,11 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
     _stageId: string,
     stageUsage: string,
     toolbarUsage: ToolbarUsage,
-    toolbarOrientation: ToolbarOrientation,
+    toolbarOrientation: ToolbarOrientation
   ): ToolbarItem[] {
     if (stageUsage !== StageUsage.General) return [];
-    if (_stageId !== "appui-test-providers:SynchronizedFloatingViewportExample") return [];
+    if (_stageId !== "appui-test-providers:SynchronizedFloatingViewportExample")
+      return [];
 
     const toolbarItems: ToolbarItem[] = [];
     if (
@@ -45,10 +58,18 @@ export class SynchronizedFloatingViewportProvider implements UiItemsProvider {
   }
   /** Add entry to activate this stage in the backstage. */
   public provideBackstageItems(): BackstageItem[] {
-    const label = AppUiTestProviders.translate("backstage.SynchronizeFloatingViewFrontstageLabel");
+    const label = AppUiTestProviders.translate(
+      "backstage.SynchronizeFloatingViewFrontstageLabel"
+    );
     return [
-      BackstageItemUtilities.createStageLauncher(SynchronizedFloatingViewportStage.stageId, 300, 2, label, undefined, undefined),
+      BackstageItemUtilities.createStageLauncher(
+        SynchronizedFloatingViewportStage.stageId,
+        300,
+        2,
+        label,
+        undefined,
+        undefined
+      ),
     ];
   }
-
 }

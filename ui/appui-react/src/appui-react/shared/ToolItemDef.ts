@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Item
  */
@@ -18,11 +18,18 @@ import type { ToolItemProps } from "./ItemProps";
 export class ToolItemDef extends ActionButtonItemDef {
   public toolId: string = "";
 
-  constructor(toolItemProps: ToolItemProps, onItemExecuted?: OnItemExecutedFunc) {
+  constructor(
+    toolItemProps: ToolItemProps,
+    onItemExecuted?: OnItemExecutedFunc
+  ) {
     super(toolItemProps, onItemExecuted);
 
     if (toolItemProps.execute) {
-      this._commandHandler = { execute: toolItemProps.execute, parameters: toolItemProps.parameters, getCommandArgs: toolItemProps.getCommandArgs };
+      this._commandHandler = {
+        execute: toolItemProps.execute,
+        parameters: toolItemProps.parameters,
+        getCommandArgs: toolItemProps.getCommandArgs,
+      };
     }
 
     this.toolId = toolItemProps.toolId;
@@ -33,10 +40,18 @@ export class ToolItemDef extends ActionButtonItemDef {
   }
 
   /** Create a ToolItemDef that will run a registered tool. */
-  public static getItemDefForTool(tool: typeof Tool, icon?: string, ...args: any[]): ToolItemDef {
+  public static getItemDefForTool(
+    tool: typeof Tool,
+    icon?: string,
+    ...args: any[]
+  ): ToolItemDef {
     return new ToolItemDef({
       toolId: tool.toolId,
-      icon: icon ? icon : (tool.iconSpec && tool.iconSpec.length > 0) ? tool.iconSpec : undefined,
+      icon: icon
+        ? icon
+        : tool.iconSpec && tool.iconSpec.length > 0
+        ? tool.iconSpec
+        : undefined,
       label: () => tool.flyover,
       description: () => tool.description,
       execute: async () => IModelApp.tools.run(tool.toolId, ...args),

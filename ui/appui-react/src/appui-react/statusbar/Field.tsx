@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -27,12 +27,15 @@ export interface StatusBarFieldProps extends CommonProps {
 /** Field component used in [[StatusBar]] component.
  * @beta
  */
-export const StatusBarField = React.forwardRef<HTMLDivElement, StatusBarFieldProps>(function StatusBarField(props, ref) {
+export const StatusBarField = React.forwardRef<
+  HTMLDivElement,
+  StatusBarFieldProps
+>(function StatusBarField(props, ref) {
   const hasClickAction = !!props.onClick;
   const classNames = classnames(
     "uifw-statusbar-field",
     hasClickAction && "uifw-action",
-    props.className,
+    props.className
   );
   return (
     <FooterIndicator

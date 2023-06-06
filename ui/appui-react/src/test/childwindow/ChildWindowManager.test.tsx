@@ -1,10 +1,10 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
-import type { OpenChildWindowInfo} from "../../appui-react";
+import type { OpenChildWindowInfo } from "../../appui-react";
 import { UiFramework } from "../../appui-react";
 import { copyStyles } from "../../appui-react/childwindow/CopyStyles";
 import { InternalChildWindowManager } from "../../appui-react/childwindow/InternalChildWindowManager";
@@ -44,7 +44,11 @@ describe("ChildWindowManager", () => {
 
     expect(manager.findId(window)).to.be.eql("child");
     expect(manager.find("child")).to.not.be.undefined;
-    sinon.replaceGetter(UiFramework.frontstages, "activeFrontstageDef", () => ({dockPopoutWidgetContainer: sinon.spy()} as any));
+    sinon.replaceGetter(
+      UiFramework.frontstages,
+      "activeFrontstageDef",
+      () => ({ dockPopoutWidgetContainer: sinon.spy() } as any)
+    );
     expect(manager.close("child", false)).to.eql(true);
   });
 
@@ -65,7 +69,6 @@ describe("ChildWindowManager", () => {
     expect(manager.close("child")).to.eql(true);
     expect(closeStub).to.be.called;
   });
-
 });
 
 describe("ChildWindowManager", () => {
@@ -120,7 +123,8 @@ describe("ChildWindowManager", () => {
     const childDoc = new DOMParser().parseFromString(childHtml, "text/html");
     copyStyles(childDoc);
     const childStyleSheetCount = childDoc.head.querySelectorAll("style").length;
-    const documentStyleSheetCount = document.head.querySelectorAll("style").length;
+    const documentStyleSheetCount =
+      document.head.querySelectorAll("style").length;
     expect(documentStyleSheetCount).to.eql(childStyleSheetCount);
   });
 
@@ -135,17 +139,18 @@ describe("ChildWindowManager", () => {
   it("will close and processWindowClose by default", () => {
     const manager = new InternalChildWindowManager();
     const closeSpy = sinon.spy();
-    const stubbedResponse: OpenChildWindowInfo[] = [{
-      childWindowId: "childId",
-      window: {
-        close: closeSpy,
-      } as any,
-      parentWindow: window,
-    }];
+    const stubbedResponse: OpenChildWindowInfo[] = [
+      {
+        childWindowId: "childId",
+        window: {
+          close: closeSpy,
+        } as any,
+        parentWindow: window,
+      },
+    ];
     sinon.stub(manager, "openChildWindows").get(() => stubbedResponse);
 
     manager.close("childId");
     expect(closeSpy).to.have.been.called;
   });
-
 });

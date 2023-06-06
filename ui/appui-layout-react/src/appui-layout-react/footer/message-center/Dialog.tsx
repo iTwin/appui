@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module MessageCenter
  */
@@ -38,25 +38,20 @@ export class MessageCenterDialog extends React.PureComponent<MessageCenterDialog
   public override render() {
     const className = classnames(
       "nz-footer-messageCenter-dialog",
-      this.props.className);
+      this.props.className
+    );
     return (
       <Dialog
         className={className}
         style={this.props.style}
         titleBar={
-          <TitleBar
-            title={this.props.title}
-          >
-            {this.props.buttons}
-          </TitleBar>
+          <TitleBar title={this.props.title}>{this.props.buttons}</TitleBar>
         }
       >
         <div className="nz-tabs" role="tablist">
           {this.props.tabs}
         </div>
-        <div className="nz-messages">
-          {this.props.children}
-        </div>
+        <div className="nz-messages">{this.props.children}</div>
         <span className="nz-message-prompt">{this.props.prompt}</span>
         <div className="nz-gradient" />
       </Dialog>

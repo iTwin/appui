@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { defineTest } from "jscodeshift/src/testUtils";
 import { defaultOptions, createDefineInlineTest } from "../../utils/testUtils";
 import transformer from "../element-to-config";
@@ -9,9 +9,27 @@ import transformer from "../element-to-config";
 const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("frontstage-to-config", () => {
-  defineTest(__dirname, "./element-to-config", defaultOptions, "element-to-config/Frontstage", { parser: "tsx" });
-  defineTest(__dirname, "./element-to-config", defaultOptions, "element-to-config/FrontstageStagePanel", { parser: "tsx" });
-  defineTest(__dirname, "./element-to-config", defaultOptions, "element-to-config/Full", { parser: "tsx" });
+  defineTest(
+    __dirname,
+    "./element-to-config",
+    defaultOptions,
+    "element-to-config/Frontstage",
+    { parser: "tsx" }
+  );
+  defineTest(
+    __dirname,
+    "./element-to-config",
+    defaultOptions,
+    "element-to-config/FrontstageStagePanel",
+    { parser: "tsx" }
+  );
+  defineTest(
+    __dirname,
+    "./element-to-config",
+    defaultOptions,
+    "element-to-config/Full",
+    { parser: "tsx" }
+  );
 
   describe("panel transformations", () => {
     defineInlineTest(

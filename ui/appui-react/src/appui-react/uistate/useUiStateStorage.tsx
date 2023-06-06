@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module UiStateStorage
  */
@@ -11,7 +11,10 @@ import type { UiSyncEventArgs } from "@itwin/appui-abstract";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
-import { SyncUiEventDispatcher, SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
+import {
+  SyncUiEventDispatcher,
+  SyncUiEventId,
+} from "../syncui/SyncUiEventDispatcher";
 
 /** @public */
 export function useUiStateStorageHandler(): UiStateStorage {
@@ -19,7 +22,9 @@ export function useUiStateStorageHandler(): UiStateStorage {
 }
 
 /** @internal */
-export const UiStateStorageContext = React.createContext<UiStateStorage>(new LocalStateStorage());
+export const UiStateStorageContext = React.createContext<UiStateStorage>(
+  new LocalStateStorage()
+);
 UiStateStorageContext.displayName = "uifw:UiStateStorageContext";
 
 /** Properties for the [[UiStateStorageHandler]] component.
@@ -33,12 +38,18 @@ export interface UiSettingsProviderProps {
  * @public
  */
 export function UiStateStorageHandler(props: UiSettingsProviderProps) {
-  const [stateStorage, setStateStorage] = React.useState(UiFramework.getUiStateStorage());
+  const [stateStorage, setStateStorage] = React.useState(
+    UiFramework.getUiStateStorage()
+  );
 
   React.useEffect(() => {
     // istanbul ignore next
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
-      if (SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [SyncUiEventId.UiStateStorageChanged]))
+      if (
+        SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [
+          SyncUiEventId.UiStateStorageChanged,
+        ])
+      )
         setStateStorage(UiFramework.getUiStateStorage());
     };
 

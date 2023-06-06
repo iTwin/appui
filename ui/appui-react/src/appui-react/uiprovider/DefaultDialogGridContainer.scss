@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 .uifw-default-resizer-parent {
   min-width: 200px;
@@ -53,7 +53,9 @@ div.uifw-default-inline-editor-group .uifw-default-label {
   margin-bottom: 6px;
 }
 
-div.nz-toolSettings-docked .uifw-default-inline-editor-group .uifw-default-label {
+div.nz-toolSettings-docked
+  .uifw-default-inline-editor-group
+  .uifw-default-label {
   margin-bottom: 0px;
 }
 
@@ -141,7 +143,8 @@ div.uifw-default-container.uifw-default-narrow {
   grid-template-columns: 1fr;
 }
 
-div.uifw-default-container.uifw-default-narrow div.uifw-default-center-across-width {
+div.uifw-default-container.uifw-default-narrow
+  div.uifw-default-center-across-width {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -149,15 +152,18 @@ div.uifw-default-container.uifw-default-narrow div.uifw-default-center-across-wi
   grid-column: 1 / span 1;
 }
 
-div.uifw-default-container.uifw-default-narrow .uifw-default-narrow-only-display {
+div.uifw-default-container.uifw-default-narrow
+  .uifw-default-narrow-only-display {
   display: block;
 }
 
-div.uifw-default-container.uifw-default-narrow .uifw-default-lock-and-label.uifw-default-wide-only-display {
+div.uifw-default-container.uifw-default-narrow
+  .uifw-default-lock-and-label.uifw-default-wide-only-display {
   display: none;
 }
 
-div.uifw-default-container.uifw-default-narrow div.uifw-default-inline-editor-group {
+div.uifw-default-container.uifw-default-narrow
+  div.uifw-default-inline-editor-group {
   display: flex;
   flex-wrap: wrap;
 }
@@ -178,14 +184,17 @@ div.uifw-default-container.uifw-default-narrow .uifw-default-label {
   align-self: flex-start;
 }
 
-div.uifw-default-container.uifw-default-narrow .uifw-default-inline-label-and-editor {
+div.uifw-default-container.uifw-default-narrow
+  .uifw-default-inline-label-and-editor {
   align-content: flex-start;
   display: flex;
   flex-direction: column;
   width: auto;
 }
 
-div.uifw-default-container.uifw-default-narrow .uifw-default-inline-editor-group .uifw-default-editor {
+div.uifw-default-container.uifw-default-narrow
+  .uifw-default-inline-editor-group
+  .uifw-default-editor {
   margin-left: 0px;
 }
 
@@ -194,7 +203,9 @@ div.nz-toolSettings-docked div.uifw-default-lock-and-label {
   align-self: center;
 }
 
-div.nz-toolSettings-docked div.uifw-default-inline-editor-group .uifw-default-editor {
+div.nz-toolSettings-docked
+  div.uifw-default-inline-editor-group
+  .uifw-default-editor {
   margin-bottom: 0;
   align-self: center;
 }

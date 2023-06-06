@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolAssistance
  */
@@ -32,21 +32,17 @@ export class ToolAssistanceInstruction extends React.PureComponent<ToolAssistanc
   public override render() {
     const className = classnames(
       "nz-footer-toolAssistance-instruction",
-      this.props.className);
+      this.props.className
+    );
     const textClassName = this.props.isNew ? "nz-text-new" : undefined;
 
     return (
-      <ToolAssistanceItem
-        className={className}
-        style={this.props.style}
-      >
+      <ToolAssistanceItem className={className} style={this.props.style}>
         <span className="nz-image">
           {this.props.isNew && <NewDot />}
           {this.props.image}
         </span>
-        <span className={textClassName}>
-          {this.props.text}
-        </span>
+        <span className={textClassName}>{this.props.text}</span>
       </ToolAssistanceItem>
     );
   }

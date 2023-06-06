@@ -1,23 +1,23 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
 
-import type { ConfigurableCreateInfo} from "../configurableui/ConfigurableUiControl";
+import type { ConfigurableCreateInfo } from "../configurableui/ConfigurableUiControl";
 import { ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
 import { WidgetControl } from "../widgets/WidgetControl";
 
 /** Status Bar Field type.
  * @public
- */
+ */
 export type StatusBarFieldId = string | null;
 
 /** Status Bar Widget Control.
  * @public
- */
+ */
 export abstract class StatusBarWidgetControl extends WidgetControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
     super(info, options);
@@ -27,5 +27,7 @@ export abstract class StatusBarWidgetControl extends WidgetControl {
   public abstract getReactNode(): React.ReactNode;
 
   /** Gets the type of ConfigurableUiControl, which is 'StatusBarWidget' in this case */
-  public override getType(): ConfigurableUiControlType { return ConfigurableUiControlType.StatusBarWidget; }
+  public override getType(): ConfigurableUiControlType {
+    return ConfigurableUiControlType.StatusBarWidget;
+  }
 }

@@ -1,19 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StandardUiItemsProvider
  */
 
 import * as React from "react";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef";
-import type { StatusBarItem} from "../statusbar/StatusBarItem";
+import type { StatusBarItem } from "../statusbar/StatusBarItem";
 import { StatusBarSection } from "../statusbar/StatusBarItem";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities";
 import { SectionsStatusField } from "../statusfields/SectionsField";
 import { ToolbarHelper } from "../toolbar/ToolbarHelper";
-import type { ToolbarItem} from "../toolbar/ToolbarItem";
+import type { ToolbarItem } from "../toolbar/ToolbarItem";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
 import { CoreTools } from "../tools/CoreToolDefinitions";
 import type { UiItemsProvider } from "./UiItemsProvider";
@@ -42,8 +42,7 @@ export interface DefaultContentTools {
 }
 
 function getGroupPriority(potentialId: any, defaultValue: number) {
-  if (undefined === potentialId)
-    return defaultValue;
+  if (undefined === potentialId) return defaultValue;
 
   // istanbul ignore else
   if (typeof potentialId === "number") {
@@ -58,67 +57,197 @@ function getGroupPriority(potentialId: any, defaultValue: number) {
  * @beta
  */
 export class StandardContentToolsUiItemsProvider implements UiItemsProvider {
-  public get id(): string { return "appui-react:StandardContentToolsUiItemsProvider"; }
+  public get id(): string {
+    return "appui-react:StandardContentToolsUiItemsProvider";
+  }
 
-  constructor(private defaultContextTools?: DefaultContentTools) { }
+  constructor(private defaultContextTools?: DefaultContentTools) {}
 
-  public provideToolbarItems(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[] {
+  public provideToolbarItems(
+    _stageId: string,
+    _stageUsage: string,
+    toolbarUsage: ToolbarUsage,
+    toolbarOrientation: ToolbarOrientation,
+    stageAppData?: any
+  ): ToolbarItem[] {
     const items: ToolbarItem[] = [];
 
-    if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Horizontal) {
-      const clearSelectionGroupPriority = getGroupPriority(stageAppData?.defaultContentTools?.horizontal?.clearSelectionGroupPriority, 10);
-      const overridesGroupPriority = getGroupPriority(stageAppData?.defaultContentTools?.horizontal?.overridesGroupPriority, 20);
+    if (
+      toolbarUsage === ToolbarUsage.ContentManipulation &&
+      toolbarOrientation === ToolbarOrientation.Horizontal
+    ) {
+      const clearSelectionGroupPriority = getGroupPriority(
+        stageAppData?.defaultContentTools?.horizontal
+          ?.clearSelectionGroupPriority,
+        10
+      );
+      const overridesGroupPriority = getGroupPriority(
+        stageAppData?.defaultContentTools?.horizontal?.overridesGroupPriority,
+        20
+      );
 
-      if (!this.defaultContextTools || !this.defaultContextTools.horizontal || this.defaultContextTools.horizontal.clearSelection)
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.clearSelectionItemDef, { groupPriority: clearSelectionGroupPriority }));
+      if (
+        !this.defaultContextTools ||
+        !this.defaultContextTools.horizontal ||
+        this.defaultContextTools.horizontal.clearSelection
+      )
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            10,
+            CoreTools.clearSelectionItemDef,
+            { groupPriority: clearSelectionGroupPriority }
+          )
+        );
 
-      if (!this.defaultContextTools || !this.defaultContextTools.horizontal || this.defaultContextTools.horizontal.clearDisplayOverrides)
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(20, SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef, { groupPriority: overridesGroupPriority }));
+      if (
+        !this.defaultContextTools ||
+        !this.defaultContextTools.horizontal ||
+        this.defaultContextTools.horizontal.clearDisplayOverrides
+      )
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            20,
+            SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef,
+            { groupPriority: overridesGroupPriority }
+          )
+        );
 
-      if (!this.defaultContextTools || !this.defaultContextTools.horizontal || this.defaultContextTools.horizontal.hide) {
+      if (
+        !this.defaultContextTools ||
+        !this.defaultContextTools.horizontal ||
+        this.defaultContextTools.horizontal.hide
+      ) {
         if (this.defaultContextTools?.horizontal?.hide === "group")
-          items.push(ToolbarHelper.createToolbarItemFromItemDef(30, SelectionContextToolDefinitions.hideSectionToolGroup, { groupPriority: overridesGroupPriority }));
-
+          items.push(
+            ToolbarHelper.createToolbarItemFromItemDef(
+              30,
+              SelectionContextToolDefinitions.hideSectionToolGroup,
+              { groupPriority: overridesGroupPriority }
+            )
+          );
         else
-          items.push(ToolbarHelper.createToolbarItemFromItemDef(30, SelectionContextToolDefinitions.hideElementsItemDef, { groupPriority: overridesGroupPriority }));
+          items.push(
+            ToolbarHelper.createToolbarItemFromItemDef(
+              30,
+              SelectionContextToolDefinitions.hideElementsItemDef,
+              { groupPriority: overridesGroupPriority }
+            )
+          );
       }
 
-      if (!this.defaultContextTools || !this.defaultContextTools.horizontal || this.defaultContextTools.horizontal.isolate) {
+      if (
+        !this.defaultContextTools ||
+        !this.defaultContextTools.horizontal ||
+        this.defaultContextTools.horizontal.isolate
+      ) {
         if (this.defaultContextTools?.horizontal?.isolate === "group")
-          items.push(ToolbarHelper.createToolbarItemFromItemDef(40, SelectionContextToolDefinitions.isolateSelectionToolGroup, { groupPriority: overridesGroupPriority }));
-
+          items.push(
+            ToolbarHelper.createToolbarItemFromItemDef(
+              40,
+              SelectionContextToolDefinitions.isolateSelectionToolGroup,
+              { groupPriority: overridesGroupPriority }
+            )
+          );
         else
-          items.push(ToolbarHelper.createToolbarItemFromItemDef(40, SelectionContextToolDefinitions.isolateElementsItemDef, { groupPriority: overridesGroupPriority }));
+          items.push(
+            ToolbarHelper.createToolbarItemFromItemDef(
+              40,
+              SelectionContextToolDefinitions.isolateElementsItemDef,
+              { groupPriority: overridesGroupPriority }
+            )
+          );
       }
 
-      if (!this.defaultContextTools || !this.defaultContextTools.horizontal || this.defaultContextTools.horizontal.emphasize) {
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(50, SelectionContextToolDefinitions.emphasizeElementsItemDef, { groupPriority: overridesGroupPriority }));
+      if (
+        !this.defaultContextTools ||
+        !this.defaultContextTools.horizontal ||
+        this.defaultContextTools.horizontal.emphasize
+      ) {
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            50,
+            SelectionContextToolDefinitions.emphasizeElementsItemDef,
+            { groupPriority: overridesGroupPriority }
+          )
+        );
       }
+    } /* istanbul ignore else */ else if (
+      toolbarUsage === ToolbarUsage.ContentManipulation &&
+      toolbarOrientation === ToolbarOrientation.Vertical
+    ) {
+      const selectElementGroupPriority = getGroupPriority(
+        stageAppData?.defaultContentTools?.vertical?.selectElementGroupPriority,
+        10
+      );
+      const measureGroupPriority = getGroupPriority(
+        stageAppData?.defaultContentTools?.vertical?.measureGroupPriority,
+        10
+      );
+      const selectionGroupPriority = getGroupPriority(
+        stageAppData?.defaultContentTools?.vertical?.selectionGroupPriority,
+        10
+      );
 
-    } else /* istanbul ignore else */ if (toolbarUsage === ToolbarUsage.ContentManipulation && toolbarOrientation === ToolbarOrientation.Vertical) {
-      const selectElementGroupPriority = getGroupPriority(stageAppData?.defaultContentTools?.vertical?.selectElementGroupPriority, 10);
-      const measureGroupPriority = getGroupPriority(stageAppData?.defaultContentTools?.vertical?.measureGroupPriority, 10);
-      const selectionGroupPriority = getGroupPriority(stageAppData?.defaultContentTools?.vertical?.selectionGroupPriority, 10);
+      if (
+        !this.defaultContextTools ||
+        !this.defaultContextTools.vertical ||
+        this.defaultContextTools.vertical.selectElement
+      )
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            10,
+            CoreTools.selectElementCommand,
+            { groupPriority: selectElementGroupPriority }
+          )
+        );
 
-      if (!this.defaultContextTools || !this.defaultContextTools.vertical || this.defaultContextTools.vertical.selectElement)
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(10, CoreTools.selectElementCommand, { groupPriority: selectElementGroupPriority }));
+      if (
+        !this.defaultContextTools ||
+        !this.defaultContextTools.vertical ||
+        this.defaultContextTools.vertical.measureGroup
+      )
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            20,
+            CoreTools.measureToolGroup,
+            { groupPriority: measureGroupPriority }
+          )
+        );
 
-      if (!this.defaultContextTools || !this.defaultContextTools.vertical || this.defaultContextTools.vertical.measureGroup)
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(20, CoreTools.measureToolGroup, { groupPriority: measureGroupPriority }));
-
-      if (!this.defaultContextTools || !this.defaultContextTools.vertical || this.defaultContextTools.vertical.sectionGroup) {
-        items.push(ToolbarHelper.createToolbarItemFromItemDef(30, CoreTools.sectionToolGroup, { groupPriority: selectionGroupPriority }));
+      if (
+        !this.defaultContextTools ||
+        !this.defaultContextTools.vertical ||
+        this.defaultContextTools.vertical.sectionGroup
+      ) {
+        items.push(
+          ToolbarHelper.createToolbarItemFromItemDef(
+            30,
+            CoreTools.sectionToolGroup,
+            { groupPriority: selectionGroupPriority }
+          )
+        );
       }
     }
     return items;
   }
 
-  public provideStatusBarItems(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
+  public provideStatusBarItems(
+    _stageId: string,
+    _stageUsage: string,
+    _stageAppData?: any
+  ): StatusBarItem[] {
     const statusBarItems: StatusBarItem[] = [];
 
     // if the sectionGroup tools are to be shown then we want the status field added to allow clearing or manipulation the section
     if (this.defaultContextTools?.vertical?.sectionGroup) {
-      statusBarItems.push(StatusBarItemUtilities.createCustomItem("uifw.Sections", StatusBarSection.Center, 20, <SectionsStatusField hideWhenUnused />));
+      statusBarItems.push(
+        StatusBarItemUtilities.createCustomItem(
+          "uifw.Sections",
+          StatusBarSection.Center,
+          20,
+          <SectionsStatusField hideWhenUnused />
+        )
+      );
     }
 
     return statusBarItems;

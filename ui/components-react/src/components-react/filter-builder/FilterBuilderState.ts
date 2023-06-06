@@ -1,19 +1,22 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyFilterBuilder
  */
 
-import type { Draft} from "immer";
+import type { Draft } from "immer";
 import { produce } from "immer";
 import * as React from "react";
-import type { PropertyDescription, PropertyValue} from "@itwin/appui-abstract";
+import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { Guid } from "@itwin/core-bentley";
 import type { PropertyFilterRuleOperator } from "./Operators";
-import { isUnaryPropertyFilterOperator, PropertyFilterRuleGroupOperator } from "./Operators";
+import {
+  isUnaryPropertyFilterOperator,
+  PropertyFilterRuleGroupOperator,
+} from "./Operators";
 import type { PropertyFilter, PropertyFilterRule } from "./Types";
 import { isPropertyFilterRuleGroup } from "./Types";
 
@@ -30,7 +33,9 @@ export interface PropertyFilterBuilderState {
  * Type that describes [[PropertyFilterBuilder]] component group item.
  * @internal
  */
-export type PropertyFilterBuilderRuleGroupItem = PropertyFilterBuilderRuleGroup | PropertyFilterBuilderRule;
+export type PropertyFilterBuilderRuleGroupItem =
+  | PropertyFilterBuilderRuleGroup
+  | PropertyFilterBuilderRule;
 
 /**
  * Data structure that describes [[PropertyFilterBuilder]] component rule group.
@@ -69,9 +74,17 @@ export interface PropertyFilterBuilderRule {
  * @internal
  */
 export class PropertyFilterBuilderActions {
-  constructor(private setState: (setter: (prevState: PropertyFilterBuilderState) => PropertyFilterBuilderState) => void) { }
+  constructor(
+    private setState: (
+      setter: (
+        prevState: PropertyFilterBuilderState
+      ) => PropertyFilterBuilderState
+    ) => void
+  ) {}
 
-  private updateState(updater: (state: Draft<PropertyFilterBuilderState>) => void) {
+  private updateState(
+    updater: (state: Draft<PropertyFilterBuilderState>) => void
+  ) {
     this.setState(produce(updater));
   }
 
@@ -79,24 +92,29 @@ export class PropertyFilterBuilderActions {
   public addItem(path: string[], itemType: "RULE_GROUP" | "RULE") {
     this.updateState((state) => {
       const parentGroup = findRuleGroup(state.rootGroup, path);
-      if (!parentGroup)
-        return;
-      const item = itemType === "RULE_GROUP" ? createEmptyRuleGroup(parentGroup.id) : createEmptyRule(parentGroup.id);
+      if (!parentGroup) return;
+      const item =
+        itemType === "RULE_GROUP"
+          ? createEmptyRuleGroup(parentGroup.id)
+          : createEmptyRule(parentGroup.id);
       parentGroup.items.push(item);
     });
   }
 
   /** Removes item specified by path. */
   public removeItem(path: string[]) {
-    function removeItemFromGroup(state: Draft<PropertyFilterBuilderState>, pathToItem: string[]) {
+    function removeItemFromGroup(
+      state: Draft<PropertyFilterBuilderState>,
+      pathToItem: string[]
+    ) {
       const pathToParent = pathToItem.slice(0, -1);
       const parentGroup = findRuleGroup(state.rootGroup, pathToParent);
-      if (!parentGroup)
-        return;
+      if (!parentGroup) return;
       const itemId = pathToItem[pathToItem.length - 1];
-      const itemIndex = parentGroup.items.findIndex((item) => item.id === itemId);
-      if (itemIndex === -1)
-        return;
+      const itemIndex = parentGroup.items.findIndex(
+        (item) => item.id === itemId
+      );
+      if (itemIndex === -1) return;
       if (parentGroup.items.length === 1) {
         parentGroup.items[0] = createEmptyRule(parentGroup.id);
         return;
@@ -110,11 +128,13 @@ export class PropertyFilterBuilderActions {
   }
 
   /** Sets operator of rule group specified by the path. */
-  public setRuleGroupOperator(path: string[], operator: PropertyFilterRuleGroupOperator) {
+  public setRuleGroupOperator(
+    path: string[],
+    operator: PropertyFilterRuleGroupOperator
+  ) {
     this.updateState((state) => {
       const group = findRuleGroup(state.rootGroup, path);
-      if (!group)
-        return;
+      if (!group) return;
       group.operator = operator;
     });
   }
@@ -123,8 +143,7 @@ export class PropertyFilterBuilderActions {
   public setRuleProperty(path: string[], property?: PropertyDescription) {
     this.updateState((state) => {
       const rule = findRule(state.rootGroup, path);
-      if (!rule)
-        return;
+      if (!rule) return;
       rule.property = property;
       rule.value = undefined;
     });
@@ -134,10 +153,8 @@ export class PropertyFilterBuilderActions {
   public setRuleOperator(path: string[], operator: PropertyFilterRuleOperator) {
     this.updateState((state) => {
       const rule = findRule(state.rootGroup, path);
-      if (!rule)
-        return;
-      if (isUnaryPropertyFilterOperator(operator))
-        rule.value = undefined;
+      if (!rule) return;
+      if (isUnaryPropertyFilterOperator(operator)) rule.value = undefined;
       rule.operator = operator;
     });
   }
@@ -146,8 +163,7 @@ export class PropertyFilterBuilderActions {
   public setRuleValue(path: string[], value: PropertyValue) {
     this.updateState((state) => {
       const rule = findRule(state.rootGroup, path);
-      if (!rule)
-        return;
+      if (!rule) return;
       rule.value = value;
     });
   }
@@ -157,7 +173,9 @@ export class PropertyFilterBuilderActions {
  * Function to check if supplied [[PropertyFilterBuilderRuleGroupItem]] is [[PropertyFilterBuilderRuleGroup]].
  * @internal
  */
-export function isPropertyFilterBuilderRuleGroup(item: PropertyFilterBuilderRuleGroupItem): item is PropertyFilterBuilderRuleGroup {
+export function isPropertyFilterBuilderRuleGroup(
+  item: PropertyFilterBuilderRuleGroupItem
+): item is PropertyFilterBuilderRuleGroup {
   return (item as any).items !== undefined;
 }
 
@@ -167,35 +185,40 @@ export function isPropertyFilterBuilderRuleGroup(item: PropertyFilterBuilderRule
  * @internal
  */
 export function usePropertyFilterBuilderState(initialFilter?: PropertyFilter) {
-  const [state, setState] = React.useState<PropertyFilterBuilderState>(
-    () => initialFilter ? convertFilterToState(initialFilter) : { rootGroup: createEmptyRuleGroup() }
+  const [state, setState] = React.useState<PropertyFilterBuilderState>(() =>
+    initialFilter
+      ? convertFilterToState(initialFilter)
+      : { rootGroup: createEmptyRuleGroup() }
   );
-  const [actions] = React.useState(() => new PropertyFilterBuilderActions(setState));
+  const [actions] = React.useState(
+    () => new PropertyFilterBuilderActions(setState)
+  );
 
   return { state, actions };
 }
 
 /** @internal */
-export function buildPropertyFilter(groupItem: PropertyFilterBuilderRuleGroupItem): PropertyFilter | undefined {
+export function buildPropertyFilter(
+  groupItem: PropertyFilterBuilderRuleGroupItem
+): PropertyFilter | undefined {
   if (isPropertyFilterBuilderRuleGroup(groupItem))
     return buildPropertyFilterFromRuleGroup(groupItem);
   return buildPropertyFilterFromRule(groupItem);
 }
 
-function buildPropertyFilterFromRuleGroup(rootGroup: PropertyFilterBuilderRuleGroup): PropertyFilter | undefined {
-  if (rootGroup.items.length === 0)
-    return undefined;
+function buildPropertyFilterFromRuleGroup(
+  rootGroup: PropertyFilterBuilderRuleGroup
+): PropertyFilter | undefined {
+  if (rootGroup.items.length === 0) return undefined;
 
   const rules = new Array<PropertyFilter>();
   for (const item of rootGroup.items) {
     const rule = buildPropertyFilter(item);
-    if (!rule)
-      return undefined;
+    if (!rule) return undefined;
     rules.push(rule);
   }
 
-  if (rules.length === 1)
-    return rules[0];
+  if (rules.length === 1) return rules[0];
 
   return {
     operator: rootGroup.operator,
@@ -203,12 +226,18 @@ function buildPropertyFilterFromRuleGroup(rootGroup: PropertyFilterBuilderRuleGr
   };
 }
 
-function buildPropertyFilterFromRule(rule: PropertyFilterBuilderRule): PropertyFilter | undefined {
+function buildPropertyFilterFromRule(
+  rule: PropertyFilterBuilderRule
+): PropertyFilter | undefined {
   const { property, operator, value } = rule;
-  if (!property || operator === undefined)
-    return undefined;
+  if (!property || operator === undefined) return undefined;
 
-  if (!isUnaryPropertyFilterOperator(operator) && (value === undefined || value.valueFormat !== PropertyValueFormat.Primitive || value.value === undefined))
+  if (
+    !isUnaryPropertyFilterOperator(operator) &&
+    (value === undefined ||
+      value.valueFormat !== PropertyValueFormat.Primitive ||
+      value.value === undefined)
+  )
     return undefined;
 
   return { property, operator, value };
@@ -221,7 +250,9 @@ function createEmptyRule(groupId: string): PropertyFilterBuilderRule {
   };
 }
 
-function createEmptyRuleGroup(groupId?: string): PropertyFilterBuilderRuleGroup {
+function createEmptyRuleGroup(
+  groupId?: string
+): PropertyFilterBuilderRuleGroup {
   const id = Guid.createValue();
   return {
     id,
@@ -231,9 +262,11 @@ function createEmptyRuleGroup(groupId?: string): PropertyFilterBuilderRuleGroup 
   };
 }
 
-function findRuleGroup(rootGroup: PropertyFilterBuilderRuleGroup, path: string[]): PropertyFilterBuilderRuleGroup | undefined {
-  if (path.length === 0)
-    return rootGroup;
+function findRuleGroup(
+  rootGroup: PropertyFilterBuilderRuleGroup,
+  path: string[]
+): PropertyFilterBuilderRuleGroup | undefined {
+  if (path.length === 0) return rootGroup;
 
   const [currentItemId, ...rest] = path;
   const currentItem = rootGroup.items.find((item) => item.id === currentItemId);
@@ -243,14 +276,15 @@ function findRuleGroup(rootGroup: PropertyFilterBuilderRuleGroup, path: string[]
   return findRuleGroup(currentItem, rest);
 }
 
-function findRule(rootGroup: PropertyFilterBuilderRuleGroup, path: string[]): PropertyFilterBuilderRule | undefined {
-  if (path.length === 0)
-    return undefined;
+function findRule(
+  rootGroup: PropertyFilterBuilderRuleGroup,
+  path: string[]
+): PropertyFilterBuilderRule | undefined {
+  if (path.length === 0) return undefined;
 
   const [currentItemId, ...rest] = path;
   const currentItem = rootGroup.items.find((item) => item.id === currentItemId);
-  if (!currentItem)
-    return undefined;
+  if (!currentItem) return undefined;
 
   if (isPropertyFilterBuilderRuleGroup(currentItem))
     return findRule(currentItem, rest);
@@ -258,7 +292,10 @@ function findRule(rootGroup: PropertyFilterBuilderRuleGroup, path: string[]): Pr
   return currentItem;
 }
 
-function getRuleGroupItem(filter: PropertyFilter, parentId: string): PropertyFilterBuilderRuleGroupItem {
+function getRuleGroupItem(
+  filter: PropertyFilter,
+  parentId: string
+): PropertyFilterBuilderRuleGroupItem {
   const id = Guid.createValue();
   if (isPropertyFilterRuleGroup(filter))
     return {
@@ -280,7 +317,9 @@ function getRuleItem(filter: PropertyFilterRule, parentId: string) {
   };
 }
 
-function convertFilterToState(filter: PropertyFilter): PropertyFilterBuilderState {
+function convertFilterToState(
+  filter: PropertyFilter
+): PropertyFilterBuilderState {
   const id = Guid.createValue();
   if (isPropertyFilterRuleGroup(filter)) {
     return {

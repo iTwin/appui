@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
 
 import classnames from "classnames";
 import * as React from "react";
-import type { PropertyRecord} from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { CommonProps, RatioChangeResult } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
@@ -30,13 +30,19 @@ export interface PropertyListProps extends CommonProps {
   selectedPropertyKey?: string;
   onPropertyClicked?: (property: PropertyRecord, key?: string) => void;
   onPropertyRightClicked?: (property: PropertyRecord, key?: string) => void;
-  onPropertyContextMenu?: (property: PropertyRecord, e: React.MouseEvent) => void;
+  onPropertyContextMenu?: (
+    property: PropertyRecord,
+    e: React.MouseEvent
+  ) => void;
   columnRatio?: number;
   /** Callback to column ratio changed event */
   onColumnChanged?: (ratio: number) => void | RatioChangeResult;
   propertyValueRendererManager?: PropertyValueRendererManager;
   editingPropertyKey?: string;
-  onEditCommit?: (args: PropertyUpdatedArgs, category: PropertyCategory) => void;
+  onEditCommit?: (
+    args: PropertyUpdatedArgs,
+    category: PropertyCategory
+  ) => void;
   onEditCancel?: () => void;
   /** Enables/disables property hovering effect */
   isPropertyHoverEnabled?: boolean;
@@ -62,7 +68,10 @@ export interface PropertyListProps extends CommonProps {
  * Get unique key for property record
  * @internal
  */
-export function getPropertyKey(propertyCategory: PropertyCategory, propertyRecord: PropertyRecord) {
+export function getPropertyKey(
+  propertyCategory: PropertyCategory,
+  propertyRecord: PropertyRecord
+) {
   return propertyCategory.name + propertyRecord.property.name;
 }
 
@@ -70,7 +79,6 @@ export function getPropertyKey(propertyCategory: PropertyCategory, propertyRecor
  * @public
  */
 export class PropertyList extends React.Component<PropertyListProps> {
-
   constructor(props: PropertyListProps) {
     super(props);
   }
@@ -86,14 +94,22 @@ export class PropertyList extends React.Component<PropertyListProps> {
   /** @internal */
   public override render() {
     const propertyListClassName = classnames(
-      (this.props.orientation === Orientation.Horizontal) ? "components-property-list--horizontal" : "components-property-list--vertical",
-      this.props.className,
+      this.props.orientation === Orientation.Horizontal
+        ? "components-property-list--horizontal"
+        : "components-property-list--vertical",
+      this.props.className
     );
 
     return (
-      <div className={propertyListClassName} style={this.props.style} ref={this._listRef}>
+      <div
+        className={propertyListClassName}
+        style={this.props.style}
+        ref={this._listRef}
+      >
         {this.props.properties.map((propertyRecord: PropertyRecord) => {
-          const key = this.props.category ? getPropertyKey(this.props.category, propertyRecord) : propertyRecord.property.name;
+          const key = this.props.category
+            ? getPropertyKey(this.props.category, propertyRecord)
+            : propertyRecord.property.name;
           return (
             <PropertyRenderer
               key={key}
@@ -103,12 +119,24 @@ export class PropertyList extends React.Component<PropertyListProps> {
               isSelected={key === this.props.selectedPropertyKey}
               propertyRecord={propertyRecord}
               orientation={this.props.orientation}
-              onClick={propertyRecord.value.valueFormat === PropertyValueFormat.Primitive ? this.props.onPropertyClicked : undefined}
-              onRightClick={propertyRecord.value.valueFormat === PropertyValueFormat.Primitive ? this.props.onPropertyRightClicked : undefined}
+              onClick={
+                propertyRecord.value.valueFormat ===
+                PropertyValueFormat.Primitive
+                  ? this.props.onPropertyClicked
+                  : undefined
+              }
+              onRightClick={
+                propertyRecord.value.valueFormat ===
+                PropertyValueFormat.Primitive
+                  ? this.props.onPropertyRightClicked
+                  : undefined
+              }
               onContextMenu={this.props.onPropertyContextMenu}
               columnRatio={this.props.columnRatio}
               onColumnRatioChanged={this.props.onColumnChanged}
-              propertyValueRendererManager={this.props.propertyValueRendererManager}
+              propertyValueRendererManager={
+                this.props.propertyValueRendererManager
+              }
               isEditing={key === this.props.editingPropertyKey}
               onEditCommit={this._onEditCommit}
               onEditCancel={this.props.onEditCancel}
@@ -119,7 +147,8 @@ export class PropertyList extends React.Component<PropertyListProps> {
               isResizeHandleBeingDragged={this.props.isResizeHandleBeingDragged}
               onResizeHandleDragChanged={this.props.onResizeHandleDragChanged}
               columnInfo={this.props.columnInfo}
-            />);
+            />
+          );
         })}
       </div>
     );

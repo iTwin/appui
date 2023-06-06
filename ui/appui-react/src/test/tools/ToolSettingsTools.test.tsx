@@ -1,16 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { expect } from "chai";
 import { MockRender } from "@itwin/core-frontend";
 import { TestUtils } from "../TestUtils";
-import { BumpToolSetting, FocusToolSettings } from "../../appui-react/tools/ToolSettingsTools";
+import {
+  BumpToolSetting,
+  FocusToolSettings,
+} from "../../appui-react/tools/ToolSettingsTools";
 
 describe("ToolSettingsTools", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     await MockRender.App.startup();
@@ -29,7 +31,11 @@ describe("ToolSettingsTools", () => {
     });
 
     it("should return true if focusable item in docked ToolSettings", async () => {
-      render(<div className="nz-toolSettings-docked"><button /></div>);
+      render(
+        <div className="nz-toolSettings-docked">
+          <button />
+        </div>
+      );
       const tool = new FocusToolSettings();
       expect(await tool.parseAndRun()).to.be.true;
     });
@@ -50,7 +56,5 @@ describe("ToolSettingsTools", () => {
       const tool = new BumpToolSetting();
       expect(await tool.parseAndRun("bad")).to.be.false;
     });
-
   });
-
 });

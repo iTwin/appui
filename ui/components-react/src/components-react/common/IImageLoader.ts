@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -15,7 +15,12 @@
  * * "webfont-icon" will render web font icon from provided font-family. When no font-family given, defaults to "bentley-icons-generic-webfont".
  * @public
  */
-export type ImageSourceType = "svg" | "url" | "binary" | "core-icon" | "webfont-icon";
+export type ImageSourceType =
+  | "svg"
+  | "url"
+  | "binary"
+  | "core-icon"
+  | "webfont-icon";
 
 /** Type of raw image format
  * @public

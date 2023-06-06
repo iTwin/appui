@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
 
 import type * as React from "react";
-import type { PropertyRecord} from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { Orientation } from "@itwin/core-react";
 import { ArrayPropertyValueRenderer } from "./renderers/value/ArrayPropertyValueRenderer";
@@ -40,7 +40,7 @@ export interface PropertyDialogState {
  * @public
  */
 export interface PropertyPopupState {
-  fixedPosition: { top: number, left: number };
+  fixedPosition: { top: number; left: number };
   content: React.ReactNode;
 }
 
@@ -77,9 +77,15 @@ export interface PropertyValueRendererContext {
  */
 export interface IPropertyValueRenderer {
   /** Checks if the renderer can handle given property */
-  canRender: (record: PropertyRecord, context?: PropertyValueRendererContext) => boolean;
+  canRender: (
+    record: PropertyRecord,
+    context?: PropertyValueRendererContext
+  ) => boolean;
   /** Method that returns a JSX representation of PropertyRecord */
-  render: (record: PropertyRecord, context?: PropertyValueRendererContext) => React.ReactNode;
+  render: (
+    record: PropertyRecord,
+    context?: PropertyValueRendererContext
+  ) => React.ReactNode;
 }
 
 /** Default implementation of property value renderer manager
@@ -88,14 +94,24 @@ export interface IPropertyValueRenderer {
 export class PropertyValueRendererManager {
   private static _defaultRendererManager: PropertyValueRendererManager;
 
-  protected _propertyRenderers: Map<string, IPropertyValueRenderer> = new Map<string, IPropertyValueRenderer>();
-  protected _defaultPrimitiveValueRenderer: IPropertyValueRenderer = new PrimitivePropertyValueRenderer();
-  protected _defaultArrayValueRenderer: IPropertyValueRenderer = new ArrayPropertyValueRenderer();
-  protected _defaultStructValueRenderer: IPropertyValueRenderer = new StructPropertyValueRenderer();
-  protected _defaultMergedValueRenderer: IPropertyValueRenderer = new MergedPropertyValueRenderer();
+  protected _propertyRenderers: Map<string, IPropertyValueRenderer> = new Map<
+    string,
+    IPropertyValueRenderer
+  >();
+  protected _defaultPrimitiveValueRenderer: IPropertyValueRenderer =
+    new PrimitivePropertyValueRenderer();
+  protected _defaultArrayValueRenderer: IPropertyValueRenderer =
+    new ArrayPropertyValueRenderer();
+  protected _defaultStructValueRenderer: IPropertyValueRenderer =
+    new StructPropertyValueRenderer();
+  protected _defaultMergedValueRenderer: IPropertyValueRenderer =
+    new MergedPropertyValueRenderer();
 
   private selectRenderer(record: PropertyRecord) {
-    if (record.property.renderer && this._propertyRenderers.has(record.property.renderer.name))
+    if (
+      record.property.renderer &&
+      this._propertyRenderers.has(record.property.renderer.name)
+    )
       return this._propertyRenderers.get(record.property.renderer.name);
 
     if (this._defaultMergedValueRenderer.canRender(record))
@@ -118,7 +134,10 @@ export class PropertyValueRendererManager {
   }
 
   /** Render property into JSX element */
-  public render(record: PropertyRecord, context?: PropertyValueRendererContext): React.ReactNode {
+  public render(
+    record: PropertyRecord,
+    context?: PropertyValueRendererContext
+  ): React.ReactNode {
     const selectedRenderer = this.selectRenderer(record);
 
     if (!selectedRenderer || !selectedRenderer.canRender(record, context))
@@ -128,9 +147,15 @@ export class PropertyValueRendererManager {
   }
 
   /** Register a specified property type renderer */
-  public registerRenderer(rendererType: string, propertyRenderer: IPropertyValueRenderer, overwrite = false) {
+  public registerRenderer(
+    rendererType: string,
+    propertyRenderer: IPropertyValueRenderer,
+    overwrite = false
+  ) {
     if (!overwrite && this._propertyRenderers.has(rendererType)) {
-      throw Error(`PropertyValueRendererManager.registerRenderer error: type '${rendererType}' already registered to '${propertyRenderer.constructor.name}'`);
+      throw Error(
+        `PropertyValueRendererManager.registerRenderer error: type '${rendererType}' already registered to '${propertyRenderer.constructor.name}'`
+      );
     }
 
     this._propertyRenderers.set(rendererType, propertyRenderer);
@@ -155,7 +180,19 @@ export class PropertyValueRendererManager {
   }
 }
 
-PropertyValueRendererManager.defaultManager.registerRenderer("navigation", new NavigationPropertyValueRenderer());
-PropertyValueRendererManager.defaultManager.registerRenderer("url", new UrlPropertyValueRenderer());
-PropertyValueRendererManager.defaultManager.registerRenderer("double", new DoublePropertyValueRenderer());
-PropertyValueRendererManager.defaultManager.registerRenderer("multiline", new MultilineTextPropertyValueRenderer());
+PropertyValueRendererManager.defaultManager.registerRenderer(
+  "navigation",
+  new NavigationPropertyValueRenderer()
+);
+PropertyValueRendererManager.defaultManager.registerRenderer(
+  "url",
+  new UrlPropertyValueRenderer()
+);
+PropertyValueRendererManager.defaultManager.registerRenderer(
+  "double",
+  new DoublePropertyValueRenderer()
+);
+PropertyValueRendererManager.defaultManager.registerRenderer(
+  "multiline",
+  new MultilineTextPropertyValueRenderer()
+);

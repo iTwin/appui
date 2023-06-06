@@ -1,14 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import type { Primitives } from "@itwin/appui-abstract";
 import { CompositeTypeConverter } from "../../components-react/converters/CompositeTypeConverter";
 import TestUtils from "../TestUtils";
 
 describe("CompositeTypeConverter", () => {
-
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
@@ -20,7 +19,6 @@ describe("CompositeTypeConverter", () => {
   });
 
   describe("convertToString", () => {
-
     it("returns correct string", async () => {
       const compositeValue: Primitives.Composite = {
         separator: "*",
@@ -51,13 +49,14 @@ describe("CompositeTypeConverter", () => {
           },
         ],
       };
-      expect(await converter.convertToString(compositeValue)).to.equal("FirstPart*SecondPart - InnerPart");
+      expect(await converter.convertToString(compositeValue)).to.equal(
+        "FirstPart*SecondPart - InnerPart"
+      );
     });
 
     it("returns empty string when value is undefined", () => {
       expect(converter.convertToString(undefined)).to.equal("");
     });
-
   });
 
   describe("sortCompare", () => {

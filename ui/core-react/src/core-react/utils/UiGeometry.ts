@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -17,10 +17,14 @@ export class UiGeometry {
    * @param min smallest allowed output
    * @param max largest allowed result.
    */
-  public static clamp(value: number, min: number, max: number): number { return Math.max(min, Math.min(max, value)); }
+  public static clamp(value: number, min: number, max: number): number {
+    return Math.max(min, Math.min(max, value));
+  }
 
   /**
    * Return the hypotenuse `sqrt(x*x + y*y)`. This is much faster than `Math.hypot(x,y)`.
    */
-  public static hypotenuseXY(x: number, y: number): number { return Math.sqrt(x * x + y * y); }
+  public static hypotenuseXY(x: number, y: number): number {
+    return Math.sqrt(x * x + y * y);
+  }
 }

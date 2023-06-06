@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -9,7 +9,7 @@
 import "./ModalFrontstage.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { BackButton } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
@@ -40,15 +40,16 @@ export interface ModalFrontstageProps extends CommonProps {
  * @public
  */
 export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
-  private _backButtonTitle = UiFramework.translate("modalFrontstage.backButtonTitle");
+  private _backButtonTitle = UiFramework.translate(
+    "modalFrontstage.backButtonTitle"
+  );
 
   constructor(props: ModalFrontstageProps) {
     super(props);
   }
 
   private _onGoBack = () => {
-    if (this.props.navigateBack)
-      this.props.navigateBack();
+    if (this.props.navigateBack) this.props.navigateBack();
     this.props.closeModal();
   };
 
@@ -56,28 +57,27 @@ export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
     const classNames = classnames(
       "uifw-modal-frontstage",
       this.props.isOpen && "uifw-modal-open",
-      this.props.className,
+      this.props.className
     );
 
     return (
       <>
         <div className={classNames} style={this.props.style}>
           <div className="uifw-modal-app-bar">
-            <BackButton className="nz-toolbar-button-app"
+            <BackButton
+              className="nz-toolbar-button-app"
               onClick={this._onGoBack}
-              icon={
-                <Icon iconSpec={<SvgProgressBackwardCircular />} />
-              }
+              icon={<Icon iconSpec={<SvgProgressBackwardCircular />} />}
               title={this._backButtonTitle}
             />
             <Text variant="headline">{this.props.title}</Text>
-            {this.props.appBarRight &&
-              <span className="uifw-modal-app-bar-right">{this.props.appBarRight}</span>
-            }
+            {this.props.appBarRight && (
+              <span className="uifw-modal-app-bar-right">
+                {this.props.appBarRight}
+              </span>
+            )}
           </div>
-          <div className="uifw-modal-stage-content">
-            {this.props.children}
-          </div>
+          <div className="uifw-modal-stage-content">{this.props.children}</div>
         </div>
         <div className="uifw-modal-frontstage-overlay" />
       </>

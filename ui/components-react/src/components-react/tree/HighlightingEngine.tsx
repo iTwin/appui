@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -68,9 +68,11 @@ export class HighlightingEngine {
     };
   }
 
-  public static renderNodeLabel(text: string, props: HighlightableTreeNodeProps): React.ReactNode {
-    if (props.searchText)
-      return (<HighlightedText text={text} {...props} />);
+  public static renderNodeLabel(
+    text: string,
+    props: HighlightableTreeNodeProps
+  ): React.ReactNode {
+    if (props.searchText) return <HighlightedText text={text} {...props} />;
     return text;
   }
 }

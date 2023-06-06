@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Footer
  */
@@ -21,10 +21,7 @@ export function FooterPopup(props: Partial<PopupProps>) {
   const { className, ...other } = props;
   return (
     <Popup
-      className={classnames(
-        "nz-footer-popup",
-        className,
-      )}
+      className={classnames("nz-footer-popup", className)}
       position={RelativePosition.Top}
       showArrow
       showShadow={true}

@@ -1,14 +1,23 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import type { NineZoneDispatch} from "../../appui-layout-react";
-import { addFloatingWidget, addTab, createLayoutStore, createNineZoneState, FloatingWidgetProvider, getResizeBy, useFloatingWidgetId, WidgetIdContext } from "../../appui-layout-react";
+import type { NineZoneDispatch } from "../../appui-layout-react";
+import {
+  addFloatingWidget,
+  addTab,
+  createLayoutStore,
+  createNineZoneState,
+  FloatingWidgetProvider,
+  getResizeBy,
+  useFloatingWidgetId,
+  WidgetIdContext,
+} from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("FloatingWidget", () => {
@@ -17,13 +26,9 @@ describe("FloatingWidget", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
-      </TestNineZoneProvider>,
+      <TestNineZoneProvider defaultState={state}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -31,15 +36,13 @@ describe("FloatingWidget", () => {
   it("should render minimized", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
-    state = addFloatingWidget(state, "w1", ["t1"], undefined, { minimized: true });
+    state = addFloatingWidget(state, "w1", ["t1"], undefined, {
+      minimized: true,
+    });
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
-      </TestNineZoneProvider>,
+      <TestNineZoneProvider defaultState={state}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -49,13 +52,9 @@ describe("FloatingWidget", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"], { hidden: true }, undefined);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
-      </TestNineZoneProvider>,
+      <TestNineZoneProvider defaultState={state}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -65,13 +64,9 @@ describe("FloatingWidget", () => {
     state = addTab(state, "t1", { hideWithUiWhenFloating: true });
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
-      </TestNineZoneProvider>,
+      <TestNineZoneProvider defaultState={state}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -79,15 +74,13 @@ describe("FloatingWidget", () => {
   it("should render dragged", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
-    state = addFloatingWidget(state, "w1", ["t1"], undefined, { minimized: true });
+    state = addFloatingWidget(state, "w1", ["t1"], undefined, {
+      minimized: true,
+    });
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
-      </TestNineZoneProvider>,
+      <TestNineZoneProvider defaultState={state}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
@@ -102,44 +95,49 @@ describe("FloatingWidget", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
-    state = addFloatingWidget(state, "w1", ["t1"], undefined, { minimized: true, isFloatingStateWindowResizable: true });
+    state = addFloatingWidget(state, "w1", ["t1"], undefined, {
+      minimized: true,
+      isFloatingStateWindowResizable: true,
+    });
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
-      </TestNineZoneProvider>,
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
     );
-    const handle = container.getElementsByClassName("nz-widget-floatingWidget_handle")[0];
+    const handle = container.getElementsByClassName(
+      "nz-widget-floatingWidget_handle"
+    )[0];
     act(() => {
       fireEvent.mouseDown(handle);
       dispatch.reset();
       fireEvent.mouseMove(handle);
     });
-    dispatch.calledOnceWithExactly(sinon.match({
-      type: "FLOATING_WIDGET_RESIZE",
-      id: "w1",
-    })).should.true;
+    dispatch.calledOnceWithExactly(
+      sinon.match({
+        type: "FLOATING_WIDGET_RESIZE",
+        id: "w1",
+      })
+    ).should.true;
   });
 
   it("tool settings should NOT have resize handles", () => {
     const dispatch = sinon.stub<NineZoneDispatch>();
     let state = createNineZoneState();
-    state = addFloatingWidget(state, "toolSettings", ["nz-tool-settings-tab"], undefined, { minimized: true, isFloatingStateWindowResizable: false });
-    const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
-        <FloatingWidgetProvider
-          id="toolSettings"
-        />
-      </TestNineZoneProvider>,
+    state = addFloatingWidget(
+      state,
+      "toolSettings",
+      ["nz-tool-settings-tab"],
+      undefined,
+      { minimized: true, isFloatingStateWindowResizable: false }
     );
-    const handleList = container.getElementsByClassName("nz-widget-floatingWidget_handle");
+    const { container } = render(
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+        <FloatingWidgetProvider id="toolSettings" />
+      </TestNineZoneProvider>
+    );
+    const handleList = container.getElementsByClassName(
+      "nz-widget-floatingWidget_handle"
+    );
     handleList.length.should.eq(0);
   });
 });
@@ -224,7 +222,7 @@ describe("useFloatingWidgetId", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { result } = renderHook(() => useFloatingWidgetId(), {
-      wrapper: (props) => ( // eslint-disable-line react/display-name
+      wrapper: (props) => (
         <TestNineZoneProvider layout={createLayoutStore(state)}>
           <WidgetIdContext.Provider value="w1" {...props} />
         </TestNineZoneProvider>
@@ -235,7 +233,7 @@ describe("useFloatingWidgetId", () => {
 
   it("should return `undefined` if WidgetIdContext is not provided", () => {
     const { result } = renderHook(() => useFloatingWidgetId(), {
-      wrapper: (props) => <TestNineZoneProvider {...props} />, // eslint-disable-line react/display-name
+      wrapper: (props) => <TestNineZoneProvider {...props} />,
     });
     expect(result.current).to.be.undefined;
   });

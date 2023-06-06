@@ -1,13 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { HexadecimalTypeConverter } from "../../components-react";
 import TestUtils from "../TestUtils";
 
 describe("HexadecimalTypeConverter", () => {
-
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
@@ -47,15 +46,25 @@ describe("HexadecimalTypeConverter", () => {
 
   describe("sortCompare", () => {
     it("returns correct values when number is lower than 2^32", () => {
-      expect(converter.sortCompare("0xff0000ff", "0x000000ff")).to.be.greaterThan(0);
-      expect(converter.sortCompare("0x000000ff", "0xff0000ff")).to.be.lessThan(0);
+      expect(
+        converter.sortCompare("0xff0000ff", "0x000000ff")
+      ).to.be.greaterThan(0);
+      expect(converter.sortCompare("0x000000ff", "0xff0000ff")).to.be.lessThan(
+        0
+      );
       expect(converter.sortCompare("0xff0000ff", "0xff0000ff")).to.equal(0);
     });
 
     it("returns correct values when number is bigger than 2^32", () => {
-      expect(converter.sortCompare("0xff000000ff0000ff", "000000000x000000ff")).to.be.greaterThan(0);
-      expect(converter.sortCompare("0x00000000000000ff", "0xff000000ff0000ff")).to.be.lessThan(0);
-      expect(converter.sortCompare("0xff000000ff0000ff", "0xff000000ff0000ff")).to.equal(0);
+      expect(
+        converter.sortCompare("0xff000000ff0000ff", "000000000x000000ff")
+      ).to.be.greaterThan(0);
+      expect(
+        converter.sortCompare("0x00000000000000ff", "0xff000000ff0000ff")
+      ).to.be.lessThan(0);
+      expect(
+        converter.sortCompare("0xff000000ff0000ff", "0xff000000ff0000ff")
+      ).to.equal(0);
     });
 
     it("returns 0 even when strings are represented slightly differently", () => {

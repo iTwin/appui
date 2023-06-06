@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Icon
  */
@@ -28,22 +28,21 @@ export interface SvgPathProps extends CommonProps {
  */
 export class SvgPath extends React.PureComponent<SvgPathProps> {
   public override render() {
-    const className = classnames(
-      "core-icons-svgPath",
-      this.props.className,
-    );
+    const className = classnames("core-icons-svgPath", this.props.className);
     const viewBox = `0 0 ${this.props.viewBoxWidth} ${this.props.viewBoxHeight}`;
 
     return (
-      <svg className={className} style={this.props.style} width="100%" height="100%" viewBox={viewBox}>
+      <svg
+        className={className}
+        style={this.props.style}
+        width="100%"
+        height="100%"
+        viewBox={viewBox}
+      >
         <g>
-          {
-            this.props.paths.map((path: string, index: number) => {
-              return (
-                <path d={path} key={index} />
-              );
-            })
-          }
+          {this.props.paths.map((path: string, index: number) => {
+            return <path d={path} key={index} />;
+          })}
         </g>
       </svg>
     );

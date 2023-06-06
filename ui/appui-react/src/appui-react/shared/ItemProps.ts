@@ -1,12 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Item
  */
 
-import type { BadgeType, CommandHandler, ConditionalBooleanValue, ConditionalStringValue, StringGetter } from "@itwin/appui-abstract";
+import type {
+  BadgeType,
+  CommandHandler,
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+  StringGetter,
+} from "@itwin/appui-abstract";
 import type { IconProps, IconSpec } from "@itwin/core-react";
 
 /** Definition that specifies properties shared between many ConfigurableUi components.

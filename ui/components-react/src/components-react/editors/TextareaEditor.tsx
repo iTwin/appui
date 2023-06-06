@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -10,16 +10,26 @@ import "./TextareaEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type {
-  InputEditorSizeParams, MultilineTextEditorParams, PrimitiveValue, PropertyEditorParams, PropertyValue} from "@itwin/appui-abstract";
+  InputEditorSizeParams,
+  MultilineTextEditorParams,
+  PrimitiveValue,
+  PropertyEditorParams,
+  PropertyValue,
+} from "@itwin/appui-abstract";
 import {
-  PropertyEditorParamTypes, PropertyValueFormat,
-  StandardEditorNames, StandardTypeNames,
+  PropertyEditorParamTypes,
+  PropertyValueFormat,
+  StandardEditorNames,
+  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import type { TextareaProps } from "@itwin/itwinui-react";
 import { Textarea } from "@itwin/itwinui-react";
 import { TypeConverterManager } from "../converters/TypeConverterManager";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import { PropertyEditorBase, PropertyEditorManager } from "./PropertyEditorManager";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "./PropertyEditorManager";
 import { PopupButton, PopupContent, PopupOkCancelButtons } from "./PopupButton";
 import { UiComponents } from "../UiComponents";
 
@@ -38,7 +48,10 @@ const DEFAULT_ROWS = 3;
 /** TextareaEditor React component that is a property editor with text input
  * @public
  */
-export class TextareaEditor extends React.PureComponent<PropertyEditorProps, TextareaEditorState> implements TypeEditor {
+export class TextareaEditor
+  extends React.PureComponent<PropertyEditorProps, TextareaEditorState>
+  implements TypeEditor
+{
   private _isMounted = false;
   private _ariaLabel = UiComponents.translate("editor.textarea");
   private _divElement = React.createRef<HTMLDivElement>();
@@ -56,7 +69,9 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
 
     // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
-      propertyValue = await TypeConverterManager.getConverter(record.property.typename).convertFromStringToPropertyValue(this.state.inputValue, record);
+      propertyValue = await TypeConverterManager.getConverter(
+        record.property.typename
+      ).convertFromStringToPropertyValue(this.state.inputValue, record);
       (propertyValue as PrimitiveValue).displayValue = this.state.inputValue;
     }
 
@@ -77,7 +92,9 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
     return containsFocus;
   }
 
-  private _updateTextareaValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  private _updateTextareaValue = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     // istanbul ignore else
     if (this._isMounted)
       this.setState({
@@ -88,7 +105,7 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
   /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
-    this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void this.setStateFromProps();
   }
 
   /** @internal */
@@ -99,7 +116,7 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
   /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
-      this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this.setStateFromProps();
     }
   }
 
@@ -110,28 +127,40 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
     // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       const value = record.value.value;
-      initialValue = await TypeConverterManager.getConverter(record.property.typename).convertPropertyToString(record.property, value);
+      initialValue = await TypeConverterManager.getConverter(
+        record.property.typename
+      ).convertPropertyToString(record.property, value);
     }
 
-    const readonly = record && undefined !== record.isReadonly ? record.isReadonly : false;
+    const readonly =
+      record && undefined !== record.isReadonly ? record.isReadonly : false;
     let size: number | undefined;
     let maxLength: number | undefined;
     let rows: number = DEFAULT_ROWS;
 
     const isDisabled = record ? record.isDisabled : undefined;
 
-    if (record && record.property && record.property.editor && record.property.editor.params) {
-      const editorSizeParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.InputEditorSize) as InputEditorSizeParams;
+    if (
+      record &&
+      record.property &&
+      record.property.editor &&
+      record.property.editor.params
+    ) {
+      const editorSizeParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.InputEditorSize
+      ) as InputEditorSizeParams;
       if (editorSizeParams) {
         // istanbul ignore else
-        if (editorSizeParams.size)
-          size = editorSizeParams.size;
+        if (editorSizeParams.size) size = editorSizeParams.size;
         // istanbul ignore else
-        if (editorSizeParams.maxLength)
-          maxLength = editorSizeParams.maxLength;
+        if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
-      const multilineParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.MultilineText) as MultilineTextEditorParams;
+      const multilineParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.MultilineText
+      ) as MultilineTextEditorParams;
       if (multilineParams) {
         rows = multilineParams.rows;
       }
@@ -139,7 +168,14 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
 
     // istanbul ignore else
     if (this._isMounted)
-      this.setState({ inputValue: initialValue, readonly, size, maxLength, isDisabled, rows });
+      this.setState({
+        inputValue: initialValue,
+        readonly,
+        size,
+        maxLength,
+        isDisabled,
+        rows,
+      });
   }
 
   private _handleOk = async (_event: React.MouseEvent): Promise<void> => {
@@ -148,7 +184,10 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
       const propertyValue = await this.getPropertyValue();
       // istanbul ignore else
       if (propertyValue !== undefined) {
-        this.props.onCommit({ propertyRecord: this.props.propertyRecord, newValue: propertyValue });
+        this.props.onCommit({
+          propertyRecord: this.props.propertyRecord,
+          newValue: propertyValue,
+        });
       }
     }
   };
@@ -162,7 +201,11 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
 
   /** @internal */
   public override render(): React.ReactNode {
-    const className = classnames("components-cell-editor", "components-textarea-editor", this.props.className);
+    const className = classnames(
+      "components-cell-editor",
+      "components-textarea-editor",
+      this.props.className
+    );
     const minSize = this.state.size ? this.state.size : 8;
     const style: React.CSSProperties = {
       ...this.props.style,
@@ -184,15 +227,21 @@ export class TextareaEditor extends React.PureComponent<PropertyEditorProps, Tex
 
     return (
       <div className={className} ref={this._divElement}>
-        <PopupButton label={this.state.inputValue}
+        <PopupButton
+          label={this.state.inputValue}
           closeOnEnter={false}
-          setFocus={this.props.setFocus} focusTarget=".iui-input">
+          setFocus={this.props.setFocus}
+          focusTarget=".iui-input"
+        >
           <PopupContent>
             <Textarea
               {...textareaProps}
               data-testid="components-textarea-editor"
             />
-            <PopupOkCancelButtons onOk={this._handleOk} onCancel={this._handleCancel} />
+            <PopupOkCancelButtons
+              onOk={this._handleOk}
+              onCancel={this._handleCancel}
+            />
           </PopupContent>
         </PopupButton>
       </div>
@@ -223,5 +272,13 @@ export class TextareaPropertyEditor extends PropertyEditorBase {
   }
 }
 
-PropertyEditorManager.registerEditor(StandardTypeNames.Text, TextareaPropertyEditor, StandardEditorNames.MultiLine);
-PropertyEditorManager.registerEditor(StandardTypeNames.String, TextareaPropertyEditor, StandardEditorNames.MultiLine);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Text,
+  TextareaPropertyEditor,
+  StandardEditorNames.MultiLine
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.String,
+  TextareaPropertyEditor,
+  StandardEditorNames.MultiLine
+);

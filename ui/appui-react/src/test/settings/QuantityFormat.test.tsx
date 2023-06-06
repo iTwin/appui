@@ -1,14 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import type { QuantityTypeKey } from "@itwin/core-frontend";
 import { IModelApp, MockRender, QuantityType } from "@itwin/core-frontend";
-import TestUtils, { getButtonWithText, handleError, selectChangeValueByText, stubScrollIntoView } from "../TestUtils";
+import TestUtils, {
+  getButtonWithText,
+  handleError,
+  selectChangeValueByText,
+  stubScrollIntoView,
+} from "../TestUtils";
 import { getQuantityFormatsSettingsManagerEntry } from "../../appui-react/settings/quantityformatting/QuantityFormat";
 import { ModalDialogRenderer } from "../../appui-react/dialog/ModalDialogManager";
 import type { FormatProps, UnitSystemKey } from "@itwin/core-quantity";
@@ -28,7 +33,10 @@ describe("QuantityFormatSettingsPage", () => {
   });
 
   beforeEach(async () => {
-    await IModelApp.quantityFormatter.reinitializeFormatAndParsingsMaps(new Map<UnitSystemKey, Map<QuantityTypeKey, FormatProps>>(), "imperial");
+    await IModelApp.quantityFormatter.reinitializeFormatAndParsingsMaps(
+      new Map<UnitSystemKey, Map<QuantityTypeKey, FormatProps>>(),
+      "imperial"
+    );
   });
 
   afterEach(() => {
@@ -41,32 +49,55 @@ describe("QuantityFormatSettingsPage", () => {
     const settingsEntry = getQuantityFormatsSettingsManagerEntry(10);
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const unitSystemSpy = sandbox.spy(IModelApp.quantityFormatter, "setActiveUnitSystem");
+    const unitSystemSpy = sandbox.spy(
+      IModelApp.quantityFormatter,
+      "setActiveUnitSystem"
+    );
 
     const wrapper = render(settingsEntry.page);
 
     const selectButton = wrapper.getByTestId("unitSystemSelector");
 
     // initial unit system value should be imperial so no change expected for initial change.
-    selectChangeValueByText(selectButton, "presentationUnitSystem.BritishImperial", handleError);
+    selectChangeValueByText(
+      selectButton,
+      "presentationUnitSystem.BritishImperial",
+      handleError
+    );
     expect(unitSystemSpy).to.be.callCount(0);
 
-    selectChangeValueByText(selectButton, "presentationUnitSystem.Metric", handleError);
+    selectChangeValueByText(
+      selectButton,
+      "presentationUnitSystem.Metric",
+      handleError
+    );
     expect(unitSystemSpy).to.be.callCount(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
-    selectChangeValueByText(selectButton, "presentationUnitSystem.USCustomary", handleError);
+    selectChangeValueByText(
+      selectButton,
+      "presentationUnitSystem.USCustomary",
+      handleError
+    );
     expect(unitSystemSpy).to.be.callCount(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
-    selectChangeValueByText(selectButton, "presentationUnitSystem.USSurvey", handleError);
+    selectChangeValueByText(
+      selectButton,
+      "presentationUnitSystem.USSurvey",
+      handleError
+    );
     expect(unitSystemSpy).to.be.callCount(1);
     unitSystemSpy.resetHistory();
     await TestUtils.flushAsyncOperations();
 
-    selectChangeValueByText(selectButton, "presentationUnitSystem.BritishImperial", handleError);
+    selectChangeValueByText(
+      selectButton,
+      "presentationUnitSystem.BritishImperial",
+      handleError
+    );
     expect(unitSystemSpy).to.be.callCount(1);
     await TestUtils.flushAsyncOperations();
 
@@ -74,7 +105,9 @@ describe("QuantityFormatSettingsPage", () => {
   });
 
   it("will listen for external unit system changes", async () => {
-    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, { initialQuantityType: QuantityType.Length });
+    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, {
+      initialQuantityType: QuantityType.Length,
+    });
     expect(settingsEntry.itemPriority).to.eql(10);
 
     const wrapper = render(settingsEntry.page);
@@ -91,8 +124,15 @@ describe("QuantityFormatSettingsPage", () => {
   it("will render 3 units and process quantity type selection in list", async () => {
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial", false);
 
-    const availableUnitSystems = new Set<UnitSystemKey>(["metric", "imperial", "usSurvey"]);
-    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, { initialQuantityType: QuantityType.LengthEngineering, availableUnitSystems });
+    const availableUnitSystems = new Set<UnitSystemKey>([
+      "metric",
+      "imperial",
+      "usSurvey",
+    ]);
+    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, {
+      initialQuantityType: QuantityType.LengthEngineering,
+      availableUnitSystems,
+    });
     expect(settingsEntry.itemPriority).to.eql(10);
 
     const wrapper = render(settingsEntry.page);
@@ -100,31 +140,52 @@ describe("QuantityFormatSettingsPage", () => {
 
     const listSelector = `ul.uifw-quantity-types`;
     const categoryList = wrapper.container.querySelector(listSelector);
-    expect(categoryList!.getAttribute("data-value")).to.eql("QuantityTypeEnumValue-9");
+    expect(categoryList!.getAttribute("data-value")).to.eql(
+      "QuantityTypeEnumValue-9"
+    );
 
     const dataValueSelector = `li[data-value='QuantityTypeEnumValue-7']`;
     const categoryEntry = wrapper.container.querySelector(dataValueSelector);
     expect(categoryEntry).not.to.be.null;
     fireEvent.click(categoryEntry!);
     await TestUtils.flushAsyncOperations();
-    expect(categoryList!.getAttribute("data-value")).to.eql("QuantityTypeEnumValue-7");
+    expect(categoryList!.getAttribute("data-value")).to.eql(
+      "QuantityTypeEnumValue-7"
+    );
 
     wrapper.unmount();
   });
 
   it("save prop changes", async () => {
-    const availableUnitSystems = new Set<UnitSystemKey>(["metric", "imperial", "usSurvey"]);
-    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, { initialQuantityType: QuantityType.LengthEngineering, availableUnitSystems });
+    const availableUnitSystems = new Set<UnitSystemKey>([
+      "metric",
+      "imperial",
+      "usSurvey",
+    ]);
+    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, {
+      initialQuantityType: QuantityType.LengthEngineering,
+      availableUnitSystems,
+    });
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const wrapper = render(<div>
-      <ModalDialogRenderer />
-      {settingsEntry.page}
-    </div>);
+    const wrapper = render(
+      <div>
+        <ModalDialogRenderer />
+        {settingsEntry.page}
+      </div>
+    );
 
-    const setButton = getButtonWithText(wrapper.container, "settings.quantity-formatting.setButtonLabel", handleError);
+    const setButton = getButtonWithText(
+      wrapper.container,
+      "settings.quantity-formatting.setButtonLabel",
+      handleError
+    );
     expect(setButton!.hasAttribute("disabled")).to.be.true;
-    const clearButton = getButtonWithText(wrapper.container, "settings.quantity-formatting.clearButtonLabel", handleError);
+    const clearButton = getButtonWithText(
+      wrapper.container,
+      "settings.quantity-formatting.clearButtonLabel",
+      handleError
+    );
     expect(clearButton!.hasAttribute("disabled")).to.be.true;
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
@@ -146,18 +207,35 @@ describe("QuantityFormatSettingsPage", () => {
   });
 
   it("will trigger modal and save prop changes", async () => {
-    const availableUnitSystems = new Set<UnitSystemKey>(["metric", "imperial", "usSurvey"]);
-    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, { initialQuantityType: QuantityType.LengthEngineering, availableUnitSystems });
+    const availableUnitSystems = new Set<UnitSystemKey>([
+      "metric",
+      "imperial",
+      "usSurvey",
+    ]);
+    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, {
+      initialQuantityType: QuantityType.LengthEngineering,
+      availableUnitSystems,
+    });
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const wrapper = render(<div>
-      <ModalDialogRenderer />
-      {settingsEntry.page}
-    </div>);
+    const wrapper = render(
+      <div>
+        <ModalDialogRenderer />
+        {settingsEntry.page}
+      </div>
+    );
 
-    const setButton = getButtonWithText(wrapper.container, "settings.quantity-formatting.setButtonLabel", handleError);
+    const setButton = getButtonWithText(
+      wrapper.container,
+      "settings.quantity-formatting.setButtonLabel",
+      handleError
+    );
     expect(setButton!.hasAttribute("disabled")).to.be.true;
-    const clearButton = getButtonWithText(wrapper.container, "settings.quantity-formatting.clearButtonLabel", handleError);
+    const clearButton = getButtonWithText(
+      wrapper.container,
+      "settings.quantity-formatting.clearButtonLabel",
+      handleError
+    );
     expect(clearButton!.hasAttribute("disabled")).to.be.true;
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
@@ -174,25 +252,44 @@ describe("QuantityFormatSettingsPage", () => {
     fireEvent.click(categoryEntry!);
     await TestUtils.flushAsyncOperations();
 
-    const yesButton = wrapper.container.querySelector("button.dialog-button-yes");
+    const yesButton = wrapper.container.querySelector(
+      "button.dialog-button-yes"
+    );
     fireEvent.click(yesButton!);
     await TestUtils.flushAsyncOperations();
     wrapper.unmount();
   });
 
   it("will trigger modal and don't save prop changes", async () => {
-    const availableUnitSystems = new Set<UnitSystemKey>(["metric", "imperial", "usSurvey"]);
-    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, { initialQuantityType: QuantityType.LengthEngineering, availableUnitSystems });
+    const availableUnitSystems = new Set<UnitSystemKey>([
+      "metric",
+      "imperial",
+      "usSurvey",
+    ]);
+    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, {
+      initialQuantityType: QuantityType.LengthEngineering,
+      availableUnitSystems,
+    });
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const wrapper = render(<div>
-      <ModalDialogRenderer />
-      {settingsEntry.page}
-    </div>);
+    const wrapper = render(
+      <div>
+        <ModalDialogRenderer />
+        {settingsEntry.page}
+      </div>
+    );
 
-    const setButton = getButtonWithText(wrapper.container, "settings.quantity-formatting.setButtonLabel", handleError);
+    const setButton = getButtonWithText(
+      wrapper.container,
+      "settings.quantity-formatting.setButtonLabel",
+      handleError
+    );
     expect(setButton!.hasAttribute("disabled")).to.be.true;
-    const clearButton = getButtonWithText(wrapper.container, "settings.quantity-formatting.clearButtonLabel", handleError);
+    const clearButton = getButtonWithText(
+      wrapper.container,
+      "settings.quantity-formatting.clearButtonLabel",
+      handleError
+    );
     expect(clearButton!.hasAttribute("disabled")).to.be.true;
     await TestUtils.flushAsyncOperations();
 
@@ -216,23 +313,43 @@ describe("QuantityFormatSettingsPage", () => {
   });
 
   it("will trigger modal by event from settings manager and don't save prop changes", async () => {
-    const availableUnitSystems = new Set<UnitSystemKey>(["metric", "imperial", "usSurvey"]);
-    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, { initialQuantityType: QuantityType.LengthEngineering, availableUnitSystems });
+    const availableUnitSystems = new Set<UnitSystemKey>([
+      "metric",
+      "imperial",
+      "usSurvey",
+    ]);
+    const settingsEntry = getQuantityFormatsSettingsManagerEntry(10, {
+      initialQuantityType: QuantityType.LengthEngineering,
+      availableUnitSystems,
+    });
     expect(settingsEntry.itemPriority).to.eql(10);
 
-    const wrapper = render(<div>
-      <ModalDialogRenderer />
-      {settingsEntry.page}
-    </div>);
+    const wrapper = render(
+      <div>
+        <ModalDialogRenderer />
+        {settingsEntry.page}
+      </div>
+    );
 
-    const setButton = getButtonWithText(wrapper.container, "settings.quantity-formatting.setButtonLabel", handleError);
+    const setButton = getButtonWithText(
+      wrapper.container,
+      "settings.quantity-formatting.setButtonLabel",
+      handleError
+    );
     expect(setButton!.hasAttribute("disabled")).to.be.true;
-    const clearButton = getButtonWithText(wrapper.container, "settings.quantity-formatting.clearButtonLabel", handleError);
+    const clearButton = getButtonWithText(
+      wrapper.container,
+      "settings.quantity-formatting.clearButtonLabel",
+      handleError
+    );
     expect(clearButton!.hasAttribute("disabled")).to.be.true;
     await TestUtils.flushAsyncOperations();
 
     const checkbox = wrapper.getByTestId("show-unit-label-checkbox");
-    const addListenerSpy = sinon.spy(UiFramework.settingsManager.onProcessSettingsTabActivation, "addListener");
+    const addListenerSpy = sinon.spy(
+      UiFramework.settingsManager.onProcessSettingsTabActivation,
+      "addListener"
+    );
     fireEvent.click(checkbox);
     await TestUtils.flushAsyncOperations();
 
@@ -244,7 +361,10 @@ describe("QuantityFormatSettingsPage", () => {
       expect(addListenerSpy).to.have.been.called;
     });
 
-    UiFramework.settingsManager.onProcessSettingsTabActivation.emit({ requestedSettingsTabId: "unknown", tabSelectionFunc: () => { } });
+    UiFramework.settingsManager.onProcessSettingsTabActivation.emit({
+      requestedSettingsTabId: "unknown",
+      tabSelectionFunc: () => {},
+    });
 
     await screen.findByText(/dialog\.no/);
     const noButton = wrapper.container.querySelector("button.dialog-button-no");
@@ -252,5 +372,4 @@ describe("QuantityFormatSettingsPage", () => {
 
     wrapper.unmount();
   });
-
 });

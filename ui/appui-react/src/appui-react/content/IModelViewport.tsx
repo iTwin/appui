@@ -1,14 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
 
 import * as React from "react";
 import type { Id64String } from "@itwin/core-bentley";
-import type { IModelConnection, ScreenViewport, ViewState } from "@itwin/core-frontend";
+import type {
+  IModelConnection,
+  ScreenViewport,
+  ViewState,
+} from "@itwin/core-frontend";
 import type { ViewStateProp } from "@itwin/imodel-components-react";
 import { ViewportComponent } from "@itwin/imodel-components-react";
 import { FillCentered } from "@itwin/core-react";
@@ -26,7 +30,10 @@ import type { FrameworkState } from "../redux/FrameworkState";
 /** Viewport that is connected to the IModelConnection property in the Redux store. The application must set up the Redux store and include the FrameworkReducer.
  * @public
  */
-export const IModelConnectedViewport = connectIModelConnectionAndViewState(null, null)(ViewportComponent); // eslint-disable-line @typescript-eslint/naming-convention
+export const IModelConnectedViewport = connectIModelConnectionAndViewState(
+  null,
+  null
+)(ViewportComponent);
 
 /** [[IModelViewportControl]] options. These options are set in the applicationData property of the [[ContentProps]].
  * @public
@@ -57,14 +64,23 @@ interface ViewOverlayHostProps {
  * @internal
  */
 // istanbul ignore next
-export function ViewOverlayHost({ viewport, featureOptions, userSuppliedOverlay }: ViewOverlayHostProps) {
+export function ViewOverlayHost({
+  viewport,
+  featureOptions,
+  userSuppliedOverlay,
+}: ViewOverlayHostProps) {
   const displayViewOverlay = useSelector((state: FrameworkState) => {
     const frameworkState = (state as any)[UiFramework.frameworkStateKey];
-    return frameworkState ? frameworkState.configurableUiState.viewOverlayDisplay : true;
+    return frameworkState
+      ? frameworkState.configurableUiState.viewOverlayDisplay
+      : true;
   });
-  if (!displayViewOverlay)
-    return null;
-  return userSuppliedOverlay ? <React.Fragment>{userSuppliedOverlay(viewport)}</React.Fragment> : <DefaultViewOverlay viewport={viewport} featureOptions={featureOptions} />;
+  if (!displayViewOverlay) return null;
+  return userSuppliedOverlay ? (
+    <React.Fragment>{userSuppliedOverlay(viewport)}</React.Fragment>
+  ) : (
+    <DefaultViewOverlay viewport={viewport} featureOptions={featureOptions} />
+  );
 }
 /** iModel Viewport Control
  * @public
@@ -78,33 +94,45 @@ export class IModelViewportControl extends ViewportContentControl {
   protected _viewState: ViewStateProp | undefined;
   protected _iModelConnection: IModelConnection | undefined;
   protected _alwaysUseSuppliedViewState: boolean;
-  private _userSuppliedViewOverlay?: (_viewport: ScreenViewport) => React.ReactNode;
+  private _userSuppliedViewOverlay?: (
+    _viewport: ScreenViewport
+  ) => React.ReactNode;
 
-  constructor(info: ConfigurableCreateInfo, protected _options: IModelViewportControlOptions) {
+  constructor(
+    info: ConfigurableCreateInfo,
+    protected _options: IModelViewportControlOptions
+  ) {
     super(info, _options);
 
-    if (_options.featureOptions)
-      this._featureOptions = _options.featureOptions;
-    this._alwaysUseSuppliedViewState = _options.alwaysUseSuppliedViewState ?? false;
+    if (_options.featureOptions) this._featureOptions = _options.featureOptions;
+    this._alwaysUseSuppliedViewState =
+      _options.alwaysUseSuppliedViewState ?? false;
     this._userSuppliedViewOverlay = _options.supplyViewOverlay;
 
-    if (!_options.deferNodeInitialization)
-      this.initializeReactNode();
+    if (!_options.deferNodeInitialization) this.initializeReactNode();
   }
 
   protected initializeReactNode() {
     const options = this._options;
 
-    if (options.viewState)
-      this._viewState = options.viewState;
+    if (options.viewState) this._viewState = options.viewState;
 
-    const iModelConnection = (typeof options.iModelConnection === "function") ? options.iModelConnection() : options.iModelConnection;
+    const iModelConnection =
+      typeof options.iModelConnection === "function"
+        ? options.iModelConnection()
+        : options.iModelConnection;
 
     if (this._viewState && iModelConnection) {
       /** Passing _determineViewState as a function reference; it is not called here. */
-      this._reactNode = this.getImodelViewportReactElement(iModelConnection, this._determineViewState);
+      this._reactNode = this.getImodelViewportReactElement(
+        iModelConnection,
+        this._determineViewState
+      );
     } else {
-      if (UiFramework.getIModelConnection() && UiFramework.getDefaultViewState()) {
+      if (
+        UiFramework.getIModelConnection() &&
+        UiFramework.getDefaultViewState()
+      ) {
         this._reactNode = this.getImodelConnectedViewportReactElement();
       } else {
         this._reactNode = this.getNoContentReactElement(options);
@@ -114,7 +142,10 @@ export class IModelViewportControl extends ViewportContentControl {
   }
 
   protected override getReactNode(): React.ReactNode {
-    if (!React.isValidElement(this._reactNode) && this._options.deferNodeInitialization)
+    if (
+      !React.isValidElement(this._reactNode) &&
+      this._options.deferNodeInitialization
+    )
       this.initializeReactNode();
 
     return this.getKeyedReactNode();
@@ -130,71 +161,93 @@ export class IModelViewportControl extends ViewportContentControl {
     if (this.viewport && !this._alwaysUseSuppliedViewState)
       viewState = this.viewport.view;
     else if (this._viewState) {
-      if (typeof this._viewState === "function")
-        viewState = this._viewState();
-      else
-        viewState = this._viewState;
+      if (typeof this._viewState === "function") viewState = this._viewState();
+      else viewState = this._viewState;
     } else
-      throw new UiError(UiFramework.loggerCategory(this), "No ViewState could be determined");
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        "No ViewState could be determined"
+      );
 
     return viewState!;
   };
 
   /** Get the React component that will contain the Viewport */
   protected getImodelConnectedViewportReactElement(): React.ReactNode {
-    return <IModelConnectedViewport
-      viewportRef={(v: ScreenViewport) => {
-        this.viewport = v;
-        // for convenience, if window defined bind viewport to window
-        if (undefined !== window)
-          (window as any).viewport = v;
-        if (!UiFramework.frontstages.isLoading)
-          UiFramework.frontstages.activeFrontstageDef?.setActiveViewFromViewport(v);
-      }}
-      getViewOverlay={this._getViewOverlay}
-    />;
+    return (
+      <IModelConnectedViewport
+        viewportRef={(v: ScreenViewport) => {
+          this.viewport = v;
+          // for convenience, if window defined bind viewport to window
+          if (undefined !== window) (window as any).viewport = v;
+          if (!UiFramework.frontstages.isLoading)
+            UiFramework.frontstages.activeFrontstageDef?.setActiveViewFromViewport(
+              v
+            );
+        }}
+        getViewOverlay={this._getViewOverlay}
+      />
+    );
   }
 
   /** Get the React component that will contain the Viewport */
-  protected getImodelViewportReactElement(iModelConnection: IModelConnection, viewState: ViewStateProp): React.ReactNode {
-    return <ViewportComponent
-      viewState={viewState}
-      imodel={iModelConnection}
-      controlId={this.controlId}
-      viewportRef={(v: ScreenViewport) => {
-        this.viewport = v;
-        // for convenience, if window defined bind viewport to window
-        if (undefined !== window)
-          (window as any).viewport = v;
-        if (!UiFramework.frontstages.isLoading)
-          UiFramework.frontstages.activeFrontstageDef?.setActiveViewFromViewport(v);
-      }}
-      getViewOverlay={this._getViewOverlay}
-    />;
+  protected getImodelViewportReactElement(
+    iModelConnection: IModelConnection,
+    viewState: ViewStateProp
+  ): React.ReactNode {
+    return (
+      <ViewportComponent
+        viewState={viewState}
+        imodel={iModelConnection}
+        controlId={this.controlId}
+        viewportRef={(v: ScreenViewport) => {
+          this.viewport = v;
+          // for convenience, if window defined bind viewport to window
+          if (undefined !== window) (window as any).viewport = v;
+          if (!UiFramework.frontstages.isLoading)
+            UiFramework.frontstages.activeFrontstageDef?.setActiveViewFromViewport(
+              v
+            );
+        }}
+        getViewOverlay={this._getViewOverlay}
+      />
+    );
   }
 
   /** Get the React component that will be shown when no iModel data is available */
-  protected getNoContentReactElement(_options: IModelViewportControlOptions): React.ReactNode {
+  protected getNoContentReactElement(
+    _options: IModelViewportControlOptions
+  ): React.ReactNode {
     const noContent = UiFramework.translate("general.no-content");
     return <FillCentered> {noContent} </FillCentered>;
   }
 
   /** Get the React.Element for a ViewSelector change. */
-  public override getReactElementForViewSelectorChange(iModelConnection: IModelConnection, _unusedViewDefinitionId: Id64String, viewState: ViewState, _name: string): React.ReactNode {
+  public override getReactElementForViewSelectorChange(
+    iModelConnection: IModelConnection,
+    _unusedViewDefinitionId: Id64String,
+    viewState: ViewState,
+    _name: string
+  ): React.ReactNode {
     return this.getImodelViewportReactElement(iModelConnection, viewState);
   }
 
   /** Get the default ViewOverlay unless parameter is set to not use it. May be override in an application specific sub-class  */
   protected _getViewOverlay = (vp: ScreenViewport): React.ReactNode => {
-    return <ViewOverlayHost viewport={vp} featureOptions={this._featureOptions} userSuppliedOverlay={this._userSuppliedViewOverlay} data-testid="ViewOverlay" />;
+    return (
+      <ViewOverlayHost
+        viewport={vp}
+        featureOptions={this._featureOptions}
+        userSuppliedOverlay={this._userSuppliedViewOverlay}
+        data-testid="ViewOverlay"
+      />
+    );
   };
 
   /** Get the NavigationAidControl associated with this ContentControl */
   public override get navigationAidControl(): string {
-    if (this.viewport)
-      return super.navigationAidControl;
-    else
-      return StandardRotationNavigationAidControl.navigationAidId;
+    if (this.viewport) return super.navigationAidControl;
+    else return StandardRotationNavigationAidControl.navigationAidId;
   }
 }
 

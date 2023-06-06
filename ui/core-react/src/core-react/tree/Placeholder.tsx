@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -30,8 +30,8 @@ export class TreeNodePlaceholder extends React.PureComponent<TreeNodePlaceholder
   public override render() {
     const className = classnames("core-tree-placeholder", this.props.className);
     const offset = this.props.level * LEVEL_OFFSET;
-    const min = (this.props.minWidth || 50);
-    const max = (this.props.maxWidth || 200);
+    const min = this.props.minWidth || 50;
+    const max = this.props.maxWidth || 200;
     const width = Math.floor(min + Math.random() * (max - min));
     const style = { ...this.props.style, paddingLeft: `${offset}px` };
     return (

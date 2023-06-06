@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -11,15 +11,29 @@ import classnames from "classnames";
 import * as React from "react";
 import type { PointProps } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
-import { Point, Rectangle, useRefs, useResizeObserver } from "@itwin/core-react";
-import type { UseDragResizeHandleArgs} from "../base/DragManager";
-import { DragManagerContext, useDragResizeHandle, useIsDraggedItem } from "../base/DragManager";
-import { FloatingWidgetNodeContext, MeasureContext, NineZoneDispatchContext, UiIsVisibleContext } from "../base/NineZone";
+import {
+  Point,
+  Rectangle,
+  useRefs,
+  useResizeObserver,
+} from "@itwin/core-react";
+import type { UseDragResizeHandleArgs } from "../base/DragManager";
+import {
+  DragManagerContext,
+  useDragResizeHandle,
+  useIsDraggedItem,
+} from "../base/DragManager";
+import {
+  FloatingWidgetNodeContext,
+  MeasureContext,
+  NineZoneDispatchContext,
+  UiIsVisibleContext,
+} from "../base/NineZone";
 import type { FloatingWidgetState } from "../state/WidgetState";
 import { WidgetContentContainer } from "./ContentContainer";
 import { WidgetTabBar } from "./TabBar";
 import { Widget, WidgetIdContext, WidgetProvider } from "./Widget";
-import type { PointerCaptorArgs} from "../base/usePointerCaptor";
+import type { PointerCaptorArgs } from "../base/usePointerCaptor";
 import { usePointerCaptor } from "../base/usePointerCaptor";
 import { WidgetTarget } from "../target/WidgetTarget";
 import { WidgetOutline } from "../outline/WidgetOutline";
@@ -28,10 +42,16 @@ import { useLayout } from "../base/LayoutStore";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
-type FloatingWidgetCornerHandle = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+type FloatingWidgetCornerHandle =
+  | "topLeft"
+  | "topRight"
+  | "bottomLeft"
+  | "bottomRight";
 
 /** @internal */
-export type FloatingWidgetResizeHandle = FloatingWidgetEdgeHandle | FloatingWidgetCornerHandle;
+export type FloatingWidgetResizeHandle =
+  | FloatingWidgetEdgeHandle
+  | FloatingWidgetCornerHandle;
 
 /** @internal */
 export interface FloatingWidgetProviderProps {
@@ -41,11 +61,7 @@ export interface FloatingWidgetProviderProps {
 /** @internal */
 export function FloatingWidgetProvider(props: FloatingWidgetProviderProps) {
   const floatingWidget = React.useContext(FloatingWidgetNodeContext);
-  return (
-    <WidgetProvider id={props.id}>
-      {floatingWidget}
-    </WidgetProvider>
-  );
+  return <WidgetProvider id={props.id}>{floatingWidget}</WidgetProvider>;
 }
 
 /** @internal */
@@ -59,13 +75,23 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   const uiIsVisible = React.useContext(UiIsVisibleContext);
   const id = useFloatingWidgetId();
   assert(!!id);
-  const { autoSized, bounds, hideWithUiWhenFloating, isToolSettingsTab, minimized, resizable } = useFloatingWidgetState();
+  const {
+    autoSized,
+    bounds,
+    hideWithUiWhenFloating,
+    isToolSettingsTab,
+    minimized,
+    resizable,
+  } = useFloatingWidgetState();
   const hideFloatingWidget = !uiIsVisible && hideWithUiWhenFloating;
 
-  const item = React.useMemo(() => ({
-    id,
-    type: "widget" as const,
-  }), [id]);
+  const item = React.useMemo(
+    () => ({
+      id,
+      type: "widget" as const,
+    }),
+    [id]
+  );
   const dragged = useIsDraggedItem(item);
   const ref = useHandleAutoSize(dragged);
   const className = classnames(
@@ -73,7 +99,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     dragged && "nz-dragged",
     isToolSettingsTab && "nz-floating-toolSettings",
     minimized && "nz-minimized",
-    hideFloatingWidget && "nz-hidden",
+    hideFloatingWidget && "nz-hidden"
   );
   const style = React.useMemo(() => {
     const boundsRect = Rectangle.create(bounds);
@@ -89,22 +115,31 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     };
   }, [autoSized, bounds, minimized]);
 
-  const content = React.useMemo(() => (
-    <WidgetContentContainer>
-      <WidgetTarget />
-      <WidgetOutline />
-    </WidgetContentContainer>
-  ), []);
-  const handles = React.useMemo(() => resizable && <>
-    <FloatingWidgetHandle handle="left" />
-    <FloatingWidgetHandle handle="top" />
-    <FloatingWidgetHandle handle="right" />
-    <FloatingWidgetHandle handle="bottom" />
-    <FloatingWidgetHandle handle="topLeft" />
-    <FloatingWidgetHandle handle="topRight" />
-    <FloatingWidgetHandle handle="bottomLeft" />
-    <FloatingWidgetHandle handle="bottomRight" />
-  </>, [resizable]);
+  const content = React.useMemo(
+    () => (
+      <WidgetContentContainer>
+        <WidgetTarget />
+        <WidgetOutline />
+      </WidgetContentContainer>
+    ),
+    []
+  );
+  const handles = React.useMemo(
+    () =>
+      resizable && (
+        <>
+          <FloatingWidgetHandle handle="left" />
+          <FloatingWidgetHandle handle="top" />
+          <FloatingWidgetHandle handle="right" />
+          <FloatingWidgetHandle handle="bottom" />
+          <FloatingWidgetHandle handle="topLeft" />
+          <FloatingWidgetHandle handle="topRight" />
+          <FloatingWidgetHandle handle="bottomLeft" />
+          <FloatingWidgetHandle handle="bottomRight" />
+        </>
+      ),
+    [resizable]
+  );
   return (
     <Widget
       className={className}
@@ -117,7 +152,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
       <WidgetTabBar separator={!minimized} />
       {content}
       {handles}
-    </Widget >
+    </Widget>
   );
 }
 
@@ -134,7 +169,10 @@ function useFloatingWidgetState() {
     const singleTab = 1 === tabs.length;
 
     const isToolSettingsTab = widget.tabs[0] === toolSettingsTabId;
-    const resizable = (undefined === widget.isFloatingStateWindowResizable || widget.isFloatingStateWindowResizable) && !isToolSettingsTab;
+    const resizable =
+      (undefined === widget.isFloatingStateWindowResizable ||
+        widget.isFloatingStateWindowResizable) &&
+      !isToolSettingsTab;
     const autoSized = singleTab && !userSized;
     return {
       autoSized,
@@ -155,27 +193,24 @@ function useHandleAutoSize(dragged: boolean) {
   const measureNz = React.useContext(MeasureContext);
   const id = useFloatingWidgetId();
   assert(!!id);
-  const userSized = useLayout((state) => state.floatingWidgets.byId[id].userSized);
+  const userSized = useLayout(
+    (state) => state.floatingWidgets.byId[id].userSized
+  );
 
   const updatePosition = React.useRef(true);
   const ref = React.useRef<HTMLDivElement>(null);
 
   React.useLayoutEffect(() => {
-    if (!updatePosition.current)
-      return;
-    if (!dragged)
-      return;
-    if (!dragManager.draggedItem)
-      return;
-    if (!ref.current)
-      return;
+    if (!updatePosition.current) return;
+    if (!dragged) return;
+    if (!dragManager.draggedItem) return;
+    if (!ref.current) return;
 
     let bounds = Rectangle.create(ref.current.getBoundingClientRect());
     const nzBounds = measureNz();
     const pointerPosition = dragManager.draggedItem.info.pointerPosition;
 
-    if (bounds.containsPoint(pointerPosition))
-      return;
+    if (bounds.containsPoint(pointerPosition)) return;
 
     // Pointer is outside of tab area. Need to re-adjust widget bounds so that tab is behind pointer
     if (pointerPosition.x > bounds.right) {
@@ -199,12 +234,9 @@ function useHandleAutoSize(dragged: boolean) {
     updatePosition.current = false;
   }, [dragged, dragManager, dispatch, id, measureNz]);
   const handleResize = React.useCallback(() => {
-    if (!ref.current)
-      return;
-    if (dragged)
-      return;
-    if (userSized)
-      return;
+    if (!ref.current) return;
+    if (dragged) return;
+    if (userSized) return;
 
     let bounds = Rectangle.create(ref.current.getBoundingClientRect());
 
@@ -233,54 +265,62 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const { handle } = props;
   const relativePosition = React.useRef<Point>(new Point());
   assert(id !== undefined);
-  const onDrag = React.useCallback<NonNullable<UseDragResizeHandleArgs["onDrag"]>>((pointerPosition) => {
-    assert(!!ref.current);
-    const bounds = Rectangle.create(ref.current.getBoundingClientRect());
-    const newRelativePosition = bounds.topLeft().getOffsetTo(pointerPosition);
-    const offset = relativePosition.current.getOffsetTo(newRelativePosition);
-    const resizeBy = getResizeBy(handle, offset);
-    dispatch({
-      type: "FLOATING_WIDGET_RESIZE",
-      id,
-      resizeBy,
-    });
-  }, [dispatch, handle, id]);
+  const onDrag = React.useCallback<
+    NonNullable<UseDragResizeHandleArgs["onDrag"]>
+  >(
+    (pointerPosition) => {
+      assert(!!ref.current);
+      const bounds = Rectangle.create(ref.current.getBoundingClientRect());
+      const newRelativePosition = bounds.topLeft().getOffsetTo(pointerPosition);
+      const offset = relativePosition.current.getOffsetTo(newRelativePosition);
+      const resizeBy = getResizeBy(handle, offset);
+      dispatch({
+        type: "FLOATING_WIDGET_RESIZE",
+        id,
+        resizeBy,
+      });
+    },
+    [dispatch, handle, id]
+  );
   const handleDragStart = useDragResizeHandle({
     handle,
     widgetId: id,
     onDrag,
   });
-  const handlePointerDown = React.useCallback((args: PointerCaptorArgs) => {
-    assert(!!ref.current);
-    const bounds = Rectangle.create(ref.current.getBoundingClientRect());
-    const initialPointerPosition = new Point(args.clientX, args.clientY);
-    relativePosition.current = bounds.topLeft().getOffsetTo(initialPointerPosition);
-    handleDragStart({
-      initialPointerPosition,
-      pointerPosition: initialPointerPosition,
-    });
-    dispatch({
-      type: "FLOATING_WIDGET_BRING_TO_FRONT",
-      id,
-    });
-  }, [dispatch, handleDragStart, id]);
+  const handlePointerDown = React.useCallback(
+    (args: PointerCaptorArgs) => {
+      assert(!!ref.current);
+      const bounds = Rectangle.create(ref.current.getBoundingClientRect());
+      const initialPointerPosition = new Point(args.clientX, args.clientY);
+      relativePosition.current = bounds
+        .topLeft()
+        .getOffsetTo(initialPointerPosition);
+      handleDragStart({
+        initialPointerPosition,
+        pointerPosition: initialPointerPosition,
+      });
+      dispatch({
+        type: "FLOATING_WIDGET_BRING_TO_FRONT",
+        id,
+      });
+    },
+    [dispatch, handleDragStart, id]
+  );
   const pointerCaptorRef = usePointerCaptor(handlePointerDown);
   const ref = React.useRef<HTMLDivElement>(null);
   const refs = useRefs(ref, pointerCaptorRef);
   const className = classnames(
     "nz-widget-floatingWidget_handle",
-    `nz-${handle}`,
+    `nz-${handle}`
   );
-  return (
-    <div
-      className={className}
-      ref={refs}
-    />
-  );
+  return <div className={className} ref={refs} />;
 }
 
 /** @internal */
-export function getResizeBy(handle: FloatingWidgetResizeHandle, offset: PointProps) {
+export function getResizeBy(
+  handle: FloatingWidgetResizeHandle,
+  offset: PointProps
+) {
   switch (handle) {
     case "left":
       return new Rectangle(-offset.x);
@@ -305,11 +345,9 @@ export function getResizeBy(handle: FloatingWidgetResizeHandle, offset: PointPro
 export function useFloatingWidgetId(): FloatingWidgetState["id"] | undefined {
   const widgetId = React.useContext(WidgetIdContext);
   return useLayout((state) => {
-    if (!widgetId)
-      return undefined;
+    if (!widgetId) return undefined;
     const floatingWidget = state.floatingWidgets.byId[widgetId];
-    if (!floatingWidget)
-      return undefined;
+    if (!floatingWidget) return undefined;
 
     return widgetId;
   });

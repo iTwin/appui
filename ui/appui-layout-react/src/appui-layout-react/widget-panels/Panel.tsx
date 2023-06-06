@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -55,7 +55,9 @@ export interface WidgetPanelProviderProps {
  * @internal
  */
 export function WidgetPanelProvider({ side }: WidgetPanelProviderProps) {
-  const hasWidgets = useLayout((state) => state.panels[side].widgets.length > 0);
+  const hasWidgets = useLayout(
+    (state) => state.panels[side].widgets.length > 0
+  );
   return (
     <PanelSideContext.Provider value={side}>
       {hasWidgets && <WidgetPanel />}
@@ -84,7 +86,13 @@ export function WidgetPanel() {
     };
   }, true);
 
-  const { handleTransitionEnd, size, contentSize, transition, ref: panelRef } = useAnimatePanel();
+  const {
+    handleTransitionEnd,
+    size,
+    contentSize,
+    transition,
+    ref: panelRef,
+  } = useAnimatePanel();
 
   const isHorizontal = isHorizontalPanelSide(side);
   const style = React.useMemo(() => {
@@ -97,8 +105,7 @@ export function WidgetPanel() {
     };
   }, [size, isHorizontal]);
   const contentStyle = React.useMemo(() => {
-    if (contentSize === undefined)
-      return undefined;
+    if (contentSize === undefined) return undefined;
     if (isHorizontal)
       return {
         minHeight: `${contentSize}px`,
@@ -128,7 +135,7 @@ export function WidgetPanel() {
     panel.span && "nz-span",
     spanTop && "nz-span-top",
     spanBottom && "nz-span-bottom",
-    transition && `nz-${transition}`,
+    transition && `nz-${transition}`
   );
 
   const singleSection = panel.widgets.length === 1;
@@ -144,27 +151,26 @@ export function WidgetPanel() {
         style={style}
         onTransitionEnd={handleTransitionEnd}
       >
-        <div
-          className="nz-content"
-          style={contentStyle}
-        >
+        <div className="nz-content" style={contentStyle}>
           {singleSection && <SectionOutline sectionIndex={0} />}
           <PanelSections />
           {singleSection && <SectionOutline sectionIndex={1} />}
         </div>
         {showSectionTargets && <SectionTargets widgetId={panel.widgets[0]} />}
-        {panel.resizable &&
+        {panel.resizable && (
           <div className="nz-grip-container">
             <WidgetPanelGrip className="nz-grip" />
           </div>
-        }
+        )}
       </div>
     </WidgetPanelContext.Provider>
   );
 }
 
 /** @internal */
-export const PanelSideContext = React.createContext<PanelSide | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const PanelSideContext = React.createContext<PanelSide | undefined>(
+  undefined
+);
 PanelSideContext.displayName = "nz:PanelSideContext";
 
 /** @internal */
@@ -173,18 +179,22 @@ export interface WidgetPanelContextArgs {
 }
 
 /** @internal */
-export const WidgetPanelContext = React.createContext<WidgetPanelContextArgs | undefined>(undefined);
+export const WidgetPanelContext = React.createContext<
+  WidgetPanelContextArgs | undefined
+>(undefined);
 WidgetPanelContext.displayName = "nz:WidgetPanelContext";
 
 /** @internal */
-export const isHorizontalPanelSide = (side: PanelSide): side is HorizontalPanelSide => {
+export const isHorizontalPanelSide = (
+  side: PanelSide
+): side is HorizontalPanelSide => {
   return side === "top" || side === "bottom";
 };
 
 /** @internal */
-export const panelSides: [LeftPanelSide, RightPanelSide, TopPanelSide, BottomPanelSide] = [
-  "left",
-  "right",
-  "top",
-  "bottom",
-];
+export const panelSides: [
+  LeftPanelSide,
+  RightPanelSide,
+  TopPanelSide,
+  BottomPanelSide
+] = ["left", "right", "top", "bottom"];

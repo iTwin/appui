@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContextMenu
  */
@@ -63,25 +63,48 @@ export interface PopupContextMenuProps extends CommonProps {
  * @public
  */
 export function PopupContextMenu(props: PopupContextMenuProps) {
-  const { style, onSelect, onEsc, autoflip, edgeLimit, hotkeySelect, selectedIndex, children, ...popupProps } = props;
-  const menuDirection = getContextMenuDirectionFromRelativePosition(popupProps.position);
+  const {
+    style,
+    onSelect,
+    onEsc,
+    autoflip,
+    edgeLimit,
+    hotkeySelect,
+    selectedIndex,
+    children,
+    ...popupProps
+  } = props;
+  const menuDirection = getContextMenuDirectionFromRelativePosition(
+    popupProps.position
+  );
   return (
-    <Popup {...popupProps} closeOnNestedPopupOutsideClick
-      showShadow={false} showArrow={false} moveFocus={true}
-      style={{ ...style, border: "none" }}>
+    <Popup
+      {...popupProps}
+      closeOnNestedPopupOutsideClick
+      showShadow={false}
+      showArrow={false}
+      moveFocus={true}
+      style={{ ...style, border: "none" }}
+    >
       <ContextMenu
-        opened={true} onSelect={onSelect} onEsc={onEsc}
-        autoflip={autoflip} edgeLimit={edgeLimit}
-        hotkeySelect={hotkeySelect} selectedIndex={selectedIndex}
+        opened={true}
+        onSelect={onSelect}
+        onEsc={onEsc}
+        autoflip={autoflip}
+        edgeLimit={edgeLimit}
+        hotkeySelect={hotkeySelect}
+        selectedIndex={selectedIndex}
         direction={menuDirection}
       >
         {children}
       </ContextMenu>
-    </Popup >
+    </Popup>
   );
 }
 
-function getContextMenuDirectionFromRelativePosition(relativePosition?: RelativePosition): ContextMenuDirection {
+function getContextMenuDirectionFromRelativePosition(
+  relativePosition?: RelativePosition
+): ContextMenuDirection {
   let menuDirection = ContextMenuDirection.Bottom;
   switch (relativePosition) {
     case RelativePosition.Top:

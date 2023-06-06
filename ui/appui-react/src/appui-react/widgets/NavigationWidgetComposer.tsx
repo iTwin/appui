@@ -1,30 +1,52 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
 
 import * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import type { ViewClassFullNameChangedEventArgs} from "@itwin/imodel-components-react";
+import type { ViewClassFullNameChangedEventArgs } from "@itwin/imodel-components-react";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
-import type { CommonProps} from "@itwin/core-react";
-import { useProximityToMouse, useWidgetOpacityContext, WidgetElementSet, WidgetOpacityContext } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import {
+  useProximityToMouse,
+  useWidgetOpacityContext,
+  WidgetElementSet,
+  WidgetOpacityContext,
+} from "@itwin/core-react";
 import { NavigationArea } from "@itwin/appui-layout-react";
-import type { ContentControl, ContentControlActivatedEventArgs } from "../content/ContentControl";
+import type {
+  ContentControl,
+  ContentControlActivatedEventArgs,
+} from "../content/ContentControl";
 import type { NavigationAidControl } from "../navigationaids/NavigationAidControl";
 import { UiFramework } from "../UiFramework";
 
-function createNavigationAidControl(activeContentControl: ContentControl | undefined, navigationAidId: string, activeViewport: ScreenViewport | undefined): NavigationAidControl | undefined {
+function createNavigationAidControl(
+  activeContentControl: ContentControl | undefined,
+  navigationAidId: string,
+  activeViewport: ScreenViewport | undefined
+): NavigationAidControl | undefined {
   // istanbul ignore else
-  if (!activeContentControl || !navigationAidId || (activeViewport !== activeContentControl.viewport))
+  if (
+    !activeContentControl ||
+    !navigationAidId ||
+    activeViewport !== activeContentControl.viewport
+  )
     return undefined;
 
   const viewport = activeContentControl.viewport;
-  const imodel = viewport ? viewport.iModel : /* istanbul ignore next */ UiFramework.getIModelConnection();
-  const navigationAidControl = UiFramework.controls.create(navigationAidId, navigationAidId, { imodel, viewport }) as NavigationAidControl;
+  const imodel = viewport
+    ? viewport.iModel
+    : /* istanbul ignore next */ UiFramework.getIModelConnection();
+  const navigationAidControl = UiFramework.controls.create(
+    navigationAidId,
+    navigationAidId,
+    { imodel, viewport }
+  ) as NavigationAidControl;
 
   navigationAidControl.initialize();
   return navigationAidControl;
@@ -45,44 +67,71 @@ export interface NavigationAidHostProps {
  * @public
  */
 export function NavigationAidHost(props: NavigationAidHostProps) {
-  const [activeContentControl, setActiveContentControl] = React.useState(() => UiFramework.content.getActiveContentControl());
-  const [activeContentViewport, setActiveContentViewport] = React.useState(() => /* istanbul ignore next */ activeContentControl?.viewport);
-  const [navigationAidId, setNavigationAidId] = React.useState(() => activeContentControl ? activeContentControl.navigationAidControl : /* istanbul ignore next */ "");
+  const [activeContentControl, setActiveContentControl] = React.useState(() =>
+    UiFramework.content.getActiveContentControl()
+  );
+  const [activeContentViewport, setActiveContentViewport] = React.useState(
+    () => /* istanbul ignore next */ activeContentControl?.viewport
+  );
+  const [navigationAidId, setNavigationAidId] = React.useState(() =>
+    activeContentControl
+      ? activeContentControl.navigationAidControl
+      : /* istanbul ignore next */ ""
+  );
 
   React.useEffect(() => {
     // istanbul ignore next
-    const handleContentControlActivated = (args: ContentControlActivatedEventArgs) => {
+    const handleContentControlActivated = (
+      args: ContentControlActivatedEventArgs
+    ) => {
       setActiveContentControl(args.activeContentControl);
       setActiveContentViewport(args.activeContentControl.viewport);
       setNavigationAidId(args.activeContentControl.navigationAidControl);
     };
 
-    UiFramework.frontstages.onContentControlActivatedEvent.addListener(handleContentControlActivated);
+    UiFramework.frontstages.onContentControlActivatedEvent.addListener(
+      handleContentControlActivated
+    );
     return () => {
-      UiFramework.frontstages.onContentControlActivatedEvent.removeListener(handleContentControlActivated);
+      UiFramework.frontstages.onContentControlActivatedEvent.removeListener(
+        handleContentControlActivated
+      );
     };
   }, []);
 
   const [activeViewClass, setActiveViewClass] = React.useState(() => {
     const content = UiFramework.content.getActiveContentControl();
-    if (content && content.viewport)
-      return content.viewport.view.classFullName;
+    if (content && content.viewport) return content.viewport.view.classFullName;
     return "";
   });
 
   React.useEffect(() => {
     // istanbul ignore next
-    const handleViewClassFullNameChange = (args: ViewClassFullNameChangedEventArgs) => {
+    const handleViewClassFullNameChange = (
+      args: ViewClassFullNameChangedEventArgs
+    ) => {
       setActiveViewClass(args.newName);
     };
 
-    ViewportComponentEvents.onViewClassFullNameChangedEvent.addListener(handleViewClassFullNameChange);
+    ViewportComponentEvents.onViewClassFullNameChangedEvent.addListener(
+      handleViewClassFullNameChange
+    );
     return () => {
-      ViewportComponentEvents.onViewClassFullNameChangedEvent.removeListener(handleViewClassFullNameChange);
+      ViewportComponentEvents.onViewClassFullNameChangedEvent.removeListener(
+        handleViewClassFullNameChange
+      );
     };
   }, [activeViewClass]);
 
-  const navigationAidControl = React.useMemo(() => createNavigationAidControl(activeContentControl, navigationAidId, activeContentViewport), [activeContentControl, navigationAidId, activeContentViewport]);
+  const navigationAidControl = React.useMemo(
+    () =>
+      createNavigationAidControl(
+        activeContentControl,
+        navigationAidId,
+        activeContentViewport
+      ),
+    [activeContentControl, navigationAidId, activeContentViewport]
+  );
 
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -98,13 +147,17 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   }, [onElementRef]);
 
   const divStyle: React.CSSProperties = {
-    minWidth: props.minWidth ? /* istanbul ignore next */ props.minWidth : "64px",
-    minHeight: props.minHeight ? /* istanbul ignore next */ props.minHeight : "64px",
+    minWidth: props.minWidth
+      ? /* istanbul ignore next */ props.minWidth
+      : "64px",
+    minHeight: props.minHeight
+      ? /* istanbul ignore next */ props.minHeight
+      : "64px",
   };
 
   // istanbul ignore else
   if (UiFramework.visibility.useProximityOpacity && !UiFramework.isMobile()) {
-    const navigationAidOpacity = (0.30 * proximityScale) + 0.70;
+    const navigationAidOpacity = 0.3 * proximityScale + 0.7;
     divStyle.opacity = `${navigationAidOpacity}`;
   }
 
@@ -135,14 +188,28 @@ export interface NavigationWidgetComposerProps extends CommonProps {
  * @public
  */
 export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
-  const { navigationAidHost, horizontalToolbar, verticalToolbar, hideNavigationAid, ...otherProps } = props;
+  const {
+    navigationAidHost,
+    horizontalToolbar,
+    verticalToolbar,
+    hideNavigationAid,
+    ...otherProps
+  } = props;
   const [elementSet] = React.useState(new WidgetElementSet());
-  const handleChildRef = React.useCallback((elementRef: React.RefObject<Element>) => {
-    elementSet.add(elementRef);
-  }, [elementSet]);
-  const proximityScale = useProximityToMouse(elementSet, UiFramework.visibility.snapWidgetOpacity);
+  const handleChildRef = React.useCallback(
+    (elementRef: React.RefObject<Element>) => {
+      elementSet.add(elementRef);
+    },
+    [elementSet]
+  );
+  const proximityScale = useProximityToMouse(
+    elementSet,
+    UiFramework.visibility.snapWidgetOpacity
+  );
   /* istanbul ignore next */
-  const navigationAid = hideNavigationAid ? undefined : navigationAidHost ?? <NavigationAidHost />;
+  const navigationAid = hideNavigationAid
+    ? undefined
+    : navigationAidHost ?? <NavigationAidHost />;
 
   return (
     <WidgetOpacityContext.Provider

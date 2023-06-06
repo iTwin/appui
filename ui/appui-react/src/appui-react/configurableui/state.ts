@@ -1,15 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module State
  */
 
 import { SnapMode } from "@itwin/core-frontend";
-import type { ActionsUnion} from "../redux/redux-ts";
+import type { ActionsUnion } from "../redux/redux-ts";
 import { createAction } from "../redux/redux-ts";
-import { SYSTEM_PREFERRED_COLOR_THEME, TOOLBAR_OPACITY_DEFAULT, WIDGET_OPACITY_DEFAULT } from "../theme/ThemeManager";
+import {
+  SYSTEM_PREFERRED_COLOR_THEME,
+  TOOLBAR_OPACITY_DEFAULT,
+  WIDGET_OPACITY_DEFAULT,
+} from "../theme/ThemeManager";
 
 // cSpell:ignore configurableui snapmode toolprompt
 
@@ -66,35 +70,62 @@ const initialState: ConfigurableUiState = {
 /** An object with a function that creates each ConfigurableUiReducer that can be handled by our reducer.
  * @public
  */
-export const ConfigurableUiActions = {   // eslint-disable-line @typescript-eslint/naming-convention
-  setSnapMode: (snapMode: number) => createAction(ConfigurableUiActionId.SetSnapMode, snapMode),
+export const ConfigurableUiActions = {
+  setSnapMode: (snapMode: number) =>
+    createAction(ConfigurableUiActionId.SetSnapMode, snapMode),
   setTheme:
     // istanbul ignore next
     (theme: string) => createAction(ConfigurableUiActionId.SetTheme, theme),
   setToolPrompt:
     // istanbul ignore next
-    (toolPrompt: string) => createAction(ConfigurableUiActionId.SetToolPrompt, toolPrompt),
+    (toolPrompt: string) =>
+      createAction(ConfigurableUiActionId.SetToolPrompt, toolPrompt),
   setWidgetOpacity:
     // istanbul ignore next
-    (opacity: number) => createAction(ConfigurableUiActionId.SetWidgetOpacity, opacity),
-  setDragInteraction: (dragInteraction: boolean) => createAction(ConfigurableUiActionId.SetDragInteraction, dragInteraction),
-  setShowWidgetIcon: (showWidgetIcon: boolean) => createAction(ConfigurableUiActionId.SetShowWidgetIcon, showWidgetIcon),
-  setAutoCollapseUnpinnedPanels: (autoCollapse: boolean) => createAction(ConfigurableUiActionId.AutoCollapseUnpinnedPanels, autoCollapse),
-  setViewOverlayDisplay: (displayViewOverlay: boolean) => createAction(ConfigurableUiActionId.SetViewOverlayDisplay, displayViewOverlay),
-  setAnimateToolSettings: (animateToolSettings: boolean) => createAction(ConfigurableUiActionId.AnimateToolSettings, animateToolSettings),
-  setUseToolAsToolSettingsLabel: (useToolAsToolSettingsLabel: boolean) => createAction(ConfigurableUiActionId.UseToolAsToolSettingsLabel, useToolAsToolSettingsLabel),
-  setToolbarOpacity: (opacity: number) => createAction(ConfigurableUiActionId.SetToolbarOpacity, opacity),
+    (opacity: number) =>
+      createAction(ConfigurableUiActionId.SetWidgetOpacity, opacity),
+  setDragInteraction: (dragInteraction: boolean) =>
+    createAction(ConfigurableUiActionId.SetDragInteraction, dragInteraction),
+  setShowWidgetIcon: (showWidgetIcon: boolean) =>
+    createAction(ConfigurableUiActionId.SetShowWidgetIcon, showWidgetIcon),
+  setAutoCollapseUnpinnedPanels: (autoCollapse: boolean) =>
+    createAction(
+      ConfigurableUiActionId.AutoCollapseUnpinnedPanels,
+      autoCollapse
+    ),
+  setViewOverlayDisplay: (displayViewOverlay: boolean) =>
+    createAction(
+      ConfigurableUiActionId.SetViewOverlayDisplay,
+      displayViewOverlay
+    ),
+  setAnimateToolSettings: (animateToolSettings: boolean) =>
+    createAction(
+      ConfigurableUiActionId.AnimateToolSettings,
+      animateToolSettings
+    ),
+  setUseToolAsToolSettingsLabel: (useToolAsToolSettingsLabel: boolean) =>
+    createAction(
+      ConfigurableUiActionId.UseToolAsToolSettingsLabel,
+      useToolAsToolSettingsLabel
+    ),
+  setToolbarOpacity: (opacity: number) =>
+    createAction(ConfigurableUiActionId.SetToolbarOpacity, opacity),
 };
 
 /** Union of ConfigurableUi Redux actions
  * @public
  */
-export type ConfigurableUiActionsUnion = ActionsUnion<typeof ConfigurableUiActions>;
+export type ConfigurableUiActionsUnion = ActionsUnion<
+  typeof ConfigurableUiActions
+>;
 
 /** Handles actions to update ConfigurableUiState.
  * @public
  */
-export function ConfigurableUiReducer(state: ConfigurableUiState = initialState, action: ConfigurableUiActionsUnion): ConfigurableUiState {
+export function ConfigurableUiReducer(
+  state: ConfigurableUiState = initialState,
+  action: ConfigurableUiActionsUnion
+): ConfigurableUiState {
   const outState = state;
 
   switch (action.type) {

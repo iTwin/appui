@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
 import { SvgList } from "@itwin/itwinui-icons-react";
-import type { WidgetChangedEventArgs} from "../../appui-react";
+import type { WidgetChangedEventArgs } from "../../appui-react";
 import { UiFramework, WidgetDef, WidgetState } from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import TestUtils from "../TestUtils";
@@ -91,7 +91,6 @@ describe("WidgetDef", () => {
     widgetDef.iconSpec = "icon-home";
     expect(widgetDef.iconSpec).to.eq("icon-home");
     expect(React.isValidElement(widgetDef.iconSpec)).to.be.false;
-
   });
 
   it("labelKey and tooltipKey should return translated string", () => {
@@ -142,23 +141,33 @@ describe("WidgetDef", () => {
 
   describe("show", () => {
     it("should emit onWidgetShowEvent", () => {
-      const spy = sinon.spy(InternalFrontstageManager.onWidgetShowEvent, "emit");
+      const spy = sinon.spy(
+        InternalFrontstageManager.onWidgetShowEvent,
+        "emit"
+      );
       const widgetDef = new WidgetDef();
       widgetDef.show();
-      spy.calledOnceWithExactly(sinon.match({
-        widgetDef,
-      })).should.true;
+      spy.calledOnceWithExactly(
+        sinon.match({
+          widgetDef,
+        })
+      ).should.true;
     });
   });
 
   describe("expand", () => {
     it("should emit onWidgetExpandEvent", () => {
-      const spy = sinon.spy(InternalFrontstageManager.onWidgetExpandEvent, "emit");
+      const spy = sinon.spy(
+        InternalFrontstageManager.onWidgetExpandEvent,
+        "emit"
+      );
       const widgetDef = new WidgetDef();
       widgetDef.expand();
-      spy.calledOnceWithExactly(sinon.match({
-        widgetDef,
-      })).should.true;
+      spy.calledOnceWithExactly(
+        sinon.match({
+          widgetDef,
+        })
+      ).should.true;
     });
   });
 

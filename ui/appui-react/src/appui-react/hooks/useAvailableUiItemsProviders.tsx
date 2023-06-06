@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Hooks
  */
@@ -14,7 +14,9 @@ import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
  * @internal
  */
 export function useAvailableUiItemsProviders(): readonly string[] {
-  const [uiItemsProviderIds, setUiItemsProviderIds] = useState(UiItemsManager.registeredProviderIds);
+  const [uiItemsProviderIds, setUiItemsProviderIds] = useState(
+    UiItemsManager.registeredProviderIds
+  );
   useEffect(() => {
     return UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
       setUiItemsProviderIds(UiItemsManager.registeredProviderIds);

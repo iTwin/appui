@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Notification
  */
@@ -32,7 +32,9 @@ export function MessageRenderer(props: MessageRendererProps) {
   const OutElement = props.useSpan ? "span" : "div";
 
   if (typeof props.message === "string") {
-    messageNode = <OutElement className={props.className}>{props.message}</OutElement>;
+    messageNode = (
+      <OutElement className={props.className}>{props.message}</OutElement>
+    );
   } else if (isHTMLElement(props.message)) {
     // the esm build of dompurify has a default import but the cjs build does not
     // if there is a default export, use it (likely esm), otherwise use the namespace
@@ -44,14 +46,20 @@ export function MessageRenderer(props: MessageRendererProps) {
 
     // verify that the tag has proper relationships
     const isAnchorValid = (anchor: HTMLAnchorElement): boolean => {
-      return anchor.hasAttribute("rel") && (anchor.rel.includes("noopener") || anchor.rel.includes("noreferrer"));
+      return (
+        anchor.hasAttribute("rel") &&
+        (anchor.rel.includes("noopener") || anchor.rel.includes("noreferrer"))
+      );
     };
 
     // recursively check child elements for valid anchor tags
     const checkChildAnchors = (parent: Element) => {
       const children = Array.from(parent.children);
-      for (const child of children){
-        if (child.hasAttribute("target") && (child as HTMLAnchorElement).target === "_blank") {
+      for (const child of children) {
+        if (
+          child.hasAttribute("target") &&
+          (child as HTMLAnchorElement).target === "_blank"
+        ) {
           hasAnchors = true;
           validAnchors = isAnchorValid(child as HTMLAnchorElement);
           if (!validAnchors) {
@@ -66,7 +74,10 @@ export function MessageRenderer(props: MessageRendererProps) {
     // https://web.dev/external-anchors-use-rel-noopener/
     // first check the message element
     /* istanbul ignore else */
-    if (props.message.hasAttribute("target") && (props.message as HTMLAnchorElement).target === "_blank") {
+    if (
+      props.message.hasAttribute("target") &&
+      (props.message as HTMLAnchorElement).target === "_blank"
+    ) {
       hasAnchors = true;
       validAnchors = isAnchorValid(props.message as HTMLAnchorElement);
     } else {
@@ -79,18 +90,29 @@ export function MessageRenderer(props: MessageRendererProps) {
     let sanitizedHtml;
     if (hasAnchors && validAnchors) {
       // all anchors are valid. do not remove the target attr
-      sanitizedHtml = sanitizer.sanitize(props.message.outerHTML, {ADD_ATTR: ["target"]});
+      sanitizedHtml = sanitizer.sanitize(props.message.outerHTML, {
+        ADD_ATTR: ["target"],
+      });
     } else {
       sanitizedHtml = sanitizer.sanitize(props.message.outerHTML);
     }
 
-    // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
-    // eslint-disable-next-line @typescript-eslint/naming-convention, jam3/no-sanitizer-with-danger
-    messageNode = <OutElement className={props.className} dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />;
+    messageNode = (
+      <OutElement
+        className={props.className}
+        // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
+        // eslint-disable-next-line jam3/no-sanitizer-with-danger
+        dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+      />
+    );
   } else {
     /* istanbul ignore else */
     if (isReactMessage(props.message))
-      messageNode = <OutElement className={props.className}>{props.message.reactNode}</OutElement>;
+      messageNode = (
+        <OutElement className={props.className}>
+          {props.message.reactNode}
+        </OutElement>
+      );
   }
 
   return messageNode;

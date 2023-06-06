@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Footer
  */
@@ -34,23 +34,18 @@ export class ToolAssistanceDialog extends React.PureComponent<ToolAssistanceDial
   public override render() {
     const className = classnames(
       "nz-footer-toolAssistance-dialog",
-      this.props.className);
+      this.props.className
+    );
 
     return (
       <Dialog
         className={className}
         style={this.props.style}
         titleBar={
-          <TitleBar
-            title={this.props.title}
-          >
-            {this.props.buttons}
-          </TitleBar>
+          <TitleBar title={this.props.title}>{this.props.buttons}</TitleBar>
         }
       >
-        <div className="nz-content">
-          {this.props.children}
-        </div>
+        <div className="nz-content">{this.props.children}</div>
       </Dialog>
     );
   }

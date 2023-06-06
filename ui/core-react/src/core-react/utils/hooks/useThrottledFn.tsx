@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -29,7 +29,7 @@ export function useThrottledFn<T extends (...args: any) => any>(
   functionToThrottle: T,
   waitTime: number,
   dependencies: React.DependencyList,
-  options: ThrottleSettings = defaultOptions,
+  options: ThrottleSettings = defaultOptions
 ) {
   const throttledFunction = throttle(functionToThrottle, waitTime, options);
   // eslint-disable-next-line react-hooks/exhaustive-deps

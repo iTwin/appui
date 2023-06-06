@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -10,14 +10,22 @@ import * as React from "react";
 import { useActiveStageId } from "../hooks/useActiveStageId";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders";
 import { UiFramework } from "../UiFramework";
-import type { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "./ToolbarItem";
+import type {
+  ToolbarItem,
+  ToolbarOrientation,
+  ToolbarUsage,
+} from "./ToolbarItem";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager";
 import type { ToolbarItemsManager } from "./ToolbarItemsManager";
 
 /** Hook that returns items from [[ToolbarItemsManager]].
  * @public
  */
-export const useUiItemsProviderToolbarItems = (manager: ToolbarItemsManager, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation): readonly ToolbarItem[] => {
+export const useUiItemsProviderToolbarItems = (
+  manager: ToolbarItemsManager,
+  toolbarUsage: ToolbarUsage,
+  toolbarOrientation: ToolbarOrientation
+): readonly ToolbarItem[] => {
   const uiItemsProviderIds = useAvailableUiItemsProviders();
   const stageId = useActiveStageId();
   const [items, setItems] = React.useState(manager.items);
@@ -29,14 +37,22 @@ export const useUiItemsProviderToolbarItems = (manager: ToolbarItemsManager, too
     const uiProviders = uiItemsProviderIds.join("-");
 
     // istanbul ignore else
-    if (providersRef.current !== uiProviders || currentStageRef.current !== stageId) {
+    if (
+      providersRef.current !== uiProviders ||
+      currentStageRef.current !== stageId
+    ) {
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
       // istanbul ignore else
       if (frontstageDef) {
         const usage = frontstageDef.usage;
         currentStageRef.current = stageId;
         providersRef.current = uiProviders;
-        const toolbarItems = UiItemsManager.getToolbarButtonItems(stageId, usage, toolbarUsage, toolbarOrientation);
+        const toolbarItems = UiItemsManager.getToolbarButtonItems(
+          stageId,
+          usage,
+          toolbarUsage,
+          toolbarOrientation
+        );
         manager.loadItems(toolbarItems);
         setItems(manager.items);
       }

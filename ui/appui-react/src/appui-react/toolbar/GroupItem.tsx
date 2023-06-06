@@ -1,12 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Item
  */
 
-import type { ConditionalStringValue, OnItemExecutedFunc, StringGetter } from "@itwin/appui-abstract";
+import type {
+  ConditionalStringValue,
+  OnItemExecutedFunc,
+  StringGetter,
+} from "@itwin/appui-abstract";
 import { ActionButtonItemDef } from "../shared/ActionButtonItemDef";
 import type { AnyItemDef } from "../shared/AnyItemDef";
 import type { GroupItemProps } from "../shared/GroupItemProps";
@@ -37,19 +41,28 @@ export class GroupItemDef extends ActionButtonItemDef {
   private _itemMap!: ItemMap;
   private _panelLabel: string | StringGetter | ConditionalStringValue = "";
 
-  constructor(groupItemProps: GroupItemProps, onItemExecuted?: OnItemExecutedFunc) {
+  constructor(
+    groupItemProps: GroupItemProps,
+    onItemExecuted?: OnItemExecutedFunc
+  ) {
     super(groupItemProps, onItemExecuted);
 
-    this.groupId = (groupItemProps.groupId !== undefined) ? groupItemProps.groupId : "";
-    if (groupItemProps.groupId)
-      this.groupId = groupItemProps.groupId;
+    this.groupId =
+      groupItemProps.groupId !== undefined ? groupItemProps.groupId : "";
+    if (groupItemProps.groupId) this.groupId = groupItemProps.groupId;
     else {
       GroupItemDef._sId++;
       this.groupId = GroupItemDef.groupIdPrefix + GroupItemDef._sId;
     }
 
-    this.itemsInColumn = (groupItemProps.itemsInColumn !== undefined) ? groupItemProps.itemsInColumn : 7;
-    this._panelLabel = PropsHelper.getStringSpec(groupItemProps.panelLabel, groupItemProps.panelLabelKey);
+    this.itemsInColumn =
+      groupItemProps.itemsInColumn !== undefined
+        ? groupItemProps.itemsInColumn
+        : 7;
+    this._panelLabel = PropsHelper.getStringSpec(
+      groupItemProps.panelLabel,
+      groupItemProps.panelLabelKey
+    );
     this.items = groupItemProps.items;
     this.defaultActiveItemId = groupItemProps.defaultActiveItemId;
   }
@@ -71,8 +84,7 @@ export class GroupItemDef extends ActionButtonItemDef {
   }
 
   public resolveItems(force?: boolean): void {
-    if (this._itemList && !force)
-      return;
+    if (this._itemList && !force) return;
 
     this._itemList = new ItemList();
     this._itemMap = new ItemMap();
@@ -96,6 +108,5 @@ export class GroupItemDef extends ActionButtonItemDef {
     return this._itemList.items.length;
   }
 
-  public override execute(): void {
-  }
+  public override execute(): void {}
 }

@@ -1,14 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
-import {
-  UiFramework,
-} from "@itwin/appui-react";
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import { UiFramework } from "@itwin/appui-react";
 import { Logger } from "@itwin/core-bentley";
 import { Cartographic, ColorDef, RenderMode } from "@itwin/core-common";
-import { BlankConnection, IModelApp, IModelConnection, SpatialViewState } from "@itwin/core-frontend";
+import {
+  BlankConnection,
+  IModelApp,
+  IModelConnection,
+  SpatialViewState,
+} from "@itwin/core-frontend";
 import { Range3d } from "@itwin/core-geometry";
 import { SampleAppIModelApp } from "..";
 
@@ -17,7 +19,10 @@ export async function openBlankConnection() {
   await SampleAppIModelApp.closeCurrentIModel();
 
   // Open the connection
-  Logger.logInfo(SampleAppIModelApp.loggerCategory(openBlankConnection), `openBlankConnection: Opening blank connection.`);
+  Logger.logInfo(
+    SampleAppIModelApp.loggerCategory(openBlankConnection),
+    `openBlankConnection: Opening blank connection.`
+  );
   const connection = createBlankConnection();
 
   SampleAppIModelApp.setIsIModelLocal(true, true);
@@ -25,13 +30,19 @@ export async function openBlankConnection() {
   UiFramework.setDefaultViewState(viewState, true);
 
   UiFramework.frontstages.closeModalFrontstage();
-  await SampleAppIModelApp.setViewIdAndOpenMainStage(connection, [viewState.id]);
+  await SampleAppIModelApp.setViewIdAndOpenMainStage(connection, [
+    viewState.id,
+  ]);
 }
 
 function createBlankConnection() {
   return BlankConnection.create({
     name: "Exton PA",
-    location: Cartographic.fromDegrees({longitude: -75.686694, latitude: 40.065757, height: 0}),
+    location: Cartographic.fromDegrees({
+      longitude: -75.686694,
+      latitude: 40.065757,
+      height: 0,
+    }),
     extents: new Range3d(-1000, -1000, -100, 1000, 1000, 100),
   });
 }

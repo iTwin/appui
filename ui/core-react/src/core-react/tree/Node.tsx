@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -9,7 +9,7 @@
 import "./Node.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CheckboxProps} from "@itwin/itwinui-react";
+import type { CheckboxProps } from "@itwin/itwinui-react";
 import { Checkbox, ProgressRadial } from "@itwin/itwinui-react";
 import { CheckBoxState } from "../enums/CheckBoxState";
 import type { CommonProps } from "../utils/Props";
@@ -19,7 +19,10 @@ import { ExpansionToggle } from "./ExpansionToggle";
 /** Props for node Checkbox renderer
  * @public
  */
-export type NodeCheckboxRenderProps = Omit<CheckboxProps, "onChange" | "onClick"> & {
+export type NodeCheckboxRenderProps = Omit<
+  CheckboxProps,
+  "onChange" | "onClick"
+> & {
   onChange: (checked: boolean) => void;
   onClick: (e: React.MouseEvent) => void;
 };
@@ -27,7 +30,9 @@ export type NodeCheckboxRenderProps = Omit<CheckboxProps, "onChange" | "onClick"
 /** Type for node Checkbox renderer
  * @public
  */
-export type NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React.ReactNode;
+export type NodeCheckboxRenderer = (
+  props: NodeCheckboxRenderProps
+) => React.ReactNode;
 
 /** Number of pixels the node gets offset per each hierarchy level
  * @internal
@@ -96,7 +101,8 @@ export class TreeNode extends React.Component<TreeNodeProps> {
       this.props.isFocused && "is-focused",
       this.props.isSelected && "is-selected",
       this.props.isHoverDisabled && "is-hover-disabled",
-      this.props.className);
+      this.props.className
+    );
     let offset = this.props.level * LEVEL_OFFSET;
     if (!this.props.isLoading && this.props.isLeaf)
       offset += EXPANSION_TOGGLE_WIDTH; // Add expansion toggle/loader width if they're not rendered
@@ -112,29 +118,37 @@ export class TreeNode extends React.Component<TreeNodeProps> {
         onClick: this._onCheckboxClick,
         onChange: this._onCheckboxChange,
       };
-      if (this.props.renderOverrides && this.props.renderOverrides.renderCheckbox) {
+      if (
+        this.props.renderOverrides &&
+        this.props.renderOverrides.renderCheckbox
+      ) {
         checkbox = this.props.renderOverrides.renderCheckbox(props);
       } else {
         checkbox = (
           <Checkbox
             {...props}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this._onCheckboxChange(e.target.checked)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              this._onCheckboxChange(e.target.checked)
+            }
             data-testid={this.createSubComponentTestId("checkbox")}
           />
         );
       }
     }
 
-    const icon = this.props.icon ? (<div className="core-tree-node-icon">{this.props.icon}</div>) : undefined;
+    const icon = this.props.icon ? (
+      <div className="core-tree-node-icon">{this.props.icon}</div>
+    ) : undefined;
 
-    const toggle = (this.props.isLoading || this.props.isLeaf) ? undefined : (
-      <ExpansionToggle
-        className="expansion-toggle"
-        data-testid={this.createSubComponentTestId("expansion-toggle")}
-        onClick={this._onClickExpansionToggle}
-        isExpanded={this.props.isExpanded}
-      />
-    );
+    const toggle =
+      this.props.isLoading || this.props.isLeaf ? undefined : (
+        <ExpansionToggle
+          className="expansion-toggle"
+          data-testid={this.createSubComponentTestId("expansion-toggle")}
+          onClick={this._onClickExpansionToggle}
+          isExpanded={this.props.isExpanded}
+        />
+      );
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -148,7 +162,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
         onMouseUp={this.props.onMouseUp}
         onMouseMove={this.props.onMouseMove}
         role="treeitem"
-        aria-selected={(this.props.isSelected) ? "true" : "false"}
+        aria-selected={this.props.isSelected ? "true" : "false"}
         tabIndex={-1}
       >
         <div
@@ -156,7 +170,9 @@ export class TreeNode extends React.Component<TreeNodeProps> {
           style={{ marginLeft: offset }}
           data-testid={this.createSubComponentTestId("contents")}
         >
-          {this.props.isLoading && <ProgressRadial size="x-small" indeterminate />}
+          {this.props.isLoading && (
+            <ProgressRadial size="x-small" indeterminate />
+          )}
           {toggle}
           {checkbox}
           {icon}
@@ -168,14 +184,19 @@ export class TreeNode extends React.Component<TreeNodeProps> {
   }
 
   private createSubComponentTestId(subId: string): string | undefined {
-    if (!this.props["data-testid"])
-      return undefined;
+    if (!this.props["data-testid"]) return undefined;
     return `${this.props["data-testid"]}-${subId}`;
   }
 
   private _onCheckboxChange = (checked: boolean) => {
-    if (this.props.checkboxProps && this.props.checkboxProps.onClick && !this.props.checkboxProps.isDisabled)
-      this.props.checkboxProps.onClick(checked ? CheckBoxState.On : CheckBoxState.Off);
+    if (
+      this.props.checkboxProps &&
+      this.props.checkboxProps.onClick &&
+      !this.props.checkboxProps.isDisabled
+    )
+      this.props.checkboxProps.onClick(
+        checked ? CheckBoxState.On : CheckBoxState.Off
+      );
   };
 
   private _onCheckboxClick = (e: React.MouseEvent) => {
@@ -184,8 +205,7 @@ export class TreeNode extends React.Component<TreeNodeProps> {
 
   private _onClickExpansionToggle = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    if (this.props.onClickExpansionToggle)
-      this.props.onClickExpansionToggle();
+    if (this.props.onClickExpansionToggle) this.props.onClickExpansionToggle();
   };
 
   private _onClick = (e: React.MouseEvent<HTMLDivElement>) => {

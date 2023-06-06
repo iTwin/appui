@@ -1,15 +1,26 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, ContentGroup, ContentGroupProvider, IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider,
-  StandardFrontstageProps, StandardFrontstageProvider, StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider,
+  BackstageAppButton,
+  ContentGroup,
+  ContentGroupProvider,
+  IModelViewportControl,
+  StageUsage,
+  StandardContentToolsUiItemsProvider,
+  StandardFrontstageProps,
+  StandardFrontstageProvider,
+  StandardNavigationToolsUiItemsProvider,
+  StandardStatusbarUiItemsProvider,
   UiFramework,
   UiItemsManager,
 } from "@itwin/appui-react";
-import { ContentLayoutProps, StandardContentLayouts } from "@itwin/appui-abstract";
+import {
+  ContentLayoutProps,
+  StandardContentLayouts,
+} from "@itwin/appui-abstract";
 import { CustomContentStageUiProvider } from "../providers/CustomContentStageUiProvider";
 import { SampleContentControl } from "../content/SampleContentControl";
 
@@ -22,10 +33,11 @@ export class CustomContentGroupProvider extends ContentGroupProvider {
   public override async contentGroup(): Promise<ContentGroup> {
     // copy and then modify standard layout so the content is always shown - note we could have just copied the standard and created a new one in line
     const twoHorizontalSplit: ContentLayoutProps = {
-      ...StandardContentLayouts.twoHorizontalSplit, horizontalSplit: {
+      ...StandardContentLayouts.twoHorizontalSplit,
+      horizontalSplit: {
         ...StandardContentLayouts.twoHorizontalSplit.horizontalSplit!,
         minSizeBottom: 100,
-        percentage: 0.80,
+        percentage: 0.8,
       },
     };
 
@@ -40,8 +52,7 @@ export class CustomContentGroupProvider extends ContentGroupProvider {
             isPrimaryView: true,
             viewState: UiFramework.getDefaultViewState,
             iModelConnection: UiFramework.getIModelConnection,
-            featureOptions:
-            {
+            featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,
                 enableAnalysisTimelineViewOverlay: true,
@@ -81,13 +92,15 @@ export class CustomContentFrontstage {
     };
 
     CustomContentFrontstage.registerToolProviders(localizationNamespace);
-    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(customStageProps));
+    UiFramework.frontstages.addFrontstageProvider(
+      new StandardFrontstageProvider(customStageProps)
+    );
   }
 
   private static registerToolProviders(localizationNamespace: string) {
     // Provides standard tools for ToolWidget
-    UiItemsManager.register(new StandardContentToolsUiItemsProvider(
-      {
+    UiItemsManager.register(
+      new StandardContentToolsUiItemsProvider({
         horizontal: {
           clearSelection: true,
           clearDisplayOverrides: true,
@@ -98,15 +111,32 @@ export class CustomContentFrontstage {
         vertical: {
           selectElement: true,
         },
-      }), { providerId: "customContentTools", stageIds: [CustomContentFrontstage.stageId] });
+      }),
+      {
+        providerId: "customContentTools",
+        stageIds: [CustomContentFrontstage.stageId],
+      }
+    );
 
     /** Provides standard tools for NavigationWidget */
-    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), { providerId: "customNavigationTools", stageIds: [CustomContentFrontstage.stageId] });
+    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), {
+      providerId: "customNavigationTools",
+      stageIds: [CustomContentFrontstage.stageId],
+    });
 
     /** Provides standard status fields */
-    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), { providerId: "customStatusFields", stageIds: [CustomContentFrontstage.stageId] });
+    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), {
+      providerId: "customStatusFields",
+      stageIds: [CustomContentFrontstage.stageId],
+    });
 
     // register stage specific items provider
-    UiItemsManager.register(new CustomContentStageUiProvider(localizationNamespace), { providerId: "customStageTools", stageIds: [CustomContentFrontstage.stageId] });
+    UiItemsManager.register(
+      new CustomContentStageUiProvider(localizationNamespace),
+      {
+        providerId: "customStageTools",
+        stageIds: [CustomContentFrontstage.stageId],
+      }
+    );
   }
 }

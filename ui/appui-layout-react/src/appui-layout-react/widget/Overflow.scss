@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .nz-widget-overflow {
@@ -12,7 +12,7 @@
     display: none;
   }
 
-  >.nz-button {
+  > .nz-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +21,7 @@
     cursor: pointer;
     user-select: none;
 
-    >.nz-icon {
+    > .nz-icon {
       background: $buic-background-2;
       width: 1em;
       height: 1em;
@@ -42,11 +42,10 @@
         box-sizing: border-box;
         transform: rotate(45deg);
       }
-
     }
 
     &:hover {
-      >.nz-icon {
+      > .nz-icon {
         &:after {
           border-color: $buic-foreground-activehover;
         }

@@ -1,10 +1,10 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { expect, test } from '@playwright/test';
-import assert from 'assert';
-import { panelLocator, tabLocator, widgetLocator } from './Utils';
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import { expect, test } from "@playwright/test";
+import assert from "assert";
+import { panelLocator, tabLocator, widgetLocator } from "./Utils";
 
 test.describe("stage panel def", () => {
   test.beforeEach(async ({ page, baseURL }) => {
@@ -31,7 +31,10 @@ test.describe("stage panel def", () => {
 
   test("should change stage panel size", async ({ page }) => {
     const panel = panelLocator({ page, side: "right" });
-    const handlePos = await panel.locator(".nz-grip-container").locator(".nz-handle").boundingBox() ?? { x: 0, y: 0, width: 0, height: 0 };
+    const handlePos = (await panel
+      .locator(".nz-grip-container")
+      .locator(".nz-handle")
+      .boundingBox()) ?? { x: 0, y: 0, width: 0, height: 0 };
     handlePos.x += handlePos.width / 2 + 3;
     handlePos.y += handlePos.height / 2;
 

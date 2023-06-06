@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -29,13 +29,10 @@ export interface SelectionCountFieldProps extends CommonProps {
 export function SelectionCountField(props: SelectionCountFieldProps) {
   const className = classnames(
     "uifw-statusFields-selectionCount",
-    props.className,
+    props.className
   );
   return (
-    <FooterIndicator
-      className={className}
-      style={props.style}
-    >
+    <FooterIndicator className={className} style={props.style}>
       <Icon iconSpec={<SvgCursor />} />
       {props.count}
     </FooterIndicator>
@@ -63,8 +60,7 @@ export function useSelectionSetSize(args: UseSelectionSetSizeArgs): number {
     setSize(iModel.selectionSet.size);
   }, [iModel]);
   React.useEffect(() => {
-    if (!iModel)
-      return;
+    if (!iModel) return;
     return iModel.selectionSet.onChanged.addListener((ev) => {
       setSize(ev.set.size);
     });

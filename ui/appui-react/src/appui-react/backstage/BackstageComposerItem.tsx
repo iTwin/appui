@@ -1,20 +1,27 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Backstage
  */
 
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
-import { ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import {
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+} from "@itwin/appui-abstract";
 import { BadgeUtilities, Icon } from "@itwin/core-react";
 import { BackstageItem as NZ_BackstageItem } from "@itwin/appui-layout-react";
 import { useBackstageManager } from "./BackstageManager";
 import { UiFramework } from "../UiFramework";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef";
-import type { BackstageActionItem, BackstageItem, BackstageStageLauncher} from "./BackstageItem";
+import type {
+  BackstageActionItem,
+  BackstageItem,
+  BackstageStageLauncher,
+} from "./BackstageItem";
 import { isBackstageStageLauncher } from "./BackstageItem";
 import { isProviderItem } from "../ui-items-provider/isProviderItem";
 
@@ -24,7 +31,9 @@ export interface BackstageComposerActionItemProps {
 }
 
 /** @internal */
-export function BackstageComposerActionItem({ item }: BackstageComposerActionItemProps) {
+export function BackstageComposerActionItem({
+  item,
+}: BackstageComposerActionItemProps) {
   const manager = useBackstageManager();
   const handleClick = React.useCallback(() => {
     manager.close();
@@ -54,16 +63,23 @@ export interface BackstageComposerStageLauncherProps {
 }
 
 /** @internal */
-export function BackstageComposerStageLauncher({ item }: BackstageComposerStageLauncherProps) {
+export function BackstageComposerStageLauncher({
+  item,
+}: BackstageComposerStageLauncherProps) {
   const manager = useBackstageManager();
   const handleClick = React.useCallback(() => {
     manager.close();
     if (!UiFramework.frontstages.hasFrontstage(item.stageId))
-      return Logger.logError("BackstageComposerStageLauncher", `Frontstage with id '${item.stageId}' not found`);
+      return Logger.logError(
+        "BackstageComposerStageLauncher",
+        `Frontstage with id '${item.stageId}' not found`
+      );
     void UiFramework.frontstages.setActiveFrontstage(item.stageId);
   }, [manager, item.stageId]);
   const activeFrontstageId = useActiveFrontstageId();
-  const isActive = ConditionalBooleanValue.getValue(item.isActive ?? item.stageId === activeFrontstageId);
+  const isActive = ConditionalBooleanValue.getValue(
+    item.isActive ?? item.stageId === activeFrontstageId
+  );
   return (
     <NZ_BackstageItem
       itemId={item.id}
@@ -95,15 +111,7 @@ export interface BackstageComposerItemProps {
  */
 export function BackstageComposerItem({ item }: BackstageComposerItemProps) {
   if (isBackstageStageLauncher(item)) {
-    return (
-      <BackstageComposerStageLauncher
-        item={item}
-      />
-    );
+    return <BackstageComposerStageLauncher item={item} />;
   }
-  return (
-    <BackstageComposerActionItem
-      item={item}
-    />
-  );
+  return <BackstageComposerActionItem item={item} />;
 }

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -26,13 +26,11 @@ export class ExpandableButton extends React.PureComponent<ExpandableButtonProps>
   public override render() {
     const className = classnames(
       "nz-widget-tools-button-expandable",
-      this.props.className);
+      this.props.className
+    );
 
     return (
-      <div
-        className={className}
-        style={this.props.style}
-      >
+      <div className={className} style={this.props.style}>
         {this.props.children}
         <div className="nz-triangle" />
       </div>

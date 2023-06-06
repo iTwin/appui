@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -37,10 +37,14 @@ export interface FrameworkVisibility {
   handleFrontstageReady(): void;
 
   /** Handler for when the mouse moves over the content area */
-  handleContentMouseMove(_event?: React.MouseEvent<HTMLElement, MouseEvent>): void;
+  handleContentMouseMove(
+    _event?: React.MouseEvent<HTMLElement, MouseEvent>
+  ): void;
 
   /** Handler for when the mouse enters a widget */
-  handleWidgetMouseEnter(_event?: React.MouseEvent<HTMLElement, MouseEvent>): void;
+  handleWidgetMouseEnter(
+    _event?: React.MouseEvent<HTMLElement, MouseEvent>
+  ): void;
 
   /** Shows the Ui and resets the inactivity timer */
   showUiAndResetTimer(): void;

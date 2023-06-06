@@ -1,8 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { DialogButtonStyle, DialogButtonType, MessageSeverity } from "@itwin/appui-abstract";
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import {
+  DialogButtonStyle,
+  DialogButtonType,
+  MessageSeverity,
+} from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
@@ -10,20 +14,36 @@ import { MessageBox } from "../../core-react";
 import TestUtils from "../TestUtils";
 
 describe("MessageBox", () => {
-
   before(async () => {
     await TestUtils.initializeUiCore();
   });
 
   const buttonCluster = [
-    { type: DialogButtonType.Close, buttonStyle: DialogButtonStyle.Primary, onClick: () => { } },
+    {
+      type: DialogButtonType.Close,
+      buttonStyle: DialogButtonStyle.Primary,
+      onClick: () => {},
+    },
   ];
 
   describe("renders", () => {
     it("should render content in an open dialog", () => {
-      render(<MessageBox opened={true} severity={MessageSeverity.Information} buttonCluster={buttonCluster}><div>Content</div></MessageBox>);
+      render(
+        <MessageBox
+          opened={true}
+          severity={MessageSeverity.Information}
+          buttonCluster={buttonCluster}
+        >
+          <div>Content</div>
+        </MessageBox>
+      );
 
-      expect(screen.getByText("Content", {selector: ".core-dialog.core-dialog-opened .core-message-box-container .core-message-box-content > div"})).to.exist;
+      expect(
+        screen.getByText("Content", {
+          selector:
+            ".core-dialog.core-dialog-opened .core-message-box-container .core-message-box-content > div",
+        })
+      ).to.exist;
     });
   });
 
@@ -78,5 +98,4 @@ describe("MessageBox", () => {
   //     });
   //   });
   // });
-
 });

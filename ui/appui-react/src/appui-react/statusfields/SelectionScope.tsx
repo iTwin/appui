@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -36,9 +36,13 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
   const label = UiFramework.translate("selectionScopeField.label");
   const toolTip = UiFramework.translate("selectionScopeField.toolTip");
 
-  const options = React.useMemo(() => props.availableSelectionScopes.map((scope) => {
-    return { value: scope.id, label: scope.label };
-  }), [props.availableSelectionScopes]);
+  const options = React.useMemo(
+    () =>
+      props.availableSelectionScopes.map((scope) => {
+        return { value: scope.id, label: scope.label };
+      }),
+    [props.availableSelectionScopes]
+  );
 
   const updateSelectValue = (newValue: string) => {
     // istanbul ignore else
@@ -49,12 +53,13 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
 
   return (
     <FooterIndicator
-      className={classnames("uifw-statusFields-selectionScope", props.className)}
+      className={classnames(
+        "uifw-statusFields-selectionScope",
+        props.className
+      )}
       style={props.style}
     >
-      <label className="uifw-statusFields-selectionScope-label">
-        {label}:
-      </label>
+      <label className="uifw-statusFields-selectionScope-label">{label}:</label>
       <Select
         className="uifw-statusFields-selectionScope-selector"
         value={props.activeSelectionScope}
@@ -62,19 +67,23 @@ function SelectionScopeFieldComponent(props: SelectionScopeFieldProps) {
         onChange={updateSelectValue}
         data-testid="components-selectionScope-selector"
         title={toolTip}
-        size="small" />
-    </FooterIndicator >
+        size="small"
+      />
+    </FooterIndicator>
   );
 }
 
 /** Function used by Redux to map state data in Redux store to props that are used to render this component. */
 function mapStateToProps(state: any) {
-  const frameworkState = state[UiFramework.frameworkStateKey];  // since app sets up key, don't hard-code name
+  const frameworkState = state[UiFramework.frameworkStateKey]; // since app sets up key, don't hard-code name
   /* istanbul ignore next */
-  if (!frameworkState)
-    return undefined;
+  if (!frameworkState) return undefined;
 
-  return { activeSelectionScope: frameworkState.sessionState.activeSelectionScope, availableSelectionScopes: frameworkState.sessionState.availableSelectionScopes };
+  return {
+    activeSelectionScope: frameworkState.sessionState.activeSelectionScope,
+    availableSelectionScopes:
+      frameworkState.sessionState.availableSelectionScopes,
+  };
 }
 
 // we declare the variable and export that rather than using export default.
@@ -83,5 +92,7 @@ function mapStateToProps(state: any) {
  * display the active selection scope that is used by the PresentationManager to determine what elements are added to the selection nap mode.
  * This React component is Redux connected.
  * @public
- */ // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SelectionScopeField = connect(mapStateToProps)(SelectionScopeFieldComponent);
+ */
+export const SelectionScopeField = connect(mapStateToProps)(
+  SelectionScopeFieldComponent
+);

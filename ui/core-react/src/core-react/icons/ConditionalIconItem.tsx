@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Icon
  */
@@ -18,16 +18,19 @@ export class ConditionalIconItem {
    * @param iconGetter Function to retrieve the icon that matches the condition. Returns an IconSpec.
    * @param syncEventIds The array of event ids to be monitored. These events are triggered when the condition(s) that control the icon change.
    * @param value The default IconSpec. If this is not specified, the function is run to get the initial value.
-  */
-  constructor(public readonly iconGetter: () => IconSpec, public readonly syncEventIds: string[], value?: IconSpec) {
+   */
+  constructor(
+    public readonly iconGetter: () => IconSpec,
+    public readonly syncEventIds: string[],
+    value?: IconSpec
+  ) {
     this._value = value;
   }
 
   /** The current IconSpec according to conditions */
   public get value(): IconSpec {
     /* istanbul ignore else */
-    if (undefined !== this._value)
-      return this._value;
+    if (undefined !== this._value) return this._value;
     this._value = this.iconGetter();
     return this._value;
   }
@@ -44,23 +47,34 @@ export class ConditionalIconItem {
   }
 
   /** A helper function that updates the IconSpec value when the specified events are triggered */
-  public static refreshValue(conditionalValue: ConditionalIconItem | string | undefined, eventIds: Set<string>): boolean {
+  public static refreshValue(
+    conditionalValue: ConditionalIconItem | string | undefined,
+    eventIds: Set<string>
+  ): boolean {
     /* istanbul ignore else */
-    if (undefined === conditionalValue || !(conditionalValue instanceof ConditionalIconItem))
+    if (
+      undefined === conditionalValue ||
+      !(conditionalValue instanceof ConditionalIconItem)
+    )
       return false;
 
     /* istanbul ignore else */
-    if (conditionalValue.syncEventIds.some((value: string): boolean => eventIds.has(value.toLowerCase())))
+    if (
+      conditionalValue.syncEventIds.some((value: string): boolean =>
+        eventIds.has(value.toLowerCase())
+      )
+    )
       return conditionalValue.refresh();
 
     return false;
   }
 
   /** helper function to get the iconSpec from a ConditionIconItem as IconSpec | undefined*/
-  public static getValue(conditionalValue: ConditionalIconItem | string | undefined): IconSpec | undefined {
+  public static getValue(
+    conditionalValue: ConditionalIconItem | string | undefined
+  ): IconSpec | undefined {
     /* istanbul ignore else */
-    if (undefined === conditionalValue)
-      return undefined;
+    if (undefined === conditionalValue) return undefined;
 
     /* istanbul ignore else */
     if (conditionalValue instanceof ConditionalIconItem)

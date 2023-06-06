@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ConfigurableUi
  */
@@ -12,7 +12,10 @@ import { DrawingNavigationAidControl } from "../navigationaids/DrawingNavigation
 import { SheetNavigationAidControl } from "../navigationaids/SheetNavigationAid";
 import { StandardRotationNavigationAidControl } from "../navigationaids/StandardRotationNavigationAid";
 import { UiFramework } from "../UiFramework";
-import type { ConfigurableUiControlConstructor, ConfigurableUiElement } from "./ConfigurableUiControl";
+import type {
+  ConfigurableUiControlConstructor,
+  ConfigurableUiElement,
+} from "./ConfigurableUiControl";
 import { ConfigurableCreateInfo } from "./ConfigurableUiControl";
 import { MessageManager } from "../messages/MessageManager";
 import { PopupManager } from "../popup/PopupManager";
@@ -36,7 +39,7 @@ export interface UiActivityEventArgs {
 /** Ui Activity Event class.
  * @internal
  */
-export class UiActivityEvent extends BeUiEvent<UiActivityEventArgs> { }
+export class UiActivityEvent extends BeUiEvent<UiActivityEventArgs> {}
 
 /** Ui Interval Event Args interface
  * @internal
@@ -48,13 +51,16 @@ export interface UiIntervalEventArgs {
 /** Ui Interval Event class.
  * @internal
  */
-export class UiIntervalEvent extends BeUiEvent<UiIntervalEventArgs> { }
+export class UiIntervalEvent extends BeUiEvent<UiIntervalEventArgs> {}
 
 /** Configurable Ui Manager maintains controls, Frontstages, Content Groups, Content Layouts, Tasks and Workflows.
  * @internal
  */
 export class InternalConfigurableUiManager {
-  private static _registeredControls = new Map<string, ConfigurableUiControlConstructor>();
+  private static _registeredControls = new Map<
+    string,
+    ConfigurableUiControlConstructor
+  >();
   private static _initialized = false;
 
   /** @internal */
@@ -66,16 +72,27 @@ export class InternalConfigurableUiManager {
 
   /** Initializes the InternalConfigurableUiManager and registers core controls.
    * @internal
-  */
+   */
   public static initialize() {
-    if (this._initialized)
-      return;
+    if (this._initialized) return;
 
     // Register core controls
-    InternalConfigurableUiManager.register(StandardRotationNavigationAidControl.navigationAidId, StandardRotationNavigationAidControl);
-    InternalConfigurableUiManager.register(SheetNavigationAidControl.navigationAidId, SheetNavigationAidControl);
-    InternalConfigurableUiManager.register(DrawingNavigationAidControl.navigationAidId, DrawingNavigationAidControl);
-    InternalConfigurableUiManager.register(CubeNavigationAidControl.navigationAidId, CubeNavigationAidControl);
+    InternalConfigurableUiManager.register(
+      StandardRotationNavigationAidControl.navigationAidId,
+      StandardRotationNavigationAidControl
+    );
+    InternalConfigurableUiManager.register(
+      SheetNavigationAidControl.navigationAidId,
+      SheetNavigationAidControl
+    );
+    InternalConfigurableUiManager.register(
+      DrawingNavigationAidControl.navigationAidId,
+      DrawingNavigationAidControl
+    );
+    InternalConfigurableUiManager.register(
+      CubeNavigationAidControl.navigationAidId,
+      CubeNavigationAidControl
+    );
 
     // Initialize SyncUiEventDispatcher so it can register event callbacks.
     SyncUiEventDispatcher.initialize();
@@ -109,9 +126,15 @@ export class InternalConfigurableUiManager {
    * @param classId the class id of the control to register
    * @param constructor the constructor of the control to register
    */
-  public static register(classId: string, constructor: ConfigurableUiControlConstructor): void {
+  public static register(
+    classId: string,
+    constructor: ConfigurableUiControlConstructor
+  ): void {
     if (this._registeredControls.get(classId) !== undefined) {
-      throw new UiError(UiFramework.loggerCategory(this), `registerControl: classId '${classId}' already registered`);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        `registerControl: classId '${classId}' already registered`
+      );
     }
 
     this._registeredControls.set(classId, constructor);
@@ -129,10 +152,11 @@ export class InternalConfigurableUiManager {
   /** Determines if a control has been registered.
    * @internal
    */
-  public static getConstructorClassId(constructor: ConfigurableUiControlConstructor): string | undefined {
+  public static getConstructorClassId(
+    constructor: ConfigurableUiControlConstructor
+  ): string | undefined {
     for (const [key, value] of this._registeredControls.entries()) {
-      if (value === constructor)
-        return key;
+      if (value === constructor) return key;
     }
 
     return undefined;
@@ -143,8 +167,7 @@ export class InternalConfigurableUiManager {
    */
   public static unregister(classId: string): void {
     const constructor = this._registeredControls.get(classId);
-    if (constructor)
-      this._registeredControls.delete(classId);
+    if (constructor) this._registeredControls.delete(classId);
   }
 
   /** Creates a control registered by calling registerControl.
@@ -154,11 +177,23 @@ export class InternalConfigurableUiManager {
    * @param controlId controlId which may not be unique across all control instances.
    * @returns  the created control
    */
-  public static create(classId: string, uniqueId: string, options?: any, controlId?: string): ConfigurableUiElement | undefined {
-    const info = new ConfigurableCreateInfo(classId, uniqueId, controlId ?? uniqueId);
+  public static create(
+    classId: string,
+    uniqueId: string,
+    options?: any,
+    controlId?: string
+  ): ConfigurableUiElement | undefined {
+    const info = new ConfigurableCreateInfo(
+      classId,
+      uniqueId,
+      controlId ?? uniqueId
+    );
     const constructor = this._registeredControls.get(info.classId);
     if (!constructor) {
-      throw new UiError(UiFramework.loggerCategory(this), `createControl: classId '${classId}' not registered`);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        `createControl: classId '${classId}' not registered`
+      );
     }
 
     const control = new constructor(info, options);

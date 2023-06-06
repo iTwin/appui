@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/icons/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
@@ -16,7 +16,7 @@
   flex-direction: row;
   align-items: center;
 
-  >.uifw-cursor-prompt-icon {
+  > .uifw-cursor-prompt-icon {
     padding-left: 3px;
     padding-right: 3px;
 
@@ -24,7 +24,7 @@
     height: $uicore-icons-small;
   }
 
-  >.uifw-cursor-prompt-text {
+  > .uifw-cursor-prompt-text {
     padding-left: 3px;
     padding-right: 3px;
   }

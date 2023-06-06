@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import sinon from "sinon";
 import { FlatGridTestUtils } from "./flat-items/FlatGridTestUtils";
@@ -18,10 +18,11 @@ describe("PropertyGridEventHandler", () => {
     beforeEach(() => {
       modelStub = sinon.createStubInstance(MutablePropertyGridModel);
       modelSourceStub = sinon.createStubInstance(PropertyGridModelSource, {
-        modifyModel: sinon.stub<Parameters<PropertyGridModelSource["modifyModel"]>>().callsArgWith(0, modelStub),
+        modifyModel: sinon
+          .stub<Parameters<PropertyGridModelSource["modifyModel"]>>()
+          .callsArgWith(0, modelStub),
       });
       modelSourceStub.onModelChanged = new PropertyGridModelChangeEvent();
-
     });
 
     it("Should return function which sets expansion to true when current expansion is false and updates model", () => {
@@ -29,14 +30,18 @@ describe("PropertyGridEventHandler", () => {
       const isExpandedSpy = sinon.spy();
 
       const mockItem = FlatGridTestUtils.createMockCategorizedStruct("Struct");
-      sinon.stub(mockItem, "isExpanded").get(() => false).set(isExpandedSpy);
+      sinon
+        .stub(mockItem, "isExpanded")
+        .get(() => false)
+        .set(isExpandedSpy);
 
       modelStub.getItem.returns(mockItem);
 
       const expectedSelectionKey = "SomeSelectionKey";
       eventHandler.onExpansionToggled(expectedSelectionKey);
 
-      expect(modelStub.getItem.calledOnceWithExactly(expectedSelectionKey)).to.be.true;
+      expect(modelStub.getItem.calledOnceWithExactly(expectedSelectionKey)).to
+        .be.true;
       expect(isExpandedSpy.calledOnceWithExactly(true)).to.be.true;
     });
   });

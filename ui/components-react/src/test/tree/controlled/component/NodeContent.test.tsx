@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -12,7 +12,7 @@ import { render } from "@testing-library/react";
 import type { PropertyValueRendererManager } from "../../../../components-react/properties/ValueRendererManager";
 import { TreeNodeContent } from "../../../../components-react/tree/controlled/component/NodeContent";
 import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel";
-import type { HighlightableTreeNodeProps} from "../../../../components-react/tree/HighlightingEngine";
+import type { HighlightableTreeNodeProps } from "../../../../components-react/tree/HighlightingEngine";
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
 import { TestUtils } from "../../../TestUtils";
 
@@ -31,7 +31,11 @@ describe("NodeContent", () => {
     node = {
       id: "0",
       label: nodeLabelRecord,
-      checkbox: { isVisible: false, state: CheckBoxState.Off, isDisabled: false },
+      checkbox: {
+        isVisible: false,
+        state: CheckBoxState.Off,
+        isDisabled: false,
+      },
       depth: 0,
       description: "Test Node Description",
       isExpanded: false,
@@ -47,7 +51,9 @@ describe("NodeContent", () => {
     };
 
     rendererManagerMock.reset();
-    rendererManagerMock.setup((m) => m.render(moq.It.isAny(), moq.It.isAny())).returns(() => "Test label");
+    rendererManagerMock
+      .setup((m) => m.render(moq.It.isAny(), moq.It.isAny()))
+      .returns(() => "Test label");
   });
 
   it("renders label with synchronous function", () => {
@@ -55,27 +61,36 @@ describe("NodeContent", () => {
       <TreeNodeContent
         node={node}
         valueRendererManager={rendererManagerMock.object}
-      />);
+      />
+    );
     renderedNode.getByText("Test label");
-    rendererManagerMock.verify((x) => x.render(nodeLabelRecord, moq.It.isAny()), moq.Times.once());
+    rendererManagerMock.verify(
+      (x) => x.render(nodeLabelRecord, moq.It.isAny()),
+      moq.Times.once()
+    );
   });
 
   it("passes highlight callback to values renderer", () => {
-    const highlightingProps: HighlightableTreeNodeProps = { searchText: "label" };
+    const highlightingProps: HighlightableTreeNodeProps = {
+      searchText: "label",
+    };
 
     const spy = sinon.stub(HighlightingEngine, "renderNodeLabel");
 
     rendererManagerMock.reset();
     rendererManagerMock
       .setup((x) => x.render(moq.It.isAny(), moq.It.isAny()))
-      .callback((_, context) => { context.textHighlighter(); });
+      .callback((_, context) => {
+        context.textHighlighter();
+      });
 
     render(
       <TreeNodeContent
         node={node}
         valueRendererManager={rendererManagerMock.object}
         highlightProps={highlightingProps}
-      />);
+      />
+    );
 
     expect(spy).to.be.called;
     spy.restore();
@@ -86,24 +101,36 @@ describe("NodeContent", () => {
       <TreeNodeContent
         node={node}
         valueRendererManager={rendererManagerMock.object}
-      />);
+      />
+    );
 
     getByText("Test label");
 
-    const newRendererManagerMock = moq.Mock.ofType<PropertyValueRendererManager>();
-    newRendererManagerMock.setup((m) => m.render(moq.It.isAny(), moq.It.isAny())).returns(() => "New label");
+    const newRendererManagerMock =
+      moq.Mock.ofType<PropertyValueRendererManager>();
+    newRendererManagerMock
+      .setup((m) => m.render(moq.It.isAny(), moq.It.isAny()))
+      .returns(() => "New label");
     rerender(
       <TreeNodeContent
         node={node}
         valueRendererManager={newRendererManagerMock.object}
-      />);
+      />
+    );
 
     getByText("New label");
   });
 
   it("renders styled node", () => {
     rendererManagerMock.reset();
-    rendererManagerMock.setup((x) => x.render(moq.It.isAny(), moq.It.is((ctx) => ctx!.style!.fontWeight === "bold"))).verifiable(moq.Times.once());
+    rendererManagerMock
+      .setup((x) =>
+        x.render(
+          moq.It.isAny(),
+          moq.It.is((ctx) => ctx!.style!.fontWeight === "bold")
+        )
+      )
+      .verifiable(moq.Times.once());
 
     node.item.style = {
       isBold: true,
@@ -113,7 +140,8 @@ describe("NodeContent", () => {
       <TreeNodeContent
         node={node}
         valueRendererManager={rendererManagerMock.object}
-      />);
+      />
+    );
 
     rendererManagerMock.verifyAll();
   });
@@ -124,7 +152,8 @@ describe("NodeContent", () => {
         node={node}
         valueRendererManager={rendererManagerMock.object}
         showDescription={true}
-      />);
+      />
+    );
 
     getByText(node.item.description!);
   });
@@ -138,7 +167,7 @@ describe("NodeContent", () => {
         node={node}
         valueRendererManager={rendererManagerMock.object}
         onLabelRendered={spy}
-      />,
+      />
     );
 
     expect(spy).to.be.calledOnce;
@@ -146,15 +175,15 @@ describe("NodeContent", () => {
 
   it("renders node editor if node editing is active", () => {
     node.editingInfo = {
-      onCancel: () => { },
-      onCommit: () => { },
+      onCancel: () => {},
+      onCommit: () => {},
     };
 
     const { getByTestId } = render(
       <TreeNodeContent
         node={node}
         valueRendererManager={rendererManagerMock.object}
-      />,
+      />
     );
 
     getByTestId("editor-container");
@@ -162,8 +191,8 @@ describe("NodeContent", () => {
 
   it("uses custom tree node editor renderer", () => {
     node.editingInfo = {
-      onCancel: () => { },
-      onCommit: () => { },
+      onCancel: () => {},
+      onCommit: () => {},
     };
     const editorRendererSpy = sinon.spy();
 
@@ -172,10 +201,9 @@ describe("NodeContent", () => {
         node={node}
         valueRendererManager={rendererManagerMock.object}
         nodeEditorRenderer={editorRendererSpy}
-      />,
+      />
     );
 
     expect(editorRendererSpy).to.be.calledOnce;
   });
-
 });

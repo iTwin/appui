@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -45,12 +45,7 @@ export function PanelTarget(props: PanelTargetProps) {
     targeted && "nz-targeted",
     !visible && "nz-hidden",
     // istanbul ignore next
-    cursorType && getCursorClassName(cursorType),
+    cursorType && getCursorClassName(cursorType)
   );
-  return (
-    <div
-      className={className}
-      ref={ref}
-    />
-  );
+  return <div className={className} ref={ref} />;
 }

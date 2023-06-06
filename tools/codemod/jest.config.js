@@ -1,3 +1,3 @@
 module.exports = {
-  transform: { "\\.ts$": ['ts-jest'] },
+  transform: { "\\.ts$": ["ts-jest"] },
 };

@@ -1,54 +1,90 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import type { FrontstageConfig,
-  SyncToolSettingsPropertiesEventArgs, ToolSettingsEntry} from "../../appui-react";
+import type {
+  FrontstageConfig,
+  SyncToolSettingsPropertiesEventArgs,
+  ToolSettingsEntry,
+} from "../../appui-react";
 import {
-  ConfigurableCreateInfo, ContentControl, FrontstageProvider, ToolSettingsGrid, ToolUiProvider, UiFramework,
+  ConfigurableCreateInfo,
+  ContentControl,
+  FrontstageProvider,
+  ToolSettingsGrid,
+  ToolUiProvider,
+  UiFramework,
 } from "../../appui-react";
 import { ToolInformation } from "../../appui-react/toolsettings/ToolInformation";
 import TestUtils from "../TestUtils";
-import type { DialogItemValue, DialogPropertySyncItem} from "@itwin/appui-abstract";
+import type {
+  DialogItemValue,
+  DialogPropertySyncItem,
+} from "@itwin/appui-abstract";
 import { UiLayoutDataProvider } from "@itwin/appui-abstract";
 import { Input, Slider } from "@itwin/itwinui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 describe("ToolUiProvider", () => {
-
   function FancySlider() {
-    const handleSliderChange = React.useCallback((_values: ReadonlyArray<number>) => {
-    }, []);
+    const handleSliderChange = React.useCallback(
+      (_values: ReadonlyArray<number>) => {},
+      []
+    );
     return (
-      <Slider style={{ minWidth: "160px" }} min={0} max={100} values={[30, 70]} step={5}
+      <Slider
+        style={{ minWidth: "160px" }}
+        min={0}
+        max={100}
+        values={[30, 70]}
+        step={5}
         tickLabels={["", "", "", "", "", "", "", "", "", "", ""]}
-        tooltipProps={(_: number, val: number) => { return { content: `\$${val}.00` }; }}
-        onChange={handleSliderChange} />
+        tooltipProps={(_: number, val: number) => {
+          return { content: `\$${val}.00` };
+        }}
+        onChange={handleSliderChange}
+      />
     );
   }
 
   function BasicSlider() {
-    const handleSliderChange = React.useCallback((_values: ReadonlyArray<number>) => {
-    }, []);
+    const handleSliderChange = React.useCallback(
+      (_values: ReadonlyArray<number>) => {},
+      []
+    );
     return (
-      <Slider style={{ minWidth: "160px" }} min={0} max={100} values={[50]} step={1}
-        onChange={handleSliderChange} />
+      <Slider
+        style={{ minWidth: "160px" }}
+        min={0}
+        max={100}
+        values={[50]}
+        step={1}
+        onChange={handleSliderChange}
+      />
     );
   }
   class Tool2UiProvider extends ToolUiProvider {
     constructor(info: ConfigurableCreateInfo, options: any) {
       super(info, options);
 
-      this.toolSettingsNode = <ToolSettingsGrid settings={this.getHorizontalToolSettings()} />;
+      this.toolSettingsNode = (
+        <ToolSettingsGrid settings={this.getHorizontalToolSettings()} />
+      );
       this.horizontalToolSettingNodes = this.getHorizontalToolSettings();
     }
 
     private getHorizontalToolSettings(): ToolSettingsEntry[] | undefined {
       return [
-        { labelNode: <label htmlFor="range">Month</label>, editorNode: <input type="month" /> },
-        { labelNode: "Number", editorNode: <input type="number" min="10" max="20" /> },
+        {
+          labelNode: <label htmlFor="range">Month</label>,
+          editorNode: <input type="month" />,
+        },
+        {
+          labelNode: "Number",
+          editorNode: <input type="number" min="10" max="20" />,
+        },
         { labelNode: "Slider", editorNode: <BasicSlider /> },
         { labelNode: "Slider w/ Ticks", editorNode: <FancySlider /> },
         { labelNode: "Input", editorNode: <Input /> },
@@ -90,17 +126,22 @@ describe("ToolUiProvider", () => {
 
   UiFramework.controls.register(testToolId, Tool2UiProvider);
 
-  class TestDataProvider extends UiLayoutDataProvider { }
+  class TestDataProvider extends UiLayoutDataProvider {}
 
   it("can set/get uidataprovider", () => {
     const testDataProvider = new TestDataProvider();
-    const tool2uiProvider = new Tool2UiProvider(new ConfigurableCreateInfo("test", "test", "test"), undefined);
+    const tool2uiProvider = new Tool2UiProvider(
+      new ConfigurableCreateInfo("test", "test", "test"),
+      undefined
+    );
     tool2uiProvider.dataProvider = testDataProvider;
     expect(tool2uiProvider.dataProvider === testDataProvider);
   });
 
   it("starting a tool with tool settings", async () => {
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef("ToolUiProvider-TestFrontstage");
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      "ToolUiProvider-TestFrontstage"
+    );
     expect(frontstageDef).to.not.be.undefined;
 
     if (frontstageDef) {
@@ -121,20 +162,31 @@ describe("ToolUiProvider", () => {
           expect(toolUiProvider.toolSettingsNode).to.not.be.undefined;
           // cover syncToolSettingsProperties
           const useLengthValue: DialogItemValue = { value: false };
-          const syncItem: DialogPropertySyncItem = { value: useLengthValue, propertyName: "useLengthName", isDisabled: false };
-          const syncArgs = { toolId: testToolId, syncProperties: [syncItem] } as SyncToolSettingsPropertiesEventArgs;
+          const syncItem: DialogPropertySyncItem = {
+            value: useLengthValue,
+            propertyName: "useLengthName",
+            isDisabled: false,
+          };
+          const syncArgs = {
+            toolId: testToolId,
+            syncProperties: [syncItem],
+          } as SyncToolSettingsPropertiesEventArgs;
           toolUiProvider.syncToolSettingsProperties(syncArgs);
           //    expect(toolUiProvider.dataProvider).to.be.undefined;
         }
       }
 
-      const toolSettingsProvider = InternalFrontstageManager.activeToolSettingsProvider;
+      const toolSettingsProvider =
+        InternalFrontstageManager.activeToolSettingsProvider;
       expect(toolSettingsProvider).to.not.be.undefined;
 
-      const toolSettingsNode = InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
+      const toolSettingsNode =
+        InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
       expect(toolSettingsNode).to.not.be.undefined;
 
-      const horizontalToolSettingsNode = InternalFrontstageManager.activeToolSettingsProvider?.horizontalToolSettingNodes;
+      const horizontalToolSettingsNode =
+        InternalFrontstageManager.activeToolSettingsProvider
+          ?.horizontalToolSettingNodes;
       expect(horizontalToolSettingsNode).to.not.be.undefined;
       expect(horizontalToolSettingsNode!.length).to.eq(5);
     }
@@ -154,5 +206,4 @@ describe("ToolUiProvider", () => {
     expect(() => toolInfo.toolUiProvider).to.throw(Error);
     UiFramework.controls.unregister("ToolTest1");
   });
-
 });

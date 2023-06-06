@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyFilterBuilder
  */
@@ -31,7 +31,8 @@ export interface PropertyFilterBuilderContextProps {
  * Context used to store data for rules and rule groups rendered inside [[PropertyFilterBuilder]] component.
  * @internal
  */
-export const PropertyFilterBuilderContext = React.createContext<PropertyFilterBuilderContextProps>(null!);
+export const PropertyFilterBuilderContext =
+  React.createContext<PropertyFilterBuilderContextProps>(null!);
 
 /**
  * Data structure that describes [[PropertyFilterBuilderRuleRenderingContext]] value.
@@ -39,9 +40,13 @@ export const PropertyFilterBuilderContext = React.createContext<PropertyFilterBu
  */
 export interface PropertyFilterBuilderRuleRenderingContextProps {
   /** Custom renderer for operator selector in rule. */
-  ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React.ReactNode;
+  ruleOperatorRenderer?: (
+    props: PropertyFilterBuilderRuleOperatorProps
+  ) => React.ReactNode;
   /** Custom renderer for value input in rule. */
-  ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueProps) => React.ReactNode;
+  ruleValueRenderer?: (
+    props: PropertyFilterBuilderRuleValueProps
+  ) => React.ReactNode;
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;
   /** Specifies that properties selection is disabled. */
@@ -52,7 +57,8 @@ export interface PropertyFilterBuilderRuleRenderingContextProps {
  * Context for rendering rules and rule groups inside [[PropertyFilterBuilder]] component.
  * @internal
  */
-export const PropertyFilterBuilderRuleRenderingContext = React.createContext<PropertyFilterBuilderRuleRenderingContextProps>({});
+export const PropertyFilterBuilderRuleRenderingContext =
+  React.createContext<PropertyFilterBuilderRuleRenderingContextProps>({});
 
 /**
  * Data structure that describes value of [[ActiveRuleGroupContext]].
@@ -76,47 +82,70 @@ export interface ActiveRuleGroupContextProps {
  * Group is considered active if it is focused or hovered.
  * @internal
  */
-export const ActiveRuleGroupContext = React.createContext<ActiveRuleGroupContextProps>(null!);
+export const ActiveRuleGroupContext =
+  React.createContext<ActiveRuleGroupContextProps>(null!);
 
 /**
  * Custom hook that created value for [[ActiveRuleGroupContext]].
  * @internal
  */
-export function useActiveRuleGroupContextProps(rootElementRef: React.RefObject<HTMLElement>) {
-  const [activeElement, setActiveElement] = React.useState<HTMLElement | undefined>();
+export function useActiveRuleGroupContextProps(
+  rootElementRef: React.RefObject<HTMLElement>
+) {
+  const [activeElement, setActiveElement] = React.useState<
+    HTMLElement | undefined
+  >();
 
-  const onFocus: React.FocusEventHandler<HTMLElement> = React.useCallback((e) => {
-    e.stopPropagation();
-    setActiveElement(e.currentTarget);
-  }, []);
+  const onFocus: React.FocusEventHandler<HTMLElement> = React.useCallback(
+    (e) => {
+      e.stopPropagation();
+      setActiveElement(e.currentTarget);
+    },
+    []
+  );
 
-  const onBlur: React.FocusEventHandler<HTMLElement> = React.useCallback((e) => {
-    e.stopPropagation();
-    if (activeElement !== e.currentTarget || (rootElementRef.current && rootElementRef.current.contains(e.relatedTarget)))
-      return;
+  const onBlur: React.FocusEventHandler<HTMLElement> = React.useCallback(
+    (e) => {
+      e.stopPropagation();
+      if (
+        activeElement !== e.currentTarget ||
+        (rootElementRef.current &&
+          rootElementRef.current.contains(e.relatedTarget))
+      )
+        return;
 
-    setActiveElement(undefined);
-  }, [activeElement, rootElementRef]);
+      setActiveElement(undefined);
+    },
+    [activeElement, rootElementRef]
+  );
 
-  const onMouseOver: React.MouseEventHandler<HTMLElement> = React.useCallback((e) => {
-    e.stopPropagation();
-    setActiveElement(e.currentTarget);
-  }, []);
+  const onMouseOver: React.MouseEventHandler<HTMLElement> = React.useCallback(
+    (e) => {
+      e.stopPropagation();
+      setActiveElement(e.currentTarget);
+    },
+    []
+  );
 
-  const onMouseOut: React.MouseEventHandler<HTMLElement> = React.useCallback((e) => {
-    e.stopPropagation();
-    // istanbul ignore if
-    if (activeElement !== e.currentTarget)
-      return;
+  const onMouseOut: React.MouseEventHandler<HTMLElement> = React.useCallback(
+    (e) => {
+      e.stopPropagation();
+      // istanbul ignore if
+      if (activeElement !== e.currentTarget) return;
 
-    setActiveElement(undefined);
-  }, [activeElement]);
+      setActiveElement(undefined);
+    },
+    [activeElement]
+  );
 
-  return React.useMemo(() => ({
-    activeElement,
-    onFocus,
-    onBlur,
-    onMouseOver,
-    onMouseOut,
-  }), [activeElement, onFocus, onBlur, onMouseOver, onMouseOut]);
+  return React.useMemo(
+    () => ({
+      activeElement,
+      onFocus,
+      onBlur,
+      onMouseOver,
+      onMouseOut,
+    }),
+    [activeElement, onFocus, onBlur, onMouseOver, onMouseOut]
+  );
 }

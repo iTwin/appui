@@ -1,13 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { Logger, LogLevel } from "@itwin/core-bentley";
-import { BackendLoggerCategory, NativeLoggerCategory } from "@itwin/core-backend";
+import {
+  BackendLoggerCategory,
+  NativeLoggerCategory,
+} from "@itwin/core-backend";
 
 /** Initializes logging based on the configuration json file */
 export function initializeLogging() {
-
   Logger.initializeToConsole();
   Logger.setLevelDefault(LogLevel.Trace);
 

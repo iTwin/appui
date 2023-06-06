@@ -1,12 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module TypeConverters
  */
 
-import type { Primitives} from "@itwin/appui-abstract";
+import type { Primitives } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
 import { UiComponents } from "../UiComponents";
 import { TypeConverter } from "./TypeConverter";
@@ -30,34 +30,52 @@ export class BooleanTypeConverter extends TypeConverter {
   }
 
   public override convertToString(value?: Primitives.Boolean) {
-    if (value === undefined)
-      return "";
+    if (value === undefined) return "";
 
     BooleanTypeConverter.getLocalizedTrueFalse();
 
-    if (value === BooleanTypeConverter.sl10nTrue || value === BooleanTypeConverter.sl10nFalse)
+    if (
+      value === BooleanTypeConverter.sl10nTrue ||
+      value === BooleanTypeConverter.sl10nFalse
+    )
       return value;
 
-    return value ? BooleanTypeConverter.sl10nTrue : BooleanTypeConverter.sl10nFalse;
+    return value
+      ? BooleanTypeConverter.sl10nTrue
+      : BooleanTypeConverter.sl10nFalse;
   }
 
   public override convertFromString(value: string) {
     BooleanTypeConverter.getLocalizedTrueFalse();
 
-    const booleanValue = (0 === value.toLocaleLowerCase().localeCompare(BooleanTypeConverter.sl10nTrue.toLocaleLowerCase()));
+    const booleanValue =
+      0 ===
+      value
+        .toLocaleLowerCase()
+        .localeCompare(BooleanTypeConverter.sl10nTrue.toLocaleLowerCase());
     return booleanValue;
   }
 
-  public sortCompare(a: Primitives.Boolean, b: Primitives.Boolean, _ignoreCase?: boolean): number {
-    if (!!a === !!b)
-      return 0;
-    if (!!a && !b)
-      return 1;
+  public sortCompare(
+    a: Primitives.Boolean,
+    b: Primitives.Boolean,
+    _ignoreCase?: boolean
+  ): number {
+    if (!!a === !!b) return 0;
+    if (!!a && !b) return 1;
     return -1;
   }
 
-  public override get isBooleanType(): boolean { return true; }
+  public override get isBooleanType(): boolean {
+    return true;
+  }
 }
 
-TypeConverterManager.registerConverter(StandardTypeNames.Boolean, BooleanTypeConverter);
-TypeConverterManager.registerConverter(StandardTypeNames.Bool, BooleanTypeConverter);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.Boolean,
+  BooleanTypeConverter
+);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.Bool,
+  BooleanTypeConverter
+);

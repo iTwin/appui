@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -29,24 +29,24 @@ export function TabTarget() {
   const widgetId = React.useContext(WidgetIdContext);
   assert(!!widgetId);
   const tabIndex = useTabIndex();
-  const [ref, targeted] = useTarget<HTMLDivElement>(useTargetArgs(widgetId, tabIndex));
+  const [ref, targeted] = useTarget<HTMLDivElement>(
+    useTargetArgs(widgetId, tabIndex)
+  );
   const allowedTarget = useAllowedWidgetTarget(widgetId);
   // istanbul ignore next
-  const hidden = !allowedTarget || ((!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId);
+  const hidden =
+    !allowedTarget ||
+    (!draggedTab && !draggedWidgetId) ||
+    draggedWidgetId === widgetId;
   const className = classnames(
     "nz-target-tabTarget",
     hidden && "nz-hidden",
     // istanbul ignore next
     targeted && "nz-targeted",
     // istanbul ignore next
-    cursorType && getCursorClassName(cursorType),
+    cursorType && getCursorClassName(cursorType)
   );
-  return (
-    <div
-      className={className}
-      ref={ref}
-    />
-  );
+  return <div className={className} ref={ref} />;
 }
 
 function useTabIndex() {

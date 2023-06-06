@@ -1,8 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { addFloatingWidget, addPopoutWidget, createNineZoneState } from "../../appui-layout-react";
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import {
+  addFloatingWidget,
+  addPopoutWidget,
+  createNineZoneState,
+} from "../../appui-layout-react";
 import { addTabs, handleMetaData } from "../Utils";
 
 describe("addFloatingWidget", () => {
@@ -18,6 +22,8 @@ describe("addPopoutWidget", () => {
   it("should throw with multiple tabs", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1", "t2"]);
-    handleMetaData(() => addPopoutWidget(state, "fw1", ["t1", "t2"])).should.throw();
+    handleMetaData(() =>
+      addPopoutWidget(state, "fw1", ["t1", "t2"])
+    ).should.throw();
   });
 });

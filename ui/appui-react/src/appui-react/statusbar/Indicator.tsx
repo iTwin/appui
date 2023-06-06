@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -48,13 +48,15 @@ export function StatusBarIndicator(props: StatusBarIndicatorProps) {
       >
         {props.children}
       </StatusBar.Field>
-      {props.popup && <StatusBar.Popup
-        target={target.current}
-        onClose={() => setIsOpen(false)}
-        isOpen={isOpen}
-      >
-        {props.popup}
-      </StatusBar.Popup>}
+      {props.popup && (
+        <StatusBar.Popup
+          target={target.current}
+          onClose={() => setIsOpen(false)}
+          isOpen={isOpen}
+        >
+          {props.popup}
+        </StatusBar.Popup>
+      )}
     </>
   );
 }

@@ -1,18 +1,23 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
 import { FlatNonPrimitivePropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatNonPrimitivePropertyRenderer";
-import { childStructure, selectorMatches, TestUtils, userEvent } from "../../../TestUtils";
+import {
+  childStructure,
+  selectorMatches,
+  TestUtils,
+  userEvent,
+} from "../../../TestUtils";
 import sinon from "sinon";
 import { render, screen } from "@testing-library/react";
 
 describe("FlatNonPrimitivePropertyRenderer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   before(async () => {
@@ -23,20 +28,28 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
     render(
       <FlatNonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
-        propertyRecord={TestUtils.createArrayProperty("Pipes", [TestUtils.createPrimitiveStringProperty("pipe_1", "Water pipe")])}
+        propertyRecord={TestUtils.createArrayProperty("Pipes", [
+          TestUtils.createPrimitiveStringProperty("pipe_1", "Water pipe"),
+        ])}
         valueElement={"string[1]"}
         isExpanded={false}
-        onExpandToggled={() => { }}
-      />);
+        onExpandToggled={() => {}}
+      />
+    );
 
-    expect(screen.getByTitle("Pipes (1)")).satisfy(selectorMatches([
-      ".components-property-record--horizontal",
-      ".components-property-record-label",
-      ".components-nonprimitive-property-label-renderer",
-      ".components-property-label-renderer",
-    ].join(" > ")));
-    expect(screen.getAllByRole("presentation")[0])
-      .not.satisfy(childStructure(".components-property-label-renderer-colon"));
+    expect(screen.getByTitle("Pipes (1)")).satisfy(
+      selectorMatches(
+        [
+          ".components-property-record--horizontal",
+          ".components-property-record-label",
+          ".components-nonprimitive-property-label-renderer",
+          ".components-property-label-renderer",
+        ].join(" > ")
+      )
+    );
+    expect(screen.getAllByRole("presentation")[0]).not.satisfy(
+      childStructure(".components-property-label-renderer-colon")
+    );
   });
 
   it("renders array size in label correctly", async () => {
@@ -50,8 +63,9 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
         ])}
         valueElement={"string[1]"}
         isExpanded={false}
-        onExpandToggled={() => { }}
-      />);
+        onExpandToggled={() => {}}
+      />
+    );
 
     expect(screen.getByTitle("Pipes (3)")).to.exist;
   });
@@ -61,16 +75,20 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
     render(
       <FlatNonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
-        propertyRecord={
-          TestUtils.createStructProperty(
-            "House",
-            {
-              building: TestUtils.createPrimitiveStringProperty("Building", "Residential"),
-              street: TestUtils.createPrimitiveStringProperty("Street", "Glass st."),
-            })}
+        propertyRecord={TestUtils.createStructProperty("House", {
+          building: TestUtils.createPrimitiveStringProperty(
+            "Building",
+            "Residential"
+          ),
+          street: TestUtils.createPrimitiveStringProperty(
+            "Street",
+            "Glass st."
+          ),
+        })}
         isExpanded={false}
         onExpandToggled={expandSpy}
-      />);
+      />
+    );
 
     expect(expandSpy.callCount).to.be.equal(0);
 
@@ -86,16 +104,20 @@ describe("FlatNonPrimitivePropertyRenderer", () => {
     render(
       <FlatNonPrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
-        propertyRecord={
-          TestUtils.createStructProperty(
-            "House",
-            {
-              building: TestUtils.createPrimitiveStringProperty("Building", "Residential"),
-              street: TestUtils.createPrimitiveStringProperty("Street", "Glass st."),
-            })}
+        propertyRecord={TestUtils.createStructProperty("House", {
+          building: TestUtils.createPrimitiveStringProperty(
+            "Building",
+            "Residential"
+          ),
+          street: TestUtils.createPrimitiveStringProperty(
+            "Street",
+            "Glass st."
+          ),
+        })}
         isExpanded={true}
         onExpandToggled={expandSpy}
-      />);
+      />
+    );
 
     expect(expandSpy.callCount).to.be.equal(0);
 

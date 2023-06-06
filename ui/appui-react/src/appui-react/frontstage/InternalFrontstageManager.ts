@@ -1,13 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Frontstage
  */
 
 import { Logger } from "@itwin/core-bentley";
-import type { IModelConnection, SelectedViewportChangedArgs, StartOrResume, Tool } from "@itwin/core-frontend";
+import type {
+  IModelConnection,
+  SelectedViewportChangedArgs,
+  StartOrResume,
+  Tool,
+} from "@itwin/core-frontend";
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { Size } from "@itwin/core-react";
@@ -16,20 +21,42 @@ import type { ContentGroup } from "../content/ContentGroup";
 import type { ContentLayoutDef } from "../content/ContentLayout";
 import { ContentLayoutActivatedEvent } from "../content/ContentLayout";
 import { NavigationAidActivatedEvent } from "../navigationaids/NavigationAidControl";
-import type { PanelPinnedChangedEventArgs} from "../stagepanels/StagePanelDef";
-import { PanelSizeChangedEvent, PanelStateChangedEvent } from "../stagepanels/StagePanelDef";
+import type { PanelPinnedChangedEventArgs } from "../stagepanels/StagePanelDef";
+import {
+  PanelSizeChangedEvent,
+  PanelStateChangedEvent,
+} from "../stagepanels/StagePanelDef";
 import { UiFramework } from "../UiFramework";
-import type { WidgetChangedEventArgs, WidgetDef, WidgetEventArgs} from "../widgets/WidgetDef";
+import type {
+  WidgetChangedEventArgs,
+  WidgetDef,
+  WidgetEventArgs,
+} from "../widgets/WidgetDef";
 import { WidgetStateChangedEvent } from "../widgets/WidgetDef";
 import { ToolInformation } from "../toolsettings/ToolInformation";
 import type { ToolUiProvider } from "../toolsettings/ToolUiProvider";
-import type { FrontstageEventArgs, FrontstageNineZoneStateChangedEventArgs } from "./FrontstageDef";
+import type {
+  FrontstageEventArgs,
+  FrontstageNineZoneStateChangedEventArgs,
+} from "./FrontstageDef";
 import { FrontstageDef } from "./FrontstageDef";
 import type { FrontstageProvider } from "./FrontstageProvider";
 import { TimeTracker } from "../configurableui/TimeTracker";
 import type { WidgetState } from "../widgets/WidgetState";
-import type { ModalFrontstageInfo, ModalFrontstageItem} from "../framework/FrameworkFrontstages";
-import { FrontstageActivatedEvent, FrontstageDeactivatedEvent, FrontstageReadyEvent, ModalFrontstageChangedEvent, ModalFrontstageClosedEvent, ModalFrontstageRequestedCloseEvent, ToolActivatedEvent, ToolIconChangedEvent } from "../framework/FrameworkFrontstages";
+import type {
+  ModalFrontstageInfo,
+  ModalFrontstageItem,
+} from "../framework/FrameworkFrontstages";
+import {
+  FrontstageActivatedEvent,
+  FrontstageDeactivatedEvent,
+  FrontstageReadyEvent,
+  ModalFrontstageChangedEvent,
+  ModalFrontstageClosedEvent,
+  ModalFrontstageRequestedCloseEvent,
+  ToolActivatedEvent,
+  ToolIconChangedEvent,
+} from "../framework/FrameworkFrontstages";
 import type { SyncToolSettingsPropertiesEventArgs } from "../framework/FrameworkToolSettings";
 
 /** Frontstage Manager class.
@@ -41,13 +68,18 @@ export class InternalFrontstageManager {
   private static _activeToolId = "";
   private static _activeFrontstageDef: FrontstageDef | undefined;
   private static _frontstageDefs = new Map<string, FrontstageDef>();
-  private static _modalFrontstages: ModalFrontstageItem[] = new Array<ModalFrontstageItem>();
+  private static _modalFrontstages: ModalFrontstageItem[] =
+    new Array<ModalFrontstageItem>();
   private static _frontstageProviders = new Map<string, FrontstageProvider>();
   private static _nineZoneSize: Size | undefined = undefined;
 
-  private static _nestedFrontstages: FrontstageDef[] = new Array<FrontstageDef>();
+  private static _nestedFrontstages: FrontstageDef[] =
+    new Array<FrontstageDef>();
   private static _activePrimaryFrontstageDef: FrontstageDef | undefined;
-  private static _toolInformationMap: Map<string, ToolInformation> = new Map<string, ToolInformation>();
+  private static _toolInformationMap: Map<string, ToolInformation> = new Map<
+    string,
+    ToolInformation
+  >();
 
   /** This should only be called within InternalFrontstageManager and its tests.
    *  @internal
@@ -55,12 +87,20 @@ export class InternalFrontstageManager {
   public static ensureToolInformationIsSet(toolId: string): void {
     // istanbul ignore else
     if (!InternalFrontstageManager._toolInformationMap.get(toolId))
-      InternalFrontstageManager._toolInformationMap.set(toolId, new ToolInformation(toolId));
+      InternalFrontstageManager._toolInformationMap.set(
+        toolId,
+        new ToolInformation(toolId)
+      );
   }
 
   // pass on SyncToolSettingsPropertiesEvent from ToolAdmin so they are treated as DialogItemSync events
-  private static handleSyncToolSettingsPropertiesEvent(args: SyncToolSettingsPropertiesEventArgs): void {
-    InternalFrontstageManager.activeToolSettingsProvider && InternalFrontstageManager.activeToolSettingsProvider.syncToolSettingsProperties(args);
+  private static handleSyncToolSettingsPropertiesEvent(
+    args: SyncToolSettingsPropertiesEventArgs
+  ): void {
+    InternalFrontstageManager.activeToolSettingsProvider &&
+      InternalFrontstageManager.activeToolSettingsProvider.syncToolSettingsProperties(
+        args
+      );
   }
 
   // pass on ReloadToolSettingsEvent from ToolAdmin so they are treated by UiProviders
@@ -73,53 +113,76 @@ export class InternalFrontstageManager {
 
   /** Initializes the InternalFrontstageManager
    * @internal
-  */
+   */
   public static initialize() {
-    if (this._initialized)
-      return;
+    if (this._initialized) return;
 
     // istanbul ignore else
     if (IModelApp && IModelApp.toolAdmin) {
-      IModelApp.toolAdmin.activeToolChanged.addListener((tool: Tool, _start: StartOrResume) => {
-        // make sure tool settings properties are cached before creating ToolInformation
-        UiFramework.toolSettings.clearToolSettingsData();
-        // istanbul ignore else
-        if (tool instanceof InteractiveTool)
-          UiFramework.toolSettings.initializeDataForTool(tool);
+      IModelApp.toolAdmin.activeToolChanged.addListener(
+        (tool: Tool, _start: StartOrResume) => {
+          // make sure tool settings properties are cached before creating ToolInformation
+          UiFramework.toolSettings.clearToolSettingsData();
+          // istanbul ignore else
+          if (tool instanceof InteractiveTool)
+            UiFramework.toolSettings.initializeDataForTool(tool);
 
-        // if the tool data is not already cached then see if there is data to cache
-        InternalFrontstageManager.ensureToolInformationIsSet(tool.toolId);
-        InternalFrontstageManager.setActiveTool(tool);
-      });
-      UiFramework.toolSettings.onSyncToolSettingsProperties.addListener(InternalFrontstageManager.handleSyncToolSettingsPropertiesEvent);
-      UiFramework.toolSettings.onReloadToolSettingsProperties.addListener(InternalFrontstageManager.handleReloadToolSettingsEvent);
+          // if the tool data is not already cached then see if there is data to cache
+          InternalFrontstageManager.ensureToolInformationIsSet(tool.toolId);
+          InternalFrontstageManager.setActiveTool(tool);
+        }
+      );
+      UiFramework.toolSettings.onSyncToolSettingsProperties.addListener(
+        InternalFrontstageManager.handleSyncToolSettingsPropertiesEvent
+      );
+      UiFramework.toolSettings.onReloadToolSettingsProperties.addListener(
+        InternalFrontstageManager.handleReloadToolSettingsEvent
+      );
     }
 
     // istanbul ignore else
     if (IModelApp && IModelApp.viewManager) {
-      IModelApp.viewManager.onSelectedViewportChanged.addListener(InternalFrontstageManager._handleSelectedViewportChanged);
+      IModelApp.viewManager.onSelectedViewportChanged.addListener(
+        InternalFrontstageManager._handleSelectedViewportChanged
+      );
     }
 
     this._initialized = true;
   }
 
   /** Handles a Viewport change & sets the active view accordingly */
-  private static _handleSelectedViewportChanged = (args: SelectedViewportChangedArgs) => {
+  private static _handleSelectedViewportChanged = (
+    args: SelectedViewportChangedArgs
+  ) => {
     // istanbul ignore else
-    if (args.current && InternalFrontstageManager.activeFrontstageDef && !InternalFrontstageManager.isLoading) {
-      InternalFrontstageManager.activeFrontstageDef.setActiveViewFromViewport(args.current);
+    if (
+      args.current &&
+      InternalFrontstageManager.activeFrontstageDef &&
+      !InternalFrontstageManager.isLoading
+    ) {
+      InternalFrontstageManager.activeFrontstageDef.setActiveViewFromViewport(
+        args.current
+      );
     }
   };
 
   /** @internal */
-  public static get isInitialized(): boolean { return InternalFrontstageManager._initialized; }
-  public static set isInitialized(v: boolean) { InternalFrontstageManager._initialized = v; }
+  public static get isInitialized(): boolean {
+    return InternalFrontstageManager._initialized;
+  }
+  public static set isInitialized(v: boolean) {
+    InternalFrontstageManager._initialized = v;
+  }
 
   /** Returns true if Frontstage is loading its controls. If false the Frontstage content and controls have been created. */
-  public static get isLoading(): boolean { return InternalFrontstageManager._isLoading; }
+  public static get isLoading(): boolean {
+    return InternalFrontstageManager._isLoading;
+  }
 
   /** @internal */
-  public static get nineZoneSize() { return InternalFrontstageManager._nineZoneSize; }
+  public static get nineZoneSize() {
+    return InternalFrontstageManager._nineZoneSize;
+  }
 
   public static set nineZoneSize(size) {
     InternalFrontstageManager._nineZoneSize = size;
@@ -131,24 +194,29 @@ export class InternalFrontstageManager {
   }
 
   /** Get Frontstage Deactivated event. */
-  public static readonly onFrontstageDeactivatedEvent = new FrontstageDeactivatedEvent();
+  public static readonly onFrontstageDeactivatedEvent =
+    new FrontstageDeactivatedEvent();
 
   /** Get Frontstage Activated event. */
-  public static readonly onFrontstageActivatedEvent = new FrontstageActivatedEvent();
+  public static readonly onFrontstageActivatedEvent =
+    new FrontstageActivatedEvent();
 
   /** Get Frontstage Activated event. */
   public static readonly onFrontstageReadyEvent = new FrontstageReadyEvent();
 
   /** Get Modal Frontstage Changed event. */
-  public static readonly onModalFrontstageChangedEvent = new ModalFrontstageChangedEvent();
+  public static readonly onModalFrontstageChangedEvent =
+    new ModalFrontstageChangedEvent();
 
   /** Get Modal Frontstage Closed event. */
-  public static readonly onModalFrontstageClosedEvent = new ModalFrontstageClosedEvent();
+  public static readonly onModalFrontstageClosedEvent =
+    new ModalFrontstageClosedEvent();
 
   /** Get Modal Frontstage Requested Closed event.
    * @alpha
    */
-  public static readonly onCloseModalFrontstageRequestedEvent = new ModalFrontstageRequestedCloseEvent();
+  public static readonly onCloseModalFrontstageRequestedEvent =
+    new ModalFrontstageRequestedCloseEvent();
 
   /** Get Tool Activated event. */
   public static readonly onToolActivatedEvent = new ToolActivatedEvent();
@@ -165,19 +233,24 @@ export class InternalFrontstageManager {
   public static readonly onToolIconChangedEvent = new ToolIconChangedEvent();
 
   /** Get Content Layout Activated event. */
-  public static readonly onContentLayoutActivatedEvent = new ContentLayoutActivatedEvent();
+  public static readonly onContentLayoutActivatedEvent =
+    new ContentLayoutActivatedEvent();
 
   /** Get Content Control Activated event. */
-  public static readonly onContentControlActivatedEvent = new ContentControlActivatedEvent();
+  public static readonly onContentControlActivatedEvent =
+    new ContentControlActivatedEvent();
 
   /** Get Navigation Aid Activated event. */
-  public static readonly onNavigationAidActivatedEvent = new NavigationAidActivatedEvent();
+  public static readonly onNavigationAidActivatedEvent =
+    new NavigationAidActivatedEvent();
 
   /** Get Widget State Changed event. */
-  public static readonly onWidgetStateChangedEvent = new WidgetStateChangedEvent();
+  public static readonly onWidgetStateChangedEvent =
+    new WidgetStateChangedEvent();
 
   /** @internal */
-  public static readonly onWidgetLabelChangedEvent = new UiEvent<WidgetChangedEventArgs>();
+  public static readonly onWidgetLabelChangedEvent =
+    new UiEvent<WidgetChangedEventArgs>();
 
   /** @internal */
   public static readonly onWidgetShowEvent = new UiEvent<WidgetEventArgs>();
@@ -189,20 +262,24 @@ export class InternalFrontstageManager {
   public static readonly onWidgetDefsUpdatedEvent = new UiEvent<void>();
 
   /** @internal */
-  public static readonly onFrontstageNineZoneStateChangedEvent = new UiEvent<FrontstageNineZoneStateChangedEventArgs>();
+  public static readonly onFrontstageNineZoneStateChangedEvent =
+    new UiEvent<FrontstageNineZoneStateChangedEventArgs>();
 
   /** @internal */
-  public static readonly onFrontstageRestoreLayoutEvent = new UiEvent<FrontstageEventArgs>();
+  public static readonly onFrontstageRestoreLayoutEvent =
+    new UiEvent<FrontstageEventArgs>();
 
   /** Get panel state changed event.
    * @alpha
    */
-  public static readonly onPanelStateChangedEvent = new PanelStateChangedEvent();
+  public static readonly onPanelStateChangedEvent =
+    new PanelStateChangedEvent();
 
   /** Get panel pinned changed event.
    * @alpha
    */
-  public static readonly onPanelPinnedChangedEvent = new UiEvent<PanelPinnedChangedEventArgs>();
+  public static readonly onPanelPinnedChangedEvent =
+    new UiEvent<PanelPinnedChangedEventArgs>();
 
   /** @internal */
   public static readonly onPanelSizeChangedEvent = new PanelSizeChangedEvent();
@@ -228,13 +305,13 @@ export class InternalFrontstageManager {
   /** @internal */
   public static clearFrontstageDefsForIModelId(iModelId: string | undefined) {
     // istanbul ignore next
-    if (!iModelId)
-      return;
+    if (!iModelId) return;
     const keysToRemove: string[] = [];
-    InternalFrontstageManager._frontstageDefs.forEach((_: FrontstageDef, key: string) => {
-      if (key.startsWith(`[${iModelId}]`))
-        keysToRemove.push(key);
-    });
+    InternalFrontstageManager._frontstageDefs.forEach(
+      (_: FrontstageDef, key: string) => {
+        if (key.startsWith(`[${iModelId}]`)) keysToRemove.push(key);
+      }
+    );
     keysToRemove.forEach((keyValue) => {
       InternalFrontstageManager._frontstageDefs.delete(keyValue);
     });
@@ -243,10 +320,17 @@ export class InternalFrontstageManager {
   /** Add a Frontstage via a [[FrontstageProvider]].
    * @param frontstageProvider  FrontstageProvider representing the Frontstage to add
    */
-  public static addFrontstageProvider(frontstageProvider: FrontstageProvider): void {
-    const key = InternalFrontstageManager.getFrontstageKey(frontstageProvider.id);
+  public static addFrontstageProvider(
+    frontstageProvider: FrontstageProvider
+  ): void {
+    const key = InternalFrontstageManager.getFrontstageKey(
+      frontstageProvider.id
+    );
     key && InternalFrontstageManager._frontstageDefs.delete(key);
-    InternalFrontstageManager._frontstageProviders.set(frontstageProvider.id, frontstageProvider);
+    InternalFrontstageManager._frontstageProviders.set(
+      frontstageProvider.id,
+      frontstageProvider
+    );
   }
 
   /** Find a loaded Frontstage with a given id. If the id is not provided, the active Frontstage is returned.
@@ -258,13 +342,16 @@ export class InternalFrontstageManager {
   private static findFrontstageDef(id: string): FrontstageDef | undefined {
     const key = InternalFrontstageManager.getFrontstageKey(id);
     const frontstageDef = InternalFrontstageManager._frontstageDefs.get(key);
-    if (frontstageDef instanceof FrontstageDef)
-      return frontstageDef;
+    if (frontstageDef instanceof FrontstageDef) return frontstageDef;
     return undefined;
   }
 
-  private static findFrontstageProvider(id?: string): FrontstageProvider | undefined {
-    return id ? InternalFrontstageManager._frontstageProviders.get(id) : undefined;
+  private static findFrontstageProvider(
+    id?: string
+  ): FrontstageProvider | undefined {
+    return id
+      ? InternalFrontstageManager._frontstageProviders.get(id)
+      : undefined;
   }
 
   /** Find a loaded Frontstage with a given id. If the id is not provided, the active Frontstage is returned. If
@@ -273,22 +360,25 @@ export class InternalFrontstageManager {
    * @param id  Id of the Frontstage to find
    * @returns  FrontstageDef with a given id if found, or undefined if not found.
    */
-  public static async getFrontstageDef(id?: string): Promise<FrontstageDef | undefined> {
-    if (!id)
-      return InternalFrontstageManager.activeFrontstageDef;
+  public static async getFrontstageDef(
+    id?: string
+  ): Promise<FrontstageDef | undefined> {
+    if (!id) return InternalFrontstageManager.activeFrontstageDef;
 
     let frontstageDef = InternalFrontstageManager.findFrontstageDef(id);
-    if (frontstageDef)
-      return frontstageDef;
+    if (frontstageDef) return frontstageDef;
 
     // istanbul ignore else
     if (id) {
-      const frontstageProvider = InternalFrontstageManager.findFrontstageProvider(id);
+      const frontstageProvider =
+        InternalFrontstageManager.findFrontstageProvider(id);
       if (frontstageProvider) {
         frontstageDef = await FrontstageDef.create(frontstageProvider);
         // istanbul ignore else
         if (frontstageDef) {
-          const key = InternalFrontstageManager.getFrontstageKey(frontstageDef.id);
+          const key = InternalFrontstageManager.getFrontstageKey(
+            frontstageDef.id
+          );
           InternalFrontstageManager._frontstageDefs.set(key, frontstageDef);
         }
         return frontstageDef;
@@ -310,12 +400,11 @@ export class InternalFrontstageManager {
    */
   public static get activeFrontstageId(): string {
     const activeFrontstage = InternalFrontstageManager._activeFrontstageDef;
-    return (activeFrontstage) ? activeFrontstage.id : "";
+    return activeFrontstage ? activeFrontstage.id : "";
   }
 
   public static hasFrontstage(frontstageId: string) {
-    if (InternalFrontstageManager.findFrontstageDef(frontstageId))
-      return true;
+    if (InternalFrontstageManager.findFrontstageDef(frontstageId)) return true;
     if (InternalFrontstageManager.findFrontstageProvider(frontstageId))
       return true;
     return false;
@@ -326,9 +415,14 @@ export class InternalFrontstageManager {
    * @returns A Promise that is fulfilled when the [[Frontstage]] is ready.
    */
   public static async setActiveFrontstage(frontstageId: string): Promise<void> {
-    const frontstageDef = await InternalFrontstageManager.getFrontstageDef(frontstageId);
+    const frontstageDef = await InternalFrontstageManager.getFrontstageDef(
+      frontstageId
+    );
     if (!frontstageDef) {
-      Logger.logError(UiFramework.loggerCategory(this), `setActiveFrontstage: Could not load a FrontstageDef with id of '${frontstageId}'`);
+      Logger.logError(
+        UiFramework.loggerCategory(this),
+        `setActiveFrontstage: Could not load a FrontstageDef with id of '${frontstageId}'`
+      );
       return;
     }
 
@@ -339,13 +433,16 @@ export class InternalFrontstageManager {
    * @param  frontstageDef  FrontstageDef to set active.
    * @returns A Promise that is fulfilled when the [[FrontstageDef]] is ready.
    */
-  public static async setActiveFrontstageDef(frontstageDef: FrontstageDef | undefined): Promise<void> {
+  public static async setActiveFrontstageDef(
+    frontstageDef: FrontstageDef | undefined
+  ): Promise<void> {
     if (InternalFrontstageManager._activeFrontstageDef === frontstageDef)
       return;
 
     InternalFrontstageManager._isLoading = true;
 
-    const deactivatedFrontstageDef = InternalFrontstageManager._activeFrontstageDef;
+    const deactivatedFrontstageDef =
+      InternalFrontstageManager._activeFrontstageDef;
     if (deactivatedFrontstageDef) {
       await deactivatedFrontstageDef.onDeactivated();
 
@@ -364,7 +461,10 @@ export class InternalFrontstageManager {
     if (frontstageDef) {
       await frontstageDef.onActivated();
 
-      InternalFrontstageManager.onFrontstageActivatedEvent.emit({ activatedFrontstageDef: frontstageDef, deactivatedFrontstageDef });
+      InternalFrontstageManager.onFrontstageActivatedEvent.emit({
+        activatedFrontstageDef: frontstageDef,
+        deactivatedFrontstageDef,
+      });
 
       await frontstageDef.waitUntilReady();
       InternalFrontstageManager._isLoading = false;
@@ -394,22 +494,26 @@ export class InternalFrontstageManager {
   /** Sets the active tool id */
   public static setActiveToolId(toolId: string): void {
     InternalFrontstageManager._activeToolId = toolId;
-    const toolSettingsProvider = InternalFrontstageManager.activeToolSettingsProvider;
+    const toolSettingsProvider =
+      InternalFrontstageManager.activeToolSettingsProvider;
     // ensure the toolSettingsProvider is initialized before emitting onToolActivatedEvent
-    if (toolSettingsProvider)
-      toolSettingsProvider.initialize();
+    if (toolSettingsProvider) toolSettingsProvider.initialize();
     InternalFrontstageManager.onToolActivatedEvent.emit({ toolId });
   }
 
   /** Sets the active tool */
   public static setActiveTool(tool: Tool): void {
     InternalFrontstageManager.setActiveToolId(tool.toolId);
-    InternalFrontstageManager.onToolIconChangedEvent.emit({ iconSpec: tool.iconSpec });
+    InternalFrontstageManager.onToolIconChangedEvent.emit({
+      iconSpec: tool.iconSpec,
+    });
   }
 
   /** Gets the active tool's [[ToolInformation]] */
   public static get activeToolInformation(): ToolInformation | undefined {
-    return InternalFrontstageManager._toolInformationMap.get(InternalFrontstageManager.activeToolId);
+    return InternalFrontstageManager._toolInformationMap.get(
+      InternalFrontstageManager.activeToolId
+    );
   }
 
   /** Gets the Tool Setting React node of the active tool.
@@ -417,22 +521,34 @@ export class InternalFrontstageManager {
    * @internal
    */
   public static get activeToolSettingsProvider(): ToolUiProvider | undefined {
-    const activeToolInformation = InternalFrontstageManager.activeToolInformation;
-    return (activeToolInformation) ? activeToolInformation.toolUiProvider : /* istanbul ignore next */ undefined;
+    const activeToolInformation =
+      InternalFrontstageManager.activeToolInformation;
+    return activeToolInformation
+      ? activeToolInformation.toolUiProvider
+      : /* istanbul ignore next */ undefined;
   }
 
   /** Sets the active layout, content group and active content.
    * @param contentLayoutDef  Content layout to make active
    * @param contentGroup  Content Group to make active
    */
-  public static async setActiveLayout(contentLayoutDef: ContentLayoutDef, contentGroup: ContentGroup): Promise<void> {
+  public static async setActiveLayout(
+    contentLayoutDef: ContentLayoutDef,
+    contentGroup: ContentGroup
+  ): Promise<void> {
     const activeFrontstageDef = InternalFrontstageManager.activeFrontstageDef;
     // istanbul ignore else
     if (activeFrontstageDef) {
       InternalFrontstageManager._isLoading = false;
 
-      activeFrontstageDef.setContentLayoutAndGroup(contentLayoutDef, contentGroup);
-      InternalFrontstageManager.onContentLayoutActivatedEvent.emit({ contentLayout: contentLayoutDef, contentGroup });
+      activeFrontstageDef.setContentLayoutAndGroup(
+        contentLayoutDef,
+        contentGroup
+      );
+      InternalFrontstageManager.onContentLayoutActivatedEvent.emit({
+        contentLayout: contentLayoutDef,
+        contentGroup,
+      });
 
       await activeFrontstageDef.waitUntilReady();
       InternalFrontstageManager._isLoading = false;
@@ -444,22 +560,35 @@ export class InternalFrontstageManager {
   /** Sets the active layout, content group and active content.
    * @param contentGroup  Content Group to make active
    */
-  public static async setActiveContentGroup(contentGroup: ContentGroup): Promise<void> {
-    const contentLayoutDef = UiFramework.content.layouts.getForGroup(contentGroup);
-    await InternalFrontstageManager.setActiveLayout(contentLayoutDef, contentGroup);
+  public static async setActiveContentGroup(
+    contentGroup: ContentGroup
+  ): Promise<void> {
+    const contentLayoutDef =
+      UiFramework.content.layouts.getForGroup(contentGroup);
+    await InternalFrontstageManager.setActiveLayout(
+      contentLayoutDef,
+      contentGroup
+    );
   }
 
   /** Opens a modal Frontstage. Modal Frontstages can be stacked.
    * @param modalFrontstage  Information about the modal Frontstage
    */
-  public static openModalFrontstage(modalFrontstage: ModalFrontstageInfo): void {
+  public static openModalFrontstage(
+    modalFrontstage: ModalFrontstageInfo
+  ): void {
     InternalFrontstageManager.pushModalFrontstage(modalFrontstage);
   }
 
-  private static pushModalFrontstage(modalFrontstage: ModalFrontstageInfo): void {
+  private static pushModalFrontstage(
+    modalFrontstage: ModalFrontstageInfo
+  ): void {
     const timeTracker = new TimeTracker();
     timeTracker.startTiming();
-    const frontstageItem: ModalFrontstageItem = { modalFrontstage, timeTracker };
+    const frontstageItem: ModalFrontstageItem = {
+      modalFrontstage,
+      timeTracker,
+    };
     InternalFrontstageManager._modalFrontstages.push(frontstageItem);
     InternalFrontstageManager.emitModalFrontstageChangedEvent();
   }
@@ -469,15 +598,16 @@ export class InternalFrontstageManager {
   public static closeModalFrontstage(): void {
     // istanbul ignore else
     if (InternalFrontstageManager._modalFrontstages.length > 0) {
-      const topMostStageItem = InternalFrontstageManager._modalFrontstages[InternalFrontstageManager._modalFrontstages.length - 1];
+      const topMostStageItem =
+        InternalFrontstageManager._modalFrontstages[
+          InternalFrontstageManager._modalFrontstages.length - 1
+        ];
       if (topMostStageItem.modalFrontstage.notifyCloseRequest)
-        InternalFrontstageManager.onCloseModalFrontstageRequestedEvent.emit(
-          {
-            modalFrontstage: topMostStageItem.modalFrontstage,
-            stageCloseFunc: InternalFrontstageManager.popModalFrontstage,
-          });
-      else
-        InternalFrontstageManager.popModalFrontstage();
+        InternalFrontstageManager.onCloseModalFrontstageRequestedEvent.emit({
+          modalFrontstage: topMostStageItem.modalFrontstage,
+          stageCloseFunc: InternalFrontstageManager.popModalFrontstage,
+        });
+      else InternalFrontstageManager.popModalFrontstage();
     }
   }
 
@@ -502,7 +632,9 @@ export class InternalFrontstageManager {
   }
 
   private static emitModalFrontstageChangedEvent(): void {
-    InternalFrontstageManager.onModalFrontstageChangedEvent.emit({ modalFrontstageCount: InternalFrontstageManager.modalFrontstageCount });
+    InternalFrontstageManager.onModalFrontstageChangedEvent.emit({
+      modalFrontstageCount: InternalFrontstageManager.modalFrontstageCount,
+    });
   }
 
   /** Updates the top-most modal Frontstage.
@@ -516,7 +648,10 @@ export class InternalFrontstageManager {
    */
   public static get activeModalFrontstage(): ModalFrontstageInfo | undefined {
     if (InternalFrontstageManager._modalFrontstages.length > 0) {
-      const frontstageItem = InternalFrontstageManager._modalFrontstages[InternalFrontstageManager._modalFrontstages.length - 1];
+      const frontstageItem =
+        InternalFrontstageManager._modalFrontstages[
+          InternalFrontstageManager._modalFrontstages.length - 1
+        ];
       const modalFrontstage = frontstageItem.modalFrontstage;
       return modalFrontstage;
     } else {
@@ -535,8 +670,14 @@ export class InternalFrontstageManager {
    * @param navigationAidId  Id of the Navigation Aid to set as active
    * @param iModelConnection IModelConnection to query for view data
    */
-  public static setActiveNavigationAid(navigationAidId: string, iModelConnection: IModelConnection) {
-    InternalFrontstageManager.onNavigationAidActivatedEvent.emit({ navigationAidId, iModelConnection });
+  public static setActiveNavigationAid(
+    navigationAidId: string,
+    iModelConnection: IModelConnection
+  ) {
+    InternalFrontstageManager.onNavigationAidActivatedEvent.emit({
+      navigationAidId,
+      iModelConnection,
+    });
   }
 
   /** Sets the state of the widget with the given id
@@ -550,7 +691,10 @@ export class InternalFrontstageManager {
       widgetDef.setWidgetState(state);
       return true;
     } else {
-      Logger.logError(UiFramework.loggerCategory(this), `setWidgetState: Could not find Widget with id of '${widgetId}'`);
+      Logger.logError(
+        UiFramework.loggerCategory(this),
+        `setWidgetState: Could not find Widget with id of '${widgetId}'`
+      );
     }
 
     return false;
@@ -564,8 +708,7 @@ export class InternalFrontstageManager {
     const activeFrontstageDef = InternalFrontstageManager.activeFrontstageDef;
 
     // istanbul ignore else
-    if (activeFrontstageDef)
-      return activeFrontstageDef.findWidgetDef(widgetId);
+    if (activeFrontstageDef) return activeFrontstageDef.findWidgetDef(widgetId);
 
     return undefined;
   }
@@ -573,9 +716,12 @@ export class InternalFrontstageManager {
   /** Opens a nested Frontstage. Nested Frontstages can be stacked.
    * @param nestedFrontstage  Information about the nested Frontstage
    */
-  public static async openNestedFrontstage(nestedFrontstage: FrontstageDef): Promise<void> {
+  public static async openNestedFrontstage(
+    nestedFrontstage: FrontstageDef
+  ): Promise<void> {
     if (InternalFrontstageManager.nestedFrontstageCount === 0)
-      InternalFrontstageManager._activePrimaryFrontstageDef = InternalFrontstageManager._activeFrontstageDef;
+      InternalFrontstageManager._activePrimaryFrontstageDef =
+        InternalFrontstageManager._activeFrontstageDef;
 
     InternalFrontstageManager.pushNestedFrontstage(nestedFrontstage);
 
@@ -592,9 +738,13 @@ export class InternalFrontstageManager {
     InternalFrontstageManager.popNestedFrontstage();
 
     if (InternalFrontstageManager.nestedFrontstageCount > 0) {
-      await InternalFrontstageManager.setActiveFrontstageDef(InternalFrontstageManager.activeNestedFrontstage);
+      await InternalFrontstageManager.setActiveFrontstageDef(
+        InternalFrontstageManager.activeNestedFrontstage
+      );
     } else {
-      await InternalFrontstageManager.setActiveFrontstageDef(InternalFrontstageManager._activePrimaryFrontstageDef);
+      await InternalFrontstageManager.setActiveFrontstageDef(
+        InternalFrontstageManager._activePrimaryFrontstageDef
+      );
       InternalFrontstageManager._activePrimaryFrontstageDef = undefined;
     }
   }
@@ -609,7 +759,9 @@ export class InternalFrontstageManager {
   public static get activeNestedFrontstage(): FrontstageDef | undefined {
     // istanbul ignore else
     if (InternalFrontstageManager._nestedFrontstages.length > 0)
-      return InternalFrontstageManager._nestedFrontstages[InternalFrontstageManager._nestedFrontstages.length - 1];
+      return InternalFrontstageManager._nestedFrontstages[
+        InternalFrontstageManager._nestedFrontstages.length - 1
+      ];
 
     return undefined;
   }
@@ -620,5 +772,4 @@ export class InternalFrontstageManager {
   public static get nestedFrontstageCount(): number {
     return InternalFrontstageManager._nestedFrontstages.length;
   }
-
 }

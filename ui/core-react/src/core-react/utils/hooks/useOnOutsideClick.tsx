@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -19,7 +19,7 @@ export type OutsideClickEvent = PointerEvent | MouseEvent | TouchEvent;
 export function useOnOutsideClick<T extends Element>(
   onOutsideClick?: () => void,
   /** Invoked for intermediate events. Return `false` to prevent outside click. */
-  outsideEventPredicate?: (e: OutsideClickEvent) => boolean,
+  outsideEventPredicate?: (e: OutsideClickEvent) => boolean
 ) {
   const handleMouseEvents = React.useRef(true);
   const handleMouseEventsTimer = React.useRef(new Timer(1000));
@@ -35,7 +35,11 @@ export function useOnOutsideClick<T extends Element>(
         return;
       }
       const isOutsideEvent = !outsideEventPredicate || outsideEventPredicate(e);
-      isDownOutside.current = (!!ref.current && (e.target instanceof Node) && !ref.current.contains(e.target)) && isOutsideEvent;
+      isDownOutside.current =
+        !!ref.current &&
+        e.target instanceof Node &&
+        !ref.current.contains(e.target) &&
+        isOutsideEvent;
     };
     if (hasPointerEventsSupport()) {
       document.addEventListener("pointerdown", listener);
@@ -57,8 +61,13 @@ export function useOnOutsideClick<T extends Element>(
       if (e.type === "mouseup" && !handleMouseEvents.current) {
         return;
       }
-      onOutsideClick && isDownOutside.current && (!outsideEventPredicate || outsideEventPredicate(e)) &&
-        ref.current && e.target instanceof Node && !ref.current.contains(e.target) && onOutsideClick();
+      onOutsideClick &&
+        isDownOutside.current &&
+        (!outsideEventPredicate || outsideEventPredicate(e)) &&
+        ref.current &&
+        e.target instanceof Node &&
+        !ref.current.contains(e.target) &&
+        onOutsideClick();
       isDownOutside.current = false;
     };
     if (hasPointerEventsSupport()) {

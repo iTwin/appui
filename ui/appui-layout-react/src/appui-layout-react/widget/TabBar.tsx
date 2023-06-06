@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -14,7 +14,10 @@ import { Point, Timer } from "@itwin/core-react";
 import type { UseDragWidgetArgs } from "../base/DragManager";
 import { useDragWidget } from "../base/DragManager";
 import { NineZoneDispatchContext } from "../base/NineZone";
-import type { PointerCaptorArgs, PointerCaptorEvent} from "../base/usePointerCaptor";
+import type {
+  PointerCaptorArgs,
+  PointerCaptorEvent,
+} from "../base/usePointerCaptor";
 import { usePointerCaptor } from "../base/usePointerCaptor";
 import { TabBarButtons } from "./Buttons";
 import { WidgetTabs } from "./Tabs";
@@ -35,28 +38,39 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
   assert(!!id);
   const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
   const handleDoubleClick = React.useCallback(() => {
-    floatingWidgetId && dispatch({
-      type: "FLOATING_WIDGET_CLEAR_USER_SIZED",
-      id: floatingWidgetId,
-    });
+    floatingWidgetId &&
+      dispatch({
+        type: "FLOATING_WIDGET_CLEAR_USER_SIZED",
+        id: floatingWidgetId,
+      });
   }, [dispatch, floatingWidgetId]);
   const handleActionAreaClick = useDoubleClick(handleDoubleClick);
 
-  const onDrag = React.useCallback<NonNullable<UseDragWidgetArgs["onDrag"]>>((dragBy) => {
-    floatingWidgetId !== undefined && dispatch({
-      type: "WIDGET_DRAG",
-      dragBy,
-      floatingWidgetId,
-    });
-  }, [dispatch, floatingWidgetId]);
-  const onDragEnd = React.useCallback<NonNullable<UseDragWidgetArgs["onDragEnd"]>>((target) => {
-    floatingWidgetId !== undefined && handleActionAreaClick();
-    floatingWidgetId !== undefined && dispatch({
-      type: "WIDGET_DRAG_END",
-      floatingWidgetId,
-      target,
-    });
-  }, [dispatch, floatingWidgetId, handleActionAreaClick]);
+  const onDrag = React.useCallback<NonNullable<UseDragWidgetArgs["onDrag"]>>(
+    (dragBy) => {
+      floatingWidgetId !== undefined &&
+        dispatch({
+          type: "WIDGET_DRAG",
+          dragBy,
+          floatingWidgetId,
+        });
+    },
+    [dispatch, floatingWidgetId]
+  );
+  const onDragEnd = React.useCallback<
+    NonNullable<UseDragWidgetArgs["onDragEnd"]>
+  >(
+    (target) => {
+      floatingWidgetId !== undefined && handleActionAreaClick();
+      floatingWidgetId !== undefined &&
+        dispatch({
+          type: "WIDGET_DRAG_END",
+          floatingWidgetId,
+          target,
+        });
+    },
+    [dispatch, floatingWidgetId, handleActionAreaClick]
+  );
   const handleWidgetDragStart = useDragWidget({
     widgetId,
     onDrag,
@@ -64,32 +78,37 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
   });
 
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const handleDragStart = React.useCallback((initialPointerPosition: Point, pointerPosition: Point) => {
-    handleWidgetDragStart({
-      initialPointerPosition,
-      pointerPosition,
-    });
-  }, [handleWidgetDragStart]);
+  const handleDragStart = React.useCallback(
+    (initialPointerPosition: Point, pointerPosition: Point) => {
+      handleWidgetDragStart({
+        initialPointerPosition,
+        pointerPosition,
+      });
+    },
+    [handleWidgetDragStart]
+  );
   const handleTouchStart = React.useCallback(() => {
-    floatingWidgetId && dispatch({
-      type: "FLOATING_WIDGET_BRING_TO_FRONT",
-      id: floatingWidgetId,
-    });
+    floatingWidgetId &&
+      dispatch({
+        type: "FLOATING_WIDGET_BRING_TO_FRONT",
+        id: floatingWidgetId,
+      });
   }, [dispatch, floatingWidgetId]);
-  const ref = useDrag(handleDragStart, undefined, undefined, handleTouchStart, handleDoubleClick);
+  const ref = useDrag(
+    handleDragStart,
+    undefined,
+    undefined,
+    handleTouchStart,
+    handleDoubleClick
+  );
   const className = classnames(
     "nz-widget-tabBar",
-    props.separator && "nz-separator",
+    props.separator && "nz-separator"
   );
 
   return (
-    <div ref={containerRef}
-      className={className}
-    >
-      <div
-        className="nz-handle"
-        ref={ref}
-      />
+    <div ref={containerRef} className={className}>
+      <div className="nz-handle" ref={ref} />
       <WidgetTabs />
       <TabBarButtons />
     </div>
@@ -105,7 +124,7 @@ export function useDrag<T extends HTMLElement>(
   onDrag?: (position: Point) => void,
   onDragEnd?: () => void,
   onTouchStart?: () => void,
-  onDoubleClick?: () => void,
+  onDoubleClick?: () => void
 ) {
   const doubleClickTimer = React.useRef(new Timer(300));
   const clickCount = React.useRef(0);
@@ -114,8 +133,7 @@ export function useDrag<T extends HTMLElement>(
   React.useEffect(() => {
     const handleExecute = () => {
       // istanbul ignore else
-      if (clickCount.current === 2)
-        onDoubleClick && onDoubleClick();
+      if (clickCount.current === 2) onDoubleClick && onDoubleClick();
       clickCount.current = 0;
     };
     const timer = doubleClickTimer.current;
@@ -125,24 +143,38 @@ export function useDrag<T extends HTMLElement>(
     };
   }, [onDoubleClick]);
 
-  const handlePointerDown = React.useCallback((args: PointerCaptorArgs, e: PointerCaptorEvent) => {
-    initialPointerPosition.current = new Point(args.clientX, args.clientY);
-    e.type === "touchstart" && onTouchStart && onTouchStart();
-  }, [onTouchStart]);
-  const handlePointerMove = React.useCallback((args: PointerCaptorArgs) => {
-    if (initialPointerPosition.current) {
-      onDragStart && onDragStart(initialPointerPosition.current, new Point(args.clientX, args.clientY));
-      initialPointerPosition.current = undefined;
-      return;
-    }
-    onDrag && onDrag(new Point(args.clientX, args.clientY));
-  }, [onDragStart, onDrag]);
+  const handlePointerDown = React.useCallback(
+    (args: PointerCaptorArgs, e: PointerCaptorEvent) => {
+      initialPointerPosition.current = new Point(args.clientX, args.clientY);
+      e.type === "touchstart" && onTouchStart && onTouchStart();
+    },
+    [onTouchStart]
+  );
+  const handlePointerMove = React.useCallback(
+    (args: PointerCaptorArgs) => {
+      if (initialPointerPosition.current) {
+        onDragStart &&
+          onDragStart(
+            initialPointerPosition.current,
+            new Point(args.clientX, args.clientY)
+          );
+        initialPointerPosition.current = undefined;
+        return;
+      }
+      onDrag && onDrag(new Point(args.clientX, args.clientY));
+    },
+    [onDragStart, onDrag]
+  );
   const handlePointerUp = React.useCallback(() => {
     clickCount.current++;
     doubleClickTimer.current.start();
     initialPointerPosition.current = undefined;
     onDragEnd && onDragEnd();
   }, [onDragEnd]);
-  const ref = usePointerCaptor<T>(handlePointerDown, handlePointerMove, handlePointerUp);
+  const ref = usePointerCaptor<T>(
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerUp
+  );
   return ref;
 }

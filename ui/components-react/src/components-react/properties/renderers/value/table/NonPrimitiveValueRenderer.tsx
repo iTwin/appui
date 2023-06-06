@@ -1,21 +1,22 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
 
 import * as React from "react";
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import type { Orientation} from "@itwin/core-react";
+import type { Orientation } from "@itwin/core-react";
 import { UnderlinedButton } from "@itwin/core-react";
 import type { PropertyDialogState } from "../../../ValueRendererManager";
 
 /** Properties for [[TableArrayValueRenderer]] and [[TableStructValueRenderer]] React component
  * @public
  */
-export interface TableSpecificValueRendererProps extends SharedTableNonPrimitiveValueRendererProps {
+export interface TableSpecificValueRendererProps
+  extends SharedTableNonPrimitiveValueRendererProps {
   /** Property record */
   propertyRecord: PropertyRecord;
   /** Orientation of the rendered property */
@@ -37,7 +38,8 @@ export interface SharedTableNonPrimitiveValueRendererProps {
 /** Properties for [[TableNonPrimitiveValueRenderer]] React component
  * @public
  */
-export interface TableNonPrimitiveValueRendererProps extends SharedTableNonPrimitiveValueRendererProps {
+export interface TableNonPrimitiveValueRendererProps
+  extends SharedTableNonPrimitiveValueRendererProps {
   /** Title of the dialog that shows property in more detail. */
   dialogTitle: string;
   /** Contents of the dialog. Should be the property record shown in more detail. */
@@ -55,10 +57,12 @@ export class TableNonPrimitiveValueRenderer extends React.PureComponent<TableNon
   // private _buttonRef = React.createRef<HTMLButtonElement>();
 
   private _onClick = () => {
-    if (!this.props.onDialogOpen)
-      return;
+    if (!this.props.onDialogOpen) return;
 
-    const dialogState: PropertyDialogState = { content: this.props.dialogContents, title: this.props.dialogTitle };
+    const dialogState: PropertyDialogState = {
+      content: this.props.dialogContents,
+      title: this.props.dialogTitle,
+    };
 
     this.props.onDialogOpen(dialogState);
   };

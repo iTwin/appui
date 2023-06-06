@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Popup
  */
@@ -27,7 +27,6 @@ export interface PositionPopupProps extends CommonProps {
 /** Popup component at screen position
  * @beta */
 export class PositionPopup extends React.PureComponent<PositionPopupProps> {
-
   constructor(props: PositionPopupProps) {
     super(props);
   }
@@ -42,7 +41,12 @@ export class PositionPopup extends React.PureComponent<PositionPopupProps> {
     };
 
     return (
-      <div {...props} className={classnames("uifw-position-popup", className)} style={divStyle} ref={(e) => this.setDivRef(e)}>
+      <div
+        {...props}
+        className={classnames("uifw-position-popup", className)}
+        style={divStyle}
+        ref={(e) => this.setDivRef(e)}
+      >
         {this.props.children}
       </div>
     );
@@ -55,11 +59,9 @@ export class PositionPopup extends React.PureComponent<PositionPopupProps> {
       const size = new Size(rect.width, rect.height);
 
       // istanbul ignore else
-      if (this.props.onSizeKnown)
-        this.props.onSizeKnown(size);
+      if (this.props.onSizeKnown) this.props.onSizeKnown(size);
     }
   }
-
 }
 
 /** PositionPopup content with padding
