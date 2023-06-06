@@ -78,7 +78,7 @@ export function ViewFlagItem(flagName: string) {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function ViewAttributesWidgetComponent() {
-  const items: JSX.Element[] = [];
+  const items: React.JSX.Element[] = [];
   items.push(ViewFlagItem("acs"));
   items.push(ToggleCameraItem());
   items.push(ViewFlagItem("noConstruct"));

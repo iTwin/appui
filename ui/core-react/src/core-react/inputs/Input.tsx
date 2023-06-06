@@ -64,4 +64,4 @@ const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>(   // esl
 /** Basic text input, is a wrapper for the `<input type="text">` HTML element.
  * @internal
  */
-export const Input: (props: InputProps) => JSX.Element | null = ForwardRefInput;  // eslint-disable-line deprecation/deprecation
+export const Input: (props: InputProps) => React.JSX.Element | null = ForwardRefInput;  // eslint-disable-line deprecation/deprecation

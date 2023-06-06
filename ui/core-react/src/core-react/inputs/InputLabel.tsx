@@ -34,7 +34,7 @@ const inputLabelIconSpec: { [key: string]: IconSpec } = {
  * @public
  */
 export class InputLabel extends React.PureComponent<InputLabelProps> {
-  public override render(): JSX.Element {
+  public override render(): React.JSX.Element {
     const { label, status, className, style,
       labelClassName, labelStyle,
       message, messageClassName, messageStyle } = this.props;

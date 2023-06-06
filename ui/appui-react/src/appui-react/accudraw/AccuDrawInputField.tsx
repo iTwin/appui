@@ -186,4 +186,4 @@ const ForwardRefAccuDrawInput = React.forwardRef<HTMLInputElement, AccuDrawInput
 /** Input field for AccuDraw Ui
  * @beta
  */
-export const AccuDrawInputField: (props: AccuDrawInputFieldProps) => JSX.Element | null = ForwardRefAccuDrawInput;
+export const AccuDrawInputField: (props: AccuDrawInputFieldProps) => React.JSX.Element | null = ForwardRefAccuDrawInput;
