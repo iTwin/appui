@@ -824,7 +824,12 @@ export type PanelSide = VerticalPanelSide | HorizontalPanelSide;
 export const PanelSideContext: React_2.Context<PanelSide | undefined>;
 
 // @internal (undocumented)
-export const panelSides: [LeftPanelSide, RightPanelSide, TopPanelSide, BottomPanelSide];
+export const panelSides: [
+LeftPanelSide,
+RightPanelSide,
+TopPanelSide,
+BottomPanelSide
+];
 
 // @internal (undocumented)
 export interface PanelsState {
@@ -1460,7 +1465,7 @@ export interface UseDragResizeHandleArgs {
 }
 
 // @internal (undocumented)
-export function useDragTab(args: UseDragTabArgs): ({ initialPointerPosition, pointerPosition, widgetSize }: TabDragStartArgs) => void;
+export function useDragTab(args: UseDragTabArgs): ({ initialPointerPosition, pointerPosition, widgetSize, }: TabDragStartArgs) => void;
 
 // @internal (undocumented)
 export interface UseDragTabArgs {
@@ -1936,7 +1941,7 @@ export interface WidgetTabProps extends CommonProps {
 }
 
 // @internal (undocumented)
-export function WidgetTabProvider({ id, first, firstInactive, last, showOnlyTabIcon }: WidgetTabProviderProps): JSX.Element;
+export function WidgetTabProvider({ id, first, firstInactive, last, showOnlyTabIcon, }: WidgetTabProviderProps): JSX.Element;
 
 // @internal (undocumented)
 export interface WidgetTabProviderProps extends TabPositionContextArgs {

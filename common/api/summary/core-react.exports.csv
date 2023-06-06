@@ -49,7 +49,7 @@ public;DisabledText(props: TextProps): JSX.Element
 public;Div(props: DivProps): JSX.Element
 public;DivProps 
 public;DivWithOutsideClick:
-public;ElementResizeObserver({ watchedElement, render }:
+public;ElementResizeObserver({ watchedElement, render, }:
 public;ElementSeparator: (props: ElementSeparatorProps) => JSX.Element
 public;ElementSeparatorProps 
 public;ExecuteHandler = (this: void) => void
@@ -160,13 +160,13 @@ public;ReactMessage
 internal;Rectangle 
 public;RectangleProps
 public;RenderPropsArgs
-public;ResizableContainerObserver({ onResize, children }:
+public;ResizableContainerObserver({ onResize, children, }:
 internal;ResizeObserverType = default_2
 public;ScrollPositionMaintainer 
 public;ScrollView(props: CommonDivProps): JSX.Element
 public;SearchBox 
 public;SearchBoxProps 
-public;SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader }: SettingsContainerProps) => JSX.Element
+public;SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => JSX.Element
 public;SettingsContainerProps
 public;SettingsManager
 public;SettingsProvidersChangedEvent 
