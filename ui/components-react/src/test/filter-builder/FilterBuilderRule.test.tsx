@@ -199,7 +199,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
   it("dispatches remove rule action", () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} />, { actions });
+    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} isRemovable={true}/>, { actions });
     const removeItemSpy = sinon.stub(actions, "removeItem");
 
     const button = container.querySelector(".rule-remove-action")?.firstElementChild;
@@ -209,7 +209,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   });
 
   it("does not render remove rule buttom when there is only one rule in the rule group", () => {
-    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} isRemovable/>);
+    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} isRemovable={false}/>);
     expect(container.querySelector(".rule-remove-action")?.firstElementChild).to.be.null;
   });
 

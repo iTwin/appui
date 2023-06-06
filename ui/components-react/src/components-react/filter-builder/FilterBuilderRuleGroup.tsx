@@ -63,7 +63,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(props: PropertyFilterBuil
     <div className="rule-group-content">
       {showOperator ? <PropertyFilterBuilderRuleGroupOperator operator={group.operator} onChange={onOperatorChange} /> : null}
       <div className="rule-group-items">
-        {group.items.map((item) => <PropertyFilterBuilderGroupOrRule key={item.id} path={path} item={item} isRemovable={group.items.length === 1}/>)}
+        {group.items.map((item) => <PropertyFilterBuilderGroupOrRule key={item.id} path={path} item={item} isRemovable={group.items.length > 1}/>)}
       </div>
       <div className="rule-group-actions">
         <Button key="add-rule-button" data-testid="rule-group-add-rule" onClick={addRule} styleType="borderless" size="small" startIcon={<SvgAdd />}>

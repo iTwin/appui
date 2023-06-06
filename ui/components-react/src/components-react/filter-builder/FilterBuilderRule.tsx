@@ -73,7 +73,7 @@ export function PropertyFilterBuilderRuleRenderer(props: PropertyFilterBuilderRu
 
   return <div className="rule">
     <div className="rule-remove-action">
-      {property || !isRemovable
+      {property || isRemovable
         ? <IconButton onClick={removeRule} styleType="borderless" size="small">
           <SvgDelete />
         </IconButton>
