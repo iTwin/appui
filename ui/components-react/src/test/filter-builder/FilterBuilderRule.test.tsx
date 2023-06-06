@@ -209,7 +209,7 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
   });
 
   it("does not render remove rule buttom when there is only one rule in the rule group", () => {
-    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} isOnlyRuleInRuleGroup/>);
+    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} isRemovable/>);
     expect(container.querySelector(".rule-remove-action")?.firstElementChild).to.be.null;
   });
 
