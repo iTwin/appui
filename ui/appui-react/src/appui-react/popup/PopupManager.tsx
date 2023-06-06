@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Popup
  */
@@ -10,9 +10,20 @@ import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import type {
-  AbstractToolbarProps, DialogLayoutDataProvider, OnCancelFunc, OnItemExecutedFunc, OnValueCommitFunc, Primitives, PrimitiveValue,
-  PropertyDescription, RelativePosition} from "@itwin/appui-abstract";
-import { PropertyRecord, PropertyValueFormat, UiEvent,
+  AbstractToolbarProps,
+  DialogLayoutDataProvider,
+  OnCancelFunc,
+  OnItemExecutedFunc,
+  OnValueCommitFunc,
+  Primitives,
+  PrimitiveValue,
+  PropertyDescription,
+  RelativePosition,
+} from "@itwin/appui-abstract";
+import {
+  PropertyRecord,
+  PropertyValueFormat,
+  UiEvent,
 } from "@itwin/appui-abstract";
 import type { Point, SizeProps } from "@itwin/core-react";
 import { Orientation, Rectangle } from "@itwin/core-react";
@@ -46,7 +57,7 @@ export interface PopupsChangedEventArgs {
 /** Popups Changed Event class.
  * @public
  */
-export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> { }
+export class PopupsChangedEvent extends UiEvent<PopupsChangedEventArgs> {}
 
 /** Props for each popup managed by the PopupManager
  * @public
@@ -73,7 +84,9 @@ export type PopupContentType = HTMLElement | ReactContent;
 /** ReactContent type guard.
  * @internal
  */
-export const isReactContent = (content: PopupContentType): content is ReactContent => {
+export const isReactContent = (
+  content: PopupContentType
+): content is ReactContent => {
   return (content as ReactContent).reactNode !== undefined;
 };
 
@@ -93,13 +106,16 @@ export class PopupManager {
 
   public static readonly onPopupsChangedEvent = new PopupsChangedEvent();
 
-  public static get popupCount() { return this._popups.length; }
-  public static get popups() { return this._popups; }
+  public static get popupCount() {
+    return this._popups.length;
+  }
+  public static get popups() {
+    return this._popups;
+  }
 
   public static set popups(popups: ReadonlyArray<PopupInfo>) {
     // istanbul ignore if
-    if (this._popups === popups)
-      return;
+    if (this._popups === popups) return;
     this._popups = popups;
     this.onPopupsChangedEvent.emit({ popups });
   }
@@ -110,17 +126,13 @@ export class PopupManager {
   }
 
   private static addPopup(popupInfo: PopupInfo): void {
-    const popups = [
-      ...PopupManager._popups,
-      popupInfo,
-    ];
+    const popups = [...PopupManager._popups, popupInfo];
     this.popups = popups;
   }
 
   private static updatePopup(popupInfo: PopupInfo, itemIndex: number): void {
     // istanbul ignore if
-    if (itemIndex < 0)
-      return;
+    if (itemIndex < 0) return;
 
     const popups = [
       ...PopupManager._popups.slice(0, itemIndex),
@@ -131,15 +143,17 @@ export class PopupManager {
   }
 
   public static addOrUpdatePopup(popupInfo: PopupInfo): void {
-    const itemIndex = PopupManager._popups.findIndex((info: PopupInfo) => info.id === popupInfo.id);
-    if (itemIndex >= 0)
-      PopupManager.updatePopup(popupInfo, itemIndex);
-    else
-      PopupManager.addPopup(popupInfo);
+    const itemIndex = PopupManager._popups.findIndex(
+      (info: PopupInfo) => info.id === popupInfo.id
+    );
+    if (itemIndex >= 0) PopupManager.updatePopup(popupInfo, itemIndex);
+    else PopupManager.addPopup(popupInfo);
   }
 
   public static removePopup(id: string): boolean {
-    const index = PopupManager._popups.findIndex((info: PopupInfo) => id === info.id);
+    const index = PopupManager._popups.findIndex(
+      (info: PopupInfo) => id === info.id
+    );
     let result = true;
 
     if (index >= 0) {
@@ -148,17 +162,31 @@ export class PopupManager {
       });
       this.popups = popups;
     } else {
-      Logger.logError(UiFramework.loggerCategory(this), `removePopup: Could not find popup with id of '${id}'`);
+      Logger.logError(
+        UiFramework.loggerCategory(this),
+        `removePopup: Could not find popup with id of '${id}'`
+      );
       result = false;
     }
 
     return result;
   }
 
-  public static get defaultOffset(): XAndY { return PopupManager._defaultOffset; }
-  public static set defaultOffset(offset: XAndY) { PopupManager._defaultOffset = offset; }
+  public static get defaultOffset(): XAndY {
+    return PopupManager._defaultOffset;
+  }
+  public static set defaultOffset(offset: XAndY) {
+    PopupManager._defaultOffset = offset;
+  }
 
-  public static showInputEditor(el: HTMLElement, pt: XAndY, value: Primitives.Value, propertyDescription: PropertyDescription, onCommit: OnValueCommitFunc, onCancel: OnCancelFunc): boolean {
+  public static showInputEditor(
+    el: HTMLElement,
+    pt: XAndY,
+    value: Primitives.Value,
+    propertyDescription: PropertyDescription,
+    onCommit: OnValueCommitFunc,
+    onCancel: OnCancelFunc
+  ): boolean {
     const primitiveValue: PrimitiveValue = {
       value,
       valueFormat: PropertyValueFormat.Primitive,
@@ -167,12 +195,22 @@ export class PopupManager {
     const commitHandler = new InputEditorCommitHandler(onCommit);
     const id = PopupManager._editorId;
     const component = (
-      <InputEditorPopup id={id} el={el} pt={pt} offset={PopupManager.defaultOffset}
-        record={record} onCancel={onCancel} commitHandler={commitHandler} />
+      <InputEditorPopup
+        id={id}
+        el={el}
+        pt={pt}
+        offset={PopupManager.defaultOffset}
+        record={record}
+        onCancel={onCancel}
+        commitHandler={commitHandler}
+      />
     );
 
     const popupInfo: PopupInfo = {
-      id, pt, component, parentDocument: el.ownerDocument,
+      id,
+      pt,
+      component,
+      parentDocument: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -184,20 +222,30 @@ export class PopupManager {
   }
 
   public static showKeyinPalette(
-    keyins: KeyinEntry[], el: HTMLElement, onItemExecuted?: OnItemExecutedFunc, onCancel?: OnCancelFunc,
+    keyins: KeyinEntry[],
+    el: HTMLElement,
+    onItemExecuted?: OnItemExecutedFunc,
+    onCancel?: OnCancelFunc
   ): boolean {
-
     const id = PopupManager._keyPalettePopupId;
     const component = (
-      <KeyinPalettePopup keyins={keyins}
-        id={id} el={el} onCancel={onCancel} onItemExecuted={onItemExecuted} />
+      <KeyinPalettePopup
+        keyins={keyins}
+        id={id}
+        el={el}
+        onCancel={onCancel}
+        onItemExecuted={onItemExecuted}
+      />
     );
 
     // since the command palette popup is always at top center of specified HTML element and it does not need to move like
     // cursor popups just set pt to 0,0.
     const pt = { x: 0, y: 0 };
     const popupInfo: PopupInfo = {
-      id, pt, component, parentDocument: el.ownerDocument,
+      id,
+      pt,
+      component,
+      parentDocument: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -209,18 +257,34 @@ export class PopupManager {
   }
 
   public static showToolbar(
-    toolbarProps: AbstractToolbarProps, el: HTMLElement, pt: XAndY, offset: XAndY,
-    onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition: RelativePosition,
+    toolbarProps: AbstractToolbarProps,
+    el: HTMLElement,
+    pt: XAndY,
+    offset: XAndY,
+    onItemExecuted: OnItemExecutedFunc,
+    onCancel: OnCancelFunc,
+    relativePosition: RelativePosition
   ): boolean {
-
     const id = PopupManager._toolbarId;
     const component = (
-      <ToolbarPopup id={id} el={el} pt={pt} offset={offset}
-        items={toolbarProps.items} relativePosition={relativePosition} orientation={Orientation.Horizontal} onCancel={onCancel} onItemExecuted={onItemExecuted} />
+      <ToolbarPopup
+        id={id}
+        el={el}
+        pt={pt}
+        offset={offset}
+        items={toolbarProps.items}
+        relativePosition={relativePosition}
+        orientation={Orientation.Horizontal}
+        onCancel={onCancel}
+        onItemExecuted={onItemExecuted}
+      />
     );
 
     const popupInfo: PopupInfo = {
-      id, pt, component, parentDocument: el.ownerDocument,
+      id,
+      pt,
+      component,
+      parentDocument: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -232,18 +296,32 @@ export class PopupManager {
   }
 
   public static showHTMLElement(
-    displayElement: HTMLElement, el: HTMLElement, pt: XAndY, offset: XAndY,
-    onCancel: OnCancelFunc, relativePosition: RelativePosition,
+    displayElement: HTMLElement,
+    el: HTMLElement,
+    pt: XAndY,
+    offset: XAndY,
+    onCancel: OnCancelFunc,
+    relativePosition: RelativePosition
   ): boolean {
-
     const id = PopupManager._htmlElementId;
     const component = (
-      <HTMLElementPopup id={id} el={el} pt={pt} offset={offset}
-        element={displayElement} relativePosition={relativePosition} orientation={Orientation.Horizontal} onCancel={onCancel} />
+      <HTMLElementPopup
+        id={id}
+        el={el}
+        pt={pt}
+        offset={offset}
+        element={displayElement}
+        relativePosition={relativePosition}
+        orientation={Orientation.Horizontal}
+        onCancel={onCancel}
+      />
     );
 
     const popupInfo: PopupInfo = {
-      id, pt, component, parentDocument: el.ownerDocument,
+      id,
+      pt,
+      component,
+      parentDocument: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -255,20 +333,42 @@ export class PopupManager {
   }
 
   public static showCard(
-    content: PopupContentType, title: string | PropertyRecord | undefined, toolbarProps: AbstractToolbarProps | undefined,
-    el: HTMLElement, pt: XAndY, offset: XAndY,
-    onItemExecuted: OnItemExecutedFunc, onCancel: OnCancelFunc, relativePosition: RelativePosition,
+    content: PopupContentType,
+    title: string | PropertyRecord | undefined,
+    toolbarProps: AbstractToolbarProps | undefined,
+    el: HTMLElement,
+    pt: XAndY,
+    offset: XAndY,
+    onItemExecuted: OnItemExecutedFunc,
+    onCancel: OnCancelFunc,
+    relativePosition: RelativePosition
   ): boolean {
-
     const id = PopupManager._cardId;
     const component = (
-      <CardPopup id={id} el={el} pt={pt} offset={offset}
-        content={content} title={title} items={toolbarProps ? toolbarProps.items : /* istanbul ignore next */ undefined}
-        relativePosition={relativePosition} orientation={Orientation.Horizontal} onCancel={onCancel} onItemExecuted={onItemExecuted} />
+      <CardPopup
+        id={id}
+        el={el}
+        pt={pt}
+        offset={offset}
+        content={content}
+        title={title}
+        items={
+          toolbarProps
+            ? toolbarProps.items
+            : /* istanbul ignore next */ undefined
+        }
+        relativePosition={relativePosition}
+        orientation={Orientation.Horizontal}
+        onCancel={onCancel}
+        onItemExecuted={onItemExecuted}
+      />
     );
 
     const popupInfo: PopupInfo = {
-      id, pt, component, parentDocument: el.ownerDocument,
+      id,
+      pt,
+      component,
+      parentDocument: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -276,24 +376,40 @@ export class PopupManager {
   }
 
   public static hideCard(): boolean {
-    const index = PopupManager._popups.findIndex((info: PopupInfo) => PopupManager._cardId === info.id);
-    if (index >= 0)
-      return PopupManager.removePopup(PopupManager._cardId);
+    const index = PopupManager._popups.findIndex(
+      (info: PopupInfo) => PopupManager._cardId === info.id
+    );
+    if (index >= 0) return PopupManager.removePopup(PopupManager._cardId);
     return false;
   }
 
   public static openToolSettings(
-    dataProvider: DialogLayoutDataProvider, el: HTMLElement, pt: XAndY, offset: XAndY, onCancel: OnCancelFunc, relativePosition: RelativePosition,
+    dataProvider: DialogLayoutDataProvider,
+    el: HTMLElement,
+    pt: XAndY,
+    offset: XAndY,
+    onCancel: OnCancelFunc,
+    relativePosition: RelativePosition
   ): boolean {
-
     const id = PopupManager._toolSettingsId;
     const component = (
-      <ToolSettingsPopup id={id} el={el} pt={pt} offset={offset}
-        dataProvider={dataProvider} relativePosition={relativePosition} orientation={Orientation.Horizontal} onCancel={onCancel} />
+      <ToolSettingsPopup
+        id={id}
+        el={el}
+        pt={pt}
+        offset={offset}
+        dataProvider={dataProvider}
+        relativePosition={relativePosition}
+        orientation={Orientation.Horizontal}
+        onCancel={onCancel}
+      />
     );
 
     const popupInfo: PopupInfo = {
-      id, pt, component, parentDocument: el.ownerDocument,
+      id,
+      pt,
+      component,
+      parentDocument: el.ownerDocument,
     };
     PopupManager.addOrUpdatePopup(popupInfo);
 
@@ -304,15 +420,23 @@ export class PopupManager {
     return PopupManager.removePopup(PopupManager._toolSettingsId);
   }
 
-  public static getPopupPosition(el: HTMLElement, pt: XAndY, offset: XAndY, size: SizeProps): Point {
+  public static getPopupPosition(
+    el: HTMLElement,
+    pt: XAndY,
+    offset: XAndY,
+    size: SizeProps
+  ): Point {
     const containerBounds = Rectangle.create(el.getBoundingClientRect());
     const relativeBounds = Rectangle.createFromSize(size).offset(pt);
-    const adjustedPosition: Point = offsetAndContainInContainer(relativeBounds, containerBounds.getSize(), offset);
+    const adjustedPosition: Point = offsetAndContainInContainer(
+      relativeBounds,
+      containerBounds.getSize(),
+      offset
+    );
     const position = adjustedPosition.offset(containerBounds.topLeft());
 
     return position;
   }
-
 }
 
 /** @internal */
@@ -332,11 +456,15 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
   };
 
   public override componentDidMount(): void {
-    PopupManager.onPopupsChangedEvent.addListener(this._handlePopupsChangedEvent);
+    PopupManager.onPopupsChangedEvent.addListener(
+      this._handlePopupsChangedEvent
+    );
   }
 
   public override componentWillUnmount(): void {
-    PopupManager.onPopupsChangedEvent.removeListener(this._handlePopupsChangedEvent);
+    PopupManager.onPopupsChangedEvent.removeListener(
+      this._handlePopupsChangedEvent
+    );
   }
 
   private _handleRefSet = (popupDiv: HTMLElement | null) => {
@@ -344,21 +472,23 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
   };
 
   public override render(): React.ReactNode {
-    if (PopupManager.popupCount <= 0)
-      return null;
+    if (PopupManager.popupCount <= 0) return null;
 
     return (
-      <div className="appui-react-popup-render-container" ref={this._handleRefSet}>
+      <div
+        className="appui-react-popup-render-container"
+        ref={this._handleRefSet}
+      >
         {this.state.parentDocument &&
-          this.state.popups.filter((info) => info.parentDocument === this.state.parentDocument)
+          this.state.popups
+            .filter((info) => info.parentDocument === this.state.parentDocument)
             .map((popupInfo: PopupInfo) => {
               return (
                 <React.Fragment key={popupInfo.id}>
                   {popupInfo.component}
                 </React.Fragment>
               );
-            })
-        }
+            })}
       </div>
     );
   }
@@ -366,5 +496,4 @@ export class PopupRenderer extends React.Component<{}, PopupRendererState> {
   private _handlePopupsChangedEvent = (args: PopupsChangedEventArgs) => {
     this.setState({ popups: args.popups });
   };
-
 }

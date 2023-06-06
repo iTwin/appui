@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
@@ -66,7 +66,6 @@ export interface FrameworkKeyboardShortcut extends ItemDefBase {
   readonly isFunctionKey: boolean;
   /** Gets whether this is a Special key. */
   readonly isSpecialKey: boolean;
-
 }
 
 /** Keyboard Shortcut Container
@@ -74,7 +73,10 @@ export interface FrameworkKeyboardShortcut extends ItemDefBase {
  */
 export interface FrameworkKeyboardShortcutContainer {
   /** Registers a Keyboard Shortcut associated with a given key in the managed list */
-  registerKey(keyMapKey: string, inShortcut: FrameworkKeyboardShortcut): FrameworkKeyboardShortcut | undefined;
+  registerKey(
+    keyMapKey: string,
+    inShortcut: FrameworkKeyboardShortcut
+  ): FrameworkKeyboardShortcut | undefined;
 
   /** Finds a Keyboard Shortcut associated with a given key */
   findKey(keyMapKey: string): FrameworkKeyboardShortcut | undefined;
@@ -103,7 +105,12 @@ export interface FrameworkKeyboardShortcuts {
   loadShortcut(shortcutProps: KeyboardShortcutProps): void;
 
   /** Processes a keystroke and invokes a matching Keyboard Shortcut */
-  processKey(keyboardKey: string, isAltKeyPressed?: boolean, isCtrlKeyPressed?: boolean, isShiftKeyPressed?: boolean): boolean;
+  processKey(
+    keyboardKey: string,
+    isAltKeyPressed?: boolean,
+    isCtrlKeyPressed?: boolean,
+    isShiftKeyPressed?: boolean
+  ): boolean;
 
   /** Returns the managed list of Keyboard Shortcuts */
   readonly shortcutContainer: FrameworkKeyboardShortcutContainer;

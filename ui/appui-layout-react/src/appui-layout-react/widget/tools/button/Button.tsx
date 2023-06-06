@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -9,10 +9,16 @@
 import "./Button.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import {
-  calculateBackdropFilterBlur, calculateBoxShadowOpacity, calculateToolbarOpacity, getToolbarBackdropFilter, getToolbarBackgroundColor,
-  getToolbarBoxShadow, TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT, TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT,
+  calculateBackdropFilterBlur,
+  calculateBoxShadowOpacity,
+  calculateToolbarOpacity,
+  getToolbarBackdropFilter,
+  getToolbarBackgroundColor,
+  getToolbarBoxShadow,
+  TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT,
+  TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT,
 } from "@itwin/core-react";
 
 /** Properties of [[ToolbarButton]] component.
@@ -38,13 +44,18 @@ export class ToolbarButton extends React.PureComponent<ToolbarButtonProps> {
   public override render() {
     const className = classnames(
       "nz-toolbar-button-button",
-      this.props.className);
+      this.props.className
+    );
     const buttonStyle: React.CSSProperties = {
       ...this.props.style,
     };
 
     if (this.props.small) {
-      let backgroundOpacity = Number(document.documentElement.style.getPropertyValue("--buic-toolbar-opacity"));
+      let backgroundOpacity = Number(
+        document.documentElement.style.getPropertyValue(
+          "--buic-toolbar-opacity"
+        )
+      );
       let boxShadowOpacity = TOOLBAR_BOX_SHADOW_OPACITY_DEFAULT;
       let filterBlur = TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT;
 
@@ -54,7 +65,8 @@ export class ToolbarButton extends React.PureComponent<ToolbarButtonProps> {
         filterBlur = calculateBackdropFilterBlur(this.props.mouseProximity);
       }
 
-      buttonStyle.backgroundColor = getToolbarBackgroundColor(backgroundOpacity);
+      buttonStyle.backgroundColor =
+        getToolbarBackgroundColor(backgroundOpacity);
       buttonStyle.boxShadow = getToolbarBoxShadow(boxShadowOpacity);
       buttonStyle.backdropFilter = getToolbarBackdropFilter(filterBlur);
     }
@@ -66,9 +78,7 @@ export class ToolbarButton extends React.PureComponent<ToolbarButtonProps> {
         onClick={this.props.onClick}
         title={this.props.title}
       >
-        {!this.props.small &&
-          <div className="nz-gradient" />
-        }
+        {!this.props.small && <div className="nz-gradient" />}
         {this.props.children}
       </button>
     );

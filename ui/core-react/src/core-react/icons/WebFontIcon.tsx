@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Icon
  */
@@ -35,7 +35,7 @@ export function WebFontIcon(props: WebFontIconProps) {
     props.iconClassName || "bui-webfont-icon",
     props.iconName,
     props.iconSize ? `uicore-icons-${props.iconSize}` : undefined,
-    props.className,
+    props.className
   );
 
   return (

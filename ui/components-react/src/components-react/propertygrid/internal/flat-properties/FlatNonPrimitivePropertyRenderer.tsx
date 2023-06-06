@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
@@ -16,7 +16,8 @@ import { PropertyView } from "../../../properties/renderers/PropertyView";
 /** Properties of [[FlatNonPrimitivePropertyRenderer]] React component
  * @internal
  */
-export interface FlatNonPrimitivePropertyRendererProps extends PrimitiveRendererProps {
+export interface FlatNonPrimitivePropertyRendererProps
+  extends PrimitiveRendererProps {
   isExpanded: boolean;
   onExpandToggled: () => void;
 }
@@ -31,19 +32,25 @@ export class FlatNonPrimitivePropertyRenderer extends React.Component<FlatNonPri
 
   private _onExpanded = () => {
     /* istanbul ignore else */
-    if (!this.props.isExpanded)
-      this.props.onExpandToggled();
+    if (!this.props.isExpanded) this.props.onExpandToggled();
   };
 
   private _onCollapsed = () => {
     /* istanbul ignore else */
-    if (this.props.isExpanded)
-      this.props.onExpandToggled();
+    if (this.props.isExpanded) this.props.onExpandToggled();
   };
 
-  private getLabel(props: FlatNonPrimitivePropertyRendererProps): React.ReactNode {
+  private getLabel(
+    props: FlatNonPrimitivePropertyRendererProps
+  ): React.ReactNode {
     const { orientation, indentation, width, columnRatio, columnInfo } = props;
-    const offset = CommonPropertyRenderer.getLabelOffset(indentation, orientation, width, columnRatio, columnInfo?.minLabelWidth);
+    const offset = CommonPropertyRenderer.getLabelOffset(
+      indentation,
+      orientation,
+      width,
+      columnRatio,
+      columnInfo?.minLabelWidth
+    );
 
     let displayLabel = props.propertyRecord.property.displayLabel;
     if (props.propertyRecord.value.valueFormat === PropertyValueFormat.Array)
@@ -66,11 +73,6 @@ export class FlatNonPrimitivePropertyRenderer extends React.Component<FlatNonPri
   public override render() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { indentation, ...props } = this.props;
-    return (
-      <PropertyView
-        labelElement={this.getLabel(this.props)}
-        {...props}
-      />
-    );
+    return <PropertyView labelElement={this.getLabel(this.props)} {...props} />;
   }
 }

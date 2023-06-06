@@ -8,11 +8,11 @@ The tests are running against a test application which needs to be started befor
 
 1. Start a web server of a standalone appui-test-app:
 
-  ```sh
-  cd .\test-apps\appui-test-app\standalone\
-  npm run start:webserver
-  ```
+```sh
+cd .\test-apps\appui-test-app\standalone\
+npm run start:webserver
+```
 
 2. Run the tests: `npx playwright test`
 
-*Suggested:* use a VSCode extension `ms-playwright.playwright` to run the tests.
+_Suggested:_ use a VSCode extension `ms-playwright.playwright` to run the tests.

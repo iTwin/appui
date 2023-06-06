@@ -1,20 +1,26 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
 
-import type { Draft} from "immer";
+import type { Draft } from "immer";
 import { produce } from "immer";
 import type { PointProps } from "@itwin/appui-abstract";
 import type { NineZoneState } from "../NineZoneState";
-import type { FloatingWidgetHomeState, FloatingWidgetState } from "../WidgetState";
+import type {
+  FloatingWidgetHomeState,
+  FloatingWidgetState,
+} from "../WidgetState";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
 import { toolSettingsTabId } from "../ToolSettingsState";
-import { getWidgetState, updateFloatingWidgetState } from "./WidgetStateHelpers";
+import {
+  getWidgetState,
+  updateFloatingWidgetState,
+} from "./WidgetStateHelpers";
 
 /** @internal */
 export const category = "appui-layout-react:layout";
@@ -22,7 +28,9 @@ export const category = "appui-layout-react:layout";
 /** Helper that returns a plain object. Prevents from adding an instance that is not `immerable` to the state.
  * @internal
  */
-export function toRectangleProps(rectangle: RectangleProps | undefined): RectangleProps {
+export function toRectangleProps(
+  rectangle: RectangleProps | undefined
+): RectangleProps {
   if (rectangle) {
     return {
       bottom: rectangle.bottom,
@@ -35,7 +43,10 @@ export function toRectangleProps(rectangle: RectangleProps | undefined): Rectang
 }
 
 /** @internal */
-export function setRectangleProps(props: Draft<RectangleProps>, bounds: RectangleProps) {
+export function setRectangleProps(
+  props: Draft<RectangleProps>,
+  bounds: RectangleProps
+) {
   props.left = bounds.left;
   props.right = bounds.right;
   props.top = bounds.top;
@@ -54,10 +65,15 @@ export function setSizeProps(props: Draft<SizeProps>, size: SizeProps) {
   props.width = size.width;
 }
 
-type KeysOfType<T, Type> = { [K in keyof T]: T[K] extends Type ? K : never }[keyof T];
+type KeysOfType<T, Type> = {
+  [K in keyof T]: T[K] extends Type ? K : never;
+}[keyof T];
 
 /** @internal */
-export function initSizeProps<T, K extends KeysOfType<T, SizeProps | undefined>>(obj: T, key: K, size: SizeProps) {
+export function initSizeProps<
+  T,
+  K extends KeysOfType<T, SizeProps | undefined>
+>(obj: T, key: K, size: SizeProps) {
   if (obj[key]) {
     setSizeProps(obj[key] as unknown as SizeProps, size);
     return;
@@ -69,18 +85,25 @@ export function initSizeProps<T, K extends KeysOfType<T, SizeProps | undefined>>
 }
 
 /** @internal */
-export function isToolSettingsFloatingWidget(state: NineZoneState, id: FloatingWidgetState["id"]) {
+export function isToolSettingsFloatingWidget(
+  state: NineZoneState,
+  id: FloatingWidgetState["id"]
+) {
   const widget = getWidgetState(state, id);
-  return (widget.tabs.length === 1 &&
+  return (
+    widget.tabs.length === 1 &&
     widget.tabs[0] === toolSettingsTabId &&
     id in state.floatingWidgets.byId
   );
 }
 
 /** @internal */
-export function updateHomeOfToolSettingsWidget(state: NineZoneState, id: FloatingWidgetState["id"], home: FloatingWidgetHomeState): NineZoneState {
-  if (!isToolSettingsFloatingWidget(state, id))
-    return state;
+export function updateHomeOfToolSettingsWidget(
+  state: NineZoneState,
+  id: FloatingWidgetState["id"],
+  home: FloatingWidgetHomeState
+): NineZoneState {
+  if (!isToolSettingsFloatingWidget(state, id)) return state;
 
   return updateFloatingWidgetState(state, id, {
     home,
@@ -88,7 +111,10 @@ export function updateHomeOfToolSettingsWidget(state: NineZoneState, id: Floatin
 }
 
 /** @internal */
-export function convertFloatingWidgetContainerToPopout(state: NineZoneState, widgetContainerId: string): NineZoneState {
+export function convertFloatingWidgetContainerToPopout(
+  state: NineZoneState,
+  widgetContainerId: string
+): NineZoneState {
   const widget = getWidgetState(state, widgetContainerId);
   // istanbul ignore next
   if (widget.tabs.length !== 1) {
@@ -111,7 +137,10 @@ export function convertFloatingWidgetContainerToPopout(state: NineZoneState, wid
 }
 
 /** @internal */
-export function convertPopoutWidgetContainerToFloating(state: NineZoneState, widgetContainerId: string): NineZoneState {
+export function convertPopoutWidgetContainerToFloating(
+  state: NineZoneState,
+  widgetContainerId: string
+): NineZoneState {
   return produce(state, (draft) => {
     const popoutWidget = state.popoutWidgets.byId[widgetContainerId];
     const bounds = popoutWidget.bounds;

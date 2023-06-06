@@ -1,15 +1,24 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Notification
  */
 
 import type { XAndY } from "@itwin/core-geometry";
 import type {
-  ActivityMessageDetails, MessageBoxIconType, MessageBoxType, MessageBoxValue, NotifyMessageDetails, ToolAssistanceInstructions, ToolTipOptions} from "@itwin/core-frontend";
-import { ActivityMessageEndReason, NotificationManager,
+  ActivityMessageDetails,
+  MessageBoxIconType,
+  MessageBoxType,
+  MessageBoxValue,
+  NotifyMessageDetails,
+  ToolAssistanceInstructions,
+  ToolTipOptions,
+} from "@itwin/core-frontend";
+import {
+  ActivityMessageEndReason,
+  NotificationManager,
   ToolAssistance,
 } from "@itwin/core-frontend";
 import type { RelativePosition } from "@itwin/appui-abstract";
@@ -24,7 +33,6 @@ import { PointerMessage } from "./Pointer";
  * @public
  */
 export class AppNotificationManager extends NotificationManager {
-
   /** Output a prompt, given an i18n key.
    */
   public override outputPromptByKey(key: string): void {
@@ -52,7 +60,11 @@ export class AppNotificationManager extends NotificationManager {
    * @param icon         The MessageBox icon type.
    * @return the response from the user.
    */
-  public override async openMessageBox(mbType: MessageBoxType, message: HTMLElement | string, icon: MessageBoxIconType): Promise<MessageBoxValue> {
+  public override async openMessageBox(
+    mbType: MessageBoxType,
+    message: HTMLElement | string,
+    icon: MessageBoxIconType
+  ): Promise<MessageBoxValue> {
     return MessageManager.openMessageBox(mbType, message, icon);
   }
 
@@ -61,7 +73,9 @@ export class AppNotificationManager extends NotificationManager {
    * @param details  The activity message details.
    * @return true if the message was displayed, false if an invalid priority is specified.
    */
-  public override setupActivityMessage(details: ActivityMessageDetails): boolean {
+  public override setupActivityMessage(
+    details: ActivityMessageDetails
+  ): boolean {
     return MessageManager.setupActivityMessageDetails(details);
   }
 
@@ -71,8 +85,14 @@ export class AppNotificationManager extends NotificationManager {
    * @param percentComplete  The percentage of completion.
    * @return true if the message was displayed, false if the message could not be displayed.
    */
-  public override outputActivityMessage(messageText: HTMLElement | string, percentComplete: number): boolean {
-    return MessageManager.setupActivityMessageValues(messageText, percentComplete);
+  public override outputActivityMessage(
+    messageText: HTMLElement | string,
+    percentComplete: number
+  ): boolean {
+    return MessageManager.setupActivityMessageValues(
+      messageText,
+      percentComplete
+    );
   }
 
   /**
@@ -80,7 +100,9 @@ export class AppNotificationManager extends NotificationManager {
    * @param reason       Reason for the end of the Activity Message.
    * @return true if the message was ended successfully, false if the activityMessage could not be ended.
    */
-  public override endActivityMessage(reason: ActivityMessageEndReason): boolean {
+  public override endActivityMessage(
+    reason: ActivityMessageEndReason
+  ): boolean {
     let result = false;
 
     switch (reason) {
@@ -99,7 +121,10 @@ export class AppNotificationManager extends NotificationManager {
    * @param displayPoint        Point at which to display the Pointer type message.
    * @param relativePosition    Position relative to displayPoint at which to display the Pointer type message.
    */
-  public override updatePointerMessage(displayPoint: XAndY, relativePosition: RelativePosition): void {
+  public override updatePointerMessage(
+    displayPoint: XAndY,
+    relativePosition: RelativePosition
+  ): void {
     PointerMessage.updateMessage(displayPoint, relativePosition);
   }
 
@@ -109,16 +134,19 @@ export class AppNotificationManager extends NotificationManager {
   }
 
   /** Return true if _showTooltip has an implementation and will display a tooltip. */
-  public override get isToolTipSupported(): boolean { return true; }
+  public override get isToolTipSupported(): boolean {
+    return true;
+  }
 
   /** Return true if the tooltip is currently open. */
-  public override get isToolTipOpen(): boolean { return ElementTooltip.isTooltipVisible; }
+  public override get isToolTipOpen(): boolean {
+    return ElementTooltip.isTooltipVisible;
+  }
 
   /** Clear the ToolTip if it is currently open. If not open, does nothing. */
   public override clearToolTip(): void {
     // istanbul ignore else
-    if (this.isToolTipOpen)
-      ElementTooltip.hideTooltip();
+    if (this.isToolTipOpen) ElementTooltip.hideTooltip();
   }
 
   /** Show a ToolTip window.
@@ -127,7 +155,12 @@ export class AppNotificationManager extends NotificationManager {
    * @param pt       An optional location, relative to the origin of el, for the ToolTip. If undefined, center of el.
    * @param options  Options that supply additional information about how the ToolTip should function.
    */
-  protected override _showToolTip(el: HTMLElement, message: HTMLElement | string, pt?: XAndY, options?: ToolTipOptions): void {
+  protected override _showToolTip(
+    el: HTMLElement,
+    message: HTMLElement | string,
+    pt?: XAndY,
+    options?: ToolTipOptions
+  ): void {
     ElementTooltip.showTooltip(el, message, pt, options);
   }
 
@@ -140,9 +173,14 @@ export class AppNotificationManager extends NotificationManager {
    * @param instructions The tool assistance instructions.
    * @public
    */
-  public override setToolAssistance(instructions: ToolAssistanceInstructions | undefined) {
-    MessageManager.outputPrompt(instructions ? instructions.mainInstruction.text : /* istanbul ignore next */ "");
+  public override setToolAssistance(
+    instructions: ToolAssistanceInstructions | undefined
+  ) {
+    MessageManager.outputPrompt(
+      instructions
+        ? instructions.mainInstruction.text
+        : /* istanbul ignore next */ ""
+    );
     MessageManager.setToolAssistance(instructions);
   }
-
 }

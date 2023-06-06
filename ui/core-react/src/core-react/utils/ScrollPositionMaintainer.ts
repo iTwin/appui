@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -25,18 +25,21 @@ export class ScrollPositionMaintainer implements IDisposable {
     this._storage = new Map();
     ScrollPositionMaintainer.saveScrollPositions([el], this._storage);
   }
-  public dispose() { ScrollPositionMaintainer.restoreScrollPositions(this._storage); }
-  private static saveScrollPositions(elems: Element[] | HTMLCollection, storage: Map<Element, number>) {
+  public dispose() {
+    ScrollPositionMaintainer.restoreScrollPositions(this._storage);
+  }
+  private static saveScrollPositions(
+    elems: Element[] | HTMLCollection,
+    storage: Map<Element, number>
+  ) {
     for (const el of elems) {
       // istanbul ignore else
-      if (el.scrollTop)
-        storage.set(el, el.scrollTop);
+      if (el.scrollTop) storage.set(el, el.scrollTop);
       // istanbul ignore else
-      if (el.children)
-        this.saveScrollPositions(el.children, storage);
+      if (el.children) this.saveScrollPositions(el.children, storage);
     }
   }
   private static restoreScrollPositions(storage: Map<Element, number>) {
-    storage.forEach((scrollTop, el) => el.scrollTop = scrollTop);
+    storage.forEach((scrollTop, el) => (el.scrollTop = scrollTop));
   }
 }

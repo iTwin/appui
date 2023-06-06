@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
 import { immerable } from "immer";
 import shortid from "shortid";
-import type { PropertyDescription} from "@itwin/appui-abstract";
+import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyCategory } from "../../PropertyDataProvider";
 
@@ -28,7 +28,10 @@ export enum FlatGridItemType {
  * Type which extracts FlatGridItemTypes relevant for working with CategorizedProperties
  * @public
  */
-export type CategorizedPropertyTypes = FlatGridItemType.Array | FlatGridItemType.Primitive | FlatGridItemType.Struct;
+export type CategorizedPropertyTypes =
+  | FlatGridItemType.Array
+  | FlatGridItemType.Primitive
+  | FlatGridItemType.Struct;
 
 /**
  * Base mutable data structure defining common methods and properties for both CategorizedProperties and GridCategoryItems
@@ -55,7 +58,9 @@ export interface IMutableFlatPropertyGridItem {
  * Base class for all FlatPropertyGrid items
  * @public
  */
-export abstract class MutableFlatPropertyGridItem implements IMutableFlatPropertyGridItem {
+export abstract class MutableFlatPropertyGridItem
+  implements IMutableFlatPropertyGridItem
+{
   public [immerable] = true;
 
   public readonly key: string = shortid.generate();
@@ -63,9 +68,12 @@ export abstract class MutableFlatPropertyGridItem implements IMutableFlatPropert
   protected _lastInNumberOfCategories: number = 0;
   protected _isLastInRootCategory: boolean = false;
 
-  public constructor(private _depth: number, private _parentSelectionKey: string | undefined, private _parentCategorySelectionKey: string | undefined) {
-    if (this._depth < 0)
-      throw new Error("Depth cannot be negative");
+  public constructor(
+    private _depth: number,
+    private _parentSelectionKey: string | undefined,
+    private _parentCategorySelectionKey: string | undefined
+  ) {
+    if (this._depth < 0) throw new Error("Depth cannot be negative");
   }
 
   public abstract type: FlatGridItemType;
@@ -97,7 +105,9 @@ export abstract class MutableFlatPropertyGridItem implements IMutableFlatPropert
 
   protected getDescendants() {
     const descendants: IMutableFlatGridItem[] = [];
-    this.getChildren().forEach((child) => descendants.push(...child.getDescendantsAndSelf()));
+    this.getChildren().forEach((child) =>
+      descendants.push(...child.getDescendantsAndSelf())
+    );
 
     return descendants;
   }
@@ -115,7 +125,9 @@ export abstract class MutableFlatPropertyGridItem implements IMutableFlatPropert
   public getVisibleDescendants(): IMutableFlatGridItem[] {
     const descendants: IMutableFlatGridItem[] = [];
     if (this.isExpanded)
-      this.getChildren().forEach((child) => descendants.push(...child.getVisibleDescendantsAndSelf()));
+      this.getChildren().forEach((child) =>
+        descendants.push(...child.getVisibleDescendantsAndSelf())
+      );
     return descendants;
   }
 
@@ -130,23 +142,20 @@ export abstract class MutableFlatPropertyGridItem implements IMutableFlatPropert
    * @returns self if item is not expanded, last visible descendant of this item otherwise.
    */
   public getLastVisibleDescendantOrSelf(): IMutableFlatGridItem {
-    if (!this.isExpanded)
-      return this.getSelf();
+    if (!this.isExpanded) return this.getSelf();
 
     const children = this.getChildren();
-    if (children.length < 1)
-      return this.getSelf();
+    if (children.length < 1) return this.getSelf();
 
     return children[children.length - 1].getLastVisibleDescendantOrSelf();
   }
 
   /**
- * Sets lastInNumberOfCategories value and sends it down to this items last child
- * @internal
- */
+   * Sets lastInNumberOfCategories value and sends it down to this items last child
+   * @internal
+   */
   public get lastInNumberOfCategories(): number {
-    if (this.isExpanded && this.getChildren().length > 0)
-      return 0;
+    if (this.isExpanded && this.getChildren().length > 0) return 0;
 
     return this._lastInNumberOfCategories;
   }
@@ -154,8 +163,7 @@ export abstract class MutableFlatPropertyGridItem implements IMutableFlatPropert
   public set lastInNumberOfCategories(value: number) {
     this._lastInNumberOfCategories = value;
     const children = this.getChildren();
-    if (children.length < 1)
-      return;
+    if (children.length < 1) return;
 
     children[children.length - 1].lastInNumberOfCategories = value;
   }
@@ -165,8 +173,7 @@ export abstract class MutableFlatPropertyGridItem implements IMutableFlatPropert
    * @internal
    */
   public get isLastInRootCategory(): boolean {
-    if (this.isExpanded && this.getChildren().length > 0)
-      return false;
+    if (this.isExpanded && this.getChildren().length > 0) return false;
 
     return this._isLastInRootCategory;
   }
@@ -174,8 +181,7 @@ export abstract class MutableFlatPropertyGridItem implements IMutableFlatPropert
   public set isLastInRootCategory(value: boolean) {
     this._isLastInRootCategory = value;
     const children = this.getChildren();
-    if (children.length < 1)
-      return;
+    if (children.length < 1) return;
 
     children[children.length - 1].isLastInRootCategory = value;
   }
@@ -196,7 +202,8 @@ export interface IMutableGridCategoryItem extends IMutableFlatPropertyGridItem {
  * Data structure which describes methods and properties to be held by Mutable CategorizedPropertyItems
  * @public
  */
-export interface IMutableCategorizedPropertyItem extends IMutableFlatPropertyGridItem {
+export interface IMutableCategorizedPropertyItem
+  extends IMutableFlatPropertyGridItem {
   readonly type: CategorizedPropertyTypes;
   readonly derivedRecord: PropertyRecord;
   readonly parentCategorySelectionKey: string;
@@ -209,13 +216,18 @@ export interface IMutableCategorizedPropertyItem extends IMutableFlatPropertyGri
  * Type which describes mutable GridCategoryItem or CategorizedProperty
  * @public
  */
-export type IMutableFlatGridItem = IMutableCategorizedPropertyItem | IMutableGridCategoryItem;
+export type IMutableFlatGridItem =
+  | IMutableCategorizedPropertyItem
+  | IMutableGridCategoryItem;
 
 /**
  * Base class for all Mutable CategorizedProperties
  * @public
  */
-export abstract class MutableCategorizedProperty extends MutableFlatPropertyGridItem implements Partial<IMutableCategorizedPropertyItem> {
+export abstract class MutableCategorizedProperty
+  extends MutableFlatPropertyGridItem
+  implements Partial<IMutableCategorizedPropertyItem>
+{
   private _derivedRecord: PropertyRecord;
   private _selectionKey: string;
 
@@ -226,7 +238,7 @@ export abstract class MutableCategorizedProperty extends MutableFlatPropertyGrid
     parentCategorySelectionKey: string,
     depth: number,
     overrideName?: string,
-    overrideDisplayLabel?: string,
+    overrideDisplayLabel?: string
   ) {
     super(depth, parentSelectionKey, parentCategorySelectionKey);
 
@@ -234,10 +246,16 @@ export abstract class MutableCategorizedProperty extends MutableFlatPropertyGrid
     if (recordType !== type) {
       const expectedTypeStr = FlatGridItemType[type];
       const actualTypeStr = FlatGridItemType[recordType];
-      throw Error(`Record with incorrect value format passed to property: expected ${expectedTypeStr}, got ${actualTypeStr}`);
+      throw Error(
+        `Record with incorrect value format passed to property: expected ${expectedTypeStr}, got ${actualTypeStr}`
+      );
     }
 
-    const overridenProperty = this.makeOverridenProperty(record.property, overrideName, overrideDisplayLabel);
+    const overridenProperty = this.makeOverridenProperty(
+      record.property,
+      overrideName,
+      overrideDisplayLabel
+    );
     this._derivedRecord = this.makeDerivedRecord(record, overridenProperty);
 
     this._selectionKey = `${this.parentSelectionKey}_${this.derivedRecord.property.name}`;
@@ -273,7 +291,11 @@ export abstract class MutableCategorizedProperty extends MutableFlatPropertyGrid
    * @param overrideName property description name to override.
    * @param overrideDisplay  property description display name to override.
    */
-  private makeOverridenProperty(propertyDescription: PropertyDescription, overrideName?: string, overrideDisplay?: string): PropertyDescription {
+  private makeOverridenProperty(
+    propertyDescription: PropertyDescription,
+    overrideName?: string,
+    overrideDisplay?: string
+  ): PropertyDescription {
     const { name, displayLabel, ...property } = { ...propertyDescription };
     const newName = overrideName ?? name;
     const newDisplayLabel = overrideDisplay ?? displayLabel;
@@ -284,7 +306,10 @@ export abstract class MutableCategorizedProperty extends MutableFlatPropertyGrid
   /**
    * Gets derived property record that has it's property description field overriden
    */
-  private makeDerivedRecord(record: PropertyRecord, overridenPropertyDescription: PropertyDescription) {
+  private makeDerivedRecord(
+    record: PropertyRecord,
+    overridenPropertyDescription: PropertyDescription
+  ) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { value, property, ...others } = record;
     const newRecord = new PropertyRecord(value, overridenPropertyDescription);

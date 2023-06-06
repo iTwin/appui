@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tools
  */
@@ -9,7 +9,11 @@
 import * as React from "react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog";
-import { ConditionalBooleanValue, IconSpecUtilities, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import {
+  ConditionalBooleanValue,
+  IconSpecUtilities,
+  ToolbarItemUtilities,
+} from "@itwin/appui-abstract";
 import { AppUiTestProviders } from "../AppUiTestProviders";
 import connectedQuerySvg from "../ui/icons/connected-query.svg";
 import { UiFramework } from "@itwin/appui-react";
@@ -24,9 +28,13 @@ export class OpenCustomDialogTool extends Tool {
   public static override iconSpec = connectedQuerySvg;
 
   // istanbul ignore next
-  public static override get minArgs() { return 0; }
+  public static override get minArgs() {
+    return 0;
+  }
   // istanbul ignore next
-  public static override get maxArgs() { return 0; }
+  public static override get maxArgs() {
+    return 0;
+  }
 
   public override async run(): Promise<boolean> {
     UiFramework.dialogs.modal.open(<SampleModalDialog />);
@@ -46,14 +54,27 @@ export class OpenCustomDialogTool extends Tool {
     return "open custom dialog";
   }
 
-  public static getActionButtonDef(itemPriority: number, groupPriority?: number, isHidden?: ConditionalBooleanValue) {
+  public static getActionButtonDef(
+    itemPriority: number,
+    groupPriority?: number,
+    isHidden?: ConditionalBooleanValue
+  ) {
     const overrides = {
       groupPriority,
       isHidden,
     };
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(`${this.iconSpec}`);
-    return ToolbarItemUtilities.createActionButton(OpenCustomDialogTool.toolId, itemPriority, iconSpec, OpenCustomDialogTool.flyover,
-      async () => { await IModelApp.tools.run(OpenCustomDialogTool.toolId); },
-      overrides);
+    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
+      `${this.iconSpec}`
+    );
+    return ToolbarItemUtilities.createActionButton(
+      OpenCustomDialogTool.toolId,
+      itemPriority,
+      iconSpec,
+      OpenCustomDialogTool.flyover,
+      async () => {
+        await IModelApp.tools.run(OpenCustomDialogTool.toolId);
+      },
+      overrides
+    );
   }
 }

@@ -1,10 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 
-import { getQuantityFormatsSettingsManagerEntry, getUiSettingsManagerEntry, UiFramework } from "@itwin/appui-react";
+import {
+  getQuantityFormatsSettingsManagerEntry,
+  getUiSettingsManagerEntry,
+  UiFramework,
+} from "@itwin/appui-react";
 import { SettingsTabEntry, SettingsTabsProvider } from "@itwin/core-react";
 import { AccudrawSettingsPageComponent } from "../frontstages/Settings";
 
@@ -12,11 +16,18 @@ import { AccudrawSettingsPageComponent } from "../frontstages/Settings";
 export class AppSettingsTabsProvider implements SettingsTabsProvider {
   public readonly id = "AppSettingsTabsProvider";
 
-  public getSettingEntries(_stageId: string, _stageUsage: string): ReadonlyArray<SettingsTabEntry> | undefined {
+  public getSettingEntries(
+    _stageId: string,
+    _stageUsage: string
+  ): ReadonlyArray<SettingsTabEntry> | undefined {
     return [
-      getQuantityFormatsSettingsManagerEntry(10, { availableUnitSystems: new Set(["metric", "imperial", "usSurvey"]) }),
+      getQuantityFormatsSettingsManagerEntry(10, {
+        availableUnitSystems: new Set(["metric", "imperial", "usSurvey"]),
+      }),
       {
-        itemPriority: 20, tabId: "appui-test-app:Accudraw", label: "Accudraw",
+        itemPriority: 20,
+        tabId: "appui-test-app:Accudraw",
+        label: "Accudraw",
         page: <AccudrawSettingsPageComponent />,
         isDisabled: false,
         icon: "icon-paintbrush",
@@ -27,6 +38,8 @@ export class AppSettingsTabsProvider implements SettingsTabsProvider {
   }
 
   public static initializeAppSettingProvider() {
-    UiFramework.settingsManager.addSettingsProvider(new AppSettingsTabsProvider());
+    UiFramework.settingsManager.addSettingsProvider(
+      new AppSettingsTabsProvider()
+    );
   }
 }

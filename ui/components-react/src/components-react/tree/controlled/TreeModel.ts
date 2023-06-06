@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -11,8 +11,12 @@ import { cloneDeep } from "lodash";
 import { assert } from "@itwin/core-bentley";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
-import type { DelayLoadedTreeNodeItem, ImmediatelyLoadedTreeNodeItem, TreeNodeItem } from "../TreeDataProvider";
-import type { SparseArray} from "./internal/SparseTree";
+import type {
+  DelayLoadedTreeNodeItem,
+  ImmediatelyLoadedTreeNodeItem,
+  TreeNodeItem,
+} from "../TreeDataProvider";
+import type { SparseArray } from "./internal/SparseTree";
 import { SparseTree } from "./internal/SparseTree";
 
 /**
@@ -132,21 +136,32 @@ export interface TreeModelNodeInput {
  * Type definition of all tree model nodes.
  * @public
  */
-export type TreeModelNodeType = TreeModelNode | TreeModelNodePlaceholder | TreeModelRootNode;
+export type TreeModelNodeType =
+  | TreeModelNode
+  | TreeModelNodePlaceholder
+  | TreeModelRootNode;
 
 /**
  * Checks if object is [[TreeModelNode]]
  * @public
  */
-export function isTreeModelNode(obj: TreeModelNodeType | undefined): obj is TreeModelNode {
-  return obj !== undefined && !isTreeModelNodePlaceholder(obj) && !isTreeModelRootNode(obj);
+export function isTreeModelNode(
+  obj: TreeModelNodeType | undefined
+): obj is TreeModelNode {
+  return (
+    obj !== undefined &&
+    !isTreeModelNodePlaceholder(obj) &&
+    !isTreeModelRootNode(obj)
+  );
 }
 
 /**
  * Checks if object is [[TreeModelNodePlaceholder]]
  * @public
  */
-export function isTreeModelNodePlaceholder(obj: TreeModelNodeType | undefined): obj is TreeModelNodePlaceholder {
+export function isTreeModelNodePlaceholder(
+  obj: TreeModelNodeType | undefined
+): obj is TreeModelNodePlaceholder {
   return obj !== undefined && "childIndex" in obj;
 }
 
@@ -154,23 +169,33 @@ export function isTreeModelNodePlaceholder(obj: TreeModelNodeType | undefined): 
  * Checks if object is [[TreeModelRootNode]]
  * @public
  */
-export function isTreeModelRootNode(obj: TreeModelNodeType | undefined): obj is TreeModelRootNode {
-  return obj !== undefined && (obj as TreeModelRootNode).id === undefined && !("childIndex" in obj);
+export function isTreeModelRootNode(
+  obj: TreeModelNodeType | undefined
+): obj is TreeModelRootNode {
+  return (
+    obj !== undefined &&
+    (obj as TreeModelRootNode).id === undefined &&
+    !("childIndex" in obj)
+  );
 }
 
 /**
  * Type definition of tree node item data.
  * @public
  */
-export type TreeNodeItemData = ImmediatelyLoadedTreeNodeItem & DelayLoadedTreeNodeItem;
+export type TreeNodeItemData = ImmediatelyLoadedTreeNodeItem &
+  DelayLoadedTreeNodeItem;
 
 /**
  * Data structure that describes set of visible tree nodes as a flat list.
  * @public
  */
-export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNodePlaceholder> {
+export interface VisibleTreeNodes
+  extends Iterable<TreeModelNode | TreeModelNodePlaceholder> {
   getNumNodes(): number;
-  getAtIndex(index: number): TreeModelNode | TreeModelNodePlaceholder | undefined;
+  getAtIndex(
+    index: number
+  ): TreeModelNode | TreeModelNodePlaceholder | undefined;
   getModel(): TreeModel;
   getNumRootNodes(): number | undefined;
   getIndexOfNode(nodeId: string): number;
@@ -184,11 +209,20 @@ export interface TreeModel {
   getRootNode(): TreeModelRootNode;
 
   getNode(id: string): TreeModelNode | undefined;
-  getNode(parentId: string | undefined, childIndex: number): TreeModelNode | TreeModelNodePlaceholder | undefined;
-  getNode(nodeId: string | undefined, childIndex?: number): TreeModelNode | TreeModelNodePlaceholder | TreeModelRootNode | undefined;
+  getNode(
+    parentId: string | undefined,
+    childIndex: number
+  ): TreeModelNode | TreeModelNodePlaceholder | undefined;
+  getNode(
+    nodeId: string | undefined,
+    childIndex?: number
+  ): TreeModelNode | TreeModelNodePlaceholder | TreeModelRootNode | undefined;
 
   getChildren(parentId: string | undefined): SparseArray<string> | undefined;
-  getChildOffset(parentId: string | undefined, childId: string): number | undefined;
+  getChildOffset(
+    parentId: string | undefined,
+    childId: string
+  ): number | undefined;
 
   iterateTreeModelNodes(parentId?: string): IterableIterator<TreeModelNode>;
 }
@@ -201,7 +235,11 @@ export class MutableTreeModel implements TreeModel {
   public [immerable] = true;
 
   private _tree = new SparseTree<MutableTreeModelNode>();
-  private _rootNode: TreeModelRootNode = { depth: -1, id: undefined, numChildren: undefined };
+  private _rootNode: TreeModelRootNode = {
+    depth: -1,
+    id: undefined,
+    numChildren: undefined,
+  };
 
   public constructor(seed?: TreeModel) {
     if (!seed) {
@@ -220,19 +258,27 @@ export class MutableTreeModel implements TreeModel {
    * @returns node, node placeholder or undefined if node is not found in model.
    */
   public getNode(id: string): MutableTreeModelNode | undefined;
-  public getNode(parentId: string | undefined, childIndex: number): MutableTreeModelNode | TreeModelNodePlaceholder | undefined;
-  public getNode(nodeId: string | undefined, childIndex?: number): MutableTreeModelNode | TreeModelNodePlaceholder | undefined {
+  public getNode(
+    parentId: string | undefined,
+    childIndex: number
+  ): MutableTreeModelNode | TreeModelNodePlaceholder | undefined;
+  public getNode(
+    nodeId: string | undefined,
+    childIndex?: number
+  ): MutableTreeModelNode | TreeModelNodePlaceholder | undefined {
     if (childIndex === undefined) {
       return this._tree.getNode(nodeId!);
     }
 
     const children = this._tree.getChildren(nodeId);
-    const childId = children !== undefined ? children.get(childIndex) : undefined;
+    const childId =
+      children !== undefined ? children.get(childIndex) : undefined;
     if (childId !== undefined) {
       return this._tree.getNode(childId);
     }
 
-    const parentNode = nodeId === undefined ? this._rootNode : this._tree.getNode(nodeId);
+    const parentNode =
+      nodeId === undefined ? this._rootNode : this._tree.getNode(nodeId);
     if (parentNode !== undefined) {
       return {
         childIndex,
@@ -248,12 +294,17 @@ export class MutableTreeModel implements TreeModel {
    * @param parentId id of parent node.
    * @returns children of parent node or root nodes if undefined is passed as parent id.
    */
-  public getChildren(parentId: string | undefined): SparseArray<string> | undefined {
+  public getChildren(
+    parentId: string | undefined
+  ): SparseArray<string> | undefined {
     return this._tree.getChildren(parentId);
   }
 
   /** Returns children offset in children array for specific parent. */
-  public getChildOffset(parentId: string | undefined, childId: string): number | undefined {
+  public getChildOffset(
+    parentId: string | undefined,
+    childId: string
+  ): number | undefined {
     return this._tree.getChildOffset(parentId, childId);
   }
 
@@ -261,10 +312,14 @@ export class MutableTreeModel implements TreeModel {
    * Sets children for parent node starting from the specific offset.
    * If offset overlaps with already added nodes, the overlapping nodes are overwritten.
    */
-  public setChildren(parentId: string | undefined, nodeInputs: TreeModelNodeInput[], offset: number): void {
-    const parentNode = parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
-    if (parentNode === undefined)
-      return;
+  public setChildren(
+    parentId: string | undefined,
+    nodeInputs: TreeModelNodeInput[],
+    offset: number
+  ): void {
+    const parentNode =
+      parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
+    if (parentNode === undefined) return;
 
     const children: MutableTreeModelNode[] = [];
     for (const input of nodeInputs) {
@@ -273,22 +328,35 @@ export class MutableTreeModel implements TreeModel {
     }
 
     this._tree.setChildren(parentNode.id, children, offset);
-    MutableTreeModel.setNumChildrenForNode(parentNode, this._tree.getChildren(parentNode.id));
+    MutableTreeModel.setNumChildrenForNode(
+      parentNode,
+      this._tree.getChildren(parentNode.id)
+    );
   }
 
   /**
    * Inserts child in the specified position.
    * If offset is higher then current length of children array, the length is increased.
    */
-  public insertChild(parentId: string | undefined, childNodeInput: TreeModelNodeInput, offset: number): void {
-    const parentNode = parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
-    if (parentNode === undefined)
-      return;
+  public insertChild(
+    parentId: string | undefined,
+    childNodeInput: TreeModelNodeInput,
+    offset: number
+  ): void {
+    const parentNode =
+      parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
+    if (parentNode === undefined) return;
 
-    const child = MutableTreeModel.createTreeModelNode(parentNode, childNodeInput);
+    const child = MutableTreeModel.createTreeModelNode(
+      parentNode,
+      childNodeInput
+    );
 
     this._tree.insertChild(parentNode.id, child, offset);
-    MutableTreeModel.setNumChildrenForNode(parentNode, this._tree.getChildren(parentNode.id));
+    MutableTreeModel.setNumChildrenForNode(
+      parentNode,
+      this._tree.getChildren(parentNode.id)
+    );
   }
 
   /**
@@ -329,27 +397,51 @@ export class MutableTreeModel implements TreeModel {
    * @param targetIndex Insertion location among target's *current* children.
    * @returns `true` on success, `false` otherwise.
    */
-  public moveNode(sourceNodeId: string, targetParentId: string | undefined, targetIndex: number): boolean {
+  public moveNode(
+    sourceNodeId: string,
+    targetParentId: string | undefined,
+    targetIndex: number
+  ): boolean {
     const sourceNode = this.getNode(sourceNodeId);
     if (sourceNode === undefined) {
       return false;
     }
 
-    const targetParent = targetParentId === undefined ? this._rootNode : this.getNode(targetParentId);
+    const targetParent =
+      targetParentId === undefined
+        ? this._rootNode
+        : this.getNode(targetParentId);
     if (targetParent === undefined || targetParent.numChildren === undefined) {
       return false;
     }
 
-    if (targetParentId !== undefined && this.areNodesRelated(sourceNodeId, targetParentId)) {
+    if (
+      targetParentId !== undefined &&
+      this.areNodesRelated(sourceNodeId, targetParentId)
+    ) {
       return false;
     }
 
-    this._tree.moveNode(sourceNode.parentId, sourceNodeId, targetParentId, targetIndex);
+    this._tree.moveNode(
+      sourceNode.parentId,
+      sourceNodeId,
+      targetParentId,
+      targetIndex
+    );
 
-    const sourceParent = sourceNode.parentId === undefined ? this._rootNode : this.getNode(sourceNode.parentId);
+    const sourceParent =
+      sourceNode.parentId === undefined
+        ? this._rootNode
+        : this.getNode(sourceNode.parentId);
     assert(sourceParent !== undefined);
-    MutableTreeModel.setNumChildrenForNode(sourceParent, this._tree.getChildren(sourceNode.parentId));
-    MutableTreeModel.setNumChildrenForNode(targetParent, this._tree.getChildren(targetParentId));
+    MutableTreeModel.setNumChildrenForNode(
+      sourceParent,
+      this._tree.getChildren(sourceNode.parentId)
+    );
+    MutableTreeModel.setNumChildrenForNode(
+      targetParent,
+      this._tree.getChildren(targetParentId)
+    );
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (sourceNode.parentId as string | undefined) = targetParentId;
@@ -359,7 +451,8 @@ export class MutableTreeModel implements TreeModel {
       assert(node !== undefined);
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       (node.depth as number) = depth;
-      for (const [nodeId] of this.getChildren(parentId)?.iterateValues() ?? []) {
+      for (const [nodeId] of this.getChildren(parentId)?.iterateValues() ??
+        []) {
         updateDepths(nodeId, depth + 1);
       }
     };
@@ -368,21 +461,30 @@ export class MutableTreeModel implements TreeModel {
     return true;
   }
 
-  private areNodesRelated(ancestorNodeId: string, descendantNodeId: string): boolean {
+  private areNodesRelated(
+    ancestorNodeId: string,
+    descendantNodeId: string
+  ): boolean {
     const node = this.getNode(descendantNodeId);
     if (node === undefined || node.parentId === undefined) {
       return false;
     }
 
-    return node.parentId === ancestorNodeId ? true : this.areNodesRelated(ancestorNodeId, node.parentId);
+    return node.parentId === ancestorNodeId
+      ? true
+      : this.areNodesRelated(ancestorNodeId, node.parentId);
   }
 
   /**
    * Sets the number of child nodes a parent is expected to contain. All child nodes of this parent will be subsequently
    * removed.
    */
-  public setNumChildren(parentId: string | undefined, numChildren: number | undefined): void {
-    const parentNode = parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
+  public setNumChildren(
+    parentId: string | undefined,
+    numChildren: number | undefined
+  ): void {
+    const parentNode =
+      parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
     if (parentNode === undefined) {
       return;
     }
@@ -396,20 +498,28 @@ export class MutableTreeModel implements TreeModel {
    * @param parentId id of the parent node.
    * @param child child node id or index that should be removed.
    */
-  public removeChild(parentId: string | undefined, child: string | number): void {
-    const parentNode = parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
+  public removeChild(
+    parentId: string | undefined,
+    child: string | number
+  ): void {
+    const parentNode =
+      parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
     this._tree.removeChild(parentId, child);
 
     // istanbul ignore else
     if (parentNode)
-      MutableTreeModel.setNumChildrenForNode(parentNode, this._tree.getChildren(parentNode.id));
+      MutableTreeModel.setNumChildrenForNode(
+        parentNode,
+        this._tree.getChildren(parentNode.id)
+      );
   }
 
   /** Removes all children for parent specified by id.
    * @param parentId id of parent node or undefined to remove root nodes.
    */
   public clearChildren(parentId: string | undefined) {
-    const parentNode = parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
+    const parentNode =
+      parentId === undefined ? this._rootNode : this._tree.getNode(parentId);
     if (parentNode !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       (parentNode.numChildren as number | undefined) = undefined;
@@ -418,10 +528,14 @@ export class MutableTreeModel implements TreeModel {
   }
 
   /** Iterates over all nodes present in the tree model. */
-  public * iterateTreeModelNodes(parentId?: string): IterableIterator<MutableTreeModelNode> {
+  public *iterateTreeModelNodes(
+    parentId?: string
+  ): IterableIterator<MutableTreeModelNode> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const _this = this;
-    function* iterateDescendants(subParentId: string | undefined): IterableIterator<MutableTreeModelNode> {
+    function* iterateDescendants(
+      subParentId: string | undefined
+    ): IterableIterator<MutableTreeModelNode> {
       const children = _this.getChildren(subParentId);
       if (children === undefined) {
         return;
@@ -439,16 +553,21 @@ export class MutableTreeModel implements TreeModel {
     yield* iterateDescendants(parentId);
   }
 
-  private static setNumChildrenForNode(node: TreeModelRootNode | MutableTreeModelNode, children: SparseArray<string> | undefined) {
+  private static setNumChildrenForNode(
+    node: TreeModelRootNode | MutableTreeModelNode,
+    children: SparseArray<string> | undefined
+  ) {
     const numChildren = children ? children.getLength() : undefined;
-    if (node.numChildren === numChildren)
-      return;
+    if (node.numChildren === numChildren) return;
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     (node.numChildren as number | undefined) = numChildren;
   }
 
-  private static createTreeModelNode(parentNode: TreeModelNode | TreeModelRootNode, input: TreeModelNodeInput): MutableTreeModelNode {
+  private static createTreeModelNode(
+    parentNode: TreeModelNode | TreeModelRootNode,
+    input: TreeModelNodeInput
+  ): MutableTreeModelNode {
     return {
       id: input.id,
       parentId: parentNode.id,
@@ -482,14 +601,18 @@ export function computeVisibleNodes(model: TreeModel): VisibleTreeNodes {
   const result = getVisibleDescendants(model, model.getRootNode());
   return {
     getNumNodes: () => result.length,
-    getAtIndex: (index: number): TreeModelNode | TreeModelNodePlaceholder | undefined => {
+    getAtIndex: (
+      index: number
+    ): TreeModelNode | TreeModelNodePlaceholder | undefined => {
       return result[index];
     },
     getModel: () => model,
     getNumRootNodes: () => model.getRootNode().numChildren,
     [Symbol.iterator]: () => result[Symbol.iterator](),
     getIndexOfNode: (nodeId: string): number => {
-      return result.findIndex((visibleNode) => (visibleNode as TreeModelNode).id === nodeId);
+      return result.findIndex(
+        (visibleNode) => (visibleNode as TreeModelNode).id === nodeId
+      );
     },
   };
 }
@@ -501,7 +624,7 @@ export function computeVisibleNodes(model: TreeModel): VisibleTreeNodes {
 export function getVisibleDescendants(
   model: TreeModel,
   parentNode: TreeModelNode | TreeModelRootNode,
-  result: Array<TreeModelNode | TreeModelNodePlaceholder> = [],
+  result: Array<TreeModelNode | TreeModelNodePlaceholder> = []
 ): Array<TreeModelNode | TreeModelNodePlaceholder> {
   const children = model.getChildren(parentNode.id);
   if (!children) {
@@ -511,12 +634,20 @@ export function getVisibleDescendants(
   let index = 0;
   for (const childId of children) {
     if (childId === undefined) {
-      result.push({ parentId: parentNode.id, depth: parentNode.depth + 1, childIndex: index });
+      result.push({
+        parentId: parentNode.id,
+        depth: parentNode.depth + 1,
+        childIndex: index,
+      });
     } else {
       const childNode = model.getNode(childId);
       if (childNode === undefined) {
         // node was disposed
-        result.push({ parentId: parentNode.id, depth: parentNode.depth + 1, childIndex: index });
+        result.push({
+          parentId: parentNode.id,
+          depth: parentNode.depth + 1,
+          childIndex: index,
+        });
       } else {
         result.push(childNode);
         if (childNode.isExpanded && childNode.numChildren !== undefined) {
@@ -530,14 +661,25 @@ export function getVisibleDescendants(
   return result;
 }
 
-function cloneSubree(source: TreeModel, target: MutableTreeModel, parentId: string | undefined): void {
+function cloneSubree(
+  source: TreeModel,
+  target: MutableTreeModel,
+  parentId: string | undefined
+): void {
   target.setNumChildren(
     parentId,
-    (parentId === undefined ? source.getRootNode() : source.getNode(parentId)!).numChildren,
+    (parentId === undefined ? source.getRootNode() : source.getNode(parentId)!)
+      .numChildren
   );
-  for (const [childId, index] of source.getChildren(parentId)?.iterateValues() ?? []) {
+  for (const [childId, index] of source
+    .getChildren(parentId)
+    ?.iterateValues() ?? []) {
     const node = source.getNode(childId)!;
-    target.setChildren(parentId, [{ ...node, isLoading: !!node.isLoading }], index);
+    target.setChildren(
+      parentId,
+      [{ ...node, isLoading: !!node.isLoading }],
+      index
+    );
     cloneSubree(source, target, childId);
   }
 }

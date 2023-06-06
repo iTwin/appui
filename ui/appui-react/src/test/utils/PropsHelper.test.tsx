@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
@@ -19,11 +19,26 @@ describe("PropsHelper", () => {
   });
 
   it("Shallow Equals", () => {
-    const obj1 = { firstName: "John", lastName: "Doe", address: "101 Main Street", zip: 10101 };
-    const obj2 = { firstName: "John", lastName: "Doe", address: "101 Main Street", zip: 10101 };
+    const obj1 = {
+      firstName: "John",
+      lastName: "Doe",
+      address: "101 Main Street",
+      zip: 10101,
+    };
+    const obj2 = {
+      firstName: "John",
+      lastName: "Doe",
+      address: "101 Main Street",
+      zip: 10101,
+    };
     expect(PropsHelper.isShallowEqual(obj1, obj2)).to.eq(true);
 
-    const obj3 = { firstName: "John", lastName: "Doe", address: "102 Main Street", zip: 10101 };
+    const obj3 = {
+      firstName: "John",
+      lastName: "Doe",
+      address: "102 Main Street",
+      zip: 10101,
+    };
     expect(PropsHelper.isShallowEqual(obj1, obj3)).to.eq(false);
   });
 
@@ -57,7 +72,10 @@ describe("PropsHelper", () => {
   });
 
   it("Explicit String spec - key ignored since explicit string specified", () => {
-    const stringAndKeySpec = PropsHelper.getStringSpec(stringGetter, "UiFramework:snapModeField.snapMode");
+    const stringAndKeySpec = PropsHelper.getStringSpec(
+      stringGetter,
+      "UiFramework:snapModeField.snapMode"
+    );
     expect(stringAndKeySpec).not.to.be.undefined;
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(stringAndKeySpec);
@@ -66,7 +84,10 @@ describe("PropsHelper", () => {
   });
 
   it("Use stringKey for undefined explicitValue", () => {
-    const undefinedStringAndKeySpec = PropsHelper.getStringSpec(undefined, "UiFramework:snapModeField.snapMode");
+    const undefinedStringAndKeySpec = PropsHelper.getStringSpec(
+      undefined,
+      "UiFramework:snapModeField.snapMode"
+    );
     expect(undefinedStringAndKeySpec).not.to.be.undefined;
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(undefinedStringAndKeySpec);
@@ -75,7 +96,10 @@ describe("PropsHelper", () => {
   });
 
   it("Use stringKey for blank explicitValue", () => {
-    const undefinedStringAndKeySpec = PropsHelper.getStringSpec("", "UiFramework:snapModeField.snapMode");
+    const undefinedStringAndKeySpec = PropsHelper.getStringSpec(
+      "",
+      "UiFramework:snapModeField.snapMode"
+    );
     expect(undefinedStringAndKeySpec).not.to.be.undefined;
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(undefinedStringAndKeySpec);
@@ -84,7 +108,9 @@ describe("PropsHelper", () => {
   });
 
   it("Use ConditionalStringValue for label", () => {
-    const conditionalStringSpec = PropsHelper.getStringSpec(new ConditionalStringValue(() => "HelloWorld", ["dummy"]));
+    const conditionalStringSpec = PropsHelper.getStringSpec(
+      new ConditionalStringValue(() => "HelloWorld", ["dummy"])
+    );
     expect(conditionalStringSpec).not.to.be.undefined;
     outString = undefined;
     outString = PropsHelper.getStringFromSpec(conditionalStringSpec);
@@ -93,7 +119,9 @@ describe("PropsHelper", () => {
   });
 
   it("Get Icon from ConditionalStringValue", () => {
-    const iconTest = PropsHelper.getIcon(new ConditionalStringValue(() => "conditional-icon", ["dummy"]));
+    const iconTest = PropsHelper.getIcon(
+      new ConditionalStringValue(() => "conditional-icon", ["dummy"])
+    );
     expect(iconTest).not.to.be.undefined;
     expect(iconTest!.props.iconSpec).to.eq("conditional-icon");
   });
@@ -102,5 +130,4 @@ describe("PropsHelper", () => {
     const props = PropsHelper.getAbstractPropsForReactIcon(<SvgCut />); // eslint-disable-line deprecation/deprecation
     expect(props.icon).to.eq("#-react-iconspec-node-#");
   });
-
 });

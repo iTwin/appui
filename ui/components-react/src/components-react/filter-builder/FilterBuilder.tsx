@@ -1,22 +1,30 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyFilterBuilder
  */
 
 import * as React from "react";
 import type { PropertyDescription } from "@itwin/appui-abstract";
-import type { PropertyFilterBuilderContextProps,
-  PropertyFilterBuilderRuleRenderingContextProps} from "./FilterBuilderContext";
+import type {
+  PropertyFilterBuilderContextProps,
+  PropertyFilterBuilderRuleRenderingContextProps,
+} from "./FilterBuilderContext";
 import {
-  ActiveRuleGroupContext, PropertyFilterBuilderContext, PropertyFilterBuilderRuleRenderingContext, useActiveRuleGroupContextProps,
+  ActiveRuleGroupContext,
+  PropertyFilterBuilderContext,
+  PropertyFilterBuilderRuleRenderingContext,
+  useActiveRuleGroupContextProps,
 } from "./FilterBuilderContext";
 import { PropertyFilterBuilderRuleGroupRenderer } from "./FilterBuilderRuleGroup";
 import type { PropertyFilterBuilderRuleOperatorProps } from "./FilterBuilderRuleOperator";
 import type { PropertyFilterBuilderRuleValueProps } from "./FilterBuilderRuleValue";
-import { buildPropertyFilter, usePropertyFilterBuilderState } from "./FilterBuilderState";
+import {
+  buildPropertyFilter,
+  usePropertyFilterBuilderState,
+} from "./FilterBuilderState";
 import type { PropertyFilter } from "./Types";
 
 /**
@@ -31,9 +39,13 @@ export interface PropertyFilterBuilderProps {
   /** Callback that is invoked when property is selected in any rule. */
   onRulePropertySelected?: (property: PropertyDescription) => void;
   /** Custom renderer for rule operator selector. */
-  ruleOperatorRenderer?: (props: PropertyFilterBuilderRuleOperatorProps) => React.ReactNode;
+  ruleOperatorRenderer?: (
+    props: PropertyFilterBuilderRuleOperatorProps
+  ) => React.ReactNode;
   /** Custom renderer for rule value input. */
-  ruleValueRenderer?: (props: PropertyFilterBuilderRuleValueProps) => React.ReactNode;
+  ruleValueRenderer?: (
+    props: PropertyFilterBuilderRuleValueProps
+  ) => React.ReactNode;
   /** Custom renderer for property selector in rule. */
   propertyRenderer?: (name: string) => React.ReactNode;
   /** Specifies how deep rule groups can be nested. */
@@ -51,32 +63,62 @@ const ROOT_GROUP_PATH: string[] = [];
  * @beta
  */
 export function PropertyFilterBuilder(props: PropertyFilterBuilderProps) {
-  const { properties, onFilterChanged, onRulePropertySelected, ruleOperatorRenderer, ruleValueRenderer, ruleGroupDepthLimit, propertyRenderer, isDisabled, initialFilter } = props;
+  const {
+    properties,
+    onFilterChanged,
+    onRulePropertySelected,
+    ruleOperatorRenderer,
+    ruleValueRenderer,
+    ruleGroupDepthLimit,
+    propertyRenderer,
+    isDisabled,
+    initialFilter,
+  } = props;
   const { state, actions } = usePropertyFilterBuilderState(initialFilter);
   const rootRef = React.useRef<HTMLDivElement>(null);
 
   const firstRender = React.useRef(true);
-  const filter = React.useMemo(() => buildPropertyFilter(state.rootGroup), [state]);
+  const filter = React.useMemo(
+    () => buildPropertyFilter(state.rootGroup),
+    [state]
+  );
   React.useEffect(() => {
-    if (!firstRender.current)
-      onFilterChanged(filter);
+    if (!firstRender.current) onFilterChanged(filter);
     firstRender.current = false;
   }, [filter, onFilterChanged]);
 
   const contextValue = React.useMemo<PropertyFilterBuilderContextProps>(
-    () => ({ actions, properties, onRulePropertySelected, ruleGroupDepthLimit }),
+    () => ({
+      actions,
+      properties,
+      onRulePropertySelected,
+      ruleGroupDepthLimit,
+    }),
     [actions, properties, onRulePropertySelected, ruleGroupDepthLimit]
   );
-  const renderingContextValue = React.useMemo<PropertyFilterBuilderRuleRenderingContextProps>(
-    () => ({ ruleOperatorRenderer, ruleValueRenderer, propertyRenderer, isDisabled }),
-    [ruleOperatorRenderer, ruleValueRenderer, propertyRenderer, isDisabled]
-  );
+  const renderingContextValue =
+    React.useMemo<PropertyFilterBuilderRuleRenderingContextProps>(
+      () => ({
+        ruleOperatorRenderer,
+        ruleValueRenderer,
+        propertyRenderer,
+        isDisabled,
+      }),
+      [ruleOperatorRenderer, ruleValueRenderer, propertyRenderer, isDisabled]
+    );
   return (
-    <PropertyFilterBuilderRuleRenderingContext.Provider value={renderingContextValue}>
+    <PropertyFilterBuilderRuleRenderingContext.Provider
+      value={renderingContextValue}
+    >
       <PropertyFilterBuilderContext.Provider value={contextValue}>
-        <ActiveRuleGroupContext.Provider value={useActiveRuleGroupContextProps(rootRef)}>
+        <ActiveRuleGroupContext.Provider
+          value={useActiveRuleGroupContextProps(rootRef)}
+        >
           <div ref={rootRef} className="filter-builder">
-            <PropertyFilterBuilderRuleGroupRenderer path={ROOT_GROUP_PATH} group={state.rootGroup} />
+            <PropertyFilterBuilderRuleGroupRenderer
+              path={ROOT_GROUP_PATH}
+              group={state.rootGroup}
+            />
           </div>
         </ActiveRuleGroupContext.Provider>
       </PropertyFilterBuilderContext.Provider>

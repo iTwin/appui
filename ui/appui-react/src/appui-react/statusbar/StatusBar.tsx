@@ -1,17 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
 
 import "./StatusBar.scss";
 import * as React from "react";
-import type { CommonDivProps, CommonProps} from "@itwin/core-react";
+import type { CommonDivProps, CommonProps } from "@itwin/core-react";
 import { Div } from "@itwin/core-react";
 import { Footer } from "@itwin/appui-layout-react";
-import type { ActivityMessageEventArgs, MessageAddedEventArgs} from "../messages/MessageManager";
+import type {
+  ActivityMessageEventArgs,
+  MessageAddedEventArgs,
+} from "../messages/MessageManager";
 import { MessageManager } from "../messages/MessageManager";
 import { SafeAreaContext } from "../safearea/SafeAreaContext";
 import type { StatusBarWidgetControl } from "./StatusBarWidgetControl";
@@ -81,26 +84,47 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
   }
 
   public override componentDidMount() {
-    MessageManager.onMessageAddedEvent.addListener(this._handleMessageAddedEvent);
-    MessageManager.onActivityMessageUpdatedEvent.addListener(this._handleActivityMessageUpdatedEvent);
-    MessageManager.onActivityMessageCancelledEvent.addListener(this._handleActivityMessageCancelledEvent);
-    MessageManager.onMessagesUpdatedEvent.addListener(this._handleMessagesUpdatedEvent);
+    MessageManager.onMessageAddedEvent.addListener(
+      this._handleMessageAddedEvent
+    );
+    MessageManager.onActivityMessageUpdatedEvent.addListener(
+      this._handleActivityMessageUpdatedEvent
+    );
+    MessageManager.onActivityMessageCancelledEvent.addListener(
+      this._handleActivityMessageCancelledEvent
+    );
+    MessageManager.onMessagesUpdatedEvent.addListener(
+      this._handleMessagesUpdatedEvent
+    );
 
     MessageManager.updateMessages();
   }
 
   public override componentWillUnmount() {
-    MessageManager.onMessageAddedEvent.removeListener(this._handleMessageAddedEvent);
-    MessageManager.onActivityMessageUpdatedEvent.removeListener(this._handleActivityMessageUpdatedEvent);
-    MessageManager.onActivityMessageCancelledEvent.removeListener(this._handleActivityMessageCancelledEvent);
-    MessageManager.onMessagesUpdatedEvent.removeListener(this._handleMessagesUpdatedEvent);
+    MessageManager.onMessageAddedEvent.removeListener(
+      this._handleMessageAddedEvent
+    );
+    MessageManager.onActivityMessageUpdatedEvent.removeListener(
+      this._handleActivityMessageUpdatedEvent
+    );
+    MessageManager.onActivityMessageCancelledEvent.removeListener(
+      this._handleActivityMessageCancelledEvent
+    );
+    MessageManager.onMessagesUpdatedEvent.removeListener(
+      this._handleMessagesUpdatedEvent
+    );
   }
 
   private _handleMessageAddedEvent = (_args: MessageAddedEventArgs) => {
     this._updateMessages();
-    const messagesToAdd = MessageManager.activeMessageManager.messages.filter((msg) => !this.messages.find((m) => m.id === msg.id));
+    const messagesToAdd = MessageManager.activeMessageManager.messages.filter(
+      (msg) => !this.messages.find((m) => m.id === msg.id)
+    );
     messagesToAdd.forEach((msg) => {
-      const displayedMessage = MessageManager.displayMessage(msg.messageDetails, { onRemove: () => this._closeMessage(msg.id) });
+      const displayedMessage = MessageManager.displayMessage(
+        msg.messageDetails,
+        { onRemove: () => this._closeMessage(msg.id) }
+      );
       if (!!displayedMessage)
         this.messages.push({ close: displayedMessage.close, id: msg.id });
     });
@@ -109,7 +133,11 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
   private _updateMessages = () => {
     const updatedMessages = [...this.messages];
     this.messages.forEach((m) => {
-      if (!MessageManager.activeMessageManager.messages.some((msg) => m.id === msg.id)) {
+      if (
+        !MessageManager.activeMessageManager.messages.some(
+          (msg) => m.id === msg.id
+        )
+      ) {
         m.close();
         const index = updatedMessages.findIndex((msg) => msg.id === m.id);
         updatedMessages.splice(index, 1);
@@ -127,7 +155,9 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
    * Sets state of the status bar to updated values reflecting activity progress.
    * @param args  New values to set for ActivityMessage
    */
-  private _handleActivityMessageUpdatedEvent = (args: ActivityMessageEventArgs) => {
+  private _handleActivityMessageUpdatedEvent = (
+    args: ActivityMessageEventArgs
+  ) => {
     this.setState({
       activityMessageInfo: args,
     });
@@ -153,7 +183,12 @@ export class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
  */
 export function StatusBarSpaceBetween(props: CommonDivProps) {
   const { className, ...divProps } = props;
-  return <Div {...divProps} mainClassName={className ? className : "uifw-statusbar-space-between"} />;
+  return (
+    <Div
+      {...divProps}
+      mainClassName={className ? className : "uifw-statusbar-space-between"}
+    />
+  );
 }
 
 /** StatusBar Left Section React functional component
@@ -161,7 +196,12 @@ export function StatusBarSpaceBetween(props: CommonDivProps) {
  */
 export function StatusBarLeftSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
-  return <Div {...divProps} mainClassName={className ? className : "uifw-statusbar-left"} />;
+  return (
+    <Div
+      {...divProps}
+      mainClassName={className ? className : "uifw-statusbar-left"}
+    />
+  );
 }
 
 /** StatusBar Center Section React functional component
@@ -169,7 +209,12 @@ export function StatusBarLeftSection(props: CommonDivProps) {
  */
 export function StatusBarCenterSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
-  return <Div {...divProps} mainClassName={className ? className : "uifw-statusbar-center"} />;
+  return (
+    <Div
+      {...divProps}
+      mainClassName={className ? className : "uifw-statusbar-center"}
+    />
+  );
 }
 
 /** StatusBar Right Section React functional component
@@ -177,7 +222,12 @@ export function StatusBarCenterSection(props: CommonDivProps) {
  */
 export function StatusBarRightSection(props: CommonDivProps) {
   const { className, ...divProps } = props;
-  return <Div {...divProps} mainClassName={className ? className : "uifw-statusbar-right"} />;
+  return (
+    <Div
+      {...divProps}
+      mainClassName={className ? className : "uifw-statusbar-right"}
+    />
+  );
 }
 
 /** Components used in a [[StatusBar]].

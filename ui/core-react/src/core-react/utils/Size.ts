@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -24,14 +24,11 @@ export class Size implements SizeProps {
   }
 
   /** Creates a size with specified dimensions. */
-  public constructor(public readonly width = 0, public readonly height = 0) {
-  }
+  public constructor(public readonly width = 0, public readonly height = 0) {}
 
   /** Checks if dimensions of two sizes are equal. */
   public equals(other: SizeProps) {
-    if (this.width === other.width &&
-      this.height === other.height)
-      return true;
+    if (this.width === other.width && this.height === other.height) return true;
     return false;
   }
 }

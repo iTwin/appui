@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
@@ -9,7 +9,10 @@
 import { countMatchesInString } from "../../../common/countMatchesInString";
 import type { PropertyCategory } from "../../PropertyDataProvider";
 import type { PropertyDataFilterResult } from "./PropertyDataFiltererBase";
-import { FilteredType, PropertyCategoryDataFiltererBase } from "./PropertyDataFiltererBase";
+import {
+  FilteredType,
+  PropertyCategoryDataFiltererBase,
+} from "./PropertyDataFiltererBase";
 
 /**
  * PropertyData filterer which matches on PropertyCategory's label.
@@ -23,7 +26,9 @@ export class PropertyCategoryLabelFilterer extends PropertyCategoryDataFiltererB
     this._filterText = filterText;
   }
 
-  public get filterText(): string { return this._filterText; }
+  public get filterText(): string {
+    return this._filterText;
+  }
   public set filterText(value: string) {
     const lowerValue = value.toLowerCase().trim();
     if (lowerValue !== this.filterText) {
@@ -32,17 +37,19 @@ export class PropertyCategoryLabelFilterer extends PropertyCategoryDataFiltererB
     }
   }
 
-  public get isActive() { return this.filterText !== ""; }
+  public get isActive() {
+    return this.filterText !== "";
+  }
 
-  public async categoryMatchesFilter(node: PropertyCategory): Promise<PropertyDataFilterResult> {
-    if (!this.isActive)
-      return { matchesFilter: true };
+  public async categoryMatchesFilter(
+    node: PropertyCategory
+  ): Promise<PropertyDataFilterResult> {
+    if (!this.isActive) return { matchesFilter: true };
 
     const displayLabel = node.label.toLowerCase();
     const matchesCount = countMatchesInString(displayLabel, this.filterText);
 
-    if (matchesCount === 0)
-      return { matchesFilter: false };
+    if (matchesCount === 0) return { matchesFilter: false };
 
     return {
       matchesFilter: true,

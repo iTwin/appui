@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -23,10 +23,7 @@ export function SectionTargets(props: SectionTargetsProps) {
   const direction = useTargetDirection();
   const { widgetId } = props;
   return (
-    <TargetContainer
-      className="nz-target-sectionTargets"
-      direction={direction}
-    >
+    <TargetContainer className="nz-target-sectionTargets" direction={direction}>
       <SectionTarget sectionIndex={0} />
       <MergeTarget widgetId={widgetId} />
       <SectionTarget sectionIndex={1} />

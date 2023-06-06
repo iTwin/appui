@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module QuantityFormat
  */
@@ -9,7 +9,7 @@
 import * as React from "react";
 import type { FormatterSpec } from "@itwin/core-quantity";
 import { SpecialKey } from "@itwin/appui-abstract";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { UiIModelComponents } from "../UiIModelComponents";
@@ -41,44 +41,76 @@ export function FormatSample(props: FormatSampleProps) {
 
   const handleOnValueBlur = React.useCallback(() => {
     let newValue = Number.parseFloat(sampleValue);
-    if (Number.isNaN(newValue))
-      newValue = 0;
+    if (Number.isNaN(newValue)) newValue = 0;
     setMagnitude(newValue);
     setSampleValue(newValue.toString());
   }, [sampleValue]);
 
-  const handleOnValueChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setSampleValue(event.target.value);
-  }, []);
+  const handleOnValueChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSampleValue(event.target.value);
+    },
+    []
+  );
 
-  const handleKeyDown = React.useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    // istanbul ignore else
-    if (e.key === SpecialKey.Enter) {
-      let newValue = Number.parseFloat(sampleValue);
-      if (Number.isNaN(newValue))
-        newValue = 0;
-      setMagnitude(newValue);
-      setSampleValue(newValue.toString());
-      e.preventDefault();
-    }
-  }, [sampleValue]);
+  const handleKeyDown = React.useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      // istanbul ignore else
+      if (e.key === SpecialKey.Enter) {
+        let newValue = Number.parseFloat(sampleValue);
+        if (Number.isNaN(newValue)) newValue = 0;
+        setMagnitude(newValue);
+        setSampleValue(newValue.toString());
+        e.preventDefault();
+      }
+    },
+    [sampleValue]
+  );
 
-  const activePersistenceUnitLabel = formatSpec ? formatSpec.persistenceUnit.label : "";
-  const formattedValue = formatSpec ? formatSpec.applyFormatting(magnitude) : "";
+  const activePersistenceUnitLabel = formatSpec
+    ? formatSpec.persistenceUnit.label
+    : "";
+  const formattedValue = formatSpec
+    ? formatSpec.applyFormatting(magnitude)
+    : "";
 
-  const valueLabel = React.useRef(UiIModelComponents.translate("QuantityFormat.labels.value"));
-  const formattedLabel = React.useRef(UiIModelComponents.translate("QuantityFormat.labels.formatted"));
+  const valueLabel = React.useRef(
+    UiIModelComponents.translate("QuantityFormat.labels.value")
+  );
+  const formattedLabel = React.useRef(
+    UiIModelComponents.translate("QuantityFormat.labels.formatted")
+  );
 
   return (
     <>
-      {!hideLabels && <span className={"uicore-label"}>{valueLabel.current}</span>}
+      {!hideLabels && (
+        <span className={"uicore-label"}>{valueLabel.current}</span>
+      )}
       <span className="components-inline">
-        <Input data-testid="format-sample-input" className={"components-quantity-persistence-input"} value={sampleValue} onChange={handleOnValueChange} onKeyDown={handleKeyDown} onBlur={handleOnValueBlur} size="small" />{activePersistenceUnitLabel}
+        <Input
+          data-testid="format-sample-input"
+          className={"components-quantity-persistence-input"}
+          value={sampleValue}
+          onChange={handleOnValueChange}
+          onKeyDown={handleKeyDown}
+          onBlur={handleOnValueBlur}
+          size="small"
+        />
+        {activePersistenceUnitLabel}
       </span>
-      {!hideLabels && <span className={"uicore-label"}>{formattedLabel.current}</span>}
+      {!hideLabels && (
+        <span className={"uicore-label"}>{formattedLabel.current}</span>
+      )}
       <span data-testid="progress-forward">
-        {hideLabels && (formattedValue.length > 0) && <Icon iconSpec={<SvgProgressForward />} />}
-        <span data-testid="format-sample-formatted" className={"uicore-label components-quantity-formatted-sample"}>{formattedValue}</span>
+        {hideLabels && formattedValue.length > 0 && (
+          <Icon iconSpec={<SvgProgressForward />} />
+        )}
+        <span
+          data-testid="format-sample-formatted"
+          className={"uicore-label components-quantity-formatted-sample"}
+        >
+          {formattedValue}
+        </span>
       </span>
     </>
   );

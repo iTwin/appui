@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { useImportDeclaration } from "../ImportDeclaration";
 import { createDefineInlineCollectionTest } from "../TestUtils";
 
@@ -13,8 +13,7 @@ describe("ImportDeclaration", () => {
   describe("removeSpecifier", () => {
     defineInlineTest(
       (_, root) => {
-        root.findImportDeclarations("@itwin/from")
-          .removeSpecifier("a");
+        root.findImportDeclarations("@itwin/from").removeSpecifier("a");
       },
       `
       import { a, b } from "@itwin/from";
@@ -22,12 +21,13 @@ describe("ImportDeclaration", () => {
       `
       import { b } from "@itwin/from";
       `,
-      `should remove specifier`,
+      `should remove specifier`
     );
 
     defineInlineTest(
       (_, root) => {
-        root.findImportDeclarations("@itwin/from")
+        root
+          .findImportDeclarations("@itwin/from")
           .removeSpecifier("b")
           .removeSpecifier("c");
       },
@@ -37,13 +37,12 @@ describe("ImportDeclaration", () => {
       `
       import { a } from "@itwin/from";
       `,
-      `should remove multiple specifiers`,
+      `should remove multiple specifiers`
     );
 
     defineInlineTest(
       (_, root) => {
-        root.findImportDeclarations("@itwin/from")
-          .removeSpecifier("a");
+        root.findImportDeclarations("@itwin/from").removeSpecifier("a");
       },
       `
       import { a } from "@itwin/from";
@@ -52,13 +51,12 @@ describe("ImportDeclaration", () => {
       `
       import { b } from "test";
       `,
-      `should remove declaration`,
+      `should remove declaration`
     );
 
     defineInlineTest(
       (_, root) => {
-        root.findImportDeclarations("@itwin/from")
-          .removeSpecifier("a");
+        root.findImportDeclarations("@itwin/from").removeSpecifier("a");
       },
       `
       /** @copyright */
@@ -69,12 +67,13 @@ describe("ImportDeclaration", () => {
       /** @copyright */
       x;
       `,
-      `should retain first comment`,
+      `should retain first comment`
     );
 
     defineInlineTest(
       (_, root) => {
-        root.findImportDeclarations("@itwin/from")
+        root
+          .findImportDeclarations("@itwin/from")
           .removeSpecifier("a")
           .removeSpecifier("b");
       },
@@ -85,13 +84,12 @@ describe("ImportDeclaration", () => {
       `
       import { x } from "test";
       `,
-      `should not fail if declaration is removed`,
+      `should not fail if declaration is removed`
     );
 
     defineInlineTest(
       (_, root) => {
-        root.findImportDeclarations("@itwin/from")
-          .removeSpecifier("a");
+        root.findImportDeclarations("@itwin/from").removeSpecifier("a");
       },
       `
       x;
@@ -99,7 +97,7 @@ describe("ImportDeclaration", () => {
       `
       x;
       `,
-      `should not fail if declaration is not found`,
+      `should not fail if declaration is not found`
     );
   });
 });

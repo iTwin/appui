@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
@@ -9,7 +9,6 @@ import { UiComponents } from "../components-react";
 import TestUtils from "./TestUtils";
 
 describe("UiComponents", () => {
-
   beforeEach(() => {
     TestUtils.terminateUiComponents();
   });
@@ -53,5 +52,4 @@ describe("UiComponents", () => {
     const category = UiComponents.loggerCategory(undefined);
     expect(category).to.eq(UiComponents.packageName);
   });
-
 });

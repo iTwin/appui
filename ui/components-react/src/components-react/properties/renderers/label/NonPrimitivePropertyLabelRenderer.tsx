@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
@@ -15,7 +15,8 @@ import { PropertyLabelRenderer } from "./PropertyLabelRenderer";
 /** Properties for the [[NonPrimitivePropertyLabelRenderer]] React component
  * @public
  */
-export interface NonPrimitivePropertyLabelRendererProps extends PrimitivePropertyLabelRendererProps {
+export interface NonPrimitivePropertyLabelRendererProps
+  extends PrimitivePropertyLabelRendererProps {
   isExpanded: boolean;
   onExpand: () => void;
   onCollapse: () => void;
@@ -28,24 +29,26 @@ export interface NonPrimitivePropertyLabelRendererProps extends PrimitivePropert
  */
 export class NonPrimitivePropertyLabelRenderer extends React.PureComponent<NonPrimitivePropertyLabelRendererProps> {
   private _onClick = () => {
-    if (this.props.isExpanded)
-      this.props.onCollapse();
-    else
-      this.props.onExpand();
+    if (this.props.isExpanded) this.props.onCollapse();
+    else this.props.onExpand();
   };
 
   public override render() {
     return (
       <div
         style={PropertyLabelRenderer.getStyle(this.props.offset)}
-        className={`components-nonprimitive-property-label-renderer ${this.props.className ? this.props.className : ""}`}
+        className={`components-nonprimitive-property-label-renderer ${
+          this.props.className ? this.props.className : ""
+        }`}
         onClick={this._onClick}
         role="presentation"
       >
-        <div className={(this.props.isExpanded ? "components-expanded" : "")}>
+        <div className={this.props.isExpanded ? "components-expanded" : ""}>
           <SvgChevronRight />
         </div>
-        <PropertyLabelRenderer renderColon={this.props.renderColon}>{this.props.children}</PropertyLabelRenderer>
+        <PropertyLabelRenderer renderColon={this.props.renderColon}>
+          {this.props.children}
+        </PropertyLabelRenderer>
       </div>
     );
   }

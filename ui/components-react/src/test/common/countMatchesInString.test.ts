@@ -1,13 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import { countMatchesInString } from "../../components-react/common/countMatchesInString";
 
 describe("countMatchesInString", () => {
-
   it("returns 1 when there's one match", () => {
     expect(countMatchesInString("abc", "b")).to.eq(1);
   });
@@ -27,5 +26,4 @@ describe("countMatchesInString", () => {
   it("returns 0 when `lookup` is empty", () => {
     expect(countMatchesInString("abc", "")).to.eq(0);
   });
-
 });

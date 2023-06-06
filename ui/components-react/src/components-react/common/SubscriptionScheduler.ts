@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -40,19 +40,20 @@ export class SubscriptionScheduler<T> {
     this._scheduler
       .pipe(
         mergeMap(
-          (sourceObservable) => sourceObservable.pipe(
-            // Connect the observable
-            refCount(),
-            // Guard against stack overflow when a lot of observables are scheduled. Without this operation `mergeMap`
-            // will process each observable that is present in the pipeline recursively.
-            observeOn(queueScheduler),
-            // Delay the connection until another event loop task
-            subscribeOn(asapScheduler),
-            // Ignore errors in this pipeline without suppressing them for other subscribers
-            onErrorResumeNext(),
-          ),
-          MAX_CONCURRENT_SUBSCRIPTIONS,
-        ),
+          (sourceObservable) =>
+            sourceObservable.pipe(
+              // Connect the observable
+              refCount(),
+              // Guard against stack overflow when a lot of observables are scheduled. Without this operation `mergeMap`
+              // will process each observable that is present in the pipeline recursively.
+              observeOn(queueScheduler),
+              // Delay the connection until another event loop task
+              subscribeOn(asapScheduler),
+              // Ignore errors in this pipeline without suppressing them for other subscribers
+              onErrorResumeNext()
+            ),
+          MAX_CONCURRENT_SUBSCRIPTIONS
+        )
       )
       // Start consuming scheduled observables
       .subscribe();
@@ -71,9 +72,11 @@ export class SubscriptionScheduler<T> {
     return defer(() => {
       let unsubscribed = false;
       // Do not subscribe to source observable if it was unsubscribed from before being processed by the scheduler
-      const connectableObservable = iif(() => unsubscribed, EMPTY, source).pipe(publish()) as ConnectableObservable<T>;
+      const connectableObservable = iif(() => unsubscribed, EMPTY, source).pipe(
+        publish()
+      ) as ConnectableObservable<T>;
       this._scheduler.next(connectableObservable);
-      return connectableObservable.pipe(finalize(() => unsubscribed = true));
+      return connectableObservable.pipe(finalize(() => (unsubscribed = true)));
     });
   }
 }
@@ -82,6 +85,8 @@ export class SubscriptionScheduler<T> {
  * Helper function for use as a `pipe()` argument with `rxjs` observables.
  * @internal
  */
-export function scheduleSubscription<T>(scheduler: SubscriptionScheduler<T>): (source: Observable<T>) => Observable<T> {
+export function scheduleSubscription<T>(
+  scheduler: SubscriptionScheduler<T>
+): (source: Observable<T>) => Observable<T> {
   return (source) => scheduler.scheduleSubscription(source);
 }

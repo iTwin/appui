@@ -1,14 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Inputs
  */
 
 import classnames from "classnames";
 import * as React from "react";
-import type { QuantityFormatsChangedArgs, QuantityTypeArg } from "@itwin/core-frontend";
+import type {
+  QuantityFormatsChangedArgs,
+  QuantityTypeArg,
+} from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { Parser } from "@itwin/core-quantity";
 import type { ParseResults } from "@itwin/appui-abstract";
@@ -35,65 +38,130 @@ export interface QuantityProps extends CommonProps {
 /** Input control that allows users to input a quantity and show the formatted string that represents the value.
  * @beta
  */
-export function QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref }: QuantityProps) {
-  const [formatterSpec, setFormatterSpec] = React.useState(() => IModelApp.quantityFormatter.findFormatterSpecByQuantityType(quantityType));
-  const [parserSpec, setParserSpec] = React.useState(() => IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType));
+export function QuantityInput({
+  initialValue,
+  quantityType,
+  readonly,
+  className,
+  style,
+  onQuantityChange,
+  ref,
+}: QuantityProps) {
+  const [formatterSpec, setFormatterSpec] = React.useState(() =>
+    IModelApp.quantityFormatter.findFormatterSpecByQuantityType(quantityType)
+  );
+  const [parserSpec, setParserSpec] = React.useState(() =>
+    IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType)
+  );
 
-  const formatValue = React.useCallback((value: number) => {
-    // istanbul ignore else
-    if (formatterSpec) {
-      return formatterSpec.applyFormatting(value);
-    }
-    // istanbul ignore next
-    return value.toFixed(2);
-  }, [formatterSpec]);
-
-  const parseString = React.useCallback((userInput: string): ParseResults => {
-    // istanbul ignore else
-    if (parserSpec) {
-      const parseResult = IModelApp.quantityFormatter.parseToQuantityValue(userInput, parserSpec);
+  const formatValue = React.useCallback(
+    (value: number) => {
       // istanbul ignore else
-      if (Parser.isParsedQuantity(parseResult)) {
-        return { value: parseResult.value };
-      } else {
-        const statusId = Parser.isParseError(parseResult) ? parseResult.error.toString() : "Unknown";
-        return { parseError: `${UiIModelComponents.translate("QuantityInput.NoParserDefined")}${statusId}` };
+      if (formatterSpec) {
+        return formatterSpec.applyFormatting(value);
       }
-    }
-    // istanbul ignore next
-    return { parseError: UiIModelComponents.translate("QuantityInput.NoParserDefined") };
-  }, [parserSpec]);
+      // istanbul ignore next
+      return value.toFixed(2);
+    },
+    [formatterSpec]
+  );
+
+  const parseString = React.useCallback(
+    (userInput: string): ParseResults => {
+      // istanbul ignore else
+      if (parserSpec) {
+        const parseResult = IModelApp.quantityFormatter.parseToQuantityValue(
+          userInput,
+          parserSpec
+        );
+        // istanbul ignore else
+        if (Parser.isParsedQuantity(parseResult)) {
+          return { value: parseResult.value };
+        } else {
+          const statusId = Parser.isParseError(parseResult)
+            ? parseResult.error.toString()
+            : "Unknown";
+          return {
+            parseError: `${UiIModelComponents.translate(
+              "QuantityInput.NoParserDefined"
+            )}${statusId}`,
+          };
+        }
+      }
+      // istanbul ignore next
+      return {
+        parseError: UiIModelComponents.translate(
+          "QuantityInput.NoParserDefined"
+        ),
+      };
+    },
+    [parserSpec]
+  );
 
   const classNames = classnames(className, "components-quantity-input");
 
   React.useEffect(() => {
-    const handleUnitSystemChanged = ((): void => {
-      setFormatterSpec(IModelApp.quantityFormatter.findFormatterSpecByQuantityType(quantityType));
-      setParserSpec(IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType));
-    });
+    const handleUnitSystemChanged = (): void => {
+      setFormatterSpec(
+        IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
+          quantityType
+        )
+      );
+      setParserSpec(
+        IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType)
+      );
+    };
 
-    IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(handleUnitSystemChanged);
+    IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
+      handleUnitSystemChanged
+    );
     return () => {
-      IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.removeListener(handleUnitSystemChanged);
+      IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.removeListener(
+        handleUnitSystemChanged
+      );
     };
   }, [quantityType]);
 
   React.useEffect(() => {
-    const handleUnitSystemChanged = ((args: QuantityFormatsChangedArgs): void => {
-      const quantityKey = IModelApp.quantityFormatter.getQuantityTypeKey(quantityType);
+    const handleUnitSystemChanged = (
+      args: QuantityFormatsChangedArgs
+    ): void => {
+      const quantityKey =
+        IModelApp.quantityFormatter.getQuantityTypeKey(quantityType);
       // istanbul ignore else
       if (args.quantityType === quantityKey) {
-        setFormatterSpec(IModelApp.quantityFormatter.findFormatterSpecByQuantityType(quantityType));
-        setParserSpec(IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType));
+        setFormatterSpec(
+          IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
+            quantityType
+          )
+        );
+        setParserSpec(
+          IModelApp.quantityFormatter.findParserSpecByQuantityType(quantityType)
+        );
       }
-    });
+    };
 
-    IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(handleUnitSystemChanged);
+    IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
+      handleUnitSystemChanged
+    );
     return () => {
-      IModelApp.quantityFormatter.onQuantityFormatsChanged.removeListener(handleUnitSystemChanged);
+      IModelApp.quantityFormatter.onQuantityFormatsChanged.removeListener(
+        handleUnitSystemChanged
+      );
     };
   }, [quantityType]);
 
-  return <ParsedInput data-testid="components-quantity-input" ref={ref} style={style} className={classNames}
-    onChange={onQuantityChange} initialValue={initialValue} readonly={readonly} formatValue={formatValue} parseString={parseString} />;
+  return (
+    <ParsedInput
+      data-testid="components-quantity-input"
+      ref={ref}
+      style={style}
+      className={classNames}
+      onChange={onQuantityChange}
+      initialValue={initialValue}
+      readonly={readonly}
+      formatValue={formatValue}
+      parseString={parseString}
+    />
+  );
 }

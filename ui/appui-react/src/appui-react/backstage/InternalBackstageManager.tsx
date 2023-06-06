@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Backstage
  */
@@ -19,15 +19,16 @@ export class InternalBackstageManager {
   private _isOpen = false;
 
   /** Event raised when backstage is opened or closed. */
-  public readonly onToggled = new BeEvent<(args: BackstageToggledArgs) => void>();
+  public readonly onToggled = new BeEvent<
+    (args: BackstageToggledArgs) => void
+  >();
 
   public get isOpen() {
     return this._isOpen;
   }
 
   private setIsOpen(isOpen: boolean) {
-    if (isOpen === this._isOpen)
-      return;
+    if (isOpen === this._isOpen) return;
     this._isOpen = isOpen;
     this.onToggled.raiseEvent({
       isOpen,

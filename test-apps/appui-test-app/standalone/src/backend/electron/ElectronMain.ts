@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { join } from "path";
 import { assert } from "@itwin/core-bentley";
@@ -48,7 +48,13 @@ export async function initializeElectron(opts?: IModelHostOptions) {
   ElectronHost.app.on("web-contents-created", (_e, wc) => {
     wc.on("before-input-event", (event, input) => {
       // CTRL + SHIFT + I  ==> Toggle DevTools
-      if (input.key === "I" && input.control && !input.alt && !input.meta && input.shift) {
+      if (
+        input.key === "I" &&
+        input.control &&
+        !input.alt &&
+        !input.meta &&
+        input.shift
+      ) {
         if (ElectronHost.mainWindow)
           ElectronHost.mainWindow.webContents.toggleDevTools();
 
@@ -58,10 +64,18 @@ export async function initializeElectron(opts?: IModelHostOptions) {
   });
 
   // Restore previous window size, position and maximized state
-  const sizeAndPosition = ElectronHost.getWindowSizeAndPositionSetting(mainWindowName);
-  const maximizeWindow = undefined === sizeAndPosition || ElectronHost.getWindowMaximizedSetting(mainWindowName);
+  const sizeAndPosition =
+    ElectronHost.getWindowSizeAndPositionSetting(mainWindowName);
+  const maximizeWindow =
+    undefined === sizeAndPosition ||
+    ElectronHost.getWindowMaximizedSetting(mainWindowName);
 
-  await ElectronHost.openMainWindow({ ...sizeAndPosition, show: !maximizeWindow, title: "Ui Test App", storeWindowName: mainWindowName });
+  await ElectronHost.openMainWindow({
+    ...sizeAndPosition,
+    show: !maximizeWindow,
+    title: "Ui Test App",
+    storeWindowName: mainWindowName,
+  });
   assert(ElectronHost.mainWindow !== undefined);
 
   if (maximizeWindow) {
@@ -69,6 +83,6 @@ export async function initializeElectron(opts?: IModelHostOptions) {
     ElectronHost.mainWindow.show();
   }
 
-  if ((undefined === process.env.IMJS_NO_DEV_TOOLS))
+  if (undefined === process.env.IMJS_NO_DEV_TOOLS)
     ElectronHost.mainWindow.webContents.toggleDevTools();
 }

@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import React from "react";
 import sinon from "sinon";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import type { PrimitiveValue} from "@itwin/appui-abstract";
+import type { PrimitiveValue } from "@itwin/appui-abstract";
 import { SpecialKey } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../../components-react/editors/EditorContainer";
 import { EditorContainer } from "../../components-react/editors/EditorContainer";
@@ -28,8 +28,12 @@ describe("<EnumButtonGroupEditor />", () => {
     const record2 = TestUtils.createEnumProperty("Test", 2);
     TestUtils.addEnumButtonGroupEditorSpecification(record1);
     TestUtils.addEnumButtonGroupEditorSpecification(record2);
-    const renderedComponent = render(<EnumButtonGroupEditor propertyRecord={record1} />);
-    renderedComponent.rerender(<EnumButtonGroupEditor propertyRecord={record2} />);
+    const renderedComponent = render(
+      <EnumButtonGroupEditor propertyRecord={record1} />
+    );
+    renderedComponent.rerender(
+      <EnumButtonGroupEditor propertyRecord={record2} />
+    );
     expect(renderedComponent).not.to.be.undefined;
   });
 
@@ -47,8 +51,11 @@ describe("<EnumButtonGroupEditor />", () => {
       spyOnCommit();
     }
 
-    const renderedComponent = render(<EnumButtonGroupEditor propertyRecord={record} onCommit={handleCommit} />);
-    expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to.be.null;
+    const renderedComponent = render(
+      <EnumButtonGroupEditor propertyRecord={record} onCommit={handleCommit} />
+    );
+    expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to
+      .be.null;
 
     const greenButton = renderedComponent.getByTestId("Green");
     expect(greenButton.tagName).to.be.equal("BUTTON");
@@ -74,8 +81,11 @@ describe("<EnumButtonGroupEditor />", () => {
       spyOnCommit();
     }
 
-    const renderedComponent = render(<EnumButtonGroupEditor propertyRecord={record} onCommit={handleCommit} />);
-    expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to.be.null;
+    const renderedComponent = render(
+      <EnumButtonGroupEditor propertyRecord={record} onCommit={handleCommit} />
+    );
+    expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to
+      .be.null;
     const greenButton = renderedComponent.getByTestId("Green");
     expect(greenButton.tagName).to.be.equal("BUTTON");
     expect(greenButton.classList.contains("nz-is-active")).to.be.false;
@@ -90,23 +100,44 @@ describe("<EnumButtonGroupEditor />", () => {
     const record = TestUtils.createEnumProperty("Test", 0);
     TestUtils.addEnumButtonGroupEditorSpecification(record);
 
-    const renderedComponent = render(<EnumButtonGroupEditor propertyRecord={record} />);
-    expect(await waitFor(() => renderedComponent.getByTestId("Blue"))).not.to.be.null;
+    const renderedComponent = render(
+      <EnumButtonGroupEditor propertyRecord={record} />
+    );
+    expect(await waitFor(() => renderedComponent.getByTestId("Blue"))).not.to.be
+      .null;
     const blueButton = renderedComponent.getByTestId("Blue");
     expect(blueButton.tagName).to.be.equal("BUTTON");
-    expect(blueButton.classList.contains("nz-is-disabled")).to.be.equal(!TestUtils.blueEnumValueIsEnabled);
+    expect(blueButton.classList.contains("nz-is-disabled")).to.be.equal(
+      !TestUtils.blueEnumValueIsEnabled
+    );
     TestUtils.toggleBlueEnumValueEnabled();
-    renderedComponent.rerender(<EnumButtonGroupEditor propertyRecord={record} />);
+    renderedComponent.rerender(
+      <EnumButtonGroupEditor propertyRecord={record} />
+    );
     await waitFor(() => renderedComponent.getByTestId("Blue"));
-    expect(blueButton.classList.contains("nz-is-disabled")).to.be.equal(!TestUtils.blueEnumValueIsEnabled);
+    expect(blueButton.classList.contains("nz-is-disabled")).to.be.equal(
+      !TestUtils.blueEnumValueIsEnabled
+    );
   });
 
   it("renders editor for 'enum' type and 'enum-buttongroup' editor", async () => {
     const propertyRecord = TestUtils.createEnumProperty("Test", 1);
     TestUtils.addEnumButtonGroupEditorSpecification(propertyRecord);
-    const renderedComponent = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={() => { }} onCancel={() => { }} />);
-    expect(await waitFor(() => renderedComponent.getByTestId("Blue"))).not.to.be.null;
-    expect(renderedComponent.container.querySelector(".components-enumbuttongroup-editor")).to.not.be.null;
+    const renderedComponent = render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={() => {}}
+        onCancel={() => {}}
+      />
+    );
+    expect(await waitFor(() => renderedComponent.getByTestId("Blue"))).not.to.be
+      .null;
+    expect(
+      renderedComponent.container.querySelector(
+        ".components-enumbuttongroup-editor"
+      )
+    ).to.not.be.null;
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -116,10 +147,18 @@ describe("<EnumButtonGroupEditor />", () => {
     record.property.dataController = "myData";
 
     const spyOnCommit = sinon.spy();
-    const renderedComponent = render(<EditorContainer propertyRecord={record} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
+    const renderedComponent = render(
+      <EditorContainer
+        propertyRecord={record}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+      />
+    );
     expect(renderedComponent).not.to.be.undefined;
 
-    expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to.be.null;
+    expect(await waitFor(() => renderedComponent.getByTestId("Green"))).not.to
+      .be.null;
     const greenButton = renderedComponent.getByTestId("Green");
 
     fireEvent.keyDown(greenButton, { key: SpecialKey.Enter });
@@ -128,5 +167,4 @@ describe("<EnumButtonGroupEditor />", () => {
 
     PropertyEditorManager.deregisterDataController("myData");
   });
-
 });

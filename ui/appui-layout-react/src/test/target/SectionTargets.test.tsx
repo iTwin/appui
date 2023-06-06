@@ -1,15 +1,23 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { addPanelWidget, addTab, createNineZoneState, PanelSideContext } from "../../appui-layout-react";
+import {
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  PanelSideContext,
+} from "../../appui-layout-react";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { TestNineZoneProvider } from "../Providers";
 import { SectionTargets } from "../../appui-layout-react/target/SectionTargets";
 
-function Wrapper({ children, ...other }: React.PropsWithChildren<TestNineZoneProviderProps>) {
+function Wrapper({
+  children,
+  ...other
+}: React.PropsWithChildren<TestNineZoneProviderProps>) {
   return (
     <TestNineZoneProvider {...other}>
       <PanelSideContext.Provider value="left">
@@ -27,9 +35,13 @@ describe("SectionTargets", () => {
     const { container } = render(
       <Wrapper defaultState={state}>
         <SectionTargets widgetId="w1" />
-      </Wrapper>,
+      </Wrapper>
     );
-    container.getElementsByClassName("nz-target-mergeTarget").length.should.eq(1);
-    container.getElementsByClassName("nz-target-sectionTarget").length.should.eq(2);
+    container
+      .getElementsByClassName("nz-target-mergeTarget")
+      .length.should.eq(1);
+    container
+      .getElementsByClassName("nz-target-sectionTarget")
+      .length.should.eq(2);
   });
 });

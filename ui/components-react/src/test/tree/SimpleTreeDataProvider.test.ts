@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import type { SimpleTreeDataProviderHierarchy } from "../../components-react/tree/SimpleTreeDataProvider";
@@ -9,8 +9,11 @@ import { SimpleTreeDataProvider } from "../../components-react/tree/SimpleTreeDa
 import type { DelayLoadedTreeNodeItem } from "../../components-react/tree/TreeDataProvider";
 
 describe("SimpleTreeDataProvider", () => {
-
-  const createTreeNodeItem = (id: string, hasChildren: boolean, parentId?: string): DelayLoadedTreeNodeItem => {
+  const createTreeNodeItem = (
+    id: string,
+    hasChildren: boolean,
+    parentId?: string
+  ): DelayLoadedTreeNodeItem => {
     return {
       id,
       parentId,
@@ -19,7 +22,10 @@ describe("SimpleTreeDataProvider", () => {
     };
   };
 
-  const createHierarchy = (rootNodeCount: number, childrenNodeCount: number): SimpleTreeDataProviderHierarchy => {
+  const createHierarchy = (
+    rootNodeCount: number,
+    childrenNodeCount: number
+  ): SimpleTreeDataProviderHierarchy => {
     const hierarchy: SimpleTreeDataProviderHierarchy = new Map();
     const rootNodes = [];
     for (let i = 0; i < rootNodeCount; i++) {
@@ -27,7 +33,11 @@ describe("SimpleTreeDataProvider", () => {
       const nodes: DelayLoadedTreeNodeItem[] = [];
 
       for (let x = 0; x < childrenNodeCount; x++)
-        nodes[x] = createTreeNodeItem(`${i.toString()}-${x.toString()}`, false, rootNodes[i].id);
+        nodes[x] = createTreeNodeItem(
+          `${i.toString()}-${x.toString()}`,
+          false,
+          rootNodes[i].id
+        );
 
       hierarchy.set(rootNodes[i].id, nodes);
     }
@@ -36,7 +46,6 @@ describe("SimpleTreeDataProvider", () => {
   };
 
   describe("getNodesCount", () => {
-
     it("returns root nodes count", async () => {
       const nodeCount = 5;
       const hierarchy = createHierarchy(nodeCount, 0);
@@ -55,7 +64,6 @@ describe("SimpleTreeDataProvider", () => {
       const result = await provider.getNodesCount(nodes![0]);
       expect(result).to.be.equal(nodeCount);
     });
-
   });
 
   describe("getNodes", () => {
@@ -63,7 +71,6 @@ describe("SimpleTreeDataProvider", () => {
     let nodes: DelayLoadedTreeNodeItem[];
 
     describe("root", () => {
-
       beforeEach(() => {
         const hierarchy = createHierarchy(3, 3);
         nodes = hierarchy.get(undefined)!;
@@ -77,12 +84,18 @@ describe("SimpleTreeDataProvider", () => {
       });
 
       it("returns root nodes when page size is 0 and page start is 0", async () => {
-        const result = await provider.getNodes(undefined, { start: 0, size: 0 });
+        const result = await provider.getNodes(undefined, {
+          start: 0,
+          size: 0,
+        });
         expect(result).to.be.deep.equal(nodes);
       });
 
       it("returns root nodes when page size is 0 and page start is not 0", async () => {
-        const result = await provider.getNodes(undefined, { start: 1, size: 0 });
+        const result = await provider.getNodes(undefined, {
+          start: 1,
+          size: 0,
+        });
         expect(result).to.be.deep.equal([nodes[1], nodes[2]]);
       });
 
@@ -99,11 +112,9 @@ describe("SimpleTreeDataProvider", () => {
         const result = await providerWithNoRootNodes.getNodes(undefined);
         expect(result).to.be.empty;
       });
-
     });
 
     describe("children", () => {
-
       let rootNode: DelayLoadedTreeNodeItem;
 
       beforeEach(() => {
@@ -141,13 +152,14 @@ describe("SimpleTreeDataProvider", () => {
 
       it("returns empty array if parent node is not in hierarchy", async () => {
         const hierarchyNoChildren = createHierarchy(1, 0);
-        const providerNoChildren = new SimpleTreeDataProvider(hierarchyNoChildren);
-        const result = await providerNoChildren.getNodes(createTreeNodeItem("some id", false));
+        const providerNoChildren = new SimpleTreeDataProvider(
+          hierarchyNoChildren
+        );
+        const result = await providerNoChildren.getNodes(
+          createTreeNodeItem("some id", false)
+        );
         expect(result).to.be.empty;
       });
-
     });
-
   });
-
 });

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -22,7 +22,7 @@ describe("SearchBox", () => {
   beforeEach(() => {
     fakeTimers = sinon.useFakeTimers();
     theUserTo = userEvent.setup({
-      advanceTimers:(delay) => {
+      advanceTimers: (delay) => {
         fakeTimers.tick(delay);
       },
       delay: throttleMs,
@@ -35,7 +35,7 @@ describe("SearchBox", () => {
 
   describe("renders", () => {
     it("renders correctly", () => {
-      render(<SearchBox onValueChanged={() => { }} />);
+      render(<SearchBox onValueChanged={() => {}} />);
 
       expect(screen.getByRole("searchbox")).to.exist;
       expect(screen.getByRole("button")).to.exist;
@@ -53,10 +53,15 @@ describe("SearchBox", () => {
 
     it("should ignore if value specified is not different", async () => {
       const spyMethod = sinon.spy();
-      render(<SearchBox onValueChanged={spyMethod} valueChangedDelay={throttleMs*2} />);
+      render(
+        <SearchBox
+          onValueChanged={spyMethod}
+          valueChangedDelay={throttleMs * 2}
+        />
+      );
 
       await theUserTo.type(screen.getByRole("searchbox"), "T[Backspace]");
-      fakeTimers.tick(throttleMs*3);
+      fakeTimers.tick(throttleMs * 3);
       expect(spyMethod).not.to.be.called;
     });
 
@@ -72,7 +77,7 @@ describe("SearchBox", () => {
 
     it("should call onEscPressed", async () => {
       const spyMethod = sinon.spy();
-      render(<SearchBox onValueChanged={() => { }} onEscPressed={spyMethod} />);
+      render(<SearchBox onValueChanged={() => {}} onEscPressed={spyMethod} />);
 
       await theUserTo.type(screen.getByRole("searchbox"), "[Escape]");
       expect(spyMethod.calledOnce).to.be.true;
@@ -80,7 +85,9 @@ describe("SearchBox", () => {
 
     it("should call onEnterPressed", async () => {
       const spyMethod = sinon.spy();
-      render(<SearchBox onValueChanged={() => { }} onEnterPressed={spyMethod} />);
+      render(
+        <SearchBox onValueChanged={() => {}} onEnterPressed={spyMethod} />
+      );
 
       await theUserTo.type(screen.getByRole("searchbox"), "[Enter]");
       expect(spyMethod.calledOnce).to.be.true;
@@ -88,7 +95,13 @@ describe("SearchBox", () => {
 
     it("should call onClear", async () => {
       const spyMethod = sinon.spy();
-      render(<SearchBox onValueChanged={() => { }} onClear={spyMethod} initialValue="Test" />);
+      render(
+        <SearchBox
+          onValueChanged={() => {}}
+          onClear={spyMethod}
+          initialValue="Test"
+        />
+      );
 
       await theUserTo.click(screen.getByRole("button"));
       expect(spyMethod.calledOnce).to.be.true;
@@ -96,7 +109,13 @@ describe("SearchBox", () => {
 
     it("should set focus to input", () => {
       const searchBox = React.createRef<SearchBox>();
-      render(<SearchBox ref={searchBox} onValueChanged={() => { }} placeholder="Search" />);
+      render(
+        <SearchBox
+          ref={searchBox}
+          onValueChanged={() => {}}
+          placeholder="Search"
+        />
+      );
       searchBox.current?.focus();
       const inputElement = screen.getByRole("searchbox");
       const focusedElement = document.activeElement;

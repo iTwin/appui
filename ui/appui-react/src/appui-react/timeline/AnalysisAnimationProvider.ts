@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Timeline
  */
@@ -50,8 +50,7 @@ export class AnalysisAnimationTimelineDataProvider extends BaseTimelineDataProvi
   public override onAnimationFractionChanged = (animationFraction: number) => {
     this.animationFraction = animationFraction;
     // istanbul ignore next
-    if (this._viewport)
-      this._viewport.analysisFraction = animationFraction;
+    if (this._viewport) this._viewport.analysisFraction = animationFraction;
   };
 
   // istanbul ignore next

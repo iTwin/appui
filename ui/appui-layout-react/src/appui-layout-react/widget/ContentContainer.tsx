@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -31,22 +31,20 @@ export function WidgetContentContainer(props: WidgetContentContainerProps) {
     const widget = getWidgetState(state, widgetId);
     return { minimized: widget.minimized, activeTabId: widget.activeTabId };
   }, true);
-  const ref = React.useCallback((instance: HTMLDivElement) => {
-    widgetContentManager.setContainer(activeTabId, instance);
-  }, [widgetContentManager, activeTabId]);
+  const ref = React.useCallback(
+    (instance: HTMLDivElement) => {
+      widgetContentManager.setContainer(activeTabId, instance);
+    },
+    [widgetContentManager, activeTabId]
+  );
 
   const className = classnames(
     "nz-widget-contentContainer",
-    undefined === side && minimized && "nz-minimized",
+    undefined === side && minimized && "nz-minimized"
   );
   return (
-    <div
-      className={className}
-    >
-      <div
-        className="nz-content"
-        ref={ref}
-      />
+    <div className={className}>
+      <div className="nz-content" ref={ref} />
       {props.children}
     </div>
   );

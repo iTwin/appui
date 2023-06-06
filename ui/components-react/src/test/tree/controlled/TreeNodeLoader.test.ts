@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as faker from "faker";
 import type { Observable as RxjsObservable } from "rxjs/internal/Observable";
@@ -10,53 +10,99 @@ import { from as rxjsFrom } from "rxjs/internal/observable/from";
 import sinon from "sinon";
 import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
-import type { Observable, Observer } from "../../../components-react/tree/controlled/Observable";
 import type {
-  MutableTreeModelNode, TreeModelNode, TreeModelNodeInput, TreeModelRootNode, TreeNodeItemData,
+  Observable,
+  Observer,
+} from "../../../components-react/tree/controlled/Observable";
+import type {
+  MutableTreeModelNode,
+  TreeModelNode,
+  TreeModelNodeInput,
+  TreeModelRootNode,
+  TreeNodeItemData,
 } from "../../../components-react/tree/controlled/TreeModel";
 import { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
-import type { LoadedNodeHierarchy, TreeNodeLoadResult} from "../../../components-react/tree/controlled/TreeNodeLoader";
+import type {
+  LoadedNodeHierarchy,
+  TreeNodeLoadResult,
+} from "../../../components-react/tree/controlled/TreeNodeLoader";
 import {
-  AbstractTreeNodeLoader, handleLoadedNodeHierarchy, PagedTreeNodeLoader, TreeDataSource, TreeNodeLoader,
+  AbstractTreeNodeLoader,
+  handleLoadedNodeHierarchy,
+  PagedTreeNodeLoader,
+  TreeDataSource,
+  TreeNodeLoader,
 } from "../../../components-react/tree/controlled/TreeNodeLoader";
 import type {
-  ImmediatelyLoadedTreeNodeItem, ITreeDataProvider, TreeDataProvider, TreeDataProviderRaw, TreeNodeItem,
+  ImmediatelyLoadedTreeNodeItem,
+  ITreeDataProvider,
+  TreeDataProvider,
+  TreeDataProviderRaw,
+  TreeNodeItem,
 } from "../../../components-react/tree/TreeDataProvider";
 import { extractSequence } from "../../common/ObservableTestHelpers";
 import { ResolvablePromise } from "../../test-helpers/misc";
-import { createRandomMutableTreeModelNode, createRandomTreeNodeItem, createRandomTreeNodeItems } from "./TreeHelpers";
+import {
+  createRandomMutableTreeModelNode,
+  createRandomTreeNodeItem,
+  createRandomTreeNodeItems,
+} from "./TreeHelpers";
 
 /* eslint-disable @typescript-eslint/promise-function-async */
 
-const mockDataProvider = (dataProviderMock: moq.IMock<ITreeDataProvider>, pageSize: number) => {
+const mockDataProvider = (
+  dataProviderMock: moq.IMock<ITreeDataProvider>,
+  pageSize: number
+) => {
   const rootWithChildren = createRandomMutableTreeModelNode();
   rootWithChildren.item.autoExpand = false;
 
-  const rootNodeItems: TreeNodeItemData[] = [rootWithChildren.item, ...createRandomTreeNodeItems(pageSize * 2 - 1, undefined, false)];
+  const rootNodeItems: TreeNodeItemData[] = [
+    rootWithChildren.item,
+    ...createRandomTreeNodeItems(pageSize * 2 - 1, undefined, false),
+  ];
   const firstRootPage = rootNodeItems.slice(0, pageSize);
   const secondRootPage = rootNodeItems.slice(pageSize, pageSize);
 
   // disable children autoExpand to avoid mocking grandchildren load
-  const childItems = createRandomTreeNodeItems(pageSize, rootWithChildren.id, false);
-  childItems.forEach((item) => item.autoExpand = false);
+  const childItems = createRandomTreeNodeItems(
+    pageSize,
+    rootWithChildren.id,
+    false
+  );
+  childItems.forEach((item) => (item.autoExpand = false));
 
   // mock tree hierarchy
-  dataProviderMock.setup((x) => x.getNodesCount(undefined)).returns(async () => rootNodeItems.length);
-  dataProviderMock.setup((x) => x.getNodesCount(rootWithChildren.item)).returns(async () => childItems.length);
+  dataProviderMock
+    .setup((x) => x.getNodesCount(undefined))
+    .returns(async () => rootNodeItems.length);
+  dataProviderMock
+    .setup((x) => x.getNodesCount(rootWithChildren.item))
+    .returns(async () => childItems.length);
 
   for (let i = 1; i < rootNodeItems.length; i++) {
     // disable autoExpand to avoid mocking children load
     rootNodeItems[i].autoExpand = false;
-    const childCount = rootNodeItems[i].children ? rootNodeItems[i].children!.length : 0;
-    dataProviderMock.setup((x) => x.getNodesCount(rootNodeItems[i])).returns(async () => childCount);
+    const childCount = rootNodeItems[i].children
+      ? rootNodeItems[i].children!.length
+      : 0;
+    dataProviderMock
+      .setup((x) => x.getNodesCount(rootNodeItems[i]))
+      .returns(async () => childCount);
   }
 
   for (const item of childItems)
     dataProviderMock.setup((x) => x.getNodesCount(item)).returns(async () => 0);
 
-  dataProviderMock.setup((x) => x.getNodes(undefined, undefined)).returns(async () => rootNodeItems);
-  dataProviderMock.setup((x) => x.getNodes(undefined, { start: 0, size: pageSize })).returns(async () => firstRootPage);
-  dataProviderMock.setup((x) => x.getNodes(undefined, { start: pageSize, size: pageSize })).returns(async () => secondRootPage);
+  dataProviderMock
+    .setup((x) => x.getNodes(undefined, undefined))
+    .returns(async () => rootNodeItems);
+  dataProviderMock
+    .setup((x) => x.getNodes(undefined, { start: 0, size: pageSize }))
+    .returns(async () => firstRootPage);
+  dataProviderMock
+    .setup((x) => x.getNodes(undefined, { start: pageSize, size: pageSize }))
+    .returns(async () => secondRootPage);
 
   return {
     rootWithChildren,
@@ -69,8 +115,7 @@ const mockDataProvider = (dataProviderMock: moq.IMock<ITreeDataProvider>, pageSi
 
 const extractLoadedNodeIds = async (obs: Observable<TreeNodeLoadResult>) => {
   const loadResult = await extractSequence(rxjsFrom(obs));
-  if (loadResult.length === 0)
-    return [];
+  if (loadResult.length === 0) return [];
   return loadResult[0]!.loadedNodes.map((item) => item.id);
 };
 
@@ -85,7 +130,10 @@ describe("TreeNodeLoader", () => {
     dataProviderMock.reset();
     modelSourceMock.reset();
 
-    treeNodeLoader = new TreeNodeLoader(dataProviderMock.object, modelSourceMock.object);
+    treeNodeLoader = new TreeNodeLoader(
+      dataProviderMock.object,
+      modelSourceMock.object
+    );
   });
 
   describe("getDataProvider", () => {
@@ -101,7 +149,11 @@ describe("TreeNodeLoader", () => {
   });
 
   describe("loadNode", () => {
-    const treeRootNode: TreeModelRootNode = { depth: -1, id: undefined, numChildren: undefined };
+    const treeRootNode: TreeModelRootNode = {
+      depth: -1,
+      id: undefined,
+      numChildren: undefined,
+    };
     let rootNodes: TreeNodeItemData[];
     let rootWithChildren: MutableTreeModelNode;
     let childNodes: TreeNodeItemData[];
@@ -122,8 +174,12 @@ describe("TreeNodeLoader", () => {
     it("loads all children for node", async () => {
       rootWithChildren.isLoading = false;
 
-      dataProviderMock.setup((x) => x.getNodesCount(rootWithChildren.item)).returns(async () => childNodes.length);
-      dataProviderMock.setup((x) => x.getNodes(rootWithChildren.item, moq.It.isAny())).returns(async () => childNodes);
+      dataProviderMock
+        .setup((x) => x.getNodesCount(rootWithChildren.item))
+        .returns(async () => childNodes.length);
+      dataProviderMock
+        .setup((x) => x.getNodes(rootWithChildren.item, moq.It.isAny()))
+        .returns(async () => childNodes);
 
       const loadResultObs = treeNodeLoader.loadNode(rootWithChildren);
       const loadedIds = await extractLoadedNodeIds(loadResultObs);
@@ -160,7 +216,9 @@ describe("TreeNodeLoader", () => {
     describe("using raw data provider", () => {
       const nodesProvider: ImmediatelyLoadedTreeNodeItem[] = [
         {
-          id: "1", label: PropertyRecord.fromString("1"), children: [
+          id: "1",
+          label: PropertyRecord.fromString("1"),
+          children: [
             { id: "1-1", label: PropertyRecord.fromString("1-1") },
             { id: "1-2", label: PropertyRecord.fromString("1-2") },
           ],
@@ -169,7 +227,10 @@ describe("TreeNodeLoader", () => {
       ];
 
       it("loads all immediately loaded nodes", async () => {
-        treeNodeLoader = new TreeNodeLoader(nodesProvider, modelSourceMock.object);
+        treeNodeLoader = new TreeNodeLoader(
+          nodesProvider,
+          modelSourceMock.object
+        );
         const loadObs = treeNodeLoader.loadNode(treeRootNode);
         const loadedIds = await extractLoadedNodeIds(loadObs);
         expect(loadedIds).to.be.deep.eq(["1", "1-1", "1-2", "2"]);
@@ -190,7 +251,11 @@ describe("PagedTreeNodeLoader", () => {
     dataProviderMock.reset();
     modelSourceMock.reset();
 
-    pagedTreeNodeLoader = new PagedTreeNodeLoader(dataProviderMock.object, modelSourceMock.object, pageSize);
+    pagedTreeNodeLoader = new PagedTreeNodeLoader(
+      dataProviderMock.object,
+      modelSourceMock.object,
+      pageSize
+    );
   });
 
   describe("[get] pageSize", () => {
@@ -201,7 +266,9 @@ describe("PagedTreeNodeLoader", () => {
 
   describe("[get] dataProvider", () => {
     it("return data provider", () => {
-      expect(pagedTreeNodeLoader.dataProvider).to.be.eq(dataProviderMock.object);
+      expect(pagedTreeNodeLoader.dataProvider).to.be.eq(
+        dataProviderMock.object
+      );
     });
   });
 
@@ -212,7 +279,11 @@ describe("PagedTreeNodeLoader", () => {
   });
 
   describe("loadNode", () => {
-    const treeRootNode: TreeModelRootNode = { depth: -1, id: undefined, numChildren: undefined };
+    const treeRootNode: TreeModelRootNode = {
+      depth: -1,
+      id: undefined,
+      numChildren: undefined,
+    };
 
     let rootWithChildren: MutableTreeModelNode;
 
@@ -238,8 +309,12 @@ describe("PagedTreeNodeLoader", () => {
     it("loads child nodes page when asking for first child", async () => {
       rootWithChildren.isLoading = false;
 
-      dataProviderMock.setup((x) => x.getNodesCount(rootWithChildren.item)).returns(async () => childItems.length);
-      dataProviderMock.setup((x) => x.getNodes(rootWithChildren.item, moq.It.isAny())).returns(async () => childItems);
+      dataProviderMock
+        .setup((x) => x.getNodesCount(rootWithChildren.item))
+        .returns(async () => childItems.length);
+      dataProviderMock
+        .setup((x) => x.getNodes(rootWithChildren.item, moq.It.isAny()))
+        .returns(async () => childItems);
 
       const loadResultObs = pagedTreeNodeLoader.loadNode(rootWithChildren, 0);
       const loadedIds = await extractLoadedNodeIds(loadResultObs);
@@ -249,18 +324,30 @@ describe("PagedTreeNodeLoader", () => {
     it("loads children of auto expanded node", async () => {
       rootWithChildren.item.autoExpand = true;
 
-      dataProviderMock.setup((x) => x.getNodesCount(rootWithChildren.item)).returns(async () => childItems.length);
-      dataProviderMock.setup((x) => x.getNodes(rootWithChildren.item, moq.It.isAny())).returns(async () => childItems);
+      dataProviderMock
+        .setup((x) => x.getNodesCount(rootWithChildren.item))
+        .returns(async () => childItems.length);
+      dataProviderMock
+        .setup((x) => x.getNodes(rootWithChildren.item, moq.It.isAny()))
+        .returns(async () => childItems);
 
       const loadResultObs = pagedTreeNodeLoader.loadNode(treeRootNode, 0);
       const loadedIds = await extractLoadedNodeIds(loadResultObs);
-      const expectedNodeIds = [rootWithChildren.id, ...itemIds(childItems), ...itemIds(firstRootPage.slice(1))];
+      const expectedNodeIds = [
+        rootWithChildren.id,
+        ...itemIds(childItems),
+        ...itemIds(firstRootPage.slice(1)),
+      ];
       expect(loadedIds).to.be.deep.eq(expectedNodeIds);
     });
 
     it("reuses existing page request from data provider", async () => {
       const dataProvider = sinon.fake(() => new ResolvablePromise());
-      pagedTreeNodeLoader = new PagedTreeNodeLoader(dataProvider, modelSourceMock.object, pageSize);
+      pagedTreeNodeLoader = new PagedTreeNodeLoader(
+        dataProvider,
+        modelSourceMock.object,
+        pageSize
+      );
       pagedTreeNodeLoader.loadNode(treeRootNode, 0).subscribe();
       pagedTreeNodeLoader.loadNode(treeRootNode, 1).subscribe();
       // Node loader will invoke dataProvider in another microtask
@@ -271,8 +358,14 @@ describe("PagedTreeNodeLoader", () => {
 
     it("unschedules node load after cancellation", async () => {
       const dataProvider = sinon.fake(() => new ResolvablePromise());
-      pagedTreeNodeLoader = new PagedTreeNodeLoader(dataProvider, modelSourceMock.object, pageSize);
-      const subscription = pagedTreeNodeLoader.loadNode(treeRootNode, 0).subscribe();
+      pagedTreeNodeLoader = new PagedTreeNodeLoader(
+        dataProvider,
+        modelSourceMock.object,
+        pageSize
+      );
+      const subscription = pagedTreeNodeLoader
+        .loadNode(treeRootNode, 0)
+        .subscribe();
       await Promise.resolve();
       expect(dataProvider).to.have.been.calledOnce;
       subscription.unsubscribe();
@@ -287,7 +380,11 @@ describe("PagedTreeNodeLoader", () => {
 
     it("does not load more than one page concurrently", async () => {
       const dataProvider = sinon.fake(() => new ResolvablePromise());
-      pagedTreeNodeLoader = new PagedTreeNodeLoader(dataProvider, modelSourceMock.object, pageSize);
+      pagedTreeNodeLoader = new PagedTreeNodeLoader(
+        dataProvider,
+        modelSourceMock.object,
+        pageSize
+      );
 
       pagedTreeNodeLoader.loadNode(treeRootNode, 0).subscribe();
       pagedTreeNodeLoader.loadNode(treeRootNode, pageSize).subscribe();
@@ -312,7 +409,9 @@ describe("PagedTreeNodeLoader", () => {
     describe("using raw data provider", () => {
       const nodesProvider: ImmediatelyLoadedTreeNodeItem[] = [
         {
-          id: "1", label: PropertyRecord.fromString("1"), children: [
+          id: "1",
+          label: PropertyRecord.fromString("1"),
+          children: [
             { id: "1-1", label: PropertyRecord.fromString("1-1") },
             { id: "1-2", label: PropertyRecord.fromString("1-2") },
           ],
@@ -321,7 +420,11 @@ describe("PagedTreeNodeLoader", () => {
       ];
 
       it("loads all immediately loaded nodes", async () => {
-        pagedTreeNodeLoader = new PagedTreeNodeLoader(nodesProvider, modelSourceMock.object, pageSize);
+        pagedTreeNodeLoader = new PagedTreeNodeLoader(
+          nodesProvider,
+          modelSourceMock.object,
+          pageSize
+        );
         const loadObs = pagedTreeNodeLoader.loadNode(treeRootNode, 0);
         const loadedIds = await extractLoadedNodeIds(loadObs);
         expect(loadedIds).to.be.deep.eq(["1", "1-1", "1-2", "2"]);
@@ -335,29 +438,31 @@ describe("AbstractTreeNodeLoader", () => {
     it("accepts non-rxjs observables", async () => {
       const modelSource = new TreeModelSource();
       const promise = new ResolvablePromise<void>();
-      const nodeLoader = createCustomTreeNodeLoader(
-        modelSource,
-        () => {
-          return {
-            [Symbol.observable]() {
-              return this;
-            },
-            subscribe(
-              observerOrNext?: Observer<LoadedNodeHierarchy> | ((value: LoadedNodeHierarchy) => void) | null,
-              _error?: ((error: any) => void) | null,
-              complete?: (() => void) | null,
-            ) {
-              if (typeof observerOrNext === "object") {
-                observerOrNext?.complete?.();
-              } else {
-                complete?.();
-              }
-              return { closed: true, add() { }, unsubscribe() { } };
-            },
-          };
-        }
-      );
-      nodeLoader.loadNode(modelSource.getModel().getRootNode(), 0).subscribe({ complete: () => promise.resolve() });
+      const nodeLoader = createCustomTreeNodeLoader(modelSource, () => {
+        return {
+          [Symbol.observable]() {
+            return this;
+          },
+          subscribe(
+            observerOrNext?:
+              | Observer<LoadedNodeHierarchy>
+              | ((value: LoadedNodeHierarchy) => void)
+              | null,
+            _error?: ((error: any) => void) | null,
+            complete?: (() => void) | null
+          ) {
+            if (typeof observerOrNext === "object") {
+              observerOrNext?.complete?.();
+            } else {
+              complete?.();
+            }
+            return { closed: true, add() {}, unsubscribe() {} };
+          },
+        };
+      });
+      nodeLoader
+        .loadNode(modelSource.getModel().getRootNode(), 0)
+        .subscribe({ complete: () => promise.resolve() });
       await promise;
     });
 
@@ -366,9 +471,8 @@ describe("AbstractTreeNodeLoader", () => {
       sinon.stub(modelSource, "modifyModel");
       const dataProvider = sinon.fake(() => new ResolvablePromise());
 
-      const nodeLoader = createCustomTreeNodeLoader(
-        modelSource,
-        () => defer(() => rxjsFrom<Promise<LoadedNodeHierarchy>>(dataProvider())),
+      const nodeLoader = createCustomTreeNodeLoader(modelSource, () =>
+        defer(() => rxjsFrom<Promise<LoadedNodeHierarchy>>(dataProvider()))
       );
       nodeLoader.loadNode(modelSource.getModel().getRootNode(), 0).subscribe();
       nodeLoader.loadNode(modelSource.getModel().getRootNode(), 1).subscribe();
@@ -388,17 +492,20 @@ describe("AbstractTreeNodeLoader", () => {
 
     function createCustomTreeNodeLoader(
       modelSource: TreeModelSource,
-      load: (AbstractTreeNodeLoader["load"]),
+      load: AbstractTreeNodeLoader["load"]
     ): AbstractTreeNodeLoader {
-      return new class extends AbstractTreeNodeLoader {
+      return new (class extends AbstractTreeNodeLoader {
         constructor() {
           super(modelSource);
         }
 
-        protected load(parent: TreeModelNode | TreeModelRootNode, childIndex: number): Observable<LoadedNodeHierarchy> {
+        protected load(
+          parent: TreeModelNode | TreeModelRootNode,
+          childIndex: number
+        ): Observable<LoadedNodeHierarchy> {
           return load(parent, childIndex);
         }
-      }();
+      })();
     }
   });
 });
@@ -412,8 +519,16 @@ describe("TreeDataSource", () => {
           label: PropertyRecord.fromString(faker.random.uuid(), "label"),
           children: [
             {
-              id: faker.random.uuid(), label: PropertyRecord.fromString(faker.random.word(), "label"), children: [
-                { id: faker.random.uuid(), label: PropertyRecord.fromString(faker.random.word(), "label") },
+              id: faker.random.uuid(),
+              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              children: [
+                {
+                  id: faker.random.uuid(),
+                  label: PropertyRecord.fromString(
+                    faker.random.word(),
+                    "label"
+                  ),
+                },
               ],
             },
           ],
@@ -421,7 +536,12 @@ describe("TreeDataSource", () => {
         {
           id: faker.random.uuid(),
           label: PropertyRecord.fromString(faker.random.uuid(), "label"),
-          children: [{ id: faker.random.uuid(), label: PropertyRecord.fromString(faker.random.word(), "label") }],
+          children: [
+            {
+              id: faker.random.uuid(),
+              label: PropertyRecord.fromString(faker.random.word(), "label"),
+            },
+          ],
         },
       ];
 
@@ -451,7 +571,8 @@ describe("TreeDataSource", () => {
       });
 
       it("loads nodes for parent node in hierarchy", async () => {
-        const parentNode: ImmediatelyLoadedTreeNodeItem = rawProvider[0].children[0];
+        const parentNode: ImmediatelyLoadedTreeNodeItem =
+          rawProvider[0].children[0];
         const dataSource = new TreeDataSource(rawProvider);
 
         const request = dataSource.requestItems(parentNode, 0, 0, false);
@@ -460,7 +581,10 @@ describe("TreeDataSource", () => {
       });
 
       it("returns empty array if parent is not found", async () => {
-        const nonExistingNode = { id: faker.random.uuid(), label: PropertyRecord.fromString(faker.random.word()) };
+        const nonExistingNode = {
+          id: faker.random.uuid(),
+          label: PropertyRecord.fromString(faker.random.word()),
+        };
         const dataSource = new TreeDataSource(rawProvider);
 
         const request = dataSource.requestItems(nonExistingNode, 0, 0, false);
@@ -477,7 +601,9 @@ describe("TreeDataSource", () => {
           getNodes: sinon.fake(),
         };
 
-        const subscription = new TreeDataSource(dataProvider).requestItems(undefined, 0, 1, true).subscribe();
+        const subscription = new TreeDataSource(dataProvider)
+          .requestItems(undefined, 0, 1, true)
+          .subscribe();
         expect(dataProvider.getNodesCount).to.have.been.calledOnce;
 
         // Simulating unsubscribing from TreeDataSource in between getNodesCount call and getNodes call
@@ -515,8 +641,16 @@ describe("TreeDataSource", () => {
           label: PropertyRecord.fromString(faker.random.uuid(), "label"),
           children: [
             {
-              id: faker.random.uuid(), label: PropertyRecord.fromString(faker.random.word(), "label"), children: [
-                { id: faker.random.uuid(), label: PropertyRecord.fromString(faker.random.word(), "label") },
+              id: faker.random.uuid(),
+              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              children: [
+                {
+                  id: faker.random.uuid(),
+                  label: PropertyRecord.fromString(
+                    faker.random.word(),
+                    "label"
+                  ),
+                },
               ],
             },
           ],
@@ -524,10 +658,17 @@ describe("TreeDataSource", () => {
         {
           id: faker.random.uuid(),
           label: PropertyRecord.fromString(faker.random.uuid(), "label"),
-          children: [{ id: faker.random.uuid(), label: PropertyRecord.fromString(faker.random.word(), "label") }],
+          children: [
+            {
+              id: faker.random.uuid(),
+              label: PropertyRecord.fromString(faker.random.word(), "label"),
+            },
+          ],
         },
       ];
-      const promiseProvider = new Promise<TreeDataProviderRaw>((resolve) => resolve(rawProvider));
+      const promiseProvider = new Promise<TreeDataProviderRaw>((resolve) =>
+        resolve(rawProvider)
+      );
 
       it("loads one node", async () => {
         const dataSource = new TreeDataSource(promiseProvider);
@@ -555,7 +696,8 @@ describe("TreeDataSource", () => {
       });
 
       it("loads nodes for parent node in hierarchy", async () => {
-        const parentNode: ImmediatelyLoadedTreeNodeItem = rawProvider[0].children[0];
+        const parentNode: ImmediatelyLoadedTreeNodeItem =
+          rawProvider[0].children[0];
         const dataSource = new TreeDataSource(promiseProvider);
 
         const request = dataSource.requestItems(parentNode, 0, 0, false);
@@ -564,7 +706,10 @@ describe("TreeDataSource", () => {
       });
 
       it("returns empty array if parent is not found", async () => {
-        const nonExistingNode = { id: faker.random.uuid(), label: PropertyRecord.fromString(faker.random.word()) };
+        const nonExistingNode = {
+          id: faker.random.uuid(),
+          label: PropertyRecord.fromString(faker.random.word()),
+        };
         const dataSource = new TreeDataSource(promiseProvider);
 
         const request = dataSource.requestItems(nonExistingNode, 0, 0, false);
@@ -574,7 +719,9 @@ describe("TreeDataSource", () => {
     });
 
     describe("using Unknown tree data provider", () => {
-      const waitForCompleteOrError = async <T extends {}>(observable: RxjsObservable<T>) => {
+      const waitForCompleteOrError = async <T extends {}>(
+        observable: RxjsObservable<T>
+      ) => {
         return new Promise<void>((resolve, reject) => {
           observable.subscribe({
             error: (err) => reject(err),
@@ -594,7 +741,9 @@ describe("TreeDataSource", () => {
 });
 
 describe("handleLoadedNodeHierarchy", () => {
-  function convertToTreeModelNodeInput(item: TreeNodeItemData): TreeModelNodeInput {
+  function convertToTreeModelNodeInput(
+    item: TreeNodeItemData
+  ): TreeModelNodeInput {
     let numChildren: number | undefined;
     if (item.children) {
       numChildren = item.children.length;
@@ -630,7 +779,9 @@ describe("handleLoadedNodeHierarchy", () => {
 
     handleLoadedNodeHierarchy(modelSource, loadedHierarchy);
 
-    expect(modelSource.getModel().getChildren(undefined)!.getLength()).to.be.eq(6);
+    expect(modelSource.getModel().getChildren(undefined)!.getLength()).to.be.eq(
+      6
+    );
   });
 
   it("handles loaded hierarchy with root node and child node", () => {
@@ -652,15 +803,26 @@ describe("handleLoadedNodeHierarchy", () => {
     };
     handleLoadedNodeHierarchy(modelSource, loadedHierarchy);
 
-    expect(modelSource.getModel().getChildren(undefined)!.getLength()).to.be.eq(1);
-    expect(modelSource.getModel().getChildren(loadedHierarchy.hierarchyItems[0].item.id)!.getLength()).to.be.eq(1);
+    expect(modelSource.getModel().getChildren(undefined)!.getLength()).to.be.eq(
+      1
+    );
+    expect(
+      modelSource
+        .getModel()
+        .getChildren(loadedHierarchy.hierarchyItems[0].item.id)!
+        .getLength()
+    ).to.be.eq(1);
   });
 
   it("handles loaded hierarchy with child for existing parent node", () => {
     const parentNode = createRandomTreeNodeItem();
     modelSource.modifyModel((model) => {
       model.setNumChildren(undefined, 1);
-      model.setChildren(undefined, [convertToTreeModelNodeInput(parentNode)], 0);
+      model.setChildren(
+        undefined,
+        [convertToTreeModelNodeInput(parentNode)],
+        0
+      );
       const node = model.getNode(parentNode.id);
       node!.isLoading = true;
     });
@@ -677,14 +839,21 @@ describe("handleLoadedNodeHierarchy", () => {
     };
     handleLoadedNodeHierarchy(modelSource, loadedHierarchy);
 
-    expect(modelSource.getModel().getChildren(parentNode.id)!.getLength()).to.be.eq(1);
-    expect(modelSource.getModel().getNode(parentNode.id)!.isLoading).to.be.false;
+    expect(
+      modelSource.getModel().getChildren(parentNode.id)!.getLength()
+    ).to.be.eq(1);
+    expect(modelSource.getModel().getNode(parentNode.id)!.isLoading).to.be
+      .false;
   });
 
   it("does not add children if parent was collapsed and children should be disposed", () => {
     const parentNode = createRandomTreeNodeItem();
     modelSource.modifyModel((model) => {
-      model.setChildren(undefined, [convertToTreeModelNodeInput(parentNode)], 0);
+      model.setChildren(
+        undefined,
+        [convertToTreeModelNodeInput(parentNode)],
+        0
+      );
     });
 
     const loadedHierarchy: LoadedNodeHierarchy = {
@@ -708,12 +877,24 @@ describe("handleLoadedNodeHierarchy", () => {
     const root3 = createRandomTreeNodeItem("root3", undefined, "root-node-3");
     const child1 = createRandomTreeNodeItem("child1", root2.id, "child-node-1");
     const child2 = createRandomTreeNodeItem("child2", root3.id, "child-node-2");
-    const newNode = createRandomTreeNodeItem("new-root1", undefined, "new-root-node");
+    const newNode = createRandomTreeNodeItem(
+      "new-root1",
+      undefined,
+      "new-root-node"
+    );
     modelSource.modifyModel((model) => {
       model.setChildren(
         undefined,
-        [convertToTreeModelNodeInput(root1), { ...convertToTreeModelNodeInput(root2), isExpanded: true }, { ...convertToTreeModelNodeInput(root3), isExpanded: true, description: "description" }],
-        0,
+        [
+          convertToTreeModelNodeInput(root1),
+          { ...convertToTreeModelNodeInput(root2), isExpanded: true },
+          {
+            ...convertToTreeModelNodeInput(root3),
+            isExpanded: true,
+            description: "description",
+          },
+        ],
+        0
       );
       model.setChildren(root2.id, [convertToTreeModelNodeInput(child1)], 0);
       model.setChildren(root3.id, [convertToTreeModelNodeInput(child2)], 0);
@@ -728,7 +909,11 @@ describe("handleLoadedNodeHierarchy", () => {
           item: newNode,
         },
         {
-          item: { ...root2, label: PropertyRecord.fromString("new-label"), hasChildren: true },
+          item: {
+            ...root2,
+            label: PropertyRecord.fromString("new-label"),
+            hasChildren: true,
+          },
         },
         {
           item: { ...root3, description: undefined, hasChildren: true },
@@ -739,9 +924,13 @@ describe("handleLoadedNodeHierarchy", () => {
 
     expect(modelSource.getModel().getNode(root1.id)).to.be.undefined;
     expect(modelSource.getModel().getNode(newNode.id)).to.be.not.undefined;
-    expect(modelSource.getModel().getNode(root2.id)?.label).to.be.deep.equal(PropertyRecord.fromString("new-label"));
+    expect(modelSource.getModel().getNode(root2.id)?.label).to.be.deep.equal(
+      PropertyRecord.fromString("new-label")
+    );
     expect(modelSource.getModel().getNode(child1.id)).to.be.not.undefined;
-    expect(modelSource.getModel().getNode(root3.id)?.description).to.be.equal("");
+    expect(modelSource.getModel().getNode(root3.id)?.description).to.be.equal(
+      ""
+    );
     expect(modelSource.getModel().getNode(child2.id)).to.be.not.undefined;
   });
 });

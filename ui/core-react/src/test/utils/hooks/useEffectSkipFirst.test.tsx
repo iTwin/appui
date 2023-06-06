@@ -1,19 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { renderHook } from "@testing-library/react-hooks";
 import { useEffectSkipFirst } from "../../../core-react/utils/hooks/useEffectSkipFirst";
 
 describe("useEffectSkipFirst", () => {
-
   it("does not invoke callback on first effect", () => {
     const spy = sinon.spy();
     renderHook(
-      (props: { callback: () => void, deps?: any[] }) => useEffectSkipFirst(props.callback, props.deps),
-      { initialProps: { callback: spy, deps: [true] } },
+      (props: { callback: () => void; deps?: any[] }) =>
+        useEffectSkipFirst(props.callback, props.deps),
+      { initialProps: { callback: spy, deps: [true] } }
     );
 
     expect(spy).to.not.be.called;
@@ -23,8 +23,9 @@ describe("useEffectSkipFirst", () => {
     const cleanupSpy = sinon.spy();
     const callback = () => cleanupSpy;
     const { unmount } = renderHook(
-      (props: { callback: () => void, deps?: any[] }) => useEffectSkipFirst(props.callback, props.deps),
-      { initialProps: { callback, deps: [true] } },
+      (props: { callback: () => void; deps?: any[] }) =>
+        useEffectSkipFirst(props.callback, props.deps),
+      { initialProps: { callback, deps: [true] } }
     );
 
     unmount();
@@ -35,8 +36,9 @@ describe("useEffectSkipFirst", () => {
   it("invokes callback when dependencies change", () => {
     const spy = sinon.spy();
     const { rerender } = renderHook(
-      (props: { callback: () => void, deps?: any[] }) => useEffectSkipFirst(props.callback, props.deps),
-      { initialProps: { callback: spy, deps: [true] } },
+      (props: { callback: () => void; deps?: any[] }) =>
+        useEffectSkipFirst(props.callback, props.deps),
+      { initialProps: { callback: spy, deps: [true] } }
     );
 
     expect(spy).to.not.be.called;
@@ -55,8 +57,9 @@ describe("useEffectSkipFirst", () => {
     };
 
     const { rerender, unmount } = renderHook(
-      (props: { callback: () => void, deps?: any[] }) => useEffectSkipFirst(props.callback, props.deps),
-      { initialProps: { callback, deps: [true] } },
+      (props: { callback: () => void; deps?: any[] }) =>
+        useEffectSkipFirst(props.callback, props.deps),
+      { initialProps: { callback, deps: [true] } }
     );
 
     // first render, useEffect is skipped
@@ -84,8 +87,9 @@ describe("useEffectSkipFirst", () => {
     };
 
     const { rerender, unmount } = renderHook(
-      (props: { callback: () => void, deps?: any[] }) => useEffectSkipFirst(props.callback, props.deps),
-      { initialProps: { callback, deps: [true] } },
+      (props: { callback: () => void; deps?: any[] }) =>
+        useEffectSkipFirst(props.callback, props.deps),
+      { initialProps: { callback, deps: [true] } }
     );
 
     // first render useEffect is skipped
@@ -111,5 +115,4 @@ describe("useEffectSkipFirst", () => {
     expect(callbackInvokeCount).to.be.eq(2);
     expect(cleanupSpy).to.be.calledTwice;
   });
-
 });

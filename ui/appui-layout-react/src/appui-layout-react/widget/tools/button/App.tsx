@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -16,7 +16,9 @@ import { ToolbarIcon } from "./Icon";
 /** Properties of [[BackButton]] component.
  * @internal
  */
-export interface AppButtonProps extends OmitChildrenProp<ToolbarIconProps>, NoChildrenProps {
+export interface AppButtonProps
+  extends OmitChildrenProp<ToolbarIconProps>,
+    NoChildrenProps {
   /** Indicates whether to use a small App button */
   small?: boolean;
   /** Mouse proximity to button */
@@ -31,7 +33,9 @@ export class AppButton extends React.PureComponent<AppButtonProps> {
   public override render() {
     const { className, small, ...props } = this.props;
 
-    const buttonClassName = (small) ? classnames("nz-toolbar-button-app-small", className) : classnames("nz-toolbar-button-app", className);
+    const buttonClassName = small
+      ? classnames("nz-toolbar-button-app-small", className)
+      : classnames("nz-toolbar-button-app", className);
 
     return (
       <ToolbarIcon

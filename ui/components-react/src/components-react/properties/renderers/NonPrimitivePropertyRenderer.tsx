@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
@@ -18,7 +18,8 @@ import { PropertyView } from "./PropertyView";
 /** Properties of [[NonPrimitivePropertyRenderer]] React component
  * @public
  */
-export interface NonPrimitivePropertyRendererProps extends PrimitiveRendererProps {
+export interface NonPrimitivePropertyRendererProps
+  extends PrimitiveRendererProps {
   /** Can struct/array property be collapsed */
   isCollapsible?: boolean;
 }
@@ -34,11 +35,15 @@ interface NonPrimitivePropertyRendererState {
 /** React Component that renders struct and array properties
  * @public
  */
-export class NonPrimitivePropertyRenderer extends React.Component<NonPrimitivePropertyRendererProps, NonPrimitivePropertyRendererState> {
+export class NonPrimitivePropertyRenderer extends React.Component<
+  NonPrimitivePropertyRendererProps,
+  NonPrimitivePropertyRendererState
+> {
   /** @internal */
   public override readonly state: NonPrimitivePropertyRendererState = {
     /** If it's not collapsible, that means it's expanded by default and can't be collapsed */
-    isExpanded: !this.props.isCollapsible || this.props.propertyRecord.autoExpand,
+    isExpanded:
+      !this.props.isCollapsible || this.props.propertyRecord.autoExpand,
   };
 
   constructor(props: NonPrimitivePropertyRendererProps) {
@@ -53,14 +58,25 @@ export class NonPrimitivePropertyRenderer extends React.Component<NonPrimitivePr
     this.setState({ isExpanded: false });
   };
 
-  private getLabel(props: NonPrimitivePropertyRendererProps, state: NonPrimitivePropertyRendererState): React.ReactNode {
+  private getLabel(
+    props: NonPrimitivePropertyRendererProps,
+    state: NonPrimitivePropertyRendererState
+  ): React.ReactNode {
     const { orientation, indentation, width, columnRatio, columnInfo } = props;
     // istanbul ignore next
     const minLabelWidth = columnInfo?.minLabelWidth;
-    const offset = CommonPropertyRenderer.getLabelOffset(indentation, orientation, width, columnRatio, minLabelWidth);
+    const offset = CommonPropertyRenderer.getLabelOffset(
+      indentation,
+      orientation,
+      width,
+      columnRatio,
+      minLabelWidth
+    );
 
     let displayLabel = props.propertyRecord.property.displayLabel;
-    if (this.props.propertyRecord.value.valueFormat === PropertyValueFormat.Array)
+    if (
+      this.props.propertyRecord.value.valueFormat === PropertyValueFormat.Array
+    )
       displayLabel = `${displayLabel} (${this.props.propertyRecord.value.items.length})`;
 
     return (
@@ -77,18 +93,22 @@ export class NonPrimitivePropertyRenderer extends React.Component<NonPrimitivePr
   }
 
   private overrideArrayChildrenNames(items: PropertyRecord[]) {
-    const modifiedProperties: PropertyRecord[] = items.map((item, index): PropertyRecord => {
-      const newProperty = { ...item.property };
-      newProperty.displayLabel = `[${index + 1}]`;
-      newProperty.name = `${newProperty.name}_${index}`;
-      return new PropertyRecord(item.value, newProperty);
-    });
+    const modifiedProperties: PropertyRecord[] = items.map(
+      (item, index): PropertyRecord => {
+        const newProperty = { ...item.property };
+        newProperty.displayLabel = `[${index + 1}]`;
+        newProperty.name = `${newProperty.name}_${index}`;
+        return new PropertyRecord(item.value, newProperty);
+      }
+    );
 
     return modifiedProperties;
   }
 
   private _renderPropertyForItem = (item: PropertyRecord) => {
-    const prefix = this.props.uniqueKey ? this.props.uniqueKey : this.props.propertyRecord.property.name;
+    const prefix = this.props.uniqueKey
+      ? this.props.uniqueKey
+      : this.props.propertyRecord.property.name;
     const uniqueKey = `${prefix}_${item.property.name}`;
     return (
       <PropertyRenderer
@@ -112,22 +132,26 @@ export class NonPrimitivePropertyRenderer extends React.Component<NonPrimitivePr
 
   /** @internal */
   public override render() {
-    let items: PropertyRecord[] = this.props.propertyRecord.getChildrenRecords();
-    if (this.props.propertyRecord.value.valueFormat === PropertyValueFormat.Array)
+    let items: PropertyRecord[] =
+      this.props.propertyRecord.getChildrenRecords();
+    if (
+      this.props.propertyRecord.value.valueFormat === PropertyValueFormat.Array
+    )
       items = this.overrideArrayChildrenNames(items);
 
     const { indentation, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
     return (
       <>
-        {this.props.isCollapsible
-          ?
+        {this.props.isCollapsible ? (
           <PropertyView
             labelElement={this.getLabel(this.props, this.state)}
             {...props}
           />
-          : undefined}
+        ) : undefined}
 
-        {this.state.isExpanded ? items.map(this._renderPropertyForItem) : undefined}
+        {this.state.isExpanded
+          ? items.map(this._renderPropertyForItem)
+          : undefined}
       </>
     );
   }

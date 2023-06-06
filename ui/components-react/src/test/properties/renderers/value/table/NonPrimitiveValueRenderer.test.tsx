@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
@@ -9,7 +9,11 @@ import { fireEvent, render } from "@testing-library/react";
 import { TableNonPrimitiveValueRenderer } from "../../../../../components-react/properties/renderers/value/table/NonPrimitiveValueRenderer";
 
 describe("TableNonPrimitiveValueRenderer", () => {
-  const dialogContents = <div><p>Hello</p></div>;
+  const dialogContents = (
+    <div>
+      <p>Hello</p>
+    </div>
+  );
 
   it("renders correctly", () => {
     const renderer = render(
@@ -17,7 +21,8 @@ describe("TableNonPrimitiveValueRenderer", () => {
         buttonLabel="Open greeting"
         dialogContents={dialogContents}
         dialogTitle={"Greeting"}
-      />);
+      />
+    );
 
     // Verify that text "Open greeting" is renderer. Throws otherwise
     renderer.getByText("Open greeting");
@@ -32,9 +37,12 @@ describe("TableNonPrimitiveValueRenderer", () => {
         dialogContents={dialogContents}
         dialogTitle={"Greeting"}
         onDialogOpen={onDialogOpen}
-      />);
+      />
+    );
 
-    const button = renderer.container.getElementsByClassName("core-underlined-button")[0];
+    const button = renderer.container.getElementsByClassName(
+      "core-underlined-button"
+    )[0];
     fireEvent.click(button);
 
     expect(onDialogOpen.calledOnce).to.be.true;
@@ -48,11 +56,14 @@ describe("TableNonPrimitiveValueRenderer", () => {
         buttonLabel="Open greeting"
         dialogContents={dialogContents}
         dialogTitle={"Greeting"}
-      />);
+      />
+    );
 
     const renderedDom = renderer.container.innerHTML;
 
-    const button = renderer.container.getElementsByClassName("core-underlined-button")[0];
+    const button = renderer.container.getElementsByClassName(
+      "core-underlined-button"
+    )[0];
 
     fireEvent.mouseEnter(button);
     expect(renderer.container.innerHTML).to.be.eq(renderedDom);
@@ -67,11 +78,14 @@ describe("TableNonPrimitiveValueRenderer", () => {
         buttonLabel="Open greeting"
         dialogContents={dialogContents}
         dialogTitle={"Greeting"}
-      />);
+      />
+    );
 
     const renderedDom = renderer.container.innerHTML;
 
-    const button = renderer.container.getElementsByClassName("core-underlined-button")[0];
+    const button = renderer.container.getElementsByClassName(
+      "core-underlined-button"
+    )[0];
 
     fireEvent.click(button);
 

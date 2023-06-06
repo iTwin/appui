@@ -1,14 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
 
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
-import { useProximityToMouse, WidgetElementSet, WidgetOpacityContext } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import {
+  useProximityToMouse,
+  WidgetElementSet,
+  WidgetOpacityContext,
+} from "@itwin/core-react";
 import { ToolsArea } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
 
@@ -31,12 +35,19 @@ export interface ToolWidgetComposerProps extends CommonProps {
  * @public
  */
 export function ToolWidgetComposer(props: ToolWidgetComposerProps) {
-  const { cornerItem, horizontalToolbar, verticalToolbar, ...otherProps } = props;
+  const { cornerItem, horizontalToolbar, verticalToolbar, ...otherProps } =
+    props;
   const [elementSet] = React.useState(new WidgetElementSet());
-  const handleChildRef = React.useCallback((elementRef: React.RefObject<Element>) => {
-    elementSet.add(elementRef);
-  }, [elementSet]);
-  const proximityScale = useProximityToMouse(elementSet, UiFramework.visibility.snapWidgetOpacity);
+  const handleChildRef = React.useCallback(
+    (elementRef: React.RefObject<Element>) => {
+      elementSet.add(elementRef);
+    },
+    [elementSet]
+  );
+  const proximityScale = useProximityToMouse(
+    elementSet,
+    UiFramework.visibility.snapWidgetOpacity
+  );
 
   return (
     <WidgetOpacityContext.Provider

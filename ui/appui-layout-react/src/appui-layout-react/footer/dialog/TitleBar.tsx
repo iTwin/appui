@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Message
  */
@@ -26,18 +26,11 @@ export interface TitleBarProps extends CommonProps {
  * @internal
  */
 export function TitleBar(props: TitleBarProps) {
-  const className = classnames(
-    "nz-footer-dialog-titleBar",
-    props.className);
+  const className = classnames("nz-footer-dialog-titleBar", props.className);
 
   return (
-    <div
-      className={className}
-      style={props.style}
-    >
-      <span className="nz-title">
-        {props.title}
-      </span>
+    <div className={className} style={props.style}>
+      <span className="nz-title">{props.title}</span>
       {props.children}
     </div>
   );

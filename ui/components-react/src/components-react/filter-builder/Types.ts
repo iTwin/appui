@@ -1,13 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyFilterBuilder
  */
 
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
-import type { PropertyFilterRuleGroupOperator, PropertyFilterRuleOperator } from "./Operators";
+import type {
+  PropertyFilterRuleGroupOperator,
+  PropertyFilterRuleOperator,
+} from "./Operators";
 
 /**
  * Type that describes property filter.
@@ -43,6 +46,8 @@ export interface PropertyFilterRule {
  * Function that checks if supplied filter is rule group.
  * @beta
  */
-export function isPropertyFilterRuleGroup(filter: PropertyFilter): filter is PropertyFilterRuleGroup {
+export function isPropertyFilterRuleGroup(
+  filter: PropertyFilter
+): filter is PropertyFilterRuleGroup {
   return (filter as any).rules !== undefined;
 }

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -17,7 +17,9 @@ import type { StatusBarItemsManager } from "./StatusBarItemsManager";
 /** Hook that returns items from [[StatusBarItemsManager]].
  * @public
  */
-export const useUiItemsProviderStatusBarItems = (manager: StatusBarItemsManager): readonly StatusBarItem[] => {
+export const useUiItemsProviderStatusBarItems = (
+  manager: StatusBarItemsManager
+): readonly StatusBarItem[] => {
   const uiItemProviderIds = useAvailableUiItemsProviders();
   const stageId = useActiveStageId();
   const [items, setItems] = React.useState(manager.items);
@@ -28,18 +30,23 @@ export const useUiItemsProviderStatusBarItems = (manager: StatusBarItemsManager)
   React.useEffect(() => {
     const uiProviders = uiItemProviderIds.join("-");
     // istanbul ignore else
-    if (providersRef.current !== uiProviders || currentStageRef.current !== stageId) {
+    if (
+      providersRef.current !== uiProviders ||
+      currentStageRef.current !== stageId
+    ) {
       currentStageRef.current = stageId;
       const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
       // istanbul ignore else
       if (frontstageDef) {
         providersRef.current = uiProviders;
-        const statusBarItems = UiItemsManager.getStatusBarItems(stageId, frontstageDef.usage);
+        const statusBarItems = UiItemsManager.getStatusBarItems(
+          stageId,
+          frontstageDef.usage
+        );
         manager.loadItems(statusBarItems);
         setItems(manager.items);
       }
     }
-
   }, [manager, uiItemProviderIds, stageId]);
   // handle item changes caused by setter calls to UiFramework.addonStatusBarItemsManager
   React.useEffect(() => {

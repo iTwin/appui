@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
@@ -23,31 +23,37 @@ describe("PropertyCategoryBlock", () => {
     category.expand = false;
 
     const { container } = render(
-      <PropertyCategoryBlock category={category} >
+      <PropertyCategoryBlock category={category}>
         <div className="test-content" />
-      </PropertyCategoryBlock>);
+      </PropertyCategoryBlock>
+    );
 
-    expect(container.firstElementChild)
-      .satisfy(selectorMatches(".iui-expandable-block:not(.iui-expanded)"));
+    expect(container.firstElementChild).satisfy(
+      selectorMatches(".iui-expandable-block:not(.iui-expanded)")
+    );
   });
 
   it("renders content correctly when expanded", () => {
     category.expand = true;
 
-    const { container } = render (
-      <PropertyCategoryBlock category={category} >
+    const { container } = render(
+      <PropertyCategoryBlock category={category}>
         <div>My Content</div>
-      </PropertyCategoryBlock>);
+      </PropertyCategoryBlock>
+    );
 
     expect(screen.getByText("My Content")).to.exist;
-    expect(container.firstElementChild)
-      .satisfy(selectorMatches(".iui-expandable-block.iui-expanded"));
+    expect(container.firstElementChild).satisfy(
+      selectorMatches(".iui-expandable-block.iui-expanded")
+    );
   });
 
   it("does not expand if header gets clicked, but callback is not provided", async () => {
-    render(<PropertyCategoryBlock category={category}>
-      <div>My Content</div>
-    </PropertyCategoryBlock>);
+    render(
+      <PropertyCategoryBlock category={category}>
+        <div>My Content</div>
+      </PropertyCategoryBlock>
+    );
 
     await theUserTo.click(screen.getByText("Group 1"));
 
@@ -61,19 +67,30 @@ describe("PropertyCategoryBlock", () => {
   it("expands when header gets clicked", async () => {
     const toggleSpy = sinon.spy();
 
-    const { container } = render(<PropertyCategoryBlock category={category} onExpansionToggled={toggleSpy} />);
+    const { container } = render(
+      <PropertyCategoryBlock
+        category={category}
+        onExpansionToggled={toggleSpy}
+      />
+    );
 
     await theUserTo.click(screen.getByText("Group 1"));
 
-    expect(container.firstElementChild)
-      .satisfy(selectorMatches(".iui-expandable-block.iui-expanded"));
+    expect(container.firstElementChild).satisfy(
+      selectorMatches(".iui-expandable-block.iui-expanded")
+    );
     expect(toggleSpy).to.have.been.calledWith("Group_1");
   });
 
-  it("expands when \"Enter\" or \"Space\" key gets pressed", async () => {
+  it('expands when "Enter" or "Space" key gets pressed', async () => {
     const toggleSpy = sinon.spy();
 
-    render(<PropertyCategoryBlock category={category} onExpansionToggled={toggleSpy} />);
+    render(
+      <PropertyCategoryBlock
+        category={category}
+        onExpansionToggled={toggleSpy}
+      />
+    );
 
     await theUserTo.keyboard("{tab} ");
     expect(toggleSpy).to.have.been.calledOnceWith("Group_1");
@@ -85,7 +102,12 @@ describe("PropertyCategoryBlock", () => {
   it("does not expand when wrong key gets pressed", async () => {
     const toggleSpy = sinon.spy();
 
-    render(<PropertyCategoryBlock category={category} onExpansionToggled={toggleSpy} />);
+    render(
+      <PropertyCategoryBlock
+        category={category}
+        onExpansionToggled={toggleSpy}
+      />
+    );
 
     screen.getByText("Group 1").focus();
     await theUserTo.keyboard("a");

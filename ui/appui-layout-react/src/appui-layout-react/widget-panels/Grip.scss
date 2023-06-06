@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "variables";
 
@@ -18,7 +18,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
   display: flex;
   transition: background-color 0.2s ease-out;
 
-  >.nz-handle {
+  > .nz-handle {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -32,7 +32,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
     width: $full-bar-width;
     height: 100%;
 
-    >.nz-handle {
+    > .nz-handle {
       height: 100%;
       width: $handle-width;
     }
@@ -44,13 +44,14 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
     width: 100%;
     height: $full-bar-width;
 
-    >.nz-handle {
+    > .nz-handle {
       height: $handle-width;
       width: 100%;
     }
   }
 
-  &:hover, &.nz-resizing {
+  &:hover,
+  &.nz-resizing {
     background-color: $buic-foreground-primary;
   }
 }
@@ -61,12 +62,13 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
   justify-content: center;
   transition: opacity 0.2s ease-out, height 0.2s ease-out, width 0.2s ease-out;
 
-  .nz-captured &, .nz-widgetPanels-grip.nz-resizing &,
+  .nz-captured &,
+  .nz-widgetPanels-grip.nz-resizing &,
   .nz-collapsed .nz-widgetPanels-grip:hover & {
     opacity: 0;
     height: 100%;
     width: 100%;
-    }
+  }
 
   .nz-collapsed & {
     display: flex;
@@ -98,7 +100,8 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
     border-bottom-right-radius: 0;
   }
 
-  .nz-left &, .nz-right & {
+  .nz-left &,
+  .nz-right & {
     height: 20%;
     width: $line-grip-width;
 
@@ -108,7 +111,8 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
     }
   }
 
-  .nz-top &, .nz-bottom & {
+  .nz-top &,
+  .nz-bottom & {
     height: $line-grip-width;
     width: 20%;
 
@@ -119,6 +123,6 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
   }
 
   .nz-line-grip-detail {
-     background-color: var(--iui-color-border-subtle);
+    background-color: var(--iui-color-border-subtle);
   }
 }

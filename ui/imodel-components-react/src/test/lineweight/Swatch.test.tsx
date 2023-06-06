@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import React from "react";
@@ -16,14 +16,22 @@ describe("<LineWeightSwatch />", () => {
   const activeWeight = 3;
 
   it("should render", () => {
-    const renderedComponent = render(<LineWeightSwatch colorDef={colorDef} weight={activeWeight} />);
+    const renderedComponent = render(
+      <LineWeightSwatch colorDef={colorDef} weight={activeWeight} />
+    );
     expect(renderedComponent).not.to.be.undefined;
     const label = renderedComponent.getByText("3");
     expect(label).not.to.be.undefined;
   });
 
   it("should render with no label", () => {
-    const renderedComponent = render(<LineWeightSwatch colorDef={colorDef} weight={activeWeight} hideLabel={true} />);
+    const renderedComponent = render(
+      <LineWeightSwatch
+        colorDef={colorDef}
+        weight={activeWeight}
+        hideLabel={true}
+      />
+    );
     expect(renderedComponent).not.to.be.undefined;
     const label = renderedComponent.queryByText("3");
     expect(label).to.be.null;
@@ -32,7 +40,9 @@ describe("<LineWeightSwatch />", () => {
   it("Fire click event to pick weight", async () => {
     const spyOnPick = sinon.spy();
 
-    const renderedComponent = render(<LineWeightSwatch weight={activeWeight} onClick={spyOnPick} />);
+    const renderedComponent = render(
+      <LineWeightSwatch weight={activeWeight} onClick={spyOnPick} />
+    );
     const weightSwatch = renderedComponent.container.firstChild as HTMLElement;
     expect(weightSwatch).not.to.be.null;
     expect(weightSwatch.tagName).to.be.equal("BUTTON");
@@ -40,5 +50,4 @@ describe("<LineWeightSwatch />", () => {
     await TestUtils.flushAsyncOperations();
     expect(spyOnPick.calledOnce).to.be.true;
   });
-
 });

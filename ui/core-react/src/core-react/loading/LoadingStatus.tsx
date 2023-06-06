@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Loading
  */
@@ -40,7 +40,10 @@ export class LoadingStatus extends React.PureComponent<LoadingStatusProps> {
 
   public override render() {
     const percent = `${this.inRange(this.props.percent)}%`;
-    const containerClass = classnames(this.props.className, "loading-status-container");
+    const containerClass = classnames(
+      this.props.className,
+      "loading-status-container"
+    );
     return (
       <div className={containerClass} style={this.props.style}>
         <span className="loading-status-message">{this.props.message}</span>

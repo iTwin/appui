@@ -1,12 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
 
-import type { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import type {
+  BadgeType,
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+} from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 
 /** Used to specify the usage of the toolbar which determine the toolbar position.
@@ -99,25 +103,34 @@ export interface ToolbarCustomItem extends CommonToolbarItem {
 /** Any Button Type that can be inserted into a toolbar.
  * @public
  */
-export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomItem;
+export type ToolbarItem =
+  | ToolbarActionItem
+  | ToolbarGroupItem
+  | ToolbarCustomItem;
 
 /** ToolbarActionItem type guard.
  * @public
  */
-export function isToolbarActionItem(item: ToolbarItem): item is ToolbarActionItem {
+export function isToolbarActionItem(
+  item: ToolbarItem
+): item is ToolbarActionItem {
   return "execute" in item;
 }
 
 /** ToolbarGroupItem type guard.
  * @public
  */
-export function isToolbarGroupItem(item: ToolbarItem): item is ToolbarGroupItem {
+export function isToolbarGroupItem(
+  item: ToolbarItem
+): item is ToolbarGroupItem {
   return "items" in item;
 }
 
 /** ToolbarCustomItem type guard.
  * @public
  */
-export function isToolbarCustomItem(item: ToolbarItem): item is ToolbarCustomItem {
+export function isToolbarCustomItem(
+  item: ToolbarItem
+): item is ToolbarCustomItem {
   return !isToolbarActionItem(item) && !isToolbarGroupItem(item);
 }

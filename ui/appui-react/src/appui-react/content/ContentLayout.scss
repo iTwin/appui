@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/base/base";
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 
@@ -30,13 +30,13 @@
       width: 100%;
       cursor: ns-resize;
 
-      >.nz-resizer-grip {
+      > .nz-resizer-grip {
         height: 5px;
         width: 100%;
         top: -2px;
 
         &:before {
-          content: '';
+          content: "";
           position: absolute;
           width: 100%;
           height: 11px;
@@ -50,13 +50,13 @@
       height: 100%;
       cursor: ew-resize;
 
-      >.nz-resizer-grip {
+      > .nz-resizer-grip {
         height: 100%;
         width: 5px;
         left: -2px;
 
         &:before {
-          content: '';
+          content: "";
           position: absolute;
           width: 11px;
           height: 100%;
@@ -66,7 +66,7 @@
 
     &.horizontal,
     &.vertical {
-      >.nz-resizer-grip {
+      > .nz-resizer-grip {
         background-color: transparent;
         align-items: center;
         justify-content: center;
@@ -84,7 +84,7 @@
     &.disabled {
       cursor: not-allowed;
 
-      >.nz-resizer-grip {
+      > .nz-resizer-grip {
         &:hover {
           border-color: transparent;
         }

@@ -1,27 +1,39 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import type { ASTPath, Collection, JSCodeshift, ObjectExpression } from "jscodeshift";
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import type {
+  ASTPath,
+  Collection,
+  JSCodeshift,
+  ObjectExpression,
+} from "jscodeshift";
 import { usePlugin } from "./usePlugin";
 
 declare module "jscodeshift/src/collection" {
-  interface Collection<N> extends GlobalMethods {
-  }
+  interface Collection<N> extends GlobalMethods {}
 }
 
 interface GlobalMethods {
   findObjectExpressions(name?: string): ObjectExpressionCollection;
 }
 
-export type ObjectExpressionCollection = Collection<ObjectExpression> & ObjectExpressionMethods;
+export type ObjectExpressionCollection = Collection<ObjectExpression> &
+  ObjectExpressionMethods;
 
 interface ObjectExpressionMethods {
   removeProperty(name: string, modify?: PropertyModifier): this;
-  renameProperty(name: string, newName: string, modify?: PropertyModifier): this;
+  renameProperty(
+    name: string,
+    newName: string,
+    modify?: PropertyModifier
+  ): this;
 }
 
-export type PropertyModifier = (path: ASTPath<ObjectExpression>, property: ObjectExpression["properties"][0]) => void;
+export type PropertyModifier = (
+  path: ASTPath<ObjectExpression>,
+  property: ObjectExpression["properties"][0]
+) => void;
 
 function isProperty(property: ObjectExpression["properties"][0], name: string) {
   if (property.type === "ObjectProperty") {
@@ -37,7 +49,11 @@ function objectExpressionPlugin(j: JSCodeshift) {
   const globalMethods: GlobalMethods = {
     findObjectExpressions(this: Collection, name) {
       return this.find(j.ObjectExpression).map((path) => {
-        const typeIdentifier = j(path).closest(j.VariableDeclarator).find(j.TSTypeReference).find(j.Identifier).paths()[0];
+        const typeIdentifier = j(path)
+          .closest(j.VariableDeclarator)
+          .find(j.TSTypeReference)
+          .find(j.Identifier)
+          .paths()[0];
         if (typeIdentifier?.value?.name === name) {
           return path;
         }
@@ -49,7 +65,9 @@ function objectExpressionPlugin(j: JSCodeshift) {
     removeProperty(this: ObjectExpressionCollection, name, modify) {
       return this.forEach((path) => {
         const properties = path.value.properties;
-        const index = properties.findIndex((property) => isProperty(property, name));
+        const index = properties.findIndex((property) =>
+          isProperty(property, name)
+        );
         if (index >= 0) {
           const [removed] = properties.splice(index, 1);
           modify?.(path, removed);

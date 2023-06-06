@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { join } from "path";
 import { assert } from "@itwin/core-bentley";
@@ -28,15 +28,18 @@ export async function initializeElectron(imho?: IModelHostOptions) {
     iModelHost: imho,
   };
 
-  if (process.env.IMJS_OIDC_ELECTRON_TEST_CLIENT_ID && process.env.IMJS_OIDC_ELECTRON_TEST_REDIRECT_URI && process.env.IMJS_OIDC_ELECTRON_TEST_SCOPES) {
+  if (
+    process.env.IMJS_OIDC_ELECTRON_TEST_CLIENT_ID &&
+    process.env.IMJS_OIDC_ELECTRON_TEST_REDIRECT_URI &&
+    process.env.IMJS_OIDC_ELECTRON_TEST_SCOPES
+  ) {
     const authClient = new ElectronMainAuthorization({
       clientId: process.env.IMJS_OIDC_ELECTRON_TEST_CLIENT_ID,
       redirectUri: process.env.IMJS_OIDC_ELECTRON_TEST_REDIRECT_URI,
       scope: process.env.IMJS_OIDC_ELECTRON_TEST_SCOPES,
     });
     await authClient.signInSilent();
-    if (opt.iModelHost)
-      opt.iModelHost.authorizationClient = authClient;
+    if (opt.iModelHost) opt.iModelHost.authorizationClient = authClient;
   }
 
   await ElectronHost.startup(opt);
@@ -46,7 +49,13 @@ export async function initializeElectron(imho?: IModelHostOptions) {
   ElectronHost.app.on("web-contents-created", (_e, wc) => {
     wc.on("before-input-event", (event, input) => {
       // CTRL + SHIFT + I  ==> Toggle DevTools
-      if (input.key === "I" && input.control && !input.alt && !input.meta && input.shift) {
+      if (
+        input.key === "I" &&
+        input.control &&
+        !input.alt &&
+        !input.meta &&
+        input.shift
+      ) {
         if (ElectronHost.mainWindow)
           ElectronHost.mainWindow.webContents.toggleDevTools();
 
@@ -56,10 +65,18 @@ export async function initializeElectron(imho?: IModelHostOptions) {
   });
 
   // Restore previous window size, position and maximized state
-  const sizeAndPosition = ElectronHost.getWindowSizeAndPositionSetting(mainWindowName);
-  const maximizeWindow = undefined === sizeAndPosition || ElectronHost.getWindowMaximizedSetting(mainWindowName);
+  const sizeAndPosition =
+    ElectronHost.getWindowSizeAndPositionSetting(mainWindowName);
+  const maximizeWindow =
+    undefined === sizeAndPosition ||
+    ElectronHost.getWindowMaximizedSetting(mainWindowName);
 
-  await ElectronHost.openMainWindow({ ...sizeAndPosition, show: !maximizeWindow, title: "Ui Test App", storeWindowName: mainWindowName });
+  await ElectronHost.openMainWindow({
+    ...sizeAndPosition,
+    show: !maximizeWindow,
+    title: "Ui Test App",
+    storeWindowName: mainWindowName,
+  });
   assert(ElectronHost.mainWindow !== undefined);
 
   if (maximizeWindow) {
@@ -67,6 +84,6 @@ export async function initializeElectron(imho?: IModelHostOptions) {
     ElectronHost.mainWindow.show();
   }
 
-  if ((undefined === process.env.IMJS_NO_DEV_TOOLS))
+  if (undefined === process.env.IMJS_NO_DEV_TOOLS)
     ElectronHost.mainWindow.webContents.toggleDevTools();
 }

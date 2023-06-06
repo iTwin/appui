@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ChildWindowManager
  */
@@ -83,5 +83,11 @@ export interface FrameworkChildWindows {
    * @param useDefaultPopoutUrl use "/iTwinPopup.html" as the window Url, "" otherwise.
    * @returns true if the window is opened successfully.
    */
-  open(childWindowId: string, title: string, content: React.ReactNode, location: ChildWindowLocationProps, useDefaultPopoutUrl?: boolean): boolean;
+  open(
+    childWindowId: string,
+    title: string,
+    content: React.ReactNode,
+    location: ChildWindowLocationProps,
+    useDefaultPopoutUrl?: boolean
+  ): boolean;
 }

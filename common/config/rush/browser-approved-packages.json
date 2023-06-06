@@ -591,6 +591,10 @@
       "allowedCategories": [ "backend", "common", "edit", "extensions", "frontend", "integration-testing", "internal", "tools" ]
     },
     {
+      "name": "eslint-config-prettier",
+      "allowedCategories": [ "frontend", "internal" ]
+    },
+    {
       "name": "eslint-import-resolver-node",
       "allowedCategories": [ "tools" ]
     },

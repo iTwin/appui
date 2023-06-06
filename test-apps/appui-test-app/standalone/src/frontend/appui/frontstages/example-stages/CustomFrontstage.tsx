@@ -1,11 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, BackstageManager, ConfigurableCreateInfo, ContentControl, ContentGroup,
-  ContentToolWidgetComposer, FrontstageConfig, FrontstageProvider, UiFramework,
+  BackstageAppButton,
+  BackstageManager,
+  ConfigurableCreateInfo,
+  ContentControl,
+  ContentGroup,
+  ContentToolWidgetComposer,
+  FrontstageConfig,
+  FrontstageProvider,
+  UiFramework,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
@@ -15,12 +22,14 @@ class CustomContentControl extends ContentControl {
     super(info, options);
 
     this.reactNode = (
-      <h1 style={{
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}>
+      <h1
+        style={{
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         Custom content!
       </h1>
     );
@@ -50,12 +59,19 @@ export class CustomFrontstageProvider extends FrontstageProvider {
       contentGroup,
       contentManipulation: {
         id: `${id}-contentManipulationTools`,
-        content: <ContentToolWidgetComposer
-          cornerButton={
-            <BackstageAppButton label="Toggle Backstage" icon="icon-bentley-systems"
-              execute={() => BackstageManager.getBackstageToggleCommand().execute()} />
-          }
-        />,
+        content: (
+          <ContentToolWidgetComposer
+            cornerButton={
+              <BackstageAppButton
+                label="Toggle Backstage"
+                icon="icon-bentley-systems"
+                execute={() =>
+                  BackstageManager.getBackstageToggleCommand().execute()
+                }
+              />
+            }
+          />
+        ),
       },
     };
   }

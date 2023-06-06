@@ -1,8 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module SelectableContent
  */
@@ -41,14 +40,22 @@ export interface ControlledSelectableContentProps {
  * should be rendered at the bottom.
  * @public
  */
-export function ControlledSelectableContent(props: ControlledSelectableContentProps) {
+export function ControlledSelectableContent(
+  props: ControlledSelectableContentProps
+) {
   const { onSelectedContentIdChanged, disabled } = props;
 
-  const onContentIdSelected = React.useCallback((newValue: string): void => {
-    onSelectedContentIdChanged && onSelectedContentIdChanged(newValue);
-  }, [onSelectedContentIdChanged]);
+  const onContentIdSelected = React.useCallback(
+    (newValue: string): void => {
+      onSelectedContentIdChanged && onSelectedContentIdChanged(newValue);
+    },
+    [onSelectedContentIdChanged]
+  );
 
-  const selectedContent = props.children.find((contentDef) => contentDef.id === props.selectedContentId) ?? props.children[0];
+  const selectedContent =
+    props.children.find(
+      (contentDef) => contentDef.id === props.selectedContentId
+    ) ?? props.children[0];
   const options = React.useMemo(() => {
     return props.children.map((componentDef) => ({
       label: componentDef.label,
@@ -59,15 +66,17 @@ export function ControlledSelectableContent(props: ControlledSelectableContentPr
   return (
     <div className="components-selectable-content">
       <div className="components-selectable-content-header">
-        {options.length > 0 &&
-          <Select onChange={onContentIdSelected} size="small"
+        {options.length > 0 && (
+          <Select
+            onChange={onContentIdSelected}
+            size="small"
             className="components-selectable-content-selector"
             aria-label={props.selectAriaLabel}
             value={selectedContent.id}
             options={options}
             disabled={disabled}
           />
-        }
+        )}
       </div>
       <div className="components-selectable-content-wrapper">
         {selectedContent?.render()}
@@ -94,12 +103,19 @@ export interface SelectableContentProps {
  * @public
  */
 export function SelectableContent(props: SelectableContentProps) {
-  const [selectedContentId, setSelectedContentId] = React.useState(props.defaultSelectedContentId);
+  const [selectedContentId, setSelectedContentId] = React.useState(
+    props.defaultSelectedContentId
+  );
   const onSelectedContentIdChanged = React.useCallback((id: string) => {
     setSelectedContentId(id);
   }, []);
   return (
-    <ControlledSelectableContent selectedContentId={selectedContentId} onSelectedContentIdChanged={onSelectedContentIdChanged} selectAriaLabel={props.selectAriaLabel} disabled={props.disabled}>
+    <ControlledSelectableContent
+      selectedContentId={selectedContentId}
+      onSelectedContentIdChanged={onSelectedContentIdChanged}
+      selectAriaLabel={props.selectAriaLabel}
+      disabled={props.disabled}
+    >
       {props.children}
     </ControlledSelectableContent>
   );

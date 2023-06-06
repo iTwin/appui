@@ -1,30 +1,45 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
-import { NonPrimitivePropertyLabelRenderer, PrimitivePropertyLabelRenderer } from "../../../../components-react";
-import { childStructure, selectorMatches, styleMatch, userEvent } from "../../../TestUtils";
+import {
+  NonPrimitivePropertyLabelRenderer,
+  PrimitivePropertyLabelRenderer,
+} from "../../../../components-react";
+import {
+  childStructure,
+  selectorMatches,
+  styleMatch,
+  userEvent,
+} from "../../../TestUtils";
 
 describe("PrimitivePropertyLabelRenderer ", () => {
   it("renders correctly when offset is not provided", () => {
-    const { container } = render(<PrimitivePropertyLabelRenderer>Title</PrimitivePropertyLabelRenderer>);
+    const { container } = render(
+      <PrimitivePropertyLabelRenderer>Title</PrimitivePropertyLabelRenderer>
+    );
 
-    expect(container.firstElementChild).that.satisfy(styleMatch({ paddingLeft: "0px" }));
+    expect(container.firstElementChild).that.satisfy(
+      styleMatch({ paddingLeft: "0px" })
+    );
     expect(screen.getByText("Title")).to.exist;
   });
 
   it("renders correctly when offset is provided", () => {
-    const { container } = render(<PrimitivePropertyLabelRenderer className="test-class" offset={50}>Title</PrimitivePropertyLabelRenderer>);
+    const { container } = render(
+      <PrimitivePropertyLabelRenderer className="test-class" offset={50}>
+        Title
+      </PrimitivePropertyLabelRenderer>
+    );
 
-    expect(container.firstElementChild).that
-      .satisfy(styleMatch({ paddingLeft: "50px" }))
+    expect(container.firstElementChild)
+      .that.satisfy(styleMatch({ paddingLeft: "50px" }))
       .satisfy(selectorMatches(".test-class"));
   });
-
 });
 
 describe("NonPrimitivePropertyLabelRenderer  ", () => {
@@ -37,14 +52,15 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
       <NonPrimitivePropertyLabelRenderer
         className="test-class-name"
         isExpanded={false}
-        onCollapse={() => { }}
-        onExpand={() => { }}
+        onCollapse={() => {}}
+        onExpand={() => {}}
       >
         Title
-      </NonPrimitivePropertyLabelRenderer>);
+      </NonPrimitivePropertyLabelRenderer>
+    );
 
-    expect(screen.getByRole("presentation")).to
-      .satisfy(childStructure("svg"))
+    expect(screen.getByRole("presentation"))
+      .to.satisfy(childStructure("svg"))
       .satisfy(selectorMatches(".test-class-name"))
       .not.satisfy(childStructure(".components-expanded"));
     expect(screen.getByText("Title")).to.exist;
@@ -54,14 +70,16 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
     render(
       <NonPrimitivePropertyLabelRenderer
         isExpanded={true}
-        onCollapse={() => { }}
-        onExpand={() => { }}
+        onCollapse={() => {}}
+        onExpand={() => {}}
       >
         Title
-      </NonPrimitivePropertyLabelRenderer>);
+      </NonPrimitivePropertyLabelRenderer>
+    );
 
-    expect(screen.getByRole("presentation")).to
-      .satisfy(childStructure(".components-expanded"));
+    expect(screen.getByRole("presentation")).to.satisfy(
+      childStructure(".components-expanded")
+    );
   });
 
   it("calls onExpand when label gets clicked while collapsed", async () => {
@@ -70,11 +88,12 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
     render(
       <NonPrimitivePropertyLabelRenderer
         isExpanded={false}
-        onCollapse={() => { }}
+        onCollapse={() => {}}
         onExpand={onExpand}
       >
         Title
-      </NonPrimitivePropertyLabelRenderer>);
+      </NonPrimitivePropertyLabelRenderer>
+    );
 
     await theUserTo.click(screen.getByRole("presentation"));
 
@@ -88,10 +107,11 @@ describe("NonPrimitivePropertyLabelRenderer  ", () => {
       <NonPrimitivePropertyLabelRenderer
         isExpanded={true}
         onCollapse={onCollapse}
-        onExpand={() => { }}
+        onExpand={() => {}}
       >
         Title
-      </NonPrimitivePropertyLabelRenderer>);
+      </NonPrimitivePropertyLabelRenderer>
+    );
 
     await theUserTo.click(screen.getByRole("presentation"));
 

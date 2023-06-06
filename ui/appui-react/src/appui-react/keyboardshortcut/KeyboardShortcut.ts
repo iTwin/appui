@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
@@ -17,7 +17,6 @@ import { KeyboardShortcutMenu } from "./KeyboardShortcutMenu";
  * @public
  */
 export class KeyboardShortcut extends ItemDefBase {
-
   private _key: string;
   private _item?: ActionButtonItemDef;
   private _shortcuts: KeyboardShortcutContainer;
@@ -33,10 +32,8 @@ export class KeyboardShortcut extends ItemDefBase {
 
     this._key = props.key;
 
-    if (this._key in FunctionKey)
-      this._isFunctionKey = true;
-    if (this._key in SpecialKey)
-      this._isSpecialKey = true;
+    if (this._key in FunctionKey) this._isFunctionKey = true;
+    if (this._key in SpecialKey) this._isSpecialKey = true;
 
     this._shortcuts = new KeyboardShortcutContainer();
 
@@ -44,23 +41,22 @@ export class KeyboardShortcut extends ItemDefBase {
       this._item = props.item;
 
       // Copy over icon, label & tooltip from the item
-      if (!this.iconSpec)
-        this.iconSpec = this._item.iconSpec;
-      if (!this.label)
-        this.setLabel(this._item.label);
-      if (!this.tooltip)
-        this.setTooltip(this._item.tooltip);
+      if (!this.iconSpec) this.iconSpec = this._item.iconSpec;
+      if (!this.label) this.setLabel(this._item.label);
+      if (!this.tooltip) this.setTooltip(this._item.tooltip);
       if (this.isDisabled === undefined)
         this.isDisabled = this._item.isDisabled;
-      if (this.isHidden === undefined)
-        this.isHidden = this._item.isHidden;
+      if (this.isHidden === undefined) this.isHidden = this._item.isHidden;
     } else if (props.shortcuts) {
       props.shortcuts.forEach((childProps: KeyboardShortcutProps) => {
         const shortcut = new KeyboardShortcut(childProps);
         this._shortcuts.registerKey(shortcut.keyMapKey, shortcut);
       });
     } else {
-      throw new UiError(UiFramework.loggerCategory(this), `Either 'item' or 'shortcuts' must be specified for '${props.key}' key.`);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        `Either 'item' or 'shortcuts' must be specified for '${props.key}' key.`
+      );
     }
 
     if (props.isAltKeyRequired !== undefined)
@@ -72,7 +68,9 @@ export class KeyboardShortcut extends ItemDefBase {
   }
 
   /** Returns the id for this shortcut */
-  public get id(): string { return this.keyMapKey; }
+  public get id(): string {
+    return this.keyMapKey;
+  }
 
   /** Returns the shortcut container */
   public get shortcutContainer(): KeyboardShortcutContainer {
@@ -86,7 +84,12 @@ export class KeyboardShortcut extends ItemDefBase {
 
   /** Returns the shortcut's key map key used as the id */
   public get keyMapKey(): string {
-    const keyMapKey = KeyboardShortcutContainer.generateKeyMapKey(this.key, this._isAltKeyRequired, this._isCtrlKeyRequired, this._isShiftKeyRequired);
+    const keyMapKey = KeyboardShortcutContainer.generateKeyMapKey(
+      this.key,
+      this._isAltKeyRequired,
+      this._isCtrlKeyRequired,
+      this._isShiftKeyRequired
+    );
     return keyMapKey;
   }
 
@@ -102,36 +105,52 @@ export class KeyboardShortcut extends ItemDefBase {
     } else {
       setTimeout(() => {
         // istanbul ignore else
-        if (this._item)
-          this._item.execute();
+        if (this._item) this._item.execute();
       });
     }
   }
 
   /** Gets the keyboard key */
-  public get key(): string { return this._key; }
+  public get key(): string {
+    return this._key;
+  }
   /** Gets whether the Alt key required. */
-  public get isAltKeyRequired(): boolean { return this._isAltKeyRequired; }
+  public get isAltKeyRequired(): boolean {
+    return this._isAltKeyRequired;
+  }
   /** Gets whether the Ctrl key required. */
-  public get isCtrlKeyRequired(): boolean { return this._isCtrlKeyRequired; }
+  public get isCtrlKeyRequired(): boolean {
+    return this._isCtrlKeyRequired;
+  }
   /** Gets whether the Shift key required. */
-  public get isShiftKeyRequired(): boolean { return this._isShiftKeyRequired; }
+  public get isShiftKeyRequired(): boolean {
+    return this._isShiftKeyRequired;
+  }
   /** Gets whether this is a Function key. */
-  public get isFunctionKey(): boolean { return this._isFunctionKey; }
+  public get isFunctionKey(): boolean {
+    return this._isFunctionKey;
+  }
   /** Gets whether this is a Special key. */
-  public get isSpecialKey(): boolean { return this._isSpecialKey; }
-
+  public get isSpecialKey(): boolean {
+    return this._isSpecialKey;
+  }
 }
 
 /** Keyboard Shortcut Container
  * @public
  */
 export class KeyboardShortcutContainer {
-  private _keyMap: Map<string, KeyboardShortcut> = new Map<string, KeyboardShortcut>();
+  private _keyMap: Map<string, KeyboardShortcut> = new Map<
+    string,
+    KeyboardShortcut
+  >();
   private _keyArray: KeyboardShortcut[] = new Array<KeyboardShortcut>();
 
   /** Registers a Keyboard Shortcut associated with a given key in the managed list */
-  public registerKey(keyMapKey: string, inShortcut: KeyboardShortcut): KeyboardShortcut | undefined {
+  public registerKey(
+    keyMapKey: string,
+    inShortcut: KeyboardShortcut
+  ): KeyboardShortcut | undefined {
     let shortcut: KeyboardShortcut | undefined;
 
     if ((shortcut = this.findKey(keyMapKey)) === undefined) {
@@ -149,8 +168,7 @@ export class KeyboardShortcutContainer {
     }
 
     // istanbul ignore else
-    if (shortcut)
-      this._keyMap.set(keyMapKey, shortcut);
+    if (shortcut) this._keyMap.set(keyMapKey, shortcut);
 
     return shortcut;
   }
@@ -176,15 +194,17 @@ export class KeyboardShortcutContainer {
   }
 
   /** Generates a key used for storing and finding the Keyboard Shortcuts in this container */
-  public static generateKeyMapKey(keyboardKey: string, isAltKeyRequired: boolean, isCtrlKeyRequired: boolean, isShiftKeyRequired: boolean): string {
+  public static generateKeyMapKey(
+    keyboardKey: string,
+    isAltKeyRequired: boolean,
+    isCtrlKeyRequired: boolean,
+    isShiftKeyRequired: boolean
+  ): string {
     let keyMapKey = keyboardKey;
 
-    if (isAltKeyRequired)
-      keyMapKey = `Alt+${keyMapKey}`;
-    if (isShiftKeyRequired)
-      keyMapKey = `Shift+${keyMapKey}`;
-    if (isCtrlKeyRequired)
-      keyMapKey = `Ctrl+${keyMapKey}`;
+    if (isAltKeyRequired) keyMapKey = `Alt+${keyMapKey}`;
+    if (isShiftKeyRequired) keyMapKey = `Shift+${keyMapKey}`;
+    if (isCtrlKeyRequired) keyMapKey = `Ctrl+${keyMapKey}`;
 
     return keyMapKey;
   }

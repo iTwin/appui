@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolSettings
  */
@@ -9,9 +9,12 @@
 import "./Overflow.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps, NoChildrenProps} from "@itwin/core-react";
+import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import { Popup, useRefState } from "@itwin/core-react";
-import { useToolbarPopupAutoHideContext, useToolItemEntryContext } from "./ToolbarWithOverflow";
+import {
+  useToolbarPopupAutoHideContext,
+  useToolItemEntryContext,
+} from "./ToolbarWithOverflow";
 import { useResizeObserverSingleDimension } from "./ItemWrapper";
 import { Direction } from "./utilities/Direction";
 import { RelativePosition } from "@itwin/appui-abstract";
@@ -19,7 +22,9 @@ import { RelativePosition } from "@itwin/appui-abstract";
 /** Properties of [[ToolbarOverflowButton]] component.
  * @internal
  */
-export interface ToolbarOverflowButtonProps extends CommonProps, NoChildrenProps {
+export interface ToolbarOverflowButtonProps
+  extends CommonProps,
+    NoChildrenProps {
   /** Function called when button is clicked. */
   onClick?: () => void;
   /** Function called when panel is closed. */
@@ -40,26 +45,27 @@ export interface ToolbarOverflowButtonProps extends CommonProps, NoChildrenProps
 export function ToolbarOverflowButton(props: ToolbarOverflowButtonProps) {
   const { onResize, useHeight } = useToolItemEntryContext();
   const [targetRef, target] = useRefState<HTMLDivElement>();
-  const ref = useResizeObserverSingleDimension<HTMLButtonElement>(onResize, useHeight);
+  const ref = useResizeObserverSingleDimension<HTMLButtonElement>(
+    onResize,
+    useHeight
+  );
   const isHidden = useToolbarPopupAutoHideContext();
   const popupClassName = classnames(
     "components-toolbar-overflow_popup",
-    isHidden && "nz-hidden");
+    isHidden && "nz-hidden"
+  );
 
   const className = classnames(
     "components-toolbar-item-container",
     "components-toolbar-overflow-button",
-    props.className,
+    props.className
   );
   const buttonClassName = classnames(
     "components-toolbar-button-item",
-    "components-ellipsis-icon",
+    "components-ellipsis-icon"
   );
   return (
-    <div
-      className={className}
-      ref={targetRef}
-    >
+    <div className={className} ref={targetRef}>
       <button
         ref={ref}
         onClick={props.onClick}
@@ -87,7 +93,9 @@ export function ToolbarOverflowButton(props: ToolbarOverflowButtonProps) {
 }
 
 /** @internal */
-export function toToolbarOverflowRelativePosition(expandsTo: Direction): RelativePosition {
+export function toToolbarOverflowRelativePosition(
+  expandsTo: Direction
+): RelativePosition {
   switch (expandsTo) {
     case Direction.Bottom:
       return RelativePosition.Bottom;

@@ -1,10 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { renderHook } from "@testing-library/react-hooks";
-import { addPanelWidget, addTab, createLayoutStore, createNineZoneState, NineZone, TabIdContext } from "@itwin/appui-layout-react";
+import {
+  addPanelWidget,
+  addTab,
+  createLayoutStore,
+  createNineZoneState,
+  NineZone,
+  TabIdContext,
+} from "@itwin/appui-layout-react";
 import { useWidgetDirection } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { Provider } from "react-redux";
@@ -23,11 +30,8 @@ describe("useWidgetDirection", () => {
 
     const layout = createLayoutStore();
     const { result } = renderHook(() => useWidgetDirection(), {
-      wrapper: ({ children }) => ( // eslint-disable-line react/display-name
-        <NineZone
-          layout={layout}
-          dispatch={() => { }}
-        >
+      wrapper: ({ children }) => (
+        <NineZone layout={layout} dispatch={() => {}}>
           {children}
         </NineZone>
       ),
@@ -43,15 +47,10 @@ describe("useWidgetDirection", () => {
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     const layout = createLayoutStore(state);
     const { result } = renderHook(() => useWidgetDirection(), {
-      wrapper: ({ children }) => ( // eslint-disable-line react/display-name
-        <Provider store={TestUtils.store} >
-          <NineZone
-            layout={layout}
-            dispatch={() => { }}
-          >
-            <TabIdContext.Provider value="t1">
-              {children}
-            </TabIdContext.Provider>
+      wrapper: ({ children }) => (
+        <Provider store={TestUtils.store}>
+          <NineZone layout={layout} dispatch={() => {}}>
+            <TabIdContext.Provider value="t1">{children}</TabIdContext.Provider>
           </NineZone>
         </Provider>
       ),
@@ -67,15 +66,10 @@ describe("useWidgetDirection", () => {
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const layout = createLayoutStore(state);
     const { result } = renderHook(() => useWidgetDirection(), {
-      wrapper: ({ children }) => ( // eslint-disable-line react/display-name
+      wrapper: ({ children }) => (
         <Provider store={TestUtils.store}>
-          <NineZone
-            layout={layout}
-            dispatch={() => { }}
-          >
-            <TabIdContext.Provider value="t1">
-              {children}
-            </TabIdContext.Provider>
+          <NineZone layout={layout} dispatch={() => {}}>
+            <TabIdContext.Provider value="t1">{children}</TabIdContext.Provider>
           </NineZone>
         </Provider>
       ),

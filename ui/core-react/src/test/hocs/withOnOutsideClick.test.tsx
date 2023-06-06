@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -11,18 +11,34 @@ import { render, screen } from "@testing-library/react";
 
 describe("WithOnOutsideClick", async () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
-  const WithOnOutsideClickDiv = withOnOutsideClick<{children?: React.ReactNode}>((props) => (<div {...props} />), undefined, true, false); // eslint-disable-line @typescript-eslint/naming-convention
+  const WithOnOutsideClickDiv = withOnOutsideClick<{
+    children?: React.ReactNode;
+  }>((props) => <div {...props} />, undefined, true, false);
 
   const defaultOnClose = sinon.spy();
-  const WithOnOutsideClickAndDefaultDiv = withOnOutsideClick((props) => (<div {...props} />), defaultOnClose, true, false); // eslint-disable-line @typescript-eslint/naming-convention
+  const WithOnOutsideClickAndDefaultDiv = withOnOutsideClick(
+    (props) => <div {...props} />,
+    defaultOnClose,
+    true,
+    false
+  );
 
-  const WithOnOutsidePointerDiv = withOnOutsideClick((props) => (<div {...props} />), undefined, true); // eslint-disable-line @typescript-eslint/naming-convention
+  const WithOnOutsidePointerDiv = withOnOutsideClick(
+    (props) => <div {...props} />,
+    undefined,
+    true
+  );
 
-  const WithOnOutsidePointerAndDefaultDiv = withOnOutsideClick((props) => (<div {...props} />), defaultOnClose, true, true); // eslint-disable-line @typescript-eslint/naming-convention
+  const WithOnOutsidePointerAndDefaultDiv = withOnOutsideClick(
+    (props) => <div {...props} />,
+    defaultOnClose,
+    true,
+    true
+  );
 
   it("should handle document click", async () => {
     const spyOnClose = sinon.spy();
@@ -34,7 +50,11 @@ describe("WithOnOutsideClick", async () => {
 
   it("should handle inner click", async () => {
     const spyOnClose = sinon.spy();
-    render(<WithOnOutsideClickDiv onOutsideClick={spyOnClose}><div>Inside</div></WithOnOutsideClickDiv>);
+    render(
+      <WithOnOutsideClickDiv onOutsideClick={spyOnClose}>
+        <div>Inside</div>
+      </WithOnOutsideClickDiv>
+    );
 
     await theUserTo.click(screen.getByText("Inside"));
     expect(spyOnClose).not.to.be.called;
@@ -74,7 +94,12 @@ describe("WithOnOutsideClick", async () => {
 
   it("should dispatch close processing if clicking on a popup", async () => {
     defaultOnClose.resetHistory();
-    render(<><div className="core-popup" data-testid="popup" /><WithOnOutsidePointerAndDefaultDiv closeOnNestedPopupOutsideClick /></>);
+    render(
+      <>
+        <div className="core-popup" data-testid="popup" />
+        <WithOnOutsidePointerAndDefaultDiv closeOnNestedPopupOutsideClick />
+      </>
+    );
 
     await theUserTo.click(screen.getByTestId("popup"));
     expect(defaultOnClose.calledOnce).to.be.true;
@@ -83,7 +108,18 @@ describe("WithOnOutsideClick", async () => {
   it("should not dispatch close processing if clicking on a popup", async () => {
     defaultOnClose.resetHistory();
     // build an hierarchy that will test all recursion in code
-    render(<><div className="core-popup"><div><div><p>PopupContent</p></div></div></div><WithOnOutsidePointerAndDefaultDiv /></>);
+    render(
+      <>
+        <div className="core-popup">
+          <div>
+            <div>
+              <p>PopupContent</p>
+            </div>
+          </div>
+        </div>
+        <WithOnOutsidePointerAndDefaultDiv />
+      </>
+    );
 
     await theUserTo.click(screen.getByText("PopupContent"));
     expect(defaultOnClose.calledOnce).to.be.false;
@@ -92,5 +128,4 @@ describe("WithOnOutsideClick", async () => {
     await theUserTo.pointer("[MouseLeft]");
     expect(defaultOnClose.calledOnce).to.be.true;
   });
-
 });

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Popup
  */
@@ -47,9 +47,7 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
   private _tooltip = React.createRef<HTMLDivElement>();
 
   public override render() {
-    const className = classnames(
-      "nz-popup-tooltip",
-      this.props.className);
+    const className = classnames("nz-popup-tooltip", this.props.className);
 
     const style: React.CSSProperties = {
       ...this.props.style,
@@ -58,18 +56,11 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
     };
 
     return (
-      <div
-        className={className}
-        ref={this._tooltip}
-        style={style}
-      >
-        {this.props.icon !== undefined ?
-          <div>
-            {this.props.icon}
-          </div> : undefined}
-        <div className="nz-content">
-          {this.props.children}
-        </div>
+      <div className={className} ref={this._tooltip} style={style}>
+        {this.props.icon !== undefined ? (
+          <div>{this.props.icon}</div>
+        ) : undefined}
+        <div className="nz-content">{this.props.children}</div>
       </div>
     );
   }
@@ -91,8 +82,7 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
       width: rect.width,
     };
 
-    if (this._lastSize.equals(size))
-      return;
+    if (this._lastSize.equals(size)) return;
 
     this._lastSize = Size.create(size);
     this.props.onSizeChanged && this.props.onSizeChanged(size);
@@ -102,11 +92,14 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
 /** Function to apply offset and contain tooltip bounds in container.
  * @internal
  */
-export const offsetAndContainInContainer = (tooltipBounds: RectangleProps, containerSize: SizeProps, offset: PointProps = new Point(20, 20)): Point => {
+export const offsetAndContainInContainer = (
+  tooltipBounds: RectangleProps,
+  containerSize: SizeProps,
+  offset: PointProps = new Point(20, 20)
+): Point => {
   let newBounds = Rectangle.create(tooltipBounds).offset(offset);
   const containerBounds = Rectangle.createFromSize(containerSize);
-  if (containerBounds.contains(newBounds))
-    return newBounds.topLeft();
+  if (containerBounds.contains(newBounds)) return newBounds.topLeft();
 
   newBounds = newBounds.containIn(containerBounds);
   return newBounds.topLeft();

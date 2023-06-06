@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolSettings
  */
@@ -9,7 +9,7 @@
 import "./Setting.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { useResizeObserver } from "@itwin/core-react";
 import { useToolSettingsEntry } from "./Docked";
 
@@ -27,16 +27,9 @@ export interface ToolSettingProps extends CommonProps {
 export function DockedToolSetting(props: ToolSettingProps) {
   const { onResize } = useToolSettingsEntry();
   const ref = useResizeObserver<HTMLDivElement>(onResize);
-  const className = classnames(
-    "nz-toolSettings-setting",
-    props.className,
-  );
+  const className = classnames("nz-toolSettings-setting", props.className);
   return (
-    <div
-      className={className}
-      ref={ref}
-      style={props.style}
-    >
+    <div className={className} ref={ref} style={props.style}>
       {props.children}
     </div>
   );

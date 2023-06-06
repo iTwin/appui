@@ -38,6 +38,7 @@ importers:
       classnames: 2.3.1
       cpx2: ^3.0.0
       eslint: ^7.11.0
+      eslint-config-prettier: ~8.8.0
       react: ^17.0.0
       react-dom: ^17.0.0
       rimraf: ^3.0.2
@@ -71,6 +72,7 @@ importers:
       '@types/react-table': 7.7.14
       cpx2: 3.0.2
       eslint: 7.32.0
+      eslint-config-prettier: 8.8.0_eslint@7.32.0
       rimraf: 3.0.2
       typescript: 5.0.2
 
@@ -132,6 +134,7 @@ importers:
       dotenv-expand: ^5.1.0
       electron: ^23.0.0
       eslint: ^7.11.0
+      eslint-config-prettier: ~8.8.0
       internal-tools: workspace:*
       npm-run-all: ^4.1.5
       null-loader: ^4.0.1
@@ -204,6 +207,7 @@ importers:
       dotenv-expand: 5.1.0
       electron: 23.1.4
       eslint: 7.32.0
+      eslint-config-prettier: 8.8.0_eslint@7.32.0
       internal-tools: link:../../../tools/internal
       npm-run-all: 4.1.5
       null-loader: 4.0.1_webpack@5.76.3
@@ -261,6 +265,7 @@ importers:
       dotenv-expand: ^5.1.0
       electron: ^23.0.0
       eslint: ^7.11.0
+      eslint-config-prettier: ~8.8.0
       internal-tools: workspace:*
       npm-run-all: ^4.1.5
       null-loader: ^4.0.1
@@ -326,6 +331,7 @@ importers:
       dotenv-expand: 5.1.0
       electron: 23.1.4
       eslint: 7.32.0
+      eslint-config-prettier: 8.8.0_eslint@7.32.0
       internal-tools: link:../../../tools/internal
       npm-run-all: 4.1.5
       null-loader: 4.0.1_webpack@5.76.3
@@ -407,6 +413,7 @@ importers:
       classnames: 2.3.1
       cpx2: ^3.0.0
       eslint: ^7.11.0
+      eslint-config-prettier: ~8.8.0
       ignore-styles: ^5.0.1
       immer: 9.0.6
       jsdom: ^19.0.0
@@ -458,6 +465,7 @@ importers:
       chai-jest-snapshot: 2.0.0_chai@4.3.7
       cpx2: 3.0.2
       eslint: 7.32.0
+      eslint-config-prettier: 8.8.0_eslint@7.32.0
       ignore-styles: 5.0.1
       jsdom: 19.0.0
       jsdom-global: 3.0.2_jsdom@19.0.0
@@ -520,6 +528,7 @@ importers:
       classnames: 2.3.1
       cpx2: ^3.0.0
       eslint: ^7.11.0
+      eslint-config-prettier: ~8.8.0
       faker: ^4.1.0
       ignore-styles: ^5.0.1
       immer: 9.0.6
@@ -594,6 +603,7 @@ importers:
       chai-jest-snapshot: 2.0.0_chai@4.3.7
       cpx2: 3.0.2
       eslint: 7.32.0
+      eslint-config-prettier: 8.8.0_eslint@7.32.0
       faker: 4.1.0
       ignore-styles: 5.0.1
       jsdom: 19.0.0
@@ -655,6 +665,7 @@ importers:
       classnames: 2.3.1
       cpx2: ^3.0.0
       eslint: ^7.11.0
+      eslint-config-prettier: ~8.8.0
       faker: ^4.1.0
       ignore-styles: ^5.0.1
       immer: 9.0.6
@@ -725,6 +736,7 @@ importers:
       chai-subset: 1.6.0
       cpx2: 3.0.2
       eslint: 7.32.0
+      eslint-config-prettier: 8.8.0_eslint@7.32.0
       faker: 4.1.0
       ignore-styles: 5.0.1
       jsdom: 19.0.0
@@ -775,6 +787,7 @@ importers:
       cpx2: ^3.0.0
       dompurify: ^2.0.12
       eslint: ^7.11.0
+      eslint-config-prettier: ~8.8.0
       ignore-styles: ^5.0.1
       jsdom: ^19.0.0
       jsdom-global: 3.0.2
@@ -830,6 +843,7 @@ importers:
       chai-as-promised: 7.1.1_chai@4.3.7
       cpx2: 3.0.2
       eslint: 7.32.0
+      eslint-config-prettier: 8.8.0_eslint@7.32.0
       ignore-styles: 5.0.1
       jsdom: 19.0.0
       jsdom-global: 3.0.2_jsdom@19.0.0
@@ -884,6 +898,7 @@ importers:
       classnames: 2.3.1
       cpx2: ^3.0.0
       eslint: ^7.11.0
+      eslint-config-prettier: ~8.8.0
       faker: ^4.1.0
       ignore-styles: ^5.0.1
       jsdom: ^19.0.0
@@ -938,6 +953,7 @@ importers:
       chai-string: 1.5.0_chai@4.3.7
       cpx2: 3.0.2
       eslint: 7.32.0
+      eslint-config-prettier: 8.8.0_eslint@7.32.0
       faker: 4.1.0
       ignore-styles: 5.0.1
       jsdom: 19.0.0
@@ -6075,6 +6091,7 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       tslib: 2.5.0
+    dev: false
 
   /ast-types/0.15.2:
     resolution: {integrity: sha512-c27loCv9QkZinsa5ProX751khO9DJl/AcB5c2KNtA6NRvHKS0PgLfcftz72KVq504vB0Gku5s2kUZzDBvQWvHg==}
@@ -8097,6 +8114,15 @@ packages:
       optionator: 0.8.3
     optionalDependencies:
       source-map: 0.6.1
+    dev: true
+
+  /eslint-config-prettier/8.8.0_eslint@7.32.0:
+    resolution: {integrity: sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 7.32.0
     dev: true
 
   /eslint-config-react-app/7.0.1_5b41abf624cefdf82664b11425002505:
@@ -14328,6 +14354,7 @@ packages:
       esprima: 4.0.1
       source-map: 0.6.1
       tslib: 2.5.0
+    dev: false
 
   /recast/0.21.5:
     resolution: {integrity: sha512-hjMmLaUXAm1hIuTqOdeYObMslq/q+Xff6QE3Y2P+uoHAg2nmVlLBps2hzh1UJDdMtDTMXOFewK6ky51JQIeECg==}

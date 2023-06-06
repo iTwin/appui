@@ -1,14 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import type { PropertyDescription } from "@itwin/appui-abstract";
 import { EnumTypeConverter } from "../../components-react";
 import TestUtils from "../TestUtils";
 
 describe("EnumTypeConverter", () => {
-
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
@@ -37,24 +36,43 @@ describe("EnumTypeConverter", () => {
 
   describe("convertPropertyToString", () => {
     it("returns property enum label if provided value matches", async () => {
-      expect(await converter.convertPropertyToString(propertyDescription, 100)).to.equal(colorNames[0]);
-      expect(await converter.convertPropertyToString(propertyDescription, 103)).to.equal(colorNames[3]);
-      expect(await converter.convertPropertyToString(propertyDescription, 105)).to.equal(colorNames[5]);
+      expect(
+        await converter.convertPropertyToString(propertyDescription, 100)
+      ).to.equal(colorNames[0]);
+      expect(
+        await converter.convertPropertyToString(propertyDescription, 103)
+      ).to.equal(colorNames[3]);
+      expect(
+        await converter.convertPropertyToString(propertyDescription, 105)
+      ).to.equal(colorNames[5]);
     });
 
     it("returns stringified value if provided value does not match", async () => {
-      expect(await converter.convertPropertyToString(propertyDescription, 0)).to.equal("0");
-      expect(await converter.convertPropertyToString(propertyDescription, 1000)).to.equal("1000");
+      expect(
+        await converter.convertPropertyToString(propertyDescription, 0)
+      ).to.equal("0");
+      expect(
+        await converter.convertPropertyToString(propertyDescription, 1000)
+      ).to.equal("1000");
     });
 
     it("returns stringified value if property description does not have enum", async () => {
-      const propDescription: PropertyDescription = { ...propertyDescription, enum: undefined };
-      expect(await converter.convertPropertyToString(propDescription, 0)).to.equal("0");
-      expect(await converter.convertPropertyToString(propDescription, 1000)).to.equal("1000");
+      const propDescription: PropertyDescription = {
+        ...propertyDescription,
+        enum: undefined,
+      };
+      expect(
+        await converter.convertPropertyToString(propDescription, 0)
+      ).to.equal("0");
+      expect(
+        await converter.convertPropertyToString(propDescription, 1000)
+      ).to.equal("1000");
     });
 
     it("returns empty string when value is undefined", async () => {
-      expect(await converter.convertPropertyToString(propertyDescription, undefined)).to.equal("");
+      expect(
+        await converter.convertPropertyToString(propertyDescription, undefined)
+      ).to.equal("");
     });
 
     it("returns promise value when value is a promise", async () => {
@@ -74,7 +92,9 @@ describe("EnumTypeConverter", () => {
         },
       };
 
-      expect(await converter.convertPropertyToString(asyncPropertyDescription, 101)).to.equal(colorNames[1]);
+      expect(
+        await converter.convertPropertyToString(asyncPropertyDescription, 101)
+      ).to.equal(colorNames[1]);
     });
   });
 

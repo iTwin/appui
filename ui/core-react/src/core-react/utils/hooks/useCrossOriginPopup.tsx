@@ -1,20 +1,28 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
 
 import * as React from "react";
-import {useInterval} from "./useInterval";
+import { useInterval } from "./useInterval";
 
 /** Hook that will show a popup window
  * @beta
  */
-export function useCrossOriginPopup(visible: boolean, url: string | undefined, title: string, width: number, height: number, onClose: () => void) {
-
-  const [checkPopupAliveDelay, setCheckPopupAliveDelay] = React.useState<number | undefined>();
+export function useCrossOriginPopup(
+  visible: boolean,
+  url: string | undefined,
+  title: string,
+  width: number,
+  height: number,
+  onClose: () => void
+) {
+  const [checkPopupAliveDelay, setCheckPopupAliveDelay] = React.useState<
+    number | undefined
+  >();
 
   // ONLY re-render the popup when visibility changes, any other changes get deferred until next visibility change
   // hence the massive use of 'useRef'
@@ -25,11 +33,21 @@ export function useCrossOriginPopup(visible: boolean, url: string | undefined, t
   const savedHeight = React.useRef(height);
   const savedOnClose = React.useRef(onClose);
 
-  React.useEffect(() => { savedUrl.current = url; }, [url]);
-  React.useEffect(() => { savedTitle.current = title; }, [title]);
-  React.useEffect(() => { savedWidth.current = width; }, [width]);
-  React.useEffect(() => { savedHeight.current = height; }, [height]);
-  React.useEffect(() => { savedOnClose.current = onClose; }, [onClose]);
+  React.useEffect(() => {
+    savedUrl.current = url;
+  }, [url]);
+  React.useEffect(() => {
+    savedTitle.current = title;
+  }, [title]);
+  React.useEffect(() => {
+    savedWidth.current = width;
+  }, [width]);
+  React.useEffect(() => {
+    savedHeight.current = height;
+  }, [height]);
+  React.useEffect(() => {
+    savedOnClose.current = onClose;
+  }, [onClose]);
 
   // Cleanup method after a popup closure.  Also calls the OnClose callback.
   const handleClosedPopup = React.useCallback(() => {
@@ -40,7 +58,7 @@ export function useCrossOriginPopup(visible: boolean, url: string | undefined, t
 
   const closePopup = React.useCallback(() => {
     if (popupWindow.current !== undefined) {
-      popupWindow.current.close();    // Manually close the popup
+      popupWindow.current.close(); // Manually close the popup
       handleClosedPopup();
     }
   }, [handleClosedPopup]);
@@ -54,7 +72,9 @@ export function useCrossOriginPopup(visible: boolean, url: string | undefined, t
 
   //  Close popup when parent window get closed
   React.useEffect(() => {
-    window.onbeforeunload = (_event) => {closePopup();};
+    window.onbeforeunload = (_event) => {
+      closePopup();
+    };
     return () => {
       window.onbeforeunload = null;
     };
@@ -79,7 +99,11 @@ export function useCrossOriginPopup(visible: boolean, url: string | undefined, t
   React.useEffect(() => {
     // If visible and a popup window is not already open, open a new popup window
     if (visible && popupWindow.current === undefined) {
-      const popup = window.open(savedUrl.current, savedTitle.current, `width=${savedWidth.current},height=${savedHeight.current}`);
+      const popup = window.open(
+        savedUrl.current,
+        savedTitle.current,
+        `width=${savedWidth.current},height=${savedHeight.current}`
+      );
       if (popup) {
         popup.focus();
         popupWindow.current = popup;
@@ -95,6 +119,5 @@ export function useCrossOriginPopup(visible: boolean, url: string | undefined, t
 
       handleClosedPopup();
     }
-
   }, [handleClosedPopup, visible]);
 }

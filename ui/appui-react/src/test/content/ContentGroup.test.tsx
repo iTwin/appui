@@ -1,12 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import type {
-  ConfigurableCreateInfo, ContentGroupProps, ContentProps} from "../../appui-react";
-import { ContentControl, ContentGroup,
+  ConfigurableCreateInfo,
+  ContentGroupProps,
+  ContentProps,
+} from "../../appui-react";
+import {
+  ContentControl,
+  ContentGroup,
   NavigationAidControl,
   UiFramework,
 } from "../../appui-react";
@@ -14,7 +19,6 @@ import TestUtils from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 
 describe("ContentGroup", () => {
-
   class TestContentControl extends ContentControl {
     constructor(info: ConfigurableCreateInfo, options: any) {
       super(info, options);
@@ -40,7 +44,10 @@ describe("ContentGroup", () => {
   });
 
   it("ContentGroup.getContentControl should throw Error if content type is not Content or Viewport", () => {
-    const contentProps: ContentProps = { id: "myContent", classId: "TestContentControl" };
+    const contentProps: ContentProps = {
+      id: "myContent",
+      classId: "TestContentControl",
+    };
     const groupProps: ContentGroupProps = {
       id: "testGroup",
       layout: StandardContentLayouts.singleView,
@@ -49,13 +56,21 @@ describe("ContentGroup", () => {
     const contentGroup = new ContentGroup(groupProps);
 
     UiFramework.controls.unregister("TestContentControl");
-    UiFramework.controls.register("TestContentControl", TestNavigationAidControl);
-    expect(() => contentGroup.getContentControl(contentProps, 0)).to.throw(Error);
+    UiFramework.controls.register(
+      "TestContentControl",
+      TestNavigationAidControl
+    );
+    expect(() => contentGroup.getContentControl(contentProps, 0)).to.throw(
+      Error
+    );
     UiFramework.controls.unregister("TestContentControl");
   });
 
   it("ContentGroup.toJSON should throw Error if class not registered", () => {
-    const contentProps: ContentProps = { id: "myContent", classId: TestContentControl };
+    const contentProps: ContentProps = {
+      id: "myContent",
+      classId: TestContentControl,
+    };
     const groupProps: ContentGroupProps = {
       id: "testGroup",
       layout: StandardContentLayouts.singleView,
@@ -70,7 +85,10 @@ describe("ContentGroup", () => {
     const classId = "TestContentControl";
     UiFramework.controls.register(classId, TestContentControl);
 
-    const contentProps: ContentProps = { id: "myContent", classId: TestContentControl };
+    const contentProps: ContentProps = {
+      id: "myContent",
+      classId: TestContentControl,
+    };
     const groupProps: ContentGroupProps = {
       id: "testGroup",
       layout: StandardContentLayouts.singleView,
@@ -105,7 +123,10 @@ describe("ContentGroup", () => {
   it("ContentGroup.getViewports should return array with undefined with no viewports", () => {
     UiFramework.controls.register("TestContentControl", TestContentControl);
 
-    const contentProps: ContentProps = { id: "myContent", classId: TestContentControl };
+    const contentProps: ContentProps = {
+      id: "myContent",
+      classId: TestContentControl,
+    };
     const groupProps: ContentGroupProps = {
       id: "testGroup",
       layout: StandardContentLayouts.singleView,
@@ -118,5 +139,4 @@ describe("ContentGroup", () => {
 
     UiFramework.controls.unregister("TestContentControl");
   });
-
 });

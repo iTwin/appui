@@ -1,11 +1,11 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import "./PlayerButton.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents";
 import { SvgPause, SvgPlay } from "@itwin/itwinui-icons-react";
@@ -16,15 +16,21 @@ import { SvgPause, SvgPlay } from "@itwin/itwinui-icons-react";
 export class PlayerButton extends React.PureComponent<any> {
   private _onClick = () => {
     // istanbul ignore else
-    if (this.props.onClick)
-      this.props.onClick();
+    if (this.props.onClick) this.props.onClick();
   };
 
   public override render() {
     const { icon, title } = this.props;
     return (
-      <button data-testid={this.props.className} className={classnames("player-button", this.props.className)} onClick={this._onClick} title={title}>
-        <span className="icon"><Icon iconSpec={icon} /></span>
+      <button
+        data-testid={this.props.className}
+        className={classnames("player-button", this.props.className)}
+        onClick={this._onClick}
+        title={title}
+      >
+        <span className="icon">
+          <Icon iconSpec={icon} />
+        </span>
       </button>
     );
   }
@@ -47,8 +53,10 @@ interface PlayButtonState {
 /** Play/Pause button used on timeline control
  * @internal
  */
-export class PlayButton extends React.Component<PlayerButtonProps, PlayButtonState> {
-
+export class PlayButton extends React.Component<
+  PlayerButtonProps,
+  PlayButtonState
+> {
   constructor(props: PlayerButtonProps, context?: any) {
     super(props, context);
 
@@ -69,12 +77,10 @@ export class PlayButton extends React.Component<PlayerButtonProps, PlayButtonSta
 
     if (_isPlaying) {
       // istanbul ignore else
-      if (this.props.onPlay)
-        this.props.onPlay();
+      if (this.props.onPlay) this.props.onPlay();
     } else {
       // istanbul ignore else
-      if (this.props.onPause)
-        this.props.onPause();
+      if (this.props.onPause) this.props.onPause();
     }
   };
 
@@ -84,11 +90,26 @@ export class PlayButton extends React.Component<PlayerButtonProps, PlayButtonSta
     let title = tooltip;
 
     if (!title)
-      title = UiIModelComponents.translate(this.state.isPlaying ? "timeline.pause" : "timeline.play");
+      title = UiIModelComponents.translate(
+        this.state.isPlaying ? "timeline.pause" : "timeline.play"
+      );
 
     return (
-      <button data-testid={this.props.className} title={title} className={classnames("player-button", this.props.className)} onClick={this._onClick}>
-        <span className="icon" data-testid={this.state.isPlaying ? "pause" : "play"} ><Icon iconSpec={iconSpec} data-testid={this.state.isPlaying ? "pause" : "play"} /></span>
+      <button
+        data-testid={this.props.className}
+        title={title}
+        className={classnames("player-button", this.props.className)}
+        onClick={this._onClick}
+      >
+        <span
+          className="icon"
+          data-testid={this.state.isPlaying ? "pause" : "play"}
+        >
+          <Icon
+            iconSpec={iconSpec}
+            data-testid={this.state.isPlaying ? "pause" : "play"}
+          />
+        </span>
       </button>
     );
   }

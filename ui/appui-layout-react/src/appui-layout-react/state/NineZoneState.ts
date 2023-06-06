@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -11,20 +11,36 @@ import produce from "immer";
 import type { RectangleProps, SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
 import { createTabsState, updateTabState } from "./internal/TabStateHelpers";
-import type { FloatingWidgetsState, PopoutWidgetsState, WidgetsState } from "./WidgetState";
+import type {
+  FloatingWidgetsState,
+  PopoutWidgetsState,
+  WidgetsState,
+} from "./WidgetState";
 import { addFloatingWidget, addPopoutWidget } from "./WidgetState";
 import type { PanelsState } from "./PanelState";
 import type { ToolSettingsState } from "./ToolSettingsState";
 import { createPanelsState } from "./internal/PanelStateHelpers";
 import type { DraggedTabState, TabsState } from "./TabState";
 import { removeTabFromWidget } from "./TabState";
-import type { PointProps} from "@itwin/appui-abstract";
+import type { PointProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
 import { getUniqueId } from "../base/NineZone";
-import { category, convertPopoutWidgetContainerToFloating } from "./internal/NineZoneStateHelpers";
+import {
+  category,
+  convertPopoutWidgetContainerToFloating,
+} from "./internal/NineZoneStateHelpers";
 import { NineZoneStateReducer } from "./NineZoneStateReducer";
-import { getTabLocation, isFloatingTabLocation, isPanelTabLocation, isPopoutTabLocation } from "./TabLocation";
-import { getWidgetLocation, isFloatingWidgetLocation, isPopoutWidgetLocation } from "./WidgetLocation";
+import {
+  getTabLocation,
+  isFloatingTabLocation,
+  isPanelTabLocation,
+  isPopoutTabLocation,
+} from "./TabLocation";
+import {
+  getWidgetLocation,
+  isFloatingWidgetLocation,
+  isPopoutWidgetLocation,
+} from "./WidgetLocation";
 
 /** @internal */
 export interface NineZoneState {
@@ -39,7 +55,9 @@ export interface NineZoneState {
 }
 
 /** @internal */
-export function createNineZoneState(args?: Partial<NineZoneState>): NineZoneState {
+export function createNineZoneState(
+  args?: Partial<NineZoneState>
+): NineZoneState {
   return {
     draggedTab: undefined,
     floatingWidgets: {
@@ -68,7 +86,9 @@ export function createNineZoneState(args?: Partial<NineZoneState>): NineZoneStat
  * FloatingWidgets in this situation.
  * @internal
  */
-export function convertAllPopupWidgetContainersToFloating(state: NineZoneState): NineZoneState {
+export function convertAllPopupWidgetContainersToFloating(
+  state: NineZoneState
+): NineZoneState {
   // TODO: review
   return produce(state, (draft) => {
     for (const widgetContainerId of state.popoutWidgets.allIds) {
@@ -88,7 +108,11 @@ export function convertAllPopupWidgetContainersToFloating(state: NineZoneState):
 }
 
 /** @internal */
-export function dockWidgetContainer(state: NineZoneState, widgetTabId: string, idIsContainerId?: boolean): NineZoneState {
+export function dockWidgetContainer(
+  state: NineZoneState,
+  widgetTabId: string,
+  idIsContainerId?: boolean
+): NineZoneState {
   // TODO: review
   if (idIsContainerId) {
     const widgetLocation = getWidgetLocation(state, widgetTabId);
@@ -136,25 +160,32 @@ export function dockWidgetContainer(state: NineZoneState, widgetTabId: string, i
 }
 
 /** @internal */
-export function floatWidget(state: NineZoneState, widgetTabId: string, point?: PointProps, size?: SizeProps): NineZoneState {
+export function floatWidget(
+  state: NineZoneState,
+  widgetTabId: string,
+  point?: PointProps,
+  size?: SizeProps
+): NineZoneState {
   // TODO: review
   const location = getTabLocation(state, widgetTabId);
-  if (!location)
-    throw new UiError(category, "Tab not found");
+  if (!location) throw new UiError(category, "Tab not found");
 
-  if (isFloatingTabLocation(location))
-    return state;
+  if (isFloatingTabLocation(location)) return state;
 
   const tab = state.tabs[widgetTabId];
-  const preferredSize = size ?? (tab.preferredFloatingWidgetSize ?? { height: 400, width: 400 });
+  const preferredSize = size ??
+    tab.preferredFloatingWidgetSize ?? { height: 400, width: 400 };
   const preferredPoint = point ?? { x: 50, y: 100 };
-  const preferredBounds = Rectangle.createFromSize(preferredSize).offset(preferredPoint);
+  const preferredBounds =
+    Rectangle.createFromSize(preferredSize).offset(preferredPoint);
   const nzBounds = Rectangle.createFromSize(state.size);
   const containedBounds = preferredBounds.containIn(nzBounds);
 
   // istanbul ignore else
   if (isPanelTabLocation(location)) {
-    const floatingWidgetId = widgetTabId ? widgetTabId : /* istanbul ignore next */ getUniqueId();
+    const floatingWidgetId = widgetTabId
+      ? widgetTabId
+      : /* istanbul ignore next */ getUniqueId();
     const panel = state.panels[location.side];
     const widgetIndex = panel.widgets.indexOf(location.widgetId);
 
@@ -163,16 +194,23 @@ export function floatWidget(state: NineZoneState, widgetTabId: string, point?: P
       preferredFloatingWidgetSize: preferredSize,
     });
     state = removeTabFromWidget(state, widgetTabId);
-    return addFloatingWidget(state, floatingWidgetId, [widgetTabId], {
-      bounds: containedBounds,
-      home: {
-        side: location.side,
-        widgetId: location.widgetId,
-        widgetIndex,
+    return addFloatingWidget(
+      state,
+      floatingWidgetId,
+      [widgetTabId],
+      {
+        bounds: containedBounds,
+        home: {
+          side: location.side,
+          widgetId: location.widgetId,
+          widgetIndex,
+        },
       },
-    }, {
-      isFloatingStateWindowResizable: floatedTab.isFloatingStateWindowResizable,
-    });
+      {
+        isFloatingStateWindowResizable:
+          floatedTab.isFloatingStateWindowResizable,
+      }
+    );
   }
   // istanbul ignore next
   return convertPopoutWidgetContainerToFloating(state, location.popoutWidgetId);
@@ -180,15 +218,17 @@ export function floatWidget(state: NineZoneState, widgetTabId: string, point?: P
 
 /** @internal */
 // istanbul ignore next
-export function popoutWidgetToChildWindow(state: NineZoneState, tabId: string, preferredBounds: RectangleProps): NineZoneState {
+export function popoutWidgetToChildWindow(
+  state: NineZoneState,
+  tabId: string,
+  preferredBounds: RectangleProps
+): NineZoneState {
   // TODO: review
   const location = getTabLocation(state, tabId);
-  if (!location)
-    throw new UiError(category, "Tab not found");
+  if (!location) throw new UiError(category, "Tab not found");
 
   // Already in popout state.
-  if (isPopoutTabLocation(location))
-    return state;
+  if (isPopoutTabLocation(location)) return state;
 
   const popoutWidgetId = getUniqueId();
   const nzBounds = Rectangle.createFromSize(state.size);

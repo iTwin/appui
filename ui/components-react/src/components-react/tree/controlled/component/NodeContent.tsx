@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -9,13 +9,16 @@
 import "./NodeContent.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { TreeNodePlaceholder } from "@itwin/core-react";
-import type { ItemStyle} from "../../../properties/ItemStyle";
+import type { ItemStyle } from "../../../properties/ItemStyle";
 import { ItemStyleProvider } from "../../../properties/ItemStyle";
-import type { PropertyValueRendererContext, PropertyValueRendererManager } from "../../../properties/ValueRendererManager";
+import type {
+  PropertyValueRendererContext,
+  PropertyValueRendererManager,
+} from "../../../properties/ValueRendererManager";
 import { PropertyContainerType } from "../../../properties/ValueRendererManager";
-import type { HighlightableTreeNodeProps} from "../../HighlightingEngine";
+import type { HighlightableTreeNodeProps } from "../../HighlightingEngine";
 import { HighlightingEngine } from "../../HighlightingEngine";
 import type { TreeModelNode } from "../TreeModel";
 import type { TreeNodeEditorRenderer } from "./TreeNodeEditor";
@@ -39,8 +42,10 @@ export interface TreeNodeContentProps extends CommonProps {
  */
 export function TreeNodeContent(props: TreeNodeContentProps) {
   const { node, valueRendererManager, onLabelRendered, highlightProps } = props;
-  // eslint-disable-next-line @typescript-eslint/promise-function-async
-  const label = React.useMemo(() => getLabel(node, valueRendererManager, highlightProps), [node, valueRendererManager, highlightProps]);
+  const label = React.useMemo(
+    () => getLabel(node, valueRendererManager, highlightProps),
+    [node, valueRendererManager, highlightProps]
+  );
   React.useEffect(() => {
     onLabelRendered && onLabelRendered(node);
   }, [label, node, onLabelRendered]);
@@ -56,31 +61,36 @@ export function TreeNodeContent(props: TreeNodeContentProps) {
       onCommit: props.node.editingInfo.onCommit,
       style,
     };
-    editor = props.nodeEditorRenderer ? props.nodeEditorRenderer(editorProps) : <TreeNodeEditor {...editorProps} />;
+    editor = props.nodeEditorRenderer ? (
+      props.nodeEditorRenderer(editorProps)
+    ) : (
+      <TreeNodeEditor {...editorProps} />
+    );
   }
 
-  const isDescriptionEnabled = props.node.item.description && props.showDescription;
+  const isDescriptionEnabled =
+    props.node.item.description && props.showDescription;
 
   const containerClassName = classnames(
     "components-controlledTree-node-content",
     isDescriptionEnabled ? "with-description" : undefined,
-    props.className,
+    props.className
   );
 
   const descriptionClassName = classnames(
     "components-controlledTree-node-description",
-    editor ? "with-editor" : undefined,
+    editor ? "with-editor" : undefined
   );
 
   return (
     <div className={containerClassName} style={props.style}>
       <>
         {editor ? editor : label}
-        {isDescriptionEnabled ?
+        {isDescriptionEnabled ? (
           <div className={descriptionClassName}>
             {props.node.item.description}
           </div>
-          : undefined}
+        ) : undefined}
       </>
     </div>
   );
@@ -89,7 +99,8 @@ export function TreeNodeContent(props: TreeNodeContentProps) {
 function getLabel(
   node: TreeModelNode,
   valueRendererManager: PropertyValueRendererManager,
-  highlightProps?: HighlightableTreeNodeProps): React.ReactNode | Promise<React.ReactNode> {
+  highlightProps?: HighlightableTreeNodeProps
+): React.ReactNode | Promise<React.ReactNode> {
   // handle filtered matches' highlighting
   const highlightCallback = highlightProps
     ? (text: string) => HighlightingEngine.renderNodeLabel(text, highlightProps)
@@ -100,12 +111,17 @@ function getLabel(
     containerType: PropertyContainerType.Tree,
     style: getStyle(node.item.style, node.isSelected),
     textHighlighter: highlightCallback,
-    defaultValue: <TreeNodePlaceholder level={0} data-testid={"node-label-placeholder"} />,
+    defaultValue: (
+      <TreeNodePlaceholder level={0} data-testid={"node-label-placeholder"} />
+    ),
   };
 
   return valueRendererManager.render(node.item.label, context);
 }
 
-function getStyle(style?: ItemStyle, isSelected?: boolean): React.CSSProperties {
+function getStyle(
+  style?: ItemStyle,
+  isSelected?: boolean
+): React.CSSProperties {
   return ItemStyleProvider.createStyle(style ? style : {}, isSelected);
 }

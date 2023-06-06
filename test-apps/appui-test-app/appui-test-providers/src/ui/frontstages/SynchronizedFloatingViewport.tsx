@@ -1,11 +1,24 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
-  BackstageAppButton, ContentGroup, ContentGroupProps, ContentGroupProvider, ContentProps, FrontstageConfig, IModelViewportControl, StageUsage, StandardContentToolsUiItemsProvider, StandardFrontstageProps, StandardFrontstageProvider,
-  StandardNavigationToolsUiItemsProvider, StandardStatusbarUiItemsProvider, UiFramework, UiItemsManager,
+  BackstageAppButton,
+  ContentGroup,
+  ContentGroupProps,
+  ContentGroupProvider,
+  ContentProps,
+  FrontstageConfig,
+  IModelViewportControl,
+  StageUsage,
+  StandardContentToolsUiItemsProvider,
+  StandardFrontstageProps,
+  StandardFrontstageProvider,
+  StandardNavigationToolsUiItemsProvider,
+  StandardStatusbarUiItemsProvider,
+  UiFramework,
+  UiItemsManager,
 } from "@itwin/appui-react";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getSavedViewLayoutProps } from "../../tools/ContentLayoutTools";
@@ -21,46 +34,59 @@ import { SynchronizedFloatingViewportProvider } from "../providers/SynchronizedF
  */
 export class SynchronizedFloatingViewportContentGroupProvider extends ContentGroupProvider {
   public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps) => {
-      const newContent = { ...content };
-      if (newContent.applicationData)
-        delete newContent.applicationData;
-      return newContent;
-    });
-    return { ...contentGroupProps, contents: newContentsArray };
-  }
-
-  public override applyUpdatesToSavedProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps) => {
-      const newContent = { ...content };
-
-      if (newContent.classId === IModelViewportControl.id) {
-        newContent.applicationData = {
-          ...newContent.applicationData,
-          isPrimaryView: true,
-          featureOptions:
-          {
-            defaultViewOverlay: {
-              enableScheduleAnimationViewOverlay: true,
-              enableAnalysisTimelineViewOverlay: true,
-              enableSolarTimelineViewOverlay: true,
-            },
-          },
-        };
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps) => {
+        const newContent = { ...content };
+        if (newContent.applicationData) delete newContent.applicationData;
+        return newContent;
       }
-      return newContent;
-    });
+    );
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public override async contentGroup(config: FrontstageConfig): Promise<ContentGroup> { // eslint-disable-line deprecation/deprecation
-    const savedViewLayoutProps = await getSavedViewLayoutProps(config.id, UiFramework.getIModelConnection());
+  public override applyUpdatesToSavedProps(
+    contentGroupProps: ContentGroupProps
+  ) {
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps) => {
+        const newContent = { ...content };
+
+        if (newContent.classId === IModelViewportControl.id) {
+          newContent.applicationData = {
+            ...newContent.applicationData,
+            isPrimaryView: true,
+            featureOptions: {
+              defaultViewOverlay: {
+                enableScheduleAnimationViewOverlay: true,
+                enableAnalysisTimelineViewOverlay: true,
+                enableSolarTimelineViewOverlay: true,
+              },
+            },
+          };
+        }
+        return newContent;
+      }
+    );
+    return { ...contentGroupProps, contents: newContentsArray };
+  }
+
+  public override async contentGroup(
+    config: FrontstageConfig
+  ): Promise<ContentGroup> {
+    const savedViewLayoutProps = await getSavedViewLayoutProps(
+      config.id,
+      UiFramework.getIModelConnection()
+    );
     if (savedViewLayoutProps) {
-      const viewState = savedViewLayoutProps.contentGroupProps.contents[0].applicationData?.viewState;
+      const viewState =
+        savedViewLayoutProps.contentGroupProps.contents[0].applicationData
+          ?.viewState;
       if (viewState) {
         UiFramework.setDefaultViewState(viewState);
       }
-      const contentGroupProps = this.applyUpdatesToSavedProps(savedViewLayoutProps.contentGroupProps);
+      const contentGroupProps = this.applyUpdatesToSavedProps(
+        savedViewLayoutProps.contentGroupProps
+      );
       return new ContentGroup(contentGroupProps);
     }
 
@@ -75,8 +101,7 @@ export class SynchronizedFloatingViewportContentGroupProvider extends ContentGro
             isPrimaryView: true,
             viewState: UiFramework.getDefaultViewState,
             iModelConnection: UiFramework.getIModelConnection,
-            featureOptions:
-            {
+            featureOptions: {
               defaultViewOverlay: {
                 enableScheduleAnimationViewOverlay: true,
                 enableAnalysisTimelineViewOverlay: true,
@@ -99,9 +124,11 @@ export class SynchronizedFloatingViewportContentGroupProvider extends ContentGro
  */
 
 export class SynchronizedFloatingViewportStage {
-  public static stageId = "appui-test-providers:SynchronizedFloatingViewportExample";
+  public static stageId =
+    "appui-test-providers:SynchronizedFloatingViewportExample";
 
-  private static _contentGroupProvider = new SynchronizedFloatingViewportContentGroupProvider();
+  private static _contentGroupProvider =
+    new SynchronizedFloatingViewportContentGroupProvider();
 
   public static supplyAppData(_id: string, _applicationData?: any) {
     return {
@@ -112,41 +139,65 @@ export class SynchronizedFloatingViewportStage {
 
   public static register(localizationNamespace: string) {
     // set up custom corner button where we specify icon, label, and action
-    const cornerButton = <BackstageAppButton key="appui-test-providers-SynchronizedFloatingViewportExample-backstage" label="Toggle Backstage" icon={"icon-bentley-systems"}
-      execute={() => UiFramework.backstage.getBackstageToggleCommand().execute()} />;
+    const cornerButton = (
+      <BackstageAppButton
+        key="appui-test-providers-SynchronizedFloatingViewportExample-backstage"
+        label="Toggle Backstage"
+        icon={"icon-bentley-systems"}
+        execute={() =>
+          UiFramework.backstage.getBackstageToggleCommand().execute()
+        }
+      />
+    );
 
     const synchronizedFloatingViewportStageProps: StandardFrontstageProps = {
       id: SynchronizedFloatingViewportStage.stageId,
       version: 1.1,
-      contentGroupProps: SynchronizedFloatingViewportStage._contentGroupProvider,
+      contentGroupProps:
+        SynchronizedFloatingViewportStage._contentGroupProvider,
       cornerButton,
       usage: StageUsage.General,
     };
 
-    UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(synchronizedFloatingViewportStageProps));
+    UiFramework.frontstages.addFrontstageProvider(
+      new StandardFrontstageProvider(synchronizedFloatingViewportStageProps)
+    );
     this.registerToolProviders(localizationNamespace);
   }
 
   private static registerToolProviders(localizationNamespace: string) {
     // Provides standard tools for ToolWidget in stage
-    UiItemsManager.register(new StandardContentToolsUiItemsProvider({
-      vertical: {
-        selectElement: true,
-      },
-      horizontal: {
-        clearSelection: true,
-        clearDisplayOverrides: true,
-        hide: "group",
-        isolate: "group",
-        emphasize: "element",
-      },
-    }), { providerId: "synchronized-floating-viewport-stage-standardContentTools", stageIds: [SynchronizedFloatingViewportStage.stageId] });
+    UiItemsManager.register(
+      new StandardContentToolsUiItemsProvider({
+        vertical: {
+          selectElement: true,
+        },
+        horizontal: {
+          clearSelection: true,
+          clearDisplayOverrides: true,
+          hide: "group",
+          isolate: "group",
+          emphasize: "element",
+        },
+      }),
+      {
+        providerId: "synchronized-floating-viewport-stage-standardContentTools",
+        stageIds: [SynchronizedFloatingViewportStage.stageId],
+      }
+    );
 
     // Provides standard tools for NavigationWidget in stage
-    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), { providerId: "synchronized-floating-viewport-stage-standardNavigationTools", stageIds: [SynchronizedFloatingViewportStage.stageId] });
+    UiItemsManager.register(new StandardNavigationToolsUiItemsProvider(), {
+      providerId:
+        "synchronized-floating-viewport-stage-standardNavigationTools",
+      stageIds: [SynchronizedFloatingViewportStage.stageId],
+    });
 
     // Provides standard status fields for stage
-    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), { providerId: "synchronized-floating-viewport-stage-standardStatusItems", stageIds: [SynchronizedFloatingViewportStage.stageId] });
+    UiItemsManager.register(new StandardStatusbarUiItemsProvider(), {
+      providerId: "synchronized-floating-viewport-stage-standardStatusItems",
+      stageIds: [SynchronizedFloatingViewportStage.stageId],
+    });
 
     // Provides example widgets stage
     SynchronizedFloatingViewportProvider.register(localizationNamespace);

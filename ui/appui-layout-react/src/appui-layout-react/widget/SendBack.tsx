@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -19,15 +19,20 @@ import { getWidgetPanelSectionId } from "../state/PanelState";
 import type { NineZoneState } from "../state/NineZoneState";
 
 /** @internal */
-export const useActiveSendBackWidgetIdStore = create<WidgetState["id"] | undefined>(() => undefined);
+export const useActiveSendBackWidgetIdStore = create<
+  WidgetState["id"] | undefined
+>(() => undefined);
 
 /** @internal */
-export function getSendBackHomeState(state: NineZoneState, widgetId: WidgetState["id"]) {
-
+export function getSendBackHomeState(
+  state: NineZoneState,
+  widgetId: WidgetState["id"]
+) {
   const floatingWidget = state.floatingWidgets.byId[widgetId];
   const home = floatingWidget.home;
   const panel = state.panels[home.side];
-  const destinationWidgetId = home.widgetId ?? getWidgetPanelSectionId(panel.side, home.widgetIndex);
+  const destinationWidgetId =
+    home.widgetId ?? getWidgetPanelSectionId(panel.side, home.widgetIndex);
 
   let destinationWidget = state.widgets[destinationWidgetId];
 
@@ -61,7 +66,9 @@ export function getSendBackHomeState(state: NineZoneState, widgetId: WidgetState
 /** @internal */
 export function useSendBackHomeState() {
   const widgetId = useActiveSendBackWidgetIdStore((state) => state);
-  return useLayout((state) => widgetId ? getSendBackHomeState(state, widgetId) : undefined);
+  return useLayout((state) =>
+    widgetId ? getSendBackHomeState(state, widgetId) : undefined
+  );
 }
 
 /** @internal */
@@ -71,11 +78,9 @@ export function SendBack() {
   const home = useLayout((state) => state.floatingWidgets.byId[id].home);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const title = useLabel("sendWidgetHomeTitle");
-  const className = classnames(
-    "nz-widget-sendBack",
-    `nz-${home.side}`,
-  );
-  const setActiveWidgetId = (newId: WidgetState["id"] | undefined) => useActiveSendBackWidgetIdStore.setState(newId);
+  const className = classnames("nz-widget-sendBack", `nz-${home.side}`);
+  const setActiveWidgetId = (newId: WidgetState["id"] | undefined) =>
+    useActiveSendBackWidgetIdStore.setState(newId);
 
   return (
     <button
@@ -92,18 +97,22 @@ export function SendBack() {
       }}
       onFocus={
         // istanbul ignore next
-        () => { setActiveWidgetId(id); }
+        () => {
+          setActiveWidgetId(id);
+        }
       }
       onMouseOut={() => {
         setActiveWidgetId(undefined);
       }}
       onBlur={
         // istanbul ignore next
-        () => { setActiveWidgetId(undefined); }
+        () => {
+          setActiveWidgetId(undefined);
+        }
       }
       title={title}
     >
       <i />
-    </button >
+    </button>
   );
 }

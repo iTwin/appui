@@ -1,13 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { FloatTypeConverter, IntTypeConverter } from "../../components-react";
 import TestUtils from "../TestUtils";
 
 describe("IntTypeConverter", () => {
-
   before(async () => {
     await TestUtils.initializeUiComponents();
   });
@@ -88,7 +87,6 @@ describe("IntTypeConverter", () => {
     expect(converter.isNotEqualTo(0, 0)).to.be.false;
     expect(converter.isNotEqualTo(1, 0)).to.be.true;
   });
-
 });
 
 describe("FloatTypeConverter", () => {
@@ -162,5 +160,4 @@ describe("FloatTypeConverter", () => {
     expect(converter.isGreaterThanOrEqualTo(1, 1)).to.be.true;
     expect(converter.isGreaterThanOrEqualTo(0, 1)).to.be.false;
   });
-
 });

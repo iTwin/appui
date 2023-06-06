@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -14,5 +14,8 @@ export enum SafeAreaInsets {
   Left = 1 << 1,
   Right = 1 << 2,
   Top = 1 << 3,
-  All = SafeAreaInsets.Bottom | SafeAreaInsets.Left | SafeAreaInsets.Right | SafeAreaInsets.Top,
+  All = SafeAreaInsets.Bottom |
+    SafeAreaInsets.Left |
+    SafeAreaInsets.Right |
+    SafeAreaInsets.Top,
 }

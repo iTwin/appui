@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -22,9 +22,9 @@ import type { FrameworkState } from "../redux/FrameworkState";
  */
 export function SelectionInfoField(props: CommonProps) {
   const count = useSelector((state: any) => {
-    const frameworkState: FrameworkState | undefined = state[UiFramework.frameworkStateKey];
-    if (!frameworkState)
-      return 0;
+    const frameworkState: FrameworkState | undefined =
+      state[UiFramework.frameworkStateKey];
+    if (!frameworkState) return 0;
 
     return frameworkState.sessionState.numItemsSelected;
   });

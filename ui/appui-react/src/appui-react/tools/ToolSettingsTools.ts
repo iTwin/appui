@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tools
  */
@@ -28,16 +28,17 @@ export class BumpToolSetting extends Tool {
   public static override toolId = "BumpToolSetting";
 
   // istanbul ignore next
-  public static override get maxArgs() { return 1; }
+  public static override get maxArgs() {
+    return 1;
+  }
 
   public override async run(settingIndexStr?: string): Promise<boolean> {
     let settingIndex: number | undefined;
     if (settingIndexStr) {
       settingIndex = parseInt(settingIndexStr, 10);
-      if (isNaN(settingIndex))
-        return false;
+      if (isNaN(settingIndex)) return false;
     }
-    IModelApp.toolAdmin.bumpToolSetting(settingIndex);  // eslint-disable-line @typescript-eslint/no-floating-promises
+    IModelApp.toolAdmin.bumpToolSetting(settingIndex); // eslint-disable-line @typescript-eslint/no-floating-promises
     return true;
   }
 
