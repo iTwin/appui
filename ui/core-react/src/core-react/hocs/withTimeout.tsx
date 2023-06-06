@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -23,18 +23,23 @@ export interface WithTimeoutProps {
  * @public
  */
 export const withTimeout = <ComponentProps extends {}>(
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  Component: React.ComponentType<ComponentProps>,
+  Component: React.ComponentType<ComponentProps>
 ) => {
-  return class WithTimeout extends React.PureComponent<ComponentProps & WithTimeoutProps> {
+  return class WithTimeout extends React.PureComponent<
+    ComponentProps & WithTimeoutProps
+  > {
     public timer: Timer = new Timer(0);
 
     public override componentDidMount(): void {
-      this.timer.setOnExecute(() => this.props.onTimeout && this.props.onTimeout());
+      this.timer.setOnExecute(
+        () => this.props.onTimeout && this.props.onTimeout()
+      );
       this.startTimer(this.props.timeout);
     }
 
-    public override componentDidUpdate(_prevProps: Readonly<ComponentProps & WithTimeoutProps>): void {
+    public override componentDidUpdate(
+      _prevProps: Readonly<ComponentProps & WithTimeoutProps>
+    ): void {
       this.startTimer(this.props.timeout);
     }
 
@@ -44,14 +49,11 @@ export const withTimeout = <ComponentProps extends {}>(
 
     public override render() {
       const { timeout, onTimeout, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
-      return (
-        <Component {...props as any} {...this.state} />
-      );
+      return <Component {...(props as any)} {...this.state} />;
     }
 
     public startTimer(timeout: number) {
-      if (this.timer.isRunning)
-        return;
+      if (this.timer.isRunning) return;
 
       this.timer.delay = timeout;
       this.timer.start();

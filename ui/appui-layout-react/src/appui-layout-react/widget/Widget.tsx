@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -10,11 +10,15 @@ import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import type { CommonProps, SizeProps} from "@itwin/core-react";
+import type { CommonProps, SizeProps } from "@itwin/core-react";
 import { Rectangle, useRefs } from "@itwin/core-react";
 import type { UseDragWidgetArgs } from "../base/DragManager";
 import { useDragWidget } from "../base/DragManager";
-import { getUniqueId, MeasureContext, NineZoneDispatchContext } from "../base/NineZone";
+import {
+  getUniqueId,
+  MeasureContext,
+  NineZoneDispatchContext,
+} from "../base/NineZone";
 import type { WidgetState } from "../state/WidgetState";
 import { PanelSideContext } from "../widget-panels/Panel";
 import { useLayout } from "../base/LayoutStore";
@@ -46,8 +50,8 @@ export interface WidgetProps extends CommonProps {
 }
 
 /** @internal */
-export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-disable-line react/display-name, @typescript-eslint/naming-convention
-  function Widget(props, forwardedRef) { // eslint-disable-line @typescript-eslint/naming-convention
+export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
+  function Widget(props, forwardedRef) {
     const dispatch = React.useContext(NineZoneDispatchContext);
     const side = React.useContext(PanelSideContext);
     const id = React.useContext(WidgetIdContext);
@@ -60,60 +64,81 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
       // istanbul ignore next
       return {
         preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
-        userSized: tab.userSized || (tab.isFloatingStateWindowResizable && !!tab.preferredFloatingWidgetSize),
+        userSized:
+          tab.userSized ||
+          (tab.isFloatingStateWindowResizable &&
+            !!tab.preferredFloatingWidgetSize),
       };
     }, true);
     const elementRef = React.useRef<HTMLDivElement>(null);
     const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
-    const onDragStart = React.useCallback<NonNullable<UseDragWidgetArgs["onDragStart"]>>((updateId, initialPointerPosition, pointerPosition) => {
-      assert(!!elementRef.current);
-      if (floatingWidgetId !== undefined)
-        return;
-      const nzBounds = measureNz();
-      let bounds = Rectangle.create(elementRef.current.getBoundingClientRect());
+    const onDragStart = React.useCallback<
+      NonNullable<UseDragWidgetArgs["onDragStart"]>
+    >(
+      (updateId, initialPointerPosition, pointerPosition) => {
+        assert(!!elementRef.current);
+        if (floatingWidgetId !== undefined) return;
+        const nzBounds = measureNz();
+        let bounds = Rectangle.create(
+          elementRef.current.getBoundingClientRect()
+        );
 
-      const size = restrainInitialWidgetSize(bounds.getSize(), nzBounds.getSize());
-      bounds = bounds.setSize(size);
+        const size = restrainInitialWidgetSize(
+          bounds.getSize(),
+          nzBounds.getSize()
+        );
+        bounds = bounds.setSize(size);
 
-      if (preferredFloatingWidgetSize) {
-        bounds = bounds.setSize(preferredFloatingWidgetSize);
-      }
+        if (preferredFloatingWidgetSize) {
+          bounds = bounds.setSize(preferredFloatingWidgetSize);
+        }
 
-      // Pointer is outside of tab area. Need to re-adjust widget bounds so that tab is behind pointer
-      if (initialPointerPosition.x > bounds.right) {
-        const offset = initialPointerPosition.x - bounds.right + 20;
-        bounds = bounds.offsetX(offset);
-      }
+        // Pointer is outside of tab area. Need to re-adjust widget bounds so that tab is behind pointer
+        if (initialPointerPosition.x > bounds.right) {
+          const offset = initialPointerPosition.x - bounds.right + 20;
+          bounds = bounds.offsetX(offset);
+        }
 
-      const dragOffset = initialPointerPosition.getOffsetTo(pointerPosition);
-      bounds = bounds.offset(dragOffset);
+        const dragOffset = initialPointerPosition.getOffsetTo(pointerPosition);
+        bounds = bounds.offset(dragOffset);
 
-      // Adjust bounds to be relative to 9z origin
-      bounds = bounds.offset({ x: -nzBounds.left, y: -nzBounds.top });
+        // Adjust bounds to be relative to 9z origin
+        bounds = bounds.offset({ x: -nzBounds.left, y: -nzBounds.top });
 
-      const newFloatingWidgetId = getUniqueId();
-      updateId(newFloatingWidgetId);
+        const newFloatingWidgetId = getUniqueId();
+        updateId(newFloatingWidgetId);
 
-      assert(!!side);
-      dispatch({
-        type: "PANEL_WIDGET_DRAG_START",
-        newFloatingWidgetId,
+        assert(!!side);
+        dispatch({
+          type: "PANEL_WIDGET_DRAG_START",
+          newFloatingWidgetId,
+          id,
+          bounds,
+          side,
+          userSized,
+        });
+      },
+      [
+        dispatch,
+        floatingWidgetId,
         id,
-        bounds,
         side,
+        measureNz,
+        preferredFloatingWidgetSize,
         userSized,
-      });
-    }, [dispatch, floatingWidgetId, id, side, measureNz, preferredFloatingWidgetSize, userSized]);
+      ]
+    );
     useDragWidget({
       widgetId,
       onDragStart,
     });
     React.useEffect(() => {
       const listener = () => {
-        floatingWidgetId && dispatch({
-          type: "FLOATING_WIDGET_BRING_TO_FRONT",
-          id: floatingWidgetId,
-        });
+        floatingWidgetId &&
+          dispatch({
+            type: "FLOATING_WIDGET_BRING_TO_FRONT",
+            id: floatingWidgetId,
+          });
       };
       const element = elementRef.current;
       // istanbul ignore next
@@ -125,19 +150,18 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
     }, [dispatch, floatingWidgetId]);
     const measure = React.useCallback<WidgetContextArgs["measure"]>(() => {
       // istanbul ignore next
-      if (!elementRef.current)
-        return new Rectangle();
+      if (!elementRef.current) return new Rectangle();
       const bounds = elementRef.current.getBoundingClientRect();
       return Rectangle.create(bounds);
     }, []);
-    const widgetContextValue = React.useMemo<WidgetContextArgs>(() => ({
-      measure,
-    }), [measure]);
-    const ref = useRefs(forwardedRef, elementRef);
-    const className = classnames(
-      "nz-widget-widget",
-      props.className,
+    const widgetContextValue = React.useMemo<WidgetContextArgs>(
+      () => ({
+        measure,
+      }),
+      [measure]
     );
+    const ref = useRefs(forwardedRef, elementRef);
+    const className = classnames("nz-widget-widget", props.className);
     return (
       <WidgetContext.Provider value={widgetContextValue}>
         <div
@@ -151,13 +175,15 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>( // eslint-d
         >
           {props.children}
         </div>
-      </WidgetContext.Provider >
+      </WidgetContext.Provider>
     );
   }
 );
 
 /** @internal */
-export const WidgetIdContext = React.createContext<WidgetState["id"] | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const WidgetIdContext = React.createContext<
+  WidgetState["id"] | undefined
+>(undefined);
 WidgetIdContext.displayName = "nz:WidgetIdContext";
 
 /** @internal */
@@ -166,14 +192,17 @@ export interface WidgetContextArgs {
 }
 
 /** @internal */
-export const WidgetContext = React.createContext<WidgetContextArgs>(null!); // eslint-disable-line @typescript-eslint/naming-convention
+export const WidgetContext = React.createContext<WidgetContextArgs>(null!);
 WidgetContext.displayName = "nz:WidgetContext";
 
 const minWidth = 200;
 const minHeight = 200;
 
 /** @internal */
-export function restrainInitialWidgetSize(size: SizeProps, nzSize: SizeProps): SizeProps {
+export function restrainInitialWidgetSize(
+  size: SizeProps,
+  nzSize: SizeProps
+): SizeProps {
   const width = Math.max(Math.min(nzSize.width / 3, size.width), minWidth);
   const height = Math.max(Math.min(nzSize.height / 3, size.height), minHeight);
   return {

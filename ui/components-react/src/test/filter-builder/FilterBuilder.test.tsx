@@ -1,19 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
 import * as React from "react";
 import sinon from "sinon";
-import type { PropertyDescription} from "@itwin/appui-abstract";
+import type { PropertyDescription } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { PropertyFilterBuilder } from "../../components-react/filter-builder/FilterBuilder";
-import type { PropertyFilterBuilderRule, PropertyFilterBuilderRuleGroup } from "../../components-react/filter-builder/FilterBuilderState";
+import type {
+  PropertyFilterBuilderRule,
+  PropertyFilterBuilderRuleGroup,
+} from "../../components-react/filter-builder/FilterBuilderState";
 import { buildPropertyFilter } from "../../components-react/filter-builder/FilterBuilderState";
-import { PropertyFilterRuleGroupOperator, PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
+import {
+  PropertyFilterRuleGroupOperator,
+  PropertyFilterRuleOperator,
+} from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import type { PropertyFilter } from "../../components-react/filter-builder/Types";
 
@@ -41,8 +47,12 @@ describe("PropertyFilterBuilder", () => {
 
   it("call onFilterChanged with filter after new rule is setup", async () => {
     const spy = sinon.spy();
-    const { container, getByText, getByDisplayValue } = render(<PropertyFilterBuilder properties={[property1]} onFilterChanged={spy} />);
-    const propertySelector = container.querySelector<HTMLInputElement>(".rule-property .iui-input");
+    const { container, getByText, getByDisplayValue } = render(
+      <PropertyFilterBuilder properties={[property1]} onFilterChanged={spy} />
+    );
+    const propertySelector = container.querySelector<HTMLInputElement>(
+      ".rule-property .iui-input"
+    );
     expect(propertySelector).to.not.be.null;
     propertySelector?.focus();
     fireEvent.click(getByText("Prop1"));
@@ -63,7 +73,13 @@ describe("PropertyFilterBuilder", () => {
       value: undefined,
     };
     const spy = sinon.spy();
-    const { container, queryByDisplayValue } = render(<PropertyFilterBuilder properties={[property1]} onFilterChanged={spy} initialFilter={propertyFilter} />);
+    const { container, queryByDisplayValue } = render(
+      <PropertyFilterBuilder
+        properties={[property1]}
+        onFilterChanged={spy}
+        initialFilter={propertyFilter}
+      />
+    );
 
     const rules = container.querySelectorAll(".rule-property");
     expect(rules.length).to.be.eq(1);
@@ -74,22 +90,32 @@ describe("PropertyFilterBuilder", () => {
   it("renders propertyFilterBuilder with multiple rules correctly", async () => {
     const propertyFilter: PropertyFilter = {
       operator: PropertyFilterRuleGroupOperator.And,
-      rules: [{
-        operator: PropertyFilterRuleGroupOperator.And,
-        rules: [{
-          property: property1,
-          operator: PropertyFilterRuleOperator.IsTrue,
-          value: undefined,
-        },
+      rules: [
         {
-          property: property2,
-          operator: PropertyFilterRuleOperator.IsNull,
-          value: undefined,
-        }],
-      }],
+          operator: PropertyFilterRuleGroupOperator.And,
+          rules: [
+            {
+              property: property1,
+              operator: PropertyFilterRuleOperator.IsTrue,
+              value: undefined,
+            },
+            {
+              property: property2,
+              operator: PropertyFilterRuleOperator.IsNull,
+              value: undefined,
+            },
+          ],
+        },
+      ],
     };
     const spy = sinon.spy();
-    const { container, queryByDisplayValue } = render(<PropertyFilterBuilder properties={[property1, property2]} onFilterChanged={spy} initialFilter={propertyFilter} />);
+    const { container, queryByDisplayValue } = render(
+      <PropertyFilterBuilder
+        properties={[property1, property2]}
+        onFilterChanged={spy}
+        initialFilter={propertyFilter}
+      />
+    );
 
     const rules = container.querySelectorAll(".rule-property");
     expect(rules.length).to.be.eq(2);
@@ -101,53 +127,68 @@ describe("PropertyFilterBuilder", () => {
 
   it("marks rule group as active on mouse over", () => {
     const spy = sinon.spy();
-    const { container } = render(<PropertyFilterBuilder properties={[]} onFilterChanged={spy} />);
+    const { container } = render(
+      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+    );
 
     const group = container.querySelector(".rule-group");
     expect(group).to.not.be.null;
 
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+      .null;
 
     fireEvent.mouseOver(group!);
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be
+      .null;
 
     fireEvent.mouseOut(group!);
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+      .null;
   });
 
   it("marks rule group as active on focus", () => {
     const spy = sinon.spy();
-    const { container } = render(<PropertyFilterBuilder properties={[]} onFilterChanged={spy} />);
+    const { container } = render(
+      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+    );
 
     const group = container.querySelector(".rule-group");
     expect(group).to.not.be.null;
 
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+      .null;
 
     fireEvent.focus(group!);
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be
+      .null;
 
     fireEvent.blur(group!);
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+      .null;
   });
 
   it("keeps rule group marked as active when focus moves to other element inside group", () => {
     const spy = sinon.spy();
-    const { container } = render(<PropertyFilterBuilder properties={[]} onFilterChanged={spy} />);
+    const { container } = render(
+      <PropertyFilterBuilder properties={[]} onFilterChanged={spy} />
+    );
 
     const group = container.querySelector(".rule-group");
     expect(group).to.not.be.null;
 
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.be
+      .null;
 
     fireEvent.focus(group!);
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be
+      .null;
 
     const rule = container.querySelector(".rule");
     expect(rule).to.not.be.null;
 
     fireEvent.blur(group!, { relatedTarget: rule });
-    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be.null;
+    expect(container.querySelector(".rule-group[data-isactive=true]")).to.not.be
+      .null;
   });
 
   describe("buildPropertyFilter", () => {
@@ -156,7 +197,10 @@ describe("PropertyFilterBuilder", () => {
       groupId: "rootGroup",
       property: { name: "prop", displayLabel: "Prop", typename: "string" },
       operator: PropertyFilterRuleOperator.IsEqual,
-      value: { valueFormat: PropertyValueFormat.Primitive, value: "test string" },
+      value: {
+        valueFormat: PropertyValueFormat.Primitive,
+        value: "test string",
+      },
     };
 
     it("returns undefined when rule does not have property", () => {
@@ -186,7 +230,11 @@ describe("PropertyFilterBuilder", () => {
     it("returns undefined when rule has non primitive value", () => {
       const rule: PropertyFilterBuilderRule = {
         ...defaultRule,
-        value: { valueFormat: PropertyValueFormat.Array, items: [], itemsTypeName: "arrayType" },
+        value: {
+          valueFormat: PropertyValueFormat.Array,
+          items: [],
+          itemsTypeName: "arrayType",
+        },
       };
       expect(buildPropertyFilter(rule)).to.be.undefined;
     });
@@ -222,18 +270,20 @@ describe("PropertyFilterBuilder", () => {
       const filter = buildPropertyFilter(ruleGroup);
       const expectedFilter = {
         operator: ruleGroup.operator,
-        rules: [{
-          property: defaultRule.property,
-          operator: defaultRule.operator,
-          value: defaultRule.value,
-        }, {
-          property: defaultRule.property,
-          operator: defaultRule.operator,
-          value: defaultRule.value,
-        }],
+        rules: [
+          {
+            property: defaultRule.property,
+            operator: defaultRule.operator,
+            value: defaultRule.value,
+          },
+          {
+            property: defaultRule.property,
+            operator: defaultRule.operator,
+            value: defaultRule.value,
+          },
+        ],
       };
       expect(filter).to.containSubset(expectedFilter);
     });
   });
 });
-

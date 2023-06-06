@@ -1,13 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { expect } from "chai";
 import { render } from "@testing-library/react";
 import {
-  addFloatingWidget, addPanelWidget, addTab, createNineZoneState, PanelSideContext,
-  TabBarButtons, toolSettingsTabId, WidgetIdContext,
+  addFloatingWidget,
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  PanelSideContext,
+  TabBarButtons,
+  toolSettingsTabId,
+  WidgetIdContext,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
@@ -23,7 +29,8 @@ describe("TabBarButtons", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-sendBack")).to.not.be.null;
+    expect(wrapper.container.querySelector("button.nz-widget-sendBack")).to.not
+      .be.null;
   });
 
   it("should render Popout button in a floating widget that canPopout ", () => {
@@ -37,8 +44,10 @@ describe("TabBarButtons", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-sendBack")).to.not.be.null;
-    expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to.not.be.null;
+    expect(wrapper.container.querySelector("button.nz-widget-sendBack")).to.not
+      .be.null;
+    expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to
+      .not.be.null;
   });
 
   it("should render Dock button in floating ToolSettings", () => {
@@ -51,7 +60,8 @@ describe("TabBarButtons", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-dock")).to.not.be.null;
+    expect(wrapper.container.querySelector("button.nz-widget-dock")).to.not.be
+      .null;
   });
 
   it("should render Pin button in main panel widget", () => {
@@ -67,7 +77,8 @@ describe("TabBarButtons", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-pinToggle")).to.not.be.null;
+    expect(wrapper.container.querySelector("button.nz-widget-pinToggle")).to.not
+      .be.null;
   });
 
   it("should render Popout and Pin buttons in main panel widget that canPopout ", () => {
@@ -83,8 +94,10 @@ describe("TabBarButtons", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to.not.be.null;
-    expect(wrapper.container.querySelector("button.nz-widget-pinToggle")).to.not.be.null;
+    expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to
+      .not.be.null;
+    expect(wrapper.container.querySelector("button.nz-widget-pinToggle")).to.not
+      .be.null;
   });
 
   it("should render popout button", () => {
@@ -100,6 +113,7 @@ describe("TabBarButtons", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to.not.be.null;
+    expect(wrapper.container.querySelector("button.nz-widget-popoutToggle")).to
+      .not.be.null;
   });
 });

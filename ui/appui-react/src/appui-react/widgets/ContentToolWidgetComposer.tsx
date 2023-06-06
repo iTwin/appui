@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -46,18 +46,31 @@ export interface ContentToolWidgetComposerProps {
  * BackstageCornerButton,
  * @public
  */
-export function ContentToolWidgetComposer(props: ContentToolWidgetComposerProps) {
+export function ContentToolWidgetComposer(
+  props: ContentToolWidgetComposerProps
+) {
   const { cornerButton } = props;
   const uiIsVisible = useUiVisibility();
   // istanbul ignore next
-  const className = classnames(
-    !uiIsVisible && "nz-hidden",
-  );
+  const className = classnames(!uiIsVisible && "nz-hidden");
   return (
-    <ToolWidgetComposer className={className}
+    <ToolWidgetComposer
+      className={className}
       cornerItem={cornerButton}
-      horizontalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Horizontal} />}
-      verticalToolbar={<ToolbarComposer items={[]} usage={ToolbarUsage.ContentManipulation} orientation={ToolbarOrientation.Vertical} />}
+      horizontalToolbar={
+        <ToolbarComposer
+          items={[]}
+          usage={ToolbarUsage.ContentManipulation}
+          orientation={ToolbarOrientation.Horizontal}
+        />
+      }
+      verticalToolbar={
+        <ToolbarComposer
+          items={[]}
+          usage={ToolbarUsage.ContentManipulation}
+          orientation={ToolbarOrientation.Vertical}
+        />
+      }
     />
   );
 }

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
@@ -9,13 +9,23 @@
 import "./MessageBox.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { DialogButtonDef} from "@itwin/appui-abstract";
+import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { MessageSeverity } from "@itwin/appui-abstract";
 import { Dialog } from "../dialog/Dialog";
 import type { CommonProps } from "../utils/Props";
-import { SvgHelpCircular, SvgHelpCircularHollow, SvgInfoCircular, SvgInfoCircularHollow, SvgStatusError, SvgStatusErrorHollow, SvgStatusRejected,
+import {
+  SvgHelpCircular,
+  SvgHelpCircularHollow,
+  SvgInfoCircular,
+  SvgInfoCircularHollow,
+  SvgStatusError,
+  SvgStatusErrorHollow,
+  SvgStatusRejected,
   SvgStatusRejectedHollow,
-  SvgStatusSuccess, SvgStatusSuccessHollow, SvgStatusWarning } from "@itwin/itwinui-icons-react";
+  SvgStatusSuccess,
+  SvgStatusSuccessHollow,
+  SvgStatusWarning,
+} from "@itwin/itwinui-icons-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
 
@@ -81,8 +91,13 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
         onEscape={this.props.onEscape}
         modal={this.props.modal}
         className={this.props.className}
-        style={this.props.style} >
-        <MessageContainer severity={this.props.severity} className={this.props.contentClassName} style={this.props.contentStyle}>
+        style={this.props.style}
+      >
+        <MessageContainer
+          severity={this.props.severity}
+          className={this.props.contentClassName}
+          style={this.props.contentStyle}
+        >
           {this.props.children}
         </MessageContainer>
       </Dialog>
@@ -109,7 +124,10 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
    * @deprecated in 4.0. Please use getIcon method
    */
   /* istanbul ignore next */
-  public static getIconClassName(severity: MessageSeverity, _hollow?: boolean): string {
+  public static getIconClassName(
+    severity: MessageSeverity,
+    _hollow?: boolean
+  ): string {
     let iconClassName = "";
 
     switch (severity) {
@@ -126,7 +144,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
         iconClassName = "core-message-box-question";
         break;
       case MessageSeverity.Warning:
-        iconClassName = "core-message-box-warning";  // TODO - need icon-status-warning-hollow icon
+        iconClassName = "core-message-box-warning"; // TODO - need icon-status-warning-hollow icon
         break;
       case MessageSeverity.Error:
         iconClassName = "core-message-box-error";
@@ -175,17 +193,22 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
   }
 
   public override render(): JSX.Element {
-    const iconClassName = classnames(
-      "icon",
-      "core-message-box-icon"
-    );
+    const iconClassName = classnames("icon", "core-message-box-icon");
 
     const iconSpec = MessageContainer.getIcon(this.props.severity);
 
     return (
       <div className="core-message-box-container">
-        <div className={iconClassName} ><Icon iconSpec={iconSpec} /></div>
-        <div className={classnames("core-message-box-content", this.props.className)} style={this.props.style}>
+        <div className={iconClassName}>
+          <Icon iconSpec={iconSpec} />
+        </div>
+        <div
+          className={classnames(
+            "core-message-box-content",
+            this.props.className
+          )}
+          style={this.props.style}
+        >
           {this.props.children}
         </div>
       </div>

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -33,18 +33,18 @@ export function TitleBarTarget() {
   const allowedTarget = useAllowedWidgetTarget(widgetId);
 
   // istanbul ignore next
-  const hidden = !allowedTarget || ((!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId) && !(activeHomeState?.widgetId === widgetId);
+  const hidden =
+    !allowedTarget ||
+    (((!draggedTab && !draggedWidgetId) || draggedWidgetId === widgetId) &&
+      !(activeHomeState?.widgetId === widgetId));
   const className = classnames(
     "nz-target-titleBarTarget",
     hidden && "nz-hidden",
     // istanbul ignore next
-    cursorType && getCursorClassName(cursorType),
+    cursorType && getCursorClassName(cursorType)
   );
   return (
-    <div
-      className={className}
-      ref={ref}
-    >
+    <div className={className} ref={ref}>
       <TabOutline />
     </div>
   );

@@ -1,22 +1,31 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
 import type * as React from "react";
 import type {
-  ActionButton, CommonToolbarItem, CustomButtonDefinition, GroupButton, StringGetter} from "@itwin/appui-abstract";
-import { ConditionalStringValue,
+  ActionButton,
+  CommonToolbarItem,
+  CustomButtonDefinition,
+  GroupButton,
+  StringGetter,
 } from "@itwin/appui-abstract";
+import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { IconHelper } from "@itwin/core-react";
 import type { AnyItemDef } from "../shared/AnyItemDef";
 import { CommandItemDef } from "../shared/CommandItemDef";
 import { CustomItemDef } from "../shared/CustomItemDef";
 import { ToolItemDef } from "../shared/ToolItemDef";
 import { GroupItemDef } from "./GroupItem";
-import type { ToolbarActionItem, ToolbarCustomItem, ToolbarGroupItem, ToolbarItem } from "./ToolbarItem";
+import type {
+  ToolbarActionItem,
+  ToolbarCustomItem,
+  ToolbarGroupItem,
+  ToolbarItem,
+} from "./ToolbarItem";
 import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem";
 
 /** Helper functions for defining an ToolbarComposer.
@@ -24,10 +33,14 @@ import { isToolbarActionItem, isToolbarGroupItem } from "./ToolbarItem";
  */
 export class ToolbarHelper {
   /** Construct CustomToolbarItem definitions given a CustomItemDef. */
-  public static createCustomDefinitionToolbarItem(itemPriority: number, itemDef: CustomItemDef, overrides?: Partial<CustomButtonDefinition>): ToolbarCustomItem {
+  public static createCustomDefinitionToolbarItem(
+    itemPriority: number,
+    itemDef: CustomItemDef,
+    overrides?: Partial<CustomButtonDefinition>
+  ): ToolbarCustomItem {
     const isHidden = itemDef.isHidden;
     const isDisabled = itemDef.isDisabled;
-    const internalData = new Map<string, any>();  // used to store ReactNode if iconSpec hold a ReactNode
+    const internalData = new Map<string, any>(); // used to store ReactNode if iconSpec hold a ReactNode
     const icon = IconHelper.getIconData(itemDef.iconSpec, internalData);
     const label = this.getStringOrConditionalString(itemDef.rawLabel);
     const badgeType = itemDef.badgeType;
@@ -49,7 +62,9 @@ export class ToolbarHelper {
   }
 
   /** Construct ActionButton and GroupButton definitions given an array to ItemDefs. */
-  public static constructChildToolbarItems(itemDefs: AnyItemDef[]): Array<ToolbarActionItem | ToolbarGroupItem> {
+  public static constructChildToolbarItems(
+    itemDefs: AnyItemDef[]
+  ): Array<ToolbarActionItem | ToolbarGroupItem> {
     let count = 10;
     const items: Array<ToolbarActionItem | ToolbarGroupItem> = [];
     for (const itemDef of itemDefs) {
@@ -62,19 +77,30 @@ export class ToolbarHelper {
     return items;
   }
 
-  private static getStringOrConditionalString(inString: string | StringGetter | ConditionalStringValue): string | ConditionalStringValue {
-    if (inString instanceof ConditionalStringValue || typeof inString === "string")
+  private static getStringOrConditionalString(
+    inString: string | StringGetter | ConditionalStringValue
+  ): string | ConditionalStringValue {
+    if (
+      inString instanceof ConditionalStringValue ||
+      typeof inString === "string"
+    )
       return inString;
 
     return inString();
   }
 
-  public static getIconReactNode(item: ActionButton | GroupButton): React.ReactNode {
+  public static getIconReactNode(
+    item: ActionButton | GroupButton
+  ): React.ReactNode {
     return IconHelper.getIconReactNode(item.icon, item.internalData);
   }
 
   /** Helper method to creates a generic toolbar item entry */
-  public static createToolbarItemFromItemDef(itemPriority: number, itemDef: AnyItemDef, overrides?: Partial<CommonToolbarItem>): ToolbarItem {
+  public static createToolbarItemFromItemDef(
+    itemPriority: number,
+    itemDef: AnyItemDef,
+    overrides?: Partial<CommonToolbarItem>
+  ): ToolbarItem {
     const isHidden = itemDef.isHidden;
     const isDisabled = itemDef.isDisabled;
     const icon = itemDef.iconSpec;
@@ -96,9 +122,14 @@ export class ToolbarHelper {
         ...overrides,
       };
     } else if (itemDef instanceof CustomItemDef) {
-      return ToolbarHelper.createCustomDefinitionToolbarItem(itemPriority, itemDef, overrides);
+      return ToolbarHelper.createCustomDefinitionToolbarItem(
+        itemPriority,
+        itemDef,
+        overrides
+      );
     } else if (itemDef instanceof GroupItemDef) {
-      const children: Array<ToolbarActionItem | ToolbarGroupItem> = this.constructChildToolbarItems(itemDef.items);
+      const children: Array<ToolbarActionItem | ToolbarGroupItem> =
+        this.constructChildToolbarItems(itemDef.items);
       return {
         id: itemDef.id,
         itemPriority,
@@ -130,10 +161,18 @@ export class ToolbarHelper {
     }
   }
 
-  public static createToolbarItemsFromItemDefs(itemDefs: AnyItemDef[], startingItemPriority = 10, overrides?: Partial<CommonToolbarItem>): ToolbarItem[] {
+  public static createToolbarItemsFromItemDefs(
+    itemDefs: AnyItemDef[],
+    startingItemPriority = 10,
+    overrides?: Partial<CommonToolbarItem>
+  ): ToolbarItem[] {
     let itemPriority = startingItemPriority;
     const items = itemDefs.map((itemDef: AnyItemDef) => {
-      const item = ToolbarHelper.createToolbarItemFromItemDef(itemPriority, itemDef, overrides);
+      const item = ToolbarHelper.createToolbarItemFromItemDef(
+        itemPriority,
+        itemDef,
+        overrides
+      );
       itemPriority = itemPriority + 10;
       return item;
     });

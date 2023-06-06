@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -10,13 +10,23 @@ import "./NumericInputEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type {
-  InputEditorSizeParams, PropertyEditorParams, PropertyValue, RangeEditorParams} from "@itwin/appui-abstract";
-import { PropertyEditorParamTypes, PropertyValueFormat,
-  StandardEditorNames, StandardTypeNames,
+  InputEditorSizeParams,
+  PropertyEditorParams,
+  PropertyValue,
+  RangeEditorParams,
+} from "@itwin/appui-abstract";
+import {
+  PropertyEditorParamTypes,
+  PropertyValueFormat,
+  StandardEditorNames,
+  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { NumberInput } from "@itwin/core-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import { PropertyEditorBase, PropertyEditorManager } from "./PropertyEditorManager";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "./PropertyEditorManager";
 
 /** @internal */
 interface NumericInputEditorState {
@@ -35,7 +45,10 @@ interface NumericInputEditorState {
 /** NumericInputEditor React component that is a property editor with numeric input & up/down buttons
  * @public
  */
-export class NumericInputEditor extends React.PureComponent<PropertyEditorProps, NumericInputEditorState> implements TypeEditor {
+export class NumericInputEditor
+  extends React.PureComponent<PropertyEditorProps, NumericInputEditorState>
+  implements TypeEditor
+{
   private _isMounted = false;
   private _inputElement: React.RefObject<HTMLInputElement> = React.createRef();
   public hasFocus = false; // hot used since containerHandlesEnter is false
@@ -72,27 +85,36 @@ export class NumericInputEditor extends React.PureComponent<PropertyEditorProps,
       const propertyValue = await this.getPropertyValue();
       // istanbul ignore else
       if (propertyValue !== undefined) {
-        this.props.onCommit({ propertyRecord: this.props.propertyRecord, newValue: propertyValue });
+        this.props.onCommit({
+          propertyRecord: this.props.propertyRecord,
+          newValue: propertyValue,
+        });
       }
     }
   };
 
-  private _updateValue = (value: number | undefined, _stringValue: string): void => {
+  private _updateValue = (
+    value: number | undefined,
+    _stringValue: string
+  ): void => {
     const newValue = value !== undefined ? value : /* istanbul ignore next */ 0;
 
     // istanbul ignore else
     if (this._isMounted)
-      this.setState({
-        value: newValue,
-      }, async () => {
-        await this._handleCommit();
-      });
+      this.setState(
+        {
+          value: newValue,
+        },
+        async () => {
+          await this._handleCommit();
+        }
+      );
   };
 
   /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
-    this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void this.setStateFromProps();
   }
 
   /** @internal */
@@ -103,7 +125,7 @@ export class NumericInputEditor extends React.PureComponent<PropertyEditorProps,
   /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
-      this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this.setStateFromProps();
     }
   }
 
@@ -116,7 +138,8 @@ export class NumericInputEditor extends React.PureComponent<PropertyEditorProps,
       initialValue = record.value.value as number;
     }
 
-    const readonly = record && undefined !== record.isReadonly ? record.isReadonly : false;
+    const readonly =
+      record && undefined !== record.isReadonly ? record.isReadonly : false;
     let size: number | undefined;
     let maxLength: number | undefined;
     let min: number | undefined;
@@ -126,18 +149,27 @@ export class NumericInputEditor extends React.PureComponent<PropertyEditorProps,
 
     const isDisabled = record ? record.isDisabled : undefined;
 
-    if (record && record.property && record.property.editor && record.property.editor.params) {
-      const editorSizeParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.InputEditorSize) as InputEditorSizeParams;
+    if (
+      record &&
+      record.property &&
+      record.property.editor &&
+      record.property.editor.params
+    ) {
+      const editorSizeParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.InputEditorSize
+      ) as InputEditorSizeParams;
       if (editorSizeParams) {
         // istanbul ignore else
-        if (editorSizeParams.size)
-          size = editorSizeParams.size;
+        if (editorSizeParams.size) size = editorSizeParams.size;
         // istanbul ignore else
-        if (editorSizeParams.maxLength)
-          maxLength = editorSizeParams.maxLength;
+        if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
-      const rangeParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.Range) as RangeEditorParams;
+      const rangeParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.Range
+      ) as RangeEditorParams;
       if (rangeParams) {
         min = rangeParams.minimum;
         max = rangeParams.maximum;
@@ -148,12 +180,26 @@ export class NumericInputEditor extends React.PureComponent<PropertyEditorProps,
 
     // istanbul ignore else
     if (this._isMounted)
-      this.setState({ value: initialValue, readonly, size, maxLength, isDisabled, min, max, step, precision });
+      this.setState({
+        value: initialValue,
+        readonly,
+        size,
+        maxLength,
+        isDisabled,
+        min,
+        max,
+        step,
+        precision,
+      });
   }
 
   /** @internal */
   public override render(): React.ReactNode {
-    const className = classnames("components-cell-editor", "components-numeric-input-editor", this.props.className);
+    const className = classnames(
+      "components-cell-editor",
+      "components-numeric-input-editor",
+      this.props.className
+    );
     const minSize = this.state.size ? this.state.size : 8;
     const style: React.CSSProperties = {
       ...this.props.style,
@@ -190,12 +236,29 @@ export class NumericInputPropertyEditor extends PropertyEditorBase {
     return <NumericInputEditor />;
   }
   // istanbul ignore next
-  public override get containerHandlesEnter(): boolean { // let input editor process enter key
+  public override get containerHandlesEnter(): boolean {
+    // let input editor process enter key
     return false;
   }
 }
 
-PropertyEditorManager.registerEditor(StandardTypeNames.Number, NumericInputPropertyEditor, StandardEditorNames.NumericInput);
-PropertyEditorManager.registerEditor(StandardTypeNames.Int, NumericInputPropertyEditor, StandardEditorNames.NumericInput);
-PropertyEditorManager.registerEditor(StandardTypeNames.Float, NumericInputPropertyEditor, StandardEditorNames.NumericInput);
-PropertyEditorManager.registerEditor(StandardTypeNames.Double, NumericInputPropertyEditor, StandardEditorNames.NumericInput);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Number,
+  NumericInputPropertyEditor,
+  StandardEditorNames.NumericInput
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Int,
+  NumericInputPropertyEditor,
+  StandardEditorNames.NumericInput
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Float,
+  NumericInputPropertyEditor,
+  StandardEditorNames.NumericInput
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Double,
+  NumericInputPropertyEditor,
+  StandardEditorNames.NumericInput
+);

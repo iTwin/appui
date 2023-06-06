@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 .components-alpha-pointer {
   position: absolute;
   width: 1.2rem;
@@ -27,14 +27,18 @@
     position: relative;
     width: calc(100% - 1.2rem);
     height: 100%;
-    background-color: linear-gradient(to right, rgba(47, 37, 72, 0) 0%, rgb(47, 37, 72) 100%);
+    background-color: linear-gradient(
+      to right,
+      rgba(47, 37, 72, 0) 0%,
+      rgb(47, 37, 72) 100%
+    );
     background-image: url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" fill-opacity=".15"><rect x="200" width="200" height="200" /> <rect y="200" width="200" height="200" /></svg>'),
       linear-gradient(to right, rgba(47, 37, 72, 0) 0%, rgb(47, 37, 72) 100%);
     background-size: 2rem 1rem, cover;
     background-repeat: repeat, no-repeat;
 
     .components-alpha-pointer {
-      transform: translate(-.6rem, -.1rem);
+      transform: translate(-0.6rem, -0.1rem);
     }
   }
 }
@@ -50,14 +54,18 @@
     position: relative;
     width: 100%;
     height: calc(100% - 1.2rem);
-    background-color: linear-gradient(to bottom, rgba(47, 37, 72, 0) 0%, rgb(47, 37, 72) 100%);
+    background-color: linear-gradient(
+      to bottom,
+      rgba(47, 37, 72, 0) 0%,
+      rgb(47, 37, 72) 100%
+    );
     background-image: url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" fill-opacity=".15"><rect x="200" width="200" height="200" /> <rect y="200" width="200" height="200" /></svg>'),
       linear-gradient(to top, rgba(47, 37, 72, 0) 0%, rgb(47, 37, 72) 100%);
     background-size: 1rem 2rem, cover;
     background-repeat: repeat, no-repeat;
 
     .components-alpha-pointer {
-      transform: translate(-.1rem, -.6rem);
+      transform: translate(-0.1rem, -0.6rem);
     }
   }
 }

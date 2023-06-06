@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -23,10 +23,10 @@ export interface StatusBarDialogTitleBarButtonProps extends CommonProps {
 }
 
 /** Dialog component used in a [[StatusBarDialog]] component.
-* @beta
-*/
-export function StatusBarDialogTitleBarButton(props: StatusBarDialogTitleBarButtonProps) {
-  return (
-    <TitleBarButton {...props} />
-  );
+ * @beta
+ */
+export function StatusBarDialogTitleBarButton(
+  props: StatusBarDialogTitleBarButtonProps
+) {
+  return <TitleBarButton {...props} />;
 }

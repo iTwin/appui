@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -12,7 +12,10 @@ import * as React from "react";
 import { Icon } from "@itwin/core-react";
 import type { UseDragTabArgs } from "../base/DragManager";
 import { useDragTab } from "../base/DragManager";
-import { NineZoneDispatchContext, ShowWidgetIconContext } from "../base/NineZone";
+import {
+  NineZoneDispatchContext,
+  ShowWidgetIconContext,
+} from "../base/NineZone";
 import { useLayout } from "../base/LayoutStore";
 
 /** Component that displays a floating tab.
@@ -36,19 +39,27 @@ export function FloatingTab() {
   }, true);
 
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const onDrag = React.useCallback<NonNullable<UseDragTabArgs["onDrag"]>>((dragBy) => {
-    id && dispatch({
-      type: "WIDGET_TAB_DRAG",
-      dragBy,
-    });
-  }, [dispatch, id]);
-  const onDragEnd = React.useCallback<NonNullable<UseDragTabArgs["onDragEnd"]>>((target) => {
-    id && dispatch({
-      type: "WIDGET_TAB_DRAG_END",
-      id,
-      target,
-    });
-  }, [dispatch, id]);
+  const onDrag = React.useCallback<NonNullable<UseDragTabArgs["onDrag"]>>(
+    (dragBy) => {
+      id &&
+        dispatch({
+          type: "WIDGET_TAB_DRAG",
+          dragBy,
+        });
+    },
+    [dispatch, id]
+  );
+  const onDragEnd = React.useCallback<NonNullable<UseDragTabArgs["onDragEnd"]>>(
+    (target) => {
+      id &&
+        dispatch({
+          type: "WIDGET_TAB_DRAG_END",
+          id,
+          target,
+        });
+    },
+    [dispatch, id]
+  );
   useDragTab({
     tabId: id || "",
     onDrag,
@@ -60,13 +71,10 @@ export function FloatingTab() {
   };
   const className = classnames(
     "nz-widget-floatingTab",
-    !position && "nz-hidden",
+    !position && "nz-hidden"
   );
   return (
-    <div
-      className={className}
-      style={style}
-    >
+    <div className={className} style={style}>
       {showWidgetIcon && iconSpec && <Icon iconSpec={iconSpec} />}
       <span>{label}</span>
     </div>

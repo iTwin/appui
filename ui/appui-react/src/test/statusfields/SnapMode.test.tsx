@@ -1,19 +1,24 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Provider } from "react-redux";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MockRender, SnapMode } from "@itwin/core-frontend";
-import { SnapModeField, StatusBar, SyncUiEventDispatcher, UiFramework } from "../../appui-react";
+import {
+  SnapModeField,
+  StatusBar,
+  SyncUiEventDispatcher,
+  UiFramework,
+} from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 
 describe("SnapModeField", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   before(async () => {
@@ -27,9 +32,13 @@ describe("SnapModeField", () => {
   });
 
   it("Status Bar with SnapModes Field should render", () => {
-    const wrapper = render(<Provider store={TestUtils.store}>
-      <StatusBar><SnapModeField /></StatusBar>
-    </Provider>);
+    const wrapper = render(
+      <Provider store={TestUtils.store}>
+        <StatusBar>
+          <SnapModeField />
+        </StatusBar>
+      </Provider>
+    );
 
     const button = wrapper.container.querySelector(".uifw-statusbar-field");
     expect(button).not.to.be.null;
@@ -47,12 +56,20 @@ describe("SnapModeField", () => {
 
   it("Validate multiple snaps mode", () => {
     // force to use multi-snap
-    UiFramework.setAccudrawSnapMode(SnapMode.Intersection | SnapMode.NearestKeypoint);
+    UiFramework.setAccudrawSnapMode(
+      SnapMode.Intersection | SnapMode.NearestKeypoint
+    );
     const snapMode = UiFramework.getAccudrawSnapMode();
-    expect(snapMode).to.be.equal(SnapMode.Intersection | SnapMode.NearestKeypoint);
-    const wrapper = render(<Provider store={TestUtils.store}>
-      <StatusBar><SnapModeField /></StatusBar>
-    </Provider>);
+    expect(snapMode).to.be.equal(
+      SnapMode.Intersection | SnapMode.NearestKeypoint
+    );
+    const wrapper = render(
+      <Provider store={TestUtils.store}>
+        <StatusBar>
+          <SnapModeField />
+        </StatusBar>
+      </Provider>
+    );
     const iconContainer = wrapper.container.querySelector(".uifw-icon");
     expect(iconContainer).not.to.be.null;
   });
@@ -60,9 +77,13 @@ describe("SnapModeField", () => {
   it("should change snapMode and dispatch SyncEvent on click", async () => {
     const spy = sinon.spy();
     SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
-    render(<Provider store={TestUtils.store}>
-      <StatusBar><SnapModeField /></StatusBar>
-    </Provider>);
+    render(
+      <Provider store={TestUtils.store}>
+        <StatusBar>
+          <SnapModeField />
+        </StatusBar>
+      </Provider>
+    );
     await theUserTo.click(screen.getByRole("button"));
     await theUserTo.click(screen.getByText("snapModeField.bisector"));
 
@@ -73,5 +94,4 @@ describe("SnapModeField", () => {
       ),
     });
   });
-
 });

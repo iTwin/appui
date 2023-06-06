@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
 
 import type { PropertyRecord } from "@itwin/appui-abstract";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
 import { matchLinks } from "../../common/Links";
@@ -61,9 +61,15 @@ export interface CommonPropertyGridProps extends CommonProps {
   /** Enables/disables property editing */
   isPropertyEditingEnabled?: boolean;
   /** Callback for when properties are being edited */
-  onPropertyEditing?: (args: PropertyEditingArgs, category: PropertyCategory) => void;
+  onPropertyEditing?: (
+    args: PropertyEditingArgs,
+    category: PropertyCategory
+  ) => void;
   /** Callback for when properties are updated */
-  onPropertyUpdated?: (args: PropertyUpdatedArgs, category: PropertyCategory) => Promise<boolean>;
+  onPropertyUpdated?: (
+    args: PropertyUpdatedArgs,
+    category: PropertyCategory
+  ) => Promise<boolean>;
 
   /** Custom property value renderer manager */
   propertyValueRendererManager?: PropertyValueRendererManager;
@@ -91,7 +97,8 @@ export interface CommonPropertyGridProps extends CommonProps {
  * Properties for highlighting text in property grid.
  * @public
  */
-export interface PropertyGridContentHighlightProps extends HighlightingComponentProps {
+export interface PropertyGridContentHighlightProps
+  extends HighlightingComponentProps {
   /**
    * Specifies what the highlighting should be applied on - category labels, property labels and / or property values.
    * Defaults to "nowhere".
@@ -101,15 +108,18 @@ export interface PropertyGridContentHighlightProps extends HighlightingComponent
 
 /** @internal */
 export class PropertyGridCommons {
-  public static getCurrentOrientation(width: number, preferredOrientation?: Orientation, isOrientationFixed?: boolean, horizontalOrientationMinWidth?: number): Orientation {
+  public static getCurrentOrientation(
+    width: number,
+    preferredOrientation?: Orientation,
+    isOrientationFixed?: boolean,
+    horizontalOrientationMinWidth?: number
+  ): Orientation {
     const orientation = preferredOrientation ?? Orientation.Horizontal;
-    if (isOrientationFixed)
-      return orientation;
+    if (isOrientationFixed) return orientation;
 
     horizontalOrientationMinWidth = horizontalOrientationMinWidth ?? 300;
     // Switch to Vertical if width too small
-    if (width < horizontalOrientationMinWidth)
-      return Orientation.Vertical;
+    if (width < horizontalOrientationMinWidth) return Orientation.Vertical;
 
     return orientation;
   }
@@ -120,8 +130,7 @@ export class PropertyGridCommons {
    */
   public static handleLinkClick(text: string) {
     const linksArray = matchLinks(text);
-    if (linksArray.length <= 0)
-      return;
+    if (linksArray.length <= 0) return;
     const foundLink = linksArray[0];
     // istanbul ignore else
     if (foundLink && foundLink.url) {
@@ -129,8 +138,7 @@ export class PropertyGridCommons {
         location.href = foundLink.url;
       else {
         const windowOpen = window.open(foundLink.url, "_blank");
-        if (windowOpen)
-          windowOpen.focus();
+        if (windowOpen) windowOpen.focus();
       }
     }
   }
@@ -139,9 +147,13 @@ export class PropertyGridCommons {
    * A helper method to get links from string.
    * @internal
    */
-  public static getLinks = (value: string): Array<{ start: number, end: number }> => {
-    return matchLinks(value).map((linkInfo: { index: number, lastIndex: number }) => {
-      return { start: linkInfo.index, end: linkInfo.lastIndex };
-    });
+  public static getLinks = (
+    value: string
+  ): Array<{ start: number; end: number }> => {
+    return matchLinks(value).map(
+      (linkInfo: { index: number; lastIndex: number }) => {
+        return { start: linkInfo.index, end: linkInfo.lastIndex };
+      }
+    );
   };
 }

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -12,20 +12,48 @@ import { assert } from "@itwin/core-bentley";
 import { removeTabFromWidget } from "./TabState";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation";
 import type { NineZoneAction } from "./NineZoneAction";
-import { isPanelDropTargetState, isSectionDropTargetState, isTabDropTargetState, isWidgetDropTargetState, isWindowDropTargetState } from "./DropTargetState";
+import {
+  isPanelDropTargetState,
+  isSectionDropTargetState,
+  isTabDropTargetState,
+  isWidgetDropTargetState,
+  isWindowDropTargetState,
+} from "./DropTargetState";
 import { getWidgetPanelSectionId, insertPanelWidget } from "./PanelState";
 import type { NineZoneState } from "./NineZoneState";
 import type { FloatingWidgetHomeState } from "./WidgetState";
 import { addFloatingWidget, floatingWidgetBringToFront } from "./WidgetState";
-import { isDockedToolSettingsState, toolSettingsTabId } from "./ToolSettingsState";
+import {
+  isDockedToolSettingsState,
+  toolSettingsTabId,
+} from "./ToolSettingsState";
 import { updatePanelState } from "./internal/PanelStateHelpers";
 import { createDraggedTabState } from "./internal/TabStateHelpers";
-import { initSizeProps, isToolSettingsFloatingWidget, setPointProps, setRectangleProps, setSizeProps, updateHomeOfToolSettingsWidget } from "./internal/NineZoneStateHelpers";
-import { addWidgetState, getWidgetState, removeFloatingWidget, removePanelWidget, removeWidget, setWidgetActiveTabId, updateFloatingWidgetState, updateWidgetState } from "./internal/WidgetStateHelpers";
+import {
+  initSizeProps,
+  isToolSettingsFloatingWidget,
+  setPointProps,
+  setRectangleProps,
+  setSizeProps,
+  updateHomeOfToolSettingsWidget,
+} from "./internal/NineZoneStateHelpers";
+import {
+  addWidgetState,
+  getWidgetState,
+  removeFloatingWidget,
+  removePanelWidget,
+  removeWidget,
+  setWidgetActiveTabId,
+  updateFloatingWidgetState,
+  updateWidgetState,
+} from "./internal/WidgetStateHelpers";
 import { getSendBackHomeState } from "../widget/SendBack";
 
 /** @internal */
-export function NineZoneStateReducer(state: NineZoneState, action: NineZoneAction): NineZoneState {
+export function NineZoneStateReducer(
+  state: NineZoneState,
+  action: NineZoneAction
+): NineZoneState {
   switch (action.type) {
     case "RESIZE": {
       state = produce(state, (draft) => {
@@ -58,7 +86,10 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
     }
     case "PANEL_SET_SIZE": {
       const panel = state.panels[action.side];
-      const size = Math.min(Math.max(action.size, panel.minSize), panel.maxSize);
+      const size = Math.min(
+        Math.max(action.size, panel.minSize),
+        panel.maxSize
+      );
       return updatePanelState(state, action.side, {
         size,
       });
@@ -88,7 +119,10 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
     case "PANEL_INITIALIZE": {
       const { side } = action;
       const panel = state.panels[action.side];
-      const size = Math.min(Math.max(action.size, panel.minSize), panel.maxSize);
+      const size = Math.min(
+        Math.max(action.size, panel.minSize),
+        panel.maxSize
+      );
       return updatePanelState(state, side, {
         size,
       });
@@ -99,19 +133,25 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       const widgetIndex = panel.widgets.indexOf(action.id);
       const widget = getWidgetState(state, action.id);
       state = removePanelWidget(state, action.id);
-      return addFloatingWidget(state, newFloatingWidgetId, widget.tabs, {
-        bounds: Rectangle.create(action.bounds).toProps(),
-        userSized: action.userSized,
-        id: action.newFloatingWidgetId,
-        home: {
-          side: action.side,
-          widgetId: undefined,
-          widgetIndex,
+      return addFloatingWidget(
+        state,
+        newFloatingWidgetId,
+        widget.tabs,
+        {
+          bounds: Rectangle.create(action.bounds).toProps(),
+          userSized: action.userSized,
+          id: action.newFloatingWidgetId,
+          home: {
+            side: action.side,
+            widgetId: undefined,
+            widgetIndex,
+          },
         },
-      }, {
-        ...widget,
-        minimized: false,
-      });
+        {
+          ...widget,
+          minimized: false,
+        }
+      );
     }
     case "WIDGET_DRAG": {
       const { floatingWidgetId, dragBy } = action;
@@ -144,7 +184,11 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
 
       state = removeFloatingWidget(state, floatingWidgetId);
       if (isTabDropTargetState(target)) {
-        state = updateHomeOfToolSettingsWidget(state, target.widgetId, floatingWidget.home);
+        state = updateHomeOfToolSettingsWidget(
+          state,
+          target.widgetId,
+          floatingWidget.home
+        );
         const targetWidget = getWidgetState(state, target.widgetId);
         const tabs = [...targetWidget.tabs];
         tabs.splice(target.tabIndex, 0, ...draggedWidget.tabs);
@@ -159,9 +203,18 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
           widgets,
           collapsed: false,
         });
-        state = addWidgetState(state, target.newWidgetId, draggedWidget.tabs, draggedWidget);
+        state = addWidgetState(
+          state,
+          target.newWidgetId,
+          draggedWidget.tabs,
+          draggedWidget
+        );
       } else if (isWidgetDropTargetState(target)) {
-        state = updateHomeOfToolSettingsWidget(state, target.widgetId, floatingWidget.home);
+        state = updateHomeOfToolSettingsWidget(
+          state,
+          target.widgetId,
+          floatingWidget.home
+        );
         const widget = getWidgetLocation(state, target.widgetId);
         if (widget && isPanelWidgetLocation(widget)) {
           state = updatePanelState(state, widget.side, {
@@ -269,11 +322,18 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
 
       const sectionIndex = sendBackHomeState.sectionIndex ?? 0;
       const home = state.floatingWidgets.byId[action.id].home;
-      const destinationWidgetId = home.widgetId ?? getWidgetPanelSectionId(home.side, sectionIndex);
+      const destinationWidgetId =
+        home.widgetId ?? getWidgetPanelSectionId(home.side, sectionIndex);
 
       // Add tabs to a new panel widget.
       state = removeWidget(state, widget.id);
-      return insertPanelWidget(state, sendBackHomeState.side, destinationWidgetId, widget.tabs, sectionIndex);
+      return insertPanelWidget(
+        state,
+        sendBackHomeState.side,
+        destinationWidgetId,
+        widget.tabs,
+        sectionIndex
+      );
     }
     case "POPOUT_WIDGET_SEND_BACK": {
       const popoutWidget = state.popoutWidgets.byId[action.id];
@@ -285,7 +345,10 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       if (widgetPanelSectionId) {
         homeWidgetPanelSection = state.widgets[widgetPanelSectionId];
       } else {
-        widgetPanelSectionId = getWidgetPanelSectionId(panel.side, home.widgetIndex);
+        widgetPanelSectionId = getWidgetPanelSectionId(
+          panel.side,
+          home.widgetIndex
+        );
         homeWidgetPanelSection = state.widgets[widgetPanelSectionId];
       }
 
@@ -298,7 +361,13 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       } else {
         // if widget panel section was removed because it was empty insert it
         const sectionIndex = widgetPanelSectionId.endsWith("End") ? 1 : 0;
-        state = insertPanelWidget(state, panel.side, widgetPanelSectionId, [...widget.tabs], sectionIndex);
+        state = insertPanelWidget(
+          state,
+          panel.side,
+          widgetPanelSectionId,
+          [...widget.tabs],
+          sectionIndex
+        );
       }
       return state;
     }
@@ -310,13 +379,11 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       });
     }
     case "WIDGET_TAB_DOUBLE_CLICK": {
-      if (action.floatingWidgetId === undefined)
-        return state;
+      if (action.floatingWidgetId === undefined) return state;
 
       const widget = getWidgetState(state, action.widgetId);
       const active = action.id === widget.activeTabId;
-      if (!active)
-        return setWidgetActiveTabId(state, widget.id, action.id);
+      if (!active) return setWidgetActiveTabId(state, widget.id, action.id);
 
       return updateWidgetState(state, widget.id, {
         minimized: !widget.minimized,
@@ -326,7 +393,8 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       const tabId = action.id;
       let home: FloatingWidgetHomeState;
       if (action.floatingWidgetId) {
-        const floatingWidget = state.floatingWidgets.byId[action.floatingWidgetId];
+        const floatingWidget =
+          state.floatingWidgets.byId[action.floatingWidgetId];
         home = floatingWidget.home;
       } else {
         assert(!!action.side);
@@ -350,7 +418,9 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       return produce(state, (draft) => {
         const draggedTab = draft.draggedTab;
         assert(!!draggedTab);
-        const position = Point.create(draggedTab.position).offset(action.dragBy);
+        const position = Point.create(draggedTab.position).offset(
+          action.dragBy
+        );
         setPointProps(draggedTab.position, position);
       });
     }
@@ -358,7 +428,11 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       assert(!!state.draggedTab);
       const target = action.target;
       if (isTabDropTargetState(target)) {
-        state = updateHomeOfToolSettingsWidget(state, target.widgetId, state.draggedTab.home);
+        state = updateHomeOfToolSettingsWidget(
+          state,
+          target.widgetId,
+          state.draggedTab.home
+        );
         const targetWidget = getWidgetState(state, target.widgetId);
         const tabIndex = target.tabIndex;
         const tabs = [...targetWidget.tabs];
@@ -384,7 +458,11 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
         });
         state = addWidgetState(state, target.newWidgetId, [action.id]);
       } else if (isWidgetDropTargetState(target)) {
-        updateHomeOfToolSettingsWidget(state, target.widgetId, state.draggedTab.home);
+        updateHomeOfToolSettingsWidget(
+          state,
+          target.widgetId,
+          state.draggedTab.home
+        );
         const widget = getWidgetLocation(state, target.widgetId);
         if (widget && isPanelWidgetLocation(widget)) {
           const panel = state.panels[widget.side];
@@ -402,23 +480,32 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       } else {
         const tab = state.tabs[state.draggedTab.tabId];
         const nzBounds = Rectangle.createFromSize(state.size);
-        const bounds = Rectangle.createFromSize(tab.preferredFloatingWidgetSize || target.size).offset(state.draggedTab.position);
+        const bounds = Rectangle.createFromSize(
+          tab.preferredFloatingWidgetSize || target.size
+        ).offset(state.draggedTab.position);
         const containedBounds = bounds.containIn(nzBounds);
-        const userSized = tab.userSized || (tab.isFloatingStateWindowResizable && /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
+        const userSized =
+          tab.userSized ||
+          (tab.isFloatingStateWindowResizable &&
+            /* istanbul ignore next */ !!tab.preferredFloatingWidgetSize);
 
-        state = addFloatingWidget(state, target.newFloatingWidgetId, [action.id], {
-          bounds: containedBounds,
-          home: state.draggedTab.home,
-          userSized,
-        });
+        state = addFloatingWidget(
+          state,
+          target.newFloatingWidgetId,
+          [action.id],
+          {
+            bounds: containedBounds,
+            home: state.draggedTab.home,
+            userSized,
+          }
+        );
       }
       return produce(state, (draft) => {
         draft.draggedTab = undefined;
       });
     }
     case "TOOL_SETTINGS_DRAG_START": {
-      if (!isDockedToolSettingsState(state.toolSettings))
-        return state;
+      if (!isDockedToolSettingsState(state.toolSettings)) return state;
 
       const { newFloatingWidgetId } = action;
       state = produce(state, (draft) => {
@@ -428,10 +515,18 @@ export function NineZoneStateReducer(state: NineZoneState, action: NineZoneActio
       });
 
       const tab = state.tabs[toolSettingsTabId];
-      const size = tab.preferredFloatingWidgetSize || { height: 200, width: 300 };
-      return addFloatingWidget(state, newFloatingWidgetId, [toolSettingsTabId], {
-        bounds: Rectangle.createFromSize(size).toProps(),
-      });
+      const size = tab.preferredFloatingWidgetSize || {
+        height: 200,
+        width: 300,
+      };
+      return addFloatingWidget(
+        state,
+        newFloatingWidgetId,
+        [toolSettingsTabId],
+        {
+          bounds: Rectangle.createFromSize(size).toProps(),
+        }
+      );
     }
     case "TOOL_SETTINGS_DOCK": {
       state = removeTabFromWidget(state, toolSettingsTabId);

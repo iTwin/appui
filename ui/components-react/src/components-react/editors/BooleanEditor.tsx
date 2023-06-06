@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -9,11 +9,14 @@
 import "./BooleanEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { PropertyValue} from "@itwin/appui-abstract";
+import type { PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import { Checkbox } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import { PropertyEditorBase, PropertyEditorManager } from "./PropertyEditorManager";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "./PropertyEditorManager";
 
 /** @internal */
 interface BooleanEditorState {
@@ -24,7 +27,10 @@ interface BooleanEditorState {
 /** BooleanEditor React component that is a property editor with checkbox input
  * @public
  */
-export class BooleanEditor extends React.PureComponent<PropertyEditorProps, BooleanEditorState> implements TypeEditor {
+export class BooleanEditor
+  extends React.PureComponent<PropertyEditorProps, BooleanEditorState>
+  implements TypeEditor
+{
   private _isMounted = false;
   private _inputElement = React.createRef<HTMLInputElement>();
 
@@ -67,18 +73,24 @@ export class BooleanEditor extends React.PureComponent<PropertyEditorProps, Bool
     if (this._isMounted) {
       const checkboxValue = !!e.target.checked;
 
-      this.setState({
-        checkboxValue,
-      }, () => {
-        // istanbul ignore else
-        if (this.props.propertyRecord && this.props.onCommit) {
-          const propertyValue = this.getPropertyValueSync();
+      this.setState(
+        {
+          checkboxValue,
+        },
+        () => {
           // istanbul ignore else
-          if (propertyValue !== undefined) {
-            this.props.onCommit({ propertyRecord: this.props.propertyRecord, newValue: propertyValue });
+          if (this.props.propertyRecord && this.props.onCommit) {
+            const propertyValue = this.getPropertyValueSync();
+            // istanbul ignore else
+            if (propertyValue !== undefined) {
+              this.props.onCommit({
+                propertyRecord: this.props.propertyRecord,
+                newValue: propertyValue,
+              });
+            }
           }
         }
-      });
+      );
     }
   };
 
@@ -106,7 +118,10 @@ export class BooleanEditor extends React.PureComponent<PropertyEditorProps, Bool
     let isDisabled = false;
 
     // istanbul ignore else
-    if (propertyRecord && propertyRecord.value.valueFormat === PropertyValueFormat.Primitive) {
+    if (
+      propertyRecord &&
+      propertyRecord.value.valueFormat === PropertyValueFormat.Primitive
+    ) {
       const primitiveValue = propertyRecord.value.value;
       checkboxValue = primitiveValue as boolean;
     }
@@ -116,13 +131,16 @@ export class BooleanEditor extends React.PureComponent<PropertyEditorProps, Bool
       isDisabled = propertyRecord.isDisabled;
 
     // istanbul ignore else
-    if (this._isMounted)
-      this.setState({ checkboxValue, isDisabled });
+    if (this._isMounted) this.setState({ checkboxValue, isDisabled });
   }
 
   /** @internal */
   public override render() {
-    const className = classnames("components-cell-editor", "components-boolean-editor", this.props.className);
+    const className = classnames(
+      "components-cell-editor",
+      "components-boolean-editor",
+      this.props.className
+    );
     const checked = this.state.checkboxValue;
     const isDisabled = !!this.state.isDisabled;
 
@@ -136,8 +154,8 @@ export class BooleanEditor extends React.PureComponent<PropertyEditorProps, Bool
         onChange={this._updateCheckboxValue}
         setFocus={this.props.setFocus}
         disabled={isDisabled}
-        data-testid="components-checkbox-editor">
-      </Checkbox>
+        data-testid="components-checkbox-editor"
+      ></Checkbox>
     );
   }
 }
@@ -157,5 +175,11 @@ export class BooleanPropertyEditor extends PropertyEditorBase {
   }
 }
 
-PropertyEditorManager.registerEditor(StandardTypeNames.Bool, BooleanPropertyEditor);
-PropertyEditorManager.registerEditor(StandardTypeNames.Boolean, BooleanPropertyEditor);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Bool,
+  BooleanPropertyEditor
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Boolean,
+  BooleanPropertyEditor
+);

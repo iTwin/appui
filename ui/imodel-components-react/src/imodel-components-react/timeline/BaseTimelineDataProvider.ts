@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Timeline
  */
@@ -25,8 +25,7 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
   constructor(viewport?: ScreenViewport) {
     this._viewport = viewport;
     // istanbul ignore if - WIP
-    if (viewport)
-      this.viewId = viewport.view.id;
+    if (viewport) this.viewId = viewport.view.id;
   }
 
   protected _settings: PlaybackSettings = {
@@ -46,16 +45,16 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
 
   /** Called to get playback duration  */
   public get duration(): number {
-    return (this.getSettings().duration) ? this.getSettings().duration! : /* istanbul ignore next */ 20000;
+    return this.getSettings().duration
+      ? this.getSettings().duration!
+      : /* istanbul ignore next */ 20000;
   }
 
   // istanbul ignore next - WIP
   public set viewport(viewport: ScreenViewport | undefined) {
     this._viewport = viewport;
-    if (viewport)
-      this.viewId = viewport.view.id;
-    else
-      this.viewId = "";
+    if (viewport) this.viewId = viewport.view.id;
+    else this.viewId = "";
   }
 
   // istanbul ignore next - WIP
@@ -64,7 +63,9 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
   }
 
   public get loop(): boolean {
-    return (undefined === this.getSettings().loop) ? /* istanbul ignore next */ false : this.getSettings().loop!;
+    return undefined === this.getSettings().loop
+      ? /* istanbul ignore next */ false
+      : this.getSettings().loop!;
   }
 
   public getSettings(): PlaybackSettings {
@@ -76,10 +77,8 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
   }
 
   // istanbul ignore next
-  public onPlaybackSettingChanged = (_settings: PlaybackSettings) => {
-  };
+  public onPlaybackSettingChanged = (_settings: PlaybackSettings) => {};
 
   // istanbul ignore next
-  public onAnimationFractionChanged = (_animationFraction: number) => {
-  };
+  public onAnimationFractionChanged = (_animationFraction: number) => {};
 }

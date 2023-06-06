@@ -1,10 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "./index";
 
-.uicore-text-body { @include uicore-text-body; }
-.uicore-text-block { @include uicore-text-block; }
-.uicore-text-disabled { @include uicore-text-disabled; }
-.uicore-text-muted { @include uicore-text-muted; }
+.uicore-text-body {
+  @include uicore-text-body;
+}
+.uicore-text-block {
+  @include uicore-text-block;
+}
+.uicore-text-disabled {
+  @include uicore-text-disabled;
+}
+.uicore-text-muted {
+  @include uicore-text-muted;
+}

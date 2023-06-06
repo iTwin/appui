@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -23,7 +23,5 @@ export function Gap(props: GapProps) {
   const { size, style, ...rest } = props;
   const paddingLeft = size ?? "10px";
 
-  return (
-    <span style={{ ...style, paddingLeft }} {...rest} />
-  );
+  return <span style={{ ...style, paddingLeft }} {...rest} />;
 }

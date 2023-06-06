@@ -1,19 +1,24 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { PropertyView } from "../../../components-react";
-import TestUtils, { childStructure, selectorMatches, styleMatch, userEvent } from "../../TestUtils";
+import TestUtils, {
+  childStructure,
+  selectorMatches,
+  styleMatch,
+  userEvent,
+} from "../../TestUtils";
 import { render, screen } from "@testing-library/react";
 
 describe("PropertyView", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   let propertyRecord: PropertyRecord;
@@ -32,11 +37,18 @@ describe("PropertyView", () => {
           propertyRecord={propertyRecord}
           labelElement={"City"}
           columnRatio={0.6}
-          columnInfo={{ isMinimumColumnSizeEnabled: false, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
-        />);
+          columnInfo={{
+            isMinimumColumnSizeEnabled: false,
+            minLabelWidth: 30,
+            minValueWidth: 45,
+            actionButtonWidth: 60,
+          }}
+        />
+      );
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "60% auto"}));
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({ gridTemplateColumns: "60% auto" })
+      );
     });
 
     it("renders two columns when onColumnRatioChanged callback is not provided", () => {
@@ -45,11 +57,18 @@ describe("PropertyView", () => {
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
           labelElement={"label"}
-          columnInfo={{ isMinimumColumnSizeEnabled: false, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
-        />);
+          columnInfo={{
+            isMinimumColumnSizeEnabled: false,
+            minLabelWidth: 30,
+            minValueWidth: 45,
+            actionButtonWidth: 60,
+          }}
+        />
+      );
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "25% auto"}));
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({ gridTemplateColumns: "25% auto" })
+      );
     });
 
     it("renders three columns when orientation is horizontal and onColumnRatioChanged is provided", () => {
@@ -59,10 +78,17 @@ describe("PropertyView", () => {
           propertyRecord={propertyRecord}
           labelElement={"label"}
           onColumnRatioChanged={() => ({ ratio: 0.5 })}
-          columnInfo={{ isMinimumColumnSizeEnabled: false, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
-        />);
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns: "25% 1px auto"}));
+          columnInfo={{
+            isMinimumColumnSizeEnabled: false,
+            minLabelWidth: 30,
+            minValueWidth: 45,
+            actionButtonWidth: 60,
+          }}
+        />
+      );
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({ gridTemplateColumns: "25% 1px auto" })
+      );
     });
 
     it("renders four columns if orientation is horizontal and action button renderers are passed", async () => {
@@ -73,11 +99,18 @@ describe("PropertyView", () => {
           labelElement={"label"}
           onColumnRatioChanged={() => ({ ratio: 0.5 })}
           actionButtonRenderers={[(_) => undefined]}
-          columnInfo={{ isMinimumColumnSizeEnabled: false, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
-        />);
+          columnInfo={{
+            isMinimumColumnSizeEnabled: false,
+            minLabelWidth: 30,
+            minValueWidth: 45,
+            actionButtonWidth: 60,
+          }}
+        />
+      );
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns:  "25% 1px auto auto"}));
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({ gridTemplateColumns: "25% 1px auto auto" })
+      );
     });
 
     it("renders four columns if orientation is horizontal, action button renderers are passed and columnInfo is not passed", async () => {
@@ -88,10 +121,12 @@ describe("PropertyView", () => {
           labelElement={"label"}
           onColumnRatioChanged={() => ({ ratio: 0.5 })}
           actionButtonRenderers={[(_) => undefined]}
-        />);
+        />
+      );
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns:  "25% 1px auto auto"}));
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({ gridTemplateColumns: "25% 1px auto auto" })
+      );
     });
   });
 
@@ -103,11 +138,20 @@ describe("PropertyView", () => {
           propertyRecord={propertyRecord}
           labelElement={"City"}
           columnRatio={0.6}
-          columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 20, minValueWidth: 40, actionButtonWidth: 50 }}
-        />);
+          columnInfo={{
+            isMinimumColumnSizeEnabled: true,
+            minLabelWidth: 20,
+            minValueWidth: 40,
+            actionButtonWidth: 50,
+          }}
+        />
+      );
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns:  "minmax(20px, 60%) minmax(40px, 1fr)"}));
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({
+          gridTemplateColumns: "minmax(20px, 60%) minmax(40px, 1fr)",
+        })
+      );
     });
 
     it("renders two min width columns when onColumnRatioChanged callback is not provided", () => {
@@ -116,11 +160,20 @@ describe("PropertyView", () => {
           orientation={Orientation.Horizontal}
           propertyRecord={propertyRecord}
           labelElement={"label"}
-          columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 10, minValueWidth: 10, actionButtonWidth: 20 }}
-        />);
+          columnInfo={{
+            isMinimumColumnSizeEnabled: true,
+            minLabelWidth: 10,
+            minValueWidth: 10,
+            actionButtonWidth: 20,
+          }}
+        />
+      );
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns:  "minmax(10px, 25%) minmax(10px, 1fr)"}));
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({
+          gridTemplateColumns: "minmax(10px, 25%) minmax(10px, 1fr)",
+        })
+      );
     });
 
     it("renders three min width columns when orientation is horizontal and onColumnRatioChanged is provided", () => {
@@ -130,11 +183,20 @@ describe("PropertyView", () => {
           propertyRecord={propertyRecord}
           labelElement={"label"}
           onColumnRatioChanged={() => ({ ratio: 0.5 })}
-          columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
-        />);
+          columnInfo={{
+            isMinimumColumnSizeEnabled: true,
+            minLabelWidth: 30,
+            minValueWidth: 45,
+            actionButtonWidth: 60,
+          }}
+        />
+      );
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns:  "minmax(30px, 25%) 1px minmax(45px, 1fr)"}));
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({
+          gridTemplateColumns: "minmax(30px, 25%) 1px minmax(45px, 1fr)",
+        })
+      );
     });
 
     it("renders four min width columns if orientation is horizontal and action button renderers are passed", async () => {
@@ -145,11 +207,20 @@ describe("PropertyView", () => {
           labelElement={"label"}
           onColumnRatioChanged={() => ({ ratio: 0.5 })}
           actionButtonRenderers={[(_) => undefined]}
-          columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
-        />);
+          columnInfo={{
+            isMinimumColumnSizeEnabled: true,
+            minLabelWidth: 30,
+            minValueWidth: 45,
+            actionButtonWidth: 60,
+          }}
+        />
+      );
 
-      expect(screen.getByRole("presentation"))
-        .satisfy(styleMatch({gridTemplateColumns:  "minmax(30px, 25%) 1px minmax(45px, 1fr) 60px"}));
+      expect(screen.getByRole("presentation")).satisfy(
+        styleMatch({
+          gridTemplateColumns: "minmax(30px, 25%) 1px minmax(45px, 1fr) 60px",
+        })
+      );
     });
   });
 
@@ -160,10 +231,12 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         labelElement={"label"}
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
-      />);
+      />
+    );
 
-    expect(screen.getByRole("presentation"))
-      .satisfy(styleMatch({gridTemplateColumns:  "auto"}));
+    expect(screen.getByRole("presentation")).satisfy(
+      styleMatch({ gridTemplateColumns: "auto" })
+    );
   });
 
   it("renders two columns if orientation is vertical and action button renderers are provided", () => {
@@ -174,10 +247,12 @@ describe("PropertyView", () => {
         labelElement={"label"}
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
         actionButtonRenderers={[(_) => undefined]}
-      />);
+      />
+    );
 
-    expect(screen.getByRole("presentation"))
-      .satisfy(styleMatch({gridTemplateColumns:  "auto auto"}));
+    expect(screen.getByRole("presentation")).satisfy(
+      styleMatch({ gridTemplateColumns: "auto auto" })
+    );
   });
 
   it("renders two auto columns if orientation is vertical, action button renderers are provided and columnInfo is provided", () => {
@@ -188,11 +263,18 @@ describe("PropertyView", () => {
         labelElement={"label"}
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
         actionButtonRenderers={[(_) => undefined]}
-        columnInfo={{ isMinimumColumnSizeEnabled: true, minLabelWidth: 30, minValueWidth: 45, actionButtonWidth: 60 }}
-      />);
+        columnInfo={{
+          isMinimumColumnSizeEnabled: true,
+          minLabelWidth: 30,
+          minValueWidth: 45,
+          actionButtonWidth: 60,
+        }}
+      />
+    );
 
-    expect(screen.getByRole("presentation"))
-      .satisfy(styleMatch({gridTemplateColumns:  "auto auto"}));
+    expect(screen.getByRole("presentation")).satisfy(
+      styleMatch({ gridTemplateColumns: "auto auto" })
+    );
   });
 
   it("renders label and value", () => {
@@ -202,12 +284,15 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         labelElement={"City"}
         valueElement={"Vilnius"}
-      />);
+      />
+    );
 
-    expect(screen.getByText("City"))
-      .satisfy(selectorMatches("div.components-property-record-label"));
-    expect(screen.getByText("Vilnius"))
-      .satisfy(selectorMatches("div.components-property-record-value span"));
+    expect(screen.getByText("City")).satisfy(
+      selectorMatches("div.components-property-record-label")
+    );
+    expect(screen.getByText("Vilnius")).satisfy(
+      selectorMatches("div.components-property-record-value span")
+    );
   });
 
   it("renders ElementSeparator when orientation is horizontal and onColumnRatioChanged is provided", () => {
@@ -217,13 +302,17 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         labelElement={"label"}
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
-      />);
+      />
+    );
 
-    expect(screen.getByRole("button"))
-      .satisfy(selectorMatches([
-        ".components-property-record--horizontal",
-        ".core-element-separator--horizontal",
-      ].join(" > ")));
+    expect(screen.getByRole("button")).satisfy(
+      selectorMatches(
+        [
+          ".components-property-record--horizontal",
+          ".core-element-separator--horizontal",
+        ].join(" > ")
+      )
+    );
   });
 
   it("does not render ElementSeparator when onColumnRatioChanged is not provided", () => {
@@ -232,7 +321,8 @@ describe("PropertyView", () => {
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         labelElement={"label"}
-      />);
+      />
+    );
 
     expect(screen.queryByRole("button")).to.be.null;
   });
@@ -243,7 +333,8 @@ describe("PropertyView", () => {
         orientation={Orientation.Vertical}
         propertyRecord={propertyRecord}
         labelElement={"label"}
-      />);
+      />
+    );
 
     expect(screen.queryByRole("button")).to.be.null;
   });
@@ -257,7 +348,8 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         onClick={onClick}
         labelElement={"label"}
-      />);
+      />
+    );
 
     await theUserTo.click(screen.getByRole("presentation"));
 
@@ -273,7 +365,8 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         onClick={onClick}
         labelElement={"label"}
-      />);
+      />
+    );
 
     await theUserTo.click(screen.getByRole("presentation"));
     await theUserTo.click(screen.getByRole("presentation"));
@@ -288,10 +381,12 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         isSelected={true}
         labelElement={"label"}
-      />);
+      />
+    );
 
-    expect(screen.getByRole("presentation"))
-      .satisfy(selectorMatches(".components--selected"));
+    expect(screen.getByRole("presentation")).satisfy(
+      selectorMatches(".components--selected")
+    );
   });
 
   it("renders as clickable when onClick prop is given", () => {
@@ -299,12 +394,14 @@ describe("PropertyView", () => {
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
-        onClick={() => { }}
+        onClick={() => {}}
         labelElement={"label"}
-      />);
+      />
+    );
 
-    expect(screen.getByRole("presentation"))
-      .satisfy(selectorMatches(".components--clickable"));
+    expect(screen.getByRole("presentation")).satisfy(
+      selectorMatches(".components--clickable")
+    );
   });
 
   it("renders as hoverable when isHoverable prop is true", () => {
@@ -314,30 +411,36 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         labelElement={"label"}
         isHoverable={true}
-      />);
+      />
+    );
 
-    expect(screen.getByRole("presentation"))
-      .satisfy(selectorMatches(".components--hoverable"));
+    expect(screen.getByRole("presentation")).satisfy(
+      selectorMatches(".components--hoverable")
+    );
   });
 
   it("changes state on hovering if set to hoverable", async () => {
-
     render(
       <PropertyView
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
         labelElement={"label"}
         isHoverable={true}
-        actionButtonRenderers={[(props) => <div data-testid={"validator"}>{props.isPropertyHovered ? "Y" : "N"}</div>]}
-      />);
+        actionButtonRenderers={[
+          (props) => (
+            <div data-testid={"validator"}>
+              {props.isPropertyHovered ? "Y" : "N"}
+            </div>
+          ),
+        ]}
+      />
+    );
 
     await theUserTo.hover(screen.getByRole("presentation"));
-    expect(screen.getByTestId("validator"))
-      .have.property("innerHTML", "Y");
+    expect(screen.getByTestId("validator")).have.property("innerHTML", "Y");
 
     await theUserTo.unhover(screen.getByRole("presentation"));
-    expect(screen.getByTestId("validator"))
-      .have.property("innerHTML", "N");
+    expect(screen.getByTestId("validator")).have.property("innerHTML", "N");
   });
 
   it("does not changes state on hovering if not set to hoverable", async () => {
@@ -347,15 +450,20 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         labelElement={"label"}
         isHoverable={false}
-        actionButtonRenderers={[(props) => <div data-testid={"validator"}>{props.isPropertyHovered ? "Y" : "N"}</div>]}
-      />);
+        actionButtonRenderers={[
+          (props) => (
+            <div data-testid={"validator"}>
+              {props.isPropertyHovered ? "Y" : "N"}
+            </div>
+          ),
+        ]}
+      />
+    );
     await theUserTo.hover(screen.getByRole("presentation"));
-    expect(screen.getByTestId("validator"))
-      .have.property("innerHTML", "N");
+    expect(screen.getByTestId("validator")).have.property("innerHTML", "N");
 
     await theUserTo.unhover(screen.getByRole("presentation"));
-    expect(screen.getByTestId("validator"))
-      .have.property("innerHTML", "N");
+    expect(screen.getByTestId("validator")).have.property("innerHTML", "N");
   });
 
   it("renders action button list if orientation is horizontal and action button renderers are passed", async () => {
@@ -366,9 +474,11 @@ describe("PropertyView", () => {
         labelElement={"label"}
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
         actionButtonRenderers={[(_) => undefined]}
-      />);
-    expect(screen.getByRole("presentation"))
-      .satisfy(childStructure(".components-property-action-button-list--horizontal"));
+      />
+    );
+    expect(screen.getByRole("presentation")).satisfy(
+      childStructure(".components-property-action-button-list--horizontal")
+    );
   });
 
   it("renders action button list if orientation is vertical and action button renderers are passed", () => {
@@ -379,9 +489,11 @@ describe("PropertyView", () => {
         labelElement={"label"}
         onColumnRatioChanged={() => ({ ratio: 0.5 })}
         actionButtonRenderers={[(_) => undefined]}
-      />);
-    expect(screen.getByRole("presentation"))
-      .satisfy(childStructure(".components-property-action-button-list--vertical"));
+      />
+    );
+    expect(screen.getByRole("presentation")).satisfy(
+      childStructure(".components-property-action-button-list--vertical")
+    );
   });
 
   it("renders only label when property record is non primitive", () => {
@@ -392,8 +504,13 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         labelElement={"City"}
         valueElement={"Vilnius"}
-      />);
-    expect(screen.getByText("City", {selector: ".components-property-record-label"})).to.exist;
+      />
+    );
+    expect(
+      screen.getByText("City", {
+        selector: ".components-property-record-label",
+      })
+    ).to.exist;
     expect(screen.queryByText("Vilnius")).to.be.null;
   });
 
@@ -405,8 +522,12 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         onContextMenu={callback}
         labelElement={"label"}
-      />);
-    await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseRight]"});
+      />
+    );
+    await theUserTo.pointer({
+      target: screen.getByRole("presentation"),
+      keys: "[MouseRight]",
+    });
     expect(callback).to.be.calledOnceWith(propertyRecord);
   });
 
@@ -418,9 +539,12 @@ describe("PropertyView", () => {
         propertyRecord={propertyRecord}
         onRightClick={callback}
         labelElement={"label"}
-      />);
-    await theUserTo.pointer({target: screen.getByRole("presentation"), keys: "[MouseRight]"});
+      />
+    );
+    await theUserTo.pointer({
+      target: screen.getByRole("presentation"),
+      keys: "[MouseRight]",
+    });
     expect(callback).to.be.calledOnceWith(propertyRecord);
   });
-
 });

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -24,11 +24,16 @@ export class UiIModelComponents {
    */
   public static async initialize(): Promise<void> {
     if (UiIModelComponents._initialized) {
-      Logger.logInfo(UiIModelComponents.loggerCategory(UiIModelComponents), `UiIModelComponents.initialize already called`);
+      Logger.logInfo(
+        UiIModelComponents.loggerCategory(UiIModelComponents),
+        `UiIModelComponents.initialize already called`
+      );
       return;
     }
 
-    await IModelApp.localization?.registerNamespace(UiIModelComponents.localizationNamespace);
+    await IModelApp.localization?.registerNamespace(
+      UiIModelComponents.localizationNamespace
+    );
 
     if (!IModelApp.localization) {
       // it should only get here in unit test where IModelApp is not setup
@@ -44,13 +49,17 @@ export class UiIModelComponents {
 
   /** Unregisters the UiIModelComponents localization namespace */
   public static terminate() {
-    IModelApp.localization?.unregisterNamespace(UiIModelComponents.localizationNamespace);
+    IModelApp.localization?.unregisterNamespace(
+      UiIModelComponents.localizationNamespace
+    );
     UiComponents.terminate();
     UiIModelComponents._initialized = false;
   }
 
   /** Determines if UiIModelComponents has been initialized */
-  public static get initialized(): boolean { return UiIModelComponents._initialized; }
+  public static get initialized(): boolean {
+    return UiIModelComponents._initialized;
+  }
 
   /** The internationalization service namespace. */
   public static get localizationNamespace(): string {
@@ -66,18 +75,26 @@ export class UiIModelComponents {
    * @internal
    */
   public static translate(key: string | string[]): string {
-    if (!UiIModelComponents.initialized || /* istanbul ignore next */ !IModelApp.localization) {
-      Logger.logError(UiIModelComponents.loggerCategory(this), `translate: IModelApp.localization has not been setup. Returning blank string.`);
+    if (
+      !UiIModelComponents.initialized ||
+      /* istanbul ignore next */ !IModelApp.localization
+    ) {
+      Logger.logError(
+        UiIModelComponents.loggerCategory(this),
+        `translate: IModelApp.localization has not been setup. Returning blank string.`
+      );
       return "";
     }
-    return IModelApp.localization.getLocalizedString(key, { ns: UiIModelComponents.localizationNamespace });
+    return IModelApp.localization.getLocalizedString(key, {
+      ns: UiIModelComponents.localizationNamespace,
+    });
   }
 
   /** @internal */
   public static loggerCategory(obj: any): string {
     const className = getClassName(obj);
-    const category = UiIModelComponents.packageName + (className ? `.${className}` : "");
+    const category =
+      UiIModelComponents.packageName + (className ? `.${className}` : "");
     return category;
   }
-
 }

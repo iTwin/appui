@@ -1,27 +1,33 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 // cSpell:ignore typemoq, tabid
 
 import { expect } from "chai";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
 import type { IModelRpcProps } from "@itwin/core-common";
-import type { Id64String} from "@itwin/core-bentley";
+import type { Id64String } from "@itwin/core-bentley";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
 import { IModelApp, MockRender, SelectionSet } from "@itwin/core-frontend";
 import type { CursorMenuData, UserSettingsProvider } from "../appui-react";
-import { ColorTheme, SettingsModalFrontstage, UiFramework } from "../appui-react";
+import {
+  ColorTheme,
+  SettingsModalFrontstage,
+  UiFramework,
+} from "../appui-react";
 import type { UiStateStorage } from "@itwin/core-react";
 import { LocalStateStorage } from "@itwin/core-react";
 import TestUtils, { storageMock } from "./TestUtils";
 import { OpenSettingsTool } from "../appui-react/tools/OpenSettingsTool";
 
 describe("UiFramework localStorage Wrapper", () => {
-
-  const localStorageToRestore = Object.getOwnPropertyDescriptor(window, "localStorage")!;
+  const localStorageToRestore = Object.getOwnPropertyDescriptor(
+    window,
+    "localStorage"
+  )!;
   const localStorageMock = storageMock();
 
   before(async () => {
@@ -35,7 +41,6 @@ describe("UiFramework localStorage Wrapper", () => {
   });
 
   describe("UiFramework", () => {
-
     beforeEach(() => {
       TestUtils.terminateUiFramework();
     });
@@ -75,7 +80,10 @@ describe("UiFramework localStorage Wrapper", () => {
         spy();
       };
 
-      const showSettingsStageToRestore = Object.getOwnPropertyDescriptor(SettingsModalFrontstage, "showSettingsStage")!;
+      const showSettingsStageToRestore = Object.getOwnPropertyDescriptor(
+        SettingsModalFrontstage,
+        "showSettingsStage"
+      )!;
       Object.defineProperty(SettingsModalFrontstage, "showSettingsStage", {
         get: () => handleOpenSetting,
       });
@@ -93,12 +101,18 @@ describe("UiFramework localStorage Wrapper", () => {
       spy.calledOnce.should.true;
       spy.resetHistory();
 
-      Object.defineProperty(SettingsModalFrontstage, "showSettingsStage", showSettingsStageToRestore);
+      Object.defineProperty(
+        SettingsModalFrontstage,
+        "showSettingsStage",
+        showSettingsStageToRestore
+      );
     });
 
     it("loggerCategory should correctly handle null or undefined object", () => {
       expect(UiFramework.loggerCategory(null)).to.eq(UiFramework.packageName);
-      expect(UiFramework.loggerCategory(undefined)).to.eq(UiFramework.packageName);
+      expect(UiFramework.loggerCategory(undefined)).to.eq(
+        UiFramework.packageName
+      );
     });
 
     it("calling initialize twice should log", async () => {
@@ -153,7 +167,7 @@ describe("UiFramework localStorage Wrapper", () => {
 
     it("WidgetOpacity", async () => {
       await TestUtils.initializeUiFramework();
-      const testValue = 0.50;
+      const testValue = 0.5;
       UiFramework.setWidgetOpacity(testValue);
       expect(UiFramework.getWidgetOpacity()).to.eq(testValue);
       TestUtils.terminateUiFramework();
@@ -171,8 +185,7 @@ describe("UiFramework localStorage Wrapper", () => {
       public readonly providerId = "testSettingsProvider";
       public settingsLoaded = false;
       public async loadUserSettings(storage: UiStateStorage) {
-        if (storage)
-          this.settingsLoaded = true;
+        if (storage) this.settingsLoaded = true;
       }
     }
 
@@ -181,8 +194,12 @@ describe("UiFramework localStorage Wrapper", () => {
       const settingsProvider = new testSettingsProvider();
       UiFramework.registerUserSettingsProvider(settingsProvider);
 
-      UiFramework.setDefaultIModelViewportControlId("DefaultIModelViewportControlId");
-      expect(UiFramework.getDefaultIModelViewportControlId()).to.eq("DefaultIModelViewportControlId");
+      UiFramework.setDefaultIModelViewportControlId(
+        "DefaultIModelViewportControlId"
+      );
+      expect(UiFramework.getDefaultIModelViewportControlId()).to.eq(
+        "DefaultIModelViewportControlId"
+      );
 
       const testViewId: Id64String = "0x12345678";
       UiFramework.setDefaultViewId(testViewId);
@@ -208,7 +225,10 @@ describe("UiFramework localStorage Wrapper", () => {
       UiFramework.closeCursorMenu();
       expect(UiFramework.getCursorMenuData()).to.be.undefined;
 
-      const menuData: CursorMenuData = { items: [], position: { x: 100, y: 100 } };
+      const menuData: CursorMenuData = {
+        items: [],
+        position: { x: 100, y: 100 },
+      };
       UiFramework.openCursorMenu(menuData);
       expect(UiFramework.getCursorMenuData()).not.to.be.undefined;
 
@@ -229,14 +249,12 @@ describe("UiFramework localStorage Wrapper", () => {
       // try again when store is not defined
       expect(UiFramework.useDragInteraction).to.eql(false);
     });
-
   });
 
   // before we can test setting scope to a valid scope id we must make sure Presentation Manager is initialized.
   describe("Requires Presentation", () => {
     const shutdownIModelApp = async () => {
-      if (IModelApp.initialized)
-        await IModelApp.shutdown();
+      if (IModelApp.initialized) await IModelApp.shutdown();
     };
 
     beforeEach(async () => {
@@ -244,7 +262,6 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     describe("initialize and setActiveSelectionScope", () => {
-
       it("creates manager instances", async () => {
         await TestUtils.initializeUiFramework();
         UiFramework.setActiveSelectionScope("element");
@@ -253,7 +270,6 @@ describe("UiFramework localStorage Wrapper", () => {
         await shutdownIModelApp();
       });
     });
-
   });
 
   describe("ConnectionEvents", () => {
@@ -276,7 +292,6 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("SessionState setIModelConnection", async () => {
-
       UiFramework.setIModelConnection(imodelMock.object);
       expect(UiFramework.getIModelConnection()).to.eq(imodelMock.object);
     });

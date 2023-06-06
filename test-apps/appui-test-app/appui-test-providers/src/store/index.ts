@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { StateManager } from "@itwin/appui-react";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -33,7 +33,6 @@ const initialState = {
   showCustomViewOverlay: false,
 } as TestProviderState;
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const TestProviderSliceName = "testProviderState";
 
 /** the TestProvider "slice" of Redux state" */
@@ -41,15 +40,22 @@ export const providerSlice = createSlice({
   name: TestProviderSliceName,
   initialState,
   reducers: {
-    setHideCustomDialogButton: (state: TestProviderState, action: PayloadAction<boolean>) => {
+    setHideCustomDialogButton: (
+      state: TestProviderState,
+      action: PayloadAction<boolean>
+    ) => {
       state.hideCustomDialogButton = action.payload;
     },
-    setShowCustomViewOverlay: (state: TestProviderState, action: PayloadAction<boolean>) => {
+    setShowCustomViewOverlay: (
+      state: TestProviderState,
+      action: PayloadAction<boolean>
+    ) => {
       state.showCustomViewOverlay = action.payload;
     },
   },
 });
-export const { setHideCustomDialogButton, setShowCustomViewOverlay} = providerSlice.actions;
+export const { setHideCustomDialogButton, setShowCustomViewOverlay } =
+  providerSlice.actions;
 
 /** Get the slice of the redux state that is specific to this UI provider */
 export function getTestProviderState(): TestProviderState {

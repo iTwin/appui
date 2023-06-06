@@ -1,13 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
-import type { NineZoneDispatch} from "../../appui-layout-react";
+import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  createNineZoneState, WidgetPanelExpander, WidgetPanelExpanders,
+  createNineZoneState,
+  WidgetPanelExpander,
+  WidgetPanelExpanders,
 } from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 import { updatePanelState } from "../../appui-layout-react/state/internal/PanelStateHelpers";
@@ -24,11 +26,9 @@ describe("WidgetPanelExpanders", () => {
       collapsed: true,
     });
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <WidgetPanelExpanders />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -39,13 +39,13 @@ describe("WidgetPanelExpander", () => {
     const fakeTimers = sinon.useFakeTimers();
     const dispatch = sinon.stub<NineZoneDispatch>();
     const { container } = render(
-      <TestNineZoneProvider
-        dispatch={dispatch}
-      >
+      <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
-    const expander = container.getElementsByClassName("nz-widgetPanels-expander")[0];
+    const expander = container.getElementsByClassName(
+      "nz-widgetPanels-expander"
+    )[0];
     fireEvent.mouseOver(expander);
     fakeTimers.tick(300);
 
@@ -60,13 +60,13 @@ describe("WidgetPanelExpander", () => {
     const fakeTimers = sinon.useFakeTimers();
     const dispatch = sinon.stub<NineZoneDispatch>();
     const { container } = render(
-      <TestNineZoneProvider
-        dispatch={dispatch}
-      >
+      <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
-    const expander = container.getElementsByClassName("nz-widgetPanels-expander")[0];
+    const expander = container.getElementsByClassName(
+      "nz-widgetPanels-expander"
+    )[0];
     fireEvent.mouseOver(expander);
     fireEvent.mouseOut(expander);
     fakeTimers.tick(300);
@@ -78,13 +78,13 @@ describe("WidgetPanelExpander", () => {
     const fakeTimers = sinon.useFakeTimers();
     const dispatch = sinon.stub<NineZoneDispatch>();
     const { container } = render(
-      <TestNineZoneProvider
-        dispatch={dispatch}
-      >
+      <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
-    const expander = container.getElementsByClassName("nz-widgetPanels-expander")[0];
+    const expander = container.getElementsByClassName(
+      "nz-widgetPanels-expander"
+    )[0];
     fireEvent.mouseOver(expander);
     fakeTimers.tick(150);
 
@@ -105,13 +105,13 @@ describe("WidgetPanelExpander", () => {
     const fakeTimers = sinon.useFakeTimers();
     const dispatch = sinon.stub<NineZoneDispatch>();
     const { container } = render(
-      <TestNineZoneProvider
-        dispatch={dispatch}
-      >
+      <TestNineZoneProvider dispatch={dispatch}>
         <WidgetPanelExpander side="left" />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
-    const expander = container.getElementsByClassName("nz-widgetPanels-expander")[0];
+    const expander = container.getElementsByClassName(
+      "nz-widgetPanels-expander"
+    )[0];
     fireEvent.mouseOver(expander);
     fakeTimers.tick(150);
 

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tools
  */
@@ -18,19 +18,30 @@ import { AppUiTestProviders } from "../AppUiTestProviders";
  * @alpha
  */
 export class OpenAbstractDialogTool extends Tool {
-  public static override toolId = "appuiTestItemsProviders-OpenAbstractModalDialogTool";
+  public static override toolId =
+    "appuiTestItemsProviders-OpenAbstractModalDialogTool";
   public static override iconSpec = "icon-lightbulb-2";
 
   // istanbul ignore next
-  public static override get minArgs() { return 0; }
+  public static override get minArgs() {
+    return 0;
+  }
   // istanbul ignore next
-  public static override get maxArgs() { return 0; }
+  public static override get maxArgs() {
+    return 0;
+  }
 
   public override async run(): Promise<boolean> {
-    IModelApp.uiAdmin.openDialog(new AbstractDialogDataProvider(), "Test Abstract Dialog", true, "appui-test-providers:AbstractDialog", {
-      movable: true,
-      width: "auto",
-    });
+    IModelApp.uiAdmin.openDialog(
+      new AbstractDialogDataProvider(),
+      "Test Abstract Dialog",
+      true,
+      "appui-test-providers:AbstractDialog",
+      {
+        movable: true,
+        width: "auto",
+      }
+    );
     return true;
   }
 
@@ -47,14 +58,23 @@ export class OpenAbstractDialogTool extends Tool {
     return "open abstract dialog";
   }
 
-  public static getActionButtonDef(itemPriority: number, groupPriority?: number) {
-
+  public static getActionButtonDef(
+    itemPriority: number,
+    groupPriority?: number
+  ) {
     const overrides = {
       groupPriority,
     };
 
-    return ToolbarItemUtilities.createActionButton(OpenAbstractDialogTool.toolId, itemPriority, OpenAbstractDialogTool.iconSpec, OpenAbstractDialogTool.flyover,
-      async () => { await IModelApp.tools.run(OpenAbstractDialogTool.toolId); },
-      overrides);
+    return ToolbarItemUtilities.createActionButton(
+      OpenAbstractDialogTool.toolId,
+      itemPriority,
+      OpenAbstractDialogTool.iconSpec,
+      OpenAbstractDialogTool.flyover,
+      async () => {
+        await IModelApp.tools.run(OpenAbstractDialogTool.toolId);
+      },
+      overrides
+    );
   }
 }

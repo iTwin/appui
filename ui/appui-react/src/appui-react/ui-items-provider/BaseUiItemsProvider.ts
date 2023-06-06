@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module UiProvider
  */
@@ -10,7 +10,11 @@ import { StageUsage } from "../frontstage/StageUsage";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
-import type { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import type {
+  ToolbarItem,
+  ToolbarOrientation,
+  ToolbarUsage,
+} from "../toolbar/ToolbarItem";
 import type { Widget } from "../widgets/Widget";
 import { UiItemsManager } from "./UiItemsManager";
 import type { UiItemsProvider } from "./UiItemsProvider";
@@ -26,60 +30,135 @@ export class BaseUiItemsProvider implements UiItemsProvider {
    * @param isSupportedStage - optional function that will be called to determine if tools should be added to current stage. If not set and
    * the current stage's `usage` is set to `StageUsage.General` then the provider will add items to frontstage.
    */
-  constructor(protected _providerId: string, public isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any, provider?: UiItemsProvider) => boolean) { }
+  constructor(
+    protected _providerId: string,
+    public isSupportedStage?: (
+      stageId: string,
+      stageUsage: string,
+      stageAppData?: any,
+      provider?: UiItemsProvider
+    ) => boolean
+  ) {}
 
-  public get id(): string { return this._providerId; }
-  public onUnregister(): void { }
+  public get id(): string {
+    return this._providerId;
+  }
+  public onUnregister(): void {}
 
   public unregister() {
     UiItemsManager.unregister(this._providerId);
   }
 
-  public provideToolbarItemsInternal(_stageId: string, _stageUsage: string, _toolbarUsage: ToolbarUsage, _toolbarOrientation: ToolbarOrientation, _stageAppData?: any): ToolbarItem[] {
+  public provideToolbarItemsInternal(
+    _stageId: string,
+    _stageUsage: string,
+    _toolbarUsage: ToolbarUsage,
+    _toolbarOrientation: ToolbarOrientation,
+    _stageAppData?: any
+  ): ToolbarItem[] {
     return [];
   }
 
-  public provideToolbarItems(stageId: string, stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[] {
+  public provideToolbarItems(
+    stageId: string,
+    stageUsage: string,
+    toolbarUsage: ToolbarUsage,
+    toolbarOrientation: ToolbarOrientation,
+    stageAppData?: any
+  ): ToolbarItem[] {
     let provideToStage = false;
 
     if (this.isSupportedStage) {
-      provideToStage = this.isSupportedStage(stageId, stageUsage, stageAppData, this);
+      provideToStage = this.isSupportedStage(
+        stageId,
+        stageUsage,
+        stageAppData,
+        this
+      );
     } else {
-      provideToStage = (stageUsage === StageUsage.General);
+      provideToStage = stageUsage === StageUsage.General;
     }
 
-    return provideToStage ? this.provideToolbarItemsInternal(stageId, stageUsage, toolbarUsage, toolbarOrientation, stageAppData) : [];
+    return provideToStage
+      ? this.provideToolbarItemsInternal(
+          stageId,
+          stageUsage,
+          toolbarUsage,
+          toolbarOrientation,
+          stageAppData
+        )
+      : [];
   }
 
-  public provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
+  public provideStatusBarItemsInternal(
+    _stageId: string,
+    _stageUsage: string,
+    _stageAppData?: any
+  ): StatusBarItem[] {
     return [];
   }
 
-  public provideStatusBarItems(stageId: string, stageUsage: string, stageAppData?: any): StatusBarItem[] {
+  public provideStatusBarItems(
+    stageId: string,
+    stageUsage: string,
+    stageAppData?: any
+  ): StatusBarItem[] {
     let provideToStage = false;
 
     if (this.isSupportedStage) {
-      provideToStage = this.isSupportedStage(stageId, stageUsage, stageAppData, this);
+      provideToStage = this.isSupportedStage(
+        stageId,
+        stageUsage,
+        stageAppData,
+        this
+      );
     } else {
-      provideToStage = (stageUsage === StageUsage.General);
+      provideToStage = stageUsage === StageUsage.General;
     }
 
-    return provideToStage ? this.provideStatusBarItemsInternal(stageId, stageUsage, stageAppData) : [];
+    return provideToStage
+      ? this.provideStatusBarItemsInternal(stageId, stageUsage, stageAppData)
+      : [];
   }
 
-  public provideWidgetsInternal(_stageId: string, _stageUsage: string, _location: StagePanelLocation, _section?: StagePanelSection, _stageAppData?: any): Widget[] {
+  public provideWidgetsInternal(
+    _stageId: string,
+    _stageUsage: string,
+    _location: StagePanelLocation,
+    _section?: StagePanelSection,
+    _stageAppData?: any
+  ): Widget[] {
     return [];
   }
 
-  public provideWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection, stageAppData?: any): ReadonlyArray<Widget> {
+  public provideWidgets(
+    stageId: string,
+    stageUsage: string,
+    location: StagePanelLocation,
+    section?: StagePanelSection,
+    stageAppData?: any
+  ): ReadonlyArray<Widget> {
     let provideToStage = false;
 
     if (this.isSupportedStage) {
-      provideToStage = this.isSupportedStage(stageId, stageUsage, stageAppData, this);
+      provideToStage = this.isSupportedStage(
+        stageId,
+        stageUsage,
+        stageAppData,
+        this
+      );
     } else {
-      provideToStage = (stageUsage === StageUsage.General);
+      provideToStage = stageUsage === StageUsage.General;
     }
 
-    return provideToStage ? this.provideWidgetsInternal(stageId, stageUsage, location, section, stageAppData) : [];
+    return provideToStage
+      ? this.provideWidgetsInternal(
+          stageId,
+          stageUsage,
+          location,
+          section,
+          stageAppData
+        )
+      : [];
   }
 }

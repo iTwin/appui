@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module SnapMode
  */
@@ -33,7 +33,8 @@ export class Snap extends React.PureComponent<SnapProps> {
     const dialogClassName = classnames(
       "nz-footer-snapMode-snap",
       this.props.isActive && "nz-active",
-      this.props.className);
+      this.props.className
+    );
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -44,14 +45,10 @@ export class Snap extends React.PureComponent<SnapProps> {
         role="button"
         tabIndex={-1}
       >
-        {this.props.icon === undefined ? undefined :
-          <div>
-            {this.props.icon}
-          </div>
-        }
-        <div>
-          {this.props.children}
-        </div>
+        {this.props.icon === undefined ? undefined : (
+          <div>{this.props.icon}</div>
+        )}
+        <div>{this.props.children}</div>
       </div>
     );
   }

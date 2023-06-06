@@ -1,13 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
 
 import * as React from "react";
-import type { PrimitiveValue, PropertyDescription} from "@itwin/appui-abstract";
+import type {
+  PrimitiveValue,
+  PropertyDescription,
+} from "@itwin/appui-abstract";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../../../editors/EditorContainer";
 import { EditorContainer } from "../../../editors/EditorContainer";
@@ -35,7 +38,9 @@ export interface TreeNodeEditorProps {
  * Type for tree node editor renderer.
  * @public
  */
-export type TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React.ReactNode;
+export type TreeNodeEditorRenderer = (
+  props: TreeNodeEditorProps
+) => React.ReactNode;
 
 /**
  * React component for displaying tree node editor.

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module MessageCenter
  */
@@ -28,23 +28,15 @@ export class MessageCenterMessage extends React.PureComponent<MessageCenterMessa
   public override render() {
     const className = classnames(
       "nz-footer-messageCenter-message",
-      this.props.className);
+      this.props.className
+    );
 
     return (
-      <div
-        className={className}
-        style={this.props.style}
-      >
-        {this.props.icon &&
-          <div className="nz-icon">
-            {this.props.icon}
-          </div>
-        }
-        {this.props.children &&
-          <div className="nz-content">
-            {this.props.children}
-          </div>
-        }
+      <div className={className} style={this.props.style}>
+        {this.props.icon && <div className="nz-icon">{this.props.icon}</div>}
+        {this.props.children && (
+          <div className="nz-content">{this.props.children}</div>
+        )}
       </div>
     );
   }

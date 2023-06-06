@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ConfigurableUi
  */
 
 import "./configurableui.scss";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Point } from "@itwin/core-react";
 import { CursorInformation } from "../cursor/CursorInformation";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu";
@@ -48,7 +48,10 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
   React.useEffect(() => {
-    InternalConfigurableUiManager.activityTracker.initialize({ idleTimeout: props.idleTimeout, intervalTimeout: props.intervalTimeout });
+    InternalConfigurableUiManager.activityTracker.initialize({
+      idleTimeout: props.idleTimeout,
+      intervalTimeout: props.intervalTimeout,
+    });
     return () => {
       InternalConfigurableUiManager.activityTracker.terminate();
     };
@@ -60,7 +63,8 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   }, []);
 
   return (
-    <main role="main"
+    <main
+      role="main"
       id="uifw-configurableui-wrapper"
       className={props.className}
       style={props.style}

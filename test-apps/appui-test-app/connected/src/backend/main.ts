@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as fs from "fs";
 import * as path from "path";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
@@ -15,18 +15,25 @@ import { RpcManager } from "@itwin/core-common";
 import { ECSchemaRpcInterface } from "@itwin/ecschema-rpcinterface-common";
 import { ECSchemaRpcImpl } from "@itwin/ecschema-rpcinterface-impl";
 
-(async () => { // eslint-disable-line @typescript-eslint/no-floating-promises
+void (async () => {
   try {
     // Load .env file first
     if (fs.existsSync(path.join(process.cwd(), ".env"))) {
-      require("dotenv-expand")( // eslint-disable-line @typescript-eslint/no-var-requires
-        require("dotenv").config(), // eslint-disable-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      require("dotenv-expand")(
+        require("dotenv").config() // eslint-disable-line @typescript-eslint/no-var-requires
       );
     }
 
     initializeLogging();
 
-    const iModelClient = new IModelsClient({ api: { baseUrl: `https://${process.env.IMJS_URL_PREFIX ?? ""}api.bentley.com/imodels` } });
+    const iModelClient = new IModelsClient({
+      api: {
+        baseUrl: `https://${
+          process.env.IMJS_URL_PREFIX ?? ""
+        }api.bentley.com/imodels`,
+      },
+    });
     const iModelHost = {
       hubAccess: new BackendIModelsAccess(iModelClient),
     };

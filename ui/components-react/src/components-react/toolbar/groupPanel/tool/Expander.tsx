@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -16,8 +16,9 @@ import { GroupTool } from "./Tool";
 /** Properties of [[GroupToolExpander]] component.
  * @internal
  */
-export interface GroupToolExpanderProps extends Omit<GroupToolProps, "isActive" | "children">, NoChildrenProps {
-}
+export interface GroupToolExpanderProps
+  extends Omit<GroupToolProps, "isActive" | "children">,
+    NoChildrenProps {}
 
 /** Expandable entry of tool group panel. Used in [[GroupColumn]] to select nested Groups.
  * @internal
@@ -29,13 +30,13 @@ export const GroupToolExpander = React.memo<React.FC<GroupToolExpanderProps>>(
 
     const expanderClassName = classnames(
       "components-toolbar-item-expandable-group-tool-expander",
-      className);
+      className
+    );
 
     return (
-      <GroupTool
-        className={expanderClassName}
-        {...otherProps}>
+      <GroupTool className={expanderClassName} {...otherProps}>
         <div className="components-expansion-indicator" />
       </GroupTool>
     );
-  });
+  }
+);

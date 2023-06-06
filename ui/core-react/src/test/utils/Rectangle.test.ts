@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import type { RectangleProps } from "../../core-react";
 import { Corner, Point, Rectangle } from "../../core-react";
@@ -401,5 +401,4 @@ describe("Rectangle", () => {
     result = sut.getShortestDistanceToPoint(new Point(20, 20));
     expect(result).to.eq(0);
   });
-
 });

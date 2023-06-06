@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AccuDraw
  */
@@ -29,7 +29,10 @@ interface MenuButtonState {
 }
 
 /** @alpha */
-export class MenuButton extends React.PureComponent<MenuButtonProps, MenuButtonState> {
+export class MenuButton extends React.PureComponent<
+  MenuButtonProps,
+  MenuButtonState
+> {
   private _menu: ContextMenu | null = null;
 
   constructor(props: MenuButtonProps) {
@@ -49,18 +52,30 @@ export class MenuButton extends React.PureComponent<MenuButtonProps, MenuButtonS
     };
 
     return (
-      <div className="uifw-menu-button" style={divStyle} ref={(e) => this.setDivRef(e)}>
-        <SquareButton {...buttonProps} className={className} style={style} onClick={this._handleClick}>
+      <div
+        className="uifw-menu-button"
+        style={divStyle}
+        ref={(e) => this.setDivRef(e)}
+      >
+        <SquareButton
+          {...buttonProps}
+          className={className}
+          style={style}
+          onClick={this._handleClick}
+        >
           <Icon iconSpec={<SvgMore />} />
         </SquareButton>
         <ContextMenu
-          ref={(el) => { this._menu = el; }}
+          ref={(el) => {
+            this._menu = el;
+          }}
           selectedIndex={0}
           onSelect={this._handleClose}
           onOutsideClick={this._handleClose}
           onEsc={this._handleClose}
           opened={this.state.expanded}
-          autoflip={false}>
+          autoflip={false}
+        >
           {this.props.children}
         </ContextMenu>
       </div>
@@ -74,19 +89,15 @@ export class MenuButton extends React.PureComponent<MenuButtonProps, MenuButtonS
       const size = new Size(rect.width, rect.height);
 
       // istanbul ignore else
-      if (this.props.onSizeKnown)
-        this.props.onSizeKnown(size);
+      if (this.props.onSizeKnown) this.props.onSizeKnown(size);
     }
   }
 
   private _open = () => {
-    this.setState(
-      { expanded: true },
-      () => {
-        // istanbul ignore else
-        if (this._menu)
-          this._menu.focus();
-      });
+    this.setState({ expanded: true }, () => {
+      // istanbul ignore else
+      if (this._menu) this._menu.focus();
+    });
   };
 
   private _handleClick = (event: any) => {
@@ -102,5 +113,4 @@ export class MenuButton extends React.PureComponent<MenuButtonProps, MenuButtonS
   private _handleClose = () => {
     this.setState({ expanded: false });
   };
-
 }

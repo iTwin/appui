@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -23,7 +23,9 @@ export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined {
 
   const [result, setResult] = React.useState(() => {
     if (isPromiseLike(value)) {
-      from(value).pipe(takeUntil(cancelled)).subscribe({ next: (resolvedValue) => setResult(resolvedValue) });
+      from(value)
+        .pipe(takeUntil(cancelled))
+        .subscribe({ next: (resolvedValue) => setResult(resolvedValue) });
       return undefined;
     }
     return value;
@@ -36,7 +38,9 @@ export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined {
     };
 
     if (isPromiseLike(value)) {
-      const subscription = from(value).pipe(takeUntil(cancelled)).subscribe({ next: (resolvedValue) => updateValue(resolvedValue) });
+      const subscription = from(value)
+        .pipe(takeUntil(cancelled))
+        .subscribe({ next: (resolvedValue) => updateValue(resolvedValue) });
       return () => subscription.unsubscribe();
     }
 

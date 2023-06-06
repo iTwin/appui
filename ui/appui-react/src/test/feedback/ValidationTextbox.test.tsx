@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
@@ -11,7 +11,7 @@ import TestUtils, { userEvent } from "../TestUtils";
 
 describe("ValidationTextbox", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -46,7 +46,7 @@ describe("ValidationTextbox", () => {
         onEnterPressed={onEnterPressed}
         onEscPressed={onEscPressed}
         errorText="Error"
-      />,
+      />
     );
     await theUserTo.type(screen.getByRole("textbox"), "a");
     expect(onValueChanged.called).to.be.true;
@@ -58,7 +58,7 @@ describe("ValidationTextbox", () => {
         placeholder="Placeholder"
         size={12}
         errorText="Error"
-      />,
+      />
     );
     await theUserTo.type(screen.getByRole("textbox"), "t");
     expect(screen.getByRole<HTMLInputElement>("textbox").value).to.eq("t");
@@ -70,7 +70,7 @@ describe("ValidationTextbox", () => {
         placeholder="Placeholder"
         size={12}
         errorText="Error"
-      />,
+      />
     );
     const hideMessage = sinon.spy(MessageManager, "hideInputFieldMessage");
     await theUserTo.type(screen.getByRole("textbox"), "test");
@@ -83,7 +83,7 @@ describe("ValidationTextbox", () => {
         placeholder="Placeholder"
         size={12}
         errorText="Error"
-      />,
+      />
     );
     const showMessage = sinon.spy(MessageManager, "displayInputFieldMessage");
     await theUserTo.type(screen.getByRole("textbox"), "t[Backspace]");
@@ -97,7 +97,7 @@ describe("ValidationTextbox", () => {
         onEnterPressed={onEnterPressed}
         onEscPressed={onEscPressed}
         errorText="Error"
-      />,
+      />
     );
     await theUserTo.type(screen.getByRole("textbox"), "[Escape]");
     expect(onEscPressed.called).to.be.true;
@@ -110,7 +110,7 @@ describe("ValidationTextbox", () => {
         onEnterPressed={onEnterPressed}
         onEscPressed={onEscPressed}
         errorText="Error"
-      />,
+      />
     );
     await theUserTo.type(screen.getByRole("textbox"), "[Enter]");
     expect(onEnterPressed.called).to.be.true;

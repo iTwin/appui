@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "../prefix";
 @import "variables";
@@ -19,13 +19,13 @@
   max-width: 9em;
   background: var(--iui-color-background-backdrop);
 
-  >span {
+  > span {
     font-size: $nz-widget-tab-font-size;
     text-overflow: ellipsis;
     overflow: hidden;
   }
 
-  >.nz-badge {
+  > .nz-badge {
     position: absolute;
     top: 0;
     left: 0;
@@ -40,7 +40,7 @@
 
       &:before {
         $padding: 0.25em;
-        content: '';
+        content: "";
         position: absolute;
         background: currentColor;
         left: $padding;

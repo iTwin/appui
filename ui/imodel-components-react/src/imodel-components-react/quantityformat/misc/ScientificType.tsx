@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module QuantityFormat
  */
@@ -28,15 +28,34 @@ export interface ScientificTypeSelectorProps extends CommonProps {
 export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
   const { type, onChange, ...otherProps } = props;
   const formatOptions = React.useRef<SelectOption<ScientificType>[]>([
-    { value: ScientificType.Normalized, label: UiIModelComponents.translate("QuantityFormat.scientific-type.normalized") },
-    { value: ScientificType.ZeroNormalized, label: UiIModelComponents.translate("QuantityFormat.scientific-type.zero-normalized") },
+    {
+      value: ScientificType.Normalized,
+      label: UiIModelComponents.translate(
+        "QuantityFormat.scientific-type.normalized"
+      ),
+    },
+    {
+      value: ScientificType.ZeroNormalized,
+      label: UiIModelComponents.translate(
+        "QuantityFormat.scientific-type.zero-normalized"
+      ),
+    },
   ]);
 
-  const handleOnChange = React.useCallback((newValue: ScientificType) => {
-    onChange && onChange(newValue);
-  }, [onChange]);
+  const handleOnChange = React.useCallback(
+    (newValue: ScientificType) => {
+      onChange && onChange(newValue);
+    },
+    [onChange]
+  );
 
   return (
-    <Select options={formatOptions.current} value={type} onChange={handleOnChange} size="small" {...otherProps} />
+    <Select
+      options={formatOptions.current}
+      value={type}
+      onChange={handleOnChange}
+      size="small"
+      {...otherProps}
+    />
   );
 }

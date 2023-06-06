@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -16,9 +16,10 @@ import { NewBadge } from "./NewBadge";
  */
 export class BadgeUtilities {
   /** Converts BetaType to Badge React component */
-  public static getComponentForBadgeType(badgeType?: BadgeType): React.ReactNode {
-    if (badgeType === undefined)
-      return undefined;
+  public static getComponentForBadgeType(
+    badgeType?: BadgeType
+  ): React.ReactNode {
+    if (badgeType === undefined) return undefined;
 
     let component: React.ReactNode;
 
@@ -36,5 +37,4 @@ export class BadgeUtilities {
 
     return component;
   }
-
 }

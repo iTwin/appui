@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "../style/themecolors";
 @import "../z-index";
 
@@ -10,7 +10,8 @@
     $orientation,
     transparent calc(50% - 1px),
     var(--iui-color-icon-accent) calc(50%),
-    transparent calc(50% + 1px));
+    transparent calc(50% + 1px)
+  );
 }
 
 @mixin keyframes($animation-name) {
@@ -40,13 +41,21 @@
 }
 
 @include keyframes(fade-in) {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @include keyframes(fade-out) {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .core-element-separator {
@@ -70,12 +79,12 @@
   }
 
   &.core-element-separator-group-hovered {
-    @include animation('fade-in 0.2s');
+    @include animation("fade-in 0.2s");
     opacity: 1;
   }
 
   &.core-element-separator-group-unhovered {
-    @include animation('fade-out 0.2s');
+    @include animation("fade-out 0.2s");
     opacity: 0;
   }
 

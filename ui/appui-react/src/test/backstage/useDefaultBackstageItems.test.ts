@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { waitFor } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
@@ -12,9 +12,7 @@ import { BackstageItemsManager } from "../../appui-react/backstage/BackstageItem
 describe("useDefaultBackstageItems", () => {
   it("should return backstage items", () => {
     const manager = new BackstageItemsManager();
-    manager.items = [
-      getActionItem(),
-    ];
+    manager.items = [getActionItem()];
 
     const { result } = renderHook(() => useDefaultBackstageItems(manager));
 
@@ -23,9 +21,7 @@ describe("useDefaultBackstageItems", () => {
 
   it("should update items", async () => {
     const manager = new BackstageItemsManager();
-    manager.items = [
-      getActionItem(),
-    ];
+    manager.items = [getActionItem()];
     const { result } = renderHook(() => useDefaultBackstageItems(manager));
 
     manager.items = [];
@@ -37,11 +33,11 @@ describe("useDefaultBackstageItems", () => {
 
   it("should remove onItemsChanged listener", () => {
     const manager = new BackstageItemsManager();
-    const initialItems = [
-      getActionItem(),
-    ];
+    const initialItems = [getActionItem()];
     manager.items = initialItems;
-    const { result, unmount } = renderHook(() => useDefaultBackstageItems(manager));
+    const { result, unmount } = renderHook(() =>
+      useDefaultBackstageItems(manager)
+    );
 
     unmount();
     manager.items = [];
@@ -51,24 +47,25 @@ describe("useDefaultBackstageItems", () => {
 
   it("should handle manager changes", async () => {
     const manager1 = new BackstageItemsManager();
-    const initialManager1Items = [
-      getActionItem(),
-    ];
+    const initialManager1Items = [getActionItem()];
     manager1.items = initialManager1Items;
-    const initialManager2Items = [
-      getActionItem(),
-    ];
+    const initialManager2Items = [getActionItem()];
     const manager2 = new BackstageItemsManager();
     manager2.items = initialManager2Items;
-    const { result, rerender } = renderHook((mgr: BackstageItemsManager) => useDefaultBackstageItems(mgr), { initialProps: manager1 });
-    expect(result.current).to.have.members(manager1.items)
+    const { result, rerender } = renderHook(
+      (mgr: BackstageItemsManager) => useDefaultBackstageItems(mgr),
+      { initialProps: manager1 }
+    );
+    expect(result.current)
+      .to.have.members(manager1.items)
       .and.not.include.members(manager2.items);
 
     rerender(manager2);
 
     manager2.items = [getActionItem()];
     await waitFor(() => {
-      expect(result.current).to.have.members(manager2.items)
+      expect(result.current)
+        .to.have.members(manager2.items)
         .and.not.include.members(initialManager2Items)
         .and.not.include.members(manager1.items)
         .and.not.include.members(initialManager1Items);
@@ -76,7 +73,8 @@ describe("useDefaultBackstageItems", () => {
 
     manager1.items = [getActionItem()];
     await waitFor(() => {
-      expect(result.current).to.have.members(manager2.items)
+      expect(result.current)
+        .to.have.members(manager2.items)
         .and.not.include.members(initialManager2Items)
         .and.not.include.members(manager1.items)
         .and.not.include.members(initialManager1Items);

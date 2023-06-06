@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 
 .core-dialog.active-content-dialog {
@@ -10,7 +10,7 @@
       color: $buic-text-color-highlight;
       background-color: $buic-background-titlebar;
       > .core-dialog-title {
-      font-weight: 800;
+        font-weight: 800;
       }
     }
   }

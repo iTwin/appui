@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import type { API, FileInfo, Options } from "jscodeshift";
 import postcss, { AcceptedPlugin, Plugin } from "postcss";
 import valueParser from "postcss-value-parser";
@@ -31,11 +31,14 @@ const transforms = [
   statics,
 ];
 
-export default function transformer(file: FileInfo, api: API, options: Options) {
+export default function transformer(
+  file: FileInfo,
+  api: API,
+  options: Options
+) {
   let src = file.source;
   transforms.forEach((transform) => {
-    if (!src)
-      return;
+    if (!src) return;
     src = transform({ ...file, source: src }, api, options);
   });
 
@@ -48,17 +51,13 @@ function renameValue(from: string, to: string): Plugin {
     Declaration(decl) {
       const parsed = valueParser(decl.value);
       parsed.walk((node) => {
-        if (node.value === from)
-          node.value = to;
-        if (node.value === `#{${from}}`)
-          node.value = to;
-        if (node.value === `#{${from}`)
-          node.value = `#{${to}`;
-        if (node.value === `${from}}`)
-          node.value = `${to}}`;
+        if (node.value === from) node.value = to;
+        if (node.value === `#{${from}}`) node.value = to;
+        if (node.value === `#{${from}`) node.value = `#{${to}`;
+        if (node.value === `${from}}`) node.value = `${to}}`;
       });
       decl.value = parsed.toString();
-    }
+    },
   };
 }
 
@@ -66,13 +65,11 @@ function removeImport(importParam: string): Plugin {
   return {
     postcssPlugin: `remove-import ${importParam}`,
     AtRule(rule) {
-      if (rule.name !== "import")
-        return;
+      if (rule.name !== "import") return;
       const noQuotes = rule.params.slice(1, -1);
-      if (!noQuotes.endsWith(importParam))
-        return;
+      if (!noQuotes.endsWith(importParam)) return;
       rule.remove();
-    }
+    },
   };
 }
 
@@ -81,48 +78,142 @@ function toModulePaths(getPath: (module: string) => string) {
 }
 
 const importPathsToRemove = [
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/blue-large`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/blue`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/button`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/disabled-large`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/disabled`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/hollow-large`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/hollow`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/primary-large`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/primary`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/button/variables`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/checkbox/checkbox`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/inputs/labeled-input`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/inputs/labeled-textarea`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/inputs/textarea`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/progress-indicators`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/progress-indicators/progress-bar`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/progress-indicators/progress-spinner`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/radio`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/radio/radio`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/select`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/select/labeled-select`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/select/labeled-themed-select`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/select/select`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/select/themed-select`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/select`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/style/data-viz`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/style/itwinui-overrides`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/style/space`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/style/speed`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/style/typography`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/style/variables`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/tabs/horizontal`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/text/headline`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/text/headline-2`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/text/leading`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/text/small`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/text/subheading-2`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/text/subheading`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/text/title-2`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/text/title`),
-  ...toModulePaths((module) => `@itwin/core-react/lib/${module}/core-react/tiles/tile`),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/button/blue-large`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/button/blue`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/button/button`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/button/disabled-large`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/button/disabled`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/button/hollow-large`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/button/hollow`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/button`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/button/primary-large`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/button/primary`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/button/variables`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/checkbox/checkbox`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/inputs/labeled-input`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/inputs/labeled-textarea`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/inputs/textarea`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/progress-indicators`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/progress-indicators/progress-bar`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/progress-indicators/progress-spinner`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/radio`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/radio/radio`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/select`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/select/labeled-select`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/select/labeled-themed-select`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/select/select`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/select/themed-select`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/select`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/style/data-viz`
+  ),
+  ...toModulePaths(
+    (module) =>
+      `@itwin/core-react/lib/${module}/core-react/style/itwinui-overrides`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/style/space`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/style/speed`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/style/typography`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/style/variables`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/tabs/horizontal`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/text/headline`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/text/headline-2`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/text/leading`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/text/small`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/text/subheading-2`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/text/subheading`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/text/title-2`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/text/title`
+  ),
+  ...toModulePaths(
+    (module) => `@itwin/core-react/lib/${module}/core-react/tiles/tile`
+  ),
 ];
 
 export const cssPlugin: AcceptedPlugin = postcss([
@@ -155,7 +246,10 @@ export const cssPlugin: AcceptedPlugin = postcss([
   renameValue("$uicore-cap-size-headline", "var(--iui-font-size-5)"),
   renameValue("$uicore-font-weight-light", "var(--iui-font-weight-light)"),
   renameValue("$uicore-font-weight-normal", "var(--iui-font-weight-normal)"),
-  renameValue("$uicore-font-weight-semibold", "var(--iui-font-weight-semibold)"),
+  renameValue(
+    "$uicore-font-weight-semibold",
+    "var(--iui-font-weight-semibold)"
+  ),
   renameValue("$uicore-font-weight-bold", "var(--iui-font-weight-bold)"),
   renameValue("$uicore-font-loaded-class", "var(--iui-font-sans)"),
   renameValue("$uicore-border-radius", "var(--iui-border-radius-1)"),
@@ -165,10 +259,8 @@ export const cssPlugin: AcceptedPlugin = postcss([
   {
     postcssPlugin: `replace @mixin uicore-font-family`,
     AtRule(rule) {
-      if (rule.name !== "include")
-        return;
-      if (rule.params !== "uicore-font-family")
-        return;
+      if (rule.name !== "include") return;
+      if (rule.params !== "uicore-font-family") return;
       const declaration = postcss.decl({
         prop: "font-family",
         value: "var(--iui-font-sans)",

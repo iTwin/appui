@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -30,7 +30,9 @@ export interface CommonProps extends ClassNameProps {
 /** Common properties using a div element.
  * @public
  */
-export interface CommonDivProps extends React.AllHTMLAttributes<HTMLDivElement>, CommonProps { }
+export interface CommonDivProps
+  extends React.AllHTMLAttributes<HTMLDivElement>,
+    CommonProps {}
 
 /** Props used by components that do not expect children to be passed in.
  * @public
@@ -42,4 +44,7 @@ export interface NoChildrenProps {
 /** Omit children property from T.
  * @public
  */
-export type OmitChildrenProp<T extends { children?: React.ReactNode }> = Omit<T, "children">;
+export type OmitChildrenProp<T extends { children?: React.ReactNode }> = Omit<
+  T,
+  "children"
+>;

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Dialog
  */
@@ -15,21 +15,33 @@ import { ModalDialogChangedEvent } from "../framework/FrameworkDialogs";
  */
 export class InternalModalDialogManager {
   /** Modal Dialog Changed Event */
-  public static readonly onModalDialogChangedEvent = new ModalDialogChangedEvent();
+  public static readonly onModalDialogChangedEvent =
+    new ModalDialogChangedEvent();
 
   /** @internal */
-  public static readonly dialogManager: DialogManagerBase = new DialogManagerBase(InternalModalDialogManager.onModalDialogChangedEvent);
+  public static readonly dialogManager: DialogManagerBase =
+    new DialogManagerBase(InternalModalDialogManager.onModalDialogChangedEvent);
 
   /** Get the array of modal dialogs */
-  public static get dialogs() { return InternalModalDialogManager.dialogManager.dialogs; }
+  public static get dialogs() {
+    return InternalModalDialogManager.dialogManager.dialogs;
+  }
 
   /** Open a modal dialog
    * @param dialog The Dialog to open
    * @param id The id of the Dialog. If one is not provided, an id is generated.
    * @param parentDocument The Document used to determine the owning window.
    */
-  public static open(dialog: React.ReactNode, id?: string, parentDocument = document): void {
-    InternalModalDialogManager.dialogManager.openDialog(dialog, id, parentDocument);
+  public static open(
+    dialog: React.ReactNode,
+    id?: string,
+    parentDocument = document
+  ): void {
+    InternalModalDialogManager.dialogManager.openDialog(
+      dialog,
+      id,
+      parentDocument
+    );
   }
 
   /** Close a modal dialog

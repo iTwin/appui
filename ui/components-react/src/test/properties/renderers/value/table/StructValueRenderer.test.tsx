@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
 import { render } from "@testing-library/react";
@@ -15,10 +15,11 @@ describe("StructValueRenderer", () => {
 
     const renderer = render(
       <TableStructValueRenderer
-        onDialogOpen={() => { }}
+        onDialogOpen={() => {}}
         orientation={Orientation.Horizontal}
         propertyRecord={record}
-      />);
+      />
+    );
 
     // Verify that text "{map}" gets rendered. Throws otherwise
     renderer.getByText("{map}");

@@ -1,13 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as faker from "faker";
 import sinon from "sinon";
-import type { Node} from "../../../../components-react/tree/controlled/internal/SparseTree";
-import { SparseArray, SparseTree } from "../../../../components-react/tree/controlled/internal/SparseTree";
-import { createRandomMutableTreeModelNode, createRandomMutableTreeModelNodes } from "../TreeHelpers";
+import type { Node } from "../../../../components-react/tree/controlled/internal/SparseTree";
+import {
+  SparseArray,
+  SparseTree,
+} from "../../../../components-react/tree/controlled/internal/SparseTree";
+import {
+  createRandomMutableTreeModelNode,
+  createRandomMutableTreeModelNodes,
+} from "../TreeHelpers";
 
 describe("SparseTree", () => {
   interface TestNode extends Node {
@@ -22,10 +28,12 @@ describe("SparseTree", () => {
     rootNode = { id: faker.random.uuid() };
   });
 
-  function verifyNodes<T extends Node>(actual: SparseArray<string>, expected: T[]) {
+  function verifyNodes<T extends Node>(
+    actual: SparseArray<string>,
+    expected: T[]
+  ) {
     const actualIds: string[] = [];
-    for (const [item] of actual.iterateValues())
-      actualIds.push(item);
+    for (const [item] of actual.iterateValues()) actualIds.push(item);
 
     const expectedIds = expected.map((node) => node.id);
     expect(actualIds).to.deep.eq(expectedIds);
@@ -92,9 +100,15 @@ describe("SparseTree", () => {
       it("sets second array of child nodes", () => {
         sparseTree.setNumChildren(rootNode.id, firstChildrenPage.length);
         sparseTree.setChildren(rootNode.id, firstChildrenPage, 0);
-        sparseTree.setChildren(rootNode.id, secondChildrenPage, firstChildrenPage.length);
+        sparseTree.setChildren(
+          rootNode.id,
+          secondChildrenPage,
+          firstChildrenPage.length
+        );
         const result = sparseTree.getChildren(rootNode.id)!;
-        expect(result.getLength()).to.be.eq(firstChildrenPage.length + secondChildrenPage.length);
+        expect(result.getLength()).to.be.eq(
+          firstChildrenPage.length + secondChildrenPage.length
+        );
         verifyNodes(result, [...firstChildrenPage, ...secondChildrenPage]);
       });
 
@@ -149,17 +163,26 @@ describe("SparseTree", () => {
     });
 
     it("does nothing when node with the same id already exists and returns `false`", () => {
-      sparseTree.setChildren(undefined, [{ id: "existingId", data: 1 }, { id: "oldId" }], 0);
+      sparseTree.setChildren(
+        undefined,
+        [{ id: "existingId", data: 1 }, { id: "oldId" }],
+        0
+      );
       const resultStatus = sparseTree.setNodeId(undefined, 1, "existingId");
       expect(resultStatus).to.be.false;
-      verifyNodes(sparseTree.getChildren(undefined)!, [{ id: "existingId", data: 1 }, { id: "oldId" }]);
+      verifyNodes(sparseTree.getChildren(undefined)!, [
+        { id: "existingId", data: 1 },
+        { id: "oldId" },
+      ]);
     });
 
     it("does nothing if the new id matches current", () => {
       sparseTree.setChildren(undefined, [{ id: "existingId", data: 1 }], 0);
       const resultStatus = sparseTree.setNodeId(undefined, 0, "existingId");
       expect(resultStatus).to.be.true;
-      verifyNodes(sparseTree.getChildren(undefined)!, [{ id: "existingId", data: 1 }]);
+      verifyNodes(sparseTree.getChildren(undefined)!, [
+        { id: "existingId", data: 1 },
+      ]);
     });
 
     it("changes node id", () => {
@@ -167,7 +190,9 @@ describe("SparseTree", () => {
       const resultStatus = sparseTree.setNodeId(undefined, 0, "newId");
       expect(resultStatus).to.be.true;
       expect(sparseTree.getNode("oldId")).to.be.undefined;
-      verifyNodes(sparseTree.getChildren(undefined)!, [{ id: "newId", data: 1 }]);
+      verifyNodes(sparseTree.getChildren(undefined)!, [
+        { id: "newId", data: 1 },
+      ]);
     });
 
     it("updates hierarchy with new id", () => {
@@ -194,51 +219,86 @@ describe("SparseTree", () => {
     describe("when moving node inside another", () => {
       it("moves root node", () => {
         sparseTree.moveNode(undefined, "root1", "root2", 0);
-        expect([...sparseTree.getChildren(undefined)!]).to.be.deep.equal(["root2"]);
-        expect([...sparseTree.getChildren("root2")!]).to.be.deep.equal(["root1"]);
-        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal(["child1", "child2"]);
+        expect([...sparseTree.getChildren(undefined)!]).to.be.deep.equal([
+          "root2",
+        ]);
+        expect([...sparseTree.getChildren("root2")!]).to.be.deep.equal([
+          "root1",
+        ]);
+        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal([
+          "child1",
+          "child2",
+        ]);
       });
 
       it("moves non-root node", () => {
         sparseTree.moveNode("root1", "child1", "child2", 0);
-        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal(["child2"]);
-        expect([...sparseTree.getChildren("child2")!]).to.be.deep.equal(["child1"]);
+        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal([
+          "child2",
+        ]);
+        expect([...sparseTree.getChildren("child2")!]).to.be.deep.equal([
+          "child1",
+        ]);
       });
     });
 
     describe("when moving node into hierarchy root", () => {
       it("moves root node", () => {
         sparseTree.moveNode(undefined, "root1", undefined, 2);
-        expect([...sparseTree.getChildren(undefined)!]).to.be.deep.equal(["root2", "root1"]);
-        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal(["child1", "child2"]);
+        expect([...sparseTree.getChildren(undefined)!]).to.be.deep.equal([
+          "root2",
+          "root1",
+        ]);
+        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal([
+          "child1",
+          "child2",
+        ]);
       });
 
       it("moves non-root node", () => {
         sparseTree.moveNode("root1", "child1", undefined, 1);
-        expect([...sparseTree.getChildren(undefined)!]).to.be.deep.equal(["root1", "child1", "root2"]);
-        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal(["child2"]);
+        expect([...sparseTree.getChildren(undefined)!]).to.be.deep.equal([
+          "root1",
+          "child1",
+          "root2",
+        ]);
+        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal([
+          "child2",
+        ]);
       });
     });
 
     describe("when moving node among siblings", () => {
       it("does nothing when target position is same as source", () => {
         sparseTree.moveNode("root1", "child1", "root1", 0);
-        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal(["child1", "child2"]);
+        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal([
+          "child1",
+          "child2",
+        ]);
       });
 
       it("does nothing when target position is just past source node", () => {
         sparseTree.moveNode("root1", "child1", "root1", 1);
-        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal(["child1", "child2"]);
+        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal([
+          "child1",
+          "child2",
+        ]);
       });
 
       it("moves node into correct position towards beginning", () => {
         sparseTree.moveNode("root1", "child2", "root1", 0);
-        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal(["child2", "child1"]);
+        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal([
+          "child2",
+          "child1",
+        ]);
       });
 
       it("moves node into correct position towards ending", () => {
         sparseTree.moveNode("root1", "child1", "root1", 2);
-        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal(["child2", "child1"]);
+        expect([...sparseTree.getChildren("root1")!]).to.be.deep.equal([
+          "child2",
+          "child1",
+        ]);
       });
     });
   });
@@ -410,7 +470,13 @@ describe("SparseArray", () => {
 
   beforeEach(() => {
     sparseArray = new SparseArray<number>();
-    testItems = [{ index: faker.random.number(5), value: faker.random.number() }, { index: faker.random.number({ min: 5, max: 10 }), value: faker.random.number() }];
+    testItems = [
+      { index: faker.random.number(5), value: faker.random.number() },
+      {
+        index: faker.random.number({ min: 5, max: 10 }),
+        value: faker.random.number(),
+      },
+    ];
   });
 
   describe("getLength", () => {
@@ -619,12 +685,10 @@ describe("SparseArray", () => {
 
       let current = 0;
       for (const item of sparseArray) {
-        if (current === firstItem.index)
-          expect(item).to.be.eq(firstItem.value);
+        if (current === firstItem.index) expect(item).to.be.eq(firstItem.value);
         else if (current === secondItem.index)
           expect(item).to.be.eq(secondItem.value);
-        else
-          expect(item).to.be.undefined;
+        else expect(item).to.be.undefined;
 
         current++;
       }

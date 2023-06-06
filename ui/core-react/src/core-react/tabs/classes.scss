@@ -1,7 +1,9 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "./index";
 
-.uicore-tabs-vertical   { @include uicore-tabs-vertical; }
+.uicore-tabs-vertical {
+  @include uicore-tabs-vertical;
+}

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -31,11 +31,21 @@ import { asapScheduler } from "rxjs/internal/scheduler/asap";
 import type { CheckBoxState } from "@itwin/core-react";
 import type { SelectionMode } from "../../common/selection/SelectionModes";
 import type { TreeNodeItem } from "../TreeDataProvider";
-import type { IndividualSelection, RangeSelection} from "./internal/TreeSelectionManager";
-import { isRangeSelection, TreeSelectionManager } from "./internal/TreeSelectionManager";
+import type {
+  IndividualSelection,
+  RangeSelection,
+} from "./internal/TreeSelectionManager";
+import {
+  isRangeSelection,
+  TreeSelectionManager,
+} from "./internal/TreeSelectionManager";
 import type { TreeActions } from "./TreeActions";
 import type { TreeEvents } from "./TreeEvents";
-import type { TreeModelNode, TreeModelNodePlaceholder, VisibleTreeNodes } from "./TreeModel";
+import type {
+  TreeModelNode,
+  TreeModelNodePlaceholder,
+  VisibleTreeNodes,
+} from "./TreeModel";
 import { isTreeModelNode } from "./TreeModel";
 import type { ITreeNodeLoader } from "./TreeNodeLoader";
 
@@ -51,81 +61,95 @@ export class TreeEventDispatcher implements TreeActions {
 
   private _selectionManager: TreeSelectionManager;
 
-  private _activeSelections = new Set<Observable<{ selectedNodeItems: TreeNodeItem[], deselectedNodeItems?: TreeNodeItem[] }>>();
+  private _activeSelections = new Set<
+    Observable<{
+      selectedNodeItems: TreeNodeItem[];
+      deselectedNodeItems?: TreeNodeItem[];
+    }>
+  >();
 
   constructor(
     treeEvents: TreeEvents,
     nodeLoader: ITreeNodeLoader,
     selectionMode: SelectionMode,
-    getVisibleNodes?: () => VisibleTreeNodes,
+    getVisibleNodes?: () => VisibleTreeNodes
   ) {
     this._treeEvents = treeEvents;
     this._nodeLoader = nodeLoader;
     this._getVisibleNodes = getVisibleNodes;
 
-    this._selectionManager = new TreeSelectionManager(selectionMode, this._getVisibleNodes);
+    this._selectionManager = new TreeSelectionManager(
+      selectionMode,
+      this._getVisibleNodes
+    );
 
-    this._selectionManager.onDragSelection.addListener(({ selectionChanges }) => {
-      const modifications = from(selectionChanges)
-        .pipe(
-          map(({ selectedNodes, deselectedNodes }) => from(this.collectSelectionChanges(selectedNodes, []))
-            .pipe(
+    this._selectionManager.onDragSelection.addListener(
+      ({ selectionChanges }) => {
+        const modifications = from(selectionChanges).pipe(
+          map(({ selectedNodes, deselectedNodes }) =>
+            from(this.collectSelectionChanges(selectedNodes, [])).pipe(
               concatMap(({ selectedNodeItems }) => from(selectedNodeItems)),
               toArray(),
-              map((collectedIds) => ({ selectedNodeItems: collectedIds, deselectedNodeItems: this.collectNodeItems(deselectedNodes) })),
-            ),
+              map((collectedIds) => ({
+                selectedNodeItems: collectedIds,
+                deselectedNodeItems: this.collectNodeItems(deselectedNodes),
+              }))
+            )
           ),
           concatAll(),
           publishReplay(),
-          refCount(),
+          refCount()
         );
 
-      /* istanbul ignore else */
-      if (this._treeEvents.onSelectionModified !== undefined)
-        this._treeEvents.onSelectionModified({ modifications });
-    });
+        /* istanbul ignore else */
+        if (this._treeEvents.onSelectionModified !== undefined)
+          this._treeEvents.onSelectionModified({ modifications });
+      }
+    );
 
-    this._selectionManager.onSelectionChanged.addListener(({ selectedNodes, deselectedNodes }) => {
-      const modifications = merge(
-        defer(() => {
-          this._activeSelections.add(modifications);
-          return EMPTY;
-        }),
-        this.collectSelectionChanges(selectedNodes, deselectedNodes),
-      )
-        .pipe(
+    this._selectionManager.onSelectionChanged.addListener(
+      ({ selectedNodes, deselectedNodes }) => {
+        const modifications = merge(
+          defer(() => {
+            this._activeSelections.add(modifications);
+            return EMPTY;
+          }),
+          this.collectSelectionChanges(selectedNodes, deselectedNodes)
+        ).pipe(
           finalize(() => {
             this._activeSelections.delete(modifications);
           }),
           publishReplay(),
-          refCount(),
+          refCount()
         );
 
-      /* istanbul ignore else */
-      if (this._treeEvents.onSelectionModified !== undefined)
-        this._treeEvents.onSelectionModified({ modifications });
-    });
+        /* istanbul ignore else */
+        if (this._treeEvents.onSelectionModified !== undefined)
+          this._treeEvents.onSelectionModified({ modifications });
+      }
+    );
 
-    this._selectionManager.onSelectionReplaced.addListener(({ selectedNodeIds }) => {
-      const replacements = merge(
-        defer(() => {
-          this._activeSelections.add(replacements);
-          return EMPTY;
-        }),
-        this.collectSelectionChanges(selectedNodeIds, []),
-      )
-        .pipe(
+    this._selectionManager.onSelectionReplaced.addListener(
+      ({ selectedNodeIds }) => {
+        const replacements = merge(
+          defer(() => {
+            this._activeSelections.add(replacements);
+            return EMPTY;
+          }),
+          this.collectSelectionChanges(selectedNodeIds, [])
+        ).pipe(
           finalize(() => {
             this._activeSelections.delete(replacements);
           }),
           publishReplay(),
-          refCount(),
+          refCount()
         );
 
-      /* istanbul ignore else */
-      if (this._treeEvents.onSelectionReplaced !== undefined)
-        this._treeEvents.onSelectionReplaced({ replacements });
-    });
+        /* istanbul ignore else */
+        if (this._treeEvents.onSelectionReplaced !== undefined)
+          this._treeEvents.onSelectionReplaced({ replacements });
+      }
+    );
   }
 
   public setVisibleNodes(visibleNodes: () => VisibleTreeNodes) {
@@ -134,18 +158,21 @@ export class TreeEventDispatcher implements TreeActions {
   }
 
   public onNodeCheckboxClicked(nodeId: string, newState: CheckBoxState) {
-    if (this._getVisibleNodes === undefined)
-      return;
+    if (this._getVisibleNodes === undefined) return;
 
     const visibleNodes = this._getVisibleNodes();
     const clickedNode = visibleNodes.getModel().getNode(nodeId);
-    if (clickedNode === undefined)
-      return;
+    if (clickedNode === undefined) return;
 
     const immediateStateChanges = [{ nodeItem: clickedNode.item, newState }];
     if (clickedNode.isSelected) {
       for (const node of visibleNodes) {
-        if (isTreeModelNode(node) && node.id !== clickedNode.id && node.isSelected && node.checkbox.state !== newState) {
+        if (
+          isTreeModelNode(node) &&
+          node.id !== clickedNode.id &&
+          node.isSelected &&
+          node.checkbox.state !== newState
+        ) {
           immediateStateChanges.push({ nodeItem: node.item, newState });
         }
       }
@@ -153,16 +180,13 @@ export class TreeEventDispatcher implements TreeActions {
 
     const stateChanges = concat(
       of(immediateStateChanges),
-      from(this._activeSelections)
-        .pipe(
-          mergeAll(),
-          map(({ selectedNodeItems }) => selectedNodeItems.map((item) => ({ nodeItem: item, newState }))),
-        ),
-    )
-      .pipe(
-        publishReplay(),
-        refCount(),
-      );
+      from(this._activeSelections).pipe(
+        mergeAll(),
+        map(({ selectedNodeItems }) =>
+          selectedNodeItems.map((item) => ({ nodeItem: item, newState }))
+        )
+      )
+    ).pipe(publishReplay(), refCount());
 
     /* istanbul ignore else */
     if (this._treeEvents.onCheckboxStateChanged !== undefined)
@@ -181,8 +205,13 @@ export class TreeEventDispatcher implements TreeActions {
       this._treeEvents.onNodeCollapsed({ nodeId });
   }
 
-  public onNodeClicked(nodeId: string, event: React.MouseEvent<Element, MouseEvent>) {
-    const node = this._getVisibleNodes ? this._getVisibleNodes().getModel().getNode(nodeId) : undefined;
+  public onNodeClicked(
+    nodeId: string,
+    event: React.MouseEvent<Element, MouseEvent>
+  ) {
+    const node = this._getVisibleNodes
+      ? this._getVisibleNodes().getModel().getNode(nodeId)
+      : undefined;
     const isNodeSelected = node ? node.isSelected : false;
     this._selectionManager.onNodeClicked(nodeId, event);
 
@@ -201,11 +230,16 @@ export class TreeEventDispatcher implements TreeActions {
   }
 
   public onNodeEditorActivated(nodeId: string) {
-    const node = this._getVisibleNodes ? this._getVisibleNodes().getModel().getNode(nodeId) : /* istanbul ignore next */ undefined;
+    const node = this._getVisibleNodes
+      ? this._getVisibleNodes().getModel().getNode(nodeId)
+      : /* istanbul ignore next */ undefined;
     const isNodeSelected = node ? node.isSelected : false;
 
     // if node was already selected, fire onNodeEditorActivated event
-    if (isNodeSelected && this._treeEvents.onNodeEditorActivated !== undefined) {
+    if (
+      isNodeSelected &&
+      this._treeEvents.onNodeEditorActivated !== undefined
+    ) {
       this._treeEvents.onNodeEditorActivated({ nodeId });
     }
   }
@@ -220,56 +254,86 @@ export class TreeEventDispatcher implements TreeActions {
 
   private collectSelectionChanges(
     selection: IndividualSelection | RangeSelection,
-    deselection: IndividualSelection,
-  ): Observable<{ selectedNodeItems: TreeNodeItem[], deselectedNodeItems: TreeNodeItem[] }> {
+    deselection: IndividualSelection
+  ): Observable<{
+    selectedNodeItems: TreeNodeItem[];
+    deselectedNodeItems: TreeNodeItem[];
+  }> {
     const deselectedItems = this.collectNodeItems(deselection);
     if (isRangeSelection(selection)) {
       return zip(
-        this.collectNodesBetween(selection.from, selection.to).pipe(defaultIfEmpty([] as TreeNodeItem[])),
+        this.collectNodesBetween(selection.from, selection.to).pipe(
+          defaultIfEmpty([] as TreeNodeItem[])
+        ),
         // Without a scheduler `generate` would block the main thread indefinitely
-        generate({ initialState: deselectedItems, iterate: () => [], scheduler: asapScheduler }),
-      ).pipe(map(([selectedNodeItems, deselectedNodeItems]) => ({ selectedNodeItems, deselectedNodeItems })));
+        generate({
+          initialState: deselectedItems,
+          iterate: () => [],
+          scheduler: asapScheduler,
+        })
+      ).pipe(
+        map(([selectedNodeItems, deselectedNodeItems]) => ({
+          selectedNodeItems,
+          deselectedNodeItems,
+        }))
+      );
     }
 
     const selectedItems = this.collectNodeItems(selection);
-    return of({ selectedNodeItems: selectedItems, deselectedNodeItems: deselectedItems });
+    return of({
+      selectedNodeItems: selectedItems,
+      deselectedNodeItems: deselectedItems,
+    });
   }
 
-  private collectNodesBetween(nodeId1: string, nodeId2: string): Observable<TreeNodeItem[]> {
-    const [readyNodes, nodesToLoad] = TreeEventDispatcher.groupNodesByLoadingState(
-      this.iterateNodesBetween(nodeId1, nodeId2),
-    );
+  private collectNodesBetween(
+    nodeId1: string,
+    nodeId2: string
+  ): Observable<TreeNodeItem[]> {
+    const [readyNodes, nodesToLoad] =
+      TreeEventDispatcher.groupNodesByLoadingState(
+        this.iterateNodesBetween(nodeId1, nodeId2)
+      );
 
     const loadedSelectedNodes = from(
       nodesToLoad.map((node) => {
         const parentNode = node.parentId
           ? this._getVisibleNodes!().getModel().getNode(node.parentId)
           : this._getVisibleNodes!().getModel().getRootNode();
-        return parentNode ? this._nodeLoader.loadNode(parentNode, node.childIndex) : /* istanbul ignore next */ EMPTY;
-      }),
-    )
-      .pipe(
-        // We have requested multiple nodes that may belong to the same page.
-        // When the page loads we only want to process the loaded nodes once.
-        // Making assumption that loaded nodes from the same page will be emitted without interruptions.
-        // Maybe we could simplify this to `this._nodeLoader.loadNodes(nodesToLoad)`?
-        mergeAll(),
-        distinctUntilChanged(),
-      );
+        return parentNode
+          ? this._nodeLoader.loadNode(parentNode, node.childIndex)
+          : /* istanbul ignore next */ EMPTY;
+      })
+    ).pipe(
+      // We have requested multiple nodes that may belong to the same page.
+      // When the page loads we only want to process the loaded nodes once.
+      // Making assumption that loaded nodes from the same page will be emitted without interruptions.
+      // Maybe we could simplify this to `this._nodeLoader.loadNodes(nodesToLoad)`?
+      mergeAll(),
+      distinctUntilChanged()
+    );
 
     return concat(
-      of(readyNodes.filter((node) => !node.isSelectionDisabled).map((node) => node.item)),
-      loadedSelectedNodes.pipe(map(({ loadedNodes }) => loadedNodes.filter((item) => !item.isSelectionDisabled))),
+      of(
+        readyNodes
+          .filter((node) => !node.isSelectionDisabled)
+          .map((node) => node.item)
+      ),
+      loadedSelectedNodes.pipe(
+        map(({ loadedNodes }) =>
+          loadedNodes.filter((item) => !item.isSelectionDisabled)
+        )
+      )
     ).pipe(
       filter((nodeItems) => nodeItems.length > 0),
       // Give enough time for multiple subscribers to subscribe before any emissions begin
-      subscribeOn(asapScheduler),
+      subscribeOn(asapScheduler)
     );
   }
 
   private *iterateNodesBetween(
     nodeId1: string,
-    nodeId2: string,
+    nodeId2: string
   ): Iterable<TreeModelNode | TreeModelNodePlaceholder> {
     let firstNodeFound = false;
     if (this._getVisibleNodes === undefined) {
@@ -316,7 +380,7 @@ export class TreeEventDispatcher implements TreeActions {
   }
 
   private static groupNodesByLoadingState(
-    nodes: Iterable<TreeModelNode | TreeModelNodePlaceholder>,
+    nodes: Iterable<TreeModelNode | TreeModelNodePlaceholder>
   ): [TreeModelNode[], TreeModelNodePlaceholder[]] {
     const loadedNodeItems: TreeModelNode[] = [];
     const nodesToLoad: TreeModelNodePlaceholder[] = [];

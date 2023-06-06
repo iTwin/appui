@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -31,7 +31,10 @@ export function ScrollableWidgetContent(props: ScrollableWidgetContentProps) {
   const onSave = React.useCallback(() => {
     // istanbul ignore else
     if (!!ref.current)
-      scrollPosition.current = new Point(ref.current.scrollLeft, ref.current.scrollTop);
+      scrollPosition.current = new Point(
+        ref.current.scrollLeft,
+        ref.current.scrollTop
+      );
   }, []);
   const onRestore = React.useCallback(() => {
     assert(!!ref.current);

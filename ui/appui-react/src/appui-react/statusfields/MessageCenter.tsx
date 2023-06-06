@@ -1,19 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Notification
  */
 
 import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
-import { FooterPopup, MessageCenter, MessageCenterDialog, MessageCenterMessage, MessageCenterTab } from "@itwin/appui-layout-react";
+import {
+  FooterPopup,
+  MessageCenter,
+  MessageCenterDialog,
+  MessageCenterMessage,
+  MessageCenterTab,
+} from "@itwin/appui-layout-react";
 import { MessageManager } from "../messages/MessageManager";
 import { MessageSpan } from "../messages/MessageSpan";
 import type { NotifyMessageDetailsType } from "../messages/ReactNotifyMessageDetails";
 import { UiFramework } from "../UiFramework";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import classnames from "classnames";
 
@@ -38,7 +44,10 @@ interface MessageCenterState {
 /** Message Center Field React component.
  * @public
  */
-export class MessageCenterField extends React.Component<CommonProps, MessageCenterState> {
+export class MessageCenterField extends React.Component<
+  CommonProps,
+  MessageCenterState
+> {
   private _indicator = React.createRef<HTMLDivElement>();
   private _title = UiFramework.translate("messageCenter.messages");
   private _unloadMessagesUpdatedHandler?: () => void;
@@ -57,8 +66,16 @@ export class MessageCenterField extends React.Component<CommonProps, MessageCent
 
   /** @internal */
   public override componentDidMount() {
-    this._unloadMessagesUpdatedHandler = MessageManager.onMessagesUpdatedEvent.addListener(this._handleMessagesUpdatedEvent, this);
-    this._removeOpenMessagesCenterHandler = MessageManager.onOpenMessageCenterEvent.addListener(this._handleOpenMessageCenterEvent, this);
+    this._unloadMessagesUpdatedHandler =
+      MessageManager.onMessagesUpdatedEvent.addListener(
+        this._handleMessagesUpdatedEvent,
+        this
+      );
+    this._removeOpenMessagesCenterHandler =
+      MessageManager.onOpenMessageCenterEvent.addListener(
+        this._handleOpenMessageCenterEvent,
+        this
+      );
     MessageManager.registerAnimateOutToElement(this._indicator.current);
   }
 
@@ -91,11 +108,7 @@ export class MessageCenterField extends React.Component<CommonProps, MessageCent
     const divStyle = { ...this.props.style, height: "100%" };
     const footerMessages = (
       <>
-        <div
-          className={this.props.className}
-          style={divStyle}
-          title={tooltip}
-        >
+        <div className={this.props.className} style={divStyle} title={tooltip}>
           <MessageCenter
             indicatorRef={this._indicator}
             label={this._title}
@@ -115,14 +128,22 @@ export class MessageCenterField extends React.Component<CommonProps, MessageCent
             tabs={
               <>
                 <MessageCenterTab
-                  isActive={this.state.activeTab === MessageCenterActiveTab.AllMessages}
-                  onClick={() => this._changeActiveTab(MessageCenterActiveTab.AllMessages)}
+                  isActive={
+                    this.state.activeTab === MessageCenterActiveTab.AllMessages
+                  }
+                  onClick={() =>
+                    this._changeActiveTab(MessageCenterActiveTab.AllMessages)
+                  }
                 >
                   {UiFramework.translate("messageCenter.all")}
                 </MessageCenterTab>
                 <MessageCenterTab
-                  isActive={this.state.activeTab === MessageCenterActiveTab.Problems}
-                  onClick={() => this._changeActiveTab(MessageCenterActiveTab.Problems)}
+                  isActive={
+                    this.state.activeTab === MessageCenterActiveTab.Problems
+                  }
+                  onClick={() =>
+                    this._changeActiveTab(MessageCenterActiveTab.Problems)
+                  }
                 >
                   {UiFramework.translate("messageCenter.errors")}
                 </MessageCenterTab>
@@ -144,9 +165,11 @@ export class MessageCenterField extends React.Component<CommonProps, MessageCent
   };
 
   private _handleOutsideClick = (e: MouseEvent) => {
-    if (!this._indicator.current ||
+    if (
+      !this._indicator.current ||
       !(e.target instanceof Node) ||
-      this._indicator.current.contains(e.target))
+      this._indicator.current.contains(e.target)
+    )
       return;
 
     this._handleClose();
@@ -166,8 +189,10 @@ export class MessageCenterField extends React.Component<CommonProps, MessageCent
 
     messages.forEach((details: NotifyMessageDetailsType, index: number) => {
       /* istanbul ignore else */
-      if (this.state.activeTab === MessageCenterActiveTab.AllMessages || this.isProblemStatus(details.priority)) {
-
+      if (
+        this.state.activeTab === MessageCenterActiveTab.AllMessages ||
+        this.isProblemStatus(details.priority)
+      ) {
         const iconClassName = classnames("icon", "notifymessage-icon");
         const iconSpec = MessageManager.getIconSpecFromDetails(details);
         const message = details.briefMessage;
@@ -178,13 +203,16 @@ export class MessageCenterField extends React.Component<CommonProps, MessageCent
             icon={<Icon iconSpec={iconSpec} className={iconClassName} />}
           >
             <MessageSpan message={message} />
-            {details.detailedMessage &&
+            {details.detailedMessage && (
               <>
                 <br />
-                <MessageSpan className="iui-text-small" message={details.detailedMessage} />
+                <MessageSpan
+                  className="iui-text-small"
+                  message={details.detailedMessage}
+                />
               </>
-            }
-          </MessageCenterMessage>,
+            )}
+          </MessageCenterMessage>
         );
       }
     });
@@ -195,13 +223,16 @@ export class MessageCenterField extends React.Component<CommonProps, MessageCent
   private isProblemStatus(priority: OutputMessagePriority): boolean {
     // See priority values in DgnPlatform defined in NotificationManager
 
-    if (priority === OutputMessagePriority.Error || priority === OutputMessagePriority.Fatal)
+    if (
+      priority === OutputMessagePriority.Error ||
+      priority === OutputMessagePriority.Fatal
+    )
       return true;
 
     return false;
   }
 
   private setIsOpen(isOpen: boolean) {
-    this.setState({isOpen});
+    this.setState({ isOpen });
   }
 }

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { BadgeType } from "@itwin/appui-abstract";
 import { CommandItemDef, GroupItemDef } from "../../appui-react";
@@ -53,7 +53,9 @@ describe("GroupItem", () => {
         items: [tool1, tool2],
       });
 
-      expect(groupItemDef.id.substring(0, GroupItemDef.groupIdPrefix.length)).to.eq(GroupItemDef.groupIdPrefix);
+      expect(
+        groupItemDef.id.substring(0, GroupItemDef.groupIdPrefix.length)
+      ).to.eq(GroupItemDef.groupIdPrefix);
     });
   });
 });

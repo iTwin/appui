@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Favorite
  */
@@ -23,7 +23,6 @@ type CreateRoot = (container: Element | DocumentFragment) => {
  * @public
  */
 export class FavoritePropertiesRenderer {
-
   /**
    * Evaluates if a PropertyData contain Favorite records.
    * @param propertyData PropertyData containing records
@@ -44,9 +43,17 @@ export class FavoritePropertiesRenderer {
    * @param createRoot `createRoot` function imported from `import { createRoot } from "react-dom/client";`
    * @returns a `div` HTMLElement with the `<FavoritePropertyList />` rendered within it.
    */
-  public renderFavorites(propertyData: PropertyData, orientation?: Orientation, createRoot?: CreateRoot): HTMLElement | string {
+  public renderFavorites(
+    propertyData: PropertyData,
+    orientation?: Orientation,
+    createRoot?: CreateRoot
+  ): HTMLElement | string {
     const div = document.createElement("div");
-    const element = React.createElement(FavoritePropertyList, { propertyData, orientation }, null);
+    const element = React.createElement(
+      FavoritePropertyList,
+      { propertyData, orientation },
+      null
+    );
     if (createRoot) {
       createRoot(div).render(element);
     } else {

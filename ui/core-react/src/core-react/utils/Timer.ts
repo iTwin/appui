@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -48,8 +48,7 @@ export class Timer {
 
   /** Starts this Timer. */
   public start() {
-    if (this._isRunning)
-      this.clearTimeout();
+    if (this._isRunning) this.clearTimeout();
 
     this._isRunning = true;
     this.setTimeout();
@@ -57,8 +56,7 @@ export class Timer {
 
   /** Stops this Timer. */
   public stop() {
-    if (!this._isRunning)
-      return;
+    if (!this._isRunning) return;
 
     this._isRunning = false;
     this.clearTimeout();

@@ -4,7 +4,7 @@ Copyright © Bentley Systems, Incorporated. All rights reserved. See LICENSE.md 
 
 ## Description
 
-The __@itwin/imodel-components-react__ package contains React components that depend on the @itwin/core-frontend, @itwin/core-common or @itwin/core-quantity packages.
+The **@itwin/imodel-components-react** package contains React components that depend on the @itwin/core-frontend, @itwin/core-common or @itwin/core-quantity packages.
 
 ## Documentation
 

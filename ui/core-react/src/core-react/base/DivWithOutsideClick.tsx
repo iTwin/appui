@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -13,4 +13,6 @@ import type { CommonDivProps } from "../utils/Props";
 /** Div element with Outside Click behavior
  * @public
  */
-export const DivWithOutsideClick = withOnOutsideClick((props: CommonDivProps) => (<div {...props} />)); // eslint-disable-line @typescript-eslint/naming-convention
+export const DivWithOutsideClick = withOnOutsideClick(
+  (props: CommonDivProps) => <div {...props} />
+);

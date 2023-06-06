@@ -13,9 +13,7 @@
               "classes": [
                 {
                   "schemaName": "BisCore",
-                  "classNames": [
-                    "SpatialCategory"
-                  ]
+                  "classNames": ["SpatialCategory"]
                 }
               ],
               "arePolymorphic": true,
@@ -33,9 +31,7 @@
               "classes": [
                 {
                   "schemaName": "BisCore",
-                  "classNames": [
-                    "DrawingCategory"
-                  ]
+                  "classNames": ["DrawingCategory"]
                 }
               ],
               "arePolymorphic": true,

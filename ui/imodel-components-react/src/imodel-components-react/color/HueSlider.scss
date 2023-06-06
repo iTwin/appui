@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 .components-hue-pointer {
   position: absolute;
   width: 1.2em;
@@ -17,7 +17,7 @@
 
 .components-hue-container-horizontal {
   width: 100%;
-  height: .5em;
+  height: 0.5em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,18 +27,27 @@
     width: 100%;
     height: 100%;
     border-radius: 1em;
-    background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+    background: linear-gradient(
+      to right,
+      #f00 0%,
+      #ff0 17%,
+      #0f0 33%,
+      #0ff 50%,
+      #00f 67%,
+      #f0f 83%,
+      #f00 100%
+    );
   }
 
   .components-hue-pointer {
-    transform: translate(-.6em, -.45em);
+    transform: translate(-0.6em, -0.45em);
     cursor: pointer;
     border: 1px solid #fff;
   }
 }
 
 .components-hue-container-vertical {
-  width: .5em;
+  width: 0.5em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,12 +58,20 @@
     width: 100%;
     height: 100%;
     border-radius: 1em;
-    background: linear-gradient(to top, #f00 0%, #ff0 17%, #0f0 33%,
-      #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+    background: linear-gradient(
+      to top,
+      #f00 0%,
+      #ff0 17%,
+      #0f0 33%,
+      #0ff 50%,
+      #00f 67%,
+      #f0f 83%,
+      #f00 100%
+    );
   }
 
   .components-hue-pointer {
-    transform: translate(-.45em, -.6em);
+    transform: translate(-0.45em, -0.6em);
     cursor: pointer;
     border: 1px solid #fff;
   }

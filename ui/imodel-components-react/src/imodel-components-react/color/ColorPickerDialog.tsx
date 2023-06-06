@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Color
  */
@@ -12,7 +12,13 @@ import * as React from "react";
 import { DialogButtonType } from "@itwin/appui-abstract";
 import { Dialog } from "@itwin/core-react";
 import { ColorDef } from "@itwin/core-common";
-import { ColorBuilder, ColorInputPanel, ColorPalette, ColorPicker, ColorValue } from "@itwin/itwinui-react";
+import {
+  ColorBuilder,
+  ColorInputPanel,
+  ColorPalette,
+  ColorPicker,
+  ColorValue,
+} from "@itwin/itwinui-react";
 
 /** Properties for the [[ColorPickerDialog]] React component
  * @beta
@@ -32,7 +38,14 @@ export interface ColorPickerDialogProps {
  * Color Picker Dialog to use as modal dialog.
  * @beta
  */
-export function ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType }: ColorPickerDialogProps) {
+export function ColorPickerDialog({
+  dialogTitle,
+  color,
+  onOkResult,
+  onCancelResult,
+  colorPresets,
+  colorInputType,
+}: ColorPickerDialogProps) {
   const [activeColor, setActiveColor] = React.useState(color);
   const dialogContainer = React.useRef<HTMLDivElement>(null);
 
@@ -41,8 +54,7 @@ export function ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResu
   }, [onOkResult, activeColor]);
   const handleCancel = React.useCallback(() => {
     // istanbul ignore else
-    if (onCancelResult)
-      onCancelResult();
+    if (onCancelResult) onCancelResult();
   }, [onCancelResult]);
 
   const handleColorChanged = React.useCallback((newColorValue: ColorValue) => {
@@ -50,10 +62,13 @@ export function ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResu
     setActiveColor(newColorDef);
   }, []);
 
-  const buttonCluster = React.useMemo(() => [
-    { type: DialogButtonType.OK, onClick: handleOk },
-    { type: DialogButtonType.Cancel, onClick: handleCancel },
-  ], [handleCancel, handleOk]);
+  const buttonCluster = React.useMemo(
+    () => [
+      { type: DialogButtonType.OK, onClick: handleOk },
+      { type: DialogButtonType.Cancel, onClick: handleCancel },
+    ],
+    [handleCancel, handleOk]
+  );
 
   const colorOptions = React.useMemo(() => {
     if (colorPresets) {
@@ -75,14 +90,17 @@ export function ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResu
         onEscape={handleCancel}
         maxWidth={320}
       >
-        <ColorPicker selectedColor={ColorValue.fromTbgr(activeColor.tbgr)} onChangeComplete={handleColorChanged} >
+        <ColorPicker
+          selectedColor={ColorValue.fromTbgr(activeColor.tbgr)}
+          onChangeComplete={handleColorChanged}
+        >
           <ColorBuilder />
-          {colorInputType &&
-            <ColorInputPanel defaultColorFormat={colorInputType} />}
-          {colorOptions &&
-            <ColorPalette colors={colorOptions} />}
+          {colorInputType && (
+            <ColorInputPanel defaultColorFormat={colorInputType} />
+          )}
+          {colorOptions && <ColorPalette colors={colorOptions} />}
         </ColorPicker>
       </Dialog>
-    </div >
+    </div>
   );
 }

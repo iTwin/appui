@@ -1,10 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { toExpression, toExpressionName, useCallExpression } from "../CallExpression";
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import {
+  toExpression,
+  toExpressionName,
+  useCallExpression,
+} from "../CallExpression";
 import { findRootIdentifiers } from "../ImportSpecifier";
-import { createApplyCollectionTransform, createDefineInlineCollectionTest } from "../TestUtils";
+import {
+  createApplyCollectionTransform,
+  createDefineInlineCollectionTest,
+} from "../TestUtils";
 
 const applyTransform = createApplyCollectionTransform((j) => {
   useCallExpression(j);
@@ -17,16 +24,31 @@ const defineInlineTest = createDefineInlineCollectionTest((j) => {
 describe("CallExpression", () => {
   describe("toExpressionName", () => {
     it("member expressions", () => {
-      applyTransform(
-        `x.y.z;`,
-        (j, root) => {
-          expect(toExpressionName(root.find(j.MemberExpression, { property: { name: "y" } }).nodes()[0])).toBe("x.y");
-          expect(toExpressionName(root.find(j.MemberExpression, { property: { name: "z" } }).nodes()[0])).toBe("x.y.z");
-          expect(toExpressionName(root.find(j.Identifier, { name: "x" }).nodes()[0])).toBe("x");
-          expect(toExpressionName(root.find(j.Identifier, { name: "y" }).nodes()[0])).toBe("y");
-          expect(toExpressionName(root.find(j.Identifier, { name: "z" }).nodes()[0])).toBe("z");
-        }
-      );
+      applyTransform(`x.y.z;`, (j, root) => {
+        expect(
+          toExpressionName(
+            root
+              .find(j.MemberExpression, { property: { name: "y" } })
+              .nodes()[0]
+          )
+        ).toBe("x.y");
+        expect(
+          toExpressionName(
+            root
+              .find(j.MemberExpression, { property: { name: "z" } })
+              .nodes()[0]
+          )
+        ).toBe("x.y.z");
+        expect(
+          toExpressionName(root.find(j.Identifier, { name: "x" }).nodes()[0])
+        ).toBe("x");
+        expect(
+          toExpressionName(root.find(j.Identifier, { name: "y" }).nodes()[0])
+        ).toBe("y");
+        expect(
+          toExpressionName(root.find(j.Identifier, { name: "z" }).nodes()[0])
+        ).toBe("z");
+      });
     });
   });
 
@@ -41,7 +63,7 @@ describe("CallExpression", () => {
           const expressions = root.findCallExpressions("A");
           expect(expressions.size()).toBe(1);
           expect(expressions.getTypes()).toContain("CallExpression");
-        },
+        }
       );
     });
 
@@ -55,7 +77,7 @@ describe("CallExpression", () => {
           const expressions = root.findCallExpressions("A.x");
           expect(expressions.size()).toBe(1);
           expect(expressions.getTypes()).toContain("CallExpression");
-        },
+        }
       );
     });
 
@@ -70,7 +92,7 @@ describe("CallExpression", () => {
           const expressions = root.findCallExpressions("A.x.y");
           expect(expressions.size()).toBe(1);
           expect(expressions.getTypes()).toContain("CallExpression");
-        },
+        }
       );
     });
 
@@ -85,7 +107,7 @@ describe("CallExpression", () => {
           const expressions = root.findCallExpressions("A.x");
           expect(expressions.size()).toBe(2);
           expect(expressions.getTypes()).toContain("CallExpression");
-        },
+        }
       );
     });
 
@@ -98,7 +120,7 @@ describe("CallExpression", () => {
           const expressions = root.findCallExpressions("A.x");
           expect(expressions.size()).toBe(0);
           expect(expressions.getTypes()).toContain("CallExpression");
-        },
+        }
       );
     });
   });

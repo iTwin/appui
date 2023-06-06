@@ -1,9 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { IModelApp, MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
+import {
+  IModelApp,
+  MessageBoxIconType,
+  MessageBoxType,
+} from "@itwin/core-frontend";
 import { ModelessDialog, UiFramework } from "@itwin/appui-react";
 import { Button, ComboBox } from "@itwin/itwinui-react";
 import "./SampleModelessDialog.scss";
@@ -18,7 +22,10 @@ export interface SampleModelessDialogState {
   opened: boolean;
 }
 
-export class SampleModelessDialog extends React.Component<SampleModelessDialogProps, SampleModelessDialogState> {
+export class SampleModelessDialog extends React.Component<
+  SampleModelessDialogProps,
+  SampleModelessDialogState
+> {
   public override readonly state: Readonly<SampleModelessDialogState>;
   private _title = "sample dialog";
 
@@ -41,18 +48,15 @@ export class SampleModelessDialog extends React.Component<SampleModelessDialogPr
         movable={true}
       >
         <div className="sample-options">
-          <div>
-                        To demonstrate messagebox behaviour in modeless dialog
-          </div>
+          <div>To demonstrate messagebox behaviour in modeless dialog</div>
           <ComboBox
             value={"hello"}
             inputProps={{
               placeholder: "localized1 placeholder",
             }}
             // onChange={(value: string) => memoizedOnViewDefinitionSelected(value)}
-            options={
-
-              [{
+            options={[
+              {
                 disabled: false,
                 label: "mm",
                 sublabel: "Millimeter",
@@ -63,22 +67,28 @@ export class SampleModelessDialog extends React.Component<SampleModelessDialogPr
                 label: "cm",
                 sublabel: "Centimeter",
                 value: "CM",
-              }]}
+              },
+            ]}
           />
 
           <div className="sample-grid">
-            <Button styleType="cta" onClick={this._onShowMessageBox}>Show Message box</Button>
-            <Button styleType="cta" onClick={this._handleCancel}>Close</Button>
+            <Button styleType="cta" onClick={this._onShowMessageBox}>
+              Show Message box
+            </Button>
+            <Button styleType="cta" onClick={this._handleCancel}>
+              Close
+            </Button>
           </div>
         </div>
-
-      </ModelessDialog >
+      </ModelessDialog>
     );
   }
   private _onShowMessageBox = async () => {
-    const _result = await IModelApp.notifications.openMessageBox(MessageBoxType.LargeOk,
+    const _result = await IModelApp.notifications.openMessageBox(
+      MessageBoxType.LargeOk,
       "I should be displayed over the Sample Modeless dialog.",
-      MessageBoxIconType.Warning);
+      MessageBoxIconType.Warning
+    );
   };
 
   private _handleCancel = () => {

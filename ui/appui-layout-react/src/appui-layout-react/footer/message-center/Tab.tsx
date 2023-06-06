@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module MessageCenter
  */
@@ -31,7 +31,8 @@ export class MessageCenterTab extends React.PureComponent<MessageCenterTabProps>
     const className = classnames(
       "nz-footer-messageCenter-tab",
       this.props.isActive && "nz-active",
-      this.props.className);
+      this.props.className
+    );
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events

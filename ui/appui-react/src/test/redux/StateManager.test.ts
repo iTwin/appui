@@ -1,15 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import { UiError } from "@itwin/appui-abstract";
-import type { ActionCreatorsObject, ActionsUnion} from "../../appui-react";
-import { createAction, FrameworkReducer, ReducerRegistryInstance, SYSTEM_PREFERRED_COLOR_THEME, TOOLBAR_OPACITY_DEFAULT, WIDGET_OPACITY_DEFAULT } from "../../appui-react";
+import type { ActionCreatorsObject, ActionsUnion } from "../../appui-react";
+import {
+  createAction,
+  FrameworkReducer,
+  ReducerRegistryInstance,
+  SYSTEM_PREFERRED_COLOR_THEME,
+  TOOLBAR_OPACITY_DEFAULT,
+  WIDGET_OPACITY_DEFAULT,
+} from "../../appui-react";
 import { StateManager } from "../../appui-react/redux/StateManager";
 import type { ConfigurableUiState } from "../../appui-react/configurableui/state";
-import { ConfigurableUiActions, ConfigurableUiReducer } from "../../appui-react/configurableui/state";
+import {
+  ConfigurableUiActions,
+  ConfigurableUiReducer,
+} from "../../appui-react/configurableui/state";
 import { SnapMode } from "@itwin/core-frontend";
 
 // Fake state for the host app
@@ -25,8 +35,11 @@ class AppStateManager {
 
   public static reducerName = "appState";
 
-  public static SET_APP_DIALOG_VISIBLE = AppStateManager.createActionName("SET_APP_DIALOG_VISIBLE");
-  public static SET_APP_SELECTED_ITEM = AppStateManager.createActionName("SET_APP_SELECTED");
+  public static SET_APP_DIALOG_VISIBLE = AppStateManager.createActionName(
+    "SET_APP_DIALOG_VISIBLE"
+  );
+  public static SET_APP_SELECTED_ITEM =
+    AppStateManager.createActionName("SET_APP_SELECTED");
 
   private static _appActions: ActionCreatorsObject = {
     setDialogVisible: (dialogVisible: boolean) =>
@@ -43,7 +56,7 @@ class AppStateManager {
   // reducer
   public static appReducer(
     state: IAppState = AppStateManager._initialState,
-    action: any,
+    action: any
   ): IAppState {
     type AppActionsUnion = ActionsUnion<typeof AppStateManager._appActions>;
 
@@ -74,14 +87,22 @@ class ExtensionStateManager {
 
   private static _reducerName = "extension_state";
 
-  public static SET_EXTENSION_DIALOG_VISIBLE = ExtensionStateManager.createActionName("SET_EXTENSION_DIALOG_VISIBLE");
-  public static SET_EXTENSION_SELECTED_ITEM = ExtensionStateManager.createActionName("SET_EXTENSION_SELECTED");
+  public static SET_EXTENSION_DIALOG_VISIBLE =
+    ExtensionStateManager.createActionName("SET_EXTENSION_DIALOG_VISIBLE");
+  public static SET_EXTENSION_SELECTED_ITEM =
+    ExtensionStateManager.createActionName("SET_EXTENSION_SELECTED");
 
   private static _extensionActions: ActionCreatorsObject = {
     setDialogVisible: (dialogVisible: boolean) =>
-      createAction(ExtensionStateManager.SET_EXTENSION_DIALOG_VISIBLE, dialogVisible),
+      createAction(
+        ExtensionStateManager.SET_EXTENSION_DIALOG_VISIBLE,
+        dialogVisible
+      ),
     setSelectedItem: (selectedItem: string) =>
-      createAction(ExtensionStateManager.SET_EXTENSION_SELECTED_ITEM, selectedItem),
+      createAction(
+        ExtensionStateManager.SET_EXTENSION_SELECTED_ITEM,
+        selectedItem
+      ),
   };
 
   private static createActionName(name: string) {
@@ -92,9 +113,11 @@ class ExtensionStateManager {
   // reducer
   public static extensionReducer(
     state: ExtensionState = ExtensionStateManager._initialState,
-    action: any,
+    action: any
   ): ExtensionState {
-    type ExtensionActionsUnion = ActionsUnion<typeof ExtensionStateManager._extensionActions>;
+    type ExtensionActionsUnion = ActionsUnion<
+      typeof ExtensionStateManager._extensionActions
+    >;
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const extensionActionsParam = action as ExtensionActionsUnion;
@@ -112,7 +135,7 @@ class ExtensionStateManager {
   public static initialize() {
     ReducerRegistryInstance.registerReducer(
       ExtensionStateManager._reducerName,
-      ExtensionStateManager.extensionReducer,
+      ExtensionStateManager.extensionReducer
     );
   }
 }
@@ -139,7 +162,9 @@ describe("StateManager", () => {
   });
 
   it("should allow initialization with app Reducer", () => {
-    const testState = new StateManager({ appState: AppStateManager.appReducer });
+    const testState = new StateManager({
+      appState: AppStateManager.appReducer,
+    });
     expect(testState).to.exist;
     const currentState = StateManager.state;
     expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
@@ -147,7 +172,10 @@ describe("StateManager", () => {
   });
 
   it("should allow initialization with defaults that include frameworkState", () => {
-    const testState = new StateManager({ appState: AppStateManager.appReducer, frameworkState: FrameworkReducer });
+    const testState = new StateManager({
+      appState: AppStateManager.appReducer,
+      frameworkState: FrameworkReducer,
+    });
     expect(testState).to.exist;
     const currentState = StateManager.state;
     expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
@@ -155,7 +183,9 @@ describe("StateManager", () => {
   });
 
   it("should see extension state once extension reducer is registered", () => {
-    const testState = new StateManager({ appState: AppStateManager.appReducer });
+    const testState = new StateManager({
+      appState: AppStateManager.appReducer,
+    });
     expect(testState).to.exist;
     let currentState = StateManager.state;
     expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
@@ -169,7 +199,9 @@ describe("StateManager", () => {
   });
 
   it("should see extension state once extension reducer is registered (using store property)", () => {
-    const testState = new StateManager({ appState: AppStateManager.appReducer });
+    const testState = new StateManager({
+      appState: AppStateManager.appReducer,
+    });
     expect(testState).to.exist;
     let currentState = StateManager.store.getState();
     expect(currentState.hasOwnProperty("frameworkState")).to.be.true;
@@ -181,7 +213,6 @@ describe("StateManager", () => {
     expect(currentState.hasOwnProperty("appState")).to.be.true;
     expect(currentState.hasOwnProperty("extension_state")).to.be.true;
   });
-
 });
 
 describe("ConfigurableUiReducer", () => {
@@ -201,37 +232,70 @@ describe("ConfigurableUiReducer", () => {
       toolbarOpacity: TOOLBAR_OPACITY_DEFAULT,
     };
 
-    let outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setDragInteraction(true));
+    let outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setDragInteraction(true)
+    );
     expect(outState.useDragInteraction).to.be.true;
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setToolPrompt("Hello-From-Tool"));
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setToolPrompt("Hello-From-Tool")
+    );
     expect(outState.toolPrompt).to.be.eql("Hello-From-Tool");
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setTheme("dark"));
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setTheme("dark")
+    );
     expect(outState.theme).to.be.eql("dark");
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setWidgetOpacity(.75));
-    expect(outState.widgetOpacity).to.be.eql(.75);
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setWidgetOpacity(0.75)
+    );
+    expect(outState.widgetOpacity).to.be.eql(0.75);
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setSnapMode(SnapMode.Center));
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setSnapMode(SnapMode.Center)
+    );
     expect(outState.snapMode).to.be.eql(SnapMode.Center);
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setShowWidgetIcon(false));
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setShowWidgetIcon(false)
+    );
     expect(outState.showWidgetIcon).to.be.eql(false);
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setAutoCollapseUnpinnedPanels(false));
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setAutoCollapseUnpinnedPanels(false)
+    );
     expect(outState.autoCollapseUnpinnedPanels).to.be.eql(false);
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setViewOverlayDisplay(false));
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setViewOverlayDisplay(false)
+    );
     expect(outState.viewOverlayDisplay).to.be.false;
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setAnimateToolSettings(true));
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setAnimateToolSettings(true)
+    );
     expect(outState.animateToolSettings).to.be.true;
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setUseToolAsToolSettingsLabel(true));
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setUseToolAsToolSettingsLabel(true)
+    );
     expect(outState.useToolAsToolSettingsLabel).to.be.true;
 
-    outState = ConfigurableUiReducer(initialState, ConfigurableUiActions.setToolbarOpacity(.9));
-    expect(outState.toolbarOpacity).to.be.eql(.9);
+    outState = ConfigurableUiReducer(
+      initialState,
+      ConfigurableUiActions.setToolbarOpacity(0.9)
+    );
+    expect(outState.toolbarOpacity).to.be.eql(0.9);
   });
 });

@@ -1,17 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import produce from "immer";
 import * as sinon from "sinon";
 import { createNineZoneState } from "@itwin/appui-layout-react";
-import { FrontstageDef, setPanelSize, StagePanelDef, StagePanelLocation, StagePanelState, toPanelSide, UiFramework, WidgetDef } from "../../appui-react";
+import {
+  FrontstageDef,
+  setPanelSize,
+  StagePanelDef,
+  StagePanelLocation,
+  StagePanelState,
+  toPanelSide,
+  UiFramework,
+  WidgetDef,
+} from "../../appui-react";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 import TestUtils from "../TestUtils";
 
 describe("StagePanelDef", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
   });
@@ -38,7 +46,9 @@ describe("StagePanelDef", () => {
     UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.panelState = StagePanelState.Minimized;
-    expect(spy).to.be.calledOnceWithExactly(sinon.match({ panelDef, panelState: StagePanelState.Minimized }));
+    expect(spy).to.be.calledOnceWithExactly(
+      sinon.match({ panelDef, panelState: StagePanelState.Minimized })
+    );
   });
 
   it("should default to Open state", () => {
@@ -47,8 +57,13 @@ describe("StagePanelDef", () => {
   });
 
   it("should initialize pinned", () => {
-    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => undefined);
-    const panelDef = StagePanelDef.create({ resizable: false, pinned: false }, StagePanelLocation.Left);
+    sinon
+      .stub(UiFramework.frontstages, "activeFrontstageDef")
+      .get(() => undefined);
+    const panelDef = StagePanelDef.create(
+      { resizable: false, pinned: false },
+      StagePanelLocation.Left
+    );
     expect(panelDef.pinned).to.false;
   });
 
@@ -57,14 +72,18 @@ describe("StagePanelDef", () => {
     InternalFrontstageManager.onPanelSizeChangedEvent.addListener(spy);
     const panelDef = new StagePanelDef();
     panelDef.size = 200;
-    expect(spy).to.be.calledOnceWithExactly(sinon.match({ panelDef, size: 200 }));
+    expect(spy).to.be.calledOnceWithExactly(
+      sinon.match({ panelDef, size: 200 })
+    );
   });
 
   it("should respect min/max size", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
+    sinon
+      .stub(UiFramework.frontstages, "activeFrontstageDef")
+      .get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.size = 150;
     panelDef.size.should.eq(200);
@@ -74,12 +93,17 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
+    sinon
+      .stub(UiFramework.frontstages, "activeFrontstageDef")
+      .get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     panelDef.size = 200;
     panelDef.size.should.eq(200);
 
-    const spy = sinon.spy(InternalFrontstageManager.onPanelSizeChangedEvent, "emit");
+    const spy = sinon.spy(
+      InternalFrontstageManager.onPanelSizeChangedEvent,
+      "emit"
+    );
     panelDef.size = 150;
     panelDef.size.should.eq(200);
     sinon.assert.notCalled(spy);
@@ -89,7 +113,9 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
+    sinon
+      .stub(UiFramework.frontstages, "activeFrontstageDef")
+      .get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
     panelDef.panelState = StagePanelState.Minimized;
@@ -101,7 +127,9 @@ describe("StagePanelDef", () => {
     const frontstageDef = new FrontstageDef();
     const nineZoneState = createNineZoneState();
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
+    sinon
+      .stub(UiFramework.frontstages, "activeFrontstageDef")
+      .get(() => frontstageDef);
     const panelDef = new StagePanelDef();
     sinon.stub(panelDef, "location").get(() => StagePanelLocation.Right);
     panelDef.panelState = StagePanelState.Off;
@@ -115,26 +143,31 @@ describe("StagePanelDef", () => {
       draft.panels.right.collapsed = true;
     });
     frontstageDef.nineZoneState = nineZoneState;
-    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
-    const panelDef = StagePanelDef.create({
-      resizable: true,
-      defaultState: StagePanelState.Minimized,
-    }, StagePanelLocation.Right);
+    sinon
+      .stub(UiFramework.frontstages, "activeFrontstageDef")
+      .get(() => frontstageDef);
+    const panelDef = StagePanelDef.create(
+      {
+        resizable: true,
+        defaultState: StagePanelState.Minimized,
+      },
+      StagePanelLocation.Right
+    );
     panelDef.panelState = StagePanelState.Open;
 
     frontstageDef.nineZoneState.panels.right.collapsed.should.false;
   });
 
   it("should returns panel zone widgets", () => {
-    const panelDef = StagePanelDef.create({
-      sections: {
-        start: [{ id: "s1" }],
-        end: [
-          { id: "e1" },
-          { id: "e2" },
-        ],
+    const panelDef = StagePanelDef.create(
+      {
+        sections: {
+          start: [{ id: "s1" }],
+          end: [{ id: "e1" }, { id: "e2" }],
+        },
       },
-    }, StagePanelLocation.Left);
+      StagePanelLocation.Left
+    );
     panelDef.widgetDefs.map((w) => w.id).should.eql(["s1", "e1", "e2"]);
   });
 });

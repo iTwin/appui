@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module QuantityFormat
  */
@@ -27,15 +27,31 @@ export interface StationSizeSelectorProps extends CommonProps {
 export function StationSizeSelector(props: StationSizeSelectorProps) {
   const { value, disabled, onChange, ...otherProps } = props;
   const separatorOptions = React.useRef<SelectOption<number>[]>([
-    { value: 2, label: UiIModelComponents.translate("QuantityFormat.station_size.two") },
-    { value: 3, label: UiIModelComponents.translate("QuantityFormat.station_size.three") },
+    {
+      value: 2,
+      label: UiIModelComponents.translate("QuantityFormat.station_size.two"),
+    },
+    {
+      value: 3,
+      label: UiIModelComponents.translate("QuantityFormat.station_size.three"),
+    },
   ]);
 
-  const handleOnChange = React.useCallback((newValue: number) => {
-    onChange && onChange(newValue);
-  }, [onChange]);
+  const handleOnChange = React.useCallback(
+    (newValue: number) => {
+      onChange && onChange(newValue);
+    },
+    [onChange]
+  );
 
   return (
-    <Select options={separatorOptions.current} disabled={disabled} value={value} onChange={handleOnChange} size="small" {...otherProps} />
+    <Select
+      options={separatorOptions.current}
+      disabled={disabled}
+      value={value}
+      onChange={handleOnChange}
+      size="small"
+      {...otherProps}
+    />
   );
 }

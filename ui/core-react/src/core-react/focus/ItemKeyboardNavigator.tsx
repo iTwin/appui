@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Focus
  */
@@ -24,7 +24,10 @@ export class ItemKeyboardNavigator {
   private _allowWrap = true;
   private _crossAxisArrowKeyHandler?: CrossAxisArrowKeyFunc;
 
-  constructor(public onFocusItem: (index: number) => void, public onActivateItem: (index: number) => void) {
+  constructor(
+    public onFocusItem: (index: number) => void,
+    public onActivateItem: (index: number) => void
+  ) {
     this._direction = new Map<string, number>([
       [SpecialKey.ArrowLeft, -1],
       [SpecialKey.ArrowUp, -1],
@@ -34,20 +37,36 @@ export class ItemKeyboardNavigator {
   }
 
   /** The item count */
-  public get itemCount(): number { return this._itemCount; }
-  public set itemCount(count: number) { this._itemCount = count; }
+  public get itemCount(): number {
+    return this._itemCount;
+  }
+  public set itemCount(count: number) {
+    this._itemCount = count;
+  }
 
   /** The primary orientation */
-  public get orientation(): Orientation { return this._orientation; }
-  public set orientation(orientation: Orientation) { this._orientation = orientation; }
+  public get orientation(): Orientation {
+    return this._orientation;
+  }
+  public set orientation(orientation: Orientation) {
+    this._orientation = orientation;
+  }
 
   /** The allow wrap property controls whether the movement will stop at the first and last items or wrap  */
-  public get allowWrap(): boolean { return this._allowWrap; }
-  public set allowWrap(v: boolean) { this._allowWrap = v; }
+  public get allowWrap(): boolean {
+    return this._allowWrap;
+  }
+  public set allowWrap(v: boolean) {
+    this._allowWrap = v;
+  }
 
   /** Called when the arrow keys that run perpendicular to the primary orientation are pressed */
-  public get crossAxisArrowKeyHandler(): CrossAxisArrowKeyFunc | undefined { return this._crossAxisArrowKeyHandler; }
-  public set crossAxisArrowKeyHandler(v: CrossAxisArrowKeyFunc | undefined) { this._crossAxisArrowKeyHandler = v; }
+  public get crossAxisArrowKeyHandler(): CrossAxisArrowKeyFunc | undefined {
+    return this._crossAxisArrowKeyHandler;
+  }
+  public set crossAxisArrowKeyHandler(v: CrossAxisArrowKeyFunc | undefined) {
+    this._crossAxisArrowKeyHandler = v;
+  }
 
   /** Handle KeyDown on items */
   public handleKeyDownEvent(event: React.KeyboardEvent, index: number): void {
@@ -104,7 +123,10 @@ export class ItemKeyboardNavigator {
    * only up and down arrow should function.
    * In all other cases only left and right arrow function.
    */
-  private determineOrientation(event: React.KeyboardEvent, index: number): void {
+  private determineOrientation(
+    event: React.KeyboardEvent,
+    index: number
+  ): void {
     const key = event.key;
     const vertical = this._orientation === Orientation.Vertical;
     let proceed = false;
@@ -113,13 +135,19 @@ export class ItemKeyboardNavigator {
       if (key === SpecialKey.ArrowUp || key === SpecialKey.ArrowDown) {
         event.preventDefault();
         proceed = true;
-      } else if (this.crossAxisArrowKeyHandler && (key === SpecialKey.ArrowLeft || key === SpecialKey.ArrowRight)) {
+      } else if (
+        this.crossAxisArrowKeyHandler &&
+        (key === SpecialKey.ArrowLeft || key === SpecialKey.ArrowRight)
+      ) {
         this.crossAxisArrowKeyHandler(key === SpecialKey.ArrowRight);
       }
     } else {
       if (key === SpecialKey.ArrowLeft || key === SpecialKey.ArrowRight) {
         proceed = true;
-      } else if (this.crossAxisArrowKeyHandler && (key === SpecialKey.ArrowUp || key === SpecialKey.ArrowDown)) {
+      } else if (
+        this.crossAxisArrowKeyHandler &&
+        (key === SpecialKey.ArrowUp || key === SpecialKey.ArrowDown)
+      ) {
         this.crossAxisArrowKeyHandler(key === SpecialKey.ArrowDown);
       }
     }
@@ -131,7 +159,10 @@ export class ItemKeyboardNavigator {
 
   /** Either focus the next, previous, first, or last item depending on key pressed
    */
-  private switchItemOnArrowPress(event: React.KeyboardEvent, index: number): void {
+  private switchItemOnArrowPress(
+    event: React.KeyboardEvent,
+    index: number
+  ): void {
     // Add or subtract depending on key pressed
     const pressed = event.key;
     const targetDirection = this._direction.get(pressed);
@@ -145,7 +176,10 @@ export class ItemKeyboardNavigator {
       } else {
         // istanbul ignore else
         if (this._allowWrap) {
-          if (pressed === SpecialKey.ArrowLeft || pressed === SpecialKey.ArrowUp) {
+          if (
+            pressed === SpecialKey.ArrowLeft ||
+            pressed === SpecialKey.ArrowUp
+          ) {
             this.focusLastItem();
           } else {
             this.focusFirstItem();
@@ -164,5 +198,11 @@ export class ItemKeyboardNavigator {
  * @internal
  */
 export function isNavigationKey(key: string): boolean {
-  return (isArrowKey(key) || key === SpecialKey.Home || key === SpecialKey.End || key === SpecialKey.Space || key === SpecialKey.Enter);
+  return (
+    isArrowKey(key) ||
+    key === SpecialKey.Home ||
+    key === SpecialKey.End ||
+    key === SpecialKey.Space ||
+    key === SpecialKey.Enter
+  );
 }

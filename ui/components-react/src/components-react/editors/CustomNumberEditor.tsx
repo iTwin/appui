@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -13,9 +13,22 @@ import classnames from "classnames";
 import * as React from "react";
 import { Logger } from "@itwin/core-bentley";
 import type {
-  CustomFormattedNumberParams, IconEditorParams, InputEditorSizeParams, PrimitiveValue, PropertyEditorParams,
-  PropertyRecord, PropertyValue} from "@itwin/appui-abstract";
-import { MessageSeverity, PropertyEditorParamTypes, PropertyValueFormat, SpecialKey, StandardEditorNames, StandardTypeNames, UiAdmin,
+  CustomFormattedNumberParams,
+  IconEditorParams,
+  InputEditorSizeParams,
+  PrimitiveValue,
+  PropertyEditorParams,
+  PropertyRecord,
+  PropertyValue,
+} from "@itwin/appui-abstract";
+import {
+  MessageSeverity,
+  PropertyEditorParamTypes,
+  PropertyValueFormat,
+  SpecialKey,
+  StandardEditorNames,
+  StandardTypeNames,
+  UiAdmin,
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
 import type { InputProps } from "@itwin/itwinui-react";
@@ -23,7 +36,10 @@ import { Input } from "@itwin/itwinui-react";
 
 import { UiComponents } from "../UiComponents";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer";
-import { PropertyEditorBase, PropertyEditorManager } from "./PropertyEditorManager";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "./PropertyEditorManager";
 
 /** @internal */
 interface CustomNumberEditorState {
@@ -36,7 +52,10 @@ interface CustomNumberEditorState {
 /** CustomNumberEditor is a React component that is a property editor for numbers that specify custom formatting and parsing functions.
  * @alpha
  */
-export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps, CustomNumberEditorState> implements TypeEditor {
+export class CustomNumberEditor
+  extends React.PureComponent<PropertyEditorProps, CustomNumberEditorState>
+  implements TypeEditor
+{
   private _isMounted = false;
   private _formatParams: CustomFormattedNumberParams | undefined;
   private _inputElement = React.createRef<HTMLInputElement>();
@@ -61,9 +80,13 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
 
     // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
-      const parseResults = (this._formatParams as CustomFormattedNumberParams).parseFunction(this.state.inputValue);
+      const parseResults = (
+        this._formatParams as CustomFormattedNumberParams
+      ).parseFunction(this.state.inputValue);
       if (!parseResults.parseError && undefined !== parseResults.value) {
-        const newDisplayValue = (this._formatParams as CustomFormattedNumberParams).formatFunction(parseResults.value as number);
+        const newDisplayValue = (
+          this._formatParams as CustomFormattedNumberParams
+        ).formatFunction(parseResults.value as number);
         propertyValue = {
           valueFormat: PropertyValueFormat.Primitive,
           value: parseResults.value,
@@ -78,18 +101,40 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
       } else {
         // istanbul ignore else
         if (this.htmlElement) {
-          UiAdmin.messagePresenter.displayInputFieldMessage(this.htmlElement, MessageSeverity.Error, parseResults.parseError ? parseResults.parseError : /* istanbul ignore next */ UiComponents.translate("errors.unable-to-parse-quantity"));
+          UiAdmin.messagePresenter.displayInputFieldMessage(
+            this.htmlElement,
+            MessageSeverity.Error,
+            parseResults.parseError
+              ? parseResults.parseError
+              : /* istanbul ignore next */ UiComponents.translate(
+                  "errors.unable-to-parse-quantity"
+                )
+          );
           this.htmlElement.focus();
         } else {
-          UiAdmin.messagePresenter.displayMessage(MessageSeverity.Error, parseResults.parseError ? parseResults.parseError : /* istanbul ignore next */ UiComponents.translate("errors.unable-to-parse-quantity"));
+          UiAdmin.messagePresenter.displayMessage(
+            MessageSeverity.Error,
+            parseResults.parseError
+              ? parseResults.parseError
+              : /* istanbul ignore next */ UiComponents.translate(
+                  "errors.unable-to-parse-quantity"
+                )
+          );
         }
 
-        const displayValue = (record.value.displayValue && record.value.displayValue.length > 0) ? record.value.displayValue : /* istanbul ignore next */ (this._formatParams as CustomFormattedNumberParams).formatFunction(record.value.value as number);
-        propertyValue = this._lastValidValue ? { ...this._lastValidValue } : /* istanbul ignore next */ {
-          valueFormat: PropertyValueFormat.Primitive,
-          value: record.value.value,
-          displayValue,
-        };
+        const displayValue =
+          record.value.displayValue && record.value.displayValue.length > 0
+            ? record.value.displayValue
+            : /* istanbul ignore next */ (
+                this._formatParams as CustomFormattedNumberParams
+              ).formatFunction(record.value.value as number);
+        propertyValue = this._lastValidValue
+          ? { ...this._lastValidValue }
+          : /* istanbul ignore next */ {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: record.value.value,
+              displayValue,
+            };
       }
     }
 
@@ -105,23 +150,21 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
   }
 
   private shouldSetFocus(): boolean {
-    if (!this.props.setFocus)
-      return false;
+    if (!this.props.setFocus) return false;
 
     const record = this.props.propertyRecord as PropertyRecord;
-    const disabled = (record && !record.isDisabled) ? false : true;
-    const readonly = (record && !record.isReadonly) ? false : true;
+    const disabled = record && !record.isDisabled ? false : true;
+    const readonly = record && !record.isReadonly ? false : true;
 
-    return (!disabled && !readonly);
+    return !disabled && !readonly;
   }
 
   private _applyUpdatedValue(userInput: string) {
     const record = this.props.propertyRecord as PropertyRecord;
-    const readonly = (record && !record.isReadonly) ? false : true;
-    const disabled = (record && !record.isDisabled) ? false : true;
+    const readonly = record && !record.isReadonly ? false : true;
+    const disabled = record && !record.isDisabled ? false : true;
 
-    if (readonly || disabled)
-      return;
+    if (readonly || disabled) return;
 
     // istanbul ignore else
     if (this._isMounted)
@@ -137,7 +180,7 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
   /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
-    this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void this.setStateFromProps();
   }
 
   /** @internal */
@@ -148,7 +191,7 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
   /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
-      this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this.setStateFromProps();
     }
   }
 
@@ -161,12 +204,17 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
       // istanbul ignore else
       if (record.value.valueFormat === PropertyValueFormat.Primitive) {
         const primitiveValue = record.value;
-        numberValue = (undefined !== primitiveValue.value) ? primitiveValue.value as number : /* istanbul ignore next */ 0;
+        numberValue =
+          undefined !== primitiveValue.value
+            ? (primitiveValue.value as number)
+            : /* istanbul ignore next */ 0;
         // istanbul ignore else
         if (primitiveValue.displayValue)
           initialDisplayValue = primitiveValue.displayValue;
         else
-          initialDisplayValue = (this._formatParams as CustomFormattedNumberParams).formatFunction(numberValue);
+          initialDisplayValue = (
+            this._formatParams as CustomFormattedNumberParams
+          ).formatFunction(numberValue);
       }
     }
 
@@ -177,20 +225,29 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
     const record = this.props.propertyRecord;
     // istanbul ignore next
     if (!record || !record.property) {
-      Logger.logError(UiComponents.loggerCategory(this), "PropertyRecord must be defined to use CustomNumberPropertyEditor");
-      // eslint-disable-next-line no-console
-      // console.log("PropertyRecord must be defined to use CustomNumberPropertyEditor");
+      Logger.logError(
+        UiComponents.loggerCategory(this),
+        "PropertyRecord must be defined to use CustomNumberPropertyEditor"
+      );
       return;
     }
     // istanbul ignore else
-    if (record.property && record.property.editor && record.property.editor.params) {
-      this._formatParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.CustomFormattedNumber) as CustomFormattedNumberParams;
+    if (
+      record.property &&
+      record.property.editor &&
+      record.property.editor.params
+    ) {
+      this._formatParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.CustomFormattedNumber
+      ) as CustomFormattedNumberParams;
     }
 
     if (!this._formatParams) {
-      Logger.logError(UiComponents.loggerCategory(this), `CustomFormattedNumberParams must be defined for property ${record.property.name}`);
-      // eslint-disable-next-line no-console
-      // console.log(`CustomFormattedNumberParams must be defined for property ${record!.property!.name}`);
+      Logger.logError(
+        UiComponents.loggerCategory(this),
+        `CustomFormattedNumberParams must be defined for property ${record.property.name}`
+      );
       return;
     }
 
@@ -205,19 +262,27 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
     let iconSpec: string | undefined;
 
     // istanbul ignore else
-    if (record.property && record.property.editor && record.property.editor.params) {
-      const editorSizeParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.InputEditorSize) as InputEditorSizeParams;
+    if (
+      record.property &&
+      record.property.editor &&
+      record.property.editor.params
+    ) {
+      const editorSizeParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.InputEditorSize
+      ) as InputEditorSizeParams;
       // istanbul ignore else
       if (editorSizeParams) {
         // istanbul ignore else
-        if (editorSizeParams.size)
-          size = editorSizeParams.size;
+        if (editorSizeParams.size) size = editorSizeParams.size;
         // istanbul ignore else
-        if (editorSizeParams.maxLength)
-          maxLength = editorSizeParams.maxLength;
+        if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
-      const iconParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.Icon) as IconEditorParams;
+      const iconParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.Icon
+      ) as IconEditorParams;
       if (iconParams) {
         iconSpec = iconParams.definition.iconSpec;
       }
@@ -225,26 +290,36 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
 
     // istanbul ignore else
     if (this._isMounted)
-      this.setState({ inputValue: initialDisplayValue, size, maxLength, iconSpec });
+      this.setState({
+        inputValue: initialDisplayValue,
+        size,
+        maxLength,
+        iconSpec,
+      });
   }
 
   private _resetToLastValidDisplayValue() {
-    const initialDisplayValue = (this._lastValidValue && (this._lastValidValue as PrimitiveValue).displayValue) ?? (/* istanbul ignore next */ this._getInitialDisplayValue());
+    const initialDisplayValue =
+      (this._lastValidValue &&
+        (this._lastValidValue as PrimitiveValue).displayValue) ??
+      /* istanbul ignore next */ this._getInitialDisplayValue();
     this.setState({ inputValue: initialDisplayValue });
   }
 
   private _onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // istanbul ignore else
     if (e.key === SpecialKey.Escape) {
-      const initialDisplayValue = (this._lastValidValue && (this._lastValidValue as PrimitiveValue).displayValue) ?? (/* istanbul ignore next */ this._getInitialDisplayValue());
+      const initialDisplayValue =
+        (this._lastValidValue &&
+          (this._lastValidValue as PrimitiveValue).displayValue) ??
+        /* istanbul ignore next */ this._getInitialDisplayValue();
       if (initialDisplayValue !== this.state.inputValue) {
         e.preventDefault();
         e.stopPropagation();
         this._resetToLastValidDisplayValue();
       } else {
         // istanbul ignore else
-        if (this.props.onCancel)
-          this.props.onCancel();
+        if (this.props.onCancel) this.props.onCancel();
       }
     }
 
@@ -266,15 +341,18 @@ export class CustomNumberEditor extends React.PureComponent<PropertyEditorProps,
       minWidth: `${minSize * 0.75}em`,
     };
     const record = this.props.propertyRecord as PropertyRecord;
-    if (!record || !this._formatParams)
-      return null;
+    if (!record || !this._formatParams) return null;
 
     const readOnly = !record.isReadonly ? false : true;
     const disabled = !record.isDisabled ? false : true;
 
-    const className = classnames("components-cell-editor", "components-customnumber-editor", this.props.className);
+    const className = classnames(
+      "components-cell-editor",
+      "components-customnumber-editor",
+      this.props.className
+    );
 
-    const inputProps: Omit<InputProps, "size"> = {    // eslint-disable-line deprecation/deprecation
+    const inputProps: Omit<InputProps, "size"> = {
       className,
       style: this.props.style ? this.props.style : minWidthStyle,
       readOnly,
@@ -327,4 +405,8 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
     return false;
   }
 }
-PropertyEditorManager.registerEditor(StandardTypeNames.Number, CustomNumberPropertyEditor, StandardEditorNames.NumberCustom);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Number,
+  CustomNumberPropertyEditor,
+  StandardEditorNames.NumberCustom
+);

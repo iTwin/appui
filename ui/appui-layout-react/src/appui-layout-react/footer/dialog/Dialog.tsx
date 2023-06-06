@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Message
  */
@@ -27,21 +27,12 @@ export interface DialogProps extends CommonProps {
  * @internal
  */
 export function Dialog(props: DialogProps) {
-  const className = classnames(
-    "nz-footer-dialog-dialog",
-    props.className);
+  const className = classnames("nz-footer-dialog-dialog", props.className);
 
   return (
-    <div
-      className={className}
-      style={props.style}
-    >
-      <div>
-        {props.titleBar}
-      </div>
-      <div>
-        {props.children}
-      </div>
+    <div className={className} style={props.style}>
+      <div>{props.titleBar}</div>
+      <div>{props.children}</div>
     </div>
   );
 }

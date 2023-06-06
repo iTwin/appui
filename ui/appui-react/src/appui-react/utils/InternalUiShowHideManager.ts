@@ -1,14 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
 
-import type { UiStateStorage} from "@itwin/core-react";
+import type { UiStateStorage } from "@itwin/core-react";
 import { UiStateStorageStatus } from "@itwin/core-react";
-import { SyncUiEventDispatcher, SyncUiEventId } from "../syncui/SyncUiEventDispatcher";
+import {
+  SyncUiEventDispatcher,
+  SyncUiEventId,
+} from "../syncui/SyncUiEventDispatcher";
 import type { UserSettingsProvider } from "../UiFramework";
 import { UiFramework } from "../UiFramework";
 
@@ -27,36 +30,63 @@ export class UiShowHideSettingsProvider implements UserSettingsProvider {
   }
 
   public async loadUserSettings(storage: UiStateStorage): Promise<void> {
-    let result = await storage.getSetting(UiShowHideSettingsProvider._settingsNamespace, UiShowHideSettingsProvider._autoHideUiKey);
+    let result = await storage.getSetting(
+      UiShowHideSettingsProvider._settingsNamespace,
+      UiShowHideSettingsProvider._autoHideUiKey
+    );
     if (result.status === UiStateStorageStatus.Success)
       InternalUiShowHideManager.setAutoHideUi(result.setting);
 
-    result = await storage.getSetting(UiShowHideSettingsProvider._settingsNamespace, UiShowHideSettingsProvider._useProximityOpacityKey);
+    result = await storage.getSetting(
+      UiShowHideSettingsProvider._settingsNamespace,
+      UiShowHideSettingsProvider._useProximityOpacityKey
+    );
     if (result.status === UiStateStorageStatus.Success)
       InternalUiShowHideManager.setUseProximityOpacity(result.setting);
 
-    result = await storage.getSetting(UiShowHideSettingsProvider._settingsNamespace, UiShowHideSettingsProvider._snapWidgetOpacityKey);
+    result = await storage.getSetting(
+      UiShowHideSettingsProvider._settingsNamespace,
+      UiShowHideSettingsProvider._snapWidgetOpacityKey
+    );
     if (result.status === UiStateStorageStatus.Success)
       InternalUiShowHideManager.setSnapWidgetOpacity(result.setting);
   }
 
   public static async storeAutoHideUi(v: boolean, storage?: UiStateStorage) {
-    void (storage ?? UiFramework.getUiStateStorage()).saveSetting(this._settingsNamespace, this._autoHideUiKey, v);
+    void (storage ?? UiFramework.getUiStateStorage()).saveSetting(
+      this._settingsNamespace,
+      this._autoHideUiKey,
+      v
+    );
   }
 
-  public static async storeUseProximityOpacity(v: boolean, storage?: UiStateStorage) {
-    void (storage ?? UiFramework.getUiStateStorage()).saveSetting(this._settingsNamespace, this._useProximityOpacityKey, v);
+  public static async storeUseProximityOpacity(
+    v: boolean,
+    storage?: UiStateStorage
+  ) {
+    void (storage ?? UiFramework.getUiStateStorage()).saveSetting(
+      this._settingsNamespace,
+      this._useProximityOpacityKey,
+      v
+    );
   }
 
-  public static async storeSnapWidgetOpacity(v: boolean, storage?: UiStateStorage) {
-    void (storage ?? UiFramework.getUiStateStorage()).saveSetting(this._settingsNamespace, this._snapWidgetOpacityKey, v);
+  public static async storeSnapWidgetOpacity(
+    v: boolean,
+    storage?: UiStateStorage
+  ) {
+    void (storage ?? UiFramework.getUiStateStorage()).saveSetting(
+      this._settingsNamespace,
+      this._snapWidgetOpacityKey,
+      v
+    );
   }
 }
 
 /** The default inactivity time.
  * @internal
  */
-export const INACTIVITY_TIME_DEFAULT = 3500;  /** Wait 3.5 seconds */
+export const INACTIVITY_TIME_DEFAULT = 3500; /** Wait 3.5 seconds */
 
 /** Maintains Ui Show/Hide state. The `Ui` includes widgets, panels and the status bar.
  * @internal
@@ -104,7 +134,9 @@ export class InternalUiShowHideManager {
   public static set autoHideUi(autoHide: boolean) {
     void UiShowHideSettingsProvider.storeAutoHideUi(autoHide);
     InternalUiShowHideManager._autoHideUi = autoHide;
-    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(SyncUiEventId.ShowHideManagerSettingChange);
+    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
+      SyncUiEventId.ShowHideManagerSettingChange
+    );
   }
   /** Determines whether the widget panels are shown and hidden. Defaults to false. */
   public static get showHidePanels(): boolean {
@@ -112,7 +144,9 @@ export class InternalUiShowHideManager {
   }
   public static set showHidePanels(showHide: boolean) {
     InternalUiShowHideManager._showHidePanels = showHide;
-    UiFramework.onUiVisibilityChanged.emit({ visible: UiFramework.getIsUiVisible() });
+    UiFramework.onUiVisibilityChanged.emit({
+      visible: UiFramework.getIsUiVisible(),
+    });
   }
 
   /** Determines whether the status bar is shown and hidden. Defaults to false. */
@@ -121,7 +155,9 @@ export class InternalUiShowHideManager {
   }
   public static set showHideFooter(showHide: boolean) {
     InternalUiShowHideManager._showHideFooter = showHide;
-    UiFramework.onUiVisibilityChanged.emit({ visible: UiFramework.getIsUiVisible() });
+    UiFramework.onUiVisibilityChanged.emit({
+      visible: UiFramework.getIsUiVisible(),
+    });
   }
 
   /** Determines the amount of inactivity time before the Ui is hidden. Defaults to 3.5 seconds. */
@@ -139,8 +175,12 @@ export class InternalUiShowHideManager {
   public static set useProximityOpacity(value: boolean) {
     InternalUiShowHideManager._useProximityOpacity = value;
     void UiShowHideSettingsProvider.storeUseProximityOpacity(value);
-    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(SyncUiEventId.ShowHideManagerSettingChange);
-    UiFramework.onUiVisibilityChanged.emit({ visible: UiFramework.getIsUiVisible() });
+    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
+      SyncUiEventId.ShowHideManagerSettingChange
+    );
+    UiFramework.onUiVisibilityChanged.emit({
+      visible: UiFramework.getIsUiVisible(),
+    });
   }
 
   /** Determines whether the opacity of a toolbar should snap. Defaults to false. */
@@ -150,31 +190,36 @@ export class InternalUiShowHideManager {
   public static set snapWidgetOpacity(value: boolean) {
     InternalUiShowHideManager._snapWidgetOpacity = value;
     void UiShowHideSettingsProvider.storeSnapWidgetOpacity(value);
-    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(SyncUiEventId.ShowHideManagerSettingChange);
-    UiFramework.onUiVisibilityChanged.emit({ visible: UiFramework.getIsUiVisible() });
+    SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
+      SyncUiEventId.ShowHideManagerSettingChange
+    );
+    UiFramework.onUiVisibilityChanged.emit({
+      visible: UiFramework.getIsUiVisible(),
+    });
   }
 
   /** Handler for when a Frontstage is ready */
   public static handleFrontstageReady() {
     // istanbul ignore next
-    if (!InternalUiShowHideManager._autoHideUi)
-      return;
+    if (!InternalUiShowHideManager._autoHideUi) return;
 
     InternalUiShowHideManager.showUiAndResetTimer();
   }
 
   /** Handler for when the mouse moves over the content area */
-  public static handleContentMouseMove(_event?: React.MouseEvent<HTMLElement, MouseEvent>) {
-    if (!InternalUiShowHideManager._autoHideUi)
-      return;
+  public static handleContentMouseMove(
+    _event?: React.MouseEvent<HTMLElement, MouseEvent>
+  ) {
+    if (!InternalUiShowHideManager._autoHideUi) return;
 
     InternalUiShowHideManager.showUiAndResetTimer();
   }
 
   /** Handler for when the mouse enters a widget */
-  public static handleWidgetMouseEnter(_event?: React.MouseEvent<HTMLElement, MouseEvent>) {
-    if (!InternalUiShowHideManager._autoHideUi)
-      return;
+  public static handleWidgetMouseEnter(
+    _event?: React.MouseEvent<HTMLElement, MouseEvent>
+  ) {
+    if (!InternalUiShowHideManager._autoHideUi) return;
 
     InternalUiShowHideManager.showUiAndCancelTimer();
   }
@@ -201,7 +246,10 @@ export class InternalUiShowHideManager {
 
   private static resetTimer() {
     InternalUiShowHideManager.cancelTimer();
-    InternalUiShowHideManager._timeout = setTimeout(InternalUiShowHideManager.hideUi, InternalUiShowHideManager._inactivityTime);
+    InternalUiShowHideManager._timeout = setTimeout(
+      InternalUiShowHideManager.hideUi,
+      InternalUiShowHideManager._inactivityTime
+    );
   }
 
   private static showUi() {

@@ -1,8 +1,11 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-import { createApplyCollectionTransform, createDefineInlineCollectionTest } from "../TestUtils";
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import {
+  createApplyCollectionTransform,
+  createDefineInlineCollectionTest,
+} from "../TestUtils";
 import { useExtensions } from "../Extensions";
 
 const applyTransform = createApplyCollectionTransform((j) => {
@@ -16,16 +19,13 @@ const defineInlineTest = createDefineInlineCollectionTest((j) => {
 describe("Extensions", () => {
   describe("concat", () => {
     it("should maintain collection type", () => {
-      applyTransform(
-        `A;`,
-        (j, root) => {
-          const expressions1 = root.find(j.CallExpression);
-          const expressions2 = root.find(j.CallExpression);
-          const expressions = expressions1.concat(expressions2);
-          expect(expressions.size()).toBe(0);
-          expect(expressions.getTypes()).toContain("CallExpression");
-        },
-      );
+      applyTransform(`A;`, (j, root) => {
+        const expressions1 = root.find(j.CallExpression);
+        const expressions2 = root.find(j.CallExpression);
+        const expressions = expressions1.concat(expressions2);
+        expect(expressions.size()).toBe(0);
+        expect(expressions.getTypes()).toContain("CallExpression");
+      });
     });
   });
 
@@ -167,7 +167,7 @@ describe("Extensions", () => {
       ba;
       bb;
       `,
-      `should sort moved specifiers`,
+      `should sort moved specifiers`
     );
 
     defineInlineTest(
@@ -269,7 +269,7 @@ describe("Extensions", () => {
 
     defineInlineTest(
       (_, root) => {
-        root.rename("@itwin/from:TestId", "@itwin/to:Test[\"id\"]");
+        root.rename("@itwin/from:TestId", '@itwin/to:Test["id"]');
       },
       `
       import { TestId } from "@itwin/from";

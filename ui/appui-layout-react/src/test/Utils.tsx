@@ -1,15 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import type * as sinon from "sinon";
 import { BentleyError } from "@itwin/core-bentley";
 import { prettyDOM } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { NineZoneState, TabState} from "../appui-layout-react";
-import { addTab, useActiveSendBackWidgetIdStore, useContainersStore } from "../appui-layout-react";
+import type { NineZoneState, TabState } from "../appui-layout-react";
+import {
+  addTab,
+  useActiveSendBackWidgetIdStore,
+  useContainersStore,
+} from "../appui-layout-react";
 
 export { userEvent };
 
@@ -30,39 +34,50 @@ beforeEach(() => {
 });
 
 /** @internal */
-export const createRect = (left: number, top: number, right: number, bottom: number): DOMRect => DOMRect.fromRect({
-  x: left,
-  y: top,
-  width: right - left,
-  height: bottom - top,
-});
+export const createRect = (
+  left: number,
+  top: number,
+  right: number,
+  bottom: number
+): DOMRect =>
+  DOMRect.fromRect({
+    x: left,
+    y: top,
+    width: right - left,
+    height: bottom - top,
+  });
 
 /** @internal */
 export class ResizeObserverMock implements ResizeObserver {
-  public constructor(public readonly callback: ResizeObserverCallback) {
-  }
+  public constructor(public readonly callback: ResizeObserverCallback) {}
 
-  public observe(_: Element): void {
-  }
+  public observe(_: Element): void {}
 
-  public unobserve(_: Element): void {
-  }
+  public unobserve(_: Element): void {}
 
-  public disconnect(): void {
-  }
+  public disconnect(): void {}
 }
 
 declare module "sinon" {
   interface SinonStubStatic {
     // eslint-disable-next-line @typescript-eslint/prefer-function-type
-    <T extends (...args: any) => any>(): sinon.SinonStub<Parameters<T>, ReturnType<T>>;
+    <T extends (...args: any) => any>(): sinon.SinonStub<
+      Parameters<T>,
+      ReturnType<T>
+    >;
   }
 }
 
 /** @internal */
-export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<Parameters<T>, ReturnType<T>>;
+export type SinonSpy<T extends (...args: any) => any> = sinon.SinonSpy<
+  Parameters<T>,
+  ReturnType<T>
+>;
 /** @internal */
-export type SinonStub<T extends (...args: any) => any> = sinon.SinonStub<Parameters<T>, ReturnType<T>>;
+export type SinonStub<T extends (...args: any) => any> = sinon.SinonStub<
+  Parameters<T>,
+  ReturnType<T>
+>;
 
 /** Waits until all async operations finish */
 export async function flushAsyncOperations() {
@@ -70,7 +85,11 @@ export async function flushAsyncOperations() {
 }
 
 /** Utility function to add multiple tabs to the state. */
-export function addTabs(state: NineZoneState, ids: string[], args?: Partial<TabState> | undefined) {
+export function addTabs(
+  state: NineZoneState,
+  ids: string[],
+  args?: Partial<TabState> | undefined
+) {
   for (const id of ids) {
     state = addTab(state, id, args);
   }
@@ -85,8 +104,7 @@ export function handleMetaData(fn: Function) {
     try {
       fn();
     } catch (e) {
-      if (e instanceof BentleyError)
-        e.getMetaData();
+      if (e instanceof BentleyError) e.getMetaData();
       throw e;
     }
   };
@@ -94,7 +112,11 @@ export function handleMetaData(fn: Function) {
 
 /** Returns tag, id and classes of the information used by CSS selectors */
 function getPartialSelectorInfo(e: HTMLElement) {
-  return `${e.tagName}${e.id ? `#${e.id}` : ""}${Array.from(e.classList.values()).map((c) => `.${c}`).join("")}`;
+  return `${e.tagName}${e.id ? `#${e.id}` : ""}${Array.from(
+    e.classList.values()
+  )
+    .map((c) => `.${c}`)
+    .join("")}`;
 }
 
 /** Returns the full list of classes and tag chain for an element up to HTML */
@@ -116,7 +138,9 @@ function currentSelectorInfo(e: HTMLElement) {
 export function selectorMatches(selectors: string) {
   const satisfier = (e: HTMLElement) => {
     // \b\b\b... removes default "[Function : " part to get clear message in output.
-    const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(e)}'\n\n${prettyDOM()}`;
+    const message = `\b\b\b\b\b\b\b\b\b\b\belement.matches('${selectors}'); current element selector: '${currentSelectorInfo(
+      e
+    )}'\n\n${prettyDOM()}`;
     Object.defineProperty(satisfier, "name", { value: message });
     return e.matches(selectors);
   };
@@ -130,10 +154,13 @@ export function selectorMatches(selectors: string) {
  */
 export function childStructure(selectors: string | string[]) {
   const satisfier = (e: HTMLElement) => {
-    const failedSelectors = (Array.isArray(selectors) ? selectors : [selectors])
-      .filter((selector) => !e.querySelector(selector));
+    const failedSelectors = (
+      Array.isArray(selectors) ? selectors : [selectors]
+    ).filter((selector) => !e.querySelector(selector));
     // \b\b\b... removes default "[Function : " part to get clear message in output.
-    const message = `\b\b\b\b\b\b\b\b\b\b element.querySelector(\n'${failedSelectors.join("'\n AND \n'")}'\n); but is: \n${prettyDOM(e)}`;
+    const message = `\b\b\b\b\b\b\b\b\b\b element.querySelector(\n'${failedSelectors.join(
+      "'\n AND \n'"
+    )}'\n); but is: \n${prettyDOM(e)}`;
     Object.defineProperty(satisfier, "name", { value: message });
     return failedSelectors.length === 0;
   };
@@ -144,7 +171,7 @@ export function childStructure(selectors: string | string[]) {
  * Type to allow CSSStyleDeclaration to be a regexp that will be matched against the
  * property instead of the string value.
  */
-type Matchable<T> = { [P in keyof T]: T[P] | RegExp; };
+type Matchable<T> = { [P in keyof T]: T[P] | RegExp };
 
 /**
  * Function to generate a `satisfy` function
@@ -158,7 +185,9 @@ export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
       if (Object.prototype.hasOwnProperty.call(style, prop)) {
         const value = style[prop];
         if (value instanceof RegExp) {
-          expect(e.style, `property ${prop}`).to.have.property(prop).that.match(value);
+          expect(e.style, `property ${prop}`)
+            .to.have.property(prop)
+            .that.match(value);
         } else {
           expect(e.style).to.have.property(prop, value);
         }
@@ -174,9 +203,14 @@ export function styleMatch(style: Matchable<Partial<CSSStyleDeclaration>>) {
  * @param props Needed props for the component.
  * @returns renderHook option object
  */
-export function withWrapperAndProps<P>(Wrapper: React.FunctionComponent<P> | React.ComponentClass<P> | string, props: P) {
+export function withWrapperAndProps<P>(
+  Wrapper: React.FunctionComponent<P> | React.ComponentClass<P> | string,
+  props: P
+) {
   return {
-    wrapper: function ChildrenWrapper(childrenOnly: React.PropsWithChildren<{}>) {
+    wrapper: function ChildrenWrapper(
+      childrenOnly: React.PropsWithChildren<{}>
+    ) {
       return <Wrapper {...props} {...childrenOnly} />;
     },
   };

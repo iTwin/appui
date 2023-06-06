@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyEditors
  */
@@ -10,8 +10,15 @@ import "./TextEditor.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type {
-  IconEditorParams, InputEditorSizeParams, PrimitiveValue, PropertyEditorParams, PropertyValue} from "@itwin/appui-abstract";
-import { PropertyEditorParamTypes, PropertyValueFormat,
+  IconEditorParams,
+  InputEditorSizeParams,
+  PrimitiveValue,
+  PropertyEditorParams,
+  PropertyValue,
+} from "@itwin/appui-abstract";
+import {
+  PropertyEditorParamTypes,
+  PropertyValueFormat,
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
 import type { InputProps } from "@itwin/itwinui-react";
@@ -33,7 +40,10 @@ interface TextEditorState {
 /** TextEditor React component that is a property editor with text input
  * @public
  */
-export class TextEditor extends React.PureComponent<PropertyEditorProps, TextEditorState> implements TypeEditor {
+export class TextEditor
+  extends React.PureComponent<PropertyEditorProps, TextEditorState>
+  implements TypeEditor
+{
   private _isMounted = false;
   private _ariaLabel = UiComponents.translate("editor.text");
   private _inputElement = React.createRef<HTMLInputElement>();
@@ -50,7 +60,10 @@ export class TextEditor extends React.PureComponent<PropertyEditorProps, TextEdi
 
     // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
-      propertyValue = await TypeConverterManager.getConverter(record.property.typename, record.property.converter?.name).convertFromStringToPropertyValue(this.state.inputValue, record);
+      propertyValue = await TypeConverterManager.getConverter(
+        record.property.typename,
+        record.property.converter?.name
+      ).convertFromStringToPropertyValue(this.state.inputValue, record);
       (propertyValue as PrimitiveValue).displayValue = this.state.inputValue;
     }
 
@@ -68,22 +81,32 @@ export class TextEditor extends React.PureComponent<PropertyEditorProps, TextEdi
   private _updateInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     // istanbul ignore else
     if (this._isMounted)
-      this.setState({
-        inputValue: e.target.value,
-      }, async () => {
-        if (this.props.shouldCommitOnChange && this.props.onCommit && this.props.propertyRecord) {
-          const newValue = await this.getPropertyValue();
-          // istanbul ignore else
-          if (newValue)
-            this.props.onCommit({ propertyRecord: this.props.propertyRecord, newValue });
+      this.setState(
+        {
+          inputValue: e.target.value,
+        },
+        async () => {
+          if (
+            this.props.shouldCommitOnChange &&
+            this.props.onCommit &&
+            this.props.propertyRecord
+          ) {
+            const newValue = await this.getPropertyValue();
+            // istanbul ignore else
+            if (newValue)
+              this.props.onCommit({
+                propertyRecord: this.props.propertyRecord,
+                newValue,
+              });
+          }
         }
-      });
+      );
   };
 
   /** @internal */
   public override componentDidMount() {
     this._isMounted = true;
-    this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+    void this.setStateFromProps();
   }
 
   /** @internal */
@@ -94,7 +117,7 @@ export class TextEditor extends React.PureComponent<PropertyEditorProps, TextEdi
   /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
-      this.setStateFromProps(); // eslint-disable-line @typescript-eslint/no-floating-promises
+      void this.setStateFromProps();
     }
   }
 
@@ -105,28 +128,41 @@ export class TextEditor extends React.PureComponent<PropertyEditorProps, TextEdi
     // istanbul ignore else
     if (record && record.value.valueFormat === PropertyValueFormat.Primitive) {
       const value = record.value.value;
-      initialValue = await TypeConverterManager.getConverter(record.property.typename, record.property.converter?.name).convertPropertyToString(record.property, value);
+      initialValue = await TypeConverterManager.getConverter(
+        record.property.typename,
+        record.property.converter?.name
+      ).convertPropertyToString(record.property, value);
     }
 
-    const readonly = record && undefined !== record.isReadonly ? record.isReadonly : false;
+    const readonly =
+      record && undefined !== record.isReadonly ? record.isReadonly : false;
     let size: number | undefined;
     let maxLength: number | undefined;
     let iconSpec: string | undefined;
 
     const isDisabled = record ? record.isDisabled : undefined;
 
-    if (record && record.property && record.property.editor && record.property.editor.params) {
-      const editorSizeParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.InputEditorSize) as InputEditorSizeParams;
+    if (
+      record &&
+      record.property &&
+      record.property.editor &&
+      record.property.editor.params
+    ) {
+      const editorSizeParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.InputEditorSize
+      ) as InputEditorSizeParams;
       if (editorSizeParams) {
         // istanbul ignore else
-        if (editorSizeParams.size)
-          size = editorSizeParams.size;
+        if (editorSizeParams.size) size = editorSizeParams.size;
         // istanbul ignore else
-        if (editorSizeParams.maxLength)
-          maxLength = editorSizeParams.maxLength;
+        if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
-      const iconParams = record.property.editor.params.find((param: PropertyEditorParams) => param.type === PropertyEditorParamTypes.Icon) as IconEditorParams;
+      const iconParams = record.property.editor.params.find(
+        (param: PropertyEditorParams) =>
+          param.type === PropertyEditorParamTypes.Icon
+      ) as IconEditorParams;
       if (iconParams) {
         iconSpec = iconParams.definition.iconSpec;
       }
@@ -134,12 +170,23 @@ export class TextEditor extends React.PureComponent<PropertyEditorProps, TextEdi
 
     // istanbul ignore else
     if (this._isMounted)
-      this.setState({ inputValue: initialValue, readonly, size, maxLength, isDisabled, iconSpec });
+      this.setState({
+        inputValue: initialValue,
+        readonly,
+        size,
+        maxLength,
+        isDisabled,
+        iconSpec,
+      });
   }
 
   /** @internal */
   public override render(): React.ReactNode {
-    const className = classnames("components-cell-editor", "components-text-editor", this.props.className);
+    const className = classnames(
+      "components-cell-editor",
+      "components-text-editor",
+      this.props.className
+    );
     const minSize = this.state.size ? this.state.size : 8;
     const minWidthStyle: React.CSSProperties = {
       minWidth: `${minSize * 0.75}em`,

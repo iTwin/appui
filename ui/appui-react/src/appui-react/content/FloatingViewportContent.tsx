@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
@@ -46,10 +46,19 @@ export interface FloatingViewportContentWrapperProps {
 }
 
 /** @alpha */
-export function FloatingViewportContentWrapper({ children }: FloatingViewportContentWrapperProps) {
+export function FloatingViewportContentWrapper({
+  children,
+}: FloatingViewportContentWrapperProps) {
   return (
-    <div onMouseMove={UiFramework.visibility.handleContentMouseMove} className="uifw-dialog-imodel-content" style={{ height: "100%", position: "relative" }}>
-      <ContentWrapper content={children} style={{ height: "100%", position: "relative" }} />
+    <div
+      onMouseMove={UiFramework.visibility.handleContentMouseMove}
+      className="uifw-dialog-imodel-content"
+      style={{ height: "100%", position: "relative" }}
+    >
+      <ContentWrapper
+        content={children}
+        style={{ height: "100%", position: "relative" }}
+      />
     </div>
   );
 }
@@ -58,29 +67,43 @@ export function FloatingViewportContentWrapper({ children }: FloatingViewportCon
 export function useFloatingViewport(args: FloatingViewportContentProps) {
   const { contentId, initialViewState, onContextMenu, viewportRef } = args;
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>();
-  const contentControl = React.useRef<FloatingViewportContentControl | undefined>();
+  const contentControl = React.useRef<
+    FloatingViewportContentControl | undefined
+  >();
 
-  const viewState = React.useMemo(() => typeof initialViewState === "function" ? initialViewState() : initialViewState, [initialViewState]);
+  const viewState = React.useMemo(
+    () =>
+      typeof initialViewState === "function"
+        ? initialViewState()
+        : initialViewState,
+    [initialViewState]
+  );
   const ref = React.useCallback((v: ScreenViewport) => {
     setViewport(v);
   }, []);
 
   const refs = useRefs(ref, viewportRef);
   const viewportControl = React.useMemo(() => {
-    const node = <ViewportComponent
-      key={contentId}
-      imodel={viewState.iModel}
-      viewState={viewState}
-      controlId={contentId}
-      onContextMenu={onContextMenu}
-      viewportRef={refs}
-    />;
+    const node = (
+      <ViewportComponent
+        key={contentId}
+        imodel={viewState.iModel}
+        viewState={viewState}
+        controlId={contentId}
+        onContextMenu={onContextMenu}
+        viewportRef={refs}
+      />
+    );
     return node;
   }, [refs, onContextMenu, viewState, contentId]);
 
   React.useEffect(() => {
     if (!contentControl.current) {
-      contentControl.current = new FloatingViewportContentControl(contentId, contentId, null);
+      contentControl.current = new FloatingViewportContentControl(
+        contentId,
+        contentId,
+        null
+      );
       UiFramework.content.addFloatingContentControl(contentControl.current);
     }
     return () => {

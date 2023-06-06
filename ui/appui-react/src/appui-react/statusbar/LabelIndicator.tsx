@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -18,7 +18,8 @@ import { StatusBarLabelSide } from "./StatusBarItem";
 /** Properties of [[StatusBarLabelIndicator]] component.
  * @beta
  */
-export interface StatusBarLabelIndicatorProps extends Omit<StatusBarIndicatorProps, "children"> {
+export interface StatusBarLabelIndicatorProps
+  extends Omit<StatusBarIndicatorProps, "children"> {
   /** Specification of an icon. */
   iconSpec?: IconSpec;
   /** Indicator label. */
@@ -35,15 +36,16 @@ export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps) {
   const classNames = classnames(
     "uifw-statusbar-labelIndicator",
     labelSide === StatusBarLabelSide.Right && "uifw-reversed",
-    className,
+    className
   );
   return (
-    <StatusBarIndicator
-      className={classNames}
-      {...other}
-    >
+    <StatusBarIndicator className={classNames} {...other}>
       {label && <span className="uifw-label">{label}</span>}
-      {iconSpec && <div className="uifw-icon"><Icon iconSpec={iconSpec} /></div>}
+      {iconSpec && (
+        <div className="uifw-icon">
+          <Icon iconSpec={iconSpec} />
+        </div>
+      )}
     </StatusBarIndicator>
   );
 }
