@@ -209,14 +209,13 @@ export function buildPropertyFilter(
 function buildPropertyFilterFromRuleGroup(
   rootGroup: PropertyFilterBuilderRuleGroup
 ): PropertyFilter | undefined {
-  if (rootGroup.items.length === 0) return undefined;
-
   const rules = new Array<PropertyFilter>();
   for (const item of rootGroup.items) {
     const rule = buildPropertyFilter(item);
-    if (!rule) return undefined;
-    rules.push(rule);
+    if (rule) rules.push(rule);
   }
+
+  if (rules.length === 0) return undefined;
 
   if (rules.length === 1) return rules[0];
 
