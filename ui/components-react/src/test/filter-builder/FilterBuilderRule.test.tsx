@@ -7,7 +7,7 @@ import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
-import { PropertyValueFormat } from "@itwin/appui-abstract";
+import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import { fireEvent } from "@testing-library/react";
 import type { PropertyFilterBuilderRuleRendererProps } from "../../components-react/filter-builder/FilterBuilderRule";
 import { PropertyFilterBuilderRuleRenderer } from "../../components-react/filter-builder/FilterBuilderRule";
@@ -17,6 +17,7 @@ import { PropertyFilterBuilderActions } from "../../components-react/filter-buil
 import { PropertyFilterRuleOperator } from "../../components-react/filter-builder/Operators";
 import TestUtils from "../TestUtils";
 import { renderWithContext } from "./Common";
+import { UiComponents } from "../../components-react";
 
 describe("PropertyFilterBuilderRuleRenderer", () => {
   const defaultProps: PropertyFilterBuilderRuleRendererProps = {
@@ -59,6 +60,47 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
       const operatorContainer =
         container.querySelector<HTMLDivElement>(".rule-operator");
       expect(operatorContainer).to.not.be.null;
+    });
+
+    it("operator defaults to `contains` if rule property is string", () => {
+      const { container } = renderWithContext(
+        <PropertyFilterBuilderRuleRenderer
+          {...defaultProps}
+          rule={{
+            ...defaultProps.rule,
+            property: {
+              ...defaultProperty,
+              typename: StandardTypeNames.String,
+            },
+          }}
+        />
+      );
+
+      const operatorSpan = container.querySelector<HTMLSpanElement>(
+        ".rule-operator span"
+      );
+      expect(operatorSpan?.innerHTML).to.be.eq(
+        UiComponents.translate("filterBuilder.operators.contains")
+      );
+    });
+
+    it("operator defaults to `contains` if rule property is text", () => {
+      const { container } = renderWithContext(
+        <PropertyFilterBuilderRuleRenderer
+          {...defaultProps}
+          rule={{
+            ...defaultProps.rule,
+            property: { ...defaultProperty, typename: StandardTypeNames.Text },
+          }}
+        />
+      );
+
+      const operatorSpan = container.querySelector<HTMLSpanElement>(
+        ".rule-operator span"
+      );
+      expect(operatorSpan?.innerHTML).to.be.eq(
+        UiComponents.translate("filterBuilder.operators.contains")
+      );
     });
 
     it("renders operator using provided renderer", () => {

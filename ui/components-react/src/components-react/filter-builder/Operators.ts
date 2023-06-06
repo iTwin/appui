@@ -89,7 +89,7 @@ export function getPropertyFilterOperators(property: PropertyDescription) {
     typename === StandardTypeNames.String ||
     typename === StandardTypeNames.Text
   ) {
-    return [...operators, PropertyFilterRuleOperator.Like];
+    return [PropertyFilterRuleOperator.Like, ...operators];
   }
 
   return operators;
