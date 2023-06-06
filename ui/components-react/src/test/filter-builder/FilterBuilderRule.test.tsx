@@ -199,13 +199,18 @@ describe("PropertyFilterBuilderRuleRenderer", () => {
 
   it("dispatches remove rule action", () => {
     const actions = new PropertyFilterBuilderActions(sinon.spy());
-    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} />, { actions });
+    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} isRemovable={true}/>, { actions });
     const removeItemSpy = sinon.stub(actions, "removeItem");
 
     const button = container.querySelector(".rule-remove-action")?.firstElementChild;
     expect(button).to.not.be.null;
     fireEvent.click(button!);
     expect(removeItemSpy).to.be.calledOnceWith(defaultProps.path);
+  });
+
+  it("does not render remove rule buttom when there is only one rule in the rule group", () => {
+    const { container } = renderWithContext(<PropertyFilterBuilderRuleRenderer {...defaultProps} isRemovable={false}/>);
+    expect(container.querySelector(".rule-remove-action")?.firstElementChild).to.be.null;
   });
 
   it("dispatches operator change when operator is changed", () => {

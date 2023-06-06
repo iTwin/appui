@@ -28,6 +28,7 @@ export interface PropertyFilterBuilderRuleRendererProps {
   path: string[];
   /** Rule to render. */
   rule: PropertyFilterBuilderRule;
+  isRemovable?: boolean;
 }
 
 /**
@@ -35,7 +36,7 @@ export interface PropertyFilterBuilderRuleRendererProps {
  * @internal
  */
 export function PropertyFilterBuilderRuleRenderer(props: PropertyFilterBuilderRuleRendererProps) {
-  const { path, rule } = props;
+  const { path, rule, isRemovable } = props;
   const { properties, actions, onRulePropertySelected } = React.useContext(PropertyFilterBuilderContext);
   const { ruleOperatorRenderer, ruleValueRenderer, propertyRenderer, isDisabled } = React.useContext(PropertyFilterBuilderRuleRenderingContext);
   const { property, operator, value } = rule;
@@ -72,9 +73,11 @@ export function PropertyFilterBuilderRuleRenderer(props: PropertyFilterBuilderRu
 
   return <div className="rule">
     <div className="rule-remove-action">
-      <IconButton onClick={removeRule} styleType="borderless" size="small">
-        <SvgDelete />
-      </IconButton>
+      {property || isRemovable
+        ? <IconButton onClick={removeRule} styleType="borderless" size="small">
+          <SvgDelete />
+        </IconButton>
+        : null}
     </div>
     <div className="rule-condition">
       <PropertyFilterBuilderRuleProperty

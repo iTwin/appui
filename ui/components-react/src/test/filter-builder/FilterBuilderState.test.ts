@@ -115,15 +115,36 @@ describe("usePropertyFilterBuilderState", () => {
   it("removes rule from root group", () => {
     const { result } = renderHook(() => usePropertyFilterBuilderState());
     const { actions } = result.current;
+    actions.addItem([], "RULE");
+
+    let rootGroup = result.current.state.rootGroup;
+    expect(rootGroup.items).to.have.lengthOf(2);
+    actions.removeItem([rootGroup.items[0].id]);
+
+    rootGroup = result.current.state.rootGroup;
+    expect(rootGroup).to.containSubset({
+      items: [{ groupId: rootGroup.id }],
+    });
+  });
+
+  it("clears rule instead of removing it when only one rule is left in the rule group", () => {
+    const { result } = renderHook(() => usePropertyFilterBuilderState());
+    const { actions } = result.current;
 
     let rootGroup = result.current.state.rootGroup;
     expect(rootGroup.items).to.have.lengthOf(1);
+    actions.setRuleOperator([rootGroup.items[0].id], PropertyFilterRuleOperator.IsTrue);
+    actions.setRuleValue([rootGroup.items[0].id], { valueFormat: PropertyValueFormat.Primitive });
+    const testProperty = { name: "testName", displayLabel: "testLabel", typename: "testTypename" };
+    actions.setRuleProperty([rootGroup.items[0].id], testProperty);
+    rootGroup = result.current.state.rootGroup;
+    expect((rootGroup.items[0] as PropertyFilterBuilderRule).property).to.be.eq(testProperty);
     actions.removeItem([rootGroup.items[0].id]);
 
     rootGroup = result.current.state.rootGroup;
     expect(rootGroup).to.containSubset({
       operator: PropertyFilterRuleGroupOperator.And,
-      items: [],
+      items: [{ operator: undefined, value: undefined, property: undefined }],
     });
   });
 
@@ -373,17 +394,6 @@ describe("usePropertyFilterBuilderState", () => {
       actions.removeItem([getNestingRule().id, getNestingRule().items[1].id]);
       await waitFor(() => {
         expect(getNestingRule().items).to.have.lengthOf(1);
-      });
-    });
-
-    it("removes group when last rule is removed", async () => {
-      const { result, getNestingRule, getNestedRulePath } = await getStateWithNestedRule();
-      const { actions } = result.current;
-
-      actions.removeItem(getNestedRulePath());
-
-      await waitFor(() => {
-        expect(getNestingRule()).to.be.undefined;
       });
     });
   });
