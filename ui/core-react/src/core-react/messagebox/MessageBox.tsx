@@ -9,15 +9,18 @@
 import "./MessageBox.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { DialogButtonDef} from "@itwin/appui-abstract";
+import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { MessageSeverity } from "@itwin/appui-abstract";
-import { Dialog } from "../dialog/Dialog";
+import { SimpleDialog } from "../dialog/SimpleDialog";
 import type { CommonProps } from "../utils/Props";
-import { SvgHelpCircular, SvgHelpCircularHollow, SvgInfoCircular, SvgInfoCircularHollow, SvgStatusError, SvgStatusErrorHollow, SvgStatusRejected,
+import {
+  SvgHelpCircular, SvgHelpCircularHollow, SvgInfoCircular, SvgInfoCircularHollow, SvgStatusError, SvgStatusErrorHollow, SvgStatusRejected,
   SvgStatusRejectedHollow,
-  SvgStatusSuccess, SvgStatusSuccessHollow, SvgStatusWarning } from "@itwin/itwinui-icons-react";
+  SvgStatusSuccess, SvgStatusSuccessHollow, SvgStatusWarning
+} from "@itwin/itwinui-icons-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
+import { Dialog } from "../dialog/Dialog";
 
 /** Properties for the [[MessageBox]] component
  * @public
@@ -72,20 +75,21 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
 
   public override render(): JSX.Element {
     return (
-      <Dialog
+      <SimpleDialog
         title={this.props.title}
         buttonCluster={this.props.buttonCluster}
         opened={this.props.opened}
-        width={this.props.width}
         onClose={this.props.onClose}
         onEscape={this.props.onEscape}
         modal={this.props.modal}
         className={this.props.className}
-        style={this.props.style} >
+        style={this.props.style}
+        width={this.props.width}
+      >
         <MessageContainer severity={this.props.severity} className={this.props.contentClassName} style={this.props.contentStyle}>
           {this.props.children}
         </MessageContainer>
-      </Dialog>
+      </SimpleDialog>
     );
   }
 }
