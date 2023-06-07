@@ -104,7 +104,8 @@
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
     "typescript": "~5.0.2",
-    "eslint-config-prettier": "~8.8.0"
+    "eslint-config-prettier": "~8.8.0",
+    "@rushstack/eslint-patch": "^1.3.0"
   },
   "//dependencies": [
     "NOTE: these dependencies should be only for things that DO NOT APPEAR IN THE API",
@@ -130,8 +131,5 @@
     "branches": 99.9,
     "functions": 100,
     "lines": 99.9
-  },
-  "eslintConfig": {
-    "extends": "../.eslintrc.base.json"
   }
 }
