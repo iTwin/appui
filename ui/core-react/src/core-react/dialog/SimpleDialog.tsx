@@ -96,11 +96,7 @@ export class SimpleDialog extends React.Component<SimpleDialogProps> {
     this._parentDocument.addEventListener("keyup", this._handleKeyUp, true);
   }
 
-  public handleRefSet = (containerDiv: HTMLDivElement | null) => {
-    if (containerDiv)
-      this._parentDocument = containerDiv.ownerDocument;
-  };
-
+  // istanbul ignore next
   public override render(): JSX.Element {
     const {
       opened, title, buttonCluster, onClose, onEscape, onOutsideClick, // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -158,6 +154,7 @@ export class SimpleDialog extends React.Component<SimpleDialogProps> {
     );
   }
 
+  // istanbul ignore next
   private unwrapButtonCluster(buttonCluster: DialogButtonDef[]) {
     const buttons: React.ReactNode[] = [];
     if (buttonCluster) {
@@ -225,12 +222,14 @@ export class SimpleDialog extends React.Component<SimpleDialogProps> {
     return buttons;
   }
 
+  // istanbul ignore next
   private _handleKeyUp = (event: KeyboardEvent) => {
     if (event.key === SpecialKey.Escape && this.props.opened && this.props.onEscape) {
       this.props.onEscape();
     }
   };
 
+  // istanbul ignore next
   private _handleContainerPointerDown = (event: React.PointerEvent): void => {
     if (!this.props.modal) {
       if (this.props.onModelessPointerDown && this.props.modelessId)

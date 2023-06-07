@@ -23,7 +23,7 @@ describe("MessageBox", () => {
     it("should render content in an open dialog", () => {
       render(<MessageBox opened={true} severity={MessageSeverity.Information} buttonCluster={buttonCluster}><div>Content</div></MessageBox>);
 
-      expect(screen.getByText("Content", {selector: ".core-dialog.core-dialog-opened .core-message-box-container .core-message-box-content > div"})).to.exist;
+      expect(screen.getByText("Content", { selector: ".iui-dialog.iui-dialog-default.iui-dialog-visible .iui-dialog-content .core-message-box-container .core-message-box-content > div" })).to.exist;
     });
   });
 
