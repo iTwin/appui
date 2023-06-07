@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
 
 import * as React from "react";
-import type { PropertyRecord} from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { Orientation, RatioChangeResult } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps";
@@ -93,7 +93,10 @@ interface PropertyRendererState {
 /**  A React component that renders properties
  * @public
  */
-export class PropertyRenderer extends React.Component<PropertyRendererProps, PropertyRendererState> {
+export class PropertyRenderer extends React.Component<
+  PropertyRendererProps,
+  PropertyRendererState
+> {
   /** @internal */
   public override readonly state: Readonly<PropertyRendererState> = {
     displayValue: UiComponents.translate("general.loading"),
@@ -103,8 +106,20 @@ export class PropertyRenderer extends React.Component<PropertyRendererProps, Pro
     super(props);
   }
 
-  public static getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number {
-    return CommonPropertyRenderer.getLabelOffset(indentation, orientation, width, columnRatio, minColumnLabelWidth);
+  public static getLabelOffset(
+    indentation?: number,
+    orientation?: Orientation,
+    width?: number,
+    columnRatio?: number,
+    minColumnLabelWidth?: number
+  ): number {
+    return CommonPropertyRenderer.getLabelOffset(
+      indentation,
+      orientation,
+      width,
+      columnRatio,
+      minColumnLabelWidth
+    );
   }
 
   private updateDisplayValue(props: PropertyRendererProps) {
@@ -113,32 +128,36 @@ export class PropertyRenderer extends React.Component<PropertyRendererProps, Pro
       return;
     }
 
-    const displayValue = CommonPropertyRenderer.createNewDisplayValue(props.orientation, props.propertyRecord, props.indentation, props.propertyValueRendererManager);
+    const displayValue = CommonPropertyRenderer.createNewDisplayValue(
+      props.orientation,
+      props.propertyRecord,
+      props.indentation,
+      props.propertyValueRendererManager
+    );
     this.setState({ displayValue });
   }
 
   private _onEditCommit = (args: PropertyUpdatedArgs) => {
     // istanbul ignore else
-    if (this.props.onEditCommit)
-      this.props.onEditCommit(args);
+    if (this.props.onEditCommit) this.props.onEditCommit(args);
   };
 
   private _onEditCancel = () => {
     // istanbul ignore else
-    if (this.props.onEditCancel)
-      this.props.onEditCancel();
+    if (this.props.onEditCancel) this.props.onEditCancel();
   };
 
   /** Display property record value in an editor */
   public updateDisplayValueAsEditor(props: PropertyRendererProps) {
     this.setState({
-      displayValue:
+      displayValue: (
         <EditorContainer
           propertyRecord={props.propertyRecord}
           onCommit={this._onEditCommit}
           onCancel={this._onEditCancel}
           setFocus={true}
-        />,
+        />
+      ),
     });
   }
 
@@ -149,15 +168,27 @@ export class PropertyRenderer extends React.Component<PropertyRendererProps, Pro
 
   /** @internal */
   public override componentDidUpdate(prevProps: PropertyRendererProps) {
-    if (prevProps.propertyRecord !== this.props.propertyRecord ||
+    if (
+      prevProps.propertyRecord !== this.props.propertyRecord ||
       prevProps.isEditing !== this.props.isEditing ||
-      prevProps.orientation !== this.props.orientation)
+      prevProps.orientation !== this.props.orientation
+    )
       this.updateDisplayValue(this.props);
   }
 
   /** @internal */
   public override render() {
-    const { propertyValueRendererManager, isEditing, onEditCommit, onEditCancel, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      propertyValueRendererManager,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      isEditing,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onEditCommit,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onEditCancel,
+      ...props
+    } = this.props;
     const primitiveRendererProps: PrimitiveRendererProps = {
       ...props,
       valueElement: this.state.displayValue,
@@ -166,16 +197,15 @@ export class PropertyRenderer extends React.Component<PropertyRendererProps, Pro
 
     switch (this.props.propertyRecord.value.valueFormat) {
       case PropertyValueFormat.Primitive:
-        return (
-          <PrimitivePropertyRenderer {...primitiveRendererProps} />
-        );
+        return <PrimitivePropertyRenderer {...primitiveRendererProps} />;
       case PropertyValueFormat.Array:
         // If array is empty, render it as a primitive property
-        if (this.props.propertyRecord.value.valueFormat === PropertyValueFormat.Array
-          && this.props.propertyRecord.value.items.length === 0)
-          return (
-            <PrimitivePropertyRenderer {...primitiveRendererProps} />
-          );
+        if (
+          this.props.propertyRecord.value.valueFormat ===
+            PropertyValueFormat.Array &&
+          this.props.propertyRecord.value.items.length === 0
+        )
+          return <PrimitivePropertyRenderer {...primitiveRendererProps} />;
       // eslint-disable-next-line no-fallthrough
       case PropertyValueFormat.Struct:
         return (

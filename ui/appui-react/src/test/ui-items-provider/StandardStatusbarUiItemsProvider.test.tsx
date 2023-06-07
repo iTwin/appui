@@ -1,17 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import TestUtils from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import type { DefaultStatusbarItems} from "../../appui-react";
-import { StageUsage, StandardStatusbarUiItemsProvider, UiItemsManager } from "../../appui-react";
+import type { DefaultStatusbarItems } from "../../appui-react";
+import {
+  StageUsage,
+  StandardStatusbarUiItemsProvider,
+  UiItemsManager,
+} from "../../appui-react";
 
 const testArray: DefaultStatusbarItems[] = [
-  {
-  },
+  {},
 
   {
     messageCenter: true,
@@ -49,11 +52,9 @@ const testArray: DefaultStatusbarItems[] = [
     selectionScope: true,
     selectionInfo: true,
   },
-
 ];
 
 describe("StandardStatusbarUiItemsProvider", () => {
-
   // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
   before(async () => {
     await TestUtils.initializeUiFramework();
@@ -72,7 +73,9 @@ describe("StandardStatusbarUiItemsProvider", () => {
 
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
     // Activity Item is not included by default
-    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General)).length(8);
+    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General)).length(
+      8
+    );
     UiItemsManager.unregister(provider.id);
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -90,7 +93,9 @@ describe("StandardStatusbarUiItemsProvider", () => {
     UiItemsManager.register(provider);
 
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General).length).to.eq(7);
+    expect(
+      UiItemsManager.getStatusBarItems("test", StageUsage.General).length
+    ).to.eq(7);
     UiItemsManager.unregister(provider.id);
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -101,7 +106,9 @@ describe("StandardStatusbarUiItemsProvider", () => {
 
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
     // Activity Item is not included by default
-    expect(UiItemsManager.getStatusBarItems("test", StageUsage.General).length).to.eq(8);
+    expect(
+      UiItemsManager.getStatusBarItems("test", StageUsage.General).length
+    ).to.eq(8);
     UiItemsManager.unregister(provider.id);
 
     testArray.forEach((itemList: DefaultStatusbarItems) => {

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/appui-layout-react/lib/cjs/appui-layout-react/footer/variables";
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 
@@ -10,7 +10,7 @@
     flex-direction: row-reverse;
   }
 
-  >.uifw-label {
+  > .uifw-label {
     font-size: $text-font-size;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -21,7 +21,7 @@
     }
   }
 
-  >.uifw-icon {
+  > .uifw-icon {
     display: flex;
     align-items: center;
     justify-content: center;

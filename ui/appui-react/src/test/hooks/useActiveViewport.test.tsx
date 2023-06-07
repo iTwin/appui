@@ -1,12 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as moq from "typemoq";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { ActiveContentChangedEventArgs} from "../../appui-react";
+import type { ActiveContentChangedEventArgs } from "../../appui-react";
 import { UiFramework, useActiveViewport } from "../../appui-react";
 import { renderHook } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react";
@@ -33,7 +33,7 @@ describe("useActiveViewport", () => {
   });
 
   it("should update active viewport", async () => {
-    const {result}= renderHook(() => useActiveViewport());
+    const { result } = renderHook(() => useActiveViewport());
 
     expect(result.current).to.eq(selectedViewMock.object);
 
@@ -44,7 +44,9 @@ describe("useActiveViewport", () => {
       },
     };
 
-    UiFramework.content.onActiveContentChangedEvent.emit({} as ActiveContentChangedEventArgs);
+    UiFramework.content.onActiveContentChangedEvent.emit(
+      {} as ActiveContentChangedEventArgs
+    );
     await waitFor(() => {
       expect(result.current).to.eq(selectedViewMock2.object);
     });

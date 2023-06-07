@@ -4,7 +4,7 @@ Copyright © Bentley Systems, Incorporated. All rights reserved. See LICENSE.md 
 
 ## Description
 
-The __@itwin/components-react__ package contains React components that are data-oriented, such as PropertyGrid and Tree.
+The **@itwin/components-react** package contains React components that are data-oriented, such as PropertyGrid and Tree.
 
 ## Documentation
 

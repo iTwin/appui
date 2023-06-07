@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AccuDraw
  */
@@ -14,7 +14,10 @@ import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon, useRefs } from "@itwin/core-react";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { Input } from "@itwin/itwinui-react";
-import type { AccuDrawSetFieldFocusEventArgs, AccuDrawSetFieldValueToUiEventArgs } from "./FrameworkAccuDraw";
+import type {
+  AccuDrawSetFieldFocusEventArgs,
+  AccuDrawSetFieldValueToUiEventArgs,
+} from "./FrameworkAccuDraw";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw";
 import { UiFramework } from "../UiFramework";
 import { SvgLock } from "@itwin/itwinui-icons-react";
@@ -55,67 +58,87 @@ export interface AccuDrawInputFieldProps extends CommonProps {
   ref?: React.Ref<HTMLInputElement>;
 }
 
-const ForwardRefAccuDrawInput = React.forwardRef<HTMLInputElement, AccuDrawInputFieldProps>(
-  function ForwardRefAccuDrawInputField(props: AccuDrawInputFieldProps, ref) {
-    const { className, style, id, label, iconSpec, labelClassName, labelStyle, labelCentered, field, isLocked,
-      onValueChanged, valueChangedDelay, onEnterPressed, onEscPressed, ...inputProps } = props;
-    const [stringValue, setStringValue] = React.useState("");
-    const timeoutId = React.useRef(0);
-    const [needValueChanged, setNeedValueChanged] = React.useState(false);
-    const [needSelection, setNeedSelection] = React.useState(false);
-    const [isFocusField, setIsFocusField] = React.useState(false);
-    const inputElementRef = React.useRef<HTMLInputElement>(null);
-    const refs = useRefs(inputElementRef, ref);  // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
+const ForwardRefAccuDrawInput = React.forwardRef<
+  HTMLInputElement,
+  AccuDrawInputFieldProps
+>(function ForwardRefAccuDrawInputField(props: AccuDrawInputFieldProps, ref) {
+  const {
+    className,
+    style,
+    id,
+    label,
+    iconSpec,
+    labelClassName,
+    labelStyle,
+    labelCentered,
+    field,
+    isLocked,
+    onValueChanged,
+    valueChangedDelay,
+    onEnterPressed,
+    onEscPressed,
+    ...inputProps
+  } = props;
+  const [stringValue, setStringValue] = React.useState("");
+  const timeoutId = React.useRef(0);
+  const [needValueChanged, setNeedValueChanged] = React.useState(false);
+  const [needSelection, setNeedSelection] = React.useState(false);
+  const [isFocusField, setIsFocusField] = React.useState(false);
+  const inputElementRef = React.useRef<HTMLInputElement>(null);
+  const refs = useRefs(inputElementRef, ref); // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
 
-    React.useEffect(() => {
-      const formattedValue = FrameworkAccuDraw.getFieldDisplayValue(field);
-      setStringValue(formattedValue);
-    }, [field]);
+  React.useEffect(() => {
+    const formattedValue = FrameworkAccuDraw.getFieldDisplayValue(field);
+    setStringValue(formattedValue);
+  }, [field]);
 
-    const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
       const value = event.currentTarget.value;
 
       // istanbul ignore next
-      if (value === undefined)
-        return;
+      if (value === undefined) return;
 
       // istanbul ignore else
       if (stringValue !== value) {
         setStringValue(value);
         setNeedValueChanged(true);
       }
-    }, [stringValue]);
+    },
+    [stringValue]
+  );
 
-    const unsetTimeout = (): void => {
-      // istanbul ignore else
-      if (timeoutId) {
-        window.clearTimeout(timeoutId.current);
-        timeoutId.current = 0;
-      }
-    };
+  const unsetTimeout = (): void => {
+    // istanbul ignore else
+    if (timeoutId) {
+      window.clearTimeout(timeoutId.current);
+      timeoutId.current = 0;
+    }
+  };
 
-    React.useEffect(() => {
-      // After setStringValue & re-render
-      // istanbul ignore else
-      if (needValueChanged) {
-        if (valueChangedDelay) {
-          unsetTimeout();
-          timeoutId.current = window.setTimeout(() => {
-            onValueChanged(stringValue);
-          }, valueChangedDelay);
-        } else {
+  React.useEffect(() => {
+    // After setStringValue & re-render
+    // istanbul ignore else
+    if (needValueChanged) {
+      if (valueChangedDelay) {
+        unsetTimeout();
+        timeoutId.current = window.setTimeout(() => {
           onValueChanged(stringValue);
-        }
-        setNeedValueChanged(false);
+        }, valueChangedDelay);
+      } else {
+        onValueChanged(stringValue);
       }
-    }, [onValueChanged, valueChangedDelay, stringValue, needValueChanged]);
+      setNeedValueChanged(false);
+    }
+  }, [onValueChanged, valueChangedDelay, stringValue, needValueChanged]);
 
-    React.useEffect(() => {
-      // On unmount
-      return () => unsetTimeout();
-    }, []);
+  React.useEffect(() => {
+    // On unmount
+    return () => unsetTimeout();
+  }, []);
 
-    const handleKeyDown = React.useCallback((e: React.KeyboardEvent) => {
+  const handleKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
       switch (e.key) {
         case SpecialKey.Escape:
           onEscPressed && onEscPressed();
@@ -130,60 +153,77 @@ const ForwardRefAccuDrawInput = React.forwardRef<HTMLInputElement, AccuDrawInput
         UiFramework.keyboardShortcuts.processKey(e.key);
         return;
       }
-    }, [onEscPressed, onEnterPressed]);
+    },
+    [onEscPressed, onEnterPressed]
+  );
 
-    React.useEffect(() => {
-      const handleSetFieldValueToUi = (args: AccuDrawSetFieldValueToUiEventArgs) => {
-        if (args.field === field && stringValue !== args.formattedValue) {
-          setStringValue(args.formattedValue);
-          // istanbul ignore else
-          if (isFocusField)
-            setNeedSelection(true);
-        }
-      };
-      return FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(handleSetFieldValueToUi);
-    }, [field, isFocusField, stringValue]);
-
-    React.useEffect(() => {
-      if (needSelection) {
+  React.useEffect(() => {
+    const handleSetFieldValueToUi = (
+      args: AccuDrawSetFieldValueToUiEventArgs
+    ) => {
+      if (args.field === field && stringValue !== args.formattedValue) {
+        setStringValue(args.formattedValue);
         // istanbul ignore else
-        if (inputElementRef.current)
-          inputElementRef.current.select();
-        setNeedSelection(false);
+        if (isFocusField) setNeedSelection(true);
       }
-    }, [needSelection]);
-
-    React.useEffect(() => {
-      const handleSetFieldFocus = (args: AccuDrawSetFieldFocusEventArgs) => {
-        setIsFocusField(args.field === field);
-      };
-      return FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(handleSetFieldFocus);
-    }, [field]);
-
-    const inputClassNames = classnames("uifw-accudraw-input-field", className);
-    const labelClassNames = classnames("uifw-accudraw-input-label",
-      labelCentered && "uifw-label-centered",
-      labelClassName
+    };
+    return FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.addListener(
+      handleSetFieldValueToUi
     );
+  }, [field, isFocusField, stringValue]);
 
-    return (
-      <>
-        <label htmlFor={id} className={labelClassNames} style={labelStyle}>
-          {label}
-          {iconSpec && <Icon iconSpec={iconSpec} />}
-        </label>
-        <Input {...inputProps} ref={refs} id={id} value={stringValue}
-          className={inputClassNames} style={style} autoComplete="off"
-          onChange={handleChange} onKeyDown={handleKeyDown} size="small" />
-        <span className="uifw-accudraw-lock" >
-          {isLocked && <Icon iconSpec={<SvgLock />} />}
-        </span>
-      </>
+  React.useEffect(() => {
+    if (needSelection) {
+      // istanbul ignore else
+      if (inputElementRef.current) inputElementRef.current.select();
+      setNeedSelection(false);
+    }
+  }, [needSelection]);
+
+  React.useEffect(() => {
+    const handleSetFieldFocus = (args: AccuDrawSetFieldFocusEventArgs) => {
+      setIsFocusField(args.field === field);
+    };
+    return FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(
+      handleSetFieldFocus
     );
-  }
-);
+  }, [field]);
+
+  const inputClassNames = classnames("uifw-accudraw-input-field", className);
+  const labelClassNames = classnames(
+    "uifw-accudraw-input-label",
+    labelCentered && "uifw-label-centered",
+    labelClassName
+  );
+
+  return (
+    <>
+      <label htmlFor={id} className={labelClassNames} style={labelStyle}>
+        {label}
+        {iconSpec && <Icon iconSpec={iconSpec} />}
+      </label>
+      <Input
+        {...inputProps}
+        ref={refs}
+        id={id}
+        value={stringValue}
+        className={inputClassNames}
+        style={style}
+        autoComplete="off"
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        size="small"
+      />
+      <span className="uifw-accudraw-lock">
+        {isLocked && <Icon iconSpec={<SvgLock />} />}
+      </span>
+    </>
+  );
+});
 
 /** Input field for AccuDraw Ui
  * @beta
  */
-export const AccuDrawInputField: (props: AccuDrawInputFieldProps) => React.JSX.Element | null = ForwardRefAccuDrawInput;
+export const AccuDrawInputField: (
+  props: AccuDrawInputFieldProps
+) => JSX.Element | null = ForwardRefAccuDrawInput;

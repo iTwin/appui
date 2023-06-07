@@ -1,19 +1,23 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module TypeConverters
  */
 
 import { Logger } from "@itwin/core-bentley";
-import type { Primitives} from "@itwin/appui-abstract";
-import { AlternateDateFormats, StandardTypeNames, TimeDisplay } from "@itwin/appui-abstract";
+import type { Primitives } from "@itwin/appui-abstract";
+import {
+  AlternateDateFormats,
+  StandardTypeNames,
+  TimeDisplay,
+} from "@itwin/appui-abstract";
 import { TimeFormat } from "@itwin/core-react";
 import { formatInputDate } from "../datepicker/DateField";
 import { adjustDateToTimezone } from "../common/DateUtils";
 import { UiComponents } from "../UiComponents";
-import type { LessGreaterOperatorProcessor} from "./TypeConverter";
+import type { LessGreaterOperatorProcessor } from "./TypeConverter";
 import { TypeConverter } from "./TypeConverter";
 import { TypeConverterManager } from "./TypeConverterManager";
 import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes";
@@ -24,19 +28,22 @@ import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes";
  * DateTime Type Converter.
  * @public
  */
-export abstract class DateTimeTypeConverterBase extends TypeConverter implements LessGreaterOperatorProcessor {
+export abstract class DateTimeTypeConverterBase
+  extends TypeConverter
+  implements LessGreaterOperatorProcessor
+{
   public override convertToString(value?: Primitives.Value) {
-    if (value === undefined)
-      return "";
+    if (value === undefined) return "";
 
-    if (typeof value === "string")
-      value = new Date(value);
+    if (typeof value === "string") value = new Date(value);
 
     // istanbul ignore else
     if (value instanceof Date) {
       switch (this.getTimeFormat()) {
-        case TimeFormat.Short: return value.toLocaleDateString();
-        case TimeFormat.Long: return value.toLocaleString();
+        case TimeFormat.Short:
+          return value.toLocaleDateString();
+        case TimeFormat.Long:
+          return value.toLocaleString();
       }
       return value.toISOString();
     }
@@ -46,26 +53,40 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
   }
 
   public static isValidTimeDisplay(type: TimeDisplay): boolean {
-    return Object.keys(TimeDisplay).some((key) => (TimeDisplay as any)[key] === type);
+    return Object.keys(TimeDisplay).some(
+      (key) => (TimeDisplay as any)[key] === type
+    );
   }
 
   public static isAlternateDateFormats(type: AlternateDateFormats): boolean {
-    return Object.keys(AlternateDateFormats).some((key) => (AlternateDateFormats as any)[key] === type);
+    return Object.keys(AlternateDateFormats).some(
+      (key) => (AlternateDateFormats as any)[key] === type
+    );
   }
 
   // supported options:
   //    timeDisplay?: TimeDisplay
   //    alternateDateFormat?: AlternateDateFormats
-  public override convertToStringWithOptions(value?: Primitives.Value, options?: { [key: string]: any }): string | Promise<string> {
-    if (value === undefined)
-      return "";
+  public override convertToStringWithOptions(
+    value?: Primitives.Value,
+    options?: { [key: string]: any }
+  ): string | Promise<string> {
+    if (value === undefined) return "";
 
     if (options) {
-      let timeDisplay: TimeDisplay | undefined = (this.getTimeFormat() === TimeFormat.Long) ? TimeDisplay.H12MC : undefined;
+      let timeDisplay: TimeDisplay | undefined =
+        this.getTimeFormat() === TimeFormat.Long
+          ? TimeDisplay.H12MC
+          : undefined;
       let alternateDateFormat = AlternateDateFormats.None;
 
       // istanbul ignore else
-      if ("alternateDateFormat" in options && DateTimeTypeConverterBase.isAlternateDateFormats(options.alternateDateFormat)) {
+      if (
+        "alternateDateFormat" in options &&
+        DateTimeTypeConverterBase.isAlternateDateFormats(
+          options.alternateDateFormat
+        )
+      ) {
         alternateDateFormat = options.alternateDateFormat;
       }
 
@@ -74,10 +95,15 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
         if ("timeDisplay" in options) {
           // istanbul ignore if
           if (alternateDateFormat) {
-            Logger.logInfo(UiComponents.loggerCategory(this), `Invalid specification of timeDisplay with alternateDateFormat specification`);
+            Logger.logInfo(
+              UiComponents.loggerCategory(this),
+              `Invalid specification of timeDisplay with alternateDateFormat specification`
+            );
           } else {
             // istanbul ignore else
-            if (DateTimeTypeConverterBase.isValidTimeDisplay(options.timeDisplay))
+            if (
+              DateTimeTypeConverterBase.isValidTimeDisplay(options.timeDisplay)
+            )
               timeDisplay = options.timeDisplay;
           }
         }
@@ -85,7 +111,7 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
 
       // istanbul ignore else
       if (typeof value === "string") {
-        value = new Date(value);  // this value will be based on local time zone
+        value = new Date(value); // this value will be based on local time zone
         // istanbul ignore else
         if (value instanceof Date && alternateDateFormat) {
           // alternateDateFormat displays UTC time, so assume string is specifying UTC Date and Time
@@ -113,10 +139,14 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
             alternateDateFormat = AlternateDateFormats.UtcShortWithDay;
         }
 
-        const formattedDateTime = formatInputDate(value, timeDisplay, undefined, alternateDateFormat);
+        const formattedDateTime = formatInputDate(
+          value,
+          timeDisplay,
+          undefined,
+          alternateDateFormat
+        );
         // istanbul ignore else
-        if (formattedDateTime)
-          return formattedDateTime;
+        if (formattedDateTime) return formattedDateTime;
       }
     }
 
@@ -124,20 +154,30 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
   }
 
   /** Default implementation just calls convertFromString with no options */
-  public override convertFromStringWithOptions(value: string, options?: { [key: string]: any }): ConvertedPrimitives.Value | undefined | Promise<ConvertedPrimitives.Value | undefined> {
-    if (!value)
-      return undefined;
+  public override convertFromStringWithOptions(
+    value: string,
+    options?: { [key: string]: any }
+  ):
+    | ConvertedPrimitives.Value
+    | undefined
+    | Promise<ConvertedPrimitives.Value | undefined> {
+    if (!value) return undefined;
 
     if (options) {
       let alternateDateFormat = AlternateDateFormats.None;
 
       // istanbul ignore else
-      if ("alternateDateFormat" in options && DateTimeTypeConverterBase.isAlternateDateFormats(options.alternateDateFormat)) {
+      if (
+        "alternateDateFormat" in options &&
+        DateTimeTypeConverterBase.isAlternateDateFormats(
+          options.alternateDateFormat
+        )
+      ) {
         alternateDateFormat = options.alternateDateFormat;
       }
 
       // istanbul ignore else
-      let date = new Date(value);  // this value will be based on local time zone
+      let date = new Date(value); // this value will be based on local time zone
       // istanbul ignore else
       if (date instanceof Date && alternateDateFormat) {
         // alternateDateFormat displays UTC time, so assume string is specifying UTC Date and Time
@@ -153,22 +193,26 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
   }
 
   public override convertFromString(value: string) {
-    if (!value)
-      return undefined;
+    if (!value) return undefined;
 
     const dateValue = new Date(value);
 
-    if (!this.isDateValid(dateValue))
-      return undefined;
+    if (!this.isDateValid(dateValue)) return undefined;
 
     return dateValue;
   }
 
   protected abstract getTimeFormat(): TimeFormat;
 
-  public override get isLessGreaterType(): boolean { return true; }
+  public override get isLessGreaterType(): boolean {
+    return true;
+  }
 
-  public sortCompare(valueA: Date, valueB: Date, _ignoreCase?: boolean): number {
+  public sortCompare(
+    valueA: Date,
+    valueB: Date,
+    _ignoreCase?: boolean
+  ): number {
     return valueA.valueOf() - valueB.valueOf();
   }
 
@@ -202,15 +246,25 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
  * @public
  */
 export class ShortDateTypeConverter extends DateTimeTypeConverterBase {
-  protected getTimeFormat(): TimeFormat { return TimeFormat.Short; }
+  protected getTimeFormat(): TimeFormat {
+    return TimeFormat.Short;
+  }
 }
-TypeConverterManager.registerConverter(StandardTypeNames.ShortDate, ShortDateTypeConverter);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.ShortDate,
+  ShortDateTypeConverter
+);
 
 /**
  * Date Time Type Converter.
  * @public
  */
 export class DateTimeTypeConverter extends DateTimeTypeConverterBase {
-  protected getTimeFormat(): TimeFormat { return TimeFormat.Long; }
+  protected getTimeFormat(): TimeFormat {
+    return TimeFormat.Long;
+  }
 }
-TypeConverterManager.registerConverter(StandardTypeNames.DateTime, DateTimeTypeConverter);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.DateTime,
+  DateTimeTypeConverter
+);

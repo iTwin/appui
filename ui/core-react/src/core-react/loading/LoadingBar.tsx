@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Loading
  */
@@ -40,7 +40,9 @@ export class LoadingBar extends React.PureComponent<LoadingBarProps> {
         <div className="lb-container" style={{ height: this.props.barHeight }}>
           <div className="fill" style={{ width: percent }} />
         </div>
-        {this.props.showPercentage && <span className="percent">{percent}</span>}
+        {this.props.showPercentage && (
+          <span className="percent">{percent}</span>
+        )}
       </div>
     );
   }

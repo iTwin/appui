@@ -1,29 +1,38 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import { BadgeType } from "@itwin/appui-abstract";
 import {
-  FrontstageDef, getBadgeClassName, UiFramework, WidgetDef, WidgetPanelsTab,
+  FrontstageDef,
+  getBadgeClassName,
+  UiFramework,
+  WidgetDef,
+  WidgetPanelsTab,
 } from "../../appui-react";
 import { render, screen } from "@testing-library/react";
-import { addPanelWidget, addTab, createLayoutStore, createNineZoneState, NineZone, TabIdContext, TabPositionContext, WidgetIdContext } from "@itwin/appui-layout-react";
+import {
+  addPanelWidget,
+  addTab,
+  createLayoutStore,
+  createNineZoneState,
+  NineZone,
+  TabIdContext,
+  TabPositionContext,
+  WidgetIdContext,
+} from "@itwin/appui-layout-react";
 import { expect } from "chai";
 import { selectorMatches } from "../TestUtils";
 
 describe("WidgetPanelsTab", () => {
-
   it("should render", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "Tab1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
-      <NineZone
-        dispatch={sinon.spy()}
-        layout={createLayoutStore(state)}
-      >
+      <NineZone dispatch={sinon.spy()} layout={createLayoutStore(state)}>
         <WidgetIdContext.Provider value="w1">
           <TabIdContext.Provider value="t1">
             <TabPositionContext.Provider value={{}}>
@@ -38,7 +47,9 @@ describe("WidgetPanelsTab", () => {
 
   it("should render with badge", () => {
     const frontstageDef = new FrontstageDef();
-    sinon.stub(UiFramework.frontstages, "activeFrontstageDef").get(() => frontstageDef);
+    sinon
+      .stub(UiFramework.frontstages, "activeFrontstageDef")
+      .get(() => frontstageDef);
     const widgetDef = WidgetDef.create({
       id: "w1",
       badge: BadgeType.New,
@@ -49,10 +60,7 @@ describe("WidgetPanelsTab", () => {
     state = addTab(state, "t1", { label: "Tab1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     render(
-      <NineZone
-        dispatch={sinon.spy()}
-        layout={createLayoutStore(state)}
-      >
+      <NineZone dispatch={sinon.spy()} layout={createLayoutStore(state)}>
         <WidgetIdContext.Provider value="w1">
           <TabIdContext.Provider value="t1">
             <TabPositionContext.Provider value={{}}>
@@ -62,7 +70,9 @@ describe("WidgetPanelsTab", () => {
         </WidgetIdContext.Provider>
       </NineZone>
     );
-    expect(screen.getByRole("tab")).to.satisfy(selectorMatches(".uifw-badge-new"));
+    expect(screen.getByRole("tab")).to.satisfy(
+      selectorMatches(".uifw-badge-new")
+    );
   });
 });
 

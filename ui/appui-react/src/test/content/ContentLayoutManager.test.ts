@@ -1,14 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-/* eslint-disable deprecation/deprecation */
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { getUniqueId } from "@itwin/appui-layout-react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { UiFramework } from "../../appui-react";
-import type { ContentGroupProps, ContentProps } from "../../appui-react/content/ContentGroup";
+import type {
+  ContentGroupProps,
+  ContentProps,
+} from "../../appui-react/content/ContentGroup";
 import { ContentGroup } from "../../appui-react/content/ContentGroup";
 import { InternalContentLayoutManager } from "../../appui-react/content/InternalContentLayoutManager";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
@@ -32,8 +34,14 @@ describe("ContentLayoutManager", () => {
 
   it("should getForGroup", () => {
     const uniqueGroupId = getUniqueId();
-    const contentProps: ContentProps[] = [{ id: "myContent", classId: "TestContentControl" }, { id: "myContent2", classId: "TestContentControl" }];
-    const key = InternalContentLayoutManager.getKey({ contentGroupId: uniqueGroupId, layoutId: StandardContentLayouts.twoHorizontalSplit.id });
+    const contentProps: ContentProps[] = [
+      { id: "myContent", classId: "TestContentControl" },
+      { id: "myContent2", classId: "TestContentControl" },
+    ];
+    const key = InternalContentLayoutManager.getKey({
+      contentGroupId: uniqueGroupId,
+      layoutId: StandardContentLayouts.twoHorizontalSplit.id,
+    });
 
     const groupProps: ContentGroupProps = {
       id: uniqueGroupId,
@@ -48,8 +56,14 @@ describe("ContentLayoutManager", () => {
 
   it("should getForGroup with overridden layout", () => {
     const uniqueGroupId = getUniqueId();
-    const contentProps: ContentProps[] = [{ id: "myContent", classId: "TestContentControl" }, { id: "myContent2", classId: "TestContentControl" }];
-    const overrideKey = InternalContentLayoutManager.getKey({ contentGroupId: uniqueGroupId, layoutId: StandardContentLayouts.twoVerticalSplit.id });
+    const contentProps: ContentProps[] = [
+      { id: "myContent", classId: "TestContentControl" },
+      { id: "myContent2", classId: "TestContentControl" },
+    ];
+    const overrideKey = InternalContentLayoutManager.getKey({
+      contentGroupId: uniqueGroupId,
+      layoutId: StandardContentLayouts.twoVerticalSplit.id,
+    });
 
     const groupProps: ContentGroupProps = {
       id: uniqueGroupId,
@@ -57,14 +71,20 @@ describe("ContentLayoutManager", () => {
       contents: contentProps,
     };
 
-    const layoutDef = InternalContentLayoutManager.getForGroup(groupProps, StandardContentLayouts.twoVerticalSplit);
+    const layoutDef = InternalContentLayoutManager.getForGroup(
+      groupProps,
+      StandardContentLayouts.twoVerticalSplit
+    );
     const foundLayoutDef = InternalContentLayoutManager.find(overrideKey);
     expect(foundLayoutDef?.id).to.be.eq(layoutDef.id);
   });
 
   it("should call  InternalFrontstageManager.setActiveContentGroup", async () => {
     const uniqueGroupId = getUniqueId();
-    const contentProps: ContentProps[] = [{ id: "myContent", classId: "TestContentControl" }, { id: "myContent2", classId: "TestContentControl" }];
+    const contentProps: ContentProps[] = [
+      { id: "myContent", classId: "TestContentControl" },
+      { id: "myContent2", classId: "TestContentControl" },
+    ];
     const groupProps: ContentGroupProps = {
       id: uniqueGroupId,
       layout: StandardContentLayouts.twoHorizontalSplit,
@@ -72,9 +92,10 @@ describe("ContentLayoutManager", () => {
     };
 
     const contentGroup = new ContentGroup(groupProps);
-    const spy = sinon.stub(InternalFrontstageManager, "setActiveContentGroup").returns(Promise.resolve());
+    const spy = sinon
+      .stub(InternalFrontstageManager, "setActiveContentGroup")
+      .returns(Promise.resolve());
     await InternalContentLayoutManager.setActiveContentGroup(contentGroup);
     expect(spy).to.have.been.called;
   });
-
 });

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
@@ -11,7 +11,7 @@ import TestUtils, { childStructure, userEvent } from "../TestUtils";
 
 describe("StandardRotationNavigationAid", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -27,7 +27,6 @@ describe("StandardRotationNavigationAid", () => {
 
   // TODO: This only tests that the icons display, not which is displayed. Should be replaced with visual testing.
   describe("<StandardRotationNavigationAid />", () => {
-
     it("should expand on click and change on item click", async () => {
       render(<StandardRotationNavigationAid />);
 
@@ -38,7 +37,9 @@ describe("StandardRotationNavigationAid", () => {
       expect(screen.getAllByText(/rotations/)).to.have.lengthOf(8);
 
       await theUserTo.click(screen.getByText("rotations.bottom"));
-      expect(screen.getByRole("button")).to.satisfy(childStructure("span.three-d-icon.icon"));
+      expect(screen.getByRole("button")).to.satisfy(
+        childStructure("span.three-d-icon.icon")
+      );
     });
   });
 });

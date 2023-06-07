@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
@@ -16,25 +16,43 @@ import { ContentLayoutDef } from "./ContentLayout";
  * @internal
  */
 export class InternalContentLayoutManager {
-  private static _layoutDefs: Map<string, ContentLayoutDef> = new Map<string, ContentLayoutDef>();
+  private static _layoutDefs: Map<string, ContentLayoutDef> = new Map<
+    string,
+    ContentLayoutDef
+  >();
 
   /** build a layout key that is unique for group layout combination */
-  public static getKey(props: { contentGroupId: string, layoutId: string }): string {
+  public static getKey(props: {
+    contentGroupId: string;
+    layoutId: string;
+  }): string {
     return `${props.contentGroupId}-${props.layoutId}`;
   }
 
   /** Return a LayoutDef that is specific to a content group.
    * @returns the [[ContentLayoutDef]] if found, or undefined otherwise
    */
-  public static getForGroup(contentGroupProps: ContentGroupProps | ContentGroup, overrideContentLayout?: ContentLayoutProps): ContentLayoutDef {
+  public static getForGroup(
+    contentGroupProps: ContentGroupProps | ContentGroup,
+    overrideContentLayout?: ContentLayoutProps
+  ): ContentLayoutDef {
     const layoutId = overrideContentLayout?.id ?? contentGroupProps.layout.id;
-    const layoutKey = this.getKey({ contentGroupId: contentGroupProps.id, layoutId });
+    const layoutKey = this.getKey({
+      contentGroupId: contentGroupProps.id,
+      layoutId,
+    });
 
-    if (!overrideContentLayout && InternalContentLayoutManager._layoutDefs.has(layoutKey)) {
+    if (
+      !overrideContentLayout &&
+      InternalContentLayoutManager._layoutDefs.has(layoutKey)
+    ) {
       return InternalContentLayoutManager._layoutDefs.get(layoutKey)!;
     }
 
-    const newContentLayoutProps = { ...contentGroupProps.layout, ...overrideContentLayout };
+    const newContentLayoutProps = {
+      ...contentGroupProps.layout,
+      ...overrideContentLayout,
+    };
     const newLayoutDef = new ContentLayoutDef(newContentLayoutProps);
     this.add(layoutKey, newLayoutDef);
     return newLayoutDef;
@@ -61,8 +79,7 @@ export class InternalContentLayoutManager {
     let layoutDef: ContentLayoutDef | undefined;
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
-    if (activeFrontstageDef)
-      layoutDef = activeFrontstageDef.contentLayoutDef;
+    if (activeFrontstageDef) layoutDef = activeFrontstageDef.contentLayoutDef;
 
     return layoutDef;
   }
@@ -72,8 +89,7 @@ export class InternalContentLayoutManager {
     let contentGroup: ContentGroup | undefined;
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
 
-    if (activeFrontstageDef)
-      contentGroup = activeFrontstageDef.contentGroup;
+    if (activeFrontstageDef) contentGroup = activeFrontstageDef.contentGroup;
 
     return contentGroup;
   }
@@ -82,14 +98,22 @@ export class InternalContentLayoutManager {
    * @param contentLayoutDef  Content layout to make active
    * @param contentGroup  Content Group to make active
    */
-  public static async setActive(contentLayoutDef: ContentLayoutDef, contentGroup: ContentGroup): Promise<void> {
-    await InternalFrontstageManager.setActiveLayout(contentLayoutDef, contentGroup);
+  public static async setActive(
+    contentLayoutDef: ContentLayoutDef,
+    contentGroup: ContentGroup
+  ): Promise<void> {
+    await InternalFrontstageManager.setActiveLayout(
+      contentLayoutDef,
+      contentGroup
+    );
   }
 
   /** Sets the active Content Group.
    * @param contentGroup  Content Group to make active
    */
-  public static async setActiveContentGroup(contentGroup: ContentGroup): Promise<void> {
+  public static async setActiveContentGroup(
+    contentGroup: ContentGroup
+  ): Promise<void> {
     await InternalFrontstageManager.setActiveContentGroup(contentGroup);
   }
 
@@ -98,7 +122,11 @@ export class InternalContentLayoutManager {
   public static refreshActive(): void {
     // istanbul ignore else
     const activeFrontstageDef = UiFramework.frontstages.activeFrontstageDef;
-    if (activeFrontstageDef && activeFrontstageDef.contentLayoutDef && activeFrontstageDef.contentGroup) {
+    if (
+      activeFrontstageDef &&
+      activeFrontstageDef.contentLayoutDef &&
+      activeFrontstageDef.contentGroup
+    ) {
       UiFramework.frontstages.onContentLayoutActivatedEvent.emit({
         contentLayout: activeFrontstageDef.contentLayoutDef,
         contentGroup: activeFrontstageDef.contentGroup,

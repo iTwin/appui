@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module RadialMenu
  */
@@ -53,7 +53,10 @@ interface RadialMenuState {
  * A context menu arranged in a radial layout.
  * @public
  */
-export class RadialMenu extends React.Component<RadialMenuProps, RadialMenuState> {
+export class RadialMenu extends React.Component<
+  RadialMenuProps,
+  RadialMenuState
+> {
   private _root: HTMLDivElement | null = null;
   private _selectedButton: RadialButton | null = null;
   public static defaultProps: Partial<RadialMenuProps> = {
@@ -72,49 +75,64 @@ export class RadialMenu extends React.Component<RadialMenuProps, RadialMenuState
 
   public override render(): React.JSX.Element {
     const width = 2 * (this.props.outerRadius + 1);
-    let x = this.props.left, y = this.props.top;
+    let x = this.props.left,
+      y = this.props.top;
 
-    if (this.props.left && this.props.top && typeof this.props.left === "number" && typeof this.props.top === "number") {
+    if (
+      this.props.left &&
+      this.props.top &&
+      typeof this.props.left === "number" &&
+      typeof this.props.top === "number"
+    ) {
       x = this.props.left;
       y = this.props.top;
 
-      if (x < 0)
-        x = 0;
-      if (x > window.innerWidth - width)
-        x = window.innerWidth - width;
-      if (y < 0)
-        y = 0;
-      if (y > window.innerHeight - width)
-        y = window.innerHeight - width;
+      if (x < 0) x = 0;
+      if (x > window.innerWidth - width) x = window.innerWidth - width;
+      if (y < 0) y = 0;
+      if (y > window.innerHeight - width) y = window.innerHeight - width;
     }
 
-    const divStyle: React.CSSProperties = { left: x, top: y, ...this.props.style };
+    const divStyle: React.CSSProperties = {
+      left: x,
+      top: y,
+      ...this.props.style,
+    };
 
     return (
       <div
-        ref={(el) => { this._root = el; }}
-        className={classnames("core-radial-menu", { opened: this.props.opened }, this.props.className)}
+        ref={(el) => {
+          this._root = el;
+        }}
+        className={classnames(
+          "core-radial-menu",
+          { opened: this.props.opened },
+          this.props.className
+        )}
         style={divStyle}
         data-testid="core-radial-menu"
       >
         <svg
-          xmlns="http://w3.org/2000/svg" version="1.1"
-          width={width} height={width}
-          className={"core-radial-menu-container"}>
+          xmlns="http://w3.org/2000/svg"
+          version="1.1"
+          width={width}
+          height={width}
+          className={"core-radial-menu-container"}
+        >
           {React.Children.map(this.props.children, (child, index) => {
             // istanbul ignore next
             if (!child || typeof child !== "object" || !("props" in child))
               return child;
 
-            const childElement = (child as React.ReactElement<any>);
+            const childElement = child as React.ReactElement<any>;
             return React.cloneElement(childElement, {
               key: index,
               ref: (el: any) => {
-                if (this.props.selected === index)
-                  this._selectedButton = el;
+                if (this.props.selected === index) this._selectedButton = el;
               },
               selected: index === this.props.selected,
-              labelRotate: childElement.props.labelRotate || this.props.labelRotate,
+              labelRotate:
+                childElement.props.labelRotate || this.props.labelRotate,
               annularSector: this.state.sectors[index],
             });
           })}
@@ -138,7 +156,10 @@ export class RadialMenu extends React.Component<RadialMenuProps, RadialMenuState
   }
 
   public override componentDidUpdate(prevProps: RadialMenuProps) {
-    if (prevProps.innerRadius !== this.props.innerRadius || prevProps.outerRadius !== this.props.outerRadius) {
+    if (
+      prevProps.innerRadius !== this.props.innerRadius ||
+      prevProps.outerRadius !== this.props.outerRadius
+    ) {
       this._generateAnnularSectors();
     }
   }
@@ -149,28 +170,38 @@ export class RadialMenu extends React.Component<RadialMenuProps, RadialMenuState
   };
 
   private _handleClick = (event: MouseEvent) => {
-    if (event.target instanceof HTMLElement && this._root && !event.target.contains(this._root) && this.props.onBlur)
+    if (
+      event.target instanceof HTMLElement &&
+      this._root &&
+      !event.target.contains(this._root) &&
+      this.props.onBlur
+    )
       this.props.onBlur(event);
   };
 
   /** Manually call onSelect of highlighted button. */
   public select = () => {
     // istanbul ignore else
-    if (this._selectedButton)
-      this._selectedButton.select();
+    if (this._selectedButton) this._selectedButton.select();
   };
 
   private _generateAnnularSectors = () => {
     const n = React.Children.count(this.props.children);
-    const angle = 2 * Math.PI / n;
+    const angle = (2 * Math.PI) / n;
     const outer = this.props.outerRadius;
     const inner = this.props.innerRadius;
 
-    const offset = - Math.PI / 8;
-    const annulus = new Annulus(new Point(outer + 1, outer + 1), inner + 1, outer - 1);
+    const offset = -Math.PI / 8;
+    const annulus = new Annulus(
+      new Point(outer + 1, outer + 1),
+      inner + 1,
+      outer - 1
+    );
     const sectors: AnnularSector[] = [];
     for (let i = 0; i < n; i++) {
-      sectors.push(new AnnularSector(annulus, angle * i + offset, angle * (i + 1) + offset));
+      sectors.push(
+        new AnnularSector(annulus, angle * i + offset, angle * (i + 1) + offset)
+      );
     }
     this.setState({ sectors });
   };
@@ -203,10 +234,14 @@ interface RadialButtonState {
  * Button for use within a [[RadialMenu]]
  * @public
  */
-export class RadialButton extends React.Component<RadialButtonProps, RadialButtonState> {
-
+export class RadialButton extends React.Component<
+  RadialButtonProps,
+  RadialButtonState
+> {
   /** @internal */
-  public override readonly state: Readonly<RadialButtonState> = { hover: this.props.selected || false };
+  public override readonly state: Readonly<RadialButtonState> = {
+    hover: this.props.selected || false,
+  };
 
   constructor(props: RadialButtonProps) {
     super(props);
@@ -230,16 +265,13 @@ export class RadialButton extends React.Component<RadialButtonProps, RadialButto
       p = new Point(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
 
       if (this.props.labelRotate) {
-        let a = angle * 180 / Math.PI + 90;
-        while (a > 180)
-          a -= 360;
+        let a = (angle * 180) / Math.PI + 90;
+        while (a > 180) a -= 360;
         while (a < -180)
           /* istanbul ignore next */
           a += 360;
-        if (a > 90)
-          a -= 180;
-        if (a < -90)
-          a += 180;
+        if (a > 90) a -= 180;
+        if (a < -90) a += 180;
         t = `rotate(${a} ${p.x}, ${p.y})`;
       }
     }
@@ -248,14 +280,29 @@ export class RadialButton extends React.Component<RadialButtonProps, RadialButto
       <g
         onMouseOver={this._handleMouseOver}
         onMouseOut={this._handleMouseOut}
-        onClick={this._handleClick}>
+        onClick={this._handleClick}
+      >
         <path
-          className={classnames("core-radial-menu-sector", { selected: this.state.hover }, this.props.className)}
+          className={classnames(
+            "core-radial-menu-sector",
+            { selected: this.state.hover },
+            this.props.className
+          )}
           style={this.props.style}
-          d={path}>
-        </path>
-        <foreignObject transform={t} x={p.x - size / 2} y={p.y - 16} width={size} height={size} className={"core-radial-menu-button-svg"}>
-          <div {...{ xmlns: "http://www.w3.org/1999/xhtml" }} className={"core-radial-menu-button-container"}>
+          d={path}
+        ></path>
+        <foreignObject
+          transform={t}
+          x={p.x - size / 2}
+          y={p.y - 16}
+          width={size}
+          height={size}
+          className={"core-radial-menu-button-svg"}
+        >
+          <div
+            {...{ xmlns: "http://www.w3.org/1999/xhtml" }}
+            className={"core-radial-menu-button-container"}
+          >
             <div className="core-radial-menu-button-icon">
               <Icon iconSpec={this.props.icon} />
             </div>
@@ -271,14 +318,12 @@ export class RadialButton extends React.Component<RadialButtonProps, RadialButto
   /** Manually call this.props.onSelect */
   public select = () => {
     // istanbul ignore else
-    if (this.props.onSelect)
-      this.props.onSelect(undefined);
+    if (this.props.onSelect) this.props.onSelect(undefined);
   };
 
   private _handleClick = (event: React.MouseEvent<SVGElement>) => {
     // istanbul ignore else
-    if (this.props.onSelect)
-      this.props.onSelect(event);
+    if (this.props.onSelect) this.props.onSelect(event);
   };
 
   private _handleMouseOver = (_event: React.MouseEvent<SVGElement>) => {

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -9,7 +9,7 @@
 import * as React from "react";
 import widgetIconSvg from "@bentley/icons-generic/icons/home.svg";
 import { IconSpecUtilities } from "@itwin/appui-abstract";
-import type { IconSpec} from "@itwin/core-react";
+import type { IconSpec } from "@itwin/core-react";
 import { Icon, useWidgetOpacityContext } from "@itwin/core-react";
 import { AppButton } from "@itwin/appui-layout-react";
 import { UiFramework } from "../UiFramework";
@@ -32,20 +32,27 @@ export interface BackstageAppButtonProps {
  * @public
  */
 export function BackstageAppButton(props: BackstageAppButtonProps) {
-  const backstageToggleCommand = React.useMemo(() => UiFramework.backstage.getBackstageToggleCommand(props.icon), [props.icon]);
-  const backstageLabel = React.useMemo(() => props.label || backstageToggleCommand.tooltip, [backstageToggleCommand.tooltip, props.label]);
-  const [icon, setIcon] = React.useState(props.icon ? props.icon : IconSpecUtilities.createWebComponentIconSpec(widgetIconSvg));
+  const backstageToggleCommand = React.useMemo(
+    () => UiFramework.backstage.getBackstageToggleCommand(props.icon),
+    [props.icon]
+  );
+  const backstageLabel = React.useMemo(
+    () => props.label || backstageToggleCommand.tooltip,
+    [backstageToggleCommand.tooltip, props.label]
+  );
+  const [icon, setIcon] = React.useState(
+    props.icon
+      ? props.icon
+      : IconSpecUtilities.createWebComponentIconSpec(widgetIconSvg)
+  );
   const isInitialMount = React.useRef(true);
   const divClassName = "uifw-app-button-small";
   const { onElementRef, proximityScale } = useWidgetOpacityContext();
   const ref = React.useRef<HTMLDivElement>(null);
 
   const handleClick = React.useCallback(() => {
-    if (props.execute)
-      props.execute();
-
-    else
-      backstageToggleCommand.execute();
+    if (props.execute) props.execute();
+    else backstageToggleCommand.execute();
   }, [backstageToggleCommand, props]);
 
   React.useEffect(() => {
@@ -53,7 +60,11 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
       isInitialMount.current = false;
       onElementRef(ref);
     } else {
-      setIcon(props.icon ? props.icon : IconSpecUtilities.createWebComponentIconSpec(widgetIconSvg));
+      setIcon(
+        props.icon
+          ? props.icon
+          : IconSpecUtilities.createWebComponentIconSpec(widgetIconSvg)
+      );
     }
   }, [props.icon, onElementRef]);
 
@@ -70,7 +81,8 @@ export function BackstageAppButton(props: BackstageAppButtonProps) {
         mouseProximity={buttonProximityScale}
         onClick={handleClick}
         icon={<Icon iconSpec={icon} />}
-        title={backstageLabel} />
+        title={backstageLabel}
+      />
     </div>
   );
 }

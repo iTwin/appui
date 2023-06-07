@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -9,7 +9,7 @@
 import "./BackArrow.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps, NoChildrenProps} from "@itwin/core-react";
+import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import { useTargeted } from "@itwin/core-react";
 
 /** Properties of [[BackArrow]] component.
@@ -33,7 +33,8 @@ export const BackArrow = React.memo<React.FC<BackArrowProps>>(
     const className = classnames(
       "components-toolbar-item-expandable-group-backArrow",
       targeted && "components-targeted",
-      props.className);
+      props.className
+    );
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
       <div
@@ -46,4 +47,5 @@ export const BackArrow = React.memo<React.FC<BackArrowProps>>(
         tabIndex={-1}
       />
     );
-  });
+  }
+);

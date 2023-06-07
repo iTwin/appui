@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -10,10 +10,14 @@ import { takeUntil } from "rxjs/internal/operators/takeUntil";
 import { Subject } from "rxjs/internal/Subject";
 import type { IDisposable } from "@itwin/core-bentley";
 import { TreeModelMutator } from "./internal/TreeModelMutator";
-import type { Subscription} from "./Observable";
+import type { Subscription } from "./Observable";
 import { toRxjsObservable } from "./Observable";
 import type {
-  TreeCheckboxStateChangeEventArgs, TreeEvents, TreeNodeEventArgs, TreeSelectionModificationEventArgs, TreeSelectionReplacementEventArgs,
+  TreeCheckboxStateChangeEventArgs,
+  TreeEvents,
+  TreeNodeEventArgs,
+  TreeSelectionModificationEventArgs,
+  TreeSelectionReplacementEventArgs,
 } from "./TreeEvents";
 import type { TreeModelNode } from "./TreeModel";
 import type { TreeModelSource } from "./TreeModelSource";
@@ -55,7 +59,11 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
   private _selectionReplaced = new Subject();
 
   constructor(params: TreeEventHandlerParams) {
-    this._modelMutator = new TreeModelMutator(params.modelSource, params.nodeLoader, !!params.collapsedChildrenDisposalEnabled);
+    this._modelMutator = new TreeModelMutator(
+      params.modelSource,
+      params.nodeLoader,
+      !!params.collapsedChildrenDisposalEnabled
+    );
     this._editingParams = params.editingParams;
   }
 
@@ -64,11 +72,15 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
     this._disposed.next();
   }
 
-  public get modelSource() { return this._modelMutator.modelSource; }
+  public get modelSource() {
+    return this._modelMutator.modelSource;
+  }
 
   /** Expands node and starts loading children. */
   public onNodeExpanded({ nodeId }: TreeNodeEventArgs) {
-    toRxjsObservable(this._modelMutator.expandNode(nodeId)).pipe(takeUntil(this._disposed)).subscribe();
+    toRxjsObservable(this._modelMutator.expandNode(nodeId))
+      .pipe(takeUntil(this._disposed))
+      .subscribe();
   }
 
   /** Collapses node */
@@ -77,29 +89,30 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
   }
 
   /** Selects and deselects nodes until event is handled, handler is disposed or selection replaced event occurs. */
-  public onSelectionModified({ modifications }: TreeSelectionModificationEventArgs): Subscription | undefined {
+  public onSelectionModified({
+    modifications,
+  }: TreeSelectionModificationEventArgs): Subscription | undefined {
     return toRxjsObservable(modifications)
-      .pipe(
-        takeUntil(this._disposed),
-        takeUntil(this._selectionReplaced),
-      )
+      .pipe(takeUntil(this._disposed), takeUntil(this._selectionReplaced))
       .subscribe({
         next: ({ selectedNodeItems, deselectedNodeItems }) => {
-          this._modelMutator.modifySelection(selectedNodeItems, deselectedNodeItems);
+          this._modelMutator.modifySelection(
+            selectedNodeItems,
+            deselectedNodeItems
+          );
         },
       });
   }
 
   /** Replaces currently selected nodes until event is handled, handler is disposed or another selection replaced event occurs. */
-  public onSelectionReplaced({ replacements }: TreeSelectionReplacementEventArgs): Subscription | undefined {
+  public onSelectionReplaced({
+    replacements,
+  }: TreeSelectionReplacementEventArgs): Subscription | undefined {
     this._selectionReplaced.next();
 
     let firstEmission = true;
     return toRxjsObservable(replacements)
-      .pipe(
-        takeUntil(this._disposed),
-        takeUntil(this._selectionReplaced),
-      )
+      .pipe(takeUntil(this._disposed), takeUntil(this._selectionReplaced))
       .subscribe({
         next: ({ selectedNodeItems }) => {
           if (firstEmission) {
@@ -113,8 +126,12 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
   }
 
   /** Changes nodes checkbox states. */
-  public onCheckboxStateChanged({ stateChanges }: TreeCheckboxStateChangeEventArgs): Subscription | undefined {
-    return stateChanges.subscribe((changes) => this._modelMutator.setCheckboxStates(changes));
+  public onCheckboxStateChanged({
+    stateChanges,
+  }: TreeCheckboxStateChangeEventArgs): Subscription | undefined {
+    return stateChanges.subscribe((changes) =>
+      this._modelMutator.setCheckboxStates(changes)
+    );
   }
 
   /** Activates node editing if editing parameters are supplied and node is editable. */
@@ -129,9 +146,11 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
 
   /** Activates node editing if editing parameters are supplied and node is editable. */
   private activateEditor(nodeId: string) {
-    if (this._editingParams === undefined)
-      return;
+    if (this._editingParams === undefined) return;
 
-    this._modelMutator.activateEditing(nodeId, this._editingParams.onNodeUpdated);
+    this._modelMutator.activateEditing(
+      nodeId,
+      this._editingParams.onNodeUpdated
+    );
   }
 }

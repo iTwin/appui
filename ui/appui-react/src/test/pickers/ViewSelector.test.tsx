@@ -1,11 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
-import { DrawingViewState, IModelApp, IModelConnection, NoRenderApp, SheetViewState, SpatialViewState } from "@itwin/core-frontend";
+import {
+  DrawingViewState,
+  IModelApp, IModelConnection,
+  NoRenderApp,
+  SheetViewState,
+  SpatialViewState,
+} from "@itwin/core-frontend";
 import { ViewSelector } from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { Provider } from "react-redux";
@@ -17,29 +23,49 @@ import { render, screen, waitFor } from "@testing-library/react";
 describe("ViewSelector", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const viewsMock = moq.Mock.ofType(IModelConnection.Views);
-  viewsMock.setup(async (m) => m.getViewList(moq.It.isAny())).returns(async () => {
-    return [
-      {id: "spatial1", name: "spatial1", class: SpatialViewState.classFullName},
-      {id: "drawing1", name: "drawing1", class: DrawingViewState.classFullName},
-      {id: "sheet1", name: "sheet1", class: SheetViewState.classFullName},
-      {id: "unknown1", name: "unknown1", class: "unknown"},
-    ];
-  });
+  viewsMock
+    .setup(async (m) => m.getViewList(moq.It.isAny()))
+    .returns(async () => {
+      return [
+        {
+          id: "spatial1",
+          name: "spatial1",
+          class: SpatialViewState.classFullName,
+        },
+        {
+          id: "drawing1",
+          name: "drawing1",
+          class: DrawingViewState.classFullName,
+        },
+        { id: "sheet1", name: "sheet1", class: SheetViewState.classFullName },
+        { id: "unknown1", name: "unknown1", class: "unknown" },
+      ];
+    });
   const imodelMock = moq.Mock.ofType<IModelConnection>();
-  imodelMock.setup((x) => x.views).returns(() => {
-    return viewsMock.object;
-  });
+  imodelMock
+    .setup((x) => x.views)
+    .returns(() => {
+      return viewsMock.object;
+    });
   const viewsMock2 = moq.Mock.ofType(IModelConnection.Views);
-  viewsMock2.setup(async (m) => m.getViewList(moq.It.isAny())).returns(async () => {
-    return [
-      {id: "spatial2", name: "spatial2", class: SpatialViewState.classFullName},
-    ];
-  });
+  viewsMock2
+    .setup(async (m) => m.getViewList(moq.It.isAny()))
+    .returns(async () => {
+      return [
+        {
+          id: "spatial2",
+          name: "spatial2",
+          class: SpatialViewState.classFullName,
+        },
+      ];
+    });
   const imodelMock2 = moq.Mock.ofType<IModelConnection>();
-  imodelMock2.setup((x) => x.views).returns(() => {
-    return viewsMock2.object;
-  });
-  beforeEach(()=>{
+  imodelMock2
+    .setup((x) => x.views)
+    .returns(() => {
+      return viewsMock2.object;
+    });
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -62,7 +88,7 @@ describe("ViewSelector", () => {
           value={{
             hasOverflow: false,
             useHeight: false,
-            onResize: () => { },
+            onResize: () => {},
           }}
         >
           <ViewSelector />
@@ -85,10 +111,14 @@ describe("ViewSelector", () => {
           value={{
             hasOverflow: false,
             useHeight: false,
-            onResize: () => { },
+            onResize: () => {},
           }}
         >
-          <ViewSelector imodel={imodelMock.object} listenForShowUpdates={true} searchBox={false}/>
+          <ViewSelector
+            imodel={imodelMock.object}
+            listenForShowUpdates={true}
+            searchBox={false}
+          />
         </ToolbarItemContext.Provider>
       </Provider>
     );
@@ -101,7 +131,9 @@ describe("ViewSelector", () => {
 
     ViewSelector.updateShowSettings(false, false, false, false);
 
-    await waitFor(() => expect(screen.queryByText("viewTypes.spatialViews")).to.be.null);
+    await waitFor(
+      () => expect(screen.queryByText("viewTypes.spatialViews")).to.be.null
+    );
     expect(screen.queryByText("viewTypes.drawings")).to.be.null;
     expect(screen.queryByText("viewTypes.sheets")).to.be.null;
     expect(screen.queryByText("viewTypes.others")).to.be.null;
@@ -114,7 +146,7 @@ describe("ViewSelector", () => {
           value={{
             hasOverflow: false,
             useHeight: false,
-            onResize: () => { },
+            onResize: () => {},
           }}
         >
           <ViewSelector imodel={imodelMock.object} />
@@ -133,27 +165,27 @@ describe("ViewSelector", () => {
           value={{
             hasOverflow: false,
             useHeight: false,
-            onResize: () => { },
+            onResize: () => {},
           }}
         >
-          <ViewSelector imodel={imodelMock2.object} panelOnly={true}/>
+          <ViewSelector imodel={imodelMock2.object} panelOnly={true} />
         </ToolbarItemContext.Provider>
       </Provider>
     );
 
     await waitFor(() => expect(screen.getByText("spatial2")).to.exist);
   });
-  it("should filter views based on search input",async () => {
+  it("should filter views based on search input", async () => {
     render(
       <Provider store={TestUtils.store}>
         <ToolbarItemContext.Provider
           value={{
             hasOverflow: false,
             useHeight: false,
-            onResize: () => { },
+            onResize: () => {},
           }}
         >
-          <ViewSelector imodel={imodelMock.object} searchBox={true}/>
+          <ViewSelector imodel={imodelMock.object} searchBox={true} />
         </ToolbarItemContext.Provider>
       </Provider>
     );
@@ -164,6 +196,5 @@ describe("ViewSelector", () => {
     expect(screen.queryByText("viewTypes.drawings")!.children).to.be.empty;
     expect(screen.queryByText("viewTypes.sheets")!.children).to.be.empty;
     expect(screen.queryByText("viewTypes.others")!.children).to.be.empty;
-
   });
 });

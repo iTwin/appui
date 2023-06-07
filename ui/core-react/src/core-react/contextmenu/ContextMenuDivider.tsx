@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContextMenu
  */
@@ -18,7 +18,11 @@ export class ContextMenuDivider extends React.PureComponent<CommonProps> {
   public override render(): React.JSX.Element {
     const { className, ...props } = this.props;
     return (
-      <div {...props} data-testid="core-context-menu-divider" className={classnames("core-context-menu-divider", className)} />
+      <div
+        {...props}
+        data-testid="core-context-menu-divider"
+        className={classnames("core-context-menu-divider", className)}
+      />
     );
   }
 }

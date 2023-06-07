@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
 
 import * as React from "react";
-import type { PropertyRecord} from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { Orientation } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../../common/HighlightingComponentProps";
@@ -33,7 +33,10 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   /** Indicates property is being edited */
   isEditing?: boolean;
   /** Called when property edit is committed. */
-  onEditCommit?: (args: PropertyUpdatedArgs, category: PropertyCategory) => void;
+  onEditCommit?: (
+    args: PropertyUpdatedArgs,
+    category: PropertyCategory
+  ) => void;
   /** Called when property edit is cancelled. */
   onEditCancel?: () => void;
   /** Whether property value is displayed in expanded state. */
@@ -43,7 +46,10 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   /** Reports property height changes. */
   onHeightChanged?: (newHeight: number) => void;
 
-  highlight?: HighlightingComponentProps & { applyOnLabel: boolean, applyOnValue: boolean };
+  highlight?: HighlightingComponentProps & {
+    applyOnLabel: boolean;
+    applyOnValue: boolean;
+  };
 
   children?: never;
 }
@@ -51,7 +57,9 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
 /**  A React component that renders flat properties
  * @internal
  */
-export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (props) => {
+export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
+  props
+) => {
   const {
     category,
     propertyValueRendererManager,
@@ -88,12 +96,22 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (props)
   };
   switch (props.propertyRecord.value.valueFormat) {
     case PropertyValueFormat.Primitive:
-      return (<PrimitivePropertyRenderer highlight={highlight?.applyOnLabel ? highlight : undefined} {...primitiveRendererProps} />);
+      return (
+        <PrimitivePropertyRenderer
+          highlight={highlight?.applyOnLabel ? highlight : undefined}
+          {...primitiveRendererProps}
+        />
+      );
 
     case PropertyValueFormat.Array:
       // If array is empty, render it as a primitive property
       if (props.propertyRecord.value.items.length === 0)
-        return (<PrimitivePropertyRenderer highlight={highlight?.applyOnLabel ? highlight : undefined} {...primitiveRendererProps} />);
+        return (
+          <PrimitivePropertyRenderer
+            highlight={highlight?.applyOnLabel ? highlight : undefined}
+            {...primitiveRendererProps}
+          />
+        );
 
     // eslint-disable-next-line no-fallthrough
     case PropertyValueFormat.Struct:
@@ -123,9 +141,15 @@ interface DisplayValueProps {
 
   category?: PropertyCategory;
   onEditCancel?: () => void;
-  onEditCommit?: (args: PropertyUpdatedArgs, category: PropertyCategory) => void;
+  onEditCommit?: (
+    args: PropertyUpdatedArgs,
+    category: PropertyCategory
+  ) => void;
 
-  highlight?: HighlightingComponentProps & { applyOnLabel: boolean, applyOnValue: boolean };
+  highlight?: HighlightingComponentProps & {
+    applyOnLabel: boolean;
+    applyOnValue: boolean;
+  };
 }
 
 const DisplayValue: React.FC<DisplayValueProps> = (props) => {
@@ -134,15 +158,14 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
   if (props.isEditing) {
     const _onEditCommit = (args: PropertyUpdatedArgs) => {
       /* istanbul ignore else */
-      if (props.category)
-        props.onEditCommit?.(args, props.category);
+      if (props.category) props.onEditCommit?.(args, props.category);
     };
 
     return (
       <EditorContainer
         propertyRecord={props.propertyRecord}
         onCommit={_onEditCommit}
-        onCancel={props.onEditCancel ?? (/* istanbul ignore next */() => { })}
+        onCancel={props.onEditCancel ?? /* istanbul ignore next */ (() => {})}
         setFocus={true}
       />
     );
@@ -150,23 +173,24 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
 
   return (
     <>
-      {
-        CommonPropertyRenderer.createNewDisplayValue(
-          props.orientation,
-          props.propertyRecord,
-          props.indentation,
-          props.propertyValueRendererManager,
-          props.isExpanded,
-          props.onExpansionToggled,
-          props.onHeightChanged,
-          props.highlight
-        )
-      }
+      {CommonPropertyRenderer.createNewDisplayValue(
+        props.orientation,
+        props.propertyRecord,
+        props.indentation,
+        props.propertyValueRendererManager,
+        props.isExpanded,
+        props.onExpansionToggled,
+        props.onHeightChanged,
+        props.highlight
+      )}
     </>
   );
 };
 
-function useResetHeightOnEdit(isEditing?: boolean, onHeightChanged?: (newHeight: number) => void) {
+function useResetHeightOnEdit(
+  isEditing?: boolean,
+  onHeightChanged?: (newHeight: number) => void
+) {
   const previousEditingStatusRef = React.useRef(isEditing);
   React.useEffect(() => {
     if (!previousEditingStatusRef.current && isEditing) {

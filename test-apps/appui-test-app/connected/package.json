@@ -60,7 +60,8 @@
     "null-loader": "^4.0.1",
     "rimraf": "^3.0.2",
     "typescript": "~5.0.2",
-    "webpack": "^5.76.0"
+    "webpack": "^5.76.0",
+    "eslint-config-prettier": "~8.8.0"
   },
   "dependencies": {
     "@bentley/icons-generic": "^1.0.34",
@@ -123,7 +124,10 @@
     "plugins": [
       "@itwin"
     ],
-    "extends": "plugin:@itwin/itwinjs-recommended",
+    "extends": [
+      "plugin:@itwin/itwinjs-recommended",
+      "prettier"
+    ],
     "parserOptions": {
       "project": [
         "tsconfig.json",

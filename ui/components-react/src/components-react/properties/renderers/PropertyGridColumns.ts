@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
@@ -51,38 +51,70 @@ export class PropertyGridColumnStyleProvider {
     return this._isMinimumColumnSizeEnabled;
   }
 
-  public getStyle(orientation: Orientation, needActionButtons: boolean, ratio: number, needElementSeparator: boolean): React.CSSProperties {
+  public getStyle(
+    orientation: Orientation,
+    needActionButtons: boolean,
+    ratio: number,
+    needElementSeparator: boolean
+  ): React.CSSProperties {
     switch (orientation) {
       case Orientation.Horizontal:
-        return this.getHorizontalStyle(needActionButtons, ratio, needElementSeparator);
+        return this.getHorizontalStyle(
+          needActionButtons,
+          ratio,
+          needElementSeparator
+        );
       case Orientation.Vertical:
         return this.getVerticalStyle(needActionButtons);
       /* istanbul ignore next */
       default:
         const unhandledOrientationType: never = orientation; // Compile time check that all cases handled
-        throw new Error(`Unhandled orientation type: ${unhandledOrientationType}. Was new orientation added ? `);
+        throw new Error(
+          `Unhandled orientation type: ${unhandledOrientationType}. Was new orientation added ? `
+        );
     }
   }
 
   /** Join columns together in sequence, filtering out undefined column definitions */
-  private columnStyleBuilder(columns: Array<string | undefined>): React.CSSProperties {
+  private columnStyleBuilder(
+    columns: Array<string | undefined>
+  ): React.CSSProperties {
     columns = columns.filter((el) => el !== undefined);
     return { gridTemplateColumns: columns.join(" ") };
   }
 
-  private getHorizontalStyle(needActionButtons: boolean, ratio: number, needElementSeparator: boolean): React.CSSProperties {
+  private getHorizontalStyle(
+    needActionButtons: boolean,
+    ratio: number,
+    needElementSeparator: boolean
+  ): React.CSSProperties {
     const separatorColumn = needElementSeparator ? "1px" : undefined;
     if (!this.isMinimumColumnSizeEnabled)
-      return this.columnStyleBuilder([`${ratio * 100}%`, separatorColumn, "auto", needActionButtons ? "auto" : undefined]);
+      return this.columnStyleBuilder([
+        `${ratio * 100}%`,
+        separatorColumn,
+        "auto",
+        needActionButtons ? "auto" : undefined,
+      ]);
 
     const labelColumn = `minmax(${this.minLabelWidth}px, ${ratio * 100}%)`;
     const valueColumn = `minmax(${this.minValueWidth}px, 1fr)`;
-    const actionButtonColumn = needActionButtons ? `${this.actionButtonWidth}px` : undefined;
+    const actionButtonColumn = needActionButtons
+      ? `${this.actionButtonWidth}px`
+      : undefined;
 
-    return this.columnStyleBuilder([labelColumn, separatorColumn, valueColumn, actionButtonColumn]);
+    return this.columnStyleBuilder([
+      labelColumn,
+      separatorColumn,
+      valueColumn,
+      actionButtonColumn,
+    ]);
   }
 
   private getVerticalStyle(needActionButtons: boolean): React.CSSProperties {
-    return this.columnStyleBuilder(["auto", needActionButtons ? "auto" : undefined]);
+    return this.columnStyleBuilder([
+      "auto",
+      needActionButtons ? "auto" : undefined,
+    ]);
   }
 }

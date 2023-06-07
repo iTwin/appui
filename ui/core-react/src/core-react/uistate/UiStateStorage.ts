@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module UiStateStorage
  */
@@ -10,9 +10,19 @@
  * @public
  */
 export interface UiStateStorage {
-  getSetting(settingNamespace: string, settingName: string): Promise<UiStateStorageResult>;
-  saveSetting(settingNamespace: string, settingName: string, setting: any): Promise<UiStateStorageResult>;
-  deleteSetting(settingNamespace: string, settingName: string): Promise<UiStateStorageResult>;
+  getSetting(
+    settingNamespace: string,
+    settingName: string
+  ): Promise<UiStateStorageResult>;
+  saveSetting(
+    settingNamespace: string,
+    settingName: string,
+    setting: any
+  ): Promise<UiStateStorageResult>;
+  deleteSetting(
+    settingNamespace: string,
+    settingName: string
+  ): Promise<UiStateStorageResult>;
 }
 
 /** Enum for [[UiStateStorage]] status.

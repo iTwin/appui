@@ -1,14 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module KeyboardShortcut
  */
 
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
-import { ContextMenuItem, ContextSubMenu, GlobalContextMenu } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import {
+  ContextMenuItem,
+  ContextSubMenu,
+  GlobalContextMenu,
+} from "@itwin/core-react";
 import type { KeyboardShortcut } from "./KeyboardShortcut";
 import { ConditionalBooleanValue, UiEvent } from "@itwin/appui-abstract";
 
@@ -25,13 +29,15 @@ export interface KeyboardShortcutMenuState {
 /** KeyboardShortcut Menu Event class.
  * @public
  */
-export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> { }
+export class KeyboardShortcutMenuEvent extends UiEvent<KeyboardShortcutMenuState> {}
 
 /** React component that displays a context menu at the cursor containing keyboard shortcuts.
  * @public
  */
-export class KeyboardShortcutMenu extends React.PureComponent<CommonProps, KeyboardShortcutMenuState> {
-
+export class KeyboardShortcutMenu extends React.PureComponent<
+  CommonProps,
+  KeyboardShortcutMenuState
+> {
   /** @internal */
   public override readonly state: KeyboardShortcutMenuState = {
     menuVisible: false,
@@ -40,17 +46,24 @@ export class KeyboardShortcutMenu extends React.PureComponent<CommonProps, Keybo
   };
 
   /** Get KeyboardShortcut Menu Event. */
-  public static readonly onKeyboardShortcutMenuEvent = new KeyboardShortcutMenuEvent();
+  public static readonly onKeyboardShortcutMenuEvent =
+    new KeyboardShortcutMenuEvent();
 
   public override componentDidMount() {
-    KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(this._handleKeyboardShortcutMenuEvent);
+    KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.addListener(
+      this._handleKeyboardShortcutMenuEvent
+    );
   }
 
   public override componentWillUnmount() {
-    KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.removeListener(this._handleKeyboardShortcutMenuEvent);
+    KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.removeListener(
+      this._handleKeyboardShortcutMenuEvent
+    );
   }
 
-  private _handleKeyboardShortcutMenuEvent = (state: KeyboardShortcutMenuState) => {
+  private _handleKeyboardShortcutMenuEvent = (
+    state: KeyboardShortcutMenuState
+  ) => {
     this.setState(state);
   };
 
@@ -73,7 +86,7 @@ export class KeyboardShortcutMenu extends React.PureComponent<CommonProps, Keybo
           onOutsideClick={onClose}
           edgeLimit={false}
           autoflip={true}
-          ignoreNextKeyUp={true}  // Executing the shortcut on the keydown, so ignore the keyup in the menu
+          ignoreNextKeyUp={true} // Executing the shortcut on the keydown, so ignore the keyup in the menu
         >
           {items}
         </GlobalContextMenu>
@@ -83,7 +96,9 @@ export class KeyboardShortcutMenu extends React.PureComponent<CommonProps, Keybo
     return null;
   }
 
-  private getShortcutMenuItems(shortcuts?: KeyboardShortcut[]): React.ReactNode[] {
+  private getShortcutMenuItems(
+    shortcuts?: KeyboardShortcut[]
+  ): React.ReactNode[] {
     const items: React.ReactNode[] = [];
 
     // istanbul ignore else
@@ -91,20 +106,27 @@ export class KeyboardShortcutMenu extends React.PureComponent<CommonProps, Keybo
       shortcuts.forEach((shortcut: KeyboardShortcut, index: number) => {
         const item = this.getShortcutMenuItem(shortcut, index);
         // istanbul ignore else
-        if (item)
-          items.push(item);
+        if (item) items.push(item);
       });
     }
 
     return items;
   }
 
-  private getShortcutMenuItem(shortcut: KeyboardShortcut, index: number): React.ReactNode {
+  private getShortcutMenuItem(
+    shortcut: KeyboardShortcut,
+    index: number
+  ): React.ReactNode {
     const shortcutKey = shortcut.key;
     const isHidden = ConditionalBooleanValue.getValue(shortcut.isHidden);
 
     // Only pure characters go into the context menu
-    if (shortcutKey !== shortcut.keyMapKey || shortcut.isFunctionKey || shortcut.isSpecialKey || isHidden)
+    if (
+      shortcutKey !== shortcut.keyMapKey ||
+      shortcut.isFunctionKey ||
+      shortcut.isSpecialKey ||
+      isHidden
+    )
       return null;
 
     let node: React.ReactNode = null;
@@ -114,18 +136,29 @@ export class KeyboardShortcutMenu extends React.PureComponent<CommonProps, Keybo
     label = `~${shortcutKey.toLocaleUpperCase()} ${label}`;
 
     if (shortcut.shortcutContainer.areKeyboardShortcutsAvailable()) {
-      const shortcuts = shortcut.shortcutContainer.getAvailableKeyboardShortcuts();
+      const shortcuts =
+        shortcut.shortcutContainer.getAvailableKeyboardShortcuts();
       const items = this.getShortcutMenuItems(shortcuts);
 
       node = (
-        <ContextSubMenu key={index} icon={iconSpec} label={label} disabled={shortcut.isDisabled}>
+        <ContextSubMenu
+          key={index}
+          icon={iconSpec}
+          label={label}
+          disabled={shortcut.isDisabled}
+        >
           {items}
         </ContextSubMenu>
       );
     } else {
       const sel = () => this._itemPicked(shortcut);
       node = (
-        <ContextMenuItem key={index} onSelect={sel} icon={iconSpec} disabled={shortcut.isDisabled}>
+        <ContextMenuItem
+          key={index}
+          onSelect={sel}
+          icon={iconSpec}
+          disabled={shortcut.isDisabled}
+        >
           {label}
         </ContextMenuItem>
       );

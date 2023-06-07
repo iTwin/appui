@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -9,7 +9,7 @@
 import "./Expander.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { PanelSide} from "./Panel";
+import type { PanelSide } from "./Panel";
 import { panelSides } from "./Panel";
 import { NineZoneDispatchContext } from "../base/NineZone";
 import { Point, Timer } from "@itwin/core-react";
@@ -36,10 +36,7 @@ export function WidgetPanelExpander({ side }: WidgetPanelExpanderProps) {
       });
     });
   }, [side, dispatch]);
-  const className = classnames(
-    "nz-widgetPanels-expander",
-    `nz-${side}`,
-  );
+  const className = classnames("nz-widgetPanels-expander", `nz-${side}`);
   return (
     <div
       className={className}

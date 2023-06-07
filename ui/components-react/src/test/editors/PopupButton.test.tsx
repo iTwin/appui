@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -13,7 +13,7 @@ import { selectorMatches, TestUtils, userEvent } from "../TestUtils";
 
 describe("<PopupButton />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -21,18 +21,22 @@ describe("<PopupButton />", () => {
     render(
       <PopupButton label="Hello" showArrow={true} showShadow={true}>
         <div>Hello World</div>
-      </PopupButton>);
+      </PopupButton>
+    );
 
     await theUserTo.click(screen.getByRole("button"));
 
-    expect(screen.getByRole("dialog")).to.satisfy(selectorMatches(".arrow.core-popup-shadow"));
+    expect(screen.getByRole("dialog")).to.satisfy(
+      selectorMatches(".arrow.core-popup-shadow")
+    );
   });
 
   it("renders correctly with moveFocus", async () => {
     render(
       <PopupButton label="Hello" moveFocus={false}>
         <button data-testid={"focused-button"} />
-      </PopupButton>);
+      </PopupButton>
+    );
 
     await theUserTo.click(screen.getByRole("button"));
     expect(screen.getByTestId("focused-button") === document.activeElement);
@@ -42,8 +46,13 @@ describe("<PopupButton />", () => {
     render(
       <PopupButton placeholder="Test">
         <div>Hello World</div>
-      </PopupButton>);
-    expect(screen.getByText("Test", {selector: ".components-popup-button-placeholder"})).to.exist;
+      </PopupButton>
+    );
+    expect(
+      screen.getByText("Test", {
+        selector: ".components-popup-button-placeholder",
+      })
+    ).to.exist;
   });
 
   it("calls onClick", async () => {
@@ -51,7 +60,8 @@ describe("<PopupButton />", () => {
     const component = render(
       <PopupButton label="Hello" onClick={spyOnClick}>
         <div data-testid="popup-test-div">Hello World</div>
-      </PopupButton>);
+      </PopupButton>
+    );
 
     const button = component.getByTestId("components-popup-button");
     expect(button).to.exist;
@@ -68,12 +78,20 @@ describe("<PopupButton />", () => {
     const component = render(
       <PopupButton label="Hello">
         <div data-testid="popup-test-div">Hello World</div>
-      </PopupButton>);
+      </PopupButton>
+    );
 
     const button = component.getByTestId("components-popup-button");
     expect(button).to.exist;
 
-    button.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, view: window, key: SpecialKey.ArrowDown }));
+    button.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        key: SpecialKey.ArrowDown,
+      })
+    );
     await TestUtils.flushAsyncOperations();
 
     const popupDiv = component.getByTestId("popup-test-div");
@@ -84,12 +102,20 @@ describe("<PopupButton />", () => {
     const component = render(
       <PopupButton label="Hello">
         <div data-testid="popup-test-div">Hello World</div>
-      </PopupButton>);
+      </PopupButton>
+    );
 
     const button = component.getByTestId("components-popup-button");
     expect(button).to.exist;
 
-    button.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, view: window, key: SpecialKey.Space }));
+    button.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        key: SpecialKey.Space,
+      })
+    );
     await TestUtils.flushAsyncOperations();
 
     const popupDiv = component.getByTestId("popup-test-div");
@@ -100,12 +126,20 @@ describe("<PopupButton />", () => {
     const component = render(
       <PopupButton label="Hello">
         <div data-testid="popup-test-div">Hello World</div>
-      </PopupButton>);
+      </PopupButton>
+    );
 
     const button = component.getByTestId("components-popup-button");
     expect(button).to.exist;
 
-    button.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, view: window, key: SpecialKey.Enter }));
+    button.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        key: SpecialKey.Enter,
+      })
+    );
     await TestUtils.flushAsyncOperations();
 
     const popupDiv = component.getByTestId("popup-test-div");
@@ -118,7 +152,8 @@ describe("<PopupButton />", () => {
     render(
       <PopupButton label="Hello" onClose={spyOnClose}>
         <div>Hello World</div>
-      </PopupButton>);
+      </PopupButton>
+    );
 
     await theUserTo.click(screen.getByRole("button"));
 
@@ -134,11 +169,11 @@ describe("<PopupButton />", () => {
     render(
       <PopupButton label="Hello" onClose={spyOnClose} ref={popupButtonRef}>
         <div>Hello World</div>
-      </PopupButton>);
+      </PopupButton>
+    );
 
     popupButtonRef.current?.closePopup();
 
     await waitFor(() => spyOnClose.calledOnce.should.true);
   });
-
 });

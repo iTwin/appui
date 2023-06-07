@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -14,7 +14,10 @@ import { toolSettingsTabId } from "../ToolSettingsState";
 import { category } from "./NineZoneStateHelpers";
 
 /** @internal */
-export function createTabState(id: TabState["id"], args?: Partial<TabState>): TabState {
+export function createTabState(
+  id: TabState["id"],
+  args?: Partial<TabState>
+): TabState {
   return {
     label: "",
     ...args,
@@ -34,7 +37,10 @@ export function createTabsState(args?: Partial<TabsState>): TabsState {
 }
 
 /** @internal */
-export function createDraggedTabState(tabId: DraggedTabState["tabId"], args?: Partial<DraggedTabState>): DraggedTabState {
+export function createDraggedTabState(
+  tabId: DraggedTabState["tabId"],
+  args?: Partial<DraggedTabState>
+): DraggedTabState {
   return {
     home: {
       side: "left",
@@ -48,9 +54,12 @@ export function createDraggedTabState(tabId: DraggedTabState["tabId"], args?: Pa
 }
 
 /** @internal */
-export function updateTabState(state: NineZoneState, id: TabState["id"], args: Partial<TabState>) {
-  if (!(id in state.tabs))
-    throw new UiError(category, "Tab does not exist");
+export function updateTabState(
+  state: NineZoneState,
+  id: TabState["id"],
+  args: Partial<TabState>
+) {
+  if (!(id in state.tabs)) throw new UiError(category, "Tab does not exist");
 
   return produce(state, (draft) => {
     const tab = draft.tabs[id];

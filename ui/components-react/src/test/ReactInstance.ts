@@ -1,17 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------
-* Source file from https://github.com/arqex/react-dom-instance, updated to work with React 17
-* https://www.npmjs.com/package/react-dom-instance
-*--------------------------------------------------------------------------------------------*/
+ * Source file from https://github.com/arqex/react-dom-instance, updated to work with React 17
+ * https://www.npmjs.com/package/react-dom-instance
+ *--------------------------------------------------------------------------------------------*/
 const optionsDefault = {
   maxIteration: 4,
 };
 /** For testing only
  * @internal
-*/
+ */
 export function findInstance(node: any, opts?: any): any {
   const options = Object.assign({}, optionsDefault, opts);
 
@@ -21,7 +21,12 @@ export function findInstance(node: any, opts?: any): any {
   const instance = getInstanceFromFiber(fiber, options.maxIteration);
   if (!instance) return false;
 
-  const target = getTargetInstance(instance, instance, options.componentName, options.maxIteration);
+  const target = getTargetInstance(
+    instance,
+    instance,
+    options.componentName,
+    options.maxIteration
+  );
   return target;
 }
 
@@ -37,9 +42,7 @@ function getFiberFromNode(node: any) {
 }
 
 function getFiberKey(node: any) {
-  return Object.keys(node).find((key) => (
-    key.startsWith("__reactFiber$")
-  ));
+  return Object.keys(node).find((key) => key.startsWith("__reactFiber$"));
 }
 
 function getInstanceFromFiber(fiber: any, i: number) {
@@ -55,26 +58,38 @@ function getInstanceFromFiber(fiber: any, i: number) {
 }
 
 function isInstanceFiber(fiber: any) {
-  return fiber && fiber.type && typeof fiber.type !== "string" && fiber.stateNode;
+  return (
+    fiber && fiber.type && typeof fiber.type !== "string" && fiber.stateNode
+  );
 }
-function getTargetInstance(childInstance: any, parentInstance: any, componentName: any, i: number): any {
+function getTargetInstance(
+  childInstance: any,
+  parentInstance: any,
+  componentName: any,
+  i: number
+): any {
   // console.log('getting instance from fiber', childInstance, parentInstance);
   if (!childInstance && !parentInstance) return false;
 
   if (childInstance && isTarget(childInstance, componentName)) {
     return childInstance;
   }
-  if (parentInstance && childInstance !== parentInstance && isTarget(parentInstance, componentName)) {
+  if (
+    parentInstance &&
+    childInstance !== parentInstance &&
+    isTarget(parentInstance, componentName)
+  ) {
     return parentInstance;
   }
 
   if (i <= 0) {
-    warn("maxIteration exceeded and not"  + componentName + " instance found."); // eslint-disable-line prefer-template
+    warn("maxIteration exceeded and not" + componentName + " instance found."); // eslint-disable-line prefer-template
     return false;
   }
 
   const childFiber = childInstance && childInstance._reactInternalFiber.child;
-  const parentFiber = parentInstance && parentInstance._reactInternalFiber.return;
+  const parentFiber =
+    parentInstance && parentInstance._reactInternalFiber.return;
 
   return getTargetInstance(
     isInstanceFiber(childFiber) && childFiber.stateNode,
@@ -91,5 +106,5 @@ function isTarget(instance: any, componentName: any) {
 }
 
 function warn(msg: string) {
-  typeof console !== undefined && console.warn("ReactInstance:"  + msg); // eslint-disable-line prefer-template, no-console
+  typeof console !== undefined && console.warn("ReactInstance:" + msg); // eslint-disable-line prefer-template, no-console
 }

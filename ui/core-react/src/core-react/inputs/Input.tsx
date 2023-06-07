@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Inputs
  */
@@ -15,7 +15,9 @@ import type { CommonProps } from "../utils/Props";
 /** Properties for the [[Input]] component
  * @internal
  */
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>, CommonProps {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    CommonProps {
   /** Indicates whether to set focus to the input element */
   setFocus?: boolean;
   /** Native keydown event handler */
@@ -25,11 +27,19 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>,
 }
 
 // Defined using following pattern (const Input at bottom) to ensure useful API documentation is extracted
-const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>(   // eslint-disable-line deprecation/deprecation
+const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>(
   function ForwardRefInput(props, ref) {
-    const { className, style, setFocus, nativeKeyHandler, size, ...otherProps } = props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const {
+      className,
+      style,
+      setFocus,
+      nativeKeyHandler,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      size,
+      ...otherProps
+    } = props;
     const inputElementRef = React.useRef<HTMLInputElement>(null);
-    const refs = useRefs(inputElementRef, ref);  // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
+    const refs = useRefs(inputElementRef, ref); // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
 
     React.useEffect(() => {
       const currentElement = inputElementRef.current;
@@ -46,17 +56,25 @@ const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>(   // esl
     }, [nativeKeyHandler]);
 
     React.useEffect(() => {
-      if (inputElementRef.current && setFocus)
-        inputElementRef.current.focus();
+      if (inputElementRef.current && setFocus) inputElementRef.current.focus();
     }, [setFocus]);
 
-    const handleFocus = React.useCallback((event: React.FocusEvent<HTMLInputElement>) => {
-      event.currentTarget.select();
-    }, []);
+    const handleFocus = React.useCallback(
+      (event: React.FocusEvent<HTMLInputElement>) => {
+        event.currentTarget.select();
+      },
+      []
+    );
 
     return (
-      <ITwinUI_Input ref={refs} type="text" {...otherProps} onFocus={handleFocus}
-        className={classnames("uicore-inputs-input", className)} style={style} />
+      <ITwinUI_Input
+        ref={refs}
+        type="text"
+        {...otherProps}
+        onFocus={handleFocus}
+        className={classnames("uicore-inputs-input", className)}
+        style={style}
+      />
     );
   }
 );
@@ -64,4 +82,4 @@ const ForwardRefInput = React.forwardRef<HTMLInputElement, InputProps>(   // esl
 /** Basic text input, is a wrapper for the `<input type="text">` HTML element.
  * @internal
  */
-export const Input: (props: InputProps) => React.JSX.Element | null = ForwardRefInput;  // eslint-disable-line deprecation/deprecation
+export const Input: (props: InputProps) => JSX.Element | null = ForwardRefInput;

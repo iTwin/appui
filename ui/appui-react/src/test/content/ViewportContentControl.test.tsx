@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -9,11 +9,17 @@ import * as moq from "typemoq";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
-  ConfigurableCreateInfo, FrontstageConfig, SupportsViewSelectorChange,
+  ConfigurableCreateInfo,
+  FrontstageConfig,
+  SupportsViewSelectorChange,
 } from "../../appui-react";
 import {
-  ConfigurableUiControlType, ContentGroup,
-  FloatingContentControl, FloatingViewportContentControl, FrontstageProvider,
+
+  ConfigurableUiControlType,
+  ContentGroup,
+  FloatingContentControl,
+  FloatingViewportContentControl,
+  FrontstageProvider,
   UiFramework,
   ViewportContentControl,
 } from "../../appui-react";
@@ -23,10 +29,12 @@ import { InternalFrontstageManager } from "../../appui-react/frontstage/Internal
 
 const mySessionStorage = storageMock();
 
-const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(window, "sessionStorage")!;
+const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(
+  window,
+  "sessionStorage"
+)!;
 
 describe("ViewportContentControl", () => {
-
   const viewportMock = moq.Mock.ofType<ScreenViewport>();
   const viewMock = moq.Mock.ofType<ViewState3d>();
 
@@ -47,7 +55,11 @@ describe("ViewportContentControl", () => {
     TestUtils.terminateUiFramework();
 
     // restore the overriden property getter
-    Object.defineProperty(window, "sessionStorage", propertyDescriptorToRestore);
+    Object.defineProperty(
+      window,
+      "sessionStorage",
+      propertyDescriptorToRestore
+    );
   });
 
   class TestViewportContentControl extends ViewportContentControl {
@@ -59,8 +71,9 @@ describe("ViewportContentControl", () => {
       this.setIsReady();
     }
 
-    public override get viewport(): ScreenViewport | undefined { return viewportMock.object; }
-
+    public override get viewport(): ScreenViewport | undefined {
+      return viewportMock.object;
+    }
   }
 
   class Frontstage1 extends FrontstageProvider {
@@ -70,19 +83,17 @@ describe("ViewportContentControl", () => {
     }
 
     public override frontstageConfig(): FrontstageConfig {
-      const contentGroup = new ContentGroup(
-        {
-          id: "test-group",
-          layout: StandardContentLayouts.singleView,
-          contents: [
-            {
-              id: "test",
-              classId: TestViewportContentControl,
-              applicationData: { label: "Content 1a", bgColor: "black" },
-            },
-          ],
-        },
-      );
+      const contentGroup = new ContentGroup({
+        id: "test-group",
+        layout: StandardContentLayouts.singleView,
+        contents: [
+          {
+            id: "test",
+            classId: TestViewportContentControl,
+            applicationData: { label: "Content 1a", bgColor: "black" },
+          },
+        ],
+      });
       return {
         id: this.id,
         version: 1,
@@ -97,9 +108,13 @@ describe("ViewportContentControl", () => {
 
   beforeEach(async () => {
     viewMock.reset();
-    viewMock.setup((view) => view.classFullName).returns(() => "SheetViewDefinition");
+    viewMock
+      .setup((view) => view.classFullName)
+      .returns(() => "SheetViewDefinition");
     viewportMock.reset();
-    viewportMock.setup((viewport) => viewport.view).returns(() => viewMock.object);
+    viewportMock
+      .setup((viewport) => viewport.view)
+      .returns(() => viewMock.object);
 
     UiFramework.frontstages.clearFrontstageProviders();
     await UiFramework.frontstages.setActiveFrontstageDef(undefined);
@@ -108,11 +123,15 @@ describe("ViewportContentControl", () => {
   it("Frontstage should support ViewportContentControl", async () => {
     const frontstageProvider = new Frontstage1();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageProvider.id);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      frontstageProvider.id
+    );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(UiFramework.content.layouts.activeLayout?.id).to.eq("uia:singleView");
+      expect(UiFramework.content.layouts.activeLayout?.id).to.eq(
+        "uia:singleView"
+      );
 
       const contentControl = UiFramework.content.getActiveContentControl();
       expect(contentControl).to.not.be.undefined;
@@ -120,9 +139,12 @@ describe("ViewportContentControl", () => {
       if (contentControl) {
         expect(contentControl.isViewport).to.be.true;
         expect(contentControl.viewport).to.not.be.undefined;
-        expect(contentControl.getType()).to.eq(ConfigurableUiControlType.Viewport);
+        expect(contentControl.getType()).to.eq(
+          ConfigurableUiControlType.Viewport
+        );
 
-        const supportsContentControl = contentControl as unknown as SupportsViewSelectorChange;
+        const supportsContentControl =
+          contentControl as unknown as SupportsViewSelectorChange;
         expect(supportsContentControl.supportsViewSelectorChange).to.be.true;
       }
     }
@@ -131,11 +153,15 @@ describe("ViewportContentControl", () => {
   it("ViewportContentControl should return proper navigation aid for class name", async () => {
     const frontstageProvider = new Frontstage1();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageProvider.id);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      frontstageProvider.id
+    );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(UiFramework.content.layouts.activeLayout?.id).to.eq("uia:singleView");
+      expect(UiFramework.content.layouts.activeLayout?.id).to.eq(
+        "uia:singleView"
+      );
 
       const contentControl = UiFramework.content.getActiveContentControl();
       expect(contentControl).to.not.be.undefined;
@@ -144,15 +170,23 @@ describe("ViewportContentControl", () => {
         expect(contentControl.navigationAidControl).to.eq("SheetNavigationAid");
 
         viewMock.reset();
-        viewMock.setup((view) => view.classFullName).returns(() => "DrawingViewDefinition");
-        expect(contentControl.navigationAidControl).to.eq("DrawingNavigationAid");
+        viewMock
+          .setup((view) => view.classFullName)
+          .returns(() => "DrawingViewDefinition");
+        expect(contentControl.navigationAidControl).to.eq(
+          "DrawingNavigationAid"
+        );
 
         viewMock.reset();
-        viewMock.setup((view) => view.classFullName).returns(() => "SpatialViewDefinition");
+        viewMock
+          .setup((view) => view.classFullName)
+          .returns(() => "SpatialViewDefinition");
         expect(contentControl.navigationAidControl).to.eq("CubeNavigationAid");
 
         viewMock.reset();
-        viewMock.setup((view) => view.classFullName).returns(() => "OrthographicViewDefinition");
+        viewMock
+          .setup((view) => view.classFullName)
+          .returns(() => "OrthographicViewDefinition");
         expect(contentControl.navigationAidControl).to.eq("CubeNavigationAid");
       }
     }
@@ -160,11 +194,14 @@ describe("ViewportContentControl", () => {
 
   it("UiFramework.frontstages.setActiveFrontstageDef should cause onActiveContentChangedEvent", async () => {
     const spyMethod = sinon.spy();
-    const remove = UiFramework.content.onActiveContentChangedEvent.addListener(spyMethod);
+    const remove =
+      UiFramework.content.onActiveContentChangedEvent.addListener(spyMethod);
 
     const frontstageProvider = new Frontstage1();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(Frontstage1.stageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      Frontstage1.stageId
+    );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     await TestUtils.flushAsyncOperations();
@@ -177,7 +214,11 @@ describe("ViewportContentControl", () => {
     const floatingNode = <div />;
     class TestFloatingContentControl extends FloatingContentControl {
       constructor() {
-        super("TestFloatingContentControl", "TestFloatingContentControl", floatingNode);
+        super(
+          "TestFloatingContentControl",
+          "TestFloatingContentControl",
+          floatingNode
+        );
       }
       // public override get viewport(): ScreenViewport | undefined { return viewportMock.object; }
     }
@@ -185,18 +226,28 @@ describe("ViewportContentControl", () => {
 
     class TestFloatingViewportContentControl extends FloatingViewportContentControl {
       constructor() {
-        super("TestFloatingViewportContentControl", "TestFloatingViewportContentControl", null);
+        super(
+          "TestFloatingViewportContentControl",
+          "TestFloatingViewportContentControl",
+          null
+        );
       }
-      public override get viewport(): ScreenViewport | undefined { return viewportMock.object; }
+      public override get viewport(): ScreenViewport | undefined {
+        return viewportMock.object;
+      }
     }
 
     const frontstageProvider = new Frontstage1();
     UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageProvider.id);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      frontstageProvider.id
+    );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
 
     if (frontstageDef) {
-      expect(UiFramework.content.layouts.activeLayout?.id).to.eq("uia:singleView");
+      expect(UiFramework.content.layouts.activeLayout?.id).to.eq(
+        "uia:singleView"
+      );
       const contentControl = UiFramework.content.getActiveContentControl();
       expect(contentControl).to.not.be.undefined;
 
@@ -222,5 +273,4 @@ describe("ViewportContentControl", () => {
       UiFramework.content.dropFloatingContentControl(floatingViewportControl);
     }
   });
-
 });

@@ -1,8 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-/* eslint-disable react/display-name */
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
 import { Table } from "@itwin/itwinui-react";
@@ -20,31 +19,43 @@ export function ViewsTable() {
 
   React.useEffect(() => {
     if (activeIModelConnection) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      getViewDefinitions(activeIModelConnection).then ((result) => {
+      void getViewDefinitions(activeIModelConnection).then((result) => {
         setIModelViews(result);
       });
     }
   }, [activeIModelConnection]);
 
   const viewData = React.useMemo(() => {
-    return iModelViews.map((spec) => (
-      ( {id: spec.id, class: spec.class, label: spec.label} )
-    ));
+    return iModelViews.map((spec) => ({
+      id: spec.id,
+      class: spec.class,
+      label: spec.label,
+    }));
   }, [iModelViews]);
 
-  const columns = React.useMemo((): Column<Record<string, unknown>>[] => [{
-    Header: "View Id",
-    accessor: "id",
-  }, {
-    Header: "Class Name",
-    accessor: "class",
-  }, {
-    Header: "Label",
-    accessor: "label",
-  }], []);
+  const columns = React.useMemo(
+    (): Column<Record<string, unknown>>[] => [
+      {
+        Header: "View Id",
+        accessor: "id",
+      },
+      {
+        Header: "Class Name",
+        accessor: "class",
+      },
+      {
+        Header: "Label",
+        accessor: "label",
+      },
+    ],
+    []
+  );
 
   return (
-    <Table columns={columns} data={viewData} emptyTableContent="No views to display." />
+    <Table
+      columns={columns}
+      data={viewData}
+      emptyTableContent="No views to display."
+    />
   );
 }

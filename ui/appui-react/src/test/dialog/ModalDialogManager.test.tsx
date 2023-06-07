@@ -1,18 +1,21 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { MessageBoxIconType, MessageBoxType } from "@itwin/core-frontend";
-import type { DialogChangedEventArgs} from "../../appui-react";
-import { ModalDialogRenderer, StandardMessageBox, UiFramework } from "../../appui-react";
+import type { DialogChangedEventArgs } from "../../appui-react";
+import {
+  ModalDialogRenderer,
+  StandardMessageBox,
+  UiFramework,
+} from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 
 describe("ModalDialogManager", () => {
-
   const spyMethod = sinon.spy();
 
   function handleModalDialogChanged(_args: DialogChangedEventArgs) {
@@ -22,21 +25,27 @@ describe("ModalDialogManager", () => {
   before(async () => {
     await TestUtils.initializeUiFramework(true);
 
-    UiFramework.dialogs.modal.onModalDialogChangedEvent.addListener(handleModalDialogChanged);
+    UiFramework.dialogs.modal.onModalDialogChangedEvent.addListener(
+      handleModalDialogChanged
+    );
   });
 
   after(() => {
-    UiFramework.dialogs.modal.onModalDialogChangedEvent.removeListener(handleModalDialogChanged);
+    UiFramework.dialogs.modal.onModalDialogChangedEvent.removeListener(
+      handleModalDialogChanged
+    );
     TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
   it("ModalDialogRenderer component", async () => {
-    const reactNode = <StandardMessageBox
-      opened={false}
-      title="My Title"
-      iconType={MessageBoxIconType.Critical}
-      messageBoxType={MessageBoxType.YesNoCancel}
-    />;
+    const reactNode = (
+      <StandardMessageBox
+        opened={false}
+        title="My Title"
+        iconType={MessageBoxIconType.Critical}
+        messageBoxType={MessageBoxType.YesNoCancel}
+      />
+    );
 
     render(<ModalDialogRenderer />);
 
@@ -53,18 +62,22 @@ describe("ModalDialogManager", () => {
   });
 
   it("ModalDialogRenderer component with two dialogs", async () => {
-    const reactNode = <StandardMessageBox
-      opened={false}
-      title="My Title"
-      iconType={MessageBoxIconType.Critical}
-      messageBoxType={MessageBoxType.YesNoCancel}
-    />;
-    const reactNode2 = <StandardMessageBox
-      opened={false}
-      title="My Title 2"
-      iconType={MessageBoxIconType.Critical}
-      messageBoxType={MessageBoxType.YesNoCancel}
-    />;
+    const reactNode = (
+      <StandardMessageBox
+        opened={false}
+        title="My Title"
+        iconType={MessageBoxIconType.Critical}
+        messageBoxType={MessageBoxType.YesNoCancel}
+      />
+    );
+    const reactNode2 = (
+      <StandardMessageBox
+        opened={false}
+        title="My Title 2"
+        iconType={MessageBoxIconType.Critical}
+        messageBoxType={MessageBoxType.YesNoCancel}
+      />
+    );
 
     render(<ModalDialogRenderer />);
 
@@ -72,7 +85,9 @@ describe("ModalDialogManager", () => {
 
     UiFramework.dialogs.modal.open(reactNode);
     expect(UiFramework.dialogs.modal.count).to.eq(1);
-    expect(await screen.findAllByTestId("core-dialog-root")).to.have.lengthOf(1);
+    expect(await screen.findAllByTestId("core-dialog-root")).to.have.lengthOf(
+      1
+    );
 
     UiFramework.dialogs.modal.open(reactNode2);
     expect(UiFramework.dialogs.modal.count).to.eq(2);
@@ -92,5 +107,4 @@ describe("ModalDialogManager", () => {
       expect(screen.queryAllByTestId("core-dialog-root")).to.have.lengthOf(0);
     });
   });
-
 });

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 .nz-widget-menuTab {
   display: flex;
@@ -16,26 +16,26 @@
     padding-left: 1.25em;
   }
 
-  >.nz-icon {
+  > .nz-icon {
     width: 2em;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  >.nz-badge {
+  > .nz-badge {
     position: absolute;
     left: 0.25em;
   }
 
-  >span {
+  > span {
     max-width: 15em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  >.nz-checkmark {
+  > .nz-checkmark {
     position: absolute;
     right: 0.75em;
     border-style: solid;

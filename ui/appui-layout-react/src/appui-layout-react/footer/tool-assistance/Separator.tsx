@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolAssistance
  */
@@ -26,16 +26,12 @@ export class ToolAssistanceSeparator extends React.PureComponent<ToolAssistanceS
   public override render() {
     const className = classnames(
       "nz-footer-toolAssistance-separator",
-      this.props.className);
+      this.props.className
+    );
 
     return (
-      <div
-        className={className}
-        style={this.props.style}
-      >
-        <div className="nz-label">
-          {this.props.children}
-        </div>
+      <div className={className} style={this.props.style}>
+        <div className="nz-label">{this.props.children}</div>
         <div className="nz-separator" />
       </div>
     );

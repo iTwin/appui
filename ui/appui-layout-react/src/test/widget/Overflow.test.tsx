@@ -1,26 +1,31 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { act, fireEvent, render } from "@testing-library/react";
-import { WidgetOverflow, WidgetTabsEntryContext } from "../../appui-layout-react";
+import {
+  WidgetOverflow,
+  WidgetTabsEntryContext,
+} from "../../appui-layout-react";
 import { TestNineZoneProvider } from "../Providers";
 
 describe("WidgetOverflow", () => {
   it("should render", () => {
     const { container } = render(
       <TestNineZoneProvider>
-        <WidgetTabsEntryContext.Provider value={{
-          lastNotOverflown: false,
-          onResize: () => { },
-        }}>
+        <WidgetTabsEntryContext.Provider
+          value={{
+            lastNotOverflown: false,
+            onResize: () => {},
+          }}
+        >
           <WidgetOverflow>
             <div>A</div>
             <div>B</div>
           </WidgetOverflow>
         </WidgetTabsEntryContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     container.firstChild!.should.matchSnapshot();
   });
@@ -28,16 +33,18 @@ describe("WidgetOverflow", () => {
   it("should open panel", () => {
     const { container } = render(
       <TestNineZoneProvider>
-        <WidgetTabsEntryContext.Provider value={{
-          lastNotOverflown: false,
-          onResize: () => { },
-        }}>
+        <WidgetTabsEntryContext.Provider
+          value={{
+            lastNotOverflown: false,
+            onResize: () => {},
+          }}
+        >
           <WidgetOverflow>
             <div>A</div>
             <div>B</div>
           </WidgetOverflow>
         </WidgetTabsEntryContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     const button = container.getElementsByClassName("nz-button")[0];
     act(() => {
@@ -50,16 +57,18 @@ describe("WidgetOverflow", () => {
   it("should close panel on outside click", () => {
     const { container } = render(
       <TestNineZoneProvider>
-        <WidgetTabsEntryContext.Provider value={{
-          lastNotOverflown: false,
-          onResize: () => { },
-        }}>
+        <WidgetTabsEntryContext.Provider
+          value={{
+            lastNotOverflown: false,
+            onResize: () => {},
+          }}
+        >
           <WidgetOverflow>
             <div>A</div>
             <div>B</div>
           </WidgetOverflow>
         </WidgetTabsEntryContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     const button = container.getElementsByClassName("nz-button")[0];
     act(() => {

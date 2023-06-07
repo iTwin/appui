@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { useActiveFrontstageDef, useActiveViewport } from "@itwin/appui-react";
 import { ViewFlagProps, ViewFlags } from "@itwin/core-common";
@@ -12,7 +12,6 @@ export function useWidgetDef(id: string) {
   const frontstageDef = useActiveFrontstageDef();
   return frontstageDef?.findWidgetDef(id);
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function ToggleCameraItem() {
   const activeViewport = useActiveViewport();
   const [cameraOn, setCameraOn] = React.useState(activeViewport?.isCameraOn);
@@ -31,15 +30,24 @@ export function ToggleCameraItem() {
     }
   }, [activeViewport]);
 
-  return (<ToggleSwitch key={"toggleCamera"} label={"Camera"} labelPosition={"right"} onChange={onToggleCamera} checked={cameraOn} />);
+  return (
+    <ToggleSwitch
+      key={"toggleCamera"}
+      label={"Camera"}
+      labelPosition={"right"}
+      onChange={onToggleCamera}
+      checked={cameraOn}
+    />
+  );
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function ViewFlagItem(flagName: string) {
   const activeViewport = useActiveViewport();
 
   const flagValue = React.useCallback((name: string, vp?: Viewport) => {
     const props: ViewFlagProps | undefined = vp?.viewFlags.toJSON();
-    return (props && (props as any)[name] === undefined ? false : (props as any)[name]);
+    return props && (props as any)[name] === undefined
+      ? false
+      : (props as any)[name];
   }, []);
 
   const [value, setValue] = React.useState(flagValue(flagName, activeViewport));
@@ -47,25 +55,42 @@ export function ViewFlagItem(flagName: string) {
   React.useEffect(() => {
     const handleViewChanged = (vp: Viewport): void => {
       const props: ViewFlagProps = vp.viewFlags.toJSON();
-      (props as any)[flagName] = (props as any)[flagName] === undefined ? false : (props as any)[flagName];
+      (props as any)[flagName] =
+        (props as any)[flagName] === undefined
+          ? false
+          : (props as any)[flagName];
       const viewFlags = ViewFlags.fromJSON(props);
       vp.viewFlags = viewFlags;
-      setValue((props as any)[flagName] === undefined ? false : (props as any)[flagName]);
+      setValue(
+        (props as any)[flagName] === undefined
+          ? false
+          : (props as any)[flagName]
+      );
     };
 
     return activeViewport?.onChangeView.addListener(handleViewChanged);
   }, [activeViewport, flagName]);
 
-  const onViewFlagChanged = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = e.target.checked;
-    if (activeViewport) {
-      const props: ViewFlagProps = activeViewport.viewFlags.toJSON();
-      (props as any)[flagName] = (props as any)[flagName] === undefined ? checked : !(props as any)[flagName];
-      const viewFlags = ViewFlags.fromJSON(props);
-      activeViewport.viewFlags = viewFlags;
-      setValue((props as any)[flagName] === undefined ? false : (props as any)[flagName]);
-    }
-  }, [activeViewport, flagName]);
+  const onViewFlagChanged = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const checked = e.target.checked;
+      if (activeViewport) {
+        const props: ViewFlagProps = activeViewport.viewFlags.toJSON();
+        (props as any)[flagName] =
+          (props as any)[flagName] === undefined
+            ? checked
+            : !(props as any)[flagName];
+        const viewFlags = ViewFlags.fromJSON(props);
+        activeViewport.viewFlags = viewFlags;
+        setValue(
+          (props as any)[flagName] === undefined
+            ? false
+            : (props as any)[flagName]
+        );
+      }
+    },
+    [activeViewport, flagName]
+  );
 
   const stylizedName = React.useCallback((name: string) => {
     name = name.charAt(0).toUpperCase() + name.slice(1);
@@ -73,10 +98,17 @@ export function ViewFlagItem(flagName: string) {
     return name;
   }, []);
 
-  return (<ToggleSwitch key={flagName} label={stylizedName(flagName)} labelPosition={"right"} onChange={onViewFlagChanged} checked={value} />);
+  return (
+    <ToggleSwitch
+      key={flagName}
+      label={stylizedName(flagName)}
+      labelPosition={"right"}
+      onChange={onViewFlagChanged}
+      checked={value}
+    />
+  );
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function ViewAttributesWidgetComponent() {
   const items: React.JSX.Element[] = [];
   items.push(ViewFlagItem("acs"));
@@ -90,7 +122,14 @@ export function ViewAttributesWidgetComponent() {
   items.push(ViewFlagItem("backgroundMap"));
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", padding: "8px", overflowY: "auto" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        padding: "8px",
+        overflowY: "auto",
+      }}
+    >
       {items}
     </div>
   );

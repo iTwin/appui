@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "variables";
 
 .nz-toolbar-button-button {
@@ -29,8 +29,12 @@
 
   pointer-events: auto;
 
-  >.nz-gradient {
-    background: linear-gradient(to bottom, var(--iui-color-background), var(--iui-color-background-zebra));
+  > .nz-gradient {
+    background: linear-gradient(
+      to bottom,
+      var(--iui-color-background),
+      var(--iui-color-background-zebra)
+    );
     position: absolute;
     width: 100%;
     height: 100%;

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { useImportSpecifier } from "../ImportSpecifier";
 import { createApplyCollectionTransform } from "../TestUtils";
 
@@ -19,7 +19,7 @@ describe("ImportSpecifier", () => {
         (_, root) => {
           const specifiers = root.findSpecifiers("a");
           expect(specifiers.getLocalName()).toBe("a");
-        },
+        }
       );
     });
 
@@ -31,7 +31,7 @@ describe("ImportSpecifier", () => {
         (_, root) => {
           const specifiers = root.findSpecifiers("a");
           expect(specifiers.getLocalName()).toBe("b");
-        },
+        }
       );
     });
 
@@ -48,7 +48,7 @@ describe("ImportSpecifier", () => {
             path.value.local = undefined;
           });
           expect(specifiers.getLocalName()).toBe("a");
-        },
+        }
       );
     });
   });
@@ -63,7 +63,7 @@ describe("ImportSpecifier", () => {
         (_, root) => {
           const specifiers = root.findSpecifiers("a");
           expect(specifiers.isUsed()).toBe(true);
-        },
+        }
       );
     });
 
@@ -76,7 +76,7 @@ describe("ImportSpecifier", () => {
         (_, root) => {
           const specifiers = root.findSpecifiers("a");
           expect(specifiers.isUsed()).toBe(true);
-        },
+        }
       );
     });
 
@@ -89,7 +89,7 @@ describe("ImportSpecifier", () => {
         (_, root) => {
           const specifiers = root.findSpecifiers("a");
           expect(specifiers.isUsed()).toBe(false);
-        },
+        }
       );
     });
 
@@ -102,7 +102,7 @@ describe("ImportSpecifier", () => {
         (_, root) => {
           const specifiers = root.findSpecifiers("a");
           expect(specifiers.isUsed()).toBe(false);
-        },
+        }
       );
     });
 
@@ -115,7 +115,7 @@ describe("ImportSpecifier", () => {
         (_, root) => {
           const specifiers = root.findSpecifiers("a");
           expect(specifiers.isUsed()).toBe(false);
-        },
+        }
       );
     });
 
@@ -128,7 +128,7 @@ describe("ImportSpecifier", () => {
         (_, root) => {
           const specifiers = root.findSpecifiers("a");
           expect(specifiers.isUsed()).toBe(true);
-        },
+        }
       );
     });
   });

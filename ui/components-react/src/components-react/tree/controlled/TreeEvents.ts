@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -39,18 +39,24 @@ export interface TreeEvents {
    * Called when tree selection is modified.
    * If Subscription is returned it can be used to stop event handling by calling `unsubscribe()`.
    */
-  onSelectionModified?(event: TreeSelectionModificationEventArgs): Subscription | undefined;
+  onSelectionModified?(
+    event: TreeSelectionModificationEventArgs
+  ): Subscription | undefined;
   /**
    * Called when tree selection is replaced.
    * If Subscription is returned it can be used to stop event handling by calling `unsubscribe()`.
    */
-  onSelectionReplaced?(event: TreeSelectionReplacementEventArgs): Subscription | undefined;
+  onSelectionReplaced?(
+    event: TreeSelectionReplacementEventArgs
+  ): Subscription | undefined;
 
   /**
    * Called when checkbox states for nodes are changed.
    * If Subscription is returned it can be used to stop event handling by calling `unsubscribe()`.
    */
-  onCheckboxStateChanged?(event: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
+  onCheckboxStateChanged?(
+    event: TreeCheckboxStateChangeEventArgs
+  ): Subscription | undefined;
 }
 
 /**

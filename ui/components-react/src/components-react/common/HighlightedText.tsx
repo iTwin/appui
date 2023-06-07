@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -58,8 +58,12 @@ interface FindChunksArgs {
   textToHighlight: string;
 }
 const findChunksNoRegex = (args: FindChunksArgs): HighlighterChunk[] => {
-  const text = args.caseSensitive ? args.textToHighlight : args.textToHighlight.toUpperCase();
-  const term = args.caseSensitive ? args.searchWords[0] : args.searchWords[0].toUpperCase();
+  const text = args.caseSensitive
+    ? args.textToHighlight
+    : args.textToHighlight.toUpperCase();
+  const term = args.caseSensitive
+    ? args.searchWords[0]
+    : args.searchWords[0].toUpperCase();
   const chunks: HighlighterChunk[] = [];
   let index = text.indexOf(term);
   while (index !== -1) {

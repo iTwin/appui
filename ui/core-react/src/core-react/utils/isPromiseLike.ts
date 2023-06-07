@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -10,5 +10,9 @@
  * @internal
  */
 export function isPromiseLike(obj: unknown): obj is PromiseLike<unknown> {
-  return !!(obj && (typeof obj === "object") && (typeof (obj as any).then === "function"));
+  return !!(
+    obj &&
+    typeof obj === "object" &&
+    typeof (obj as any).then === "function"
+  );
 }

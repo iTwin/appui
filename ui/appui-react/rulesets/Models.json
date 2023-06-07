@@ -10,9 +10,7 @@
           "classes": [
             {
               "schemaName": "BisCore",
-              "classNames": [
-                "SpatialModel"
-              ]
+              "classNames": ["SpatialModel"]
             }
           ],
           "arePolymorphic": true,

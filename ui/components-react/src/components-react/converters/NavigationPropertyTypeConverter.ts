@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /**
  * @packageDocumentation
  * @module TypeConverters
  */
 
-import type { Primitives, PropertyDescription} from "@itwin/appui-abstract";
+import type { Primitives, PropertyDescription } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
 import { TypeConverter } from "./TypeConverter";
 import { TypeConverterManager } from "./TypeConverterManager";
@@ -17,15 +17,29 @@ import { TypeConverterManager } from "./TypeConverterManager";
  * @public
  */
 export class NavigationPropertyTypeConverter extends TypeConverter {
-  public override convertPropertyToString(propertyDescription: PropertyDescription, value?: Primitives.Value) {
+  public override convertPropertyToString(
+    propertyDescription: PropertyDescription,
+    value?: Primitives.Value
+  ) {
     return value === undefined ? "" : propertyDescription.displayLabel;
   }
 
-  public sortCompare(a: Primitives.Value, b: Primitives.Value, ignoreCase?: boolean): number {
-    return TypeConverterManager
-      .getConverter(StandardTypeNames.Hexadecimal)
-      .sortCompare((a as Primitives.InstanceKey).id, (b as Primitives.InstanceKey).id, ignoreCase);
+  public sortCompare(
+    a: Primitives.Value,
+    b: Primitives.Value,
+    ignoreCase?: boolean
+  ): number {
+    return TypeConverterManager.getConverter(
+      StandardTypeNames.Hexadecimal
+    ).sortCompare(
+      (a as Primitives.InstanceKey).id,
+      (b as Primitives.InstanceKey).id,
+      ignoreCase
+    );
   }
 }
 
-TypeConverterManager.registerConverter(StandardTypeNames.Navigation, NavigationPropertyTypeConverter);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.Navigation,
+  NavigationPropertyTypeConverter
+);

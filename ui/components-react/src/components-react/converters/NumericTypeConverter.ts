@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module TypeConverters
  */
 
-import type { Primitives} from "@itwin/appui-abstract";
+import type { Primitives } from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
-import type { LessGreaterOperatorProcessor} from "./TypeConverter";
+import type { LessGreaterOperatorProcessor } from "./TypeConverter";
 import { TypeConverter } from "./TypeConverter";
 import { TypeConverterManager } from "./TypeConverterManager";
 
@@ -16,14 +16,22 @@ import { TypeConverterManager } from "./TypeConverterManager";
  * Base Numeric Type Converter.
  * @public
  */
-export abstract class NumericTypeConverterBase extends TypeConverter implements LessGreaterOperatorProcessor {
-  public override get isLessGreaterType(): boolean { return true; }
+export abstract class NumericTypeConverterBase
+  extends TypeConverter
+  implements LessGreaterOperatorProcessor
+{
+  public override get isLessGreaterType(): boolean {
+    return true;
+  }
 
   public isLessThan(a: Primitives.Numeric, b: Primitives.Numeric): boolean {
     return a < b;
   }
 
-  public isLessThanOrEqualTo(a: Primitives.Numeric, b: Primitives.Numeric): boolean {
+  public isLessThanOrEqualTo(
+    a: Primitives.Numeric,
+    b: Primitives.Numeric
+  ): boolean {
     return a <= b;
   }
 
@@ -31,12 +39,19 @@ export abstract class NumericTypeConverterBase extends TypeConverter implements 
     return a > b;
   }
 
-  public isGreaterThanOrEqualTo(a: Primitives.Numeric, b: Primitives.Numeric): boolean {
+  public isGreaterThanOrEqualTo(
+    a: Primitives.Numeric,
+    b: Primitives.Numeric
+  ): boolean {
     return a >= b;
   }
 
-  public sortCompare(a: Primitives.Numeric, b: Primitives.Numeric, _ignoreCase?: boolean): number {
-    return (+a) - (+b);
+  public sortCompare(
+    a: Primitives.Numeric,
+    b: Primitives.Numeric,
+    _ignoreCase?: boolean
+  ): number {
+    return +a - +b;
   }
 }
 
@@ -51,8 +66,7 @@ export class FloatTypeConverter extends NumericTypeConverterBase {
   }
 
   public override convertToString(value?: Primitives.Float) {
-    if (value === undefined)
-      return "";
+    if (value === undefined) return "";
 
     let numericValue = 0;
     if (typeof value === "string") {
@@ -69,8 +83,7 @@ export class FloatTypeConverter extends NumericTypeConverterBase {
     let stringValue = (Math.round(100 * numericValue) / 100).toString();
     // because this is a _float_ converter, we want to emphasize the number is a float - make
     // sure there's a decimal part
-    if (stringValue.indexOf(".") === -1)
-      stringValue += ".0";
+    if (stringValue.indexOf(".") === -1) stringValue += ".0";
     return stringValue;
   }
 
@@ -78,9 +91,18 @@ export class FloatTypeConverter extends NumericTypeConverterBase {
     return FloatTypeConverter.parseString(value);
   }
 }
-TypeConverterManager.registerConverter(StandardTypeNames.Float, FloatTypeConverter);
-TypeConverterManager.registerConverter(StandardTypeNames.Double, FloatTypeConverter);
-TypeConverterManager.registerConverter(StandardTypeNames.Number, FloatTypeConverter);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.Float,
+  FloatTypeConverter
+);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.Double,
+  FloatTypeConverter
+);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.Number,
+  FloatTypeConverter
+);
 
 /**
  * Int Type Converter.
@@ -93,8 +115,7 @@ export class IntTypeConverter extends NumericTypeConverterBase {
   }
 
   public override convertToString(value?: Primitives.Int) {
-    if (value === undefined)
-      return "";
+    if (value === undefined) return "";
 
     let numericValue = 0;
     if (typeof value === "string") {
@@ -116,4 +137,7 @@ export class IntTypeConverter extends NumericTypeConverterBase {
 }
 
 TypeConverterManager.registerConverter(StandardTypeNames.Int, IntTypeConverter);
-TypeConverterManager.registerConverter(StandardTypeNames.Integer, IntTypeConverter);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.Integer,
+  IntTypeConverter
+);

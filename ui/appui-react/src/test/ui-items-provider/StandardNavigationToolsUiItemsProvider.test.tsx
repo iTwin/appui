@@ -1,26 +1,29 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import TestUtils from "../TestUtils";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import type { DefaultNavigationTools} from "../../appui-react";
-import { StageUsage, StandardNavigationToolsUiItemsProvider, ToolbarOrientation, ToolbarUsage, UiItemsManager } from "../../appui-react";
+import type { DefaultNavigationTools } from "../../appui-react";
+import {
+  StageUsage,
+  StandardNavigationToolsUiItemsProvider,
+  ToolbarOrientation,
+  ToolbarUsage,
+  UiItemsManager,
+} from "../../appui-react";
 
 const testToolsArray: DefaultNavigationTools[] = [
+  {},
+
   {
+    horizontal: {},
   },
 
   {
-    horizontal: {
-    },
-  },
-
-  {
-    vertical: {
-    },
+    vertical: {},
   },
   {
     horizontal: {
@@ -57,7 +60,6 @@ const testToolsArray: DefaultNavigationTools[] = [
 ];
 
 describe("StandardNavigationToolsUiItemsProvider", () => {
-
   // avoid problems due to no real localization resources by return dummy values for englishKeyin and keyin properties.
   before(async () => {
     await TestUtils.initializeUiFramework();
@@ -75,8 +77,22 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
     UiItemsManager.register(provider);
 
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal).length).to.eq(6);
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical).length).to.eq(3);
+    expect(
+      UiItemsManager.getToolbarButtonItems(
+        "test",
+        StageUsage.General,
+        ToolbarUsage.ViewNavigation,
+        ToolbarOrientation.Horizontal
+      ).length
+    ).to.eq(6);
+    expect(
+      UiItemsManager.getToolbarButtonItems(
+        "test",
+        StageUsage.General,
+        ToolbarUsage.ViewNavigation,
+        ToolbarOrientation.Vertical
+      ).length
+    ).to.eq(3);
 
     UiItemsManager.unregister(provider.id);
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
@@ -84,8 +100,7 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
 
   it("should register StandardNavigationToolsUiItemsProvider with no horizontal buttons", () => {
     const provider = new StandardNavigationToolsUiItemsProvider({
-      horizontal: {
-      },
+      horizontal: {},
       vertical: {
         walk: true,
         toggleCamera: true,
@@ -94,8 +109,22 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
     });
     UiItemsManager.register(provider, { stageIds: ["test"] });
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal).length).to.eq(0);
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical).length).to.eq(3);
+    expect(
+      UiItemsManager.getToolbarButtonItems(
+        "test",
+        StageUsage.General,
+        ToolbarUsage.ViewNavigation,
+        ToolbarOrientation.Horizontal
+      ).length
+    ).to.eq(0);
+    expect(
+      UiItemsManager.getToolbarButtonItems(
+        "test",
+        StageUsage.General,
+        ToolbarUsage.ViewNavigation,
+        ToolbarOrientation.Vertical
+      ).length
+    ).to.eq(3);
     UiItemsManager.unregister(provider.id);
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
   });
@@ -109,14 +138,27 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
         windowArea: true,
         viewUndoRedo: true,
       },
-      vertical: {
-      },
+      vertical: {},
     });
     UiItemsManager.register(provider, { stageIds: ["test"] });
 
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal).length).to.eq(6);
-    expect(UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical).length).to.eq(0);
+    expect(
+      UiItemsManager.getToolbarButtonItems(
+        "test",
+        StageUsage.General,
+        ToolbarUsage.ViewNavigation,
+        ToolbarOrientation.Horizontal
+      ).length
+    ).to.eq(6);
+    expect(
+      UiItemsManager.getToolbarButtonItems(
+        "test",
+        StageUsage.General,
+        ToolbarUsage.ViewNavigation,
+        ToolbarOrientation.Vertical
+      ).length
+    ).to.eq(0);
 
     UiItemsManager.unregister(provider.id);
     expect(UiItemsManager.hasRegisteredProviders).to.be.false;
@@ -126,17 +168,39 @@ describe("StandardNavigationToolsUiItemsProvider", () => {
     const provider = new StandardNavigationToolsUiItemsProvider();
     UiItemsManager.register(provider);
     expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-    UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
-    UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical);
+    UiItemsManager.getToolbarButtonItems(
+      "test",
+      StageUsage.General,
+      ToolbarUsage.ViewNavigation,
+      ToolbarOrientation.Horizontal
+    );
+    UiItemsManager.getToolbarButtonItems(
+      "test",
+      StageUsage.General,
+      ToolbarUsage.ViewNavigation,
+      ToolbarOrientation.Vertical
+    );
 
     UiItemsManager.unregister(provider.id);
 
     testToolsArray.forEach((defaultTools: DefaultNavigationTools) => {
-      const local_provider = new StandardNavigationToolsUiItemsProvider(defaultTools);
+      const local_provider = new StandardNavigationToolsUiItemsProvider(
+        defaultTools
+      );
       UiItemsManager.register(local_provider);
       expect(UiItemsManager.hasRegisteredProviders).to.be.true;
-      UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Horizontal);
-      UiItemsManager.getToolbarButtonItems("test", StageUsage.General, ToolbarUsage.ViewNavigation, ToolbarOrientation.Vertical);
+      UiItemsManager.getToolbarButtonItems(
+        "test",
+        StageUsage.General,
+        ToolbarUsage.ViewNavigation,
+        ToolbarOrientation.Horizontal
+      );
+      UiItemsManager.getToolbarButtonItems(
+        "test",
+        StageUsage.General,
+        ToolbarUsage.ViewNavigation,
+        ToolbarOrientation.Vertical
+      );
       UiItemsManager.unregister(local_provider.id);
       expect(UiItemsManager.hasRegisteredProviders).to.be.false;
     });

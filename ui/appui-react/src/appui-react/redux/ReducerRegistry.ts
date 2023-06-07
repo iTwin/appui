@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module State
  */
@@ -22,7 +22,9 @@ export interface NameToReducerMap {
  * @beta
  */
 export class ReducerRegistry {
-  private _onReducerListChanged: ((reducers: NameToReducerMap) => void) | undefined;
+  private _onReducerListChanged:
+    | ((reducers: NameToReducerMap) => void)
+    | undefined;
   private _reducers: NameToReducerMap;
 
   /** ReducerRegistry constructor that initializes an empty reducer map to be populated by called to registerReducer. */
@@ -31,9 +33,15 @@ export class ReducerRegistry {
   }
 
   /** Call to register a reducer and its name. */
-  public registerReducer(name: string, reducer: (state: any, action: any) => any) {
+  public registerReducer(
+    name: string,
+    reducer: (state: any, action: any) => any
+  ) {
     if (this._reducers[name]) {
-      throw new UiError(UiFramework.loggerCategory(this), `Redux Reducer with matching name of '${name}' is already registered`);
+      throw new UiError(
+        UiFramework.loggerCategory(this),
+        `Redux Reducer with matching name of '${name}' is already registered`
+      );
     }
 
     this._reducers = { ...this._reducers, [name]: reducer };
@@ -70,5 +78,4 @@ export class ReducerRegistry {
 /** ReducerRegistryInstance singleton instance of Reducer Registry
  * @beta
  */
-/* eslint-disable @typescript-eslint/naming-convention */
 export const ReducerRegistryInstance = new ReducerRegistry();

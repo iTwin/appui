@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 // cSpell:ignore focustrap imagecheckbox iconinput hocs numberinput numericinput
 
@@ -101,11 +101,23 @@ export * from "./core-react/text/MutedText";
 export * from "./core-react/text/StyledText";
 export * from "./core-react/text/TextProps";
 
-export { ExpansionToggle, ExpansionToggleProps } from "./core-react/tree/ExpansionToggle";
+export {
+  ExpansionToggle,
+  ExpansionToggleProps,
+} from "./core-react/tree/ExpansionToggle";
 export { TreeBranch, TreeBranchProps } from "./core-react/tree/Branch";
-export { TreeNode, TreeNodeProps, NodeCheckboxProps, NodeCheckboxRenderer, NodeCheckboxRenderProps } from "./core-react/tree/Node";
+export {
+  TreeNode,
+  TreeNodeProps,
+  NodeCheckboxProps,
+  NodeCheckboxRenderer,
+  NodeCheckboxRenderProps,
+} from "./core-react/tree/Node";
 export { Tree, TreeProps } from "./core-react/tree/Tree";
-export { TreeNodePlaceholder, TreeNodePlaceholderProps } from "./core-react/tree/Placeholder";
+export {
+  TreeNodePlaceholder,
+  TreeNodePlaceholderProps,
+} from "./core-react/tree/Placeholder";
 
 export * from "./core-react/uistate/UiStateEntry";
 export * from "./core-react/uistate/UiStateStorage";

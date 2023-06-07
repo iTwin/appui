@@ -35,7 +35,8 @@
     "cpx2": "^3.0.0",
     "rimraf": "^3.0.2",
     "eslint": "^8.42.0",
-    "typescript": "~5.0.2"
+    "typescript": "~5.0.2",
+    "eslint-config-prettier": "~8.8.0"
   },
   "dependencies": {
     "@itwin/core-bentley": "^3.7.0",
@@ -63,7 +64,10 @@
     "plugins": [
       "@itwin"
     ],
-    "extends": "plugin:@itwin/ui"
+    "extends": [
+      "plugin:@itwin/ui",
+      "prettier"
+    ]
   },
   "repository": {
     "type": "git",

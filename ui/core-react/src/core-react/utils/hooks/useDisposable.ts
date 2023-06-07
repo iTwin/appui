@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -14,7 +14,9 @@ import type { IDisposable } from "@itwin/core-bentley";
  * or factory method change.
  * @public
  */
-export function useDisposable<TDisposable extends IDisposable>(createDisposable: () => TDisposable): TDisposable {
+export function useDisposable<TDisposable extends IDisposable>(
+  createDisposable: () => TDisposable
+): TDisposable {
   return useOptionalDisposable(createDisposable)!;
 }
 
@@ -24,11 +26,12 @@ export function useDisposable<TDisposable extends IDisposable>(createDisposable:
  * hook takes care of disposing it when necessary.
  * @public
  */
-export function useOptionalDisposable<TDisposable extends IDisposable>(createDisposable: () => TDisposable | undefined): TDisposable | undefined {
+export function useOptionalDisposable<TDisposable extends IDisposable>(
+  createDisposable: () => TDisposable | undefined
+): TDisposable | undefined {
   const previous = useRef<TDisposable>();
   const value = useMemo(() => {
-    if (previous.current)
-      previous.current.dispose();
+    if (previous.current) previous.current.dispose();
 
     previous.current = createDisposable();
     return previous.current;

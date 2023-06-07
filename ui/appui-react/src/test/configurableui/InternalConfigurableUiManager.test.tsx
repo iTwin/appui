@@ -1,15 +1,23 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import * as React from "react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import type {
-  ConfigurableCreateInfo, ContentGroupProps} from "../../appui-react";
-import { ContentControl, ContentGroup, MessageManager, PopupManager, UiFramework, WidgetControl,
+  ConfigurableCreateInfo,
+  ContentGroupProps,
+} from "../../appui-react";
+import {
+  ContentControl,
+  ContentGroup,
+  MessageManager,
+  PopupManager,
+  UiFramework,
+  WidgetControl,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { InternalConfigurableUiManager } from "../../appui-react/configurableui/InternalConfigurableUiManager";
@@ -28,7 +36,10 @@ describe("InternalConfigurableUiManager", () => {
     await NoRenderApp.startup();
 
     InternalConfigurableUiManager.initialize();
-    InternalConfigurableUiManager.register("TableExampleContent", TableExampleContentControl);
+    InternalConfigurableUiManager.register(
+      "TableExampleContent",
+      TableExampleContentControl
+    );
   });
 
   after(async () => {
@@ -51,26 +62,33 @@ describe("InternalConfigurableUiManager", () => {
   }
 
   it("getConstructorClassId should return undefined before registration", () => {
-    const classId = InternalConfigurableUiManager.getConstructorClassId(TestWidget);
+    const classId =
+      InternalConfigurableUiManager.getConstructorClassId(TestWidget);
     expect(classId).to.be.undefined;
   });
 
   it("registerControl & createConfigurable using same classId", () => {
     InternalConfigurableUiManager.register("TestWidget", TestWidget);
-    expect(InternalConfigurableUiManager.create("TestWidget", "1")).to.not.be.undefined;
+    expect(InternalConfigurableUiManager.create("TestWidget", "1")).to.not.be
+      .undefined;
   });
 
   it("registerControl trying to register a classId already registered", () => {
-    expect(() => InternalConfigurableUiManager.register("TestWidget", TestWidget)).to.throw(Error);
+    expect(() =>
+      InternalConfigurableUiManager.register("TestWidget", TestWidget)
+    ).to.throw(Error);
   });
 
   it("unregisterControl removes a registered control", () => {
     InternalConfigurableUiManager.unregister("TestWidget");
-    expect(InternalConfigurableUiManager.isRegistered("TestWidget")).to.be.false;
+    expect(InternalConfigurableUiManager.isRegistered("TestWidget")).to.be
+      .false;
   });
 
   it("createConfigurable trying to create an unregistered control", () => {
-    expect(() => InternalConfigurableUiManager.create("invalid", "1")).to.throw(Error);
+    expect(() => InternalConfigurableUiManager.create("invalid", "1")).to.throw(
+      Error
+    );
   });
 
   it("loadContentGroup and read applicationData from control", () => {

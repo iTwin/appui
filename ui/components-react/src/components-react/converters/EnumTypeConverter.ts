@@ -1,12 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module TypeConverters
  */
 
-import type { EnumerationChoice, EnumerationChoicesInfo, Primitives, PropertyDescription} from "@itwin/appui-abstract";
+import type {
+  EnumerationChoice,
+  EnumerationChoicesInfo,
+  Primitives,
+  PropertyDescription,
+} from "@itwin/appui-abstract";
 import { StandardTypeNames } from "@itwin/appui-abstract";
 import { TypeConverter } from "./TypeConverter";
 import { TypeConverterManager } from "./TypeConverterManager";
@@ -16,9 +21,11 @@ import { TypeConverterManager } from "./TypeConverterManager";
  * @public
  */
 export class EnumTypeConverter extends TypeConverter {
-  public override convertPropertyToString(propertyDescription: PropertyDescription, value?: Primitives.Enum): string | Promise<string> {
-    if (value === undefined)
-      return "";
+  public override convertPropertyToString(
+    propertyDescription: PropertyDescription,
+    value?: Primitives.Enum
+  ): string | Promise<string> {
+    if (value === undefined) return "";
 
     if (propertyDescription.enum) {
       return this.getMatchingStringValue(propertyDescription.enum, value);
@@ -27,7 +34,10 @@ export class EnumTypeConverter extends TypeConverter {
     return super.convertToString(value);
   }
 
-  private async getMatchingStringValue(enumVal: EnumerationChoicesInfo, value: Primitives.Enum) {
+  private async getMatchingStringValue(
+    enumVal: EnumerationChoicesInfo,
+    value: Primitives.Enum
+  ) {
     let choices: EnumerationChoice[] = [];
 
     if (enumVal.choices instanceof Promise) {
@@ -37,27 +47,39 @@ export class EnumTypeConverter extends TypeConverter {
     }
 
     const pos = this.getPosition(choices, value);
-    if (-1 !== pos)
-      return choices[pos].label;
+    if (-1 !== pos) return choices[pos].label;
 
     return this.convertToString(value);
   }
 
-  private getPosition(choices: EnumerationChoice[], value: Primitives.Enum): number {
+  private getPosition(
+    choices: EnumerationChoice[],
+    value: Primitives.Enum
+  ): number {
     for (let i = 0; i < choices.length; ++i) {
-      if (choices[i].value === value)
-        return i;
+      if (choices[i].value === value) return i;
     }
     return -1;
   }
 
-  public sortCompare(a: Primitives.Enum, b: Primitives.Enum, ignoreCase?: boolean): number {
+  public sortCompare(
+    a: Primitives.Enum,
+    b: Primitives.Enum,
+    ignoreCase?: boolean
+  ): number {
     if (isNaN(+a) || isNaN(+b)) {
-      return TypeConverterManager.getConverter("string").sortCompare(a, b, ignoreCase);
+      return TypeConverterManager.getConverter("string").sortCompare(
+        a,
+        b,
+        ignoreCase
+      );
     }
 
-    return (+a) - (+b);
+    return +a - +b;
   }
 }
 
-TypeConverterManager.registerConverter(StandardTypeNames.Enum, EnumTypeConverter);
+TypeConverterManager.registerConverter(
+  StandardTypeNames.Enum,
+  EnumTypeConverter
+);

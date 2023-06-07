@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import classnames from "classnames";
 import * as React from "react";
 
@@ -23,26 +23,27 @@ export interface NestedBorderWrapperProps {
  */
 export function FlatItemNestedBorderWrapper(props: NestedBorderWrapperProps) {
   if (props.borderCount <= 0) {
-    return (
-      <div className={props.className}>
-        {props.children}
-      </div>
-    );
+    return <div className={props.className}>{props.children}</div>;
   }
 
-  const isBottomBorderNeeded = props.bottomBorderCount >= 0 && props.bottomBorderCount >= props.borderCount;
+  const isBottomBorderNeeded =
+    props.bottomBorderCount >= 0 &&
+    props.bottomBorderCount >= props.borderCount;
   const classNames: string = classnames(
     "nested-border-middle",
-    isBottomBorderNeeded ? "nested-border-bottom" : undefined,
+    isBottomBorderNeeded ? "nested-border-bottom" : undefined
   );
 
   let currentBottomBorderCount = props.bottomBorderCount;
-  if (isBottomBorderNeeded)
-    currentBottomBorderCount--;
+  if (isBottomBorderNeeded) currentBottomBorderCount--;
 
   return (
     <div className={classNames}>
-      <FlatItemNestedBorderWrapper className={props.className} borderCount={props.borderCount - 1} bottomBorderCount={currentBottomBorderCount}>
+      <FlatItemNestedBorderWrapper
+        className={props.className}
+        borderCount={props.borderCount - 1}
+        bottomBorderCount={currentBottomBorderCount}
+      >
         {props.children}
       </FlatItemNestedBorderWrapper>
     </div>

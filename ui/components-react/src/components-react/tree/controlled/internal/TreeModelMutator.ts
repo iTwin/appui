@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -25,13 +25,19 @@ export class TreeModelMutator {
   private _nodeLoader: ITreeNodeLoader;
   private _collapsedChildrenDisposalEnabled: boolean;
 
-  constructor(modelSource: TreeModelSource, nodeLoader: ITreeNodeLoader, collapsedChildrenDisposalEnabled: boolean) {
+  constructor(
+    modelSource: TreeModelSource,
+    nodeLoader: ITreeNodeLoader,
+    collapsedChildrenDisposalEnabled: boolean
+  ) {
     this._modelSource = modelSource;
     this._nodeLoader = nodeLoader;
     this._collapsedChildrenDisposalEnabled = collapsedChildrenDisposalEnabled;
   }
 
-  public get modelSource() { return this._modelSource; }
+  public get modelSource() {
+    return this._modelSource;
+  }
 
   public expandNode(nodeId: string): Observable<TreeNodeLoadResult> {
     let needToLoadChildren = false;
@@ -50,7 +56,9 @@ export class TreeModelMutator {
     });
 
     const expandedNode = this._modelSource.getModel().getNode(nodeId);
-    return needToLoadChildren && expandedNode ? this._nodeLoader.loadNode(expandedNode, 0) : EMPTY;
+    return needToLoadChildren && expandedNode
+      ? this._nodeLoader.loadNode(expandedNode, 0)
+      : EMPTY;
   }
 
   public collapseNode(nodeId: string) {
@@ -67,7 +75,10 @@ export class TreeModelMutator {
     });
   }
 
-  public modifySelection(nodesToSelect: TreeNodeItem[], nodesToDeselect: TreeNodeItem[]) {
+  public modifySelection(
+    nodesToSelect: TreeNodeItem[],
+    nodesToDeselect: TreeNodeItem[]
+  ) {
     this._modelSource.modifyModel((model) => {
       for (const nodeItem of nodesToSelect) {
         const node = model.getNode(nodeItem.id);
@@ -119,11 +130,13 @@ export class TreeModelMutator {
     });
   }
 
-  public activateEditing(nodeId: string, onCommit: (node: TreeModelNode, newValue: string) => void) {
+  public activateEditing(
+    nodeId: string,
+    onCommit: (node: TreeModelNode, newValue: string) => void
+  ) {
     this._modelSource.modifyModel((model) => {
       const node = model.getNode(nodeId);
-      if (!node)
-        return;
+      if (!node) return;
 
       if (node.item.isEditable) {
         node.editingInfo = this.createNodeEditingInfo(nodeId, onCommit);
@@ -131,13 +144,15 @@ export class TreeModelMutator {
     });
   }
 
-  private createNodeEditingInfo(nodeId: string, onCommit: (node: TreeModelNode, newValue: string) => void): TreeModelNodeEditingInfo {
+  private createNodeEditingInfo(
+    nodeId: string,
+    onCommit: (node: TreeModelNode, newValue: string) => void
+  ): TreeModelNodeEditingInfo {
     const closeEditing = () => {
       this._modelSource.modifyModel((model) => {
         const node = model.getNode(nodeId);
         // istanbul ignore if
-        if (!node)
-          return;
+        if (!node) return;
         node.editingInfo = undefined;
       });
     };

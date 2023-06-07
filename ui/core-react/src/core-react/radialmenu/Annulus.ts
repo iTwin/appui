@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module RadialMenu
  */
@@ -22,7 +22,8 @@ export class Line {
   }
 
   /** checks for equality with the components of this, and line parameter */
-  public equals = (line: Line) => this.p1.equals(line.p1) && this.p2.equals(line.p2);
+  public equals = (line: Line) =>
+    this.p1.equals(line.p1) && this.p2.equals(line.p2);
 }
 
 /** @internal
@@ -86,24 +87,41 @@ export class AnnularSector {
     const inner = parent.inner.radius;
     const outer = parent.outer.radius;
 
-    this.innerStart = new Point(cx + inner * Math.cos(startAngle), cy + inner * Math.sin(startAngle));
-    this.outerStart = new Point(cx + outer * Math.cos(startAngle), cy + outer * Math.sin(startAngle));
+    this.innerStart = new Point(
+      cx + inner * Math.cos(startAngle),
+      cy + inner * Math.sin(startAngle)
+    );
+    this.outerStart = new Point(
+      cx + outer * Math.cos(startAngle),
+      cy + outer * Math.sin(startAngle)
+    );
     this.start = new Line(this.innerStart, this.outerStart);
 
-    this.outerEnd = new Point(cx + outer * Math.cos(endAngle), cy + outer * Math.sin(endAngle));
-    this.innerEnd = new Point(cx + inner * Math.cos(endAngle), cy + inner * Math.sin(endAngle));
+    this.outerEnd = new Point(
+      cx + outer * Math.cos(endAngle),
+      cy + outer * Math.sin(endAngle)
+    );
+    this.innerEnd = new Point(
+      cx + inner * Math.cos(endAngle),
+      cy + inner * Math.sin(endAngle)
+    );
     this.end = new Line(this.outerEnd, this.innerEnd);
 
     const angleDiff = endAngle - startAngle;
-    const largeArc = (angleDiff % (Math.PI * 2)) > Math.PI ? /* istanbul ignore next */ 1 : 0;
+    const largeArc =
+      angleDiff % (Math.PI * 2) > Math.PI ? /* istanbul ignore next */ 1 : 0;
 
     const sectorCommands = [];
 
     sectorCommands.push(`M${this.innerStart.x},${this.innerStart.y}`); // moveTo
     sectorCommands.push(`L${this.outerStart.x},${this.outerStart.y}`); // lineTo
-    sectorCommands.push(`A${outer},${outer} 0 ${largeArc} 1 ${this.outerEnd.x},${this.outerEnd.y}`); // arcTo
+    sectorCommands.push(
+      `A${outer},${outer} 0 ${largeArc} 1 ${this.outerEnd.x},${this.outerEnd.y}`
+    ); // arcTo
     sectorCommands.push(`L${this.innerEnd.x},${this.innerEnd.y}`); // lineTo
-    sectorCommands.push(`A${inner},${inner} 0 ${largeArc} 0 ${this.innerStart.x},${this.innerStart.y}`); // arcTo
+    sectorCommands.push(
+      `A${inner},${inner} 0 ${largeArc} 0 ${this.innerStart.x},${this.innerStart.y}`
+    ); // arcTo
     sectorCommands.push(`z`); // closePath
 
     this.path = sectorCommands.join(" ");

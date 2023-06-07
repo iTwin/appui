@@ -1,17 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Popup
  */
 
 import * as React from "react";
-import type { OnCancelFunc, OnItemExecutedFunc, RelativePosition} from "@itwin/appui-abstract";
+import type {
+  OnCancelFunc,
+  OnItemExecutedFunc,
+  RelativePosition,
+} from "@itwin/appui-abstract";
 import { SpecialKey } from "@itwin/appui-abstract";
 import type { Orientation, SizeProps } from "@itwin/core-react";
 import { DivWithOutsideClick, FocusTrap, Point, Size } from "@itwin/core-react";
-import { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
+import {
+  Direction,
+  ToolbarOpacitySetting,
+  ToolbarPanelAlignment,
+} from "@itwin/components-react";
 import { CursorPopup } from "../cursor/cursorpopup/CursorPopup";
 import type { PopupPropsBase } from "./PopupManager";
 import { PopupManager } from "./PopupManager";
@@ -37,7 +45,10 @@ interface ToolbarPopupState {
 /** Popup component for Toolbar
  * @beta
  */
-export class ToolbarPopup extends React.PureComponent<ToolbarPopupProps, ToolbarPopupState> {
+export class ToolbarPopup extends React.PureComponent<
+  ToolbarPopupProps,
+  ToolbarPopupState
+> {
   /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
@@ -49,7 +60,9 @@ export class ToolbarPopup extends React.PureComponent<ToolbarPopupProps, Toolbar
       this.setState({ size: Size.create(newSize) });
   };
 
-  private _handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+  private _handleKeyDown = (
+    event: React.KeyboardEvent<HTMLDivElement>
+  ): void => {
     switch (event.key) {
       case SpecialKey.Escape:
         this._cancel();
@@ -65,16 +78,30 @@ export class ToolbarPopup extends React.PureComponent<ToolbarPopupProps, Toolbar
   }
 
   public override render() {
-    let point = PopupManager.getPopupPosition(this.props.el, this.props.pt, new Point(), this.state.size);
-    const popupRect = CursorPopup.getPopupRect(point, this.props.offset, this.state.size, this.props.relativePosition);
+    let point = PopupManager.getPopupPosition(
+      this.props.el,
+      this.props.pt,
+      new Point(),
+      this.state.size
+    );
+    const popupRect = CursorPopup.getPopupRect(
+      point,
+      this.props.offset,
+      this.state.size,
+      this.props.relativePosition
+    );
     point = new Point(popupRect.left, popupRect.top);
     return (
-      <PositionPopup key={this.props.id}
+      <PositionPopup
+        key={this.props.id}
         className="uifw-no-border"
         point={point}
         onSizeKnown={this._onSizeKnown}
       >
-        <DivWithOutsideClick onOutsideClick={this.props.onCancel} onKeyDown={this._handleKeyDown}>
+        <DivWithOutsideClick
+          onOutsideClick={this.props.onCancel}
+          onKeyDown={this._handleKeyDown}
+        >
           <FocusTrap active={true} returnFocusOnDeactivate={true}>
             <Toolbar
               expandsTo={Direction.Bottom}

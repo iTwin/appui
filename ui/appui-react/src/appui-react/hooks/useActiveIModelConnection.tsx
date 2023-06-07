@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Hooks
  */
@@ -19,12 +19,18 @@ import { UiFramework } from "../UiFramework";
  * @public
  */
 export function useActiveIModelConnection(): IModelConnection | undefined {
-  const [activeConnection, setActiveConnection] = useState(UiFramework.getIModelConnection());
+  const [activeConnection, setActiveConnection] = useState(
+    UiFramework.getIModelConnection()
+  );
   useEffect(() => {
     const handleSyncUiEvent = (args: UiSyncEventArgs): void => {
       const eventIds = [SessionStateActionId.SetIModelConnection];
       // istanbul ignore else
-      if (eventIds.some((value: string): boolean => args.eventIds.has(value.toLowerCase()))) {
+      if (
+        eventIds.some((value: string): boolean =>
+          args.eventIds.has(value.toLowerCase())
+        )
+      ) {
         setActiveConnection(UiFramework.getIModelConnection());
       }
     };

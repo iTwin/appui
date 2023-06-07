@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module State
  */
@@ -65,7 +65,10 @@ export interface SessionState {
   cursorMenuData: CursorMenuData | undefined;
 }
 
-const defaultSelectionScope = { id: "element", label: "Element" } as PresentationSelectionScope;
+const defaultSelectionScope = {
+  id: "element",
+  label: "Element",
+} as PresentationSelectionScope;
 
 /** used on first call of SessionStateReducer */
 const initialState: SessionState = {
@@ -88,42 +91,60 @@ const initialState: SessionState = {
  * @beta
  */
 export interface SessionStateActionsProps {
-  setActiveIModelId: (typeof SessionStateActions.setActiveIModelId);
-  setAvailableSelectionScopes: (typeof SessionStateActions.setAvailableSelectionScopes);
-  setDefaultIModelViewportControlId: (typeof SessionStateActions.setDefaultIModelViewportControlId);
-  setDefaultViewId: (typeof SessionStateActions.setDefaultViewId);
-  setDefaultViewState: (typeof SessionStateActions.setDefaultViewState);
-  setIModelConnection: (typeof SessionStateActions.setIModelConnection);
-  setNumItemsSelected: (typeof SessionStateActions.setNumItemsSelected);
-  setSelectionScope: (typeof SessionStateActions.setSelectionScope);
-  updateCursorMenu: (typeof SessionStateActions.updateCursorMenu);
+  setActiveIModelId: typeof SessionStateActions.setActiveIModelId;
+  setAvailableSelectionScopes: typeof SessionStateActions.setAvailableSelectionScopes;
+  setDefaultIModelViewportControlId: typeof SessionStateActions.setDefaultIModelViewportControlId;
+  setDefaultViewId: typeof SessionStateActions.setDefaultViewId;
+  setDefaultViewState: typeof SessionStateActions.setDefaultViewState;
+  setIModelConnection: typeof SessionStateActions.setIModelConnection;
+  setNumItemsSelected: typeof SessionStateActions.setNumItemsSelected;
+  setSelectionScope: typeof SessionStateActions.setSelectionScope;
+  updateCursorMenu: typeof SessionStateActions.updateCursorMenu;
 }
 
 /** An object with a function that creates each SessionStateReducer that can be handled by our reducer.
  * @public
  */
-export const SessionStateActions = {  // eslint-disable-line @typescript-eslint/naming-convention
+export const SessionStateActions = {
   setActiveIModelId:
     // istanbul ignore next
-    (iModelId: string) => createAction(SessionStateActionId.SetActiveIModelId, iModelId),
+    (iModelId: string) =>
+      createAction(SessionStateActionId.SetActiveIModelId, iModelId),
   setAvailableSelectionScopes:
     // istanbul ignore next
-    (availableSelectionScopes: PresentationSelectionScope[]) => createAction(SessionStateActionId.SetAvailableSelectionScopes, availableSelectionScopes),
-  setDefaultIModelViewportControlId: (iModelViewportControlId: string) => createAction(SessionStateActionId.SetDefaultIModelViewportControlId, iModelViewportControlId),
-  setDefaultViewId: (viewId: string) => createAction(SessionStateActionId.SetDefaultViewId, viewId),
+    (availableSelectionScopes: PresentationSelectionScope[]) =>
+      createAction(
+        SessionStateActionId.SetAvailableSelectionScopes,
+        availableSelectionScopes
+      ),
+  setDefaultIModelViewportControlId: (iModelViewportControlId: string) =>
+    createAction(
+      SessionStateActionId.SetDefaultIModelViewportControlId,
+      iModelViewportControlId
+    ),
+  setDefaultViewId: (viewId: string) =>
+    createAction(SessionStateActionId.SetDefaultViewId, viewId),
   setDefaultViewState:
     // istanbul ignore next
-    (viewState: any) => createAction(SessionStateActionId.SetDefaultViewState, viewState),
-  setNumItemsSelected: (numSelected: number) => createAction(SessionStateActionId.SetNumItemsSelected, numSelected),
+    (viewState: any) =>
+      createAction(SessionStateActionId.SetDefaultViewState, viewState),
+  setNumItemsSelected: (numSelected: number) =>
+    createAction(SessionStateActionId.SetNumItemsSelected, numSelected),
   setIModelConnection:
     // istanbul ignore next
-    (iModelConnection: any) => createAction(SessionStateActionId.SetIModelConnection, iModelConnection),
+    (iModelConnection: any) =>
+      createAction(SessionStateActionId.SetIModelConnection, iModelConnection),
   setSelectionScope:
     // istanbul ignore next
-    (activeSelectionScope: string) => createAction(SessionStateActionId.SetSelectionScope, activeSelectionScope),
+    (activeSelectionScope: string) =>
+      createAction(
+        SessionStateActionId.SetSelectionScope,
+        activeSelectionScope
+      ),
   updateCursorMenu:
     // istanbul ignore next
-    (cursorMenuData: CursorMenuData) => createAction(SessionStateActionId.UpdateCursorMenu, cursorMenuData),
+    (cursorMenuData: CursorMenuData) =>
+      createAction(SessionStateActionId.UpdateCursorMenu, cursorMenuData),
 };
 
 /** Object that contains available actions that modify SessionState. Parent control's props should
@@ -141,14 +162,16 @@ export type SessionStateActionsUnion = ActionsUnion<typeof SessionStateActions>;
 /** Handles actions to update SessionState.
  * @public
  */
-export function SessionStateReducer(state: SessionState = initialState, action: SessionStateActionsUnion): DeepReadonly<SessionState> {
+export function SessionStateReducer(
+  state: SessionState = initialState,
+  action: SessionStateActionsUnion
+): DeepReadonly<SessionState> {
   switch (action.type) {
     case SessionStateActionId.SetNumItemsSelected: {
       // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, numItemsSelected: action.payload };
-      else
-        return { ...state, numItemsSelected: 0 };
+      else return { ...state, numItemsSelected: 0 };
     }
     case SessionStateActionId.SetAvailableSelectionScopes: {
       const payloadArray: PresentationSelectionScope[] = [];
@@ -163,15 +186,13 @@ export function SessionStateReducer(state: SessionState = initialState, action: 
       // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, activeSelectionScope: action.payload };
-      else
-        return { ...state, activeSelectionScope: defaultSelectionScope.id };
+      else return { ...state, activeSelectionScope: defaultSelectionScope.id };
     }
     case SessionStateActionId.SetActiveIModelId: {
       // istanbul ignore else
       if (undefined !== action.payload)
         return { ...state, iModelId: action.payload };
-      else
-        return { ...state, iModelId: "" };
+      else return { ...state, iModelId: "" };
     }
     case SessionStateActionId.SetDefaultIModelViewportControlId: {
       return { ...state, defaultIModelViewportControlId: action.payload };

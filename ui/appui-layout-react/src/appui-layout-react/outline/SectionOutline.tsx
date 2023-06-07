@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -12,7 +12,10 @@ import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { CommonProps } from "@itwin/core-react";
 import { useTargeted } from "../base/DragManager";
-import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
+import {
+  isHorizontalPanelSide,
+  PanelSideContext,
+} from "../widget-panels/Panel";
 import { useTargetDirection } from "../target/SectionTarget";
 import { isSectionDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";
@@ -33,13 +36,13 @@ export function SectionOutline(props: SectionOutlineProps) {
     `nz-${props.sectionIndex}`,
     `nz-${direction}`,
     hidden && "nz-hidden",
-    props.className,
+    props.className
   );
   return (
     <div
       className={className}
       style={{
-        ...hidden ? {} : style,
+        ...(hidden ? {} : style),
         ...props.style,
       }}
     />
@@ -53,19 +56,19 @@ function useHidden(sectionIndex: SectionOutlineProps["sectionIndex"]) {
   const activeHomeState = useSendBackHomeState();
 
   return React.useMemo(() => {
-    if (activeHomeState && activeHomeState.side === side && activeHomeState.sectionIndex === sectionIndex)
+    if (
+      activeHomeState &&
+      activeHomeState.side === side &&
+      activeHomeState.sectionIndex === sectionIndex
+    )
       return false;
 
-    if (!targeted)
-      return true;
+    if (!targeted) return true;
 
-    if (!isSectionDropTargetState(targeted))
-      return true;
+    if (!isSectionDropTargetState(targeted)) return true;
 
-    if (targeted.sectionIndex !== sectionIndex)
-      return true;
-    if (targeted.side !== side)
-      return true;
+    if (targeted.sectionIndex !== sectionIndex) return true;
+    if (targeted.side !== side) return true;
 
     return false;
   }, [targeted, side, sectionIndex, activeHomeState]);
@@ -75,18 +78,16 @@ function useHidden(sectionIndex: SectionOutlineProps["sectionIndex"]) {
 function useSize(sectionIndex: SectionOutlineProps["sectionIndex"]) {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
-  const splitterPercent = useLayout((state) => state.panels[side].splitterPercent);
+  const splitterPercent = useLayout(
+    (state) => state.panels[side].splitterPercent
+  );
   return React.useMemo<React.CSSProperties | undefined>(() => {
     let size = splitterPercent;
-    if (!size)
-      return undefined;
-    if (sectionIndex === 1)
-      size = 100 - size;
+    if (!size) return undefined;
+    if (sectionIndex === 1) size = 100 - size;
     const style: React.CSSProperties = {};
-    if (isHorizontalPanelSide(side))
-      style.width = `${size}%`;
-    else
-      style.height = `${size}%`;
+    if (isHorizontalPanelSide(side)) style.width = `${size}%`;
+    else style.height = `${size}%`;
     return style;
   }, [side, splitterPercent, sectionIndex]);
 }

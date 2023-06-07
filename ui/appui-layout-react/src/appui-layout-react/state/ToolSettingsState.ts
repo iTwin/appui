@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -20,9 +20,13 @@ export interface WidgetToolSettingsState {
 }
 
 /** @internal */
-export type ToolSettingsState = DockedToolSettingsState | WidgetToolSettingsState;
+export type ToolSettingsState =
+  | DockedToolSettingsState
+  | WidgetToolSettingsState;
 
 /** @internal */
-export function isDockedToolSettingsState(state: ToolSettingsState): state is DockedToolSettingsState {
+export function isDockedToolSettingsState(
+  state: ToolSettingsState
+): state is DockedToolSettingsState {
   return state.type === "docked";
 }

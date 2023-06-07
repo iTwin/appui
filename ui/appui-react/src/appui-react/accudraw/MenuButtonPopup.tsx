@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AccuDraw
  */
@@ -26,7 +26,10 @@ interface MenuButtonPopupState {
 /** Popup component for Menu Buttons
  * @alpha
  */
-export class MenuButtonPopup extends React.PureComponent<MenuButtonPopupProps, MenuButtonPopupState> {
+export class MenuButtonPopup extends React.PureComponent<
+  MenuButtonPopupProps,
+  MenuButtonPopupState
+> {
   /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
@@ -40,10 +43,16 @@ export class MenuButtonPopup extends React.PureComponent<MenuButtonPopupProps, M
 
   /** @internal */
   public override render() {
-    const point = PopupManager.getPopupPosition(this.props.el, this.props.pt, this.props.offset, this.state.size);
+    const point = PopupManager.getPopupPosition(
+      this.props.el,
+      this.props.pt,
+      this.props.offset,
+      this.state.size
+    );
 
     return (
-      <MenuButton key={this.props.id}
+      <MenuButton
+        key={this.props.id}
         point={point}
         onSizeKnown={this._onSizeKnown}
       >

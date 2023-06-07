@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Settings
  */
@@ -66,53 +66,91 @@ export class AppUiSettings implements UserSettingsProvider {
   constructor(defaults: Partial<InitialAppUiSettings>) {
     this._settings = [];
 
-    this.colorTheme = new UiStateEntry<string>(AppUiSettings._settingNamespace, "ColorTheme", UiFramework.getColorTheme, this.setColorTheme, defaults.colorTheme);
+    this.colorTheme = new UiStateEntry<string>(
+      AppUiSettings._settingNamespace,
+      "ColorTheme",
+      UiFramework.getColorTheme,
+      this.setColorTheme,
+      defaults.colorTheme
+    );
     this._settings.push(this.colorTheme);
 
-    this.dragInteraction = new UiStateEntry<boolean>(AppUiSettings._settingNamespace, "DragInteraction",
+    this.dragInteraction = new UiStateEntry<boolean>(
+      AppUiSettings._settingNamespace,
+      "DragInteraction",
       () => UiFramework.useDragInteraction,
-      (value: boolean) => UiFramework.setUseDragInteraction(value), defaults.dragInteraction);
+      (value: boolean) => UiFramework.setUseDragInteraction(value),
+      defaults.dragInteraction
+    );
     this._settings.push(this.dragInteraction);
 
-    this.showWidgetIcon = new UiStateEntry<boolean>(AppUiSettings._settingNamespace, "ShowWidgetIcon",
+    this.showWidgetIcon = new UiStateEntry<boolean>(
+      AppUiSettings._settingNamespace,
+      "ShowWidgetIcon",
       () => UiFramework.showWidgetIcon,
-      (value: boolean) => UiFramework.setShowWidgetIcon(value), defaults.showWidgetIcon);
+      (value: boolean) => UiFramework.setShowWidgetIcon(value),
+      defaults.showWidgetIcon
+    );
     this._settings.push(this.showWidgetIcon);
 
-    this.autoCollapseUnpinnedPanels = new UiStateEntry<boolean>(AppUiSettings._settingNamespace, "AutoCollapseUnpinnedPanels",
+    this.autoCollapseUnpinnedPanels = new UiStateEntry<boolean>(
+      AppUiSettings._settingNamespace,
+      "AutoCollapseUnpinnedPanels",
       () => UiFramework.autoCollapseUnpinnedPanels,
-      (value: boolean) => UiFramework.setAutoCollapseUnpinnedPanels(value), defaults.autoCollapseUnpinnedPanels);
+      (value: boolean) => UiFramework.setAutoCollapseUnpinnedPanels(value),
+      defaults.autoCollapseUnpinnedPanels
+    );
     this._settings.push(this.autoCollapseUnpinnedPanels);
 
-    this.widgetOpacity = new UiStateEntry<number>(AppUiSettings._settingNamespace, "WidgetOpacity",
-      () => UiFramework.getWidgetOpacity(), (value: number) => UiFramework.setWidgetOpacity(value), defaults.widgetOpacity);
+    this.widgetOpacity = new UiStateEntry<number>(
+      AppUiSettings._settingNamespace,
+      "WidgetOpacity",
+      () => UiFramework.getWidgetOpacity(),
+      (value: number) => UiFramework.setWidgetOpacity(value),
+      defaults.widgetOpacity
+    );
     this._settings.push(this.widgetOpacity);
 
-    this.animateToolSettings = new UiStateEntry<boolean>(AppUiSettings._settingNamespace, "AnimateToolSettings",
+    this.animateToolSettings = new UiStateEntry<boolean>(
+      AppUiSettings._settingNamespace,
+      "AnimateToolSettings",
       () => UiFramework.animateToolSettings,
-      (value: boolean) => UiFramework.setAnimateToolSettings(value), defaults.animateToolSettings);
+      (value: boolean) => UiFramework.setAnimateToolSettings(value),
+      defaults.animateToolSettings
+    );
     this._settings.push(this.animateToolSettings);
 
-    this.useToolAsToolSettingsLabel = new UiStateEntry<boolean>(AppUiSettings._settingNamespace, "UseToolAsToolSettingsLabel",
+    this.useToolAsToolSettingsLabel = new UiStateEntry<boolean>(
+      AppUiSettings._settingNamespace,
+      "UseToolAsToolSettingsLabel",
       () => UiFramework.useToolAsToolSettingsLabel,
-      (value: boolean) => UiFramework.setUseToolAsToolSettingsLabel(value), defaults.useToolAsToolSettingsLabel);
+      (value: boolean) => UiFramework.setUseToolAsToolSettingsLabel(value),
+      defaults.useToolAsToolSettingsLabel
+    );
     this._settings.push(this.useToolAsToolSettingsLabel);
 
-    this.toolbarOpacity = new UiStateEntry<number>(AppUiSettings._settingNamespace, "ToolOpacity",
-      () => UiFramework.getToolbarOpacity(), (value: number) => UiFramework.setToolbarOpacity(value), defaults.toolbarOpacity);
+    this.toolbarOpacity = new UiStateEntry<number>(
+      AppUiSettings._settingNamespace,
+      "ToolOpacity",
+      () => UiFramework.getToolbarOpacity(),
+      (value: number) => UiFramework.setToolbarOpacity(value),
+      defaults.toolbarOpacity
+    );
     this._settings.push(this.toolbarOpacity);
 
     SyncUiEventDispatcher.onSyncUiEvent.addListener(this.handleSyncUiEvent);
   }
 
   private handleSyncUiEvent = async (args: UiSyncEventArgs) => {
-    if (this._applyingLocalSettings)
-      return;
+    if (this._applyingLocalSettings) return;
 
     if (args.eventIds.has("configurableui:set_theme")) {
       await this.colorTheme.saveSetting(UiFramework.getUiStateStorage());
       // always store as default theme in local storage to avoid flicker during startup if user is not yet logged-in
-      window.localStorage.setItem("uifw:defaultTheme", UiFramework.getColorTheme());
+      window.localStorage.setItem(
+        "uifw:defaultTheme",
+        UiFramework.getColorTheme()
+      );
     }
 
     if (args.eventIds.has("configurableui:set-drag-interaction"))
@@ -122,16 +160,22 @@ export class AppUiSettings implements UserSettingsProvider {
       await this.showWidgetIcon.saveSetting(UiFramework.getUiStateStorage());
 
     if (args.eventIds.has("configurableui:set-auto-collapse-unpinned-panels"))
-      await this.autoCollapseUnpinnedPanels.saveSetting(UiFramework.getUiStateStorage());
+      await this.autoCollapseUnpinnedPanels.saveSetting(
+        UiFramework.getUiStateStorage()
+      );
 
     if (args.eventIds.has("configurableui:set_widget_opacity"))
       await this.widgetOpacity.saveSetting(UiFramework.getUiStateStorage());
 
     if (args.eventIds.has("configurableui:set-animate-tool-settings"))
-      await this.animateToolSettings.saveSetting(UiFramework.getUiStateStorage());
+      await this.animateToolSettings.saveSetting(
+        UiFramework.getUiStateStorage()
+      );
 
     if (args.eventIds.has("configurableui:set-use-tool-as-tool-settings-label"))
-      await this.useToolAsToolSettingsLabel.saveSetting(UiFramework.getUiStateStorage());
+      await this.useToolAsToolSettingsLabel.saveSetting(
+        UiFramework.getUiStateStorage()
+      );
 
     if (args.eventIds.has("configurableui:set-toolbar-opacity"))
       await this.toolbarOpacity.saveSetting(UiFramework.getUiStateStorage());

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -24,10 +24,15 @@ export interface BadgeProps extends CommonProps {
  * @internal
  */
 export class Badge extends React.PureComponent<BadgeProps> {
-  public override render(): React.JSX.Element {
-    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(this.props.svg);
+  public override render(): JSX.Element {
+    const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
+      this.props.svg
+    );
     return (
-      <div className={classnames("core-badge", this.props.className)} style={this.props.style}>
+      <div
+        className={classnames("core-badge", this.props.className)}
+        style={this.props.style}
+      >
         <Icon iconSpec={iconSpec} />
       </div>
     );

@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import type { ModalFrontstageInfo} from "../../appui-react";
+import type { ModalFrontstageInfo } from "../../appui-react";
 import { ModalFrontstage, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
@@ -15,9 +15,10 @@ const navigationBackSpy = sinon.spy();
 const closeModalSpy = sinon.spy();
 
 function renderModalFrontstage(isOpen: boolean): React.ReactElement<any> {
-  const activeModalFrontstage: ModalFrontstageInfo | undefined = UiFramework.frontstages.activeModalFrontstage;
+  const activeModalFrontstage: ModalFrontstageInfo | undefined =
+    UiFramework.frontstages.activeModalFrontstage;
   if (!activeModalFrontstage) {
-    throw (Error);
+    throw Error;
   }
 
   const { title, content, appBarRight } = activeModalFrontstage;
@@ -39,20 +40,15 @@ class TestModalFrontstage implements ModalFrontstageInfo {
   public title: string = "Test Modal Frontstage";
 
   public get content(): React.ReactNode {
-    return (
-      <div />
-    );
+    return <div />;
   }
 
   public get appBarRight(): React.ReactNode {
-    return (
-      <input type="text" defaultValue="Hello" />
-    );
+    return <input type="text" defaultValue="Hello" />;
   }
 }
 
 describe("ModalFrontstage", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
@@ -68,18 +64,28 @@ describe("ModalFrontstage", () => {
 
     const changedEventSpy = sinon.spy();
     const closedEventSpy = sinon.spy();
-    const removeListener = UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(changedEventSpy);
-    const removeListener2 = UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(closedEventSpy);
+    const removeListener =
+      UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
+        changedEventSpy
+      );
+    const removeListener2 =
+      UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(
+        closedEventSpy
+      );
 
     UiFramework.frontstages.openModalFrontstage(modalFrontstage);
     expect(changedEventSpy.calledOnce).to.be.true;
 
-    const {baseElement, rerender} = render(renderModalFrontstage(false));
+    const { baseElement, rerender } = render(renderModalFrontstage(false));
 
     rerender(renderModalFrontstage(true));
-    expect(baseElement.querySelectorAll("div.uifw-modal-frontstage").length).to.eq(1);
+    expect(
+      baseElement.querySelectorAll("div.uifw-modal-frontstage").length
+    ).to.eq(1);
 
-    const backButton = baseElement.querySelectorAll<HTMLButtonElement>("button.nz-toolbar-button-back");
+    const backButton = baseElement.querySelectorAll<HTMLButtonElement>(
+      "button.nz-toolbar-button-back"
+    );
     expect(backButton.length).to.eq(1);
 
     UiFramework.frontstages.updateModalFrontstage();
@@ -96,5 +102,4 @@ describe("ModalFrontstage", () => {
     removeListener();
     removeListener2();
   });
-
 });

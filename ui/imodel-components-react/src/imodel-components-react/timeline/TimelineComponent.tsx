@@ -1,16 +1,26 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Timeline
  */
-import type { GenericUiEventArgs} from "@itwin/appui-abstract";
+import type { GenericUiEventArgs } from "@itwin/appui-abstract";
 import { UiAdmin } from "@itwin/appui-abstract";
-import type { DateFormatOptions} from "@itwin/components-react";
-import { toDateString, toTimeString, UiComponents } from "@itwin/components-react";
+import type { DateFormatOptions } from "@itwin/components-react";
+import {
+  toDateString,
+  toTimeString,
+  UiComponents,
+} from "@itwin/components-react";
 import { Icon } from "@itwin/core-react";
-import { SvgCaretLeft, SvgCaretRight, SvgCheckmark, SvgMoreVertical, SvgPlayCircular } from "@itwin/itwinui-icons-react";
+import {
+  SvgCaretLeft,
+  SvgCaretRight,
+  SvgCheckmark,
+  SvgMoreVertical,
+  SvgPlayCircular,
+} from "@itwin/itwinui-icons-react";
 import { DropdownMenu, MenuDivider, MenuItem } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
@@ -124,16 +134,28 @@ interface TimelineComponentState {
  * [[TimelineComponent]] is used to playback timeline data
  * @public
  */
-export class TimelineComponent extends React.Component<TimelineComponentProps, TimelineComponentState> {
+export class TimelineComponent extends React.Component<
+  TimelineComponentProps,
+  TimelineComponentState
+> {
   private _timeLastCycle = 0;
   private _requestFrame = 0;
   private _unmounted = false;
   private _repeatLabel: string;
   private _removeListener?: () => void;
   private _standardTimelineMenuItems: TimelineMenuItemProps[] = [
-    { label: UiIModelComponents.translate("timeline.slow"), timelineDuration: slowSpeed },
-    { label: UiIModelComponents.translate("timeline.medium"), timelineDuration: mediumSpeed },
-    { label: UiIModelComponents.translate("timeline.fast"), timelineDuration: fastSpeed },
+    {
+      label: UiIModelComponents.translate("timeline.slow"),
+      timelineDuration: slowSpeed,
+    },
+    {
+      label: UiIModelComponents.translate("timeline.medium"),
+      timelineDuration: mediumSpeed,
+    },
+    {
+      label: UiIModelComponents.translate("timeline.fast"),
+      timelineDuration: fastSpeed,
+    },
   ];
 
   constructor(props: TimelineComponentProps) {
@@ -142,31 +164,43 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
     this.state = {
       isPlaying: false,
       minimized: true,
-      currentDuration: props.initialDuration ? props.initialDuration : /* istanbul ignore next */ 0,
+      currentDuration: props.initialDuration
+        ? props.initialDuration
+        : /* istanbul ignore next */ 0,
       totalDuration: this.props.totalDuration,
       repeat: this.props.repeat ? true : false,
-      includeRepeat: this.props.includeRepeat || this.props.includeRepeat === undefined ? true : false,
+      includeRepeat:
+        this.props.includeRepeat || this.props.includeRepeat === undefined
+          ? true
+          : false,
     };
 
     this._repeatLabel = UiIModelComponents.translate("timeline.repeat");
     // istanbul ignore else
-    if (this.props.componentId) { // can't handle an event if we have no id
-      this._removeListener = UiAdmin.onGenericUiEvent.addListener(this._handleTimelinePausePlayEvent);
+    if (this.props.componentId) {
+      // can't handle an event if we have no id
+      this._removeListener = UiAdmin.onGenericUiEvent.addListener(
+        this._handleTimelinePausePlayEvent
+      );
     }
   }
 
   public override componentWillUnmount() {
-    if (this._removeListener)
-      this._removeListener();
+    if (this._removeListener) this._removeListener();
     window.cancelAnimationFrame(this._requestFrame);
     this._unmounted = true;
   }
 
-  public override shouldComponentUpdate(nextProps: TimelineComponentProps, nextState: TimelineComponentState) {
+  public override shouldComponentUpdate(
+    nextProps: TimelineComponentProps,
+    nextState: TimelineComponentState
+  ) {
     let result = false;
 
     // istanbul ignore next
-    if (nextState !== this.state || nextProps !== this.props ||
+    if (
+      nextState !== this.state ||
+      nextProps !== this.props ||
       nextProps.startDate !== this.props.startDate ||
       nextProps.endDate !== this.props.endDate ||
       nextProps.initialDuration !== this.props.initialDuration ||
@@ -180,7 +214,11 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
   public override componentDidUpdate(prevProps: TimelineComponentProps) {
     // istanbul ignore else
     if (this.props.initialDuration !== prevProps.initialDuration) {
-      this._setDuration(this.props.initialDuration ? this.props.initialDuration : /* istanbul ignore next */ 0);
+      this._setDuration(
+        this.props.initialDuration
+          ? this.props.initialDuration
+          : /* istanbul ignore next */ 0
+      );
     }
 
     // istanbul ignore else
@@ -196,7 +234,11 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
   private _handleTimelinePausePlayEvent = (args: GenericUiEventArgs): void => {
     const timelineArgs = args as TimelinePausePlayArgs;
     // istanbul ignore else
-    if (!timelineArgs || this.props.componentId !== timelineArgs.uiComponentId || timelineArgs.timelineAction === undefined)
+    if (
+      !timelineArgs ||
+      this.props.componentId !== timelineArgs.uiComponentId ||
+      timelineArgs.timelineAction === undefined
+    )
       return;
 
     let startPlaying: boolean;
@@ -214,48 +256,40 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
       default:
         return; // throw error?
     }
-    if (startPlaying)
-      this._onPlay();
-    else
-      this._onPause();
+    if (startPlaying) this._onPlay();
+    else this._onPause();
   };
 
   // user clicked backward button
   private _onBackward = () => {
     // istanbul ignore else
-    if (this.props.onJump)
-      this.props.onJump(false);
+    if (this.props.onJump) this.props.onJump(false);
   };
 
   // user clicked forward button
   private _onForward = () => {
     // istanbul ignore else
-    if (this.props.onJump)
-      this.props.onJump(true);
+    if (this.props.onJump) this.props.onJump(true);
   };
 
   // user clicked play button
   private _onPlay = () => {
     // istanbul ignore if
-    if (this.state.isPlaying)
-      return;
+    if (this.state.isPlaying) return;
 
     // timeline was complete, restart from the beginning
     if (this.state.currentDuration >= this.state.totalDuration) {
       this._replay();
-    } else
-      this._play();
+    } else this._play();
 
     // istanbul ignore else
-    if (this.props.onPlayPause)
-      this.props.onPlayPause(true);
+    if (this.props.onPlayPause) this.props.onPlayPause(true);
   };
 
   // user clicked pause button
   private _onPause = () => {
     // istanbul ignore if
-    if (!this.state.isPlaying)
-      return;
+    if (!this.state.isPlaying) return;
 
     // stop requesting frames
     window.cancelAnimationFrame(this._requestFrame);
@@ -264,8 +298,7 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
     this.setState({ isPlaying: false });
 
     // istanbul ignore else
-    if (this.props.onPlayPause)
-      this.props.onPlayPause(false);
+    if (this.props.onPlayPause) this.props.onPlayPause(false);
   };
 
   // user clicked on timeline rail or dragged scrubber handle
@@ -276,12 +309,14 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
 
   // set the current duration, which will call the OnChange callback
   private _setDuration = (currentDuration: number) => {
-    const actualDuration = Math.min(this.state.totalDuration, (Math.max(currentDuration, 0)));
+    const actualDuration = Math.min(
+      this.state.totalDuration,
+      Math.max(currentDuration, 0)
+    );
 
     this._timeLastCycle = new Date().getTime();
     // istanbul ignore else
-    if (!this._unmounted)
-      this.setState({ currentDuration: actualDuration });
+    if (!this._unmounted) this.setState({ currentDuration: actualDuration });
     // istanbul ignore else
     if (this.props.onChange) {
       const fraction = actualDuration / this.state.totalDuration;
@@ -306,12 +341,10 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
     if (duration >= this.state.totalDuration) {
       window.cancelAnimationFrame(this._requestFrame);
       this.setState({ isPlaying: false });
-      if (this.state.repeat)
-        this._replay();
+      if (this.state.repeat) this._replay();
       else {
         // istanbul ignore else
-        if (this.props.onPlayPause)
-          this.props.onPlayPause(false);
+        if (this.props.onPlayPause) this.props.onPlayPause(false);
       }
 
       return;
@@ -332,12 +365,12 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
 
   private _replay = () => {
     // timeline was complete, restart from the beginning
-    this.setState({ currentDuration: 0 }, (() => this._play()));
+    this.setState({ currentDuration: 0 }, () => this._play());
   };
 
   private _displayTime(millisec: number) {
     const addZero = (i: number) => {
-      return (i < 10) ? `0${i}` : i;
+      return i < 10 ? `0${i}` : i;
     };
 
     const date = new Date(millisec);
@@ -350,7 +383,9 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
   private _getMilliseconds(time: string) {
     // istanbul ignore else - WIP
     if (time.indexOf(":") !== -1) {
-      return (Number(time.split(":")[0]) * 60 + Number(time.split(":")[1])) * 1000;
+      return (
+        (Number(time.split(":")[0]) * 60 + Number(time.split(":")[1])) * 1000
+      );
     } else {
       return Number(time) * 1000;
     }
@@ -373,7 +408,8 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
           if (this.props.onSettingsChange) {
             this.props.onSettingsChange({ loop: this.state.repeat });
           }
-        });
+        }
+      );
     }
   };
 
@@ -385,44 +421,61 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
         if (this.props.onSettingsChange) {
           this.props.onSettingsChange({ loop: this.state.repeat });
         }
-      });
+      }
+    );
   };
 
   private _currentDate = (): Date => {
     const fraction = this.state.currentDuration / this.state.totalDuration;
     if (this.props.endDate && this.props.startDate) {
-      const timeElapsed = (this.props.endDate.getTime() - this.props.startDate.getTime()) * fraction;
+      const timeElapsed =
+        (this.props.endDate.getTime() - this.props.startDate.getTime()) *
+        fraction;
       return new Date(this.props.startDate.getTime() + timeElapsed);
     }
     return new Date();
   };
 
   private _onSetTotalDuration = (milliseconds: number) => {
-    this.setState(
-      { totalDuration: milliseconds },
-      () => {
-        // istanbul ignore else
-        if (this.props.onSettingsChange) {
-          this.props.onSettingsChange({ duration: milliseconds });
-        }
-      });
+    this.setState({ totalDuration: milliseconds }, () => {
+      // istanbul ignore else
+      if (this.props.onSettingsChange) {
+        this.props.onSettingsChange({ duration: milliseconds });
+      }
+    });
   };
 
-  private _createMenuItemNode(item: TimelineMenuItemProps, index: number, currentTimelineDuration: number, close: () => void): React.JSX.Element {
+  private _createMenuItemNode(
+    item: TimelineMenuItemProps,
+    index: number,
+    currentTimelineDuration: number,
+    close: () => void
+  ): JSX.Element {
     const label = item.label;
     const checked = currentTimelineDuration === item.timelineDuration;
-    const icon = checked ? <span className="icon"><Icon iconSpec={<SvgCheckmark />} /> </span> : <span />;
+    const icon = checked ? (
+      <span className="icon">
+        <Icon iconSpec={<SvgCheckmark />} />{" "}
+      </span>
+    ) : (
+      <span />
+    );
     return (
-      <MenuItem key={index} icon={icon}
-        onClick={() => { this._onSetTotalDuration(item.timelineDuration); close(); }} >
+      <MenuItem
+        key={index}
+        icon={icon}
+        onClick={() => {
+          this._onSetTotalDuration(item.timelineDuration);
+          close();
+        }}
+      >
         {label}
       </MenuItem>
     );
   }
 
   private _renderSettings = () => {
-    const createMenuItemNodes = (close: () => void): React.JSX.Element[] => {
-
+    const createMenuItemNodes = (close: () => void): JSX.Element[] => {
       const { totalDuration } = this.state;
       let contextMenuItems: Array<TimelineMenuItemProps> = [];
 
@@ -430,9 +483,13 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
         contextMenuItems = this._standardTimelineMenuItems;
       } else {
         if (this.props.appMenuItemOption === "append") {
-          contextMenuItems = this._standardTimelineMenuItems.concat(this.props.appMenuItems);
+          contextMenuItems = this._standardTimelineMenuItems.concat(
+            this.props.appMenuItems
+          );
         } else if (this.props.appMenuItemOption === "prefix") {
-          contextMenuItems = this.props.appMenuItems.concat(this._standardTimelineMenuItems);
+          contextMenuItems = this.props.appMenuItems.concat(
+            this._standardTimelineMenuItems
+          );
         } else {
           contextMenuItems = this.props.appMenuItems;
         }
@@ -442,59 +499,100 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
       let keyIndex = 0;
       if (this.state.includeRepeat) {
         const checked = this.state.repeat;
-        const icon = checked ? <span className="icon"><Icon iconSpec={<SvgCheckmark />} /> </span> : <span />;
-        itemNodes.push(<MenuItem key={++keyIndex} onClick={() => { this._onRepeatChanged(); close(); }} icon={icon}>
-          {this._repeatLabel}
-        </MenuItem>);
+        const icon = checked ? (
+          <span className="icon">
+            <Icon iconSpec={<SvgCheckmark />} />{" "}
+          </span>
+        ) : (
+          <span />
+        );
+        itemNodes.push(
+          <MenuItem
+            key={++keyIndex}
+            onClick={() => {
+              this._onRepeatChanged();
+              close();
+            }}
+            icon={icon}
+          >
+            {this._repeatLabel}
+          </MenuItem>
+        );
         itemNodes.push(<MenuDivider key={++keyIndex} />);
       }
 
       contextMenuItems.forEach((item: TimelineMenuItemProps, index: number) => {
-        itemNodes.push(this._createMenuItemNode(item, index + keyIndex + 1, totalDuration, close));
+        itemNodes.push(
+          this._createMenuItemNode(
+            item,
+            index + keyIndex + 1,
+            totalDuration,
+            close
+          )
+        );
       });
 
       return itemNodes;
     };
 
     return (
-      <DropdownMenu menuItems={createMenuItemNodes} placement="top-start" popperOptions={{
-        modifiers: [
-          {
-            name: "hide", // When the timeline is no longer visible, hide the popper.
-          },
-          {
-            name: "preventOverflow",
-            options: {
-              altAxis: true, // Allow the popper to go below the reference element and use as much space as needed.
+      <DropdownMenu
+        menuItems={createMenuItemNodes}
+        placement="top-start"
+        popperOptions={{
+          modifiers: [
+            {
+              name: "hide", // When the timeline is no longer visible, hide the popper.
             },
-          },
-          {
-            name: "computeStyles",
-            options: {
-              roundOffsets: ({ x, y }: { x: number, y: number }) => ({
-                x,
-                y: Math.max(y, 0), // Ensure that the top of the popper will not go over the top of the document.
-              }),
+            {
+              name: "preventOverflow",
+              options: {
+                altAxis: true, // Allow the popper to go below the reference element and use as much space as needed.
+              },
             },
-          },
-          {
-            name: "setPopperClass", // Ensure we target only THIS popper with a class
-            enabled: true,
-            phase: "beforeWrite",
-            fn({ state }) {
-              state.attributes.popper.class = "timeline-component-max-sized-scrolling-menu";
+            {
+              name: "computeStyles",
+              options: {
+                roundOffsets: ({ x, y }: { x: number; y: number }) => ({
+                  x,
+                  y: Math.max(y, 0), // Ensure that the top of the popper will not go over the top of the document.
+                }),
+              },
             },
-          },
-        ]}}>
-        <span data-testid="timeline-settings" className="timeline-settings icon"
-          role="button" tabIndex={-1} title={UiComponents.translate("button.label.settings")}
-        ><Icon iconSpec={<SvgMoreVertical />} /></span>
+            {
+              name: "setPopperClass", // Ensure we target only THIS popper with a class
+              enabled: true,
+              phase: "beforeWrite",
+              fn({ state }) {
+                state.attributes.popper.class =
+                  "timeline-component-max-sized-scrolling-menu";
+              },
+            },
+          ],
+        }}
+      >
+        <span
+          data-testid="timeline-settings"
+          className="timeline-settings icon"
+          role="button"
+          tabIndex={-1}
+          title={UiComponents.translate("button.label.settings")}
+        >
+          <Icon iconSpec={<SvgMoreVertical />} />
+        </span>
       </DropdownMenu>
     );
   };
 
   public override render() {
-    const { startDate, endDate, showDuration, timeZoneOffset, dateFormatOptions, timeFormatOptions } = this.props;
+    const {
+      startDate,
+      endDate,
+      showDuration,
+      timeZoneOffset,
+      dateFormatOptions,
+      timeFormatOptions,
+    } = this.props;
     const { currentDuration, totalDuration, minimized } = this.state;
     const currentDate = this._currentDate();
     const durationString = this._displayTime(currentDuration);
@@ -502,24 +600,67 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
     const hasDates = !!startDate && !!endDate;
 
     return (
-      <div data-testid="timeline-component" className={classnames("timeline-component", !!minimized && "minimized", hasDates && "has-dates")} >
+      <div
+        data-testid="timeline-component"
+        className={classnames(
+          "timeline-component",
+          !!minimized && "minimized",
+          hasDates && "has-dates"
+        )}
+      >
         <div className="header">
-          <PlayButton className="play-button" isPlaying={this.state.isPlaying} onPlay={this._onPlay} onPause={this._onPause} data-testid="timeline-play" />
-          <PlayerButton className="play-backward" icon={<SvgCaretLeft />} onClick={this._onBackward}
-            title={UiIModelComponents.translate("timeline.backward")} />
-          <PlayerButton className="play-button-step" icon={<SvgPlayCircular />}
-            isPlaying={this.state.isPlaying} onPlay={this._onPlay} onPause={this._onPause}
-            title={UiIModelComponents.translate("timeline.step")} />
-          <PlayerButton className="play-forward" icon={<SvgCaretRight />} onClick={this._onForward}
-            title={UiIModelComponents.translate("timeline.backward")} />
-          <span className="current-date">{toDateString(currentDate, timeZoneOffset, dateFormatOptions)}</span>
+          <PlayButton
+            className="play-button"
+            isPlaying={this.state.isPlaying}
+            onPlay={this._onPlay}
+            onPause={this._onPause}
+            data-testid="timeline-play"
+          />
+          <PlayerButton
+            className="play-backward"
+            icon={<SvgCaretLeft />}
+            onClick={this._onBackward}
+            title={UiIModelComponents.translate("timeline.backward")}
+          />
+          <PlayerButton
+            className="play-button-step"
+            icon={<SvgPlayCircular />}
+            isPlaying={this.state.isPlaying}
+            onPlay={this._onPlay}
+            onPause={this._onPause}
+            title={UiIModelComponents.translate("timeline.step")}
+          />
+          <PlayerButton
+            className="play-forward"
+            icon={<SvgCaretRight />}
+            onClick={this._onForward}
+            title={UiIModelComponents.translate("timeline.backward")}
+          />
+          <span className="current-date">
+            {toDateString(currentDate, timeZoneOffset, dateFormatOptions)}
+          </span>
         </div>
         <div className="scrubber">
-          <PlayButton className="play-button" isPlaying={this.state.isPlaying} onPlay={this._onPlay} onPause={this._onPause} />
+          <PlayButton
+            className="play-button"
+            isPlaying={this.state.isPlaying}
+            onPlay={this._onPlay}
+            onPause={this._onPause}
+          />
           <div className="start-time-container">
-            {hasDates && <span data-testid="test-start-date" className="start-date">{toDateString(startDate, timeZoneOffset, dateFormatOptions)}</span>}
-            {hasDates && !showDuration && <span data-testid="test-start-time" className="start-time">{toTimeString(startDate, timeZoneOffset, timeFormatOptions)}</span>}
-            {showDuration && <span className="duration-start-time">{durationString}</span>}
+            {hasDates && (
+              <span data-testid="test-start-date" className="start-date">
+                {toDateString(startDate, timeZoneOffset, dateFormatOptions)}
+              </span>
+            )}
+            {hasDates && !showDuration && (
+              <span data-testid="test-start-time" className="start-time">
+                {toTimeString(startDate, timeZoneOffset, timeFormatOptions)}
+              </span>
+            )}
+            {showDuration && (
+              <span className="duration-start-time">{durationString}</span>
+            )}
           </div>
           <Scrubber
             className="slider"
@@ -536,9 +677,23 @@ export class TimelineComponent extends React.Component<TimelineComponentProps, T
             markDate={this.props.markDate}
           />
           <div className="end-time-container">
-            {hasDates && <span className="end-date">{toDateString(endDate, timeZoneOffset)}</span>}
-            {hasDates && !showDuration && <span className="end-time">{toTimeString(endDate, timeZoneOffset, timeFormatOptions)}</span>}
-            {showDuration && <InlineEdit className="duration-end-time" defaultValue={totalDurationString} onChange={this._onTotalDurationChange} />}
+            {hasDates && (
+              <span className="end-date">
+                {toDateString(endDate, timeZoneOffset)}
+              </span>
+            )}
+            {hasDates && !showDuration && (
+              <span className="end-time">
+                {toTimeString(endDate, timeZoneOffset, timeFormatOptions)}
+              </span>
+            )}
+            {showDuration && (
+              <InlineEdit
+                className="duration-end-time"
+                defaultValue={totalDurationString}
+                onChange={this._onTotalDurationChange}
+              />
+            )}
           </div>
           {minimized && this._renderSettings()}
         </div>

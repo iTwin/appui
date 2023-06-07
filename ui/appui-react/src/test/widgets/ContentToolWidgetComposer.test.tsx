@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import { expect } from "chai";
@@ -11,7 +11,6 @@ import { ContentToolWidgetComposer } from "../../appui-react/widgets/ContentTool
 import TestUtils, { childStructure } from "../TestUtils";
 
 describe("ContentToolWidgetComposer", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
@@ -25,20 +24,23 @@ describe("ContentToolWidgetComposer", () => {
   it("ContentToolWidgetComposer should render", () => {
     const { container } = render(<ContentToolWidgetComposer />);
 
-    expect(container).to.satisfy(childStructure([
-      ".nz-app-button:empty",
-      ".nz-vertical-toolbar-container:empty",
-      ".nz-horizontal-toolbar-container:empty",
-    ]));
+    expect(container).to.satisfy(
+      childStructure([
+        ".nz-app-button:empty",
+        ".nz-vertical-toolbar-container:empty",
+        ".nz-horizontal-toolbar-container:empty",
+      ])
+    );
   });
 
   it("ContentToolWidgetComposer with backstage button should render", () => {
     const cornerButton = <BackstageAppButton icon={"icon-bentley-systems"} />;
-    const { container } = render(<ContentToolWidgetComposer cornerButton={cornerButton} />);
+    const { container } = render(
+      <ContentToolWidgetComposer cornerButton={cornerButton} />
+    );
 
-    expect(container).to.satisfy(childStructure(
-      ".nz-app-button .icon-bentley-systems",
-    ));
+    expect(container).to.satisfy(
+      childStructure(".nz-app-button .icon-bentley-systems")
+    );
   });
 });
-

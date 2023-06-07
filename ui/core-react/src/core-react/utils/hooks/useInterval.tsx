@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -11,7 +11,10 @@ import * as React from "react";
  * Reference: https://github.com/gaearon/overreacted.io/blob/master/src/pages/making-setinterval-declarative-with-react-hooks/index.md
  * @beta
  */
-export function useInterval(callback: (...args: any[]) => void, delay: number | undefined) {
+export function useInterval(
+  callback: (...args: any[]) => void,
+  delay: number | undefined
+) {
   const savedCallback = React.useRef<(...args: any[]) => void>(callback);
 
   // Remember the latest function.
@@ -26,7 +29,9 @@ export function useInterval(callback: (...args: any[]) => void, delay: number | 
     }
     if (delay !== undefined) {
       const id = setInterval(tick, delay);
-      return (() => { clearInterval(id); });
+      return () => {
+        clearInterval(id);
+      };
     } else {
       return undefined;
     }

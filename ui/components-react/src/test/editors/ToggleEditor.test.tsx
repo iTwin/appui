@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
@@ -15,7 +15,7 @@ import { PropertyEditorManager } from "../../components-react/editors/PropertyEd
 
 describe("<ToggleEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   it("renders correctly it no record", () => {
@@ -50,13 +50,27 @@ describe("<ToggleEditor />", () => {
   });
 
   it("onCommit should be called for Space", async () => {
-    const propertyRecord = TestUtils.createBooleanProperty("Test2", false, "toggle");
+    const propertyRecord = TestUtils.createBooleanProperty(
+      "Test2",
+      false,
+      "toggle"
+    );
     const spyOnCommit = sinon.spy();
-    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} setFocus={true} />);
+    render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+        setFocus={true}
+      />
+    );
 
     await theUserTo.keyboard(" ");
 
-    expect(spyOnCommit).to.be.calledWith(sinon.match({newValue: sinon.match({value: true})}));
+    expect(spyOnCommit).to.be.calledWith(
+      sinon.match({ newValue: sinon.match({ value: true }) })
+    );
   });
 
   it("new props update display", async () => {
@@ -70,11 +84,22 @@ describe("<ToggleEditor />", () => {
 
   it("should not commit if DataController fails to validate", async () => {
     PropertyEditorManager.registerDataController("myData", MineDataController);
-    const propertyRecord = TestUtils.createBooleanProperty("Test2", false, "toggle");
+    const propertyRecord = TestUtils.createBooleanProperty(
+      "Test2",
+      false,
+      "toggle"
+    );
     propertyRecord.property.dataController = "myData";
 
     const spyOnCommit = sinon.spy();
-    const wrapper = render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
+    const wrapper = render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+      />
+    );
     const inputNode = wrapper.container.querySelector("input");
     expect(inputNode).not.to.be.null;
 
@@ -84,5 +109,4 @@ describe("<ToggleEditor />", () => {
 
     PropertyEditorManager.deregisterDataController("myData");
   });
-
 });

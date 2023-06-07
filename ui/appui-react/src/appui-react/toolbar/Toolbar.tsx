@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -9,7 +9,11 @@
 import * as React from "react";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import type { Direction, ToolbarOpacitySetting, ToolbarPanelAlignment } from "@itwin/components-react";
+import type {
+  Direction,
+  ToolbarOpacitySetting,
+  ToolbarPanelAlignment,
+} from "@itwin/components-react";
 import { Toolbar as CR_Toolbar } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem";
 import { toUIAToolbarItem } from "./toUIAToolbarItem";

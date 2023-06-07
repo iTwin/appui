@@ -1,12 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
 import * as React from "react";
-import { getWidgetLocation, isFloatingWidgetLocation, isPopoutWidgetLocation } from "../state/WidgetLocation";
+import {
+  getWidgetLocation,
+  isFloatingWidgetLocation,
+  isPopoutWidgetLocation,
+} from "../state/WidgetLocation";
 import { isAllowedSideTarget } from "./useAllowedSideTarget";
 import type { WidgetState } from "../state/WidgetState";
 import { useLayout } from "../base/LayoutStore";

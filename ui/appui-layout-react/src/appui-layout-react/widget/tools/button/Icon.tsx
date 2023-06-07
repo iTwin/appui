@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -34,17 +34,12 @@ export class ToolbarIcon extends React.PureComponent<ToolbarIconProps> {
     const buttonClassName = classnames(
       "nz-toolbar-button-icon",
       small && "nz-toolbar-button-icon-small",
-      className);
+      className
+    );
 
     return (
-      <ToolbarButton
-        className={buttonClassName}
-        small={small}
-        {...props}
-      >
-        <div className="nz-icon">
-          {this.props.icon}
-        </div>
+      <ToolbarButton className={buttonClassName} small={small} {...props}>
+        <div className="nz-icon">{this.props.icon}</div>
         {this.props.children}
       </ToolbarButton>
     );

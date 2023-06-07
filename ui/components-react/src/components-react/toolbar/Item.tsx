@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -49,7 +49,8 @@ export const ToolbarButtonItem = React.memo<React.FC<ToolbarButtonItemProps>>(
       "components-toolbar-button-item",
       props.isActive && "components-active",
       props.isDisabled && "components-disabled",
-      props.className);
+      props.className
+    );
 
     return (
       <button
@@ -58,21 +59,16 @@ export const ToolbarButtonItem = React.memo<React.FC<ToolbarButtonItemProps>>(
         data-item-group-priority={props.groupPriority}
         data-item-priority={props.itemPriority}
         data-item-provider-id={props.providerId}
-        disabled={props.isDisabled}  // this is needed to prevent focusing/keyboard access to disabled buttons
+        disabled={props.isDisabled} // this is needed to prevent focusing/keyboard access to disabled buttons
         onClick={props.onClick}
         onKeyDown={props.onKeyDown}
         className={className}
         style={props.style}
         title={props.title}
       >
-        <div className="components-icon">
-          {props.icon}
-        </div>
-        {props.badge &&
-          <div className="components-badge">
-            {props.badge}
-          </div>
-        }
+        <div className="components-icon">{props.icon}</div>
+        {props.badge && <div className="components-badge">{props.badge}</div>}
       </button>
     );
-  });
+  }
+);

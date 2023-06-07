@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as React from "react";
@@ -12,8 +12,11 @@ import { SpecialKey } from "@itwin/appui-abstract";
 import { TestUtils } from "../TestUtils";
 
 describe("QuantityInput", () => {
-  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(IModelApp, "requestNextAnimation")!;
-  function requestNextAnimation() { }
+  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
+    IModelApp,
+    "requestNextAnimation"
+  )!;
+  function requestNextAnimation() {}
 
   before(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
@@ -27,13 +30,23 @@ describe("QuantityInput", () => {
   after(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
-    Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);
+    Object.defineProperty(
+      IModelApp,
+      "requestNextAnimation",
+      rnaDescriptorToRestore
+    );
   });
 
   it("should render input for Length", () => {
-    const initialLength = 1;  // 1 meter
+    const initialLength = 1; // 1 meter
     const spyOnChange = sinon.spy();
-    const wrapper = render(<QuantityInput initialValue={initialLength} quantityType={QuantityType.Length} onQuantityChange={spyOnChange} />);
+    const wrapper = render(
+      <QuantityInput
+        initialValue={initialLength}
+        quantityType={QuantityType.Length}
+        onQuantityChange={spyOnChange}
+      />
+    );
     expect(wrapper).not.to.be.undefined;
     const input = wrapper.getByTestId("components-parsed-input");
     fireEvent.change(input, { target: { value: "2.5" } });
@@ -86,21 +99,29 @@ describe("QuantityInput", () => {
   };
 
   it("should process ESC key", async () => {
-    const initialLength = 1;  // 1 meter
+    const initialLength = 1; // 1 meter
     const spyOnChange = sinon.spy();
 
     // set active unit system to be metric and wait to make sure quantity format cache is set
     await IModelApp.quantityFormatter.setActiveUnitSystem("metric");
     await TestUtils.flushAsyncOperations();
 
-    const wrapper = render(<QuantityInput initialValue={initialLength} quantityType={QuantityType.Length} onQuantityChange={spyOnChange} />);
+    const wrapper = render(
+      <QuantityInput
+        initialValue={initialLength}
+        quantityType={QuantityType.Length}
+        onQuantityChange={spyOnChange}
+      />
+    );
     expect(wrapper).not.to.be.undefined;
 
-    const input = wrapper.getByTestId("components-parsed-input") as HTMLInputElement;
+    const input = wrapper.getByTestId(
+      "components-parsed-input"
+    ) as HTMLInputElement;
     const initialValue = input.value;
     fireEvent.change(input, { target: { value: "2.5" } });
     fireEvent.keyDown(input, { key: SpecialKey.Escape });
-    expect(spyOnChange).not.to.have.been.called;  // value did not change after ESC was pressed
+    expect(spyOnChange).not.to.have.been.called; // value did not change after ESC was pressed
     expect(initialValue).to.eq(input.value);
     fireEvent.change(input, { target: { value: "3.5" } });
     fireEvent.keyDown(input, { key: SpecialKey.Enter });
@@ -113,10 +134,11 @@ describe("QuantityInput", () => {
     expect(input.value).to.eq("3'-3 3/8\"");
 
     // set override for length to inches and insure proper format is returned
-    await IModelApp.quantityFormatter.setOverrideFormats(QuantityType.Length, overrideLengthFormats);
+    await IModelApp.quantityFormatter.setOverrideFormats(
+      QuantityType.Length,
+      overrideLengthFormats
+    );
     await TestUtils.flushAsyncOperations();
-    // eslint-disable-next-line no-console
-    // console.log(`input.value = ${input.value}`);
     expect(input.value).to.eq("39.3701 in");
     await IModelApp.quantityFormatter.clearOverrideFormats(QuantityType.Length);
     await TestUtils.flushAsyncOperations();
@@ -124,23 +146,33 @@ describe("QuantityInput", () => {
   });
 
   it("should attach 'components-parsed-input-has-error' when bad input", async () => {
-    const initialLength = 1;  // 1 meter
+    const initialLength = 1; // 1 meter
     const spyOnChange = sinon.spy();
 
-    const wrapper = render(<QuantityInput initialValue={initialLength} quantityType={QuantityType.Length} onQuantityChange={spyOnChange} />);
+    const wrapper = render(
+      <QuantityInput
+        initialValue={initialLength}
+        quantityType={QuantityType.Length}
+        onQuantityChange={spyOnChange}
+      />
+    );
     expect(wrapper).not.to.be.undefined;
-    const input = wrapper.getByTestId("components-parsed-input") as HTMLInputElement;
+    const input = wrapper.getByTestId(
+      "components-parsed-input"
+    ) as HTMLInputElement;
     const initialValue = input.value;
     input.focus();
     fireEvent.change(input, { target: { value: "abc" } });
     input.blur();
     await waitFor(() => {
-      expect(input.classList.contains("components-parsed-input-has-error")).to.be.true;
+      expect(input.classList.contains("components-parsed-input-has-error")).to
+        .be.true;
     });
     fireEvent.keyDown(input, { key: SpecialKey.Escape });
-    expect(spyOnChange).not.to.have.been.called;  // value did not change after ESC was pressed
+    expect(spyOnChange).not.to.have.been.called; // value did not change after ESC was pressed
     const currentValue = input.value;
-    expect(input.classList.contains("components-parsed-input-has-error")).to.be.false;
+    expect(input.classList.contains("components-parsed-input-has-error")).to.be
+      .false;
     expect(initialValue).to.eq(currentValue);
   });
 });

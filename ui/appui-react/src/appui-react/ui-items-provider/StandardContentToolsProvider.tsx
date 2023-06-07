@@ -1,17 +1,21 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StandardUiItemsProvider
  */
 
 import { ViewClipByPlaneTool } from "@itwin/core-frontend";
-import type { DefaultContentTools} from "./StandardContentToolsUiItemsProvider";
+import type { DefaultContentTools } from "./StandardContentToolsUiItemsProvider";
 import { StandardContentToolsUiItemsProvider } from "./StandardContentToolsUiItemsProvider";
 import { UiItemsManager } from "./UiItemsManager";
 import { BaseUiItemsProvider } from "./BaseUiItemsProvider";
-import type { ToolbarItem, ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem";
+import type {
+  ToolbarItem,
+  ToolbarOrientation,
+  ToolbarUsage,
+} from "../toolbar/ToolbarItem";
 import type { StatusBarItem } from "../statusbar/StatusBarItem";
 
 /**
@@ -67,8 +71,20 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
    * @param isSupportedStage - optional function that will be called to determine if tools should be added to current stage. If not set and
    * the current stage's `usage` is set to `StageUsage.General` then the provider will add items to frontstage.
    */
-  public static register(providerId: string, defaultContentTools?: DefaultContentTools, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
-    const provider = new StandardContentToolsProvider(providerId, defaultContentTools, isSupportedStage);
+  public static register(
+    providerId: string,
+    defaultContentTools?: DefaultContentTools,
+    isSupportedStage?: (
+      stageId: string,
+      stageUsage: string,
+      stageAppData?: any
+    ) => boolean
+  ) {
+    const provider = new StandardContentToolsProvider(
+      providerId,
+      defaultContentTools,
+      isSupportedStage
+    );
     UiItemsManager.register(provider);
 
     // register core commands not automatically registered
@@ -76,16 +92,46 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
     return provider;
   }
 
-  constructor(providerId: string, defaultContentTools?: DefaultContentTools | undefined, isSupportedStage?: (stageId: string, stageUsage: string, stageAppData?: any) => boolean) {
+  constructor(
+    providerId: string,
+    defaultContentTools?: DefaultContentTools | undefined,
+    isSupportedStage?: (
+      stageId: string,
+      stageUsage: string,
+      stageAppData?: any
+    ) => boolean
+  ) {
     super(providerId, isSupportedStage);
-    this.uiItemsProvider = new StandardContentToolsUiItemsProvider(defaultContentTools);
+    this.uiItemsProvider = new StandardContentToolsUiItemsProvider(
+      defaultContentTools
+    );
   }
 
-  public override provideToolbarItemsInternal(_stageId: string, _stageUsage: string, toolbarUsage: ToolbarUsage, toolbarOrientation: ToolbarOrientation, stageAppData?: any): ToolbarItem[] {
-    return this.uiItemsProvider.provideToolbarItems(_stageId, _stageUsage, toolbarUsage, toolbarOrientation, stageAppData);
+  public override provideToolbarItemsInternal(
+    _stageId: string,
+    _stageUsage: string,
+    toolbarUsage: ToolbarUsage,
+    toolbarOrientation: ToolbarOrientation,
+    stageAppData?: any
+  ): ToolbarItem[] {
+    return this.uiItemsProvider.provideToolbarItems(
+      _stageId,
+      _stageUsage,
+      toolbarUsage,
+      toolbarOrientation,
+      stageAppData
+    );
   }
 
-  public override provideStatusBarItemsInternal(_stageId: string, _stageUsage: string, _stageAppData?: any): StatusBarItem[] {
-    return this.uiItemsProvider.provideStatusBarItems(_stageId, _stageUsage, _stageAppData);
+  public override provideStatusBarItemsInternal(
+    _stageId: string,
+    _stageUsage: string,
+    _stageAppData?: any
+  ): StatusBarItem[] {
+    return this.uiItemsProvider.provideStatusBarItems(
+      _stageId,
+      _stageUsage,
+      _stageAppData
+    );
   }
 }

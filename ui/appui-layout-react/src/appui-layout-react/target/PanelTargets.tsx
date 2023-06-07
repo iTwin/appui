@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -33,47 +33,49 @@ export function PanelTargets() {
     "nz-target-panelTargets",
     `nz-${side}`,
     type === "two-widgets" && "nz-wide",
-    span && "nz-span",
+    span && "nz-span"
   );
 
   let targets;
   if (type === "no-panel") {
     targets = <PanelTarget side={side} />;
   } else if (type === "single-widget") {
-    targets = <>
-      <SectionTarget sectionIndex={0} />
-      <MergeTarget widgetId={widgets[0]} />
-      <SectionTarget sectionIndex={1} />
-    </>;
+    targets = (
+      <>
+        <SectionTarget sectionIndex={0} />
+        <MergeTarget widgetId={widgets[0]} />
+        <SectionTarget sectionIndex={1} />
+      </>
+    );
   } else if (type === "two-widgets") {
-    targets = <>
-      <MergeTarget widgetId={widgets[0]} />
-      <MergeTarget widgetId={widgets[1]} />
-    </>;
+    targets = (
+      <>
+        <MergeTarget widgetId={widgets[0]} />
+        <MergeTarget widgetId={widgets[1]} />
+      </>
+    );
   }
   return (
-    <TargetContainer
-      className={className}
-      direction={direction}
-    >
+    <TargetContainer className={className} direction={direction}>
       {targets}
     </TargetContainer>
   );
 }
 
-function usePanelTargetsType(): "no-panel" | "single-widget" | "two-widgets" | "hidden" {
+function usePanelTargetsType():
+  | "no-panel"
+  | "single-widget"
+  | "two-widgets"
+  | "hidden" {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
   return useLayout((state) => {
     const panel = state.panels[side];
-    if (panel.widgets.length === 0)
-      return "no-panel";
+    if (panel.widgets.length === 0) return "no-panel";
 
-    if (!panel.collapsed)
-      return "hidden";
+    if (!panel.collapsed) return "hidden";
 
-    if (panel.widgets.length === 2)
-      return "two-widgets";
+    if (panel.widgets.length === 2) return "two-widgets";
 
     assert(panel.widgets.length === 1);
     return "single-widget";

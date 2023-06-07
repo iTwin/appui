@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
@@ -14,7 +14,7 @@ import * as React from "react";
  */
 export interface PropertyLabelRendererProps {
   /** Label to be rendered */
-  children: string|React.JSX.Element;
+  children: string | JSX.Element;
   /** Indicates whether to render a colon after the label */
   renderColon?: boolean;
   /** Custom tooltip for the component. */
@@ -33,13 +33,19 @@ export class PropertyLabelRenderer extends React.PureComponent<PropertyLabelRend
   }
 
   public override render() {
-    const title = this.props.tooltip ?? (typeof this.props.children == "string" ? this.props.children : /* istanbul ignore next */ undefined);
+    const title =
+      this.props.tooltip ??
+      (typeof this.props.children == "string"
+        ? this.props.children
+        : /* istanbul ignore next */ undefined);
     return (
       <>
         <span className="components-property-label-renderer" title={title}>
           {this.props.children}
         </span>
-        {this.props.renderColon ? <span className="components-property-label-renderer-colon">:</span> : undefined}
+        {this.props.renderColon ? (
+          <span className="components-property-label-renderer-colon">:</span>
+        ) : undefined}
       </>
     );
   }

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tools
  */
@@ -16,12 +16,17 @@ import { IconSpecUtilities } from "@itwin/appui-abstract";
  */
 export class OpenSettingsTool extends Tool {
   public static override toolId = "OpenSettings";
-  public static override iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgSettings);
+  public static override iconSpec =
+    IconSpecUtilities.createWebComponentIconSpec(svgSettings);
 
   // istanbul ignore next
-  public static override get minArgs() { return 0; }
+  public static override get minArgs() {
+    return 0;
+  }
   // istanbul ignore next
-  public static override get maxArgs() { return 1; }
+  public static override get maxArgs() {
+    return 1;
+  }
 
   public override async run(settingCategory?: string): Promise<boolean> {
     SettingsModalFrontstage.showSettingsStage(settingCategory);

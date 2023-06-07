@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -11,7 +11,12 @@ import { IconSpecUtilities, UiError } from "@itwin/appui-abstract";
 import type { WebFontIconProps } from "@itwin/core-react";
 import { Icon, WebFontIcon } from "@itwin/core-react";
 import { UiComponents } from "../UiComponents";
-import type { Image, ImageFileFormat, LoadedBinaryImage, LoadedImage } from "./IImageLoader";
+import type {
+  Image,
+  ImageFileFormat,
+  LoadedBinaryImage,
+  LoadedImage,
+} from "./IImageLoader";
 
 /** A class that renders images from data provided by an image loader
  * @internal
@@ -22,19 +27,23 @@ export class ImageRenderer {
   private hexToBase64(hexstring: string) {
     const match = hexstring.match(/\w{2}/g);
     // istanbul ignore next
-    if (!match)
-      return "";
+    if (!match) return "";
 
-    return btoa(match.map((a) => { // eslint-disable-line deprecation/deprecation
-      return String.fromCharCode(parseInt(a, 16));
-    }).join(""));
+    // eslint-disable-next-line deprecation/deprecation
+    return btoa(
+      match
+        .map((a) => {
+          return String.fromCharCode(parseInt(a, 16));
+        })
+        .join("")
+    );
   }
 
   /** Render raw binary image */
   private renderBinary(data: string, format: ImageFileFormat) {
     // Convert binary to base64
     const dataAsBase64 = this.hexToBase64(data);
-    return (<img src={`data:image/${format};base64,${dataAsBase64}`} alt="" />);
+    return <img src={`data:image/${format};base64,${dataAsBase64}`} alt="" />;
   }
 
   private isSvg(input: string): boolean {
@@ -73,18 +82,20 @@ export class ImageRenderer {
 
     const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgAsDataUri);
     return (
-      <div><Icon iconSpec={iconSpec} /></div>
+      <div>
+        <Icon iconSpec={iconSpec} />
+      </div>
     );
   }
 
   /** Render image from an url */
   private renderUrl(url: string) {
-    return (<img src={url} alt="" />);
+    return <img src={url} alt="" />;
   }
 
   /** Render image as core-react icon */
   private renderCoreIcon(iconName: string) {
-    return (<WebFontIcon iconName={iconName} />);
+    return <WebFontIcon iconName={iconName} />;
   }
 
   /** Replaces the escaped instances of "\:" with ":" */
@@ -96,7 +107,9 @@ export class ImageRenderer {
    * Extract class and name from icon name, if the name follows format "{className}:{fontName}".
    * className and fontName can be escaped using \ if : is needed.
    */
-  private extractIconClassAndName(iconName: string): Pick<WebFontIconProps, "iconClassName" | "iconName"> {
+  private extractIconClassAndName(
+    iconName: string
+  ): Pick<WebFontIconProps, "iconClassName" | "iconName"> {
     const matches = iconName.match(/(\\.|[^:])+/g);
     if (!matches || matches.length !== 2)
       return {
@@ -116,7 +129,7 @@ export class ImageRenderer {
    */
   private renderWebfontIcon(iconName: string) {
     const iconInfo = this.extractIconClassAndName(iconName);
-    return (<WebFontIcon {...iconInfo} />);
+    return <WebFontIcon {...iconInfo} />;
   }
 
   /** Render image from data provided by an image loader */
@@ -140,7 +153,10 @@ export class ImageRenderer {
 
       default:
         const unhandledSourceType: never = loadedImage.sourceType; // Compile time check that all cases are handled
-        throw new UiError(UiComponents.loggerCategory(this), `Can't handle sourceType: "${unhandledSourceType}"`);
+        throw new UiError(
+          UiComponents.loggerCategory(this),
+          `Can't handle sourceType: "${unhandledSourceType}"`
+        );
     }
   }
 }

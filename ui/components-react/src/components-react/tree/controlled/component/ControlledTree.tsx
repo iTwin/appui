@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
 
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { FillCentered } from "@itwin/core-react";
 import { DelayedSpinner } from "../../../common/DelayedSpinner";
 import type { SelectionMode } from "../../../common/selection/SelectionModes";
@@ -16,7 +16,12 @@ import type { HighlightableTreeProps } from "../../HighlightingEngine";
 import { TreeImageLoader } from "../../ImageLoader";
 import { TreeEventDispatcher } from "../TreeEventDispatcher";
 import type { TreeEvents } from "../TreeEvents";
-import type { TreeModel, TreeModelNode, TreeModelNodePlaceholder, VisibleTreeNodes } from "../TreeModel";
+import type {
+  TreeModel,
+  TreeModelNode,
+  TreeModelNodePlaceholder,
+  VisibleTreeNodes,
+} from "../TreeModel";
 import { computeVisibleNodes, isTreeModelNode } from "../TreeModel";
 import type { ITreeNodeLoader } from "../TreeNodeLoader";
 import type { TreeNodeRendererProps } from "./TreeNodeRenderer";
@@ -73,16 +78,27 @@ export interface ControlledTreeProps extends CommonProps {
 export function ControlledTree(props: ControlledTreeProps) {
   const nodeHeight = useNodeHeight(!!props.descriptionsEnabled);
   const imageLoader = React.useMemo(() => new TreeImageLoader(), []);
-  const nodeRenderer = React.useCallback((nodeProps: TreeNodeRendererProps) => (
-    <TreeNodeRenderer
-      {...nodeProps}
-      descriptionEnabled={props.descriptionsEnabled}
-      imageLoader={props.iconsEnabled ? imageLoader : undefined}
-    />
-  ), [props.descriptionsEnabled, props.iconsEnabled, imageLoader]);
+  const nodeRenderer = React.useCallback(
+    (nodeProps: TreeNodeRendererProps) => (
+      <TreeNodeRenderer
+        {...nodeProps}
+        descriptionEnabled={props.descriptionsEnabled}
+        imageLoader={props.iconsEnabled ? imageLoader : undefined}
+      />
+    ),
+    [props.descriptionsEnabled, props.iconsEnabled, imageLoader]
+  );
 
-  const visibleNodes = React.useMemo(() => computeVisibleNodes(props.model), [props.model]);
-  const eventDispatcher = useEventDispatcher(props.nodeLoader, props.eventsHandler, props.selectionMode, visibleNodes);
+  const visibleNodes = React.useMemo(
+    () => computeVisibleNodes(props.model),
+    [props.model]
+  );
+  const eventDispatcher = useEventDispatcher(
+    props.nodeLoader,
+    props.eventsHandler,
+    props.selectionMode,
+    visibleNodes
+  );
 
   const treeProps: TreeRendererProps = {
     nodeRenderer,
@@ -99,29 +115,51 @@ export function ControlledTree(props: ControlledTreeProps) {
   const loading = useRootNodeLoader(visibleNodes, props.nodeLoader);
   const noData = visibleNodes.getNumRootNodes() === 0;
   return (
-    <Loader loading={loading} noData={noData} spinnerRenderer={props.spinnerRenderer} noDataRenderer={props.noDataRenderer}>
-      {props.treeRenderer ? props.treeRenderer(treeProps) : <TreeRenderer {...treeProps} />}
+    <Loader
+      loading={loading}
+      noData={noData}
+      spinnerRenderer={props.spinnerRenderer}
+      noDataRenderer={props.noDataRenderer}
+    >
+      {props.treeRenderer ? (
+        props.treeRenderer(treeProps)
+      ) : (
+        <TreeRenderer {...treeProps} />
+      )}
     </Loader>
   );
 }
 
-function useRootNodeLoader(visibleNodes: VisibleTreeNodes, nodeLoader: ITreeNodeLoader): boolean {
+function useRootNodeLoader(
+  visibleNodes: VisibleTreeNodes,
+  nodeLoader: ITreeNodeLoader
+): boolean {
   React.useEffect(() => {
     if (visibleNodes.getNumRootNodes() === undefined) {
-      const subscription = nodeLoader.loadNode(visibleNodes.getModel().getRootNode(), 0).subscribe();
+      const subscription = nodeLoader
+        .loadNode(visibleNodes.getModel().getRootNode(), 0)
+        .subscribe();
       return () => subscription.unsubscribe();
     }
 
-    return () => { };
+    return () => {};
   }, [visibleNodes, nodeLoader]);
 
   return visibleNodes.getNumRootNodes() === undefined;
 }
 
-function useEventDispatcher(nodeLoader: ITreeNodeLoader, treeEvents: TreeEvents, selectionMode: SelectionMode, visibleNodes: VisibleTreeNodes) {
+function useEventDispatcher(
+  nodeLoader: ITreeNodeLoader,
+  treeEvents: TreeEvents,
+  selectionMode: SelectionMode,
+  visibleNodes: VisibleTreeNodes
+) {
   /* istanbul ignore next */
   const getVisibleNodes = React.useCallback(() => visibleNodes, [visibleNodes]);
-  const eventDispatcher = React.useMemo(() => new TreeEventDispatcher(treeEvents, nodeLoader, selectionMode), [treeEvents, nodeLoader, selectionMode]);
+  const eventDispatcher = React.useMemo(
+    () => new TreeEventDispatcher(treeEvents, nodeLoader, selectionMode),
+    [treeEvents, nodeLoader, selectionMode]
+  );
 
   React.useEffect(() => {
     eventDispatcher.setVisibleNodes(getVisibleNodes);
@@ -140,39 +178,42 @@ interface LoaderProps {
 
 function Loader(props: LoaderProps) {
   if (props.loading) {
-    return props.spinnerRenderer
-      ? props.spinnerRenderer()
-      : (
-        <div className="components-controlledTree-loader">
-          <DelayedSpinner size="large" />
-        </div>
-      );
+    return props.spinnerRenderer ? (
+      props.spinnerRenderer()
+    ) : (
+      <div className="components-controlledTree-loader">
+        <DelayedSpinner size="large" />
+      </div>
+    );
   }
   if (props.noData) {
-    return props.noDataRenderer
-      ? props.noDataRenderer()
-      : (
-        <FillCentered>
-          <p className="components-controlledTree-errorMessage">
-            {UiComponents.translate("general.noData")}
-          </p>
-        </FillCentered>
-      );
+    return props.noDataRenderer ? (
+      props.noDataRenderer()
+    ) : (
+      <FillCentered>
+        <p className="components-controlledTree-errorMessage">
+          {UiComponents.translate("general.noData")}
+        </p>
+      </FillCentered>
+    );
   }
 
   return props.children;
 }
 
 function useNodeHeight(
-  descriptionsEnabled: boolean,
+  descriptionsEnabled: boolean
 ): (node: TreeModelNode | TreeModelNodePlaceholder) => number {
   return React.useCallback(
     (node: TreeModelNode | TreeModelNodePlaceholder): number => {
-      const contentHeight = (isTreeModelNode(node) && descriptionsEnabled && node && node.description) ? 43 : 24;
+      const contentHeight =
+        isTreeModelNode(node) && descriptionsEnabled && node && node.description
+          ? 43
+          : 24;
       const borderSize = 1;
       // Not counting node's border size twice because we want neighboring borders to overlap
       return contentHeight + borderSize;
     },
-    [descriptionsEnabled],
+    [descriptionsEnabled]
   );
 }

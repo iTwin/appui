@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ToolSettings
  */
@@ -9,7 +9,7 @@
 import "./OverflowPanel.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Popup } from "@itwin/core-react";
 
 /** Properties of [[StatusBarOverflowPanel]] component.
@@ -27,10 +27,7 @@ export interface StatusBarOverflowPanelProps extends CommonProps {
  * @internal
  */
 export function StatusBarOverflowPanel(props: StatusBarOverflowPanelProps) {
-  const className = classnames(
-    "uifw-statusbar-panel",
-    props.className,
-  );
+  const className = classnames("uifw-statusbar-panel", props.className);
   return (
     <Popup
       className={className}

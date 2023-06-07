@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Expandable
  */
@@ -34,8 +34,10 @@ interface ExpandableListState {
  * ExpandableList React component is a container for ExpandableBlock components.
  * @public
  */
-export class ExpandableList extends React.PureComponent<ExpandableListProps, ExpandableListState> {
-
+export class ExpandableList extends React.PureComponent<
+  ExpandableListProps,
+  ExpandableListState
+> {
   constructor(props: ExpandableListProps) {
     super(props);
 
@@ -48,7 +50,10 @@ export class ExpandableList extends React.PureComponent<ExpandableListProps, Exp
   };
 
   // set active block
-  private _handleBlockToggle = (index: number, onToggle: (isExpanding: boolean) => any) => {
+  private _handleBlockToggle = (
+    index: number,
+    onToggle: (isExpanding: boolean) => any
+  ) => {
     let activeBlock = index;
 
     if (this.props.singleIsCollapsible && index === this.state.activeBlock)
@@ -66,7 +71,9 @@ export class ExpandableList extends React.PureComponent<ExpandableListProps, Exp
     return React.Children.map(this.props.children, (child: any, i) => {
       return React.cloneElement(child, {
         key: i,
-        isExpanded: (this.props.singleExpandOnly) ? i === this.state.activeBlock : child.props.isExpanded,
+        isExpanded: this.props.singleExpandOnly
+          ? i === this.state.activeBlock
+          : child.props.isExpanded,
         onToggle: this._handleBlockToggle.bind(this, i, child.props.onToggle),
       });
     });
@@ -74,14 +81,23 @@ export class ExpandableList extends React.PureComponent<ExpandableListProps, Exp
 
   /** @internal */
   public override componentDidUpdate(prevProps: ExpandableListProps) {
-    if (this.props.defaultActiveBlock !== prevProps.defaultActiveBlock && this.props.defaultActiveBlock !== this.state.activeBlock) {
+    if (
+      this.props.defaultActiveBlock !== prevProps.defaultActiveBlock &&
+      this.props.defaultActiveBlock !== this.state.activeBlock
+    ) {
       this.setState((_, props) => ({ activeBlock: props.defaultActiveBlock! }));
     }
   }
 
   public override render(): React.JSX.Element {
     return (
-      <div className={classnames("uicore-expandable-blocks-list", this.props.className)} style={this.props.style}>
+      <div
+        className={classnames(
+          "uicore-expandable-blocks-list",
+          this.props.className
+        )}
+        style={this.props.style}
+      >
         {this.renderBlocks()}
       </div>
     );

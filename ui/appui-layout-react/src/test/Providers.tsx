@@ -1,12 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import type {
   NineZoneProviderProps,
-  NineZoneState} from "../appui-layout-react";
+  NineZoneState,
+} from "../appui-layout-react";
 import {
   createLayoutStore,
   DragManager,
@@ -18,7 +19,8 @@ import { Point, Rectangle, Size } from "@itwin/core-react";
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 /** @internal */
-export interface TestNineZoneProviderProps extends PartialBy<NineZoneProviderProps, "measure" | "layout" | "dispatch"> {
+export interface TestNineZoneProviderProps
+  extends PartialBy<NineZoneProviderProps, "measure" | "layout" | "dispatch"> {
   dragManagerRef?: React.Ref<DragManager>;
   defaultState?: NineZoneState;
 }
@@ -69,7 +71,9 @@ export function createDragInfo(args?: Partial<DragInfo>): DragInfo {
 }
 
 /** @internal */
-export function createDragStartArgs(): Parameters<DragManager["handleDragStart"]>[0] {
+export function createDragStartArgs(): Parameters<
+  DragManager["handleDragStart"]
+>[0] {
   return {
     info: createDragInfo(),
     item: {
@@ -94,17 +98,13 @@ interface WithOnRenderProps {
 
 /** @internal */
 export const withOnRender = <P extends {}, C>(
-  Component: React.JSXElementConstructor<P> & C,
+  Component: React.JSXElementConstructor<P> & C
 ) => {
   type Props = React.JSX.LibraryManagedAttributes<C, P & WithOnRenderProps>;
   return function WithOnRender(props: Props) {
     const { onRender, ...otherProps } = props;
     onRender && onRender();
-    return (
-      <Component
-        {...otherProps as any}
-      />
-    );
+    return <Component {...(otherProps as any)} />;
   };
 };
 

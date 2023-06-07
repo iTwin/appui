@@ -1,31 +1,40 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 
-import type { IModelAppOptions} from "@itwin/core-frontend";
+import type { IModelAppOptions } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, Tool } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import type { KeyinEntry} from "../../appui-react";
-import { clearKeyinPaletteHistory, FrameworkUiAdmin, KeyinPalettePanel, UiFramework } from "../../appui-react";
+import type { KeyinEntry } from "../../appui-react";
+import {
+  clearKeyinPaletteHistory,
+  FrameworkUiAdmin,
+  KeyinPalettePanel,
+  UiFramework,
+} from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { UiStateStorageStatus } from "@itwin/core-react";
 
 const myLocalStorage = storageMock();
 const KEYIN_PALETTE_NAMESPACE = "KeyinPalettePanel";
 const KEYIN_HISTORY_KEY = "historyArray";
-const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(window, "localStorage")!;
-const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(IModelApp, "requestNextAnimation")!;
-function requestNextAnimation() { }
+const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(
+  window,
+  "localStorage"
+)!;
+const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
+  IModelApp,
+  "requestNextAnimation"
+)!;
+function requestNextAnimation() {}
 
 describe("<KeyinPalettePanel>", () => {
-
   before(async () => {
-
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it. Tried replacing window.requestAnimationFrame first
     // but that did not work.
     Object.defineProperty(IModelApp, "requestNextAnimation", {
@@ -47,7 +56,11 @@ describe("<KeyinPalettePanel>", () => {
 
     // restore the overriden property getter
     Object.defineProperty(window, "localStorage", propertyDescriptorToRestore);
-    Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);
+    Object.defineProperty(
+      IModelApp,
+      "requestNextAnimation",
+      rnaDescriptorToRestore
+    );
 
     TestUtils.terminateUiFramework();
   });
@@ -55,34 +68,60 @@ describe("<KeyinPalettePanel>", () => {
   it("test clearKeyinPaletteHistory", async () => {
     const uiSettingsStorage = UiFramework.getUiStateStorage();
     if (uiSettingsStorage) {
-      await uiSettingsStorage.saveSetting(KEYIN_PALETTE_NAMESPACE, KEYIN_HISTORY_KEY, ["keyin1", "keyin2"]);
-      let settingsResult = await uiSettingsStorage.getSetting(KEYIN_PALETTE_NAMESPACE, KEYIN_HISTORY_KEY);
+      await uiSettingsStorage.saveSetting(
+        KEYIN_PALETTE_NAMESPACE,
+        KEYIN_HISTORY_KEY,
+        ["keyin1", "keyin2"]
+      );
+      let settingsResult = await uiSettingsStorage.getSetting(
+        KEYIN_PALETTE_NAMESPACE,
+        KEYIN_HISTORY_KEY
+      );
       expect(UiStateStorageStatus.Success === settingsResult.status);
       clearKeyinPaletteHistory();
-      settingsResult = await uiSettingsStorage.getSetting(KEYIN_PALETTE_NAMESPACE, KEYIN_HISTORY_KEY);
+      settingsResult = await uiSettingsStorage.getSetting(
+        KEYIN_PALETTE_NAMESPACE,
+        KEYIN_HISTORY_KEY
+      );
       expect(UiStateStorageStatus.NotFound === settingsResult.status);
     }
   });
 
   it("Renders", async () => {
-    const keyins: KeyinEntry[] = [{ value: "test a" }, { value: "test b" }, { value: "keyin one" }, { value: "keyin two" }];
+    const keyins: KeyinEntry[] = [
+      { value: "test a" },
+      { value: "test b" },
+      { value: "keyin one" },
+      { value: "keyin two" },
+    ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
     expect(renderedComponent).not.to.be.undefined;
 
     await TestUtils.flushAsyncOperations();
-    const history2 = await waitFor(() => renderedComponent.getByTitle("test b"));
+    const history2 = await waitFor(() =>
+      renderedComponent.getByTitle("test b")
+    );
     expect(history2).not.to.be.undefined;
     expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
   });
 
   it("handles key presses in select input ", async () => {
-    const keyins: KeyinEntry[] = [{ value: "test a" }, { value: "test b" }, { value: "keyin one" }, { value: "keyin two" }];
+    const keyins: KeyinEntry[] = [
+      { value: "test a" },
+      { value: "test b" },
+      { value: "keyin one" },
+      { value: "keyin two" },
+    ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
     expect(renderedComponent).not.to.be.undefined;
-    const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+    const selectInput = renderedComponent.getByTestId(
+      "command-palette-input"
+    ) as HTMLInputElement;
 
     await TestUtils.flushAsyncOperations();
-    const history2 = await waitFor(() => renderedComponent.getByTitle("test b"));
+    const history2 = await waitFor(() =>
+      renderedComponent.getByTitle("test b")
+    );
     expect(history2).not.to.be.undefined;
     expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
 
@@ -93,13 +132,22 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("handles ctrl+key presses in select input ", async () => {
-    const keyins: KeyinEntry[] = [{ value: "test a" }, { value: "test b" }, { value: "keyin one" }, { value: "keyin two" }];
+    const keyins: KeyinEntry[] = [
+      { value: "test a" },
+      { value: "test b" },
+      { value: "keyin one" },
+      { value: "keyin two" },
+    ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
     expect(renderedComponent).not.to.be.undefined;
-    const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+    const selectInput = renderedComponent.getByTestId(
+      "command-palette-input"
+    ) as HTMLInputElement;
 
     await TestUtils.flushAsyncOperations();
-    const history2 = await waitFor(() => renderedComponent.getByTitle("test b"));
+    const history2 = await waitFor(() =>
+      renderedComponent.getByTitle("test b")
+    );
     expect(history2).not.to.be.undefined;
     expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
 
@@ -114,28 +162,38 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles keyboard running selection", async () => {
-    const keyins: KeyinEntry[] = [{ value: "keyin one" }, { value: "keyin two" }];
+    const keyins: KeyinEntry[] = [
+      { value: "keyin one" },
+      { value: "keyin two" },
+    ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
     expect(renderedComponent).not.to.be.undefined;
-    const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+    const selectInput = renderedComponent.getByTestId(
+      "command-palette-input"
+    ) as HTMLInputElement;
     fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });
 
     await TestUtils.flushAsyncOperations();
-    const listComponent = (renderedComponent.container.querySelector("ul"));
+    const listComponent = renderedComponent.container.querySelector("ul");
     expect(listComponent).not.to.be.null;
     fireEvent.keyDown(listComponent!, { key: SpecialKey.ArrowDown });
     fireEvent.keyDown(listComponent!, { key: SpecialKey.Enter });
   });
 
   it("Handles keyboard updating input after CTRL + selection", async () => {
-    const keyins: KeyinEntry[] = [{ value: "keyin one" }, { value: "keyin two" }];
+    const keyins: KeyinEntry[] = [
+      { value: "keyin one" },
+      { value: "keyin two" },
+    ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
     expect(renderedComponent).not.to.be.undefined;
-    const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+    const selectInput = renderedComponent.getByTestId(
+      "command-palette-input"
+    ) as HTMLInputElement;
     expect(selectInput.value.length === 0);
     await TestUtils.flushAsyncOperations();
     fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });
-    const listComponent = (renderedComponent.container.querySelector("ul"));
+    const listComponent = renderedComponent.container.querySelector("ul");
     expect(listComponent).not.to.be.null;
     fireEvent.keyDown(listComponent!, { key: SpecialKey.ArrowDown });
     fireEvent.keyDown(listComponent!, { key: SpecialKey.Enter, ctrlKey: true });
@@ -143,14 +201,23 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles listbox click processing", async () => {
-    const keyins: KeyinEntry[] = [{ value: "test a" }, { value: "test b" }, { value: "keyin one" }, { value: "keyin two" }];
+    const keyins: KeyinEntry[] = [
+      { value: "test a" },
+      { value: "test b" },
+      { value: "keyin one" },
+      { value: "keyin two" },
+    ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
     expect(renderedComponent).not.to.be.undefined;
     await TestUtils.flushAsyncOperations();
-    const history2 = await waitFor(() => renderedComponent.getByTitle("test b"));
+    const history2 = await waitFor(() =>
+      renderedComponent.getByTitle("test b")
+    );
     expect(history2).not.to.be.undefined;
 
-    const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+    const selectInput = renderedComponent.getByTestId(
+      "command-palette-input"
+    ) as HTMLInputElement;
     expect(selectInput.value.length === 0);
     const liItems = renderedComponent.container.querySelectorAll("li");
     expect(liItems.length).to.eq(4);
@@ -159,14 +226,23 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   it("Handles listbox CTRL+click processing", async () => {
-    const keyins: KeyinEntry[] = [{ value: "test a" }, { value: "test b" }, { value: "keyin one" }, { value: "keyin two" }];
+    const keyins: KeyinEntry[] = [
+      { value: "test a" },
+      { value: "test b" },
+      { value: "keyin one" },
+      { value: "keyin two" },
+    ];
     const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
     expect(renderedComponent).not.to.be.undefined;
     await TestUtils.flushAsyncOperations();
-    const history2 = await waitFor(() => renderedComponent.getByTitle("test b"));
+    const history2 = await waitFor(() =>
+      renderedComponent.getByTitle("test b")
+    );
     expect(history2).not.to.be.undefined;
 
-    const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+    const selectInput = renderedComponent.getByTestId(
+      "command-palette-input"
+    ) as HTMLInputElement;
     expect(selectInput.value.length === 0);
     // force a list item to get focus so focus value is set
     fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });
@@ -178,7 +254,6 @@ describe("<KeyinPalettePanel>", () => {
   });
 
   describe("Filters out unavailable History keyins", () => {
-
     class TestImmediate extends Tool {
       public static override toolId = "Test.Immediate";
       public override async run(): Promise<boolean> {
@@ -188,8 +263,7 @@ describe("<KeyinPalettePanel>", () => {
 
     beforeEach(() => {
       sinon.stub(IModelApp.tools, "parseKeyin").callsFake((keyin: string) => {
-        if (keyin === "bogus")
-          return { ok: false, error: 1 };
+        if (keyin === "bogus") return { ok: false, error: 1 };
         return { ok: true, args: [], tool: TestImmediate };
       });
     });
@@ -201,57 +275,98 @@ describe("<KeyinPalettePanel>", () => {
     it("Renders and filters out bogus history entry", async () => {
       const uiSettingsStorage = UiFramework.getUiStateStorage();
       if (uiSettingsStorage) {
-        await uiSettingsStorage.saveSetting(KEYIN_PALETTE_NAMESPACE, KEYIN_HISTORY_KEY, ["history1", "history2", "bogus"]);
+        await uiSettingsStorage.saveSetting(
+          KEYIN_PALETTE_NAMESPACE,
+          KEYIN_HISTORY_KEY,
+          ["history1", "history2", "bogus"]
+        );
       }
-      const keyins: KeyinEntry[] = [{ value: "keyin one" }, { value: "keyin two" }];
+      const keyins: KeyinEntry[] = [
+        { value: "keyin one" },
+        { value: "keyin two" },
+      ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
       expect(renderedComponent).not.to.be.undefined;
 
       await TestUtils.flushAsyncOperations();
-      const history2 = await waitFor(() => renderedComponent.getByTitle("history2"));
+      const history2 = await waitFor(() =>
+        renderedComponent.getByTitle("history2")
+      );
       expect(history2).not.to.be.undefined;
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
+      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+        4
+      );
     });
 
     it("handles key presses in select input ", async () => {
       const uiSettingsStorage = UiFramework.getUiStateStorage();
       if (uiSettingsStorage) {
-        await uiSettingsStorage.saveSetting(KEYIN_PALETTE_NAMESPACE, KEYIN_HISTORY_KEY, ["history1", "history2", "bogus"]);
+        await uiSettingsStorage.saveSetting(
+          KEYIN_PALETTE_NAMESPACE,
+          KEYIN_HISTORY_KEY,
+          ["history1", "history2", "bogus"]
+        );
       }
-      const keyins: KeyinEntry[] = [{ value: "keyin one" }, { value: "keyin two" }];
+      const keyins: KeyinEntry[] = [
+        { value: "keyin one" },
+        { value: "keyin two" },
+      ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
       expect(renderedComponent).not.to.be.undefined;
-      const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+      const selectInput = renderedComponent.getByTestId(
+        "command-palette-input"
+      ) as HTMLInputElement;
 
       await TestUtils.flushAsyncOperations();
-      const history2 = await waitFor(() => renderedComponent.getByTitle("history2"));
+      const history2 = await waitFor(() =>
+        renderedComponent.getByTitle("history2")
+      );
       expect(history2).not.to.be.undefined;
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
+      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+        4
+      );
 
       fireEvent.change(selectInput, { target: { value: "two" } });
       await TestUtils.flushAsyncOperations();
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(1);
+      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+        1
+      );
       fireEvent.keyDown(selectInput, { key: SpecialKey.Enter });
     });
 
     it("handles ctrl+key presses in select input ", async () => {
       const uiSettingsStorage = UiFramework.getUiStateStorage();
       if (uiSettingsStorage) {
-        await uiSettingsStorage.saveSetting(KEYIN_PALETTE_NAMESPACE, KEYIN_HISTORY_KEY, ["history1", "history2", "bogus"]);
+        await uiSettingsStorage.saveSetting(
+          KEYIN_PALETTE_NAMESPACE,
+          KEYIN_HISTORY_KEY,
+          ["history1", "history2", "bogus"]
+        );
       }
-      const keyins: KeyinEntry[] = [{ value: "keyin one" }, { value: "keyin two" }];
+      const keyins: KeyinEntry[] = [
+        { value: "keyin one" },
+        { value: "keyin two" },
+      ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
       expect(renderedComponent).not.to.be.undefined;
-      const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+      const selectInput = renderedComponent.getByTestId(
+        "command-palette-input"
+      ) as HTMLInputElement;
 
       await TestUtils.flushAsyncOperations();
-      const history2 = await waitFor(() => renderedComponent.getByTitle("history2"));
+      const history2 = await waitFor(() =>
+        renderedComponent.getByTitle("history2")
+      );
       expect(history2).not.to.be.undefined;
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(4);
+      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+        4
+      );
 
       fireEvent.change(selectInput, { target: { value: "two" } });
       await TestUtils.flushAsyncOperations();
-      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(1);
+      expect(renderedComponent.container.querySelectorAll("li").length).to.eq(
+        1
+      );
       fireEvent.keyDown(selectInput, { key: SpecialKey.Enter, ctrlKey: true });
       await TestUtils.flushAsyncOperations();
       fireEvent.change(selectInput, { target: { value: "two" } });
@@ -260,14 +375,19 @@ describe("<KeyinPalettePanel>", () => {
     });
 
     it("Handles keyboard running selection", async () => {
-      const keyins: KeyinEntry[] = [{ value: "keyin one" }, { value: "keyin two" }];
+      const keyins: KeyinEntry[] = [
+        { value: "keyin one" },
+        { value: "keyin two" },
+      ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
       expect(renderedComponent).not.to.be.undefined;
-      const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+      const selectInput = renderedComponent.getByTestId(
+        "command-palette-input"
+      ) as HTMLInputElement;
       fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });
 
       await TestUtils.flushAsyncOperations();
-      const listComponent = (renderedComponent.container.querySelector("ul"));
+      const listComponent = renderedComponent.container.querySelector("ul");
       expect(listComponent).not.to.be.null;
       fireEvent.keyDown(listComponent!, { key: SpecialKey.ArrowDown });
       fireEvent.keyDown(listComponent!, { key: SpecialKey.Enter });
@@ -276,16 +396,27 @@ describe("<KeyinPalettePanel>", () => {
     it("Handles listbox click processing", async () => {
       const uiSettingsStorage = UiFramework.getUiStateStorage();
       if (uiSettingsStorage) {
-        await uiSettingsStorage.saveSetting(KEYIN_PALETTE_NAMESPACE, KEYIN_HISTORY_KEY, ["history1", "history2", "bogus"]);
+        await uiSettingsStorage.saveSetting(
+          KEYIN_PALETTE_NAMESPACE,
+          KEYIN_HISTORY_KEY,
+          ["history1", "history2", "bogus"]
+        );
       }
-      const keyins: KeyinEntry[] = [{ value: "keyin one" }, { value: "keyin two" }];
+      const keyins: KeyinEntry[] = [
+        { value: "keyin one" },
+        { value: "keyin two" },
+      ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
       expect(renderedComponent).not.to.be.undefined;
       await TestUtils.flushAsyncOperations();
-      const history2 = await waitFor(() => renderedComponent.getByTitle("history2"));
+      const history2 = await waitFor(() =>
+        renderedComponent.getByTitle("history2")
+      );
       expect(history2).not.to.be.undefined;
 
-      const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+      const selectInput = renderedComponent.getByTestId(
+        "command-palette-input"
+      ) as HTMLInputElement;
       expect(selectInput.value.length === 0);
       const liItems = renderedComponent.container.querySelectorAll("li");
       expect(liItems.length).to.eq(4);
@@ -296,16 +427,27 @@ describe("<KeyinPalettePanel>", () => {
     it("Handles listbox CTRL+click processing", async () => {
       const uiSettingsStorage = UiFramework.getUiStateStorage();
       if (uiSettingsStorage) {
-        await uiSettingsStorage.saveSetting(KEYIN_PALETTE_NAMESPACE, KEYIN_HISTORY_KEY, ["history1", "history2", "bogus"]);
+        await uiSettingsStorage.saveSetting(
+          KEYIN_PALETTE_NAMESPACE,
+          KEYIN_HISTORY_KEY,
+          ["history1", "history2", "bogus"]
+        );
       }
-      const keyins: KeyinEntry[] = [{ value: "keyin one" }, { value: "keyin two" }];
+      const keyins: KeyinEntry[] = [
+        { value: "keyin one" },
+        { value: "keyin two" },
+      ];
       const renderedComponent = render(<KeyinPalettePanel keyins={keyins} />);
       expect(renderedComponent).not.to.be.undefined;
       await TestUtils.flushAsyncOperations();
-      const history2 = await waitFor(() => renderedComponent.getByTitle("history2"));
+      const history2 = await waitFor(() =>
+        renderedComponent.getByTitle("history2")
+      );
       expect(history2).not.to.be.undefined;
 
-      const selectInput = renderedComponent.getByTestId("command-palette-input") as HTMLInputElement;
+      const selectInput = renderedComponent.getByTestId(
+        "command-palette-input"
+      ) as HTMLInputElement;
       expect(selectInput.value.length === 0);
       // force a list item to get focus so focus value is set
       fireEvent.keyDown(selectInput, { key: SpecialKey.ArrowDown });

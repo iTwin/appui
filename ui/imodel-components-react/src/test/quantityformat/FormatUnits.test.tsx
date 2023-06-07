@@ -1,19 +1,26 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { render } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
 import { TestUtils } from "../TestUtils";
-import { handleError, selectChangeValueByText, stubScrollIntoView } from "../test-helpers/misc";
+import {
+  handleError,
+  selectChangeValueByText,
+  stubScrollIntoView,
+} from "../test-helpers/misc";
 import { FormatUnits } from "../../imodel-components-react/quantityformat/FormatUnits";
 
 describe("FormatUnits", () => {
-  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(IModelApp, "requestNextAnimation")!;
-  function requestNextAnimation() { }
+  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
+    IModelApp,
+    "requestNextAnimation"
+  )!;
+  function requestNextAnimation() {}
 
   before(async () => {
     // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
@@ -27,7 +34,11 @@ describe("FormatUnits", () => {
   after(async () => {
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
-    Object.defineProperty(IModelApp, "requestNextAnimation", rnaDescriptorToRestore);
+    Object.defineProperty(
+      IModelApp,
+      "requestNextAnimation",
+      rnaDescriptorToRestore
+    );
   });
 
   stubScrollIntoView();
@@ -44,14 +55,20 @@ describe("FormatUnits", () => {
     const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
     const pu = await unitsProvider.findUnitByName("Units.M");
     let onChangeFuncCalled = false;
-    const onChangeFunc = ((format: FormatProps) => {
+    const onChangeFunc = (format: FormatProps) => {
       expect(format.composite).not.to.be.undefined;
       expect(format.composite?.units[0].name).to.eql("Units.IN");
       onChangeFuncCalled = true;
-    });
+    };
 
-    const renderedComponent = render(<FormatUnits initialFormat={numericFormatProps}
-      persistenceUnit={pu} unitsProvider={unitsProvider} onUnitsChange={onChangeFunc} />);
+    const renderedComponent = render(
+      <FormatUnits
+        initialFormat={numericFormatProps}
+        persistenceUnit={pu}
+        unitsProvider={unitsProvider}
+        onUnitsChange={onChangeFunc}
+      />
+    );
     await TestUtils.flushAsyncOperations();
     // fireEvent.change(renderedComponent.getByTestId("unit-Units.M"), {target: { value: "Units.IN:in" }});
     const unitsSelector = renderedComponent.getByTestId("unit-Units.M");
@@ -74,20 +91,25 @@ describe("FormatUnits", () => {
     const unitsProvider = IModelApp.quantityFormatter.unitsProvider;
     const pu = await unitsProvider.findUnitByName("Units.M");
     let onChangeFuncCalled = false;
-    const onChangeFunc = ((format: FormatProps) => {
+    const onChangeFunc = (format: FormatProps) => {
       expect(format.composite).not.to.be.undefined;
       expect(format.composite?.units[0].name).to.eql("Units.FT");
       expect(format.composite?.units.length).to.eql(1);
       onChangeFuncCalled = true;
-    });
+    };
 
-    const renderedComponent = render(<FormatUnits initialFormat={compositeFormatProps}
-      persistenceUnit={pu} unitsProvider={unitsProvider} onUnitsChange={onChangeFunc} />);
+    const renderedComponent = render(
+      <FormatUnits
+        initialFormat={compositeFormatProps}
+        persistenceUnit={pu}
+        unitsProvider={unitsProvider}
+        onUnitsChange={onChangeFunc}
+      />
+    );
     await TestUtils.flushAsyncOperations();
     // fireEvent.change(renderedComponent.getByTestId("unit-Units.IN"), { target: { value: "REMOVEUNIT" } });
     const unitsSelector = renderedComponent.getByTestId("unit-Units.IN");
     selectChangeValueByText(unitsSelector, "Remove", handleError);
     expect(onChangeFuncCalled).to.be.true;
   });
-
 });

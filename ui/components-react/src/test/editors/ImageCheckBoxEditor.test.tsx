@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import { fireEvent, render, screen } from "@testing-library/react";
@@ -15,7 +15,7 @@ import { PropertyEditorManager } from "../../components-react/editors/PropertyEd
 
 describe("<ImageCheckBoxEditor />", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
 
@@ -50,7 +50,9 @@ describe("<ImageCheckBoxEditor />", () => {
   it("toggling the checkbox should updates boolean value", async () => {
     const record = TestUtils.createImageCheckBoxProperty("Test1", false);
     const spyOnCommit = sinon.spy();
-    render(<ImageCheckBoxEditor propertyRecord={record} onCommit={spyOnCommit} />);
+    render(
+      <ImageCheckBoxEditor propertyRecord={record} onCommit={spyOnCommit} />
+    );
 
     await theUserTo.click(screen.getByRole("checkbox"));
 
@@ -58,18 +60,32 @@ describe("<ImageCheckBoxEditor />", () => {
   });
 
   it("onCommit should be called for Space", async () => {
-    const propertyRecord = TestUtils.createImageCheckBoxProperty("Test2", false);
+    const propertyRecord = TestUtils.createImageCheckBoxProperty(
+      "Test2",
+      false
+    );
     const spyOnCommit = sinon.spy();
-    render(<EditorContainer propertyRecord={propertyRecord} title="abc" onCommit={spyOnCommit} onCancel={() => { }} />);
+    render(
+      <EditorContainer
+        propertyRecord={propertyRecord}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={() => {}}
+      />
+    );
 
     await theUserTo.click(screen.getByRole("checkbox"));
 
-    expect(spyOnCommit).to.have.been.calledWith(sinon.match({newValue: sinon.match({value: true})}));
+    expect(spyOnCommit).to.have.been.calledWith(
+      sinon.match({ newValue: sinon.match({ value: true }) })
+    );
   });
 
   it("new props update checkbox state", async () => {
     const record = TestUtils.createImageCheckBoxProperty("Test", false);
-    const { rerender } = render(<ImageCheckBoxEditor propertyRecord={record} />);
+    const { rerender } = render(
+      <ImageCheckBoxEditor propertyRecord={record} />
+    );
     expect(screen.getByRole<HTMLInputElement>("checkbox").checked).to.be.false;
 
     const newRecord = TestUtils.createImageCheckBoxProperty("Test", true);
@@ -84,7 +100,14 @@ describe("<ImageCheckBoxEditor />", () => {
 
     const spyOnCommit = sinon.spy();
     const spyOnCancel = sinon.spy();
-    render(<EditorContainer propertyRecord={record} title="abc" onCommit={spyOnCommit} onCancel={spyOnCancel} />);
+    render(
+      <EditorContainer
+        propertyRecord={record}
+        title="abc"
+        onCommit={spyOnCommit}
+        onCancel={spyOnCancel}
+      />
+    );
 
     const inputNode = screen.getByRole("checkbox");
 
@@ -98,5 +121,4 @@ describe("<ImageCheckBoxEditor />", () => {
 
     PropertyEditorManager.deregisterDataController("myData");
   });
-
 });

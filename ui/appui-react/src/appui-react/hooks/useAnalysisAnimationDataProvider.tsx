@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Hooks
  */
@@ -13,7 +13,8 @@ import type { ScreenViewport, Viewport } from "@itwin/core-frontend";
 /** @internal */
 // istanbul ignore next
 function useSupportsAnalysisAnimation(viewport: Viewport | undefined) {
-  const [supportsAnalysisAnimation, setSupportsAnalysisAnimation] = React.useState(!!viewport?.view?.analysisStyle);
+  const [supportsAnalysisAnimation, setSupportsAnalysisAnimation] =
+    React.useState(!!viewport?.view?.analysisStyle);
 
   React.useEffect(() => {
     setSupportsAnalysisAnimation(!!viewport?.view?.analysisStyle);
@@ -34,7 +35,9 @@ function useSupportsAnalysisAnimation(viewport: Viewport | undefined) {
       if (hasAnalysisData !== supportsAnalysisAnimation)
         setSupportsAnalysisAnimation(hasAnalysisData);
     };
-    return viewport?.onDisplayStyleChanged.addListener(handleDisplayStyleChange);
+    return viewport?.onDisplayStyleChanged.addListener(
+      handleDisplayStyleChange
+    );
   }, [viewport, supportsAnalysisAnimation]);
   return supportsAnalysisAnimation;
 }
@@ -43,30 +46,39 @@ function useSupportsAnalysisAnimation(viewport: Viewport | undefined) {
  * @public
  **/
 // istanbul ignore next
-export function useAnalysisAnimationDataProvider(viewport: ScreenViewport | undefined) {
+export function useAnalysisAnimationDataProvider(
+  viewport: ScreenViewport | undefined
+) {
   const supportsAnalysisAnimation = useSupportsAnalysisAnimation(viewport);
-  const [analysisAnimationTimelineDataProvider, setAnalysisAnimationTimelineDataProvider] = React.useState<AnalysisAnimationTimelineDataProvider | undefined>();
+  const [
+    analysisAnimationTimelineDataProvider,
+    setAnalysisAnimationTimelineDataProvider,
+  ] = React.useState<AnalysisAnimationTimelineDataProvider | undefined>();
   const isMountedRef = React.useRef(false);
 
   React.useEffect(() => {
     isMountedRef.current = true;
-    return () => { isMountedRef.current = false; };
+    return () => {
+      isMountedRef.current = false;
+    };
   }, []);
 
   React.useEffect(() => {
     async function fetchNewDataProvider(vp: ScreenViewport) {
-      let newProvider: AnalysisAnimationTimelineDataProvider | undefined = new AnalysisAnimationTimelineDataProvider(vp.view, vp);
+      let newProvider: AnalysisAnimationTimelineDataProvider | undefined =
+        new AnalysisAnimationTimelineDataProvider(vp.view, vp);
       if (newProvider?.supportsTimelineAnimation) {
         const dataLoaded = await newProvider.loadTimelineData();
-        if (!dataLoaded)
-          newProvider = undefined;
+        if (!dataLoaded) newProvider = undefined;
       }
-      isMountedRef.current && setAnalysisAnimationTimelineDataProvider(newProvider);
+      isMountedRef.current &&
+        setAnalysisAnimationTimelineDataProvider(newProvider);
     }
     if (supportsAnalysisAnimation && viewport)
       void fetchNewDataProvider(viewport);
     else
-      isMountedRef.current && setAnalysisAnimationTimelineDataProvider(undefined);
+      isMountedRef.current &&
+        setAnalysisAnimationTimelineDataProvider(undefined);
   }, [supportsAnalysisAnimation, viewport]);
 
   return analysisAnimationTimelineDataProvider;

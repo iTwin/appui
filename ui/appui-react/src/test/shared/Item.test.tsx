@@ -1,17 +1,25 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
-import { IModelApp, NoRenderApp, SelectionTool, Tool } from "@itwin/core-frontend";
+import {
+  IModelApp,
+  NoRenderApp,
+  SelectionTool,
+  Tool,
+} from "@itwin/core-frontend";
 import { Orientation, Size } from "@itwin/core-react";
-import type { ItemProps} from "../../appui-react";
-import { ActionButtonItemDef, CommandItemDef, ToolItemDef } from "../../appui-react";
+import type { ItemProps } from "../../appui-react";
+import {
+  ActionButtonItemDef,
+  CommandItemDef,
+  ToolItemDef,
+} from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("Item", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();
@@ -26,8 +34,10 @@ describe("Item", () => {
     const commandItem = new CommandItemDef({
       iconSpec: "icon-placeholder",
     });
-    expect(commandItem.id.substring(0, CommandItemDef.commandIdPrefix.length)).to.eq(CommandItemDef.commandIdPrefix);
-    commandItem.execute();  // Just for 'else' coverage
+    expect(
+      commandItem.id.substring(0, CommandItemDef.commandIdPrefix.length)
+    ).to.eq(CommandItemDef.commandIdPrefix);
+    commandItem.execute(); // Just for 'else' coverage
   });
 
   it("CommandItemDef should set and get description", () => {
@@ -44,7 +54,7 @@ describe("Item", () => {
     const spyMethod = sinon.spy();
     const commandItem = new CommandItemDef({
       iconSpec: "icon-placeholder",
-      execute: () => { },
+      execute: () => {},
       getCommandArgs: () => spyMethod(),
     });
     commandItem.execute();
@@ -53,10 +63,13 @@ describe("Item", () => {
 
   it("CommandItemDef with onItemExecuted should call it on execute", () => {
     const spyMethod = sinon.spy();
-    const commandItem = new CommandItemDef({
-      iconSpec: "icon-placeholder",
-      execute: () => { },
-    }, spyMethod);
+    const commandItem = new CommandItemDef(
+      {
+        iconSpec: "icon-placeholder",
+        execute: () => {},
+      },
+      spyMethod
+    );
     commandItem.execute();
     expect(spyMethod).to.be.calledOnce;
   });
@@ -66,7 +79,7 @@ describe("Item", () => {
       toolId: "test",
       iconSpec: "icon-placeholder",
     });
-    toolItem.execute();  // Does nothing
+    toolItem.execute(); // Does nothing
   });
 
   it("ToolItemDef with isPressed and isActive", () => {
@@ -81,7 +94,10 @@ describe("Item", () => {
   });
 
   it("ToolItemDef helper function", () => {
-    const toolItem = ToolItemDef.getItemDefForTool(SelectionTool, "icon-override");
+    const toolItem = ToolItemDef.getItemDefForTool(
+      SelectionTool,
+      "icon-override"
+    );
     expect(toolItem.iconSpec).to.be.eq("icon-override");
     expect(toolItem.label).not.to.be.undefined;
     expect(toolItem.tooltip).not.to.be.undefined;
@@ -94,14 +110,20 @@ describe("Item", () => {
 
     public static override toolId = "Test.Immediate";
     public override async run(v1: string, v2: number): Promise<boolean> {
-      TestImmediate.isValid = (v1 === "test-string" && v2 === 2);
+      TestImmediate.isValid = v1 === "test-string" && v2 === 2;
       return true;
     }
-    public static override get minArgs() { return 2; }
-    public static override get maxArgs() { return 2; }
-    public override async parseAndRun(v1: string, v2: string): Promise<boolean> {
-      if (arguments.length !== 2)
-        return false;
+    public static override get minArgs() {
+      return 2;
+    }
+    public static override get maxArgs() {
+      return 2;
+    }
+    public override async parseAndRun(
+      v1: string,
+      v2: string
+    ): Promise<boolean> {
+      if (arguments.length !== 2) return false;
       return this.run(v1, parseInt(v2, 10));
     }
   }
@@ -111,7 +133,12 @@ describe("Item", () => {
     await IModelApp.localization.registerNamespace(namespaceName);
     TestImmediate.register(namespaceName);
 
-    const toolItem = ToolItemDef.getItemDefForTool(TestImmediate, undefined, "test-string", 2);
+    const toolItem = ToolItemDef.getItemDefForTool(
+      TestImmediate,
+      undefined,
+      "test-string",
+      2
+    );
     expect(toolItem.iconSpec).to.be.eq(undefined);
     expect(TestImmediate.isValid).to.be.false;
 
@@ -139,7 +166,9 @@ describe("Item", () => {
     const testItem = new TestItemDef({
       iconSpec: "icon-placeholder",
     });
-    expect(testItem.getDimension(Orientation.Horizontal)).to.eq(ActionButtonItemDef.defaultButtonSize);
+    expect(testItem.getDimension(Orientation.Horizontal)).to.eq(
+      ActionButtonItemDef.defaultButtonSize
+    );
   });
 
   it("ActionButtonItemDef with size returns correct dimension", () => {
@@ -150,5 +179,4 @@ describe("Item", () => {
     expect(testItem.getDimension(Orientation.Horizontal)).to.eq(200);
     expect(testItem.getDimension(Orientation.Vertical)).to.eq(100);
   });
-
 });

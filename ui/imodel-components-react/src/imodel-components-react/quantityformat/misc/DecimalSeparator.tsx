@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module QuantityFormat
  */
@@ -27,15 +27,34 @@ export interface DecimalSeparatorSelectorProps extends CommonProps {
 export function DecimalSeparatorSelector(props: DecimalSeparatorSelectorProps) {
   const { separator, onChange, ...otherProps } = props;
   const options = React.useRef<SelectOption<string>[]>([
-    { value: ".", label: UiIModelComponents.translate("QuantityFormat.decimal_separator.point") },
-    { value: ",", label: UiIModelComponents.translate("QuantityFormat.decimal_separator.comma") },
+    {
+      value: ".",
+      label: UiIModelComponents.translate(
+        "QuantityFormat.decimal_separator.point"
+      ),
+    },
+    {
+      value: ",",
+      label: UiIModelComponents.translate(
+        "QuantityFormat.decimal_separator.comma"
+      ),
+    },
   ]);
 
-  const handleOnChange = React.useCallback((newValue: string) => {
-    onChange && onChange(newValue);
-  }, [onChange]);
+  const handleOnChange = React.useCallback(
+    (newValue: string) => {
+      onChange && onChange(newValue);
+    },
+    [onChange]
+  );
 
   return (
-    <Select options={options.current} value={separator} onChange={handleOnChange} size="small" {...otherProps} />
+    <Select
+      options={options.current}
+      value={separator}
+      onChange={handleOnChange}
+      size="small"
+      {...otherProps}
+    />
   );
 }

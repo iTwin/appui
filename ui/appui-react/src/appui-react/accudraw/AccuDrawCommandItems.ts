@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AccuDraw
  */
@@ -32,7 +32,6 @@ import { BumpToolSetting, FocusToolSettings } from "../tools/ToolSettingsTools";
  */
 // istanbul ignore next
 export class AccuDrawCommandItems {
-
   public static get lockSmart() {
     return ToolItemDef.getItemDefForTool(AccuDrawSetLockSmartTool);
   }

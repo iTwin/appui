@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import React from "react";
@@ -33,12 +33,18 @@ describe("<HueSlider />", () => {
   };
 
   it("horizontal slider should render", () => {
-    const renderedComponent = render(<HueSlider hsv={hsv} isHorizontal={true} />);
+    const renderedComponent = render(
+      <HueSlider hsv={hsv} isHorizontal={true} />
+    );
     expect(renderedComponent).not.to.be.undefined;
   });
 
   it("vertical slider should render", () => {
-    const renderedComponent = render(<div style={hueDivStyle}><HueSlider hsv={hsv} isHorizontal={false} /></div>);
+    const renderedComponent = render(
+      <div style={hueDivStyle}>
+        <HueSlider hsv={hsv} isHorizontal={false} />
+      </div>
+    );
     expect(renderedComponent).not.to.be.undefined;
   });
 
@@ -46,8 +52,19 @@ describe("<HueSlider />", () => {
     let index = 0;
 
     // starting value is 60
-    const keys = ["ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Home", "End", "PageDown", "PageUp"];
-    const values = [59, 59, 61, 61, 0, 359, 0, 120, 50, 50, 70, 70, 0, 359, 0, 240];
+    const keys = [
+      "ArrowLeft",
+      "ArrowDown",
+      "ArrowRight",
+      "ArrowUp",
+      "Home",
+      "End",
+      "PageDown",
+      "PageUp",
+    ];
+    const values = [
+      59, 59, 61, 61, 0, 359, 0, 120, 50, 50, 70, 70, 0, 359, 0, 240,
+    ];
 
     const spyOnPick = sinon.spy();
     function handleHueChange(newColor: HSVColor): void {
@@ -55,7 +72,9 @@ describe("<HueSlider />", () => {
       spyOnPick();
     }
 
-    const renderedComponent = render(<HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={true} />);
+    const renderedComponent = render(
+      <HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={true} />
+    );
     const sliderDiv = renderedComponent.getByTestId("hue-slider");
     expect(sliderDiv).not.to.be.null;
     expect(sliderDiv.tagName).to.be.equal("DIV");
@@ -85,7 +104,7 @@ describe("<HueSlider />", () => {
         height: 30,
         left: 0,
         right: 0,
-        toJSON: () => { },
+        toJSON: () => {},
         top: 0,
         width: 200,
         x: 0,
@@ -102,10 +121,20 @@ describe("<HueSlider />", () => {
         expect(newColor.h).to.be.equal(0);
       }
 
-      const renderedComponent = render(<HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={true} />);
+      const renderedComponent = render(
+        <HueSlider
+          hsv={hsv}
+          onHueChange={handleHueChange}
+          isHorizontal={true}
+        />
+      );
       const sliderDiv = renderedComponent.getByTestId("hue-slider");
-      sliderDiv.dispatchEvent(createBubbledEvent("mousedown", { pageX: 0, pageY: 0 }));
-      sliderDiv.dispatchEvent(createBubbledEvent("mouseup", { pageX: 0, pageY: 0 }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("mousedown", { pageX: 0, pageY: 0 })
+      );
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("mouseup", { pageX: 0, pageY: 0 })
+      );
     });
 
     it("point @200,0", () => {
@@ -114,16 +143,27 @@ describe("<HueSlider />", () => {
         expect(Math.abs(newColor.h - value)).to.be.lessThan(2);
       }
 
-      const renderedComponent = render(<HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={true} />);
+      const renderedComponent = render(
+        <HueSlider
+          hsv={hsv}
+          onHueChange={handleHueChange}
+          isHorizontal={true}
+        />
+      );
       const sliderDiv = renderedComponent.getByTestId("hue-slider");
       const pointerDiv = renderedComponent.getByTestId("hue-pointer");
-      pointerDiv.dispatchEvent(createBubbledEvent("mousedown", { pageX: 0, pageY: 0 }));
+      pointerDiv.dispatchEvent(
+        createBubbledEvent("mousedown", { pageX: 0, pageY: 0 })
+      );
       value = 180;
-      sliderDiv.dispatchEvent(createBubbledEvent("mousemove", { pageX: 100, pageY: 0 }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("mousemove", { pageX: 100, pageY: 0 })
+      );
       value = 359;
-      sliderDiv.dispatchEvent(createBubbledEvent("mouseup", { pageX: 200, pageY: 0 }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("mouseup", { pageX: 200, pageY: 0 })
+      );
     });
-
   });
 
   describe("using touch location - horizontal", () => {
@@ -136,13 +176,12 @@ describe("<HueSlider />", () => {
         height: 30,
         left: 0,
         right: 0,
-        toJSON: () => { },
+        toJSON: () => {},
         top: 0,
         width: 200,
         x: 0,
         y: 0,
       });
-
     });
 
     after(() => {
@@ -154,10 +193,20 @@ describe("<HueSlider />", () => {
         expect(newColor.h).to.be.equal(0);
       }
 
-      const renderedComponent = render(<HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={true} />);
+      const renderedComponent = render(
+        <HueSlider
+          hsv={hsv}
+          onHueChange={handleHueChange}
+          isHorizontal={true}
+        />
+      );
       const sliderDiv = renderedComponent.getByTestId("hue-slider");
-      sliderDiv.dispatchEvent(createBubbledEvent("touchstart", { touches: [{ pageX: 0, pageY: 0 }] }));
-      sliderDiv.dispatchEvent(createBubbledEvent("touchend", { touches: [{ pageX: 0, pageY: 0 }] }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("touchstart", { touches: [{ pageX: 0, pageY: 0 }] })
+      );
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("touchend", { touches: [{ pageX: 0, pageY: 0 }] })
+      );
     });
 
     it("point @200,0", () => {
@@ -166,14 +215,26 @@ describe("<HueSlider />", () => {
         expect(Math.abs(newColor.h - value)).to.be.lessThan(2);
       }
 
-      const renderedComponent = render(<HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={true} />);
+      const renderedComponent = render(
+        <HueSlider
+          hsv={hsv}
+          onHueChange={handleHueChange}
+          isHorizontal={true}
+        />
+      );
       const sliderDiv = renderedComponent.getByTestId("hue-slider");
       const pointerDiv = renderedComponent.getByTestId("hue-pointer");
-      pointerDiv.dispatchEvent(createBubbledEvent("touchstart", { touches: [{ pageX: 0, pageY: 0 }] }));
+      pointerDiv.dispatchEvent(
+        createBubbledEvent("touchstart", { touches: [{ pageX: 0, pageY: 0 }] })
+      );
       value = 180;
-      sliderDiv.dispatchEvent(createBubbledEvent("touchmove", { touches: [{ pageX: 100, pageY: 0 }] }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("touchmove", { touches: [{ pageX: 100, pageY: 0 }] })
+      );
       value = 359;
-      sliderDiv.dispatchEvent(createBubbledEvent("touchend", { touches: [{ pageX: 200, pageY: 0 }] }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("touchend", { touches: [{ pageX: 200, pageY: 0 }] })
+      );
     });
   });
 
@@ -187,7 +248,7 @@ describe("<HueSlider />", () => {
         height: 200,
         left: 0,
         right: 0,
-        toJSON: () => { },
+        toJSON: () => {},
         top: 0,
         width: 30,
         x: 0,
@@ -204,10 +265,22 @@ describe("<HueSlider />", () => {
         expect(newColor.h).to.be.equal(359);
       }
 
-      const renderedComponent = render(<div style={hueDivStyle}><HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={false} /></div>);
+      const renderedComponent = render(
+        <div style={hueDivStyle}>
+          <HueSlider
+            hsv={hsv}
+            onHueChange={handleHueChange}
+            isHorizontal={false}
+          />
+        </div>
+      );
       const sliderDiv = renderedComponent.getByTestId("hue-slider");
-      sliderDiv.dispatchEvent(createBubbledEvent("mousedown", { pageX: 0, pageY: 0 }));
-      sliderDiv.dispatchEvent(createBubbledEvent("mouseup", { pageX: 0, pageY: 0 }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("mousedown", { pageX: 0, pageY: 0 })
+      );
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("mouseup", { pageX: 0, pageY: 0 })
+      );
     });
 
     it("point @0,200", () => {
@@ -215,12 +288,23 @@ describe("<HueSlider />", () => {
         expect(newColor.h).to.be.equal(0);
       }
 
-      const renderedComponent = render(<div style={hueDivStyle}><HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={false} /></div>);
+      const renderedComponent = render(
+        <div style={hueDivStyle}>
+          <HueSlider
+            hsv={hsv}
+            onHueChange={handleHueChange}
+            isHorizontal={false}
+          />
+        </div>
+      );
       const sliderDiv = renderedComponent.getByTestId("hue-slider");
-      sliderDiv.dispatchEvent(createBubbledEvent("mousedown", { pageX: 0, pageY: 200 }));
-      sliderDiv.dispatchEvent(createBubbledEvent("mouseup", { pageX: 0, pageY: 200 }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("mousedown", { pageX: 0, pageY: 200 })
+      );
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("mouseup", { pageX: 0, pageY: 200 })
+      );
     });
-
   });
 
   describe("using touch location - vertical", () => {
@@ -233,13 +317,12 @@ describe("<HueSlider />", () => {
         height: 200,
         left: 0,
         right: 0,
-        toJSON: () => { },
+        toJSON: () => {},
         top: 0,
         width: 30,
         x: 0,
         y: 0,
       });
-
     });
 
     after(() => {
@@ -251,10 +334,22 @@ describe("<HueSlider />", () => {
         expect(newColor.h).to.be.equal(359);
       }
 
-      const renderedComponent = render(<div style={hueDivStyle}><HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={false} /></div>);
+      const renderedComponent = render(
+        <div style={hueDivStyle}>
+          <HueSlider
+            hsv={hsv}
+            onHueChange={handleHueChange}
+            isHorizontal={false}
+          />
+        </div>
+      );
       const sliderDiv = renderedComponent.getByTestId("hue-slider");
-      sliderDiv.dispatchEvent(createBubbledEvent("touchstart", { touches: [{ pageX: 0, pageY: 0 }] }));
-      sliderDiv.dispatchEvent(createBubbledEvent("touchend", { touches: [{ pageX: 0, pageY: 0 }] }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("touchstart", { touches: [{ pageX: 0, pageY: 0 }] })
+      );
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("touchend", { touches: [{ pageX: 0, pageY: 0 }] })
+      );
     });
 
     it("point @200,0", () => {
@@ -262,10 +357,24 @@ describe("<HueSlider />", () => {
         expect(newColor.h).to.be.equal(0);
       }
 
-      const renderedComponent = render(<div style={hueDivStyle}><HueSlider hsv={hsv} onHueChange={handleHueChange} isHorizontal={false} /></div>);
+      const renderedComponent = render(
+        <div style={hueDivStyle}>
+          <HueSlider
+            hsv={hsv}
+            onHueChange={handleHueChange}
+            isHorizontal={false}
+          />
+        </div>
+      );
       const sliderDiv = renderedComponent.getByTestId("hue-slider");
-      sliderDiv.dispatchEvent(createBubbledEvent("touchstart", { touches: [{ pageX: 0, pageY: 200 }] }));
-      sliderDiv.dispatchEvent(createBubbledEvent("touchend", { touches: [{ pageX: 0, pageY: 200 }] }));
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("touchstart", {
+          touches: [{ pageX: 0, pageY: 200 }],
+        })
+      );
+      sliderDiv.dispatchEvent(
+        createBubbledEvent("touchend", { touches: [{ pageX: 0, pageY: 200 }] })
+      );
     });
   });
 });

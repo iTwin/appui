@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -12,15 +12,21 @@ import type { NineZoneState } from "../state/NineZoneState";
 import type { PanelSide } from "../widget-panels/Panel";
 
 /** Check the docking side against allowed regions
-  * @internal
-  */
+ * @internal
+ */
 export function useAllowedSideTarget(side: PanelSide) {
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
-  return useLayout((state) => isAllowedSideTarget(state, draggedWidgetId, side));
+  return useLayout((state) =>
+    isAllowedSideTarget(state, draggedWidgetId, side)
+  );
 }
 
 /** @internal */
-export function isAllowedSideTarget(state: NineZoneState, draggedWidget: string | undefined, side: PanelSide) {
+export function isAllowedSideTarget(
+  state: NineZoneState,
+  draggedWidget: string | undefined,
+  side: PanelSide
+) {
   const draggedTab = state.draggedTab;
   const tabsState = state.tabs;
   const widgetsState = state.widgets;
@@ -29,18 +35,22 @@ export function isAllowedSideTarget(state: NineZoneState, draggedWidget: string 
   if (draggedTab) {
     const tab = tabsState[draggedTab.tabId];
     allowedPanelTargets = tab.allowedPanelTargets;
-  } else if (draggedWidget && draggedWidget in widgetsState) { // handle a case where DraggedWidgetIdContext exists, but dragged widget is not in WidgetsStateContet
+  } else if (draggedWidget && draggedWidget in widgetsState) {
+    // handle a case where DraggedWidgetIdContext exists, but dragged widget is not in WidgetsStateContet
     const widget = widgetsState[draggedWidget];
     const activeTabId = widget.activeTabId;
     const activeTab = tabsState[activeTabId];
     allowedPanelTargets = activeTab.allowedPanelTargets;
     widget.tabs.forEach((tabId) => {
       const tab = tabsState[tabId];
-      if (!allowedPanelTargets)
+      // istanbul ignore else
+      if (!allowedPanelTargets) {
         allowedPanelTargets = tab.allowedPanelTargets;
-      else /* istanbul ignore else */ if (tab.allowedPanelTargets !== undefined) {
+      } else if (tab.allowedPanelTargets !== undefined) {
         const tabPanelTargets = tab.allowedPanelTargets;
-        allowedPanelTargets = allowedPanelTargets.filter((x) => tabPanelTargets.includes(x));
+        allowedPanelTargets = allowedPanelTargets.filter((x) =>
+          tabPanelTargets.includes(x)
+        );
       }
     });
   }

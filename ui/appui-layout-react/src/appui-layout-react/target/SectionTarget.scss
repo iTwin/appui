@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/themecolors";
 @import "variables";
 
@@ -18,7 +18,7 @@
     flex-direction: column;
   }
 
-  >.nz-section {
+  > .nz-section {
     flex: 1;
     background-color: $section-background;
     pointer-events: none;
@@ -28,7 +28,7 @@
     }
   }
 
-  >.nz-border {
+  > .nz-border {
     flex: 0 0 $nz-widget-target-border-size;
     background-color: $nz-widget-target-border-color;
     pointer-events: none;
@@ -41,7 +41,7 @@
   &.nz-targeted {
     @include nz-targeted-widget-target;
 
-    >.nz-section {
+    > .nz-section {
       &.nz-target {
         background-color: $nz-opaque-outline-color;
       }

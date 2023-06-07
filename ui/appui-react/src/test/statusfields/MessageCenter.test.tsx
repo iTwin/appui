@@ -1,12 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
-import { IModelApp, NoRenderApp, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
+import {
+  IModelApp, NoRenderApp,
+  NotifyMessageDetails,
+  OutputMessagePriority,
+} from "@itwin/core-frontend";
 import { render, screen } from "@testing-library/react";
-import { MessageCenterField, MessageManager, StatusBar } from "../../appui-react";
+import {
+  MessageCenterField,
+  MessageManager,
+  StatusBar,
+} from "../../appui-react";
 import TestUtils, { childStructure, userEvent } from "../TestUtils";
 
 describe(`MessageCenter`, () => {
@@ -29,40 +37,56 @@ describe(`MessageCenter`, () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
 
-    const infoMessage = new NotifyMessageDetails(OutputMessagePriority.Info, "Info text.");
+    const infoMessage = new NotifyMessageDetails(
+      OutputMessagePriority.Info,
+      "Info text."
+    );
     MessageManager.addMessage(infoMessage);
-    const warningMessage = new NotifyMessageDetails(OutputMessagePriority.Warning, "Warning text.");
+    const warningMessage = new NotifyMessageDetails(
+      OutputMessagePriority.Warning,
+      "Warning text."
+    );
     MessageManager.addMessage(warningMessage);
-    const errorMessage = new NotifyMessageDetails(OutputMessagePriority.Error, "Error text.");
+    const errorMessage = new NotifyMessageDetails(
+      OutputMessagePriority.Error,
+      "Error text."
+    );
     MessageManager.addMessage(errorMessage);
-    const fatalMessage = new NotifyMessageDetails(OutputMessagePriority.Fatal, "Fatal text.");
+    const fatalMessage = new NotifyMessageDetails(
+      OutputMessagePriority.Fatal,
+      "Fatal text."
+    );
     MessageManager.addMessage(fatalMessage);
     expect(MessageManager.messages.length).to.eq(4);
 
-    render(<StatusBar><MessageCenterField /></StatusBar>);
+    render(
+      <StatusBar>
+        <MessageCenterField />
+      </StatusBar>
+    );
 
     await theUserTo.click(screen.getByRole("button"));
     // TODO: This only tests that icons are displayed. Should be replaced with visual testing.
-    expect(screen.getByText("Fatal text.", {
-      selector: ".nz-footer-messageCenter-message > .nz-content > span",
-    }).parentElement?.parentElement).to.satisfy(childStructure(
-      ".icon.core-svg-icon.icon.notifymessage-icon"
-    ));
-    expect(screen.getByText("Warning text.", {
-      selector: ".nz-footer-messageCenter-message > .nz-content > span",
-    }).parentElement?.parentElement).to.satisfy(childStructure(
-      ".icon.core-svg-icon.icon.notifymessage-icon"
-    ));
-    expect(screen.getByText("Error text.", {
-      selector: ".nz-footer-messageCenter-message > .nz-content > span",
-    }).parentElement?.parentElement).to.satisfy(childStructure(
-      ".icon.core-svg-icon.icon.notifymessage-icon"
-    ));
-    expect(screen.getByText("Info text.", {
-      selector: ".nz-footer-messageCenter-message > .nz-content > span",
-    }).parentElement?.parentElement).to.satisfy(childStructure(
-      ".icon.core-svg-icon.icon.notifymessage-icon"
-    ));
+    expect(
+      screen.getByText("Fatal text.", {
+        selector: ".nz-footer-messageCenter-message > .nz-content > span",
+      }).parentElement?.parentElement
+    ).to.satisfy(childStructure(".icon.core-svg-icon.icon.notifymessage-icon"));
+    expect(
+      screen.getByText("Warning text.", {
+        selector: ".nz-footer-messageCenter-message > .nz-content > span",
+      }).parentElement?.parentElement
+    ).to.satisfy(childStructure(".icon.core-svg-icon.icon.notifymessage-icon"));
+    expect(
+      screen.getByText("Error text.", {
+        selector: ".nz-footer-messageCenter-message > .nz-content > span",
+      }).parentElement?.parentElement
+    ).to.satisfy(childStructure(".icon.core-svg-icon.icon.notifymessage-icon"));
+    expect(
+      screen.getByText("Info text.", {
+        selector: ".nz-footer-messageCenter-message > .nz-content > span",
+      }).parentElement?.parentElement
+    ).to.satisfy(childStructure(".icon.core-svg-icon.icon.notifymessage-icon"));
     await theUserTo.click(screen.getByRole("button"));
   });
 
@@ -70,19 +94,32 @@ describe(`MessageCenter`, () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
 
-    const infoMessage = new NotifyMessageDetails(OutputMessagePriority.Info, "Info text.", "Detail text");
+    const infoMessage = new NotifyMessageDetails(
+      OutputMessagePriority.Info,
+      "Info text.",
+      "Detail text"
+    );
     MessageManager.addMessage(infoMessage);
-    const errorMessage = new NotifyMessageDetails(OutputMessagePriority.Error, "Error text.");
+    const errorMessage = new NotifyMessageDetails(
+      OutputMessagePriority.Error,
+      "Error text."
+    );
     MessageManager.addMessage(errorMessage);
     expect(MessageManager.messages.length).to.eq(2);
 
-    render(<StatusBar><MessageCenterField /></StatusBar>);
+    render(
+      <StatusBar>
+        <MessageCenterField />
+      </StatusBar>
+    );
 
     await theUserTo.click(screen.getByRole("button"));
 
     expect(screen.getByText("Info text.")).to.exist;
     expect(screen.getByText("Error text.")).to.exist;
-    expect(screen.getByRole("tablist")).to.have.property("childNodes").that.have.lengthOf(2);
+    expect(screen.getByRole("tablist"))
+      .to.have.property("childNodes")
+      .that.have.lengthOf(2);
 
     await theUserTo.click(screen.getByText("messageCenter.errors"));
 
@@ -96,7 +133,13 @@ describe(`MessageCenter`, () => {
   });
 
   it("Message Center should close on outside click", async () => {
-    render(<div title="outside"><StatusBar><MessageCenterField /></StatusBar></div>);
+    render(
+      <div title="outside">
+        <StatusBar>
+          <MessageCenterField />
+        </StatusBar>
+      </div>
+    );
     await theUserTo.click(screen.getByRole("button"));
 
     expect(screen.getByRole("tablist")).to.exist;
@@ -107,7 +150,11 @@ describe(`MessageCenter`, () => {
   });
 
   it("Message Center should open on OpenMessageCenterEvent", async () => {
-    render(<StatusBar><MessageCenterField /></StatusBar>);
+    render(
+      <StatusBar>
+        <MessageCenterField />
+      </StatusBar>
+    );
     expect(screen.queryByRole("tablist")).to.be.null;
     MessageManager.onOpenMessageCenterEvent.emit({});
     expect(await screen.findByRole("tablist")).to.exist;

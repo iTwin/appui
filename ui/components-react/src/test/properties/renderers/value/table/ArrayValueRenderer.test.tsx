@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import type { ArrayValue } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
@@ -11,14 +11,17 @@ import TestUtils from "../../../../TestUtils";
 
 describe("ArrayValueRenderer", () => {
   it("renders correctly", () => {
-    const record = TestUtils.createArrayProperty("Pipes", [TestUtils.createPrimitiveStringProperty("Label", "Model")]);
+    const record = TestUtils.createArrayProperty("Pipes", [
+      TestUtils.createPrimitiveStringProperty("Label", "Model"),
+    ]);
 
     const renderer = render(
       <TableArrayValueRenderer
-        onDialogOpen={() => { }}
+        onDialogOpen={() => {}}
         orientation={Orientation.Horizontal}
         propertyRecord={record}
-      />);
+      />
+    );
 
     // Verify that string[1] gets rendered. Throws otherwise
     renderer.getByText("string[1]");
@@ -30,10 +33,11 @@ describe("ArrayValueRenderer", () => {
 
     const renderer = render(
       <TableArrayValueRenderer
-        onDialogOpen={() => { }}
+        onDialogOpen={() => {}}
         orientation={Orientation.Horizontal}
         propertyRecord={record}
-      />);
+      />
+    );
 
     // Verify that string[1] gets rendered. Throws otherwise
     renderer.getByText("[]");

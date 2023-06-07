@@ -1,23 +1,26 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import type { DialogChangedEventArgs} from "../../appui-react";
-import { ModelessDialog, ModelessDialogRenderer, UiFramework } from "../../appui-react";
+import type { DialogChangedEventArgs } from "../../appui-react";
+import {
+  ModelessDialog,
+  ModelessDialogRenderer,
+  UiFramework,
+} from "../../appui-react";
 import TestUtils, { userEvent } from "../TestUtils";
 import { render, screen, waitFor } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { InternalModelessDialogManager } from "../../appui-react/dialog/InternalModelessDialogManager";
-/* eslint-disable deprecation/deprecation */
 
 describe("InternalModelessDialogManager", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   const spyMethod = sinon.spy();
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
     InternalModelessDialogManager.closeAll();
     spyMethod.resetHistory();
@@ -31,22 +34,24 @@ describe("InternalModelessDialogManager", () => {
     await TestUtils.initializeUiFramework(true);
     await NoRenderApp.startup();
 
-    UiFramework.dialogs.modeless.onModelessDialogChangedEvent.addListener(handleModelessDialogChanged);
+    UiFramework.dialogs.modeless.onModelessDialogChangedEvent.addListener(
+      handleModelessDialogChanged
+    );
   });
 
   after(async () => {
-    InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(handleModelessDialogChanged);
+    InternalModelessDialogManager.onModelessDialogChangedEvent.removeListener(
+      handleModelessDialogChanged
+    );
     await IModelApp.shutdown();
     TestUtils.terminateUiFramework(); // clear out the framework key
   });
 
   it("ModelessDialogManager methods", () => {
     const dialogId = "Test1";
-    const reactNode = <ModelessDialog
-      opened={true}
-      title="My Title"
-      dialogId={dialogId}
-    />;
+    const reactNode = (
+      <ModelessDialog opened={true} title="My Title" dialogId={dialogId} />
+    );
 
     expect(UiFramework.dialogs.modeless.count).to.eq(0);
     UiFramework.dialogs.modeless.open(reactNode, dialogId);
@@ -77,11 +82,9 @@ describe("InternalModelessDialogManager", () => {
 
   it("ModelessDialogRenderer component", async () => {
     const dialogId = "Test1";
-    const reactNode = <ModelessDialog
-      opened={true}
-      title="My Title"
-      dialogId={dialogId}
-    />;
+    const reactNode = (
+      <ModelessDialog opened={true} title="My Title" dialogId={dialogId} />
+    );
 
     render(<ModelessDialogRenderer />);
 
@@ -99,18 +102,14 @@ describe("InternalModelessDialogManager", () => {
 
   it("ModelessDialogRenderer component with two dialogs", async () => {
     const dialogId1 = "Test1";
-    const reactNode1 = <ModelessDialog
-      opened={true}
-      title="My Title"
-      dialogId={dialogId1}
-    />;
+    const reactNode1 = (
+      <ModelessDialog opened={true} title="My Title" dialogId={dialogId1} />
+    );
 
     const dialogId2 = "Test2";
-    const reactNode2 = <ModelessDialog
-      opened={true}
-      title="My Title 2"
-      dialogId={dialogId2}
-    />;
+    const reactNode2 = (
+      <ModelessDialog opened={true} title="My Title 2" dialogId={dialogId2} />
+    );
 
     render(<ModelessDialogRenderer />);
 
@@ -142,18 +141,14 @@ describe("InternalModelessDialogManager", () => {
 
   it("ModelessDialogRenderer component with two dialogs closed in FIFO order", async () => {
     const dialogId1 = "Test1";
-    const reactNode1 = <ModelessDialog
-      opened={true}
-      title="My Title"
-      dialogId={dialogId1}
-    />;
+    const reactNode1 = (
+      <ModelessDialog opened={true} title="My Title" dialogId={dialogId1} />
+    );
 
     const dialogId2 = "Test2";
-    const reactNode2 = <ModelessDialog
-      opened={true}
-      title="My Title 2"
-      dialogId={dialogId2}
-    />;
+    const reactNode2 = (
+      <ModelessDialog opened={true} title="My Title 2" dialogId={dialogId2} />
+    );
 
     render(<ModelessDialogRenderer />);
 
@@ -185,18 +180,14 @@ describe("InternalModelessDialogManager", () => {
 
   it("ModelessDialogRenderer component with two dialogs and bring forward", async () => {
     const dialogId1 = "Test1";
-    const reactNode1 = <ModelessDialog
-      opened={true}
-      title="My Title"
-      dialogId={dialogId1}
-    />;
+    const reactNode1 = (
+      <ModelessDialog opened={true} title="My Title" dialogId={dialogId1} />
+    );
 
     const dialogId2 = "Test2";
-    const reactNode2 = <ModelessDialog
-      opened={true}
-      title="My Title 2"
-      dialogId={dialogId2}
-    />;
+    const reactNode2 = (
+      <ModelessDialog opened={true} title="My Title 2" dialogId={dialogId2} />
+    );
 
     render(<ModelessDialogRenderer />);
 
@@ -226,5 +217,4 @@ describe("InternalModelessDialogManager", () => {
     UiFramework.dialogs.modeless.close(dialogId2);
     expect(UiFramework.dialogs.modeless.count).to.eq(0);
   });
-
 });

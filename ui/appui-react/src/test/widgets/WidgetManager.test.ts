@@ -1,18 +1,31 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
-import type { UiItemsProvider, Widget} from "../../appui-react";
-import { StagePanelLocation, StagePanelSection, StageUsage, UiItemsManager, WidgetDef, WidgetManager, WidgetState } from "../../appui-react";
+import type { UiItemsProvider, Widget } from "../../appui-react";
+import {
+  StagePanelLocation,
+  StagePanelSection,
+  StageUsage,
+  UiItemsManager,
+  WidgetDef,
+  WidgetManager,
+  WidgetState,
+} from "../../appui-react";
 import { TestUtils } from "../TestUtils";
 
 class TestUiProvider implements UiItemsProvider {
   public readonly id = "TestUiProvider-Widget";
 
-  public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, _section?: StagePanelSection): ReadonlyArray<Widget> {
+  public provideWidgets(
+    stageId: string,
+    _stageUsage: string,
+    location: StagePanelLocation,
+    _section?: StagePanelSection
+  ): ReadonlyArray<Widget> {
     const widgets: Widget[] = [];
     if (stageId === "TestStage" && location === StagePanelLocation.Right) {
       widgets.push({
@@ -24,7 +37,10 @@ class TestUiProvider implements UiItemsProvider {
         id: "test3",
         content: "Hello World!",
       });
-    } else if (stageId === "TestStageWithFloatingWidgets" && location === StagePanelLocation.Right) {
+    } else if (
+      stageId === "TestStageWithFloatingWidgets" &&
+      location === StagePanelLocation.Right
+    ) {
       widgets.push({
         id: "test-floating-1",
         content: "Hello World!",
@@ -44,7 +60,6 @@ class TestUiProvider implements UiItemsProvider {
         canFloat: true,
         priority: 100,
       });
-
     }
     return widgets;
   }
@@ -62,7 +77,12 @@ describe("WidgetManager", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, undefined, undefined, StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      undefined,
+      undefined,
+      StagePanelLocation.Bottom
+    );
     spyMethod.calledOnce.should.true;
   });
 
@@ -70,7 +90,12 @@ describe("WidgetManager", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, "TestStage", undefined, StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      "TestStage",
+      undefined,
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgets.length).to.eq(1);
   });
 
@@ -78,7 +103,12 @@ describe("WidgetManager", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      undefined,
+      "TestUsage",
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(1);
   });
 
@@ -87,13 +117,23 @@ describe("WidgetManager", () => {
       id: "test1",
     });
 
-    widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      undefined,
+      "TestUsage",
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(1);
 
     const widgetDef2 = WidgetDef.create({
       id: "test2",
     });
-    widgetManager.addWidgetDef(widgetDef2, "TestStage", undefined, StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef2,
+      "TestStage",
+      undefined,
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(2);
   });
 
@@ -101,9 +141,19 @@ describe("WidgetManager", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      undefined,
+      "TestUsage",
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(1);
-    widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      undefined,
+      "TestUsage",
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(1);
   });
 
@@ -111,61 +161,98 @@ describe("WidgetManager", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, "TestStage", undefined, StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      "TestStage",
+      undefined,
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(1);
 
-    const widgetDefs = widgetManager.getWidgetDefs("TestStage", StageUsage.General, StagePanelLocation.Bottom);
+    const widgetDefs = widgetManager.getWidgetDefs(
+      "TestStage",
+      StageUsage.General,
+      StagePanelLocation.Bottom
+    );
     expect(widgetDefs).to.not.be.undefined;
-    if (widgetDefs)
-      expect(widgetDefs.length).to.eq(1);
+    if (widgetDefs) expect(widgetDefs.length).to.eq(1);
   });
 
   it("getWidgetDefs should find a WidgetDef targeting a stageUsage", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, undefined, "TestUsage", StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      undefined,
+      "TestUsage",
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(1);
 
-    const widgetDefs = widgetManager.getWidgetDefs("TestStage", "TestUsage", StagePanelLocation.Bottom);
+    const widgetDefs = widgetManager.getWidgetDefs(
+      "TestStage",
+      "TestUsage",
+      StagePanelLocation.Bottom
+    );
     expect(widgetDefs).to.not.be.undefined;
-    if (widgetDefs)
-      expect(widgetDefs.length).to.eq(1);
+    if (widgetDefs) expect(widgetDefs.length).to.eq(1);
   });
 
   it("getWidgetDefs should find a WidgetDef with location & section", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, "TestStage", "TestUsage", StagePanelLocation.Bottom, StagePanelSection.Start);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      "TestStage",
+      "TestUsage",
+      StagePanelLocation.Bottom,
+      StagePanelSection.Start
+    );
     expect(widgetManager.widgetCount).to.eq(1);
 
-    const widgetDefs = widgetManager.getWidgetDefs("TestStage", "TestUsage", StagePanelLocation.Bottom, StagePanelSection.Start);
+    const widgetDefs = widgetManager.getWidgetDefs(
+      "TestStage",
+      "TestUsage",
+      StagePanelLocation.Bottom,
+      StagePanelSection.Start
+    );
     expect(widgetDefs).to.not.be.undefined;
-    if (widgetDefs)
-      expect(widgetDefs.length).to.eq(1);
+    if (widgetDefs) expect(widgetDefs.length).to.eq(1);
   });
 
   it("getWidgetDefs should get a WidgetDef from an 'addon' UiItemsProvider", async () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, "TestStage", undefined, StagePanelLocation.Right);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      "TestStage",
+      undefined,
+      StagePanelLocation.Right
+    );
     expect(widgetManager.widgetCount).to.eq(1);
 
     const testUiProvider = new TestUiProvider();
     UiItemsManager.register(testUiProvider);
     await TestUtils.flushAsyncOperations();
 
-    const widgetDefs = widgetManager.getWidgetDefs("TestStage", StageUsage.General, StagePanelLocation.Right);
+    const widgetDefs = widgetManager.getWidgetDefs(
+      "TestStage",
+      StageUsage.General,
+      StagePanelLocation.Right
+    );
     expect(widgetDefs).to.not.be.undefined;
-    if (widgetDefs)
-      expect(widgetDefs.length).to.eq(2);
+    if (widgetDefs) expect(widgetDefs.length).to.eq(2);
 
-    const zoneWidgetDefs = widgetManager.getWidgetDefs("TestStage", StageUsage.General, StagePanelLocation.Bottom);
+    const zoneWidgetDefs = widgetManager.getWidgetDefs(
+      "TestStage",
+      StageUsage.General,
+      StagePanelLocation.Bottom
+    );
     expect(zoneWidgetDefs).to.not.be.undefined;
-    if (zoneWidgetDefs)
-      expect(zoneWidgetDefs.length).to.eq(1);
+    if (zoneWidgetDefs) expect(zoneWidgetDefs.length).to.eq(1);
 
     UiItemsManager.unregister(testUiProvider.id);
   });
@@ -175,7 +262,11 @@ describe("WidgetManager", () => {
     UiItemsManager.register(testUiProvider);
     await TestUtils.flushAsyncOperations();
 
-    const widgetDefs = widgetManager.getWidgetDefs("TestStageWithFloatingWidgets", StageUsage.General, StagePanelLocation.Right);
+    const widgetDefs = widgetManager.getWidgetDefs(
+      "TestStageWithFloatingWidgets",
+      StageUsage.General,
+      StagePanelLocation.Right
+    );
     expect(widgetDefs).to.not.be.undefined;
     expect(widgetDefs?.length).to.eq(2);
     expect(widgetDefs?.[0].floatingContainerId).to.eq("my-floating-container");
@@ -187,10 +278,20 @@ describe("WidgetManager", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, "TestStage", "TestUsage", StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      "TestStage",
+      "TestUsage",
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(1);
 
-    const widgetDefs = widgetManager.getWidgetDefs("NotUsage", "NotStage", StagePanelLocation.Bottom, StagePanelSection.Start);
+    const widgetDefs = widgetManager.getWidgetDefs(
+      "NotUsage",
+      "NotStage",
+      StagePanelLocation.Bottom,
+      StagePanelSection.Start
+    );
     expect(widgetDefs).to.be.undefined;
   });
 
@@ -198,7 +299,12 @@ describe("WidgetManager", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, "TestStage", "TestUsage", StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      "TestStage",
+      "TestUsage",
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(1);
 
     const result = widgetManager.removeWidgetDef("test");
@@ -210,12 +316,16 @@ describe("WidgetManager", () => {
     const widgetDef = WidgetDef.create({
       id: "test",
     });
-    widgetManager.addWidgetDef(widgetDef, "TestStage", "TestUsage", StagePanelLocation.Bottom);
+    widgetManager.addWidgetDef(
+      widgetDef,
+      "TestStage",
+      "TestUsage",
+      StagePanelLocation.Bottom
+    );
     expect(widgetManager.widgetCount).to.eq(1);
 
     const result = widgetManager.removeWidgetDef("test2");
     expect(result).to.be.false;
     expect(widgetManager.widgetCount).to.eq(1);
   });
-
 });

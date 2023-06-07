@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module UiProvider
  */
@@ -22,13 +22,19 @@ enum LayoutMode {
  * Component to provide grid of property editors
  * @public
  */
-export function ToolSettingsGridContainer({ componentGenerator }: { componentGenerator: ComponentGenerator }) {
-  const { availableContentWidth } = React.useContext(ToolSettingsContentContext);
+export function ToolSettingsGridContainer({
+  componentGenerator,
+}: {
+  componentGenerator: ComponentGenerator;
+}) {
+  const { availableContentWidth } = React.useContext(
+    ToolSettingsContentContext
+  );
   const layoutMode = toLayoutMode(availableContentWidth);
   const className = classnames(
     "uifw-tool-settings-grid-container",
     // istanbul ignore next
-    LayoutMode.Narrow === layoutMode && "uifw-default-narrow",
+    LayoutMode.Narrow === layoutMode && "uifw-default-narrow"
   );
   return (
     <DialogGridContainer
@@ -45,15 +51,18 @@ interface DialogGridContainerProps {
 
 /** @internal */
 // istanbul ignore next
-export function DialogGridContainer({ componentGenerator, containerClassName }: DialogGridContainerProps) {
-  const className = classnames(
-    "uifw-default-container",
-    containerClassName,
-  );
+export function DialogGridContainer({
+  componentGenerator,
+  containerClassName,
+}: DialogGridContainerProps) {
+  const className = classnames("uifw-default-container", containerClassName);
   return (
     <div className="uifw-default-resizer-parent">
       <div className={className}>
-        {componentGenerator.uiDataProvider.rows.map((row: DialogRow, index: number) => componentGenerator.getRow(row, index))}
+        {componentGenerator.uiDataProvider.rows.map(
+          (row: DialogRow, index: number) =>
+            componentGenerator.getRow(row, index)
+        )}
       </div>
     </div>
   );
@@ -62,13 +71,23 @@ export function DialogGridContainer({ componentGenerator, containerClassName }: 
 /** DefaultDialogGridContainer populates a React node with the items specified by the UiLayoutDataProvider
  * @public
  */
-export function DefaultDialogGridContainer({ componentGenerator, isToolSettings }: { componentGenerator: ComponentGenerator, isToolSettings?: boolean }) {
-  return (!!isToolSettings ?
-    <ToolSettingsGridContainer componentGenerator={componentGenerator} /> :
+export function DefaultDialogGridContainer({
+  componentGenerator,
+  isToolSettings,
+}: {
+  componentGenerator: ComponentGenerator;
+  isToolSettings?: boolean;
+}) {
+  return !!isToolSettings ? (
+    <ToolSettingsGridContainer componentGenerator={componentGenerator} />
+  ) : (
     /* istanbul ignore next */
-    <DialogGridContainer componentGenerator={componentGenerator} />);
+    <DialogGridContainer componentGenerator={componentGenerator} />
+  );
 }
 
 const toLayoutMode = (width: number) => {
-  return (width < 250 && width > 0) ? /* istanbul ignore next */ LayoutMode.Narrow : LayoutMode.Wide;
+  return width < 250 && width > 0
+    ? /* istanbul ignore next */ LayoutMode.Narrow
+    : LayoutMode.Wide;
 };

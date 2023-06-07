@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tabs
  */
@@ -20,25 +20,27 @@ import { IconHelper } from "../utils/IconHelper";
 export interface TabLabel {
   label: string;
   subLabel?: string;
-  icon?: string | React.JSX.Element;
-  tabId: string; /* optional id added to tab so it can be used by react-tooltip  */
-  /** tooltip allows React.JSX.Element to support styled tooltips like react-tooltip. */
-  tooltip?: string | React.JSX.Element;
+  icon?: string | JSX.Element;
+  tabId: string /* optional id added to tab so it can be used by react-tooltip  */;
+  /** tooltip allows JSX.Element to support styled tooltips like react-tooltip. */
+  tooltip?: string | JSX.Element;
   disabled?: boolean;
 }
 
 function isTabLabelWithIcon(item: string | TabLabel): item is TabLabel {
-  return (typeof item !== "string") && !!(item).icon;
+  return typeof item !== "string" && !!item.icon;
 }
 
 function isTabLabel(item: string | TabLabel): item is TabLabel {
-  return (typeof item !== "string");
+  return typeof item !== "string";
 }
 
 /** Properties for the [[VerticalTabs]] component
  * @public
  */
-export interface TabsProps extends React.AllHTMLAttributes<HTMLUListElement>, CommonProps {
+export interface TabsProps
+  extends React.AllHTMLAttributes<HTMLUListElement>,
+    CommonProps {
   /** Text shown for each tab
    * @public */
   labels: Array<string | TabLabel>;
@@ -82,14 +84,18 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
       activeIndex,
     };
 
-    props.labels.forEach(() => this._anchorRefs.push(React.createRef<HTMLAnchorElement>()));
-    this._itemKeyboardNavigator = new ItemKeyboardNavigator(this._handleFocusItem, this._activateTab);
+    props.labels.forEach(() =>
+      this._anchorRefs.push(React.createRef<HTMLAnchorElement>())
+    );
+    this._itemKeyboardNavigator = new ItemKeyboardNavigator(
+      this._handleFocusItem,
+      this._activateTab
+    );
   }
 
   private validateActiveIndex(idx?: number): number {
     let activeIndex = 0;
-    if (idx && idx >= 0 && idx < this.props.labels.length)
-      activeIndex = idx;
+    if (idx && idx >= 0 && idx < this.props.labels.length) activeIndex = idx;
     return activeIndex;
   }
 
@@ -111,8 +117,7 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
       let hadFocus = false;
       const element = this._anchorRefs[this.state.activeIndex].current;
       // istanbul ignore else
-      if (element && document.activeElement === element)
-        hadFocus = true;
+      if (element && document.activeElement === element) hadFocus = true;
       const activeIndex = this.validateActiveIndex(this.props.activeIndex);
 
       this.setState(
@@ -122,18 +127,17 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
           if (hadFocus) {
             const newElement = this._anchorRefs[activeIndex].current;
             // istanbul ignore else
-            if (newElement)
-              newElement.focus();
+            if (newElement) newElement.focus();
           }
-        });
+        }
+      );
     }
   }
 
   private _handleFocusItem = (index: number) => {
     const itemRef = this._anchorRefs[index];
     // istanbul ignore else
-    if (itemRef && itemRef.current)
-      itemRef.current.focus();
+    if (itemRef && itemRef.current) itemRef.current.focus();
   };
 
   private _handleTabClick = (index: number) => {
@@ -160,15 +164,25 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
     const ulClassNames = classnames(
       this.props.mainClassName,
       this.props.green && "uicore-tabs-green",
-      this.props.className,
+      this.props.className
     );
 
-    const anyIconsPresent = (this.props.labels.reduce((a, b) => a + (isTabLabelWithIcon(b) ? 1 : 0), 0)) > 0;
+    const anyIconsPresent =
+      this.props.labels.reduce(
+        (a, b) => a + (isTabLabelWithIcon(b) ? 1 : 0),
+        0
+      ) > 0;
 
     return (
-      <ul className={ulClassNames} style={this.props.style}
+      <ul
+        className={ulClassNames}
+        style={this.props.style}
         role="tablist"
-        aria-orientation={this.props.orientation === Orientation.Vertical ? "vertical" : "horizontal"}
+        aria-orientation={
+          this.props.orientation === Orientation.Vertical
+            ? "vertical"
+            : "horizontal"
+        }
       >
         {this.props.labels.map((label, index) => {
           let disabled;
@@ -184,35 +198,54 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
             tabId = label.tabId;
             if (React.isValidElement(label.tooltip))
               tooltipElement = label.tooltip;
-            else if (typeof label.tooltip === "string")
-              title = label.tooltip;
+            else if (typeof label.tooltip === "string") title = label.tooltip;
           }
-          return <li key={index} title={title}
-            className={classnames(index === this.state.activeIndex && "core-active", disabled && "core-tab-item-disabled")}
-            role="tab"
-            aria-selected={index === this.state.activeIndex}
-            data-for={`${tabId}`} /* to support react-tooltip */
-          >
-            {tooltipElement}
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a ref={this._anchorRefs[index]}
-              tabIndex={index === this.state.activeIndex ? 0 : -1}
-              onClick={() => this._handleTabClick(index)}
-              onKeyDown={(event) => this._handleKeyDownEvent(event, index)}
-              onKeyUp={(event) => this._handleKeyUpEvent(event, index)}
-              data-testid={`${tabId}`}
-              role="button"
-            > <div className={classnames("uicore-tabs-inline-label", disabled && "core-tab-item-disabled")}>
-                {anyIconsPresent && <span className="uicore-tabs-icon">{icon}</span>}
-                <div className="uicore-tabs-label-subLabel-container">
-                  <span>{(typeof label === "string") ? label : label.label}</span>
-                  {subLabel && <span className="uicore-tabs-subLabel">{subLabel}</span>}
+          return (
+            <li
+              key={index}
+              title={title}
+              className={classnames(
+                index === this.state.activeIndex && "core-active",
+                disabled && "core-tab-item-disabled"
+              )}
+              role="tab"
+              aria-selected={index === this.state.activeIndex}
+              data-for={`${tabId}`} /* to support react-tooltip */
+            >
+              {tooltipElement}
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a
+                ref={this._anchorRefs[index]}
+                tabIndex={index === this.state.activeIndex ? 0 : -1}
+                onClick={() => this._handleTabClick(index)}
+                onKeyDown={(event) => this._handleKeyDownEvent(event, index)}
+                onKeyUp={(event) => this._handleKeyUpEvent(event, index)}
+                data-testid={`${tabId}`}
+                role="button"
+              >
+                {" "}
+                <div
+                  className={classnames(
+                    "uicore-tabs-inline-label",
+                    disabled && "core-tab-item-disabled"
+                  )}
+                >
+                  {anyIconsPresent && (
+                    <span className="uicore-tabs-icon">{icon}</span>
+                  )}
+                  <div className="uicore-tabs-label-subLabel-container">
+                    <span>
+                      {typeof label === "string" ? label : label.label}
+                    </span>
+                    {subLabel && (
+                      <span className="uicore-tabs-subLabel">{subLabel}</span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </a>
-          </li>;
-        }
-        )}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     );
   }

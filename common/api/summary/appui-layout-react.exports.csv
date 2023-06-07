@@ -147,7 +147,6 @@ internal;PanelSetSizeAction
 internal;PanelSetSplitterPercentAction
 internal;PanelSide = VerticalPanelSide | HorizontalPanelSide
 internal;PanelSideContext: React_2.Context
-internal;panelSides: [LeftPanelSide, RightPanelSide, TopPanelSide, BottomPanelSide]
 internal;PanelsState
 internal;PanelState
 internal;PanelTabLocation
@@ -246,7 +245,7 @@ internal;useDragPanelGrip(args: UseDragPanelGripArgs): ({ initialPointerPosition
 internal;UseDragPanelGripArgs
 internal;useDragResizeHandle(args: UseDragResizeHandleArgs): ({ initialPointerPosition }: DragStartArgs) => void
 internal;UseDragResizeHandleArgs
-internal;useDragTab(args: UseDragTabArgs): ({ initialPointerPosition, pointerPosition, widgetSize }: TabDragStartArgs) => void
+internal;useDragTab(args: UseDragTabArgs): ({ initialPointerPosition, pointerPosition, widgetSize, }: TabDragStartArgs) => void
 internal;UseDragTabArgs
 internal;useDragToolSettings(args: UseDragToolSettingsArgs): ({ initialPointerPosition }: DragStartArgs) => void
 internal;UseDragToolSettingsArgs
@@ -325,7 +324,7 @@ internal;WidgetTabDragEndAction
 internal;WidgetTabDragStartAction
 internal;WidgetTabPopoutAction
 internal;WidgetTabProps 
-internal;WidgetTabProvider({ id, first, firstInactive, last, showOnlyTabIcon }: WidgetTabProviderProps): JSX.Element
+internal;WidgetTabProvider({ id, first, firstInactive, last, showOnlyTabIcon, }: WidgetTabProviderProps): JSX.Element
 internal;WidgetTabProviderProps 
 internal;WidgetTabs(): JSX.Element
 internal;WidgetTabsEntryContext: React_2.Context

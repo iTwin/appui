@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
@@ -10,13 +10,14 @@ import { UiIModelComponents } from "../imodel-components-react";
 import TestUtils from "./TestUtils";
 
 describe("UiIModelComponents", () => {
-
   beforeEach(() => {
     TestUtils.terminateUiIModelComponents();
   });
 
   it("i18nNamespace should return 'UiIModelComponents'", () => {
-    expect(UiIModelComponents.localizationNamespace).to.eq("UiIModelComponents");
+    expect(UiIModelComponents.localizationNamespace).to.eq(
+      "UiIModelComponents"
+    );
   });
 
   it("packageName should return 'imodel-components-react'", () => {
@@ -57,5 +58,4 @@ describe("UiIModelComponents", () => {
     const category = UiIModelComponents.loggerCategory(undefined);
     expect(category).to.eq(UiIModelComponents.packageName);
   });
-
 });
