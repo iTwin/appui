@@ -118,18 +118,6 @@
     "lines": 100
   },
   "eslintConfig": {
-    "plugins": [
-      "@itwin",
-      "jsx-a11y"
-    ],
-    "extends": [
-      "plugin:@itwin/ui",
-      "plugin:@itwin/jsdoc",
-      "prettier"
-    ],
-    "rules": {
-      "@typescript-eslint/consistent-type-imports": "error",
-      "no-duplicate-imports": "off"
-    }
+    "extends": "../.eslintrc.base.json"
   }
 }
