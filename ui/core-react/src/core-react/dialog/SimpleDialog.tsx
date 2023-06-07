@@ -137,11 +137,13 @@ export class SimpleDialog extends React.Component<SimpleDialogProps> {
         isDraggable={false}
         trapFocus={trapFocus && modal}
         preventDocumentScroll={true}
+        data-testid="core-dialog-root"
         {...props}
       >
         {modal && <Dialog.Backdrop />}
         <DivWithOutsideClick onOutsideClick={onOutsideClick}>
           <Dialog.Main
+            data-testid="core-dialog-container"
             style={dialogBaseContainerStyle}
             onPointerDown={this._handleContainerPointerDown}
           >
