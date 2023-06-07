@@ -129,7 +129,6 @@ export class Calculator extends React.PureComponent<
   }
 
   public override render() {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { className, resultIcon, onOk, onCancel, initialValue, ...props } =
       this.props;
 
@@ -367,7 +366,7 @@ class ValueButton extends React.PureComponent<ValueButtonProps> {
   };
 
   public override render() {
-    const { className, keyChar, onClick, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { className, keyChar, onClick, ...props } = this.props;
 
     const itemClassNames = classnames("uifw-calculator-item", className);
 
@@ -398,7 +397,7 @@ class OperatorButton extends React.PureComponent<OperatorButtonProps> {
   };
 
   public override render() {
-    const { className, children, operator, onClick, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { className, children, operator, onClick, ...props } = this.props;
 
     const itemClassNames = classnames("uifw-calculator-item", className);
 
