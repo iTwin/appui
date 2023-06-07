@@ -20,10 +20,10 @@ import { IconHelper } from "../utils/IconHelper";
 export interface TabLabel {
   label: string;
   subLabel?: string;
-  icon?: string | JSX.Element;
+  icon?: string | React.JSX.Element;
   tabId: string /* optional id added to tab so it can be used by react-tooltip  */;
-  /** tooltip allows JSX.Element to support styled tooltips like react-tooltip. */
-  tooltip?: string | JSX.Element;
+  /** tooltip allows React.JSX.Element to support styled tooltips like react-tooltip. */
+  tooltip?: string | React.JSX.Element;
   disabled?: boolean;
 }
 

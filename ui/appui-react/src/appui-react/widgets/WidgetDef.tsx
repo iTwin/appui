@@ -473,7 +473,8 @@ export class WidgetDef {
       targets && targets?.length > 0 ? targets : undefined;
   }
 
-  public onWidgetStateChanged(): void {
+    public onWidgetStateChanged(): void {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.widgetControl &&
       UiFramework.postTelemetry(
         `Widget ${

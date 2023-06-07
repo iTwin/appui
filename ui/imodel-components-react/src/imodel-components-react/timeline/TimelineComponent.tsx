@@ -450,7 +450,7 @@ export class TimelineComponent extends React.Component<
     index: number,
     currentTimelineDuration: number,
     close: () => void
-  ): JSX.Element {
+  ): React.JSX.Element {
     const label = item.label;
     const checked = currentTimelineDuration === item.timelineDuration;
     const icon = checked ? (
@@ -475,7 +475,7 @@ export class TimelineComponent extends React.Component<
   }
 
   private _renderSettings = () => {
-    const createMenuItemNodes = (close: () => void): JSX.Element[] => {
+    const createMenuItemNodes = (close: () => void): React.JSX.Element[] => {
       const { totalDuration } = this.state;
       let contextMenuItems: Array<TimelineMenuItemProps> = [];
 

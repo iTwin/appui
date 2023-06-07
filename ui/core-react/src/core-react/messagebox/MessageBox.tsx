@@ -192,7 +192,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
     return iconSpec;
   }
 
-  public override render(): JSX.Element {
+  public override render(): React.JSX.Element {
     const iconClassName = classnames("icon", "core-message-box-icon");
 
     const iconSpec = MessageContainer.getIcon(this.props.severity);
