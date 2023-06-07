@@ -9,7 +9,7 @@
 import "./Dialog.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { DialogButtonDef } from "@itwin/appui-abstract";
+import type { DialogButtonDef} from "@itwin/appui-abstract";
 import { DialogButtonType, SpecialKey } from "@itwin/appui-abstract";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
@@ -19,7 +19,6 @@ import { FocusTrap } from "../focustrap/FocusTrap";
 import { Button } from "@itwin/itwinui-react";
 import { Icon } from "../icons/IconComponent";
 import { SvgClose } from "@itwin/itwinui-icons-react";
-import { Dialog as DialogBase } from "@itwin/itwinui-react"
 
 // cspell:ignore focustrap
 
@@ -277,41 +276,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       </div>
     );
 
-    const dialogBaseStyle: React.CSSProperties = inset ? { ...containerStyle, ...minMaxStyle } : { ...containerStyle, ...minMaxStyle, padding: 0 }
-    const dialogBaseHeader = header ? header : <DialogBase.TitleBar titleText={title} style={titleStyle} />
-    const dialogBaseFooter = footer ? <div style={footerStyle}>{footer}</div> : <DialogBase.ButtonBar style={footerStyle}>{this.getBaseDialogFooterButtons(this.props)}</DialogBase.ButtonBar>
-    return (
-      <DialogBase
-        isOpen={opened}
-        onClose={onClose}
-        closeOnExternalClick={false}
-        closeOnEsc={false}
-        style={divStyle}
-        className={className}
-        isResizable={resizable}
-        isDraggable={movable}
-        trapFocus={trapFocus && modal}
-        preventDocumentScroll={modal}
-        {...props}
-      >
-        {modal && <DialogBase.Backdrop />}
-        <DivWithOutsideClick onOutsideClick={onOutsideClick}>
-          <DialogBase.Main
-            className={this.getCSSClassNameFromAlignment(alignment)}
-            style={dialogBaseStyle}
-            onPointerDown={this._handleContainerPointerDown}
-          >
-            {!hideHeader && dialogBaseHeader}
-            <DialogBase.Content className={contentClassName} style={contentStyle}>{this.props.children}</DialogBase.Content>
-            {dialogBaseFooter}
-          </DialogBase.Main>
-        </DivWithOutsideClick>
-      </DialogBase>
-    );
-
-    // TODO: Test if doc is scrollable
-    // TODO: Test individual element styles
-    // TODO: Test alignment
     return (
       <div ref={this.handleRefSet}
         className={classnames(
@@ -416,72 +380,6 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     }
 
     return className;
-  }
-
-  private getBaseDialogFooterButtons(props: DialogProps) {
-    const buttons: React.ReactNode[] = [];
-    if (props.buttonCluster) {
-      props.buttonCluster.forEach((button: DialogButtonDef, index: number) => {
-        let buttonText = "";
-        let buttonClass = button.className;
-        let styleType: "default" | "cta" | "high-visibility" | "borderless" | undefined;
-
-        switch (button.type) {
-          case DialogButtonType.OK:
-            buttonText = UiCore.translate("dialog.ok");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-          case DialogButtonType.Retry:
-            buttonText = UiCore.translate("dialog.retry");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-          case DialogButtonType.Yes:
-            buttonText = UiCore.translate("dialog.yes");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-          case DialogButtonType.No:
-            buttonText = UiCore.translate("dialog.no");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            break;
-          case DialogButtonType.Cancel:
-            buttonText = UiCore.translate("dialog.cancel");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            break;
-          case DialogButtonType.Close:
-            buttonText = UiCore.translate("dialog.close");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            break;
-          case DialogButtonType.Next:
-            buttonText = UiCore.translate("dialog.next");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-          case DialogButtonType.Previous:
-            buttonText = UiCore.translate("dialog.previous");
-            buttonClass = classnames(buttonClass, button.buttonStyle);
-            styleType = "cta";
-            break;
-        }
-
-        if (button.label) buttonText = button.label;
-
-        buttons.push(
-          <Button
-            className={buttonClass}
-            disabled={button.disabled}
-            styleType={styleType}
-            key={index.toString()}
-            onClick={button.onClick}
-          >
-            {buttonText}
-          </Button>
-        );
-      });
-    }
-    return buttons;
   }
 
   private getFooterButtons(props: DialogProps) {
