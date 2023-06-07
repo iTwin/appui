@@ -20,10 +20,12 @@ import { IconHelper } from "../utils/IconHelper";
 export interface TabLabel {
   label: string;
   subLabel?: string;
-  icon?: string | React.JSX.Element;
+  // eslint-disable-next-line deprecation/deprecation
+  icon?: string | JSX.Element;
   tabId: string /* optional id added to tab so it can be used by react-tooltip  */;
-  /** tooltip allows React.JSX.Element to support styled tooltips like react-tooltip. */
-  tooltip?: string | React.JSX.Element;
+  /** tooltip allows JSX.Element to support styled tooltips like react-tooltip. */
+  // eslint-disable-next-line deprecation/deprecation
+  tooltip?: string | JSX.Element;
   disabled?: boolean;
 }
 
@@ -160,7 +162,8 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
   };
 
   /** @internal */
-  public override render(): React.JSX.Element {
+  // eslint-disable-next-line deprecation/deprecation
+  public override render(): JSX.Element {
     const ulClassNames = classnames(
       this.props.mainClassName,
       this.props.green && "uicore-tabs-green",
@@ -186,7 +189,8 @@ export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
       >
         {this.props.labels.map((label, index) => {
           let disabled;
-          let tooltipElement: React.JSX.Element | undefined;
+          // eslint-disable-next-line deprecation/deprecation
+          let tooltipElement: JSX.Element | undefined;
           let title: string | undefined;
           let subLabel: string | undefined;
           let tabId = "";

@@ -27,7 +27,8 @@ export interface ContextSubMenuProps
     Omit<ContextMenuProps, "label">,
     CommonProps {
   /** Text/jsx to display in the list item */
-  label: string | React.JSX.Element;
+  // eslint-disable-next-line deprecation/deprecation
+  label: string | JSX.Element;
   /** @internal */
   onHotKeyParsed?: (hotKey: string) => void;
 }
@@ -73,7 +74,8 @@ export class ContextSubMenu extends React.Component<
     };
   }
 
-  public override render(): React.JSX.Element {
+  // eslint-disable-next-line deprecation/deprecation
+  public override render(): JSX.Element {
     const {
       label,
       opened, // eslint-disable-line @typescript-eslint/no-unused-vars

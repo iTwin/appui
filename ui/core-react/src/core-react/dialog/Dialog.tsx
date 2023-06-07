@@ -60,9 +60,11 @@ export interface DialogProps
   /** Override for the header */
   header?: React.ReactNode;
   /** Title to show in title bar of dialog */
-  title?: string | React.JSX.Element;
+  // eslint-disable-next-line deprecation/deprecation
+  title?: string | JSX.Element;
   /** Footer to show at bottom of dialog. Note: will override buttonCluster */
-  footer?: string | React.JSX.Element;
+  // eslint-disable-next-line deprecation/deprecation
+  footer?: string | JSX.Element;
   /** List of DialogButtonDef objects specifying buttons and associated onClick events */
   buttonCluster?: DialogButtonDef[];
 
@@ -215,7 +217,8 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     if (containerDiv) this._parentDocument = containerDiv.ownerDocument;
   };
 
-  public override render(): React.JSX.Element {
+  // eslint-disable-next-line deprecation/deprecation
+  public override render(): JSX.Element {
     const {
       opened,
       title,

@@ -329,5 +329,6 @@ const ForwardRefNumberInput = React.forwardRef<
 /** Input component for numbers with up and down buttons to increment and decrement the value.
  * @public
  */
-export const NumberInput: (props: NumberInputProps) => React.JSX.Element | null =
+  // eslint-disable-next-line deprecation/deprecation
+  export const NumberInput: (props: NumberInputProps) => JSX.Element | null =
   ForwardRefNumberInput;

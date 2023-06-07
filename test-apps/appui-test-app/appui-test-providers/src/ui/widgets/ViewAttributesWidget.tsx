@@ -110,7 +110,8 @@ export function ViewFlagItem(flagName: string) {
 }
 
 export function ViewAttributesWidgetComponent() {
-  const items: React.JSX.Element[] = [];
+  // eslint-disable-next-line deprecation/deprecation
+  const items: JSX.Element[] = [];
   items.push(ViewFlagItem("acs"));
   items.push(ToggleCameraItem());
   items.push(ViewFlagItem("noConstruct"));

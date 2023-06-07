@@ -28,7 +28,8 @@ export class ModelessDialog extends React.Component<ModelessDialogProps> {
     super(props);
   }
 
-  public override render(): React.JSX.Element {
+  // eslint-disable-next-line deprecation/deprecation
+  public override render(): JSX.Element {
     const {
       dialogId,
       style,

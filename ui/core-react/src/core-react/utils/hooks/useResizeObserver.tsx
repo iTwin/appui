@@ -272,7 +272,8 @@ export function ElementResizeObserver({
   render,
 }: {
   watchedElement: HTMLElement | null;
-  render: (props: RenderPropsArgs) => React.JSX.Element;
+  // eslint-disable-next-line deprecation/deprecation
+  render: (props: RenderPropsArgs) => JSX.Element;
 }) {
   const [width, height] = useLayoutResizeObserver(watchedElement);
   return render({ width, height });

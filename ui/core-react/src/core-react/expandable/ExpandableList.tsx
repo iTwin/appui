@@ -89,7 +89,8 @@ export class ExpandableList extends React.PureComponent<
     }
   }
 
-  public override render(): React.JSX.Element {
+  // eslint-disable-next-line deprecation/deprecation
+  public override render(): JSX.Element {
     return (
       <div
         className={classnames(

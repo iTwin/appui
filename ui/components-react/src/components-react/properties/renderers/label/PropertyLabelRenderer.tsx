@@ -14,7 +14,8 @@ import * as React from "react";
  */
 export interface PropertyLabelRendererProps {
   /** Label to be rendered */
-  children: string | React.JSX.Element;
+  // eslint-disable-next-line deprecation/deprecation
+  children: string | JSX.Element;
   /** Indicates whether to render a colon after the label */
   renderColon?: boolean;
   /** Custom tooltip for the component. */

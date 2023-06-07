@@ -61,7 +61,8 @@ export class StandardMessageBox extends React.PureComponent<
     };
   }
 
-  public override render(): React.JSX.Element {
+  // eslint-disable-next-line deprecation/deprecation
+  public override render(): JSX.Element {
     const buttonCluster: DialogButtonDef[] = new Array<DialogButtonDef>();
 
     switch (this.props.messageBoxType) {

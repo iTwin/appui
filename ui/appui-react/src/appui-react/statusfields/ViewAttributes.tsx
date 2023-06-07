@@ -127,7 +127,8 @@ export class ViewAttributesStatusField extends React.Component<
   }
 
   private getViewFlags() {
-    const items: React.JSX.Element[] = [];
+  // eslint-disable-next-line deprecation/deprecation
+    const items: JSX.Element[] = [];
     items.push(
       this.getViewFlagItem(
         "acs",

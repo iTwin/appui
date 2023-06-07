@@ -24,7 +24,8 @@ export interface BadgeProps extends CommonProps {
  * @internal
  */
 export class Badge extends React.PureComponent<BadgeProps> {
-  public override render(): React.JSX.Element {
+  // eslint-disable-next-line deprecation/deprecation
+  public override render(): JSX.Element {
     const iconSpec = IconSpecUtilities.createWebComponentIconSpec(
       this.props.svg
     );

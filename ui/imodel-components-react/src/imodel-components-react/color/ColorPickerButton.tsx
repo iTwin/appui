@@ -220,4 +220,5 @@ const ForwardRefColorPickerButton = React.forwardRef<
  */
 export const ColorPickerButton: (
   props: ColorPickerProps
-) => React.JSX.Element | null = ForwardRefColorPickerButton;
+  // eslint-disable-next-line deprecation/deprecation
+  ) => JSX.Element | null = ForwardRefColorPickerButton;

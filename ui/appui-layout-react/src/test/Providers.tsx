@@ -100,7 +100,8 @@ interface WithOnRenderProps {
 export const withOnRender = <P extends {}, C>(
   Component: React.JSXElementConstructor<P> & C
 ) => {
-  type Props = React.JSX.LibraryManagedAttributes<C, P & WithOnRenderProps>;
+  // eslint-disable-next-line deprecation/deprecation
+  type Props = JSX.LibraryManagedAttributes<C, P & WithOnRenderProps>;
   return function WithOnRender(props: Props) {
     const { onRender, ...otherProps } = props;
     onRender && onRender();
