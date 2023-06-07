@@ -15,9 +15,11 @@ import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
-import { Dialog, Button } from "@itwin/itwinui-react"
+import { Button, Dialog } from "@itwin/itwinui-react";
 
-// @internal
+/** Properties of [[SimpleDialog]] component.
+ * @internal
+ */
 export interface SimpleDialogProps extends Omit<React.AllHTMLAttributes<HTMLDivElement>, "title">, CommonProps {
   /** Indicates whether to show dialog or not */
   opened: boolean;
@@ -72,7 +74,9 @@ export interface SimpleDialogProps extends Omit<React.AllHTMLAttributes<HTMLDivE
   contentStyle?: React.CSSProperties;
 }
 
-// @internal
+/** itwinui-react [[Dialog]] wrapper that excludes buggy features and adds features from core-react [[Dialog]].
+ * @internal
+ */
 export class SimpleDialog extends React.Component<SimpleDialogProps> {
   private _parentDocument = document;
   public static defaultProps: Partial<SimpleDialogProps> = {
@@ -123,8 +127,8 @@ export class SimpleDialog extends React.Component<SimpleDialogProps> {
       ...style,
     };
 
-    const dialogBaseContainerStyle: React.CSSProperties = { ...containerStyle, ...minMaxStyle }
-    const buttons = buttonCluster ? this.unwrapButtonCluster(buttonCluster) : undefined
+    const dialogBaseContainerStyle: React.CSSProperties = { ...containerStyle, ...minMaxStyle };
+    const buttons = buttonCluster ? this.unwrapButtonCluster(buttonCluster) : undefined;
     return (
       <Dialog
         isOpen={opened}

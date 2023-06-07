@@ -16,11 +16,10 @@ import type { CommonProps } from "../utils/Props";
 import {
   SvgHelpCircular, SvgHelpCircularHollow, SvgInfoCircular, SvgInfoCircularHollow, SvgStatusError, SvgStatusErrorHollow, SvgStatusRejected,
   SvgStatusRejectedHollow,
-  SvgStatusSuccess, SvgStatusSuccessHollow, SvgStatusWarning
+  SvgStatusSuccess, SvgStatusSuccessHollow, SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
 import type { IconSpec } from "../icons/IconComponent";
 import { Icon } from "../icons/IconComponent";
-import { Dialog } from "../dialog/Dialog";
 
 /** Properties for the [[MessageBox]] component
  * @public
