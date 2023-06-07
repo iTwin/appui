@@ -5,7 +5,8 @@
 import { expect } from "chai";
 import * as React from "react";
 import {
-  IModelApp, NoRenderApp,
+  IModelApp,
+  NoRenderApp,
   NotifyMessageDetails,
   OutputMessagePriority,
 } from "@itwin/core-frontend";

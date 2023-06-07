@@ -160,6 +160,6 @@ const ForwardRefParsedInput = React.forwardRef<
 /** Generic Input component that requires formatting and parsing functions to be passed in as props.
  * @public
  */
-  // eslint-disable-next-line deprecation/deprecation
-  export const ParsedInput: (props: ParsedInputProps) => JSX.Element | null =
+// eslint-disable-next-line deprecation/deprecation
+export const ParsedInput: (props: ParsedInputProps) => JSX.Element | null =
   ForwardRefParsedInput;

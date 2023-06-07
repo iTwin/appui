@@ -22,10 +22,8 @@ import type {
 import {
   IModelApp,
   ScreenViewport,
-
   StandardView,
   ToolSettings,
-
 } from "@itwin/core-frontend";
 
 import type { CommonProps } from "@itwin/core-react";

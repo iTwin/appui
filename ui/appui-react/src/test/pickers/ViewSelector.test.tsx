@@ -7,7 +7,8 @@ import * as React from "react";
 import * as moq from "typemoq";
 import {
   DrawingViewState,
-  IModelApp, IModelConnection,
+  IModelApp,
+  IModelConnection,
   NoRenderApp,
   SheetViewState,
   SpatialViewState,

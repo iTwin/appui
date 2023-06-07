@@ -49,6 +49,6 @@ const ForwardRefIconInput = React.forwardRef<HTMLInputElement, IconInputProps>(
 /** Input component with icon to the left of the input field
  * @public
  */
-  // eslint-disable-next-line deprecation/deprecation
-  export const IconInput: (props: IconInputProps) => JSX.Element | null =
+// eslint-disable-next-line deprecation/deprecation
+export const IconInput: (props: IconInputProps) => JSX.Element | null =
   ForwardRefIconInput;

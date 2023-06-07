@@ -123,7 +123,7 @@ export class TreeSelectionManager
     );
 
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const _this = this; 
+    const _this = this;
     const itemHandlers = new Proxy(
       {},
       {

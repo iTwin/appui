@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import * as moq from "typemoq";
 import * as sinon from "sinon";
 
-import type { IModelConnection} from "@itwin/core-frontend";
+import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp, SelectionSet } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import type { IModelRpcProps } from "@itwin/core-common";

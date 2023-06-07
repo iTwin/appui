@@ -450,7 +450,7 @@ export class TimelineComponent extends React.Component<
     index: number,
     currentTimelineDuration: number,
     close: () => void
-  // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line deprecation/deprecation
   ): JSX.Element {
     const label = item.label;
     const checked = currentTimelineDuration === item.timelineDuration;

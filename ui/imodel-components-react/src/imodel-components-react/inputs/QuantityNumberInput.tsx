@@ -490,4 +490,4 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
 export const QuantityNumberInput: (
   props: QuantityNumberInputProps
   // eslint-disable-next-line deprecation/deprecation
-  ) => JSX.Element | null = ForwardRefQuantityNumberInput;
+) => JSX.Element | null = ForwardRefQuantityNumberInput;

@@ -8,7 +8,7 @@ import * as React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { IModelApp, NoRenderApp, QuantityType } from "@itwin/core-frontend";
-import type { FormatProps} from "@itwin/core-quantity";
+import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, ShowSignOption } from "@itwin/core-quantity";
 import { BearingQuantityType } from "./BearingQuantityType";
 import { SpecialKey } from "@itwin/appui-abstract";

@@ -14,7 +14,6 @@ import type {
   SupportsViewSelectorChange,
 } from "../../appui-react";
 import {
-
   ConfigurableUiControlType,
   ContentGroup,
   FloatingContentControl,

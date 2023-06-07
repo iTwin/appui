@@ -9,11 +9,17 @@ import { render } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { ScreenViewport, ViewState3d } from "@itwin/core-frontend";
 import {
-  ConfigurableUiControlType, ContentGroup,
-  FrontstageProvider, IModelViewportControl, UiFramework,
+  ConfigurableUiControlType,
+  ContentGroup,
+  FrontstageProvider,
+  IModelViewportControl,
+  UiFramework,
 } from "../../appui-react";
 import type {
-  ConfigurableCreateInfo, FrontstageConfig, IModelViewportControlOptions, SupportsViewSelectorChange,
+  ConfigurableCreateInfo,
+  FrontstageConfig,
+  IModelViewportControlOptions,
+  SupportsViewSelectorChange,
 } from "../../appui-react";
 import TestUtils, { storageMock } from "../TestUtils";
 import { StandardContentLayouts } from "@itwin/appui-abstract";

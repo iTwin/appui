@@ -5,7 +5,7 @@
 import { expect } from "chai";
 import * as React from "react";
 import * as moq from "typemoq";
-import type { IModelConnection} from "@itwin/core-frontend";
+import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { render } from "@testing-library/react";
 import { CardContainer, SheetNavigationAid } from "../../appui-react";

@@ -30,7 +30,6 @@ class TableExampleContentControl extends ContentControl {
 }
 
 describe("InternalConfigurableUiManager", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
     await NoRenderApp.startup();

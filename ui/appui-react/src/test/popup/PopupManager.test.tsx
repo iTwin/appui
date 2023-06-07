@@ -7,7 +7,11 @@ import * as React from "react";
 import * as sinon from "sinon";
 import { Logger } from "@itwin/core-bentley";
 import type { IModelAppOptions } from "@itwin/core-frontend";
-import { IModelApp, LengthDescription, NoRenderApp } from "@itwin/core-frontend";
+import {
+  IModelApp,
+  LengthDescription,
+  NoRenderApp,
+} from "@itwin/core-frontend";
 import type {
   AbstractToolbarProps,
   DialogItem,

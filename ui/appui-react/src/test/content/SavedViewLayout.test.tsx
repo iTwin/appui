@@ -22,7 +22,8 @@ import type { ScreenViewport, ViewState } from "@itwin/core-frontend";
 import {
   DrawingViewState,
   EmphasizeElements,
-  IModelApp, IModelConnection,
+  IModelApp,
+  IModelConnection,
   NoRenderApp,
   SheetViewState,
   SpatialViewState,
