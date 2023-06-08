@@ -186,7 +186,6 @@ export class FlatGridTestUtils {
       displayLabel,
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { value, property, ...others } = propertyRecord;
     propertyRecord = new PropertyRecord(value, propertyDescription);
 

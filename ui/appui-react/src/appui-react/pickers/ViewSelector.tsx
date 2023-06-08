@@ -445,7 +445,7 @@ export class ViewSelector extends React.Component<
   public override render() {
     const iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgSavedView);
 
-    const { imodel, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { imodel, ...props } = this.props;
 
     return (
       <ListPicker

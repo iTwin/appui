@@ -59,22 +59,6 @@
     }
   },
   "markdownlint.ignore": ["**/CHANGELOG.md"],
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "eslint.workingDirectories": [
-    {
-      "mode": "auto"
-    }
-  ],
-  "eslint.options": {
-    "configFile": "./package.json",
-    "useEslintrc": false,
-    "resolvePluginsRelativeTo": "./node_modules/@itwin/eslint-plugin"
-  },
   "importSorter.importStringConfiguration.quoteMark": "double",
   "importSorter.generalConfiguration.sortImportsInDirectory": false,
   "importSorter.generalConfiguration.sortOnBeforeSave": false,
@@ -104,8 +88,6 @@
   ],
   "importSorter.sortConfiguration.customOrderingRules.defaultNumberOfEmptyLinesAfterGroup": 0,
   "debug.internalConsoleOptions": "openOnSessionStart",
-  "eslint.format.enable": true,
-  "eslint.lintTask.enable": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.markdownlint": true, // first run the markdown linter
     "editor.action.fixAll": true, // Run the default formatter before eslint, it handles whitespace better

@@ -74,7 +74,7 @@ export class GlobalDialog extends React.Component<
   }
 
   public override render(): React.ReactNode {
-    const { identifier, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { identifier, ...props } = this.props;
     return (
       <div ref={this._handleRefSet}>
         {this.state.parentDocument &&

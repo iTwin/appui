@@ -139,7 +139,7 @@ export class NonPrimitivePropertyRenderer extends React.Component<
     )
       items = this.overrideArrayChildrenNames(items);
 
-    const { indentation, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { indentation, ...props } = this.props;
     return (
       <>
         {this.props.isCollapsible ? (
