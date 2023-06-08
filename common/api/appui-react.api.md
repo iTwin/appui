@@ -3187,7 +3187,7 @@ export interface ModalFrontstageRequestedCloseEventArgs {
 export class ModelessDialog extends React_2.Component<ModelessDialogProps> {
     constructor(props: ModelessDialogProps);
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
 }
 
 // @public
@@ -3508,7 +3508,7 @@ export interface PresentationSelectionScope {
 export class PropsHelper {
     // @deprecated (undocumented)
     static getAbstractPropsForReactIcon(iconSpec: IconSpec, internalData?: Map<string, any>): Partial<AbstractWidgetProps> | Partial<CommonBackstageItem_2>;
-    static getIcon(iconSpec: string | ConditionalStringValue | React_2.ReactNode): JSX.Element | undefined;
+    static getIcon(iconSpec: string | ConditionalStringValue | React_2.ReactNode): React_2.ReactElement | undefined;
     static getStringFromSpec(spec: string | StringGetter | ConditionalStringValue): string;
     static getStringSpec(explicitValue: string | StringGetter | ConditionalStringValue | undefined, stringKey?: string): string | StringGetter | ConditionalStringValue;
     static isShallowEqual(newObj: any, prevObj: any): boolean;
@@ -4157,7 +4157,7 @@ export class StandardFrontstageProvider extends FrontstageProvider {
 export class StandardMessageBox extends React_2.PureComponent<StandardMessageBoxProps, StandardMessageBoxState> {
     constructor(props: StandardMessageBoxProps);
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.ReactElement;
     // @internal (undocumented)
     readonly state: Readonly<StandardMessageBoxState>;
 }

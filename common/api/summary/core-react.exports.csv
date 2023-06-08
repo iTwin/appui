@@ -85,7 +85,7 @@ internal;hasPointerEventsSupport(): boolean
 public;HorizontalAlignment
 public;Icon(props: IconProps): React_2.JSX.Element | null
 public;IconHelper
-public;IconInput: (props: IconInputProps) => JSX.Element | null
+public;IconInput: (props: IconInputProps) => React_2.ReactElement | null
 public;IconInputProps 
 public;IconProps 
 public;IconSpec = string | ConditionalStringValue | React_2.ReactNode | ConditionalIconItem
@@ -134,7 +134,7 @@ public;NoChildrenProps
 public;NodeCheckboxProps
 public;NodeCheckboxRenderer = (props: NodeCheckboxRenderProps) => React_2.ReactNode
 public;NodeCheckboxRenderProps = Omit_2
-public;NumberInput: (props: NumberInputProps) => JSX.Element | null
+public;NumberInput: (props: NumberInputProps) => React_2.ReactElement | null
 public;NumberInputProps 
 public;OmitChildrenProp
 public;Orientation

@@ -1740,7 +1740,7 @@ export interface PanelProps extends CommonProps {
 }
 
 // @public
-export const ParsedInput: (props: ParsedInputProps) => JSX.Element | null;
+export const ParsedInput: (props: ParsedInputProps) => React_3.ReactElement | null;
 
 // @public
 export interface ParsedInputProps extends CommonProps {
@@ -2172,7 +2172,7 @@ export class PropertyLabelRenderer extends React_3.PureComponent<PropertyLabelRe
 
 // @public
 export interface PropertyLabelRendererProps {
-    children: string | JSX.Element;
+    children: string | React_3.ReactElement;
     renderColon?: boolean;
     tooltip?: string;
 }
