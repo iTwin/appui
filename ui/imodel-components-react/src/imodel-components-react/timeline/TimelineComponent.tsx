@@ -450,8 +450,7 @@ export class TimelineComponent extends React.Component<
     index: number,
     currentTimelineDuration: number,
     close: () => void
-    // eslint-disable-next-line deprecation/deprecation
-  ): JSX.Element {
+  ): React.ReactElement {
     const label = item.label;
     const checked = currentTimelineDuration === item.timelineDuration;
     const icon = checked ? (
@@ -476,8 +475,7 @@ export class TimelineComponent extends React.Component<
   }
 
   private _renderSettings = () => {
-    // eslint-disable-next-line deprecation/deprecation
-    const createMenuItemNodes = (close: () => void): JSX.Element[] => {
+    const createMenuItemNodes = (close: () => void): React.ReactElement[] => {
       const { totalDuration } = this.state;
       let contextMenuItems: Array<TimelineMenuItemProps> = [];
 
@@ -497,8 +495,7 @@ export class TimelineComponent extends React.Component<
         }
       }
 
-      // eslint-disable-next-line deprecation/deprecation
-      const itemNodes: JSX.Element[] = [];
+      const itemNodes: React.ReactElement[] = [];
       let keyIndex = 0;
       if (this.state.includeRepeat) {
         const checked = this.state.repeat;

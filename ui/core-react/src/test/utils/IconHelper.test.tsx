@@ -14,8 +14,7 @@ describe("IconHelper", () => {
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
     expect(iconNode).not.to.be.undefined;
-    // eslint-disable-next-line deprecation/deprecation
-    expect((iconNode as JSX.Element).props.iconSpec).to.eq("cat");
+    expect((iconNode as React.ReactElement).props.iconSpec).to.eq("cat");
   });
 
   it("should get null icon data", () => {
@@ -56,8 +55,7 @@ describe("IconHelper", () => {
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
     expect(iconNode).not.to.be.undefined;
-    // eslint-disable-next-line deprecation/deprecation
-    expect((iconNode as JSX.Element).props.iconSpec).to.eq("dog");
+    expect((iconNode as React.ReactElement).props.iconSpec).to.eq("dog");
   });
 
   it("should get react icon data", () => {
@@ -67,8 +65,7 @@ describe("IconHelper", () => {
 
     const iconNode = IconHelper.getIconReactNode(iconSpec, internalData);
     expect(iconNode).not.to.be.undefined;
-    // eslint-disable-next-line deprecation/deprecation
-    expect((iconNode as JSX.Element).props.iconSpec.props.children).to.eq(
+    expect((iconNode as React.ReactElement).props.iconSpec.props.children).to.eq(
       "Test"
     );
   });

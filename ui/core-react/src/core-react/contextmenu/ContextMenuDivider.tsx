@@ -15,8 +15,7 @@ import type { CommonProps } from "../utils/Props";
  * @public
  */
 export class ContextMenuDivider extends React.PureComponent<CommonProps> {
-  // eslint-disable-next-line deprecation/deprecation
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const { className, ...props } = this.props;
     return (
       <div

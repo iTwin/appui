@@ -264,8 +264,7 @@ export class AutoSuggest extends React.PureComponent<
     sectionTitle: "uicore-autosuggest__section-title",
   };
 
-  // eslint-disable-next-line deprecation/deprecation
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const { inputValue, suggestions } = this.state;
     const {
       value, // eslint-disable-line @typescript-eslint/no-unused-vars

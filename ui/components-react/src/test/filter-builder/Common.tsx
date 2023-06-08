@@ -20,8 +20,7 @@ import { PropertyFilterBuilderActions } from "../../components-react/filter-buil
 
 /** @internal */
 export function renderWithContext(
-  // eslint-disable-next-line deprecation/deprecation
-  component: JSX.Element,
+  component: React.ReactElement,
   builderContextProps: Partial<PropertyFilterBuilderContextProps> = {},
   rendererContextProps: Partial<PropertyFilterBuilderRuleRenderingContextProps> = {},
   activeGroupContextProps: Partial<ActiveRuleGroupContextProps> = {}

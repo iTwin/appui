@@ -174,8 +174,7 @@ export class ContextMenu extends React.PureComponent<
       this.props.onOutsideClick(event);
   };
 
-  // eslint-disable-next-line deprecation/deprecation
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const {
       opened,
       direction,

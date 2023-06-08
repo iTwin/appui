@@ -35,8 +35,7 @@ export class SampleModelessDialog extends React.Component<
       opened: this.props.opened,
     };
   }
-  // eslint-disable-next-line deprecation/deprecation
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     return (
       <ModelessDialog
         title={this._title}

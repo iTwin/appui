@@ -40,8 +40,7 @@ export interface MessageBoxProps extends CommonProps {
   /** List of [[DialogButtonDef]] objects specifying buttons and associated onClick events */
   buttonCluster: DialogButtonDef[];
   /** Title to show in title bar of dialog  */
-  // eslint-disable-next-line deprecation/deprecation
-  title?: string | JSX.Element;
+  title?: string | React.ReactElement;
   /** onClick event for X button for dialog */
   onClose?: () => void;
   /** 'keyup' event for <Esc> key */
@@ -81,8 +80,7 @@ export class MessageBox extends React.PureComponent<MessageBoxProps> {
     modal: true,
   };
 
-  // eslint-disable-next-line deprecation/deprecation
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     return (
       <Dialog
         title={this.props.title}
@@ -194,8 +192,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
     return iconSpec;
   }
 
-  // eslint-disable-next-line deprecation/deprecation
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const iconClassName = classnames("icon", "core-message-box-icon");
 
     const iconSpec = MessageContainer.getIcon(this.props.severity);

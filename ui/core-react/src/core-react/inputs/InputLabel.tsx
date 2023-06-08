@@ -44,8 +44,7 @@ const inputLabelIconSpec: { [key: string]: IconSpec } = {
  * @public
  */
 export class InputLabel extends React.PureComponent<InputLabelProps> {
-  // eslint-disable-next-line deprecation/deprecation
-  public override render(): JSX.Element {
+  public override render(): React.ReactElement {
     const {
       label,
       status,

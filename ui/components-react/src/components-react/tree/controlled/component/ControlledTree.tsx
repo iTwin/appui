@@ -173,8 +173,7 @@ interface LoaderProps {
   noData: boolean;
   spinnerRenderer?: () => React.ReactElement;
   noDataRenderer?: () => React.ReactElement;
-  // eslint-disable-next-line deprecation/deprecation
-  children: JSX.Element;
+  children: React.ReactElement;
 }
 
 function Loader(props: LoaderProps) {
