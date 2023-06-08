@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AccuDraw
  */
@@ -18,7 +18,6 @@ import { UiFramework } from "../UiFramework";
  * @beta
  */
 export class AccuDrawWidgetControl extends WidgetControl {
-
   public static id = "AccuDrawWidget";
 
   public static get label(): string {
@@ -41,7 +40,9 @@ export function AccuDrawWidget() {
 
   // istanbul ignore next - currently unable to replicate resizing in unit test
   const handleResize = React.useCallback((w: number, _h: number) => {
-    setOrientation(w <= breakpoint ? Orientation.Vertical : Orientation.Horizontal);
+    setOrientation(
+      w <= breakpoint ? Orientation.Vertical : Orientation.Horizontal
+    );
   }, []);
 
   const ref = useResizeObserver<HTMLDivElement>(handleResize);

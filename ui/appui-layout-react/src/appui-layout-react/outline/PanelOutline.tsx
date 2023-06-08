@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -11,7 +11,10 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { useTargeted } from "../base/DragManager";
-import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
+import {
+  isHorizontalPanelSide,
+  PanelSideContext,
+} from "../widget-panels/Panel";
 import { isHorizontalPanelState } from "../state/PanelState";
 import { isPanelDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";
@@ -31,7 +34,7 @@ export function PanelOutline() {
     "nz-outline-panelOutline",
     hidden && "nz-hidden",
     `nz-${side}`,
-    span && "nz-span",
+    span && "nz-span"
   );
   const size = useSize();
   return (
@@ -53,18 +56,19 @@ export function useHidden() {
 
   return React.useMemo(() => {
     if (activeHomeState) {
-      if (activeHomeState.side === side && activeHomeState.widgetId === undefined && activeHomeState.sectionIndex === undefined)
+      if (
+        activeHomeState.side === side &&
+        activeHomeState.widgetId === undefined &&
+        activeHomeState.sectionIndex === undefined
+      )
         return false;
     }
 
-    if (!targeted)
-      return true;
+    if (!targeted) return true;
 
-    if (!isPanelDropTargetState(targeted))
-      return true;
+    if (!isPanelDropTargetState(targeted)) return true;
 
-    if (targeted.side !== side)
-      return true;
+    if (targeted.side !== side) return true;
 
     return false;
   }, [side, targeted, activeHomeState]);

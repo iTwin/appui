@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContextMenu
  */
@@ -33,7 +33,10 @@ interface GlobalContextMenuState {
 /** GlobalContextMenu React component used to display a [[ContextMenu]] at the cursor
  * @public
  */
-export class GlobalContextMenu extends React.PureComponent<GlobalContextMenuProps, GlobalContextMenuState> {
+export class GlobalContextMenu extends React.PureComponent<
+  GlobalContextMenuProps,
+  GlobalContextMenuState
+> {
   private _container?: HTMLDivElement;
 
   public override readonly state: GlobalContextMenuState = {
@@ -46,7 +49,8 @@ export class GlobalContextMenu extends React.PureComponent<GlobalContextMenuProp
 
   public override componentWillUnmount() {
     // istanbul ignore else
-    if (this._container && this._container.parentElement) { // cleanup
+    if (this._container && this._container.parentElement) {
+      // cleanup
       this._container.parentElement.removeChild(this._container);
     }
   }
@@ -55,13 +59,22 @@ export class GlobalContextMenu extends React.PureComponent<GlobalContextMenuProp
     const parentDocument = popupDiv?.ownerDocument ?? null;
     if (parentDocument) {
       this._container = parentDocument.createElement("div");
-      this._container.id = this.props.identifier !== undefined ? `dialog-${this.props.identifier}` : "core-global-context-menu";
-      let rt = parentDocument.getElementById("core-global-context-menu-root") as HTMLDivElement;
+      this._container.id =
+        this.props.identifier !== undefined
+          ? `dialog-${this.props.identifier}`
+          : "core-global-context-menu";
+      let rt = parentDocument.getElementById(
+        "core-global-context-menu-root"
+      ) as HTMLDivElement;
       if (!rt) {
         rt = parentDocument.createElement("div");
         rt.id = "core-global-context-menu-root";
         // istanbul ignore next
-        (parentDocument.body.querySelector('[data-root-container="iui-root-id"]') ?? parentDocument.body).appendChild(rt);
+        (
+          parentDocument.body.querySelector(
+            '[data-root-container="iui-root-id"]'
+          ) ?? parentDocument.body
+        ).appendChild(rt);
       }
       rt.appendChild(this._container);
 
@@ -77,19 +90,20 @@ export class GlobalContextMenu extends React.PureComponent<GlobalContextMenuProp
       top: y,
     };
 
-    const CtxMenu = contextMenuComponent || ContextMenu; // eslint-disable-line @typescript-eslint/naming-convention
+    const CtxMenu = contextMenuComponent || ContextMenu;
 
     return (
       <div ref={this._handleRefSet} style={{ display: "none" }}>
         {this.state.parentDocument &&
           ReactDOM.createPortal(
             <div className="core-context-menu-global" style={positioningStyle}>
-              <CtxMenu
-                {...props} />
-            </div >,
+              <CtxMenu {...props} />
+            </div>,
             // istanbul ignore next
-            this.state.parentDocument.body.querySelector('[data-root-container="iui-root-id"]') ?? this.state.parentDocument.body)
-        }
+            this.state.parentDocument.body.querySelector(
+              '[data-root-container="iui-root-id"]'
+            ) ?? this.state.parentDocument.body
+          )}
       </div>
     );
   }

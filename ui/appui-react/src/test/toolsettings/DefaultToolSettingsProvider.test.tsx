@@ -1,25 +1,29 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import type * as React from "react";
 import type {
-  ButtonGroupEditorParams, DialogItem, DialogItemValue, DialogPropertySyncItem, PropertyDescription,
-  SuppressLabelEditorParams} from "@itwin/appui-abstract";
-import { PropertyEditorParamTypes,
+  ButtonGroupEditorParams,
+  DialogItem,
+  DialogItemValue,
+  DialogPropertySyncItem,
+  PropertyDescription,
+  SuppressLabelEditorParams,
 } from "@itwin/appui-abstract";
+import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
 import type {
-  DefaultToolSettingsProvider, FrontstageConfig,
-  SyncToolSettingsPropertiesEventArgs} from "../../appui-react";
-import { FrontstageProvider, UiFramework,
+  DefaultToolSettingsProvider,
+  FrontstageConfig,
+  SyncToolSettingsPropertiesEventArgs,
 } from "../../appui-react";
+import { FrontstageProvider, UiFramework } from "../../appui-react";
 import TestUtils from "../TestUtils";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
 describe("DefaultToolUiSettingsProvider", () => {
-
   const firstToolId = "DefaultToolUiSettingsProvider-FirstTestTool";
   const testToolId = "DefaultToolUiSettingsProvider-TestTool";
   const useLengthDescription: PropertyDescription = {
@@ -27,7 +31,11 @@ describe("DefaultToolUiSettingsProvider", () => {
     displayLabel: "TEST-USELENGTH",
     typename: "boolean",
     editor: {
-      params: [{ type: PropertyEditorParamTypes.SuppressEditorLabel } as SuppressLabelEditorParams],
+      params: [
+        {
+          type: PropertyEditorParamTypes.SuppressEditorLabel,
+        } as SuppressLabelEditorParams,
+      ],
     },
   };
 
@@ -60,10 +68,7 @@ describe("DefaultToolUiSettingsProvider", () => {
       params: [
         {
           type: PropertyEditorParamTypes.ButtonGroupData,
-          buttons: [
-            { iconSpec: "testIconOne" },
-            { iconSpec: "testIconTwo" },
-          ],
+          buttons: [{ iconSpec: "testIconOne" }, { iconSpec: "testIconTwo" }],
         } as ButtonGroupEditorParams,
         {
           type: PropertyEditorParamTypes.SuppressEditorLabel,
@@ -170,7 +175,9 @@ describe("DefaultToolUiSettingsProvider", () => {
   });
 
   it("starting a tool with undefined tool settings", async () => {
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef("ToolUiProvider-TestFrontstage");
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      "ToolUiProvider-TestFrontstage"
+    );
     expect(frontstageDef).to.not.be.undefined;
     if (frontstageDef) {
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
@@ -195,7 +202,9 @@ describe("DefaultToolUiSettingsProvider", () => {
   });
 
   it("starting a tool with tool settings", async () => {
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef("ToolUiProvider-TestFrontstage");
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      "ToolUiProvider-TestFrontstage"
+    );
     expect(frontstageDef).to.not.be.undefined;
 
     if (frontstageDef) {
@@ -203,28 +212,71 @@ describe("DefaultToolUiSettingsProvider", () => {
 
       const toolSettingsProperties: DialogItem[] = [];
       const useLengthValue: DialogItemValue = { value: false };
-      const lengthValue: DialogItemValue = { value: 1.2345, displayValue: "1.2345" };
+      const lengthValue: DialogItemValue = {
+        value: 1.2345,
+        displayValue: "1.2345",
+      };
       const enumValue: DialogItemValue = { value: "1" };
       const methodsValue: DialogItemValue = { value: 0 };
       const groupOneValue: DialogItemValue = { value: 10 };
       const groupTwoValue: DialogItemValue = { value: 100 };
 
-      toolSettingsProperties.push({ value: useLengthValue, property: useLengthDescription, editorPosition: { rowPriority: 0, columnIndex: 1 } });
-      toolSettingsProperties.push({ value: lengthValue, property: lengthDescription, editorPosition: { rowPriority: 0, columnIndex: 3 } });
-      toolSettingsProperties.push({ value: enumValue, property: enumDescription, editorPosition: { rowPriority: 1, columnIndex: 3 } });
-      toolSettingsProperties.push({ value: methodsValue, property: methodsDescription, editorPosition: { rowPriority: 2, columnIndex: 1 } });
-      toolSettingsProperties.push({ value: groupOneValue, property: testEnumDescription1, editorPosition: { rowPriority: 3, columnIndex: 1 } });
-      toolSettingsProperties.push({ value: groupTwoValue, property: testEnumDescription2, editorPosition: { rowPriority: 3, columnIndex: 2 }, isDisabled: true });
-      UiFramework.toolSettings.initializeToolSettingsData(toolSettingsProperties, testToolId, "testToolLabel", "testToolDescription");
+      toolSettingsProperties.push({
+        value: useLengthValue,
+        property: useLengthDescription,
+        editorPosition: { rowPriority: 0, columnIndex: 1 },
+      });
+      toolSettingsProperties.push({
+        value: lengthValue,
+        property: lengthDescription,
+        editorPosition: { rowPriority: 0, columnIndex: 3 },
+      });
+      toolSettingsProperties.push({
+        value: enumValue,
+        property: enumDescription,
+        editorPosition: { rowPriority: 1, columnIndex: 3 },
+      });
+      toolSettingsProperties.push({
+        value: methodsValue,
+        property: methodsDescription,
+        editorPosition: { rowPriority: 2, columnIndex: 1 },
+      });
+      toolSettingsProperties.push({
+        value: groupOneValue,
+        property: testEnumDescription1,
+        editorPosition: { rowPriority: 3, columnIndex: 1 },
+      });
+      toolSettingsProperties.push({
+        value: groupTwoValue,
+        property: testEnumDescription2,
+        editorPosition: { rowPriority: 3, columnIndex: 2 },
+        isDisabled: true,
+      });
+      UiFramework.toolSettings.initializeToolSettingsData(
+        toolSettingsProperties,
+        testToolId,
+        "testToolLabel",
+        "testToolDescription"
+      );
 
       // override the property getter to return the properties needed for the test
-      const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(UiFramework.toolSettings, "toolSettingsProperties")!;
-      Object.defineProperty(UiFramework.toolSettings, "toolSettingsProperties", {
-        get: () => toolSettingsProperties,
-      });
+      const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(
+        UiFramework.toolSettings,
+        "toolSettingsProperties"
+      )!;
+      Object.defineProperty(
+        UiFramework.toolSettings,
+        "toolSettingsProperties",
+        {
+          get: () => toolSettingsProperties,
+        }
+      );
 
-      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).to.be.true;
-      expect(UiFramework.toolSettings.toolSettingsProperties.length).to.equal(toolSettingsProperties.length);
+      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).to.be
+        .true;
+      expect(UiFramework.toolSettings.toolSettingsProperties.length).to.equal(
+        toolSettingsProperties.length
+      );
       InternalFrontstageManager.ensureToolInformationIsSet(testToolId);
       UiFramework.frontstages.setActiveToolId(testToolId);
       expect(UiFramework.frontstages.activeToolId).to.eq(testToolId);
@@ -233,7 +285,8 @@ describe("DefaultToolUiSettingsProvider", () => {
       expect(toolInformation).to.not.be.undefined;
 
       if (toolInformation) {
-        const toolSettingsProvider = toolInformation.toolUiProvider as DefaultToolSettingsProvider;
+        const toolSettingsProvider =
+          toolInformation.toolUiProvider as DefaultToolSettingsProvider;
         expect(toolSettingsProvider).to.not.be.undefined;
 
         if (toolSettingsProvider) {
@@ -242,27 +295,36 @@ describe("DefaultToolUiSettingsProvider", () => {
         }
       }
 
-      const toolSettingsNode = InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
+      const toolSettingsNode =
+        InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
       expect(toolSettingsNode).to.not.be.undefined;
 
-      const renderedComponent = render(toolSettingsNode as React.ReactElement<any>);
+      const renderedComponent = render(
+        toolSettingsNode as React.ReactElement<any>
+      );
       expect(renderedComponent).not.to.be.undefined;
 
       expect(renderedComponent.queryByText("TEST-USELENGTH:")).to.be.null;
 
-      const toggleEditor = renderedComponent.getByTestId("components-checkbox-editor");
+      const toggleEditor = renderedComponent.getByTestId(
+        "components-checkbox-editor"
+      );
       expect(toggleEditor).not.to.be.undefined;
 
       const textLabel = renderedComponent.getByText("TEST-LENGTH:");
       expect(textLabel).not.to.be.undefined;
 
-      const textEditor = renderedComponent.getByTestId("components-text-editor");
+      const textEditor = renderedComponent.getByTestId(
+        "components-text-editor"
+      );
       expect(textEditor).not.to.be.undefined;
 
       const enumLabel = renderedComponent.getByText("TEST-ENUM-PICKER:");
       expect(enumLabel).not.to.be.undefined;
 
-      const enumEditor = renderedComponent.getByTestId("components-select-editor");
+      const enumEditor = renderedComponent.getByTestId(
+        "components-select-editor"
+      );
       expect(enumEditor).not.to.be.undefined;
 
       const buttonGroupEnumButton = renderedComponent.getByTestId("Pick");
@@ -276,19 +338,34 @@ describe("DefaultToolUiSettingsProvider", () => {
 
       // simulate sync from tool
       const newUseLengthValue: DialogItemValue = { value: false };
-      const syncItem: DialogPropertySyncItem = { value: newUseLengthValue, propertyName: useLengthDescription.name, isDisabled: false };
-      const syncArgs = { toolId: testToolId, syncProperties: [syncItem] } as SyncToolSettingsPropertiesEventArgs;
+      const syncItem: DialogPropertySyncItem = {
+        value: newUseLengthValue,
+        propertyName: useLengthDescription.name,
+        isDisabled: false,
+      };
+      const syncArgs = {
+        toolId: testToolId,
+        syncProperties: [syncItem],
+      } as SyncToolSettingsPropertiesEventArgs;
       // UiFramework.toolSettings.onSyncToolSettingsProperties.emit(syncArgs);
-      InternalFrontstageManager.activeToolSettingsProvider?.syncToolSettingsProperties(syncArgs);
+      InternalFrontstageManager.activeToolSettingsProvider?.syncToolSettingsProperties(
+        syncArgs
+      );
       InternalFrontstageManager.activeToolSettingsProvider?.reloadPropertiesFromTool();
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
       // restore the overriden property getter
-      Object.defineProperty(UiFramework.toolSettings, "toolSettingsProperties", propertyDescriptorToRestore);
+      Object.defineProperty(
+        UiFramework.toolSettings,
+        "toolSettingsProperties",
+        propertyDescriptorToRestore
+      );
     }
   });
 
   it("starting a tool with nested lock toggle in tool settings", async () => {
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef("ToolUiProvider-TestFrontstage");
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      "ToolUiProvider-TestFrontstage"
+    );
     expect(frontstageDef).to.not.be.undefined;
 
     if (frontstageDef) {
@@ -296,20 +373,48 @@ describe("DefaultToolUiSettingsProvider", () => {
 
       const toolSettingsProperties: DialogItem[] = [];
       const useLengthValue: DialogItemValue = { value: false };
-      const lengthValue: DialogItemValue = { value: 1.2345, displayValue: "1.2345" };
+      const lengthValue: DialogItemValue = {
+        value: 1.2345,
+        displayValue: "1.2345",
+      };
 
-      const lockToggle: DialogItem = { value: useLengthValue, property: useLengthDescription, editorPosition: { rowPriority: 0, columnIndex: 1 } };
-      toolSettingsProperties.push({ value: lengthValue, property: lengthDescription, editorPosition: { rowPriority: 0, columnIndex: 3 }, isDisabled: false, lockProperty: lockToggle });
-      UiFramework.toolSettings.initializeToolSettingsData(toolSettingsProperties, testToolId, "testToolLabel", "testToolDescription");
+      const lockToggle: DialogItem = {
+        value: useLengthValue,
+        property: useLengthDescription,
+        editorPosition: { rowPriority: 0, columnIndex: 1 },
+      };
+      toolSettingsProperties.push({
+        value: lengthValue,
+        property: lengthDescription,
+        editorPosition: { rowPriority: 0, columnIndex: 3 },
+        isDisabled: false,
+        lockProperty: lockToggle,
+      });
+      UiFramework.toolSettings.initializeToolSettingsData(
+        toolSettingsProperties,
+        testToolId,
+        "testToolLabel",
+        "testToolDescription"
+      );
 
       // override the property getter to return the properties needed for the test
-      const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(UiFramework.toolSettings, "toolSettingsProperties")!;
-      Object.defineProperty(UiFramework.toolSettings, "toolSettingsProperties", {
-        get: () => toolSettingsProperties,
-      });
+      const propertyDescriptorToRestore = Object.getOwnPropertyDescriptor(
+        UiFramework.toolSettings,
+        "toolSettingsProperties"
+      )!;
+      Object.defineProperty(
+        UiFramework.toolSettings,
+        "toolSettingsProperties",
+        {
+          get: () => toolSettingsProperties,
+        }
+      );
 
-      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).to.be.true;
-      expect(UiFramework.toolSettings.toolSettingsProperties.length).to.equal(toolSettingsProperties.length);
+      expect(UiFramework.toolSettings.useDefaultToolSettingsProvider).to.be
+        .true;
+      expect(UiFramework.toolSettings.toolSettingsProperties.length).to.equal(
+        toolSettingsProperties.length
+      );
       InternalFrontstageManager.ensureToolInformationIsSet(testToolId);
       UiFramework.frontstages.setActiveToolId(testToolId);
       expect(UiFramework.frontstages.activeToolId).to.eq(testToolId);
@@ -326,45 +431,74 @@ describe("DefaultToolUiSettingsProvider", () => {
           // simulate property update
 
           const newlengthValue: DialogItemValue = { value: 7.5 };
-          const lengthSyncItem: DialogPropertySyncItem = { value: newlengthValue, propertyName: lengthDescription.name };
+          const lengthSyncItem: DialogPropertySyncItem = {
+            value: newlengthValue,
+            propertyName: lengthDescription.name,
+          };
           const newUselengthValue: DialogItemValue = { value: false };
-          const useLengthSyncItem: DialogPropertySyncItem = { value: newUselengthValue, propertyName: useLengthDescription.name };
+          const useLengthSyncItem: DialogPropertySyncItem = {
+            value: newUselengthValue,
+            propertyName: useLengthDescription.name,
+          };
           const defaultProvider = toolUiProvider as DefaultToolSettingsProvider;
           if (defaultProvider) {
-            defaultProvider.uiDataProvider.applyUiPropertyChange(lengthSyncItem);
-            defaultProvider.uiDataProvider.applyUiPropertyChange(useLengthSyncItem);
+            defaultProvider.uiDataProvider.applyUiPropertyChange(
+              lengthSyncItem
+            );
+            defaultProvider.uiDataProvider.applyUiPropertyChange(
+              useLengthSyncItem
+            );
           }
         }
       }
 
-      const toolSettingsNode = InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
+      const toolSettingsNode =
+        InternalFrontstageManager.activeToolSettingsProvider?.toolSettingsNode;
       expect(toolSettingsNode).to.not.be.undefined;
 
-      const renderedComponent = render(toolSettingsNode as React.ReactElement<any>);
+      const renderedComponent = render(
+        toolSettingsNode as React.ReactElement<any>
+      );
       expect(renderedComponent).not.to.be.undefined;
 
       expect(renderedComponent.queryByText("TEST-USELENGTH:")).to.be.null;
 
-      const toggleEditor = renderedComponent.getByTestId("components-checkbox-editor");
+      const toggleEditor = renderedComponent.getByTestId(
+        "components-checkbox-editor"
+      );
       expect(toggleEditor).not.to.be.undefined;
 
       const textLabel = renderedComponent.getByText("TEST-LENGTH:");
       expect(textLabel).not.to.be.undefined;
 
-      const textEditor = renderedComponent.getByTestId("components-text-editor");
+      const textEditor = renderedComponent.getByTestId(
+        "components-text-editor"
+      );
       expect(textEditor).not.to.be.undefined;
 
       // simulate sync from tool
       const newUseLengthValue: DialogItemValue = { value: false };
-      const syncItem: DialogPropertySyncItem = { value: newUseLengthValue, propertyName: useLengthDescription.name, isDisabled: false };
-      const syncArgs = { toolId: testToolId, syncProperties: [syncItem] } as SyncToolSettingsPropertiesEventArgs;
-      InternalFrontstageManager.activeToolSettingsProvider?.syncToolSettingsProperties(syncArgs);
+      const syncItem: DialogPropertySyncItem = {
+        value: newUseLengthValue,
+        propertyName: useLengthDescription.name,
+        isDisabled: false,
+      };
+      const syncArgs = {
+        toolId: testToolId,
+        syncProperties: [syncItem],
+      } as SyncToolSettingsPropertiesEventArgs;
+      InternalFrontstageManager.activeToolSettingsProvider?.syncToolSettingsProperties(
+        syncArgs
+      );
       InternalFrontstageManager.activeToolSettingsProvider?.reloadPropertiesFromTool();
       UiFramework.frontstages.onToolSettingsReloadEvent.emit();
 
       // restore the overriden property getter
-      Object.defineProperty(UiFramework.toolSettings, "toolSettingsProperties", propertyDescriptorToRestore);
+      Object.defineProperty(
+        UiFramework.toolSettings,
+        "toolSettingsProperties",
+        propertyDescriptorToRestore
+      );
     }
   });
-
 });

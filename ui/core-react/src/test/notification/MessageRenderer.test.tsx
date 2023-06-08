@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { MessageRenderer } from "../../core-react/notification/MessageRenderer";
 import { UnderlinedButton } from "../../core-react/button/UnderlinedButton";
@@ -9,12 +9,11 @@ import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 
 describe("MessageRenderer", () => {
-
   describe("Span", () => {
     it("with message text", () => {
       render(<MessageRenderer message="Test" useSpan />);
 
-      expect(screen.getByText("Test", {selector: "span"})).to.exist;
+      expect(screen.getByText("Test", { selector: "span" })).to.exist;
     });
 
     it("with message HTMLElement", () => {
@@ -23,15 +22,21 @@ describe("MessageRenderer", () => {
       newSpan.appendChild(newContent);
       render(<MessageRenderer message={newSpan} useSpan />);
 
-      expect(screen.getByText("Test", {selector: "span > span"})).to.exist;
+      expect(screen.getByText("Test", { selector: "span > span" })).to.exist;
     });
 
     it("with React node", () => {
-      const reactNode = (<span>For more details, <UnderlinedButton>click here</UnderlinedButton>.</span>);
+      const reactNode = (
+        <span>
+          For more details, <UnderlinedButton>click here</UnderlinedButton>.
+        </span>
+      );
       const reactMessage = { reactNode };
       render(<MessageRenderer message={reactMessage} useSpan />);
 
-      expect(screen.getByText(/For more details,.*/, {selector: "span > span"})).to.exist;
+      expect(
+        screen.getByText(/For more details,.*/, { selector: "span > span" })
+      ).to.exist;
     });
   });
 
@@ -39,7 +44,7 @@ describe("MessageRenderer", () => {
     it("with message text", () => {
       render(<MessageRenderer message="Test" />);
 
-      expect(screen.getByText("Test", {selector: "div"})).to.exist;
+      expect(screen.getByText("Test", { selector: "div" })).to.exist;
     });
 
     it("with message HTMLElement", () => {
@@ -48,15 +53,21 @@ describe("MessageRenderer", () => {
       newSpan.appendChild(newContent);
       render(<MessageRenderer message={newSpan} />);
 
-      expect(screen.getByText("Test", {selector: "div > span"})).to.exist;
+      expect(screen.getByText("Test", { selector: "div > span" })).to.exist;
     });
 
     it("with React node", () => {
-      const reactNode = (<span>For more details, <UnderlinedButton>click here</UnderlinedButton>.</span>);
+      const reactNode = (
+        <span>
+          For more details, <UnderlinedButton>click here</UnderlinedButton>.
+        </span>
+      );
       const reactMessage = { reactNode };
       render(<MessageRenderer message={reactMessage} />);
 
-      expect(screen.getByText(/For more details,.*/, {selector: "div > span"})).to.exist;
+      expect(
+        screen.getByText(/For more details,.*/, { selector: "div > span" })
+      ).to.exist;
     });
   });
 
@@ -69,7 +80,8 @@ describe("MessageRenderer", () => {
       anchor.text = "Test";
       render(<MessageRenderer message={anchor} />);
 
-      expect(screen.getByText("Test", {selector: "a[target=_blank]"})).to.exist;
+      expect(screen.getByText("Test", { selector: "a[target=_blank]" })).to
+        .exist;
     });
 
     it("allows target _blank if it has a noreferrer rel", () => {
@@ -80,7 +92,8 @@ describe("MessageRenderer", () => {
       anchor.text = "Test";
       render(<MessageRenderer message={anchor} />);
 
-      expect(screen.getByText("Test", {selector: "a[target=_blank]"})).to.exist;
+      expect(screen.getByText("Test", { selector: "a[target=_blank]" })).to
+        .exist;
     });
 
     it("does not allow target _blank if it does have proper relationships", () => {
@@ -90,7 +103,8 @@ describe("MessageRenderer", () => {
       anchor.text = "Test";
       render(<MessageRenderer message={anchor} />);
 
-      expect(screen.getByText("Test", {selector: "a:not([target=_blank])"})).to.exist;
+      expect(screen.getByText("Test", { selector: "a:not([target=_blank])" }))
+        .to.exist;
     });
 
     it("allows target _blank in child nodes if they proper relationships", () => {
@@ -105,7 +119,11 @@ describe("MessageRenderer", () => {
       outerContainer.appendChild(innerContainer);
       render(<MessageRenderer message={outerContainer} />);
 
-      expect(screen.getByText("Test", {selector: "div > div > div > a[target=_blank]"})).to.exist;
+      expect(
+        screen.getByText("Test", {
+          selector: "div > div > div > a[target=_blank]",
+        })
+      ).to.exist;
     });
 
     it("does not allow target _blank in child nodes if they do not have proper relationships", () => {
@@ -119,7 +137,11 @@ describe("MessageRenderer", () => {
       outerContainer.appendChild(innerContainer);
       render(<MessageRenderer message={outerContainer} />);
 
-      expect(screen.getByText("Test", { selector: "div > div > div > a:not([target=_blank])"})).to.exist;
+      expect(
+        screen.getByText("Test", {
+          selector: "div > div > div > a:not([target=_blank])",
+        })
+      ).to.exist;
     });
   });
 });

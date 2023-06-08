@@ -171,7 +171,7 @@ export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, Colo
 export const ColorPickerButton: (props: ColorPickerProps) => JSX.Element | null;
 
 // @beta
-export function ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType }: ColorPickerDialogProps): JSX.Element;
+export function ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): JSX.Element;
 
 // @beta
 export interface ColorPickerDialogProps {
@@ -579,7 +579,7 @@ export function getCSSColorFromDef(colorDef: ColorDef): string;
 export function getPercentageOfRectangle(rect: DOMRect, pointer: number): number;
 
 // @beta
-export function HueSlider({ isHorizontal, onHueChange, hsv, className, style }: HueSliderProps): JSX.Element;
+export function HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): JSX.Element;
 
 // @beta
 export interface HueSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
@@ -726,7 +726,7 @@ export interface QuantityFormatPanelProps extends CommonProps {
 }
 
 // @beta
-export function QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref }: QuantityProps): JSX.Element;
+export function QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): JSX.Element;
 
 // @beta
 export const QuantityNumberInput: (props: QuantityNumberInputProps) => JSX.Element | null;
@@ -755,7 +755,7 @@ export interface QuantityProps extends CommonProps {
 }
 
 // @internal (undocumented)
-export function RailMarkers({ showToolTip, percent, tooltipText, markDate }: {
+export function RailMarkers({ showToolTip, percent, tooltipText, markDate, }: {
     showToolTip: boolean;
     percent: number;
     tooltipText: string;
@@ -763,7 +763,7 @@ export function RailMarkers({ showToolTip, percent, tooltipText, markDate }: {
 }): JSX.Element;
 
 // @beta
-export function SaturationPicker({ onSaturationChange, hsv, className, style }: SaturationPickerProps): JSX.Element;
+export function SaturationPicker({ onSaturationChange, hsv, className, style, }: SaturationPickerProps): JSX.Element;
 
 // @beta
 export interface SaturationPickerProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {

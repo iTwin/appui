@@ -1,17 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
 
 import type * as React from "react";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import type { ContentLayoutProps} from "@itwin/appui-abstract";
+import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { UiError } from "@itwin/appui-abstract";
-import type { ConfigurableUiControlConstructor} from "../configurableui/ConfigurableUiControl";
-import { ConfigurableCreateInfo, ConfigurableUiControlType } from "../configurableui/ConfigurableUiControl";
+import type { ConfigurableUiControlConstructor } from "../configurableui/ConfigurableUiControl";
+import {
+  ConfigurableCreateInfo,
+  ConfigurableUiControlType,
+} from "../configurableui/ConfigurableUiControl";
 import { UiFramework } from "../UiFramework";
 import type { ContentControl } from "./ContentControl";
 import type { FrontstageConfig } from "../frontstage/FrontstageConfig";
@@ -64,7 +67,7 @@ export abstract class ContentGroupProvider {
   }
 
   /** Allow provider to save any content group data before the stage deactivated. */
-  public async onFrontstageDeactivated() { }
+  public async onFrontstageDeactivated() {}
 }
 
 /** Callback to process content properties during toJSON method
@@ -97,7 +100,10 @@ export class ContentGroup {
   }
 
   /** Gets a [[ContentControl]] from the Content Group based on its [[ContentProps]]. */
-  public getContentControl(contentProps: ContentProps, _index: number): ContentControl | undefined {
+  public getContentControl(
+    contentProps: ContentProps,
+    _index: number
+  ): ContentControl | undefined {
     // ensure we have a unique control Id for each instance of a content control - this will be used as a key for the React control - see `ContentControl.getKeyedReactNode`
     const id = `${contentProps.id}::${this.groupId}`;
     let contentControl: ContentControl | undefined;
@@ -106,19 +112,40 @@ export class ContentGroup {
       let usedClassId: string = "";
 
       if (typeof contentProps.classId === "string") {
-        if (!this._contentControls.get(contentProps.id) && UiFramework.controls.isRegistered(contentProps.classId)) {
-          contentControl = UiFramework.controls.create(contentProps.classId, id, contentProps.applicationData, contentProps.id) as ContentControl;
+        if (
+          !this._contentControls.get(contentProps.id) &&
+          UiFramework.controls.isRegistered(contentProps.classId)
+        ) {
+          contentControl = UiFramework.controls.create(
+            contentProps.classId,
+            id,
+            contentProps.applicationData,
+            contentProps.id
+          ) as ContentControl;
           usedClassId = contentProps.classId;
         }
       } else {
-        const info = new ConfigurableCreateInfo(contentProps.classId.name, id, contentProps.id);
-        contentControl = new contentProps.classId(info, contentProps.applicationData) as ContentControl;
+        const info = new ConfigurableCreateInfo(
+          contentProps.classId.name,
+          id,
+          contentProps.id
+        );
+        contentControl = new contentProps.classId(
+          info,
+          contentProps.applicationData
+        ) as ContentControl;
         usedClassId = contentProps.classId.name;
       }
 
       if (contentControl) {
-        if (contentControl.getType() !== ConfigurableUiControlType.Content && contentControl.getType() !== ConfigurableUiControlType.Viewport) {
-          throw new UiError(UiFramework.loggerCategory(this), `getContentControl error: '${usedClassId}' is NOT a ContentControl or ViewportContentControl`);
+        if (
+          contentControl.getType() !== ConfigurableUiControlType.Content &&
+          contentControl.getType() !== ConfigurableUiControlType.Viewport
+        ) {
+          throw new UiError(
+            UiFramework.loggerCategory(this),
+            `getContentControl error: '${usedClassId}' is NOT a ContentControl or ViewportContentControl`
+          );
         }
         contentControl.initialize();
         this._contentControls.set(contentProps.id, contentControl);
@@ -139,24 +166,27 @@ export class ContentGroup {
 
     this._contentSetMap.clear();
 
-    this.contentPropsList.forEach((contentProps: ContentProps, index: number) => {
-      const control = this.getContentControl(contentProps, index);
-      if (control) {
-        contentNodes.push(control.reactNode);
-        this._contentSetMap.set(control.controlId, control);
+    this.contentPropsList.forEach(
+      (contentProps: ContentProps, index: number) => {
+        const control = this.getContentControl(contentProps, index);
+        if (control) {
+          contentNodes.push(control.reactNode);
+          this._contentSetMap.set(control.controlId, control);
+        }
       }
-    });
+    );
 
     return contentNodes;
   }
 
   /** Gets the [[ContentControl]] associated with a given React node representing a Content View. */
-  public getControlFromElement(node: React.ReactNode): ContentControl | undefined {
-    if (this._contentSetMap.size === 0)
-      this.getContentNodes();
+  public getControlFromElement(
+    node: React.ReactNode
+  ): ContentControl | undefined {
+    if (this._contentSetMap.size === 0) this.getContentNodes();
 
     if (node && (node as React.ReactElement<any>).key) {
-      const key = ((node as React.ReactElement<any>).key as string);
+      const key = (node as React.ReactElement<any>).key as string;
       // key has format `${contentProps.id}::${this.groupId}` which is stored as unique id
       const controlId = key.split("::", 1)[0];
       return this._contentSetMap.get(controlId);
@@ -174,12 +204,14 @@ export class ContentGroup {
   public getContentControls(): ContentControl[] {
     const contentControls: ContentControl[] = new Array<ContentControl>();
 
-    this.contentPropsList.forEach((contentProps: ContentProps, index: number) => {
-      const control = this.getContentControl(contentProps, index);
-      if (control) {
-        contentControls.push(control);
+    this.contentPropsList.forEach(
+      (contentProps: ContentProps, index: number) => {
+        const control = this.getContentControl(contentProps, index);
+        if (control) {
+          contentControls.push(control);
+        }
       }
-    });
+    );
 
     return contentControls;
   }
@@ -190,7 +222,7 @@ export class ContentGroup {
   }
 
   /** Called when Frontstage is ready. */
-  public onFrontstageReady(): void { }
+  public onFrontstageReady(): void {}
 
   /** Clears the map of content controls. */
   public clearContentControls(): void {
@@ -207,18 +239,23 @@ export class ContentGroup {
       contents: this.contentPropsList,
     };
 
-    contentGroupProps.contents.forEach((content: ContentProps, index: number) => {
-      if (typeof content.classId !== "string") {
-        const classId = InternalConfigurableUiManager.getConstructorClassId(content.classId);
-        if (classId !== undefined)
-          content.classId = classId;
-        else
-          throw new UiError(UiFramework.loggerCategory(this), `toJSON: ContentControl at index ${index} is NOT registered with a string id`);
+    contentGroupProps.contents.forEach(
+      (content: ContentProps, index: number) => {
+        if (typeof content.classId !== "string") {
+          const classId = InternalConfigurableUiManager.getConstructorClassId(
+            content.classId
+          );
+          if (classId !== undefined) content.classId = classId;
+          else
+            throw new UiError(
+              UiFramework.loggerCategory(this),
+              `toJSON: ContentControl at index ${index} is NOT registered with a string id`
+            );
 
-        if (contentCallback)
-          contentCallback(content);
+          if (contentCallback) contentCallback(content);
+        }
       }
-    });
+    );
 
     return contentGroupProps;
   }

@@ -1,9 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
-import { BackstageItem, BackstageItemUtilities, UiItemsManager, UiItemsProvider } from "@itwin/appui-react";
+import {
+  BackstageItem,
+  BackstageItemUtilities,
+  UiItemsManager,
+  UiItemsProvider,
+} from "@itwin/appui-react";
 import { WidgetApiStage } from "../frontstages/WidgetApiStage";
 import { SetWidgetStateTool } from "../../tools/UiLayoutTools";
 import { CustomFrontstageProvider } from "../frontstages/CustomFrontstageProvider";
@@ -13,7 +18,9 @@ export class CustomStageUiItemsProvider implements UiItemsProvider {
   public readonly id = CustomStageUiItemsProvider.providerId;
 
   public static register() {
-    UiItemsManager.register(new CustomStageUiItemsProvider(), { stageIds: [WidgetApiStage.stageId] });
+    UiItemsManager.register(new CustomStageUiItemsProvider(), {
+      stageIds: [WidgetApiStage.stageId],
+    });
     SetWidgetStateTool.register();
   }
 
@@ -23,8 +30,14 @@ export class CustomStageUiItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(CustomFrontstageProvider.stageId, 300, 2, "Custom Frontstage", undefined, undefined),
+      BackstageItemUtilities.createStageLauncher(
+        CustomFrontstageProvider.stageId,
+        300,
+        2,
+        "Custom Frontstage",
+        undefined,
+        undefined
+      ),
     ];
   }
-
 }

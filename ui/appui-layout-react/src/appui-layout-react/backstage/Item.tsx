@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Backstage
  */
@@ -10,7 +10,7 @@ import "./Item.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import type { SafeAreaInsets} from "../base/SafeAreaInsets";
+import type { SafeAreaInsets } from "../base/SafeAreaInsets";
 import { SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
 
 /** Properties of [[BackstageItem]] component.
@@ -40,7 +40,7 @@ export interface BackstageItemProps extends CommonProps {
 }
 
 /** Item in the [[Backstage]].
-* @internal
+ * @internal
  */
 export class BackstageItem extends React.PureComponent<BackstageItemProps> {
   public override render() {
@@ -48,8 +48,10 @@ export class BackstageItem extends React.PureComponent<BackstageItemProps> {
       "nz-backstage-item",
       this.props.isActive && "nz-active",
       this.props.isDisabled && "nz-disabled",
-      this.props.safeAreaInsets && SafeAreaInsetsHelpers.getCssClassNames(this.props.safeAreaInsets),
-      this.props.className);
+      this.props.safeAreaInsets &&
+        SafeAreaInsetsHelpers.getCssClassNames(this.props.safeAreaInsets),
+      this.props.className
+    );
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -65,11 +67,7 @@ export class BackstageItem extends React.PureComponent<BackstageItemProps> {
         role="menuitem"
       >
         <div className="nz-icon">{this.props.icon}</div>
-        {this.props.badge &&
-          <div className="nz-badge">
-            {this.props.badge}
-          </div>
-        }
+        {this.props.badge && <div className="nz-badge">{this.props.badge}</div>}
         <div>
           <span>{this.props.children}</span>
           {this.props.subtitle && <span>{this.props.subtitle}</span>}

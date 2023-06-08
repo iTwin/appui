@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "variables";
 
 .nz-widget-tabBar {
@@ -16,17 +16,17 @@
     border-bottom: 1px solid var(--iui-color-border);
   }
 
-  >.nz-handle {
+  > .nz-handle {
     width: 100%;
     height: 100%;
     position: absolute;
     cursor: auto;
   }
 
-  >.nz-widget-tabBarButtons {
+  > .nz-widget-tabBarButtons {
     display: flex;
     align-items: center;
     align-content: center;
-    height: 100%
+    height: 100%;
   }
 }

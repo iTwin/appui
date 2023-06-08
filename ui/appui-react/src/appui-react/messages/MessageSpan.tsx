@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Notification
  */
 
 import * as React from "react";
-import type { ClassNameProps} from "@itwin/core-react";
+import type { ClassNameProps } from "@itwin/core-react";
 import { MessageRenderer } from "@itwin/core-react";
 import type { NotifyMessageType } from "./ReactNotifyMessageDetails";
 

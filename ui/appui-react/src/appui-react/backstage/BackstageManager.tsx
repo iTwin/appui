@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Backstage
  */
@@ -9,7 +9,10 @@
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
-import type { BackstageToggledArgs, FrameworkBackstage } from "../framework/FrameworkBackstage";
+import type {
+  BackstageToggledArgs,
+  FrameworkBackstage,
+} from "../framework/FrameworkBackstage";
 import { InternalBackstageManager } from "./InternalBackstageManager";
 
 /** Controls backstage.
@@ -27,7 +30,9 @@ export class BackstageManager {
   }
 
   /** Event raised when backstage is opened or closed. */
-  public get onToggled() { return this.internal.onToggled; }
+  public get onToggled() {
+    return this.internal.onToggled;
+  }
 
   public get isOpen() {
     return this.internal.isOpen;
@@ -50,7 +55,7 @@ export class BackstageManager {
   }
 
   /** Get CommandItemDef that will toggle display of Backstage and allow iconSpec to be overridden
-  */
+   */
   public static getBackstageToggleCommand(overrideIconSpec?: IconSpec) {
     return UiFramework.backstage.getBackstageToggleCommand(overrideIconSpec);
   }

@@ -1,37 +1,48 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
 
 import * as React from "react";
-import type { LinkElementsInfo, PrimitiveValue, PropertyRecord} from "@itwin/appui-abstract";
+import type {
+  LinkElementsInfo,
+  PrimitiveValue,
+  PropertyRecord,
+} from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { useAsyncValue } from "../../../common/UseAsyncValue";
 import { TypeConverterManager } from "../../../converters/TypeConverterManager";
 import { PropertyGridCommons } from "../../../propertygrid/component/PropertyGridCommons";
 import { LinksRenderer } from "../../LinkHandler";
-import type { IPropertyValueRenderer, PropertyValueRendererContext } from "../../ValueRendererManager";
+import type {
+  IPropertyValueRenderer,
+  PropertyValueRendererContext,
+} from "../../ValueRendererManager";
 
 /** Default Primitive Property Renderer
  * @public
  */
 export class PrimitivePropertyValueRenderer implements IPropertyValueRenderer {
-
   /** Checks if the renderer can handle given property */
   public canRender(record: PropertyRecord) {
     return record.value.valueFormat === PropertyValueFormat.Primitive;
   }
 
   /** Method that returns a JSX representation of PropertyRecord */
-  public render(record: PropertyRecord, context?: PropertyValueRendererContext) {
-    return <PrimitivePropertyValueRendererImpl
-      record={record}
-      context={context}
-      stringValueCalculator={convertPrimitiveRecordToString}
-    />;
+  public render(
+    record: PropertyRecord,
+    context?: PropertyValueRendererContext
+  ) {
+    return (
+      <PrimitivePropertyValueRendererImpl
+        record={record}
+        context={context}
+        stringValueCalculator={convertPrimitiveRecordToString}
+      />
+    );
   }
 }
 
@@ -39,9 +50,14 @@ export class PrimitivePropertyValueRenderer implements IPropertyValueRenderer {
  * Function that converts primitive [[PropertyRecord]] to string
  * @internal
  */
-export function convertPrimitiveRecordToString(record: PropertyRecord): string | Promise<string> {
+export function convertPrimitiveRecordToString(
+  record: PropertyRecord
+): string | Promise<string> {
   const primitive = record.value as PrimitiveValue;
-  return TypeConverterManager.getConverter(record.property.typename, record.property.converter?.name).convertPropertyToString(record.property, primitive.value);
+  return TypeConverterManager.getConverter(
+    record.property.typename,
+    record.property.converter?.name
+  ).convertPropertyToString(record.property, primitive.value);
 }
 
 /** @internal */
@@ -53,9 +69,20 @@ interface PrimitivePropertyValueRendererImplProps {
 }
 
 /** @internal */
-export function PrimitivePropertyValueRendererImpl(props: PrimitivePropertyValueRendererImplProps) {
-  const { stringValue, element } = useRenderedStringValue(props.record, props.stringValueCalculator, props.context, props.linksHandler);
-  return <span style={props.context?.style} title={stringValue}>{element}</span>;
+export function PrimitivePropertyValueRendererImpl(
+  props: PrimitivePropertyValueRendererImplProps
+) {
+  const { stringValue, element } = useRenderedStringValue(
+    props.record,
+    props.stringValueCalculator,
+    props.context,
+    props.linksHandler
+  );
+  return (
+    <span style={props.context?.style} title={stringValue}>
+      {element}
+    </span>
+  );
 }
 
 /**
@@ -76,15 +103,18 @@ export function useRenderedStringValue(
   record: PropertyRecord,
   stringValueCalculator: (record: PropertyRecord) => string | Promise<string>,
   context?: PropertyValueRendererContext,
-  linksHandler?: LinkElementsInfo,
-): { stringValue?: string, element: React.ReactNode } {
+  linksHandler?: LinkElementsInfo
+): { stringValue?: string; element: React.ReactNode } {
   const stringValue = useAsyncValue(stringValueCalculator(record));
-  const el = (stringValue === undefined)
-    ? context?.defaultValue
-    : <LinksRenderer
-      value={stringValue}
-      links={record.links ?? linksHandler ?? DEFAULT_LINKS_HANDLER}
-      highlighter={context?.textHighlighter}
-    />;
+  const el =
+    stringValue === undefined ? (
+      context?.defaultValue
+    ) : (
+      <LinksRenderer
+        value={stringValue}
+        links={record.links ?? linksHandler ?? DEFAULT_LINKS_HANDLER}
+        highlighter={context?.textHighlighter}
+      />
+    );
   return { stringValue, element: el };
 }

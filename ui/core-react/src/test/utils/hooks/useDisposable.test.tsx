@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as sinon from "sinon";
 import type { IDisposable } from "@itwin/core-bentley";
@@ -19,8 +19,9 @@ describe("useDisposable", () => {
 
   it("creates disposable and disposes it on unmount", () => {
     const { result, unmount } = renderHook(
-      (props: { createDisposable: () => IDisposable }) => useDisposable(props.createDisposable),
-      { initialProps: { createDisposable } },
+      (props: { createDisposable: () => IDisposable }) =>
+        useDisposable(props.createDisposable),
+      { initialProps: { createDisposable } }
     );
     expect(result.current).to.not.be.undefined;
 
@@ -30,8 +31,9 @@ describe("useDisposable", () => {
 
   it("disposes old disposable when creating new one", () => {
     const { result, rerender } = renderHook(
-      (props: { createDisposable: () => IDisposable }) => useDisposable(props.createDisposable),
-      { initialProps: { createDisposable } },
+      (props: { createDisposable: () => IDisposable }) =>
+        useDisposable(props.createDisposable),
+      { initialProps: { createDisposable } }
     );
     expect(result.current).to.not.be.undefined;
 
@@ -44,5 +46,4 @@ describe("useDisposable", () => {
     expect(disposeSpy).to.be.calledOnce;
     expect(newDisposeSpy).to.not.be.called;
   });
-
 });

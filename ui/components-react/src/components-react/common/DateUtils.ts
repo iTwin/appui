@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Common
  */
@@ -44,7 +44,9 @@ export interface DateFormatOptions {
  * @public
  */
 export function adjustDateToTimezone(inDateTime: Date, utcOffset: number) {
-  return new Date(inDateTime.getTime() + (inDateTime.getTimezoneOffset() + utcOffset) * 60000);
+  return new Date(
+    inDateTime.getTime() + (inDateTime.getTimezoneOffset() + utcOffset) * 60000
+  );
 }
 /**
  * Format a date in a display string, optionally converting to time zone, if specified by timeZoneOffset
@@ -54,12 +56,22 @@ export function adjustDateToTimezone(inDateTime: Date, utcOffset: number) {
  * @returns formatted date string
  * @public
  */
-export const toDateString = (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => {
+export const toDateString = (
+  date: Date,
+  timeZoneOffset?: number,
+  formatOptions?: DateFormatOptions
+) => {
   if (formatOptions) {
-    return undefined === timeZoneOffset ? date.toLocaleDateString(formatOptions.locales, formatOptions.options) :
-      adjustDateToTimezone(date, timeZoneOffset).toLocaleDateString(formatOptions.locales, formatOptions.options);
+    return undefined === timeZoneOffset
+      ? date.toLocaleDateString(formatOptions.locales, formatOptions.options)
+      : adjustDateToTimezone(date, timeZoneOffset).toLocaleDateString(
+          formatOptions.locales,
+          formatOptions.options
+        );
   }
-  return undefined === timeZoneOffset ? date.toLocaleDateString() : adjustDateToTimezone(date, timeZoneOffset).toLocaleDateString();
+  return undefined === timeZoneOffset
+    ? date.toLocaleDateString()
+    : adjustDateToTimezone(date, timeZoneOffset).toLocaleDateString();
 };
 /**
  * Format the time included in a date, optionally converting to time zone, if specified
@@ -69,11 +81,20 @@ export const toDateString = (date: Date, timeZoneOffset?: number, formatOptions?
  * @returns formatted time string
  * @public
  */
-export const toTimeString = (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => {
+export const toTimeString = (
+  date: Date,
+  timeZoneOffset?: number,
+  formatOptions?: DateFormatOptions
+) => {
   if (formatOptions) {
-    return undefined === timeZoneOffset ? date.toLocaleTimeString(formatOptions.locales, formatOptions.options) :
-      adjustDateToTimezone(date, timeZoneOffset).toLocaleTimeString(formatOptions.locales, formatOptions.options);
+    return undefined === timeZoneOffset
+      ? date.toLocaleTimeString(formatOptions.locales, formatOptions.options)
+      : adjustDateToTimezone(date, timeZoneOffset).toLocaleTimeString(
+          formatOptions.locales,
+          formatOptions.options
+        );
   }
-  return undefined === timeZoneOffset ? date.toLocaleTimeString() : adjustDateToTimezone(date, timeZoneOffset).toLocaleTimeString();
+  return undefined === timeZoneOffset
+    ? date.toLocaleTimeString()
+    : adjustDateToTimezone(date, timeZoneOffset).toLocaleTimeString();
 };
-

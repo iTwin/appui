@@ -1,12 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module ContentView
  */
 
-import type { ContentLayoutProps} from "@itwin/appui-abstract";
+import type { ContentLayoutProps } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { ContentControl } from "../content/ContentControl";
 import type { ContentGroup, ContentGroupProps } from "../content/ContentGroup";
@@ -25,7 +25,7 @@ export interface MouseDownChangedEventArgs {
 /** Mouse Down Changed Event class.
  * @public
  */
-export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> { }
+export class MouseDownChangedEvent extends UiEvent<MouseDownChangedEventArgs> {}
 
 /** [[ActiveContentChangedEvent]] Args interface.
  * @public
@@ -40,12 +40,12 @@ export interface ActiveContentChangedEventArgs {
 /** Active Content Changed Event class.
  * @public
  */
-export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> { }
+export class ActiveContentChangedEvent extends UiEvent<ActiveContentChangedEventArgs> {}
 
 /** Content Dialog Changed Event class.
  * @public
  */
-export class ContentDialogChangedEvent extends DialogChangedEvent { }
+export class ContentDialogChangedEvent extends DialogChangedEvent {}
 
 /** @public */
 export interface ContentDialogInfo {
@@ -86,7 +86,10 @@ export interface FrameworkContent {
   dropFloatingContentControl(contentControl?: ContentControl): void;
 
   /** Sets the active [[ContentControl]] */
-  setActive(activeContent?: React.ReactNode, forceEventProcessing?: boolean): void;
+  setActive(
+    activeContent?: React.ReactNode,
+    forceEventProcessing?: boolean
+  ): void;
 
   /** Refreshes the active [[ContentControl]] */
   refreshActive(activeContent: React.ReactNode): void;
@@ -133,12 +136,15 @@ export interface FrameworkContent {
    */
   readonly layouts: {
     /** build a layout key that is unique for group layout combination */
-    getKey(props: { contentGroupId: string, layoutId: string }): string;
+    getKey(props: { contentGroupId: string; layoutId: string }): string;
 
     /** Return a LayoutDef that is specific to a content group.
      * @returns the [[ContentLayoutDef]] if found, or undefined otherwise
      */
-    getForGroup(contentGroupProps: ContentGroupProps | ContentGroup, overrideContentLayout?: ContentLayoutProps): ContentLayoutDef;
+    getForGroup(
+      contentGroupProps: ContentGroupProps | ContentGroup,
+      overrideContentLayout?: ContentLayoutProps
+    ): ContentLayoutDef;
 
     /** Finds a Content Layout with a given id.
      * @param layoutKey  group specific layout id, see `getLayoutKey`
@@ -162,7 +168,10 @@ export interface FrameworkContent {
      * @param contentLayoutDef  Content layout to make active
      * @param contentGroup  Content Group to make active
      */
-    setActive(contentLayoutDef: ContentLayoutDef, contentGroup: ContentGroup): Promise<void>;
+    setActive(
+      contentLayoutDef: ContentLayoutDef,
+      contentGroup: ContentGroup
+    ): Promise<void>;
 
     /** Sets the active Content Group.
      * @param contentGroup  Content Group to make active

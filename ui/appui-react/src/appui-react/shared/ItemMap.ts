@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Item
  */
@@ -10,14 +10,12 @@ import type { ItemDefBase } from "./ItemDefBase";
 
 /** Contains a map of Items.
  * @public
- */
+ */
 export class ItemMap extends Map<string, ItemDefBase> {
-
   constructor(items?: ItemDefBase[]) {
     super();
 
-    if (items && typeof items === "object")
-      this.addItems(items);
+    if (items && typeof items === "object") this.addItems(items);
   }
 
   public addItem(item: ItemDefBase) {
@@ -33,14 +31,12 @@ export class ItemMap extends Map<string, ItemDefBase> {
 
 /** Contains a list of Items.
  * @public
- */
+ */
 export class ItemList extends Array<ItemDefBase> {
-
   constructor(items?: ItemDefBase[]) {
     super();
 
-    if (items && typeof items === "object")
-      this.addItems(items);
+    if (items && typeof items === "object") this.addItems(items);
   }
 
   public addItem(item: ItemDefBase) {

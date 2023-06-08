@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Hooks
  */
@@ -15,10 +15,13 @@ import { UiFramework } from "../UiFramework";
 export function useUiVisibility() {
   const [uiIsVisible, setUiIsVisible] = useState(UiFramework.getIsUiVisible());
   useEffect(() => {
-    const handleUiVisibilityChanged = ((args: UiVisibilityEventArgs): void => setUiIsVisible(args.visible));
+    const handleUiVisibilityChanged = (args: UiVisibilityEventArgs): void =>
+      setUiIsVisible(args.visible);
     UiFramework.onUiVisibilityChanged.addListener(handleUiVisibilityChanged);
     return () => {
-      UiFramework.onUiVisibilityChanged.removeListener(handleUiVisibilityChanged);
+      UiFramework.onUiVisibilityChanged.removeListener(
+        handleUiVisibilityChanged
+      );
     };
   }, []);
   return uiIsVisible;

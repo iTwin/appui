@@ -1,18 +1,22 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
-import type { ContentGroupProps, ContentProps} from "../../appui-react";
+import type { ContentGroupProps, ContentProps } from "../../appui-react";
 import {
-  BackstageAppButton, ContentGroup, ContentGroupProvider, StageUsage, UiFramework,
+  BackstageAppButton,
+  ContentGroup,
+  ContentGroupProvider,
+  StageUsage,
+  UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
-import type { StandardFrontstageProps} from "../../appui-react/frontstage/StandardFrontstageProvider";
+import type { StandardFrontstageProps } from "../../appui-react/frontstage/StandardFrontstageProvider";
 import { StandardFrontstageProvider } from "../../appui-react/frontstage/StandardFrontstageProvider";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager";
 
@@ -69,24 +73,34 @@ class TestContentGroupProvider extends ContentGroupProvider {
 
   public override prepareToSaveProps(contentGroupProps: ContentGroupProps) {
     this.hasSavedData = true;
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps) => {
-      const newContent = { ...content };
-      if (newContent.applicationData)
-        delete newContent.applicationData;
-      return newContent;
-    });
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps) => {
+        const newContent = { ...content };
+        if (newContent.applicationData) delete newContent.applicationData;
+        return newContent;
+      }
+    );
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
-  public override applyUpdatesToSavedProps(contentGroupProps: ContentGroupProps) {
-    const newContentsArray = contentGroupProps.contents.map((content: ContentProps) => {
-      const newAppData = {
-        ...content.applicationData,
-        supports: ["issueResolutionMarkers", "viewIdSelection", "3dModels", "2dModels"],
-        isInitialContentTestData: false,
-      };
-      return { ...content, applicationData: newAppData };
-    });
+  public override applyUpdatesToSavedProps(
+    contentGroupProps: ContentGroupProps
+  ) {
+    const newContentsArray = contentGroupProps.contents.map(
+      (content: ContentProps) => {
+        const newAppData = {
+          ...content.applicationData,
+          supports: [
+            "issueResolutionMarkers",
+            "viewIdSelection",
+            "3dModels",
+            "2dModels",
+          ],
+          isInitialContentTestData: false,
+        };
+        return { ...content, applicationData: newAppData };
+      }
+    );
     return { ...contentGroupProps, contents: newContentsArray };
   }
 
@@ -94,7 +108,9 @@ class TestContentGroupProvider extends ContentGroupProvider {
     if (this.hasSavedData) {
       const savedViewLayoutProps = await getSavedViewLayoutProps();
       if (savedViewLayoutProps) {
-        const contentGroupProps = this.applyUpdatesToSavedProps(savedViewLayoutProps.contentGroupProps);
+        const contentGroupProps = this.applyUpdatesToSavedProps(
+          savedViewLayoutProps.contentGroupProps
+        );
         return new ContentGroup(contentGroupProps);
       }
     }
@@ -116,16 +132,22 @@ describe("ContentGroupProvider", () => {
   });
 
   beforeEach(() => {
-    sinon.stub(InternalFrontstageManager, "activeToolSettingsProvider").get(() => undefined);
+    sinon
+      .stub(InternalFrontstageManager, "activeToolSettingsProvider")
+      .get(() => undefined);
     UiFramework.frontstages.clearFrontstageProviders();
   });
 
   it("should exercise base Content Group Provider", async () => {
     const provider = new BasicContentGroupProvider();
     const contentGroup = await provider.contentGroup();
-    const savedContentGroupProps = provider.prepareToSaveProps(contentGroup.toJSON());
+    const savedContentGroupProps = provider.prepareToSaveProps(
+      contentGroup.toJSON()
+    );
     expect(savedContentGroupProps).to.exist;
-    const retrievedContentGroupProps = provider.applyUpdatesToSavedProps(savedContentGroupProps);
+    const retrievedContentGroupProps = provider.applyUpdatesToSavedProps(
+      savedContentGroupProps
+    );
     expect(retrievedContentGroupProps).to.exist;
   });
 
@@ -139,13 +161,19 @@ describe("ContentGroupProvider", () => {
     expect(contentGroup.groupId).to.contain("main-content-group-");
     expect(contentGroup.propsId).to.eql("main-content-group");
     expect(contentGroup.contentPropsList.length).to.eql(1);
-    expect(contentGroup.contentPropsList[0].applicationData?.isInitialContentTestData).to.be.true;
+    expect(
+      contentGroup.contentPropsList[0].applicationData?.isInitialContentTestData
+    ).to.be.true;
 
-    const savedContentGroupProps = provider.prepareToSaveProps(contentGroup.toJSON());
+    const savedContentGroupProps = provider.prepareToSaveProps(
+      contentGroup.toJSON()
+    );
     expect(savedContentGroupProps).to.exist;
     expect(savedContentGroupProps.contents[0].applicationData).to.not.exist;
 
-    const retrievedContentGroupProps = provider.applyUpdatesToSavedProps(savedContentGroupProps);
+    const retrievedContentGroupProps = provider.applyUpdatesToSavedProps(
+      savedContentGroupProps
+    );
     expect(retrievedContentGroupProps.contents[0].applicationData).to.exist;
   });
 
@@ -159,18 +187,26 @@ describe("ContentGroupProvider", () => {
       usage: StageUsage.General,
     };
 
-    const standardFrontstageProvider = new StandardFrontstageProvider(ui2StageProps);
+    const standardFrontstageProvider = new StandardFrontstageProvider(
+      ui2StageProps
+    );
     UiFramework.frontstages.addFrontstageProvider(standardFrontstageProvider);
-    await UiFramework.frontstages.setActiveFrontstage(standardFrontstageProvider.id);
+    await UiFramework.frontstages.setActiveFrontstage(
+      standardFrontstageProvider.id
+    );
     setImmediate(async () => {
       await TestUtils.flushAsyncOperations();
 
-      expect(UiFramework.frontstages.activeFrontstageId).to.eq(standardFrontstageProvider.id);
+      expect(UiFramework.frontstages.activeFrontstageId).to.eq(
+        standardFrontstageProvider.id
+      );
     });
   });
 
   it("openStandardFrontstage with corner items", async () => {
-    const cornerButton = <BackstageAppButton key="ui2-backstage" icon={"icon-bentley-systems"} />;
+    const cornerButton = (
+      <BackstageAppButton key="ui2-backstage" icon={"icon-bentley-systems"} />
+    );
 
     const ui2StageProps: StandardFrontstageProps = {
       id: "Ui2",
@@ -181,13 +217,19 @@ describe("ContentGroupProvider", () => {
       usage: StageUsage.General,
     };
 
-    const standardFrontstageProvider = new StandardFrontstageProvider(ui2StageProps);
+    const standardFrontstageProvider = new StandardFrontstageProvider(
+      ui2StageProps
+    );
     UiFramework.frontstages.addFrontstageProvider(standardFrontstageProvider);
-    await UiFramework.frontstages.setActiveFrontstage(standardFrontstageProvider.id);
+    await UiFramework.frontstages.setActiveFrontstage(
+      standardFrontstageProvider.id
+    );
     setImmediate(async () => {
       await TestUtils.flushAsyncOperations();
 
-      expect(UiFramework.frontstages.activeFrontstageId).to.eq(standardFrontstageProvider.id);
+      expect(UiFramework.frontstages.activeFrontstageId).to.eq(
+        standardFrontstageProvider.id
+      );
     });
   });
 
@@ -213,13 +255,18 @@ describe("ContentGroupProvider", () => {
       usage: StageUsage.Private,
     };
 
-    const standardFrontstageProvider = new StandardFrontstageProvider(testStageProps);
+    const standardFrontstageProvider = new StandardFrontstageProvider(
+      testStageProps
+    );
     UiFramework.frontstages.addFrontstageProvider(standardFrontstageProvider);
-    await UiFramework.frontstages.setActiveFrontstage(standardFrontstageProvider.id);
+    await UiFramework.frontstages.setActiveFrontstage(
+      standardFrontstageProvider.id
+    );
     setImmediate(async () => {
       await TestUtils.flushAsyncOperations();
-      expect(UiFramework.frontstages.activeFrontstageId).to.eq(standardFrontstageProvider.id);
+      expect(UiFramework.frontstages.activeFrontstageId).to.eq(
+        standardFrontstageProvider.id
+      );
     });
   });
-
 });

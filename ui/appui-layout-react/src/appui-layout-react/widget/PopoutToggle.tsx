@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -20,7 +20,8 @@ import { useActiveTabId } from "./Widget";
 export function PopoutToggle() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const activeTabId = useActiveTabId();
-  const iconSpec = IconSpecUtilities.createWebComponentIconSpec(popoutToggleSvg);
+  const iconSpec =
+    IconSpecUtilities.createWebComponentIconSpec(popoutToggleSvg);
   const popoutTitle = useLabel("popoutActiveTab");
   return (
     <button
@@ -34,6 +35,6 @@ export function PopoutToggle() {
       title={popoutTitle}
     >
       <Icon iconSpec={iconSpec} />
-    </button >
+    </button>
   );
 }

@@ -1,46 +1,112 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import "./index.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect, Provider } from "react-redux";
 import { Store } from "redux"; // createStore,
 import reactAxe from "@axe-core/react";
-import { RealityDataAccessClient, RealityDataClientOptions } from "@itwin/reality-data-client";
+import {
+  RealityDataAccessClient,
+  RealityDataClientOptions,
+} from "@itwin/reality-data-client";
 import { getClassName } from "@itwin/appui-abstract";
 import {
-  ActionsUnion, AppNotificationManager, AppUiSettings, BackstageComposer, ConfigurableUiContent, createAction, DeepReadonly, FrameworkAccuDraw, FrameworkReducer,
-  FrameworkRootState, FrameworkToolAdmin, FrameworkUiAdmin, FrontstageDeactivatedEventArgs, IModelViewportControl, InitialAppUiSettings,
-  ModalFrontstageClosedEventArgs, PresentationSelectionScope, SafeAreaContext, SafeAreaInsets, SessionStateActionId, StateManager, SyncUiEventDispatcher, SYSTEM_PREFERRED_COLOR_THEME, ThemeManager,
-  ToolbarDragInteractionContext, UiFramework, UiItemsManager, UiStateStorageHandler,
+  ActionsUnion,
+  AppNotificationManager,
+  AppUiSettings,
+  BackstageComposer,
+  ConfigurableUiContent,
+  createAction,
+  DeepReadonly,
+  FrameworkAccuDraw,
+  FrameworkReducer,
+  FrameworkRootState,
+  FrameworkToolAdmin,
+  FrameworkUiAdmin,
+  FrontstageDeactivatedEventArgs,
+  IModelViewportControl,
+  InitialAppUiSettings,
+  ModalFrontstageClosedEventArgs,
+  PresentationSelectionScope,
+  SafeAreaContext,
+  SafeAreaInsets,
+  SessionStateActionId,
+  StateManager,
+  SyncUiEventDispatcher,
+  SYSTEM_PREFERRED_COLOR_THEME,
+  ThemeManager,
+  ToolbarDragInteractionContext,
+  UiFramework,
+  UiItemsManager,
+  UiStateStorageHandler,
 } from "@itwin/appui-react";
-import { assert, Id64String, Logger, LogLevel, ProcessDetector, UnexpectedErrors } from "@itwin/core-bentley";
-import { BentleyCloudRpcManager, BentleyCloudRpcParams, RpcConfiguration } from "@itwin/core-common";
+import {
+  assert,
+  Id64String,
+  Logger,
+  LogLevel,
+  ProcessDetector,
+  UnexpectedErrors,
+} from "@itwin/core-bentley";
+import {
+  BentleyCloudRpcManager,
+  BentleyCloudRpcParams,
+  RpcConfiguration,
+} from "@itwin/core-common";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import {
-  AccuSnap, IModelApp, IModelConnection, LocalUnitFormatProvider, NativeAppLogger,
-  NativeAppOpts, SelectionTool, SnapMode, ToolAdmin, ViewClipByPlaneTool,
+  AccuSnap,
+  IModelApp,
+  IModelConnection,
+  LocalUnitFormatProvider,
+  NativeAppLogger,
+  NativeAppOpts,
+  SelectionTool,
+  SnapMode,
+  ToolAdmin,
+  ViewClipByPlaneTool,
 } from "@itwin/core-frontend";
-import { MobileApp, MobileAppOpts } from "@itwin/core-mobile/lib/cjs/MobileFrontend";
+import {
+  MobileApp,
+  MobileAppOpts,
+} from "@itwin/core-mobile/lib/cjs/MobileFrontend";
 import { FrontendDevTools } from "@itwin/frontend-devtools";
 import { HyperModeling } from "@itwin/hypermodeling-frontend";
 // import { DefaultMapFeatureInfoTool, MapLayersUI } from "@itwin/map-layers";
 // import { SchemaUnitProvider } from "@itwin/ecschema-metadata";
 import { getSupportedRpcs } from "../common/rpcs";
-import { loggerCategory, TestAppConfiguration } from "../common/TestAppConfiguration";
+import {
+  loggerCategory,
+  TestAppConfiguration,
+} from "../common/TestAppConfiguration";
 import { AppUi } from "./appui/AppUi";
 import { LocalFileOpenFrontstage } from "./appui/frontstages/LocalFileStage";
 import { MainFrontstage } from "./appui/frontstages/MainFrontstage";
 import { AppSettingsTabsProvider } from "./appui/settingsproviders/AppSettingsTabsProvider";
 // import { ECSchemaRpcLocater } from "@itwin/ecschema-rpcinterface-common";
 import {
-  AbstractUiItemsProvider, ApplicationLayoutContext, ApplicationLayoutProvider, AppUiTestProviders, ContentLayoutStage, CustomContentFrontstage,
-  CustomFrontstageProvider, FloatingWidgetsUiItemsProvider, InspectUiItemInfoToolProvider, MessageUiItemsProvider, PopoutWindowsFrontstage, SynchronizedFloatingViewportStage, WidgetApiStage,
+  AbstractUiItemsProvider,
+  ApplicationLayoutContext,
+  ApplicationLayoutProvider,
+  AppUiTestProviders,
+  ContentLayoutStage,
+  CustomContentFrontstage,
+  CustomFrontstageProvider,
+  FloatingWidgetsUiItemsProvider,
+  InspectUiItemInfoToolProvider,
+  MessageUiItemsProvider,
+  PopoutWindowsFrontstage,
+  SynchronizedFloatingViewportStage,
+  WidgetApiStage,
 } from "@itwin/appui-test-providers";
 import { useHandleURLParams } from "./UrlParams";
-import { addExampleFrontstagesToBackstage, registerExampleFrontstages } from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
+import {
+  addExampleFrontstagesToBackstage,
+  registerExampleFrontstages,
+} from "./appui/frontstages/example-stages/ExampleStagesBackstageProvider";
 
 // Initialize my application gateway configuration for the frontend
 RpcConfiguration.developmentMode = true;
@@ -71,24 +137,43 @@ const initialState: SampleAppState = {
 
 // An object with a function that creates each OpenIModelAction that can be handled by our reducer.
 export const SampleAppActions = {
-  setTestProperty: (testProperty: string) => createAction(SampleAppUiActionId.setTestProperty, testProperty),
-  setAnimationViewId: (viewId: string) => createAction(SampleAppUiActionId.setAnimationViewId, viewId),
-  setIsIModelLocal: (isIModelLocal: boolean) => createAction(SampleAppUiActionId.setIsIModelLocal, isIModelLocal),
-  setInitialViewIds: (viewIds: string[]) => createAction(SampleAppUiActionId.setInitialViewIds, viewIds),
+  setTestProperty: (testProperty: string) =>
+    createAction(SampleAppUiActionId.setTestProperty, testProperty),
+  setAnimationViewId: (viewId: string) =>
+    createAction(SampleAppUiActionId.setAnimationViewId, viewId),
+  setIsIModelLocal: (isIModelLocal: boolean) =>
+    createAction(SampleAppUiActionId.setIsIModelLocal, isIModelLocal),
+  setInitialViewIds: (viewIds: string[]) =>
+    createAction(SampleAppUiActionId.setInitialViewIds, viewIds),
 };
 
 class SampleAppAccuSnap extends AccuSnap {
   public override getActiveSnapModes(): SnapMode[] {
     const snaps: SnapMode[] = [];
     if (SampleAppIModelApp.store.getState().frameworkState) {
-      const snapMode = SampleAppIModelApp.store.getState().frameworkState.configurableUiState.snapMode;
-      if ((snapMode & SnapMode.Bisector) === SnapMode.Bisector as number) snaps.push(SnapMode.Bisector);
-      if ((snapMode & SnapMode.Center) === SnapMode.Center as number) snaps.push(SnapMode.Center);
-      if ((snapMode & SnapMode.Intersection) === SnapMode.Intersection as number) snaps.push(SnapMode.Intersection);
-      if ((snapMode & SnapMode.MidPoint) === SnapMode.MidPoint as number) snaps.push(SnapMode.MidPoint);
-      if ((snapMode & SnapMode.Nearest) === SnapMode.Nearest as number) snaps.push(SnapMode.Nearest);
-      if ((snapMode & SnapMode.NearestKeypoint) === SnapMode.NearestKeypoint as number) snaps.push(SnapMode.NearestKeypoint);
-      if ((snapMode & SnapMode.Origin) === SnapMode.Origin as number) snaps.push(SnapMode.Origin);
+      const snapMode =
+        SampleAppIModelApp.store.getState().frameworkState.configurableUiState
+          .snapMode;
+      if ((snapMode & SnapMode.Bisector) === (SnapMode.Bisector as number))
+        snaps.push(SnapMode.Bisector);
+      if ((snapMode & SnapMode.Center) === (SnapMode.Center as number))
+        snaps.push(SnapMode.Center);
+      if (
+        (snapMode & SnapMode.Intersection) ===
+        (SnapMode.Intersection as number)
+      )
+        snaps.push(SnapMode.Intersection);
+      if ((snapMode & SnapMode.MidPoint) === (SnapMode.MidPoint as number))
+        snaps.push(SnapMode.MidPoint);
+      if ((snapMode & SnapMode.Nearest) === (SnapMode.Nearest as number))
+        snaps.push(SnapMode.Nearest);
+      if (
+        (snapMode & SnapMode.NearestKeypoint) ===
+        (SnapMode.NearestKeypoint as number)
+      )
+        snaps.push(SnapMode.NearestKeypoint);
+      if ((snapMode & SnapMode.Origin) === (SnapMode.Origin as number))
+        snaps.push(SnapMode.Origin);
     } else {
       snaps.push(SnapMode.NearestKeypoint);
     }
@@ -98,7 +183,10 @@ class SampleAppAccuSnap extends AccuSnap {
 
 export type SampleAppActionsUnion = ActionsUnion<typeof SampleAppActions>;
 
-function SampleAppReducer(state: SampleAppState = initialState, action: SampleAppActionsUnion): DeepReadonly<SampleAppState> {
+function SampleAppReducer(
+  state: SampleAppState = initialState,
+  action: SampleAppActionsUnion
+): DeepReadonly<SampleAppState> {
   switch (action.type) {
     case SampleAppUiActionId.setTestProperty: {
       return { ...state, testProperty: action.payload };
@@ -139,13 +227,18 @@ export class SampleAppIModelApp {
   }
 
   public static async startup(opts: NativeAppOpts): Promise<void> {
-
     const iModelAppOpts = {
       ...opts.iModelApp,
     };
 
-    const rpcParams: BentleyCloudRpcParams = { info: { title: "appui-test-app", version: "v1.0" }, uriPrefix: "http://localhost:3001" };
-    BentleyCloudRpcManager.initializeClient(rpcParams, opts.iModelApp!.rpcInterfaces!); // eslint-disable-line deprecation/deprecation
+    const rpcParams: BentleyCloudRpcParams = {
+      info: { title: "appui-test-app", version: "v1.0" },
+      uriPrefix: "http://localhost:3001",
+    };
+    BentleyCloudRpcManager.initializeClient(
+      rpcParams,
+      opts.iModelApp!.rpcInterfaces! // eslint-disable-line deprecation/deprecation
+    );
     if (ProcessDetector.isElectronAppFrontend) {
       await ElectronApp.startup({ ...opts, iModelApp: iModelAppOpts });
       NativeAppLogger.initialize();
@@ -192,14 +285,19 @@ export class SampleAppIModelApp {
 
     // default to showing imperial formatted units
     await IModelApp.quantityFormatter.setActiveUnitSystem("imperial");
-    await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)); // pass true to save per imodel
+    await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(
+      new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)
+    ); // pass true to save per imodel
 
     const availableScopes: PresentationSelectionScope[] = [
       { id: "element", label: "Element" },
       { id: "assembly", label: "Assembly" },
       { id: "top-assembly", label: "Top Assembly" },
     ];
-    UiFramework.dispatchActionToStore(SessionStateActionId.SetAvailableSelectionScopes, availableScopes);
+    UiFramework.dispatchActionToStore(
+      SessionStateActionId.SetAvailableSelectionScopes,
+      availableScopes
+    );
 
     await FrontendDevTools.initialize();
     await HyperModeling.initialize();
@@ -208,7 +306,10 @@ export class SampleAppIModelApp {
     AppSettingsTabsProvider.initializeAppSettingProvider();
 
     // Create and register the AppUiSettings instance to provide default for ui settings in Redux store
-    const lastTheme = (window.localStorage && window.localStorage.getItem("uifw:defaultTheme")) ?? SYSTEM_PREFERRED_COLOR_THEME;
+    const lastTheme =
+      (window.localStorage &&
+        window.localStorage.getItem("uifw:defaultTheme")) ??
+      SYSTEM_PREFERRED_COLOR_THEME;
     const defaults: InitialAppUiSettings = {
       colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
       dragInteraction: false,
@@ -231,15 +332,26 @@ export class SampleAppIModelApp {
     await AppUiTestProviders.initializeLocalizationAndState();
 
     // initialize UI Item providers
-    UiItemsManager.register(new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace));
+    UiItemsManager.register(
+      new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace)
+    );
     UiItemsManager.register(new MessageUiItemsProvider());
-    UiItemsManager.register(new FloatingWidgetsUiItemsProvider(), { providerId: "widget-api-stage-floating-widget", stageIds: [WidgetApiStage.stageId] });
-    UiItemsManager.register(new InspectUiItemInfoToolProvider(AppUiTestProviders.localizationNamespace));
+    UiItemsManager.register(new FloatingWidgetsUiItemsProvider(), {
+      providerId: "widget-api-stage-floating-widget",
+      stageIds: [WidgetApiStage.stageId],
+    });
+    UiItemsManager.register(
+      new InspectUiItemInfoToolProvider(
+        AppUiTestProviders.localizationNamespace
+      )
+    );
     CustomContentFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     WidgetApiStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     ContentLayoutStage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     CustomFrontstageProvider.register(AppUiTestProviders.localizationNamespace);
-    SynchronizedFloatingViewportStage.register(AppUiTestProviders.localizationNamespace);
+    SynchronizedFloatingViewportStage.register(
+      AppUiTestProviders.localizationNamespace
+    );
     PopoutWindowsFrontstage.register(AppUiTestProviders.localizationNamespace); // Frontstage and item providers
     // try starting up event loop if not yet started so key-in palette can be opened
     IModelApp.startEventLoop();
@@ -263,7 +375,10 @@ export class SampleAppIModelApp {
     }
   }
 
-  public static async setViewIdAndOpenMainStage(iModelConnection: IModelConnection, viewIdsSelected: Id64String[]) {
+  public static async setViewIdAndOpenMainStage(
+    iModelConnection: IModelConnection,
+    viewIdsSelected: Id64String[]
+  ) {
     // we create a Frontstage that contains the views that we want.
     let stageId: string;
     const defaultFrontstage = MainFrontstage.stageId;
@@ -286,8 +401,7 @@ export class SampleAppIModelApp {
 
     if (this.iModelParams && this.iModelParams.stageId)
       stageId = this.iModelParams.stageId;
-    else
-      stageId = defaultFrontstage;
+    else stageId = defaultFrontstage;
 
     if (stageId === defaultFrontstage) {
       if (stageId === MainFrontstage.stageId) {
@@ -295,12 +409,19 @@ export class SampleAppIModelApp {
       }
     }
 
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(stageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      stageId
+    );
     if (frontstageDef) {
-      UiFramework.frontstages.setActiveFrontstageDef(frontstageDef).then(() => { // eslint-disable-line @typescript-eslint/no-floating-promises
-        // Frontstage & ScreenViewports are ready
-        Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Frontstage & ScreenViewports are ready`);
-      });
+      void UiFramework.frontstages
+        .setActiveFrontstageDef(frontstageDef)
+        .then(() => {
+          // Frontstage & ScreenViewports are ready
+          Logger.logInfo(
+            SampleAppIModelApp.loggerCategory(this),
+            `Frontstage & ScreenViewports are ready`
+          );
+        });
     } else {
       throw new Error(`Frontstage with id "${stageId}" does not exist`);
     }
@@ -321,7 +442,11 @@ export class SampleAppIModelApp {
 
   public static setTestProperty(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
-      UiFramework.dispatchActionToStore(SampleAppUiActionId.setTestProperty, value, immediateSync);
+      UiFramework.dispatchActionToStore(
+        SampleAppUiActionId.setTestProperty,
+        value,
+        immediateSync
+      );
     }
   }
 
@@ -335,7 +460,11 @@ export class SampleAppIModelApp {
 
   public static saveAnimationViewId(value: string, immediateSync = false) {
     if (value !== SampleAppIModelApp.getTestProperty()) {
-      UiFramework.dispatchActionToStore(SampleAppUiActionId.setAnimationViewId, value, immediateSync);
+      UiFramework.dispatchActionToStore(
+        SampleAppUiActionId.setAnimationViewId,
+        value,
+        immediateSync
+      );
     }
   }
 
@@ -343,12 +472,23 @@ export class SampleAppIModelApp {
     return SampleAppIModelApp.store.getState().sampleAppState.animationViewId;
   }
 
-  public static setIsIModelLocal(isIModelLocal: boolean, immediateSync = false) {
-    UiFramework.dispatchActionToStore(SampleAppUiActionId.setIsIModelLocal, isIModelLocal, immediateSync);
+  public static setIsIModelLocal(
+    isIModelLocal: boolean,
+    immediateSync = false
+  ) {
+    UiFramework.dispatchActionToStore(
+      SampleAppUiActionId.setIsIModelLocal,
+      isIModelLocal,
+      immediateSync
+    );
   }
 
   public static setInitialViewIds(viewIds: string[], immediateSync = false) {
-    UiFramework.dispatchActionToStore(SampleAppUiActionId.setInitialViewIds, viewIds, immediateSync);
+    UiFramework.dispatchActionToStore(
+      SampleAppUiActionId.setInitialViewIds,
+      viewIds,
+      immediateSync
+    );
   }
 
   public static get isIModelLocal(): boolean {
@@ -356,12 +496,17 @@ export class SampleAppIModelApp {
   }
 
   public static async showFrontstage(frontstageId: string) {
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      frontstageId
+    );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   }
 }
 
-function AppDragInteractionComponent(props: { dragInteraction: boolean, children: React.ReactNode }) {
+function AppDragInteractionComponent(props: {
+  dragInteraction: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <ToolbarDragInteractionContext.Provider value={props.dragInteraction}>
       {props.children}
@@ -370,10 +515,15 @@ function AppDragInteractionComponent(props: { dragInteraction: boolean, children
 }
 
 function mapDragInteractionStateToProps(state: RootState) {
-  return { dragInteraction: state.frameworkState.configurableUiState.useDragInteraction };
+  return {
+    dragInteraction:
+      state.frameworkState.configurableUiState.useDragInteraction,
+  };
 }
 
-const AppDragInteraction = connect(mapDragInteractionStateToProps)(AppDragInteractionComponent);
+const AppDragInteraction = connect(mapDragInteractionStateToProps)(
+  AppDragInteractionComponent
+);
 
 const SampleAppViewer = () => {
   React.useEffect(() => {
@@ -384,27 +534,45 @@ const SampleAppViewer = () => {
     void SampleAppIModelApp.showLocalFileStage();
   }, []);
 
-  const _handleFrontstageDeactivatedEvent = (args: FrontstageDeactivatedEventArgs): void => {
-    Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Frontstage exit: id=${args.deactivatedFrontstageDef.id} totalTime=${args.totalTime} engagementTime=${args.engagementTime} idleTime=${args.idleTime}`);
+  const _handleFrontstageDeactivatedEvent = (
+    args: FrontstageDeactivatedEventArgs
+  ): void => {
+    Logger.logInfo(
+      SampleAppIModelApp.loggerCategory(this),
+      `Frontstage exit: id=${args.deactivatedFrontstageDef.id} totalTime=${args.totalTime} engagementTime=${args.engagementTime} idleTime=${args.idleTime}`
+    );
   };
 
-  const _handleModalFrontstageClosedEvent = (args: ModalFrontstageClosedEventArgs): void => {
-    Logger.logInfo(SampleAppIModelApp.loggerCategory(this), `Modal Frontstage close: title=${args.modalFrontstage.title} totalTime=${args.totalTime} engagementTime=${args.engagementTime} idleTime=${args.idleTime}`);
+  const _handleModalFrontstageClosedEvent = (
+    args: ModalFrontstageClosedEventArgs
+  ): void => {
+    Logger.logInfo(
+      SampleAppIModelApp.loggerCategory(this),
+      `Modal Frontstage close: title=${args.modalFrontstage.title} totalTime=${args.totalTime} engagementTime=${args.engagementTime} idleTime=${args.idleTime}`
+    );
   };
 
   React.useEffect(() => {
-    UiFramework.frontstages.onFrontstageDeactivatedEvent.addListener(_handleFrontstageDeactivatedEvent);
-    UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(_handleModalFrontstageClosedEvent);
+    UiFramework.frontstages.onFrontstageDeactivatedEvent.addListener(
+      _handleFrontstageDeactivatedEvent
+    );
+    UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(
+      _handleModalFrontstageClosedEvent
+    );
     return () => {
-      UiFramework.frontstages.onFrontstageDeactivatedEvent.removeListener(_handleFrontstageDeactivatedEvent);
-      UiFramework.frontstages.onModalFrontstageClosedEvent.removeListener(_handleModalFrontstageClosedEvent);
+      UiFramework.frontstages.onFrontstageDeactivatedEvent.removeListener(
+        _handleFrontstageDeactivatedEvent
+      );
+      UiFramework.frontstages.onModalFrontstageClosedEvent.removeListener(
+        _handleModalFrontstageClosedEvent
+      );
     };
   }, []);
 
   useHandleURLParams();
 
   return (
-    <Provider store={SampleAppIModelApp.store} >
+    <Provider store={SampleAppIModelApp.store}>
       <ThemeManager>
         <SafeAreaContext.Provider value={SafeAreaInsets.All}>
           <AppDragInteraction>
@@ -413,10 +581,10 @@ const SampleAppViewer = () => {
                 <AppViewerContent />
               </ApplicationLayoutProvider>
             </UiStateStorageHandler>
-          </AppDragInteraction >
-        </SafeAreaContext.Provider >
-      </ThemeManager >
-    </Provider >
+          </AppDragInteraction>
+        </SafeAreaContext.Provider>
+      </ThemeManager>
+    </Provider>
   );
 };
 
@@ -425,29 +593,28 @@ function AppViewerContent() {
   assert(!!applicationLayout, "ApplicationLayoutProvider is required");
   const isPortal = applicationLayout.mode === "portal";
   return (
-    <div style={{
-      display: "grid",
-      height: "100%",
-      gridAutoRows: isPortal ? "80px 1fr" : "0 1fr",
-    }}>
+    <div
+      style={{
+        display: "grid",
+        height: "100%",
+        gridAutoRows: isPortal ? "80px 1fr" : "0 1fr",
+      }}
+    >
       <h2>Portal Header</h2>
-      <ConfigurableUiContent
-        appBackstage={<BackstageComposer />}
-      />
+      <ConfigurableUiContent appBackstage={<BackstageComposer />} />
     </div>
   );
 }
 
 // If we are using a browser, close the current iModel before leaving
-window.addEventListener("beforeunload", async () => { // eslint-disable-line @typescript-eslint/no-misused-promises
+window.addEventListener("beforeunload", async () => {
   await SampleAppIModelApp.closeCurrentIModel();
 });
 
 // main entry point.
 async function main() {
   // Popout widget content is loaded by main window, avoid app-reinitialization.
-  if (window.location.href.endsWith("iTwinPopup"))
-    return;
+  if (window.location.href.endsWith("iTwinPopup")) return;
 
   // initialize logging
   Logger.initializeToConsole();
@@ -455,21 +622,41 @@ async function main() {
   Logger.setLevel(loggerCategory, LogLevel.Info);
   Logger.setLevel("ViewportComponent", LogLevel.Info);
 
-  ToolAdmin.exceptionHandler = async (err: any) => Promise.resolve(UnexpectedErrors.handle(err));
+  ToolAdmin.exceptionHandler = async (err: any) =>
+    Promise.resolve(UnexpectedErrors.handle(err));
 
   // retrieve, set, and output the global configuration variable
   SampleAppIModelApp.testAppConfiguration = {};
-  SampleAppIModelApp.testAppConfiguration.fullSnapshotPath = process.env.IMJS_UITESTAPP_SNAPSHOT_FULLPATH;
-  SampleAppIModelApp.testAppConfiguration.snapshotPath = process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
-  SampleAppIModelApp.testAppConfiguration.bingMapsKey = process.env.IMJS_BING_MAPS_KEY;
-  SampleAppIModelApp.testAppConfiguration.mapBoxKey = process.env.IMJS_MAPBOX_KEY;
-  SampleAppIModelApp.testAppConfiguration.cesiumIonKey = process.env.IMJS_CESIUM_ION_KEY;
-  SampleAppIModelApp.testAppConfiguration.reactAxeConsole = SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
-  Logger.logInfo("Configuration", JSON.stringify(SampleAppIModelApp.testAppConfiguration)); // eslint-disable-line no-console
+  SampleAppIModelApp.testAppConfiguration.fullSnapshotPath =
+    process.env.IMJS_UITESTAPP_SNAPSHOT_FULLPATH;
+  SampleAppIModelApp.testAppConfiguration.snapshotPath =
+    process.env.IMJS_UITESTAPP_SNAPSHOT_FILEPATH;
+  SampleAppIModelApp.testAppConfiguration.bingMapsKey =
+    process.env.IMJS_BING_MAPS_KEY;
+  SampleAppIModelApp.testAppConfiguration.mapBoxKey =
+    process.env.IMJS_MAPBOX_KEY;
+  SampleAppIModelApp.testAppConfiguration.cesiumIonKey =
+    process.env.IMJS_CESIUM_ION_KEY;
+  SampleAppIModelApp.testAppConfiguration.reactAxeConsole =
+    SampleAppIModelApp.isEnvVarOn("IMJS_TESTAPP_REACT_AXE_CONSOLE");
+  Logger.logInfo(
+    "Configuration",
+    JSON.stringify(SampleAppIModelApp.testAppConfiguration)
+  );
 
   const mapLayerOpts = {
-    BingMaps: SampleAppIModelApp.testAppConfiguration.bingMapsKey ? { key: "key", value: SampleAppIModelApp.testAppConfiguration.bingMapsKey } : undefined,
-    MapboxImagery: SampleAppIModelApp.testAppConfiguration.mapBoxKey ? { key: "access_token", value: SampleAppIModelApp.testAppConfiguration.mapBoxKey } : undefined,
+    BingMaps: SampleAppIModelApp.testAppConfiguration.bingMapsKey
+      ? {
+          key: "key",
+          value: SampleAppIModelApp.testAppConfiguration.bingMapsKey,
+        }
+      : undefined,
+    MapboxImagery: SampleAppIModelApp.testAppConfiguration.mapBoxKey
+      ? {
+          key: "access_token",
+          value: SampleAppIModelApp.testAppConfiguration.mapBoxKey,
+        }
+      : undefined,
   };
 
   const realityDataClientOptions: RealityDataClientOptions = {
@@ -489,7 +676,9 @@ async function main() {
       renderSys: { displaySolarShadows: true },
       rpcInterfaces: getSupportedRpcs(),
       mapLayerOptions: mapLayerOpts,
-      tileAdmin: { cesiumIonKey: SampleAppIModelApp.testAppConfiguration.cesiumIonKey },
+      tileAdmin: {
+        cesiumIonKey: SampleAppIModelApp.testAppConfiguration.cesiumIonKey,
+      },
     },
   };
 
@@ -506,4 +695,4 @@ async function main() {
 }
 
 // Entry point - run the main function
-main(); // eslint-disable-line @typescript-eslint/no-floating-promises
+void main();

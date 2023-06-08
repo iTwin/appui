@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -22,13 +22,10 @@ export function TargetContainer(props: TargetContainerProps) {
   const className = classnames(
     "nz-target-targetContainer",
     `nz-${props.direction}`,
-    props.className,
+    props.className
   );
   return (
-    <div
-      className={className}
-      style={props.style}
-    >
+    <div className={className} style={props.style}>
       {props.children}
     </div>
   );

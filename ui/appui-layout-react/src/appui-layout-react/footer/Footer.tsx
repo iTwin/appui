@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Footer
  */
@@ -10,7 +10,7 @@ import "./Footer.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import type { SafeAreaInsets} from "../base/SafeAreaInsets";
+import type { SafeAreaInsets } from "../base/SafeAreaInsets";
 import { SafeAreaInsetsHelpers } from "../base/SafeAreaInsets";
 
 /** Properties of [[Footer]] component.
@@ -40,8 +40,10 @@ export class Footer extends React.PureComponent<FooterProps> {
   public override render() {
     const className = classnames(
       "nz-footer-footer",
-      this.props.safeAreaInsets && SafeAreaInsetsHelpers.getCssClassNames(this.props.safeAreaInsets),
-      this.props.className);
+      this.props.safeAreaInsets &&
+        SafeAreaInsetsHelpers.getCssClassNames(this.props.safeAreaInsets),
+      this.props.className
+    );
 
     return (
       <div
@@ -51,12 +53,8 @@ export class Footer extends React.PureComponent<FooterProps> {
         onMouseLeave={this.props.onMouseLeave}
       >
         <div>
-          <div className="nz-messages">
-            {this.props.messages}
-          </div>
-          <div className="nz-indicators">
-            {this.props.children}
-          </div>
+          <div className="nz-messages">{this.props.messages}</div>
+          <div className="nz-indicators">{this.props.children}</div>
         </div>
       </div>
     );

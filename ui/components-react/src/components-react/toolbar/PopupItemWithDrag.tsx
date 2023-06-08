@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -9,13 +9,22 @@
 import "./PopupItem.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { ActionButton, GroupButton} from "@itwin/appui-abstract";
-import { ConditionalBooleanValue, ConditionalStringValue, RelativePosition, ToolbarItemUtilities } from "@itwin/appui-abstract";
+import type { ActionButton, GroupButton } from "@itwin/appui-abstract";
+import {
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+  RelativePosition,
+  ToolbarItemUtilities,
+} from "@itwin/appui-abstract";
 import { BadgeUtilities, IconHelper, useRefState } from "@itwin/core-react";
 import type { ToolbarButtonItemProps } from "./Item";
 import { PopupItemPopup, ToolbarPopupContext } from "./PopupItem";
 import { PopupItemsPanel } from "./PopupItemsPanel";
-import { ToolbarPanelAlignment, useToolbarWithOverflowDirectionContext, useToolItemEntryContext } from "./ToolbarWithOverflow";
+import {
+  ToolbarPanelAlignment,
+  useToolbarWithOverflowDirectionContext,
+  useToolItemEntryContext,
+} from "./ToolbarWithOverflow";
 import { useDragInteraction } from "./useDragInteraction";
 import { Direction } from "./utilities/Direction";
 
@@ -31,18 +40,18 @@ function tryFindActiveAction(item: GroupButton): ActionButton | undefined {
   for (const childItem of item.items) {
     // istanbul ignore else
     if (ToolbarItemUtilities.isActionButton(childItem)) {
-      if (childItem.isActive)
-        return childItem;
+      if (childItem.isActive) return childItem;
     } else if (ToolbarItemUtilities.isGroupButton(childItem)) {
       const nestedChild = tryFindActiveAction(childItem);
-      if (nestedChild)
-        return nestedChild;
+      if (nestedChild) return nestedChild;
     }
   }
   return undefined;
 }
 
-function getFirstAvailableChildActionItem(item: GroupButton): ActionButton | undefined {
+function getFirstAvailableChildActionItem(
+  item: GroupButton
+): ActionButton | undefined {
   for (const childItem of item.items) {
     if (ToolbarItemUtilities.isActionButton(childItem)) {
       return childItem;
@@ -51,8 +60,7 @@ function getFirstAvailableChildActionItem(item: GroupButton): ActionButton | und
       if (ToolbarItemUtilities.isGroupButton(childItem)) {
         const nestedChild = getFirstAvailableChildActionItem(childItem);
         // istanbul ignore else
-        if (nestedChild)
-          return nestedChild;
+        if (nestedChild) return nestedChild;
       }
     }
   }
@@ -61,8 +69,7 @@ function getFirstAvailableChildActionItem(item: GroupButton): ActionButton | und
 
 function getActiveAction(item: GroupButton): ActionButton | undefined {
   const activeItem = tryFindActiveAction(item);
-  if (activeItem)
-    return activeItem;
+  if (activeItem) return activeItem;
 
   // initially look only in root items
   for (const childItem of item.items) {
@@ -81,8 +88,15 @@ function getActiveAction(item: GroupButton): ActionButton | undefined {
  */
 export function PopupItemWithDrag(props: PopupItemWithDragProps) {
   const [isPanelShown, setPanelShown] = React.useState(false);
-  const [activeAction, setActiveAction] = React.useState(getActiveAction(props.groupItem));
-  const { expandsTo, overflowExpandsTo, panelAlignment, onPopupPanelOpenClose } = useToolbarWithOverflowDirectionContext();
+  const [activeAction, setActiveAction] = React.useState(
+    getActiveAction(props.groupItem)
+  );
+  const {
+    expandsTo,
+    overflowExpandsTo,
+    panelAlignment,
+    onPopupPanelOpenClose,
+  } = useToolbarWithOverflowDirectionContext();
 
   React.useEffect(() => {
     const newActiveAction = getActiveAction(props.groupItem);
@@ -99,14 +113,16 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
     }
   }, [props.groupItem, activeAction]);
 
-  const processPanelOpenClose = React.useCallback((isOpening: boolean) => {
-    setPanelShown((prev) => {
-      // istanbul ignore else
-      if (prev !== isOpening)
-        onPopupPanelOpenClose(isOpening);
-      return isOpening;
-    });
-  }, [setPanelShown, onPopupPanelOpenClose]);
+  const processPanelOpenClose = React.useCallback(
+    (isOpening: boolean) => {
+      setPanelShown((prev) => {
+        // istanbul ignore else
+        if (prev !== isOpening) onPopupPanelOpenClose(isOpening);
+        return isOpening;
+      });
+    },
+    [setPanelShown, onPopupPanelOpenClose]
+  );
 
   // handle open and closing popup panel
   const onOpenPanel = React.useCallback(() => {
@@ -116,37 +132,57 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
   // handle open and closing popup panel
   const onGroupButtonClick = React.useCallback(() => {
     // only execute action if not disabled
-    activeAction && !ConditionalBooleanValue.getValue(activeAction.isDisabled) && activeAction.execute();
+    activeAction &&
+      !ConditionalBooleanValue.getValue(activeAction.isDisabled) &&
+      activeAction.execute();
   }, [activeAction]);
 
-  const badge = activeAction ? BadgeUtilities.getComponentForBadgeType(activeAction.badgeType) : props.badge;
-  const icon = activeAction ? IconHelper.getIconReactNode(activeAction.icon, activeAction.internalData) : props.icon;
-  const title = activeAction ? ConditionalStringValue.getValue(activeAction.label) : props.title;
+  const badge = activeAction
+    ? BadgeUtilities.getComponentForBadgeType(activeAction.badgeType)
+    : props.badge;
+  const icon = activeAction
+    ? IconHelper.getIconReactNode(activeAction.icon, activeAction.internalData)
+    : props.icon;
+  const title = activeAction
+    ? ConditionalStringValue.getValue(activeAction.label)
+    : props.title;
   const isActive = activeAction ? activeAction.isActive : props.isActive;
-  const isDisabled = ConditionalBooleanValue.getValue(activeAction ? activeAction.isDisabled : props.isDisabled);
+  const isDisabled = ConditionalBooleanValue.getValue(
+    activeAction ? activeAction.isDisabled : props.isDisabled
+  );
 
-  const { handlePointerDown, handleButtonClick } = useDragInteraction(onGroupButtonClick, onOpenPanel);
+  const { handlePointerDown, handleButtonClick } = useDragInteraction(
+    onGroupButtonClick,
+    onOpenPanel
+  );
 
   const className = classnames(
     "components-toolbar-button-item",
     "components-toolbar-expandable-button",
     isActive && "components-active",
     isDisabled && "components-disabled-drag",
-    props.className);
+    props.className
+  );
 
   const [targetRef, target] = useRefState<HTMLButtonElement>();
   const handleClose = React.useCallback(() => {
     processPanelOpenClose(false);
   }, [processPanelOpenClose]);
   const { hasOverflow } = useToolItemEntryContext();
-  const expandsToDirection = hasOverflow ? /* istanbul ignore next */ overflowExpandsTo : expandsTo;
+  const expandsToDirection = hasOverflow
+    ? /* istanbul ignore next */ overflowExpandsTo
+    : expandsTo;
 
   return (
-    <ToolbarPopupContext.Provider value={{
-      closePanel: /* istanbul ignore next */ () => processPanelOpenClose(false),
-      setSelectedItem: /* istanbul ignore next */ (buttonItem: ActionButton) => setActiveAction(buttonItem),
-    }
-    }>
+    <ToolbarPopupContext.Provider
+      value={{
+        closePanel: /* istanbul ignore next */ () =>
+          processPanelOpenClose(false),
+        setSelectedItem: /* istanbul ignore next */ (
+          buttonItem: ActionButton
+        ) => setActiveAction(buttonItem),
+      }}
+    >
       <button
         data-item-id={props.itemId}
         data-item-type="action-tool-button"
@@ -161,30 +197,33 @@ export function PopupItemWithDrag(props: PopupItemWithDragProps) {
         style={props.style}
         title={title}
       >
-        <div className="components-icon">
-          {icon}
-        </div>
-        {props.badge &&
-          <div className="components-badge">
-            {badge}
-          </div>
-        }
+        <div className="components-icon">{icon}</div>
+        {props.badge && <div className="components-badge">{badge}</div>}
         <div className="components-triangle" />
       </button>
       <PopupItemPopup
         isOpen={isPanelShown}
         onClose={handleClose}
-        position={toToolbarPopupRelativePosition(expandsToDirection, panelAlignment)}
+        position={toToolbarPopupRelativePosition(
+          expandsToDirection,
+          panelAlignment
+        )}
         target={target}
       >
-        <PopupItemsPanel groupItem={props.groupItem} activateOnPointerUp={true} />
+        <PopupItemsPanel
+          groupItem={props.groupItem}
+          activateOnPointerUp={true}
+        />
       </PopupItemPopup>
     </ToolbarPopupContext.Provider>
   );
 }
 
 /** @internal */
-export function toToolbarPopupRelativePosition(expandsTo: Direction, alignment: ToolbarPanelAlignment): RelativePosition {
+export function toToolbarPopupRelativePosition(
+  expandsTo: Direction,
+  alignment: ToolbarPanelAlignment
+): RelativePosition {
   // istanbul ignore next
   switch (expandsTo) {
     case Direction.Bottom: {

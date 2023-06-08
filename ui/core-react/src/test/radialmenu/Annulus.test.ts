@@ -1,13 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import { Annulus, Circle, Line } from "../../core-react/radialmenu/Annulus";
 import { Point } from "../../core-react/utils/Point";
 
 describe("Annulus", () => {
-
   describe("Point", () => {
     it("should default correctly", () => {
       const point = new Point();
@@ -44,5 +43,4 @@ describe("Annulus", () => {
       expect(annulus.outer.radius).to.eq(annulus2.outer.radius);
     });
   });
-
 });

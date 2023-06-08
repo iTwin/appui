@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -24,30 +24,32 @@ function PanelSplitter() {
 
   const isHorizontal = isHorizontalPanelSide(side);
 
-  const getPercentage = React.useCallback((min: number, max: number, current: number) => {
-    const range = max - min;
-    const adjusted = Math.max(min, Math.min(max, current));
-    if (adjusted === min)
-      return 0;
-    if (adjusted === max)
-      return 100;
-    const percent = ((adjusted - min) * 100) / (range);
-    return percent;
-  }, []);
+  const getPercentage = React.useCallback(
+    (min: number, max: number, current: number) => {
+      const range = max - min;
+      const adjusted = Math.max(min, Math.min(max, current));
+      if (adjusted === min) return 0;
+      if (adjusted === max) return 100;
+      const percent = ((adjusted - min) * 100) / range;
+      return percent;
+    },
+    []
+  );
 
   const updatePanelSize = React.useCallback(
     (event: PointerEvent) => {
-      if (!containerRef.current)
-        return;
+      if (!containerRef.current) return;
 
-      const parentPanel = containerRef.current.closest(".nz-widgetPanels-panel");
+      const parentPanel = containerRef.current.closest(
+        ".nz-widgetPanels-panel"
+      );
       const sectionToResize = containerRef.current.parentElement as HTMLElement;
       if (parentPanel && sectionToResize) {
         const rect = parentPanel.getBoundingClientRect();
         const percent = getPercentage(
           isHorizontal ? rect.left : rect.top,
           isHorizontal ? rect.right : rect.bottom,
-          isHorizontal ? event.clientX : event.clientY,
+          isHorizontal ? event.clientX : event.clientY
         );
 
         dispatch({
@@ -56,38 +58,66 @@ function PanelSplitter() {
           percent,
         });
       }
-    }, [getPercentage, isHorizontal, side, dispatch]);
+    },
+    [getPercentage, isHorizontal, side, dispatch]
+  );
 
-  const handlePointerMove = React.useCallback((event: Event): void => {
-    if (splitterProcessingActiveRef.current) {
+  const handlePointerMove = React.useCallback(
+    (event: Event): void => {
+      if (splitterProcessingActiveRef.current) {
+        event.preventDefault();
+        event.stopPropagation();
+        updatePanelSize(event as PointerEvent);
+      }
+    },
+    [updatePanelSize]
+  );
+
+  const handlePointerUp = React.useCallback(
+    (event: Event) => {
+      updatePanelSize(event as PointerEvent);
       event.preventDefault();
       event.stopPropagation();
-      updatePanelSize(event as PointerEvent);
-    }
-  }, [updatePanelSize]);
-
-  const handlePointerUp = React.useCallback((event: Event) => {
-    updatePanelSize(event as PointerEvent);
-    event.preventDefault();
-    event.stopPropagation();
-    containerRef.current?.ownerDocument.removeEventListener("pointermove", handlePointerMove);
-    containerRef.current?.ownerDocument.removeEventListener("pointerup", handlePointerUp);
-  }, [handlePointerMove, updatePanelSize]);
+      containerRef.current?.ownerDocument.removeEventListener(
+        "pointermove",
+        handlePointerMove
+      );
+      containerRef.current?.ownerDocument.removeEventListener(
+        "pointerup",
+        handlePointerUp
+      );
+    },
+    [handlePointerMove, updatePanelSize]
+  );
 
   const handlePointerDownOnSplitter = React.useCallback(
     (event: React.PointerEvent) => {
       if (containerRef.current) {
-        containerRef.current?.ownerDocument.addEventListener("pointermove", handlePointerMove);
-        containerRef.current?.ownerDocument.addEventListener("pointerup", handlePointerUp);
+        containerRef.current?.ownerDocument.addEventListener(
+          "pointermove",
+          handlePointerMove
+        );
+        containerRef.current?.ownerDocument.addEventListener(
+          "pointerup",
+          handlePointerUp
+        );
         splitterProcessingActiveRef.current = true;
         event.preventDefault();
         event.stopPropagation();
       }
-    }, [handlePointerMove, handlePointerUp]);
+    },
+    [handlePointerMove, handlePointerUp]
+  );
 
-  const className = isHorizontal ? "nz-horizontal-panel-splitter" : "nz-vertical-panel-splitter";
+  const className = isHorizontal
+    ? "nz-horizontal-panel-splitter"
+    : "nz-vertical-panel-splitter";
   return (
-    <div ref={containerRef} className={className} onPointerDown={handlePointerDownOnSplitter} />
+    <div
+      ref={containerRef}
+      className={className}
+      onPointerDown={handlePointerDownOnSplitter}
+    />
   );
 }
 
@@ -127,21 +157,20 @@ export function PanelSections() {
 
         const sectionClassName = classnames(
           `nz-panel-section-${index}`,
-          isHorizontal ? "nz-widgetPanels-horizontal" : "nz-widgetPanels-vertical",
-          (last && 0 === index) && "nz-panel-section-full-size"
+          isHorizontal
+            ? "nz-widgetPanels-horizontal"
+            : "nz-widgetPanels-vertical",
+          last && 0 === index && "nz-panel-section-full-size"
         );
 
-        const panelStyle = index === 0 && array.length > 1 ? splitterControlledPanelStyle : undefined;
+        const panelStyle =
+          index === 0 && array.length > 1
+            ? splitterControlledPanelStyle
+            : undefined;
         return (
-          <div
-            key={widgetId}
-            className={sectionClassName}
-            style={panelStyle}
-          >
-            <PanelWidget
-              widgetId={widgetId}
-            />
-            {(!last && 0 === index) && <PanelSplitter />}
+          <div key={widgetId} className={sectionClassName} style={panelStyle}>
+            <PanelWidget widgetId={widgetId} />
+            {!last && 0 === index && <PanelSplitter />}
           </div>
         );
       })}

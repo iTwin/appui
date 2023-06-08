@@ -1,11 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { NotifyMessageDetails, OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
+import {
+  NotifyMessageDetails,
+  OutputMessagePriority,
+  OutputMessageType,
+} from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { AppNotificationManager, PointerMessage } from "../../appui-react";
 import TestUtils, { selectorMatches } from "../TestUtils";
@@ -27,15 +31,24 @@ describe("PointerMessage", () => {
 
   beforeEach(() => {
     notifications = new AppNotificationManager();
-    details = new NotifyMessageDetails(OutputMessagePriority.None, "Brief", "Detailed", OutputMessageType.Pointer);
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.None,
+      "Brief",
+      "Detailed",
+      OutputMessageType.Pointer
+    );
   });
 
   it("should display the message", async () => {
-    render(<PointerMessage  />);
+    render(<PointerMessage />);
 
     notifications.outputMessage(details);
 
-    expect(await screen.findByText("Brief")).to.satisfy(selectorMatches(".uifw-pointer-message .nz-content .uifw-pointer-message-content .uifw-pointer-message-text .uifw-pointer-message-brief"));
+    expect(await screen.findByText("Brief")).to.satisfy(
+      selectorMatches(
+        ".uifw-pointer-message .nz-content .uifw-pointer-message-content .uifw-pointer-message-text .uifw-pointer-message-brief"
+      )
+    );
   });
 
   it("should hide the message", () => {
@@ -46,14 +59,24 @@ describe("PointerMessage", () => {
 
   it("should display a warning message", () => {
     const showMessage = sinon.spy(PointerMessage, "showMessage");
-    const localDetails = new NotifyMessageDetails(OutputMessagePriority.Warning, "Brief", "Detailed", OutputMessageType.Pointer);
+    const localDetails = new NotifyMessageDetails(
+      OutputMessagePriority.Warning,
+      "Brief",
+      "Detailed",
+      OutputMessageType.Pointer
+    );
     notifications.outputMessage(localDetails);
     expect(showMessage.called).to.be.true;
   });
 
   it("should display an error message", () => {
     const showMessage = sinon.spy(PointerMessage, "showMessage");
-    const localDetails = new NotifyMessageDetails(OutputMessagePriority.Error, "Brief", "Detailed", OutputMessageType.Pointer);
+    const localDetails = new NotifyMessageDetails(
+      OutputMessagePriority.Error,
+      "Brief",
+      "Detailed",
+      OutputMessageType.Pointer
+    );
     notifications.outputMessage(localDetails);
     expect(showMessage.called).to.be.true;
   });
@@ -69,7 +92,11 @@ describe("PointerMessage", () => {
     details.setPointerTypeDetails(viewport, point, RelativePosition.Right);
     notifications.outputMessage(details);
 
-    details.setPointerTypeDetails(viewport, point, RelativePosition.BottomRight);
+    details.setPointerTypeDetails(
+      viewport,
+      point,
+      RelativePosition.BottomRight
+    );
     notifications.outputMessage(details);
 
     details.setPointerTypeDetails(viewport, point, RelativePosition.Bottom);
@@ -87,8 +114,11 @@ describe("PointerMessage", () => {
 
   it("should update the message", () => {
     const updateMessage = sinon.spy(PointerMessage, "updateMessage");
-    render(<PointerMessage  />);
-    notifications.updatePointerMessage({ x: 1, y: 1 }, RelativePosition.BottomRight);
+    render(<PointerMessage />);
+    notifications.updatePointerMessage(
+      { x: 1, y: 1 },
+      RelativePosition.BottomRight
+    );
     expect(updateMessage.called).to.be.true;
   });
 });

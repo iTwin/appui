@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import { Rectangle } from "@itwin/core-react";
@@ -9,7 +9,8 @@ import { act, fireEvent, render } from "@testing-library/react";
 import type {
   NineZoneState,
   TabState,
-  WidgetState} from "../../appui-layout-react";
+  WidgetState,
+} from "../../appui-layout-react";
 import {
   addPanelWidget,
   addTab,
@@ -30,7 +31,12 @@ describe("MenuTab", () => {
     tabId: TabState["id"];
   }
 
-  function Wrapper({ children, defaultState, widgetId, tabId }: React.PropsWithChildren<WrapperProps>) {
+  function Wrapper({
+    children,
+    defaultState,
+    widgetId,
+    tabId,
+  }: React.PropsWithChildren<WrapperProps>) {
     return (
       <TestNineZoneProvider defaultState={defaultState}>
         <WidgetIdContext.Provider value={widgetId}>
@@ -46,17 +52,11 @@ describe("MenuTab", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addPanelWidget(state, "top", "w1", ["t1"]);
-    const { container } = render(
-      <WidgetMenuTab />,
-      {
-        wrapper: (props) => <Wrapper // eslint-disable-line react/display-name
-          defaultState={state}
-          widgetId="w1"
-          tabId="t1"
-          {...props}
-        />,
-      }
-    );
+    const { container } = render(<WidgetMenuTab />, {
+      wrapper: (props) => (
+        <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
+      ),
+    });
     container.getElementsByClassName("nz-widget-menuTab").length.should.eq(1);
   });
 
@@ -69,12 +69,9 @@ describe("MenuTab", () => {
         <WidgetMenuTab badge={<div>badge</div>} />
       </ShowWidgetIconContext.Provider>,
       {
-        wrapper: (props) => <Wrapper // eslint-disable-line react/display-name
-          defaultState={state}
-          widgetId="w1"
-          tabId="t1"
-          {...props}
-        />,
+        wrapper: (props) => (
+          <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
+        ),
       }
     );
     await findByText("icon");
@@ -94,12 +91,9 @@ describe("MenuTab", () => {
         </WidgetContext.Provider>
       </WidgetOverflowContext.Provider>,
       {
-        wrapper: (props) => <Wrapper // eslint-disable-line react/display-name
-          defaultState={state}
-          widgetId="w1"
-          tabId="t1"
-          {...props}
-        />,
+        wrapper: (props) => (
+          <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
+        ),
       }
     );
     const tab = document.getElementsByClassName("nz-widget-menuTab")[0];

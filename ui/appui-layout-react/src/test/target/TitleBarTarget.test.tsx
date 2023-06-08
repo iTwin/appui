@@ -1,11 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
 import type { WidgetState } from "../../appui-layout-react";
-import { addPanelWidget, addTab, createNineZoneState, WidgetIdContext } from "../../appui-layout-react";
+import {
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  WidgetIdContext,
+} from "../../appui-layout-react";
 import { TitleBarTarget } from "../../appui-layout-react/target/TitleBarTarget";
 import type { TestNineZoneProviderProps } from "../Providers";
 import { TestNineZoneProvider } from "../Providers";
@@ -14,7 +19,11 @@ interface WrapperProps extends TestNineZoneProviderProps {
   widgetId: WidgetState["id"];
 }
 
-function Wrapper({ children, widgetId, ...other }: React.PropsWithChildren<WrapperProps>) {
+function Wrapper({
+  children,
+  widgetId,
+  ...other
+}: React.PropsWithChildren<WrapperProps>) {
   return (
     <TestNineZoneProvider {...other}>
       <WidgetIdContext.Provider value={widgetId}>
@@ -32,8 +41,10 @@ describe("TitleBarTarget", () => {
     const { container } = render(
       <Wrapper defaultState={state} widgetId="w1">
         <TitleBarTarget />
-      </Wrapper>,
+      </Wrapper>
     );
-    container.getElementsByClassName("nz-target-titleBarTarget").length.should.eq(1);
+    container
+      .getElementsByClassName("nz-target-titleBarTarget")
+      .length.should.eq(1);
   });
 });

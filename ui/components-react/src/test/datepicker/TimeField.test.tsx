@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import { expect } from "chai";
 import React from "react";
@@ -47,7 +47,13 @@ describe("<TimeField />", () => {
   });
 
   it("should render zeroTime", () => {
-    const renderedComponent = render(<TimeField time={zeroTime} timeDisplay={TimeDisplay.H12MC} readOnly={true} />);
+    const renderedComponent = render(
+      <TimeField
+        time={zeroTime}
+        timeDisplay={TimeDisplay.H12MC}
+        readOnly={true}
+      />
+    );
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).to.eq(3);
     expect(inputs[0].value).to.eq("12");
@@ -59,7 +65,13 @@ describe("<TimeField />", () => {
   });
 
   it("should render read only inputs", () => {
-    const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MC} readOnly={true} />);
+    const renderedComponent = render(
+      <TimeField
+        time={amTime}
+        timeDisplay={TimeDisplay.H12MC}
+        readOnly={true}
+      />
+    );
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).to.eq(3);
     expect(inputs[0].value).to.eq("09");
@@ -71,7 +83,13 @@ describe("<TimeField />", () => {
   });
 
   it("should render with day am period", () => {
-    const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MC} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={amTime}
+        timeDisplay={TimeDisplay.H12MC}
+        readOnly={false}
+      />
+    );
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).to.eq(3);
     expect(inputs[0].value).to.eq("09");
@@ -80,7 +98,13 @@ describe("<TimeField />", () => {
   });
 
   it("should render with pm period", () => {
-    const renderedComponent = render(<TimeField time={pmTime} timeDisplay={TimeDisplay.H12MSC} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={pmTime}
+        timeDisplay={TimeDisplay.H12MSC}
+        readOnly={false}
+      />
+    );
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).to.eq(4);
     expect(inputs[0].value).to.eq("03");
@@ -90,7 +114,13 @@ describe("<TimeField />", () => {
   });
 
   it("should render with 24 hour display (no seconds)", () => {
-    const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H24M} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={amTime}
+        timeDisplay={TimeDisplay.H24M}
+        readOnly={false}
+      />
+    );
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).to.eq(2);
     expect(inputs[0].value).to.eq("09");
@@ -98,7 +128,13 @@ describe("<TimeField />", () => {
   });
 
   it("should render with 24 hour display (w/seconds)", () => {
-    const renderedComponent = render(<TimeField time={pmTime} timeDisplay={TimeDisplay.H24MS} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={pmTime}
+        timeDisplay={TimeDisplay.H24MS}
+        readOnly={false}
+      />
+    );
     const inputs = renderedComponent.container.querySelectorAll("input");
     expect(inputs.length).to.eq(3);
     expect(inputs[0].value).to.eq("15");
@@ -107,7 +143,14 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger time hour change", async () => {
-    const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MC} onTimeChange={renderSpy} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={amTime}
+        timeDisplay={TimeDisplay.H12MC}
+        onTimeChange={renderSpy}
+        readOnly={false}
+      />
+    );
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
@@ -148,11 +191,17 @@ describe("<TimeField />", () => {
     hour.blur();
     expect(hour.value).to.eq("08");
     await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-am"));
-
   });
 
   it("should trigger time minute change", async () => {
-    const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MC} onTimeChange={renderSpy} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={amTime}
+        timeDisplay={TimeDisplay.H12MC}
+        onTimeChange={renderSpy}
+        readOnly={false}
+      />
+    );
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
@@ -184,7 +233,14 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger time seconds change", async () => {
-    const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MSC} onTimeChange={renderSpy} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={amTime}
+        timeDisplay={TimeDisplay.H12MSC}
+        onTimeChange={renderSpy}
+        readOnly={false}
+      />
+    );
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
@@ -218,7 +274,14 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger time period change", async () => {
-    const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MSC} onTimeChange={renderSpy} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={amTime}
+        timeDisplay={TimeDisplay.H12MSC}
+        onTimeChange={renderSpy}
+        readOnly={false}
+      />
+    );
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
@@ -303,11 +366,25 @@ describe("<TimeField />", () => {
     cycle.blur();
     await waitFor(() => expect(cycle.value).to.eq("timepicker.day-period-am"));
 
-    renderedComponent.rerender(<TimeField time={pmTime} timeDisplay={TimeDisplay.H12MSC} onTimeChange={renderSpy} readOnly={false} />);
+    renderedComponent.rerender(
+      <TimeField
+        time={pmTime}
+        timeDisplay={TimeDisplay.H12MSC}
+        onTimeChange={renderSpy}
+        readOnly={false}
+      />
+    );
   });
 
   it("should trigger AM time period change on blur", () => {
-    const renderedComponent = render(<TimeField time={pmTime} timeDisplay={TimeDisplay.H12MSC} onTimeChange={renderSpy} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={pmTime}
+        timeDisplay={TimeDisplay.H12MSC}
+        onTimeChange={renderSpy}
+        readOnly={false}
+      />
+    );
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
@@ -319,7 +396,14 @@ describe("<TimeField />", () => {
   });
 
   it("should trigger PM time period change on blur", () => {
-    const renderedComponent = render(<TimeField time={amTime} timeDisplay={TimeDisplay.H12MSC} onTimeChange={renderSpy} readOnly={false} />);
+    const renderedComponent = render(
+      <TimeField
+        time={amTime}
+        timeDisplay={TimeDisplay.H12MSC}
+        onTimeChange={renderSpy}
+        readOnly={false}
+      />
+    );
     // renderedComponent.debug();
     expect(renderedComponent).not.to.be.undefined;
     const inputs = renderedComponent.container.querySelectorAll("input");
@@ -329,5 +413,4 @@ describe("<TimeField />", () => {
     fireEvent.change(cycle, { target: { value: "PM" } });
     cycle.blur();
   });
-
 });

@@ -1,12 +1,16 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Backstage
  */
 
-import type { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import type {
+  BadgeType,
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+} from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 
 /** Describes the data needed to insert a button into the backstage menu.
@@ -62,13 +66,17 @@ export type BackstageItem = BackstageActionItem | BackstageStageLauncher;
 /** BackstageActionItem type guard.
  * @public
  */
-export function isBackstageActionItem(item: BackstageItem): item is BackstageActionItem {
+export function isBackstageActionItem(
+  item: BackstageItem
+): item is BackstageActionItem {
   return "execute" in item;
 }
 
 /** BackstageStageLauncher type guard.
  * @public
  */
-export function isBackstageStageLauncher(item: BackstageItem): item is BackstageStageLauncher {
+export function isBackstageStageLauncher(
+  item: BackstageItem
+): item is BackstageStageLauncher {
   return "stageId" in item;
 }

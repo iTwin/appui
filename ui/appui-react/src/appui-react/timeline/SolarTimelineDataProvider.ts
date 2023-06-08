@@ -1,13 +1,22 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Timeline
  */
 
-import { Cartographic, ColorByName, ColorDef, SolarShadowSettings } from "@itwin/core-common";
-import type { DisplayStyle3dState, ScreenViewport, ViewState } from "@itwin/core-frontend";
+import {
+  Cartographic,
+  ColorByName,
+  ColorDef,
+  SolarShadowSettings,
+} from "@itwin/core-common";
+import type {
+  DisplayStyle3dState,
+  ScreenViewport,
+  ViewState,
+} from "@itwin/core-frontend";
 import { BaseSolarDataProvider } from "@itwin/imodel-components-react";
 
 // the interface and class are in alpha state - it may change after usability testing - test coverage not complete
@@ -20,11 +29,18 @@ export class SolarTimelineDataProvider extends BaseSolarDataProvider {
   protected _viewState: ViewState;
 
   protected get _displayStyle3d(): DisplayStyle3dState | undefined {
-    return undefined !== this._viewport && this._viewport.view.is3d() ? this._viewport.view.displayStyle : undefined;
+    return undefined !== this._viewport && this._viewport.view.is3d()
+      ? this._viewport.view.displayStyle
+      : undefined;
   }
 
   /** constructor that takes an optional viewport and optional position on globe that is used if the imodel is not "GeoLocated"  */
-  constructor(viewState: ViewState, viewport?: ScreenViewport, longitude?: number, latitude?: number) {
+  constructor(
+    viewState: ViewState,
+    viewport?: ScreenViewport,
+    longitude?: number,
+    latitude?: number
+  ) {
     super(viewport, longitude, latitude);
     this._viewState = viewState;
 
@@ -32,7 +48,11 @@ export class SolarTimelineDataProvider extends BaseSolarDataProvider {
       this.supportsTimelineAnimation = true;
       this._cartographicCenter = this.getCartographicCenter(viewState.iModel);
     } else {
-      this._cartographicCenter = Cartographic.fromDegrees({ longitude: this.longitude, latitude: this.latitude, height: 0.0 });
+      this._cartographicCenter = Cartographic.fromDegrees({
+        longitude: this.longitude,
+        latitude: this.latitude,
+        height: 0.0,
+      });
     }
 
     this._projectTimeZoneOffset = this.getZone(this._cartographicCenter);
@@ -53,24 +73,29 @@ export class SolarTimelineDataProvider extends BaseSolarDataProvider {
 
   public override get shadowColor(): ColorDef {
     const style = this._displayStyle3d;
-    return style ? style.settings.solarShadows.color.toColorDef() : ColorDef.create(ColorByName.gray);
+    return style
+      ? style.settings.solarShadows.color.toColorDef()
+      : ColorDef.create(ColorByName.gray);
   }
 
   public override set shadowColor(color: ColorDef) {
     const displayStyle = this._displayStyle3d;
-    if (!displayStyle)
-      return;
+    if (!displayStyle) return;
 
     const prevColor = displayStyle.settings.solarShadows.color;
     const newColor = color.colors;
-    if (prevColor.r === newColor.r && prevColor.g === newColor.g && prevColor.b === newColor.b)
+    if (
+      prevColor.r === newColor.r &&
+      prevColor.g === newColor.g &&
+      prevColor.b === newColor.b
+    )
       return;
 
     const newSettings = displayStyle.settings.solarShadows.toJSON();
-    if (!newSettings)
-      return;
+    if (!newSettings) return;
 
     newSettings.color = color.tbgr;
-    displayStyle.settings.solarShadows = SolarShadowSettings.fromJSON(newSettings);
+    displayStyle.settings.solarShadows =
+      SolarShadowSettings.fromJSON(newSettings);
   }
 }

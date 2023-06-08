@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -39,42 +39,32 @@ export function WidgetPanels(props: WidgetPanelsProps) {
           style={props.style}
         />
       </CenterContentNodeContext.Provider>
-    </ContentNodeContext.Provider >
+    </ContentNodeContext.Provider>
   );
 }
 
 /** @internal */
 function WidgetPanelsComponent(props: CommonProps) {
   useCursor();
-  const className = classnames(
-    "nz-widgetPanels-panels",
-    props.className,
-  );
+  const className = classnames("nz-widgetPanels-panels", props.className);
   return (
-    <div
-      className={className}
-      style={props.style}
-    >
+    <div className={className} style={props.style}>
       <WidgetContentRenderers />
       <AppContent />
       <WidgetPanelExpanders />
       <CenterContent />
       {panelSides.map((side) => {
-        return (
-          <WidgetPanelProvider
-            key={side}
-            side={side}
-          />
-        );
+        return <WidgetPanelProvider key={side} side={side} />;
       })}
     </div>
   );
 }
 
 /** @internal */
-export const ContentNodeContext = React.createContext<React.ReactNode>(null); // eslint-disable-line @typescript-eslint/naming-convention
+export const ContentNodeContext = React.createContext<React.ReactNode>(null);
 ContentNodeContext.displayName = "nz:ContentNodeContext";
 
 /** @internal */
-export const CenterContentNodeContext = React.createContext<React.ReactNode>(null); // eslint-disable-line @typescript-eslint/naming-convention
+export const CenterContentNodeContext =
+  React.createContext<React.ReactNode>(null);
 CenterContentNodeContext.displayName = "nz:CenterContentNodeContext";

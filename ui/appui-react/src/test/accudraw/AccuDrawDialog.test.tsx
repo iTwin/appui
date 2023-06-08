@@ -1,11 +1,11 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { fireEvent, render } from "@testing-library/react";
 import * as sinon from "sinon";
 import * as React from "react";
-import type { IModelAppOptions} from "@itwin/core-frontend";
+import type { IModelAppOptions } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, MockRender } from "@itwin/core-frontend";
 import { SpecialKey } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
@@ -35,14 +35,24 @@ describe("AccuDrawDialog", () => {
 
   it("should render Polar", () => {
     IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-    render(<AccuDrawDialog opened={true} dialogId="accudraw" orientation={Orientation.Horizontal} />);
+    render(
+      <AccuDrawDialog
+        opened={true}
+        dialogId="accudraw"
+        orientation={Orientation.Horizontal}
+      />
+    );
   });
 
   it("should set focus to Home on Esc key", () => {
     const spy = sinon.spy(UiFramework.keyboardShortcuts, "setFocusToHome");
-    const component = render(<AccuDrawDialog opened={true} dialogId="accudraw" />);
+    const component = render(
+      <AccuDrawDialog opened={true} dialogId="accudraw" />
+    );
 
-    component.baseElement.dispatchEvent(new KeyboardEvent("keyup", { key: SpecialKey.Escape }));
+    component.baseElement.dispatchEvent(
+      new KeyboardEvent("keyup", { key: SpecialKey.Escape })
+    );
     spy.calledOnce.should.true;
 
     (UiFramework.keyboardShortcuts.setFocusToHome as any).restore();
@@ -50,11 +60,12 @@ describe("AccuDrawDialog", () => {
 
   it("should call onClose on close", () => {
     const spy = sinon.spy();
-    const component = render(<AccuDrawDialog opened={true} dialogId="accudraw" onClose={spy} />);
+    const component = render(
+      <AccuDrawDialog opened={true} dialogId="accudraw" onClose={spy} />
+    );
 
     const closeButton = component.getByTestId("core-dialog-close");
     fireEvent.click(closeButton);
     spy.calledOnce.should.true;
   });
-
 });

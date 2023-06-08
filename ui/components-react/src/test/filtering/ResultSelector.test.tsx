@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { ResultSelector } from "../../components-react/filtering/ResultSelector";
@@ -10,7 +10,7 @@ import TestUtils, { userEvent } from "../TestUtils";
 
 describe("ResultSelector", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(()=>{
+  beforeEach(() => {
     theUserTo = userEvent.setup();
   });
   before(async () => {
@@ -18,36 +18,39 @@ describe("ResultSelector", () => {
   });
 
   it("content is '0 of 0' and buttons are disabled when result count is 0", () => {
-    render(<ResultSelector onSelectedChanged={() => { }} resultCount={0} />);
+    render(<ResultSelector onSelectedChanged={() => {}} resultCount={0} />);
     const previousButton = screen.getByTestId("previous-button");
-    expect (previousButton.outerHTML).includes("disabled");
+    expect(previousButton.outerHTML).includes("disabled");
     const nextButton = screen.getByTestId("next-button");
-    expect (nextButton.outerHTML).includes("disabled");
+    expect(nextButton.outerHTML).includes("disabled");
 
-    expect(screen.getByRole("presentation")).that
-      .have.property("innerHTML")
-      .that.satisfy((innerHTML: string) => innerHTML.match(/0.*general\.of.*0/gm));
+    expect(screen.getByRole("presentation"))
+      .that.have.property("innerHTML")
+      .that.satisfy((innerHTML: string) =>
+        innerHTML.match(/0.*general\.of.*0/gm)
+      );
   });
 
   it("content is '1 of X' and buttons are not disabled when result count is higher than 0", () => {
-    render(<ResultSelector onSelectedChanged={() => { }} resultCount={10} />);
+    render(<ResultSelector onSelectedChanged={() => {}} resultCount={10} />);
     const previousButton = screen.getByTestId("previous-button");
-    expect (previousButton.outerHTML).not.includes("disabled");
+    expect(previousButton.outerHTML).not.includes("disabled");
     const nextButton = screen.getByTestId("next-button");
-    expect (nextButton.outerHTML).not.includes("disabled");
+    expect(nextButton.outerHTML).not.includes("disabled");
 
-    expect(screen.getByRole("presentation")).that
-      .have.property("innerHTML")
-      .that.satisfy((innerHTML: string) => innerHTML.match(/1.*general\.of.*10/gm));
+    expect(screen.getByRole("presentation"))
+      .that.have.property("innerHTML")
+      .that.satisfy((innerHTML: string) =>
+        innerHTML.match(/1.*general\.of.*10/gm)
+      );
   });
 
   it("calls onSelectedChanged after '<' or '>' button is clicked", async () => {
     let callCount = 0;
 
     render(
-      <ResultSelector
-        onSelectedChanged={() => callCount++}
-        resultCount={10} />);
+      <ResultSelector onSelectedChanged={() => callCount++} resultCount={10} />
+    );
 
     const [prev, next] = screen.getAllByRole("button");
 
@@ -61,9 +64,8 @@ describe("ResultSelector", () => {
     let callCount = 0;
 
     render(
-      <ResultSelector
-        onSelectedChanged={() => callCount++}
-        resultCount={1} />);
+      <ResultSelector onSelectedChanged={() => callCount++} resultCount={1} />
+    );
 
     const [prev, next] = screen.getAllByRole("button");
 
@@ -74,11 +76,13 @@ describe("ResultSelector", () => {
   });
 
   it("current selection gets submitted after pressing 'Enter' key while in edit mode", async () => {
-    render(<ResultSelector onSelectedChanged={() => { }} resultCount={2} />);
+    render(<ResultSelector onSelectedChanged={() => {}} resultCount={2} />);
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    await theUserTo.type(screen.getByRole("spinbutton"), "[Backspace]2", {skipAutoClose: true});
+    await theUserTo.type(screen.getByRole("spinbutton"), "[Backspace]2", {
+      skipAutoClose: true,
+    });
     expect(screen.getByRole("spinbutton")).to.have.property("value", "2");
 
     await theUserTo.type(screen.getByRole("spinbutton"), "[Enter]");
@@ -86,7 +90,7 @@ describe("ResultSelector", () => {
   });
 
   it("current selection gets submitted after clicking '<' or '>' button while in edit mode", async () => {
-    render(<ResultSelector onSelectedChanged={() => { }} resultCount={1} />);
+    render(<ResultSelector onSelectedChanged={() => {}} resultCount={1} />);
 
     await theUserTo.click(screen.getByRole("presentation"));
 
@@ -106,21 +110,27 @@ describe("ResultSelector", () => {
 
     const { rerender } = render(
       <ResultSelector
-        onSelectedChanged={(selection) => currentSelection = selection}
-        resultCount={1} />);
+        onSelectedChanged={(selection) => (currentSelection = selection)}
+        resultCount={1}
+      />
+    );
 
     expect(currentSelection).to.be.eq(1);
 
     rerender(
       <ResultSelector
-        onSelectedChanged={(selection) => currentSelection = selection}
-        resultCount={0} />);
+        onSelectedChanged={(selection) => (currentSelection = selection)}
+        resultCount={0}
+      />
+    );
     expect(currentSelection).to.be.eq(0);
 
     rerender(
       <ResultSelector
-        onSelectedChanged={(selection) => currentSelection = selection}
-        resultCount={3} />);
+        onSelectedChanged={(selection) => (currentSelection = selection)}
+        resultCount={3}
+      />
+    );
     expect(currentSelection).to.be.eq(1);
   });
 
@@ -129,35 +139,46 @@ describe("ResultSelector", () => {
 
     const { rerender } = render(
       <ResultSelector
-        onSelectedChanged={() => onSelectedTriggered = true}
-        resultCount={10} />);
+        onSelectedChanged={() => (onSelectedTriggered = true)}
+        resultCount={10}
+      />
+    );
 
     onSelectedTriggered = false;
 
     rerender(
       <ResultSelector
-        onSelectedChanged={() => onSelectedTriggered = true}
-        resultCount={10} />);
+        onSelectedChanged={() => (onSelectedTriggered = true)}
+        resultCount={10}
+      />
+    );
     expect(onSelectedTriggered).to.be.false;
   });
 
   it("current selection value gets corrected if typed number is bigger than result count or smaller than 1", async () => {
-    render(<ResultSelector onSelectedChanged={() => { }} resultCount={11} />);
+    render(<ResultSelector onSelectedChanged={() => {}} resultCount={11} />);
 
     await theUserTo.click(screen.getByRole("presentation"));
 
     await theUserTo.type(screen.getByRole("spinbutton"), "33[Enter]");
 
-    expect(screen.getByRole("presentation")).that
-      .have.property("innerHTML")
-      .that.satisfy((innerHTML: string) => innerHTML.match(/11.*general\.of.*11/gm));
+    expect(screen.getByRole("presentation"))
+      .that.have.property("innerHTML")
+      .that.satisfy((innerHTML: string) =>
+        innerHTML.match(/11.*general\.of.*11/gm)
+      );
 
     await theUserTo.click(screen.getByRole("presentation"));
 
-    await theUserTo.type(screen.getByRole("spinbutton"), "[Backspace>2/]0[Enter]");
+    await theUserTo.type(
+      screen.getByRole("spinbutton"),
+      "[Backspace>2/]0[Enter]"
+    );
 
-    expect(screen.getByRole("presentation")).that
-      .have.property("innerHTML")
-      .that.satisfy((innerHTML: string) => innerHTML.match(/1.*general\.of.*11/gm));
+    expect(screen.getByRole("presentation"))
+      .that.have.property("innerHTML")
+      .that.satisfy((innerHTML: string) =>
+        innerHTML.match(/1.*general\.of.*11/gm)
+      );
   });
 });

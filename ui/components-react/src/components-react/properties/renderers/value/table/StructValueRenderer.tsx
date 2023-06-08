@@ -1,14 +1,14 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Properties
  */
 
 import * as React from "react";
 import { NonPrimitivePropertyRenderer } from "../../NonPrimitivePropertyRenderer";
-import type { TableSpecificValueRendererProps} from "./NonPrimitiveValueRenderer";
+import type { TableSpecificValueRendererProps } from "./NonPrimitiveValueRenderer";
 import { TableNonPrimitiveValueRenderer as TableValueRenderer } from "./NonPrimitiveValueRenderer";
 
 /** A react component which renders struct property value as a button with text

@@ -1,15 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
 
-import type { PanelSide} from "../widget-panels/Panel";
+import type { PanelSide } from "../widget-panels/Panel";
 import { panelSides } from "../widget-panels/Panel";
 import type { NineZoneState } from "./NineZoneState";
-import type { FloatingWidgetState, PopoutWidgetState, WidgetState } from "./WidgetState";
+import type {
+  FloatingWidgetState,
+  PopoutWidgetState,
+  WidgetState,
+} from "./WidgetState";
 
 /** @internal */
 export interface PanelWidgetLocation {
@@ -28,27 +32,39 @@ export interface PopoutWidgetLocation {
 }
 
 /** @internal */
-export type WidgetLocation = PanelWidgetLocation | FloatingWidgetLocation | PopoutWidgetLocation;
+export type WidgetLocation =
+  | PanelWidgetLocation
+  | FloatingWidgetLocation
+  | PopoutWidgetLocation;
 
 /** @internal */
-export function isFloatingWidgetLocation(location: WidgetLocation): location is FloatingWidgetLocation {
+export function isFloatingWidgetLocation(
+  location: WidgetLocation
+): location is FloatingWidgetLocation {
   return "floatingWidgetId" in location;
 }
 
 /** @internal */
-export function isPopoutWidgetLocation(location: WidgetLocation): location is PopoutWidgetLocation {
+export function isPopoutWidgetLocation(
+  location: WidgetLocation
+): location is PopoutWidgetLocation {
   return "popoutWidgetId" in location;
 }
 
 /** @internal */
-export function isPanelWidgetLocation(location: WidgetLocation): location is PanelWidgetLocation {
+export function isPanelWidgetLocation(
+  location: WidgetLocation
+): location is PanelWidgetLocation {
   return "side" in location;
 }
 
 /** Returns a widget location or `undefined` if widget is not found.
  * @internal
  */
-export function getWidgetLocation(state: NineZoneState, id: WidgetState["id"]): WidgetLocation | undefined {
+export function getWidgetLocation(
+  state: NineZoneState,
+  id: WidgetState["id"]
+): WidgetLocation | undefined {
   if (id in state.floatingWidgets.byId) {
     return {
       floatingWidgetId: id,

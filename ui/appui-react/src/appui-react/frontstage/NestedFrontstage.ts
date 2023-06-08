@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -16,7 +16,9 @@ import svgProgressBackwardCircular from "@bentley/icons-generic/icons/progress-b
  * @public
  */
 export class NestedFrontstage {
-  private static iconSpec = IconSpecUtilities.createWebComponentIconSpec(svgProgressBackwardCircular);
+  private static iconSpec = IconSpecUtilities.createWebComponentIconSpec(
+    svgProgressBackwardCircular
+  );
   /** Command that returns to the previous Frontstage */
   public static get backToPreviousFrontstageCommand() {
     return new CommandItemDef({

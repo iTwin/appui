@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { VariableSizeList } from "react-window";
@@ -15,9 +15,12 @@ import type { ControlledTreeProps } from "../../../../components-react/tree/cont
 import { ControlledTree } from "../../../../components-react/tree/controlled/component/ControlledTree";
 import { from } from "../../../../components-react/tree/controlled/Observable";
 import type { TreeEvents } from "../../../../components-react/tree/controlled/TreeEvents";
-import type { MutableTreeModelNode, TreeModel } from "../../../../components-react/tree/controlled/TreeModel";
+import type {
+  MutableTreeModelNode,
+  TreeModel,
+} from "../../../../components-react/tree/controlled/TreeModel";
 import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader";
-import type { HighlightableTreeProps} from "../../../../components-react/tree/HighlightingEngine";
+import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine";
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine";
 import TestUtils from "../../../TestUtils";
 import { SparseArray } from "../../../../components-react/tree/controlled/internal/SparseTree";
@@ -51,7 +54,11 @@ describe("ControlledTree", () => {
     node = {
       id: "0",
       label: PropertyRecord.fromString("label", "label"),
-      checkbox: { isVisible: false, state: CheckBoxState.Off, isDisabled: false },
+      checkbox: {
+        isVisible: false,
+        state: CheckBoxState.Off,
+        isDisabled: false,
+      },
       depth: 0,
       description: "Test Node Description",
       isExpanded: false,
@@ -66,7 +73,9 @@ describe("ControlledTree", () => {
       },
     };
 
-    nodeLoaderMock.setup((x) => x.loadNode(moq.It.isAny(), moq.It.isAny())).returns(() => from([]));
+    nodeLoaderMock
+      .setup((x) => x.loadNode(moq.It.isAny(), moq.It.isAny()))
+      .returns(() => from([]));
   });
 
   afterEach(() => {
@@ -80,28 +89,42 @@ describe("ControlledTree", () => {
     nodes.setLength(1);
     nodes.set(0, node.id);
 
-    treeModelMock.setup((x) => x.getRootNode()).returns(() => ({ id: undefined, depth: -1, numChildren: 1 }));
+    treeModelMock
+      .setup((x) => x.getRootNode())
+      .returns(() => ({ id: undefined, depth: -1, numChildren: 1 }));
     treeModelMock.setup((x) => x.getChildren(undefined)).returns(() => nodes);
     treeModelMock.setup((x) => x.getNode(node.id)).returns(() => node);
-    treeModelMock.setup((x) => x.getChildOffset(undefined, node.id)).returns(() => 0);
-    treeModelMock.setup((x) => x.iterateTreeModelNodes(undefined)).returns([node][Symbol.iterator]);
+    treeModelMock
+      .setup((x) => x.getChildOffset(undefined, node.id))
+      .returns(() => 0);
+    treeModelMock
+      .setup((x) => x.iterateTreeModelNodes(undefined))
+      .returns([node][Symbol.iterator]);
   };
 
   it("renders loading spinner if root nodes are not loaded", () => {
-    treeModelMock.setup((x) => x.getRootNode()).returns(() => ({ id: undefined, depth: -1, numChildren: undefined }));
+    treeModelMock
+      .setup((x) => x.getRootNode())
+      .returns(() => ({ id: undefined, depth: -1, numChildren: undefined }));
 
     const { container } = render(<ControlledTree {...defaultProps} />);
 
-    const message = container.querySelector(".components-controlledTree-loader");
+    const message = container.querySelector(
+      ".components-controlledTree-loader"
+    );
     expect(message).to.not.be.null;
   });
 
   it("renders no data message if there are no nodes", () => {
-    treeModelMock.setup((x) => x.getRootNode()).returns(() => ({ id: undefined, depth: -1, numChildren: 0 }));
+    treeModelMock
+      .setup((x) => x.getRootNode())
+      .returns(() => ({ id: undefined, depth: -1, numChildren: 0 }));
 
     const { container } = render(<ControlledTree {...defaultProps} />);
 
-    const message = container.querySelector(".components-controlledTree-errorMessage");
+    const message = container.querySelector(
+      ".components-controlledTree-errorMessage"
+    );
     expect(message).to.not.be.null;
   });
 
@@ -117,7 +140,9 @@ describe("ControlledTree", () => {
   it("renders node with description", () => {
     mockVisibleNode();
 
-    const { getByText } = render(<ControlledTree {...defaultProps} descriptionsEnabled={true} />);
+    const { getByText } = render(
+      <ControlledTree {...defaultProps} descriptionsEnabled={true} />
+    );
 
     getByText("Test Node Description");
   });
@@ -126,7 +151,9 @@ describe("ControlledTree", () => {
     mockVisibleNode();
     node.item.icon = "test-icon";
 
-    const { container } = render(<ControlledTree {...defaultProps} iconsEnabled={true} />);
+    const { container } = render(
+      <ControlledTree {...defaultProps} iconsEnabled={true} />
+    );
 
     const iconNode = container.querySelector(".test-icon");
     expect(iconNode).to.not.be.undefined;
@@ -143,17 +170,23 @@ describe("ControlledTree", () => {
     };
 
     const verticalScrollSpy = sinon.spy();
-    sinon.replace(VariableSizeList.prototype, "scrollToItem", verticalScrollSpy);
+    sinon.replace(
+      VariableSizeList.prototype,
+      "scrollToItem",
+      verticalScrollSpy
+    );
 
     const { container } = render(
       <ControlledTree
         {...defaultProps}
         descriptionsEnabled={true}
         nodeHighlightingProps={highlightProps}
-      />,
+      />
     );
 
-    const tree = container.querySelector(`.${HighlightingEngine.ACTIVE_CLASS_NAME}`);
+    const tree = container.querySelector(
+      `.${HighlightingEngine.ACTIVE_CLASS_NAME}`
+    );
     expect(tree).to.not.be.null;
   });
 
@@ -169,7 +202,9 @@ describe("ControlledTree", () => {
   });
 
   it("uses provided spinner renderer", () => {
-    treeModelMock.setup((x) => x.getRootNode()).returns(() => ({ id: undefined, depth: -1, numChildren: undefined }));
+    treeModelMock
+      .setup((x) => x.getRootNode())
+      .returns(() => ({ id: undefined, depth: -1, numChildren: undefined }));
 
     const spinnerRenderer = () => <div />;
     const spy = sinon.spy(spinnerRenderer);
@@ -180,7 +215,9 @@ describe("ControlledTree", () => {
   });
 
   it("uses provided no data renderer", () => {
-    treeModelMock.setup((x) => x.getRootNode()).returns(() => ({ id: undefined, depth: -1, numChildren: 0 }));
+    treeModelMock
+      .setup((x) => x.getRootNode())
+      .returns(() => ({ id: undefined, depth: -1, numChildren: 0 }));
 
     const noDataRenderer = () => <div />;
     const spy = sinon.spy(noDataRenderer);

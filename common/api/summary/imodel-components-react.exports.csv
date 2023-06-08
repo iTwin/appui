@@ -7,7 +7,7 @@ alpha;BaseSolarDataProvider
 alpha;BaseTimelineDataProvider 
 beta;ColorEditor 
 beta;ColorPickerButton: (props: ColorPickerProps) => JSX.Element | null
-beta;ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType }: ColorPickerDialogProps): JSX.Element
+beta;ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): JSX.Element
 beta;ColorPickerDialogProps
 public;ColorPickerPopup: (props: ColorPickerPopupProps) => JSX.Element | null
 public;ColorPickerPopupProps 
@@ -51,7 +51,7 @@ alpha;FormatUnits(props: FormatUnitsProps): JSX.Element
 alpha;FormatUnitsProps 
 internal;getCSSColorFromDef(colorDef: ColorDef): string
 internal;getPercentageOfRectangle(rect: DOMRect, pointer: number): number
-beta;HueSlider({ isHorizontal, onHueChange, hsv, className, style }: HueSliderProps): JSX.Element
+beta;HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): JSX.Element
 beta;HueSliderProps 
 internal;InlineEdit 
 public;LineWeightSwatch 
@@ -68,12 +68,12 @@ internal;PlayerButton
 internal;PlayerButtonProps 
 alpha;QuantityFormatPanel(props: QuantityFormatPanelProps): JSX.Element
 alpha;QuantityFormatPanelProps 
-beta;QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref }: QuantityProps): JSX.Element
+beta;QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): JSX.Element
 beta;QuantityNumberInput: (props: QuantityNumberInputProps) => JSX.Element | null
 beta;QuantityNumberInputProps 
 beta;QuantityProps 
-internal;RailMarkers({ showToolTip, percent, tooltipText, markDate }:
-beta;SaturationPicker({ onSaturationChange, hsv, className, style }: SaturationPickerProps): JSX.Element
+internal;RailMarkers({ showToolTip, percent, tooltipText, markDate, }:
+beta;SaturationPicker({ onSaturationChange, hsv, className, style, }: SaturationPickerProps): JSX.Element
 beta;SaturationPickerProps 
 internal;Scrubber(props: ScrubberProps): JSX.Element
 internal;ScrubberProps 

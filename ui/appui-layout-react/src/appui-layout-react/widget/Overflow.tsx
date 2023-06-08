@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -39,7 +39,7 @@ export function WidgetOverflow(props: WidgetOverflowProps) {
   usePanelPopup(handleClose);
   const className = classnames(
     "nz-widget-overflow",
-    props.hidden && "nz-hidden",
+    props.hidden && "nz-hidden"
   );
   const overflowContext = React.useMemo<WidgetOverflowContextArgs>(() => {
     return {
@@ -48,10 +48,7 @@ export function WidgetOverflow(props: WidgetOverflowProps) {
   }, [handleClose]);
   const moreWidgetsTitle = useLabel("moreWidgetsTitle");
   return (
-    <div
-      className={className}
-      ref={refs}
-    >
+    <div className={className} ref={refs}>
       <div // eslint-disable-line jsx-a11y/click-events-have-key-events
         className="nz-button"
         onClick={handleClick}
@@ -79,12 +76,16 @@ interface WidgetOverflowContextArgs {
 }
 
 /** @internal */
-export const WidgetOverflowContext = React.createContext<WidgetOverflowContextArgs | undefined>(undefined); // eslint-disable-line @typescript-eslint/naming-convention
+export const WidgetOverflowContext = React.createContext<
+  WidgetOverflowContextArgs | undefined
+>(undefined);
 WidgetOverflowContext.displayName = "nz:WidgetOverflowContext";
 
 function usePanelPopup(onClose: () => void) {
   const side = React.useContext(PanelSideContext);
-  const collapsed = useLayout((state) => side ? state.panels[side].collapsed : false);
+  const collapsed = useLayout((state) =>
+    side ? state.panels[side].collapsed : false
+  );
   React.useEffect(() => {
     if (collapsed) {
       onClose();

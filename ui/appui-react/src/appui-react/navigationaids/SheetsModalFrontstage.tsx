@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module NavigationAids
  */
@@ -12,8 +12,14 @@ import * as React from "react";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
-import type { CommonProps, IconSpec} from "@itwin/core-react";
-import { FlexWrapContainer, Icon, ScrollView, SearchBox, UiCore } from "@itwin/core-react";
+import type { CommonProps, IconSpec } from "@itwin/core-react";
+import {
+  FlexWrapContainer,
+  Icon,
+  ScrollView,
+  SearchBox,
+  UiCore,
+} from "@itwin/core-react";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages";
 import { UiFramework } from "../UiFramework";
 import type { SheetData } from "./SheetNavigationAid";
@@ -41,13 +47,15 @@ export interface CardSelectedEventArgs {
 /** Class for CardSelectedEvent
  * @alpha
  */
-export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> { }
+export class CardSelectedEvent extends UiEvent<CardSelectedEventArgs> {}
 
 /** Modal frontstage displaying sheet information in cards.
  * @alpha
  */
 export class SheetsModalFrontstage implements ModalFrontstageInfo {
-  public title: string = UiFramework.translate("navigationAid.sheetsModalFrontstage");
+  public title: string = UiFramework.translate(
+    "navigationAid.sheetsModalFrontstage"
+  );
   private _cards: CardInfo[] = [];
   private _connection: IModelConnection;
   private _currentIndex: number;
@@ -58,7 +66,11 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
    * @param sheets Collection of sheets available in SheetNavigationAid
    * @param connection IModelConnection to query for sheet ViewState
    */
-  constructor(sheets: SheetData[], connection: IModelConnection, currentIndex: number) {
+  constructor(
+    sheets: SheetData[],
+    connection: IModelConnection,
+    currentIndex: number
+  ) {
     this._connection = connection;
     this._currentIndex = currentIndex;
     this._storeSheetsAsCards(sheets);
@@ -70,19 +82,35 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
    */
   private _storeSheetsAsCards(sheets: SheetData[]) {
     sheets.forEach((sheet: SheetData, index: number) => {
-      this._cards.push({ index, label: sheet.name, iconSpec: <SvgDocument />, viewId: sheet.viewId, isActive: index === this._currentIndex });
+      this._cards.push({
+        index,
+        label: sheet.name,
+        iconSpec: <SvgDocument />,
+        viewId: sheet.viewId,
+        isActive: index === this._currentIndex,
+      });
     });
   }
 
   /** Gets set of cards */
   public get content(): React.ReactNode {
-    return <CardContainer cards={this._cards} searchValue={this._searchValue} connection={this._connection} />;
+    return (
+      <CardContainer
+        cards={this._cards}
+        searchValue={this._searchValue}
+        connection={this._connection}
+      />
+    );
   }
 
   /** Gets components to be placed in the app bar */
   public get appBarRight(): React.ReactNode {
     return (
-      <SearchBox placeholder={UiCore.translate("general.search")} onValueChanged={this._handleSearchValueChanged} valueChangedDelay={250} />
+      <SearchBox
+        placeholder={UiCore.translate("general.search")}
+        onValueChanged={this._handleSearchValueChanged}
+        valueChangedDelay={250}
+      />
     );
   }
 
@@ -107,32 +135,40 @@ export interface CardContainerProps extends CommonProps {
  * @alpha
  */
 export class CardContainer extends React.Component<CardContainerProps> {
-  private static _cardSelectedEvent: CardSelectedEvent = new CardSelectedEvent();
+  private static _cardSelectedEvent: CardSelectedEvent =
+    new CardSelectedEvent();
 
   /** Get CardSelectedEvent event */
-  public static get onCardSelectedEvent(): CardSelectedEvent { return CardContainer._cardSelectedEvent; }
+  public static get onCardSelectedEvent(): CardSelectedEvent {
+    return CardContainer._cardSelectedEvent;
+  }
 
   /** @internal */
   public override render() {
     return (
       <ScrollView className={this.props.className} style={this.props.style}>
         <FlexWrapContainer>
-          {
-            this.props.cards.map((card: CardInfo, _index: number) => {
-              let includeCard = true;
-              if (this.props.searchValue) {
-                includeCard = this.contains(card.label, this.props.searchValue);
-              }
+          {this.props.cards.map((card: CardInfo, _index: number) => {
+            let includeCard = true;
+            if (this.props.searchValue) {
+              includeCard = this.contains(card.label, this.props.searchValue);
+            }
 
-              if (includeCard) {
-                return (
-                  <SheetCard key={card.label} label={card.label} index={card.index} iconSpec={card.iconSpec} isActive={card.isActive} onClick={async () => this._handleCardSelected(card)} />
-                );
-              }
+            if (includeCard) {
+              return (
+                <SheetCard
+                  key={card.label}
+                  label={card.label}
+                  index={card.index}
+                  iconSpec={card.iconSpec}
+                  isActive={card.isActive}
+                  onClick={async () => this._handleCardSelected(card)}
+                />
+              );
+            }
 
-              return null;
-            })
-          }
+            return null;
+          })}
         </FlexWrapContainer>
       </ScrollView>
     );
@@ -145,13 +181,13 @@ export class CardContainer extends React.Component<CardContainerProps> {
    * @return True if valueB can be found in valueA, false otherwise
    */
   private contains(valueA: string, valueB: string): boolean {
-    if (!valueA || !valueB)
-      return false;
+    if (!valueA || !valueB) return false;
 
-    if (valueB.length > valueA.length)
-      return false;
+    if (valueB.length > valueA.length) return false;
 
-    return valueA.toLocaleUpperCase().indexOf(valueB.toLocaleUpperCase(), 0) !== -1;
+    return (
+      valueA.toLocaleUpperCase().indexOf(valueB.toLocaleUpperCase(), 0) !== -1
+    );
   }
 
   /**
@@ -168,7 +204,10 @@ export class CardContainer extends React.Component<CardContainerProps> {
 
     card.isActive = true;
     UiFramework.frontstages.closeModalFrontstage();
-    CardContainer.onCardSelectedEvent.emit({ id: card.viewId, index: card.index });
+    CardContainer.onCardSelectedEvent.emit({
+      id: card.viewId,
+      index: card.index,
+    });
   }
 }
 
@@ -209,8 +248,7 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
   };
 
   private _onMouseLeave = () => {
-    if (this.state.isPressed)
-      this.setState({ isPressed: false });
+    if (this.state.isPressed) this.setState({ isPressed: false });
   };
 
   public override render() {
@@ -219,20 +257,34 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
     const className = classnames(
       "uifw-sheet-card",
       this.state.isActive && "is-active",
-      this.state.isPressed && "is-pressed",
+      this.state.isPressed && "is-pressed"
     );
 
-    const iconSpec = this.props.iconSpec ? this.props.iconSpec : <SvgPlaceholder />;
+    const iconSpec = this.props.iconSpec ? (
+      this.props.iconSpec
+    ) : (
+      <SvgPlaceholder />
+    );
 
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <div className={className} onClick={this._onClick} onMouseDown={this._onMouseDown} onMouseLeave={this._onMouseLeave} role="button" tabIndex={-1} >
+      <div
+        className={className}
+        onClick={this._onClick}
+        onMouseDown={this._onMouseDown}
+        onMouseLeave={this._onMouseLeave}
+        role="button"
+        tabIndex={-1}
+      >
         {label}
         <div className="sheet-image-container">
-          <div className="icon"> <Icon iconSpec={iconSpec} /></div>
-        </div >
+          <div className="icon">
+            {" "}
+            <Icon iconSpec={iconSpec} />
+          </div>
+        </div>
         <div className="sheet-index">{index + 1}</div>
-      </div >
+      </div>
     );
   }
 }

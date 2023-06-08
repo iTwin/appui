@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Loading
  */
@@ -25,9 +25,9 @@ export interface LoadingSpinnerProps extends Omit<ProgressRadialProps, "size"> {
   /** Position the message above or below the spinner (defaults to bottom) */
   messageOnTop?: boolean;
   /**
-     * Size of the progress indicator. Defaults to medium size.
-     * @default ''
-     */
+   * Size of the progress indicator. Defaults to medium size.
+   * @default ''
+   */
   size?: RadialSizeType;
 }
 
@@ -44,9 +44,13 @@ export class LoadingSpinner extends React.PureComponent<LoadingSpinnerProps> {
     const { message, messageOnTop, size, ...rest } = this.props;
     return (
       <div className="core-ls">
-        {(message && messageOnTop) && <span className="ls-message-top">{message}</span>}
+        {message && messageOnTop && (
+          <span className="ls-message-top">{message}</span>
+        )}
         <ProgressRadial size={size} {...rest} indeterminate />
-        {(message && !messageOnTop) && <span className="ls-message-bottom">{message}</span>}
+        {message && !messageOnTop && (
+          <span className="ls-message-bottom">{message}</span>
+        )}
       </div>
     );
   }

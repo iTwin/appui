@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
@@ -15,9 +15,13 @@ import type { BackstageItemsManager } from "./BackstageItemsManager";
 /** Hook that returns items from [[BackstageItemsManager]].
  * @public
  */
-export const useUiItemsProviderBackstageItems = (manager: BackstageItemsManager): readonly BackstageItem[] => {
+export const useUiItemsProviderBackstageItems = (
+  manager: BackstageItemsManager
+): readonly BackstageItem[] => {
   const uiItemProviderIds = useAvailableUiItemsProviders();
-  const [items, setItems] = React.useState(manager ? manager.items : /* istanbul ignore next */[]);
+  const [items, setItems] = React.useState(
+    manager ? manager.items : /* istanbul ignore next */ []
+  );
   const providersRef = React.useRef("");
   // gathers items from registered extensions - dependent on when a UiItemsProvider is register or unregistered and if the
   // current stage's composer allows entries from extensions.

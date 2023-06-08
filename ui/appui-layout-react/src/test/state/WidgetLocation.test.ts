@@ -1,9 +1,12 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { should } from "chai";
-import { createNineZoneState, getWidgetLocation } from "../../appui-layout-react";
+import {
+  createNineZoneState,
+  getWidgetLocation,
+} from "../../appui-layout-react";
 
 describe("getWidgetLocation", () => {
   it("should return `undefined` if widget is not found", () => {

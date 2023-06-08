@@ -1,15 +1,21 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as sinon from "sinon";
 import { act, fireEvent, render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import type { NineZoneDispatch} from "../../appui-layout-react";
+import type { NineZoneDispatch } from "../../appui-layout-react";
 import {
-  addFloatingWidget, addPanelWidget, addTab, createNineZoneState, FloatingWidgetProvider,
-  TabIdContext, useDrag, WidgetIdContext,
+  addFloatingWidget,
+  addPanelWidget,
+  addTab,
+  createNineZoneState,
+  FloatingWidgetProvider,
+  TabIdContext,
+  useDrag,
+  WidgetIdContext,
 } from "../../appui-layout-react";
 import * as NineZoneModule from "../../appui-layout-react/base/NineZone";
 import { TestNineZoneProvider } from "../Providers";
@@ -24,14 +30,9 @@ describe("WidgetTitleBar", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
-      </TestNineZoneProvider>,
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
@@ -41,13 +42,16 @@ describe("WidgetTitleBar", () => {
       dispatch.reset();
       fireEvent.mouseUp(document);
     });
-    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
-      type: "WIDGET_DRAG_END",
-      floatingWidgetId: "w1",
-      target: {
-        type: "window",
-      },
-    }));
+    sinon.assert.calledOnceWithExactly(
+      dispatch,
+      sinon.match({
+        type: "WIDGET_DRAG_END",
+        floatingWidgetId: "w1",
+        target: {
+          type: "window",
+        },
+      })
+    );
   });
 
   it("should dispatch FLOATING_WIDGET_CLEAR_USER_SIZED", () => {
@@ -58,14 +62,9 @@ describe("WidgetTitleBar", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
-      </TestNineZoneProvider>,
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
@@ -92,19 +91,14 @@ describe("WidgetTitleBar", () => {
     state = addFloatingWidget(state, "w1", ["t1"]);
     state = addPanelWidget(state, "left", "w2", ["t2"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+        <FloatingWidgetProvider id="w1" />
         <WidgetIdContext.Provider value="w2">
           <TabIdContext.Provider value="t2">
             <TabTarget />
           </TabIdContext.Provider>
         </WidgetIdContext.Provider>
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
@@ -119,15 +113,18 @@ describe("WidgetTitleBar", () => {
       dispatch.reset();
       fireEvent.mouseUp(document);
     });
-    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
-      type: "WIDGET_DRAG_END",
-      floatingWidgetId: "w1",
-      target: sinon.match({
-        tabIndex: 0,
-        type: "tab",
-        widgetId: "w2",
-      }),
-    }));
+    sinon.assert.calledOnceWithExactly(
+      dispatch,
+      sinon.match({
+        type: "WIDGET_DRAG_END",
+        floatingWidgetId: "w1",
+        target: sinon.match({
+          tabIndex: 0,
+          type: "tab",
+          widgetId: "w2",
+        }),
+      })
+    );
   });
 
   it("should dispatch WIDGET_DRAG_END with panel target", () => {
@@ -137,15 +134,10 @@ describe("WidgetTitleBar", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+        <FloatingWidgetProvider id="w1" />
         <PanelTarget side="right" />
-      </TestNineZoneProvider>,
+      </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
@@ -175,14 +167,9 @@ describe("WidgetTitleBar", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const { container } = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-      >
-        <FloatingWidgetProvider
-          id="w1"
-        />
-      </TestNineZoneProvider>,
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
     const handle = titleBar.getElementsByClassName("nz-handle")[0];
@@ -192,10 +179,13 @@ describe("WidgetTitleBar", () => {
         touches: [{}],
       });
     });
-    sinon.assert.calledOnceWithExactly(dispatch, sinon.match({
-      type: "FLOATING_WIDGET_BRING_TO_FRONT",
-      id: "w1",
-    }));
+    sinon.assert.calledOnceWithExactly(
+      dispatch,
+      sinon.match({
+        type: "FLOATING_WIDGET_BRING_TO_FRONT",
+        id: "w1",
+      })
+    );
   });
 });
 

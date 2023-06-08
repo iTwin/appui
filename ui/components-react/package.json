@@ -13,8 +13,8 @@
   },
   "scripts": {
     "build": "npm run -s copy:locale && npm run -s build:cjs && npm run -s build:esm",
-    "build:cjs": "tsc 1>&2 --outDir lib/cjs && npm run -s copy:cjs",
-    "build:esm": "tsc 1>&2 --module ES2020 --outDir lib/esm && npm run -s copy:esm",
+    "build:cjs": "npm run -s copy:cjs && tsc 1>&2 --outDir lib/cjs",
+    "build:esm": "npm run -s copy:esm && tsc 1>&2 --module ES2020 --outDir lib/esm",
     "copy:cjs": "cpx \"./src/**/*.*css\" ./lib/cjs",
     "copy:esm": "cpx \"./src/**/*.*css\" ./lib/esm",
     "copy:locale": "cpx \"./public/**/*\" ./lib/public",
@@ -100,7 +100,8 @@
     "sinon-chai": "^3.2.0",
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
-    "typescript": "~5.0.2"
+    "typescript": "~5.0.2",
+    "eslint-config-prettier": "~8.8.0"
   },
   "//dependencies": [
     "NOTE: these dependencies should be only for things that DO NOT APPEAR IN THE API",
@@ -141,7 +142,8 @@
     ],
     "extends": [
       "plugin:@itwin/ui",
-      "plugin:@itwin/jsdoc"
+      "plugin:@itwin/jsdoc",
+      "prettier"
     ],
     "rules": {
       "@typescript-eslint/consistent-type-imports": "error",

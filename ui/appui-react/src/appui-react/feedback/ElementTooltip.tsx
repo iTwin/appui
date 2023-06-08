@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Notification
  */
@@ -10,11 +10,14 @@ import classnames from "classnames";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import type { ToolTipOptions } from "@itwin/core-frontend";
-import type { PointProps} from "@itwin/appui-abstract";
+import type { PointProps } from "@itwin/appui-abstract";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { CommonProps, Point, SizeProps } from "@itwin/core-react";
 import { Rectangle } from "@itwin/core-react";
-import { offsetAndContainInContainer, Tooltip } from "@itwin/appui-layout-react";
+import {
+  offsetAndContainInContainer,
+  Tooltip,
+} from "@itwin/appui-layout-react";
 import { MessageDiv } from "../messages/MessageSpan";
 import type { NotifyMessageType } from "../messages/ReactNotifyMessageDetails";
 
@@ -42,40 +45,65 @@ export interface ElementTooltipChangedEventArgs {
 /** ElementTooltip Changed Event class.
  * @public
  */
-export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> { }
+export class ElementTooltipChangedEvent extends UiEvent<ElementTooltipChangedEventArgs> {}
 
 /** ElementTooltip React component.
  * @public
  */
-export class ElementTooltip extends React.Component<CommonProps, ElementTooltipState> {
-  private static _elementTooltipChangedEvent: ElementTooltipChangedEvent = new ElementTooltipChangedEvent();
+export class ElementTooltip extends React.Component<
+  CommonProps,
+  ElementTooltipState
+> {
+  private static _elementTooltipChangedEvent: ElementTooltipChangedEvent =
+    new ElementTooltipChangedEvent();
   private static _isTooltipVisible: boolean;
   private static _isTooltipHalted: boolean;
 
-  public static get onElementTooltipChangedEvent(): ElementTooltipChangedEvent { return ElementTooltip._elementTooltipChangedEvent; }
-  public static get isTooltipVisible(): boolean { return ElementTooltip._isTooltipVisible; }
+  public static get onElementTooltipChangedEvent(): ElementTooltipChangedEvent {
+    return ElementTooltip._elementTooltipChangedEvent;
+  }
+  public static get isTooltipVisible(): boolean {
+    return ElementTooltip._isTooltipVisible;
+  }
 
-  public static showTooltip(el: HTMLElement, message: NotifyMessageType, pt?: XAndY, options?: ToolTipOptions): void {
+  public static showTooltip(
+    el: HTMLElement,
+    message: NotifyMessageType,
+    pt?: XAndY,
+    options?: ToolTipOptions
+  ): void {
     // istanbul ignore if
-    if (ElementTooltip._isTooltipHalted)
-      return;
+    if (ElementTooltip._isTooltipHalted) return;
     ElementTooltip._isTooltipVisible = true;
-    ElementTooltip.onElementTooltipChangedEvent.emit({ isTooltipVisible: true, el, message, pt, options });
-    el.ownerDocument.addEventListener("mousemove", ElementTooltip._handleMouseMove);
+    ElementTooltip.onElementTooltipChangedEvent.emit({
+      isTooltipVisible: true,
+      el,
+      message,
+      pt,
+      options,
+    });
+    el.ownerDocument.addEventListener(
+      "mousemove",
+      ElementTooltip._handleMouseMove
+    );
   }
 
   public static hideTooltip(): void {
     ElementTooltip._isTooltipVisible = false;
-    ElementTooltip.onElementTooltipChangedEvent.emit({ isTooltipVisible: false, message: "" });
+    ElementTooltip.onElementTooltipChangedEvent.emit({
+      isTooltipVisible: false,
+      message: "",
+    });
   }
 
   // istanbul ignore next
-  public static get isTooltipHalted(): boolean { return ElementTooltip._isTooltipHalted; }
+  public static get isTooltipHalted(): boolean {
+    return ElementTooltip._isTooltipHalted;
+  }
   // istanbul ignore next
   public static set isTooltipHalted(halt: boolean) {
     ElementTooltip._isTooltipHalted = halt;
-    if (halt && ElementTooltip._isTooltipVisible)
-      ElementTooltip.hideTooltip();
+    if (halt && ElementTooltip._isTooltipVisible) ElementTooltip.hideTooltip();
   }
 
   private _size: SizeProps = {
@@ -100,12 +128,9 @@ export class ElementTooltip extends React.Component<CommonProps, ElementTooltipS
   }
 
   public override render() {
-    if (!this.state.isVisible)
-      return null;
+    if (!this.state.isVisible) return null;
 
-    const className = classnames(
-      "uifw-element-tooltip",
-      this.props.className);
+    const className = classnames("uifw-element-tooltip", this.props.className);
 
     const messageNode = <MessageDiv message={this.state.message} />;
 
@@ -124,30 +149,44 @@ export class ElementTooltip extends React.Component<CommonProps, ElementTooltipS
   }
 
   public override componentDidMount(): void {
-    ElementTooltip.onElementTooltipChangedEvent.addListener(this._handleElementTooltipChangedEvent);
+    ElementTooltip.onElementTooltipChangedEvent.addListener(
+      this._handleElementTooltipChangedEvent
+    );
   }
 
   public override componentWillUnmount(): void {
-    ElementTooltip.onElementTooltipChangedEvent.removeListener(this._handleElementTooltipChangedEvent);
+    ElementTooltip.onElementTooltipChangedEvent.removeListener(
+      this._handleElementTooltipChangedEvent
+    );
   }
 
   private static _handleMouseMove(event: MouseEvent) {
     const el = event.currentTarget as Document;
     /* Only monitor mouse movement when an ElementTooltip is open. */
-    if (el && ElementTooltip._isTooltipHalted || !ElementTooltip._isTooltipVisible) {
+    if (
+      (el && ElementTooltip._isTooltipHalted) ||
+      !ElementTooltip._isTooltipVisible
+    ) {
       el.removeEventListener("mousemove", ElementTooltip._handleMouseMove);
       return;
     }
-    const hoveredElement = el ? el.elementFromPoint(event.clientX, event.clientY) : undefined;
+    const hoveredElement = el
+      ? el.elementFromPoint(event.clientX, event.clientY)
+      : undefined;
     /* If the mouse has moved to an element that is not the view canvas, close the ElementTooltip. */
     // istanbul ignore next.
     if (hoveredElement && hoveredElement.localName !== "canvas") {
-      ElementTooltip.onElementTooltipChangedEvent.emit({ isTooltipVisible: false, message: "" });
+      ElementTooltip.onElementTooltipChangedEvent.emit({
+        isTooltipVisible: false,
+        message: "",
+      });
       el.removeEventListener("mousemove", ElementTooltip._handleMouseMove);
       return;
     }
   }
-  private _handleElementTooltipChangedEvent = (args: ElementTooltipChangedEventArgs) => {
+  private _handleElementTooltipChangedEvent = (
+    args: ElementTooltipChangedEventArgs
+  ) => {
     this._element = args.el;
     this._position = args.pt;
     this.setState({
@@ -165,20 +204,25 @@ export class ElementTooltip extends React.Component<CommonProps, ElementTooltipS
 
   private updatePosition() {
     this.setState((prevState) => {
-      if (!this._element)
-        return null;
+      if (!this._element) return null;
       // istanbul ignore next
-      if (!this._position)
-        return null;
+      if (!this._position) return null;
 
-      const containerBounds = Rectangle.create(this._element.getBoundingClientRect());
-      const relativeBounds = Rectangle.createFromSize(this._size).offset(this._position);
-      const adjustedPosition: Point = offsetAndContainInContainer(relativeBounds, containerBounds.getSize(), { x: 8, y: 8 });
+      const containerBounds = Rectangle.create(
+        this._element.getBoundingClientRect()
+      );
+      const relativeBounds = Rectangle.createFromSize(this._size).offset(
+        this._position
+      );
+      const adjustedPosition: Point = offsetAndContainInContainer(
+        relativeBounds,
+        containerBounds.getSize(),
+        { x: 8, y: 8 }
+      );
       const position = adjustedPosition.offset(containerBounds.topLeft());
 
       // istanbul ignore else
-      if (position.equals(prevState.position))
-        return null;
+      if (position.equals(prevState.position)) return null;
 
       // istanbul ignore next
       return {

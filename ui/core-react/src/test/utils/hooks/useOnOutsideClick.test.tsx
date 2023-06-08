@@ -1,13 +1,11 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as sinon from "sinon";
 import { fireEvent } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { useOnOutsideClick } from "../../../core-react";
-
-/* eslint-disable @typescript-eslint/no-floating-promises */
 
 function setRefValue<T>(ref: React.Ref<T>, value: T) {
   if (typeof ref === "function") {
@@ -55,7 +53,9 @@ describe("useOnOutsideClick", () => {
 
     it("should respect outside event predicate", () => {
       const spy = sinon.stub<[], void>();
-      const predicate = sinon.spy<NonNullable<Parameters<typeof useOnOutsideClick>[1]>>(() => {
+      const predicate = sinon.spy<
+        NonNullable<Parameters<typeof useOnOutsideClick>[1]>
+      >(() => {
         return false;
       });
       const { result } = renderHook(() => useOnOutsideClick(spy, predicate));
@@ -76,9 +76,10 @@ describe("useOnOutsideClick", () => {
 
     it("should respect outside event predicate", () => {
       const spy = sinon.stub<[], void>();
-      const predicate = sinon.spy<NonNullable<Parameters<typeof useOnOutsideClick>[1]>>((ev) => {
-        if (ev.type === "pointerup")
-          return false;
+      const predicate = sinon.spy<
+        NonNullable<Parameters<typeof useOnOutsideClick>[1]>
+      >((ev) => {
+        if (ev.type === "pointerup") return false;
         return true;
       });
       const { result } = renderHook(() => useOnOutsideClick(spy, predicate));

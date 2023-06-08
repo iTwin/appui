@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Message
  */
@@ -28,9 +28,7 @@ export interface TitleBarButtonProps extends CommonProps {
  * @internal
  */
 export function TitleBarButton(props: TitleBarButtonProps) {
-  const className = classnames(
-    "nz-footer-dialog-button",
-    props.className);
+  const className = classnames("nz-footer-dialog-button", props.className);
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events

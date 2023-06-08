@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { UiFramework } from "@itwin/appui-react";
 
@@ -15,13 +15,13 @@ export function useHandleURLParams() {
     setFrontstageId(params.get("frontstage"));
   }, []);
   React.useEffect(() => {
-    if (!frontstageId)
-      return;
+    if (!frontstageId) return;
 
     void (async function () {
-      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(frontstageId);
-      if (!frontstageDef)
-        return;
+      const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+        frontstageId
+      );
+      if (!frontstageDef) return;
       await openBlankConnection();
       await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
     })();

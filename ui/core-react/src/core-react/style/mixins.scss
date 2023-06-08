@@ -1,27 +1,23 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 @mixin no-link {
-
-  text-decoration:      none;
-  color:                var(--iui-color-text);
+  text-decoration: none;
+  color: var(--iui-color-text);
 
   &:link,
   &:visited,
   &:hover,
   &:active {
-
-    color:              var(--iui-color-text);
-    text-decoration:    none;
+    color: var(--iui-color-text);
+    text-decoration: none;
   }
 }
 
 @mixin firefox-only {
-
   @supports (-moz-appearance: none) {
     @content;
   }
-
 }

@@ -1,29 +1,35 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
 
 // cSpell:ignore classname
 
-import type { ScreenViewport} from "@itwin/core-frontend";
-import { DrawingViewState, OrthographicViewState, SheetViewState, SpatialViewState } from "@itwin/core-frontend";
+import type { ScreenViewport } from "@itwin/core-frontend";
+import {
+  DrawingViewState,
+  OrthographicViewState,
+  SheetViewState,
+  SpatialViewState,
+} from "@itwin/core-frontend";
 
 /**
  * Various View utility methods
  * @public
  */
 export class ViewUtilities {
-
   /**
    * Extracts the BisBaseClass from a full class name.
    * @param classFullName full class name
    * @returns BisBaseClass name
    */
   public static getBisBaseClass(classFullName: string) {
-    const bisBaseClass = classFullName.substring(classFullName.indexOf(":") + 1);
+    const bisBaseClass = classFullName.substring(
+      classFullName.indexOf(":") + 1
+    );
     return bisBaseClass;
   }
 
@@ -32,7 +38,10 @@ export class ViewUtilities {
    * @param classname Name of class to check
    */
   public static isSpatial(classname: string): boolean {
-    return classname === SpatialViewState.className || classname === OrthographicViewState.className;
+    return (
+      classname === SpatialViewState.className ||
+      classname === OrthographicViewState.className
+    );
   }
 
   /**
@@ -64,7 +73,9 @@ export class ViewUtilities {
    * @param viewport ScreenViewport to check
    */
   public static isSheetView(viewport: ScreenViewport): boolean {
-    return ViewUtilities.isSheet(ViewUtilities.getBisBaseClass(viewport.view.classFullName));
+    return ViewUtilities.isSheet(
+      ViewUtilities.getBisBaseClass(viewport.view.classFullName)
+    );
   }
 
   /**
@@ -72,7 +83,9 @@ export class ViewUtilities {
    * @param viewport ScreenViewport to check
    */
   public static isDrawingView(viewport: ScreenViewport): boolean {
-    return ViewUtilities.isDrawing(ViewUtilities.getBisBaseClass(viewport.view.classFullName));
+    return ViewUtilities.isDrawing(
+      ViewUtilities.getBisBaseClass(viewport.view.classFullName)
+    );
   }
 
   /**
@@ -80,7 +93,9 @@ export class ViewUtilities {
    * @param viewport ScreenViewport to check
    */
   public static isOrthographicView(viewport: ScreenViewport): boolean {
-    return ViewUtilities.isOrthographic(ViewUtilities.getBisBaseClass(viewport.view.classFullName));
+    return ViewUtilities.isOrthographic(
+      ViewUtilities.getBisBaseClass(viewport.view.classFullName)
+    );
   }
 
   /**
@@ -88,7 +103,9 @@ export class ViewUtilities {
    * @param viewport ScreenViewport to check
    */
   public static isSpatialView(viewport: ScreenViewport): boolean {
-    return ViewUtilities.isSpatial(ViewUtilities.getBisBaseClass(viewport.view.classFullName));
+    return ViewUtilities.isSpatial(
+      ViewUtilities.getBisBaseClass(viewport.view.classFullName)
+    );
   }
 
   /**
@@ -104,6 +121,9 @@ export class ViewUtilities {
    * @param viewport ScreenViewport to check
    */
   public static viewSupportsCamera(viewport: ScreenViewport): boolean {
-    return SpatialViewState.className === ViewUtilities.getBisBaseClass(viewport.view.classFullName);
+    return (
+      SpatialViewState.className ===
+      ViewUtilities.getBisBaseClass(viewport.view.classFullName)
+    );
   }
 }

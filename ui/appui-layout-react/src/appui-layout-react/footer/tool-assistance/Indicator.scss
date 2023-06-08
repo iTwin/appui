@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 @import "~@itwin/core-react/lib/cjs/core-react/style/breakpoints";
 @import "~@itwin/core-react/lib/cjs/core-react/geometry";
 @import "../variables";
@@ -11,7 +11,7 @@
   $padding: 2px;
   $top-bottom-padding: 1px;
 
-  >.nz-indicator {
+  > .nz-indicator {
     height: 32px;
     min-width: 20px;
     position: relative;
@@ -23,19 +23,18 @@
       left: $padding;
     }
 
-    ;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     cursor: pointer;
 
-    >.nz-icons {
+    > .nz-icons {
       font-size: $icon-size;
       display: flex;
       align-items: center;
     }
 
-    >.nz-content {
+    > .nz-content {
       margin-left: 8px;
       font-size: $text-font-size;
       line-height: 1;
@@ -51,20 +50,26 @@
       }
     }
 
-    >.nz-triangle {
+    > .nz-triangle {
       position: absolute;
       right: $padding;
       bottom: $padding;
       filter: $icon-shadow;
 
-      @include triangle-bottom-right($triangle-width, $color: var(--iui-color-icon));
+      @include triangle-bottom-right(
+        $triangle-width,
+        $color: var(--iui-color-icon)
+      );
     }
 
     &:hover {
       color: var(--iui-color-text-accent-hover);
 
-      >.nz-triangle {
-        @include triangle-bottom-right($triangle-width, $color: var(--iui-color-text-accent-hover));
+      > .nz-triangle {
+        @include triangle-bottom-right(
+          $triangle-width,
+          $color: var(--iui-color-text-accent-hover)
+        );
       }
     }
 

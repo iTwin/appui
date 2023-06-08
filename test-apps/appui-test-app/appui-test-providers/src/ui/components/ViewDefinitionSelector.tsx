@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
 import { Id64String } from "@itwin/core-bentley";
@@ -9,7 +9,9 @@ import { IModelConnection } from "@itwin/core-frontend";
 import { ViewQueryParams } from "@itwin/core-common";
 import { Select, SelectOption } from "@itwin/itwinui-react";
 
-export async function getViewDefinitions(imodel: IModelConnection): Promise<{ id: string, class: string, label: string }[]> {
+export async function getViewDefinitions(
+  imodel: IModelConnection
+): Promise<{ id: string; class: string; label: string }[]> {
   const viewQueryParams: ViewQueryParams = { wantPrivate: false };
   const viewSpecs = await imodel.views.queryProps(viewQueryParams);
   return viewSpecs
@@ -29,22 +31,29 @@ export interface ViewDefinitionSelectorProps {
 export interface RulesetSelectorState {
   availableViewDefinitions?: string[];
 }
-export default function ViewDefinitionSelector(props: ViewDefinitionSelectorProps) { // eslint-disable-line @typescript-eslint/naming-convention
-  const [selectOptions, setSelectOptions] = React.useState<SelectOption<string>[]>([]);
+export default function ViewDefinitionSelector(
+  props: ViewDefinitionSelectorProps
+) {
+  const [selectOptions, setSelectOptions] = React.useState<
+    SelectOption<string>[]
+  >([]);
   React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getViewDefinitions(props.imodel).then((result) => {
-      const options =  result.map((definition) => (
-        { value: definition.id, label: definition.label }
-      ));
+    void getViewDefinitions(props.imodel).then((result) => {
+      const options = result.map((definition) => ({
+        value: definition.id,
+        label: definition.label,
+      }));
       setSelectOptions(options);
-    }
-    );
+    });
   }, [props.imodel]);
   return (
     <div>
-      <Select onChange={props.onViewDefinitionSelected} value={props.selectedViewDefinition}
-        options={selectOptions} size="small" />
+      <Select
+        onChange={props.onViewDefinitionSelected}
+        value={props.selectedViewDefinition}
+        options={selectOptions}
+        size="small"
+      />
     </div>
   );
 }

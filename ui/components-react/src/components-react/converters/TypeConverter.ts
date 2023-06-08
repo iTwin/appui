@@ -1,14 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module TypeConverters
  */
 
 // cSpell:ignore valuetypes shortdate
 
-import type { Primitives, PrimitiveValue, PropertyDescription, PropertyRecord, PropertyValue} from "@itwin/appui-abstract";
+import type {
+  Primitives,
+  PrimitiveValue,
+  PropertyDescription,
+  PropertyRecord,
+  PropertyValue,
+} from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes";
 
@@ -17,7 +23,11 @@ import type { ConvertedPrimitives } from "./valuetypes/ConvertedTypes";
  */
 export interface SortComparer {
   /** Sort function for two primitive values */
-  sortCompare(valueA: Primitives.Value, valueB: Primitives.Value, ignoreCase?: boolean): number;
+  sortCompare(
+    valueA: Primitives.Value,
+    valueB: Primitives.Value,
+    ignoreCase?: boolean
+  ): number;
 }
 
 /** Operators for all filterable types
@@ -58,38 +68,68 @@ export interface NullableOperatorProcessor {
  * Type Converter base class.
  * @public
  */
-export abstract class TypeConverter implements SortComparer, OperatorProcessor, NullableOperatorProcessor {
+export abstract class TypeConverter
+  implements SortComparer, OperatorProcessor, NullableOperatorProcessor
+{
   /** Converts a primitive value to a string */
   public convertToString(value?: Primitives.Value): string | Promise<string> {
-    if (value === undefined)
-      return "";
+    if (value === undefined) return "";
     return value.toString();
   }
 
   /** Default implementation just calls convertToString with no options */
-  public convertToStringWithOptions(value?: Primitives.Value, _options?: { [key: string]: any }): string | Promise<string> {
+  public convertToStringWithOptions(
+    value?: Primitives.Value,
+    _options?: { [key: string]: any }
+  ): string | Promise<string> {
     return this.convertToString(value);
   }
 
   /** Converts a string to a primitive value */
-  public convertFromString(_value: string): ConvertedPrimitives.Value | undefined | Promise<ConvertedPrimitives.Value | undefined> {
+  public convertFromString(
+    _value: string
+  ):
+    | ConvertedPrimitives.Value
+    | undefined
+    | Promise<ConvertedPrimitives.Value | undefined> {
     return undefined;
   }
 
   /** Default implementation just calls convertFromString with no options */
-  public convertFromStringWithOptions(value: string, _options?: { [key: string]: any }): ConvertedPrimitives.Value | undefined | Promise<ConvertedPrimitives.Value | undefined> {
+  public convertFromStringWithOptions(
+    value: string,
+    _options?: { [key: string]: any }
+  ):
+    | ConvertedPrimitives.Value
+    | undefined
+    | Promise<ConvertedPrimitives.Value | undefined> {
     return this.convertFromString(value);
   }
 
   /** Converts a value associated with a property description to a string */
-  public convertPropertyToString(propertyDescription: PropertyDescription, value?: Primitives.Value): string | Promise<string> {
-    return this.convertToStringWithOptions(value, propertyDescription.converter?.options);
+  public convertPropertyToString(
+    propertyDescription: PropertyDescription,
+    value?: Primitives.Value
+  ): string | Promise<string> {
+    return this.convertToStringWithOptions(
+      value,
+      propertyDescription.converter?.options
+    );
   }
 
   /** Converts a string with a property record to a property value */
-  public async convertFromStringToPropertyValue(value: string, propertyRecord?: PropertyRecord): Promise<PropertyValue> {
-    const converterOptions = (propertyRecord && propertyRecord.property.converter) ? propertyRecord.property.converter.options : undefined;
-    const stringValue = await this.convertFromStringWithOptions(value, converterOptions);
+  public async convertFromStringToPropertyValue(
+    value: string,
+    propertyRecord?: PropertyRecord
+  ): Promise<PropertyValue> {
+    const converterOptions =
+      propertyRecord && propertyRecord.property.converter
+        ? propertyRecord.property.converter.options
+        : undefined;
+    const stringValue = await this.convertFromStringWithOptions(
+      value,
+      converterOptions
+    );
     const propertyValue: PrimitiveValue = {
       valueFormat: PropertyValueFormat.Primitive,
       value: stringValue,
@@ -99,15 +139,25 @@ export abstract class TypeConverter implements SortComparer, OperatorProcessor, 
   }
 
   /** Sort function for two primitive values */
-  public abstract sortCompare(valueA: Primitives.Value, valueB: Primitives.Value, _ignoreCase?: boolean): number;
+  public abstract sortCompare(
+    valueA: Primitives.Value,
+    valueB: Primitives.Value,
+    _ignoreCase?: boolean
+  ): number;
 
   /** Determines if two primitive values are equal */
-  public isEqualTo(valueA: Primitives.Value, valueB: Primitives.Value): boolean {
+  public isEqualTo(
+    valueA: Primitives.Value,
+    valueB: Primitives.Value
+  ): boolean {
     return valueA === valueB;
   }
 
   /** Determines if two primitive values are not equal */
-  public isNotEqualTo(valueA: Primitives.Value, valueB: Primitives.Value): boolean {
+  public isNotEqualTo(
+    valueA: Primitives.Value,
+    valueB: Primitives.Value
+  ): boolean {
     return valueA !== valueB;
   }
 
@@ -122,11 +172,19 @@ export abstract class TypeConverter implements SortComparer, OperatorProcessor, 
   }
 
   /** Determines if the converter is for a string type */
-  public get isStringType(): boolean { return false; }
+  public get isStringType(): boolean {
+    return false;
+  }
   /** Determines if the converter is for a numeric type */
-  public get isLessGreaterType(): boolean { return false; }
+  public get isLessGreaterType(): boolean {
+    return false;
+  }
   /** Determines if the converter is for a boolean type */
-  public get isBooleanType(): boolean { return false; }
+  public get isBooleanType(): boolean {
+    return false;
+  }
   /** Determines if the converter is for a nullable type */
-  public get isNullableType(): boolean { return true; }
+  public get isNullableType(): boolean {
+    return true;
+  }
 }

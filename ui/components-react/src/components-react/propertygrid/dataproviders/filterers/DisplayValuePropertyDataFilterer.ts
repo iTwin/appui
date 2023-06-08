@@ -1,16 +1,19 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
 
-import type { PropertyRecord} from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { countMatchesInString } from "../../../common/countMatchesInString";
-import type { PropertyDataFilterResult} from "./PropertyDataFiltererBase";
-import { FilteredType, PropertyRecordDataFiltererBase } from "./PropertyDataFiltererBase";
+import type { PropertyDataFilterResult } from "./PropertyDataFiltererBase";
+import {
+  FilteredType,
+  PropertyRecordDataFiltererBase,
+} from "./PropertyDataFiltererBase";
 
 /**
  * Property data filterer which matches on Primitive Property Record display value text.
@@ -24,7 +27,9 @@ export class DisplayValuePropertyDataFilterer extends PropertyRecordDataFilterer
     this._filterText = filterText;
   }
 
-  public get filterText(): string { return this._filterText; }
+  public get filterText(): string {
+    return this._filterText;
+  }
   public set filterText(value: string) {
     const lowerValue = value.toLowerCase().trim();
     if (lowerValue !== this.filterText) {
@@ -33,11 +38,14 @@ export class DisplayValuePropertyDataFilterer extends PropertyRecordDataFilterer
     }
   }
 
-  public get isActive() { return this.filterText !== ""; }
+  public get isActive() {
+    return this.filterText !== "";
+  }
 
-  public async recordMatchesFilter(node: PropertyRecord): Promise<PropertyDataFilterResult> {
-    if (!this.isActive)
-      return { matchesFilter: true };
+  public async recordMatchesFilter(
+    node: PropertyRecord
+  ): Promise<PropertyDataFilterResult> {
+    if (!this.isActive) return { matchesFilter: true };
 
     if (node.value.valueFormat !== PropertyValueFormat.Primitive)
       return { matchesFilter: false };
@@ -45,8 +53,7 @@ export class DisplayValuePropertyDataFilterer extends PropertyRecordDataFilterer
     const displayValue = node.value.displayValue?.toLowerCase() ?? "";
     const matchesCount = countMatchesInString(displayValue, this.filterText);
 
-    if (matchesCount === 0)
-      return { matchesFilter: false };
+    if (matchesCount === 0) return { matchesFilter: false };
 
     return {
       matchesFilter: true,

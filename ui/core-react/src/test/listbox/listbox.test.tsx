@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
@@ -12,16 +12,27 @@ import type { ListboxValue } from "../../core-react/listbox/Listbox";
 import { Listbox, ListboxItem } from "../../core-react/listbox/Listbox";
 
 describe("<ListBox />", () => {
-  const listItems = ["London", "Paris", "Stockholm", "Berlin", "Mumbai", "Christchurch", "Johannesburg", "Beijing", "New York"];
+  const listItems = [
+    "London",
+    "Paris",
+    "Stockholm",
+    "Berlin",
+    "Mumbai",
+    "Christchurch",
+    "Johannesburg",
+    "Beijing",
+    "New York",
+  ];
 
   it("renders single item list", () => {
     const listBox = render(
-      <Listbox id="test-list" className="map-manager-source-list" >
-      </Listbox>);
+      <Listbox id="test-list" className="map-manager-source-list"></Listbox>
+    );
 
     const listBoxElement = listBox.container.querySelector("ul#test-list");
     expect(listBoxElement).not.to.be.null;
-    expect(listBox.container.querySelector("ul#test-list[data-value]")).to.be.null;
+    expect(listBox.container.querySelector("ul#test-list[data-value]")).to.be
+      .null;
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
     const focusedItem = listBox.container.querySelector("li.focused");
@@ -30,19 +41,28 @@ describe("<ListBox />", () => {
 
   it("renders without selected item", () => {
     const listBox = render(
-      <Listbox id="test-list" className="map-manager-source-list" >
-        {
-          listItems?.map((cityName) =>
-            <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-              <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-            </ListboxItem>)
-        }
-      </Listbox>);
+      <Listbox id="test-list" className="map-manager-source-list">
+        {listItems?.map((cityName) => (
+          <ListboxItem
+            key={cityName}
+            className="map-source-list-entry"
+            value={cityName}
+          >
+            <span className="map-source-list-entry-name" title={cityName}>
+              {cityName}
+            </span>
+          </ListboxItem>
+        ))}
+      </Listbox>
+    );
 
     const listBoxElement = listBox.container.querySelector("ul#test-list");
     expect(listBoxElement).not.to.be.null;
-    expect(listBox.container.querySelector("ul#test-list[data-value]")).to.be.null;
-    const selectedItems = listBox.container.querySelectorAll("li[aria-selected='true']");
+    expect(listBox.container.querySelector("ul#test-list[data-value]")).to.be
+      .null;
+    const selectedItems = listBox.container.querySelectorAll(
+      "li[aria-selected='true']"
+    );
     expect(selectedItems.length).to.eq(0);
 
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
@@ -54,15 +74,24 @@ describe("<ListBox />", () => {
   it("honors aria-labelledby", () => {
     const listBoxDiv = render(
       <div id="aria-label-provider" aria-label="test-div-label">
-        <Listbox className="map-manager-source-list" ariaLabelledBy="aria-label-provider" >
-          {
-            listItems?.map((cityName) =>
-              <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-                <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-              </ListboxItem>)
-          }
+        <Listbox
+          className="map-manager-source-list"
+          ariaLabelledBy="aria-label-provider"
+        >
+          {listItems?.map((cityName) => (
+            <ListboxItem
+              key={cityName}
+              className="map-source-list-entry"
+              value={cityName}
+            >
+              <span className="map-source-list-entry-name" title={cityName}>
+                {cityName}
+              </span>
+            </ListboxItem>
+          ))}
         </Listbox>
-      </div>);
+      </div>
+    );
     const listBoxElement = listBoxDiv.container.querySelector("ul");
     expect(listBoxElement).not.to.be.null;
     expect(listBoxElement!.id.length).to.eq(36);
@@ -73,15 +102,25 @@ describe("<ListBox />", () => {
   it("aria-label overrides aria-labelledby", () => {
     const listBoxDiv = render(
       <div id="aria-label-provider" aria-label="test-div-label">
-        <Listbox className="map-manager-source-list" ariaLabel="aria-explicit-label" ariaLabelledBy="aria-label-provider" >
-          {
-            listItems?.map((cityName) =>
-              <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-                <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-              </ListboxItem>)
-          }
+        <Listbox
+          className="map-manager-source-list"
+          ariaLabel="aria-explicit-label"
+          ariaLabelledBy="aria-label-provider"
+        >
+          {listItems?.map((cityName) => (
+            <ListboxItem
+              key={cityName}
+              className="map-source-list-entry"
+              value={cityName}
+            >
+              <span className="map-source-list-entry-name" title={cityName}>
+                {cityName}
+              </span>
+            </ListboxItem>
+          ))}
         </Listbox>
-      </div>);
+      </div>
+    );
     // listBoxDiv.debug();
     const listBoxElement = listBoxDiv.container.querySelector("ul");
     expect(listBoxElement).not.to.be.null;
@@ -94,14 +133,20 @@ describe("<ListBox />", () => {
 
   it("renders without selected item or list id", () => {
     const listBox = render(
-      <Listbox className="map-manager-source-list" ariaLabel="test-label" >
-        {
-          listItems?.map((cityName) =>
-            <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-              <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-            </ListboxItem>)
-        }
-      </Listbox>);
+      <Listbox className="map-manager-source-list" ariaLabel="test-label">
+        {listItems?.map((cityName) => (
+          <ListboxItem
+            key={cityName}
+            className="map-source-list-entry"
+            value={cityName}
+          >
+            <span className="map-source-list-entry-name" title={cityName}>
+              {cityName}
+            </span>
+          </ListboxItem>
+        ))}
+      </Listbox>
+    );
     const listBoxElement = listBox.container.querySelector("ul");
     expect(listBoxElement).not.to.be.null;
     expect(listBoxElement!.id.length).to.eq(36);
@@ -111,20 +156,34 @@ describe("<ListBox />", () => {
 
   it("renders with selected item", () => {
     const listBox = render(
-      <Listbox id="test-list" className="map-manager-source-list" selectedValue={listItems[1]} >
-        {
-          listItems?.map((cityName) =>
-            <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-              <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-            </ListboxItem>)
-        }
-      </Listbox>);
+      <Listbox
+        id="test-list"
+        className="map-manager-source-list"
+        selectedValue={listItems[1]}
+      >
+        {listItems?.map((cityName) => (
+          <ListboxItem
+            key={cityName}
+            className="map-source-list-entry"
+            value={cityName}
+          >
+            <span className="map-source-list-entry-name" title={cityName}>
+              {cityName}
+            </span>
+          </ListboxItem>
+        ))}
+      </Listbox>
+    );
 
     const listBoxElement = listBox.container.querySelector("ul#test-list");
     expect(listBoxElement).not.to.be.null;
-    expect(listBox.container.querySelector("ul#test-list[data-value]")).not.to.be.null;
-    expect(listBox.container.querySelector(`li[data-value='${listItems[1]}']`)).not.to.be.null;
-    const selectedItems = listBox.container.querySelectorAll("li[aria-selected='true']");
+    expect(listBox.container.querySelector("ul#test-list[data-value]")).not.to
+      .be.null;
+    expect(listBox.container.querySelector(`li[data-value='${listItems[1]}']`))
+      .not.to.be.null;
+    const selectedItems = listBox.container.querySelectorAll(
+      "li[aria-selected='true']"
+    );
     expect(selectedItems.length).to.eq(1);
     const dataValue = selectedItems[0].getAttribute("data-value");
     expect(dataValue).to.eq(listItems[1]);
@@ -182,20 +241,35 @@ describe("<ListBox />", () => {
 
   it("renders and processed key navigation with disabled items", () => {
     const listBox = render(
-      <Listbox id="test-list" className="map-manager-source-list" selectedValue={listItems[1]} >
-        {
-          listItems?.map((cityName, index) =>
-            <ListboxItem key={cityName} className="map-source-list-entry" value={cityName} disabled={0 === index % 2}>
-              <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-            </ListboxItem>)
-        }
-      </Listbox>);
+      <Listbox
+        id="test-list"
+        className="map-manager-source-list"
+        selectedValue={listItems[1]}
+      >
+        {listItems?.map((cityName, index) => (
+          <ListboxItem
+            key={cityName}
+            className="map-source-list-entry"
+            value={cityName}
+            disabled={0 === index % 2}
+          >
+            <span className="map-source-list-entry-name" title={cityName}>
+              {cityName}
+            </span>
+          </ListboxItem>
+        ))}
+      </Listbox>
+    );
 
     const listBoxElement = listBox.container.querySelector("ul#test-list");
     expect(listBoxElement).not.to.be.null;
-    expect(listBox.container.querySelector("ul#test-list[data-value]")).not.to.be.null;
-    expect(listBox.container.querySelector(`li[data-value='${listItems[1]}']`)).not.to.be.null;
-    const selectedItems = listBox.container.querySelectorAll("li[aria-selected='true']");
+    expect(listBox.container.querySelector("ul#test-list[data-value]")).not.to
+      .be.null;
+    expect(listBox.container.querySelector(`li[data-value='${listItems[1]}']`))
+      .not.to.be.null;
+    const selectedItems = listBox.container.querySelectorAll(
+      "li[aria-selected='true']"
+    );
     expect(selectedItems.length).to.eq(1);
     const dataValue = selectedItems[0].getAttribute("data-value");
     expect(dataValue).to.eq(listItems[1]);
@@ -257,14 +331,26 @@ describe("<ListBox />", () => {
     };
 
     const listBox = render(
-      <Listbox id="test-list" className="map-manager-source-list" selectedValue={listItems[1]} onKeyDown={spyOnKeyboard} onListboxValueChange={onListboxValueChange} >
-        {
-          listItems?.map((cityName) =>
-            <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-              <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-            </ListboxItem>)
-        }
-      </Listbox>);
+      <Listbox
+        id="test-list"
+        className="map-manager-source-list"
+        selectedValue={listItems[1]}
+        onKeyDown={spyOnKeyboard}
+        onListboxValueChange={onListboxValueChange}
+      >
+        {listItems?.map((cityName) => (
+          <ListboxItem
+            key={cityName}
+            className="map-source-list-entry"
+            value={cityName}
+          >
+            <span className="map-source-list-entry-name" title={cityName}>
+              {cityName}
+            </span>
+          </ListboxItem>
+        ))}
+      </Listbox>
+    );
 
     const listBoxElement = listBox.container.querySelector("ul#test-list");
 
@@ -287,26 +373,38 @@ describe("<ListBox />", () => {
     fireEvent.keyDown(listBoxElement!, { key: "P" });
     expect(spyOnKeyboard.calledOnce);
     spyOnKeyboard.resetHistory();
-
   });
 
   it("handles click processing", () => {
     const onListboxValueChangeSpy = sinon.spy();
 
     const listBox = render(
-      <Listbox id="test-list" className="map-manager-source-list" selectedValue={listItems[1]} onListboxValueChange={onListboxValueChangeSpy} >
-        {
-          listItems?.map((cityName) =>
-            <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-              <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-            </ListboxItem>)
-        }
-      </Listbox>);
+      <Listbox
+        id="test-list"
+        className="map-manager-source-list"
+        selectedValue={listItems[1]}
+        onListboxValueChange={onListboxValueChangeSpy}
+      >
+        {listItems?.map((cityName) => (
+          <ListboxItem
+            key={cityName}
+            className="map-source-list-entry"
+            value={cityName}
+          >
+            <span className="map-source-list-entry-name" title={cityName}>
+              {cityName}
+            </span>
+          </ListboxItem>
+        ))}
+      </Listbox>
+    );
 
     const listBoxElement = listBox.container.querySelector("ul#test-list");
     expect(listBoxElement).not.to.be.null;
 
-    const listItemElement = listBoxElement!.querySelector(`li[data-value='${listItems[5]}']`);
+    const listItemElement = listBoxElement!.querySelector(
+      `li[data-value='${listItems[5]}']`
+    );
 
     expect(listItemElement).not.to.be.null;
     expect(onListboxValueChangeSpy.notCalled);
@@ -318,52 +416,90 @@ describe("<ListBox />", () => {
 
   it("renders with selected item/re-render empty selection", () => {
     const listBox = render(
-      <Listbox id="test-list" className="map-manager-source-list" selectedValue={listItems[1]} >
-        {
-          listItems?.map((cityName) =>
-            <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-              <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-            </ListboxItem>)
-        }
-      </Listbox>);
+      <Listbox
+        id="test-list"
+        className="map-manager-source-list"
+        selectedValue={listItems[1]}
+      >
+        {listItems?.map((cityName) => (
+          <ListboxItem
+            key={cityName}
+            className="map-source-list-entry"
+            value={cityName}
+          >
+            <span className="map-source-list-entry-name" title={cityName}>
+              {cityName}
+            </span>
+          </ListboxItem>
+        ))}
+      </Listbox>
+    );
 
     const listBoxElement = listBox.container.querySelector("ul#test-list");
     expect(listBoxElement).not.to.be.null;
-    expect(listBox.container.querySelector("ul#test-list[data-value]")).not.to.be.null;
-    expect(listBox.container.querySelector(`li[data-value='${listItems[1]}']`)).not.to.be.null;
-    let selectedItems = listBox.container.querySelectorAll("li[aria-selected='true']");
+    expect(listBox.container.querySelector("ul#test-list[data-value]")).not.to
+      .be.null;
+    expect(listBox.container.querySelector(`li[data-value='${listItems[1]}']`))
+      .not.to.be.null;
+    let selectedItems = listBox.container.querySelectorAll(
+      "li[aria-selected='true']"
+    );
     expect(selectedItems.length).to.eq(1);
     let dataValue = selectedItems[0].getAttribute("data-value");
     expect(dataValue).to.eq(listItems[1]);
 
     // re-render with a different selected value
     listBox.rerender(
-      <Listbox id="test-list" className="map-manager-source-list" selectedValue={listItems[2]} >
-        {
-          listItems?.map((cityName) =>
-            <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-              <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-            </ListboxItem>)
-        }
-      </Listbox>);
+      <Listbox
+        id="test-list"
+        className="map-manager-source-list"
+        selectedValue={listItems[2]}
+      >
+        {listItems?.map((cityName) => (
+          <ListboxItem
+            key={cityName}
+            className="map-source-list-entry"
+            value={cityName}
+          >
+            <span className="map-source-list-entry-name" title={cityName}>
+              {cityName}
+            </span>
+          </ListboxItem>
+        ))}
+      </Listbox>
+    );
 
-    selectedItems = listBox.container.querySelectorAll("li[aria-selected='true']");
+    selectedItems = listBox.container.querySelectorAll(
+      "li[aria-selected='true']"
+    );
     expect(selectedItems.length).to.eq(1);
     dataValue = selectedItems[0].getAttribute("data-value");
     expect(dataValue).to.eq(listItems[2]);
 
     // re-render with no selected value
     listBox.rerender(
-      <Listbox id="test-list" className="map-manager-source-list" selectedValue={undefined} >
-        {
-          listItems?.map((cityName) =>
-            <ListboxItem key={cityName} className="map-source-list-entry" value={cityName}>
-              <span className="map-source-list-entry-name" title={cityName}>{cityName}</span>
-            </ListboxItem>)
-        }
-      </Listbox>);
+      <Listbox
+        id="test-list"
+        className="map-manager-source-list"
+        selectedValue={undefined}
+      >
+        {listItems?.map((cityName) => (
+          <ListboxItem
+            key={cityName}
+            className="map-source-list-entry"
+            value={cityName}
+          >
+            <span className="map-source-list-entry-name" title={cityName}>
+              {cityName}
+            </span>
+          </ListboxItem>
+        ))}
+      </Listbox>
+    );
 
-    selectedItems = listBox.container.querySelectorAll("li[aria-selected='true']");
+    selectedItems = listBox.container.querySelectorAll(
+      "li[aria-selected='true']"
+    );
     expect(selectedItems.length).to.eq(0);
   });
 });

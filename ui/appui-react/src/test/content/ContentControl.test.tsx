@@ -1,19 +1,24 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
 import type {
-  ConfigurableCreateInfo, FrontstageConfig} from "../../appui-react";
-import { ContentControl, ContentGroup, FrontstageProvider, UiFramework,
+  ConfigurableCreateInfo,
+  FrontstageConfig,
+} from "../../appui-react";
+import {
+  ContentControl,
+  ContentGroup,
+  FrontstageProvider,
+  UiFramework,
 } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("ContentControl", () => {
-
   class TestContentControl extends ContentControl {
     constructor(info: ConfigurableCreateInfo, options: any) {
       super(info, options);
@@ -37,7 +42,11 @@ describe("ContentControl", () => {
       layout: StandardContentLayouts.singleView,
       contents: [
         { id: "main", classId: TestContentControl, applicationData: "data1" },
-        { id: "secondary", classId: TestContentControl, applicationData: "data2" },
+        {
+          id: "secondary",
+          classId: TestContentControl,
+          applicationData: "data2",
+        },
       ],
     });
 
@@ -58,7 +67,9 @@ describe("ContentControl", () => {
 
     UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
 
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(Frontstage1.stageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      Frontstage1.stageId
+    );
     expect(frontstageDef).to.not.be.undefined;
 
     if (frontstageDef) {
@@ -70,13 +81,18 @@ describe("ContentControl", () => {
         const contentSet = contentGroup.getContentNodes();
         expect(contentSet.length).to.eq(2);
 
-        const contentControl = contentGroup.getControlFromElement(contentSet[1]);
+        const contentControl = contentGroup.getControlFromElement(
+          contentSet[1]
+        );
         expect(contentControl).to.not.be.undefined;
 
         if (contentControl) {
           const activatedMethod = sinon.spy(contentControl, "onActivated");
           UiFramework.content.setActive(contentSet[1]);
-          expect(activatedMethod.calledOnce, `onActivated called ${activatedMethod.callCount} times`).to.be.true;
+          expect(
+            activatedMethod.calledOnce,
+            `onActivated called ${activatedMethod.callCount} times`
+          ).to.be.true;
 
           expect(contentControl.isViewport).to.be.false;
           expect(contentControl.viewport).to.be.undefined;
@@ -92,7 +108,11 @@ describe("ContentControl", () => {
       layout: StandardContentLayouts.twoHorizontalSplit,
       contents: [
         { id: "main", classId: TestContentControl, applicationData: "data1" },
-        { id: "secondary", classId: TestContentControl, applicationData: "data2" },
+        {
+          id: "secondary",
+          classId: TestContentControl,
+          applicationData: "data2",
+        },
       ],
     });
 
@@ -113,7 +133,9 @@ describe("ContentControl", () => {
 
     UiFramework.frontstages.addFrontstageProvider(new Frontstage2());
 
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(Frontstage2.stageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      Frontstage2.stageId
+    );
     expect(frontstageDef).to.not.be.undefined;
 
     if (frontstageDef) {
@@ -125,7 +147,9 @@ describe("ContentControl", () => {
         const contentSet = contentGroup.getContentNodes();
         expect(contentSet.length).to.eq(2);
 
-        const contentControl = contentGroup.getControlFromElement(contentSet[0]);
+        const contentControl = contentGroup.getControlFromElement(
+          contentSet[0]
+        );
         expect(contentControl).to.not.be.undefined;
 
         if (contentControl) {
@@ -140,5 +164,4 @@ describe("ContentControl", () => {
       }
     }
   });
-
 });

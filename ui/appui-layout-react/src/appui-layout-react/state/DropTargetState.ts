@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Base
  */
@@ -48,7 +48,12 @@ export interface FloatingWidgetDropTargetState {
 /** Drop target of a tab drag action.
  * @internal
  */
-export type TabDragDropTargetState = PanelDropTargetState | SectionDropTargetState | WidgetDropTargetState | TabDropTargetState | FloatingWidgetDropTargetState;
+export type TabDragDropTargetState =
+  | PanelDropTargetState
+  | SectionDropTargetState
+  | WidgetDropTargetState
+  | TabDropTargetState
+  | FloatingWidgetDropTargetState;
 
 /** Default drop target, when nothing is targeted.
  * @internal
@@ -60,46 +65,65 @@ export interface WindowDropTargetState {
 /** Drop target of a widget drag action.
  * @internal
  */
-export type WidgetDragDropTargetState = PanelDropTargetState | SectionDropTargetState | WidgetDropTargetState | TabDropTargetState | WindowDropTargetState;
+export type WidgetDragDropTargetState =
+  | PanelDropTargetState
+  | SectionDropTargetState
+  | WidgetDropTargetState
+  | TabDropTargetState
+  | WindowDropTargetState;
 
 /** @internal */
-export type DropTargetState = TabDragDropTargetState | WidgetDragDropTargetState;
+export type DropTargetState =
+  | TabDragDropTargetState
+  | WidgetDragDropTargetState;
 
 /** @internal */
-export function isTabDropTargetState(state: DropTargetState): state is TabDropTargetState {
+export function isTabDropTargetState(
+  state: DropTargetState
+): state is TabDropTargetState {
   return state.type === "tab";
 }
 
 /** @internal */
-export function isPanelDropTargetState(state: DropTargetState): state is PanelDropTargetState {
+export function isPanelDropTargetState(
+  state: DropTargetState
+): state is PanelDropTargetState {
   return state.type === "panel";
 }
 
 /** @internal */
-export function isSectionDropTargetState(state: DropTargetState): state is SectionDropTargetState {
+export function isSectionDropTargetState(
+  state: DropTargetState
+): state is SectionDropTargetState {
   return state.type === "section";
 }
 
 /** @internal */
-export function isWidgetDropTargetState(state: DropTargetState): state is WidgetDropTargetState {
+export function isWidgetDropTargetState(
+  state: DropTargetState
+): state is WidgetDropTargetState {
   return state.type === "widget";
 }
 
 /** @internal */
-export function isWindowDropTargetState(state: WidgetDragDropTargetState): state is WindowDropTargetState {
+export function isWindowDropTargetState(
+  state: WidgetDragDropTargetState
+): state is WindowDropTargetState {
   return state.type === "window";
 }
 
 /** @internal */
-export function isWidgetDragDropTargetState(state: DropTargetState): state is WidgetDragDropTargetState {
-  if (state.type === "floatingWidget")
-    return false;
+export function isWidgetDragDropTargetState(
+  state: DropTargetState
+): state is WidgetDragDropTargetState {
+  if (state.type === "floatingWidget") return false;
   return true;
 }
 
 /** @internal */
-export function isTabDragDropTargetState(state: DropTargetState): state is TabDragDropTargetState {
-  if (state.type === "window")
-    return false;
+export function isTabDragDropTargetState(
+  state: DropTargetState
+): state is TabDragDropTargetState {
+  if (state.type === "window") return false;
   return true;
 }

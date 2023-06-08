@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Popup
  */
@@ -32,7 +32,10 @@ interface HTMLElementPopupState {
 /** Popup component for HTMLElement
  * @alpha
  */
-export class HTMLElementPopup extends React.PureComponent<HTMLElementPopupProps, HTMLElementPopupState> {
+export class HTMLElementPopup extends React.PureComponent<
+  HTMLElementPopupProps,
+  HTMLElementPopupState
+> {
   /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
@@ -45,12 +48,23 @@ export class HTMLElementPopup extends React.PureComponent<HTMLElementPopupProps,
   };
 
   public override render() {
-    let point = PopupManager.getPopupPosition(this.props.el, this.props.pt, new Point(), this.state.size);
-    const popupRect = CursorPopup.getPopupRect(point, this.props.offset, this.state.size, this.props.relativePosition);
+    let point = PopupManager.getPopupPosition(
+      this.props.el,
+      this.props.pt,
+      new Point(),
+      this.state.size
+    );
+    const popupRect = CursorPopup.getPopupRect(
+      point,
+      this.props.offset,
+      this.state.size,
+      this.props.relativePosition
+    );
     point = new Point(popupRect.left, popupRect.top);
 
     return (
-      <PositionPopup key={this.props.id}
+      <PositionPopup
+        key={this.props.id}
         className="uifw-no-border"
         point={point}
         onSizeKnown={this._onSizeKnown}

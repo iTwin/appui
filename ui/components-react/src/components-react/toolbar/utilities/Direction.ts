@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -44,7 +44,9 @@ export class DirectionHelpers {
   }
 
   /** @returns Orthogonal direction of specified [[Direction]] */
-  public static getOrthogonalDirection(direction: Direction): OrthogonalDirection {
+  public static getOrthogonalDirection(
+    direction: Direction
+  ): OrthogonalDirection {
     switch (direction) {
       case Direction.Left:
       case Direction.Right:

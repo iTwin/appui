@@ -1,12 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
 import TestUtils from "../../TestUtils";
-import { getPropertyKey, PropertyList } from "../../../components-react/propertygrid/component/PropertyList";
+import {
+  getPropertyKey,
+  PropertyList,
+} from "../../../components-react/propertygrid/component/PropertyList";
 import * as sinon from "sinon";
 import { fireEvent, render } from "@testing-library/react";
 
@@ -16,27 +19,32 @@ describe("PropertyList", () => {
   });
 
   it("should call `onPropertyClicked` when clicked on a primitive property", async () => {
-    const primitiveRecord = TestUtils.createPrimitiveStringProperty("primitive", "value");
-    const structRecord = TestUtils.createStructProperty("struct", { testProperty: TestUtils.createPrimitiveStringProperty("test", "value") });
-    const arrayRecord = TestUtils.createArrayProperty("array", [TestUtils.createPrimitiveStringProperty("test", "value")]);
+    const primitiveRecord = TestUtils.createPrimitiveStringProperty(
+      "primitive",
+      "value"
+    );
+    const structRecord = TestUtils.createStructProperty("struct", {
+      testProperty: TestUtils.createPrimitiveStringProperty("test", "value"),
+    });
+    const arrayRecord = TestUtils.createArrayProperty("array", [
+      TestUtils.createPrimitiveStringProperty("test", "value"),
+    ]);
 
     const onPropertyClicked = sinon.spy();
     const { container } = render(
       <PropertyList
         orientation={Orientation.Horizontal}
         width={800}
-        properties={[
-          primitiveRecord,
-          structRecord,
-          arrayRecord,
-        ]}
+        properties={[primitiveRecord, structRecord, arrayRecord]}
         onPropertyClicked={onPropertyClicked}
-      />,
+      />
     );
     await TestUtils.flushAsyncOperations();
     expect(onPropertyClicked).to.not.be.called;
 
-    const clickableComponents = container.querySelectorAll(".components-property-record--horizontal");
+    const clickableComponents = container.querySelectorAll(
+      ".components-property-record--horizontal"
+    );
     expect(clickableComponents.length).to.eq(3);
 
     const primitiveProperty = clickableComponents[0];
@@ -54,27 +62,32 @@ describe("PropertyList", () => {
   });
 
   it("should call `onPropertyRightClicked` when right clicked on a primitive property", async () => {
-    const primitiveRecord = TestUtils.createPrimitiveStringProperty("primitive", "value");
-    const structRecord = TestUtils.createStructProperty("struct", { testProperty: TestUtils.createPrimitiveStringProperty("test", "value") });
-    const arrayRecord = TestUtils.createArrayProperty("array", [TestUtils.createPrimitiveStringProperty("test", "value")]);
+    const primitiveRecord = TestUtils.createPrimitiveStringProperty(
+      "primitive",
+      "value"
+    );
+    const structRecord = TestUtils.createStructProperty("struct", {
+      testProperty: TestUtils.createPrimitiveStringProperty("test", "value"),
+    });
+    const arrayRecord = TestUtils.createArrayProperty("array", [
+      TestUtils.createPrimitiveStringProperty("test", "value"),
+    ]);
 
     const onPropertyRightClicked = sinon.spy();
     const { container } = render(
       <PropertyList
         orientation={Orientation.Horizontal}
         width={800}
-        properties={[
-          primitiveRecord,
-          structRecord,
-          arrayRecord,
-        ]}
+        properties={[primitiveRecord, structRecord, arrayRecord]}
         onPropertyRightClicked={onPropertyRightClicked}
-      />,
+      />
     );
     await TestUtils.flushAsyncOperations();
     expect(onPropertyRightClicked).to.not.be.called;
 
-    const clickableComponents = container.querySelectorAll(".components-property-record--horizontal");
+    const clickableComponents = container.querySelectorAll(
+      ".components-property-record--horizontal"
+    );
     expect(clickableComponents.length).to.eq(3);
 
     const primitiveProperty = clickableComponents[0];
@@ -92,26 +105,29 @@ describe("PropertyList", () => {
   });
 
   it("should call onEditCommit", async () => {
-    const primitiveRecord = TestUtils.createPrimitiveStringProperty("primitive", "value");
-    const structRecord = TestUtils.createStructProperty("struct", { testProperty: TestUtils.createPrimitiveStringProperty("test", "value") });
-    const arrayRecord = TestUtils.createArrayProperty("array", [TestUtils.createPrimitiveStringProperty("test", "value")]);
+    const primitiveRecord = TestUtils.createPrimitiveStringProperty(
+      "primitive",
+      "value"
+    );
+    const structRecord = TestUtils.createStructProperty("struct", {
+      testProperty: TestUtils.createPrimitiveStringProperty("test", "value"),
+    });
+    const arrayRecord = TestUtils.createArrayProperty("array", [
+      TestUtils.createPrimitiveStringProperty("test", "value"),
+    ]);
 
     const spyMethod = sinon.spy();
-    const category={ name: "Cat1", label: "Category 1", expand: true };
+    const category = { name: "Cat1", label: "Category 1", expand: true };
     const editingPropertyKey = getPropertyKey(category, primitiveRecord);
     const propertyList = render(
       <PropertyList
         orientation={Orientation.Horizontal}
         width={800}
-        properties={[
-          primitiveRecord,
-          structRecord,
-          arrayRecord,
-        ]}
+        properties={[primitiveRecord, structRecord, arrayRecord]}
         onEditCommit={spyMethod}
         category={category}
         editingPropertyKey={editingPropertyKey}
-      />,
+      />
     );
 
     const inputNode = propertyList.container.querySelector("input");
@@ -122,5 +138,4 @@ describe("PropertyList", () => {
     await TestUtils.flushAsyncOperations();
     expect(spyMethod.calledOnce).to.be.true;
   });
-
 });

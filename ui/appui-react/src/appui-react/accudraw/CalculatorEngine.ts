@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AccuDraw
  */
 
 /** @internal */
-export enum CalculatorOperator {  // eslint-disable-line: completed-docs
+export enum CalculatorOperator {
   None,
   Clear,
   ClearAll,
@@ -86,18 +86,23 @@ export class CalculatorEngine {
     return resultString;
   }
 
-  private _createResultString = (operator: CalculatorOperator, displayedNum: string) => {
+  private _createResultString = (
+    operator: CalculatorOperator,
+    displayedNum: string
+  ) => {
     let resultString = displayedNum;
 
     if (this._isMathOperator(operator)) {
       const firstValue = this._firstValue;
       const savedOperator = this._operator;
 
-      resultString = (firstValue && savedOperator &&
-        this._previousKeyType !== CalculatorKeyType.Operator && this._previousKeyType !== CalculatorKeyType.Equals)
-        ? this._calculate(firstValue, savedOperator, displayedNum)
-        : displayedNum;
-
+      resultString =
+        firstValue &&
+        savedOperator &&
+        this._previousKeyType !== CalculatorKeyType.Operator &&
+        this._previousKeyType !== CalculatorKeyType.Equals
+          ? this._calculate(firstValue, savedOperator, displayedNum)
+          : displayedNum;
     } else {
       switch (operator) {
         case CalculatorOperator.Clear:
@@ -110,22 +115,22 @@ export class CalculatorEngine {
 
         case CalculatorOperator.Backspace:
           resultString = resultString.slice(0, -1);
-          if (resultString.length === 0)
-            resultString = "0";
+          if (resultString.length === 0) resultString = "0";
           break;
 
         case CalculatorOperator.Decimal:
-          if (!resultString.includes("."))
-            resultString = `${displayedNum}.`;
-          else if (this._previousKeyType === CalculatorKeyType.Operator || this._previousKeyType === CalculatorKeyType.Equals)
+          if (!resultString.includes(".")) resultString = `${displayedNum}.`;
+          else if (
+            this._previousKeyType === CalculatorKeyType.Operator ||
+            this._previousKeyType === CalculatorKeyType.Equals
+          )
             resultString = "0.";
           break;
 
         case CalculatorOperator.NegPos:
           if (displayedNum.length > 0 && displayedNum[0] === "-")
             resultString = displayedNum.substring(1);
-          else
-            resultString = `-${displayedNum}`;
+          else resultString = `-${displayedNum}`;
           break;
 
         case CalculatorOperator.Equals: {
@@ -134,9 +139,10 @@ export class CalculatorEngine {
           const modValue = this._modValue;
 
           if (firstValue && savedOperator) {
-            resultString = this._previousKeyType === CalculatorKeyType.Equals
-              ? this._calculate(displayedNum, savedOperator, modValue)
-              : this._calculate(firstValue, savedOperator, displayedNum);
+            resultString =
+              this._previousKeyType === CalculatorKeyType.Equals
+                ? this._calculate(displayedNum, savedOperator, modValue)
+                : this._calculate(firstValue, savedOperator, displayedNum);
           } else {
             resultString = displayedNum;
           }
@@ -159,7 +165,11 @@ export class CalculatorEngine {
     return false;
   };
 
-  private _calculate = (n1Str: string, operator: CalculatorOperator, n2Str: string): string => {
+  private _calculate = (
+    n1Str: string,
+    operator: CalculatorOperator,
+    n2Str: string
+  ): string => {
     let result = 0;
     const n1 = parseFloat(n1Str);
     const n2 = parseFloat(n2Str);
@@ -176,21 +186,27 @@ export class CalculatorEngine {
         break;
       case CalculatorOperator.Divide:
         const displayValue = n2;
-        if (displayValue !== 0)
-          result = n1 / displayValue;
-        else
-          result = 0;
+        if (displayValue !== 0) result = n1 / displayValue;
+        else result = 0;
         break;
     }
 
     return result.toString();
   };
 
-  private _updateCalculatorState = (operator: CalculatorOperator, resultString: string, displayedNum: string): void => {
+  private _updateCalculatorState = (
+    operator: CalculatorOperator,
+    resultString: string,
+    displayedNum: string
+  ): void => {
     let keyType = CalculatorKeyType.None;
 
     if (this._isMathOperator(operator)) {
-      if (this._firstValue && this._operator && this._previousKeyType === CalculatorKeyType.None) {
+      if (
+        this._firstValue &&
+        this._operator &&
+        this._previousKeyType === CalculatorKeyType.None
+      ) {
         this._firstValue = resultString;
       } else {
         this._firstValue = displayedNum;
@@ -198,7 +214,6 @@ export class CalculatorEngine {
 
       this._operator = operator;
       keyType = CalculatorKeyType.Operator;
-
     } else {
       switch (operator) {
         case CalculatorOperator.ClearAll:

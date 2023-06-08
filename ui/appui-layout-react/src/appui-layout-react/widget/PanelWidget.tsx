@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -11,8 +11,11 @@ import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { WidgetState } from "../state/WidgetState";
-import type { PanelSide} from "../widget-panels/Panel";
-import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
+import type { PanelSide } from "../widget-panels/Panel";
+import {
+  isHorizontalPanelSide,
+  PanelSideContext,
+} from "../widget-panels/Panel";
 import { WidgetContentContainer } from "./ContentContainer";
 import { WidgetTabBar } from "./TabBar";
 import { Widget, WidgetProvider } from "./Widget";
@@ -29,10 +32,8 @@ export interface PanelWidgetProps {
 }
 
 /** @internal */
-export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( // eslint-disable-line react/display-name
-  function PanelWidget({
-    widgetId,
-  }, ref) { // eslint-disable-line @typescript-eslint/naming-convention
+export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>(
+  function PanelWidget({ widgetId }, ref) {
     const side = React.useContext(PanelSideContext);
     assert(!!side);
     const widgetsLength = useLayout((state) => {
@@ -51,23 +52,23 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>( /
       "nz-widget-panelWidget",
       horizontal && "nz-horizontal",
       `nz-${mode}`,
-      borders,
+      borders
     );
-    const content = React.useMemo(() => (
-      <WidgetContentContainer>
-        {showTarget && <WidgetTarget />}
-        <WidgetOutline />
-      </WidgetContentContainer>
-    ), [showTarget]);
+    const content = React.useMemo(
+      () => (
+        <WidgetContentContainer>
+          {showTarget && <WidgetTarget />}
+          <WidgetOutline />
+        </WidgetContentContainer>
+      ),
+      [showTarget]
+    );
     return (
-      <WidgetProvider
-        id={widgetId}
-      >
-        <Widget
-          className={className}
-          ref={ref}
-        >
-          <WidgetTabBar separator={isHorizontalPanelSide(side) ? true : !minimized} />
+      <WidgetProvider id={widgetId}>
+        <Widget className={className} ref={ref}>
+          <WidgetTabBar
+            separator={isHorizontalPanelSide(side) ? true : !minimized}
+          />
           {content}
         </Widget>
       </WidgetProvider>
@@ -79,12 +80,10 @@ function findFillWidget(state: NineZoneState, side: PanelSide) {
   const panelWidgets = state.panels[side].widgets;
   return panelWidgets.find((widgetId) => {
     const widget = getWidgetState(state, widgetId);
-    if (widget.minimized)
-      return false;
+    if (widget.minimized) return false;
     const tabId = widget.activeTabId;
     const tab = state.tabs[tabId];
-    if (!tab.preferredPanelWidgetSize)
-      return true;
+    if (!tab.preferredPanelWidgetSize) return true;
     return false;
   });
 }
@@ -102,17 +101,14 @@ export function useMode(widgetId: string): "fit" | "fill" | "minimized" {
       for (let i = panel.widgets.length - 1; i >= 0; i--) {
         const wId = panel.widgets[i];
         const w = getWidgetState(state, wId);
-        if (w.minimized)
-          continue;
-        if (wId === widgetId)
-          return "fill";
+        if (w.minimized) continue;
+        if (wId === widgetId) return "fill";
         break;
       }
     }
 
     const widget = getWidgetState(state, widgetId);
-    if (widget.minimized)
-      return "minimized";
+    if (widget.minimized) return "minimized";
     const tabId = widget.activeTabId;
     const tab = state.tabs[tabId];
     return tab.preferredPanelWidgetSize ? "fit" : "fill";
@@ -131,7 +127,8 @@ export function useBorders(widgetId: WidgetState["id"]) {
     const isVertical = !isHorizontal;
     const isFirst = panel.widgets[0] === widgetId;
     const isLast = panel.widgets[panel.widgets.length - 1] === widgetId;
-    const isTopMostPanelBorder = panel.side === "top" ||
+    const isTopMostPanelBorder =
+      panel.side === "top" ||
       (isVertical && !panels.top.span) ||
       (isVertical && panels.top.span && panels.top.collapsed) ||
       (isVertical && panels.top.widgets.length === 0);
@@ -152,16 +149,33 @@ export function useBorders(widgetId: WidgetState["id"]) {
     if (isVertical && !isFirst) {
       top = false;
     }
-    if (isVertical && panels.top.span && !panels.top.collapsed && panels.top.widgets.length > 0) {
+    if (
+      isVertical &&
+      panels.top.span &&
+      !panels.top.collapsed &&
+      panels.top.widgets.length > 0
+    ) {
       top = false;
     }
     if (isHorizontal && !isFirst) {
       left = false;
     }
-    if (isHorizontalPanelState(panel) && !panel.span && isFirst && !panels.left.collapsed && panels.left.widgets.length > 0) {
+    if (
+      isHorizontalPanelState(panel) &&
+      !panel.span &&
+      isFirst &&
+      !panels.left.collapsed &&
+      panels.left.widgets.length > 0
+    ) {
       left = false;
     }
-    if (isHorizontalPanelState(panel) && !panel.span && isLast && !panels.right.collapsed && panels.right.widgets.length > 0) {
+    if (
+      isHorizontalPanelState(panel) &&
+      !panel.span &&
+      isLast &&
+      !panels.right.collapsed &&
+      panels.right.widgets.length > 0
+    ) {
       right = false;
     }
     return {

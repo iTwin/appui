@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Toolbar
  */
@@ -13,12 +13,13 @@ import type { ToolbarItemsManager } from "./ToolbarItemsManager";
 /** Hook that returns items from [[ToolbarItemsManager]].
  * @public
  */
-export const useDefaultToolbarItems = (manager: ToolbarItemsManager): readonly ToolbarItem[] => {
+export const useDefaultToolbarItems = (
+  manager: ToolbarItemsManager
+): readonly ToolbarItem[] => {
   const [items, setItems] = React.useState(() => manager.items);
   const isInitialMount = React.useRef(true);
   React.useEffect(() => {
-    if (isInitialMount.current)
-      isInitialMount.current = false;
+    if (isInitialMount.current) isInitialMount.current = false;
     else {
       setItems(manager.items);
     }

@@ -1,12 +1,15 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 
 /** @packageDocumentation
  * @module PropertyGrid
  */
-import type { CategorizedPropertyTypes, FlatGridItemType } from "./MutableFlatGridItem";
+import type {
+  CategorizedPropertyTypes,
+  FlatGridItemType,
+} from "./MutableFlatGridItem";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { PropertyCategory } from "../../PropertyDataProvider";
 

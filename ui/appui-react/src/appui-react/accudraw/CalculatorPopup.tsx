@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AccuDraw
  */
@@ -31,7 +31,10 @@ interface CalculatorPopupState {
 /** Popup component for Calculator
  * @alpha
  */
-export class CalculatorPopup extends React.PureComponent<CalculatorPopupProps, CalculatorPopupState> {
+export class CalculatorPopup extends React.PureComponent<
+  CalculatorPopupProps,
+  CalculatorPopupState
+> {
   /** @internal */
   public override readonly state = {
     size: new Size(-1, -1),
@@ -45,10 +48,16 @@ export class CalculatorPopup extends React.PureComponent<CalculatorPopupProps, C
 
   /** @internal */
   public override render() {
-    const point = PopupManager.getPopupPosition(this.props.el, this.props.pt, this.props.offset, this.state.size);
+    const point = PopupManager.getPopupPosition(
+      this.props.el,
+      this.props.pt,
+      this.props.offset,
+      this.state.size
+    );
 
     return (
-      <PositionPopup key={this.props.id}
+      <PositionPopup
+        key={this.props.id}
         point={point}
         className="uifw-calculator-host"
         onSizeKnown={this._onSizeKnown}
@@ -59,11 +68,11 @@ export class CalculatorPopup extends React.PureComponent<CalculatorPopupProps, C
               initialValue={this.props.initialValue}
               resultIcon={<Icon iconSpec={this.props.resultIcon} />}
               onOk={this.props.onOk}
-              onCancel={this.props.onCancel} />
+              onCancel={this.props.onCancel}
+            />
           </PositionPopupContent>
         </DivWithOutsideClick>
       </PositionPopup>
     );
   }
-
 }

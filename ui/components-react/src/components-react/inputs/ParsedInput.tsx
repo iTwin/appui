@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Inputs
  */
@@ -10,7 +10,7 @@ import * as React from "react";
 import classnames from "classnames";
 import { Input } from "@itwin/itwinui-react";
 import type { CommonProps } from "@itwin/core-react";
-import type { ParseResults} from "@itwin/appui-abstract";
+import type { ParseResults } from "@itwin/appui-abstract";
 import { SpecialKey } from "@itwin/appui-abstract";
 import "./ParsedInput.scss";
 
@@ -32,45 +32,66 @@ export interface ParsedInputProps extends CommonProps {
   ref?: React.Ref<HTMLInputElement>;
 }
 
-const ForwardRefParsedInput = React.forwardRef<HTMLInputElement, ParsedInputProps>(
-  function ForwardRefParsedInput({ initialValue, formatValue, parseString, readonly, className, style, onChange }, ref) {
-    const currentValueRef = React.useRef(initialValue);
-    const isMountedRef = React.useRef(false);
-    const lastFormattedValueRef = React.useRef(formatValue(initialValue));
-    const [formattedValue, setFormattedValue] = React.useState(() => lastFormattedValueRef.current);
-    const [hasBadInput, setHasBadInput] = React.useState(false);
+const ForwardRefParsedInput = React.forwardRef<
+  HTMLInputElement,
+  ParsedInputProps
+>(function ForwardRefParsedInput(
+  {
+    initialValue,
+    formatValue,
+    parseString,
+    readonly,
+    className,
+    style,
+    onChange,
+  },
+  ref
+) {
+  const currentValueRef = React.useRef(initialValue);
+  const isMountedRef = React.useRef(false);
+  const lastFormattedValueRef = React.useRef(formatValue(initialValue));
+  const [formattedValue, setFormattedValue] = React.useState(
+    () => lastFormattedValueRef.current
+  );
+  const [hasBadInput, setHasBadInput] = React.useState(false);
 
-    React.useEffect(() => {
-      isMountedRef.current = true;
-      return () => {
-        isMountedRef.current = false;
-      };
-    }, []);
+  React.useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
-    // See if new initialValue props have changed since component mounted
-    React.useEffect(() => {
-      currentValueRef.current = initialValue;
-      const currentFormattedValue = formatValue(currentValueRef.current);
-      if (currentFormattedValue !== lastFormattedValueRef.current) {
-        lastFormattedValueRef.current = currentFormattedValue;
-        setFormattedValue(lastFormattedValueRef.current);
-        setHasBadInput(false);
-      }
-    }, [formatValue, initialValue]);
+  // See if new initialValue props have changed since component mounted
+  React.useEffect(() => {
+    currentValueRef.current = initialValue;
+    const currentFormattedValue = formatValue(currentValueRef.current);
+    if (currentFormattedValue !== lastFormattedValueRef.current) {
+      lastFormattedValueRef.current = currentFormattedValue;
+      setFormattedValue(lastFormattedValueRef.current);
+      setHasBadInput(false);
+    }
+  }, [formatValue, initialValue]);
 
-    const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       setFormattedValue(event.currentTarget.value);
-    }, []);
+    },
+    []
+  );
 
-    const updateValueFromString = React.useCallback((strVal: string) => {
-      if (lastFormattedValueRef.current === strVal)
-        return;
+  const updateValueFromString = React.useCallback(
+    (strVal: string) => {
+      if (lastFormattedValueRef.current === strVal) return;
 
-      const parseResults = (parseString(strVal));
+      const parseResults = parseString(strVal);
       // istanbul ignore else
       if (!parseResults.parseError) {
         // istanbul ignore else
-        if (undefined !== parseResults.value && typeof parseResults.value === "number") {
+        if (
+          undefined !== parseResults.value &&
+          typeof parseResults.value === "number"
+        ) {
           const currentValue = parseResults.value;
           // istanbul ignore else
           if (currentValue !== currentValueRef.current) {
@@ -87,13 +108,19 @@ const ForwardRefParsedInput = React.forwardRef<HTMLInputElement, ParsedInputProp
       } else {
         setHasBadInput(true);
       }
-    }, [formatValue, onChange, parseString]);
+    },
+    [formatValue, onChange, parseString]
+  );
 
-    const handleBlur = React.useCallback((event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = React.useCallback(
+    (event: React.FocusEvent<HTMLInputElement>) => {
       updateValueFromString(event.target.value);
-    }, [updateValueFromString]);
+    },
+    [updateValueFromString]
+  );
 
-    const handleKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
       // istanbul ignore else
       if (event.key === SpecialKey.Enter) {
         updateValueFromString(event.currentTarget.value);
@@ -104,17 +131,34 @@ const ForwardRefParsedInput = React.forwardRef<HTMLInputElement, ParsedInputProp
         setHasBadInput(false);
         event.preventDefault();
       }
-    }, [formatValue, updateValueFromString]);
+    },
+    [formatValue, updateValueFromString]
+  );
 
-    const classNames = classnames(className, "components-parsed-input", hasBadInput && "components-parsed-input-has-error");
+  const classNames = classnames(
+    className,
+    "components-parsed-input",
+    hasBadInput && "components-parsed-input-has-error"
+  );
 
-    return <Input data-testid="components-parsed-input" ref={ref} style={style} className={classNames} onKeyDown={handleKeyDown} onBlur={handleBlur}
-      onChange={handleChange} value={formattedValue} disabled={readonly} size="small" />;
-  }
-);
+  return (
+    <Input
+      data-testid="components-parsed-input"
+      ref={ref}
+      style={style}
+      className={classNames}
+      onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
+      onChange={handleChange}
+      value={formattedValue}
+      disabled={readonly}
+      size="small"
+    />
+  );
+});
 
 /** Generic Input component that requires formatting and parsing functions to be passed in as props.
  * @public
  */
-export const ParsedInput: (props: ParsedInputProps) => JSX.Element | null = ForwardRefParsedInput;
-
+export const ParsedInput: (props: ParsedInputProps) => JSX.Element | null =
+  ForwardRefParsedInput;

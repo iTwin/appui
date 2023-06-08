@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Frontstage
  */
@@ -21,7 +21,10 @@ import { StatusBarComposer } from "../statusbar/StatusBarComposer";
 /** Properties of a [[WidgetPanelProps]] component
  * @public
  */
-export type WidgetPanelProps = Omit<StagePanelConfig, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
+export type WidgetPanelProps = Omit<
+  StagePanelConfig,
+  "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones"
+>;
 
 /**
  * Props for [[StandardFrontstageProvider]]
@@ -88,7 +91,10 @@ export class StandardFrontstageProvider extends FrontstageProvider {
   }
 
   public override frontstageConfig(): FrontstageConfig {
-    const contentGroup = (this.props.contentGroupProps instanceof ContentGroupProvider) ? this.props.contentGroupProps : new ContentGroup(this.props.contentGroupProps);
+    const contentGroup =
+      this.props.contentGroupProps instanceof ContentGroupProvider
+        ? this.props.contentGroupProps
+        : new ContentGroup(this.props.contentGroupProps);
     return {
       id: this.props.id,
       version: this.props.version ?? 1.0,
@@ -97,19 +103,29 @@ export class StandardFrontstageProvider extends FrontstageProvider {
       defaultTool: this.props.defaultTool,
       contentManipulation: {
         id: `${this.props.id}-contentManipulationTools`,
-        content: <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />,
+        content: (
+          <ContentToolWidgetComposer cornerButton={this.props.cornerButton} />
+        ),
       },
       viewNavigation: {
         id: `${this.props.id}-viewNavigationTools`,
-        content: <ViewToolWidgetComposer hideNavigationAid={this.props.hideNavigationAid} />,
+        content: (
+          <ViewToolWidgetComposer
+            hideNavigationAid={this.props.hideNavigationAid}
+          />
+        ),
       },
-      toolSettings: this.props.hideToolSettings ? undefined : {
-        id: `${this.props.id}-toolSettings`,
-      },
-      statusBar: this.props.hideStatusBar ? undefined : {
-        id: `${this.props.id}-statusBar`,
-        content: <StatusBarComposer items={[]} />,
-      },
+      toolSettings: this.props.hideToolSettings
+        ? undefined
+        : {
+            id: `${this.props.id}-toolSettings`,
+          },
+      statusBar: this.props.hideStatusBar
+        ? undefined
+        : {
+            id: `${this.props.id}-statusBar`,
+            content: <StatusBarComposer items={[]} />,
+          },
       leftPanel: {
         size: 300,
         pinned: false,

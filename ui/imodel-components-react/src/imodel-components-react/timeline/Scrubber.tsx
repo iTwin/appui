@@ -1,11 +1,11 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import "./Scrubber.scss";
 import * as React from "react";
 import { Slider } from "@itwin/itwinui-react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { useEventListener } from "@itwin/core-react";
 import { toDateString, toTimeString } from "@itwin/components-react";
 import type { TimelineDateMarkerProps } from "./TimelineComponent";
@@ -21,7 +21,7 @@ export function getPercentageOfRectangle(rect: DOMRect, pointer: number) {
 // istanbul ignore next - WIP
 const formatDuration = (value: number) => {
   const addZero = (i: number) => {
-    return (i < 10) ? `0${i}` : i;
+    return i < 10 ? `0${i}` : i;
   };
 
   const date = new Date(value);
@@ -30,24 +30,44 @@ const formatDuration = (value: number) => {
   return `${addZero(minutes)}:${addZero(seconds)}`;
 };
 
-const formatDate = (startDate: Date, endDate: Date, fraction: number, timeZoneOffset?: number) => {
+const formatDate = (
+  startDate: Date,
+  endDate: Date,
+  fraction: number,
+  timeZoneOffset?: number
+) => {
   const delta = (endDate.getTime() - startDate.getTime()) * fraction;
   const date = new Date(startDate.getTime() + delta);
   return toDateString(date, timeZoneOffset);
 };
 
 // istanbul ignore next - WIP
-const formatTime = (startDate: Date, endDate: Date, fraction: number, timeZoneOffset?: number) => {
+const formatTime = (
+  startDate: Date,
+  endDate: Date,
+  fraction: number,
+  timeZoneOffset?: number
+) => {
   const delta = (endDate.getTime() - startDate.getTime()) * fraction;
   const date = new Date(startDate.getTime() + delta);
   return ` ${toTimeString(date, timeZoneOffset)}`;
 };
 
-function generateToolTipText(showTime: boolean, percent: number, min: number, max: number, startDate?: Date, endDate?: Date, timeZoneOffset = 0) {
+function generateToolTipText(
+  showTime: boolean,
+  percent: number,
+  min: number,
+  max: number,
+  startDate?: Date,
+  endDate?: Date,
+  timeZoneOffset = 0
+) {
   if (startDate && endDate)
-    return `${formatDate(startDate, endDate, percent, timeZoneOffset)}${showTime ? formatTime(startDate, endDate, percent, timeZoneOffset) : ""} `;
+    return `${formatDate(startDate, endDate, percent, timeZoneOffset)}${
+      showTime ? formatTime(startDate, endDate, percent, timeZoneOffset) : ""
+    } `;
 
-  const val = Math.round(min + ((max - min) * percent));
+  const val = Math.round(min + (max - min) * percent);
   return formatDuration(val);
 }
 
@@ -58,18 +78,37 @@ function getPercentageFromDate(startDate: Date, endDate: Date, date?: Date) {
   return (newDate.getTime() - startTime) / totalDuration;
 }
 
-function getDateMarker(dateMarkerPropsIn: TimelineDateMarkerProps, startDate: Date, endDate: Date): DateMarkerProps {
-  const percentage = getPercentageFromDate(startDate, endDate, dateMarkerPropsIn.date);
-  const marker = dateMarkerPropsIn.dateMarker ? dateMarkerPropsIn.dateMarker : <span className="date-marker-default"></span>;
+function getDateMarker(
+  dateMarkerPropsIn: TimelineDateMarkerProps,
+  startDate: Date,
+  endDate: Date
+): DateMarkerProps {
+  const percentage = getPercentageFromDate(
+    startDate,
+    endDate,
+    dateMarkerPropsIn.date
+  );
+  const marker = dateMarkerPropsIn.dateMarker ? (
+    dateMarkerPropsIn.dateMarker
+  ) : (
+    <span className="date-marker-default"></span>
+  );
   return { datePercentage: percentage, dateMarker: marker };
 }
 
-function markDateInTimelineRange(dateMarkerProps?: TimelineDateMarkerProps, startDate?: Date, endDate?: Date): boolean {
+function markDateInTimelineRange(
+  dateMarkerProps?: TimelineDateMarkerProps,
+  startDate?: Date,
+  endDate?: Date
+): boolean {
   // istanbul ignore else
   if (dateMarkerProps && startDate && endDate) {
     const inDate = dateMarkerProps.date ? dateMarkerProps.date : new Date();
     // istanbul ignore else
-    if (inDate.getTime() >= startDate.getTime() && inDate.getTime() <= endDate.getTime())
+    if (
+      inDate.getTime() >= startDate.getTime() &&
+      inDate.getTime() <= endDate.getTime()
+    )
       return true;
   }
   return false;
@@ -77,23 +116,36 @@ function markDateInTimelineRange(dateMarkerProps?: TimelineDateMarkerProps, star
 /**
  * @internal
  */
-export function RailMarkers({ showToolTip, percent, tooltipText, markDate }: {
+export function RailMarkers({
+  showToolTip,
+  percent,
+  tooltipText,
+  markDate,
+}: {
   showToolTip: boolean;
   percent: number;
   tooltipText: string;
   markDate?: DateMarkerProps;
 }) {
-
   return (
     <div className="components-timeline-rail-marker-container">
-      {showToolTip &&
-        <div className="components-timeline-tooltip" style={{ left: `${Math.round(percent * 100)}% ` }}>
+      {showToolTip && (
+        <div
+          className="components-timeline-tooltip"
+          style={{ left: `${Math.round(percent * 100)}% ` }}
+        >
           <span className="tooltip-text">{tooltipText}</span>
-        </div>}
-      {markDate &&
-        <div className="components-timeline-date-marker" data-testid="test-date-marker" style={{ left: `${Math.round(markDate.datePercentage * 100)}% ` }}>
+        </div>
+      )}
+      {markDate && (
+        <div
+          className="components-timeline-date-marker"
+          data-testid="test-date-marker"
+          style={{ left: `${Math.round(markDate.datePercentage * 100)}% ` }}
+        >
           {markDate.dateMarker}
-        </div>}
+        </div>
+      )}
     </div>
   );
 }
@@ -105,7 +157,9 @@ export function RailMarkers({ showToolTip, percent, tooltipText, markDate }: {
 export function CustomThumb() {
   return (
     <div className="scrubber-handle">
-      <div /><div /><div />
+      <div />
+      <div />
+      <div />
     </div>
   );
 }
@@ -169,8 +223,18 @@ interface DateMarkerProps {
  * @internal
  */
 export function Scrubber(props: ScrubberProps) {
-  const { startDate, endDate, showTime, isPlaying, totalDuration, timeZoneOffset,
-    currentDuration, className, onChange, onUpdate } = props;
+  const {
+    startDate,
+    endDate,
+    showTime,
+    isPlaying,
+    totalDuration,
+    timeZoneOffset,
+    currentDuration,
+    className,
+    onChange,
+    onUpdate,
+  } = props;
 
   const thumbProps = () => {
     return {
@@ -180,13 +244,16 @@ export function Scrubber(props: ScrubberProps) {
   };
 
   const sliderRef = React.useRef<HTMLDivElement>(null);
-  const [sliderContainer, setSliderContainer] = React.useState<HTMLDivElement>();
+  const [sliderContainer, setSliderContainer] =
+    React.useState<HTMLDivElement>();
   const [pointerPercent, setPointerPercent] = React.useState(0);
 
   React.useLayoutEffect(() => {
     // istanbul ignore else
     if (sliderRef.current) {
-      const container = sliderRef.current.querySelector(".iui-slider-container");
+      const container = sliderRef.current.querySelector(
+        ".iui-slider-container"
+      );
       if (container && sliderContainer !== container) {
         setSliderContainer(container as HTMLDivElement);
       }
@@ -209,24 +276,70 @@ export function Scrubber(props: ScrubberProps) {
     setShowRailTooltip(false);
   }, []);
 
-  const handlePointerMove = React.useCallback((event: React.PointerEvent) => {
-    sliderContainer &&
-      setPointerPercent(getPercentageOfRectangle(sliderContainer.getBoundingClientRect(), event.clientX));
-  }, [sliderContainer]);
+  const handlePointerMove = React.useCallback(
+    (event: React.PointerEvent) => {
+      sliderContainer &&
+        setPointerPercent(
+          getPercentageOfRectangle(
+            sliderContainer.getBoundingClientRect(),
+            event.clientX
+          )
+        );
+    },
+    [sliderContainer]
+  );
 
   const thumbHasFocus = useFocusedThumb(sliderContainer);
 
   const tickLabel = React.useMemo(() => {
     const showTip = isPlaying || showRailTooltip || thumbHasFocus;
-    const percent = (isPlaying || thumbHasFocus) ? currentDuration / totalDuration : pointerPercent;
-    const markDateInRange = markDateInTimelineRange(props.markDate, startDate, endDate);
-    const currentDateMarker = props.markDate && markDateInRange && startDate && endDate ? getDateMarker(props.markDate, startDate, endDate) : undefined;
-    const tooltipText = generateToolTipText(!!showTime, percent, 0, totalDuration, startDate, endDate, timeZoneOffset);
-    return (<RailMarkers showToolTip={showTip} percent={percent} tooltipText={tooltipText} markDate={currentDateMarker} />);
-  }, [isPlaying, showRailTooltip, currentDuration, totalDuration, pointerPercent, startDate, endDate, timeZoneOffset, showTime, thumbHasFocus, props.markDate]);
+    const percent =
+      isPlaying || thumbHasFocus
+        ? currentDuration / totalDuration
+        : pointerPercent;
+    const markDateInRange = markDateInTimelineRange(
+      props.markDate,
+      startDate,
+      endDate
+    );
+    const currentDateMarker =
+      props.markDate && markDateInRange && startDate && endDate
+        ? getDateMarker(props.markDate, startDate, endDate)
+        : undefined;
+    const tooltipText = generateToolTipText(
+      !!showTime,
+      percent,
+      0,
+      totalDuration,
+      startDate,
+      endDate,
+      timeZoneOffset
+    );
+    return (
+      <RailMarkers
+        showToolTip={showTip}
+        percent={percent}
+        tooltipText={tooltipText}
+        markDate={currentDateMarker}
+      />
+    );
+  }, [
+    isPlaying,
+    showRailTooltip,
+    currentDuration,
+    totalDuration,
+    pointerPercent,
+    startDate,
+    endDate,
+    timeZoneOffset,
+    showTime,
+    thumbHasFocus,
+    props.markDate,
+  ]);
 
   return (
-    <Slider ref={sliderRef}
+    <Slider
+      ref={sliderRef}
       className={className}
       step={1}
       min={0}

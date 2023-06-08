@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Tree
  */
@@ -15,7 +15,10 @@ import type { ITreeDataProvider, TreeNodeItem } from "./TreeDataProvider";
  * value - Child tree node items.
  * @public
  */
-export type SimpleTreeDataProviderHierarchy = Map<string | undefined, TreeNodeItem[]>;
+export type SimpleTreeDataProviderHierarchy = Map<
+  string | undefined,
+  TreeNodeItem[]
+>;
 
 /**
  * A tree data provider using [[SimpleTreeDataProviderHierarchy]].
@@ -28,14 +31,15 @@ export class SimpleTreeDataProvider implements ITreeDataProvider {
     this._hierarchy = hierarchy;
   }
 
-  private getNodesByParentId(parentId?: string, pageOptions?: PageOptions): TreeNodeItem[] {
+  private getNodesByParentId(
+    parentId?: string,
+    pageOptions?: PageOptions
+  ): TreeNodeItem[] {
     const nodes = this._hierarchy.get(parentId);
 
-    if (!nodes)
-      return [];
+    if (!nodes) return [];
 
-    if (!pageOptions)
-      return [...nodes];
+    if (!pageOptions) return [...nodes];
 
     let pageEndIndex: number | undefined;
     if (pageOptions.size !== undefined && pageOptions.size !== 0) {
@@ -45,7 +49,10 @@ export class SimpleTreeDataProvider implements ITreeDataProvider {
     return nodes.slice(pageOptions.start, pageEndIndex);
   }
 
-  public async getNodes(parent?: TreeNodeItem, pageOptions?: PageOptions): Promise<TreeNodeItem[]> {
+  public async getNodes(
+    parent?: TreeNodeItem,
+    pageOptions?: PageOptions
+  ): Promise<TreeNodeItem[]> {
     return this.getNodesByParentId(parent ? parent.id : undefined, pageOptions);
   }
 

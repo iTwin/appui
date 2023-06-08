@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Loading
  */
@@ -62,14 +62,42 @@ export class LoadingPrompt extends React.PureComponent<LoadingPromptProps> {
     const isDeterminate = this.props.isDeterminate;
 
     return (
-      <div className={classnames("core-loadingprompt", this.props.className)} style={this.props.style}>
+      <div
+        className={classnames("core-loadingprompt", this.props.className)}
+        style={this.props.style}
+      >
         <span className="title">{this.props.title}</span>
-        {this.props.message && <span className="message">{this.props.message}</span>}
-        {isDeterminate && <LoadingBar style={{ width: "100%" }} percent={this.props.percent} showPercentage={this.props.showPercentage} />}
-        {(isDeterminate && this.props.showStatus) &&
-          <LoadingStatus style={{ marginTop: ".5em", width: "100%", fontSize: ".75em" }} percent={this.props.percent} message={this.props.status} />}
-        {!isDeterminate && (this.props.showIndeterminateBar ? <ProgressLinear indeterminate /> : <LoadingSpinner />)}
-        {this.props.showCancel && <Button className="loading-prompt-cancel" onClick={this.props.onCancel}>Cancel</Button>}
+        {this.props.message && (
+          <span className="message">{this.props.message}</span>
+        )}
+        {isDeterminate && (
+          <LoadingBar
+            style={{ width: "100%" }}
+            percent={this.props.percent}
+            showPercentage={this.props.showPercentage}
+          />
+        )}
+        {isDeterminate && this.props.showStatus && (
+          <LoadingStatus
+            style={{ marginTop: ".5em", width: "100%", fontSize: ".75em" }}
+            percent={this.props.percent}
+            message={this.props.status}
+          />
+        )}
+        {!isDeterminate &&
+          (this.props.showIndeterminateBar ? (
+            <ProgressLinear indeterminate />
+          ) : (
+            <LoadingSpinner />
+          ))}
+        {this.props.showCancel && (
+          <Button
+            className="loading-prompt-cancel"
+            onClick={this.props.onCancel}
+          >
+            Cancel
+          </Button>
+        )}
       </div>
     );
   }

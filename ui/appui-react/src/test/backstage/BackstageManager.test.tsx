@@ -1,14 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { MockRender } from "@itwin/core-frontend";
 import { renderHook } from "@testing-library/react-hooks";
 import { waitFor } from "@testing-library/react";
 import { expect } from "chai";
 import * as sinon from "sinon";
 import { UiFramework } from "../../appui-react";
-import { BackstageManager, useBackstageManager, useIsBackstageOpen } from "../../appui-react/backstage/BackstageManager";
+import {
+  BackstageManager,
+  useBackstageManager,
+  useIsBackstageOpen,
+} from "../../appui-react/backstage/BackstageManager";
 import { InternalBackstageManager } from "../../appui-react/backstage/InternalBackstageManager";
 import TestUtils from "../TestUtils";
 
@@ -30,7 +34,7 @@ describe("BackstageManager", () => {
     // Check that we call only once;
     manager.open();
 
-    expect(spy).to.have.been.calledOnceWith(sinon.match({ isOpen: true}));
+    expect(spy).to.have.been.calledOnceWith(sinon.match({ isOpen: true }));
     expect(manager.isOpen).to.be.true;
 
     manager.onToggled.removeListener(spy);
@@ -44,7 +48,7 @@ describe("BackstageManager", () => {
 
     manager.close();
 
-    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: false}));
+    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: false }));
     expect(manager.isOpen).to.be.false;
 
     manager.onToggled.removeListener(spy);
@@ -58,13 +62,13 @@ describe("BackstageManager", () => {
 
     manager.toggle();
 
-    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: false}));
+    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: false }));
     expect(manager.isOpen).to.be.false;
 
     spy.resetHistory();
     manager.toggle();
 
-    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: true}));
+    expect(spy).to.have.been.calledWith(sinon.match({ isOpen: true }));
     expect(manager.isOpen).to.be.true;
     manager.onToggled.removeListener(spy);
   });
@@ -83,14 +87,15 @@ describe("BackstageManager", () => {
 
   it("getBackstageToggleCommand generates toggle button", () => {
     const command = BackstageManager.getBackstageToggleCommand();
-    const initialState = UiFramework.backstage.isOpen; // eslint-disable-line deprecation/deprecation
+    const initialState = UiFramework.backstage.isOpen;
     command.execute();
 
-    expect(UiFramework.backstage.isOpen).to.eq(!initialState); // eslint-disable-line deprecation/deprecation
+    expect(UiFramework.backstage.isOpen).to.eq(!initialState);
   });
 
   it("getBackstageToggleCommand handles icon override", () => {
-    const command = BackstageManager.getBackstageToggleCommand("different-icon");
+    const command =
+      BackstageManager.getBackstageToggleCommand("different-icon");
 
     expect(command.iconSpec).to.eq("different-icon");
   });
@@ -116,10 +121,14 @@ describe("BackstageManager", () => {
     manager.toggle();
     expect(internal.toggle).to.have.been.calledOnceWithExactly();
     manager.getBackstageToggleCommand("iconSpec");
-    expect(internal.getBackstageToggleCommand).to.have.been.calledOnceWithExactly("iconSpec");
+    expect(
+      internal.getBackstageToggleCommand
+    ).to.have.been.calledOnceWithExactly("iconSpec");
 
     const stubbedCommand = Symbol("backstageCommand");
-    sinon.stub(UiFramework.backstage, "getBackstageToggleCommand").returns(stubbedCommand as any);
+    sinon
+      .stub(UiFramework.backstage, "getBackstageToggleCommand")
+      .returns(stubbedCommand as any);
     expect(BackstageManager.getBackstageToggleCommand()).to.eq(stubbedCommand);
   });
 });
@@ -128,14 +137,14 @@ describe("useIsBackstageOpen", () => {
   it("should return is backstage open", () => {
     const manager = new BackstageManager();
 
-    const {result} = renderHook(() => useIsBackstageOpen(manager));
+    const { result } = renderHook(() => useIsBackstageOpen(manager));
 
     expect(result.current).to.be.false;
   });
 
   it("should update isOpen", async () => {
     const manager = new BackstageManager();
-    const {result} = renderHook(() => useIsBackstageOpen(manager));
+    const { result } = renderHook(() => useIsBackstageOpen(manager));
 
     manager.open();
     await waitFor(() => {
@@ -151,12 +160,15 @@ describe("useIsBackstageOpen", () => {
     const manager = new BackstageManager();
     const addSpy = sinon.spy(manager.onToggled, "addListener");
     const removeSpy = sinon.spy(manager.onToggled, "removeListener");
-    const { unmount} = renderHook(() => useIsBackstageOpen(manager));
+    const { unmount } = renderHook(() => useIsBackstageOpen(manager));
     const callback = sinon.spy(addSpy.firstCall, "returnValue");
     unmount();
 
     // Either one must be true for this test to pass
-    expect([callback.called, removeSpy.calledWith(...addSpy.firstCall.args)]).to.include(true);
+    expect([
+      callback.called,
+      removeSpy.calledWith(...addSpy.firstCall.args),
+    ]).to.include(true);
   });
 });
 
@@ -165,8 +177,8 @@ describe("useBackstageManager", () => {
     await TestUtils.initializeUiFramework();
     await MockRender.App.startup();
 
-    const {result} = renderHook(() => useBackstageManager());
-    expect(result.current).to.equal(UiFramework.backstage); // eslint-disable-line deprecation/deprecation
+    const { result } = renderHook(() => useBackstageManager());
+    expect(result.current).to.equal(UiFramework.backstage);
 
     await MockRender.App.shutdown();
     TestUtils.terminateUiFramework();

@@ -1,13 +1,23 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
 import { StandardContentLayouts } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton, BackstageItem, BackstageItemUtilities, ConfigurableCreateInfo, ContentControl,
-  ContentGroupProps, StageUsage, StandardFrontstageProps, StandardFrontstageProvider, UiFramework, UiItemsManager, UiItemsProvider,
+  BackstageAppButton,
+  BackstageItem,
+  BackstageItemUtilities,
+  ConfigurableCreateInfo,
+  ContentControl,
+  ContentGroupProps,
+  StageUsage,
+  StandardFrontstageProps,
+  StandardFrontstageProvider,
+  UiFramework,
+  UiItemsManager,
+  UiItemsProvider,
 } from "@itwin/appui-react";
 import { SampleAppIModelApp } from "../../index";
 import { IModelOpen } from "../imodelopen/IModelOpen";
@@ -29,11 +39,16 @@ class IModelOpenControl extends ContentControl {
     }
 
     if (IModelApp.authorizationClient)
-      this.reactNode = <IModelOpen onIModelSelected={this._onOpenIModel} urlPrefix={envUrlPrefix} />;
+      this.reactNode = (
+        <IModelOpen
+          onIModelSelected={this._onOpenIModel}
+          urlPrefix={envUrlPrefix}
+        />
+      );
   }
 
   // called when an imodel has been selected in IModelOpen stage
-  private _onOpenIModel = async (arg: { iTwinId: string, id: string }) => {
+  private _onOpenIModel = async (arg: { iTwinId: string; id: string }) => {
     await SampleAppIModelApp.openIModelAndViews(arg.iTwinId, arg.id);
   };
 }
@@ -65,14 +80,18 @@ export class IModelOpenFrontstage {
         hideStatusBar: true,
       };
 
-      UiFramework.frontstages.addFrontstageProvider(new StandardFrontstageProvider(stageProps));
+      UiFramework.frontstages.addFrontstageProvider(
+        new StandardFrontstageProvider(stageProps)
+      );
       UiItemsManager.register(new BackstageItemsProvider());
     }
   }
 
   public static async open() {
     IModelOpenFrontstage.register();
-    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(IModelOpenFrontstage.stageId);
+    const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+      IModelOpenFrontstage.stageId
+    );
     await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
   }
 }
@@ -82,7 +101,16 @@ class BackstageItemsProvider implements UiItemsProvider {
 
   public provideBackstageItems(): BackstageItem[] {
     return [
-      BackstageItemUtilities.createStageLauncher(IModelOpenFrontstage.stageId, 300, 10, IModelApp.localization.getLocalizedString("SampleApp:backstage.imodelopen"), undefined, "icon-folder-opened"),
+      BackstageItemUtilities.createStageLauncher(
+        IModelOpenFrontstage.stageId,
+        300,
+        10,
+        IModelApp.localization.getLocalizedString(
+          "SampleApp:backstage.imodelopen"
+        ),
+        undefined,
+        "icon-folder-opened"
+      ),
     ];
   }
 }

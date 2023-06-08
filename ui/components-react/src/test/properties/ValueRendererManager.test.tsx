@@ -1,13 +1,13 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import type { PropertyValueFormat } from "@itwin/appui-abstract";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 import * as React from "react";
 import sinon from "sinon";
-import type { IPropertyValueRenderer} from "../../components-react/properties/ValueRendererManager";
+import type { IPropertyValueRenderer } from "../../components-react/properties/ValueRendererManager";
 import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager";
 import { UiComponents } from "../../components-react/UiComponents";
 import TestUtils from "../TestUtils";
@@ -71,7 +71,10 @@ describe("PropertyValueRendererManager", () => {
 
   describe("render", () => {
     it("looks for custom renderer specified in `property.renderer` before looking at `property.typename`", () => {
-      const record = TestUtils.createPrimitiveStringProperty("test_property", "Test");
+      const record = TestUtils.createPrimitiveStringProperty(
+        "test_property",
+        "Test"
+      );
       record.property.renderer = { name: "stub1" };
       record.property.typename = "stub2";
 
@@ -86,7 +89,10 @@ describe("PropertyValueRendererManager", () => {
     });
 
     it("looks for custom renderer in property typename", () => {
-      const record = TestUtils.createPrimitiveStringProperty("test_property", "Test");
+      const record = TestUtils.createPrimitiveStringProperty(
+        "test_property",
+        "Test"
+      );
       record.property.typename = "stub";
 
       const rendererManager = new PropertyValueRendererManager();
@@ -98,7 +104,9 @@ describe("PropertyValueRendererManager", () => {
     });
 
     it("renders a primitive type", () => {
-      const value = manager.render(TestUtils.createPrimitiveStringProperty("Label", "Test prop"));
+      const value = manager.render(
+        TestUtils.createPrimitiveStringProperty("Label", "Test prop")
+      );
 
       render(<>{value}</>);
       expect(screen.getByTitle("Test prop")).to.exist;
@@ -113,7 +121,9 @@ describe("PropertyValueRendererManager", () => {
     });
 
     it("renders a struct type", () => {
-      const value = manager.render(TestUtils.createStructProperty("TestStruct"));
+      const value = manager.render(
+        TestUtils.createStructProperty("TestStruct")
+      );
 
       render(<>{value}</>);
 
@@ -132,18 +142,25 @@ describe("PropertyValueRendererManager", () => {
     });
 
     it("renders merged properties", () => {
-      const property = TestUtils.createPrimitiveStringProperty("Label", "Test prop");
+      const property = TestUtils.createPrimitiveStringProperty(
+        "Label",
+        "Test prop"
+      );
       property.isMerged = true;
 
       const value = manager.render(property);
 
       render(<>{value}</>);
 
-      expect(screen.getByText(UiComponents.translate("property.varies"))).to.exist;
+      expect(screen.getByText(UiComponents.translate("property.varies"))).to
+        .exist;
     });
 
     it("renders merged properties before looking for custom renderer in property typename", () => {
-      const property = TestUtils.createPrimitiveStringProperty("Label", "Test prop");
+      const property = TestUtils.createPrimitiveStringProperty(
+        "Label",
+        "Test prop"
+      );
       property.property.typename = "stub";
       property.isMerged = true;
 
@@ -152,7 +169,8 @@ describe("PropertyValueRendererManager", () => {
 
       const value = rendererManager.render(property);
       render(<>{value}</>);
-      expect(screen.getByText(UiComponents.translate("property.varies"))).to.exist;
+      expect(screen.getByText(UiComponents.translate("property.varies"))).to
+        .exist;
       expect(fakeRenderer.render).to.not.be.called;
     });
   });

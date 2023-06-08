@@ -1,21 +1,34 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import sinon from "sinon";
 import * as moq from "typemoq";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { renderHook } from "@testing-library/react-hooks";
-import type { TreeEventHandler, TreeEventHandlerParams } from "../../../components-react/tree/controlled/TreeEventHandler";
+import type {
+  TreeEventHandler,
+  TreeEventHandlerParams,
+} from "../../../components-react/tree/controlled/TreeEventHandler";
 import {
-  usePagedTreeNodeLoader, useTreeEventsHandler, useTreeModel, useTreeModelSource, useTreeNodeLoader,
+  usePagedTreeNodeLoader,
+  useTreeEventsHandler,
+  useTreeModel,
+  useTreeModelSource,
+  useTreeNodeLoader,
 } from "../../../components-react/tree/controlled/TreeHooks";
 import type { TreeModel } from "../../../components-react/tree/controlled/TreeModel";
 import { MutableTreeModel } from "../../../components-react/tree/controlled/TreeModel";
-import type { TreeModelChanges, TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource";
+import type {
+  TreeModelChanges,
+  TreeModelSource,
+} from "../../../components-react/tree/controlled/TreeModelSource";
 import type { ITreeNodeLoader } from "../../../components-react/tree/controlled/TreeNodeLoader";
-import type { TreeDataProvider, TreeDataProviderRaw } from "../../../components-react/tree/TreeDataProvider";
+import type {
+  TreeDataProvider,
+  TreeDataProviderRaw,
+} from "../../../components-react/tree/TreeDataProvider";
 
 describe("useTreeModel", () => {
   const modelSourceMock = moq.Mock.ofType<TreeModelSource>();
@@ -26,15 +39,18 @@ describe("useTreeModel", () => {
     modelSourceMock.reset();
     onModelChangeEvent = new BeUiEvent<[TreeModel, TreeModelChanges]>();
 
-    modelSourceMock.setup((x) => x.onModelChanged).returns(() => onModelChangeEvent);
+    modelSourceMock
+      .setup((x) => x.onModelChanged)
+      .returns(() => onModelChangeEvent);
     modelSourceMock.setup((x) => x.getModel()).returns(() => testModel);
   });
 
   it("subscribes to onModelChange event and returns visible nodes", () => {
     const spy = sinon.spy(onModelChangeEvent, "addListener");
     const { result } = renderHook(
-      (props: { modelSource: TreeModelSource }) => useTreeModel(props.modelSource),
-      { initialProps: { modelSource: modelSourceMock.object } },
+      (props: { modelSource: TreeModelSource }) =>
+        useTreeModel(props.modelSource),
+      { initialProps: { modelSource: modelSourceMock.object } }
     );
     expect(result.current).to.eq(testModel);
     expect(spy).to.have.been.calledOnce;
@@ -42,19 +58,27 @@ describe("useTreeModel", () => {
 
   it("resubscribes to onModelChangeEvent when model source changes", () => {
     const firstModelEventAddSpy = sinon.spy(onModelChangeEvent, "addListener");
-    const firstModelEventRemoveSpy = sinon.spy(onModelChangeEvent, "removeListener");
+    const firstModelEventRemoveSpy = sinon.spy(
+      onModelChangeEvent,
+      "removeListener"
+    );
     const { result, rerender } = renderHook(
-      (props: { modelSource: TreeModelSource }) => useTreeModel(props.modelSource),
-      { initialProps: { modelSource: modelSourceMock.object } },
+      (props: { modelSource: TreeModelSource }) =>
+        useTreeModel(props.modelSource),
+      { initialProps: { modelSource: modelSourceMock.object } }
     );
     expect(result.current).to.eq(testModel);
     expect(firstModelEventAddSpy).to.have.been.calledOnce;
 
-    const newOnModelChangeEvent = new BeUiEvent<[TreeModel, TreeModelChanges]>();
+    const newOnModelChangeEvent = new BeUiEvent<
+      [TreeModel, TreeModelChanges]
+    >();
     const newModelEventAddSpy = sinon.spy(newOnModelChangeEvent, "addListener");
     const newTestModel = new MutableTreeModel();
     const newModelSourceMock = moq.Mock.ofType<TreeModelSource>();
-    newModelSourceMock.setup((x) => x.onModelChanged).returns(() => newOnModelChangeEvent);
+    newModelSourceMock
+      .setup((x) => x.onModelChanged)
+      .returns(() => newOnModelChangeEvent);
     newModelSourceMock.setup((x) => x.getModel()).returns(() => newTestModel);
 
     rerender({ modelSource: newModelSourceMock.object });
@@ -62,7 +86,6 @@ describe("useTreeModel", () => {
     expect(firstModelEventRemoveSpy).to.have.been.calledOnce;
     expect(newModelEventAddSpy).to.have.been.calledOnce;
   });
-
 });
 
 describe("useTreeNodeLoader", () => {
@@ -71,8 +94,16 @@ describe("useTreeNodeLoader", () => {
 
   it("creates NodeLoader", () => {
     const { result } = renderHook(
-      (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource }) => useTreeNodeLoader(props.dataProvider, props.modelSource),
-      { initialProps: { dataProvider: dataProviderMock, modelSource: modelSourceMock.object } },
+      (props: {
+        dataProvider: TreeDataProvider;
+        modelSource: TreeModelSource;
+      }) => useTreeNodeLoader(props.dataProvider, props.modelSource),
+      {
+        initialProps: {
+          dataProvider: dataProviderMock,
+          modelSource: modelSourceMock.object,
+        },
+      }
     );
 
     expect(result.current).to.not.be.undefined;
@@ -80,28 +111,49 @@ describe("useTreeNodeLoader", () => {
 
   it("returns same NodeLoader if data provider does not changes", () => {
     const { result, rerender } = renderHook(
-      (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource }) => useTreeNodeLoader(props.dataProvider, props.modelSource),
-      { initialProps: { dataProvider: dataProviderMock, modelSource: modelSourceMock.object } },
+      (props: {
+        dataProvider: TreeDataProvider;
+        modelSource: TreeModelSource;
+      }) => useTreeNodeLoader(props.dataProvider, props.modelSource),
+      {
+        initialProps: {
+          dataProvider: dataProviderMock,
+          modelSource: modelSourceMock.object,
+        },
+      }
     );
     const nodeLoader = result.current;
-    rerender({ dataProvider: dataProviderMock, modelSource: modelSourceMock.object });
+    rerender({
+      dataProvider: dataProviderMock,
+      modelSource: modelSourceMock.object,
+    });
 
     expect(result.current).to.be.eq(nodeLoader);
   });
 
   it("creates new NodeLoader when data provider changes", () => {
     const { result, rerender } = renderHook(
-      (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource }) => useTreeNodeLoader(props.dataProvider, props.modelSource),
-      { initialProps: { dataProvider: dataProviderMock, modelSource: modelSourceMock.object } },
+      (props: {
+        dataProvider: TreeDataProvider;
+        modelSource: TreeModelSource;
+      }) => useTreeNodeLoader(props.dataProvider, props.modelSource),
+      {
+        initialProps: {
+          dataProvider: dataProviderMock,
+          modelSource: modelSourceMock.object,
+        },
+      }
     );
 
     const firstNodeLoader = result.current;
     const newDataProviderMock: TreeDataProviderRaw = [];
-    rerender({ dataProvider: newDataProviderMock, modelSource: modelSourceMock.object });
+    rerender({
+      dataProvider: newDataProviderMock,
+      modelSource: modelSourceMock.object,
+    });
 
     expect(result.current).to.not.be.deep.eq(firstNodeLoader);
   });
-
 });
 
 describe("usePagedTreeNodeLoader", () => {
@@ -110,8 +162,23 @@ describe("usePagedTreeNodeLoader", () => {
 
   it("creates PagedNodeLoader", () => {
     const { result } = renderHook(
-      (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource, pageSize: number }) => usePagedTreeNodeLoader(props.dataProvider, props.pageSize, props.modelSource),
-      { initialProps: { dataProvider: dataProviderMock, pageSize: 10, modelSource: modelSourceMock.object } },
+      (props: {
+        dataProvider: TreeDataProvider;
+        modelSource: TreeModelSource;
+        pageSize: number;
+      }) =>
+        usePagedTreeNodeLoader(
+          props.dataProvider,
+          props.pageSize,
+          props.modelSource
+        ),
+      {
+        initialProps: {
+          dataProvider: dataProviderMock,
+          pageSize: 10,
+          modelSource: modelSourceMock.object,
+        },
+      }
     );
 
     expect(result.current).to.not.be.undefined;
@@ -119,40 +186,96 @@ describe("usePagedTreeNodeLoader", () => {
 
   it("returns same PagedNodeLoader if dependencies do not changes", () => {
     const { result, rerender } = renderHook(
-      (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource, pageSize: number }) => usePagedTreeNodeLoader(props.dataProvider, props.pageSize, props.modelSource),
-      { initialProps: { dataProvider: dataProviderMock, pageSize: 10, modelSource: modelSourceMock.object } },
+      (props: {
+        dataProvider: TreeDataProvider;
+        modelSource: TreeModelSource;
+        pageSize: number;
+      }) =>
+        usePagedTreeNodeLoader(
+          props.dataProvider,
+          props.pageSize,
+          props.modelSource
+        ),
+      {
+        initialProps: {
+          dataProvider: dataProviderMock,
+          pageSize: 10,
+          modelSource: modelSourceMock.object,
+        },
+      }
     );
     const nodeLoader = result.current;
-    rerender({ dataProvider: dataProviderMock, pageSize: 10, modelSource: modelSourceMock.object });
+    rerender({
+      dataProvider: dataProviderMock,
+      pageSize: 10,
+      modelSource: modelSourceMock.object,
+    });
 
     expect(result.current).to.be.eq(nodeLoader);
   });
 
   it("creates new PagedNodeLoader when data provider changes", () => {
     const { result, rerender } = renderHook(
-      (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource, pageSize: number }) => usePagedTreeNodeLoader(props.dataProvider, props.pageSize, props.modelSource),
-      { initialProps: { dataProvider: dataProviderMock, pageSize: 10, modelSource: modelSourceMock.object } },
+      (props: {
+        dataProvider: TreeDataProvider;
+        modelSource: TreeModelSource;
+        pageSize: number;
+      }) =>
+        usePagedTreeNodeLoader(
+          props.dataProvider,
+          props.pageSize,
+          props.modelSource
+        ),
+      {
+        initialProps: {
+          dataProvider: dataProviderMock,
+          pageSize: 10,
+          modelSource: modelSourceMock.object,
+        },
+      }
     );
 
     const firstNodeLoader = result.current;
     const newDataProviderMock: TreeDataProviderRaw = [];
-    rerender({ dataProvider: newDataProviderMock, pageSize: 10, modelSource: modelSourceMock.object });
+    rerender({
+      dataProvider: newDataProviderMock,
+      pageSize: 10,
+      modelSource: modelSourceMock.object,
+    });
 
     expect(result.current).to.not.be.deep.eq(firstNodeLoader);
   });
 
   it("creates new PagedNodeLoader when page size changes", () => {
     const { result, rerender } = renderHook(
-      (props: { dataProvider: TreeDataProvider, modelSource: TreeModelSource, pageSize: number }) => usePagedTreeNodeLoader(props.dataProvider, props.pageSize, props.modelSource),
-      { initialProps: { dataProvider: dataProviderMock, pageSize: 10, modelSource: modelSourceMock.object } },
+      (props: {
+        dataProvider: TreeDataProvider;
+        modelSource: TreeModelSource;
+        pageSize: number;
+      }) =>
+        usePagedTreeNodeLoader(
+          props.dataProvider,
+          props.pageSize,
+          props.modelSource
+        ),
+      {
+        initialProps: {
+          dataProvider: dataProviderMock,
+          pageSize: 10,
+          modelSource: modelSourceMock.object,
+        },
+      }
     );
 
     const firstNodeLoader = result.current;
-    rerender({ dataProvider: dataProviderMock, pageSize: 20, modelSource: modelSourceMock.object });
+    rerender({
+      dataProvider: dataProviderMock,
+      pageSize: 20,
+      modelSource: modelSourceMock.object,
+    });
 
     expect(result.current).to.not.be.deep.eq(firstNodeLoader);
   });
-
 });
 
 describe("useTreeModelSource", () => {
@@ -160,24 +283,24 @@ describe("useTreeModelSource", () => {
 
   it("creates model source", () => {
     const { result } = renderHook(
-      (props: { dataProvider: TreeDataProvider }) => useTreeModelSource(props.dataProvider),
-      { initialProps: { dataProvider: dataProviderMock } },
+      (props: { dataProvider: TreeDataProvider }) =>
+        useTreeModelSource(props.dataProvider),
+      { initialProps: { dataProvider: dataProviderMock } }
     );
 
     expect(result.current).to.not.be.undefined;
   });
-
 });
 
 describe("useTreeEventsHandler", () => {
-
   it("creates and disposes events handler using factory function", () => {
     const disposeSpy = sinon.spy();
     const handler = { dispose: disposeSpy };
     const factory = sinon.mock().returns(handler);
     const { result, unmount } = renderHook(
-      (props: { factory: () => TreeEventHandler }) => useTreeEventsHandler(props.factory),
-      { initialProps: { factory } },
+      (props: { factory: () => TreeEventHandler }) =>
+        useTreeEventsHandler(props.factory),
+      { initialProps: { factory } }
     );
     expect(factory).to.be.calledOnce;
     expect(result.current).to.eq(handler);
@@ -190,8 +313,16 @@ describe("useTreeEventsHandler", () => {
     const nodeLoaderMock = moq.Mock.ofType<ITreeNodeLoader>();
     const modelSourceMock = moq.Mock.ofType<TreeModelSource>();
     const { result, unmount } = renderHook(
-      (props: { params: TreeEventHandlerParams }) => useTreeEventsHandler(props.params),
-      { initialProps: { params: { nodeLoader: nodeLoaderMock.object, modelSource: modelSourceMock.object } } },
+      (props: { params: TreeEventHandlerParams }) =>
+        useTreeEventsHandler(props.params),
+      {
+        initialProps: {
+          params: {
+            nodeLoader: nodeLoaderMock.object,
+            modelSource: modelSourceMock.object,
+          },
+        },
+      }
     );
     expect(result.current).to.not.be.undefined;
     const disposeSpy = sinon.spy(result.current, "dispose");
@@ -199,5 +330,4 @@ describe("useTreeEventsHandler", () => {
     unmount();
     expect(disposeSpy).to.be.calledOnce;
   });
-
 });

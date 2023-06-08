@@ -4,7 +4,7 @@ Copyright © Bentley Systems, Incorporated. All rights reserved. See LICENSE.md 
 
 ## Description
 
-The __@itwin/appui-layout-react__ package contains internal React components for the AppUI-react panels, widget UI and other purposes and is not expected to be used directly by applications.
+The **@itwin/appui-layout-react** package contains internal React components for the AppUI-react panels, widget UI and other purposes and is not expected to be used directly by applications.
 
 ## Documentation
 
@@ -14,18 +14,18 @@ See the [iTwin.js](https://www.itwinjs.org/learning/ui/) documentation for more 
 
 Look at the existing code and try to keep your code similar.
 
-* Every component class name should follow nz-path-to-component-componentName naming style.
+- Every component class name should follow nz-path-to-component-componentName naming style.
 
-* Every inner class name should have nz- prefix.
+- Every inner class name should have nz- prefix.
 
-* Import the Sass classnames with: `import "./YourComponent.scss";`
+- Import the Sass classnames with: `import "./YourComponent.scss";`
 
-* Every component should accept `className?: string` and `style?: React.CSSProperties` props.
+- Every component should accept `className?: string` and `style?: React.CSSProperties` props.
 
-* Components that accept one or a list of children should use the `children?: React.ReactNode` prop.
+- Components that accept one or a list of children should use the `children?: React.ReactNode` prop.
 
 ### Advice
 
-* Use [classnames](https://www.npmjs.com/package/classnames) function to create className strings for the elements.
+- Use [classnames](https://www.npmjs.com/package/classnames) function to create className strings for the elements.
 
-* Use `const className` inside render for the root element className value.
+- Use `const className` inside render for the root element className value.

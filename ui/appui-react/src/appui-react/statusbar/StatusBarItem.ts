@@ -1,13 +1,17 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module StatusBar
  */
 
 import type * as React from "react";
-import type { BadgeType, ConditionalBooleanValue, ConditionalStringValue } from "@itwin/appui-abstract";
+import type {
+  BadgeType,
+  ConditionalBooleanValue,
+  ConditionalStringValue,
+} from "@itwin/appui-abstract";
 import type { IconSpec } from "@itwin/core-react";
 
 /** Status bar Groups/Sections from Left to Right
@@ -95,25 +99,34 @@ export interface StatusBarCustomItem extends CommonStatusBarItem {
 /** Describes the data needed to insert a button into the status bar.
  * @public
  */
-export type StatusBarItem = StatusBarActionItem | StatusBarLabelItem | StatusBarCustomItem;
+export type StatusBarItem =
+  | StatusBarActionItem
+  | StatusBarLabelItem
+  | StatusBarCustomItem;
 
 /** StatusBarActionItem type guard.
  * @public
  */
-export function isStatusBarActionItem(item: StatusBarItem): item is StatusBarActionItem {
+export function isStatusBarActionItem(
+  item: StatusBarItem
+): item is StatusBarActionItem {
   return "execute" in item;
 }
 
 /** StatusBarLabelItem type guard.
  * @public
  */
-export function isStatusBarLabelItem(item: StatusBarItem): item is StatusBarLabelItem {
+export function isStatusBarLabelItem(
+  item: StatusBarItem
+): item is StatusBarLabelItem {
   return !isStatusBarActionItem(item) && "label" in item;
 }
 
 /** StatusBarCustomItem type guard.
  * @public
  */
-export function isStatusBarCustomItem(item: StatusBarItem): item is StatusBarCustomItem {
+export function isStatusBarCustomItem(
+  item: StatusBarItem
+): item is StatusBarCustomItem {
   return "content" in item;
 }

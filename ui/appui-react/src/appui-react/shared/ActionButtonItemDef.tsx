@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Item
  */
@@ -39,13 +39,11 @@ export abstract class ActionButtonItemDef extends ItemDefBase {
     if (this._commandHandler && this._commandHandler.execute) {
       if (this._commandHandler.getCommandArgs)
         this._commandHandler.execute(this._commandHandler.getCommandArgs());
-      else
-        this._commandHandler.execute(this._commandHandler.parameters);
+      else this._commandHandler.execute(this._commandHandler.parameters);
     }
 
     // istanbul ignore else
-    if (this._onItemExecuted)
-      this._onItemExecuted(this);
+    if (this._onItemExecuted) this._onItemExecuted(this);
   }
 
   /** Called when the size of the action button is initialized and the size is known */
@@ -57,7 +55,10 @@ export abstract class ActionButtonItemDef extends ItemDefBase {
   public getDimension(orientation: Orientation): number {
     let dimension = ActionButtonItemDef.defaultButtonSize;
     if (this.size)
-      dimension = (orientation === Orientation.Horizontal) ? this.size.width : this.size.height;
+      dimension =
+        orientation === Orientation.Horizontal
+          ? this.size.width
+          : this.size.height;
 
     return dimension;
   }

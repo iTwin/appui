@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import { Orientation } from "@itwin/core-react";
@@ -14,8 +14,12 @@ describe("PrimitivePropertyRenderer", () => {
     render(
       <PrimitivePropertyRenderer
         orientation={Orientation.Horizontal}
-        propertyRecord={TestUtils.createPrimitiveStringProperty("Label", "Model")}
-      />);
+        propertyRecord={TestUtils.createPrimitiveStringProperty(
+          "Label",
+          "Model"
+        )}
+      />
+    );
     expect(screen.getByTitle("Label")).to.exist;
   });
 
@@ -23,11 +27,15 @@ describe("PrimitivePropertyRenderer", () => {
     render(
       <PrimitivePropertyRenderer
         orientation={Orientation.Vertical}
-        propertyRecord={TestUtils.createPrimitiveStringProperty("Label", "Model")}
-      />);
+        propertyRecord={TestUtils.createPrimitiveStringProperty(
+          "Label",
+          "Model"
+        )}
+      />
+    );
 
     expect(screen.getByTitle("Label").parentElement)
       .satisfy(selectorMatches(".components-primitive-property-label-renderer"))
-      .satisfy(styleMatch({paddingLeft: "0px"}));
+      .satisfy(styleMatch({ paddingLeft: "0px" }));
   });
 });

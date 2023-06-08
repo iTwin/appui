@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Utilities
  */
@@ -47,15 +47,27 @@ export class Rectangle implements RectangleProps {
   }
 
   /** Create a rectangle with 2 pairs of xy candidates. Theses are compared and shuffled as needed for the rectangle. */
-  public static createXYXY(xA: number, yA: number, xB: number, yB: number): Rectangle {
+  public static createXYXY(
+    xA: number,
+    yA: number,
+    xB: number,
+    yB: number
+  ): Rectangle {
     return new Rectangle(
-      Math.min(xA, xB), Math.min(yA, yB),
-      Math.max(xA, xB), Math.max(yA, yB));
+      Math.min(xA, xB),
+      Math.min(yA, yB),
+      Math.max(xA, xB),
+      Math.max(yA, yB)
+    );
   }
 
   /** Creates rectangle with specified bounds. */
-  public constructor(public readonly left = 0, public readonly top = 0, public readonly right = 0, public readonly bottom = 0) {
-  }
+  public constructor(
+    public readonly left = 0,
+    public readonly top = 0,
+    public readonly right = 0,
+    public readonly bottom = 0
+  ) {}
 
   /** @returns Size of this rectangle. */
   public getSize(): Size {
@@ -97,8 +109,18 @@ export class Rectangle implements RectangleProps {
    * @note Negative arguments will increase the size of rectangle.
    * @returns New [[Rectangle]] with modified bounds.
    */
-  public inset(left: number, top: number, right: number, bottom: number): Rectangle {
-    return new Rectangle(this.left + left, this.top + top, this.right - right, this.bottom - bottom);
+  public inset(
+    left: number,
+    top: number,
+    right: number,
+    bottom: number
+  ): Rectangle {
+    return new Rectangle(
+      this.left + left,
+      this.top + top,
+      this.right - right,
+      this.bottom - bottom
+    );
   }
 
   /**
@@ -106,7 +128,12 @@ export class Rectangle implements RectangleProps {
    * @returns New [[Rectangle]] with modified position.
    */
   public offset(offset: PointProps): Rectangle {
-    return new Rectangle(this.left + offset.x, this.top + offset.y, this.right + offset.x, this.bottom + offset.y);
+    return new Rectangle(
+      this.left + offset.x,
+      this.top + offset.y,
+      this.right + offset.x,
+      this.bottom + offset.y
+    );
   }
 
   /**
@@ -114,7 +141,12 @@ export class Rectangle implements RectangleProps {
    * @returns New [[Rectangle]] with modified position along X axis.
    */
   public offsetX(offset: number): Rectangle {
-    return new Rectangle(this.left + offset, this.top, this.right + offset, this.bottom);
+    return new Rectangle(
+      this.left + offset,
+      this.top,
+      this.right + offset,
+      this.bottom
+    );
   }
 
   /**
@@ -122,7 +154,12 @@ export class Rectangle implements RectangleProps {
    * @returns New [[Rectangle]] with modified position along Y axis.
    */
   public offsetY(offset: number): Rectangle {
-    return new Rectangle(this.left, this.top + offset, this.right, this.bottom + offset);
+    return new Rectangle(
+      this.left,
+      this.top + offset,
+      this.right,
+      this.bottom + offset
+    );
   }
 
   /**
@@ -130,7 +167,12 @@ export class Rectangle implements RectangleProps {
    * @returns New [[Rectangle]] with modified position.
    */
   public setPosition(position: PointProps): Rectangle {
-    return new Rectangle(position.x, position.y, position.x + this.getWidth(), position.y + this.getHeight());
+    return new Rectangle(
+      position.x,
+      position.y,
+      position.x + this.getWidth(),
+      position.y + this.getHeight()
+    );
   }
 
   /**
@@ -157,15 +199,22 @@ export class Rectangle implements RectangleProps {
    * @returns New [[Rectangle]] with modified height.
    */
   public setSize(size: SizeProps): Rectangle {
-    return new Rectangle(this.left, this.top, this.left + size.width, this.top + size.height);
+    return new Rectangle(
+      this.left,
+      this.top,
+      this.left + size.width,
+      this.top + size.height
+    );
   }
 
   /** Checks if bounds of two rectangles match. */
   public equals(other: RectangleProps): boolean {
-    if (this.left === other.left &&
+    if (
+      this.left === other.left &&
       this.top === other.top &&
       this.right === other.right &&
-      this.bottom === other.bottom)
+      this.bottom === other.bottom
+    )
       return true;
 
     return false;
@@ -176,7 +225,12 @@ export class Rectangle implements RectangleProps {
    * @note Inclusive.
    */
   public containsPoint(point: PointProps): boolean {
-    return point.x >= this.left && point.x <= this.right && point.y >= this.top && point.y <= this.bottom;
+    return (
+      point.x >= this.left &&
+      point.x <= this.right &&
+      point.y >= this.top &&
+      point.y <= this.bottom
+    );
   }
 
   /**
@@ -184,7 +238,7 @@ export class Rectangle implements RectangleProps {
    * @note Inclusive.
    */
   public containsXY(x: number, y: number): boolean {
-    return this.containsPoint({x, y});
+    return this.containsPoint({ x, y });
   }
 
   /**
@@ -192,7 +246,12 @@ export class Rectangle implements RectangleProps {
    * @note Inclusive.
    */
   public contains(other: RectangleProps): boolean {
-    return other.left >= this.left && other.right <= this.right && other.top >= this.top && other.bottom <= this.bottom;
+    return (
+      other.left >= this.left &&
+      other.right <= this.right &&
+      other.top >= this.top &&
+      other.bottom <= this.bottom
+    );
   }
 
   /** @returns New [[Rectangle]] which is contained in other rectangle. */
@@ -228,8 +287,12 @@ export class Rectangle implements RectangleProps {
 
   /** @returns true if this rectangle intersects other rectangle. */
   public intersects(other: RectangleProps): boolean {
-    return this.left < other.right && this.right > other.left &&
-      this.top < other.bottom && this.bottom > other.top;
+    return (
+      this.left < other.right &&
+      this.right > other.left &&
+      this.top < other.bottom &&
+      this.bottom > other.top
+    );
   }
 
   /**
@@ -248,7 +311,10 @@ export class Rectangle implements RectangleProps {
    * Vertically divides this rectangle into specified number of equal height segments.
    * @returns Vertical rectangle segment.
    */
-  public getVerticalSegmentBounds(segmentId: number, numberOfSegments: number): Rectangle {
+  public getVerticalSegmentBounds(
+    segmentId: number,
+    numberOfSegments: number
+  ): Rectangle {
     const segmentHeight = this.getHeight() / numberOfSegments;
 
     const top = segmentId * segmentHeight;
@@ -259,7 +325,10 @@ export class Rectangle implements RectangleProps {
    * Horizontally divides this rectangle into specified number of equal width segments.
    * @returns Horizontal rectangle segment.
    */
-  public getHorizontalSegmentBounds(segmentId: number, numberOfSegments: number): Rectangle {
+  public getHorizontalSegmentBounds(
+    segmentId: number,
+    numberOfSegments: number
+  ): Rectangle {
     const segmentWidth = this.getWidth() / numberOfSegments;
 
     const left = segmentId * segmentWidth;
@@ -275,25 +344,32 @@ export class Rectangle implements RectangleProps {
 
     if (point.x < this.left) {
       if (point.y < this.top)
-        shortestDistance = UiGeometry.hypotenuseXY(this.left - point.x, this.top - point.y);
-      else if (point.y <= this.bottom)
-        shortestDistance = this.left - point.x;
+        shortestDistance = UiGeometry.hypotenuseXY(
+          this.left - point.x,
+          this.top - point.y
+        );
+      else if (point.y <= this.bottom) shortestDistance = this.left - point.x;
       else
-        shortestDistance = UiGeometry.hypotenuseXY(this.left - point.x, this.bottom - point.y);
+        shortestDistance = UiGeometry.hypotenuseXY(
+          this.left - point.x,
+          this.bottom - point.y
+        );
     } else if (point.x <= this.right) {
-      if (point.y < this.top)
-        shortestDistance = this.top - point.y;
-      else if (point.y <= this.bottom)
-        shortestDistance = 0;
-      else
-        shortestDistance = point.y - this.bottom;
+      if (point.y < this.top) shortestDistance = this.top - point.y;
+      else if (point.y <= this.bottom) shortestDistance = 0;
+      else shortestDistance = point.y - this.bottom;
     } else {
       if (point.y < this.top)
-        shortestDistance = UiGeometry.hypotenuseXY(this.right - point.x, this.top - point.y);
-      else if (point.y <= this.bottom)
-        shortestDistance = point.x - this.right;
+        shortestDistance = UiGeometry.hypotenuseXY(
+          this.right - point.x,
+          this.top - point.y
+        );
+      else if (point.y <= this.bottom) shortestDistance = point.x - this.right;
       else
-        shortestDistance = UiGeometry.hypotenuseXY(this.right - point.x, this.bottom - point.y);
+        shortestDistance = UiGeometry.hypotenuseXY(
+          this.right - point.x,
+          this.bottom - point.y
+        );
     }
 
     return shortestDistance;

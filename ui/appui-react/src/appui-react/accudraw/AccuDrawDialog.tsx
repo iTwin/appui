@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module AccuDraw
  */
@@ -9,7 +9,7 @@
 import "./AccuDrawDialog.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps} from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
 import { Orientation } from "@itwin/core-react";
 import { UiFramework } from "../UiFramework";
 import { ModelessDialog } from "../dialog/ModelessDialog";
@@ -48,12 +48,14 @@ export function AccuDrawDialog(props: AccuDrawDialogProps) {
   }, []);
 
   const classNames = classnames("uifw-accudraw-dialog", props.className);
-  const orientation = (props.orientation !== undefined) ? props.orientation : Orientation.Vertical;
-  const dialogWidth = (orientation === Orientation.Horizontal) ? 500 : 250;
+  const orientation =
+    props.orientation !== undefined ? props.orientation : Orientation.Vertical;
+  const dialogWidth = orientation === Orientation.Horizontal ? 500 : 250;
 
   return (
     <ModelessDialog
-      className={classNames} style={props.style}
+      className={classNames}
+      style={props.style}
       title={title.current}
       opened={opened}
       dialogId={props.dialogId}
@@ -65,6 +67,6 @@ export function AccuDrawDialog(props: AccuDrawDialogProps) {
       onEscape={handleEscape}
     >
       <AccuDrawFieldContainer orientation={orientation} />
-    </ModelessDialog >
+    </ModelessDialog>
   );
 }

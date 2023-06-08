@@ -1,17 +1,20 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as moq from "typemoq";
-import type { PrimitiveValue, PropertyConverterInfo, PropertyDescription } from "@itwin/appui-abstract";
+import type {
+  PrimitiveValue,
+  PropertyConverterInfo,
+  PropertyDescription,
+} from "@itwin/appui-abstract";
 import { TypeConverter } from "../../components-react";
 import TestUtils from "../TestUtils";
 
 describe("TypeConverter", () => {
-
   class TestTypeConverter extends TypeConverter {
-    public sortCompare({ }, { }, _ignoreCase?: boolean | undefined): number {
+    public sortCompare({}, {}, _ignoreCase?: boolean | undefined): number {
       throw new Error("Method not implemented.");
     }
   }
@@ -51,29 +54,55 @@ describe("TypeConverter", () => {
   };
 
   it("convertPropertyToString", async () => {
-    const stringValue = await converter.convertPropertyToString(createPropertyDescription(), "abc");
+    const stringValue = await converter.convertPropertyToString(
+      createPropertyDescription(),
+      "abc"
+    );
     expect(stringValue).to.equal("abc");
   });
 
   describe("convertFromStringToPropertyValue", async () => {
     it("returns property with undefined value when convertFromString returns undefined", async () => {
-      const converterMock = moq.Mock.ofType(TestTypeConverter, moq.MockBehavior.Loose);
+      const converterMock = moq.Mock.ofType(
+        TestTypeConverter,
+        moq.MockBehavior.Loose
+      );
       converterMock.callBase = true;
-      converterMock.setup(async (mock) => mock.convertFromString(moq.It.isAny())).returns(async () => undefined);
+      converterMock
+        .setup(async (mock) => mock.convertFromString(moq.It.isAny()))
+        .returns(async () => undefined);
 
-      const propertyValue = await converterMock.object.convertFromStringToPropertyValue("def", TestUtils.createPrimitiveStringProperty("abc", "abc"));
+      const propertyValue =
+        await converterMock.object.convertFromStringToPropertyValue(
+          "def",
+          TestUtils.createPrimitiveStringProperty("abc", "abc")
+        );
       expect((propertyValue as PrimitiveValue).value).to.be.undefined;
     });
 
     it("returns property with correct value when convertFromString also returns a correct value", async () => {
-      const converterMock = moq.Mock.ofType(TestTypeConverter, moq.MockBehavior.Loose);
+      const converterMock = moq.Mock.ofType(
+        TestTypeConverter,
+        moq.MockBehavior.Loose
+      );
       converterMock.callBase = true;
-      converterMock.setup(async (mock) => mock.convertFromString(moq.It.isAny())).returns(async (value: string) => value);
+      converterMock
+        .setup(async (mock) => mock.convertFromString(moq.It.isAny()))
+        .returns(async (value: string) => value);
 
-      const propertyRecord = TestUtils.createPrimitiveStringProperty("abc", "abc");
-      const convertInfo: PropertyConverterInfo = { options: new Map([["test", "test"]]) };
+      const propertyRecord = TestUtils.createPrimitiveStringProperty(
+        "abc",
+        "abc"
+      );
+      const convertInfo: PropertyConverterInfo = {
+        options: new Map([["test", "test"]]),
+      };
       propertyRecord.property.converter = convertInfo;
-      const propertyValue = await converterMock.object.convertFromStringToPropertyValue("def", propertyRecord);
+      const propertyValue =
+        await converterMock.object.convertFromStringToPropertyValue(
+          "def",
+          propertyRecord
+        );
       expect((propertyValue as PrimitiveValue).value).to.be.eq("def");
     });
   });

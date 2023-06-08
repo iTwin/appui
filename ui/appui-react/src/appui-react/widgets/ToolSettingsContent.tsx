@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module Widget
  */
@@ -16,6 +16,7 @@ export interface ToolSettingsContentContextProps {
 }
 
 /** @internal */
-export const ToolSettingsContentContext = React.createContext<ToolSettingsContentContextProps>({
-  availableContentWidth: 0,
-});
+export const ToolSettingsContentContext =
+  React.createContext<ToolSettingsContentContextProps>({
+    availableContentWidth: 0,
+  });

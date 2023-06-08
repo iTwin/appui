@@ -41,11 +41,11 @@ public;CustomToolbarItem
 deprecated;CustomToolbarItem 
 public;DataController
 public;class DataControllerBase 
-internal;DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className }: DateFieldProps): JSX.Element
+internal;DateField({ initialDate, onDateChange, readOnly, dateFormatter, timeDisplay, style, className, }: DateFieldProps): JSX.Element
 internal;DateFieldProps 
 public;DateFormatOptions
 alpha;DatePicker(props: DatePickerProps): JSX.Element
-alpha;DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style }: DatePickerPopupButtonProps): JSX.Element
+alpha;DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): JSX.Element
 alpha;DatePickerPopupButtonProps 
 alpha;DatePickerProps
 internal;DateTimeEditor 
@@ -292,7 +292,7 @@ public;TableStructValueRenderer
 public;TextareaEditor 
 public;TextareaPropertyEditor 
 public;TextEditor 
-internal;TimeField({ time, timeDisplay, readOnly, onTimeChange }: TimeFieldProps): JSX.Element
+internal;TimeField({ time, timeDisplay, readOnly, onTimeChange, }: TimeFieldProps): JSX.Element
 internal;TimeFieldProps
 internal;TimeSpec
 internal;Title(props: TitleProps): JSX.Element
@@ -306,7 +306,7 @@ public;ToolbarButtonItem: React_2.MemoExoticComponent
 public;ToolbarButtonItemProps 
 public;ToolbarItem = ActionButton | GroupButton | CustomToolbarItem
 deprecated;ToolbarItem = ActionButton | GroupButton | CustomToolbarItem
-internal;ToolbarItemComponent({ item, addGroupSeparator }:
+internal;ToolbarItemComponent({ item, addGroupSeparator, }:
 internal;ToolbarItemContext: React_2.Context
 internal;ToolbarItemContextArgs
 public;ToolbarOpacitySetting

@@ -1,14 +1,27 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { RatioChangeResult} from "@itwin/core-react";
+import type { RatioChangeResult } from "@itwin/core-react";
 import { Orientation, UiGeometry } from "@itwin/core-react";
 import type { PropertyListProps } from "./PropertyList";
 
 /** @internal */
-export type ColumnResizeRelatedPropertyListProps = Required<Pick<PropertyListProps, "onColumnChanged" | "columnRatio" | "isResizeHandleHovered" | "onResizeHandleHoverChanged" | "isResizeHandleBeingDragged" | "onResizeHandleDragChanged" | "columnInfo" | "orientation" | "width">>;
+export type ColumnResizeRelatedPropertyListProps = Required<
+  Pick<
+    PropertyListProps,
+    | "onColumnChanged"
+    | "columnRatio"
+    | "isResizeHandleHovered"
+    | "onResizeHandleHoverChanged"
+    | "isResizeHandleBeingDragged"
+    | "onResizeHandleDragChanged"
+    | "columnInfo"
+    | "orientation"
+    | "width"
+  >
+>;
 
 /** @internal */
 export interface ColumnResizingPropertyListPropsSupplierProps {
@@ -37,7 +50,10 @@ export interface ColumnResizingPropertyListPropsSupplierState {
  * Wrapped PropertyCategoryBlock React component with list of properties and render optimization
  * @internal
  */
-export class ColumnResizingPropertyListPropsSupplier extends React.Component<ColumnResizingPropertyListPropsSupplierProps, ColumnResizingPropertyListPropsSupplierState> {
+export class ColumnResizingPropertyListPropsSupplier extends React.Component<
+  ColumnResizingPropertyListPropsSupplierProps,
+  ColumnResizingPropertyListPropsSupplierState
+> {
   private readonly _initialRatio = 0.25;
   private readonly _defaultMinRatio = 0.15;
   private readonly _defaultMaxRatio = 0.6;
@@ -50,16 +66,16 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<Col
     isResizeHandleBeingDragged: false,
   };
 
-  public static defaultProps: Partial<ColumnResizingPropertyListPropsSupplierProps> = {
-    minLabelWidth: 100,
-    minValueWidth: 100,
-    actionButtonWidth: 90,
-  };
+  public static defaultProps: Partial<ColumnResizingPropertyListPropsSupplierProps> =
+    {
+      minLabelWidth: 100,
+      minValueWidth: 100,
+      actionButtonWidth: 90,
+    };
 
   private _onColumnRatioChanged = (ratio: number): RatioChangeResult => {
     ratio = UiGeometry.clamp(ratio, this._minRatio, this._maxRatio);
-    if (this.state.columnRatio === ratio)
-      return { ratio };
+    if (this.state.columnRatio === ratio) return { ratio };
 
     this.setState({ columnRatio: ratio });
     return { ratio };
@@ -75,23 +91,36 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<Col
   };
 
   private isMinimumColumnSizeEnabled() {
-    if (this.props.orientation !== Orientation.Horizontal)
-      return false;
+    if (this.props.orientation !== Orientation.Horizontal) return false;
 
     // default behavior for screens that are too small to have minimum column widths
-    if (this.props.width < this.props.minLabelWidth! + 1 + this.props.minValueWidth! + this.props.actionButtonWidth!) {
+    if (
+      this.props.width <
+      this.props.minLabelWidth! +
+        1 +
+        this.props.minValueWidth! +
+        this.props.actionButtonWidth!
+    ) {
       this._minRatio = this._defaultMinRatio;
       this._maxRatio = this._defaultMaxRatio;
       return false;
     }
 
     this._minRatio = this.props.minLabelWidth! / this.props.width;
-    this._maxRatio = (this.props.width - this.props.actionButtonWidth! - this.props.minValueWidth!) / this.props.width;
+    this._maxRatio =
+      (this.props.width -
+        this.props.actionButtonWidth! -
+        this.props.minValueWidth!) /
+      this.props.width;
     return true;
   }
 
   private getValidColumnRatio(): number {
-    return UiGeometry.clamp(this.state.columnRatio, this._minRatio, this._maxRatio);
+    return UiGeometry.clamp(
+      this.state.columnRatio,
+      this._minRatio,
+      this._maxRatio
+    );
   }
 
   public override render() {

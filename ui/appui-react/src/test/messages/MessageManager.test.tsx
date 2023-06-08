@@ -1,18 +1,21 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import { expect } from "chai";
 import * as React from "react";
 import * as sinon from "sinon";
-import { MessageBoxIconType, NotifyMessageDetails, OutputMessagePriority } from "@itwin/core-frontend";
+import {
+  MessageBoxIconType,
+  NotifyMessageDetails,
+  OutputMessagePriority,
+} from "@itwin/core-frontend";
 import { MessageSeverity } from "@itwin/appui-abstract";
 import { UnderlinedButton } from "@itwin/core-react";
 import { MessageManager, ReactNotifyMessageDetails } from "../../appui-react";
 import TestUtils from "../TestUtils";
 
 describe("MessageManager", () => {
-
   before(async () => {
     await TestUtils.initializeUiFramework();
   });
@@ -30,13 +33,19 @@ describe("MessageManager", () => {
     clearSpy.calledOnce.should.true;
 
     for (let i = 0; i < 500; i++) {
-      const details = new NotifyMessageDetails(OutputMessagePriority.Debug, `A brief message - ${i}.`);
+      const details = new NotifyMessageDetails(
+        OutputMessagePriority.Debug,
+        `A brief message - ${i}.`
+      );
       MessageManager.addMessage(details);
     }
     expect(MessageManager.messages.length).to.eq(500);
 
     clearSpy.resetHistory();
-    const details2 = new NotifyMessageDetails(OutputMessagePriority.Debug, `A brief message.`);
+    const details2 = new NotifyMessageDetails(
+      OutputMessagePriority.Debug,
+      `A brief message.`
+    );
     MessageManager.addMessage(details2);
     expect(MessageManager.messages.length).to.eq(376);
     clearSpy.calledTwice.should.true;
@@ -52,39 +61,84 @@ describe("MessageManager", () => {
   });
 
   it("getIconType should return proper icon type", () => {
-    let details = new NotifyMessageDetails(OutputMessagePriority.Info, "A brief message.");
-    expect(MessageManager.getIconType(details)).to.eq(MessageBoxIconType.Information);
+    let details = new NotifyMessageDetails(
+      OutputMessagePriority.Info,
+      "A brief message."
+    );
+    expect(MessageManager.getIconType(details)).to.eq(
+      MessageBoxIconType.Information
+    );
 
-    details = new NotifyMessageDetails(OutputMessagePriority.Warning, "A brief message.");
-    expect(MessageManager.getIconType(details)).to.eq(MessageBoxIconType.Warning);
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.Warning,
+      "A brief message."
+    );
+    expect(MessageManager.getIconType(details)).to.eq(
+      MessageBoxIconType.Warning
+    );
 
-    details = new NotifyMessageDetails(OutputMessagePriority.Error, "A brief message.");
-    expect(MessageManager.getIconType(details)).to.eq(MessageBoxIconType.Critical);
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.Error,
+      "A brief message."
+    );
+    expect(MessageManager.getIconType(details)).to.eq(
+      MessageBoxIconType.Critical
+    );
 
-    details = new NotifyMessageDetails(OutputMessagePriority.Fatal, "A brief message.");
-    expect(MessageManager.getIconType(details)).to.eq(MessageBoxIconType.Critical);
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.Fatal,
+      "A brief message."
+    );
+    expect(MessageManager.getIconType(details)).to.eq(
+      MessageBoxIconType.Critical
+    );
 
-    details = new NotifyMessageDetails(OutputMessagePriority.None, "A brief message.");
-    expect(MessageManager.getIconType(details)).to.eq(MessageBoxIconType.NoSymbol);
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.None,
+      "A brief message."
+    );
+    expect(MessageManager.getIconType(details)).to.eq(
+      MessageBoxIconType.NoSymbol
+    );
   });
 
   it("getSeverity should return proper severity", () => {
-    let details = new NotifyMessageDetails(OutputMessagePriority.Info, "A brief message.");
-    expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Information);
+    let details = new NotifyMessageDetails(
+      OutputMessagePriority.Info,
+      "A brief message."
+    );
+    expect(MessageManager.getSeverity(details)).to.eq(
+      MessageSeverity.Information
+    );
 
-    details = new NotifyMessageDetails(OutputMessagePriority.Warning, "A brief message.");
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.Warning,
+      "A brief message."
+    );
     expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Warning);
 
-    details = new NotifyMessageDetails(OutputMessagePriority.Error, "A brief message.");
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.Error,
+      "A brief message."
+    );
     expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Error);
 
-    details = new NotifyMessageDetails(OutputMessagePriority.Fatal, "A brief message.");
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.Fatal,
+      "A brief message."
+    );
     expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Fatal);
 
-    details = new NotifyMessageDetails(OutputMessagePriority.None, "A brief message.");
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.None,
+      "A brief message."
+    );
     expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Success);
 
-    details = new NotifyMessageDetails(OutputMessagePriority.Success, "A brief message.");
+    details = new NotifyMessageDetails(
+      OutputMessagePriority.Success,
+      "A brief message."
+    );
     expect(MessageManager.getSeverity(details)).to.eq(MessageSeverity.Success);
   });
 
@@ -92,11 +146,17 @@ describe("MessageManager", () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
 
-    const details1 = new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.");
+    const details1 = new NotifyMessageDetails(
+      OutputMessagePriority.Debug,
+      "A brief message."
+    );
     MessageManager.addMessage(details1);
     expect(MessageManager.messages.length).to.eq(1);
 
-    const details2 = new NotifyMessageDetails(OutputMessagePriority.Error, "Another brief message.");
+    const details2 = new NotifyMessageDetails(
+      OutputMessagePriority.Error,
+      "Another brief message."
+    );
     MessageManager.addMessage(details2);
     expect(MessageManager.messages.length).to.eq(2);
   });
@@ -105,11 +165,17 @@ describe("MessageManager", () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
 
-    const details1 = new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.");
+    const details1 = new NotifyMessageDetails(
+      OutputMessagePriority.Debug,
+      "A brief message."
+    );
     MessageManager.addMessage(details1);
     expect(MessageManager.messages.length).to.eq(1);
 
-    const details2 = new NotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.");
+    const details2 = new NotifyMessageDetails(
+      OutputMessagePriority.Debug,
+      "A brief message."
+    );
     MessageManager.addMessage(details2);
     expect(MessageManager.messages.length).to.eq(1);
   });
@@ -118,18 +184,27 @@ describe("MessageManager", () => {
     MessageManager.clearMessages();
     expect(MessageManager.messages.length).to.eq(0);
 
-    const reactNode = (<span>For more details, <UnderlinedButton>click here</UnderlinedButton>.</span>);
-    const details1 = new ReactNotifyMessageDetails(OutputMessagePriority.Debug, "A brief message.", { reactNode });
+    const reactNode = (
+      <span>
+        For more details, <UnderlinedButton>click here</UnderlinedButton>.
+      </span>
+    );
+    const details1 = new ReactNotifyMessageDetails(
+      OutputMessagePriority.Debug,
+      "A brief message.",
+      { reactNode }
+    );
     MessageManager.outputMessage(details1);
     expect(MessageManager.messages.length).to.eq(1);
   });
 
   it("openMessageCenter raises OpenMessageCenterEvent", () => {
     const onOpenMessageCenterEventSpy = sinon.spy();
-    MessageManager.onOpenMessageCenterEvent.addOnce(onOpenMessageCenterEventSpy);
+    MessageManager.onOpenMessageCenterEvent.addOnce(
+      onOpenMessageCenterEventSpy
+    );
 
     MessageManager.openMessageCenter();
     expect(onOpenMessageCenterEventSpy.callCount).to.eq(1);
   });
-
 });

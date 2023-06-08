@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module PropertyGrid
  */
@@ -48,7 +48,7 @@ export declare type PropertyDataChangesListener = () => void;
 /** An event broadcasted on property data changes
  * @public
  */
-export class PropertyDataChangeEvent extends BeEvent<PropertyDataChangesListener> { }
+export class PropertyDataChangeEvent extends BeEvent<PropertyDataChangesListener> {}
 
 /**
  * An interface for property data provider which returns
@@ -57,7 +57,7 @@ export class PropertyDataChangeEvent extends BeEvent<PropertyDataChangesListener
  */
 export interface IPropertyDataProvider {
   /** Returns property data. */
-  getData: (() => Promise<PropertyData>);
+  getData: () => Promise<PropertyData>;
   /** Property data change event. */
   onDataChanged: PropertyDataChangeEvent;
 }

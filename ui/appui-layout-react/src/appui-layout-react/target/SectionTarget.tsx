@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
  * @module WidgetPanels
  */
@@ -13,7 +13,10 @@ import { assert } from "@itwin/core-bentley";
 import { DraggedWidgetIdContext, useTarget } from "../base/DragManager";
 import { CursorTypeContext, getUniqueId } from "../base/NineZone";
 import { getCursorClassName } from "../widget-panels/CursorOverlay";
-import { isHorizontalPanelSide, PanelSideContext } from "../widget-panels/Panel";
+import {
+  isHorizontalPanelSide,
+  PanelSideContext,
+} from "../widget-panels/Panel";
 import { useAllowedPanelTarget } from "./useAllowedPanelTarget";
 import type { SectionDropTargetState } from "../state/DropTargetState";
 import { useLayout } from "../base/LayoutStore";
@@ -30,7 +33,9 @@ export function SectionTarget(props: SectionTargetProps) {
   const draggedTab = useLayout((state) => !!state.draggedTab);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const direction = useTargetDirection();
-  const [ref, targeted] = useTarget<HTMLDivElement>(useSectionTargetArgs(sectionIndex));
+  const [ref, targeted] = useTarget<HTMLDivElement>(
+    useSectionTargetArgs(sectionIndex)
+  );
   const allowedTarget = useAllowedPanelTarget();
   const hidden = !allowedTarget || (!draggedTab && !draggedWidgetId);
   const className = classnames(
@@ -40,24 +45,25 @@ export function SectionTarget(props: SectionTargetProps) {
     targeted && "nz-targeted",
     hidden && "nz-hidden",
     // istanbul ignore next
-    cursorType && getCursorClassName(cursorType),
+    cursorType && getCursorClassName(cursorType)
   );
   return (
-    <div
-      className={className}
-      ref={ref}
-    >
-      <div className={classnames(
-        "nz-section",
-        "nz-start",
-        sectionIndex === 0 && "nz-target",
-      )} />
+    <div className={className} ref={ref}>
+      <div
+        className={classnames(
+          "nz-section",
+          "nz-start",
+          sectionIndex === 0 && "nz-target"
+        )}
+      />
       <div className="nz-border" />
-      <div className={classnames(
-        "nz-section",
-        "nz-end",
-        sectionIndex === 1 && "nz-target",
-      )} />
+      <div
+        className={classnames(
+          "nz-section",
+          "nz-end",
+          sectionIndex === 1 && "nz-target"
+        )}
+      />
     </div>
   );
 }
