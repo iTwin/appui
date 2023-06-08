@@ -43,6 +43,12 @@ Added `SelectionCountField` component to increase the configurability of an exis
 
 ## @itwin/core-react
 
+### Changed base `Dialog` component for `MessageBox`
+
+Made `MessageBox` appearance consistent with @itwin/itwinui-react `Dialog` component without introducing breaking changes. This change is a stepping stone for standardizing iTwinUI `Dialog` component.
+
+### Fixes
+
 - Fixed gaps between tree nodes in `TreeNodeItem` component
 
 ## @itwin/components-react
