@@ -65,9 +65,9 @@ describe("IconHelper", () => {
 
     const iconNode = IconHelper.getIconReactNode(iconSpec, internalData);
     expect(iconNode).not.to.be.undefined;
-    expect((iconNode as React.ReactElement).props.iconSpec.props.children).to.eq(
-      "Test"
-    );
+    expect(
+      (iconNode as React.ReactElement).props.iconSpec.props.children
+    ).to.eq("Test");
   });
 
   it("should get empty string back", () => {
