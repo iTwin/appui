@@ -424,11 +424,15 @@
     },
     {
       "name": "@typescript-eslint/parser",
-      "allowedCategories": [ "tools" ]
+      "allowedCategories": [ "internal", "tools" ]
     },
     {
       "name": "@typescript-eslint/typescript-estree",
       "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "@wojtekmaj/enzyme-adapter-react-17",
@@ -637,6 +641,14 @@
     {
       "name": "eslint-plugin-react-hooks",
       "allowedCategories": [ "internal", "tools" ]
+    },
+    {
+      "name": "eslint-plugin-react-refresh",
+      "allowedCategories": [ "internal" ]
+    },
+    {
+      "name": "eslint-plugin-storybook",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "eslint-plugin-testing-library",
@@ -875,6 +887,10 @@
       "allowedCategories": [ "tools" ]
     },
     {
+      "name": "prop-types",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "puppeteer",
       "allowedCategories": [ "integration-testing", "tools" ]
     },
@@ -1031,6 +1047,10 @@
       "allowedCategories": [ "internal" ]
     },
     {
+      "name": "storybook",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "stream-browserify",
       "allowedCategories": [ "integration-testing", "internal" ]
     },
@@ -1101,6 +1121,10 @@
     {
       "name": "uuid",
       "allowedCategories": [ "frontend", "tools" ]
+    },
+    {
+      "name": "vite",
+      "allowedCategories": [ "internal" ]
     },
     {
       "name": "webpack",

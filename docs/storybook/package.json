@@ -1,5 +1,5 @@
 {
-  "name": "storybook",
+  "name": "appui-storybook",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,8 +12,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.20",
@@ -23,18 +23,18 @@
     "@storybook/react": "^7.0.20",
     "@storybook/react-vite": "^7.0.20",
     "@storybook/testing-library": "^0.0.14-next.2",
-    "@types/react": "^18.0.37",
-    "@types/react-dom": "^18.0.11",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react": "^4.0.0",
-    "eslint": "^8.38.0",
+    "eslint": "^7.11.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "eslint-plugin-storybook": "^0.6.12",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.20",
-    "typescript": "^5.0.2",
+    "typescript": "~5.0.2",
     "vite": "^4.3.9"
   }
 }
