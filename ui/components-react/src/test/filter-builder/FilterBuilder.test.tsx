@@ -261,6 +261,24 @@ describe("PropertyFilterBuilder", () => {
       });
     });
 
+    it("returns filter condition when group has at least one rule and others rules are empty", () => {
+      const ruleGroup: PropertyFilterBuilderRuleGroup = {
+        id: "rootGroup",
+        operator: PropertyFilterRuleGroupOperator.And,
+        items: [
+          defaultRule,
+          { ...defaultRule, operator: undefined },
+          { ...defaultRule, property: undefined },
+          { ...defaultRule, value: undefined },
+        ],
+      };
+      expect(buildPropertyFilter(ruleGroup)).to.containSubset({
+        operator: defaultRule.operator,
+        property: defaultRule.property,
+        value: defaultRule.value,
+      });
+    });
+
     it("returns filter conditions group when group has multiple rules", () => {
       const ruleGroup: PropertyFilterBuilderRuleGroup = {
         id: "rootGroup",
