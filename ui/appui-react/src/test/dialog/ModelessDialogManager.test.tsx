@@ -217,4 +217,32 @@ describe("ModelessDialogManager", () => {
     UiFramework.dialogs.modeless.close(dialogId2);
     expect(UiFramework.dialogs.modeless.count).to.eq(0);
   });
+
+  it("internal: closeAll should not leave active dialogs", () => {
+    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    const dialogId = "closeAll1";
+    UiFramework.dialogs.modeless.open(<div />, dialogId);
+    expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    expect(UiFramework.dialogs.modeless.active).to.not.be.undefined;
+    InternalModelessDialogManager.closeAll();
+    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    expect(UiFramework.dialogs.modeless.active).to.be.undefined;
+  });
+
+  it("internal: closeAll should clear dialog ids", async () => {
+    expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    const dialogId = "closeAll2";
+    UiFramework.dialogs.modeless.open(<div />, dialogId);
+    await waitFor(() => {
+      expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    });
+    InternalModelessDialogManager.closeAll();
+    await waitFor(() => {
+      expect(UiFramework.dialogs.modeless.count).to.eq(0);
+    });
+    UiFramework.dialogs.modeless.open(<div />, dialogId);
+    await waitFor(() => {
+      expect(UiFramework.dialogs.modeless.count).to.eq(1);
+    });
+  });
 });
