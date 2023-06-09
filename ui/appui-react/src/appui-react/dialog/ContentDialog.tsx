@@ -92,11 +92,8 @@ export function ContentDialog(props: ContentDialogProps) {
     children,
     dialogId,
     style,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     modal,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     modelessId,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onModelessPointerDown,
     ...otherProps
   } = props;

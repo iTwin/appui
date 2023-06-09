@@ -84,7 +84,7 @@ export class GlobalContextMenu extends React.PureComponent<
   };
 
   public override render(): React.ReactNode {
-    const { x, y, identifier, contextMenuComponent, ...props } = this.props; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { x, y, identifier, contextMenuComponent, ...props } = this.props;
     const positioningStyle: React.CSSProperties = {
       left: x,
       top: y,

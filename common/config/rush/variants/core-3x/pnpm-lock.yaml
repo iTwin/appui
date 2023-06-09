@@ -32,6 +32,7 @@ importers:
       '@itwin/itwinui-variables': ^2.0.0
       '@itwin/webgl-compatibility': ^3.7.0
       '@reduxjs/toolkit': ^1.5.0
+      '@rushstack/eslint-patch': ^1.3.0
       '@types/react': ^17.0.37
       '@types/react-redux': ^7.1.18
       '@types/react-table': ^7.7.0
@@ -67,6 +68,7 @@ importers:
     devDependencies:
       '@itwin/build-tools': 3.7.4
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
+      '@rushstack/eslint-patch': 1.3.0
       '@types/react': 17.0.53
       '@types/react-redux': 7.1.25
       '@types/react-table': 7.7.14
@@ -123,6 +125,7 @@ importers:
       '@itwin/projects-client': ^0.6.0
       '@itwin/reality-data-client': 0.9.0
       '@itwin/webgl-compatibility': ^3.7.0
+      '@rushstack/eslint-patch': ^1.3.0
       '@types/node': 18.11.5
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.0
@@ -197,6 +200,7 @@ importers:
       '@itwin/build-tools': 3.7.4
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/projects-client': 0.6.0
+      '@rushstack/eslint-patch': 1.3.0
       '@types/node': 18.11.5
       '@types/react': 17.0.53
       '@types/react-dom': 17.0.19
@@ -254,6 +258,7 @@ importers:
       '@itwin/projects-client': ^0.6.0
       '@itwin/reality-data-client': 0.9.0
       '@itwin/webgl-compatibility': ^3.7.0
+      '@rushstack/eslint-patch': ^1.3.0
       '@types/node': 18.11.5
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.0
@@ -321,6 +326,7 @@ importers:
       '@itwin/build-tools': 3.7.4
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/projects-client': 0.6.0
+      '@rushstack/eslint-patch': 1.3.0
       '@types/node': 18.11.5
       '@types/react': 17.0.53
       '@types/react-dom': 17.0.19
@@ -393,6 +399,7 @@ importers:
       '@itwin/eslint-plugin': ^3.7.0
       '@itwin/itwinui-icons-react': ^2.1.0
       '@itwin/itwinui-variables': ^2.0.0
+      '@rushstack/eslint-patch': ^1.3.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
@@ -446,6 +453,7 @@ importers:
       '@itwin/core-bentley': 3.7.0
       '@itwin/core-react': link:../core-react
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
+      '@rushstack/eslint-patch': 1.3.0
       '@testing-library/dom': 8.20.0
       '@testing-library/react': 12.1.5_react-dom@17.0.2+react@17.0.2
       '@testing-library/react-hooks': 7.0.2_react-dom@17.0.2+react@17.0.2
@@ -505,6 +513,7 @@ importers:
       '@itwin/itwinui-react': ^2.5.0
       '@itwin/itwinui-variables': ^2.0.0
       '@itwin/webgl-compatibility': ^3.7.0
+      '@rushstack/eslint-patch': ^1.3.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
@@ -581,6 +590,7 @@ importers:
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/imodel-components-react': link:../imodel-components-react
       '@itwin/webgl-compatibility': 3.7.0
+      '@rushstack/eslint-patch': 1.3.0
       '@testing-library/dom': 8.20.0
       '@testing-library/react': 12.1.5_react-dom@17.0.2+react@17.0.2
       '@testing-library/react-hooks': 7.0.2_fc2bb8a5b006d3f25c5f84ea777e678d
@@ -638,6 +648,7 @@ importers:
       '@itwin/itwinui-icons-react': ^2.1.0
       '@itwin/itwinui-react': ^2.5.0
       '@itwin/itwinui-variables': ^2.0.0
+      '@rushstack/eslint-patch': ^1.3.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
@@ -711,6 +722,7 @@ importers:
       '@itwin/core-i18n': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/core-react': link:../core-react
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
+      '@rushstack/eslint-patch': 1.3.0
       '@testing-library/dom': 8.20.0
       '@testing-library/react': 12.1.5_react-dom@17.0.2+react@17.0.2
       '@testing-library/react-hooks': 7.0.2_react-dom@17.0.2+react@17.0.2
@@ -766,6 +778,7 @@ importers:
       '@itwin/itwinui-icons-react': ^2.1.0
       '@itwin/itwinui-react': ^2.5.0
       '@itwin/itwinui-variables': ^2.0.0
+      '@rushstack/eslint-patch': ^1.3.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
@@ -824,6 +837,7 @@ importers:
       '@itwin/core-geometry': 3.7.0
       '@itwin/core-i18n': 3.7.0_@itwin+core-bentley@3.7.0
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
+      '@rushstack/eslint-patch': 1.3.0
       '@testing-library/dom': 8.20.0
       '@testing-library/react': 12.1.5_react-dom@17.0.2+react@17.0.2
       '@testing-library/react-hooks': 7.0.2_fc2bb8a5b006d3f25c5f84ea777e678d
@@ -878,6 +892,7 @@ importers:
       '@itwin/itwinui-react': ^2.5.0
       '@itwin/itwinui-variables': ^2.0.0
       '@itwin/webgl-compatibility': ^3.7.0
+      '@rushstack/eslint-patch': ^1.3.0
       '@testing-library/dom': ^8.11.2
       '@testing-library/react': ^12.0.0
       '@testing-library/react-hooks': ^7.0.2
@@ -934,6 +949,7 @@ importers:
       '@itwin/core-react': link:../core-react
       '@itwin/eslint-plugin': 3.7.0_eslint@7.32.0+typescript@5.0.2
       '@itwin/webgl-compatibility': 3.7.0
+      '@rushstack/eslint-patch': 1.3.0
       '@testing-library/dom': 8.20.0
       '@testing-library/react': 12.1.5_react-dom@17.0.2+react@17.0.2
       '@testing-library/react-hooks': 7.0.2_fc2bb8a5b006d3f25c5f84ea777e678d
@@ -4466,8 +4482,8 @@ packages:
       rollup: 2.79.1
     dev: true
 
-  /@rushstack/eslint-patch/1.2.0:
-    resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
+  /@rushstack/eslint-patch/1.3.0:
+    resolution: {integrity: sha512-IthPJsJR85GhOkp3Hvp8zFOPK5ynKn6STyHa/WZpioK7E1aYDiBzpqQPrngc14DszIUkIrdd3k9Iu0XSzlP/1w==}
     dev: true
 
   /@rushstack/node-core-library/3.45.5:
@@ -8155,7 +8171,7 @@ packages:
     dependencies:
       '@babel/core': 7.21.3
       '@babel/eslint-parser': 7.21.3_@babel+core@7.21.3+eslint@8.36.0
-      '@rushstack/eslint-patch': 1.2.0
+      '@rushstack/eslint-patch': 1.3.0
       '@typescript-eslint/eslint-plugin': 5.56.0_d1c49064c568670e6a6217f618eab47f
       '@typescript-eslint/parser': 5.56.0_eslint@8.36.0+typescript@5.0.2
       babel-preset-react-app: 10.0.1

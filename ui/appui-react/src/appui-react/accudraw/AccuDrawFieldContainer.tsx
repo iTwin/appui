@@ -67,7 +67,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     className,
     style,
     orientation,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     uiSettingsStorage,
     showZOverride,
     ...otherProps
