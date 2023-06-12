@@ -10,11 +10,12 @@ import "./Dialog.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { DialogButtonDef } from "@itwin/appui-abstract";
-import { DialogButtonType, SpecialKey } from "@itwin/appui-abstract";
+import { DialogButtonType } from "@itwin/appui-abstract";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
 import type { CommonProps } from "../utils/Props";
 import type { Omit } from "../utils/typeUtils";
+import { Dialog as CoreDialog } from "./Dialog";
 import { Button, Dialog } from "@itwin/itwinui-react";
 
 /** Properties of [[SimpleDialog]] component.
@@ -77,74 +78,51 @@ export interface SimpleDialogProps extends Omit<React.AllHTMLAttributes<HTMLDivE
 /** itwinui-react [[Dialog]] wrapper that excludes buggy features and adds features from core-react [[Dialog]].
  * @internal
  */
-export class SimpleDialog extends React.Component<SimpleDialogProps> {
-  private _parentDocument = document;
-  public static defaultProps: Partial<SimpleDialogProps> = {
-    minWidth: 300,
-    minHeight: 100,
-    width: "50%",
-    modal: true,
-    hideHeader: false,
-    trapFocus: false,
-  };
+export class SimpleDialog extends CoreDialog {
 
   constructor(props: SimpleDialogProps) {
     super(props);
   }
 
-  public override componentWillUnmount(): void {
-    this._parentDocument.removeEventListener("keyup", this._handleKeyUp, true);
-  }
-
-  public override componentDidMount(): void {
-    this._parentDocument.addEventListener("keyup", this._handleKeyUp, true);
-  }
-
-  // istanbul ignore next
   public override render(): JSX.Element {
     const {
-      opened, title, buttonCluster, onClose, onEscape, onOutsideClick, // eslint-disable-line @typescript-eslint/no-unused-vars
+      opened, title, buttonCluster, onClose, onOutsideClick,
       minWidth, minHeight, width, height, maxHeight, maxWidth,
       backgroundStyle, titleStyle, footerStyle, style, contentStyle, contentClassName,
-      className, trapFocus, modal, // eslint-disable-line @typescript-eslint/no-unused-vars
+      className, trapFocus, modal,
       hideHeader, ...props } = this.props;
 
     const containerStyle: React.CSSProperties = {
       margin: "",
       width, height,
     };
-
-    const minMaxStyle: React.CSSProperties = {};
-    minMaxStyle.minWidth = (typeof minWidth === "number") ? `${minWidth}px` : minWidth;
-    minMaxStyle.minHeight = (typeof minHeight === "number") ? `${minHeight}px` : minHeight;
-    if (maxWidth !== undefined)
-      minMaxStyle.maxWidth = (typeof maxWidth === "number") ? `${maxWidth}px` : maxWidth;
-    if (maxHeight !== undefined)
-      minMaxStyle.maxHeight = (typeof maxHeight === "number") ? `${maxHeight}px` : maxHeight;
-
-    const divStyle: React.CSSProperties = {
-      ...backgroundStyle,
-      ...style,
+    const minMaxStyle: React.CSSProperties = {
+      minWidth, minHeight,
+      maxWidth, maxHeight,
+    };
+    const dialogBaseContainerStyle: React.CSSProperties = {
+      ...containerStyle,
+      ...minMaxStyle,
     };
 
-    const dialogBaseContainerStyle: React.CSSProperties = { ...containerStyle, ...minMaxStyle };
-    const buttons = buttonCluster ? this.unwrapButtonCluster(buttonCluster) : undefined;
+    const buttons = this.unwrapButtonCluster(buttonCluster);
+
     return (
       <Dialog
         isOpen={opened}
         onClose={onClose}
         closeOnExternalClick={false}
         closeOnEsc={false}
-        style={divStyle}
+        style={style}
         className={className}
         isResizable={false}
         isDraggable={false}
-        trapFocus={trapFocus && modal}
+        trapFocus={trapFocus && /* istanbul ignore next */ modal}
         preventDocumentScroll={true}
         data-testid="core-dialog-root"
         {...props}
       >
-        {modal && <Dialog.Backdrop />}
+        {modal && <Dialog.Backdrop style={backgroundStyle} />}
         <DivWithOutsideClick onOutsideClick={onOutsideClick}>
           <Dialog.Main
             data-testid="core-dialog-container"
@@ -161,7 +139,10 @@ export class SimpleDialog extends React.Component<SimpleDialogProps> {
   }
 
   // istanbul ignore next
-  private unwrapButtonCluster(buttonCluster: DialogButtonDef[]) {
+  private unwrapButtonCluster(buttonCluster: DialogButtonDef[] | undefined): React.ReactNode[] | undefined {
+    if (buttonCluster === undefined)
+      return undefined;
+
     const buttons: React.ReactNode[] = [];
     if (buttonCluster) {
       buttonCluster.forEach((button: DialogButtonDef, index: number) => {
@@ -227,19 +208,4 @@ export class SimpleDialog extends React.Component<SimpleDialogProps> {
     }
     return buttons;
   }
-
-  // istanbul ignore next
-  private _handleKeyUp = (event: KeyboardEvent) => {
-    if (event.key === SpecialKey.Escape && this.props.opened && this.props.onEscape) {
-      this.props.onEscape();
-    }
-  };
-
-  // istanbul ignore next
-  private _handleContainerPointerDown = (event: React.PointerEvent): void => {
-    if (!this.props.modal) {
-      if (this.props.onModelessPointerDown && this.props.modelessId)
-        this.props.onModelessPointerDown(event, this.props.modelessId);
-    }
-  };
 }

@@ -9,7 +9,7 @@
 import "./Dialog.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { DialogButtonDef} from "@itwin/appui-abstract";
+import type { DialogButtonDef } from "@itwin/appui-abstract";
 import { DialogButtonType, SpecialKey } from "@itwin/appui-abstract";
 import { DivWithOutsideClick } from "../base/DivWithOutsideClick";
 import { UiCore } from "../UiCore";
@@ -454,7 +454,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     }
   };
 
-  private _handleContainerPointerDown = (event: React.PointerEvent): void => {
+  protected _handleContainerPointerDown = (event: React.PointerEvent): void => {
     if (!this.props.modal) {
       if (this.props.onModelessPointerDown && this.props.modelessId)
         this.props.onModelessPointerDown(event, this.props.modelessId);
